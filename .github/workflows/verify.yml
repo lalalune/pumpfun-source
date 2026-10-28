@@ -215,6 +215,10 @@ jobs:
               python -B work/fees-focused-current/validation-layer/harness/fees_donation_business_differential.py --repo . --source-root repro/pump_fees/sharing-authorize-main-v144/source --candidate repro/pump_fees/sharing-authorize-main-v144/main/candidate.so --candidate-sha256 2387f8139a13918a5c9c523f140ecdd72db7243c8e2ed9cd7e1ff9d42ad6c8af --build-record repro/pump_fees/sharing-authorize-main-v144/main/build-comparison.json --output work/fees-donation-focused20.json
               python -B repro/pump_fees/sharing-authorize-v144/verify.py --runtime-signatures
               python scripts/verify_current_bindings.py fees
+          - suite: pump-round37-composites
+            commands: |
+              python -I -B research/claude-pump-integration-20261027/verify_round37_12.py
+              python -I -B research/claude-pump-integration-20261027/test_round37_12.py
           - suite: pump-1
             commands: |
               python -B research/pump-typeid-reference-proof/verify.py
