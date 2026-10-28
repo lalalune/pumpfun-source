@@ -1,0 +1,1958 @@
+original 147944 15976B 1950 insns | candidate _ZN19pump_fees_candidate19pump_fees_candidate22crank_donation_fee_pda17h58c45fb7e80ac158E @642720 1950 insns
+ratio 0.9985  differing-insn-span 3  identical=False
+--- original
++++ candidate
+@@ -1,1950 +1,1950 @@
+ mov r9, r1
+ ldxdw r8, [r2+8]
+ ldxb r1, [r8+609]
+ and r1, 8
+ jne r1, 0, ->L
+ stxdw [r10S], r2
+ ldxdw r1, [r8+96]
+ stxdw [r10S], r1
+ ldxdw r1, [r8+88]
+ stxdw [r10S], r1
+ ldxdw r1, [r8+80]
+ stxdw [r10S], r1
+ ldxdw r1, [r8+72]
+ stxdw [r10S], r1
+ ldxdw r1, [r8+128]
+ stxdw [r10S], r1
+ ldxdw r1, [r8+120]
+ stxdw [r10S], r1
+ ldxdw r1, [r8+112]
+ stxdw [r10S], r1
+ ldxdw r1, [r8+104]
+ stxdw [r10S], r1
+ ldxdw r1, [r8+192]
+ stxdw [r10S], r1
+ ldxdw r1, [r8+184]
+ stxdw [r10S], r1
+ ldxdw r1, [r8+176]
+ stxdw [r10S], r1
+ ldxdw r1, [r8+168]
+ stxdw [r10S], r1
+ ldxdw r1, [r8+664]
+ ldxdw r1, [r1+88]
+ ldxdw r1, [r1+0]
+ ldxdw r2, [r1+24]
+ stxdw [r10S], r2
+ ldxdw r2, [r1+16]
+ stxdw [r10S], r2
+ ldxdw r2, [r1+8]
+ stxdw [r10S], r2
+ ldxdw r1, [r1+0]
+ stxdw [r10S], r1
+ mov r1, r10
+ add r1, -928
+ lddw r2, @ptr "Wþ«ûhcFÀ5ÚÄ9Üë;U"
+ mov r3, 32
+ call memcmp
+ lsh r0, 32
+ rsh r0, 32
+ jeq r0, 0, ->L
+ ldxdw r7, [r8+792]
+ jeq r7, 0, ->L
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ lddw r1, @ptr ""
+ stxdw [r10S], r1
+ mov r1, r10
+ add r1, -120
+ stxdw [r10S], r1
+ mov r1, r10
+ add r1, -1128
+ stxdw [r10S], r1
+ lddw r1, @ptr "¿"
+ stxdw [r10S], r1
+ stxdw [r10S], r1
+ mov r6, r10
+ add r6, -1160
+ stxdw [r10S], r6
+ stdw [r10S], 0
+ stdw [r10S], 2
+ stdw [r10S], 2
+ mov r1, r10
+ add r1, -1096
+ mov r2, r10
+ add r2, -928
+ call alloc::fmt::format::format_inner
+ stxdw [r10S], r7
+ lddw r1, 0x568e5a05a9ff350c
+ stxdw [r10S], r1
+ lddw r1, 0x27155607bcf7a88d
+ stxdw [r10S], r1
+ lddw r1, 0x401fa42cc9f14c
+ stxdw [r10S], r1
+ lddw r1, 0x707cc214a46a519c
+ stxdw [r10S], r1
+ sth [r10S], 0
+ mov r1, r10
+ add r1, -232
+ ldxb r2, [r8+216]
+ stxdw [r10S], r1
+ mov r1, r10
+ add r1, -1192
+ stxdw [r10S], r1
+ stxdw [r10S], r6
+ lddw r1, @ptr "donation-fee-pdano stora"
+ stxdw [r10S], r1
+ stxb [r10S], r2
+ stdw [r10S], 1
+ stdw [r10S], 32
+ stdw [r10S], 32
+ stdw [r10S], 16
+ ldxdw r2, [r8+672]
+ ldxdw r5, [r2+8]
+ ldxdw r1, [r5+0]
+ add r1, 1
+ mov r3, 1
+ jeq r1, 0, ->L
+ mov r3, 0
+ ldxdw r4, [r2+0]
+ stxdw [r5+0], r1
+ jne r3, 1, ->L
+ ja ->L
+ lddw r1, @ptr "CrankDonationFeePda is c"
+ mov r2, 41
+ call sol_log_
+ mov r1, r10
+ add r1, -1208
+ mov r2, 21
+ call pump_fees_candidate::_<impl core::convert::From<pump_fees_candidate::FeeError> for anchor_lang::error::Error>::from
+ ldxdw r6, [r10S]
+ ldxdw r8, [r10S]
+ stxdw [r9+8], r6
+ stxdw [r9+0], r8
+ exit
+ ldxdw r0, [r2+16]
+ ldxdw r1, [r0+0]
+ add r1, 1
+ mov r3, 1
+ jeq r1, 0, ->L
+ mov r3, 0
+ stxdw [r0+0], r1
+ jne r3, 1, ->L
+ ja ->L
+ stxdw [r10S], r4
+ ldxdw r1, [r8+696]
+ ldxdw r3, [r1+8]
+ stxdw [r10S], r3
+ ldxdw r3, [r3+0]
+ add r3, 1
+ mov r4, 1
+ jeq r3, 0, ->L
+ mov r4, 0
+ ldxb r6, [r2+42]
+ stxdw [r10S], r6
+ ldxb r6, [r2+41]
+ stxdw [r10S], r6
+ ldxb r6, [r2+40]
+ stxdw [r10S], r6
+ ldxdw r6, [r2+32]
+ stxdw [r10S], r6
+ ldxdw r2, [r2+24]
+ stxdw [r10S], r2
+ ldxdw r2, [r1+0]
+ stxdw [r10S], r2
+ ldxdw r2, [r10S]
+ stxdw [r2+0], r3
+ jne r4, 1, ->L
+ ja ->L
+ ldxdw r4, [r1+16]
+ ldxdw r2, [r4+0]
+ add r2, 1
+ mov r3, 1
+ jeq r2, 0, ->L
+ mov r3, 0
+ stxdw [r10S], r4
+ stxdw [r4+0], r2
+ jne r3, 1, ->L
+ ja ->L
+ ldxdw r2, [r8+704]
+ ldxdw r3, [r2+8]
+ stxdw [r10S], r3
+ ldxdw r3, [r3+0]
+ add r3, 1
+ mov r4, 1
+ jeq r3, 0, ->L
+ mov r4, 0
+ ldxb r6, [r1+42]
+ stxdw [r10S], r6
+ ldxb r6, [r1+41]
+ stxdw [r10S], r6
+ ldxb r6, [r1+40]
+ stxdw [r10S], r6
+ ldxdw r6, [r1+32]
+ stxdw [r10S], r6
+ ldxdw r1, [r1+24]
+ stxdw [r10S], r1
+ ldxdw r6, [r2+0]
+ ldxdw r1, [r10S]
+ stxdw [r1+0], r3
+ jne r4, 1, ->L
+ ja ->L
+ ldxdw r4, [r2+16]
+ ldxdw r1, [r4+0]
+ add r1, 1
+ mov r3, 1
+ jeq r1, 0, ->L
+ mov r3, 0
+ stxdw [r10S], r4
+ stxdw [r4+0], r1
+ jne r3, 1, ->L
+ ja ->L
+ stxdw [r10S], r6
+ ldxdw r1, [r8+712]
+ ldxdw r3, [r1+8]
+ stxdw [r10S], r3
+ ldxdw r3, [r3+0]
+ add r3, 1
+ mov r4, 1
+ jeq r3, 0, ->L
+ mov r4, 0
+ ldxb r6, [r2+42]
+ stxdw [r10S], r6
+ ldxb r6, [r2+41]
+ stxdw [r10S], r6
+ ldxb r6, [r2+40]
+ stxdw [r10S], r6
+ ldxdw r6, [r2+32]
+ stxdw [r10S], r6
+ ldxdw r2, [r2+24]
+ stxdw [r10S], r2
+ ldxdw r6, [r1+0]
+ ldxdw r2, [r10S]
+ stxdw [r2+0], r3
+ jne r4, 1, ->L
+ ja ->L
+ ldxdw r4, [r1+16]
+ ldxdw r2, [r4+0]
+ add r2, 1
+ mov r3, 1
+ jeq r2, 0, ->L
+ mov r3, 0
+ stxdw [r10S], r4
+ stxdw [r4+0], r2
+ jne r3, 1, ->L
+ ja ->L
+ stxdw [r10S], r6
+ ldxdw r2, [r8+664]
+ ldxdw r2, [r2+88]
+ ldxdw r3, [r2+8]
+ stxdw [r10S], r3
+ ldxdw r3, [r3+0]
+ add r3, 1
+ mov r4, 1
+ jeq r3, 0, ->L
+ mov r4, 0
+ ldxb r6, [r1+42]
+ stxdw [r10S], r6
+ ldxb r6, [r1+41]
+ stxdw [r10S], r6
+ ldxb r6, [r1+40]
+ stxdw [r10S], r6
+ ldxdw r6, [r1+32]
+ stxdw [r10S], r6
+ ldxdw r1, [r1+24]
+ stxdw [r10S], r1
+ ldxdw r6, [r2+0]
+ ldxdw r1, [r10S]
+ stxdw [r1+0], r3
+ jne r4, 1, ->L
+ ja ->L
+ ldxdw r4, [r2+16]
+ ldxdw r1, [r4+0]
+ add r1, 1
+ mov r3, 1
+ jeq r1, 0, ->L
+ mov r3, 0
+ stxdw [r10S], r4
+ stxdw [r4+0], r1
+ jne r3, 1, ->L
+ ja ->L
+ stxdw [r10S], r6
+ ldxdw r1, [r8+720]
+ ldxdw r3, [r1+8]
+ stxdw [r10S], r3
+ ldxdw r3, [r3+0]
+ add r3, 1
+ mov r4, 1
+ jeq r3, 0, ->L
+ mov r4, 0
+ ldxb r6, [r2+42]
+ stxdw [r10S], r6
+ ldxb r6, [r2+41]
+ stxdw [r10S], r6
+ ldxb r6, [r2+40]
+ stxdw [r10S], r6
+ ldxdw r6, [r2+32]
+ stxdw [r10S], r6
+ ldxdw r2, [r2+24]
+ stxdw [r10S], r2
+ ldxdw r2, [r1+0]
+ stxdw [r10S], r2
+ ldxdw r2, [r10S]
+ stxdw [r2+0], r3
+ jne r4, 1, ->L
+ ja ->L
+ ldxdw r4, [r1+16]
+ ldxdw r2, [r4+0]
+ add r2, 1
+ mov r3, 1
+ jeq r2, 0, ->L
+ mov r3, 0
+ stxdw [r10S], r4
+ stxdw [r4+0], r2
+ jne r3, 1, ->L
+ ja ->L
+ ldxdw r2, [r8+0]
+ ldxdw r3, [r2+8]
+ stxdw [r10S], r3
+ ldxdw r3, [r3+0]
+ add r3, 1
+ mov r4, 1
+ jeq r3, 0, ->L
+ mov r4, 0
+ ldxb r6, [r1+42]
+ stxdw [r10S], r6
+ ldxb r6, [r1+41]
+ stxdw [r10S], r6
+ ldxb r6, [r1+40]
+ stxdw [r10S], r6
+ ldxdw r6, [r1+32]
+ stxdw [r10S], r6
+ ldxdw r1, [r1+24]
+ stxdw [r10S], r1
+ ldxdw r6, [r2+0]
+ ldxdw r1, [r10S]
+ stxdw [r1+0], r3
+ jne r4, 1, ->L
+ ja ->L
+ ldxdw r4, [r2+16]
+ ldxdw r1, [r4+0]
+ add r1, 1
+ mov r3, 1
+ jeq r1, 0, ->L
+ mov r3, 0
+ stxdw [r10S], r6
+ stxdw [r10S], r4
+ stxdw [r4+0], r1
+ jne r3, 1, ->L
+ ja ->L
+ mov r6, r5
+ ldxdw r1, [r8+624]
+ ldxdw r3, [r1+8]
+ stxdw [r10S], r3
+ ldxdw r3, [r3+0]
+ add r3, 1
+ mov r4, 1
+ jeq r3, 0, ->L
+ mov r4, 0
+ ldxb r5, [r2+42]
+ stxdw [r10S], r5
+ ldxb r5, [r2+41]
+ stxdw [r10S], r5
+ ldxb r5, [r2+40]
+ stxdw [r10S], r5
+ ldxdw r5, [r2+32]
+ stxdw [r10S], r5
+ ldxdw r2, [r2+24]
+ stxdw [r10S], r2
+ ldxdw r2, [r1+0]
+ stxdw [r10S], r2
+ ldxdw r2, [r10S]
+ stxdw [r2+0], r3
+ jne r4, 1, ->L
+ ja ->L
+ mov r5, r9
+ ldxdw r4, [r1+16]
+ ldxdw r2, [r4+0]
+ add r2, 1
+ mov r3, 1
+ stxdw [r10S], r6
+ jeq r2, 0, ->L
+ mov r3, 0
+ mov r9, r0
+ stxdw [r10S], r4
+ stxdw [r4+0], r2
+ jne r3, 1, ->L
+ ja ->L
+ mov r0, r7
+ ldxdw r2, [r8+688]
+ ldxdw r6, [r2+8]
+ ldxdw r3, [r6+0]
+ add r3, 1
+ mov r4, 1
+ jeq r3, 0, ->L
+ mov r4, 0
+ ldxb r7, [r1+42]
+ stxdw [r10S], r7
+ ldxb r7, [r1+41]
+ stxdw [r10S], r7
+ ldxb r7, [r1+40]
+ stxdw [r10S], r7
+ ldxdw r7, [r1+32]
+ stxdw [r10S], r7
+ ldxdw r1, [r1+24]
+ stxdw [r10S], r1
+ ldxdw r1, [r2+0]
+ stxdw [r10S], r1
+ stxdw [r6+0], r3
+ jne r4, 1, ->L
+ ja ->L
+ ldxdw r4, [r2+16]
+ ldxdw r1, [r4+0]
+ add r1, 1
+ mov r3, 1
+ mov r7, r0
+ jeq r1, 0, ->L
+ mov r3, 0
+ stxdw [r10S], r4
+ stxdw [r4+0], r1
+ mov r0, r9
+ jne r3, 1, ->L
+ ja ->L
+ ldxdw r1, [r8+648]
+ ldxdw r3, [r1+8]
+ stxdw [r10S], r3
+ ldxdw r3, [r3+0]
+ add r3, 1
+ mov r4, 1
+ stxdw [r10S], r5
+ jeq r3, 0, ->L
+ mov r4, 0
+ ldxb r5, [r2+42]
+ stxdw [r10S], r5
+ ldxb r5, [r2+41]
+ stxdw [r10S], r5
+ ldxb r5, [r2+40]
+ stxdw [r10S], r5
+ ldxdw r5, [r2+32]
+ stxdw [r10S], r5
+ ldxdw r5, [r2+24]
+ ldxdw r2, [r1+0]
+ stxdw [r10S], r2
+ ldxdw r2, [r10S]
+ stxdw [r2+0], r3
+ jne r4, 1, ->L
+ ja ->L
+ ldxdw r4, [r1+16]
+ ldxdw r2, [r4+0]
+ add r2, 1
+ mov r3, 1
+ jeq r2, 0, ->L
+ mov r3, 0
+ stxdw [r10S], r4
+ stxdw [r4+0], r2
+ jne r3, 1, ->L
+ ja ->L
+ mov r9, r7
+ ldxdw r2, [r8+640]
+ ldxdw r3, [r2+8]
+ stxdw [r10S], r3
+ ldxdw r3, [r3+0]
+ add r3, 1
+ mov r4, 1
+ jeq r3, 0, ->L
+ mov r4, 0
+ ldxb r7, [r1+42]
+ stxdw [r10S], r7
+ ldxb r7, [r1+41]
+ stxdw [r10S], r7
+ ldxb r7, [r1+40]
+ stxdw [r10S], r7
+ ldxdw r7, [r1+32]
+ stxdw [r10S], r7
+ ldxdw r1, [r1+24]
+ stxdw [r10S], r1
+ ldxdw r1, [r2+0]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r1+0], r3
+ jne r4, 1, ->L
+ ja ->L
+ ldxdw r4, [r2+16]
+ ldxdw r1, [r4+0]
+ add r1, 1
+ mov r3, 1
+ stxdw [r10S], r9
+ jeq r1, 0, ->L
+ mov r3, 0
+ mov r7, r6
+ stxdw [r10S], r0
+ stxdw [r4+0], r1
+ jne r3, 1, ->L
+ ja ->L
+ mov r6, r5
+ ldxdw r0, [r8+632]
+ ldxdw r9, [r0+8]
+ ldxdw r1, [r9+0]
+ add r1, 1
+ mov r3, 1
+ jeq r1, 0, ->L
+ mov r3, 0
+ ldxb r5, [r2+42]
+ stxdw [r10S], r5
+ ldxb r5, [r2+41]
+ stxdw [r10S], r5
+ ldxb r5, [r2+40]
+ stxdw [r10S], r5
+ ldxdw r5, [r2+32]
+ stxdw [r10S], r5
+ ldxdw r2, [r2+24]
+ stxdw [r10S], r2
+ ldxdw r5, [r0+0]
+ stxdw [r9+0], r1
+ jne r3, 1, ->L
+ ja ->L
+ stxdw [r10S], r4
+ ldxdw r2, [r0+16]
+ ldxdw r1, [r2+0]
+ add r1, 1
+ mov r3, 1
+ jeq r1, 0, ->L
+ mov r3, 0
+ stxdw [r10S], r9
+ stxdw [r10S], r7
+ ldxdw r4, [r10S]
+ ldxdw r4, [r10S]
+ ldxdw r4, [r10S]
+ ldxdw r4, [r10S]
+ ldxdw r4, [r10S]
+ ldxdw r4, [r10S]
+ ldxdw r4, [r10S]
+ ldxdw r4, [r10S]
+ ldxdw r4, [r10S]
+ stxdw [r2+0], r1
+ jne r3, 1, ->L
+ ja ->L
+ stxdw [r10S], r5
+ stxdw [r10S], r6
+ ldxdw r1, [r10S]
+ stxdw [r10S], r8
+ ldxdw r6, [r8+680]
+ ldxdw r1, [r6+8]
+ stxdw [r10S], r1
+ ldxdw r9, [r1+0]
+ add r9, 1
+ mov r7, 1
+ jeq r9, 0, ->L
+ mov r7, 0
+ ldxb r8, [r0+42]
+ ldxb r5, [r0+41]
+ ldxb r4, [r0+40]
+ ldxdw r3, [r0+32]
+ ldxdw r1, [r0+24]
+ ldxdw r0, [r6+0]
+ stxdw [r10S], r0
+ ldxdw r0, [r10S]
+ stxdw [r0+0], r9
+ jne r7, 1, ->L
+ ja ->L
+ ldxdw r0, [r6+16]
+ ldxdw r7, [r0+0]
+ add r7, 1
+ mov r9, 1
+ jeq r7, 0, ->L
+ mov r9, 0
+ stxdw [r0+0], r7
+ jne r9, 1, ->L
+ ja ->L
+ ldxb r7, [r6+40]
+ stxdw [r10S], r7
+ ldxb r9, [r6+41]
+ ldxb r7, [r6+42]
+ stxdw [r10S], r7
+ ldxdw r7, [r6+32]
+ ldxdw r6, [r6+24]
+ stxb [r10S], r8
+ stxb [r10S], r5
+ stxb [r10S], r4
+ stxdw [r10S], r3
+ stxdw [r10S], r1
+ stxdw [r10S], r2
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ stxdw [r10S], r0
+ stxdw [r10S], r6
+ stxdw [r10S], r7
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ stxb [r10S], r9
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxb r1, [r10S]
+ stxb [r10S], r1
+ ldxw r1, [r10S]
+ stxw [r10S], r1
+ ldxw r1, [r10S]
+ stxw [r10S], r1
+ ldxb r1, [r10S]
+ stxb [r10S], r1
+ mov r1, r10
+ add r1, -1336
+ mov r2, r10
+ add r2, -928
+ mov r3, r10
+ add r3, -1096
+ mov r4, r10
+ add r4, -992
+ mov r5, 4
+ call pump_fees_candidate::relay_cpi::DonatePubkeyConfigIdWithPayerV1::invoke_signed
+ ldxdw r6, [r10S]
+ ldxdw r8, [r10S]
+ ldxdw r9, [r10S]
+ ldxdw r2, [r10S]
+ jeq r8, 2, ->L
+ ja ->L
+ ldxdw r6, [r10S]
+ ldxdw r3, [r6+200]
+ mov r1, r3
+ add r1, r2
+ mov r2, 1
+ jlt r1, r3, ->L
+ mov r2, 0
+ and r2, 1
+ jne r2, 0, ->L
+ stxdw [r6+200], r1
+ mov r1, r10
+ add r1, -928
+ call solana_sysvar::clock::_<impl solana_sysvar::Sysvar for solana_clock::Clock>::get
+ ldxdw r1, [r10S]
+ jeq r1, 0, ->L
+ ldxdw r1, [r10S]
+ ldxdw r2, [r10S]
+ ldxdw r3, [r10S]
+ stxdw [r10S], r3
+ stxdw [r10S], r2
+ stxdw [r10S], r1
+ mov r1, r10
+ add r1, -1352
+ mov r2, r10
+ add r2, -928
+ call _<anchor_lang::error::Error as core::convert::From<solana_program_error::ProgramError>>::from
+ ldxdw r6, [r10S]
+ ldxdw r8, [r10S]
+ ja ->L
+ ldxdw r2, [r8+0]
+ ldxdw r1, [r2+8]
+ ldxdw r4, [r1+0]
+ add r4, 1
+ mov r5, 1
+ jeq r4, 0, ->L
+ mov r5, 0
+ ldxdw r3, [r2+0]
+ stxdw [r1+0], r4
+ jne r5, 1, ->L
+ call abort
+ ldxdw r4, [r2+16]
+ ldxdw r5, [r4+0]
+ add r5, 1
+ mov r0, 1
+ jeq r5, 0, ->L
+ mov r0, 0
+ stxdw [r4+0], r5
+ jne r0, 1, ->L
+ ja ->L
+ ldxdw r5, [r2+24]
+ ldxdw r0, [r2+32]
+ ldxb r6, [r2+40]
+ ldxb r7, [r2+41]
+ ldxb r2, [r2+42]
+ stxb [r10S], r2
+ stxb [r10S], r7
+ stxb [r10S], r6
+ stxdw [r10S], r0
+ stxdw [r10S], r5
+ stxdw [r10S], r4
+ stxdw [r10S], r1
+ stxdw [r10S], r3
+ ldxdw r6, [r8+656]
+ mov r1, r10
+ add r1, -928
+ call solana_sysvar::rent::_<impl solana_sysvar::Sysvar for solana_rent::Rent>::get
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ jne r1, 0, ->L
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ mov r1, r10
+ add r1, -232
+ mov r2, 218
+ call solana_rent::Rent::minimum_balance
+ mov r7, r0
+ mov r1, r10
+ add r1, -280
+ call solana_account_info::AccountInfo::lamports
+ mov r1, r0
+ sub r1, r7
+ mov r3, 0
+ mov r2, 1
+ jgt r1, r0, ->L
+ mov r2, 0
+ jne r2, 0, ->L
+ mov r3, r1
+ jgt r0, r7, ->L
+ ldxdw r7, [r8+792]
+ jeq r7, 0, ->L
+ ldxdw r1, [r10S]
+ ldxdw r2, [r10S]
+ ldxdw r3, [r2+0]
+ add r3, -1
+ stxdw [r2+0], r3
+ jne r3, 0, ->L
+ ldxdw r3, [r2+8]
+ add r3, -1
+ stxdw [r2+8], r3
+ ldxdw r2, [r1+0]
+ add r2, -1
+ stxdw [r1+0], r2
+ jne r2, 0, ->L
+ ldxdw r2, [r1+8]
+ add r2, -1
+ stxdw [r1+8], r2
+ ja ->L
+-lddw r1, @ptr "Nothing to donate,Constr"
++lddw r1, @ptr "Nothing to donatecalled "
+ mov r2, 17
+ call sol_log_
+ mov r8, 2
+ ja ->L
+ mov r1, r10
+ add r1, -1224
+ mov r2, r10
+ add r2, -208
+ call _<anchor_lang::error::Error as core::convert::From<solana_program_error::ProgramError>>::from
+ ldxdw r6, [r10S]
+ ldxdw r8, [r10S]
+ ldxdw r1, [r10S]
+ ldxdw r2, [r10S]
+ ldxdw r3, [r2+0]
+ add r3, -1
+ stxdw [r2+0], r3
+ jne r3, 0, ->L
+ ldxdw r3, [r2+8]
+ add r3, -1
+ stxdw [r2+8], r3
+ ldxdw r2, [r1+0]
+ add r2, -1
+ stxdw [r1+0], r2
+ jne r2, 0, ->L
+ ldxdw r2, [r1+8]
+ add r2, -1
+ stxdw [r1+8], r2
+ ja ->L
+ mov r1, r10
+ add r1, -1384
+ mov r2, 15
+ call pump_fees_candidate::_<impl core::convert::From<pump_fees_candidate::FeeError> for anchor_lang::error::Error>::from
+ ldxdw r6, [r10S]
+ ldxdw r8, [r10S]
+ ja ->L
+ stxdw [r10S], r3
+ ldxdw r7, [r8+720]
+ ldxdw r1, [r7+8]
+ ldxdw r3, [r1+0]
+ add r3, 1
+ mov r4, 1
+ jeq r3, 0, ->L
+ mov r4, 0
+ ldxdw r2, [r7+0]
+ stxdw [r1+0], r3
+ jne r4, 1, ->L
+ ja ->L
+ ldxdw r3, [r7+16]
+ ldxdw r4, [r3+0]
+ add r4, 1
+ mov r5, 1
+ jeq r4, 0, ->L
+ mov r5, 0
+ stxdw [r10S], r6
+ stxdw [r10S], r8
+ stxdw [r3+0], r4
+ jne r5, 1, ->L
+ ja ->L
+ ldxdw r4, [r7+24]
+ ldxdw r5, [r7+32]
+ ldxb r0, [r7+40]
+ ldxb r6, [r7+41]
+ ldxb r8, [r7+42]
+ stxb [r10S], r8
+ stxb [r10S], r6
+ stxb [r10S], r0
+ stxdw [r10S], r5
+ stxdw [r10S], r4
+ stxdw [r10S], r3
+ stxdw [r10S], r1
+ stxdw [r10S], r2
+ mov r1, r10
+ add r1, -280
+ call solana_account_info::AccountInfo::lamports
+ mov r8, r0
+ ldxdw r1, [r10S]
+ jge r8, r1, ->L
+ lddw r1, 0x8000000000000017
+ stxdw [r10S], r1
+ mov r1, r10
+ add r1, -1256
+ mov r2, r10
+ add r2, -928
+ call _<anchor_lang::error::Error as core::convert::From<solana_program_error::ProgramError>>::from
+ ldxdw r6, [r10S]
+ ldxdw r8, [r10S]
+ ja ->L
+ ldxdw r5, [r10S]
+ stxdw [r6+208], r5
+ ldxdw r1, [r6+624]
+ ldxdw r1, [r1+0]
+ ldxdw r2, [r1+24]
+ stxdw [r10S], r2
+ ldxdw r2, [r1+16]
+ stxdw [r10S], r2
+ ldxdw r2, [r1+8]
+ stxdw [r10S], r2
+ ldxdw r1, [r1+0]
+ stxdw [r10S], r1
+ ldxdw r1, [r6+0]
+ ldxdw r1, [r1+0]
+ ldxdw r2, [r1+24]
+ stxdw [r10S], r2
+ ldxdw r2, [r1+16]
+ stxdw [r10S], r2
+ ldxdw r2, [r1+8]
+ stxdw [r10S], r2
+ ldxdw r1, [r1+0]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r6+664]
+ ldxdw r1, [r1+88]
+ ldxdw r1, [r1+0]
+ ldxdw r2, [r1+24]
+ stxdw [r10S], r2
+ ldxdw r2, [r1+16]
+ stxdw [r10S], r2
+ ldxdw r2, [r1+8]
+ stxdw [r10S], r2
+ ldxdw r1, [r1+0]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ lddw r1, 0x300000000
+ ldxdw r2, [r1+0]
+ mov r3, 0
+ mov r4, 1
+ mov r1, r2
+ add r1, -256
+ jgt r1, r2, ->L
+ mov r4, 0
+ jne r4, 0, ->L
+ mov r3, r1
+ lddw r1, 0x300007f00
+ jeq r2, 0, ->L
+ mov r1, r3
+ lddw r2, 0x300000007
+ jgt r1, r2, ->L
+ mov r1, 1
+ mov r2, 256
+ call alloc::raw_vec::handle_error
+ mov r3, r10
+ add r3, -768
+ mov r4, r10
+ add r4, -800
+ mov r6, r10
+ add r6, -832
+ mov r7, r10
+ add r7, -864
+ mov r8, r10
+ add r8, -896
+ lddw r2, 0x300000000
+ stxdw [r2+0], r1
+ stxdw [r10S], r5
+ stxdw [r1+8], r5
+ lddw r2, 0x4edf00b15d6bd01e
+ stxdw [r1+0], r2
+ ldxdw r2, [r10S]
+ stxdw [r1+40], r2
+ ldxdw r2, [r10S]
+ stxdw [r1+32], r2
+ ldxdw r2, [r10S]
+ stxdw [r1+24], r2
+ ldxdw r2, [r10S]
+ stxdw [r1+16], r2
+ ldxdw r2, [r8+24]
+ stxdw [r1+72], r2
+ ldxdw r2, [r8+16]
+ stxdw [r1+64], r2
+ ldxdw r2, [r8+8]
+ stxdw [r1+56], r2
+ ldxdw r2, [r8+0]
+ stxdw [r1+48], r2
+ ldxdw r2, [r7+0]
+ stxdw [r1+80], r2
+ ldxdw r2, [r7+8]
+ stxdw [r1+88], r2
+ ldxdw r2, [r7+16]
+ stxdw [r1+96], r2
+ ldxdw r2, [r7+24]
+ stxdw [r1+104], r2
+ ldxdw r2, [r6+0]
+ stxdw [r1+112], r2
+ ldxdw r2, [r6+8]
+ stxdw [r1+120], r2
+ ldxdw r2, [r6+16]
+ stxdw [r1+128], r2
+ ldxdw r2, [r6+24]
+ stxdw [r1+136], r2
+ ldxdw r2, [r4+0]
+ stxdw [r1+144], r2
+ ldxdw r2, [r4+8]
+ stxdw [r1+152], r2
+ ldxdw r2, [r4+16]
+ stxdw [r1+160], r2
+ stxdw [r10S], r4
+ ldxdw r2, [r4+24]
+ stxdw [r1+168], r2
+ ldxdw r2, [r3+0]
+ stxdw [r1+176], r2
+ ldxdw r2, [r3+8]
+ stxdw [r1+184], r2
+ ldxdw r2, [r3+16]
+ stxdw [r1+192], r2
+ stxdw [r10S], r3
+ ldxdw r2, [r3+24]
+ stxdw [r1+200], r2
+ ldxdw r2, [r10S]
+ stxdw [r1+208], r2
+ stxdw [r10S], r1
+ stdw [r10S], 216
+ mov r1, r10
+ add r1, -120
+ mov r9, 1
+ mov r2, 1
+ call solana_program::log::sol_log_data
+ ldxdw r1, [r10S]
+ ldxdw r4, [r1+232]
+ ldxdw r1, [r4+0]
+ add r1, 1
+ jeq r1, 0, ->L
+ mov r9, 0
+ ldxdw r2, [r10S]
+ ldxdw r3, [r2+224]
+ stxdw [r10S], r3
+ stxdw [r4+0], r1
+ ldxdw r1, [r10S]
+ jne r9, 1, ->L
+ ja ->L
+ ldxdw r5, [r2+240]
+ ldxdw r2, [r5+0]
+ add r2, 1
+ mov r3, 1
+ jeq r2, 0, ->L
+ mov r3, 0
+ stxdw [r10S], r4
+ stxdw [r10S], r5
+ stxdw [r5+0], r2
+ jne r3, 1, ->L
+ ja ->L
+ lddw r2, 0x300000000
+ ldxdw r3, [r2+0]
+ mov r2, r3
+ add r2, -256
+ mov r4, 0
+ mov r5, 1
+ jgt r2, r3, ->L
+ mov r5, 0
+ jne r5, 0, ->L
+ mov r4, r2
+ lddw r2, 0x300007f00
+ jeq r3, 0, ->L
+ mov r2, r4
+ lddw r3, 0x300000007
+ jgt r2, r3, ->L
+ ja ->L
+ ldxb r1, [r1+32]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ ldxb r3, [r1+266]
+ stxdw [r10S], r3
+ ldxb r3, [r1+265]
+ stxdw [r10S], r3
+ ldxb r3, [r1+264]
+ stxdw [r10S], r3
+ ldxdw r3, [r1+256]
+ stxdw [r10S], r3
+ ldxdw r9, [r1+248]
+ lddw r3, 0x300000000
+ stxdw [r3+0], r2
+ ldxdw r1, [r10S]
+ stxdw [r2+8], r1
+ lddw r1, 0x4edf00b15d6bd01e
+ stxdw [r2+0], r1
+ ldxdw r1, [r10S]
+ stxdw [r2+40], r1
+ ldxdw r1, [r10S]
+ stxdw [r2+32], r1
+ ldxdw r1, [r10S]
+ stxdw [r2+24], r1
+ ldxdw r1, [r10S]
+ stxdw [r2+16], r1
+ ldxdw r1, [r8+24]
+ stxdw [r2+72], r1
+ ldxdw r1, [r8+16]
+ stxdw [r2+64], r1
+ ldxdw r1, [r8+8]
+ stxdw [r2+56], r1
+ ldxdw r1, [r8+0]
+ stxdw [r2+48], r1
+ ldxdw r1, [r7+0]
+ stxdw [r2+80], r1
+ ldxdw r1, [r7+8]
+ stxdw [r2+88], r1
+ ldxdw r1, [r7+16]
+ stxdw [r2+96], r1
+ ldxdw r1, [r7+24]
+ stxdw [r2+104], r1
+ ldxdw r1, [r6+0]
+ stxdw [r2+112], r1
+ ldxdw r1, [r6+8]
+ stxdw [r2+120], r1
+ ldxdw r1, [r6+16]
+ stxdw [r2+128], r1
+ ldxdw r1, [r6+24]
+ stxdw [r2+136], r1
+ ldxdw r4, [r10S]
+ ldxdw r1, [r4+0]
+ stxdw [r2+144], r1
+ ldxdw r1, [r4+8]
+ stxdw [r2+152], r1
+ ldxdw r1, [r4+16]
+ stxdw [r2+160], r1
+ ldxdw r1, [r4+24]
+ stxdw [r2+168], r1
+ ldxdw r4, [r10S]
+ ldxdw r1, [r4+0]
+ stxdw [r2+176], r1
+ ldxdw r1, [r4+8]
+ stxdw [r2+184], r1
+ ldxdw r1, [r4+16]
+ stxdw [r2+192], r1
+ ldxdw r1, [r4+24]
+ stxdw [r2+200], r1
+ ldxdw r1, [r10S]
+ stxdw [r2+208], r1
+ mov r1, 0
+ mov r4, 224
+ jslt r4, 0, ->L
+ ldxdw r1, [r3+0]
+ lddw r0, 0x300008000
+ jeq r1, 0, ->L
+ mov r0, r1
+ mov r5, r0
+ sub r5, r4
+ mov r3, 0
+ mov r1, 1
+ mov r4, 1
+ jgt r5, r0, ->L
+ mov r4, 0
+ jne r4, 0, ->L
+ mov r3, r5
+ lddw r4, 0x300000008
+ jlt r3, r4, ->L
+ lddw r1, 0x300000000
+ stxdw [r1+0], r3
+ lddw r1, 0x1d9acb512ea545e4
+ stxdw [r3+0], r1
+ mov r1, 0
+ mov r4, r3
+ add r4, r1
+ mov r5, r2
+ add r5, r1
+ ldxb r5, [r5+0]
+ stxb [r4+8], r5
+ add r1, 1
+ jeq r1, 216, ->L
+ ja ->L
+ lddw r1, 0x300000000
+ ldxdw r2, [r1+0]
+ mov r1, r2
+ add r1, -34
+ mov r4, 0
+ mov r5, 1
+ jgt r1, r2, ->L
+ mov r5, 0
+ jne r5, 0, ->L
+ mov r4, r1
+ lddw r1, 0x300007fde
+ jeq r2, 0, ->L
+ mov r1, r4
+ lddw r2, 0x300000007
+ jgt r1, r2, ->L
+ mov r1, 1
+ mov r2, 34
+ call alloc::alloc::handle_alloc_error
+ lddw r2, 0x300000000
+ stxdw [r2+0], r1
+ ldxdw r8, [r10S]
+ ldxdw r2, [r8+0]
+ ldxdw r4, [r8+8]
+ ldxdw r5, [r8+16]
+ ldxdw r0, [r8+24]
+ stxdw [r1+24], r0
+ stxdw [r1+16], r5
+ stxdw [r1+8], r4
+ stxdw [r1+0], r2
+ sth [r1+32], 1
+ stxdw [r10S], r1
+ stdw [r10S], 1
+ stdw [r10S], 1
+ mov r7, r10
+ add r7, -120
+ mov r5, r10
+ add r5, -280
+ mov r1, r7
+ lddw r2, @ptr "5ÿ©ZV¨÷¼V'LñÉ,¤@"
+ mov r4, 224
+ call solana_instruction::Instruction::new_with_bytes
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ stxdw [r10S], r9
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r6, [r10S]
+ stxdw [r10S], r6
+ stxdw [r10S], r8
+ mov r1, r10
+ add r1, -160
+ stxdw [r10S], r1
+ mov r1, r10
+ add r1, -208
+ stxdw [r10S], r1
+-lddw r1, @ptr "__event_authorityFee con"
++lddw r1, @ptr "__event_authorityRecipie"
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ stdw [r10S], 2
+ stdw [r10S], 1
+ stdw [r10S], 17
+ mov r1, r10
+ add r1, -184
+ stxdw [r10S], r1
+ stdw [r10S], 1
+ mov r1, r10
+ add r1, -304
+ mov r3, r10
+ add r3, -280
+ mov r5, r10
+ mov r2, r7
+ mov r4, 1
+ call solana_program::program::invoke_signed
+ lddw r1, 0x800000000000001a
+ ldxdw r2, [r10S]
+ jeq r2, r1, ->L
+ ja ->L
+ ldxdw r1, [r6+0]
+ add r1, -1
+ stxdw [r6+0], r1
+ ldxdw r9, [r10S]
+ jne r1, 0, ->L
+ ldxdw r1, [r6+8]
+ add r1, -1
+ stxdw [r6+8], r1
+ ldxdw r2, [r10S]
+ ldxdw r1, [r2+0]
+ add r1, -1
+ stxdw [r2+0], r1
+ jne r1, 0, ->L
+ ldxdw r1, [r2+8]
+ add r1, -1
+ stxdw [r2+8], r1
+ mov r8, 2
+ ja ->L
+ mov r1, r10
+ add r1, -928
+ mov r2, r10
+ add r2, -280
+ call solana_account_info::AccountInfo::try_borrow_mut_lamports
+ ldxdw r1, [r10S]
+ lddw r2, 0x800000000000001a
+ jne r1, r2, ->L
+ ldxdw r1, [r10S]
+ sub r8, r1
+ ldxdw r1, [r10S]
+ ldxdw r2, [r10S]
+ ldxdw r2, [r2+0]
+ stxdw [r2+0], r8
+ ldxdw r2, [r1+0]
+ add r2, 1
+ stxdw [r1+0], r2
+ ja ->L
+-lddw r1, @ptr "Nothing to donate,Constr"
++lddw r1, @ptr "Nothing to donatecalled "
+ mov r2, 17
+ call sol_log_
+ mov r8, 2
+ ja ->L
+ mov r1, r10
+ add r1, -1368
+ mov r2, r10
+ add r2, -304
+ call _<anchor_lang::error::Error as core::convert::From<solana_program_error::ProgramError>>::from
+ ldxdw r6, [r10S]
+ ldxdw r1, [r10S]
+ ldxdw r8, [r10S]
+ ldxdw r2, [r10S]
+ ldxdw r3, [r2+0]
+ add r3, -1
+ stxdw [r2+0], r3
+ ldxdw r9, [r10S]
+ jne r3, 0, ->L
+ ldxdw r3, [r2+8]
+ add r3, -1
+ stxdw [r2+8], r3
+ ldxdw r2, [r1+0]
+ add r2, -1
+ stxdw [r1+0], r2
+ jne r2, 0, ->L
+ ja ->L
+ ldxdw r2, [r10S]
+ ldxdw r3, [r10S]
+ stxdw [r10S], r3
+ stxdw [r10S], r2
+ stxdw [r10S], r1
+ mov r1, r10
+ add r1, -1240
+ mov r2, r10
+ add r2, -928
+ call _<anchor_lang::error::Error as core::convert::From<solana_program_error::ProgramError>>::from
+ ldxdw r6, [r10S]
+ ldxdw r8, [r10S]
+ jne r8, 2, ->L
+ mov r1, r10
+ add r1, -992
+ call solana_account_info::AccountInfo::lamports
+ mov r6, r0
+ ldxdw r1, [r10S]
+ add r6, r1
+ mov r1, 1
+ jlt r6, r0, ->L
+ mov r1, 0
+ and r1, 1
+ jne r1, 0, ->L
+ mov r1, r10
+ add r1, -928
+ mov r2, r10
+ add r2, -992
+ call solana_account_info::AccountInfo::try_borrow_mut_lamports
+ ldxdw r1, [r10S]
+ ldxdw r2, [r10S]
+ ldxdw r3, [r10S]
+ lddw r4, 0x800000000000001a
+ jeq r3, r4, ->L
+ ja ->L
+ ldxdw r2, [r2+0]
+ stxdw [r2+0], r6
+ ldxdw r2, [r1+0]
+ add r2, 1
+ stxdw [r1+0], r2
+ ja ->L
+ lddw r1, 0x8000000000000017
+ stxdw [r10S], r1
+ mov r1, r10
+ add r1, -1288
+ mov r2, r10
+ add r2, -928
+ call _<anchor_lang::error::Error as core::convert::From<solana_program_error::ProgramError>>::from
+ ldxdw r6, [r10S]
+ ldxdw r8, [r10S]
+ jeq r8, 2, ->L
+ ja ->L
+ stxdw [r10S], r1
+ stxdw [r10S], r2
+ stxdw [r10S], r3
+ mov r1, r10
+ add r1, -1272
+ mov r2, r10
+ add r2, -928
+ call _<anchor_lang::error::Error as core::convert::From<solana_program_error::ProgramError>>::from
+ ldxdw r6, [r10S]
+ ldxdw r8, [r10S]
+ jeq r8, 2, ->L
+ ja ->L
+ lddw r1, 0x300000000
+ ldxdw r1, [r1+0]
+ mov r3, r1
+ add r3, -102
+ mov r2, 0
+ mov r4, 1
+ jgt r3, r1, ->L
+ mov r4, 0
+ ldxdw r6, [r10S]
+ jne r4, 0, ->L
+ mov r2, r3
+ lddw r8, 0x300007f9a
+ jeq r1, 0, ->L
+ mov r8, r2
+ lddw r1, 0x300000007
+ jgt r8, r1, ->L
+ mov r1, 1
+ mov r2, 102
+ call alloc::alloc::handle_alloc_error
+ lddw r1, 0x300000000
+ stxdw [r1+0], r8
+ ldxdw r1, [r7+0]
+ ldxdw r2, [r6+0]
+ ldxdw r3, [r2+24]
+ stxdw [r10S], r3
+ ldxdw r3, [r2+16]
+ stxdw [r10S], r3
+ ldxdw r3, [r2+8]
+ stxdw [r10S], r3
+ ldxdw r2, [r2+0]
+ stxdw [r10S], r2
+ ldxdw r3, [r10S]
+ ldxdw r2, [r3+0]
+ stxdw [r10S], r2
+ ldxdw r2, [r3+8]
+ stxdw [r10S], r2
+ ldxdw r2, [r3+16]
+ stxdw [r10S], r2
+ stxdw [r10S], r3
+ ldxdw r2, [r3+24]
+ stxdw [r10S], r2
+ ldxdw r2, [r1+0]
+ ldxdw r3, [r1+8]
+ ldxdw r4, [r1+16]
+ ldxdw r1, [r1+24]
+ stxdw [r8+24], r1
+ stxdw [r8+16], r4
+ stxdw [r8+8], r3
+ stxdw [r8+0], r2
+ sth [r8+32], 256
+ ldxdw r1, [r10S]
+ stxdw [r8+34], r1
+ ldxdw r1, [r10S]
+ stxdw [r8+42], r1
+ ldxdw r1, [r10S]
+ stxdw [r8+50], r1
+ ldxdw r1, [r10S]
+ stxdw [r8+58], r1
+ sth [r8+66], 0
+ ldxdw r1, [r10S]
+ stxdw [r8+68], r1
+ ldxdw r1, [r10S]
+ stxdw [r8+76], r1
+ ldxdw r1, [r10S]
+ stxdw [r8+84], r1
+ ldxdw r1, [r10S]
+ stxdw [r8+92], r1
+ sth [r8+100], 256
+ mov r1, r10
+ add r1, -928
+ lddw r2, @ptr ""
+ call spl_token::instruction::TokenInstruction::pack
+ lddw r1, 0xa900ff7e85f58c3a
+ stxdw [r10S], r1
+ lddw r1, 0x91375b5fed85b41c
+ stxdw [r10S], r1
+ lddw r1, 0xac79ebce46e1cbd9
+ stxdw [r10S], r1
+ lddw r1, 0x93a165d7e1f6dd06
+ stxdw [r10S], r1
+ stxdw [r10S], r8
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ stdw [r10S], 3
+ stdw [r10S], 3
+ ldxdw r5, [r7+8]
+ ldxdw r1, [r5+0]
+ add r1, 1
+ mov r2, 1
+ jeq r1, 0, ->L
+ mov r2, 0
+ ldxdw r0, [r7+0]
+ stxdw [r5+0], r1
+ jne r2, 1, ->L
+ ja ->L
+ ldxdw r8, [r7+16]
+ ldxdw r1, [r8+0]
+ add r1, 1
+ mov r2, 1
+ jeq r1, 0, ->L
+ mov r2, 0
+ stxdw [r8+0], r1
+ jne r2, 1, ->L
+ ja ->L
+ ldxdw r4, [r6+8]
+ ldxdw r1, [r4+0]
+ add r1, 1
+ mov r2, 1
+ jeq r1, 0, ->L
+ mov r2, 0
+ ldxdw r3, [r6+0]
+ stxdw [r10S], r3
+ ldxb r3, [r7+42]
+ stxdw [r10S], r3
+ ldxb r3, [r7+41]
+ stxdw [r10S], r3
+ ldxb r3, [r7+40]
+ stxdw [r10S], r3
+ ldxdw r3, [r7+32]
+ stxdw [r10S], r3
+ ldxdw r3, [r7+24]
+ stxdw [r10S], r3
+ stxdw [r4+0], r1
+ jne r2, 1, ->L
+ ja ->L
+ ldxdw r2, [r6+16]
+ ldxdw r1, [r2+0]
+ add r1, 1
+ mov r3, 1
+ jeq r1, 0, ->L
+ mov r3, 0
+ stxdw [r10S], r9
+ stxdw [r2+0], r1
+ jne r3, 1, ->L
+ ja ->L
+ stxdw [r10S], r8
+ stxdw [r10S], r0
+ stxdw [r10S], r5
+ ldxdw r5, [r10S]
+ ldxdw r1, [r5+0]
+ add r1, 1
+ mov r9, 1
+ jeq r1, 0, ->L
+ mov r9, 0
+ mov r3, r6
+ ldxb r6, [r3+42]
+ ldxb r0, [r3+41]
+ stxdw [r10S], r0
+ ldxb r0, [r3+40]
+ stxdw [r10S], r0
+ ldxdw r8, [r3+32]
+ ldxdw r0, [r3+24]
+ stxdw [r5+0], r1
+ jne r9, 1, ->L
+ ja ->L
+ ldxdw r1, [r10S]
+ ldxdw r9, [r1+0]
+ add r9, 1
+ mov r3, 1
+ jeq r9, 0, ->L
+ mov r3, 0
+ stxdw [r1+0], r9
+ jne r3, 1, ->L
+ ja ->L
+ ldxb r3, [r10S]
+ stxb [r10S], r3
+ ldxb r3, [r10S]
+ stxb [r10S], r3
+ ldxb r3, [r10S]
+ stxb [r10S], r3
+ ldxdw r3, [r10S]
+ stxdw [r10S], r3
+ ldxdw r3, [r10S]
+ stxdw [r10S], r3
+ stxdw [r10S], r1
+ stxdw [r10S], r5
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ stxb [r10S], r6
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ stxdw [r10S], r8
+ stxdw [r10S], r0
+ stxdw [r10S], r2
+ stxdw [r10S], r4
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ mov r1, r10
+ add r1, -184
+ mov r2, r10
+ add r2, -120
+ mov r3, r10
+ add r3, -928
+ mov r4, 3
+ call solana_program::program::invoke
+ lddw r1, 0x800000000000001a
+ ldxdw r2, [r10S]
+ ldxdw r9, [r10S]
+ jeq r2, r1, ->L
+ ja ->L
+ ldxdw r1, [r10S]
+ ldxdw r2, [r10S]
+ ldxdw r3, [r2+0]
+ add r3, -1
+ stxdw [r2+0], r3
+ jne r3, 0, ->L
+ ldxdw r3, [r2+8]
+ add r3, -1
+ stxdw [r2+8], r3
+ ldxdw r2, [r1+0]
+ add r2, -1
+ stxdw [r1+0], r2
+ jne r2, 0, ->L
+ ldxdw r2, [r1+8]
+ add r2, -1
+ stxdw [r1+8], r2
+ ldxdw r1, [r10S]
+ ldxdw r2, [r10S]
+ ldxdw r3, [r2+0]
+ add r3, -1
+ stxdw [r2+0], r3
+ jne r3, 0, ->L
+ ldxdw r3, [r2+8]
+ add r3, -1
+ stxdw [r2+8], r3
+ ldxdw r2, [r1+0]
+ add r2, -1
+ stxdw [r1+0], r2
+ jne r2, 0, ->L
+ ldxdw r2, [r1+8]
+ add r2, -1
+ stxdw [r1+8], r2
+ ldxdw r1, [r10S]
+ ldxdw r2, [r10S]
+ ldxdw r3, [r2+0]
+ add r3, -1
+ stxdw [r2+0], r3
+ jne r3, 0, ->L
+ ldxdw r3, [r2+8]
+ add r3, -1
+ stxdw [r2+8], r3
+ ldxdw r2, [r1+0]
+ add r2, -1
+ stxdw [r1+0], r2
+ jne r2, 0, ->L
+ ldxdw r2, [r1+8]
+ add r2, -1
+ stxdw [r1+8], r2
+ mov r1, r10
+ add r1, -928
+ mov r2, r7
+ call solana_account_info::AccountInfo::try_borrow_data
+ ldxdw r7, [r10S]
+ ldxdw r1, [r10S]
+ ldxdw r2, [r10S]
+ lddw r3, 0x800000000000001a
+ jne r2, r3, ->L
+ ldxdw r2, [r1+0]
+ ldxdw r1, [r1+8]
+ stxdw [r10S], r1
+ stxdw [r10S], r2
+ mov r1, r10
+ add r1, -928
+ mov r2, r10
+ add r2, -184
+ call _<anchor_spl::token::TokenAccount as anchor_lang::AccountDeserialize>::try_deserialize_unchecked
+ ldxdw r6, [r10S]
+ ldxdw r8, [r10S]
+ ldxw r3, [r10S]
+ jeq r3, 2, ->L
+ ja ->L
+ ldxdw r1, [r7+0]
+ add r1, -1
+ stxdw [r7+0], r1
+ jeq r8, 2, ->L
+ ja ->L
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ mov r1, r10
+ add r1, -1304
+ mov r2, r10
+ add r2, -160
+ call _<anchor_lang::error::Error as core::convert::From<solana_program_error::ProgramError>>::from
+ ldxdw r1, [r10S]
+ ldxdw r6, [r10S]
+ ldxdw r8, [r10S]
+ ldxdw r2, [r10S]
+ ldxdw r3, [r2+0]
+ add r3, -1
+ stxdw [r2+0], r3
+ jne r3, 0, ->L
+ ldxdw r3, [r2+8]
+ add r3, -1
+ stxdw [r2+8], r3
+ ldxdw r2, [r1+0]
+ add r2, -1
+ stxdw [r1+0], r2
+ jne r2, 0, ->L
+ ldxdw r2, [r1+8]
+ add r2, -1
+ stxdw [r1+8], r2
+ ldxdw r1, [r10S]
+ ldxdw r2, [r10S]
+ ldxdw r3, [r2+0]
+ add r3, -1
+ stxdw [r2+0], r3
+ jne r3, 0, ->L
+ ldxdw r3, [r2+8]
+ add r3, -1
+ stxdw [r2+8], r3
+ ldxdw r2, [r1+0]
+ add r2, -1
+ stxdw [r1+0], r2
+ jne r2, 0, ->L
+ ldxdw r2, [r1+8]
+ add r2, -1
+ stxdw [r1+8], r2
+ ldxdw r1, [r10S]
+ ldxdw r2, [r10S]
+ ldxdw r3, [r2+0]
+ add r3, -1
+ stxdw [r2+0], r3
+ jne r3, 0, ->L
+ ldxdw r3, [r2+8]
+ add r3, -1
+ stxdw [r2+8], r3
+ ldxdw r2, [r1+0]
+ add r2, -1
+ stxdw [r1+0], r2
+ jne r2, 0, ->L
+ ldxdw r2, [r1+8]
+ add r2, -1
+ stxdw [r1+8], r2
+ ja ->L
+ stxdw [r10S], r7
+ stxdw [r10S], r1
+ stxdw [r10S], r2
+ mov r1, r10
+ add r1, -1320
+ mov r2, r10
+ add r2, -928
+ call _<anchor_lang::error::Error as core::convert::From<solana_program_error::ProgramError>>::from
+ ldxdw r6, [r10S]
+ ldxdw r8, [r10S]
+ jeq r8, 2, ->L
+ ldxdw r1, [r10S]
+ ldxdw r2, [r10S]
+ ldxdw r3, [r2+0]
+ add r3, -1
+ stxdw [r2+0], r3
+ jne r3, 0, ->L
+ ldxdw r3, [r2+8]
+ add r3, -1
+ stxdw [r2+8], r3
+ ldxdw r2, [r1+0]
+ add r2, -1
+ stxdw [r1+0], r2
+ jne r2, 0, ->L
+ ldxdw r2, [r1+8]
+ add r2, -1
+ stxdw [r1+8], r2
+ ja ->L
+ mov r1, r10
+ add r1, -120
+ stxdw [r10S], r1
+ mov r2, r10
+ add r2, -912
+ stxdw [r10S], r3
+ mov r3, 120
+ call memcpy
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxdw [r10S], r1
+ ldxw r1, [r10S]
+ stxw [r10S], r1
+ stxdw [r10S], r7
+ ldxdw r7, [r10S]
+ stxdw [r7+736], r6
+ stxdw [r7+728], r8
+ mov r1, r7
+ add r1, 744
+ ldxdw r2, [r10S]
+ mov r3, 120
+ call memcpy
+ ldxdw r1, [r10S]
+ stxw [r7+864], r1
+ ldxdw r1, [r10S]
+ stxdw [r7+868], r1
+ ldxdw r1, [r10S]
+ stxdw [r7+876], r1
+ ldxdw r1, [r10S]
+ stxdw [r7+884], r1
+ ldxdw r1, [r10S]
+ stxdw [r7+892], r1
+ ldxw r1, [r10S]
+ stxw [r7+900], r1
+ ldxdw r2, [r10S]
+ ldxdw r1, [r2+0]
+ add r1, -1
+ stxdw [r2+0], r1
+ ldxdw r1, [r10S]
+ ldxdw r2, [r10S]
+ ldxdw r3, [r2+0]
+ add r3, -1
+ stxdw [r2+0], r3
+ jne r3, 0, ->L
+ ldxdw r3, [r2+8]
+ add r3, -1
+ stxdw [r2+8], r3
+ ldxdw r2, [r1+0]
+ add r2, -1
+ stxdw [r1+0], r2
+ jne r2, 0, ->L
+ ldxdw r2, [r1+8]
+ add r2, -1
+ stxdw [r1+8], r2
+ ldxdw r8, [r10S]
+ ja ->L
+ mov r2, 224
+ call alloc::raw_vec::handle_error

@@ -128,6 +128,21 @@ matches and 4,314 positive immediate-call observations remain; the qualified
 432/100 artifact is separate. This is source-order research with no new complete
 match, runtime qualification or checkpoint promotion.
 
+The subsequent [arithmetic-lowering controls](../research/mayhem-signer-seed-order/composition/arithmetic/README.md)
+bind the early multiply/divide difference to actual compiler stages. Reusing
+the existing overflow-tuple price form restores price-before-guard ordering,
+including with late inline seeds, but leaves the original branch layout and
+complete handler unmatched. Six root builds and one fresh dependency rebuild
+preserve 432/77 native matches and reproduce both complete control outputs.
+This is bounded source/compiler evidence, not a selected-source promotion.
+
+The [ordinary price-first control](../research/mayhem-signer-seed-order/composition/arithmetic/guard/README.md)
+then restores the original first seven callee identities and nonzero overflow
+branch direction by placing price before `checked_mul`. Three source-control
+compilations and a fresh 163-command rebuild repeat both complete checked
+outputs, but the shared error-block layout and full handler remain unmatched.
+The alternative Option conversion is retained as a negative control.
+
 ## Current-source allocator-provider composition
 
 The [current 432-window provider composition](../research/mayhem-current-provider-closure-20261027/README.md)

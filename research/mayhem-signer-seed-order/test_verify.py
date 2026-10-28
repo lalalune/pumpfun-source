@@ -87,4 +87,52 @@ class Checks(unittest.TestCase):
         f=self.root/'composition/placement/builds/baseline-ir/result.json.gz';r=v.read(f);r['complete_outputs_equal_parent']=True;self.save(f,r)
         with self.assertRaisesRegex(ValueError,'unstripped identity claim'):self.placement().verify(self.root/'composition/placement',False)
 
+    def arithmetic(self):
+        spec=importlib.util.spec_from_file_location('test_arithmetic',self.root/'composition/arithmetic/verify.py');a=importlib.util.module_from_spec(spec);spec.loader.exec_module(a);return a
+    def arithmetic_elf(self,label='overflow-late'):
+        spec=importlib.util.spec_from_file_location('arithmetic_test_reader',HERE/'reader.py');reader=importlib.util.module_from_spec(spec);spec.loader.exec_module(reader)
+        f=Path(self.tmp.name)/'arithmetic.so';f.write_bytes(v.raw(self.root/'composition/arithmetic/builds'/label/'symbols.so.gz'));e=reader.Elf(f)
+        f=Path(self.tmp.name)/'original.so';f.write_bytes(v.raw(self.root/'reference/original.so.gz'));o=reader.Elf(f);originals={r['id']:o.window(r['start'],r['end']) for r in v.read(self.root/'reference/original-windows.json')}
+        c=self.composition();w=c.body(v,e,originals,'sell','O0082')[0];return e,w,originals,c
+    def test_arithmetic_source_divisor(self):
+        a=self.arithmetic();c=self.composition();p=self.root/'composition/arithmetic/sources/overflow-late.rs';b=p.read_bytes();changed=b.replace(b'else{scaled}/10_000;',b'else{scaled}/9_999;',1);self.assertNotEqual(b,changed);p.write_bytes(changed)
+        with self.assertRaisesRegex(ValueError,'source transform'):a.variant(self.root/'composition/arithmetic',v,c,c.sources(self.root/'composition',v),'overflow-late')
+    def test_arithmetic_guard_operand(self):
+        a=self.arithmetic();e,w,originals,c=self.arithmetic_elf();raw=bytearray(e.b);raw[w['start']+560+1]=7;e.b=bytes(raw)
+        with self.assertRaisesRegex(ValueError,'low-bit mask'):a.byte_witness(v,c,e,w,originals,'overflow-late')
+    def test_arithmetic_guard_target(self):
+        a=self.arithmetic();e,w,originals,c=self.arithmetic_elf();raw=bytearray(e.b);struct.pack_into('<h',raw,w['start']+568+2,44);e.b=bytes(raw)
+        with self.assertRaisesRegex(ValueError,'guard branch'):a.byte_witness(v,c,e,w,originals,'overflow-late')
+    def test_arithmetic_masked_price_target(self):
+        a=self.arithmetic();e,w,originals,c=self.arithmetic_elf();raw=bytearray(e.b);call=next(x for x in w['direct'] if x['offset']==552);pc=w['start']+512;struct.pack_into('<i',raw,pc+4,(call['target']-pc-8)//8);e.b=bytes(raw);changed=e.window(w['start'],w['end']);self.assertEqual(v.shape(w),v.shape(changed))
+        with self.assertRaisesRegex(ValueError,'price call target'):a.byte_witness(v,c,e,changed,originals,'overflow-late')
+    def test_arithmetic_unrecognized_slot_index(self):
+        import re
+        a=self.arithmetic();e,_,_,_=self.arithmetic_elf('baseline-stages');log=v.raw(self.root/'composition/arithmetic/builds/baseline-stages/stderr.log.gz').decode('utf-8')
+        changed,n=re.subn(r'(?m)^(\d+)B(\s+JAL\s)',r'\1Z\2',log,count=1);self.assertEqual(n,1)
+        with self.assertRaisesRegex(ValueError,'unparsed arithmetic MIR call'):a.machine_trace(v,changed,'Before Machine Instruction Scheduler (machine-scheduler)',e)
+    def test_arithmetic_nonallocated_repeat_byte(self):
+        folder=self.root/'composition/arithmetic/builds/overflow-late-repeat';p=folder/'symbols.so.gz';b=v.raw(p)+b'\0';p.write_bytes(gzip.compress(b,mtime=0));r=v.read(folder/'result.json.gz');r['outputs']['symbols.so']=v.identity(b);self.save(folder/'result.json.gz',r)
+        with self.assertRaisesRegex(ValueError,'complete repeat differs'):self.arithmetic().verify(self.root/'composition/arithmetic',False)
+    def test_arithmetic_fresh_source_binding(self):
+        p=self.root/'composition/arithmetic/rebuild-validation/launch.json.gz';r=v.read(p);r['source_inputs']['src/instructions/pump_interface.rs']='0'*64;self.save(p,r)
+        with self.assertRaisesRegex(ValueError,'fresh source/tool binding'):self.arithmetic().verify(self.root/'composition/arithmetic',False)
+    def guard(self):
+        spec=importlib.util.spec_from_file_location('test_guard',self.root/'composition/arithmetic/guard/verify.py');g=importlib.util.module_from_spec(spec);spec.loader.exec_module(g);return g
+    def test_guard_source_order(self):
+        g=self.guard();a=self.arithmetic();c=self.composition();p=self.root/'composition/arithmetic/guard/sources/checked-price-first-late.rs';b=p.read_bytes();old,new=g.TRANSFORMS['checked-price-first-late'];self.assertEqual(b.count(new),1);p.write_bytes(b.replace(new,old))
+        with self.assertRaisesRegex(ValueError,'guard source transform'):g.variant(self.root/'composition/arithmetic/guard',v,c,a,c.sources(self.root/'composition',v),'checked-price-first-late')
+    def test_guard_error_block_target(self):
+        g=self.guard();c=self.composition();spec=importlib.util.spec_from_file_location('guard_test_reader',HERE/'reader.py');reader=importlib.util.module_from_spec(spec);spec.loader.exec_module(reader)
+        p=Path(self.tmp.name)/'guard.so';p.write_bytes(v.raw(self.root/'composition/arithmetic/guard/builds/checked-price-first-late/symbols.so.gz'));e=reader.Elf(p)
+        p=Path(self.tmp.name)/'original.so';p.write_bytes(v.raw(self.root/'reference/original.so.gz'));o=reader.Elf(p);originals={r['id']:o.window(r['start'],r['end']) for r in v.read(self.root/'reference/original-windows.json')};w=c.body(v,e,originals,'sell','O0082')[0]
+        b=bytearray(e.b);struct.pack_into('<h',b,w['start']+960+2,7);e.b=bytes(b)
+        with self.assertRaisesRegex(ValueError,'guard error jump'):g.witness(v,c,e,w,originals,'checked-price-first-late')
+    def test_guard_ir_profile_evidence(self):
+        g=self.guard();a=self.arithmetic();p=self.root/'composition/arithmetic/guard/builds/checked-price-first-late/stderr.log.gz';b=v.raw(p).decode('utf-8');fragment=a.ir_fragment(v,b,'CodeGen Prepare (codegenprepare)');observation=a.ir_order(v,fragment);lines=fragment.splitlines();guard=lines[observation['guard']-1];self.assertIn('!prof',guard);changed=b.replace(guard,guard.split(', !prof')[0],1);self.assertNotEqual(b,changed);p.write_bytes(gzip.compress(changed.encode(),mtime=0))
+        with self.assertRaisesRegex(ValueError,'guard IR profile/position'):g.verify(self.root/'composition/arithmetic/guard',False)
+    def test_guard_fresh_wrong_variant(self):
+        p=self.root/'composition/arithmetic/guard/rebuild-validation/comparison.json.gz';r=v.read(p);r['variant']='option-projection-late';self.save(p,r)
+        with self.assertRaisesRegex(ValueError,'guard fresh output/variant'):self.guard().verify(self.root/'composition/arithmetic/guard',False)
+
 if __name__=='__main__':unittest.main()

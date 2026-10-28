@@ -1,0 +1,18 @@
+299	research/fees-sweep-entry-recovery-20261027	verify.py	0	2s	}
+299	research/fees-sweep-entry-recovery-20261027	test_verify.py	0	0s	OK
+301	research/fees-sweep-integration-20261027	verify.py	0	2s	}
+301	research/fees-sweep-integration-20261027	test_verify.py	0	1s	OK
+304	research/fees-residual-current583-20261027	verify.py	0	3s	}
+306	research/fees-causal-independent	verify.py	1	0s	ValueError: Symlink source root is not accepted
+306	research/fees-causal-independent	test_verify.py	0	1s	PASS: five controls; preserved inputs unchanged
+308	research/fees-sweep-integration	verify.py	0	17s	}
+308	research/fees-sweep-integration	test_verify.py	0	42s	OK
+310	research/fees-donation-lifecycle	verify.py	0	1s	}
+310	research/fees-donation-lifecycle	test_verify.py	0	0s	}
+312	research/claude-fees100-ata-stable-rust-20261027	verify.py	0	0s	}
+317	research/claude-fees100-whole-elf-endstate-20261027	verify.py	0	2s	}
+331	research/fees-renderer-local-controls-20261027	verify.py	0	6s	Verified 9 native builds, 8 source controls, retained 583/585; no frontier promotion.
+333	research/fees-branch-inline-controls-20261027	verify.py	0	2s	Verified five rejected native controls; no maintained checkpoint changes.
+335	research/fees-residual-scope-layout-20261027	verify.py	0	4s	Verified 21 native controls; no maintained checkpoint changes.
+336	research/fees-linux-qualified-replay	verify.py	0	1s	{"verified": true, "builds": {"qualified-control": {"normalized": 583, "raw": 200, "symbols_sha256": "f150b4c68704c44584
+DONE

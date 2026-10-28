@@ -1,0 +1,19 @@
+original 147944 15976B 1950 insns | candidate _ZN19pump_fees_candidate19pump_fees_candidate22crank_donation_fee_pda17h58c45fb7e80ac158E @642720 1950 insns
+ratio 0.9985  differing-insn-span 3  identical=False
+--- original
++++ candidate
+@@ -908,3 +908,3 @@
+ ja ->L
+-lddw r1, @ptr "Nothing to donate,Constr"
++lddw r1, @ptr "Nothing to donatecalled "
+ mov r2, 17
+@@ -1349,3 +1349,3 @@
+ stxdw [r10S], r1
+-lddw r1, @ptr "__event_authorityFee con"
++lddw r1, @ptr "__event_authorityRecipie"
+ stxdw [r10S], r1
+@@ -1408,3 +1408,3 @@
+ ja ->L
+-lddw r1, @ptr "Nothing to donate,Constr"
++lddw r1, @ptr "Nothing to donatecalled "
+ mov r2, 17

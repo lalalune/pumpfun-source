@@ -1,5 +1,10 @@
 # Checked-arithmetic composition: retained negative controls
 
+The subsequent [arithmetic-lowering investigation](arithmetic/README.md) reuses
+PR #327's overflow-tuple form and composes it with late inline seeds. It restores
+price-before-guard ordering but leaves the original branch layout and complete
+handler unmatched. Actual compiler traces and repeated outputs are retained.
+
 The late signer-seed read from this packet does not compose cleanly with the
 merged trade source in [PR #330](https://github.com/lalalune/pumpfun-source/pull/330).
 The native baseline reproduces all four upstream partial handler shapes and

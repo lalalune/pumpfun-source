@@ -1,0 +1,34 @@
+original 147944 15976B 1950 insns | candidate _ZN19pump_fees_candidate19pump_fees_candidate22crank_donation_fee_pda17h58c45fb7e80ac158E @642720 1950 insns
+ratio 0.9985  differing-insn-span 3  identical=False
+--- original
++++ candidate
+@@ -906,7 +906,7 @@
+ add r2, -1
+ stxdw [r1+8], r2
+ ja ->L
+-lddw r1, @ptr "Nothing to donate,Constr"
++lddw r1, @ptr "Nothing to donatecalled "
+ mov r2, 17
+ call sol_log_
+ mov r8, 2
+@@ -1347,7 +1347,7 @@
+ mov r1, r10
+ add r1, -208
+ stxdw [r10S], r1
+-lddw r1, @ptr "__event_authorityFee con"
++lddw r1, @ptr "__event_authorityRecipie"
+ stxdw [r10S], r1
+ ldxdw r1, [r10S]
+ stxb [r10S], r1
+@@ -1406,7 +1406,7 @@
+ add r2, 1
+ stxdw [r1+0], r2
+ ja ->L
+-lddw r1, @ptr "Nothing to donate,Constr"
++lddw r1, @ptr "Nothing to donatecalled "
+ mov r2, 17
+ call sol_log_
+ mov r8, 2
+
+# lane tool (true window_map normalizer view: lddw ptr values + internal call targets masked):
+native-symbols.so 15976B 1950i sig 1.0000 span 0 | masked 1.0000 span 0 | MATCH=True
