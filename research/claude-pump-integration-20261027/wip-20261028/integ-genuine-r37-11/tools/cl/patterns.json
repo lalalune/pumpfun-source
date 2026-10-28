@@ -1,0 +1,140 @@
+[
+ {
+  "label": "declare_program!(pump_amm)",
+  "pattern": "^\\s*declare_program!\\(pump_amm\\);",
+  "target": 83,
+  "why": "orig 0x1091b0 (pump_amm account try_deserialize, 3002) has Source lib.rs:83 = declare_program!(pump_amm)"
+ },
+ {
+  "label": "declare_program!(pump_fees)",
+  "pattern": "^\\s*declare_program!\\(pump_fees\\);",
+  "target": 84,
+  "why": "orig 0x115e70 / 0x1156f0 (pump_fees account try_deserialize, 3002) have Source lib.rs:84 = declare_program!(pump_fees)"
+ },
+ {
+  "label": "NotUniqueBuybackFeeRecipients",
+  "pattern": "require_(?:keys_)?neq!\\(recipients\\[left\\],\\s*recipients\\[right\\],\\s*PumpError::NotUniqueBuybackFeeRecipients\\)",
+  "target": 1905,
+  "why": "orig 0x98af0 set_buyback_fee_recipients: 6059 at lib.rs:1905 (not decodable in our build)"
+ },
+ {
+  "label": "buy reserve vt",
+  "pattern": "^\\s*let vb=c\\.virtual_token_reserves\\.checked_sub\\(amount\\)\\.ok_or_else",
+  "target": 674,
+  "why": "orig legacy buy 0x14c038 updates the curve in this order with one Overflow closure each (674 vt-=amount, 679 rt-=amount, 684 vs+=sol, 689 rs+=sol); pinned by source pattern because our rt closure is optimised away (amount<=rt provable) and same-code closures cannot be paired by the build alone"
+ },
+ {
+  "label": "buy reserve rt",
+  "pattern": "^\\s*let rb=c\\.real_token_reserves\\.checked_sub\\(amount\\)\\.ok_or_else",
+  "target": 679,
+  "why": "orig legacy buy 0x14c038 updates the curve in this order with one Overflow closure each (674 vt-=amount, 679 rt-=amount, 684 vs+=sol, 689 rs+=sol); pinned by source pattern because our rt closure is optimised away (amount<=rt provable) and same-code closures cannot be paired by the build alone"
+ },
+ {
+  "label": "buy reserve vs",
+  "pattern": "^\\s*let vq=c\\.virtual_quote_reserves\\.checked_add\\(quote\\)\\.ok_or_else",
+  "target": 684,
+  "why": "orig legacy buy 0x14c038 updates the curve in this order with one Overflow closure each (674 vt-=amount, 679 rt-=amount, 684 vs+=sol, 689 rs+=sol); pinned by source pattern because our rt closure is optimised away (amount<=rt provable) and same-code closures cannot be paired by the build alone"
+ },
+ {
+  "label": "buy reserve rs",
+  "pattern": "^\\s*let rq=c\\.real_quote_reserves\\.checked_add\\(quote\\)\\.ok_or_else",
+  "target": 689,
+  "why": "orig legacy buy 0x14c038 updates the curve in this order with one Overflow closure each (674 vt-=amount, 679 rt-=amount, 684 vs+=sol, 689 rs+=sol); pinned by source pattern because our rt closure is optimised away (amount<=rt provable) and same-code closures cannot be paired by the build alone"
+ },
+ {
+  "label": "buy_quote Overflow (integ)",
+  "pattern": "^\\s*\\.ok_or_else\\(\\|\\| error!\\(crate::PumpError::Overflow\\)\\)\\?;",
+  "target": 2428,
+  "why": "integ-layout: orig 0xa0070 (buy quote: u128 numerator, denominator = vt - amount checked_sub) Overflow site lib.rs:2428; pump-hi buy_quote-on-r37L2.patch makes our buy_quote byte-identical except Source"
+ },
+ {
+  "label": "buy_quote DivisionByZero (integ)",
+  "pattern": "^\\s*require!\\(denominator != 0, crate::PumpError::DivisionByZero\\);",
+  "target": 2430,
+  "why": "integ-layout: orig 0xa0070 DivisionByZero (6026) site lib.rs:2430"
+ },
+ {
+  "label": "ext798 sell_quote",
+  "pattern": "^\\s*numerator\\.checked_div\\(self\\.virtual_token_reserves as u128\\+amount as u128\\)\\.ok_or_else",
+  "target": 2454,
+  "why": "integ-layout: ext798 (shawkkkkk Round37 frontier) curve method site; their tree had it at this original lib.rs line"
+ },
+ {
+  "label": "ext798 market cap",
+  "pattern": "^\\s*\\(u128::from\\(supply\\)\\*u128::from\\(curve\\.virtual_quote_reserves\\)\\)\\.checked_div",
+  "target": 2481,
+  "why": "integ-layout: ext798 (shawkkkkk Round37 frontier) curve method site; their tree had it at this original lib.rs line"
+ },
+ {
+  "label": "ext798 apply_buy vt",
+  "pattern": "^\\s*self\\.virtual_token_reserves=self\\.virtual_token_reserves\\.checked_sub\\(amount\\)",
+  "target": 2496,
+  "why": "integ-layout: ext798 (shawkkkkk Round37 frontier) curve method site; their tree had it at this original lib.rs line"
+ },
+ {
+  "label": "ext798 apply_buy rt",
+  "pattern": "^\\s*self\\.real_token_reserves=self\\.real_token_reserves\\.checked_sub\\(amount\\)",
+  "target": 2501,
+  "why": "integ-layout: ext798 (shawkkkkk Round37 frontier) curve method site; their tree had it at this original lib.rs line"
+ },
+ {
+  "label": "ext798 apply_buy vq",
+  "pattern": "^\\s*self\\.virtual_quote_reserves=self\\.virtual_quote_reserves\\.checked_add\\(quote\\)",
+  "target": 2506,
+  "why": "integ-layout: ext798 (shawkkkkk Round37 frontier) curve method site; their tree had it at this original lib.rs line"
+ },
+ {
+  "label": "ext798 apply_buy rq",
+  "pattern": "^\\s*self\\.real_quote_reserves=self\\.real_quote_reserves\\.checked_add\\(quote\\)",
+  "target": 2511,
+  "why": "integ-layout: ext798 (shawkkkkk Round37 frontier) curve method site; their tree had it at this original lib.rs line"
+ },
+ {
+  "label": "ext798 apply_sell vt",
+  "pattern": "^\\s*self\\.virtual_token_reserves=self\\.virtual_token_reserves\\.checked_add\\(amount\\)",
+  "target": 2520,
+  "why": "integ-layout: ext798 (shawkkkkk Round37 frontier) curve method site; their tree had it at this original lib.rs line"
+ },
+ {
+  "label": "ext798 apply_sell rt",
+  "pattern": "^\\s*self\\.real_token_reserves=self\\.real_token_reserves\\.checked_add\\(amount\\)",
+  "target": 2525,
+  "why": "integ-layout: ext798 (shawkkkkk Round37 frontier) curve method site; their tree had it at this original lib.rs line"
+ },
+ {
+  "label": "ext798 apply_sell vq",
+  "pattern": "^\\s*self\\.virtual_quote_reserves=self\\.virtual_quote_reserves\\.checked_sub\\(quote\\)",
+  "target": 2530,
+  "why": "integ-layout: ext798 (shawkkkkk Round37 frontier) curve method site; their tree had it at this original lib.rs line"
+ },
+ {
+  "label": "ext798 apply_sell rq",
+  "pattern": "^\\s*self\\.real_quote_reserves=self\\.real_quote_reserves\\.checked_sub\\(quote\\)",
+  "target": 2535,
+  "why": "integ-layout: ext798 (shawkkkkk Round37 frontier) curve method site; their tree had it at this original lib.rs line"
+ },
+ {
+  "label": "ext798 accrue protocol",
+  "pattern": "^\\s*self\\.protocol_fees=self\\.protocol_fees\\.checked_add\\(retained\\)",
+  "target": 2550,
+  "why": "integ-layout: ext798 (shawkkkkk Round37 frontier) curve method site; their tree had it at this original lib.rs line"
+ },
+ {
+  "label": "ext798 accrue creator",
+  "pattern": "^\\s*self\\.creator_fee=self\\.creator_fee\\.checked_add\\(creator_fee\\)",
+  "target": 2554,
+  "why": "integ-layout: ext798 (shawkkkkk Round37 frontier) curve method site; their tree had it at this original lib.rs line"
+ },
+ {
+  "label": "legacy buy total pf (integ)",
+  "pattern": "^\\s*quote\\.checked_add\\(pf\\)\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?$",
+  "target": 664,
+  "why": "integ-layout: legacy buy require_gte!(max_sol_cost, quote+pf+cf) operand closures (orig 0x1774f8 :664, 0x177700 :666; coordlib changes4). Pinned by pattern: the build-based closure pairing shifts once the handler's other error closures move into shared helpers (coordbodyA-02)."
+ },
+ {
+  "label": "legacy buy total cf (integ)",
+  "pattern": "^\\s*\\.checked_add\\(cf\\)\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?,$",
+  "target": 666,
+  "why": "integ-layout: legacy buy require_gte!(max_sol_cost, quote+pf+cf) operand closures (orig 0x1774f8 :664, 0x177700 :666; coordlib changes4). Pinned by pattern: the build-based closure pairing shifts once the handler's other error closures move into shared helpers (coordbodyA-02)."
+ }
+]

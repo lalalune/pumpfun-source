@@ -1,0 +1,211 @@
+diff -ruN -x target /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/trade_v3.rs /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyB/src/src/trade_v3.rs
+--- /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/trade_v3.rs	2026-10-27 22:17:03
++++ /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyB/src/src/trade_v3.rs	2026-10-27 22:40:11
+@@ -809,20 +809,20 @@
+     let crossing=exceeds && !curve.is_mayhem_mode && !is_fee_exempt;
+     let denominator=(curve.virtual_token_reserves as u128).checked_sub(amount as u128).ok_or_else(||error!(PumpError::Overflow))?;
+     let quotient=(amount as u128*curve.virtual_quote_reserves as u128).checked_div(denominator).ok_or_else(||error!(PumpError::DivisionByZero))?; let quote=u64::try_from(quotient.checked_add(1).ok_or_else(||error!(PumpError::Overflow))?).map_err(|_|error!(PumpError::Truncation))?;
+-    let (fees,creator_bps)=if is_fee_exempt {
+-        (Fees{lp_fee_bps:0,protocol_fee_bps:0,creator_fee_bps:0},0)
++    let (fees,creator_bps,protocol_fee,creator_fee)=if is_fee_exempt {
++        (Fees{lp_fee_bps:0,protocol_fee_bps:0,creator_fee_bps:0},0,0,0)
+     }else{
++        let config_len=a.fee_config.to_account_info().data_len();
+         let cap=buy_fee_market_cap(curve, &a.base_mint)?;
+-        let config_info=a.fee_config.to_account_info();
+-        let config_data=config_info.try_borrow_data()?;
+-        let config=read_config(&config_data)?;
+-        drop(config_data);
+-        let mut fees=selected(&config,cap,curve.quote_mint)?;
+-        if a.global.creator_fee_configurable && curve.creator_fee_bps>0{fees.creator_fee_bps=curve.creator_fee_bps;}
++        let (protocol_fee,creator_fee,protocol_fee_bps,creator_fee_bps)=crate::legacy_sell::fee_math::get_fees(&a.global,curve,&a.fee_config.0,config_len,cap,quote)?;
++        let fees=Fees{lp_fee_bps:0,protocol_fee_bps,creator_fee_bps};
++
++
++
+         let creator_bps=if curve.creator==Pubkey::default(){0}else{fees.creator_fee_bps};
+-        (fees,creator_bps) };
+-    let protocol_fee=fee(quote,fees.protocol_fee_bps)?;
+-    let creator_fee=fee(quote,creator_bps)?;
++        (fees,creator_bps,protocol_fee,creator_fee) };
++
++
+     let buyback_bps=if curve.is_mayhem_mode {0}else{a.global.buyback_basis_points};
+     let pool_base_before=if crossing{sub(a.associated_base_bonding_curve.amount,amount)?}else{0};
+     let pool_quote_before=if crossing{sub(add(curve.real_quote_reserves,quote)?,if is_sol{a.global.pool_migration_fee}else{0})?}else{0};
+diff -ruN -x target /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/util/fee.rs /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyB/src/src/util/fee.rs
+--- /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/util/fee.rs	2026-10-27 22:17:03
++++ /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyB/src/src/util/fee.rs	2026-10-27 22:40:11
+@@ -33,3 +33,172 @@
+ 
+     u64::try_from(value).map_err(|_| error!(crate::PumpError::Truncation))
+ }
++
++use crate::trade_types::{BondingCurve,FeeConfig,FeeTier};
++const WSOL_QUOTE:Pubkey=anchor_spl::token::spl_token::native_mint::ID;
++const QUOTE_2:Pubkey=Pubkey::new_from_array([131,13,252,159,222,95,230,184,170,124,4,164,118,233,30,138,198,187,38,74,173,144,250,25,201,223,73,216,92,62,91,94]);
++const USDC:Pubkey=anchor_lang::solana_program::pubkey!("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v");
++// layout-pad: aligns the next Source site with the original line
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++pub fn calculate_fee_tier(fee_tiers: &[FeeTier], market_cap: u128) -> Result<(u64, u64)> {
++    // fee tiers must be non-empty
++    require!(!fee_tiers.is_empty(), crate::PumpError::FeeTiersEmpty);
++    let first_tier = &fee_tiers[0];
++    if market_cap < first_tier.market_cap_lamports_threshold {
++        return Ok((first_tier.fees.protocol_fee_bps, first_tier.fees.creator_fee_bps));
++    }
++    let tier = fee_tiers.iter().rev().find(|tier| market_cap >= tier.market_cap_lamports_threshold).unwrap_or(first_tier);
++    Ok((tier.fees.protocol_fee_bps, tier.fees.creator_fee_bps))
++}
++
++
++
++
++
++
++
++
++
++
++
++fn get_fee_basis_points(fee_config: &FeeConfig, fee_config_len: usize, quote_mint: &Pubkey, market_cap: u128) -> Result<(u64, u64)> {
++    // the fee config account must hold the tiered layout
++    require!(fee_config_len >= 2512, crate::PumpError::FeeConfigTooShort);
++    let fee_tiers: &[FeeTier] = if *quote_mint != Pubkey::default() && *quote_mint != WSOL_QUOTE && *quote_mint != QUOTE_2 {
++        if USDC == *quote_mint {
++            if fee_config_len > 4072 { &fee_config.stable_fee_tiers } else { &[] }
++        } else {
++            let exotic = &fee_config.exotic_flat_fees;
++            let fees = if fee_config_len > 4096 && (exotic.lp_fee_bps != 0 || exotic.protocol_fee_bps != 0 || exotic.creator_fee_bps != 0) { exotic } else { &fee_config.flat_fees };
++            return Ok((fees.protocol_fee_bps, fees.creator_fee_bps));
++        }
++    } else { &fee_config.fee_tiers };
++    calculate_fee_tier(fee_tiers, market_cap)
++}
++
++pub fn get_fees(global: &crate::Global, bonding_curve: &BondingCurve, fee_config: &FeeConfig, fee_config_len: usize, market_cap: u128, amount: u64) -> Result<(u64, u64, u64, u64)> {
++    let (protocol_fee_bps, mut creator_fee_bps) = get_fee_basis_points(fee_config, fee_config_len, &bonding_curve.quote_mint, market_cap)?;
++    if global.creator_fee_configurable && bonding_curve.creator_fee_bps != 0 {
++        creator_fee_bps = bonding_curve.creator_fee_bps;
++    }
++    let protocol_fee = fee(amount, protocol_fee_bps)?;
++    let creator_fee = if bonding_curve.creator == Pubkey::default() { 0 } else { fee(amount, creator_fee_bps)? };
++    Ok((protocol_fee, creator_fee, protocol_fee_bps, creator_fee_bps))
++}

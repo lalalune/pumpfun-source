@@ -1,0 +1,43 @@
+diff -ruN /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/fee_recipient.rs /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyA/src/src/fee_recipient.rs
+--- /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/fee_recipient.rs	2026-10-27 22:17:03
++++ /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyA/src/src/fee_recipient.rs	2026-10-27 22:32:39
+@@ -9,11 +9,16 @@
+     bonding_curve: &Account<'info, BondingCurve>,
+ ) -> Result<()> {
+     let key = fee_recipient.key();
+-// layout-pad(19): aligns the next Source site with the original line
++    if bonding_curve.is_mayhem_mode {
++// layout-pad(5): aligns the next Source site with the original line
+ 
+ 
+ 
+ 
++        if key == global.reserved_fee_recipient || global.reserved_fee_recipients.contains(&key) { return Ok(()); }
++        return err!(PumpError::NotAuthorized);
++    }
++// layout-pad(13): aligns the next Source site with the original line
+ 
+ 
+ 
+@@ -26,19 +31,6 @@
+ 
+ 
+ 
+-
+-
+-    if !bonding_curve.is_mayhem_mode {
+-        if key == global.fee_recipient || global.fee_recipients.binary_search(&key).is_ok() {
+-            Ok(())
+-        } else {
+-            err!(PumpError::NotAuthorized)
+-        }
+-    } else {
+-        if key == global.reserved_fee_recipient || global.reserved_fee_recipients.contains(&key) {
+-            Ok(())
+-        } else {
+-            err!(PumpError::NotAuthorized)
+-        }
+-    }
++    if key == global.fee_recipient || global.fee_recipients.binary_search(&key).is_ok() { return Ok(()); }
++    err!(PumpError::NotAuthorized)
+ }

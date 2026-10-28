@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+"""Classify every unmatched original window against the candidate.
+
+Categories: coord (only Source line/filename-length immediates differ), near<=3, frame,
+equal-len (equal length, other diffs), body (no equal-length candidate).
+Writes JSON (default base/current/triage.json) and prints a summary.
+"""
+import argparse, json, sys
+from collections import Counter, defaultdict
+from pathlib import Path
+
+H = Path(__file__).resolve().parent
+sys.path.insert(0, str(H))
+from score import sections, body, normalize, original_windows, score, BASE, candidate_functions  # noqa
+from coords import sites, ORIG, OS  # noqa
+from win import demangle  # noqa
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--cand', type=Path, default=BASE / 'current/unstripped.so')
+    ap.add_argument('--json', type=Path, default=BASE / 'current/triage.json')
+    a = ap.parse_args()
+    blob = a.cand.read_bytes(); cs = sections(blob)
+    cur = score(a.cand)
+    bylen = defaultdict(list)
+    for s, n, nm in candidate_functions(a.cand):
+        bylen[n].append((s, nm))
+    cache = {}; rows = []
+    for w in original_windows():
+        if cur[w['start']]['normalized']:
+            continue
+        osites = sites(ORIG, OS, w['start'], w['raw'])
+        cslots = set()
+        for s in osites:
+            cslots |= {s['len_slot'], s['line_slot']}
+        on = normalize(w['raw'], w['start'], OS)
+        best = None
+        for (s, nm) in bylen.get(w['bytes'], []):
+            if s not in cache:
+                cache[s] = normalize(body(blob, cs, s, w['bytes']), s, cs)
+            cn = cache[s]
+            diff = [i for i in range(0, len(on), 8) if on[i:i + 8] != cn[i:i + 8]]
+            noncoord = [d for d in diff if d not in cslots]
+            key = (len(noncoord), len(diff))
+            if best is None or key < best[0]:
+                best = (key, s, nm, diff, noncoord)
+        if best is None:
+            cat = 'body'
+        else:
+            nc = best[4]
+            if not nc:
+                cat = 'coord'
+            elif len(nc) <= 3:
+                cat = 'near<=3'
+            else:
+                frame_ops = {0x7b, 0x79, 0x7a, 0x62, 0x72, 0x6a, 0x63, 0x61, 0x73, 0x71, 0x6b, 0x69, 0xbf, 0x07, 0xb7}
+                cat = 'frame' if all(on[d] in frame_ops for d in nc) else 'equal-len'
+        rows.append({'start': hex(w['start']), 'bytes': w['bytes'], 'category': cat, 'has_source_sites': bool(osites),
+                     'original_sites': [{'path': s['path'], 'line': s['line']} for s in osites],
+                     'nearest': None if best is None else {'addr': hex(best[1]), 'symbol': demangle(best[2]), 'diff_slots': len(best[3]), 'noncoord_slots': len(best[4])}})
+    a.json.write_text(json.dumps(rows, indent=1))
+    c = Counter(r['category'] for r in rows); b = Counter()
+    for r in rows:
+        b[r['category']] += r['bytes']
+    for k in ['coord', 'near<=3', 'frame', 'equal-len', 'body']:
+        print(f"{k:10s} {c[k]:4d} windows {b[k]:8d} B")
+    print('total', len(rows))
+
+
+if __name__ == '__main__':
+    main()

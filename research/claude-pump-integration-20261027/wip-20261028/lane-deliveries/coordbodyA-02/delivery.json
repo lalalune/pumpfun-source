@@ -1,0 +1,27 @@
+{
+ "lane": "coordbodyA",
+ "base_round": "L06",
+ "base_unstripped_sha256": "7bc1563b4965a9632d3362b271fe1e63ced8cb4eceda3a7aaa58fc86a025ee5e",
+ "unstripped_sha256": "b46ba23dd1e83a9cf30a4e0823ea8414fbc9d83eb361b432dbb520b91cf252d4",
+ "candidate_sha256": "f3057734c053f7fc7852d2eeb5d20a0cd1404b42d26b28c66d09bac4f8ef04a1",
+ "normalized": 902,
+ "raw": 165,
+ "gains": [
+  "0x3dd78",
+  "0x6eed8",
+  "0x6f3e8"
+ ],
+ "losses": [],
+ "raw_gains": [],
+ "raw_losses": [],
+ "runtime_valid": true,
+ "recipe": "identity",
+ "synthetic_layout": false,
+ "files_changed": [
+  "src/buy.rs",
+  "src/fee_recipient.rs",
+  "src/lib.rs",
+  "src/sell.rs"
+ ],
+ "summary": "sell.rs shared helpers check_bonding_curve_v2 (sell.rs:126/133) and buyback_fee_recipient (sell.rs:145) called from legacy buy/sell handlers (+0x6eed8 +0x6f3e8; cumulative with -01)"
+}

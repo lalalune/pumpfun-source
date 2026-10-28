@@ -1,0 +1,22 @@
+{
+ "lane": "coordbodyA",
+ "base_round": "L06",
+ "base_unstripped_sha256": "7bc1563b4965a9632d3362b271fe1e63ced8cb4eceda3a7aaa58fc86a025ee5e",
+ "unstripped_sha256": "d1cf68804127a268e65a902f31e9955a4e2115a7d5d8b0e00a992a6c6c7787dc",
+ "candidate_sha256": "d2082a52584fb511a1320101a36fdb062a1086ce28c65372b808fbdc6da241af",
+ "normalized": 900,
+ "raw": 165,
+ "gains": [
+  "0x3dd78"
+ ],
+ "losses": [],
+ "raw_gains": [],
+ "raw_losses": [],
+ "runtime_valid": true,
+ "recipe": "identity",
+ "synthetic_layout": false,
+ "files_changed": [
+  "src/fee_recipient.rs"
+ ],
+ "summary": "fee_recipient.rs validate_fee_recipient: mayhem-first early-return form, sites on original lines 19/35 (+0x3dd78)"
+}

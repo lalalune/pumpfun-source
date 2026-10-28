@@ -1,0 +1,294 @@
+diff -ruN -x target /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/buy.rs /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyA/src/src/buy.rs
+--- /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/buy.rs	2026-10-27 22:17:03
++++ /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyA/src/src/buy.rs	2026-10-27 22:40:18
+@@ -14,7 +14,7 @@
+  let c=&a.bonding_curve;
+  crate::legacy_sell::fee_recipient::validate_fee_recipient(&a.fee_recipient,&a.global,&a.bonding_curve)?;
+  let rem=ctx.remaining_accounts;
+- let bb=rem.get(1).ok_or_else(||error!(PumpError::BuybackFeeRecipientMissing))?;a.global.validate_buyback_fee_recipient(*bb.key)?;
++ let bb=crate::legacy_sell::buyback_fee_recipient(rem,&a.global,1)?;
+  require!(!c.complete,PumpError::BondingCurveComplete);
+  if exact{require_gt!(limit,0,PumpError::BuyZeroAmount);require_gt!(input,0,PumpError::BuyNotEnoughSolToCoverFees);}else{require_gt!(input,0,PumpError::BuyZeroAmount);}
+  if !exact{if !partial{require_gte!(c.real_token_reserves,input,PumpError::NotEnoughTokensToBuy);}}
+@@ -34,7 +34,7 @@
+  let vb=sub(c.virtual_token_reserves,amount)?;let vq=add(c.virtual_quote_reserves,quote)?;let rb=sub(c.real_token_reserves,amount)?;let rq=add(c.real_quote_reserves,quote)?;
+  let mint=a.mint.key();let bump=[ctx.bumps.bonding_curve];let seeds:&[&[u8]]=&[b"bonding-curve",mint.as_ref(),&bump];
+  crate::buy_v2::token_transfers::transfer_curve_tokens_ref(&a.token_program,&a.associated_bonding_curve,&a.associated_user,&&a.bonding_curve,a.mint.decimals,a.mint.as_ref(),amount,&[seeds])?;
+- let v2=rem.get(0).ok_or_else(||error!(PumpError::InvalidBondingCurveV2))?;require!(v2.key()==Pubkey::find_program_address(&[b"bonding-curve-v2",a.mint.key().as_ref()],&crate::ID).0,PumpError::InvalidBondingCurveV2);
++ crate::legacy_sell::check_bonding_curve_v2(rem,&a.mint.key())?;
+  let bbps=if c.is_mayhem_mode{0}else{a.global.buyback_basis_points};
+  let cashback_coin=c.is_cashback_coin;
+  if cf!=0 && !cashback_coin {crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.user,&a.creator_vault)?;}
+diff -ruN -x target /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/buy_v2.rs /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyA/src/src/buy_v2.rs
+--- /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/buy_v2.rs	2026-10-27 22:17:03
++++ /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyA/src/src/buy_v2.rs	2026-10-27 22:52:49
+@@ -88,7 +88,7 @@
+  require_keys_eq!(token.mint,*mint,PumpError::MintDoesNotMatchBondingCurve);
+  Ok(())
+ }
+-// layout-pad(38): aligns the next Source site with the original line
++// layout-pad(15): aligns the next Source site with the original line
+ 
+ 
+ 
+@@ -103,29 +103,29 @@
+ 
+ 
+ 
++pub fn check_token_account<'info>(account:&AccountInfo<'info>,authority:&AccountInfo<'info>,mint:&Pubkey,token_program:&Pubkey)->Result<()>{
++// layout-pad(2): aligns the next Source site with the original line
+ 
++  require_keys_eq!(*account.owner,*token_program,PumpError::AccountTypeNotSupported);
++  let data=account.try_borrow_data()?;
++  let mut buf:&[u8]=&data;let token=TokenAccount::try_deserialize(&mut buf)?;
++// layout-pad(4): aligns the next Source site with the original line
+ 
+ 
+ 
++  require_keys_eq!(token.mint,*mint,PumpError::MintDoesNotMatchBondingCurve);
++// layout-pad(4): aligns the next Source site with the original line
+ 
+ 
+ 
++  require_keys_eq!(token.owner,authority.key(),PumpError::AccountTypeNotSupported);
++  Ok(())
++}
++// layout-pad(5): aligns the next Source site with the original line
+ 
+ 
+ 
+ 
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+ #[derive(Accounts)]
+ pub struct BuyV2<'info>{
+  #[account(seeds=[b"global"],bump)]pub global:Box<Account<'info,Global>>,
+@@ -360,8 +360,8 @@
+  if a.user_volume_accumulator.user==Pubkey::default(){a.user_volume_accumulator.user=a.user.key();}
+  if a.bonding_curve.quote_mint!=Pubkey::default(){
+   admit_associated_token_account(a.associated_quote_bonding_curve.as_ref(),&a.bonding_curve.to_account_info(),&a.quote_mint.key(),&a.quote_token_program.key(),a.user.as_ref(),&a.quote_mint.to_account_info(),false,a.system_program.as_ref(),a.quote_token_program.as_ref())?;
+-  require_keys_eq!(*a.associated_quote_user.owner,a.quote_token_program.key(),PumpError::AccountTypeNotSupported);
+-  check_token(&a.associated_quote_user,a.quote_mint.key(),a.user.key())?;{let d=a.associated_quote_user.try_borrow_data()?;let t=TokenAccount::try_deserialize(&mut &d[..])?;require_keys_eq!(t.owner,a.user.key(),PumpError::AccountTypeNotSupported);}
++  crate::buy_v2::check_token_account(&a.associated_quote_user,a.user.as_ref(),&a.quote_mint.key(),&a.quote_token_program.key())?;
++
+   for (destination,authority) in [(a.associated_creator_vault.to_account_info(),a.creator_vault.to_account_info()),(a.associated_user_volume_accumulator.to_account_info(),a.user_volume_accumulator.to_account_info()),(a.associated_quote_fee_recipient.to_account_info(),a.fee_recipient.to_account_info()),(a.associated_quote_buyback_fee_recipient.to_account_info(),a.buyback_fee_recipient.to_account_info())]{
+    admit_associated_token_account(&destination,&authority,&a.quote_mint.key(),&a.quote_token_program.key(),a.user.as_ref(),&a.quote_mint.to_account_info(),true,a.system_program.as_ref(),a.quote_token_program.as_ref())?;
+   }
+@@ -774,8 +774,8 @@
+  if a.user_volume_accumulator.user==Pubkey::default(){a.user_volume_accumulator.user=a.user.key();}
+  if a.bonding_curve.quote_mint!=Pubkey::default(){
+   admit_associated_token_account(a.associated_quote_bonding_curve.as_ref(),&a.bonding_curve.to_account_info(),&a.quote_mint.key(),&a.quote_token_program.key(),a.user.as_ref(),&a.quote_mint.to_account_info(),false,a.system_program.as_ref(),a.quote_token_program.as_ref())?;
+-  require_keys_eq!(*a.associated_quote_user.owner,a.quote_token_program.key(),PumpError::AccountTypeNotSupported);
+-  check_token(&a.associated_quote_user,a.quote_mint.key(),a.user.key())?;{let d=a.associated_quote_user.try_borrow_data()?;let t=TokenAccount::try_deserialize(&mut &d[..])?;require_keys_eq!(t.owner,a.user.key(),PumpError::AccountTypeNotSupported);}
++  crate::buy_v2::check_token_account(&a.associated_quote_user,a.user.as_ref(),&a.quote_mint.key(),&a.quote_token_program.key())?;
++
+   for (destination,authority) in [(a.associated_creator_vault.to_account_info(),a.creator_vault.to_account_info()),(a.associated_user_volume_accumulator.to_account_info(),a.user_volume_accumulator.to_account_info()),(a.associated_quote_fee_recipient.to_account_info(),a.fee_recipient.to_account_info()),(a.associated_quote_buyback_fee_recipient.to_account_info(),a.buyback_fee_recipient.to_account_info())]{
+    admit_associated_token_account(&destination,&authority,&a.quote_mint.key(),&a.quote_token_program.key(),a.user.as_ref(),&a.quote_mint.to_account_info(),true,a.system_program.as_ref(),a.quote_token_program.as_ref())?;
+   }
+diff -ruN -x target /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/fee_recipient.rs /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyA/src/src/fee_recipient.rs
+--- /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/fee_recipient.rs	2026-10-27 22:17:03
++++ /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyA/src/src/fee_recipient.rs	2026-10-27 22:32:39
+@@ -9,11 +9,16 @@
+     bonding_curve: &Account<'info, BondingCurve>,
+ ) -> Result<()> {
+     let key = fee_recipient.key();
+-// layout-pad(19): aligns the next Source site with the original line
++    if bonding_curve.is_mayhem_mode {
++// layout-pad(5): aligns the next Source site with the original line
+ 
+ 
+ 
+ 
++        if key == global.reserved_fee_recipient || global.reserved_fee_recipients.contains(&key) { return Ok(()); }
++        return err!(PumpError::NotAuthorized);
++    }
++// layout-pad(13): aligns the next Source site with the original line
+ 
+ 
+ 
+@@ -26,19 +31,6 @@
+ 
+ 
+ 
+-
+-
+-    if !bonding_curve.is_mayhem_mode {
+-        if key == global.fee_recipient || global.fee_recipients.binary_search(&key).is_ok() {
+-            Ok(())
+-        } else {
+-            err!(PumpError::NotAuthorized)
+-        }
+-    } else {
+-        if key == global.reserved_fee_recipient || global.reserved_fee_recipients.contains(&key) {
+-            Ok(())
+-        } else {
+-            err!(PumpError::NotAuthorized)
+-        }
+-    }
++    if key == global.fee_recipient || global.fee_recipients.binary_search(&key).is_ok() { return Ok(()); }
++    err!(PumpError::NotAuthorized)
+ }
+diff -ruN -x target /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/lib.rs /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyA/src/src/lib.rs
+--- /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/lib.rs	2026-10-27 22:17:03
++++ /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyA/src/src/lib.rs	2026-10-27 22:40:18
+@@ -364,7 +364,7 @@
+      let c=&a.bonding_curve;
+      crate::legacy_sell::fee_recipient::validate_fee_recipient(&a.fee_recipient,&a.global,&a.bonding_curve)?;
+      let rem=ctx.remaining_accounts;
+-     let bb=rem.get(1).ok_or_else(||error!(PumpError::BuybackFeeRecipientMissing))?;a.global.validate_buyback_fee_recipient(*bb.key)?;
++     let bb=crate::legacy_sell::buyback_fee_recipient(rem,&a.global,1)?;
+ // layout-pad: aligns the next Source site with the original lib.rs line
+ 
+ 
+@@ -689,7 +689,7 @@
+      let rq=c.real_quote_reserves.checked_add(quote).ok_or_else(||error!(PumpError::Overflow))?;
+      let mint=a.mint.key();let bump=[ctx.bumps.bonding_curve];let seeds:&[&[u8]]=&[b"bonding-curve",mint.as_ref(),&bump];
+      crate::buy_v2::token_transfers::transfer_curve_tokens_ref(&a.token_program,&a.associated_bonding_curve,&a.associated_user,&&a.bonding_curve,a.mint.decimals,a.mint.as_ref(),amount,&[seeds])?;
+-     let v2=rem.get(0).ok_or_else(||error!(PumpError::InvalidBondingCurveV2))?;require!(v2.key()==Pubkey::find_program_address(&[b"bonding-curve-v2",a.mint.key().as_ref()],&crate::ID).0,PumpError::InvalidBondingCurveV2);
++     crate::legacy_sell::check_bonding_curve_v2(rem,&a.mint.key())?;
+      let bbps=if c.is_mayhem_mode{0}else{a.global.buyback_basis_points};
+      let cashback_coin=c.is_cashback_coin;
+      if cf!=0 && !cashback_coin {crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.user,&a.creator_vault)?;}
+@@ -1037,12 +1037,12 @@
+      let rq=c.real_quote_reserves.checked_sub(quote).ok_or_else(||error!(PumpError::Overflow))?;
+      crate::collect_v2::transfer_user_tokens_ref(&a.token_program,&a.associated_user,&a.associated_bonding_curve,&&a.user,a.mint.decimals,a.mint.as_ref(),amount)?;
+      let rem=ctx.remaining_accounts;let index=if c.is_cashback_coin {let acc=rem.first().ok_or_else(||error!(PumpError::MissingCashbackAccounts))?;require!(acc.key()==Pubkey::find_program_address(&[b"user_volume_accumulator",a.user.key().as_ref()],&crate::ID).0&&acc.owner==&crate::ID&&acc.data_len()>=82,PumpError::InvalidCashbackAccumulator);1}else{0};
+-     let v2=rem.get(index).ok_or_else(||error!(PumpError::InvalidBondingCurveV2))?;require!(v2.key()==Pubkey::find_program_address(&[b"bonding-curve-v2",a.mint.key().as_ref()],&crate::ID).0,PumpError::InvalidBondingCurveV2);
++     crate::legacy_sell::check_bonding_curve_v2(&rem[index..],&a.mint.key())?;
+      let bbps=if c.is_mayhem_mode{0}else{a.global.buyback_basis_points};
+      let cashback_coin=c.is_cashback_coin;
+      if cf!=0 && !cashback_coin {crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.user,&a.creator_vault)?;}
+      if cf!=0 {if cashback_coin{a.bonding_curve.sub_lamports(cf)?;rem[0].add_lamports(cf)?;let mut d=rem[0].try_borrow_mut_data()?;let n=u64::from_le_bytes(d[74..82].try_into().unwrap());d[74..82].copy_from_slice(&crate::legacy_sell::add(n,cf)?.to_le_bytes());}else{crate::trade::quote_payments::move_native(&a.bonding_curve,&a.creator_vault,cf)?;}}
+-     let bb=rem.get(index+1).ok_or_else(||error!(PumpError::BuybackFeeRecipientMissing))?;a.global.validate_buyback_fee_recipient(*bb.key)?;
++     let bb=crate::legacy_sell::buyback_fee_recipient(rem,&a.global,index+1)?;
+      if output!=0 {crate::trade::quote_payments::transfer_native_unchecked(&a.bonding_curve,&a.user,output)?;}
+      let (bf,protocol_fee)=crate::buy_v2::recipient_payments::split_protocol_fee(&a.global,pf,c.is_mayhem_mode);
+      if bf!=0 {crate::trade::quote_payments::move_native(&a.bonding_curve,&bb,bf)?;}
+diff -ruN -x target /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/sell.rs /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyA/src/src/sell.rs
+--- /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/sell.rs	2026-10-27 22:17:03
++++ /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyA/src/src/sell.rs	2026-10-27 22:40:18
+@@ -49,3 +49,100 @@
+ 
+ #[path="util/fee.rs"]
+ pub mod fee_math;
++
++// layout-pad(72): aligns the next Source site with the original line
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++pub fn check_bonding_curve_v2<'info>(remaining_accounts:&[AccountInfo<'info>],mint:&Pubkey)->Result<()>{
++    require!(!remaining_accounts.is_empty(),PumpError::InvalidBondingCurveV2);let bonding_curve_v2=&remaining_accounts[0];
++    let (expected,_)=Pubkey::find_program_address(&[b"bonding-curve-v2",mint.as_ref()],&crate::ID);
++// layout-pad(5): aligns the next Source site with the original line
++
++
++
++
++    require!(bonding_curve_v2.key()==expected,PumpError::InvalidBondingCurveV2);
++    Ok(())
++}
++// layout-pad(8): aligns the next Source site with the original line
++
++
++
++
++
++
++
++pub fn buyback_fee_recipient<'a,'info>(remaining_accounts:&'a [AccountInfo<'info>],global:&Global,index:usize)->Result<&'a AccountInfo<'info>>{
++    require!(index<remaining_accounts.len(),PumpError::BuybackFeeRecipientMissing);let account=&remaining_accounts[index];
++    global.validate_buyback_fee_recipient(account.key()).map(|_|account)
++
++}
+diff -ruN -x target /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/sell_v2.rs /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyA/src/src/sell_v2.rs
+--- /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/sell_v2.rs	2026-10-27 22:17:03
++++ /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/coordbodyA/src/src/sell_v2.rs	2026-10-27 22:52:49
+@@ -250,8 +250,8 @@
+  if a.user_volume_accumulator.user==Pubkey::default(){a.user_volume_accumulator.user=a.user.key();}
+  if a.bonding_curve.quote_mint!=Pubkey::default(){
+   crate::buy_v2::admit_associated_token_account(a.associated_quote_bonding_curve.as_ref(),&a.bonding_curve.to_account_info(),&a.quote_mint.key(),&a.quote_token_program.key(),a.user.as_ref(),&a.quote_mint.to_account_info(),false,a.system_program.as_ref(),a.quote_token_program.as_ref())?;
+-  require_keys_eq!(*a.associated_quote_user.owner,a.quote_token_program.key(),PumpError::AccountTypeNotSupported);
+-  check_token(&a.associated_quote_user,a.quote_mint.key(),a.user.key())?;{let d=a.associated_quote_user.try_borrow_data()?;let t=TokenAccount::try_deserialize(&mut &d[..])?;require_keys_eq!(t.owner,a.user.key(),PumpError::AccountTypeNotSupported);}
++  crate::buy_v2::check_token_account(&a.associated_quote_user,a.user.as_ref(),&a.quote_mint.key(),&a.quote_token_program.key())?;
++
+   for (destination,authority) in [(a.associated_creator_vault.to_account_info(),a.creator_vault.to_account_info()),(a.associated_user_volume_accumulator.to_account_info(),a.user_volume_accumulator.to_account_info()),(a.associated_quote_fee_recipient.to_account_info(),a.fee_recipient.to_account_info()),(a.associated_quote_buyback_fee_recipient.to_account_info(),a.buyback_fee_recipient.to_account_info())]{
+    crate::buy_v2::admit_associated_token_account(&destination,&authority,&a.quote_mint.key(),&a.quote_token_program.key(),a.user.as_ref(),&a.quote_mint.to_account_info(),true,a.system_program.as_ref(),a.quote_token_program.as_ref())?;
+   }

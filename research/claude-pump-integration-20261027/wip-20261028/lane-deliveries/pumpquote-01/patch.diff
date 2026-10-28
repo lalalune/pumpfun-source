@@ -1,0 +1,342 @@
+diff -ruN /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/create_v2.rs /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/pumpquote/src/src/create_v2.rs
+--- /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/create_v2.rs	2026-10-27 22:17:03
++++ /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/pumpquote/src/src/create_v2.rs	2026-10-27 22:48:06
+@@ -267,7 +267,7 @@
+  }
+ }
+ 
+-mod nested_create {
++pub(crate) mod nested_create {
+ //! Source hypothesis for the create-linked ancestor walk; see the publication ledger.
+ //! Numeric/local contracts are recovered. Framework error payloads and runtime ABI
+ //! remain conditional; these are natural Rust types, not an original memory layout.
+@@ -277,16 +277,16 @@
+ 
+ const CURVE_DISC: [u8; 8] = [23, 183, 248, 55, 96, 216, 172, 96];
+ const POOL_DISC: [u8; 8] = [241, 154, 109, 4, 17, 177, 109, 188];
+-use crate::quote_control::state::control_entry;
++use crate::quote_control::state::control_entry;use crate::pump_quote::price;
+ const AMM: Pubkey = anchor_lang::solana_program::pubkey!("pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA");
+ 
+ #[derive(Clone, Copy)]
+-enum Record {
++pub(crate) enum Record {
+     Curve { vt: u64, vq: u64, rt: u64, rq: u64, pool_base: u64, migration_fee: u64 },
+     Pool { base: u64, quote: u128 },
+ }
+ 
+-fn overflow() -> anchor_lang::error::Error { error!(PumpError::Overflow) }
++pub(crate) fn overflow() -> anchor_lang::error::Error { error!(PumpError::Overflow) }
+ fn u64_at(data: &[u8], at: usize) -> u64 {
+     u64::from_le_bytes(data[at..at + 8].try_into().unwrap())
+ }
+@@ -434,49 +434,5 @@
+     }
+     // No positional-depth equality, repeated eligibility, or tail-count guard.
+     Ok((price(g, seed, &records[..usize::from(depth)])?, depth))
+-}
+-
+-fn constant_product(base: u64, quote: u128, amount: u128) -> Result<u128> {
+-    require!(quote != 0, PumpError::DivisionByZero);
+-    let denominator = quote.checked_add(amount).ok_or_else(overflow)?;
+-    let numerator = (base as u128).checked_mul(amount).ok_or_else(overflow)?;
+-    require!(denominator != 0, PumpError::DivisionByZero);
+-    Ok(numerator / denominator)
+-}
+-
+-fn convert(record: Record, amount: u128) -> Result<u128> {
+-    match record {
+-        Record::Pool { base, quote } => constant_product(base, quote, amount),
+-        Record::Curve { vt, vq, rt, rq, pool_base, migration_fee } => {
+-            let output = constant_product(vt, vq as u128, amount)?;
+-            if output <= rt as u128 { return Ok(output); }
+-            let numerator = rt as u128 * vq as u128;
+-            let denominator = vt.checked_sub(rt).ok_or_else(overflow)?;
+-            require!(denominator != 0, PumpError::DivisionByZero);
+-            // Bounded u64 operands guarantee that this floor-plus-one fits u128.
+-            let completion = numerator / denominator as u128 + 1;
+-            let remainder = amount.saturating_sub(completion);
+-            if remainder <= 1 { return Ok(rt as u128); }
+-            let pool_quote = (completion + rq as u128)
+-                .checked_sub(migration_fee as u128).ok_or_else(overflow)?;
+-            let extra = constant_product(pool_base, pool_quote, remainder - 1)?;
+-            (rt as u128).checked_add(extra).ok_or_else(overflow)
+-        }
+-    }
+-}
+-
+-fn price(g: &Global, seed: u64, records: &[Record]) -> Result<u64> {
+-    let real = g.initial_real_token_reserves;
+-    let numerator = real as u128 * seed as u128;
+-    let difference = g.initial_virtual_token_reserves.checked_sub(real).ok_or_else(overflow)?;
+-    require!(difference != 0, PumpError::DivisionByZero);
+-    let mut amount = numerator / difference as u128;
+-    for record in records.iter().rev() { amount = convert(*record, amount)?; }
+-    let difference = g.initial_virtual_token_reserves.checked_sub(real).ok_or_else(overflow)?;
+-    let numerator = amount.checked_mul(difference as u128).ok_or_else(overflow)?;
+-    require!(real != 0, PumpError::DivisionByZero);
+-    let reserves = u64::try_from(numerator / real as u128).map_err(|_| overflow())?;
+-    require_gte!(reserves, 1, PumpError::QuoteReservesOutOfRange);
+-    Ok(reserves)
+ }
+ }
+diff -ruN /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/lib.rs /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/pumpquote/src/src/lib.rs
+--- /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/lib.rs	2026-10-27 22:17:03
++++ /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/pumpquote/src/src/lib.rs	2026-10-27 22:48:09
+@@ -59,7 +59,7 @@
+ #[path = "trade_v3.rs"] pub mod trade;
+ pub use trade::*;
+ 
+-pub mod quote_control;
++pub mod quote_control;#[path="pump_quote.rs"]mod pump_quote;
+ #[path="util/transfer_fee.rs"] pub mod transfer_fee_recovered;
+ #[path="util/constant_product.rs"] pub mod constant_product;
+ #[path="util/account_name.rs"] pub mod account_name;
+diff -ruN /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/pump_quote.rs /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/pumpquote/src/src/pump_quote.rs
+--- /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/base/current/pump/src/pump_quote.rs	1969-12-31 16:00:00
++++ /Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/pumpquote/src/src/pump_quote.rs	2026-10-27 22:49:17
+@@ -0,0 +1,244 @@
++//! Quote reserve math recovered as its own module (programs/pump/src/pump_quote.rs).
++use crate::{Global, PumpError};
++use crate::create_v2::nested_create::{Record, overflow};
++use anchor_lang::prelude::*;
++// layout-pad
++fn constant_product(base: u64, quote: u128, amount: u128) -> Result<u128> {
++    require!(quote != 0, PumpError::DivisionByZero);
++    let denominator = quote.checked_add(amount).ok_or_else(overflow)?;
++    let numerator = (base as u128).checked_mul(amount).ok_or_else(overflow)?;
++    require!(denominator != 0, PumpError::DivisionByZero);
++    Ok(numerator / denominator)
++}
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++fn convert(record: Record, amount: u128) -> Result<u128> {
++    match record {
++        Record::Pool { base, quote } => constant_product(base, quote, amount),
++        Record::Curve { vt, vq, rt, rq, pool_base, migration_fee } => {
++            let output = constant_product(vt, vq as u128, amount)?;
++            if output <= rt as u128 { return Ok(output); }
++            let numerator = rt as u128 * vq as u128;
++            let denominator = vt.checked_sub(rt).ok_or_else(overflow)?;
++            require!(denominator != 0, PumpError::DivisionByZero);
++            // Bounded u64 operands guarantee that this floor-plus-one fits u128.
++            let completion = numerator / denominator as u128 + 1;
++            let remainder = amount.saturating_sub(completion);
++            if remainder <= 1 { return Ok(rt as u128); }
++            let pool_quote = (completion + rq as u128).checked_sub(migration_fee as u128).ok_or_else(|| error!(PumpError::Overflow))?;
++            let extra = constant_product(pool_base, pool_quote, remainder - 1)?;
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++            (rt as u128).checked_add(extra).ok_or_else(|| error!(PumpError::Overflow))
++        }
++    }
++}
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++pub(crate) fn price(g: &Global, seed: u64, records: &[Record]) -> Result<u64> {
++    let real = g.initial_real_token_reserves;
++    let numerator = real as u128 * seed as u128;
++    let difference = g.initial_virtual_token_reserves.checked_sub(real).ok_or_else(overflow)?;
++    require!(difference != 0, PumpError::DivisionByZero);
++    let mut amount = numerator / difference as u128;
++    for record in records.iter().rev() { amount = convert(*record, amount)?; }
++    let difference = g.initial_virtual_token_reserves.checked_sub(real).ok_or_else(overflow)?;
++    let numerator = amount.checked_mul(difference as u128).ok_or_else(overflow)?;
++    require!(real != 0, PumpError::DivisionByZero);
++    let reserves = u64::try_from(numerator / real as u128).map_err(|_| overflow())?;
++    require_gte!(reserves, 1, PumpError::QuoteReservesOutOfRange);
++    Ok(reserves)
++}

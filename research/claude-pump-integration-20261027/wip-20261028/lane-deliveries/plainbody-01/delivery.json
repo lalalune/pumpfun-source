@@ -1,0 +1,23 @@
+{
+ "lane": "plainbody",
+ "base_round": "L06",
+ "base_unstripped_sha256": "7bc1563b4965a9632d3362b271fe1e63ced8cb4eceda3a7aaa58fc86a025ee5e",
+ "unstripped_sha256": "9f12a5df0bc69378f51e93c49367f91b95c57a6cc2e91dd513fc267791e54be5",
+ "candidate_sha256": "8e3b20e93adee5070ff5c8dcb4af8a4726530a1ef661531f8b9f51a24bf8ca5e",
+ "normalized": 900,
+ "raw": 165,
+ "gains": [
+  "0x49708"
+ ],
+ "losses": [],
+ "raw_gains": [],
+ "raw_losses": [],
+ "runtime_valid": true,
+ "recipe": "identity",
+ "synthetic_layout": false,
+ "files_changed": [
+  "src/migrate.rs"
+ ],
+ "experiment": "e01",
+ "summary": "migrate v1 refund_pool_authority: seeds as nested temporary into inlined closure (bodyloB-01 form) -> +0x49708"
+}

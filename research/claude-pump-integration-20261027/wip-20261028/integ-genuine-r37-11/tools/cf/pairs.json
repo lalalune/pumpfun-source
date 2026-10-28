@@ -1,0 +1,219 @@
+{
+ "comment": "coordfiles manual window pairs. cand = regex (fullmatch) on the demangled candidate symbol; index = n-th match ordered by (file,line) of its sites; mode shape (identical up to Source slots, default) or bycode (body differs: sites aligned by error-code sequence = pre-positioning only). file/line optionally filter candidates by a site's file / line.",
+ "pairs": [
+  {
+   "orig": "0x412b8",
+   "cand": "pump_recovered::migrate::execute::_?\\{\\{closure\\}\\}",
+   "index": 0,
+   "why": "orig migrate::execute 0x3fb70 calls Overflow closures :280 (checked_add of two curve fields, +0x940) and :282 (checked_sub of that sum, +0x980); ours has only real_quote.checked_sub(fee) -> :282 (round-1 coord analysis)"
+  },
+  {
+   "orig": "0x4bd48",
+   "cand": "pump_recovered::migrate_v2::execute::_?\\{\\{closure\\}\\}",
+   "index": 0,
+   "why": "orig migrate_v2 parent 0x49888 calls :309 (checked_add), :313 (checked_sub of that sum), :326 (token amount checked_sub); ours migrate_v2.rs `real_quote.checked_sub(fee)` -> :313"
+  },
+  {
+   "orig": "0x4bf50",
+   "cand": "pump_recovered::migrate_v2::execute::_?\\{\\{closure\\}\\}",
+   "index": 1,
+   "why": "ours `quote_amount(&tmpq)?.checked_sub(quote_before)` (post-CPI token amount delta) -> :326"
+  },
+  {
+   "orig": "0x81848",
+   "cand": "pump_recovered::trade::add",
+   "index": 0,
+   "why": "single 600-B Overflow add helper in the original (trade_v3.rs:390) called from the v3 handlers; ours trade::add is the trade_v3.rs copy"
+  },
+  {
+   "orig": "0xa9eb8",
+   "cand": ".*BuyV2 as anchor_lang::Accounts.*",
+   "file": "buy_v2.rs",
+   "index": 0,
+   "why": "BuyV2/LegacyBuy/SellV2/SellV3 try_accounts share one shape; the file decides (buy_v2.rs:129)"
+  },
+  {
+   "orig": "0xebaa0",
+   "cand": ".*SellV2 as anchor_lang::Accounts.*",
+   "file": "sell_v2.rs",
+   "index": 0,
+   "why": "same shape group; sell_v2.rs:32"
+  },
+  {
+   "orig": "0x105b78",
+   "cand": ".*SellV3 as anchor_lang::Accounts.*",
+   "file": "trade_v3.rs",
+   "index": 0,
+   "why": "same shape group; trade_v3.rs:38"
+  },
+  {
+   "orig": "0xb3b90",
+   "cand": ".*CreateV2 as anchor_lang::Accounts.*",
+   "file": "create_v2.rs",
+   "index": 0,
+   "why": "CreateV2 vs Create try_accounts closures share one shape; create_v2.rs:27"
+  },
+  {
+   "orig": "0x14910",
+   "cand": "pump_recovered::buy_v2::admit_associated_token_account",
+   "mode": "bycode",
+   "why": "orig codes 2006,3012,6010,6004 at :55/:60/:81/:88 = ours in the same order"
+  },
+  {
+   "orig": "0x7e0b0",
+   "cand": "pump_recovered::trade::validate_trade",
+   "mode": "bycode",
+   "why": "orig trade_v3.rs:149 x2 (6005); near-miss body"
+  },
+  {
+   "orig": "0x7bfd8",
+   "cand": "pump_recovered::token_incentives::volume_accumulator::update",
+   "mode": "bycode",
+   "why": "orig volume_accumulator.rs:103 (6025)"
+  },
+  {
+   "orig": "0x3fb70",
+   "cand": "pump_recovered::migrate::execute",
+   "mode": "bycode",
+   "why": "orig migrate.rs:251 (6006)"
+  },
+  {
+   "orig": "0x1557e8",
+   "cand": "pump_recovered::idl_authority::execute",
+   "mode": "bycode",
+   "why": "orig admin_set_idl_authority.rs:72/79/90 (6010 x3) = ours :36/:38/:39"
+  },
+  {
+   "orig": "0x37e08",
+   "cand": "pump_recovered::creator_migration::execute",
+   "mode": "bycode",
+   "why": "orig creator/migrate_bonding_curve_creator.rs:46 x2 (6083)"
+  },
+  {
+   "orig": "0x22a10",
+   "cand": "pump_recovered::admin_cto::execute",
+   "mode": "bycode",
+   "why": "orig creator/admin_cto.rs:284..719 = ours admin_cto::execute (same code family 6083..6093)"
+  },
+  {
+   "orig": "0x34558",
+   "cand": "pump_recovered::holder_distribution::execute",
+   "mode": "bycode",
+   "why": "orig creator/distribute_fee_to_holders.rs:82..164 (6085,6087,6085,6024,6086)"
+  },
+  {
+   "orig": "0x3dd78",
+   "cand": "pump_recovered::legacy_sell::fee_recipient::validate_fee_recipient",
+   "mode": "bycode",
+   "why": "orig fee_recipient.rs:35 x2 (6000)"
+  },
+  {
+   "orig": "0x72810",
+   "cand": "pump_recovered::sweep::execute",
+   "mode": "bycode",
+   "why": "orig sweep_fees.rs:123 (6000) / :145 (2006)"
+  },
+  {
+   "orig": "0x144508",
+   "cand": "pump_recovered::sell_v2::execute",
+   "mode": "bycode",
+   "why": "orig sell_v2.rs:243..379 sell_v2 handler"
+  },
+  {
+   "orig": "0x1e7c0",
+   "cand": "pump_recovered::create_v2::execute",
+   "mode": "bycode",
+   "why": "orig create_v2.rs:198..778 create_v2 handler"
+  },
+  {
+   "orig": "0x32840",
+   "cand": "pump_recovered::distribution::distribute_creator_fees::execute",
+   "mode": "bycode",
+   "why": "orig creator/distribute_creator_fees.rs:241 (6051) / :249 (6095) = ours SharingConfigNotActive, CreatorFeesNotSwept"
+  },
+  {
+   "orig": "0x311f8",
+   "cand": "pump_recovered::distribution::distribute_creator_fees::get_distribution_amounts",
+   "mode": "bycode",
+   "why": "orig :103..158 shareholder/remaining-account checks + Overflow"
+  },
+  {
+   "orig": "0x2d920",
+   "cand": "pump_recovered::distribution::distribute_creator_fee_v2::execute_v2",
+   "mode": "bycode",
+   "why": "orig creator/distribute_creator_fee_v2.rs:205 (6051) / :213 (6095)"
+  },
+  {
+   "orig": "0x2bf18",
+   "cand": "pump_recovered::distribution::distribute_creator_fee_v2::get_token_distribution_amounts",
+   "mode": "bycode",
+   "why": "orig :101..168 token shareholder checks"
+  },
+  {
+   "orig": "0x147ba0",
+   "cand": "pump_recovered::trade::buy",
+   "mode": "bycode",
+   "why": "buy_v3 handler (trade_v3.rs:801..842)"
+  },
+  {
+   "orig": "0x1489f8",
+   "cand": "pump_recovered::trade::buy_exact_quote",
+   "mode": "bycode",
+   "why": "buy_exact_quote_in_v3 handler (trade_v3.rs:881..1001)"
+  },
+  {
+   "orig": "0x14a8a8",
+   "cand": "pump_recovered::trade::sell",
+   "mode": "bycode",
+   "why": "sell_v3 handler (trade_v3.rs:1126..1155)"
+  },
+  {
+   "orig": "0x13b9b8",
+   "cand": "pump_recovered::buy_v2::buy_handler",
+   "mode": "bycode",
+   "why": "buy_v2 handler (buy_v2.rs:345..500)"
+  },
+  {
+   "orig": "0x13f630",
+   "cand": "pump_recovered::buy_v2::buy_exact_quote_in_handler",
+   "mode": "bycode",
+   "why": "buy_exact_quote_in_v2 handler (buy_v2.rs:767..995)"
+  },
+  {
+   "orig": "0x7c720",
+   "cand": "pump_recovered::token_incentives::volume_accumulator::update_schedule",
+   "mode": "bycode",
+   "why": "orig volume_accumulator.rs:297..394"
+  },
+  {
+   "orig": "0x6a1e0",
+   "cand": "pump_recovered::quote_control::state::control_entry",
+   "mode": "bycode",
+   "why": "orig quote_control/state.rs:145 x2 / :158 (6075)"
+  },
+  {
+   "orig": "0x68bd8",
+   "cand": "pump_recovered::quote_control::state::QuoteControl::validate_new_mint",
+   "mode": "bycode",
+   "why": "orig quote_control/state.rs:62..82 (already on the same lines)"
+  },
+  {
+   "orig": "0x6a8a8",
+   "cand": "pump_recovered::quote_control::update_quote_control_mints::add_quote_control_mint",
+   "mode": "bycode",
+   "why": "orig update_quote_control_mints.rs:71 (6024)"
+  },
+  {
+   "orig": "0x76a28",
+   "cand": "pump_recovered::token_incentives::claim_token_incentives::cashback::claim",
+   "mode": "bycode",
+   "why": "orig token_incentives/claim_token_incentives.rs:252 x2 (6024) = ours cashback claim checked_add"
+  },
+  {
+   "orig": "0x77940",
+   "cand": "pump_recovered::token_incentives::claim_token_incentives::cashback::claim_v2",
+   "mode": "bycode",
+   "why": "orig :305 (6064) :310 (6010) :333 (6010) :342 (6076) = ours 6010/6010/6076"
+  }
+ ]
+}

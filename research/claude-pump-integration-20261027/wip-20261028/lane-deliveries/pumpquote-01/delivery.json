@@ -1,0 +1,23 @@
+{
+ "lane": "pumpquote",
+ "base_round": "L06",
+ "base_unstripped_sha256": "7bc1563b4965a9632d3362b271fe1e63ced8cb4eceda3a7aaa58fc86a025ee5e",
+ "unstripped_sha256": "8d5c8db4e03f625c76484e480d8d64ddafe2fd4220b468217bc4ce2bab1d184f",
+ "normalized": 901,
+ "raw": 165,
+ "gains": [
+  "0x63530",
+  "0x63738"
+ ],
+ "losses": [],
+ "raw_gains": [],
+ "raw_losses": [],
+ "runtime_valid": true,
+ "synthetic_layout": false,
+ "files_changed": [
+  "src/create_v2.rs",
+  "src/lib.rs",
+  "src/pump_quote.rs"
+ ],
+ "summary": "New programs/pump/src/pump_quote.rs module: moved constant_product/convert/price out of create_v2::nested_create; convert's two Overflow sites written as inline || error!(PumpError::Overflow) closures at pump_quote.rs:212 and :222 -> match original closures 0x63530 (line 212) and 0x63738 (line 222)."
+}

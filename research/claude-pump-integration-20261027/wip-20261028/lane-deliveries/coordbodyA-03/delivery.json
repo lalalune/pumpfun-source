@@ -1,0 +1,30 @@
+{
+ "lane": "coordbodyA",
+ "base_round": "L06",
+ "base_unstripped_sha256": "7bc1563b4965a9632d3362b271fe1e63ced8cb4eceda3a7aaa58fc86a025ee5e",
+ "unstripped_sha256": "e71dea66308953c854ca8a355fc9de64c8c474ed86de2791f88b483469b7bfdf",
+ "candidate_sha256": "556f85f50c35044c42f837704af6a2ad82bc183235cf545249354e22b92c4fce",
+ "normalized": 903,
+ "raw": 165,
+ "gains": [
+  "0x160d0",
+  "0x3dd78",
+  "0x6eed8",
+  "0x6f3e8"
+ ],
+ "losses": [],
+ "raw_gains": [],
+ "raw_losses": [],
+ "runtime_valid": true,
+ "recipe": "identity",
+ "synthetic_layout": false,
+ "files_changed": [
+  "src/buy.rs",
+  "src/buy_v2.rs",
+  "src/fee_recipient.rs",
+  "src/lib.rs",
+  "src/sell.rs",
+  "src/sell_v2.rs"
+ ],
+ "summary": "buy_v2.rs check_token_account (buy_v2.rs:109/116/121) shared by v2 buy/buy_exact_quote_in/sell_v2 (+0x160d0; cumulative with -01/-02)"
+}

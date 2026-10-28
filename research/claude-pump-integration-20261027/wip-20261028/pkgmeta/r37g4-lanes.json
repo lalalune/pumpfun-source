@@ -1,0 +1,122 @@
+[
+ {
+  "lane": "pump-hi",
+  "session": "Parallel subagents for contract completion (Claude)",
+  "branch": "claude/pump-hi-20261027",
+  "commit": "d386ea66a",
+  "windows": [
+   "0xea68",
+   "0xf130",
+   "0xca628",
+   "0xcf510",
+   "0x10a0e0",
+   "0x10b0b8",
+   "0x10c0b8",
+   "0x10d638",
+   "0x10e938",
+   "0x10fb38",
+   "0x1100f8",
+   "0x110d40",
+   "0x1113c8",
+   "0x112220",
+   "0x1133c8",
+   "0x113f00",
+   "0x114d48",
+   "0x116718",
+   "0x118360",
+   "0x119c50",
+   "0x1255a8",
+   "0x12a4e0",
+   "0x12abc8",
+   "0x137fc0",
+   "0x163ea8"
+  ],
+  "files": [
+   "src/lib.rs",
+   "src/buy.rs",
+   "src/mayhem_virtual_params.rs",
+   "src/migrate.rs",
+   "src/creator/admin_cto.rs",
+   "idls/pump_amm.json"
+  ],
+  "summary": "Round37-aware tools/apply_lane_changes.py --with-cpi-7 --with-fee-8 (items already in Round37 are skipped; Round37's own idls/pump_fees.json and pump_fees client are kept): const-generic legacy buy, SetMayhemVirtualParams layout and handler, declare_program!(pump_amm) generated CPI clients (migrate_v2 keeps its hand-built CPIs to stay within the 4 KiB SBF frame), collect_coin_creator_fee client built inside `if !frozen`. That lane reports the 44-suite corpus passing for the equivalent Round36 H7 candidate."
+ },
+ {
+  "lane": "pump-mid",
+  "session": "Parallel subagents for contract completion (Claude)",
+  "branch": "claude/pump-mid-20261027",
+  "commit": "b975a696d",
+  "windows": [
+   "0xdd700"
+  ],
+  "files": [
+   "src/multi_hop_curve_swap.rs"
+  ],
+  "summary": "CurveHop constraint compares quote_mint.key()==bonding_curve.quote_mint."
+ },
+ {
+  "lane": "pump-lo",
+  "session": "Parallel subagents for contract completion (Claude)",
+  "branch": "claude/pump-lo-20261027",
+  "commit": "fbf3d7392",
+  "windows": [
+   "0x2a8e8"
+  ],
+  "files": [
+   "src/creator/collect_creator_fee.rs",
+   "src/creator/admin_cto.rs"
+  ],
+  "summary": "CollectCreatorFeeV2: exported creator-fee collector taking system_program as &AccountInfo (no argument promotion) and emitting the event by reference. That lane independently reproduced the nearmiss changes below (its p02-p04)."
+ },
+ {
+  "lane": "nearmiss",
+  "session": "Main pump contract completion (this session, workflow lane)",
+  "windows": [
+   "0x340",
+   "0x3b598",
+   "0x3b738",
+   "0x8cc58"
+  ],
+  "files": [
+   "src/buy.rs",
+   "src/legacy_native_payments.rs",
+   "src/v2_native_payments.rs"
+  ],
+  "summary": "require_gt! operand bound before the macro; exported native-payment helpers (external linkage blocks ArgumentPromotion); v2 rent helper keeps an unused leading argument and uses the shared transfer."
+ },
+ {
+  "lane": "nearmiss2",
+  "session": "Main pump contract completion (this session, workflow lane)",
+  "windows": [
+   "0xa23f0"
+  ],
+  "files": [
+   "src/mayhem_virtual_params.rs"
+  ],
+  "summary": "u128 numerator via checked_add(..).ok_or(Overflow)? before checked_mul."
+ },
+ {
+  "lane": "libinst",
+  "session": "Main pump contract completion (this session, workflow lane)",
+  "windows": [
+   "0x95610",
+   "0x184e38",
+   "0x18fc98",
+   "0x1905a8"
+  ],
+  "files": [
+   "src/migrate_v2.rs"
+  ],
+  "summary": "MigrateV2 harvests withheld Token-2022 fees through a pub wrapper around anchor_spl::token_2022_extensions::harvest_withheld_tokens_to_mint."
+ },
+ {
+  "lane": "hostid",
+  "session": "Main pump contract completion (this session, workflow lane)",
+  "windows": [],
+  "files": [
+   "src/create_v2.rs",
+   "src/trade_v3.rs"
+  ],
+  "summary": "Removes two constructs the original does not contain: runtime pubkey! base58 decoding in create_v2::execute (now consts on the existing MAYHEM_ID line) and u128 Display formatting from a require_gt! on a u128 operand in trade_v3.rs (narrowed with the file's narrow()). The library region then has exactly the original's function set and order: +29 raw windows, no normalized change."
+ }
+]
