@@ -8,6 +8,8 @@ Pushed in a hurry, before a usage limit hit. **This is not a verified package.**
 |---|---|---|
 | `integ-layout-r37-11/` | **905 / 165** | Synthetic layout (labelled `// layout-pad` positioning). +117 vs base r37g5, no losses, runtime_valid (no stack warnings). |
 | `integ-genuine-r37-11/` | **813 / 165** | No padding. +25 vs r37g5, no losses, runtime_valid. |
+| `integ-layout-r37-12/` | **907 / 165** | Newest synthetic-layout composite; supersedes 11. Same measurement. |
+| `integ-genuine-r37-12/` | **813 / 165** | Newest genuine composite. |
 
 Each composite contains:
 - `src/`, the crate;

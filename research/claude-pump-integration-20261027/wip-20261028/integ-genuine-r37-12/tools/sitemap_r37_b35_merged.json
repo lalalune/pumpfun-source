@@ -1,0 +1,4699 @@
+{
+ "comment": "coordfiles site map: original Source sites (non-lib.rs) -> our counterparts; anchors feed layout.py",
+ "cand": "/Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/integ-layout/stage/ci36b/unstripped.so",
+ "anchors": [
+  {
+   "file": "quote_control/state.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|\\ error!\\(PumpError::Overflow\\)\\)$",
+   "target": 52,
+   "weight": 1000,
+   "label": "pin:0x68918",
+   "cur": 52,
+   "code": 6024
+  },
+  {
+   "file": "quote_control/state.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|\\ error!\\(PumpError::QuoteMintNotWhitelisted\\)\\)\\?;$",
+   "context": "^self\\.mints\\.remove\\(index\\);$",
+   "nth": 0,
+   "target": 99,
+   "weight": 1000,
+   "label": "pin:0x69978",
+   "cur": 99,
+   "code": 6068
+  },
+  {
+   "file": "quote_control/state.rs",
+   "pattern": "^require_keys_neq!\\($",
+   "context": "^mint,$",
+   "nth": 0,
+   "target": 92,
+   "weight": 1000,
+   "label": "pin:0x69978",
+   "cur": 92,
+   "code": 6069
+  },
+  {
+   "file": "quote_control/state.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|\\ error!\\(PumpError::QuoteMintNotWhitelisted\\)\\)\\?;$",
+   "context": "^let\\ entry\\ =\\ \\&mut\\ self\\.mints\\[index\\];$",
+   "nth": 0,
+   "target": 113,
+   "weight": 1000,
+   "label": "pin:0x69f28",
+   "cur": 113,
+   "code": 6068
+  },
+  {
+   "file": "quote_control/state.rs",
+   "pattern": "^\\#\\[account\\]$",
+   "context": "^pub\\ struct\\ QuoteControl\\ \\{$",
+   "nth": 0,
+   "target": 16,
+   "weight": 1000,
+   "label": "pin:0xe4348",
+   "cur": 16,
+   "code": 3002
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^fn\\ add\\(a:u64,b:u64\\)\\->Result<u64>\\{a\\.checked_add\\(b\\)\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\}$",
+   "target": 390,
+   "weight": 200,
+   "label": "manual:0x81848",
+   "cur": 90,
+   "code": 6024
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^\\#\\[derive\\(Accounts\\)\\]$",
+   "context": "^pub\\ struct\\ BuyV2<'info>\\{$",
+   "nth": 0,
+   "target": 129,
+   "weight": 200,
+   "label": "manual:0xa9eb8",
+   "cur": 25,
+   "code": 4101
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^\\#\\[derive\\(Accounts\\)\\]$",
+   "context": "^pub\\ struct\\ SellV2<'info>\\{$",
+   "nth": 0,
+   "target": 32,
+   "weight": 200,
+   "label": "manual:0xebaa0",
+   "cur": 8,
+   "code": 4101
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^\\#\\[derive\\(Accounts\\)\\]$",
+   "context": "^pub\\ struct\\ SellV3<'info>\\ \\{$",
+   "nth": 0,
+   "target": 38,
+   "weight": 200,
+   "label": "manual:0x105b78",
+   "cur": 8,
+   "code": 4101
+  },
+  {
+   "file": "create_v2.rs",
+   "pattern": "^\\#\\[derive\\(Accounts\\)\\]$",
+   "context": "^pub\\ struct\\ CreateV2<'info>\\{$",
+   "nth": 0,
+   "target": 27,
+   "weight": 200,
+   "label": "manual:0xb3b90",
+   "cur": 12,
+   "code": 4101
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_keys_eq!\\(account\\.key\\(\\),expected,anchor_lang::error::ErrorCode::ConstraintSeeds\\);$",
+   "target": 55,
+   "weight": 2,
+   "label": "pre:0x14910",
+   "cur": 12,
+   "code": 2006
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require!\\(allow_create,anchor_lang::error::ErrorCode::AccountNotInitialized\\);$",
+   "target": 60,
+   "weight": 2,
+   "label": "pre:0x14910",
+   "cur": 14,
+   "code": 3012
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_keys_eq!\\(\\*account\\.owner,\\*token_program,PumpError::AccountTypeNotSupported\\);$",
+   "target": 81,
+   "weight": 2,
+   "label": "pre:0x14910",
+   "cur": 19,
+   "code": 6010
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_keys_eq!\\(token\\.mint,\\*mint,PumpError::MintDoesNotMatchBondingCurve\\);$",
+   "target": 88,
+   "weight": 2,
+   "label": "pre:0x14910",
+   "cur": 22,
+   "code": 6004
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^require!\\(complete==0,PumpError::BondingCurveComplete\\);$",
+   "target": 149,
+   "weight": 2,
+   "label": "pre:0x7e0b0",
+   "cur": 75,
+   "code": 6005
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^require!\\(complete==0,PumpError::BondingCurveComplete\\);$",
+   "target": 149,
+   "weight": 2,
+   "label": "pre:0x7e0b0",
+   "cur": 75,
+   "code": 6005
+  },
+  {
+   "file": "token_incentives/volume_accumulator.rs",
+   "pattern": "^Err\\(_\\)\\ =>\\ return\\ Err\\(error!\\(PumpError::Truncation\\)\\),$",
+   "target": 103,
+   "weight": 2,
+   "label": "pre:0x7bfd8",
+   "cur": 82,
+   "code": 6025
+  },
+  {
+   "file": "migrate.rs",
+   "pattern": "^let\\ a=\\&ctx\\.accounts;crate::trade_types::prepare_bonding_curve\\(\\&a\\.bonding_curve,\\&a\\.system_program,\\&a\\.user\\)\\?;let\\ curve=a\\.bonding_curve\\.to_account_info\\(\\);require!\\(a\\.bonding_curve\\.complete,PumpError::BondingCurveNotComplete\\);if\\ a\\.bonding_curve\\.virtual_token_reserves==0\\&\\&a\\.bonding_curve\\.virtual_quote_reserves==0\\&\\&a\\.bonding_curve\\.real_token_reserves==0\\&\\&a\\.bonding_curve\\.real_quote_reserves==0\\{msg!\\(\"Bonding\\ curve\\ already\\ migrated\"\\);return\\ Ok\\(\\(\\)\\);\\}$",
+   "target": 251,
+   "weight": 2,
+   "label": "pre:0x3fb70",
+   "cur": 47,
+   "code": 6006
+  },
+  {
+   "file": "admin_set_idl_authority.rs",
+   "pattern": "^require!\\(account\\.owner==\\&crate::ID,PumpError::AccountTypeNotSupported\\);$",
+   "target": 72,
+   "weight": 2,
+   "label": "pre:0x1557e8",
+   "cur": 36,
+   "code": 6010
+  },
+  {
+   "file": "admin_set_idl_authority.rs",
+   "pattern": "^require!\\(account\\.data_len\\(\\)>=8,PumpError::AccountTypeNotSupported\\);$",
+   "target": 79,
+   "weight": 2,
+   "label": "pre:0x1557e8",
+   "cur": 38,
+   "code": 6010
+  },
+  {
+   "file": "admin_set_idl_authority.rs",
+   "pattern": "^require!\\(account\\.try_borrow_data\\(\\)\\?\\[\\.\\.8\\]==\\[24,70,98,191,58,144,123,158\\],PumpError::AccountTypeNotSupported\\);$",
+   "target": 90,
+   "weight": 2,
+   "label": "pre:0x1557e8",
+   "cur": 39,
+   "code": 6010
+  },
+  {
+   "file": "creator/admin_cto.rs",
+   "pattern": "^if\\ a\\.bonding_curve\\.is_mayhem_mode\\{return\\ Err\\(error!\\(PumpError::CtoNotAllowedForMayhemCoin\\)\\);\\}if\\ a\\.bonding_curve\\.is_holder_reward\\&\\&holder!=Some\\(true\\)\\{return\\ Err\\(error!\\(PumpError::HolderRewardCreatorImmutable\\)\\);\\}$",
+   "target": 284,
+   "weight": 2,
+   "label": "pre:0x22a10",
+   "cur": 102,
+   "code": 6088
+  },
+  {
+   "file": "creator/admin_cto.rs",
+   "pattern": "^if\\ holder==Some\\(true\\)\\&\\&!a\\.bonding_curve\\.is_holder_reward\\&\\&!a\\.global\\.is_holder_reward_enabled\\{return\\ Err\\(error!\\(PumpError::HolderRewardDisabled\\)\\);\\}$",
+   "target": 296,
+   "weight": 2,
+   "label": "pre:0x22a10",
+   "cur": 103,
+   "code": 6084
+  },
+  {
+   "file": "creator/admin_cto.rs",
+   "pattern": "^if\\ holder\\ \\&\\&\\ new\\.is_some\\(\\)\\{return\\ Err\\(error!\\(PumpError::CtoNewCreatorNotAllowed\\)\\);\\}if\\ !holder\\ \\&\\&\\ new\\.is_none\\(\\)\\{return\\ Err\\(error!\\(PumpError::CtoNewCreatorRequired\\)\\);\\}$",
+   "target": 306,
+   "weight": 2,
+   "label": "pre:0x22a10",
+   "cur": 105,
+   "code": 6089
+  },
+  {
+   "file": "creator/admin_cto.rs",
+   "pattern": "^let\\ mut\\ target=if\\ holder\\{holder_key\\}else\\{new\\.unwrap\\(\\)\\};if\\ target==Pubkey::default\\(\\)\\{return\\ Err\\(error!\\(PumpError::CreatorShouldNotBeZero\\)\\.with_pubkeys\\(\\(target,Pubkey::default\\(\\)\\)\\)\\);\\}if\\ !holder\\ \\&\\&\\ \\(target==holder_key\\|\\|target==a\\.sharing_config\\.key\\(\\)\\)\\{return\\ Err\\(error!\\(PumpError::InvalidCreator\\)\\);\\}$",
+   "target": 312,
+   "weight": 2,
+   "label": "pre:0x22a10",
+   "cur": 106,
+   "code": 6019
+  },
+  {
+   "file": "creator/admin_cto.rs",
+   "pattern": "^if\\ fee\\.is_some\\(\\)\\&\\&\\(a\\.bonding_curve\\.quote_mint==Pubkey::default\\(\\)\\|\\|a\\.bonding_curve\\.quote_mint==anchor_spl::token::spl_token::native_mint::ID\\|\\|a\\.global\\.whitelisted_quote_mints\\.contains\\(\\&a\\.bonding_curve\\.quote_mint\\)\\)\\{return\\ Err\\(error!\\(PumpError::CreatorFeeNotConfigurableForQuote\\)\\);\\}$",
+   "target": 326,
+   "weight": 2,
+   "label": "pre:0x22a10",
+   "cur": 107,
+   "code": 6091
+  },
+  {
+   "file": "creator/admin_cto.rs",
+   "pattern": "^if\\ fee\\.is_some\\(\\)\\&\\&\\(a\\.bonding_curve\\.quote_mint==Pubkey::default\\(\\)\\|\\|a\\.bonding_curve\\.quote_mint==anchor_spl::token::spl_token::native_mint::ID\\|\\|a\\.global\\.whitelisted_quote_mints\\.contains\\(\\&a\\.bonding_curve\\.quote_mint\\)\\)\\{return\\ Err\\(error!\\(PumpError::CreatorFeeNotConfigurableForQuote\\)\\);\\}$",
+   "target": 326,
+   "weight": 2,
+   "label": "pre:0x22a10",
+   "cur": 107,
+   "code": 6091
+  },
+  {
+   "file": "creator/admin_cto.rs",
+   "pattern": "^if\\ fee\\.is_some\\(\\)\\&\\&cashback\\{return\\ Err\\(error!\\(PumpError::CreatorFeeNotAllowedForCashbackCoin\\)\\);\\}$",
+   "target": 330,
+   "weight": 2,
+   "label": "pre:0x22a10",
+   "cur": 108,
+   "code": 6080
+  },
+  {
+   "file": "creator/admin_cto.rs",
+   "pattern": "^require!\\(a\\.bonding_curve\\.creator_fee==0,PumpError::CreatorFeesNotSwept\\);$",
+   "target": 410,
+   "weight": 2,
+   "label": "pre:0x22a10",
+   "cur": 112,
+   "code": 6095
+  },
+  {
+   "file": "creator/admin_cto.rs",
+   "pattern": "^let\\ wallet=old!=Pubkey::default\\(\\)\\&\\&!a\\.current_creator\\.executable\\&\\&a\\.current_creator\\.owner==\\&anchor_lang::system_program::ID;if\\ wallet\\&\\&!a\\.current_creator\\.is_writable\\{return\\ Err\\(error!\\(PumpError::CtoCreatorAccountNotWritable\\)\\);\\}let\\ wallet_frozen=wallet\\&\\&!a\\.current_creator_quote_token_account\\.data_is_empty\\(\\)\\&\\&token_frozen\\(\\&a\\.current_creator_quote_token_account\\.to_account_info\\(\\)\\)\\?;$",
+   "target": 556,
+   "weight": 2,
+   "label": "pre:0x22a10",
+   "cur": 117,
+   "code": 6092
+  },
+  {
+   "file": "creator/admin_cto.rs",
+   "pattern": "^let\\ dest=Pubkey::find_program_address\\(\\&\\[b\"creator\\-vault\",holder_key\\.as_ref\\(\\)\\],\\&crate::ID\\)\\.0;if\\ a\\.holder_creator_vault\\.key\\(\\)!=dest\\{return\\ Err\\(error!\\(anchor_lang::error::ErrorCode::ConstraintSeeds\\)\\.with_pubkeys\\(\\(a\\.holder_creator_vault\\.key\\(\\),dest\\)\\)\\);\\}$",
+   "target": 648,
+   "weight": 2,
+   "label": "pre:0x22a10",
+   "cur": 120,
+   "code": 2006
+  },
+  {
+   "file": "creator/distribute_fee_to_holders.rs",
+   "pattern": "^require!\\(ctx\\.remaining_accounts\\.len\\(\\)==amounts\\.len\\(\\)\\*2,PumpError::HolderRewardRecipientsMismatch\\);$",
+   "target": 82,
+   "weight": 2,
+   "label": "pre:0x34558",
+   "cur": 24,
+   "code": 6085
+  },
+  {
+   "file": "creator/distribute_fee_to_holders.rs",
+   "pattern": "^let\\ source=a\\.holder_rewards_token_account\\.as_ref\\(\\)\\.ok_or_else\\(\\|\\|error!\\(PumpError::HolderRewardTokenAccountMissing\\)\\)\\?;$",
+   "target": 120,
+   "weight": 2,
+   "label": "pre:0x34558",
+   "cur": 33,
+   "code": 6087
+  },
+  {
+   "file": "creator/distribute_fee_to_holders.rs",
+   "pattern": "^require_keys_eq!\\(\\*pair\\[1\\]\\.key,anchor_spl::associated_token::get_associated_token_address_with_program_id\\(pair\\[0\\]\\.key,\\&a\\.quote_mint\\.key\\(\\),\\&a\\.quote_token_program\\.key\\(\\)\\),PumpError::HolderRewardRecipientsMismatch\\);$",
+   "target": 122,
+   "weight": 2,
+   "label": "pre:0x34558",
+   "cur": 34,
+   "code": 6085
+  },
+  {
+   "file": "creator/distribute_fee_to_holders.rs",
+   "pattern": "^total=total\\.checked_add\\(\\*amount\\)\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?;$",
+   "target": 157,
+   "weight": 2,
+   "label": "pre:0x34558",
+   "cur": 38,
+   "code": 6024
+  },
+  {
+   "file": "creator/distribute_fee_to_holders.rs",
+   "pattern": "^if\\ native\\ \\{let\\ balance=a\\.holder_rewards\\.lamports\\(\\);require!\\(balance==0\\|\\|balance>=Rent::get\\(\\)\\?\\.minimum_balance\\(0\\),PumpError::HolderRewardsRentFloor\\);\\}$",
+   "target": 164,
+   "weight": 2,
+   "label": "pre:0x34558",
+   "cur": 40,
+   "code": 6086
+  },
+  {
+   "file": "sweep_fees.rs",
+   "pattern": "^if\\ creator\\{let\\ expected=Pubkey::find_program_address\\(\\&\\[b\"creator\\-vault\",a\\.bonding_curve\\.creator\\.as_ref\\(\\)\\],\\&crate::ID\\)\\.0;require_keys_eq!\\(a\\.recipient\\.key\\(\\),expected,anchor_lang::error::ErrorCode::ConstraintSeeds\\);\\}$",
+   "target": 145,
+   "weight": 2,
+   "label": "pre:0x72810",
+   "cur": 28,
+   "code": 2006
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^require!\\(!c\\.complete,PumpError::BondingCurveComplete\\);$",
+   "target": 243,
+   "weight": 2,
+   "label": "pre:0x144508",
+   "cur": 58,
+   "code": 6005
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^require_gt!\\(amount,0,PumpError::SellZeroAmount\\);$",
+   "target": 245,
+   "weight": 2,
+   "label": "pre:0x144508",
+   "cur": 59,
+   "code": 6022
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^require_gte!\\(a\\.associated_base_user\\.amount,amount,PumpError::NotEnoughTokensToSell\\);$",
+   "target": 247,
+   "weight": 2,
+   "label": "pre:0x144508",
+   "cur": 60,
+   "code": 6023
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^require_gte!\\(net_output,minimum,PumpError::TooLittleSolReceived\\);$",
+   "target": 379,
+   "weight": 2,
+   "label": "pre:0x144508",
+   "cur": 84,
+   "code": 6003
+  },
+  {
+   "file": "create_v2.rs",
+   "pattern": "^require_eq!\\(a\\.global\\.mayhem_mode_enabled,true,PumpError::MayhemModeDisabled\\);$",
+   "target": 709,
+   "weight": 2,
+   "label": "pre:0x1e7c0",
+   "cur": 39,
+   "code": 6048
+  },
+  {
+   "file": "create_v2.rs",
+   "pattern": "^require!\\(!is_cashback_enabled\\.0,PumpError::CashbackDeprecated\\);$",
+   "target": 716,
+   "weight": 2,
+   "label": "pre:0x1e7c0",
+   "cur": 41,
+   "code": 6082
+  },
+  {
+   "file": "create_v2.rs",
+   "pattern": "^let\\ creator=if\\ is_holder_reward\\.0\\ \\{require!\\(a\\.global\\.is_holder_reward_enabled,PumpError::HolderRewardDisabled\\);Pubkey::find_program_address\\(\\&\\[b\"holder\\-rewards\",a\\.mint\\.key\\(\\)\\.as_ref\\(\\)\\],\\&crate::ID\\)\\.0\\}else\\{creator\\};$",
+   "target": 719,
+   "weight": 2,
+   "label": "pre:0x1e7c0",
+   "cur": 42,
+   "code": 6084
+  },
+  {
+   "file": "create_v2.rs",
+   "pattern": "^require_keys_neq!\\(creator,Pubkey::default\\(\\),PumpError::CreatorShouldNotBeZero\\);$",
+   "target": 732,
+   "weight": 2,
+   "label": "pre:0x1e7c0",
+   "cur": 43,
+   "code": 6030
+  },
+  {
+   "file": "create_v2.rs",
+   "pattern": "^require_eq!\\(a\\.global\\.create_v2_enabled,true,PumpError::CreateV2Disabled\\);$",
+   "target": 738,
+   "weight": 2,
+   "label": "pre:0x1e7c0",
+   "cur": 44,
+   "code": 6046
+  },
+  {
+   "file": "create_v2.rs",
+   "pattern": "^require!\\(a\\.global\\.whitelisted_quote_mints\\.contains\\(\\&quote_mint\\),PumpError::MayhemModeQuoteMintNotAllowed\\);$",
+   "target": 758,
+   "weight": 2,
+   "label": "pre:0x1e7c0",
+   "cur": 78,
+   "code": 6071
+  },
+  {
+   "file": "create_v2.rs",
+   "pattern": "^require!\\(a\\.global\\.creator_fee_configurable,PumpError::CreatorFeeNotConfigurable\\);$",
+   "target": 774,
+   "weight": 2,
+   "label": "pre:0x1e7c0",
+   "cur": 81,
+   "code": 6077
+  },
+  {
+   "file": "create_v2.rs",
+   "pattern": "^require!\\(creator_fee_bps\\.0<=a\\.global\\.max_configurable_creator_fee_bps,PumpError::CreatorFeeBpsOutOfRange\\);$",
+   "target": 778,
+   "weight": 2,
+   "label": "pre:0x1e7c0",
+   "cur": 82,
+   "code": 6078
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^require_gt!\\(amount,0,PumpError::BuyZeroAmount\\);$",
+   "target": 801,
+   "weight": 2,
+   "label": "pre:0x147ba0",
+   "cur": 99,
+   "code": 6020
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^if\\ \\(curve\\.is_mayhem_mode\\ \\|\\|\\ is_fee_exempt\\)\\ \\&\\&\\ !partial_fill\\{require_gte!\\(curve\\.real_token_reserves,requested_amount,PumpError::NotEnoughTokensToBuy\\);\\}$",
+   "target": 802,
+   "weight": 2,
+   "label": "pre:0x147ba0",
+   "cur": 106,
+   "code": 6021
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^require_gte!\\(max_sol_cost,add\\(pool_quote,total_buyback\\)\\?,PumpError::TooMuchSolRequired\\);$",
+   "target": 842,
+   "weight": 2,
+   "label": "pre:0x147ba0",
+   "cur": 148,
+   "code": 6002
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^require_gt!\\(min_tokens_out,0,PumpError::BuyZeroAmount\\);$",
+   "target": 881,
+   "weight": 2,
+   "label": "pre:0x1489f8",
+   "cur": 201,
+   "code": 6020
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let\\ raw_quote=narrow\\(available\\ as\\ u128\\*10000/\\(10000u128\\+fees\\.protocol_fee_bps\\ as\\ u128\\+creator_bps\\ as\\ u128\\)\\)\\?;require_gt!\\(raw_quote,0,PumpError::BuyNotEnoughSolToCoverFees\\);$",
+   "target": 882,
+   "weight": 2,
+   "label": "pre:0x1489f8",
+   "cur": 230,
+   "code": 6041
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let\\ raw_quote=narrow\\(available\\ as\\ u128\\*10000/\\(10000u128\\+fees\\.protocol_fee_bps\\ as\\ u128\\+creator_bps\\ as\\ u128\\)\\)\\?;require_gt!\\(raw_quote,0,PumpError::BuyNotEnoughSolToCoverFees\\);$",
+   "target": 891,
+   "weight": 2,
+   "label": "pre:0x1489f8",
+   "cur": 230,
+   "code": 6041
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^require!\\(!exceeds\\ \\|\\|\\ !\\(curve\\.is_mayhem_mode\\ \\|\\|\\ is_fee_exempt\\)\\ \\|\\|\\ partial_fill,PumpError::NotEnoughTokensToBuy\\);$",
+   "target": 926,
+   "weight": 2,
+   "label": "pre:0x1489f8",
+   "cur": 237,
+   "code": 6021
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^if\\ !\\(exceeds\\ \\&\\&\\ \\(curve\\.is_mayhem_mode\\ \\|\\|\\ is_fee_exempt\\)\\ \\&\\&\\ partial_fill\\)\\{require_gte!\\(transfer_base,min_tokens_out,PumpError::BuySlippageBelowMinTokensOut\\);\\};$",
+   "target": 971,
+   "weight": 2,
+   "label": "pre:0x1489f8",
+   "cur": 261,
+   "code": 6042
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^require_gt!\\(amount,0,PumpError::SellZeroAmount\\);$",
+   "target": 1126,
+   "weight": 2,
+   "label": "pre:0x14a8a8",
+   "cur": 322,
+   "code": 6022
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^require_gte!\\(a\\.associated_base_user\\.amount,amount,PumpError::NotEnoughTokensToSell\\);$",
+   "target": 1127,
+   "weight": 2,
+   "label": "pre:0x14a8a8",
+   "cur": 325,
+   "code": 6023
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^require_gte!\\(net_output,min_sol_output,PumpError::TooLittleSolReceived\\);$",
+   "target": 1148,
+   "weight": 2,
+   "label": "pre:0x14a8a8",
+   "cur": 348,
+   "code": 6003
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require!\\(!a\\.bonding_curve\\.complete,PumpError::BondingCurveComplete\\);$",
+   "context": "^if\\ partial\\{input=input\\.min\\(a\\.bonding_curve\\.real_token_reserves\\);\\}$",
+   "nth": 0,
+   "target": 345,
+   "weight": 2,
+   "label": "pre:0x13b9b8",
+   "cur": 77,
+   "code": 6005
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_gt!\\(input,0,PumpError::BuyZeroAmount\\);$",
+   "target": 354,
+   "weight": 2,
+   "label": "pre:0x13b9b8",
+   "cur": 79,
+   "code": 6020
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_gte!\\(a\\.bonding_curve\\.real_token_reserves,input,PumpError::NotEnoughTokensToBuy\\);$",
+   "target": 356,
+   "weight": 2,
+   "label": "pre:0x13b9b8",
+   "cur": 80,
+   "code": 6021
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_gte!\\(limit,gross_quote\\.checked_add\\(pf\\)$",
+   "target": 494,
+   "weight": 2,
+   "label": "pre:0x13b9b8",
+   "cur": 111,
+   "code": 6002
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require!\\(!a\\.bonding_curve\\.complete,PumpError::BondingCurveComplete\\);$",
+   "context": "^require_gt!\\(limit,0,PumpError::BuyZeroAmount\\);$",
+   "nth": 0,
+   "target": 767,
+   "weight": 2,
+   "label": "pre:0x13f630",
+   "cur": 161,
+   "code": 6005
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require!\\(!a\\.bonding_curve\\.complete,PumpError::BondingCurveComplete\\);$",
+   "context": "^require_gt!\\(limit,0,PumpError::BuyZeroAmount\\);$",
+   "nth": 0,
+   "target": 767,
+   "weight": 2,
+   "label": "pre:0x13f630",
+   "cur": 161,
+   "code": 6005
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_gt!\\(limit,0,PumpError::BuyZeroAmount\\);$",
+   "target": 769,
+   "weight": 2,
+   "label": "pre:0x13f630",
+   "cur": 162,
+   "code": 6020
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_gt!\\(available,0,PumpError::BuyNotEnoughSolToCoverFees\\);$",
+   "target": 873,
+   "weight": 2,
+   "label": "pre:0x13f630",
+   "cur": 182,
+   "code": 6041
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^let\\ computed=\\{require_gt!\\(raw_quote,0,PumpError::BuyNotEnoughSolToCoverFees\\);require_gt!\\(adjusted,0,PumpError::BuySlippageBelowMinTokensOut\\);let\\ e=adjusted\\.saturating_sub\\(1\\);$",
+   "target": 907,
+   "weight": 2,
+   "label": "pre:0x13f630",
+   "cur": 189,
+   "code": 6041
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^if\\ !\\(partial\\ \\&\\&\\ computed>c\\.real_token_reserves\\)\\{require_gte!\\(amount,limit,PumpError::BuySlippageBelowMinTokensOut\\);\\}$",
+   "target": 921,
+   "weight": 2,
+   "label": "pre:0x13f630",
+   "cur": 198,
+   "code": 6042
+  },
+  {
+   "file": "token_incentives/volume_accumulator.rs",
+   "pattern": "^require_gt!\\(start_time,\\ timestamp,\\ PumpError::StartTimeInThePast\\);$",
+   "target": 359,
+   "weight": 2,
+   "label": "pre:0x7c720",
+   "cur": 151,
+   "code": 6031
+  },
+  {
+   "file": "token_incentives/volume_accumulator.rs",
+   "pattern": "^require_gt!\\(end_time,\\ timestamp,\\ PumpError::EndTimeInThePast\\);$",
+   "target": 369,
+   "weight": 2,
+   "label": "pre:0x7c720",
+   "cur": 156,
+   "code": 6032
+  },
+  {
+   "file": "token_incentives/volume_accumulator.rs",
+   "pattern": "^require_gt!\\(end_time,\\ start_time,\\ PumpError::EndTimeBeforeStartTime\\);$",
+   "target": 371,
+   "weight": 2,
+   "label": "pre:0x7c720",
+   "cur": 157,
+   "code": 6033
+  },
+  {
+   "file": "token_incentives/volume_accumulator.rs",
+   "pattern": "^require_gte!\\(maximum_range\\ \\-\\ 1,\\ range,\\ PumpError::TimeRangeTooLarge\\);$",
+   "target": 373,
+   "weight": 2,
+   "label": "pre:0x7c720",
+   "cur": 164,
+   "code": 6034
+  },
+  {
+   "file": "token_incentives/volume_accumulator.rs",
+   "pattern": "^require_gt!\\(end,\\ current,\\ PumpError::EndTimeBeforeCurrentDay\\);$",
+   "target": 394,
+   "weight": 2,
+   "label": "pre:0x7c720",
+   "cur": 169,
+   "code": 6035
+  },
+  {
+   "file": "quote_control/state.rs",
+   "pattern": "^require!\\(data\\.len\\(\\)\\ >=\\ 108,\\ PumpError::InvalidQuoteControl\\);$",
+   "target": 145,
+   "weight": 2,
+   "label": "pre:0x6a1e0",
+   "cur": 124,
+   "code": 6075
+  },
+  {
+   "file": "quote_control/state.rs",
+   "pattern": "^require!\\(data\\[\\.\\.8\\]\\ ==\\ CONTROL_DISC,\\ PumpError::InvalidQuoteControl\\);$",
+   "target": 145,
+   "weight": 2,
+   "label": "pre:0x6a1e0",
+   "cur": 125,
+   "code": 6075
+  },
+  {
+   "file": "quote_control/state.rs",
+   "pattern": "^let\\ entries\\ =\\ data\\.get\\(108\\.\\.end\\)\\.ok_or_else\\(\\|\\|\\ error!\\(PumpError::InvalidQuoteControl\\)\\)\\?;$",
+   "target": 158,
+   "weight": 2,
+   "label": "pre:0x6a1e0",
+   "cur": 128,
+   "code": 6075
+  },
+  {
+   "file": "quote_control/state.rs",
+   "pattern": "^require_keys_neq!\\($",
+   "context": "^\\*mint,$",
+   "nth": 0,
+   "target": 62,
+   "weight": 2,
+   "label": "pre:0x68bd8",
+   "cur": 62,
+   "code": 6069
+  },
+  {
+   "file": "quote_control/state.rs",
+   "pattern": "^require_keys_neq!\\($",
+   "context": "^\\*mint,$",
+   "nth": 1,
+   "target": 67,
+   "weight": 2,
+   "label": "pre:0x68bd8",
+   "cur": 67,
+   "code": 6069
+  },
+  {
+   "file": "quote_control/state.rs",
+   "pattern": "^require_keys_neq!\\($",
+   "context": "^\\*mint,$",
+   "nth": 2,
+   "target": 72,
+   "weight": 2,
+   "label": "pre:0x68bd8",
+   "cur": 72,
+   "code": 6069
+  },
+  {
+   "file": "quote_control/state.rs",
+   "pattern": "^require_eq!\\($",
+   "target": 77,
+   "weight": 2,
+   "label": "pre:0x68bd8",
+   "cur": 77,
+   "code": 6067
+  },
+  {
+   "file": "quote_control/state.rs",
+   "pattern": "^require_gt!\\($",
+   "target": 82,
+   "weight": 2,
+   "label": "pre:0x68bd8",
+   "cur": 82,
+   "code": 6066
+  },
+  {
+   "file": "quote_control/update_quote_control_mints.rs",
+   "pattern": "^\\.ok_or\\(error!\\(PumpError::Overflow\\)\\)\\?;$",
+   "target": 71,
+   "weight": 2,
+   "label": "pre:0x6a8a8",
+   "cur": 71,
+   "code": 6024
+  },
+  {
+   "file": "token_incentives/claim_token_incentives.rs",
+   "pattern": "^a\\.user_volume_accumulator\\.total_cashback_claimed=a\\.user_volume_accumulator\\.total_cashback_claimed\\.checked_add\\(amount\\)\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?;$",
+   "target": 252,
+   "weight": 2,
+   "label": "pre:0x76a28",
+   "cur": 153,
+   "code": 6024
+  },
+  {
+   "file": "token_incentives/claim_token_incentives.rs",
+   "pattern": "^if\\ !native\\{require_keys_eq!\\(\\*a\\.quote_mint\\.owner,a\\.quote_token_program\\.key\\(\\),PumpError::AccountTypeNotSupported\\);\\}$",
+   "target": 310,
+   "weight": 2,
+   "label": "pre:0x77940",
+   "cur": 159,
+   "code": 6010
+  },
+  {
+   "file": "token_incentives/claim_token_incentives.rs",
+   "pattern": "^require_keys_eq!\\(\\*a\\.associated_quote_user\\.owner,a\\.quote_token_program\\.key\\(\\),PumpError::AccountTypeNotSupported\\);$",
+   "target": 333,
+   "weight": 2,
+   "label": "pre:0x77940",
+   "cur": 166,
+   "code": 6010
+  },
+  {
+   "file": "token_incentives/claim_token_incentives.rs",
+   "pattern": "^let\\ recipient=TokenAccount::try_deserialize\\(\\&mut\\ \\&a\\.associated_quote_user\\.try_borrow_data\\(\\)\\?\\[\\.\\.\\]\\)\\?;require_keys_eq!\\(recipient\\.owner,a\\.user\\.key\\(\\),PumpError::InvalidCashbackRecipient\\);$",
+   "target": 342,
+   "weight": 2,
+   "label": "pre:0x77940",
+   "cur": 167,
+   "code": 6076
+  },
+  {
+   "file": "util/fee.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|\\ error!\\(crate::PumpError::Overflow\\)\\)\\?;$",
+   "context": "^adjusted\\.checked_div\\(denominator\\)$",
+   "nth": 1,
+   "target": 17,
+   "weight": 100,
+   "label": "gain:0x88908",
+   "cur": 9,
+   "code": 6024
+  },
+  {
+   "file": "util/fee.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|\\ error!\\(crate::PumpError::Overflow\\)\\)\\?;$",
+   "context": "^let\\ adjusted\\ =\\ sum\\.checked_sub\\(1\\)$",
+   "nth": 0,
+   "target": 15,
+   "weight": 100,
+   "label": "gain:0x88908",
+   "cur": 7,
+   "code": 6024
+  },
+  {
+   "file": "util/fee.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|\\ error!\\(crate::PumpError::DivisionByZero\\)\\)$",
+   "target": 19,
+   "weight": 100,
+   "label": "gain:0x88908",
+   "cur": 11,
+   "code": 6026
+  },
+  {
+   "file": "util/fee.rs",
+   "pattern": "^u64::try_from\\(value\\)\\.map_err\\(\\|_\\|\\ error!\\(crate::PumpError::Truncation\\)\\)$",
+   "target": 34,
+   "weight": 100,
+   "label": "gain:0x88f90",
+   "cur": 16,
+   "code": 6025
+  },
+  {
+   "file": "create_v2.rs",
+   "pattern": "^\\#\\[derive\\(Accounts\\)\\]$",
+   "context": "^pub\\ struct\\ CreateV2<'info>\\{$",
+   "nth": 0,
+   "target": 27,
+   "weight": 100,
+   "label": "gain:0xb0158",
+   "cur": 12,
+   "code": 4101
+  },
+  {
+   "file": "quote_control/initialize_quote_control.rs",
+   "pattern": "^\\#\\[derive\\(Accounts\\)\\]$",
+   "context": "^pub\\ struct\\ InitializeQuoteControl<'info>\\ \\{$",
+   "nth": 0,
+   "target": 7,
+   "weight": 100,
+   "label": "gain:0xdf2d8",
+   "cur": 5,
+   "code": 4101
+  },
+  {
+   "file": "token_incentives/volume_accumulator.rs",
+   "pattern": "^\\#\\[account\\]$",
+   "context": "^pub\\ struct\\ GlobalVolumeAccumulator\\ \\{$",
+   "nth": 0,
+   "target": 8,
+   "weight": 100,
+   "label": "gain:0x101170",
+   "cur": 4,
+   "code": 3002
+  },
+  {
+   "file": "token_incentives/volume_accumulator.rs",
+   "pattern": "^\\#\\[account\\]$",
+   "context": "^pub\\ struct\\ UserVolumeAccumulator\\{pub\\ user:Pubkey,pub\\ needs_claim:bool,pub\\ total_unclaimed_tokens:u64,pub\\ total_claimed_tokens:u64,pub\\ current_sol_volume:u64,pub\\ last_update_timestamp:i64,pub\\ has_total_claimed_tokens:bool,pub\\ cashback_earned:u64,pub\\ total_cashback_claimed:u64,pub\\ stable_cashback_earned:u64,pub\\ total_stable_cashback_claimed:u64\\}$",
+   "nth": 0,
+   "target": 19,
+   "weight": 100,
+   "label": "gain:0x101c20",
+   "cur": 15,
+   "code": 3002
+  },
+  {
+   "file": "create_v2.rs",
+   "pattern": "^let account = tail\\.first\\(\\)\\.ok_or_else\\(\\|\\| error!\\(PumpError::QuoteChainAccountsRequired\\)\\)\\?;$",
+   "target": 412,
+   "weight": 100,
+   "label": "gain:0x19cc0",
+   "orig": "0x19cc0",
+   "code": 6109,
+   "item": "create_v2::nested_create::walk::{{closure}}"
+  },
+  {
+   "file": "token_incentives/init_user_volume_accumulator.rs",
+   "pattern": "^#\\[derive\\(Accounts\\)\\]$",
+   "context": "^pub struct InitUserVolume<'info>\\{$",
+   "target": 8,
+   "weight": 100,
+   "label": "gain:0xfdf20",
+   "orig": "0xfdf20",
+   "code": 4101,
+   "item": "InitUserVolume try_accounts"
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^require_gt!\\(amount,0,PumpError::SellZeroAmount\\);$",
+   "target": 245,
+   "weight": 2,
+   "label": "pre:0x144508",
+   "orig": "0x144508",
+   "code": 6022
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^require_gte!\\(a\\.associated_base_user\\.amount,amount,PumpError::NotEnoughTokensToSell\\);$",
+   "target": 247,
+   "weight": 2,
+   "label": "pre:0x144508",
+   "orig": "0x144508",
+   "code": 6023
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^let quote=u64::try_from\\(amount as u128\\*c\\.virtual_quote_reserves as u128/\\(c\\.virtual_token_reserves as u128\\+amount as u128\\)\\)\\.map_err\\(\\|_\\|error!\\(PumpError::Truncation\\)\\)\\?;$",
+   "target": 341,
+   "weight": 100,
+   "label": "new:0x6f6d8",
+   "orig": "0x6f6d8",
+   "code": 6025
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?$",
+   "context": "^\\.checked_sub\\(cf\\)$",
+   "target": 366,
+   "weight": 100,
+   "label": "new:0x6f8e0",
+   "orig": "0x6f8e0",
+   "code": 6024
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?;$",
+   "context": "^\\.checked_sub\\(cf\\)$",
+   "target": 368,
+   "weight": 100,
+   "label": "new:0x6fae8",
+   "orig": "0x6fae8",
+   "code": 6024
+  },
+  {
+   "file": "migrate.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?$",
+   "context": "post_complete_quote_in",
+   "target": 280,
+   "weight": 100,
+   "label": "new:0x410b0",
+   "orig": "0x410b0",
+   "code": 6024
+  },
+  {
+   "file": "migrate.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?;$",
+   "context": "^\\.checked_sub\\(fee\\)$",
+   "target": 282,
+   "weight": 100,
+   "label": "new:0x412b8",
+   "orig": "0x412b8",
+   "code": 6024
+  },
+  {
+   "file": "migrate_v2.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?;$",
+   "context": "post_complete_quote_in",
+   "target": 309,
+   "weight": 100,
+   "label": "new:0x4bb40",
+   "orig": "0x4bb40",
+   "code": 6024
+  },
+  {
+   "file": "migrate_v2.rs",
+   "pattern": "^let quote=if native\\{quote\\.checked_sub\\(fee\\)\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?\\}else\\{quote\\};$",
+   "target": 313,
+   "weight": 100,
+   "label": "new:0x4bd48",
+   "orig": "0x4bd48",
+   "code": 6024
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^require!\\(!c\\.complete,PumpError::BondingCurveComplete\\);$",
+   "target": 243,
+   "weight": 2,
+   "label": "pre:0x144508",
+   "orig": "0x144508",
+   "code": 6005
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require!\\(!a\\.bonding_curve\\.complete,PumpError::BondingCurveComplete\\);$",
+   "nth": 0,
+   "target": 345,
+   "weight": 2,
+   "label": "pre:0x13b9b8",
+   "orig": "0x13b9b8",
+   "code": 6005
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_gt!\\(input,0,PumpError::BuyZeroAmount\\);$",
+   "target": 354,
+   "weight": 2,
+   "label": "pre:0x13b9b8",
+   "orig": "0x13b9b8",
+   "code": 6020
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_gte!\\(a\\.bonding_curve\\.real_token_reserves,input,PumpError::NotEnoughTokensToBuy\\);$",
+   "target": 356,
+   "weight": 2,
+   "label": "pre:0x13b9b8",
+   "orig": "0x13b9b8",
+   "code": 6021
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^let pre_quote=add\\(u64::try_from\\(quoted_amount as u128",
+   "target": 465,
+   "weight": 100,
+   "label": "new:0x16bb8",
+   "orig": "0x16bb8",
+   "code": 6025
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^let quote_transfer_fee=gross_quote\\.checked_sub\\(pre_quote\\)\\.ok_or_else",
+   "target": 469,
+   "weight": 100,
+   "label": "new:0x16dc0",
+   "orig": "0x16dc0",
+   "code": 6024
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_gte!\\(limit,gross_quote\\.checked_add\\(pf\\)$",
+   "target": 494,
+   "weight": 2,
+   "label": "pre:0x13b9b8",
+   "orig": "0x13b9b8",
+   "code": 6002
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?$",
+   "context": "^\\.checked_add\\(cf\\)$",
+   "target": 498,
+   "weight": 100,
+   "label": "new:0xac2b8",
+   "orig": "0xac2b8",
+   "code": 6024
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?,PumpError::TooMuchSolRequired\\);$",
+   "target": 500,
+   "weight": 100,
+   "label": "new:0xac4c0",
+   "orig": "0xac4c0",
+   "code": 6024
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require!\\(!a\\.bonding_curve\\.complete,PumpError::BondingCurveComplete\\);$",
+   "nth": 1,
+   "target": 767,
+   "weight": 2,
+   "label": "pre:0x13f630",
+   "orig": "0x13f630",
+   "code": 6005
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_gt!\\(limit,0,PumpError::BuyZeroAmount\\);$",
+   "target": 769,
+   "weight": 2,
+   "label": "pre:0x13f630",
+   "orig": "0x13f630",
+   "code": 6020
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^u64::try_from\\(amount as u128\\*c\\.virtual_quote_reserves as u128",
+   "target": 959,
+   "weight": 100,
+   "label": "new:0x176d8",
+   "orig": "0x176d8",
+   "code": 6025
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let quote=u64::try_from\\(quotient\\.checked_add\\(1\\)",
+   "target": 811,
+   "weight": 100,
+   "label": "new:0x84d80",
+   "orig": "0x84d80",
+   "code": 6025
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let quote=u64::try_from\\(amount as u128\\*curve\\.virtual_quote_reserves as u128/\\(curve\\.virtual_token_reserves as u128\\+amount as u128\\)\\)",
+   "target": 1140,
+   "weight": 100,
+   "label": "new:0x87ca0",
+   "orig": "0x87ca0",
+   "code": 6025
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let quote_transfer_fee=user_output\\.checked_sub\\(net_output\\)\\.ok_or_else",
+   "target": 1155,
+   "weight": 100,
+   "label": "new:0x87ea8",
+   "orig": "0x87ea8",
+   "code": 6024
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^require_gte!\\(net_output,minimum,PumpError::TooLittleSolReceived\\);$",
+   "target": 379,
+   "weight": 2,
+   "label": "pre:0x144508",
+   "orig": "0x144508",
+   "code": 6003
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^let quote_transfer_fee=output\\.checked_sub\\(net_output\\)\\.ok_or_else",
+   "target": 386,
+   "weight": 100,
+   "label": "new:0x6fcf0",
+   "orig": "0x6fcf0",
+   "code": 6024
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let quote=if exceeds\\{u64::try_from\\(",
+   "target": 930,
+   "weight": 100,
+   "label": "new:0x85398",
+   "orig": "0x85398",
+   "code": 6025
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let transfer_base=amount\\.checked_add\\(post_base\\)\\.ok_or_else",
+   "target": 970,
+   "weight": 100,
+   "label": "new:0x855a0",
+   "orig": "0x855a0",
+   "code": 6024
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^if !\\(exceeds && \\(curve\\.is_mayhem_mode \\|\\| is_fee_exempt\\) && partial_fill\\)\\{require_gte!\\(transfer_base,min_tokens_out",
+   "target": 971,
+   "weight": 2,
+   "label": "pre:0x1489f8",
+   "orig": "0x1489f8",
+   "code": 6042
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^require_gt!\\(amount,0,PumpError::BuyZeroAmount\\);$",
+   "target": 801,
+   "weight": 2,
+   "label": "pre:0x147ba0",
+   "orig": "0x147ba0",
+   "code": 6020
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^if !\\(partial && computed>c\\.real_token_reserves\\)\\{require_gte!\\(amount,limit,PumpError::BuySlippageBelowMinTokensOut\\);\\}$",
+   "target": 986,
+   "weight": 2,
+   "label": "pre:0x13f630",
+   "orig": "0x13f630",
+   "code": 6042
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^let quote_transfer_fee=gross_quote\\.checked_sub\\(quote\\)\\.ok_or_else",
+   "target": 995,
+   "weight": 100,
+   "label": "new:0x17ae8",
+   "orig": "0x17ae8",
+   "code": 6024
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^require!\\(amount_in > 0,PumpError::BuyZeroAmount\\);$",
+   "target": 208,
+   "weight": 2,
+   "label": "pre:0x567d8",
+   "orig": "0x567d8",
+   "code": 6020
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^require!\\(ctx\\.remaining_accounts\\.len\\(\\) >= 5 && ctx\\.remaining_accounts\\.len\\(\\) % 5 == 0,$",
+   "target": 214,
+   "weight": 2,
+   "label": "pre:0x567d8",
+   "orig": "0x567d8",
+   "code": 6027
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^require!\\(!h\\.bonding_curve\\.is_mayhem_mode,PumpError::MultiHopMayhemCurveNotSupported\\);$",
+   "target": 484,
+   "weight": 2,
+   "label": "pre:0x5b3b0",
+   "orig": "0x5b3b0",
+   "code": 6108
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^require!\\(buy \\|\\| current_mint == h\\.base_mint\\.key\\(\\),PumpError::MultiHopDiscontinuousPath\\);$",
+   "target": 546,
+   "weight": 2,
+   "label": "pre:0x5b3b0",
+   "orig": "0x5b3b0",
+   "code": 6098
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^let buy_transfer_fee = amount\\.checked_sub\\(trade_amount\\)",
+   "target": 571,
+   "weight": 100,
+   "label": "new:0x5fc48",
+   "orig": "0x5fc48",
+   "code": 6024
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^let base = u64::try_from\\(div\\(effective as u128",
+   "target": 589,
+   "weight": 100,
+   "label": "new:0x5fe50",
+   "orig": "0x5fe50",
+   "code": 6025
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^require_gt!\\(base,0,PumpError::BuyZeroAmount\\);$",
+   "target": 590,
+   "weight": 2,
+   "label": "pre:0x5b3b0",
+   "orig": "0x5b3b0",
+   "code": 6020
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^require_gt!\\(pool_base,0,PumpError::NotEnoughTokensToBuy\\);$",
+   "target": 599,
+   "weight": 2,
+   "label": "pre:0x5b3b0",
+   "orig": "0x5b3b0",
+   "code": 6021
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "capped\\.checked_add\\(post_base\\)\\.ok_or_else",
+   "target": 624,
+   "weight": 100,
+   "label": "new:0x60058",
+   "orig": "0x60058",
+   "code": 6024
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^require_gt!\\(net,0,PumpError::SellZeroAmount\\);$",
+   "target": 686,
+   "weight": 2,
+   "label": "pre:0x5b3b0",
+   "orig": "0x5b3b0",
+   "code": 6022
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^let sell_transfer_fee = raw_output\\.checked_sub\\(output\\)",
+   "target": 692,
+   "weight": 100,
+   "label": "new:0x60468",
+   "orig": "0x60468",
+   "code": 6024
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^let gross_sell = u64::try_from\\(div\\(amount as u128",
+   "target": 673,
+   "weight": 100,
+   "label": "new:0x60260",
+   "orig": "0x60260",
+   "code": 6025
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let quote_transfer_fee=gross\\.checked_sub\\(net\\)\\.ok_or_else",
+   "target": 382,
+   "weight": 100,
+   "label": "new:0x81640",
+   "orig": "0x81640",
+   "code": 6024
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^if a\\.user\\.key\\(\\)==a\\.global\\.whitelist_pda\\{u64::try_from\\(c\\.virtual_token_reserves",
+   "target": 881,
+   "weight": 100,
+   "label": "new:0x16fc8",
+   "orig": "0x16fc8",
+   "code": 6025
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^else\\{u64::try_from\\(c\\.virtual_token_reserves as u128\\*e as u128",
+   "target": 927,
+   "weight": 100,
+   "label": "new:0x171d0",
+   "orig": "0x171d0",
+   "code": 6025
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_gt!\\(available,0,PumpError::BuyNotEnoughSolToCoverFees\\);$",
+   "target": 873,
+   "weight": 2,
+   "label": "pre:0x13f630",
+   "orig": "0x13f630",
+   "code": 6041
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let computed_amount=if is_fee_exempt\\{u64::try_from\\(",
+   "target": 904,
+   "weight": 100,
+   "label": "new:0x84f88",
+   "orig": "0x84f88",
+   "code": 6025
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^else\\{u64::try_from\\(curve\\.virtual_token_reserves as u128\\*effective",
+   "target": 911,
+   "weight": 100,
+   "label": "new:0x85190",
+   "orig": "0x85190",
+   "code": 6025
+  }
+ ],
+ "moves": [],
+ "notes": [
+  "manual 0x32840: no candidate #0 for 'pump_recovered::distribution::distribute_creator_fees::execute' (bycode); 0 found",
+  "manual 0x311f8: no candidate #0 for 'pump_recovered::distribution::distribute_creator_fees::get_distribution_amounts' (bycode); 0 found",
+  "manual 0x2d920: no candidate #0 for 'pump_recovered::distribution::distribute_creator_fee_v2::execute_v2' (bycode); 0 found",
+  "manual 0x2bf18: no candidate #0 for 'pump_recovered::distribution::distribute_creator_fee_v2::get_token_distribution_amounts' (bycode); 0 found",
+  "merge_sitemap: dropped 19 fresh anchors of windows covered by extra anchors: file:0x410b0, file:0x4bb40, file:0x6f6d8, gain:0x19cc0, gain:0x6f3e8, gain:0x801f8, gain:0x80488, gain:0x880b0, gain:0x950e0, gain:0xfdf20, manual:0x412b8, manual:0x4bd48, manual:0x4bf50, pre:0x37e08, pre:0x3dd78"
+ ],
+ "sites": [
+  {
+   "orig_window": "0x14910",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 81,
+   "code": 6010,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x2f328",
+   "cand_name": "pump_recovered::buy_v2::admit_associated_token_account",
+   "cand_file": "buy_v2.rs",
+   "cand_line": 19,
+   "cand_code": 6010
+  },
+  {
+   "orig_window": "0x14910",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 55,
+   "code": 2006,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x2f328",
+   "cand_name": "pump_recovered::buy_v2::admit_associated_token_account",
+   "cand_file": "buy_v2.rs",
+   "cand_line": 12,
+   "cand_code": 2006
+  },
+  {
+   "orig_window": "0x14910",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 88,
+   "code": 6004,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x2f328",
+   "cand_name": "pump_recovered::buy_v2::admit_associated_token_account",
+   "cand_file": "buy_v2.rs",
+   "cand_line": 22,
+   "cand_code": 6004
+  },
+  {
+   "orig_window": "0x14910",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 60,
+   "code": 3012,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x2f328",
+   "cand_name": "pump_recovered::buy_v2::admit_associated_token_account",
+   "cand_file": "buy_v2.rs",
+   "cand_line": 14,
+   "cand_code": 3012
+  },
+  {
+   "orig_window": "0x160d0",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 109,
+   "code": 6010,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x160d0",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 121,
+   "code": 6010,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x16bb8",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 465,
+   "code": 6025,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6025
+  },
+  {
+   "orig_window": "0x16dc0",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 469,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x16fc8",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 881,
+   "code": 6025,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6025
+  },
+  {
+   "orig_window": "0x171d0",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 927,
+   "code": 6025,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6025
+  },
+  {
+   "orig_window": "0x173d8",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 949,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x176d8",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 959,
+   "code": 6025,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6025
+  },
+  {
+   "orig_window": "0x178e0",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 983,
+   "code": 6025,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x17ae8",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 995,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x17cf0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 348,
+   "code": 6075,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x17cf0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 345,
+   "code": 6063,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x17cf0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 353,
+   "code": 6075,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x18678",
+   "orig_file": "create_v2.rs",
+   "orig_line": 395,
+   "code": 6100,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x18678",
+   "orig_file": "create_v2.rs",
+   "orig_line": 466,
+   "code": 6107,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x18678",
+   "orig_file": "create_v2.rs",
+   "orig_line": 466,
+   "code": 6107,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x18678",
+   "orig_file": "create_v2.rs",
+   "orig_line": 390,
+   "code": 6063,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x18678",
+   "orig_file": "create_v2.rs",
+   "orig_line": 473,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x19cc0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 412,
+   "code": 6109,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": null,
+   "cand_name": "create_v2::nested_create::walk::{{closure}}",
+   "cand_file": "create_v2.rs",
+   "cand_line": null,
+   "cand_code": 6109
+  },
+  {
+   "orig_window": "0x19ec8",
+   "orig_file": "create_v2.rs",
+   "orig_line": 442,
+   "code": 6099,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x19ec8",
+   "orig_file": "create_v2.rs",
+   "orig_line": 437,
+   "code": 6099,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x19ec8",
+   "orig_file": "create_v2.rs",
+   "orig_line": 449,
+   "code": 6099,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x1a918",
+   "orig_file": "create_v2.rs",
+   "orig_line": 528,
+   "code": 6063,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x1ac28",
+   "orig_file": "create_v2.rs",
+   "orig_line": 586,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x1ac28",
+   "orig_file": "create_v2.rs",
+   "orig_line": 588,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 716,
+   "code": 6082,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x615b8",
+   "cand_name": "pump_recovered::create_v2::execute",
+   "cand_file": "create_v2.rs",
+   "cand_line": 41,
+   "cand_code": 6082
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 774,
+   "code": 6077,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x615b8",
+   "cand_name": "pump_recovered::create_v2::execute",
+   "cand_file": "create_v2.rs",
+   "cand_line": 81,
+   "cand_code": 6077
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 732,
+   "code": 6030,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x615b8",
+   "cand_name": "pump_recovered::create_v2::execute",
+   "cand_file": "create_v2.rs",
+   "cand_line": 43,
+   "cand_code": 6030
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 738,
+   "code": 6046,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x615b8",
+   "cand_name": "pump_recovered::create_v2::execute",
+   "cand_file": "create_v2.rs",
+   "cand_line": 44,
+   "cand_code": 6046
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 719,
+   "code": 6084,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x615b8",
+   "cand_name": "pump_recovered::create_v2::execute",
+   "cand_file": "create_v2.rs",
+   "cand_line": 42,
+   "cand_code": 6084
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 258,
+   "code": 6065,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 198,
+   "code": 6027,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 778,
+   "code": 6078,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x615b8",
+   "cand_name": "pump_recovered::create_v2::execute",
+   "cand_file": "create_v2.rs",
+   "cand_line": 82,
+   "cand_code": 6078
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 205,
+   "code": 6064,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 541,
+   "code": 6043,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 758,
+   "code": 6071,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x615b8",
+   "cand_name": "pump_recovered::create_v2::execute",
+   "cand_file": "create_v2.rs",
+   "cand_line": 78,
+   "cand_code": 6071
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 210,
+   "code": 6064,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 709,
+   "code": 6048,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x615b8",
+   "cand_name": "pump_recovered::create_v2::execute",
+   "cand_file": "create_v2.rs",
+   "cand_line": 39,
+   "cand_code": 6048
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 547,
+   "code": 6044,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 553,
+   "code": 6045,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 220,
+   "code": 6063,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x1e7c0",
+   "orig_file": "create_v2.rs",
+   "orig_line": 243,
+   "code": 6063,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x22a10",
+   "orig_file": "creator/admin_cto.rs",
+   "orig_line": 289,
+   "code": 6083,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x22a10",
+   "orig_file": "creator/admin_cto.rs",
+   "orig_line": 298,
+   "code": 6090,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x22a10",
+   "orig_file": "creator/admin_cto.rs",
+   "orig_line": 306,
+   "code": 6089,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x75c68",
+   "cand_name": "pump_recovered::admin_cto::execute",
+   "cand_file": "creator/admin_cto.rs",
+   "cand_line": 105,
+   "cand_code": 6089
+  },
+  {
+   "orig_window": "0x22a10",
+   "orig_file": "creator/admin_cto.rs",
+   "orig_line": 296,
+   "code": 6084,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x75c68",
+   "cand_name": "pump_recovered::admin_cto::execute",
+   "cand_file": "creator/admin_cto.rs",
+   "cand_line": 103,
+   "cand_code": 6084
+  },
+  {
+   "orig_window": "0x22a10",
+   "orig_file": "creator/admin_cto.rs",
+   "orig_line": 326,
+   "code": 6091,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x75c68",
+   "cand_name": "pump_recovered::admin_cto::execute",
+   "cand_file": "creator/admin_cto.rs",
+   "cand_line": 107,
+   "cand_code": 6091
+  },
+  {
+   "orig_window": "0x22a10",
+   "orig_file": "creator/admin_cto.rs",
+   "orig_line": 326,
+   "code": 6091,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x75c68",
+   "cand_name": "pump_recovered::admin_cto::execute",
+   "cand_file": "creator/admin_cto.rs",
+   "cand_line": 107,
+   "cand_code": 6091
+  },
+  {
+   "orig_window": "0x22a10",
+   "orig_file": "creator/admin_cto.rs",
+   "orig_line": 312,
+   "code": 6019,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x75c68",
+   "cand_name": "pump_recovered::admin_cto::execute",
+   "cand_file": "creator/admin_cto.rs",
+   "cand_line": 106,
+   "cand_code": 6019
+  },
+  {
+   "orig_window": "0x22a10",
+   "orig_file": "creator/admin_cto.rs",
+   "orig_line": 330,
+   "code": 6080,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x75c68",
+   "cand_name": "pump_recovered::admin_cto::execute",
+   "cand_file": "creator/admin_cto.rs",
+   "cand_line": 108,
+   "cand_code": 6080
+  },
+  {
+   "orig_window": "0x22a10",
+   "orig_file": "creator/admin_cto.rs",
+   "orig_line": 330,
+   "code": 6080,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x22a10",
+   "orig_file": "creator/admin_cto.rs",
+   "orig_line": 338,
+   "code": 6078,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x22a10",
+   "orig_file": "creator/admin_cto.rs",
+   "orig_line": 410,
+   "code": 6095,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x75c68",
+   "cand_name": "pump_recovered::admin_cto::execute",
+   "cand_file": "creator/admin_cto.rs",
+   "cand_line": 112,
+   "cand_code": 6095
+  },
+  {
+   "orig_window": "0x22a10",
+   "orig_file": "creator/admin_cto.rs",
+   "orig_line": 719,
+   "code": 6093,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x22a10",
+   "orig_file": "creator/admin_cto.rs",
+   "orig_line": 648,
+   "code": 2006,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x75c68",
+   "cand_name": "pump_recovered::admin_cto::execute",
+   "cand_file": "creator/admin_cto.rs",
+   "cand_line": 120,
+   "cand_code": 2006
+  },
+  {
+   "orig_window": "0x22a10",
+   "orig_file": "creator/admin_cto.rs",
+   "orig_line": 660,
+   "code": 6093,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x22a10",
+   "orig_file": "creator/admin_cto.rs",
+   "orig_line": 284,
+   "code": 6088,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x75c68",
+   "cand_name": "pump_recovered::admin_cto::execute",
+   "cand_file": "creator/admin_cto.rs",
+   "cand_line": 102,
+   "cand_code": 6088
+  },
+  {
+   "orig_window": "0x22a10",
+   "orig_file": "creator/admin_cto.rs",
+   "orig_line": 556,
+   "code": 6092,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x75c68",
+   "cand_name": "pump_recovered::admin_cto::execute",
+   "cand_file": "creator/admin_cto.rs",
+   "cand_line": 117,
+   "cand_code": 6092
+  },
+  {
+   "orig_window": "0x298b0",
+   "orig_file": "creator/collect_creator_fee.rs",
+   "orig_line": 103,
+   "code": 6050,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x2b490",
+   "orig_file": "creator/collect_creator_fee.rs",
+   "orig_line": 198,
+   "code": 6050,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x2bf18",
+   "orig_file": "creator/distribute_creator_fee_v2.rs",
+   "orig_line": 101,
+   "code": 6054,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x2bf18",
+   "orig_file": "creator/distribute_creator_fee_v2.rs",
+   "orig_line": 112,
+   "code": 6054,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x2bf18",
+   "orig_file": "creator/distribute_creator_fee_v2.rs",
+   "orig_line": 125,
+   "code": 6052,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x2bf18",
+   "orig_file": "creator/distribute_creator_fee_v2.rs",
+   "orig_line": 152,
+   "code": 6027,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x2bf18",
+   "orig_file": "creator/distribute_creator_fee_v2.rs",
+   "orig_line": 163,
+   "code": 6055,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x2bf18",
+   "orig_file": "creator/distribute_creator_fee_v2.rs",
+   "orig_line": 168,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x2bf18",
+   "orig_file": "creator/distribute_creator_fee_v2.rs",
+   "orig_line": 149,
+   "code": 6027,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x2bf18",
+   "orig_file": "creator/distribute_creator_fee_v2.rs",
+   "orig_line": 149,
+   "code": 6027,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x2d920",
+   "orig_file": "creator/distribute_creator_fee_v2.rs",
+   "orig_line": 213,
+   "code": 6095,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x2d920",
+   "orig_file": "creator/distribute_creator_fee_v2.rs",
+   "orig_line": 205,
+   "code": 6051,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x2fa60",
+   "orig_file": "creator/distribute_creator_fee_v2.rs",
+   "orig_line": 346,
+   "code": 6027,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x2fa60",
+   "orig_file": "creator/distribute_creator_fee_v2.rs",
+   "orig_line": 340,
+   "code": 6027,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x2fa60",
+   "orig_file": "creator/distribute_creator_fee_v2.rs",
+   "orig_line": 340,
+   "code": 6027,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x311f8",
+   "orig_file": "creator/distribute_creator_fees.rs",
+   "orig_line": 103,
+   "code": 6054,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x311f8",
+   "orig_file": "creator/distribute_creator_fees.rs",
+   "orig_line": 116,
+   "code": 6052,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x311f8",
+   "orig_file": "creator/distribute_creator_fees.rs",
+   "orig_line": 158,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x311f8",
+   "orig_file": "creator/distribute_creator_fees.rs",
+   "orig_line": 158,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x311f8",
+   "orig_file": "creator/distribute_creator_fees.rs",
+   "orig_line": 143,
+   "code": 6027,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x311f8",
+   "orig_file": "creator/distribute_creator_fees.rs",
+   "orig_line": 143,
+   "code": 6027,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x32840",
+   "orig_file": "creator/distribute_creator_fees.rs",
+   "orig_line": 249,
+   "code": 6095,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x32840",
+   "orig_file": "creator/distribute_creator_fees.rs",
+   "orig_line": 241,
+   "code": 6051,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x33c50",
+   "orig_file": "creator/distribute_creator_fees.rs",
+   "orig_line": 325,
+   "code": 6027,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x33c50",
+   "orig_file": "creator/distribute_creator_fees.rs",
+   "orig_line": 325,
+   "code": 6027,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x34558",
+   "orig_file": "creator/distribute_fee_to_holders.rs",
+   "orig_line": 82,
+   "code": 6085,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x4a510",
+   "cand_name": "pump_recovered::holder_distribution::execute",
+   "cand_file": "creator/distribute_fee_to_holders.rs",
+   "cand_line": 24,
+   "cand_code": 6085
+  },
+  {
+   "orig_window": "0x34558",
+   "orig_file": "creator/distribute_fee_to_holders.rs",
+   "orig_line": 157,
+   "code": 6024,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x4a510",
+   "cand_name": "pump_recovered::holder_distribution::execute",
+   "cand_file": "creator/distribute_fee_to_holders.rs",
+   "cand_line": 38,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x34558",
+   "orig_file": "creator/distribute_fee_to_holders.rs",
+   "orig_line": 120,
+   "code": 6087,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x4a510",
+   "cand_name": "pump_recovered::holder_distribution::execute",
+   "cand_file": "creator/distribute_fee_to_holders.rs",
+   "cand_line": 33,
+   "cand_code": 6087
+  },
+  {
+   "orig_window": "0x34558",
+   "orig_file": "creator/distribute_fee_to_holders.rs",
+   "orig_line": 122,
+   "code": 6085,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x4a510",
+   "cand_name": "pump_recovered::holder_distribution::execute",
+   "cand_file": "creator/distribute_fee_to_holders.rs",
+   "cand_line": 34,
+   "cand_code": 6085
+  },
+  {
+   "orig_window": "0x34558",
+   "orig_file": "creator/distribute_fee_to_holders.rs",
+   "orig_line": 164,
+   "code": 6086,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x4a510",
+   "cand_name": "pump_recovered::holder_distribution::execute",
+   "cand_file": "creator/distribute_fee_to_holders.rs",
+   "cand_line": 40,
+   "cand_code": 6086
+  },
+  {
+   "orig_window": "0x37e08",
+   "orig_file": "creator/migrate_bonding_curve_creator.rs",
+   "orig_line": 46,
+   "code": 6083,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x7ba98",
+   "cand_name": "pump_recovered::creator_migration::execute",
+   "cand_file": "creator/migrate_bonding_curve_creator.rs",
+   "cand_line": 17,
+   "cand_code": 6083
+  },
+  {
+   "orig_window": "0x37e08",
+   "orig_file": "creator/migrate_bonding_curve_creator.rs",
+   "orig_line": 46,
+   "code": 6083,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x7ba98",
+   "cand_name": "pump_recovered::creator_migration::execute",
+   "cand_file": "creator/migrate_bonding_curve_creator.rs",
+   "cand_line": 17,
+   "cand_code": 6083
+  },
+  {
+   "orig_window": "0x3b8d8",
+   "orig_file": "extend_account.rs",
+   "orig_line": 84,
+   "code": 6010,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x3b8d8",
+   "orig_file": "extend_account.rs",
+   "orig_line": 107,
+   "code": 6010,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x3d250",
+   "orig_file": "extend_account.rs",
+   "orig_line": 141,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x3dd78",
+   "orig_file": "fee_recipient.rs",
+   "orig_line": 35,
+   "code": 6000,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x5ee60",
+   "cand_name": "pump_recovered::legacy_sell::fee_recipient::validate_fee_recipient",
+   "cand_file": "fee_recipient.rs",
+   "cand_line": 17,
+   "cand_code": 6000
+  },
+  {
+   "orig_window": "0x3dd78",
+   "orig_file": "fee_recipient.rs",
+   "orig_line": 35,
+   "code": 6000,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x5ee60",
+   "cand_name": "pump_recovered::legacy_sell::fee_recipient::validate_fee_recipient",
+   "cand_file": "fee_recipient.rs",
+   "cand_line": 17,
+   "cand_code": 6000
+  },
+  {
+   "orig_window": "0x3e550",
+   "orig_file": "fee_recipient.rs",
+   "orig_line": 47,
+   "code": 6027,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x3e550",
+   "orig_file": "fee_recipient.rs",
+   "orig_line": 60,
+   "code": 6028,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x3e550",
+   "orig_file": "fee_recipient.rs",
+   "orig_line": 78,
+   "code": 6029,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x3fb70",
+   "orig_file": "migrate.rs",
+   "orig_line": 251,
+   "code": 6006,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x4ea70",
+   "cand_name": "pump_recovered::migrate::execute",
+   "cand_file": "migrate.rs",
+   "cand_line": 47,
+   "cand_code": 6006
+  },
+  {
+   "orig_window": "0x410b0",
+   "orig_file": "migrate.rs",
+   "orig_line": 280,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "migrate.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x412b8",
+   "orig_file": "migrate.rs",
+   "orig_line": 282,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "migrate.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x45fa0",
+   "orig_file": "migrate.rs",
+   "orig_line": 527,
+   "code": 6027,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x49888",
+   "orig_file": "migrate_v2.rs",
+   "orig_line": 243,
+   "code": 2006,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x49888",
+   "orig_file": "migrate_v2.rs",
+   "orig_line": 249,
+   "code": 6006,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x49888",
+   "orig_file": "migrate_v2.rs",
+   "orig_line": 335,
+   "code": 6110,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x4bb40",
+   "orig_file": "migrate_v2.rs",
+   "orig_line": 309,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "migrate_v2.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x4bd48",
+   "orig_file": "migrate_v2.rs",
+   "orig_line": 313,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "migrate_v2.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x4bf50",
+   "orig_file": "migrate_v2.rs",
+   "orig_line": 326,
+   "code": 6024,
+   "window_matched": false,
+   "class": "manual",
+   "cand_fn": "0x47d90",
+   "cand_name": "pump_recovered::migrate_v2::execute::_{{closure}}",
+   "cand_file": "migrate_v2.rs",
+   "cand_line": 124,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x52660",
+   "orig_file": "migrate_v2.rs",
+   "orig_line": 658,
+   "code": 6027,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x52660",
+   "orig_file": "migrate_v2.rs",
+   "orig_line": 747,
+   "code": 6063,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x567d8",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 208,
+   "code": 6020,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "multi_hop_curve_swap.rs",
+   "cand_line": null,
+   "cand_code": 6020
+  },
+  {
+   "orig_window": "0x567d8",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 214,
+   "code": 6027,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "multi_hop_curve_swap.rs",
+   "cand_line": null,
+   "cand_code": 6027
+  },
+  {
+   "orig_window": "0x567d8",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 214,
+   "code": 6027,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "multi_hop_curve_swap.rs",
+   "cand_line": null,
+   "cand_code": 6027
+  },
+  {
+   "orig_window": "0x567d8",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 262,
+   "code": 6098,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x57c38",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 259,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x57e40",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 295,
+   "code": 6025,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x58668",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 359,
+   "code": 6010,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x58bf0",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 369,
+   "code": 2006,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x5b3b0",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 484,
+   "code": 6108,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "multi_hop_curve_swap.rs",
+   "cand_line": null,
+   "cand_code": 6108
+  },
+  {
+   "orig_window": "0x5b3b0",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 546,
+   "code": 6098,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "multi_hop_curve_swap.rs",
+   "cand_line": null,
+   "cand_code": 6098
+  },
+  {
+   "orig_window": "0x5b3b0",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 686,
+   "code": 6022,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "multi_hop_curve_swap.rs",
+   "cand_line": null,
+   "cand_code": 6022
+  },
+  {
+   "orig_window": "0x5b3b0",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 599,
+   "code": 6021,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "multi_hop_curve_swap.rs",
+   "cand_line": null,
+   "cand_code": 6021
+  },
+  {
+   "orig_window": "0x5b3b0",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 590,
+   "code": 6020,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "multi_hop_curve_swap.rs",
+   "cand_line": null,
+   "cand_code": 6020
+  },
+  {
+   "orig_window": "0x5fc48",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 571,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "multi_hop_curve_swap.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x5fe50",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 589,
+   "code": 6025,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "multi_hop_curve_swap.rs",
+   "cand_line": null,
+   "cand_code": 6025
+  },
+  {
+   "orig_window": "0x60058",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 624,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "multi_hop_curve_swap.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x60260",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 673,
+   "code": 6025,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "multi_hop_curve_swap.rs",
+   "cand_line": null,
+   "cand_code": 6025
+  },
+  {
+   "orig_window": "0x60468",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 692,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "multi_hop_curve_swap.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x60670",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 736,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x60878",
+   "orig_file": "multi_hop_curve_swap.rs",
+   "orig_line": 744,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x60a80",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 61,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x60a80",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 62,
+   "code": 6105,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x60ee0",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 90,
+   "code": 6100,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x61348",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 104,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x61348",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 106,
+   "code": 6026,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x617e8",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 117,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x617e8",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 119,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x617e8",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 121,
+   "code": 6026,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x617e8",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 122,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x62170",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 131,
+   "code": 6026,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x62170",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 134,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x62170",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 137,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x62170",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 139,
+   "code": 6026,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x62aa0",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 199,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x62aa0",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 201,
+   "code": 6026,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x63530",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 212,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x63738",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 222,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x63940",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 241,
+   "code": 6104,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x63cf0",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 279,
+   "code": 6103,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x63cf0",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 279,
+   "code": 6103,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x64358",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 307,
+   "code": 6103,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x645f8",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 334,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x64888",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 365,
+   "code": 6103,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x64888",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 366,
+   "code": 6103,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x64888",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 371,
+   "code": 6103,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x64888",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 372,
+   "code": 6103,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x64888",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 372,
+   "code": 6103,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x65238",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 407,
+   "code": 6102,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x65238",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 406,
+   "code": 6103,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x65238",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 410,
+   "code": 6103,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x65238",
+   "orig_file": "pump_quote.rs",
+   "orig_line": 415,
+   "code": 6103,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x68918",
+   "orig_file": "quote_control/state.rs",
+   "orig_line": 52,
+   "code": 6024,
+   "window_matched": true,
+   "class": "pin",
+   "cand_fn": "0xa3618",
+   "cand_name": "pump_recovered::quote_control::state::QuoteControl::space",
+   "cand_file": "quote_control/state.rs",
+   "cand_line": 52,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x68bd8",
+   "orig_file": "quote_control/state.rs",
+   "orig_line": 67,
+   "code": 6069,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0xa38d8",
+   "cand_name": "pump_recovered::quote_control::state::QuoteControl::validate_new_mint",
+   "cand_file": "quote_control/state.rs",
+   "cand_line": 67,
+   "cand_code": 6069
+  },
+  {
+   "orig_window": "0x68bd8",
+   "orig_file": "quote_control/state.rs",
+   "orig_line": 72,
+   "code": 6069,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0xa38d8",
+   "cand_name": "pump_recovered::quote_control::state::QuoteControl::validate_new_mint",
+   "cand_file": "quote_control/state.rs",
+   "cand_line": 72,
+   "cand_code": 6069
+  },
+  {
+   "orig_window": "0x68bd8",
+   "orig_file": "quote_control/state.rs",
+   "orig_line": 77,
+   "code": 6067,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0xa38d8",
+   "cand_name": "pump_recovered::quote_control::state::QuoteControl::validate_new_mint",
+   "cand_file": "quote_control/state.rs",
+   "cand_line": 77,
+   "cand_code": 6067
+  },
+  {
+   "orig_window": "0x68bd8",
+   "orig_file": "quote_control/state.rs",
+   "orig_line": 62,
+   "code": 6069,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0xa38d8",
+   "cand_name": "pump_recovered::quote_control::state::QuoteControl::validate_new_mint",
+   "cand_file": "quote_control/state.rs",
+   "cand_line": 62,
+   "cand_code": 6069
+  },
+  {
+   "orig_window": "0x68bd8",
+   "orig_file": "quote_control/state.rs",
+   "orig_line": 82,
+   "code": 6066,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0xa38d8",
+   "cand_name": "pump_recovered::quote_control::state::QuoteControl::validate_new_mint",
+   "cand_file": "quote_control/state.rs",
+   "cand_line": 82,
+   "cand_code": 6066
+  },
+  {
+   "orig_window": "0x69978",
+   "orig_file": "quote_control/state.rs",
+   "orig_line": 99,
+   "code": 6068,
+   "window_matched": true,
+   "class": "pin",
+   "cand_fn": "0xa4678",
+   "cand_name": "pump_recovered::quote_control::state::QuoteControl::remove_mint",
+   "cand_file": "quote_control/state.rs",
+   "cand_line": 99,
+   "cand_code": 6068
+  },
+  {
+   "orig_window": "0x69978",
+   "orig_file": "quote_control/state.rs",
+   "orig_line": 92,
+   "code": 6069,
+   "window_matched": true,
+   "class": "pin",
+   "cand_fn": "0xa4678",
+   "cand_name": "pump_recovered::quote_control::state::QuoteControl::remove_mint",
+   "cand_file": "quote_control/state.rs",
+   "cand_line": 92,
+   "cand_code": 6069
+  },
+  {
+   "orig_window": "0x69f28",
+   "orig_file": "quote_control/state.rs",
+   "orig_line": 113,
+   "code": 6068,
+   "window_matched": true,
+   "class": "pin",
+   "cand_fn": "0xa4c28",
+   "cand_name": "pump_recovered::quote_control::state::QuoteControl::set_mint_reserves",
+   "cand_file": "quote_control/state.rs",
+   "cand_line": 113,
+   "cand_code": 6068
+  },
+  {
+   "orig_window": "0x6a1e0",
+   "orig_file": "quote_control/state.rs",
+   "orig_line": 145,
+   "code": 6075,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0xa4ee0",
+   "cand_name": "pump_recovered::quote_control::state::control_entry",
+   "cand_file": "quote_control/state.rs",
+   "cand_line": 124,
+   "cand_code": 6075
+  },
+  {
+   "orig_window": "0x6a1e0",
+   "orig_file": "quote_control/state.rs",
+   "orig_line": 145,
+   "code": 6075,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0xa4ee0",
+   "cand_name": "pump_recovered::quote_control::state::control_entry",
+   "cand_file": "quote_control/state.rs",
+   "cand_line": 125,
+   "cand_code": 6075
+  },
+  {
+   "orig_window": "0x6a1e0",
+   "orig_file": "quote_control/state.rs",
+   "orig_line": 158,
+   "code": 6075,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0xa4ee0",
+   "cand_name": "pump_recovered::quote_control::state::control_entry",
+   "cand_file": "quote_control/state.rs",
+   "cand_line": 128,
+   "cand_code": 6075
+  },
+  {
+   "orig_window": "0x6a8a8",
+   "orig_file": "quote_control/update_quote_control_mints.rs",
+   "orig_line": 71,
+   "code": 6024,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0xa55a8",
+   "cand_name": "pump_recovered::quote_control::update_quote_control_mints::add_quote_control_mint",
+   "cand_file": "quote_control/update_quote_control_mints.rs",
+   "cand_line": 71,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x6cd78",
+   "orig_file": "sell.rs",
+   "orig_line": 33,
+   "code": 6073,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x6cd78",
+   "orig_file": "sell.rs",
+   "orig_line": 33,
+   "code": 6073,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x6cd78",
+   "orig_file": "sell.rs",
+   "orig_line": 81,
+   "code": 6073,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x6cd78",
+   "orig_file": "sell.rs",
+   "orig_line": 85,
+   "code": 6073,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x6cd78",
+   "orig_file": "sell.rs",
+   "orig_line": 102,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x6cd78",
+   "orig_file": "sell.rs",
+   "orig_line": 107,
+   "code": 6074,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x6cd78",
+   "orig_file": "sell.rs",
+   "orig_line": 102,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x6cd78",
+   "orig_file": "sell.rs",
+   "orig_line": 114,
+   "code": 6074,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x6eed8",
+   "orig_file": "sell.rs",
+   "orig_line": 133,
+   "code": 6074,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x6eed8",
+   "orig_file": "sell.rs",
+   "orig_line": 133,
+   "code": 6074,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x6f3e8",
+   "orig_file": "sell.rs",
+   "orig_line": 145,
+   "code": 6062,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": "0x612c8",
+   "cand_name": "pump_recovered::legacy_sell::buyback_fee_recipient",
+   "cand_file": "sell.rs",
+   "cand_line": 60,
+   "cand_code": 6062
+  },
+  {
+   "orig_window": "0x6f6d8",
+   "orig_file": "sell_v2.rs",
+   "orig_line": 341,
+   "code": 6025,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "sell_v2.rs",
+   "cand_line": null,
+   "cand_code": 6025
+  },
+  {
+   "orig_window": "0x6f8e0",
+   "orig_file": "sell_v2.rs",
+   "orig_line": 366,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "sell_v2.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x6fae8",
+   "orig_file": "sell_v2.rs",
+   "orig_line": 368,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "sell_v2.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x6fcf0",
+   "orig_file": "sell_v2.rs",
+   "orig_line": 386,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "sell_v2.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x6fef8",
+   "orig_file": "set_reserved_fee_recipients.rs",
+   "orig_line": 40,
+   "code": 6027,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x6fef8",
+   "orig_file": "set_reserved_fee_recipients.rs",
+   "orig_line": 60,
+   "code": 6028,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x722d0",
+   "orig_file": "set_reserved_fee_recipients.rs",
+   "orig_line": 121,
+   "code": 6061,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x72810",
+   "orig_file": "sweep_fees.rs",
+   "orig_line": 123,
+   "code": 6000,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x72810",
+   "orig_file": "sweep_fees.rs",
+   "orig_line": 145,
+   "code": 2006,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x73b88",
+   "cand_name": "pump_recovered::sweep::execute",
+   "cand_file": "sweep_fees.rs",
+   "cand_line": 28,
+   "cand_code": 2006
+  },
+  {
+   "orig_window": "0x76a28",
+   "orig_file": "token_incentives/claim_token_incentives.rs",
+   "orig_line": 252,
+   "code": 6024,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x29cb8",
+   "cand_name": "pump_recovered::token_incentives::claim_token_incentives::cashback::claim",
+   "cand_file": "token_incentives/claim_token_incentives.rs",
+   "cand_line": 153,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x76a28",
+   "orig_file": "token_incentives/claim_token_incentives.rs",
+   "orig_line": 252,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x77940",
+   "orig_file": "token_incentives/claim_token_incentives.rs",
+   "orig_line": 305,
+   "code": 6064,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x77940",
+   "orig_file": "token_incentives/claim_token_incentives.rs",
+   "orig_line": 310,
+   "code": 6010,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x2ae28",
+   "cand_name": "pump_recovered::token_incentives::claim_token_incentives::cashback::claim_v2",
+   "cand_file": "token_incentives/claim_token_incentives.rs",
+   "cand_line": 159,
+   "cand_code": 6010
+  },
+  {
+   "orig_window": "0x77940",
+   "orig_file": "token_incentives/claim_token_incentives.rs",
+   "orig_line": 342,
+   "code": 6076,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x2ae28",
+   "cand_name": "pump_recovered::token_incentives::claim_token_incentives::cashback::claim_v2",
+   "cand_file": "token_incentives/claim_token_incentives.rs",
+   "cand_line": 167,
+   "cand_code": 6076
+  },
+  {
+   "orig_window": "0x77940",
+   "orig_file": "token_incentives/claim_token_incentives.rs",
+   "orig_line": 333,
+   "code": 6010,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x2ae28",
+   "cand_name": "pump_recovered::token_incentives::claim_token_incentives::cashback::claim_v2",
+   "cand_file": "token_incentives/claim_token_incentives.rs",
+   "cand_line": 166,
+   "cand_code": 6010
+  },
+  {
+   "orig_window": "0x7bfd8",
+   "orig_file": "token_incentives/volume_accumulator.rs",
+   "orig_line": 103,
+   "code": 6025,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x2cce8",
+   "cand_name": "pump_recovered::token_incentives::volume_accumulator::update",
+   "cand_file": "token_incentives/volume_accumulator.rs",
+   "cand_line": 82,
+   "cand_code": 6025
+  },
+  {
+   "orig_window": "0x7c720",
+   "orig_file": "token_incentives/volume_accumulator.rs",
+   "orig_line": 369,
+   "code": 6032,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x2d548",
+   "cand_name": "pump_recovered::token_incentives::volume_accumulator::update_schedule",
+   "cand_file": "token_incentives/volume_accumulator.rs",
+   "cand_line": 156,
+   "cand_code": 6032
+  },
+  {
+   "orig_window": "0x7c720",
+   "orig_file": "token_incentives/volume_accumulator.rs",
+   "orig_line": 297,
+   "code": 6036,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x7c720",
+   "orig_file": "token_incentives/volume_accumulator.rs",
+   "orig_line": 371,
+   "code": 6033,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x2d548",
+   "cand_name": "pump_recovered::token_incentives::volume_accumulator::update_schedule",
+   "cand_file": "token_incentives/volume_accumulator.rs",
+   "cand_line": 157,
+   "cand_code": 6033
+  },
+  {
+   "orig_window": "0x7c720",
+   "orig_file": "token_incentives/volume_accumulator.rs",
+   "orig_line": 309,
+   "code": 6037,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x7c720",
+   "orig_file": "token_incentives/volume_accumulator.rs",
+   "orig_line": 373,
+   "code": 6034,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x2d548",
+   "cand_name": "pump_recovered::token_incentives::volume_accumulator::update_schedule",
+   "cand_file": "token_incentives/volume_accumulator.rs",
+   "cand_line": 164,
+   "cand_code": 6034
+  },
+  {
+   "orig_window": "0x7c720",
+   "orig_file": "token_incentives/volume_accumulator.rs",
+   "orig_line": 337,
+   "code": 6037,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x7c720",
+   "orig_file": "token_incentives/volume_accumulator.rs",
+   "orig_line": 338,
+   "code": 6038,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x7c720",
+   "orig_file": "token_incentives/volume_accumulator.rs",
+   "orig_line": 359,
+   "code": 6031,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x2d548",
+   "cand_name": "pump_recovered::token_incentives::volume_accumulator::update_schedule",
+   "cand_file": "token_incentives/volume_accumulator.rs",
+   "cand_line": 151,
+   "cand_code": 6031
+  },
+  {
+   "orig_window": "0x7c720",
+   "orig_file": "token_incentives/volume_accumulator.rs",
+   "orig_line": 394,
+   "code": 6035,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x2d548",
+   "cand_name": "pump_recovered::token_incentives::volume_accumulator::update_schedule",
+   "cand_file": "token_incentives/volume_accumulator.rs",
+   "cand_line": 169,
+   "cand_code": 6035
+  },
+  {
+   "orig_window": "0x7e0b0",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 149,
+   "code": 6005,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x8f058",
+   "cand_name": "pump_recovered::trade::validate_trade",
+   "cand_file": "trade_v3.rs",
+   "cand_line": 75,
+   "cand_code": 6005
+  },
+  {
+   "orig_window": "0x7e0b0",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 149,
+   "code": 6005,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x8f058",
+   "cand_name": "pump_recovered::trade::validate_trade",
+   "cand_file": "trade_v3.rs",
+   "cand_line": 75,
+   "cand_code": 6005
+  },
+  {
+   "orig_window": "0x7e490",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 172,
+   "code": 6010,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x7e490",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 188,
+   "code": 2006,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x801f8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 285,
+   "code": 6024,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": "0x8f438",
+   "cand_name": "pump_recovered::trade::add3",
+   "cand_file": "trade_v3.rs",
+   "cand_line": 80,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x80488",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 294,
+   "code": 6024,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": "0x8f6c8",
+   "cand_name": "pump_recovered::trade::sub3",
+   "cand_file": "trade_v3.rs",
+   "cand_line": 82,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x806c8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 317,
+   "code": 6041,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x806c8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 326,
+   "code": 6042,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x80df8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 371,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x80df8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 375,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x81640",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 382,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "trade_v3.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x81848",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 390,
+   "code": 6024,
+   "window_matched": false,
+   "class": "manual",
+   "cand_fn": "0x8fb10",
+   "cand_name": "pump_recovered::trade::add",
+   "cand_file": "trade_v3.rs",
+   "cand_line": 90,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x81aa0",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 442,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x81aa0",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 446,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x82128",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 494,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x82128",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 498,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x82128",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 506,
+   "code": 6021,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x82128",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 502,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x82128",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 507,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x82af8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 518,
+   "code": 6021,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x82af8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 526,
+   "code": 6025,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x834c8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 591,
+   "code": 6025,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x83c00",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 691,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x84970",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 721,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x84b78",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 767,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x84d80",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 811,
+   "code": 6025,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "trade_v3.rs",
+   "cand_line": null,
+   "cand_code": 6025
+  },
+  {
+   "orig_window": "0x84f88",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 904,
+   "code": 6025,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "trade_v3.rs",
+   "cand_line": null,
+   "cand_code": 6025
+  },
+  {
+   "orig_window": "0x85190",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 911,
+   "code": 6025,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "trade_v3.rs",
+   "cand_line": null,
+   "cand_code": 6025
+  },
+  {
+   "orig_window": "0x85398",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 930,
+   "code": 6025,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "trade_v3.rs",
+   "cand_line": null,
+   "cand_code": 6025
+  },
+  {
+   "orig_window": "0x855a0",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 970,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "trade_v3.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x857a8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 997,
+   "code": 6025,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x87ca0",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 1140,
+   "code": 6025,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "trade_v3.rs",
+   "cand_line": null,
+   "cand_code": 6025
+  },
+  {
+   "orig_window": "0x87ea8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 1155,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "trade_v3.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x880b0",
+   "orig_file": "util/constant_product.rs",
+   "orig_line": 17,
+   "code": 6024,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": "0xac288",
+   "cand_name": "pump_recovered::constant_product::output",
+   "cand_file": "util/constant_product.rs",
+   "cand_line": 7,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x880b0",
+   "orig_file": "util/constant_product.rs",
+   "orig_line": 13,
+   "code": 6024,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": "0xac288",
+   "cand_name": "pump_recovered::constant_product::output",
+   "cand_file": "util/constant_product.rs",
+   "cand_line": 6,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x880b0",
+   "orig_file": "util/constant_product.rs",
+   "orig_line": 19,
+   "code": 6026,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": "0xac288",
+   "cand_name": "pump_recovered::constant_product::output",
+   "cand_file": "util/constant_product.rs",
+   "cand_line": 8,
+   "cand_code": 6026
+  },
+  {
+   "orig_window": "0x88908",
+   "orig_file": "util/fee.rs",
+   "orig_line": 17,
+   "code": 6024,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": "0x60468",
+   "cand_name": "pump_recovered::legacy_sell::fee_math::checked_ceil_div",
+   "cand_file": "util/fee.rs",
+   "cand_line": 9,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x88908",
+   "orig_file": "util/fee.rs",
+   "orig_line": 15,
+   "code": 6024,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": "0x60468",
+   "cand_name": "pump_recovered::legacy_sell::fee_math::checked_ceil_div",
+   "cand_file": "util/fee.rs",
+   "cand_line": 7,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x88908",
+   "orig_file": "util/fee.rs",
+   "orig_line": 19,
+   "code": 6026,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": "0x60468",
+   "cand_name": "pump_recovered::legacy_sell::fee_math::checked_ceil_div",
+   "cand_file": "util/fee.rs",
+   "cand_line": 11,
+   "cand_code": 6026
+  },
+  {
+   "orig_window": "0x88f90",
+   "orig_file": "util/fee.rs",
+   "orig_line": 34,
+   "code": 6025,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": "0x60af0",
+   "cand_name": "pump_recovered::legacy_sell::fee_math::fee",
+   "cand_file": "util/fee.rs",
+   "cand_line": 16,
+   "cand_code": 6025
+  },
+  {
+   "orig_window": "0x89b48",
+   "orig_file": "util/fee.rs",
+   "orig_line": 162,
+   "code": 6096,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x89ec8",
+   "orig_file": "util/fee.rs",
+   "orig_line": 183,
+   "code": 6097,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x94908",
+   "orig_file": "util/transfer_fee.rs",
+   "orig_line": 31,
+   "code": 6063,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x94e28",
+   "orig_file": "util/transfer_fee.rs",
+   "orig_line": 48,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x950e0",
+   "orig_file": "util/transfer_fee.rs",
+   "orig_line": 56,
+   "code": 6024,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": "0xabd90",
+   "cand_name": "pump_recovered::transfer_fee_recovered::post_fee_amount",
+   "cand_file": "util/transfer_fee.rs",
+   "cand_line": 15,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0x95360",
+   "orig_file": "util/transfer_fee.rs",
+   "orig_line": 66,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0xa9eb8",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 129,
+   "code": 4101,
+   "window_matched": false,
+   "class": "manual",
+   "cand_fn": "0xcd9d0",
+   "cand_name": "_<pump_recovered::buy_v2::BuyV2 as anchor_lang::Accounts<pump_recovered::buy_v2::BuyV2Bumps>>::try_accounts::_{{closure}}",
+   "cand_file": "buy_v2.rs",
+   "cand_line": 25,
+   "cand_code": 4101
+  },
+  {
+   "orig_window": "0xac2b8",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 498,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0xac4c0",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 500,
+   "code": 6024,
+   "window_matched": false,
+   "class": "new",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6024
+  },
+  {
+   "orig_window": "0xb0158",
+   "orig_file": "create_v2.rs",
+   "orig_line": 27,
+   "code": 4101,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": "0xec888",
+   "cand_name": "_<pump_recovered::create_v2::CreateV2 as anchor_lang::Accounts<pump_recovered::create_v2::CreateV2Bumps>>::try_accounts::_{{closure}}",
+   "cand_file": "create_v2.rs",
+   "cand_line": 12,
+   "cand_code": 4101
+  },
+  {
+   "orig_window": "0xb3b90",
+   "orig_file": "create_v2.rs",
+   "orig_line": 27,
+   "code": 4101,
+   "window_matched": false,
+   "class": "manual",
+   "cand_fn": "0xf02c0",
+   "cand_name": "_<pump_recovered::create_v2::CreateV2 as anchor_lang::Accounts<pump_recovered::create_v2::CreateV2Bumps>>::try_accounts::_{{closure}}",
+   "cand_file": "create_v2.rs",
+   "cand_line": 12,
+   "cand_code": 4101
+  },
+  {
+   "orig_window": "0xdf2d8",
+   "orig_file": "quote_control/initialize_quote_control.rs",
+   "orig_line": 7,
+   "code": 4101,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": "0x1130f8",
+   "cand_name": "_<pump_recovered::quote_control::initialize_quote_control::InitializeQuoteControl as anchor_lang::Accounts<pump_recovered::quote_control::initialize_quote_control::InitializeQuoteControlBumps>>::try_accounts::_{{closure}}",
+   "cand_file": "quote_control/initialize_quote_control.rs",
+   "cand_line": 5,
+   "cand_code": 4101
+  },
+  {
+   "orig_window": "0xe4348",
+   "orig_file": "quote_control/state.rs",
+   "orig_line": 16,
+   "code": 3002,
+   "window_matched": true,
+   "class": "pin",
+   "cand_fn": "0x114838",
+   "cand_name": "_<pump_recovered::quote_control::state::QuoteControl as anchor_lang::AccountDeserialize>::try_deserialize",
+   "cand_file": "quote_control/state.rs",
+   "cand_line": 16,
+   "cand_code": 3002
+  },
+  {
+   "orig_window": "0xebaa0",
+   "orig_file": "sell_v2.rs",
+   "orig_line": 32,
+   "code": 4101,
+   "window_matched": false,
+   "class": "manual",
+   "cand_fn": "0xe3a20",
+   "cand_name": "_<pump_recovered::sell_v2::SellV2 as anchor_lang::Accounts<pump_recovered::sell_v2::SellV2Bumps>>::try_accounts::_{{closure}}",
+   "cand_file": "sell_v2.rs",
+   "cand_line": 8,
+   "cand_code": 4101
+  },
+  {
+   "orig_window": "0xfdf20",
+   "orig_file": "token_incentives/init_user_volume_accumulator.rs",
+   "orig_line": 8,
+   "code": 4101,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": null,
+   "cand_name": "InitUserVolume try_accounts",
+   "cand_file": "token_incentives/init_user_volume_accumulator.rs",
+   "cand_line": null,
+   "cand_code": 4101
+  },
+  {
+   "orig_window": "0x101170",
+   "orig_file": "token_incentives/volume_accumulator.rs",
+   "orig_line": 8,
+   "code": 3002,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": "0xc0ec8",
+   "cand_name": "_<pump_recovered::token_incentives::volume_accumulator::GlobalVolumeAccumulator as anchor_lang::AccountDeserialize>::try_deserialize",
+   "cand_file": "token_incentives/volume_accumulator.rs",
+   "cand_line": 4,
+   "cand_code": 3002
+  },
+  {
+   "orig_window": "0x101c20",
+   "orig_file": "token_incentives/volume_accumulator.rs",
+   "orig_line": 19,
+   "code": 3002,
+   "window_matched": false,
+   "class": "gain",
+   "cand_fn": "0xc1978",
+   "cand_name": "_<pump_recovered::token_incentives::volume_accumulator::UserVolumeAccumulator as anchor_lang::AccountDeserialize>::try_deserialize",
+   "cand_file": "token_incentives/volume_accumulator.rs",
+   "cand_line": 15,
+   "cand_code": 3002
+  },
+  {
+   "orig_window": "0x105b78",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 38,
+   "code": 4101,
+   "window_matched": false,
+   "class": "manual",
+   "cand_fn": "0x10fe50",
+   "cand_name": "_<pump_recovered::trade::SellV3 as anchor_lang::Accounts<pump_recovered::trade::SellV3Bumps>>::try_accounts::_{{closure}}",
+   "cand_file": "trade_v3.rs",
+   "cand_line": 8,
+   "cand_code": 4101
+  },
+  {
+   "orig_window": "0x13b9b8",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 345,
+   "code": 6005,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6005
+  },
+  {
+   "orig_window": "0x13b9b8",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 354,
+   "code": 6020,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6020
+  },
+  {
+   "orig_window": "0x13b9b8",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 356,
+   "code": 6021,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6021
+  },
+  {
+   "orig_window": "0x13b9b8",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 369,
+   "code": 6063,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x13b9b8",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 494,
+   "code": 6002,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6002
+  },
+  {
+   "orig_window": "0x13f630",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 769,
+   "code": 6020,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6020
+  },
+  {
+   "orig_window": "0x13f630",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 767,
+   "code": 6005,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6005
+  },
+  {
+   "orig_window": "0x13f630",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 767,
+   "code": 6005,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6005
+  },
+  {
+   "orig_window": "0x13f630",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 780,
+   "code": 6063,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x13f630",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 873,
+   "code": 6041,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6041
+  },
+  {
+   "orig_window": "0x13f630",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 907,
+   "code": 6041,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x35d18",
+   "cand_name": "pump_recovered::buy_v2::buy_exact_quote_in_handler",
+   "cand_file": "buy_v2.rs",
+   "cand_line": 189,
+   "cand_code": 6041
+  },
+  {
+   "orig_window": "0x13f630",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 921,
+   "code": 6042,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x35d18",
+   "cand_name": "pump_recovered::buy_v2::buy_exact_quote_in_handler",
+   "cand_file": "buy_v2.rs",
+   "cand_line": 198,
+   "cand_code": 6042
+  },
+  {
+   "orig_window": "0x13f630",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 967,
+   "code": 6002,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x13f630",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 986,
+   "code": 6042,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "buy_v2.rs",
+   "cand_line": null,
+   "cand_code": 6042
+  },
+  {
+   "orig_window": "0x13f630",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 979,
+   "code": 6042,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x13f630",
+   "orig_file": "buy_v2.rs",
+   "orig_line": 979,
+   "code": 6042,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x144508",
+   "orig_file": "sell_v2.rs",
+   "orig_line": 243,
+   "code": 6005,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "sell_v2.rs",
+   "cand_line": null,
+   "cand_code": 6005
+  },
+  {
+   "orig_window": "0x144508",
+   "orig_file": "sell_v2.rs",
+   "orig_line": 245,
+   "code": 6022,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "sell_v2.rs",
+   "cand_line": null,
+   "cand_code": 6022
+  },
+  {
+   "orig_window": "0x144508",
+   "orig_file": "sell_v2.rs",
+   "orig_line": 247,
+   "code": 6023,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "sell_v2.rs",
+   "cand_line": null,
+   "cand_code": 6023
+  },
+  {
+   "orig_window": "0x144508",
+   "orig_file": "sell_v2.rs",
+   "orig_line": 260,
+   "code": 6063,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x144508",
+   "orig_file": "sell_v2.rs",
+   "orig_line": 379,
+   "code": 6003,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "sell_v2.rs",
+   "cand_line": null,
+   "cand_code": 6003
+  },
+  {
+   "orig_window": "0x147ba0",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 801,
+   "code": 6020,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "trade_v3.rs",
+   "cand_line": null,
+   "cand_code": 6020
+  },
+  {
+   "orig_window": "0x147ba0",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 802,
+   "code": 6021,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x8fd68",
+   "cand_name": "pump_recovered::trade::buy",
+   "cand_file": "trade_v3.rs",
+   "cand_line": 106,
+   "cand_code": 6021
+  },
+  {
+   "orig_window": "0x147ba0",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 842,
+   "code": 6002,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x8fd68",
+   "cand_name": "pump_recovered::trade::buy",
+   "cand_file": "trade_v3.rs",
+   "cand_line": 148,
+   "cand_code": 6002
+  },
+  {
+   "orig_window": "0x1489f8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 881,
+   "code": 6020,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x94b58",
+   "cand_name": "pump_recovered::trade::buy_exact_quote",
+   "cand_file": "trade_v3.rs",
+   "cand_line": 201,
+   "cand_code": 6020
+  },
+  {
+   "orig_window": "0x1489f8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 882,
+   "code": 6041,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x94b58",
+   "cand_name": "pump_recovered::trade::buy_exact_quote",
+   "cand_file": "trade_v3.rs",
+   "cand_line": 230,
+   "cand_code": 6041
+  },
+  {
+   "orig_window": "0x1489f8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 891,
+   "code": 6041,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x94b58",
+   "cand_name": "pump_recovered::trade::buy_exact_quote",
+   "cand_file": "trade_v3.rs",
+   "cand_line": 230,
+   "cand_code": 6041
+  },
+  {
+   "orig_window": "0x1489f8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 926,
+   "code": 6021,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x94b58",
+   "cand_name": "pump_recovered::trade::buy_exact_quote",
+   "cand_file": "trade_v3.rs",
+   "cand_line": 237,
+   "cand_code": 6021
+  },
+  {
+   "orig_window": "0x1489f8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 1001,
+   "code": 6042,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x1489f8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 993,
+   "code": 6042,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x1489f8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 935,
+   "code": 6002,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x1489f8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 971,
+   "code": 6042,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": null,
+   "cand_name": null,
+   "cand_file": "trade_v3.rs",
+   "cand_line": null,
+   "cand_code": 6042
+  },
+  {
+   "orig_window": "0x14a8a8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 1126,
+   "code": 6022,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x9ad30",
+   "cand_name": "pump_recovered::trade::sell",
+   "cand_file": "trade_v3.rs",
+   "cand_line": 322,
+   "cand_code": 6022
+  },
+  {
+   "orig_window": "0x14a8a8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 1127,
+   "code": 6023,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x9ad30",
+   "cand_name": "pump_recovered::trade::sell",
+   "cand_file": "trade_v3.rs",
+   "cand_line": 325,
+   "cand_code": 6023
+  },
+  {
+   "orig_window": "0x14a8a8",
+   "orig_file": "trade_v3.rs",
+   "orig_line": 1148,
+   "code": 6003,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x9ad30",
+   "cand_name": "pump_recovered::trade::sell",
+   "cand_file": "trade_v3.rs",
+   "cand_line": 348,
+   "cand_code": 6003
+  },
+  {
+   "orig_window": "0x14f4e0",
+   "orig_file": "buy.rs",
+   "orig_line": 53,
+   "code": 6005,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x14f4e0",
+   "orig_file": "buy.rs",
+   "orig_line": 53,
+   "code": 6005,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x14f4e0",
+   "orig_file": "buy.rs",
+   "orig_line": 57,
+   "code": 6020,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x14f4e0",
+   "orig_file": "buy.rs",
+   "orig_line": 92,
+   "code": 6041,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x14f4e0",
+   "orig_file": "buy.rs",
+   "orig_line": 110,
+   "code": 6042,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x14f4e0",
+   "orig_file": "buy.rs",
+   "orig_line": 143,
+   "code": 6042,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x14f4e0",
+   "orig_file": "buy.rs",
+   "orig_line": 151,
+   "code": 6021,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x14f4e0",
+   "orig_file": "buy.rs",
+   "orig_line": 133,
+   "code": 6002,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x14f4e0",
+   "orig_file": "buy.rs",
+   "orig_line": 232,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x14f4e0",
+   "orig_file": "buy.rs",
+   "orig_line": 232,
+   "code": 6024,
+   "window_matched": false,
+   "class": null
+  },
+  {
+   "orig_window": "0x1557e8",
+   "orig_file": "admin_set_idl_authority.rs",
+   "orig_line": 72,
+   "code": 6010,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x7f5c0",
+   "cand_name": "pump_recovered::idl_authority::execute",
+   "cand_file": "admin_set_idl_authority.rs",
+   "cand_line": 36,
+   "cand_code": 6010
+  },
+  {
+   "orig_window": "0x1557e8",
+   "orig_file": "admin_set_idl_authority.rs",
+   "orig_line": 79,
+   "code": 6010,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x7f5c0",
+   "cand_name": "pump_recovered::idl_authority::execute",
+   "cand_file": "admin_set_idl_authority.rs",
+   "cand_line": 38,
+   "cand_code": 6010
+  },
+  {
+   "orig_window": "0x1557e8",
+   "orig_file": "admin_set_idl_authority.rs",
+   "orig_line": 90,
+   "code": 6010,
+   "window_matched": false,
+   "class": "pre",
+   "cand_fn": "0x7f5c0",
+   "cand_name": "pump_recovered::idl_authority::execute",
+   "cand_file": "admin_set_idl_authority.rs",
+   "cand_line": 39,
+   "cand_code": 6010
+  }
+ ]
+}

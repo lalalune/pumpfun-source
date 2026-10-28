@@ -1,0 +1,484 @@
+{
+ "comment": "Anchors for items moved across files by structural.py (their counterpart lives in a different file in the base build, so mksitemap cannot derive them from the base candidate).",
+ "anchors": [
+  {
+   "file": "create_v2.rs",
+   "pattern": "^let account = tail\\.first\\(\\)\\.ok_or_else\\(\\|\\| error!\\(PumpError::QuoteChainAccountsRequired\\)\\)\\?;$",
+   "target": 412,
+   "weight": 100,
+   "label": "gain:0x19cc0",
+   "orig": "0x19cc0",
+   "code": 6109,
+   "item": "create_v2::nested_create::walk::{{closure}}"
+  },
+  {
+   "file": "token_incentives/init_user_volume_accumulator.rs",
+   "pattern": "^#\\[derive\\(Accounts\\)\\]$",
+   "context": "^pub struct InitUserVolume<'info>\\{$",
+   "target": 8,
+   "weight": 100,
+   "label": "gain:0xfdf20",
+   "orig": "0xfdf20",
+   "code": 4101,
+   "item": "InitUserVolume try_accounts"
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^require_gt!\\(amount,0,PumpError::SellZeroAmount\\);$",
+   "target": 245,
+   "weight": 2,
+   "label": "pre:0x144508",
+   "orig": "0x144508",
+   "code": 6022
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^require_gte!\\(a\\.associated_base_user\\.amount,amount,PumpError::NotEnoughTokensToSell\\);$",
+   "target": 247,
+   "weight": 2,
+   "label": "pre:0x144508",
+   "orig": "0x144508",
+   "code": 6023
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^let quote=u64::try_from\\(amount as u128\\*c\\.virtual_quote_reserves as u128/\\(c\\.virtual_token_reserves as u128\\+amount as u128\\)\\)\\.map_err\\(\\|_\\|error!\\(PumpError::Truncation\\)\\)\\?;$",
+   "target": 341,
+   "weight": 100,
+   "label": "new:0x6f6d8",
+   "orig": "0x6f6d8",
+   "code": 6025
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?$",
+   "context": "^\\.checked_sub\\(cf\\)$",
+   "target": 366,
+   "weight": 100,
+   "label": "new:0x6f8e0",
+   "orig": "0x6f8e0",
+   "code": 6024
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?;$",
+   "context": "^\\.checked_sub\\(cf\\)$",
+   "target": 368,
+   "weight": 100,
+   "label": "new:0x6fae8",
+   "orig": "0x6fae8",
+   "code": 6024
+  },
+  {
+   "file": "migrate.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?$",
+   "context": "post_complete_quote_in",
+   "target": 280,
+   "weight": 100,
+   "label": "new:0x410b0",
+   "orig": "0x410b0",
+   "code": 6024
+  },
+  {
+   "file": "migrate.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?;$",
+   "context": "^\\.checked_sub\\(fee\\)$",
+   "target": 282,
+   "weight": 100,
+   "label": "new:0x412b8",
+   "orig": "0x412b8",
+   "code": 6024
+  },
+  {
+   "file": "migrate_v2.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?;$",
+   "context": "post_complete_quote_in",
+   "target": 309,
+   "weight": 100,
+   "label": "new:0x4bb40",
+   "orig": "0x4bb40",
+   "code": 6024
+  },
+  {
+   "file": "migrate_v2.rs",
+   "pattern": "^let quote=if native\\{quote\\.checked_sub\\(fee\\)\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?\\}else\\{quote\\};$",
+   "target": 313,
+   "weight": 100,
+   "label": "new:0x4bd48",
+   "orig": "0x4bd48",
+   "code": 6024
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^require!\\(!c\\.complete,PumpError::BondingCurveComplete\\);$",
+   "target": 243,
+   "weight": 2,
+   "label": "pre:0x144508",
+   "orig": "0x144508",
+   "code": 6005
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require!\\(!a\\.bonding_curve\\.complete,PumpError::BondingCurveComplete\\);$",
+   "nth": 0,
+   "target": 345,
+   "weight": 2,
+   "label": "pre:0x13b9b8",
+   "orig": "0x13b9b8",
+   "code": 6005
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_gt!\\(input,0,PumpError::BuyZeroAmount\\);$",
+   "target": 354,
+   "weight": 2,
+   "label": "pre:0x13b9b8",
+   "orig": "0x13b9b8",
+   "code": 6020
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_gte!\\(a\\.bonding_curve\\.real_token_reserves,input,PumpError::NotEnoughTokensToBuy\\);$",
+   "target": 356,
+   "weight": 2,
+   "label": "pre:0x13b9b8",
+   "orig": "0x13b9b8",
+   "code": 6021
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^let pre_quote=add\\(u64::try_from\\(quoted_amount as u128",
+   "target": 465,
+   "weight": 100,
+   "label": "new:0x16bb8",
+   "orig": "0x16bb8",
+   "code": 6025
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^let quote_transfer_fee=gross_quote\\.checked_sub\\(pre_quote\\)\\.ok_or_else",
+   "target": 469,
+   "weight": 100,
+   "label": "new:0x16dc0",
+   "orig": "0x16dc0",
+   "code": 6024
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_gte!\\(limit,gross_quote\\.checked_add\\(pf\\)$",
+   "target": 494,
+   "weight": 2,
+   "label": "pre:0x13b9b8",
+   "orig": "0x13b9b8",
+   "code": 6002
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?$",
+   "context": "^\\.checked_add\\(cf\\)$",
+   "target": 498,
+   "weight": 100,
+   "label": "new:0xac2b8",
+   "orig": "0xac2b8",
+   "code": 6024
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^\\.ok_or_else\\(\\|\\|error!\\(PumpError::Overflow\\)\\)\\?,PumpError::TooMuchSolRequired\\);$",
+   "target": 500,
+   "weight": 100,
+   "label": "new:0xac4c0",
+   "orig": "0xac4c0",
+   "code": 6024
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require!\\(!a\\.bonding_curve\\.complete,PumpError::BondingCurveComplete\\);$",
+   "nth": 1,
+   "target": 767,
+   "weight": 2,
+   "label": "pre:0x13f630",
+   "orig": "0x13f630",
+   "code": 6005
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_gt!\\(limit,0,PumpError::BuyZeroAmount\\);$",
+   "target": 769,
+   "weight": 2,
+   "label": "pre:0x13f630",
+   "orig": "0x13f630",
+   "code": 6020
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^u64::try_from\\(amount as u128\\*c\\.virtual_quote_reserves as u128",
+   "target": 959,
+   "weight": 100,
+   "label": "new:0x176d8",
+   "orig": "0x176d8",
+   "code": 6025
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let quote=u64::try_from\\(quotient\\.checked_add\\(1\\)",
+   "target": 811,
+   "weight": 100,
+   "label": "new:0x84d80",
+   "orig": "0x84d80",
+   "code": 6025
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let quote=u64::try_from\\(amount as u128\\*curve\\.virtual_quote_reserves as u128/\\(curve\\.virtual_token_reserves as u128\\+amount as u128\\)\\)",
+   "target": 1140,
+   "weight": 100,
+   "label": "new:0x87ca0",
+   "orig": "0x87ca0",
+   "code": 6025
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let quote_transfer_fee=user_output\\.checked_sub\\(net_output\\)\\.ok_or_else",
+   "target": 1155,
+   "weight": 100,
+   "label": "new:0x87ea8",
+   "orig": "0x87ea8",
+   "code": 6024
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^require_gte!\\(net_output,minimum,PumpError::TooLittleSolReceived\\);$",
+   "target": 379,
+   "weight": 2,
+   "label": "pre:0x144508",
+   "orig": "0x144508",
+   "code": 6003
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^let quote_transfer_fee=output\\.checked_sub\\(net_output\\)\\.ok_or_else",
+   "target": 386,
+   "weight": 100,
+   "label": "new:0x6fcf0",
+   "orig": "0x6fcf0",
+   "code": 6024
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let quote=if exceeds\\{u64::try_from\\(",
+   "target": 930,
+   "weight": 100,
+   "label": "new:0x85398",
+   "orig": "0x85398",
+   "code": 6025
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let transfer_base=amount\\.checked_add\\(post_base\\)\\.ok_or_else",
+   "target": 970,
+   "weight": 100,
+   "label": "new:0x855a0",
+   "orig": "0x855a0",
+   "code": 6024
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^if !\\(exceeds && \\(curve\\.is_mayhem_mode \\|\\| is_fee_exempt\\) && partial_fill\\)\\{require_gte!\\(transfer_base,min_tokens_out",
+   "target": 971,
+   "weight": 2,
+   "label": "pre:0x1489f8",
+   "orig": "0x1489f8",
+   "code": 6042
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^require_gt!\\(amount,0,PumpError::BuyZeroAmount\\);$",
+   "target": 801,
+   "weight": 2,
+   "label": "pre:0x147ba0",
+   "orig": "0x147ba0",
+   "code": 6020
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^if !\\(partial && computed>c\\.real_token_reserves\\)\\{require_gte!\\(amount,limit,PumpError::BuySlippageBelowMinTokensOut\\);\\}$",
+   "target": 986,
+   "weight": 2,
+   "label": "pre:0x13f630",
+   "orig": "0x13f630",
+   "code": 6042
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^let quote_transfer_fee=gross_quote\\.checked_sub\\(quote\\)\\.ok_or_else",
+   "target": 995,
+   "weight": 100,
+   "label": "new:0x17ae8",
+   "orig": "0x17ae8",
+   "code": 6024
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^require!\\(amount_in > 0,PumpError::BuyZeroAmount\\);$",
+   "target": 208,
+   "weight": 2,
+   "label": "pre:0x567d8",
+   "orig": "0x567d8",
+   "code": 6020
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^require!\\(ctx\\.remaining_accounts\\.len\\(\\) >= 5 && ctx\\.remaining_accounts\\.len\\(\\) % 5 == 0,$",
+   "target": 214,
+   "weight": 2,
+   "label": "pre:0x567d8",
+   "orig": "0x567d8",
+   "code": 6027
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^require!\\(!h\\.bonding_curve\\.is_mayhem_mode,PumpError::MultiHopMayhemCurveNotSupported\\);$",
+   "target": 484,
+   "weight": 2,
+   "label": "pre:0x5b3b0",
+   "orig": "0x5b3b0",
+   "code": 6108
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^require!\\(buy \\|\\| current_mint == h\\.base_mint\\.key\\(\\),PumpError::MultiHopDiscontinuousPath\\);$",
+   "target": 546,
+   "weight": 2,
+   "label": "pre:0x5b3b0",
+   "orig": "0x5b3b0",
+   "code": 6098
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^let buy_transfer_fee = amount\\.checked_sub\\(trade_amount\\)",
+   "target": 571,
+   "weight": 100,
+   "label": "new:0x5fc48",
+   "orig": "0x5fc48",
+   "code": 6024
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^let base = u64::try_from\\(div\\(effective as u128",
+   "target": 589,
+   "weight": 100,
+   "label": "new:0x5fe50",
+   "orig": "0x5fe50",
+   "code": 6025
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^require_gt!\\(base,0,PumpError::BuyZeroAmount\\);$",
+   "target": 590,
+   "weight": 2,
+   "label": "pre:0x5b3b0",
+   "orig": "0x5b3b0",
+   "code": 6020
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^require_gt!\\(pool_base,0,PumpError::NotEnoughTokensToBuy\\);$",
+   "target": 599,
+   "weight": 2,
+   "label": "pre:0x5b3b0",
+   "orig": "0x5b3b0",
+   "code": 6021
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "capped\\.checked_add\\(post_base\\)\\.ok_or_else",
+   "target": 624,
+   "weight": 100,
+   "label": "new:0x60058",
+   "orig": "0x60058",
+   "code": 6024
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^require_gt!\\(net,0,PumpError::SellZeroAmount\\);$",
+   "target": 686,
+   "weight": 2,
+   "label": "pre:0x5b3b0",
+   "orig": "0x5b3b0",
+   "code": 6022
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^let sell_transfer_fee = raw_output\\.checked_sub\\(output\\)",
+   "target": 692,
+   "weight": 100,
+   "label": "new:0x60468",
+   "orig": "0x60468",
+   "code": 6024
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^let gross_sell = u64::try_from\\(div\\(amount as u128",
+   "target": 673,
+   "weight": 100,
+   "label": "new:0x60260",
+   "orig": "0x60260",
+   "code": 6025
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let quote_transfer_fee=gross\\.checked_sub\\(net\\)\\.ok_or_else",
+   "target": 382,
+   "weight": 100,
+   "label": "new:0x81640",
+   "orig": "0x81640",
+   "code": 6024
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^if a\\.user\\.key\\(\\)==a\\.global\\.whitelist_pda\\{u64::try_from\\(c\\.virtual_token_reserves",
+   "target": 881,
+   "weight": 100,
+   "label": "new:0x16fc8",
+   "orig": "0x16fc8",
+   "code": 6025
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^else\\{u64::try_from\\(c\\.virtual_token_reserves as u128\\*e as u128",
+   "target": 927,
+   "weight": 100,
+   "label": "new:0x171d0",
+   "orig": "0x171d0",
+   "code": 6025
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^require_gt!\\(available,0,PumpError::BuyNotEnoughSolToCoverFees\\);$",
+   "target": 873,
+   "weight": 2,
+   "label": "pre:0x13f630",
+   "orig": "0x13f630",
+   "code": 6041
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let computed_amount=if is_fee_exempt\\{u64::try_from\\(",
+   "target": 904,
+   "weight": 100,
+   "label": "new:0x84f88",
+   "orig": "0x84f88",
+   "code": 6025
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^else\\{u64::try_from\\(curve\\.virtual_token_reserves as u128\\*effective",
+   "target": 911,
+   "weight": 100,
+   "label": "new:0x85190",
+   "orig": "0x85190",
+   "code": 6025
+  }
+ ]
+}

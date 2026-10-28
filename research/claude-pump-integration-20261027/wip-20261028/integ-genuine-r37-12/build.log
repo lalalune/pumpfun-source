@@ -1,0 +1,358 @@
+   Compiling pump-recovered v0.1.0 (/Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/lanes/integ-layout/work/ws/programs/pump)
+warning: ambiguous glob re-exports
+  --> programs/pump/src/lib.rs:2:9
+   |
+2  | pub use multi_hop_curve::*;
+   |         ^^^^^^^^^^^^^^^^^^ the name `execute` in the value namespace is first re-exported here
+...
+57 | pub use minimum::*;
+   |         ---------- but the name `execute` in the value namespace is also re-exported here
+   |
+   = note: `#[warn(ambiguous_glob_reexports)]` on by default
+
+warning: unused import: `global_init::*`
+ --> programs/pump/src/lib.rs:4:9
+  |
+4 | pub use global_init::*;
+  |         ^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: ambiguous glob re-exports
+  --> programs/pump/src/lib.rs:8:9
+   |
+8  | pub use token_incentives::*;
+   |         ^^^^^^^^^^^^^^^^^^^ the name `claim` in the value namespace is first re-exported here
+...
+15 | pub use cashback::*;
+   |         ----------- but the name `claim` in the value namespace is also re-exported here
+
+warning: unused imports: `TransferChecked`, `self`
+ --> programs/pump/src/buy_v2.rs:2:35
+  |
+2 | use anchor_spl::token_interface::{self,Mint,TokenAccount,TokenInterface,TransferChecked};
+  |                                   ^^^^                                  ^^^^^^^^^^^^^^^
+
+warning: ambiguous glob re-exports
+  --> programs/pump/src/lib.rs:13:9
+   |
+13 | pub use buy_v2::*;
+   |         ^^^^^^^^^ the name `native_payments` in the type namespace is first re-exported here
+...
+24 | pub use migrate::*;
+   |         ---------- but the name `native_payments` in the type namespace is also re-exported here
+
+warning: ambiguous glob re-exports
+  --> programs/pump/src/lib.rs:17:9
+   |
+17 | pub use migrate_v2::*;
+   |         ^^^^^^^^^^^^^ the name `pool_authority_mint_token_account` in the value namespace is first re-exported here
+...
+24 | pub use migrate::*;
+   |         ---------- but the name `pool_authority_mint_token_account` in the value namespace is also re-exported here
+
+warning: ambiguous glob re-exports
+  --> programs/pump/src/lib.rs:17:9
+   |
+17 | pub use migrate_v2::*;
+   |         ^^^^^^^^^^^^^ the name `close_pool_authority_account` in the value namespace is first re-exported here
+...
+24 | pub use migrate::*;
+   |         ---------- but the name `close_pool_authority_account` in the value namespace is also re-exported here
+
+warning: unused imports: `Mint`, `TokenAccount`, `TokenInterface`, `TransferChecked`, `self`
+ --> programs/pump/src/buy.rs:2:35
+  |
+2 | use anchor_spl::token_interface::{self,Mint,TokenAccount,TokenInterface,TransferChecked};
+  |                                   ^^^^ ^^^^ ^^^^^^^^^^^^ ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^
+
+warning: unused import: `Global`
+ --> programs/pump/src/buy.rs:3:13
+  |
+3 | use crate::{Global,PumpError};
+  |             ^^^^^^
+
+warning: unused import: `BondingCurve`
+ --> programs/pump/src/buy.rs:4:26
+  |
+4 | use crate::trade_types::{BondingCurve,TradeEvent};
+  |                          ^^^^^^^^^^^^
+
+warning: unused import: `legacy_buy::*`
+  --> programs/pump/src/lib.rs:19:9
+   |
+19 | pub use legacy_buy::*;
+   |         ^^^^^^^^^^^^^
+
+warning: ambiguous glob re-exports
+  --> programs/pump/src/lib.rs:24:9
+   |
+24 | pub use migrate::*;
+   |         ^^^^^^^^^^ the name `transfer_native` in the value namespace is first re-exported here
+...
+37 | pub use collect_v2::*;
+   |         ------------- but the name `transfer_native` in the value namespace is also re-exported here
+
+warning: unused imports: `TransferChecked`, `self`
+ --> programs/pump/src/sell_v2.rs:2:35
+  |
+2 | use anchor_spl::token_interface::{self,Mint,TokenAccount,TokenInterface,TransferChecked};
+  |                                   ^^^^                                  ^^^^^^^^^^^^^^^
+
+warning: unused imports: `TransferChecked`, `self`
+ --> programs/pump/src/sell.rs:4:35
+  |
+4 | use anchor_spl::token_interface::{self,Mint,TokenAccount,TokenInterface,TransferChecked};
+  |                                   ^^^^                                  ^^^^^^^^^^^^^^^
+
+warning: unused import: `TradeEvent`
+ --> programs/pump/src/sell.rs:6:39
+  |
+6 | use crate::trade_types::{BondingCurve,TradeEvent};
+  |                                       ^^^^^^^^^^
+
+warning: unused import: `Fees`
+ --> programs/pump/src/fee_cpi.rs:3:40
+  |
+3 | use crate::trade_types::{BondingCurve, Fees};
+  |                                        ^^^^
+
+warning: unused import: `Return`
+  --> programs/pump/src/fee_cpi.rs:59:59
+   |
+59 | pub use crate::pump_fees::cpi::{get_fees_with_quote_mint, Return};
+   |                                                           ^^^^^^
+
+warning: unused imports: `AccountMeta`, `Instruction`, `program::invoke_signed`
+ --> programs/pump/src/create_v2.rs:4:49
+  |
+4 | use anchor_lang::solana_program::{instruction::{Instruction,AccountMeta},program::invoke_signed};
+  |                                                 ^^^^^^^^^^^ ^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::*`
+   --> programs/pump/src/create_v2.rs:206:8
+    |
+206 |    use super::*;
+    |        ^^^^^^^^
+
+warning: unused import: `crate::*`
+ --> programs/pump/src/create.rs:1:5
+  |
+1 | use crate::*;
+  |     ^^^^^^^^
+
+warning: unused imports: `Mint`, `TokenAccount`, `Token`, `associated_token::AssociatedToken`, `self`
+ --> programs/pump/src/create.rs:2:26
+  |
+2 | use anchor_spl::{token::{self,Mint,Token,TokenAccount},associated_token::AssociatedToken};
+  |                          ^^^^ ^^^^ ^^^^^ ^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `AccountMeta`, `Instruction`, `program::invoke_signed`
+ --> programs/pump/src/create.rs:3:49
+  |
+3 | use anchor_lang::solana_program::{instruction::{Instruction,AccountMeta},program::invoke_signed};
+  |                                                 ^^^^^^^^^^^ ^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `AccountMeta`, `Instruction`, `program::invoke_signed`
+ --> programs/pump/src/creator/admin_cto.rs:4:49
+  |
+4 | use anchor_lang::solana_program::{instruction::{Instruction,AccountMeta},program::invoke_signed};
+  |                                                 ^^^^^^^^^^^ ^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: ambiguous glob re-exports
+  --> programs/pump/src/lib.rs:45:9
+   |
+45 | pub use admin_cto::*;
+   |         ^^^^^^^^^^^^ the name `FEES` in the value namespace is first re-exported here
+...
+55 | pub use distribution::*;
+   |         --------------- but the name `FEES` in the value namespace is also re-exported here
+
+warning: ambiguous glob re-exports
+  --> programs/pump/src/lib.rs:60:9
+   |
+60 | pub use trade::*;
+   |         ^^^^^^^^ the name `buy` in the value namespace is first re-exported here
+...
+74 | #[program]
+   | ---------- but the name `buy` in the value namespace is also re-exported here
+
+warning: ambiguous glob re-exports
+  --> programs/pump/src/lib.rs:60:9
+   |
+60 | pub use trade::*;
+   |         ^^^^^^^^ the name `sell` in the value namespace is first re-exported here
+...
+74 | #[program]
+   | ---------- but the name `sell` in the value namespace is also re-exported here
+
+warning: ambiguous glob re-exports
+  --> programs/pump/src/lib.rs:66:9
+   |
+66 | pub use quote_control::*;
+   |         ^^^^^^^^^^^^^^^^ the name `initialize_quote_control` in the value namespace is first re-exported here
+...
+74 | #[program]
+   | ---------- but the name `initialize_quote_control` in the value namespace is also re-exported here
+
+warning: ambiguous glob re-exports
+  --> programs/pump/src/lib.rs:66:9
+   |
+66 | pub use quote_control::*;
+   |         ^^^^^^^^^^^^^^^^ the name `add_quote_control_mint` in the value namespace is first re-exported here
+...
+74 | #[program]
+   | ---------- but the name `add_quote_control_mint` in the value namespace is also re-exported here
+
+warning: ambiguous glob re-exports
+  --> programs/pump/src/lib.rs:66:9
+   |
+66 | pub use quote_control::*;
+   |         ^^^^^^^^^^^^^^^^ the name `remove_quote_control_mint` in the value namespace is first re-exported here
+...
+74 | #[program]
+   | ---------- but the name `remove_quote_control_mint` in the value namespace is also re-exported here
+
+warning: ambiguous glob re-exports
+  --> programs/pump/src/lib.rs:66:9
+   |
+66 | pub use quote_control::*;
+   |         ^^^^^^^^^^^^^^^^ the name `set_quote_control_mint_reserves` in the value namespace is first re-exported here
+...
+74 | #[program]
+   | ---------- but the name `set_quote_control_mint_reserves` in the value namespace is also re-exported here
+
+warning: ambiguous glob re-exports
+  --> programs/pump/src/lib.rs:66:9
+   |
+66 | pub use quote_control::*;
+   |         ^^^^^^^^^^^^^^^^ the name `set_quote_control_admin` in the value namespace is first re-exported here
+...
+74 | #[program]
+   | ---------- but the name `set_quote_control_admin` in the value namespace is also re-exported here
+
+warning: ambiguous glob re-exports
+  --> programs/pump/src/lib.rs:66:9
+   |
+66 | pub use quote_control::*;
+   |         ^^^^^^^^^^^^^^^^ the name `set_quote_control_reserves_admin` in the value namespace is first re-exported here
+...
+74 | #[program]
+   | ---------- but the name `set_quote_control_reserves_admin` in the value namespace is also re-exported here
+
+warning: use of deprecated method `anchor_lang::prelude::AccountInfo::<'a>::realloc`: Use AccountInfo::resize() instead
+  --> programs/pump/src/extend_account.rs:50:10
+   |
+50 |     info.realloc(size, false)?;
+   |          ^^^^^^^
+   |
+   = note: `#[warn(deprecated)]` on by default
+
+warning: use of deprecated method `anchor_lang::prelude::AccountInfo::<'a>::realloc`: Use AccountInfo::resize() instead
+  --> programs/pump/src/admin_set_idl_authority.rs:37:17
+   |
+37 |         account.realloc(10240,false)?;
+   |                 ^^^^^^^
+
+warning: use of deprecated method `anchor_lang::prelude::AccountInfo::<'a>::realloc`: Use AccountInfo::resize() instead
+   --> programs/pump/src/trade_types.rs:327:33
+    |
+327 |         curve.to_account_info().realloc(166, false)?;
+    |                                 ^^^^^^^
+
+warning: use of deprecated method `anchor_lang::prelude::AccountInfo::<'a>::realloc`: Use AccountInfo::resize() instead
+  --> programs/pump/src/quote_control/update_quote_control_mints.rs:89:14
+   |
+89 |         info.realloc(new_space, false)?;
+   |              ^^^^^^^
+
+warning: use of deprecated method `anchor_lang::prelude::AccountInfo::<'a>::realloc`: Use AccountInfo::resize() instead
+  --> programs/pump/src/lib.rs:74:1
+   |
+74 | #[program]
+   | ^^^^^^^^^^
+   |
+   = note: this warning originates in the attribute macro `program` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `rent`
+   --> programs/pump/src/migrate_v2.rs:113:979
+    |
+113 | ...ng_curve.to_account_info();let rent=Rent::get()?;
+    |                                   ^^^^ help: if this is intentional, prefix it with an underscore: `_rent`
+    |
+    = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `user`
+  --> programs/pump/src/migrate.rs:49:48
+   |
+49 |  let pa=a.pool_authority.to_account_info();let user=a.user.to_account_info();let mint=a.mint.to_account_info();let sys=a.system_program.t...
+   |                                                ^^^^ help: if this is intentional, prefix it with an underscore: `_user`
+
+warning: unused variable: `rent`
+  --> programs/pump/src/migrate.rs:49:910
+   |
+49 | ...ng_curve.to_account_info();let rent=Rent::get()?;let base_tok=if mint.owner==tok.key{tok.clone()}else{t22.clone()};
+   |                                   ^^^^ help: if this is intentional, prefix it with an underscore: `_rent`
+
+warning: variable does not need to be mutable
+   --> programs/pump/src/create_v2.rs:202:8
+    |
+202 |    let mut acc_infos=ctx.to_account_infos();
+    |        ----^^^^^^^^^
+    |        |
+    |        help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` on by default
+
+warning: unused variable: `next_protocol`
+   --> programs/pump/src/trade_v3.rs:154:9
+    |
+154 |     let next_protocol=add(add(curve.protocol_fees,retained)?,post_retained)?;
+    |         ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_next_protocol`
+
+warning: unused variable: `next_protocol`
+   --> programs/pump/src/trade_v3.rs:269:9
+    |
+269 |     let next_protocol=add(add(curve.protocol_fees,retained)?,post_retained)?;
+    |         ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_next_protocol`
+
+warning: unused variable: `next_protocol`
+   --> programs/pump/src/trade_v3.rs:364:9
+    |
+364 |     let next_protocol=add(curve.protocol_fees,retained)?;
+    |         ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_next_protocol`
+
+warning: function `transfer_native` is never used
+ --> programs/pump/src/v2_recipient_payments.rs:5:15
+  |
+5 | pub(super) fn transfer_native<'info>(
+  |               ^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` on by default
+
+warning: function `narrow` is never used
+  --> programs/pump/src/sell_v2.rs:51:4
+   |
+51 | fn narrow(a:u128)->Result<u64>{u64::try_from(a).map_err(|_|error!(PumpError::Truncation))}
+   |    ^^^^^^
+
+warning: function `sub` is never used
+  --> programs/pump/src/sell.rs:44:15
+   |
+44 | pub(crate) fn sub(a:u64,b:u64)->Result<u64>{a.checked_sub(b).ok_or_else(||error!(PumpError::Overflow))}
+   |               ^^^
+
+warning: function `narrow` is never used
+  --> programs/pump/src/sell.rs:45:15
+   |
+45 | pub(crate) fn narrow(a:u128)->Result<u64>{u64::try_from(a).map_err(|_|error!(PumpError::Truncation))}
+   |               ^^^^^^
+
+warning: constant `CURVE_DISC` is never used
+   --> programs/pump/src/create_v2.rs:263:7
+    |
+263 | const CURVE_DISC: [u8; 8] = [23, 183, 248, 55, 96, 216, 172, 96];
+    |       ^^^^^^^^^^
+
+warning: `pump-recovered` (lib) generated 49 warnings (run `cargo fix --lib -p pump-recovered` to apply 18 suggestions)
+    Finished `release` profile [optimized] target(s) in 18.73s

@@ -1,0 +1,235 @@
+{
+ "comment": "integ-layout anchors for code merged from lanes without a coordfiles anchor (fed to coordfiles' layout.py as an extra --sitemap).",
+ "anchors": [
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^fn add3\\(a:u64,b:u64,c:u64\\)->Result<u64>\\{",
+   "target": 285,
+   "weight": 100,
+   "label": "gain:0x801f8",
+   "orig": "0x801f8",
+   "code": 6024,
+   "item": "trade::add3 (nearmiss2-04)"
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^fn sub3\\(a:u64,b:u64,c:u64\\)->Result<u64>\\{",
+   "target": 294,
+   "weight": 100,
+   "label": "gain:0x80488",
+   "orig": "0x80488",
+   "code": 6024,
+   "item": "trade::sub3 (nearmiss2-04)"
+  },
+  {
+   "file": "migrate_v2.rs",
+   "pattern": "^let base=[^;]*;let quote=quote_amount\\(&tmpq\\)\\?\\.checked_sub\\(quote_before\\)",
+   "target": 326,
+   "weight": 100,
+   "label": "gain:0x4bf50",
+   "orig": "0x4bf50",
+   "code": 6024,
+   "item": "migrate_v2 quote_amount - quote_before Overflow closure (coordfiles gain; a sitemap from an unpadded build pairs the wrong same-shape closure)"
+  },
+  {
+   "file": "sell_v2.rs",
+   "pattern": "^let quote=u64::try_from\\(c\\.sell_quote\\(amount\\)\\?\\)\\.map_err",
+   "target": 341,
+   "weight": 100,
+   "label": "gain:0x6f6d8",
+   "orig": "0x6f6d8",
+   "code": 6025,
+   "item": "sell_v2 quote truncation after BondingCurve::sell_quote (integ_genuine.py; coordfiles' anchor matched the old inline form)"
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^let quote=u64::try_from\\(curve\\.sell_quote\\(amount\\)\\?\\)",
+   "target": 1140,
+   "weight": 100,
+   "label": "gain:0x87ca0",
+   "orig": "0x87ca0",
+   "code": 6025,
+   "item": "sell_v3 quote truncation after BondingCurve::sell_quote"
+  },
+  {
+   "file": "multi_hop_curve_swap.rs",
+   "pattern": "^let gross_sell = u64::try_from\\(c\\.sell_quote\\(amount\\)\\?\\)",
+   "target": 673,
+   "weight": 100,
+   "label": "gain:0x60260",
+   "orig": "0x60260",
+   "code": 6025,
+   "item": "multi-hop sell quote truncation after BondingCurve::sell_quote"
+  },
+  {
+   "file": "trade_v3.rs",
+   "pattern": "^else\\{u64::try_from\\(crate::constant_product::tokens_for_quote\\(curve,quote_budget\\)\\?\\)",
+   "target": 911,
+   "weight": 100,
+   "label": "gain:0x85190",
+   "orig": "0x85190",
+   "code": 6025,
+   "item": "buy_exact_quote v3 normal-path truncation after tokens_for_quote (ext798.py)"
+  },
+  {
+   "file": "buy_v2.rs",
+   "pattern": "^else\\{u64::try_from\\(crate::constant_product::tokens_for_quote\\(c,adjusted\\)\\?\\)",
+   "target": 927,
+   "weight": 100,
+   "label": "gain:0x171d0",
+   "orig": "0x171d0",
+   "code": 6025,
+   "item": "buy_exact_quote_in_v2 normal-path truncation after tokens_for_quote (ext798.py)"
+  },
+  {
+   "file": "util/constant_product.rs",
+   "pattern": "^let numerator=amount_in\\.checked_mul\\(reserve_out\\)",
+   "target": 13,
+   "weight": 100,
+   "label": "gain:0x880b0",
+   "orig": "0x880b0",
+   "code": 6024,
+   "item": "ext798 util site (their file positioned it with blank lines)"
+  },
+  {
+   "file": "util/constant_product.rs",
+   "pattern": "^let denominator=reserve_in\\.checked_add\\(amount_in\\)",
+   "target": 17,
+   "weight": 100,
+   "label": "gain:0x880b0",
+   "orig": "0x880b0",
+   "code": 6024,
+   "item": "ext798 util site (their file positioned it with blank lines)"
+  },
+  {
+   "file": "util/constant_product.rs",
+   "pattern": "^numerator\\.checked_div\\(denominator\\)\\.ok_or_else",
+   "target": 19,
+   "weight": 100,
+   "label": "gain:0x880b0",
+   "orig": "0x880b0",
+   "code": 6026,
+   "item": "ext798 util site (their file positioned it with blank lines)"
+  },
+  {
+   "file": "util/transfer_fee.rs",
+   "pattern": "^Some\\(fee\\)=>fee\\.calculate_fee\\(amount\\)\\.ok_or_else",
+   "target": 48,
+   "weight": 50,
+   "label": "pre:0x94e28",
+   "orig": "0x94e28",
+   "code": 6024,
+   "item": "ext798 util site (their file positioned it with blank lines)"
+  },
+  {
+   "file": "util/transfer_fee.rs",
+   "pattern": "^amount\\.checked_sub\\(fee\\)\\.ok_or_else",
+   "target": 56,
+   "weight": 100,
+   "label": "gain:0x950e0",
+   "orig": "0x950e0",
+   "code": 6024,
+   "item": "ext798 util site (their file positioned it with blank lines)"
+  },
+  {
+   "file": "util/transfer_fee.rs",
+   "pattern": "^Some\\(fee\\)=>fee\\.calculate_pre_fee_amount\\(amount\\)\\.ok_or_else",
+   "target": 66,
+   "weight": 50,
+   "label": "pre:0x95360",
+   "orig": "0x95360",
+   "code": 6024,
+   "item": "ext798 util site (their file positioned it with blank lines)"
+  },
+  {
+   "file": "creator/migrate_bonding_curve_creator.rs",
+   "pattern": "^require!\\(!a\\.bonding_curve\\.is_holder_reward,PumpError::HolderRewardCreatorImmutable\\);$",
+   "target": 46,
+   "weight": 100,
+   "label": "gain:0x37e08",
+   "orig": "0x37e08",
+   "code": 6000,
+   "item": "migrate_bonding_curve_creator::execute require (pump-big-lo body patch makes 0x37e08 coordinate-only)"
+  },
+  {
+   "file": "creator/migrate_bonding_curve_creator.rs",
+   "pattern": "^require!\\(a\\.bonding_curve\\.creator_fee==0,PumpError::CreatorFeesNotSwept\\);$",
+   "target": 53,
+   "weight": 100,
+   "label": "gain:0x37e08",
+   "orig": "0x37e08",
+   "code": 6000,
+   "item": "migrate_bonding_curve_creator::execute require (pump-big-lo body patch makes 0x37e08 coordinate-only)"
+  },
+  {
+   "file": "fee_recipient.rs",
+   "pattern": "^return err!\\(PumpError::NotAuthorized\\);$",
+   "target": 19,
+   "weight": 100,
+   "label": "gain:0x3dd78",
+   "orig": "0x3dd78",
+   "code": 6000,
+   "item": "validate_fee_recipient mayhem-first early-return form (coordbodyA-01)"
+  },
+  {
+   "file": "fee_recipient.rs",
+   "pattern": "^err!\\(PumpError::NotAuthorized\\)$",
+   "target": 35,
+   "weight": 100,
+   "label": "gain:0x3dd78",
+   "orig": "0x3dd78",
+   "code": 6000,
+   "item": "validate_fee_recipient mayhem-first early-return form (coordbodyA-01)"
+  },
+  {
+   "file": "sell.rs",
+   "pattern": "^require!\\(!remaining_accounts\\.is_empty\\(\\),PumpError::InvalidBondingCurveV2\\);",
+   "target": 126,
+   "weight": 100,
+   "label": "gain:0x6eed8",
+   "orig": "0x6eed8",
+   "code": 6000,
+   "item": "coordbodyA-02 sell.rs shared helper site"
+  },
+  {
+   "file": "sell.rs",
+   "pattern": "^require!\\(bonding_curve_v2\\.key\\(\\)==expected,PumpError::InvalidBondingCurveV2\\);",
+   "target": 133,
+   "weight": 100,
+   "label": "gain:0x6eed8",
+   "orig": "0x6eed8",
+   "code": 6000,
+   "item": "coordbodyA-02 sell.rs shared helper site"
+  },
+  {
+   "file": "sell.rs",
+   "pattern": "^require!\\(index<remaining_accounts\\.len\\(\\),PumpError::BuybackFeeRecipientMissing\\);",
+   "target": 145,
+   "weight": 100,
+   "label": "gain:0x6f3e8",
+   "orig": "0x6f3e8",
+   "code": 6000,
+   "item": "coordbodyA-02 sell.rs shared helper site"
+  },
+  {
+   "file": "pump_quote.rs",
+   "pattern": "^let pool_quote = \\(completion \\+ rq as u128\\)\\.checked_sub\\(migration_fee as u128\\)\\.ok_or_else",
+   "target": 212,
+   "weight": 100,
+   "label": "gain:0x63530",
+   "orig": "0x63530",
+   "code": 6024,
+   "item": "pumpquote-01 convert Overflow closure"
+  },
+  {
+   "file": "pump_quote.rs",
+   "pattern": "^\\(rt as u128\\)\\.checked_add\\(extra\\)\\.ok_or_else",
+   "target": 222,
+   "weight": 100,
+   "label": "gain:0x63738",
+   "orig": "0x63738",
+   "code": 6024,
+   "item": "pumpquote-01 convert Overflow closure"
+  }
+ ]
+}
