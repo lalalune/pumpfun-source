@@ -4,6 +4,7 @@ import {
   type LocalProfile,
   type LocalProfileDataset,
 } from "./profile-data";
+import { isValidProfileIdentifier } from "./profile-identifier";
 
 export const FOLLOWING_SEED_SHA256 =
   "37a0e7710055e94dd6035e3e6c418eac16797095471601ed059440ee97530dae";
@@ -85,7 +86,10 @@ export function localFollowGraph(
 }
 
 function identity(profile: LocalProfile): string {
-  return profile.userId ?? profile.address;
+  if (profile.userId && isValidProfileIdentifier(profile.userId))
+    return profile.userId;
+  if (isValidProfileIdentifier(profile.address)) return profile.address;
+  throw new Error("Unroutable local follow identity.");
 }
 
 function compare(a: string, b: string): number {

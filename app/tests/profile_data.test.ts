@@ -234,6 +234,69 @@ test("validates profile identifier boundaries", () => {
   assert.equal(isValidProfileIdentifier("a".repeat(129)), false);
 });
 
+test("profile admission and lookup reject unencodable and dot-only route identifiers", () => {
+  for (const identifier of [
+    ".",
+    "..",
+    "\ud800",
+    "\udc00",
+    "a\ud800b",
+    "a\udc00b",
+  ]) {
+    assert.throws(
+      () =>
+        validateLocalProfiles(
+          [],
+          [
+            user({
+              address: "",
+              canonical_svm_wallet: "",
+              userId: identifier,
+            }),
+          ],
+        ),
+      /requires a usable user id/,
+    );
+    // A valid wallet remains usable even if an optional alias cannot be routed.
+    const dataset = validateLocalProfiles([], [user({ userId: identifier })]);
+    assert.equal(resolveLocalProfile(dataset, identifier), undefined);
+    assert.equal(
+      resolveLocalProfile(dataset, user().address)?.userId,
+      identifier,
+    );
+  }
+});
+
+test("profile routes preserve Unicode and literal encoded identities without repair", () => {
+  for (const identifier of [
+    "person-1",
+    "é",
+    "e\u0301",
+    "😀",
+    "group:one",
+    "%2e",
+    "%2E%2E",
+    "%2F",
+    "%",
+    "a&b",
+    "😀".repeat(64),
+  ]) {
+    const dataset = validateLocalProfiles(
+      [post({ authorId: identifier })],
+      [user({ address: "", canonical_svm_wallet: "", userId: identifier })],
+    );
+    const pathname = new URL(
+      `/profile/${encodeURIComponent(identifier)}`,
+      "https://local.invalid",
+    ).pathname;
+    const routed = decodeURIComponent(pathname.slice("/profile/".length));
+    assert.equal(routed, identifier);
+    assert.equal(resolveLocalProfile(dataset, routed)?.userId, identifier);
+    assert.equal(resolveLocalProfile(dataset, routed)?.posts.length, 1);
+  }
+  assert.equal(isValidProfileIdentifier("😀".repeat(65)), false);
+});
+
 test("walletless profiles retain separate identities and post ownership", () => {
   const group = (id: string) =>
     user({
@@ -368,9 +431,23 @@ test("profile canonical-wallet validation preserves SVM then EVM precedence", ()
   );
 });
 
-test('one profile may use the same address and userId without becoming a duplicate user',()=>{
-  const address='11111111111111111111111111111111';
-  const data=validateLocalProfiles([post({authorId:address})],[user({userId:address})]);
-  assert.equal(data.profiles.length,1);assert.equal(resolveLocalProfile(data,address)?.posts.length,1);
-  assert.throws(()=>validateLocalProfiles([],[user({userId:address}),user({userId:'other',address,canonical_svm_wallet:address})]),/identity/);
+test("one profile may use the same address and userId without becoming a duplicate user", () => {
+  const address = "11111111111111111111111111111111";
+  const data = validateLocalProfiles(
+    [post({ authorId: address })],
+    [user({ userId: address })],
+  );
+  assert.equal(data.profiles.length, 1);
+  assert.equal(resolveLocalProfile(data, address)?.posts.length, 1);
+  assert.throws(
+    () =>
+      validateLocalProfiles(
+        [],
+        [
+          user({ userId: address }),
+          user({ userId: "other", address, canonical_svm_wallet: address }),
+        ],
+      ),
+    /identity/,
+  );
 });

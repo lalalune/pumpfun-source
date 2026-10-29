@@ -199,8 +199,8 @@ Source and contract boundaries:
   stored follower count, username, then stable user id/address. That tie-break
   and the small seed's contents are local design, not observed production ranking.
 - The existing profile route helper evidence (**146695**) supports encoded
-  identity routes. The lists link to exact canonical local user ids, falling back
-  to a wallet only when the profile has no user id.
+  identity routes. The lists prefer an exact routable local user id, falling back
+  to a routable wallet when the optional user id is absent or unusable.
 
 The two inline lists, all-at-once presentation, labels, unavailable state and
 responsive layout are local design. They show all validated edges of this small
@@ -227,3 +227,68 @@ cases also pass. Local screenshots at 320 and 1280 pixels are in
 `visual/profile-follow-graph-20261029/`; no equivalent original profile screenshot
 was captured, so original visual parity and full profile/graph compatibility
 remain unqualified. No feature completion milestone is newly credited.
+
+
+## Profile route admission correction (2026-10-29)
+
+The maintained identifier guard previously admitted lone UTF-16 surrogates and
+exact `.` / `..` identifiers. A `FeedItem` could therefore throw `URIError`
+during `encodeURIComponent`, or link to a different route after URL dot-segment
+normalization. The existing wallet-to-user-id fallback was also bypassed when
+an unsafe wallet was incorrectly considered usable.
+
+The shared guard now rejects those inputs without rewriting them. Valid Unicode,
+including paired astral characters and distinct composed/decomposed text, remains
+unchanged. Literal percent strings such as `%2e`, `%2E%2E` and `%2F` are still
+identifiers: they are encoded once into `%252e`, `%252E%252E` and `%252F`, not
+decoded into path separators or dot segments. The existing 128 UTF-16-unit
+bound and whitespace/control/separator rules remain in force. Missing authors
+stay plain text; usable feed wallets still take precedence over user ids.
+
+The graph consumer had a second path to the same defect: a profile could resolve
+through a valid wallet while its optional, unrouteable user id was selected for
+the rendered link. Graph identity now prefers a usable user id, then a usable
+wallet, consistently for projection, edge deduplication, subject matching and
+tie-breaking. It does not mutate stored identifiers or profile records. An edge
+that cannot resolve still fails the entire graph; no substitute account is
+created. Aggregate counts, seeded edges and all default seed bytes are unchanged.
+
+This is local route-safety policy, not an inferred production identifier grammar.
+The original route-construction evidence remains factory **146695** above;
+its retained object and UTF-16 range hashes were rechecked without executing the
+capture. No original code, profile lookup transport, clipboard behavior,
+authentication, wallet operation or compatibility milestone changes.
+
+### Focused verification
+
+Against main `60bdd8a7a522921058d18563bb9335d2a06aec75`:
+
+- The same explicit maintained tests reproduced **41 pass / 5 fail** before the
+  two implementation changes, then **46/46 pass**: profile data and graph,
+  local search, Home feed and actual React/Next `FeedItem` server rendering.
+- A separate private actual React/NextLink graph server-render check used
+  validated synthetic users and the maintained graph projection. The baseline
+  had **3 pass / 4 fail** (two wrong dot links and two `URIError` cases); the
+  candidate passed **7/7**. Only CSS classes were stubbed. This supplemental
+  harness is not part of the published test suite.
+- Complete SDK/backend/Next production build and all three workspace typechecks
+  passed; focused strict test-source checking also passed. No install or
+  dependency change was required.
+- App evidence verification retained the **698-object** manifest and unchanged
+  published SDK source. The independently checked same-main repository-root
+  static gates passed **9 capture-integrity and 6 synthetic comparator checks**.
+
+Reproduce the published focused cases from `packages/frontend` with:
+
+```sh
+node --import ../../node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/loader.mjs --test \
+  tests/profile-walletless-render.node.ts \
+  ../../tests/profile_data.test.ts ../../tests/profile_follow_graph.test.ts \
+  ../../tests/home_feed.test.ts ../../tests/local_user_search.test.ts
+```
+
+These are local synthetic-input and server-render checks, not a running Next
+router, browser/history/navigation test, real-user lookup or visual parity.
+The default hash-bound seed contains none of these malformed identifiers.
+Browser and aggregate suites were not invoked, and historical browser results
+elsewhere in this document are not new qualification for this correction.

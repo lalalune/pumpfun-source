@@ -17,6 +17,103 @@ import {
   localFollowGraph,
 } from "../packages/frontend/src/components/profile/profile-follow-graph.ts";
 
+test("graph links fall back to a routable wallet when an optional user id is unsafe", async () => {
+  const users = JSON.parse(
+    await readFile(
+      new URL("../packages/backend/src/users-seed.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  for (const unsafe of [
+    ".",
+    "..",
+    "\ud800",
+    "\udc00",
+    "bad/id",
+    " bad",
+    "x".repeat(129),
+  ]) {
+    const input = structuredClone(users);
+    input[1].userId = unsafe;
+    const dataset = validateLocalProfiles([], input);
+    const [alice, bob] = dataset.profiles;
+    const before = structuredClone(dataset);
+    const edge = {
+      follower_id: bob.address,
+      following_id: alice.userId,
+      timestamp: 0,
+    };
+    const followers = localFollowGraph([edge], dataset, alice).followers;
+    assert.equal(followers[0].identifier, bob.address);
+    assert.equal(resolveLocalProfile(dataset, followers[0].identifier), bob);
+    assert.equal(
+      localFollowGraph([edge], dataset, bob).following[0].identifier,
+      alice.userId,
+    );
+    assert.throws(
+      () =>
+        localFollowGraph(
+          [edge, { ...edge, following_id: alice.address }],
+          dataset,
+          alice,
+        ),
+      /Duplicate local follow edge/,
+    );
+    assert.deepEqual(dataset, before);
+  }
+});
+
+test("graph identity keeps valid Unicode and literal encoded user ids before wallet aliases", async () => {
+  const users = JSON.parse(
+    await readFile(
+      new URL("../packages/backend/src/users-seed.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  for (const identifier of [
+    "é",
+    "e\u0301",
+    "😀",
+    "%2e",
+    "%2E%2E",
+    "%2F",
+    "%",
+    "group:one",
+  ]) {
+    const input = structuredClone(users);
+    input[1].userId = identifier;
+    const dataset = validateLocalProfiles([], input);
+    const [alice, bob] = dataset.profiles;
+    const edge = {
+      follower_id: bob.address,
+      following_id: alice.address,
+      timestamp: 0,
+    };
+    const graph = localFollowGraph([edge], dataset, alice);
+    assert.equal(graph.followers[0].identifier, identifier);
+    const pathname = new URL(
+      `/profile/${encodeURIComponent(identifier)}`,
+      "https://local.invalid",
+    ).pathname;
+    assert.equal(
+      resolveLocalProfile(
+        dataset,
+        decodeURIComponent(pathname.slice("/profile/".length)),
+      ),
+      bob,
+    );
+    assert.throws(
+      () =>
+        localFollowGraph(
+          [edge, { ...edge, follower_id: identifier }],
+          dataset,
+          alice,
+        ),
+      /Duplicate local follow edge/,
+    );
+  }
+});
+
 async function seeds() {
   const path = new URL("../packages/backend/src/", import.meta.url);
   const [posts, users, graphBytes] = await Promise.all(

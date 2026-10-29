@@ -122,3 +122,67 @@ test("feed author links use exact known profile identities and keep unknown auth
     assert.match(html, /Synthetic example/);
   }
 });
+
+function renderRouteAuthor(address: string, userId?: string): string {
+  const item: LocalFeedPost = {
+    id: "route-boundary",
+    author: { address, userId, name: "Local author", missing: false },
+    content: "Synthetic route example",
+    timestamp: "2024-01-01T00:00:00.000Z",
+    timestampLabel: "Jan 1, 2024",
+    likes: 0,
+    replies: 0,
+    reposts: 0,
+    quotes: 0,
+    hasMedia: false,
+    dataSource: "synthetic-seed-play",
+  };
+  return renderToStaticMarkup(createElement(FeedItem, { item }));
+}
+
+test("feed renders unpaired-surrogate identities as plain text instead of throwing", () => {
+  for (const value of ["\ud800", "\udc00", "a\ud800b", "a\udc00b"]) {
+    const html = renderRouteAuthor("", value);
+    assert.doesNotMatch(html, /<a[ >]/);
+    assert.match(html, /Local author/);
+    assert.match(html, /Synthetic example/);
+  }
+});
+
+test("feed does not link dot-only identities to a different normalized route", () => {
+  for (const value of [".", ".."]) {
+    const html = renderRouteAuthor("", value);
+    assert.doesNotMatch(html, /<a[ >]/);
+    assert.match(html, /Local author/);
+  }
+});
+
+test("feed retains its usable user-id fallback when a wallet cannot form a route", () => {
+  for (const value of [".", "..", "\ud800", "\udc00"]) {
+    const html = renderRouteAuthor(value, "usable-id");
+    assert.match(html, /href="\/profile\/usable-id"/);
+    assert.match(html, /Synthetic example/);
+  }
+});
+
+test("feed links preserve valid Unicode and literal percent-encoded identifiers exactly", () => {
+  for (const value of [
+    "person-1",
+    "é",
+    "e\u0301",
+    "😀",
+    "group:one",
+    "%2e",
+    "%2E%2E",
+    "%2F",
+    "%",
+    "a&b",
+  ]) {
+    const html = renderRouteAuthor("", value);
+    const href = /<a\b[^>]*href="([^"]*)"/.exec(html)?.[1];
+    assert.equal(href, `/profile/${encodeURIComponent(value)}`);
+    const pathname = new URL(href!, "https://local.invalid").pathname;
+    assert.equal(pathname, href);
+    assert.equal(decodeURIComponent(pathname.slice("/profile/".length)), value);
+  }
+});
