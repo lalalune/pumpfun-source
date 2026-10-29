@@ -9,3 +9,8 @@ packages/frontend/src/**/*.tsx text eol=lf
 # The wallet record producer compares these generated receipts byte-for-byte.
 packages/frontend/src/app/wallet-program-record/contract.json -text
 research/wallet-program-record-20261029/SOURCE.json -text
+
+# Source-selection digests and generated-contract checks bind these bytes too.
+contracts/** -text
+reconstruction/** -text
+recovered/** -text
