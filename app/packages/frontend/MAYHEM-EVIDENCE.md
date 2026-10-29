@@ -54,9 +54,10 @@ factory is not proof that every field was present at runtime.
 ## Local design
 
 - State and sort are URL-backed so refresh and browser history are deterministic.
-- Production calls only a same-origin read-only adapter. Because no archived
-  Mayhem response is checked in, that adapter returns an explicit unavailable
-  response and never proxies the captured origin.
+- Production calls only a same-origin read-only adapter. The original October
+  28 capture has no Mayhem coin response; the adapter returns an explicit
+  unavailable response and never proxies the captured origin. The separate
+  dated read below is evidence only and is not integrated into that adapter.
 - Strict validation accepts successful data only from the visibly labelled
   synthetic browser-test source. Test data is not compiled into a production
   fallback.
@@ -71,6 +72,23 @@ Current live coin contents, service ranking, current market values, production
 availability, exact live retry policy, and a matching original data-state
 screenshot are unknown. No wallet, trading, token creation, or mutation behavior
 is implemented.
+
+## Separate dated anonymous response
+
+[The October 29 source/request packet](../../research/mayhem-public-read-20261029/README.md)
+traces the actual SSR screener reference through its request, service-origin,
+credential override and JSON/identity-normalizer chain. One independently
+acquired anonymous GET with `limit=1` returned HTTP 200 and one raw coin row
+(2,092 bytes, SHA-256
+`d7dffc8ea16430b9b479b1d41b6e58889b7f8abee1d02cf5da787eb3330ae320`).
+The mounted source defaults to 60; this observation deliberately used its
+allowed smaller limit. No cookie, authorization, redirect or retry was used.
+
+The body, non-cookie headers, exact acquisition time and source/collector
+bindings are retained with an offline verifier. This adds a dated response
+binding, not an original-capture refresh, browser CORS result, qualified live
+adapter, market-data freshness guarantee or feature-completion credit. The
+same-origin adapter remains unavailable and qualification counts are unchanged.
 
 ## Qualification
 

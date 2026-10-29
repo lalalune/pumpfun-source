@@ -1,0 +1,175 @@
+{
+  "requestedUrl": "https://frontend-api-v3.pump.fun/coins/mayhem-mode?limit=1",
+  "method": "GET",
+  "requestHeaders": {
+    "Accept": "application/json",
+    "X-Pump-Source": "WEB",
+    "X-Pump-Platform": "web"
+  },
+  "startedAt": "2026-10-29T19:57:48.514864+00:00",
+  "maxResponseBytes": 1048576,
+  "redirectsAllowed": false,
+  "retries": 0,
+  "cookiesSent": false,
+  "authorizationSent": false,
+  "sourceTraceSha256": "81d0b29298f9115025cc50bf5db73c4cb78b5fda2314881353145dd371adae64",
+  "status": 200,
+  "responseUrl": "https://frontend-api-v3.pump.fun/coins/mayhem-mode?limit=1",
+  "headers": [
+    [
+      "date",
+      "Thu, 29 Oct 2026 19:57:48 GMT"
+    ],
+    [
+      "content-type",
+      "application/json; charset=utf-8"
+    ],
+    [
+      "vary",
+      "Origin, accept-encoding"
+    ],
+    [
+      "access-control-allow-credentials",
+      "true"
+    ],
+    [
+      "access-control-expose-headers",
+      "X-Degraded, Retry-After, cf-cache-status, Age"
+    ],
+    [
+      "x-ratelimit-limit",
+      "60"
+    ],
+    [
+      "x-ratelimit-remaining",
+      "59"
+    ],
+    [
+      "x-ratelimit-reset",
+      "60"
+    ],
+    [
+      "etag",
+      "W/\"n8W5unbaPhShRyCPwwxPtDssiAs=\""
+    ],
+    [
+      "x-frame-options",
+      "SAMEORIGIN"
+    ],
+    [
+      "cf-cache-status",
+      "DYNAMIC"
+    ],
+    [
+      "x-xss-protection",
+      "1; mode=block"
+    ],
+    [
+      "strict-transport-security",
+      "max-age=15552000; includeSubDomains"
+    ],
+    [
+      "x-content-type-options",
+      "nosniff"
+    ],
+    [
+      "expect-ct",
+      "max-age=86400, enforce"
+    ],
+    [
+      "referrer-policy",
+      "same-origin"
+    ],
+    [
+      "server",
+      "envoy"
+    ],
+    [
+      "cf-ray",
+      "a524c05acb8072e4-ORD"
+    ],
+    [
+      "x-envoy-upstream-service-time",
+      "247"
+    ],
+    [
+      "connection",
+      "close"
+    ],
+    [
+      "transfer-encoding",
+      "chunked"
+    ]
+  ],
+  "omittedCookieHeaderNames": [
+    "set-cookie",
+    "set-cookie"
+  ],
+  "headerRepresentation": "http.client parsed header values, cookie fields omitted; not raw wire bytes",
+  "bodyPath": "body.bin",
+  "retainedBodyBytes": 2092,
+  "retainedBodySha256": "d7dffc8ea16430b9b479b1d41b6e58889b7f8abee1d02cf5da787eb3330ae320",
+  "truncated": false,
+  "jsonSummary": {
+    "type": "list",
+    "rows": 1,
+    "firstRowFields": [
+      "associated_bonding_curve",
+      "ath_market_cap",
+      "ath_market_cap_timestamp",
+      "base_decimals",
+      "bonding_curve",
+      "boost_mode",
+      "canonical_pool_liquidity_usd",
+      "chain_id",
+      "complete",
+      "created_timestamp",
+      "creator",
+      "depth",
+      "description",
+      "hidden",
+      "hide_banner",
+      "image_uri",
+      "indexed_by_pump",
+      "initialized",
+      "is_backfill",
+      "is_banned",
+      "is_cashback_enabled",
+      "is_charity",
+      "is_currently_live",
+      "is_holder_reward",
+      "last_trade_timestamp",
+      "livestream_ban_expiry",
+      "market_cap",
+      "market_cap_quote",
+      "market_cap_usd",
+      "mayhem",
+      "mayhem_state",
+      "metadata_uri",
+      "mint",
+      "multichain_family",
+      "name",
+      "nsfw",
+      "pool_address",
+      "profile_image",
+      "program",
+      "protocol",
+      "quote_decimals",
+      "quote_mint",
+      "security_verdict",
+      "show_name",
+      "symbol",
+      "token_program",
+      "tokenized_agent",
+      "total_supply",
+      "total_supply_str",
+      "transfer_fee_bps",
+      "transfer_hook_program",
+      "usd_market_cap",
+      "username",
+      "verified"
+    ]
+  },
+  "finishedAt": "2026-10-29T19:57:48.810212+00:00",
+  "collectorSha256": "717f03c06aa535279f83faf54fdcbdd7a61a9ba22537696970cec497acc1d9f8"
+}

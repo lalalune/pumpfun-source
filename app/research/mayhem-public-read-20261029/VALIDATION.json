@@ -1,0 +1,62 @@
+{
+  "main": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Source/request attribution and one dated anonymous HTTP response; no native/UI/API completion",
+  "sourceFiles": {
+    "app/research/mayhem-public-read-20261029/verify.mjs": {
+      "bytes": 12084,
+      "sha256": "c3d1ba2caf36b4239c5dbddd987179aa081a044db27a4500c53940e50b4e4ae6"
+    },
+    "app/research/mayhem-public-read-20261029/verify.test.mjs": {
+      "bytes": 3962,
+      "sha256": "762a4bf46dd161d2f46f5a67979c91d39482ecb2cf31bfdfabd08388767108e5"
+    },
+    "app/research/mayhem-public-read-20261029/capture.py": {
+      "bytes": 3027,
+      "sha256": "717f03c06aa535279f83faf54fdcbdd7a61a9ba22537696970cec497acc1d9f8"
+    }
+  },
+  "checks": {
+    "offlineSourceAndResponse": "PASS: eight factory variants, exact mounted Flight import/element, eight source witnesses, frozen trace/collector/body",
+    "focusedTests": {
+      "new": 7,
+      "shared": 11,
+      "pass": 18,
+      "fail": 0
+    },
+    "rootEvidence": {
+      "captures": 9,
+      "result": "PASS"
+    },
+    "rootTooling": {
+      "tests": 10,
+      "result": "PASS"
+    },
+    "appEvidence": "PASS: 698 captured objects, npm integrity, unchanged SDK sources",
+    "progress": "PASS: generated rows fresh; nine tests",
+    "portableExport": "PASS from /tmp using a path with spaces, only ten public source inputs and public packet; dependencies reused read-only; no private work inputs",
+    "diffCheck": "PASS"
+  },
+  "ledger": {
+    "onlyValueChanged": "frontend.mayhem.note",
+    "notes": {
+      "before": "Evidence-mapped state filters, sorting, strict validation and fail-closed offline states pass unit and browser tests. No archived Mayhem response, qualified live API compatibility or original visual parity is claimed.",
+      "after": "Evidence-mapped state filters, sorting, strict validation and fail-closed offline states pass unit and browser tests. One separately dated anonymous limit=1 research response is retained; native adapter/UI/API qualification, freshness and original visual parity remain pending."
+    },
+    "allStatusesEvidenceCountsUnchanged": true
+  },
+  "acquisition": {
+    "liveRequests": 1,
+    "status": 200,
+    "bodyBytes": 2092,
+    "bodySha256": "d7dffc8ea16430b9b479b1d41b6e58889b7f8abee1d02cf5da787eb3330ae320",
+    "cookiesAuthorizationRedirectsRetries": false,
+    "noFurtherAcquisition": true
+  },
+  "limits": [
+    "No native adapter, backend replacement, dataset, proxy, Next build/browser, mutation or wallet action.",
+    "Python HTTP read does not test browser CORS/preflight or mounted-page success.",
+    "Captured Ky defaults30s/retry1 differ from collector25s/retry0/NoRedirect.",
+    "Only selected source/request and one response are bound; all-transitive source, DTO-wide/runtime/security/financial equivalence remain unqualified.",
+    "An initial progress check was invoked at repository root and failed because the app script was unavailable there; the documented app-directory invocation passed. Earlier private selector/setup failures remain preserved; acquisition source/trace/body/receipt were not rewritten."
+  ]
+}
