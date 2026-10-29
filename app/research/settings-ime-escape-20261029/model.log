@@ -1,0 +1,25 @@
+(node:320866) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/pump-app-privacy-links/app/tests/settings_model.test.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/pump-app-privacy-links/app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:320866) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/pump-app-privacy-links/app/packages/frontend/src/components/settings/settings-model.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/pump-app-privacy-links/app/packages/frontend/package.json.
+✔ all public captured sections can be selected; privileged admin is unavailable (1.58485ms)
+✔ malformed, duplicate, unknown and absent sections fail closed (0.810667ms)
+✔ focus targets must be known and belong to the selected section (1.186482ms)
+✔ close removes all owned keys and preserves unrelated repeated query values and hash (0.378888ms)
+✔ selection replaces, never accumulates settings and drops stale focus target (0.294773ms)
+✔ unsafe routing destinations cannot enter the router (0.267812ms)
+✔ search is case/accent/whitespace insensitive and supports multiple terms (0.702024ms)
+✔ display definitions expose no fabricated user preference values (0.220101ms)
+✔ general settings and section labels equal the bound captured English strings (0.530666ms)
+✔ settings links reject URL parser control-character normalization (0.535483ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 130.223193

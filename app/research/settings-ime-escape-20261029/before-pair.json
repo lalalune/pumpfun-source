@@ -1,0 +1,304 @@
+{
+  "classification": "Observational Chromium CDP IME input; no OS/native-IME or other-browser equivalence claim",
+  "head": "abd766d7a8c047f14af34851f64166b840c6728d",
+  "sourceSha256": "904127d60d3ee6eeb29295e0c760d946881550757f7393be1388b2774d44664d",
+  "sourceUnchanged": true,
+  "browser": "156.0.8078.4",
+  "before": {
+    "url": "http://127.0.0.1:3027/?settings=notifications",
+    "dialogOpen": true,
+    "active": "<input id=\"_R_bkjlb_-search\" placeholder=\"Search settings\" autocomplete=\"off\" spellcheck=\"false\" maxlength=\"200\" type=\"search\" value=\"followにほん\">",
+    "trace": [
+      {
+        "event": "compositionstart",
+        "key": null,
+        "isComposing": null,
+        "isTrusted": true,
+        "data": "",
+        "defaultPrevented": false,
+        "value": "follow",
+        "url": "http://127.0.0.1:3027/?settings=notifications",
+        "dialogOpen": true
+      },
+      {
+        "event": "compositionupdate",
+        "key": null,
+        "isComposing": null,
+        "isTrusted": true,
+        "data": "にほん",
+        "defaultPrevented": false,
+        "value": "follow",
+        "url": "http://127.0.0.1:3027/?settings=notifications",
+        "dialogOpen": true
+      },
+      {
+        "event": "input",
+        "key": null,
+        "isComposing": true,
+        "isTrusted": true,
+        "data": "にほん",
+        "defaultPrevented": false,
+        "value": "followにほん",
+        "url": "http://127.0.0.1:3027/?settings=notifications",
+        "dialogOpen": true
+      }
+    ]
+  },
+  "after": {
+    "url": "http://127.0.0.1:3027/",
+    "dialogOpen": false,
+    "active": "<main id=\"main-content\" tabindex=\"-1\" class=\"pump-page-container mx-auto flex w-full flex-1 flex-col max-w-screen-2xl px-[var(--padding-x-main)] pt-3 col-start-2 outline-none\"><div class=\"home-feed-page\"><div class=\"page-heading\"><div><p class=\"eyebrow\">Home</p><h1>Feed</h1></div><a class=\"page-heading-link\" href=\"/explore\">Explore coins →</a></div><nav class=\"feed-tabs\" role=\"tablist\" aria-label=\"Feed views\"><a id=\"feed-tab-for-you\" role=\"tab\" aria-selected=\"true\" aria-controls=\"home-feed-panel\" tabindex=\"0\" data-active=\"true\" href=\"/\">For you</a><a id=\"feed-tab-following\" role=\"tab\" aria-selected=\"false\" aria-controls=\"home-feed-panel\" tabindex=\"-1\" data-active=\"false\" href=\"/?tab=following\">Following</a></nav><section id=\"home-feed-panel\" class=\"home-feed-panel\" role=\"tabpanel\" aria-labelledby=\"feed-tab-for-you\" tabindex=\"0\"><aside class=\"feed-provenance\" aria-label=\"Feed data source\"><strong>Local example data — not live Pump activity</strong><span>3<!-- --> validated root posts from the hash-bound synthetic backend seed. External media stays offline.</span></aside><div class=\"feed-list\" role=\"feed\" aria-label=\"Local example posts\"><article class=\"feed-item\" data-testid=\"local-feed-item\" data-source=\"synthetic-seed-play\" aria-labelledby=\"feed-author-00000000-0000-4000-8000-000000000003\" aria-describedby=\"feed-content-00000000-0000-4000-8000-000000000003\"><div class=\"feed-avatar\" aria-hidden=\"true\">C</div><div class=\"feed-item-body\"><header class=\"feed-item-header\"><div class=\"feed-author-block\"><h2 id=\"feed-author-00000000-0000-4000-8000-000000000003\"><a class=\"hover:underline\" href=\"/profile/HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe4YWrH\">chad_group</a></h2><span class=\"feed-author-address\">HN7cAB…YWrH</span></div><time datetime=\"2024-01-01T12:00:00.000Z\">Jan 1, 2024, 12:00 UTC</time></header><span class=\"feed-source-chip\">Synthetic example</span><p id=\"feed-content-00000000-0000-4000-8000-000000000003\" class=\"feed-content\">Chad group announcement.</p><dl class=\"feed-engagement\" aria-label=\"Read-only engagement counts\"><div><dt>Likes</dt><dd>0</dd></div><div><dt>Reposts</dt><dd>0</dd></div><div><dt>Replies</dt><dd>0</dd></div><div><dt>Quotes</dt><dd>0</dd></div></dl></div></article><article class=\"feed-item\" data-testid=\"local-feed-item\" data-source=\"synthetic-seed-play\" aria-labelledby=\"feed-author-00000000-0000-4000-8000-000000000002\" aria-describedby=\"feed-content-00000000-0000-4000-8000-000000000002\"><div class=\"feed-avatar\" aria-hidden=\"true\">B</div><div class=\"feed-item-body\"><header class=\"feed-item-header\"><div class=\"feed-author-block\"><h2 id=\"feed-author-00000000-0000-4000-8000-000000000002\"><a class=\"hover:underline\" href=\"/profile/DfMxre4cKmvogbLrPigxmibVTTQDuzjdXojWzjCXXhzj\">bob_degen</a></h2><span class=\"feed-author-address\">DfMxre…Xhzj</span></div><time datetime=\"2024-01-01T11:00:00.000Z\">Jan 1, 2024, 11:00 UTC</time></header><span class=\"feed-source-chip\">Synthetic example</span><p id=\"feed-content-00000000-0000-4000-8000-000000000002\" class=\"feed-content\">Second post, degen vibes only.</p><dl class=\"feed-engagement\" aria-label=\"Read-only engagement counts\"><div><dt>Likes</dt><dd>1</dd></div><div><dt>Reposts</dt><dd>0</dd></div><div><dt>Replies</dt><dd>0</dd></div><div><dt>Quotes</dt><dd>0</dd></div></dl></div></article><article class=\"feed-item\" data-testid=\"local-feed-item\" data-source=\"synthetic-seed-play\" aria-labelledby=\"feed-author-00000000-0000-4000-8000-000000000001\" aria-describedby=\"feed-content-00000000-0000-4000-8000-000000000001\"><div class=\"feed-avatar\" aria-hidden=\"true\">A</div><div class=\"feed-item-body\"><header class=\"feed-item-header\"><div class=\"feed-author-block\"><h2 id=\"feed-author-00000000-0000-4000-8000-000000000001\"><a class=\"hover:underline\" href=\"/profile/7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU\">alice_pump</a></h2><span class=\"feed-author-address\">7xKXtg…gAsU</span></div><time datetime=\"2024-01-01T10:00:00.000Z\">Jan 1, 2024, 10:00 UTC</time></header><span class=\"feed-source-chip\">Synthetic example</span><p id=\"feed-content-00000000-0000-4000-8000-000000000001\" class=\"feed-content\">First post on synthetic pump!</p><div class=\"feed-media-placeholder\" role=\"img\" aria-label=\"External media withheld in offline mode\"><span aria-hidden=\"true\">▧</span><strong>Media unavailable offline</strong><small>The recorded external URL was not requested.</small></div><dl class=\"feed-engagement\" aria-label=\"Read-only engagement counts\"><div><dt>Likes</dt><dd>5</dd></div><div><dt>Reposts</dt><dd>3</dd></div><div><dt>Replies</dt><dd>5</dd></div><div><dt>Quotes</dt><dd>3</dd></div></dl></div></article></div></section></div><!--$--><!--/$--></main>",
+    "trace": [
+      {
+        "event": "compositionstart",
+        "key": null,
+        "isComposing": null,
+        "isTrusted": true,
+        "data": "",
+        "defaultPrevented": false,
+        "value": "follow",
+        "url": "http://127.0.0.1:3027/?settings=notifications",
+        "dialogOpen": true
+      },
+      {
+        "event": "compositionupdate",
+        "key": null,
+        "isComposing": null,
+        "isTrusted": true,
+        "data": "にほん",
+        "defaultPrevented": false,
+        "value": "follow",
+        "url": "http://127.0.0.1:3027/?settings=notifications",
+        "dialogOpen": true
+      },
+      {
+        "event": "input",
+        "key": null,
+        "isComposing": true,
+        "isTrusted": true,
+        "data": "にほん",
+        "defaultPrevented": false,
+        "value": "followにほん",
+        "url": "http://127.0.0.1:3027/?settings=notifications",
+        "dialogOpen": true
+      },
+      {
+        "event": "keydown",
+        "key": "Escape",
+        "isComposing": true,
+        "isTrusted": true,
+        "data": null,
+        "defaultPrevented": false,
+        "value": "followにほん",
+        "url": "http://127.0.0.1:3027/?settings=notifications",
+        "dialogOpen": true
+      },
+      {
+        "event": "keyup",
+        "key": "Escape",
+        "isComposing": false,
+        "isTrusted": true,
+        "data": null,
+        "defaultPrevented": false,
+        "value": "",
+        "url": "http://127.0.0.1:3027/?settings=notifications",
+        "dialogOpen": true
+      }
+    ]
+  },
+  "nativeControl": {
+    "before": {
+      "dialogOpen": true,
+      "trace": [
+        {
+          "event": "input",
+          "key": null,
+          "isComposing": false,
+          "isTrusted": true,
+          "defaultPrevented": false,
+          "dialogOpen": true
+        },
+        {
+          "event": "compositionstart",
+          "key": null,
+          "isComposing": null,
+          "isTrusted": true,
+          "defaultPrevented": false,
+          "dialogOpen": true
+        },
+        {
+          "event": "compositionupdate",
+          "key": null,
+          "isComposing": null,
+          "isTrusted": true,
+          "defaultPrevented": false,
+          "dialogOpen": true
+        },
+        {
+          "event": "input",
+          "key": null,
+          "isComposing": true,
+          "isTrusted": true,
+          "defaultPrevented": false,
+          "dialogOpen": true
+        }
+      ]
+    },
+    "after": {
+      "dialogOpen": true,
+      "trace": [
+        {
+          "event": "input",
+          "key": null,
+          "isComposing": false,
+          "isTrusted": true,
+          "defaultPrevented": false,
+          "dialogOpen": true
+        },
+        {
+          "event": "compositionstart",
+          "key": null,
+          "isComposing": null,
+          "isTrusted": true,
+          "defaultPrevented": false,
+          "dialogOpen": true
+        },
+        {
+          "event": "compositionupdate",
+          "key": null,
+          "isComposing": null,
+          "isTrusted": true,
+          "defaultPrevented": false,
+          "dialogOpen": true
+        },
+        {
+          "event": "input",
+          "key": null,
+          "isComposing": true,
+          "isTrusted": true,
+          "defaultPrevented": false,
+          "dialogOpen": true
+        },
+        {
+          "event": "keydown",
+          "key": "Escape",
+          "isComposing": true,
+          "isTrusted": true,
+          "defaultPrevented": false,
+          "dialogOpen": true
+        },
+        {
+          "event": "input",
+          "key": null,
+          "isComposing": null,
+          "isTrusted": true,
+          "defaultPrevented": false,
+          "dialogOpen": true
+        },
+        {
+          "event": "keyup",
+          "key": "Escape",
+          "isComposing": false,
+          "isTrusted": true,
+          "defaultPrevented": false,
+          "dialogOpen": true
+        }
+      ]
+    }
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/?settings=notifications"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/packages_frontend_src_0rjb4654yqzow._.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/pump-logomark.svg"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xtj9t-blndw-._.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/02ml_next_dist_compiled_react-dom_cjs_react-dom-client_development_1qzq--q2amtqe.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/02ml_next_dist_compiled_react-dom_cjs_react-dom_development_1cmxtx6f7d02c.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/02ml_next_dist_compiled_react-dom_15xk3p9yznil2._.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/02ml_next_dist_compiled_react-server-dom-turbopack_0oi7y2_0pvgg6._.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/02ml_next_dist_compiled_next-devtools_index_1pdsm9mnn4ead.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/02ml_next_dist_compiled_20xjmy272ysx7._.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/02ml_next_dist_client_0lneqo8xo-hcx._.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/02ml_next_dist_0-7oc-_9qck03._.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/0zix_%40swc_helpers_cjs_0hi-e474n4mns._.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/packages_frontend_1anvha4rlo79g._.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/turbopack-packages_frontend_17np6injhhh06._.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/packages_frontend_219uq1sj0q91c._.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/_0-6ro0vsprbl2._.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/02ml_next_0b4lco1kwdyyt._.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/packages_frontend_src_components_feed_FeedTabs_tsx_1c2mwqi_nc2kf._.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/fonts/caa3a2e1cccd8315-s.p.0zr6hhvz-h9nw.woff2"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1mojsayzyj2p6._.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/?_rsc=2Md0sTUZcnjCijMr"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3027/?_rsc=CxJ-u3G8VHFAqOj4"
+    }
+  ],
+  "errors": []
+}

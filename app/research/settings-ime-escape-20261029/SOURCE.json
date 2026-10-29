@@ -1,0 +1,55 @@
+{
+  "base": "abd766d7a8c047f14af34851f64166b840c6728d",
+  "classification": "Local Settings input-composition defect; native-control reference, not original-product equivalence",
+  "source": {
+    "app/packages/frontend/src/components/settings/settings-control.tsx": {
+      "sha256": "2ba90afa62d911d76f412d8326eb5acb136819cab593a87a9a533f235ddbeaa6",
+      "gitBlob": "932eb6d3b5fee8549c13abca0f451e54c5397f51"
+    },
+    "app/packages/frontend/tests/settings-ime.spec.ts": {
+      "sha256": "790caba246680a0f20789141e1c11edc0289c10a993460bc4873f061ba6b8e86",
+      "gitBlob": "40e6d1e2ab4e6ffd6f2c9a35eb147beb88ed0248"
+    }
+  },
+  "baseComponentBlob": "76ff8d94d0d1c43c6fa10185a7c15120489b41c4",
+  "testSameBeforeAndAfter": true,
+  "artifacts": {
+    "README.md": "e8f322a3cae3d9edb7e722e8d8635e77fda9e6e926b9c78276baa644805968d8",
+    "before-pair.json": "d565bf0f01e5ff0d02076eb60b91d731558466b1b5f017e1ff7b94d2c13a3a18",
+    "probe.mjs": "f61164b1b29e3174666dcfba72b6077022d6429a370391a86a71f3c539b618e3",
+    "before.log.gz": "abd9384c33e9c0dd1f29ed68bc8caafd3394d9aec85d59533dde329c8eda4a52",
+    "final-browser.log": "5fdc6293d05bd26d5fd9b3999f2f687e381ff8ef60d3bfe0f88193c8b66dc337",
+    "before-mobile.png": "8e43661b84966d2176d58bb23842360214ea284baa51318f980f4ae79b8fbca5",
+    "after-390.png": "cd3b14cf1b03904d4ee6652447e95bb4f4561b27aba25cdc0338639e586fcb90",
+    "after-1280.png": "e587759b7ebf88db56253110766b83e06818c6bd721db69d228fccdc7bf42a15",
+    "model.log": "0d91be6c2c56e73a524d485c1be1697578fb6027013045dc7c5be4e25d6b0907",
+    "contracts.log": "c2094750b2dc33ee20ef3930dd28f0ecc785f844e6d8d46b878f61b54e250d60",
+    "evidence.log": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9",
+    "typecheck.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rawBaselineLogSha256": "f33b5cb18452ed786cef1569e2c255e7361cc482c8c7cec45573f43eb8bfce96",
+  "checks": {
+    "browser": {
+      "pass": 18,
+      "fail": 0,
+      "newTrustedImeCases": 2,
+      "unchangedSettingsCases": 16
+    },
+    "frontendTypecheck": {
+      "command": "node_modules/.bin/tsc --noEmit --incremental false",
+      "cwd": "app/packages/frontend",
+      "exitCode": 0
+    },
+    "modelTests": 10,
+    "sourceContractTests": 3,
+    "capturedObjects": 698,
+    "npmIntegrity": true,
+    "sdkSourceUnchanged": true,
+    "productionBuild": "Not run"
+  },
+  "limits": [
+    "Trusted Chromium CDP composition, not a full native OS IME matrix",
+    "Native HTML reference is not captured original Pump behavior",
+    "No backend/authentication/feature-completion or whole-app claim"
+  ]
+}

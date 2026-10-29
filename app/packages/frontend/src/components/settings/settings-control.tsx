@@ -206,6 +206,11 @@ function SettingsControlContent({
 
   function trapFocus(event: KeyboardEvent<HTMLDialogElement>) {
     if (event.key === "Escape") {
+      if (event.nativeEvent.isComposing) {
+        // Let the input cancel composition without dismissing this or the shell.
+        event.stopPropagation();
+        return;
+      }
       // Search inputs can consume Escape to clear their value instead of
       // dispatching the dialog's native cancel event. Own dismissal here and
       // keep the same key from reaching the shell or Live window listeners.

@@ -1,0 +1,26 @@
+
+Running 18 tests using 1 worker
+
+(node:320793) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/18] tests/settings-ime.spec.ts:17:7 › composing Escape preserves Settings at 390px, then ordinary Escape dismisses it
+[2/18] tests/settings-ime.spec.ts:17:7 › composing Escape preserves Settings at 1280px, then ordinary Escape dismisses it
+[3/18] tests/settings.spec.ts:3:5 › query-open survives SSR and hydration without server-rendering a portal
+[4/18] tests/settings.spec.ts:25:5 › mobile deep link escapes the hidden sidebar and restores focus to main
+[5/18] tests/settings.spec.ts:44:7 › Escape dismisses settings without closing the mobile sidebar or Live selection
+[6/18] tests/settings.spec.ts:44:7 › Back dismisses settings without closing the mobile sidebar or Live selection
+[7/18] tests/settings.spec.ts:116:5 › modal temporarily locks body scrolling and restores the previous style
+[8/18] tests/settings.spec.ts:139:5 › open-modal URL transitions clear stale search before focusing a deep link
+[9/18] tests/settings.spec.ts:169:5 › deep link focuses a known setting and close preserves unrelated URL state
+[10/18] tests/settings.spec.ts:194:5 › malformed or privileged section values do not open the modal
+[11/18] tests/settings.spec.ts:215:5 › search, empty results, clear, tabs and keyboard selection work without preference values
+[12/18] tests/settings.spec.ts:260:5 › Escape and repeated reopening clear local search and do not add history entries
+[13/18] tests/settings.spec.ts:296:7 › settings dialog fits 1440px and its controls remain keyboard reachable
+[14/18] tests/settings.spec.ts:296:7 › settings dialog fits 768px and its controls remain keyboard reachable
+[15/18] tests/settings.spec.ts:296:7 › settings dialog fits 390px and its controls remain keyboard reachable
+[16/18] tests/settings.spec.ts:296:7 › settings dialog fits 320px and its controls remain keyboard reachable
+[17/18] tests/settings.spec.ts:329:5 › settings interaction makes no service requests, preference writes or permission prompts
+[18/18] tests/settings.spec.ts:379:5 › resizing an open mobile sidebar keeps Settings locked until it closes
+  18 passed (30.3s)
