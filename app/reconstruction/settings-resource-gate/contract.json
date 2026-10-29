@@ -1,0 +1,413 @@
+{
+  "schema": 1,
+  "reviewBase": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Complete original Settings resource-attempt hook and actual content/loading/scroll-view branch with explicit capabilities, not resource-availability assertion or full modal",
+  "indexEntry": {
+    "ids": [
+      124884
+    ],
+    "sha256": "dfcb487f79e63fa817cef92fd322e172c6d44fb2270bad175820a463b2e382ea",
+    "origins": [
+      {
+        "source": "evidence/web/objects/4490d02ba2117672.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+        "start": 119,
+        "end": 52335
+      }
+    ],
+    "path": "recovered/modules/124884-dfcb487f79e6.js"
+  },
+  "factory": {
+    "id": 124884,
+    "ids": [
+      124884
+    ],
+    "label": "factory 124884",
+    "source": "evidence/web/objects/4490d02ba2117672.js",
+    "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+    "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+    "sourceBytes": 52381,
+    "utf16": [
+      119,
+      52335
+    ],
+    "utf8": [
+      119,
+      52341
+    ],
+    "sha256": "dfcb487f79e63fa817cef92fd322e172c6d44fb2270bad175820a463b2e382ea"
+  },
+  "retained": [
+    {
+      "label": "complete original resource-attempt hook IIFE; finally completes attempt, cleanup suppresses state update",
+      "source": {
+        "label": "complete original resource-attempt hook IIFE; finally completes attempt, cleanup suppresses state update",
+        "source": "evidence/web/objects/4490d02ba2117672.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+        "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+        "sourceBytes": 52381,
+        "utf16": [
+          45085,
+          45452
+        ],
+        "utf8": [
+          45091,
+          45458
+        ],
+        "sha256": "c787db19dc3b8acf962b385c142f3c70019279202f7d0b95eea70e33c8631efc"
+      },
+      "astSha256": "2ec65c862ac58b401fd2affc5d91e529917b49ca3281a6794d6082d32dbbd35f"
+    },
+    {
+      "label": "complete five loading row indices",
+      "source": {
+        "label": "complete five loading row indices",
+        "source": "evidence/web/objects/4490d02ba2117672.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+        "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+        "sourceBytes": 52381,
+        "utf16": [
+          43820,
+          43834
+        ],
+        "utf8": [
+          43826,
+          43840
+        ],
+        "sha256": "1d17cb22ff147cbe7fe3c66c1df883e957c02c54ed81eacad2fcc0dbff57cdf2"
+      },
+      "astSha256": "c668a5f398db27ca8683d79b9a9a27e81fd06c6172c723ca14465b3e39d2d64c"
+    },
+    {
+      "label": "complete aria-hidden Settings loading component",
+      "source": {
+        "label": "complete aria-hidden Settings loading component",
+        "source": "evidence/web/objects/4490d02ba2117672.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+        "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+        "sourceBytes": 52381,
+        "utf16": [
+          43835,
+          44057
+        ],
+        "utf8": [
+          43841,
+          44063
+        ],
+        "sha256": "428ae5561c8a67682caee09a8bc877ff5a287eb665798d423f28508fdc563ca6"
+      },
+      "astSha256": "2954c24d44c97f54ab38f298ca76f30b388e2577ae205a4fb8b393e75cc198bb"
+    },
+    {
+      "label": "complete keyed three-block skeleton row",
+      "source": {
+        "label": "complete keyed three-block skeleton row",
+        "source": "evidence/web/objects/4490d02ba2117672.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+        "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+        "sourceBytes": 52381,
+        "utf16": [
+          44057,
+          44470
+        ],
+        "utf8": [
+          44063,
+          44476
+        ],
+        "sha256": "203d3dfb505669d0b9ba5e5487a4ff8af630c94602926c64af02628f6e46d645"
+      },
+      "astSha256": "ea336536a1b79af9f9a9928297c458bc0ee4e03e3766f572e1491e34477bc29b"
+    },
+    {
+      "label": "actual memoized trimmed-query derivation",
+      "source": {
+        "label": "actual memoized trimmed-query derivation",
+        "source": "evidence/web/objects/4490d02ba2117672.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+        "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+        "sourceBytes": 52381,
+        "utf16": [
+          45666,
+          45711
+        ],
+        "utf8": [
+          45672,
+          45717
+        ],
+        "sha256": "f1396c08d48bc293b0a564069e26edfe467bd55edcfe2550c6225ee3646b5d71"
+      },
+      "astSha256": "bccb03a4e3a2f7eef732a2f06280d4633fefae7f0c5afb09dd8c28288dddac85"
+    },
+    {
+      "label": "actual trimmed-query positive-length alias",
+      "source": {
+        "label": "actual trimmed-query positive-length alias",
+        "source": "evidence/web/objects/4490d02ba2117672.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+        "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+        "sourceBytes": 52381,
+        "utf16": [
+          45716,
+          45729
+        ],
+        "utf8": [
+          45722,
+          45735
+        ],
+        "sha256": "2550fc60a95af3dfa71525c02d0ce98e7b9d6b43541a888e037e3bb04d528f96"
+      },
+      "astSha256": "3c163af19080f3bb7315adf08b6959c1afe7b6fae05aa427025c93e5176684a3"
+    },
+    {
+      "label": "actual attempt-pending aria-busy expression",
+      "source": {
+        "label": "actual attempt-pending aria-busy expression",
+        "source": "evidence/web/objects/4490d02ba2117672.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+        "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+        "sourceBytes": 52381,
+        "utf16": [
+          49253,
+          49266
+        ],
+        "utf8": [
+          49259,
+          49272
+        ],
+        "sha256": "1fb736e170aaae82fca8cb197619107da1152c92d4f2ff28918befd7a0f775f2"
+      },
+      "astSha256": "20727c47f700c97706d2f761e9a946e24db6dd764ff0e88361c9c672afbc9482"
+    },
+    {
+      "label": "complete actual loading/results/section conditional and scroll-wrapper compiler memo sequence",
+      "source": {
+        "label": "complete actual loading/results/section conditional and scroll-wrapper compiler memo sequence",
+        "source": "evidence/web/objects/4490d02ba2117672.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+        "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+        "sourceBytes": 52381,
+        "utf16": [
+          49267,
+          49947
+        ],
+        "utf8": [
+          49273,
+          49953
+        ],
+        "sha256": "4f9cfc6e2cebf8354da9d52ce99b77e14b7d298f6d9d324cc9131fe3da62a8c2"
+      },
+      "astSha256": "98bd8ad45743f7008542b4f7187ed5fa11452dd3695db2f44299883260a74824"
+    }
+  ],
+  "witnesses": [
+    {
+      "label": "actual JSX runtime import",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        140,
+        153
+      ],
+      "utf8": [
+        140,
+        153
+      ],
+      "sha256": "6fe987520583f8a737145e7b3c5b87e3c34790702d51038e21f7ce5573c1ed9b"
+    },
+    {
+      "label": "actual compiler memo runtime import",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        154,
+        167
+      ],
+      "utf8": [
+        154,
+        167
+      ],
+      "sha256": "e504b1087667c50d775e6347b13e2c72d7c85b55fe159e42e616473700daa588"
+    },
+    {
+      "label": "actual translation-hook import",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        225,
+        238
+      ],
+      "utf8": [
+        225,
+        238
+      ],
+      "sha256": "3a4b71d1509d75f341c241456df999d6634551559a7fdbde156b7b923af7171b"
+    },
+    {
+      "label": "actual focus-provider context import; implementation remains external",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        239,
+        252
+      ],
+      "utf8": [
+        239,
+        252
+      ],
+      "sha256": "f402df2e9c04afd716e6766fa327738bf9b2544d131ddd51a050806c3580683d"
+    },
+    {
+      "label": "actual results output target; separately recovered1898, not copied",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        33491,
+        35443
+      ],
+      "utf8": [
+        33497,
+        35449
+      ],
+      "sha256": "8cb31658cc9bce60555696c05e94fab82f07b89802bbbe8e0daac3191a09957b"
+    },
+    {
+      "label": "actual section output target; private/account/other sections remain external",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        42031,
+        43689
+      ],
+      "utf8": [
+        42037,
+        43695
+      ],
+      "sha256": "3c2418e174d1c4ecb66b291262f1db7d9f21cd81968913ba5aed47963e551054"
+    },
+    {
+      "label": "actual prefetch client import; exact API recovered separately in1864",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        43786,
+        43800
+      ],
+      "utf8": [
+        43792,
+        43806
+      ],
+      "sha256": "37a35e081980b5451b2e5c24878d4818a3420e35cd4dccd25f44f51275abd59b"
+    },
+    {
+      "label": "actual locale normalization/default import; existing1864 metadata credited",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        43801,
+        43815
+      ],
+      "utf8": [
+        43807,
+        43821
+      ],
+      "sha256": "9fb9070f4d28e63c1b04711d3027cfba762cf5147effaf7d9608c9e045c43998"
+    },
+    {
+      "label": "actual React hooks dependency context",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        196,
+        209
+      ],
+      "utf8": [
+        196,
+        209
+      ],
+      "sha256": "8c26f02c8afa92f89a161cad0e7613a176aef9fb3f3d7ecf4373bbd9d4ce8fd3"
+    },
+    {
+      "label": "actual J controls loading vs query/section content",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        49349,
+        49588
+      ],
+      "utf8": [
+        49355,
+        49594
+      ],
+      "sha256": "be0e515e92dbac1802e3fc36f8e82a04c0146ded3f18c4b418088e380d1298ab"
+    },
+    {
+      "label": "external language client complete context; original prefetch catches/logs individual namespace failures",
+      "source": "evidence/web/objects/337439e6bd8e9380.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/12g0kkarzdzbb.js",
+      "sourceSha256": "5d3eb05cb5db4cb2e1b86b93afb8a3ff59a9fc4fbcd5864df90ca8b3b683126f",
+      "sourceBytes": 22172,
+      "utf16": [
+        8590,
+        9741
+      ],
+      "utf8": [
+        8590,
+        9741
+      ],
+      "sha256": "dbf10cf0f7f677ecaabca6d53825144562370403b391d78032475dd1aeba83d6"
+    },
+    {
+      "label": "external locale metadata/normalization/default context; no locale implementation retallied",
+      "source": "evidence/web/objects/a0ec47219f76f808.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/01vcofbeb5_1m.js",
+      "sourceSha256": "557eb3547caea2d37bd9712a9cf3d07c835537e9354e0d7bd449b881fffdafc7",
+      "sourceBytes": 28862,
+      "utf16": [
+        2903,
+        5288
+      ],
+      "utf8": [
+        2903,
+        5526
+      ],
+      "sha256": "6b3fe2082dbaa30d9d803777d25ef02aa53ccc736b312980dec097206324c790"
+    }
+  ],
+  "module": {
+    "path": "reconstruction/settings-resource-gate/client.mjs",
+    "sha256": "da8d737773c871abb7056dc510a2b0e5298ce113579b44d6aaa12c7a3025c195"
+  },
+  "credit": "1864 already recovers411657 prefetch and592209 locale metadata. They remain explicit ports here, without unmerged imports/copy/retally.1898 recovers the supplied results component,1872 field rendering,1839 setting state; all remain external. Existing675/683 metadata/context is credited.",
+  "capabilities": {
+    "react": "Actual React hooks/compiler/JSX ports; original hook and complete memo regions retained.",
+    "i18n": "useTranslation supplies synthetic i18n.exists/language; prefetchCatalog(i18n,locale) and normalizeLocale/defaultLocale are explicit1864-compatible ports. No live provider/network/cookie acquisition.",
+    "content": "SearchResults,Section and FocusProvider are explicit used components. Selected section/visible sections/focus value/close callback/scroll ref are supplied; private availability/account/feature discovery and parent dialog remain external."
+  },
+  "limits": [
+    "Initial exists sentinel initializes hook state once. A completed prefetch attempt enables content even if the sentinel stays absent; this does not prove all resources loaded.",
+    "Effect depends on i18n identity and attempt state, not language directly. Ready state is not reset when provider changes. Cleanup only suppresses setState; no request cancellation, retry, rollback or new policy is introduced.",
+    "A rejecting synthetic prefetch port leaves the finally-chain rejection observable; original1864 normally catches/logs individual namespace failures. No unsupported promise-rejection handling added.",
+    "Loading is original five-row aria-hidden output, not an accessible progress announcement; surrounding actual wrapper uses aria-busy. CSS utility names retained without original CSS/visual parity.",
+    "No original outer modal, focus provider, global mount, preferences/wallet/admin/trading controls, actual cookies/storage/sessions/credentials or tenant requests. No native/API/pixel parity, completion or security acceptance."
+  ]
+}

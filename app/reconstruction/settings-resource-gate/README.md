@@ -1,0 +1,27 @@
+# Original Settings resource-attempt and content display
+
+This recovers the complete used resource-attempt hook inside captured `124884.SettingsModal`, the actual loading/results/section conditional and scroll wrapper, and full `eq/eX` five-row loading display. It makes this missing UI flow editable and consumable without inventing the parent modal or private availability providers.
+
+Eight complete original AST regions occur exactly once in the used constructor: the whole `J` IIFE, five row indices, loading component, skeleton row, memoized query trim, nonblank alias, busy alias and complete content/wrapper memo sequence. Twelve raw witnesses bind imports, the actual caller and external result/section/locale/prefetch contexts. `contract.json` records original UTF-16/UTF-8 ranges and hashes. The generator authenticates captured bytes with the existing shared source reader and parses them as data; it never evaluates a captured bundle.
+
+`createSettingsResourceContent(capabilities)` returns `SettingsResourceContent`, `Loading` and `useSettingsResourceAttempt`. Supply actual React `useState/useEffect`, compiler `useMemoCache`, JSX runtime, and an explicit `useTranslation()` yielding `{i18n}`. Supply `normalizeLocale(language)`, `defaultLocale` and `prefetchCatalog(i18n, locale)` with the APIs already recovered in #1864. There is no runtime dependency on that open PR and none of its source is copied or retallied. Supply `SearchResults`, `Section` and `FocusProvider` components. The content props are `query`, `visibleSections`, `section`, `focusValue`, `onRequestClose`, and `scrollRef`.
+
+The hook initially reads only `i18n.exists("web.trade.max_slippage")`. This is a translation sentinel, not a trading control. If absent, the effect normalizes `i18n.language` or uses the supplied default and starts prefetch. Its `finally` marks the **attempt completed**, even if the sentinel is still absent. Cleanup suppresses the subsequent state update; it does not abort the request. Effect dependencies are provider identity and attempt state, so same-object language changes do not restart it. A completed instance does not reset when its provider changes; a remounted instance initializes again. These original quirks are preserved, not repaired into a new resource/cache policy.
+
+Loading is exactly five keyed rows with three pulse blocks each, under an `aria-hidden` container. The actual surrounding scroll wrapper sets `aria-busy` while the attempt is pending. On completion, a trimmed nonblank query selects the supplied results view with the original section-list identity; blank query selects the supplied focus provider and section view, with the original section key and close callback. The source compiler memo slots and predicates are retained, including its 100-cell caller allocation. This is source context, not a claim about another compiler/runtime.
+
+The external prefetch implementation recovered by #1864 normally catches/logs individual namespace failures. A deliberately rejecting synthetic capability here demonstrates that this caller's `finally` still enables content and leaves its derived rejection observable. No catch, cancellation, retry, reset, rollback or resource-ready assertion is added.
+
+Attribution: #1898 separately recovers the supplied results component, #1872 field/choice rendering and #1839 setting state. Existing #675/#683 metadata and context mappings are credited. No unmerged code is imported, copied, retallied or superseded. The whole modal, selected-section admission, feature/wallet/admin availability acquisition, focus-provider implementation, resources/translation service, preferences and global mounting remain outside this unit.
+
+Run from `app/`, with the repository's existing pinned dependencies:
+
+```sh
+node scripts/original-settings-resource-gate.mjs
+node --test tests/original_settings_resource_gate.test.mjs tests/original_source.test.mjs
+PUMP_SETTINGS_RESOURCE_OUTPUT=/your/isolated/output node --test tests/original_settings_resource_gate_browser.test.mjs
+```
+
+The source/method is frozen before final qualification. Node tests cover source binding and real React SSR, including no SSR acquisition, the exact hidden/busy shape, trimmed results, focus/section identity, and explicit `exists` failure. The browser method uses actual React/compiler and Chromium at 390px/1280px, controlled in-memory provider promises, a GET-only owned ephemeral host and read-only diagnostic view ports. It covers completion without availability, close/key/query behavior, provider replacement and stale completion, unchanged-provider language, cleanup/remount, initially ready and expected rejecting-capability behavior. Expected rejection is recorded separately at each width; all other page errors are unexpected.
+
+No actual cookies, local/session storage, credentials, profile/user data, tenant/resource request, protected control, preference mutation, native/full-app mount, full original provider/CSS/API/pixel parity, completion score or security acceptance is qualified. Authored fixture styles and diagnostic views are not original product UI. Original materials retain their authorship.
