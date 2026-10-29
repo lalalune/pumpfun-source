@@ -16,6 +16,7 @@ from collections import Counter
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
 from score import sections, normalize, body, candidate_functions, original_windows, score, BASE  # noqa
+from instruction_stream import instruction_offsets
 
 OBJDUMP = str(Path.home() / '.cache/solana/v1.52/platform-tools/llvm/bin/llvm-objdump')
 
@@ -67,7 +68,7 @@ class Cand:
 
 
 def opgrams(raw, k=3):
-    ops = [raw[i] for i in range(0, len(raw), 8)]
+    ops = [raw[i] for i in instruction_offsets(raw)]
     return Counter(tuple(ops[i:i + k]) for i in range(max(0, len(ops) - k + 1)))
 
 

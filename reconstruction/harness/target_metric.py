@@ -21,11 +21,12 @@ H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
 from score import sections, normalize, body, candidate_functions, original_windows  # noqa: E402
 from win import Cand, insns, demangle, best_candidates, ORIG, ORIG_SECS  # noqa: E402
+from instruction_stream import instruction_offsets
 
 
 def calls(raw):
     internal = syscalls = 0
-    for i in range(0, len(raw), 8):
+    for i in instruction_offsets(raw):
         if raw[i] == 0x85:
             imm = struct.unpack_from('<i', raw, i + 4)[0]
             if raw[i + 1] >> 4 == 1 and imm != -1:
