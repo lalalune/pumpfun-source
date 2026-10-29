@@ -84,27 +84,27 @@ pub struct MigrateV2<'info>{
 
 
 
-#[inline(never)]
-pub fn required_quote_account_len(data:&[u8])->Option<usize>{
- let mut size=170usize;
- if data.len()==82{return Some(size)}
- if data.len()<167 || data[82..165].iter().any(|byte|*byte!=0) || data[165]!=1{return None}
- let tlv=&data[166..];
- let mut cursor=0usize;let mut seen=0u64;
- loop{
-  let rest=tlv.get(cursor..)?;
-  if rest.len()<2{return Some(size)}
-  let kind=u16::from_le_bytes(rest[..2].try_into().unwrap());
-  if kind==0{return Some(size)}
-  if rest.len()<4{return None}
-  let end=u16::from_le_bytes(rest[2..4].try_into().unwrap()) as usize+4;
-  if end>rest.len(){return None}
-  if let Some(payload)=match kind {1=>Some(8usize),9=>Some(0),14=>Some(1),26=>Some(0),_=>None}{
-   let mask=1u64<<kind;
-   if seen&mask==0{size=size.checked_add(4)?.checked_add(payload)?;seen|=mask;}}
-  cursor=cursor.checked_add(end)?;
- }
-}
+pub use pump_token_ext::required_quote_account_len;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #[inline(never)]fn transfer_base_to_pool_authority<'info>(a:&MigrateV2<'info>,bump:u8)->Result<()>{transfer_from_curve(a,&a.associated_base_bonding_curve,&a.base_mint,&a.bonding_curve,a.associated_base_bonding_curve.amount,&[&[b"bonding-curve",a.base_mint.key().as_ref(),&[bump]]])}#[inline(always)]fn transfer_from_curve<'info>(a:&MigrateV2<'info>,from:&InterfaceAccount<'info,TokenAccount>,mint:&InterfaceAccount<'info,Mint>,authority:&Account<'info,crate::trade_types::BondingCurve>,amount:u64,signer_seeds:&[&[&[u8]]])->Result<()>{if amount==0{return Ok(())}let decimals=mint.decimals;anchor_spl::token_2022::transfer_checked(CpiContext::new_with_signer(a.base_token_program.to_account_info(),anchor_spl::token_2022::TransferChecked{from:from.to_account_info(),to:a.pool_authority_mint_account.to_account_info(),authority:authority.to_account_info(),mint:mint.to_account_info()},signer_seeds),amount,decimals)}fn amount(a:&AccountInfo)->Result<u64>{Ok(u64::from_le_bytes(a.try_borrow_data()?[64..72].try_into().unwrap()))}
 #[inline(always)]fn burn_with_seeds<'info>(a:&MigrateV2<'info>,amount:u64,signer_seeds:&[&[&[u8]]])->Result<()>{anchor_spl::token_2022::burn(CpiContext::new_with_signer(a.token_2022_program.to_account_info(),anchor_spl::token_2022::Burn{mint:a.lp_mint.to_account_info(),from:a.user_pool_token_account.to_account_info(),authority:a.pool_authority.to_account_info()},signer_seeds),amount)}fn quote_amount(a:&AccountInfo)->Result<u64>{let d=a.try_borrow_data()?;let t=TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.amount)}
 

@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use crate::CollectCreatorFeeEvent;
+#[event_cpi]#[derive(Accounts)]pub struct CollectCreatorFee<'info>{#[doc="CHECK: payout destination is bound to the vault PDA."]#[account(mut)]pub creator:AccountInfo<'info>,#[doc="CHECK: original defers owner/data restrictions to System transfer."]#[account(mut,seeds=[b"creator-vault",creator.key().as_ref()],bump)]pub creator_vault:AccountInfo<'info>,pub system_program:Program<'info,System>,}
 #[event_cpi]
 #[derive(Accounts)]
 pub struct CollectCreatorFeeV2<'info>{
@@ -285,3 +285,6 @@ pub fn transfer_user_quote_tokens<'info>(
   }),amount,decimals,
  )
 }
+#[event]
+#[derive(Clone)]
+pub struct CollectCreatorFeeEvent{pub timestamp:i64,pub creator:Pubkey,pub creator_fee:u64,pub quote_mint:Pubkey}
