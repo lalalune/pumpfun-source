@@ -1,0 +1,86 @@
+{
+  "previousPublishedHead": "7d1db16cd7cab645de367cdeec8431f3a2e53b39",
+  "runtimeCorrection": "36597272c45f2291bac434acb08913976705c0a2",
+  "changedRuntimePaths": [
+    "app/packages/frontend/src/app/amm-wallet-record/handler.ts"
+  ],
+  "sources": {
+    "app/packages/frontend/src/app/amm-wallet-record/handler.ts": {
+      "before": "0c3561b882f82736f96377b57127da557027ac5dcac4c9f6ec61ec58138da3ac",
+      "after": "55a6cb25bbe69fbca99fdeca18fdac9e4d26bc1e7d342ed56c36ac174f684ca8"
+    },
+    "app/packages/frontend/src/app/amm-wallet-record/server.ts": {
+      "before": "db49239f664ce56c49008d4bd68084025ae8268a4ad2b3f7b6c525e7ff42ddda",
+      "after": "db49239f664ce56c49008d4bd68084025ae8268a4ad2b3f7b6c525e7ff42ddda"
+    },
+    "app/packages/frontend/src/app/amm-wallet-record/types.ts": {
+      "before": "f8037156a9de711ef0c4c6b7e7c78dca57d6564772a29837aa62af8b7f61758e",
+      "after": "f8037156a9de711ef0c4c6b7e7c78dca57d6564772a29837aa62af8b7f61758e"
+    },
+    "app/packages/frontend/src/app/amm-wallet-record/contract.json": {
+      "before": "a621fe2169d417a19a47bc2548de5b378a69d5224fb920b0e5227fe61d743a30",
+      "after": "a621fe2169d417a19a47bc2548de5b378a69d5224fb920b0e5227fe61d743a30"
+    },
+    "app/packages/frontend/src/app/portfolio/rpc.ts": {
+      "before": "600e4a05c569dec818662b4be38ea513ad20a4b4bb7fb6bc1783a088c569259f",
+      "after": "600e4a05c569dec818662b4be38ea513ad20a4b4bb7fb6bc1783a088c569259f"
+    },
+    "app/packages/frontend/src/app/portfolio/types.ts": {
+      "before": "059bce99fd82d1e7166c6cb57577abd6be2a11d606f76b4d20caf97f9b021122",
+      "after": "059bce99fd82d1e7166c6cb57577abd6be2a11d606f76b4d20caf97f9b021122"
+    },
+    "app/packages/frontend/src/app/api/portfolio/amm-record/route.ts": {
+      "before": "2d8bd02a7bbc70c21cfc64500ac319e490bcfc7326110518670f11c582d1f70f",
+      "after": "2d8bd02a7bbc70c21cfc64500ac319e490bcfc7326110518670f11c582d1f70f"
+    },
+    "app/packages/frontend/src/app/amm-wallet-record/client.ts": {
+      "before": "07f74caf99aa0f5e21bed88415ab46e247407b5af4c206c97352d020eb303876",
+      "after": "07f74caf99aa0f5e21bed88415ab46e247407b5af4c206c97352d020eb303876"
+    },
+    "app/packages/frontend/src/app/amm-wallet-record/panel.tsx": {
+      "before": "1ccfb341f65f4875557b3b8d5a90b6c9f62897ab85fb8b0b6f18d4fff796b425",
+      "after": "1ccfb341f65f4875557b3b8d5a90b6c9f62897ab85fb8b0b6f18d4fff796b425"
+    },
+    "app/packages/frontend/next.config.ts": {
+      "before": "d2a146c48e81f3d08a93dfabad75ac47e540667779a368b367ffb63be8e4ce45",
+      "after": "d2a146c48e81f3d08a93dfabad75ac47e540667779a368b367ffb63be8e4ce45"
+    },
+    "app/pnpm-lock.yaml": {
+      "before": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "after": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+    }
+  },
+  "framework": {
+    "version": "16.4.1",
+    "module": "next/dist/server/route-modules/app-route/helpers/auto-implement-methods.js",
+    "sha256": "fecd56746f3aac13db5e804dc99a6fc87f970e380e57e125f0e0815373a4094d",
+    "mechanism": "Installed Next maps automatic HEAD directly to GET with the original HEAD Request."
+  },
+  "baseline": {
+    "finalFormattedTestSha256": "54be748827dd75d7a5e2df5b0388c33375f3016adf27c792bb32dcfe615e2e5e",
+    "pass": 0,
+    "fail": 4,
+    "expected": "405 instead of success/query/provider statuses. First unformatted same-method runs retained separately."
+  },
+  "candidate": {
+    "combinedPass": 22,
+    "combinedFail": 0,
+    "skip": 0,
+    "headGroups": 4,
+    "existingAmmGroups": 10,
+    "existingPumpGroups": 8,
+    "proof": "Actual handler + installed Next automatic dispatcher + actual SDK read/90B decode; real loopback Node HTTP, not a Next HTTP server."
+  },
+  "gates": {
+    "frontendTypecheck": "PASS",
+    "appEvidence": "698 captured objects/npm/unchanged SDK PASS",
+    "progress": "PASS +9 tests after exact tracked-pointer hydration",
+    "rootOfficialAtRuntime": "9 captures/10 tooling PASS; receipt-only public-head gate recorded separately"
+  },
+  "limits": [
+    "Historical UI/production packet remains unchanged and source-bound to its earlier handler.",
+    "No new browser/Next HTTP server/production build for this HEAD correction.",
+    "No configured live RPC, CJS swap entry success, auth, signing, API compatibility or security-clearance claim."
+  ],
+  "implementationChoice": "GET retains original Response.json path; only HEAD constructs a bodyless response with the same content-type/no-store/status. Private prototype differs from final helper; final exact bytes are bound in FINAL-METHOD.json."
+}

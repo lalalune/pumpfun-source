@@ -1,5 +1,34 @@
 # Public PumpSwap wallet activity record
 
+## Automatic HEAD correction supplement
+
+Next's installed `autoImplementMethods` maps an unimplemented HEAD to the exported
+GET function with the request method still HEAD. The original AMM handler rejected
+that request with 405 before query validation or its reader. This is corrected in
+source `36597272c45f2291bac434acb08913976705c0a2`: GET and HEAD use the same query,
+wallet, reader, signal and error paths, while HEAD responses have no body. GET
+retains the existing `Response.json` serialization. The SDK, transport, route,
+client and UI are unchanged; open #1403's Pump handler remains separate.
+
+The same final regression file (SHA-256
+`54be748827dd75d7a5e2df5b0388c33375f3016adf27c792bb32dcfe615e2e5e`)
+fails all four groups on the original handler and passes after correction. The
+combined run passes **22/22**: four HEAD groups, ten existing AMM groups and eight
+existing Pump groups. It exercises installed Next automatic dispatch, the actual
+90-byte SDK decoder/read port, query and provider/cluster error mappings,
+bodyless/no-store responses, unchanged GET data, and real loopback HTTP HEAD/GET.
+Frontend TypeScript, application evidence and progress checks also pass.
+
+Additive proof is in `visual/amm-wallet-record-head-20261029/`. The original
+`visual/amm-wallet-record-20261029/` packet remains unchanged. The historical Next
+browser and root production results below retain their original source bindings;
+they do not qualify the new HEAD branch. No new Next HTTP-server run, browser run,
+production build, configured RPC or mainnet success is claimed for this supplement.
+
+```sh
+node --test tests/amm_wallet_record_head.test.mjs tests/amm_wallet_record.test.mjs tests/wallet_program_record.test.mjs
+```
+
 The Portfolio public-balance result now offers a separate **Read public PumpSwap
 record** action beside the existing Pump record. Neither account is requested
 by loading balances; each read and refresh is explicit. Program/PDA, observed
