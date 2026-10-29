@@ -60,6 +60,7 @@ function factoryFilename(module) {
 function* registrationFactories(array, start = 1) {
   // The captured runtime's X(t) registers a leading nested array recursively
   // before the remaining entries. Two-element outer arrays carry metadata.
+  if (start === 1 && array.elements.length === 2) return;
   const nested = start === 0;
   if (
     array.elements[start]?.type === "ArrayExpression" &&
