@@ -191,7 +191,10 @@ export async function openCorpus(appRoot) {
     if (witness.sha256 !== variant.sha256) throw new Error(`factory content mismatch: ${id}`);
     return { id, ids: registration.ids, node: registration.node, capture: source,
       runtime: registration.node.params[0]?.name,
-      witness: (node, label) => source.witness(node, label),
+      witness: (node, label) => {
+        if (node.start < registration.node.start || node.end > registration.node.end) throw new Error(`witness outside factory ${id}`);
+        return source.witness(node, label);
+      },
       text: (node = registration.node) => source.text.slice(node.start, node.end),
       provenance: { id, ids: registration.ids, ...witness } };
   }
