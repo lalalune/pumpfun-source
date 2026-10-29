@@ -28,6 +28,7 @@ import shutil
 import stat
 import uuid
 from pathlib import Path
+from ledger_schema import inspect_ledger, validate_row
 
 HERE = Path(__file__).resolve().parent
 TRACKED = HERE / 'ATTEMPTS.jsonl'
@@ -64,13 +65,10 @@ def atomic_copy(source, destination):
 def read_rows():
     if not LEDGER.exists():
         return []
-    rows = []
-    for number, line in enumerate(LEDGER.read_text().splitlines(), 1):
-        if line.strip():
-            try:
-                rows.append(json.loads(line))
-            except json.JSONDecodeError as exc:
-                raise SystemExit(f'corrupt ledger line {number}: {exc}')
+    rows, errors = inspect_ledger(LEDGER.read_text(encoding='utf-8'), STATUSES)
+    if errors:
+        first = errors[0]
+        raise SystemExit(f"corrupt ledger line {first['line']}: {first['message']}")
     return rows
 
 
@@ -104,6 +102,8 @@ def matches(row, args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest='command', required=True)
+    audit = sub.add_parser('audit', help='validate a saved ledger without seeding or mutating the live ledger')
+    audit.add_argument('--path', type=Path, default=TRACKED)
     check = sub.add_parser('check')
     check.add_argument('--dedupe-key', required=True)
     search = sub.add_parser('search')
@@ -126,6 +126,14 @@ def main():
     sync = sub.add_parser('sync')
     sync.add_argument('--to', type=Path, default=TRACKED)
     args = parser.parse_args()
+
+    if args.command == 'audit':
+        try:
+            rows, errors = inspect_ledger(args.path.read_text(encoding='utf-8'), STATUSES)
+        except (OSError, UnicodeError) as error:
+            parser.error(str(error))
+        print(json.dumps({'valid': not errors, 'attempts': len(rows), 'errors': errors}, indent=2))
+        return 1 if errors else 0
 
     if args.command == 'check':
         def run(rows):
@@ -182,6 +190,10 @@ def main():
             'status': args.status,
             'data': data | ({'pr': args.pr} if args.pr else {}),
         }
+        try:
+            validate_row(row, STATUSES)
+        except (ValueError, TypeError) as error:
+            raise SystemExit(f'invalid attempt: {error}')
         # read_rows accepts a final JSON record without a newline. Keep that
         # record separate when appending, under the existing exclusive lock.
         separator = ''
@@ -200,4 +212,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())
