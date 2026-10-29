@@ -12,6 +12,7 @@ import {
   CREATE_LIMITS,
   type DraftErrors,
   type DraftValues,
+  utf8ByteLength,
   validateDraft,
   validateDraftField,
   validateImage,
@@ -270,9 +271,11 @@ export default function CreateCoinForm() {
                 onBlur={() => checkField(field.name)}
               />
               <div className="create-field-meta" id={`${field.name}-hint`}>
-                <span>{field.required ? "Required" : "Optional"}</span>
                 <span>
-                  {draft[field.name].length}/{field.maxLength}
+                  {field.required ? "Required" : "Optional"} · UTF-8 bytes
+                </span>
+                <span>
+                  {utf8ByteLength(draft[field.name])}/{field.maxLength}
                 </span>
               </div>
               <FieldError field={field.name} error={errors[field.name]} />

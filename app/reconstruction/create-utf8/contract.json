@@ -1,0 +1,244 @@
+{
+  "authority": "Static original Create client validation, not SDK/on-chain/server capacity. Captured code is never executed.",
+  "anchors": {
+    "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+    "inventorySha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2"
+  },
+  "createHtml": {
+    "path": "evidence/web/objects/5e15667ed36cac85",
+    "sha256": "6568b22a593755b49e02ccc9cb85fdc7655d50e09ccac6d9e0942783ff9f2b26"
+  },
+  "factories": [
+    {
+      "id": 734638,
+      "ids": [
+        734638
+      ],
+      "label": "factory 734638",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        119,
+        66825
+      ],
+      "utf8": [
+        119,
+        66827
+      ],
+      "sha256": "616b013f89f1cf3e446817865c602c16b9eb6f07e09fa05145c0191ce60f63bc"
+    },
+    {
+      "id": 807757,
+      "ids": [
+        807757
+      ],
+      "label": "factory 807757",
+      "source": "evidence/web/objects/6a1606765ef3e83e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3y5r8v8wybyb1.js",
+      "sourceSha256": "ddb057517a85d603c9db9defee195253a1d0fa4595e37da190b7d8e83117962e",
+      "sourceBytes": 38332,
+      "utf16": [
+        35753,
+        37962
+      ],
+      "utf8": [
+        35753,
+        37962
+      ],
+      "sha256": "7094dc3c2113698f06bc9cef420cd9c153d355911226020d467f49a0ad85bf68"
+    },
+    {
+      "id": 586090,
+      "ids": [
+        586090
+      ],
+      "label": "factory 586090",
+      "source": "evidence/web/objects/6a1606765ef3e83e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3y5r8v8wybyb1.js",
+      "sourceSha256": "ddb057517a85d603c9db9defee195253a1d0fa4595e37da190b7d8e83117962e",
+      "sourceBytes": 38332,
+      "utf16": [
+        21522,
+        21848
+      ],
+      "utf8": [
+        21522,
+        21848
+      ],
+      "sha256": "5ddcdce058dfb79522bc03a2ba9bf7d9cae7eccccaad65d80ea43b368f114fc4"
+    }
+  ],
+  "observed": {
+    "nameUtf8Bytes": 32,
+    "tickerUtf8Bytes": 10,
+    "descriptionCodeUnits": 2000,
+    "originalNativeInputCodeUnitCaps": [
+      32,
+      10
+    ],
+    "actualValidatorConsumers": 2
+  },
+  "witnesses": [
+    {
+      "label": "actual helper import",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        36756,
+        36770
+      ],
+      "utf8": [
+        36758,
+        36772
+      ],
+      "sha256": "b6cfd83333c6868d311920e2f03f915ee95ed7c211e77adc4f2187eb4c58f5c1",
+      "code": "eY=e.i(807757)"
+    },
+    {
+      "label": "actual native UTF8 byte measurement",
+      "source": "evidence/web/objects/6a1606765ef3e83e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3y5r8v8wybyb1.js",
+      "sourceSha256": "ddb057517a85d603c9db9defee195253a1d0fa4595e37da190b7d8e83117962e",
+      "sourceBytes": 38332,
+      "utf16": [
+        37914,
+        37935
+      ],
+      "utf8": [
+        37914,
+        37935
+      ],
+      "sha256": "c30e7aae14400df2551d92d2ab5ef5d4800ba4b50f08db00cf07d664242a9f35",
+      "code": "e=>new Blob([e]).size"
+    },
+    {
+      "label": "name used byte guard",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        39434,
+        39535
+      ],
+      "utf8": [
+        39436,
+        39537
+      ],
+      "sha256": "6c7199f69a0fa04109ab230c4b683cde255578964675d98db20eb6eb1eaef9a0",
+      "code": "if((0,eY.W)(t)>eX.f.NAME_MAX_LENGTH)throw Error(\"Name too long: it must be less than 32 characters\");"
+    },
+    {
+      "label": "ticker used byte guard",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        39576,
+        39670
+      ],
+      "utf8": [
+        39578,
+        39672
+      ],
+      "sha256": "c1ec20823ed69d920fc5e417aa47dea4a6d18b73f22ff2576445e4c7266899b9",
+      "code": "if((0,eY.W)(r)>eX.f.TICKER_MAX_LENGTH)throw Error(\"Ticker cannot be more than 10 characters\");"
+    },
+    {
+      "label": "description remains codeunits",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        39670,
+        39749
+      ],
+      "utf8": [
+        39672,
+        39751
+      ],
+      "sha256": "791c2b45694175ff8bffdc5f39a563a39260bfd3781fac9714fcb4efebcb0b6b",
+      "code": "if(a&&a.length>eX.f.DESCRIPTION_MAX_LENGTH)throw Error(\"Description too long\");"
+    },
+    {
+      "label": "actual consumer 1",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        50178,
+        50339
+      ],
+      "utf8": [
+        50180,
+        50341
+      ],
+      "sha256": "c3560ee1100c2d38c0c6a5c9ef588390ef0a86d6ab4395391f1e4389725914a9",
+      "code": "tn({decodedJwt:eD,name:e_,ticker:ey,description:ew,image:A,video:O,banner:X,videoUploaded:q,previewStatus:$,selectedPreview:V,telegram:eT,website:ek,twitter:ej})"
+    },
+    {
+      "label": "actual consumer 2",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        66376,
+        66537
+      ],
+      "utf8": [
+        66378,
+        66539
+      ],
+      "sha256": "c3560ee1100c2d38c0c6a5c9ef588390ef0a86d6ab4395391f1e4389725914a9",
+      "code": "tn({decodedJwt:eD,name:e_,ticker:ey,description:ew,image:A,video:O,banner:X,videoUploaded:q,previewStatus:$,selectedPreview:V,telegram:eT,website:ek,twitter:ej})"
+    },
+    {
+      "label": "native input 1 codeunit admission",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        59964,
+        60233
+      ],
+      "utf8": [
+        59966,
+        60235
+      ],
+      "sha256": "cc5d44118d5430864c667f8dfab896048672e396ae6283c2604fa9f2847e1c33",
+      "code": "(0,t.jsx)(\"input\",{className:\"w-full rounded-lg border border-border-secondary bg-transparent p-2 text-sm text-white\",id:\"name\",placeholder:N.f.CREATE_COIN_PAGE.SECTION.DETAIL.INPUT.NAME.PLACEHOLDER,value:e_,onChange:e=>{e.target.value.length<=32&&eg(e.target.value)}})"
+    },
+    {
+      "label": "native input 2 codeunit admission",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        60458,
+        60744
+      ],
+      "utf8": [
+        60460,
+        60746
+      ],
+      "sha256": "a23577a0df2fab4c20b5a21e0a3ec08db3ad2dedd034684ad1c1fdd1abfed904",
+      "code": "(0,t.jsx)(\"input\",{className:\"w-full rounded-lg border border-border-secondary bg-transparent p-2 text-sm text-white\",id:\"ticker\",placeholder:N.f.CREATE_COIN_PAGE.SECTION.DETAIL.INPUT.TICKER.PLACEHOLDER,value:ey,onChange:e=>{e.target.value.length<=10&&ev(e.target.value)},maxLength:10})"
+    }
+  ],
+  "localDecisions": [
+    "Use the actual Blob byte semantics in validation and local counter.",
+    "Preserve native maxlengths, description count, whitespace-only rejection and existing URL policy.",
+    "No Unicode normalization or additional character restrictions.",
+    "Separate SDK unpaired-surrogate rejection in PR1259 remains independent; no SDK/upload/signing/mutation changes."
+  ]
+}

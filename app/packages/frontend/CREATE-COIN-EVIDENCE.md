@@ -28,8 +28,8 @@ page call site.
 
 | Local control | Evidence | Reconstruction decision |
 | --- | --- | --- |
-| Coin name | OBSERVED in `734638`; required by its production validator; 32 limit from `586090` | Required, 32 JavaScript string code units, whitespace-only rejected. No invented character set. |
-| Ticker | OBSERVED in `734638`; required; 10 limit from `586090` | Required, 10 JavaScript string code units, whitespace-only rejected. Unicode is retained; no chain-specific casing or alphabet rule is invented. |
+| Coin name | OBSERVED in `734638`; required by its production validator; 32 limit from `586090` | Required, 32 UTF-8 bytes at draft validation, with the native 32-code-unit input cap retained. Whitespace-only rejected. No invented character set. See `CREATE-UTF8-EVIDENCE.md`. |
+| Ticker | OBSERVED in `734638`; required; 10 limit from `586090` | Required, 10 UTF-8 bytes at draft validation, with the native 10-code-unit input cap retained. Whitespace-only rejected. Unicode is retained without an added casing or alphabet rule. See `CREATE-UTF8-EVIDENCE.md`. |
 | Description | OBSERVED and marked optional; 2,000 limit | Optional multiline field with the captured limit. |
 | Website | OBSERVED and optional | Optional, at most 2,048 characters from the declared route schema. Parsed with `URL`; local safety policy permits HTTPS only. |
 | X / Twitter | OBSERVED and optional; captured regex names `twitter.com` and `x.com` | Optional HTTPS URL restricted to those hosts. The captured frontend also tolerated omitted protocol; requiring HTTPS is a documented LOCAL DESIGN safety narrowing. |

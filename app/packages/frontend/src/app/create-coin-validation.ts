@@ -6,6 +6,11 @@ export const CREATE_LIMITS = {
   imageBytes: 4_500_000,
 } as const;
 
+// Captured Create uses Blob.size for these limits (UTF-8), not UTF-16 length.
+export function utf8ByteLength(value: string): number {
+  return new Blob([value]).size;
+}
+
 export const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
   "image/png",
@@ -69,14 +74,14 @@ export function validateDraftField(
 ): string | undefined {
   if (field === "name") {
     if (!value.trim()) return "Enter a coin name.";
-    if (value.length > CREATE_LIMITS.name) {
-      return `Use ${CREATE_LIMITS.name} characters or fewer.`;
+    if (utf8ByteLength(value) > CREATE_LIMITS.name) {
+      return `Use ${CREATE_LIMITS.name} UTF-8 bytes or fewer.`;
     }
   }
   if (field === "ticker") {
     if (!value.trim()) return "Enter a ticker.";
-    if (value.length > CREATE_LIMITS.ticker) {
-      return `Use ${CREATE_LIMITS.ticker} characters or fewer.`;
+    if (utf8ByteLength(value) > CREATE_LIMITS.ticker) {
+      return `Use ${CREATE_LIMITS.ticker} UTF-8 bytes or fewer.`;
     }
   }
   if (field === "description" && value.length > CREATE_LIMITS.description) {
