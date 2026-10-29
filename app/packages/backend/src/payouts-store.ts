@@ -118,6 +118,7 @@ function timestamp(value: unknown, field: string): string {
 }
 function list(value: unknown, max: number, field: string): unknown[] {
   if (!Array.isArray(value) || value.length > max) invalid(field);
+  for (let index = 0; index < value.length; index++) if (!Object.hasOwn(value, index)) invalid(field);
   return value;
 }
 function compare(left: string, right: string): number {

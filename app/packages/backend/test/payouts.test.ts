@@ -581,3 +581,9 @@ test("declared payout behavior is bound to immutable raw factory bytes, never ex
     "leaderboards.read",
   );
 });
+
+test('owner wallet arrays must not contain absent positions',()=>{
+  const data=dataset();data.owners[0].wallets=new Array(1);data.owners[0].walletAddress=null;
+  assert.throws(()=>new PayoutsStore(data),/wallet|owner|array/);
+  assert.doesNotThrow(()=>new PayoutsStore(dataset()));
+});
