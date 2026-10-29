@@ -2,6 +2,8 @@
 import contextlib
 import io
 import json
+import os
+import stat
 import sys
 import tempfile
 import unittest
@@ -68,6 +70,50 @@ class LedgerPublicationTests(unittest.TestCase):
             with self.assertRaisesRegex(OSError, 'replace failed'):
                 log_attempt.atomic_copy(self.tracked, destination)
         self.assertEqual(destination.read_bytes(), b'prior')
+        self.assertEqual(list(self.root.glob('.attempts-*.tmp')), [])
+
+    def test_existing_destination_keeps_permissions_under_restrictive_umask(self):
+        destination = self.root / 'snapshot.jsonl'
+        for mode in (0o644, 0o664, 0o600):
+            with self.subTest(mode=oct(mode)):
+                destination.write_bytes(b'prior')
+                destination.chmod(mode)
+                previous = os.umask(0o077)
+                try:
+                    self.sync(destination)
+                finally:
+                    os.umask(previous)
+                self.assertEqual(stat.S_IMODE(destination.stat().st_mode), mode)
+                self.assertEqual(destination.read_bytes(), self.tracked.read_bytes())
+
+    def test_new_seed_and_snapshot_respect_umask(self):
+        for mask, expected in ((0o022, 0o644), (0o002, 0o664), (0o077, 0o600)):
+            with self.subTest(mask=oct(mask)):
+                self.ledger.unlink(missing_ok=True)
+                destination = self.root / f'snapshot-{mask}.jsonl'
+                previous = os.umask(mask)
+                try:
+                    self.sync(destination)
+                finally:
+                    os.umask(previous)
+                for path in (self.ledger, destination):
+                    self.assertEqual(stat.S_IMODE(path.stat().st_mode), expected)
+                    self.assertEqual(path.read_bytes(), self.tracked.read_bytes())
+
+    def test_permission_failure_keeps_prior_snapshot_and_cleans_temporary(self):
+        destination = self.root / 'snapshot.jsonl'
+        destination.write_bytes(b'prior')
+        destination.chmod(0o664)
+        chmod = os.fchmod
+        def fail_publication_mode(fd, mode):
+            if mode == 0o664:
+                raise OSError('chmod failed')
+            chmod(fd, mode)
+        with patch.object(log_attempt.os, 'fchmod', side_effect=fail_publication_mode):
+            with self.assertRaisesRegex(OSError, 'chmod failed'):
+                log_attempt.atomic_copy(self.tracked, destination)
+        self.assertEqual(destination.read_bytes(), b'prior')
+        self.assertEqual(stat.S_IMODE(destination.stat().st_mode), 0o664)
         self.assertEqual(list(self.root.glob('.attempts-*.tmp')), [])
 
     def test_sync_to_live_ledger_does_not_destroy_it(self):

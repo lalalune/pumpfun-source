@@ -25,7 +25,7 @@ import hashlib
 import json
 import os
 import shutil
-import tempfile
+import stat
 import uuid
 from pathlib import Path
 
@@ -40,16 +40,24 @@ def atomic_copy(source, destination):
     """Publish complete ledger bytes without truncating the previous snapshot."""
     destination = Path(destination)
     destination.parent.mkdir(parents=True, exist_ok=True)
-    fd, name = tempfile.mkstemp(prefix='.attempts-', suffix='.tmp', dir=destination.parent)
-    os.close(fd)
-    temporary = Path(name)
     try:
+        mode = stat.S_IMODE(destination.stat().st_mode)
+    except FileNotFoundError:
+        mode = None
+    temporary = destination.parent / f'.attempts-{uuid.uuid4().hex}.tmp'
+    # Exclusive creation applies the umask without reading/changing global state.
+    fd = os.open(temporary, os.O_CREAT | os.O_EXCL | os.O_RDWR, 0o666)
+    try:
+        if mode is None:
+            mode = stat.S_IMODE(os.fstat(fd).st_mode)
+        # Keep incomplete bytes private and writable even with a restrictive mask.
+        os.fchmod(fd, 0o600)
         shutil.copyfile(source, temporary)
-        with temporary.open('r+b') as stream:
-            stream.flush()
-            os.fsync(stream.fileno())
+        os.fchmod(fd, mode)
+        os.fsync(fd)
         os.replace(temporary, destination)
     finally:
+        os.close(fd)
         temporary.unlink(missing_ok=True)
 
 
