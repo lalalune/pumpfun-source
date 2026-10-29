@@ -33,6 +33,14 @@ is used. The test checks that the seed's start time is still in the future; it
 does not silently replace the immutable seed on another date. This is finite
 caller/navigation evidence, not an exhaustive timer-cleanup or expiry proof.
 
+The frozen baseline `d04df78112a79d73af1d06873c08254c24d414e9` fails at the
+missing detail countdown at both widths, after the list control and actual API
+admission succeed. Candidate `1fa96e5e1c690cd38cc0bf776ee902bbc653a90b` adds
+one JSX child; the same method passes **2/2 in 16.1s**. API data is identical.
+Both cases observe a decrease in the countdown using the real clock, with no
+horizontal countdown overflow, then return to the list and leave the page.
+See [qualification](qualification/README.md) for exact bindings and raw results.
+
 Four exact public #1751 loopback tools are credited and pinned by metadata,
 without feature ancestry or duplicate source. For repeatable temporary
 preparation, reuse the #1808 preparation tool at its exact public source:
@@ -55,3 +63,8 @@ parent credential; the native API key gate remains active. All browser requests
 are local GETs. No API/backend/SDK/capture/dependency changes, signing, mutation,
 financial calculation, original provider/API/visual parity or full-app browser
 claim follows from this narrow caller integration.
+
+The referenced preparation script has SHA-256
+`d1d45aea02894d01d717031777a8019d176ad20247d743185b797d87503f4ad8`.
+It is temporary tooling, excluded from this PR. The same applies to the four
+prepared fixture modules; their exact public blobs are in `reference-pins.json`.

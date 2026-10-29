@@ -1,0 +1,41 @@
+{
+  "id": 3,
+  "ledger": [
+    {
+      "method": "GET",
+      "path": "/v1/competitions",
+      "keyMatched": true,
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/competitions/solana-autumn-arena?limit=100&positionsLimit=0",
+      "keyMatched": true,
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/competitions",
+      "keyMatched": true,
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/competitions",
+      "keyMatched": true,
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/competitions/solana-autumn-arena?limit=100&positionsLimit=0",
+      "keyMatched": true,
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/competitions",
+      "keyMatched": true,
+      "status": 200
+    }
+  ]
+}
