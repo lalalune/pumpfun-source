@@ -49,9 +49,11 @@ export function parseNativeFeedNavigation(
   if (rawTrail.length > NATIVE_FEED_MAX_TRAIL) {
     throw new NativeFeedDataError("nativeTrail exceeds the local page bound");
   }
-  const trail = rawTrail.map((value, index) =>
-    validateNativeCursorInput(value, `nativeTrail[${index}]`),
-  ) as string[];
+  const trail = Array.from(rawTrail, (value, index) => {
+    const token = validateNativeCursorInput(value, `nativeTrail[${index}]`);
+    if (token === undefined) throw new NativeFeedDataError("nativeTrail entries require a cursor");
+    return token;
+  });
   if (trail.length > 0 && !cursor) {
     throw new NativeFeedDataError("nativeTrail requires a current cursor");
   }
