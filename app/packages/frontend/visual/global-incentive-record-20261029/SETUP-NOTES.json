@@ -1,0 +1,12 @@
+{
+  "sourceProducerFirstDraft": "Used nonexistent source.byteOffset function; corrected to the existing byteOffsets[] API before generating output. Initial console failure is in the tool transcript, not a complete retained file.",
+  "generatedFormatNegative": "Prettier altered generated JSON formatting; --check rejected it. Exact producer output restored; first complete failing Node log retained.",
+  "wrongCliNegative": {
+    "completeLogRetained": false,
+    "observedConsoleExcerpt": [
+      "Scope: all 4 workspace projects",
+      "[ERR_PNPM_UNSAFE_MODULES_DIR] Refusing to remove the modules directory at \"/workspace/pump-app-integration/app/packages/backend/node_modules\" because its resolved target is not a strict subdirectory of the project root at \"/workspace/pump-app-holder-config/app/packages/backend\"."
+    ],
+    "explanation": "PATH prefix applied only to first half of a chained command. Unpinned pnpm refused an implicit install; no shared modules were removed. Original file was accidentally overwritten after a relative-path receipt rename failed. This excerpt is partial tool-output evidence, not a complete raw log. Pinned standalone TypeScript command subsequently passed."
+  }
+}
