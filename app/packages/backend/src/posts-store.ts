@@ -377,7 +377,7 @@ export class PostStore {
     const post = this.byPostId.get(postId);
     if (!post || post.deleted || post.hidden) return undefined;
 
-    const likerIds = post.likers ?? [];
+    const likerIds = (post.likers ?? []).filter(id => this.userStore.getById(id) !== undefined);
     const offset = Math.max(0, opts.offset ?? 0);
     const limit = Math.max(1, opts.limit ?? 50);
 
@@ -403,7 +403,7 @@ export class PostStore {
     const post = this.byPostId.get(postId);
     if (!post || post.deleted || post.hidden) return undefined;
 
-    const reposterIds = post.reposters ?? [];
+    const reposterIds = (post.reposters ?? []).filter(id => this.userStore.getById(id) !== undefined);
     const offset = Math.max(0, opts.offset ?? 0);
     const limit = Math.max(1, opts.limit ?? 50);
 
