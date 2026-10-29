@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Render deterministic source/feature progress from evidence and an explicit ledger."""
-import argparse, collections, hashlib, json, pathlib, re, tarfile
+import argparse, base64, collections, hashlib, json, pathlib, re, tarfile
 from urllib.parse import urlsplit
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 BEGIN = '<!-- app-progress:start -->'
@@ -49,13 +49,19 @@ def render():
     factory_progress='100%' if recovered['modules'] else 'N/A'
     source_count=source_equal=0
     expected_sources=set()
-    with tarfile.open(ROOT/'evidence/sdk/pump-sdk-4.3.1.tgz') as archive:
+    archive_path=ROOT/'evidence/sdk/pump-sdk-4.3.1.tgz'
+    integrity='sha512-'+base64.b64encode(hashlib.sha512(archive_path.read_bytes()).digest()).decode()
+    require(integrity==read('evidence/sdk/registry.json')['dist']['integrity'], 'SDK archive npm integrity mismatch')
+    with tarfile.open(archive_path) as archive:
         for m in archive:
             if m.isfile() and m.name.startswith('package/src/'):
-                expected_sources.add(m.name.removeprefix('package/src/'))
+                relative=m.name.removeprefix('package/src/')
+                require(relative not in expected_sources, f'Duplicate SDK source archive member: {relative}')
+                expected_sources.add(relative)
                 source_count+=1;source_equal+=archive.extractfile(m).read()==(ROOT/'packages/sdk'/m.name.removeprefix('package/')).read_bytes()
     actual_sources={p.relative_to(ROOT/'packages/sdk/src').as_posix() for p in (ROOT/'packages/sdk/src').rglob('*') if p.is_file()}
     require(actual_sources==expected_sources, 'SDK source inventory differs from archive')
+    require(source_count>0, 'SDK archive contains no source files')
     operations=[(path,method,op) for path,item in spec['paths'].items() for method,op in item.items() if method in {'get','post','put','patch','delete','head','options'}]
     scope_counts=collections.Counter(op['x-api-scope'] for _,_,op in operations)
     text=['## Application source and feature progress','',f'As of **{ledger["asOf"]}**. The [app workspace](app/README.md) contains the SDK, frontend and independent API-compatible backend. [PRD](app/PRD.md) · [Detailed ledger](app/contracts/feature-progress.json) · [Validation](app/evidence/validation.json).','',

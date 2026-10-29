@@ -1,4 +1,4 @@
-import hashlib,importlib.util,io,json,tarfile,tempfile,unittest
+import base64,hashlib,importlib.util,io,json,tarfile,tempfile,unittest
 from pathlib import Path
 from unittest.mock import patch
 spec=importlib.util.spec_from_file_location('progress_regression',Path(__file__).resolve().parents[1]/'scripts/progress.py')
@@ -10,6 +10,8 @@ def fixture(root):
     body=b'export {};';(root/'packages/sdk/src/index.ts').write_bytes(body)
     with tarfile.open(root/'evidence/sdk/pump-sdk-4.3.1.tgz','w:gz') as tar:
         member=tarfile.TarInfo('package/src/index.ts');member.size=len(body);tar.addfile(member,io.BytesIO(body))
+    integrity='sha512-'+base64.b64encode(hashlib.sha512((root/'evidence/sdk/pump-sdk-4.3.1.tgz').read_bytes()).digest()).decode()
+    (root/'evidence/sdk/registry.json').write_text(json.dumps({'dist':{'integrity':integrity}}),encoding='utf-8')
 class ScriptUrls(unittest.TestCase):
     def test_queries_and_fragments_do_not_change_script_classification(self):
         with tempfile.TemporaryDirectory() as tmp:

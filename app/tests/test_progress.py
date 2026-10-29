@@ -19,6 +19,7 @@ class ProgressTests(unittest.TestCase):
                 (root/directory).mkdir(parents=True)
             shutil.copyfile(app/'scripts/progress.py',root/'scripts/progress.py')
             shutil.copyfile(app/'evidence/sdk/pump-sdk-4.3.1.tgz',root/'evidence/sdk/pump-sdk-4.3.1.tgz')
+            shutil.copyfile(app/'evidence/sdk/registry.json',root/'evidence/sdk/registry.json')
             shutil.copytree(app/'packages/sdk/src',root/'packages/sdk/src')
             for name in ['developer.openapi.json','internal-operations.json']:
                 shutil.copyfile(app/'contracts'/name,root/'contracts'/name)
