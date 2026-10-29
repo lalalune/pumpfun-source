@@ -13,6 +13,7 @@ import { dirname, join, relative, resolve, sep } from "node:path";
 import { gzipSync, gunzipSync } from "node:zlib";
 import { parse } from "@babel/parser";
 import prettier from "prettier";
+import { parse as parseHtml } from "parse5";
 
 export const GRAPH_VERSION = 1;
 export const DEFAULT_ROUTES = [
@@ -271,21 +272,58 @@ function capturePathFromUrl(url, recordsByUrl) {
 
 function capturedAssets(html, baseUrl, recordsByUrl) {
   const found = new Set();
-  const patterns = [
-    /<script\b[^>]*\bsrc=["']([^"']+\.js(?:\?[^"']*)?)["']/gi,
-    /["'](\/_next\/static\/[^"']+\.js(?:\?[^"']*)?)["']/g,
-  ];
-  for (const pattern of patterns) {
-    for (const match of html.matchAll(pattern)) {
-      try {
-        const url = new URL(match[1], baseUrl).href;
-        const path = capturePathFromUrl(url, recordsByUrl);
-        if (path) found.add(path);
-      } catch {
-        /* invalid captured URL is not an association */
-      }
+  const associate = (value, nextStaticOnly = false) => {
+    try {
+      const url = new URL(value, baseUrl);
+      url.hash = "";
+      if (!url.pathname.endsWith(".js")) return;
+      if (nextStaticOnly && !url.pathname.startsWith("/_next/static/")) return;
+      const path = capturePathFromUrl(url.href, recordsByUrl);
+      if (path) found.add(path);
+    } catch {
+      /* invalid captured URL is not an association */
     }
-  }
+  };
+  const visit = (node) => {
+    if (
+      node.tagName === "link" &&
+      node.namespaceURI === "http://www.w3.org/1999/xhtml"
+    ) {
+      const attributes = new Map(
+        node.attrs.map(({ name, value }) => [name, value]),
+      );
+      const relations = new Set(
+        (attributes.get("rel") || "").toLowerCase().split(/[\t\n\f\r ]+/),
+      );
+      if (
+        relations.has("modulepreload") ||
+        (relations.has("preload") &&
+          attributes.get("as")?.toLowerCase() === "script")
+      )
+        // Preserve the existing Next static preload boundary. Actual script
+        // src attributes below can reference any authenticated captured script.
+        associate(attributes.get("href"), true);
+    }
+    if (
+      node.tagName === "script" &&
+      node.namespaceURI === "http://www.w3.org/1999/xhtml"
+    ) {
+      // HTML parsing decodes attribute entities without treating comments or
+      // data-src as script sources. Inline raw text keeps its original spelling.
+      const source = node.attrs.find((attribute) => attribute.name === "src");
+      if (source) associate(source.value);
+      const text = (node.childNodes || [])
+        .filter((child) => child.nodeName === "#text")
+        .map((child) => child.value)
+        .join("");
+      for (const match of text.matchAll(
+        /["'](\/_next\/static\/[^"']+\.js(?:\?[^"']*)?)["']/g,
+      ))
+        associate(match[1]);
+    }
+    for (const child of node.childNodes || []) visit(child);
+  };
+  visit(parseHtml(html));
   return [...found].sort(lexical);
 }
 
@@ -319,7 +357,9 @@ async function authenticateRecord(root, record) {
     throw new Error(`capture hash mismatch: ${record.path}`);
   let text;
   try {
-    text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes);
+    text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(
+      bytes,
+    );
   } catch {
     throw new Error(`invalid UTF-8: ${record.path}`);
   }
@@ -905,10 +945,14 @@ export async function verifyGraph(root, outputRelative, options = {}) {
   }
   const rebuilt = await buildGraph(root, options);
   const listed = manifest.files.map((entry) => entry.path);
-  if (new Set(listed).size !== listed.length ||
-      listed.length !== Object.keys(rebuilt).length ||
-      Object.keys(rebuilt).some((name) => !listed.includes(name)))
-    throw new Error("generated evidence inventory differs from rebuilt reports");
+  if (
+    new Set(listed).size !== listed.length ||
+    listed.length !== Object.keys(rebuilt).length ||
+    Object.keys(rebuilt).some((name) => !listed.includes(name))
+  )
+    throw new Error(
+      "generated evidence inventory differs from rebuilt reports",
+    );
   for (const entry of manifest.files) {
     if (!(entry.path in rebuilt))
       throw new Error(`generated evidence is not reproducible: ${entry.path}`);

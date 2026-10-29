@@ -91,6 +91,12 @@ An import is exact only when chunk context or the selected corpus leaves one ide
 
 Route attribution requires an authenticated route HTML record to reference an authenticated captured JavaScript asset. A seed is keyed by module ID, factory hash, captured source object, and UTF-16 source range. Identical factory bytes in another captured object therefore do not inherit the route. Reachability then follows exact graph edges only, including legitimate exact cross-chunk imports. Static API attribution maps the repository's existing internal and developer ledgers into enclosing authenticated factory ranges. It does not claim endpoint reachability, authentication, or live compatibility.
 
+HTML association uses inert HTML parsing: script `src` attributes decode HTML
+entities, and URL fragments are removed before matching capture URLs. Next static
+script preload/modulepreload hints and inline recorded chunk strings remain
+supported. Comments, `data-src` and ordinary page text do not create seeds. This
+does not execute scripts or implement browser loading/control flow.
+
 ## Reproducibility and limits
 
 Outputs use stable ordering, deterministic JSON, deterministic gzip headers, and a content manifest. Publication happens in a temporary sibling directory and is renamed only after every output is written. Verification authenticates the current inputs, rebuilds every report, and compares the regenerated content with the packet manifest. Because gzip output can differ between zlib builds bundled with different Node releases, each `.json.gz` record is additionally pinned by the sha256 and length of its decompressed content, and rebuild comparison uses that content identity rather than compressed bytes. The checked-in packet records no timestamps or machine-specific measurements, so repeat builds are content-identical.
