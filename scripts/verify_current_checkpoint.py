@@ -35,11 +35,30 @@ def manifest_name(name):
     return relative
 
 
-def read_regular(bound, path):
-    """Read one regular file inside bound without following a symlink.
+def _redirected(path):
+    """True when path is a symlink or any other reparse point.
 
-    Walking stops at bound. A symlink on the file, or on any ancestor through
-    bound, is rejected. Hash equality alone must not admit a directory that was
+    Path.is_symlink() is false for an NTFS directory junction, and Windows has
+    no O_NOFOLLOW. lstat exposes the junction as st_reparse_tag 0xA0000003.
+    os.path.isjunction is the same fact on Python 3.12 and later.
+    """
+    try:
+        info = os.lstat(path)
+    except OSError:
+        return False
+    if stat.S_ISLNK(info.st_mode) or getattr(info, 'st_reparse_tag', 0) != 0:
+        return True
+    isjunction = getattr(os.path, 'isjunction', None)
+    return bool(isjunction and isjunction(path))
+
+
+def read_regular(bound, path):
+    """Read one regular file inside bound without following a redirected directory.
+
+    The walk includes the file, each ancestor, and the bound itself. A symlink
+    or a Windows reparse point such as an NTFS junction on any of those
+    components is rejected. A hard link to a regular file is still that file
+    and is accepted. Hash equality alone must not admit a directory that was
     replaced by a link to another tree.
     """
     bound = Path(os.path.abspath(bound))
@@ -50,7 +69,7 @@ def read_regular(bound, path):
         raise AssertionError(('Path outside bound', str(path)))
     current = path
     while True:
-        if current.is_symlink():
+        if _redirected(current):
             raise AssertionError(('Symlink ancestry', str(current)))
         if current == bound:
             break
