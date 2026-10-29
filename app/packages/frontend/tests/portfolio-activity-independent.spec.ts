@@ -56,9 +56,12 @@ test("valid wallet activity remains explicitly inspectable when the holdings rea
     "Token account response is unsupported.",
   );
   expect(recordRequests).toBe(0);
-  await page
-    .getByRole("button", { name: "Read public Pump record", exact: true })
-    .click();
+  const inspect = page.getByRole("button", {
+    name: "Read public Pump record",
+    exact: true,
+  });
+  await expect(inspect).toBeVisible();
+  await inspect.click();
   await expect(page.getByTestId("public-pump-record-result")).toContainText(
     "controlled-public.example",
   );
