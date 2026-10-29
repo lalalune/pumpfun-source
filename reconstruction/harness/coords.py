@@ -17,9 +17,13 @@ from score import sections, body, original_windows, score, BASE, candidate_funct
 
 
 def read_cstr_at(blob, secs, vaddr, length):
+    if length < 0:
+        return None
     for name, s in secs.items():
         if s['addr'] and s['addr'] <= vaddr < s['addr'] + s['size']:
             o = vaddr - s['addr'] + s['offset']
+            if vaddr + length > s['addr'] + s['size'] or not 0 <= o <= len(blob) - length:
+                return None
             return blob[o:o + length]
     return None
 
