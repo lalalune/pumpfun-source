@@ -1,0 +1,113 @@
+.archived-live-hero {
+  display: grid;
+  min-width: 0;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 12px;
+  background: var(--color-bg-secondary);
+}
+
+.archived-live-hero header p,
+.archived-hero-metadata > p {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.archived-live-hero h2 {
+  margin: 6px 0;
+  font-size: 22px;
+}
+
+.archived-hero-choices {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.archived-hero-choices button,
+.archived-hero-controls button {
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 8px;
+  color: var(--color-text-primary);
+  background: var(--color-bg-tertiary);
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.archived-hero-choices button {
+  display: grid;
+  gap: 5px;
+  text-align: start;
+}
+
+.archived-hero-choices button[aria-current="true"] {
+  border-color: var(--color-bg-accent);
+}
+
+.archived-hero-choices button span {
+  color: var(--color-text-tertiary);
+  font-size: 11px;
+}
+
+.archived-hero-metadata {
+  min-width: 0;
+  padding: 14px;
+  border-radius: 8px;
+  background: var(--color-bg-primary);
+}
+
+.archived-hero-metadata h3,
+.archived-hero-metadata dd {
+  overflow-wrap: anywhere;
+}
+
+.archived-hero-symbol {
+  color: var(--color-text-tertiary);
+  font-size: 13px;
+}
+
+.archived-hero-metadata dl {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 2fr);
+  gap: 14px;
+  margin: 16px 0;
+}
+
+.archived-hero-metadata dt {
+  color: var(--color-text-tertiary);
+  font-size: 11px;
+}
+
+.archived-hero-metadata dd {
+  margin: 5px 0 0;
+  font-size: 12px;
+}
+
+.archived-hero-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .archived-hero-choices {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .archived-hero-metadata dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 400px) {
+  .archived-live-hero {
+    padding: 12px;
+  }
+  .archived-hero-choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

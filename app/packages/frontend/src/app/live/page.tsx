@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { loadLiveEvidence } from "./evidence";
+import { loadLiveHeroEvidence } from "./hero-evidence";
+import ArchivedLiveHero from "./archived-live-hero";
 import LiveDiscovery from "./live-discovery";
 import "./live.css";
 
@@ -20,7 +22,10 @@ function DiscoveryFallback() {
 }
 
 export default async function LivePage() {
-  const evidence = await loadLiveEvidence();
+  const [evidence, hero] = await Promise.all([
+    loadLiveEvidence(),
+    loadLiveHeroEvidence(),
+  ]);
 
   return (
     <section className="live-page" aria-labelledby="live-title">
@@ -56,6 +61,19 @@ export default async function LivePage() {
             </span>
             <span>{evidence.snapshot.streams.length} exact archived cards</span>
           </aside>
+          {hero.ok ? (
+            <ArchivedLiveHero streams={hero.snapshot.streams} />
+          ) : (
+            <aside
+              role="alert"
+              className="live-evidence-error"
+              data-testid="archived-hero-error"
+            >
+              Archived highlights unavailable: the six-record hero data did not
+              pass local evidence validation. No substitute or production data
+              was loaded.
+            </aside>
+          )}
           <Suspense fallback={<DiscoveryFallback />}>
             <LiveDiscovery streams={evidence.snapshot.streams} />
           </Suspense>

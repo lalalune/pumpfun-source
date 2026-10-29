@@ -160,7 +160,7 @@ function decodeArchivedSection(source: string): unknown[] {
 
 // React Flight stores a string that starts with "$" as "$$"; any other
 // "$"-prefixed string is an unresolved Flight reference and is rejected.
-function unescapeFlightStrings(value: unknown): unknown {
+export function unescapeFlightStrings(value: unknown): unknown {
   if (typeof value === "string") {
     if (value.startsWith("$$")) return value.slice(1);
     if (value.startsWith("$")) {
