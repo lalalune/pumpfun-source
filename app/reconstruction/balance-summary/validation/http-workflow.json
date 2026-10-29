@@ -1,0 +1,148 @@
+{
+  "provenance": "Explicit synthetic loopback; no original server/accounting/auth or production traffic",
+  "normalization": "Ephemeral loopback origin omitted; ordered method/path/query/selected synthetic header/status/body retained",
+  "completedResponses": 7,
+  "abortedRequests": 1,
+  "wire": [
+    {
+      "request": {
+        "method": "GET",
+        "pathAndQuery": "/balance/summary/ok?multi_chain=true",
+        "credentials": "same-origin",
+        "syntheticHeader": "loopback"
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json",
+        "retryAfter": null,
+        "body": "{\"success\":true,\"data\":{\"native_balance\":2,\"total_value\":7},\"unvalidated\":\"retained\"}"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "pathAndQuery": "/balance/summary/false",
+        "credentials": "same-origin",
+        "syntheticHeader": null
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json",
+        "retryAfter": null,
+        "body": "{\"success\":false,\"data\":{\"total_value\":88}}"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "pathAndQuery": "/balance/summary/unauthorized",
+        "credentials": "same-origin",
+        "syntheticHeader": null
+      },
+      "response": {
+        "status": 401,
+        "contentType": "application/json",
+        "retryAfter": null,
+        "body": "{\"synthetic\":\"denied\"}"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "pathAndQuery": "/balance/summary/limited",
+        "credentials": "same-origin",
+        "syntheticHeader": null
+      },
+      "response": {
+        "status": 429,
+        "contentType": "application/json",
+        "retryAfter": "120",
+        "body": "{\"synthetic\":\"limited\"}"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "pathAndQuery": "/balance/summary/failed",
+        "credentials": "same-origin",
+        "syntheticHeader": null
+      },
+      "response": {
+        "status": 503,
+        "contentType": "application/json",
+        "retryAfter": null,
+        "body": "{\"synthetic\":\"unavailable\"}"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "pathAndQuery": "/balance/summary/empty",
+        "credentials": "same-origin",
+        "syntheticHeader": null
+      },
+      "response": {
+        "status": 204,
+        "contentType": "application/json",
+        "retryAfter": null,
+        "body": ""
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "pathAndQuery": "/balance/summary/invalid",
+        "credentials": "same-origin",
+        "syntheticHeader": null
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json",
+        "retryAfter": null,
+        "body": "{"
+      }
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "pathAndQuery": "/balance/summary/ok?multi_chain=true",
+      "syntheticHeader": "loopback"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/balance/summary/false",
+      "syntheticHeader": null
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/balance/summary/unauthorized",
+      "syntheticHeader": null
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/balance/summary/limited",
+      "syntheticHeader": null
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/balance/summary/failed",
+      "syntheticHeader": null
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/balance/summary/empty",
+      "syntheticHeader": null
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/balance/summary/invalid",
+      "syntheticHeader": null
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/balance/summary/slow",
+      "syntheticHeader": null
+    }
+  ]
+}

@@ -123,7 +123,12 @@ Only the ephemeral loopback origin is omitted from its wire receipt.
 Immutable main094a lacks these maintained module/verifier paths. This is new
 source reconstruction; no original/live server or fabricated baseline HTTP
 response is used as a before proof. Qualification records bind actual source and
-commands under `validation/` once run. No production traffic, original backend
+commands under [`validation/`](validation/VALIDATION.json): 20 focused checks
+(nine new and eleven shared), seven complete loopback responses plus one aborted
+GET, source verification, 698-object/npm/SDK evidence checks, progress and its nine
+tests, and the required nine root captures/ten tooling tests passed. The root
+commands' 46 actual read inputs match the source revision's Git blobs; no
+original program/source rebuild is claimed. No production traffic, original backend
 accounting/schema, authenticated access, owner/session enforcement, provider
 winner/current availability, RPC, transaction/signing, native compatibility,
 React UI integration, visual parity or feature percentage is claimed. Existing

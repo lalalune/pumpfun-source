@@ -1,0 +1,28 @@
+✔ source authenticates all six physical readers, exact origin/key provider and real UI handoff (409.987467ms)
+✔ fetch destination/options/subject semantics are explicit, without inferred encoding or query signal (1.524869ms)
+✔ success returns raw decoded JSON, with no schema/success/shape repair; transport and JSON failures propagate (3.042678ms)
+✔ 401/other errors do not consume body; only429 reads retry header/clock (0.676045ms)
+✔ Retry-After numeric/date grammar retains zero, past dates, overflow and invalid distinctions (0.258938ms)
+✔ finite error property admission and exact retry/delay/polling policies (0.252229ms)
+✔ query hook preserves memo identities/captured callbacks and last-spread overrides through injected ports (1.008854ms)
+✔ real synthetic loopback HTTP binds request/JSON/errors/abort without live provider or automatic retries (52.850741ms)
+✔ source verification rejects resealed raw changes and noncanonical contract bytes (631.056257ms)
+✔ factory lookup authenticates original AST and preserves BOM, CRLF and Unicode byte ranges (21.526135ms)
+✔ UTF-16 offsets inside an astral character are not byte boundaries (8.682599ms)
+✔ capture hash and length changes fail before AST attribution (6.353668ms)
+✔ an updated manifest cannot make malformed UTF-8 into source text (4.77943ms)
+✔ indexed arbitrary substrings cannot substitute for actual registered factories (6.033357ms)
+✔ an aggregate inventory ID cannot substitute for the actual registration ID (5.920288ms)
+✔ multiple origin contexts stay ambiguous until explicitly selected (3.10386ms)
+✔ manifest source symlinks and traversal paths are rejected (4.148007ms)
+✔ a forged manifest cannot authorize reading a repository file outside retained objects (5.590823ms)
+✔ the runtime-leading nested-array grammar validates nested and trailing factories (7.758747ms)
+✔ outer two-element registration is metadata, not a nested factory container (4.139204ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1227.539585

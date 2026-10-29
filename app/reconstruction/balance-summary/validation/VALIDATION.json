@@ -1,0 +1,125 @@
+{
+  "sourceCommit": "e4dfd46291f9179b65bd9f51663b3e232288b466",
+  "sourceTree": "73d346080aefcecc9ae1e42af8d8e41855b95b38",
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "source": [
+    {
+      "path": "app/packages/frontend/src/original-contracts/balance-summary/client.mjs",
+      "gitBlob": "591666c90c9a485879cd2ff613af58eda7851a97",
+      "bytes": 4550,
+      "sha256": "7d8297eaa71baaaa41855a546fe4dc79a35acb3086f83a8dcb7bb0a5f1657eec"
+    },
+    {
+      "path": "app/reconstruction/balance-summary/README.md",
+      "gitBlob": "5201dda82ff7cde272e1f57c1487e2aed9b51aef",
+      "bytes": 7412,
+      "sha256": "0694ec8ef16a394540d7d47efa8253da5760ca49215daa98ab86f9b95d589eb1"
+    },
+    {
+      "path": "app/reconstruction/balance-summary/contract.json",
+      "gitBlob": "5ce848b2dce5cfd4acd88b665ff1176d7c2b695e",
+      "bytes": 60969,
+      "sha256": "5fea46a1a5376163c3c5b2ff095c20de2b3d8851f813b7612f9f1828a6840518"
+    },
+    {
+      "path": "app/scripts/original-balance-summary.mjs",
+      "gitBlob": "8f087bfcfc3dac9c22a027dca8efecb17942ffb0",
+      "bytes": 12581,
+      "sha256": "5b67ea15d10c7762d8a51eef55b81a064a48539f7a11d132d8a1cc3a674d1778"
+    },
+    {
+      "path": "app/tests/original_balance_summary.test.mjs",
+      "gitBlob": "a58b4de5f4098ebc8fed3c2a1c0a13251a08cfcc",
+      "bytes": 15761,
+      "sha256": "04d7b10c3c3a8e16391ca0fda6299061545a700d774a19503dcec158abe9a6a5"
+    }
+  ],
+  "checks": [
+    {
+      "name": "source-check",
+      "command": [
+        "node",
+        "app/scripts/original-balance-summary.mjs",
+        "--check"
+      ],
+      "cwd": "repository root",
+      "returncode": 0,
+      "log": "source-check.log"
+    },
+    {
+      "name": "app-evidence",
+      "command": [
+        "python3",
+        "scripts/verify-evidence.py"
+      ],
+      "cwd": "app/",
+      "returncode": 0,
+      "log": "app-evidence.log"
+    },
+    {
+      "name": "progress",
+      "command": [
+        "python3",
+        "scripts/progress.py",
+        "--check"
+      ],
+      "cwd": "app/",
+      "returncode": 0,
+      "log": "progress.log"
+    },
+    {
+      "name": "progress-tests",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_progress.py"
+      ],
+      "cwd": "app/",
+      "returncode": 0,
+      "log": "progress-tests.log"
+    }
+  ],
+  "focused": {
+    "command": [
+      "node",
+      "--test",
+      "app/tests/original_source.test.mjs",
+      "app/tests/original_balance_summary.test.mjs"
+    ],
+    "log": "focused-tests.log",
+    "passed": 20,
+    "newCases": 9,
+    "returncode": 0,
+    "note": "Run on identical frozen source bytes before committing; Git blob identity retained above."
+  },
+  "loopback": {
+    "receipt": "http-workflow.json",
+    "completedResponses": 7,
+    "abortedGET": 1,
+    "liveProvider": false,
+    "synthetic": true
+  },
+  "mandatory": {
+    "record": "mandatory-common-source.json",
+    "captures": 9,
+    "toolingTests": 10,
+    "gitBoundReadInputs": 46,
+    "allMatch": true,
+    "note": "Actual read paths observed during unchanged official scripts; public replay uses ordinary root commands, with no private audit controller prerequisite."
+  },
+  "initialFailure": {
+    "kind": "author assertion",
+    "description": "Initial 8/9 result expected positive zero for Retry-After -0. Actual source preserves negative zero; expectation corrected to -0. Reader operation unchanged. This is not a source-defect before result."
+  },
+  "limits": [
+    "No captured JavaScript execution/live service request/auth or credential access",
+    "No original server/accounting/PnL, provider winner, UI/RPC/native compatibility or feature-completion credit",
+    "Original React/query runtime/scheduler and cross-engine Date.parse behavior unqualified",
+    "No Next/browser/production-build or aggregate all-app test claim"
+  ]
+}
