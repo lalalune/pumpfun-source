@@ -111,6 +111,8 @@ const mutate = (page: Page, action: "resolve" | "unregister") =>
   }, action);
 async function open(page: Page) {
   await page.goto("/explore");
+  // The trigger is server-rendered; the portal confirms its client effect mounted.
+  await expect(page.getByTestId("auth-dialog")).toBeAttached();
   await page.getByTestId("sign-in-button").click();
   await page
     .getByRole("button", { name: "Connect a public wallet", exact: true })
