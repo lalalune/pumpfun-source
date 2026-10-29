@@ -61,11 +61,14 @@ rerun using that corrected, frozen final harness; only the `qualified-*` runs
 qualify the result above. Raw unsuccessful logs/reports are preserved here in
 lossless gzip, separately from final receipts.
 
-The executed controller/config use the original local workspace/output paths.
-To reproduce in another checkout, substitute those paths explicitly; the
-checked-in spec itself runs under the ordinary frontend Playwright config and
-is automatically included in its existing `test:browser` discovery. No package,
-lockfile or CI change is needed. Source manifests enumerate and authenticate all
+The executed controller/config preserve original workspace/output paths and a
+historical private HEAD guard. They are archived receipts. Use the
+[public replay sequence](../PUBLIC-REPLAY.md) for the fetchable identical source,
+exact cwd, checked-in fixtures and fresh external outputs; changing paths alone
+is insufficient to reuse the historical controller. The checked-in spec runs
+under the ordinary frontend Playwright config and is automatically included in
+its existing `test:browser` discovery. No package, lockfile or CI change is
+needed. Source manifests enumerate and authenticate all
 209 frontend runtime files in each phase against the stated exact Git revision.
 The controller restores the one substituted baseline component and generated
 Next file. Only the owned inactive build cache was removed after all processes

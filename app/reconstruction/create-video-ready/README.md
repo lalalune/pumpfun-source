@@ -58,3 +58,6 @@ corepack pnpm --filter @pump-reconstruction/frontend exec playwright test tests/
 
 The baseline, corrected candidate, initial harness limitation and exact finite
 source/command/data receipts are recorded separately in the validation packet.
+For fetchable source pins, explicit working directories and fresh retained
+outputs, use [the public replay sequence](PUBLIC-REPLAY.md). It needs no private
+commit or regenerated WebM; the archived controller remains unchanged.
