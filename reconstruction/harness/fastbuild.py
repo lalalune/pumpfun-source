@@ -153,6 +153,10 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     stack = [l.strip() for l in r.stdout.splitlines() if 'exceeded max offset' in l]
     if stack and not quiet:
         sys.stderr.write('STACK OVERFLOW RISK (runtime-invalid build):\n  ' + '\n  '.join(stack) + '\n')
+    if stack:
+        return {'ok': False, 'runtime_valid': False, 'stack_warnings': stack,
+                'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1),
+                'log': str(out / 'build.log')}
     built = target / triple / 'release/pump_recovered.so'
     shutil.copy2(built, out / 'unstripped.so')
     subprocess.run([str(SDK / 'llvm/bin/llvm-objcopy'), '--strip-all', str(built), str(out / 'candidate.so')], check=True)
