@@ -15,7 +15,7 @@ export function isLocalUserSearchRows(
   return (
     Array.isArray(value) &&
     value.length <= 20 &&
-    value.every(
+    Array.from(value).every(
       (row) =>
         row &&
         typeof row === "object" &&

@@ -267,7 +267,7 @@ export function validateNativeFeedPage(
       `${kind} response coins must be a bounded array`,
     );
   }
-  const coins = response.coins.map(parseCallout);
+  const coins = Array.from(response.coins, parseCallout);
   const identities = new Set(coins.map((coin) => coin.id));
   if (identities.size !== coins.length) {
     throw new NativeFeedDataError(
