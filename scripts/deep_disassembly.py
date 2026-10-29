@@ -14,6 +14,7 @@ Usage:
     python3 scripts/deep_disassembly.py --program pump --output research/pump-deep-disasm-20261028
 """
 import argparse
+import bisect
 import collections
 import gzip
 import hashlib
@@ -216,6 +217,19 @@ def extract_rodata_strings(elf):
     return strings
 
 
+def rodata_string_preview(strings, starts, address):
+    """Preview a printable-run suffix, not an inferred Rust string length."""
+    index = bisect.bisect_right(starts, address) - 1
+    if index < 0:
+        return None
+    start = starts[index]
+    text = strings[start]
+    offset = address - start
+    if offset >= len(text):
+        return None
+    return text[offset:offset + 120]
+
+
 def recover_anchor_dispatch(elf):
     """Recover Anchor instruction dispatch table from the entrypoint."""
     entry = struct.unpack_from("<Q", elf.b, 24)[0]
@@ -382,6 +396,7 @@ def main():
     boundaries = entries + [elf.hi]
 
     rodata_strings = extract_rodata_strings(elf)
+    rodata_starts = sorted(rodata_strings)
     print(f"[disasm] {len(rodata_strings)} rodata strings extracted")
 
     dispatch = recover_anchor_dispatch(elf)
@@ -421,10 +436,11 @@ def main():
         for insn in instructions:
             if insn.get("imm64") is not None:
                 val = insn["imm64"] & 0xFFFFFFFFFFFFFFFF
-                if val in rodata_strings:
+                preview = rodata_string_preview(rodata_strings, rodata_starts, val)
+                if preview is not None:
                     string_refs.append({
                         "offset": insn["offset"] - start,
-                        "string": rodata_strings[val][:120],
+                        "string": preview,
                     })
 
         # CFG edges
@@ -586,6 +602,10 @@ fingerprinting for cross-window pattern matching.
 {chr(10).join(f'- `{name}`: {count}' for name, count in syscall_usage.most_common(15))}
 
 ## Files
+String references preview up to 120 printable bytes from the referenced address
+to the end of its extracted ASCII run. They do not establish a Rust string's
+length, a semantic string boundary, or runtime use.
+
 | File | Description |
 |------|-------------|
 | windows-deep.json | Per-window analysis (syscalls, strings, stack, fingerprint) |
