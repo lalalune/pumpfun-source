@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "testedHead": "a4805db5d9c3f796706abc0c178827254ff24199",
+  "testedTree": "f746f3204fa3500386cb7a12e87985dcbf6eaa57",
+  "testedSourceCommit": "025ac08b51f5807ee6ad2dc51df664aa77ddc830",
+  "receiptOnlyParent": "a4805db5d9c3f796706abc0c178827254ff24199",
+  "receiptPrefix": "app/reconstruction/competition-entry-presentation/independent-root-a480/",
+  "runtimeMapping": "New commit adds only this independent output packet; all32 original qualified input Git blobs remain unchanged. No runtime/build result is re-executed or inferred for changed product code.",
+  "qualifiedInputs": {
+    "app/contracts/developer.openapi.json": "dd2812c76275c198607f39bb63280a11b608e6ec",
+    "app/evidence/api-probes.json": "f3cf098a03426581c561ef6b08360e88b5144ac8",
+    "app/evidence/sdk/pump-sdk-4.3.1.tgz": "39ef7037496813c43f14341ca4ae1f1105edd107",
+    "app/evidence/sdk/registry.json": "82c11c966d26bbcf2b473a00d75fe324f5a475dc",
+    "app/evidence/source-map-probes.json": "4c3fab7c2a8b6701d39cf180f79b66135f6399d2",
+    "app/evidence/web/manifest.json": "8ff3e62cd191592c2e2abd0e58153857af014bda",
+    "app/evidence/web/objects/2b47dd0b38a1608f.js": "040939b52d9fd8de8d7638e8fd1637eb51e81d2b",
+    "app/evidence/web/objects/2fe17dced92b840b.js": "4b9bd9abacbbb669f9eb1a4502fd2f719f3fab1b",
+    "app/package.json": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8",
+    "app/packages/backend/package.json": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b",
+    "app/packages/backend/tsconfig.json": "1a863bae065b07ea52a3a9b89b048c21f88876e2",
+    "app/packages/frontend/next.config.ts": "6326d6c6274182f58c449f3f5bba914858023dfa",
+    "app/packages/frontend/package.json": "f998048da959e90119cc58b720d6a09da9f897c0",
+    "app/packages/frontend/src/app/globals.css": "08651075813b909d3459daf74cc70b982abb2ce3",
+    "app/packages/frontend/src/app/leaderboard/leaderboard-client.tsx": "f04b795dbc751be125f181c9eb8695df90ac587f",
+    "app/packages/frontend/src/app/leaderboard/types.ts": "b65661a9e321ad3dbf7cb99fce052784c67a70dc",
+    "app/packages/frontend/tests/browser-state.ts": "dad2bd240204528a984cc25718e9abfc40956347",
+    "app/packages/frontend/tests/competition-entry-presentation.spec.ts": "1d2a63a4e81aecf9e5198409af80b4658ea243fb",
+    "app/packages/frontend/tsconfig.json": "232242f82f082ceecb0da2071d2528fc7b589d74",
+    "app/packages/sdk/package.json": "ba5abc1bcc0fba0b6a7b7425eaa25544baeb43b4",
+    "app/packages/sdk/tsconfig.json": "5c2bd6441f61feea7a6c21e6f02e6256483fd3f4",
+    "app/pnpm-lock.yaml": "049b2153aa789a6def6cbd55c7b375a74a091fd1",
+    "app/pnpm-workspace.yaml": "2ac2665ef5a28f8a1691518ad942fb07353810e6",
+    "app/reconstruction/competition-entry-presentation/README.md": "94d0fe9154520b407342a6f4284227d89eb80647",
+    "app/reconstruction/competition-entry-presentation/contract.json": "933657ce32c5638a5f20d51a056468595df79f9c",
+    "app/reconstruction/competition-entry-presentation/reference/native-row.tsx": "a4379d760f72cbd09692969fe279dc1ddde56030",
+    "app/recovered/modules.json": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f",
+    "app/scripts/original-contracts/source.mjs": "982ba8058c78f80bb3816529166920e5c74c43df",
+    "app/scripts/verify-competition-entry-presentation.mjs": "4cafdc2e19c709706af1f8602f6d68a7c4d046a3",
+    "app/scripts/verify-evidence.py": "de916929321f830eac387403fb5cda9ff981005f",
+    "app/tests/competition-entry-presentation.test.mjs": "7ee9678a5a645fca0e2abcfcdafdf428fb1bd328",
+    "app/tests/original_source.test.mjs": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+  },
+  "checks": {
+    "sha256": "0e6617689af157ffd0dd8b3b97bc1ea15ad0e2f21355231b8b503c4f4b7d3103",
+    "bytes": 670
+  },
+  "logs": {
+    "build.log": {
+      "raw": {
+        "sha256": "494b39a1f74703ef3a56dcf220f58f100b22c08a8e8bfd4da7f59cde2401bb66",
+        "bytes": 3061
+      },
+      "compressed": {
+        "sha256": "082371fabdd9f6a5289f49aa50f020b04e4f102d350d60e269dddd0e52f0c703",
+        "bytes": 1126
+      },
+      "file": "build.log.gz"
+    },
+    "typecheck.log": {
+      "raw": {
+        "sha256": "050b281c95589b3410266b6a100852147a33336492f6f125ebaa80bc7a33b236",
+        "bytes": 348
+      },
+      "compressed": {
+        "sha256": "4cdc860e8b70a5628bf9a16a5b1f72a015701f93062e18581116b83f8ba068a0",
+        "bytes": 174
+      },
+      "file": "typecheck.log.gz"
+    },
+    "evidence.log": {
+      "raw": {
+        "sha256": "0f0c5fae20c1d78fdecb8eb80012fb68229500f574ab89c10dc419f663b17d61",
+        "bytes": 194
+      },
+      "compressed": {
+        "sha256": "f7c2997aebcd8bf091c42d182b686232717b068f917874f9c8700a7efc77fd53",
+        "bytes": 168
+      },
+      "file": "evidence.log.gz"
+    },
+    "progress.log": {
+      "raw": {
+        "sha256": "0c81067a36b082bdb9d5c11efc1ac8749b488bfad533fb171b40432bef386858",
+        "bytes": 389
+      },
+      "compressed": {
+        "sha256": "8bc1a4cd376268e0be9c4e7c63d8ff8bd02b95b9272d1c0b3e83d72aff2550f2",
+        "bytes": 215
+      },
+      "file": "progress.log.gz"
+    }
+  },
+  "commonGate": "Parent a480 independently9captures+10tooling with53Git inputs; new receipt head to be re-gated separately",
+  "limits": [
+    "Finite browser proof remains qualified on source025ac/tree160aa and receipt a480.",
+    "No new UI/browser/full-suite/backend/runtime or original-provider parity claim."
+  ]
+}
