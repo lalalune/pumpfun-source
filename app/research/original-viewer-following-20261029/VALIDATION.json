@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "maintainedBase": "60bdd8a7a522921058d18563bb9335d2a06aec75",
+  "scope": "303599.Q/j/G/o capped viewer-following read, strict decoding, active/passive membership state and actual consumers; no UI/session/query-runtime implementation",
+  "acceptedDependency": {
+    "pullRequest": 870,
+    "exactPublicSourceCommit": "e46c14ea3857da7ef6eecc9f7945622f5dbcfc39",
+    "alreadyMerged": true,
+    "files": [
+      {
+        "path": "app/reconstruction/profile-lookup/README.md",
+        "gitBlobSha": "eff1894917726b7fd415a9e57dd7199a8ce1a3ac",
+        "unchanged": true,
+        "novelCredit": false
+      },
+      {
+        "path": "app/reconstruction/profile-lookup/client.mjs",
+        "gitBlobSha": "cae1e3c17175b91f342316195cf5ab129a04904b",
+        "unchanged": true,
+        "novelCredit": false
+      },
+      {
+        "path": "app/reconstruction/profile-lookup/contract.json",
+        "gitBlobSha": "a30f2ab289b2ce38b1165f9562d70674e1147e37",
+        "unchanged": true,
+        "novelCredit": false
+      },
+      {
+        "path": "app/research/original-profile-lookup-20261029/VALIDATION.json",
+        "gitBlobSha": "ca9731a16e57d2387776e246eca9f7989f533577",
+        "unchanged": true,
+        "novelCredit": false
+      },
+      {
+        "path": "app/scripts/original-profile-lookup.mjs",
+        "gitBlobSha": "dc1220e86baba3b305381c356bdc1431e4827989",
+        "unchanged": true,
+        "novelCredit": false
+      },
+      {
+        "path": "app/tests/original_profile_lookup.test.mjs",
+        "gitBlobSha": "5ebbf16687213406389f2686e0ea33e294fbac55",
+        "unchanged": true,
+        "novelCredit": false
+      }
+    ],
+    "novelCredit": false,
+    "enumeration": "Six explicit known paths, verified without walking shallow Git parent history; these are not part of the novel diff"
+  },
+  "testedFiles": [
+    {
+      "path": "app/reconstruction/viewer-following/client.mjs",
+      "sha256": "cf1669ae0bce7c3716d5ffcaf4dadc7843f97646442cf1b52bcf14e426669556"
+    },
+    {
+      "path": "app/reconstruction/viewer-following/contract.json",
+      "sha256": "075b1503ee27a4c302a1acaf79bea002c5844d9e3a111ae93fc59d2600edc33d"
+    },
+    {
+      "path": "app/reconstruction/viewer-following/README.md",
+      "sha256": "5bfd67aa09e9d4d43e5f89819151aa0759da41ed40ffe0bc2e607f3af49b6bd2"
+    },
+    {
+      "path": "app/scripts/original-viewer-following.mjs",
+      "sha256": "622a5763b260661e7af09a1312e664a5c0d3c9c8a25c78b68b30721c35400f40"
+    },
+    {
+      "path": "app/tests/original_viewer_following.test.mjs",
+      "sha256": "0d09de7e6afdc04b6baac6897af5f9afd5a23567c1c6c52095143034895e7246"
+    }
+  ],
+  "sourceInputs": {
+    "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+    "inventorySha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2"
+  },
+  "checks": [
+    {
+      "command": "cd app && node scripts/original-viewer-following.mjs --check && node scripts/original-profile-lookup.mjs --check",
+      "result": "PASS"
+    },
+    {
+      "command": "cd app && node --test tests/original_viewer_following.test.mjs tests/original_profile_lookup.test.mjs tests/original_source.test.mjs tests/original_schema.test.mjs tests/original_contract_http_errors.test.mjs tests/original_contract_http_error_source.test.mjs",
+      "result": "PASS",
+      "tests": 71,
+      "novelDomainTests": 15,
+      "acceptedDependencyTests": 18,
+      "sharedTests": 38,
+      "novelRealLoopbackHttpScenarios": 3
+    },
+    {
+      "command": "cd app && corepack pnpm --filter @pump-reconstruction/frontend typecheck",
+      "result": "PASS"
+    },
+    {
+      "command": "cd app && corepack pnpm verify:evidence",
+      "result": "PASS",
+      "capturedObjects": 698,
+      "sdkSourceChanges": 0
+    },
+    {
+      "command": "cd app && corepack pnpm check:progress",
+      "result": "PASS",
+      "tests": 9,
+      "ledgerChanges": 0
+    },
+    {
+      "command": "python3 scripts/verify_evidence.py",
+      "result": "PASS",
+      "captures": 9
+    },
+    {
+      "command": "python3 scripts/test_tooling.py",
+      "result": "PASS",
+      "tests": 6
+    },
+    {
+      "command": "cd app && corepack pnpm exec prettier --check reconstruction/viewer-following/client.mjs reconstruction/viewer-following/README.md scripts/original-viewer-following.mjs tests/original_viewer_following.test.mjs",
+      "result": "PASS"
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS"
+    },
+    {
+      "command": "Each explicit accepted870 path: git hash-object PATH equals git rev-parse e46c14ea3857da7ef6eecc9f7945622f5dbcfc39:PATH; assert exactly six entries",
+      "result": "PASS",
+      "files": 6
+    }
+  ],
+  "limits": [
+    "Captured JS never evaluated; authenticated AST/range extraction only",
+    "Only loopback HTTP with synthetic rows; no production calls, mutation, auth/provider or session implementation",
+    "Injected website transport must execute declared hooks/parser; native fetch test transport does not establish captured Ky or browser cookie behavior",
+    "Viewer key is externally supplied data, not proof of authentication or principal ownership",
+    "One 1000-row read does not prove complete graph membership; unknown state remains undefined",
+    "Active/passive functions expose source state boundaries only; opaque React Compiler reuse and TanStack scheduling remain external",
+    "Actual shell/Home/button source bindings do not establish rendered UI parity",
+    "No full Next build/browser or aggregate check on this head; no feature-ledger or compatibility credit"
+  ]
+}
