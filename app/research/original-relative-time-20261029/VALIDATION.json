@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "browserTestedCodeCommit": "a5c8b8174d6797c1e1eed4ab79052ac36a5dbbe3",
+  "productSourceCommit": "4eeae0466003bdb363f569c1c451764fb226c065",
+  "comparison": {
+    "schemaVersion": 1,
+    "candidateCodeCommit": "a5c8b8174d6797c1e1eed4ab79052ac36a5dbbe3",
+    "baseCommit": "ef400863f4e476b2eaaab0866c0b1187d8060abc",
+    "fixtureTimestamp": "2026-10-29T16:08:33.812Z",
+    "productFiles": [
+      {
+        "path": "app/packages/frontend/src/components/feed/FeedItem.tsx",
+        "baseSha256": "64812ac899259ab232baf89e99f6c3104bf5831f1a5fbeb9316f3b166dc2cb4d",
+        "candidateSha256": "e88d70c18a2e086859d4f1fd12a4d6c5ecc6a967f26c184fe8df100959561816"
+      },
+      {
+        "path": "app/packages/frontend/src/components/feed/NativeCalloutFeed.tsx",
+        "baseSha256": "b2bb97fe487293fe24dabd77fd637693ab7b0e0b6297bba33249ad226837b7f0",
+        "candidateSha256": "c5875ed77941f59fd4d29b392a526d3192d47d8f16b9cefdfb5747a4327d6f0d"
+      },
+      {
+        "path": "app/packages/frontend/src/app/api/server-time/route.ts",
+        "baseState": "absent",
+        "candidateSha256": "e6cc34cb2fd0df6c4446201a190e74b15209bd15ebb5dcf950bff44b9f2fe9a8"
+      }
+    ],
+    "runs": [
+      {
+        "name": "baseline",
+        "command": [
+          "corepack",
+          "pnpm",
+          "exec",
+          "playwright",
+          "test",
+          "--config",
+          "playwright.relative-time.config.ts",
+          "--output",
+          "../../artifacts/playwright-relative-time-baseline"
+        ],
+        "mode": "expected absence",
+        "exitCode": 0
+      },
+      {
+        "name": "candidate",
+        "command": [
+          "corepack",
+          "pnpm",
+          "exec",
+          "playwright",
+          "test",
+          "--config",
+          "playwright.relative-time.config.ts"
+        ],
+        "mode": "actual UI and GET with drift correction",
+        "exitCode": 0
+      }
+    ],
+    "limits": [
+      "Identical synthetic Home Feed response timestamp in both runs; actual wall-clock read naturally changes",
+      "Before restores only two consumers and removes the new local GET route; unconsumed new modules/harness remain",
+      "Base asserts expected absence/absolute text and404; its passing test is not an observed failing assertion",
+      "Local Next read implementation is authored to captured client contract; no original server parity"
+    ]
+  },
+  "sourceContractSha256": "1f22ab91c8e68d07cdfa8bbf504884d89acab195dd1c3d3574fb43865899d327",
+  "runtimeInputs": [
+    {
+      "path": "packages/frontend/tests/relative-time.flow.ts",
+      "sha256": "2aafd1b76e92fa216d739c1d165a4b341ba1e0351a7d9be7cdd39fcbf11f7313"
+    },
+    {
+      "path": "packages/frontend/tests/support/relative-time-server.mjs",
+      "sha256": "acb6c6d94d1ae4010b18de466e972778eb7a9a3187760c2b8a60c5db7949889f"
+    },
+    {
+      "path": "packages/frontend/playwright.relative-time.config.ts",
+      "sha256": "8095c7cec2863dbc684abe87845cb37943a719ee913ffe214cd0c630f9fc2288"
+    },
+    {
+      "path": "packages/frontend/src/components/feed/native-feed-server.ts",
+      "sha256": "fb35e05a6e75f164fcaa4ef4f55a1cedfdf2ab7a6a3a51654dfeb8e29e29bc60"
+    },
+    {
+      "path": "packages/frontend/src/components/feed/native-feed-data.ts",
+      "sha256": "aec5f6f08b8ae49ed1334baade922b7f72134dec72476a71cf146c6f582e9796"
+    },
+    {
+      "path": "packages/frontend/src/app/page.tsx",
+      "sha256": "c7d6c2443e2a3c603c69454c950e56b94f1f375d984187861adab42d7e9005cc"
+    }
+  ],
+  "observations": {
+    "beforeTransition": {
+      "browserNow": 1793290265064,
+      "datetime": "2026-10-29T16:08:33.812Z",
+      "fixtureTimestamp": "2026-10-29T16:08:33.812Z",
+      "text": "31s ago",
+      "clockReads": ["GET /api/server-time"]
+    },
+    "afterTransition": {
+      "browserNow": 1793290325064,
+      "text": "3m ago",
+      "clockReads": ["GET /api/server-time"]
+    },
+    "finiteHydrationLimit": "Observed 31s SSR DOM while client Date was 2 minutes fast and one GET was pending; advancing the injected Date by 60 seconds caused 3m DOM text. This preserves the captured suppressHydrationWarning behavior; no immediately visible post-hydration drift claim.",
+    "midpointControl": "Injected Date restored to its initial value before releasing the real GET, excluding the artificial 60 seconds from the sample midpoint.",
+    "successfulResponse": "Real Next GET 200/no-store; finite nowMs within 5000ms of test-host time asserted. Raw JSON sample value was not separately serialized in the retained line-reporter log.",
+    "correction": "Passing test asserts corrected display agrees with actual response/reference timestamp within display-unit flooring and decreases from drifted label. Corrected exact text is not separately logged.",
+    "laterTick": "Passing test advances client Date by60s after correction and waits for a changed label; desktop screenshot records1m ago.",
+    "sharing": "One browser GET across the native card and SPA navigation to 3 ordinary seed posts; no new request after remount within the source eligibility deadline.",
+    "localMethodChecks": "One extra test-runner GET200/no-store and unsupported POST405; no state mutation.",
+    "mobileLimit": "375px test asserts no horizontal overflow/CSS visibility. Raw full-page screenshot contains pre-existing fixed mobile-nav overlay over card footer; footer hit-test visibility or pixel parity is not qualified."
+  },
+  "checks": {
+    "sourceAndModel": "28 passed (17 new, 11 shared)",
+    "existingFeed": "17 passed",
+    "frontendTypecheck": "passed",
+    "captureNpmSdk": "698 verified",
+    "progress": "9 passed plus check",
+    "repositoryEvidence": "9 captures",
+    "repositoryTooling": "10 passed",
+    "browser": "1 expected-absence baseline passed; 1 changed workflow passed"
+  },
+  "limits": [
+    "Local authored wall-clock GET to captured successful-response contract; no original server internals/headers/production compatibility",
+    "English labels only; custom Tailwind merging/pixel identity excluded",
+    "Original parser edge semantics and synchronous-last-unsubscribe rearm quirk preserved",
+    "Earlier initial-DOM observation failures remain private and are not relabeled as passes",
+    "No full Next production build or general browser-suite claim",
+    "No production traffic, authentication/ownership claim, social/financial mutation, SDK/seed/capture change, global ledger or compatibility credit"
+  ]
+}

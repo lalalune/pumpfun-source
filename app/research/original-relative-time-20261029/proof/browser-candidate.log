@@ -1,0 +1,93 @@
+2026-10-29T16:09:02.789Z pw:webserver HTTP GET: http://127.0.0.1:3001/__health
+2026-10-29T16:09:02.795Z pw:webserver Error while checking if http://127.0.0.1:3001/__health is available: connect ECONNREFUSED 127.0.0.1:3001
+2026-10-29T16:09:02.795Z pw:webserver Starting WebServer process node tests/support/relative-time-server.mjs...
+2026-10-29T16:09:02.799Z pw:webserver Process started
+2026-10-29T16:09:02.799Z pw:webserver Waiting for availability...
+2026-10-29T16:09:02.799Z pw:webserver HTTP GET: http://127.0.0.1:3001/__health
+2026-10-29T16:09:02.806Z pw:webserver Error while checking if http://127.0.0.1:3001/__health is available: connect ECONNREFUSED 127.0.0.1:3001
+2026-10-29T16:09:02.806Z pw:webserver Waiting 100ms
+[WebServer] (node:363341) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] Relative-time input on127.0.0.1:3001
+
+2026-10-29T16:09:02.906Z pw:webserver HTTP GET: http://127.0.0.1:3001/__health
+2026-10-29T16:09:02.911Z pw:webserver HTTP Status: 200
+2026-10-29T16:09:02.913Z pw:webserver WebServer available
+2026-10-29T16:09:02.913Z pw:webserver HTTP GET: http://127.0.0.1:3016/
+2026-10-29T16:09:02.914Z pw:webserver Error while checking if http://127.0.0.1:3016/ is available: connect ECONNREFUSED 127.0.0.1:3016
+2026-10-29T16:09:02.914Z pw:webserver Starting WebServer process corepack pnpm exec next dev --turbopack --hostname 127.0.0.1 --port 3016...
+2026-10-29T16:09:02.916Z pw:webserver Process started
+2026-10-29T16:09:02.916Z pw:webserver Waiting for availability...
+2026-10-29T16:09:02.916Z pw:webserver HTTP GET: http://127.0.0.1:3016/
+2026-10-29T16:09:02.917Z pw:webserver Error while checking if http://127.0.0.1:3016/ is available: connect ECONNREFUSED 127.0.0.1:3016
+2026-10-29T16:09:02.917Z pw:webserver Waiting 100ms
+[WebServer] (node:363350) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+2026-10-29T16:09:03.017Z pw:webserver HTTP GET: http://127.0.0.1:3016/
+2026-10-29T16:09:03.018Z pw:webserver Error while checking if http://127.0.0.1:3016/ is available: connect ECONNREFUSED 127.0.0.1:3016
+2026-10-29T16:09:03.019Z pw:webserver Waiting 250ms
+2026-10-29T16:09:03.270Z pw:webserver HTTP GET: http://127.0.0.1:3016/
+2026-10-29T16:09:03.271Z pw:webserver Error while checking if http://127.0.0.1:3016/ is available: connect ECONNREFUSED 127.0.0.1:3016
+2026-10-29T16:09:03.271Z pw:webserver Waiting 500ms
+[WebServer] (node:363362) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:363379) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] ▲ Next.js 16.4.1 (Turbopack)
+[WebServer] - Local:         http://127.0.0.1:3016
+[WebServer] - Network:       http://127.0.0.1:3016
+
+[WebServer] ✓ Ready in 308ms
+
+[WebServer] ✓ Running next.config.ts took 24ms
+
+2026-10-29T16:09:03.771Z pw:webserver HTTP GET: http://127.0.0.1:3016/
+[WebServer] Creating turbopack project {
+[WebServer]   dir: '/workspace/pump-app-social/app/packages/frontend',
+[WebServer]   testMode: true
+[WebServer] }
+
+[WebServer] 
+
+2026-10-29T16:09:04.574Z pw:webserver HTTP Status: 200
+2026-10-29T16:09:04.575Z pw:webserver WebServer available
+
+Running 1 test using 1 worker
+
+[WebServer]  GET / 200 in 523ms (next.js: 170ms, application-code: 353ms)
+
+(node:363401) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] tests/relative-time.flow.ts:3:5 › actual feed and anonymous server-time read correct clock drift, tick and share one sampler
+[WebServer] GET /services/frontend/home-feed?pageSize=3
+
+[WebServer]  GET /?tab=local-callouts&nativeView=ranked 200 in 100ms (next.js: 1.8ms, application-code: 98ms)
+
+tests/relative-time.flow.ts:3:5 › actual feed and anonymous server-time read correct clock drift, tick and share one sampler
+clock-observation-before-transition {"browserNow":1793290265064,"datetime":"2026-10-29T16:08:33.812Z","fixtureTimestamp":"2026-10-29T16:08:33.812Z","text":"31s ago","clockReads":["GET /api/server-time"]}
+
+clock-observation-after-transition {"browserNow":1793290325064,"text":"3m ago","clockReads":["GET /api/server-time"]}
+
+[WebServer]  GET /api/server-time 200 in 65ms (next.js: 48ms, application-code: 18ms)
+
+[WebServer]  GET /?tab=following 200 in 29ms (next.js: 5ms, application-code: 24ms)
+
+[WebServer]  GET / 200 in 11ms (next.js: 2ms, application-code: 9ms)
+
+[WebServer]  GET / 200 in 38ms (next.js: 1.7ms, application-code: 37ms)
+
+[WebServer]  GET /api/server-time 200 in 8ms (next.js: 1.3ms, application-code: 7ms)
+
+[WebServer]  POST /api/server-time 405 in 4ms (next.js: 1.0ms, application-code: 3ms)
+
+2026-10-29T16:09:08.668Z pw:webserver Terminating the WebServer
+2026-10-29T16:09:08.692Z pw:webserver Terminated the WebServer
+2026-10-29T16:09:08.692Z pw:webserver Terminating the WebServer
+2026-10-29T16:09:08.696Z pw:webserver Terminated the WebServer
+  1 passed (5.9s)

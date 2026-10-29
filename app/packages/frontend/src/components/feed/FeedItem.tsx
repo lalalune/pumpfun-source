@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { RelativeTime } from "./RelativeTime";
 import { isValidProfileIdentifier } from "../profile/profile-identifier";
 import type { LocalFeedPost } from "./feed-data";
 
@@ -56,7 +57,7 @@ export function FeedItem({ item }: { item: LocalFeedPost }) {
                   : "No wallet address recorded."}
             </span>
           </div>
-          <time dateTime={item.timestamp}>{item.timestampLabel}</time>
+          <RelativeTime timestamp={item.timestamp} showTitle />
         </header>
 
         <span className="feed-source-chip">Synthetic example</span>

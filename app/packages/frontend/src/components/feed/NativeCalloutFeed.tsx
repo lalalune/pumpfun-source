@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { RelativeTime } from "./RelativeTime";
 import type { NativeCallout, NativeFeedKind } from "./native-feed-data";
 import {
   NATIVE_FEED_MAX_TRAIL,
@@ -10,11 +11,6 @@ const money = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
   maximumFractionDigits: 2,
-});
-const date = new Intl.DateTimeFormat("en-US", {
-  dateStyle: "medium",
-  timeStyle: "short",
-  timeZone: "UTC",
 });
 
 function assetClassLabel(value: string): string {
@@ -71,9 +67,7 @@ function NativeCalloutCard({ callout }: { callout: NativeCallout }) {
           <strong>{callout.authorName}</strong>
           <span>{callout.authorId}</span>
         </div>
-        <time dateTime={callout.calloutTimestamp}>
-          {date.format(Date.parse(callout.calloutTimestamp))}
-        </time>
+        <RelativeTime timestamp={callout.calloutTimestamp} showTitle />
       </footer>
       <p className="native-callout-mint">
         <span>Local coin identifier</span>

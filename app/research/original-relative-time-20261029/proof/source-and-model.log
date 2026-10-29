@@ -1,0 +1,36 @@
+✔ timestamp parser preserves null/date/number/string rules and seconds threshold (1.766502ms)
+✔ elapsed labels preserve one-second/future clamp, floor and30day/360day units (0.35351ms)
+✔ sampler preserves exact path/cache/credentials/timeout and shared in-flight Promise (3.761798ms)
+✔ offset deadband is strictly less than5000 with rounded midpoint correction (1.76514ms)
+✔ successful sample is eligible exactly15minutes after receipt (0.856616ms)
+✔ HTTP/decode/body/abort failures retain60second backoff without fabricated sync (2.462598ms)
+✔ later failure preserves previously synchronized offset/status (0.417187ms)
+✔ actual loopback GET/JSON response traverse the clock sampler (30.866441ms)
+✔ first/last subscriptions share one aligned timer and visibility listener (0.827503ms)
+✔ visibility hide stops ticking and resume refreshes snapshot/sample eligibility (0.323736ms)
+✔ initial hidden subscriber still samples but starts no display timer (0.104216ms)
+✔ changed offset notifies active listeners after sync, but not unsubscribed listeners (0.266029ms)
+✔ ordinary display ticks never create periodic server samples (0.123225ms)
+✔ source rearm-after-notification edge stays explicit (0.115703ms)
+✔ actual529841.f and actual204478.f consumer plus both format variants and English Flight data are bound (0.445149ms)
+✔ artifact/current implementation and every raw UTF16/UTF8 factory/English-literal range reproduce (59.642423ms)
+✔ tampered clock factory and English Flight input each fail authentication before recovery (316.488654ms)
+✔ factory lookup authenticates original AST and preserves BOM, CRLF and Unicode byte ranges (17.761326ms)
+✔ UTF-16 offsets inside an astral character are not byte boundaries (6.331996ms)
+✔ capture hash and length changes fail before AST attribution (3.912414ms)
+✔ an updated manifest cannot make malformed UTF-8 into source text (3.734267ms)
+✔ indexed arbitrary substrings cannot substitute for actual registered factories (6.27809ms)
+✔ an aggregate inventory ID cannot substitute for the actual registration ID (4.98892ms)
+✔ multiple origin contexts stay ambiguous until explicitly selected (3.045879ms)
+✔ manifest source symlinks and traversal paths are rejected (3.723971ms)
+✔ a forged manifest cannot authorize reading a repository file outside retained objects (5.894309ms)
+✔ the runtime-leading nested-array grammar validates nested and trailing factories (8.163686ms)
+✔ outer two-element registration is metadata, not a nested factory container (3.963731ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 853.234717
