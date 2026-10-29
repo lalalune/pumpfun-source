@@ -34,7 +34,8 @@ HERE = Path(__file__).resolve().parent
 RECON = HERE.parent
 REPO = RECON.parent
 HARNESS = RECON / 'harness'
-HOME_CACHE = Path(os.environ.get('PUMP_RECON_HOME', Path.home() / '.cache/pumpfun-reconstruction'))
+# Share the builder's invocation-relative cache, preserving symlink spelling.
+HOME_CACHE = Path(os.environ.get('PUMP_RECON_HOME', Path.home() / '.cache/pumpfun-reconstruction')).absolute()
 SDK = Path.home() / '.cache/solana/v1.44/platform-tools'
 LINUX = HERE / 'linux-v1.44-x86_64'
 MANIFEST = HARNESS / 'linux144-sbpf-target-libs.sha256'

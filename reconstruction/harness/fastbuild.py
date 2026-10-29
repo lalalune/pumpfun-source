@@ -19,7 +19,8 @@ SC = H.parent
 SDK = Path.home() / '.cache/solana/v1.44/platform-tools'
 # Generated toolchain, dependency caches and build-slot locks live outside the repository so every
 # worktree shares them (see reconstruction/toolchain/bootstrap.py).
-CACHE = Path(os.environ.get('PUMP_RECON_HOME', str(Path.home() / '.cache/pumpfun-reconstruction')))
+# Cargo runs from the staged workspace; anchor relative overrides without resolving symlinks.
+CACHE = Path(os.environ.get('PUMP_RECON_HOME', str(Path.home() / '.cache/pumpfun-reconstruction'))).absolute()
 # Recipes: 'mac' = installed macOS v1.44 SDK, triple sbf-solana-solana (Codex harness default);
 # 'identity' = same macOS rustc binary with the official Linux x86_64 v1.44 target libraries, triple
 # sbpf-solana-solana (the original's toolchain identity, proven by TypeId constants; identity-01).
