@@ -224,6 +224,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
     if (method === 'nullable') return { anyOf: [base, { type: 'null' }] };
     if (method === 'describe' && node.arguments.length === 1) return { ...base, description: await constant(node.arguments[0], ctx) };
     const expanded = deref(base);
+    if (expanded['x-zod-optional']) throw new Error(`unsupported schema method ${method} on optional wrapper`);
     if (method === 'int' && expanded.type === 'number') return { ...expanded, type: 'integer',
       minimum: Math.max(expanded.minimum ?? -Infinity, Number.MIN_SAFE_INTEGER),
       maximum: Math.min(expanded.maximum ?? Infinity, Number.MAX_SAFE_INTEGER) };
