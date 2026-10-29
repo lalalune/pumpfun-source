@@ -42,7 +42,7 @@ COLOR_PROPERTIES = ('background-color', 'color', 'border-color', 'border-top-col
                     'text-decoration-color', '--tw-ring-offset-color', '--tw-shadow-color')
 RULE = re.compile(r'([^{}]+)\{([^{}]*)\}')
 # A utility token is the last unescaped segment of a class: `.hover\:bg-x:hover` -> `bg-x`.
-CLASS = re.compile(r'\.((?:[a-zA-Z0-9_-]|\\.)+)')
+CLASS = re.compile(r'\.((?:[a-zA-Z0-9_-]|\\(?:[0-9a-fA-F]{1,6}\s?|[^0-9a-fA-F\r\n]))+)')
 RGB_ALPHA = re.compile(r'^rgb\((\d+) (\d+) (\d+)/var\(--tw-[a-z-]+-opacity,1\)\)$')
 # Tailwind substitutes each prefix's own opacity variable (bg, text, border, ring...) for
 # `<alpha-value>`, so the same theme color compiles differently per prefix.
@@ -66,8 +66,14 @@ def load_source():
 
 def utility_of(class_token):
     """Strip variant prefixes (`md\\:`, `group-hover\\/menu-item\\:`) from an escaped class token."""
-    parts = re.split(r'(?<!\\)\\:', class_token)
-    return parts[-1].replace('\\', '')
+    def decode(match):
+        value = match.group(1)
+        if re.fullmatch(r'[0-9a-fA-F]{1,6}\s?', value):
+            code = int(value.strip(), 16)
+            return chr(code) if 0 < code <= 0x10ffff and not 0xd800 <= code <= 0xdfff else '\ufffd'
+        return value
+    decoded = re.sub(r'\\([0-9a-fA-F]{1,6}\s?|[^0-9a-fA-F\r\n])', decode, class_token)
+    return decoded.rsplit(':', 1)[-1]
 
 
 def canonical_hex(value):
