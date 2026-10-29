@@ -1,0 +1,4148 @@
+{
+  "bundleSha256": "74d9b1c0b28f8c81e2f53b83012f17794a2481853670a66e14e1bca5c0b83ab5",
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    },
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    }
+  ],
+  "results": [
+    {
+      "width": 390,
+      "initial": {
+        "provider": 1,
+        "language": "fr-FR",
+        "sentinel": false,
+        "instance": 0,
+        "contentRenders": 1,
+        "closeCount": 0,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": true
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ]
+        ]
+      },
+      "completedAbsent": {
+        "provider": 1,
+        "language": "fr-FR",
+        "sentinel": false,
+        "instance": 0,
+        "contentRenders": 1,
+        "closeCount": 0,
+        "mounted": {
+          "_r_0_": "feed"
+        },
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ]
+        ]
+      },
+      "changedSection": {
+        "provider": 1,
+        "language": "fr-FR",
+        "sentinel": false,
+        "instance": 0,
+        "contentRenders": 2,
+        "closeCount": 1,
+        "mounted": {
+          "_r_1_": "privacy"
+        },
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ]
+        ]
+      },
+      "searched": {
+        "provider": 1,
+        "language": "fr-FR",
+        "sentinel": false,
+        "instance": 0,
+        "contentRenders": 3,
+        "closeCount": 1,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ]
+        ]
+      },
+      "alreadyComplete": {
+        "provider": 2,
+        "language": "de-DE",
+        "sentinel": false,
+        "instance": 0,
+        "contentRenders": 4,
+        "closeCount": 1,
+        "mounted": {
+          "_r_2_": "privacy"
+        },
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ]
+        ]
+      },
+      "fallback": {
+        "provider": 3,
+        "language": "unsupported",
+        "sentinel": false,
+        "instance": 1,
+        "contentRenders": 5,
+        "closeCount": 1,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": true
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ]
+        ]
+      },
+      "sameIdentity": {
+        "provider": 3,
+        "language": "fr-FR",
+        "sentinel": false,
+        "instance": 1,
+        "contentRenders": 6,
+        "closeCount": 1,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": true
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ]
+        ]
+      },
+      "changedProvider": {
+        "provider": 4,
+        "language": "de-DE",
+        "sentinel": false,
+        "instance": 1,
+        "contentRenders": 7,
+        "closeCount": 1,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": true
+          },
+          {
+            "id": 2,
+            "provider": 4,
+            "locale": "de",
+            "pending": true
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "content-render",
+            4,
+            1
+          ],
+          [
+            "normalize",
+            "de-DE"
+          ],
+          [
+            "prefetch",
+            4,
+            "de"
+          ]
+        ]
+      },
+      "staleCompletion": {
+        "provider": 4,
+        "language": "de-DE",
+        "sentinel": false,
+        "instance": 1,
+        "contentRenders": 7,
+        "closeCount": 1,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 2,
+            "provider": 4,
+            "locale": "de",
+            "pending": true
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "content-render",
+            4,
+            1
+          ],
+          [
+            "normalize",
+            "de-DE"
+          ],
+          [
+            "prefetch",
+            4,
+            "de"
+          ],
+          [
+            "resolve",
+            1
+          ]
+        ]
+      },
+      "currentCompletion": {
+        "provider": 4,
+        "language": "de-DE",
+        "sentinel": false,
+        "instance": 1,
+        "contentRenders": 7,
+        "closeCount": 1,
+        "mounted": {
+          "_r_3_": "privacy"
+        },
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 2,
+            "provider": 4,
+            "locale": "de",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "content-render",
+            4,
+            1
+          ],
+          [
+            "normalize",
+            "de-DE"
+          ],
+          [
+            "prefetch",
+            4,
+            "de"
+          ],
+          [
+            "resolve",
+            1
+          ],
+          [
+            "resolve",
+            2
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_3_"
+          ]
+        ]
+      },
+      "hidden": {
+        "provider": 5,
+        "language": "unsupported",
+        "sentinel": false,
+        "instance": 2,
+        "contentRenders": 8,
+        "closeCount": 1,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 2,
+            "provider": 4,
+            "locale": "de",
+            "pending": false
+          },
+          {
+            "id": 3,
+            "provider": 5,
+            "locale": "en",
+            "pending": true
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "content-render",
+            4,
+            1
+          ],
+          [
+            "normalize",
+            "de-DE"
+          ],
+          [
+            "prefetch",
+            4,
+            "de"
+          ],
+          [
+            "resolve",
+            1
+          ],
+          [
+            "resolve",
+            2
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "content-render",
+            5,
+            2
+          ],
+          [
+            "exists",
+            5,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            5,
+            "en"
+          ]
+        ]
+      },
+      "settledAfterUnmount": {
+        "provider": 5,
+        "language": "unsupported",
+        "sentinel": false,
+        "instance": 2,
+        "contentRenders": 8,
+        "closeCount": 1,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 2,
+            "provider": 4,
+            "locale": "de",
+            "pending": false
+          },
+          {
+            "id": 3,
+            "provider": 5,
+            "locale": "en",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "content-render",
+            4,
+            1
+          ],
+          [
+            "normalize",
+            "de-DE"
+          ],
+          [
+            "prefetch",
+            4,
+            "de"
+          ],
+          [
+            "resolve",
+            1
+          ],
+          [
+            "resolve",
+            2
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "content-render",
+            5,
+            2
+          ],
+          [
+            "exists",
+            5,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            5,
+            "en"
+          ],
+          [
+            "resolve",
+            3
+          ]
+        ]
+      },
+      "initiallyReady": {
+        "provider": 6,
+        "language": "fr-FR",
+        "sentinel": true,
+        "instance": 3,
+        "contentRenders": 9,
+        "closeCount": 1,
+        "mounted": {
+          "_r_4_": "privacy"
+        },
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 2,
+            "provider": 4,
+            "locale": "de",
+            "pending": false
+          },
+          {
+            "id": 3,
+            "provider": 5,
+            "locale": "en",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "content-render",
+            4,
+            1
+          ],
+          [
+            "normalize",
+            "de-DE"
+          ],
+          [
+            "prefetch",
+            4,
+            "de"
+          ],
+          [
+            "resolve",
+            1
+          ],
+          [
+            "resolve",
+            2
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "content-render",
+            5,
+            2
+          ],
+          [
+            "exists",
+            5,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            5,
+            "en"
+          ],
+          [
+            "resolve",
+            3
+          ],
+          [
+            "content-render",
+            6,
+            3
+          ],
+          [
+            "exists",
+            6,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_4_"
+          ]
+        ]
+      },
+      "rejected": {
+        "provider": 7,
+        "language": "unsupported",
+        "sentinel": false,
+        "instance": 4,
+        "contentRenders": 10,
+        "closeCount": 1,
+        "mounted": {
+          "_r_5_": "privacy"
+        },
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 2,
+            "provider": 4,
+            "locale": "de",
+            "pending": false
+          },
+          {
+            "id": 3,
+            "provider": 5,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 4,
+            "provider": 7,
+            "locale": "en",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "content-render",
+            4,
+            1
+          ],
+          [
+            "normalize",
+            "de-DE"
+          ],
+          [
+            "prefetch",
+            4,
+            "de"
+          ],
+          [
+            "resolve",
+            1
+          ],
+          [
+            "resolve",
+            2
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "content-render",
+            5,
+            2
+          ],
+          [
+            "exists",
+            5,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            5,
+            "en"
+          ],
+          [
+            "resolve",
+            3
+          ],
+          [
+            "content-render",
+            6,
+            3
+          ],
+          [
+            "exists",
+            6,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_4_"
+          ],
+          [
+            "content-render",
+            7,
+            4
+          ],
+          [
+            "exists",
+            7,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_4_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            7,
+            "en"
+          ],
+          [
+            "reject",
+            4
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_5_"
+          ]
+        ]
+      },
+      "unmounted": {
+        "provider": 7,
+        "language": "unsupported",
+        "sentinel": false,
+        "instance": 4,
+        "contentRenders": 10,
+        "closeCount": 1,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 2,
+            "provider": 4,
+            "locale": "de",
+            "pending": false
+          },
+          {
+            "id": 3,
+            "provider": 5,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 4,
+            "provider": 7,
+            "locale": "en",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "content-render",
+            4,
+            1
+          ],
+          [
+            "normalize",
+            "de-DE"
+          ],
+          [
+            "prefetch",
+            4,
+            "de"
+          ],
+          [
+            "resolve",
+            1
+          ],
+          [
+            "resolve",
+            2
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "content-render",
+            5,
+            2
+          ],
+          [
+            "exists",
+            5,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            5,
+            "en"
+          ],
+          [
+            "resolve",
+            3
+          ],
+          [
+            "content-render",
+            6,
+            3
+          ],
+          [
+            "exists",
+            6,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_4_"
+          ],
+          [
+            "content-render",
+            7,
+            4
+          ],
+          [
+            "exists",
+            7,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_4_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            7,
+            "en"
+          ],
+          [
+            "reject",
+            4
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_5_"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_5_"
+          ]
+        ]
+      },
+      "overflow": 0,
+      "expectedSyntheticRejection": [
+        "SYNTHETIC prefetch capability rejection"
+      ],
+      "unexpectedErrors": [],
+      "limit": "Source-adapted actual React hook/content branch; explicit synthetic i18n/prefetch/locale/FocusProvider/read-onlyResults/Section. Attempt-completed is not resource-ready; no global Settings/native/provider parity."
+    },
+    {
+      "width": 1280,
+      "initial": {
+        "provider": 1,
+        "language": "fr-FR",
+        "sentinel": false,
+        "instance": 0,
+        "contentRenders": 1,
+        "closeCount": 0,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": true
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ]
+        ]
+      },
+      "completedAbsent": {
+        "provider": 1,
+        "language": "fr-FR",
+        "sentinel": false,
+        "instance": 0,
+        "contentRenders": 1,
+        "closeCount": 0,
+        "mounted": {
+          "_r_0_": "feed"
+        },
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ]
+        ]
+      },
+      "changedSection": {
+        "provider": 1,
+        "language": "fr-FR",
+        "sentinel": false,
+        "instance": 0,
+        "contentRenders": 2,
+        "closeCount": 1,
+        "mounted": {
+          "_r_1_": "privacy"
+        },
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ]
+        ]
+      },
+      "searched": {
+        "provider": 1,
+        "language": "fr-FR",
+        "sentinel": false,
+        "instance": 0,
+        "contentRenders": 3,
+        "closeCount": 1,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ]
+        ]
+      },
+      "alreadyComplete": {
+        "provider": 2,
+        "language": "de-DE",
+        "sentinel": false,
+        "instance": 0,
+        "contentRenders": 4,
+        "closeCount": 1,
+        "mounted": {
+          "_r_2_": "privacy"
+        },
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ]
+        ]
+      },
+      "fallback": {
+        "provider": 3,
+        "language": "unsupported",
+        "sentinel": false,
+        "instance": 1,
+        "contentRenders": 5,
+        "closeCount": 1,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": true
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ]
+        ]
+      },
+      "sameIdentity": {
+        "provider": 3,
+        "language": "fr-FR",
+        "sentinel": false,
+        "instance": 1,
+        "contentRenders": 6,
+        "closeCount": 1,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": true
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ]
+        ]
+      },
+      "changedProvider": {
+        "provider": 4,
+        "language": "de-DE",
+        "sentinel": false,
+        "instance": 1,
+        "contentRenders": 7,
+        "closeCount": 1,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": true
+          },
+          {
+            "id": 2,
+            "provider": 4,
+            "locale": "de",
+            "pending": true
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "content-render",
+            4,
+            1
+          ],
+          [
+            "normalize",
+            "de-DE"
+          ],
+          [
+            "prefetch",
+            4,
+            "de"
+          ]
+        ]
+      },
+      "staleCompletion": {
+        "provider": 4,
+        "language": "de-DE",
+        "sentinel": false,
+        "instance": 1,
+        "contentRenders": 7,
+        "closeCount": 1,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 2,
+            "provider": 4,
+            "locale": "de",
+            "pending": true
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "content-render",
+            4,
+            1
+          ],
+          [
+            "normalize",
+            "de-DE"
+          ],
+          [
+            "prefetch",
+            4,
+            "de"
+          ],
+          [
+            "resolve",
+            1
+          ]
+        ]
+      },
+      "currentCompletion": {
+        "provider": 4,
+        "language": "de-DE",
+        "sentinel": false,
+        "instance": 1,
+        "contentRenders": 7,
+        "closeCount": 1,
+        "mounted": {
+          "_r_3_": "privacy"
+        },
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 2,
+            "provider": 4,
+            "locale": "de",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "content-render",
+            4,
+            1
+          ],
+          [
+            "normalize",
+            "de-DE"
+          ],
+          [
+            "prefetch",
+            4,
+            "de"
+          ],
+          [
+            "resolve",
+            1
+          ],
+          [
+            "resolve",
+            2
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_3_"
+          ]
+        ]
+      },
+      "hidden": {
+        "provider": 5,
+        "language": "unsupported",
+        "sentinel": false,
+        "instance": 2,
+        "contentRenders": 8,
+        "closeCount": 1,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 2,
+            "provider": 4,
+            "locale": "de",
+            "pending": false
+          },
+          {
+            "id": 3,
+            "provider": 5,
+            "locale": "en",
+            "pending": true
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "content-render",
+            4,
+            1
+          ],
+          [
+            "normalize",
+            "de-DE"
+          ],
+          [
+            "prefetch",
+            4,
+            "de"
+          ],
+          [
+            "resolve",
+            1
+          ],
+          [
+            "resolve",
+            2
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "content-render",
+            5,
+            2
+          ],
+          [
+            "exists",
+            5,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            5,
+            "en"
+          ]
+        ]
+      },
+      "settledAfterUnmount": {
+        "provider": 5,
+        "language": "unsupported",
+        "sentinel": false,
+        "instance": 2,
+        "contentRenders": 8,
+        "closeCount": 1,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 2,
+            "provider": 4,
+            "locale": "de",
+            "pending": false
+          },
+          {
+            "id": 3,
+            "provider": 5,
+            "locale": "en",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "content-render",
+            4,
+            1
+          ],
+          [
+            "normalize",
+            "de-DE"
+          ],
+          [
+            "prefetch",
+            4,
+            "de"
+          ],
+          [
+            "resolve",
+            1
+          ],
+          [
+            "resolve",
+            2
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "content-render",
+            5,
+            2
+          ],
+          [
+            "exists",
+            5,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            5,
+            "en"
+          ],
+          [
+            "resolve",
+            3
+          ]
+        ]
+      },
+      "initiallyReady": {
+        "provider": 6,
+        "language": "fr-FR",
+        "sentinel": true,
+        "instance": 3,
+        "contentRenders": 9,
+        "closeCount": 1,
+        "mounted": {
+          "_r_4_": "privacy"
+        },
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 2,
+            "provider": 4,
+            "locale": "de",
+            "pending": false
+          },
+          {
+            "id": 3,
+            "provider": 5,
+            "locale": "en",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "content-render",
+            4,
+            1
+          ],
+          [
+            "normalize",
+            "de-DE"
+          ],
+          [
+            "prefetch",
+            4,
+            "de"
+          ],
+          [
+            "resolve",
+            1
+          ],
+          [
+            "resolve",
+            2
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "content-render",
+            5,
+            2
+          ],
+          [
+            "exists",
+            5,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            5,
+            "en"
+          ],
+          [
+            "resolve",
+            3
+          ],
+          [
+            "content-render",
+            6,
+            3
+          ],
+          [
+            "exists",
+            6,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_4_"
+          ]
+        ]
+      },
+      "rejected": {
+        "provider": 7,
+        "language": "unsupported",
+        "sentinel": false,
+        "instance": 4,
+        "contentRenders": 10,
+        "closeCount": 1,
+        "mounted": {
+          "_r_5_": "privacy"
+        },
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 2,
+            "provider": 4,
+            "locale": "de",
+            "pending": false
+          },
+          {
+            "id": 3,
+            "provider": 5,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 4,
+            "provider": 7,
+            "locale": "en",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "content-render",
+            4,
+            1
+          ],
+          [
+            "normalize",
+            "de-DE"
+          ],
+          [
+            "prefetch",
+            4,
+            "de"
+          ],
+          [
+            "resolve",
+            1
+          ],
+          [
+            "resolve",
+            2
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "content-render",
+            5,
+            2
+          ],
+          [
+            "exists",
+            5,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            5,
+            "en"
+          ],
+          [
+            "resolve",
+            3
+          ],
+          [
+            "content-render",
+            6,
+            3
+          ],
+          [
+            "exists",
+            6,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_4_"
+          ],
+          [
+            "content-render",
+            7,
+            4
+          ],
+          [
+            "exists",
+            7,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_4_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            7,
+            "en"
+          ],
+          [
+            "reject",
+            4
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_5_"
+          ]
+        ]
+      },
+      "unmounted": {
+        "provider": 7,
+        "language": "unsupported",
+        "sentinel": false,
+        "instance": 4,
+        "contentRenders": 10,
+        "closeCount": 1,
+        "mounted": {},
+        "requests": [
+          {
+            "id": 0,
+            "provider": 1,
+            "locale": "fr",
+            "pending": false
+          },
+          {
+            "id": 1,
+            "provider": 3,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 2,
+            "provider": 4,
+            "locale": "de",
+            "pending": false
+          },
+          {
+            "id": 3,
+            "provider": 5,
+            "locale": "en",
+            "pending": false
+          },
+          {
+            "id": 4,
+            "provider": 7,
+            "locale": "en",
+            "pending": false
+          }
+        ],
+        "events": [
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "exists",
+            1,
+            "web.trade.max_slippage"
+          ],
+          [
+            "normalize",
+            "fr-FR"
+          ],
+          [
+            "prefetch",
+            1,
+            "fr"
+          ],
+          [
+            "resolve",
+            0
+          ],
+          [
+            "section-mount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "close"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "feed",
+            "_r_0_"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            1,
+            0
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_1_"
+          ],
+          [
+            "content-render",
+            2,
+            0
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "exists",
+            3,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_2_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            3,
+            "en"
+          ],
+          [
+            "content-render",
+            3,
+            1
+          ],
+          [
+            "content-render",
+            4,
+            1
+          ],
+          [
+            "normalize",
+            "de-DE"
+          ],
+          [
+            "prefetch",
+            4,
+            "de"
+          ],
+          [
+            "resolve",
+            1
+          ],
+          [
+            "resolve",
+            2
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "content-render",
+            5,
+            2
+          ],
+          [
+            "exists",
+            5,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_3_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            5,
+            "en"
+          ],
+          [
+            "resolve",
+            3
+          ],
+          [
+            "content-render",
+            6,
+            3
+          ],
+          [
+            "exists",
+            6,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_4_"
+          ],
+          [
+            "content-render",
+            7,
+            4
+          ],
+          [
+            "exists",
+            7,
+            "web.trade.max_slippage"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_4_"
+          ],
+          [
+            "normalize",
+            "unsupported"
+          ],
+          [
+            "prefetch",
+            7,
+            "en"
+          ],
+          [
+            "reject",
+            4
+          ],
+          [
+            "section-mount",
+            "privacy",
+            "_r_5_"
+          ],
+          [
+            "section-unmount",
+            "privacy",
+            "_r_5_"
+          ]
+        ]
+      },
+      "overflow": 0,
+      "expectedSyntheticRejection": [
+        "SYNTHETIC prefetch capability rejection"
+      ],
+      "unexpectedErrors": [],
+      "limit": "Source-adapted actual React hook/content branch; explicit synthetic i18n/prefetch/locale/FocusProvider/read-onlyResults/Section. Attempt-completed is not resource-ready; no global Settings/native/provider parity."
+    }
+  ],
+  "limits": "GET-only owned fixture host, controlled in-memory provider promises and readonly views; no actual cookies/storage/sessions/credentials, live namespace or tenant request, preference control, original provider/global mount/CSS/API/native parity."
+}

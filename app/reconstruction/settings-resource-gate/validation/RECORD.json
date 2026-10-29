@@ -1,0 +1,165 @@
+{
+  "schema": 1,
+  "testedHead": "ae3e13ef9bcbaeaebf221600b78908da5fb8f429",
+  "testedTree": "7bed719e1b04e696f431ed473ef1aaf52a0e7e5a",
+  "reviewBase": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Complete source-adapted Settings resource-attempt hook, actual content/scroll-view branch and full five-row loading; explicit synthetic capabilities only.",
+  "inputs": {
+    "evidence/web/manifest.json": {
+      "bytes": 3026513,
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda"
+    },
+    "evidence/web/objects/337439e6bd8e9380.js": {
+      "bytes": 22172,
+      "sha256": "5d3eb05cb5db4cb2e1b86b93afb8a3ff59a9fc4fbcd5864df90ca8b3b683126f",
+      "gitBlob": "786c68fbbe0938ef99ab059675a27df7ba36661d"
+    },
+    "evidence/web/objects/4490d02ba2117672.js": {
+      "bytes": 52381,
+      "sha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "gitBlob": "464a645f3fc99db61ab4cdab0395471031bc1715"
+    },
+    "evidence/web/objects/a0ec47219f76f808.js": {
+      "bytes": 28862,
+      "sha256": "557eb3547caea2d37bd9712a9cf3d07c835537e9354e0d7bd449b881fffdafc7",
+      "gitBlob": "af05d119599b983290aa518d3fb718059f39ead7"
+    },
+    "package.json": {
+      "bytes": 3703,
+      "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+      "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8"
+    },
+    "packages/backend/package.json": {
+      "bytes": 463,
+      "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b"
+    },
+    "packages/frontend/package.json": {
+      "bytes": 1048,
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0"
+    },
+    "pnpm-lock.yaml": {
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+    },
+    "reconstruction/settings-resource-gate/client.mjs": {
+      "bytes": 4618,
+      "sha256": "da8d737773c871abb7056dc510a2b0e5298ce113579b44d6aaa12c7a3025c195",
+      "gitBlob": "e608bc7f85e323d234a0c0f5c498490970ad10cc"
+    },
+    "reconstruction/settings-resource-gate/contract.json": {
+      "bytes": 15864,
+      "sha256": "d4f47905657033f9696841f48cd5fb98d9b65fb89d479d391539206678bf8f27",
+      "gitBlob": "cfd76ff64ab08dcbbe98a57ed1538c8ded2df042"
+    },
+    "recovered/modules.json": {
+      "bytes": 2928853,
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+      "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f"
+    },
+    "scripts/original-contracts/source.mjs": {
+      "bytes": 9493,
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+      "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df"
+    },
+    "scripts/original-settings-resource-gate.mjs": {
+      "bytes": 14432,
+      "sha256": "eef8243b32d346bc343f7b822748f1b0d4c1b79c1b4da12e7cdf90f5eca93c6c",
+      "gitBlob": "3063720ba75ddc6be5414460d36c3f11dd13bb58"
+    },
+    "tests/fixtures/settings-resource-gate-browser.mjs": {
+      "bytes": 5412,
+      "sha256": "ad271c8dde0162602f93532829a79575f6e13d583464c886520d6cc5f6555c36",
+      "gitBlob": "e7a13fa246c9f67ee0d3fd26c27565b73990837e"
+    },
+    "tests/original_settings_resource_gate.test.mjs": {
+      "bytes": 4948,
+      "sha256": "3d153177c2abaff747c8b2f01ed8cc17a816b211a19d2c8769deff90e75af9e2",
+      "gitBlob": "602af92ee00c53f7235705626693b9846b5b8dca"
+    },
+    "tests/original_settings_resource_gate_browser.test.mjs": {
+      "bytes": 13224,
+      "sha256": "2964fc14b6e7ce74fadb4a0053f6d93869e725ee04ab62e10657f53b6dbacc8f",
+      "gitBlob": "fc4da856739b09fdfa204ac2fa63d9653dc643ca"
+    },
+    "tests/original_source.test.mjs": {
+      "bytes": 7401,
+      "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3",
+      "gitBlob": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+    }
+  },
+  "inputScope": "17 selected Git-bound source/generator/tests/source-reader/captures/index/manifest/package inputs. This is not exhaustive installed/cold/whole-app identity.",
+  "results": [
+    {
+      "command": "node scripts/original-settings-resource-gate.mjs",
+      "exit": 0
+    },
+    {
+      "command": "node --test tests/original_settings_resource_gate.test.mjs tests/original_source.test.mjs",
+      "exit": 0,
+      "domain": 6,
+      "shared": 11
+    },
+    {
+      "command": "PUMP_SETTINGS_RESOURCE_OUTPUT=<owned-output> node --test tests/original_settings_resource_gate_browser.test.mjs",
+      "exit": 0,
+      "workflows": 1,
+      "widths": [
+        390,
+        1280
+      ],
+      "expectedSyntheticPrefetchRejectionsPerWidth": 1,
+      "unexpectedPageErrorsPerWidth": 0
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "workspaces": 3
+    },
+    {
+      "command": "python3 scripts/verify-evidence.py",
+      "exit": 0,
+      "captures": 698
+    },
+    {
+      "command": "python3 scripts/progress.py --check && python3 -m unittest discover -s tests -p test_progress.py",
+      "exit": 0,
+      "tests": 9
+    }
+  ],
+  "browserBundleSha256": "74d9b1c0b28f8c81e2f53b83012f17794a2481853670a66e14e1bca5c0b83ab5",
+  "versions": {
+    "node": "24.19.0",
+    "pnpm": "10.24.0",
+    "react": "19.2.3",
+    "playwright": "1.64.1",
+    "chromiumBuild": 1248,
+    "esbuild": "0.25.12",
+    "browserLocale": "en-US"
+  },
+  "cleanup": "Owned ephemeral GET-only host and Chromium closed in producer finally before successful exit; temporary compiled fixture removed. SECONDARY standalone slot explicitly released. No Next/cache/server remains owned.",
+  "preservation": "Source and complete finite method frozen at ae3 before final execution. Publication adds README result text and sealed validation only. All17 selected executed input blobs remain unchanged.",
+  "priorPhases": [
+    "Development and precommit/pre-freeze17-test passes retained separately from final frozen17-test pass.",
+    "Before source generation, static selection assumed one W assignment inside the memo alternative; actual AST has both new W and cached W assignments. It also corrected a guessed React import ID to actual352386 before successful generation. This is an author development note, not fabricated raw producer output or a qualified phase.",
+    "Sparse checkout omitted three unchanged progress reference files; exactHEADGitblobs were materialized before check. No ledger/scorer change."
+  ],
+  "runtimeAssertions": [
+    "Original five loading rows/15pulseblocks and aria-busy, no Section/Results whilepending.",
+    "Completed attempt renders Section with absent sentinel; focus value and callback identity passed through supplied host.",
+    "Section key changes actual React host identity; trim/nonblankroutes Results with unchanged visible-list identity.",
+    "Ready instance does not reset/prefetch after provider replacement; same-object language change whilepending does not retrigger effect.",
+    "Changed provider whilepending gets normalized locale; completing cleaned-up old promise leaves loading; current promise completion enables content.",
+    "Unmount pending component then settle its request does not remount/rerender it; newready instance avoids prefetch.",
+    "Synthetic rejectingprefetch port causes finally-ready with sentinel absent and exactlyone expected uncaught derived rejection perwidth; allother errors unexpected."
+  ],
+  "limits": [
+    "Only synthetic in-memory i18n/locale/prefetch promises, actualReact/compiler and external read-only diagnostic Section/Results/FocusProvider. No actualcookies/storage/sessions/credentials/profile data/tenantnamespace requests.",
+    "Attempt complete does not establish allresources ready.1864client normally catches/logs individualnamespace failures; rejectingfixtureport is intentionally stronger and explicit.",
+    "No requestabort/retry/rollback/reset policy, privateavailability/wallet/admin/trading controls, preference mutation, wholemodal/globalSettings mount or originalprovider/CSS/API/native/pixel/security/completion claim.",
+    "1864prefetch/locale,1898results,1872fields,1839framework and675/683mapping arecredited external ports, not copied/unmerged runtime dependencies/retallied."
+  ]
+}
