@@ -58,7 +58,7 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   const toggle = useCallback(() => {
-    if (window.matchMedia("(max-width: 767px)").matches)
+    if (window.matchMedia("(width < 768px)").matches)
       setMobileOpen((open) => !open);
     else
       setState((current) =>
@@ -73,7 +73,7 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
   const openMobile = useCallback(() => setMobileOpen(true), []);
 
   useEffect(() => {
-    const media = window.matchMedia("(max-width: 767px)");
+    const media = window.matchMedia("(width < 768px)");
     const update = () => {
       setIsMobile(media.matches);
       if (!media.matches) setMobileOpen(false);

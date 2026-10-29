@@ -23,7 +23,7 @@ const FOCUS_RING =
  * the captured closed-state icon/placement is preserved, not an upstream popup claim.
  */
 export function MobileNav() {
-  const { openMobile, mobileOpen, mobileTrigger } = useSidebar();
+  const { openMobile, mobileOpen, mobileTrigger, isMobile } = useSidebar();
   return (
     <div className="md:hidden" inert={mobileOpen}>
       <nav
@@ -81,11 +81,13 @@ export function MobileNav() {
           type="button"
           ref={mobileTrigger}
           onClick={openMobile}
+          disabled={!isMobile}
+          aria-busy={!isMobile}
           aria-label="Open navigation"
-          title="More"
+          title={isMobile ? "More" : "Loading navigation…"}
           aria-controls="app-sidebar"
           aria-expanded={mobileOpen}
-          className={`flex min-h-11 min-w-11 flex-col items-center justify-center p-2 text-white outline-none ${FOCUS_RING}`}
+          className={`flex min-h-11 min-w-11 flex-col items-center justify-center p-2 text-white outline-none disabled:cursor-wait disabled:opacity-50 ${FOCUS_RING}`}
         >
           <MobileMenuIcon />
         </button>

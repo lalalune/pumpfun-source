@@ -1,0 +1,53 @@
+
+Running 1 test using 1 worker
+
+(node:353046) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] tests/mobile-navigation-first-open.spec.ts:96:5 › a first offered More click before local boot opens the mobile drawer
+  1) tests/mobile-navigation-first-open.spec.ts:96:5 › a first offered More click before local boot opens the mobile drawer
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('[data-app-shell]')
+    Expected: "open"
+    Received: "closed"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('[data-app-shell]') with timeout 5000ms
+      - waiting for locator('[data-app-shell]')
+        14 × locator resolved to <div data-app-shell="" data-mobile-navigation="closed" class="group/sidebar-wrapper flex min-h-svh w-full">…</div>
+           - unexpected value "closed"
+
+
+      126 |     await responsiveEffect(page);
+      127 |     if (initialEnabled)
+    > 128 |       await expect(page.locator("[data-app-shell]")).toHaveAttribute(
+          |                                                      ^
+      129 |         "data-mobile-navigation",
+      130 |         "open",
+      131 |       );
+        at /workspace/pump-app-search-planner/app/packages/frontend/tests/mobile-navigation-first-open.spec.ts:128:54
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../mobile-navigation-first-open-66549991/final-baseline-browser-artifacts/mobile-navigation-first-op-30b85-oot-opens-the-mobile-drawer/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../mobile-navigation-first-open-66549991/final-baseline-browser-artifacts/mobile-navigation-first-op-30b85-oot-opens-the-mobile-drawer/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../mobile-navigation-first-open-66549991/final-baseline-browser-artifacts/mobile-navigation-first-op-30b85-oot-opens-the-mobile-drawer/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../mobile-navigation-first-open-66549991/final-baseline-browser-artifacts/mobile-navigation-first-op-30b85-oot-opens-the-mobile-drawer/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+Testing stopped early after 1 maximum allowed failures.
+
+  1 failed
+    tests/mobile-navigation-first-open.spec.ts:96:5 › a first offered More click before local boot opens the mobile drawer
+  1 error was not a part of any test, see above for details

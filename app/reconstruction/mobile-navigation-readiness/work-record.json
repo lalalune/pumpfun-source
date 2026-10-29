@@ -1,0 +1,80 @@
+{
+  "base": "665499915f9caedcd38921d415a90f0606686398",
+  "scope": "Local navigation readiness and exact responsive-boundary correction, not original prepaint/source equivalence.",
+  "source": [
+    {
+      "path": "app/packages/frontend/src/components/ui/sidebar.tsx",
+      "before_sha256": "a1ba3fb227aacea783f1732070d886f39da9778e556f1303ba0a900ee3963925",
+      "after_sha256": "4af76b77889ccac3efc772b688ca9fee612a29534962f7b1d216ac2a21d5f26d"
+    },
+    {
+      "path": "app/packages/frontend/src/components/shell/MobileNav.tsx",
+      "before_sha256": "bfe24790d3433ebdd3f4e0732f2320ccb20eb1e7ab3e1d6f5695cb3e5e7d1e49",
+      "after_sha256": "e8ae0e10ce6df5966713761ea1da56b12e3872023409f2126767f687379e2e44"
+    }
+  ],
+  "test": {
+    "path": "app/packages/frontend/tests/mobile-navigation-first-open.spec.ts",
+    "sha256": "5d46abb5502a36a986e393d59c7980b4a362384160cfab7f64e97b1e8c540bac"
+  },
+  "source_patch_sha256": "7730a1f1ea4fe5c37c8df30a96f6da6b01b615e063fcd349ee689a00e83deb35",
+  "baseline": {
+    "failed": 1,
+    "workers": 1,
+    "retries": 0,
+    "max_failures": 1,
+    "raw_sha256": "3edd8641a82080a03933c29193e12d6e27bee104e4bdc1f68fb2c2b8e22d7f48",
+    "initial_enabled": true,
+    "actual_trusted_click_ms": 3883.6,
+    "result": "closed after boot; click was offered before its handler was loaded"
+  },
+  "candidate": {
+    "passed": 11,
+    "skipped": 1,
+    "discovered": 12,
+    "workers": 1,
+    "retries": 0,
+    "initial_enabled": false,
+    "responsive_enabled_ms": 1302.5,
+    "first_actual_offered_click_ms": 1383.4,
+    "result": "open",
+    "behavior": "Does not queue or replay a click on a disabled control. More is unavailable until its existing responsive provider is ready; first offered click then works."
+  },
+  "viewport_controls": [
+    320,
+    375,
+    767,
+    768,
+    1440
+  ],
+  "fractional": {
+    "embedding_css_width": 767.5,
+    "actual_innerWidth": 768,
+    "native_min768": true,
+    "native_width_lt768": false,
+    "mobile_nav_display": "none",
+    "status": "SKIPPED because native browser rounded viewport; no fractional runtime coverage claimed"
+  },
+  "earlier_diagnostic": {
+    "normal_cpu4x": "PASS on unchanged source; actual click followed responsive effect, so state-overwrite hypothesis is NOT proven.",
+    "held_boot": "FAIL unchanged offered click; final exact test repeats this causal boundary once with same final test bytes.",
+    "no_timing_grid": true
+  },
+  "checks": {
+    "root_captures": 9,
+    "root_tooling": 10,
+    "shell_source_checks": 3,
+    "frontend_typegen": "PASS",
+    "frontend_typecheck": "PASS",
+    "app_evidence": "698 captured objects/npm/unchanged SDK PASS",
+    "progress": "PASS",
+    "react_review": "Existing derived boolean; no new effect/context/listener/fetch/dependency. Native disabled/busy/loading semantics; original listener cleanup retained."
+  },
+  "limits": [
+    "Finite Chromium development-server proof; no production build or full browser suite.",
+    "Native fractional interval not exercised because iframe layout rounded to768; static CSS/query boundary alignment only.",
+    "Captured More prepaint semantics not recovered or inferred from auth/TokenInfoBar.",
+    "No specific initial setter-overwrite cause is claimed.",
+    "No backend, wallet, service, capture, SDK, feature milestone or binary qualification changes."
+  ]
+}

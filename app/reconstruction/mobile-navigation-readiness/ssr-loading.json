@@ -1,0 +1,13 @@
+{
+  "scope": "Actual local GET SSR targetbutton attributes only; no other document contents retained",
+  "response_sha256": "da8fea2f208eab8e2ad8bcc0b83f5000630784639827bd2362573e2c678557a3",
+  "target_button": {
+    "disabled": "",
+    "aria-busy": "true",
+    "title": "Loading navigation\u2026",
+    "aria-expanded": "false",
+    "aria-controls": "app-sidebar",
+    "class": "flex min-h-11 min-w-11 flex-col items-center justify-center p-2 text-white outline-none disabled:cursor-wait disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-text-accent"
+  },
+  "result": "PASS actualdisabled/busy/loadingstatebeforeJavaScript"
+}

@@ -1,0 +1,62 @@
+{
+  "errors": [],
+  "initialEnabled": true,
+  "trace": [
+    {
+      "stage": "sidebar-state-change",
+      "time": 176.7000000178814,
+      "enabled": false,
+      "expanded": "false",
+      "drawer": "closed",
+      "responsiveVisibility": "",
+      "sidebarHidden": null
+    },
+    {
+      "stage": "DOMContentLoaded",
+      "time": 305.80000001192093,
+      "enabled": false,
+      "expanded": "false",
+      "drawer": "closed",
+      "responsiveVisibility": "",
+      "sidebarHidden": null
+    },
+    {
+      "stage": "sidebar-state-change",
+      "time": 842.7000000178814,
+      "enabled": true,
+      "expanded": "false",
+      "drawer": "closed",
+      "responsiveVisibility": "hidden",
+      "sidebarHidden": "true"
+    },
+    {
+      "stage": "actual-more-click-capture",
+      "time": 950,
+      "trusted": true,
+      "enabled": true,
+      "expanded": "false",
+      "drawer": "closed",
+      "responsiveVisibility": "hidden",
+      "sidebarHidden": "true"
+    },
+    {
+      "stage": "sidebar-state-change",
+      "time": 972,
+      "enabled": true,
+      "expanded": "true",
+      "drawer": "open",
+      "responsiveVisibility": "visible",
+      "sidebarHidden": null
+    },
+    {
+      "stage": "sidebar-state-change",
+      "time": 1041.7000000178814,
+      "enabled": true,
+      "expanded": "false",
+      "drawer": "closed",
+      "responsiveVisibility": "hidden",
+      "sidebarHidden": "true"
+    }
+  ],
+  "drawer": "closed"
+}

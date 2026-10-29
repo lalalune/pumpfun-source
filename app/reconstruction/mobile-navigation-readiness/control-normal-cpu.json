@@ -1,0 +1,53 @@
+{
+  "errors": [],
+  "initialEnabled": false,
+  "trace": [
+    {
+      "stage": "sidebar-state-change",
+      "time": 283.40000000596046,
+      "enabled": false,
+      "expanded": "false",
+      "drawer": "closed",
+      "responsiveVisibility": "",
+      "sidebarHidden": null
+    },
+    {
+      "stage": "DOMContentLoaded",
+      "time": 288.7999999821186,
+      "enabled": false,
+      "expanded": "false",
+      "drawer": "closed",
+      "responsiveVisibility": "",
+      "sidebarHidden": null
+    },
+    {
+      "stage": "sidebar-state-change",
+      "time": 2724.2999999821186,
+      "enabled": true,
+      "expanded": "false",
+      "drawer": "closed",
+      "responsiveVisibility": "hidden",
+      "sidebarHidden": "true"
+    },
+    {
+      "stage": "actual-more-click-capture",
+      "time": 2838.2999999821186,
+      "trusted": true,
+      "enabled": true,
+      "expanded": "false",
+      "drawer": "closed",
+      "responsiveVisibility": "hidden",
+      "sidebarHidden": "true"
+    },
+    {
+      "stage": "sidebar-state-change",
+      "time": 2940.5999999940395,
+      "enabled": true,
+      "expanded": "true",
+      "drawer": "open",
+      "responsiveVisibility": "visible",
+      "sidebarHidden": null
+    }
+  ],
+  "drawer": "open"
+}

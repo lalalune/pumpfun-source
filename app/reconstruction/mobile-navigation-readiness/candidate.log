@@ -1,0 +1,21 @@
+
+Running 12 tests using 1 worker
+
+(node:353366) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/12] tests/mobile-navigation-first-open.spec.ts:96:5 › a first offered More click before local boot opens the mobile drawer
+[2/12] tests/mobile-navigation-first-open.spec.ts:147:5 › one normal first More click survives the initial responsive effects on a slow CPU
+[3/12] tests/mobile-navigation-first-open.spec.ts:176:7 › More readiness agrees with actual CSS and navigation works at 320px
+[4/12] tests/mobile-navigation-first-open.spec.ts:176:7 › More readiness agrees with actual CSS and navigation works at 375px
+[5/12] tests/mobile-navigation-first-open.spec.ts:176:7 › More readiness agrees with actual CSS and navigation works at 767px
+[6/12] tests/mobile-navigation-first-open.spec.ts:176:7 › More readiness agrees with actual CSS and navigation works at 768px
+[7/12] tests/mobile-navigation-first-open.spec.ts:176:7 › More readiness agrees with actual CSS and navigation works at 1440px
+[8/12] tests/mobile-navigation-first-open.spec.ts:229:5 › native fractional iframe viewport has no visible-but-disabled More gap
+[9/12] tests/shell.spec.ts:122:5 › mobile navigation traps focus, restores it and closes after navigation
+[10/12] tests/shell.spec.ts:199:7 › Create a coin remains reachable at 320px
+[11/12] tests/shell.spec.ts:199:7 › Create a coin remains reachable at 375px
+[12/12] tests/shell.spec.ts:254:5 › keyboard traversal reaches shell navigation, search and actions
+  1 skipped
+  11 passed (21.6s)
