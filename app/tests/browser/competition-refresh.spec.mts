@@ -252,10 +252,20 @@ test("actual foreground pause, error/Retry and unmount retain request ownership"
     await otherFocusSession.send("Emulation.setFocusEmulationEnabled", {
       enabled: false,
     });
+    // Creating a new Playwright main frame reapplies the driver override; reset
+    // the source target after that initialization, before asserting real focus.
+    await focusSession.send("Emulation.setFocusEmulationEnabled", {
+      enabled: false,
+    });
     await other.bringToFront();
     await expect
-      .poll(() => page.evaluate(() => document.hasFocus()))
-      .toBe(false);
+      .poll(() =>
+        page.evaluate(() => ({
+          focused: document.hasFocus(),
+          visibility: document.visibilityState,
+        })),
+      )
+      .toEqual({ focused: false, visibility: "visible" });
     await recordFocus("other tab foreground; real source document blurred");
     await fixture.command("advance");
     await page.waitForTimeout(17_000); // Real elapsed time; no virtual clock or timer shim.
