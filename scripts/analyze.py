@@ -43,13 +43,15 @@ def instruction_log_names(b, known=()):
     an IDL keep the original alphanumeric fallback.
     """
     names = set()
+    fallback_pattern = re.compile(rb'[A-Z][A-Za-z0-9]*')
     for match in re.finditer(rb'Instruction: ', b):
-        rest = b[match.end():]
-        exact = next((name for name in known if rest.startswith(name.encode())), None)
+        # Match in place: a suffix slice copies the remaining ELF/allocation.
+        offset = match.end()
+        exact = next((name for name in known if b.startswith(name.encode(), offset)), None)
         if exact is not None:
             names.add(exact)
             continue
-        fallback = re.match(rb'[A-Z][A-Za-z0-9]*', rest)
+        fallback = fallback_pattern.match(b, offset)
         if fallback:
             name = fallback.group().decode()
             if name.endswith('Instruction') and name != 'Instruction':
