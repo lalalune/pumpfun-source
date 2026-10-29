@@ -1,0 +1,3808 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "anchors": {
+    "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+    "inventorySha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2"
+  },
+  "adapterSha256": "02491a493a71ce785fc67409830b83ab714e4979c24b6c404ea06b4078d3af2a",
+  "origin": {
+    "capture": {
+      "source": "evidence/web/objects/e66810e11f481135",
+      "url": "https://pump.fun/go",
+      "sha256": "8037ac8c628063897531326090f1a4d3cbf8ed0051f4f6e9f88c821f4fee9ece",
+      "bytes": 1030034
+    },
+    "pushes": [
+      {
+        "label": "inert main-app Flight push",
+        "source": "evidence/web/objects/e66810e11f481135",
+        "url": "https://pump.fun/go",
+        "sourceSha256": "8037ac8c628063897531326090f1a4d3cbf8ed0051f4f6e9f88c821f4fee9ece",
+        "sourceBytes": 1030034,
+        "utf16": [
+          31461,
+          335589
+        ],
+        "utf8": [
+          31473,
+          335962
+        ],
+        "sha256": "e3d9639246dfe4a0766ad275b60a6f8f5d61238d3118d2e6aa52eaa9a5c4e17d"
+      },
+      {
+        "label": "inert main-app Flight push",
+        "source": "evidence/web/objects/e66810e11f481135",
+        "url": "https://pump.fun/go",
+        "sourceSha256": "8037ac8c628063897531326090f1a4d3cbf8ed0051f4f6e9f88c821f4fee9ece",
+        "sourceBytes": 1030034,
+        "utf16": [
+          335589,
+          345104
+        ],
+        "utf8": [
+          335962,
+          345477
+        ],
+        "sha256": "51b9203cff06222f51c6c8fad64c2b3885da36bfc51b3102e367c5118c3d01e6"
+      },
+      {
+        "label": "inert main-app Flight push",
+        "source": "evidence/web/objects/e66810e11f481135",
+        "url": "https://pump.fun/go",
+        "sourceSha256": "8037ac8c628063897531326090f1a4d3cbf8ed0051f4f6e9f88c821f4fee9ece",
+        "sourceBytes": 1030034,
+        "utf16": [
+          457055,
+          699679
+        ],
+        "utf8": [
+          457444,
+          700307
+        ],
+        "sha256": "0be03baa847d68e7dfeb135bf95f4dcc4dbb5e0932e40ffda1473b3e0f1b833b"
+      }
+    ],
+    "decodedFlightSha256": "53991cbe8955f41fb2391a9449914f5e76c7ed9fc172badb0a98d7eb2b631755",
+    "usedImport": {
+      "row": "11a",
+      "module": 768385,
+      "nameRow": "119",
+      "name": "BountiesDiscoverRoutePage"
+    },
+    "actualElement": {
+      "row": "82",
+      "tag": "$L11a",
+      "propKeys": [
+        "trendingTab"
+      ]
+    },
+    "routeAnchor": {
+      "label": "actual first-party /go/bounties tab",
+      "source": "evidence/web/objects/e66810e11f481135",
+      "url": "https://pump.fun/go",
+      "sourceSha256": "8037ac8c628063897531326090f1a4d3cbf8ed0051f4f6e9f88c821f4fee9ece",
+      "sourceBytes": 1030034,
+      "utf16": [
+        403793,
+        404064
+      ],
+      "utf8": [
+        404168,
+        404439
+      ],
+      "sha256": "5f762e6b0b57dbc460b67504f452e81cfb12c0ba656e3aa9269ea02065c8f306"
+    },
+    "observed": "Only https://pump.fun/go HTML/Flight observed. /go/bounties selection is bound through actual pathname/route/lazy source, not a captured route response or mounted execution."
+  },
+  "factories": [
+    {
+      "id": 768385,
+      "ids": [
+        768385
+      ],
+      "label": "factory 768385",
+      "source": "evidence/web/objects/62e6fa852396858e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vulg4o6ushki.js",
+      "sourceSha256": "27fedb88f96ea21bc6fe3f9c233c7e1ffbd77b4d8ca1423f46aa7f5e50a338a2",
+      "sourceBytes": 57046,
+      "utf16": [
+        138,
+        53893
+      ],
+      "utf8": [
+        138,
+        53904
+      ],
+      "sha256": "b9050b8d3404f58e6a2a8b462e269f4f00ea54a445964b7601cac35f8a77d2f4"
+    },
+    {
+      "id": 409355,
+      "ids": [
+        409355,
+        375372
+      ],
+      "label": "factory 409355",
+      "source": "evidence/web/objects/bb5372d2d2e2c8c3.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3iplc0pgntmdg.js",
+      "sourceSha256": "312dad0d2558c0f42ab0621f6315342ac9cfcfbfaef1a0524f9902b8938d1ddb",
+      "sourceBytes": 21249,
+      "utf16": [
+        145,
+        999
+      ],
+      "utf8": [
+        145,
+        999
+      ],
+      "sha256": "879d65f373dab08de5d9318a018c70bb8ba6321f54dd53f1f80b3822af3851bf"
+    },
+    {
+      "id": 409355,
+      "ids": [
+        409355,
+        375372
+      ],
+      "label": "factory 409355",
+      "source": "evidence/web/objects/229e1f0da48ca815.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1r3m2i9afm30o.js",
+      "sourceSha256": "6c103b3e22a7ed81f8460091337d0c5e0668626a55a5a12bc8917e14b694064e",
+      "sourceBytes": 34768,
+      "utf16": [
+        3715,
+        4569
+      ],
+      "utf8": [
+        3715,
+        4569
+      ],
+      "sha256": "8fbae86760a69cc53406c63c27077f9f9bc6e0f4bc501825a8b3b36944028ad4"
+    },
+    {
+      "id": 660787,
+      "ids": [
+        660787
+      ],
+      "label": "factory 660787",
+      "source": "evidence/web/objects/6f5c2f3e59851d45.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0fbcuu9-fhd-z.js",
+      "sourceSha256": "3e174cba9f5745dbde12c8f8ac55d3befd7c3b6d41054dfbc2a8f97f6314886f",
+      "sourceBytes": 1175,
+      "utf16": [
+        853,
+        958
+      ],
+      "utf8": [
+        853,
+        958
+      ],
+      "sha256": "2407b5a4e29494a065de4c04b4e747bc97af3fb017c215ec697eb70bde82dd64"
+    },
+    {
+      "id": 851373,
+      "ids": [
+        851373
+      ],
+      "label": "factory 851373",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        1430,
+        6082
+      ],
+      "utf8": [
+        1430,
+        6082
+      ],
+      "sha256": "bbcb560d600f357da96ef54da57bf0c90a856789b645c0022bf18238097e2815"
+    },
+    {
+      "id": 170258,
+      "ids": [
+        170258
+      ],
+      "label": "factory 170258",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23120,
+        25473
+      ],
+      "utf8": [
+        23120,
+        25473
+      ],
+      "sha256": "c2cc17f47ff237994e797d3c09ce05b91dcc0d691b003d5682f68469ef526806"
+    },
+    {
+      "id": 158791,
+      "ids": [
+        158791
+      ],
+      "label": "factory 158791",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        13215,
+        16749
+      ],
+      "utf8": [
+        13215,
+        16749
+      ],
+      "sha256": "62f3eef4211b4a2dd1d7c12624c61a0112aa6b402d12265d31e87135da4698ce"
+    },
+    {
+      "id": 51447,
+      "ids": [
+        51447
+      ],
+      "label": "factory 51447",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        11501,
+        13207
+      ],
+      "utf8": [
+        11501,
+        13207
+      ],
+      "sha256": "aa11ff4801a6630e28a3a0165d3967cf86431dc34741ec8e9ed632daa7d70ce5"
+    },
+    {
+      "id": 146742,
+      "ids": [
+        146742
+      ],
+      "label": "factory 146742",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        26840,
+        29684
+      ],
+      "utf8": [
+        26840,
+        29684
+      ],
+      "sha256": "7e1ae5ad6e2cee2db3ffd608aa4320a76f7162c84e6f3d28bdba832c7a45a93c"
+    },
+    {
+      "id": 146742,
+      "ids": [
+        146742
+      ],
+      "label": "factory 146742",
+      "source": "evidence/web/objects/4f3529a0b713e63d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/15852wl0tw5qa.js",
+      "sourceSha256": "5836b547db0c1b43989b4ad12ef11ceec4533ca64f8a0fabbdbe3420553dcb4a",
+      "sourceBytes": 23521,
+      "utf16": [
+        138,
+        2982
+      ],
+      "utf8": [
+        138,
+        2982
+      ],
+      "sha256": "f5ca91407565583f41e699557587527a7c9b2376bf2c6db07cb3f264ad663720"
+    },
+    {
+      "id": 310717,
+      "ids": [
+        310717
+      ],
+      "label": "factory 310717",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        34866,
+        34940
+      ],
+      "utf8": [
+        34866,
+        34940
+      ],
+      "sha256": "dd633129fe28c5184d917ddf78ff1ce2df9431ee7a21d98748607d40b2f3dbff"
+    },
+    {
+      "id": 310717,
+      "ids": [
+        310717
+      ],
+      "label": "factory 310717",
+      "source": "evidence/web/objects/4f3529a0b713e63d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/15852wl0tw5qa.js",
+      "sourceSha256": "5836b547db0c1b43989b4ad12ef11ceec4533ca64f8a0fabbdbe3420553dcb4a",
+      "sourceBytes": 23521,
+      "utf16": [
+        23241,
+        23315
+      ],
+      "utf8": [
+        23241,
+        23315
+      ],
+      "sha256": "36727ea04b2a4bc026968dd2883210cf0b36d3eb4d72182b74637626dfa7c335"
+    },
+    {
+      "id": 314197,
+      "ids": [
+        314197
+      ],
+      "label": "factory 314197",
+      "source": "evidence/web/objects/9e0ee9dcf9856205.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1cbi431gd15ib.js",
+      "sourceSha256": "f8acf004f8e3683b33b8107972ab8f78a9f48d115bf1d646c7ac95f265e499d4",
+      "sourceBytes": 28087,
+      "utf16": [
+        17093,
+        17183
+      ],
+      "utf8": [
+        17093,
+        17183
+      ],
+      "sha256": "e96e3dcb9521de8804092190662bbdb94615900c2a75de459b983b7d90fdc804"
+    },
+    {
+      "id": 314197,
+      "ids": [
+        314197
+      ],
+      "label": "factory 314197",
+      "source": "evidence/web/objects/4f3529a0b713e63d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/15852wl0tw5qa.js",
+      "sourceSha256": "5836b547db0c1b43989b4ad12ef11ceec4533ca64f8a0fabbdbe3420553dcb4a",
+      "sourceBytes": 23521,
+      "utf16": [
+        2990,
+        3080
+      ],
+      "utf8": [
+        2990,
+        3080
+      ],
+      "sha256": "219fb7fba9f3d4e23d4d52f477b928ab94ff20fab99455d06940b7973a1335be"
+    },
+    {
+      "id": 314197,
+      "ids": [
+        314197
+      ],
+      "label": "factory 314197",
+      "source": "evidence/web/objects/95be9180237024f4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/23spdxsjc592m.js",
+      "sourceSha256": "07eb840a595fbafa40537c6a5138b91de53863f6e6bda77b60426595a3c9dd31",
+      "sourceBytes": 24983,
+      "utf16": [
+        18626,
+        18716
+      ],
+      "utf8": [
+        18626,
+        18716
+      ],
+      "sha256": "41935ee545f1870203db3486ce2ad8a4059a9069e18fbbfc6c85c6f8dc7cbfb2"
+    },
+    {
+      "id": 711902,
+      "ids": [
+        711902
+      ],
+      "label": "factory 711902",
+      "source": "evidence/web/objects/bb5372d2d2e2c8c3.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3iplc0pgntmdg.js",
+      "sourceSha256": "312dad0d2558c0f42ab0621f6315342ac9cfcfbfaef1a0524f9902b8938d1ddb",
+      "sourceBytes": 21249,
+      "utf16": [
+        1007,
+        21152
+      ],
+      "utf8": [
+        1007,
+        21152
+      ],
+      "sha256": "390e9ed491c24f68ce22d1de700ca36b9d24c4788d50942cb489cac584f0565f"
+    },
+    {
+      "id": 711902,
+      "ids": [
+        711902
+      ],
+      "label": "factory 711902",
+      "source": "evidence/web/objects/4f3529a0b713e63d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/15852wl0tw5qa.js",
+      "sourceSha256": "5836b547db0c1b43989b4ad12ef11ceec4533ca64f8a0fabbdbe3420553dcb4a",
+      "sourceBytes": 23521,
+      "utf16": [
+        3088,
+        23233
+      ],
+      "utf8": [
+        3088,
+        23233
+      ],
+      "sha256": "4e833805fd88afe2c9931aa89916705ddc7e88e990d472c420c88c11707579c1"
+    },
+    {
+      "id": 711902,
+      "ids": [
+        711902
+      ],
+      "label": "factory 711902",
+      "source": "evidence/web/objects/cc862228dd62246a.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2p-8gqrtleq48.js",
+      "sourceSha256": "dd807d592565b861e19ec5263e7e9abb26b18b9056b7f00318a4812c16f7cb27",
+      "sourceBytes": 23218,
+      "utf16": [
+        3066,
+        23211
+      ],
+      "utf8": [
+        3066,
+        23211
+      ],
+      "sha256": "4254d8bb285aaf7196d56453ece1dc338d6d826f066aacf617707aea07e5fa3d"
+    },
+    {
+      "id": 959193,
+      "ids": [
+        959193
+      ],
+      "label": "factory 959193",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        35115,
+        35306
+      ],
+      "utf8": [
+        35115,
+        35306
+      ],
+      "sha256": "2db8471f9eb14f88373742e0f383aca9a36bc445e6765685828619bfb5cb7eb5"
+    },
+    {
+      "id": 959193,
+      "ids": [
+        959193
+      ],
+      "label": "factory 959193",
+      "source": "evidence/web/objects/4f3529a0b713e63d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/15852wl0tw5qa.js",
+      "sourceSha256": "5836b547db0c1b43989b4ad12ef11ceec4533ca64f8a0fabbdbe3420553dcb4a",
+      "sourceBytes": 23521,
+      "utf16": [
+        23323,
+        23514
+      ],
+      "utf8": [
+        23323,
+        23514
+      ],
+      "sha256": "1fc0def4025e20545d28d9c892498b70e627c057d3ce0faa8d3bd2fd4c6d249c"
+    },
+    {
+      "id": 38279,
+      "ids": [
+        38279
+      ],
+      "label": "factory 38279",
+      "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1qqfn5g-bst3e.js",
+      "sourceSha256": "ee1eb91e3cbfb10fa33462a1a2f500fed9902a88454dc715f059d56f405475b3",
+      "sourceBytes": 35014,
+      "utf16": [
+        260,
+        12654
+      ],
+      "utf8": [
+        260,
+        12654
+      ],
+      "sha256": "8d71db5a2d47da722166199f0a64e93e0295051da46086355f136b93a3f3b89a"
+    },
+    {
+      "id": 462024,
+      "ids": [
+        462024
+      ],
+      "label": "factory 462024",
+      "source": "evidence/web/objects/9e0ee9dcf9856205.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1cbi431gd15ib.js",
+      "sourceSha256": "f8acf004f8e3683b33b8107972ab8f78a9f48d115bf1d646c7ac95f265e499d4",
+      "sourceBytes": 28087,
+      "utf16": [
+        5542,
+        11574
+      ],
+      "utf8": [
+        5542,
+        11574
+      ],
+      "sha256": "14f93c41eab3af5bfb33f7914ec9054dbacb3a9de910172b8dd3f63233fa4294"
+    },
+    {
+      "id": 462024,
+      "ids": [
+        462024
+      ],
+      "label": "factory 462024",
+      "source": "evidence/web/objects/95be9180237024f4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/23spdxsjc592m.js",
+      "sourceSha256": "07eb840a595fbafa40537c6a5138b91de53863f6e6bda77b60426595a3c9dd31",
+      "sourceBytes": 24983,
+      "utf16": [
+        138,
+        6170
+      ],
+      "utf8": [
+        138,
+        6170
+      ],
+      "sha256": "1a344374e15f73b1a2b26f0c264e7f40b8ec8ff8ebc5c93e9747443db04dbc30"
+    },
+    {
+      "id": 260095,
+      "ids": [
+        260095
+      ],
+      "label": "factory 260095",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        16757,
+        18287
+      ],
+      "utf8": [
+        16757,
+        18287
+      ],
+      "sha256": "2649e2a42601c79c33fe729da749f22200532b620f25d7faec19721b59fa1a54"
+    },
+    {
+      "id": 471106,
+      "ids": [
+        471106
+      ],
+      "label": "factory 471106",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        10061,
+        10977
+      ],
+      "utf8": [
+        10061,
+        10977
+      ],
+      "sha256": "cec3447a3763c7aa7acfeb1ff09d1dd18f8b949611401d628b9a84ec1ed2c55f"
+    },
+    {
+      "id": 944410,
+      "ids": [
+        944410
+      ],
+      "label": "factory 944410",
+      "source": "evidence/web/objects/fd402d4185b44ce9.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/19xl-yywkv-8p.js",
+      "sourceSha256": "1dc5d2351887b14932acbddf37ea653566df106b41c56ddc19ae70158e43f806",
+      "sourceBytes": 31128,
+      "utf16": [
+        27693,
+        28518
+      ],
+      "utf8": [
+        27694,
+        28519
+      ],
+      "sha256": "eb97d758430643b5c14b01e535a4bc5490b13e7d5437d04b76fe7bb3525d1395"
+    },
+    {
+      "id": 944410,
+      "ids": [
+        944410
+      ],
+      "label": "factory 944410",
+      "source": "evidence/web/objects/27a1ee00eb5909ec.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3av743n8vozzs.js",
+      "sourceSha256": "4f15372b7572090fd27f1c612bafee0a0a3672127d5187b66e05b6ddd0d21452",
+      "sourceBytes": 34942,
+      "utf16": [
+        27659,
+        28484
+      ],
+      "utf8": [
+        27659,
+        28484
+      ],
+      "sha256": "6e0b85a81829493018b501cb1137b5cf667eec841ea56b6921e6ad0875271b96"
+    }
+  ],
+  "imports": [
+    {
+      "label": "actual import 768385→409355",
+      "source": "evidence/web/objects/62e6fa852396858e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vulg4o6ushki.js",
+      "sourceSha256": "27fedb88f96ea21bc6fe3f9c233c7e1ffbd77b4d8ca1423f46aa7f5e50a338a2",
+      "sourceBytes": 57046,
+      "utf16": [
+        1263,
+        1276
+      ],
+      "utf8": [
+        1263,
+        1276
+      ],
+      "sha256": "65bab874d3adf2cd5f0a8c3fdeedad34ce828dfc21243eb16ebe62d4bc058327"
+    },
+    {
+      "label": "actual import 768385→170258",
+      "source": "evidence/web/objects/62e6fa852396858e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vulg4o6ushki.js",
+      "sourceSha256": "27fedb88f96ea21bc6fe3f9c233c7e1ffbd77b4d8ca1423f46aa7f5e50a338a2",
+      "sourceBytes": 57046,
+      "utf16": [
+        2179,
+        2192
+      ],
+      "utf8": [
+        2179,
+        2192
+      ],
+      "sha256": "f6b648d974546ca621108a27d68efc97b1e48466e24d2b5e2f1db56d87919648"
+    },
+    {
+      "label": "actual import 768385→158791",
+      "source": "evidence/web/objects/62e6fa852396858e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vulg4o6ushki.js",
+      "sourceSha256": "27fedb88f96ea21bc6fe3f9c233c7e1ffbd77b4d8ca1423f46aa7f5e50a338a2",
+      "sourceBytes": 57046,
+      "utf16": [
+        2803,
+        2816
+      ],
+      "utf8": [
+        2803,
+        2816
+      ],
+      "sha256": "bc478726b7ad18af1a8a1f8f258636d883711bd49e16e72223f152e066290f71"
+    },
+    {
+      "label": "actual import 768385→51447",
+      "source": "evidence/web/objects/62e6fa852396858e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vulg4o6ushki.js",
+      "sourceSha256": "27fedb88f96ea21bc6fe3f9c233c7e1ffbd77b4d8ca1423f46aa7f5e50a338a2",
+      "sourceBytes": 57046,
+      "utf16": [
+        25128,
+        25141
+      ],
+      "utf8": [
+        25137,
+        25150
+      ],
+      "sha256": "e8176dbfd7c796189811c68e0bb8ac49381c2cd6ae6bdc21b8c6c547a4874219"
+    },
+    {
+      "label": "actual import 851373→170258",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        1551,
+        1564
+      ],
+      "utf8": [
+        1551,
+        1564
+      ],
+      "sha256": "3d2315045d6d431da94c5a89351c13f431fdf071102fc4f7cb0e784e2af0d985"
+    },
+    {
+      "label": "actual import 851373→51447",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        1579,
+        1591
+      ],
+      "utf8": [
+        1579,
+        1591
+      ],
+      "sha256": "39e2466e690a4aa3a01665e24f73ab6f755b59cd908ce8f9105efb3349505974"
+    },
+    {
+      "label": "actual import 851373→158791",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        1592,
+        1605
+      ],
+      "utf8": [
+        1592,
+        1605
+      ],
+      "sha256": "2e23ce6aa15c9a3eab1c46b625b7216683bda8c06bb9c870a6e3ae721c4a06c9"
+    },
+    {
+      "label": "actual import 851373→260095",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        1537,
+        1550
+      ],
+      "utf8": [
+        1537,
+        1550
+      ],
+      "sha256": "e7bd7732a59bcd75acce4da784d8cbc03460000137f859c945e0261b6d273fa5"
+    },
+    {
+      "label": "actual import 851373→471106",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        1523,
+        1536
+      ],
+      "utf8": [
+        1523,
+        1536
+      ],
+      "sha256": "a139051bf3cdc46f5572a5cf54a68c8350d4312303a72c51c416fb2ec9a064bf"
+    },
+    {
+      "label": "actual import 170258→944410",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23142,
+        23155
+      ],
+      "utf8": [
+        23142,
+        23155
+      ],
+      "sha256": "b386c552745911fa04eaf0682c3f1e2361f2eea6627bc2b8dd7ed9dee416c707"
+    },
+    {
+      "label": "actual import 170258→38279",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23170,
+        23182
+      ],
+      "utf8": [
+        23170,
+        23182
+      ],
+      "sha256": "b47e17d7d3f5a33c22bb67b35b5eeb50556e0771474a7b7c894e6c75ac8bfcaf"
+    },
+    {
+      "label": "actual import 170258→146742",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23183,
+        23196
+      ],
+      "utf8": [
+        23183,
+        23196
+      ],
+      "sha256": "df11c184e19596cf40c7c9a42c3ae5f9b5d0fb245b0abd43b6b3a4d7b182b4f5"
+    },
+    {
+      "label": "actual import 170258→314197",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23197,
+        23210
+      ],
+      "utf8": [
+        23197,
+        23210
+      ],
+      "sha256": "12c310722a1bc9a96a27dec557763186b7ecedef22dc889b68bd88b3609be4c4"
+    },
+    {
+      "label": "actual import 170258→711902",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23211,
+        23224
+      ],
+      "utf8": [
+        23211,
+        23224
+      ],
+      "sha256": "3935a1db49b17311e577c8deef29ab3eb4ba2fa5cca6a49a86778b1e90a63af1"
+    },
+    {
+      "label": "actual import 170258→310717",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23225,
+        23238
+      ],
+      "utf8": [
+        23225,
+        23238
+      ],
+      "sha256": "c131264ff89f84288328ddd4b62fc8e0ebb4dce2d152e1dfa7e6758f7ec0ead3"
+    }
+  ],
+  "fragments": [
+    {
+      "label": "complete main-app caller/loader/query/filter context",
+      "source": "evidence/web/objects/62e6fa852396858e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vulg4o6ushki.js",
+      "sourceSha256": "27fedb88f96ea21bc6fe3f9c233c7e1ffbd77b4d8ca1423f46aa7f5e50a338a2",
+      "sourceBytes": 57046,
+      "utf16": [
+        138,
+        53893
+      ],
+      "utf8": [
+        138,
+        53904
+      ],
+      "sha256": "b9050b8d3404f58e6a2a8b462e269f4f00ea54a445964b7601cac35f8a77d2f4"
+    },
+    {
+      "label": "complete main-app caller/loader/query/filter context",
+      "source": "evidence/web/objects/6f5c2f3e59851d45.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0fbcuu9-fhd-z.js",
+      "sourceSha256": "3e174cba9f5745dbde12c8f8ac55d3befd7c3b6d41054dfbc2a8f97f6314886f",
+      "sourceBytes": 1175,
+      "utf16": [
+        853,
+        958
+      ],
+      "utf8": [
+        853,
+        958
+      ],
+      "sha256": "2407b5a4e29494a065de4c04b4e747bc97af3fb017c215ec697eb70bde82dd64"
+    },
+    {
+      "label": "complete main-app caller/loader/query/filter context",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        1430,
+        6082
+      ],
+      "utf8": [
+        1430,
+        6082
+      ],
+      "sha256": "bbcb560d600f357da96ef54da57bf0c90a856789b645c0022bf18238097e2815"
+    },
+    {
+      "label": "complete main-app caller/loader/query/filter context",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23120,
+        25473
+      ],
+      "utf8": [
+        23120,
+        25473
+      ],
+      "sha256": "c2cc17f47ff237994e797d3c09ce05b91dcc0d691b003d5682f68469ef526806"
+    },
+    {
+      "label": "complete main-app caller/loader/query/filter context",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        11501,
+        13207
+      ],
+      "utf8": [
+        11501,
+        13207
+      ],
+      "sha256": "aa11ff4801a6630e28a3a0165d3967cf86431dc34741ec8e9ed632daa7d70ce5"
+    },
+    {
+      "label": "complete main-app caller/loader/query/filter context",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        13215,
+        16749
+      ],
+      "utf8": [
+        13215,
+        16749
+      ],
+      "sha256": "62f3eef4211b4a2dd1d7c12624c61a0112aa6b402d12265d31e87135da4698ce"
+    },
+    {
+      "label": "actual lazy import660787",
+      "source": "evidence/web/objects/62e6fa852396858e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vulg4o6ushki.js",
+      "sourceSha256": "27fedb88f96ea21bc6fe3f9c233c7e1ffbd77b4d8ca1423f46aa7f5e50a338a2",
+      "sourceBytes": 57046,
+      "utf16": [
+        35633,
+        35644
+      ],
+      "utf8": [
+        35642,
+        35653
+      ],
+      "sha256": "229319575ae1c4488f8ae1d1bb7244b47ded4a4910d77fbcec95b8f96b4a2d55"
+    },
+    {
+      "label": "ScreenerListingView lazy named handoff",
+      "source": "evidence/web/objects/62e6fa852396858e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vulg4o6ushki.js",
+      "sourceSha256": "27fedb88f96ea21bc6fe3f9c233c7e1ffbd77b4d8ca1423f46aa7f5e50a338a2",
+      "sourceBytes": 57046,
+      "utf16": [
+        35650,
+        35686
+      ],
+      "utf8": [
+        35659,
+        35695
+      ],
+      "sha256": "69dcd756dfa75ebf1e303064a82d558c1b1715dfbcd0b6705b78ad415b5c8df6"
+    },
+    {
+      "label": "actual Flight component→discover child",
+      "source": "evidence/web/objects/62e6fa852396858e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vulg4o6ushki.js",
+      "sourceSha256": "27fedb88f96ea21bc6fe3f9c233c7e1ffbd77b4d8ca1423f46aa7f5e50a338a2",
+      "sourceBytes": 57046,
+      "utf16": [
+        53674,
+        53703
+      ],
+      "utf8": [
+        53685,
+        53714
+      ],
+      "sha256": "7b8ffacee727af02048fc524daab592d0110e857bae4da9fe02fa51edb2dfbc0"
+    },
+    {
+      "label": "main-app pathname source",
+      "source": "evidence/web/objects/62e6fa852396858e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vulg4o6ushki.js",
+      "sourceSha256": "27fedb88f96ea21bc6fe3f9c233c7e1ffbd77b4d8ca1423f46aa7f5e50a338a2",
+      "sourceBytes": 57046,
+      "utf16": [
+        36220,
+        36239
+      ],
+      "utf8": [
+        36229,
+        36248
+      ],
+      "sha256": "3623e35b2e8bf4dd608756b74309326e5b8b55ff16c3bd3483d48050e04051b1"
+    },
+    {
+      "label": "actual pathname→bounties route classification",
+      "source": "evidence/web/objects/62e6fa852396858e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vulg4o6ushki.js",
+      "sourceSha256": "27fedb88f96ea21bc6fe3f9c233c7e1ffbd77b4d8ca1423f46aa7f5e50a338a2",
+      "sourceBytes": 57046,
+      "utf16": [
+        36305,
+        36407
+      ],
+      "utf8": [
+        36314,
+        36416
+      ],
+      "sha256": "087c49830b9ca450e2eb5bc612283214ecb701ecda9030b6d5d85c3ad57b7e01"
+    },
+    {
+      "label": "actual bounties tab→lazy screener props",
+      "source": "evidence/web/objects/62e6fa852396858e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vulg4o6ushki.js",
+      "sourceSha256": "27fedb88f96ea21bc6fe3f9c233c7e1ffbd77b4d8ca1423f46aa7f5e50a338a2",
+      "sourceBytes": 57046,
+      "utf16": [
+        50533,
+        50770
+      ],
+      "utf8": [
+        50544,
+        50781
+      ],
+      "sha256": "6c5d33eabab28e6e131d3c92357962415ef989dd193cd3d1fc3ab65fb240c608"
+    },
+    {
+      "label": "main-app bounty route constant",
+      "source": "evidence/web/objects/bb5372d2d2e2c8c3.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3iplc0pgntmdg.js",
+      "sourceSha256": "312dad0d2558c0f42ab0621f6315342ac9cfcfbfaef1a0524f9902b8938d1ddb",
+      "sourceBytes": 21249,
+      "utf16": [
+        356,
+        370
+      ],
+      "utf8": [
+        356,
+        370
+      ],
+      "sha256": "8164a922de54c1d95b789355c52d21a571b3be2cf798d3b6c9fb2c6d62ad2c76"
+    },
+    {
+      "label": "main-app bounty route constant",
+      "source": "evidence/web/objects/229e1f0da48ca815.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1r3m2i9afm30o.js",
+      "sourceSha256": "6c103b3e22a7ed81f8460091337d0c5e0668626a55a5a12bc8917e14b694064e",
+      "sourceBytes": 34768,
+      "utf16": [
+        3926,
+        3940
+      ],
+      "utf8": [
+        3926,
+        3940
+      ],
+      "sha256": "8164a922de54c1d95b789355c52d21a571b3be2cf798d3b6c9fb2c6d62ad2c76"
+    },
+    {
+      "label": "loader imports851373",
+      "source": "evidence/web/objects/6f5c2f3e59851d45.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0fbcuu9-fhd-z.js",
+      "sourceSha256": "3e174cba9f5745dbde12c8f8ac55d3befd7c3b6d41054dfbc2a8f97f6314886f",
+      "sourceBytes": 1175,
+      "utf16": [
+        946,
+        955
+      ],
+      "utf8": [
+        946,
+        955
+      ],
+      "sha256": "4e951b08751e79d5253733ca6749ec4674f477629aab874bf6a56782e9f1dda3"
+    },
+    {
+      "label": "same-origin captured lazy chunk",
+      "source": "evidence/web/objects/6f5c2f3e59851d45.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0fbcuu9-fhd-z.js",
+      "sourceSha256": "3e174cba9f5745dbde12c8f8ac55d3befd7c3b6d41054dfbc2a8f97f6314886f",
+      "sourceBytes": 1175,
+      "utf16": [
+        877,
+        919
+      ],
+      "utf8": [
+        877,
+        919
+      ],
+      "sha256": "b188891a3a9c1906a57db1cb0ac8ef5c6728f9a5dc48000ad1f27d68f741fe89"
+    },
+    {
+      "label": "complete UTF16 query clamp",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        34881,
+        34937
+      ],
+      "utf8": [
+        34881,
+        34937
+      ],
+      "sha256": "2b9aac358084ed6e0336e1b585a210d2c22a6a1a7daaec10960cef1d0a3a0347"
+    },
+    {
+      "label": "complete UTF16 query clamp",
+      "source": "evidence/web/objects/4f3529a0b713e63d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/15852wl0tw5qa.js",
+      "sourceSha256": "5836b547db0c1b43989b4ad12ef11ceec4533ca64f8a0fabbdbe3420553dcb4a",
+      "sourceBytes": 23521,
+      "utf16": [
+        23256,
+        23312
+      ],
+      "utf8": [
+        23256,
+        23312
+      ],
+      "sha256": "c6c5d45d8d8e3b401be25c501fdc916112e165bbf5974c4235697d604d62c334"
+    },
+    {
+      "label": "complete follower sort gate",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        26965,
+        27011
+      ],
+      "utf8": [
+        26965,
+        27011
+      ],
+      "sha256": "a43dab76fdc4fb8c60eb2884189f7094086286ae4fc1cb2bb09ce1ba45e3f03e"
+    },
+    {
+      "label": "public phase string",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        27023,
+        27073
+      ],
+      "utf8": [
+        27023,
+        27073
+      ],
+      "sha256": "3bbe2e203a1aee2493f1704fcd01dcdcf5e4bb4e29097ad00688a34ab5b877ab"
+    },
+    {
+      "label": "complete follower sort gate",
+      "source": "evidence/web/objects/4f3529a0b713e63d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/15852wl0tw5qa.js",
+      "sourceSha256": "5836b547db0c1b43989b4ad12ef11ceec4533ca64f8a0fabbdbe3420553dcb4a",
+      "sourceBytes": 23521,
+      "utf16": [
+        263,
+        309
+      ],
+      "utf8": [
+        263,
+        309
+      ],
+      "sha256": "e0c9fd294837881dad8ab79130256dd316ac606990f62fdd80de6dac8b68f821"
+    },
+    {
+      "label": "public phase string",
+      "source": "evidence/web/objects/4f3529a0b713e63d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/15852wl0tw5qa.js",
+      "sourceSha256": "5836b547db0c1b43989b4ad12ef11ceec4533ca64f8a0fabbdbe3420553dcb4a",
+      "sourceBytes": 23521,
+      "utf16": [
+        321,
+        371
+      ],
+      "utf8": [
+        321,
+        371
+      ],
+      "sha256": "3bbe2e203a1aee2493f1704fcd01dcdcf5e4bb4e29097ad00688a34ab5b877ab"
+    },
+    {
+      "label": "complete withoutStatuses",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        13109,
+        13132
+      ],
+      "utf8": [
+        13109,
+        13132
+      ],
+      "sha256": "4ae0fa9062d8d284a863f62c66c7f85ef29645bcf8ec83a362e2c5cebe757db8"
+    },
+    {
+      "label": "complete withoutRewardTokens",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        13075,
+        13102
+      ],
+      "utf8": [
+        13075,
+        13102
+      ],
+      "sha256": "4d93e57977a1f45ebef1a222154160d2ca73abf6f5e60bc11cb60fef6786b007"
+    },
+    {
+      "label": "complete withoutTimeLeft",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        13179,
+        13204
+      ],
+      "utf8": [
+        13179,
+        13204
+      ],
+      "sha256": "6f47cbdcf87eb308144c892a1f01fdb70cd53ae4794d89899b97c45c921c0feb"
+    },
+    {
+      "label": "complete sort table",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        13323,
+        13562
+      ],
+      "utf8": [
+        13323,
+        13562
+      ],
+      "sha256": "f58b828c218cc185daaa7a1c53e64c81096a9e8e71b458fa5d6b0600417daef2"
+    },
+    {
+      "label": "reward filter numeric bounds",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        13305,
+        13320
+      ],
+      "utf8": [
+        13305,
+        13320
+      ],
+      "sha256": "32ff902f97ba22aeaeb403ae2b366922f7add1f46f657b7ccac3d9d49e975768"
+    },
+    {
+      "label": "complete time bucket choices",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        14500,
+        14628
+      ],
+      "utf8": [
+        14500,
+        14628
+      ],
+      "sha256": "0bd2c34ddeed4f0db7ef3d337e4bc4e0b7a89d260bcf059cae98e87917139258"
+    },
+    {
+      "label": "actual public SOL mint",
+      "source": "evidence/web/objects/9e0ee9dcf9856205.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1cbi431gd15ib.js",
+      "sourceSha256": "f8acf004f8e3683b33b8107972ab8f78a9f48d115bf1d646c7ac95f265e499d4",
+      "sourceBytes": 28087,
+      "utf16": [
+        5798,
+        5843
+      ],
+      "utf8": [
+        5798,
+        5843
+      ],
+      "sha256": "1301b4be45f11d53f0ff874bcb31ae52b73682d8d86d46026766210850037a34"
+    },
+    {
+      "label": "actual public SOL mint",
+      "source": "evidence/web/objects/95be9180237024f4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/23spdxsjc592m.js",
+      "sourceSha256": "07eb840a595fbafa40537c6a5138b91de53863f6e6bda77b60426595a3c9dd31",
+      "sourceBytes": 24983,
+      "utf16": [
+        394,
+        439
+      ],
+      "utf8": [
+        394,
+        439
+      ],
+      "sha256": "1301b4be45f11d53f0ff874bcb31ae52b73682d8d86d46026766210850037a34"
+    },
+    {
+      "label": "complete filter→query builder",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        14766,
+        16104
+      ],
+      "utf8": [
+        14766,
+        16104
+      ],
+      "sha256": "fcc18155401346dab42da682a36ebc2a4527ccf8689ed422919996203b99d2d9"
+    },
+    {
+      "label": "complete infinite query key",
+      "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1qqfn5g-bst3e.js",
+      "sourceSha256": "ee1eb91e3cbfb10fa33462a1a2f500fed9902a88454dc715f059d56f405475b3",
+      "sourceBytes": 35014,
+      "utf16": [
+        7227,
+        7687
+      ],
+      "utf8": [
+        7227,
+        7687
+      ],
+      "sha256": "276239e08a01b521611c9c0728f880143f314578390303675dfe25a7d061b13b"
+    },
+    {
+      "label": "complete cursor callback",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23239,
+        23281
+      ],
+      "utf8": [
+        23239,
+        23281
+      ],
+      "sha256": "736450f16d925009d693451a00b5b71f004d8337417c01c635835ff2cd4bb356"
+    },
+    {
+      "label": "complete lazy GET→JSON→schema callback",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        24396,
+        25100
+      ],
+      "utf8": [
+        24396,
+        25100
+      ],
+      "sha256": "9291d3b4e8a594cc2a0a9bb09982f840027226bedf36140a47e1d497e57ebe80"
+    },
+    {
+      "label": "query default/gate P",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23618,
+        23633
+      ],
+      "utf8": [
+        23618,
+        23633
+      ],
+      "sha256": "f291a16dcb5d4031a9911f2f123c28d5a9d0b1c33ca2167d7dd7daa672bdfc3b"
+    },
+    {
+      "label": "query default/gate k",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23636,
+        23649
+      ],
+      "utf8": [
+        23636,
+        23649
+      ],
+      "sha256": "1e883c803f438637a152b81246e6ad4b42d1bc41e42498aa396446b9aea1fcbb"
+    },
+    {
+      "label": "query default/gate B",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23712,
+        23722
+      ],
+      "utf8": [
+        23712,
+        23722
+      ],
+      "sha256": "02ec8d2bd3b84b56a8aa0bac7e779bfd3e27eff5895cc2a1d3aa07c219805a9b"
+    },
+    {
+      "label": "query default/gate $",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23738,
+        23823
+      ],
+      "utf8": [
+        23738,
+        23823
+      ],
+      "sha256": "339c3c3355d1e87f3138471509d6b3e25f58dc0b9b71b7bd8dba815ec5db99e0"
+    },
+    {
+      "label": "feature-dependent sort input",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23697,
+        23709
+      ],
+      "utf8": [
+        23697,
+        23709
+      ],
+      "sha256": "bd61f0186d168bbe3cd3649d194fbf6fc44f2bad3b4f4513b976793540ef0fd8"
+    },
+    {
+      "label": "normalized query input",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23725,
+        23735
+      ],
+      "utf8": [
+        23725,
+        23735
+      ],
+      "sha256": "772382f85f8c8265643232e00637446124daef467e26e15088b4ccd554d9ac32"
+    },
+    {
+      "label": "complete query key inputs",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23861,
+        24142
+      ],
+      "utf8": [
+        23861,
+        24142
+      ],
+      "sha256": "fc4ed122938836fe0e5eed48d79b3d6627f09571380f39724d781a644aec7fb3"
+    },
+    {
+      "label": "complete phase classifier",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        16568,
+        16746
+      ],
+      "utf8": [
+        16568,
+        16746
+      ],
+      "sha256": "74df5b2a21d450cf2329a550f83f40273d14684f918155472e0fc437c61b861c"
+    },
+    {
+      "label": "complete local time-left predicate",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        11529,
+        11795
+      ],
+      "utf8": [
+        11529,
+        11795
+      ],
+      "sha256": "a146ce3ff9bb44f5df699a4ce5062351d271421d8733ac33fa64dae03b8cdb64"
+    },
+    {
+      "label": "complete local facets",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        11807,
+        12137
+      ],
+      "utf8": [
+        11807,
+        12137
+      ],
+      "sha256": "24323a1b11bbcea2dd750156ef706b0338f0cdf8f2619f81dc8108c125169ee5"
+    },
+    {
+      "label": "complete local countTimeLeft",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        12144,
+        12289
+      ],
+      "utf8": [
+        12144,
+        12289
+      ],
+      "sha256": "0984ca0fc7fa3b4070371fbbd10d1c6b5832e6078fd51f1fdaedd1dc4e386e25"
+    },
+    {
+      "label": "complete local filterTasks",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        12296,
+        12950
+      ],
+      "utf8": [
+        12296,
+        12950
+      ],
+      "sha256": "f391aa613ac96bef439b85d1983335dd0b9e4061eca3589f1ed70091422b0418"
+    },
+    {
+      "label": "complete feed projection",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        10076,
+        10357
+      ],
+      "utf8": [
+        10076,
+        10357
+      ],
+      "sha256": "965f69b10a34f7875933e9d382c9fc3b395de75c9feb9feafa311adf61166622"
+    },
+    {
+      "label": "complete page flatten callback",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        3182,
+        3211
+      ],
+      "utf8": [
+        3182,
+        3211
+      ],
+      "sha256": "befd032574ba94f0c729028642a93479e0545aeab904852996cf0e3b3137d179"
+    },
+    {
+      "label": "complete listing filter-builder inputs",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        3444,
+        3474
+      ],
+      "utf8": [
+        3444,
+        3474
+      ],
+      "sha256": "00c9861bbbca2aa16195d35bb0599f9e141f572ce30171a9676a558f1e4ee2bd"
+    },
+    {
+      "label": "complete listing query handoff",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        3657,
+        3693
+      ],
+      "utf8": [
+        3657,
+        3693
+      ],
+      "sha256": "314b0e611add3d07b714291aa77b29240747521cbfab078af9f53febd1d959ce"
+    },
+    {
+      "label": "complete phaseFacets filter-builder inputs",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        3560,
+        3599
+      ],
+      "utf8": [
+        3560,
+        3599
+      ],
+      "sha256": "affe318aa6eec407a32da142e4330db68925942f51d96ae739650740c0500264"
+    },
+    {
+      "label": "complete phaseFacets query handoff",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        3825,
+        3860
+      ],
+      "utf8": [
+        3825,
+        3860
+      ],
+      "sha256": "a3816742d8193172ebeb8cecab3d6f3a7ce5af00c807730af23d27abcbc3b057"
+    },
+    {
+      "label": "served task flatten/nullish default",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        3933,
+        3956
+      ],
+      "utf8": [
+        3933,
+        3956
+      ],
+      "sha256": "910ab69b98863a6819ce35c21e49965c776ebb3de88cfd6dc1aa4a6aa02cee81"
+    },
+    {
+      "label": "first proxy page phase facets",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4051,
+        4077
+      ],
+      "utf8": [
+        4051,
+        4077
+      ],
+      "sha256": "50e112f60bf0c4be998b52fc1a32a74133a33847799712660557ab957b3d735f"
+    },
+    {
+      "label": "complete noStatuses facet filter",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4121,
+        4142
+      ],
+      "utf8": [
+        4121,
+        4142
+      ],
+      "sha256": "43a52badf6243649c9913bfa5a9ced31db7300ccb8b51a51dbd85bf4ff8e12de"
+    },
+    {
+      "label": "complete noRewardTokens facet filter",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4145,
+        4166
+      ],
+      "utf8": [
+        4145,
+        4166
+      ],
+      "sha256": "cb1b9fad347b6c8f00015ba68a92546213404bc8ab4fed785f39058fc6bf3988"
+    },
+    {
+      "label": "server phase/fallback precedence",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4169,
+        4189
+      ],
+      "utf8": [
+        4169,
+        4189
+      ],
+      "sha256": "c48d239e22fb2addac94115a39eece574b0237471a0fc91e5374f94c54344d2e"
+    },
+    {
+      "label": "local reward facet input",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4196,
+        4206
+      ],
+      "utf8": [
+        4196,
+        4206
+      ],
+      "sha256": "3b83bd81ac5f224ba399a5400931b19b4b26d8cd4f225686bb85a0e0659a65a6"
+    },
+    {
+      "label": "complete facet handoff",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4332,
+        4376
+      ],
+      "utf8": [
+        4332,
+        4376
+      ],
+      "sha256": "b753d5e670349b8b15357f78501d588fc361bbb0216d78976649769c9bfc4336"
+    },
+    {
+      "label": "shared empty status array",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        2356,
+        2358
+      ],
+      "utf8": [
+        2356,
+        2358
+      ],
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "label": "complete time-left count handoff",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4463,
+        4493
+      ],
+      "utf8": [
+        4463,
+        4493
+      ],
+      "sha256": "9d1918b168dd91363dcb6eada2d8ae1065776bd6f6e43448f746159f9ed01dad"
+    },
+    {
+      "label": "actual served tasks→enrichment capability",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4603,
+        4613
+      ],
+      "utf8": [
+        4603,
+        4613
+      ],
+      "sha256": "6cca69ada30f9139a68b5e4436d67165eba006dc2a7bbe7b65e64a27877317a9"
+    },
+    {
+      "label": "complete task-order→resolved bounty/feed mapper",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4779,
+        4886
+      ],
+      "utf8": [
+        4779,
+        4886
+      ],
+      "sha256": "6573a87acfc2d62b866d7da5420557674701808c218ff147a5ba15108f936d2c"
+    },
+    {
+      "label": "subscription mint set creation",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5022,
+        5029
+      ],
+      "utf8": [
+        5022,
+        5029
+      ],
+      "sha256": "b9b63292fcd66ffd22fdd6e3ce66da9d23fda12c867ab6ea6330cd699d60054f"
+    },
+    {
+      "label": "complete reward-leg-before-coin mint collection",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5033,
+        5132
+      ],
+      "utf8": [
+        5033,
+        5132
+      ],
+      "sha256": "a86a4df0a2a05adbd7efab0517048250eb06cf97a0d322fc063ae0b321b93d81"
+    },
+    {
+      "label": "ordered subscription mint handoff",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5174,
+        5180
+      ],
+      "utf8": [
+        5174,
+        5180
+      ],
+      "sha256": "7afad05d6a1303b70db5b67fa3ffc75130c0866a55f241f0c588a3e5e40fe67f"
+    },
+    {
+      "label": "complete sentinel inputs",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5274,
+        5310
+      ],
+      "utf8": [
+        5274,
+        5310
+      ],
+      "sha256": "6f110e8b06c0efbdf7240afaa4f431ba70ba924083c927a469fc83192fd4d99b"
+    },
+    {
+      "label": "body q precedence",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5386,
+        5401
+      ],
+      "utf8": [
+        5386,
+        5401
+      ],
+      "sha256": "9fcc494459b8b06dbe7cdf0843698e61c34cdf548c29c6e91dbd7d3f26b59f74"
+    },
+    {
+      "label": "body X precedence",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5485,
+        5500
+      ],
+      "utf8": [
+        5485,
+        5500
+      ],
+      "sha256": "bc4ca2a451660afdfcebed3c604fda7c687e8e56e42443744a4ab181f668c941"
+    },
+    {
+      "label": "empty body precedence",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5604,
+        5616
+      ],
+      "utf8": [
+        5604,
+        5616
+      ],
+      "sha256": "a83167c7abce04f94024cd3a811cc58a866981f15fb2d65a63b03052338b93ed"
+    },
+    {
+      "label": "subscription enabled guard",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5226,
+        5237
+      ],
+      "utf8": [
+        5226,
+        5237
+      ],
+      "sha256": "ec8ddbffc900f10c29b6bd3081e4605bb477f4760e6ef0bc2c27b89421c09442"
+    },
+    {
+      "label": "complete footer inputs",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5786,
+        5846
+      ],
+      "utf8": [
+        5786,
+        5846
+      ],
+      "sha256": "cba1738287c07acd4f9d81900a38b2d860604d10a6fa73ae3108f03e9baf8cb1"
+    },
+    {
+      "label": "complete non-rendered feed inputs",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5955,
+        6026
+      ],
+      "utf8": [
+        5955,
+        6026
+      ],
+      "sha256": "7dc7840e3eddf0b50213e25bb8259741f70138ecf6951e85fbd94cdbec00afef"
+    },
+    {
+      "label": "complete feed including external JSX footer boundary",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5955,
+        6026
+      ],
+      "utf8": [
+        5955,
+        6026
+      ],
+      "sha256": "7dc7840e3eddf0b50213e25bb8259741f70138ecf6951e85fbd94cdbec00afef"
+    },
+    {
+      "label": "X feature-result capability; not authorization",
+      "source": "evidence/web/objects/9e0ee9dcf9856205.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1cbi431gd15ib.js",
+      "sourceSha256": "f8acf004f8e3683b33b8107972ab8f78a9f48d115bf1d646c7ac95f265e499d4",
+      "sourceBytes": 28087,
+      "utf16": [
+        17140,
+        17180
+      ],
+      "utf8": [
+        17140,
+        17180
+      ],
+      "sha256": "9a6290a4837c139beb92ac1bda40744ac6fb3199fd0a088f5c53fa827836d70c"
+    },
+    {
+      "label": "X feature-result capability; not authorization",
+      "source": "evidence/web/objects/4f3529a0b713e63d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/15852wl0tw5qa.js",
+      "sourceSha256": "5836b547db0c1b43989b4ad12ef11ceec4533ca64f8a0fabbdbe3420553dcb4a",
+      "sourceBytes": 23521,
+      "utf16": [
+        3037,
+        3077
+      ],
+      "utf8": [
+        3037,
+        3077
+      ],
+      "sha256": "05a89493149f29d13585f7015567cd0f765df11676cc72f7abb26207c514331f"
+    },
+    {
+      "label": "X feature-result capability; not authorization",
+      "source": "evidence/web/objects/95be9180237024f4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/23spdxsjc592m.js",
+      "sourceSha256": "07eb840a595fbafa40537c6a5138b91de53863f6e6bda77b60426595a3c9dd31",
+      "sourceBytes": 24983,
+      "utf16": [
+        18673,
+        18713
+      ],
+      "utf8": [
+        18673,
+        18713
+      ],
+      "sha256": "71b7b7268a17b13f688d87df71c78b8cd700bdd7560e7b3629dc4d210be09b6c"
+    },
+    {
+      "label": "complete task-list schema declaration; parser external",
+      "source": "evidence/web/objects/bb5372d2d2e2c8c3.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3iplc0pgntmdg.js",
+      "sourceSha256": "312dad0d2558c0f42ab0621f6315342ac9cfcfbfaef1a0524f9902b8938d1ddb",
+      "sourceBytes": 21249,
+      "utf16": [
+        11784,
+        11873
+      ],
+      "utf8": [
+        11784,
+        11873
+      ],
+      "sha256": "5eb1ab02dd2a76ff976fe38a1e2c061234e7f1c3eb56168e560d944a37da5639"
+    },
+    {
+      "label": "complete task-list schema declaration; parser external",
+      "source": "evidence/web/objects/4f3529a0b713e63d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/15852wl0tw5qa.js",
+      "sourceSha256": "5836b547db0c1b43989b4ad12ef11ceec4533ca64f8a0fabbdbe3420553dcb4a",
+      "sourceBytes": 23521,
+      "utf16": [
+        13865,
+        13954
+      ],
+      "utf8": [
+        13865,
+        13954
+      ],
+      "sha256": "5eb1ab02dd2a76ff976fe38a1e2c061234e7f1c3eb56168e560d944a37da5639"
+    },
+    {
+      "label": "complete task-list schema declaration; parser external",
+      "source": "evidence/web/objects/cc862228dd62246a.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2p-8gqrtleq48.js",
+      "sourceSha256": "dd807d592565b861e19ec5263e7e9abb26b18b9056b7f00318a4812c16f7cb27",
+      "sourceBytes": 23218,
+      "utf16": [
+        13843,
+        13932
+      ],
+      "utf8": [
+        13843,
+        13932
+      ],
+      "sha256": "5363c534e5f3b51d486bd1b3b81be01a3b4ef35a88b9d5aae82f3618414a5ff7"
+    },
+    {
+      "label": "complete used enrichment boundary; provider/viewer inputs external",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        17233,
+        18284
+      ],
+      "utf8": [
+        17233,
+        18284
+      ],
+      "sha256": "08959bf3b56f4f45fe9e96857de179f70c086b2539896bbe46a4df1e732b64ff"
+    },
+    {
+      "label": "configured client capability; no session read",
+      "source": "evidence/web/objects/fd402d4185b44ce9.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/19xl-yywkv-8p.js",
+      "sourceSha256": "1dc5d2351887b14932acbddf37ea653566df106b41c56ddc19ae70158e43f806",
+      "sourceBytes": 31128,
+      "utf16": [
+        28407,
+        28515
+      ],
+      "utf8": [
+        28408,
+        28516
+      ],
+      "sha256": "de37722add4cddba732be6be3d9df3b893ef2f52fda4fedee0b1b361168a9a6e"
+    },
+    {
+      "label": "configured client capability; no session read",
+      "source": "evidence/web/objects/27a1ee00eb5909ec.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3av743n8vozzs.js",
+      "sourceSha256": "4f15372b7572090fd27f1c612bafee0a0a3672127d5187b66e05b6ddd0d21452",
+      "sourceBytes": 34942,
+      "utf16": [
+        28373,
+        28481
+      ],
+      "utf8": [
+        28373,
+        28481
+      ],
+      "sha256": "a7ecbda844ef84dba59632ede37be441c218573b63bdd09ce617ea8174726acf"
+    }
+  ],
+  "comparisons": [
+    {
+      "label": "complete UTF16 query clamp",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        34881,
+        34937
+      ],
+      "utf8": [
+        34881,
+        34937
+      ],
+      "sha256": "2b9aac358084ed6e0336e1b585a210d2c22a6a1a7daaec10960cef1d0a3a0347",
+      "structuralSha256": "9b97c940fe6a7b473712dbdd7eeff799a0ddac7d3b9405a391a05f8779c91bbe",
+      "comparison": "Existing accepted lexical alpha comparator for simple parameter-only clamp/sort expressions"
+    },
+    {
+      "label": "complete UTF16 query clamp",
+      "source": "evidence/web/objects/4f3529a0b713e63d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/15852wl0tw5qa.js",
+      "sourceSha256": "5836b547db0c1b43989b4ad12ef11ceec4533ca64f8a0fabbdbe3420553dcb4a",
+      "sourceBytes": 23521,
+      "utf16": [
+        23256,
+        23312
+      ],
+      "utf8": [
+        23256,
+        23312
+      ],
+      "sha256": "c6c5d45d8d8e3b401be25c501fdc916112e165bbf5974c4235697d604d62c334",
+      "structuralSha256": "9b97c940fe6a7b473712dbdd7eeff799a0ddac7d3b9405a391a05f8779c91bbe",
+      "comparison": "Existing accepted lexical alpha comparator for simple parameter-only clamp/sort expressions"
+    },
+    {
+      "label": "complete follower sort gate",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        26965,
+        27011
+      ],
+      "utf8": [
+        26965,
+        27011
+      ],
+      "sha256": "a43dab76fdc4fb8c60eb2884189f7094086286ae4fc1cb2bb09ce1ba45e3f03e",
+      "structuralSha256": "7709650ade0174fb6bfd6d8d7729b4d10f51d7bd34d82029b25b23cf26b6ea1f",
+      "comparison": "Existing accepted lexical alpha comparator for simple parameter-only clamp/sort expressions"
+    },
+    {
+      "label": "public phase string",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        27023,
+        27073
+      ],
+      "utf8": [
+        27023,
+        27073
+      ],
+      "sha256": "3bbe2e203a1aee2493f1704fcd01dcdcf5e4bb4e29097ad00688a34ab5b877ab",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "38ef405ba50d4d993d1abc4e23f83716bc8be5198dd116429e146f6d0eb42746"
+    },
+    {
+      "label": "complete follower sort gate",
+      "source": "evidence/web/objects/4f3529a0b713e63d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/15852wl0tw5qa.js",
+      "sourceSha256": "5836b547db0c1b43989b4ad12ef11ceec4533ca64f8a0fabbdbe3420553dcb4a",
+      "sourceBytes": 23521,
+      "utf16": [
+        263,
+        309
+      ],
+      "utf8": [
+        263,
+        309
+      ],
+      "sha256": "e0c9fd294837881dad8ab79130256dd316ac606990f62fdd80de6dac8b68f821",
+      "structuralSha256": "7709650ade0174fb6bfd6d8d7729b4d10f51d7bd34d82029b25b23cf26b6ea1f",
+      "comparison": "Existing accepted lexical alpha comparator for simple parameter-only clamp/sort expressions"
+    },
+    {
+      "label": "public phase string",
+      "source": "evidence/web/objects/4f3529a0b713e63d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/15852wl0tw5qa.js",
+      "sourceSha256": "5836b547db0c1b43989b4ad12ef11ceec4533ca64f8a0fabbdbe3420553dcb4a",
+      "sourceBytes": 23521,
+      "utf16": [
+        321,
+        371
+      ],
+      "utf8": [
+        321,
+        371
+      ],
+      "sha256": "3bbe2e203a1aee2493f1704fcd01dcdcf5e4bb4e29097ad00688a34ab5b877ab",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "38ef405ba50d4d993d1abc4e23f83716bc8be5198dd116429e146f6d0eb42746"
+    },
+    {
+      "label": "complete withoutStatuses",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        13109,
+        13132
+      ],
+      "utf8": [
+        13109,
+        13132
+      ],
+      "sha256": "4ae0fa9062d8d284a863f62c66c7f85ef29645bcf8ec83a362e2c5cebe757db8",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "ea653d8e2810b52164676f188a2124998d8cec221fcfd96475c61bcd7af8e6c9"
+    },
+    {
+      "label": "complete withoutRewardTokens",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        13075,
+        13102
+      ],
+      "utf8": [
+        13075,
+        13102
+      ],
+      "sha256": "4d93e57977a1f45ebef1a222154160d2ca73abf6f5e60bc11cb60fef6786b007",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "b66dc52546d9f15c82c565f860250b390ba1d00a2d9c16c7f4a0e3bea927387e"
+    },
+    {
+      "label": "complete withoutTimeLeft",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        13179,
+        13204
+      ],
+      "utf8": [
+        13179,
+        13204
+      ],
+      "sha256": "6f47cbdcf87eb308144c892a1f01fdb70cd53ae4794d89899b97c45c921c0feb",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "4b165b8d08ed534da76bf82460dbf2e5262ad694800eaae3985740e4d54a25cb"
+    },
+    {
+      "label": "complete sort table",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        13323,
+        13562
+      ],
+      "utf8": [
+        13323,
+        13562
+      ],
+      "sha256": "f58b828c218cc185daaa7a1c53e64c81096a9e8e71b458fa5d6b0600417daef2",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "676e50c1146e49ed53cac2866760c20aa1df2f3938e4c9269c27842641774611"
+    },
+    {
+      "label": "reward filter numeric bounds",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        13305,
+        13320
+      ],
+      "utf8": [
+        13305,
+        13320
+      ],
+      "sha256": "32ff902f97ba22aeaeb403ae2b366922f7add1f46f657b7ccac3d9d49e975768",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "cf8bcd14361748b52a9591f3523e26f855c0922d735e03f7e2b1bc7d6bebab95"
+    },
+    {
+      "label": "complete time bucket choices",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        14500,
+        14628
+      ],
+      "utf8": [
+        14500,
+        14628
+      ],
+      "sha256": "0bd2c34ddeed4f0db7ef3d337e4bc4e0b7a89d260bcf059cae98e87917139258",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "cbd7328b5a41f8c50ff9520546b9a5f52ee1367b919c4c91bc9746a855b26c34"
+    },
+    {
+      "label": "actual public SOL mint",
+      "source": "evidence/web/objects/9e0ee9dcf9856205.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1cbi431gd15ib.js",
+      "sourceSha256": "f8acf004f8e3683b33b8107972ab8f78a9f48d115bf1d646c7ac95f265e499d4",
+      "sourceBytes": 28087,
+      "utf16": [
+        5798,
+        5843
+      ],
+      "utf8": [
+        5798,
+        5843
+      ],
+      "sha256": "1301b4be45f11d53f0ff874bcb31ae52b73682d8d86d46026766210850037a34",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "719944531faa0536e3117f91bdf13a3f39b9b147880632b6995e389e0270d135"
+    },
+    {
+      "label": "actual public SOL mint",
+      "source": "evidence/web/objects/95be9180237024f4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/23spdxsjc592m.js",
+      "sourceSha256": "07eb840a595fbafa40537c6a5138b91de53863f6e6bda77b60426595a3c9dd31",
+      "sourceBytes": 24983,
+      "utf16": [
+        394,
+        439
+      ],
+      "utf8": [
+        394,
+        439
+      ],
+      "sha256": "1301b4be45f11d53f0ff874bcb31ae52b73682d8d86d46026766210850037a34",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "719944531faa0536e3117f91bdf13a3f39b9b147880632b6995e389e0270d135"
+    },
+    {
+      "label": "complete filter→query builder",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        14766,
+        16104
+      ],
+      "utf8": [
+        14766,
+        16104
+      ],
+      "sha256": "fcc18155401346dab42da682a36ebc2a4527ccf8689ed422919996203b99d2d9",
+      "roles": {
+        "o": "BOUNTY_SORTS",
+        "s": "REWARD_MINTS",
+        "a": "REWARD_RANGE"
+      },
+      "localRoles": {
+        "BOUNTY_SORTS": "BOUNTY_SORTS",
+        "REWARD_MINTS": "REWARD_MINTS",
+        "REWARD_RANGE": "REWARD_RANGE",
+        "BOUNTY_PUBLIC_PHASES": "BOUNTY_PUBLIC_PHASES"
+      },
+      "targets": {
+        "n.d": "'OPEN'",
+        "r.H": "BOUNTY_PUBLIC_PHASES"
+      },
+      "structuralSha256": "d819780ea9c9f4d0d6be14340d3c8214062dddd815e72f5ad9eac05b3af54467"
+    },
+    {
+      "label": "complete infinite query key",
+      "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1qqfn5g-bst3e.js",
+      "sourceSha256": "ee1eb91e3cbfb10fa33462a1a2f500fed9902a88454dc715f059d56f405475b3",
+      "sourceBytes": 35014,
+      "utf16": [
+        7227,
+        7687
+      ],
+      "utf8": [
+        7227,
+        7687
+      ],
+      "sha256": "276239e08a01b521611c9c0728f880143f314578390303675dfe25a7d061b13b",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "1644be42fabda874d9217cc57c908e730fba8e6e15647ac4451893d441f1d9e1"
+    },
+    {
+      "label": "complete cursor callback",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23239,
+        23281
+      ],
+      "utf8": [
+        23239,
+        23281
+      ],
+      "sha256": "736450f16d925009d693451a00b5b71f004d8337417c01c635835ff2cd4bb356",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "ab8b26d874e9de1e2ef34c3598d968eae5fe3c8de854ca9b79d6c0ab4b5a17c8"
+    },
+    {
+      "label": "complete lazy GET→JSON→schema callback",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        24396,
+        25100
+      ],
+      "utf8": [
+        24396,
+        25100
+      ],
+      "sha256": "9291d3b4e8a594cc2a0a9bb09982f840027226bedf36140a47e1d497e57ebe80",
+      "roles": {
+        "G": "G",
+        "p": "p",
+        "w": "w",
+        "g": "g",
+        "b": "b",
+        "h": "h",
+        "v": "v",
+        "y": "y",
+        "x": "x",
+        "S": "S",
+        "N": "N",
+        "E": "E",
+        "B": "B",
+        "I": "I",
+        "F": "F",
+        "A": "A",
+        "$": "$",
+        "_": "_",
+        "L": "L",
+        "T": "T",
+        "P": "P",
+        "D": "D",
+        "U": "U"
+      },
+      "localRoles": {
+        "G": "G",
+        "p": "p",
+        "w": "w",
+        "g": "g",
+        "b": "b",
+        "h": "h",
+        "v": "v",
+        "y": "y",
+        "x": "x",
+        "S": "S",
+        "N": "N",
+        "E": "E",
+        "B": "B",
+        "I": "I",
+        "F": "F",
+        "A": "A",
+        "$": "$",
+        "_": "_",
+        "L": "L",
+        "T": "T",
+        "P": "P",
+        "D": "D",
+        "U": "U",
+        "responseSchema": "responseSchema"
+      },
+      "targets": {
+        "o.L": "responseSchema"
+      },
+      "structuralSha256": "efc6d26707ecfe1fe44773eabda95b4834c0ee768e137fa8f3a979b962cf3c2a"
+    },
+    {
+      "label": "query default/gate P",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23618,
+        23633
+      ],
+      "utf8": [
+        23618,
+        23633
+      ],
+      "sha256": "f291a16dcb5d4031a9911f2f123c28d5a9d0b1c33ca2167d7dd7daa672bdfc3b",
+      "roles": {
+        "O": "O",
+        "M": "M",
+        "C": "C",
+        "j": "j",
+        "_": "_",
+        "L": "L",
+        "T": "T"
+      },
+      "localRoles": {
+        "O": "O",
+        "M": "M",
+        "C": "C",
+        "j": "j",
+        "_": "_",
+        "L": "L",
+        "T": "T"
+      },
+      "targets": {},
+      "structuralSha256": "6b513c9cddc99f9de842310e2353282e1001da8be30d61bdabe7935430d0ccd0"
+    },
+    {
+      "label": "query default/gate k",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23636,
+        23649
+      ],
+      "utf8": [
+        23636,
+        23649
+      ],
+      "sha256": "1e883c803f438637a152b81246e6ad4b42d1bc41e42498aa396446b9aea1fcbb",
+      "roles": {
+        "O": "O",
+        "M": "M",
+        "C": "C",
+        "j": "j",
+        "_": "_",
+        "L": "L",
+        "T": "T"
+      },
+      "localRoles": {
+        "O": "O",
+        "M": "M",
+        "C": "C",
+        "j": "j",
+        "_": "_",
+        "L": "L",
+        "T": "T"
+      },
+      "targets": {},
+      "structuralSha256": "3c7f4bc948bb19c033c36ad136df5e8b9e2055e3d0a1cb1d13b48b8f3d24dac4"
+    },
+    {
+      "label": "query default/gate B",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23712,
+        23722
+      ],
+      "utf8": [
+        23712,
+        23722
+      ],
+      "sha256": "02ec8d2bd3b84b56a8aa0bac7e779bfd3e27eff5895cc2a1d3aa07c219805a9b",
+      "roles": {
+        "O": "O",
+        "M": "M",
+        "C": "C",
+        "j": "j",
+        "_": "_",
+        "L": "L",
+        "T": "T"
+      },
+      "localRoles": {
+        "O": "O",
+        "M": "M",
+        "C": "C",
+        "j": "j",
+        "_": "_",
+        "L": "L",
+        "T": "T"
+      },
+      "targets": {},
+      "structuralSha256": "cd1e4eeb2adaf6fd7294cb50efde902af9d1d93aad68035e9d81afc6449637f4"
+    },
+    {
+      "label": "query default/gate $",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23738,
+        23823
+      ],
+      "utf8": [
+        23738,
+        23823
+      ],
+      "sha256": "339c3c3355d1e87f3138471509d6b3e25f58dc0b9b71b7bd8dba815ec5db99e0",
+      "roles": {
+        "O": "O",
+        "M": "M",
+        "C": "C",
+        "j": "j",
+        "_": "_",
+        "L": "L",
+        "T": "T"
+      },
+      "localRoles": {
+        "O": "O",
+        "M": "M",
+        "C": "C",
+        "j": "j",
+        "_": "_",
+        "L": "L",
+        "T": "T"
+      },
+      "targets": {},
+      "structuralSha256": "8995318d4537593590bd321f319b28a5a5c6c4f1fc781086c0990a0c30f2c299"
+    },
+    {
+      "label": "feature-dependent sort input",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23697,
+        23709
+      ],
+      "utf8": [
+        23697,
+        23709
+      ],
+      "sha256": "bd61f0186d168bbe3cd3649d194fbf6fc44f2bad3b4f4513b976793540ef0fd8",
+      "roles": {
+        "R": "R",
+        "C": "C"
+      },
+      "localRoles": {
+        "R": "R",
+        "C": "C",
+        "allowBountySort": "allowBountySort"
+      },
+      "targets": {
+        "s.G": "allowBountySort"
+      },
+      "structuralSha256": "e4bb06078d990cc33a27d95360b674b427610de60bdea2453ab25e0b56544587"
+    },
+    {
+      "label": "normalized query input",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23725,
+        23735
+      ],
+      "utf8": [
+        23725,
+        23735
+      ],
+      "sha256": "772382f85f8c8265643232e00637446124daef467e26e15088b4ccd554d9ac32",
+      "roles": {
+        "m": "m"
+      },
+      "localRoles": {
+        "m": "m",
+        "clampBountyQuery": "clampBountyQuery"
+      },
+      "targets": {
+        "l.f": "clampBountyQuery"
+      },
+      "structuralSha256": "0603ac98b2b7e7514cfc13d987b7d1db501da85f7f8b6b988ad41923d7c43436"
+    },
+    {
+      "label": "complete query key inputs",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        23861,
+        24142
+      ],
+      "utf8": [
+        23861,
+        24142
+      ],
+      "sha256": "fc4ed122938836fe0e5eed48d79b3d6627f09571380f39724d781a644aec7fb3",
+      "roles": {
+        "G": "G",
+        "p": "p",
+        "w": "w",
+        "g": "g",
+        "b": "b",
+        "h": "h",
+        "v": "v",
+        "y": "y",
+        "x": "x",
+        "S": "S",
+        "N": "N",
+        "E": "E",
+        "B": "B",
+        "I": "I",
+        "F": "F",
+        "A": "A",
+        "$": "$",
+        "_": "_",
+        "L": "L",
+        "T": "T",
+        "P": "P",
+        "D": "D",
+        "U": "U"
+      },
+      "localRoles": {
+        "G": "G",
+        "p": "p",
+        "w": "w",
+        "g": "g",
+        "b": "b",
+        "h": "h",
+        "v": "v",
+        "y": "y",
+        "x": "x",
+        "S": "S",
+        "N": "N",
+        "E": "E",
+        "B": "B",
+        "I": "I",
+        "F": "F",
+        "A": "A",
+        "$": "$",
+        "_": "_",
+        "L": "L",
+        "T": "T",
+        "P": "P",
+        "D": "D",
+        "U": "U"
+      },
+      "targets": {},
+      "structuralSha256": "8223b73b4c2ccf4b026fa69f834174b48da70c5520fb1e4191e7c57ab6d6af26"
+    },
+    {
+      "label": "complete phase classifier",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        16568,
+        16746
+      ],
+      "utf8": [
+        16568,
+        16746
+      ],
+      "sha256": "74df5b2a21d450cf2329a550f83f40273d14684f918155472e0fc437c61b861c",
+      "roles": {},
+      "localRoles": {
+        "now": "now"
+      },
+      "targets": {
+        "Date.now": "now"
+      },
+      "structuralSha256": "383782c14f2087a63c15d42985bdc38556439a0f784cd80ebe4946e9142fc161"
+    },
+    {
+      "label": "complete local time-left predicate",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        11529,
+        11795
+      ],
+      "utf8": [
+        11529,
+        11795
+      ],
+      "sha256": "a146ce3ff9bb44f5df699a4ce5062351d271421d8733ac33fa64dae03b8cdb64",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "87acc8e8a5fc3899a67b86c6eb8504f8c0fbd34891331b9e3e833e6d0856405a"
+    },
+    {
+      "label": "complete local facets",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        11807,
+        12137
+      ],
+      "utf8": [
+        11807,
+        12137
+      ],
+      "sha256": "24323a1b11bbcea2dd750156ef706b0338f0cdf8f2619f81dc8108c125169ee5",
+      "roles": {
+        "r": "timeLeftMatches"
+      },
+      "localRoles": {
+        "now": "now",
+        "classifyPhase": "classifyPhase",
+        "TIME_LEFT_OPTIONS": "TIME_LEFT_OPTIONS",
+        "REWARD_MINTS": "REWARD_MINTS",
+        "REWARD_RANGE": "REWARD_RANGE",
+        "timeLeftMatches": "timeLeftMatches"
+      },
+      "targets": {
+        "Date.now": "now",
+        "t.v": "classifyPhase",
+        "t.w": "TIME_LEFT_OPTIONS",
+        "t.h": "REWARD_MINTS",
+        "t.V": "REWARD_RANGE"
+      },
+      "structuralSha256": "8b792845c93b1aa55c8cae550764dfff1362b38659577754de9795e36a6b5800"
+    },
+    {
+      "label": "complete local countTimeLeft",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        12144,
+        12289
+      ],
+      "utf8": [
+        12144,
+        12289
+      ],
+      "sha256": "0984ca0fc7fa3b4070371fbbd10d1c6b5832e6078fd51f1fdaedd1dc4e386e25",
+      "roles": {
+        "r": "timeLeftMatches"
+      },
+      "localRoles": {
+        "now": "now",
+        "classifyPhase": "classifyPhase",
+        "TIME_LEFT_OPTIONS": "TIME_LEFT_OPTIONS",
+        "REWARD_MINTS": "REWARD_MINTS",
+        "REWARD_RANGE": "REWARD_RANGE",
+        "timeLeftMatches": "timeLeftMatches"
+      },
+      "targets": {
+        "Date.now": "now",
+        "t.v": "classifyPhase",
+        "t.w": "TIME_LEFT_OPTIONS",
+        "t.h": "REWARD_MINTS",
+        "t.V": "REWARD_RANGE"
+      },
+      "structuralSha256": "d26945e8ab0045f74413cafe59edee7305426a2473f0d7e47d9ac5bb6733f97e"
+    },
+    {
+      "label": "complete local filterTasks",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        12296,
+        12950
+      ],
+      "utf8": [
+        12296,
+        12950
+      ],
+      "sha256": "f391aa613ac96bef439b85d1983335dd0b9e4061eca3589f1ed70091422b0418",
+      "roles": {
+        "r": "timeLeftMatches"
+      },
+      "localRoles": {
+        "now": "now",
+        "classifyPhase": "classifyPhase",
+        "TIME_LEFT_OPTIONS": "TIME_LEFT_OPTIONS",
+        "REWARD_MINTS": "REWARD_MINTS",
+        "REWARD_RANGE": "REWARD_RANGE",
+        "timeLeftMatches": "timeLeftMatches"
+      },
+      "targets": {
+        "Date.now": "now",
+        "t.v": "classifyPhase",
+        "t.w": "TIME_LEFT_OPTIONS",
+        "t.h": "REWARD_MINTS",
+        "t.V": "REWARD_RANGE"
+      },
+      "structuralSha256": "e8348aee05baa5f9fee815c9895a5169bab002630a8cce5127c8adbbabdbdbec"
+    },
+    {
+      "label": "complete feed projection",
+      "source": "evidence/web/objects/41216a65a59eaf37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ao09k-ezbomk.js",
+      "sourceSha256": "091b56eb7b313f5c801b14f5301cc0052f785aa02597b12ada771364c8558e91",
+      "sourceBytes": 49355,
+      "utf16": [
+        10076,
+        10357
+      ],
+      "utf8": [
+        10076,
+        10357
+      ],
+      "sha256": "965f69b10a34f7875933e9d382c9fc3b395de75c9feb9feafa311adf61166622",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "9ab43a30e1f94168f0f5d794477b551e454ed3d97049ce618f96792bbccb4fa2"
+    },
+    {
+      "label": "complete page flatten callback",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        3182,
+        3211
+      ],
+      "utf8": [
+        3182,
+        3211
+      ],
+      "sha256": "befd032574ba94f0c729028642a93479e0545aeab904852996cf0e3b3137d179",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "4613dc0463f2e447c8787c0ad4169ebd8785d4c27431cc0a931f4fa534e98e15"
+    },
+    {
+      "label": "complete listing filter-builder inputs",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        3444,
+        3474
+      ],
+      "utf8": [
+        3444,
+        3474
+      ],
+      "sha256": "00c9861bbbca2aa16195d35bb0599f9e141f572ce30171a9676a558f1e4ee2bd",
+      "roles": {
+        "K": "sortKey",
+        "z": "filters",
+        "F": "nearMe"
+      },
+      "localRoles": {
+        "sortKey": "sortKey",
+        "filters": "filters",
+        "nearMe": "nearMe",
+        "withoutStatuses": "withoutStatuses"
+      },
+      "targets": {
+        "u.L": "withoutStatuses"
+      },
+      "structuralSha256": "ec0b7364c1095a16a239b6b886127541b19f89d61619971fa68c954358333cbf"
+    },
+    {
+      "label": "complete listing query handoff",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        3657,
+        3693
+      ],
+      "utf8": [
+        3657,
+        3693
+      ],
+      "sha256": "314b0e611add3d07b714291aa77b29240747521cbfab078af9f53febd1d959ce",
+      "roles": {
+        "H": "listing"
+      },
+      "localRoles": {
+        "listing": "listing"
+      },
+      "targets": {},
+      "structuralSha256": "9a957264db9a3bcb234e7e0be300fc48061a82bdb322f1c7cabfb3f87c4c7de7"
+    },
+    {
+      "label": "complete phaseFacets filter-builder inputs",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        3560,
+        3599
+      ],
+      "utf8": [
+        3560,
+        3599
+      ],
+      "sha256": "affe318aa6eec407a32da142e4330db68925942f51d96ae739650740c0500264",
+      "roles": {
+        "K": "sortKey",
+        "z": "filters",
+        "F": "nearMe"
+      },
+      "localRoles": {
+        "sortKey": "sortKey",
+        "filters": "filters",
+        "nearMe": "nearMe",
+        "withoutStatuses": "withoutStatuses"
+      },
+      "targets": {
+        "u.L": "withoutStatuses"
+      },
+      "structuralSha256": "c38611eb9a682c24c4cb2bd665722fa34ba3abfdb630a0e3fdd1256584d6a8b1"
+    },
+    {
+      "label": "complete phaseFacets query handoff",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        3825,
+        3860
+      ],
+      "utf8": [
+        3825,
+        3860
+      ],
+      "sha256": "a3816742d8193172ebeb8cecab3d6f3a7ce5af00c807730af23d27abcbc3b057",
+      "roles": {
+        "V": "phaseFacets"
+      },
+      "localRoles": {
+        "phaseFacets": "phaseFacets"
+      },
+      "targets": {},
+      "structuralSha256": "308cd456dc8a8a0866e9b8add758525f6fe14f11cc9f9af994bb97d4ba37d0c5"
+    },
+    {
+      "label": "served task flatten/nullish default",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        3933,
+        3956
+      ],
+      "utf8": [
+        3933,
+        3956
+      ],
+      "sha256": "910ab69b98863a6819ce35c21e49965c776ebb3de88cfd6dc1aa4a6aa02cee81",
+      "roles": {
+        "Z": "listingResult.data",
+        "v": "bountyPageItems"
+      },
+      "localRoles": {
+        "listingResult": "listingResult",
+        "bountyPageItems": "bountyPageItems"
+      },
+      "targets": {},
+      "structuralSha256": "6e27a22397405a3580178b62a43619a0268a7d30bac799f430fc6b82131a59f0"
+    },
+    {
+      "label": "first proxy page phase facets",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4051,
+        4077
+      ],
+      "utf8": [
+        4051,
+        4077
+      ],
+      "sha256": "50e112f60bf0c4be998b52fc1a32a74133a33847799712660557ab957b3d735f",
+      "roles": {
+        "Y": "facetsResult.data"
+      },
+      "localRoles": {
+        "facetsResult": "facetsResult"
+      },
+      "targets": {},
+      "structuralSha256": "250714122c8339bea02872818c7b7b7e4d6e53b19e194fe4bbbc29fb10c35939"
+    },
+    {
+      "label": "complete noStatuses facet filter",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4121,
+        4142
+      ],
+      "utf8": [
+        4121,
+        4142
+      ],
+      "sha256": "43a52badf6243649c9913bfa5a9ced31db7300ccb8b51a51dbd85bf4ff8e12de",
+      "roles": {
+        "$": "tasks",
+        "z": "filters"
+      },
+      "localRoles": {
+        "operations": "operations",
+        "tasks": "tasks",
+        "filters": "filters",
+        "withoutStatuses": "withoutStatuses",
+        "withoutRewardTokens": "withoutRewardTokens",
+        "withoutTimeLeft": "withoutTimeLeft"
+      },
+      "targets": {
+        "u.x": "operations.filterTasks",
+        "u.L": "withoutStatuses",
+        "u.h": "withoutRewardTokens",
+        "u.Z": "withoutTimeLeft",
+        "u.k": "operations.facets",
+        "u.t": "operations.countTimeLeft"
+      },
+      "structuralSha256": "a655486727069410ac5442c5e4db13f213dd0473dab85046edba00001ed612ed"
+    },
+    {
+      "label": "complete noRewardTokens facet filter",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4145,
+        4166
+      ],
+      "utf8": [
+        4145,
+        4166
+      ],
+      "sha256": "cb1b9fad347b6c8f00015ba68a92546213404bc8ab4fed785f39058fc6bf3988",
+      "roles": {
+        "$": "tasks",
+        "z": "filters"
+      },
+      "localRoles": {
+        "operations": "operations",
+        "tasks": "tasks",
+        "filters": "filters",
+        "withoutStatuses": "withoutStatuses",
+        "withoutRewardTokens": "withoutRewardTokens",
+        "withoutTimeLeft": "withoutTimeLeft"
+      },
+      "targets": {
+        "u.x": "operations.filterTasks",
+        "u.L": "withoutStatuses",
+        "u.h": "withoutRewardTokens",
+        "u.Z": "withoutTimeLeft",
+        "u.k": "operations.facets",
+        "u.t": "operations.countTimeLeft"
+      },
+      "structuralSha256": "923170bc6f699b32538a800d3b8fbfe585bb0424461a780bc6b9c587b9ed2d20"
+    },
+    {
+      "label": "server phase/fallback precedence",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4169,
+        4189
+      ],
+      "utf8": [
+        4169,
+        4189
+      ],
+      "sha256": "c48d239e22fb2addac94115a39eece574b0237471a0fc91e5374f94c54344d2e",
+      "roles": {
+        "ee": "serverPhases",
+        "e": "noStatuses"
+      },
+      "localRoles": {
+        "serverPhases": "serverPhases",
+        "noStatuses": "noStatuses",
+        "operations": "operations"
+      },
+      "targets": {
+        "u.x": "operations.filterTasks",
+        "u.L": "withoutStatuses",
+        "u.h": "withoutRewardTokens",
+        "u.Z": "withoutTimeLeft",
+        "u.k": "operations.facets",
+        "u.t": "operations.countTimeLeft"
+      },
+      "structuralSha256": "bae7e4cfa5f8aa80946733389b201ec5367d558c2b67af051f418622f36d2b1c"
+    },
+    {
+      "label": "local reward facet input",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4196,
+        4206
+      ],
+      "utf8": [
+        4196,
+        4206
+      ],
+      "sha256": "3b83bd81ac5f224ba399a5400931b19b4b26d8cd4f225686bb85a0e0659a65a6",
+      "roles": {
+        "t": "noRewardTokens"
+      },
+      "localRoles": {
+        "operations": "operations",
+        "noRewardTokens": "noRewardTokens"
+      },
+      "targets": {
+        "u.x": "operations.filterTasks",
+        "u.L": "withoutStatuses",
+        "u.h": "withoutRewardTokens",
+        "u.Z": "withoutTimeLeft",
+        "u.k": "operations.facets",
+        "u.t": "operations.countTimeLeft"
+      },
+      "structuralSha256": "04cbbf370314acda4154863dea2888a13dc1154312598fe0c8ac13ee600fc1fd"
+    },
+    {
+      "label": "complete facet handoff",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4332,
+        4376
+      ],
+      "utf8": [
+        4332,
+        4376
+      ],
+      "sha256": "b753d5e670349b8b15357f78501d588fc361bbb0216d78976649769c9bfc4336",
+      "roles": {
+        "N": "phase",
+        "L": "EMPTY_STATUSES",
+        "M": "reward"
+      },
+      "localRoles": {
+        "phase": "phase",
+        "EMPTY_STATUSES": "EMPTY_STATUSES",
+        "reward": "reward"
+      },
+      "targets": {},
+      "structuralSha256": "74a3a63ad1c5c943b147b888c53a0bda0b6930c17d199e6d05caf7ef5ce144a0"
+    },
+    {
+      "label": "shared empty status array",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        2356,
+        2358
+      ],
+      "utf8": [
+        2356,
+        2358
+      ],
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "25a6a8356e97281f10b8c1ccbf6cf28b051a0191aec18d84538da964220d2c2d"
+    },
+    {
+      "label": "complete time-left count handoff",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4463,
+        4493
+      ],
+      "utf8": [
+        4463,
+        4493
+      ],
+      "sha256": "9d1918b168dd91363dcb6eada2d8ae1065776bd6f6e43448f746159f9ed01dad",
+      "roles": {
+        "$": "tasks",
+        "z": "filters"
+      },
+      "localRoles": {
+        "operations": "operations",
+        "tasks": "tasks",
+        "filters": "filters",
+        "withoutStatuses": "withoutStatuses",
+        "withoutRewardTokens": "withoutRewardTokens",
+        "withoutTimeLeft": "withoutTimeLeft"
+      },
+      "targets": {
+        "u.x": "operations.filterTasks",
+        "u.L": "withoutStatuses",
+        "u.h": "withoutRewardTokens",
+        "u.Z": "withoutTimeLeft",
+        "u.k": "operations.facets",
+        "u.t": "operations.countTimeLeft"
+      },
+      "structuralSha256": "ea07bc201f55a2b81909cf597f03f95365646d855745ae4d6c35c7a9ba537dd8"
+    },
+    {
+      "label": "actual served tasks→enrichment capability",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4603,
+        4613
+      ],
+      "utf8": [
+        4603,
+        4613
+      ],
+      "sha256": "6cca69ada30f9139a68b5e4436d67165eba006dc2a7bbe7b65e64a27877317a9",
+      "roles": {
+        "$": "tasks"
+      },
+      "localRoles": {
+        "tasks": "tasks",
+        "enrichTasks": "enrichTasks"
+      },
+      "targets": {
+        "a.E": "enrichTasks"
+      },
+      "structuralSha256": "bc1d9a3fd2c81c1f26afdbbf07838bd27501fd0666d4b745f5be1fb0a551bee5"
+    },
+    {
+      "label": "complete task-order→resolved bounty/feed mapper",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        4779,
+        4886
+      ],
+      "utf8": [
+        4779,
+        4886
+      ],
+      "sha256": "6573a87acfc2d62b866d7da5420557674701808c218ff147a5ba15108f936d2c",
+      "roles": {
+        "ei": "byId",
+        "es": "liveTokens"
+      },
+      "localRoles": {
+        "byId": "byId",
+        "liveTokens": "liveTokens",
+        "bountyFeedItem": "bountyFeedItem"
+      },
+      "targets": {
+        "l.N": "bountyFeedItem"
+      },
+      "structuralSha256": "658d6ba340b3c0be72b8554d490c1ce69715f79c563489e79030719ea83d4bdd"
+    },
+    {
+      "label": "subscription mint set creation",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5022,
+        5029
+      ],
+      "utf8": [
+        5022,
+        5029
+      ],
+      "sha256": "b9b63292fcd66ffd22fdd6e3ce66da9d23fda12c867ab6ea6330cd699d60054f",
+      "roles": {},
+      "localRoles": {},
+      "targets": {},
+      "structuralSha256": "6bd8bd9759fa91852e521c96520b20b5b8a5367c3d3f94849e04df7d2418186f"
+    },
+    {
+      "label": "complete reward-leg-before-coin mint collection",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5033,
+        5132
+      ],
+      "utf8": [
+        5033,
+        5132
+      ],
+      "sha256": "a86a4df0a2a05adbd7efab0517048250eb06cf97a0d322fc063ae0b321b93d81",
+      "roles": {
+        "e": "e",
+        "C": "mintSet"
+      },
+      "localRoles": {
+        "e": "e",
+        "mintSet": "mintSet"
+      },
+      "targets": {},
+      "structuralSha256": "d9c3a4d957033c4410163a98ed0bec03f99d5524a4b8ad61f1ae26092cb03742"
+    },
+    {
+      "label": "ordered subscription mint handoff",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5174,
+        5180
+      ],
+      "utf8": [
+        5174,
+        5180
+      ],
+      "sha256": "7afad05d6a1303b70db5b67fa3ffc75130c0866a55f241f0c588a3e5e40fe67f",
+      "roles": {
+        "C": "mintSet"
+      },
+      "localRoles": {
+        "mintSet": "mintSet"
+      },
+      "targets": {},
+      "structuralSha256": "8b6294e5bda732d7d8c3b09a63eb83ba97d21e9a4bea3fd410281f7a8559ed13"
+    },
+    {
+      "label": "complete sentinel inputs",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5274,
+        5310
+      ],
+      "utf8": [
+        5274,
+        5310
+      ],
+      "sha256": "6f110e8b06c0efbdf7240afaa4f431ba70ba924083c927a469fc83192fd4d99b",
+      "roles": {
+        "Q": "listingResult.hasNextPage",
+        "D": "listingResult.isFetchingNextPage",
+        "W": "listingResult.fetchNextPage"
+      },
+      "localRoles": {
+        "listingResult": "listingResult"
+      },
+      "targets": {},
+      "structuralSha256": "e8851e9011ef40b01880ab230bfca6b76a9300f28a546d6c9f2fa2ac5b687eb0"
+    },
+    {
+      "label": "body q precedence",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5386,
+        5401
+      ],
+      "utf8": [
+        5386,
+        5401
+      ],
+      "sha256": "9fcc494459b8b06dbe7cdf0843698e61c34cdf548c29c6e91dbd7d3f26b59f74",
+      "roles": {
+        "q": "listingResult.isLoading",
+        "$": "tasks"
+      },
+      "localRoles": {
+        "listingResult": "listingResult",
+        "tasks": "tasks"
+      },
+      "targets": {},
+      "structuralSha256": "b11843ac5abcf5bbae591e733c2f5f0344120e8d740222becc45d2f8ca7c248a"
+    },
+    {
+      "label": "body X precedence",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5485,
+        5500
+      ],
+      "utf8": [
+        5485,
+        5500
+      ],
+      "sha256": "bc4ca2a451660afdfcebed3c604fda7c687e8e56e42443744a4ab181f668c941",
+      "roles": {
+        "X": "listingResult.isError",
+        "$": "tasks"
+      },
+      "localRoles": {
+        "listingResult": "listingResult",
+        "tasks": "tasks"
+      },
+      "targets": {},
+      "structuralSha256": "6c7a77961e54c3de956a6d7a8e29927b782acc95c088ed099a78dc40b8eb4919"
+    },
+    {
+      "label": "empty body precedence",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5604,
+        5616
+      ],
+      "utf8": [
+        5604,
+        5616
+      ],
+      "sha256": "a83167c7abce04f94024cd3a811cc58a866981f15fb2d65a63b03052338b93ed",
+      "roles": {
+        "$": "tasks"
+      },
+      "localRoles": {
+        "tasks": "tasks"
+      },
+      "targets": {},
+      "structuralSha256": "a6724bdf185212757f6e28e3f716b64b0c96ddac6b7e87bc782c82215cb98d54"
+    },
+    {
+      "label": "subscription enabled guard",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5226,
+        5237
+      ],
+      "utf8": [
+        5226,
+        5237
+      ],
+      "sha256": "ec8ddbffc900f10c29b6bd3081e4605bb477f4760e6ef0bc2c27b89421c09442",
+      "roles": {
+        "ea": "visibleMints"
+      },
+      "localRoles": {
+        "visibleMints": "visibleMints"
+      },
+      "targets": {},
+      "structuralSha256": "939dcc0a50ceafa3f86342fc60ca71ff36622f46d414529ee599cd754ccf2108"
+    },
+    {
+      "label": "complete footer inputs",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5786,
+        5846
+      ],
+      "utf8": [
+        5786,
+        5846
+      ],
+      "sha256": "cba1738287c07acd4f9d81900a38b2d860604d10a6fa73ae3108f03e9baf8cb1",
+      "roles": {
+        "Q": "listingResult.hasNextPage",
+        "D": "listingResult.isFetchingNextPage",
+        "W": "listingResult.fetchNextPage",
+        "eo": "sentinelRef",
+        "$": "tasks"
+      },
+      "localRoles": {
+        "listingResult": "listingResult",
+        "sentinelRef": "sentinelRef",
+        "tasks": "tasks"
+      },
+      "targets": {},
+      "structuralSha256": "55c73a50c76a5b2db115c75281dc26099b9abe769cc3d7649d7f66b96b606536"
+    },
+    {
+      "label": "complete non-rendered feed inputs",
+      "source": "evidence/web/objects/1a7569c5c8d92a3d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3v64vaswz40vp.js",
+      "sourceSha256": "fa5c791bd76242a0197220e2e9c006cda22eb3747f27785b92cb413ba4ffb474",
+      "sourceBytes": 8110,
+      "utf16": [
+        5955,
+        6026
+      ],
+      "utf8": [
+        5955,
+        6026
+      ],
+      "sha256": "7dc7840e3eddf0b50213e25bb8259741f70138ecf6951e85fbd94cdbec00afef",
+      "roles": {
+        "el": "items",
+        "P": "viewMode"
+      },
+      "localRoles": {
+        "items": "items",
+        "viewMode": "viewMode"
+      },
+      "targets": {},
+      "structuralSha256": "44ff3b1e41efaff640b0f872e74eff26931261f563b5ae21084722372074ef9c"
+    }
+  ],
+  "providerContracts": {
+    "client": "944410.useLivestreamApiClient result; get(relativePath,{searchParams}).json(), origin/transport/auth/error/retry behavior external",
+    "responseSchema": "711902.L actual parse capability; defaults, attachment transformation, stripping/validation are not reimplemented",
+    "xFeatures": "314197.f supplied feature-result value; controls follower sort/count fields, not backend authorization",
+    "enrichTasks": "260095.E actual result {bounties,liveTokens}; source viewer/user/token providers and task adaptation remain external",
+    "now": "Raw Date.now-shaped capability; builder/filter/phase/time-count sampling remains independent",
+    "queryResult": "Actual170258 infinite-query snapshot; scheduling/cache/error/refetch/cancellation belongs to host",
+    "parent": "Actual851373 props from conditional768385 main-app bounties branch; parent URL/sync/extra proxy query remains outside recomputation",
+    "handoff": "Returns actual facet/time-count, token subscription, sentinel/footer/feed inputs; no React effect, observer, subscription or rendering implementation"
+  },
+  "dependencies": {
+    "scripts/original-contracts/source.mjs": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+    "scripts/verify-search-session.mjs": "86ffb72b39391c1ba1fab00a73fa256d8d1eb81a3bff8404c5298e27e7f80e4b",
+    "scripts/settings-client-contract.mjs": "0996e7727d384340c6bd5f93c2fe3fcd846fb1daf1b7441334efd5c8d7b48c2c"
+  },
+  "limits": {
+    "capturedExecution": false,
+    "network": false,
+    "directBountiesRouteCapture": false,
+    "activeRuntimeWinner": false,
+    "parserOrEnrichmentImplementation": false,
+    "providerAuthOrQueryLifecycle": false,
+    "mountedUI": false,
+    "nativeCompatibility": false,
+    "progressCredit": false,
+    "comparison": "Exact local binding names/syntax and scope-aware recorded free/import substitutions, Boolean spelling normalization and declaration-wrapper→arrow comparison; not universal React equivalence"
+  }
+}
