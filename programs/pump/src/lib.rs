@@ -1,4 +1,4 @@
-pub mod buy_v2;
+#[path="admin_set_idl_authority.rs"]pub mod idl_authority;#[path="util/account_name.rs"] pub mod account_name;pub mod buy_v2;
 pub use buy_v2::*;
 pub mod create_v2;
 pub use create_v2::*;
@@ -18,7 +18,7 @@ pub use creator_migration::*;
 pub use set_creator::*;pub use set_metaplex_creator::*;
 #[path="buy.rs"]pub mod legacy_buy;
 pub use legacy_buy::*;
-#[path="extend_account.rs"]pub mod extend;
+#[path="extend_account.rs"]pub mod extend;#[path = "fee_recipient.rs"] pub(crate) mod fee_recipient;pub mod mayhem_virtual_params;
 pub use extend::*;
 pub mod migrate;
 pub use migrate::*;
@@ -45,7 +45,7 @@ pub mod volume_sync;
 pub use volume_sync::*;
 #[path = "trade_v3.rs"] pub mod trade;
 pub use trade::*;
-#[path="util/constant_product.rs"] pub mod constant_product;
+#[path="util/constant_product.rs"] pub mod constant_product; #[path="util/fee.rs"] pub mod fee_math;
 #[path="util/transfer_fee.rs"] pub mod transfer_fee_recovered;
 pub mod global_init;
 pub use global_init::*;
@@ -55,12 +55,12 @@ pub mod create;
 pub use create::*;
 pub mod set_params;
 pub use set_params::*;
-#[path="admin_set_idl_authority.rs"]pub mod idl_authority;
+
 pub use idl_authority::*;
-pub mod mayhem_virtual_params;
+
 pub use mayhem_virtual_params::*;
 pub mod trade_types;
-#[path="util/account_name.rs"] pub mod account_name;
+
 use anchor_lang::prelude::*;
 
 
@@ -350,7 +350,7 @@ pub mod pump_recovered {
     pub fn create_v2<'info>(ctx:Context<'_,'_,'_,'info,CreateV2<'info>>,name:String,symbol:String,uri:String,creator:Pubkey,is_mayhem_mode:bool,is_cashback_enabled:OptionBool,creator_fee_bps:CreationOptionU64,is_holder_reward:OptionBool)->Result<()>{create_v2::execute(ctx,name,symbol,uri,creator,is_mayhem_mode,is_cashback_enabled,creator_fee_bps,is_holder_reward)}
     pub fn buy_v2<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,amount:u64,max_sol_cost:u64,partial_fill:OptionBool)->Result<()>{buy_v2::execute(ctx,amount,max_sol_cost,partial_fill.0,false)}
     pub fn buy_exact_quote_in_v2<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,spendable_quote_in:u64,min_tokens_out:u64,partial_fill:OptionBool)->Result<()>{buy_v2::execute(ctx,spendable_quote_in,min_tokens_out,partial_fill.0,true)}
-    pub fn sell_v2(ctx:Context<SellV2>,amount:u64,min_sol_output:u64)->Result<()>{sell_v2::execute(ctx,amount,min_sol_output)}
+    #[inline(never)]pub fn sell_v2(ctx:Context<SellV2>,amount:u64,min_sol_output:u64)->Result<()>{sell_v2::execute(ctx,amount,min_sol_output)}
     pub fn buy_v3(ctx: Context<SellV3>, amount:u64,max_sol_cost:u64,partial_fill:OptionBool)->Result<()>{trade::buy(ctx,amount,max_sol_cost,partial_fill.0)}
     pub fn buy_exact_quote_in_v3(ctx:Context<SellV3>,spendable_quote_in:u64,min_tokens_out:u64,partial_fill:OptionBool)->Result<()>{trade::buy_exact_quote(ctx,spendable_quote_in,min_tokens_out,partial_fill.0)}
     pub fn sell_v3(ctx: Context<SellV3>, amount: u64, min_sol_output: u64) -> Result<()> { trade::sell(ctx, amount, min_sol_output) }
@@ -2563,57 +2563,57 @@ pub fn reserved_bonding_curve_fees(curve: &trade_types::BondingCurve) -> Result<
 }
 
 // layout-pad: aligns the next Source site with the original lib.rs line
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+impl crate::trade_types::BondingCurve {
+    // The original handler calls a separate helper at 0xa23f0.
+    #[inline(never)]
+    pub(crate) fn sync_virtual_quote_reserves(
+        &mut self,
+        initial_real_token_reserves: u64,
+        vault_amount: u64,
+        quote_mint: &Pubkey,
+    ) -> Result<()> {
+        let bc = self;
+        if bc.complete || !bc.is_mayhem_mode {
+            return Ok(());
+        }
+        let real_quote_reserves = bc.real_quote_reserves;
+        let virtual_token_reserves = bc.virtual_token_reserves;
+        let denominator = bc
+            .token_total_supply
+            .checked_mul(2)
+            .ok_or(PumpError::Overflow)?
+            .checked_sub(initial_real_token_reserves)
+            .ok_or(PumpError::Overflow)?
+            .checked_sub(vault_amount)
+            .ok_or(PumpError::Overflow)?;
+        if *quote_mint == Pubkey::default() {
+            if real_quote_reserves < 10_000_000 || denominator < 1_000_000_000_000 {
+                return Ok(());
+            }
+        } else if real_quote_reserves < 1_000_000 || denominator < 1_000_000_000_000 {
+            return Ok(());
+        }
+        // Keep these fallible operations separate: the captured helper has
+        // distinct Overflow returns for multiplication and division.
+        let numerator = (denominator as u128)
+            .checked_add(virtual_token_reserves as u128)
+            .ok_or(PumpError::Overflow)?
+            .checked_mul(real_quote_reserves as u128)
+            .ok_or(PumpError::Overflow)?;
+        let computed = numerator
+            .checked_div(denominator as u128)
+            .ok_or(PumpError::Overflow)?;
+        // Conversion precedes the cap in both captured branches.
+        if *quote_mint == Pubkey::default() {
+            let amount = u64::try_from(computed)?;
+            bc.virtual_quote_reserves = amount.min(2_000_000_000_000);
+        } else {
+            let amount = u64::try_from(computed)?;
+            bc.virtual_quote_reserves = amount.min(160_000_000_000);
+        }
+        Ok(())
+    }
+}
 
 
 
@@ -2702,14 +2702,14 @@ pub struct TradeEvent {
     pub unparsed_trailing_field: u64,
 }
 
-
-
-
-
-
-
-
-
+#[event]
+#[derive(Clone)]
+pub struct CompleteEvent {pub user:Pubkey,pub mint:Pubkey,pub bonding_curve:Pubkey,pub timestamp:i64,pub quote_mint:Pubkey}
+#[event]
+#[derive(Clone)]pub struct PostCompleteBuyEvent{pub user:Pubkey,pub mint:Pubkey,pub bonding_curve:Pubkey,pub quote_mint:Pubkey,pub timestamp:i64,pub base_out:u64,pub quote_in:u64,pub fee_basis_points:u64,pub fee:u64,pub creator_fee_basis_points:u64,pub creator_fee:u64,pub buyback_fee:u64,pub pool_base_reserves_before:u64,pub pool_quote_reserves_before:u64,pub pool_base_reserves_after:u64,pub pool_quote_reserves_after:u64}
+#[event]
+#[derive(Clone)]
+pub struct SetParamsEvent{pub initial_virtual_token_reserves:u64,pub initial_virtual_sol_reserves:u64,pub initial_real_token_reserves:u64,pub final_real_sol_reserves:u64,pub token_total_supply:u64,pub fee_basis_points:u64,pub withdraw_authority:Pubkey,pub enable_migrate:bool,pub pool_migration_fee:u64,pub creator_fee_basis_points:u64,pub fee_recipients:[Pubkey;8],pub timestamp:i64,pub set_creator_authority:Pubkey,pub admin_set_creator_authority:Pubkey}
 
 
 
@@ -2784,30 +2784,30 @@ pub struct Initialize<'info>{
 }
 
 // layout-pad: aligns the next Source site with the original lib.rs line
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #[event_cpi]
+#[derive(Accounts)]
+pub struct AdminGlobal<'info> {
+    #[account(mut, seeds = [b"global"], bump, has_one = authority @ PumpError::NotAuthorized)]
+    pub global: Account<'info, Global>,
+    #[account(mut)]
+    pub authority: Signer<'info>,
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+pub mod bonding_curve_instruction_accounts{use super::*;#[event_cpi]
 #[derive(Accounts)]
 pub struct Create<'info>{
  #[account(init,payer=user,mint::decimals=6,mint::authority=mint_authority)]
@@ -2895,14 +2895,14 @@ pub struct LegacyBuy<'info>{
  pub fee_program:Program<'info,legacy_sell::LegacyFeesProgram>,
 }
 
-#[event_cpi]
 #[derive(Accounts)]
-pub struct AdminGlobal<'info> {
-    #[account(mut, seeds = [b"global"], bump, has_one = authority @ PumpError::NotAuthorized)]
-    pub global: Account<'info, Global>,
-    #[account(mut)]
-    pub authority: Signer<'info>,
-}
+pub struct LegacySell<'info>{
+ #[account(seeds=[b"global"],bump)]pub global:Box<Account<'info,Global>>,#[doc="CHECK: handler validates recipient."]#[account(mut)]pub fee_recipient:UncheckedAccount<'info>,pub mint:InterfaceAccount<'info,anchor_spl::token_interface::Mint>,#[account(mut,seeds=[b"bonding-curve",mint.key().as_ref()],bump,constraint=bonding_curve.quote_mint==Pubkey::default() @ PumpError::UnsupportedQuoteMint)]pub bonding_curve:Account<'info,trade_types::BondingCurve>,
+ #[account(mut,associated_token::mint=mint,associated_token::authority=bonding_curve,associated_token::token_program=token_program)]pub associated_bonding_curve:InterfaceAccount<'info,anchor_spl::token_interface::TokenAccount>,#[account(mut,token::mint=mint)]pub associated_user:InterfaceAccount<'info,anchor_spl::token_interface::TokenAccount>,#[account(mut)]pub user:Signer<'info>,pub system_program:Program<'info,System>,#[doc="CHECK: PDA checked."]#[account(mut,seeds=[b"creator-vault",bonding_curve.creator.as_ref()],bump)]pub creator_vault:AccountInfo<'info>,pub token_program:Interface<'info,anchor_spl::token_interface::TokenInterface>,
+ #[doc="CHECK: event authority."]#[account(seeds=[b"__event_authority"],bump)]pub event_authority:AccountInfo<'info>,#[doc="CHECK: self CPI."]pub program:Program<'info,crate::program::PumpRecovered>,#[doc="CHECK: fee program validates config."]#[account(seeds=[b"fee_config",crate::ID.as_ref()],bump,seeds::program=fee_program.key())]pub fee_config:Account<'info,legacy_sell::LegacyFeeConfig>,#[doc="CHECK: canonical dependency."]pub fee_program:Program<'info,legacy_sell::LegacyFeesProgram>,
+}}pub use bonding_curve_instruction_accounts::*;
+
+
 
 #[derive(AnchorSerialize,Clone)]
 pub struct OptionBool(pub bool);
@@ -2916,22 +2916,22 @@ impl AnchorDeserialize for OptionBool {
 #[derive(Clone)]
 pub struct UpdateCreatorFeeConfigEvent {pub timestamp:i64,pub authority:Pubkey,pub creator_fee_configurable:bool,pub max_configurable_creator_fee_bps:u64}
 
-#[event_cpi]
-#[derive(Accounts)]
-pub struct AdminReadonly<'info>{
- #[account(mut,seeds=[b"global"],bump,has_one=authority @ PumpError::NotAuthorized)]
- pub global:Account<'info,Global>,
- pub authority:Signer<'info>,
-}
-#[event_cpi]
-#[derive(Accounts)]
-pub struct UpdateGlobalAuthority<'info>{
- #[account(mut,seeds=[b"global"],bump,has_one=authority @ PumpError::NotAuthorized)]
- pub global:Account<'info,Global>,
- pub authority:Signer<'info>,
- /// CHECK: new authority is assigned by the current signer; zero/self are accepted by the original.
- pub new_authority:AccountInfo<'info>,
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #[event]
 #[derive(Clone)]
 pub struct UpdateGlobalAuthorityEvent{pub global:Pubkey,pub authority:Pubkey,pub new_authority:Pubkey,pub timestamp:i64}
@@ -2939,13 +2939,13 @@ pub struct UpdateGlobalAuthorityEvent{pub global:Pubkey,pub authority:Pubkey,pub
 #[derive(Clone)]
 pub struct ReservedFeeRecipientsEvent{pub timestamp:i64,pub reserved_fee_recipient:Pubkey,pub reserved_fee_recipients:[Pubkey;7]}
 
-#[event_cpi]
-#[derive(Accounts)]
-pub struct CloseUserVolume<'info>{
- #[account(mut)] pub user:Signer<'info>,
- #[account(mut,close=user,seeds=[b"user_volume_accumulator",user.key().as_ref()],bump)]
- pub user_volume_accumulator:Account<'info,UserVolumeAccumulator>,
-}
+
+
+
+
+
+
+
 #[event]
 #[derive(Clone)]
 pub struct InitUserVolumeAccumulatorEvent{pub payer:Pubkey,pub user:Pubkey,pub timestamp:i64}
@@ -2953,18 +2953,18 @@ pub struct InitUserVolumeAccumulatorEvent{pub payer:Pubkey,pub user:Pubkey,pub t
 #[derive(Clone)]
 pub struct CloseUserVolumeAccumulatorEvent{pub user:Pubkey,pub timestamp:i64,pub total_unclaimed_tokens:u64,pub total_claimed_tokens:u64,pub current_sol_volume:u64,pub last_update_timestamp:i64}
 
-#[event_cpi]
-#[derive(Accounts)]
-pub struct CollectCreatorFee<'info>{
- /// CHECK: payout destination is bound to the vault PDA.
- #[account(mut)]pub creator:AccountInfo<'info>,
- /// CHECK: original defers owner/data restrictions to System transfer.
- #[account(mut,seeds=[b"creator-vault",creator.key().as_ref()],bump)]pub creator_vault:AccountInfo<'info>,
- pub system_program:Program<'info,System>,
-}
-#[event]
-#[derive(Clone)]
-pub struct CollectCreatorFeeEvent{pub timestamp:i64,pub creator:Pubkey,pub creator_fee:u64,pub quote_mint:Pubkey}
+
+
+
+
+
+
+
+
+
+
+
+
 
 /// Split protocol fees after the curve payment, preserving the buyback invariants.
 #[inline(never)]

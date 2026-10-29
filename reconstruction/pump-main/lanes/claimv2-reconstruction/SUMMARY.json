@@ -2,33 +2,28 @@
   "schema": "main-pump-swarm-lane-summary-v1",
   "lane": "claimv2-reconstruction",
   "date": "2026-10-29",
-  "pr": "https://github.com/lalalune/pumpfun-source/pull/1230",
-  "targets": [{"original": "0x77940", "bytes": 8832, "function": "token_incentives::claim_token_incentives::cashback::claim_v2", "normalized": false, "raw": false}],
-  "official": {"normalized": 1019, "raw": 188, "gains": [], "losses": []},
-  "best": {"trial": "t9-S3", "cand_bytes": 8808, "ratio": 0.37716, "opcode_only_alignment": 0.9668, "direct_calls": "70/70 identical callee and order", "baseline": {"cand_bytes": 8464, "ratio": 0.16706, "direct_calls": 64}},
-  "attempts": 22,
-  "accepted_mechanisms": [
-    "token-first amount with data_is_empty() and v1-style native rent/get_lamports",
-    "token zero check, 333 (to_account_info().owner), recipient decode, 342, mint decode and transfer on the token path before any merge (cold call sites => outlined clone/to_string as in original)",
-    "a.user.add_lamports inlines once the native branch is separate (no outlined Lamports::add_lamports, as in original)",
-    "emit!(event) without clone",
-    "signer_seeds: &[&[&[u8]]] = &[&[b\"user_volume_accumulator\", user.as_ref(), &[bump]]]"
+  "round": 2,
+  "pr_round1": "https://github.com/lalalune/pumpfun-source/pull/1230",
+  "pr_round2_partial": "https://github.com/lalalune/pumpfun-source/pull/1303",
+  "target": {"window": "0x77940", "bytes": 8832, "symbol": "token_incentives::claim_token_incentives::cashback::claim_v2"},
+  "result": {"normalized_equal": true, "raw_equal": false, "cand_bytes": 8832, "ratio": 1.0, "slots_diff": 0,
+             "official": {"normalized": 1021, "raw": 188, "gains": ["0x77940", "0x14f4e0 (from main)"], "losses": []}},
+  "progression": [
+    ["round-1 S3", 0.377], ["r3D2 recipient owner binding", 0.601], ["r5SW native branch first", 0.817],
+    ["r6U3 v1-style uva binding", 0.818], ["r7X3 let user=&mut ctx.accounts.user", 0.927],
+    ["r9FP user first + event totals bound", 0.938], ["r11d2 bound borrow guard, field inside block", 0.969],
+    ["r17Z1 empty-ATA early return", 0.99626], ["r18S4 scalar bump binding", 1.0]
   ],
-  "rejected_mechanisms": [
-    "if-condition inversion of payout (byte-identical)",
-    "manual user credit (superseded: add_lamports inlines in final shape)",
-    "*associated_quote_user.owner without clone (loses outlined clone calls)",
-    "early let user=&a.user binding (byte-identical)",
-    "seeds inline in call (S1, S2), scalar bump (S4), signer_seeds=&[seeds] (S5)"
+  "mechanisms": [
+    "LLVM StackColoring re-implemented (scsim.py) to explain frame-slot merging; recipient TokenAccount lifetime decided which slots merged",
+    "frame index order is reverse MIR local creation order: native branch must be textually first",
+    "a &mut binding survives MIR reference propagation (a & binding does not), giving one entry-block &user value",
+    "LLVM block creation order decides jeq ok,+1; ja err vs jne err (BPF cannot reverse branches): empty-ATA early return fixes it",
+    "statement order of bindings (event totals, bump) fixes load/store scheduling"
   ],
-  "unresolved_residuals": [
-    "stack frame layout: candidate has one extra 24 B object and the emit_cpi 32 B seed slot is absorbed by a larger slot, so user Pubkey keeps its own slot; original frame is 24 B shallower and objects ordered bump/32/16/48/24/48/24/48/192/280/176",
-    "register assignment: original keeps ctx in r6 and return pointer in r8 (spilled to -0x4b8 around calls) and spills &a.user (accounts+0xa8) at entry"
-  ],
-  "next_ideas": [
-    "Use -print-before=stack-coloring with -Zfewer-names=no plus lifetime intervals to find which candidate slot absorbs the emit_cpi 32 B array; vary scopes of recipient/mint/user temporaries (block-scoped lets, drop order) to change overlap",
-    "Identify the extra 24 B object (_140.sroa.5 / _200) and try spellings that avoid it (event construction field order, record_cashback_claim argument temps)",
-    "Try recipient owner extracted directly (TokenAccount::try_deserialize(..)?.owner) vs binding, and Mint decimals extracted early"
-  ],
-  "tools": "lane scripts in ~/.cache/pumpfun-reconstruction/lanes/claimv2-reconstruction/scripts (calls.py call-sequence diff, opdiff.py opcode-only diff, remarks.py/irdump.py diagnostic copy builds)"
+  "rejected": ["let rent binding", "decode inside require_keys_eq (re-evaluated)", "block-scoped recipient binding", "let cpi_ctx",
+               "ctx.accounts everywhere", "shared &user binding (identical)", "destructuring accounts (E0502)", "token_amount helper fn (67 calls)",
+               "if-not-empty / match / let mut amount spellings (identical)", "305 as if-return-err (identical)", "seed spellings &[seeds], inline, bump array"],
+  "unresolved": ["raw (unmasked) equality not checked/required"],
+  "next_ideas": []
 }

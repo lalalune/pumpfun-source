@@ -73,7 +73,7 @@ pub struct SellV2<'info>{
 const NO_FEE:Option<crate::trade::native_transfer_fee::Fee>=None;fn add(a:u64,b:u64)->Result<u64>{a.checked_add(b).ok_or_else(||error!(PumpError::Overflow))}
 fn sub(a:u64,b:u64)->Result<u64>{a.checked_sub(b).ok_or_else(||error!(PumpError::Overflow))}
 fn narrow(a:u128)->Result<u64>{u64::try_from(a).map_err(|_|error!(PumpError::Truncation))}
-pub fn execute(ctx:Context<SellV2>,amount:u64,minimum:u64)->Result<()>{
+#[inline(always)]pub fn execute(ctx:Context<SellV2>,amount:u64,minimum:u64)->Result<()>{
  let a=&mut *ctx.accounts;let fee_recipient=&a.fee_recipient;let buyback_fee_recipient=&a.buyback_fee_recipient;
  crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.user)?;
 
@@ -431,3 +431,10 @@ pub mod quote_token_transfers;
 fn pay_user<'info>(native:bool,base_mint:&InterfaceAccount<'info,Mint>,curve:&Account<'info,BondingCurve>,destination:&AccountInfo<'info>,amount:u64,token_program:&Interface<'info,TokenInterface>,quote_mint:&InterfaceAccount<'info,Mint>,quote_source:Option<&AccountInfo<'info>>,quote_destination:Option<&AccountInfo<'info>>,bump:u8)->Result<()>{crate::trade::quote_payments::transfer_to_user(native,AsRef::<AccountInfo<'info>>::as_ref(base_mint),curve,destination,amount,token_program,quote_mint.decimals,AsRef::<AccountInfo<'info>>::as_ref(quote_mint),quote_source,quote_destination,bump)}
 fn pay_owned<'info>(native:bool,base_mint:&InterfaceAccount<'info,Mint>,curve:&Account<'info,BondingCurve>,destination:AccountInfo<'info>,amount:u64,token_program:&Interface<'info,TokenInterface>,quote_mint:&InterfaceAccount<'info,Mint>,quote_source:Option<&AccountInfo<'info>>,quote_destination:Option<&AccountInfo<'info>>,bump:u8)->Result<()>{crate::trade::quote_payments::transfer_to_owned(native,AsRef::<AccountInfo<'info>>::as_ref(base_mint),curve,destination,amount,token_program,quote_mint.decimals,AsRef::<AccountInfo<'info>>::as_ref(quote_mint),quote_source,quote_destination,bump)}
 fn pay_recipient<'info>(native:bool,base_mint:&InterfaceAccount<'info,Mint>,curve:&Account<'info,BondingCurve>,destination:&&UncheckedAccount<'info>,amount:u64,token_program:&Interface<'info,TokenInterface>,quote_mint:&InterfaceAccount<'info,Mint>,quote_source:Option<&AccountInfo<'info>>,quote_destination:Option<&AccountInfo<'info>>,bump:u8)->Result<()>{crate::trade::quote_payments::transfer_to_recipient(native,AsRef::<AccountInfo<'info>>::as_ref(base_mint),curve,destination,amount,token_program,quote_mint.decimals,AsRef::<AccountInfo<'info>>::as_ref(quote_mint),quote_source,quote_destination,bump)}
+#[event_cpi]
+#[derive(Accounts)]
+pub struct AdminReadonly<'info>{
+ #[account(mut,seeds=[b"global"],bump,has_one=authority @ crate::PumpError::NotAuthorized)]
+ pub global:Account<'info,crate::Global>,
+ pub authority:Signer<'info>,
+}

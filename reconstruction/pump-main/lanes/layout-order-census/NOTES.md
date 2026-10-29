@@ -124,3 +124,129 @@ Replacing `account_name::with_owned_name(error, &name)` with `error.with_account
 instance gets inlined into `set_reserved_fee_recipients`. In the original the instance is outlined and
 sits in the U block, so the original call site must look different (for example, a second caller keeps
 it out of line).
+
+## Round 2: the L tail (raw 188 -> 276, zero losses)
+
+Base: origin/main 65826a7c (1020 normalized / 188 raw). New fast model `tools/fastmodel.py`
+(reproduces the official raw set exactly; 0.5 ms per layout) and `tools/moves.py` (apply
+source-level unit moves, report raw/P16/LIS).
+
+### Suffix census (`tools/suffix.py`)
+A window whose callees all lie in the L tail or in D only depends on the layout from itself to D.
+Putting the original order on the L suffix starting at `__rust_alloc` (orig 0x156fe8) gives +84
+raw with today's sizes and zero losses; no other suffix start gives anything in between
+(+4 at `__rust_realloc`, +84 from `__rust_alloc`, flat before). `tools/taildiff.py` lists what
+differs in that suffix:
+
+| needed change | why |
+| --- | --- |
+| `migrate_v2::required_quote_account_len` into the `pump_token_ext` crate, after `quote_extensions_supported` and before `Fee` | the original has it inside the pump_token_ext object (0x17bc48 qes, 0x17c0f0 rqal, 0x17c3d8 Fee::calculate_fee) |
+| `CompleteEvent`, `PostCompleteBuyEvent`, `SetParamsEvent` defined in lib.rs right after `TradeEvent` | their `Event::data` sit after TradeEvent in the original derive pass |
+| `AdminGlobal` between `Initialize` and `Create`; `LegacySell` after `LegacyBuy` (lib.rs) | original tail derive order |
+| `AdminReadonly` (end of sell_v2.rs), `UpdateGlobalAuthority` (global_init.rs), `CloseUserVolume` (end of claim_token_incentives.rs), `CollectCreatorFee` (start of collect_creator_fee.rs) and `CollectCreatorFeeEvent` (end of it) out of the lib.rs tail | original places their derives in the module derive run |
+| the 14-account `ToAccountInfos::to_account_infos` survivor must be pump_amm's `InitBoost` | see below |
+
+### MergeFunctions survivor rule (new finding)
+Identical `to_account_infos` bodies are merged by LLVM MergeFunctions, which keeps the function
+with the lexicographically smallest mangled name. Groups in our build confirm it (SetCreator `_ZN122`
+over `_ZN134/146/154`, CollectCreatorFeeV2 `_ZN141` over `_ZN155/162/163/172`, GetFees `_ZN124`,
+CreatePool `_ZN129`, CollectCoinCreatorFee `_ZN153` over `_ZN158`). Today root `Create`
+(`_ZN100_$LT$pump_recovered..__cpi_client_accounts_create..Create`) beats pump_amm `InitBoost`
+(`_ZN127`) and LegacySell (`_ZN122`), so the survivor sits in the tail. The original keeps it at the
+pump_amm position (orig 0x113f00, between InitBoost metas and TransferCreatorFeesToPumpV2), which
+fits a root crate named `pump` (Create would be `_ZN90`). Source fix: Create/LegacyBuy/LegacySell
+live in a lib.rs module `bonding_curve_instruction_accounts` (glob re-exported), making their names
+`_ZN13x`, so InitBoost survives in place.
+
+### Result (`tools/tail_relocate.py --wrap`, all moves line-neutral)
+| build | normalized | raw | gains | losses | unstripped sha256 |
+| --- | ---: | ---: | --- | --- | --- |
+| main 65826a7c | 1020 | 188 | | | 65826a7c... |
+| relocation without the module wrap (`fb2ed22e`) | 1020 | 192 | raw +4 | 0 | b26d5f30... |
+| relocation + module wrap (`7f028dee`) | 1020 | **276** | raw +88 | 0 | 017b902d... |
+
+The tail windows depend only on tail + D, so these 88 survive any future fix of the 16 mid-L
+functions.
+
+### v2 handlers outlined as the #[program] fns (`0fe43b05`, kept; `310c3a1f` all six, rejected)
+Round 1 found the six unmatched v2/v3 handlers inside the original's #[program] module run. Putting
+`#[inline(never)]` on the program fns and `#[inline(always)]` on the module handlers makes the program
+fn the outlined unit (Source sites stay in the handler files, closures stay at the module site):
+
+| window | before (ratio, bytes) | after | orig bytes |
+| --- | --- | --- | ---: |
+| 0x13b9b8 buy_v2 | 0.94776, 15464 | **0.95384, 15472** | 15480 |
+| 0x13f630 buy_exact_quote_in_v2 | 0.97361, 20168 | **0.97889**, 20168 | 20184 |
+| 0x144508 sell_v2 | 0.86599, 13952 | **0.87883**, 13952 | 13976 |
+
+Official 1020/276 unchanged, no losses (unstripped 6048baa7...). Doing the same for the v3 trio
+(trade::buy/buy_exact_quote/sell) is worse (buy 0.876 -> 0.778) and loses 0x859b0 `v3_emit_buy`, so
+the v3 handlers stay as they are (`tools/handlers_as_program_fns_all6.py` reproduces the rejected one).
+
+### Data layout: MAYHEM_ID as a static (`rodata-main-ef8e276-mayhem-id-static-v1`, kept)
+`tools/dwe.py` counts matched windows whose data lddw already point at the original's in-section
+offsets (they turn raw once .text size and section bases match). The first `.rodata` difference was
+MAYHEM_ID: ours sat in the merged 32-byte constant pool at 0x2b8, while the original has it in the
+align-1 stream right after "Global", next to the `declare_id!`/`declare_program!` ID statics. Making it
+`pub static` moves it there: equal-offset data windows 105 -> 156 of 593, mismatched .rodata operands
+3113 -> 2053, official 1020/276 unchanged (unstripped 3e02f014...). The pool region (< 0xd80) now
+differs only by five swapped 4-byte constants (lld shard order follows first use). No other pubkey sits
+in the wrong region. The string stream after 0xd80 follows first-use order; in the original it starts
+with `admin_set_idl_authority.rs`, `buy.rs`, `buy_v2.rs`, `create_v2.rs`, `creator/admin_cto.rs` (file
+order), which our module order does not reproduce yet.
+
+### Def-order prep: module mounts (`eda8f43e`, kept)
+Pairing fix in `tools/census.py`: the v2 handlers are now pinned under their program-fn names too.
+P16 = model raw once all 16 match in size and code, extras gone, data equal, our order (U and D as
+built). With that pairing, the handler commit kept P16 at 415 and raised LIS 871 -> 874 (breaks 150 -> 144).
+`tools/def_order_mounts.py` (all line-neutral) then:
+- mounts `util/fee.rs` after `constant_product` and moves `trade_fees` into it between `fee` and
+  `calculate_fee_tier` (the original's run 0x88908..0x89ec8 has `util/fee.rs` sites there)
+- mounts `account_name` first, so `with_owned_name` (0x2bc0, in the original's upstream-generic block)
+  precedes all local code
+- mounts `fee_recipient.rs` after `extend` (original run: extend, fee_recipient, migrate)
+- defines `prepare_bonding_curve` in extend_account.rs between `execute` and `fund_bonding_curve_rent`
+  (original 0x3b8d8, 0x3cd50, 0x3d250)
+
+Official 1020/276 unchanged, no losses (unstripped 6e1f13e4...). P16 415 -> 423, LIS 874 -> 881, L adjacent
+breaks 144 -> 136. With U and D as built, the source-only P16 ceiling (original L order) is about 647;
+a full original order is 1014.
+
+### The original's module list is sorted by file path (`d39235b3`, kept)
+The original's derive pass and its .rodata file strings both follow the file paths in alphabetical
+order, which is what rustfmt's `reorder_modules` produces for a lib.rs `mod` list:
+- derive pass: AdminSetIdlAuthority (`admin_set_idl_authority.rs`) first, then buy_v2, create_v2,
+  creator/admin_cto, CollectCreatorFee, creator/collect..., creator/distribute..., creator/migrate...,
+  creator/set_*, extend_account, `mayhem_virtual_params` (between extend and migrate), migrate,
+  migrate_v2, multi_hop..., quote_control, sell_v2, AdminReadonly (set_reserved_fee_recipients.rs),
+  sweep_fees, token_incentives/..., trade_v3, then the lib.rs body (declare_program!, entry, program, ...)
+- `.rodata` string stream from 0xdeb: `programs/pump/src/admin_set_idl_authority.rs`, `buy.rs`, `buy_v2.rs`,
+  `create_v2.rs`, `creator/admin_cto.rs`, `creator/collect...`, `creator/distribute...`, `creator/migrate...`,
+  ..., `extend_account.rs`, `fee_recipient.rs`, `migrate.rs`, ... Our stream starts with `buy_v2.rs`.
+
+`tools/alphabetical_mounts.py` mounts `idl_authority` first, `mayhem_virtual_params` after `fee_recipient`, and
+moves `BondingCurve::sync_virtual_quote_reserves` (no sites) next to `reserved_bonding_curve_fees` (lib.rs), where
+the original's hand-written order has it. Official 1020/276, no losses (unstripped ab7d1ade...). LIS 881 -> 886,
+breaks 136 -> 131, mismatched `.data.rel.ro` operands **125 -> 42**, `.rodata` 2051 -> 2008, equal-offset data
+windows 156 -> 157.
+
+### Rebased on main ef400863 (round-1 PR #1260 merged at b65ea16)
+After the merge, the buy_v2 trio gained from buyv2-sibling-transplant. Re-measured there, outlining helps
+only sell_v2, so buy_v2 and buy_exact_quote_in_v2 are back to main's attributes (`fc077350`).
+
+| metric (vs main ef400863) | main | this branch |
+| --- | ---: | ---: |
+| official normalized / raw | 1020 / 188 | 1020 / **276** (raw +88, 0 losses) |
+| 0x144508 sell_v2 ratio | 0.93984 | 0.95152 |
+| P16 (model raw once the 16 match) | 286 | 416 |
+| LIS / L adjacent breaks | 854 / 167 | 884 / 136 |
+| equal-offset data windows (of 593) | 163 | 257 |
+| mismatched .rodata / .data.rel.ro operands | 2758 / 125 | 1457 / 42 |
+
+Unstripped sha256 37a078b8c743a0cc95c8aefc145d5b2e497a967fe39ae7e7f084ff513d5cb432. Main's .rodata is now the
+original's size (0x7d1f).
+
+### Rejected in round 2
+- all six handlers as program fns (`310c3a1f`): v3 trio worse, loses 0x859b0
+- `buy_exact_sol_in` without `#[inline]` (`ba219e5d`), with or without mounting buy.rs second: loses 0x14f4e0
+- MAYHEM_ID static defined in the lib.rs body (`178c5a67`): no data-layout change

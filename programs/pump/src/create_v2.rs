@@ -2,7 +2,7 @@ use crate::*;
 use spl_type_length_value::variable_len_pack::VariableLenPack;
 use anchor_spl::{token_interface::{self,Mint,TokenAccount},token_2022::Token2022,associated_token::AssociatedToken};
 use anchor_lang::solana_program::{instruction::{Instruction,AccountMeta},program::invoke_signed};
-pub const MAYHEM_ID:Pubkey=anchor_lang::solana_program::pubkey!("MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e");const UNSUPPORTED_QUOTE_MINT:Pubkey=anchor_lang::solana_program::pubkey!("9pan9bMn5HatX4EJdBwg9VgCa7Uz5HL8N1m5D3NdXejP");const PUMP_QUOTE_MINT:Pubkey=anchor_lang::solana_program::pubkey!("pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn");
+pub static MAYHEM_ID:Pubkey=anchor_lang::solana_program::pubkey!("MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e");const UNSUPPORTED_QUOTE_MINT:Pubkey=anchor_lang::solana_program::pubkey!("9pan9bMn5HatX4EJdBwg9VgCa7Uz5HL8N1m5D3NdXejP");const PUMP_QUOTE_MINT:Pubkey=anchor_lang::solana_program::pubkey!("pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn");
 #[derive(AnchorSerialize,Clone)]
 pub struct CreationOptionU64(pub u64);
 impl AnchorDeserialize for CreationOptionU64 {

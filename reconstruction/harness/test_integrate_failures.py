@@ -68,11 +68,11 @@ class CompositionFailures(unittest.TestCase):
                 (root / name).mkdir()
             output = root / 'result.patch'
             output.write_text('prior patch')
-            response = subprocess.CompletedProcess(['diff'], 2, stdout='partial diff', stderr='read failure')
+            response = subprocess.CompletedProcess(['diff'], 2, stdout=b'partial diff\xff', stderr=b'read failure')
             with patch.object(integrate.subprocess, 'run', return_value=response), \
                  self.assertRaises(subprocess.CalledProcessError) as error:
                 integrate.make_patch(root / 'base', root / 'part', output, root / 'tmp')
-            self.assertEqual(error.exception.stderr, 'read failure')
+            self.assertEqual(error.exception.stderr, b'read failure')
             self.assertEqual(output.read_text(), 'prior patch')
 
     def test_diff_zero_and_one_are_both_normal(self):
@@ -82,7 +82,7 @@ class CompositionFailures(unittest.TestCase):
                 (root / name).mkdir()
             for code, text in ((0, ''), (1, 'complete diff')):
                 with self.subTest(code=code), patch.object(integrate.subprocess, 'run',
-                     return_value=subprocess.CompletedProcess(['diff'], code, stdout=text)):
+                     return_value=subprocess.CompletedProcess(['diff'], code, stdout=text.encode())):
                     self.assertEqual(integrate.make_patch(root / 'base', root / 'part', root / 'out', root / 'tmp'), text)
 
 
