@@ -25,7 +25,7 @@ const output=path.join(root,'recovered/pretty');await fs.mkdir(output,{recursive
 const records=[];
 for(const record of sources){
  const file=createHash('sha256').update(record.url).digest('hex')+'-'+path.basename(new URL(record.url).pathname);
- try { const bytes=await readCapturedSource(root,record.path);if(createHash('sha256').update(bytes).digest('hex')!==record.sha256)throw new Error('Captured source SHA-256 mismatch');const source=new TextDecoder('utf-8',{fatal:true}).decode(bytes);const formatted=await prettier.format(source,{parser:'babel'}); await fs.writeFile(path.join(output,file),formatted);records.push({url:record.url,source:record.path,output:`recovered/pretty/${file}`,sha256:record.sha256,status:'formatted'}); }
+ try { const bytes=await readCapturedSource(root,record.path);if(createHash('sha256').update(bytes).digest('hex')!==record.sha256)throw new Error('Captured source SHA-256 mismatch');if(Object.hasOwn(record,'bytes')&&(!Number.isSafeInteger(record.bytes)||record.bytes<0||record.bytes!==bytes.length))throw new Error('Captured source byte count mismatch');const source=new TextDecoder('utf-8',{fatal:true}).decode(bytes);const formatted=await prettier.format(source,{parser:'babel'}); await fs.writeFile(path.join(output,file),formatted);records.push({url:record.url,source:record.path,output:`recovered/pretty/${file}`,sha256:record.sha256,status:'formatted'}); }
  catch(error){records.push({url:record.url,status:'failed',error:String(error)});}
 }
 await fs.writeFile(path.join(output,'manifest.json'),JSON.stringify({notice:'Formatting only; not original sources and not runtime-equivalence proof.',records},null,2)+'\n');
