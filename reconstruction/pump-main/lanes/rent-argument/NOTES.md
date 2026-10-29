@@ -1,3 +1,7 @@
+## Current main 3159e64 (2026-10-29)
+
+Fresh identity control/candidate builds after merging main retain **1,023 normalized / 276 raw**, with zero gains or losses in either membership set. `main315-comparison.json` retains the complete sets, helper equality, ordered callee hashes and improved caller diagnostics; `main315-builds.json` binds both binaries and source hashes. Both builds have no stack warnings. This supersedes the 381dc30 baseline below; the 88 raw losses belong only to the rejected cross-crate experiment. Main now includes #1436, #1421 and #1445; their gains are credited to those PRs, not this rent change. No fresh runtime comparison is claimed.
+
 # Preserve the V2 rent argument without changing dependency layout
 
 **Current status: layout regression fixed.** Fresh control/candidate validation on
