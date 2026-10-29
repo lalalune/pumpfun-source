@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { parse } from "@babel/parser";
 import prettier from "prettier";
+import { isFactoryRegistration } from "./original-contracts/source.mjs";
 
 const defaultRoot = fileURLToPath(new URL("..", import.meta.url));
 const factoryBanner =
@@ -141,21 +142,9 @@ export async function buildInventory(
             qualified: false,
           });
         }
-        if (
-          node.type !== "CallExpression" ||
-          node.callee?.type !== "MemberExpression" ||
-          node.callee.property?.name !== "push" ||
-          node.arguments[0]?.type !== "ArrayExpression"
-        ) {
-          return;
-        }
-        if (
-          !source
-            .slice(node.callee.start, node.callee.end)
-            .includes("TURBOPACK")
-        ) {
-          return;
-        }
+        // Use the same structural receiver rule as authenticated corpus lookup;
+        // unrelated object/property names containing TURBOPACK are not loaders.
+        if (!isFactoryRegistration(node)) return;
         for (const { item, ids, nested } of registrationFactories(
           node.arguments[0],
         )) {

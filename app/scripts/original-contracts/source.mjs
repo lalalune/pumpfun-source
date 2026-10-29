@@ -90,7 +90,7 @@ async function safeFile(root, relative) {
   return current;
 }
 
-function isFactoryRegistration(node) {
+export function isFactoryRegistration(node) {
   if (node.type !== 'CallExpression' || node.callee?.type !== 'MemberExpression' ||
       propertyName(node.callee.property) !== 'push' || node.arguments[0]?.type !== 'ArrayExpression') return false;
   return findNodes(node.callee.object, (child) => child.type === 'MemberExpression' &&
