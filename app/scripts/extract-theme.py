@@ -119,12 +119,15 @@ PREFIX_COLOR = {
 }
 
 
+UTILITY_COLOR_PROPERTIES = {'bg': ['background-color'], 'text': ['color'], 'border': ['border-color', 'border-top-color', 'border-bottom-color', 'border-left-color', 'border-right-color'], 'ring': ['--tw-ring-color'], 'ring-offset': ['--tw-ring-offset-color'], 'outline': ['outline-color'], 'fill': ['fill'], 'stroke': ['stroke'], 'divide': ['border-color', 'border-top-color', 'border-bottom-color', 'border-left-color', 'border-right-color'], 'placeholder': ['color'], 'caret': ['caret-color'], 'accent': ['accent-color'], 'decoration': ['text-decoration-color'], 'shadow': ['--tw-shadow-color']}
+
+
 def color_value(prefix, body):
     found = declarations(body)
     if prefix in PREFIX_COLOR:
         value = PREFIX_COLOR[prefix](found)
     else:
-        value = next((found[p] for p in COLOR_PROPERTIES if p in found), None)
+        value = next((found[p] for p in UTILITY_COLOR_PROPERTIES.get(prefix, ()) if p in found), None)
     return normalize_color(value) if value else None
 
 
