@@ -1,0 +1,132 @@
+{
+  "base_revision": "cd31b2216bb1bbefcff8d2738a77a953e30588e4",
+  "checks": {
+    "regressions": "2 passed",
+    "original_captures": "9 passed",
+    "comparator_tests": "6 passed"
+  },
+  "programs": {
+    "pump": {
+      "changed_displayed_estimates": [
+        {
+          "window": "0xfbc0",
+          "base_reg": 3,
+          "before": 215,
+          "after": 231,
+          "displayed_offsets": 20
+        },
+        {
+          "window": "0x103f0",
+          "base_reg": 3,
+          "before": 238,
+          "after": 263,
+          "displayed_offsets": 20
+        },
+        {
+          "window": "0x103f0",
+          "base_reg": 10,
+          "before": -32,
+          "after": -7,
+          "displayed_offsets": 20
+        }
+      ],
+      "layer4_sha256": {
+        "before": "ec08b55b1e9fa598b87cc0e519a15b975d6253f9c2b6ab3700938efc3191b88e",
+        "after": "81874b50c4a480b908aec25d5507847ebd47569e192b64592a9cbf3a91a42083"
+      },
+      "other_layers_summary_and_display_fields": "unchanged",
+      "before_and_after_packet_verifiers": "passed"
+    },
+    "pump_amm": {
+      "changed_displayed_estimates": [
+        {
+          "window": "0xd1d0",
+          "base_reg": 3,
+          "before": 215,
+          "after": 231,
+          "displayed_offsets": 20
+        },
+        {
+          "window": "0xd8f0",
+          "base_reg": 3,
+          "before": 238,
+          "after": 263,
+          "displayed_offsets": 20
+        },
+        {
+          "window": "0xd8f0",
+          "base_reg": 10,
+          "before": -32,
+          "after": -7,
+          "displayed_offsets": 20
+        }
+      ],
+      "layer4_sha256": {
+        "before": "c9f069b79ae37c34384e53478d6cc6b72ec4e26d57029ac947dd5fc283e34e7c",
+        "after": "04f21830ab40d53b943cfd218a76268a5a6e0308078c864a57b8827b08833f22"
+      },
+      "other_layers_summary_and_display_fields": "unchanged",
+      "before_and_after_packet_verifiers": "passed"
+    },
+    "mayhem": {
+      "changed_displayed_estimates": [
+        {
+          "window": "0xc560",
+          "base_reg": 10,
+          "before": -64,
+          "after": -56,
+          "displayed_offsets": 20
+        },
+        {
+          "window": "0xcb08",
+          "base_reg": 5,
+          "before": -3936,
+          "after": -3864,
+          "displayed_offsets": 20
+        },
+        {
+          "window": "0xcb08",
+          "base_reg": 10,
+          "before": -160,
+          "after": -24,
+          "displayed_offsets": 20
+        },
+        {
+          "window": "0xd898",
+          "base_reg": 10,
+          "before": -324,
+          "after": -8,
+          "displayed_offsets": 20
+        },
+        {
+          "window": "0xef10",
+          "base_reg": 10,
+          "before": -284,
+          "after": -132,
+          "displayed_offsets": 20
+        },
+        {
+          "window": "0x10e48",
+          "base_reg": 10,
+          "before": -488,
+          "after": -16,
+          "displayed_offsets": 20
+        },
+        {
+          "window": "0x10e48",
+          "base_reg": 7,
+          "before": 27,
+          "after": 50,
+          "displayed_offsets": 20
+        }
+      ],
+      "layer4_sha256": {
+        "before": "3931d862d353451bde25b4ea96730ff80b1304347dc2fa120274b275a4fe20fc",
+        "after": "c660941736322720bdd76a68d908167d4c66d3f8fa6611f7fb54ab7425792e20"
+      },
+      "other_layers_summary_and_display_fields": "unchanged",
+      "before_and_after_packet_verifiers": "passed"
+    }
+  },
+  "limits": "Retains the legacy max-offset-plus-eight heuristic, not actual struct sizes or proven account bases. No source/IDL/runtime-equivalence claim."
+}
