@@ -199,6 +199,17 @@ def descendants(node: Node, tag: str) -> list[Node]:
 
 
 def table_block(node: Node) -> dict[str, Any]:
+    def check_children(parent, allowed):
+        for child in parent.children:
+            if isinstance(child, str):
+                if child.strip(): raise ExtractionError('Unrepresented table text')
+            elif child.tag not in allowed:
+                raise ExtractionError('Unrepresented table element')
+            elif child.tag in {'thead', 'tbody'}:
+                check_children(child, {'tr'})
+            elif child.tag == 'tr':
+                check_children(child, {'td', 'th'})
+    check_children(node, {'thead', 'tbody', 'tr'})
     rows = []
     for row in descendants(node, "tr"):
         cells = []
@@ -219,6 +230,9 @@ def table_block(node: Node) -> dict[str, Any]:
 
 
 def list_block(node: Node) -> dict[str, Any]:
+    for child in node.children:
+        if (isinstance(child, str) and child.strip()) or (isinstance(child, Node) and child.tag != 'li'):
+            raise ExtractionError('Unrepresented list content')
     items = [
         {"children": inline_children(child)}
         for child in node.children
