@@ -133,6 +133,7 @@ export function normalizeMayhemSort(
 export function mayhemStateParameter(
   filter: MayhemFilter,
 ): MayhemState | undefined {
+  if (!(MAYHEM_FILTERS as readonly string[]).includes(filter)) throw new MayhemDataError("Unsupported Mayhem filter");
   if (filter === "all") return undefined;
   return filter === "ended" ? "completed" : filter;
 }
