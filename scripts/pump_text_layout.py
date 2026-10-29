@@ -81,12 +81,20 @@ def rustc_command(rustc, args, env):
     return [sys.executable, env['PUMP_TEXT_PHYSICAL_WRAPPER'], rustc, *result]
 
 
+def reject_attached_script(arg):
+    # `-T file` is admitted as two arguments. `-Tfile` is a second script the
+    # separate-argument check never sees.
+    if isinstance(arg, str) and arg.startswith('-T') and arg != '-T':
+        raise AssertionError('attached linker script is not admitted: ' + arg)
+
+
 def declared_inputs(args):
     result = {}
     skip = {'-o', '--output', '-L', '--library-path', '--script', '-T', '-z', '-flavor'}
     i = 0
     while i < len(args):
         arg = args[i]
+        reject_attached_script(arg)
         if arg in skip:
             assert i + 1 < len(args)
             i += 2
@@ -140,6 +148,7 @@ def prepare_link(args, env):
     i = 0
     while i < len(args):
         arg = args[i]
+        reject_attached_script(arg)
         if arg in ('--script', '-T'):
             assert Path(args[i + 1]).read_text() == default, 'unexpected SDK script'
             after += [arg, str(replacement)]
