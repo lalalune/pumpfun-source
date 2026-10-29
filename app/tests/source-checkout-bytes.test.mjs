@@ -18,6 +18,10 @@ test('autocrlf checkout preserves authenticated maintained source bytes', async 
     'app/packages/frontend/src/original-contracts/example.mts',
     'app/packages/frontend/src/app/portfolio/rpc.ts',
     'app/packages/frontend/src/app/competitions/page.tsx',
+    'app/packages/frontend/src/app/captured-shell.css',
+    'app/packages/frontend/src/theme/captured-theme.json',
+    'app/packages/frontend/public/pump-logomark.svg',
+    'app/tests/original_privacy_external_links.browser.mjs',
     'app/packages/frontend/src/app/wallet-program-record/contract.json',
     'app/research/wallet-program-record-20261029/SOURCE.json',
   ];

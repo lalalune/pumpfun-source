@@ -5,6 +5,12 @@ packages/frontend/src/**/*.mjs text eol=lf
 packages/frontend/src/**/*.mts text eol=lf
 packages/frontend/src/**/*.ts text eol=lf
 packages/frontend/src/**/*.tsx text eol=lf
+# Shell bindings and the privacy browser receipts hash these assets and test
+# scripts too (SHELL-INTEGRATION-BINDINGS.json, privacy-external-links receipts).
+packages/frontend/src/**/*.css text eol=lf
+packages/frontend/src/**/*.json text eol=lf
+packages/frontend/public/**/*.svg text eol=lf
+tests/*.mjs text eol=lf
 
 # The wallet record producer compares these generated receipts byte-for-byte.
 packages/frontend/src/app/wallet-program-record/contract.json -text
