@@ -18,6 +18,7 @@ jobs:
         include:
           - suite: composition-patch-bytes
             commands: |
+              python -B reconstruction/harness/test_integrate_failures.py
               python -I -B tests/test_integrate_patch_bytes.py
           - suite: pump-claim-v2-account-boundaries
             commands: |
