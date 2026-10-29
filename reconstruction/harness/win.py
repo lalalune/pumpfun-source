@@ -27,7 +27,9 @@ def demangle(s):
     rest, parts = m.group(1), []
     while rest and rest[0].isdigit():
         n = re.match(r'^(\d+)', rest).group(1); rest = rest[len(n):]
-        parts.append(rest[:int(n)]); rest = rest[int(n):]
+        part = rest[:int(n)]
+        parts.append(part[1:] if part.startswith('_$') else part)
+        rest = rest[int(n):]
     if parts and re.fullmatch(r'h[0-9a-f]{16}', parts[-1]):
         parts = parts[:-1]
     t = '::'.join(parts)
