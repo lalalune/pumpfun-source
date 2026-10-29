@@ -104,6 +104,9 @@
   min-width: 0;
   text-align: end;
 }
+.schedule .row dd {
+  flex: 1;
+}
 .launcher:focus-visible,
 .header button:focus-visible,
 .content a:focus-visible {

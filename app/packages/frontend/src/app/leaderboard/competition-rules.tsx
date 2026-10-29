@@ -123,7 +123,7 @@ export function CompetitionRules({
               <p className={styles.title}>{model.title}</p>
               <section>
                 <h3>{copy.schedule}</h3>
-                <dl>
+                <dl className={styles.schedule}>
                   {model.schedule.map((row) => (
                     <div className={styles.row} key={row.label}>
                       <dt>{row.label}</dt>
