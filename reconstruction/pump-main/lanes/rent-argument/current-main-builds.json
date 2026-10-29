@@ -1,6 +1,6 @@
 {
-  "base_revision": "665499915f9caedcd38921d415a90f0606686398",
-  "tested_source_revision": "2c7dcca8f2d5e0b12779cb263d7dbbb72a8c2ce3",
+  "base_revision": "381dc30b35122022be7359215cb5d471fe9f778d",
+  "tested_source_revision": "beb61017b6ade400e9d78e88c9864045f2205a9b",
   "status": "blocked: 88 raw membership losses",
   "toolchain": {
     "sdk_inventory_entries": 2785,
@@ -14,10 +14,10 @@
       "stack_warnings": [],
       "recipe": "identity",
       "triple": "sbpf-solana-solana",
-      "seconds": 79.8,
-      "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/control/unstripped.so",
-      "unstripped_sha256": "86ed3f6a08cfb77e150b8fbf135acc167698d3b9dd2f7867b7197a7e3b4dde5d",
-      "candidate_sha256": "e412a3cbebea18b305e2915a79b5c8ef23606565dd8a3e24bac1a6bcc4cad66c"
+      "seconds": 18.5,
+      "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/latest-control/unstripped.so",
+      "unstripped_sha256": "826b44727ab1c1b7a741371209afd23bd83833df2f65b4399d7230b4a36f3b5f",
+      "candidate_sha256": "3c93e4986bb80eb99f390beab9c7c1980a62d9f94b62f8c088ffb7e233efe9fb"
     },
     "rent": {
       "ok": true,
@@ -25,21 +25,10 @@
       "stack_warnings": [],
       "recipe": "identity",
       "triple": "sbpf-solana-solana",
-      "seconds": 16.6,
-      "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/rent/unstripped.so",
-      "unstripped_sha256": "147fda88af050ce58f0a06f61221409fd095941e2d826f8f92490140defde36d",
-      "candidate_sha256": "f0ff7373622343634fe3e03d90f0dc47e1bcd38dbdaf1b06a0668481302ce31a"
-    },
-    "rent-export": {
-      "ok": true,
-      "runtime_valid": true,
-      "stack_warnings": [],
-      "recipe": "identity",
-      "triple": "sbpf-solana-solana",
-      "seconds": 17.4,
-      "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/rent-export/unstripped.so",
-      "unstripped_sha256": "9eaaa7f6d90484cc4880bf83ec69844c68dd6f6117331dc1e0c5db1961f29ce3",
-      "candidate_sha256": "78b700a7a1116a456a226bf6503bdc4eafd339c17b0260818278e26167dd9bf2"
+      "seconds": 17.1,
+      "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/latest-rent/unstripped.so",
+      "unstripped_sha256": "76d6d1cd790c0207ec9fa12ae85a986063c816872b99f3eb14f28f4dd09028cf",
+      "candidate_sha256": "c8326649132c69b92f2b32763ec0e67983779f8d29e938e8c42f2758d83c4f41"
     }
   },
   "source": {
@@ -61,7 +50,7 @@
     "programs/pump/src/buy_v2.rs": "72da443c973c11e8a20e567b544236d2db0961e53227b12d6635b80f6de3b565",
     "programs/pump/src/cashback.rs": "1c632938b7f4d9c08b4f6ef173a47f1674b1c53dd255f0a3fd38109570a17863",
     "programs/pump/src/create.rs": "8af4fb0525644d230f5fd394cd479aaeab412ca76d39e7995b963f5dbaae8e33",
-    "programs/pump/src/create_v2.rs": "8b671bba0cbe885d28ea78a9b0e8da4a8c6d5d6e84032d480023e7bf8d703c4c",
+    "programs/pump/src/create_v2.rs": "722e20a620ef4244cb0980252caa565c331d6ab4c9c504d339a936a0c9616ff2",
     "programs/pump/src/creator/admin_cto.rs": "0bf8ef30364e822b174957aa2214e667207ea9d8c4bebe5077e2a9709433f6dd",
     "programs/pump/src/creator/collect_creator_fee.rs": "408c492e0f50a9f6a6c2c1faf5a3888abcbffd4aa73e1a3f043468d320cc5b33",
     "programs/pump/src/creator/distribute_creator_fee_v2.rs": "b7ede82daff0311c3b6efa0a8836746bd5dbdbb3686e804709af198aa56f0a52",
@@ -111,5 +100,6 @@
     "programs/pump/src/v2_user_token_transfers.rs": "86577a8573623af55b93fab323306c8fc087bbb8478f7d5a13d1be8581d8beb5",
     "programs/pump/src/v3_native_transfer_fee.rs": "8d9c1d5f07d97213408ad99f727d19732f4fdf2e238d0100722d97ad37abc078",
     "programs/pump/src/volume_sync.rs": "7e5c2d07d5e01aa872bd21c7c2dd96688a4dd0af5dbb5a3d9136bfb19964d085"
-  }
+  },
+  "rejected_trial_base": "665499915f9caedcd38921d415a90f0606686398"
 }

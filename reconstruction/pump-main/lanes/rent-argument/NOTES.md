@@ -1,5 +1,5 @@
 > **Current status (2026-10-29): blocked on current main.** Fresh validation against
-> `665499915f9caedcd38921d415a90f0606686398` preserves all 1,022 normalized matches
+> `381dc30b35122022be7359215cb5d471fe9f778d` preserves all 1,022 normalized matches
 > but loses 88 raw matches (276 → 188). Historical no-loss claims below apply only
 > to the old base. This draft must not be treated as regression-free.
 
@@ -120,3 +120,11 @@ is established; keep this PR draft pending a source-level layout-compatible appr
 Reproduce the current check using the prior build commands with base `6654999`, then
 run the updated `verify.py` with fresh control/candidate outputs. Expect failure until
 the raw membership regression is resolved. No VM qualification is claimed for this PR.
+
+### Latest upstream follow-up
+
+Create V2 change #1389 landed during validation. Merged `381dc30b35122022be7359215cb5d471fe9f778d`
+and freshly rebuilt control and candidate again: identical membership verdict,
+1,022/276 → 1,022/188, the same 88 raw losses, helper and ordered callee checks
+preserved. Current-main JSON files now refer to this latest base; the rejected
+local-export experiment remains explicitly tied to the prior 6654999 base.
