@@ -394,6 +394,22 @@ export class PostStore {
     };
   }
 
+  /** Resolve once per account, before offset/hasMore count account rows. */
+  private engagementUsers(ids: string[]): User[] {
+    const seen = new Set<string>();
+    const users: User[] = [];
+    for (const id of ids) {
+      const user = this.userStore.getById(id);
+      if (!user) continue;
+      // UserStore accepts both address and userId for the same account.
+      const identity = JSON.stringify([user.address, user.userId]);
+      if (seen.has(identity)) continue;
+      seen.add(identity);
+      users.push(user);
+    }
+    return users;
+  }
+
   /**
    * Offset-paginated likers of a post.
    * Returns undefined if the post is not live.
@@ -402,20 +418,13 @@ export class PostStore {
     const post = this.byPostId.get(postId);
     if (!post || !this.isServed(post)) return undefined;
 
-    const likerIds = (post.likers ?? []).filter(id => this.userStore.getById(id) !== undefined);
+    const users = this.engagementUsers(post.likers ?? []);
     const offset = Math.max(0, opts.offset ?? 0);
     const limit = Math.max(1, opts.limit ?? 50);
 
-    const slice = likerIds.slice(offset, offset + limit);
-    const hasMore = offset + limit < likerIds.length;
-
-    const likers: UserProfile[] = [];
-    for (const id of slice) {
-      const user = this.userStore.getById(id);
-      if (user) {
-        likers.push(userToProfile(user, this.userStore.isVerified(user.userId ?? user.address)));
-      }
-    }
+    const hasMore = offset + limit < users.length;
+    const likers = users.slice(offset, offset + limit)
+      .map(user => userToProfile(user, this.userStore.isVerified(user.userId ?? user.address)));
 
     return { likers, hasMore };
   }
@@ -428,20 +437,13 @@ export class PostStore {
     const post = this.byPostId.get(postId);
     if (!post || !this.isServed(post)) return undefined;
 
-    const reposterIds = (post.reposters ?? []).filter(id => this.userStore.getById(id) !== undefined);
+    const users = this.engagementUsers(post.reposters ?? []);
     const offset = Math.max(0, opts.offset ?? 0);
     const limit = Math.max(1, opts.limit ?? 50);
 
-    const slice = reposterIds.slice(offset, offset + limit);
-    const hasMore = offset + limit < reposterIds.length;
-
-    const reposters: UserProfile[] = [];
-    for (const id of slice) {
-      const user = this.userStore.getById(id);
-      if (user) {
-        reposters.push(userToProfile(user, this.userStore.isVerified(user.userId ?? user.address)));
-      }
-    }
+    const hasMore = offset + limit < users.length;
+    const reposters = users.slice(offset, offset + limit)
+      .map(user => userToProfile(user, this.userStore.isVerified(user.userId ?? user.address)));
 
     return { reposters, hasMore };
   }

@@ -84,7 +84,11 @@ is a contract decision, not a bug fix.
     clamp to 200. Non-positive or zero values clamp to 1.
 29. **Liker and reposter offset pagination**: `offset` defaults to 0 (clamps to min 0, max 10000).
     `limit` defaults to 50 (clamps to min 1, max 200). `hasMore` is `true` if `offset + limit < total`,
-    `false` otherwise.
+    `false` otherwise. The local user store accepts either a wallet address or a user ID for an
+    account. Resolve these aliases and omit missing accounts before pagination; repeated references
+    to one account occupy one row, retaining its first occurrence in the supplied order. This local
+    projection policy does not establish an upstream ordering or identity-resolution rule. Seeded
+    aggregate like/repost counts remain supplied facts, not totals derived from these lists.
 30. **One-level embeds without recursion**: Posts embed immediate parent (`parent`), quoted post
     (`quoted`), and reposted post (`reposted`). To avoid recursive cycles and conform strictly to
     `Shared_47a8d5353d95`, embeds have their own `parent: null`, `quoted: null`, and `reposted: null`.
