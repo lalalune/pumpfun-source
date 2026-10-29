@@ -2,8 +2,9 @@
 import { useEffect, useRef, useState } from "react";
 import { COUNTERS, fetchWalletRecord } from "./client";
 import type { WalletRecordSuccess } from "./types";
+import { PublicAmmWalletRecordPanel } from "../amm-wallet-record/panel";
 
-export function PublicWalletRecordPanel({ address }: { address: string }) {
+function PumpWalletRecordPanel({ address }: { address: string }) {
   const [value, setValue] = useState<WalletRecordSuccess | null>(null);
   const [status, setStatus] = useState<"idle" | "loading" | "error" | "ready">(
     "idle",
@@ -155,5 +156,15 @@ export function PublicWalletRecordPanel({ address }: { address: string }) {
         </div>
       )}
     </section>
+  );
+}
+
+/** Independent opt-in records; neither result is summed or substituted. */
+export function PublicWalletRecordPanel({ address }: { address: string }) {
+  return (
+    <>
+      <PumpWalletRecordPanel address={address} />
+      <PublicAmmWalletRecordPanel address={address} />
+    </>
   );
 }

@@ -1,0 +1,100 @@
+{
+  "sdkVersion": "4.3.1",
+  "programId": "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA",
+  "pdaSeed": "user_volume_accumulator",
+  "account": "UserVolumeAccumulator",
+  "discriminator": [
+    86,
+    255,
+    112,
+    14,
+    102,
+    53,
+    154,
+    250
+  ],
+  "minimumBytes": 90,
+  "fields": [
+    {
+      "name": "user",
+      "decoded": "user",
+      "type": "pubkey",
+      "bytes": [
+        8,
+        40
+      ]
+    },
+    {
+      "name": "needs_claim",
+      "decoded": "needsClaim",
+      "type": "bool",
+      "bytes": [
+        40,
+        41
+      ]
+    },
+    {
+      "name": "total_unclaimed_tokens",
+      "decoded": "totalUnclaimedTokens",
+      "type": "u64",
+      "bytes": [
+        41,
+        49
+      ]
+    },
+    {
+      "name": "total_claimed_tokens",
+      "decoded": "totalClaimedTokens",
+      "type": "u64",
+      "bytes": [
+        49,
+        57
+      ]
+    },
+    {
+      "name": "current_sol_volume",
+      "decoded": "currentSolVolume",
+      "type": "u64",
+      "bytes": [
+        57,
+        65
+      ]
+    },
+    {
+      "name": "last_update_timestamp",
+      "decoded": "lastUpdateTimestamp",
+      "type": "i64",
+      "bytes": [
+        65,
+        73
+      ]
+    },
+    {
+      "name": "has_total_claimed_tokens",
+      "decoded": "hasTotalClaimedTokens",
+      "type": "bool",
+      "bytes": [
+        73,
+        74
+      ]
+    },
+    {
+      "name": "cashback_earned",
+      "decoded": "cashbackEarned",
+      "type": "u64",
+      "bytes": [
+        74,
+        82
+      ]
+    },
+    {
+      "name": "total_cashback_claimed",
+      "decoded": "totalCashbackClaimed",
+      "type": "u64",
+      "bytes": [
+        82,
+        90
+      ]
+    }
+  ]
+}
