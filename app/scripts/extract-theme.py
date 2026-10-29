@@ -55,10 +55,15 @@ def fail(message):
 
 def load_source():
     manifest = json.loads((ROOT / 'evidence/web/manifest.json').read_text(encoding='utf-8'))
-    record = next((r for r in manifest['records'] if r['url'] == SOURCE_URL), None)
-    if record is None:
-        fail(f'{SOURCE_URL} is not in the capture manifest')
+    matches = [r for r in manifest['records'] if r.get('url') == SOURCE_URL]
+    if len(matches) != 1:
+        fail(f'expected one capture for {SOURCE_URL}, found {len(matches)}')
+    record = matches[0]
+    if type(record.get('status')) is not int or record['status'] != 200:
+        fail(f'{SOURCE_URL} is not a successful capture')
     data = (ROOT / record['path']).read_bytes()
+    if type(record.get('bytes')) is not int or record['bytes'] != len(data):
+        fail(f'{record["path"]} has an invalid captured byte count')
     if hashlib.sha256(data).hexdigest() != record['sha256']:
         fail(f'{record["path"]} does not match its manifest SHA-256')
     return record, data.decode('utf-8')

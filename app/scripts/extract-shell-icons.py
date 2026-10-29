@@ -95,10 +95,15 @@ def manifest():
 
 
 def captured(records, url):
-    record = next((r for r in records if r['url'] == url), None)
-    if record is None:
-        fail(f'{url} is not captured')
+    matches = [r for r in records if r.get('url') == url]
+    if len(matches) != 1:
+        fail(f'expected one capture for {url}, found {len(matches)}')
+    record = matches[0]
+    if type(record.get('status')) is not int or record['status'] != 200:
+        fail(f'{url} is not a successful capture')
     data = (ROOT / record['path']).read_bytes()
+    if type(record.get('bytes')) is not int or record['bytes'] != len(data):
+        fail(f'{record["path"]} has an invalid captured byte count')
     if hashlib.sha256(data).hexdigest() != record['sha256']:
         fail(f'{record["path"]} does not match its manifest SHA-256')
     return record, data
