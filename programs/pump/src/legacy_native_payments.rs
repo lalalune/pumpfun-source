@@ -14,4 +14,24 @@ pub fn ensure_rent_exempt<'info>(
     }
 }
 
-pub use pump_native_payments::transfer;
+#[inline(never)]
+pub fn transfer<'info>(
+    system_program: &AccountInfo<'info>,
+    payer: &Signer<'info>,
+    destination: &AccountInfo<'info>,
+    amount: u64,
+) -> Result<()> {
+    if amount == 0 {
+        return Ok(());
+    }
+    anchor_lang::system_program::transfer(
+            CpiContext::new(
+                system_program.clone(),
+                anchor_lang::system_program::Transfer {
+                    from: payer.to_account_info(),
+                    to: destination.clone(),
+                },
+            ),
+            amount,
+        )
+}

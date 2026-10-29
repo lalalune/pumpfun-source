@@ -391,7 +391,7 @@ fn narrow(a:u128)->Result<u64>{u64::try_from(a).map_err(|_|error!(PumpError::Tru
  if cf>0{if a.bonding_curve.is_cashback_coin{
  pay_owned(native,&a.base_mint,a.bonding_curve.as_ref(),a.user_volume_accumulator.to_account_info(),cf,&a.quote_token_program,&a.quote_mint,if native{None}else{Some(a.associated_quote_bonding_curve.as_ref())},if native{None}else{Some(a.associated_user_volume_accumulator.as_ref())},ctx.bumps.bonding_curve)?;
  crate::token_incentives::volume_accumulator::record_cashback_earned(&mut a.user_volume_accumulator,cf,native)?;
- }else{crate::buy_v2::native_payments::ensure_rent_exempt(0,&a.system_program,&a.user,&a.creator_vault)?;
+ }else{crate::buy_v2::native_payments::ensure_rent_exempt(crate::buy_v2::native_payments::ZeroRentSize::Zero,&a.system_program,&a.user,&a.creator_vault)?;
  pay_owned(native,&a.base_mint,a.bonding_curve.as_ref(),a.creator_vault.to_account_info(),cf,&a.quote_token_program,&a.quote_mint,if native{None}else{Some(a.associated_quote_bonding_curve.as_ref())},if native{None}else{Some(a.associated_creator_vault.as_ref())},ctx.bumps.bonding_curve)?;
  }}
  pay_user(native,&a.base_mint,a.bonding_curve.as_ref(),a.user.as_ref(),output,&a.quote_token_program,&a.quote_mint,if native{None}else{Some(a.associated_quote_bonding_curve.as_ref())},if native{None}else{Some(a.associated_quote_user.as_ref())},ctx.bumps.bonding_curve)?;

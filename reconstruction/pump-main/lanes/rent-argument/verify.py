@@ -10,7 +10,7 @@ import sys
 
 TARGETS = {
     0x3b598: ('pump_recovered::buy_v2::native_payments::ensure_rent_exempt',
-              'pump_native_payments::ensure_rent_exempt'),
+              'pump_recovered::buy_v2::native_payments::ensure_rent_exempt'),
     0x13b9b8: ('pump_recovered::buy_v2::buy_handler',) * 2,
     0x13f630: ('pump_recovered::buy_v2::buy_exact_quote_in_handler',) * 2,
     0x144508: ('pump_recovered::pump_recovered::sell_v2',) * 2,
@@ -103,7 +103,9 @@ def main():
             row['ordered_callee_signatures_sha256'] = digest(json.dumps(calls, separators=(',', ':')).encode())
     passed = (all(not d['losses'] for d in delta.values()) and
               candidate['targets']['0x3b598']['normalized_equal'] and
-              all(r['ordered_callees_equal_control'] for r in candidate['targets'].values()))
+              all(r['ordered_callees_equal_control'] for r in candidate['targets'].values()) and
+              all(candidate['targets'][hex(s)]['diagnostic_ratio'] > control['targets'][hex(s)]['diagnostic_ratio']
+                  for s in TARGETS if s != 0x3b598))
     report = {'scope': 'Static source-build comparison; no runtime execution or new full-window gain implied.',
               'original_sha256': digest(original), 'control': control, 'candidate': candidate,
               'delta': delta, 'checks_passed': passed}

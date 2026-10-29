@@ -1100,17 +1100,9 @@ dependencies = [
 ]
 
 [[package]]
-name = "pump-native-payments"
-version = "0.1.0"
-dependencies = [
- "anchor-lang",
-]
-
-[[package]]
 name = "pump-recovered"
 version = "0.1.0"
 dependencies = [
- "pump-native-payments",
  "anchor-lang",
  "anchor-spl",
  "pump-token-ext",

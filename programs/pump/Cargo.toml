@@ -15,7 +15,6 @@ anchor-debug = []
 custom-heap = []
 custom-panic = []
 [dependencies]
-pump-native-payments = { path = "pump-native-payments" }
 pump-token-ext = { path = "pump-token-ext" }
 spl-type-length-value = { version = "=0.7.0", default-features = false }
 anchor-lang = {version = "=0.31.1", features = ["event-cpi", "init-if-needed", "allow-missing-optionals"]}
