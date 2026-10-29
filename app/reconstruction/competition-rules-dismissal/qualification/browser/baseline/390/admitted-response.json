@@ -1,0 +1,42 @@
+{
+  "ok": true,
+  "data": {
+    "kind": "competition-detail",
+    "competition": {
+      "id": "11111111-1111-4000-8000-000000000001",
+      "slug": "solana-autumn-arena",
+      "kind": "person",
+      "title": "Solana Autumn Arena",
+      "description": "Upcoming solo trader showdown.",
+      "prizeCopy": "$25,000 Grand Prize",
+      "prizes": [
+        {
+          "rankFrom": 1,
+          "rankTo": 1,
+          "amount": "$25,000"
+        }
+      ],
+      "minMembers": 1,
+      "maxMembers": 1,
+      "registrationOpensAt": "2026-11-01T00:00:00.000Z",
+      "registrationClosesAt": "2026-12-01T00:00:00.000Z",
+      "startsAt": "2026-11-15T00:00:00.000Z",
+      "endsAt": "2026-12-01T00:00:00.000Z",
+      "maxEntries": 250,
+      "entriesCount": 0,
+      "participants": 0,
+      "joinable": false,
+      "phase": "upcoming",
+      "isFinal": false
+    },
+    "entries": [],
+    "totalRanked": 0,
+    "builtAtMs": 0,
+    "isFinal": false
+  },
+  "source": {
+    "mode": "developer-api",
+    "label": "Pump developer API",
+    "fetchedAt": "2026-10-29T20:04:00.909Z"
+  }
+}
