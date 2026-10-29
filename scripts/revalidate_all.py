@@ -18,6 +18,15 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 
+# These archived verifiers document --repo and otherwise default it to cwd.
+# Keep packet-relative cwd for legacy verifiers; supply only this known option.
+REPOSITORY_ARGUMENT_PACKETS = frozenset({
+    'research/tooling-legacy-capture-metadata-20261029',
+    'research/tooling-roadmap-call-classification-20261029',
+    'research/tooling-source-manifest-symlinks-20261029',
+    'research/tooling-token-program-constant-detector-20261029',
+})
+
 
 def sha256_file(path):
     h = hashlib.sha256()
@@ -66,9 +75,17 @@ def run_verify(packet_dir):
     if not verify_path.exists():
         return {"status": "no_verify_script", "output": ""}
 
+    command = [sys.executable, "-B", str(verify_path)]
+    try:
+        relative = packet_dir.resolve().relative_to(REPO.resolve()).as_posix()
+    except ValueError:
+        relative = None
+    if relative in REPOSITORY_ARGUMENT_PACKETS:
+        command.extend(["--repo", str(REPO.resolve())])
+
     try:
         result = subprocess.run(
-            [sys.executable, "-B", str(verify_path)],
+            command,
             cwd=str(packet_dir),
             capture_output=True,
             text=True,
