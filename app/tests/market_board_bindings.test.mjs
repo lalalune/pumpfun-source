@@ -1,3 +1,4 @@
+import { createTestSymlink } from './helpers/test-symlink.mjs';
 import assert from "node:assert/strict";
 import test from "node:test";
 import fs from "node:fs/promises";
@@ -119,7 +120,7 @@ test("rejects symlinks rather than following replacement source bytes", async (t
     source = path.join(dir, contract.factories.board.source);
   const actual = path.join(dir, "replacement.js");
   await fs.rename(source, actual);
-  await fs.symlink(actual, source);
+  if (!await createTestSymlink(t, actual, source)) return;
   await assert.rejects(verifyMarketBoardBindings(dir), /symlink/);
 });
 for (const field of [

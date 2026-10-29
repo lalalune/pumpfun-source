@@ -1,6 +1,7 @@
+import { createTestSymlink } from './helpers/test-symlink.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { mkdtemp, mkdir, readFile, writeFile, rm, symlink } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { openCorpus, decodeSource, sha256, RANGE_ENCODING } from '../scripts/original-contracts/source.mjs';
@@ -87,11 +88,15 @@ test('multiple origin contexts stay ambiguous until explicitly selected', async 
   await assert.rejects((await openCorpus(f.root)).factory(7), /explicit chunk context required/);
 });
 
-test('manifest source symlinks and traversal paths are rejected', async (t) => {
+test('manifest source symlinks are rejected', async (t) => {
   const f = await fixture(t);
   await rm(path.join(f.root, f.source));
-  await symlink(path.join(f.root, 'recovered/modules.json'), path.join(f.root, f.source));
+  if (!await createTestSymlink(t, path.join(f.root, 'recovered/modules.json'), path.join(f.root, f.source))) return;
   await assert.rejects((await openCorpus(f.root)).factory(7), /symlink/);
+});
+
+test('manifest source traversal paths are rejected', async (t) => {
+  const f = await fixture(t);
   f.record.path = '../escape.js';
   f.index.modules[0].origins[0].source = '../escape.js';
   await f.save();

@@ -1,3 +1,4 @@
+import { createTestSymlink } from './helpers/test-symlink.mjs';
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import {
@@ -5,7 +6,6 @@ import {
   mkdir,
   readFile,
   rm,
-  symlink,
   writeFile,
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -459,14 +459,14 @@ test("capture hash and UTF-16 source range mutations fail closed", async () => {
   );
 });
 
-test("symlinked evidence is rejected", async () => {
+test("symlinked evidence is rejected", async (t) => {
   const root = await fixture();
   const manifestPath = join(root, "evidence/web/manifest.json");
   const realPath = join(root, "manifest-real.json");
   await writeFile(realPath, await readFile(manifestPath));
   await writeFile(manifestPath, "{}");
   await import("node:fs/promises").then(({ unlink }) => unlink(manifestPath));
-  await symlink(realPath, manifestPath);
+  if (!await createTestSymlink(t, realPath, manifestPath)) return;
   await assert.rejects(
     buildGraph(root, { routes: ["/"], targetLines: 1, maximumLines: 100 }),
     /symlink rejected/,
