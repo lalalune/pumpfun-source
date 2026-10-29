@@ -1,0 +1,67 @@
+[
+  {
+    "name": "valid-control",
+    "status": 200,
+    "issues": []
+  },
+  {
+    "name": "string-member-count",
+    "status": 200,
+    "issues": [
+      {
+        "path": "$[0].member_count",
+        "message": "expected type number, received string"
+      }
+    ]
+  },
+  {
+    "name": "null-member-count",
+    "status": 200,
+    "issues": [
+      {
+        "path": "$[0].member_count",
+        "message": "expected type number, received null"
+      }
+    ]
+  },
+  {
+    "name": "null-badges",
+    "status": 200,
+    "issues": [
+      {
+        "path": "$[0].group_badges",
+        "message": "expected type array, received null"
+      }
+    ]
+  },
+  {
+    "name": "missing-badge-field",
+    "status": 200,
+    "issues": [
+      {
+        "path": "$[0].group_badges[0].profile_image_url",
+        "message": "required property is missing"
+      }
+    ]
+  },
+  {
+    "name": "boolean-badge-role",
+    "status": 200,
+    "issues": [
+      {
+        "path": "$[0].group_badges[0].role",
+        "message": "value matched none of the anyOf branches"
+      }
+    ]
+  },
+  {
+    "name": "extra-badge-field",
+    "status": 200,
+    "issues": [
+      {
+        "path": "$[0].group_badges[0].extra",
+        "message": "property is not allowed by additionalProperties: false"
+      }
+    ]
+  }
+]

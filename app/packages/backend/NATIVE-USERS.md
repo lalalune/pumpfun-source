@@ -52,6 +52,17 @@ it surfaces rather than left to look like evidence:
 Replacing this store with fixture-backed or recorded data would not change any route,
 test, or schema. Only `UserStore` would change.
 
+Group metadata is checked when `UserStore` admits its snapshot, before read indexes
+are constructed. A supplied `member_count` must be a finite number; the published
+schema does not require an integer or nonnegative value. A supplied `group_badges`
+must be an array of complete badge objects with exactly `group_id`, `username`,
+`profile_image_url` and `role`. The first two and `role` are strings; the image is
+a string or null. Empty arrays, absent metadata and future string roles remain
+valid under the declared open enum. Invalid metadata fails local construction
+instead of being serialized into successful schema-invalid responses. This is
+bounded local data admission, not full User validation or upstream qualification;
+see the [HTTP/regression evidence](../../research/users-group-metadata-20261029/README.md).
+
 ## Documented assumptions
 
 The contract does not specify these behaviors. Each was decided deliberately; changing

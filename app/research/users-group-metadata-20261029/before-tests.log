@@ -1,0 +1,47 @@
+✖ rejects non-number or nonfinite group member metadata before indexing (4.580904ms)
+✖ admits only the declared complete group badge shape and preserves open string roles (0.676426ms)
+✔ real loopback profile reads retain valid group metadata and satisfy the captured response schemas (86.559422ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 1
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 779.376299
+
+✖ failing tests:
+
+test at app/packages/backend/test/users-group-metadata.test.ts:1:787
+✖ rejects non-number or nonfinite group member metadata before indexing (4.580904ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (/workspace/pump-app-privacy-links/app/packages/backend/test/users-group-metadata.test.ts:20:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /Invalid user member_count/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at app/packages/backend/test/users-group-metadata.test.ts:1:1211
+✖ admits only the declared complete group badge shape and preserves open string roles (0.676426ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (/workspace/pump-app-privacy-links/app/packages/backend/test/users-group-metadata.test.ts:46:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /Invalid user group_badges/,
+    operator: 'throws',
+    diff: 'simple'
+  }

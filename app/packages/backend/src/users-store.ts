@@ -140,6 +140,26 @@ function isWalletAddress(value: string): boolean {
   return (bytes.length === 1 && bytes[0] === 0 ? 0 : bytes.length) + leading === 32;
 }
 
+const GROUP_BADGE_FIELDS = new Set(['group_id', 'username', 'profile_image_url', 'role']);
+
+/** Keep local group metadata within the declared read-response shape. */
+function assertGroupMetadata(user: User): void {
+  if (user.member_count !== undefined &&
+      (typeof user.member_count !== 'number' || !Number.isFinite(user.member_count)))
+    throw new TypeError('Invalid user member_count');
+  if (user.group_badges === undefined) return;
+  if (!Array.isArray(user.group_badges)) throw new TypeError('Invalid user group_badges');
+  for (const badge of user.group_badges) {
+    if (!badge || typeof badge !== 'object' || Array.isArray(badge) ||
+        [...GROUP_BADGE_FIELDS].some((field) => !Object.hasOwn(badge, field)) ||
+        Object.keys(badge).some((field) => !GROUP_BADGE_FIELDS.has(field)) ||
+        typeof badge.group_id !== 'string' || typeof badge.username !== 'string' ||
+        (badge.profile_image_url !== null && typeof badge.profile_image_url !== 'string') ||
+        typeof badge.role !== 'string')
+      throw new TypeError('Invalid user group_badges');
+  }
+}
+
 export class UserStore {
   private users: User[];
   private byAddress: Map<string, User>;
@@ -151,6 +171,7 @@ export class UserStore {
     this.users = structuredClone(seed ?? users);
     const identities = new Set<string>();
     for (const user of this.users) {
+      assertGroupMetadata(user);
       for (const id of new Set([user.address, user.userId].filter((id): id is string => typeof id === 'string' && id !== ''))) {
         if (identities.has(id)) throw new TypeError('Duplicate or ambiguous user identity');
         identities.add(id);

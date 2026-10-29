@@ -1,0 +1,49 @@
+{
+  "baseline": "630a074126a13d4133514d599129c6ac9a3179bc",
+  "appTree": "e3d6d8cd07df4f561a4fd058dad29d22de451bfc",
+  "beforeHttp": {
+    "validControl200SchemaPass": 1,
+    "malformed200SchemaFailures": 6
+  },
+  "afterHttp": {
+    "validControl200SchemaPass": 1,
+    "malformedRejectedBeforeListen": 6
+  },
+  "regressionBefore": {
+    "passed": 1,
+    "failed": 2
+  },
+  "regressionAfter": {
+    "passed": 3,
+    "failed": 0
+  },
+  "backendAll": {
+    "passed": 967,
+    "failed": 0,
+    "skipped": 0,
+    "workers": 2
+  },
+  "backendTypecheckExitCode": 0,
+  "evidence": {
+    "objects": 698,
+    "npmIntegrity": true,
+    "sdkSourcesUnchanged": true
+  },
+  "changedDeclaredInput": [
+    "app/packages/backend/src/users-store.ts"
+  ],
+  "sourceInputs": {
+    "app/packages/backend/src/users-store.ts": "04d9d962c43618a171cae0e3007b7637d99cb37bf0b6cf6a9821735cc9941aef",
+    "app/packages/backend/src/users-routes.ts": "bd62660f6f62b6b7b8611ae48ffa486a3ad42e9a355ddfef547a4854ba9462a6",
+    "app/packages/backend/src/app.ts": "ec514eae9721cd9bafdc46f32008d7bec45c769b4a4eca5623f66a55dffe7d77",
+    "app/packages/backend/src/schema-validator.ts": "9317f75f3df5ffd981c2c53ed0eeeefdb27ff2d4e0751867fd67005ccf60a246",
+    "app/contracts/developer.openapi.json": "ad2fdc2bbf0b86d92e01f539ca609fff8164fcc44556bb2691378a869f73ad73"
+  },
+  "credentialScope": "Existing public synthetic TEST_API_KEY fixture used only on ephemeral loopback; request headers not retained; no auth compatibility claim",
+  "limits": [
+    "Only local supplied snapshot metadata admission changes; no original backend source or production requests.",
+    "No new native operation, original API qualification, security acceptance or feature milestone.",
+    "Other User fields including kind/status stay outside this change; open1267 owns those."
+  ],
+  "setup": "Original outside-package .ts driver was treated as CommonJS and blocked before execution; unchanged .mts mode ran actual HTTP. Initial setup log retained."
+}

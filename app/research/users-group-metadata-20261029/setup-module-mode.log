@@ -1,0 +1,25 @@
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error: Transform failed with 8 errors:
+/workspace/pump-app-privacy-links/work/backend-group-metadata/repro.ts:11:24: ERROR: Top-level await is currently not supported with the "cjs" output format
+/workspace/pump-app-privacy-links/work/backend-group-metadata/repro.ts:16:47: ERROR: Top-level await is currently not supported with the "cjs" output format
+/workspace/pump-app-privacy-links/work/backend-group-metadata/repro.ts:35:20: ERROR: Top-level await is currently not supported with the "cjs" output format
+/workspace/pump-app-privacy-links/work/backend-group-metadata/repro.ts:37:21: ERROR: Top-level await is currently not supported with the "cjs" output format
+/workspace/pump-app-privacy-links/work/backend-group-metadata/repro.ts:38:17: ERROR: Top-level await is currently not supported with the "cjs" output format
+...
+    at failureErrorWithLog (/workspace/pump-app-privacy-links/app/node_modules/.pnpm/esbuild@0.25.12/node_modules/esbuild/lib/main.js:1467:15)
+    at /workspace/pump-app-privacy-links/app/node_modules/.pnpm/esbuild@0.25.12/node_modules/esbuild/lib/main.js:736:50
+    at responseCallbacks.<computed> (/workspace/pump-app-privacy-links/app/node_modules/.pnpm/esbuild@0.25.12/node_modules/esbuild/lib/main.js:603:9)
+    at handleIncomingPacket (/workspace/pump-app-privacy-links/app/node_modules/.pnpm/esbuild@0.25.12/node_modules/esbuild/lib/main.js:658:12)
+    at Socket.readFromStdout (/workspace/pump-app-privacy-links/app/node_modules/.pnpm/esbuild@0.25.12/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  name: 'TransformError'
+}
+
+Node.js v24.19.0
