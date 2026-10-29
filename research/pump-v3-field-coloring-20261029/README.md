@@ -7,6 +7,11 @@ decision reversal and two private field-priority replacements, the compiler
 emits a **2,120-byte function equal to the original after relocation operand
 normalization**. The emitted object was retained without binary patching.
 
+A follow-up below replaces the private field-priority patch with LLVM's
+existing `-greedy-reverse-local-assignment=true` option and reproduces the
+**same complete object**. The private scheduler intervention and synthetic
+profile are still required by this demonstrated diagnostic recipe.
+
 **Raw equality is false.** This is a diagnostic experiment, not recovered Rust,
 an original compiler recipe, a maintained-source window gain, or whole-ELF
 identity. No production source, selected image, or census is changed. The next
@@ -34,6 +39,7 @@ From the repository root, Python's standard library is sufficient:
 ```sh
 python -I -B research/pump-v3-field-coloring-20261029/verify.py --repo-root .
 python -I -B research/pump-v3-field-coloring-20261029/test_verify.py -v
+python -I -B research/pump-v3-field-coloring-20261029/test_stock_priority.py -v
 ```
 
 Replay reads the three packets, the original capture, and
@@ -131,15 +137,60 @@ qualified local distance without reading or changing the other register's
 uninitialized allocation stage. Its default-off and inactive-guard controls
 still reproduce the complete parent objects and traces.
 
-The packet retains 22 `llc` attempts (one failure), 12 host
+The initial experiment retains 22 `llc` attempts (one failure), 12 host
 compile/archive/link commands, and 21 emitted objects. It adds no root Rust
 compilation and executes no target program. The older scheduler analysis
 receipt predates the successful combined control; its negative conclusion
 describes the scheduler-only experiment and is intentionally preserved.
 
+## Replacing the private field-priority patch
+
+The pinned `GreedyReverseLocalAssignment` option is a stock override of
+`TargetRegisterInfo::reverseLocalAssignment()`; SBF inherits the default
+`false`. With the option enabled, the local priority uses the interval's
+**end** distance from zero instead of its **begin** distance from the last
+index. This is not simply an inversion of the previous priority number.
+
+For the scheduler-reversed pair, `%101` ends at 6400 and `%100` at 6384.
+Their derived priorities are `2^31 + 6400/4 = 2147485248` and
+`2^31 + 6384/4 = 2147485244`. Saved Greedy records select `%101` first into
+`r1`, then `%100` into `r2`. There is no private field instrumentation or
+field-priority switch in this run. Its compiler is the earlier scheduler-only
+derivative (`89fcc76c5c3c94613ff93984a0afee87628a64fad499d0c54ece3dc88547032f`).
+The complete emitted object equals `2dc620ca...b527` from the repaired
+two-intervention experiment, including its relocation and constant data.
+
+Nine further `llc` controls bind this result:
+
+| Input and scheduler | Reverse-local false | Reverse-local true |
+| --- | --- | --- |
+| Baseline IR / stock compiler | 2136 bytes / 23 slots | identical complete object |
+| Synthetic profile / stock compiler | 2120 bytes / 2 slots | identical complete object |
+| Synthetic profile / private reversed scheduler | prior 2144 bytes / 9 slots | 2120 bytes / 0 slots |
+| Reversed IR stores / stock compiler, baseline | 2152 bytes / 26 slots | identical complete object |
+| Reversed IR stores / stock compiler, synthetic profile | 2144 bytes / 9 slots | identical complete object |
+
+The last two rows revisit the previously rejected store-order alternative.
+Only two disjoint eight-byte result stores at offsets 8/16 change order;
+their pure address definitions retain valid numeric SSA order. That change
+also reverses the uses, leaving the first field's interval ending at 6400 and
+the second at 6384. The reverse-local option therefore still assigns the
+first to `r1` and fails to rescue this alternative. These are manually edited
+IR controls, not generated Rust candidates. Both failed alternatives remain
+in the packet alongside the positive control.
+
+`verify_stock_priority.py` checks all nine complete object receipts, exact
+input changes and supported options, observed allocation order, derived
+priorities, and 33 ordered references/13 constants per object. Nine additional
+mutation tests reject forged endpoints, colors, hidden private instrumentation,
+extra input changes/flags and mismatched compiler/input hashes. The combined
+packet has 31 `llc` attempts, 30 emitted objects, the same 12 historical host
+build commands, and zero root Rust compilations or target executions. A
+compiler option reproducing one effect does not establish original build flags.
+
 ## Evidence boundary
 
-`EVIDENCE.json` binds 197 gzip members by uncompressed length/hash;
+`EVIDENCE.json` binds 252 gzip members by uncompressed length/hash;
 `MANIFEST.json` seals the packet. `verify.py` recomputes the measurements,
 formula, trace controls and exact field/source patch applications. It binds
 all 33 ordered function relocation targets and 13 complete recursively
@@ -149,11 +200,12 @@ External function references remain symbolic at the object stage. The parent
 packet supplies the bounded original/candidate reference audit; this does not
 prove arbitrary callee behavior or whole-program identity.
 
-The 16 mutation tests exercise actual saved traces and recipes: forged local
+The initial 16 mutation tests exercise actual saved traces and recipes: forged local
 priorities/endpoints/hints/colors/interference, duplicate or missing events,
 unparsed interventions, extra compiler flags, changed environment and hashes,
 and overly broad log/address filtering. A fresh minimal-directory replay also
-passes with the two parent packets and their 38 tests.
+passes with the nine follow-up tests and the two parent packets' 38 tests
+(63 tests total).
 
 No behavior test, raw-byte match, original compiler provenance, allocation
 image identity, completeness, or security conclusion follows from this

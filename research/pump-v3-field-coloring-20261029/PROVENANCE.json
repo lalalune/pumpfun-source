@@ -6,9 +6,12 @@
   "original_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
   "upstream_base": "4068e77accddbfaf26d790573b12bd6a8b7fb535",
   "source_root_commands": 0,
-  "llc_commands": 22,
+  "llc_commands": 31,
   "failed_llc_commands": 1,
   "private_host_build_commands": 12,
   "target_executions": 0,
-  "scope": "Historical compiler receipts and retained emitted objects. Replay runs no build controller, compiler, ELF or VM. Synthetic profile and opt-in scheduling/priority controls are not recovered source or original compiler provenance."
+  "scope": "Historical compiler receipts and retained emitted objects. Replay runs no build controller, compiler, ELF or VM. Synthetic profile and opt-in scheduling/priority controls are not recovered source or original compiler provenance.",
+  "stock_priority_extension_llc_commands": 9,
+  "stock_priority_extension_root_rustc_commands": 0,
+  "stock_priority_extension_host_build_commands": 0
 }
