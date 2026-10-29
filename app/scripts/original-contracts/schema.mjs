@@ -216,6 +216,12 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
       if (method === 'enum' && node.arguments.length === 1) return { enum: await constant(node.arguments[0], ctx) };
       if (method === 'literal' && node.arguments.length === 1) return { const: await constant(node.arguments[0], ctx) };
       if (method === 'union' && node.arguments[0]?.type === 'ArrayExpression' && node.arguments.length === 1) return { anyOf: await Promise.all(node.arguments[0].elements.map((value) => compileWith(value, ctx))) };
+      if (method === 'record' && node.arguments.length === 2) {
+        const key = await compileWith(node.arguments[0], ctx);
+        // Zod requires every key of an enum-keyed record; only open string keys are reproduced.
+        if (key.type !== 'string' || Object.keys(key).length !== 1) throw new Error('unsupported record key schema');
+        return { type: 'object', propertyNames: key, additionalProperties: await compileWith(node.arguments[1], ctx) };
+      }
       throw new Error(`unsupported Zod constructor ${method}`);
     }
     const base = await compileWith(target, ctx);
@@ -239,6 +245,9 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
         return { ...expanded, [keyword]: combine(expanded[keyword] ?? (method === 'min' ? -Infinity : Infinity), value) };
       }
     }
+    // Only a flagless literal: Zod tests it as written, which JSON Schema `pattern` reproduces.
+    if (method === 'regex' && expanded.type === 'string' && node.arguments.length === 1 &&
+        node.arguments[0].type === 'RegExpLiteral' && node.arguments[0].flags === '') return { ...expanded, pattern: node.arguments[0].pattern };
     if (method === 'extend' && expanded.type === 'object' && node.arguments.length === 1) return { ...expanded, properties: { ...expanded.properties, ...await shape(node.arguments[0], ctx) } };
     if (method === 'pick' && expanded.type === 'object' && node.arguments[0]?.type === 'ObjectExpression' && node.arguments.length === 1) {
       const properties = {};
@@ -272,7 +281,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
     const result = structuredClone({ $schema: 'https://json-schema.org/draft/2020-12/schema', ...roots, $defs: definitions });
     function finish(node) {
       if (!node || typeof node !== 'object') return;
-      if (node.type === 'object') node.required = Object.entries(node.properties).filter(([, value]) => !allowsUndefined(value)).map(([name]) => name);
+      if (node.type === 'object' && node.properties) node.required = Object.entries(node.properties).filter(([, value]) => !allowsUndefined(value)).map(([name]) => name);
       for (const value of Object.values(node)) if (value && typeof value === 'object') Array.isArray(value) ? value.forEach(finish) : finish(value);
     }
     finish(result);

@@ -232,6 +232,21 @@
         "packages/backend/test/search-resolve.test.ts"
       ],
       "limits": "Explicit injected UserStore, exact known UUID account IDs only; preserves order and repeated/mixed identifiers. Missing accounts, addresses, coins and unsupported shapes remain whole-request 501. No live registry, absence/chain classification, upstream fallback, production key/scope authorization or full operation compatibility claim."
+    },
+    "holderRewards": {
+      "operations": [
+        "GET /fees/holder-rewards"
+      ],
+      "status": "opt-in-supplied-book-page-mode",
+      "defaultEnabled": false,
+      "qualified": false,
+      "evidence": [
+        "packages/backend/HOLDER-REWARDS.md",
+        "packages/backend/test/holder-rewards.test.ts",
+        "contracts/original-holder-rewards.json",
+        "tests/original_holder_rewards.test.mjs"
+      ],
+      "limits": "Website-namespace page mode over one explicit supplied book; local sort/null/tie, filter and paying definitions. Cursor mode and current-mark sorts remain 501. No captured caller or bound origin, no indexer, prices, claims, auth or full operation compatibility claim."
     }
   },
   "frontendReadClients": {

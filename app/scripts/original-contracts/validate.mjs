@@ -34,6 +34,7 @@ export function validateDeclared(document, schema, value) {
         const length = Array.from(input).length;
         if (rule.minLength !== undefined && length < rule.minLength) fail('below declared code-point string length');
         if (rule.maxLength !== undefined && length > rule.maxLength) fail('above declared code-point string length');
+        if (rule.pattern !== undefined && !new RegExp(rule.pattern).test(input)) fail('does not match declared pattern');
       }
     }
     if (rule.type === 'number' || rule.type === 'integer') {
@@ -54,10 +55,18 @@ export function validateDeclared(document, schema, value) {
     }
     if (rule.type === 'object') {
       if (input === null || typeof input !== 'object' || Array.isArray(input)) fail('expected object');
-      else for (const [name, child] of Object.entries(rule.properties)) {
-        // Missing properties and explicit undefined have Zod's same optional
-        // boundary. No defaults, stripping or transformations are performed.
-        visit(child, Object.hasOwn(input, name) ? input[name] : undefined, `${path}/${name}`, depth + 1);
+      else {
+        for (const [name, child] of Object.entries(rule.properties ?? {})) {
+          // Missing properties and explicit undefined have Zod's same optional
+          // boundary. No defaults, stripping or transformations are performed.
+          visit(child, Object.hasOwn(input, name) ? input[name] : undefined, `${path}/${name}`, depth + 1);
+        }
+        // A declared record checks every own value (schema.mjs admits only plain
+        // string keys); shapes keep accepting extras.
+        if (rule.additionalProperties) for (const [name, child] of Object.entries(input)) {
+          if (rule.properties && Object.hasOwn(rule.properties, name)) continue;
+          visit(rule.additionalProperties, child, `${path}/${name}`, depth + 1);
+        }
       }
     }
   }

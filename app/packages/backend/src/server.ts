@@ -7,6 +7,7 @@ import { loadPayoutsStore } from './payouts-store.js';
 import { loadUserTradesStore } from './user-trades-store.js';
 import { startWithLocalMedia } from './local-media-runtime.js';
 import { loadPortfolioBalancesStore } from './portfolio-balances-store.js';
+import { loadHolderRewardsStore } from './holder-rewards-store.js';
 // The sibling startup loaders (callouts, positions, portfolio balances) all
 // reject malformed UTF-8 with a fatal decoder. Fixtures must fail the same
 // way: a lossy "utf8" read would silently replace corrupted bytes with
@@ -19,8 +20,9 @@ const calloutDiscussionsStore = process.env.CALLOUT_DISCUSSIONS_FILE ? loadCallo
 const positionsStore = process.env.POSITIONS_FILE ? loadPositionsStore(process.env.POSITIONS_FILE) : undefined;
 const payoutsStore = loadPayoutsStore(process.env.PAYOUTS_FILE);
 const userTradesStore = process.env.TRADES_FILE ? loadUserTradesStore(process.env.TRADES_FILE) : undefined;
+const holderRewardsStore = loadHolderRewardsStore(process.env.HOLDER_REWARDS_FILE);
 const app = await startWithLocalMedia(process.env, async (localMedia) => {
-  const app = buildApp(fixtures, { calloutsStore, calloutDiscussionsStore, positionsStore, payoutsStore, userTradesStore, portfolioBalancesStore, localMedia });
+  const app = buildApp(fixtures, { calloutsStore, calloutDiscussionsStore, positionsStore, payoutsStore, userTradesStore, portfolioBalancesStore, holderRewardsStore, localMedia });
   try {
     await app.listen({ host: process.env.HOST ?? '127.0.0.1', port: Number(process.env.PORT ?? 3001) });
   } catch (startupError) {

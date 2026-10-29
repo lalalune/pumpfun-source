@@ -30,6 +30,8 @@ import { HomeFeedStore, defaultHomeFeedStore } from "./home-feed-store.js";
 import { registerLocalMediaRoutes, type LocalMediaOptions } from "./local-media-routes.js";
 import type { PortfolioBalancesStore } from "./portfolio-balances-store.js";
 import { registerPortfolioBalancesRoutes, PORTFOLIO_BALANCES_NATIVE_ROUTES } from "./portfolio-balances-routes.js";
+import type { HolderRewardsStore } from "./holder-rewards-store.js";
+import { registerHolderRewardsRoutes } from "./holder-rewards-routes.js";
 
 export type Fixture = {
   method: string;
@@ -334,6 +336,8 @@ export interface BuildAppOptions {
   portfolioBalancesStore?: PortfolioBalancesStore;
   /** Override the local Home Feed store (for tests). */
   homeFeedStore?: HomeFeedStore;
+  /** Explicit supplied holder-rewards book; absent preserves fixture/501 behavior. */
+  holderRewardsStore?: HolderRewardsStore;
 }
 
 /**
@@ -398,6 +402,7 @@ export function buildApp(fixtures: Fixture[] = [], opts: BuildAppOptions = {}) {
     opts.leaderboardStore ??
     (opts.userStore ? new LeaderboardStore(undefined, store) : defaultLeaderboardStore);
   registerHomeFeedRoutes(app, opts.homeFeedStore ?? defaultHomeFeedStore);
+  if (opts.holderRewardsStore) registerHolderRewardsRoutes(app, opts.holderRewardsStore);
   app.register(async (native) => {
     native.addHook("preHandler", apiKeyGate);
     if (opts.portfolioBalancesStore) registerPortfolioBalancesRoutes(native, opts.portfolioBalancesStore);
