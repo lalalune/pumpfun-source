@@ -1,0 +1,26 @@
+{
+  "results": [
+    {
+      "command": [
+        "node",
+        "/workspace/pump create upload public export/app/scripts/original-contracts/create-video-upload/verify.mjs",
+        "--app-root",
+        "/workspace/pump create upload public export/app",
+        "--check"
+      ],
+      "returncode": 0,
+      "logSha256": "880d851bc58696d8289226ec6dfde4e8e425ccfff2a0e4a97551f9eac8b8aa34"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "/workspace/pump create upload public export/app/tests/original_create_video_upload.test.mjs"
+      ],
+      "returncode": 0,
+      "logSha256": "ba31e55477b9a8407ec4fc4df46fe90558ae152ae939221d26910898b4352e1a"
+    }
+  ],
+  "inputChanges": 0,
+  "nextOrBrowser": false
+}

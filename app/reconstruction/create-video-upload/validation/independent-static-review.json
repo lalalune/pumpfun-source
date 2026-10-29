@@ -1,0 +1,66 @@
+{
+  "reviewedAt": "2026-10-29T21:03:49.397881+00:00",
+  "candidateBase": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "candidateInputs": [
+    {
+      "path": "scripts/original-contracts/create-video-upload/verify.mjs",
+      "sha256": "a540f22b1c4587e9e70e892ecc67d95847298b113c0ca35941628e963f5cb103"
+    },
+    {
+      "path": "contracts/original-create-video-upload.json",
+      "sha256": "4b79f56fcd45708d76baddc00262025969674c769c69ae7b22c6e78567e717c2"
+    },
+    {
+      "path": "tests/original_create_video_upload.test.mjs",
+      "sha256": "c386e7e9d480fab9328099d553ff1da05b088b3908348848228db21af4bc5a5c"
+    },
+    {
+      "path": "scripts/original-contracts/source.mjs",
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213"
+    }
+  ],
+  "readOnly": true,
+  "testsOrVerifiersRunByReviewer": false,
+  "findings": [],
+  "resolvedDuringReview": [
+    {
+      "item": "Candidate expanded82\u219288 witnesses during initial read; test still expected82",
+      "resolution": "Author final freeze testc386 now expects88. Initial pin announcement and pre-fix88-binding preserved. Owner reruns remain separately authoritative."
+    }
+  ],
+  "sourceBindings": {
+    "factoryRoles": 14,
+    "uniqueFactories": 13,
+    "rawWitnessRanges": 88,
+    "allSourceAndUtf8Utf16HashesEqualGitInputs": true,
+    "sharedSourceHelperUnchanged": true,
+    "bindingFile": "BINDING.json"
+  },
+  "verifiedConstraints": [
+    "Actual captured Create route and lazy320853\u2192658259 selector closure; selected586090 physical variant belongs to retained route-script context, not a global active-variant assertion.",
+    "Page passes wallet-derivedisLoggedIn; selector noClick/noDrag and wallet UI callback are UI gates only, not server authorization.",
+    "Existing807757 first12-byte classifier result supplies category/extension. Ordered duplicate signature branches are retained, not repaired.",
+    "734638 request uses759257.j\u2192503630.R/30181.K\u2192402030/898661, explicitGET path, scalar extension query, credentialsinclude, JSONContent-Type andWEB/platform headers.",
+    "717721 response schema is declared, and402030 registers it; actual898661 success path uses.json without a schema-validation gate.",
+    "After presign.ok hook, XHRPOST uses returned nestedURL; appends all returnedfields inenumerationorder then originalFile; only200<=status<300 resolves.",
+    "Progress only lengthComputable; network/abort/non2xx reject; no explicitXHRwithCredentials/header/timeout/retry or caller-visible cancellation.",
+    "Promise executor cancel return is not thePromise result; hookxhrRef is not assigned inactualhandler. Errorcatch logs/rethrows withoutfinallyreset.",
+    "Filename/displayURL/uploaded/idle assignments follow awaited provider success and precede3thumbnail extraction; thumbnail rejection is not provider rejection or rollback.",
+    "Both metadata calls retain samefilename/flags/imagehash; resolvedwrapper delegates tocommon778435 assembler. metadata.video uses rawCDN concatenation undervideo&&uploaded; imagehashmandatory.",
+    "Both result assignments/returns, zero-purchasewebsitecreateHTTP handoff and otherbranchURI-to-existingtransactionhelper are sourcewitnessed, not executed.",
+    "Later decoded-context/size/uploaded/thumbnail submission checks are not mislabeled pre-upload auth or size admission.",
+    "Final candidate only adds contract/verifier/test/docs; existingcaptures/ledger/SDK/runtime source/helper unchanged inworkingdiff."
+  ],
+  "testReview": {
+    "method": "Read new test source only, no rerun",
+    "cases": 3,
+    "description": "Source rederivation+exact fullpacketcomparison, explicitdeclaration/cancellation/timing limits, ninepacketvariantnegativechecks. No mockeduploadorHTTPsuccess claim."
+  },
+  "limits": [
+    "No request/upload/signing/auth emulation/capturedfactoryevaluation or browser/Next/build run.",
+    "Rawhash/rangebinding plusstaticprotocolreview is not wholeprogram, serveravailability, entitlement, security or compatibility approval.",
+    "Owner final test results/publication receipt are not yet re-reviewed here; docs may acquire qualification-only additions.",
+    "No new recovery/feature/nativeAPI/milestone credit inferred."
+  ],
+  "conclusion": "No concrete source/protocol blocker found in final frozen3-filecandidate withinthisstaticreview scope."
+}
