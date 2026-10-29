@@ -17,6 +17,7 @@ import {
   validateImage,
 } from "./create-coin-validation";
 import { CreateDraftLinks } from "./create-draft-links";
+import CreateMediaDropzone from "./create-media-dropzone";
 import CreateVideoInput, { type VideoInputControl } from "./create-video-input";
 import {
   discardVideoCover,
@@ -158,15 +159,20 @@ export default function CreateCoinForm() {
   function chooseImage(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0] ?? null;
     if (!file) return;
+    chooseImageFile(file);
+    event.target.value = "";
+  }
+
+  function chooseImageFile(file: File) {
     const error = validateImage(file);
     if (error) {
       setErrors((current) => ({ ...current, image: error }));
-      event.target.value = "";
       return;
     }
     videoControlRef.current?.cancelPending();
     setSelectedImage({ file, url: URL.createObjectURL(file) });
     setErrors((current) => ({ ...current, image: undefined }));
+    if (fileInputRef.current) fileInputRef.current.value = "";
     setStatus("");
   }
 
@@ -305,6 +311,12 @@ export default function CreateCoinForm() {
           </div>
           <FieldError field="description" error={errors.description} />
         </div>
+
+        <CreateMediaDropzone
+          key={`${videoReset}:${selectedImage?.url ?? ""}`}
+          onImage={chooseImageFile}
+          onVideo={(file) => videoControlRef.current?.chooseFile(file) ?? false}
+        />
 
         <div className="create-field media-field">
           <label htmlFor="create-image">

@@ -1,0 +1,17 @@
+.dropzone {
+  border: 1px dashed #677587;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.dropzone[data-dragging="true"] {
+  border-color: #86efac;
+  background: #86efac12;
+}
+
+.dropzone p {
+  margin: 8px 0 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
