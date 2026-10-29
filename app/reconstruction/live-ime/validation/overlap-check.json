@@ -1,0 +1,19 @@
+{
+  "classification": "source-only peer compatibility; no integration/runtime equivalence",
+  "peers": [
+    {
+      "pr": 1449,
+      "gitBlob": "2c27bb109d6233eaf2e18776c699793798f3b4c7",
+      "sha256": "0d94b18b9891d9a670a509a61d3ce9a19e244a48394e91220f5672a573e882b1",
+      "oneGuardApplyCheck": 0
+    },
+    {
+      "pr": 1328,
+      "gitBlob": "787cbca9759675ed05625687aa47ba55d9b75b14",
+      "sha256": "e5fff77b971e2e701077332c208f6a60adc54b3415ea729f5228051eaa9495c6",
+      "oneGuardApplyCheck": 0
+    }
+  ],
+  "combinedPeerSourceThenOneGuardApplyCheck": 0,
+  "transport": "Private apply_patch copy addedoneEOFnewline; removedexactextra byte before GitblobSHA verification. No source-content normalization."
+}

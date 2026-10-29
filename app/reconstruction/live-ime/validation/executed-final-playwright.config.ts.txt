@@ -1,0 +1,11 @@
+import { defineConfig } from "@playwright/test";
+import base from "./playwright.config";
+import { acceptedClickwrapState } from "./tests/browser-state";
+const origin="http://127.0.0.1:3019";
+export default defineConfig({
+ ...base,
+ reporter:[["line"],["json",{outputFile:`/workspace/pump-live-ime-validation/report-${process.env.LIVE_IME_PHASE??"baseline"}.json`}]],
+ outputDir:`/workspace/pump-live-ime-validation/browser-${process.env.LIVE_IME_PHASE??"baseline"}`,
+ use:{...base.use,baseURL:origin,storageState:{...acceptedClickwrapState,origins:acceptedClickwrapState.origins.map(row=>({...row,origin:row.origin==="http://127.0.0.1:3010"?origin:row.origin}))}},
+ webServer:{...base.webServer,command:"corepack pnpm exec next dev --turbopack --hostname 127.0.0.1 --port 3019",url:origin,reuseExistingServer:false,timeout:120000,env:{PUMPFUN_DEVELOPER_API_KEY:""}}
+});

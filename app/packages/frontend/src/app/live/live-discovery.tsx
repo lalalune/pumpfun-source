@@ -249,6 +249,7 @@ export default function LiveDiscovery({
         );
       if (
         event.key === "Escape" &&
+        !event.isComposing &&
         !event.defaultPrevented &&
         !modalOwnsEvent
       ) {

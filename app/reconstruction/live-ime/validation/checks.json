@@ -1,0 +1,179 @@
+{
+  "base": "b08fd908203a76d84c8dd68b60310582aa2c4fba",
+  "latestMainAtPublicationCheck": "630a074126a13d4133514d599129c6ac9a3179bc",
+  "sameAppTree": "e3d6d8cd07df4f561a4fd058dad29d22de451bfc",
+  "source": {
+    "path": "app/packages/frontend/src/app/live/live-discovery.tsx",
+    "baseSha256": "33a387dbbb99b5015c899a370b4c82c54cfc6a4b1895a62fa98483bb4cd1f922",
+    "candidateSha256": "2f7c6dc223cd148609dea80f1cfd6354a85937490a9c50d3574c44059e7a2da2",
+    "change": "Only !event.isComposing in the existing Escape admission. No readiness/tab/modal/default-prevention or ordinary navigation change."
+  },
+  "test": {
+    "path": "app/packages/frontend/tests/live-ime.spec.ts",
+    "sha256": "23033cdb6846a0578fe26fa91f57964da542348c94a8a125deaef8b883ca0684"
+  },
+  "results": {
+    "completeInputBase": {
+      "selectedTests": 2,
+      "passed": 1,
+      "failed": 1,
+      "profileStatusControl": "PASS; exact baseline seed inputs present",
+      "target": "Trusted composing Escape incorrectly prevented; detail removed; keyup remains composing."
+    },
+    "candidate": {
+      "tests": 18,
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0,
+      "newTrustedCases": 2,
+      "maintainedCases": 16,
+      "seconds": 48.7
+    },
+    "dataTests": 15,
+    "frontendTypecheck": "PASS",
+    "evidenceObjects": 698,
+    "npmIntegrity": "PASS",
+    "sdkSourceFilesUnchanged": 31,
+    "progressFreshness": "PASS",
+    "progressTests": 9
+  },
+  "executedController": {
+    "port": 3019,
+    "strictAllowedRequests": "GET/HEAD at exact127.0.0.1:3019 origin; no upstream requests",
+    "maintainedTests": "Original live.spec.ts untouched; executed copy changes only its hardcoded safety origin3010\u21923019. Exact copy/diff/hashes retained.",
+    "storageState": "Existing explicit accepted local browser-state fixture remapped3010\u21923019; no original-consent/authentication inference."
+  },
+  "preservedDiagnostics": [
+    "Initial test-only native/app pair reproduced the same defect before any product source edit. Raw trace/JSON retained privately.",
+    "New ordinary-Escape fragment expectation was calibrated to existing navigate behavior; final exact-base and candidate runs use the same final test. Composing Escape still must preserve the exact full URL.",
+    "First candidate stopped8pass/1fail/9unrun because sparse posts-seed was absent, causing profile-data-error HTTP200. Exact Git posts/following inputs restored without changing bytes or source; complete-input baseline profile control passes. No test assertion removed.",
+    "No deprecated keyCode229 branch or speculative variants."
+  ],
+  "limits": [
+    "Native HTML dialog is a Chromium platform reference, not captured original Pump behavior or an OS-level IME/browser matrix.",
+    "Archived data remains historical; no current-live, playback, API, auth, SDK, signing or chain behavior added.",
+    "No production full-appbuild, broad app suite, original-product equivalence, security clearance or feature-progress credit claimed.",
+    "Peer1449 readiness and1328 navigation are preserved; source-only apply checks are not union runtime qualification."
+  ],
+  "artifacts": [
+    {
+      "path": "after-1280.png",
+      "bytes": 131902,
+      "sha256": "1da996e5db1f902cccddf9902c3a891b8a3e031e3f4b056158d59fef37148173"
+    },
+    {
+      "path": "after-390.png",
+      "bytes": 33130,
+      "sha256": "74a8e20d31d109c16a61cbc3c0846eaedc3b0cfbda00f24fabde75da24251ffc"
+    },
+    {
+      "path": "baseline.log.gz",
+      "bytes": 1072,
+      "sha256": "44eaf6564f39756fefafb844c7a8e536700310db1fd6e7ea2012c706b340aa1b",
+      "decodedBytes": 5759,
+      "decodedSha256": "01745fbe009223944d64d9c6a97e76809d3b6b26f9ec6b2bdeffd1ea4775dc62"
+    },
+    {
+      "path": "before-390.png",
+      "bytes": 50110,
+      "sha256": "cfae04802640e3c6ab15be9be40f8b24a0bf1170e15a1a78a0cc888a57ec0fa3"
+    },
+    {
+      "path": "complete-input-baseline-390-archived-live.json",
+      "bytes": 393,
+      "sha256": "e4e2d0bf09fa0f49b8905c321dc0c3858a427b2cfee4547984c2a53e0fc4070b"
+    },
+    {
+      "path": "complete-input-baseline-390-native-control.json",
+      "bytes": 322,
+      "sha256": "91e01bab8a35c1ebb001e05e91a98b6ff568e9b90fb8f8d0b78094beefc96d1a"
+    },
+    {
+      "path": "data-tests.log.gz",
+      "bytes": 1155,
+      "sha256": "b5296432b1a2c7c6d9f6867d819d155cff6f2bd9ceed6f2e64ff8f7733ab957c",
+      "decodedBytes": 2413,
+      "decodedSha256": "70a4ba79a3d677d01d30fb1f3498de3334ec30221e3e0a6584e0b2dcf3cb3969"
+    },
+    {
+      "path": "evidence.log.gz",
+      "bytes": 89,
+      "sha256": "c4ccac34440167b7170118e2af25a5865d395032af8ca1cf812341ed573c3243",
+      "decodedBytes": 72,
+      "decodedSha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9"
+    },
+    {
+      "path": "executed-final-playwright.config.ts.txt",
+      "bytes": 870,
+      "sha256": "38b5b58eec161b65ea048d08c0f948dbd6c6b4a0972f7e8b5bc983474124ab8c"
+    },
+    {
+      "path": "executed-maintained-live.spec.ts.txt",
+      "bytes": 18703,
+      "sha256": "7f16f6e74b2282f696d4fc6c9ba2f04c66e022a73dfa90bcd41ba4c56fc84598"
+    },
+    {
+      "path": "final-1280-archived-live.json",
+      "bytes": 452,
+      "sha256": "7601d3a816ed96db7d37788acfb5c660e087d26676fe8f2f5a4cc60024fb1244"
+    },
+    {
+      "path": "final-1280-native-control.json",
+      "bytes": 322,
+      "sha256": "91e01bab8a35c1ebb001e05e91a98b6ff568e9b90fb8f8d0b78094beefc96d1a"
+    },
+    {
+      "path": "final-390-archived-live.json",
+      "bytes": 452,
+      "sha256": "7601d3a816ed96db7d37788acfb5c660e087d26676fe8f2f5a4cc60024fb1244"
+    },
+    {
+      "path": "final-390-native-control.json",
+      "bytes": 322,
+      "sha256": "91e01bab8a35c1ebb001e05e91a98b6ff568e9b90fb8f8d0b78094beefc96d1a"
+    },
+    {
+      "path": "final-browser.log.gz",
+      "bytes": 1220,
+      "sha256": "fff1efdacf30516663de5e98ad120f33aa5177284991adcedccf9b622f0e744c",
+      "decodedBytes": 4983,
+      "decodedSha256": "dddd4177d515ddd15f6cd4c3af96bac56809062ad2efc9e2c08bd46037e5ca2b"
+    },
+    {
+      "path": "maintained-port-only.patch",
+      "bytes": 396,
+      "sha256": "37f71d286f28c3a0749c68e055292915febd333cab539b3449882de376d0afb3"
+    },
+    {
+      "path": "overlap-check.json",
+      "bytes": 722,
+      "sha256": "ed08e816a69d63d087685ab8bc653cc945c780644c33b769ba8578fb4136f448"
+    },
+    {
+      "path": "profile-seed-staging.json",
+      "bytes": 695,
+      "sha256": "8e523f8d90a5dbf2e9b3e5349dbe9565387422e70bd64765b13b13ce5c0694f8"
+    },
+    {
+      "path": "progress-tests.log.gz",
+      "bytes": 100,
+      "sha256": "8454dcb629b7805f87b11fad32d6480cb311f7fb6e439ca297cdd34492920a71",
+      "decodedBytes": 155,
+      "decodedSha256": "a4dbb5680705d4933575bb5526c6212ccbc2b8598f59ee3edaa1faae50aca81e"
+    },
+    {
+      "path": "progress.log.gz",
+      "bytes": 69,
+      "sha256": "8d25a71e7cd8c214cc56b246898d555fadb2c61682febfb7b183577299893a97",
+      "decodedBytes": 49,
+      "decodedSha256": "7ab499988f3b70e197e23e42287d4cc4579dc2b9360a82be3e827e22c589fda4"
+    },
+    {
+      "path": "typecheck.log.gz",
+      "bytes": 115,
+      "sha256": "c521e3237903de8237ee016329adcd9aab9d0042416546f08d848fc24b3b2e11",
+      "decodedBytes": 113,
+      "decodedSha256": "fd98baaf669b27bf3377ea080ae3edda90647e5bff41a6b367c10fdea8c25a12"
+    }
+  ]
+}
