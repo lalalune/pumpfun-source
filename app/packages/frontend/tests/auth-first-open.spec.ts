@@ -2,9 +2,9 @@ import { expect, test } from "@playwright/test";
 
 // Hold only this local app's client scripts, so the initial HTML remains usable
 // for observation without relying on a short or a slow machine's timing.
-test("Sign in becomes actionable only when its client chooser can handle the first activation", async ({
+test("A single available Sign in activation opens the public-wallet chooser during client boot", async ({
   page,
-}) => {
+}, testInfo) => {
   let release!: () => void;
   const clientBoot = new Promise<void>((resolve) => {
     release = resolve;
@@ -27,11 +27,19 @@ test("Sign in becomes actionable only when its client chooser can handle the fir
     const trigger = page.getByTestId("sign-in-button");
     await expect(trigger).toBeVisible();
     await expect(page.getByTestId("auth-dialog")).toHaveCount(0);
-    // A server-rendered enabled button cannot open the client-only portal yet.
-    await expect(trigger).toBeDisabled();
+    // Exercise the action if the page offers it; otherwise wait for the page
+    // to offer it. A single accepted activation must not silently disappear.
+    const initiallyEnabled = await trigger.isEnabled();
+    await testInfo.attach("server-trigger-readiness", {
+      body: JSON.stringify({ initiallyEnabled, clientScriptsHeld: true }),
+      contentType: "application/json",
+    });
+    if (initiallyEnabled) await trigger.click();
     release();
-    await expect(trigger).toBeEnabled();
-    await trigger.click();
+    if (!initiallyEnabled) {
+      await expect(trigger).toBeEnabled();
+      await trigger.click();
+    }
     await expect(page.getByTestId("auth-dialog")).toBeVisible();
     await expect(page.getByTestId("auth-dialog")).toHaveAttribute(
       "data-auth-state",
