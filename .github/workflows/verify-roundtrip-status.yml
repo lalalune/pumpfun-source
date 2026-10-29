@@ -3,6 +3,7 @@ on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
 jobs:
+  # Independent of legacy evidence jobs, which reference removed packages.
   roundtrip-status:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
