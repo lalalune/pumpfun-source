@@ -13,7 +13,7 @@ TARGETS = {
               'pump_native_payments::ensure_rent_exempt'),
     0x13b9b8: ('pump_recovered::buy_v2::buy_handler',) * 2,
     0x13f630: ('pump_recovered::buy_v2::buy_exact_quote_in_handler',) * 2,
-    0x144508: ('pump_recovered::sell_v2::execute',) * 2,
+    0x144508: ('pump_recovered::pump_recovered::sell_v2',) * 2,
 }
 
 
