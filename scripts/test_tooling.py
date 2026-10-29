@@ -466,14 +466,14 @@ class WindowScorerBaselineTests(unittest.TestCase):
         scorer = load_window_scorer()
         # Window 0x120 is a normalized match in the committed baseline.
         lost = {0x120: {'normalized': False, 'raw': False, 'symbols': [], 'bytes': 176}}
-        with patch.object(scorer, 'score', return_value=lost), \
+        with patch.object(scorer, 'score_with_hash', return_value=(lost, 'mock-sha256')), \
                 patch.object(pathlib.Path, 'read_bytes', return_value=b''):
             summary = self.run_main(scorer)
         self.assertEqual(summary['losses'], ['0x120'])
 
     def test_missing_baseline_is_an_error(self):
         scorer = load_window_scorer()
-        with patch.object(scorer, 'score', side_effect=AssertionError('scored without a baseline')):
+        with patch.object(scorer, 'score_with_hash', side_effect=AssertionError('scored without a baseline')):
             with self.assertRaises(SystemExit) as exit_:
                 self.run_main(scorer, '--baseline', 'missing/score.json')
         self.assertEqual(exit_.exception.code, 2)
