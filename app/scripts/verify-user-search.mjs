@@ -54,9 +54,13 @@ export function normalizeUserSearch(node, roles, imports = {}) {
       current = [...scopes, scope];
     } else if (value.type === 'CatchClause') {
       const scope = new Map(); if (value.param) bind(value.param, scope); current = [...scopes, scope];
-    } else if (value.type === 'ForOfStatement') {
-      expect(value.left.type === 'VariableDeclaration', 'lexical for-of binding');
-      const scope = new Map(); for (const entry of value.left.declarations) bind(entry.id, scope);
+    } else if (['ForStatement', 'ForInStatement', 'ForOfStatement'].includes(value.type)) {
+      const declaration = value.type === 'ForStatement' ? value.init : value.left;
+      const scope = new Map();
+      if (declaration?.type === 'VariableDeclaration') {
+        expect(declaration.kind !== 'var', 'function-scoped loop binding is not qualified');
+        for (const entry of declaration.declarations) bind(entry.id, scope);
+      }
       current = [...scopes, scope];
     } else if (value.type === 'BlockStatement') {
       const scope = new Map();
