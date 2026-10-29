@@ -1,6 +1,6 @@
 {
   "base": "094a06f18df738d41e77070c1a009e135671ac1a",
-  "tested_source_commit": "013eb9c8f9c7a5b007d4157d13bbc1279533f822",
+  "tested_source_commit": "3241013787a36ca2da363de70d518bfa4387356f",
   "files": {
     "app/scripts/capture.py": {
       "before_sha256": "8eb99a6a960893bb6f12884931123500c24b8ba87080863409a5b8ff3e86f5ba",
@@ -8,7 +8,7 @@
     },
     "app/scripts/verify-evidence.py": {
       "before_sha256": "6429337cfea4b6da8f979c37b449f442ec6574a3f9cf1cc14c734b4f812c2307",
-      "after_sha256": "33a5933bc2f39e5a5933e2d7bdeef33a1beccce502fc2548bdc33883030db693"
+      "after_sha256": "052ddcc38265c47cdcc43611182cf4a2a2d983fd29a6fe6e5400f1c7d3a9d720"
     },
     "app/tests/capture_cli_fixture.py": {
       "before_sha256": null,
@@ -16,7 +16,7 @@
     },
     "app/tests/test_capture_snapshot_history.py": {
       "before_sha256": null,
-      "after_sha256": "b7fda29ad7ea26bb00f14b93373750b883e925104c1573f1e09e47fd27ca4b75"
+      "after_sha256": "d52d1233dcb9fc65527f809f5b0ad8215eb75db26be59e4ede5cebda304b4f2c"
     }
   },
   "unchanged_capture_functions_sha256": {
@@ -43,5 +43,7 @@
   },
   "scope": "Only capture-manifest publication/history verification and new isolated real-CLI tests. Existing repository captures, published source, SDK, programs, acquisition/discovery/HTTP/resume-body reuse policies and feature counts are unchanged. Archives preserve metadata bytes; verification does not establish crawl completeness, freshness or server behavior.",
   "previous_source_commit": "7a3761b982c0dfb0813ce2b90a7f8f759b4ba9ae",
-  "final_test_fixture_delta": "Copy unchanged local SDK package.json alongside its archive/registry/src inputs, and clarify exact-copied verifier wording; no production-source change."
+  "final_test_fixture_delta": "Copy unchanged local SDK package.json alongside its archive/registry/src inputs, and clarify exact-copied verifier wording; no production-source change.",
+  "previous_tested_source_commit": "013eb9c8f9c7a5b007d4157d13bbc1279533f822",
+  "final_history_record_delta": "Fail closed on non-record or unsupported pathless archived records; retain exact producer transport failure shape. Original and initial-publication negatives preserved."
 }

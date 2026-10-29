@@ -33,7 +33,7 @@ an external service response.
 ## Same-input reproduction
 
 Base: `094a06f18df738d41e77070c1a009e135671ac1a`; tested source commit:
-`013eb9c8f9c7a5b007d4157d13bbc1279533f822`.
+`3241013787a36ca2da363de70d518bfa4387356f`.
 
 From `app/`:
 
@@ -88,3 +88,14 @@ identical. The final same-input baseline still fails 4/4; candidate passes 4/4 a
 the full capture target passes 42/42 again. Their `*-final-sdk-input.log.gz`
 receipts and exact final source binding are retained separately. Open #1359
 independently adds SDK identity checks; that code is not included here.
+
+A final record-shape supplement corrects the initial public d9011b30 verifier:
+a correctly hash-named manifest containing a non-record string was skipped by
+the inherited body loops. The new same-input check fails on that intermediate
+source (one failure/three passes) and passes after explicit record admission.
+Each archived record now needs a URL and either a body path or the capture
+producer's exact `{url,error:string}` transport-failure shape. Ordinary failures
+remain allowed; malformed history is rejected. Final 32410137 tests also fail
+4/4 on the original 094a06f1 base and pass 4/4 after; full capture 42/42, verifier 2/2,
+698-object evidence, progress and required root gates pass again. All earlier
+logs remain phase-bound; the new raw negatives and results are additive.

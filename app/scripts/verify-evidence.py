@@ -16,6 +16,10 @@ if history.exists():
   retained=json.loads(raw.decode('utf-8'))
   if not isinstance(retained,dict) or not isinstance(retained.get('records'),list):
    raise ValueError(f'Invalid retained manifest records: {snapshot.name}')
+  for record in retained['records']:
+   if (not isinstance(record,dict) or not isinstance(record.get('url'),str) or not record['url']
+       or ('path' not in record and not (set(record)=={'url','error'} and isinstance(record['error'],str)))):
+    raise ValueError(f'Invalid retained manifest record: {snapshot.name}')
   records.extend(retained['records']);snapshots.append(snapshot.name)
 for name in ['api-probes.json','source-map-probes.json']:
  records += json.loads((root/'evidence'/name).read_text(encoding='utf-8'))

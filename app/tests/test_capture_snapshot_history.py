@@ -64,6 +64,16 @@ class SnapshotHistory(unittest.TestCase):
         f.archive(forged).write_bytes(forged)
         self.assertIn(b'SHA-256 mismatch', f.verify().stderr)
         f.archive(forged).unlink()
+        malformed = json.dumps({'records': ['not a capture record']}).encode()
+        f.archive(malformed).write_bytes(malformed)
+        try:
+            self.assertNotEqual(f.verify().returncode, 0, 'hash-named malformed history must not be silently skipped')
+        finally:
+            f.archive(malformed).unlink()
+        transport_failure = json.dumps({'records': [{'url': 'https://example.invalid/unavailable', 'error': 'synthetic transport failure'}]}).encode()
+        f.archive(transport_failure).write_bytes(transport_failure)
+        self.verified(f)
+        f.archive(transport_failure).unlink()
         self.verified(f)
 
     def test_resume_retains_full_prior_manifest_and_record_acquisition_times(self):
