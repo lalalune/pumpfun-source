@@ -35,6 +35,16 @@ an external service response.
 Base: `094a06f18df738d41e77070c1a009e135671ac1a`; tested source commit:
 `3241013787a36ca2da363de70d518bfa4387356f`.
 
+For public replay, check out fork commit
+`90fa651ff564af25b4365e82ca9afb887c1d2535`. Its complete tree
+`c78e4ae9e0efd5b517a9a7a1ba3469210f892aa0` equals the local receipt commit
+`5cdc193d1fffe79beaeb347dfeff5deee3d3a418`; these are different commit
+identities. [PUBLIC-REPLAY.json](PUBLIC-REPLAY.json) records the public Git blob,
+SHA-256 and byte length of all four runtime/test inputs and all 16 hydrated
+progress inputs. The original measured commits and receipts remain unchanged.
+The Python commands below require Python 3 and OpenSSL, but no installed Node
+dependencies, private fixture, shared workspace donor or Next server.
+
 From `app/`:
 
 ```sh
@@ -99,3 +109,75 @@ remain allowed; malformed history is rejected. Final 32410137 tests also fail
 4/4 on the original 094a06f1 base and pass 4/4 after; full capture 42/42, verifier 2/2,
 698-object evidence, progress and required root gates pass again. All earlier
 logs remain phase-bound; the new raw negatives and results are additive.
+
+## Inspect retained receipts without running them
+
+All 16 values in `progress-hydration.json` are SHA-256 hashes of actual public
+Git bytes; none is a placeholder. In particular, the two research `SOURCE.json`
+entries bind these public blobs:
+
+| Path under `app/` | Git blob at `90fa651f` |
+| --- | --- |
+| `research/holder-rewards-config-20261029/SOURCE.json` | `c03f7881c2a6c0534c4265a2a4f24c8b36d17341` |
+| `research/wallet-program-record-20261029/SOURCE.json` | `a4210d82c226956e91d21dc58ec867d3e9ba1f8d` |
+
+The following inspection, from `app/`, reads the packet in place without
+extracting archives or executing their contents. It verifies the packet hashes,
+decodes all 28 gzip logs, checks the 44 before/47 after tar-member hashes against
+the existing ledger, and compares all 20 input bindings to the public Git commit.
+It requires that commit in the checkout's object database; no private measured
+commit is read. This is an integrity/inspection procedure, not a new capture run
+or an assertion that historical failed checks passed.
+
+```sh
+python3 -B - <<'PY'
+import gzip, hashlib, json, pathlib, subprocess, tarfile
+p = pathlib.Path('reconstruction/capture-snapshot-preservation')
+sha = lambda b: hashlib.sha256(b).hexdigest()
+manifest = json.loads((p / 'SHA256-MANIFEST.json').read_text())['files']
+for name, expected in manifest.items():
+    assert sha((p / name).read_bytes()) == expected, name
+logs = sorted(p.glob('*.log.gz'))
+for log in logs:
+    gzip.decompress(log.read_bytes()).decode('utf-8')
+archives = json.loads((p / 'ARCHIVE-MEMBERS.json').read_text())
+counts = {}
+for phase in ('before', 'after'):
+    path = p / (phase + '-synthetic-loopback.tar.gz')
+    assert sha(path.read_bytes()) == archives[phase]['sha256']
+    with tarfile.open(path, 'r:gz') as archive:
+        members = archive.getmembers()
+        assert all(m.isfile() for m in members)
+        assert len({m.name for m in members}) == len(members)
+        actual = {m.name: sha(archive.extractfile(m).read()) for m in members}
+    assert actual == archives[phase]['members']
+    counts[phase] = len(actual)
+binding = json.loads((p / 'PUBLIC-REPLAY.json').read_text())
+ref = binding['public_replay_commit']
+git = lambda *args: subprocess.check_output(['git', *args])
+assert git('rev-parse', ref + '^{tree}').decode().strip() == binding['public_replay_tree']
+for group in ('hydration_files', 'runtime_and_test_files'):
+    for path, expected in binding[group].items():
+        body = git('show', ref + ':' + path)
+        assert sha(body) == expected['sha256'], path
+        assert len(body) == expected['bytes'], path
+        assert git('rev-parse', ref + ':' + path).decode().strip() == expected['git_blob']
+print({'packet_files': len(manifest), 'gzip_logs': len(logs), 'archive_members': counts,
+       'hydration_inputs': len(binding['hydration_files']),
+       'runtime_and_test_inputs': len(binding['runtime_and_test_files'])})
+PY
+```
+
+To read a raw log after that check, for example:
+
+```sh
+python3 -c "import gzip; print(gzip.open('reconstruction/capture-snapshot-preservation/baseline-record-shape-final.log.gz', 'rt').read(), end='')"
+```
+
+`baseline-record-shape-final.log.gz` records the four original-base failures;
+`intermediate-d901-record-shape-negative.log.gz` records the intermediate
+one-failure/three-pass result; `candidate-record-shape-final.log.gz` records the
+final four passes. The earlier source/fixture phase logs are intentionally kept.
+The archives contain only synthetic loopback outputs described above. Their
+member ledger exposes every retained manifest/body digest for review; compressed
+files are not new website captures, source recovery or executable test inputs.
