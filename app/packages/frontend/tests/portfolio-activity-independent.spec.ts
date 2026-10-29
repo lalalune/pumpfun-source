@@ -52,7 +52,7 @@ test("valid wallet activity remains explicitly inspectable when the holdings rea
     return route.fulfill({ json: record() });
   });
   await page.goto(`/portfolio?address=${ADDRESS}`);
-  await expect(page.getByRole("alert")).toContainText(
+  await expect(page.locator(".portfolio-error")).toContainText(
     "Token account response is unsupported.",
   );
   expect(recordRequests).toBe(0);
