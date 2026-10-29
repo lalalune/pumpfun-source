@@ -9,8 +9,10 @@ section. Raw matches are counted separately.
 Usage: score.py <unstripped.so> [--baseline inventory.json] [--json out.json] [--quiet]
 Prints counts and gains/losses vs the baseline (default: base/current/inventory.json).
 """
-import argparse, csv, hashlib, json, re, struct, subprocess, sys, pickle
+import argparse, csv, hashlib, json, re, struct, subprocess, sys
 from pathlib import Path
+from functools import lru_cache
+import io
 
 H = Path(__file__).resolve().parent
 SC = H.parent
@@ -61,20 +63,40 @@ def candidate_functions(path):
     return funcs
 
 
-def original_windows():
-    cache = BASE / 'original-windows.pkl'
-    if cache.exists():
-        return pickle.loads(cache.read_bytes())
-    orig = (BASE / 'original.so').read_bytes(); os_ = sections(orig)
+@lru_cache(maxsize=2)
+def _window_rows(orig, inventory):
+    """Cache immutable rows by input bytes, never by timestamps or a saved pickle."""
+    os_ = sections(orig)
+    reader = csv.DictReader(io.StringIO(inventory), delimiter='\t')
+    required = {'program', 'variant', 'original_start', 'original_end'}
+    if not required.issubset(reader.fieldnames or []):
+        raise ValueError('window inventory is missing required columns')
     rows = []
-    for r in csv.DictReader((BASE / 'functions.tsv').open(), delimiter='\t'):
+    seen = set()
+    text = os_['.text']
+    for r in reader:
         if r['program'] != 'pump' or r['variant'] != 'selected':
             continue
-        s, e = int(r['original_start']), int(r['original_end'])
-        raw = body(orig, os_, s, e - s)
-        rows.append({'start': s, 'bytes': e - s, 'raw': raw, 'norm': normalize(raw, s, os_)})
-    cache.write_bytes(pickle.dumps(rows))
-    return rows
+        start, end = int(r['original_start']), int(r['original_end'])
+        if (start in seen or start % 8 or end % 8 or end <= start
+                or start < text['addr'] or end > text['addr'] + text['size']):
+            raise ValueError(f'invalid or duplicate selected window: {start}:{end}')
+        seen.add(start)
+        raw = body(orig, os_, start, end - start)
+        if len(raw) != end - start:
+            raise ValueError(f'truncated selected window: {start}:{end}')
+        rows.append((start, end - start, raw, normalize(raw, start, os_)))
+    if not rows:
+        raise ValueError('window inventory contains no selected Pump windows')
+    return tuple(rows)
+
+
+def original_windows():
+    orig = (BASE / 'original.so').read_bytes()
+    inventory = (BASE / 'functions.tsv').read_text(encoding='utf-8')
+    # Return fresh containers so an analysis consumer cannot poison later scores.
+    return [dict(zip(('start', 'bytes', 'raw', 'norm'), row))
+            for row in _window_rows(orig, inventory)]
 
 
 def score(cand_path):
