@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "runs": {
+    "historical": {
+      "measuredLocalHead": "c1702ed3cadf4b3282cd1f52b88ee322a73f828d",
+      "result": "browser/historical/RESULT.json",
+      "bundleSha256": "1175ab45ae0f5b3bf68a52048053ed21349d7b3f0b08860f9979c0a8263cb041",
+      "controllerSha256": "6b4c962d6c3a361caafbb9a570b387669859e74b6a3d4dcc5fcb18851e42f6d8",
+      "bundleInputs": 14,
+      "observations": 10,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/"
+        },
+        {
+          "method": "GET",
+          "path": "/bundle.js"
+        }
+      ],
+      "cleanup": {
+        "browserClosed": true,
+        "serverStopped": true
+      }
+    },
+    "corrected": {
+      "measuredLocalHead": "5023057cf70a41f4432337f29af324dc2c404780",
+      "result": "browser/corrected/RESULT.json",
+      "bundleSha256": "53caa46870956286cb225ab92e8410e23928416f6ef5f3cab7ff790ff4badeb9",
+      "controllerSha256": "6b4c962d6c3a361caafbb9a570b387669859e74b6a3d4dcc5fcb18851e42f6d8",
+      "bundleInputs": 14,
+      "observations": 10,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/"
+        },
+        {
+          "method": "GET",
+          "path": "/bundle.js"
+        }
+      ],
+      "cleanup": {
+        "browserClosed": true,
+        "serverStopped": true
+      }
+    }
+  },
+  "controllerAndFixtureEqualBothHeads": true,
+  "historicalQualificationLimit": "The first PASS did not exercise the then-unbound retained registry.fetch entries; never label its bundle as corrected source.",
+  "correction": "Actual859960.A now binds the already-declared1821 fetchSection pointer; actual registry fetch/override control passes in the ninth Node case. No helper body copied.",
+  "notAdditive": "One corrected story with10 observations, not20 unique browser cases. Historical10PASS retained separately."
+}

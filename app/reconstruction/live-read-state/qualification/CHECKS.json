@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "correctedSource": "5023057cf70a41f4432337f29af324dc2c404780",
+  "node": {
+    "newCases": 9,
+    "failed": 0,
+    "skipped": 0,
+    "log": "node.log.gz",
+    "sourceBinding": "Logged run preceded the source commit; these exact code/proof/test bytes were subsequently frozen at the corrected commit. No re-labelled Git identity."
+  },
+  "sourceGeneration": "PASS exact raw pins and canonical generated output",
+  "applicationEvidence": {
+    "objects": 698,
+    "npm": "PASS",
+    "SDKsourceUnchanged": "PASS"
+  },
+  "progress": {
+    "initialExit": 1,
+    "sparseRestorationFiles": 3,
+    "restoredExit": 0,
+    "tests": 9
+  },
+  "root": {
+    "gitInputs": 53,
+    "captures": 9,
+    "toolingTests": 10,
+    "returnCodes": [
+      0,
+      0
+    ]
+  },
+  "runtime": {
+    "correctedStory": "PASS",
+    "observations": 10,
+    "historicalSeparate": true,
+    "pageErrors": 0,
+    "nonHostRequests": 0,
+    "nativeObserversAndSubscriptionsAfterUnmount": 0,
+    "browserAndHostStopped": true
+  },
+  "notRun": [
+    "Next/full-app build",
+    "real provider/query/cache service",
+    "real media/account actions",
+    "original application/UI/visual/native oracle"
+  ]
+}

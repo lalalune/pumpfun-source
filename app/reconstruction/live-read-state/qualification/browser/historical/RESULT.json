@@ -1,0 +1,1446 @@
+{
+  "sourceHead": "c1702ed3cadf4b3282cd1f52b88ee322a73f828d",
+  "scope": "Real React/compiler and native IntersectionObserver delegated by an instrumented DOM port; synthetic query/read/geo/render ports, not application/provider behavior.",
+  "runtime": {
+    "node": "v24.19.0",
+    "react": "19.2.3",
+    "esbuild": "0.25.12",
+    "playwright": "1.64.1"
+  },
+  "controller": {
+    "path": "reconstruction/live-read-state/browser.mjs",
+    "sha256": "6b4c962d6c3a361caafbb9a570b387669859e74b6a3d4dcc5fcb18851e42f6d8"
+  },
+  "proofSha256": "7af9f1c33782d216c2bf65b86a5cdfb42929fb00ad1274d78356d8955c5b6194",
+  "inputs": [
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-jsx-runtime.development.js",
+      "bytes": 12452,
+      "sha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/jsx-runtime.js",
+      "bytes": 210,
+      "sha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "reconstruction/live-read-state/client.mjs",
+      "bytes": 13969,
+      "sha256": "58c45fab3845b74a252a1b39bc51567b221dd75d30a87ce4c30c4d0c97e7f881"
+    },
+    {
+      "path": "reconstruction/live-read-state/fixture.mjs",
+      "bytes": 6976,
+      "sha256": "fa3821791ceae3c4c11abefa8748ac816156d2fdac3c3099cb0a01482106004c"
+    }
+  ],
+  "bundleSha256": "1175ab45ae0f5b3bf68a52048053ed21349d7b3f0b08860f9979c0a8263cb041",
+  "observations": [
+    {
+      "name": "initial loading keeps only first section unlocked; eager first section has no observer",
+      "state": {
+        "commits": 1,
+        "latest": {
+          "sameSectionResult": false,
+          "sameHeroKey": false,
+          "sameHeroFn": false,
+          "sameSectionOptions": false,
+          "heroKey": [
+            "live-hero-coins",
+            false
+          ],
+          "sectionKey": [
+            "live-section-coins",
+            "most_viewers",
+            false,
+            24,
+            "prefix-one"
+          ],
+          "sectionData": [],
+          "sectionKeys": [
+            "data",
+            "isLoading",
+            "fetchNextPage",
+            "hasNextPage",
+            "isFetchingNextPage"
+          ]
+        },
+        "activeObservers": 0,
+        "subscriptions": 14,
+        "events": [
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          }
+        ],
+        "rowIds": []
+      }
+    },
+    {
+      "name": "not-loading empty first section still completes and unlocks second",
+      "state": {
+        "commits": 2,
+        "latest": {
+          "sameSectionResult": false,
+          "sameHeroKey": true,
+          "sameHeroFn": true,
+          "sameSectionOptions": true,
+          "heroKey": [
+            "live-hero-coins",
+            false
+          ],
+          "sectionKey": [
+            "live-section-coins",
+            "most_viewers",
+            false,
+            24,
+            "prefix-one"
+          ],
+          "sectionData": [],
+          "sectionKeys": [
+            "data",
+            "isLoading",
+            "fetchNextPage",
+            "hasNextPage",
+            "isFetchingNextPage"
+          ]
+        },
+        "activeObservers": 0,
+        "subscriptions": 17,
+        "events": [
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          }
+        ],
+        "rowIds": []
+      }
+    },
+    {
+      "name": "first two eager rows complete; third requires native intersection admission",
+      "state": {
+        "commits": 3,
+        "latest": {
+          "sameSectionResult": false,
+          "sameHeroKey": true,
+          "sameHeroFn": true,
+          "sameSectionOptions": true,
+          "heroKey": [
+            "live-hero-coins",
+            false
+          ],
+          "sectionKey": [
+            "live-section-coins",
+            "most_viewers",
+            false,
+            24,
+            "prefix-one"
+          ],
+          "sectionData": [
+            "most-row"
+          ],
+          "sectionKeys": [
+            "data",
+            "isLoading",
+            "fetchNextPage",
+            "hasNextPage",
+            "isFetchingNextPage"
+          ]
+        },
+        "activeObservers": 1,
+        "subscriptions": 17,
+        "events": [
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "observer-create",
+            "id": 1,
+            "options": {
+              "rootMargin": "150px"
+            }
+          },
+          {
+            "type": "observe",
+            "id": 1
+          },
+          {
+            "type": "intersection",
+            "id": 1,
+            "intersecting": [
+              false
+            ]
+          }
+        ],
+        "rowIds": [
+          "most-row",
+          "cap-row"
+        ]
+      }
+    },
+    {
+      "name": "IPFS change preserves hero key but changes function; section key/options include prefix",
+      "state": {
+        "commits": 4,
+        "latest": {
+          "sameSectionResult": true,
+          "sameHeroKey": true,
+          "sameHeroFn": false,
+          "sameSectionOptions": false,
+          "heroKey": [
+            "live-hero-coins",
+            false
+          ],
+          "sectionKey": [
+            "live-section-coins",
+            "most_viewers",
+            false,
+            24,
+            "prefix-two"
+          ],
+          "sectionData": [
+            "most-row"
+          ],
+          "sectionKeys": [
+            "data",
+            "isLoading",
+            "fetchNextPage",
+            "hasNextPage",
+            "isFetchingNextPage"
+          ]
+        },
+        "activeObservers": 1,
+        "subscriptions": 17,
+        "events": [
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "observer-create",
+            "id": 1,
+            "options": {
+              "rootMargin": "150px"
+            }
+          },
+          {
+            "type": "observe",
+            "id": 1
+          },
+          {
+            "type": "intersection",
+            "id": 1,
+            "intersecting": [
+              false
+            ]
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          }
+        ],
+        "rowIds": [
+          "most-row",
+          "cap-row"
+        ]
+      }
+    },
+    {
+      "name": "query error-only changes preserve section result identity and do not invent an error field",
+      "state": {
+        "commits": 5,
+        "latest": {
+          "sameSectionResult": true,
+          "sameHeroKey": true,
+          "sameHeroFn": true,
+          "sameSectionOptions": true,
+          "heroKey": [
+            "live-hero-coins",
+            false
+          ],
+          "sectionKey": [
+            "live-section-coins",
+            "most_viewers",
+            false,
+            24,
+            "prefix-two"
+          ],
+          "sectionData": [
+            "most-row"
+          ],
+          "sectionKeys": [
+            "data",
+            "isLoading",
+            "fetchNextPage",
+            "hasNextPage",
+            "isFetchingNextPage"
+          ]
+        },
+        "activeObservers": 1,
+        "subscriptions": 17,
+        "events": [
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "observer-create",
+            "id": 1,
+            "options": {
+              "rootMargin": "150px"
+            }
+          },
+          {
+            "type": "observe",
+            "id": 1
+          },
+          {
+            "type": "intersection",
+            "id": 1,
+            "intersecting": [
+              false
+            ]
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          }
+        ],
+        "rowIds": [
+          "most-row",
+          "cap-row"
+        ]
+      }
+    },
+    {
+      "name": "actual near-end handoff does not await and blocks concurrent next-page calls",
+      "state": {
+        "commits": 6,
+        "latest": {
+          "sameSectionResult": false,
+          "sameHeroKey": true,
+          "sameHeroFn": true,
+          "sameSectionOptions": true,
+          "heroKey": [
+            "live-hero-coins",
+            false
+          ],
+          "sectionKey": [
+            "live-section-coins",
+            "most_viewers",
+            false,
+            24,
+            "prefix-two"
+          ],
+          "sectionData": [
+            "most-row"
+          ],
+          "sectionKeys": [
+            "data",
+            "isLoading",
+            "fetchNextPage",
+            "hasNextPage",
+            "isFetchingNextPage"
+          ]
+        },
+        "activeObservers": 1,
+        "subscriptions": 17,
+        "events": [
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "observer-create",
+            "id": 1,
+            "options": {
+              "rootMargin": "150px"
+            }
+          },
+          {
+            "type": "observe",
+            "id": 1
+          },
+          {
+            "type": "intersection",
+            "id": 1,
+            "intersecting": [
+              false
+            ]
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "next-page",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          }
+        ],
+        "rowIds": [
+          "most-row",
+          "cap-row"
+        ]
+      }
+    },
+    {
+      "name": "native IntersectionObserver150px margin admits the third section",
+      "state": {
+        "commits": 6,
+        "latest": {
+          "sameSectionResult": false,
+          "sameHeroKey": true,
+          "sameHeroFn": true,
+          "sameSectionOptions": true,
+          "heroKey": [
+            "live-hero-coins",
+            false
+          ],
+          "sectionKey": [
+            "live-section-coins",
+            "most_viewers",
+            false,
+            24,
+            "prefix-two"
+          ],
+          "sectionData": [
+            "most-row"
+          ],
+          "sectionKeys": [
+            "data",
+            "isLoading",
+            "fetchNextPage",
+            "hasNextPage",
+            "isFetchingNextPage"
+          ]
+        },
+        "activeObservers": 0,
+        "subscriptions": 18,
+        "events": [
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "observer-create",
+            "id": 1,
+            "options": {
+              "rootMargin": "150px"
+            }
+          },
+          {
+            "type": "observe",
+            "id": 1
+          },
+          {
+            "type": "intersection",
+            "id": 1,
+            "intersecting": [
+              false
+            ]
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "next-page",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "intersection",
+            "id": 1,
+            "intersecting": [
+              true
+            ]
+          },
+          {
+            "type": "disconnect",
+            "id": 1
+          },
+          {
+            "type": "clips-port",
+            "sectionId": "trending-clips"
+          },
+          {
+            "type": "disconnect",
+            "id": 1
+          }
+        ],
+        "rowIds": [
+          "most-row",
+          "cap-row"
+        ]
+      }
+    },
+    {
+      "name": "leaving viewport does not revoke persistent seen admission",
+      "state": {
+        "commits": 6,
+        "latest": {
+          "sameSectionResult": false,
+          "sameHeroKey": true,
+          "sameHeroFn": true,
+          "sameSectionOptions": true,
+          "heroKey": [
+            "live-hero-coins",
+            false
+          ],
+          "sectionKey": [
+            "live-section-coins",
+            "most_viewers",
+            false,
+            24,
+            "prefix-two"
+          ],
+          "sectionData": [
+            "most-row"
+          ],
+          "sectionKeys": [
+            "data",
+            "isLoading",
+            "fetchNextPage",
+            "hasNextPage",
+            "isFetchingNextPage"
+          ]
+        },
+        "activeObservers": 0,
+        "subscriptions": 18,
+        "events": [
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "observer-create",
+            "id": 1,
+            "options": {
+              "rootMargin": "150px"
+            }
+          },
+          {
+            "type": "observe",
+            "id": 1
+          },
+          {
+            "type": "intersection",
+            "id": 1,
+            "intersecting": [
+              false
+            ]
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "next-page",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "intersection",
+            "id": 1,
+            "intersecting": [
+              true
+            ]
+          },
+          {
+            "type": "disconnect",
+            "id": 1
+          },
+          {
+            "type": "clips-port",
+            "sectionId": "trending-clips"
+          },
+          {
+            "type": "disconnect",
+            "id": 1
+          }
+        ],
+        "rowIds": [
+          "most-row",
+          "cap-row"
+        ]
+      }
+    },
+    {
+      "name": "completed clips unlock the next offscreen section without running its provider",
+      "state": {
+        "commits": 7,
+        "latest": {
+          "sameSectionResult": true,
+          "sameHeroKey": true,
+          "sameHeroFn": true,
+          "sameSectionOptions": true,
+          "heroKey": [
+            "live-hero-coins",
+            false
+          ],
+          "sectionKey": [
+            "live-section-coins",
+            "most_viewers",
+            false,
+            24,
+            "prefix-two"
+          ],
+          "sectionData": [
+            "most-row"
+          ],
+          "sectionKeys": [
+            "data",
+            "isLoading",
+            "fetchNextPage",
+            "hasNextPage",
+            "isFetchingNextPage"
+          ]
+        },
+        "activeObservers": 1,
+        "subscriptions": 18,
+        "events": [
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "observer-create",
+            "id": 1,
+            "options": {
+              "rootMargin": "150px"
+            }
+          },
+          {
+            "type": "observe",
+            "id": 1
+          },
+          {
+            "type": "intersection",
+            "id": 1,
+            "intersecting": [
+              false
+            ]
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "next-page",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "intersection",
+            "id": 1,
+            "intersecting": [
+              true
+            ]
+          },
+          {
+            "type": "disconnect",
+            "id": 1
+          },
+          {
+            "type": "clips-port",
+            "sectionId": "trending-clips"
+          },
+          {
+            "type": "disconnect",
+            "id": 1
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "clips-port",
+            "sectionId": "trending-clips"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "clips-port",
+            "sectionId": "trending-clips"
+          },
+          {
+            "type": "observer-create",
+            "id": 2,
+            "options": {
+              "rootMargin": "150px"
+            }
+          },
+          {
+            "type": "observe",
+            "id": 2
+          },
+          {
+            "type": "intersection",
+            "id": 2,
+            "intersecting": [
+              false
+            ]
+          }
+        ],
+        "rowIds": [
+          "most-row",
+          "cap-row",
+          "clip-row"
+        ]
+      }
+    },
+    {
+      "name": "geo snapshot branch unmounts sections; actual cleanup disconnects observers and subscriptions",
+      "state": {
+        "commits": 8,
+        "latest": {
+          "sameSectionResult": true,
+          "sameHeroKey": true,
+          "sameHeroFn": true,
+          "sameSectionOptions": true,
+          "heroKey": [
+            "live-hero-coins",
+            false
+          ],
+          "sectionKey": [
+            "live-section-coins",
+            "most_viewers",
+            false,
+            24,
+            "prefix-two"
+          ],
+          "sectionData": [
+            "most-row"
+          ],
+          "sectionKeys": [
+            "data",
+            "isLoading",
+            "fetchNextPage",
+            "hasNextPage",
+            "isFetchingNextPage"
+          ]
+        },
+        "activeObservers": 0,
+        "subscriptions": 0,
+        "events": [
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "observer-create",
+            "id": 1,
+            "options": {
+              "rootMargin": "150px"
+            }
+          },
+          {
+            "type": "observe",
+            "id": 1
+          },
+          {
+            "type": "intersection",
+            "id": 1,
+            "intersecting": [
+              false
+            ]
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "next-page",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "intersection",
+            "id": 1,
+            "intersecting": [
+              true
+            ]
+          },
+          {
+            "type": "disconnect",
+            "id": 1
+          },
+          {
+            "type": "clips-port",
+            "sectionId": "trending-clips"
+          },
+          {
+            "type": "disconnect",
+            "id": 1
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "clips-port",
+            "sectionId": "trending-clips"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "section-query",
+            "sort": "market_cap"
+          },
+          {
+            "type": "clips-port",
+            "sectionId": "trending-clips"
+          },
+          {
+            "type": "observer-create",
+            "id": 2,
+            "options": {
+              "rootMargin": "150px"
+            }
+          },
+          {
+            "type": "observe",
+            "id": 2
+          },
+          {
+            "type": "intersection",
+            "id": 2,
+            "intersecting": [
+              false
+            ]
+          },
+          {
+            "type": "section-query",
+            "sort": "most_viewers"
+          },
+          {
+            "type": "disconnect",
+            "id": 2
+          }
+        ],
+        "rowIds": []
+      }
+    }
+  ],
+  "pageErrors": [],
+  "unexpected": [],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/bundle.js"
+    }
+  ],
+  "origin": "http://127.0.0.1:41297",
+  "result": "PASS",
+  "cleanup": {
+    "browserClosed": true,
+    "serverStopped": true
+  }
+}
