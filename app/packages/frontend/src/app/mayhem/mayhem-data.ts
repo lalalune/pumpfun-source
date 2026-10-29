@@ -89,7 +89,7 @@ export function parseMayhemResponse(input: unknown): MayhemResponse {
   }
 
   const mints = new Set<string>();
-  const coins = input.coins.map((value, index) => {
+  const coins = Array.from(input.coins, (value, index) => {
     if (!isRecord(value))
       throw new MayhemDataError(`coin ${index} must be an object`);
     const mint = safeIdentity(value, "mint");

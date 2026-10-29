@@ -65,7 +65,7 @@ export function parseAuthPresentation(
     throw new Error("Invalid wallet presentation");
   }
   const names = new Set<string>();
-  const wallets = value.wallets.map((wallet): WalletPresentation => {
+  const wallets = Array.from(value.wallets, (wallet): WalletPresentation => {
     if (
       !record(wallet) ||
       typeof wallet.name !== "string" ||

@@ -123,7 +123,7 @@ export function validateCoinDataset(input: unknown): HistoricalCoin[] {
   }
 
   const seenMints = new Set<string>();
-  return input.map((value, index) => {
+  return Array.from(input, (value, index) => {
     if (!isRecord(value)) {
       throw new ValueError(`Coin record ${index} must be an object`);
     }
