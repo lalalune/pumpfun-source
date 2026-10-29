@@ -22,12 +22,13 @@ Nothing is downloaded and nothing outside $PUMP_RECON_HOME is written, except
 the --warm build's own work directory under $PUMP_RECON_HOME.
 """
 import argparse
+import fcntl
 import hashlib
 import json
 import os
-import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -87,6 +88,22 @@ def hybrid_ok():
     return not check_linux_libs(HYBRID)
 
 
+def publish_dependency_cache(source, template):
+    """Expose a cache only after copying finishes; serialize competing publishers."""
+    template.parent.mkdir(parents=True, exist_ok=True)
+    with (template.parent / (template.name + '.lock')).open('a+b') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        if template.exists() or template.is_symlink():
+            return False
+        with tempfile.TemporaryDirectory(prefix=template.name + '.stage.', dir=template.parent) as temporary:
+            staged = Path(temporary) / 'target'
+            subprocess.run(['cp', '-cRp', str(source), str(staged)], check=True)
+            if not staged.is_dir() or staged.is_symlink():
+                raise RuntimeError('dependency cache source must be a directory')
+            staged.rename(template)
+    return True
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--sdk-check', choices=['full', 'quick', 'skip'], default='full')
@@ -133,9 +150,8 @@ def main():
         print(json.dumps(result, indent=2))
         if not result['ok']:
             return 1
-        shutil.rmtree(template, ignore_errors=True)
-        subprocess.run(['cp', '-cRp', str(work / 'target-identity'), str(template)], check=True)
-        print(f'dependency cache seeded at {template}')
+        if publish_dependency_cache(work / 'target-identity', template):
+            print(f'dependency cache seeded at {template}')
     return 0
 
 
