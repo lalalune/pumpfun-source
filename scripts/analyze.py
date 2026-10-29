@@ -59,10 +59,10 @@ def instruction_log_names(b, known=()):
 
 
 def elf_layout(b):
-    assert b[:6]==b'\x7fELF\x02\x01'
+    if b[:6]!=b'\x7fELF\x02\x01': raise ValueError('Unsupported ELF identity')
     h=struct.unpack_from('<HHIQQQIHHHHHH',b,16)
     _,machine,_,entry,phoff,shoff,flags,ehsize,phsize,phnum,shsize,shnum,shstr=h
-    assert phsize==56 and shsize==64 and shnum>0
+    if not (phsize==56 and shsize==64 and shnum>0): raise ValueError('Invalid ELF table layout')
     raw=[struct.unpack_from('<IIQQQQIIQQ',b,shoff+i*shsize) for i in range(shnum)]
     names=b[raw[shstr][4]:raw[shstr][4]+raw[shstr][5]]
     end=max(ehsize,phoff+phsize*phnum,shoff+shsize*shnum)
@@ -73,7 +73,7 @@ def elf_layout(b):
         sections.append({'name':name,'type':s[1],'offset':s[4],'size':s[5],'address':s[3],'flags':s[2]})
     for i in range(phnum):
         p=struct.unpack_from('<IIQQQQQQ',b,phoff+i*phsize); end=max(end,p[2]+p[5])
-    assert end<=len(b)
+    if end>len(b): raise ValueError('ELF extent exceeds available bytes')
     return {'machine':machine,'entry':entry,'flags':flags,'elf_extent':end,'allocation_bytes':len(b),'trailing_bytes':len(b)-end,'trailing_all_zero':not any(b[end:]),'elf_sha256':hashlib.sha256(b[:end]).hexdigest(),'sections':sections}
 def analyze():
     out={}
