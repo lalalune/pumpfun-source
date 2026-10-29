@@ -1,0 +1,1344 @@
+{
+  "scope": "Complete translated hook in real React/compiler runtime with explicit synthetic query/seed/codec ports. Five manual-timer scenarios plus one real2500ms control; not maintained/website UI or provider compatibility.",
+  "sourceHead": "ea81b770d889f0696a1edb430092a4b5260bcf10",
+  "startedAt": "2026-10-29T21:33:40.420Z",
+  "inputs": [
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+    },
+    {
+      "path": "reconstruction/home-feed-state/client.mjs",
+      "bytes": 47727,
+      "sha256": "537f4b78480cfb4aec708a663d63b9609d3eabc7b8e93f7404cd381064f95b17"
+    },
+    {
+      "path": "reconstruction/home-feed-state/qualification/fixture.mjs",
+      "bytes": 5462,
+      "sha256": "e3948b4def388c2fa0fea5d9abb4fdd17e4f28844047ec5cdf11b651e7a9ec1b"
+    }
+  ],
+  "bundleSha256": "a9ca998b98f8e2b7eaf1f9796e760821e4b141471875a703214fd2e4a1bfab97",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/bundle.js"
+    }
+  ],
+  "cases": [
+    {
+      "name": "deduplication, first12, local append12 and matching query options",
+      "startedAt": "2026-10-29T21:33:40.655Z",
+      "initial": {
+        "revision": 1,
+        "lastRevision": 1,
+        "keys": [
+          "cid:old-0",
+          "cid:old-1",
+          "cid:old-2",
+          "cid:old-3",
+          "cid:old-4",
+          "cid:old-5",
+          "cid:old-6",
+          "cid:old-7",
+          "cid:old-8",
+          "cid:old-9",
+          "cid:old-10",
+          "cid:old-11"
+        ],
+        "symbols": [
+          "old-0",
+          "old-1",
+          "old-2",
+          "old-3",
+          "old-4",
+          "old-5",
+          "old-6",
+          "old-7",
+          "old-8",
+          "old-9",
+          "old-10",
+          "old-11"
+        ],
+        "pending": 0,
+        "preview": [],
+        "hasNextPage": true,
+        "hasUnseen": true,
+        "loading": false,
+        "error": null,
+        "fetching": false,
+        "options": {
+          "queryKey": [
+            "callouts",
+            "home-feed",
+            "all",
+            150,
+            false,
+            null
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "retry": 3,
+          "refetchOnWindowFocus": true,
+          "refetchInterval": 15000,
+          "refetchIntervalInBackground": false,
+          "hasPlaceholder": false
+        },
+        "intervals": [
+          {
+            "delay": 2500,
+            "mode": "manual"
+          }
+        ],
+        "cleared": 0
+      },
+      "final": {
+        "revision": 1,
+        "lastRevision": 1,
+        "keys": [
+          "cid:old-0",
+          "cid:old-1",
+          "cid:old-2",
+          "cid:old-3",
+          "cid:old-4",
+          "cid:old-5",
+          "cid:old-6",
+          "cid:old-7",
+          "cid:old-8",
+          "cid:old-9",
+          "cid:old-10",
+          "cid:old-11",
+          "cid:old-12",
+          "cid:old-13",
+          "cid:old-14",
+          "cid:old-15",
+          "cid:old-16",
+          "cid:old-17",
+          "cid:old-18",
+          "cid:old-19",
+          "cid:old-20",
+          "cid:old-21",
+          "cid:old-22",
+          "cid:old-23",
+          "cid:old-24",
+          "cid:old-25",
+          "cid:old-26",
+          "cid:old-27",
+          "cid:old-28",
+          "cid:old-29"
+        ],
+        "symbols": [
+          "old-0",
+          "old-1",
+          "old-2",
+          "old-3",
+          "old-4",
+          "old-5",
+          "old-6",
+          "old-7",
+          "old-8",
+          "old-9",
+          "old-10",
+          "old-11",
+          "old-12",
+          "old-13",
+          "old-14",
+          "old-15",
+          "old-16",
+          "old-17",
+          "old-18",
+          "old-19",
+          "old-20",
+          "old-21",
+          "old-22",
+          "old-23",
+          "old-24",
+          "old-25",
+          "old-26",
+          "old-27",
+          "old-28",
+          "old-29"
+        ],
+        "pending": 0,
+        "preview": [],
+        "hasNextPage": false,
+        "hasUnseen": false,
+        "loading": false,
+        "error": null,
+        "fetching": false,
+        "options": {
+          "queryKey": [
+            "callouts",
+            "home-feed",
+            "all",
+            150,
+            false,
+            null
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "retry": 3,
+          "refetchOnWindowFocus": true,
+          "refetchInterval": 15000,
+          "refetchIntervalInBackground": false,
+          "hasPlaceholder": false
+        },
+        "intervals": [],
+        "cleared": 1
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T21:33:40.803Z"
+    },
+    {
+      "name": "raw array identity and WeakMap object identity preserve cached rows",
+      "startedAt": "2026-10-29T21:33:40.803Z",
+      "phases": [
+        {
+          "revision": 2,
+          "lastRevision": 2,
+          "keys": [
+            "cid:cache-0",
+            "cid:cache-1",
+            "cid:cache-2",
+            "cid:cache-3",
+            "cid:cache-4",
+            "cid:cache-5",
+            "cid:cache-6",
+            "cid:cache-7",
+            "cid:cache-8",
+            "cid:cache-9",
+            "cid:cache-10",
+            "cid:cache-11"
+          ],
+          "symbols": [
+            "cache-0",
+            "cache-1",
+            "cache-2",
+            "cache-3",
+            "cache-4",
+            "cache-5",
+            "cache-6",
+            "cache-7",
+            "cache-8",
+            "cache-9",
+            "cache-10",
+            "cache-11"
+          ],
+          "pending": 0,
+          "preview": [],
+          "hasNextPage": true,
+          "hasUnseen": true,
+          "loading": false,
+          "error": null,
+          "fetching": false,
+          "options": {
+            "queryKey": [
+              "callouts",
+              "home-feed",
+              "all",
+              150,
+              false,
+              null
+            ],
+            "enabled": true,
+            "staleTime": 15000,
+            "retry": 3,
+            "refetchOnWindowFocus": true,
+            "refetchInterval": 15000,
+            "refetchIntervalInBackground": false,
+            "hasPlaceholder": false
+          },
+          "intervals": [
+            {
+              "delay": 2500,
+              "mode": "manual"
+            }
+          ],
+          "cleared": 1
+        },
+        {
+          "revision": 3,
+          "lastRevision": 3,
+          "keys": [
+            "cid:cache-0",
+            "cid:cache-1",
+            "cid:cache-2",
+            "cid:cache-3",
+            "cid:cache-4",
+            "cid:cache-5",
+            "cid:cache-6",
+            "cid:cache-7",
+            "cid:cache-8",
+            "cid:cache-9",
+            "cid:cache-10",
+            "cid:cache-11"
+          ],
+          "symbols": [
+            "cache-0",
+            "cache-1",
+            "cache-2",
+            "cache-3",
+            "cache-4",
+            "cache-5",
+            "cache-6",
+            "cache-7",
+            "cache-8",
+            "cache-9",
+            "cache-10",
+            "cache-11"
+          ],
+          "pending": 0,
+          "preview": [],
+          "hasNextPage": true,
+          "hasUnseen": true,
+          "loading": false,
+          "error": null,
+          "fetching": false,
+          "options": {
+            "queryKey": [
+              "callouts",
+              "home-feed",
+              "all",
+              150,
+              false,
+              null
+            ],
+            "enabled": true,
+            "staleTime": 15000,
+            "retry": 3,
+            "refetchOnWindowFocus": true,
+            "refetchInterval": 15000,
+            "refetchIntervalInBackground": false,
+            "hasPlaceholder": false
+          },
+          "intervals": [
+            {
+              "delay": 2500,
+              "mode": "manual"
+            }
+          ],
+          "cleared": 1
+        },
+        {
+          "revision": 4,
+          "lastRevision": 4,
+          "keys": [
+            "cid:cache-0",
+            "cid:cache-1",
+            "cid:cache-2",
+            "cid:cache-3",
+            "cid:cache-4",
+            "cid:cache-5",
+            "cid:cache-6",
+            "cid:cache-7",
+            "cid:cache-8",
+            "cid:cache-9",
+            "cid:cache-10",
+            "cid:cache-11"
+          ],
+          "symbols": [
+            "cache-0",
+            "cache-1",
+            "cache-2",
+            "cache-3",
+            "cache-4",
+            "cache-5",
+            "cache-6",
+            "cache-7",
+            "cache-8",
+            "cache-9",
+            "cache-10",
+            "cache-11"
+          ],
+          "pending": 0,
+          "preview": [],
+          "hasNextPage": true,
+          "hasUnseen": true,
+          "loading": false,
+          "error": null,
+          "fetching": false,
+          "options": {
+            "queryKey": [
+              "callouts",
+              "home-feed",
+              "all",
+              150,
+              false,
+              null
+            ],
+            "enabled": true,
+            "staleTime": 15000,
+            "retry": 3,
+            "refetchOnWindowFocus": true,
+            "refetchInterval": 15000,
+            "refetchIntervalInBackground": false,
+            "hasPlaceholder": false
+          },
+          "intervals": [
+            {
+              "delay": 2500,
+              "mode": "manual"
+            }
+          ],
+          "cleared": 1
+        },
+        {
+          "revision": 5,
+          "lastRevision": 5,
+          "keys": [
+            "cid:cache-0",
+            "cid:cache-1",
+            "cid:cache-2",
+            "cid:cache-3",
+            "cid:cache-4",
+            "cid:cache-5",
+            "cid:cache-6",
+            "cid:cache-7",
+            "cid:cache-8",
+            "cid:cache-9",
+            "cid:cache-10",
+            "cid:cache-11"
+          ],
+          "symbols": [
+            "MUTATED",
+            "cache-1",
+            "cache-2",
+            "cache-3",
+            "cache-4",
+            "cache-5",
+            "cache-6",
+            "cache-7",
+            "cache-8",
+            "cache-9",
+            "cache-10",
+            "cache-11"
+          ],
+          "pending": 0,
+          "preview": [],
+          "hasNextPage": true,
+          "hasUnseen": true,
+          "loading": false,
+          "error": null,
+          "fetching": false,
+          "options": {
+            "queryKey": [
+              "callouts",
+              "home-feed",
+              "all",
+              150,
+              false,
+              null
+            ],
+            "enabled": true,
+            "staleTime": 15000,
+            "retry": 3,
+            "refetchOnWindowFocus": true,
+            "refetchInterval": 15000,
+            "refetchIntervalInBackground": false,
+            "hasPlaceholder": false
+          },
+          "intervals": [
+            {
+              "delay": 2500,
+              "mode": "manual"
+            }
+          ],
+          "cleared": 1
+        }
+      ],
+      "status": "PASS",
+      "endedAt": "2026-10-29T21:33:40.869Z"
+    },
+    {
+      "name": "pending counts, cap25/preview3, show-new cap40 and retired fallback",
+      "startedAt": "2026-10-29T21:33:40.869Z",
+      "before": {
+        "revision": 7,
+        "lastRevision": 7,
+        "keys": [
+          "cid:old-0",
+          "cid:old-1",
+          "cid:old-2",
+          "cid:old-3",
+          "cid:old-4",
+          "cid:old-5",
+          "cid:old-6",
+          "cid:old-7",
+          "cid:old-8",
+          "cid:old-9",
+          "cid:old-10",
+          "cid:old-11",
+          "cid:old-12",
+          "cid:old-13",
+          "cid:old-14",
+          "cid:old-15",
+          "cid:old-16",
+          "cid:old-17",
+          "cid:old-18",
+          "cid:old-19",
+          "cid:old-20",
+          "cid:old-21",
+          "cid:old-22",
+          "cid:old-23",
+          "cid:old-24",
+          "cid:old-25",
+          "cid:old-26",
+          "cid:old-27",
+          "cid:old-28",
+          "cid:old-29",
+          "cid:old-30",
+          "cid:old-31",
+          "cid:old-32",
+          "cid:old-33",
+          "cid:old-34",
+          "cid:old-35",
+          "cid:old-36",
+          "cid:old-37",
+          "cid:old-38",
+          "cid:old-39",
+          "cid:old-40",
+          "cid:old-41",
+          "cid:old-42",
+          "cid:old-43",
+          "cid:old-44",
+          "cid:old-45",
+          "cid:old-46",
+          "cid:old-47",
+          "cid:old-48",
+          "cid:old-49"
+        ],
+        "symbols": [
+          "old-0",
+          "old-1",
+          "old-2",
+          "old-3",
+          "old-4",
+          "old-5",
+          "old-6",
+          "old-7",
+          "old-8",
+          "old-9",
+          "old-10",
+          "old-11",
+          "old-12",
+          "old-13",
+          "old-14",
+          "old-15",
+          "old-16",
+          "old-17",
+          "old-18",
+          "old-19",
+          "old-20",
+          "old-21",
+          "old-22",
+          "old-23",
+          "old-24",
+          "old-25",
+          "old-26",
+          "old-27",
+          "old-28",
+          "old-29",
+          "old-30",
+          "old-31",
+          "old-32",
+          "old-33",
+          "old-34",
+          "old-35",
+          "old-36",
+          "old-37",
+          "old-38",
+          "old-39",
+          "old-40",
+          "old-41",
+          "old-42",
+          "old-43",
+          "old-44",
+          "old-45",
+          "old-46",
+          "old-47",
+          "old-48",
+          "old-49"
+        ],
+        "pending": 0,
+        "preview": [],
+        "hasNextPage": true,
+        "hasUnseen": true,
+        "loading": false,
+        "error": null,
+        "fetching": false,
+        "options": {
+          "queryKey": [
+            "callouts",
+            "home-feed",
+            "all",
+            150,
+            false,
+            null
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "retry": 3,
+          "refetchOnWindowFocus": true,
+          "refetchInterval": 15000,
+          "refetchIntervalInBackground": false,
+          "hasPlaceholder": false
+        },
+        "intervals": [
+          {
+            "delay": 2500,
+            "mode": "manual"
+          }
+        ],
+        "cleared": 3
+      },
+      "capped": {
+        "revision": 7,
+        "lastRevision": 7,
+        "keys": [
+          "cid:new-0",
+          "cid:old-0",
+          "cid:old-1",
+          "cid:old-2",
+          "cid:old-3",
+          "cid:old-4",
+          "cid:old-5",
+          "cid:old-6",
+          "cid:old-7",
+          "cid:old-8",
+          "cid:old-9",
+          "cid:old-10",
+          "cid:old-11",
+          "cid:old-12",
+          "cid:old-13",
+          "cid:old-14",
+          "cid:old-15",
+          "cid:old-16",
+          "cid:old-17",
+          "cid:old-18",
+          "cid:old-19",
+          "cid:old-20",
+          "cid:old-21",
+          "cid:old-22",
+          "cid:old-23",
+          "cid:old-24",
+          "cid:old-25",
+          "cid:old-26",
+          "cid:old-27",
+          "cid:old-28",
+          "cid:old-29",
+          "cid:old-30",
+          "cid:old-31",
+          "cid:old-32",
+          "cid:old-33",
+          "cid:old-34",
+          "cid:old-35",
+          "cid:old-36",
+          "cid:old-37",
+          "cid:old-38"
+        ],
+        "symbols": [
+          "new-0",
+          "old-0",
+          "old-1",
+          "old-2",
+          "old-3",
+          "old-4",
+          "old-5",
+          "old-6",
+          "old-7",
+          "old-8",
+          "old-9",
+          "old-10",
+          "old-11",
+          "old-12",
+          "old-13",
+          "old-14",
+          "old-15",
+          "old-16",
+          "old-17",
+          "old-18",
+          "old-19",
+          "old-20",
+          "old-21",
+          "old-22",
+          "old-23",
+          "old-24",
+          "old-25",
+          "old-26",
+          "old-27",
+          "old-28",
+          "old-29",
+          "old-30",
+          "old-31",
+          "old-32",
+          "old-33",
+          "old-34",
+          "old-35",
+          "old-36",
+          "old-37",
+          "old-38"
+        ],
+        "pending": 25,
+        "preview": [
+          {
+            "key": "cid:new-1",
+            "coinMint": "new-mint-1",
+            "coinSymbol": "new-1"
+          },
+          {
+            "key": "cid:new-2",
+            "coinMint": "new-mint-2",
+            "coinSymbol": "new-2"
+          },
+          {
+            "key": "cid:new-3",
+            "coinMint": "new-mint-3",
+            "coinSymbol": "new-3"
+          }
+        ],
+        "hasNextPage": true,
+        "hasUnseen": true,
+        "loading": false,
+        "error": null,
+        "fetching": false,
+        "options": {
+          "queryKey": [
+            "callouts",
+            "home-feed",
+            "all",
+            150,
+            false,
+            null
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "retry": 3,
+          "refetchOnWindowFocus": true,
+          "refetchInterval": 15000,
+          "refetchIntervalInBackground": false,
+          "hasPlaceholder": false
+        },
+        "intervals": [
+          {
+            "delay": 2500,
+            "mode": "manual"
+          }
+        ],
+        "cleared": 3
+      },
+      "final": {
+        "revision": 7,
+        "lastRevision": 7,
+        "keys": [
+          "cid:new-51",
+          "cid:new-52",
+          "cid:new-53",
+          "cid:new-54",
+          "cid:new-55",
+          "cid:new-56",
+          "cid:new-57",
+          "cid:new-58",
+          "cid:new-59",
+          "cid:new-26",
+          "cid:new-27",
+          "cid:new-28",
+          "cid:new-29",
+          "cid:new-30",
+          "cid:new-31",
+          "cid:new-32",
+          "cid:new-33",
+          "cid:new-34",
+          "cid:new-35",
+          "cid:new-36",
+          "cid:new-37",
+          "cid:new-38",
+          "cid:new-39",
+          "cid:new-40",
+          "cid:new-41",
+          "cid:new-42",
+          "cid:new-43",
+          "cid:new-44",
+          "cid:new-45",
+          "cid:new-46",
+          "cid:new-47",
+          "cid:new-48",
+          "cid:new-49",
+          "cid:new-50",
+          "cid:new-1",
+          "cid:new-2",
+          "cid:new-3",
+          "cid:new-4",
+          "cid:new-5",
+          "cid:new-6",
+          "cid:new-0",
+          "cid:new-7",
+          "cid:new-8",
+          "cid:new-9",
+          "cid:new-10",
+          "cid:new-11",
+          "cid:new-12",
+          "cid:new-13",
+          "cid:new-14",
+          "cid:new-15",
+          "cid:new-16",
+          "cid:new-17"
+        ],
+        "symbols": [
+          "new-51",
+          "new-52",
+          "new-53",
+          "new-54",
+          "new-55",
+          "new-56",
+          "new-57",
+          "new-58",
+          "new-59",
+          "new-26",
+          "new-27",
+          "new-28",
+          "new-29",
+          "new-30",
+          "new-31",
+          "new-32",
+          "new-33",
+          "new-34",
+          "new-35",
+          "new-36",
+          "new-37",
+          "new-38",
+          "new-39",
+          "new-40",
+          "new-41",
+          "new-42",
+          "new-43",
+          "new-44",
+          "new-45",
+          "new-46",
+          "new-47",
+          "new-48",
+          "new-49",
+          "new-50",
+          "new-1",
+          "new-2",
+          "new-3",
+          "new-4",
+          "new-5",
+          "new-6",
+          "new-0",
+          "new-7",
+          "new-8",
+          "new-9",
+          "new-10",
+          "new-11",
+          "new-12",
+          "new-13",
+          "new-14",
+          "new-15",
+          "new-16",
+          "new-17"
+        ],
+        "pending": 0,
+        "preview": [],
+        "hasNextPage": true,
+        "hasUnseen": false,
+        "loading": false,
+        "error": null,
+        "fetching": false,
+        "options": {
+          "queryKey": [
+            "callouts",
+            "home-feed",
+            "all",
+            150,
+            false,
+            null
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "retry": 3,
+          "refetchOnWindowFocus": true,
+          "refetchInterval": 15000,
+          "refetchIntervalInBackground": false,
+          "hasPlaceholder": false
+        },
+        "intervals": [],
+        "cleared": 4
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T21:33:41.460Z"
+    },
+    {
+      "name": "seed chain/initial-viewer gate and actual viewer reset",
+      "startedAt": "2026-10-29T21:33:41.460Z",
+      "seed": {
+        "revision": 8,
+        "lastRevision": 8,
+        "keys": [
+          "cid:seed-0",
+          "cid:seed-1",
+          "cid:seed-2",
+          "cid:seed-3",
+          "cid:seed-4",
+          "cid:seed-5",
+          "cid:seed-6",
+          "cid:seed-7",
+          "cid:seed-8",
+          "cid:seed-9",
+          "cid:seed-10",
+          "cid:seed-11"
+        ],
+        "symbols": [
+          "seed-0",
+          "seed-1",
+          "seed-2",
+          "seed-3",
+          "seed-4",
+          "seed-5",
+          "seed-6",
+          "seed-7",
+          "seed-8",
+          "seed-9",
+          "seed-10",
+          "seed-11"
+        ],
+        "pending": 0,
+        "preview": [],
+        "hasNextPage": true,
+        "hasUnseen": true,
+        "loading": false,
+        "error": null,
+        "fetching": false,
+        "options": {
+          "queryKey": [
+            "callouts",
+            "home-feed",
+            "all",
+            150,
+            false,
+            "A"
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "retry": 3,
+          "refetchOnWindowFocus": true,
+          "refetchInterval": 15000,
+          "refetchIntervalInBackground": false,
+          "hasPlaceholder": true
+        },
+        "intervals": [
+          {
+            "delay": 2500,
+            "mode": "manual"
+          }
+        ],
+        "cleared": 4
+      },
+      "otherViewer": {
+        "revision": 9,
+        "lastRevision": 9,
+        "keys": [],
+        "symbols": [],
+        "pending": 0,
+        "preview": [],
+        "hasNextPage": false,
+        "hasUnseen": false,
+        "loading": true,
+        "error": null,
+        "fetching": false,
+        "options": {
+          "queryKey": [
+            "callouts",
+            "home-feed",
+            "all",
+            150,
+            false,
+            "B"
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "retry": 3,
+          "refetchOnWindowFocus": true,
+          "refetchInterval": 15000,
+          "refetchIntervalInBackground": false,
+          "hasPlaceholder": false
+        },
+        "intervals": [],
+        "cleared": 5
+      },
+      "final": {
+        "revision": 12,
+        "lastRevision": 12,
+        "keys": [
+          "cid:B-0",
+          "cid:B-1",
+          "cid:B-2",
+          "cid:B-3",
+          "cid:B-4",
+          "cid:B-5",
+          "cid:B-6",
+          "cid:B-7",
+          "cid:B-8",
+          "cid:B-9",
+          "cid:B-10",
+          "cid:B-11"
+        ],
+        "symbols": [
+          "B-0",
+          "B-1",
+          "B-2",
+          "B-3",
+          "B-4",
+          "B-5",
+          "B-6",
+          "B-7",
+          "B-8",
+          "B-9",
+          "B-10",
+          "B-11"
+        ],
+        "pending": 0,
+        "preview": [],
+        "hasNextPage": true,
+        "hasUnseen": true,
+        "loading": false,
+        "error": null,
+        "fetching": false,
+        "options": {
+          "queryKey": [
+            "callouts",
+            "home-feed",
+            "all",
+            150,
+            false,
+            "B"
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "retry": 3,
+          "refetchOnWindowFocus": true,
+          "refetchInterval": 15000,
+          "refetchIntervalInBackground": false,
+          "hasPlaceholder": false
+        },
+        "intervals": [
+          {
+            "delay": 2500,
+            "mode": "manual"
+          }
+        ],
+        "cleared": 6
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T21:33:41.525Z"
+    },
+    {
+      "name": "loading/error/disabled output follows supplied query states",
+      "startedAt": "2026-10-29T21:33:41.525Z",
+      "final": {
+        "revision": 17,
+        "lastRevision": 17,
+        "keys": [
+          "cid:stale-0",
+          "cid:stale-1",
+          "cid:stale-2",
+          "cid:stale-3"
+        ],
+        "symbols": [
+          "stale-0",
+          "stale-1",
+          "stale-2",
+          "stale-3"
+        ],
+        "pending": 0,
+        "preview": [],
+        "hasNextPage": false,
+        "hasUnseen": false,
+        "loading": false,
+        "error": null,
+        "fetching": false,
+        "options": {
+          "queryKey": [
+            "callouts",
+            "home-feed",
+            "all",
+            150,
+            false,
+            null
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "retry": 3,
+          "refetchOnWindowFocus": true,
+          "refetchInterval": 15000,
+          "refetchIntervalInBackground": false,
+          "hasPlaceholder": false
+        },
+        "intervals": [],
+        "cleared": 7
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T21:33:41.590Z"
+    },
+    {
+      "name": "one actual2500ms interval and real React unmount cleanup",
+      "startedAt": "2026-10-29T21:33:41.590Z",
+      "before": {
+        "revision": 19,
+        "lastRevision": 19,
+        "keys": [
+          "cid:old-0",
+          "cid:old-1",
+          "cid:old-2",
+          "cid:old-3",
+          "cid:old-4",
+          "cid:old-5",
+          "cid:old-6",
+          "cid:old-7",
+          "cid:old-8",
+          "cid:old-9",
+          "cid:old-10",
+          "cid:old-11"
+        ],
+        "symbols": [
+          "old-0",
+          "old-1",
+          "old-2",
+          "old-3",
+          "old-4",
+          "old-5",
+          "old-6",
+          "old-7",
+          "old-8",
+          "old-9",
+          "old-10",
+          "old-11"
+        ],
+        "pending": 0,
+        "preview": [],
+        "hasNextPage": true,
+        "hasUnseen": true,
+        "loading": false,
+        "error": null,
+        "fetching": false,
+        "options": {
+          "queryKey": [
+            "callouts",
+            "home-feed",
+            "all",
+            150,
+            false,
+            null
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "retry": 3,
+          "refetchOnWindowFocus": true,
+          "refetchInterval": 15000,
+          "refetchIntervalInBackground": false,
+          "hasPlaceholder": false
+        },
+        "intervals": [
+          {
+            "delay": 2500,
+            "mode": "real"
+          }
+        ],
+        "cleared": 7
+      },
+      "elapsedMs": 2519,
+      "tick": {
+        "revision": 19,
+        "lastRevision": 19,
+        "keys": [
+          "cid:old-0",
+          "cid:old-1",
+          "cid:old-2",
+          "cid:old-3",
+          "cid:old-4",
+          "cid:old-5",
+          "cid:old-6",
+          "cid:old-7",
+          "cid:old-8",
+          "cid:old-9",
+          "cid:old-10",
+          "cid:old-11"
+        ],
+        "symbols": [
+          "old-0",
+          "old-1",
+          "old-2",
+          "old-3",
+          "old-4",
+          "old-5",
+          "old-6",
+          "old-7",
+          "old-8",
+          "old-9",
+          "old-10",
+          "old-11"
+        ],
+        "pending": 1,
+        "preview": [
+          {
+            "key": "cid:fresh-0",
+            "coinMint": "fresh-mint-0",
+            "coinSymbol": "fresh-0"
+          }
+        ],
+        "hasNextPage": true,
+        "hasUnseen": true,
+        "loading": false,
+        "error": null,
+        "fetching": false,
+        "options": {
+          "queryKey": [
+            "callouts",
+            "home-feed",
+            "all",
+            150,
+            false,
+            null
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "retry": 3,
+          "refetchOnWindowFocus": true,
+          "refetchInterval": 15000,
+          "refetchIntervalInBackground": false,
+          "hasPlaceholder": false
+        },
+        "intervals": [
+          {
+            "delay": 2500,
+            "mode": "real"
+          }
+        ],
+        "cleared": 7
+      },
+      "final": {
+        "revision": 19,
+        "lastRevision": 19,
+        "keys": [
+          "cid:old-0",
+          "cid:old-1",
+          "cid:old-2",
+          "cid:old-3",
+          "cid:old-4",
+          "cid:old-5",
+          "cid:old-6",
+          "cid:old-7",
+          "cid:old-8",
+          "cid:old-9",
+          "cid:old-10",
+          "cid:old-11"
+        ],
+        "symbols": [
+          "old-0",
+          "old-1",
+          "old-2",
+          "old-3",
+          "old-4",
+          "old-5",
+          "old-6",
+          "old-7",
+          "old-8",
+          "old-9",
+          "old-10",
+          "old-11"
+        ],
+        "pending": 1,
+        "preview": [
+          {
+            "key": "cid:fresh-0",
+            "coinMint": "fresh-mint-0",
+            "coinSymbol": "fresh-0"
+          }
+        ],
+        "hasNextPage": true,
+        "hasUnseen": true,
+        "loading": false,
+        "error": null,
+        "fetching": false,
+        "options": {
+          "queryKey": [
+            "callouts",
+            "home-feed",
+            "all",
+            150,
+            false,
+            null
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "retry": 3,
+          "refetchOnWindowFocus": true,
+          "refetchInterval": 15000,
+          "refetchIntervalInBackground": false,
+          "hasPlaceholder": false
+        },
+        "intervals": [],
+        "cleared": 8
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T21:33:44.138Z"
+    }
+  ],
+  "errors": [],
+  "origin": "http://127.0.0.1:33707",
+  "status": "PASS",
+  "stoppedAt": "2026-10-29T21:33:44.215Z",
+  "cleanup": {
+    "browserClosed": true,
+    "serverListening": false
+  }
+}

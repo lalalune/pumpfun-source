@@ -1,0 +1,44 @@
+{
+  "recordedAt": "2026-10-29T21:46:53.534427+00:00",
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "browserRuntimeSource": "ea81b770d889f0696a1edb430092a4b5260bcf10",
+  "browserRuntimeFilesUnchanged": true,
+  "sourceVerification": {
+    "normalizerVariants": 6,
+    "witnesses": 61,
+    "operationsQualified": 0,
+    "maintainedAppMounted": false
+  },
+  "checks": [
+    {
+      "command": "node --test app/tests/original_home_feed_state.test.mjs",
+      "pass": 28,
+      "fail": 0,
+      "log": "focused.log"
+    },
+    {
+      "command": "node --test app/tests/original_source.test.mjs",
+      "pass": 11,
+      "fail": 0,
+      "log": "shared-source.log"
+    },
+    {
+      "command": "node app/scripts/original-home-feed-state.mjs --check",
+      "status": "PASS",
+      "log": "source-check.log"
+    },
+    {
+      "command": "node app/reconstruction/home-feed-state/qualification/browser.mjs --output NEW_DIRECTORY",
+      "pass": 6,
+      "fail": 0,
+      "record": "browser/RESULT.json",
+      "scope": "Real React/compiler synthetic-host composition; five manual-timer scenarios plus one actual 2500 ms control"
+    }
+  ],
+  "limits": [
+    "No original runtime execution or service acquisition",
+    "No maintained app integration, native API or feature milestone claim",
+    "Query/seed/codec providers are synthetic; original provider/cache/retry/scheduler operation remains unqualified",
+    "No full Next/browser/app aggregate rerun; root mandatory checks are recorded separately on the exact publication head"
+  ]
+}
