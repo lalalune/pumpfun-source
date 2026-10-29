@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "sourceHead": "421b59ece1c2b30112ef816b97558572ec45e99b",
+  "sourceTree": "f5cb74dffd0c319413726197b5c149370193b497",
+  "scope": "Source adaptation + finite synthetic real-React lifecycle proof; no product UI/service/data/native/API/feature milestone credit",
+  "before": {
+    "sourceGap": "No maintained board owning-hook module/verifier at base; request transport/shared executor already present",
+    "absentPaths": [
+      "app/reconstruction/board-read-state/client.mjs",
+      "app/scripts/original-board-read-state.mjs"
+    ],
+    "notClaimed": "No original hook/capture execution, product before/after or original live service oracle"
+  },
+  "checks": [
+    {
+      "command": "node app/scripts/original-board-read-state.mjs --check",
+      "cwd": "repository root",
+      "result": "PASS all4frames + canonical module/contract + existing accepted proofs",
+      "log": "source-final.log"
+    },
+    {
+      "command": "node --test app/tests/original_board_read_state.test.mjs",
+      "cwd": "repository root",
+      "result": "7 PASS,0 FAIL,0 SKIP",
+      "log": "node-final.log"
+    },
+    {
+      "command": "node --test app/tests/original_board_read_state.browser.mjs",
+      "cwd": "repository root",
+      "result": "1 finite real-React story PASS,15GETs/13completedresponses/2actualaborts",
+      "log": "browser-final.log",
+      "details": "browser-final.json"
+    },
+    {
+      "command": "node --test tests/search_session.test.mjs tests/search_planner.test.mjs tests/search_planner_workflow.test.mjs tests/market_boards.test.mjs tests/market_board_bindings.test.mjs",
+      "cwd": "app",
+      "result": "68 PASS,0 FAIL,0 SKIP; reused dependencies unchanged",
+      "log": "dependencies.log"
+    },
+    {
+      "command": "python3 scripts/verify_evidence.py",
+      "cwd": "repository root",
+      "result": "9 captures PASS",
+      "log": "root-evidence.log"
+    },
+    {
+      "command": "python3 scripts/test_tooling.py",
+      "cwd": "repository root",
+      "result": "10 tests PASS",
+      "log": "root-tooling.log"
+    },
+    {
+      "command": "python3 app/scripts/verify-evidence.py",
+      "cwd": "repository root",
+      "result": "698 captured objects/npm integrity/unchanged SDK PASS",
+      "log": "app-evidence.log"
+    },
+    {
+      "command": "corepack pnpm exec prettier --check scripts/original-board-read-state.mjs reconstruction/board-read-state/client.mjs reconstruction/board-read-state/README.md tests/original_board_read_state.test.mjs tests/original_board_read_state.browser.mjs tests/fixtures/board-read-state.mjs",
+      "cwd": "app",
+      "result": "PASS maintained MJS/README. Generated JSON uses exact JSON.stringify canonical bytes checked by source verifier",
+      "log": "prettier-source-final.log"
+    }
+  ],
+  "historicalFirstRun": {
+    "head": "b6f7c7e8a5a7ea01680dd8eaa778e5d8ad58f0f9",
+    "method": "historical-browser-method-b6f7c7e8.mjs.txt",
+    "receipt": "browser-first.json",
+    "result": "PASS at original method; not retargeted to final method",
+    "difference": "Final method adds esbuild metafile/15 bundled input hashes and runtime version records only; original run did not retain metafile so final finite story executed separately"
+  },
+  "preservedWarning": {
+    "log": "prettier-json-warning.log",
+    "meaning": "Initial broad style command warned only on generator-canonical contract JSON. JSON was not reformatted; canonical verifier and all maintained-source style checks passed."
+  },
+  "inputBinding": {
+    "file": "inputs.json",
+    "count": 96,
+    "result": "Every listed physical byte equals exact source-head Git blob. Browser receipt additionally binds all15 bundled inputs including actual React/DOM/scheduler files."
+  },
+  "limits": [
+    "Real React lifecycle exercised in social-terminal mode; other mode SSR + all4variant AST equivalence only",
+    "Response map/seed fixed opaque synthetic ports, not1761 implementation or original provider qualification",
+    "Auth/session/identity/exposure/IPFS snapshots externally supplied; no real credential/cookie/storage/session values read",
+    "No live price/discovery request, ranking/accounting/backend/auth service or native API compatibility",
+    "No mounted product UI, Next/build/typecheck/exhaustive/full-app/visual/security or completion-count claim"
+  ]
+}

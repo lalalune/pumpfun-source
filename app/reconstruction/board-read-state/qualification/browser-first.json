@@ -1,0 +1,1878 @@
+{
+  "domain": "Isolated synthetic React/read proof, not product UI/data/services, original normalizer/provider, auth, live discovery or ranking",
+  "requests": [
+    {
+      "id": 1,
+      "case": "first movers read",
+      "method": "GET",
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana",
+      "headers": {
+        "contentType": "application/json",
+        "accept": "*/*",
+        "pumpSource": null,
+        "pumpPlatform": null
+      }
+    },
+    {
+      "id": 2,
+      "case": "background failure",
+      "method": "GET",
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana",
+      "headers": {
+        "contentType": "application/json",
+        "accept": "*/*",
+        "pumpSource": null,
+        "pumpPlatform": null
+      }
+    },
+    {
+      "id": 3,
+      "case": "cache-hit foreground failure",
+      "method": "GET",
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana",
+      "headers": {
+        "contentType": "application/json",
+        "accept": "*/*",
+        "pumpSource": null,
+        "pumpPlatform": null
+      }
+    },
+    {
+      "id": 4,
+      "case": "exact TTL boundary",
+      "method": "GET",
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana",
+      "headers": {
+        "contentType": "application/json",
+        "accept": "*/*",
+        "pumpSource": null,
+        "pumpPlatform": null
+      }
+    },
+    {
+      "id": 5,
+      "case": "expired foreground failure",
+      "method": "GET",
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana",
+      "headers": {
+        "contentType": "application/json",
+        "accept": "*/*",
+        "pumpSource": null,
+        "pumpPlatform": null
+      }
+    },
+    {
+      "id": 6,
+      "case": "trending recovery",
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "headers": {
+        "contentType": "application/json",
+        "accept": "*/*",
+        "pumpSource": null,
+        "pumpPlatform": null
+      }
+    },
+    {
+      "id": 7,
+      "case": "viewer address background refresh",
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "headers": {
+        "contentType": "application/json",
+        "accept": "*/*",
+        "pumpSource": null,
+        "pumpPlatform": null
+      }
+    },
+    {
+      "id": 8,
+      "case": "old callback retains captured user",
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "headers": {
+        "contentType": "application/json",
+        "accept": "*/*",
+        "pumpSource": null,
+        "pumpPlatform": null
+      }
+    },
+    {
+      "id": 9,
+      "case": "current callback uses latest user",
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "headers": {
+        "contentType": "application/json",
+        "accept": "*/*",
+        "pumpSource": null,
+        "pumpPlatform": null
+      }
+    },
+    {
+      "id": 10,
+      "case": "second local page",
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "headers": {
+        "contentType": "application/json",
+        "accept": "*/*",
+        "pumpSource": null,
+        "pumpPlatform": null
+      }
+    },
+    {
+      "id": 11,
+      "case": "force-local-filter full handoff",
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "headers": {
+        "contentType": "application/json",
+        "accept": "*/*",
+        "pumpSource": null,
+        "pumpPlatform": null
+      }
+    },
+    {
+      "id": 12,
+      "case": "superseded request",
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "headers": {
+        "contentType": "application/json",
+        "accept": "*/*",
+        "pumpSource": null,
+        "pumpPlatform": null
+      }
+    },
+    {
+      "id": 13,
+      "case": "current request",
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "headers": {
+        "contentType": "application/json",
+        "accept": "*/*",
+        "pumpSource": null,
+        "pumpPlatform": null
+      }
+    },
+    {
+      "id": 14,
+      "case": "unmount current read",
+      "method": "GET",
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana",
+      "headers": {
+        "contentType": "application/json",
+        "accept": "*/*",
+        "pumpSource": null,
+        "pumpPlatform": null
+      }
+    },
+    {
+      "id": 15,
+      "case": "seeded first read is background",
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-C&pumpUserId=synthetic-user-C&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "headers": {
+        "contentType": "application/json",
+        "accept": "*/*",
+        "pumpSource": null,
+        "pumpPlatform": null
+      }
+    }
+  ],
+  "responses": [
+    {
+      "id": 1,
+      "case": "first movers read",
+      "status": 200,
+      "contentType": "application/json",
+      "body": "{\"entries\":[{\"m\":\"synthetic-A1\",\"n\":\"synthetic-A1\"},{\"m\":\"synthetic-A2\",\"n\":\"synthetic-A2\"},{\"m\":\"synthetic-A3\",\"n\":\"synthetic-A3\"}],\"serverTs\":1000}"
+    },
+    {
+      "id": 2,
+      "case": "background failure",
+      "status": 503,
+      "contentType": "application/json",
+      "body": "{\"synthetic\":\"unavailable\"}"
+    },
+    {
+      "id": 3,
+      "case": "cache-hit foreground failure",
+      "status": 503,
+      "contentType": "application/json",
+      "body": "{\"synthetic\":\"unavailable\"}"
+    },
+    {
+      "id": 4,
+      "case": "exact TTL boundary",
+      "status": 503,
+      "contentType": "application/json",
+      "body": "{\"synthetic\":\"unavailable\"}"
+    },
+    {
+      "id": 5,
+      "case": "expired foreground failure",
+      "status": 503,
+      "contentType": "application/json",
+      "body": "{\"synthetic\":\"unavailable\"}"
+    },
+    {
+      "id": 6,
+      "case": "trending recovery",
+      "status": 200,
+      "contentType": "application/json",
+      "body": "{\"entries\":[{\"m\":\"synthetic-T1\",\"n\":\"synthetic-T1\"},{\"m\":\"synthetic-T2\",\"n\":\"synthetic-T2\"},{\"m\":\"synthetic-T3\",\"n\":\"synthetic-T3\"}],\"serverTs\":1000}"
+    },
+    {
+      "id": 7,
+      "case": "viewer address background refresh",
+      "status": 503,
+      "contentType": "application/json",
+      "body": "{\"synthetic\":\"unavailable\"}"
+    },
+    {
+      "id": 8,
+      "case": "old callback retains captured user",
+      "status": 503,
+      "contentType": "application/json",
+      "body": "{\"synthetic\":\"unavailable\"}"
+    },
+    {
+      "id": 9,
+      "case": "current callback uses latest user",
+      "status": 503,
+      "contentType": "application/json",
+      "body": "{\"synthetic\":\"unavailable\"}"
+    },
+    {
+      "id": 10,
+      "case": "second local page",
+      "status": 200,
+      "contentType": "application/json",
+      "body": "{\"entries\":[{\"m\":\"synthetic-T1\",\"n\":\"synthetic-T1\"},{\"m\":\"synthetic-T2\",\"n\":\"synthetic-T2\"},{\"m\":\"synthetic-T3\",\"n\":\"synthetic-T3\"}],\"serverTs\":1000}"
+    },
+    {
+      "id": 11,
+      "case": "force-local-filter full handoff",
+      "status": 200,
+      "contentType": "application/json",
+      "body": "{\"entries\":[{\"m\":\"synthetic-T1\",\"n\":\"synthetic-T1\"},{\"m\":\"synthetic-T2\",\"n\":\"synthetic-T2\"},{\"m\":\"synthetic-T3\",\"n\":\"synthetic-T3\"}],\"serverTs\":1000}"
+    },
+    {
+      "id": 13,
+      "case": "current request",
+      "status": 200,
+      "contentType": "application/json",
+      "body": "{\"entries\":[{\"m\":\"synthetic-B1\",\"n\":\"synthetic-B1\"}],\"serverTs\":1000}"
+    },
+    {
+      "id": 15,
+      "case": "seeded first read is background",
+      "status": 200,
+      "contentType": "application/json",
+      "body": "{\"entries\":[{\"m\":\"synthetic-T1\",\"n\":\"synthetic-T1\"},{\"m\":\"synthetic-T2\",\"n\":\"synthetic-T2\"},{\"m\":\"synthetic-T3\",\"n\":\"synthetic-T3\"}],\"serverTs\":1000}"
+    }
+  ],
+  "aborted": [
+    {
+      "id": 12,
+      "case": "superseded request",
+      "completedResponse": false,
+      "headersSent": false
+    },
+    {
+      "id": 14,
+      "case": "unmount current read",
+      "completedResponse": false,
+      "headersSent": false
+    }
+  ],
+  "observations": [
+    {
+      "name": "auth-not-ready suppresses initial board read",
+      "state": {
+        "coins": [],
+        "servedCoins": [],
+        "loading": true,
+        "error": false,
+        "hasMorePages": false,
+        "requestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": null
+      },
+      "requestCount": 0
+    },
+    {
+      "name": "default local slice and served mover order",
+      "state": {
+        "coins": [
+          "synthetic-A1",
+          "synthetic-A2"
+        ],
+        "servedCoins": [],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      },
+      "requestCount": 1
+    },
+    {
+      "name": "background failure preserves current rows",
+      "state": {
+        "coins": [
+          "synthetic-A1",
+          "synthetic-A2"
+        ],
+        "servedCoins": [],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      },
+      "requestCount": 2
+    },
+    {
+      "name": "cache hit still refreshes but suppresses loading/error clear",
+      "state": {
+        "coins": [
+          "synthetic-A1",
+          "synthetic-A2"
+        ],
+        "servedCoins": [],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      },
+      "requestCount": 3
+    },
+    {
+      "name": "age exactly120000 remains cached",
+      "state": {
+        "coins": [
+          "synthetic-A1",
+          "synthetic-A2"
+        ],
+        "servedCoins": [],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      },
+      "requestCount": 4
+    },
+    {
+      "name": "age120001 expires then foreground failure publishes keyed error",
+      "state": {
+        "coins": [],
+        "servedCoins": [],
+        "loading": false,
+        "error": true,
+        "hasMorePages": false,
+        "requestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      },
+      "requestCount": 5
+    },
+    {
+      "name": "trending ignores selected chain and retains full served rows",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]"
+      },
+      "requestCount": 6
+    },
+    {
+      "name": "address gate refreshes in background without inventing key ownership",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]"
+      },
+      "requestCount": 7
+    },
+    {
+      "name": "userId-only change does not add an automatic source effect read",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]"
+      },
+      "requestCount": 7
+    },
+    {
+      "name": "old/current callback capture boundary",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]"
+      },
+      "requestCount": 9
+    },
+    {
+      "name": "local page offset is absent from capped server request",
+      "state": {
+        "coins": [
+          "synthetic-T3"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": false,
+        "requestKey": "[\"trending\",\"DESC\",2,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",2,2,false,false,\"\",\"base\",null,null,\"1h\"]"
+      },
+      "requestCount": 10
+    },
+    {
+      "name": "forceLocalFiltering hands full normalized array to outer filter owner",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]"
+      },
+      "requestCount": 11
+    },
+    {
+      "name": "native abort and current response commit",
+      "state": {
+        "coins": [
+          "synthetic-B1"
+        ],
+        "servedCoins": [
+          "synthetic-B1"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": false,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      },
+      "requestCount": 13
+    },
+    {
+      "name": "actual pending read aborted on cleanup",
+      "requestCount": 14
+    },
+    {
+      "name": "real React seed initialization without ready auth",
+      "state": {
+        "coins": [
+          "synthetic-T1"
+        ],
+        "servedCoins": [
+          "synthetic-T1"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": false,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      },
+      "requestCount": 14
+    },
+    {
+      "name": "seeded first background read preserves prefill until response",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      },
+      "requestCount": 15
+    }
+  ],
+  "pageErrors": [],
+  "unexpected": [],
+  "hostRequests": [
+    {
+      "method": "GET",
+      "pathAndQuery": "/"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/fixture.js"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana"
+    },
+    {
+      "method": "GET",
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-C&pumpUserId=synthetic-user-C&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label"
+    }
+  ],
+  "bundleSha256": "9749a79d6f186a48d842d0d88727c72274cc68635931dd129cef3a2fec1288f0",
+  "inputs": [
+    {
+      "path": "reconstruction/board-read-state/client.mjs",
+      "sha256": "e7c0e847916a09b69fc0d932782e1650b20b9874c74cef4c24923c251439d202",
+      "bytes": 14523
+    },
+    {
+      "path": "reconstruction/board-read-state/contract.json",
+      "sha256": "d3c627f2cb9629978db74f00a8438c79f318d30be02e88fb37d89ce50d102d00",
+      "bytes": 39874
+    },
+    {
+      "path": "scripts/original-board-read-state.mjs",
+      "sha256": "14ce5aaf3a345278b5603e83e3a9cbaf68db8af7b4c2f0c2749b156b3de084bd",
+      "bytes": 22530
+    },
+    {
+      "path": "reconstruction/search-session/session.mjs",
+      "sha256": "1adde3f71efcc54fbd4e7e5e9cd511a728f7a7c371c00d9900d932dba950f2c9",
+      "bytes": 9189
+    },
+    {
+      "path": "reconstruction/search-planner/planner.mjs",
+      "sha256": "c807b4ef789d8191b6dcd746b5bd42f864f3a0038371d0119c8fa311dadab9ef",
+      "bytes": 3732
+    },
+    {
+      "path": "reconstruction/market-boards/request.mjs",
+      "sha256": "922c56ce840b1efee1362145560de14ad9ee8794d759516921910b1bcfb143e0",
+      "bytes": 5030
+    },
+    {
+      "path": "tests/fixtures/board-read-state.mjs",
+      "sha256": "98c90f4dde7306f993ca27ffdd7794789e8fac69bdad83449019c3614e3e516b",
+      "bytes": 6995
+    },
+    {
+      "path": "tests/original_board_read_state.browser.mjs",
+      "sha256": "0f61f671831f5bbbf4aa757d51b2418579d3cddff9dc3f5c822a92a5e86d392b",
+      "bytes": 19650
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "bytes": 113160
+    }
+  ],
+  "reactVersion": "19.2.3",
+  "reactDomVersion": "19.2.3",
+  "events": [
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [],
+        "servedCoins": [],
+        "loading": true,
+        "error": false,
+        "hasMorePages": false,
+        "requestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": null
+      }
+    },
+    {
+      "type": "host-commit",
+      "serial": 1
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "identity-port",
+      "argumentCount": 1,
+      "syntheticInput": "pump_session_0_synthetic"
+    },
+    {
+      "type": "fetch-start",
+      "id": 1,
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana",
+      "credentials": "include",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [],
+        "servedCoins": [],
+        "loading": true,
+        "error": false,
+        "hasMorePages": false,
+        "requestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": null
+      }
+    },
+    {
+      "type": "host-commit",
+      "serial": 2
+    },
+    {
+      "type": "fetch-response",
+      "id": 1,
+      "status": 200
+    },
+    {
+      "type": "parse-port",
+      "argumentCount": 1,
+      "payload": {
+        "entries": [
+          {
+            "m": "synthetic-A1",
+            "n": "synthetic-A1"
+          },
+          {
+            "m": "synthetic-A2",
+            "n": "synthetic-A2"
+          },
+          {
+            "m": "synthetic-A3",
+            "n": "synthetic-A3"
+          }
+        ],
+        "serverTs": 1000
+      }
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-A1",
+          "synthetic-A2"
+        ],
+        "servedCoins": [],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "identity-port",
+      "argumentCount": 1,
+      "syntheticInput": "pump_session_0_synthetic"
+    },
+    {
+      "type": "fetch-start",
+      "id": 2,
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana",
+      "credentials": "include",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "type": "fetch-response",
+      "id": 2,
+      "status": 503
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "identity-port",
+      "argumentCount": 1,
+      "syntheticInput": "pump_session_0_synthetic"
+    },
+    {
+      "type": "fetch-start",
+      "id": 3,
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana",
+      "credentials": "include",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "type": "fetch-response",
+      "id": 3,
+      "status": 503
+    },
+    {
+      "type": "identity-port",
+      "argumentCount": 1,
+      "syntheticInput": "pump_session_0_synthetic"
+    },
+    {
+      "type": "fetch-start",
+      "id": 4,
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana",
+      "credentials": "include",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "type": "fetch-response",
+      "id": 4,
+      "status": 503
+    },
+    {
+      "type": "identity-port",
+      "argumentCount": 1,
+      "syntheticInput": "pump_session_0_synthetic"
+    },
+    {
+      "type": "fetch-start",
+      "id": 5,
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana",
+      "credentials": "include",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-A1",
+          "synthetic-A2"
+        ],
+        "servedCoins": [],
+        "loading": true,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "fetch-response",
+      "id": 5,
+      "status": 503
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [],
+        "servedCoins": [],
+        "loading": false,
+        "error": true,
+        "hasMorePages": false,
+        "requestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "cancel-search-port"
+    },
+    {
+      "type": "cancel-search-port"
+    },
+    {
+      "type": "identity-port",
+      "argumentCount": 1,
+      "syntheticInput": "pump_session_0_synthetic"
+    },
+    {
+      "type": "fetch-start",
+      "id": 6,
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-A&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "credentials": "include",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [],
+        "servedCoins": [],
+        "loading": false,
+        "error": false,
+        "hasMorePages": false,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "host-commit",
+      "serial": 3
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [],
+        "servedCoins": [],
+        "loading": true,
+        "error": false,
+        "hasMorePages": false,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "fetch-response",
+      "id": 6,
+      "status": 200
+    },
+    {
+      "type": "parse-port",
+      "argumentCount": 1,
+      "payload": {
+        "entries": [
+          {
+            "m": "synthetic-T1",
+            "n": "synthetic-T1"
+          },
+          {
+            "m": "synthetic-T2",
+            "n": "synthetic-T2"
+          },
+          {
+            "m": "synthetic-T3",
+            "n": "synthetic-T3"
+          }
+        ],
+        "serverTs": 1000
+      }
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "identity-port",
+      "argumentCount": 1,
+      "syntheticInput": "pump_session_0_synthetic"
+    },
+    {
+      "type": "fetch-start",
+      "id": 7,
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "credentials": "include",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "host-commit",
+      "serial": 4
+    },
+    {
+      "type": "fetch-response",
+      "id": 7,
+      "status": 503
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "host-commit",
+      "serial": 5
+    },
+    {
+      "type": "identity-port",
+      "argumentCount": 1,
+      "syntheticInput": "pump_session_0_synthetic"
+    },
+    {
+      "type": "fetch-start",
+      "id": 8,
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-A&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "credentials": "include",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "type": "fetch-response",
+      "id": 8,
+      "status": 503
+    },
+    {
+      "type": "identity-port",
+      "argumentCount": 1,
+      "syntheticInput": "pump_session_0_synthetic"
+    },
+    {
+      "type": "fetch-start",
+      "id": 9,
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "credentials": "include",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "type": "fetch-response",
+      "id": 9,
+      "status": 503
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "cancel-search-port"
+    },
+    {
+      "type": "cancel-search-port"
+    },
+    {
+      "type": "identity-port",
+      "argumentCount": 1,
+      "syntheticInput": "pump_session_0_synthetic"
+    },
+    {
+      "type": "fetch-start",
+      "id": 10,
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "credentials": "include",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",2,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "host-commit",
+      "serial": 6
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": true,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",2,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "fetch-response",
+      "id": 10,
+      "status": 200
+    },
+    {
+      "type": "parse-port",
+      "argumentCount": 1,
+      "payload": {
+        "entries": [
+          {
+            "m": "synthetic-T1",
+            "n": "synthetic-T1"
+          },
+          {
+            "m": "synthetic-T2",
+            "n": "synthetic-T2"
+          },
+          {
+            "m": "synthetic-T3",
+            "n": "synthetic-T3"
+          }
+        ],
+        "serverTs": 1000
+      }
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-T3"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": false,
+        "requestKey": "[\"trending\",\"DESC\",2,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",2,2,false,false,\"\",\"base\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "cancel-search-port"
+    },
+    {
+      "type": "cancel-search-port"
+    },
+    {
+      "type": "identity-port",
+      "argumentCount": 1,
+      "syntheticInput": "pump_session_0_synthetic"
+    },
+    {
+      "type": "fetch-start",
+      "id": 11,
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "credentials": "include",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-T3"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": false,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",2,2,false,false,\"\",\"base\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "host-commit",
+      "serial": 7
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-T3"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": true,
+        "error": false,
+        "hasMorePages": false,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",2,2,false,false,\"\",\"base\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "fetch-response",
+      "id": 11,
+      "status": 200
+    },
+    {
+      "type": "parse-port",
+      "argumentCount": 1,
+      "payload": {
+        "entries": [
+          {
+            "m": "synthetic-T1",
+            "n": "synthetic-T1"
+          },
+          {
+            "m": "synthetic-T2",
+            "n": "synthetic-T2"
+          },
+          {
+            "m": "synthetic-T3",
+            "n": "synthetic-T3"
+          }
+        ],
+        "serverTs": 1000
+      }
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "identity-port",
+      "argumentCount": 1,
+      "syntheticInput": "pump_session_0_synthetic"
+    },
+    {
+      "type": "fetch-start",
+      "id": 12,
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "credentials": "include",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"ethereum\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"base\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "host-commit",
+      "serial": 8
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"ethereum\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"ethereum\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "identity-port",
+      "argumentCount": 1,
+      "syntheticInput": "pump_session_0_synthetic"
+    },
+    {
+      "type": "abort",
+      "id": 12
+    },
+    {
+      "type": "fetch-start",
+      "id": 13,
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "credentials": "include",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"ethereum\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "host-commit",
+      "serial": 9
+    },
+    {
+      "type": "fetch-error",
+      "id": 12,
+      "name": "AbortError"
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "fetch-response",
+      "id": 13,
+      "status": 200
+    },
+    {
+      "type": "parse-port",
+      "argumentCount": 1,
+      "payload": {
+        "entries": [
+          {
+            "m": "synthetic-B1",
+            "n": "synthetic-B1"
+          }
+        ],
+        "serverTs": 1000
+      }
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-B1"
+        ],
+        "servedCoins": [
+          "synthetic-B1"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": false,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "cancel-search-port"
+    },
+    {
+      "type": "cancel-search-port"
+    },
+    {
+      "type": "identity-port",
+      "argumentCount": 1,
+      "syntheticInput": "pump_session_0_synthetic"
+    },
+    {
+      "type": "fetch-start",
+      "id": 14,
+      "pathAndQuery": "/boards/movers?tier=web&surface=WEB&platform=WEB&limit=150&userId=synthetic-viewer-B&pumpUserId=synthetic-user-B&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana",
+      "credentials": "include",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-B1"
+        ],
+        "servedCoins": [
+          "synthetic-B1"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": false,
+        "requestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "host-commit",
+      "serial": 10
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-B1"
+        ],
+        "servedCoins": [
+          "synthetic-B1"
+        ],
+        "loading": true,
+        "error": false,
+        "hasMorePages": false,
+        "requestKey": "[\"featured\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "cancel-search-port"
+    },
+    {
+      "type": "cancel-search-port"
+    },
+    {
+      "type": "abort",
+      "id": 14
+    },
+    {
+      "type": "host-unmounted"
+    },
+    {
+      "type": "fetch-error",
+      "id": 14,
+      "name": "AbortError"
+    },
+    {
+      "type": "seed-port",
+      "argumentCount": 1,
+      "mints": [
+        "synthetic-T1"
+      ]
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-T1"
+        ],
+        "servedCoins": [
+          "synthetic-T1"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": false,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "host-commit",
+      "serial": 11
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "identity-port",
+      "argumentCount": 1,
+      "syntheticInput": "pump_session_0_synthetic"
+    },
+    {
+      "type": "fetch-start",
+      "id": 15,
+      "pathAndQuery": "/boards/trending?tier=web&surface=TRENDING&platform=WEB&limit=150&userId=synthetic-viewer-C&pumpUserId=synthetic-user-C&session_id=pump_session_0_synthetic&device_id=synthetic-device&session_start_timestamp_ms=0&chains=solana%2Ceip155%3A4663%2Ceip155%3A8453%2Ceip155%3A56%2Ceip155%3A1%2Ceip155%3A5042%2Ceip155%3A143&ranking=social&window=1h&hot=label",
+      "credentials": "include",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-T1"
+        ],
+        "servedCoins": [
+          "synthetic-T1"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": false,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "host-commit",
+      "serial": 12
+    },
+    {
+      "type": "fetch-response",
+      "id": 15,
+      "status": 200
+    },
+    {
+      "type": "parse-port",
+      "argumentCount": 1,
+      "payload": {
+        "entries": [
+          {
+            "m": "synthetic-T1",
+            "n": "synthetic-T1"
+          },
+          {
+            "m": "synthetic-T2",
+            "n": "synthetic-T2"
+          },
+          {
+            "m": "synthetic-T3",
+            "n": "synthetic-T3"
+          }
+        ],
+        "serverTs": 1000
+      }
+    },
+    {
+      "type": "debounce-port",
+      "delay": 1000
+    },
+    {
+      "type": "poll-port",
+      "interval": 60000,
+      "enabled": false
+    },
+    {
+      "type": "render-commit",
+      "state": {
+        "coins": [
+          "synthetic-T1",
+          "synthetic-T2"
+        ],
+        "servedCoins": [
+          "synthetic-T1",
+          "synthetic-T2",
+          "synthetic-T3"
+        ],
+        "loading": false,
+        "error": false,
+        "hasMorePages": true,
+        "requestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]",
+        "rowsRequestKey": "[\"trending\",\"DESC\",0,2,false,false,\"\",\"solana\",null,null,\"1h\"]"
+      }
+    },
+    {
+      "type": "cancel-search-port"
+    },
+    {
+      "type": "cancel-search-port"
+    },
+    {
+      "type": "host-unmounted"
+    }
+  ],
+  "completedResponses": 13,
+  "abortedReads": 2,
+  "result": "PASS"
+}
