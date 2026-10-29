@@ -1560,6 +1560,14 @@ repro/pump_amm/v2-mint-clone-recovery-20261028/followup/** -whitespace
 reconstruction/** -text
 *.rlib binary
 
-# Preserve the token-detector packet and its hash-bound archived source exactly.
+# Preserve retained tooling packets and their hash-bound archived sources exactly.
+research/tooling-legacy-capture-metadata-20261029/** -text
+research/tooling-roadmap-call-classification-20261029/** -text
+research/tooling-source-manifest-symlinks-20261029/** -text
 research/tooling-token-program-constant-detector-20261029/** -text
+scripts/verify_evidence.py -text
+scripts/reconstruction_roadmap.py -text
+scripts/build_source_manifest.py -text
+scripts/source_manifest_guard.py -text
+scripts/pump_build_verified.py -text
 scripts/bytecode_signatures.py -text
