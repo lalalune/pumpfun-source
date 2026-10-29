@@ -151,6 +151,12 @@ export class UserStore {
     this.users = structuredClone(seed ?? users);
     const identities = new Set<string>();
     for (const user of this.users) {
+      for (const field of ['is_banned', 'is_pump_user'] as const) {
+        if (user[field] !== undefined && typeof user[field] !== 'boolean')
+          throw new TypeError(`User ${field} must be a boolean`);
+      }
+      if (user.kind !== undefined && !['person', 'group'].includes(user.kind))
+        throw new TypeError('Invalid user kind');
       for (const id of new Set([user.address, user.userId].filter((id): id is string => typeof id === 'string' && id !== ''))) {
         if (identities.has(id)) throw new TypeError('Duplicate or ambiguous user identity');
         identities.add(id);
