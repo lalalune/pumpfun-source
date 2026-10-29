@@ -265,19 +265,53 @@ export default function PortfolioClient({
 }) {
   const router = useRouter();
   const [draft, setDraft] = useState(initialAddress);
+  const draftVersion = useRef(0);
+  const pendingNavigation = useRef<{
+    address: string;
+    version: number;
+  } | null>(null);
   const [refreshVersion, setRefreshVersion] = useState(0);
-  const [state, setState] = useState<LoadState>(
-    initialAddress ? { status: "loading" } : { status: "idle" },
-  );
+  const [loaded, setLoaded] = useState<{ address: string; state: LoadState }>({
+    address: initialAddress,
+    state: initialAddress ? { status: "loading" } : { status: "idle" },
+  });
+  const state: LoadState =
+    loaded.address === initialAddress
+      ? loaded.state
+      : initialAddress
+        ? { status: "loading" }
+        : { status: "idle" };
   const requestSequence = useRef(0);
 
   useEffect(() => {
+    const pending = pendingNavigation.current;
+    pendingNavigation.current = null;
+    // A completed local navigation must not erase edits made after submission.
+    if (
+      pending?.address !== initialAddress ||
+      pending.version === draftVersion.current
+    ) {
+      setDraft(initialAddress);
+    }
+  }, [initialAddress]);
+
+  useEffect(() => {
+    const onPopState = () => {
+      pendingNavigation.current = null;
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  useEffect(() => {
+    const sequence = ++requestSequence.current;
+    const setState = (state: LoadState) =>
+      setLoaded({ address: initialAddress, state });
     if (!initialAddress) {
       setState({ status: "idle" });
       return;
     }
     const controller = new AbortController();
-    const sequence = ++requestSequence.current;
     setState({ status: "loading" });
     void (async () => {
       try {
@@ -296,7 +330,8 @@ export default function PortfolioClient({
             "The portfolio endpoint returned an invalid response.",
           );
         }
-        if (sequence !== requestSequence.current) return;
+        if (controller.signal.aborted || sequence !== requestSequence.current)
+          return;
         if (payload.ok) setState({ status: "success", value: payload });
         else setState({ status: "error", error: payload.error });
       } catch (error) {
@@ -321,6 +356,10 @@ export default function PortfolioClient({
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const address = draft.trim();
+    pendingNavigation.current =
+      address === initialAddress
+        ? null
+        : { address, version: draftVersion.current };
     if (!address) {
       router.push("/portfolio");
       return;
@@ -333,6 +372,10 @@ export default function PortfolioClient({
   }
 
   function clear() {
+    draftVersion.current += 1;
+    pendingNavigation.current = initialAddress
+      ? { address: "", version: draftVersion.current }
+      : null;
     setDraft("");
     router.push("/portfolio");
   }
@@ -355,7 +398,10 @@ export default function PortfolioClient({
             spellCheck={false}
             placeholder="Enter a public Solana address"
             value={draft}
-            onChange={(event) => setDraft(event.target.value)}
+            onChange={(event) => {
+              draftVersion.current += 1;
+              setDraft(event.target.value);
+            }}
           />
           {draft ? (
             <button

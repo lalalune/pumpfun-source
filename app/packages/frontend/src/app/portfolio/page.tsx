@@ -27,10 +27,7 @@ export default async function PortfolioPage({
         </div>
         <span className="read-only-badge">Read only</span>
       </div>
-      <PortfolioClient
-        key={address ?? "empty"}
-        initialAddress={address ?? ""}
-      />
+      <PortfolioClient initialAddress={address ?? ""} />
     </div>
   );
 }
