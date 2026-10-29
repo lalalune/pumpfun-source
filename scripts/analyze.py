@@ -64,10 +64,17 @@ def elf_layout(b):
     _,machine,_,entry,phoff,shoff,flags,ehsize,phsize,phnum,shsize,shnum,shstr=h
     assert phsize==56 and shsize==64 and shnum>0
     raw=[struct.unpack_from('<IIQQQQIIQQ',b,shoff+i*shsize) for i in range(shnum)]
-    names=b[raw[shstr][4]:raw[shstr][4]+raw[shstr][5]]
+    if shstr >= len(raw): raise ValueError('invalid section-name table index')
+    if shstr == 0:
+        names=b'\0'  # SHN_UNDEF: this ELF has no section-name table.
+    else:
+        names_section=raw[shstr]
+        if names_section[1] != 3 or names_section[4]+names_section[5] > len(b): raise ValueError('invalid section-name string table')
+        names=b[names_section[4]:names_section[4]+names_section[5]]
     end=max(ehsize,phoff+phsize*phnum,shoff+shsize*shnum)
     sections=[]
     for s in raw:
+        if s[0] >= len(names) or b'\0' not in names[s[0]:]: raise ValueError('invalid section-name string offset or terminator')
         name=names[s[0]:].split(b'\0')[0].decode()
         if s[1]!=8: end=max(end,s[4]+s[5])
         sections.append({'name':name,'type':s[1],'offset':s[4],'size':s[5],'address':s[3],'flags':s[2]})
