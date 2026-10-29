@@ -68,6 +68,7 @@ export function CompetitionRules({
         createPortal(
           <dialog
             ref={dialog}
+            closedby="any"
             className={styles.dialog}
             aria-labelledby={titleId}
             aria-describedby={boundaryId}
