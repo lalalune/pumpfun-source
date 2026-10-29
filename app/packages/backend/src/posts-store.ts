@@ -118,7 +118,7 @@ export function userToProfile(user: User, isVerified: boolean): UserProfile {
     followingCount: user.following,
     createdAt: null,
     updatedAt: null,
-    walletAddress: user.canonical_svm_wallet ?? user.address ?? null,
+    walletAddress: user.canonical_svm_wallet || user.address || null,
     socials: user.x_username ? [{ provider: 'twitter', username: user.x_username, linkedAt: null }] : [],
     isVerified,
     verifiedBadgeVisible: isVerified,
