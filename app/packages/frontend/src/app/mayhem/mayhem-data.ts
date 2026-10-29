@@ -70,10 +70,11 @@ function optionalEnum<T extends string>(
 function optionalNumber(
   record: UnknownRecord,
   field: string,
+  integer = false,
 ): number | undefined {
   const value = record[field];
   if (value === undefined || value === null) return undefined;
-  if (typeof value !== "number" || !Number.isFinite(value) || value < 0) {
+  if (typeof value !== "number" || !Number.isFinite(value) || value < 0 || (integer && !Number.isSafeInteger(value))) {
     throw new MayhemDataError(`${field} must be a non-negative finite number`);
   }
   return value;
@@ -102,8 +103,8 @@ export function parseMayhemResponse(input: unknown): MayhemResponse {
       symbol: safeIdentity(value, "symbol"),
       state: optionalEnum(value, "state", ["active", "paused", "completed"]),
       mode: optionalEnum(value, "mode", ["auto", "manual"]),
-      createdTimestamp: optionalNumber(value, "createdTimestamp"),
-      lastTradeTimestamp: optionalNumber(value, "lastTradeTimestamp"),
+      createdTimestamp: optionalNumber(value, "createdTimestamp", true),
+      lastTradeTimestamp: optionalNumber(value, "lastTradeTimestamp", true),
       marketCapUsd: optionalNumber(value, "marketCapUsd"),
       volumeUsd24h: optionalNumber(value, "volumeUsd24h"),
     } satisfies MayhemCoin;
