@@ -8,6 +8,7 @@ Each part is turned into a patch against the crate it was derived from (default:
 then applied in order with `patch -p2 --forward`. Rejects are reported and the part is skipped
 (the composition continues). The composed crate is built with fastbuild.py and scored.
 Output: SC/integ/<NAME>/{src, parts/<label>.patch, rejects/, report.json}
+Names must be fresh; an earlier result is never overwritten.
 """
 import argparse, json, shutil, subprocess, sys
 from pathlib import Path
@@ -39,8 +40,8 @@ def main():
     ap.add_argument('--no-build', action='store_true')
     a = ap.parse_args()
     out = SC / 'integ' / a.name
-    if out.exists():
-        shutil.rmtree(out)
+    if out.exists() or out.is_symlink():
+        ap.error('output already exists; choose a new --name to preserve the earlier result')
     (out / 'parts').mkdir(parents=True); (out / 'rejects').mkdir()
     src = out / 'src'
     shutil.copytree(a.base_src, src, ignore=shutil.ignore_patterns('target'))
