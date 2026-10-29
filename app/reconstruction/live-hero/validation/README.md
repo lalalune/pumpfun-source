@@ -41,6 +41,17 @@ Other completed checks:
 - Required root checks pass nine captures and ten tooling tests on the frozen
   source. The exact final public-head result is recorded separately in the PR.
 
+A subsequent independent normal production qualification on the same frozen
+source passed all four commands: `pnpm build` (SDK/backend/Next production),
+`pnpm typecheck`, `pnpm verify:evidence` and `pnpm check:progress`. See
+`normal-production.json`, the unchanged producer check file and four lossless
+logs. Seven Next build manifests are hashed and retained privately by the
+producer. Public source `9667a81f` and measured `07bb57f3` have the identical
+full source tree; this adds no runtime source change. This result supersedes
+only the initial packet's pending normal-build status; finite browser scope
+and all original receipts stay unchanged. It does not qualify a production
+runtime or API.
+
 The two candidate screenshots show actual selected metadata and native focus.
 The mobile browser scrolls its focused navigation control into view, so its
 viewport image is not a complete top-of-page image. No screenshot was edited.
@@ -52,7 +63,7 @@ script-tag dev warnings remain in raw logs. The expected baseline
 These six records are existing identities in the Most viewers archive. No
 additional unique streams, current-live status, provider query, player/mute,
 financial values, analytics, excluded coin-detail action, wallet/chain mutation,
-native backend/API compatibility, full production build, whole-app browser
+native backend/API compatibility, production runtime parity, whole-app browser
 suite or feature credit is claimed. #1570's second-section route and the
 separate selection PRs are not composed here; retain both CI additions during
 integration.

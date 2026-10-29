@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "producer": "Independent root normal application qualification",
+  "measuredLocalSource": "07bb57f3b515cb30b1e6c4ed6aeabdcf1391f218",
+  "publicEquivalentSource": "9667a81fd01ac7fe1e0c4180f6e576168993d499",
+  "identicalFullSourceTree": "d754d0eb89757abc6bc32d0e88d32296c0e74e94",
+  "supersedes": "Initial finite packet normalProductionAggregate pending status; original receipts remain unchanged.",
+  "checks": [
+    {
+      "check": "build",
+      "returncode": 0,
+      "command": [
+        "pnpm",
+        "build"
+      ]
+    },
+    {
+      "check": "typecheck",
+      "returncode": 0,
+      "command": [
+        "pnpm",
+        "typecheck"
+      ]
+    },
+    {
+      "check": "evidence",
+      "returncode": 0,
+      "command": [
+        "pnpm",
+        "verify:evidence"
+      ]
+    },
+    {
+      "check": "progress",
+      "returncode": 0,
+      "command": [
+        "pnpm",
+        "check:progress"
+      ]
+    }
+  ],
+  "normalProductionBuildQualified": true,
+  "rawCheckFile": {
+    "path": "normal-production-checks.json",
+    "sha256": "60cc114862976c505e7763a8081db1e20901f9505507e86076ca51731d5d8c64"
+  },
+  "logs": [
+    {
+      "path": "normal-production-build.log.gz",
+      "bytes": 1125,
+      "sha256": "0a14a579908861c6de3661228d934144f2ca038ac35f95ccd9be46fe4ca4df65",
+      "decodedBytes": 3061,
+      "decodedSha256": "9e5f2a56ba88f5420524181ef5ed706319d689cc8944517a05947c8b40824d0f"
+    },
+    {
+      "path": "normal-production-typecheck.log.gz",
+      "bytes": 174,
+      "sha256": "4cdc860e8b70a5628bf9a16a5b1f72a015701f93062e18581116b83f8ba068a0",
+      "decodedBytes": 348,
+      "decodedSha256": "050b281c95589b3410266b6a100852147a33336492f6f125ebaa80bc7a33b236"
+    },
+    {
+      "path": "normal-production-evidence.log.gz",
+      "bytes": 168,
+      "sha256": "f7c2997aebcd8bf091c42d182b686232717b068f917874f9c8700a7efc77fd53",
+      "decodedBytes": 194,
+      "decodedSha256": "0f0c5fae20c1d78fdecb8eb80012fb68229500f574ab89c10dc419f663b17d61"
+    },
+    {
+      "path": "normal-production-progress.log.gz",
+      "bytes": 215,
+      "sha256": "c6d7c6b67dd1029c9b944d9c983ad73b6112211262535248105ba888fe9e1330",
+      "decodedBytes": 389,
+      "decodedSha256": "33ff06d8e1318d516b29ea0f8d0f120c1bd0b751c8931c2ec9e5c2079f6d0236"
+    }
+  ],
+  "buildManifests": [
+    {
+      "name": "retained-next-BUILD_ID",
+      "bytes": 21,
+      "sha256": "cbaccb7bc0569d23bf8e2ebed581c476869e12e7f653b0ffc32c4b85750b662e",
+      "retainedPrivatelyByProducer": true
+    },
+    {
+      "name": "retained-next-build-manifest.json",
+      "bytes": 4590,
+      "sha256": "170a1ed9bd7e8247a6b9b5d2f92213bcaba9b662264451cc61b8c045fbca67ac",
+      "retainedPrivatelyByProducer": true
+    },
+    {
+      "name": "retained-next-prerender-manifest.json",
+      "bytes": 5513,
+      "sha256": "6b119b2fd6274023ee030586e3897769f297174b85799dbd5a86018e5bb16930",
+      "retainedPrivatelyByProducer": true
+    },
+    {
+      "name": "retained-next-required-server-files.json",
+      "bytes": 10785,
+      "sha256": "f8f3d7d79a7ac0bba940d44090550cc5d8222e2f47f444bc6daf0fb4b0deb6c0",
+      "retainedPrivatelyByProducer": true
+    },
+    {
+      "name": "retained-next-routes-manifest.json",
+      "bytes": 4718,
+      "sha256": "a3f5653287b459fbe72fce43953a4f8198d80dec437d309b98cb6c2137b7d19c",
+      "retainedPrivatelyByProducer": true
+    },
+    {
+      "name": "retained-next-server--app-paths-manifest.json",
+      "bytes": 1156,
+      "sha256": "e58fc16e60f1f020c51a9b4446c6b3ca575fafe24e563ff1760de29beb9308a5",
+      "retainedPrivatelyByProducer": true
+    },
+    {
+      "name": "retained-next-server--pages-manifest.json",
+      "bytes": 58,
+      "sha256": "c354059caa217e72bdeb145e351b2038990972872c52df215cb1e4105c35097b",
+      "retainedPrivatelyByProducer": true
+    }
+  ],
+  "limits": [
+    "Normal SDK/backend/Next production build, recursive typecheck, evidence and progress only.",
+    "No production runtime/browser/API/original visual parity or chain behavior claim.",
+    "Affected20-case browser proof is the separate original finite receipt."
+  ]
+}
