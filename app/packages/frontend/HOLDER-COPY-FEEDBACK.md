@@ -15,7 +15,10 @@ after Clear, and success after another derivation. The baseline case on main
 `60bdd8a7a522921058d18563bb9335d2a06aec75` reproduced an empty live region being
 replaced by `Normalized mint copied.` The candidate passed all three new cases
 and all eight existing holder-inspector cases:11/11. Four existing SDK
-derivation groups and frontend TypeScript also pass.
+derivation groups and frontend TypeScript also pass. Independent SDK/backend/Next
+production build, recursive workspace typecheck,698 evidence/npm/unchanged SDK
+verification and progress checks pass on receipt head
+`e117fb076e160ed3acdf393d900a1d78bdb088f1`, with runtime source identical to57bab.
 
 The first candidate run passed the three new cases and seven existing cases;
 the final console check caught a missing tracked font in the sparse checkout.

@@ -32,7 +32,17 @@
   "limits": [
     "The browser Clipboard API is deliberately delayed by the test; there is no live wallet or signing.",
     "The change discards stale feedback; an already-started browser clipboard operation may still complete.",
-    "No styling, new SDK source recovery or original visual/API equivalence claim.",
-    "Production build qualification is recorded separately by the parent when available."
-  ]
+    "No styling, new SDK source recovery or original visual/API equivalence claim."
+  ],
+  "productionQualification": {
+    "head": "e117fb076e160ed3acdf393d900a1d78bdb088f1",
+    "independentParent": true,
+    "result": "production/checks.json",
+    "passed": [
+      "SDK/backend/Next production build",
+      "recursive workspace typecheck",
+      "698 captured objects/npm/unchanged SDK verification",
+      "progress checks"
+    ]
+  }
 }
