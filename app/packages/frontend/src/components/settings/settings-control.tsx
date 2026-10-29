@@ -123,6 +123,7 @@ function SettingsControlContent({
   const dialog = useRef<HTMLDialogElement>(null);
   const scrollArea = useRef<HTMLDivElement>(null);
   const launcher = useRef<HTMLButtonElement>(null);
+  const tabRail = useRef<HTMLDivElement>(null);
   const tabButtons = useRef(new Map<SettingsSection, HTMLButtonElement>());
   const searchIdentity = JSON.stringify([pathname, section, settingId]);
   const [search, setSearch] = useState({ identity: searchIdentity, value: "" });
@@ -191,6 +192,26 @@ function SettingsControlContent({
     target?.focus({ preventScroll: true });
     target?.scrollIntoView({ block: "nearest" });
   }, [open, section, settingId, pathname, mounted]);
+
+  useEffect(() => {
+    if (!open || !mounted || !section) return;
+    const rail = tabRail.current;
+    const selected = tabButtons.current.get(section);
+    if (!rail || !selected) return;
+    const revealSelectedTab = () => {
+      const railBox = rail.getBoundingClientRect();
+      const tabBox = selected.getBoundingClientRect();
+      const left = railBox.left + rail.clientLeft;
+      const right = left + rail.clientWidth;
+      // Scroll only this horizontal rail; keep deep-link focus and page scroll.
+      if (tabBox.left < left) rail.scrollLeft += tabBox.left - left;
+      else if (tabBox.right > right) rail.scrollLeft += tabBox.right - right;
+    };
+    revealSelectedTab();
+    const resize = new ResizeObserver(revealSelectedTab);
+    resize.observe(rail);
+    return () => resize.disconnect();
+  }, [open, section, mounted]);
 
   useEffect(() => {
     const node = dialog.current;
@@ -306,6 +327,7 @@ function SettingsControlContent({
                     </button>
                   </div>
                   <div
+                    ref={tabRail}
                     className={styles.tabs}
                     role="tablist"
                     aria-label="Settings sections"

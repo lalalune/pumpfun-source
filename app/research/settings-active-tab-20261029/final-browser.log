@@ -1,0 +1,29 @@
+
+Running 21 tests using 1 worker
+
+(node:296703) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/21] tests/settings-tab-visibility.spec.ts:41:7 › a Privacy deep link reveals its selected tab at 320px without moving focus
+[2/21] tests/settings-tab-visibility.spec.ts:41:7 › a Privacy deep link reveals its selected tab at 390px without moving focus
+[3/21] tests/settings-tab-visibility.spec.ts:41:7 › a Privacy deep link reveals its selected tab at 1440px without moving focus
+[4/21] tests/settings-tab-visibility.spec.ts:68:5 › an open Settings dialog reveals a URL-selected tab and preserves unrelated Live state
+[5/21] tests/settings-tab-visibility.spec.ts:104:5 › narrowing an open Privacy dialog keeps its active tab in the rail without changing focus
+[6/21] tests/settings.spec.ts:3:5 › query-open survives SSR and hydration without server-rendering a portal
+[7/21] tests/settings.spec.ts:25:5 › mobile deep link escapes the hidden sidebar and restores focus to main
+[8/21] tests/settings.spec.ts:44:7 › Escape dismisses settings without closing the mobile sidebar or Live selection
+[9/21] tests/settings.spec.ts:44:7 › Back dismisses settings without closing the mobile sidebar or Live selection
+[10/21] tests/settings.spec.ts:116:5 › modal temporarily locks body scrolling and restores the previous style
+[11/21] tests/settings.spec.ts:139:5 › open-modal URL transitions clear stale search before focusing a deep link
+[12/21] tests/settings.spec.ts:169:5 › deep link focuses a known setting and close preserves unrelated URL state
+[13/21] tests/settings.spec.ts:194:5 › malformed or privileged section values do not open the modal
+[14/21] tests/settings.spec.ts:215:5 › search, empty results, clear, tabs and keyboard selection work without preference values
+[15/21] tests/settings.spec.ts:260:5 › Escape and repeated reopening clear local search and do not add history entries
+[16/21] tests/settings.spec.ts:296:7 › settings dialog fits 1440px and its controls remain keyboard reachable
+[17/21] tests/settings.spec.ts:296:7 › settings dialog fits 768px and its controls remain keyboard reachable
+[18/21] tests/settings.spec.ts:296:7 › settings dialog fits 390px and its controls remain keyboard reachable
+[19/21] tests/settings.spec.ts:296:7 › settings dialog fits 320px and its controls remain keyboard reachable
+[20/21] tests/settings.spec.ts:329:5 › settings interaction makes no service requests, preference writes or permission prompts
+[21/21] tests/settings.spec.ts:379:5 › resizing an open mobile sidebar keeps Settings locked until it closes
+  21 passed (31.0s)
