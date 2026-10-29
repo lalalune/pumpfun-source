@@ -1,4 +1,5 @@
 import json
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 import sys
 import tempfile
@@ -45,6 +46,12 @@ class ExperimentTests(unittest.TestCase):
         result = self.run_trial([sys.executable, '-c', "from pathlib import Path; import sys; Path(sys.argv[1], 'value').write_text('changed')", '{source}'])
         self.assertEqual(result['status'], 'error')
         self.assertEqual((self.source / 'value').read_text(), 'one')
+
+    def test_concurrent_same_trial_reuses_single_attempt(self):
+        with ThreadPoolExecutor(max_workers=3) as pool:
+            results = list(pool.map(lambda _: self.run_trial(), range(3)))
+        self.assertEqual(len({r['attempt'] for r in results}), 1)
+        self.assertEqual(sum(not r['reused'] for r in results), 1)
 
     def test_unsafe_inputs_rejected(self):
         with self.assertRaises(ValueError): run_trial(self.source, self.command, self.source / 'out')
