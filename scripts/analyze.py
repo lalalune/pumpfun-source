@@ -34,6 +34,19 @@ def program_names():
     ]
 
 
+def program_addresses():
+    """Map program names to addresses from the archive or each capture."""
+    path = ROOT / 'repro/programs.json'
+    if path.is_file():
+        return json.loads(path.read_text())
+    return {
+        name: json.loads(
+            (ROOT / 'evidence/original' / name / 'capture.json').read_text()
+        )['program']
+        for name in program_names()
+    }
+
+
 def instruction_log_names(b, known=()):
     """Extract exact instruction names, longest known prefix first.
 

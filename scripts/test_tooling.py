@@ -65,6 +65,18 @@ class InstructionLogNameTests(unittest.TestCase):
             ['pump', 'pump_amm', 'pump_fees', 'mayhem'],
         )
 
+    def test_program_addresses_fall_back_to_captures(self):
+        # Matches the archived repro/programs.json removed in fce9f28.
+        self.assertEqual(
+            analyze.program_addresses(),
+            {
+                'pump': '6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P',
+                'pump_amm': 'pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA',
+                'pump_fees': 'pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ',
+                'mayhem': 'MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e',
+            },
+        )
+
     def test_mayhem_fallback_is_unchanged(self):
         names = self.names('mayhem')
         self.assertEqual(len(names), 25)
