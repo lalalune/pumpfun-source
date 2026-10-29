@@ -1,4 +1,5 @@
 import { defineConfig } from "@playwright/test";
+import { acceptedClickwrapState } from "./tests/browser-state";
 
 export default defineConfig({
   testDir: "./tests",
@@ -12,6 +13,7 @@ export default defineConfig({
   use: {
     baseURL: "http://127.0.0.1:3011",
     browserName: "chromium",
+    storageState: acceptedClickwrapState,
     screenshot: "only-on-failure",
     trace: "retain-on-failure",
   },

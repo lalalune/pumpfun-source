@@ -1,4 +1,5 @@
 import { defineConfig } from "@playwright/test";
+import { acceptedClickwrapState } from "./tests/browser-state";
 
 export default defineConfig({
   testDir: "./tests",
@@ -14,21 +15,7 @@ export default defineConfig({
     browserName: "chromium",
     // Existing page cases explicitly exercise an already-closed local browser state.
     // clickwrap.spec.ts overrides this fixture with an empty first-visit state.
-    storageState: {
-      cookies: [
-        {
-          name: "clickwrap_accepted",
-          value: "true",
-          domain: "127.0.0.1",
-          path: "/",
-          expires: -1,
-          httpOnly: false,
-          secure: false,
-          sameSite: "Lax",
-        },
-      ],
-      origins: [],
-    },
+    storageState: acceptedClickwrapState,
     screenshot: "only-on-failure",
     trace: "retain-on-failure",
   },

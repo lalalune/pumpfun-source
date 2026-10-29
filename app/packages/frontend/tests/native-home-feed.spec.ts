@@ -68,7 +68,9 @@ test("renders validated local callouts without browser-side backend traffic", as
   ).toHaveCount(3);
   await expect(page.locator("main img")).toHaveCount(0);
   await expect(
-    page.getByRole("button", { name: /wallet|sign|trade|claim/iu }),
+    page
+      .getByRole("tabpanel", { name: "Local callouts" })
+      .getByRole("button", { name: /wallet|sign|trade|claim/iu }),
   ).toHaveCount(0);
   expect(safety.violations).toEqual([]);
   expect(safety.consoleErrors).toEqual([]);
