@@ -1,0 +1,96 @@
+--- a/programs/pump/src/multi_hop_curve_swap.rs	2026-10-29 11:18:32
++++ b/src/multi_hop_curve_swap.rs	2026-10-29 11:12:22
+@@ -145,26 +145,13 @@
+ 
+ 
+ 
+-// Base address admission precedes quote admission; native quote checks only its address.
+-#[inline(always)] fn admit_vaults<'info>(
+-    h: &CurveHop<'info>,
+-    a: &MultiHopCurve<'info>,
+-    base_token_program: &AccountInfo<'info>,
+-    quote_token_program: &AccountInfo<'info>, native: bool, curve_key: &Pubkey,
+-    require_ata: fn(&Pubkey,&Pubkey,&Pubkey,&Pubkey)->Result<()>,
+-) -> Result<()> {
+-    require_ata(&h.associated_base_bonding_curve.key(), curve_key,
+-        &h.base_mint.key(), &base_token_program.key())?;
+-    if !native {
+-        crate::buy_v2::admit_associated_token_account(
+-            h.associated_quote_bonding_curve.as_ref(), &h.bonding_curve.to_account_info(),
+-            h.quote_mint.key(), quote_token_program.key(),
+-            &h.quote_mint.to_account_info(), quote_token_program,
+-            false, a.user.as_ref(), a.system_program.as_ref(),
+-        )?;
+-    } else { require_ata(&h.associated_quote_bonding_curve.key(), curve_key, &h.quote_mint.key(), &quote_token_program.key())?; }
+-    Ok(())
+-}
++
++
++
++
++
++
++
+ 
+ 
+ 
+@@ -197,6 +184,19 @@
+ 
+ 
+ 
++
++
++
++
++
++
++
++
++
++
++
++
++
+ pub fn execute<'info>(mut ctx: Context<'_,'_,'info,'info,MultiHopCurve<'info>>,
+     amount_in: u64, hop_fees: Vec<u8>) -> Result<CurveRunResult> {
+ 
+@@ -482,7 +482,7 @@
+ 
+ 
+         require!(!h.bonding_curve.is_mayhem_mode,PumpError::MultiHopMayhemCurveNotSupported);
+-        let native = h.bonding_curve.quote_mint == Pubkey::default(); let quote_fee = if native { None } else { crate::transfer_fee_recovered::get_transfer_fee(&h.quote_mint.to_account_info())? }; let base_token_program = token_program_for(&a.token_program, &a.token_2022_program, h.base_mint.as_ref().as_ref())?; let quote_token_program = token_program_for(&a.token_program, &a.token_2022_program, h.quote_mint.as_ref().as_ref())?; let curve_key = h.bonding_curve.key(); admit_vaults(h,a,&base_token_program,&quote_token_program,native,&curve_key,require_ata)?;
++        let native = h.bonding_curve.quote_mint == Pubkey::default(); let quote_fee = if native { None } else { crate::transfer_fee_recovered::get_transfer_fee(&h.quote_mint.to_account_info())? }; let base_token_program = token_program_for(&a.token_program, &a.token_2022_program, h.base_mint.as_ref().as_ref())?; let quote_token_program = token_program_for(&a.token_program, &a.token_2022_program, h.quote_mint.as_ref().as_ref())?; let curve_key = h.bonding_curve.key(); require_ata(&h.associated_base_bonding_curve.key(), &curve_key, &h.base_mint.key(), &base_token_program.key())?; if !native { crate::buy_v2::admit_associated_token_account(h.associated_quote_bonding_curve.as_ref(), &h.bonding_curve.to_account_info(), h.quote_mint.key(), quote_token_program.key(), &h.quote_mint.to_account_info(), &quote_token_program, false, a.user.as_ref(), a.system_program.as_ref())?; } else { require_ata(&h.associated_quote_bonding_curve.key(), &curve_key, &h.quote_mint.key(), &quote_token_program.key())?; }
+         if flag & 1 != 0 {
+             crate::trade::validate_buyback_fee_recipient_account(&a.global,a.buyback_fee_recipient.as_ref(),false,
+                 &h.quote_mint.key(),&quote_token_program.key())?;
+@@ -571,9 +571,9 @@
+         let buy_transfer_fee = amount.checked_sub(trade_amount).ok_or_else(|| error!(PumpError::Overflow))?;
+ 
+ 
+-        let post_fill;
+-        let (fees,base_amount,quote_amount,output,adapter_difference) = if buy {
+-            let selected = crate::legacy_sell::fee_math::get_fees(&a.global,c,&a.fee_config,fee_config_len,cap,trade_amount)?;
++        
++        let (fees,base_amount,quote_amount,output,adapter_difference,post_fill) = if buy {
++            let post_fill; let selected = crate::legacy_sell::fee_math::get_fees(&a.global,c,&a.fee_config,fee_config_len,cap,trade_amount)?;
+             let p_rate = if flag & 1 != 0 { selected.protocol_fee_bps } else { 0 };
+             let c_rate = if flag & 2 != 0 { selected.creator_fee_bps } else { 0 };
+             let (_,crate::trade::TradeFees{protocol_fee:pf,creator_fee:cf,..}) = crate::trade::net_quote_for_budget(&c.creator,p_rate,c_rate,trade_amount)?;
+@@ -628,7 +628,7 @@
+             if native { crate::user_quote_payments::transfer_native(a.system_program.as_ref(),&a.user,h.bonding_curve.as_ref(),amount)?; } else { transfer_input(a,previous,&quote_token_program,&h.associated_quote_bonding_curve,h.quote_mint.decimals,AsRef::<AccountInfo>::as_ref(&*h.quote_mint),amount)?; }
+             h.bonding_curve.apply_buy(base_amount,quote_amount)?;
+             if last && raw_output != 0 { transfer_base_out(&base_token_program,&h.associated_base_bonding_curve,&a.destination,&h.bonding_curve,h.base_mint.decimals,AsRef::<AccountInfo>::as_ref(&*h.base_mint),raw_output,seeds)?; }
+-            (crate::trade::TradeFees{protocol_fee:pf,creator_fee:cf,protocol_fee_bps:p_rate,creator_fee_bps:c_rate},base_amount,quote_amount,raw_output,buy_transfer_fee)
++            (crate::trade::TradeFees{protocol_fee:pf,creator_fee:cf,protocol_fee_bps:p_rate,creator_fee_bps:c_rate},base_amount,quote_amount,raw_output,buy_transfer_fee,post_fill)
+ 
+ 
+ 
+@@ -693,7 +693,7 @@
+             transfer_input(a,previous,&base_token_program,&h.associated_base_bonding_curve.to_account_info(),h.base_mint.decimals,AsRef::<AccountInfo>::as_ref(&*h.base_mint),amount)?;
+             h.bonding_curve.apply_sell(amount,gross_sell)?;
+             if last && !native && net != 0 { transfer_quote_out(&quote_token_program,&h.associated_quote_bonding_curve,&a.destination,&h.bonding_curve,h.quote_mint.decimals,AsRef::<AccountInfo>::as_ref(&*h.quote_mint),net,seeds)?; }
+-            post_fill=None; (crate::trade::TradeFees{protocol_fee:pf,creator_fee:cf,protocol_fee_bps:p_rate,creator_fee_bps:c_rate},amount,gross_sell,output,sell_transfer_fee)
++            (crate::trade::TradeFees{protocol_fee:pf,creator_fee:cf,protocol_fee_bps:p_rate,creator_fee_bps:c_rate},amount,gross_sell,output,sell_transfer_fee,None)
+         };
+ 
+ 
