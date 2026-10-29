@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "testedLocalSourceCommit": "300197ab6636e4689bc142eb45ae25ced5135b29",
+  "node": "v24.19.0",
+  "inputs": [
+    {
+      "path": "app/reconstruction/market-activity/PROVENANCE.json",
+      "bytes": 98926,
+      "sha256": "da1ecbec860fd9a2a09a10de37a672c81180d3ac94339bdb72189b1f5227bee9",
+      "gitBlob": "96a576cb73a99a1ae2a943576ec80b79796b78f4"
+    },
+    {
+      "path": "app/reconstruction/market-activity/README.md",
+      "bytes": 8191,
+      "sha256": "1ba313d8106fd2782be921158f145c7ae3f987037f13459aec68bc0d2ea907c5",
+      "gitBlob": "437419d253db935c453d9cfe536224e34f1257c2"
+    },
+    {
+      "path": "app/reconstruction/market-activity/client.mjs",
+      "bytes": 7699,
+      "sha256": "82710341ac4f660ff5cd7de75d068a2445a678e4573b8e56077895d905b49d22",
+      "gitBlob": "22715769d165baa88a9f561099e2b5debd894f06"
+    },
+    {
+      "path": "app/reconstruction/market-activity/verify.mjs",
+      "bytes": 14640,
+      "sha256": "bffceda97b8965b06c16cd6a68a7257676fa538c2f6295ca6da93c3560d2b1fe",
+      "gitBlob": "f7cf2983ef8a7b9820c2a0adb35198754bc8e41e"
+    },
+    {
+      "path": "app/tests/market_activity.test.mjs",
+      "bytes": 18892,
+      "sha256": "0e82ea7a4adcafff5a4af9a32e45468513eddb67acf05beeb8c5b0614ecbd36c",
+      "gitBlob": "f09777f45327f35291252151da9b9b9f0372edb4"
+    }
+  ],
+  "results": {
+    "newTests": 15,
+    "sharedSourceTests": 11,
+    "failed": 0,
+    "skipped": 0,
+    "sourcePhysicalContexts": 16,
+    "completeQueryFrames": 4,
+    "operationComparisons": 46,
+    "sourceWitnesses": 104,
+    "rootCaptures": 9,
+    "rootToolingTests": 10,
+    "appCapturedObjects": 698,
+    "npmIntegrity": true,
+    "unchangedSDK": true,
+    "progressCheck": true,
+    "realReactCompilerSSR": true,
+    "loopbackOnlyHTTP": true,
+    "actualPublicInputAlternatePathCLI": true
+  },
+  "historicalFailure": {
+    "sourceCommit": "766634ebdd43bb7ff38378b9558a5d3559d0fa4d",
+    "result": "25 pass / 1 fail / 0 skip",
+    "cause": "Corrupt raw input was correctly rejected by the shared helper; the new test expected an inexact error-message regex. Only that assertion changed to the exact capture authentication failure. Four source/doc/proof files unchanged; final test differs by one line.",
+    "log": "logs/focused-initial.log.gz"
+  },
+  "publicInputReplay": {
+    "method": "The final source/tamper case copies public client/provenance/verifier, manifest/index, source helper, alpha-comparator module and only selected immutable raw captures into a temporary path with spaces; existing pinned node_modules is a read-only dependency symlink. It invokes the actual verifier CLI there, without formatted factories/private work inputs. Export is removed after assertions.",
+    "test": "public-input CLI works in a path with spaces and rejects changed module, omitted variant and corrupt raw input"
+  },
+  "logs": [
+    {
+      "path": "logs/focused-initial.log.gz",
+      "command": "node --test tests/market_activity.test.mjs tests/original_source.test.mjs",
+      "cwd": "app",
+      "sourceCommit": "766634ebdd43bb7ff38378b9558a5d3559d0fa4d",
+      "exitCode": 1,
+      "bytes": 4589,
+      "sha256": "8f2d9c7d34da4a420b4ca91d12378807b7eb38a227d6a4aef350dade7e9cc761",
+      "compressedBytes": 1933,
+      "compressedSha256": "71df15e3e51461eff253d33cb994276606fcb321865f3c7c0867e41303faa7fe"
+    },
+    {
+      "path": "logs/focused.log.gz",
+      "command": "node --test tests/market_activity.test.mjs tests/original_source.test.mjs",
+      "cwd": "app",
+      "sourceCommit": "300197ab6636e4689bc142eb45ae25ced5135b29",
+      "exitCode": 0,
+      "bytes": 2755,
+      "sha256": "f3b5833d417570e843eb90bdde66ef82924738f65a58eaeea64cd051687eb267",
+      "compressedBytes": 1417,
+      "compressedSha256": "1694a6d4e1fa3cfc4d37ec1b07372390db036ca697d68a1664a872608350ec68"
+    },
+    {
+      "path": "logs/source-proof-final.log.gz",
+      "command": "node reconstruction/market-activity/verify.mjs --check",
+      "cwd": "app",
+      "sourceCommit": "300197ab6636e4689bc142eb45ae25ced5135b29",
+      "exitCode": 0,
+      "bytes": 77,
+      "sha256": "cd1a61221a7b0f553f8939c0a4a25f8cea51dff85f9fc608374d1b285137565f",
+      "compressedBytes": 91,
+      "compressedSha256": "babe5392655f7c50f22e24baf8d23bac8d00dd3907bed64c2dbf3908c7bcf3ed"
+    },
+    {
+      "path": "logs/root-evidence.log.gz",
+      "command": "python3 scripts/verify_evidence.py",
+      "cwd": ".",
+      "sourceCommit": "300197ab6636e4689bc142eb45ae25ced5135b29",
+      "exitCode": 0,
+      "bytes": 376,
+      "sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9",
+      "compressedBytes": 177,
+      "compressedSha256": "995576b68a1e52c055bcb991ac93146ad53ea9131e859ceb3331d45380b40ce3"
+    },
+    {
+      "path": "logs/root-tooling.log.gz",
+      "command": "python3 scripts/test_tooling.py",
+      "cwd": ".",
+      "sourceCommit": "300197ab6636e4689bc142eb45ae25ced5135b29",
+      "exitCode": 0,
+      "bytes": 109,
+      "sha256": "59d7db1c0fb1a57072279a834113c3e7a67fe3586a8192687449d2c79796b972",
+      "compressedBytes": 55,
+      "compressedSha256": "f7f035258e6faeb2be34d07e7def4d4f785fb24aaef1f381884b8bf2d595b109"
+    },
+    {
+      "path": "logs/app-evidence.log.gz",
+      "command": "python3 scripts/verify-evidence.py",
+      "cwd": "app",
+      "sourceCommit": "300197ab6636e4689bc142eb45ae25ced5135b29",
+      "exitCode": 0,
+      "bytes": 72,
+      "sha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9",
+      "compressedBytes": 89,
+      "compressedSha256": "c4ccac34440167b7170118e2af25a5865d395032af8ca1cf812341ed573c3243"
+    },
+    {
+      "path": "logs/progress.log.gz",
+      "command": "python3 scripts/progress.py --check",
+      "cwd": "app",
+      "sourceCommit": "300197ab6636e4689bc142eb45ae25ced5135b29",
+      "exitCode": 0,
+      "bytes": 49,
+      "sha256": "7ab499988f3b70e197e23e42287d4cc4579dc2b9360a82be3e827e22c589fda4",
+      "compressedBytes": 69,
+      "compressedSha256": "8d25a71e7cd8c214cc56b246898d555fadb2c61682febfb7b183577299893a97"
+    }
+  ],
+  "receiptOnlyFollowup": "These qualification files add only this record and seven compressed logs. The five frozen inputs retain exact source hashes. Git-object publication may change commit identity; exact tested local/public complete-tree mapping is recorded separately.",
+  "limits": "No external requests, Next/browser, captured-factory evaluation/import, auth/telemetry/query-library/service implementation, financial/native/API/UI/feature or universal/security-equivalence claim. Synthetic loopback responses are test inputs, not archived production fixtures."
+}
