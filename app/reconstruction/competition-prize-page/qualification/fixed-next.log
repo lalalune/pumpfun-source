@@ -1,0 +1,44 @@
+▲ Next.js 16.4.1 (webpack)
+- Local:         http://127.0.0.1:3027
+- Network:       http://127.0.0.1:3027
+✓ Ready in 330ms
+✓ Running next.config.ts took 28ms
+
+⚠ ../../../../pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[2]!../../../../pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[3]!./src/app/recovered-fonts.css
+Warning
+
+(31:5911) autoprefixer: Gradient has outdated direction syntax. New syntax is like `closest-side at 0 0` instead of `0 0, closest-side`.
+
+Import trace for requested module:
+../../../../pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[2]!../../../../pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[3]!./src/app/recovered-fonts.css
+./src/app/globals.css.webpack[javascript/auto]!=!../../../../pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[2]!../../../../pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[3]!./src/app/globals.css
+./src/app/globals.css
+○ Compiling /leaderboard/page ...
+ GET /leaderboard?category=competitions&competition=web-prize-fixture 200 in 566ms (next.js: 240ms, application-code: 326ms)
+<w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|/workspace/pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[2]!/workspace/pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[3]!/workspace/pump-app-leaderboard-navigation/app/packages/frontend/src/app/recovered-fonts.css': No serializer registered for Warning
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> Array { 1 items } -> webpack/lib/ModuleWarning -> Warning
+[browser] ../../../../pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[2]!../../../../pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[3]!./src/app/recovered-fonts.css
+Warning
+
+(31:5911) autoprefixer: Gradient has outdated direction syntax. New syntax is like `closest-side at 0 0` instead of `0 0, closest-side`.
+ GET /leaderboard?category=competitions&competition=web-prize-fixture 200 in 111ms (next.js: 5ms, application-code: 106ms)
+[browser] ../../../../pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[2]!../../../../pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[3]!./src/app/recovered-fonts.css
+Warning
+
+(31:5911) autoprefixer: Gradient has outdated direction syntax. New syntax is like `closest-side at 0 0` instead of `0 0, closest-side`.
+ GET /leaderboard?category=competitions&competition=web-prize-fixture 200 in 76ms (next.js: 1.9ms, application-code: 74ms)
+[browser] ../../../../pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[2]!../../../../pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[3]!./src/app/recovered-fonts.css
+Warning
+
+(31:5911) autoprefixer: Gradient has outdated direction syntax. New syntax is like `closest-side at 0 0` instead of `0 0, closest-side`.
+ GET /leaderboard?category=competitions&competition=web-prize-fixture 200 in 69ms (next.js: 1.2ms, application-code: 68ms)
+[browser] ../../../../pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[2]!../../../../pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[3]!./src/app/recovered-fonts.css
+Warning
+
+(31:5911) autoprefixer: Gradient has outdated direction syntax. New syntax is like `closest-side at 0 0` instead of `0 0, closest-side`.
+ GET /leaderboard?category=competitions&competition=web-prize-fixture 200 in 73ms (next.js: 2ms, application-code: 71ms)
+[browser] ../../../../pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[2]!../../../../pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[3]!./src/app/recovered-fonts.css
+Warning
+
+(31:5911) autoprefixer: Gradient has outdated direction syntax. New syntax is like `closest-side at 0 0` instead of `0 0, closest-side`.
+[?25h

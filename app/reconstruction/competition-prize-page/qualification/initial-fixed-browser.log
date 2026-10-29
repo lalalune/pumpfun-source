@@ -1,0 +1,129 @@
+
+Running 5 tests using 1 worker
+
+(node:364480) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/5] tests/competition-prize-page.spec.ts:154:7 › empty standings show supplied original prize tiers at 390px
+  1) tests/competition-prize-page.spec.ts:154:7 › empty standings show supplied original prize tiers at 390px 
+
+    Error: expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 2
+    Received array:  ["?category=competitions&status=live&id=web-prize-fixture", "?category=competitions&status=live&id=web-prize-fixture"]
+
+      191 |       fullPage: true,
+      192 |     });
+    > 193 |     expect(state.reads).toHaveLength(1);
+          |                         ^
+      194 |     expect(state.unexpected).toEqual([]);
+      195 |   });
+      196 |   test(`ranked rows show source-selected raw prize badges and filtered results do not turn into prize fallback at ${width}px`, async ({
+        at /workspace/pump-app-leaderboard-navigation/app/packages/frontend/tests/competition-prize-page.spec.ts:193:25
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../pump-app-prize-page-staging/fixed/output/competition-prize-page-emp-dcae2-iginal-prize-tiers-at-390px/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../../../pump-app-prize-page-staging/fixed/output/competition-prize-page-emp-dcae2-iginal-prize-tiers-at-390px/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../pump-app-prize-page-staging/fixed/output/competition-prize-page-emp-dcae2-iginal-prize-tiers-at-390px/error-context.md
+
+
+(node:364679) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/5] tests/competition-prize-page.spec.ts:196:7 › ranked rows show source-selected raw prize badges and filtered results do not turn into prize fallback at 390px
+  2) tests/competition-prize-page.spec.ts:196:7 › ranked rows show source-selected raw prize badges and filtered results do not turn into prize fallback at 390px 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('list', { name: 'Competition rankings' }).getByRole('listitem')
+    Expected: 1
+    Received: 4
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('list', { name: 'Competition rankings' }).getByRole('listitem') with timeout 5000ms
+      - waiting for getByRole('list', { name: 'Competition rankings' }).getByRole('listitem')
+        14 × locator resolved to 4 elements
+           - unexpected value "4"
+
+
+      227 |     });
+      228 |     await page.getByLabel("Filter loaded results").fill("FixtureFourth");
+    > 229 |     await expect(rows).toHaveCount(1);
+          |                        ^
+      230 |     await expect(page.getByTestId("cup-entry-prize")).toHaveCount(0);
+      231 |     await page.getByLabel("Filter loaded results").fill("does-not-match");
+      232 |     await expect(
+        at /workspace/pump-app-leaderboard-navigation/app/packages/frontend/tests/competition-prize-page.spec.ts:229:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../pump-app-prize-page-staging/fixed/output/competition-prize-page-ran-f53c7-nto-prize-fallback-at-390px/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../../../pump-app-prize-page-staging/fixed/output/competition-prize-page-ran-f53c7-nto-prize-fallback-at-390px/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../pump-app-prize-page-staging/fixed/output/competition-prize-page-ran-f53c7-nto-prize-fallback-at-390px/error-context.md
+
+
+(node:364855) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[3/5] tests/competition-prize-page.spec.ts:154:7 › empty standings show supplied original prize tiers at 1280px
+[4/5] tests/competition-prize-page.spec.ts:196:7 › ranked rows show source-selected raw prize badges and filtered results do not turn into prize fallback at 1280px
+  3) tests/competition-prize-page.spec.ts:196:7 › ranked rows show source-selected raw prize badges and filtered results do not turn into prize fallback at 1280px 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('list', { name: 'Competition rankings' }).getByRole('listitem')
+    Expected: 1
+    Received: 4
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('list', { name: 'Competition rankings' }).getByRole('listitem') with timeout 5000ms
+      - waiting for getByRole('list', { name: 'Competition rankings' }).getByRole('listitem')
+        14 × locator resolved to 4 elements
+           - unexpected value "4"
+
+
+      227 |     });
+      228 |     await page.getByLabel("Filter loaded results").fill("FixtureFourth");
+    > 229 |     await expect(rows).toHaveCount(1);
+          |                        ^
+      230 |     await expect(page.getByTestId("cup-entry-prize")).toHaveCount(0);
+      231 |     await page.getByLabel("Filter loaded results").fill("does-not-match");
+      232 |     await expect(
+        at /workspace/pump-app-leaderboard-navigation/app/packages/frontend/tests/competition-prize-page.spec.ts:229:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../pump-app-prize-page-staging/fixed/output/competition-prize-page-ran-cf947-to-prize-fallback-at-1280px/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../../../pump-app-prize-page-staging/fixed/output/competition-prize-page-ran-cf947-to-prize-fallback-at-1280px/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../pump-app-prize-page-staging/fixed/output/competition-prize-page-ran-cf947-to-prize-fallback-at-1280px/error-context.md
+
+
+(node:365292) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[5/5] tests/competition-prize-page.spec.ts:244:5 › empty standings without supplied prizes retain the existing empty state
+  3 failed
+    tests/competition-prize-page.spec.ts:154:7 › empty standings show supplied original prize tiers at 390px 
+    tests/competition-prize-page.spec.ts:196:7 › ranked rows show source-selected raw prize badges and filtered results do not turn into prize fallback at 390px 
+    tests/competition-prize-page.spec.ts:196:7 › ranked rows show source-selected raw prize badges and filtered results do not turn into prize fallback at 1280px 
+  2 passed (31.1s)

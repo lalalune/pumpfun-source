@@ -1,0 +1,84 @@
+
+Running 2 tests using 1 worker
+
+(node:366749) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] tests/competition-prize-page.spec.ts:154:7 › empty standings show supplied original prize tiers at 390px
+  1) tests/competition-prize-page.spec.ts:154:7 › empty standings show supplied original prize tiers at 390px 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('region', { name: 'Prize breakdown', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('region', { name: 'Prize breakdown', exact: true }) with timeout 5000ms
+      - waiting for getByRole('region', { name: 'Prize breakdown', exact: true })
+
+
+      171 |       exact: true,
+      172 |     });
+    > 173 |     await expect(region).toBeVisible();
+          |                          ^
+      174 |     await expect(region.getByTestId("cup-tier-1")).toContainText(
+      175 |       "$999,999,999,999,999,999.99",
+      176 |     );
+        at /workspace/pump-app-leaderboard-navigation/app/packages/frontend/tests/competition-prize-page.spec.ts:173:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../pump-app-prize-page-staging/baseline-final/output/competition-prize-page-emp-dcae2-iginal-prize-tiers-at-390px/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../../../pump-app-prize-page-staging/baseline-final/output/competition-prize-page-emp-dcae2-iginal-prize-tiers-at-390px/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../pump-app-prize-page-staging/baseline-final/output/competition-prize-page-emp-dcae2-iginal-prize-tiers-at-390px/error-context.md
+
+
+(node:366975) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/2] tests/competition-prize-page.spec.ts:154:7 › empty standings show supplied original prize tiers at 1280px
+  2) tests/competition-prize-page.spec.ts:154:7 › empty standings show supplied original prize tiers at 1280px 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('region', { name: 'Prize breakdown', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('region', { name: 'Prize breakdown', exact: true }) with timeout 5000ms
+      - waiting for getByRole('region', { name: 'Prize breakdown', exact: true })
+
+
+      171 |       exact: true,
+      172 |     });
+    > 173 |     await expect(region).toBeVisible();
+          |                          ^
+      174 |     await expect(region.getByTestId("cup-tier-1")).toContainText(
+      175 |       "$999,999,999,999,999,999.99",
+      176 |     );
+        at /workspace/pump-app-leaderboard-navigation/app/packages/frontend/tests/competition-prize-page.spec.ts:173:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../pump-app-prize-page-staging/baseline-final/output/competition-prize-page-emp-b9318-ginal-prize-tiers-at-1280px/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../../../pump-app-prize-page-staging/baseline-final/output/competition-prize-page-emp-b9318-ginal-prize-tiers-at-1280px/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../pump-app-prize-page-staging/baseline-final/output/competition-prize-page-emp-b9318-ginal-prize-tiers-at-1280px/error-context.md
+
+
+  2 failed
+    tests/competition-prize-page.spec.ts:154:7 › empty standings show supplied original prize tiers at 390px 
+    tests/competition-prize-page.spec.ts:154:7 › empty standings show supplied original prize tiers at 1280px 

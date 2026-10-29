@@ -1,0 +1,4 @@
+import {defineConfig}from'/workspace/pump-app-leaderboard-navigation/app/packages/frontend/node_modules/@playwright/test';
+import {acceptedClickwrapState}from'/workspace/pump-app-leaderboard-navigation/app/packages/frontend/tests/browser-state';
+const phase=process.env.PRIZE_PAGE_PHASE??'fixed';
+export default defineConfig({testDir:'/workspace/pump-app-leaderboard-navigation/app/packages/frontend/tests',testMatch:'competition-prize-page.spec.ts',outputDir:'/workspace/pump-app-prize-page-staging/'+phase+'/output',fullyParallel:false,workers:1,retries:0,reporter:'line',use:{baseURL:'http://127.0.0.1:3027',browserName:'chromium',headless:true,launchOptions:{executablePath:'/home/agent/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome'},storageState:acceptedClickwrapState,screenshot:'only-on-failure',video:'on',trace:'off'}});

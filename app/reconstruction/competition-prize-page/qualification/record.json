@@ -1,0 +1,445 @@
+{
+  "schemaVersion": 1,
+  "base": "ef400863f4e476b2eaaab0866c0b1187d8060abc",
+  "sourceCommit": "989408137da6c205c58778a45cd846c556913d25",
+  "sourceTree": "cbb6c57cf9399d38a9db25f6a3f3e7494b7b024b",
+  "inputs": {
+    "app/contracts/developer.openapi.json": {
+      "sha256": "ad2fdc2bbf0b86d92e01f539ca609fff8164fcc44556bb2691378a869f73ad73",
+      "bytes": 1552035,
+      "gitBlob": "dd2812c76275c198607f39bb63280a11b608e6ec"
+    },
+    "app/evidence/web/manifest.json": {
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "bytes": 3026513,
+      "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda"
+    },
+    "app/evidence/web/objects/2b47dd0b38a1608f.js": {
+      "sha256": "e78d2f38b06f971847c18dd05457c75afc85208135f50d6e4022a5f197e8839d",
+      "bytes": 507700,
+      "gitBlob": "040939b52d9fd8de8d7638e8fd1637eb51e81d2b"
+    },
+    "app/evidence/web/objects/2fe17dced92b840b.js": {
+      "sha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "bytes": 117439,
+      "gitBlob": "4b9bd9abacbbb669f9eb1a4502fd2f719f3fab1b"
+    },
+    "app/evidence/web/objects/4da7a3f4580c8707.js": {
+      "sha256": "d3ac051dc8989b6c57dc72c1899117ccf12cfa274a91cb707ea2c53099de37f8",
+      "bytes": 77335,
+      "gitBlob": "aab518969428499c6e07bd5fb51886411c249252"
+    },
+    "app/evidence/web/objects/7128bd47b219d222.js": {
+      "sha256": "a4a6c094610539a77840a391b47afe94764bf8c45c78b29024dcc8ec43569c4e",
+      "bytes": 43236,
+      "gitBlob": "4830ac980c0111d091734e768eac86c2b2508cfa"
+    },
+    "app/evidence/web/objects/90533aae518e4b32.js": {
+      "sha256": "79e3742dd663e154c28b370f2f6d85bf59f8225a5a9491e6ad72857807a5f820",
+      "bytes": 25017,
+      "gitBlob": "b8641cff0358c30e46916bddd8c5459d2b34e0bf"
+    },
+    "app/evidence/web/objects/994c0030bcc62017.js": {
+      "sha256": "e19fc8c67314ff7ad3e69fcd4228558a461e246856f96d101b0596a1b61255b5",
+      "bytes": 24978,
+      "gitBlob": "8114673854d915c558ad25d27b55ecb66d9c2bdc"
+    },
+    "app/evidence/web/objects/a0ec47219f76f808.js": {
+      "sha256": "557eb3547caea2d37bd9712a9cf3d07c835537e9354e0d7bd449b881fffdafc7",
+      "bytes": 28862,
+      "gitBlob": "af05d119599b983290aa518d3fb718059f39ead7"
+    },
+    "app/evidence/web/objects/c3601a995a6b7f37.js": {
+      "sha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "bytes": 45232,
+      "gitBlob": "886ffe8948aa4582f4bdc747f10cb2c076f07464"
+    },
+    "app/package.json": {
+      "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+      "bytes": 3703,
+      "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8"
+    },
+    "app/packages/backend/package.json": {
+      "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "bytes": 463,
+      "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b"
+    },
+    "app/packages/backend/src/schema-validator.ts": {
+      "sha256": "9317f75f3df5ffd981c2c53ed0eeeefdb27ff2d4e0751867fd67005ccf60a246",
+      "bytes": 10094,
+      "gitBlob": "7f9e823bceca94e40a919f8a8f9fce3aa3164b14"
+    },
+    "app/packages/backend/tsconfig.json": {
+      "sha256": "cf0abfd9a01f5efbcfe57c66fdf5db57f5cc9791d48cc0667a74168d3626806c",
+      "bytes": 215,
+      "gitBlob": "1a863bae065b07ea52a3a9b89b048c21f88876e2"
+    },
+    "app/packages/frontend/next.config.ts": {
+      "sha256": "d2a146c48e81f3d08a93dfabad75ac47e540667779a368b367ffb63be8e4ce45",
+      "bytes": 483,
+      "gitBlob": "6326d6c6274182f58c449f3f5bba914858023dfa"
+    },
+    "app/packages/frontend/package.json": {
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "bytes": 1048,
+      "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0"
+    },
+    "app/packages/frontend/src/app/api/leaderboard/upstream.ts": {
+      "sha256": "5d734a1147f8ee159409c274b37ac9558e6879bba87a13f56bd3c8fcaa70a757",
+      "bytes": 15898,
+      "gitBlob": "73c3e91e875f07b0dd9808ca1d2c0ff4ebd24277"
+    },
+    "app/packages/frontend/src/app/leaderboard/competition-prizes.tsx": {
+      "sha256": "bffa62a0e37280212237d5b95f3182c836a9de7f8dec8b92d6756a37feadec93",
+      "bytes": 2548,
+      "gitBlob": "aba6bd3efbb8a7a2542bfad08e45b51b1c875af1"
+    },
+    "app/packages/frontend/src/app/leaderboard/competition-rules-model.ts": {
+      "sha256": "75990774837c6e60e4b98e7e11d99e1ad7f79da0a6f0347898c7427f960c2f0b",
+      "bytes": 4684,
+      "gitBlob": "36730806002665ce31b1c7629674cbdb55394f2e"
+    },
+    "app/packages/frontend/src/app/leaderboard/competition-rules.tsx": {
+      "sha256": "729c1735015d5a3e9a496ee9530388334731e7c3c0d650bbd5a5822830cbf058",
+      "bytes": 5924,
+      "gitBlob": "74e0d7641b321e4ac90634226f345bad8464f99a"
+    },
+    "app/packages/frontend/src/app/leaderboard/leaderboard-client.tsx": {
+      "sha256": "137e46180af283bd2791493596efdc06e212031d7d534c7b409867350f82c2cf",
+      "bytes": 27395,
+      "gitBlob": "dbe14e4b798c8d24e4677cf13326ae5fa0a293c5"
+    },
+    "app/packages/frontend/src/app/leaderboard/types.ts": {
+      "sha256": "d3ffe9f9b6fe990766fc8fb7b26c6192064d2413298c30392f906dd24455162a",
+      "bytes": 10744,
+      "gitBlob": "b65661a9e321ad3dbf7cb99fce052784c67a70dc"
+    },
+    "app/packages/frontend/src/components/leaderboard/original-prize-formats.mjs": {
+      "sha256": "dd9d5e338db6c0b5b716c4f8edace574a42c11ca784663d6a6a29aec7fff86af",
+      "bytes": 5571,
+      "gitBlob": "de5722dd2a52dcfe1fa3b58d44d43579061c4554"
+    },
+    "app/packages/frontend/src/components/leaderboard/original-prizes.tsx": {
+      "sha256": "d9abf53464b6bd1be3b1a630a8ef3bfa7d1b876fd382d3bd86ef04b0c504928c",
+      "bytes": 4348,
+      "gitBlob": "9c138548d522462dab6ce3c618334a0bdb7543ec"
+    },
+    "app/packages/frontend/src/components/leaderboard/prize-number-variants/b6933f856a7f.mjs": {
+      "sha256": "c2297af3d1d6cd2f2a9eefe490a9f2b4a9a09921e8e52f24ad2df966cd6a8804",
+      "bytes": 751,
+      "gitBlob": "133beb69d6afb4c898ecf4ec0622c3f14e4f72f2"
+    },
+    "app/packages/frontend/src/components/leaderboard/prize-number-variants/f29f27e66af2.mjs": {
+      "sha256": "3641cd417646cd7bdb2d908ce11d97fdf984d7b521a151c1d0809fffeb47c004",
+      "bytes": 751,
+      "gitBlob": "7b32134c020b9051ba10666d3c84dc1fac87c23c"
+    },
+    "app/packages/frontend/tests/browser-state.ts": {
+      "sha256": "6ca60ac77b50bcc845c8073973265a980ece5aede9782cb955836b422128123a",
+      "bytes": 366,
+      "gitBlob": "dad2bd240204528a984cc25718e9abfc40956347"
+    },
+    "app/packages/frontend/tests/competition-prize-page.spec.ts": {
+      "sha256": "d8782aa486926c3105c3bb1103a5647bd2eaa2dc58559f657810b91a7d4fb1d1",
+      "bytes": 8282,
+      "gitBlob": "3a6e267df9913cdbbafb223c6ecedcc341acd1b4"
+    },
+    "app/packages/frontend/tsconfig.json": {
+      "sha256": "a5dc52a7664b2a81c4cadd7e5ac7eb73ec3f88af0d97edd9927344c01adb7a0b",
+      "bytes": 513,
+      "gitBlob": "232242f82f082ceecb0da2071d2528fc7b589d74"
+    },
+    "app/packages/sdk/package.json": {
+      "sha256": "9b85cdaaeee8387fd151783cc994fa8b80f24ca5c525c9accb3cccc5babd64d4",
+      "bytes": 1919,
+      "gitBlob": "ba5abc1bcc0fba0b6a7b7425eaa25544baeb43b4"
+    },
+    "app/packages/sdk/tsconfig.json": {
+      "sha256": "62333879f49f15d2b346bbb96a46f1fb66442c134aa7ea6ff55622971b8619c8",
+      "bytes": 210,
+      "gitBlob": "5c2bd6441f61feea7a6c21e6f02e6256483fd3f4"
+    },
+    "app/pnpm-lock.yaml": {
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "bytes": 113160,
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+    },
+    "app/pnpm-workspace.yaml": {
+      "sha256": "5348921b05aa1b79ce7e15492a2f39ed9d18136155e002fdbbfed5c38564a1b5",
+      "bytes": 183,
+      "gitBlob": "2ac2665ef5a28f8a1691518ad942fb07353810e6"
+    },
+    "app/reconstruction/competition-prize-page/README.md": {
+      "sha256": "b4bac773ad596f58715d107e602acd777eb2d4f42cd596aff5a1ccf3fa6a1871",
+      "bytes": 4733,
+      "gitBlob": "7e8dea1a6bca28e95a6f15322fec6df5dd44a29d"
+    },
+    "app/reconstruction/competition-prize-page/contract.json": {
+      "sha256": "ef7355443f80c894c4571cae675cddabc0c3ad0e85f475c91f51d6a040f3c677",
+      "bytes": 2322,
+      "gitBlob": "de768f45571e1a1c3f54db912b42b24b82103298"
+    },
+    "app/reconstruction/competition-prize-page/reference/competition-rules-model.ts": {
+      "sha256": "1f26aa03c58fd088a1bb9413a70d855701500111a3d40aa4cf4d0b326d2231e4",
+      "bytes": 4526,
+      "gitBlob": "349f23edb0ff533981752645744f7dbb5f644ab6"
+    },
+    "app/reconstruction/competition-prize-page/reference/leaderboard-client.tsx": {
+      "sha256": "02310d1e8050387ca314da56dc6d560a31c847d99ada6ac62d2def335f542c48",
+      "bytes": 26955,
+      "gitBlob": "e7dd4d0f92421d6869ad83d8322ba32328d9bd34"
+    },
+    "app/reconstruction/competition-prizes/contract.json": {
+      "sha256": "7681d36bd77c0c858f40a5ecca1154c5f73ebd17b6abddc7d5e05a6a1d44df37",
+      "bytes": 20174,
+      "gitBlob": "378117c9a27f8f178aae0c7a31b3dfb4ebfb374b"
+    },
+    "app/recovered/modules.json": {
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+      "bytes": 2928853,
+      "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f"
+    },
+    "app/scripts/original-competition-prizes.mjs": {
+      "sha256": "dd6f2e423903d541f4c4e5828cf19d36216cc4b30ea347890991178da4009c9e",
+      "bytes": 15864,
+      "gitBlob": "c1ea81af5188237ef1e24323a16c98decc4c12f9"
+    },
+    "app/scripts/original-contracts/source.mjs": {
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+      "bytes": 9493,
+      "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df"
+    },
+    "app/scripts/verify-competition-prize-page.mjs": {
+      "sha256": "9cbfee5afaf7212c519df625ce064d54cafa3473be4f8560c6acabbda198dcb9",
+      "bytes": 8711,
+      "gitBlob": "4346bdc1dc7ae1d8b0bc9ed7e6c61d6d94fc4bd6"
+    },
+    "app/scripts/verify-evidence.py": {
+      "sha256": "6429337cfea4b6da8f979c37b449f442ec6574a3f9cf1cc14c734b4f812c2307",
+      "bytes": 2935,
+      "gitBlob": "de916929321f830eac387403fb5cda9ff981005f"
+    },
+    "app/tests/competition-prize-page.test.mjs": {
+      "sha256": "f3c1a96ffb6437e9a262f8ac6e234444374168ed3f8f5e1594e09d5080ad71c8",
+      "bytes": 9266,
+      "gitBlob": "680251c2bd5b22181cceecc9d192d339f41f0562"
+    },
+    "app/tests/competition-prize-precision.test.mjs": {
+      "sha256": "25d82ec713a7e7fb18320315de024d6de2d1dd75c5a81bfd99dc89981245a102",
+      "bytes": 812,
+      "gitBlob": "9e2b571a164b4d49ac3bd4819d00766c5a7e222d"
+    },
+    "app/tests/competition-rules.test.mjs": {
+      "sha256": "ff438fd6aedd9d31999cd7b2ab1bd7f44821900206663d5e8455b81253b71c92",
+      "bytes": 7420,
+      "gitBlob": "9db3e6504ef481c44d5d7783fd073e8d3af961f4"
+    },
+    "app/tests/original_source.test.mjs": {
+      "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3",
+      "bytes": 7401,
+      "gitBlob": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+    }
+  },
+  "commands": [
+    {
+      "cwd": "app",
+      "argv": [
+        "node",
+        "scripts/verify-competition-prize-page.mjs",
+        "--check"
+      ],
+      "exitCode": 0,
+      "log": "source-check.log"
+    },
+    {
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/competition-prize-page.test.mjs",
+        "tests/competition-prize-precision.test.mjs",
+        "tests/competition-rules.test.mjs",
+        "tests/original_source.test.mjs"
+      ],
+      "exitCode": 0,
+      "tests": 23,
+      "log": "focused.log"
+    },
+    {
+      "cwd": "app",
+      "argv": [
+        "pnpm",
+        "-r",
+        "typecheck"
+      ],
+      "pnpm": "10.24.0",
+      "exitCode": 0,
+      "log": "typecheck.log"
+    },
+    {
+      "cwd": "app",
+      "argv": [
+        "python3",
+        "scripts/verify-evidence.py"
+      ],
+      "exitCode": 0,
+      "capturedObjects": 698,
+      "log": "capture-integrity.log"
+    },
+    {
+      "cwd": "app/packages/frontend",
+      "argv": [
+        "node",
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "--config",
+        "/workspace/pump-app-prize-page-staging/playwright.config.ts",
+        "--grep",
+        "empty standings show supplied"
+      ],
+      "env": {
+        "PRIZE_PAGE_PHASE": "baseline-final"
+      },
+      "source": "exact base reference files",
+      "exitCode": 1,
+      "expectedMissingRegionFailures": 2,
+      "log": "baseline-browser.log"
+    },
+    {
+      "cwd": "app/packages/frontend",
+      "argv": [
+        "node",
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "--config",
+        "/workspace/pump-app-prize-page-staging/playwright.config.ts"
+      ],
+      "env": {
+        "PRIZE_PAGE_PHASE": "fixed-final"
+      },
+      "source": "sourceCommit below",
+      "exitCode": 0,
+      "passed": 5,
+      "durationSeconds": 14.1,
+      "log": "fixed-browser.log"
+    }
+  ],
+  "browser": {
+    "engine": "Chromium1248 / Playwright1.64.1",
+    "viewports": [
+      390,
+      1280
+    ],
+    "baseURL": "http://127.0.0.1:3027",
+    "backendServer": false,
+    "transport": "synthetic read-only local adapter envelopes; foreign origins and non-GET/HEAD blocked",
+    "next": "16.4.1 Webpack dev; shared read-only dependencies outside worktree Turbopack root",
+    "serverArgv": [
+      "node",
+      "node_modules/next/dist/bin/next",
+      "dev",
+      "--webpack",
+      "--hostname",
+      "127.0.0.1",
+      "--port",
+      "3027"
+    ],
+    "serverEnv": {
+      "PUMPFUN_DEVELOPER_API_KEY": "",
+      "BACKEND_URL": "http://127.0.0.1:3028",
+      "NEXT_TELEMETRY_DISABLED": "1"
+    },
+    "cleanup": "owned server stopped exit0; inactive .next removed; generated next-env restored"
+  },
+  "initialHarness": {
+    "log": "initial-fixed-browser.log",
+    "passed": 2,
+    "failed": 3,
+    "cause": [
+      "StrictMode initial duplicate read invalidated exactly-one initial-read assertion",
+      "fill did not submit Filter form"
+    ],
+    "change": "test harness only; final baseline and fixed use same final spec/config",
+    "originalInitialHarnessSource": "not included as a separately sealed original; final spec is source-bound"
+  },
+  "limits": [
+    "No full production Next build or full app/browser suite in this lane",
+    "No private backend compatibility, original provider parity, payout entitlement or universal equivalence claim",
+    "No app/mobile promotion/deep links/QR",
+    "Accepted937/864 dependencies receive no new source-recovery credit"
+  ],
+  "artifacts": {
+    "baseline-browser.log": {
+      "sha256": "00a7fa43a48364368adc3d9635695eb079f29b0dac23a686a3cacda5cde3c390",
+      "bytes": 5641
+    },
+    "baseline-next.log": {
+      "sha256": "5e953d436a0330c412c73dd6b91026e6cbf023a82225e0033b9d13744769112a",
+      "bytes": 4887
+    },
+    "capture-integrity.log": {
+      "sha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9",
+      "bytes": 72
+    },
+    "fixed-browser.log": {
+      "sha256": "8c8913dd88da83b158b0cc2487cb28d02d5b833d75de698aff27071408c31015",
+      "bytes": 902
+    },
+    "fixed-next.log": {
+      "sha256": "68eb7cd6eb6a8d75df648f364a4eee68877abfd8d15e4653c413d63ebb29a67f",
+      "bytes": 7474
+    },
+    "focused.log": {
+      "sha256": "7e9a0b5c9f789674b2af14c0441a2e7e087ac3f32cc1b9b452399fd77c854d1a",
+      "bytes": 4058
+    },
+    "initial-fixed-browser.log": {
+      "sha256": "1fb0ca7e99d3930b6988f7ae8a70c404447d6fd8e83bbf3aabd52b5e17585e01",
+      "bytes": 9418
+    },
+    "playwright.config.executed.ts": {
+      "sha256": "8819e6fa9d67e13efb0d4754d686f39f75cf5c18f40843d5ae8c0b78ab02f92c",
+      "bytes": 842
+    },
+    "source-check.log": {
+      "sha256": "e51eba53c538107665e6288c7ec23240129c84ac230b89cc2842b41eabad7648",
+      "bytes": 120
+    },
+    "source-swap.json": {
+      "sha256": "d6a667b5608bbe65b75c6c5d4b044ca24e2d8f77daeddff42bf6be8d8e518a58",
+      "bytes": 1003
+    },
+    "source-swap.py": {
+      "sha256": "d729f22a5fc285bcb16481573870a0809b0958fe5e199e4c75d1ec236e078869",
+      "bytes": 817
+    },
+    "typecheck.log": {
+      "sha256": "0684b54b3ba5e515a6fb4a5ce293615cf500a72c3f042dada4112ec2f0b7aca2",
+      "bytes": 249
+    },
+    "visual/baseline-empty-1280.png": {
+      "sha256": "f8bba71a9340e5f80039ee8f3629908c59c49239200b6c05bbd530a1b33d4068",
+      "bytes": 101037
+    },
+    "visual/baseline-empty-390.png": {
+      "sha256": "652909354e925357f9969eb770a01a73e7ae701bc01ee1ce19cee8064e589c9d",
+      "bytes": 101610
+    },
+    "visual/fixed-ranked-1280.png": {
+      "sha256": "cbd4a5012a1b183b8ad8bcbe2458b7a0a66f3d4c18d054bff544246333b110b9",
+      "bytes": 35554
+    },
+    "visual/fixed-ranked-390.png": {
+      "sha256": "bbdc13d1b6c5dd8568c605594a8b0a29dbc4bf9c6e111b9ffefb60c5380cf44f",
+      "bytes": 32043
+    },
+    "visual/fixed-tiers-1280.png": {
+      "sha256": "04196800e52934c97c9a342b899bde264cf400943d5baeb3b47c64de497d3b6a",
+      "bytes": 7524
+    },
+    "visual/fixed-tiers-390.png": {
+      "sha256": "c241e01eedb1677c6842a0ebbd0aef393c7c2420f8791905fcae7e152358820b",
+      "bytes": 6766
+    }
+  }
+}

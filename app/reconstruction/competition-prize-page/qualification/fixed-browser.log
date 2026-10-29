@@ -1,0 +1,13 @@
+
+Running 5 tests using 1 worker
+
+(node:367324) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/5] tests/competition-prize-page.spec.ts:154:7 › empty standings show supplied original prize tiers at 390px
+[2/5] tests/competition-prize-page.spec.ts:197:7 › ranked rows show source-selected raw prize badges and filtered results do not turn into prize fallback at 390px
+[3/5] tests/competition-prize-page.spec.ts:154:7 › empty standings show supplied original prize tiers at 1280px
+[4/5] tests/competition-prize-page.spec.ts:197:7 › ranked rows show source-selected raw prize badges and filtered results do not turn into prize fallback at 1280px
+[5/5] tests/competition-prize-page.spec.ts:252:5 › empty standings without supplied prizes retain the existing empty state
+  5 passed (14.1s)
