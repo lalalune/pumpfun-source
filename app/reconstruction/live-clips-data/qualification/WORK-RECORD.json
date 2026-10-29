@@ -1,0 +1,132 @@
+{
+  "measuredHead": "ffe68589ed24ea14b89cddeb2fc7da9ebccf3d35",
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "source": "Complete private944001.E, C, j/I/S/T/L/k/R; 11 factory contexts, 42 selected witness records, six item-schema declarations, both client variants, actual main/registry/result edges. Witness sets overlap; not summed coverage.",
+  "results": {
+    "sourceVerifier": "PASS",
+    "focusedNode": {
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    "reactDOM": {
+      "stories": 1,
+      "observations": 8,
+      "pageErrors": 0,
+      "unexpectedRequests": 0,
+      "result": "PASS",
+      "cleanup": {
+        "browserClosed": true,
+        "serverStopped": true
+      }
+    },
+    "appEvidence": "698 objects/npm/SDK PASS",
+    "progress": "initial sparse-input failure preserved; exact three HEAD Git blobs restored, check PASS; nine tests PASS",
+    "required": "53 Git-bound inputs, 9 captures, 10 tooling PASS"
+  },
+  "preservedFailures": [
+    {
+      "file": "logs/initial-generator.log.gz",
+      "description": "Initial draft consumer selector used wrong local alias m; actual source310766 uses o({limit,initialData}). Corrected before source/method freeze. Exact initial draft source snapshot was not retained; no runtime result on it is claimed."
+    },
+    {
+      "file": "logs/progress-ffe68589.log.gz",
+      "description": "Three existing progress-evidence paths were sparse-excluded. Hydrated exact measured-head Git bytes only; original failure and successful check retained separately."
+    }
+  ],
+  "logs": [
+    {
+      "path": "logs/initial-generator.log.gz",
+      "originalBytes": 645,
+      "sha256": "b703f539371fd26d1cb18112f503c98162798e43baf477a6da3f9e224c73de68",
+      "compressedSha256": "5d6112a03d3439e0be3c3591f1545c481b03efd14e08b7066fe2af7c00af1a68"
+    },
+    {
+      "path": "logs/generator.log.gz",
+      "originalBytes": 42,
+      "sha256": "3be0713c20bdd4d1f217a4279bcfb2e89537bbab4baee7c8a3f873c0fab3e96c",
+      "compressedSha256": "314f9ec8dc380964e8a85f58c57158a9c59a07227ad64dae33c12ccd786e7cd3"
+    },
+    {
+      "path": "logs/source-ffe68589.log.gz",
+      "originalBytes": 42,
+      "sha256": "3be0713c20bdd4d1f217a4279bcfb2e89537bbab4baee7c8a3f873c0fab3e96c",
+      "compressedSha256": "314f9ec8dc380964e8a85f58c57158a9c59a07227ad64dae33c12ccd786e7cd3"
+    },
+    {
+      "path": "logs/node-ffe68589.log.gz",
+      "originalBytes": 1476,
+      "sha256": "44300919816b30ae1e76e86e883961152979a6010bf5d5751be179a9319cbfdd",
+      "compressedSha256": "ca004baf0dab35bd875cfc086b5418cef9a55b8d42ac34512116777ca9cb63f3"
+    },
+    {
+      "path": "logs/browser-ffe68589.log.gz",
+      "originalBytes": 133,
+      "sha256": "b98196b4cfb77258fcd4b5cba6f53b2ed75f7478b108e0dba83d6dca85aa3d65",
+      "compressedSha256": "c7059b8c10d1df08605d1c604c63c4102446fc65e43982b808257ae02e3bc22d"
+    },
+    {
+      "path": "logs/app-evidence-ffe68589.log.gz",
+      "originalBytes": 72,
+      "sha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9",
+      "compressedSha256": "c4ccac34440167b7170118e2af25a5865d395032af8ca1cf812341ed573c3243"
+    },
+    {
+      "path": "logs/progress-ffe68589.log.gz",
+      "originalBytes": 1404,
+      "sha256": "1d733f676893f597efbec60dc406abf350957cfa20314d73210cbe5b4a952b65",
+      "compressedSha256": "eafcad705662f6f5b9932d102f84e6be9383f9be69e7333f8e061b0776fb19d9"
+    },
+    {
+      "path": "logs/progress-tests-ffe68589.log.gz",
+      "originalBytes": 155,
+      "sha256": "f50a577872d8c1b37feaff70cdaec506cfbe5f67dee7aa77866d5eccdf596411",
+      "compressedSha256": "1b93010d420ebdc44bba457dd23a08f0692422485fa8bfea79e68f9577166ea1"
+    },
+    {
+      "path": "logs/progress-ffe68589-restored.log.gz",
+      "originalBytes": 49,
+      "sha256": "7ab499988f3b70e197e23e42287d4cc4579dc2b9360a82be3e827e22c589fda4",
+      "compressedSha256": "8d25a71e7cd8c214cc56b246898d555fadb2c61682febfb7b183577299893a97"
+    },
+    {
+      "path": "logs/common-ffe68589.log.gz",
+      "originalBytes": 1315,
+      "sha256": "f1cbe84b3ca124e72acf0e966c05470b85c81fdbb740cd37e8bef4ee80188e7a",
+      "compressedSha256": "017305e9462817170bbb4f7553aba007158ff09599eb7e0789a7c395f34da752"
+    },
+    {
+      "path": "browser-bundle.js.gz",
+      "originalBytes": 1129085,
+      "sha256": "81f3764d87cfa409f1ba334d87b22563c4c900d3cfa5f7a6a033fe70f1afead8",
+      "compressedSha256": "a1b36913a6e14be146ff3179c83e456f5562168717c7bd3b5a182c77f505b02d"
+    },
+    {
+      "path": "logs/verify_evidence.log.gz",
+      "originalBytes": 376,
+      "sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9",
+      "compressedSha256": "995576b68a1e52c055bcb991ac93146ad53ea9131e859ceb3331d45380b40ce3"
+    },
+    {
+      "path": "logs/test_tooling.log.gz",
+      "originalBytes": 109,
+      "sha256": "f3823cf77d7d142e607cbbdc3fed8857c4912350928bb61583eb5894d2b45b15",
+      "compressedSha256": "e0c3b2191333dcf9a18a1507435e05b2240219ea2133de2363dcebe5f3ca0b25"
+    }
+  ],
+  "limits": {
+    "capturedExecution": false,
+    "serviceAcquisition": false,
+    "parserReimplementation": false,
+    "queryRuntime": false,
+    "clientTransportOrAuth": false,
+    "mediaOrPlayback": false,
+    "accountActions": false,
+    "applicationMount": false,
+    "nativeCompatibility": false,
+    "financialCorrectness": false,
+    "featureCredit": false,
+    "securityApproval": false
+  },
+  "authoredProof": "Synthetic capabilities test delegation and local JavaScript/React recomputation only; no original schema validation, query/client services, HTTP provider, media, app mount, native/financial or security result."
+}
