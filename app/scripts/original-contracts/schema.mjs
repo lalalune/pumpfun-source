@@ -163,7 +163,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
   async function shape(node, ctx) {
     if (node.type === 'Identifier') return shape(ctx.locals.get(node.name), ctx);
     if (node?.type !== 'ObjectExpression') throw new Error(`unsupported object shape: ${node?.type}`);
-    const properties = {};
+    const properties = Object.create(null);
     for (const property of node.properties) {
       if (property.type === 'SpreadElement') {
         Object.assign(properties, await shape(property.argument, ctx));
@@ -241,7 +241,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
     }
     if (method === 'extend' && expanded.type === 'object' && node.arguments.length === 1) return { ...expanded, properties: { ...expanded.properties, ...await shape(node.arguments[0], ctx) } };
     if (method === 'pick' && expanded.type === 'object' && node.arguments[0]?.type === 'ObjectExpression' && node.arguments.length === 1) {
-      const properties = {};
+      const properties = Object.create(null);
       for (const property of node.arguments[0].properties) {
         if (property.type !== 'ObjectProperty' || property.computed || await constant(property.value, ctx) !== true) throw new Error('unsupported pick mask');
         const name = propertyName(property.key);
