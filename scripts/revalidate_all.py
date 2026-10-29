@@ -133,20 +133,17 @@ def main():
         verify_result = run_verify(packet) if has_verify else {"status": "skipped"}
 
         # Determine overall status
-        if manifest_result["status"] == "pass" or verify_result["status"] == "pass":
+        checks = [result for enabled, result in (
+            (has_manifest, manifest_result), (has_verify, verify_result)
+        ) if enabled]
+        if all(result["status"] == "pass" for result in checks):
             overall = "pass"
             pass_count += 1
-        elif manifest_result["status"] == "fail" or verify_result["status"] == "fail":
+        elif any(result["status"] in {
+            "fail", "manifest_parse_error", "timeout", "error"
+        } for result in checks):
             overall = "fail"
             fail_count += 1
-        elif manifest_result["status"] == "no_manifest" and verify_result["status"] != "pass":
-            overall = "verify_only"
-            if verify_result["status"] == "pass":
-                pass_count += 1
-            elif verify_result["status"] == "fail":
-                fail_count += 1
-            else:
-                skip_count += 1
         else:
             overall = "inconclusive"
             skip_count += 1

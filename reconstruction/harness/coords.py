@@ -17,9 +17,13 @@ from score import sections, body, original_windows, score, BASE, candidate_funct
 
 
 def read_cstr_at(blob, secs, vaddr, length):
+    if length < 0:
+        return None
     for name, s in secs.items():
         if s['addr'] and s['addr'] <= vaddr < s['addr'] + s['size']:
             o = vaddr - s['addr'] + s['offset']
+            if vaddr + length > s['addr'] + s['size'] or not 0 <= o <= len(blob) - length:
+                return None
             return blob[o:o + length]
     return None
 
@@ -42,8 +46,11 @@ def sites(blob, secs, start, raw):
             continue
         X = off
         lo, hi = max(0, k - 30), min(len(insn), k + 30)
+        # Stack slots are reused by nearby Source descriptors. Pair with the
+        # nearest matching store, preferring a preceding store on a tie.
+        nearby = sorted(range(lo, hi), key=lambda j: (abs(j - k), j > k))
         ptr = None
-        for j in range(lo, hi):
+        for j in nearby:
             p2, o2, r2, of2, v2 = insn[j]
             if o2 == 0x7b and dst(r2) == 10 and of2 == X - 8:
                 ry = src(r2)
@@ -61,7 +68,7 @@ def sites(blob, secs, start, raw):
         if not (s and s.endswith(b'.rs') and all(32 <= c < 127 for c in s)):
             continue
         line = None; line_slot = None
-        for j in range(lo, hi):
+        for j in nearby:
             p2, o2, r2, of2, v2 = insn[j]
             if o2 == 0x62 and dst(r2) == 10 and of2 == X + 8:
                 line, line_slot = v2, p2; break
@@ -79,6 +86,19 @@ def orig_sites(start):
 
 def cand_sites(cand_blob, cs, addr, size):
     return sites(cand_blob, cs, addr, body(cand_blob, cs, addr, size))
+
+
+def non_coordinate_slots(original, candidate, source_sites):
+    """Return differing normalized slots outside Source coordinate fields."""
+    if len(original) != len(candidate):
+        raise ValueError('coordinate classification requires equal-length bodies')
+    coordinate_slots = {s[key]: opcode for s in source_sites
+                        for key, opcode in [('len_slot', 0x7a), ('line_slot', 0x62)]
+                        if s[key] is not None}
+    return [i for i in range(0, len(original), 8)
+            if original[i:i + 8] != candidate[i:i + 8]
+            and not (coordinate_slots.get(i) == original[i]
+                     and original[i:i + 4] == candidate[i:i + 4])]
 
 
 def main():
@@ -107,15 +127,12 @@ def main():
             osites = sites(ORIG, OS, w['start'], w['raw'])
             if not osites:
                 continue
-            coord_slots = set()
-            for s in osites:
-                coord_slots |= {s['len_slot'], s['line_slot']}
             best = None
             on = normalize(w['raw'], w['start'], OS)
             for (s, nm) in bylen.get(w['bytes'], []):
                 cn = normalize(body(blob, cs, s, w['bytes']), s, cs)
                 diff = [i for i in range(0, len(on), 8) if on[i:i + 8] != cn[i:i + 8]]
-                if diff and all(d in coord_slots for d in diff):
+                if diff and not non_coordinate_slots(on, cn, osites):
                     best = (s, nm, diff, cand_sites(blob, cs, s, w['bytes'])); break
             rows.append({'start': hex(w['start']), 'bytes': w['bytes'], 'original_sites': osites,
                          'coordinate_only_candidate': None if not best else {'addr': hex(best[0]), 'symbol': best[1], 'diff_slots': best[2], 'candidate_sites': best[3]}})

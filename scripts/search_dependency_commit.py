@@ -53,7 +53,14 @@ def main():
         mdir = workdir.rstrip('/') + '/' + str(pathlib.PurePosixPath(cfg['manifest']).parent)
         for commit in a.commits:
             subprocess.run(['git', '-C', str(src), 'reset', '--hard', '--quiet'], check=False)
-            subprocess.run(['git', '-C', str(src), 'clean', '-fdxq'], check=False)
+            clean = subprocess.run(['git', '-C', str(src), 'clean', '-fdxq'],
+                                   capture_output=True, text=True)
+            if clean.returncode:
+                clean = subprocess.run(['docker', 'exec', '--user', '0:0', '-w', workdir, container,
+                                        'git', '-c', f'safe.directory={workdir}', 'clean', '-fdxq'],
+                                       capture_output=True, text=True)
+                if clean.returncode:
+                    raise RuntimeError('container cleanup failed: ' + clean.stderr[-500:])
             co = subprocess.run(['git', '-C', str(src), 'checkout', '--force', '--quiet', commit + '^{commit}'],
                                 capture_output=True, text=True)
             if co.returncode:
@@ -62,6 +69,9 @@ def main():
             if co.returncode:
                 results.append(dict(commit=commit, checked_out=False, error=co.stderr[-500:])); continue
             head = read(['git', '-C', str(src), 'rev-parse', 'HEAD'])
+            so = src / cfg['deploy'] / (cfg['library'] + '.so')
+            if so.exists():
+                raise RuntimeError(f'dependency artifact survived cleanup: {so}')
             feat = ['--features', a.features] if a.features else []
             if cfg['build'] == 'build-sbf':
                 cmd = ['docker', 'exec', '-e', 'RUSTUP_TOOLCHAIN=' + active, '-w', mdir, container,
@@ -70,9 +80,9 @@ def main():
                 cmd = ['docker', 'exec', '-e', 'RUSTUP_TOOLCHAIN=' + active, '-e', 'RUSTFLAGS=-D warnings', '-w', workdir, container,
                        'cargo', 'build-bpf', '--manifest-path', mpath, '--', *feat, '--locked']
             b = subprocess.run(cmd, capture_output=True, text=True)
-            so = src / cfg['deploy'] / (cfg['library'] + '.so')
-            row = dict(commit=commit, head=head, built=b.returncode == 0)
-            if b.returncode == 0 and so.is_file():
+            built = b.returncode == 0 and so.is_file()
+            row = dict(commit=commit, head=head, built=built)
+            if built:
                 raw = so.read_bytes()
                 padded = raw + bytes(len(original) - len(raw)) if len(raw) < len(original) else raw
                 first = next((i for i, (x, y) in enumerate(zip(padded, original)) if x != y), None)
@@ -83,6 +93,9 @@ def main():
                            candidate_sha256=sha(raw))
                 if padded == original:
                     (out / f'MATCH-{head[:12]}.so').write_bytes(raw)
+            elif b.returncode == 0:
+                row.update(artifact_missing=True,
+                           error_tail=f'build succeeded without producing {so}')
             else:
                 row['error_tail'] = b.stderr[-1500:]
             results.append(row)

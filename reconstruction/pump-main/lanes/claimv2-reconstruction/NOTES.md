@@ -134,3 +134,71 @@ ratio **0.81661**. Ledger `1b851d5c`.
 
 Residual: register assignment. The original computes `&a.user` (accounts+0xa8) once right
 after `Clock::get` and spills it to -0x4c0; the candidate rematerializes it at each use.
+
+### Account bindings and event fields (ratio 0.817 -> 0.938)
+
+| trial | change | bytes | ratio | opcode-only |
+| --- | --- | ---: | ---: | ---: |
+| r6U2 | `ctx.accounts.X` everywhere, no `a` | 8,776 | 0.7886 | |
+| r6U3 | v1 style `let user_volume_accumulator=&mut ctx.accounts.user_volume_accumulator;`, rest via `ctx.accounts` | 8,856 | 0.81848 | 0.978 |
+| r6U4/U4b | U3 + `let user=&ctx.accounts.user` | byte-identical to U3 (shared ref propagated by MIR) | | |
+| r7X3 | U3 + `let user=&mut ctx.accounts.user` after timestamp | 8,824 | 0.9266 | 0.991 |
+| r7X4 | destructure `let ClaimCashbackV2{user,user_volume_accumulator,..}=&mut *ctx.accounts` | compile error E0502 | | |
+| r8F1 | X3 + v1 `let total_cashback_earned` | 8,824 | 0.9210 | |
+| r8F2 | X3 + `let total_claimed=..;let total_cashback_earned=..;` then the event literal | 8,824 | 0.93502 | 0.993 |
+| r8Pa | X3 with `let user=&mut ..` as the first statement | 8,824 | 0.92941 | 0.994 |
+| **r9FP** | F2 + Pa | 8,824 | **0.93782** | 0.9958 |
+
+Mechanism: a `&mut` binding of `ctx.accounts.user` is not propagated away by MIR
+(a shared `&` binding is), so `&user` (accounts+0xa8) becomes one SSA value defined at
+the entry and spilled to -0x4c0 as in the original. Binding the two totals before the event
+literal puts their loads ahead of the user key copy, as in the original.
+
+Residual (r9FP): (1) the original has `jeq ok,+1; ja err` at the `try_borrow_data()?` of the
+token amount decode where the candidate has one `jne`; the extra instruction shifts every later
+jump offset. (2) the `try_borrow_data` result and `Ref` temporaries of both token decodes sit in
+different stack-coloring groups (original: result in the 280 B group at -0x2d0, Ref at -0x1b8;
+candidate: result at -0x1b8, Ref at -0x68). (3) emit_cpi seed store order.
+Ledger: U2 `449607fc`, U3 `130220a4`, U4 `173d39a6`, X3 `137aae75`, X4 `2e9c66ca`, F1 `75459852`,
+F2 `774081e6`, Pa `b15e6736`, FP `aca9d7bd`.
+
+### Decode blocks (ratio 0.938 -> 0.969)
+
+| trial | change (on r9FP) | ratio |
+| --- | --- | ---: |
+| r10b | `try_deserialize(&mut x.try_borrow_data()?.as_ref())` | byte-identical |
+| r10d | `{let data=x.try_borrow_data()?;T::try_deserialize(&mut &data[..])?}` for all three decodes | 0.9612 |
+| r10f | `{let mut data:&[u8]=&x.try_borrow_data()?;T::try_deserialize(&mut data)?}` | 0.96587 |
+| **r11d2** | r10d with `.amount` / `.owner` taken inside the block (owner copied before the Ref guard drops, as in the original) | **0.96868** (slice form r11both identical) |
+| r12J1 | `if !data_is_empty(){..}else{0}` | byte-identical |
+| r12SA / r12SC | seed spellings `&[seeds]` / bump array | 0.96868 / 0.9612 |
+
+With the bound guard, the `try_borrow_data` result and the `&[u8]` temporaries land in the original's
+stack-coloring groups (result in the 280 B group at -0x2d0, slice at -0x1b8). Remaining opcode
+differences: `jeq ok,+1; ja err` at the amount decode's `try_borrow_data()?` (one extra instruction
+shifting all later jump offsets) and the order of the transfer signer-seed stores.
+Ledger: r10b `6ee8121e`, r10d `56471f27`, r10f `5d3e8733`, r11d2 `9d79c17e`.
+
+### Empty-ATA early return (ratio 0.969 -> 0.99626, exact size)
+
+Spellings of the amount decode (`if !empty`, `let mut amount`, `match bool`, deref guard, slice binding)
+are all byte-identical, an explicit `match` on `try_borrow_data` is worse (0.867), and a helper fn is worse
+(67 calls). `305` as `if !(..){return err!(..)}` is identical (that is what `require!` expands to).
+Following the cashback-inner lane's finding (LLVM block creation order decides whether the
+`try_borrow_data` Ok block is the IR successor of its test; BPF cannot reverse branches afterwards),
+the token path now returns early on an empty ATA:
+`if ata.data_is_empty(){msg!("No cashback to claim");return Ok(());}let amount={let data=..?;TokenAccount::try_deserialize(&mut &data[..])?.amount};if amount==0{msg!(..);return Ok(());}`.
+Result r17Z1: **8,832 B (original size), ratio 0.99626, 15 slots differ**, all in the transfer
+signer-seed stores at 0x2080 (the outer seed slice is stored after the seed lengths instead of before).
+Ledger: r17Z1 `7f9bfaeb`; rejected spellings `c352c1e6`..`a3a8918e`, `4f4663a7`, `662919ca`.
+
+### Normalized match (r18S4)
+
+`let bump=ctx.bumps.user_volume_accumulator;` bound before
+`let signer_seeds:&[&[&[u8]]]=&[&[b"user_volume_accumulator",user.as_ref(),&[bump]]];`
+(instead of `&[ctx.bumps.user_volume_accumulator]` inside the array). The bump byte is loaded before the seed
+array is built, so the outer seed slice is stored first, as in the original. **0x77940 normalized-equal
+(8,832 B, ratio 1.0, 0 slots differ).** After merging origin/main (ef400863f): official 1021 normalized / 188 raw,
+gains 0x77940 (and 0x14f4e0, already on main), no losses; candidate sha256 bba5d390... Raw is not equal.
+Other seed spellings on the Z1 base: `let seeds` + `&[seeds]` 31 slots, inline in the call 39 slots.
+Ledger: r18S4 `73ac75aa`, SA `3e8ede82`, S1 `15b8879a`.

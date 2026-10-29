@@ -1,0 +1,20 @@
+--- a/programs/pump/src/trade_v3.rs
++++ b/programs/pump/src/trade_v3.rs
+@@ -1178,7 +1178,7 @@
+ 
+ 
+ 
+-    let event=crate::multi_hop_curve::trade_event(&a.bonding_curve,&a.global,&a.user_volume_accumulator,&a.user.key(),&a.base_mint.key(),false,amount,quote,&fees,crate::transfer_fee_recovered::post_fee_amount(&quote_fee,buyback_fee)?,quote_transfer_fee,"sell",Clock::get()?.unix_timestamp);
++    let (event_buyback,event_timestamp)=(crate::transfer_fee_recovered::post_fee_amount(&quote_fee,buyback_fee)?,Clock::get()?.unix_timestamp); let event=crate::multi_hop_curve::trade_event(&a.bonding_curve,&a.global,&a.user_volume_accumulator,&a.user.key(),&a.base_mint.key(),false,amount,quote,&fees,event_buyback,quote_transfer_fee,"sell",event_timestamp);
+ 
+ 
+ 
+@@ -1188,7 +1188,7 @@
+ 
+ 
+     emit!(event);
+-    emit_sell_cpi(&ctx,&event)?;
++    emit_cpi!(event);
+     Ok(())
+ }
+ 

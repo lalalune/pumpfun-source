@@ -62,10 +62,19 @@ def classify_instruction(b, offset, elf):
     off = struct.unpack_from("<h", b, offset + 2)[0]
     imm = struct.unpack_from("<i", b, offset + 4)[0]
 
+    # src is the high nibble (0..15). Comparing it with the raw register
+    # byte 0x10 never matches, so every Pump call was labeled call_other.
+    if opcode == 0x8d:  # sBPF callx: register number is the immediate
+        return "callx"
     if opcode == 0x85:  # call
-        if src == 0x10:
+        if src == 1 and imm != -1:
+            reloc = getattr(elf, "relocations", None)
+            if isinstance(reloc, dict) and reloc.get(offset, {}).get("type") == 10:
+                return "call_relocated"
             return "call_internal"
-        elif src == 0x00:
+        if src == 1 and imm == -1:
+            return "call_relocated"
+        if src == 0:
             return f"syscall_{imm}"
         return "call_other"
     elif opcode == 0x18:  # lddw
@@ -217,22 +226,27 @@ def analyze_cross_references(elf, entries):
     rodata = elf.secs.get(".rodata")
     rodata_strings = {}
     if rodata:
-        ro_start = rodata[4]
-        ro_size = rodata[5]
-        ro_bytes = elf.b[ro_start:ro_start + ro_size]
-        # Extract printable ASCII strings >= 4 chars
+        ro_addr, ro_off, ro_size = rodata[3], rodata[4], rodata[5]
+        ro_bytes = elf.b[ro_off:ro_off + ro_size]
+        # Keys are virtual addresses. lddw pointers are virtual, and a captured
+        # section can have sh_addr != sh_offset.
         current = []
         current_start = None
+
+        def commit():
+            if current_start is not None and len(current) >= 4:
+                rodata_strings[ro_addr + current_start] = "".join(current)
+
         for i, byte in enumerate(ro_bytes):
             if 32 <= byte < 127:
                 if current_start is None:
                     current_start = i
                 current.append(chr(byte))
             else:
-                if len(current) >= 4:
-                    rodata_strings[ro_start + current_start] = "".join(current)
+                commit()
                 current = []
                 current_start = None
+        commit()
 
     return rodata_strings
 

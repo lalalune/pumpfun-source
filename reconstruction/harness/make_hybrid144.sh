@@ -10,11 +10,36 @@
 # usage: make_hybrid144.sh <out-dir> <mac v1.44 rust dir> <linux v1.44 platform-tools dir (extracted)> [sha256 manifest]
 set -euo pipefail
 OUT=$1; MAC=$(cd "$2" && pwd -P); LNX=$(cd "$3" && pwd -P); MAN=${4:-}
-rm -rf "$OUT"; mkdir -p "$OUT/rust/bin" "$OUT/rust/lib/rustlib"
-cp -cp "$MAC/bin/rustc" "$OUT/rust/bin/rustc"
-cp -cp "$MAC"/lib/librustc_driver-*.dylib "$MAC"/lib/libstd-*.dylib "$OUT/rust/lib/"
-ln -s "$MAC/lib/rustlib/aarch64-apple-darwin" "$OUT/rust/lib/rustlib/aarch64-apple-darwin"
-cp -cRp "$LNX/rust/lib/rustlib/sbpf-solana-solana" "$OUT/rust/lib/rustlib/sbpf-solana-solana"
-cp -p "$LNX/version.md" "$OUT/version.md"
-if [ -n "$MAN" ]; then (cd "$OUT/rust/lib/rustlib" && shasum -a 256 -c "$MAN" >/dev/null) && echo "target libs verified against $MAN"; fi
+mkdir -p "$(dirname "$OUT")"
+OUT="$(cd "$(dirname "$OUT")" && pwd -P)/$(basename "$OUT")"
+if [ -n "$MAN" ]; then MAN="$(cd "$(dirname "$MAN")" && pwd -P)/$(basename "$MAN")"; fi
+STAGE=$(mktemp -d "${OUT}.stage.XXXXXX")
+BACKUP=""
+cleanup() {
+  local status=$?
+  if [ -n "$BACKUP" ] && [ -e "$BACKUP" ] && [ ! -e "$OUT" ] && [ ! -L "$OUT" ]; then
+    mv "$BACKUP" "$OUT" || { echo "restore previous toolchain from $BACKUP" >&2; }
+  fi
+  if [ -d "$STAGE" ]; then rm -rf "$STAGE"; fi
+  exit "$status"
+}
+trap cleanup EXIT
+mkdir -p "$STAGE/rust/bin" "$STAGE/rust/lib/rustlib"
+cp -cp "$MAC/bin/rustc" "$STAGE/rust/bin/rustc"
+cp -cp "$MAC"/lib/librustc_driver-*.dylib "$MAC"/lib/libstd-*.dylib "$STAGE/rust/lib/"
+ln -s "$MAC/lib/rustlib/aarch64-apple-darwin" "$STAGE/rust/lib/rustlib/aarch64-apple-darwin"
+cp -cRp "$LNX/rust/lib/rustlib/sbpf-solana-solana" "$STAGE/rust/lib/rustlib/sbpf-solana-solana"
+cp -p "$LNX/version.md" "$STAGE/version.md"
+if [ -n "$MAN" ]; then
+  (cd "$STAGE/rust/lib/rustlib" && shasum -a 256 -c "$MAN" >/dev/null)
+  echo "target libs verified against $MAN"
+fi
+"$STAGE/rust/bin/rustc" --print sysroot >/dev/null
+if [ -e "$OUT" ] || [ -L "$OUT" ]; then
+  BACKUP=$(mktemp -d "${OUT}.backup.XXXXXX")
+  rmdir "$BACKUP"
+  mv "$OUT" "$BACKUP"
+fi
+mv "$STAGE" "$OUT"
+if [ -n "$BACKUP" ]; then rm -rf "$BACKUP"; BACKUP=""; fi
 "$OUT/rust/bin/rustc" --print sysroot
