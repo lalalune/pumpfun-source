@@ -30,7 +30,7 @@ class Scripts(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         if tag == "script":
-            self.current = []
+            self.current = [] if not any(name == "src" for name, _ in attrs) else None
 
     def handle_data(self, data):
         if self.current is not None:
