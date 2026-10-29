@@ -16,13 +16,13 @@ export function validateDeclared(document, schema, value) {
     }
     if (rule.anyOf) {
       const before = issues.length;
+      let accepted = false;
       for (const alternative of rule.anyOf) {
         visit(alternative, input, path, depth + 1);
-        if (issues.length === before) return;
+        if (issues.length === before) { accepted = true; break; }
         issues.splice(before);
       }
-      fail('does not satisfy any declared alternative');
-      return;
+      if (!accepted) { fail('does not satisfy any declared alternative'); return; }
     }
     if ('const' in rule && input !== rule.const) fail('does not equal declared literal');
     if (rule.enum && !rule.enum.includes(input)) fail('not in declared enum');
