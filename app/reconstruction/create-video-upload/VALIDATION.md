@@ -1,11 +1,26 @@
 # Static qualification
 
+The final test-gate follow-up is public source
+`a105597a4549ad327120a2759d5d72c8f711fe11`, identical tree
+`b716ae5c4f824eefd8d96b75e31669716cec0aa2` to local
+`821d2b661f240a575ce13000a84261179ed683ea`. It changes only the new test
+file: each of the nine altered packets now calls the maintained `verify`
+function and must reject. The preceding version compared the altered packet
+with a rederived packet directly. That earlier source-comparison run is kept
+as historical evidence; it is not a test of the verifier's rejection gate.
+The corrected **three focused tests pass**, including all nine actual gate
+rejections. No contract, verifier, shared source helper or prior binding changed,
+so the unchanged-source checks below were not repeated. The new finite log is
+`validation/new-tests-maintained-gate.log`; the additive receipt is
+`validation/GATE-FOLLOWUP.json`.
+
 Public source commit: `6c416150a3e4df04c15b286a9de1a2e71a526a9e`.
 It has the exact full tree `91d0847ff20a3b8c9104778bcf51aed38962321d`
 measured locally as `f63e4bb8edf90751bb78b0e93e5e446c4faf769c`, with
 parent `094a06f18df738d41e77070c1a009e135671ac1a`. Publication changed
-commit metadata, not file bytes. Subsequent qualification files do not change
-the four source/documentation files in that source tree.
+commit metadata, not file bytes. The initial qualification-only commit did not
+change its four source files. The later test-only correction and final receipts
+are distinguished above.
 
 | Check | Result |
 | --- | --- |
@@ -24,10 +39,10 @@ The review is explicitly read-only static review, not a second test run or
 server/security approval. The export uses existing dependencies read-only;
 it is not a clean dependency installation or a full repository checkout.
 
-To reproduce the source checks on the fetchable public source revision:
+To reproduce the corrected source checks on the fetchable public source revision:
 
 ```sh
-git fetch --no-tags https://github.com/shawkkkkk/pumpfun-source.git 6c416150a3e4df04c15b286a9de1a2e71a526a9e
+git fetch --no-tags https://github.com/shawkkkkk/pumpfun-source.git a105597a4549ad327120a2759d5d72c8f711fe11
 git switch --detach FETCH_HEAD
 cd app
 node scripts/original-contracts/create-video-upload/verify.mjs --check

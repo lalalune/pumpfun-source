@@ -1,0 +1,20 @@
+{
+  "publicSource": "a105597a4549ad327120a2759d5d72c8f711fe11",
+  "localMeasuredSource": "821d2b661f240a575ce13000a84261179ed683ea",
+  "identicalTree": "b716ae5c4f824eefd8d96b75e31669716cec0aa2",
+  "priorReceiptsPreserved": true,
+  "change": "Only test file: all nine mutated packets exercise await assert.rejects(verify(root, changed))",
+  "focusedTests": {
+    "pass": 3,
+    "fail": 0,
+    "skip": 0,
+    "mutationVariants": 9
+  },
+  "unchangedProtocolFiles": [
+    "app/contracts/original-create-video-upload.json",
+    "app/scripts/original-contracts/create-video-upload/verify.mjs",
+    "app/scripts/original-contracts/source.mjs"
+  ],
+  "priorIndependentStaticReview": "Protocol/witness binding remains unchanged; previous test source was reviewed at c386; the test-gate correction was requested and inspected separately by root",
+  "browserBuildOrUploadRerun": false
+}
