@@ -31,6 +31,7 @@ export default function CreateVideoInput({
     pending: false,
     error: "",
   });
+  const [ready, setReady] = useState(false);
   const callbacks = useRef({ onSelect, onRemove });
   callbacks.current = { onSelect, onRemove };
   const session = useRef<VideoDraftSession | null>(null);
@@ -46,6 +47,7 @@ export default function CreateVideoInput({
       (owner) => callbacks.current.onRemove(owner),
     );
     session.current = current;
+    setReady(true);
     return () => {
       current.dispose();
       session.current = null;
@@ -68,6 +70,7 @@ export default function CreateVideoInput({
         className={styles.input}
         type="file"
         accept="video/mp4,video/webm,.mp4,.webm"
+        disabled={!ready}
         aria-describedby={`video-hint${state.error ? " video-error" : ""}`}
         aria-invalid={Boolean(state.error)}
         onChange={(event) => {
@@ -77,7 +80,11 @@ export default function CreateVideoInput({
         }}
       />
       <p role="status">
-        {state.pending ? "Preparing local video covers…" : ""}
+        {!ready
+          ? "Loading local video controls…"
+          : state.pending
+            ? "Preparing local video covers…"
+            : ""}
       </p>
       {state.error ? (
         <p className="create-field-error" id="video-error" role="alert">
