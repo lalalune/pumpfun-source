@@ -1,0 +1,24 @@
+{
+  "results": [
+    {
+      "command": [
+        "node",
+        "/workspace/pump verified profile public export/app/scripts/original-verified-profile.mjs",
+        "--check"
+      ],
+      "returncode": 0,
+      "logSha256": "c206d14ade999cc1b3133168fb9c0098a4d6bc34fa6ec425d75c963949b5f61a"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "/workspace/pump verified profile public export/app/tests/original_verified_profile.test.mjs"
+      ],
+      "returncode": 0,
+      "logSha256": "e686c0acfef3bdeec0ef5a0b295ede8bad32bc1ff2f8070b96c6b6511a0c2da3"
+    }
+  ],
+  "inputChanges": 0,
+  "httpBuildNextOrCapturedExecution": false
+}

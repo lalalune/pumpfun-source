@@ -1,0 +1,22 @@
+✔ source binds both complete readers, all four identity variants and the actual renderer gate (986.091029ms)
+✔ direct read preserves Set/truthy dedup, raw response, credentials and empty-input short circuit (0.89924ms)
+✔ non-ok hook and safe wrapper preserve failure-to-empty behavior without reading a service (18.543459ms)
+✔ one50ms timer groups unique keys while preserving every duplicate waiter and raw value (0.440912ms)
+✔ flush swaps pending state before asynchronous read; a later window completes independently (0.329264ms)
+✔ 100-key chunks and per-origin resolvers settle separately without rejection fan-out (0.58597ms)
+✔ raw property lookup, null result and partial settlement retain the captured projection quirks (0.623125ms)
+✔ ten-slot hook memo preserves query identity, option precedence and strict true result (0.435493ms)
+✔ nullish keys, original callback closure and ignored query context signal remain distinct (0.389365ms)
+✔ identity consumer preserves supplied userId nullish choice and verification-before-empty-view behavior (0.244377ms)
+✔ actual renderer lookup selection retains exact Near-display suppression and provided-prop precedence (0.471968ms)
+✔ actual consumer subject to read/query result to badge-value model is a finite unmounted flow (0.182013ms)
+✔ maintained contract gate rejects changed semantics, source identity and noncanonical bytes (2119.258867ms)
+✔ raw and resealed source mutations require review without evaluating captured factories (485.73452ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3734.482365
