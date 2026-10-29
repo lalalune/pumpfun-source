@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "testedLocalSourceCommit": "a9e21bddb301f9d7d153b86d11a39fcb47c4c129",
+  "node": "v24.19.0",
+  "inputs": [
+    {
+      "path": "app/reconstruction/candle-history/client.mjs",
+      "sha256": "9b4eafe862e8b89d43cee6c38eff66ab0e90555e0c194ff009a72d3fd9522423",
+      "gitBlob": "3cbf04ae483dc1655ba5c218b20eb9e174ea84b5"
+    },
+    {
+      "path": "app/reconstruction/candle-history/verify.mjs",
+      "sha256": "9a201cb33e9d08f68d9a111e4fe0a117aa1cdc1d5086cf838ad515e13482c35c",
+      "gitBlob": "afbf332b50cbf9ff504d6d8239e53473771fd9f4"
+    },
+    {
+      "path": "app/reconstruction/candle-history/PROVENANCE.json",
+      "sha256": "6f5fbcc463e4645c7aa6941c6563774fb4bf63002ea15e30b32a9eb0970a9310",
+      "gitBlob": "c53c62de85daa065478be12e1cab9263b7bcdec5"
+    },
+    {
+      "path": "app/reconstruction/candle-history/README.md",
+      "sha256": "97609e50dc178a6ba1a3cae3c4f98576c34e984380ce9753e3c5071d11ac8acd",
+      "gitBlob": "4fbec03b9a7b8d710f0cf81269e4e9c4781dfd95"
+    },
+    {
+      "path": "app/tests/candle_history.test.mjs",
+      "sha256": "b53d786e1220c65d341667d6b025f4ed870ce09db0b65be6d271a45e6b189e03",
+      "gitBlob": "fdac8c450d23f20edf05232a087e9b0e8a30a091"
+    }
+  ],
+  "results": {
+    "newSemanticHTTPAndSourceTests": 20,
+    "sharedSourceTests": 11,
+    "rootCaptures": 9,
+    "rootToolingTests": 10,
+    "appCapturedObjects": 698,
+    "appNpmIntegrity": true,
+    "unchangedSDK": true,
+    "progressCheck": true,
+    "sourcePhysicalFactoryContexts": 18,
+    "structuralComparisons": 76,
+    "reusedIncomingCallerInterfaces": 14,
+    "publicOnlyAlternatePathCLI": true
+  },
+  "logs": [
+    {
+      "command": "node reconstruction/candle-history/verify.mjs --check",
+      "cwd": "app",
+      "exitCode": 0,
+      "path": "logs/source-proof.log.gz",
+      "bytes": 33,
+      "sha256": "195358afa006fd62e6d6f149e529606e4884a2b05d7f47b8ad6a7a04998f9fab",
+      "compressedBytes": 53,
+      "compressedSha256": "195aec94cbf7e6486b80dcc156700ba3e843c03d5901c896d5eb5494cbe2c75b"
+    },
+    {
+      "command": "node --test tests/candle_history.test.mjs tests/original_source.test.mjs",
+      "cwd": "app",
+      "exitCode": 0,
+      "path": "logs/focused.log.gz",
+      "bytes": 3430,
+      "sha256": "727b2738eae84ba59f8c85228ed74c0aa56a40be07f1b33ce4193f593b8a813d",
+      "compressedBytes": 1724,
+      "compressedSha256": "270f30e968fd60a5afe5a45c4b1dcb64b75b90640757a169315381c9cd6545bc"
+    },
+    {
+      "command": "python3 scripts/verify_evidence.py",
+      "cwd": ".",
+      "exitCode": 0,
+      "path": "logs/root-evidence.log.gz",
+      "bytes": 376,
+      "sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9",
+      "compressedBytes": 177,
+      "compressedSha256": "995576b68a1e52c055bcb991ac93146ad53ea9131e859ceb3331d45380b40ce3"
+    },
+    {
+      "command": "python3 scripts/test_tooling.py",
+      "cwd": ".",
+      "exitCode": 0,
+      "path": "logs/root-tooling.log.gz",
+      "bytes": 109,
+      "sha256": "68f2b3455355872e031921a34feeaa0f230eefe827a7bfe2f1571007e79e6331",
+      "compressedBytes": 55,
+      "compressedSha256": "87b0b6f8b95ec8b5c4192da99c6236980eee1219ff9a113ec1ceeb05bbb256a9"
+    },
+    {
+      "command": "python3 scripts/verify-evidence.py",
+      "cwd": "app",
+      "exitCode": 0,
+      "path": "logs/app-evidence.log.gz",
+      "bytes": 72,
+      "sha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9",
+      "compressedBytes": 89,
+      "compressedSha256": "c4ccac34440167b7170118e2af25a5865d395032af8ca1cf812341ed573c3243"
+    },
+    {
+      "command": "python3 scripts/progress.py --check",
+      "cwd": "app",
+      "exitCode": 0,
+      "path": "logs/progress.log.gz",
+      "bytes": 49,
+      "sha256": "7ab499988f3b70e197e23e42287d4cc4579dc2b9360a82be3e827e22c589fda4",
+      "compressedBytes": 69,
+      "compressedSha256": "8d25a71e7cd8c214cc56b246898d555fadb2c61682febfb7b183577299893a97"
+    },
+    {
+      "command": "node <public export>/reconstruction/candle-history/verify.mjs --check",
+      "cwd": "/tmp",
+      "exitCode": 0,
+      "path": "logs/alternate-path.log.gz",
+      "bytes": 33,
+      "sha256": "195358afa006fd62e6d6f149e529606e4884a2b05d7f47b8ad6a7a04998f9fab",
+      "compressedBytes": 53,
+      "compressedSha256": "195aec94cbf7e6486b80dcc156700ba3e843c03d5901c896d5eb5494cbe2c75b"
+    }
+  ],
+  "receiptOnlyFollowup": "Subsequent publication adds only VALIDATION.json, ALTERNATE-PATH.json and seven compressed logs. The five frozen reviewed files retain exactly these hashes. Git-object transport may produce a different commit SHA; identical complete tree mapping is retained separately.",
+  "limits": {
+    "http": "ephemeral loopback servers with synthetic inputs only",
+    "externalAcquisition": false,
+    "sourceBundleExecution": false,
+    "serviceImplementation": false,
+    "NextOrBrowser": false,
+    "transactionsOrRPC": false,
+    "financialDataQuality": false,
+    "sourceBackend": false,
+    "nativeAPICompatibility": false,
+    "progressChanges": false,
+    "binaryWork": false,
+    "securityApproval": false,
+    "universalEquivalence": false
+  }
+}
