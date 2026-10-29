@@ -26,6 +26,7 @@ class BuildDiagnosticTests(unittest.TestCase):
             if prior:
                 (out / 'candidate.so').write_bytes(b'prior stripped')
                 (out / 'unstripped.so').write_bytes(b'prior unstripped')
+                (out / 'build.log').write_bytes(b'prior compiler log')
             recipe = {'triple': 'sbpf-solana-solana', 'rustc': root / 'rustc',
                       'template': root / 'absent-template'}
             commands = []
@@ -48,7 +49,8 @@ class BuildDiagnosticTests(unittest.TestCase):
                  patch.object(fastbuild.subprocess, 'run', side_effect=run), \
                  contextlib.redirect_stderr(stderr):
                 result = fastbuild.build(src, work, out, quiet=quiet, recipe='identity')
-            files = {p.name: p.read_bytes() for p in out.iterdir()}
+            files = {p.relative_to(out).as_posix(): p.read_bytes()
+                     for p in out.rglob('*') if p.is_file()}
             return result, files, commands, stderr.getvalue()
 
     def test_zero_exit_stack_error_rejects_before_publishing(self):
@@ -64,10 +66,51 @@ class BuildDiagnosticTests(unittest.TestCase):
     def test_rejected_build_preserves_prior_artifacts(self):
         result, files, commands, diagnostic = self.run_build(STACK, quiet=False, prior=True)
         self.assertFalse(result['ok'])
-        self.assertEqual(files['candidate.so'], b'prior stripped')
-        self.assertEqual(files['unstripped.so'], b'prior unstripped')
+        self.assert_archived(files)
+        self.assertEqual(files['build.log'], STACK.encode())
         self.assertEqual(len(commands), 1)
         self.assertIn('STACK OVERFLOW RISK', diagnostic)
+
+    def assert_archived(self, files):
+        self.assertNotIn('candidate.so', files)
+        self.assertNotIn('unstripped.so', files)
+        archived = {Path(name).name: value for name, value in files.items()
+                    if name.startswith('previous/build-')}
+        self.assertEqual(archived, {'candidate.so': b'prior stripped',
+                                    'unstripped.so': b'prior unstripped',
+                                    'build.log': b'prior compiler log'})
+        self.assertEqual(len({str(Path(name).parent) for name in files
+                              if name.startswith('previous/')}), 1)
+
+    def test_nonzero_exit_archives_prior_outputs(self):
+        result, files, commands, _ = self.run_build('compiler failed', returncode=1, prior=True)
+        self.assertFalse(result['ok'])
+        self.assert_archived(files)
+        self.assertEqual(files['build.log'], b'compiler failed')
+        self.assertEqual(len(commands), 1)
+
+    def test_success_replaces_current_outputs_and_preserves_evidence(self):
+        result, files, _, _ = self.run_build('Finished release', prior=True)
+        self.assertTrue(result['ok'])
+        self.assertEqual(files.pop('candidate.so'), b'synthetic stripped output')
+        self.assertEqual(files.pop('unstripped.so'), b'synthetic compiler output')
+        self.assert_archived(files)
+        self.assertEqual(files['build.log'], b'Finished release')
+
+    def test_repeated_archives_keep_distinct_evidence_and_dangling_symlinks(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            out = Path(temporary)
+            for content in (b'first', b'second'):
+                (out / 'unstripped.so').write_bytes(content)
+                (out / 'candidate.so').symlink_to('missing.so')
+                fastbuild.archive_previous_outputs(out)
+                self.assertFalse((out / 'candidate.so').is_symlink())
+                self.assertFalse((out / 'unstripped.so').exists())
+            archives = list((out / 'previous').iterdir())
+            self.assertEqual(len(archives), 2)
+            self.assertEqual({(p / 'unstripped.so').read_bytes() for p in archives},
+                             {b'first', b'second'})
+            self.assertTrue(all((p / 'candidate.so').is_symlink() for p in archives))
 
     def test_clean_build_still_publishes_both_outputs(self):
         result, files, commands, _ = self.run_build('Finished release\n')
