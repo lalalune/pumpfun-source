@@ -527,6 +527,31 @@ test("startup rejects symlinked storage/snapshots and does not read their conten
   await assert.rejects(LocalMediaStore.open(linked));
 });
 
+test("startup rejects a symlink to a valid snapshot, not only to invalid content", async (t) => {
+  const { directory, store } = await setup(t);
+  await store.close();
+  const outside = await mkdtemp(join(tmpdir(), "local-media-valid-target-"));
+  t.after(() => rm(outside, { recursive: true, force: true }));
+  const source = await LocalMediaStore.open(outside);
+  await source.putImage(PNG, "image/png");
+  await source.close();
+  try {
+    await symlink(join(outside, "media.json"), join(directory, "media.json"));
+  } catch (error) {
+    if (process.platform === "win32" && (error as NodeJS.ErrnoException).code === "EPERM") {
+      t.skip("Windows account cannot create file symlinks; requires Developer Mode or symlink privilege");
+      return;
+    }
+    throw error;
+  }
+  await assert.rejects(LocalMediaStore.open(directory), /snapshot size\/type/);
+  // The failed open releases ownership so a corrected directory can be reopened.
+  await rm(join(directory, "media.json"));
+  const reopened = await LocalMediaStore.open(directory);
+  assert.throws(() => reopened.getImage(pngId), { code: "LOCAL_MEDIA_NOT_FOUND" });
+  await reopened.close();
+});
+
 test("local routes leave unrelated parsers/routes alone and never call fetch", async (t) => {
   const { store } = await setup(t);
   const app = Fastify();

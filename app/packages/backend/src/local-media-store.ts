@@ -248,7 +248,13 @@ export class LocalMediaStore {
     let file;
     try {
       await store.lock.writeFile(`pid=${process.pid}\n`);
+      // O_NOFOLLOW is undefined on Windows, so the open flag alone does not reject
+      // a symlinked snapshot there. Check the path itself and bind the opened handle to it.
+      let linkStat;
       try {
+        linkStat = await lstat(store.file, { bigint: true });
+        if (linkStat.isSymbolicLink() || !linkStat.isFile())
+          throw new Error("Invalid local media snapshot size/type.");
         file = await open(
           store.file,
           constants.O_RDONLY | constants.O_NOFOLLOW | constants.O_NONBLOCK,
@@ -259,6 +265,9 @@ export class LocalMediaStore {
       }
       try {
         const stat = await file.stat();
+        const opened = await file.stat({ bigint: true });
+        if (opened.dev !== linkStat.dev || opened.ino !== linkStat.ino)
+          throw new Error("Invalid local media snapshot size/type.");
         const maxSnapshot =
           store.limits.maxBytes * 2 +
           store.limits.maxMetadata * 16_384 +
