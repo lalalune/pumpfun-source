@@ -26,6 +26,14 @@ test.beforeEach(async ({ page, baseURL }) => {
   await page
     .getByLabel(/^Coin image/)
     .setInputFiles({ name: "coin.png", mimeType: "image/png", buffer: PNG });
+  await expect(page.getByTestId("selected-image")).toContainText("coin.png");
+  await expect
+    .poll(() =>
+      page
+        .locator(".preview-image")
+        .evaluate((img) => (img as HTMLImageElement).naturalWidth),
+    )
+    .toBe(1);
 });
 test("UTF8-byte-invalid multibyte name and ticker reject before a ready draft", async ({
   page,

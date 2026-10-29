@@ -58,6 +58,13 @@ export async function recover(root = ROOT) {
     "actual eY import",
   );
   assert.equal(page.text(imported), "eY=e.i(807757)");
+  const limitImport = exactlyOne(
+    page.node.body.body
+      .flatMap((n) => n.declarations ?? [])
+      .filter((n) => n.id?.name === "eX"),
+    "actual limits import",
+  );
+  assert.equal(page.text(limitImport), "eX=e.i(586090)");
   const validator = exactlyOne(
     findNodes(
       page.node,
@@ -164,6 +171,7 @@ export async function recover(root = ROOT) {
     },
     witnesses: [
       w(page, imported, "actual helper import"),
+      w(page, limitImport, "actual limits import"),
       w(helper, W, "actual native UTF8 byte measurement"),
       ...guards.map((g) => w(page, g.node, `${g.field} used byte guard`)),
       w(page, description, "description remains codeunits"),

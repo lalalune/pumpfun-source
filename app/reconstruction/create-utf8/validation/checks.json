@@ -1,0 +1,163 @@
+{
+  "base": "665499915f9caedcd38921d415a90f0606686398",
+  "productionRuntimeRevision": "f9086478732fef060d4d00935ff62a30cd85e93c",
+  "productionFiles": [
+    {
+      "path": "app/packages/frontend/src/app/create-coin-form.tsx",
+      "sha256": "bd6f950377019ccd4b05854560928840e8bb6cc3f14deb0b61dc7ecf009a4725"
+    },
+    {
+      "path": "app/packages/frontend/src/app/create-coin-validation.ts",
+      "sha256": "455eecca80f0254f9aaf239d886234a829744594c94e0587a73d4f7414098925"
+    }
+  ],
+  "executedProofFiles": [
+    {
+      "path": "app/packages/frontend/tests/create-utf8.spec.ts",
+      "sha256": "6bb233199b9272d190ade17d0cf9acaf8d010369d302f998b1917ea0c0572bd9"
+    },
+    {
+      "path": "app/tests/create-utf8.test.mjs",
+      "sha256": "da3898b4f64a61f79ff2bb50e1c953d06d8050f7b7555af0083006d742ac8ba9"
+    },
+    {
+      "path": "app/tests/original_create_utf8.test.mjs",
+      "sha256": "72b4f74e9a2a4126954ec8164b339d133c34c67b49f8258056ccb2390a5167ef"
+    },
+    {
+      "path": "app/scripts/original-create-utf8.mjs",
+      "sha256": "7dd1ed26592846c77e37aa03b3cf57d3bd2591bf7a633b49cb449cf11ece5626"
+    },
+    {
+      "path": "app/reconstruction/create-utf8/contract.json",
+      "sha256": "d90f09e0fc754f24ec64cf90a0b3323a9ba3a60527cf4b4aad59ee95d6ab8185"
+    }
+  ],
+  "baseline": {
+    "modelCases": 6,
+    "modelFailed": 4,
+    "modelPassed": 2,
+    "modelReturncode": 1,
+    "browserFailed": 1,
+    "browserReturncode": 1,
+    "failure": "actual aria-invalid false for33-byte CJK name after confirmed React-selected image and real PNG decoding",
+    "method": "Base form+validator bytes restored exactly; same final browser/model test methods; new unreferenced proof modules remained inert."
+  },
+  "candidate": {
+    "focusedModelCases": 6,
+    "sourceContractCases": 1,
+    "focusedPassed": 7,
+    "browserNewCases": 3,
+    "browserMaintainedCases": 18,
+    "browserPassed": 21,
+    "browserFailed": 0,
+    "browserReturncode": 0,
+    "browserSeconds": 42.5,
+    "finiteFlow": "Byte-invalid field rejection, accurate counters, exact32/10-byte Unicode boundaries,2000-codeunit description, JSON preservation, native caps and recovery; real local PNG."
+  },
+  "checks": {
+    "frontendTypecheck": "PASS",
+    "appEvidenceObjects": 698,
+    "sdkSourceFilesUnchanged": 31,
+    "npmIntegrity": "PASS",
+    "progressFreshness": "PASS",
+    "progressTests": 9,
+    "rootCapturesAtSourceRevision": 9,
+    "rootToolingAtSourceRevision": 10
+  },
+  "qualificationChangesAfterRuntimeRevision": [
+    "Native PNG/decode readiness assertion in browser test; substantive byte-rejection assertions remain strict.",
+    "Explicit eX\u2192586090 limits import binding added to source proof; no production code changes."
+  ],
+  "limits": [
+    "No production full-appbuild, broad workspace/browser suite, original bundle execution or original/native compatibility claim.",
+    "Before screenshot is a1280x720 viewport at the first failed name assertion; candidate is a1280px-wide full page after name+ticker rejection/submit. These are state evidence, not equal-crop pixel comparisons.",
+    "Source applies to captured Create client limits; not every SDK/API/on-chain capacity. Existing local whitespace/HTTPS policy remains independent.",
+    "Separate PR1259 surrogate guard,1318 main media drop and1387 banner are not copied or required.",
+    "No upload, metadataURI, wallet, signing, RPC or chain operation; no feature-progress credit."
+  ],
+  "preservedDiagnostics": [
+    "Initial static extractor expected parentheses excluded by Babel callee range; assertion corrected to actual bound SequenceExpression. Original captures unchanged.",
+    "Earlier TS test filename baseline and final MJS baseline are retained privately. Public final model baseline uses the same final MJS tests as candidate."
+  ],
+  "artifacts": [
+    {
+      "path": "after-local.png",
+      "bytes": 129785,
+      "sha256": "7d7268228c9ddd748f1130c768a387a4135340b1c6caa0b94855ec4c1b0ecf0e"
+    },
+    {
+      "path": "app-evidence.log.gz",
+      "bytes": 89,
+      "sha256": "c4ccac34440167b7170118e2af25a5865d395032af8ca1cf812341ed573c3243",
+      "decodedBytes": 72,
+      "decodedSha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9"
+    },
+    {
+      "path": "app-progress.log.gz",
+      "bytes": 69,
+      "sha256": "8d25a71e7cd8c214cc56b246898d555fadb2c61682febfb7b183577299893a97",
+      "decodedBytes": 49,
+      "decodedSha256": "7ab499988f3b70e197e23e42287d4cc4579dc2b9360a82be3e827e22c589fda4"
+    },
+    {
+      "path": "before-local.png",
+      "bytes": 61348,
+      "sha256": "4140b226bd2a7814db50a6f824118e9d4a2b405e656d3f3ac0017156a3d11a83"
+    },
+    {
+      "path": "browser-baseline.log.gz",
+      "bytes": 1087,
+      "sha256": "9534ce3263ca4e902031deac949e9d19314931c509d32883827be8fbda689bd0",
+      "decodedBytes": 4830,
+      "decodedSha256": "88ffda330081d3a2d093fe8301504d3338ad3d6722d05db680876fc1c56877cd"
+    },
+    {
+      "path": "browser-final.log.gz",
+      "bytes": 1386,
+      "sha256": "b63eee92047437c1cfeeb0c3600bf63726b9a09399ed7ebac0e12ddec6e9c9bd",
+      "decodedBytes": 9650,
+      "decodedSha256": "8eb0b1f244a99c435a080618edecd1cd5e8b44ce866e60f705fb14cf1501ce03"
+    },
+    {
+      "path": "focused-final.log.gz",
+      "bytes": 787,
+      "sha256": "65ea617bd14862f20c0b6dae1dc257faac1fa5f119b99a37963f490f0fffc949",
+      "decodedBytes": 1357,
+      "decodedSha256": "8b1fa8a6dcca1b7ec104cb85228bf1b3e71b8fc0ec6be4d422763640654e13d5"
+    },
+    {
+      "path": "frontend-typecheck.log.gz",
+      "bytes": 115,
+      "sha256": "c521e3237903de8237ee016329adcd9aab9d0042416546f08d848fc24b3b2e11",
+      "decodedBytes": 113,
+      "decodedSha256": "fd98baaf669b27bf3377ea080ae3edda90647e5bff41a6b367c10fdea8c25a12"
+    },
+    {
+      "path": "model-baseline.log.gz",
+      "bytes": 1234,
+      "sha256": "52b647a1017c783aaad447f7901135477e5b2bb5664e419196a4f0e91011ff0e",
+      "decodedBytes": 5089,
+      "decodedSha256": "7e7265cfae020b0388f8a371082a74b42342c44a586dab1d579749828916d76f"
+    },
+    {
+      "path": "playwright-config.txt",
+      "bytes": 456,
+      "sha256": "d21fe5a8c9e51c7e21712c8cf8ef5a06aa1eec523c5e45c826ad89d5a263765c"
+    },
+    {
+      "path": "progress-tests.log.gz",
+      "bytes": 100,
+      "sha256": "101810be2aeb9b20fa3c6f29638d106b2d030b2e192858f030c9d7275be97370",
+      "decodedBytes": 155,
+      "decodedSha256": "3cd7863b6efa66edce9c0121b76d35b3ed136551e9e6ce79a6c29a1bde817562"
+    },
+    {
+      "path": "root-source-checks.log.gz",
+      "bytes": 460,
+      "sha256": "300867995c44c46c27b6cf6fb6efe2553e9c7980c95a0b2af68b54d9cc75d232",
+      "decodedBytes": 1314,
+      "decodedSha256": "7a0f0517bcf652d04f9596c1ef9546aec87d823cdc9854cf6a4f9174c9faef3e"
+    }
+  ]
+}
