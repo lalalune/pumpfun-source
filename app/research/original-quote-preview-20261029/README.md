@@ -117,9 +117,25 @@ controls and are preserved in the raw log. No blanket console-clean claim is
 made for every route. The mobile full-page screenshot retains the existing
 fixed-navigation overlay limitation. No all-pixel unobstructed, hit-test or
 original pixel-identity claim follows from the width checks. Unavailable quote
-states are source/model/join-tested, not browser-observed in this seed. No full
-production build, complete browser-suite pass, real service, authenticated
-workflow, original API/feature/milestone or translation qualification is claimed.
+states are source/model/join-tested, not browser-observed in this seed. No complete
+browser-suite pass, real service, authenticated workflow, original
+API/feature/milestone or translation qualification is claimed.
+
+## Independent production qualification
+
+The root agent subsequently checked the exact public head
+`8746f593b21fd02a727cf824fd5bbbbbe5e5de6c` with the ordinary `pnpm build`
+(SDK, backend, Next production build), recursive `pnpm typecheck`, app evidence
+verification and progress plus9 tests. All four commands exited0.
+[ROOT-PRODUCTION.json](ROOT-PRODUCTION.json) binds the tested tree, exact raw
+checks record, four losslessly compressed logs and hashes of seven build
+manifests retained privately by the root agent. The actual no-cache notice and
+bigint native-binding fallback remain in the build log.
+
+The subsequent update appends these receipts only. Product, harness, source,
+capture, SDK and prerequisite files remain identical to the tested public
+head. The earlier eight-case browser proof and its finite limits are unchanged;
+no runtime rerun or broader visual/behavior qualification is claimed.
 
 - [Before](proof/before-1280.png)
 - [After, desktop](proof/after-1280.png)

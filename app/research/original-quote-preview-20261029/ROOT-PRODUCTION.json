@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "testedPublicHead": "8746f593b21fd02a727cf824fd5bbbbbe5e5de6c",
+  "testedTree": "fe8fa3e2816a471e9dfa8c43a8506c98cded4cfc",
+  "receiptUpdate": "Only this packet changes after that tested head; all product/source/test/capture/SDK/prerequisite files remain byte-identical",
+  "commandsSource": "Exact unchanged root checks.json",
+  "rootWorkdir": "/workspace/pump-app-validation/app",
+  "checksFile": {
+    "path": "proof/root-production/checks.json",
+    "bytes": 670,
+    "sha256": "5559ceb2e4e3448d9c30150682866ad9d594363a87d9dd77564d3c9d9f9d8e2d"
+  },
+  "logs": [
+    {
+      "path": "proof/root-production/build.log.gz",
+      "compressedBytes": 1129,
+      "compressedSha256": "1b65d4ee02974c1818a17fb723c62d7b0e0fba38db87ff7e2ac9105c7b6d8a16",
+      "rawBytes": 3061,
+      "rawSha256": "40b3353696af0f1d42142cb31d64abfd5ac2d0b520e40c00ac7e86c6e88d69a4"
+    },
+    {
+      "path": "proof/root-production/typecheck.log.gz",
+      "compressedBytes": 174,
+      "compressedSha256": "4cdc860e8b70a5628bf9a16a5b1f72a015701f93062e18581116b83f8ba068a0",
+      "rawBytes": 348,
+      "rawSha256": "050b281c95589b3410266b6a100852147a33336492f6f125ebaa80bc7a33b236"
+    },
+    {
+      "path": "proof/root-production/evidence.log.gz",
+      "compressedBytes": 168,
+      "compressedSha256": "f7c2997aebcd8bf091c42d182b686232717b068f917874f9c8700a7efc77fd53",
+      "rawBytes": 194,
+      "rawSha256": "0f0c5fae20c1d78fdecb8eb80012fb68229500f574ab89c10dc419f663b17d61"
+    },
+    {
+      "path": "proof/root-production/progress.log.gz",
+      "compressedBytes": 215,
+      "compressedSha256": "d7f67aa7fb383cccfce9d70ee4c08e463831a288fd44727e0f66c23480f1dba1",
+      "rawBytes": 389,
+      "rawSha256": "e9e47657cf98c46275d40be8cfff310ae86b062b4589c28dae40aafc2dde14f6"
+    }
+  ],
+  "nextManifests": [
+    {
+      "path": "retained-next-BUILD_ID",
+      "bytes": 21,
+      "sha256": "533c74c15888cc0eec9af000fa2972b9c99d203a88d975a286dd6db8bb885736",
+      "retention": "Root private successful-build record; this packet lists hashes only"
+    },
+    {
+      "path": "retained-next-build-manifest.json",
+      "bytes": 4590,
+      "sha256": "5ff0c23c2f105930fedf7cdf3ce37702289a3482ad2be185863c8ceacd114f19",
+      "retention": "Root private successful-build record; this packet lists hashes only"
+    },
+    {
+      "path": "retained-next-prerender-manifest.json",
+      "bytes": 5513,
+      "sha256": "ff613bd7b6e235a1a06455b4d72b9e368e174e5e14d1fa96e2ec16f970fa87e3",
+      "retention": "Root private successful-build record; this packet lists hashes only"
+    },
+    {
+      "path": "retained-next-required-server-files.json",
+      "bytes": 10785,
+      "sha256": "f8f3d7d79a7ac0bba940d44090550cc5d8222e2f47f444bc6daf0fb4b0deb6c0",
+      "retention": "Root private successful-build record; this packet lists hashes only"
+    },
+    {
+      "path": "retained-next-routes-manifest.json",
+      "bytes": 4718,
+      "sha256": "a3f5653287b459fbe72fce43953a4f8198d80dec437d309b98cb6c2137b7d19c",
+      "retention": "Root private successful-build record; this packet lists hashes only"
+    },
+    {
+      "path": "retained-next-server--app-paths-manifest.json",
+      "bytes": 1156,
+      "sha256": "e58fc16e60f1f020c51a9b4446c6b3ca575fafe24e563ff1760de29beb9308a5",
+      "retention": "Root private successful-build record; this packet lists hashes only"
+    },
+    {
+      "path": "retained-next-server--pages-manifest.json",
+      "bytes": 58,
+      "sha256": "c354059caa217e72bdeb145e351b2038990972872c52df215cb1e4105c35097b",
+      "retention": "Root private successful-build record; this packet lists hashes only"
+    }
+  ],
+  "result": "All four checks exit0: normal SDK/backend/Next production build, recursive typecheck,698evidence/npm/SDK,progress+9tests",
+  "warnings": [
+    "Actual build had no-cache notice and bigint native-binding fallback; raw log is retained without suppression"
+  ],
+  "browser": "Original69e05783 before1/candidate8 finite browser proof is unchanged; no runtime rerun or broader browser/visual parity claimed",
+  "scope": "No new build variant, compatibility/feature/milestone credit, source/capture mutation, or binary progress"
+}
