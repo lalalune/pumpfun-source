@@ -927,8 +927,23 @@ export async function verifyGraph(root, outputRelative, options = {}) {
 
 export async function readReport(root, outputRelative, name) {
   const output = await safeFile(root, outputRelative);
-  const bytes = await readFile(await safeFile(output, name));
-  return JSON.parse(
-    (name.endsWith(".gz") ? gunzipSync(bytes) : bytes).toString("utf8"),
+  const manifest = JSON.parse(
+    await readFile(await safeFile(output, "MANIFEST.json"), "utf8"),
   );
+  if (manifest.schemaVersion !== GRAPH_VERSION)
+    throw new Error("unsupported graph schema version");
+  const entries = manifest.files?.filter((entry) => entry.path === name);
+  if (entries?.length !== 1)
+    throw new Error(`expected one generated evidence manifest entry: ${name}`);
+  const entry = entries[0];
+  const bytes = await readFile(await safeFile(output, name));
+  if (bytes.length !== entry.bytes || sha256(bytes) !== entry.sha256)
+    throw new Error(`generated evidence mismatch: ${name}`);
+  const raw = name.endsWith(".gz") ? gunzipSync(bytes) : bytes;
+  if (
+    name.endsWith(".gz") &&
+    (raw.length !== entry.contentBytes || sha256(raw) !== entry.contentSha256)
+  )
+    throw new Error(`generated evidence mismatch: ${name}`);
+  return JSON.parse(raw.toString("utf8"));
 }

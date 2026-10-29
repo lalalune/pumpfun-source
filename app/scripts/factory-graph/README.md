@@ -18,6 +18,11 @@ pnpm test:graph
 
 `graph:build` transactionally replaces `research/turbopack-route-graph-20261028/`. `graph:verify` rejects missing, modified, extra, or symlinked generated records. Module lookup accepts an optional SHA-256 prefix and reports all matching identities so a colliding numeric ID cannot be presented as unique.
 
+Report lookups authenticate the requested record against its unique manifest
+entry, including compressed and decompressed pins where applicable. This checks
+packet integrity; `graph:verify` also rebuilds from the current source inputs to
+check freshness and the complete packet inventory.
+
 ## Source authentication
 
 For every recovered variant, the analyzer:
