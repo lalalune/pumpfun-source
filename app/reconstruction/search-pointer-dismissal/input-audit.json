@@ -1,0 +1,68 @@
+{
+  "historicalPublicCommit": "440a495d4c37625f4f5b321d2d54df83475a62da",
+  "historicalWorkRecordSha256": "0c49750699794674cc02a4acd9fd65148c84952fac1a1629ed4ccd905388c391",
+  "inputCount": 11,
+  "allDigestsValidAndMatched": true,
+  "inputs": [
+    {
+      "path": "app/packages/frontend/src/components/shell/search/SearchDialog.tsx",
+      "bytes": 5644,
+      "sha256": "d6423d429f017e657cb7e29510e361d75928ba4d2c98fbe483b6d4fb5348ce1a"
+    },
+    {
+      "path": "app/packages/frontend/tests/search-pointer-dismissal.spec.ts",
+      "bytes": 6217,
+      "sha256": "60dc8262833e3b3d78e5869a09f53c7f4808a39e984842f052e6aa49add6751a"
+    },
+    {
+      "path": "app/packages/frontend/tests/search-local-users.spec.ts",
+      "bytes": 6280,
+      "sha256": "3bbf465b7abafc89aefc38d13db1c36b83865b339864942093d64e8d78b28dac"
+    },
+    {
+      "path": "app/packages/frontend/tests/shell-controls.ts",
+      "bytes": 1057,
+      "sha256": "87ab91a5ade6b4a0826cb2eb55135aeb75e897b6c5aa81421ef58221bee682e8"
+    },
+    {
+      "path": "app/packages/frontend/tests/browser-state.ts",
+      "bytes": 366,
+      "sha256": "6ca60ac77b50bcc845c8073973265a980ece5aede9782cb955836b422128123a"
+    },
+    {
+      "path": "app/packages/frontend/playwright.config.ts",
+      "bytes": 982,
+      "sha256": "6b0b07bb37748d67ea396d3de6e331a15978b8b2e17815dbcb843f3299ad61b0"
+    },
+    {
+      "path": "app/packages/frontend/node_modules/@types/react/index.d.ts",
+      "bytes": 175069,
+      "sha256": "5e76305d58bcdc924ff2bf14f6a9dc2aa5441ed06464b7e7bd039e611d66a89b"
+    },
+    {
+      "path": "app/packages/frontend/src/lib/local-user-search-server.ts",
+      "bytes": 2966,
+      "sha256": "c631d32736477ee588069fb4e39f0edb2e419d5946d221a7c085f141c669a69a"
+    },
+    {
+      "path": "app/packages/backend/src/users-seed.json",
+      "bytes": 3866,
+      "sha256": "56259663a146236df2f0e6e1d931df7cc2dda4d39ed7a090c18505434155b20d"
+    },
+    {
+      "path": "app/packages/backend/src/posts-seed.json",
+      "bytes": 8394,
+      "sha256": "f4d12a7812b07be6dcef4b966430a086cba9e867ff89de669a95a74bdd73d705"
+    },
+    {
+      "path": "app/pnpm-lock.yaml",
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+    }
+  ],
+  "limits": [
+    "Fresh byte verification of the original declared input list; not a new browser run.",
+    "The installed React type file requires the pinned dependencies to be available.",
+    "This does not expand the original input list into a complete dependency closure."
+  ]
+}
