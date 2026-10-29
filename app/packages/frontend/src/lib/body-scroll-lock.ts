@@ -1,4 +1,8 @@
-type BodyLock = { count: number; overflow: string; priority: string };
+type BodyLock = {
+  count: number;
+  priority: string;
+  axes: { property: string; value: string; priority: string }[];
+};
 const locks = new WeakMap<HTMLElement, BodyLock>();
 
 /** Keep each body locked until all of its owners release, preserving inline CSS. */
@@ -8,8 +12,12 @@ export function lockBodyScroll(): () => void {
   if (!lock) {
     lock = {
       count: 0,
-      overflow: body.style.overflow,
       priority: body.style.getPropertyPriority("overflow"),
+      axes: ["overflow-x", "overflow-y"].map((property) => ({
+        property,
+        value: body.style.getPropertyValue(property),
+        priority: body.style.getPropertyPriority(property),
+      })),
     };
     locks.set(body, lock);
   }
@@ -21,7 +29,9 @@ export function lockBodyScroll(): () => void {
     released = true;
     lock.count -= 1;
     if (lock.count === 0) {
-      body.style.setProperty("overflow", lock.overflow, lock.priority);
+      for (const { property, value, priority } of lock.axes) {
+        body.style.setProperty(property, value, priority);
+      }
       locks.delete(body);
     }
   };

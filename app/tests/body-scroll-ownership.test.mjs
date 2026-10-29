@@ -2,7 +2,15 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {lockBodyScroll} from '../packages/frontend/src/lib/body-scroll-lock.ts';
 function body(value,priority='') {
-  const style={get overflow(){return value;},set overflow(next){value=next;priority='';},getPropertyPriority(){return priority;},setProperty(_name,next,nextPriority=''){value=next;priority=nextPriority;}};
+  const declarations=new Map(['overflow-x','overflow-y'].map(key=>[key,{value,priority}]));
+  const style={
+    get overflow(){return declarations.get('overflow-x').value;},
+    getPropertyValue(key){return declarations.get(key)?.value??'';},
+    getPropertyPriority(key){return declarations.get(key==='overflow'?'overflow-x':key)?.priority??'';},
+    setProperty(key,next,nextPriority=''){
+      for(const axis of key==='overflow'?['overflow-x','overflow-y']:[key])declarations.set(axis,{value:next,priority:nextPriority});
+    },
+  };
   return {style};
 }
 test('scroll owners preserve important priority and independently restore replacement bodies',()=>{
