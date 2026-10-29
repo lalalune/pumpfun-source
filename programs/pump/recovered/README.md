@@ -37,3 +37,16 @@ to6024. Some cases select rates from observed events; injected cases independent
 check selected rates. These standalone arithmetic files are not linked into the
 SBF crate. The crate now separately implements a partial regular-SOL sell path;
 full trade reconstruction remains unfinished.
+
+`legacy_sell.rs` models legacy `sell` for a regular SOL coin: guard order,
+the curve output, the market-cap fee tier and configurable creator-bps
+override, ceiling fees (an output of 1 lamport cannot carry both fees and
+fails with 6024), slippage, checked reserve updates (real SOL short of the
+output fails with 6024), the bonding-curve-v2 check that only runs with a
+creator fee, the always-required buyback recipient, and the seller-paid
+creator-vault rent top-up. `tests/test_legacy_sell_captured.py` runs 71 fixed
+and 60 seeded cases on the captured Pump ELF with the captured Pump Fees
+program and compares errors, lamport movements, stored reserves, token
+balances, and TradeEvent fields with `legacy_sell_host.rs`. Mayhem, cashback,
+whitelist, and holder-reward paths are not modeled. This is not a
+byte-identity claim.
