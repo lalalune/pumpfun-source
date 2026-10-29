@@ -222,7 +222,7 @@ fn validate_quote_mint<'info>(ctx:&Context<'_,'_,'_,'info,CreateV2<'info>>,remai
   (QuoteSource::Whitelisted,None)
  } else {
   let control=nested_create::quote_control(remaining_accounts.get(3))?;
-  match nested_create::control_account(control,&mint_key)? {
+  match nested_create::control_account(control,mint_key)? {
    Some(reserves)=>(QuoteSource::Controlled,Some((reserves,0))),
    None=>{
     let (reserves,depth)=nested_create::walk(remaining_accounts,&a.global)?;
@@ -295,9 +295,9 @@ pub(crate) fn overflow() -> anchor_lang::error::Error { error!(PumpError::Overfl
 
 
 #[inline(never)]
-pub(super) fn control_account(account: &AccountInfo<'_>, mint: &Pubkey) -> Result<Option<u64>> {
+pub(super) fn control_account(account: &AccountInfo<'_>, mint: Pubkey) -> Result<Option<u64>> {
     let data = account.try_borrow_data()?;
-    control_entry(&data, mint)
+    control_entry(&data, &mint)
 }
 
 // layout-pad(39): aligns the next Source site with the original line
@@ -769,7 +769,7 @@ pub fn execute<'info>(ctx:Context<'_,'_,'_,'info,CreateV2<'info>>,name:String,sy
 
 
 
- let fee=if matches!(source,QuoteSource::Controlled|QuoteSource::Nested) && creator_fee_bps.0>0 {
+ let fee=if creator_fee_bps.0>0 && matches!(source,QuoteSource::Controlled|QuoteSource::Nested) {
 
   require!(a.global.creator_fee_configurable,PumpError::CreatorFeeNotConfigurable);
 
@@ -782,15 +782,15 @@ pub fn execute<'info>(ctx:Context<'_,'_,'_,'info,CreateV2<'info>>,name:String,sy
  };
  let global:&Global=&ctx.accounts.global;
  let depth=if let Some((_,depth))=reserves {depth} else {0};
- let bonding_curve:&mut trade_types::BondingCurve=&mut ctx.accounts.bonding_curve;
  let virtual_quote_reserves={let (m,r)=(quote_mint,reserves);if m==Pubkey::default() {global.initial_virtual_sol_reserves} else {r.map_or(global.initial_virtual_quote_reserves,|(r,_)|r)}};
+ let bonding_curve:&mut trade_types::BondingCurve=&mut ctx.accounts.bonding_curve;
+ bonding_curve.creator=creator;
  bonding_curve.initial_virtual_quote_reserves=virtual_quote_reserves;
  bonding_curve.virtual_token_reserves=global.initial_virtual_token_reserves;
  bonding_curve.virtual_quote_reserves=virtual_quote_reserves;
  bonding_curve.real_token_reserves=global.initial_real_token_reserves;
  bonding_curve.real_quote_reserves=0;
  bonding_curve.token_total_supply=global.token_total_supply;
- bonding_curve.creator=creator;
  bonding_curve.is_mayhem_mode=is_mayhem_mode;
  bonding_curve.is_cashback_coin=false;
  bonding_curve.quote_mint=quote_mint;
