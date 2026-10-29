@@ -97,3 +97,18 @@ python -B reconstruction/pump-main/lanes/v3-sell-tail/verify_runtime.py
 ```
 
 The second command verifies retained receipts, hashes and signatures without executing programs. In-memory negative controls with an added event, an added non-meter log and invalid signature evidence were rejected. No additional normalized function match is claimed: the six-slot sell residual remains. The passing bounded runtime comparison supports marking this partial contribution ready for maintainer review.
+
+## Bounded follow-up after runtime qualification
+
+Checked PR #1368: no submitted reviews or inline review threads at the time of this pass. Tested four source hypotheses against revision `15486e0`, using the same pinned identity build and unchanged scorer. All were rejected:
+
+| Trial | Target | Bytes | Diagnostic ratio | Calls | Result |
+| --- | --- | ---: | ---: | ---: | --- |
+| Reordered preparation adapter arguments | sell | 6032 | 0.99728 | 47 | Byte-identical retained candidate |
+| Explicit preparation output reference | sell | 6040 | 0.93533 | 47 | Entry order unchanged; broader mismatch |
+| Transfer success closure | v3_execute_buy | 3104 | 0.54364 | 17 | Outlined continuation; loses normalized window 0x84b78 |
+| Exhaustive transfer Result match | v3_execute_buy | 3472 | 0.94811 | 22 | Worse than baseline 3456 bytes / 0.9669 |
+
+The closure scores 1019 normalized / 188 raw; the other three retain 1020 / 188, with no gains. All builds had no stack warnings. Call counts alone do not establish callee equivalence. No rejected variant was runtime-qualified or retained. Exact source deltas and binary hashes are recorded in the focused patches and `FOCUSED-FOLLOWUP.json`; patches are relative to the retained source and must not be applied together.
+
+Restored the previously qualified source exactly. The six-slot sell residual remains. Further buy work should inspect the transfer error join and return-buffer reload in compiler IR before proposing another source shape; these tests do not justify additional blind rewrites.
