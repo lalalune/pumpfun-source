@@ -127,7 +127,9 @@ export class PublicWalletController {
   };
   private publish(next: Partial<PublicWalletState>) {
     this.state = Object.freeze({ ...this.state, ...next });
-    for (const listener of this.listeners) listener();
+    for (const listener of [...this.listeners]) {
+      if (this.listeners.has(listener)) listener();
+    }
   }
   private choices() {
     return [...this.wallets].map(([id, wallet]) => ({ id, name: wallet.name }));
