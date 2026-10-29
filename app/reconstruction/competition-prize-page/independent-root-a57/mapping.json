@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "testedHead": "a57f826877d5feebf4b14a86024b53c221dbfff8",
+  "testedTree": "ac9fafb44107fdf457bc50d7f03858565d270258",
+  "testedSourceCommit": "989408137da6c205c58778a45cd846c556913d25",
+  "receiptOnlyParent": "a57f826877d5feebf4b14a86024b53c221dbfff8",
+  "receiptPrefix": "app/reconstruction/competition-prize-page/independent-root-a57/",
+  "runtimeMapping": "New commit adds only this independent output packet; all47 original qualified input Git blobs remain unchanged. No runtime/build result is re-executed or inferred for changed product code.",
+  "qualifiedInputs": {
+    "app/contracts/developer.openapi.json": "dd2812c76275c198607f39bb63280a11b608e6ec",
+    "app/evidence/web/manifest.json": "8ff3e62cd191592c2e2abd0e58153857af014bda",
+    "app/evidence/web/objects/2b47dd0b38a1608f.js": "040939b52d9fd8de8d7638e8fd1637eb51e81d2b",
+    "app/evidence/web/objects/2fe17dced92b840b.js": "4b9bd9abacbbb669f9eb1a4502fd2f719f3fab1b",
+    "app/evidence/web/objects/4da7a3f4580c8707.js": "aab518969428499c6e07bd5fb51886411c249252",
+    "app/evidence/web/objects/7128bd47b219d222.js": "4830ac980c0111d091734e768eac86c2b2508cfa",
+    "app/evidence/web/objects/90533aae518e4b32.js": "b8641cff0358c30e46916bddd8c5459d2b34e0bf",
+    "app/evidence/web/objects/994c0030bcc62017.js": "8114673854d915c558ad25d27b55ecb66d9c2bdc",
+    "app/evidence/web/objects/a0ec47219f76f808.js": "af05d119599b983290aa518d3fb718059f39ead7",
+    "app/evidence/web/objects/c3601a995a6b7f37.js": "886ffe8948aa4582f4bdc747f10cb2c076f07464",
+    "app/package.json": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8",
+    "app/packages/backend/package.json": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b",
+    "app/packages/backend/src/schema-validator.ts": "7f9e823bceca94e40a919f8a8f9fce3aa3164b14",
+    "app/packages/backend/tsconfig.json": "1a863bae065b07ea52a3a9b89b048c21f88876e2",
+    "app/packages/frontend/next.config.ts": "6326d6c6274182f58c449f3f5bba914858023dfa",
+    "app/packages/frontend/package.json": "f998048da959e90119cc58b720d6a09da9f897c0",
+    "app/packages/frontend/src/app/api/leaderboard/upstream.ts": "73c3e91e875f07b0dd9808ca1d2c0ff4ebd24277",
+    "app/packages/frontend/src/app/leaderboard/competition-prizes.tsx": "aba6bd3efbb8a7a2542bfad08e45b51b1c875af1",
+    "app/packages/frontend/src/app/leaderboard/competition-rules-model.ts": "36730806002665ce31b1c7629674cbdb55394f2e",
+    "app/packages/frontend/src/app/leaderboard/competition-rules.tsx": "74e0d7641b321e4ac90634226f345bad8464f99a",
+    "app/packages/frontend/src/app/leaderboard/leaderboard-client.tsx": "dbe14e4b798c8d24e4677cf13326ae5fa0a293c5",
+    "app/packages/frontend/src/app/leaderboard/types.ts": "b65661a9e321ad3dbf7cb99fce052784c67a70dc",
+    "app/packages/frontend/src/components/leaderboard/original-prize-formats.mjs": "de5722dd2a52dcfe1fa3b58d44d43579061c4554",
+    "app/packages/frontend/src/components/leaderboard/original-prizes.tsx": "9c138548d522462dab6ce3c618334a0bdb7543ec",
+    "app/packages/frontend/src/components/leaderboard/prize-number-variants/b6933f856a7f.mjs": "133beb69d6afb4c898ecf4ec0622c3f14e4f72f2",
+    "app/packages/frontend/src/components/leaderboard/prize-number-variants/f29f27e66af2.mjs": "7b32134c020b9051ba10666d3c84dc1fac87c23c",
+    "app/packages/frontend/tests/browser-state.ts": "dad2bd240204528a984cc25718e9abfc40956347",
+    "app/packages/frontend/tests/competition-prize-page.spec.ts": "3a6e267df9913cdbbafb223c6ecedcc341acd1b4",
+    "app/packages/frontend/tsconfig.json": "232242f82f082ceecb0da2071d2528fc7b589d74",
+    "app/packages/sdk/package.json": "ba5abc1bcc0fba0b6a7b7425eaa25544baeb43b4",
+    "app/packages/sdk/tsconfig.json": "5c2bd6441f61feea7a6c21e6f02e6256483fd3f4",
+    "app/pnpm-lock.yaml": "049b2153aa789a6def6cbd55c7b375a74a091fd1",
+    "app/pnpm-workspace.yaml": "2ac2665ef5a28f8a1691518ad942fb07353810e6",
+    "app/reconstruction/competition-prize-page/README.md": "7e8dea1a6bca28e95a6f15322fec6df5dd44a29d",
+    "app/reconstruction/competition-prize-page/contract.json": "de768f45571e1a1c3f54db912b42b24b82103298",
+    "app/reconstruction/competition-prize-page/reference/competition-rules-model.ts": "349f23edb0ff533981752645744f7dbb5f644ab6",
+    "app/reconstruction/competition-prize-page/reference/leaderboard-client.tsx": "e7dd4d0f92421d6869ad83d8322ba32328d9bd34",
+    "app/reconstruction/competition-prizes/contract.json": "378117c9a27f8f178aae0c7a31b3dfb4ebfb374b",
+    "app/recovered/modules.json": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f",
+    "app/scripts/original-competition-prizes.mjs": "c1ea81af5188237ef1e24323a16c98decc4c12f9",
+    "app/scripts/original-contracts/source.mjs": "982ba8058c78f80bb3816529166920e5c74c43df",
+    "app/scripts/verify-competition-prize-page.mjs": "4346bdc1dc7ae1d8b0bc9ed7e6c61d6d94fc4bd6",
+    "app/scripts/verify-evidence.py": "de916929321f830eac387403fb5cda9ff981005f",
+    "app/tests/competition-prize-page.test.mjs": "680251c2bd5b22181cceecc9d192d339f41f0562",
+    "app/tests/competition-prize-precision.test.mjs": "9e2b571a164b4d49ac3bd4819d00766c5a7e222d",
+    "app/tests/competition-rules.test.mjs": "9db3e6504ef481c44d5d7783fd073e8d3af961f4",
+    "app/tests/original_source.test.mjs": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+  },
+  "checks": {
+    "sha256": "f389b3b1c9e8726e2a66342c8c1659fa393c288bfeda63a00f181b1aa4dbf613",
+    "bytes": 670
+  },
+  "logs": {
+    "build.log": {
+      "raw": {
+        "sha256": "fa43970b4a86f6080b66167a161395597541b35c0b1e3ea3f5320b1e7644adf8",
+        "bytes": 3061
+      },
+      "compressed": {
+        "sha256": "545655550f33a0869d9eeedef752ec0436d3fd8c58e8d52b62cfcd1ee97d9bc7",
+        "bytes": 1129
+      },
+      "file": "build.log.gz"
+    },
+    "typecheck.log": {
+      "raw": {
+        "sha256": "050b281c95589b3410266b6a100852147a33336492f6f125ebaa80bc7a33b236",
+        "bytes": 348
+      },
+      "compressed": {
+        "sha256": "4cdc860e8b70a5628bf9a16a5b1f72a015701f93062e18581116b83f8ba068a0",
+        "bytes": 174
+      },
+      "file": "typecheck.log.gz"
+    },
+    "evidence.log": {
+      "raw": {
+        "sha256": "0f0c5fae20c1d78fdecb8eb80012fb68229500f574ab89c10dc419f663b17d61",
+        "bytes": 194
+      },
+      "compressed": {
+        "sha256": "f7c2997aebcd8bf091c42d182b686232717b068f917874f9c8700a7efc77fd53",
+        "bytes": 168
+      },
+      "file": "evidence.log.gz"
+    },
+    "progress.log": {
+      "raw": {
+        "sha256": "0371c15b709b6a66186ea890d6bc204404f3526e2a5dd8a94aa2f9c29f5db761",
+        "bytes": 389
+      },
+      "compressed": {
+        "sha256": "44c465707fbc5cede0864c0a1f357ff2fee3c796a873561b53e49291dd5d3558",
+        "bytes": 215
+      },
+      "file": "progress.log.gz"
+    }
+  },
+  "commonGate": "Parent a57 independently9captures+10tooling with53Git inputs; new receipt head to be re-gated separately",
+  "limits": [
+    "Finite browser proof remains qualified on source989408/treecbb6 and receipt a57.",
+    "No new UI/browser/full-suite/backend/runtime or original-provider parity claim."
+  ]
+}
