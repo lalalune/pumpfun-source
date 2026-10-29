@@ -128,11 +128,39 @@ def color_value(prefix, body):
     return normalize_color(value) if value else None
 
 
+def class_tokens(selector):
+    index = 0
+    quote = None
+    escaped = False
+    brackets = 0
+    while index < len(selector):
+        char = selector[index]
+        if not quote and selector[index:index+2] == '/*':
+            end = selector.find('*/', index+2)
+            if end < 0: return
+            index = end+2
+            continue
+        if quote:
+            if escaped: escaped = False
+            elif char == '\\': escaped = True
+            elif char == quote: quote = None
+        elif char in ('"', "'"): quote = char
+        elif char == '[': brackets += 1
+        elif char == ']': brackets -= 1
+        elif char == '.' and not brackets:
+            match = CLASS.match(selector, index)
+            if match:
+                yield match.group(1)
+                index = match.end()
+                continue
+        index += 1
+
+
 def extract_colors(css):
     colors, origins = {}, {}
     prefixes = sorted(COLOR_PREFIXES, key=len, reverse=True)
     for selector, body in RULE.findall(css):
-        for token in CLASS.findall(selector):
+        for token in class_tokens(selector):
             utility = utility_of(token)
             if '/' in utility or '[' in utility:
                 continue  # opacity modifiers and arbitrary values are derived, not theme keys
