@@ -2,11 +2,16 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { BLOG_URL, LEGAL_LINKS, RESOURCE_LINKS, SOCIAL_LINKS, type MenuEntry } from '@/config/navigation';
 import { FooterMenu } from './FooterMenu';
+import { FooterOutboundLinks } from '@/components/links/footer-outbound-links';
 
 const LINK_CLASS = 'text-text-tertiary transition-colors hover:text-text-primary';
 
 /** The captured site footer: stacked link lists on mobile, a single row with menus from `md`. */
 export function SiteFooter() {
+  return <FooterOutboundLinks><SiteFooterContent /></FooterOutboundLinks>;
+}
+
+function SiteFooterContent() {
   const year = new Date().getFullYear();
   return (
     <footer className="z-[1] mt-auto border-t border-border-secondary bg-bg-primary text-text-tertiary max-md:mb-12">

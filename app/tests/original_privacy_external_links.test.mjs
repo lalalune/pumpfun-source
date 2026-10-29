@@ -11,6 +11,7 @@ import {
   verifyBrowserReceipt,
   verifyAppBrowserReceipt,
   outputPath,
+  appBrowserDirectory,
 } from "../scripts/original-privacy-external-links.mjs";
 import {
   preferenceKey,
@@ -485,15 +486,21 @@ test("browser receipt binds actual executed client/test/contract bytes and canno
     }
   }
 });
-test("actual Settings receipt binds renderer/screenshots and rejects edits or global-policy claims", async () => {
+test("current footer/Settings receipt binds consumers/screenshots and rejects edits or upstream claims", async () => {
   const receipt = await verifyAppBrowserReceipt(root);
-  assert.equal(receipt.outboundConsumersExercised, false);
-  for (const mutation of ["renderer", "screenshot", "claim", "unmounted"]) {
+  assert.equal(receipt.outboundConsumersExercised, true);
+  for (const mutation of [
+    "renderer",
+    "consumer",
+    "screenshot",
+    "claim",
+    "unmounted",
+  ]) {
     const dir = await fs.mkdtemp(
       path.join(os.tmpdir(), "pump-privacy-app-receipt-"),
     );
     try {
-      const folder = "reconstruction/privacy-external-links/app-browser";
+      const folder = appBrowserDirectory;
       for (const file of [
         ...Object.keys(receipt.sourceInputs),
         ...Object.keys(receipt.screenshots).map((name) => `${folder}/${name}`),
@@ -502,7 +509,20 @@ test("actual Settings receipt binds renderer/screenshots and rejects edits or gl
         await fs.mkdir(path.dirname(path.join(dir, file)), { recursive: true });
         await fs.copyFile(path.join(root, file), path.join(dir, file));
       }
-      if (mutation === "renderer")
+      await verifyAppBrowserReceipt(dir);
+      if (mutation === "consumer") {
+        const file = path.join(
+          dir,
+          "packages/frontend/src/components/shell/SiteFooter.tsx",
+        );
+        const text = await fs.readFile(file, "utf8");
+        const changed = text.replace(
+          /<FooterOutboundLinks>([\s\S]*?)<\/FooterOutboundLinks>/,
+          "$1",
+        );
+        assert.notEqual(changed, text, "actual footer mount was mutated");
+        await fs.writeFile(file, changed);
+      } else if (mutation === "renderer")
         await fs.appendFile(
           path.join(
             dir,
@@ -512,7 +532,7 @@ test("actual Settings receipt binds renderer/screenshots and rejects edits or gl
         );
       else if (mutation === "screenshot")
         await fs.appendFile(
-          path.join(dir, `${folder}/settings-desktop.png`),
+          path.join(dir, `${folder}/footer-desktop.png`),
           "changed",
         );
       else if (mutation === "unmounted") {
@@ -525,13 +545,13 @@ test("actual Settings receipt binds renderer/screenshots and rejects edits or gl
           file,
           text.replace(
             "<PrivacySettingControl label={setting.label} />",
-            '<span className={styles.unavailable}>Unavailable</span>',
+            "<span className={styles.unavailable}>Unavailable</span>",
           ),
         );
       } else {
         const file = path.join(dir, `${folder}/verification.json`);
         const value = JSON.parse(await fs.readFile(file));
-        value.outboundConsumersExercised = true;
+        value.serverCompatibilityClaimed = true;
         await fs.writeFile(file, JSON.stringify(value));
       }
       await assert.rejects(

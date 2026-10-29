@@ -1,0 +1,50 @@
+{
+  "baseRevision": "ef400863f4e476b2eaaab0866c0b1187d8060abc",
+  "baseAppTree": "e3d6d8cd07df4f561a4fd058dad29d22de451bfc",
+  "latestReadOnlyMain": "9f9d94c56f7bbedb6c3e45a9e95c287321313621",
+  "latestReadOnlyAppTree": "e3d6d8cd07df4f561a4fd058dad29d22de451bfc",
+  "mountedSourceDifferences": [
+    "packages/frontend/src/components/settings/privacy-setting-control.tsx",
+    "packages/frontend/src/components/settings/settings-control.tsx",
+    "packages/frontend/src/components/shell/SiteFooter.tsx"
+  ],
+  "sameTestAndProducer": true,
+  "baseline": {
+    "result": "EXPECTED_FAILURE",
+    "failedAssertion": "footer-link-confirmation is visible after Blog click with preference enabled",
+    "passed": 0,
+    "failed": 1,
+    "notRun": 7
+  },
+  "candidate": {
+    "interactiveWorkflowsPassed": 7,
+    "ssrMarkupChecksPassed": 1,
+    "failed": 0,
+    "skipped": 0
+  },
+  "regressions": {
+    "settings": 16,
+    "unchangedCreatePreview": 5,
+    "passed": 21,
+    "failed": 0,
+    "skipped": 0
+  },
+  "sourceRuntimeTamperTests": 29,
+  "frontendTypecheckExitCode": 0,
+  "appEvidence": {
+    "captures": 698,
+    "npmIntegrity": true,
+    "sdkSourcesUnchanged": true
+  },
+  "limits": [
+    "No-JavaScript full-page activation is blocked by existing clickwrap; only SSR anchor attributes are checked.",
+    "Window opening is an explicit browser test port. One native fallback navigation receives controlled HTML; no original destination contacted.",
+    "No browser-process restart, other engines, original rollout, global link policy, backend compatibility or security acceptance inferred."
+  ],
+  "fixtureCorrections": [
+    "Settle intentional footer scrolling before opening the existing scroll-dismissed menu.",
+    "Wait for Settings URL dismissal before reloading, to avoid reloading its prior deep link."
+  ],
+  "noJsBlockedRawOutcome": "before/no-js-blocked-report.json.gz",
+  "sourcePolicyUnchanged": true
+}

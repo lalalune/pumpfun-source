@@ -15,6 +15,43 @@ import {
 } from "./original-contracts/source.mjs";
 const defaultRoot = fileURLToPath(new URL("..", import.meta.url));
 export const outputPath = "reconstruction/privacy-external-links/contract.json";
+
+// Current UI qualification selects a new packet. The original app-browser
+// receipt/screenshots remain immutable historical evidence for the old control.
+export const appBrowserDirectory =
+  "research/footer-link-confirmation-20261029/browser";
+export const appBrowserInputs = [
+  "reconstruction/privacy-external-links/client.mjs",
+  "reconstruction/privacy-external-links/client.d.mts",
+  outputPath,
+  "packages/frontend/src/components/settings/privacy-setting-control.tsx",
+  "packages/frontend/src/components/settings/privacy-setting-control.module.css",
+  "packages/frontend/src/components/settings/settings-control.tsx",
+  "packages/frontend/src/components/links/footer-outbound-links.tsx",
+  "packages/frontend/src/components/links/footer-outbound-links.module.css",
+  "packages/frontend/src/components/shell/SiteFooter.tsx",
+  "packages/frontend/src/components/shell/FooterMenu.tsx",
+  "packages/frontend/src/components/ui/dropdown-menu.tsx",
+  "packages/frontend/src/config/navigation.ts",
+  "packages/frontend/src/lib/body-scroll-lock.ts",
+  "packages/frontend/src/app/create-draft-links.tsx",
+  "packages/frontend/src/app/create-draft-links.module.css",
+  "packages/frontend/playwright.config.ts",
+  "packages/frontend/tests/footer-privacy.spec.ts",
+  "tests/footer_privacy.browser.mjs",
+  "scripts/original-privacy-external-links.mjs",
+];
+export const appBrowserCaseTitles = [
+  "footer Blog confirms and cancellation preserves its native anchor and page",
+  "remembered footer choice updates Settings and survives reload",
+  "footer portal menu can unmount while confirmation survives and returns focus",
+  "mobile footer Resources and SVG social links use the same preference",
+  "opening exceptions retain recovery, retry and a native browser fallback",
+  "failed remembered-choice storage warns and its page fallback resets on reload",
+  "footer choice is immediately shared with unchanged Create preview links",
+  "server-rendered footer preserves native anchors before enhancement",
+];
+
 const compact = (node) =>
   generate(node, { compact: true, comments: false }).code;
 const require = (ok, reason) => {
@@ -376,45 +413,37 @@ export async function verifyBrowserReceipt(root = defaultRoot) {
   return receipt;
 }
 export async function verifyAppBrowserReceipt(root = defaultRoot) {
-  const directory = path.join(
-    root,
-    "reconstruction/privacy-external-links/app-browser",
-  );
+  const directory = path.join(root, appBrowserDirectory);
   const receipt = JSON.parse(
     await readFile(path.join(directory, "verification.json"), "utf8"),
   );
-  const inputs = [
-    "reconstruction/privacy-external-links/client.mjs",
-    "reconstruction/privacy-external-links/client.d.mts",
-    outputPath,
-    "packages/frontend/src/components/settings/privacy-setting-control.tsx",
-    "packages/frontend/src/components/settings/privacy-setting-control.module.css",
-    "packages/frontend/src/components/settings/settings-control.tsx",
-    "tests/original_privacy_settings.browser.mjs",
-  ];
   require(JSON.stringify(Object.keys(receipt.sourceInputs)) ===
-    JSON.stringify(inputs), "app receipt input set");
-  // The shared SettingsControl host is edited by unrelated work (for example
-  // #773's Escape handling). Its receipt hash records the bytes the browser run
-  // used; the current host is only required to keep mounting this row control.
-  const sharedHost = "packages/frontend/src/components/settings/settings-control.tsx";
-  for (const relative of inputs) {
+    JSON.stringify(appBrowserInputs), "app receipt input set");
+  // Retain the previous shared-host limit: its executed bytes are recorded,
+  // but unrelated later modal edits are not qualified by this footer receipt.
+  const sharedHost =
+    "packages/frontend/src/components/settings/settings-control.tsx";
+  for (const relative of appBrowserInputs) {
     const bytes = await readFile(path.join(root, relative));
     if (relative === sharedHost) {
       const text = bytes.toString("utf8");
       require(/^[0-9a-f]{64}$/.test(receipt.sourceInputs[relative]) &&
-        text.includes('import { PrivacySettingControl } from "./privacy-setting-control";') &&
+        text.includes(
+          'import { PrivacySettingControl } from "./privacy-setting-control";',
+        ) &&
         text.includes('setting.id === "privacy.confirmExternalLinks" ? (') &&
-        text.includes("<PrivacySettingControl label={setting.label} />"),
-        `stale app receipt ${relative} no longer mounts the privacy row control`);
+        text.includes(
+          "<PrivacySettingControl label={setting.label} />",
+        ), `stale app receipt ${relative} no longer mounts the privacy row control`);
       continue;
     }
-    require(receipt.sourceInputs[relative] === sha256(bytes),
-      `stale app receipt ${relative}`);
+    require(receipt.sourceInputs[relative] ===
+      sha256(bytes), `stale app receipt ${relative}`);
   }
   const screenshots = [
-    "settings-desktop.png",
-    "settings-mobile-storage-failure.png",
+    "footer-desktop.png",
+    "footer-mobile.png",
+    "footer-storage-failure.png",
   ];
   require(JSON.stringify(Object.keys(receipt.screenshots)) ===
     JSON.stringify(screenshots), "app receipt screenshot set");
@@ -424,12 +453,25 @@ export async function verifyAppBrowserReceipt(root = defaultRoot) {
         await readFile(path.join(directory, name)),
       ), `stale app screenshot ${name}`);
   require(receipt.result === "PASS" &&
-    receipt.browserProcessRestarts === 2 &&
-    receipt.checks?.length === 4 &&
+    receipt.passed === appBrowserCaseTitles.length &&
+    receipt.failed === 0 &&
+    receipt.skipped === 0 &&
+    JSON.stringify(receipt.checks) === JSON.stringify(appBrowserCaseTitles) &&
+    receipt.browserProcessRestarts === 0 &&
+    receipt.reloadsExercised === true &&
     receipt.pageErrors?.length === 0 &&
-    receipt.externalRequests?.length === 0 &&
+    receipt.consoleErrors?.length === 0 &&
+    receipt.nativeFallbacks?.length === 1 &&
+    receipt.nativeFallbacks.some((item) => item.kind === "opening-exception") &&
+    receipt.openRefusals === 2 &&
+    receipt.storageRefusals >= 1 &&
+    receipt.routedExternal?.every(
+      (item) => item.action === "fulfilled" && item.method === "GET",
+    ) &&
     receipt.capturedCodeExecuted === false &&
-    receipt.outboundConsumersExercised === false &&
+    receipt.outboundConsumersExercised === true &&
+    receipt.upstreamRequestsPerformed === false &&
+    receipt.upstreamFlagRolloutClaimed === false &&
     receipt.serverCompatibilityClaimed === false, "app receipt result/scope");
   return receipt;
 }

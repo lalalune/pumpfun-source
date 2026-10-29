@@ -26,7 +26,7 @@ const subscribeToHydration = () => () => {};
 const clientReady = () => true;
 const serverReady = () => false;
 
-/** Device preference shared with the Create draft outbound-link consumer. */
+/** Device preference shared by the local Create and footer outbound consumers. */
 export function PrivacySettingControl({ label }: { label: string }) {
   const enabled = useSyncExternalStore(subscribe, snapshot, serverSnapshot);
   const ready = useSyncExternalStore(
@@ -71,7 +71,7 @@ export function PrivacySettingControl({ label }: { label: string }) {
       </button>
       <p id={`${id}-scope`} className={styles.scope}>
         Stored on this browser, shared across accounts. Applies to Create draft
-        preview links; other app links are not connected.
+        preview and site footer links; other app links are not connected.
       </p>
       <p
         id={`${id}-result`}

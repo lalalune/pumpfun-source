@@ -1,0 +1,3 @@
+import { defineConfig } from '@playwright/test';
+import base from './playwright.config';
+export default defineConfig({ ...base, testMatch: 'footer-privacy.spec.ts', outputDir: "/workspace/pump-app-privacy-links/app/research/footer-link-confirmation-20261029/browser/artifacts", use: { ...base.use, baseURL: "http://127.0.0.1:3010" }, webServer: undefined });

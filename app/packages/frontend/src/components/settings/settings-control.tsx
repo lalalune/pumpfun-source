@@ -363,7 +363,7 @@ function SettingsControlContent({
                         These settings are mapped from captured client code.
                         Account values are unavailable, not off. The
                         external-link choice is stored on this browser and applies
-                        to Create draft preview links only. No browser permission
+                        to Create draft preview and footer links. No browser permission
                         is requested.
                       </p>
                     }
