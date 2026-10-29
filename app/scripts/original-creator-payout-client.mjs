@@ -8,7 +8,7 @@ import { openCorpus, findNodes, member, exactlyOne, sha256 } from './original-co
 
 export const APP_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const DIRECTORY = 'reconstruction/creator-payout-client';
-const SHARED = '49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213';
+const SHARED = 'a7c04fdc74fb88a27d5cf24355396ee560d88ad4042abf3eb6a3c6874c5bacf2';
 const VARIANTS = [
   ['evidence/web/objects/57cc59637a8b8f78.js', '50adeb832d22cb5cb8df1dba280ff38966dbb85f2730d94a872aedd60c2234c5'],
   ['evidence/web/objects/dd1b7e2a0ecbaed0.js', 'ff013c07164d5f58aed101e8221f512ced1c7d39fce2896fedf6bfa548d0a99f'],

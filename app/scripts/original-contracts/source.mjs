@@ -108,7 +108,8 @@ export async function openCorpus(appRoot) {
   const records = new Map();
   for (const record of manifest.records) {
     if (records.has(record.path)) throw new Error(`duplicate capture path: ${record.path}`);
-    records.set(record.path, record);
+    // Public inventory views must not change later authentication decisions.
+    records.set(record.path, Object.freeze({ ...record }));
   }
   const captureCache = new Map();
   async function capture(relative) {
@@ -123,19 +124,27 @@ export async function openCorpus(appRoot) {
       const bytes = await read(relative);
       if (bytes.length !== record.bytes || sha256(bytes) !== record.sha256) throw new Error(`capture authentication failed: ${relative}`);
       const decoded = decodeSource(bytes);
-      const result = { record, bytes, ...decoded };
-      result.witness = (node, label) => {
+      const { text, byteOffsets } = decoded;
+      const result = {};
+      Object.defineProperties(result, {
+        record: { value: record, enumerable: true },
+        text: { value: text, enumerable: true },
+        bytes: { get: () => Buffer.from(bytes), enumerable: true },
+        byteOffsets: { get: () => byteOffsets.slice(), enumerable: true },
+      });
+      const witness = (node, label) => {
         const { start, end } = node;
         if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start < 0 ||
-            end <= start || end > result.text.length || result.byteOffsets[start] < 0 || result.byteOffsets[end] < 0) {
+            end <= start || end > text.length || byteOffsets[start] < 0 || byteOffsets[end] < 0) {
           throw new Error(`invalid UTF-16/UTF-8 boundary: ${relative}:${start}-${end}`);
         }
-        const byteStart = result.byteOffsets[start];
-        const byteEnd = result.byteOffsets[end];
+        const byteStart = byteOffsets[start];
+        const byteEnd = byteOffsets[end];
         return { label, source: relative, url: record.url, sourceSha256: record.sha256,
           sourceBytes: record.bytes, utf16: [start, end], utf8: [byteStart, byteEnd],
           sha256: sha256(bytes.subarray(byteStart, byteEnd)) };
       };
+      Object.defineProperty(result, 'witness', { value: witness, enumerable: true });
       captureCache.set(relative, result);
     }
     return captureCache.get(relative);
@@ -195,6 +204,6 @@ export async function openCorpus(appRoot) {
       text: (node = registration.node) => source.text.slice(node.start, node.end),
       provenance: { id, ids: registration.ids, ...witness } };
   }
-  return { root, manifest, index, records, capture, javascript, factory,
+  return { root, manifest, index, records: new Map(records), capture, javascript, factory,
     anchors: { manifestSha256: sha256(manifestBytes), inventorySha256: sha256(indexBytes) } };
 }
