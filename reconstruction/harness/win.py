@@ -12,12 +12,12 @@ Diff tokens use the scorer's normalization (internal call imm + section-pointer 
 import argparse, difflib, re, subprocess, sys
 from pathlib import Path
 from collections import Counter
+from llvm_tools import objdump
 
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
 from score import sections, normalize, body, candidate_functions, original_windows, score, BASE  # noqa
 
-OBJDUMP = str(Path.home() / '.cache/solana/v1.52/platform-tools/llvm/bin/llvm-objdump')
 
 
 def demangle(s):
@@ -48,7 +48,7 @@ def insns(raw, addr, secs):
 
 
 def objdump_text(path, start, end):
-    txt = subprocess.check_output([OBJDUMP, '-d', '--no-show-raw-insn', f'--start-address={start:#x}', f'--stop-address={end:#x}', str(path)], text=True)
+    txt = subprocess.check_output([objdump(), '-d', '--no-show-raw-insn', f'--start-address={start:#x}', f'--stop-address={end:#x}', str(path)], text=True)
     d = {}
     for line in txt.splitlines():
         m = re.match(r'^\s*([0-9a-f]+):\s+(.*)$', line)

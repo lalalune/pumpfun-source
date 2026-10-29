@@ -15,7 +15,6 @@ from pathlib import Path
 H = Path(__file__).resolve().parent
 SC = H.parent
 BASE = SC / 'base'
-OBJDUMP = str(Path.home() / '.cache/solana/v1.52/platform-tools/llvm/bin/llvm-objdump')
 
 
 def sections(blob):
