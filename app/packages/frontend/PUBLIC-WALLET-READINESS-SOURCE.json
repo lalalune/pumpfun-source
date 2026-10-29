@@ -1,0 +1,144 @@
+{
+  "scope": "Captured physical source instances show pre-hydration disabled sign-in and post-hydration actionable sign-in. This does not recover authentication or assert a global runtime registration winner.",
+  "factories": [
+    {
+      "id": 400466,
+      "ids": [
+        400466
+      ],
+      "label": "factory 400466",
+      "source": "evidence/web/objects/13c13db9eb86191b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ggmlsuhd8iw1.js",
+      "sourceSha256": "15e7cb5caef8d58d0d263486883e7aac6e39e9e2f7e037af29887849bd0cd6c6",
+      "sourceBytes": 215208,
+      "utf16": [
+        92522,
+        190511
+      ],
+      "utf8": [
+        92522,
+        190519
+      ],
+      "sha256": "b55e1d78341162edfc6c5ff1ba32c4b4faa3d0ade6de3a39f440fe39f2e9e5dd"
+    },
+    {
+      "id": 170450,
+      "ids": [
+        170450
+      ],
+      "label": "factory 170450",
+      "source": "evidence/web/objects/994c0030bcc62017.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2oyndie4zi8s9.js",
+      "sourceSha256": "e19fc8c67314ff7ad3e69fcd4228558a461e246856f96d101b0596a1b61255b5",
+      "sourceBytes": 24978,
+      "utf16": [
+        10785,
+        10893
+      ],
+      "utf8": [
+        10785,
+        10893
+      ],
+      "sha256": "72a61a3e662f4e2995ea53610e55b0658ec866cf82ddca6c904962252fe06ff7"
+    }
+  ],
+  "witnesses": [
+    {
+      "label": "Actual hydration-module import",
+      "source": "evidence/web/objects/13c13db9eb86191b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ggmlsuhd8iw1.js",
+      "sourceSha256": "15e7cb5caef8d58d0d263486883e7aac6e39e9e2f7e037af29887849bd0cd6c6",
+      "sourceBytes": 215208,
+      "utf16": [
+        106965,
+        106979
+      ],
+      "utf8": [
+        106971,
+        106985
+      ],
+      "sha256": "3266c6aad64c334af0b856576453a64196961eaee6e12945728ed91baaec4114"
+    },
+    {
+      "label": "Used hydration flag in same caller as both branches",
+      "source": "evidence/web/objects/13c13db9eb86191b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ggmlsuhd8iw1.js",
+      "sourceSha256": "15e7cb5caef8d58d0d263486883e7aac6e39e9e2f7e037af29887849bd0cd6c6",
+      "sourceBytes": 215208,
+      "utf16": [
+        170142,
+        170155
+      ],
+      "utf8": [
+        170150,
+        170163
+      ],
+      "sha256": "3aa46e3942e5e98f45767e371120fbfdf6e62fb7b5beea7461b172e613ef7c5b"
+    },
+    {
+      "label": "Pre-hydration fallback branch",
+      "source": "evidence/web/objects/13c13db9eb86191b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ggmlsuhd8iw1.js",
+      "sourceSha256": "15e7cb5caef8d58d0d263486883e7aac6e39e9e2f7e037af29887849bd0cd6c6",
+      "sourceBytes": 215208,
+      "utf16": [
+        180595,
+        180619
+      ],
+      "utf8": [
+        180603,
+        180627
+      ],
+      "sha256": "88681635c1fe4e25973e188d1aa1c66aab7c069d790fbd1cb89d6b576d61a5ab"
+    },
+    {
+      "label": "Disabled native prepaint button",
+      "source": "evidence/web/objects/13c13db9eb86191b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ggmlsuhd8iw1.js",
+      "sourceSha256": "15e7cb5caef8d58d0d263486883e7aac6e39e9e2f7e037af29887849bd0cd6c6",
+      "sourceBytes": 215208,
+      "utf16": [
+        168144,
+        169135
+      ],
+      "utf8": [
+        168152,
+        169143
+      ],
+      "sha256": "9edc8eea494fce4254b6f14b089435187ef76cb926410c32c40ce3872b4521d0"
+    },
+    {
+      "label": "Post-hydration signed-out actionable trigger",
+      "source": "evidence/web/objects/13c13db9eb86191b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ggmlsuhd8iw1.js",
+      "sourceSha256": "15e7cb5caef8d58d0d263486883e7aac6e39e9e2f7e037af29887849bd0cd6c6",
+      "sourceBytes": 215208,
+      "utf16": [
+        180710,
+        180946
+      ],
+      "utf8": [
+        180718,
+        180954
+      ],
+      "sha256": "67ec9a42bda04936ec9c5e8f7e1eb586695b438edbac076643876fe2dce18df4"
+    },
+    {
+      "label": "True client snapshot and false server snapshot",
+      "source": "evidence/web/objects/994c0030bcc62017.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2oyndie4zi8s9.js",
+      "sourceSha256": "e19fc8c67314ff7ad3e69fcd4228558a461e246856f96d101b0596a1b61255b5",
+      "sourceBytes": 24978,
+      "utf16": [
+        10785,
+        10893
+      ],
+      "utf8": [
+        10785,
+        10893
+      ],
+      "sha256": "72a61a3e662f4e2995ea53610e55b0658ec866cf82ddca6c904962252fe06ff7"
+    }
+  ],
+  "localBoundary": "AuthControl already tracks mounted to portal the chooser. Reuse that readiness for its trigger; no provider readiness, authReady, session, signing or original runtime equivalence claim."
+}
