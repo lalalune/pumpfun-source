@@ -310,10 +310,10 @@ export function createSettingsSwitch({jsx,jsxs,Fragment,useMemoCache,useState,us
         "Injected JSX/React, translation, hydration, switch/button/confirmation components; private component/provider behavior is not recovered",
     },
     credit:
-      "Existing privacy-external-links unit already reconstructs selected654506 key/cache/fallback semantics. This unit adds complete547562 hooks/SSR/functional updates,671027 initialization and416380 selected UI closure; no first-helper or whole-registry recovery claim.",
+      "Existing privacy-external-links unit already reconstructs selected 654506 key/cache/fallback semantics. This unit adds complete 547562 hooks/SSR/functional updates, 671027 initialization and 416380 selected UI closure; no first-helper or whole-registry recovery claim.",
     limits: [
       "Only safe feed.showAnimations descriptor is constructed; no generic preferences page, fabricated Home animation effect or server persistence.",
-      "Legacy tests use synthetic keys, not trading/admin/account data. No current cookies, auth/session, support/Firebase, claims, signing, mutation or live requests.",
+      "Legacy tests use synthetic keys, not trading/admin/account data. No current cookies, auth/session, support/Firebase, claims, signing, network mutations or live requests.",
       "The captured confirmation branch is retained, but its private provider and unrelated sensitive setting policies are not supplied or qualified.",
       "LocalBucket/locale-cookie and full registry remain separate. Scope metadata is not ownership or server authorization.",
       "No feature milestone, production availability, original-provider/API/pixel equivalence or security clearance claim.",
@@ -328,11 +328,9 @@ export async function verify(root = APP) {
     await readFile(path.join(root, DIRECTORY, "client.mjs"), "utf8"),
     result.text,
   );
-  assert.deepEqual(
-    JSON.parse(
-      await readFile(path.join(root, DIRECTORY, "contract.json"), "utf8"),
-    ),
-    result.contract,
+  assert.equal(
+    await readFile(path.join(root, DIRECTORY, "contract.json"), "utf8"),
+    JSON.stringify(result.contract, null, 2) + "\n",
   );
   return result.contract;
 }
