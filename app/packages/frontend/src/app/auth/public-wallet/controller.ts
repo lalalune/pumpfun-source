@@ -57,7 +57,7 @@ export type PublicWalletState = Readonly<{
 }>;
 const initial: PublicWalletState = Object.freeze({
   status: "idle",
-  wallets: [],
+  wallets: Object.freeze([]),
   selected: null,
   address: null,
   message: null,
@@ -130,7 +130,7 @@ export class PublicWalletController {
     for (const listener of this.listeners) listener();
   }
   private choices() {
-    return [...this.wallets].map(([id, wallet]) => ({ id, name: wallet.name }));
+    return Object.freeze([...this.wallets].map(([id, wallet]) => Object.freeze({ id, name: wallet.name })));
   }
   private clearAttempt() {
     this.generation++;
