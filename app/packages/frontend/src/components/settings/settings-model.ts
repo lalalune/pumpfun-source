@@ -229,6 +229,7 @@ export function findSettings(query: string): readonly SettingDefinition[] {
         setting.group,
         setting.section,
         ...setting.searchTerms,
+        setting.id.replace(/[.]/g, " "),
       ].join(" "),
     );
     return terms.every((term) => text.includes(term));
