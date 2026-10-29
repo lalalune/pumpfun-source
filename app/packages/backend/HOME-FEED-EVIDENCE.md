@@ -100,6 +100,14 @@ unit uses no captured market record as if it were current or complete.
 - Startup rejects a changed default seed, malformed records, duplicate record
   or callout identities, unsupported chains/classes, invalid timestamps,
   unsafe strings, invalid numeric values, and future-dated rows.
+- Required strings must contain a non-whitespace character, matching the
+  maintained native-feed response consumer. Previously a supplied local store
+  could admit blank coin/author labels, identifiers or thesis text and return
+  HTTP 200, only for that consumer to reject the whole page. Admission now
+  rejects those records before serving; valid strings retain their exact
+  whitespace and Unicode rather than being trimmed or repaired. This is local
+  constructor/consumer consistency, not an inferred production text rule. The
+  unchanged hash-bound default seed already satisfies this requirement.
 - Ranked order is the seed's explicit `localRank`, then creation time
   descending, then callout ID. It is deterministic and is not Pump ranking.
 - New order is creation time descending, then callout ID. The 24-hour cutoff is
@@ -153,6 +161,7 @@ Run from `app/`:
 
 ```sh
 corepack pnpm@10.24.0 --filter @pump-reconstruction/backend exec tsx --test test/home-feed.test.ts
+corepack pnpm@10.24.0 --filter @pump-reconstruction/backend exec node --import tsx --test test/home-feed-string-admission.test.ts
 corepack pnpm@10.24.0 --filter @pump-reconstruction/backend test
 corepack pnpm@10.24.0 build
 corepack pnpm@10.24.0 test

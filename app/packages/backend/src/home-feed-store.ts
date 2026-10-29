@@ -213,7 +213,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 function safeString(value: unknown, label: string, maximum: number): string {
   if (
     typeof value !== "string" ||
-    value.length === 0 ||
+    value.trim().length === 0 ||
     value.length > maximum ||
     /[\u0000-\u001f\u007f]/u.test(value) ||
     !isWellFormedUnicode(value)
