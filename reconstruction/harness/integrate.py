@@ -8,6 +8,7 @@ Each part is turned into a patch against the crate it was derived from (default:
 then applied in order with `patch -p2 --forward`. Rejects are reported and the part is skipped
 (the composition continues). The composed crate is built with fastbuild.py and scored.
 Output: SC/integ/<NAME>/{src, parts/<label>.patch, rejects/, report.json}
+Names must be fresh; an earlier result is never overwritten.
 """
 import argparse, json, shutil, subprocess, sys, re
 from pathlib import Path
@@ -55,7 +56,10 @@ def preflight(name, base, parts, overrides):
     unknown = bases.keys() - selected.keys()
     if unknown:
         raise ValueError('base overrides have no matching part: ' + ', '.join(sorted(unknown)))
-    out = (SC / 'integ' / name).resolve()
+    output_path = SC / 'integ' / name
+    if output_path.exists() or output_path.is_symlink():
+        raise ValueError('output already exists; choose a new --name to preserve the earlier result')
+    out = output_path.resolve()
     base = base.resolve()
     for source in {base, *selected.values(), *bases.values()}:
         if source == out or source in out.parents or out in source.parents:
@@ -80,8 +84,6 @@ def main():
         out, base, parts = preflight(a.name, a.base_src, a.part, a.base_of)
     except (ValueError, OSError) as error:
         ap.error(str(error))
-    if out.exists():
-        shutil.rmtree(out)
     (out / 'parts').mkdir(parents=True); (out / 'rejects').mkdir()
     src = out / 'src'
     shutil.copytree(base, src, ignore=shutil.ignore_patterns('target'))
