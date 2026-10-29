@@ -141,6 +141,7 @@ export function AuthControl({
         data-testid="sign-in-button"
         aria-haspopup="dialog"
         aria-expanded={open}
+        disabled={!mounted}
         onClick={controller.open}
       >
         {copy["common.sign_in"]}
