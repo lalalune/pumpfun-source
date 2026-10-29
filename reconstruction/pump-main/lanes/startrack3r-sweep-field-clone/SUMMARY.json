@@ -1,0 +1,161 @@
+{
+  "schema": "pump-sweep-field-clone-v1",
+  "base_revision": "630a074126a13d4133514d599129c6ac9a3179bc",
+  "target": "0x72810",
+  "original_target_bytes": 7832,
+  "original_allocation_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+  "original_allocation_bytes": 10485715,
+  "recipe": "Qualified Windows x86_64 platform-tools v1.44 rustc with unmodified Linux v1.44 sbpf-solana-solana target libraries. Normal compiler options and dependency artifacts are shared by paired builds. Source path remaps cover current Rust files. No altered optimizer/inliner thresholds, binary patches or injected original code.",
+  "controls": {
+    "control": {
+      "image_sha256": "899b5b77da7a105b29aec334b862d39575a4e0f73b437ddb7f2d8f90353bdbd7",
+      "image_bytes": 2665192,
+      "returncode": 0,
+      "source_inputs": 71,
+      "source_revision": "630a074126a13d4133514d599129c6ac9a3179bc",
+      "sweep_source_sha256": "73155245b50f1350e61b783c95b347166b254f0387e8c2ba8e4fcc7f84ac401e",
+      "source_inventory_sha256": "56812ea722d4a745ee6d40a6f8addf1190cd5a7efedc2891c1ad79c56a3731e2",
+      "launch_receipt_sha256": "bd3b0f8221a92f5e5b0c5dbfceedb719fd5b09a027f16cbe9ab9b15a2b699f07",
+      "result_receipt_sha256": "d01b1282d2288c8a97f8c7214f3a4b5d090ea979c65bb9fdf391aa8fdb448709",
+      "stderr_sha256": "dde9c1ed072ab5c167cdba6caf0e15d40ec311fe88ced8140d6a619433161a6b",
+      "stack_offset_warnings": 0,
+      "normalized": 1023,
+      "raw": 273,
+      "sweep": {
+        "bytes": 7824,
+        "sequence_edit_instructions": 557,
+        "positional_different_slots": 814,
+        "complete_callee_multiset_equal": true,
+        "ordered_callees_equal": false,
+        "ratio": 0.49139,
+        "internal_calls": 37,
+        "syscalls": 2
+      }
+    },
+    "candidate": {
+      "image_sha256": "a0684ea31b42a12334be3a93fdbc55d684f39e1f1f1a052aaa3b54ab7c0672fc",
+      "image_bytes": 2664584,
+      "returncode": 0,
+      "source_inputs": 71,
+      "source_revision": "630a074126a13d4133514d599129c6ac9a3179bc",
+      "sweep_source_sha256": "5d1cb14dc15939d01d24b3a6f9044a096a812b64fcfb5c6c013224a3549fbd50",
+      "source_inventory_sha256": "fd107f8ba697f279d68766182594caa337471dbc7bdc609f8ccc5e68a6e6eb42",
+      "launch_receipt_sha256": "79056b11e47b99cccc14196cc96e7069acec9222c2896a3ddc31cc2062bb1d60",
+      "result_receipt_sha256": "6a90625bf679b8529c00c5c286e6f04c5944887321bba543c01f02862daf0b25",
+      "stderr_sha256": "c7f9e9b71c150491ff7353014c0d818aa3195d82a115fec4b272d7b465998136",
+      "stack_offset_warnings": 0,
+      "normalized": 1023,
+      "raw": 273,
+      "sweep": {
+        "bytes": 7392,
+        "sequence_edit_instructions": 276,
+        "positional_different_slots": 588,
+        "complete_callee_multiset_equal": true,
+        "ordered_callees_equal": false,
+        "ratio": 0.78905,
+        "internal_calls": 37,
+        "syscalls": 2
+      }
+    },
+    "repeat": {
+      "image_sha256": "a0684ea31b42a12334be3a93fdbc55d684f39e1f1f1a052aaa3b54ab7c0672fc",
+      "image_bytes": 2664584,
+      "returncode": 0,
+      "source_inputs": 71,
+      "source_revision": "630a074126a13d4133514d599129c6ac9a3179bc",
+      "sweep_source_sha256": "5d1cb14dc15939d01d24b3a6f9044a096a812b64fcfb5c6c013224a3549fbd50",
+      "source_inventory_sha256": "fd107f8ba697f279d68766182594caa337471dbc7bdc609f8ccc5e68a6e6eb42",
+      "launch_receipt_sha256": "ef0daa373bdd7a7a00f7a79558e2f19376010e51c6ba427b29ed22df7dfd1655",
+      "result_receipt_sha256": "17c93aa2d8479dbee23e58c65ba465b03e55b5e9b7f2a945c7e6cdea997962ee",
+      "stderr_sha256": "0c8cc4b374ce286d24605dc194d3f19507294610b7b16bfd8c2a1006112607a4",
+      "stack_offset_warnings": 0,
+      "normalized": 1023,
+      "raw": 273,
+      "sweep": {
+        "bytes": 7392,
+        "sequence_edit_instructions": 276,
+        "positional_different_slots": 588,
+        "complete_callee_multiset_equal": true,
+        "ordered_callees_equal": false,
+        "ratio": 0.78905,
+        "internal_calls": 37,
+        "syscalls": 2
+      }
+    }
+  },
+  "membership": {
+    "normalized": {
+      "gains": [],
+      "losses": []
+    },
+    "raw": {
+      "gains": [],
+      "losses": []
+    }
+  },
+  "candidate_repeat_complete_output_equal": true,
+  "harness_sha256": {
+    "score.py": "99475a567c96c2b8d609857fe96d1ed42058c795f19ac2374968c2905ee1fb3a",
+    "win.py": "7527e5fd698ec1242b8bd84996159e6795d7120f57fe94c2fd9edbcbc703edaf"
+  },
+  "source_semantics": {
+    "account_info_version": "2.3.0",
+    "account_info_source_sha256": "6b59aba664bb70fda6e17bcc8cf6eb41fc0bc9d8bcbb797bd70c1b107809c29a",
+    "cloned_fields": [
+      "key",
+      "lamports",
+      "data",
+      "owner",
+      "rent_epoch",
+      "is_signer",
+      "is_writable",
+      "executable"
+    ],
+    "ownership": "Same borrowed key/owner, copied scalar fields, and cloned lamports/data Rc handles in declaration order; no account-data borrow or deep copy."
+  },
+  "passive_diagnostics": {
+    "source_cohort": "2c8a7900f240c8a50cccc2b4d263bdbd32a68924",
+    "compiler_output_unchanged": true,
+    "compiler_source_revision": "08aedd64bf3abe4f163407b7bcf680403b84b32d",
+    "opt_sha256": "41539c2b9dd021e03cbb4203060492a391a2c4cea6b06ab616f7bd6d173790fc",
+    "recipient_clone_relative_frequency": {
+      "a37": {
+        "relative_numerator": 1925,
+        "relative_denominator": 131072,
+        "relative": 0.01468658447265625,
+        "below_two_percent": true
+      },
+      "joined": {
+        "relative_numerator": 1925,
+        "relative_denominator": 131072,
+        "relative": 0.01468658447265625,
+        "below_two_percent": true
+      },
+      "current": {
+        "relative_numerator": 3325,
+        "relative_denominator": 131072,
+        "relative": 0.02536773681640625,
+        "below_two_percent": false
+      }
+    },
+    "cold_callsite_boundary": 0.02,
+    "scope": "Static estimates from complete unmodified modules before InlinerPass, not runtime profiles or original-source evidence."
+  },
+  "rejected_control": {
+    "mechanism": "Serial token-admission Result match inside execute",
+    "source_cohort": "2c8a7900f240c8a50cccc2b4d263bdbd32a68924",
+    "sweep_ratio": 0.70427,
+    "sweep_bytes": 7664,
+    "internal_calls": 38,
+    "syscalls": 2,
+    "reason": "Same exact pre-inline recipient-clone frequency as a37; extra AccountInfo::clone remains."
+  },
+  "validation": {
+    "real_a37_negative_control": "verify.py rejects its extra complete callee-body occurrence",
+    "target_execution": false,
+    "raw_window_gain": false,
+    "normalized_window_gain": false,
+    "full_original_identity": false,
+    "security_claim": false
+  }
+}
