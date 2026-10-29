@@ -13,7 +13,7 @@ def known_instruction_names(name):
     path = ROOT / 'evidence/upstream' / f'{name}.json'
     if not path.is_file():
         return ()
-    data = json.loads(path.read_text())
+    data = json.loads(path.read_text(encoding='utf-8'))
     names = {
         ''.join(part[:1].upper() + part[1:] for part in item['name'].split('_'))
         for item in data.get('instructions', [])
@@ -26,7 +26,7 @@ def program_names():
     """Use the archived mapping when present, otherwise the captured programs."""
     path = ROOT / 'repro/programs.json'
     if path.is_file():
-        return json.loads(path.read_text())
+        return json.loads(path.read_text(encoding='utf-8'))
     order = ('pump', 'pump_amm', 'pump_fees', 'mayhem')
     return [
         name for name in order
@@ -85,7 +85,7 @@ def analyze():
     (ROOT/'evidence/binary-analysis.json').write_text(json.dumps(out,indent=2)+'\n')
     inventory={}
     for f in (ROOT/'evidence/upstream').glob('pump*.json'):
-        d=json.loads(f.read_text()); addresses={}
+        d=json.loads(f.read_text(encoding='utf-8')); addresses={}
         def walk(accounts,ix):
             for a in accounts:
                 if 'address' in a: addresses.setdefault(a['address'],[]).append({'instruction':ix,'account':a['name']})
