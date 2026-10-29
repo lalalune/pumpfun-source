@@ -5,7 +5,14 @@ from urllib.parse import urlsplit
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 BEGIN = '<!-- app-progress:start -->'
 END = '<!-- app-progress:end -->'
-def read(path): return json.loads((ROOT/path).read_text(encoding='utf-8'))
+def unique_object(pairs):
+    result = {}
+    for key, value in pairs:
+        require(key not in result, f'Duplicate progress JSON key: {key}')
+        result[key] = value
+    return result
+
+def read(path): return json.loads((ROOT/path).read_text(encoding='utf-8'), object_pairs_hook=unique_object)
 
 def require(condition, message):
     if not condition: raise ValueError(message)
