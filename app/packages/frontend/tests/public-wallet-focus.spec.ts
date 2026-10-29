@@ -97,6 +97,7 @@ async function install(page: Page) {
 
 for (const transition of [
   "discover",
+  "connect",
   "approve",
   "cancel",
   "disconnect",
@@ -133,7 +134,11 @@ for (const transition of [
       });
       await connect.focus();
       await connect.click();
-      if (transition === "cancel") {
+      if (transition === "connect") {
+        await expect(connect).toBeDisabled();
+        await expect(page.getByTestId("public-wallet-panel")).toBeFocused();
+        await expect(page.getByTestId("public-wallet-address")).toHaveCount(0);
+      } else if (transition === "cancel") {
         const cancel = page.getByRole("button", {
           name: "Cancel connection",
           exact: true,
@@ -167,6 +172,7 @@ for (const transition of [
       .getByTestId("auth-dialog")
       .getByRole("button", { name: "Close", exact: true })
       .click();
-    if (transition === "cancel") await act(page, "approve");
+    if (transition === "cancel" || transition === "connect")
+      await act(page, "approve");
   });
 }

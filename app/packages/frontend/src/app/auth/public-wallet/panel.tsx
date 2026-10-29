@@ -90,7 +90,17 @@ function WalletChoices({ controller }: { controller: PublicWalletController }) {
                   state.status === "connecting" ||
                   state.status === "disconnecting"
                 }
-                onClick={() => void controller.connect(wallet.id)}
+                onClick={(event) => {
+                  // Move focus before this still-mounted button is disabled.
+                  // Do not leave focus on a control that cannot keep it.
+                  const element = panel.current;
+                  if (
+                    element?.closest("dialog")?.open &&
+                    document.activeElement === event.currentTarget
+                  )
+                    element.focus();
+                  void controller.connect(wallet.id);
+                }}
               >
                 Connect {wallet.name}
               </button>

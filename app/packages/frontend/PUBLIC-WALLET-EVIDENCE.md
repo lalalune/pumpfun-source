@@ -51,7 +51,7 @@ Wallet Standard's disconnect feature is optional, as the captured `tS.disconnect
 
 The [follow-up validation record](visual/public-wallet-followup-20261029/validation.json) binds exact runtime `13b9ec932b657efebf32611ca80d9b39870bdbce`: all six product-browser cases, 12 controller cases, the unchanged AST source verifier, independent SDK/backend/Next production build, recursive TypeScript, all 698 app evidence/npm/SDK checks and progress with eight tests passed. Raw commands, logs and results are retained separately from the earlier checkpoint. The final receipt-only supplement leaves this runtime source tree unchanged.
 
-## Wallet-panel focus continuity
+## Wallet-panel focus continuity — historical ce536028 checkpoint
 
 Wallet discovery and account-state transitions replace controls inside a dialog
 whose authentication state remains `ready`. The auth dialog's existing
@@ -98,3 +98,42 @@ No live wallet/signing/authentication request, native browser result, visual
 parity, aggregate test suite or new root-static qualification is claimed here.
 The earlier browser records in this document remain historical observations of
 prior implementations, not execution of this focus correction.
+
+## Pending-Connect focus amendment
+
+Native Chrome 156.0.8078.48 testing of `ce536028` confirmed discovery recovery,
+but also exposed a pending-Connect gap: after an actual Playwright click and
+60 ms with synthetic approval unresolved, the dialog remained open while the
+active element was the body. Approval then restored panel focus. Fourteen
+trajectories were completed, but twelve shared this intermediate gap; those
+results are not fourteen uninterrupted-focus passes. No immediate click or
+animation-frame event trace was retained, so exact native blur/effect ordering
+is not established.
+
+Connect remains mounted while becoming disabled. The prior body-only effect
+did not explicitly transfer focus from that control. The amendment moves focus
+to the existing panel synchronously before connecting, only when the clicked
+Connect button owns focus and its enclosing dialog is open. Surviving Close
+focus, including programmatic Connect clicks, is preserved; no focus timer,
+controller, wallet protocol or authentication policy is changed.
+
+Fresh amendment checks:
+
+- The same twelve private React StrictMode/jsdom cases give **eleven passes /
+  one pending-Connect failure before**, then **twelve passes after**. In jsdom
+  the failed case retains a disabled button, unlike native Chrome's body result.
+  Controls cover surviving Close, close/unmount with late approval, and no focus
+  recovery in a closed enclosing dialog. The dialog-state shim is not native
+  focus qualification.
+- Both explicit public-wallet/auth-interface model suites pass **28/28**.
+- The full frontend TypeScript project passes with existing dependencies and
+  prior generated Next declarations. Initial missing supplemental type inputs
+  were restored from their authenticated source manifest before rerunning.
+- The committed browser spec now includes a seventh, still-pending Connect
+  case requiring panel focus. This product-browser spec remains **unrun**;
+  native verification of the amended source is also pending.
+
+The SDK/backend/Next builds, broader evidence checks and root checks above are
+historical `ce536028` results, not newly rerun amendment results. No live wallet,
+RPC, signing, credentials, native visual parity or uninterrupted-focus result
+for the amendment is claimed.
