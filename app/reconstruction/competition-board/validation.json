@@ -1,0 +1,655 @@
+{
+  "schemaVersion": 1,
+  "base": "abd766d7a8c047f14af34851f64166b840c6728d",
+  "testedLocalSourceCommit": "adfa8d9beb3aced7aadbe21db2f96ab52aa2f0f2",
+  "publishedSourceCommit": "b5bd8eaeda00aa00f03640256384b48e33887152",
+  "identicalCompleteSourceTree": "a5f59bd3c9a3c360139209ebb47168f2cdfd1e11",
+  "bindingNote": "Local and connector commit metadata/parent history differ. All 12 new blobs and the complete tree were checked for equality. Public parent75d9fdf3 tree9052bdfb equals local1925cada. This receipt commit changes no executable source.",
+  "prerequisites": {
+    "1296": {
+      "head": "3c0fbf1477fb8f8b365ca86d0c614c5528510ac2",
+      "statusAtSourcePublication": "open/ready",
+      "credit": "Complete entry row and explicit identity/image contexts, inherited unchanged."
+    },
+    "1315": {
+      "head": "75d9fdf355f5a1f72a8f37e39196c1302b5c16ea",
+      "statusAtSourcePublication": "open/ready",
+      "credit": "Complete viewer card/stats and used volume formatter, inherited unchanged."
+    },
+    "937": "Accepted full prize tier/formatters; reused, not new recovery.",
+    "850": "Accepted list/detail/foreground/selection/local transport; reused, not new recovery."
+  },
+  "sourceFiles": {
+    "app/packages/frontend/src/components/leaderboard/board/CompetitionBoardDisplay.tsx": {
+      "bytes": 2536,
+      "sha256": "ba229ea83eb8d09cb11c750b00047aef10359515c73982795058c15b2f9181f4"
+    },
+    "app/packages/frontend/src/components/leaderboard/board/original-board.tsx": {
+      "bytes": 18282,
+      "sha256": "a917dbc557c014d42f281385fc7a4484aa0b3ac02b979a03eb6bf37ab4408f5a"
+    },
+    "app/reconstruction/competition-board/README.md": {
+      "bytes": 6348,
+      "sha256": "3403076451271df806feb7ef0394bd68314ff32dc8a9a708cabefdc475f526f1"
+    },
+    "app/reconstruction/competition-board/contract.json": {
+      "bytes": 20018,
+      "sha256": "c83e4d986a000f56cf4d346fa6eb62e70cb6a58b01c8c5534ce5fb6122b0578f"
+    },
+    "app/reconstruction/competition-board/visual/README.md": {
+      "bytes": 854,
+      "sha256": "7bae4868b8fa0c3c2a7401451d8de6ca03bcb7796b71c24624c74e75c33d0c57"
+    },
+    "app/reconstruction/competition-board/visual/board-desktop.png": {
+      "bytes": 84929,
+      "sha256": "b1f5032724b1be1a4ddcf8eb4ddca42856513879d761985ea98f675cd4cbbf67"
+    },
+    "app/reconstruction/competition-board/visual/board-mobile.png": {
+      "bytes": 67567,
+      "sha256": "d42099bce4946baa78632ad51098fe25b4fc5c7a22c9388cbc784747cc38d98a"
+    },
+    "app/scripts/original-competition-board.mjs": {
+      "bytes": 15259,
+      "sha256": "2b63afe8db644c9f0b2c262706b6ec261b1b2dda29e535cea20bf992acc5912e"
+    },
+    "app/tests/fixtures/competition-board-browser.mjs": {
+      "bytes": 7946,
+      "sha256": "7ccb5ff9679482772ae455bdb090f5b8f089c40ba4215fec41dca5e2759bc991"
+    },
+    "app/tests/fixtures/competition-board-data.mjs": {
+      "bytes": 1937,
+      "sha256": "b359a4cfcebf9e7c63c283dbd879fd0d6cbd59673a9f9f630d8aa8e4669f1f1b"
+    },
+    "app/tests/original_competition_board.test.mjs": {
+      "bytes": 11903,
+      "sha256": "252245042e5a92327e131299967f528ba5ebfcb67c56f175b782a842efff3b2c"
+    },
+    "app/tests/original_competition_board_browser.test.mjs": {
+      "bytes": 14107,
+      "sha256": "e4b85c466e87ebea3d944d6df2a7a84bdcaa77c334a557cfd48bb13255ff9e40"
+    }
+  },
+  "preservedInputs": {
+    "contracts/developer.openapi.json": {
+      "bytes": 1552035,
+      "sha256": "ad2fdc2bbf0b86d92e01f539ca609fff8164fcc44556bb2691378a869f73ad73"
+    },
+    "evidence/web/manifest.json": {
+      "bytes": 3026513,
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5"
+    },
+    "evidence/web/objects/0746572aecdcf595.js": {
+      "bytes": 25651,
+      "sha256": "04931a655f6b2a6400e592bac5a6b9c5e7a0fe49e84a9d4faecc9467ed5af95c"
+    },
+    "evidence/web/objects/0fea5750534737b2.js": {
+      "bytes": 49581,
+      "sha256": "01b3ea982eb9ba3970a4b49714c827805ecc85699e35c3614d1d072fbe67949e"
+    },
+    "evidence/web/objects/257d1f445453cc81.js": {
+      "bytes": 40874,
+      "sha256": "bed2d972e23dadf21d5e06a082b54934910ddd1b1fb6b7101ca4d8f5fb309e82"
+    },
+    "evidence/web/objects/2b47dd0b38a1608f.js": {
+      "bytes": 507700,
+      "sha256": "e78d2f38b06f971847c18dd05457c75afc85208135f50d6e4022a5f197e8839d"
+    },
+    "evidence/web/objects/2fe17dced92b840b.js": {
+      "bytes": 117439,
+      "sha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5"
+    },
+    "evidence/web/objects/4da7a3f4580c8707.js": {
+      "bytes": 77335,
+      "sha256": "d3ac051dc8989b6c57dc72c1899117ccf12cfa274a91cb707ea2c53099de37f8"
+    },
+    "evidence/web/objects/90533aae518e4b32.js": {
+      "bytes": 25017,
+      "sha256": "79e3742dd663e154c28b370f2f6d85bf59f8225a5a9491e6ad72857807a5f820"
+    },
+    "evidence/web/objects/92f43c917bbc50e2.js": {
+      "bytes": 20738,
+      "sha256": "3814fcc63edc9700984209785bfa0216c960d66ce0586a1f8563f5365ed28a82"
+    },
+    "evidence/web/objects/a0ec47219f76f808.js": {
+      "bytes": 28862,
+      "sha256": "557eb3547caea2d37bd9712a9cf3d07c835537e9354e0d7bd449b881fffdafc7"
+    },
+    "evidence/web/objects/ad7136d0b3a7f323.js": {
+      "bytes": 35014,
+      "sha256": "ee1eb91e3cbfb10fa33462a1a2f500fed9902a88454dc715f059d56f405475b3"
+    },
+    "evidence/web/objects/b7df9c4704b957ab.js": {
+      "bytes": 29116,
+      "sha256": "8d9baa2dba38677ae4ee04e3683755713351572fa98f9dab72ee021f8a02d174"
+    },
+    "evidence/web/objects/c3601a995a6b7f37.js": {
+      "bytes": 45232,
+      "sha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231"
+    },
+    "evidence/web/objects/c8e855c81e05ca28.js": {
+      "bytes": 166150,
+      "sha256": "8f488974ed97451b19a40d4803a8429253daa251935262e7de322a4a906ca201"
+    },
+    "evidence/web/objects/da58569257a3fbc5.js": {
+      "bytes": 51286,
+      "sha256": "525c866b2e9beb87c98a160f51a805a4f593f74ae98330cf004a145633215ffc"
+    },
+    "evidence/web/objects/ea5d7a76f15713d7.js": {
+      "bytes": 12910,
+      "sha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff"
+    },
+    "evidence/web/objects/fd402d4185b44ce9.js": {
+      "bytes": 31128,
+      "sha256": "1dc5d2351887b14932acbddf37ea653566df106b41c56ddc19ae70158e43f806"
+    },
+    "packages/backend/src/schema-validator.ts": {
+      "bytes": 10094,
+      "sha256": "9317f75f3df5ffd981c2c53ed0eeeefdb27ff2d4e0751867fd67005ccf60a246"
+    },
+    "packages/frontend/public/fonts/53b9e256198e5412-s.2gwoz23eiro2t.woff2": {
+      "bytes": 7968,
+      "sha256": "f689f638f29fff460a2d5749edb5d5c38d7bef0389f32032d871f23fc6ebb008"
+    },
+    "packages/frontend/public/fonts/7178b3e590c64307-s.0i3h3th1vs4m7.woff2": {
+      "bytes": 16540,
+      "sha256": "58a6b173d5ca1dec92166ea3c6cb1a84a4144556d10928ac14e8e6b40e4787bd"
+    },
+    "packages/frontend/public/fonts/8a480f0b521d4e75-s.3j-a226dh71aj.woff2": {
+      "bytes": 14900,
+      "sha256": "6129fc8571c3e0cb0a4c41f5160c974a843b055009dc4ad8858bd808e18a2d86"
+    },
+    "packages/frontend/public/fonts/caa3a2e1cccd8315-s.p.0zr6hhvz-h9nw.woff2": {
+      "bytes": 29288,
+      "sha256": "9b6f5ff45b278c744b5f379a2c4ecbaf858a842b8eaf82ac8d21b699ca16c608"
+    },
+    "packages/frontend/public/fonts/fef07dbb0973bf53-s.00az9qtie3ho1.woff2": {
+      "bytes": 7252,
+      "sha256": "b7a545bbb08256bd809f11cfe66d88da3e22d169ea4407737b1ef0ec1ed3d791"
+    },
+    "packages/frontend/src/app/captured-root.css": {
+      "bytes": 6133,
+      "sha256": "ea510ac3612d58b02605fbb64c8738ae3446978ec657c2139878b9deb068761c"
+    },
+    "packages/frontend/src/app/globals.css": {
+      "bytes": 59893,
+      "sha256": "aa8b5c22bb2b4f057989b79107e108d69f5200d94c1502c3fd0e5376ad37ec91"
+    },
+    "packages/frontend/src/app/leaderboard/leaderboard-client.tsx": {
+      "bytes": 26955,
+      "sha256": "02310d1e8050387ca314da56dc6d560a31c847d99ada6ac62d2def335f542c48"
+    },
+    "packages/frontend/src/app/leaderboard/types.ts": {
+      "bytes": 10744,
+      "sha256": "d3ffe9f9b6fe990766fc8fb7b26c6192064d2413298c30392f906dd24455162a"
+    },
+    "packages/frontend/src/app/recovered-fonts.css": {
+      "bytes": 63739,
+      "sha256": "83a7d307b6b3624e081bda08d282a10d3852cf2577e65aa50bdf72e2f507f8e6"
+    },
+    "packages/frontend/src/app/recovered-tokens.css": {
+      "bytes": 3331,
+      "sha256": "14804137a142561602d60e11af5a3b5dcb9f4281df03d098443adf5f4e7eb1ca"
+    },
+    "packages/frontend/src/components/leaderboard/CompetitionCountdown.tsx": {
+      "bytes": 1539,
+      "sha256": "29a6d989c191b99f6793234a9b1b56123be1105e91cc42d038947d9411c1dda6"
+    },
+    "packages/frontend/src/components/leaderboard/CompetitionPrizeDisplay.tsx": {
+      "bytes": 1344,
+      "sha256": "afce3adbf515f943fca973d28b6303895dfc3887a8e93fc474e50d57c24f998d"
+    },
+    "packages/frontend/src/components/leaderboard/entry/CompetitionEntryDisplay.tsx": {
+      "bytes": 1340,
+      "sha256": "a21eb246b6c0f8555426f7067b090575c8a055f4f3fbbbd329b2162a5a8fd279"
+    },
+    "packages/frontend/src/components/leaderboard/entry/entry-helpers.d.mts": {
+      "bytes": 716,
+      "sha256": "5985be4782c402e25356585eaeb87a9a3d0f5a8d513d419c098dbd2d6cfde506"
+    },
+    "packages/frontend/src/components/leaderboard/entry/entry-helpers.mjs": {
+      "bytes": 3595,
+      "sha256": "3106d82b71ce1df8cd14aec52e4c4d9c1e77fe3662af7d1a77ee7c6cdad18a92"
+    },
+    "packages/frontend/src/components/leaderboard/entry/original-entry-row.tsx": {
+      "bytes": 13569,
+      "sha256": "5adb64c15899f0f65a63ab65b505505524085b08db4ba77648178b7a7a7bcc85"
+    },
+    "packages/frontend/src/components/leaderboard/entry/variants/image-1877fed09a63.mjs": {
+      "bytes": 240,
+      "sha256": "16879e3b7a9d7389b4042885d5c7496807c7f117126a0c39f6e3b818583eb3fb"
+    },
+    "packages/frontend/src/components/leaderboard/entry/variants/image-64085dc31cc9.mjs": {
+      "bytes": 240,
+      "sha256": "310e5468e267deb2df2e887a458a5b75bf51ba19d6b198946b95a990f8198fec"
+    },
+    "packages/frontend/src/components/leaderboard/entry/variants/image-9fa49ca7090d.mjs": {
+      "bytes": 240,
+      "sha256": "10a818cd65b75d1479f0a08aac80c92a8a25403901c9c10447446be3e9067f6f"
+    },
+    "packages/frontend/src/components/leaderboard/entry/variants/squad-35ee9b42b219.mjs": {
+      "bytes": 354,
+      "sha256": "4c96e61bd98b5d8fa7b81728ed21e596e9d19d532f33d1faddf289c8dd20c05b"
+    },
+    "packages/frontend/src/components/leaderboard/entry/variants/squad-4043938d1f35.mjs": {
+      "bytes": 354,
+      "sha256": "11a8a145849e70aeae793a8f7b5d4e5766142265f5379745c80cda5e511ceab6"
+    },
+    "packages/frontend/src/components/leaderboard/original-countdown.d.mts": {
+      "bytes": 1045,
+      "sha256": "c3f6c788f3644c81a4a695ef7402ff6c7c0e7e5c2e97f95040bdb0d7ab19c005"
+    },
+    "packages/frontend/src/components/leaderboard/original-countdown.mjs": {
+      "bytes": 6252,
+      "sha256": "55c59f7226ed933b18c95f8c77d1679b1ed949656c42af26eb8fa4be8dc319e2"
+    },
+    "packages/frontend/src/components/leaderboard/original-prize-formats.d.mts": {
+      "bytes": 640,
+      "sha256": "ee1b5814e98c29f3dfa96d29af83d286c2f9de2c44722b22ad8a52f1fae33de7"
+    },
+    "packages/frontend/src/components/leaderboard/original-prize-formats.mjs": {
+      "bytes": 5571,
+      "sha256": "dd9d5e338db6c0b5b716c4f8edace574a42c11ca784663d6a6a29aec7fff86af"
+    },
+    "packages/frontend/src/components/leaderboard/original-prizes.tsx": {
+      "bytes": 4348,
+      "sha256": "d9abf53464b6bd1be3b1a630a8ef3bfa7d1b876fd382d3bd86ef04b0c504928c"
+    },
+    "packages/frontend/src/components/leaderboard/prize-number-variants/b6933f856a7f.mjs": {
+      "bytes": 751,
+      "sha256": "c2297af3d1d6cd2f2a9eefe490a9f2b4a9a09921e8e52f24ad2df966cd6a8804"
+    },
+    "packages/frontend/src/components/leaderboard/prize-number-variants/f29f27e66af2.mjs": {
+      "bytes": 751,
+      "sha256": "3641cd417646cd7bdb2d908ce11d97fdf984d7b521a151c1d0809fffeb47c004"
+    },
+    "packages/frontend/src/components/leaderboard/viewer/CompetitionViewerDisplay.tsx": {
+      "bytes": 1331,
+      "sha256": "6840c150468f3448f4e96a5f5d4d7b68a670641b71e08660772c28954a83df4c"
+    },
+    "packages/frontend/src/components/leaderboard/viewer/original-viewer-card.tsx": {
+      "bytes": 14392,
+      "sha256": "3ef12b235ced36842ae1ec8d9716a0a5bd9d67b20e561a9b38596df6f0bc04ea"
+    },
+    "packages/frontend/src/components/leaderboard/viewer/original-volume.d.mts": {
+      "bytes": 90,
+      "sha256": "06b9a9f7bbc7f2f86d8358c2cc9882d1264e994bec219f300e6f1f9326e1e138"
+    },
+    "packages/frontend/src/components/leaderboard/viewer/original-volume.mjs": {
+      "bytes": 783,
+      "sha256": "c89d7597150570fcea3e442f8043fbf7035a84cccfa4de087bf4a7b0116b3b3f"
+    },
+    "packages/frontend/tailwind.config.ts": {
+      "bytes": 952,
+      "sha256": "7ef71ed02c5a30710c9a08b1e904a3944facbdaec4cf788a5c0e1da4fe7b6b12"
+    },
+    "pnpm-lock.yaml": {
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+    },
+    "reconstruction/competition-client/README.md": {
+      "bytes": 5885,
+      "sha256": "8b4c90f9c63648d5892bad066ce8ccad4f2c3c436f646a76bb37f9c7f3da8e5c"
+    },
+    "reconstruction/competition-client/client.mjs": {
+      "bytes": 1377,
+      "sha256": "c300d7bd56ce54114e6e2659357278d138baa9b602a38bb23084002ff2f95dd2"
+    },
+    "reconstruction/competition-client/contract.json": {
+      "bytes": 46103,
+      "sha256": "fac661d95bb53fd8cab3d5687a568ca4fac8ca7f39d751508498b899ff29aa1f"
+    },
+    "reconstruction/competition-client/fetch-transport.mjs": {
+      "bytes": 2257,
+      "sha256": "34d2acb57b2d1877df0a28fc2414ce492437b21421506630993c11ca85b84c7d"
+    },
+    "reconstruction/competition-client/foreground/0024317d4e63.mjs": {
+      "bytes": 1308,
+      "sha256": "109da76450c4a6ffe187b6c59155417676ef2bed5a640ea5fbcd1a1ab0639e76"
+    },
+    "reconstruction/competition-client/foreground/67966a7a877f.mjs": {
+      "bytes": 1308,
+      "sha256": "5bc3db9a598c5c9b2e8f7946f5e9dbd2277e0fcbfb1ead002527820729f68697"
+    },
+    "reconstruction/competition-client/keys.mjs": {
+      "bytes": 462,
+      "sha256": "5a84dd1556db848c56ec96359c2d43ed03edb5fdd692f30e948d2f335f892a2c"
+    },
+    "reconstruction/competition-client/selection.mjs": {
+      "bytes": 342,
+      "sha256": "bf70548f419d872f8c891bdd47d639a8f25364726fb0a950e182b0fa8e5ac5ad"
+    },
+    "reconstruction/competition-client/useDetail.mjs": {
+      "bytes": 2140,
+      "sha256": "825f87c51db06ad9b75fca4fcf196779f8eba40d39b7dced8798899de471e0d2"
+    },
+    "reconstruction/competition-client/useList.mjs": {
+      "bytes": 1852,
+      "sha256": "49987e7ed10f4c40634ece862c772eb08de21d53bdce79929279f129cb1af557"
+    },
+    "reconstruction/competition-client/validation.json": {
+      "bytes": 5209,
+      "sha256": "7e8ecbb8057d8fda596e237670bb623a218538279899780618e05164e49289bc"
+    },
+    "reconstruction/competition-client/validation/focused.tap": {
+      "bytes": 7434,
+      "sha256": "e00c1fc00c15d521623f24d51d54cbd1de2750454aba20397b9ef350b31c87b2"
+    },
+    "reconstruction/competition-client/validation/source-check.log": {
+      "bytes": 75,
+      "sha256": "23bc947a016fd498863fb0cf91b420c3f8ea6008249d7141b0c765c1997fbb3c"
+    },
+    "reconstruction/competition-client/validation/typecheck.log": {
+      "bytes": 356,
+      "sha256": "d5483fde4aaac3d77687c02e24391dc438124b03c18e075508096f670acec726"
+    },
+    "reconstruction/competition-client/validation/verify-evidence.log": {
+      "bytes": 202,
+      "sha256": "ad391a2765a596f8d99f8cfc5b6e803a017de904bd400a5ee9e4f7a46f849450"
+    },
+    "reconstruction/competition-entry/contract.json": {
+      "bytes": 37759,
+      "sha256": "f62d473e9d5df3b15d64ec1add324509f41db21f53f837c14ace29a2c3f8fbf0"
+    },
+    "reconstruction/competition-prizes/contract.json": {
+      "bytes": 20174,
+      "sha256": "7681d36bd77c0c858f40a5ecca1154c5f73ebd17b6abddc7d5e05a6a1d44df37"
+    },
+    "reconstruction/competition-viewer/README.md": {
+      "bytes": 5815,
+      "sha256": "4051347ffa45d76a08bf5846cb479dfa3b24fe6aa993d720c81a34f765a708f6"
+    },
+    "reconstruction/competition-viewer/contract.json": {
+      "bytes": 28811,
+      "sha256": "dfd2e0da241bcd76d3c66bfcf52cc1cdaf11e401b008fb80cf2960a073e6c9ec"
+    },
+    "reconstruction/competition-viewer/visual/README.md": {
+      "bytes": 828,
+      "sha256": "2ddccde2ba9d26d863f64ca5b4feb2483612d934a47ecb1d1811d35e115cb23b"
+    },
+    "reconstruction/competition-viewer/visual/viewer-desktop-collapsed.png": {
+      "bytes": 47842,
+      "sha256": "adb6ead0b1bec42ee63cf66b7fb5aa1b49ecd24ac0929ee0c32d9785a3dcaba7"
+    },
+    "reconstruction/competition-viewer/visual/viewer-desktop-expanded.png": {
+      "bytes": 53540,
+      "sha256": "cc9331af2bb87c5c703803682005fdf5ef9abc7fb7037ffa4a24915cd4f148a5"
+    },
+    "reconstruction/competition-viewer/visual/viewer-mobile-collapsed.png": {
+      "bytes": 38598,
+      "sha256": "5c5c430f76025eb20d74492701430e7f498f2e13240da6af78c3a61c49babf41"
+    },
+    "reconstruction/competition-viewer/visual/viewer-mobile-expanded.png": {
+      "bytes": 43699,
+      "sha256": "021facac2d692f685336fc9dd7edcbbc8ff5624a33854fc1007b9bed6132e5a5"
+    },
+    "recovered/modules.json": {
+      "bytes": 2928853,
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2"
+    },
+    "scripts/original-competition-client.mjs": {
+      "bytes": 17402,
+      "sha256": "6e3ddceb3a2631c77eadab2b4740fb76efec78cce3d0b8c4f2d30132f827f5a3"
+    },
+    "scripts/original-competition-entry.mjs": {
+      "bytes": 19505,
+      "sha256": "f0b407d0c532d84e07b3ca1cc859643e266b18f177d480e2227e071eb58f5dc5"
+    },
+    "scripts/original-competition-prizes.mjs": {
+      "bytes": 15864,
+      "sha256": "dd6f2e423903d541f4c4e5828cf19d36216cc4b30ea347890991178da4009c9e"
+    },
+    "scripts/original-competition-viewer.mjs": {
+      "bytes": 16423,
+      "sha256": "9563a11ddf049c06998ca0df686d279b5c8c2f72118ba3887ea62243a2d7cc82"
+    },
+    "scripts/original-contracts/source.mjs": {
+      "bytes": 9493,
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213"
+    },
+    "tests/fixtures/competition-entry-data.mjs": {
+      "bytes": 2022,
+      "sha256": "19c0cee8f12353eda055a0fb6c9db3b5d59f9dbf523156eab09689fe6406b74e"
+    },
+    "tests/fixtures/competition-viewer-browser.mjs": {
+      "bytes": 4734,
+      "sha256": "7f30d7f502067229b2e563668a19e14ecd1701e55332c669f1645d3ea50acdb5"
+    },
+    "tests/fixtures/competition-viewer-data.mjs": {
+      "bytes": 912,
+      "sha256": "deeabcec211f8b3d0d3f5ed761373db55e317a154f92392fb9015f78728be581"
+    },
+    "tests/original_competition_viewer.test.mjs": {
+      "bytes": 9455,
+      "sha256": "633d6315e0496339157ae75fb0ec3025f98147ef8295e7626ca7cc66533e038c"
+    },
+    "tests/original_competition_viewer_browser.test.mjs": {
+      "bytes": 11368,
+      "sha256": "4ffdfdf6663cfdd350996b3ecfdb026aaae288052c1ef66c39ab0a65848cb9e5"
+    },
+    "tests/original_source.test.mjs": {
+      "bytes": 7401,
+      "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3"
+    }
+  },
+  "tools": {
+    "node": {
+      "version": "v24.19.0",
+      "path": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "bytes": 125989464,
+      "sha256": "bc17c508ffeed0ec622934f9b7fa72f8e78da65350e63c3eceb56fa688aa5e12"
+    },
+    "react": {
+      "version": "19.2.3",
+      "path": "/workspace/pump-app-competition-highlights/app/node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+    },
+    "playwright": {
+      "version": "1.64.1",
+      "path": "/workspace/pump-app-competition-highlights/app/node_modules/.pnpm/@playwright+test@1.64.1/node_modules/@playwright/test/package.json",
+      "bytes": 754,
+      "sha256": "6b1c8bb530059f2555530e8dcc1b3803565237e17598683b3766c0fa313b3fd6"
+    },
+    "esbuild": {
+      "version": "0.25.12",
+      "path": "/workspace/pump-app-competition-highlights/app/node_modules/.pnpm/esbuild@0.25.12/node_modules/esbuild/lib/main.js",
+      "bytes": 88706,
+      "sha256": "0d1241812c443111d39475dfc66836003e9ef8b87e54d990dd67df29d20010e1"
+    },
+    "postcss": {
+      "version": "8.5.32",
+      "path": "/workspace/pump-app-competition-highlights/app/node_modules/.pnpm/postcss@8.5.32/node_modules/postcss/lib/postcss.js",
+      "bytes": 2898,
+      "sha256": "80304467231d94293a4c1ca5549d6d5a6fe9985171f3e64b98c3c1c22d08a4f9"
+    },
+    "tailwind": {
+      "version": "3.4.19",
+      "path": "/workspace/pump-app-competition-highlights/app/node_modules/.pnpm/tailwindcss@3.4.19_tsx@4.20.6/node_modules/tailwindcss/lib/index.js",
+      "bytes": 52,
+      "sha256": "277a58612ffb9c7577d0a6155448c8dc2c7dfa82a90a5b972726b364b4e7bea0"
+    },
+    "chromium": {
+      "path": "/home/agent/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome",
+      "bytes": 301186376,
+      "sha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025"
+    },
+    "pnpm": {
+      "version": "10.24.0",
+      "path": "/home/agent/.cache/node/corepack/v1/pnpm/10.24.0/bin/pnpm.cjs",
+      "bytes": 1102,
+      "sha256": "b276da51dc8ca5b0d3ee3371695b50fc8b3244b281b091c63a3f082a88dadeb9"
+    }
+  },
+  "commands": [
+    {
+      "argv": [
+        "node",
+        "scripts/original-competition-board.mjs",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.8312816619873047,
+      "log": "source-check.log"
+    },
+    {
+      "argv": [
+        "node",
+        "scripts/original-competition-entry.mjs",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 1.0081398487091064,
+      "log": "prerequisite-entry.log"
+    },
+    {
+      "argv": [
+        "node",
+        "scripts/original-competition-viewer.mjs",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.8343451023101807,
+      "log": "prerequisite-viewer.log"
+    },
+    {
+      "argv": [
+        "node",
+        "scripts/original-competition-prizes.mjs",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.8479020595550537,
+      "log": "prerequisite-prizes.log"
+    },
+    {
+      "argv": [
+        "node",
+        "scripts/original-competition-client.mjs",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.9963054656982422,
+      "log": "prerequisite-client.log"
+    },
+    {
+      "argv": [
+        "node",
+        "--test",
+        "tests/original_competition_board.test.mjs",
+        "tests/original_competition_board_browser.test.mjs",
+        "tests/original_source.test.mjs"
+      ],
+      "returncode": 0,
+      "seconds": 10.566331386566162,
+      "log": "focused.tap"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "-r",
+        "typecheck"
+      ],
+      "returncode": 0,
+      "seconds": 5.048619508743286,
+      "log": "typecheck.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/verify-evidence.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.1596541404724121,
+      "log": "evidence.log"
+    }
+  ],
+  "commandEnvironment": {
+    "cwd": "app",
+    "PATHPrefix": "/workspace/pump-app-pnl-staging/bin",
+    "pnpmVersion": "10.24.0"
+  },
+  "logs": {
+    "COMMANDS.json": {
+      "bytes": 1613,
+      "sha256": "bde4f9d27327ef0147e1e64737f3518e7441ba02482ff9374e8df31d29ace223"
+    },
+    "evidence.log": {
+      "bytes": 72,
+      "sha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9"
+    },
+    "focused.tap": {
+      "bytes": 2160,
+      "sha256": "750f04aabb95e91e4e0187ca70c967acd5d80cffc6d1381769ebd8d854c79fa7"
+    },
+    "prerequisite-client.log": {
+      "bytes": 75,
+      "sha256": "23bc947a016fd498863fb0cf91b420c3f8ea6008249d7141b0c765c1997fbb3c"
+    },
+    "prerequisite-entry.log": {
+      "bytes": 110,
+      "sha256": "5120cb25ac162eb24a544c00241237abc4d0c2527ad4ca3e418d3fc9c71820c5"
+    },
+    "prerequisite-prizes.log": {
+      "bytes": 100,
+      "sha256": "f996c7482a964dd6b6b64ad550bc86a3fed05ee127db0f21bec32025eb0dc074"
+    },
+    "prerequisite-viewer.log": {
+      "bytes": 126,
+      "sha256": "d841c7d20109555c5fa8e9a188601f1e8e7a966c2cccd614cd85441c63ad7528"
+    },
+    "source-check.log": {
+      "bytes": 96,
+      "sha256": "3613c19012d795b0c063393a730d8680f63a0dd42fdde3fd02cf62a1cb6c915f"
+    },
+    "typecheck.log": {
+      "bytes": 249,
+      "sha256": "0684b54b3ba5e515a6fb4a5ce293615cf500a72c3f042dada4112ec2f0b7aca2"
+    }
+  },
+  "screenshots": {
+    "visual/board-desktop.png": {
+      "bytes": 84929,
+      "sha256": "b1f5032724b1be1a4ddcf8eb4ddca42856513879d761985ea98f675cd4cbbf67"
+    },
+    "visual/board-mobile.png": {
+      "bytes": 67567,
+      "sha256": "d42099bce4946baa78632ad51098fe25b4fc5c7a22c9388cbc784747cc38d98a"
+    }
+  },
+  "browser": {
+    "actualSourceFlow": "Accepted 359516/961415 hooks, 85324 foreground modules and their real queryFns \u2192 explicit loopback GET transport \u2192 actual 706615 selector \u2192 full 590407.to \u2192 captured person/group wrappers \u2192 recovered entry/viewer/prize components.",
+    "contexts": "Twelve desktop/mobile runs cover six identity/image combinations; two NumberFormat and two foreground variants alternate explicitly. SSR separately covers all twelve identity/image \u00d7 NumberFormat combinations.",
+    "additionalCases": [
+      "List HTTP503 \u2192 actual retry callback \u2192 successful real GET",
+      "Live empty detail \u2192 pending/viewer/prize tiers",
+      "Empty list \u2192 detail disabled at literal null",
+      "Ended detail \u2192 final heading",
+      "A real held detail response closes after local-query abort on unmount"
+    ],
+    "privacy": "Fresh synthetic contexts only. All requests are GETs to the loopback origin with WEB headers preserved. Cookies and local storage remain empty. No authentication, signing or production request.",
+    "ports": "The local query adapter executes one request per key and records stale/refetch options. It does not emulate original query-cache, polling or retry policy. Hero, highlights, rules, motion, Avatar, translations and Link are explicit local capabilities; no original provider parity claim."
+  },
+  "reactReview": "Stable factories outside render; no new production effects, timers or global user data. The class join covers only finite nonconflicting strings. Original React state/control flow and complete source bodies are retained. Function capabilities are bound in a client module, not serialized through RSC props.",
+  "preparation": "The initial Link capability type was narrower than the shared row/viewer needs; the facade now accepts an optional aria-label FunctionComponent without changing runtime props. The first browser group case exposed a missing test-host member-count translation; the synthetic capability was fixed and fixture viewer kind made consistent. No original body, schema or guard changed. Every final command has its actual exit code in COMMANDS.json.",
+  "latestMainOverlapCheck": {
+    "sha": "ef400863f4e476b2eaaab0866c0b1187d8060abc",
+    "notes": "PR1357 affects native-page filters; PR1351/1282/1208 affect backend competition reads. None owns the full original board coordinator. No native-page file is changed."
+  },
+  "pending": [
+    "Coordinator-owned official scripts/verify_evidence.py and scripts/test_tooling.py on the actual published head"
+  ],
+  "notClaimed": [
+    "Full Next or maintained-page integration",
+    "Original hero media, highlights content, dialog, motion, query-runtime or private-auth/backend compatibility",
+    "Universal behavior or security acceptance",
+    "New recovery credit for included prerequisites"
+  ],
+  "scopeLimits": [
+    "Original full coordinator and finite display/predicate bodies preserved; captured factories parsed only.",
+    "Ordinary array mapping, not virtualized rendering. No rank/prize/eligibility policy invented.",
+    "Hero/highlights/rules/motion-card/query/reduced-motion providers are explicit compatible ports; their full original implementations are not claimed.",
+    "Supplied viewer entry is UI data, not identity or backend authorization. No auth/session/registration/terms mutation.",
+    "No native page/API/projection/SDK/capture/dependency/global-style/ledger changes.",
+    "Component factory created once in a legitimate client module; no guessed global source variant."
+  ]
+}

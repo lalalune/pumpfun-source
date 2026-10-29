@@ -1,0 +1,83 @@
+[
+  {
+    "argv": [
+      "node",
+      "scripts/original-competition-board.mjs",
+      "--check"
+    ],
+    "returncode": 0,
+    "seconds": 0.8312816619873047,
+    "log": "source-check.log"
+  },
+  {
+    "argv": [
+      "node",
+      "scripts/original-competition-entry.mjs",
+      "--check"
+    ],
+    "returncode": 0,
+    "seconds": 1.0081398487091064,
+    "log": "prerequisite-entry.log"
+  },
+  {
+    "argv": [
+      "node",
+      "scripts/original-competition-viewer.mjs",
+      "--check"
+    ],
+    "returncode": 0,
+    "seconds": 0.8343451023101807,
+    "log": "prerequisite-viewer.log"
+  },
+  {
+    "argv": [
+      "node",
+      "scripts/original-competition-prizes.mjs",
+      "--check"
+    ],
+    "returncode": 0,
+    "seconds": 0.8479020595550537,
+    "log": "prerequisite-prizes.log"
+  },
+  {
+    "argv": [
+      "node",
+      "scripts/original-competition-client.mjs",
+      "--check"
+    ],
+    "returncode": 0,
+    "seconds": 0.9963054656982422,
+    "log": "prerequisite-client.log"
+  },
+  {
+    "argv": [
+      "node",
+      "--test",
+      "tests/original_competition_board.test.mjs",
+      "tests/original_competition_board_browser.test.mjs",
+      "tests/original_source.test.mjs"
+    ],
+    "returncode": 0,
+    "seconds": 10.566331386566162,
+    "log": "focused.tap"
+  },
+  {
+    "argv": [
+      "pnpm",
+      "-r",
+      "typecheck"
+    ],
+    "returncode": 0,
+    "seconds": 5.048619508743286,
+    "log": "typecheck.log"
+  },
+  {
+    "argv": [
+      "python3",
+      "scripts/verify-evidence.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.1596541404724121,
+    "log": "evidence.log"
+  }
+]
