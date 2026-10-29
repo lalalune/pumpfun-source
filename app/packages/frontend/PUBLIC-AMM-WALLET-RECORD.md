@@ -22,8 +22,15 @@ Frontend TypeScript, application evidence and progress checks also pass.
 Additive proof is in `visual/amm-wallet-record-head-20261029/`. The original
 `visual/amm-wallet-record-20261029/` packet remains unchanged. The historical Next
 browser and root production results below retain their original source bindings;
-they do not qualify the new HEAD branch. No new Next HTTP-server run, browser run,
-production build, configured RPC or mainnet success is claimed for this supplement.
+they do not qualify the new HEAD branch. A subsequent actual Next dev-server
+check on exact `9351ea368d79033728abb11a4a2e2c5a04835e9b` passes three
+unconfigured product-route requests: GET 503 with complete configuration-error
+JSON, automatic HEAD 503 with no body, and malformed-query HEAD 400 with no body.
+All responses are JSON/no-store. `actual-next/` retains the response records,
+server log, checker-only header-case failure, corrected checker and owned cleanup.
+No fixture or RPC endpoint was configured. This qualifies compiled unconfigured
+route admission only; no new browser run, production build, configured RPC or
+mainnet success is claimed for the HEAD correction.
 
 ```sh
 node --test tests/amm_wallet_record_head.test.mjs tests/amm_wallet_record.test.mjs tests/wallet_program_record.test.mjs

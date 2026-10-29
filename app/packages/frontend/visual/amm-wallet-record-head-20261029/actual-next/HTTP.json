@@ -1,0 +1,60 @@
+{
+  "head": "9351ea368d79033728abb11a4a2e2c5a04835e9b",
+  "time_utc": "2026-10-29T18:29:42.835283+00:00",
+  "origin": "http://127.0.0.1:3027",
+  "mode": "actual next dev unconfigured product route; SOLANA_RPC_URL explicitly empty; no fixture",
+  "source_sha256": {
+    "app/packages/frontend/src/app/amm-wallet-record/handler.ts": "55a6cb25bbe69fbca99fdeca18fdac9e4d26bc1e7d342ed56c36ac174f684ca8",
+    "app/packages/frontend/src/app/amm-wallet-record/server.ts": "db49239f664ce56c49008d4bd68084025ae8268a4ad2b3f7b6c525e7ff42ddda",
+    "app/packages/frontend/src/app/api/portfolio/amm-record/route.ts": "2d8bd02a7bbc70c21cfc64500ac319e490bcfc7326110518670f11c582d1f70f"
+  },
+  "cases": [
+    {
+      "method": "GET",
+      "path": "/api/portfolio/amm-record?address=So11111111111111111111111111111111111111112",
+      "status": 503,
+      "headers": {
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+        "cache-control": "no-store",
+        "content-type": "application/json",
+        "Date": "Thu, 29 Oct 2026 18:29:42 GMT",
+        "Connection": "close",
+        "Transfer-Encoding": "chunked"
+      },
+      "body_utf8": "{\"ok\":false,\"error\":{\"code\":\"RPC_CONFIGURATION_INVALID\",\"retryable\":false,\"message\":\"The public PumpSwap record is unavailable or unsupported.\"}}",
+      "body_bytes": 145,
+      "elapsed_ms": 51.952
+    },
+    {
+      "method": "HEAD",
+      "path": "/api/portfolio/amm-record?address=So11111111111111111111111111111111111111112",
+      "status": 503,
+      "headers": {
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+        "cache-control": "no-store",
+        "content-type": "application/json",
+        "Date": "Thu, 29 Oct 2026 18:29:42 GMT",
+        "Connection": "close"
+      },
+      "body_utf8": "",
+      "body_bytes": 0,
+      "elapsed_ms": 11.517
+    },
+    {
+      "method": "HEAD",
+      "path": "/api/portfolio/amm-record?address=So11111111111111111111111111111111111111112&unknown=1",
+      "status": 400,
+      "headers": {
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+        "cache-control": "no-store",
+        "content-type": "application/json",
+        "Date": "Thu, 29 Oct 2026 18:29:42 GMT",
+        "Connection": "close"
+      },
+      "body_utf8": "",
+      "body_bytes": 0,
+      "elapsed_ms": 18.17
+    }
+  ],
+  "result": "PASS"
+}
