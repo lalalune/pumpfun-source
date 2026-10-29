@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "testedHead": "596c4da6385058616be0d247cc4387b9da3a550e",
+  "testedTree": "e131d3db4fb10df119f47e6bd80d470bc875d55b",
+  "reviewBase": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Complete original Settings query/filter/grouped/empty renderer and actual field/caller shape, with safe read-only synthetic metadata and explicit host capabilities",
+  "inputs": {
+    "evidence/web/manifest.json": {
+      "bytes": 3026513,
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda"
+    },
+    "evidence/web/objects/4490d02ba2117672.js": {
+      "bytes": 52381,
+      "sha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "gitBlob": "464a645f3fc99db61ab4cdab0395471031bc1715"
+    },
+    "package.json": {
+      "bytes": 3703,
+      "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+      "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8"
+    },
+    "packages/backend/package.json": {
+      "bytes": 463,
+      "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b"
+    },
+    "packages/frontend/package.json": {
+      "bytes": 1048,
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0"
+    },
+    "pnpm-lock.yaml": {
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+    },
+    "reconstruction/settings-search-results/client.mjs": {
+      "bytes": 4792,
+      "sha256": "18c4285ad7be1224a13fb66820533c8d7835e8ad465d2184dc1daeb8e4b75240",
+      "gitBlob": "ba2012b1930881cc3b4ee09087f15d0e41b4ac38"
+    },
+    "reconstruction/settings-search-results/contract.json": {
+      "bytes": 9585,
+      "sha256": "d2edbebd68121d2b2a0cc13db032b2b95b38d9b465b7ddf1401b42e7c0d86ee3",
+      "gitBlob": "8074c492744a92b11af39ccb2235ff0d967b7916"
+    },
+    "recovered/modules.json": {
+      "bytes": 2928853,
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+      "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f"
+    },
+    "scripts/original-contracts/source.mjs": {
+      "bytes": 9493,
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+      "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df"
+    },
+    "scripts/original-settings-search-results.mjs": {
+      "bytes": 11352,
+      "sha256": "a3748376bd3e594956d5095db3eea09723edf6fb1d685bfbd936181a6ecccf3e",
+      "gitBlob": "2f652521123f879d2843940c6248bb60eef04172"
+    },
+    "tests/fixtures/settings-search-results-browser.mjs": {
+      "bytes": 4493,
+      "sha256": "11b3073e9b8d393ef7594af13bf43c06a6e38cb49e3ab7720def1d66bab54ab2",
+      "gitBlob": "7bad67b8b5d8e2b354e059fa37b224f3fbdf7fe1"
+    },
+    "tests/original_settings_search_results.test.mjs": {
+      "bytes": 6967,
+      "sha256": "55212dcbaa763805ee36f64cbd950230efbdf02d274d4f2ba823a6509c938124",
+      "gitBlob": "7387ed2f27c6c08bd7fa399aeb16f5b35d8d85a4"
+    },
+    "tests/original_settings_search_results_browser.test.mjs": {
+      "bytes": 10669,
+      "sha256": "a71f7d2ba77cbf85137264fa94d7ec9e02d0586322beecdc0428a90ba14df506",
+      "gitBlob": "ead8172a7d37abd64612d8aa8dd29b7eed398d45"
+    },
+    "tests/original_source.test.mjs": {
+      "bytes": 7401,
+      "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3",
+      "gitBlob": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+    }
+  },
+  "inputScope": "15 selected source/generator/test/source-capture/index/manifest/package inputs, not exhaustive installed or whole-app/cold dependency identity.",
+  "results": [
+    {
+      "command": "node scripts/original-settings-search-results.mjs",
+      "exit": 0
+    },
+    {
+      "command": "node --test tests/original_settings_search_results.test.mjs tests/original_source.test.mjs",
+      "exit": 0,
+      "domain": 9,
+      "shared": 11
+    },
+    {
+      "command": "PUMP_SETTINGS_RESULTS_OUTPUT=<owned-output> node --test tests/original_settings_search_results_browser.test.mjs",
+      "exit": 0,
+      "workflows": 1,
+      "widths": [
+        390,
+        1280
+      ],
+      "pageErrors": 0
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "workspaces": 3
+    },
+    {
+      "command": "python3 scripts/verify-evidence.py",
+      "exit": 0,
+      "captures": 698
+    },
+    {
+      "command": "pnpm check:progress",
+      "exit": 0,
+      "tests": 9
+    }
+  ],
+  "browserBundleSha256": "532d114bd69556166ac5d9c3e146979430cb36c38db4e33f836c5c979c47086e",
+  "versions": {
+    "node": "24.19.0",
+    "pnpm": "10.24.0",
+    "react": "19.2.3",
+    "playwright": "1.64.1",
+    "chromiumBuild": 1248,
+    "esbuild": "0.25.12",
+    "browserLocale": "en-US"
+  },
+  "cleanup": "Owned ephemeral GET-only loopback server and Chromium closed in producerfinally before exit0; temporary compiled fixture removed; PRIMARY standalone slot explicitly released. No Next/process/cache owned.",
+  "preservation": "All selected runtime/source/method bytes match frozen596. Publication adds only README result text and validation outputs; no source/method change or new execution is inferred.",
+  "priorPhases": [
+    "Initial development9-test pass is retained separately from finalfrozen20-test pass.",
+    "Two failed provenance-strengthening attempts occurred beforefreeze: a direct-call assumption for a guardalias, then selection of row-ID helper eH rather than exportedSettingsModal scope. Raw source correctedboth. Their failedsourcegate logs and correctedprecommit9-test pass remain; no failedphase is relabeledqualified.",
+    "Three unchanged baseline progress references omitted by sparse checkout were materialized fromexactGitblobs before the normalcheck; no ledger/scorer changes."
+  ],
+  "limits": [
+    "Only safe synthetic read-only metadata, input/visibility/translation/Field/Section host ports and realReact/compiler. ReactuseId/effects diagnose hostrowidentity/cleanup, not private setting values/provider/framework lifecycle.",
+    "Source registry/catalog are module-lifetime capabilities; no invented metadata store/subscription policy. Actualcaller trimmedquery/guardaliases/fieldforwarding are staticbound, while outeravailability/globalmodal/routing/provider behavior is external.",
+    "No original native/provider/visibility/translation/API/pixel/wholeapp equivalence, wholeappbrowser/Nextbuild, preference/account/trading control, actualcookies/storage/sessions/credentials/service requests, security orcompletion claim.",
+    "1885nativeIDfix,1872fieldrenderer,1839framework and675/683metadata work arecredited andnotcopied/imported asunmergeddependencies orretallied."
+  ]
+}

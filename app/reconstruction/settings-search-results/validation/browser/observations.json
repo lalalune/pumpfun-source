@@ -1,0 +1,1309 @@
+{
+  "bundleSha256": "532d114bd69556166ac5d9c3e146979430cb36c38db4e33f836c5c979c47086e",
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    },
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    }
+  ],
+  "results": [
+    {
+      "width": 390,
+      "initial": {
+        "ids": [
+          "feed.blueCard",
+          "feed.other",
+          "privacy.warning"
+        ],
+        "groups": [
+          "Feed",
+          "Privacy"
+        ],
+        "host": {
+          "mounted": {
+            "feed.blueCard": "_r_0_",
+            "feed.other": "_r_1_",
+            "privacy.warning": "_r_2_"
+          },
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ]
+          ]
+        }
+      },
+      "filtered": {
+        "ids": [
+          "feed.blueCard"
+        ],
+        "groups": [
+          "Feed"
+        ],
+        "host": {
+          "mounted": {
+            "feed.blueCard": "_r_0_"
+          },
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ]
+          ]
+        }
+      },
+      "hidden": {
+        "ids": [],
+        "groups": [],
+        "host": {
+          "mounted": {},
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_0_"
+            ]
+          ]
+        }
+      },
+      "restored": {
+        "ids": [
+          "feed.blueCard"
+        ],
+        "groups": [
+          "Feed"
+        ],
+        "host": {
+          "mounted": {
+            "feed.blueCard": "_r_3_"
+          },
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_3_"
+            ]
+          ]
+        }
+      },
+      "privacy": {
+        "ids": [
+          "privacy.warning"
+        ],
+        "groups": [
+          "Privacy"
+        ],
+        "host": {
+          "mounted": {
+            "privacy.warning": "_r_4_"
+          },
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_4_"
+            ]
+          ]
+        }
+      },
+      "allAgain": {
+        "ids": [
+          "feed.blueCard",
+          "feed.other",
+          "privacy.warning"
+        ],
+        "groups": [
+          "Feed",
+          "Privacy"
+        ],
+        "host": {
+          "mounted": {
+            "privacy.warning": "_r_4_",
+            "feed.blueCard": "_r_5_",
+            "feed.other": "_r_6_"
+          },
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_4_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_6_"
+            ]
+          ]
+        }
+      },
+      "empty": {
+        "ids": [],
+        "groups": [],
+        "host": {
+          "mounted": {},
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_4_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_6_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_6_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_4_"
+            ]
+          ]
+        }
+      },
+      "blank": {
+        "ids": [],
+        "groups": [],
+        "host": {
+          "mounted": {},
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_4_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_6_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_6_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_4_"
+            ]
+          ]
+        }
+      },
+      "identifier": {
+        "ids": [
+          "feed.blueCard"
+        ],
+        "groups": [
+          "Feed"
+        ],
+        "host": {
+          "mounted": {
+            "feed.blueCard": "_r_7_"
+          },
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_4_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_6_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_6_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_4_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_7_"
+            ]
+          ]
+        }
+      },
+      "unmounted": {
+        "ids": [],
+        "groups": [],
+        "host": {
+          "mounted": {},
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_4_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_6_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_6_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_4_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_7_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_7_"
+            ]
+          ]
+        }
+      },
+      "overflow": 0,
+      "errors": [],
+      "limit": "Read-only authored input/visibility/Field/Section host. React useId/effects are diagnostic host lifecycle only, not original setting values, private provider or product Settings mount."
+    },
+    {
+      "width": 1280,
+      "initial": {
+        "ids": [
+          "feed.blueCard",
+          "feed.other",
+          "privacy.warning"
+        ],
+        "groups": [
+          "Feed",
+          "Privacy"
+        ],
+        "host": {
+          "mounted": {
+            "feed.blueCard": "_r_0_",
+            "feed.other": "_r_1_",
+            "privacy.warning": "_r_2_"
+          },
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ]
+          ]
+        }
+      },
+      "filtered": {
+        "ids": [
+          "feed.blueCard"
+        ],
+        "groups": [
+          "Feed"
+        ],
+        "host": {
+          "mounted": {
+            "feed.blueCard": "_r_0_"
+          },
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ]
+          ]
+        }
+      },
+      "hidden": {
+        "ids": [],
+        "groups": [],
+        "host": {
+          "mounted": {},
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_0_"
+            ]
+          ]
+        }
+      },
+      "restored": {
+        "ids": [
+          "feed.blueCard"
+        ],
+        "groups": [
+          "Feed"
+        ],
+        "host": {
+          "mounted": {
+            "feed.blueCard": "_r_3_"
+          },
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_3_"
+            ]
+          ]
+        }
+      },
+      "privacy": {
+        "ids": [
+          "privacy.warning"
+        ],
+        "groups": [
+          "Privacy"
+        ],
+        "host": {
+          "mounted": {
+            "privacy.warning": "_r_4_"
+          },
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_4_"
+            ]
+          ]
+        }
+      },
+      "allAgain": {
+        "ids": [
+          "feed.blueCard",
+          "feed.other",
+          "privacy.warning"
+        ],
+        "groups": [
+          "Feed",
+          "Privacy"
+        ],
+        "host": {
+          "mounted": {
+            "privacy.warning": "_r_4_",
+            "feed.blueCard": "_r_5_",
+            "feed.other": "_r_6_"
+          },
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_4_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_6_"
+            ]
+          ]
+        }
+      },
+      "empty": {
+        "ids": [],
+        "groups": [],
+        "host": {
+          "mounted": {},
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_4_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_6_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_6_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_4_"
+            ]
+          ]
+        }
+      },
+      "blank": {
+        "ids": [],
+        "groups": [],
+        "host": {
+          "mounted": {},
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_4_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_6_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_6_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_4_"
+            ]
+          ]
+        }
+      },
+      "identifier": {
+        "ids": [
+          "feed.blueCard"
+        ],
+        "groups": [
+          "Feed"
+        ],
+        "host": {
+          "mounted": {
+            "feed.blueCard": "_r_7_"
+          },
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_4_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_6_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_6_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_4_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_7_"
+            ]
+          ]
+        }
+      },
+      "unmounted": {
+        "ids": [],
+        "groups": [],
+        "host": {
+          "mounted": {},
+          "events": [
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_2_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_1_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_0_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_3_"
+            ],
+            [
+              "mount",
+              "privacy.warning",
+              "_r_4_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "mount",
+              "feed.other",
+              "_r_6_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_5_"
+            ],
+            [
+              "unmount",
+              "feed.other",
+              "_r_6_"
+            ],
+            [
+              "unmount",
+              "privacy.warning",
+              "_r_4_"
+            ],
+            [
+              "mount",
+              "feed.blueCard",
+              "_r_7_"
+            ],
+            [
+              "unmount",
+              "feed.blueCard",
+              "_r_7_"
+            ]
+          ]
+        }
+      },
+      "overflow": 0,
+      "errors": [],
+      "limit": "Read-only authored input/visibility/Field/Section host. React useId/effects are diagnostic host lifecycle only, not original setting values, private provider or product Settings mount."
+    }
+  ],
+  "fixture": "Complete source-adapted Settings results component with real React/compiler and explicit safe synthetic read-only metadata/host ports",
+  "limits": "No actual cookies/storage/sessions/credentials or service requests, private preference/framework, global mount or pixel/native/API parity. Blank-query host placeholder is external, not the original other section view."
+}
