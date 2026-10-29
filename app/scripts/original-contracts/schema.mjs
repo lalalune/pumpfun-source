@@ -222,7 +222,11 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
     if (['optional', 'nullable', 'int', 'nonnegative'].includes(method) && node.arguments.length !== 0) throw new Error(`unexpected ${method} arguments`);
     if (method === 'optional') return { ...base, 'x-zod-optional': true };
     if (method === 'nullable') return { anyOf: [base, { type: 'null' }] };
-    if (method === 'describe' && node.arguments.length === 1) return { ...base, description: await constant(node.arguments[0], ctx) };
+    if (method === 'describe' && node.arguments.length === 1) {
+      const description = await constant(node.arguments[0], ctx);
+      if (typeof description !== 'string') throw new Error('description must be a string in the declaration domain');
+      return { ...base, description };
+    }
     const expanded = deref(base);
     if (method === 'int' && expanded.type === 'number') return { ...expanded, type: 'integer',
       minimum: Math.max(expanded.minimum ?? -Infinity, Number.MIN_SAFE_INTEGER),
