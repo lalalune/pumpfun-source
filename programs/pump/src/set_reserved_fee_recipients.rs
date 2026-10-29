@@ -123,6 +123,6 @@ pub fn update_buyback_config(ctx: Context<AdminGlobal>, buyback_basis_points: Op
     Ok(())
 }
 
-fn rent_exempt_error(error: Error, name: String) -> Error {
+#[cold] fn rent_exempt_error(error: Error, name: String) -> Error {
     crate::account_name::with_owned_name(error, &name)
 }

@@ -1,5 +1,37 @@
 # Lane callgraph-census: call-graph and inlining-boundary census
 
+## Round 2 (base origin/main 60bdd8a, 1020 normalized / 188 raw)
+
+### Hidden call-target audit (`callid_audit.py`, `CALLID-AUDIT.json`)
+
+score.py masks call immediates, so a window can match normalized while calling the wrong function.
+`callid_audit.py` computes the greatest bisimulation over the call graph: start from score.py's
+relation (same length, same normalized body), pin the 16 unmatched windows to their candidates, and
+drop a pair (orig, ours) whenever some call site pairs callees that are not themselves related.
+A normalized match with no surviving partner calls a wrong target somewhere and can never be raw.
+
+On main 60bdd8a: 1015 of 1019 normalized matches are bisimilar. The 4 failures all trace to one
+site (`entrypoint`, `entry` and `__global::set_reserved_fee_recipients` fail only through their callee):
+
+| window | site | original calls | ours called | fix |
+|---|---|---|---|---|
+| 0x6fef8 set_reserved_fee_recipients | rent-exempt `format!` (line 65, pos 53) | outlined `alloc::fmt::format` | `format_inner` (format inlined, cost 185 vs hot threshold 325) | `#[cold]` on `rent_exempt_error`: BPI marks the block that calls a cold fn cold before the inliner considers `format`, so it stays outlined (cold threshold 45). Bytes unchanged. |
+| 0x6cd78 process_cashback_inner (pinned) | pos 35, after transfer_native | `Account::<UserVolumeAccumulator>::try_from` | `try_from_unchecked` | `try_from`: both bodies are equal after masking; the original's calls `try_deserialize` (checked), not `try_deserialize_unchecked`. Reverts ledger row `0x6cd78-main-d2cb88d-try-from-unchecked-v1`, whose identification came from the normalized body alone. |
+
+After both: 1019 / 1019 normalized matches bisimilar, census msdiff for 0x6cd78 2 -> 0 (58/58 aligned),
+1020 / 188, no gains or losses. Ledger attempts cfbc2c9a, a5feccda.
+
+Lesson for reconstruction lanes: when choosing between functions that differ only in which helper they
+call (try_from / try_from_unchecked, `format` / `format_inner`, generic monomorphs), use the census
+key (body + callee identities), not the normalized body, and re-run `callid_audit.py` before a PR.
+
+### Census refresh on 60bdd8a
+
+Other lanes merged since round 1. Remaining call-graph differences (CENSUS-TABLES.md): 0x22a10
+admin_cto (msdiff 7; the admincto-reconstruction lane has an equal-multiset variant using the
+hot/cold rule), 0x77940 claim_v2 (7), 0x5b3b0 swap_hop (1 extra clone), 0x72810 sweep (orig +1 memcmp).
+All other unmatched windows now have an identical callee multiset.
+
 Baseline: origin/main d2cb88d (`$BASE/unstripped.so`, sha256 04fdafc0..., 1019 normalized / 188 raw).
 Tool: `census.py` in this directory (read-only; reuses the harness `score.py` masking, `win.py`, `coords.py`).
 Outputs: `CENSUS.json` (full per-target data), `CENSUS-TABLES.md` (generated tables).

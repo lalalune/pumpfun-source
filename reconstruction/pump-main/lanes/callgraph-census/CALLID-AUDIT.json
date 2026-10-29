@@ -1,0 +1,105 @@
+{
+ "candidate": "/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/callgraph-census/out/r2-t2-cold-rent-helper/unstripped.so",
+ "rounds": 4,
+ "normalized_matched": 1019,
+ "bisimilar_matched": 1019,
+ "hidden_call_target_mismatch": [],
+ "pinned_targets": [
+  {
+   "window": "0x1e7c0",
+   "cand": "0x2c1d8",
+   "name": "create_v2::execute",
+   "aligned_body_equal_but_wrong_callee": []
+  },
+  {
+   "window": "0x22a10",
+   "cand": "0x2feb8",
+   "name": "admin_cto::execute",
+   "aligned_body_equal_but_wrong_callee": []
+  },
+  {
+   "window": "0x4c158",
+   "cand": "0x5e3d8",
+   "name": "migrate_v2::create_token_account_v2",
+   "aligned_body_equal_but_wrong_callee": []
+  },
+  {
+   "window": "0x5b3b0",
+   "cand": "0x65bd8",
+   "name": "multi_hop_curve::swap_hop",
+   "aligned_body_equal_but_wrong_callee": []
+  },
+  {
+   "window": "0x6cd78",
+   "cand": "0x7d930",
+   "name": "legacy_sell::process_cashback_inner",
+   "aligned_body_equal_but_wrong_callee": []
+  },
+  {
+   "window": "0x72810",
+   "cand": "0x897e8",
+   "name": "sweep::execute",
+   "aligned_body_equal_but_wrong_callee": []
+  },
+  {
+   "window": "0x77940",
+   "cand": "0x8e918",
+   "name": "token_incentives::claim_token_incentives::cashback::claim_v2",
+   "aligned_body_equal_but_wrong_callee": []
+  },
+  {
+   "window": "0x80df8",
+   "cand": "0x95608",
+   "name": "trade::v3_buy_costs",
+   "aligned_body_equal_but_wrong_callee": []
+  },
+  {
+   "window": "0x83c00",
+   "cand": "0x9ab20",
+   "name": "trade::v3_execute_buy",
+   "aligned_body_equal_but_wrong_callee": []
+  },
+  {
+   "window": "0x13b9b8",
+   "cand": "0x16c88",
+   "name": "buy_v2::buy_handler",
+   "aligned_body_equal_but_wrong_callee": []
+  },
+  {
+   "window": "0x13f630",
+   "cand": "0x1ad00",
+   "name": "buy_v2::buy_exact_quote_in_handler",
+   "aligned_body_equal_but_wrong_callee": []
+  },
+  {
+   "window": "0x144508",
+   "cand": "0x81ee0",
+   "name": "sell_v2::execute",
+   "aligned_body_equal_but_wrong_callee": []
+  },
+  {
+   "window": "0x147ba0",
+   "cand": "0x9bc98",
+   "name": "trade::buy",
+   "aligned_body_equal_but_wrong_callee": []
+  },
+  {
+   "window": "0x1489f8",
+   "cand": "0x9cd08",
+   "name": "trade::buy_exact_quote",
+   "aligned_body_equal_but_wrong_callee": []
+  },
+  {
+   "window": "0x14a8a8",
+   "cand": "0x9f518",
+   "name": "trade::sell",
+   "aligned_body_equal_but_wrong_callee": []
+  },
+  {
+   "window": "0x14f4e0",
+   "cand": "0x14a3f0",
+   "name": "buy_exact_sol_in",
+   "aligned_body_equal_but_wrong_callee": []
+  }
+ ]
+}
