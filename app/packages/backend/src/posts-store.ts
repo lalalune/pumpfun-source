@@ -330,7 +330,7 @@ export class PostStore {
     const post = this.byPostId.get(postId);
     if (!post || !this.isServed(post)) return undefined;
 
-    let items = this.posts.filter(p => p.parentPostId === postId && !p.deleted && !p.hidden);
+    let items = this.posts.filter(p => p.parentPostId === postId && this.isServed(p));
     items.sort(comparePostsNewestFirst);
 
     if (opts.cursor !== undefined) {
