@@ -26,6 +26,15 @@ def atomic_write(target, body):
         if temporary is not None:
             temporary.unlink(missing_ok=True)
 
+def retain_manifest(body):
+    """Keep the exact checkpoint before changing the selected manifest alias."""
+    target = OUT / 'manifests' / (hashlib.sha256(body).hexdigest() + '.json')
+    if target.exists():
+        if target.read_bytes() != body:
+            raise ValueError('Retained manifest differs from its content-addressed checkpoint')
+    else:
+        atomic_write(target, body)
+
 def capture(url):
     key = hashlib.sha256(url.encode()).hexdigest()[:16]
     suffix = pathlib.PurePosixPath(urllib.parse.urlparse(url).path).suffix
@@ -145,6 +154,11 @@ def main():
                         if resolved:assets.add(resolved)
     OUT.mkdir(parents=True,exist_ok=True)
     manifest={'captured_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'user_agent':UA,'scope':PAGES,'exclusions':['support','terminal','mobile app','token/coin detail pages','pump-token'],'records':records,'limits':{'asset_discovery_waves':8,'waves_used':waves,'unfetched_discovered':sorted(assets-done)}}
-    atomic_write(OUT/'manifest.json', (json.dumps(manifest,indent=2)+'\n').encode('utf-8'))
+    selected = OUT / 'manifest.json'
+    if selected.exists():
+        retain_manifest(selected.read_bytes())
+    encoded = (json.dumps(manifest,indent=2)+'\n').encode('utf-8')
+    retain_manifest(encoded)
+    atomic_write(selected, encoded)
     print(json.dumps({'records':len(records),'successful':sum(r.get('status')==200 for r in records),'bytes':sum(r.get('bytes',0) for r in records),'remaining':len(assets-done)}))
 if __name__=='__main__': main()

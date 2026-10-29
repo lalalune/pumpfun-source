@@ -1,7 +1,22 @@
-import pathlib,json,hashlib,base64,tarfile
+import pathlib,json,hashlib,base64,tarfile,re
 root=pathlib.Path(__file__).resolve().parents[1]
 m=json.loads((root/'evidence/web/manifest.json').read_text(encoding='utf-8'))
-records=m['records']
+records=list(m['records'])
+history=root/'evidence/web/manifests'
+snapshots=[]
+if history.is_symlink() or (history.exists() and not history.is_dir()):
+ raise ValueError('Invalid retained manifest directory')
+if history.exists():
+ for snapshot in sorted(history.iterdir()):
+  if snapshot.is_symlink() or not snapshot.is_file() or not re.fullmatch(r'[0-9a-f]{64}\.json',snapshot.name):
+   raise ValueError(f'Invalid retained manifest entry: {snapshot.name}')
+  raw=snapshot.read_bytes()
+  if hashlib.sha256(raw).hexdigest()!=snapshot.stem:
+   raise ValueError(f'Retained manifest SHA-256 mismatch: {snapshot.name}')
+  retained=json.loads(raw.decode('utf-8'))
+  if not isinstance(retained,dict) or not isinstance(retained.get('records'),list):
+   raise ValueError(f'Invalid retained manifest records: {snapshot.name}')
+  records.extend(retained['records']);snapshots.append(snapshot.name)
 for name in ['api-probes.json','source-map-probes.json']:
  records += json.loads((root/'evidence'/name).read_text(encoding='utf-8'))
 objects_root=root/'evidence/web/objects'
@@ -40,4 +55,7 @@ source_root=root/'packages/sdk/src'
 actual_sources={path.relative_to(source_root).as_posix() for path in source_root.rglob('*') if path.is_file()}
 if actual_sources != expected_sources:
  raise ValueError(f'SDK source inventory differs from archive: extra={sorted(actual_sources-expected_sources)}, missing={sorted(expected_sources-actual_sources)}')
-print(f"Verified {len(records)} captured objects, npm integrity, and unchanged SDK sources")
+if snapshots:
+ print(f"Verified {len(actual_objects)} distinct captured objects across the selected manifest and {len(snapshots)} retained manifest checkpoints, npm integrity, and unchanged SDK sources")
+else:
+ print(f"Verified {len(records)} captured objects, npm integrity, and unchanged SDK sources")

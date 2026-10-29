@@ -1,0 +1,47 @@
+{
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "tested_source_commit": "013eb9c8f9c7a5b007d4157d13bbc1279533f822",
+  "files": {
+    "app/scripts/capture.py": {
+      "before_sha256": "8eb99a6a960893bb6f12884931123500c24b8ba87080863409a5b8ff3e86f5ba",
+      "after_sha256": "877c5d0f703a9aaa8af3844630b90fb07c262581dfa647ada0b6d861c8651917"
+    },
+    "app/scripts/verify-evidence.py": {
+      "before_sha256": "6429337cfea4b6da8f979c37b449f442ec6574a3f9cf1cc14c734b4f812c2307",
+      "after_sha256": "33a5933bc2f39e5a5933e2d7bdeef33a1beccce502fc2548bdc33883030db693"
+    },
+    "app/tests/capture_cli_fixture.py": {
+      "before_sha256": null,
+      "after_sha256": "4686aa63e685db05ba074de6bf02145a91cb324f8a21b312ddca717951335e99"
+    },
+    "app/tests/test_capture_snapshot_history.py": {
+      "before_sha256": null,
+      "after_sha256": "b7fda29ad7ea26bb00f14b93373750b883e925104c1573f1e09e47fd27ca4b75"
+    }
+  },
+  "unchanged_capture_functions_sha256": {
+    "public_asset": "d9430fc6dc661f6b95246eff8338c09395b82f0b3d1dbe4a74e91227512e9978",
+    "atomic_write": "94ca8e4cfda900a051c6c31ec69802d83db2a30a635b1674f3d77d7bb4542713",
+    "capture": "c85a76fd362dfb02b6c131e5a2a520bafb73ca07bc8c1b42a175fd46a733b5f3",
+    "retained_id": "347c3994d59ab78ae80ed8f15da095f21e4a0e2cc40a0dff0685e03fe4393d14",
+    "retained_body": "38232c0f3984076b095e077d24d2bf2faa3cd7c974f0c4012aad6f99ba6f8ca7",
+    "load_reuse": "c9add065db08dd9d87ced5902efcf4fd381f907fdf1df4b5954303be062bde34",
+    "pool": "d2136940abe1247b82a651c6b90866ac782e7f6b656492e81e1657dbe9a5f2ee"
+  },
+  "baseline_final_tests": {
+    "pass": 0,
+    "fail": 4
+  },
+  "candidate_final_tests": {
+    "pass": 4,
+    "fail": 0
+  },
+  "affected_tests": {
+    "capture": 42,
+    "verifier": 2,
+    "skips": 0
+  },
+  "scope": "Only capture-manifest publication/history verification and new isolated real-CLI tests. Existing repository captures, published source, SDK, programs, acquisition/discovery/HTTP/resume-body reuse policies and feature counts are unchanged. Archives preserve metadata bytes; verification does not establish crawl completeness, freshness or server behavior.",
+  "previous_source_commit": "7a3761b982c0dfb0813ce2b90a7f8f759b4ba9ae",
+  "final_test_fixture_delta": "Copy unchanged local SDK package.json alongside its archive/registry/src inputs, and clarify exact-copied verifier wording; no production-source change."
+}

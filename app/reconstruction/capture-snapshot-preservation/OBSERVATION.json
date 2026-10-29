@@ -1,0 +1,248 @@
+{
+  "source_sha256": "8eb99a6a960893bb6f12884931123500c24b8ba87080863409a5b8ff3e86f5ba",
+  "copied_cli_sha256": "8eb99a6a960893bb6f12884931123500c24b8ba87080863409a5b8ff3e86f5ba",
+  "commands": [
+    [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "<isolated-app>/scripts/capture.py"
+    ],
+    [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "<isolated-app>/scripts/capture.py"
+    ]
+  ],
+  "transport": "real urllib HTTPS through loopback CONNECT proxy and ephemeral locally trusted test certificate; no external connections, captured JS, credentials or signing",
+  "outcomes": [
+    {
+      "version": 1,
+      "returncode": 0,
+      "snapshot": {
+        "manifest.json": "8653d664a561bd0ab6c993502389c895b7f3d631798083d21e3b2000d9106f03",
+        "objects/0c1c38e553b5ee46-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/0ce6fc3abc31d4a2-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/1e06d459af096a65-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/29195e5e6d90b5f4-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd.txt": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/34f7b585a78296af-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/387ab7dfaf532abb-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/501ddca30e455495-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/5e15667ed36cac85-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/b516506aa5e4338f-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd.json": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/b713215f09b03c14-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/c45d40b52df03727-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/d8e580782f84e190-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/e66810e11f481135-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/ecde4a73aafb477e-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+      }
+    },
+    {
+      "version": 2,
+      "returncode": 0,
+      "snapshot": {
+        "manifest.json": "e7ddce589af96baea851a5d6058e5c06307fb2aae781b437f40f75f44b774e9b",
+        "objects/0c1c38e553b5ee46-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/0c1c38e553b5ee46-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/0ce6fc3abc31d4a2-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/0ce6fc3abc31d4a2-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/1e06d459af096a65-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/1e06d459af096a65-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/29195e5e6d90b5f4-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68.txt": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/29195e5e6d90b5f4-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd.txt": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/34f7b585a78296af-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/34f7b585a78296af-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/387ab7dfaf532abb-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/387ab7dfaf532abb-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/501ddca30e455495-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/501ddca30e455495-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/5e15667ed36cac85-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/5e15667ed36cac85-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/b516506aa5e4338f-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68.json": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/b516506aa5e4338f-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd.json": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/b713215f09b03c14-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/b713215f09b03c14-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/c45d40b52df03727-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/c45d40b52df03727-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/d8e580782f84e190-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/d8e580782f84e190-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/e66810e11f481135-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/e66810e11f481135-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/ecde4a73aafb477e-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/ecde4a73aafb477e-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+      }
+    }
+  ],
+  "old_manifest_retained_inside_output": false,
+  "old_objects_unchanged": true,
+  "new_manifest_bytes_differ": true,
+  "loopback_events": [
+    {
+      "authority": "pump.fun:443",
+      "request": "GET / HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "docs.pump.fun:443",
+      "request": "GET /llms-full.txt HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /docs/fees HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "docs.pump.fun:443",
+      "request": "GET /openapi.public.json HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /docs/privacy-policy HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /create HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /docs/terms-and-conditions HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /holder-rewards HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /leaderboard HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /go HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /live HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /explore HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /mayhem HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /perps HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /docs/fees HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /docs/privacy-policy HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "docs.pump.fun:443",
+      "request": "GET /openapi.public.json HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET / HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /create HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "docs.pump.fun:443",
+      "request": "GET /llms-full.txt HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /explore HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /holder-rewards HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /go HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /docs/terms-and-conditions HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /leaderboard HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /mayhem HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /live HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /perps HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    }
+  ]
+}

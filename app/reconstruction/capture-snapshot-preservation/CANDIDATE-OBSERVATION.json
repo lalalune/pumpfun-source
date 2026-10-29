@@ -1,0 +1,251 @@
+{
+  "source_sha256": "877c5d0f703a9aaa8af3844630b90fb07c262581dfa647ada0b6d861c8651917",
+  "copied_cli_sha256": "877c5d0f703a9aaa8af3844630b90fb07c262581dfa647ada0b6d861c8651917",
+  "commands": [
+    [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "<isolated-app>/scripts/capture.py"
+    ],
+    [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "<isolated-app>/scripts/capture.py"
+    ]
+  ],
+  "transport": "real urllib HTTPS through loopback CONNECT proxy and ephemeral locally trusted test certificate; no external connections, captured JS, credentials or signing",
+  "outcomes": [
+    {
+      "version": 1,
+      "returncode": 0,
+      "snapshot": {
+        "manifest.json": "86fcff73548a1f53d506892a6370c2017527d571880582a00796a4d8170d9301",
+        "manifests/86fcff73548a1f53d506892a6370c2017527d571880582a00796a4d8170d9301.json": "86fcff73548a1f53d506892a6370c2017527d571880582a00796a4d8170d9301",
+        "objects/0c1c38e553b5ee46-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/0ce6fc3abc31d4a2-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/1e06d459af096a65-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/29195e5e6d90b5f4-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd.txt": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/34f7b585a78296af-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/387ab7dfaf532abb-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/501ddca30e455495-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/5e15667ed36cac85-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/b516506aa5e4338f-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd.json": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/b713215f09b03c14-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/c45d40b52df03727-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/d8e580782f84e190-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/e66810e11f481135-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/ecde4a73aafb477e-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+      }
+    },
+    {
+      "version": 2,
+      "returncode": 0,
+      "snapshot": {
+        "manifest.json": "17213b1ea92da5450b275f626675c50b780a23c3398d60c545fd131d32d9a091",
+        "manifests/17213b1ea92da5450b275f626675c50b780a23c3398d60c545fd131d32d9a091.json": "17213b1ea92da5450b275f626675c50b780a23c3398d60c545fd131d32d9a091",
+        "manifests/86fcff73548a1f53d506892a6370c2017527d571880582a00796a4d8170d9301.json": "86fcff73548a1f53d506892a6370c2017527d571880582a00796a4d8170d9301",
+        "objects/0c1c38e553b5ee46-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/0c1c38e553b5ee46-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/0ce6fc3abc31d4a2-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/0ce6fc3abc31d4a2-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/1e06d459af096a65-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/1e06d459af096a65-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/29195e5e6d90b5f4-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68.txt": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/29195e5e6d90b5f4-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd.txt": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/34f7b585a78296af-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/34f7b585a78296af-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/387ab7dfaf532abb-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/387ab7dfaf532abb-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/501ddca30e455495-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/501ddca30e455495-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/5e15667ed36cac85-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/5e15667ed36cac85-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/b516506aa5e4338f-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68.json": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/b516506aa5e4338f-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd.json": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/b713215f09b03c14-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/b713215f09b03c14-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/c45d40b52df03727-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/c45d40b52df03727-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/d8e580782f84e190-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/d8e580782f84e190-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/e66810e11f481135-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/e66810e11f481135-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd",
+        "objects/ecde4a73aafb477e-0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68",
+        "objects/ecde4a73aafb477e-6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+      }
+    }
+  ],
+  "old_manifest_retained_inside_output": true,
+  "old_objects_unchanged": true,
+  "new_manifest_bytes_differ": true,
+  "loopback_events": [
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /docs/privacy-policy HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /create HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /docs/fees HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "docs.pump.fun:443",
+      "request": "GET /llms-full.txt HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET / HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "docs.pump.fun:443",
+      "request": "GET /openapi.public.json HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /docs/terms-and-conditions HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /explore HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /live HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /leaderboard HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /go HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /mayhem HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /holder-rewards HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /perps HTTP/1.1",
+      "version": 1,
+      "body_sha256": "6f8785190109766bd65cf2551be31775ba7e5ba228f7b1acb1a3c3a9445847cd"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /docs/fees HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "docs.pump.fun:443",
+      "request": "GET /llms-full.txt HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET / HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /create HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "docs.pump.fun:443",
+      "request": "GET /openapi.public.json HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /docs/privacy-policy HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /holder-rewards HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /explore HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /docs/terms-and-conditions HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /go HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /live HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /leaderboard HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /mayhem HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    },
+    {
+      "authority": "pump.fun:443",
+      "request": "GET /perps HTTP/1.1",
+      "version": 2,
+      "body_sha256": "0c3161cbc543cafb3187cd61d20fed58fba0555b72ea06796351e69343ba7e68"
+    }
+  ]
+}
