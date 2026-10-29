@@ -220,6 +220,23 @@ test("actual foreground pause, error/Retry and unmount retain request ownership"
   context,
 }, info) => {
   const finish = await observe(page, info);
+  // Playwright 1.64.1 enables CDP focus emulation for every main frame. Disable
+  // that driver override so real tab switching reaches the unchanged DOM API.
+  const focusSession = await context.newCDPSession(page);
+  await focusSession.send("Emulation.setFocusEmulationEnabled", {
+    enabled: false,
+  });
+  const focusStates: any[] = [];
+  const recordFocus = async (label: string) =>
+    focusStates.push({
+      label,
+      atMs: Date.now(),
+      state: await page.evaluate(() => ({
+        focused: document.hasFocus(),
+        visibility: document.visibilityState,
+      })),
+      native: await fixture.command("snapshot"),
+    });
   try {
     await page.goto(
       "/leaderboard?category=competitions&competition=" + fixture.slug,
@@ -231,16 +248,23 @@ test("actual foreground pause, error/Retry and unmount retain request ownership"
     await expect(amount).toHaveText("$100.00");
     const before = (await fixture.command("snapshot")).ledger.length;
     const other = await context.newPage();
+    const otherFocusSession = await context.newCDPSession(other);
+    await otherFocusSession.send("Emulation.setFocusEmulationEnabled", {
+      enabled: false,
+    });
     await other.bringToFront();
     await expect
       .poll(() => page.evaluate(() => document.hasFocus()))
       .toBe(false);
+    await recordFocus("other tab foreground; real source document blurred");
     await fixture.command("advance");
     await page.waitForTimeout(17_000); // Real elapsed time; no virtual clock or timer shim.
     expect((await fixture.command("snapshot")).ledger.length).toBe(before);
+    await recordFocus("17 real seconds blurred; no recurring read");
     await expect(amount).toHaveText("$100.00");
     await other.close();
     await foreground(page);
+    await recordFocus("source tab foreground again");
     await expect(amount).toHaveText("$200.00", { timeout: 22_000 });
     await fixture.command("stop-backend");
     await expect(page.getByTestId("leaderboard-error")).toBeVisible({
@@ -256,7 +280,7 @@ test("actual foreground pause, error/Retry and unmount retain request ownership"
     await fixture.command("start-backend");
     await page.getByRole("button", { name: "Retry", exact: true }).click();
     await expect(amount).toHaveText("$200.00");
-    await page.goto("/fees");
+    await page.goto("/docs/fees");
     await expect(
       page.getByRole("heading", { name: /Fees/i, level: 1 }),
     ).toBeVisible();
@@ -266,6 +290,11 @@ test("actual foreground pause, error/Retry and unmount retain request ownership"
       afterUnmount,
     );
   } finally {
+    await writeFile(
+      info.outputPath("focus-states.json"),
+      JSON.stringify(focusStates, null, 2) + "\n",
+    );
+    await focusSession.detach();
     await finish();
   }
 });
