@@ -1,0 +1,262 @@
+{
+  "schemaVersion": 1,
+  "codeCommit": "69e05783f8b260c607486196685dbbf5316f4b63",
+  "base": {
+    "pullRequest": 1374,
+    "publicHead": "7f1f6627b8e3aae1d7e4a9c99c2652202549a0cd",
+    "credit": "explicit prerequisite; zero new recovery credit"
+  },
+  "browser": {
+    "schemaVersion": 1,
+    "candidateCodeCommit": "69e05783f8b260c607486196685dbbf5316f4b63",
+    "baseCommit": "7f1f6627b8e3aae1d7e4a9c99c2652202549a0cd",
+    "productFiles": [
+      {
+        "path": "app/packages/frontend/src/components/feed/FeedList.tsx",
+        "baseSha256": "955d2e84410ca62ee8dc186f4b94c5829b24659823cd24aa77a364bdc42a758d",
+        "candidateSha256": "5505945dc02dab382a4e9f8b99a3b07d16306acd1a238675cf9d5ce8fe4f0af5"
+      },
+      {
+        "path": "app/packages/frontend/src/components/feed/feed-data.ts",
+        "baseSha256": "ffbf2ca44457c400d0cb6fb55df24b980d700d8d8fd1d36917f0588c10cf8209",
+        "candidateSha256": "74e98ebe06043c28ac45d7e81e6910d52fe081a4dbec4455cb2f9578f390b913"
+      },
+      {
+        "path": "app/packages/frontend/src/components/feed/feed-snapshot.ts",
+        "baseSha256": "98c015a6d0b3a5532603ac1938e79501ac59047dd7da2d49615e8df7b030cb16",
+        "candidateSha256": "5746c503a2024100fb5417e18c2ada920111fabea67f7c57fd8400d6a7315416"
+      },
+      {
+        "path": "app/packages/frontend/src/app/page.tsx",
+        "baseSha256": "c7d6c2443e2a3c603c69454c950e56b94f1f375d984187861adab42d7e9005cc",
+        "candidateSha256": "a17015e8d6b278392db42db2749188e27287d673cfa0f62d17289b75f54eebcc"
+      }
+    ],
+    "runs": [
+      {
+        "name": "baseline",
+        "command": [
+          "corepack",
+          "pnpm",
+          "exec",
+          "playwright",
+          "test",
+          "--config",
+          "playwright.quote-preview.config.ts",
+          "--grep",
+          "hash-bound local Home",
+          "--output",
+          "../../artifacts/playwright-quote-preview-baseline"
+        ],
+        "mode": "expected absence",
+        "exitCode": 0
+      },
+      {
+        "name": "candidate",
+        "command": [
+          "corepack",
+          "pnpm",
+          "exec",
+          "playwright",
+          "test",
+          "--config",
+          "playwright.quote-preview.config.ts"
+        ],
+        "mode": "actual mounted previews and affected Home regressions",
+        "exitCode": 0
+      }
+    ],
+    "limits": [
+      "Same actual hash-bound immutable legacy seed in both runs; no test input replacement",
+      "Before restores exactly four host files from actual1374public parent; unconsumed new modules and identical authored harness remain",
+      "Passing baseline asserts expected absence, not an observed assertion failure",
+      "NEW authored local join is not original API/coordinator recovery; original owning consumers use modern envelopes",
+      "Unavailable state is source/model/join-tested, not browser-observed in the checked-in dataset"
+    ]
+  },
+  "checks": [
+    {
+      "name": "source-model",
+      "cwd": "app",
+      "command": [
+        "node",
+        "--experimental-strip-types",
+        "--test",
+        "tests/quote_preview.test.ts",
+        "tests/original_mention_text.test.mjs",
+        "tests/original_source.test.mjs"
+      ],
+      "exitCode": 0,
+      "log": "source-model.log"
+    },
+    {
+      "name": "contract",
+      "cwd": "app",
+      "command": [
+        "node",
+        "scripts/original-quote-preview.mjs",
+        "--check"
+      ],
+      "exitCode": 0,
+      "log": "contract.log"
+    },
+    {
+      "name": "feed",
+      "cwd": "app",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:feed"
+      ],
+      "exitCode": 0,
+      "log": "feed.log"
+    },
+    {
+      "name": "profiles",
+      "cwd": "app",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:profile"
+      ],
+      "exitCode": 0,
+      "log": "profiles.log"
+    },
+    {
+      "name": "typecheck",
+      "cwd": "app",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--filter",
+        "@pump-reconstruction/frontend",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "log": "typecheck.log"
+    },
+    {
+      "name": "app-evidence",
+      "cwd": "app",
+      "command": [
+        "python3",
+        "scripts/verify-evidence.py"
+      ],
+      "exitCode": 0,
+      "log": "app-evidence.log"
+    },
+    {
+      "name": "progress",
+      "cwd": "app",
+      "command": [
+        "python3",
+        "scripts/progress.py",
+        "--check"
+      ],
+      "exitCode": 0,
+      "log": "progress.log"
+    },
+    {
+      "name": "progress-tests",
+      "cwd": "app",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_progress.py"
+      ],
+      "exitCode": 0,
+      "log": "progress-tests.log"
+    },
+    {
+      "name": "root-evidence",
+      "cwd": ".",
+      "command": [
+        "python3",
+        "scripts/verify_evidence.py"
+      ],
+      "exitCode": 0,
+      "log": "root-evidence.log"
+    },
+    {
+      "name": "root-tooling",
+      "cwd": ".",
+      "command": [
+        "python3",
+        "scripts/test_tooling.py"
+      ],
+      "exitCode": 0,
+      "log": "root-tooling.log"
+    }
+  ],
+  "harness": [
+    {
+      "path": "app/packages/frontend/playwright.quote-preview.config.ts",
+      "bytes": 841,
+      "sha256": "7d30d8ec3d5d874955410b2b102b7202a7394fd487c92a892bd2f6c8a10c0a8d"
+    },
+    {
+      "path": "app/packages/frontend/tests/quote-preview.flow.ts",
+      "bytes": 4883,
+      "sha256": "e9b80f611a53527fe227352996c33f85fc3d1b3e705d0b49d015d72004d25688"
+    },
+    {
+      "path": "app/packages/frontend/tests/home-feed.spec.ts",
+      "bytes": 8231,
+      "sha256": "c0cc6d147a6e2cb1140a806b9ddb66ad7a0775ab42b354443a1c6d4ccd409ac9"
+    }
+  ],
+  "preservedInputs": [
+    {
+      "path": "app/packages/backend/src/posts-seed.json",
+      "bytes": 8394,
+      "sha256": "f4d12a7812b07be6dcef4b966430a086cba9e867ff89de669a95a74bdd73d705"
+    },
+    {
+      "path": "app/packages/backend/src/users-seed.json",
+      "bytes": 3866,
+      "sha256": "56259663a146236df2f0e6e1d931df7cc2dda4d39ed7a090c18505434155b20d"
+    },
+    {
+      "path": "app/packages/frontend/src/components/feed/FeedItem.tsx",
+      "bytes": 3439,
+      "sha256": "495af331c4cc3b60e6f9037b183feb484d2b11f0298c3d79835b6f5337f194e3"
+    },
+    {
+      "path": "app/packages/frontend/src/components/feed/NativeCalloutFeed.tsx",
+      "bytes": 7587,
+      "sha256": "51e4e89288d75a88f3ceee157078e8eb586e6b02650ca0790c12ad9bda9ad267"
+    },
+    {
+      "path": "app/reconstruction/mention-text/contract.json",
+      "bytes": 17975,
+      "sha256": "cd5b8f1e7e2164d5e60abb0e300f3f36fc0c8e286409e5ec8894e0cb5515b81a"
+    },
+    {
+      "path": "app/evidence/web/manifest.json",
+      "bytes": 3026513,
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5"
+    },
+    {
+      "path": "app/recovered/modules.json",
+      "bytes": 2928853,
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2"
+    }
+  ],
+  "observations": {
+    "baseline": "1/1 PASS expectedabsence, not a failed assertion",
+    "candidate": "8/8 PASS: new actual quote story plus7 existing Home controls",
+    "data": "Same actual immutable hash-bound at-rest seed; no authored HTTP replacement/test endpoint",
+    "newTests": "11 source/model/localjoin;25 prerequisite source/mention tests unchanged",
+    "profiles": "25 existing checks pass; default root-only projection unchanged",
+    "browserScope": "Actual Next pageGET200\u2192seedSHA/shapevalidation\u2192new localjoin\u2192mounted386028.f reconstruction\u2192keyboardprofileGET200",
+    "warnings": "Known React script-tag warnings on excluded404 routes retained in raw log; no all-routes console-clean claim",
+    "visualLimit": "375px full-page screenshot retains existing fixed-navigation overlay; no horizontaloverflow measured, no all-pixel unobstructed/hit-test/pixel-parity claim",
+    "unavailable": "Source/model/join-tested only; not mountedbrowser-observed in immutable seed",
+    "production": "No original service, mutation, auth, backend API or feature/milestone compatibility qualification"
+  }
+}

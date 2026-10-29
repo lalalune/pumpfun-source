@@ -114,7 +114,7 @@ export default async function Home({
             <aside className="feed-provenance" aria-label="Feed data source">
               <strong>Local example data — not live Pump activity</strong>
               <span>
-                {localFeed.dataset.posts.length} validated root posts from the
+                {localFeed.dataset.posts.length} validated local posts from the
                 hash-bound synthetic backend seed. External media stays offline.
               </span>
             </aside>

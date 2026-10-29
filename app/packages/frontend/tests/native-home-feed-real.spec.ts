@@ -23,7 +23,7 @@ test("renders and pages PR700 ranked callouts through the Next server", async ({
 }) => {
   const safety = collectBrowserSafety(page);
   await page.goto("/");
-  await expect(page.getByTestId("local-feed-item")).toHaveCount(3);
+  await expect(page.getByTestId("local-feed-item")).toHaveCount(6);
   await page.getByRole("tab", { name: "Local callouts" }).click();
   await expect(
     page.getByText("Local Example Alpha", { exact: true }),

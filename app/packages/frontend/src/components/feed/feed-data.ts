@@ -1,3 +1,4 @@
+import type { QuotePreviewData } from "../../../../../reconstruction/quote-preview/model.mjs";
 export const LOCAL_FEED_DATA_SOURCE = "synthetic-seed-play" as const;
 export const POSTS_SEED_SHA256 =
   "f4d12a7812b07be6dcef4b966430a086cba9e867ff89de669a95a74bdd73d705";
@@ -23,6 +24,7 @@ export type LocalFeedPost = {
   quotes: number;
   hasMedia: boolean;
   dataSource: typeof LOCAL_FEED_DATA_SOURCE;
+  quotePreview?: QuotePreviewData;
 };
 
 export type LocalFeedDataset = {
@@ -106,9 +108,18 @@ function counter(record: UnknownRecord, field: string): number {
 
 function parseTimestamp(value: string, field: string): number {
   const timestamp = Date.parse(value);
-  const iso = /^(\d{4}-\d{2}-\d{2})T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|[+-](?:[01]\d|2[0-3]):[0-5]\d)$/u.exec(value);
+  const iso =
+    /^(\d{4}-\d{2}-\d{2})T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|[+-](?:[01]\d|2[0-3]):[0-5]\d)$/u.exec(
+      value,
+    );
   const calendar = iso ? new Date(`${iso[1]}T00:00:00Z`) : null;
-  if (!Number.isFinite(timestamp) || !iso || !calendar || !Number.isFinite(calendar.getTime()) || calendar.toISOString().slice(0, 10) !== iso[1]) {
+  if (
+    !Number.isFinite(timestamp) ||
+    !iso ||
+    !calendar ||
+    !Number.isFinite(calendar.getTime()) ||
+    calendar.toISOString().slice(0, 10) !== iso[1]
+  ) {
     throw new FeedDataError(`Local feed ${field} must be an ISO timestamp`);
   }
   return timestamp;
@@ -206,14 +217,28 @@ function displayName(user: ValidatedUser | undefined): string {
 export function validateLocalFeed(
   postsInput: unknown,
   usersInput: unknown,
+  { includeQuotes = false }: { includeQuotes?: boolean } = {},
 ): LocalFeedDataset {
+  if (typeof includeQuotes !== "boolean")
+    throw new FeedDataError("Local quote projection must be boolean");
   if (!Array.isArray(postsInput)) {
     throw new FeedDataError("Local feed posts must be an array");
   }
   const users = validateUsers(usersInput);
   const seenPostIds = new Set<string>();
   const excluded = { replies: 0, deleted: 0, hidden: 0, nonRoot: 0 };
-  const posts: Array<LocalFeedPost & { timestampMs: number }> = [];
+  const posts: Array<
+    LocalFeedPost & { timestampMs: number; quoteTargetId?: string | null }
+  > = [];
+  const quoteTargets = new Map<
+    string,
+    {
+      authorId: string;
+      content: string | null;
+      deleted: boolean;
+      hidden: boolean;
+    }
+  >();
 
   postsInput.forEach((value, index) => {
     if (!isRecord(value)) {
@@ -254,6 +279,8 @@ export function validateLocalFeed(
     const reposts = counter(value, "repostCount");
     const quotes = counter(value, "quoteCount");
     const hasMedia = mediaPresence(value);
+    if (includeQuotes)
+      quoteTargets.set(id, { authorId, content, deleted, hidden });
 
     if (deleted) {
       excluded.deleted += 1;
@@ -267,7 +294,7 @@ export function validateLocalFeed(
       excluded.replies += 1;
       return;
     }
-    if (kind !== "root") {
+    if (kind !== "root" && !(includeQuotes && kind === "quote")) {
       excluded.nonRoot += 1;
       return;
     }
@@ -296,6 +323,9 @@ export function validateLocalFeed(
       hasMedia,
       dataSource: LOCAL_FEED_DATA_SOURCE,
       timestampMs,
+      ...(kind === "quote"
+        ? { quoteTargetId: optionalSafeString(value, "quotedPostId") ?? null }
+        : {}),
     });
   });
 
@@ -306,7 +336,28 @@ export function validateLocalFeed(
 
   return {
     dataSource: LOCAL_FEED_DATA_SOURCE,
-    posts: posts.map(({ timestampMs: _timestampMs, ...post }) => post),
+    posts: posts.map(
+      ({ timestampMs: _timestampMs, quoteTargetId, ...post }) => {
+        if (quoteTargetId === undefined) return post;
+        // New local host join. It does not assert the original API's coordinator
+        // or visibility policy; hidden/deleted/unresolved target text is withheld.
+        const target =
+          quoteTargetId === null ? undefined : quoteTargets.get(quoteTargetId);
+        const author = target ? users.get(target.authorId) : undefined;
+        const quotePreview: QuotePreviewData =
+          !target || target.deleted || target.hidden
+            ? { deleted: true }
+            : {
+                deleted: false,
+                ...(author?.username !== null && author?.username !== undefined
+                  ? { authorName: author.username }
+                  : {}),
+                ...(author?.address ? { authorAddress: author.address } : {}),
+                ...(target.content ? { text: target.content } : {}),
+              };
+        return { ...post, quotePreview };
+      },
+    ),
     excluded,
   };
 }

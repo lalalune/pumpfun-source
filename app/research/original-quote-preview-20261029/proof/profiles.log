@@ -1,0 +1,37 @@
+
+> pump-app-reconstruction@0.1.0 test:profile /workspace/pump-app-social/app
+> pnpm --filter @pump-reconstruction/backend exec tsx --test ../../tests/profile_data.test.ts ../../tests/profile_follow_graph.test.ts ../../tests/local_user_search.test.ts
+
+✔ local GET searches the validated model and preserves empty wallet labels (69.924066ms)
+✔ all five exact seeded identities remain searchable with unmodified served order (6.533328ms)
+✔ local query boundaries fail before reading files (4.612836ms)
+✔ missing or changed users and posts fail without exposing paths or fallback records (2.629768ms)
+✔ host response admission rejects malformed display fields and mismatched navigation identities (0.271398ms)
+✔ unchanged source query retains snapshots and identity selection for explicit local pages (0.516816ms)
+✔ authenticates and validates the exact checked-in profile seeds (39.854814ms)
+✔ resolves only exact known user ids and wallet addresses (3.609819ms)
+✔ rejects corrupted hashes and malformed seed JSON (1.801524ms)
+✔ rejects duplicate identities and inconsistent post authors (0.989345ms)
+✔ rejects unsupported account kinds, counters, wallets and timestamps (0.541253ms)
+✔ uses wallet fallback and honest missing profile fields (0.325078ms)
+✔ filters hidden, deleted and reply records and keeps stable post order (1.98501ms)
+✔ preserves banned and group classifications without inventing relationships (0.251728ms)
+✔ validates profile identifier boundaries (0.184777ms)
+✔ walletless profiles retain separate identities and post ownership (1.725771ms)
+✔ walletless profiles require an independently usable user id (2.233809ms)
+✔ profile canonical-wallet validation preserves SVM then EVM precedence (0.351748ms)
+✔ one profile may use the same address and userId without becoming a duplicate user (0.38635ms)
+✔ exact graph bytes resolve complete local directions without substituting aggregate counts (27.746851ms)
+✔ empty sides and groups/banned rows remain explicit rather than inferred (4.421322ms)
+✔ default follower ordering is stable across edge input order and equal counts (1.669005ms)
+✔ walletless identities use their stable id and wallet-only identities remain reachable (1.807684ms)
+✔ unknown identities, alias duplicates and malformed edges fail the whole graph (1.681915ms)
+✔ missing, changed or unresolved graph data does not become a fabricated empty graph (1.703468ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 304.373162

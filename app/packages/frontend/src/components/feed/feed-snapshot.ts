@@ -51,6 +51,7 @@ export async function loadLocalFeed(): Promise<LocalFeedLoadResult> {
       dataset: validateLocalFeed(
         parseBoundSeed("posts", postsBytes, POSTS_SEED_SHA256),
         parseBoundSeed("users", usersBytes, USERS_SEED_SHA256),
+        { includeQuotes: true },
       ),
     };
   } catch (error) {

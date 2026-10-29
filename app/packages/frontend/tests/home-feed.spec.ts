@@ -6,7 +6,10 @@ function collectSafetyViolations(page: Page) {
   page.on("request", (request) => {
     const url = new URL(request.url());
     if (
-      url.origin !== "http://127.0.0.1:3010" ||
+      url.origin !==
+        new URL(
+          String(test.info().project.use.baseURL ?? "http://127.0.0.1:3010"),
+        ).origin ||
       !["GET", "HEAD"].includes(request.method())
     ) {
       requests.push(`${request.method()} ${request.url()}`);
@@ -18,7 +21,7 @@ function collectSafetyViolations(page: Page) {
   return { requests, consoleErrors };
 }
 
-test("renders validated root posts with explicit synthetic provenance", async ({
+test("renders validated root posts and quotes with explicit synthetic provenance", async ({
   page,
 }) => {
   const safety = collectSafetyViolations(page);
@@ -30,19 +33,19 @@ test("renders validated root posts with explicit synthetic provenance", async ({
       exact: true,
     }),
   ).toBeVisible();
-  await expect(page.getByTestId("local-feed-item")).toHaveCount(3);
+  await expect(page.getByTestId("local-feed-item")).toHaveCount(6);
   await expect(page.getByRole("tab", { name: "Local callouts" })).toHaveCount(
     0,
   );
-  await expect(page.getByTestId("local-feed-item").nth(0)).toContainText(
-    "chad_group",
-  );
-  await expect(page.getByTestId("local-feed-item").nth(1)).toContainText(
-    "bob_degen",
-  );
-  await expect(page.getByTestId("local-feed-item").nth(2)).toContainText(
-    "alice_pump",
-  );
+  await expect(
+    page.locator('.feed-list > [data-testid="local-feed-item"]').nth(0),
+  ).toContainText("chad_group");
+  await expect(
+    page.locator('.feed-list > [data-testid="local-feed-item"]').nth(1),
+  ).toContainText("bob_degen");
+  await expect(
+    page.locator('.feed-list > [data-testid="local-feed-item"]').nth(2),
+  ).toContainText("alice_pump");
   await expect(page.getByText("Reply 1 to Alice")).toHaveCount(0);
   await expect(page.getByText("Hidden post")).toHaveCount(0);
   await expect(page.getByText("Deleted post")).toHaveCount(0);
@@ -50,10 +53,10 @@ test("renders validated root posts with explicit synthetic provenance", async ({
     page.getByRole("img", { name: "External media withheld in offline mode" }),
   ).toBeVisible();
   await expect(page.locator("main img")).toHaveCount(0);
-  await expect(page.locator('main a[href^="/profile"]')).toHaveCount(3);
+  await expect(page.locator('main a[href^="/profile"]')).toHaveCount(6);
   await expect(
     page.getByText("Synthetic example", { exact: true }),
-  ).toHaveCount(3);
+  ).toHaveCount(6);
   expect(safety.requests).toEqual([]);
   expect(safety.consoleErrors).toEqual([]);
 });
@@ -65,7 +68,7 @@ test("known feed authors open their local profiles and preserve history", async 
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto("/");
   const alice = page
-    .getByTestId("local-feed-item")
+    .locator('.feed-list > [data-testid="local-feed-item"]')
     .filter({ hasText: "alice_pump" })
     .getByRole("link", { name: "alice_pump", exact: true });
   await expect(alice).toHaveAttribute(
@@ -87,9 +90,9 @@ test("known feed authors open their local profiles and preserve history", async 
   );
   await page.goBack();
   await expect(page).toHaveURL(/\/$/);
-  await expect(page.getByTestId("local-feed-item")).toHaveCount(3);
+  await expect(page.getByTestId("local-feed-item")).toHaveCount(6);
   const group = page
-    .getByTestId("local-feed-item")
+    .locator('.feed-list > [data-testid="local-feed-item"]')
     .filter({ hasText: "chad_group" })
     .getByRole("link", { name: "chad_group", exact: true });
   await group.click();
@@ -147,7 +150,7 @@ test("Following remains selectable without fabricated personalization", async ({
 
   await page.goBack();
   await expect(page).toHaveURL(/\/$/);
-  await expect(page.getByTestId("local-feed-item")).toHaveCount(3);
+  await expect(page.getByTestId("local-feed-item")).toHaveCount(6);
   await page.goForward();
   await expect(page.getByTestId("following-unavailable")).toBeVisible();
   await page.reload();
@@ -175,7 +178,7 @@ test("normal feed interaction stays local, read-only and error-free", async ({
   await page.goto("/");
   await page.getByRole("tab", { name: "Following" }).click();
   await page.getByRole("link", { name: "Return to local examples" }).click();
-  await expect(page.getByTestId("local-feed-item")).toHaveCount(3);
+  await expect(page.getByTestId("local-feed-item")).toHaveCount(6);
   await page.getByRole("link", { name: "Explore", exact: true }).click();
   await expect(
     page.getByRole("heading", { level: 1, name: "Explore" }),

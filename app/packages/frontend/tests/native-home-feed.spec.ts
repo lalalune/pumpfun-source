@@ -42,7 +42,7 @@ test("keeps the offline post feed as the default opt-in landing state", async ({
   page,
 }) => {
   await page.goto("/");
-  await expect(page.getByTestId("local-feed-item")).toHaveCount(3);
+  await expect(page.getByTestId("local-feed-item")).toHaveCount(6);
   await expect(page.getByTestId("native-callout-card")).toHaveCount(0);
   await expect(page.getByRole("tab", { name: "Local callouts" })).toBeVisible();
   expect(await backendRequests()).toEqual([]);

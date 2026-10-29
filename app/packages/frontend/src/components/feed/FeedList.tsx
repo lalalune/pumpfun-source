@@ -1,4 +1,5 @@
 import { FeedItem } from "./FeedItem";
+import { LocalQuoteRow } from "./LocalQuoteRow";
 import type { LocalFeedPost } from "./feed-data";
 
 type FeedListProps = {
@@ -24,9 +25,16 @@ export function FeedList({ items }: FeedListProps) {
 
   return (
     <div className="feed-list" role="feed" aria-label="Local example posts">
-      {items.map((item) => (
-        <FeedItem key={item.id} item={item} />
-      ))}
+      {items.map((item) =>
+        item.quotePreview ? (
+          <LocalQuoteRow
+            key={item.id}
+            item={{ ...item, quotePreview: item.quotePreview }}
+          />
+        ) : (
+          <FeedItem key={item.id} item={item} />
+        ),
+      )}
     </div>
   );
 }

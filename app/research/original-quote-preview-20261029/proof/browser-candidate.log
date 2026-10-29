@@ -1,0 +1,143 @@
+2026-10-29T17:04:13.197Z pw:webserver HTTP GET: http://127.0.0.1:3016/
+2026-10-29T17:04:13.204Z pw:webserver Error while checking if http://127.0.0.1:3016/ is available: connect ECONNREFUSED 127.0.0.1:3016
+2026-10-29T17:04:13.204Z pw:webserver Starting WebServer process corepack pnpm exec next dev --turbopack --hostname 127.0.0.1 --port 3016...
+2026-10-29T17:04:13.209Z pw:webserver Process started
+2026-10-29T17:04:13.209Z pw:webserver Waiting for availability...
+2026-10-29T17:04:13.209Z pw:webserver HTTP GET: http://127.0.0.1:3016/
+2026-10-29T17:04:13.211Z pw:webserver Error while checking if http://127.0.0.1:3016/ is available: connect ECONNREFUSED 127.0.0.1:3016
+2026-10-29T17:04:13.211Z pw:webserver Waiting 100ms
+[WebServer] (node:384713) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+2026-10-29T17:04:13.312Z pw:webserver HTTP GET: http://127.0.0.1:3016/
+2026-10-29T17:04:13.313Z pw:webserver Error while checking if http://127.0.0.1:3016/ is available: connect ECONNREFUSED 127.0.0.1:3016
+2026-10-29T17:04:13.313Z pw:webserver Waiting 250ms
+2026-10-29T17:04:13.567Z pw:webserver HTTP GET: http://127.0.0.1:3016/
+2026-10-29T17:04:13.568Z pw:webserver Error while checking if http://127.0.0.1:3016/ is available: connect ECONNREFUSED 127.0.0.1:3016
+2026-10-29T17:04:13.568Z pw:webserver Waiting 500ms
+[WebServer] (node:384725) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:384742) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] ▲ Next.js 16.4.1 (Turbopack)
+
+[WebServer] - Local:         http://127.0.0.1:3016
+[WebServer] - Network:       http://127.0.0.1:3016
+[WebServer] ✓ Ready in 324ms
+
+[WebServer] ✓ Running next.config.ts took 25ms
+
+2026-10-29T17:04:14.069Z pw:webserver HTTP GET: http://127.0.0.1:3016/
+[WebServer] Creating turbopack project {
+[WebServer]   dir: '/workspace/pump-app-social/app/packages/frontend',
+[WebServer]   testMode: true
+[WebServer] }
+
+[WebServer] 
+
+[WebServer] (node:384768) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:384775) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+2026-10-29T17:04:17.610Z pw:webserver HTTP Status: 200
+2026-10-29T17:04:17.611Z pw:webserver WebServer available
+
+Running 8 tests using 1 worker
+
+[WebServer]  GET / 200 in 555ms (next.js: 178ms, application-code: 377ms)
+
+(node:384786) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/8] tests/home-feed.spec.ts:24:5 › renders validated root posts and quotes with explicit synthetic provenance
+[WebServer]  GET / 200 in 121ms (next.js: 2ms, application-code: 118ms)
+
+[2/8] tests/home-feed.spec.ts:64:5 › known feed authors open their local profiles and preserve history
+[WebServer]  GET / 200 in 134ms (next.js: 1.2ms, application-code: 132ms)
+
+[WebServer] (node:384886) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer]  GET /profile/7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU 200 in 458ms (next.js: 391ms, application-code: 67ms)
+
+[WebServer]  GET /profile/HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe4YWrH 200 in 64ms (next.js: 22ms, application-code: 41ms)
+
+[WebServer] (node:384896) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[3/8] tests/home-feed.spec.ts:134:5 › Following remains selectable without fabricated personalization
+[WebServer]  GET / 200 in 131ms (next.js: 1.5ms, application-code: 130ms)
+
+[WebServer]  GET /?tab=following 200 in 24ms (next.js: 2ms, application-code: 22ms)
+
+[WebServer]  GET /?tab=following 200 in 72ms (next.js: 1.2ms, application-code: 71ms)
+
+[4/8] tests/home-feed.spec.ts:160:5 › feed tabs support roving keyboard navigation
+[WebServer]  GET / 200 in 103ms (next.js: 1.0ms, application-code: 102ms)
+
+[WebServer]  GET /?tab=following 200 in 40ms (next.js: 3ms, application-code: 37ms)
+
+[WebServer]  GET / 200 in 13ms (next.js: 1.7ms, application-code: 11ms)
+
+[WebServer]  GET / 200 in 46ms (next.js: 1.2ms, application-code: 45ms)
+
+[5/8] tests/home-feed.spec.ts:174:5 › normal feed interaction stays local, read-only and error-free
+[WebServer]  GET / 200 in 110ms (next.js: 0.8ms, application-code: 109ms)
+
+[WebServer]  GET /?tab=following 200 in 23ms (next.js: 1.5ms, application-code: 22ms)
+
+[WebServer]  GET / 200 in 6ms (next.js: 1.4ms, application-code: 5ms)
+
+[WebServer]  GET / 200 in 44ms (next.js: 1.4ms, application-code: 42ms)
+
+[WebServer]  GET /explore 200 in 47ms (next.js: 10ms, application-code: 37ms)
+
+[WebServer] (node:384952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer]  GET /create 200 in 543ms (next.js: 10ms, generate-params: 385ms, application-code: 148ms)
+
+[6/8] tests/home-feed.spec.ts:193:5 › all required viewports keep the feed readable without overflow
+[WebServer]  GET / 200 in 113ms (next.js: 0.9ms, application-code: 112ms)
+
+[WebServer]  GET / 200 in 110ms (next.js: 0.8ms, application-code: 109ms)
+
+[WebServer]  GET / 200 in 103ms (next.js: 0.9ms, application-code: 102ms)
+
+[WebServer]  GET / 200 in 109ms (next.js: 1.0ms, application-code: 108ms)
+
+[WebServer]  GET / 200 in 121ms (next.js: 0.8ms, application-code: 120ms)
+
+[WebServer]  GET / 200 in 114ms (next.js: 1.4ms, application-code: 113ms)
+
+[7/8] tests/home-feed.spec.ts:228:5 › excluded detail routes remain unavailable
+[WebServer]  GET /coin/example 404 in 92ms (next.js: 1.1ms, generate-params: 19ms, application-code: 72ms)
+
+[WebServer] (node:384984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] [browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template). 
+
+[WebServer]  GET /pump-token 404 in 149ms (next.js: 1.3ms, generate-params: 25ms, application-code: 123ms)
+
+[WebServer] (node:384999) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] [browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template). 
+
+[8/8] tests/quote-preview.flow.ts:4:5 › hash-bound local Home renders the original standalone quote preview while preserving roots and excluding reposts
+[WebServer]  GET / 200 in 96ms (next.js: 1.1ms, application-code: 95ms)
+
+[WebServer]  GET /profile/7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU 200 in 52ms (next.js: 21ms, application-code: 32ms)
+
+[WebServer] (node:385021) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+2026-10-29T17:04:34.627Z pw:webserver Terminating the WebServer
+2026-10-29T17:04:34.704Z pw:webserver Terminated the WebServer
+  8 passed (21.5s)

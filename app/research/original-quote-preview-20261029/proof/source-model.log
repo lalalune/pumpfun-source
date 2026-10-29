@@ -1,0 +1,51 @@
+✔ source binds actual174251.f→314012.m/profile formatter and all three default-mode consumer variants (1.330477ms)
+✔ contract and every original UTF16/UTF8 fragment and maintained-file hash reproduce (58.686796ms)
+✔ tampered original mention source fails before reconstruction (44.558653ms)
+✔ plain fast path and empty input preserve exact strings without turning ordinary URLs or@names into links (1.755957ms)
+✔ mention parser preserves text/order/duplicates and ASCII case without resolving profiles (0.436135ms)
+✔ exact username and ID boundaries retain the source's loose36-character hex/hyphen rule (0.392509ms)
+✔ malformed serialized text remains literal and mention-looking prefixes/suffixes are preserved (0.234031ms)
+✔ tweet candidates preserve exact URL, digit-prefix ID, username and trailing punctuation as separate text (0.570767ms)
+✔ hostname/path qualification rejects lookalikes/multilevel subdomains/uppercaseSTATUS and never recognizes nonHTTP candidates (0.313631ms)
+✔ multiple valid and invalid URLs keep intervening raw text and regex state cannot leak between renders (0.406811ms)
+✔ URL parentheses and encoded usernames retain the source candidate/path behavior (0.154963ms)
+✔ mention parsing happens before tweet splitting and does not reinterpret mention contents as another token (0.167732ms)
+✔ greentext wraps onlyASCIIspace/tab-prefixed > lines and preserves all LF/empty/CR boundaries (0.263706ms)
+✔ invalid input is not silently coerced and literal markup remains ordinary text forReact escaping (0.284687ms)
+✔ factory lookup authenticates original AST and preserves BOM, CRLF and Unicode byte ranges (36.619953ms)
+✔ UTF-16 offsets inside an astral character are not byte boundaries (10.158312ms)
+✔ capture hash and length changes fail before AST attribution (7.04664ms)
+✔ an updated manifest cannot make malformed UTF-8 into source text (7.634523ms)
+✔ indexed arbitrary substrings cannot substitute for actual registered factories (13.709743ms)
+✔ an aggregate inventory ID cannot substitute for the actual registration ID (15.772642ms)
+✔ multiple origin contexts stay ambiguous until explicitly selected (9.109216ms)
+✔ manifest source symlinks and traversal paths are rejected (39.649713ms)
+✔ a forged manifest cannot authorize reading a repository file outside retained objects (6.867631ms)
+✔ the runtime-leading nested-array grammar validates nested and trailing factories (26.189402ms)
+✔ outer two-element registration is metadata, not a nested factory container (8.429256ms)
+(node:385159) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/pump-app-social/app/tests/quote_preview.test.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/pump-app-social/app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:385159) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/pump-app-social/app/packages/frontend/src/components/feed/feed-data.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/pump-app-social/app/packages/frontend/package.json.
+✔ registered386028.f and all physical variants bind actual174251.f, notN or390767.f (1.599992ms)
+✔ artifact, every original range, and all mounted implementation hashes reproduce (33.346654ms)
+✔ a tampered original source fails authentication before adapter reconstruction (28.162595ms)
+✔ source nullish author fallback preserves empty-name suppression and whitespace (0.324467ms)
+✔ deleted plan hides author/text and exposes only the known key; local copy is not an original translation (0.323986ms)
+✔ opt-in join resolves forward references without changing default root projection or inputs (18.220116ms)
+✔ hidden, deleted, missing and null local targets withhold all target data (0.839781ms)
+✔ unresolved target authors never become fabricated preview names or wallet addresses (0.958069ms)
+✔ flat target projection does not recursively hydrate cycles or introduce media/network URLs (0.61938ms)
+✔ reposts and reply-shaped quote rows remain excluded; malformed admitted quote references fail closed (1.429416ms)
+✔ checked-in immutable dataset gains only its three quotes, with unchanged root records and recorded counts (6.13393ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 36
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 909.92881
