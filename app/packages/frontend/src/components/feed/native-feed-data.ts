@@ -255,6 +255,7 @@ export function validateNativeFeedPage(
   value: unknown,
   kind: NativeFeedKind,
 ): NativeFeedPage {
+  if (kind !== "ranked" && kind !== "newest") throw new NativeFeedDataError("Unsupported native feed kind");
   const response = record(value, `${kind} response`);
   exactKeys(
     response,
