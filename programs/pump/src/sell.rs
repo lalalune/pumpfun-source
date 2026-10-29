@@ -57,24 +57,24 @@ fn process_cashback_inner<'info>(
             signer_seeds,
         )?;
         let mut data = user_volume_accumulator.try_borrow_mut_data()?;
+// layout-pad(16): aligns the next panic Location with the original line
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         data[..8].copy_from_slice(crate::UserVolumeAccumulator::DISCRIMINATOR);
         data[8..40].copy_from_slice(user_key.as_ref());
-// layout-pad(18): aligns the next Source site with the original line
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     } else { check_existing(user_volume_accumulator)?; }
     fn check_existing(user_volume_accumulator: &AccountInfo) -> Result<()> {

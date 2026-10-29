@@ -71,3 +71,54 @@ test("walletless post markup is distinct from an unresolved author", () => {
   assert.match(unresolved, /Unresolved seed identity/);
   assert.doesNotMatch(unresolved, /No wallet address recorded/);
 });
+
+test("feed author links use exact known profile identities and keep unknown authors plain", () => {
+  const item: LocalFeedPost = {
+    id: "author-link",
+    author: {
+      address: "wallet-one",
+      userId: "user-one",
+      name: "Local author",
+      missing: false,
+    },
+    content: "Local example",
+    timestamp: "2024-01-01T00:00:00.000Z",
+    timestampLabel: "Jan 1, 2024",
+    likes: 0,
+    replies: 0,
+    reposts: 0,
+    quotes: 0,
+    hasMedia: false,
+    dataSource: "synthetic-seed-play",
+  };
+  const render = (author: LocalFeedPost["author"]) =>
+    renderToStaticMarkup(
+      createElement(FeedItem, { item: { ...item, author } }),
+    );
+  const wallet = render(item.author);
+  assert.match(wallet, /href="\/profile\/wallet-one"/);
+  assert.doesNotMatch(wallet, /href="\/profile\/user-one"/);
+  assert.match(wallet, /Synthetic example/);
+  assert.match(wallet, /class="feed-avatar" aria-hidden="true">L<\/div>/);
+
+  // Walletless identities retain their exact id; they are not normalized into addresses.
+  assert.match(
+    render({ ...item.author, address: "", userId: "group:one" }),
+    /href="\/profile\/group%3Aone"/,
+  );
+  assert.match(
+    render({ ...item.author, address: " invalid-wallet", userId: "usable-id" }),
+    /href="\/profile\/usable-id"/,
+  );
+  for (const author of [
+    { ...item.author, missing: true },
+    { ...item.author, address: "", userId: undefined },
+    { ...item.author, address: "invalid/address", userId: " invalid-id" },
+    { ...item.author, address: "", userId: "a".repeat(129) },
+  ]) {
+    const html = render(author);
+    assert.doesNotMatch(html, /<a[ >]/);
+    assert.match(html, /Local author/);
+    assert.match(html, /Synthetic example/);
+  }
+});

@@ -398,17 +398,17 @@ pub fn execute(ctx:Context<SellV2>,amount:u64,minimum:u64)->Result<()>{
  let (bf,protocol_fee)=crate::buy_v2::recipient_payments::split_protocol_fee(&a.global,pf,a.bonding_curve.is_mayhem_mode);
  crate::trade::quote_payments::transfer_to_recipient(native,a.base_mint.as_ref().as_ref(),a.bonding_curve.as_ref(),&buyback_fee_recipient,bf,&a.quote_token_program,a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),if native{None}else{Some(a.associated_quote_bonding_curve.as_ref())},if native{None}else{Some(a.associated_quote_buyback_fee_recipient.as_ref())},ctx.bumps.bonding_curve)?;
  crate::trade::quote_payments::transfer_to_recipient(native,a.base_mint.as_ref().as_ref(),a.bonding_curve.as_ref(),&fee_recipient,protocol_fee,&a.quote_token_program,a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),if native{None}else{Some(a.associated_quote_bonding_curve.as_ref())},if native{None}else{Some(a.associated_quote_fee_recipient.as_ref())},ctx.bumps.bonding_curve)?;
- let shareholders=crate::distribution::sharing_config_shareholders(&a.sharing_config.to_account_info())?.unwrap_or_default();
- let c=&a.bonding_curve;let virtual_token_reserves=c.virtual_token_reserves;let virtual_quote_reserves=c.virtual_quote_reserves;let real_token_reserves=c.real_token_reserves;let real_quote_reserves=c.real_quote_reserves;let creator=c.creator;let quote_mint=c.quote_mint;let timestamp=Clock::get()?.unix_timestamp;let is_sol=quote_mint==Pubkey::default();
-  let ev=TradeEvent{user:a.user.key(),mint:a.base_mint.key(),sol_amount:if is_sol{quote}else{0},token_amount:amount,is_buy:false,timestamp,
-   virtual_sol_reserves:if is_sol{virtual_quote_reserves}else{0},virtual_token_reserves,real_sol_reserves:if is_sol{real_quote_reserves}else{0},real_token_reserves,
+ let c=&a.bonding_curve;let virtual_token_reserves=c.virtual_token_reserves;let virtual_quote_reserves=c.virtual_quote_reserves;let real_token_reserves=c.real_token_reserves;let real_quote_reserves=c.real_quote_reserves;let creator=c.creator;let quote_mint=c.quote_mint;
+ let shareholders=crate::distribution::sharing_config_shareholders(&a.sharing_config.to_account_info())?.unwrap_or_default();let is_sol=quote_mint==Pubkey::default();
+  let ev=TradeEvent{user:a.user.key(),mint:a.base_mint.key(),sol_amount:if is_sol{quote}else{0},token_amount:amount,is_buy:false,
+   virtual_sol_reserves:if is_sol{virtual_quote_reserves}else{0},virtual_token_reserves,real_sol_reserves:if is_sol{real_quote_reserves}else{0},real_token_reserves,timestamp:Clock::get()?.unix_timestamp,
    fee_recipient:fee_recipient.key(),fee_basis_points:protocol_fee_bps,fee:pf,creator,
-   holder_rewards_bps:if c.is_holder_reward{creator_fee_bps}else{0},holder_rewards:if c.is_holder_reward{cf}else{0},creator_fee_basis_points:if c.is_cashback_coin{0}else{creator_fee_bps},creator_fee:if c.is_cashback_coin{0}else{cf},
+   creator_fee_basis_points:if c.is_cashback_coin{0}else{creator_fee_bps},creator_fee:if c.is_cashback_coin{0}else{cf},holder_rewards_bps:if c.is_holder_reward{creator_fee_bps}else{0},holder_rewards:if c.is_holder_reward{cf}else{0},
    track_volume:false,total_unclaimed_tokens:0,total_claimed_tokens:0,current_sol_volume:0,last_update_timestamp:0,
    ix_name:"sell".into(),mayhem_mode:c.is_mayhem_mode,cashback_fee_basis_points:if c.is_cashback_coin{creator_fee_bps}else{0},cashback:if c.is_cashback_coin{cf}else{0},
    shareholders,
-   buyback_fee_basis_points:if c.is_mayhem_mode{0}else{a.global.buyback_basis_points},buyback_fee:crate::transfer_fee_recovered::post_fee_amount(&transfer_fee,bf)?,
-   quote_mint,quote_amount:quote,virtual_quote_reserves,real_quote_reserves,
+   buyback_fee:crate::transfer_fee_recovered::post_fee_amount(&transfer_fee,bf)?,buyback_fee_basis_points:if c.is_mayhem_mode{0}else{a.global.buyback_basis_points},
+   quote_mint:c.quote_mint,quote_amount:quote,virtual_quote_reserves,real_quote_reserves,
    creator_fee_unclaimed:c.creator_fee,unparsed_trailing_field:quote_transfer_fee};
   emit!(ev);emit_cpi!(ev);Ok(())
 

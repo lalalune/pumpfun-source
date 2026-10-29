@@ -250,6 +250,42 @@ export class CompetitionStore {
           'buySpendSol', 'membersFresh', 'lastRefreshedAtMs'] as const) {
           if (!Number.isFinite(entry[key])) throw new TypeError(`Competition entry ${key} must be finite`);
         }
+        // The nested rows are served and sorted by the same measures: entry
+        // members are sorted by pnlUsd in getEntryDetail, highlight tokens
+        // are sorted by pnlUsd and their members by pnlUsd in
+        // getEntryHighlights, so a nonfinite nested measure corrupts those
+        // orderings and serializes to null exactly like a top-level one.
+        for (const member of entry.members ?? []) {
+          for (const key of ['pnlUsd', 'realizedPnlUsd', 'unrealizedPnlUsd',
+            'buySpendSol', 'lastRefreshedAtMs'] as const) {
+            if (!Number.isFinite(member[key])) throw new TypeError(`Competition entry member ${key} must be finite`);
+          }
+        }
+        for (const token of entry.highlightTokens ?? []) {
+          for (const key of ['pnlUsd', 'realizedPnlUsd', 'unrealizedPnlUsd',
+            'buySpendUsd'] as const) {
+            if (!Number.isFinite(token[key])) throw new TypeError(`Competition highlight token ${key} must be finite`);
+          }
+          for (const member of token.members ?? []) {
+            for (const key of ['pnlUsd', 'realizedPnlUsd', 'unrealizedPnlUsd',
+              'buySpendUsd'] as const) {
+              if (!Number.isFinite(member[key])) throw new TypeError(`Competition highlight member ${key} must be finite`);
+            }
+          }
+        }
+      }
+      // Header numerics are served verbatim in the competition view, and
+      // rankTo drives the winners cutoff (Math.max plus a rank filter), so
+      // a nonfinite value corrupts both: a NaN count serializes to null and
+      // a NaN rankTo empties the winners of an ended competition. Reject
+      // them at construction, like the entry measures above.
+      for (const key of ['minMembers', 'maxMembers', 'maxEntries'] as const) {
+        if (!Number.isFinite(comp[key])) throw new TypeError(`Competition ${key} must be finite`);
+      }
+      for (const tier of comp.prizes) {
+        for (const key of ['rankFrom', 'rankTo'] as const) {
+          if (!Number.isFinite(tier[key])) throw new TypeError(`Competition prize ${key} must be finite`);
+        }
       }
     }
     this.byId = new Map(this.competitions.map(c => [c.id, c]));

@@ -4,13 +4,14 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useSidebar } from "@/components/ui/sidebar";
 import { SearchMobileIcon } from "../captured-icons";
+import { LocalUserSearch } from "./LocalUserSearch";
 import { onOpenSearch } from "./search-events";
 import { createSearchShortcutHandler } from "./search-shortcuts.mjs";
 
 /**
  * The shell's search entry point (the captured search box and ⌘K hint open it).
- * Live results need the market-discovery API, which is not implemented locally, so
- * submitting hands the query to Explore. A native <dialog> provides the modal focus
+ * The local user list reads validated synthetic profiles; live market results
+ * remain unavailable, so submitting hands the query to Explore. A native <dialog> provides the modal focus
  * handling and Escape-to-close.
  */
 export function SearchDialog() {
@@ -21,7 +22,18 @@ export function SearchDialog() {
   const currentQuery = params.get("q") ?? "";
   const [query, setQuery] = useState(currentQuery);
   const pendingClear = useRef(false);
+  const [open, setOpen] = useState(false);
   const { closeMobile } = useSidebar();
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    // Observe the native state without changing the source-bound shortcut effect.
+    const syncOpen = () => setOpen(dialog.open);
+    const observer = new MutationObserver(syncOpen);
+    observer.observe(dialog, { attributes: true, attributeFilter: ["open"] });
+    syncOpen();
+    return () => observer.disconnect();
+  }, []);
   useEffect(() => {
     // Clear already updated the input; its delayed URL commit must not erase
     // text entered since that click. Other navigation still follows the URL.
@@ -133,6 +145,11 @@ export function SearchDialog() {
           Esc
         </kbd>
       </form>
+      <LocalUserSearch
+        query={query}
+        open={open}
+        onNavigate={() => dialogRef.current?.close()}
+      />
       <p className="border-t border-border-secondary px-3 py-2 text-xs text-text-tertiary">
         Live results need the market-discovery API, which is not implemented
         locally. Press Enter to search on Explore.

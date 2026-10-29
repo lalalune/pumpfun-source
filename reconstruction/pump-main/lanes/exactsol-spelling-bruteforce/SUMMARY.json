@@ -1,0 +1,12 @@
+{
+ "lane": "exactsol-spelling-bruteforce",
+ "targets": ["0x14f4e0"],
+ "best": {"target": "0x14f4e0", "normalized_equal": true, "raw_equal": false, "slots_diff": 0, "ratio": 1.0, "cand_bytes": 13224,
+          "official": {"normalized": 1020, "raw": 188, "gains": ["0x14f4e0"], "losses": [], "raw_losses": []},
+          "unstripped_sha256": "43896614c48b0942490c55827d29b0b11b99c8994259ccdc9ebefe4873afe058"},
+ "mechanism": "inline the checked_add total chain as require_gte!'s second argument (buy.rs:133) instead of a separate let total",
+ "attempts": 16,
+ "rejected_mechanisms": ["hand-if-return","arm-tail-ifelse","nested-if-flag","quote-two-steps","fees-tuple","match-bool","arm-ret-tuple-ok","cond-swap","total-two-steps","cf-swap","total-closure","total-closure-andthen","amount-direct","let-mut-reassign","arm-closure-try"],
+ "unresolved_residuals": ["raw: target still differs in call immediates / lddw section addresses (formatting-instantiation and layout parity, global issue)"],
+ "next_ideas": ["check other unmatched windows for separate `let total` before require_gte!/require_gt! that the original may have inlined into the macro argument"]
+}

@@ -441,7 +441,7 @@ fn cashback<'info>(
 
 
     } else {
-        require!(*user_volume_accumulator.owner == crate::ID, PumpAmmError::InvalidCashbackAccumulator);
+        if *user_volume_accumulator.owner != crate::ID { return err!(PumpAmmError::InvalidCashbackAccumulator); }
         let data = user_volume_accumulator.try_borrow_data()?;
 
         if data.len() < 8 || data[..8] != *UserVolumeAccumulator::DISCRIMINATOR {
@@ -464,8 +464,8 @@ fn cashback<'info>(
     require!(ata.key() == expected_ata, PumpAmmError::InvalidCashbackAccumulatorAta);
 
 
-    require!(ata.is_writable, PumpAmmError::InvalidCashbackAccumulatorAta);
-    if ata.data_is_empty() {
+    if ata.is_writable == false { return err!(PumpAmmError::InvalidCashbackAccumulatorAta); }
+    if ata.data_is_empty() == false {} else {
         anchor_spl::associated_token::create(CpiContext::new(
             associated_token_program.to_account_info(),
             anchor_spl::associated_token::Create {
