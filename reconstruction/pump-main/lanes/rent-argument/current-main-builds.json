@@ -1,43 +1,52 @@
 {
   "base_revision": "381dc30b35122022be7359215cb5d471fe9f778d",
-  "tested_source_revision": "beb61017b6ade400e9d78e88c9864045f2205a9b",
-  "status": "blocked: 88 raw membership losses",
+  "tested_source_revision": "f2b5c234dde166fcc3b44ecc5009c95f75a06891",
+  "status": "passed: zero normalized/raw losses, preserved helper/callees, improved caller diagnostics",
   "toolchain": {
     "sdk_inventory_entries": 2785,
     "sdk_problems": [],
     "hybrid_ok": true
   },
   "builds": {
-    "control": {
+    "fix-control": {
       "ok": true,
       "runtime_valid": true,
       "stack_warnings": [],
       "recipe": "identity",
       "triple": "sbpf-solana-solana",
-      "seconds": 18.5,
-      "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/latest-control/unstripped.so",
+      "seconds": 19.6,
+      "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/fix-control/unstripped.so",
       "unstripped_sha256": "826b44727ab1c1b7a741371209afd23bd83833df2f65b4399d7230b4a36f3b5f",
       "candidate_sha256": "3c93e4986bb80eb99f390beab9c7c1980a62d9f94b62f8c088ffb7e233efe9fb"
     },
-    "rent": {
+    "fix-candidate": {
       "ok": true,
       "runtime_valid": true,
       "stack_warnings": [],
       "recipe": "identity",
       "triple": "sbpf-solana-solana",
-      "seconds": 17.1,
-      "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/latest-rent/unstripped.so",
-      "unstripped_sha256": "76d6d1cd790c0207ec9fa12ae85a986063c816872b99f3eb14f28f4dd09028cf",
-      "candidate_sha256": "c8326649132c69b92f2b32763ec0e67983779f8d29e938e8c42f2758d83c4f41"
+      "seconds": 18.0,
+      "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/fix-candidate/unstripped.so",
+      "unstripped_sha256": "3cc4c760aeb83bc3fb431b44667a224aa3b059893dbad0d1807405208dbf8d39",
+      "candidate_sha256": "e44ed9e5827fc2fda5b0bb3e9f181bdcabb89c9d678b45ec29e2a73eb6fb08fa"
+    },
+    "fix-repeat": {
+      "ok": true,
+      "runtime_valid": true,
+      "stack_warnings": [],
+      "recipe": "identity",
+      "triple": "sbpf-solana-solana",
+      "seconds": 17.2,
+      "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/fix-repeat/unstripped.so",
+      "unstripped_sha256": "3cc4c760aeb83bc3fb431b44667a224aa3b059893dbad0d1807405208dbf8d39",
+      "candidate_sha256": "e44ed9e5827fc2fda5b0bb3e9f181bdcabb89c9d678b45ec29e2a73eb6fb08fa"
     }
   },
   "source": {
-    "programs/pump/Cargo.lock": "df8148c546bc55573573f478c63e4d9b7651f85a6e0c446e88e2c8d713d650a2",
-    "programs/pump/Cargo.toml": "396f2c0c91b436d7f59deeee3dbf5dd623850b07236f298d7a9fd75503327869",
+    "programs/pump/Cargo.lock": "65498a93b0e9c1c11f292ccb71b0ce6392d3d568783859e23a2fc8142da545da",
+    "programs/pump/Cargo.toml": "de2a8a93b5c2de8bfe3719bb6ece3fc5d9f71e4e10ef7086596cbd67165bf843",
     "programs/pump/idls/pump_amm.json": "7a6d9badd36c50fd2426a89073fabce7398394035c95503b48fc2fefa7662bac",
     "programs/pump/idls/pump_fees.json": "6b9fa3eccc6e06273076a47b581f9fcb9e531bb7c3c88acbcd44db55a4002b29",
-    "programs/pump/pump-native-payments/Cargo.toml": "86cc87c1d5570d3f57cee893033f52008cb833abd253755ab0b2a7311a98dd42",
-    "programs/pump/pump-native-payments/src/lib.rs": "d47980f736bb4594d0fe356440e67107bbf822428f0dbb6b3cf20a53ff576cb2",
     "programs/pump/pump-token-ext/Cargo.toml": "a721097d6155534fdce19b3079fb90c0873fc7cd416bd74893d2d50d3ea40882",
     "programs/pump/pump-token-ext/src/lib.rs": "47c3285cdc9e61102739c47098fe03d1895036fa257d6edb8a3e6ee75fb3c70d",
     "programs/pump/recovered/README.md": "46eac75f48743d05e9acd4964080c739eedcc47cf47ad291f6f87459304f52b3",
@@ -47,7 +56,7 @@
     "programs/pump/recovered/sell_accounting_host.rs": "b4aa42643c68895a23b99d5c46ac429cdaff76f0b650b69211b813b48859a39a",
     "programs/pump/src/admin_set_idl_authority.rs": "d579c21de6b3d84fb8c4a65ea28de01451f7a5d8fb5d26a1e3d1621dab0940a0",
     "programs/pump/src/buy.rs": "8cb355c8b4cb0995ff6b61e113aede27a2f6e505bc96323244d5757460ce0de7",
-    "programs/pump/src/buy_v2.rs": "72da443c973c11e8a20e567b544236d2db0961e53227b12d6635b80f6de3b565",
+    "programs/pump/src/buy_v2.rs": "47aed6905204dba6fec04fbfe17d96e931d517ea087271ede900cf009659d2c9",
     "programs/pump/src/cashback.rs": "1c632938b7f4d9c08b4f6ef173a47f1674b1c53dd255f0a3fd38109570a17863",
     "programs/pump/src/create.rs": "8af4fb0525644d230f5fd394cd479aaeab412ca76d39e7995b963f5dbaae8e33",
     "programs/pump/src/create_v2.rs": "722e20a620ef4244cb0980252caa565c331d6ab4c9c504d339a936a0c9616ff2",
@@ -65,7 +74,7 @@
     "programs/pump/src/fee_recipient.rs": "d3b055f677dead8b73766d6a4c3b3db1759f262af5ea33005b173f36a2e720ef",
     "programs/pump/src/global_init.rs": "3d1be6c2c94f0ba166e182d2322ac010cc33056721d63d065e53a53101f6e015",
     "programs/pump/src/incentives.rs": "eba8b43e22bbd451d38b3c953cd78f559560cef6d0cc6cdfa5cd2a81da127840",
-    "programs/pump/src/legacy_native_payments.rs": "f23de69b5d693491819e4eb2b055908e579d6e8043418d0d09f2a07d36d0ad26",
+    "programs/pump/src/legacy_native_payments.rs": "e10fdcb0373ba407df6e35a9092e7e5a4c38fa40a9d0e542dcb9a95f8c05037f",
     "programs/pump/src/lib.rs": "641aca77cbf43d65bd6cbc289462db0b7986210ee343f5330fa4ff8e79796f92",
     "programs/pump/src/mayhem_virtual_params.rs": "1184d66faf1892426b856a0ab975f27a506afe4b16b8bfe05abf4b2b03977a7b",
     "programs/pump/src/migrate.rs": "517127564699052ca8e9ea0068d4c56e8edba481ce27161811d261f748ccc582",
@@ -79,7 +88,7 @@
     "programs/pump/src/quote_control/state.rs": "9bdfa965349da47706ff8d258b5d42c21aed631f5941ca999f05003b09f58386",
     "programs/pump/src/quote_control/update_quote_control_mints.rs": "8a98fe8b59dc327875c40530b7aa97d7c1f120fb245801b338d81f43367f7581",
     "programs/pump/src/sell.rs": "4f5a7db13429efd787de10685048786ccb0daf150e06f10217bd7c78022fcfc3",
-    "programs/pump/src/sell_v2.rs": "53c9f67940f1fd6ae4f8bbd689dfd27f491bdb07c67f17478573e2f3de4d06df",
+    "programs/pump/src/sell_v2.rs": "e7d471858c89db3cb11602d25316b230802411248364be09e6116e1b134529f6",
     "programs/pump/src/set_params.rs": "9b766028247e03c764d790894289637d6f18be4f6c7a72cfeb355708420cdbf1",
     "programs/pump/src/set_reserved_fee_recipients.rs": "a1e1a3fcc3aaf003a3e1444faf2265f748301b679b6f752a624b087340d56e1d",
     "programs/pump/src/sweep_fees.rs": "efa6e8733c7d7a4f91f2ae610c77e1b2596d2961adf7eebb09c8bab0bc028cda",
@@ -93,7 +102,7 @@
     "programs/pump/src/util/constant_product.rs": "3269785c24ef5a343c6b7f2095ba1541b042b9944596bad9cab1e026dbca8616",
     "programs/pump/src/util/fee.rs": "2ae7fec44448794662c5ae76a83a2d5630633f707fc4f2e8e34570c0bfb39e91",
     "programs/pump/src/util/transfer_fee.rs": "2a572b204fce41b8adf86361d82f71974dc3d9641436900bcc22d9477a844305",
-    "programs/pump/src/v2_native_payments.rs": "eec36afeaf075dc888433699494c9c31c2dc6a3ed2aacb158729a732ea6c840d",
+    "programs/pump/src/v2_native_payments.rs": "395fc1c02d5e2f7048ee9633a5b355f6f4c375b209db121d5b2c0e3964ffd44a",
     "programs/pump/src/v2_quote_token_transfers.rs": "ac15f56326e6b234c9593a6843a2ac19d353bfa047d5cd8b381a5517afe83bfe",
     "programs/pump/src/v2_recipient_payments.rs": "afdf1516ed7cb43f98cd04f73c69837c3d02319841ec4d64e0f3dd239e72bbf5",
     "programs/pump/src/v2_token_transfers.rs": "154ccec87f26100562d87830955bf4ece2092798359da03ee4755a621b001280",
@@ -101,5 +110,9 @@
     "programs/pump/src/v3_native_transfer_fee.rs": "8d9c1d5f07d97213408ad99f727d19732f4fdf2e238d0100722d97ad37abc078",
     "programs/pump/src/volume_sync.rs": "7e5c2d07d5e01aa872bd21c7c2dd96688a4dd0af5dbb5a3d9136bfb19964d085"
   },
-  "rejected_trial_base": "665499915f9caedcd38921d415a90f0606686398"
+  "verification_files": {
+    "verify.py": "3538ac6cd264e126638c852c88d8f3b7fcb2e70749723b11cff7a5dfea9cd64c",
+    "current-main-comparison.json": "0c908b15cd8ada63232fdfb378dba1e75d54035610ad4399b557b8de0fa058dc",
+    "rejected-unchanged-control.json": "51e8b59ae05d162bb6c52e253356fc5a6101ef87edd84a109a31562f028aaaed"
+  }
 }

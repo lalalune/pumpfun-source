@@ -1,9 +1,74 @@
-> **Current status (2026-10-29): blocked on current main.** Fresh validation against
-> `381dc30b35122022be7359215cb5d471fe9f778d` preserves all 1,022 normalized matches
-> but loses 88 raw matches (276 → 188). Historical no-loss claims below apply only
-> to the old base. This draft must not be treated as regression-free.
+# Preserve the V2 rent argument without changing dependency layout
 
-# Preserve the V2 rent helper's zero argument across the crate boundary
+**Current status: layout regression fixed.** Fresh control/candidate validation on
+`381dc30b35122022be7359215cb5d471fe9f778d` retains **1,022 normalized / 276 raw**,
+with zero gains and zero losses in either membership set. All four targets retain
+ordered callee signatures versus control; the 416-byte helper remains normalized-exact.
+Two candidate compilations produce identical complete unstripped and stripped ELFs.
+
+## Source change and safety
+
+Replace the unused `usize` rent-size argument with `#[repr(usize)] ZeroRentSize`,
+a safe enum whose only variant is `Zero = 0`. Pass that variant at the three V2
+call sites and use `size as usize` in `Rent::minimum_balance`. Every valid value
+is zero, so the existing zero-data rent calculation is preserved by the type.
+The cast keeps the argument live in the pinned compiler; it does not change the
+helper's normalized machine body. There is no unsafe code, unchecked assumption,
+exported symbol, duplicate matching helper, custom section, or compiler flag change.
+
+The native-payments path crate and its Cargo changes are removed. Both helper and
+transfer remain in their original modules, preserving the tail/dependency layout
+and all 88 raw matches lost by the earlier cross-crate candidate. Source line
+coordinates at existing code are retained. Only three production files differ
+from the base: `buy_v2.rs`, `sell_v2.rs`, and `v2_native_payments.rs`.
+
+| Target | Control bytes / ratio | Candidate bytes / ratio |
+| --- | ---: | ---: |
+| rent helper 0x3b598 | 416 / 1.000000 | 416 / 1.000000 |
+| Buy V2 0x13b9b8 | 15488 / .953335 | 15512 / .973656 |
+| Exact Quote V2 0x13f630 | 20192 / .978292 | 20216 / .993512 |
+| Sell V2 0x144508 | 13944 / .951519 | 13968 / .962941 |
+
+Buy V2 keeps its pre-existing original-callee mismatch; the other targets equal
+original callee signatures. No new full-window match or VM/runtime qualification
+is claimed. No backend stack warnings. Dependencies were reused, not rebuilt cold.
+Root tooling passes 10 tests and all nine retained captures verify.
+
+`current-main-comparison.json` and `current-main-builds.json` bind refreshed
+memberships, source hashes, builds, toolchain checks and verifier. `verify.py` now
+also requires strictly improved diagnostics for all three callers; comparing control
+against itself correctly exits 1 (`rejected-unchanged-control.json`). The original
+88-loss comparison remains in `rejected-cross-crate-current-main.json`.
+`layout-fix-trials.json` records the bounded alternatives, including rejected
+export/generic/runtime-assertion approaches and the unsafe-then-safe zero-type steps.
+
+## Related PRs and merge coordination
+
+- #1412 touches `buy_v2.rs` and `v2_native_payments.rs` and uses the same zero-size
+  invariant through `unreachable_unchecked`, plus a separate whitelist binding change.
+  This PR uses a safe zero-only enum and current-base checks instead. The whitelist
+  work is not included. These are alternative rent implementations: retain one
+  helper implementation when composing; do not stack the unsafe guard on this type.
+  The invariant mechanism is overlapping prior work, not claimed as novel here.
+- #1383 touches `v2_native_payments.rs` for the same residual using a black-box live
+  helper and a matched twin. This PR keeps a single matching helper and verifies
+  callers' actual callee signatures. The two helper implementations are alternatives.
+- Merged #1356 supplies the layout whose 88 raw gains must be preserved; this fresh
+  validation includes it and #1389 in base 381dc30. Earlier #1214/#1244 and the
+  buyv2-sibling-transplant lane document the shared rent-argument residual.
+- #1368 remains separate V3 sell work and is not included or revalidated here.
+
+## Reproduce the current fix
+
+Use the verified identity toolchain and the `fastbuild.py` commands below, replacing
+historical base ef400863 with **381dc30** and using the current source for candidate.
+Run the updated `verify.py` against the fresh unstripped outputs. Expect exit 0,
+1,022/276 in both images, empty gain/loss lists, helper equality, preserved ordered
+callees, and improved caller diagnostics. Rebuild the candidate to check both hashes.
+Historical experiments below are retained for attribution and failed-path context;
+their old no-loss/blocking claims do not describe the current implementation.
+
+## Historical cross-crate attempt (superseded)
 
 Base: `ef400863f4e476b2eaaab0866c0b1187d8060abc`.
 

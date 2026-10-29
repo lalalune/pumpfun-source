@@ -1,0 +1,817 @@
+{
+  "base_revision": "381dc30b35122022be7359215cb5d471fe9f778d",
+  "trials": {
+    "rent-extern": {
+      "verdict": "Rejected: exported C ABI call does not preserve callee signatures.",
+      "build": {
+        "ok": true,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "identity",
+        "triple": "sbpf-solana-solana",
+        "seconds": 18.7,
+        "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/rent-extern/unstripped.so",
+        "unstripped_sha256": "8a2808fbaccc21ecf7392ac013a55f82dcd3b860d50aa8607303448dd3344942",
+        "candidate_sha256": "079def7067d8d7508ac8ff614df4242e4819066a5e845d1c1cadf7ccaf16d03f"
+      },
+      "comparison": {
+        "delta": {
+          "normalized": {
+            "before": 1022,
+            "after": 1022,
+            "gains": [],
+            "losses": []
+          },
+          "raw": {
+            "before": 276,
+            "after": 276,
+            "gains": [],
+            "losses": []
+          }
+        },
+        "checks_passed": false,
+        "control": {
+          "elf_sha256": "826b44727ab1c1b7a741371209afd23bd83833df2f65b4399d7230b4a36f3b5f",
+          "targets": {
+            "0x3b598": {
+              "symbol": "pump_recovered::buy_v2::native_payments::ensure_rent_exempt",
+              "original_bytes": 416,
+              "candidate_bytes": 416,
+              "normalized_equal": true,
+              "diagnostic_ratio": 1.0,
+              "ordered_callees_equal_original": true,
+              "call_count": 5,
+              "ordered_callee_signatures_sha256": "efea72efe7520fdb1d78111dce022ab6b810c3107ea7f527565b04d5be2d78fa"
+            },
+            "0x13b9b8": {
+              "symbol": "pump_recovered::buy_v2::buy_handler",
+              "original_bytes": 15480,
+              "candidate_bytes": 15488,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.953335,
+              "ordered_callees_equal_original": false,
+              "call_count": 90,
+              "ordered_callee_signatures_sha256": "731b37a6ef3e8bcfc1326872c89e8e8e18ec2fe499e73cf89d47b895b24916bd"
+            },
+            "0x13f630": {
+              "symbol": "pump_recovered::buy_v2::buy_exact_quote_in_handler",
+              "original_bytes": 20184,
+              "candidate_bytes": 20192,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.978292,
+              "ordered_callees_equal_original": true,
+              "call_count": 131,
+              "ordered_callee_signatures_sha256": "aa3276adeecd5b1684efc12c4d5ef927d80d1242830c6ccf853a0c1e82c0873b"
+            },
+            "0x144508": {
+              "symbol": "pump_recovered::pump_recovered::sell_v2",
+              "original_bytes": 13976,
+              "candidate_bytes": 13944,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.951519,
+              "ordered_callees_equal_original": true,
+              "call_count": 80,
+              "ordered_callee_signatures_sha256": "4b5db8fe390ae461de46d555b5b4a4e7af44cb0f2f6ca439cd8c4f06aa3c72ed"
+            }
+          }
+        },
+        "candidate": {
+          "elf_sha256": "8a2808fbaccc21ecf7392ac013a55f82dcd3b860d50aa8607303448dd3344942",
+          "targets": {
+            "0x3b598": {
+              "symbol": "ensure_rent_exempt",
+              "original_bytes": 416,
+              "candidate_bytes": 416,
+              "normalized_equal": true,
+              "diagnostic_ratio": 1.0,
+              "ordered_callees_equal_original": true,
+              "ordered_callees_equal_control": true,
+              "call_count": 5,
+              "ordered_callee_signatures_sha256": "efea72efe7520fdb1d78111dce022ab6b810c3107ea7f527565b04d5be2d78fa"
+            },
+            "0x13b9b8": {
+              "symbol": "pump_recovered::buy_v2::buy_handler",
+              "original_bytes": 15480,
+              "candidate_bytes": 15488,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.952808,
+              "ordered_callees_equal_original": false,
+              "ordered_callees_equal_control": false,
+              "call_count": 90,
+              "ordered_callee_signatures_sha256": "77715c57609493687d6ccee900594954a246d4afc2deee31358d43f33db48267"
+            },
+            "0x13f630": {
+              "symbol": "pump_recovered::buy_v2::buy_exact_quote_in_handler",
+              "original_bytes": 20184,
+              "candidate_bytes": 20192,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.977886,
+              "ordered_callees_equal_original": false,
+              "ordered_callees_equal_control": false,
+              "call_count": 131,
+              "ordered_callee_signatures_sha256": "ebef0685b5e22fca605704a4db805195bb1a84695bfd43a3674ffebc3a08e9b2"
+            },
+            "0x144508": {
+              "symbol": "pump_recovered::pump_recovered::sell_v2",
+              "original_bytes": 13976,
+              "candidate_bytes": 13944,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.950935,
+              "ordered_callees_equal_original": false,
+              "ordered_callees_equal_control": false,
+              "call_count": 80,
+              "ordered_callee_signatures_sha256": "c697980bb91a773ab9c4b12eab3c316878188adbdd9338a028440ae3e9144db8"
+            }
+          }
+        }
+      }
+    },
+    "rent-cabi": {
+      "verdict": "Rejected: stripped binary identical to control; no argument-preservation improvement.",
+      "build": {
+        "ok": true,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "identity",
+        "triple": "sbpf-solana-solana",
+        "seconds": 17.5,
+        "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/rent-cabi/unstripped.so",
+        "unstripped_sha256": "99a1bea3cffbffeed9453fe1b01f25316ac4ec984f2ab27ba99b2329dd998a99",
+        "candidate_sha256": "3c93e4986bb80eb99f390beab9c7c1980a62d9f94b62f8c088ffb7e233efe9fb"
+      }
+    },
+    "rent-address-taken": {
+      "verdict": "Rejected: complete binary identical to control; no improvement.",
+      "build": {
+        "ok": true,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "identity",
+        "triple": "sbpf-solana-solana",
+        "seconds": 16.2,
+        "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/rent-address-taken/unstripped.so",
+        "unstripped_sha256": "826b44727ab1c1b7a741371209afd23bd83833df2f65b4399d7230b4a36f3b5f",
+        "candidate_sha256": "3c93e4986bb80eb99f390beab9c7c1980a62d9f94b62f8c088ffb7e233efe9fb"
+      },
+      "comparison": {
+        "delta": {
+          "normalized": {
+            "before": 1022,
+            "after": 1022,
+            "gains": [],
+            "losses": []
+          },
+          "raw": {
+            "before": 276,
+            "after": 276,
+            "gains": [],
+            "losses": []
+          }
+        },
+        "checks_passed": true,
+        "control": {
+          "elf_sha256": "826b44727ab1c1b7a741371209afd23bd83833df2f65b4399d7230b4a36f3b5f",
+          "targets": {
+            "0x3b598": {
+              "symbol": "pump_recovered::buy_v2::native_payments::ensure_rent_exempt",
+              "original_bytes": 416,
+              "candidate_bytes": 416,
+              "normalized_equal": true,
+              "diagnostic_ratio": 1.0,
+              "ordered_callees_equal_original": true,
+              "call_count": 5,
+              "ordered_callee_signatures_sha256": "efea72efe7520fdb1d78111dce022ab6b810c3107ea7f527565b04d5be2d78fa"
+            },
+            "0x13b9b8": {
+              "symbol": "pump_recovered::buy_v2::buy_handler",
+              "original_bytes": 15480,
+              "candidate_bytes": 15488,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.953335,
+              "ordered_callees_equal_original": false,
+              "call_count": 90,
+              "ordered_callee_signatures_sha256": "731b37a6ef3e8bcfc1326872c89e8e8e18ec2fe499e73cf89d47b895b24916bd"
+            },
+            "0x13f630": {
+              "symbol": "pump_recovered::buy_v2::buy_exact_quote_in_handler",
+              "original_bytes": 20184,
+              "candidate_bytes": 20192,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.978292,
+              "ordered_callees_equal_original": true,
+              "call_count": 131,
+              "ordered_callee_signatures_sha256": "aa3276adeecd5b1684efc12c4d5ef927d80d1242830c6ccf853a0c1e82c0873b"
+            },
+            "0x144508": {
+              "symbol": "pump_recovered::pump_recovered::sell_v2",
+              "original_bytes": 13976,
+              "candidate_bytes": 13944,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.951519,
+              "ordered_callees_equal_original": true,
+              "call_count": 80,
+              "ordered_callee_signatures_sha256": "4b5db8fe390ae461de46d555b5b4a4e7af44cb0f2f6ca439cd8c4f06aa3c72ed"
+            }
+          }
+        },
+        "candidate": {
+          "elf_sha256": "826b44727ab1c1b7a741371209afd23bd83833df2f65b4399d7230b4a36f3b5f",
+          "targets": {
+            "0x3b598": {
+              "symbol": "pump_recovered::buy_v2::native_payments::ensure_rent_exempt",
+              "original_bytes": 416,
+              "candidate_bytes": 416,
+              "normalized_equal": true,
+              "diagnostic_ratio": 1.0,
+              "ordered_callees_equal_original": true,
+              "ordered_callees_equal_control": true,
+              "call_count": 5,
+              "ordered_callee_signatures_sha256": "efea72efe7520fdb1d78111dce022ab6b810c3107ea7f527565b04d5be2d78fa"
+            },
+            "0x13b9b8": {
+              "symbol": "pump_recovered::buy_v2::buy_handler",
+              "original_bytes": 15480,
+              "candidate_bytes": 15488,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.953335,
+              "ordered_callees_equal_original": false,
+              "ordered_callees_equal_control": true,
+              "call_count": 90,
+              "ordered_callee_signatures_sha256": "731b37a6ef3e8bcfc1326872c89e8e8e18ec2fe499e73cf89d47b895b24916bd"
+            },
+            "0x13f630": {
+              "symbol": "pump_recovered::buy_v2::buy_exact_quote_in_handler",
+              "original_bytes": 20184,
+              "candidate_bytes": 20192,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.978292,
+              "ordered_callees_equal_original": true,
+              "ordered_callees_equal_control": true,
+              "call_count": 131,
+              "ordered_callee_signatures_sha256": "aa3276adeecd5b1684efc12c4d5ef927d80d1242830c6ccf853a0c1e82c0873b"
+            },
+            "0x144508": {
+              "symbol": "pump_recovered::pump_recovered::sell_v2",
+              "original_bytes": 13976,
+              "candidate_bytes": 13944,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.951519,
+              "ordered_callees_equal_original": true,
+              "ordered_callees_equal_control": true,
+              "call_count": 80,
+              "ordered_callee_signatures_sha256": "4b5db8fe390ae461de46d555b5b4a4e7af44cb0f2f6ca439cd8c4f06aa3c72ed"
+            }
+          }
+        }
+      }
+    },
+    "rent-generic": {
+      "verdict": "Rejected: loses three normalized windows.",
+      "build": {
+        "ok": true,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "identity",
+        "triple": "sbpf-solana-solana",
+        "seconds": 17.1,
+        "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/rent-generic/unstripped.so",
+        "unstripped_sha256": "cf339ce5b577bd7e838cfc8a0c9ce68157c6c867b5616df8fbadf5fab783767e",
+        "candidate_sha256": "6cd4575550c5815aed41c3989a7dcd885979f843036e1ec10b0fd039119e48e4"
+      },
+      "comparison": {
+        "delta": {
+          "normalized": {
+            "before": 1022,
+            "after": 1019,
+            "gains": [],
+            "losses": [
+              "0x3b598",
+              "0x3b738",
+              "0x8cc58"
+            ]
+          },
+          "raw": {
+            "before": 276,
+            "after": 276,
+            "gains": [],
+            "losses": []
+          }
+        },
+        "checks_passed": false,
+        "control": {
+          "elf_sha256": "826b44727ab1c1b7a741371209afd23bd83833df2f65b4399d7230b4a36f3b5f",
+          "targets": {
+            "0x3b598": {
+              "symbol": "pump_recovered::buy_v2::native_payments::ensure_rent_exempt",
+              "original_bytes": 416,
+              "candidate_bytes": 416,
+              "normalized_equal": true,
+              "diagnostic_ratio": 1.0,
+              "ordered_callees_equal_original": true,
+              "call_count": 5,
+              "ordered_callee_signatures_sha256": "efea72efe7520fdb1d78111dce022ab6b810c3107ea7f527565b04d5be2d78fa"
+            },
+            "0x13b9b8": {
+              "symbol": "pump_recovered::buy_v2::buy_handler",
+              "original_bytes": 15480,
+              "candidate_bytes": 15488,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.953335,
+              "ordered_callees_equal_original": false,
+              "call_count": 90,
+              "ordered_callee_signatures_sha256": "731b37a6ef3e8bcfc1326872c89e8e8e18ec2fe499e73cf89d47b895b24916bd"
+            },
+            "0x13f630": {
+              "symbol": "pump_recovered::buy_v2::buy_exact_quote_in_handler",
+              "original_bytes": 20184,
+              "candidate_bytes": 20192,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.978292,
+              "ordered_callees_equal_original": true,
+              "call_count": 131,
+              "ordered_callee_signatures_sha256": "aa3276adeecd5b1684efc12c4d5ef927d80d1242830c6ccf853a0c1e82c0873b"
+            },
+            "0x144508": {
+              "symbol": "pump_recovered::pump_recovered::sell_v2",
+              "original_bytes": 13976,
+              "candidate_bytes": 13944,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.951519,
+              "ordered_callees_equal_original": true,
+              "call_count": 80,
+              "ordered_callee_signatures_sha256": "4b5db8fe390ae461de46d555b5b4a4e7af44cb0f2f6ca439cd8c4f06aa3c72ed"
+            }
+          }
+        },
+        "candidate": {
+          "elf_sha256": "cf339ce5b577bd7e838cfc8a0c9ce68157c6c867b5616df8fbadf5fab783767e",
+          "targets": {
+            "0x3b598": {
+              "symbol": "pump_native_payments::ensure_rent_exempt",
+              "original_bytes": 416,
+              "candidate_bytes": 416,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.923077,
+              "ordered_callees_equal_original": false,
+              "ordered_callees_equal_control": false,
+              "call_count": 5,
+              "ordered_callee_signatures_sha256": "3773c4b3c5e72aeb72100c7b2f27a4f0a6361ad6a4b803a02b90b103ff8c09a7"
+            },
+            "0x13b9b8": {
+              "symbol": "pump_recovered::buy_v2::buy_handler",
+              "original_bytes": 15480,
+              "candidate_bytes": 15472,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.837246,
+              "ordered_callees_equal_original": false,
+              "ordered_callees_equal_control": false,
+              "call_count": 90,
+              "ordered_callee_signatures_sha256": "199c790a5da78eb10c09c83cda0840643670fda5044a33454485162bdc107b1b"
+            },
+            "0x13f630": {
+              "symbol": "pump_recovered::buy_v2::buy_exact_quote_in_handler",
+              "original_bytes": 20184,
+              "candidate_bytes": 20152,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.970755,
+              "ordered_callees_equal_original": false,
+              "ordered_callees_equal_control": false,
+              "call_count": 131,
+              "ordered_callee_signatures_sha256": "687059957fbf24d32bf0e5142a266c9dce524666e930e765cb64ddca177e71c7"
+            },
+            "0x144508": {
+              "symbol": "pump_recovered::pump_recovered::sell_v2",
+              "original_bytes": 13976,
+              "candidate_bytes": 13696,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.718538,
+              "ordered_callees_equal_original": false,
+              "ordered_callees_equal_control": false,
+              "call_count": 80,
+              "ordered_callee_signatures_sha256": "fce93add115ad58752531389027cf5bc5747e0185acc72494bfd0f4d6a73bb69"
+            }
+          }
+        }
+      }
+    },
+    "rent-zero-assume": {
+      "verdict": "Unsafe usize invariant trial: metrics pass, but replaced by type-safe enum.",
+      "build": {
+        "ok": true,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "identity",
+        "triple": "sbpf-solana-solana",
+        "seconds": 19.4,
+        "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/rent-zero-assume/unstripped.so",
+        "unstripped_sha256": "f917635fdcdc5a7ef901a1e48c059e60e90f8867231bc4c20ecf8b7a62c765a9",
+        "candidate_sha256": "e44ed9e5827fc2fda5b0bb3e9f181bdcabb89c9d678b45ec29e2a73eb6fb08fa"
+      },
+      "comparison": {
+        "delta": {
+          "normalized": {
+            "before": 1022,
+            "after": 1022,
+            "gains": [],
+            "losses": []
+          },
+          "raw": {
+            "before": 276,
+            "after": 276,
+            "gains": [],
+            "losses": []
+          }
+        },
+        "checks_passed": true,
+        "control": {
+          "elf_sha256": "826b44727ab1c1b7a741371209afd23bd83833df2f65b4399d7230b4a36f3b5f",
+          "targets": {
+            "0x3b598": {
+              "symbol": "pump_recovered::buy_v2::native_payments::ensure_rent_exempt",
+              "original_bytes": 416,
+              "candidate_bytes": 416,
+              "normalized_equal": true,
+              "diagnostic_ratio": 1.0,
+              "ordered_callees_equal_original": true,
+              "call_count": 5,
+              "ordered_callee_signatures_sha256": "efea72efe7520fdb1d78111dce022ab6b810c3107ea7f527565b04d5be2d78fa"
+            },
+            "0x13b9b8": {
+              "symbol": "pump_recovered::buy_v2::buy_handler",
+              "original_bytes": 15480,
+              "candidate_bytes": 15488,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.953335,
+              "ordered_callees_equal_original": false,
+              "call_count": 90,
+              "ordered_callee_signatures_sha256": "731b37a6ef3e8bcfc1326872c89e8e8e18ec2fe499e73cf89d47b895b24916bd"
+            },
+            "0x13f630": {
+              "symbol": "pump_recovered::buy_v2::buy_exact_quote_in_handler",
+              "original_bytes": 20184,
+              "candidate_bytes": 20192,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.978292,
+              "ordered_callees_equal_original": true,
+              "call_count": 131,
+              "ordered_callee_signatures_sha256": "aa3276adeecd5b1684efc12c4d5ef927d80d1242830c6ccf853a0c1e82c0873b"
+            },
+            "0x144508": {
+              "symbol": "pump_recovered::pump_recovered::sell_v2",
+              "original_bytes": 13976,
+              "candidate_bytes": 13944,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.951519,
+              "ordered_callees_equal_original": true,
+              "call_count": 80,
+              "ordered_callee_signatures_sha256": "4b5db8fe390ae461de46d555b5b4a4e7af44cb0f2f6ca439cd8c4f06aa3c72ed"
+            }
+          }
+        },
+        "candidate": {
+          "elf_sha256": "f917635fdcdc5a7ef901a1e48c059e60e90f8867231bc4c20ecf8b7a62c765a9",
+          "targets": {
+            "0x3b598": {
+              "symbol": "pump_recovered::buy_v2::native_payments::ensure_rent_exempt",
+              "original_bytes": 416,
+              "candidate_bytes": 416,
+              "normalized_equal": true,
+              "diagnostic_ratio": 1.0,
+              "ordered_callees_equal_original": true,
+              "ordered_callees_equal_control": true,
+              "call_count": 5,
+              "ordered_callee_signatures_sha256": "efea72efe7520fdb1d78111dce022ab6b810c3107ea7f527565b04d5be2d78fa"
+            },
+            "0x13b9b8": {
+              "symbol": "pump_recovered::buy_v2::buy_handler",
+              "original_bytes": 15480,
+              "candidate_bytes": 15512,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.973656,
+              "ordered_callees_equal_original": false,
+              "ordered_callees_equal_control": true,
+              "call_count": 90,
+              "ordered_callee_signatures_sha256": "731b37a6ef3e8bcfc1326872c89e8e8e18ec2fe499e73cf89d47b895b24916bd"
+            },
+            "0x13f630": {
+              "symbol": "pump_recovered::buy_v2::buy_exact_quote_in_handler",
+              "original_bytes": 20184,
+              "candidate_bytes": 20216,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.993512,
+              "ordered_callees_equal_original": true,
+              "ordered_callees_equal_control": true,
+              "call_count": 131,
+              "ordered_callee_signatures_sha256": "aa3276adeecd5b1684efc12c4d5ef927d80d1242830c6ccf853a0c1e82c0873b"
+            },
+            "0x144508": {
+              "symbol": "pump_recovered::pump_recovered::sell_v2",
+              "original_bytes": 13976,
+              "candidate_bytes": 13968,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.962941,
+              "ordered_callees_equal_original": true,
+              "ordered_callees_equal_control": true,
+              "call_count": 80,
+              "ordered_callee_signatures_sha256": "4b5db8fe390ae461de46d555b5b4a4e7af44cb0f2f6ca439cd8c4f06aa3c72ed"
+            }
+          }
+        }
+      }
+    },
+    "rent-zero-assert": {
+      "verdict": "Rejected: runtime assertion loses helper normalized match.",
+      "build": {
+        "ok": true,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "identity",
+        "triple": "sbpf-solana-solana",
+        "seconds": 16.6,
+        "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/rent-zero-assert/unstripped.so",
+        "unstripped_sha256": "ea670654fef16c2356c18de7dbbc525d6f0303c3d7b2ac00b8fc99e518f820ff",
+        "candidate_sha256": "b4e79db50ae639caef5852982893afbcd89f97672c4cbf1c5e14158996e0f7aa"
+      },
+      "comparison": {
+        "delta": {
+          "normalized": {
+            "before": 1022,
+            "after": 1021,
+            "gains": [],
+            "losses": [
+              "0x3b598"
+            ]
+          },
+          "raw": {
+            "before": 276,
+            "after": 276,
+            "gains": [],
+            "losses": []
+          }
+        },
+        "checks_passed": false,
+        "control": {
+          "elf_sha256": "826b44727ab1c1b7a741371209afd23bd83833df2f65b4399d7230b4a36f3b5f",
+          "targets": {
+            "0x3b598": {
+              "symbol": "pump_recovered::buy_v2::native_payments::ensure_rent_exempt",
+              "original_bytes": 416,
+              "candidate_bytes": 416,
+              "normalized_equal": true,
+              "diagnostic_ratio": 1.0,
+              "ordered_callees_equal_original": true,
+              "call_count": 5,
+              "ordered_callee_signatures_sha256": "efea72efe7520fdb1d78111dce022ab6b810c3107ea7f527565b04d5be2d78fa"
+            },
+            "0x13b9b8": {
+              "symbol": "pump_recovered::buy_v2::buy_handler",
+              "original_bytes": 15480,
+              "candidate_bytes": 15488,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.953335,
+              "ordered_callees_equal_original": false,
+              "call_count": 90,
+              "ordered_callee_signatures_sha256": "731b37a6ef3e8bcfc1326872c89e8e8e18ec2fe499e73cf89d47b895b24916bd"
+            },
+            "0x13f630": {
+              "symbol": "pump_recovered::buy_v2::buy_exact_quote_in_handler",
+              "original_bytes": 20184,
+              "candidate_bytes": 20192,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.978292,
+              "ordered_callees_equal_original": true,
+              "call_count": 131,
+              "ordered_callee_signatures_sha256": "aa3276adeecd5b1684efc12c4d5ef927d80d1242830c6ccf853a0c1e82c0873b"
+            },
+            "0x144508": {
+              "symbol": "pump_recovered::pump_recovered::sell_v2",
+              "original_bytes": 13976,
+              "candidate_bytes": 13944,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.951519,
+              "ordered_callees_equal_original": true,
+              "call_count": 80,
+              "ordered_callee_signatures_sha256": "4b5db8fe390ae461de46d555b5b4a4e7af44cb0f2f6ca439cd8c4f06aa3c72ed"
+            }
+          }
+        },
+        "candidate": {
+          "elf_sha256": "ea670654fef16c2356c18de7dbbc525d6f0303c3d7b2ac00b8fc99e518f820ff",
+          "targets": {
+            "0x3b598": {
+              "symbol": "pump_recovered::buy_v2::native_payments::ensure_rent_exempt",
+              "original_bytes": 416,
+              "candidate_bytes": 472,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.770642,
+              "ordered_callees_equal_original": false,
+              "ordered_callees_equal_control": false,
+              "call_count": 6,
+              "ordered_callee_signatures_sha256": "88df81e438b8c9f31636ab1df428348afc351371daaa7d5f78d33c0a190c0729"
+            },
+            "0x13b9b8": {
+              "symbol": "pump_recovered::buy_v2::buy_handler",
+              "original_bytes": 15480,
+              "candidate_bytes": 15512,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.973656,
+              "ordered_callees_equal_original": false,
+              "ordered_callees_equal_control": false,
+              "call_count": 90,
+              "ordered_callee_signatures_sha256": "64abfedd0299edc8b0189df1ae340365773bd7e312a19bfd198e5bfb6ffd349a"
+            },
+            "0x13f630": {
+              "symbol": "pump_recovered::buy_v2::buy_exact_quote_in_handler",
+              "original_bytes": 20184,
+              "candidate_bytes": 20216,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.993512,
+              "ordered_callees_equal_original": false,
+              "ordered_callees_equal_control": false,
+              "call_count": 131,
+              "ordered_callee_signatures_sha256": "504460131ba647dec7f66087f3cec9cca4e03a52ec37408e6cff4be1069193a6"
+            },
+            "0x144508": {
+              "symbol": "pump_recovered::pump_recovered::sell_v2",
+              "original_bytes": 13976,
+              "candidate_bytes": 13968,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.962941,
+              "ordered_callees_equal_original": false,
+              "ordered_callees_equal_control": false,
+              "call_count": 80,
+              "ordered_callee_signatures_sha256": "67e575b6a7fc6fb0e7b2769e667b26f11ae385fb598fd04267974ba17caeb902"
+            }
+          }
+        }
+      }
+    },
+    "rent-zero-type": {
+      "verdict": "Rejected: ignored enum argument yields baseline stripped binary.",
+      "build": {
+        "ok": true,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "identity",
+        "triple": "sbpf-solana-solana",
+        "seconds": 17.4,
+        "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/rent-zero-type/unstripped.so",
+        "unstripped_sha256": "0581a732b43aea4c24410fa05a4bf25f09fd108baeba58ee118779e2510f9446",
+        "candidate_sha256": "3c93e4986bb80eb99f390beab9c7c1980a62d9f94b62f8c088ffb7e233efe9fb"
+      }
+    },
+    "rent-zero-typed-assume": {
+      "verdict": "Typed invariant trial passes; replaced by safe minimum_balance cast.",
+      "build": {
+        "ok": true,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "identity",
+        "triple": "sbpf-solana-solana",
+        "seconds": 18.3,
+        "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/rent-zero-typed-assume/unstripped.so",
+        "unstripped_sha256": "3cc4c760aeb83bc3fb431b44667a224aa3b059893dbad0d1807405208dbf8d39",
+        "candidate_sha256": "e44ed9e5827fc2fda5b0bb3e9f181bdcabb89c9d678b45ec29e2a73eb6fb08fa"
+      },
+      "comparison": {
+        "delta": {
+          "normalized": {
+            "before": 1022,
+            "after": 1022,
+            "gains": [],
+            "losses": []
+          },
+          "raw": {
+            "before": 276,
+            "after": 276,
+            "gains": [],
+            "losses": []
+          }
+        },
+        "checks_passed": true,
+        "control": {
+          "elf_sha256": "826b44727ab1c1b7a741371209afd23bd83833df2f65b4399d7230b4a36f3b5f",
+          "targets": {
+            "0x3b598": {
+              "symbol": "pump_recovered::buy_v2::native_payments::ensure_rent_exempt",
+              "original_bytes": 416,
+              "candidate_bytes": 416,
+              "normalized_equal": true,
+              "diagnostic_ratio": 1.0,
+              "ordered_callees_equal_original": true,
+              "call_count": 5,
+              "ordered_callee_signatures_sha256": "efea72efe7520fdb1d78111dce022ab6b810c3107ea7f527565b04d5be2d78fa"
+            },
+            "0x13b9b8": {
+              "symbol": "pump_recovered::buy_v2::buy_handler",
+              "original_bytes": 15480,
+              "candidate_bytes": 15488,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.953335,
+              "ordered_callees_equal_original": false,
+              "call_count": 90,
+              "ordered_callee_signatures_sha256": "731b37a6ef3e8bcfc1326872c89e8e8e18ec2fe499e73cf89d47b895b24916bd"
+            },
+            "0x13f630": {
+              "symbol": "pump_recovered::buy_v2::buy_exact_quote_in_handler",
+              "original_bytes": 20184,
+              "candidate_bytes": 20192,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.978292,
+              "ordered_callees_equal_original": true,
+              "call_count": 131,
+              "ordered_callee_signatures_sha256": "aa3276adeecd5b1684efc12c4d5ef927d80d1242830c6ccf853a0c1e82c0873b"
+            },
+            "0x144508": {
+              "symbol": "pump_recovered::pump_recovered::sell_v2",
+              "original_bytes": 13976,
+              "candidate_bytes": 13944,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.951519,
+              "ordered_callees_equal_original": true,
+              "call_count": 80,
+              "ordered_callee_signatures_sha256": "4b5db8fe390ae461de46d555b5b4a4e7af44cb0f2f6ca439cd8c4f06aa3c72ed"
+            }
+          }
+        },
+        "candidate": {
+          "elf_sha256": "3cc4c760aeb83bc3fb431b44667a224aa3b059893dbad0d1807405208dbf8d39",
+          "targets": {
+            "0x3b598": {
+              "symbol": "pump_recovered::buy_v2::native_payments::ensure_rent_exempt",
+              "original_bytes": 416,
+              "candidate_bytes": 416,
+              "normalized_equal": true,
+              "diagnostic_ratio": 1.0,
+              "ordered_callees_equal_original": true,
+              "ordered_callees_equal_control": true,
+              "call_count": 5,
+              "ordered_callee_signatures_sha256": "efea72efe7520fdb1d78111dce022ab6b810c3107ea7f527565b04d5be2d78fa"
+            },
+            "0x13b9b8": {
+              "symbol": "pump_recovered::buy_v2::buy_handler",
+              "original_bytes": 15480,
+              "candidate_bytes": 15512,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.973656,
+              "ordered_callees_equal_original": false,
+              "ordered_callees_equal_control": true,
+              "call_count": 90,
+              "ordered_callee_signatures_sha256": "731b37a6ef3e8bcfc1326872c89e8e8e18ec2fe499e73cf89d47b895b24916bd"
+            },
+            "0x13f630": {
+              "symbol": "pump_recovered::buy_v2::buy_exact_quote_in_handler",
+              "original_bytes": 20184,
+              "candidate_bytes": 20216,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.993512,
+              "ordered_callees_equal_original": true,
+              "ordered_callees_equal_control": true,
+              "call_count": 131,
+              "ordered_callee_signatures_sha256": "aa3276adeecd5b1684efc12c4d5ef927d80d1242830c6ccf853a0c1e82c0873b"
+            },
+            "0x144508": {
+              "symbol": "pump_recovered::pump_recovered::sell_v2",
+              "original_bytes": 13976,
+              "candidate_bytes": 13968,
+              "normalized_equal": false,
+              "diagnostic_ratio": 0.962941,
+              "ordered_callees_equal_original": true,
+              "ordered_callees_equal_control": true,
+              "call_count": 80,
+              "ordered_callee_signatures_sha256": "4b5db8fe390ae461de46d555b5b4a4e7af44cb0f2f6ca439cd8c4f06aa3c72ed"
+            }
+          }
+        }
+      }
+    },
+    "rent-zero-type-balance": {
+      "verdict": "Selected: enum cast in minimum_balance; no unsafe code, no losses.",
+      "build": {
+        "ok": true,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "identity",
+        "triple": "sbpf-solana-solana",
+        "seconds": 18.1,
+        "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/rent-zero-type-balance/unstripped.so",
+        "unstripped_sha256": "3cc4c760aeb83bc3fb431b44667a224aa3b059893dbad0d1807405208dbf8d39",
+        "candidate_sha256": "e44ed9e5827fc2fda5b0bb3e9f181bdcabb89c9d678b45ec29e2a73eb6fb08fa"
+      }
+    },
+    "rent-zero-type-assert": {
+      "verdict": "Passes with redundant assertion; not selected.",
+      "build": {
+        "ok": true,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "identity",
+        "triple": "sbpf-solana-solana",
+        "seconds": 16.6,
+        "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/rent-zero-type-assert/unstripped.so",
+        "unstripped_sha256": "3cc4c760aeb83bc3fb431b44667a224aa3b059893dbad0d1807405208dbf8d39",
+        "candidate_sha256": "e44ed9e5827fc2fda5b0bb3e9f181bdcabb89c9d678b45ec29e2a73eb6fb08fa"
+      }
+    }
+  }
+}
