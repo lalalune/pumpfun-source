@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "abd766d7a8c047f14af34851f64166b840c6728d",
+  "browserTestedCodeCommit": "581a96977ded85daee3a03694c5d84df88d5db2e",
+  "sourceContractSha256": "cd5b8f1e7e2164d5e60abb0e300f3f36fc0c8e286409e5ec8894e0cb5515b81a",
+  "browserComparison": {
+    "schemaVersion": 1,
+    "candidateCodeCommit": "581a96977ded85daee3a03694c5d84df88d5db2e",
+    "baseCommit": "abd766d7a8c047f14af34851f64166b840c6728d",
+    "integrationFiles": [
+      {
+        "path": "app/packages/frontend/src/components/feed/FeedItem.tsx",
+        "baseSha256": "64812ac899259ab232baf89e99f6c3104bf5831f1a5fbeb9316f3b166dc2cb4d",
+        "candidateSha256": "495af331c4cc3b60e6f9037b183feb484d2b11f0298c3d79835b6f5337f194e3"
+      },
+      {
+        "path": "app/packages/frontend/src/components/feed/NativeCalloutFeed.tsx",
+        "baseSha256": "b2bb97fe487293fe24dabd77fd637693ab7b0e0b6297bba33249ad226837b7f0",
+        "candidateSha256": "51e4e89288d75a88f3ceee157078e8eb586e6b02650ca0790c12ad9bda9ad267"
+      }
+    ],
+    "runs": [
+      {
+        "name": "baseline",
+        "command": [
+          "corepack",
+          "pnpm",
+          "exec",
+          "playwright",
+          "test",
+          "--config",
+          "playwright.mention-text.config.ts",
+          "--output",
+          "../../artifacts/playwright-mention-text-baseline"
+        ],
+        "environment": {
+          "MENTION_TEXT_EXPECT_BASELINE": "1",
+          "DEBUG": "pw:webserver"
+        },
+        "exitCode": 0
+      },
+      {
+        "name": "candidate",
+        "command": [
+          "corepack",
+          "pnpm",
+          "exec",
+          "playwright",
+          "test",
+          "--config",
+          "playwright.mention-text.config.ts"
+        ],
+        "environment": {
+          "DEBUG": "pw:webserver"
+        },
+        "exitCode": 0
+      }
+    ],
+    "limits": [
+      "Synthetic local HTTP input; no original service or authenticated viewer",
+      "Only two product integration files are restored for the before run; identical authored browser/input harness in both runs",
+      "No backend, seed, SDK or capture modifications"
+    ]
+  },
+  "runtimeInputs": [
+    {
+      "path": "packages/frontend/tests/mention-text.flow.ts",
+      "sha256": "0beaf027732fa000c557f21c093f73edaefbc1aa28cb9c4e077964322a417962"
+    },
+    {
+      "path": "packages/frontend/tests/support/mention-text-server.mjs",
+      "sha256": "0c4aab42885dfd5df3f3a3cbef0cb2a33b57f0706e0cf702a05164e1911ab1f4"
+    },
+    {
+      "path": "packages/frontend/playwright.mention-text.config.ts",
+      "sha256": "827f20c09fbd9170b82bb0c02d394598dfe0f0d5889aca5be907d13f00701bb9"
+    },
+    {
+      "path": "packages/frontend/src/components/feed/native-feed-server.ts",
+      "sha256": "fb35e05a6e75f164fcaa4ef4f55a1cedfdf2ab7a6a3a51654dfeb8e29e29bc60"
+    },
+    {
+      "path": "packages/frontend/src/components/feed/native-feed-data.ts",
+      "sha256": "aec5f6f08b8ae49ed1334baade922b7f72134dec72476a71cf146c6f582e9796"
+    },
+    {
+      "path": "packages/frontend/src/app/page.tsx",
+      "sha256": "c7d6c2443e2a3c603c69454c950e56b94f1f375d984187861adab42d7e9005cc"
+    }
+  ],
+  "observedHttpCalls": {
+    "baseline": ["GET /services/frontend/home-feed?pageSize=3"],
+    "candidate": ["GET /services/frontend/home-feed?pageSize=3"]
+  },
+  "checks": [
+    {
+      "command": "node scripts/original-mention-text.mjs --check",
+      "result": "PASS"
+    },
+    {
+      "command": "node --test tests/original_mention_text.test.mjs tests/original_source.test.mjs",
+      "result": "25 passed (14 new plus 11 shared)"
+    },
+    {
+      "command": "corepack pnpm test:feed",
+      "result": "17 passed"
+    },
+    {
+      "command": "corepack pnpm --filter @pump-reconstruction/frontend typecheck",
+      "result": "PASS"
+    },
+    {
+      "command": "python3 scripts/verify-evidence.py",
+      "result": "698 captured objects/npm integrity/SDK sources verified"
+    },
+    {
+      "command": "python3 -m unittest discover -s tests -p test_progress.py",
+      "result": "9 passed"
+    },
+    {
+      "command": "python3 scripts/verify_evidence.py (repository root)",
+      "result": "9 captures verified"
+    },
+    {
+      "command": "python3 scripts/test_tooling.py (repository root)",
+      "result": "10 passed"
+    }
+  ],
+  "browserAssertions": {
+    "viewports": [
+      [1280, 800],
+      [375, 812]
+    ],
+    "horizontalOverflow": false,
+    "profileMentionLinks": 1,
+    "externalStatusLinks": 2,
+    "keyboard": "Real Tab traversal then Enter to source-derived profile href; unresolved synthetic profile renders maintained unknown-route state",
+    "plainFeedRegression": "Hash-bound ordinary example post rendered after returning to Home",
+    "consoleErrors": "None before intentional unknown-profile navigation; no blanket assertion after that navigation",
+    "network": "Browser nonlocal requests and methods other than GET/HEAD blocked; none observed; server GET-only loopback fixture",
+    "rendering": "Serialized mention resolved as a link; greentext rgb(74,222,128); status punctuation retained; lookalike URL and HTML text remain literal; no injected element or script execution"
+  },
+  "limits": [
+    "Authored synthetic loopback input server, not a production/original backend or server internals reconstruction",
+    "Default standalone comfortable renderer only; no withinLink/terminal path or pixel-identity claim",
+    "Native callout validator remains unchanged and rejects multiline thesis; multiline rendering tested in pure model suite",
+    "No full Next production build or general browser-suite claim on this head",
+    "No authenticated viewer, profile existence/ownership, social mutation, feature-ledger or compatibility credit"
+  ]
+}

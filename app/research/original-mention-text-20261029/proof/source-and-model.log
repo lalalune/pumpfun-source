@@ -1,0 +1,33 @@
+✔ source binds actual174251.f→314012.m/profile formatter and all three default-mode consumer variants (1.350938ms)
+✔ contract and every original UTF16/UTF8 fragment and maintained-file hash reproduce (57.96406ms)
+✔ tampered original mention source fails before reconstruction (41.977619ms)
+✔ plain fast path and empty input preserve exact strings without turning ordinary URLs or@names into links (1.54516ms)
+✔ mention parser preserves text/order/duplicates and ASCII case without resolving profiles (0.31986ms)
+✔ exact username and ID boundaries retain the source's loose36-character hex/hyphen rule (0.299219ms)
+✔ malformed serialized text remains literal and mention-looking prefixes/suffixes are preserved (0.170406ms)
+✔ tweet candidates preserve exact URL, digit-prefix ID, username and trailing punctuation as separate text (0.555514ms)
+✔ hostname/path qualification rejects lookalikes/multilevel subdomains/uppercaseSTATUS and never recognizes nonHTTP candidates (0.263976ms)
+✔ multiple valid and invalid URLs keep intervening raw text and regex state cannot leak between renders (0.283876ms)
+✔ URL parentheses and encoded usernames retain the source candidate/path behavior (0.110896ms)
+✔ mention parsing happens before tweet splitting and does not reinterpret mention contents as another token (0.117837ms)
+✔ greentext wraps onlyASCIIspace/tab-prefixed > lines and preserves all LF/empty/CR boundaries (0.215314ms)
+✔ invalid input is not silently coerced and literal markup remains ordinary text forReact escaping (0.173069ms)
+✔ factory lookup authenticates original AST and preserves BOM, CRLF and Unicode byte ranges (24.535196ms)
+✔ UTF-16 offsets inside an astral character are not byte boundaries (8.768505ms)
+✔ capture hash and length changes fail before AST attribution (5.576132ms)
+✔ an updated manifest cannot make malformed UTF-8 into source text (4.75531ms)
+✔ indexed arbitrary substrings cannot substitute for actual registered factories (7.670226ms)
+✔ an aggregate inventory ID cannot substitute for the actual registration ID (11.778253ms)
+✔ multiple origin contexts stay ambiguous until explicitly selected (5.381259ms)
+✔ manifest source symlinks and traversal paths are rejected (8.070261ms)
+✔ a forged manifest cannot authorize reading a repository file outside retained objects (5.629482ms)
+✔ the runtime-leading nested-array grammar validates nested and trailing factories (20.720048ms)
+✔ outer two-element registration is metadata, not a nested factory container (17.672899ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 548.315347

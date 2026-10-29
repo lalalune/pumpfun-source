@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { isValidProfileIdentifier } from "../profile/profile-identifier";
 import type { LocalFeedPost } from "./feed-data";
+import { MentionText } from "./MentionText";
 
 function initial(name: string): string {
   return Array.from(name.trim())[0]?.toLocaleUpperCase("en-US") ?? "?";
@@ -61,7 +62,12 @@ export function FeedItem({ item }: { item: LocalFeedPost }) {
 
         <span className="feed-source-chip">Synthetic example</span>
         <p id={contentId} className="feed-content">
-          {item.content ?? "No text content was included in this local record."}
+          <MentionText
+            content={
+              item.content ??
+              "No text content was included in this local record."
+            }
+          />
         </p>
 
         {item.hasMedia ? (

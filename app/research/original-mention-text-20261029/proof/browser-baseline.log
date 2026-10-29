@@ -1,0 +1,78 @@
+2026-10-29T14:47:27.485Z pw:webserver HTTP GET: http://127.0.0.1:3001/__health
+2026-10-29T14:47:27.493Z pw:webserver Error while checking if http://127.0.0.1:3001/__health is available: connect ECONNREFUSED 127.0.0.1:3001
+2026-10-29T14:47:27.493Z pw:webserver Starting WebServer process node tests/support/mention-text-server.mjs...
+2026-10-29T14:47:27.497Z pw:webserver Process started
+2026-10-29T14:47:27.498Z pw:webserver Waiting for availability...
+2026-10-29T14:47:27.498Z pw:webserver HTTP GET: http://127.0.0.1:3001/__health
+2026-10-29T14:47:27.508Z pw:webserver Error while checking if http://127.0.0.1:3001/__health is available: connect ECONNREFUSED 127.0.0.1:3001
+2026-10-29T14:47:27.508Z pw:webserver Waiting 100ms
+[WebServer] (node:335545) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] Mention text input on 127.0.0.1:3001
+
+2026-10-29T14:47:27.608Z pw:webserver HTTP GET: http://127.0.0.1:3001/__health
+2026-10-29T14:47:27.613Z pw:webserver HTTP Status: 200
+2026-10-29T14:47:27.615Z pw:webserver WebServer available
+2026-10-29T14:47:27.615Z pw:webserver HTTP GET: http://127.0.0.1:3016/
+2026-10-29T14:47:27.616Z pw:webserver Error while checking if http://127.0.0.1:3016/ is available: connect ECONNREFUSED 127.0.0.1:3016
+2026-10-29T14:47:27.616Z pw:webserver Starting WebServer process corepack pnpm exec next dev --turbopack --hostname 127.0.0.1 --port 3016...
+2026-10-29T14:47:27.618Z pw:webserver Process started
+2026-10-29T14:47:27.618Z pw:webserver Waiting for availability...
+2026-10-29T14:47:27.618Z pw:webserver HTTP GET: http://127.0.0.1:3016/
+2026-10-29T14:47:27.619Z pw:webserver Error while checking if http://127.0.0.1:3016/ is available: connect ECONNREFUSED 127.0.0.1:3016
+2026-10-29T14:47:27.619Z pw:webserver Waiting 100ms
+[WebServer] (node:335554) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+2026-10-29T14:47:27.719Z pw:webserver HTTP GET: http://127.0.0.1:3016/
+2026-10-29T14:47:27.720Z pw:webserver Error while checking if http://127.0.0.1:3016/ is available: connect ECONNREFUSED 127.0.0.1:3016
+2026-10-29T14:47:27.720Z pw:webserver Waiting 250ms
+2026-10-29T14:47:27.970Z pw:webserver HTTP GET: http://127.0.0.1:3016/
+2026-10-29T14:47:27.971Z pw:webserver Error while checking if http://127.0.0.1:3016/ is available: connect ECONNREFUSED 127.0.0.1:3016
+2026-10-29T14:47:27.971Z pw:webserver Waiting 500ms
+[WebServer] (node:335566) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:335583) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] ▲ Next.js 16.4.1 (Turbopack)
+[WebServer] - Local:         http://127.0.0.1:3016
+[WebServer] - Network:       http://127.0.0.1:3016
+[WebServer] ✓ Ready in 327ms
+
+[WebServer] ✓ Running next.config.ts took 26ms
+
+2026-10-29T14:47:28.471Z pw:webserver HTTP GET: http://127.0.0.1:3016/
+[WebServer] Creating turbopack project {
+[WebServer]   dir: '/workspace/pump-app-social/app/packages/frontend',
+[WebServer]   testMode: true
+[WebServer] }
+
+[WebServer] 
+
+[WebServer] (node:335605) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+2026-10-29T14:47:30.346Z pw:webserver HTTP Status: 200
+2026-10-29T14:47:30.346Z pw:webserver WebServer available
+
+Running 1 test using 1 worker
+
+[WebServer]  GET / 200 in 530ms (next.js: 181ms, application-code: 349ms)
+
+(node:335616) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] tests/mention-text.flow.ts:5:5 › actual Home Feed read renders original standalone content and keyboard profile navigation
+[WebServer] GET /services/frontend/home-feed?pageSize=3
+
+[WebServer]  GET /?tab=local-callouts&nativeView=ranked 200 in 123ms (next.js: 2ms, application-code: 121ms)
+
+2026-10-29T14:47:31.996Z pw:webserver Terminating the WebServer
+2026-10-29T14:47:32.044Z pw:webserver Terminated the WebServer
+2026-10-29T14:47:32.044Z pw:webserver Terminating the WebServer
+2026-10-29T14:47:32.047Z pw:webserver Terminated the WebServer
+  1 passed (4.6s)

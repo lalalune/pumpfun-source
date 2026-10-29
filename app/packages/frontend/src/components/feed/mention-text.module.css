@@ -1,0 +1,52 @@
+.mention {
+  position: relative;
+  z-index: 2;
+  color: var(--color-text-accent);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.mention:hover {
+  text-decoration: underline;
+}
+
+.mention:focus-visible,
+.tweet:focus-visible {
+  outline: 2px solid var(--color-bg-accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.greentext {
+  color: rgb(var(--greentext, 74 222 128));
+}
+
+.tweet {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.1rem 0.35rem;
+  border: 1px solid var(--color-border-primary, #364048);
+  border-radius: 0.4rem;
+  vertical-align: middle;
+  color: var(--color-text-primary);
+  font-size: 0.875em;
+  text-decoration: none;
+}
+
+.tweet:hover {
+  background: var(--color-bg-secondary);
+}
+.icon {
+  flex-shrink: 0;
+  color: var(--color-text-quaternary, #8b929a);
+}
+.username {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

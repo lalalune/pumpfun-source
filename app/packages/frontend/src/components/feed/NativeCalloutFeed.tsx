@@ -5,6 +5,7 @@ import {
   nativeFeedHref,
 } from "./native-feed-navigation";
 import type { NativeFeedLoadResult } from "./native-feed-server";
+import { MentionText } from "./MentionText";
 
 const money = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -45,7 +46,9 @@ function NativeCalloutCard({ callout }: { callout: NativeCallout }) {
         <span className="feed-source-chip">Synthetic local callout</span>
       </header>
 
-      <p className="native-callout-thesis">{callout.thesis}</p>
+      <p className="native-callout-thesis">
+        <MentionText content={callout.thesis} />
+      </p>
 
       <dl className="native-callout-metrics" aria-label="Local snapshot fields">
         <div>

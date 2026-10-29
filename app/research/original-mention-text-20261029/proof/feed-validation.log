@@ -1,0 +1,43 @@
+
+> pump-app-reconstruction@0.1.0 test:feed /workspace/pump-app-social/app
+> node --experimental-strip-types --test tests/home_feed.test.ts tests/native_home_feed.test.ts
+
+(node:331046) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/pump-app-social/app/tests/home_feed.test.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/pump-app-social/app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:331046) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/pump-app-social/app/packages/frontend/src/components/feed/feed-data.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/pump-app-social/app/packages/frontend/package.json.
+✔ walletless feed authors preserve stable user ids without a fabricated address (18.07676ms)
+✔ authenticates and adapts the exact checked-in synthetic seeds (6.395111ms)
+✔ filters replies, deleted and hidden records without promoting them (0.63937ms)
+✔ preserves missing-author records with an explicit unresolved identity (0.429004ms)
+✔ orders equal timestamps by stable post identity without mutating input (0.725289ms)
+✔ preserves long content and represents media without retaining its URL (0.497257ms)
+✔ supports an honest empty result when every root is unavailable (0.28672ms)
+✔ preserves contract-permitted null and empty post content (0.478739ms)
+✔ fails closed on malformed identity, timestamps, counters and media (0.778639ms)
+✔ rejects malformed and duplicate user identities (0.518298ms)
+(node:331052) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/pump-app-social/app/tests/native_home_feed.test.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/pump-app-social/app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:331052) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/pump-app-social/app/packages/frontend/src/components/feed/native-feed-data.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/pump-app-social/app/packages/frontend/package.json.
+✔ validates ranked and newest local response projections (2.518291ms)
+✔ validates the bounded local snapshot count (0.955936ms)
+✔ rejects duplicate callout identities and unbounded arrays (0.422004ms)
+✔ rejects unsafe strings, non-finite values and invented verification (0.300512ms)
+✔ requires unavailable media and identity fields to remain null (1.73196ms)
+✔ treats cursors as opaque bounded tokens without decoding them (0.45951ms)
+✔ rejects malformed response envelopes and realtime claims (0.168312ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 147.047839
