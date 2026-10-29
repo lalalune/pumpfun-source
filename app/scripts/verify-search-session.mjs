@@ -49,12 +49,14 @@ export function normalizeSession(node, roles, imports = {}) {
     let current = scopes;
     if (functions.has(value.type)) {
       const scope = new Map();
+      if (value.id) bind(value.id, scope);
       for (const parameter of value.params) bind(parameter, scope);
       current = [...scopes, scope];
     } else if (value.type === 'CatchClause') {
       const scope = new Map(); bind(value.param, scope); current = [...scopes, scope];
     } else if (value.type === 'BlockStatement') {
       const scope = new Map();
+      for (const statement of value.body) if (statement.type === 'FunctionDeclaration' && statement.id) bind(statement.id, scope);
       for (const statement of value.body) if (statement.type === 'VariableDeclaration') {
         for (const entry of statement.declarations) bind(entry.id, scope);
       }

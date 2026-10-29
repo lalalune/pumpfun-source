@@ -56,6 +56,7 @@ export function normalizeNavigation(node, roles, imports = {}) {
       const scope = new Map(); if (value.param) bind(value.param, scope); current = [...scopes, scope];
     } else if (value.type === 'BlockStatement') {
       const scope = new Map();
+      for (const statement of value.body) if (statement.type === 'FunctionDeclaration' && statement.id) bind(statement.id, scope);
       for (const statement of value.body) if (statement.type === 'VariableDeclaration') {
         for (const entry of statement.declarations) bind(entry.id, scope);
       }
