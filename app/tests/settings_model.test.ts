@@ -104,6 +104,9 @@ test("unsafe routing destinations cannot enter the router", () => {
 });
 
 test("search is case/accent/whitespace insensitive and supports multiple terms", () => {
+  for (const term of ["𝐄𝐌𝐀𝐈𝐋", "𝙀𝙈𝘼𝙄𝙇", "ＥＭＡＩＬ", "émail"]) {
+    assert.deepEqual(findSettings(term), findSettings("email"), term);
+  }
   assert.deepEqual(
     findSettings("  GróUP  CHATS ").map((x) => x.id),
     ["chat.allowGroupNotifications"],

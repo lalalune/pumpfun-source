@@ -212,8 +212,8 @@ export function settingsHref(
 export function normalizeSettingsSearch(value: string): string {
   return value
     .trim()
-    .toLocaleLowerCase("en")
     .normalize("NFKD")
+    .toLocaleLowerCase("en")
     .replace(/\p{M}/gu, "");
 }
 
