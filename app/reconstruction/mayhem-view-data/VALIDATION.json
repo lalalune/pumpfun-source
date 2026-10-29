@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "testedLocalSourceCommit": "2dacefb534e6d413f55d15cc6c7b685e13999fd6",
+  "node": "v24.19.0",
+  "inputs": [
+    {
+      "path": "app/reconstruction/mayhem-view-data/view.mjs",
+      "sha256": "985eea0ed85dd07723832601397d11f54dfa81845a6713b1d6f6490777dd05a6",
+      "gitBlob": "aadd572e2909f31d05ea31c3e46ccc4d57638d5c"
+    },
+    {
+      "path": "app/reconstruction/mayhem-view-data/verify.mjs",
+      "sha256": "683294c7f8afd318c11eab3c349c4e875b949ec4b97e248405d0c94467e8caee",
+      "gitBlob": "da37aa4abb88cecdd9bb1e4b38fc0b314d2c499b"
+    },
+    {
+      "path": "app/reconstruction/mayhem-view-data/PROVENANCE.json",
+      "sha256": "d611ed2a8ff4c014cac2301c3a52966c0358087d642dd17c952ae078bef83c02",
+      "gitBlob": "bd295c7cebd31e4680867ab180f7f0be3dbd1313"
+    },
+    {
+      "path": "app/reconstruction/mayhem-view-data/README.md",
+      "sha256": "c06546ab28bb204f1c3d63b01037084318404c4769ca3c69a849523c5b576669",
+      "gitBlob": "7bd1f599253836882904a185e449c74b0c052b55"
+    },
+    {
+      "path": "app/tests/mayhem_view_data.test.mjs",
+      "sha256": "56e624a131d0f5c7046c45fbbb43996327947fb31f4835593a9341c39f333d79",
+      "gitBlob": "4ca0563effddfdb7d0e74ecd4020594b45f1abee"
+    }
+  ],
+  "results": {
+    "newSemanticAndSourceMutationTests": 12,
+    "sharedSourceTests": 11,
+    "maintainedMayhemTests": 6,
+    "rootCaptures": 9,
+    "rootToolingTests": 10,
+    "appCapturedObjects": 698,
+    "appNpmIntegrity": true,
+    "unchangedSDK": true,
+    "progressCheck": true,
+    "sourceFactoryContexts": 25,
+    "structuralComparisons": 41,
+    "acceptedSearchNormalizerProof": true,
+    "publicOnlyAlternatePathCLI": true
+  },
+  "logs": [
+    {
+      "command": "node reconstruction/mayhem-view-data/verify.mjs --check",
+      "cwd": "app",
+      "exitCode": 0,
+      "path": "logs/source-proof.log.gz",
+      "bytes": 40,
+      "sha256": "1d8bf88ed0161c1a2cbdc9e21a15d202c2b11128353bce338835dfb2699d6fc4",
+      "compressedBytes": 60,
+      "compressedSha256": "68c22dbbd773461613755221266990ef3780dbdb77883ccb7186d4a13806928d"
+    },
+    {
+      "command": "node --test tests/mayhem_view_data.test.mjs tests/original_source.test.mjs",
+      "cwd": "app",
+      "exitCode": 0,
+      "path": "logs/focused.log.gz",
+      "bytes": 2451,
+      "sha256": "750ec36c6369ac584dd6ae3dc8774ebbdd9312b0acbd7adb961e826db2d08e01",
+      "compressedBytes": 1280,
+      "compressedSha256": "ab44826755f24e248fcab5db8e957ba8a6b90868c63df033e8ffbd9200ecc770"
+    },
+    {
+      "command": "node --experimental-strip-types --test tests/mayhem_screener.test.ts tests/mayhem-missing-sort.test.mjs",
+      "cwd": "app",
+      "exitCode": 0,
+      "path": "logs/maintained-mayhem.log.gz",
+      "bytes": 1905,
+      "sha256": "ce86b1a0a963b05ff18280e12b69d5f382a7f25b04ceef17ab02163e08d22c47",
+      "compressedBytes": 689,
+      "compressedSha256": "1c48167e008a6aa33bb8d58f1e0160342007d9eb433a8c2ad4b7154748458ffc"
+    },
+    {
+      "command": "python3 scripts/verify_evidence.py",
+      "cwd": ".",
+      "exitCode": 0,
+      "path": "logs/root-evidence.log.gz",
+      "bytes": 376,
+      "sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9",
+      "compressedBytes": 177,
+      "compressedSha256": "995576b68a1e52c055bcb991ac93146ad53ea9131e859ceb3331d45380b40ce3"
+    },
+    {
+      "command": "python3 scripts/test_tooling.py",
+      "cwd": ".",
+      "exitCode": 0,
+      "path": "logs/root-tooling.log.gz",
+      "bytes": 109,
+      "sha256": "5d6ee17d452a44d0d88d396d94b2b5c2541ce7cf4d8970c485259d7b54325dfd",
+      "compressedBytes": 55,
+      "compressedSha256": "9e341e4ecdf66795e0616c06802294c2b6102df178c270718b510321901db815"
+    },
+    {
+      "command": "python3 scripts/verify-evidence.py",
+      "cwd": "app",
+      "exitCode": 0,
+      "path": "logs/app-evidence.log.gz",
+      "bytes": 72,
+      "sha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9",
+      "compressedBytes": 89,
+      "compressedSha256": "c4ccac34440167b7170118e2af25a5865d395032af8ca1cf812341ed573c3243"
+    },
+    {
+      "command": "python3 scripts/progress.py --check",
+      "cwd": "app",
+      "exitCode": 0,
+      "path": "logs/progress.log.gz",
+      "bytes": 49,
+      "sha256": "7ab499988f3b70e197e23e42287d4cc4579dc2b9360a82be3e827e22c589fda4",
+      "compressedBytes": 69,
+      "compressedSha256": "8d25a71e7cd8c214cc56b246898d555fadb2c61682febfb7b183577299893a97"
+    },
+    {
+      "command": "node <public export>/reconstruction/mayhem-view-data/verify.mjs --check",
+      "cwd": "/tmp",
+      "exitCode": 0,
+      "path": "logs/alternate-path.log.gz",
+      "bytes": 40,
+      "sha256": "1d8bf88ed0161c1a2cbdc9e21a15d202c2b11128353bce338835dfb2699d6fc4",
+      "compressedBytes": 60,
+      "compressedSha256": "68c22dbbd773461613755221266990ef3780dbdb77883ccb7186d4a13806928d"
+    },
+    {
+      "command": "node scripts/verify-search-session.mjs --check",
+      "cwd": "app",
+      "exitCode": 0,
+      "path": "logs/accepted-normalizer.log.gz",
+      "bytes": 137,
+      "sha256": "f3aad5db44e8110d0b355470c39e543b1d0a843ee55f14c427558c18c0a17287",
+      "compressedBytes": 124,
+      "compressedSha256": "08c83c8e45ff0fbe1cf1184f3ec238e245b2de711e985650c4eaf7cb53753396"
+    }
+  ],
+  "receiptOnlyFollowup": "Subsequent publication adds only VALIDATION.json, ALTERNATE-PATH.json and the nine compressed logs. The five frozen reviewed files retain exactly these hashes. Git-object transport may produce a distinct commit SHA; complete tested/final tree mapping is retained separately.",
+  "limits": {
+    "capturedExecution": false,
+    "liveAcquisition": false,
+    "NextOrBrowser": false,
+    "mountedOrNativeFeature": false,
+    "providerServicesOrRuntime": false,
+    "progressChanges": false,
+    "binaryWork": false,
+    "securityApproval": false,
+    "universalEquivalence": false
+  }
+}
