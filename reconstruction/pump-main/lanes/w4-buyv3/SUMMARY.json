@@ -1,0 +1,18 @@
+{
+  "lane": "w4-buyv3",
+  "target": "0x147ba0 trade::buy (buy_v3)",
+  "base": "630a074126a13d4133514d599129c6ac9a3179bc (1023 normalized / 277 raw)",
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/1550",
+  "best": {"source_change": "let can_cross=v3_can_cross(&a.global,&a.bonding_curve,&a.user.key()); if amount>real && can_cross (reuses the existing non-inline helper)",
+           "cand_bytes": 3680, "orig_bytes": 3672, "ratio_before": 0.87739, "ratio_after": 0.93138,
+           "oracle_slots_before": 79, "oracle_slots_after": 38, "official": "1023/277, 0 gains, 0 losses", "unstripped_sha256": "ff15a5826f5cd6df47f1cd47ccac16e3b085c010bc5e738d6811891564fb6edc"},
+  "attempts": 51,
+  "key_insights": [
+    "rustc LLVM block order is first reference along the MIR RPO (DFS visits successors last-first; a 2-target switch creates its case target first, an n-way switch creates otherwise first); tools/rpo.py reproduces raw IR order exactly",
+    "A helper LLVM inlines (no inline attribute) splices its blocks after the call block in the callee's own order, which separates block creation order from DFS order; this fixed both front-half levers at once",
+    "With a MIR-inlined helper, only a ==false/!=true comparison on the mayhem bool keeps a negated test (0.88414); Not, if and match spellings fold away"
+  ],
+  "rejected_mechanisms": ["!mayhem / if / match / !(a||b) MIR-inlined helper bodies", "can_cross && amount>real", "exempt==false guard", "key as named local (memcmp sinks)", "let costs=..; costs? (frame)", "match wrapping tail (frame +0x18)", "if let Err early return (frame +0x20)", "two v3_buy_costs call sites", "nested non-inline tail fn (not inlined)", "#[inline] helper (MIR-inlined)"],
+  "unresolved_residuals": ["v3_buy_costs Err block must be created after the v3_execute_buy Err (oracle bb76>bb83: 38 -> 12 slots) or ret right after it (bb50>bb76: 15)", "add()? branch tell and +16 load hoist (from #1419)"],
+  "next_ideas": ["small LLVM-inlined helper around the Ok continuation whose blocks carry the late error chain", "a CFG where the costs Err payload copy lives in a multi-pred drop node created at arm codegen", "check whether the +16 load hoist is MI branch folding"]
+}

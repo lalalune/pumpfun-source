@@ -53,3 +53,46 @@ coordinate-archaeology Location realign of the `copy_from_slice` lines). Step 2 
 | --- | ---: | ---: | --- | --- |
 | origin/main 60bdd8a | 8,584 | 0.7611 | 1020 / 188 | 0x14f4e0 / none |
 | round 2 t00 (bump_seed) | 8,584 | 0.8031 | 1020 / 188 | 0x14f4e0 / none |
+<<<<<<< HEAD
+| round 2 sg2 (&Signer user + pub(crate) wrapper) | 8,536 | 0.9858 | 1020 / 188 | 0x14f4e0 / none |
+
+### Mechanism (round 2): ArgumentPromotion strips noalias from `user`
+
+- IR oracle: `-C save-temps -Zfewer-names=yes` in an experiment copy, then
+  `llc -O3 -mtriple=sbf -mattr=+store-imm,+jmp-ext -relocation-model=pic -function-sections -data-sections`
+  on the optimized cgu bitcode reproduces rustc's bytes exactly (`$OUT/tools/oracle.py`, ~13 s per trial).
+  `opt -passes='default<O3>'` on the `no-opt.bc` also reproduces it.
+- `-print-changed -filter-print-funcs` shows the post-inline EarlyCSE (MemorySSA) merging the
+  `AccountInfo::clone` key load of `user` with the entry `user.key()` load. It is legal because `user` is
+  `noalias readonly` (constant memory to MemorySSA), so no cap/limit flag stops it. The original reloads the
+  key from `user` at the clone, which then keeps `user` (not the key pointer) live and fixes the spill layout.
+- Removing only `noalias` from the `user` parameter in no-opt IR gives 8,536 B, normalized dist 16, ratio 0.9858.
+- Source that produces exactly that: `user: &Signer<'info>` in `process_cashback_inner` (and the wrapper), with
+  `from: user.to_account_info()`, and the wrapper `pub(crate)` instead of `pub`. With `pub` + `#[inline(always)]`
+  the inner fn is reachable cross-crate and gets external hidden linkage. `pub(crate)` makes it internal, so the O3
+  ArgumentPromotion pass promotes the `&Signer` to its only loaded field (the `&AccountInfo`). The promoted parameter
+  carries no `noalias`/`readonly`, so the CSE no longer happens. The caller loads `ctx.accounts.user.info` exactly
+  like the original (`ldxdw r4, [r3 + 0x3d8]`). `&Signer` without `pub(crate)` is not promoted and loses `sell` 0x152888.
+
+Remaining (dist 16): the else-branch `try_borrow_data()?` test (orig `jeq Ok, +1; ja err`, ours `jne err`) and one
+tail `ja` block placement near +0x2150.
+
+### Final step (round 2): owner check as `if ... { return err!(...) }` -> normalized match
+
+| build | cand bytes | ratio | official normalized / raw | gains / losses vs d2cb88d |
+| --- | ---: | ---: | --- | --- |
+| round 2 o1t | 8,544 | 1.0000 (normalized_equal) | 1021 / 188 | 0x6cd78, 0x14f4e0 / none |
+
+- IR oracle sweep (`tools/reorder.py`): moving almost any block (26 of 105) to sit right after the
+  `try_borrow_data` test block gives distance 0. Moving it after the Ok successor does not. So the original's CFG equals ours. Only the
+  LLVM block order differs. When the Ok successor is the next IR block, ISel inverts the branch (`jne err`). When it is not,
+  ISel emits `jeq ok; ja err`. BPF cannot analyze conditional branches, so block placement never rewrites it.
+- Writing the existing-account owner check as
+  `if user_volume_accumulator.owner != &crate::ID { return err!(PumpError::InvalidCashbackAccumulator); }`
+  (same line, same error) changes the order in which rustc creates the LLVM blocks. That is enough: 0x6cd78 normalized-equal.
+  `*owner != crate::ID` is byte-identical. `require!(*owner == crate::ID)` is unchanged.
+- Also adopted `Account::try_from` (checked) per callgraph-census row
+  `0x6cd78-main-60bdd8a-checked-try-from-callee-identity-v1`. Normalized output is unchanged because the callee is masked.
+- unstripped sha256 af5b9f02e925a4e32f675de12306d2d5fb50e9463248d7587b1c7ba6ba2e10cc. Raw-equal is still false (whole-ELF addresses).
+=======
+>>>>>>> origin/main
