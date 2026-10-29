@@ -55,6 +55,23 @@ guard generation. New tooling belongs in the evidence package that uses it, as
 
 ## Core: capture, analysis, comparison
 
+### Saved-capture checks on the current checkout
+
+From the repository root, run:
+
+```sh
+python -E -X utf8 scripts/verify_evidence.py
+python -E -X utf8 scripts/test_tooling.py
+```
+
+The saved-capture verifier uses Python assertions: do not add `-O` or `-OO`.
+`-E` prevents an inherited `PYTHONOPTIMIZE` from disabling those assertions;
+`-X utf8` also lets the tooling tests read the checked-in UTF-8 IDLs on Windows.
+These commands verify saved evidence and comparator behavior, not a source
+rebuild or runtime equivalence. The previously recommended
+`research/evidence-checks-optimized-python/` package is absent from this checkout;
+do not treat that historical package path as an installed entrypoint.
+
 | Script | CI | Purpose |
 | --- | :-: | --- |
 | `analyze.py` |  | Offline ELF layout, string provenance and public-interface inventory. |
@@ -64,7 +81,7 @@ guard generation. New tooling belongs in the evidence package that uses it, as
 | `disassemble.py` |  | Generate analyst disassembly, never a source rebuild or candidate executable. |
 | `local_validation.py` | ✓ | Offline malformed-input smoke tests; not a functional or authorization audit. |
 | `recover_dispatch.py` |  | Locate Anchor discriminator comparisons and wrapper calls in original SBF. |
-| `verify_evidence.py` | ✓ | Archived saved-evidence implementation, run unoptimized in CI. For local checks use the existing [optimization-safe entrypoint](../research/evidence-checks-optimized-python/README.md). This is NOT a rebuilt-source verification. |
+| `verify_evidence.py` | ✓ | Archived saved-evidence implementation, run unoptimized in CI. Use the [current local commands](#saved-capture-checks-on-the-current-checkout) with assertions enabled. This is NOT a rebuilt-source verification. |
 
 ## Builds, toolchains and dependency provenance
 
