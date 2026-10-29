@@ -6,8 +6,15 @@ export async function handleAmmWalletRecord(
   read = readLiveAmmWalletRecord,
 ): Promise<Response> {
   const headers = { "Cache-Control": "no-store" };
+  const send = (value: unknown, status = 200) =>
+    request.method === "HEAD"
+      ? new Response(null, {
+          status,
+          headers: { ...headers, "Content-Type": "application/json" },
+        })
+      : Response.json(value, { status, headers });
   const error = (status: number, code: string, retryable: boolean) =>
-    Response.json(
+    send(
       {
         ok: false,
         error: {
@@ -16,20 +23,18 @@ export async function handleAmmWalletRecord(
           message: "The public PumpSwap record is unavailable or unsupported.",
         },
       },
-      { status, headers },
+      status,
     );
   const query = new URL(request.url).searchParams;
-  if (request.method !== "GET") return error(405, "METHOD_NOT_ALLOWED", false);
+  if (request.method !== "GET" && request.method !== "HEAD")
+    return error(405, "METHOD_NOT_ALLOWED", false);
   if (
     query.getAll("address").length !== 1 ||
     [...query.keys()].some((key) => key !== "address")
   )
     return error(400, "INVALID_ADDRESS", false);
   try {
-    return Response.json(
-      await read(query.get("address")!, { signal: request.signal }),
-      { headers },
-    );
+    return send(await read(query.get("address")!, { signal: request.signal }));
   } catch (e) {
     if (!(e instanceof PortfolioRpcError))
       return error(502, "RPC_UNAVAILABLE", true);
