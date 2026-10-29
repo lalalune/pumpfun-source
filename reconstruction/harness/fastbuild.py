@@ -12,6 +12,7 @@ Usage: fastbuild.py --src <crate dir with Cargo.toml/Cargo.lock/src[/recovered]>
 - Writes <out>/unstripped.so and <out>/candidate.so (default <work>/last).
 """
 import argparse, hashlib, json, os, shutil, subprocess, sys, time, tomllib, fcntl
+from contextlib import contextmanager
 from pathlib import Path
 from build_process import run_compiler, validate_timeout
 
@@ -76,8 +77,30 @@ def acquire_slot():
         time.sleep(0.5)
 
 
+@contextmanager
+def workspace_lock(work: Path):
+    """Protect staging, target invalidation and publication for one work directory."""
+    work = work.resolve()
+    work.mkdir(parents=True, exist_ok=True)
+    # Keep the inode after releasing it; unlinking would permit split locks.
+    with (work / '.fastbuild.lock').open('a+b') as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as error:
+            raise RuntimeError(f'build workspace already in use: {work}') from error
+        try:
+            yield
+        finally:
+            fcntl.flock(lock, fcntl.LOCK_UN)
+
+
 def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):
     validate_timeout(timeout)
+    with workspace_lock(work):
+        return _build_locked(src, work, out, quiet=quiet, recipe=recipe, timeout=timeout)
+
+
+def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):
     recipe = recipe or DEFAULT_RECIPE
     R = RECIPES[recipe]; triple = R['triple']
     src = src.resolve(); work = work.resolve(); out = out.resolve()
