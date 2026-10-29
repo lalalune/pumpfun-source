@@ -112,3 +112,7 @@ Checked PR #1368: no submitted reviews or inline review threads at the time of t
 The closure scores 1019 normalized / 188 raw; the other three retain 1020 / 188, with no gains. All builds had no stack warnings. Call counts alone do not establish callee equivalence. No rejected variant was runtime-qualified or retained. Exact source deltas and binary hashes are recorded in the focused patches and `FOCUSED-FOLLOWUP.json`; patches are relative to the retained source and must not be applied together.
 
 Restored the previously qualified source exactly. The six-slot sell residual remains. Further buy work should inspect the transfer error join and return-buffer reload in compiler IR before proposing another source shape; these tests do not justify additional blind rewrites.
+
+## Buy error lowering investigation
+
+See [BUY-ERROR-PATH.md](BUY-ERROR-PATH.md) for the original/candidate return-tail comparison, compiler evidence and four additional rejected source checks. No improvement was retained. Source and prior runtime qualification remain unchanged. Exact patches and diagnostic hashes accompany the analysis in `BUY-ERROR-TRIALS.json`.
