@@ -21,6 +21,8 @@ namespaces = ['index.crates.io-6f17d22bba15001f', 'index.crates.io-1949cf8c6b5b5
 sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
 
 def index_path(name):
+    # Cargo lowercases index paths, while archive names retain package casing.
+    name = name.lower()
     if len(name) == 1:
         return '1/' + name
     if len(name) == 2:
