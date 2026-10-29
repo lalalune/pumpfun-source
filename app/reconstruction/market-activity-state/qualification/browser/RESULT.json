@@ -1,0 +1,2878 @@
+{
+  "scope": "Standalone real React host; injected local query/provider/frame capabilities, source-bound qualification helper ports and native queueMicrotask. No app route/service/provider qualification.",
+  "sourceHead": "292e5d4778a7d16b8dfcf04b4cb82e1a6fe89d31",
+  "startedAt": "2026-10-29T23:16:28.089Z",
+  "inputs": [
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "reconstruction/market-activity-state/client.mjs",
+      "bytes": 25731,
+      "sha256": "e44279335da88dd8e994ec1717da06771fec8162f108d2be9275e2d5ecf8cb25"
+    },
+    {
+      "path": "reconstruction/market-activity-state/qualification/helper-ports.mjs",
+      "bytes": 9353,
+      "sha256": "d8ed6804ec26fcab3eb5f5388ca372109f2e714aab3a161a8c5c6d7690a96a1c"
+    },
+    {
+      "path": "reconstruction/market-activity-state/qualification/ports.mjs",
+      "bytes": 5881,
+      "sha256": "f5a029480eefd4f192a6b76eb7c9b754c13d088fbf6732ccee3304c201c953ab"
+    },
+    {
+      "path": "reconstruction/market-activity-state/qualification/fixture.mjs",
+      "bytes": 6820,
+      "sha256": "86fef3ebadd3cd535034abe7f8f1951cdaedc3977537f6dcd7db1e4356041009"
+    },
+    {
+      "path": "reconstruction/market-activity-state/qualification/browser.mjs",
+      "bytes": 11395,
+      "sha256": "9d08d512ebb619b8afaebb2e16fe644cea63bd7cd9c72f3fb0727056466f4072"
+    }
+  ],
+  "bundleSha256": "6ce58b9db6fba4a0a61dea98d4292dc89b049183e085afde643fda4a1a74ec80",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/bundle.js"
+    }
+  ],
+  "cases": [
+    {
+      "name": "704bb073aaf4 query callback, native microtask seed, frame and selected-field readback",
+      "startedAt": "2026-10-29T23:16:28.322Z",
+      "initial": {
+        "instance": 1,
+        "selected": {
+          "queryVariant": "704bb073aaf4230b6cac309756c284803fe7d3cc4e2776a060d041af2341a786",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 1,
+        "read": {},
+        "committed": {},
+        "responses": [],
+        "requests": [],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 1,
+        "revision": 0
+      },
+      "queued": {
+        "instance": 1,
+        "selected": {
+          "queryVariant": "704bb073aaf4230b6cac309756c284803fe7d3cc4e2776a060d041af2341a786",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 1,
+        "read": {},
+        "committed": {},
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 1,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 1
+      },
+      "committed": {
+        "instance": 1,
+        "selected": {
+          "queryVariant": "704bb073aaf4230b6cac309756c284803fe7d3cc4e2776a060d041af2341a786",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 2,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 1
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 1
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 1
+      },
+      "unselected": {
+        "instance": 1,
+        "selected": {
+          "queryVariant": "704bb073aaf4230b6cac309756c284803fe7d3cc4e2776a060d041af2341a786",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 3,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 1
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 1
+      },
+      "stable": {
+        "instance": 1,
+        "selected": {
+          "queryVariant": "704bb073aaf4230b6cac309756c284803fe7d3cc4e2776a060d041af2341a786",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 3,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 1
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 2
+      },
+      "selected": {
+        "instance": 1,
+        "selected": {
+          "queryVariant": "704bb073aaf4230b6cac309756c284803fe7d3cc4e2776a060d041af2341a786",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 4,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 2
+      },
+      "refetched": {
+        "instance": 1,
+        "selected": {
+          "queryVariant": "704bb073aaf4230b6cac309756c284803fe7d3cc4e2776a060d041af2341a786",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 4,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [
+          "invalidate",
+          "refetch"
+        ],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 3
+      },
+      "off": {
+        "instance": 1,
+        "selected": {
+          "queryVariant": "704bb073aaf4230b6cac309756c284803fe7d3cc4e2776a060d041af2341a786",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 5,
+        "read": {},
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [
+          "invalidate",
+          "refetch"
+        ],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 4
+      },
+      "unmounted": {
+        "instance": 1,
+        "selected": {
+          "queryVariant": "704bb073aaf4230b6cac309756c284803fe7d3cc4e2776a060d041af2341a786",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": false,
+        "reference": 5,
+        "read": {},
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [
+          "invalidate",
+          "refetch"
+        ],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 0,
+        "revision": 4
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T23:16:28.879Z"
+    },
+    {
+      "name": "704bb073aaf4 overlapping generations and stale-completion freshness cache",
+      "startedAt": "2026-10-29T23:16:28.879Z",
+      "started": {
+        "instance": 2,
+        "selected": {
+          "queryVariant": "704bb073aaf4230b6cac309756c284803fe7d3cc4e2776a060d041af2341a786",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 1,
+        "read": {},
+        "committed": {},
+        "responses": [],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          },
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 1,
+        "revision": 2
+      },
+      "second": {
+        "instance": 2,
+        "selected": {
+          "queryVariant": "704bb073aaf4230b6cac309756c284803fe7d3cc4e2776a060d041af2341a786",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 2,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 2
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          },
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 1,
+        "revision": 3
+      },
+      "first": {
+        "instance": 2,
+        "selected": {
+          "queryVariant": "704bb073aaf4230b6cac309756c284803fe7d3cc4e2776a060d041af2341a786",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 2,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 2
+              }
+            }
+          },
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          },
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 1,
+        "revision": 4
+      },
+      "warm": {
+        "instance": 2,
+        "selected": {
+          "queryVariant": "704bb073aaf4230b6cac309756c284803fe7d3cc4e2776a060d041af2341a786",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 2,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 2
+              }
+            }
+          },
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 1
+              }
+            }
+          },
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 7
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          },
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 1,
+        "revision": 5
+      },
+      "unmounted": {
+        "instance": 2,
+        "selected": {
+          "queryVariant": "704bb073aaf4230b6cac309756c284803fe7d3cc4e2776a060d041af2341a786",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": false,
+        "reference": 2,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 2
+              }
+            }
+          },
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 1
+              }
+            }
+          },
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 7
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          },
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 0,
+        "revision": 5
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T23:16:29.186Z"
+    },
+    {
+      "name": "dff1b5f10ee3 query callback, native microtask seed, frame and selected-field readback",
+      "startedAt": "2026-10-29T23:16:29.186Z",
+      "initial": {
+        "instance": 3,
+        "selected": {
+          "queryVariant": "dff1b5f10ee3af571bcc7fa3b0a7e8a0ec4b9eedc58a4cc3526600590f1529b4",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 1,
+        "read": {},
+        "committed": {},
+        "responses": [],
+        "requests": [],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 1,
+        "revision": 0
+      },
+      "queued": {
+        "instance": 3,
+        "selected": {
+          "queryVariant": "dff1b5f10ee3af571bcc7fa3b0a7e8a0ec4b9eedc58a4cc3526600590f1529b4",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 1,
+        "read": {},
+        "committed": {},
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 1,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 1
+      },
+      "committed": {
+        "instance": 3,
+        "selected": {
+          "queryVariant": "dff1b5f10ee3af571bcc7fa3b0a7e8a0ec4b9eedc58a4cc3526600590f1529b4",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 2,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 1
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 1
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 1
+      },
+      "unselected": {
+        "instance": 3,
+        "selected": {
+          "queryVariant": "dff1b5f10ee3af571bcc7fa3b0a7e8a0ec4b9eedc58a4cc3526600590f1529b4",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 3,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 1
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 1
+      },
+      "stable": {
+        "instance": 3,
+        "selected": {
+          "queryVariant": "dff1b5f10ee3af571bcc7fa3b0a7e8a0ec4b9eedc58a4cc3526600590f1529b4",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 3,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 1
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 2
+      },
+      "selected": {
+        "instance": 3,
+        "selected": {
+          "queryVariant": "dff1b5f10ee3af571bcc7fa3b0a7e8a0ec4b9eedc58a4cc3526600590f1529b4",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 4,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 2
+      },
+      "refetched": {
+        "instance": 3,
+        "selected": {
+          "queryVariant": "dff1b5f10ee3af571bcc7fa3b0a7e8a0ec4b9eedc58a4cc3526600590f1529b4",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 4,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [
+          "invalidate",
+          "refetch"
+        ],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 3
+      },
+      "off": {
+        "instance": 3,
+        "selected": {
+          "queryVariant": "dff1b5f10ee3af571bcc7fa3b0a7e8a0ec4b9eedc58a4cc3526600590f1529b4",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 5,
+        "read": {},
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [
+          "invalidate",
+          "refetch"
+        ],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 4
+      },
+      "unmounted": {
+        "instance": 3,
+        "selected": {
+          "queryVariant": "dff1b5f10ee3af571bcc7fa3b0a7e8a0ec4b9eedc58a4cc3526600590f1529b4",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": false,
+        "reference": 5,
+        "read": {},
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [
+          "invalidate",
+          "refetch"
+        ],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 0,
+        "revision": 4
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T23:16:29.644Z"
+    },
+    {
+      "name": "dff1b5f10ee3 overlapping generations and stale-completion freshness cache",
+      "startedAt": "2026-10-29T23:16:29.644Z",
+      "started": {
+        "instance": 4,
+        "selected": {
+          "queryVariant": "dff1b5f10ee3af571bcc7fa3b0a7e8a0ec4b9eedc58a4cc3526600590f1529b4",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 1,
+        "read": {},
+        "committed": {},
+        "responses": [],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          },
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 1,
+        "revision": 2
+      },
+      "second": {
+        "instance": 4,
+        "selected": {
+          "queryVariant": "dff1b5f10ee3af571bcc7fa3b0a7e8a0ec4b9eedc58a4cc3526600590f1529b4",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 2,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 2
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          },
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 1,
+        "revision": 3
+      },
+      "first": {
+        "instance": 4,
+        "selected": {
+          "queryVariant": "dff1b5f10ee3af571bcc7fa3b0a7e8a0ec4b9eedc58a4cc3526600590f1529b4",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 2,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 2
+              }
+            }
+          },
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          },
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 1,
+        "revision": 4
+      },
+      "warm": {
+        "instance": 4,
+        "selected": {
+          "queryVariant": "dff1b5f10ee3af571bcc7fa3b0a7e8a0ec4b9eedc58a4cc3526600590f1529b4",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 2,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 2
+              }
+            }
+          },
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 1
+              }
+            }
+          },
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 7
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          },
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 1,
+        "revision": 5
+      },
+      "unmounted": {
+        "instance": 4,
+        "selected": {
+          "queryVariant": "dff1b5f10ee3af571bcc7fa3b0a7e8a0ec4b9eedc58a4cc3526600590f1529b4",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": false,
+        "reference": 2,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 2
+              }
+            }
+          },
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 1
+              }
+            }
+          },
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 7
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          },
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 0,
+        "revision": 5
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T23:16:29.944Z"
+    },
+    {
+      "name": "d9ab130a7e21 query callback, native microtask seed, frame and selected-field readback",
+      "startedAt": "2026-10-29T23:16:29.944Z",
+      "initial": {
+        "instance": 5,
+        "selected": {
+          "queryVariant": "d9ab130a7e21782f4e8a294f011c25405d3690ef4aafcc5bcc5bdabd656a414b",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 1,
+        "read": {},
+        "committed": {},
+        "responses": [],
+        "requests": [],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 1,
+        "revision": 0
+      },
+      "queued": {
+        "instance": 5,
+        "selected": {
+          "queryVariant": "d9ab130a7e21782f4e8a294f011c25405d3690ef4aafcc5bcc5bdabd656a414b",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 1,
+        "read": {},
+        "committed": {},
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 1,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 1
+      },
+      "committed": {
+        "instance": 5,
+        "selected": {
+          "queryVariant": "d9ab130a7e21782f4e8a294f011c25405d3690ef4aafcc5bcc5bdabd656a414b",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 2,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 1
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 1
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 1
+      },
+      "unselected": {
+        "instance": 5,
+        "selected": {
+          "queryVariant": "d9ab130a7e21782f4e8a294f011c25405d3690ef4aafcc5bcc5bdabd656a414b",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 3,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 1
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 1
+      },
+      "stable": {
+        "instance": 5,
+        "selected": {
+          "queryVariant": "d9ab130a7e21782f4e8a294f011c25405d3690ef4aafcc5bcc5bdabd656a414b",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 3,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 1
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 10,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 2
+      },
+      "selected": {
+        "instance": 5,
+        "selected": {
+          "queryVariant": "d9ab130a7e21782f4e8a294f011c25405d3690ef4aafcc5bcc5bdabd656a414b",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 4,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 2
+      },
+      "refetched": {
+        "instance": 5,
+        "selected": {
+          "queryVariant": "d9ab130a7e21782f4e8a294f011c25405d3690ef4aafcc5bcc5bdabd656a414b",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 4,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [
+          "invalidate",
+          "refetch"
+        ],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 3
+      },
+      "off": {
+        "instance": 5,
+        "selected": {
+          "queryVariant": "d9ab130a7e21782f4e8a294f011c25405d3690ef4aafcc5bcc5bdabd656a414b",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 5,
+        "read": {},
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [
+          "invalidate",
+          "refetch"
+        ],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 1,
+        "revision": 4
+      },
+      "unmounted": {
+        "instance": 5,
+        "selected": {
+          "queryVariant": "d9ab130a7e21782f4e8a294f011c25405d3690ef4aafcc5bcc5bdabd656a414b",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": false,
+        "reference": 5,
+        "read": {},
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 3,
+              "priceChangePercent": 2,
+              "numTxs": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 10,
+                "priceChangePercent": 2,
+                "numTxs": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [
+          "invalidate",
+          "refetch"
+        ],
+        "pending": 0,
+        "microtasksQueued": 1,
+        "microtasksExecuted": 1,
+        "listeners": 0,
+        "revision": 4
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T23:16:30.397Z"
+    },
+    {
+      "name": "d9ab130a7e21 overlapping generations and stale-completion freshness cache",
+      "startedAt": "2026-10-29T23:16:30.397Z",
+      "started": {
+        "instance": 6,
+        "selected": {
+          "queryVariant": "d9ab130a7e21782f4e8a294f011c25405d3690ef4aafcc5bcc5bdabd656a414b",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 1,
+        "read": {},
+        "committed": {},
+        "responses": [],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          },
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 1,
+        "revision": 2
+      },
+      "second": {
+        "instance": 6,
+        "selected": {
+          "queryVariant": "d9ab130a7e21782f4e8a294f011c25405d3690ef4aafcc5bcc5bdabd656a414b",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 2,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 2
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          },
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 1,
+        "revision": 3
+      },
+      "first": {
+        "instance": 6,
+        "selected": {
+          "queryVariant": "d9ab130a7e21782f4e8a294f011c25405d3690ef4aafcc5bcc5bdabd656a414b",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 2,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 2
+              }
+            }
+          },
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 1
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          },
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 1,
+        "revision": 4
+      },
+      "warm": {
+        "instance": 6,
+        "selected": {
+          "queryVariant": "d9ab130a7e21782f4e8a294f011c25405d3690ef4aafcc5bcc5bdabd656a414b",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": true,
+        "reference": 2,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 2
+              }
+            }
+          },
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 1
+              }
+            }
+          },
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 7
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          },
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 1,
+        "revision": 5
+      },
+      "unmounted": {
+        "instance": 6,
+        "selected": {
+          "queryVariant": "d9ab130a7e21782f4e8a294f011c25405d3690ef4aafcc5bcc5bdabd656a414b",
+          "storeVariant": "c57dd65e642700694b2b65e1554a0d11ac5caca8b535bfa1062564366e344d61",
+          "helperVariant": "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a"
+        },
+        "mounted": false,
+        "reference": 2,
+        "read": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "committed": {
+          "a": {
+            "24h": {
+              "volumeUSD": 2
+            }
+          }
+        },
+        "responses": [
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 2
+              }
+            }
+          },
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 1
+              }
+            }
+          },
+          {
+            "a": {
+              "24h": {
+                "volumeUSD": 7
+              }
+            }
+          }
+        ],
+        "requests": [
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          },
+          {
+            "mints": [
+              "a"
+            ],
+            "intervals": [
+              "5m",
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "metrics": [
+              "numTxs",
+              "volumeUSD",
+              "numUsers",
+              "priceChangePercent"
+            ],
+            "hasSignal": true
+          }
+        ],
+        "sequence": [],
+        "pending": 0,
+        "microtasksQueued": 0,
+        "microtasksExecuted": 0,
+        "listeners": 0,
+        "revision": 5
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T23:16:30.660Z"
+    }
+  ],
+  "errors": [],
+  "origin": "http://127.0.0.1:37373",
+  "status": "PASS",
+  "browserClosed": true,
+  "serverListening": false,
+  "endedAt": "2026-10-29T23:16:30.768Z"
+}

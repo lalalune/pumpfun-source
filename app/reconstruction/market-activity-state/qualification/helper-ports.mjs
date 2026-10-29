@@ -1,0 +1,327 @@
+// Source-bound reuse of existing1873 helper capabilities for qualification ONLY.
+// This is not another reader/helper recovery or a runtime client dependency.
+export const helperVariants = [
+  {
+    source: "evidence/web/objects/dba17a249156c6ff.js",
+    sha256: "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a",
+  },
+  {
+    source: "evidence/web/objects/ecf7ec803bfb3020.js",
+    sha256: "28b8bd958df7a2591b9f5137a9df1a7b0175c4a5ff974a6ea3e3221f4de90915",
+  },
+  {
+    source: "evidence/web/objects/9535b69d76e2a69b.js",
+    sha256: "e26d778b38c007ca2caba17ad41f9759b9e68e61d22eda234f84d9e085f6c1d6",
+  },
+  {
+    source: "evidence/web/objects/0e0a55c249b456d7.js",
+    sha256: "6c2fe9687dcd41b43a0e38b067688017f1d4bc9297f066e5f42f32c709f91d62",
+  },
+  {
+    source: "evidence/web/objects/1681353d046eeca6.js",
+    sha256: "52b35b47af7bdd2920bb1862537c626afc4bde9baac68d2d138215848051b8bf",
+  },
+  {
+    source: "evidence/web/objects/7a7f27bff952614d.js",
+    sha256: "64630965b09dd0b4e78b2d7f90cae707909b550ba9f5cd4400b666c7b43cb996",
+  },
+];
+function helper0() {
+  let r = {
+    INTERVALS: ["5m", "1h", "6h", "24h"],
+    METRICS: ["numTxs", "volumeUSD", "numUsers", "priceChangePercent"],
+    STALE_TIME: 3e5,
+    CACHE_TIME: 6e5,
+    POLLING_INTERVAL: 3e4,
+    QUERY_KEY: "marketActivity",
+    BATCH_SIZE: 50,
+  };
+  function n(e, t) {
+    return !!e && !!t && !!e[t]?.["24h"];
+  }
+  return {
+    t: r,
+    $: function (e, t = r.BATCH_SIZE) {
+      if (!e || 0 === e.length) return [];
+      let n = Array.from(new Set(e)).filter(Boolean).sort(),
+        l = [];
+      for (let e = 0; e < n.length; e += t) l.push(n.slice(e, e + t));
+      return l;
+    },
+    P: function (e, t) {
+      return t && 0 !== t.length ? t.filter((t) => !n(e, t)) : [];
+    },
+    c: function (e, t) {
+      if (e === t) return !0;
+      if (!e || !t) return !1;
+      let r = Object.keys(e),
+        n = Object.keys(t);
+      return (
+        r.length === n.length &&
+        r.every((r) => {
+          let n = e[r],
+            l = t[r];
+          return (
+            n === l ||
+            (!!n &&
+              !!l &&
+              n["24h"]?.volumeUSD === l["24h"]?.volumeUSD &&
+              n["24h"]?.priceChangePercent === l["24h"]?.priceChangePercent)
+          );
+        })
+      );
+    },
+  };
+}
+function helper1() {
+  let r = {
+    INTERVALS: ["5m", "1h", "6h", "24h"],
+    METRICS: ["numTxs", "volumeUSD", "numUsers", "priceChangePercent"],
+    STALE_TIME: 3e5,
+    CACHE_TIME: 6e5,
+    POLLING_INTERVAL: 3e4,
+    QUERY_KEY: "marketActivity",
+    BATCH_SIZE: 50,
+  };
+  function a(e, t) {
+    return !!e && !!t && !!e[t]?.["24h"];
+  }
+  return {
+    t: r,
+    $: function (e, t = r.BATCH_SIZE) {
+      if (!e || 0 === e.length) return [];
+      let a = Array.from(new Set(e)).filter(Boolean).sort(),
+        i = [];
+      for (let e = 0; e < a.length; e += t) i.push(a.slice(e, e + t));
+      return i;
+    },
+    P: function (e, t) {
+      return t && 0 !== t.length ? t.filter((t) => !a(e, t)) : [];
+    },
+    c: function (e, t) {
+      if (e === t) return !0;
+      if (!e || !t) return !1;
+      let r = Object.keys(e),
+        a = Object.keys(t);
+      return (
+        r.length === a.length &&
+        r.every((r) => {
+          let a = e[r],
+            i = t[r];
+          return (
+            a === i ||
+            (!!a &&
+              !!i &&
+              a["24h"]?.volumeUSD === i["24h"]?.volumeUSD &&
+              a["24h"]?.priceChangePercent === i["24h"]?.priceChangePercent)
+          );
+        })
+      );
+    },
+  };
+}
+function helper2() {
+  let a = {
+    INTERVALS: ["5m", "1h", "6h", "24h"],
+    METRICS: ["numTxs", "volumeUSD", "numUsers", "priceChangePercent"],
+    STALE_TIME: 3e5,
+    CACHE_TIME: 6e5,
+    POLLING_INTERVAL: 3e4,
+    QUERY_KEY: "marketActivity",
+    BATCH_SIZE: 50,
+  };
+  function i(e, t) {
+    return !!e && !!t && !!e[t]?.["24h"];
+  }
+  return {
+    t: a,
+    $: function (e, t = a.BATCH_SIZE) {
+      if (!e || 0 === e.length) return [];
+      let i = Array.from(new Set(e)).filter(Boolean).sort(),
+        l = [];
+      for (let e = 0; e < i.length; e += t) l.push(i.slice(e, e + t));
+      return l;
+    },
+    P: function (e, t) {
+      return t && 0 !== t.length ? t.filter((t) => !i(e, t)) : [];
+    },
+    c: function (e, t) {
+      if (e === t) return !0;
+      if (!e || !t) return !1;
+      let a = Object.keys(e),
+        i = Object.keys(t);
+      return (
+        a.length === i.length &&
+        a.every((a) => {
+          let i = e[a],
+            l = t[a];
+          return (
+            i === l ||
+            (!!i &&
+              !!l &&
+              i["24h"]?.volumeUSD === l["24h"]?.volumeUSD &&
+              i["24h"]?.priceChangePercent === l["24h"]?.priceChangePercent)
+          );
+        })
+      );
+    },
+  };
+}
+function helper3() {
+  let r = {
+    INTERVALS: ["5m", "1h", "6h", "24h"],
+    METRICS: ["numTxs", "volumeUSD", "numUsers", "priceChangePercent"],
+    STALE_TIME: 3e5,
+    CACHE_TIME: 6e5,
+    POLLING_INTERVAL: 3e4,
+    QUERY_KEY: "marketActivity",
+    BATCH_SIZE: 50,
+  };
+  function i(e, t) {
+    return !!e && !!t && !!e[t]?.["24h"];
+  }
+  return {
+    t: r,
+    $: function (e, t = r.BATCH_SIZE) {
+      if (!e || 0 === e.length) return [];
+      let i = Array.from(new Set(e)).filter(Boolean).sort(),
+        l = [];
+      for (let e = 0; e < i.length; e += t) l.push(i.slice(e, e + t));
+      return l;
+    },
+    P: function (e, t) {
+      return t && 0 !== t.length ? t.filter((t) => !i(e, t)) : [];
+    },
+    c: function (e, t) {
+      if (e === t) return !0;
+      if (!e || !t) return !1;
+      let r = Object.keys(e),
+        i = Object.keys(t);
+      return (
+        r.length === i.length &&
+        r.every((r) => {
+          let i = e[r],
+            l = t[r];
+          return (
+            i === l ||
+            (!!i &&
+              !!l &&
+              i["24h"]?.volumeUSD === l["24h"]?.volumeUSD &&
+              i["24h"]?.priceChangePercent === l["24h"]?.priceChangePercent)
+          );
+        })
+      );
+    },
+  };
+}
+function helper4() {
+  let i = {
+    INTERVALS: ["5m", "1h", "6h", "24h"],
+    METRICS: ["numTxs", "volumeUSD", "numUsers", "priceChangePercent"],
+    STALE_TIME: 3e5,
+    CACHE_TIME: 6e5,
+    POLLING_INTERVAL: 3e4,
+    QUERY_KEY: "marketActivity",
+    BATCH_SIZE: 50,
+  };
+  function l(e, t) {
+    return !!e && !!t && !!e[t]?.["24h"];
+  }
+  return {
+    t: i,
+    $: function (e, t = i.BATCH_SIZE) {
+      if (!e || 0 === e.length) return [];
+      let l = Array.from(new Set(e)).filter(Boolean).sort(),
+        r = [];
+      for (let e = 0; e < l.length; e += t) r.push(l.slice(e, e + t));
+      return r;
+    },
+    P: function (e, t) {
+      return t && 0 !== t.length ? t.filter((t) => !l(e, t)) : [];
+    },
+    c: function (e, t) {
+      if (e === t) return !0;
+      if (!e || !t) return !1;
+      let i = Object.keys(e),
+        l = Object.keys(t);
+      return (
+        i.length === l.length &&
+        i.every((i) => {
+          let l = e[i],
+            r = t[i];
+          return (
+            l === r ||
+            (!!l &&
+              !!r &&
+              l["24h"]?.volumeUSD === r["24h"]?.volumeUSD &&
+              l["24h"]?.priceChangePercent === r["24h"]?.priceChangePercent)
+          );
+        })
+      );
+    },
+  };
+}
+function helper5() {
+  let i = {
+    INTERVALS: ["5m", "1h", "6h", "24h"],
+    METRICS: ["numTxs", "volumeUSD", "numUsers", "priceChangePercent"],
+    STALE_TIME: 3e5,
+    CACHE_TIME: 6e5,
+    POLLING_INTERVAL: 3e4,
+    QUERY_KEY: "marketActivity",
+    BATCH_SIZE: 50,
+  };
+  function r(e, t) {
+    return !!e && !!t && !!e[t]?.["24h"];
+  }
+  return {
+    t: i,
+    $: function (e, t = i.BATCH_SIZE) {
+      if (!e || 0 === e.length) return [];
+      let r = Array.from(new Set(e)).filter(Boolean).sort(),
+        n = [];
+      for (let e = 0; e < r.length; e += t) n.push(r.slice(e, e + t));
+      return n;
+    },
+    P: function (e, t) {
+      return t && 0 !== t.length ? t.filter((t) => !r(e, t)) : [];
+    },
+    c: function (e, t) {
+      if (e === t) return !0;
+      if (!e || !t) return !1;
+      let i = Object.keys(e),
+        r = Object.keys(t);
+      return (
+        i.length === r.length &&
+        i.every((i) => {
+          let r = e[i],
+            n = t[i];
+          return (
+            r === n ||
+            (!!r &&
+              !!n &&
+              r["24h"]?.volumeUSD === n["24h"]?.volumeUSD &&
+              r["24h"]?.priceChangePercent === n["24h"]?.priceChangePercent)
+          );
+        })
+      );
+    },
+  };
+}
+export function createHelperPort(variant) {
+  const constructors = {
+    "9e400e569d2f1be621405e2416b4822a026a7314017ea0e0a0786d1874f4940a": helper0,
+    "28b8bd958df7a2591b9f5137a9df1a7b0175c4a5ff974a6ea3e3221f4de90915": helper1,
+    e26d778b38c007ca2caba17ad41f9759b9e68e61d22eda234f84d9e085f6c1d6: helper2,
+    "6c2fe9687dcd41b43a0e38b067688017f1d4bc9297f066e5f42f32c709f91d62": helper3,
+    "52b35b47af7bdd2920bb1862537c626afc4bde9baac68d2d138215848051b8bf": helper4,
+    "64630965b09dd0b4e78b2d7f90cae707909b550ba9f5cd4400b666c7b43cb996": helper5,
+  };
+  const constructor =
+    typeof variant === "string" && Object.hasOwn(constructors, variant)
+      ? constructors[variant]
+      : null;
+  if (!constructor)
+    throw Error("explicit supported680930 fixture variant required");
+  return constructor();
+}

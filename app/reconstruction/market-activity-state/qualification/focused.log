@@ -1,0 +1,41 @@
+✔ c57dd65e6427 complete queued store patches, seed and clear (4.333393ms)
+✔ 4d8d931c538e complete queued store patches, seed and clear (1.254292ms)
+✔ 8d033eb75f35 complete queued store patches, seed and clear (0.99259ms)
+✔ 7eeb7e121092 complete queued store patches, seed and clear (0.88015ms)
+✔ 90cc0b7b3758 complete queued store patches, seed and clear (0.981427ms)
+✔ 704bb073aaf4: complete query options, mint normalization, batches and signal forwarding (2.415836ms)
+✔ 704bb073aaf4: newest eligible cache warm uses global mint freshness; present current query bypasses warm (4.760655ms)
+✔ 704bb073aaf4: overlapping query generations gate only fetched store writes and preserve each returned response (0.480091ms)
+✔ 704bb073aaf4: seed microtask, stable selected-field equality, readBack false and clear order (1.787412ms)
+✔ 704bb073aaf4: refetch missing24h guard uses committed state and awaits invalidate before refetch (0.886691ms)
+✔ 704bb073aaf4: inclusive freshness boundary, stale global mint and stale cached query are distinct (1.192299ms)
+✔ 704bb073aaf4: stale generation completion still refreshes mint timestamp but cannot patch store (0.52644ms)
+✔ 704bb073aaf4: injected reader rejection propagates with signal; hook adds no error result field (1.045579ms)
+✔ dff1b5f10ee3: complete query options, mint normalization, batches and signal forwarding (2.116556ms)
+✔ dff1b5f10ee3: newest eligible cache warm uses global mint freshness; present current query bypasses warm (0.236565ms)
+✔ dff1b5f10ee3: overlapping query generations gate only fetched store writes and preserve each returned response (0.110136ms)
+✔ dff1b5f10ee3: seed microtask, stable selected-field equality, readBack false and clear order (0.53327ms)
+✔ dff1b5f10ee3: refetch missing24h guard uses committed state and awaits invalidate before refetch (0.163785ms)
+✔ dff1b5f10ee3: inclusive freshness boundary, stale global mint and stale cached query are distinct (0.265509ms)
+✔ dff1b5f10ee3: stale generation completion still refreshes mint timestamp but cannot patch store (0.142594ms)
+✔ dff1b5f10ee3: injected reader rejection propagates with signal; hook adds no error result field (0.152659ms)
+✔ d9ab130a7e21: complete query options, mint normalization, batches and signal forwarding (1.162685ms)
+✔ d9ab130a7e21: newest eligible cache warm uses global mint freshness; present current query bypasses warm (0.185378ms)
+✔ d9ab130a7e21: overlapping query generations gate only fetched store writes and preserve each returned response (0.681022ms)
+✔ d9ab130a7e21: seed microtask, stable selected-field equality, readBack false and clear order (0.312559ms)
+✔ d9ab130a7e21: refetch missing24h guard uses committed state and awaits invalidate before refetch (0.204677ms)
+✔ d9ab130a7e21: inclusive freshness boundary, stale global mint and stale cached query are distinct (0.227561ms)
+✔ d9ab130a7e21: stale generation completion still refreshes mint timestamp but cannot patch store (0.10715ms)
+✔ d9ab130a7e21: injected reader rejection propagates with signal; hook adds no error result field (0.564077ms)
+✔ all six existing helper contexts are exact qualification ports, not generic deep equality (3.245681ms)
+✔ native queueMicrotask control preserves seed-before-frame phase distinction (0.189735ms)
+✔ explicit own string query/store/helper variants required (0.478288ms)
+✔ actual source verifier rejects client, fixture, variant, consumer, port and semantics tampering (3518.900382ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3694.841852

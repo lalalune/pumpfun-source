@@ -1,0 +1,304 @@
+✖ c57dd65e6427 complete queued store patches, seed and clear (4.072554ms)
+✖ 4d8d931c538e complete queued store patches, seed and clear (1.140022ms)
+✖ 8d033eb75f35 complete queued store patches, seed and clear (0.765519ms)
+✖ 7eeb7e121092 complete queued store patches, seed and clear (0.727162ms)
+✖ 90cc0b7b3758 complete queued store patches, seed and clear (0.674473ms)
+✔ 704bb073aaf4: complete query options, mint normalization, batches and signal forwarding (2.417118ms)
+✔ 704bb073aaf4: newest eligible cache warm uses global mint freshness; present current query bypasses warm (0.939561ms)
+✔ 704bb073aaf4: overlapping query generations gate only fetched store writes and preserve each returned response (0.523756ms)
+✖ 704bb073aaf4: seed microtask, stable selected-field equality, readBack false and clear order (0.80593ms)
+✔ 704bb073aaf4: refetch missing24h guard uses committed state and awaits invalidate before refetch (0.466541ms)
+✔ dff1b5f10ee3: complete query options, mint normalization, batches and signal forwarding (0.914523ms)
+✔ dff1b5f10ee3: newest eligible cache warm uses global mint freshness; present current query bypasses warm (0.594843ms)
+✔ dff1b5f10ee3: overlapping query generations gate only fetched store writes and preserve each returned response (0.235323ms)
+✖ dff1b5f10ee3: seed microtask, stable selected-field equality, readBack false and clear order (0.44595ms)
+✔ dff1b5f10ee3: refetch missing24h guard uses committed state and awaits invalidate before refetch (0.189134ms)
+✔ d9ab130a7e21: complete query options, mint normalization, batches and signal forwarding (0.886521ms)
+✔ d9ab130a7e21: newest eligible cache warm uses global mint freshness; present current query bypasses warm (0.196354ms)
+✔ d9ab130a7e21: overlapping query generations gate only fetched store writes and preserve each returned response (0.104386ms)
+✖ d9ab130a7e21: seed microtask, stable selected-field equality, readBack false and clear order (3.511352ms)
+✔ d9ab130a7e21: refetch missing24h guard uses committed state and awaits invalidate before refetch (0.197957ms)
+✔ all six existing helper contexts are exact qualification ports, not generic deep equality (0.677838ms)
+✔ native queueMicrotask control preserves seed-before-frame phase distinction (0.216655ms)
+✔ explicit query/store/helper variants required (0.495204ms)
+✔ actual source verifier rejects client, fixture, variant, consumer, port and semantics tampering (3447.456486ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 16
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3615.612796
+
+✖ failing tests:
+
+test at app/tests/original_market_activity_state.test.mjs:43:3
+✖ c57dd65e6427 complete queued store patches, seed and clear (4.072554ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      a: {
+        '1h': {
+          volumeUSD: 1
+        },
+  ...
+        },
+  -     '5m': {
+  -       volumeUSD: 5
+  -     }
+      },
+      b: {
+        '24h': {
+          volumeUSD: 8
+        }
+  
+      at TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_market_activity_state.test.mjs:68:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { a: { '24h': [Object], '1h': [Object] }, b: { '24h': [Object] } },
+    expected: { a: { '24h': [Object], '1h': [Object], '5m': [Object] }, b: { '24h': [Object] } },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at app/tests/original_market_activity_state.test.mjs:43:3
+✖ 4d8d931c538e complete queued store patches, seed and clear (1.140022ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      a: {
+        '1h': {
+          volumeUSD: 1
+        },
+  ...
+        },
+  -     '5m': {
+  -       volumeUSD: 5
+  -     }
+      },
+      b: {
+        '24h': {
+          volumeUSD: 8
+        }
+  
+      at TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_market_activity_state.test.mjs:68:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { a: { '24h': [Object], '1h': [Object] }, b: { '24h': [Object] } },
+    expected: { a: { '24h': [Object], '1h': [Object], '5m': [Object] }, b: { '24h': [Object] } },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at app/tests/original_market_activity_state.test.mjs:43:3
+✖ 8d033eb75f35 complete queued store patches, seed and clear (0.765519ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      a: {
+        '1h': {
+          volumeUSD: 1
+        },
+  ...
+        },
+  -     '5m': {
+  -       volumeUSD: 5
+  -     }
+      },
+      b: {
+        '24h': {
+          volumeUSD: 8
+        }
+  
+      at TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_market_activity_state.test.mjs:68:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { a: { '24h': [Object], '1h': [Object] }, b: { '24h': [Object] } },
+    expected: { a: { '24h': [Object], '1h': [Object], '5m': [Object] }, b: { '24h': [Object] } },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at app/tests/original_market_activity_state.test.mjs:43:3
+✖ 7eeb7e121092 complete queued store patches, seed and clear (0.727162ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      a: {
+        '1h': {
+          volumeUSD: 1
+        },
+  ...
+        },
+  -     '5m': {
+  -       volumeUSD: 5
+  -     }
+      },
+      b: {
+        '24h': {
+          volumeUSD: 8
+        }
+  
+      at TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_market_activity_state.test.mjs:68:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { a: { '24h': [Object], '1h': [Object] }, b: { '24h': [Object] } },
+    expected: { a: { '24h': [Object], '1h': [Object], '5m': [Object] }, b: { '24h': [Object] } },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at app/tests/original_market_activity_state.test.mjs:43:3
+✖ 90cc0b7b3758 complete queued store patches, seed and clear (0.674473ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      a: {
+        '1h': {
+          volumeUSD: 1
+        },
+  ...
+        },
+  -     '5m': {
+  -       volumeUSD: 5
+  -     }
+      },
+      b: {
+        '24h': {
+          volumeUSD: 8
+        }
+  
+      at TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_market_activity_state.test.mjs:68:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { a: { '24h': [Object], '1h': [Object] }, b: { '24h': [Object] } },
+    expected: { a: { '24h': [Object], '1h': [Object], '5m': [Object] }, b: { '24h': [Object] } },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at app/tests/original_market_activity_state.test.mjs:238:3
+✖ 704bb073aaf4: seed microtask, stable selected-field equality, readBack false and clear order (0.80593ms)
+  AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:
+  
+  {
+    a: {
+      '24h': {
+        numTxs: 1,
+        priceChangePercent: 2,
+        volumeUSD: 1
+      }
+    }
+  }
+  
+      at TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_market_activity_state.test.mjs:256:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { a: { '24h': [Object] } },
+    expected: { a: { '24h': [Object] } },
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at app/tests/original_market_activity_state.test.mjs:238:3
+✖ dff1b5f10ee3: seed microtask, stable selected-field equality, readBack false and clear order (0.44595ms)
+  AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:
+  
+  {
+    a: {
+      '24h': {
+        numTxs: 1,
+        priceChangePercent: 2,
+        volumeUSD: 1
+      }
+    }
+  }
+  
+      at TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_market_activity_state.test.mjs:256:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { a: { '24h': [Object] } },
+    expected: { a: { '24h': [Object] } },
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at app/tests/original_market_activity_state.test.mjs:238:3
+✖ d9ab130a7e21: seed microtask, stable selected-field equality, readBack false and clear order (3.511352ms)
+  AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:
+  
+  {
+    a: {
+      '24h': {
+        numTxs: 1,
+        priceChangePercent: 2,
+        volumeUSD: 1
+      }
+    }
+  }
+  
+      at TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_market_activity_state.test.mjs:256:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { a: { '24h': [Object] } },
+    expected: { a: { '24h': [Object] } },
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,524 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { readFile } from "node:fs/promises";
+import {
+  createMarketActivityState,
+  queryVariants,
+  storeVariants,
+} from "../reconstruction/market-activity-state/client.mjs";
+import {
+  createHelperPort,
+  helperVariants,
+} from "../reconstruction/market-activity-state/qualification/helper-ports.mjs";
+import {
+  manualReact,
+  localStatePorts,
+} from "../reconstruction/market-activity-state/qualification/ports.mjs";
+import { verify } from "../scripts/original-market-activity-state.mjs";
+function setup({
+  query = queryVariants[0].sha256,
+  store = storeVariants[0].sha256,
+  helper = helperVariants[0].sha256,
+  nativeMicrotasks = false,
+} = {}) {
+  const hooks = manualReact(),
+    host = localStatePorts({ nativeMicrotasks });
+  host.ports.React = hooks.React;
+  const boundary = createMarketActivityState({
+    queryVariant: query,
+    storeVariant: store,
+    ...host.ports,
+    helpers: createHelperPort(helper),
+  });
+  return {
+    hooks,
+    host,
+    boundary,
+    api: boundary.store.getState(),
+    render: (id, mints, options) =>
+      hooks.render(id, () => boundary.useMarketActivity(mints, options)),
+  };
+}
+for (const store of storeVariants) {
+  test(`${store.sha256.slice(0, 12)} complete queued store patches, seed and clear`, () => {
+    const { api, boundary, host } = setup({ store: store.sha256 });
+    let notifications = 0;
+    boundary.store.subscribe(() => notifications++);
+    boundary.setMarketActivity({
+      a: { "24h": { volumeUSD: 10, numTxs: 2 }, "1h": { volumeUSD: 1 } },
+    });
+    assert.deepEqual(api.marketActivity, {});
+    host.flushFrames();
+    assert.equal(
+      boundary.store.getState().marketActivity.a["24h"].volumeUSD,
+      10,
+    );
+    boundary.setMarketActivity({
+      a: { "24h": { volumeUSD: null, numTxs: 3 } },
+    });
+    boundary.seedMarketActivity({
+      a: {
+        "24h": { volumeUSD: 99, numUsers: 4, priceChangePercent: 2 },
+        "5m": { volumeUSD: 5 },
+      },
+      b: { "24h": { volumeUSD: 8 } },
+    });
+    assert.equal(boundary.store.getState().marketActivity.b, undefined);
+    host.flushFrames();
+    assert.equal(boundary.store.getState().marketActivity.a["5m"], undefined);
+    assert.deepEqual(boundary.store.getState().marketActivity, {
+      a: {
+        "24h": { volumeUSD: 10, numTxs: 3, numUsers: 4, priceChangePercent: 2 },
+        "1h": { volumeUSD: 1 },
+      },
+      b: { "24h": { volumeUSD: 8 } },
+    });
+    boundary.setMarketActivity({ a: { "24h": null } });
+    host.flushFrames();
+    assert.equal(boundary.store.getState().marketActivity.a["24h"], null);
+    boundary.setMarketActivity({ z: { "24h": { volumeUSD: 2 } } });
+    boundary.store.getState().clearMarketActivity();
+    assert.deepEqual(boundary.store.getState().marketActivity, {});
+    host.flushFrames();
+    assert.deepEqual(boundary.store.getState().marketActivity, {});
+    assert.equal(notifications, 4);
+  });
+}
+for (const q of queryVariants) {
+  const tag = q.sha256.slice(0, 12);
+  test(`${tag}: complete query options, mint normalization, batches and signal forwarding`, async () => {
+    const { render, host, boundary } = setup({ query: q.sha256 });
+    const signal = new AbortController().signal;
+    const mints = Array.from(
+      { length: 53 },
+      (_, i) => `m${String(i).padStart(2, "0")}`,
+    );
+    render("a", [...mints.reverse(), "", mints[0]], {
+      enablePolling: true,
+      pollingInterval: 123,
+    });
+    const options = host.options();
+    assert.deepEqual(options.queryKey, [
+      "marketActivity",
+      [...new Set(mints)].sort().join(","),
+    ]);
+    assert.equal(options.enabled, true);
+    assert.equal(options.staleTime, 300000);
+    assert.equal(options.gcTime, 600000);
+    assert.equal(options.refetchInterval, 123);
+    assert.equal(options.refetchOnMount, true);
+    assert.equal(options.refetchOnWindowFocus, false);
+    assert.equal(options.refetchOnReconnect, false);
+    await options.queryFn({ signal, queryKey: options.queryKey });
+    assert.equal(host.requests.length, 2);
+    assert.equal(host.requests[0].mints.length, 50);
+    assert.equal(host.requests[1].mints.length, 3);
+    assert.equal(host.requests[0].options.signal, signal);
+    assert.deepEqual(host.requests[0].options.intervals, [
+      "5m",
+      "1h",
+      "6h",
+      "24h",
+    ]);
+    assert.deepEqual(host.requests[0].options.metrics, [
+      "numTxs",
+      "volumeUSD",
+      "numUsers",
+      "priceChangePercent",
+    ]);
+    assert.deepEqual(boundary.store.getState().marketActivity, {});
+    render("a", [], { shouldFetch: false });
+    assert.equal(host.options().enabled, false);
+    assert.equal(host.options().refetchInterval, false);
+    assert.deepEqual(
+      await host.options().queryFn({ queryKey: host.options().queryKey }),
+      {},
+    );
+    assert.equal(host.requests.length, 2);
+  });
+  test(`${tag}: newest eligible cache warm uses global mint freshness; present current query bypasses warm`, async () => {
+    const hooks = manualReact(),
+      host = localStatePorts(),
+      helpers = createHelperPort(helperVariants[0].sha256);
+    host.ports.React = hooks.React;
+    let answers = [
+      { a: { "24h": { volumeUSD: 1 } } },
+      { b: { "24h": { volumeUSD: 8 } } },
+      { a: { "24h": { volumeUSD: 9 } } },
+    ];
+    host.ports.fetchBatch = async (mints, options) => {
+      host.requests.push({ mints, options });
+      return answers.shift();
+    };
+    const boundary = createMarketActivityState({
+      queryVariant: q.sha256,
+      storeVariant: storeVariants[0].sha256,
+      ...host.ports,
+      helpers,
+    });
+    const render = (id, mints) =>
+      hooks.render(id, () => boundary.useMarketActivity(mints));
+    render("seed", ["a"]);
+    await host.options().queryFn({ queryKey: host.options().queryKey });
+    host.flushFrames();
+    host.cacheEntries.push(
+      {
+        queryKey: ["marketActivity", "other"],
+        state: {
+          data: { a: { "24h": { volumeUSD: 4 } } },
+          dataUpdatedAt: 999999,
+          isInvalidated: false,
+        },
+      },
+      {
+        queryKey: ["marketActivity", "newer"],
+        state: {
+          data: { a: { "24h": { volumeUSD: 5 } } },
+          dataUpdatedAt: 1000000,
+          isInvalidated: false,
+        },
+      },
+      {
+        queryKey: ["marketActivity", "invalid"],
+        state: {
+          data: { a: { "24h": { volumeUSD: 99 } } },
+          dataUpdatedAt: 1000001,
+          isInvalidated: true,
+        },
+      },
+      {
+        queryKey: ["other", "wrong"],
+        state: {
+          data: { a: { "24h": { volumeUSD: 999 } } },
+          dataUpdatedAt: 1000002,
+          isInvalidated: false,
+        },
+      },
+    );
+    render("both", ["a", "b"]);
+    const combined = await host
+      .options()
+      .queryFn({ queryKey: host.options().queryKey });
+    assert.equal(combined.a["24h"].volumeUSD, 5);
+    assert.equal(combined.b["24h"].volumeUSD, 8);
+    assert.deepEqual(host.requests.at(-1).mints, ["b"]);
+    host.queryStates.set(JSON.stringify(["marketActivity", "a"]), { data: {} });
+    render("seed", ["a"]);
+    await host.options().queryFn({ queryKey: host.options().queryKey });
+    assert.deepEqual(host.requests.at(-1).mints, ["a"]);
+    assert.equal(host.requests.length, 3);
+  });
+  test(`${tag}: overlapping query generations gate only fetched store writes and preserve each returned response`, async () => {
+    const hooks = manualReact(),
+      host = localStatePorts();
+    host.ports.React = hooks.React;
+    const pending = [];
+    host.ports.fetchBatch = (mints, options) =>
+      new Promise((resolve) => {
+        pending.push({ resolve, mints, options });
+      });
+    const b = createMarketActivityState({
+      queryVariant: q.sha256,
+      storeVariant: storeVariants[0].sha256,
+      ...host.ports,
+      helpers: createHelperPort(helperVariants[0].sha256),
+    });
+    hooks.render("a", () => b.useMarketActivity(["a"]));
+    const options = host.options();
+    const first = options.queryFn({ queryKey: options.queryKey }),
+      second = options.queryFn({ queryKey: options.queryKey });
+    pending[1].resolve({ a: { "24h": { volumeUSD: 2 } } });
+    assert.equal((await second).a["24h"].volumeUSD, 2);
+    host.flushFrames();
+    pending[0].resolve({ a: { "24h": { volumeUSD: 1 } } });
+    assert.equal((await first).a["24h"].volumeUSD, 1);
+    host.flushFrames();
+    assert.equal(b.store.getState().marketActivity.a["24h"].volumeUSD, 2);
+  });
+  test(`${tag}: seed microtask, stable selected-field equality, readBack false and clear order`, () => {
+    const { host, render, boundary } = setup({ query: q.sha256 });
+    const data = {
+      a: { "24h": { volumeUSD: 1, priceChangePercent: 2, numTxs: 1 } },
+    };
+    host.setResult({ data, isLoading: true });
+    const initial = render("a", ["a"], { shouldFetch: false });
+    assert.equal(initial.loading, true);
+    assert.deepEqual(initial.marketActivity, {});
+    assert.equal(host.microtasks.length, 1);
+    host.drainMicrotasks();
+    assert.deepEqual(boundary.store.getState().marketActivity, {});
+    host.flushFrames();
+    const one = render("a", ["a"], { shouldFetch: false });
+    assert.equal(one.marketActivity.a["24h"].numTxs, 1);
+    boundary.setMarketActivity({ a: { "24h": { numTxs: 2 } } });
+    host.flushFrames();
+    const ignored = render("a", ["a"], { shouldFetch: false });
+    assert.notEqual(ignored.marketActivity, one.marketActivity); // source caches a shallow copy, but returned the first projection
+    assert.deepEqual(ignored.marketActivity, one.marketActivity);
+    assert.equal(
+      render("a", ["a"], { shouldFetch: false }).marketActivity,
+      ignored.marketActivity,
+    );
+    assert.equal(ignored.marketActivity.a["24h"].numTxs, 1);
+    assert.equal(boundary.store.getState().marketActivity.a["24h"].numTxs, 2);
+    boundary.setMarketActivity({ a: { "24h": { volumeUSD: 3 } } });
+    host.flushFrames();
+    const changed = render("a", ["a"], { shouldFetch: false });
+    assert.notEqual(changed.marketActivity, one.marketActivity);
+    assert.equal(changed.marketActivity.a["24h"].volumeUSD, 3);
+    assert.deepEqual(
+      render("off", ["a"], { readBack: false }).marketActivity,
+      {},
+    );
+    assert.deepEqual(render("empty", []).marketActivity, {});
+    host.setResult({ data: { b: { "24h": { volumeUSD: 4 } } } });
+    render("late", ["b"]);
+    boundary.store.getState().clearMarketActivity();
+    host.drainMicrotasks();
+    host.flushFrames();
+    assert.equal(
+      boundary.store.getState().marketActivity.b["24h"].volumeUSD,
+      4,
+    ); // source has no microtask cancellation on clear
+  });
+  test(`${tag}: refetch missing24h guard uses committed state and awaits invalidate before refetch`, async () => {
+    const { render, host, boundary } = setup({ query: q.sha256 });
+    const read = render("a", ["a"]);
+    await read.refetchMints([]);
+    assert.deepEqual(host.sequence, []);
+    boundary.setMarketActivity({ a: { "24h": { volumeUSD: 1 } } });
+    await read.refetchMints(["a"]);
+    assert.deepEqual(host.sequence, ["invalidate", "refetch"]);
+    host.flushFrames();
+    await read.refetchMints(["a"]);
+    assert.equal(host.sequence.length, 2);
+    await read.refetchMints(["b"]);
+    assert.deepEqual(host.sequence, [
+      "invalidate",
+      "refetch",
+      "invalidate",
+      "refetch",
+    ]);
+    assert.deepEqual(host.invalidations[0], {
+      queryKey: ["marketActivity", "a"],
+    });
+  });
+  test(`${tag}: inclusive freshness boundary, stale global mint and stale cached query are distinct`, async () => {
+    const hooks = manualReact(),
+      host = localStatePorts();
+    host.ports.React = hooks.React;
+    let value = 0;
+    host.ports.fetchBatch = async (mints, options) => {
+      host.requests.push({ mints, options });
+      return { a: { "24h": { volumeUSD: ++value } } };
+    };
+    const b = createMarketActivityState({
+      queryVariant: q.sha256,
+      storeVariant: storeVariants[0].sha256,
+      ...host.ports,
+      helpers: createHelperPort(helperVariants[0].sha256),
+    });
+    hooks.render("a", () => b.useMarketActivity(["a"]));
+    const opts = host.options();
+    await opts.queryFn({ queryKey: opts.queryKey });
+    host.flushFrames();
+    const entry = {
+      queryKey: ["marketActivity", "other"],
+      state: {
+        data: { a: { "24h": { volumeUSD: 7 } } },
+        dataUpdatedAt: 1_000_000,
+        isInvalidated: false,
+      },
+    };
+    host.cacheEntries.push(entry);
+    host.setTime(1_300_000);
+    assert.equal(
+      (await opts.queryFn({ queryKey: opts.queryKey })).a["24h"].volumeUSD,
+      7,
+    );
+    assert.equal(host.requests.length, 1); // equality at cutoff passes both gates
+    host.setTime(1_300_001);
+    entry.state.dataUpdatedAt = 1_300_001;
+    assert.equal(
+      (await opts.queryFn({ queryKey: opts.queryKey })).a["24h"].volumeUSD,
+      2,
+    );
+    assert.equal(host.requests.length, 2); // fresh query, stale mint
+    host.setTime(1_300_010);
+    entry.state.dataUpdatedAt = 1_000_000;
+    assert.equal(
+      (await opts.queryFn({ queryKey: opts.queryKey })).a["24h"].volumeUSD,
+      3,
+    );
+    assert.equal(host.requests.length, 3); // fresh mint, stale query
+  });
+  test(`${tag}: stale generation completion still refreshes mint timestamp but cannot patch store`, async () => {
+    const hooks = manualReact(),
+      host = localStatePorts();
+    host.ports.React = hooks.React;
+    const pending = [];
+    host.ports.fetchBatch = (mints, options) =>
+      new Promise((resolve) => pending.push({ resolve, mints, options }));
+    const b = createMarketActivityState({
+      queryVariant: q.sha256,
+      storeVariant: storeVariants[0].sha256,
+      ...host.ports,
+      helpers: createHelperPort(helperVariants[0].sha256),
+    });
+    hooks.render("a", () => b.useMarketActivity(["a"]));
+    const opts = host.options();
+    const first = opts.queryFn({ queryKey: opts.queryKey }),
+      second = opts.queryFn({ queryKey: opts.queryKey });
+    pending[1].resolve({ a: { "24h": { volumeUSD: 2 } } });
+    await second;
+    host.flushFrames();
+    host.setTime(2_000_000);
+    pending[0].resolve({ a: { "24h": { volumeUSD: 1 } } });
+    await first;
+    host.flushFrames();
+    assert.equal(b.store.getState().marketActivity.a["24h"].volumeUSD, 2);
+    host.cacheEntries.push({
+      queryKey: ["marketActivity", "fresh"],
+      state: {
+        data: { a: { "24h": { volumeUSD: 7 } } },
+        dataUpdatedAt: 2_000_000,
+        isInvalidated: false,
+      },
+    });
+    assert.equal(
+      (await opts.queryFn({ queryKey: opts.queryKey })).a["24h"].volumeUSD,
+      7,
+    );
+    assert.equal(pending.length, 2);
+    assert.equal(b.store.getState().marketActivity.a["24h"].volumeUSD, 2);
+  });
+  test(`${tag}: injected reader rejection propagates with signal; hook adds no error result field`, async () => {
+    const hooks = manualReact(),
+      host = localStatePorts();
+    host.ports.React = hooks.React;
+    const error = Error("finite injected reader rejection"),
+      signal = new AbortController().signal;
+    host.ports.fetchBatch = async (_mints, options) => {
+      assert.equal(options.signal, signal);
+      throw error;
+    };
+    const b = createMarketActivityState({
+      queryVariant: q.sha256,
+      storeVariant: storeVariants[0].sha256,
+      ...host.ports,
+      helpers: createHelperPort(helperVariants[0].sha256),
+    });
+    host.setResult({ isLoading: false, isError: true, error });
+    const result = hooks.render("a", () => b.useMarketActivity(["a"]));
+    assert.equal(result.loading, false);
+    assert.equal(Object.hasOwn(result, "error"), false);
+    await assert.rejects(
+      host.options().queryFn({ signal, queryKey: host.options().queryKey }),
+      (e) => e === error,
+    );
+    assert.deepEqual(b.store.getState().marketActivity, {});
+    assert.equal(host.batches[0].size, 0);
+  });
+}
+test("all six existing helper contexts are exact qualification ports, not generic deep equality", () => {
+  for (const variant of helperVariants) {
+    const h = createHelperPort(variant.sha256);
+    assert.deepEqual(h.$(["b", "a", "a", ""], 1), [["a"], ["b"]]);
+    assert.deepEqual(h.P({ a: { "24h": {} }, b: { "1h": {} } }, ["a", "b"]), [
+      "b",
+    ]);
+    assert.equal(
+      h.c(
+        { a: { "24h": { volumeUSD: 1, numTxs: 1 } } },
+        { a: { "24h": { volumeUSD: 1, numTxs: 2 } } },
+      ),
+      true,
+    );
+    assert.equal(
+      h.c(
+        { a: { "24h": { volumeUSD: 1 } } },
+        { a: { "24h": { volumeUSD: 2 } } },
+      ),
+      false,
+    );
+  }
+});
+test("native queueMicrotask control preserves seed-before-frame phase distinction", async () => {
+  const { render, host, boundary } = setup({ nativeMicrotasks: true });
+  host.setResult({ data: { a: { "24h": { volumeUSD: 1 } } } });
+  render("a", ["a"]);
+  assert.equal(host.batches[0].size, 0);
+  await Promise.resolve();
+  assert.equal(host.batches[0].size, 1);
+  assert.deepEqual(boundary.store.getState().marketActivity, {});
+  host.flushFrames();
+  assert.equal(boundary.store.getState().marketActivity.a["24h"].volumeUSD, 1);
+});
+test("explicit own string query/store/helper variants required", () => {
+  for (const variant of [
+    "unknown",
+    "toString",
+    "constructor",
+    "__proto__",
+    null,
+    undefined,
+  ]) {
+    assert.throws(
+      () =>
+        createMarketActivityState({
+          queryVariant: variant,
+          storeVariant: variant,
+        }),
+      /explicit supported201629/,
+    );
+    assert.throws(() => createHelperPort(variant), /explicit supported680930/);
+  }
+});
+
+test("actual source verifier rejects client, fixture, variant, consumer, port and semantics tampering", async () => {
+  const dir = new URL(
+      "../reconstruction/market-activity-state/",
+      import.meta.url,
+    ),
+    code = await readFile(new URL("client.mjs", dir), "utf8"),
+    fixture = await readFile(
+      new URL("qualification/helper-ports.mjs", dir),
+      "utf8",
+    ),
+    contract = JSON.parse(await readFile(new URL("contract.json", dir)));
+  assert.equal((await verify()).witnesses, 131);
+  for (const change of [
+    (c) => {
+      c.variants[201629].pop();
+    },
+    (c) => {
+      c.variants[372743].pop();
+    },
+    (c) => {
+      c.witnesses[0].sha256 = "0".repeat(64);
+    },
+    (c) => {
+      c.callers[0].calls[0].utf16[0]++;
+    },
+    (c) => {
+      c.runtimePorts = [];
+    },
+    (c) => {
+      c.mounted = true;
+    },
+  ]) {
+    const c = structuredClone(contract);
+    change(c);
+    await assert.rejects(verify(undefined, { code, fixture, contract: c }));
+  }
+  for (const [key, from, to] of [
+    ["code", "queueMicrotask(e)", "queueMicrotask(() => {})"],
+    ["fixture", "volumeUSD", "numTxs"],
+  ]) {
+    const changed = (key === "code" ? code : fixture).replace(from, to);
+    assert.notEqual(changed, key === "code" ? code : fixture);
+    await assert.rejects(
+      verify(undefined, { code, fixture, contract, ...{ [key]: changed } }),
+    );
+  }
+});

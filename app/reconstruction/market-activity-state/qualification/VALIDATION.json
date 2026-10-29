@@ -1,0 +1,79 @@
+{
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "runtimeFreeze": "292e5d4778a7d16b8dfcf04b4cb82e1a6fe89d31",
+  "sourceGate": {
+    "witnesses": 131,
+    "sourceEntries": 17,
+    "queryVariants": 3,
+    "storeVariants": 5,
+    "qualificationHelperVariants": 6,
+    "callerCalls": 3
+  },
+  "capturedSourceWitnessesUnchangedSince": "fc579ac4b883544c2684f933dcc8b92e89cecb10",
+  "direct": {
+    "passed": 33,
+    "failed": 0,
+    "log": "focused.log",
+    "actualVerifierNegativeMutations": 8
+  },
+  "sharedReader": {
+    "passed": 11,
+    "failed": 0,
+    "log": "shared-source.log"
+  },
+  "browser": {
+    "passed": 6,
+    "failed": 0,
+    "pageErrors": 0,
+    "queryVariants": 3,
+    "storeContexts": 1,
+    "helperContexts": 1,
+    "inputs": 13,
+    "browserClosed": true,
+    "serverListening": false,
+    "scope": "RealReact; injected local query/cache/provider/frame capabilities and native microtask. No data HTTP/provider service."
+  },
+  "historical": {
+    "initialOracle": {
+      "passed": 16,
+      "failed": 8,
+      "log": "historical-oracle.log",
+      "cause": "Absent-window seed and first-projection/cached-copy reference expectations; source function bodies unchanged."
+    },
+    "authoredDispatcher": {
+      "beforeCommit": "2755510947e914314768a4433de324bcac63eb28",
+      "log": "historical-prototype-variant.log",
+      "correctedRuntimeCommit": "292e5d4778a7d16b8dfcf04b4cb82e1a6fe89d31",
+      "cause": "Inherited object keys were accepted as variant factories. Own string-key guard added before browser; no original-source defect/security claim."
+    },
+    "inputs": [
+      {
+        "localCommit": "fc579ac4b883544c2684f933dcc8b92e89cecb10",
+        "sourcePath": "app/tests/original_market_activity_state.test.mjs",
+        "gitBlob": "c1cad8b25738c10d2a408a8ece236ff5b96e5e8d",
+        "bytes": 14113,
+        "sha256": "b667d7faebddc403f0e6a2c158b7dee1d9e1affc0eb08cb430e52099d9022bd2",
+        "inertFile": "historical-oracle-test.source.txt"
+      },
+      {
+        "localCommit": "2755510947e914314768a4433de324bcac63eb28",
+        "sourcePath": "app/reconstruction/market-activity-state/client.mjs",
+        "gitBlob": "f424aaffcee99f68bb8948483488ed5b42af8abc",
+        "bytes": 25431,
+        "sha256": "15e6884e8aff93c59b79a6ee57a74864489f98aac47ffb5532532a37ab10d948",
+        "inertFile": "historical-dispatch-client.source.txt"
+      },
+      {
+        "localCommit": "2755510947e914314768a4433de324bcac63eb28",
+        "sourcePath": "app/reconstruction/market-activity-state/qualification/helper-ports.mjs",
+        "gitBlob": "dbfca27739408520963c4c674a2cb09aa53a78eb",
+        "bytes": 9223,
+        "sha256": "c399f14b770a8d2676ef0fed505f3fc23984c068d9ac0fea0e760f64a238a130",
+        "inertFile": "historical-dispatch-helper.source.txt"
+      }
+    ],
+    "ancestryLimit": "Historical local commits are metadata, not guaranteed public ancestors; exact inert bytes are included independently."
+  },
+  "mounted": false,
+  "productionOperationsQualified": 0
+}
