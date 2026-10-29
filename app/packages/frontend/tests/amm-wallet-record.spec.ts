@@ -78,6 +78,45 @@ const panel = (page: Page) => page.getByTestId("public-amm-record"),
       name: "Read public PumpSwap record",
       exact: true,
     });
+test("actual compiled shared handler and SDK decoder serve controlled90B data under Next", async ({
+  page,
+}) => {
+  test.skip(
+    process.env.AMM_RECORD_FIXTURE_TEST !== "1",
+    "Explicit temporary loopback fixture runner only",
+  );
+  let completed!: (value: { status: number; body: unknown }) => void;
+  const actual = new Promise<{ status: number; body: unknown }>((resolve) => {
+    completed = resolve;
+  });
+  await page.route("**/api/portfolio/amm-record?*", async (route) => {
+    const target = new URL("/amm-record-test-fixture", route.request().url());
+    target.search = new URL(route.request().url()).search;
+    const response = await route.fetch({ url: target.toString() });
+    completed({ status: response.status(), body: await response.json() });
+    await route.fulfill({ response });
+  });
+  await load(page);
+  await read(page).click();
+  const response = await actual;
+  expect(response.status).toBe(200);
+  expect(response.body).toMatchObject({
+    ok: true,
+    programId: PUMP_AMM_PROGRAM_ID.toBase58(),
+    dataBytes: 90,
+    contextSlot: 654,
+    endpointHost: "controlled-fixture.example",
+    record: {
+      user: USER,
+      lastUpdateTimestamp: "-9",
+      totalUnclaimedTokens: ((1n << 64n) - 42n).toString(),
+    },
+  });
+  expect(JSON.stringify(response.body)).not.toContain("stableCashback");
+  await expect(result(page)).toContainText(((1n << 64n) - 42n).toString());
+  await expect(result(page)).toContainText("controlled-fixture.example");
+  await expect(result(page)).not.toContainText("stable-cashback");
+});
 test("explicit AMM read omits credentials and displays exact independent stored counters", async ({
   page,
   context,

@@ -1,0 +1,34 @@
+// Installed only by the explicit loopback development fixture helper.
+import { PublicKey } from "@solana/web3.js";
+import { handleAmmWalletRecord } from "../amm-wallet-record/handler";
+import { readAmmWalletRecordWithRpc, walletKey } from "../amm-wallet-record/server";
+import contract from "../amm-wallet-record/contract.json";
+import { MAINNET_GENESIS_HASH } from "../portfolio/types";
+import type { RpcCall } from "../portfolio/rpc";
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export async function GET(request: Request) {
+  const host = new URL(request.url).hostname;
+  if (process.env.AMM_RECORD_FIXTURE_TEST !== "1" || process.env.NODE_ENV !== "development" || !["127.0.0.1","localhost"].includes(host)) return new Response(null,{status:404});
+  return handleAmmWalletRecord(request, async(address, options={}) => {
+    const user=walletKey(address);
+    const [pda]=PublicKey.findProgramAddressSync([Buffer.from(contract.pdaSeed),user.toBuffer()],new PublicKey(contract.programId));
+    const data=Buffer.alloc(contract.minimumBytes);
+    Buffer.from(contract.discriminator).copy(data);
+    for(const field of contract.fields){
+      const offset=field.bytes[0];
+      if(field.type==="pubkey") user.toBuffer().copy(data,offset);
+      else if(field.type==="bool") data[offset]=Number(field.name==="needs_claim");
+      else if(field.type==="u64") data.writeBigUInt64LE((1n<<64n)-1n-BigInt(offset),offset);
+      else if(field.type==="i64") data.writeBigInt64LE(-9n,offset);
+    }
+    const call:RpcCall=async(method,params,signal)=>{
+      signal?.throwIfAborted();
+      if(method==="getGenesisHash") return MAINNET_GENESIS_HASH;
+      if(method!=="getAccountInfo" || JSON.stringify(params)!==JSON.stringify([pda.toBase58(),{encoding:"base64",commitment:"confirmed"}])) throw new Error("Unsupported controlled fixture call");
+      return {context:{slot:654},value:{owner:contract.programId,executable:false,lamports:1,space:data.length,data:[data.toString("base64"),"base64"]}};
+    };
+    try{return await readAmmWalletRecordWithRpc(address,call,"controlled-fixture.example",options.signal)}
+    catch(error){console.error("Controlled AMM fixture shared-reader failure",error);throw error}
+  });
+}

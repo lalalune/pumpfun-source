@@ -86,8 +86,13 @@ stale-type failures are retained, as is a mistaken test assumption that the Pump
 codec would throw on a short buffer; the measured control replaced that
 assumption without weakening application admission.
 
-Fourteen new mounted-browser cases and the existing Pump target are prepared.
-Actual Next/browser, complete production build and live-chain observations are
-not yet claimed. Synthetic public accounts are finite test inputs, not evidence
+Fifteen new mounted-browser cases and the existing Pump target are prepared.
+The test runner temporarily installs a loopback/development/flag-gated fixture
+route that imports the actual shared handler/reader and decodes a controlled
+90-byte account under Next. Its bytes are hashed on installation/removal; the
+route is absent from the product commit. This is separate from the production
+route’s unconfigured503 admission test. Configured production-route success
+and public-mainnet transport remain untested. Actual Next/browser, complete
+production build and live-chain observations are not yet claimed. Synthetic public accounts are finite test inputs, not evidence
 of production balances or eligibility. Feature-progress/native-operation counts
 remain unchanged.
