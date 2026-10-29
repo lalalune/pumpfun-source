@@ -319,7 +319,9 @@ async function authenticateRecord(root, record) {
     throw new Error(`capture hash mismatch: ${record.path}`);
   let text;
   try {
-    text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes);
+    text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(
+      bytes,
+    );
   } catch {
     throw new Error(`invalid UTF-8: ${record.path}`);
   }
@@ -341,13 +343,19 @@ export async function buildGraph(root, options = {}) {
     throw new Error("unsupported source range encoding");
   }
 
-  const recordsByPath = new Map(
-    capture.records.map((record) => [record.path, record]),
-  );
+  const recordsByPath = new Map();
   const recordsByUrl = new Map();
   for (const record of capture.records) {
-    recordsByUrl.set(record.url, record);
-    if (record.final_url) recordsByUrl.set(record.final_url, record);
+    if (record.path !== undefined) {
+      if (recordsByPath.has(record.path))
+        throw new Error(`duplicate capture path: ${record.path}`);
+      recordsByPath.set(record.path, record);
+    }
+    for (const url of new Set([record.url, record.final_url].filter(Boolean))) {
+      if (recordsByUrl.has(url) && recordsByUrl.get(url) !== record)
+        throw new Error("ambiguous capture URL identifies multiple records");
+      recordsByUrl.set(url, record);
+    }
   }
   const sourceCache = new Map();
   const getCapture = async (path) => {
@@ -369,6 +377,24 @@ export async function buildGraph(root, options = {}) {
     const formatted = await readFile(formattedPath, "utf8");
     let authenticatedSource;
     for (const origin of module.origins) {
+      const record = recordsByPath.get(origin.source);
+      if (!record) throw new Error(`unmanifested capture: ${origin.source}`);
+      if (record.status !== 200)
+        throw new Error(
+          `factory source is not a successful capture: ${origin.source}`,
+        );
+      if (origin.url !== record.url)
+        throw new Error(
+          `factory origin URL differs from capture: ${module.path}`,
+        );
+      let scriptUrl;
+      try {
+        scriptUrl = new URL(record.url);
+      } catch {
+        throw new Error(`invalid JavaScript capture URL: ${origin.source}`);
+      }
+      if (!scriptUrl.pathname.endsWith(".js"))
+        throw new Error(`not a JavaScript capture URL: ${origin.source}`);
       const captured = await getCapture(origin.source);
       if (
         !Number.isSafeInteger(origin.start) ||
@@ -905,10 +931,14 @@ export async function verifyGraph(root, outputRelative, options = {}) {
   }
   const rebuilt = await buildGraph(root, options);
   const listed = manifest.files.map((entry) => entry.path);
-  if (new Set(listed).size !== listed.length ||
-      listed.length !== Object.keys(rebuilt).length ||
-      Object.keys(rebuilt).some((name) => !listed.includes(name)))
-    throw new Error("generated evidence inventory differs from rebuilt reports");
+  if (
+    new Set(listed).size !== listed.length ||
+    listed.length !== Object.keys(rebuilt).length ||
+    Object.keys(rebuilt).some((name) => !listed.includes(name))
+  )
+    throw new Error(
+      "generated evidence inventory differs from rebuilt reports",
+    );
   for (const entry of manifest.files) {
     if (!(entry.path in rebuilt))
       throw new Error(`generated evidence is not reproducible: ${entry.path}`);

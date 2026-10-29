@@ -20,6 +20,12 @@ pnpm test:graph
 
 ## Source authentication
 
+Requires unambiguous capture paths and requested/final URL aliases before
+indexing records. Each factory origin must name its record's requested URL and
+an HTTP-200 JavaScript capture, matching the inventory/source-reader boundary.
+Redirect targets remain aliases for HTML asset association; they do not replace
+the recorded acquisition URL in factory provenance.
+
 For every recovered variant, the analyzer:
 
 1. Requires the origin to exist in `evidence/web/manifest.json`.
