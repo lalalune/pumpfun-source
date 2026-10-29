@@ -204,6 +204,8 @@ def table_block(node: Node) -> dict[str, Any]:
         cells = []
         for child in row.children:
             if isinstance(child, Node) and child.tag in {"th", "td"}:
+                if any(child.attrs.get(key) not in (None, "1") for key in ("colspan", "rowspan")):
+                    raise ExtractionError("Unsupported table cell span")
                 cells.append(
                     {
                         "header": child.tag == "th",
