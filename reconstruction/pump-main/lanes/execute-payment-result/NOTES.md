@@ -1,6 +1,26 @@
-> Historical partial result on b08fd90. The current source and validation are
-> in ../v3-sellv2-integration/NOTES.md; these earlier receipts do not qualify
-> the new source or claim additional matches.
+> Historical comparisons, preserved from the earlier source and concurrent review.
+> The no-loss integration in ../v3-sellv2-integration/NOTES.md supersedes the
+> standalone-patch merge recommendation below; it combines #1539 with #1565.
+
+# Current-main comparison and choice (2026-10-29)
+
+Base `094a06f18df738d41e77070c1a009e135671ac1a`; #1479 source `d6b0c3a421ac1c79b98255235f70c6cb15e2722c`; #1539 source `8803c0dff736fa99dfc2e104234f301596424da1` merged cleanly onto this base as `22dce395c1c792385249c7bdd414e52248080b85`.
+
+| Fresh image | Normalized / raw | Execute bytes | Ratio | Lost memberships |
+| --- | --- | --- | --- | --- |
+| Main | 1024 / 277 | 3448 | 0.97278 | — |
+| #1479 labelled result | 1024 / 276 | 3440 | 0.985782 | raw 0xa868 |
+| #1539 split selection | 1025 / 276 | 3440 | 1.0 | raw 0xa868 |
+
+**Choice: prefer [#1539](https://github.com/lalalune/pumpfun-source/pull/1539)'s split-selection implementation, not both alternative rewrites.** It recovers the complete normalized 0x83c00 target while #1479 still differs in 24 slots. Both preserve all 22 ordered original/control callee signatures. Both lose the same raw window; neither passes the no-loss gate. Keep #1479 draft as the retained partial-source comparison, not an independently merge-ready rewrite. Its old zero-loss claim is historical and does not apply to this base. No unvalidated compensating layout change is included.
+
+Both fresh candidates independently replay 255 buy/exact-quote cases against original and current control: 765 signature-verified transactions per candidate (1,530 executions total, repeated original/control runs). Both report zero differences/regressions for errors, accounts, inner instructions, events, return data and ordered non-meter logs. Bounded fixture coverage still does not force the internal payment-add overflow or establish general equivalence.
+
+`main094-validation.json` binds source trees, exact alternative patches, binaries, runtime inputs and compressed receipts. The two comparison files retain full memberships and callee hashes. `verify_current.py` is the existing static audit adapted to this target and its 22 calls; it deliberately exits nonzero for both observed raw losses. All three root builds have no stack warnings. No compiler/scorer changes, cold dependency rebuild, repeated-build claim or full legacy CI claim.
+
+Other open overlaps: [#1554](https://github.com/lalalune/pumpfun-source/pull/1554) composes #1539 with swap changes for a different qualified toolchain; its native no-loss gate is unresolved and that composition is not tested here. [#1518](https://github.com/lalalune/pumpfun-source/pull/1518), [#1669](https://github.com/lalalune/pumpfun-source/pull/1669) and [#1164](https://github.com/lalalune/pumpfun-source/pull/1164) share trade_v3.rs but are not included in these candidates. Shared-file overlap alone is not a confirmed conflict.
+
+## Historical base b08fd90 evidence
 
 # V3 execute-buy payment result
 
