@@ -1,0 +1,49 @@
+{
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "tested_source_commit": "529ab9b2be53e6bfd1d5da757b65a29c212ef86f",
+  "files": {
+    "app/reconstruction/market-board-response/README.md": {
+      "git_blob": "dedb6b469147d643a684fcc4602c792276788335",
+      "sha256": "639a9d2b60c9b8096019eeb54fa7271383f8dbe8d15b8aa5ec63265774ab5947"
+    },
+    "app/reconstruction/market-board-response/contract.json": {
+      "git_blob": "ff165ed5683da87ba24ee5904168a15c625b6d6b",
+      "sha256": "5897328faf9c21393ffedc6a411332f3362770f0f53bdd8c826580ea76faad38"
+    },
+    "app/reconstruction/market-board-response/response.mjs": {
+      "git_blob": "b8b823d0834671edf3b3f465b8934e90e541b328",
+      "sha256": "3a20cf5e2ddccf01b3c6dc544d4be63bdc1c464bde0ddd731330cfef225a11b8"
+    },
+    "app/scripts/verify-market-board-response.mjs": {
+      "git_blob": "7bbf63daa94d287a5dbd3e60e2ae125c56151f3d",
+      "sha256": "d1510106eb2e11eece0a2e9e845f7bc8c70d524a917d0a96df93647993146047"
+    },
+    "app/tests/market_board_response.test.mjs": {
+      "git_blob": "29a3c3be7be1171ad477b8cf981835f62e416303",
+      "sha256": "53d2d099ca6949b40e6a951d911159d58110fb842b4d821acf6efba54e20cd11"
+    },
+    "app/tests/market_board_response_bindings.test.mjs": {
+      "git_blob": "b6f66b7e5215e49e50acafe20e553c1a097c6a98",
+      "sha256": "68af92ae37edc9d3074d5d555d93542a40839716b90104d843af7759d6d59aa9"
+    }
+  },
+  "results": {
+    "new_response_semantics_and_bindings": {
+      "pass": 11,
+      "fail": 0,
+      "skip": 0
+    },
+    "unchanged_market_board_request_checks": {
+      "pass": 28,
+      "fail": 0,
+      "skip": 0
+    },
+    "source_contract": 0,
+    "prettier": 0,
+    "app_evidence": "698 objects/npm/unchangedSDK PASS",
+    "progress": "PASS plus9 tests",
+    "required_root_gates": "9 captures/10 tooling PASS"
+  },
+  "scope": "Source-adapted q/d/$ algorithm with explicit clock/classification ports; both real variants authenticated. Captured JS is parsed and hashed only. No network acquisition, Next/browser, API/backend/mounted Explore/provider/native compatibility or feature credit.",
+  "preserved_setup_negative": "Progress failed on sparse-omitted tracked SOURCE.json; 16 exact base-Git files were restored. No validation or counts changed."
+}
