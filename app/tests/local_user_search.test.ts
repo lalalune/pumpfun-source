@@ -166,3 +166,52 @@ test("unchanged source query retains snapshots and identity selection for explic
     rows[3],
   ]);
 });
+
+test("local response admission rejects identifiers that cannot reach a profile route", () => {
+  const row = (identifier: string) => ({
+    address: "wallet",
+    userId: identifier,
+    identifier,
+    displayName: "Synthetic response",
+    kind: "person",
+    banned: false,
+  });
+  for (const identifier of [
+    ".",
+    "..",
+    "\ud800",
+    "\udc00",
+    "a/b",
+    "a\\b",
+    "a?b",
+    "a#b",
+    "a\u0000b",
+    "a\nb",
+    "a\u007fb",
+    " id ",
+    "x".repeat(129),
+  ]) {
+    assert.equal(
+      isLocalUserSearchRows([row(identifier)]),
+      false,
+      JSON.stringify(identifier),
+    );
+  }
+  for (const identifier of [
+    "id",
+    "valid😀",
+    "%2e",
+    "%2E%2E",
+    "%2F",
+    "%",
+    "x".repeat(128),
+  ]) {
+    assert.equal(isLocalUserSearchRows([row(identifier)]), true, identifier);
+  }
+  const walletOnly = { ...row("wallet"), userId: undefined };
+  assert.equal(isLocalUserSearchRows([walletOnly]), true);
+  assert.equal(
+    isLocalUserSearchRows([{ ...walletOnly, address: "..", identifier: ".." }]),
+    false,
+  );
+});

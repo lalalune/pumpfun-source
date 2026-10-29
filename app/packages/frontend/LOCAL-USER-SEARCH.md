@@ -78,3 +78,31 @@ fallback is configured. A valid unmatched term produces an explicit empty state.
   No original screenshot with equivalent query/data is available. The inline list
   layout, disclosure and error copy are local design; visual parity and complete
   SearchDialog/API compatibility remain unqualified. No milestone status changes.
+
+## Profile-link response admission
+
+The local HTTP response guard also applies the shared profile-route identifier
+validator before a row reaches `LocalUserSearch`. This rejects dot segments,
+route separators/control characters and unpaired UTF-16 surrogates, rather than
+letting a malformed response produce a wrong destination or throw during
+`encodeURIComponent` in render. The whole response follows the existing
+unavailable state; no row is repaired, silently filtered or replaced.
+Literal percent escapes and valid Unicode pairs remain unchanged and links
+encode the admitted identifier once. Existing response identity matching,
+first-page size, field checks and duplicate rejection are preserved.
+
+This is malformed-response containment, not a report that any of the five
+hash-pinned local profiles is malformed. The endpoint still reads only those
+synthetic seeds. No live user service or native profile parity is established.
+The shared guard is the one strengthened in PR #1270; this change does not
+reimplement or alter it.
+
+Focused validation: 13 invalid and seven valid identifier controls; actual
+maintained `LocalUserSearch` with React/NextLink in jsdom rejects injected
+surrogate and dot-segment responses into its existing unavailable state, while
+astral Unicode and literal `%2e` controls retain their exact encoded links.
+Before the response-guard change, the surrogate case throws `URIError` and the
+`..` case renders `/profile/..`, which URL normalization resolves to `/`.
+These checks use a synthetic HTTP port and no browser, real navigation,
+network, authentication or wallet. The earlier browser results above are
+historical evidence, not browser execution of this response-guard change.

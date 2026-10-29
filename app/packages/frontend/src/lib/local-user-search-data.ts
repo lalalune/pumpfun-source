@@ -1,3 +1,5 @@
+import { isValidProfileIdentifier } from "../components/profile/profile-identifier";
+
 export type LocalUserSearchRow = {
   address: string;
   userId?: string;
@@ -27,8 +29,7 @@ export function isLocalUserSearchRows(
         typeof row.displayName === "string" &&
         row.displayName.length > 0 &&
         typeof row.identifier === "string" &&
-        row.identifier.length > 0 &&
-        row.identifier.length <= 128 &&
+        isValidProfileIdentifier(row.identifier) &&
         row.identifier === (row.userId?.trim() || row.address) &&
         (row.kind === "person" || row.kind === "group") &&
         typeof row.banned === "boolean",
