@@ -26,6 +26,8 @@ def make_patch(base: Path, part: Path, out: Path, tmp: Path):
     shutil.copytree(base, tmp / 'a/pump', ignore=ign)
     shutil.copytree(part, tmp / 'b/pump', ignore=ign)
     d = subprocess.run(['diff', '-ruN', 'a/pump', 'b/pump'], cwd=tmp, capture_output=True, text=True)
+    if d.returncode not in (0, 1):
+        raise subprocess.CalledProcessError(d.returncode, d.args, output=d.stdout, stderr=d.stderr)
     out.write_text(d.stdout)
     return d.stdout
 
@@ -46,6 +48,7 @@ def main():
     shutil.copytree(a.base_src, src, ignore=shutil.ignore_patterns('target'))
     base_of = dict(x.split('=', 1) for x in a.base_of)
     report = {'name': a.name, 'base': str(a.base_src), 'parts': []}
+    exit_code = 0
     for spec in a.part:
         label, path = spec.split('=', 1)
         derived_from = Path(base_of.get(label, a.base_src))
@@ -68,10 +71,22 @@ def main():
         if res['ok']:
             s = subprocess.run([sys.executable, str(H / 'score.py'), str(out / 'build/unstripped.so'), '--json', str(out / 'score.json'), '--quiet'],
                                capture_output=True, text=True)
-            report['score'] = json.loads(s.stdout)
+            if s.returncode:
+                report['score_error'] = {'returncode': s.returncode, 'stdout': s.stdout, 'stderr': s.stderr}
+                exit_code = 1
+            else:
+                try:
+                    report['score'] = json.loads(s.stdout)
+                except json.JSONDecodeError:
+                    report['score_error'] = {'returncode': s.returncode, 'stdout': s.stdout,
+                                             'stderr': s.stderr, 'error': 'scorer returned invalid JSON'}
+                    exit_code = 1
+        else:
+            exit_code = 1
     (out / 'report.json').write_text(json.dumps(report, indent=1))
     print(json.dumps({k: v for k, v in report.items() if k != 'parts'} | {'parts': [{k: p[k] for k in ('label', 'status')} for p in report['parts']]}, indent=1))
+    return exit_code
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
