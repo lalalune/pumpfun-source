@@ -41,7 +41,9 @@ page call site.
 
 `showName` and `createdOn` occur in the captured production metadata object, but
 they are not user-editable controls in this reconstruction. `metadataUri` is not
-produced because the captured path requires a real upload first.
+produced because the captured path requires a real upload first. The advanced
+instruction inspector accepts a separate user-supplied URI without fetching it
+or claiming it belongs to this draft.
 
 ## Local-only behavior
 
@@ -51,8 +53,10 @@ descriptive local output; it is not represented as a production request or a
 metadata upload result.
 
 The following are intentionally unreachable: wallet connection, signing, RPC,
-SDK mutation calls, production API requests, file upload, IPFS pinning,
-transaction construction and token creation. The launch action stays disabled
+production API requests, file upload, IPFS pinning, transaction construction
+and token creation. The separate advanced offline inspector constructs only an
+unsigned SDK instruction from explicitly supplied public keys and metadata URI;
+see `CREATE-INSTRUCTION-PREVIEW.md` for its narrower local inspection boundary. The launch action stays disabled
 and explains this boundary. The usable action validates and previews the local
 draft only.
 

@@ -23,6 +23,7 @@ import {
   type VideoPreview,
   type VideoSelection,
 } from "./create-video-preview";
+import CreateInstructionInspector from "./create-instruction-inspector";
 
 const EMPTY_DRAFT: DraftValues = {
   name: "",
@@ -456,8 +457,13 @@ export default function CreateCoinForm() {
           <p>This is local descriptive output, not a production API payload.</p>
           <pre>{JSON.stringify(metadataPreview, null, 2)}</pre>
         </details>
+        <CreateInstructionInspector
+          key={JSON.stringify([draft.name, draft.ticker])}
+          name={draft.name}
+          ticker={draft.ticker}
+        />
         <div className="preview-disclaimer">
-          No mint address, metadata URI, transaction or launch status exists.
+          This metadata draft has not been uploaded or launched.
         </div>
       </aside>
     </div>

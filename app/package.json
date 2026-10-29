@@ -9,7 +9,7 @@
   "scripts": {
     "build": "pnpm --filter @pump-fun/pump-sdk build && pnpm --filter @pump-reconstruction/backend build && pnpm --filter @pump-reconstruction/frontend build",
     "dev": "pnpm --parallel --filter @pump-reconstruction/backend --filter @pump-reconstruction/frontend dev",
-    "test": "pnpm --filter @pump-reconstruction/backend test && node --test tests/*.test.mjs && pnpm test:explore && pnpm test:feed && pnpm test:profile && pnpm test:mayhem && pnpm test:live && pnpm test:go && pnpm test:references && pnpm test:portfolio && python3 -m unittest discover -s tests -p \"test_capture*.py\" && python3 -m unittest discover -s tests -p \"test_verify_evidence.py\" && pnpm test:settings && pnpm test:notifications && pnpm test:public-wallet",
+    "test": "pnpm --filter @pump-reconstruction/backend test && node --test tests/*.test.mjs && pnpm test:explore && pnpm test:feed && pnpm test:profile && pnpm test:mayhem && pnpm test:live && pnpm test:go && pnpm test:references && pnpm test:portfolio && python3 -m unittest discover -s tests -p \"test_capture*.py\" && python3 -m unittest discover -s tests -p \"test_verify_evidence.py\" && pnpm test:settings && pnpm test:notifications && pnpm test:public-wallet && pnpm test:create-instruction",
     "test:public-wallet": "node scripts/original-contracts/public-wallet/verify.mjs --check && node --experimental-strip-types --test tests/public_wallet.test.ts",
     "test:explore": "node --experimental-strip-types --test tests/explore_snapshot.test.ts",
     "test:feed": "node --experimental-strip-types --test tests/home_feed.test.ts tests/native_home_feed.test.ts",
@@ -37,7 +37,8 @@
     "smoke": "node scripts/smoke.mjs",
     "progress": "python3 scripts/progress.py",
     "check:progress": "python3 scripts/progress.py --check && python3 -m unittest discover -s tests -p \"test_progress.py\"",
-    "test:notifications": "pnpm --filter @pump-reconstruction/backend exec node --import tsx --test ../../tests/notification_state.test.ts"
+    "test:notifications": "pnpm --filter @pump-reconstruction/backend exec node --import tsx --test ../../tests/notification_state.test.ts",
+    "test:create-instruction": "pnpm --filter @pump-reconstruction/backend exec node --import tsx --test ../../tests/create_instruction_preview.test.ts"
   },
   "devDependencies": {
     "prettier": "3.6.2",
