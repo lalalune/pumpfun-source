@@ -1,6 +1,6 @@
 {
   "algorithm": "sha256",
-  "scope": "Every packet file except this manifest; PRE-BROWSER remains the preserved earlier phase.",
+  "scope": "Every packet file except this manifest; earlier PRE-BROWSER/POST-BROWSER remain preserved phases.",
   "files": {
     "BROWSER-SUMMARY.json": "3088a3d31457b9f032d5b6630b2d1e7660512c8f8a1e5c90536ef1720494c0cf",
     "BROWSER.json": "568a0548f290c55d8a6f3bd8fa26256fa555ed237a7691e903e5855ee5a669b7",
@@ -20,6 +20,21 @@
     "progress-hydration.json": "6d2801344c1353a26b29b9a500c653723576af8c683f9dbea826b9e5321044b2",
     "progress-sparse-negative.log.gz": "e86e4e3f0344eabf004ebf8a29caedcb9341429bf2de034313f613e6de75ca99",
     "progress.log.gz": "7d18333239b091e6658ff951c58518f98867595b92ff2aa127b4b57a95bdd45a",
+    "root-production/SOURCE-UNCHANGED.json": "b475eed728a90c48cf942e47817e8f5d2cee079a1acd5051375e6cb852ae1ed4",
+    "root-production/build.log.gz": "55e799dba79374867287f5f06177113c805c59b2c29b00051e0b31dbe9c4db3c",
+    "root-production/checks.json": "d8b5ffa258d8fd3bc459943afa36e78d1e9b7351b2316c0f523fca2f430000cf",
+    "root-production/evidence.log.gz": "f7c2997aebcd8bf091c42d182b686232717b068f917874f9c8700a7efc77fd53",
+    "root-production/inactive-cache-cleanup.json": "99f210ec257370e5eff117c9b3fd18278fe66221d2780dfc06875252f3648fc3",
+    "root-production/prior-interrupted-run.json": "9fc2b4a8500d6a4af099718c57d31991d61399fb9de0cfddd5d01d1f64c141d7",
+    "root-production/progress.log.gz": "e9d653031a4c0fad8fcd2fcb8246b07f97f2422b97fae4df080a0ff021efcb30",
+    "root-production/retained-next-BUILD_ID": "cd4dae5391b9e0d0efe0aa1af187113e78c505f0a06ea95d34093465338777fa",
+    "root-production/retained-next-build-manifest.json": "035bb80d52a5d4956c95fdb13d07af8d53ea109b553477649e3645f7f730d22c",
+    "root-production/retained-next-prerender-manifest.json": "36efeda8885c33fadcce9a9207f3ee49c463b346fa819cb832bd6d0c02f07e53",
+    "root-production/retained-next-required-server-files.json": "f8f3d7d79a7ac0bba940d44090550cc5d8222e2f47f444bc6daf0fb4b0deb6c0",
+    "root-production/retained-next-routes-manifest.json": "acd62268e99079ffb0f02d601dc2325a6212c1f598f86aa77366136de1d3f1b0",
+    "root-production/retained-next-server--app-paths-manifest.json": "882ba5b7a58b5c28e44ab860ac1429b2e839609ddf7bbdb2172ee25c75d9767e",
+    "root-production/retained-next-server--pages-manifest.json": "c354059caa217e72bdeb145e351b2038990972872c52df215cb1e4105c35097b",
+    "root-production/typecheck.log.gz": "4cdc860e8b70a5628bf9a16a5b1f72a015701f93062e18581116b83f8ba068a0",
     "source-generate.log.gz": "1217cd641954cb6cd27117c017457365f13f6db4f33a4933c5e56ca7f70f2188",
     "typecheck-frozen.log.gz": "fea44dc04bb03e039043f39595fc47652f81e2f4c7874bb8afa7464565c4c336"
   }

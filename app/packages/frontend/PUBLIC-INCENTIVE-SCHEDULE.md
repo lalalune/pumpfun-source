@@ -69,9 +69,20 @@ viewport observations, not full-page or original visual parity proof. The deskto
 image is 1440 pixels wide and the mobile image is 320 pixels wide; the table has
 its own keyboard-focusable horizontal scroll area for exact wide integers.
 
-Normal production qualification remains pending. Controlled compiled-fixture
-success does not establish configured production or live-mainnet success. The
-unconfigured production-route guard only proves closed configuration behavior.
+Independent normal production qualification at exact public source
+`60b6bae73d661444b6e80680e418be9dc92c417a` passes all four checks: the pinned
+SDK/backend/Next production build, recursive workspace TypeScript, 698-object npm
+and unchanged-SDK evidence, and progress plus nine tests. The compressed complete
+logs, check receipt and seven retained Next manifests are under the visual packet's
+`root-production/` directory. An earlier interrupted orchestration has its own
+qualified note; no exit result or pass is inferred from that attempt, and its
+replaced partial log is not represented as complete evidence. Later publication
+changes only this document and receipt files; the remaining tracked app tree is
+bound by an unchanged Git-blob-map digest.
+
+Controlled compiled-fixture success and a passing production build do not
+establish configured production or live-mainnet success. The unconfigured
+production-route guard only proves closed configuration behavior.
 
 Run from `app/` with the pinned pnpm 10.24 environment:
 

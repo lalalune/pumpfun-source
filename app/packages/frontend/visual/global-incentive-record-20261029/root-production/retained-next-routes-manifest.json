@@ -1,0 +1,188 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "onMatchHeaders": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [
+      {
+        "source": "/api/compat/:path*",
+        "destination": "http://127.0.0.1:3001/:path*",
+        "regex": "^/api/compat(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))?(?:/)?$"
+      }
+    ],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/profile/[id]",
+      "regex": "^/profile/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/profile/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/[...slug]",
+      "regex": "^/(.+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/(?<nxtPslug>.+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/api/go-bounties",
+      "regex": "^/api/go\\-bounties(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/go\\-bounties(?:/)?$"
+    },
+    {
+      "page": "/api/holder-rewards/configuration",
+      "regex": "^/api/holder\\-rewards/configuration(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/holder\\-rewards/configuration(?:/)?$"
+    },
+    {
+      "page": "/api/leaderboard",
+      "regex": "^/api/leaderboard(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/leaderboard(?:/)?$"
+    },
+    {
+      "page": "/api/local-users/search",
+      "regex": "^/api/local\\-users/search(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/local\\-users/search(?:/)?$"
+    },
+    {
+      "page": "/api/mayhem-screener",
+      "regex": "^/api/mayhem\\-screener(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/mayhem\\-screener(?:/)?$"
+    },
+    {
+      "page": "/api/portfolio",
+      "regex": "^/api/portfolio(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/portfolio(?:/)?$"
+    },
+    {
+      "page": "/api/portfolio/incentive-record",
+      "regex": "^/api/portfolio/incentive\\-record(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/portfolio/incentive\\-record(?:/)?$"
+    },
+    {
+      "page": "/api/portfolio/pump-record",
+      "regex": "^/api/portfolio/pump\\-record(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/portfolio/pump\\-record(?:/)?$"
+    },
+    {
+      "page": "/docs/fees",
+      "regex": "^/docs/fees(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/docs/fees(?:/)?$"
+    },
+    {
+      "page": "/docs/privacy-policy",
+      "regex": "^/docs/privacy\\-policy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/docs/privacy\\-policy(?:/)?$"
+    },
+    {
+      "page": "/docs/terms-and-conditions",
+      "regex": "^/docs/terms\\-and\\-conditions(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/docs/terms\\-and\\-conditions(?:/)?$"
+    },
+    {
+      "page": "/explore",
+      "regex": "^/explore(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/explore(?:/)?$"
+    },
+    {
+      "page": "/go",
+      "regex": "^/go(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/go(?:/)?$"
+    },
+    {
+      "page": "/leaderboard",
+      "regex": "^/leaderboard(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/leaderboard(?:/)?$"
+    },
+    {
+      "page": "/live",
+      "regex": "^/live(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/live(?:/)?$"
+    },
+    {
+      "page": "/mayhem",
+      "regex": "^/mayhem(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/mayhem(?:/)?$"
+    },
+    {
+      "page": "/portfolio",
+      "regex": "^/portfolio(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/portfolio(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

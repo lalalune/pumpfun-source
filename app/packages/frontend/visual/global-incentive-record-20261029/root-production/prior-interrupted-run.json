@@ -1,0 +1,11 @@
+{
+  "scope": "Prior orchestration reached SDK DTS and backend tsc before environment continuation; process absent, no checks.json or exit result. Full aggregate restarted once; no pass inferred from interrupted run.",
+  "knownPartialBuildLogBytes": 1392,
+  "observedTail": [
+    "DTS dist/index.d.mts 1.05 MB",
+    "DTS dist/swap/index.d.mts 179.60 KB",
+    "DTS dist/pump_amm-FTAU0jGh.d.mts 294.43 KB",
+    "backend build: tsc -p tsconfig.json"
+  ],
+  "rawPartialLogRetention": "Partial build.log was replaced by the completed restart; this note preserves the observed interruption and does not represent a complete raw log."
+}

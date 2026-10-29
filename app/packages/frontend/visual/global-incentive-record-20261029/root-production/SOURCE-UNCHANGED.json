@@ -1,0 +1,63 @@
+{
+  "productionTestedHead": "60b6bae73d661444b6e80680e418be9dc92c417a",
+  "runtimeSource": "73807d0b93e604d3a2429e4d2995fc07b51b283e",
+  "scope": "All tracked app Git entries excluding ONLY this document and this packet directory; includes unrelated sources, tests, SDK, manifests/metadata and captures. Count is not a compiled-source count.",
+  "excluded": [
+    "app/packages/frontend/PUBLIC-INCENTIVE-SCHEDULE.md",
+    "app/packages/frontend/visual/global-incentive-record-20261029/"
+  ],
+  "trackedAppEntries": 8043,
+  "canonicalBlobMapSha256": "1c39e3d16268d6c0c1c22090dff43149773650da921433bc922fbcefcea5ccb5",
+  "canonicalFormat": "Parse git ls-tree -rz HEAD -- app/ NUL entries as UTF-8 paths and ASCII mode/type/object strings. Hash UTF-8 of Python json.dumps(mapping,sort_keys=True,separators=(',',':'),ensure_ascii=True).",
+  "publicationRule": "Final receipt commit must change only the two exclusions. Exact final head is bound by the mandatory common-input gate and PR metadata; Git-blob map must equal this tested-head digest.",
+  "rootLogSha256": {
+    "build.log": "a0de24e70f0a7b303b23121056997d4000a29d3dbf0163971d8dc14c422861ef",
+    "typecheck.log": "050b281c95589b3410266b6a100852147a33336492f6f125ebaa80bc7a33b236",
+    "evidence.log": "0f0c5fae20c1d78fdecb8eb80012fb68229500f574ab89c10dc419f663b17d61",
+    "progress.log": "603ba2289aeb23d39520828e40776ca25cc83dfc93ab0d575090d9f37a94e956"
+  },
+  "results": {
+    "head": "60b6bae73d661444b6e80680e418be9dc92c417a",
+    "checks": [
+      {
+        "check": "build",
+        "returncode": 0,
+        "command": [
+          "pnpm",
+          "build"
+        ]
+      },
+      {
+        "check": "typecheck",
+        "returncode": 0,
+        "command": [
+          "pnpm",
+          "typecheck"
+        ]
+      },
+      {
+        "check": "evidence",
+        "returncode": 0,
+        "command": [
+          "pnpm",
+          "verify:evidence"
+        ]
+      },
+      {
+        "check": "progress",
+        "returncode": 0,
+        "command": [
+          "pnpm",
+          "check:progress"
+        ]
+      }
+    ],
+    "browser": "Separate affected app/React browser receipts; no broader parity claim"
+  },
+  "fixtureAbsent": true,
+  "limits": [
+    "Configured production RPC / live mainnet success remains untested.",
+    "Earlier interrupted aggregate is preserved as a qualified note, not a pass or complete raw log.",
+    "The preserved PRE-BROWSER/POST-BROWSER records describe their earlier phases and are not retargeted."
+  ]
+}
