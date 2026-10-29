@@ -46,13 +46,11 @@ tests. No separate normal production build was run for this one-property unit.
 hashes per phase, original screenshots, exact measurements and cleanup. Gzip
 files are lossless and include stored/decoded hashes. The three-case finite
 probe is retained as an executed receipt, not added to the maintained browser
-suite. To repeat it, copy `validation/finite.spec.ts.txt` temporarily into the
-frontend `tests` directory, copy the executed config beside the ordinary
-Playwright config, substitute its output paths for your workspace, and run:
-
-```sh
-corepack pnpm exec playwright test --config playwright.create-description-lines.tmp.config.ts tests/create-description-lines.tmp.spec.ts
-```
+suite. Use [the concrete public replay sequence](PUBLIC-REPLAY.md): it pins the
+fetchable source and receipt commits, names the exact temporary copies, sets cwd
+to `app/packages/frontend`, relocates output paths with JSON encoding and keeps
+fresh external reports while cleaning up only its own temporary files. It also
+provides collection-only and optional actual-browser commands separately.
 
 The candidate additionally runs the existing `tests/create.spec.ts`; its sole
 executed-copy change is the strict origin's port 3010→3027, recorded in
