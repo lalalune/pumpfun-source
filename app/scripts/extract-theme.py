@@ -43,7 +43,7 @@ COLOR_PROPERTIES = ('background-color', 'color', 'border-color', 'border-top-col
 RULE = re.compile(r'([^{}]+)\{([^{}]*)\}')
 # A utility token is the last unescaped segment of a class: `.hover\:bg-x:hover` -> `bg-x`.
 CLASS = re.compile(r'\.((?:[a-zA-Z0-9_-]|\\.)+)')
-RGB_ALPHA = re.compile(r'^rgb\((\d+) (\d+) (\d+)/var\(--tw-[a-z-]+-opacity,1\)\)$')
+RGB_ALPHA = re.compile(r'^(?i:rgb)\(\s*(-?\d+)\s+(-?\d+)\s+(-?\d+)\s*/\s*var\(--tw-[a-z-]+-opacity,\s*1\)\s*\)$')
 # Tailwind substitutes each prefix's own opacity variable (bg, text, border, ring...) for
 # `<alpha-value>`, so the same theme color compiles differently per prefix.
 OPACITY_PLACEHOLDER = re.compile(r'var\(--tw-[a-z-]+-opacity,\s*1\)')
@@ -82,7 +82,7 @@ def normalize_color(value):
     value = value.strip()
     match = RGB_ALPHA.match(value)
     if match:
-        return '#%02x%02x%02x' % tuple(int(x) for x in match.groups())
+        return '#%02x%02x%02x' % tuple(max(0, min(255, int(x))) for x in match.groups())
     if re.fullmatch(r'#[0-9a-fA-F]{3,8}', value):
         return canonical_hex(value)
     keyword = value.lower()
