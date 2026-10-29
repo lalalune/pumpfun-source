@@ -9,7 +9,7 @@ then applied in order with `patch -p2 --forward`. Rejects are reported and the p
 (the composition continues). The composed crate is built with fastbuild.py and scored.
 Output: SC/integ/<NAME>/{src, parts/<label>.patch, rejects/, report.json}
 """
-import argparse, json, shutil, subprocess, sys
+import argparse, ast, json, shutil, subprocess, sys
 from pathlib import Path
 
 H = Path(__file__).resolve().parent
@@ -31,6 +31,27 @@ def make_patch(base: Path, part: Path, out: Path, tmp: Path):
     out.write_bytes(d.stdout)
     # Decode only for report metadata; patch must receive the original diff bytes.
     return d.stdout.decode('utf-8', errors='surrogateescape')
+
+
+def patched_files(text: str):
+    files = set()
+    in_headers = False
+    for line in text.split('\n'):
+        if line.startswith('diff '):
+            in_headers = True
+        elif line.startswith('@@'):
+            in_headers = False
+        if not in_headers or not line.startswith('+++ '):
+            continue
+        name = line[4:].split('\t', 1)[0]
+        if name.startswith('"') and name.endswith('"'):
+            # GNU diff C-quotes paths, including octal UTF-8 bytes. Decode a
+            # bytes literal so those escapes round-trip to the original path.
+            literal = name.encode('utf-8', errors='surrogateescape').decode('ascii', errors='backslashreplace')
+            name = ast.literal_eval('b' + literal).decode('utf-8', errors='surrogateescape')
+        if name.startswith('b/pump/'):
+            files.add(name[len('b/pump/'):])
+    return sorted(files)
 
 
 def main():
@@ -62,7 +83,7 @@ def main():
             subprocess.run(['patch', '-s', '-p2', '--forward', '-E', '-d', str(src), '-i', str(pf)], check=True)
             for o in src.rglob('*.orig'):
                 o.unlink()
-            report['parts'].append({'label': label, 'status': 'applied', 'files': sorted({l[11:].split('\t')[0] for l in text.splitlines() if l.startswith('+++ b/')})})
+            report['parts'].append({'label': label, 'status': 'applied', 'files': patched_files(text)})
         else:
             (out / 'rejects' / f'{label}.txt').write_text(dry.stdout + dry.stderr)
             report['parts'].append({'label': label, 'status': 'conflict', 'detail': (dry.stdout + dry.stderr)[-1500:]})

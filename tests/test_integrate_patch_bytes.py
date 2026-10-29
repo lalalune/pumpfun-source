@@ -15,6 +15,50 @@ sys.path.insert(0, str(ROOT / 'reconstruction/harness'))
 import integrate
 
 
+class PatchedFilesTests(unittest.TestCase):
+    @staticmethod
+    def diff_text(new_name):
+        old_name = new_name.replace('b/pump/', 'a/pump/', 1)
+        return (f'diff -ruN {old_name} {new_name}\n'
+                f'--- {old_name}\tstamp\n'
+                f'+++ {new_name}\tstamp\n'
+                '@@ -1 +1 @@\n-old\n+new\n')
+
+    def test_quoted_utf8_paths(self):
+        names = (
+            r'"b/pump/src/caf\303\251.rs"',
+            '"b/pump/src/café.rs"',
+        )
+        for name in names:
+            with self.subTest(name=name):
+                self.assertEqual(integrate.patched_files(self.diff_text(name)),
+                                 ['src/café.rs'])
+
+    def test_c_quoted_path_characters(self):
+        name = r'"b/pump/src/space \"quote\"\\backslash\tname.rs"'
+        self.assertEqual(integrate.patched_files(self.diff_text(name)),
+                         ['src/space "quote"\\backslash\tname.rs'])
+
+    def test_unquoted_unicode_line_separator_in_path(self):
+        filename = 'src/one\u2028two.rs'
+        self.assertEqual(integrate.patched_files(self.diff_text(f'b/pump/{filename}')),
+                         [filename])
+
+    def test_quoted_added_content_is_not_a_path(self):
+        text = (self.diff_text('b/pump/src/lib.rs')
+                + '@@ -10 +10,4 @@\n'
+                  ' context\n'
+                  '+++ "ordinary" + "text"\n'
+                  '+++ "b/pump/ordinary" + "text"\n'
+                  '+++ b/pump/not-a-file.rs\tstamp\n')
+        self.assertEqual(integrate.patched_files(text), ['src/lib.rs'])
+
+    def test_reads_headers_after_previous_file_hunks(self):
+        text = (self.diff_text('b/pump/src/z.rs')
+                + self.diff_text(r'"b/pump/src/caf\303\251.rs"'))
+        self.assertEqual(integrate.patched_files(text), ['src/café.rs', 'src/z.rs'])
+
+
 @unittest.skipUnless(shutil.which('diff') and shutil.which('patch'), 'requires diff and patch')
 class IntegrationPatchBytesTests(unittest.TestCase):
     def assert_round_trip(self, before, after):
