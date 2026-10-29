@@ -3,6 +3,14 @@
 
 A pickle left in reconstruction/base is reused with no input check. After the
 window table or captured program changes, scoring keeps the previous bodies.
+
+Made via @slopdotcash
+AI provider/model: SpaceXAI / grok-4.7-high-fast
+Client / agent tooling: Cursor
+Contribution skill revision: N/A - ordinary GitHub contribution without optional run evidence
+Attribution status: self-reported
+— [contributor]
+<!-- slop-contribution-attribution:v1 {"provider":"SpaceXAI","model":"grok-4.7-high-fast","client":"Cursor","skill_revision":"N/A - ordinary GitHub contribution without optional run evidence"} -->
 """
 import pickle
 import struct
