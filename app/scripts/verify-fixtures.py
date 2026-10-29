@@ -22,6 +22,31 @@ def require(condition, message):
         raise ValueError(message)
 
 
+def json_equal(fixture_value, captured_value):
+    """Strict JSON value equality for provenance checks.
+
+    Python's ``==`` treats ``True`` and ``1`` (and ``False`` and ``0``) as
+    equal, so a plain ``==`` would let a fixture swap booleans with numbers
+    and still pass this gate. Booleans are their own JSON type here and never
+    equal a number. Numbers compare by value, so ``1`` and ``1.0`` are the
+    same JSON number and match (a deliberate choice; RFC 8259 numbers carry
+    values, not types). Objects compare by key set and values, arrays by
+    length and element order.
+    """
+    if isinstance(fixture_value, bool) or isinstance(captured_value, bool):
+        return isinstance(fixture_value, bool) and isinstance(captured_value, bool) \
+            and fixture_value == captured_value
+    if isinstance(fixture_value, (int, float)) and isinstance(captured_value, (int, float)):
+        return fixture_value == captured_value
+    if isinstance(fixture_value, dict) and isinstance(captured_value, dict):
+        return set(fixture_value) == set(captured_value) and all(
+            json_equal(fixture_value[key], captured_value[key]) for key in fixture_value)
+    if isinstance(fixture_value, list) and isinstance(captured_value, list):
+        return len(fixture_value) == len(captured_value) and all(
+            json_equal(left, right) for left, right in zip(fixture_value, captured_value))
+    return type(fixture_value) is type(captured_value) and fixture_value == captured_value
+
+
 def read_json(root, path):
     return json.loads((root / path).read_text(encoding='utf-8'))
 
@@ -96,7 +121,8 @@ def verify(root=ROOT, fixtures=None, coverage=None):
             captured = json.loads(raw.decode('utf-8'))
         except (UnicodeDecodeError, json.JSONDecodeError):
             raise ValueError(f'{label}: captured object {source} is not UTF-8 JSON') from None
-        require(fixture['body'] == captured, f'{label}: fixture body differs from the captured object {source}')
+        require(json_equal(fixture['body'], captured),
+                f'{label}: fixture body differs from the captured object {source}')
     fixtures_coverage = coverage.get('fixtures')
     require(isinstance(fixtures_coverage, dict), 'coverage.json must carry a fixtures ledger')
     require(fixtures_coverage.get('publicSnapshots') == len(fixtures),
