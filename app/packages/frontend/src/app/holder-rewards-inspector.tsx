@@ -1,6 +1,6 @@
 "use client";
 
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useRef, useState } from "react";
 import { HolderConfigurationPanel } from "./holder-rewards-config/panel";
 import { HolderRewardsPublicBalances } from "./holder-rewards/public-balances";
 import { RewardSummary } from "../components/rewards/RewardSummary";
@@ -62,8 +62,10 @@ export default function HolderRewardsInspector() {
   const [mintInput, setMintInput] = useState("");
   const [result, setResult] = useState<HolderRewardsDerivation | null>(null);
   const [copyStatus, setCopyStatus] = useState("");
+  const copyGeneration = useRef(0);
 
   function updateMint(value: string) {
+    copyGeneration.current++;
     setMintInput(value);
     setResult(null);
     setCopyStatus("");
@@ -71,20 +73,24 @@ export default function HolderRewardsInspector() {
 
   function inspectMint(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    copyGeneration.current++;
     setResult(deriveHolderRewardsAddress(mintInput));
     setCopyStatus("");
   }
 
   async function copyAddress(label: string, value: string) {
+    const generation = ++copyGeneration.current;
     try {
       await navigator.clipboard.writeText(value);
-      setCopyStatus(`${label} copied.`);
+      if (generation === copyGeneration.current) setCopyStatus(`${label} copied.`);
     } catch {
-      setCopyStatus(`Could not copy ${label.toLowerCase()}. Select the address instead.`);
+      if (generation === copyGeneration.current)
+        setCopyStatus(`Could not copy ${label.toLowerCase()}. Select the address instead.`);
     }
   }
 
   function clearInspector() {
+    copyGeneration.current++;
     setMintInput("");
     setResult(null);
     setCopyStatus("Inspector cleared.");
