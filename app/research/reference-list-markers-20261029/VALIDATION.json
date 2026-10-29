@@ -1,0 +1,103 @@
+{
+  "scope": "Restore explicitly captured disc list markers in maintained archived Privacy/Terms; no original/current legal authority or full visual parity.",
+  "baseCommit": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "measuredFixedCodeCommit": "4a76228f44c5f44fa8aa7957985978cd2912330d",
+  "runtimeChange": "Only four added reference CSS lines: .reference-document ul { list-style-type: disc; }. No maintained test/config/suite added.",
+  "measurement": "Finite same-byte-script inspection. Both baseline/fixed exit0 intentionally after checking healthy pages and recording styles; baseline absent markers is an observation, not an assertion failure.",
+  "healthyPagesPerStage": 6,
+  "widths": [
+    1280,
+    375
+  ],
+  "documentCounts": {
+    "privacy": {
+      "lists": 4,
+      "items": 43
+    },
+    "terms": {
+      "lists": 4,
+      "items": 14
+    },
+    "fees": {
+      "lists": 0,
+      "tables": 7
+    }
+  },
+  "observedBefore": "Every recorded document UL and its first LI computes list-style-type:none at both widths.",
+  "observedAfter": "Every recorded document UL and its first LI computes list-style-type:disc at both widths.",
+  "preserved": "Source/generated text, headings/tables/list/item counts, first-item text, padding, display, marker position and recorded page widths match. No console/page errors or forbidden requests occurred in either inspection.",
+  "existingChecks": [
+    {
+      "head": "094a06f18df738d41e77070c1a009e135671ac1a",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:references"
+      ],
+      "exitCode": 0,
+      "sha256": "cd11820e94d7cfced5c47cc4cb52988b5f625ef11d60efac84a7413c9a455757"
+    },
+    {
+      "head": "4a76228f44c5f44fa8aa7957985978cd2912330d",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:references"
+      ],
+      "exitCode": 0,
+      "sha256": "d1a996ef1b87901736d7ae26dbd8f01bae2bff94219adb2e0a8494261be2a47e"
+    }
+  ],
+  "requiredChecks": [
+    {
+      "head": "4a76228f44c5f44fa8aa7957985978cd2912330d",
+      "command": [
+        "python3",
+        "scripts/verify_evidence.py"
+      ],
+      "exitCode": 0,
+      "sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9"
+    },
+    {
+      "head": "4a76228f44c5f44fa8aa7957985978cd2912330d",
+      "command": [
+        "python3",
+        "scripts/test_tooling.py"
+      ],
+      "exitCode": 0,
+      "sha256": "c9454f81ea70fb739c7f09b90eb99cc03a8a1da3afa9a3f95948eeb0c66ff0a2"
+    }
+  ],
+  "otherPrivateScreenshots": [
+    {
+      "stage": "baseline",
+      "file": "privacy-1280.png",
+      "bytes": 131562,
+      "sha256": "2b664df746ead7f1f55237680fc80e46128a0d215b78253fb033081763b49e24"
+    },
+    {
+      "stage": "baseline",
+      "file": "terms-375.png",
+      "bytes": 53524,
+      "sha256": "3eec78c55d0fc17af66d57e6a2b41aa7b8c3a93e3a722360d0120b8572b8e2c8"
+    },
+    {
+      "stage": "fixed",
+      "file": "privacy-1280.png",
+      "bytes": 132274,
+      "sha256": "68c51d519b250e6174910b75587cb25d67bc56e88267fb3d38642aa419256046"
+    },
+    {
+      "stage": "fixed",
+      "file": "terms-375.png",
+      "bytes": 53741,
+      "sha256": "0027b50dd890b4e56b02fe115b7d4a7e67843476a014dd0242003f705c9df4d4"
+    }
+  ],
+  "limits": [
+    "Screenshots demonstrate local before/after marker rendering, not original pixel parity, all viewports, other engines, screen readers or accessibility certification.",
+    "Authored reader/source extraction was already maintained; source witnesses attribute prior captured content and add no new extraction/feature/API compatibility or milestone credit.",
+    "Exact captured HTML and linked CSS are parsed/read as data; captured JavaScript is not evaluated and no live site/service is contacted.",
+    "No document wording, heading identity, link normalization/targets, tables, current legal interpretation, global stylesheet or anchor-offset behavior changes. Existing1462 anchor work remains separate."
+  ]
+}

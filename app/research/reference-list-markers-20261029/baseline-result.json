@@ -1,0 +1,37 @@
+{
+  "head": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "stage": "baseline",
+  "serverCommand": [
+    "corepack",
+    "pnpm",
+    "exec",
+    "next",
+    "dev",
+    "--turbopack",
+    "--hostname",
+    "127.0.0.1",
+    "--port",
+    "3027"
+  ],
+  "browserCommand": [
+    "node",
+    "--experimental-strip-types",
+    "/workspace/pump-app-social/work/reference-list-markers/measure.mjs",
+    "/workspace/pump-app-social",
+    "/workspace/pump-app-social/work/reference-list-markers/baseline",
+    "baseline"
+  ],
+  "exitCode": 0,
+  "sourceHashes": {
+    "app/packages/frontend/src/app/docs/reference-page.tsx": "7497340c441c1dbb4a1d0e88c3d8c2ef512b8a74b221a298ad4055aeb4d2237e",
+    "app/packages/frontend/src/app/docs/reference-data.ts": "7d3e0299e029e3b335bc2f21dce12e06f5a8a70dd71d0ebe608fe1702c9cbb42",
+    "app/packages/frontend/src/app/docs/reference-loader.ts": "26c1d9bce3cb213038b86f83b2705d6754bcf8fed8e58f81eaca511ef8320c11",
+    "app/packages/frontend/src/app/docs/reference-pages.css": "2e22154c1c71d08bec30925d08d661ca1eef2d91195c60d398bcb18896d1f00a",
+    "app/packages/frontend/src/app/docs/reference-pages.generated.json": "a1f105accd47c86ac2ee320081a17d4e907ea1ccc9f272444f4a6a592d05f5b0",
+    "app/scripts/extract-reference-pages.py": "e98b50947d52e4e0cb7b73c307ff8d6e8cbfd4b7d5a1b164cedb291b1ecdd3ee"
+  },
+  "measurementSha256": "93f6a646347b6a10d6ce2466059f6476040e9323b48ce9dcd2ba9035a9571f2a",
+  "controllerSha256": "ec45a8b01af6cbe275de7e44196bd1b80c44c99046a58634830e109d220d91bc",
+  "nextLogSha256": "0f43a14ecac59c243c34c177ed69fc11753aef25f785a65901d86cf8f167a1a3",
+  "browserLogSha256": "98492df8fc059ac05c17bbeed069ddd4465d67b2b1945ee529b5eb79d04363a6"
+}
