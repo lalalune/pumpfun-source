@@ -65,7 +65,7 @@ is a maintained-host defect fix, not recovered original GO interaction code.
 
 No captured original JavaScript is evaluated. The existing authenticated GO
 HTML/RSC archive is still parsed as data. There is no live service, auth,
-wallet, submission, funding, payout, original visual parity, production-build,
+wallet, submission, funding, payout, original visual parity, production-browser,
 compatibility or milestone claim.
 
 Related work remains separate: #1369 changes shared SearchDialog hydration;
@@ -115,3 +115,19 @@ python3 scripts/test_tooling.py
 `MANIFEST.json` binds raw/compressed log hashes and all packet bytes. Later
 packet-only commits preserve the measured source and harness; publication
 records the exact local/public tree mapping separately.
+
+## Independent normal build receipt
+
+The exact public source `7f1b5ff94b44b2209c00ef1c9d42ff64682d36f4` also passed
+an independent normal SDK/backend/Next production build, all workspace
+typechecks, 698-object/npm/unchanged-SDK evidence verification and progress
+checks. `ROOT-PRODUCTION.json`, the exact checks JSON and four compressed raw
+logs retain that result. Seven output manifests remain independently retained
+with their hashes recorded here.
+
+This later change is receipt-only: README/manifest plus those six receipt
+files. All source, harness, captures, dependencies and SDK bytes remain the
+tested public source. This proves a normal production build, not deployment,
+production traffic, an additional production-browser run or extra timezone
+parity. The original 14-case development browser evidence and limits remain
+unchanged.

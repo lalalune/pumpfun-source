@@ -1,0 +1,88 @@
+{
+  "testedPublicHead": "7f1b5ff94b44b2209c00ef1c9d42ff64682d36f4",
+  "scope": "Independent normal SDK/backend/Next production build, recursive workspace typecheck, application evidence and progress; no deployment or production service call.",
+  "checks": [
+    {
+      "check": "build",
+      "returncode": 0,
+      "command": [
+        "pnpm",
+        "build"
+      ]
+    },
+    {
+      "check": "typecheck",
+      "returncode": 0,
+      "command": [
+        "pnpm",
+        "typecheck"
+      ]
+    },
+    {
+      "check": "evidence",
+      "returncode": 0,
+      "command": [
+        "pnpm",
+        "verify:evidence"
+      ]
+    },
+    {
+      "check": "progress",
+      "returncode": 0,
+      "command": [
+        "pnpm",
+        "check:progress"
+      ]
+    }
+  ],
+  "receiptOnlyBoundary": [
+    "README.md",
+    "MANIFEST.json",
+    "ROOT-PRODUCTION.json",
+    "production-build.log.gz",
+    "production-typecheck.log.gz",
+    "production-evidence.log.gz",
+    "production-progress.log.gz",
+    "production-checks.json"
+  ],
+  "sourceBoundary": "All measured runtime/harness/source/capture/dependency/SDK bytes remain identical to tested public head. Later leaf only adds these reviewable receipts.",
+  "browserBoundary": "Existing finite development14-case timezone run remains separate; normal production build is not a new production browser/RPC/timezone comparison.",
+  "retainedNextManifests": [
+    {
+      "name": "retained-next-BUILD_ID",
+      "bytes": 21,
+      "sha256": "7039c8ac2e37dea4b4a65f2ff74c2e5bc6661d3c09c54166733589f70b40b38b"
+    },
+    {
+      "name": "retained-next-build-manifest.json",
+      "bytes": 4590,
+      "sha256": "0ad4bd2627e079d68a2465d9ec0fd6613e95072a6aa8bbbf0ad04a444a96e7a0"
+    },
+    {
+      "name": "retained-next-prerender-manifest.json",
+      "bytes": 5513,
+      "sha256": "013f8eebeab0069e963ad5bf6f6aac34fefa419157b3a14bfbd5a3025df4a6cb"
+    },
+    {
+      "name": "retained-next-required-server-files.json",
+      "bytes": 10785,
+      "sha256": "f8f3d7d79a7ac0bba940d44090550cc5d8222e2f47f444bc6daf0fb4b0deb6c0"
+    },
+    {
+      "name": "retained-next-routes-manifest.json",
+      "bytes": 4718,
+      "sha256": "a3f5653287b459fbe72fce43953a4f8198d80dec437d309b98cb6c2137b7d19c"
+    },
+    {
+      "name": "retained-next-server--app-paths-manifest.json",
+      "bytes": 1156,
+      "sha256": "e58fc16e60f1f020c51a9b4446c6b3ca575fafe24e563ff1760de29beb9308a5"
+    },
+    {
+      "name": "retained-next-server--pages-manifest.json",
+      "bytes": 58,
+      "sha256": "c354059caa217e72bdeb145e351b2038990972872c52df215cb1e4105c35097b"
+    }
+  ],
+  "retention": "Full seven Next output manifests remain in independent root validation workspace; this small packet keeps their hashes without duplicating them."
+}
