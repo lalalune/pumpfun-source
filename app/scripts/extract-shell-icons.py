@@ -110,7 +110,9 @@ def shell_segment(text):
     start = text.rfind('<div hidden id="S:', 0, element)
     if element < 0 or start < 0:
         fail('streamed app shell segment not found')
-    return text[start:text.find('<script', element)]
+    end = text.find('<script', element)
+    if end < 0: fail('streamed shell script boundary not found')
+    return text[start:end]
 
 
 def owner(segment, position):
