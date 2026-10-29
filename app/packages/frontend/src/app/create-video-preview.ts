@@ -324,6 +324,9 @@ export class VideoDraftSession {
     });
   }
   cancelPending() {
+    this.cancelPreparation();
+  }
+  cancelPreparation() {
     if (this.disposed || !this.pending) return;
     ++this.revision;
     this.pending.abort();

@@ -9,19 +9,25 @@ import {
 } from "react";
 import {
   VideoDraftSession,
+  validateVideo,
   type VideoPreview,
   type VideoSelection,
   type VideoState,
 } from "./create-video-preview";
 import styles from "./create-video-input.module.css";
 
-export type VideoInputControl = { cancelPending(): void };
+export type VideoInputControl = {
+  cancelPending(): void;
+  cancelPreparation(): void;
+};
 export default function CreateVideoInput({
   onSelect,
+  onChoose,
   onRemove,
   controlRef,
 }: {
   onSelect(value: VideoSelection): void;
+  onChoose?(): void;
   onRemove(owner: VideoPreview): void;
   controlRef: Ref<VideoInputControl>;
 }) {
@@ -31,12 +37,15 @@ export default function CreateVideoInput({
     pending: false,
     error: "",
   });
-  const callbacks = useRef({ onSelect, onRemove });
-  callbacks.current = { onSelect, onRemove };
+  const callbacks = useRef({ onSelect, onRemove, onChoose });
+  callbacks.current = { onSelect, onRemove, onChoose };
   const session = useRef<VideoDraftSession | null>(null);
   useImperativeHandle(
     controlRef,
-    () => ({ cancelPending: () => session.current?.cancelPending() }),
+    () => ({
+      cancelPending: () => session.current?.cancelPending(),
+      cancelPreparation: () => session.current?.cancelPreparation(),
+    }),
     [],
   );
   useEffect(() => {
@@ -73,7 +82,10 @@ export default function CreateVideoInput({
         onChange={(event) => {
           const file = event.currentTarget.files?.[0];
           event.currentTarget.value = "";
-          if (file) void session.current?.choose(file);
+          if (file) {
+            if (!validateVideo(file)) callbacks.current.onChoose?.();
+            void session.current?.choose(file);
+          }
         }}
       />
       <p role="status">

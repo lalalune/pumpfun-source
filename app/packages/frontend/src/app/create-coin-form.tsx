@@ -16,6 +16,7 @@ import {
   validateDraftField,
   validateImage,
 } from "./create-coin-validation";
+import { prepareImagePreview } from "./create-image-preview";
 import { CreateDraftLinks } from "./create-draft-links";
 import CreateVideoInput, { type VideoInputControl } from "./create-video-input";
 import {
@@ -100,6 +101,10 @@ export default function CreateCoinForm() {
     file: File;
     owner: VideoPreview;
   } | null>(null);
+  const [imagePending, setImagePending] = useState(false);
+  const pendingImage = useRef<AbortController | null>(null);
+  const selectedImageRef = useRef(selectedImage);
+  selectedImageRef.current = selectedImage;
   const [videoReset, setVideoReset] = useState(0);
   const formRef = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -110,6 +115,20 @@ export default function CreateCoinForm() {
     const objectUrl = selectedImage.url;
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedImage]);
+
+  useEffect(
+    () => () => {
+      pendingImage.current?.abort();
+      pendingImage.current = null;
+    },
+    [],
+  );
+
+  function cancelImagePreparation() {
+    pendingImage.current?.abort();
+    pendingImage.current = null;
+    setImagePending(false);
+  }
 
   function updateField(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -146,6 +165,7 @@ export default function CreateCoinForm() {
   }
 
   function resetDraft() {
+    cancelImagePreparation();
     setDraft(EMPTY_DRAFT);
     setErrors({});
     setSelectedImage(null);
@@ -157,20 +177,52 @@ export default function CreateCoinForm() {
 
   function chooseImage(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0] ?? null;
-    if (!file) return;
+    event.target.value = "";
+    if (file) void chooseImageFile(file);
+  }
+
+  async function chooseImageFile(file: File) {
     const error = validateImage(file);
     if (error) {
       setErrors((current) => ({ ...current, image: error }));
-      event.target.value = "";
       return;
     }
-    videoControlRef.current?.cancelPending();
-    setSelectedImage({ file, url: URL.createObjectURL(file) });
+    cancelImagePreparation();
+    // Stop older video work without detaching its already committed cover.
+    videoControlRef.current?.cancelPreparation();
+    const pending = new AbortController();
+    pendingImage.current = pending;
+    setImagePending(true);
     setErrors((current) => ({ ...current, image: undefined }));
     setStatus("");
+    try {
+      const url = await prepareImagePreview(file, pending.signal);
+      if (pendingImage.current !== pending) {
+        URL.revokeObjectURL(url);
+        return;
+      }
+      videoControlRef.current?.cancelPending();
+      setSelectedImage({ file, url });
+      setErrors((current) => ({ ...current, image: undefined }));
+    } catch (error) {
+      if (pendingImage.current === pending)
+        setErrors((current) => ({
+          ...current,
+          image:
+            error instanceof Error
+              ? error.message
+              : "Image preparation failed.",
+        }));
+    } finally {
+      if (pendingImage.current === pending) {
+        pendingImage.current = null;
+        setImagePending(false);
+      }
+    }
   }
 
   function removeImage(error?: string) {
+    cancelImagePreparation();
     videoControlRef.current?.cancelPending();
     setSelectedImage(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
@@ -179,6 +231,7 @@ export default function CreateCoinForm() {
   }
 
   function chooseVideoCover({ video, cover, owner }: VideoSelection) {
+    cancelImagePreparation();
     const error = validateImage(cover);
     if (error) {
       setErrors((current) => ({ ...current, image: error }));
@@ -324,6 +377,9 @@ export default function CreateCoinForm() {
             aria-describedby={`image-hint${errors.image ? " image-error" : ""}`}
             onChange={chooseImage}
           />
+          <p role="status">
+            {imagePending ? "Preparing local image preview…" : ""}
+          </p>
           {selectedImage ? (
             <div className="selected-file" data-testid="selected-image">
               <div>
@@ -347,6 +403,7 @@ export default function CreateCoinForm() {
         <CreateVideoInput
           key={videoReset}
           controlRef={videoControlRef}
+          onChoose={cancelImagePreparation}
           onSelect={chooseVideoCover}
           onRemove={removeVideo}
         />
@@ -427,9 +484,11 @@ export default function CreateCoinForm() {
             className="preview-image"
             src={selectedImage.url}
             alt={`Local preview of ${draft.name || selectedImage.file.name}`}
-            onError={() =>
-              removeImage("The browser could not decode this image file.")
-            }
+            key={selectedImage.url}
+            onError={() => {
+              if (selectedImageRef.current?.url === selectedImage.url)
+                removeImage("The browser could not decode this image file.");
+            }}
           />
         ) : (
           <div
