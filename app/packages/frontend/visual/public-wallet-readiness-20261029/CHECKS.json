@@ -1,0 +1,68 @@
+{
+  "head": "80c99141342ac7aa84af14235fbd136396024bf8",
+  "checks": [
+    {
+      "label": "models",
+      "command": [
+        "/workspace/pumpfun-source-latest/work/app-native/pinned-bin/pnpm",
+        "--filter",
+        "@pump-reconstruction/backend",
+        "exec",
+        "tsx",
+        "--test",
+        "../../tests/auth_interface.test.ts",
+        "../../tests/public_wallet.test.ts"
+      ],
+      "started": "2026-10-29T15:10:15.031176+00:00",
+      "finished": "2026-10-29T15:10:15.819308+00:00",
+      "returncode": 0
+    },
+    {
+      "label": "source",
+      "command": [
+        "node",
+        "scripts/original-contracts/public-wallet/readiness.mjs",
+        "--check"
+      ],
+      "started": "2026-10-29T15:10:15.819362+00:00",
+      "finished": "2026-10-29T15:10:16.249632+00:00",
+      "returncode": 0
+    },
+    {
+      "label": "types",
+      "command": [
+        "/workspace/pumpfun-source-latest/work/app-native/pinned-bin/pnpm",
+        "--filter",
+        "@pump-reconstruction/frontend",
+        "exec",
+        "tsc",
+        "--noEmit",
+        "--incremental",
+        "false"
+      ],
+      "started": "2026-10-29T15:10:16.249669+00:00",
+      "finished": "2026-10-29T15:10:21.464945+00:00",
+      "returncode": 0
+    },
+    {
+      "label": "evidence",
+      "command": [
+        "python3",
+        "scripts/verify-evidence.py"
+      ],
+      "started": "2026-10-29T15:10:21.464989+00:00",
+      "finished": "2026-10-29T15:10:21.667478+00:00",
+      "returncode": 0
+    },
+    {
+      "label": "progress",
+      "command": [
+        "/workspace/pumpfun-source-latest/work/app-native/pinned-bin/pnpm",
+        "check:progress"
+      ],
+      "started": "2026-10-29T15:10:21.667527+00:00",
+      "finished": "2026-10-29T15:10:22.752608+00:00",
+      "returncode": 0
+    }
+  ]
+}

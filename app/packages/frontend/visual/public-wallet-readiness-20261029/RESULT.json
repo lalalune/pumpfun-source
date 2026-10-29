@@ -1,0 +1,85 @@
+{
+  "base": "ef400863f4e476b2eaaab0866c0b1187d8060abc",
+  "baselineHead": "976ae23a4c67968a1c111d66bf326b0f7d86b55d",
+  "testedHead": "80c99141342ac7aa84af14235fbd136396024bf8",
+  "sourceBindings": [
+    {
+      "path": "app/packages/frontend/src/app/auth/auth-control.tsx",
+      "sha256": "5499751c74278b025ddfef06f1a83eae0657ca9c1923d8a3a5a00bfd5d76c702",
+      "gitBlob": "7f9764d2fb982d569b6ebb0a796b6922c96f0e1d"
+    },
+    {
+      "path": "app/packages/frontend/tests/auth-first-open.spec.ts",
+      "sha256": "04e2b03a70bf7a4c82d19190ac501a0000ef90b0e3de68e4d5220444e07ec2fa",
+      "gitBlob": "ec805e3737320fdcc7a9bb78289ee8991b46cce3"
+    },
+    {
+      "path": "app/scripts/original-contracts/public-wallet/readiness.mjs",
+      "sha256": "c1a42b8ed46652f294ac83e4a59e8b06d06a21b871d2fb81e12c3dc8e9af91ab",
+      "gitBlob": "9269f7e100e6a197a8bd27e9434208a1102c84b8"
+    },
+    {
+      "path": "app/packages/frontend/PUBLIC-WALLET-READINESS-SOURCE.json",
+      "sha256": "ee3904733b1ef75d8871954643513e90910506cebe4a3dc6ccb561bb1e2fa913",
+      "gitBlob": "e3264889f7ab1404f05ea119b84399fca7649a4d"
+    },
+    {
+      "path": "app/packages/frontend/src/app/auth/public-wallet/controller.ts",
+      "sha256": "59241569d7a3e7286b5f13542a9f6c04c209dc097dd1e50bf5d8702214a24ad6",
+      "gitBlob": "f2cf0e2662a4cd6da587a752766744639c8cf3f0"
+    },
+    {
+      "path": "app/packages/frontend/playwright.config.ts",
+      "sha256": "6b0b07bb37748d67ea396d3de6e331a15978b8b2e17815dbcb843f3299ad61b0",
+      "gitBlob": "f175a241b8b4a4226a90632409fb7721192e56ea"
+    },
+    {
+      "path": "app/pnpm-lock.yaml",
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+    }
+  ],
+  "before": "Enabled SSR Sign in accepted one actual click while local client scripts were held. After scripts resumed the real client dialog mounted closed and remained hidden. New case failed at visibility assertion, not setup.",
+  "after": "Existing mounted state also disables trigger until the chooser can mount. Identical test clicks once when offered; chooser becomes ready and public wallet action is visible.",
+  "sourceChange": {
+    "path": "src/app/auth/auth-control.tsx",
+    "addedRuntimeLines": 1,
+    "expression": "disabled={!mounted}",
+    "beforeSha256": "2ef51c58a9fb0f53b235721d70918bf2fce42ed73f783293b9702cd7bfdaa430",
+    "afterSha256": "5499751c74278b025ddfef06f1a83eae0657ca9c1923d8a3a5a00bfd5d76c702"
+  },
+  "results": {
+    "baseline": {
+      "failed": 1,
+      "passed": 0
+    },
+    "candidate": {
+      "discovered": 20,
+      "passed": 13,
+      "explicitSyntheticFixtureSkips": 7,
+      "newRegressionCases": 1,
+      "existingRunnableCases": 12
+    },
+    "existingAuthAndWalletModelCases": 28,
+    "capturedAstVerifier": {
+      "factories": 2,
+      "witnesses": 6,
+      "passed": true
+    },
+    "frontendTypecheck": "PASS",
+    "appEvidenceObjects": 698,
+    "progressTests": 9,
+    "requiredRootCaptures": 9,
+    "requiredRootToolingTests": 10,
+    "format": "PASS"
+  },
+  "limits": [
+    "Actual local Next and Chromium with deliberately held local client scripts, not a live provider or authentication oracle.",
+    "Seven opt-in synthetic-adapter fixture cases were not run in this product-only target.",
+    "No full production build on this new source; actual SSR/UI and relevant source/type/evidence gates qualify the one-property change.",
+    "Captures/SDK/dependencies/controllers/network/auth/session/signing and feature-progress counts remain unchanged.",
+    "Captured physical source witnesses do not assert a global runtime registration winner or original TypeScript recovery.",
+    "After screenshots come from the existing public-wallet connection cases, not the new delayed-bootstrap case."
+  ],
+  "review": "Native disabled semantics reuse existing mounted state, add no effect/listener/state, keep server/client initial render consistent, and preserve post-ready focus/history/connection tests."
+}

@@ -1,0 +1,19 @@
+{
+  "head": "80c99141342ac7aa84af14235fbd136396024bf8",
+  "command": [
+    "pnpm",
+    "--filter",
+    "@pump-reconstruction/frontend",
+    "exec",
+    "playwright",
+    "test",
+    "tests/auth-first-open.spec.ts",
+    "tests/auth.spec.ts",
+    "tests/public-wallet.spec.ts",
+    "--max-failures=1"
+  ],
+  "started": "2026-10-29T15:08:31.236857+00:00",
+  "runtimeChange": "Only disabled={!mounted} on existing Sign in trigger.",
+  "returncode": 0,
+  "finished": "2026-10-29T15:08:52.568501+00:00"
+}

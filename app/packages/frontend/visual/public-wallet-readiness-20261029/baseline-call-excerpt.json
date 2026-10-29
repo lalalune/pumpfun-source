@@ -1,0 +1,206 @@
+{
+  "method": "Exact test-call event subset, not a complete trace. Raw trace retained at the path/hash below.",
+  "rawTrace": {
+    "path": "/workspace/pump-app-holder-config/work/auth-first-open/baseline-failure/trace.zip",
+    "sha256": "18089e42a0c558918b489548b7618cda11098b1a3a0bd1a39d52b207ed7c1926",
+    "bytes": 2306412,
+    "published": false
+  },
+  "events": [
+    {
+      "type": "before",
+      "callId": "vqvl@35",
+      "title": "Launch browser",
+      "startTime": 6557.244,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@39",
+      "title": "Create context",
+      "startTime": 6605.001,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@47",
+      "title": "Create page",
+      "startTime": 6624.993,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@50",
+      "title": "Route requests",
+      "startTime": 6653.182,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@52",
+      "title": "Navigate",
+      "startTime": 6657.571,
+      "params": {
+        "url": "/explore"
+      }
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@58",
+      "title": "Is enabled",
+      "startTime": 7314.554,
+      "params": {
+        "locator": "getByTestId('sign-in-button')"
+      }
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@60",
+      "title": "Attach \"server-trigger-readiness\"",
+      "startTime": 7334.487,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@61",
+      "title": "Click",
+      "startTime": 7335.441,
+      "params": {
+        "locator": "getByTestId('sign-in-button')"
+      }
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@65",
+      "title": "Continue request",
+      "startTime": 7398.209,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@67",
+      "title": "Continue request",
+      "startTime": 7398.882,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@69",
+      "title": "Continue request",
+      "startTime": 7399.372,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@71",
+      "title": "Continue request",
+      "startTime": 7400.164,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@73",
+      "title": "Continue request",
+      "startTime": 7400.57,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@75",
+      "title": "Continue request",
+      "startTime": 7400.986,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@77",
+      "title": "Continue request",
+      "startTime": 7401.371,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@79",
+      "title": "Continue request",
+      "startTime": 7401.728,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@81",
+      "title": "Continue request",
+      "startTime": 7402.105,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@83",
+      "title": "Continue request",
+      "startTime": 7402.523,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@85",
+      "title": "Continue request",
+      "startTime": 7402.868,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@87",
+      "title": "Continue request",
+      "startTime": 7403.251,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@89",
+      "title": "Continue request",
+      "startTime": 7403.597,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@91",
+      "title": "Continue request",
+      "startTime": 7403.964,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@93",
+      "title": "Continue request",
+      "startTime": 7404.345,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@95",
+      "title": "Continue request",
+      "startTime": 7404.785,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@97",
+      "title": "Continue request",
+      "startTime": 7664.409,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@108",
+      "title": "Close context",
+      "startTime": 12635.371,
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "vqvl@115",
+      "title": "Attach \"error-context\"",
+      "startTime": 12642.94,
+      "params": {}
+    }
+  ]
+}

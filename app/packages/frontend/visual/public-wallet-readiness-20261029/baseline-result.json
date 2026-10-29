@@ -1,0 +1,17 @@
+{
+  "head": "976ae23a4c67968a1c111d66bf326b0f7d86b55d",
+  "runtimeSourceBase": "ef400863f4e476b2eaaab0866c0b1187d8060abc",
+  "command": [
+    "pnpm",
+    "--filter",
+    "@pump-reconstruction/frontend",
+    "exec",
+    "playwright",
+    "test",
+    "tests/auth-first-open.spec.ts",
+    "--max-failures=1"
+  ],
+  "started": "2026-10-29T15:07:23.446634+00:00",
+  "returncode": 1,
+  "finished": "2026-10-29T15:07:36.809926+00:00"
+}
