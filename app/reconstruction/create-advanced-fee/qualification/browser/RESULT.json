@@ -1,0 +1,1831 @@
+{
+  "scope": "Standalone real React/compiler; complete selected control with synthetic store/quote/translation/primitive ports. No original provider, app mount, fee projection or service.",
+  "selectedSource": "97cfd20ba0ae95c342e86b2f56ae66b97bbd95be",
+  "repositoryHead": "97cfd20ba0ae95c342e86b2f56ae66b97bbd95be",
+  "sourceBinding": [
+    {
+      "path": "reconstruction/create-advanced-fee/client.mjs",
+      "bytes": 4622,
+      "sha256": "8c3425f8361d13d9f29052518a04334b0d69ca1dbc8577c04ba554b0adcd17ae",
+      "gitBlob": "9ea4d2f5f5a4d30c71f0531a5087b598e2553aac"
+    },
+    {
+      "path": "reconstruction/create-advanced-fee/client.d.mts",
+      "bytes": 1350,
+      "sha256": "72dfdc880370d89835ce9cdaf4d9a4a7d48f9ebbb2edcdaed99fe2270e53c9f6",
+      "gitBlob": "9c46292dc3e9e263a0dd29d6981ed01c7cd30c8d"
+    },
+    {
+      "path": "reconstruction/create-advanced-fee/qualification/browser.mjs",
+      "bytes": 11044,
+      "sha256": "af45c6a20921ac8db867f11f5d4af467e60f44b23d089878858463e2dbd943fe",
+      "gitBlob": "f9bbfa089822aea6efb10ac1facd7288c624d42e"
+    },
+    {
+      "path": "reconstruction/create-advanced-fee/qualification/fixture.mjs",
+      "bytes": 3884,
+      "sha256": "1d0cbc1396d982c2376d349a0199873edfd8e70f48bbc2c33d3e7ea5b225e6ed",
+      "gitBlob": "73dd512a04722269e931f24ef434461a6db72ad4"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65",
+      "afterRunSha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e",
+      "afterRunSha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-jsx-runtime.development.js",
+      "bytes": 12452,
+      "sha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d",
+      "afterRunSha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/jsx-runtime.js",
+      "bytes": 210,
+      "sha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc",
+      "afterRunSha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096",
+      "afterRunSha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601",
+      "afterRunSha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d",
+      "afterRunSha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb",
+      "afterRunSha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c",
+      "afterRunSha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505",
+      "afterRunSha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1",
+      "afterRunSha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396",
+      "afterRunSha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396",
+      "unchanged": true
+    },
+    {
+      "path": "reconstruction/create-advanced-fee/client.mjs",
+      "bytes": 4622,
+      "sha256": "8c3425f8361d13d9f29052518a04334b0d69ca1dbc8577c04ba554b0adcd17ae",
+      "afterRunSha256": "8c3425f8361d13d9f29052518a04334b0d69ca1dbc8577c04ba554b0adcd17ae",
+      "unchanged": true
+    },
+    {
+      "path": "reconstruction/create-advanced-fee/qualification/fixture.mjs",
+      "bytes": 3884,
+      "sha256": "1d0cbc1396d982c2376d349a0199873edfd8e70f48bbc2c33d3e7ea5b225e6ed",
+      "afterRunSha256": "1d0cbc1396d982c2376d349a0199873edfd8e70f48bbc2c33d3e7ea5b225e6ed",
+      "unchanged": true
+    },
+    {
+      "path": "reconstruction/create-advanced-fee/client.d.mts",
+      "bytes": 1350,
+      "sha256": "72dfdc880370d89835ce9cdaf4d9a4a7d48f9ebbb2edcdaed99fe2270e53c9f6",
+      "afterRunSha256": "72dfdc880370d89835ce9cdaf4d9a4a7d48f9ebbb2edcdaed99fe2270e53c9f6",
+      "unchanged": true
+    },
+    {
+      "path": "reconstruction/create-advanced-fee/qualification/browser.mjs",
+      "bytes": 11044,
+      "sha256": "af45c6a20921ac8db867f11f5d4af467e60f44b23d089878858463e2dbd943fe",
+      "afterRunSha256": "af45c6a20921ac8db867f11f5d4af467e60f44b23d089878858463e2dbd943fe",
+      "unchanged": true
+    }
+  ],
+  "bundleSha256": "697c6359058bb71c5ace53cb8a22de2dbd369abc25e840841cba4397f2e03dbe",
+  "cases": [
+    {
+      "name": "actual pair-kind visibility and empty optional control attributes",
+      "startedAt": "2026-10-29T22:52:02.991Z",
+      "initial": {
+        "value": "",
+        "quoteKind": "sol",
+        "language": "A",
+        "subscribers": 1,
+        "quoteSubscribers": 1,
+        "translationSubscribers": 1,
+        "callbackSameAsFirst": true,
+        "updates": [],
+        "translationCalls": []
+      },
+      "visible": {
+        "value": "",
+        "quoteKind": "stock",
+        "language": "A",
+        "subscribers": 1,
+        "quoteSubscribers": 1,
+        "translationSubscribers": 1,
+        "callbackSameAsFirst": true,
+        "updates": [],
+        "translationCalls": [
+          {
+            "prefix": "A",
+            "key": "web.create.advanced"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          }
+        ]
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T22:52:03.082Z"
+    },
+    {
+      "name": "trusted field entry propagates optional, decimal and range states to errors/ARIA",
+      "startedAt": "2026-10-29T22:52:03.083Z",
+      "steps": [
+        {
+          "value": "0",
+          "invalid": true,
+          "state": {
+            "value": "0",
+            "quoteKind": "stock",
+            "language": "A",
+            "subscribers": 1,
+            "quoteSubscribers": 1,
+            "translationSubscribers": 1,
+            "callbackSameAsFirst": true,
+            "updates": [
+              {
+                "creatorFeePercent": "0"
+              }
+            ],
+            "translationCalls": [
+              {
+                "prefix": "A",
+                "key": "web.create.advanced"
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_label"
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_invalid",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              }
+            ]
+          }
+        },
+        {
+          "value": ".01",
+          "invalid": false,
+          "state": {
+            "value": ".01",
+            "quoteKind": "stock",
+            "language": "A",
+            "subscribers": 1,
+            "quoteSubscribers": 1,
+            "translationSubscribers": 1,
+            "callbackSameAsFirst": true,
+            "updates": [
+              {
+                "creatorFeePercent": "0"
+              },
+              {
+                "creatorFeePercent": ".01"
+              }
+            ],
+            "translationCalls": [
+              {
+                "prefix": "A",
+                "key": "web.create.advanced"
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_label"
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_invalid",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              }
+            ]
+          }
+        },
+        {
+          "value": "1.",
+          "invalid": false,
+          "state": {
+            "value": "1.",
+            "quoteKind": "stock",
+            "language": "A",
+            "subscribers": 1,
+            "quoteSubscribers": 1,
+            "translationSubscribers": 1,
+            "callbackSameAsFirst": true,
+            "updates": [
+              {
+                "creatorFeePercent": "0"
+              },
+              {
+                "creatorFeePercent": ".01"
+              },
+              {
+                "creatorFeePercent": "1."
+              }
+            ],
+            "translationCalls": [
+              {
+                "prefix": "A",
+                "key": "web.create.advanced"
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_label"
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_invalid",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              }
+            ]
+          }
+        },
+        {
+          "value": "3.00",
+          "invalid": false,
+          "state": {
+            "value": "3.00",
+            "quoteKind": "stock",
+            "language": "A",
+            "subscribers": 1,
+            "quoteSubscribers": 1,
+            "translationSubscribers": 1,
+            "callbackSameAsFirst": true,
+            "updates": [
+              {
+                "creatorFeePercent": "0"
+              },
+              {
+                "creatorFeePercent": ".01"
+              },
+              {
+                "creatorFeePercent": "1."
+              },
+              {
+                "creatorFeePercent": "3.00"
+              }
+            ],
+            "translationCalls": [
+              {
+                "prefix": "A",
+                "key": "web.create.advanced"
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_label"
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_invalid",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              }
+            ]
+          }
+        },
+        {
+          "value": "3.01",
+          "invalid": true,
+          "state": {
+            "value": "3.01",
+            "quoteKind": "stock",
+            "language": "A",
+            "subscribers": 1,
+            "quoteSubscribers": 1,
+            "translationSubscribers": 1,
+            "callbackSameAsFirst": true,
+            "updates": [
+              {
+                "creatorFeePercent": "0"
+              },
+              {
+                "creatorFeePercent": ".01"
+              },
+              {
+                "creatorFeePercent": "1."
+              },
+              {
+                "creatorFeePercent": "3.00"
+              },
+              {
+                "creatorFeePercent": "3.01"
+              }
+            ],
+            "translationCalls": [
+              {
+                "prefix": "A",
+                "key": "web.create.advanced"
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_label"
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_invalid",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_invalid",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              }
+            ]
+          }
+        },
+        {
+          "value": "",
+          "invalid": false,
+          "state": {
+            "value": "",
+            "quoteKind": "stock",
+            "language": "A",
+            "subscribers": 1,
+            "quoteSubscribers": 1,
+            "translationSubscribers": 1,
+            "callbackSameAsFirst": true,
+            "updates": [
+              {
+                "creatorFeePercent": "0"
+              },
+              {
+                "creatorFeePercent": ".01"
+              },
+              {
+                "creatorFeePercent": "1."
+              },
+              {
+                "creatorFeePercent": "3.00"
+              },
+              {
+                "creatorFeePercent": "3.01"
+              },
+              {
+                "creatorFeePercent": ""
+              }
+            ],
+            "translationCalls": [
+              {
+                "prefix": "A",
+                "key": "web.create.advanced"
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_label"
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_invalid",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_invalid",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              },
+              {
+                "prefix": "A",
+                "key": "web.create.creator_fee_placeholder",
+                "variables": {
+                  "min_percent": 0.01,
+                  "max_percent": 3
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "status": "PASS",
+      "endedAt": "2026-10-29T22:52:03.347Z"
+    },
+    {
+      "name": "native text input preserves raw whitespace and enforces declared four-character maxlength",
+      "startedAt": "2026-10-29T22:52:03.347Z",
+      "after": {
+        "value": "1.23",
+        "quoteKind": "stock",
+        "language": "A",
+        "subscribers": 1,
+        "quoteSubscribers": 1,
+        "translationSubscribers": 1,
+        "callbackSameAsFirst": true,
+        "updates": [
+          {
+            "creatorFeePercent": "0"
+          },
+          {
+            "creatorFeePercent": ".01"
+          },
+          {
+            "creatorFeePercent": "1."
+          },
+          {
+            "creatorFeePercent": "3.00"
+          },
+          {
+            "creatorFeePercent": "3.01"
+          },
+          {
+            "creatorFeePercent": ""
+          },
+          {
+            "creatorFeePercent": " 1"
+          },
+          {
+            "creatorFeePercent": ""
+          },
+          {
+            "creatorFeePercent": "1"
+          },
+          {
+            "creatorFeePercent": "1."
+          },
+          {
+            "creatorFeePercent": "1.2"
+          },
+          {
+            "creatorFeePercent": "1.23"
+          }
+        ],
+        "translationCalls": [
+          {
+            "prefix": "A",
+            "key": "web.create.advanced"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          }
+        ]
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T22:52:03.426Z"
+    },
+    {
+      "name": "hidden quote transition retains local value and restores the actual error consumer",
+      "startedAt": "2026-10-29T22:52:03.426Z",
+      "after": {
+        "value": "0",
+        "quoteKind": "stock",
+        "language": "A",
+        "subscribers": 1,
+        "quoteSubscribers": 1,
+        "translationSubscribers": 1,
+        "callbackSameAsFirst": true,
+        "updates": [
+          {
+            "creatorFeePercent": "0"
+          },
+          {
+            "creatorFeePercent": ".01"
+          },
+          {
+            "creatorFeePercent": "1."
+          },
+          {
+            "creatorFeePercent": "3.00"
+          },
+          {
+            "creatorFeePercent": "3.01"
+          },
+          {
+            "creatorFeePercent": ""
+          },
+          {
+            "creatorFeePercent": " 1"
+          },
+          {
+            "creatorFeePercent": ""
+          },
+          {
+            "creatorFeePercent": "1"
+          },
+          {
+            "creatorFeePercent": "1."
+          },
+          {
+            "creatorFeePercent": "1.2"
+          },
+          {
+            "creatorFeePercent": "1.23"
+          },
+          {
+            "creatorFeePercent": "0"
+          }
+        ],
+        "translationCalls": [
+          {
+            "prefix": "A",
+            "key": "web.create.advanced"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          }
+        ]
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T22:52:03.477Z"
+    },
+    {
+      "name": "real compiler memo updates translator-dependent label/error without replacing raw state or callback",
+      "startedAt": "2026-10-29T22:52:03.477Z",
+      "after": {
+        "value": "0",
+        "quoteKind": "stock",
+        "language": "B",
+        "subscribers": 1,
+        "quoteSubscribers": 1,
+        "translationSubscribers": 1,
+        "callbackSameAsFirst": true,
+        "updates": [
+          {
+            "creatorFeePercent": "0"
+          },
+          {
+            "creatorFeePercent": ".01"
+          },
+          {
+            "creatorFeePercent": "1."
+          },
+          {
+            "creatorFeePercent": "3.00"
+          },
+          {
+            "creatorFeePercent": "3.01"
+          },
+          {
+            "creatorFeePercent": ""
+          },
+          {
+            "creatorFeePercent": " 1"
+          },
+          {
+            "creatorFeePercent": ""
+          },
+          {
+            "creatorFeePercent": "1"
+          },
+          {
+            "creatorFeePercent": "1."
+          },
+          {
+            "creatorFeePercent": "1.2"
+          },
+          {
+            "creatorFeePercent": "1.23"
+          },
+          {
+            "creatorFeePercent": "0"
+          }
+        ],
+        "translationCalls": [
+          {
+            "prefix": "A",
+            "key": "web.create.advanced"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.advanced"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.creator_fee_label"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          }
+        ]
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T22:52:03.506Z"
+    },
+    {
+      "name": "supplied state callback redraws controlled value and real hook subscriptions clean up",
+      "startedAt": "2026-10-29T22:52:03.506Z",
+      "beforeUnmount": {
+        "value": "2.50",
+        "quoteKind": "stock",
+        "language": "B",
+        "subscribers": 1,
+        "quoteSubscribers": 1,
+        "translationSubscribers": 1,
+        "callbackSameAsFirst": true,
+        "updates": [
+          {
+            "creatorFeePercent": "0"
+          },
+          {
+            "creatorFeePercent": ".01"
+          },
+          {
+            "creatorFeePercent": "1."
+          },
+          {
+            "creatorFeePercent": "3.00"
+          },
+          {
+            "creatorFeePercent": "3.01"
+          },
+          {
+            "creatorFeePercent": ""
+          },
+          {
+            "creatorFeePercent": " 1"
+          },
+          {
+            "creatorFeePercent": ""
+          },
+          {
+            "creatorFeePercent": "1"
+          },
+          {
+            "creatorFeePercent": "1."
+          },
+          {
+            "creatorFeePercent": "1.2"
+          },
+          {
+            "creatorFeePercent": "1.23"
+          },
+          {
+            "creatorFeePercent": "0"
+          },
+          {
+            "creatorFeePercent": "2.50"
+          }
+        ],
+        "translationCalls": [
+          {
+            "prefix": "A",
+            "key": "web.create.advanced"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.advanced"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.creator_fee_label"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          }
+        ]
+      },
+      "afterUnmount": {
+        "value": "2.50",
+        "quoteKind": "stock",
+        "language": "B",
+        "subscribers": 0,
+        "quoteSubscribers": 0,
+        "translationSubscribers": 0,
+        "callbackSameAsFirst": true,
+        "updates": [
+          {
+            "creatorFeePercent": "0"
+          },
+          {
+            "creatorFeePercent": ".01"
+          },
+          {
+            "creatorFeePercent": "1."
+          },
+          {
+            "creatorFeePercent": "3.00"
+          },
+          {
+            "creatorFeePercent": "3.01"
+          },
+          {
+            "creatorFeePercent": ""
+          },
+          {
+            "creatorFeePercent": " 1"
+          },
+          {
+            "creatorFeePercent": ""
+          },
+          {
+            "creatorFeePercent": "1"
+          },
+          {
+            "creatorFeePercent": "1."
+          },
+          {
+            "creatorFeePercent": "1.2"
+          },
+          {
+            "creatorFeePercent": "1.23"
+          },
+          {
+            "creatorFeePercent": "0"
+          },
+          {
+            "creatorFeePercent": "2.50"
+          }
+        ],
+        "translationCalls": [
+          {
+            "prefix": "A",
+            "key": "web.create.advanced"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.advanced"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.creator_fee_label"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.creator_fee_invalid",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.creator_fee_placeholder",
+            "variables": {
+              "min_percent": 0.01,
+              "max_percent": 3
+            }
+          }
+        ]
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T22:52:03.529Z"
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/bundle.js"
+    }
+  ],
+  "blockedRequests": [],
+  "pageErrors": [],
+  "startedAt": "2026-10-29T22:52:02.741Z",
+  "origin": "http://127.0.0.1:38317",
+  "status": "PASS",
+  "browserClosed": true,
+  "serverListening": false,
+  "endedAt": "2026-10-29T22:52:03.618Z"
+}

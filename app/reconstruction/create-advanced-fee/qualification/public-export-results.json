@@ -1,0 +1,31 @@
+{
+  "publicSource": "1400529f208fb84f9104803986566861321da12b",
+  "inputsUnchangedAfter": true,
+  "checks": [
+    {
+      "label": "source",
+      "command": [
+        "node",
+        "app/scripts/original-create-advanced-fee.mjs",
+        "--check"
+      ],
+      "cwd": "Git-authenticated public export root with spaces",
+      "returncode": 0,
+      "seconds": 0.4980801670171786,
+      "log": "public-export-source.log"
+    },
+    {
+      "label": "focused",
+      "command": [
+        "node",
+        "--test",
+        "app/tests/original_create_advanced_fee.test.mjs"
+      ],
+      "cwd": "Git-authenticated public export root with spaces",
+      "returncode": 0,
+      "seconds": 2.379283874994144,
+      "log": "public-export-focused.log"
+    }
+  ],
+  "limits": "Same8modelcases repeated,not16unique cases. No browser/controller/HTTP execution in this public export; historical6browser cases stay bound to97cfd runtime."
+}

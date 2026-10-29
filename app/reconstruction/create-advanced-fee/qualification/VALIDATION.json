@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "measuredRuntimeAndMethod": "97cfd20ba0ae95c342e86b2f56ae66b97bbd95be",
+  "publicSource": "1400529f208fb84f9104803986566861321da12b",
+  "exactCompleteTreeForBoth": "e3fd425177cb7653104041db9992792e1116f1ba",
+  "unchangedFrozenEightFiles": [
+    {
+      "path": "app/reconstruction/create-advanced-fee/README.md",
+      "sha256": "6cba4d1e683877b6aaa4d55b0360f5d1af00b9d44600383565467a2937321cf5",
+      "gitBlob": "d170fd9c375b1aa2967089c7feac9b03707eb201"
+    },
+    {
+      "path": "app/reconstruction/create-advanced-fee/client.d.mts",
+      "sha256": "72dfdc880370d89835ce9cdaf4d9a4a7d48f9ebbb2edcdaed99fe2270e53c9f6",
+      "gitBlob": "9c46292dc3e9e263a0dd29d6981ed01c7cd30c8d"
+    },
+    {
+      "path": "app/reconstruction/create-advanced-fee/client.mjs",
+      "sha256": "8c3425f8361d13d9f29052518a04334b0d69ca1dbc8577c04ba554b0adcd17ae",
+      "gitBlob": "9ea4d2f5f5a4d30c71f0531a5087b598e2553aac"
+    },
+    {
+      "path": "app/reconstruction/create-advanced-fee/contract.json",
+      "sha256": "5e7ee6d5320a72533c0553a7e785e2b47f0a297eed701c464ae4826ee20c0f44",
+      "gitBlob": "c4f4bb7d6b38cdc315a9c670f8d4cb352539e029"
+    },
+    {
+      "path": "app/reconstruction/create-advanced-fee/qualification/browser.mjs",
+      "sha256": "af45c6a20921ac8db867f11f5d4af467e60f44b23d089878858463e2dbd943fe",
+      "gitBlob": "f9bbfa089822aea6efb10ac1facd7288c624d42e"
+    },
+    {
+      "path": "app/reconstruction/create-advanced-fee/qualification/fixture.mjs",
+      "sha256": "1d0cbc1396d982c2376d349a0199873edfd8e70f48bbc2c33d3e7ea5b225e6ed",
+      "gitBlob": "73dd512a04722269e931f24ef434461a6db72ad4"
+    },
+    {
+      "path": "app/scripts/original-create-advanced-fee.mjs",
+      "sha256": "f4104858d07b3a0f8778d62c17f67d0ed98a9bafcfc63cebd4d4af9bb5e84846",
+      "gitBlob": "971581e3334a8c52adf5e6150ca8e46ac48d5d4b"
+    },
+    {
+      "path": "app/tests/original_create_advanced_fee.test.mjs",
+      "sha256": "957465a91495491296187d07b8f509569cf88b301d7bf22ca7c161cbf3c15611",
+      "gitBlob": "433b42c07c5b693ba7200b1a4b5fb1fcac941aae"
+    }
+  ],
+  "direct": {
+    "sourceRoles": 6,
+    "witnesses": 38,
+    "compilerSlots": 39,
+    "passed": 8,
+    "failed": 0,
+    "skipped": 0,
+    "actualVerifierMutationRejections": 6,
+    "log": "focused-frozen.log"
+  },
+  "portsTypes": {
+    "command": [
+      "corepack",
+      "pnpm",
+      "exec",
+      "tsc",
+      "--noEmit",
+      "--strict",
+      "--skipLibCheck",
+      "--target",
+      "ES2022",
+      "--module",
+      "NodeNext",
+      "--moduleResolution",
+      "NodeNext",
+      "reconstruction/create-advanced-fee/client.d.mts"
+    ],
+    "cwd": "app",
+    "returncode": 0,
+    "log": "ports-types.log"
+  },
+  "browser": {
+    "sourceAndMethodFrozenBeforeRun": true,
+    "command": [
+      "node",
+      "reconstruction/create-advanced-fee/qualification/browser.mjs",
+      "--source",
+      "97cfd20ba0ae95c342e86b2f56ae66b97bbd95be",
+      "--output",
+      "NEW_DIRECTORY"
+    ],
+    "cwd": "app",
+    "passed": 6,
+    "failed": 0,
+    "pageErrors": [],
+    "actualInputs": 16,
+    "exactGitRuntimeFiles": 4,
+    "allInputHashesUnchangedAfter": true,
+    "browserClosed": true,
+    "serverListening": false,
+    "onlyRecordedRequests": [
+      "GET /",
+      "GET /bundle.js"
+    ],
+    "externalRequestsBlocked": true,
+    "result": "browser/RESULT.json",
+    "sourceInputs": "browser/INPUTS.json",
+    "bundle": {
+      "retained": "browser/bundle.js.gz",
+      "uncompressedBytes": 1136425,
+      "uncompressedSha256": "697c6359058bb71c5ace53cb8a22de2dbd369abc25e840841cba4397f2e03dbe",
+      "gzipRoundtripVerified": true
+    }
+  },
+  "sharedAndIntegrity": {
+    "sharedSourceChecks": 11,
+    "captures": 698,
+    "sdkSourceFiles": 31,
+    "npmIntegrity": true,
+    "progressChecks": 9,
+    "allPassed": true
+  },
+  "mandatory": {
+    "source": "97cfd20ba0ae95c342e86b2f56ae66b97bbd95be",
+    "gitBoundInputs": 53,
+    "captureChecks": 9,
+    "toolingTests": 10,
+    "allPassed": true,
+    "record": "mandatory-source-record.json"
+  },
+  "portableExport": {
+    "source": "1400529f208fb84f9104803986566861321da12b",
+    "minimalGitFiles": 17,
+    "pathWithSpaces": true,
+    "sourceCheckPassed": true,
+    "same8DirectCasesRepeatedNot16Unique": true,
+    "allInputsUnchangedAfter": true,
+    "binding": "public-export-inputs.json",
+    "result": "public-export-results.json",
+    "notRerun": "Browser was not repeated; its four inputs are byte-identical across measured/public source, and runner explicitly accepts the public source SHA."
+  },
+  "limits": [
+    "Real React/compiler run with authored synthetic state/quote/translation/primitive ports, not original provider or website mount.",
+    "Browser used Playwright native field actions and sequential keyboard input, with no event dispatch or media prototype override; native maxlength proof applies to the supplied plain Input port.",
+    "All original fee projection/submission consumers remain inert static witnesses; no fee, amount, funding, instruction, wallet/auth/session or service implementation.",
+    "No original factory execution, Next/build, remote HTTP, upload, signing, transactions, financial admission, original DOM/wording/visual/runtime parity, compatibility or milestone claim."
+  ]
+}
