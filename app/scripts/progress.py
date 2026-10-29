@@ -44,7 +44,9 @@ def render():
         body=(ROOT/record['path']).read_bytes()
         if 'bytes' in record:
             require(type(record['bytes']) is int and record['bytes'] >= 0 and len(body)==record['bytes'], 'Captured script byte count mismatch')
-        verified += hashlib.sha256(body).hexdigest()==record['sha256']
+        digest = hashlib.sha256(body).hexdigest()
+        require(isinstance(record.get('sha256'), str) and digest == record['sha256'], f'Captured script hash mismatch: {record.get("path")}')
+        verified += 1
     script_progress=f'{100*verified/len(scripts):.0f}%' if scripts else 'N/A'
     factory_progress='100%' if recovered['modules'] else 'N/A'
     source_count=source_equal=0
