@@ -1,0 +1,313 @@
+{
+  "schema": 1,
+  "source": {
+    "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+    "selectedEntries": [
+      {
+        "ids": [
+          409954
+        ],
+        "sha256": "fcb2e40ca1d849a9432477c7265d3720b015d3ef3786aefde383cf1e0a3b62e9",
+        "origins": [
+          {
+            "source": "evidence/web/objects/eb0b23ee6feb7543.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/163nqh7l1hxim.js",
+            "start": 10134,
+            "end": 11437
+          }
+        ],
+        "path": "recovered/modules/409954-fcb2e40ca1d8.js"
+      },
+      {
+        "ids": [
+          432405
+        ],
+        "sha256": "8b9331878bca9e809c540ad74c79a74eb0972e94f4611e58e757ce287058ddab",
+        "origins": [
+          {
+            "source": "evidence/web/objects/fd402d4185b44ce9.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/19xl-yywkv-8p.js",
+            "start": 13922,
+            "end": 14024
+          }
+        ],
+        "path": "recovered/modules/432405-8b9331878bca.js"
+      },
+      {
+        "ids": [
+          146695
+        ],
+        "sha256": "bb995bc856796eb404e21763f5a72275af2b0efa06b46f0d12507e1c6a3d90a1",
+        "origins": [
+          {
+            "source": "evidence/web/objects/fd402d4185b44ce9.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/19xl-yywkv-8p.js",
+            "start": 29806,
+            "end": 30355
+          }
+        ],
+        "path": "recovered/modules/146695-bb995bc85679.js"
+      },
+      {
+        "ids": [
+          996005
+        ],
+        "sha256": "80bc5bd7bf784ff392040b5157b0b51fd1e9e038179c66ce67b205b7041137da",
+        "origins": [
+          {
+            "source": "evidence/web/objects/dd1b7e2a0ecbaed0.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/39mrtwuhv50wq.js",
+            "start": 14830,
+            "end": 21884
+          }
+        ],
+        "path": "recovered/modules/996005-80bc5bd7bf78.js"
+      },
+      {
+        "ids": [
+          996005
+        ],
+        "sha256": "ac3ebd5b7d6f1227ac2defe6bdab4d173314d04315052350a509c8934aa02cae",
+        "origins": [
+          {
+            "source": "evidence/web/objects/bbad3cca63bc2aa5.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/2wq32g770zyfq.js",
+            "start": 14336,
+            "end": 21390
+          }
+        ],
+        "path": "recovered/modules/996005-ac3ebd5b7d6f.js"
+      },
+      {
+        "ids": [
+          409954
+        ],
+        "sha256": "7c87904f8f332e95744b3d16ca40fce14e88a97bea5be93d5e44a835f5984c74",
+        "origins": [
+          {
+            "source": "evidence/web/objects/97dc53c5c25c1fdc.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/0tpgydvs6h0o8.js",
+            "start": 12054,
+            "end": 13357
+          }
+        ],
+        "path": "recovered/modules/409954-7c87904f8f33.js"
+      }
+    ]
+  },
+  "commonCompleteComponentAstSha256": "1cefef53dec5db2a4829c4d049508ca4f8a9b0e44977f1c56130df3660f626ca",
+  "consumers": [
+    {
+      "id": 996005,
+      "ids": [
+        996005
+      ],
+      "label": "factory 996005",
+      "source": "evidence/web/objects/dd1b7e2a0ecbaed0.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/39mrtwuhv50wq.js",
+      "sourceSha256": "40ea711965b8e822c72cb9123e9f25a88d2d9015a356b6741fb2df0a1778ed54",
+      "sourceBytes": 41728,
+      "utf16": [
+        14830,
+        21884
+      ],
+      "utf8": [
+        14832,
+        21888
+      ],
+      "sha256": "80bc5bd7bf784ff392040b5157b0b51fd1e9e038179c66ce67b205b7041137da"
+    },
+    {
+      "id": 996005,
+      "ids": [
+        996005
+      ],
+      "label": "factory 996005",
+      "source": "evidence/web/objects/bbad3cca63bc2aa5.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2wq32g770zyfq.js",
+      "sourceSha256": "6211907e645a10d5cf6a5bbb570e90023de029c456e4d47c096a097c2d6dcf14",
+      "sourceBytes": 33269,
+      "utf16": [
+        14336,
+        21390
+      ],
+      "utf8": [
+        14338,
+        21394
+      ],
+      "sha256": "ac3ebd5b7d6f1227ac2defe6bdab4d173314d04315052350a509c8934aa02cae"
+    }
+  ],
+  "witnesses": [
+    {
+      "label": "complete common ProfileLink component including inline context hook and compiler caches",
+      "source": "evidence/web/objects/eb0b23ee6feb7543.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/163nqh7l1hxim.js",
+      "sourceSha256": "8ff9a060d8b1c540a04bb505094eb61ce0c2b2c5d83579af3e3976bf49a16d54",
+      "sourceBytes": 31639,
+      "utf16": [
+        10304,
+        11434
+      ],
+      "utf8": [
+        10304,
+        11434
+      ],
+      "sha256": "2e48e4c6ae55436f16154a412163eaed9805475be38d320172da401d3565137f"
+    },
+    {
+      "label": "default null context, not authentication",
+      "source": "evidence/web/objects/eb0b23ee6feb7543.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/163nqh7l1hxim.js",
+      "sourceSha256": "8ff9a060d8b1c540a04bb505094eb61ce0c2b2c5d83579af3e3976bf49a16d54",
+      "sourceBytes": 31639,
+      "utf16": [
+        10244,
+        10271
+      ],
+      "utf8": [
+        10244,
+        10271
+      ],
+      "sha256": "a0b6fb2021bf6c53c71b294d40a9c55c83a268fb767d9bc5fbb3053c79066527"
+    },
+    {
+      "label": "complete common ProfileLink component including inline context hook and compiler caches",
+      "source": "evidence/web/objects/97dc53c5c25c1fdc.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0tpgydvs6h0o8.js",
+      "sourceSha256": "f0ced078d389550a49f6a68980b3eaac550b2a8b5a72ce8da284d621d061111b",
+      "sourceBytes": 41086,
+      "utf16": [
+        12224,
+        13354
+      ],
+      "utf8": [
+        12228,
+        13358
+      ],
+      "sha256": "1fda82594623da832f66cc8589f54713ffb2979e2fd682fe36fee99dc2f18c23"
+    },
+    {
+      "label": "default null context, not authentication",
+      "source": "evidence/web/objects/97dc53c5c25c1fdc.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0tpgydvs6h0o8.js",
+      "sourceSha256": "f0ced078d389550a49f6a68980b3eaac550b2a8b5a72ce8da284d621d061111b",
+      "sourceBytes": 41086,
+      "utf16": [
+        12164,
+        12191
+      ],
+      "utf8": [
+        12168,
+        12195
+      ],
+      "sha256": "4c5e6607e21d4591419ccce0bfbbadc4555957141f212f20df692a12ed0070b0"
+    },
+    {
+      "label": "complete ordinary click guard",
+      "source": "evidence/web/objects/fd402d4185b44ce9.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/19xl-yywkv-8p.js",
+      "sourceSha256": "1dc5d2351887b14932acbddf37ea653566df106b41c56ddc19ae70158e43f806",
+      "sourceBytes": 31128,
+      "utf16": [
+        13937,
+        14021
+      ],
+      "utf8": [
+        13938,
+        14022
+      ],
+      "sha256": "059bc33014b25d00e8786b945e57c51fee1a081ef490cdc4f381d525df305295"
+    },
+    {
+      "label": "actual trader row imports complete ProfileLink",
+      "source": "evidence/web/objects/dd1b7e2a0ecbaed0.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/39mrtwuhv50wq.js",
+      "sourceSha256": "40ea711965b8e822c72cb9123e9f25a88d2d9015a356b6741fb2df0a1778ed54",
+      "sourceBytes": 41728,
+      "utf16": [
+        15020,
+        15033
+      ],
+      "utf8": [
+        15022,
+        15035
+      ],
+      "sha256": "2a60fbcb141bf87dc6f4c1bb11fabc7c3d0015373922b0c826b0ac5ac82777c9"
+    },
+    {
+      "label": "actual trader row links supplied wallet address",
+      "source": "evidence/web/objects/dd1b7e2a0ecbaed0.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/39mrtwuhv50wq.js",
+      "sourceSha256": "40ea711965b8e822c72cb9123e9f25a88d2d9015a356b6741fb2df0a1778ed54",
+      "sourceBytes": 41728,
+      "utf16": [
+        16714,
+        16805
+      ],
+      "utf8": [
+        16716,
+        16807
+      ],
+      "sha256": "1ccf91f314530ba537fbb6ce2dd9eb2c4de07fd895f370121ad2abb0d93a46e6"
+    },
+    {
+      "label": "actual trader row imports complete ProfileLink",
+      "source": "evidence/web/objects/bbad3cca63bc2aa5.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2wq32g770zyfq.js",
+      "sourceSha256": "6211907e645a10d5cf6a5bbb570e90023de029c456e4d47c096a097c2d6dcf14",
+      "sourceBytes": 33269,
+      "utf16": [
+        14526,
+        14539
+      ],
+      "utf8": [
+        14528,
+        14541
+      ],
+      "sha256": "b5a1c9a0d93ce046ef8b1c45e3cf5c5885346010dbd63ec86a0cb2663d3ab29f"
+    },
+    {
+      "label": "actual trader row links supplied wallet address",
+      "source": "evidence/web/objects/bbad3cca63bc2aa5.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2wq32g770zyfq.js",
+      "sourceSha256": "6211907e645a10d5cf6a5bbb570e90023de029c456e4d47c096a097c2d6dcf14",
+      "sourceBytes": 33269,
+      "utf16": [
+        16220,
+        16311
+      ],
+      "utf8": [
+        16222,
+        16313
+      ],
+      "sha256": "1e999a97303ec38640567fb2e6a0622647210e4e237bff7f3a07722e84787813"
+    },
+    {
+      "label": "profileRoute already recovered by accepted search navigation; reused without new recovery credit",
+      "source": "evidence/web/objects/fd402d4185b44ce9.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/19xl-yywkv-8p.js",
+      "sourceSha256": "1dc5d2351887b14932acbddf37ea653566df106b41c56ddc19ae70158e43f806",
+      "sourceBytes": 31128,
+      "utf16": [
+        29917,
+        30071
+      ],
+      "utf8": [
+        29918,
+        30072
+      ],
+      "sha256": "9268d85b73a1d9f74cc7cc265c5480aff4c765d3cab16427d735ca13531d5ea4"
+    }
+  ],
+  "outputs": {
+    "packages/frontend/src/components/leaderboard/original-profile-link.mjs": "21485022ee43b064a8cae46cb664db2620f8259a88fc81e152b40d3d1fa62367",
+    "packages/frontend/src/components/leaderboard/original-profile-click.mjs": "f22137359a5313c5c33708eda61924f9d288e361acf412f52f1575473bc3889e"
+  },
+  "boundaries": [
+    "Original null-default navigation context and pending UI state are not backend authentication or ownership.",
+    "React/compiler runtime, Next Link and class merging remain explicit ports. Original private navigation provider is not implemented.",
+    "URL builder is reused from accepted search-navigation; no additional recovery count.",
+    "The full two physical component ASTs agree; no arbitrary deployment winner is selected."
+  ]
+}

@@ -37,6 +37,11 @@ import {
   type TradersData,
 } from "./types";
 import { CompetitionRules } from "./competition-rules";
+import { RankingProfileLink } from "../../components/leaderboard/RankingProfileLink";
+import {
+  matchingLocalRankingProfile,
+  type LocalRankingProfile,
+} from "../../components/leaderboard/local-profile-identity";
 
 const PAGE_SIZE = 10;
 const SEARCH_LIMIT = 200;
@@ -290,41 +295,67 @@ function SearchControl({
   );
 }
 
-function TraderRows({ entries }: { entries: TraderEntry[] }) {
+function TraderRows({
+  entries,
+  localProfiles,
+}: {
+  entries: TraderEntry[];
+  localProfiles: readonly LocalRankingProfile[];
+}) {
   return (
     <ol className="ranking-list" aria-label="Trader rankings">
-      {entries.map((entry) => (
-        <li
-          className="ranking-row"
-          key={`${entry.rank}-${entry.walletAddress}`}
-        >
-          <span className="ranking-position" aria-label={`Rank ${entry.rank}`}>
-            {entry.rank}
-          </span>
-          <span className="ranking-identity">
-            <strong>
-              {identityLabel(entry.username, entry.walletAddress)}
-              <VerifiedMark
-                visible={entry.isVerified && entry.verifiedBadgeVisible}
-              />
-            </strong>
-            <small title={entry.walletAddress}>
-              {shortIdentity(entry.walletAddress)} · {entry.positionsCount}{" "}
-              positions
-            </small>
-          </span>
-          <span className="ranking-metric">
-            <strong className={entry.pnlUsd >= 0 ? "positive" : "negative"}>
-              {usd.format(entry.pnlUsd)}
-            </strong>
-            <small>{percent.format(entry.pnlPercent / 100)} combined PnL</small>
-          </span>
-          <span className="ranking-facts">
-            <small>Realized {usd.format(entry.realizedPnlUsd)}</small>
-            <small>Unrealized {usd.format(entry.unrealizedPnlUsd)}</small>
-          </span>
-        </li>
-      ))}
+      {entries.map((entry) => {
+        const identifier = matchingLocalRankingProfile(entry, localProfiles);
+        const name = identityLabel(entry.username, entry.walletAddress);
+        const identity = (
+          <>
+            {name}
+            <VerifiedMark
+              visible={entry.isVerified && entry.verifiedBadgeVisible}
+            />
+          </>
+        );
+        return (
+          <li
+            className="ranking-row"
+            key={`${entry.rank}-${entry.walletAddress}`}
+          >
+            <span
+              className="ranking-position"
+              aria-label={`Rank ${entry.rank}`}
+            >
+              {entry.rank}
+            </span>
+            <span className="ranking-identity">
+              <strong>
+                {identifier ? (
+                  <RankingProfileLink identifier={identifier} label={name}>
+                    {identity}
+                  </RankingProfileLink>
+                ) : (
+                  identity
+                )}
+              </strong>
+              <small title={entry.walletAddress}>
+                {shortIdentity(entry.walletAddress)} · {entry.positionsCount}{" "}
+                positions
+              </small>
+            </span>
+            <span className="ranking-metric">
+              <strong className={entry.pnlUsd >= 0 ? "positive" : "negative"}>
+                {usd.format(entry.pnlUsd)}
+              </strong>
+              <small>
+                {percent.format(entry.pnlPercent / 100)} combined PnL
+              </small>
+            </span>
+            <span className="ranking-facts">
+              <small>Realized {usd.format(entry.realizedPnlUsd)}</small>
+              <small>Unrealized {usd.format(entry.unrealizedPnlUsd)}</small>
+            </span>
+          </li>
+        );
+      })}
     </ol>
   );
 }
@@ -459,7 +490,11 @@ function CompetitionEntryRows({ entries }: { entries: CompetitionEntry[] }) {
   );
 }
 
-export default function LeaderboardClient() {
+export default function LeaderboardClient({
+  localProfiles = [],
+}: {
+  localProfiles?: readonly LocalRankingProfile[];
+}) {
   const searchParams = useSearchParams();
   const category = oneOf(
     searchParams.get("category"),
@@ -618,7 +653,7 @@ export default function LeaderboardClient() {
           <span>{data.periodLabel}</span>
           <span>{filtered.length} validated traders</span>
         </div>
-        <TraderRows entries={entries} />
+        <TraderRows entries={entries} localProfiles={localProfiles} />
         <Pagination
           page={visiblePage}
           totalPages={totalPages}
@@ -745,7 +780,10 @@ export default function LeaderboardClient() {
           </span>
           <h2>{data.competition.title}</h2>
           <p>{data.competition.description}</p>
-          <CompetitionRules key={data.competition.id} competition={data.competition} />
+          <CompetitionRules
+            key={data.competition.id}
+            competition={data.competition}
+          />
           <dl>
             <div>
               <dt>Ranked entries</dt>

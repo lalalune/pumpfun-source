@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import LeaderboardClient from "./leaderboard-client";
+import { loadLocalRankingProfiles } from "../../components/leaderboard/local-profile-directory";
 
 export const metadata: Metadata = {
   title: "Leaderboard",
@@ -21,7 +22,8 @@ function LeaderboardFallback() {
   );
 }
 
-export default function LeaderboardPage() {
+export default async function LeaderboardPage() {
+  const localProfiles = await loadLocalRankingProfiles();
   return (
     <>
       <div className="leaderboard-heading">
@@ -37,7 +39,7 @@ export default function LeaderboardPage() {
         <span className="read-only-badge">Read only</span>
       </div>
       <Suspense fallback={<LeaderboardFallback />}>
-        <LeaderboardClient />
+        <LeaderboardClient localProfiles={localProfiles} />
       </Suspense>
     </>
   );
