@@ -1,0 +1,100 @@
+{
+  "sourceCommit": "d293c3b4187e8530095a3d245a4c2ea229ab6827",
+  "sourceTree": "a416e1214467543ff73f8ca5fc1db313d88be78d",
+  "initialSourceCommit": "e4dfd46291f9179b65bd9f51663b3e232288b466",
+  "initialPublicHead": "81095133bcb4e03bd821fdf45221d0afc2676ba1",
+  "source": [
+    {
+      "path": "app/packages/frontend/src/original-contracts/balance-summary/client.mjs",
+      "gitBlob": "a5af41e84088584bd6c82f5a7ce5c6941656ac56",
+      "sha256": "c6855454601cdd5c05974a92a2190fcf2cc3e0ffd2279f9c27470fc7c5722401",
+      "bytes": 4576
+    },
+    {
+      "path": "app/tests/original_balance_summary.test.mjs",
+      "gitBlob": "0b818ff9b50e51d650a7c04ee975234150e132bf",
+      "sha256": "a817d007baf203c7afd8056a4ae94fc257847b07b3aec8023c386cd234d712be",
+      "bytes": 15837
+    },
+    {
+      "path": "app/scripts/original-balance-summary.mjs",
+      "gitBlob": "8f087bfcfc3dac9c22a027dca8efecb17942ffb0",
+      "sha256": "5b67ea15d10c7762d8a51eef55b81a064a48539f7a11d132d8a1cc3a674d1778",
+      "bytes": 12581
+    },
+    {
+      "path": "app/reconstruction/balance-summary/contract.json",
+      "gitBlob": "5ce848b2dce5cfd4acd88b665ff1176d7c2b695e",
+      "sha256": "5fea46a1a5376163c3c5b2ff095c20de2b3d8851f813b7612f9f1828a6840518",
+      "bytes": 60969
+    }
+  ],
+  "correction": "Restore original status/retryAfterMs class fields, and add own-key order regression in existing error case",
+  "checks": [
+    {
+      "command": [
+        "node",
+        "--test",
+        "app/tests/original_balance_summary.test.mjs"
+      ],
+      "passed": 9,
+      "returncode": 0,
+      "log": "focused-tests.log"
+    },
+    {
+      "command": [
+        "node",
+        "app/scripts/original-balance-summary.mjs",
+        "--check"
+      ],
+      "returncode": 0,
+      "log": "source-check.log"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/verify_evidence.py"
+      ],
+      "captures": 9,
+      "returncode": 0,
+      "log": "root-captures-bound.log"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/test_tooling.py"
+      ],
+      "tests": 10,
+      "returncode": 0,
+      "log": "root-tooling-bound.log"
+    }
+  ],
+  "commonInputBinding": {
+    "record": "mandatory-common-source.json",
+    "actualReadInputs": 46,
+    "allMatchSourceGit": true
+  },
+  "loopback": {
+    "completedGETResponses": 7,
+    "abortedGET": 1,
+    "freshRun": true,
+    "normalizedWireEqualsInitial": true
+  },
+  "independentReview": {
+    "method": "Private independent static source/AST/caller review, no captured execution, tests or network",
+    "scope": "All6 reader variants; actual465363 UI input/result/error handoff;38279 endpoint/cache-key; all11 reader/query roles",
+    "initialFinding": "Original own-field order differed; consumed values same",
+    "correctionVerified": true,
+    "otherConcreteMismatchFound": false,
+    "notGitHubApproval": true
+  },
+  "historicalChecksNotRerun": [
+    "shared-source11",
+    "app698/npm/SDK",
+    "progress/progress9"
+  ],
+  "limits": [
+    "No captured factory execution or live profile/service/auth/credential access",
+    "No UI/RPC/mutation/accounting/PnL/native or complete-application qualification"
+  ]
+}

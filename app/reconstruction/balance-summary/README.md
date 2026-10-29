@@ -133,3 +133,13 @@ accounting/schema, authenticated access, owner/session enforcement, provider
 winner/current availability, RPC, transaction/signing, native compatibility,
 React UI integration, visual parity or feature percentage is claimed. Existing
 contracts, captures, SDK and product implementation remain unchanged.
+
+## Error-field fidelity follow-up
+
+The independent static review identified an original class-field declaration
+detail. The reader now declares `status; retryAfterMs;` before its constructor,
+matching the source-defined own-property order before `name`. The fresh nine
+affected checks and required root gates pass; the initial packet remains sealed
+and historical. See the [additive correction receipt](validation/error-field-order/README.md)
+for exact source hashes, before/after native maintained-class observation and
+scope. HTTP/query/JSON behavior and captured bytes are unchanged.

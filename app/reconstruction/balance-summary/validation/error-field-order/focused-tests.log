@@ -1,0 +1,17 @@
+✔ source authenticates all six physical readers, exact origin/key provider and real UI handoff (353.789235ms)
+✔ fetch destination/options/subject semantics are explicit, without inferred encoding or query signal (1.170758ms)
+✔ success returns raw decoded JSON, with no schema/success/shape repair; transport and JSON failures propagate (3.428287ms)
+✔ 401/other errors do not consume body; only429 reads retry header/clock (0.613661ms)
+✔ Retry-After numeric/date grammar retains zero, past dates, overflow and invalid distinctions (0.286761ms)
+✔ finite error property admission and exact retry/delay/polling policies (0.251999ms)
+✔ query hook preserves memo identities/captured callbacks and last-spread overrides through injected ports (0.713932ms)
+✔ real synthetic loopback HTTP binds request/JSON/errors/abort without live provider or automatic retries (47.319008ms)
+✔ source verification rejects resealed raw changes and noncanonical contract bytes (645.401465ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1169.489571

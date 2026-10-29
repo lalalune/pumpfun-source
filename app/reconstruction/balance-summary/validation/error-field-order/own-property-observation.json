@@ -1,0 +1,17 @@
+{
+  "method": "Native construction of maintained reconstruction classes only; original captured factories are NOT executed",
+  "expectedFromOriginalSource": "All six original classes declare status/retryAfterMs fields before constructor name assignment",
+  "beforeCommit": "e4dfd46291f9179b65bd9f51663b3e232288b466",
+  "afterCommit": "d293c3b4187e8530095a3d245a4c2ea229ab6827",
+  "beforeKeys": [
+    "name",
+    "status",
+    "retryAfterMs"
+  ],
+  "afterKeys": [
+    "status",
+    "retryAfterMs",
+    "name"
+  ],
+  "consumedNameStatusDelayUnchanged": true
+}
