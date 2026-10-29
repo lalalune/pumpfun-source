@@ -317,7 +317,7 @@ export class CompetitionStore {
       if (timeA !== timeB) {
         return timeA - timeB;
       }
-      return a.entryId.localeCompare(b.entryId);
+      return a.entryId.localeCompare(b.entryId) || (a.entryId === b.entryId ? 0 : a.entryId < b.entryId ? -1 : 1);
     });
 
     const ranked: RankedEntry[] = nonStruck.map((e, index) => ({ ...e, rank: index + 1 }));
