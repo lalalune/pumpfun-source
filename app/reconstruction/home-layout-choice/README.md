@@ -72,3 +72,11 @@ controls, product Settings/Home mount and downstream Home layout effect remain
 unqualified. There is no actual cookie/storage/session/credential acquisition,
 network mutation, tenant request, new preference page, trading/chart/account
 control, backend, API/native/pixel compatibility, completion or security claim.
+
+Frozen source and method `45e8a2af863dc286fe4fe3832c8c623cf1981fe6` passed
+13 domain tests, 11 shared-source tests and one actual React browser workflow
+at 390px and 1280px, plus recursive typecheck, 698 evidence checks and nine
+progress tests. Each width retains exactly its expected synthetic cookie-denied
+error and no other page errors. The [qualification packet](validation/README.md)
+binds the source/method inputs and raw outputs; publication changes no runtime.
+Original captured materials retain their authorship.

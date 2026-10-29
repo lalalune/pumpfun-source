@@ -1,0 +1,151 @@
+{
+  "schema": 1,
+  "testedHead": "45e8a2af863dc286fe4fe3832c8c623cf1981fe6",
+  "testedTree": "59348fffc01754413efe344bfb79808879ea1de6",
+  "reviewBase": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Complete source-backed choice/field/selected layout descriptor/cookie adapter workflow through explicit synthetic capabilities",
+  "inputs": {
+    "evidence/web/manifest.json": {
+      "bytes": 3026513,
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda"
+    },
+    "evidence/web/objects/11cf0bf8a734ea43.js": {
+      "bytes": 49565,
+      "sha256": "a859077ba48e8afb625cd917a674ace225a0959ad40932f02331402dd5365f83",
+      "gitBlob": "0316016b630a67035a86489f98bf1bb1e30d4c9e"
+    },
+    "evidence/web/objects/4490d02ba2117672.js": {
+      "bytes": 52381,
+      "sha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "gitBlob": "464a645f3fc99db61ab4cdab0395471031bc1715"
+    },
+    "package.json": {
+      "bytes": 3703,
+      "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+      "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8"
+    },
+    "packages/backend/package.json": {
+      "bytes": 463,
+      "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b"
+    },
+    "packages/frontend/package.json": {
+      "bytes": 1048,
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0"
+    },
+    "pnpm-lock.yaml": {
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+    },
+    "reconstruction/home-layout-choice/client.mjs": {
+      "bytes": 22565,
+      "sha256": "cbc22317376b0ad4abe9b2ed5e9aaeb555eb904291e01d61cf4c67b2e64d2bff",
+      "gitBlob": "7664e6f672001f006868d2c2639e2639dacbccf6"
+    },
+    "reconstruction/home-layout-choice/contract.json": {
+      "bytes": 26148,
+      "sha256": "c7274a92f432a9425cc6dcf501e388683b1b7af356fb2159fe46164711b2b2d0",
+      "gitBlob": "b11207190013985b0c25a8e83ca74116375e5fb6"
+    },
+    "recovered/modules.json": {
+      "bytes": 2928853,
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+      "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f"
+    },
+    "scripts/original-contracts/source.mjs": {
+      "bytes": 9493,
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+      "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df"
+    },
+    "scripts/original-home-layout-choice.mjs": {
+      "bytes": 14352,
+      "sha256": "02b8513236b244603f62dc79da6fb0b9b4222b7acf7c992e0d7d647554ec6441",
+      "gitBlob": "039a41f411dd1dd28ac34203d11354480d9f72d3"
+    },
+    "tests/fixtures/home-layout-choice-browser.mjs": {
+      "bytes": 4256,
+      "sha256": "609b1fb593d99529b0c16b608d5afdf47d4000789a346f85c639914631c82fba",
+      "gitBlob": "e23d8867e9b0055e4ee6d57998f0b93de19395a3"
+    },
+    "tests/original_home_layout_choice.test.mjs": {
+      "bytes": 11037,
+      "sha256": "3ee27999b92283c43a2a81e9d9b55502e0c8da30f2ea7b238fb33bcbb57cab0a",
+      "gitBlob": "55d4a329adbd443c7113c847e7e7ff0bf5c42db0"
+    },
+    "tests/original_home_layout_choice_browser.test.mjs": {
+      "bytes": 10368,
+      "sha256": "0d817a9e35c73b9c3e0d3e2cc49a3f5f4b2ddb7b23152260a26076d155ba2bea",
+      "gitBlob": "6d27e324862f39c8dde0f8fbc1ab9c4e51b02ca8"
+    },
+    "tests/original_source.test.mjs": {
+      "bytes": 7401,
+      "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3",
+      "gitBlob": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+    }
+  },
+  "inputScope": "16 selected generator/module/test/source-capture/index/manifest/package inputs; not exhaustive installed dependency or whole-app identity.",
+  "results": [
+    {
+      "command": "node scripts/original-home-layout-choice.mjs",
+      "exit": 0
+    },
+    {
+      "command": "node --test tests/original_home_layout_choice.test.mjs tests/original_source.test.mjs",
+      "exit": 0,
+      "domain": 13,
+      "shared": 11
+    },
+    {
+      "command": "PUMP_LAYOUT_OUTPUT=<owned-output> node --test tests/original_home_layout_choice_browser.test.mjs",
+      "exit": 0,
+      "workflows": 1,
+      "widths": [
+        390,
+        1280
+      ],
+      "expectedPageErrorsPerWidth": [
+        "synthetic layout cookie denied"
+      ],
+      "unexpectedPageErrors": 0
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "workspaces": 3
+    },
+    {
+      "command": "python3 scripts/verify-evidence.py",
+      "exit": 0,
+      "captures": 698
+    },
+    {
+      "command": "pnpm check:progress",
+      "exit": 0,
+      "tests": 9
+    }
+  ],
+  "browserBundleSha256": "409124fa9a5e94114e46285072450710bbdc51328eedecd5addbfdb03e44495a",
+  "versions": {
+    "node": "24.19.0",
+    "pnpm": "10.24.0",
+    "react": "19.2.3",
+    "playwright": "1.64.1",
+    "chromiumBuild": 1248,
+    "esbuild": "0.25.12"
+  },
+  "cleanup": "Browser producer exit0 after finally-awaiting Chromium and owned GET-only ephemeral loopback server close, deleting temporary compiled fixture; standalone slot explicitly released. No Next/build.",
+  "preservation": "Publication only appends README result text and validation outputs; executed inputs remain byte-identical to tested45e8. Do not transfer these results to changed source/method/capture/package bytes.",
+  "priorPhases": [
+    "Initial13 domain tests passed during development before source+method freeze; retained output is separate from final24-test result.",
+    "Three baseline progress references absent from sparse checkout were materialized as exact unchanged Git blobs before the normal check. No ledger/scorer/source change."
+  ],
+  "limits": [
+    "All cookie accesses/writes use injected synthetic document/location. No actual cookies, storage/session values, credentials, tenant requests or network mutation.",
+    "Browser uses actual React and recovered dispatcher/choice/SVG/definition/cookie adapter with authored API-compatible setting hooks/row/translation ports, not original547562 framework/provider/legacy/registry or product Settings/Home integration. Existing1839 API evidence credited and not copied.",
+    "Only actual grid/table preview-map entries are constructed. Other original previews and unselected switch/number/custom controls remain unqualified or explicit ports. Header parser retention does not establish original SSR bootstrap.",
+    "Expected synthetic cookie-denied errors are preserved per width; no zero-error, original-service defect, API/native/pixel/whole-app equivalence, security or completion claim."
+  ]
+}

@@ -1,0 +1,1961 @@
+{
+  "bundleSha256": "409124fa9a5e94114e46285072450710bbdc51328eedecd5addbfdb03e44495a",
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    },
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    }
+  ],
+  "results": [
+    {
+      "width": 390,
+      "initial": {
+        "cookieText": "",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ]
+        ],
+        "listeners": 1
+      },
+      "selected": {
+        "cookieText": "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ]
+        ],
+        "listeners": 1
+      },
+      "repeated": {
+        "cookieText": "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ]
+        ],
+        "listeners": 1
+      },
+      "external": {
+        "cookieText": "home_feed_layout=table; path=/; max-age=31536000; samesite=lax",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ]
+        ],
+        "listeners": 1
+      },
+      "rejected": {
+        "cookieText": "home_feed_layout=table; path=/; max-age=31536000; samesite=lax",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ]
+        ],
+        "listeners": 1
+      },
+      "retry": {
+        "cookieText": "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ]
+        ],
+        "listeners": 1
+      },
+      "unmounted": {
+        "cookieText": "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ]
+        ],
+        "listeners": 0
+      },
+      "afterUnmount": {
+        "cookieText": "home_feed_layout=table; path=/; max-age=31536000; samesite=lax",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ]
+        ],
+        "listeners": 0
+      },
+      "remounted": {
+        "cookieText": "home_feed_layout=table; path=/; max-age=31536000; samesite=lax",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ]
+        ],
+        "listeners": 1
+      },
+      "overflow": 0,
+      "expectedErrors": [
+        "synthetic layout cookie denied"
+      ],
+      "limit": "Authored API-compatible setting hooks only; not original547562/provider/Home mount. All cookie reads/writes use the injected synthetic object."
+    },
+    {
+      "width": 1280,
+      "initial": {
+        "cookieText": "",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ]
+        ],
+        "listeners": 1
+      },
+      "selected": {
+        "cookieText": "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ]
+        ],
+        "listeners": 1
+      },
+      "repeated": {
+        "cookieText": "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ]
+        ],
+        "listeners": 1
+      },
+      "external": {
+        "cookieText": "home_feed_layout=table; path=/; max-age=31536000; samesite=lax",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ]
+        ],
+        "listeners": 1
+      },
+      "rejected": {
+        "cookieText": "home_feed_layout=table; path=/; max-age=31536000; samesite=lax",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ]
+        ],
+        "listeners": 1
+      },
+      "retry": {
+        "cookieText": "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ]
+        ],
+        "listeners": 1
+      },
+      "unmounted": {
+        "cookieText": "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ]
+        ],
+        "listeners": 0
+      },
+      "afterUnmount": {
+        "cookieText": "home_feed_layout=table; path=/; max-age=31536000; samesite=lax",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ]
+        ],
+        "listeners": 0
+      },
+      "remounted": {
+        "cookieText": "home_feed_layout=table; path=/; max-age=31536000; samesite=lax",
+        "calls": [
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "read",
+            ""
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "set",
+            "grid"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "notify"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "read",
+            "home_feed_layout=grid; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "unsubscribe"
+          ],
+          [
+            "write:attempt",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "write:done",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ],
+          [
+            "read",
+            "home_feed_layout=table; path=/; max-age=31536000; samesite=lax"
+          ]
+        ],
+        "listeners": 1
+      },
+      "overflow": 0,
+      "expectedErrors": [
+        "synthetic layout cookie denied"
+      ],
+      "limit": "Authored API-compatible setting hooks only; not original547562/provider/Home mount. All cookie reads/writes use the injected synthetic object."
+    }
+  ],
+  "fixture": "Actual source choice/field/descriptor/cookie adapter with real React and synthetic host/settings/document/location/row ports; GET-only loopback host",
+  "limits": "One expected synthetic cookie-denied error per width; no actual cookies, global preference or private provider/Home compatibility."
+}
