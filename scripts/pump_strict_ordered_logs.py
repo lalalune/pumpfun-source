@@ -3,7 +3,9 @@
 from pathlib import Path
 import argparse,gzip,hashlib,json,re
 ORIGINAL='7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d'
-UNITS=re.compile(r'^Program [1-9A-HJ-NP-Za-km-z]+ consumed [0-9]+ of [0-9]+ compute units$')
+# A compute-meter line names a pubkey. One character also matches the old
+# class, so a real log could be dropped as if it were a meter line.
+UNITS=re.compile(r'^Program [1-9A-HJ-NP-Za-km-z]{32,44} consumed [0-9]+ of [0-9]+ compute units$')
 def require(ok,message):
  if not ok:raise ValueError(message)
 def audit(report,candidate_sha256,expected_pairs=None):
