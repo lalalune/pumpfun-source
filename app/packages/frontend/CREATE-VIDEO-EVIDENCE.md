@@ -1,5 +1,23 @@
 # Offline Create video and cover lifecycle
 
+## Browser verification fixture correction
+
+At `bbdc0ee08a82b17020efe2e6802504a6ac880fd6`, both existing Chromium
+video cases fail before completing their intended checks. The error assertion
+matches both the video's alert and Next's route-announcer alert. In the pending
+case, replacing `load()` alone does not stop native resource selection when
+`src` is assigned: the synthetic bytes already fail decoding, leaving an empty
+status and a real codec-error alert.
+
+The browser test now scopes feedback to the existing Video and cover fieldset.
+Only its deliberately stalled lifecycle case additionally withholds the video
+`src` assignment, keeping preparation pending until manual replacement/reset.
+It explicitly verifies pending state before reset. The separate invalid-WebM
+case keeps the real browser decoder, manual-image preservation assertions,
+disabled launch check and external-request guard. Both complete cases pass
+after this test-only correction; no production behavior, codec-success claim,
+upload compatibility or feature-completion credit changes.
+
 ## Useful local behavior, not an upload reconstruction
 
 The image-only `/create` draft now accepts an optional local MP4/WebM video,

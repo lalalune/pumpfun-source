@@ -16,6 +16,7 @@ test("rejected file and unsupported decoder preserve manual image and never uplo
       remote.push(request.url());
   });
   await page.goto("/create");
+  const videoField = page.getByRole("group", { name: /^Video and cover/ });
   await page
     .getByLabel(/^Coin image/)
     .setInputFiles({ name: "manual.png", mimeType: "image/png", buffer: PNG });
@@ -25,14 +26,14 @@ test("rejected file and unsupported decoder preserve manual image and never uplo
     mimeType: "video/mp4",
     buffer: Buffer.alloc(0),
   });
-  await expect(page.getByRole("alert")).toContainText("non-empty video");
+  await expect(videoField.getByRole("alert")).toContainText("non-empty video");
   await expect(page.getByTestId("selected-image")).toContainText("manual.png");
   await video.setInputFiles({
     name: "invalid.webm",
     mimeType: "video/webm",
     buffer: Buffer.from("not a video"),
   });
-  await expect(page.getByRole("alert")).toContainText("could not decode");
+  await expect(videoField.getByRole("alert")).toContainText("could not decode");
   await expect(page.getByTestId("selected-image")).toContainText("manual.png");
   await expect(
     page.getByRole("button", {
@@ -47,16 +48,27 @@ test("manual replacement and reset cancel a pending decode rather than publishin
 }) => {
   // Deliberately stalled decoder for lifecycle controls, not a real-codec success claim.
   await page.addInitScript(() => {
-    HTMLMediaElement.prototype.load = function () {};
+    // Setting src starts native resource selection even when load() is a no-op.
+    // Keep this test's decoder pending before it can reject synthetic bytes.
+    const src = Object.getOwnPropertyDescriptor(
+      HTMLMediaElement.prototype,
+      "src",
+    )!;
+    Object.defineProperty(HTMLVideoElement.prototype, "src", {
+      ...src,
+      set() {},
+    });
+    HTMLVideoElement.prototype.load = function () {};
   });
   await page.goto("/create");
+  const videoField = page.getByRole("group", { name: /^Video and cover/ });
   const video = page.getByLabel("Local video", { exact: true });
   await video.setInputFiles({
     name: "pending.mp4",
     mimeType: "video/mp4",
     buffer: Buffer.from("synthetic"),
   });
-  await expect(page.getByRole("status")).toContainText(
+  await expect(videoField.getByRole("status")).toContainText(
     "Preparing local video covers",
   );
   await page
@@ -77,6 +89,9 @@ test("manual replacement and reset cancel a pending decode rather than publishin
     mimeType: "video/mp4",
     buffer: Buffer.from("synthetic"),
   });
+  await expect(videoField.getByRole("status")).toContainText(
+    "Preparing local video covers",
+  );
   await page.getByRole("button", { name: "Reset draft", exact: true }).click();
   await expect(page.getByTestId("selected-image")).toHaveCount(0);
   await expect(
