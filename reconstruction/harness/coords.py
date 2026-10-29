@@ -42,8 +42,11 @@ def sites(blob, secs, start, raw):
             continue
         X = off
         lo, hi = max(0, k - 30), min(len(insn), k + 30)
+        # Stack slots are reused by nearby Source descriptors. Pair with the
+        # nearest matching store, preferring a preceding store on a tie.
+        nearby = sorted(range(lo, hi), key=lambda j: (abs(j - k), j > k))
         ptr = None
-        for j in range(lo, hi):
+        for j in nearby:
             p2, o2, r2, of2, v2 = insn[j]
             if o2 == 0x7b and dst(r2) == 10 and of2 == X - 8:
                 ry = src(r2)
@@ -61,7 +64,7 @@ def sites(blob, secs, start, raw):
         if not (s and s.endswith(b'.rs') and all(32 <= c < 127 for c in s)):
             continue
         line = None; line_slot = None
-        for j in range(lo, hi):
+        for j in nearby:
             p2, o2, r2, of2, v2 = insn[j]
             if o2 == 0x62 and dst(r2) == 10 and of2 == X + 8:
                 line, line_slot = v2, p2; break
