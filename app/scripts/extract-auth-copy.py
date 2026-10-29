@@ -32,6 +32,15 @@ KEYS = (
 )
 
 
+def unique_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f'Duplicate locale JSON key: {key}')
+        result[key] = value
+    return result
+
+
 class Scripts(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=False)
@@ -68,7 +77,7 @@ def extract(html: str) -> dict[str, str]:
     rows = [line[3:] for line in "".join(chunks).splitlines() if line.startswith("c6:")]
     if len(rows) != 1:
         raise ValueError("Expected exactly one captured c6 locale record")
-    locale = json.loads(rows[0])
+    locale = json.loads(rows[0], object_pairs_hook=unique_object)
     if not isinstance(locale, dict) or locale.get("locale") != "en":
         raise ValueError("Expected English locale")
     result = {}

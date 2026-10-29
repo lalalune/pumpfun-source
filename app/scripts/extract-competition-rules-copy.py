@@ -22,6 +22,15 @@ RULE_KEYS = (
 CUP_KEYS = ("prize_breakdown", "paid_ranks_one", "paid_ranks_other", "tier_range", "tier_single", "tier_each")
 
 
+def unique_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f'Duplicate locale JSON key: {key}')
+        result[key] = value
+    return result
+
+
 class Scripts(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=False)
@@ -61,7 +70,7 @@ def extract(html):
         if key in ("c1", "103"):
             if key in records:
                 raise ValueError("Duplicate locale record")
-            records[key] = json.loads(value)
+            records[key] = json.loads(value, object_pairs_hook=unique_object)
     if set(records) != {"c1", "103"} or any(row.get("locale") != "en" for row in records.values()):
         raise ValueError("Expected captured English c1 and 103 locale records")
     cup = records["103"]["resources"]["web"]["leaderboard"]["cup"]
