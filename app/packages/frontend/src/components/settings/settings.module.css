@@ -242,6 +242,12 @@
   font-weight: 600;
   cursor: pointer;
 }
+/* Short viewports need the same frame space as the existing compact layout. */
+@media (max-height: 480px) {
+  .frame {
+    height: min(90dvh, 720px);
+  }
+}
 @media (max-width: 480px) {
   .dialog {
     width: calc(100% - 16px);

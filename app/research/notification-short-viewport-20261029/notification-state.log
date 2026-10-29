@@ -1,0 +1,37 @@
+✔ default adapter remains unavailable, with no account defaults or effects (4.630139ms)
+✔ missing data makes updates no-ops without constructing fake settings (1.022896ms)
+✔ all nine controls merge exactly three groups and retain unknown group fields (1.977838ms)
+✔ unknown/missing booleans are not rendered as off or source fallback true (0.348373ms)
+✔ loading is visible and repeated reads/updates are blocked until data arrives (0.457276ms)
+✔ submitted snapshot is committed only after success, ignoring response body (1.939872ms)
+✔ write failure retains last committed preferences and a later retry succeeds (0.644988ms)
+✔ malformed reads fail closed; a failed refresh retains but marks old data stale (0.555644ms)
+✔ unknown patch fields and non-boolean changes never reach an adapter (0.541493ms)
+✔ topic success passes only topic, invalidates, then reloads; unknown topic fields survive (5.831512ms)
+✔ topic pending prevents double submission and failure does not invalidate or fabricate success (0.664678ms)
+✔ successful topic mutation with failed re-read leaves stale/unknown data until explicit retry (0.555854ms)
+✔ independent settings/topics operations are allowed; each cache remains isolated (0.502244ms)
+✔ reset invalidates old reads and writes; stale completion cannot populate a new owner/view (0.534452ms)
+✔ dispose drops subscribers and late topic completions without refresh or resurrection (0.376985ms)
+✔ external-store snapshots are stable until changes, immutable, and unsubscribe is effective (0.297707ms)
+✔ non-JSON and cyclic data are rejected instead of silently dropping unknown fields (0.810155ms)
+✔ reset from a pending-state observer cancels before the adapter is called (0.260771ms)
+✔ topic invalidation reserves its re-read before notifying observers (0.425669ms)
+✔ topic read/input failures are local errors, not synthetic server contracts (0.36013ms)
+✔ read snapshots and patches preserve inert unusual unknown group keys (0.230106ms)
+✔ an old read cannot overwrite a newer owner load and committed mutation (0.352469ms)
+✔ old post-invalidation read failure cannot overwrite a newer topic snapshot (0.421012ms)
+✔ controlled values disable unavailable/stale states and independently pending categories (0.718097ms)
+✔ only the exact explicit synthetic-test discriminant activates an adapter (0.597557ms)
+✔ retry actions keep submitted preference A after pending B is ignored (0.69242ms)
+✔ retry actions keep submitted topic A after pending B is ignored (0.549725ms)
+✔ a listener removed during publication is not invoked from the snapshot (0.175374ms)
+✔ a listener added during publication waits for the next publication (0.222654ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 373.938531

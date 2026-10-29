@@ -1,0 +1,1272 @@
+{
+  "before": {
+    "stats": {
+      "startTime": "2026-10-29T19:19:08.515Z",
+      "duration": 6277.046,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "cases": [
+      {
+        "title": "default notification reference Done activation at 1280x900",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": [
+          {
+            "name": "notification-viewport-observation",
+            "value": {
+              "viewport": {
+                "width": 1280,
+                "height": 900
+              },
+              "bounds": {
+                "top": 754,
+                "bottom": 798,
+                "left": 899.5,
+                "right": 971.5,
+                "width": 72,
+                "height": 44
+              },
+              "ancestors": [
+                {
+                  "tag": "FOOTER",
+                  "bounds": {
+                    "top": 741,
+                    "bottom": 810,
+                    "left": 273.5,
+                    "right": 991.5,
+                    "width": 718,
+                    "height": 69
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "flex"
+                },
+                {
+                  "tag": "DIV",
+                  "bounds": {
+                    "top": 90,
+                    "bottom": 810,
+                    "left": 273.5,
+                    "right": 991.5,
+                    "width": 718,
+                    "height": 720
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "flex"
+                },
+                {
+                  "tag": "DIALOG",
+                  "bounds": {
+                    "top": 89,
+                    "bottom": 811,
+                    "left": 272.5,
+                    "right": 992.5,
+                    "width": 720,
+                    "height": 722
+                  },
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "display": "block"
+                },
+                {
+                  "tag": "BODY",
+                  "bounds": {
+                    "top": 0,
+                    "bottom": 1093.234375,
+                    "left": 0,
+                    "right": 1265,
+                    "width": 1265,
+                    "height": 1093.234375
+                  },
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "display": "block"
+                },
+                {
+                  "tag": "HTML",
+                  "bounds": {
+                    "top": 0,
+                    "bottom": 1093.234375,
+                    "left": 0,
+                    "right": 1265,
+                    "width": 1265,
+                    "height": 1093.234375
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "block"
+                }
+              ],
+              "visibleHeight": 44,
+              "point": {
+                "x": 935.5,
+                "y": 776
+              },
+              "centerHit": {
+                "tag": "BUTTON",
+                "text": "Done"
+              },
+              "beforeURL": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep",
+              "events": [
+                {
+                  "kind": "pointerdown",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 935.5,
+                  "y": 776,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                },
+                {
+                  "kind": "pointerup",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 935.5,
+                  "y": 776,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                },
+                {
+                  "kind": "click",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 935,
+                  "y": 776,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                }
+              ],
+              "afterURL": "http://127.0.0.1:3027/explore?marker=notification-short#keep",
+              "errors": [],
+              "blocked": []
+            }
+          }
+        ]
+      },
+      {
+        "title": "default notification reference Done activation at 568x320",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": [
+          {
+            "name": "notification-viewport-observation",
+            "value": {
+              "viewport": {
+                "width": 568,
+                "height": 320
+              },
+              "bounds": {
+                "top": 270.796875,
+                "bottom": 314.796875,
+                "left": 448,
+                "right": 520,
+                "width": 72,
+                "height": 44
+              },
+              "ancestors": [
+                {
+                  "tag": "FOOTER",
+                  "bounds": {
+                    "top": 257.796875,
+                    "bottom": 326.796875,
+                    "left": 13,
+                    "right": 540,
+                    "width": 527,
+                    "height": 69
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "flex"
+                },
+                {
+                  "tag": "DIV",
+                  "bounds": {
+                    "top": 28.796875,
+                    "bottom": 291.1875,
+                    "left": 13,
+                    "right": 540,
+                    "width": 527,
+                    "height": 262.390625
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "flex"
+                },
+                {
+                  "tag": "DIALOG",
+                  "bounds": {
+                    "top": 27.796875,
+                    "bottom": 292.1875,
+                    "left": 12,
+                    "right": 541,
+                    "width": 529,
+                    "height": 264.390625
+                  },
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "display": "block"
+                },
+                {
+                  "tag": "BODY",
+                  "bounds": {
+                    "top": 0,
+                    "bottom": 1930.703125,
+                    "left": 0,
+                    "right": 553,
+                    "width": 553,
+                    "height": 1930.703125
+                  },
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "display": "block"
+                },
+                {
+                  "tag": "HTML",
+                  "bounds": {
+                    "top": 0,
+                    "bottom": 1930.703125,
+                    "left": 0,
+                    "right": 553,
+                    "width": 553,
+                    "height": 1930.703125
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "block"
+                }
+              ],
+              "visibleHeight": 21.390625,
+              "point": {
+                "x": 484,
+                "y": 292.796875
+              },
+              "centerHit": {
+                "tag": "DIALOG",
+                "text": "SettingsDevice privacy preference\u00d7TradingChartFeedNotificationsAccountDisplayPrivacySearch settingsT"
+              },
+              "beforeURL": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep",
+              "events": [
+                {
+                  "kind": "pointerdown",
+                  "trusted": true,
+                  "target": "DIALOG",
+                  "text": "SettingsDevice privacy preference\u00d7TradingChartFeedNotificationsAccountDisplayPrivacySearch settingsT",
+                  "x": 484,
+                  "y": 292.796875,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                },
+                {
+                  "kind": "pointerup",
+                  "trusted": true,
+                  "target": "DIALOG",
+                  "text": "SettingsDevice privacy preference\u00d7TradingChartFeedNotificationsAccountDisplayPrivacySearch settingsT",
+                  "x": 484,
+                  "y": 292.796875,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                },
+                {
+                  "kind": "click",
+                  "trusted": true,
+                  "target": "DIALOG",
+                  "text": "SettingsDevice privacy preference\u00d7TradingChartFeedNotificationsAccountDisplayPrivacySearch settingsT",
+                  "x": 484,
+                  "y": 292,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                }
+              ],
+              "afterURL": "http://127.0.0.1:3027/explore?marker=notification-short#keep",
+              "errors": [],
+              "blocked": []
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "corrected-before": {
+    "stats": {
+      "startTime": "2026-10-29T19:27:04.036Z",
+      "duration": 6663.279,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 1,
+      "flaky": 0
+    },
+    "cases": [
+      {
+        "title": "default notification reference Done activation at 1280x900",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": [
+          {
+            "name": "notification-viewport-observation",
+            "value": {
+              "viewport": {
+                "width": 1280,
+                "height": 900
+              },
+              "bounds": {
+                "top": 754,
+                "bottom": 798,
+                "left": 899.5,
+                "right": 971.5,
+                "width": 72,
+                "height": 44
+              },
+              "ancestors": [
+                {
+                  "tag": "FOOTER",
+                  "bounds": {
+                    "top": 741,
+                    "bottom": 810,
+                    "left": 273.5,
+                    "right": 991.5,
+                    "width": 718,
+                    "height": 69
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "flex"
+                },
+                {
+                  "tag": "DIV",
+                  "bounds": {
+                    "top": 90,
+                    "bottom": 810,
+                    "left": 273.5,
+                    "right": 991.5,
+                    "width": 718,
+                    "height": 720
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "flex"
+                },
+                {
+                  "tag": "DIALOG",
+                  "bounds": {
+                    "top": 89,
+                    "bottom": 811,
+                    "left": 272.5,
+                    "right": 992.5,
+                    "width": 720,
+                    "height": 722
+                  },
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "display": "block"
+                },
+                {
+                  "tag": "BODY",
+                  "bounds": {
+                    "top": 0,
+                    "bottom": 1093.234375,
+                    "left": 0,
+                    "right": 1265,
+                    "width": 1265,
+                    "height": 1093.234375
+                  },
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "display": "block"
+                },
+                {
+                  "tag": "HTML",
+                  "bounds": {
+                    "top": 0,
+                    "bottom": 1093.234375,
+                    "left": 0,
+                    "right": 1265,
+                    "width": 1265,
+                    "height": 1093.234375
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "block"
+                }
+              ],
+              "visibleHeight": 44,
+              "point": {
+                "x": 935.5,
+                "y": 776
+              },
+              "centerHit": {
+                "tag": "BUTTON",
+                "text": "Done"
+              },
+              "beforeURL": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep",
+              "events": [
+                {
+                  "kind": "pointerdown",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 935.5,
+                  "y": 776,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                },
+                {
+                  "kind": "pointerup",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 935.5,
+                  "y": 776,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                },
+                {
+                  "kind": "click",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 935,
+                  "y": 776,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                }
+              ],
+              "afterURL": "http://127.0.0.1:3027/explore?marker=notification-short#keep",
+              "errors": [],
+              "blocked": []
+            }
+          }
+        ]
+      },
+      {
+        "title": "default notification reference Done activation at 568x320",
+        "status": "failed",
+        "errorMessages": [
+          "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[2m    \"kind\": \"click\",\u001b[22m\n\u001b[32m-   \"target\": \"BUTTON\",\u001b[39m\n\u001b[32m-   \"text\": \"Done\",\u001b[39m\n\u001b[31m+   \"target\": \"DIALOG\",\u001b[39m\n\u001b[31m+   \"text\": \"SettingsDevice privacy preference\u00d7TradingChartFeedNotificationsAccountDisplayPrivacySearch settingsT\",\u001b[39m\n\u001b[2m    \"trusted\": true,\u001b[22m\n\u001b[2m  }\u001b[22m\n\n  55 |         return events.filter((event: { kind?: unknown }) => event.kind === \"click\").at(-1);\n  56 |       });\n> 57 |       expect(click).toMatchObject({ kind: \"click\", trusted: true, target: \"BUTTON\", text: \"Done\" });\n     |                     ^\n  58 |       expect(observed.centerHit).toEqual({ tag: \"BUTTON\", text: \"Done\" });\n  59 |       expect(observed.visibleHeight).toBe(44);\n  60 |       expect(new URL(page.url()).searchParams.has('settings')).toBe(false);\n    at /workspace/pump-app-privacy-links/app/packages/frontend/tests/notification-short-viewport.spec.ts:57:21"
+        ],
+        "observations": [
+          {
+            "name": "notification-viewport-observation",
+            "value": {
+              "viewport": {
+                "width": 568,
+                "height": 320
+              },
+              "bounds": {
+                "top": 270.796875,
+                "bottom": 314.796875,
+                "left": 448,
+                "right": 520,
+                "width": 72,
+                "height": 44
+              },
+              "ancestors": [
+                {
+                  "tag": "FOOTER",
+                  "bounds": {
+                    "top": 257.796875,
+                    "bottom": 326.796875,
+                    "left": 13,
+                    "right": 540,
+                    "width": 527,
+                    "height": 69
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "flex"
+                },
+                {
+                  "tag": "DIV",
+                  "bounds": {
+                    "top": 28.796875,
+                    "bottom": 291.1875,
+                    "left": 13,
+                    "right": 540,
+                    "width": 527,
+                    "height": 262.390625
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "flex"
+                },
+                {
+                  "tag": "DIALOG",
+                  "bounds": {
+                    "top": 27.796875,
+                    "bottom": 292.1875,
+                    "left": 12,
+                    "right": 541,
+                    "width": 529,
+                    "height": 264.390625
+                  },
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "display": "block"
+                },
+                {
+                  "tag": "BODY",
+                  "bounds": {
+                    "top": 0,
+                    "bottom": 1930.703125,
+                    "left": 0,
+                    "right": 553,
+                    "width": 553,
+                    "height": 1930.703125
+                  },
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "display": "block"
+                },
+                {
+                  "tag": "HTML",
+                  "bounds": {
+                    "top": 0,
+                    "bottom": 1930.703125,
+                    "left": 0,
+                    "right": 553,
+                    "width": 553,
+                    "height": 1930.703125
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "block"
+                }
+              ],
+              "visibleHeight": 21.390625,
+              "point": {
+                "x": 484,
+                "y": 292.796875
+              },
+              "centerHit": {
+                "tag": "DIALOG",
+                "text": "SettingsDevice privacy preference\u00d7TradingChartFeedNotificationsAccountDisplayPrivacySearch settingsT"
+              },
+              "beforeURL": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep",
+              "events": [
+                {
+                  "kind": "pointerdown",
+                  "trusted": true,
+                  "target": "DIALOG",
+                  "text": "SettingsDevice privacy preference\u00d7TradingChartFeedNotificationsAccountDisplayPrivacySearch settingsT",
+                  "x": 484,
+                  "y": 292.796875,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                },
+                {
+                  "kind": "pointerup",
+                  "trusted": true,
+                  "target": "DIALOG",
+                  "text": "SettingsDevice privacy preference\u00d7TradingChartFeedNotificationsAccountDisplayPrivacySearch settingsT",
+                  "x": 484,
+                  "y": 292.796875,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                },
+                {
+                  "kind": "click",
+                  "trusted": true,
+                  "target": "DIALOG",
+                  "text": "SettingsDevice privacy preference\u00d7TradingChartFeedNotificationsAccountDisplayPrivacySearch settingsT",
+                  "x": 484,
+                  "y": 292,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                }
+              ],
+              "afterURL": "http://127.0.0.1:3027/explore?marker=notification-short#keep",
+              "errors": [],
+              "blocked": []
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "corrected-after": {
+    "stats": {
+      "startTime": "2026-10-29T19:28:12.570Z",
+      "duration": 3457.5389999999998,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "cases": [
+      {
+        "title": "default notification reference Done activation at 1280x900",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": [
+          {
+            "name": "notification-viewport-observation",
+            "value": {
+              "viewport": {
+                "width": 1280,
+                "height": 900
+              },
+              "bounds": {
+                "top": 754,
+                "bottom": 798,
+                "left": 899.5,
+                "right": 971.5,
+                "width": 72,
+                "height": 44
+              },
+              "ancestors": [
+                {
+                  "tag": "FOOTER",
+                  "bounds": {
+                    "top": 741,
+                    "bottom": 810,
+                    "left": 273.5,
+                    "right": 991.5,
+                    "width": 718,
+                    "height": 69
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "flex"
+                },
+                {
+                  "tag": "DIV",
+                  "bounds": {
+                    "top": 90,
+                    "bottom": 810,
+                    "left": 273.5,
+                    "right": 991.5,
+                    "width": 718,
+                    "height": 720
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "flex"
+                },
+                {
+                  "tag": "DIALOG",
+                  "bounds": {
+                    "top": 89,
+                    "bottom": 811,
+                    "left": 272.5,
+                    "right": 992.5,
+                    "width": 720,
+                    "height": 722
+                  },
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "display": "block"
+                },
+                {
+                  "tag": "BODY",
+                  "bounds": {
+                    "top": 0,
+                    "bottom": 1093.234375,
+                    "left": 0,
+                    "right": 1265,
+                    "width": 1265,
+                    "height": 1093.234375
+                  },
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "display": "block"
+                },
+                {
+                  "tag": "HTML",
+                  "bounds": {
+                    "top": 0,
+                    "bottom": 1093.234375,
+                    "left": 0,
+                    "right": 1265,
+                    "width": 1265,
+                    "height": 1093.234375
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "block"
+                }
+              ],
+              "visibleHeight": 44,
+              "point": {
+                "x": 935.5,
+                "y": 776
+              },
+              "centerHit": {
+                "tag": "BUTTON",
+                "text": "Done"
+              },
+              "beforeURL": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep",
+              "events": [
+                {
+                  "kind": "pointerdown",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 935.5,
+                  "y": 776,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                },
+                {
+                  "kind": "pointerup",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 935.5,
+                  "y": 776,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                },
+                {
+                  "kind": "click",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 935,
+                  "y": 776,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                }
+              ],
+              "afterURL": "http://127.0.0.1:3027/explore?marker=notification-short#keep",
+              "errors": [],
+              "blocked": []
+            }
+          }
+        ]
+      },
+      {
+        "title": "default notification reference Done activation at 568x320",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": [
+          {
+            "name": "notification-viewport-observation",
+            "value": {
+              "viewport": {
+                "width": 568,
+                "height": 320
+              },
+              "bounds": {
+                "top": 258,
+                "bottom": 302,
+                "left": 448,
+                "right": 520,
+                "width": 72,
+                "height": 44
+              },
+              "ancestors": [
+                {
+                  "tag": "FOOTER",
+                  "bounds": {
+                    "top": 245,
+                    "bottom": 314,
+                    "left": 13,
+                    "right": 540,
+                    "width": 527,
+                    "height": 69
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "flex"
+                },
+                {
+                  "tag": "DIV",
+                  "bounds": {
+                    "top": 16,
+                    "bottom": 304,
+                    "left": 13,
+                    "right": 540,
+                    "width": 527,
+                    "height": 288
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "flex"
+                },
+                {
+                  "tag": "DIALOG",
+                  "bounds": {
+                    "top": 15,
+                    "bottom": 305,
+                    "left": 12,
+                    "right": 541,
+                    "width": 529,
+                    "height": 290
+                  },
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "display": "block"
+                },
+                {
+                  "tag": "BODY",
+                  "bounds": {
+                    "top": 0,
+                    "bottom": 1930.703125,
+                    "left": 0,
+                    "right": 553,
+                    "width": 553,
+                    "height": 1930.703125
+                  },
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "display": "block"
+                },
+                {
+                  "tag": "HTML",
+                  "bounds": {
+                    "top": 0,
+                    "bottom": 1930.703125,
+                    "left": 0,
+                    "right": 553,
+                    "width": 553,
+                    "height": 1930.703125
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "block"
+                }
+              ],
+              "visibleHeight": 44,
+              "point": {
+                "x": 484,
+                "y": 280
+              },
+              "centerHit": {
+                "tag": "BUTTON",
+                "text": "Done"
+              },
+              "beforeURL": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep",
+              "events": [
+                {
+                  "kind": "pointerdown",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 484,
+                  "y": 280,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                },
+                {
+                  "kind": "pointerup",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 484,
+                  "y": 280,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                },
+                {
+                  "kind": "click",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 484,
+                  "y": 280,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                }
+              ],
+              "afterURL": "http://127.0.0.1:3027/explore?marker=notification-short#keep",
+              "errors": [],
+              "blocked": []
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "controls": {
+    "stats": {
+      "startTime": "2026-10-29T19:37:09.850Z",
+      "duration": 28428.071,
+      "expected": 18,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "cases": [
+      {
+        "title": "default notification reference Done activation at 1280x900",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": [
+          {
+            "name": "notification-viewport-observation",
+            "value": {
+              "viewport": {
+                "width": 1280,
+                "height": 900
+              },
+              "bounds": {
+                "top": 754,
+                "bottom": 798,
+                "left": 899.5,
+                "right": 971.5,
+                "width": 72,
+                "height": 44
+              },
+              "ancestors": [
+                {
+                  "tag": "FOOTER",
+                  "bounds": {
+                    "top": 741,
+                    "bottom": 810,
+                    "left": 273.5,
+                    "right": 991.5,
+                    "width": 718,
+                    "height": 69
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "flex"
+                },
+                {
+                  "tag": "DIV",
+                  "bounds": {
+                    "top": 90,
+                    "bottom": 810,
+                    "left": 273.5,
+                    "right": 991.5,
+                    "width": 718,
+                    "height": 720
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "flex"
+                },
+                {
+                  "tag": "DIALOG",
+                  "bounds": {
+                    "top": 89,
+                    "bottom": 811,
+                    "left": 272.5,
+                    "right": 992.5,
+                    "width": 720,
+                    "height": 722
+                  },
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "display": "block"
+                },
+                {
+                  "tag": "BODY",
+                  "bounds": {
+                    "top": 0,
+                    "bottom": 1093.234375,
+                    "left": 0,
+                    "right": 1265,
+                    "width": 1265,
+                    "height": 1093.234375
+                  },
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "display": "block"
+                },
+                {
+                  "tag": "HTML",
+                  "bounds": {
+                    "top": 0,
+                    "bottom": 1093.234375,
+                    "left": 0,
+                    "right": 1265,
+                    "width": 1265,
+                    "height": 1093.234375
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "block"
+                }
+              ],
+              "visibleHeight": 44,
+              "point": {
+                "x": 935.5,
+                "y": 776
+              },
+              "centerHit": {
+                "tag": "BUTTON",
+                "text": "Done"
+              },
+              "beforeURL": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep",
+              "events": [
+                {
+                  "kind": "pointerdown",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 935.5,
+                  "y": 776,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                },
+                {
+                  "kind": "pointerup",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 935.5,
+                  "y": 776,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                },
+                {
+                  "kind": "click",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 935,
+                  "y": 776,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                }
+              ],
+              "afterURL": "http://127.0.0.1:3027/explore?marker=notification-short#keep",
+              "errors": [],
+              "blocked": []
+            }
+          }
+        ]
+      },
+      {
+        "title": "default notification reference Done activation at 568x320",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": [
+          {
+            "name": "notification-viewport-observation",
+            "value": {
+              "viewport": {
+                "width": 568,
+                "height": 320
+              },
+              "bounds": {
+                "top": 258,
+                "bottom": 302,
+                "left": 448,
+                "right": 520,
+                "width": 72,
+                "height": 44
+              },
+              "ancestors": [
+                {
+                  "tag": "FOOTER",
+                  "bounds": {
+                    "top": 245,
+                    "bottom": 314,
+                    "left": 13,
+                    "right": 540,
+                    "width": 527,
+                    "height": 69
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "flex"
+                },
+                {
+                  "tag": "DIV",
+                  "bounds": {
+                    "top": 16,
+                    "bottom": 304,
+                    "left": 13,
+                    "right": 540,
+                    "width": 527,
+                    "height": 288
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "flex"
+                },
+                {
+                  "tag": "DIALOG",
+                  "bounds": {
+                    "top": 15,
+                    "bottom": 305,
+                    "left": 12,
+                    "right": 541,
+                    "width": 529,
+                    "height": 290
+                  },
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "display": "block"
+                },
+                {
+                  "tag": "BODY",
+                  "bounds": {
+                    "top": 0,
+                    "bottom": 1930.703125,
+                    "left": 0,
+                    "right": 553,
+                    "width": 553,
+                    "height": 1930.703125
+                  },
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "display": "block"
+                },
+                {
+                  "tag": "HTML",
+                  "bounds": {
+                    "top": 0,
+                    "bottom": 1930.703125,
+                    "left": 0,
+                    "right": 553,
+                    "width": 553,
+                    "height": 1930.703125
+                  },
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "display": "block"
+                }
+              ],
+              "visibleHeight": 44,
+              "point": {
+                "x": 484,
+                "y": 280
+              },
+              "centerHit": {
+                "tag": "BUTTON",
+                "text": "Done"
+              },
+              "beforeURL": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep",
+              "events": [
+                {
+                  "kind": "pointerdown",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 484,
+                  "y": 280,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                },
+                {
+                  "kind": "pointerup",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 484,
+                  "y": 280,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                },
+                {
+                  "kind": "click",
+                  "trusted": true,
+                  "target": "BUTTON",
+                  "text": "Done",
+                  "x": 484,
+                  "y": 280,
+                  "url": "http://127.0.0.1:3027/explore?marker=notification-short&settings=notifications#keep"
+                }
+              ],
+              "afterURL": "http://127.0.0.1:3027/explore?marker=notification-short#keep",
+              "errors": [],
+              "blocked": []
+            }
+          }
+        ]
+      },
+      {
+        "title": "short-landscape notification reference content still scrolls independently",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": [
+          {
+            "name": "notification-content-scroll",
+            "value": {
+              "before": {
+                "clientHeight": 40,
+                "scrollHeight": 1541,
+                "scrollTop": 0,
+                "overflowY": "auto"
+              },
+              "after": {
+                "clientHeight": 40,
+                "scrollHeight": 1541,
+                "scrollTop": 500
+              },
+              "errors": [],
+              "blocked": [],
+              "url": "http://127.0.0.1:3027/explore?marker=notification-scroll&settings=notifications#keep"
+            }
+          }
+        ]
+      },
+      {
+        "title": "query-open survives SSR and hydration without server-rendering a portal",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": []
+      },
+      {
+        "title": "mobile deep link escapes the hidden sidebar and restores focus to main",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": []
+      },
+      {
+        "title": "Escape dismisses settings without closing the mobile sidebar or Live selection",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": []
+      },
+      {
+        "title": "Back dismisses settings without closing the mobile sidebar or Live selection",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": []
+      },
+      {
+        "title": "modal temporarily locks body scrolling and restores the previous style",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": []
+      },
+      {
+        "title": "open-modal URL transitions clear stale search before focusing a deep link",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": []
+      },
+      {
+        "title": "deep link focuses a known setting and close preserves unrelated URL state",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": []
+      },
+      {
+        "title": "malformed or privileged section values do not open the modal",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": []
+      },
+      {
+        "title": "search, empty results, clear, tabs and keyboard selection work without preference values",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": []
+      },
+      {
+        "title": "Escape and repeated reopening clear local search and do not add history entries",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": []
+      },
+      {
+        "title": "settings dialog fits 1440px and its controls remain keyboard reachable",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": []
+      },
+      {
+        "title": "settings dialog fits 768px and its controls remain keyboard reachable",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": []
+      },
+      {
+        "title": "settings dialog fits 390px and its controls remain keyboard reachable",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": []
+      },
+      {
+        "title": "settings dialog fits 320px and its controls remain keyboard reachable",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": []
+      },
+      {
+        "title": "resizing an open mobile sidebar keeps Settings locked until it closes",
+        "status": "passed",
+        "errorMessages": [],
+        "observations": []
+      }
+    ]
+  }
+}

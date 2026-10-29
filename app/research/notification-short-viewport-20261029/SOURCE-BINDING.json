@@ -1,0 +1,75 @@
+{
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "baseAppTree": "e3d6d8cd07df4f561a4fd058dad29d22de451bfc",
+  "selectedInputs": [
+    {
+      "path": "app/packages/frontend/src/components/settings/settings-control.tsx",
+      "baseGitBlob": "76ff8d94d0d1c43c6fa10185a7c15120489b41c4",
+      "baseSha256": "904127d60d3ee6eeb29295e0c760d946881550757f7393be1388b2774d44664d",
+      "testedSha256": "904127d60d3ee6eeb29295e0c760d946881550757f7393be1388b2774d44664d"
+    },
+    {
+      "path": "app/packages/frontend/src/components/settings/settings-model.ts",
+      "baseGitBlob": "c30837d86f08ca6af25105c51daf25529a94e9da",
+      "baseSha256": "08a911de10b27f3db54cccedcb0b72ac5f9f1e054aee6e946e9ba544051ff7dc",
+      "testedSha256": "08a911de10b27f3db54cccedcb0b72ac5f9f1e054aee6e946e9ba544051ff7dc"
+    },
+    {
+      "path": "app/packages/frontend/src/components/settings/notification-settings.tsx",
+      "baseGitBlob": "21905b09c15c0b969722c9efda4323aa98a950a8",
+      "baseSha256": "5ae700e1ff0457d3feb2a9716e7d461e8ee75edd44a328cc179714ff813026e3",
+      "testedSha256": "5ae700e1ff0457d3feb2a9716e7d461e8ee75edd44a328cc179714ff813026e3"
+    },
+    {
+      "path": "app/packages/frontend/src/components/settings/settings.module.css",
+      "baseGitBlob": "c54a43e4ac451dd052965e2d660d9615f8baed81",
+      "baseSha256": "4445494bb8df9b65cc592da94a312fd6f125fd5267ae82ac161d1c755edff8bb",
+      "testedSha256": "043d24229c5b78394c15774a294024df64c6dd9738fc49f4ffd6390a9325b340"
+    },
+    {
+      "path": "app/packages/frontend/tests/settings.spec.ts",
+      "baseGitBlob": "718c4857382a85ec19117058ebf7f6eabd4be48a",
+      "baseSha256": "f282b0d5063390999f389584e7689afe6fb422425a807f5dba6a544a54d9dcf2",
+      "testedSha256": "f282b0d5063390999f389584e7689afe6fb422425a807f5dba6a544a54d9dcf2"
+    },
+    {
+      "path": "app/packages/frontend/tests/browser-state.ts",
+      "baseGitBlob": "dad2bd240204528a984cc25718e9abfc40956347",
+      "baseSha256": "6ca60ac77b50bcc845c8073973265a980ece5aede9782cb955836b422128123a",
+      "testedSha256": "6ca60ac77b50bcc845c8073973265a980ece5aede9782cb955836b422128123a"
+    },
+    {
+      "path": "app/packages/frontend/package.json",
+      "baseGitBlob": "f998048da959e90119cc58b720d6a09da9f897c0",
+      "baseSha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "testedSha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e"
+    },
+    {
+      "path": "app/packages/frontend/tsconfig.json",
+      "baseGitBlob": "232242f82f082ceecb0da2071d2528fc7b589d74",
+      "baseSha256": "a5dc52a7664b2a81c4cadd7e5ac7eb73ec3f88af0d97edd9927344c01adb7a0b",
+      "testedSha256": "a5dc52a7664b2a81c4cadd7e5ac7eb73ec3f88af0d97edd9927344c01adb7a0b"
+    },
+    {
+      "path": "app/pnpm-lock.yaml",
+      "baseGitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1",
+      "baseSha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "testedSha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+    }
+  ],
+  "hydratedAppInputs": 8029,
+  "hydrationPrivateManifestSha256": "4921bc5def2158fa53793564bb1a3fcdd816d60b917159eb2f24820062242f88",
+  "finalTestSha256": "1b2de556469d7bf53e0d3d66d0f5e56f68de8c44764c40cfeb961fe22f13cffc",
+  "onlyRuntimeDelta": "six-line settings.module.css max-height480 frame90dvh rule",
+  "capturedBoundary": {
+    "object": "app/evidence/web/objects/c9d58b1f7b1c6f01.js",
+    "objectSha256": "3ba814dbe58898df9247aaf00c218cb872a8c323d0f9cf25c620589f2b032678",
+    "moduleId": 917781,
+    "rangeUTF16": [
+      10720,
+      24132
+    ],
+    "factorySha256": "d1d7a6dcbad811206039a166046faaf8bf8aa513b483cab9731c013ce5b29573",
+    "meaning": "existing field mapping only; no original UI geometry or missing translation recovery claim"
+  }
+}

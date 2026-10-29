@@ -1,0 +1,18 @@
+{
+  "stoppedOwnedNext": [
+    {
+      "pid": 454698,
+      "cwd": "/workspace/pump-app-privacy-links/app/packages/frontend",
+      "args": "/bin/bash -lc set -e\nnode node_modules/next/dist/bin/next dev --turbopack --hostname 127.0.0.1 --port 3027 > ../../../work/notification-short-viewport/next-controls.log 2>&1 "
+    },
+    {
+      "pid": 454701,
+      "cwd": "/workspace/pump-app-privacy-links/app/packages/frontend",
+      "args": "node node_modules/next/dist/bin/next dev --turbopack --hostname 127.0.0.1 --port 3027 "
+    }
+  ],
+  "typeInputsSha256": {},
+  "cacheBytes": 88426770,
+  "portCheck": "State Recv-Q Send-Q Local Address:Port Peer Address:PortProcess\n",
+  "cacheRemoved": true
+}
