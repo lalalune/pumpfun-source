@@ -32,8 +32,8 @@ pending reads. A20-second local deadline leaves an honest error and keeps
 disconnect available. Refresh removes the previous observation while awaiting
 the next result; failures never substitute a cached, historical or zero value.
 Rate-limit and timeout messages are bounded local strings; provider bodies are
-not displayed. Nothing is saved to cookies, local/session storage or a new page
-URL. The public read supplies no authenticated principal.
+not displayed. This view saves no data to cookies, local/session storage or a new
+page URL. The public read supplies no authenticated principal.
 
 The connection controller, shared balance reader, portfolio API route, RPC
 transport, schemas, SDK, captured sources and dependencies are unchanged. Exact
