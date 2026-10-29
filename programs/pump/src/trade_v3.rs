@@ -810,7 +810,7 @@ pub fn buy(mut ctx:Context<SellV3>,amount:u64,max_sol_cost:u64,partial_fill:bool
 
     let quote=u64::try_from(crate::buy_quote(&a.bonding_curve,amount)?).map_err(|_|error!(PumpError::Truncation))?;
     let fees=v3_trade_fees(a,quote)?;
-    let post=if excess>0{let (pool_base,pool_quote)=v3_pool_before(a.bonding_curve.real_quote_reserves,a.global.pool_migration_fee,a.associated_base_bonding_curve.amount,is_sol,amount,quote)?;Some(v3_post_complete(a,pool_base,pool_quote,excess)?)}else{None};
+    let post=if excess>0{let (pool_base,pool_quote)={let (base,real,fee)=(a.associated_base_bonding_curve.amount,a.bonding_curve.real_quote_reserves,a.global.pool_migration_fee);v3_pool_before(real,fee,base,is_sol,amount,quote)}?;Some(v3_post_complete(a,pool_base,pool_quote,excess)?)}else{None};
     let (pool_quote,total_buyback,quote_transfer_fee)=v3_buy_costs(a.global.buyback_basis_points,a.bonding_curve.is_mayhem_mode as u8,&quote_fee,quote,fees.protocol_fee,fees.creator_fee,post.as_ref())?;
 // layout-pad(27): aligns the next Source site with the original line
 
