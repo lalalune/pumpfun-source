@@ -1,0 +1,517 @@
+{
+  "upstream_revision": "03fa4494f36449cd8fd63e121f12ca40bf57090f",
+  "upstream_source_candidate": {
+    "pr": 1548,
+    "revision": "60914be2d6167a7e9a981e33cbccae696b0cc6fc",
+    "file": "programs/pump/src/sweep_fees.rs",
+    "sha256": "175314dab9e4b6b2f183b548173f7593373267106a78201740df7fc4fcf145eb"
+  },
+  "scope": "Follow-up experiments on newer main. The existing PR source and SUMMARY.json still describe the original field-clone candidate on 630a074. No source change is promoted by this follow-up.",
+  "reproduction": "Start each trial from the pinned newer main with the same recipe and dependencies as SUMMARY.json. For 02 replace only sweep_fees.rs with the exact upstream PR1548 file. For 03 apply the recorded replacement and append the helper. For 04 remove only the helper inline(always) attribute, retaining its newline. Build each in a separate directory; score with the unchanged official scorer and target metric. Original allocation capture and inventory are the same pinned inputs as SUMMARY.json.",
+  "first_mutation": {
+    "old": "  (true,true)=>match Rent::get(){\n   Ok(rent)=>{let minimum=rent.minimum_balance(0);if a.recipient.lamports()<minimum{crate::legacy_buy::native_payments::transfer(a.system_program.as_ref(),&a.payer,a.recipient.as_ref(),minimum)}else{Ok(())}}\n   Err(e)=>Err(e.into()),\n  }?,",
+    "new": "  (true,true)=>rent_result(a,Rent::get())?,\n\n\n",
+    "append": "#[inline(always)]\nfn rent_result<'info>(a:&mut SweepFees<'info>,rent:std::result::Result<Rent,anchor_lang::solana_program::program_error::ProgramError>)->Result<()>{\n match rent{\n  Ok(rent)=>{let minimum=rent.minimum_balance(0);if a.recipient.lamports()<minimum{crate::legacy_buy::native_payments::transfer(a.system_program.as_ref(),&a.payer,a.recipient.as_ref(),minimum)}else{Ok(())}}\n  Err(e)=>Err(e.into()),\n }\n}\n",
+    "candidate_sha256": "9474f1418538a3caea2e0466c2a3e93ca1befebc019b740560ef9fca7981fe80",
+    "hypothesis": "A by-value Rent Result boundary may materialize the original pre-branch Rent copy while retaining the shared top-up/error Result join and lifetime-marked storage. Unlike the earlier helper, Rent::get stays in execute."
+  },
+  "second_mutation": {
+    "old": "#[inline(always)]\nfn rent_result",
+    "new": "\nfn rent_result",
+    "hypothesis": "Test normal inlining of the explicit Rent Result argument boundary; it instead leaves an out-of-line helper."
+  },
+  "controls": {
+    "01-main-03fa449": {
+      "image_sha256": "ae09766d52b563f95429c535d09e418f95472bbb55062752135e78e36b7f2adc",
+      "image_bytes": 2665192,
+      "launch_sha256": "058eb2ab8f476664870d1807cc294a77aaf38bc0002eb5cdbc6a82ebbf28f420",
+      "result_sha256": "b276de5a245825af50af5fd83c34591d471fdca843ad9391e0c3a47816cbd63e",
+      "sweep_source_sha256": "73155245b50f1350e61b783c95b347166b254f0387e8c2ba8e4fcc7f84ac401e",
+      "metric": {
+        "window": "0x72810",
+        "window_bytes": 7832,
+        "symbol": "pump_recovered::sweep::execute",
+        "cand_start": "0x7b2e8",
+        "cand_bytes": 7824,
+        "normalized_equal": false,
+        "raw_equal": false,
+        "ratio": 0.49139,
+        "calls_original": [
+          37,
+          2
+        ],
+        "calls_candidate": [
+          37,
+          2
+        ]
+      },
+      "counts": {
+        "total": 1035,
+        "normalized": 1024,
+        "raw": 273,
+        "unmatched": 11,
+        "matched_text_bytes": 1656088
+      },
+      "membership": {
+        "normalized_matches": {
+          "gained": [
+            "0x14a8a8"
+          ],
+          "lost": []
+        },
+        "raw_match": {
+          "gained": [],
+          "lost": []
+        }
+      },
+      "callee_multiset_equal": true,
+      "analysis_sha256": "03d86b11c440114caeba34a8cffd43322352351156ef6ec46038459460c1b77c"
+    },
+    "02-p1": {
+      "image_sha256": "787ce3cdbfdffcf1a773688ff2804275df3c72cbba24028effe5099d690a9a4e",
+      "image_bytes": 2665168,
+      "launch_sha256": "4411932447a75ed0c7b094baaec4b16c001175642977ec88782ef1bf52c588da",
+      "result_sha256": "4df656845fcfdc02605ce7dbba7682b900fad0b6398726dde87f2aebace7c431",
+      "sweep_source_sha256": "175314dab9e4b6b2f183b548173f7593373267106a78201740df7fc4fcf145eb",
+      "metric": {
+        "window": "0x72810",
+        "window_bytes": 7832,
+        "symbol": "pump_recovered::sweep::execute",
+        "cand_start": "0x7b2e8",
+        "cand_bytes": 7768,
+        "normalized_equal": false,
+        "raw_equal": false,
+        "ratio": 0.82199,
+        "calls_original": [
+          37,
+          2
+        ],
+        "calls_candidate": [
+          37,
+          2
+        ]
+      },
+      "counts": {
+        "total": 1035,
+        "normalized": 1024,
+        "raw": 273,
+        "unmatched": 11,
+        "matched_text_bytes": 1656088
+      },
+      "membership": {
+        "normalized_matches": {
+          "gained": [],
+          "lost": []
+        },
+        "raw_match": {
+          "gained": [],
+          "lost": []
+        }
+      },
+      "callee_multiset_equal": true,
+      "analysis_sha256": "6977387dd0b3007dbcc104d6bac07a660439cffdccdaed582334e1c8b5644ac6"
+    },
+    "03-rent-helper": {
+      "image_sha256": "dfdb2eb05d8b5b03a3841fe69eeed580c2955e2e9ee7e7d28cb2229957209a1a",
+      "image_bytes": 2665200,
+      "launch_sha256": "a8aeb357a874d81fac9d9b09d096623fb27734d3bf42fdd58d0c16b9d04a1d46",
+      "result_sha256": "71344e74ab3937851ee5ae2a7cec2ea61a19e94ff71b8a08461697b4788f3666",
+      "sweep_source_sha256": "9474f1418538a3caea2e0466c2a3e93ca1befebc019b740560ef9fca7981fe80",
+      "metric": {
+        "window": "0x72810",
+        "window_bytes": 7832,
+        "symbol": "pump_recovered::sweep::execute",
+        "cand_start": "0x7b2e8",
+        "cand_bytes": 7800,
+        "normalized_equal": false,
+        "raw_equal": false,
+        "ratio": 0.82027,
+        "calls_original": [
+          37,
+          2
+        ],
+        "calls_candidate": [
+          37,
+          2
+        ]
+      },
+      "counts": {
+        "total": 1035,
+        "normalized": 1024,
+        "raw": 273,
+        "unmatched": 11,
+        "matched_text_bytes": 1656088
+      },
+      "membership": {
+        "normalized_matches": {
+          "gained": [],
+          "lost": []
+        },
+        "raw_match": {
+          "gained": [],
+          "lost": []
+        }
+      },
+      "callee_multiset_equal": true,
+      "analysis_sha256": "88cff7ce36fbe53cbe8309dce18ba6e3587745dacf6e2ddd32af2bb5895e7a8d"
+    },
+    "04-rent-default": {
+      "image_sha256": "bb2baf61ece3bdc5517565415781612e7fa0288e1b7abe75c3a0e6110110b830",
+      "image_bytes": 2665408,
+      "launch_sha256": "69500185803729481b70036bcfdda8cb2077e54067d3d0b5c8b6476882bb9604",
+      "result_sha256": "29d13b171f3042976fdb3958aae174d48d1caacc59aa049d82a7c2f2433c4db6",
+      "sweep_source_sha256": "afe578b707e5f562f9d2b1eb85573009b471ed5486925acc6ad23b1bd944eecf",
+      "metric": {
+        "window": "0x72810",
+        "window_bytes": 7832,
+        "symbol": "pump_recovered::sweep::execute",
+        "cand_start": "0x7b2e8",
+        "cand_bytes": 7592,
+        "normalized_equal": false,
+        "raw_equal": false,
+        "ratio": 0.80191,
+        "calls_original": [
+          37,
+          2
+        ],
+        "calls_candidate": [
+          34,
+          2
+        ]
+      },
+      "counts": {
+        "total": 1035,
+        "normalized": 1024,
+        "raw": 273,
+        "unmatched": 11,
+        "matched_text_bytes": 1656088
+      },
+      "membership": {
+        "normalized_matches": {
+          "gained": [],
+          "lost": []
+        },
+        "raw_match": {
+          "gained": [],
+          "lost": []
+        }
+      },
+      "callee_multiset_equal": false,
+      "analysis_sha256": "226a3cb9357730a0bab4c3dea647a48f922c65d65890a0e8c13a7c09d9c20bfc"
+    }
+  },
+  "rent_instruction_evidence": {
+    "result": "PASS",
+    "images": {
+      "original": {
+        "image_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+        "sweep_start": "0x72810",
+        "sweep_bytes": 7832,
+        "rent_call_offset": "0x1288",
+        "rent_callee": {
+          "address": 1706528,
+          "bodies": [
+            {
+              "bytes": 200,
+              "normalized_sha256": "8934244e8a8a1d7ae6fdd509ebc001ed9dae366cd51a2d47abfb21f9a0478729"
+            }
+          ]
+        },
+        "post_call_through_first_conditional": [
+          {
+            "offset": "0x1290",
+            "opcode": "0x79",
+            "dst": 1,
+            "src": 10,
+            "disp": -568,
+            "imm": 0,
+            "raw": "79a1c8fd00000000"
+          },
+          {
+            "offset": "0x1298",
+            "opcode": "0x7b",
+            "dst": 10,
+            "src": 1,
+            "disp": -208,
+            "imm": 0,
+            "raw": "7b1a30ff00000000"
+          },
+          {
+            "offset": "0x12a0",
+            "opcode": "0x79",
+            "dst": 1,
+            "src": 10,
+            "disp": -560,
+            "imm": 0,
+            "raw": "79a1d0fd00000000"
+          },
+          {
+            "offset": "0x12a8",
+            "opcode": "0x7b",
+            "dst": 10,
+            "src": 1,
+            "disp": -200,
+            "imm": 0,
+            "raw": "7b1a38ff00000000"
+          },
+          {
+            "offset": "0x12b0",
+            "opcode": "0x79",
+            "dst": 1,
+            "src": 10,
+            "disp": -552,
+            "imm": 0,
+            "raw": "79a1d8fd00000000"
+          },
+          {
+            "offset": "0x12b8",
+            "opcode": "0x7b",
+            "dst": 10,
+            "src": 1,
+            "disp": -192,
+            "imm": 0,
+            "raw": "7b1a40ff00000000"
+          },
+          {
+            "offset": "0x12c0",
+            "opcode": "0x79",
+            "dst": 1,
+            "src": 10,
+            "disp": -576,
+            "imm": 0,
+            "raw": "79a1c0fd00000000"
+          },
+          {
+            "offset": "0x12c8",
+            "opcode": "0x55",
+            "dst": 1,
+            "src": 0,
+            "disp": 60,
+            "imm": 0,
+            "raw": "55013c0000000000",
+            "taken_offset": "0x14b0",
+            "fallthrough_offset": "0x12d0"
+          }
+        ],
+        "stack_stores_before_tag_branch": 3,
+        "intervening_calls": [],
+        "direct_rent_tag_branch": true
+      },
+      "02-p1": {
+        "image_sha256": "787ce3cdbfdffcf1a773688ff2804275df3c72cbba24028effe5099d690a9a4e",
+        "sweep_start": "0x7b2e8",
+        "sweep_bytes": 7768,
+        "rent_call_offset": "0x1278",
+        "rent_callee": {
+          "address": 1706288,
+          "names": [
+            "_ZN13solana_sysvar4rent69_$LT$impl$u20$solana_sysvar..Sysvar$u20$for$u20$solana_rent..Rent$GT$3get17h4a64e953839d24cbE"
+          ],
+          "stable_names": [
+            "_ZN13solana_sysvar4rent69_$LT$impl$u20$solana_sysvar..Sysvar$u20$for$u20$solana_rent..Rent$GT$3get17h<HASH>E"
+          ],
+          "bodies": [
+            {
+              "bytes": 200,
+              "raw_sha256": "209280dc6cfb7f0c1d46b70d6a2bfb9b69eca9bd830d82c332f824df722dc205",
+              "normalized_sha256": "8934244e8a8a1d7ae6fdd509ebc001ed9dae366cd51a2d47abfb21f9a0478729",
+              "masked_operands": 1
+            }
+          ]
+        },
+        "post_call_through_first_conditional": [
+          {
+            "offset": "0x1280",
+            "opcode": "0x79",
+            "dst": 1,
+            "src": 10,
+            "disp": -576,
+            "imm": 0,
+            "raw": "79a1c0fd00000000"
+          },
+          {
+            "offset": "0x1288",
+            "opcode": "0x15",
+            "dst": 1,
+            "src": 0,
+            "disp": 54,
+            "imm": 0,
+            "raw": "1501360000000000",
+            "taken_offset": "0x1440",
+            "fallthrough_offset": "0x1290"
+          }
+        ],
+        "stack_stores_before_tag_branch": 0,
+        "intervening_calls": [],
+        "direct_rent_tag_branch": true
+      },
+      "03-rent-helper": {
+        "image_sha256": "dfdb2eb05d8b5b03a3841fe69eeed580c2955e2e9ee7e7d28cb2229957209a1a",
+        "sweep_start": "0x7b2e8",
+        "sweep_bytes": 7800,
+        "rent_call_offset": "0x1280",
+        "rent_callee": {
+          "address": 1706320,
+          "names": [
+            "_ZN13solana_sysvar4rent69_$LT$impl$u20$solana_sysvar..Sysvar$u20$for$u20$solana_rent..Rent$GT$3get17h4a64e953839d24cbE"
+          ],
+          "stable_names": [
+            "_ZN13solana_sysvar4rent69_$LT$impl$u20$solana_sysvar..Sysvar$u20$for$u20$solana_rent..Rent$GT$3get17h<HASH>E"
+          ],
+          "bodies": [
+            {
+              "bytes": 200,
+              "raw_sha256": "209280dc6cfb7f0c1d46b70d6a2bfb9b69eca9bd830d82c332f824df722dc205",
+              "normalized_sha256": "8934244e8a8a1d7ae6fdd509ebc001ed9dae366cd51a2d47abfb21f9a0478729",
+              "masked_operands": 1
+            }
+          ]
+        },
+        "post_call_through_first_conditional": [
+          {
+            "offset": "0x1288",
+            "opcode": "0x79",
+            "dst": 1,
+            "src": 10,
+            "disp": -576,
+            "imm": 0,
+            "raw": "79a1c0fd00000000"
+          },
+          {
+            "offset": "0x1290",
+            "opcode": "0x55",
+            "dst": 1,
+            "src": 0,
+            "disp": 73,
+            "imm": 0,
+            "raw": "5501490000000000",
+            "taken_offset": "0x14e0",
+            "fallthrough_offset": "0x1298"
+          }
+        ],
+        "stack_stores_before_tag_branch": 0,
+        "intervening_calls": [],
+        "direct_rent_tag_branch": true
+      },
+      "04-rent-default": {
+        "image_sha256": "bb2baf61ece3bdc5517565415781612e7fa0288e1b7abe75c3a0e6110110b830",
+        "sweep_start": "0x7b2e8",
+        "sweep_bytes": 7592,
+        "rent_call_offset": "0x1288",
+        "rent_callee": {
+          "address": 1706440,
+          "names": [
+            "_ZN13solana_sysvar4rent69_$LT$impl$u20$solana_sysvar..Sysvar$u20$for$u20$solana_rent..Rent$GT$3get17h4a64e953839d24cbE"
+          ],
+          "stable_names": [
+            "_ZN13solana_sysvar4rent69_$LT$impl$u20$solana_sysvar..Sysvar$u20$for$u20$solana_rent..Rent$GT$3get17h<HASH>E"
+          ],
+          "bodies": [
+            {
+              "bytes": 200,
+              "raw_sha256": "209280dc6cfb7f0c1d46b70d6a2bfb9b69eca9bd830d82c332f824df722dc205",
+              "normalized_sha256": "8934244e8a8a1d7ae6fdd509ebc001ed9dae366cd51a2d47abfb21f9a0478729",
+              "masked_operands": 1
+            }
+          ]
+        },
+        "post_call_through_first_conditional": [
+          {
+            "offset": "0x1290",
+            "opcode": "0xbf",
+            "dst": 1,
+            "src": 10,
+            "disp": 0,
+            "imm": 0,
+            "raw": "bfa1000000000000"
+          },
+          {
+            "offset": "0x1298",
+            "opcode": "0x7",
+            "dst": 1,
+            "src": 0,
+            "disp": 0,
+            "imm": -688,
+            "raw": "0701000050fdffff"
+          },
+          {
+            "offset": "0x12a0",
+            "opcode": "0xbf",
+            "dst": 2,
+            "src": 9,
+            "disp": 0,
+            "imm": 0,
+            "raw": "bf92000000000000"
+          },
+          {
+            "offset": "0x12a8",
+            "opcode": "0xbf",
+            "dst": 3,
+            "src": 8,
+            "disp": 0,
+            "imm": 0,
+            "raw": "bf83000000000000"
+          },
+          {
+            "offset": "0x12b0",
+            "opcode": "0x85",
+            "dst": 0,
+            "src": 1,
+            "disp": 0,
+            "imm": 350,
+            "raw": "851000005e010000"
+          },
+          {
+            "offset": "0x12b8",
+            "opcode": "0xb7",
+            "dst": 5,
+            "src": 0,
+            "disp": 0,
+            "imm": 1,
+            "raw": "b705000001000000"
+          },
+          {
+            "offset": "0x12c0",
+            "opcode": "0x79",
+            "dst": 1,
+            "src": 10,
+            "disp": -688,
+            "imm": 0,
+            "raw": "79a150fd00000000"
+          },
+          {
+            "offset": "0x12c8",
+            "opcode": "0x15",
+            "dst": 1,
+            "src": 0,
+            "disp": 1,
+            "imm": 2,
+            "raw": "1501010002000000",
+            "taken_offset": "0x12d8",
+            "fallthrough_offset": "0x12d0"
+          }
+        ],
+        "stack_stores_before_tag_branch": 0,
+        "intervening_calls": [
+          {
+            "offset": "0x12b0",
+            "opcode": "0x85",
+            "dst": 0,
+            "src": 1,
+            "disp": 0,
+            "imm": 350,
+            "raw": "851000005e010000"
+          }
+        ],
+        "direct_rent_tag_branch": false
+      }
+    },
+    "scope": "Immediate straight-line instruction prefix after one uniquely bound Rent::get callee; not full CFG, alias/liveness analysis or behavior equivalence. Reads actual ELF instruction bytes; no objdump address-format assumptions."
+  },
+  "root_compiler_commands": 4,
+  "dependency_compiler_commands": 0,
+  "target_executions": 0,
+  "acceptance": "Neither new helper variant is promoted. 03 slightly lowers ratio from p1 and still lacks the three original pre-tag stores. 04 changes the direct-callee multiset. P1 itself independently reproduces stronger similarity than this PR source; native raw-loss caveat remains as recorded by PR1548.",
+  "local_verification_sha256": "3fd9b5a24e5c7c27bfe8bb4b0f5f74017b401f8c54f84d6913ad6f27e9f1c035",
+  "limits": "Raw compiler outputs remain unequal to the original allocation capture. Neither new candidate is promoted: one fails the targeted pre-branch copy and slightly lowers ratio versus p1; the other leaves a helper call and changes the direct-callee multiset. No native-host, runtime or security claim."
+}

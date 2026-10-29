@@ -91,3 +91,44 @@ negative control, supplying retained a37 as candidate fails specifically on its
 extra callee-body occurrence. No captured program, transaction or VM was run.
 Exact revisions, hashes, source inventories and diagnostic limits are summarized
 in `SUMMARY.json`; native-host replay remains for maintainer review.
+
+## Follow-up: newer source and the Rent-result boundary
+
+Qualified newer main `03fa4494f36449cd8fd63e121f12ca40bf57090f` with the
+same local recipe: **1024 normalized / 273 raw**, adding only `0x14a8a8`
+from merged upstream #1549. There were no normalized or raw losses.
+
+Independently replayed upstream [#1548](https://github.com/lalalune/pumpfun-source/pull/1548)
+at `60914be2d6167a7e9a981e33cbccae696b0cc6fc`, applying its sweep file to
+that newer main. Its p1 source is a stronger sweep candidate than this PR's
+field clone. Both complete immediate-callee multiplicities and all local
+window memberships are preserved. Credit for p1 belongs to #1548; its
+reported native-host raw loss at `0xa868` remains unqualified here.
+
+| Sweep source on newer main | Bytes | Ratio | Internal calls / syscalls | Original callee multiset |
+| --- | ---: | ---: | ---: | --- |
+| Merged main | 7824 | 0.49139 | 37 / 2 | equal |
+| Upstream p1 | 7768 | 0.82199 | 37 / 2 | equal |
+| Explicit Rent Result argument, inline(always) helper | 7800 | 0.82027 | 37 / 2 | equal |
+| Same helper without inline attribute | 7592 | 0.80191 | 34 / 2 | differs |
+
+The first new hypothesis passes `Rent::get()` by value to a helper that
+matches the result and returns the existing top-up/error Result. It moves
+the error branch after protocol-native handling, but its Rent payload
+still copies only after the tag test. Actual ELF bytes show three stack
+stores before that test in the original and zero in p1 or this helper.
+The original branch is `jne r1, 0`; p1 uses `jeq r1, 0`; the helper restores
+`jne r1, 0` but still has a different destination and missing stores.
+
+Removing the attribute leaves an out-of-line helper: its first conditional
+after Rent::get tests the helper's returned Result, so it is not the Rent
+tag test. This variant fails the direct-callee multiset requirement. Both
+variants retain all 1024/273 memberships, but neither is promoted. The
+branch improvement alone does not establish the required copy placement.
+
+`RENT-RESULT.json` retains exact source mutations, revisions, output/log
+receipt hashes, all-window results and instruction bytes. Four isolated
+root builds completed without stack-offset warnings; static source/tool/
+dependency checks and official/independent scorer replays passed. Existing
+source and the original SUMMARY remain unchanged. No target/VM execution,
+native-host replay or new full normalized/raw window match is claimed.
