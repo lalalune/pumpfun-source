@@ -4,6 +4,21 @@ This note separates retained product observations from local reconstruction
 choices. Recovered JavaScript was inspected only as inert text and is never
 imported or executed by the application.
 
+## First-visit Escape ownership
+
+At `f93b52ba3f6a18cf334522c35a9726974a9c6eb1`, a fresh browser context
+opening an archived `?task=` selection loses that task when Escape dismisses
+the actual Welcome dialog. The dialog prevents the key's default action while
+recording its existing acceptance preference, but GO's window listener also
+closes the underlying nonmodal detail on the same event.
+
+GO now leaves an already-prevented Escape to its owner. The first key dismisses
+Welcome without changing the task URL; the second closes the detail and
+restores the archived card's focus. Desktop/mobile browser regressions use the
+real first-visit dialog and archived read-only data, with an external/mutation
+request guard. This local event-ownership correction changes no acceptance,
+authentication, wallet or payout behavior and adds no compatibility credit.
+
 ## Captured page provenance
 
 The only listing data used by the reconstruction is the authenticated

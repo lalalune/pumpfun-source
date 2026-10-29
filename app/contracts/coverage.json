@@ -20,6 +20,15 @@
     "format": "method + exact path + sorted unique string query keys + status + headers + JSON body + provenance; GET/HEAD only"
   },
   "frontend": {
+    "goFirstVisitEscape": {
+      "status": "local-modal-event-ownership",
+      "qualified": false,
+      "evidence": [
+        "packages/frontend/GO-EVIDENCE.md",
+        "packages/frontend/tests/go-first-visit.spec.ts"
+      ],
+      "limits": "Local Welcome/GO Escape sequencing only; acceptance and authentication behavior and API qualification remain unchanged."
+    },
     "competitionRulesFocus": {
       "status": "local-modal-tab-boundaries",
       "qualified": false,
