@@ -45,9 +45,10 @@ worktree shares. The crates come from `~/.cargo/registry` (builds run offline).
 
 ## Build and score
 
-Analysis tools select `llvm-objdump` from the installed v1.52 SDK first, then
+The scorer reads candidate function symbols directly from the ELF without an SDK.
+Disassembly tools select `llvm-objdump` from the installed v1.52 SDK first, then
 the documented v1.44 SDK, then `PATH`. Set `PUMP_OBJDUMP` to an executable path
-or command name to override that choice for both symbol listing and disassembly.
+or command name to override disassembly tool selection.
 An invalid explicit override fails rather than silently selecting another tool.
 This selection does not change the compiler or the identity build recipe.
 
