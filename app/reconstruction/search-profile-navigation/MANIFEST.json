@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "base": "03fa4494f36449cd8fd63e121f12ca40bf57090f",
+  "scope": "Finite maintained local profile Link/navigation admission correction, not original client parity or aggregate application qualification.",
+  "files": {
+    "app/packages/frontend/src/components/shell/search/LocalUserSearch.tsx": {
+      "bytes": 4194,
+      "sha256": "3e5ab662ddcf7c55dfd6c12a18ddd8f1ed0abbf96c4b98819f4b7cd3433f3d8b"
+    },
+    "app/packages/frontend/tests/search-profile-navigation.spec.ts": {
+      "bytes": 5992,
+      "sha256": "239a15502a5cb0fba424416a270c96843a2ccf5ad2fb21dbb964019a83876fd4"
+    },
+    "app/reconstruction/search-profile-navigation/README.md": {
+      "bytes": 6815,
+      "sha256": "89d56fd987f38b0e553423a6945fe6d084665fe69fc4e0d642573cc30b13f1f3"
+    },
+    "app/reconstruction/search-profile-navigation/actual-runtime-config.ts.txt": {
+      "bytes": 334,
+      "sha256": "2a5c319921591ef70ccebec91903b5fac39ef79ec68ff0692cff873bd7fe56a9"
+    },
+    "app/reconstruction/search-profile-navigation/after-control.json": {
+      "bytes": 985,
+      "sha256": "9bbc2ad1d76820109543cef74ca9a8a810a64935042a6cc323ca231c0dba7000"
+    },
+    "app/reconstruction/search-profile-navigation/after-keyboard.json": {
+      "bytes": 1043,
+      "sha256": "e41972ead761239921877f174470a8ff3b5d943db33203727e3c15da97e9ca75"
+    },
+    "app/reconstruction/search-profile-navigation/after-parent.png": {
+      "bytes": 67129,
+      "sha256": "e6740e58f71bfdc3b0527d990357ef6a3f45527164d021da2f012c5d1560ef54"
+    },
+    "app/reconstruction/search-profile-navigation/after-pointer.json": {
+      "bytes": 1043,
+      "sha256": "e41972ead761239921877f174470a8ff3b5d943db33203727e3c15da97e9ca75"
+    },
+    "app/reconstruction/search-profile-navigation/after-shift.json": {
+      "bytes": 985,
+      "sha256": "f5524bb59d85621ab6361ccb17115724c8006b8d19819a9117f79caf225e7105"
+    },
+    "app/reconstruction/search-profile-navigation/app-evidence.log": {
+      "bytes": 72,
+      "sha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9"
+    },
+    "app/reconstruction/search-profile-navigation/baseline.log": {
+      "bytes": 3631,
+      "sha256": "fe34cb3108d9408fde41f5bea0a7d3d05263d61beacd149a62114d066abbd961"
+    },
+    "app/reconstruction/search-profile-navigation/baseline.log.raw.gz": {
+      "bytes": 988,
+      "sha256": "7b3467aadae0eb9c0dc257ce7ce08cc8a3e595b77e4486d8e9be1691060364b9"
+    },
+    "app/reconstruction/search-profile-navigation/before-control.json": {
+      "bytes": 1089,
+      "sha256": "4a9c601774160b6749f291d34e9d3a5f5a4f87cd63cfac72145aa2af285ee714"
+    },
+    "app/reconstruction/search-profile-navigation/before-keyboard.json": {
+      "bytes": 1043,
+      "sha256": "e41972ead761239921877f174470a8ff3b5d943db33203727e3c15da97e9ca75"
+    },
+    "app/reconstruction/search-profile-navigation/before-parent.png": {
+      "bytes": 65035,
+      "sha256": "6a16a199ef4075c71664d77dadccb63d1cd68318dd96ae503761b2203c6e4e46"
+    },
+    "app/reconstruction/search-profile-navigation/before-pointer.json": {
+      "bytes": 1043,
+      "sha256": "e41972ead761239921877f174470a8ff3b5d943db33203727e3c15da97e9ca75"
+    },
+    "app/reconstruction/search-profile-navigation/candidate.log": {
+      "bytes": 1311,
+      "sha256": "d6d6a2335d4a6cdd084518db828e29220dbc31a953a4d46b9d139814dd6c0c20"
+    },
+    "app/reconstruction/search-profile-navigation/harness-initial.log": {
+      "bytes": 4052,
+      "sha256": "90ab04882c3d616380654700b5c756fd0c60dc5f25879644f80538c721496568"
+    },
+    "app/reconstruction/search-profile-navigation/harness-initial.log.raw.gz": {
+      "bytes": 940,
+      "sha256": "51910dd4013deffc355934d9ca6979934f832f6b1da4730cb1e1c22c6b22556e"
+    },
+    "app/reconstruction/search-profile-navigation/progress.log": {
+      "bytes": 49,
+      "sha256": "7ab499988f3b70e197e23e42287d4cc4579dc2b9360a82be3e827e22c589fda4"
+    },
+    "app/reconstruction/search-profile-navigation/search-contract-tests.log": {
+      "bytes": 2586,
+      "sha256": "37dccf812988c78f1a583d81f4c2c35f5e2827b8868eeb36a1761f2452303a97"
+    },
+    "app/reconstruction/search-profile-navigation/server.log.gz": {
+      "bytes": 595,
+      "sha256": "2cb530b7836bfe96f4904b074ace8691f36ea9706cd9eaf6d6bae7143af3f57e"
+    },
+    "app/reconstruction/search-profile-navigation/shell-tests.log": {
+      "bytes": 433,
+      "sha256": "eecd8492f384db736d6c7a23e9b0b4e4472646b667327eb9c879087bd09145d7"
+    },
+    "app/reconstruction/search-profile-navigation/source-after.json": {
+      "bytes": 5758,
+      "sha256": "f2fa3d527b9d13aacadc415519fe1b1d6591fde0a58d9cb13d9473705b68fd23"
+    },
+    "app/reconstruction/search-profile-navigation/source-before.json": {
+      "bytes": 5755,
+      "sha256": "a45fad02933e53fa569c523cbbdb690c32dfbeae184cbeafc7e6c92c0153250b"
+    },
+    "app/reconstruction/search-profile-navigation/source-ledger.log": {
+      "bytes": 70,
+      "sha256": "e65e3c6c250b3fd7e6dee3e72a00ec6eb7032819122d8c3f3fd096befe8773f4"
+    },
+    "app/reconstruction/search-profile-navigation/source-ledger.mjs": {
+      "bytes": 3115,
+      "sha256": "bd9476b925fc821aee263ef21e1c3366d403ab5e12d7b9b1cbb183076a620ac4"
+    },
+    "app/reconstruction/search-profile-navigation/source.patch.gz": {
+      "bytes": 289,
+      "sha256": "d85b70d52311e9c3c3ecdf3518ca63be40577104a511c585f5d2bd1ad9214fa8"
+    },
+    "app/reconstruction/search-profile-navigation/test-tooling.log": {
+      "bytes": 109,
+      "sha256": "08e59812036c93699350ecd9aa0c66e82cec63bd5c59d7435573dfc19b755901"
+    },
+    "app/reconstruction/search-profile-navigation/typecheck.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "app/reconstruction/search-profile-navigation/typegen.log": {
+      "bytes": 59,
+      "sha256": "adba4af9194e10e47dda75ff0fd0f8c2b756474896d0eba5612799c527ff372a"
+    },
+    "app/reconstruction/search-profile-navigation/verify-evidence.log": {
+      "bytes": 376,
+      "sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9"
+    },
+    "app/reconstruction/search-profile-navigation/work-record.json": {
+      "bytes": 4832,
+      "sha256": "5b678c14b88e30568e01d6872064c2807860134b6ecb426d0768130fc84ce3de"
+    }
+  }
+}

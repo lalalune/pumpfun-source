@@ -1,0 +1,34 @@
+✔ actual submit/navigator/admission/route bodies and both guard contexts reproduce from raw captures (619.380536ms)
+✔ admission and route helpers preserve original trimming, decoding, exceptions and encoding (0.505219ms)
+✔ form submit -> navigator -> real resolver HTTP -> ordered navigation callbacks (25.407583ms)
+✔ definitive user differs from external-wallet on-curve admission and never falls back (0.654142ms)
+▶ fallback HTTP status/body controls whether the ordered read-probe ports may run
+  ✔ 200{"mint":"fallback-mint"} (7.653961ms)
+  ✔ 404{} (3.671601ms)
+  ✔ 503{} (3.378742ms)
+  ✔ 200"invalid-json" (4.68976ms)
+✔ fallback HTTP status/body controls whether the ordered read-probe ports may run (20.462529ms)
+✔ known-mint success short circuits the chain probe; negative reads may select an on-curve profile (0.570997ms)
+✔ invalid input aborts an old operation before admission and sends nothing (0.157646ms)
+✔ real pending resolver abort is cancelled and cannot clear the newer operation (4.717191ms)
+✔ stale read-probe results cannot navigate; DOM AbortError classification is preserved (0.63261ms)
+✔ form orchestration stops only on exact true/cancelled and otherwise reaches encoded Explore navigation (0.32648ms)
+✔ source proof rejects fallback status, freshness, navigation order, admission and enum mutations (939.855891ms)
+✔ three actual hook contexts, consumer bindings, request and complete declared schemas reproduce (1368.484323ms)
+✔ label presence and two-pass user/wallet merge preserve served order, precedence and raw references (0.863547ms)
+✔ pagination counts non-wallet raw rows rather than deduplicated display rows (0.296024ms)
+✔ query callback -> real HTTP -> raw pages -> merge and next offset are usable together (39.645899ms)
+✔ minimum/enablement and debounce flags use the supplied snapshot and original UTF-16 length (0.435043ms)
+✔ enabled is query-runtime input; manually calling a disabled callback still performs its original request (0.290846ms)
+✔ snapshot values stay captured, request containers stay fresh and client/errors/signals remain unbound (0.755144ms)
+✔ real HTTP status hook throws the original plain error and pending fetch honors abort (15.06774ms)
+✔ declared schemas are separate from wire/client guards and retain true optional/safe-integer bounds (1.018278ms)
+✔ source proof rejects page/count/dedup/request/enablement/return-wiring mutations (434.211308ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2005.168091

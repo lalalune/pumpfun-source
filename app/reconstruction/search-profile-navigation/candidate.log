@@ -1,0 +1,17 @@
+
+Running 9 tests using 1 worker
+
+(node:402607) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/9] tests/search-local-users.spec.ts:4:5 › searches the local user model and opens the exact profile
+[2/9] tests/search-local-users.spec.ts:34:5 › honors two UTF-16 units and the captured 500ms debounce
+[3/9] tests/search-local-users.spec.ts:67:5 › clears obsolete rows immediately and ignores an old response that ignores abort
+[4/9] tests/search-local-users.spec.ts:129:5 › closed dialogs cancel pending reads and preserve the existing Escape draft
+[5/9] tests/search-local-users.spec.ts:157:5 › shows unavailable reads without remote fallback and keeps Enter on Explore
+[6/9] tests/search-profile-navigation.spec.ts:123:7 › ordinary pointer profile navigation closes search in its own tab
+[7/9] tests/search-profile-navigation.spec.ts:123:7 › ordinary keyboard profile navigation closes search in its own tab
+[8/9] tests/search-profile-navigation.spec.ts:148:7 › Control-click opens the local profile separately and keeps the parent search
+[9/9] tests/search-profile-navigation.spec.ts:148:7 › Shift-click opens the local profile separately and keeps the parent search
+  9 passed (20.6s)

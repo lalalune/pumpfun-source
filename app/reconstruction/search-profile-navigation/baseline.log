@@ -1,0 +1,55 @@
+
+Running 4 tests using 1 worker
+
+(node:402129) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/4] tests/search-profile-navigation.spec.ts:123:7 › ordinary pointer profile navigation closes search in its own tab
+[2/4] tests/search-profile-navigation.spec.ts:123:7 › ordinary keyboard profile navigation closes search in its own tab
+[3/4] tests/search-profile-navigation.spec.ts:148:7 › Control-click opens the local profile separately and keeps the parent search
+  1) tests/search-profile-navigation.spec.ts:148:7 › Control-click opens the local profile separately and keeps the parent search
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Search for coins and users' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('dialog', { name: 'Search for coins and users' }) with timeout 5000ms
+      - waiting for getByRole('dialog', { name: 'Search for coins and users' })
+
+
+      167 |       childHasOpener = (await child.opener()) !== null;
+      168 |       await expect(page).toHaveURL(parentUrl);
+    > 169 |       await expect(dialog).toBeVisible();
+          |                            ^
+      170 |       await expect(input).toHaveValue("alice");
+      171 |       await expect(link).toBeVisible();
+      172 |       expect(observed.errors).toEqual([]);
+        at /workspace/pump-app-search-planner/app/packages/frontend/tests/search-profile-navigation.spec.ts:169:28
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../search-profile-navigation-03fa4494/baseline-final-browser-artifacts/search-profile-navigation--57bff-and-keeps-the-parent-search/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../search-profile-navigation-03fa4494/baseline-final-browser-artifacts/search-profile-navigation--57bff-and-keeps-the-parent-search/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../search-profile-navigation-03fa4494/baseline-final-browser-artifacts/search-profile-navigation--57bff-and-keeps-the-parent-search/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../search-profile-navigation-03fa4494/baseline-final-browser-artifacts/search-profile-navigation--57bff-and-keeps-the-parent-search/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+Testing stopped early after 1 maximum allowed failures.
+
+  1 failed
+    tests/search-profile-navigation.spec.ts:148:7 › Control-click opens the local profile separately and keeps the parent search
+  1 did not run
+  2 passed (13.8s)
+  1 error was not a part of any test, see above for details

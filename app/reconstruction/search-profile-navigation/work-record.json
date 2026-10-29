@@ -1,0 +1,77 @@
+{
+  "base": "03fa4494f36449cd8fd63e121f12ca40bf57090f",
+  "sourceBeforeSha256": "de1b467123ba79cfbbc017fccd908ce252d5f222cbbd8c16f90cb27153ae4878",
+  "sourceAfterSha256": "3e5ab662ddcf7c55dfd6c12a18ddd8f1ed0abbf96c4b98819f4b7cd3433f3d8b",
+  "patchSha256": "173ecff68039284e4495cc6ee982268e3c30703a79dab4270441eb059bfa521f",
+  "finalTestSha256": "239a15502a5cb0fba424416a270c96843a2ccf5ad2fb21dbb964019a83876fd4",
+  "candidate": "One existing Next Link prop onClick -> onNavigate; actual close callback and result path unchanged; no generic event guard or new state.",
+  "testHistory": {
+    "preliminarySha256": "ea167eebbe2150a0e47d11ca26422dfa9789ba8a4bb6344f35c6efdd6f8e3f35",
+    "finalSha256": "239a15502a5cb0fba424416a270c96843a2ccf5ad2fb21dbb964019a83876fd4",
+    "preliminaryResult": "2PASS/1HARNESS TIMEOUT/1notrun: actual child has no opener, parent Page.popup wait is wrong; preserved, not an application failure claim.",
+    "correction": "Only observe the real browser context page event, with finite5s wait and actual child opener observation. No app/read/router/history mock."
+  },
+  "runtime": {
+    "frontend": "http://127.0.0.1:3010",
+    "unusedBackend": "http://127.0.0.1:3011",
+    "backendServiceStarted": false,
+    "developerReadKey": "empty",
+    "viewport": {
+      "width": 1280,
+      "height": 900
+    },
+    "workers": 1,
+    "retries": 0,
+    "maxFailures": 1,
+    "baseline": {
+      "passed": 2,
+      "failed": 1,
+      "notRun": 1,
+      "rawSha256": "dbfeef16033c90a53269e46b188633c1cf2cae47b51402e34467ac7c78294a21",
+      "cause": "Trusted Ctrl click opens exact child profile but closes parent search; no unexpected requests or page/console errors."
+    },
+    "candidate": {
+      "passed": 9,
+      "newCases": 4,
+      "unchangedCases": 5,
+      "rawSha256": "d6d6a2335d4a6cdd084518db828e29220dbc31a953a4d46b9d139814dd6c0c20"
+    },
+    "childHasOpener": false,
+    "server": "stopped; ss3010 empty; owned inactive cache removed"
+  },
+  "actualInputs": {
+    "app/packages/frontend/src/components/shell/search/LocalUserSearch.tsx": "3e5ab662ddcf7c55dfd6c12a18ddd8f1ed0abbf96c4b98819f4b7cd3433f3d8b",
+    "app/packages/frontend/src/components/shell/search/SearchDialog.tsx": "a47fb602cc3a1793f30715fe324bca602ed1b5aeba9768bcdeb6958868057e87",
+    "app/packages/frontend/tests/search-profile-navigation.spec.ts": "239a15502a5cb0fba424416a270c96843a2ccf5ad2fb21dbb964019a83876fd4",
+    "app/packages/frontend/tests/search-local-users.spec.ts": "3bbf465b7abafc89aefc38d13db1c36b83865b339864942093d64e8d78b28dac",
+    "app/packages/frontend/tests/shell-controls.ts": "87ab91a5ade6b4a0826cb2eb55135aeb75e897b6c5aa81421ef58221bee682e8",
+    "app/packages/frontend/tests/browser-state.ts": "6ca60ac77b50bcc845c8073973265a980ece5aede9782cb955836b422128123a",
+    "app/packages/frontend/playwright.config.ts": "6b0b07bb37748d67ea396d3de6e331a15978b8b2e17815dbcb843f3299ad61b0",
+    "app/packages/frontend/src/lib/local-user-search-server.ts": "c631d32736477ee588069fb4e39f0edb2e419d5946d221a7c085f141c669a69a",
+    "app/packages/backend/src/users-seed.json": "56259663a146236df2f0e6e1d931df7cc2dda4d39ed7a090c18505434155b20d",
+    "app/packages/backend/src/posts-seed.json": "f4d12a7812b07be6dcef4b966430a086cba9e867ff89de669a95a74bdd73d705",
+    "app/pnpm-lock.yaml": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+    "app/packages/frontend/node_modules/next/package.json": "546222266ef4402af870e96f03964570038e8498f4a4f7cb6dcf591f08cb07ec",
+    "app/packages/frontend/node_modules/next/dist/client/app-dir/link.js": "6f8c21c0c27c3877f0b847bda8a89660732229319f6fa85ee4ada1a88d44d95e",
+    "app/packages/frontend/node_modules/next/dist/docs/01-app/03-api-reference/02-components/link.md": "e2a12de1d1e8b7e59a7046d4674862d2a2ff9e8641596f121ff9a584aa3e7daa"
+  },
+  "checks": {
+    "rootCaptures": 9,
+    "rootToolingTests": 10,
+    "shellSourceTests": 3,
+    "searchContractTests": 25,
+    "frontendTypegen": "PASS",
+    "frontendTypecheck": "PASS",
+    "appEvidence": "698 objects/npm/unchanged-SDK integrity PASS",
+    "progress": "PASS",
+    "sourceLedger": "PASS: exact afterledger comparison"
+  },
+  "limits": [
+    "Local maintained synthetic-profile correction using installed Next16 navigation semantics, not original Pump modifier behavior equivalence.",
+    "Finite local Chromium1280px pointer/Enter/Ctrl/Shift behavior; no macOS Meta/browser-family/middle-button/download/all-routes claim.",
+    "New four-case diagnostic has actual unmocked local HTTP and trusted actions; unchanged five regressions separately include controlled clock/fetch/error fixtures.",
+    "No full production build or full browser suite.",
+    "No API/backend handler/source/capture/SDK/wallet/feature milestone/binary change.",
+    "No video or private agent trajectory/usage upload."
+  ]
+}

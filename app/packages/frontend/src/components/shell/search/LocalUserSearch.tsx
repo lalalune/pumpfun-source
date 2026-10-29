@@ -123,7 +123,7 @@ export function LocalUserSearch({
               <Link
                 href={`/profile/${encodeURIComponent(row.identifier)}`}
                 prefetch={false}
-                onClick={onNavigate}
+                onNavigate={onNavigate}
               >
                 {row.displayName}
               </Link>

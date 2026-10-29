@@ -1,0 +1,42 @@
+{
+  "state": {
+    "url": "http://127.0.0.1:3010/",
+    "open": true,
+    "query": "alice"
+  },
+  "data": {
+    "events": [
+      {
+        "stage": "parent-navigation",
+        "url": "http://127.0.0.1:3010/"
+      },
+      {
+        "stage": "parent-navigation",
+        "url": "http://127.0.0.1:3010/"
+      },
+      {
+        "stage": "actual-local-search-response",
+        "url": "http://127.0.0.1:3010/api/local-users/search?q=alice",
+        "status": 200,
+        "dataSource": "synthetic-seed-play"
+      },
+      {
+        "stage": "actual-profile-click",
+        "trusted": true,
+        "ctrl": true,
+        "meta": false,
+        "shift": false,
+        "href": "/profile/user-001",
+        "parentUrl": "http://127.0.0.1:3010/"
+      },
+      {
+        "stage": "actual-child-created",
+        "url": "about:blank"
+      }
+    ],
+    "errors": [],
+    "unexpectedRequests": [],
+    "childUrl": "http://127.0.0.1:3010/profile/user-001",
+    "childHasOpener": false
+  }
+}

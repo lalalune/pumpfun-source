@@ -1,0 +1,52 @@
+
+Running 4 tests using 1 worker
+
+(node:401525) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/4] tests/search-profile-navigation.spec.ts:122:7 › ordinary pointer profile navigation closes search in its own tab
+[2/4] tests/search-profile-navigation.spec.ts:122:7 › ordinary keyboard profile navigation closes search in its own tab
+[3/4] tests/search-profile-navigation.spec.ts:147:7 › Control-click opens the local profile separately and keeps the parent search
+  1) tests/search-profile-navigation.spec.ts:147:7 › Control-click opens the local profile separately and keeps the parent search
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.evaluate: Target page, context or browser has been closed
+
+      102 |
+      103 | async function save(page: Page, data: unknown) {
+    > 104 |   const state = await page.evaluate(() => {
+          |                            ^
+      105 |     const dialog = document.querySelector<HTMLDialogElement>(
+      106 |       'dialog[aria-label="Search for coins and users"]',
+      107 |     );
+        at save (/workspace/pump-app-search-planner/app/packages/frontend/tests/search-profile-navigation.spec.ts:104:28)
+        at /workspace/pump-app-search-planner/app/packages/frontend/tests/search-profile-navigation.spec.ts:172:13
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../search-profile-navigation-03fa4494/baseline-browser-artifacts/search-profile-navigation--57bff-and-keeps-the-parent-search/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../search-profile-navigation-03fa4494/baseline-browser-artifacts/search-profile-navigation--57bff-and-keeps-the-parent-search/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../search-profile-navigation-03fa4494/baseline-browser-artifacts/search-profile-navigation--57bff-and-keeps-the-parent-search/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../search-profile-navigation-03fa4494/baseline-browser-artifacts/search-profile-navigation--57bff-and-keeps-the-parent-search/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../search-profile-navigation-03fa4494/baseline-browser-artifacts/search-profile-navigation--57bff-and-keeps-the-parent-search/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+Testing stopped early after 1 maximum allowed failures.
+
+  1 failed
+    tests/search-profile-navigation.spec.ts:147:7 › Control-click opens the local profile separately and keeps the parent search
+  1 did not run
+  2 passed (39.7s)
+  1 error was not a part of any test, see above for details

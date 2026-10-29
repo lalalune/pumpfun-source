@@ -1,0 +1,2 @@
+import base from '/workspace/pump-app-search-planner/app/packages/frontend/playwright.config';
+export default {...base,webServer:undefined,testDir:'/workspace/pump-app-search-planner/app/packages/frontend/tests',outputDir:`/workspace/search-profile-navigation-03fa4494/${process.env.SEARCH_NAV_PHASE??'baseline'}-browser-artifacts`};

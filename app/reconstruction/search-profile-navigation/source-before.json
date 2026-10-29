@@ -1,0 +1,85 @@
+{
+  "method": "Static maintained caller/callback and installed framework dataflow; not original Pump modifier-behavior equivalence",
+  "localResult": {
+    "label": "actual result Link opening element",
+    "path": "packages/frontend/src/components/shell/search/LocalUserSearch.tsx",
+    "sourceSha256": "de1b467123ba79cfbbc017fccd908ce252d5f222cbbd8c16f90cb27153ae4878",
+    "utf16": [
+      3726,
+      3889
+    ],
+    "utf8": [
+      3728,
+      3891
+    ],
+    "sha256": "cc5c6e0e89d77e22ba8d2b86c4e667d6fd02ad815814dfa84f817cec903e7625",
+    "text": "<Link\n                href={`/profile/${encodeURIComponent(row.identifier)}`}\n                prefetch={false}\n                onClick={onNavigate}\n              >"
+  },
+  "modalCallback": {
+    "label": "actual parent dialog-close callback",
+    "path": "packages/frontend/src/components/shell/search/SearchDialog.tsx",
+    "sourceSha256": "a47fb602cc3a1793f30715fe324bca602ed1b5aeba9768bcdeb6958868057e87",
+    "utf16": [
+      5313,
+      5358
+    ],
+    "utf8": [
+      5316,
+      5361
+    ],
+    "sha256": "5facbd4ca19ab836e95cec9c73ff2dd9d4fdd0cbea657974f91f6e87bae2c38a",
+    "text": "onNavigate={() => dialogRef.current?.close()}"
+  },
+  "framework": {
+    "version": "16.4.1",
+    "docs": {
+      "path": "packages/frontend/node_modules/next/dist/docs/01-app/03-api-reference/02-components/link.md",
+      "sha256": "e2a12de1d1e8b7e59a7046d4674862d2a2ff9e8641596f121ff9a584aa3e7daa"
+    },
+    "click": {
+      "label": "onClick runs before navigation admission",
+      "path": "packages/frontend/node_modules/next/dist/client/app-dir/link.js",
+      "sourceSha256": "6f8c21c0c27c3877f0b847bda8a89660732229319f6fa85ee4ada1a88d44d95e",
+      "utf16": [
+        14145,
+        14923
+      ],
+      "utf8": [
+        14149,
+        14927
+      ],
+      "sha256": "d64bfd16b8f508f04f69010a5204990c0fc253f28fe301f69e99557b33b1b9d9",
+      "text": "onClick (e) {\n            if (process.env.NODE_ENV !== 'production') {\n                if (!e) {\n                    throw new Error(`Component rendered inside next/link has to pass click event to \"onClick\" prop.`);\n                }\n            }\n            if (!legacyBehavior && typeof onClick === 'function') {\n                onClick(e);\n            }\n            if (legacyBehavior && child.props && typeof child.props.onClick === 'function') {\n                child.props.onClick(e);\n            }\n            if (!router) {\n                return;\n            }\n            if (e.defaultPrevented) {\n                return;\n            }\n            linkClicked(e, formattedHref, linkInstanceRef, replace, scroll, onNavigate, transitionTypes, prefetchIntent);\n        }"
+    },
+    "modifier": {
+      "label": "actual modifier admission",
+      "path": "packages/frontend/node_modules/next/dist/client/app-dir/link.js",
+      "sourceSha256": "6f8c21c0c27c3877f0b847bda8a89660732229319f6fa85ee4ada1a88d44d95e",
+      "utf16": [
+        1705,
+        2037
+      ],
+      "utf8": [
+        1705,
+        2037
+      ],
+      "sha256": "1d992f9f64a1b684161fb94250b17c1763a309d8f3781217bc038c9a47a54708",
+      "text": "function isModifiedEvent(event) {\n    const eventTarget = event.currentTarget;\n    const target = eventTarget.getAttribute('target');\n    return target && target !== '_self' || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || // triggers resource download\n    event.nativeEvent && event.nativeEvent.which === 2;\n}"
+    },
+    "navigation": {
+      "label": "modifier early return before onNavigate",
+      "path": "packages/frontend/node_modules/next/dist/client/app-dir/link.js",
+      "sourceSha256": "6f8c21c0c27c3877f0b847bda8a89660732229319f6fa85ee4ada1a88d44d95e",
+      "utf16": [
+        2038,
+        3782
+      ],
+      "utf8": [
+        2038,
+        3786
+      ],
+      "sha256": "c26bec1dc861afd1f475da9e86edbda07b5c04f0422ae8a9b512a947d585c5b0",
+      "text": "function linkClicked(e, href, linkInstanceRef, replace, scroll, onNavigate, transitionTypes, prefetchIntent = 'none') {\n    if (typeof window !== 'undefined') {\n        const { nodeName } = e.currentTarget;\n        // anchors inside an svg have a lowercase nodeName\n        const isAnchorNodeName = nodeName.toUpperCase() === 'A';\n        if (isAnchorNodeName && isModifiedEvent(e) || e.currentTarget.hasAttribute('download')) {\n            // ignore click for browser’s default behavior\n            return;\n        }\n        if (!(0, _islocalurl.isLocalURL)(href)) {\n            if (replace) {\n                // browser default behavior does not replace the history state\n                // so we need to do it manually\n                e.preventDefault();\n                location.replace(href);\n            }\n            // ignore click for browser’s default behavior\n            return;\n        }\n        e.preventDefault();\n        if (onNavigate) {\n            let isDefaultPrevented = false;\n            onNavigate({\n                preventDefault: ()=>{\n                    isDefaultPrevented = true;\n                }\n            });\n            if (isDefaultPrevented) {\n                return;\n            }\n        }\n        const { navigate } = // TODO(browser-variant): migrate to a .ts/.browser.ts split so the browser bundle drops the server branch; see scripts/generate-browser-variant-aliases.mjs\n        // ast-grep-ignore: no-typeof-window-require-tsx\n        require('../components/navigator');\n        navigate(href, replace ? 'replace' : 'push', scroll === false ? _routerreducertypes.ScrollBehavior.NoScroll : _routerreducertypes.ScrollBehavior.Default, linkInstanceRef.current, transitionTypes, prefetchIntent);\n    }\n}"
+    }
+  }
+}
