@@ -631,15 +631,15 @@ def main():
     # --- Write outputs ---
 
     (output_dir / "layer1-data-layout.json").write_text(
-        json.dumps(data_layout, indent=2) + "\n")
+        json.dumps(data_layout, indent=2) + "\n", encoding="utf-8")
     (output_dir / "layer2-relocation-map.json").write_text(
-        json.dumps(reloc_map, indent=2) + "\n")
+        json.dumps(reloc_map, indent=2) + "\n", encoding="utf-8")
     (output_dir / "layer3-cross-section.json").write_text(
-        json.dumps(cross_section, indent=2) + "\n")
+        json.dumps(cross_section, indent=2) + "\n", encoding="utf-8")
     (output_dir / "layer4-anchor-idl.json").write_text(
-        json.dumps(idl_recovery, indent=2) + "\n")
+        json.dumps(idl_recovery, indent=2) + "\n", encoding="utf-8")
     (output_dir / "layer5-math-analysis.json").write_text(
-        json.dumps(math_analysis, indent=2) + "\n")
+        json.dumps(math_analysis, indent=2) + "\n", encoding="utf-8")
 
     # Summary
     text_bytes = elf.hi - elf.lo
@@ -675,7 +675,7 @@ def main():
             "overflow_protected": math_analysis["windows_with_overflow_checks"],
         },
     }
-    (output_dir / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+    (output_dir / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
 
     # README
     l1 = summary["layer1_data_layout"]
@@ -738,7 +738,7 @@ and mathematical pattern extraction.
 python3 verify.py
 ```
 """
-    (output_dir / "README.md").write_text(readme)
+    (output_dir / "README.md").write_text(readme, encoding="utf-8")
 
     verify_py = '''#!/usr/bin/env python3
 import hashlib, json, os, sys
@@ -749,7 +749,7 @@ def sha256_file(p):
         for c in iter(lambda: f.read(65536), b""): h.update(c)
     return h.hexdigest()
 def main():
-    m = json.load(open(os.path.join(PACKET, "manifest.json")))
+    m = json.load(open(os.path.join(PACKET, "manifest.json"), encoding="utf-8"))
     e = 0
     for n, x in m.items():
         p = os.path.join(PACKET, n)
@@ -765,7 +765,7 @@ def main():
     print("\\nAll checks passed."); return 0
 if __name__ == "__main__": sys.exit(main())
 '''
-    (output_dir / "verify.py").write_text(verify_py)
+    (output_dir / "verify.py").write_text(verify_py, encoding="utf-8")
 
     manifest = {}
     for name in sorted(os.listdir(output_dir)):
@@ -774,10 +774,10 @@ if __name__ == "__main__": sys.exit(main())
         path = output_dir / name
         if path.is_file():
             manifest[name] = sha256_file(str(path))
-    (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 
     total_lines = sum(
-        sum(1 for _ in open(output_dir / name))
+        sum(1 for _ in open(output_dir / name, encoding="utf-8"))
         for name in os.listdir(output_dir) if (output_dir / name).is_file()
     )
     print(f"[deep] wrote {len(manifest)+1} files, ~{total_lines:,} lines to {output_dir}")

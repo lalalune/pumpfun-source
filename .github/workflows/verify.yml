@@ -16,6 +16,9 @@ jobs:
       max-parallel: 12
       matrix:
         include:
+          - suite: analysis-packet-encoding
+            commands: |
+              python -B research/tooling-analysis-encoding-20261030/test_verify.py
           - suite: pump-claim-v2-account-boundaries
             commands: |
               python -I -B research/pump-claim-v2-account-boundaries/verify.py
