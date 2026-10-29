@@ -219,6 +219,8 @@ def table_block(node: Node) -> dict[str, Any]:
 
 
 def list_block(node: Node) -> dict[str, Any]:
+    if node.tag == "ol" and (node.attrs.get("start") not in (None, "1") or "reversed" in node.attrs or any(isinstance(child, Node) and child.tag == "li" and "value" in child.attrs for child in node.children)):
+        raise ExtractionError("Unsupported ordered-list numbering")
     items = [
         {"children": inline_children(child)}
         for child in node.children
