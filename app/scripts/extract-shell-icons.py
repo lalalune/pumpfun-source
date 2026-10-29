@@ -129,7 +129,21 @@ def owner(segment, position):
 def to_jsx(svg):
     """Convert one captured SVG to JSX, accepting only static presentational markup."""
     out = []
-    for close, name, attrs, self_closing in TAG.findall(svg):
+    stack = []
+    cursor = 0
+    roots = 0
+    for match in TAG.finditer(svg):
+        if svg[cursor:match.start()].strip(): fail("unparsed SVG content")
+        cursor = match.end()
+        close, name, attrs, self_closing = match.groups()
+        if close:
+            if attrs.strip() or self_closing: fail("invalid SVG closing tag")
+            if not stack or stack.pop() != name: fail("unbalanced SVG tags")
+        else:
+            if not stack:
+                roots += 1
+                if name != "svg" or roots != 1: fail("expected one SVG root")
+            if not self_closing: stack.append(name)
         if name not in ALLOWED_TAGS:
             fail(f'unexpected <{name}> in captured icon')
         if close:
@@ -142,6 +156,7 @@ def to_jsx(svg):
             parts.append(f'{JSX_ATTR.get(attr, attr)}={json.dumps(html.unescape(value))}')
         tail = ' /' if self_closing else ''
         out.append(f'<{name} {" ".join(parts)}{tail}>' if parts else f'<{name}{tail}>')
+    if svg[cursor:].strip() or stack or roots != 1: fail('incomplete SVG markup')
     return ''.join(out)
 
 
