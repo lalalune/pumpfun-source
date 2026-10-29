@@ -4,6 +4,10 @@ from pathlib import Path
 
 def tree_files(root):
     root = Path(root)
+    if not root.exists():
+        raise FileNotFoundError(f'source tree does not exist: {root}')
+    if not root.is_dir():
+        raise NotADirectoryError(f'source tree is not a directory: {root}')
     return {str(p.relative_to(root)): p.read_bytes() for p in sorted(root.rglob('*')) if p.is_file()}
 
 
