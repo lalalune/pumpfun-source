@@ -154,7 +154,7 @@ export async function buildPnlLeaderboardClient(appRoot = APP_ROOT) {
     source: { repository: "lalalune/pumpfun-source", reviewBase: "c571e162500ee6a72a3cc942eb9dca1f4c825931",
       manifestSha256: corpus.anchors.manifestSha256, selectedCompleteEntriesSha256: sha256(JSON.stringify(selected)),
       selectedIndexEntries: selected,
-      sharedSource: { revision: "0a9a1f084", sha256: SHARED_SOURCE_SHA256 } },
+      sharedSource: { revision: "pathless-capture-errors-v1", sha256: SHARED_SOURCE_SHA256 } },
     scope: "Original PnL request, raw-score selector and complete memo/query/cache hook through explicit capabilities; no server rankings or API qualification",
     factory: factory.provenance, consumers,
     dependencies: [transport.provenance, origin.provenance, declaration.provenance],
