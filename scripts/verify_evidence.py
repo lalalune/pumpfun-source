@@ -25,6 +25,7 @@ def main():
             assert p==b and sha(b)==m['payload_sha256']==m['program_sha256'] and len(b)==m['payload_bytes']
             assert m['owner']=='BPFLoader2111111111111111111111111111111111'
             assert m['genesis_hash']=='5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d'
+            assert m.get('last_deploy_slot') is None and m.get('upgrade_authority') is None and not any(k in m for k in ('programdata','programdata_sha256','programdata_bytes'))
             elf_layout(b); print(folder.relative_to(ROOT),'OK (legacy loader)'); count+=1; continue
         p=(folder/'program-account.bin').read_bytes(); d=(folder/'programdata-account.bin').read_bytes(); b=(folder/'deployed.so').read_bytes()
         assert sha(p)==m['program_sha256']; assert sha(d)==m['programdata_sha256']; assert sha(b)==m['payload_sha256']
