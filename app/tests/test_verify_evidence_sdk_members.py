@@ -10,10 +10,14 @@ class SdkArchiveIdentity(unittest.TestCase):
             (root/'packages/sdk/src/index.ts').write_bytes(b'export {};')
             archive=root/'evidence/sdk/pump-sdk-4.3.1.tgz'
             with tarfile.open(archive,'w:gz') as tar:
+                package_meta = json.dumps({'name':'@pump-fun/pump-sdk','version':'4.3.1'}).encode('utf-8')
+                (root/'packages/sdk/package.json').write_bytes(package_meta)
+                identity = tarfile.TarInfo('package/package.json'); identity.size = len(package_meta)
+                tar.addfile(identity, io.BytesIO(package_meta))
                 for _ in range(2):
                     item=tarfile.TarInfo('package/src/index.ts');item.size=10;tar.addfile(item,io.BytesIO(b'export {};'))
             integrity='sha512-'+base64.b64encode(hashlib.sha512(archive.read_bytes()).digest()).decode()
-            (root/'evidence/sdk/registry.json').write_text(json.dumps({'dist':{'integrity':integrity}}))
+            (root/'evidence/sdk/registry.json').write_text(json.dumps({'name':'@pump-fun/pump-sdk','version':'4.3.1','dist':{'integrity':integrity}}))
             for flags in [[],['-O']]:
                 result=subprocess.run([sys.executable,*flags,str(script)],capture_output=True,text=True)
                 self.assertNotEqual(result.returncode,0);self.assertIn('Duplicate SDK source',result.stderr)

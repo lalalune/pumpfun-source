@@ -36,11 +36,15 @@ class EvidenceVerificationTests(unittest.TestCase):
             source.write_bytes(b'export {};')
             archive = root / 'evidence/sdk/pump-sdk-4.3.1.tgz'
             with tarfile.open(archive, 'w:gz') as tar:
+                package_meta = json.dumps({'name':'@pump-fun/pump-sdk','version':'4.3.1'}).encode('utf-8')
+                (root/'packages/sdk/package.json').write_bytes(package_meta)
+                identity = tarfile.TarInfo('package/package.json'); identity.size = len(package_meta)
+                tar.addfile(identity, io.BytesIO(package_meta))
                 member = tarfile.TarInfo('package/src/index.ts')
                 member.size = len(source.read_bytes())
                 tar.addfile(member, io.BytesIO(source.read_bytes()))
             integrity = 'sha512-' + base64.b64encode(hashlib.sha512(archive.read_bytes()).digest()).decode()
-            (root / 'evidence/sdk/registry.json').write_text(json.dumps({'dist': {'integrity': integrity}, 'description': '\u4e2d\u6587'}, ensure_ascii=False), encoding='utf-8')
+            (root / 'evidence/sdk/registry.json').write_text(json.dumps({'name':'@pump-fun/pump-sdk','version':'4.3.1','dist': {'integrity': integrity}, 'description': '\u4e2d\u6587'}, ensure_ascii=False), encoding='utf-8')
             captured = root / records[0]['path']
             for flags in ((), ('-O',)):
                 command = [sys.executable, '-X', 'utf8=0', *flags, str(script)]
@@ -71,11 +75,15 @@ class EvidenceVerificationTests(unittest.TestCase):
             source = root / 'packages/sdk/src/index.ts'
             source.write_bytes(b'export {};')
             with tarfile.open(archive, 'w:gz') as tar:
+                package_meta = json.dumps({'name':'@pump-fun/pump-sdk','version':'4.3.1'}).encode('utf-8')
+                (root/'packages/sdk/package.json').write_bytes(package_meta)
+                identity = tarfile.TarInfo('package/package.json'); identity.size = len(package_meta)
+                tar.addfile(identity, io.BytesIO(package_meta))
                 member = tarfile.TarInfo('package/src/index.ts')
                 member.size = len(source.read_bytes())
                 tar.addfile(member, io.BytesIO(source.read_bytes()))
             integrity = 'sha512-' + base64.b64encode(hashlib.sha512(archive.read_bytes()).digest()).decode()
-            (root / 'evidence/sdk/registry.json').write_text(json.dumps({'dist': {'integrity': integrity}}))
+            (root / 'evidence/sdk/registry.json').write_text(json.dumps({'name':'@pump-fun/pump-sdk','version':'4.3.1','dist': {'integrity': integrity}}))
             def run(*flags):
                 return subprocess.run([sys.executable, *flags, str(script)], capture_output=True, text=True)
             for flags in ((), ('-O',)):

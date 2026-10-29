@@ -24,11 +24,20 @@ for r in records:
  if 'bytes' in r and (type(r['bytes']) is not int or r['bytes']<0 or len(body)!=r['bytes']):
   raise ValueError(f"Captured object byte count mismatch: {r['path']}")
 meta=json.loads((root/'evidence/sdk/registry.json').read_text(encoding='utf-8'))
+def sdk_identity(value, source):
+ if not isinstance(value,dict) or (value.get('name'),value.get('version'))!=('@pump-fun/pump-sdk','4.3.1'):
+  raise ValueError(f'SDK package identity mismatch: {source}')
+sdk_identity(meta,'registry.json')
 archive=root/'evidence/sdk/pump-sdk-4.3.1.tgz'
 if 'sha512-'+base64.b64encode(hashlib.sha512(archive.read_bytes()).digest()).decode()!=meta['dist']['integrity']:
  raise ValueError('SDK archive npm integrity mismatch')
 expected_sources=set()
 with tarfile.open(archive) as tar:
+ package_metadata=[member for member in tar.getmembers() if member.name=='package/package.json']
+ if len(package_metadata)!=1 or not package_metadata[0].isfile():
+  raise ValueError('SDK package identity requires one regular archive package.json')
+ sdk_identity(json.loads(tar.extractfile(package_metadata[0]).read()),'archive package.json')
+ sdk_identity(json.loads((root/'packages/sdk/package.json').read_text(encoding='utf-8')),'local package.json')
  for member in tar.getmembers():
   if member.name.startswith('package/src/') and member.isfile():
    relative=member.name.removeprefix('package/src/')

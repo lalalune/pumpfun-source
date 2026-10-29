@@ -15,10 +15,14 @@ class ByteCountVerification(unittest.TestCase):
             source=b'export {};';(root/'packages/sdk/src/index.ts').write_bytes(source)
             archive=root/'evidence/sdk/pump-sdk-4.3.1.tgz'
             with tarfile.open(archive,'w:gz') as tar:
+                package_meta = json.dumps({'name':'@pump-fun/pump-sdk','version':'4.3.1'}).encode('utf-8')
+                (root/'packages/sdk/package.json').write_bytes(package_meta)
+                identity = tarfile.TarInfo('package/package.json'); identity.size = len(package_meta)
+                tar.addfile(identity, io.BytesIO(package_meta))
                 member=tarfile.TarInfo('package/src/index.ts');member.size=len(source)
                 tar.addfile(member,io.BytesIO(source))
             integrity='sha512-'+base64.b64encode(hashlib.sha512(archive.read_bytes()).digest()).decode()
-            (root/'evidence/sdk/registry.json').write_text(json.dumps({'dist':{'integrity':integrity}}),encoding='utf-8')
+            (root/'evidence/sdk/registry.json').write_text(json.dumps({'name':'@pump-fun/pump-sdk','version':'4.3.1','dist':{'integrity':integrity}}),encoding='utf-8')
             manifest=root/'evidence/web/manifest.json'
             for flags in ([],['-O']):
                 for count in (len(body),None,len(body)+1,-1,True,'8'):
