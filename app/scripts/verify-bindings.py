@@ -60,7 +60,7 @@ def resolve_pointer(document, pointer):
         token = token.replace('~1', '/').replace('~0', '~')
         if isinstance(node, list):
             require(
-                token.isdigit() and int(token) < len(node),
+                re.fullmatch(r'0|[1-9][0-9]*', token) is not None and int(token) < len(node),
                 f'Unresolved JSON pointer {pointer}',
             )
             node = node[int(token)]
