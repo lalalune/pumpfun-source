@@ -1,0 +1,820 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "reviewBase": "abd766d7a8c047f14af34851f64166b840c6728d",
+    "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+    "sharedSourceSha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+    "selectedIndexEntries": [
+      {
+        "ids": [
+          540805
+        ],
+        "sha256": "058ef17f92b13d44c2ead869a78a52961abc88fd4814fa72514f5c11c1fc85be",
+        "origins": [
+          {
+            "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/1qqfn5g-bst3e.js",
+            "start": 33160,
+            "end": 34396
+          }
+        ],
+        "path": "recovered/modules/540805-058ef17f92b1.js"
+      },
+      {
+        "ids": [
+          590407
+        ],
+        "sha256": "3f494070c58a6d7f0f70279887ef648107935b765fe849de3e9ec100cec45dda",
+        "origins": [
+          {
+            "source": "evidence/web/objects/2fe17dced92b840b.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+            "start": 119,
+            "end": 117418
+          }
+        ],
+        "path": "recovered/modules/590407-3f494070c58a.js"
+      },
+      {
+        "ids": [
+          90832
+        ],
+        "sha256": "4338f013e20debf9abf08d64e2fd71df845208712ad7737a91216f3b9c48da90",
+        "origins": [
+          {
+            "source": "evidence/web/objects/a0ec47219f76f808.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/01vcofbeb5_1m.js",
+            "start": 8495,
+            "end": 9710
+          }
+        ],
+        "path": "recovered/modules/90832-4338f013e20d.js"
+      },
+      {
+        "ids": [
+          745018
+        ],
+        "sha256": "4cc46a6d51b6a9b0fe8ce9f64d77e130e7961309e881fe14f64efa16fb09f660",
+        "origins": [
+          {
+            "source": "evidence/web/objects/c8e855c81e05ca28.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/3nzad4fr1d1nw.js",
+            "start": 119,
+            "end": 166147
+          }
+        ],
+        "path": "recovered/modules/745018-4cc46a6d51b6.js"
+      },
+      {
+        "ids": [
+          139209
+        ],
+        "sha256": "8d4ffb7afbfae1b99df53cf4d8421f1fb6f85c290468471f2e4f71f58358ed9b",
+        "origins": [
+          {
+            "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+            "start": 124767,
+            "end": 145775
+          }
+        ],
+        "path": "recovered/modules/139209-8d4ffb7afbfa.js"
+      },
+      {
+        "ids": [
+          363250
+        ],
+        "sha256": "e6fea22fefde82715cf2e611ea91240e636eda105ce2d4da95af63753d341e26",
+        "origins": [
+          {
+            "source": "evidence/web/objects/b7df9c4704b957ab.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/2jt1u-tuh2989.js",
+            "start": 9334,
+            "end": 9625
+          }
+        ],
+        "path": "recovered/modules/363250-e6fea22fefde.js"
+      }
+    ],
+    "selectedCompleteEntriesSha256": "8544229a2b41952efc57ecfff1bc9e1b368740fe0e7e22a05fcb9424d860e55f"
+  },
+  "prerequisite": {
+    "pr": 1296,
+    "sourceHead": "a6c5d3792b88d47cdbf6f870ee59e47ec5e3698d",
+    "files": {
+      "scripts/original-competition-entry.mjs": "f0b407d0c532d84e07b3ca1cc859643e266b18f177d480e2227e071eb58f5dc5",
+      "reconstruction/competition-entry/contract.json": "f62d473e9d5df3b15d64ec1add324509f41db21f53f837c14ace29a2c3f8fbf0",
+      "packages/frontend/src/components/leaderboard/entry/entry-helpers.mjs": "3106d82b71ce1df8cd14aec52e4c4d9c1e77fe3662af7d1a77ee7c6cdad18a92",
+      "packages/frontend/src/components/leaderboard/entry/entry-helpers.d.mts": "5985be4782c402e25356585eaeb87a9a3d0f5a8d513d419c098dbd2d6cfde506",
+      "packages/frontend/src/components/leaderboard/entry/original-entry-row.tsx": "5adb64c15899f0f65a63ab65b505505524085b08db4ba77648178b7a7a7bcc85",
+      "packages/frontend/src/components/leaderboard/entry/variants/squad-35ee9b42b219.mjs": "4c96e61bd98b5d8fa7b81728ed21e596e9d19d532f33d1faddf289c8dd20c05b",
+      "packages/frontend/src/components/leaderboard/entry/variants/squad-4043938d1f35.mjs": "11a8a145849e70aeae793a8f7b5d4e5766142265f5379745c80cda5e511ceab6",
+      "packages/frontend/src/components/leaderboard/entry/variants/image-1877fed09a63.mjs": "16879e3b7a9d7389b4042885d5c7496807c7f117126a0c39f6e3b818583eb3fb",
+      "packages/frontend/src/components/leaderboard/entry/variants/image-64085dc31cc9.mjs": "310e5468e267deb2df2e887a458a5b75bf51ba19d6b198946b95a990f8198fec",
+      "packages/frontend/src/components/leaderboard/entry/variants/image-9fa49ca7090d.mjs": "10a818cd65b75d1479f0a08aac80c92a8a25403901c9c10447446be3e9067f6f"
+    },
+    "credit": "Reused identity/image helpers and original SVG wrapper attribution; no duplicate recovery claim."
+  },
+  "outputs": {
+    "packages/frontend/src/components/leaderboard/viewer/original-volume.mjs": "c89d7597150570fcea3e442f8043fbf7035a84cccfa4de087bf4a7b0116b3b3f",
+    "packages/frontend/src/components/leaderboard/viewer/original-viewer-card.tsx": "3ef12b235ced36842ae1ec8d9716a0a5bd9d67b20e561a9b38596df6f0bc04ea"
+  },
+  "witnesses": [
+    {
+      "label": "actual documented shared profile fields",
+      "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+      "sourceSha256": "e78d2f38b06f971847c18dd05457c75afc85208135f50d6e4022a5f197e8839d",
+      "sourceBytes": 507700,
+      "utf16": [
+        125654,
+        126142
+      ],
+      "utf8": [
+        125711,
+        126199
+      ],
+      "sha256": "5a9a933574fca90759c5efc9225fdcee29676985ada70f93b9215c5138991b71"
+    },
+    {
+      "label": "actual documented complete competition entry DTO",
+      "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+      "sourceSha256": "e78d2f38b06f971847c18dd05457c75afc85208135f50d6e4022a5f197e8839d",
+      "sourceBytes": 507700,
+      "utf16": [
+        126143,
+        127938
+      ],
+      "utf8": [
+        126200,
+        127997
+      ],
+      "sha256": "779d4149333081b6b7730574441962a68fd87857c897e312b9255b5f4270d145"
+    },
+    {
+      "label": "actual documented viewer entry and eligibility DTO",
+      "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+      "sourceSha256": "e78d2f38b06f971847c18dd05457c75afc85208135f50d6e4022a5f197e8839d",
+      "sourceBytes": 507700,
+      "utf16": [
+        130700,
+        131461
+      ],
+      "utf8": [
+        130759,
+        131520
+      ],
+      "sha256": "dc25ae0111b2ffc306f1a2b1838d1e5a929f39042048c4b9600a16242bf1766c"
+    },
+    {
+      "label": "actual viewer import a -> 732486 (JSX runtime)",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        148,
+        161
+      ],
+      "utf8": [
+        148,
+        161
+      ],
+      "sha256": "e40ab2a1c6fe1ade958dbf952f1f607aef3df44f9667e50ef912cf4b6e39f581"
+    },
+    {
+      "label": "actual viewer import s -> 445242 (compiler cache)",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        162,
+        175
+      ],
+      "utf8": [
+        162,
+        175
+      ],
+      "sha256": "2753e6d3cf870e7f0f1fd002710a1ac5d49e1fd7aa8671962459662e53d12477"
+    },
+    {
+      "label": "actual viewer import l -> 398902 (translation hook)",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        191,
+        204
+      ],
+      "utf8": [
+        191,
+        204
+      ],
+      "sha256": "3a4b71d1509d75f341c241456df999d6634551559a7fdbde156b7b923af7171b"
+    },
+    {
+      "label": "actual viewer import i -> 352386 (React useState)",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        219,
+        232
+      ],
+      "utf8": [
+        219,
+        232
+      ],
+      "sha256": "2017f82144c716fe46b6a8950999cd09d60172e8b2e8c9e02543eaffb7df6461"
+    },
+    {
+      "label": "actual viewer import A -> 338319 (bounded class capability)",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        5421,
+        5434
+      ],
+      "utf8": [
+        5421,
+        5434
+      ],
+      "sha256": "a4cb2d3932cd9daa4fd41e5da9700c76db8924f05c1d77ac932848de04820af1"
+    },
+    {
+      "label": "actual viewer import C -> 146695 (profile href)",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        6618,
+        6631
+      ],
+      "utf8": [
+        6618,
+        6631
+      ],
+      "sha256": "3ac1910015f69de55e7cbb69546263606cd15dbd65cd0a04235dbdd035e66e3d"
+    },
+    {
+      "label": "actual viewer import P -> 365089 (short wallet)",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        6632,
+        6645
+      ],
+      "utf8": [
+        6632,
+        6645
+      ],
+      "sha256": "74cc3963da052c3f3f4e81e47ad24533f231a82075bc54195787ecdd47410a8d"
+    },
+    {
+      "label": "actual viewer import q -> 745018 (expand/collapse SVGs)",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        6646,
+        6659
+      ],
+      "utf8": [
+        6646,
+        6659
+      ],
+      "sha256": "e0568a56708d0a698799ebac00998ce125028c938dba59a77e34f7813e544c53"
+    },
+    {
+      "label": "actual viewer import Z -> 705313 (Avatar port)",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        11259,
+        11272
+      ],
+      "utf8": [
+        11259,
+        11272
+      ],
+      "sha256": "d2f988985224db66271ebfa465b9940e352229c61b37f4c849368e7e7e334b4c"
+    },
+    {
+      "label": "actual viewer import Q -> 458310 (Link port)",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        11286,
+        11299
+      ],
+      "utf8": [
+        11286,
+        11299
+      ],
+      "sha256": "26c09e434647509cd8f008835f162a249dfac44c800c29a793e6cf88c5be7374"
+    },
+    {
+      "label": "actual viewer import V -> 741084 (explicit image variant)",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        11300,
+        11313
+      ],
+      "utf8": [
+        11300,
+        11313
+      ],
+      "sha256": "2650bcfd215c7a89bb0cd76cbfe39dabaf4448ef4ba6ea590b31fa928ed863e7"
+    },
+    {
+      "label": "actual viewer import W -> 897665 (IPFS constant)",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        11314,
+        11327
+      ],
+      "utf8": [
+        11314,
+        11327
+      ],
+      "sha256": "6b154ba48999943d2456de74c4c794f13a1af4bf86dda44f04394d7d353e9fe2"
+    },
+    {
+      "label": "actual viewer import G -> 69399 (explicit squad variant)",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        11342,
+        11354
+      ],
+      "utf8": [
+        11342,
+        11354
+      ],
+      "sha256": "11e82b4c2f824a0ce6e4ebd0b75f3ad0f9b1ef5a800a7e82cf94bdd464cb4ffe"
+    },
+    {
+      "label": "actual viewer import H -> 90832 (supplied currency display)",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        11355,
+        11367
+      ],
+      "utf8": [
+        11355,
+        11367
+      ],
+      "sha256": "b9331f95785cb9a833eb60f7b241549ea915c5fe120fade6deec0f963ab9f207"
+    },
+    {
+      "label": "actual viewer import e4 -> 363250 (injected SOL-price query hook)",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        45423,
+        45437
+      ],
+      "utf8": [
+        45425,
+        45439
+      ],
+      "sha256": "c1b787f81cc899663e3c437016238429eda7d2c8d2d916a0619c8c9a2298cc2a"
+    },
+    {
+      "label": "COMPLETE original near-zero/null stat decision",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        45442,
+        45604
+      ],
+      "utf8": [
+        45444,
+        45608
+      ],
+      "sha256": "f8f200de11294e094e5862e86c006955cca397dd66029352e5a24a2de951225e"
+    },
+    {
+      "label": "original stat tone map",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        45608,
+        45671
+      ],
+      "utf8": [
+        45612,
+        45675
+      ],
+      "sha256": "be343626a814d1ab92bebaead8f7adbc91f77503cdac154d5e738c9bea16af1c"
+    },
+    {
+      "label": "COMPLETE original e7 expanded stats with conditional price hook",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        45672,
+        46276
+      ],
+      "utf8": [
+        45676,
+        46282
+      ],
+      "sha256": "201cbe83d1a8a3d3503c5078479321bac9d4a45071f8630a9505da7a4c465e9f"
+    },
+    {
+      "label": "COMPLETE original e8 stat cell",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        46276,
+        46653
+      ],
+      "utf8": [
+        46282,
+        46659
+      ],
+      "sha256": "7fd5e318241ebc3a9370f25b934f652e6792e790c4c9bac9583b63b0343cd078"
+    },
+    {
+      "label": "COMPLETE original e9 viewer card",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        46653,
+        50869
+      ],
+      "utf8": [
+        46659,
+        50877
+      ],
+      "sha256": "18481bb9c7c856531b653e17dea57a5d3d67e9ee274bd55957b12add47e5b2b5"
+    },
+    {
+      "label": "COMPLETE original te toggle updater",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        50869,
+        50893
+      ],
+      "utf8": [
+        50877,
+        50901
+      ],
+      "sha256": "dd2e44f0109b31a1a9d655e9beeb8a37435b8a8fd62d71683914baafb721db4b"
+    },
+    {
+      "label": "complete actual planner: viewer entry comes from detail.viewer.entry; no session inference",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        61686,
+        62471
+      ],
+      "utf8": [
+        61694,
+        62479
+      ],
+      "sha256": "7e9a2369bf942ed6086016f11877653be375315ec6186435da631c740ab80667"
+    },
+    {
+      "label": "actual competition-board viewer-card invocation",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        63902,
+        63931
+      ],
+      "utf8": [
+        63910,
+        63939
+      ],
+      "sha256": "1504fa343ec494d87eef99f678b7950824ebdd595516b83158b05c298c07dfa4"
+    },
+    {
+      "label": "actual volume formatter import 540805",
+      "source": "evidence/web/objects/a0ec47219f76f808.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/01vcofbeb5_1m.js",
+      "sourceSha256": "557eb3547caea2d37bd9712a9cf3d07c835537e9354e0d7bd449b881fffdafc7",
+      "sourceBytes": 28862,
+      "utf16": [
+        8515,
+        8528
+      ],
+      "utf8": [
+        8753,
+        8766
+      ],
+      "sha256": "29b77d5648e09e88ac492a69412d3c27c614c39d89661296456eecf424d1748a"
+    },
+    {
+      "label": "actual volume alias l=t.l",
+      "source": "evidence/web/objects/a0ec47219f76f808.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/01vcofbeb5_1m.js",
+      "sourceSha256": "557eb3547caea2d37bd9712a9cf3d07c835537e9354e0d7bd449b881fffdafc7",
+      "sourceBytes": 28862,
+      "utf16": [
+        8764,
+        8769
+      ],
+      "utf8": [
+        9002,
+        9007
+      ],
+      "sha256": "a4564efe5cb8862e1f2c3a9285cb789edc23f83168151c56f6c6dbe4d5faea9c"
+    },
+    {
+      "label": "actual volume export is alias l",
+      "source": "evidence/web/objects/a0ec47219f76f808.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/01vcofbeb5_1m.js",
+      "sourceSha256": "557eb3547caea2d37bd9712a9cf3d07c835537e9354e0d7bd449b881fffdafc7",
+      "sourceBytes": 28862,
+      "utf16": [
+        9335,
+        9336
+      ],
+      "utf8": [
+        9573,
+        9574
+      ],
+      "sha256": "acac86c0e609ca906f632b0e2dacccb2b77d22b0621f20ebece1a4835b93f6f0"
+    },
+    {
+      "label": "complete used compact-currency closure t",
+      "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1qqfn5g-bst3e.js",
+      "sourceSha256": "ee1eb91e3cbfb10fa33462a1a2f500fed9902a88454dc715f059d56f405475b3",
+      "sourceBytes": 35014,
+      "utf16": [
+        33168,
+        33250
+      ],
+      "utf8": [
+        33174,
+        33256
+      ],
+      "sha256": "cff9b95c706beae19bccd6ec9f10d70f530eee0d734486b8c7feca9e88f7a3cc"
+    },
+    {
+      "label": "complete used compact-currency closure n",
+      "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1qqfn5g-bst3e.js",
+      "sourceSha256": "ee1eb91e3cbfb10fa33462a1a2f500fed9902a88454dc715f059d56f405475b3",
+      "sourceBytes": 35014,
+      "utf16": [
+        33251,
+        33309
+      ],
+      "utf8": [
+        33257,
+        33315
+      ],
+      "sha256": "ba188e0b16081830f8bc09e54d5ca9b46df6335e575d2b0ba3294bccee8adb17"
+    },
+    {
+      "label": "complete used compact-currency closure r",
+      "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1qqfn5g-bst3e.js",
+      "sourceSha256": "ee1eb91e3cbfb10fa33462a1a2f500fed9902a88454dc715f059d56f405475b3",
+      "sourceBytes": 35014,
+      "utf16": [
+        33310,
+        33413
+      ],
+      "utf8": [
+        33316,
+        33419
+      ],
+      "sha256": "03e9bdfe3efcb22d3bf965e80c88056d3907c4bf8a3a0afd486ffee294f18b7a"
+    },
+    {
+      "label": "complete used compact-currency closure i",
+      "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1qqfn5g-bst3e.js",
+      "sourceSha256": "ee1eb91e3cbfb10fa33462a1a2f500fed9902a88454dc715f059d56f405475b3",
+      "sourceBytes": 35014,
+      "utf16": [
+        33414,
+        33457
+      ],
+      "utf8": [
+        33420,
+        33463
+      ],
+      "sha256": "81de48b76719a486da500a6a19de0aaa5a52d55216bc302820a3888728a79269"
+    },
+    {
+      "label": "complete used compact-currency closure o",
+      "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1qqfn5g-bst3e.js",
+      "sourceSha256": "ee1eb91e3cbfb10fa33462a1a2f500fed9902a88454dc715f059d56f405475b3",
+      "sourceBytes": 35014,
+      "utf16": [
+        33458,
+        33515
+      ],
+      "utf8": [
+        33464,
+        33523
+      ],
+      "sha256": "c0da24b46b4b9e118a877a4b4cfded7851df696192fbca79caf2e3e955c3183a"
+    },
+    {
+      "label": "COMPLETE actually used compact-currency formatter",
+      "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1qqfn5g-bst3e.js",
+      "sourceSha256": "ee1eb91e3cbfb10fa33462a1a2f500fed9902a88454dc715f059d56f405475b3",
+      "sourceBytes": 35014,
+      "utf16": [
+        33619,
+        33757
+      ],
+      "utf8": [
+        33629,
+        33769
+      ],
+      "sha256": "89eb67e03806c5658986189484afdb90a119ffaa050d8821d201e1830b266491"
+    },
+    {
+      "label": "unreconstructed original price-query dependency r -> 690877",
+      "source": "evidence/web/objects/b7df9c4704b957ab.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2jt1u-tuh2989.js",
+      "sourceSha256": "8d9baa2dba38677ae4ee04e3683755713351572fa98f9dab72ee021f8a02d174",
+      "sourceBytes": 29116,
+      "utf16": [
+        9356,
+        9369
+      ],
+      "utf8": [
+        9356,
+        9369
+      ],
+      "sha256": "cf8bb4c67fdad5fdf965220de7c5007779ec1ece2d0c4de09dde5aba88443c65"
+    },
+    {
+      "label": "unreconstructed original price-query dependency n -> 38279",
+      "source": "evidence/web/objects/b7df9c4704b957ab.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2jt1u-tuh2989.js",
+      "sourceSha256": "8d9baa2dba38677ae4ee04e3683755713351572fa98f9dab72ee021f8a02d174",
+      "sourceBytes": 29116,
+      "utf16": [
+        9370,
+        9382
+      ],
+      "utf8": [
+        9370,
+        9382
+      ],
+      "sha256": "d187f9881c76a3ead4e0bf70b086e12a826a7706d55d1b4161e3d0bf258aca48"
+    },
+    {
+      "label": "unreconstructed original price-query dependency i -> 60326",
+      "source": "evidence/web/objects/b7df9c4704b957ab.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2jt1u-tuh2989.js",
+      "sourceSha256": "8d9baa2dba38677ae4ee04e3683755713351572fa98f9dab72ee021f8a02d174",
+      "sourceBytes": 29116,
+      "utf16": [
+        9383,
+        9395
+      ],
+      "utf8": [
+        9383,
+        9395
+      ],
+      "sha256": "49f778f490cb9cdd87da1fe23abcf89a7b3cf3a673203085839f97836e534afd"
+    },
+    {
+      "label": "unreconstructed original SOL price query function: provider60326.f({})",
+      "source": "evidence/web/objects/b7df9c4704b957ab.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2jt1u-tuh2989.js",
+      "sourceSha256": "8d9baa2dba38677ae4ee04e3683755713351572fa98f9dab72ee021f8a02d174",
+      "sourceBytes": 29116,
+      "utf16": [
+        9396,
+        9427
+      ],
+      "utf8": [
+        9396,
+        9427
+      ],
+      "sha256": "d7a968c569019d5b30d15c092a784e7339f62b925cf86691165ffef5d3a634a6"
+    },
+    {
+      "label": "unreconstructed injected price-hook contract: query defaults and data; no synthetic native query",
+      "source": "evidence/web/objects/b7df9c4704b957ab.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2jt1u-tuh2989.js",
+      "sourceSha256": "8d9baa2dba38677ae4ee04e3683755713351572fa98f9dab72ee021f8a02d174",
+      "sourceBytes": 29116,
+      "utf16": [
+        9438,
+        9622
+      ],
+      "utf8": [
+        9438,
+        9622
+      ],
+      "sha256": "ba08d4544ca1e5d4ac56cfbf71768898ea8682f0a4f287d34410b1d908f3750c"
+    },
+    {
+      "label": "used original SVG wrapper; prior entry-row prerequisite credited",
+      "source": "evidence/web/objects/c8e855c81e05ca28.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3nzad4fr1d1nw.js",
+      "sourceSha256": "8f488974ed97451b19a40d4803a8429253daa251935262e7de322a4a906ca201",
+      "sourceBytes": 166150,
+      "utf16": [
+        156,
+        514
+      ],
+      "utf8": [
+        156,
+        514
+      ],
+      "sha256": "1e8e90062371206eaa5c9f30b388265acb7b9a5db7d14a38405e08bd5e6d0f99"
+    },
+    {
+      "label": "COMPLETE used J0 chevron",
+      "source": "evidence/web/objects/c8e855c81e05ca28.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3nzad4fr1d1nw.js",
+      "sourceSha256": "8f488974ed97451b19a40d4803a8429253daa251935262e7de322a4a906ca201",
+      "sourceBytes": 166150,
+      "utf16": [
+        28918,
+        29176
+      ],
+      "utf8": [
+        28918,
+        29176
+      ],
+      "sha256": "196eded87d82a2d070c4f70edd8f7be2c3f351c6ca89f878df48b5d47051c19e"
+    },
+    {
+      "label": "COMPLETE used cg chevron",
+      "source": "evidence/web/objects/c8e855c81e05ca28.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3nzad4fr1d1nw.js",
+      "sourceSha256": "8f488974ed97451b19a40d4803a8429253daa251935262e7de322a4a906ca201",
+      "sourceBytes": 166150,
+      "utf16": [
+        31796,
+        32061
+      ],
+      "utf8": [
+        31796,
+        32061
+      ],
+      "sha256": "b8847567180ec682c8a547a4fe7facc8ac31d04692b152eb44b33c66a03b5a38"
+    }
+  ],
+  "limits": [
+    "Captured source is parsed, never executed as a runtime factory. Original upstream authorship retained.",
+    "Caller supplies a validated viewer entry: the component neither identifies nor authorizes an account.",
+    "SOL price is an explicit injected hook. Its query/cache/transport and backend business logic are not reconstructed here.",
+    "Only original UI display multiplies supplied buySpendSol by supplied price; no pricing, rank, PnL or eligibility calculation.",
+    "Translation/Avatar/Link are explicit compatible capabilities; local fixture rendering is not original media/router/provider parity.",
+    "No native page/API/projection/auth/session/SDK change. Component factory is created once in a legitimate client module."
+  ]
+}
