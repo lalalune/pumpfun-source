@@ -1,5 +1,8 @@
 import importlib.util
 import json
+import os
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -27,6 +30,28 @@ def synthetic_html(resources=None, locale="en", duplicate=False):
 
 
 class AuthCopyTests(unittest.TestCase):
+    def test_real_capture_cli_uses_utf8_manifest_and_lf_output(self):
+        # The selected capture remains byte-identical; an unrelated manifest note
+        # must not make admitted JSON depend on the host's default text codec.
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "evidence/web/objects").mkdir(parents=True)
+            manifest = json.loads((ROOT / "evidence/web/manifest.json").read_text(encoding="utf-8"))
+            manifest["note"] = "\u6355\u83b7 \u20ac"
+            (root / "evidence/web/manifest.json").write_text(json.dumps(manifest, ensure_ascii=False), encoding="utf-8")
+            (root / AUTH.SOURCE["path"]).write_bytes((ROOT / AUTH.SOURCE["path"]).read_bytes())
+            destination = root / AUTH.OUTPUT
+            destination.parent.mkdir(parents=True)
+            env = {**os.environ, "PYTHONUTF8": "0", "PYTHONCOERCECLOCALE": "0", "LC_ALL": "C"}
+            command = [sys.executable, "-X", "utf8=0", str(ROOT / "scripts/extract-auth-copy.py"), "--root", str(root)]
+            generated = subprocess.run(command, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            self.assertEqual(generated.returncode, 0, generated.stderr.decode("ascii", errors="backslashreplace"))
+            expected = AUTH.generate(ROOT).encode("utf-8")
+            self.assertEqual(destination.read_bytes(), expected)
+            checked = subprocess.run([*command, "--check"], env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            self.assertEqual(checked.returncode, 0, checked.stderr.decode("ascii", errors="backslashreplace"))
+            self.assertIn(b"Verified 23 auth labels", checked.stdout)
+
     def test_checked_in_copy_matches_hash_bound_capture(self):
         self.assertEqual((ROOT / AUTH.OUTPUT).read_text(), AUTH.generate(ROOT))
 

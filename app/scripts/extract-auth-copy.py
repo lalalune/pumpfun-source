@@ -85,7 +85,7 @@ def extract(html: str) -> dict[str, str]:
 
 
 def generate(root: Path) -> str:
-    manifest = json.loads((root / "evidence/web/manifest.json").read_text())
+    manifest = json.loads((root / "evidence/web/manifest.json").read_text(encoding="utf-8"))
     if manifest.get("captured_at") != CAPTURED_AT:
         raise ValueError("Capture timestamp differs from the reviewed checkpoint")
     matches = [row for row in manifest["records"] if row.get("url") == SOURCE["url"]]
@@ -105,11 +105,11 @@ def main():
     expected = generate(args.root)
     output = args.root / OUTPUT
     if args.check:
-        if output.read_text() != expected:
+        if output.read_text(encoding="utf-8") != expected:
             raise SystemExit("Auth labels differ from authenticated captured JSON")
         print(f"Verified {len(KEYS)} auth labels from retained /live Flight c6 (no JavaScript execution)")
     else:
-        output.write_text(expected)
+        output.write_text(expected, encoding="utf-8", newline="\n")
 
 
 if __name__ == "__main__":
