@@ -150,7 +150,16 @@ def main():
             'status': args.status,
             'data': data | ({'pr': args.pr} if args.pr else {}),
         }
+        # read_rows accepts a final JSON record without a newline. Keep that
+        # record separate when appending, under the existing exclusive lock.
+        separator = ''
+        if LEDGER.exists() and LEDGER.stat().st_size:
+            with LEDGER.open('rb') as current:
+                current.seek(-1, os.SEEK_END)
+                if current.read(1) != b'\n':
+                    separator = '\n'
         with LEDGER.open('a') as output:
+            output.write(separator)
             output.write(json.dumps(row, sort_keys=True, separators=(',', ':')) + '\n')
             output.flush()
             os.fsync(output.fileno())
