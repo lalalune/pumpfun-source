@@ -64,3 +64,9 @@ Diagnostic `--emit=link,llvm-ir` builds altered the unstripped hash to `235c4b52
 ## Remaining work
 
 A source-level explanation is still needed for the original error cleanup and early return-buffer materialization together. Inspect earlier instruction selection and compare the original cleanup graph with the direct-emitter variant before attempting further rewrites. Avoid repeating these mechanisms or the earlier v3trade-coordinates trials. No binary patching, padding, unsafe assumptions or changes to the scorer/toolchain are warranted by this evidence.
+
+## Follow-up checks after the retained improvement
+
+Moving prepare into the public wrapper worsened the target to 6,024 bytes / 0.98569. Predeclaring its result and delaying the account borrow were each binary-identical to the retained improvement. No follow-up sell variant was retained.
+
+The whole-body inline mechanism was also tested on `v3_buy_costs` (`0x80df8`): binary-identical, still 2,136 bytes / 0.920. Explicit `if let Err` propagation after `transfer_from_user` in `v3_execute_buy` (`0x83c00`) produced 3,448 bytes / 0.92781 with 23 calls versus the original 22, and was rejected. Both trials retained the existing 1,020 normalized / 188 raw memberships; neither found another match.
