@@ -37,6 +37,10 @@ import {
   type TradersData,
 } from "./types";
 import { CompetitionRules } from "./competition-rules";
+import {
+  competitionRefreshInterval,
+  startCompetitionReads,
+} from "./competition-refresh";
 
 const PAGE_SIZE = 10;
 const SEARCH_LIMIT = 200;
@@ -515,50 +519,56 @@ export default function LeaderboardClient() {
   ]);
 
   useEffect(() => {
-    const controller = new AbortController();
     const sequence = ++requestSequence.current;
     setLoading(true);
     setInvalid(false);
     setResponse(null);
 
-    fetch(`/api/leaderboard?${apiQuery}`, {
-      method: "GET",
-      headers: { Accept: "application/json" },
-      signal: controller.signal,
-    })
-      .then(async (result) => {
-        const body: unknown = await result.json();
-        return parseLeaderboardResponse(body);
-      })
-      .then((nextResponse) => {
-        if (sequence === requestSequence.current) setResponse(nextResponse);
-      })
-      .catch((error: unknown) => {
-        if (controller.signal.aborted || sequence !== requestSequence.current)
-          return;
-        if (
-          error instanceof Error &&
-          error.message.includes("invalid response")
-        ) {
-          setInvalid(true);
-          return;
-        }
-        setResponse({
-          ok: false,
-          error: {
-            code: "NETWORK_FAILURE",
-            message: "The local leaderboard adapter could not be reached.",
-            retryable: true,
-          },
-          source: { mode: "offline", label: "Local adapter unavailable" },
-        });
-      })
-      .finally(() => {
-        if (sequence === requestSequence.current) setLoading(false);
-      });
-
-    return () => controller.abort();
-  }, [apiQuery, retry]);
+    return startCompetitionReads(
+      async ({ signal }) => {
+        await fetch(`/api/leaderboard?${apiQuery}`, {
+          method: "GET",
+          headers: { Accept: "application/json" },
+          signal,
+        })
+          .then(async (result) => {
+            const body: unknown = await result.json();
+            return parseLeaderboardResponse(body);
+          })
+          .then((nextResponse) => {
+            if (!signal.aborted && sequence === requestSequence.current) {
+              setInvalid(false);
+              setResponse(nextResponse);
+            }
+          })
+          .catch((error: unknown) => {
+            if (signal.aborted || sequence !== requestSequence.current) return;
+            if (
+              error instanceof Error &&
+              error.message.includes("invalid response")
+            ) {
+              setResponse(null);
+              setInvalid(true);
+              return;
+            }
+            setResponse({
+              ok: false,
+              error: {
+                code: "NETWORK_FAILURE",
+                message: "The local leaderboard adapter could not be reached.",
+                retryable: true,
+              },
+              source: { mode: "offline", label: "Local adapter unavailable" },
+            });
+          })
+          .finally(() => {
+            if (!signal.aborted && sequence === requestSequence.current)
+              setLoading(false);
+          });
+      },
+      competitionRefreshInterval(category, competitionId),
+    );
+  }, [apiQuery, retry, category, competitionId]);
 
   const updateQuery = useCallback(
     (changes: Record<string, string | null>, resetPage = true) => {
