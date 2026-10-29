@@ -60,7 +60,7 @@ Create the components once in a legitimate client module, outside React render:
     // EntryConsumer receives { row: { entry, prize } }.
 
 EntryConsumer executes the actual captured JSX expression that calls X with
-entry and prize. It is not the complete original virtualized table/dispatch
+entry and prize. It is not the complete original board/dispatch
 provider. The host supplies validated entry values and an already selected
 prize. The generator retains the actual original planner as source evidence but
 does not implement a new ranking/selection policy.
