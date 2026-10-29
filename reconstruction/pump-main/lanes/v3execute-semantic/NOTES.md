@@ -8,6 +8,8 @@ Target: `0x83c00` `trade::v3_execute_buy` (programs/pump/src/trade_v3.rs), origi
 | --- | --- | ---: | ---: | --- | --- |
 | main d2cb88d | baseline | 3,408 | 0.7333 | 1019 / 188 | - |
 | t01-init-helper | `init_volume_user(&mut UserVolumeAccumulator,&Signer)` helper replaces the inline pubkey-default check | 3,408 | 0.7595 | 1019 / 188, no gains/losses | 0a19d256c3464fbaa9edc443a30e0616 |
+| t02-mint-wrapper | + `#[inline(always)] transfer_curve_mint_tokens` taking `&InterfaceAccount<Mint>`; decimals read inside | 3,408 | 0.7595 | 1019 / 188 | 1f1de20d8668446d8b056e30d9693de3 |
+| ve | + `let (user_quote,curve_quote)=if is_sol{(None,None)}else{(Some(..),Some(..))};` before `transfer_from_user` | 3,432 | 0.7687 | 1019 / 188, no gains/losses | 7364d0c6316c43b28b232650a711ec0d |
 
 t01 is a port of the prior `execute-init-helper` partial (research/goal-pump-recovery-20261028) onto main.
 
@@ -31,3 +33,17 @@ stack args (quote_fee, total_buyback, pool_quote, creator_fee, protocol_fee) up 
 computes `&a.base_token_program` (a+0x18) before them, and loads `base_mint.decimals` after
 the seed key copy; candidate keeps quote_fee in r7, keeps `associated_base_user` in r8,
 loads decimals first. 4 slots short.
+
+## Evidence: decimals load order (t02)
+
+At all three original `transfer_curve_tokens` call sites (0x83ed8 here, 0x13d5c8 and 0x142178 in the
+buy_v2 handlers) the original reads `base_mint.decimals` (`ldxb [mint+0x30]`) after the seed key copy, and
+computes `&base_token_program` first. The candidate read decimals first at all three sites. Reading decimals
+inside an inline(always) wrapper that takes `&InterfaceAccount<Mint>` reproduces the late decimals load (ratio
+unchanged on its own; ve without the wrapper scores the same 0.7687). The buy_v2 lanes may want this.
+
+## Rejected so far
+
+- wrapper taking `&SellV3` (0.7262), all-three tuple let `(amount,user_ata,curve_ata)` (0.7524; system_program
+  load moves after the merge as in the original, but the amount phi lands in pool_quote's spill slot),
+  amount let then options let (0.7461).
