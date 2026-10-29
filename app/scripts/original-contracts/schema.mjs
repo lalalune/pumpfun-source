@@ -232,6 +232,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
       const value = await constant(node.arguments[0], ctx);
       if (typeof value !== 'number' || !Number.isFinite(value)) throw new Error('invalid bound');
       const suffix = { string: 'Length', array: 'Items' }[expanded.type];
+      if (suffix && (!Number.isInteger(value) || value < 0)) throw new Error('length bounds must be nonnegative integers');
       const combine = method === 'min' ? Math.max : Math.min;
       if (suffix) return { ...expanded, [`${method}${suffix}`]: combine(expanded[`${method}${suffix}`] ?? (method === 'min' ? -Infinity : Infinity), value) };
       if (['number', 'integer'].includes(expanded.type)) {
