@@ -34,6 +34,14 @@ The formatted binding first compares a complete canonical Babel factory AST. It 
 
 The line census uses Babel token locations. It counts code lines once per unique factory content hash and excludes the recovery banner, blank lines, comment-only lines, and duplicate variants.
 
+Module IDs are bound to the actual registration array at each authenticated
+factory range, using the inventory's same literal-array decoder. Identical
+function bytes registered under different IDs at different origins do not
+create every possible ID/origin pair. Multiple IDs registered together remain
+aliases at that origin. The union of observed registration IDs must match the
+variant's declared inventory IDs. Captured registration code is parsed without
+evaluation; this does not qualify unsupported runtime registration forms.
+
 ## Resolution model
 
 Graph identity includes numeric module ID, factory hash, captured object, source range, and chunk URL. Calls whose receiver matches the top-level factory runtime parameter's spelling are recognized structurally:

@@ -13,6 +13,7 @@ import { dirname, join, relative, resolve, sep } from "node:path";
 import { gzipSync, gunzipSync } from "node:zlib";
 import { parse } from "@babel/parser";
 import prettier from "prettier";
+import { registrationFactories } from "../inventory.mjs";
 
 export const GRAPH_VERSION = 1;
 export const DEFAULT_ROUTES = [
@@ -265,6 +266,28 @@ function identityKey(id, hash, origin) {
   return `${id}@${hash}:${origin.source}:${origin.start}-${origin.end}`;
 }
 
+export function factoryRegistrationIds(source) {
+  const ast = parse(source, {
+    sourceType: "unambiguous",
+    errorRecovery: false,
+  });
+  const registrations = new Map();
+  walk(ast, (node) => {
+    if (
+      node.type !== "CallExpression" ||
+      node.callee?.type !== "MemberExpression" ||
+      node.callee.property?.name !== "push" ||
+      node.arguments[0]?.type !== "ArrayExpression" ||
+      !source.slice(node.callee.start, node.callee.end).includes("TURBOPACK")
+    )
+      return;
+    for (const { item, ids } of registrationFactories(node.arguments[0])) {
+      registrations.set(`${item.start}:${item.end}`, ids);
+    }
+  });
+  return registrations;
+}
+
 function capturePathFromUrl(url, recordsByUrl) {
   return recordsByUrl.get(url)?.path ?? null;
 }
@@ -319,7 +342,9 @@ async function authenticateRecord(root, record) {
     throw new Error(`capture hash mismatch: ${record.path}`);
   let text;
   try {
-    text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes);
+    text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(
+      bytes,
+    );
   } catch {
     throw new Error(`invalid UTF-8: ${record.path}`);
   }
@@ -368,6 +393,9 @@ export async function buildGraph(root, options = {}) {
     const formattedPath = await safeFile(root, module.path);
     const formatted = await readFile(formattedPath, "utf8");
     let authenticatedSource;
+    const boundOrigins = [];
+    const declaredIds = new Set(module.ids.map(String));
+    const observedIds = new Set();
     for (const origin of module.origins) {
       const captured = await getCapture(origin.source);
       if (
@@ -388,7 +416,18 @@ export async function buildGraph(root, options = {}) {
         );
       }
       authenticatedSource ??= original;
+      captured.registrations ??= factoryRegistrationIds(captured.text);
+      const ids = captured.registrations.get(`${origin.start}:${origin.end}`);
+      if (!ids?.length || ids.some((id) => !declaredIds.has(String(id)))) {
+        throw new Error(
+          `factory registration ID mismatch: ${module.path} at ${origin.source}`,
+        );
+      }
+      for (const id of ids) observedIds.add(String(id));
+      boundOrigins.push({ ...origin, ids });
     }
+    if (observedIds.size !== declaredIds.size)
+      throw new Error(`factory registration ID union mismatch: ${module.path}`);
     const analysis = analyzeFactory(formatted, module.path);
     if (!authenticatedAnalysisByHash.has(module.sha256))
       authenticatedAnalysisByHash.set(
@@ -418,6 +457,7 @@ export async function buildGraph(root, options = {}) {
     const lineCount = analysis.lineCount;
     variants.push({
       ...module,
+      origins: boundOrigins,
       analysis,
       lineCount,
       authenticityMethod,
@@ -479,7 +519,7 @@ export async function buildGraph(root, options = {}) {
   for (const [route, evidence] of Object.entries(routeAssets)) {
     for (const asset of evidence.assets) {
       for (const { variant, origin } of originsBySource.get(asset) || []) {
-        for (const id of variant.ids) {
+        for (const id of origin.ids) {
           const key = identityKey(id, variant.sha256, origin);
           if (!directlyAttributed.has(key))
             directlyAttributed.set(key, new Set());
@@ -499,7 +539,7 @@ export async function buildGraph(root, options = {}) {
   const ordered = [...variants].sort((a, b) => {
     const hasRouteSeed = (variant) =>
       variant.origins.some((origin) =>
-        variant.ids.some((id) =>
+        origin.ids.some((id) =>
           directlyAttributed.has(identityKey(id, variant.sha256, origin)),
         ),
       );
@@ -530,7 +570,7 @@ export async function buildGraph(root, options = {}) {
   const identities = [];
   for (const variant of selected) {
     for (const origin of variant.origins) {
-      for (const id of variant.ids) {
+      for (const id of origin.ids) {
         identities.push({
           key: identityKey(id, variant.sha256, origin),
           id,
@@ -905,10 +945,14 @@ export async function verifyGraph(root, outputRelative, options = {}) {
   }
   const rebuilt = await buildGraph(root, options);
   const listed = manifest.files.map((entry) => entry.path);
-  if (new Set(listed).size !== listed.length ||
-      listed.length !== Object.keys(rebuilt).length ||
-      Object.keys(rebuilt).some((name) => !listed.includes(name)))
-    throw new Error("generated evidence inventory differs from rebuilt reports");
+  if (
+    new Set(listed).size !== listed.length ||
+    listed.length !== Object.keys(rebuilt).length ||
+    Object.keys(rebuilt).some((name) => !listed.includes(name))
+  )
+    throw new Error(
+      "generated evidence inventory differs from rebuilt reports",
+    );
   for (const entry of manifest.files) {
     if (!(entry.path in rebuilt))
       throw new Error(`generated evidence is not reproducible: ${entry.path}`);

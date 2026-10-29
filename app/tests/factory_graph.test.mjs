@@ -40,11 +40,11 @@ async function fixture({
     { id: 2, raw: `(e)=>{e.s(["value",0,43],2)}` },
     { id: 3, raw: `(e)=>{e.i(3);e.s(["cycle",0,true],3)}` },
   ];
-  const source = `globalThis.TURBOPACK=[${factories.map((item) => item.raw).join(",")}];`;
+  const source = `globalThis.TURBOPACK.push(["fixture",${factories.map((item) => `${item.id},${item.raw}`).join(",")}]);`;
   const jsPath = "evidence/web/objects/source.js";
   await writeFile(join(root, jsPath), source);
   const duplicateFactory = factories.at(-1);
-  const otherSource = `globalThis.TURBOPACK=[${duplicateFactory.raw}];`;
+  const otherSource = `globalThis.TURBOPACK.push(["other",${duplicateFactory.id},${duplicateFactory.raw}]);`;
   const otherPath = "evidence/web/objects/other.js";
   if (duplicateOrigin) await writeFile(join(root, otherPath), otherSource);
   const html = `<html><script src="/_next/static/chunks/source.js"></script></html>`;

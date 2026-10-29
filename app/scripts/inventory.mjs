@@ -57,7 +57,7 @@ function factoryFilename(module) {
   return `${id}-${module.sha256.slice(0, 12)}.js`;
 }
 
-function* registrationFactories(array, start = 1) {
+export function* registrationFactories(array, start = 1) {
   // The captured runtime's X(t) registers a leading nested array recursively
   // before the remaining entries. Two-element outer arrays carry metadata.
   const nested = start === 0;
