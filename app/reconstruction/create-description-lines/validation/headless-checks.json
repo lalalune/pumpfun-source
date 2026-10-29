@@ -1,0 +1,39 @@
+[
+  {
+    "name": "typecheck",
+    "command": [
+      "corepack",
+      "pnpm",
+      "--filter",
+      "@pump-reconstruction/frontend",
+      "typecheck"
+    ],
+    "returncode": 0,
+    "seconds": 6.3830084800720215
+  },
+  {
+    "name": "progress",
+    "command": [
+      "python3",
+      "scripts/progress.py",
+      "--check"
+    ],
+    "returncode": 0,
+    "seconds": 0.1754143238067627
+  },
+  {
+    "name": "progress-tests",
+    "command": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_progress.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.7497079372406006
+  }
+]

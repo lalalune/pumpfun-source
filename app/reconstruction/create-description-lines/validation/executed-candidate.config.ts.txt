@@ -1,0 +1,3 @@
+import {defineConfig} from "@playwright/test";
+import base from "./playwright.config";
+export default defineConfig({...base,reporter:[["line"],["json",{outputFile:"/workspace/pump-create-description-lines-audit/report-candidate.json"}]],outputDir:"/workspace/pump-create-description-lines-audit/browser-candidate",use:{...base.use,baseURL:"http://127.0.0.1:3027"},webServer:{...base.webServer,command:"corepack pnpm exec next dev --turbopack --hostname 127.0.0.1 --port 3027",url:"http://127.0.0.1:3027",reuseExistingServer:false,timeout:120000,env:{PUMPFUN_DEVELOPER_API_KEY:""}}});

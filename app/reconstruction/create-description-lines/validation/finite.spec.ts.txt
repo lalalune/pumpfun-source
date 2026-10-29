@@ -1,0 +1,86 @@
+import {expect, test, type Page} from "@playwright/test";
+
+const description = "First\n\nSecond\nThird";
+
+async function openCreate(page: Page, baseURL: string) {
+  const errors: string[] = [];
+  page.on("request", request => {
+    if (/^https?:/u.test(request.url()) &&
+        (new URL(request.url()).origin !== new URL(baseURL).origin ||
+         !["GET", "HEAD"].includes(request.method())))
+      errors.push(`${request.method()} ${request.url()}`);
+  });
+  page.on("console", message => {
+    if (message.type() === "error") errors.push(message.text());
+  });
+  page.on("pageerror", error => errors.push(error.message));
+  expect((await page.goto("/create"))?.status()).toBe(200);
+  await expect(page.locator('dialog[open]')).toHaveCount(0);
+  await expect(page.locator("main")).not.toHaveAttribute("inert", "");
+  await page.getByRole("textbox", {name: "Coin name", exact:true}).fill("Line layout draft");
+  await expect(page.getByRole("heading", {name:"Line layout draft", exact:true})).toBeVisible();
+  return errors;
+}
+
+async function measurements(page: Page) {
+  return page.locator(".preview-description").evaluate(element => {
+    const node=element.firstChild!;
+    const value=node.textContent!;
+    const words=["First", "Second", "Third"].map(word => {
+      const start=value.indexOf(word); const range=document.createRange();
+      range.setStart(node,start);range.setEnd(node,start+word.length);
+      const box=range.getBoundingClientRect();
+      return {word,top:box.top,left:box.left,height:box.height,width:box.width};
+    });
+    const style=getComputedStyle(element);
+    return {words,whiteSpace:style.whiteSpace,lineHeight:parseFloat(style.lineHeight),height:element.getBoundingClientRect().height,textContent:element.textContent,innerText:(element as HTMLElement).innerText};
+  });
+}
+
+for (const width of [390,1280]) {
+  test(`multiline draft description preserves its blank line at ${width}`, async ({page, baseURL}, info) => {
+    await page.setViewportSize({width,height:900});
+    const errors=await openCreate(page,baseURL!);
+    const input=page.getByRole("textbox", {name:"Description Optional",exact:true});
+    await expect(page.getByText("Multiline text is supported.", {exact:true})).toBeVisible();
+    await input.fill(description);
+    await expect(input).toHaveValue(description);
+    const preview=page.locator(".preview-description");
+    await expect(preview).toHaveText(description);
+    const metadata=JSON.parse(await page.locator(".metadata-json pre").textContent() ?? "{}");
+    expect(metadata.description).toBe(description);
+    const metrics=await measurements(page);
+    await preview.scrollIntoViewIfNeeded();
+    await info.attach(`lines-${width}.json`,{body:JSON.stringify({width,description,metadata,metrics,errors},null,2),contentType:"application/json"});
+    await info.attach(`lines-${width}.png`,{body:await page.screenshot(),contentType:"image/png"});
+    expect(metrics.words[1].top-metrics.words[0].top).toBeCloseTo(metrics.lineHeight*2,0);
+    expect(metrics.words[2].top-metrics.words[1].top).toBeCloseTo(metrics.lineHeight,0);
+    expect(metrics.height).toBeCloseTo(metrics.lineHeight*4,0);
+    expect(errors).toEqual([]);
+    await expect(page.getByRole("button",{name:"Launch unavailable in local reconstruction"})).toBeDisabled();
+  });
+}
+
+test("description keeps ordinary wrapping and the existing empty/reset output",async({page,baseURL},info)=>{
+  const records=[];
+  for(const width of [390,1280]) {
+    await page.setViewportSize({width,height:900});
+    const errors=await openCreate(page,baseURL!);
+    const input=page.getByRole("textbox",{name:"Description Optional",exact:true});
+    const text="ordinary words ".repeat(12)+"x".repeat(160);
+    await input.fill(text);
+    await expect(page.locator(".preview-description")).toHaveText(text);
+    const metrics=await page.locator(".preview-description").evaluate(element=>({width:element.clientWidth,scrollWidth:element.scrollWidth,height:element.getBoundingClientRect().height,lineHeight:parseFloat(getComputedStyle(element).lineHeight),documentWidth:document.documentElement.clientWidth,documentScrollWidth:document.documentElement.scrollWidth}));
+    records.push({width,metrics,errors});
+    expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.width);
+    expect(metrics.documentScrollWidth).toBeLessThanOrEqual(metrics.documentWidth);
+    expect(metrics.height).toBeGreaterThan(metrics.lineHeight*2);
+    expect(JSON.parse(await page.locator(".metadata-json pre").textContent()??"{}").description).toBe(text);
+    await page.getByRole("button",{name:"Reset draft",exact:true}).click();
+    await expect(input).toHaveValue("");
+    await expect(page.locator(".preview-description")).toHaveText("Your optional coin description will appear here.");
+    expect(JSON.parse(await page.locator(".metadata-json pre").textContent()??"{}").description).toBe("");
+    expect(errors).toEqual([]);
+  }
+  await info.attach("wrapping-controls.json",{body:JSON.stringify(records,null,2),contentType:"application/json"});
+});
