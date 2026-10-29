@@ -1,0 +1,26 @@
+{
+  "head": "3a5c17ad91c7407fb21cf3b6d489724fde9f24a7",
+  "runtimeHead": "526550ad0c60215ab1d192482fe92466710ad31f",
+  "command": [
+    "pnpm",
+    "--filter",
+    "@pump-reconstruction/frontend",
+    "exec",
+    "playwright",
+    "test",
+    "--config",
+    "playwright.amm-wallet-record.config.ts",
+    "--max-failures=1"
+  ],
+  "started": "2026-10-29T16:13:51.809972+00:00",
+  "port": 3010,
+  "otherNextAtStart": [
+    {
+      "pid": "364459",
+      "cwd": "/workspace/pump-app-leaderboard-navigation/app/packages/frontend"
+    }
+  ],
+  "syntheticRpc": "Only gated temporary route calls actual shared service with controlled90B account; production route remains unconfigured and unmodified.",
+  "returncode": 0,
+  "finished": "2026-10-29T16:14:25.205157+00:00"
+}

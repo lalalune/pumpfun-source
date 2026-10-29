@@ -86,13 +86,34 @@ stale-type failures are retained, as is a mistaken test assumption that the Pump
 codec would throw on a short buffer; the measured control replaced that
 assumption without weakening application admission.
 
-Fifteen new mounted-browser cases and the existing Pump target are prepared.
-The test runner temporarily installs a loopback/development/flag-gated fixture
-route that imports the actual shared handler/reader and decodes a controlled
-90-byte account under Next. Its bytes are hashed on installation/removal; the
-route is absent from the product commit. This is separate from the production
-route’s unconfigured503 admission test. Configured production-route success
-and public-mainnet transport remain untested. Actual Next/browser, complete
-production build and live-chain observations are not yet claimed. Synthetic public accounts are finite test inputs, not evidence
-of production balances or eligibility. Feature-progress/native-operation counts
-remain unchanged.
+Actual Next/Chromium on `3a5c17ad91c7407fb21cf3b6d489724fde9f24a7`:
+**22 passed, 1 explicit old-guard skip, 23 discovered**. All 15 new AMM cases and
+seven existing Pump cases pass. The first case uses a temporary loopback,
+development and explicit-flag-gated route that imports the actual shared
+handler/reader and decodes a controlled 90-byte account under Next. This is not
+proof transferred from Node. The separate unchanged product route’s unconfigured
+503/no-store/UI/error-body admission also passes. Configured production-route
+success and live mainnet/HTTPS transport remain untested.
+
+The original default Playwright stop killed the helper before cleanup. That
+negative is preserved; only the exact hash-matched owned fixture was manually
+removed. A test-only graceful shutdown correction with a direct Next launcher
+and lifecycle sidecar then passed **two repeated critical cases**, with explicit
+installation/removal hashes and automatic cleanup. Those are repeats, not two
+additional unique cases. The temporary route is absent from the product commit
+and working tree. Runtime 526550 is unchanged across these runs. After retaining
+its manifests, the inactive owned Next cache was removed; clean TypeScript
+passes without a stale fixture validator.
+
+`visual/amm-wallet-record-20261029/` contains a sealed manifest, raw positive and
+negative logs, source/dependency bindings, reviewed 320/1440px screenshots and
+fixture lifecycle. Source/API/SDK checks, 698-object evidence, progress (9 tests) and
+required root 9-capture/10-tooling gates pass. Full production aggregate is
+pending. Synthetic public accounts are finite test inputs, not current balances
+or eligibility. Feature-progress/native-operation counts remain unchanged.
+
+```sh
+SOLANA_RPC_URL='' AMM_RECORD_FIXTURE_TEST=1 AMM_RECORD_TEST_NO_RPC=1 WALLET_RECORD_TEST_NO_RPC='' \
+  pnpm --filter @pump-reconstruction/frontend exec playwright test \
+  --config playwright.amm-wallet-record.config.ts --max-failures=1
+```

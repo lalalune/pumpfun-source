@@ -1,0 +1,18 @@
+{
+  "head": "116d0f64a4d04d04bcc8631ae94da7a5b2f5d1cc",
+  "command": [
+    "/workspace/pumpfun-source-latest/work/app-native/pinned-bin/pnpm",
+    "--filter",
+    "@pump-reconstruction/frontend",
+    "exec",
+    "tsc",
+    "--noEmit",
+    "--incremental",
+    "false"
+  ],
+  "returncode": 0,
+  "started": "2026-10-29T16:28:05.385096+00:00",
+  "finished": "2026-10-29T16:28:10.729757+00:00",
+  "fixtureAbsent": true,
+  "inactiveNextCacheAbsent": true
+}

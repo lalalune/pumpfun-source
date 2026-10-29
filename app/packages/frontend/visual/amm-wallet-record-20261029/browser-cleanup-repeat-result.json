@@ -1,0 +1,21 @@
+{
+  "head": "116d0f64a4d04d04bcc8631ae94da7a5b2f5d1cc",
+  "runtimeHead": "526550ad0c60215ab1d192482fe92466710ad31f",
+  "command": [
+    "pnpm",
+    "--filter",
+    "@pump-reconstruction/frontend",
+    "exec",
+    "playwright",
+    "test",
+    "--config",
+    "playwright.amm-wallet-record.config.ts",
+    "--grep",
+    "actual compiled",
+    "--max-failures=1"
+  ],
+  "started": "2026-10-29T16:21:14.140826+00:00",
+  "kind": "Two repeated critical cases for teardown verification, not new unique browser cases.",
+  "returncode": 0,
+  "finished": "2026-10-29T16:21:25.267351+00:00"
+}

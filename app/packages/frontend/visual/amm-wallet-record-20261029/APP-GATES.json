@@ -1,0 +1,21 @@
+{
+  "head": "3a5c17ad91c7407fb21cf3b6d489724fde9f24a7",
+  "checks": [
+    {
+      "label": "evidence",
+      "command": [
+        "python3",
+        "scripts/verify-evidence.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "progress",
+      "command": [
+        "/workspace/pumpfun-source-latest/work/app-native/pinned-bin/pnpm",
+        "check:progress"
+      ],
+      "returncode": 1
+    }
+  ]
+}

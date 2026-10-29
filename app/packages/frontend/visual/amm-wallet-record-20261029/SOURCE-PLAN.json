@@ -1,0 +1,126 @@
+{
+  "base": "665499915f9caedcd38921d415a90f0606686398",
+  "scope": "Independent opt-in PumpSwap public wallet activity record; complete the missing second program read evidenced by published total-stats consumer without running that consumer or combining its numbers.",
+  "sources": [
+    {
+      "path": "app/packages/sdk/src/idl/pump_amm.json",
+      "sha256": "c2f8ce0bc0a740d9125644b2d95494c97199fce1604802f5ab0497184bdcce61"
+    },
+    {
+      "path": "app/packages/sdk/src/swap/pda.ts",
+      "sha256": "f337237f77d3e1fd34e3de5bfc23149b7121e3269d14f358c44cdc703124dff9"
+    },
+    {
+      "path": "app/packages/sdk/src/swap/offlinePumpAmm.ts",
+      "sha256": "a8a20603e1d34acd7a2fac16216eda96728f5a0023cde4fdfaa85848e3d528fd"
+    },
+    {
+      "path": "app/packages/sdk/src/swap/onlinePumpAmm.ts",
+      "sha256": "cc75701981721509447ef7ee16e3fed9eca548db9340ba0dbdd440471ef4e5da"
+    },
+    {
+      "path": "app/packages/sdk/src/swap/index.ts",
+      "sha256": "96d59edb91abf804dae7ceeb416f41111dffadc9737fbc3d54c0269aa8360615"
+    },
+    {
+      "path": "app/packages/sdk/src/onlineSdk.ts",
+      "sha256": "987ef8c7eac6aa8f948dec434f07719ac0047356f814729a8437c9b21d9fe82d"
+    }
+  ],
+  "archiveSha256": "c8ff4e850651c81e9f488bfc6dffb4513a041bb4bca0819879dc19d9a72a4641",
+  "programId": "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA",
+  "discriminator": [
+    86,
+    255,
+    112,
+    14,
+    102,
+    53,
+    154,
+    250
+  ],
+  "minimumBytes": 90,
+  "fields": [
+    {
+      "name": "user",
+      "type": "pubkey",
+      "offset": [
+        8,
+        40
+      ]
+    },
+    {
+      "name": "needs_claim",
+      "type": "bool",
+      "offset": [
+        40,
+        41
+      ]
+    },
+    {
+      "name": "total_unclaimed_tokens",
+      "type": "u64",
+      "offset": [
+        41,
+        49
+      ]
+    },
+    {
+      "name": "total_claimed_tokens",
+      "type": "u64",
+      "offset": [
+        49,
+        57
+      ]
+    },
+    {
+      "name": "current_sol_volume",
+      "type": "u64",
+      "offset": [
+        57,
+        65
+      ]
+    },
+    {
+      "name": "last_update_timestamp",
+      "type": "i64",
+      "offset": [
+        65,
+        73
+      ]
+    },
+    {
+      "name": "has_total_claimed_tokens",
+      "type": "bool",
+      "offset": [
+        73,
+        74
+      ]
+    },
+    {
+      "name": "cashback_earned",
+      "type": "u64",
+      "offset": [
+        74,
+        82
+      ]
+    },
+    {
+      "name": "total_cashback_claimed",
+      "type": "u64",
+      "offset": [
+        82,
+        90
+      ]
+    }
+  ],
+  "boundaries": [
+    "Public mainnet RPC only; existing pinned factory unchanged",
+    "Fixed AMM program/PDA, no provider or method from browser",
+    "Own SDK strict90B decode, no Pump106B padding or missing stable-field zeros",
+    "Absence distinct from zero, raw stored flags/counters not entitlement or ownership",
+    "No SDK/dependency/capture/privateauth/signing/nativeoperation-count changes"
+  ],
+  "existingPumpServerSha256": "11257147e8ced311837b151e2cd4af6620ca9650f9ef0f08fc9ed849c7e7a770",
+  "liveOwnership": "1349portfolio draft navigation;1352DNS setup;1361walletfocus owned and untouched. No open accumulator/PumpSwap-title result. Creation confirms no overlap."
+}

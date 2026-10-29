@@ -1,0 +1,147 @@
+{
+  "base": "665499915f9caedcd38921d415a90f0606686398",
+  "testedSourceHead": "116d0f64a4d04d04bcc8631ae94da7a5b2f5d1cc",
+  "runtimeHead": "526550ad0c60215ab1d192482fe92466710ad31f",
+  "changedSourceBindings": [
+    {
+      "path": "app/packages/frontend/PUBLIC-AMM-WALLET-RECORD.md",
+      "sha256": "74eaee74447a321c2b2acbad88b351719003d1f7013778865fd30df5d35f882c",
+      "gitBlob": "87cef53dc7758d9a49de6e7bc172114d549768f3"
+    },
+    {
+      "path": "app/packages/frontend/playwright.amm-wallet-record.config.ts",
+      "sha256": "d4e70b6a994f237b56172cdff8513efe3065204e5d2737ac6433e70a5bbabf09",
+      "gitBlob": "e233c3eaca288370c200f9d5690cf8fbb3a37394"
+    },
+    {
+      "path": "app/packages/frontend/src/app/amm-wallet-record/client.ts",
+      "sha256": "07f74caf99aa0f5e21bed88415ab46e247407b5af4c206c97352d020eb303876",
+      "gitBlob": "9cd9b735cd3e651cb2736675f18062700bdb5ffd"
+    },
+    {
+      "path": "app/packages/frontend/src/app/amm-wallet-record/contract.json",
+      "sha256": "a621fe2169d417a19a47bc2548de5b378a69d5224fb920b0e5227fe61d743a30",
+      "gitBlob": "81e25132ccc17d418f5681d43783bc5e116072fa"
+    },
+    {
+      "path": "app/packages/frontend/src/app/amm-wallet-record/handler.ts",
+      "sha256": "0c3561b882f82736f96377b57127da557027ac5dcac4c9f6ec61ec58138da3ac",
+      "gitBlob": "8726b807dee7c84a1344fad94393bb7288a45ce8"
+    },
+    {
+      "path": "app/packages/frontend/src/app/amm-wallet-record/panel.tsx",
+      "sha256": "1ccfb341f65f4875557b3b8d5a90b6c9f62897ab85fb8b0b6f18d4fff796b425",
+      "gitBlob": "ab5bbba15ae9229f31cafe962cc51e22ed552254"
+    },
+    {
+      "path": "app/packages/frontend/src/app/amm-wallet-record/server.ts",
+      "sha256": "db49239f664ce56c49008d4bd68084025ae8268a4ad2b3f7b6c525e7ff42ddda",
+      "gitBlob": "7492076b831e59618353fe30bbeeed4848f240b1"
+    },
+    {
+      "path": "app/packages/frontend/src/app/amm-wallet-record/types.ts",
+      "sha256": "f8037156a9de711ef0c4c6b7e7c78dca57d6564772a29837aa62af8b7f61758e",
+      "gitBlob": "2a19513ab10a3111afb649cf03521a40acefd0fb"
+    },
+    {
+      "path": "app/packages/frontend/src/app/api/portfolio/amm-record/route.ts",
+      "sha256": "2d8bd02a7bbc70c21cfc64500ac319e490bcfc7326110518670f11c582d1f70f",
+      "gitBlob": "582df406cdbd7cc25acb1bd2bfb4deead17ab470"
+    },
+    {
+      "path": "app/packages/frontend/src/app/wallet-program-record/panel.tsx",
+      "sha256": "c50518c2de1899ae1bc7d149fac8e033f55f7fde46d8341add7abb26b2706401",
+      "gitBlob": "707f8e7d21e6dc61f0276be7c1f1906d30668bee"
+    },
+    {
+      "path": "app/packages/frontend/tests/amm-record-fixture/route.ts.in",
+      "sha256": "0275f48d67785ed6b377e435111d483c95fcd2905e7ed92eb161eea872360e10",
+      "gitBlob": "e6914e80667c888f8ce2070eb2d3cbdd0e1faa9a"
+    },
+    {
+      "path": "app/packages/frontend/tests/amm-wallet-record.spec.ts",
+      "sha256": "455808ddd29039335323d0e5d575bbb2538afad10b1225fd392612e2d741d7a5",
+      "gitBlob": "6b10ae9e5e93288094b88363341a75cd8fba8ea8"
+    },
+    {
+      "path": "app/packages/frontend/tests/with-amm-record-fixture.mjs",
+      "sha256": "674b910b591cf745dbea509355b105b9fa11ebffbc9f6ea96535aacb26f40a1a",
+      "gitBlob": "dbb4b0e373c52922436e91bc54174f61df8da596"
+    },
+    {
+      "path": "app/research/amm-wallet-record-20261029/SOURCE.json",
+      "sha256": "9c65e5efe81a6fee61b46d5671c395ba21aa4c44d49a034d81603e542d6ff3d1",
+      "gitBlob": "7d29b364108d122cd3ae3e7f50675b8c939e64df"
+    },
+    {
+      "path": "app/scripts/amm-wallet-record/contract.mjs",
+      "sha256": "e1be5d7d05427cb181bdea503200409f4b1fe3f909cfa9993505eb176064b6f4",
+      "gitBlob": "3acf041d98cdca4ccc37e2bcbec66dbdb25bfcfe"
+    },
+    {
+      "path": "app/tests/amm_wallet_record.test.mjs",
+      "sha256": "4887c384e785730940da93f34985c9160d2bd42edcc7573299cce065bc771366",
+      "gitBlob": "08fbbf45adf0685e89c5a0e467782028f4f7ffcf"
+    }
+  ],
+  "unchangedExistingPaths": [
+    {
+      "path": "app/packages/frontend/src/app/wallet-program-record/server.ts",
+      "sha256": "11257147e8ced311837b151e2cd4af6620ca9650f9ef0f08fc9ed849c7e7a770"
+    },
+    {
+      "path": "app/packages/frontend/src/app/wallet-program-record/client.ts",
+      "sha256": "e78eb86b749089c0441135a378773925e557415459828e27b05fa938ea944664"
+    },
+    {
+      "path": "app/packages/frontend/src/app/wallet-program-record/handler.ts",
+      "sha256": "8967eea443591d61caec4768aa537d2b77df55a6f95c16fb00581bf46494991c"
+    },
+    {
+      "path": "app/packages/frontend/src/app/wallet-program-record/types.ts",
+      "sha256": "d38e5a7313555a460d9725b7ccb94390814ff75dc84781af08194259975d5074"
+    },
+    {
+      "path": "app/packages/frontend/src/app/wallet-program-record/contract.json",
+      "sha256": "8b82d6b5f1a3852dcd23200e3313dc48353a3ebcae8632831434e541613a1700"
+    },
+    {
+      "path": "app/packages/frontend/src/app/api/portfolio/pump-record/route.ts",
+      "sha256": "e54d2351f713901c192a7bd041fd9804b187a4f8972dec43e2dc261ccb5b4f58"
+    },
+    {
+      "path": "app/packages/frontend/src/app/portfolio/rpc.ts",
+      "sha256": "600e4a05c569dec818662b4be38ea513ad20a4b4bb7fb6bc1783a088c569259f"
+    },
+    {
+      "path": "app/packages/frontend/src/app/portfolio/portfolio-client.tsx",
+      "sha256": "b3ce685a6317add1126d9ba3a027863d5a9d62fe4dc4f9c1b1b63de1bea61723"
+    },
+    {
+      "path": "app/pnpm-lock.yaml",
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+    },
+    {
+      "path": "app/packages/sdk/package.json",
+      "sha256": "9b85cdaaeee8387fd151783cc994fa8b80f24ca5c525c9accb3cccc5babd64d4"
+    }
+  ],
+  "actualSdkDistHashes": [
+    {
+      "path": "app/packages/sdk/dist/index.js",
+      "sha256": "31deabab97f58a4b57d95ef4e57643214a290c19f05ccee72739b71f3368df35"
+    },
+    {
+      "path": "app/packages/sdk/dist/index.mjs",
+      "sha256": "514a3439cf1a40ba5aa209a3a46130c917a9d5ceda1d9a461e52f27a1a144a5a"
+    },
+    {
+      "path": "app/packages/sdk/dist/swap/index.js",
+      "sha256": "3d345d5683387259d12f2a5977c879d4bdb83debc34afa94cedc4c91b25d79f2"
+    },
+    {
+      "path": "app/packages/sdk/dist/swap/index.mjs",
+      "sha256": "6755bc7aaaa2ccda68485a640d24310e903c1db32534e51a38fa92ae42e2a5c3"
+    }
+  ]
+}

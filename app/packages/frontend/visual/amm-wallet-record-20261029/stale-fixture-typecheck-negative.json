@@ -1,0 +1,5 @@
+{
+  "reason": "After explicit hash-matched fixture removal, inactive own Next dev validator still imports its removed temporary route. Unmounted tsc reports only that generated module missing; no product source/type change. Full own inactive cache will be retained/removed after final two-case run before unmounted finalTC.",
+  "validatorSha256": "54a089ab3385d06df7809f0f13d2945f96e75493eca4d6d78707971e56bc7ce1",
+  "error": ".next/dev/types/validator.ts(262,39): TS2307 cannot find '../../../src/app/amm-record-test-fixture/route.js'"
+}

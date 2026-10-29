@@ -1,0 +1,16 @@
+{
+  "command": [
+    "node",
+    "tests/with-amm-record-fixture.mjs",
+    "/workspace/pumpfun-source-latest/work/app-native/pinned-bin/pnpm",
+    "exec",
+    "tsc",
+    "--noEmit",
+    "--incremental",
+    "false"
+  ],
+  "returncode": 0,
+  "started": "2026-10-29T16:06:48.264464+00:00",
+  "finished": "2026-10-29T16:06:54.539649+00:00",
+  "fixtureAbsentAfter": true
+}

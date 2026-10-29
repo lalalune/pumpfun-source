@@ -1,0 +1,53 @@
+{
+  "base": "665499915f9caedcd38921d415a90f0606686398",
+  "runtimeHead": "526550ad0c60215ab1d192482fe92466710ad31f",
+  "mainBrowserHead": "3a5c17ad91c7407fb21cf3b6d489724fde9f24a7",
+  "cleanupRepeatHead": "116d0f64a4d04d04bcc8631ae94da7a5b2f5d1cc",
+  "results": {
+    "uniqueBrowserCases": {
+      "discovered": 23,
+      "pass": 22,
+      "skip": 1,
+      "newAmmCasesPass": 15,
+      "existingPumpCasesPass": 7,
+      "oldOptInCdpGuardSkipped": 1
+    },
+    "criticalRepeats": {
+      "pass": 2,
+      "newUniqueCases": 0
+    },
+    "newNodeCases": 10,
+    "existingPumpNodeCases": 8,
+    "frontendTypecheck": "PASS",
+    "mountedTemporaryFixtureTypecheck": "PASS",
+    "appEvidenceObjects": 698,
+    "progressTests": 9,
+    "rootCaptures": 9,
+    "rootToolingTests": 10
+  },
+  "compiledNextBoundary": {
+    "controlledSdkRead": "Actual shared handler/reader/lazy ESM/90B decoder returned200 through temporary loopback development route; browser validated/displayed it.",
+    "productionUnconfiguredRoute": "Actual one-argument product route returned503/no-store, visible generic alert; independentAPIRequest verified completeJSON body.",
+    "configuredProductionTransport": "UNTESTED",
+    "fixtureTemplateSha256": "0275f48d67785ed6b377e435111d483c95fcd2905e7ed92eb161eea872360e10",
+    "fixtureAbsentAfter": true,
+    "fixtureAbsentFromProductCommit": true,
+    "lifecycleReceipt": "fixture-lifecycle-verified.json"
+  },
+  "historicalNegatives": [
+    "Cold maintained swap CommonJS entry failed before tests. Actual standalone/lazy ESM entry succeeds; no preload workaround or SDK source change.",
+    "Exported swap return type omits3IDL fields; firstTC failed, actualdecoded values now locally validated without cast.",
+    "Initial expected-Pump-decoder-throw assertion wasfalse: observed90Bcross-codec produces trailingstablezeros.16/17negative kept; application owner/width/projection stayedstrict.",
+    "Comparing alreadyadaptedworkspace package metadata to npm manifest failed; exactSDKsource comparisons remainstrict, both distinctmetadata exportmaps separatelybound.",
+    "Progress initiallymissed existing sparseexcluded evidence; exactGitblobs restored, originalfailure retained.",
+    "Default PlaywrightSIGKILL left exacttemporaryfixture after22PASS. Onlyhashmatchedownfile manuallyremoved; gracefulSIGTERM/directNext+sidecar and2repeats verifiedautomaticcleanup.",
+    "UnmountedTC saw stale ownNextgeneratedvalidator referencingremovedfixture; sourcefailure retained, inactivecache retained/manifestsremoved and cleanTC passed."
+  ],
+  "limits": [
+    "Independent public-chain localintegration; no original frontend/privateAPI/nativeoperation/visual/sourceparity claim.",
+    "Synthetic controlledpublicaccount data; no livechainobservation, signing, authenticatedownership, eligibility or cross-program totals.",
+    "KnownAMMprefix90B omits Pumpstablefields; unknowntrailingbytes notinterpreted.",
+    "Full production aggregate pending; actualconfigured production/mainnetHTTPS success remainsuntested after any build."
+  ],
+  "review": "Client/server imports separated; explicitread only; keyed existingwallet parent/abort/generation/deadline cleanup; no clientSDKsigning; exactstrings; genericerrors;320/1440screenshots reviewed. Existingcontroller/transport/SDK/captures/lockfile andprogresscounts unchanged."
+}

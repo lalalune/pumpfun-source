@@ -1,0 +1,30 @@
+[
+  {
+    "label": "node-qualified",
+    "command": [
+      "node",
+      "--test",
+      "tests/amm_wallet_record.test.mjs",
+      "tests/wallet_program_record.test.mjs"
+    ],
+    "returncode": 0,
+    "started": "2026-10-29T15:44:03.539951+00:00",
+    "finished": "2026-10-29T15:44:05.141893+00:00"
+  },
+  {
+    "label": "types-qualified",
+    "command": [
+      "/workspace/pumpfun-source-latest/work/app-native/pinned-bin/pnpm",
+      "--filter",
+      "@pump-reconstruction/frontend",
+      "exec",
+      "tsc",
+      "--noEmit",
+      "--incremental",
+      "false"
+    ],
+    "returncode": 1,
+    "started": "2026-10-29T15:44:05.141948+00:00",
+    "finished": "2026-10-29T15:44:11.553270+00:00"
+  }
+]
