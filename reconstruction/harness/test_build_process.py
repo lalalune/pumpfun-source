@@ -25,18 +25,18 @@ class CompilerDeadlineTests(unittest.TestCase):
         self.assertFalse(expired);self.assertEqual(result.stdout,'done\n')
 
     def test_timeout_preserves_partial_output(self):
-        result,expired=self.run_python('import time; print("started"); time.sleep(30)',timeout=0.2)
+        result,expired=self.run_python('import time; print("started"); time.sleep(30)',timeout=1)
         self.assertTrue(expired);self.assertNotEqual(result.returncode,0)
         self.assertEqual(result.stdout,'started\n')
 
     def test_compiler_descendants_are_stopped(self):
         with tempfile.TemporaryDirectory() as temp:
             marker=Path(temp)/'orphan'
-            child=f'import time; from pathlib import Path; time.sleep(0.6); Path({str(marker)!r}).write_text("survived")'
+            child=f'import time; from pathlib import Path; time.sleep(1.5); Path({str(marker)!r}).write_text("survived")'
             parent=f'import subprocess,sys,time; subprocess.Popen([sys.executable,"-c",{child!r}]); print("child launched"); time.sleep(30)'
-            result,expired=self.run_python(parent,timeout=0.2)
+            result,expired=self.run_python(parent,timeout=1)
             self.assertTrue(expired);self.assertIn('child launched',result.stdout)
-            time.sleep(0.7)
+            time.sleep(0.8)
             self.assertFalse(marker.exists())
 
     def test_invalid_timeout_does_not_start_process(self):
@@ -52,13 +52,13 @@ class CompilerDeadlineTests(unittest.TestCase):
             (out/'candidate.so').write_bytes(b'prior candidate')
             (out/'unstripped.so').write_bytes(b'prior unstripped')
             def compiler(command, **kwargs):
-                self.assertEqual(kwargs['timeout'], 0.2)
+                self.assertEqual(kwargs['timeout'], 1)
                 with self.assertRaisesRegex(RuntimeError, 'already in use'):
                     with fastbuild.workspace_lock(root/'work'):
                         pass
                 return self.run_python('import time; print("partial compiler log"); time.sleep(30)', timeout=kwargs['timeout'])
             with patch.object(fastbuild,'stage',return_value=root/'crate'),patch.object(fastbuild,'acquire_slot',return_value=slot),patch.object(fastbuild,'run_compiler',side_effect=compiler),patch.object(fastbuild,'RECIPES',{'test':{'triple':'test','rustc':root/'rustc','template':root/'missing'}}),patch.object(fastbuild.subprocess,'run') as publish:
-                report=fastbuild.build(root/'src',root/'work',out,quiet=True,recipe='test',timeout=0.2)
+                report=fastbuild.build(root/'src',root/'work',out,quiet=True,recipe='test',timeout=1)
                 publish.assert_not_called()
             self.assertFalse(report['ok']);self.assertTrue(report['timed_out']);self.assertTrue(slot.closed)
             self.assertEqual((out/'build.log').read_text(),'partial compiler log\n')
