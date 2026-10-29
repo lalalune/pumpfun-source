@@ -196,6 +196,7 @@ def extract_rodata_strings(elf):
     if not rodata:
         return {}
     ro_start = rodata[4]
+    ro_address = rodata[3]
     ro_size = rodata[5]
     strings = {}
     current = []
@@ -204,7 +205,7 @@ def extract_rodata_strings(elf):
         byte = elf.b[ro_start + i]
         if 32 <= byte < 127:
             if current_start is None:
-                current_start = ro_start + i
+                current_start = ro_address + i
             current.append(chr(byte))
         else:
             if len(current) >= 4:
@@ -216,8 +217,113 @@ def extract_rodata_strings(elf):
     return strings
 
 
+def load_idl_discriminators(elf):
+    """Return {8-byte selector: instruction name} from the archived IDL, if any."""
+    try:
+        program = Path(elf.path).parent.name
+    except (AttributeError, TypeError):
+        return {}
+    idl_path = REPO / "evidence" / "upstream" / f"{program}.json"
+    if not idl_path.is_file():
+        return {}
+    try:
+        payload = json.loads(idl_path.read_text())
+    except (OSError, ValueError):
+        return {}
+    discriminators = {}
+    for insn in payload.get("instructions", []):
+        selector = insn.get("discriminator")
+        if (not isinstance(selector, list) or len(selector) != 8
+                or not all(isinstance(v, int) and 0 <= v < 256 for v in selector)):
+            continue
+        discriminators[bytes(selector)] = insn.get("name")
+    return discriminators
+
+
+def _recover_dispatch_target(elf, constant_offset):
+    """Follow a selector constant to its comparison branch and first direct call."""
+    regs = elf.b[constant_offset + 1]
+    dst_reg = regs & 0xF
+
+    # The comparison usually operates on a register derived from the constant.
+    cmp_offset = constant_offset + 16
+    while cmp_offset + 8 <= elf.hi and cmp_offset < constant_offset + 48:
+        op = elf.b[cmp_offset]
+        if op in (0xbf, 0x79) and (elf.b[cmp_offset + 1] & 0xF) != dst_reg:
+            cmp_offset += 8
+        else:
+            break
+
+    if cmp_offset + 8 > elf.hi:
+        return {}
+    jop, jregs, joff, _ = struct.unpack_from("<BBhi", elf.b, cmp_offset)
+    if jop not in (0x1d, 0x5d):
+        return {}
+    if (jregs >> 4) != dst_reg and (jregs & 0xF) != dst_reg:
+        return {}
+
+    # jeq branches to the handler body; jne falls through to it.
+    branch_target = cmp_offset + 8 + joff * 8 if jop == 0x1d else cmp_offset + 8
+    cursor = branch_target
+    while elf.lo <= cursor and cursor + 8 <= elf.hi and cursor < branch_target + 256:
+        cop, cregs, _, cimm = struct.unpack_from("<BBhi", elf.b, cursor)
+        if cop == 0x85 and (cregs >> 4) == 1:
+            call_target = cursor + 8 + cimm * 8
+            target_name = None
+            for f in elf.funcs:
+                if f["start"] == call_target:
+                    target_name = f["name"]
+                    break
+            return {
+                "target_address": hex(call_target),
+                "target_name": target_name,
+                "call_address": hex(cursor),
+            }
+        if cop in (0x05, 0x95):
+            break
+        cursor += 16 if cop == 0x18 else 8
+
+    return {}
+
+
+def recover_idl_dispatch(elf, discriminators):
+    """Scan the whole .text for known IDL selectors and recover their handlers."""
+    selectors = {}
+    offset = elf.lo
+    while offset + 16 <= elf.hi:
+        if elf.b[offset] == 0x18:  # lddw
+            selector_bytes = elf.b[offset + 4:offset + 8] + elf.b[offset + 12:offset + 16]
+            instruction_name = discriminators.get(selector_bytes)
+            if instruction_name is not None:
+                selector = hex(int.from_bytes(selector_bytes, "little"))
+                recovered = _recover_dispatch_target(elf, offset)
+                recovered.setdefault("target_address", None)
+                recovered.setdefault("target_name", None)
+                selectors[selector] = {
+                    "selector": selector,
+                    "target_address": recovered.get("target_address"),
+                    "target_name": recovered.get("target_name"),
+                    "instruction_name": instruction_name,
+                }
+                if "call_address" in recovered:
+                    selectors[selector]["call_address"] = recovered["call_address"]
+            offset += 16
+        else:
+            offset += 8
+    return selectors
+
+
 def recover_anchor_dispatch(elf):
-    """Recover Anchor instruction dispatch table from the entrypoint."""
+    """Recover Anchor instruction dispatch table from the entrypoint.
+
+    When the program has an archived IDL, scan the whole .text for its known
+    discriminators so selectors outside the entrypoint window are not missed.
+    Programs without an IDL keep the bounded entry-window heuristic.
+    """
+    discriminators = load_idl_discriminators(elf)
+    if discriminators:
+        return recover_idl_dispatch(elf, discriminators)
+
     entry = struct.unpack_from("<Q", elf.b, 24)[0]
     if not (elf.lo <= entry < elf.hi):
         return {}
@@ -268,14 +374,17 @@ def build_cfg_edges(instructions, window_start, window_end):
         addr = insn["offset"]
         if "branch_target" in insn:
             target = insn["branch_target"]
+            # Mnemonics include operands (e.g. "ja +8 (0x1c8)"). Use the
+            # decoded opcode so unconditional jumps never gain fallthroughs.
+            conditional = insn["opcode"] != "0x05"
             edges.append({
                 "from": hex(addr),
                 "to": hex(target),
                 "type": "branch",
-                "conditional": insn["mnemonic"].startswith("j") and insn["mnemonic"] != "ja",
+                "conditional": conditional,
             })
             # Fall-through edge for conditional branches
-            if insn["mnemonic"] != "ja":
+            if conditional:
                 next_addr = addr + (16 if insn.get("imm64") is not None else 8)
                 edges.append({
                     "from": hex(addr),

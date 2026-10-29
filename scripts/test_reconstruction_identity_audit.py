@@ -2,10 +2,13 @@
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
+from unittest import mock
 
 from analyze import elf_layout
+import reconstruction_identity_audit
 from reconstruction_identity_audit import ROOT, audit, measure
 
 
@@ -47,6 +50,19 @@ class IdentityAuditTests(unittest.TestCase):
             result = audit(root, 'index.json')
             self.assertFalse(result['current_status_health']['pump']['candidate_exists'])
             self.assertNotIn('candidate_sha256', result['current_status_health']['pump'])
+
+    def test_missing_git_binary_degrades_to_null_revision(self):
+        # A minimal host without `git` makes check_output raise FileNotFoundError
+        # (not CalledProcessError); the read-only audit must still complete.
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'repro').mkdir()
+            (root / 'repro/status.json').write_text(json.dumps({}))
+            (root / 'index.json').write_text(json.dumps({'programs': {}}))
+            with mock.patch.object(reconstruction_identity_audit.subprocess, 'check_output',
+                                   side_effect=FileNotFoundError(2, 'No such file or directory', 'git')):
+                result = audit(root, 'index.json')
+            self.assertIsNone(result['repository_revision'])
 
 
 if __name__ == '__main__':

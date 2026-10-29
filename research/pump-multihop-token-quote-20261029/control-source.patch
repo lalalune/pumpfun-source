@@ -1,0 +1,218 @@
+--- a/programs/pump/src/buy.rs
++++ b/programs/pump/src/buy.rs
+@@ -93,21 +93,21 @@
+  let protocol_fee=ceil_fee(raw_quote,protocol_fee_bps)?;
+  let creator_fee=if bonding_curve.creator!=Pubkey::default(){ceil_fee(raw_quote,creator_fee_bps)?}else{0};
+  let total=raw_quote.saturating_add(protocol_fee).saturating_add(creator_fee);
+- let quote=if total>spendable_sol_in{raw_quote.checked_sub(total.saturating_sub(spendable_sol_in)).ok_or(PumpError::Overflow)?}else{raw_quote};
+-// layout-pad
+-// layout-pad
+-// layout-pad
+-// layout-pad
+-// layout-pad
+-// layout-pad
+-// layout-pad
+-// layout-pad
+-// layout-pad
+-// layout-pad
+-// layout-pad
+-// layout-pad
+-// layout-pad
+- require_gt!(quote,0,PumpError::BuySlippageBelowMinTokensOut);
++ let mut quote=raw_quote;if total>spendable_sol_in{quote=raw_quote.checked_sub(total.saturating_sub(spendable_sol_in)).ok_or(PumpError::Overflow)?;
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++// layout-pad
++ require_gt!(quote,0,PumpError::BuySlippageBelowMinTokensOut);}
+  let amount=u64::try_from(crate::constant_product::tokens_for_quote(bonding_curve,quote)?).map_err(|_|PumpError::Truncation)?;
+  let (amount,quote,protocol_fee,creator_fee)=if amount>bonding_curve.real_token_reserves&&partial_fill.0{
+   let amount=bonding_curve.real_token_reserves;
+--- a/programs/pump/src/creator/admin_cto.rs
++++ b/programs/pump/src/creator/admin_cto.rs
+@@ -553,7 +553,7 @@
+ 
+ 
+ 
+- let wallet=old!=Pubkey::default()&&!a.current_creator.executable&&a.current_creator.owner==&anchor_lang::system_program::ID;if wallet&&!a.current_creator.is_writable{return Err(error!(PumpError::CtoCreatorAccountNotWritable));}let wallet_frozen=wallet&&!a.current_creator_quote_token_account.data_is_empty()&&token_frozen(&a.current_creator_quote_token_account.to_account_info())?;if !shared&&old!=Pubkey::default(){if a.current_creator.executable||!wallet{msg!(if a.current_creator.executable{"Creator is a program; fees left in the vaults"}else{"Creator is not a system-owned wallet; fees left in the vaults"});}else if wallet_frozen{msg!("Creator quote token account is frozen; fees left in the vaults");}}
++ let wallet=old!=Pubkey::default()&&!a.current_creator.executable&&a.current_creator.owner==&anchor_lang::system_program::ID;if wallet&&!a.current_creator.is_writable{return Err(error!(PumpError::CtoCreatorAccountNotWritable));}let wallet_frozen=wallet&&token_frozen(a.current_creator_quote_token_account.as_ref())?;if !shared&&old!=Pubkey::default(){if !a.current_creator.executable&&!wallet{msg!("Creator is not a system-owned wallet; fees left in the vaults");}else if wallet_frozen{msg!("Creator quote token account is frozen; fees left in the vaults");}}
+  let mut swept=0;
+ // layout-pad(89): aligns the next Source site with the original line
+ 
+@@ -646,22 +646,22 @@
+ 
+  if shared && holder{
+   let dest=Pubkey::find_program_address(&[b"creator-vault",holder_key.as_ref()],&crate::ID).0;if a.holder_creator_vault.key()!=dest{return Err(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),dest)));}
+-  let shared_amm_frozen=!a.coin_creator_vault_ata.data_is_empty()&&token_frozen(&a.coin_creator_vault_ata.to_account_info())?;
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-  if shared_amm_frozen{require!(token_raw_amount(&a.coin_creator_vault_ata.to_account_info())?==0,PumpError::CtoSharedVaultFrozen);}
++  let shared_amm_frozen=token_frozen(a.coin_creator_vault_ata.as_ref())?;
++
++
++
++
++
++
++
++
++
++
++  if shared_amm_frozen{require!(token_raw_amount(a.coin_creator_vault_ata.as_ref())?==0,PumpError::CtoSharedVaultFrozen);}
+   if !shared_amm_frozen&&!a.coin_creator_vault_ata.data_is_empty(){crate::pump_amm::cpi::transfer_creator_fees_to_pump_v2(CpiContext::new(a.pump_amm.to_account_info(),crate::pump_amm::cpi::accounts::TransferCreatorFeesToPumpV2{payer:a.admin_set_creator_authority.to_account_info(),quote_mint:a.quote_mint.to_account_info(),token_program:a.quote_token_program.to_account_info(),system_program:a.system_program.to_account_info(),associated_token_program:a.associated_token_program.to_account_info(),coin_creator:a.current_creator.to_account_info(),coin_creator_vault_authority:a.coin_creator_vault_authority.to_account_info(),coin_creator_vault_ata:a.coin_creator_vault_ata.to_account_info(),pump_creator_vault:a.creator_vault.to_account_info(),pump_creator_vault_ata:a.creator_vault_quote_token_account.to_account_info(),event_authority:a.pump_amm_event_authority.to_account_info(),program:a.pump_amm.to_account_info()}))?;}
+   let native=a.bonding_curve.quote_mint==Pubkey::default();let rent=Rent::get()?.minimum_balance(0);
+   let amount=if native{a.creator_vault.lamports().saturating_sub(rent)}else if !a.creator_vault_quote_token_account.data_is_empty(){
+-   let amount=token_raw_amount(&a.creator_vault_quote_token_account.to_account_info())?;let frozen=token_frozen(&a.creator_vault_quote_token_account.to_account_info())?;
++   let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;
+ 
+ 
+ 
+@@ -721,7 +721,7 @@
+   let bump=[ctx.bumps.creator_vault];let vaultseeds:&[&[u8]]=&[b"creator-vault",old.as_ref(),&bump];
+   if amount>0{
+   if native{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_creator_authority,&a.holder_creator_vault)?;
+-  crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&[vaultseeds])?;}else{pay_token(a,&a.holder_creator_vault.to_account_info(),&a.holder_creator_vault_quote_token_account,amount,vaultseeds)?;}swept=amount;
++  crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&[vaultseeds])?;}else{anchor_spl::associated_token::create_idempotent(CpiContext::new(a.associated_token_program.to_account_info(),anchor_spl::associated_token::Create{payer:a.admin_set_creator_authority.to_account_info(),associated_token:a.holder_creator_vault_quote_token_account.to_account_info(),authority:a.holder_creator_vault.to_account_info(),mint:a.quote_mint.to_account_info(),system_program:a.system_program.to_account_info(),token_program:a.quote_token_program.to_account_info()}))?;if amount>0{crate::collect_v2::transfer_vault_tokens(&a.quote_token_program,&a.creator_vault_quote_token_account,&a.holder_creator_vault_quote_token_account,&a.creator_vault,a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),amount,&[vaultseeds])?;}}swept=amount;
+   }
+  }
+  if wallet&&!wallet_frozen{
+@@ -735,8 +735,8 @@
+      let e=CollectCreatorFeeEvent{timestamp:Clock::get()?.unix_timestamp,creator:old,creator_fee:collected,quote_mint};emit!(e.clone());emit_cpi!(e);
+     }
+   }
+-  if coin_present&&!coin_frozen{let cpi_accounts=crate::pump_amm::cpi::accounts::CollectCoinCreatorFee{quote_mint:a.quote_mint.to_account_info(),quote_token_program:a.quote_token_program.to_account_info(),coin_creator:a.current_creator.to_account_info(),coin_creator_vault_authority:a.coin_creator_vault_authority.to_account_info(),coin_creator_vault_ata:a.coin_creator_vault_ata.to_account_info(),coin_creator_token_account:a.current_creator_quote_token_account.to_account_info(),event_authority:a.pump_amm_event_authority.to_account_info(),program:a.pump_amm.to_account_info()};
+-  crate::pump_amm::cpi::collect_coin_creator_fee(CpiContext::new(a.pump_amm.to_account_info(),cpi_accounts))?;}
++  if coin_present&&!coin_frozen{let cpi_program=a.pump_amm.to_account_info();let cpi_accounts=crate::pump_amm::cpi::accounts::CollectCoinCreatorFee{quote_mint:a.quote_mint.to_account_info(),quote_token_program:a.quote_token_program.to_account_info(),coin_creator:a.current_creator.to_account_info(),coin_creator_vault_authority:a.coin_creator_vault_authority.to_account_info(),coin_creator_vault_ata:a.coin_creator_vault_ata.to_account_info(),coin_creator_token_account:a.current_creator_quote_token_account.to_account_info(),event_authority:a.pump_amm_event_authority.to_account_info(),program:a.pump_amm.to_account_info()};
++  crate::pump_amm::cpi::collect_coin_creator_fee(CpiContext::new(cpi_program,cpi_accounts))?;}
+  }
+ 
+ 
+@@ -745,8 +745,8 @@
+  let pb=[ctx.bumps.pool_authority];let poolseeds:&[&[u8]]=&[b"pool-authority",mint.as_ref(),&pb];
+  if shared{
+   let val=if holder{None}else{new};
+-  let cpi_accounts=crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{pool_authority:a.pool_authority.to_account_info(),authority:a.admin_set_creator_authority.to_account_info(),global:a.global.to_account_info(),mint:a.mint.to_account_info(),sharing_config:a.sharing_config.to_account_info(),event_authority:a.pump_fees_event_authority.to_account_info(),program:a.pump_fees.to_account_info()};
+-  crate::pump_fees::cpi::admin_cto_sharing_config(CpiContext::new_with_signer(a.pump_fees.to_account_info(),cpi_accounts,&[poolseeds]),val)?;
++  let cpi_program=a.pump_fees.to_account_info();let cpi_accounts=crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{pool_authority:a.pool_authority.to_account_info(),authority:a.admin_set_creator_authority.to_account_info(),global:a.global.to_account_info(),mint:a.mint.to_account_info(),sharing_config:a.sharing_config.to_account_info(),event_authority:a.pump_fees_event_authority.to_account_info(),program:a.pump_fees.to_account_info()};
++  crate::pump_fees::cpi::admin_cto_sharing_config(CpiContext::new_with_signer(cpi_program,cpi_accounts,&[poolseeds]),val)?;
+   if !holder{target=old;}
+  }
+  {
+@@ -760,16 +760,13 @@
+  let a=&ctx.accounts;
+  let pool_updated=a.pool.owner==&AMM && !a.pool.data_is_empty();
+  if pool_updated{
+-  let cpi_accounts=crate::pump_amm::cpi::accounts::AdminCtoPool{payer:a.admin_set_creator_authority.to_account_info(),global_config:a.amm_global_config.to_account_info(),pool:a.pool.to_account_info(),pool_authority:a.pool_authority.to_account_info(),system_program:a.system_program.to_account_info(),event_authority:a.pump_amm_event_authority.to_account_info(),program:a.pump_amm.to_account_info()};
++  let cpi_program=a.pump_amm.to_account_info();let cpi_accounts=crate::pump_amm::cpi::accounts::AdminCtoPool{payer:a.admin_set_creator_authority.to_account_info(),global_config:a.amm_global_config.to_account_info(),pool:a.pool.to_account_info(),pool_authority:a.pool_authority.to_account_info(),system_program:a.system_program.to_account_info(),event_authority:a.pump_amm_event_authority.to_account_info(),program:a.pump_amm.to_account_info()};
+   let signer_seeds:&[&[&[u8]]]=&[poolseeds];
+-  crate::pump_amm::cpi::admin_cto_pool(CpiContext::new_with_signer(a.pump_amm.to_account_info(),cpi_accounts,signer_seeds),target,holder,fee)?;
++  crate::pump_amm::cpi::admin_cto_pool(CpiContext::new_with_signer(cpi_program,cpi_accounts,signer_seeds),target,holder,fee)?;
+  }else{msg!("No canonical pump pool for this mint; curve only");}
+  let e=AdminCtoEvent{timestamp:Clock::get()?.unix_timestamp,authority:a.admin_set_creator_authority.key(),mint,bonding_curve:a.bonding_curve.key(),old_creator:old,new_creator:target,is_holder_reward:holder,is_cashback_coin:cashback,old_creator_fee_bps:old_fee,new_creator_fee_bps:fee.unwrap_or(old_fee),sharing_config_reset:shared,swept_to_holder_vault:swept,pool_updated};emit!(e.clone());emit_cpi!(e);Ok(())
+ }
+ 
+ fn token_frozen(a:&AccountInfo)->Result<bool>{if a.data_is_empty(){return Ok(false);}let d=a.try_borrow_data()?;let t=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.is_frozen())}
+-#[inline(never)]fn pay_token<'info>(a:&AdminCto<'info>,owner:&AccountInfo<'info>,to:&UncheckedAccount<'info>,amount:u64,seeds:&[&[u8]])->Result<()>{
+- anchor_spl::associated_token::create_idempotent(CpiContext::new(a.associated_token_program.to_account_info(),anchor_spl::associated_token::Create{payer:a.admin_set_creator_authority.to_account_info(),associated_token:to.to_account_info(),authority:owner.clone(),mint:a.quote_mint.to_account_info(),system_program:a.system_program.to_account_info(),token_program:a.quote_token_program.to_account_info()}))?;
+- if amount>0{crate::collect_v2::transfer_vault_tokens(&a.quote_token_program,&a.creator_vault_quote_token_account,to,&a.creator_vault,a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),amount,&[seeds])?;}Ok(())}
+ 
+ fn token_raw_amount(a:&AccountInfo)->Result<u64>{if a.data_is_empty(){return Ok(0);}let d=a.try_borrow_data()?;let t=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.amount)}
+--- a/programs/pump/src/multi_hop_curve_swap.rs
++++ b/programs/pump/src/multi_hop_curve_swap.rs
+@@ -762,7 +762,7 @@
+             move_lamports(&h.bonding_curve.to_account_info(),&a.user.to_account_info(),output)?;
+         }
+         let c = &h.bonding_curve;
+-        let event = trade_event(c,&a.global,&crate::UserVolumeAccumulator::default(),&a.user.key(),&mint_key,buy,base_amount,quote_amount,&(pf,cf,p_rate,c_rate),buyback,adapter_difference,"multi_hop_swap",Clock::get()?.unix_timestamp);
++        let timestamp = Clock::get()?.unix_timestamp; let event = trade_event(c,&a.global,&crate::UserVolumeAccumulator::default(),&a.user.key(),&mint_key,buy,base_amount,quote_amount,&(pf,cf,p_rate,c_rate),buyback,adapter_difference,"multi_hop_swap",timestamp);
+ 
+ 
+ 
+@@ -782,12 +782,12 @@
+         route_event(a,&event,event_bump)?;
+         if completed {
+             let completion=crate::trade_types::CompleteEvent { user:a.user.key(),mint:mint_key,
+-                bonding_curve:h.bonding_curve.key(),timestamp:Clock::get()?.unix_timestamp,quote_mint:c.quote_mint };
++                bonding_curve:h.bonding_curve.key(),timestamp,quote_mint:c.quote_mint };
+             route_event(a,&completion,event_bump)?;
+         }
+         if let Some(post)=post_fill.as_ref() {
+             let post_event=crate::trade::PostCompleteBuyEvent { user:a.user.key(),mint:mint_key,
+-                bonding_curve:h.bonding_curve.key(),quote_mint:c.quote_mint,timestamp:Clock::get()?.unix_timestamp,
++                bonding_curve:h.bonding_curve.key(),quote_mint:c.quote_mint,timestamp,
+                 base_out:post.base,quote_in:post.quote,fee_basis_points:p_rate,fee:post.protocol,
+                 creator_fee_basis_points:c_rate,creator_fee:post.creator,buyback_fee:post_buyback,
+                 pool_base_reserves_before:post.pool_base,pool_quote_reserves_before:post.pool_quote,
+--- a/programs/pump/src/sweep_fees.rs
++++ b/programs/pump/src/sweep_fees.rs
+@@ -24,7 +24,7 @@
+ pub fn execute(ctx:Context<SweepFees>,creator:bool)->Result<()>{
+  let a=&mut *ctx.accounts;
+  crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.payer)?;
+- let native=a.bonding_curve.quote_mint==Pubkey::default();let cf=a.bonding_curve.creator_fee;let pf=a.bonding_curve.protocol_fees;let info=a.bonding_curve.to_account_info();
++
+ // layout-pad(117): aligns the next Source site with the original line
+ 
+ 
+@@ -144,19 +144,37 @@
+ 
+  if creator{let expected=Pubkey::find_program_address(&[b"creator-vault",a.bonding_curve.creator.as_ref()],&crate::ID).0;require_keys_eq!(a.recipient.key(),expected,anchor_lang::error::ErrorCode::ConstraintSeeds);}
+  else{crate::legacy_sell::fee_recipient::validate_fee_recipient(&a.recipient,&a.global,&a.bonding_curve)?;}
+- let amount=if creator{cf}else{pf};if amount==0{msg!("Nothing to sweep for fee bucket {}",if creator{1u8}else{0u8});return Ok(());}
++ let amount=if creator{
++  let amount=a.bonding_curve.creator_fee;
++  a.bonding_curve.creator_fee=0;
++  amount
++ }else{
++  let amount=a.bonding_curve.protocol_fees;
++  a.bonding_curve.protocol_fees=0;
++  amount
++ };
++ if amount==0{msg!("Nothing to sweep for fee bucket {}",if creator{1u8}else{0u8});return Ok(());}
++ let native=a.bonding_curve.quote_mint==Pubkey::default();
+  if native{
+-  if creator{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.payer,a.recipient.as_ref())?;}
+-  a.bonding_curve.sub_lamports(amount)?;a.recipient.add_lamports(amount)?;
++  if creator{
++   let minimum=Rent::get()?.minimum_balance(0);
++   if a.recipient.lamports()<minimum{
++    crate::legacy_buy::native_payments::transfer(a.system_program.as_ref(),&a.payer,a.recipient.as_ref(),minimum)?;
++   }
++  }
+  }
+  else{
+-
+   crate::buy_v2::admit_associated_token_account(a.associated_quote_bonding_curve.as_ref(),&a.bonding_curve.to_account_info(),a.quote_mint.key(),a.quote_token_program.key(),&a.quote_mint.to_account_info(),a.quote_token_program.as_ref(),false,a.payer.as_ref(),a.system_program.as_ref())?;
+   crate::buy_v2::admit_associated_token_account(a.associated_quote_recipient.as_ref(),a.recipient.as_ref(),a.quote_mint.key(),a.quote_token_program.key(),&a.quote_mint.to_account_info(),a.quote_token_program.as_ref(),true,a.payer.as_ref(),a.system_program.as_ref())?;
+-  let mint=a.base_mint.key();let bump=[ctx.bumps.bonding_curve];let seeds:&[&[u8]]=&[b"bonding-curve",mint.as_ref(),&bump];
+-  crate::sell_v2::quote_token_transfers::transfer_quote_tokens(&a.quote_token_program,a.associated_quote_bonding_curve.as_ref(),a.associated_quote_recipient.as_ref(),info,a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),amount,&[seeds])?;
+  }
+- if creator{a.bonding_curve.creator_fee=0;}else{a.bonding_curve.protocol_fees=0;}
++ crate::trade::quote_payments::transfer_to_owned(
++  native,a.base_mint.as_ref().as_ref(),a.bonding_curve.as_ref(),
++  a.recipient.to_account_info(),amount,&a.quote_token_program,
++  a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),
++  if native{None}else{Some(a.associated_quote_bonding_curve.as_ref())},
++  if native{None}else{Some(a.associated_quote_recipient.as_ref())},
++  ctx.bumps.bonding_curve,
++ )?;
+  let event=SweepBondingCurveFeeEvent{timestamp:Clock::get()?.unix_timestamp,mint:a.base_mint.key(),bonding_curve:a.bonding_curve.key(),quote_mint:a.bonding_curve.quote_mint,recipient:a.recipient.key(),amount,bucket:if creator{1}else{0}};emit!(event.clone());emit_cpi!(event);Ok(())
+ }
+ 

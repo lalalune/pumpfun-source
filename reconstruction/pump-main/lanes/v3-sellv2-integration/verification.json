@@ -1,0 +1,12 @@
+{
+  "source_patch_reconstruction_files": 71,
+  "capture_checks": 9,
+  "tooling_tests": 10,
+  "optimized_python_packet_verification": true,
+  "signature_checks": 1383,
+  "negative_controls": {
+    "execute_only": "rejected: lost raw 0xa868",
+    "sell_only": "rejected: lost raw 0xa868"
+  },
+  "scope": "Retained evidence, source bindings and two actual compiler-output rejection controls. No full legacy CI or cold dependency rebuild."
+}

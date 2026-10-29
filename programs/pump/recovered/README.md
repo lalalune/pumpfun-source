@@ -29,6 +29,21 @@ python scripts/pump_build_constant_product.py --toolchain /path/to/platform-tool
   --output work/pump-math-build
 ```
 
+`global_admin.rs` is a separate native model of seven captured Global admin
+instructions: `add_quote_mint`, `remove_quote_mint`, `update_buyback_config`,
+`set_max_curve_depth`, `set_virtual_quote_reserves`, `update_creator_fee_config`,
+and `update_holder_reward_config`. `tests/test_global_admin_captured.py` runs
+each case on `evidence/original/pump/deployed.so` and compares the committed
+account bytes, custom error, or missing-account failure with the host. The
+captured logs also name the source lines of the whitelist and buyback checks.
+This is behavior on synthetic accounts. It is not a `score.py` result, not
+whole-ELF equality, and it does not retarget `programs/pump/src`. The maintained
+`AdminGlobal` struct lists only `global` and `authority`. The captured program
+also requires an `__event_authority` PDA and one further account. That further
+account is not checked to be the Pump program id except when
+`update_creator_fee_config` performs its self-CPI. The host records those
+observed accounts instead of editing the layout-sensitive crate.
+
 `sell_accounting.rs` adds a separate native fee/accounting model. The206-case
 receipt compares160 successful original reserve cases,45 injected fee/buyback
 configurations and one original underflow failure. Protocol/creator fees round
@@ -37,3 +52,14 @@ to6024. Some cases select rates from observed events; injected cases independent
 check selected rates. These standalone arithmetic files are not linked into the
 SBF crate. The crate now separately implements a partial regular-SOL sell path;
 full trade reconstruction remains unfinished.
+
+`legacy_buy.rs` models the accounting of legacy `buy` and `buy_exact_sol_in`
+for a regular SOL coin: guard order, option-bool parsing, the market-cap fee
+tier choice, the configurable creator-bps override, ceiling fees, the trimmed
+exact-in quote (fees stay on the untrimmed quote), partial fills, buyback
+split, and the creator-vault rent top-up (the full zero-byte minimum, not the
+shortfall). `tests/test_legacy_buy_captured.py` runs 84 fixed and 60 seeded
+cases on the captured Pump ELF with the captured Pump Fees program and compares
+errors, lamport movements, stored reserves, delivered tokens, and TradeEvent
+fields with `legacy_buy_host.rs`. Mayhem, cashback, whitelist, and holder-reward
+paths are not modeled. This is not a byte-identity claim.

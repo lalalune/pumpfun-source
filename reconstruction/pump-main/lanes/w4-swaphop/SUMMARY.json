@@ -1,0 +1,103 @@
+{
+  "lane": "w4-swaphop",
+  "base": "origin/main 630a074 (1023 normalized / 277 raw)",
+  "targets": [
+    "0x5b3b0 multi_hop_curve::swap_hop"
+  ],
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/1555",
+  "best_mergeable": {
+    "build": "r3a-p02-base0",
+    "base": "094a06f",
+    "win_ratio": 0.7063,
+    "bytes": 18328,
+    "orig_bytes": 18584,
+    "normalized": 1024,
+    "raw": 277,
+    "gains": [],
+    "losses": [],
+    "raw_losses": [],
+    "text": "001b5818",
+    "mechanism": "T11 + fee-config borrow reclaim + base==0",
+    "model": "gpt-6-astra + gpt-6.1-terra base0"
+  },
+  "best_target_metrics": {
+    "build": "T11",
+    "patch": "reconstruction/pump-main/lanes/w4-swaphop/T11-admit-inline.patch",
+    "unstripped_sha256": "472748bdda30f0d0e63b9ce83d39a0680f7c5d99fd13c1203388607b7468e87e",
+    "normalized": 1023,
+    "raw": 276,
+    "raw_losses": [
+      "0xa868"
+    ],
+    "bytes": 18448,
+    "win_ratio": 0.6851,
+    "opregs": 0.7255,
+    "segdist_opregs": 819,
+    "segdist_exact": 966
+  },
+  "progression": [
+    {
+      "build": "main",
+      "win_ratio": 0.35843,
+      "segdist": "1049/1659"
+    },
+    {
+      "build": "T2 a:&mut",
+      "win_ratio": 0.3618
+    },
+    {
+      "build": "T3b +mint-first +trade_event fresh mint",
+      "win_ratio": 0.3987
+    },
+    {
+      "build": "T4a +nested post",
+      "win_ratio": 0.4421,
+      "segdist": "835/1485"
+    },
+    {
+      "build": "T4b +post by value",
+      "win_ratio": 0.5698,
+      "segdist": "909/1256"
+    },
+    {
+      "build": "T6a +seeds &[&[&[u8]];1] inline bump",
+      "win_ratio": 0.5759
+    },
+    {
+      "build": "T9b +swap_hop-scope curve_key",
+      "win_ratio": 0.6006,
+      "segdist": "938/1110",
+      "raw_kept": true
+    },
+    {
+      "build": "T11 +admit_vaults inlined (raw 0xa868 artifact)",
+      "win_ratio": 0.6851,
+      "segdist": "819/966"
+    }
+  ],
+  "key_findings": [
+    "a: &mut MultiHopCurve stops MIR GVN from folding a.user key derefs (root cause of w3's user-copy fold); original reloads the user key pointer per event",
+    "Frame census drove each change: CompleteEvent own 136 B slot (post nested in completion block), fresh 64 B post copy (by value), seeds 16/48/1 B temps (&[&[&[u8]];1] with inline &[curve_bump]), long-lived curve_key 32 B slot (swap_hop-scope let)",
+    "admit_vaults helper vs inline: original stores the Err into sret before dropping to_account_info temps -> temps are swap_hop statement temporaries",
+    "raw 0xa868 is a span-size coincidence: a Debug::fmt thunk whose call spans swap_hop; any swap_hop size change loses it (affects all lanes)"
+  ],
+  "attempts": 30,
+  "rejected_mechanisms": [
+    "post_fill by value without nesting (T1c)",
+    "curve_key inside admit_vaults (T7, 18096 B)",
+    "post_fill arm-tuple element alone (T5/T8: frame exact, code worse)",
+    "whitelist user temp inline (T10a marginal) / block-scoped (T10b identical)",
+    "IR single block moves (10335) and branch weights/polarity on mayhem/memcmp"
+  ],
+  "unresolved": [
+    "sell tail + accrue join placement vs 590 error (MBP frequency)",
+    "fees/post_fill frame order (fixed by T8/T12 at a code cost)",
+    "spill slot layout (regalloc, follows code)",
+    "raw 0xa868 span artifact policy"
+  ],
+  "next_ideas": [
+    "Coordinator: decide whether the raw 0xa868 span coincidence counts as a loss; if not, adopt T11 (0.6851)",
+    "On T11/T12: find source shapes that make the original's error edges unlikely (cold) so MBP picks the sell tail before the 590 error",
+    "Re-run fimap/seg on T12 after any placement fix; T12 is frame-exact and 16 B from orig size"
+  ]
+}

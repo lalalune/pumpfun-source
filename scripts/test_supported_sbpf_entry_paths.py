@@ -71,12 +71,14 @@ class EntryPathTests(unittest.TestCase):
         self.env = {'CARGO_HOME': str(cache)}
         self.output = base / 'out'
 
-    def plan(self, manifest):
+    def plan(self, manifest, extra_inputs=()):
         (self.crate / 'Cargo.toml').write_text(manifest)
         module = adapter()
         arguments = ['--manifest', str(self.crate / 'Cargo.toml'), '--program', 'mayhem',
                      '--artifact-name', 'result.so', '--tools-version', 'v1.53',
                      '--output', str(self.output), '--dry-run']
+        for extra in extra_inputs:
+            arguments += ['--extra-input', str(extra)]
         return module.plan(module.parser().parse_args(arguments), self.repo, self.env,
                            cache_root=self.tools, policy_directory=self.policies)
 
@@ -102,6 +104,14 @@ class EntryPathTests(unittest.TestCase):
         manifest += '\n[[bin]]\nname="unrecorded"\npath="D:\\\\unrecorded.rs"\n'
         self.rejected(manifest)
 
+    def test_windows_drive_relative_build_script_rejected_on_every_host(self):
+        # A POSIX filename with a Windows drive prefix is a relative filename
+        # here, but Windows Cargo resolves it through that drive's current
+        # directory rather than the copied crate.
+        reference = 'C:recorded-drive-relative.rs'
+        (self.crate / reference).write_text('// recorded POSIX-only filename\n')
+        self.rejected(self.with_build(reference))
+
     def test_windows_unc_build_script_rejected_on_every_host(self):
         self.rejected(self.with_build('\\\\\\\\server\\\\share\\\\unrecorded.rs'))
 
@@ -121,6 +131,38 @@ class EntryPathTests(unittest.TestCase):
     def test_recorded_relative_entry_still_plans(self):
         planned = self.plan(TOML.replace('name="fixture_lib"', 'name="fixture_lib"\npath="src/lib.rs"'))
         self.assertIn('programs/mayhem/src/lib.rs', planned['source_sha256'])
+        self.assertFalse(self.output.exists())
+
+    def helper(self):
+        helper = self.repo / 'crates/helper'
+        (helper / 'src').mkdir(parents=True)
+        (helper / 'Cargo.toml').write_text('[package]\nname="helper"\nversion="0.1.0"\n')
+        (helper / 'src/lib.rs').write_text('// synthetic dependency fixture\n')
+        return helper
+
+    def test_absolute_path_dependency_rejected_on_every_host(self):
+        # The copied manifest keeps the literal path, so even a recorded in-repo
+        # dependency would be compiled from the live tree, not the snapshot.
+        helper = self.helper()
+        for reference in (helper.as_posix(), '/tmp/elsewhere', 'C:/elsewhere', 'C:elsewhere', '\\\\server\\share\\dep'):
+            with self.subTest(reference=reference):
+                with self.assertRaisesRegex(ValueError, 'absolute Cargo path dependencies'):
+                    self.plan(TOML + '[dependencies]\nhelper={path=\'' + reference + '\'}\n', [helper])
+                self.assertFalse(self.output.exists())
+
+    def test_relative_path_dependency_escape_rejected(self):
+        with self.assertRaisesRegex(ValueError, 'path dependency is outside the recorded snapshot'):
+            self.plan(TOML + '[dependencies]\nhelper={path="../../../elsewhere"}\n')
+        self.assertFalse(self.output.exists())
+
+    def test_package_metadata_path_is_not_a_dependency(self):
+        planned = self.plan(TOML + '[package.metadata.tool]\npath="/usr/share/tool"\n')
+        self.assertIn('programs/mayhem/Cargo.toml', planned['source_sha256'])
+
+    def test_recorded_relative_path_dependency_still_plans(self):
+        helper = self.helper()
+        planned = self.plan(TOML + '[dependencies]\nhelper={path="../../crates/helper"}\n', [helper])
+        self.assertIn('crates/helper/Cargo.toml', planned['source_sha256'])
         self.assertFalse(self.output.exists())
 
 

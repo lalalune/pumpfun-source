@@ -142,6 +142,9 @@ class BuildDiagnosticTests(unittest.TestCase):
             source = root / 'source'
             source.mkdir()
             (source / 'lib.rs').write_text('// synthetic input\n')
+            baseline = root / 'pump-main/baseline'
+            baseline.mkdir(parents=True)
+            (baseline / 'score.json').write_text('{}')
             argv = ['integrate.py', '--name', 'stack-check', '--base-src', str(source)]
             with patch.object(integrate, 'SC', root), patch.object(sys, 'argv', argv), \
                  patch.object(integrate.fastbuild, 'build', return_value=result), \

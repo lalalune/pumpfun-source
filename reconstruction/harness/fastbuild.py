@@ -25,7 +25,8 @@ SC = H.parent
 SDK = Path.home() / '.cache/solana/v1.44/platform-tools'
 # Generated toolchain, dependency caches and build-slot locks live outside the repository so every
 # worktree shares them (see reconstruction/toolchain/bootstrap.py).
-CACHE = Path(os.environ.get('PUMP_RECON_HOME', str(Path.home() / '.cache/pumpfun-reconstruction')))
+# Cargo runs from the staged workspace; anchor relative overrides without resolving symlinks.
+CACHE = Path(os.environ.get('PUMP_RECON_HOME', str(Path.home() / '.cache/pumpfun-reconstruction'))).absolute()
 # Recipes: 'mac' = installed macOS v1.44 SDK, triple sbf-solana-solana (Codex harness default);
 # 'identity' = same macOS rustc binary with the official Linux x86_64 v1.44 target libraries, triple
 # sbpf-solana-solana (the original's toolchain identity, proven by TypeId constants; identity-01).
@@ -69,6 +70,8 @@ def stage(src: Path, ws: Path):
 
 
 def acquire_slot():
+    if SLOTS <= 0:
+        raise ValueError('PUMP_BUILD_SLOTS must be a positive integer')
     LOCKDIR.mkdir(parents=True, exist_ok=True)
     while True:
         for i in range(SLOTS):
@@ -79,20 +82,6 @@ def acquire_slot():
             except BlockingIOError:
                 f.close()
         time.sleep(0.5)
-
-
-def archive_previous_outputs(out: Path):
-    """Keep old evidence separate from the next attempt's canonical output paths."""
-    names = ('unstripped.so', 'candidate.so', 'build.log')
-    present = [out / name for name in names
-               if (out / name).exists() or (out / name).is_symlink()]
-    if not present:
-        return
-    previous = out / 'previous'
-    previous.mkdir(exist_ok=True)
-    archive = Path(tempfile.mkdtemp(prefix='build-', dir=previous))
-    for path in present:
-        path.rename(archive / path.name)
 
 
 @contextmanager
@@ -110,6 +99,20 @@ def workspace_lock(work: Path):
             yield
         finally:
             fcntl.flock(lock, fcntl.LOCK_UN)
+
+
+def archive_previous_outputs(out: Path):
+    """Keep old evidence separate from the next attempt's canonical output paths."""
+    names = ('unstripped.so', 'candidate.so', 'build.log')
+    present = [out / name for name in names
+               if (out / name).exists() or (out / name).is_symlink()]
+    if not present:
+        return
+    previous = out / 'previous'
+    previous.mkdir(exist_ok=True)
+    archive = Path(tempfile.mkdtemp(prefix='build-', dir=previous))
+    for path in present:
+        path.rename(archive / path.name)
 
 
 def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):

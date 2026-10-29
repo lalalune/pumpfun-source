@@ -60,6 +60,28 @@ SYSCALL_NAMES = {
     0xcccd2005: "sol_remaining_compute_units",
 }
 
+INVOKE_SYSCALLS = ("sol_invoke_signed_c", "sol_invoke_signed_rust")
+
+
+def call_symbol(elf, offset):
+    """Name a syscall call at offset, or return None.
+
+    Captured programs relocate syscalls: opcode 0x85, src=1, imm=-1, and a
+    type-10 relocation whose symbol is the syscall. The hash-immediate form
+    (src=0, imm=the syscall hash) is still recognized.
+    """
+    blob = elf.b
+    if offset < 0 or offset + 8 > len(blob) or blob[offset] != 0x85:
+        return None
+    regs = blob[offset + 1]
+    if regs == 0x00:
+        return SYSCALL_NAMES.get(struct.unpack_from("<I", blob, offset + 4)[0])
+    if regs >> 4 == 1 and struct.unpack_from("<i", blob, offset + 4)[0] == -1:
+        relocation = elf.relocations.get(offset) or {}
+        if relocation.get("type") == 10 and relocation.get("symbol"):
+            return relocation["symbol"]
+    return None
+
 
 def extract_opcode_ngrams(elf, start, end, n=3):
     """Extract instruction opcode n-grams from a window."""
@@ -127,22 +149,20 @@ def detect_cpi_patterns(elf, start, end):
     b = elf.b
     patterns = []
     for offset in range(start, end, 8):
-        if b[offset] == 0x85 and b[offset + 1] == 0x00:
-            uimm = struct.unpack_from("<I", b, offset + 4)[0]
-            if uimm in (0xd56b5fe9, 0xe4042040):
-                name = SYSCALL_NAMES.get(uimm, "?")
-                # Look backwards for setup pattern
-                setup_instrs = 0
-                scan = offset - 8
-                while scan >= start and offset - scan < 200:
-                    if b[scan] in (0x63, 0x6b, 0x73, 0x7b):  # stx variants
-                        setup_instrs += 1
-                    scan -= 8
-                patterns.append({
-                    "offset": offset - start,
-                    "syscall": name,
-                    "setup_stores": setup_instrs,
-                })
+        name = call_symbol(elf, offset)
+        if name in INVOKE_SYSCALLS:
+            # Look backwards for setup pattern
+            setup_instrs = 0
+            scan = offset - 8
+            while scan >= start and offset - scan < 200:
+                if b[scan] in (0x63, 0x6b, 0x73, 0x7b):  # stx variants
+                    setup_instrs += 1
+                scan -= 8
+            patterns.append({
+                "offset": offset - start,
+                "syscall": name,
+                "setup_stores": setup_instrs,
+            })
     return patterns
 
 
@@ -191,10 +211,8 @@ def detect_serialization_patterns(elf, start, end):
         else:
             max_sequential = max(max_sequential, current_run)
             current_run = 0
-        if b[offset] == 0x85 and b[offset + 1] == 0x00:
-            uimm = struct.unpack_from("<I", b, offset + 4)[0]
-            if uimm == 0xa22b9c85:  # sol_memcpy_
-                memcpy_count += 1
+        if call_symbol(elf, offset) == "sol_memcpy_":
+            memcpy_count += 1
 
     return {
         "sequential_stores": sequential_stores,

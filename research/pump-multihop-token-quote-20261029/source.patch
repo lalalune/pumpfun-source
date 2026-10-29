@@ -1,0 +1,21 @@
+--- a/programs/pump/src/multi_hop_curve_swap.rs
++++ b/programs/pump/src/multi_hop_curve_swap.rs
+@@ -578,15 +578,15 @@
+             let c_rate = if flag & 2 != 0 { selected.creator_fee_bps } else { 0 };
+             let (_,crate::trade::TradeFees{protocol_fee:pf,creator_fee:cf,..}) = crate::trade::net_quote_for_budget(&c.creator,p_rate,c_rate,trade_amount)?;
+             let q = sub(sub(trade_amount,pf)?,cf)?;
+-            require!(q != 0,PumpError::Overflow);
+-            let effective = q - 1;
++
++
+ // layout-pad(6): aligns the next Source site with the original line
+ 
+ 
+ 
+ 
+ 
+-            let base = u64::try_from(div(effective as u128 * c.virtual_token_reserves as u128, c.virtual_quote_reserves as u128 + effective as u128)?).map_err(|_| error!(PumpError::Truncation))?;
++            let base = u64::try_from(crate::constant_product::tokens_for_quote(c,q)?).map_err(|_| error!(PumpError::Truncation))?;
+             require_gt!(base,0,PumpError::BuyZeroAmount);
+             let capped = base.min(c.real_token_reserves);
+             if base > c.real_token_reserves {
