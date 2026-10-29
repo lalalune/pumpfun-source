@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "initialSourceCommit": "5bea7ff75a0cdd6a8945197f836e0d09ca2957b6",
+  "correctedMethodCommit": "c5f4f89b4b0736452c539272249380b8de06515c",
+  "scope": "Complete source reconstruction and finite component-host qualification only; no product/native/CDN/identity/visual parity",
+  "frozenInputs": [
+    {
+      "path": "app/reconstruction/avatar-workflow/PROVENANCE.json",
+      "gitBlob": "caa9d0d22b51f374e972f91e5a66655699f3cbef",
+      "sha256": "cfb54f593e817098e77304417a70833f6e720b075c012d356a2b343fbc9b2906",
+      "bytes": 31313,
+      "currentIdentical": true
+    },
+    {
+      "path": "app/reconstruction/avatar-workflow/README.md",
+      "gitBlob": "04f99c81e8821f0096c4050a9e06ec78f0153751",
+      "sha256": "3ddf394db4e3204790498a3d784a8eaa07014c36451d45d6d7a23d0b81fe8026",
+      "bytes": 5534,
+      "currentIdentical": false
+    },
+    {
+      "path": "app/reconstruction/avatar-workflow/client.mjs",
+      "gitBlob": "6220b3f8ba37406d3ff197b1882cc2686e268953",
+      "sha256": "312a5b74fbae95348f4a96778c8e7862a6ef10b99cd3037355d2494693a41f24",
+      "bytes": 19814,
+      "currentIdentical": true
+    },
+    {
+      "path": "app/reconstruction/avatar-workflow/verify.mjs",
+      "gitBlob": "381570faf3105a58a5d5a783d28bc82e2c0ccf33",
+      "sha256": "31da9a4cc84b340865cb0d922d16da6a81cbe66bdd7e8086017d20461337a74d",
+      "bytes": 12451,
+      "currentIdentical": true
+    },
+    {
+      "path": "app/tests/avatar_workflow.browser.mjs",
+      "gitBlob": "3ae2bd6ac45554e526b45e7401ce1c5f58bea465",
+      "sha256": "f3369fbbcc8952168d6c7a8146833384a2a743d11dbb992542893b6152e26163",
+      "bytes": 8811,
+      "currentIdentical": true
+    },
+    {
+      "path": "app/tests/avatar_workflow.test.mjs",
+      "gitBlob": "331c6489b9b32a4db2ee02a3eb4145039d89591a",
+      "sha256": "244b8d2c751122a407e98206e72302547546e5519ee96e6e582b26f347a9d32c",
+      "bytes": 10160,
+      "currentIdentical": true
+    },
+    {
+      "path": "app/tests/fixtures/avatar-workflow.mjs",
+      "gitBlob": "c769bbcc4ecdf48d2f0cda3ff139dd05c050eec6",
+      "sha256": "4d1dbeffdcfe1d80372d163113f5f89b8e6bcf701f1f039a85cc378f3e67a35a",
+      "bytes": 2784,
+      "currentIdentical": true
+    }
+  ],
+  "tests": {
+    "newNode": 12,
+    "sharedSource": 11,
+    "nodePass": 23,
+    "browserWorkflows": 1,
+    "browserWidths": [
+      390,
+      1280
+    ],
+    "appEvidence": 698,
+    "progress": "PASS"
+  },
+  "initialBrowser": {
+    "result": "FAIL",
+    "phase": {
+      "width": 390,
+      "stage": "native-invalid-data-then-blocked-fallback"
+    },
+    "failure": {
+      "name": "TimeoutError",
+      "message": "page.waitForFunction: Timeout 30000ms exceeded."
+    },
+    "observedLimit": "One native invalid-data error/no fallback/no CSP event. No original effect order instrumentation; cause not proved.",
+    "cleanup": {
+      "browserClosed": true,
+      "serverListening": false
+    }
+  },
+  "correctedBrowser": {
+    "result": "PASS",
+    "cleanup": {
+      "browserClosed": true,
+      "serverListening": false
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/"
+      },
+      {
+        "method": "GET",
+        "path": "/fixture.js"
+      },
+      {
+        "method": "GET",
+        "path": "/"
+      },
+      {
+        "method": "GET",
+        "path": "/fixture.js"
+      }
+    ],
+    "actualBundledInputs": [
+      {
+        "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+        "bytes": 1065698,
+        "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+      },
+      {
+        "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+        "bytes": 17673,
+        "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+      },
+      {
+        "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+        "bytes": 1373,
+        "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+      },
+      {
+        "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+        "bytes": 1359,
+        "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+        "bytes": 1090,
+        "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-jsx-runtime.development.js",
+        "bytes": 12452,
+        "sha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+        "bytes": 47219,
+        "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+        "bytes": 412,
+        "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+        "bytes": 186,
+        "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/jsx-runtime.js",
+        "bytes": 210,
+        "sha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc"
+      },
+      {
+        "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+        "bytes": 12144,
+        "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+      },
+      {
+        "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+        "bytes": 194,
+        "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+      },
+      {
+        "path": "reconstruction/avatar-workflow/client.mjs",
+        "bytes": 19814,
+        "sha256": "312a5b74fbae95348f4a96778c8e7862a6ef10b99cd3037355d2494693a41f24"
+      },
+      {
+        "path": "reconstruction/search-client/contract.json",
+        "bytes": 126675,
+        "sha256": "10d78bb855e0c14b6dd9ee7320d2cb05edee1489047a63fc912209b6373505d4"
+      },
+      {
+        "path": "reconstruction/search-client/request.mjs",
+        "bytes": 4250,
+        "sha256": "45f4e8e634ea87bbcb958a789427dec166348d04477044802b74de30944959f3"
+      },
+      {
+        "path": "reconstruction/search-session/session.mjs",
+        "bytes": 9189,
+        "sha256": "1adde3f71efcc54fbd4e7e5e9cd511a728f7a7c371c00d9900d932dba950f2c9"
+      },
+      {
+        "path": "tests/fixtures/avatar-workflow.mjs",
+        "bytes": 2784,
+        "sha256": "4d1dbeffdcfe1d80372d163113f5f89b8e6bcf701f1f039a85cc378f3e67a35a"
+      }
+    ],
+    "declaredInputs": [
+      {
+        "path": "reconstruction/avatar-workflow/client.mjs",
+        "bytes": 19814,
+        "sha256": "312a5b74fbae95348f4a96778c8e7862a6ef10b99cd3037355d2494693a41f24"
+      },
+      {
+        "path": "reconstruction/avatar-workflow/verify.mjs",
+        "bytes": 12451,
+        "sha256": "31da9a4cc84b340865cb0d922d16da6a81cbe66bdd7e8086017d20461337a74d"
+      },
+      {
+        "path": "reconstruction/avatar-workflow/PROVENANCE.json",
+        "bytes": 31313,
+        "sha256": "cfb54f593e817098e77304417a70833f6e720b075c012d356a2b343fbc9b2906"
+      },
+      {
+        "path": "tests/avatar_workflow.test.mjs",
+        "bytes": 10160,
+        "sha256": "244b8d2c751122a407e98206e72302547546e5519ee96e6e582b26f347a9d32c"
+      },
+      {
+        "path": "tests/avatar_workflow.browser.mjs",
+        "bytes": 8811,
+        "sha256": "f3369fbbcc8952168d6c7a8146833384a2a743d11dbb992542893b6152e26163"
+      },
+      {
+        "path": "tests/fixtures/avatar-workflow.mjs",
+        "bytes": 2784,
+        "sha256": "4d1dbeffdcfe1d80372d163113f5f89b8e6bcf701f1f039a85cc378f3e67a35a"
+      },
+      {
+        "path": "pnpm-lock.yaml",
+        "bytes": 113160,
+        "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+      }
+    ],
+    "delivery": "Authored flushSync + recording React hook port; source hooks delegated, no source change.",
+    "consoleLimit": "Each width retains8CSP denials and1React forwardRef unknown-DOM-prop diagnostic; no clean-console claim.",
+    "pageErrors": [],
+    "remoteAttempts": []
+  },
+  "historicalMapping": "5bea\u2192c5f changes exactly2 method files; generated runtime/verifier/provenance/Node tests/doc identical. Publication adds only receipt files and the README qualification addendum. All7 original freeze blobs stay recorded; historical raw failures remain unchanged.",
+  "requiredRootGates": "Pending exact-public53Git/9capture/10tooling gates at initial publication; PR body later reports exact public result. No full Next/build/browser product qualification is claimed.",
+  "sourceAttribution": "Sixphysicalcontexts, complete13/30/34slot owners, bundled350606 deterministic catalog/seed, used367498D/p/k, both747337 URI variants, fiveactual204478 descriptors.426091r/A reused from acceptedsearch-session;1296Avatar port credited.",
+  "limits": [
+    "Captured factories inert parsed only",
+    "No remote asset/service/cookie/auth/router/provider acquisition or implementation",
+    "No feature/API/native/security/full-equivalence or original pixel claim",
+    "All original captures/SDK/dependencies/shared styles/ledger unchanged"
+  ],
+  "filesManifest": "MANIFEST.json",
+  "archiveIndex": "ARCHIVE-INDEX.json"
+}
