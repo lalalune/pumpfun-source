@@ -1,0 +1,13 @@
+diff --git a/app/reconstruction/create-quote-selection/qualification/browser.mjs b/app/reconstruction/create-quote-selection/qualification/browser.mjs
+index dfae5a5d07..bf3207fe34 100644
+--- a/app/reconstruction/create-quote-selection/qualification/browser.mjs
++++ b/app/reconstruction/create-quote-selection/qualification/browser.mjs
+@@ -137,7 +137,7 @@ try {
+     await page.evaluate(() => window.harness.setLanguage('B'));
+     assert.equal(await stockRadio().getAttribute('aria-checked'), 'true');
+     assert.equal(await page.getByRole('radiogroup').getAttribute('aria-label'), 'B Pair asset');
+-    assert.ok((await trigger().innerText()).includes('B Pair')); assert.equal(await sol.innerText(), 'SOL'); assert.equal(await usdc.innerText(), 'USDC');
++    assert.ok((await trigger().innerText()).includes('B Pair')); assert.equal(await sol.getByText('SOL', { exact: true }).innerText(), 'SOL'); assert.equal(await usdc.getByText('USDC', { exact: true }).innerText(), 'USDC');
+     row.changed = await observed(); assert.equal(row.changed.pair.coin.name, '');
+   });
+   await scenario('independent open state survives supplied quote change and real subscriptions clean up', async (row) => {

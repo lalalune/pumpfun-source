@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "initialLocalMethod": "fde74628e08239f43fe177059923f8a00f79be76",
+  "correctedLocalMethod": "795f2c1af134ccd11ac8493afebabccf0aa414f6",
+  "publicSource": "0f52159d20c38fd5fd793ec1d3cc659e62d87c93",
+  "exactCompleteTreeForCorrectedAndPublic": "09df46a533d3fb5337012de9aa61b51123e98760",
+  "frozenEightFiles": [
+    {
+      "path": "app/reconstruction/create-quote-selection/README.md",
+      "bytes": 7456,
+      "sha256": "c2075286ac8778df59a5262f988b8d4f823cf28c69e5ec9eee7d1d7610ae824b",
+      "gitBlob": "fa369ada08e7539bed1dc292c75e5de10a3cf0d6"
+    },
+    {
+      "path": "app/reconstruction/create-quote-selection/client.d.mts",
+      "bytes": 2195,
+      "sha256": "c4c5a63210397a148d6106c8f66656cf7d0e7a6d28cd491eb94a44bf80cc09e6",
+      "gitBlob": "266ad09dba855b11aa7d179a969d66d142f4248e"
+    },
+    {
+      "path": "app/reconstruction/create-quote-selection/client.mjs",
+      "bytes": 12098,
+      "sha256": "fa4fc993de007ad6fa2148711ac551ba6e4d8bfd6c1a185761095019e9455440",
+      "gitBlob": "5582173e0632a379bb4f0109ec9e7567b8778e79"
+    },
+    {
+      "path": "app/reconstruction/create-quote-selection/contract.json",
+      "bytes": 42196,
+      "sha256": "9644c0aa70ca0fa6cbaf00d15747f06f7b91d8108b936f6d3a0b34bc5c26bba0",
+      "gitBlob": "e45e50c8b79c04e8c3098b0a06a7afcedbb9cb38"
+    },
+    {
+      "path": "app/reconstruction/create-quote-selection/qualification/browser.mjs",
+      "bytes": 14192,
+      "sha256": "33e98aa7aa1bec47d97b0545ff323015dce2d16f7e3ee70a95c08902faec45ab",
+      "gitBlob": "bf3207fe348f553bce836e142a3ef828f7eb8a8c"
+    },
+    {
+      "path": "app/reconstruction/create-quote-selection/qualification/fixture.mjs",
+      "bytes": 6468,
+      "sha256": "feb76b63837922cc6bb5c51612c504c4c69c7757c833f93b2a2be918cb1e2d43",
+      "gitBlob": "e907997b0d090131885b8343a491bf4576f29788"
+    },
+    {
+      "path": "app/scripts/original-create-quote-selection.mjs",
+      "bytes": 14792,
+      "sha256": "5d99992d83f52893ce275d01448dc0833f3708104bcbcfa2cc347a2a264a7baa",
+      "gitBlob": "2fdf2c5f464b0f87b3d8b5abc6ddd3ed605a2877"
+    },
+    {
+      "path": "app/tests/original_create_quote_selection.test.mjs",
+      "bytes": 11394,
+      "sha256": "ad7f2258792d1f3e8d070a69ef0d07c700dffe47852503357aa80823ecd3ee3d",
+      "gitBlob": "254b16d0c5ba36b6fbc9a5798c83c34500dafa19"
+    }
+  ],
+  "source": {
+    "physicalRoles": 11,
+    "witnesses": 41,
+    "components": 4,
+    "compilerSlots": 93,
+    "canonicalUtf8Checked": true
+  },
+  "direct": {
+    "passed": 11,
+    "failed": 0,
+    "skipped": 0,
+    "actualMaintainedVerifierMutationRejections": 7,
+    "log": "focused-frozen.log",
+    "earlierSameSuite": "focused-initial.log",
+    "notUniqueRetally": true
+  },
+  "portsTypes": {
+    "command": [
+      "corepack",
+      "pnpm",
+      "exec",
+      "tsc",
+      "--noEmit",
+      "--strict",
+      "--skipLibCheck",
+      "--target",
+      "ES2022",
+      "--module",
+      "NodeNext",
+      "--moduleResolution",
+      "NodeNext",
+      "reconstruction/create-quote-selection/client.d.mts"
+    ],
+    "cwd": "app",
+    "returncode": 0,
+    "log": "ports-types.log"
+  },
+  "browserInitial": {
+    "method": "fde74628e08239f43fe177059923f8a00f79be76",
+    "passed": 6,
+    "failed": 1,
+    "unrun": 1,
+    "result": "browser-initial/RESULT.json",
+    "controllerInertCopy": "initial-browser.source.txt",
+    "controllerSha256": "7afa5ca7c2d4f6fdb39f20bc3d5d773b33fe89117eb99fa911fe814c8d8a9392",
+    "controllerGitBlob": "dfae5a5d07220bc2fb096020716d67f43c5a45eb",
+    "localCommitNotClaimedPublicAncestor": true,
+    "failure": "Whole-button innerText was \u25c7SOL because synthetic Image port supplies aria-hidden glyph; exact source label child was SOL.",
+    "correction": "Only two assertions now address exact SOL/USDC label descendants; no runtime/fixture/type/verifier changes or timeout increase.",
+    "patch": "label-oracle-correction.patch"
+  },
+  "browserFinal": {
+    "method": "795f2c1af134ccd11ac8493afebabccf0aa414f6",
+    "command": [
+      "node",
+      "reconstruction/create-quote-selection/qualification/browser.mjs",
+      "--source",
+      "795f2c1af134ccd11ac8493afebabccf0aa414f6",
+      "--output",
+      "NEW_DIRECTORY"
+    ],
+    "cwd": "app",
+    "passed": 8,
+    "failed": 0,
+    "unrun": 0,
+    "result": "browser-final/RESULT.json",
+    "actualInputs": 16,
+    "exactGitBoundRuntimeFiles": 4,
+    "allInputsUnchangedAfter": true,
+    "pageErrors": [],
+    "browserClosed": true,
+    "serverListening": false,
+    "onlyRecordedRequests": [
+      "GET /",
+      "GET /bundle.js"
+    ],
+    "blockedRequests": []
+  },
+  "bundle": {
+    "sharedByBothRuns": true,
+    "retained": "bundle.js.gz",
+    "uncompressedBytes": 1146839,
+    "uncompressedSha256": "61e66b9fd0bbabf37eba55b99c5e6c45091d623374591fa2a1d2906f202fd38d",
+    "gzipRoundtripVerified": true
+  },
+  "sharedAndIntegrity": {
+    "sharedSourceChecks": 11,
+    "captures": 698,
+    "sdkSourceFiles": 31,
+    "npmIntegrity": true,
+    "progressChecks": 9,
+    "allPassed": true
+  },
+  "mandatory": {
+    "source": "795f2c1af134ccd11ac8493afebabccf0aa414f6",
+    "gitBoundInputs": 53,
+    "captureChecks": 9,
+    "toolingTests": 10,
+    "allPassed": true,
+    "record": "mandatory-source-record.json"
+  },
+  "publicExport": {
+    "source": "0f52159d20c38fd5fd793ec1d3cc659e62d87c93",
+    "gitAuthenticatedFiles": 21,
+    "pathContainsSpaces": true,
+    "sourceCheckPassed": true,
+    "same11ModelCasesPassNot22Unique": true,
+    "allExportedInputsUnchangedAfter": true,
+    "binding": "PUBLIC-EXPORT.json",
+    "sourceLog": "public-source.log",
+    "modelLog": "public-model.log",
+    "browserRepeated": false,
+    "browserPortability": "Runner explicitly accepts fetchable public source SHA; four required Git file bytes equal corrected measured source. Minimal model export has no Git metadata and is not claimed as a browser replay."
+  },
+  "limits": [
+    "Synthetic supplied quote/stock/flag/translation/renderer/picker ports; real React/compiler, not original provider, query scheduler or website mount.",
+    "Native browser button actions and source controls only; synthetic image glyphs make no image requests. Gateway notification buttons do not qualify original dialog/backdrop/keyboard behavior.",
+    "Direct picker missing/empty fields test defensive callbacks, not original asset search eligibility. Current values and remote assets are not acquired.",
+    "Private fee-sharing initializer, original stock query and full picker body remain inert. No fee calculation/private H, wallet/session, credential/cookie, reservation/funding/upload/signing/transaction/submission executes.",
+    "No Next/full-app build or original factory execution, DOM/visual/runtime parity, native/API compatibility, security clearance or milestone claimed."
+  ]
+}

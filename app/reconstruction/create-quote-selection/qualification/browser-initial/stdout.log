@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'◇SOL' !== 'SOL'
+
+    at file:///workspace/pump-app-chart/app/reconstruction/create-quote-selection/qualification/browser.mjs:140:73
+    at async scenario (file:///workspace/pump-app-chart/app/reconstruction/create-quote-selection/qualification/browser.mjs:63:9)
+    at async file:///workspace/pump-app-chart/app/reconstruction/create-quote-selection/qualification/browser.mjs:136:3 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '◇SOL',
+  expected: 'SOL',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

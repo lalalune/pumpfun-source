@@ -1,0 +1,2409 @@
+{
+  "scope": "Standalone real React/compiler; complete quote coordinator with synthetic query/picker/state/translation/art/dialog ports. No original acquisition, provider, asset search, wallet or submission.",
+  "selectedSource": "795f2c1af134ccd11ac8493afebabccf0aa414f6",
+  "repositoryHead": "795f2c1af134ccd11ac8493afebabccf0aa414f6",
+  "sourceBinding": [
+    {
+      "path": "reconstruction/create-quote-selection/client.mjs",
+      "bytes": 12098,
+      "sha256": "fa4fc993de007ad6fa2148711ac551ba6e4d8bfd6c1a185761095019e9455440",
+      "gitBlob": "5582173e0632a379bb4f0109ec9e7567b8778e79"
+    },
+    {
+      "path": "reconstruction/create-quote-selection/client.d.mts",
+      "bytes": 2195,
+      "sha256": "c4c5a63210397a148d6106c8f66656cf7d0e7a6d28cd491eb94a44bf80cc09e6",
+      "gitBlob": "266ad09dba855b11aa7d179a969d66d142f4248e"
+    },
+    {
+      "path": "reconstruction/create-quote-selection/qualification/browser.mjs",
+      "bytes": 14192,
+      "sha256": "33e98aa7aa1bec47d97b0545ff323015dce2d16f7e3ee70a95c08902faec45ab",
+      "gitBlob": "bf3207fe348f553bce836e142a3ef828f7eb8a8c"
+    },
+    {
+      "path": "reconstruction/create-quote-selection/qualification/fixture.mjs",
+      "bytes": 6468,
+      "sha256": "feb76b63837922cc6bb5c51612c504c4c69c7757c833f93b2a2be918cb1e2d43",
+      "gitBlob": "e907997b0d090131885b8343a491bf4576f29788"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65",
+      "afterRunSha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e",
+      "afterRunSha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-jsx-runtime.development.js",
+      "bytes": 12452,
+      "sha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d",
+      "afterRunSha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/jsx-runtime.js",
+      "bytes": 210,
+      "sha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc",
+      "afterRunSha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096",
+      "afterRunSha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601",
+      "afterRunSha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d",
+      "afterRunSha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb",
+      "afterRunSha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c",
+      "afterRunSha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505",
+      "afterRunSha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1",
+      "afterRunSha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396",
+      "afterRunSha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396",
+      "unchanged": true
+    },
+    {
+      "path": "reconstruction/create-quote-selection/client.mjs",
+      "bytes": 12098,
+      "sha256": "fa4fc993de007ad6fa2148711ac551ba6e4d8bfd6c1a185761095019e9455440",
+      "afterRunSha256": "fa4fc993de007ad6fa2148711ac551ba6e4d8bfd6c1a185761095019e9455440",
+      "unchanged": true
+    },
+    {
+      "path": "reconstruction/create-quote-selection/qualification/fixture.mjs",
+      "bytes": 6468,
+      "sha256": "feb76b63837922cc6bb5c51612c504c4c69c7757c833f93b2a2be918cb1e2d43",
+      "afterRunSha256": "feb76b63837922cc6bb5c51612c504c4c69c7757c833f93b2a2be918cb1e2d43",
+      "unchanged": true
+    },
+    {
+      "path": "reconstruction/create-quote-selection/client.d.mts",
+      "bytes": 2195,
+      "sha256": "c4c5a63210397a148d6106c8f66656cf7d0e7a6d28cd491eb94a44bf80cc09e6",
+      "afterRunSha256": "c4c5a63210397a148d6106c8f66656cf7d0e7a6d28cd491eb94a44bf80cc09e6",
+      "unchanged": true
+    },
+    {
+      "path": "reconstruction/create-quote-selection/qualification/browser.mjs",
+      "bytes": 14192,
+      "sha256": "33e98aa7aa1bec47d97b0545ff323015dce2d16f7e3ee70a95c08902faec45ab",
+      "afterRunSha256": "33e98aa7aa1bec47d97b0545ff323015dce2d16f7e3ee70a95c08902faec45ab",
+      "unchanged": true
+    }
+  ],
+  "bundleSha256": "61e66b9fd0bbabf37eba55b99c5e6c45091d623374591fa2a1d2906f202fd38d",
+  "cases": [
+    {
+      "name": "complete initial SOL radios and supplied stock availability gate",
+      "startedAt": "2026-10-29T23:36:30.244Z",
+      "initial": {
+        "pair": {
+          "kind": "sol"
+        },
+        "isQuoteMintEnabled": false,
+        "mayhem": false,
+        "sharing": false,
+        "calls": [],
+        "language": "A",
+        "sameStockReference": false,
+        "samePumpReference": false,
+        "samePumpNestedReference": false,
+        "pickerFields": [],
+        "pickerSameReaderArray": false,
+        "quoteSubscribers": 1,
+        "readerSubscribers": 1,
+        "translationSubscribers": 1,
+        "translations": [
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          }
+        ]
+      },
+      "loaded": {
+        "pair": {
+          "kind": "sol"
+        },
+        "isQuoteMintEnabled": false,
+        "mayhem": false,
+        "sharing": false,
+        "calls": [],
+        "language": "A",
+        "sameStockReference": false,
+        "samePumpReference": false,
+        "samePumpNestedReference": false,
+        "pickerFields": [],
+        "pickerSameReaderArray": false,
+        "quoteSubscribers": 1,
+        "readerSubscribers": 1,
+        "translationSubscribers": 1,
+        "translations": [
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          }
+        ]
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T23:36:30.314Z"
+    },
+    {
+      "name": "native SOL/USDC radio selection updates exact pair flag and ignores same-kind selection",
+      "startedAt": "2026-10-29T23:36:30.314Z",
+      "usdc": {
+        "pair": {
+          "kind": "usdc"
+        },
+        "isQuoteMintEnabled": true,
+        "mayhem": false,
+        "sharing": false,
+        "calls": [
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "usdc"
+              },
+              "isQuoteMintEnabled": true
+            }
+          ]
+        ],
+        "language": "A",
+        "sameStockReference": false,
+        "samePumpReference": false,
+        "samePumpNestedReference": false,
+        "pickerFields": [],
+        "pickerSameReaderArray": false,
+        "quoteSubscribers": 1,
+        "readerSubscribers": 1,
+        "translationSubscribers": 1,
+        "translations": [
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          }
+        ]
+      },
+      "sol": {
+        "pair": {
+          "kind": "sol"
+        },
+        "isQuoteMintEnabled": false,
+        "mayhem": false,
+        "sharing": false,
+        "calls": [
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "usdc"
+              },
+              "isQuoteMintEnabled": true
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "sol"
+              },
+              "isQuoteMintEnabled": false
+            }
+          ]
+        ],
+        "language": "A",
+        "sameStockReference": false,
+        "samePumpReference": false,
+        "samePumpNestedReference": false,
+        "pickerFields": [],
+        "pickerSameReaderArray": false,
+        "quoteSubscribers": 1,
+        "readerSubscribers": 1,
+        "translationSubscribers": 1,
+        "translations": [
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          }
+        ]
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T23:36:30.445Z"
+    },
+    {
+      "name": "stock radio invokes supplied flag setters and notices in actual source order",
+      "startedAt": "2026-10-29T23:36:30.445Z",
+      "selected": {
+        "pair": {
+          "kind": "stock"
+        },
+        "isQuoteMintEnabled": false,
+        "mayhem": false,
+        "sharing": false,
+        "calls": [
+          [
+            "mayhem-read"
+          ],
+          [
+            "mayhem",
+            false
+          ],
+          [
+            "info",
+            "A:web.create.pair_stock_mayhem_unsupported"
+          ],
+          [
+            "sharing-read"
+          ],
+          [
+            "sharing",
+            false
+          ],
+          [
+            "info",
+            "A:web.create.pair_stock_fee_sharing_unsupported"
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "stock"
+              },
+              "isQuoteMintEnabled": false
+            }
+          ]
+        ],
+        "language": "A",
+        "sameStockReference": false,
+        "samePumpReference": false,
+        "samePumpNestedReference": false,
+        "pickerFields": [],
+        "pickerSameReaderArray": false,
+        "quoteSubscribers": 1,
+        "readerSubscribers": 1,
+        "translationSubscribers": 1,
+        "translations": [
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_mayhem_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_fee_sharing_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          }
+        ]
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T23:36:30.535Z"
+    },
+    {
+      "name": "six-field gateway/five-field picker contract, close notifications and stock identity",
+      "startedAt": "2026-10-29T23:36:30.535Z",
+      "open": {
+        "pair": {
+          "kind": "stock"
+        },
+        "isQuoteMintEnabled": false,
+        "mayhem": false,
+        "sharing": false,
+        "calls": [
+          [
+            "mayhem-read"
+          ],
+          [
+            "mayhem",
+            false
+          ],
+          [
+            "info",
+            "A:web.create.pair_stock_mayhem_unsupported"
+          ],
+          [
+            "sharing-read"
+          ],
+          [
+            "sharing",
+            false
+          ],
+          [
+            "info",
+            "A:web.create.pair_stock_fee_sharing_unsupported"
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "stock"
+              },
+              "isQuoteMintEnabled": false
+            }
+          ]
+        ],
+        "language": "A",
+        "sameStockReference": false,
+        "samePumpReference": false,
+        "samePumpNestedReference": false,
+        "pickerFields": [
+          "isLoading",
+          "stocks",
+          "onSelect",
+          "onSelectPumpCoin",
+          "onClose"
+        ],
+        "pickerSameReaderArray": true,
+        "quoteSubscribers": 1,
+        "readerSubscribers": 1,
+        "translationSubscribers": 1,
+        "translations": [
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_mayhem_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_fee_sharing_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          }
+        ]
+      },
+      "stock": {
+        "pair": {
+          "kind": "stock",
+          "stock": {
+            "mint": "synthetic-stock",
+            "symbol": "Stock name",
+            "ticker": "STK",
+            "nested": {
+              "retained": true
+            }
+          }
+        },
+        "isQuoteMintEnabled": false,
+        "mayhem": true,
+        "sharing": true,
+        "calls": [
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "stock",
+                "stock": {
+                  "mint": "synthetic-stock",
+                  "symbol": "Stock name",
+                  "ticker": "STK",
+                  "nested": {
+                    "retained": true
+                  }
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ]
+        ],
+        "language": "A",
+        "sameStockReference": true,
+        "samePumpReference": false,
+        "samePumpNestedReference": false,
+        "pickerFields": [
+          "isLoading",
+          "stocks",
+          "onSelect",
+          "onSelectPumpCoin",
+          "onClose"
+        ],
+        "pickerSameReaderArray": true,
+        "quoteSubscribers": 1,
+        "readerSubscribers": 1,
+        "translationSubscribers": 1,
+        "translations": [
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_mayhem_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_fee_sharing_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "Stock name",
+              "ticker": "STK"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          }
+        ]
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T23:36:30.790Z"
+    },
+    {
+      "name": "supplied Pump selection keeps shallow fields and defensive nullish/empty branches",
+      "startedAt": "2026-10-29T23:36:30.790Z",
+      "normal": {
+        "pair": {
+          "kind": "pump",
+          "coin": {
+            "mint": "synthetic-pump",
+            "name": "Pump name",
+            "symbol": "PMP",
+            "nested": {
+              "retained": true
+            },
+            "untouched": 12
+          }
+        },
+        "isQuoteMintEnabled": false,
+        "mayhem": true,
+        "sharing": true,
+        "calls": [
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "stock",
+                "stock": {
+                  "mint": "synthetic-stock",
+                  "symbol": "Stock name",
+                  "ticker": "STK",
+                  "nested": {
+                    "retained": true
+                  }
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-pump",
+                  "name": "Pump name",
+                  "symbol": "PMP",
+                  "nested": {
+                    "retained": true
+                  },
+                  "untouched": 12
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ]
+        ],
+        "language": "A",
+        "sameStockReference": false,
+        "samePumpReference": false,
+        "samePumpNestedReference": true,
+        "pickerFields": [
+          "isLoading",
+          "stocks",
+          "onSelect",
+          "onSelectPumpCoin",
+          "onClose"
+        ],
+        "pickerSameReaderArray": true,
+        "quoteSubscribers": 1,
+        "readerSubscribers": 1,
+        "translationSubscribers": 1,
+        "translations": [
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_mayhem_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_fee_sharing_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "Stock name",
+              "ticker": "STK"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "Stock name",
+              "ticker": "STK"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "PMP",
+              "ticker": "Pump name"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          }
+        ]
+      },
+      "missing": {
+        "pair": {
+          "kind": "pump",
+          "coin": {
+            "mint": "synthetic-missing",
+            "name": "synthetic-missing",
+            "nested": {
+              "retained": true
+            },
+            "untouched": 19,
+            "symbol": "synthetic-missing"
+          }
+        },
+        "isQuoteMintEnabled": false,
+        "mayhem": true,
+        "sharing": true,
+        "calls": [
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "stock",
+                "stock": {
+                  "mint": "synthetic-stock",
+                  "symbol": "Stock name",
+                  "ticker": "STK",
+                  "nested": {
+                    "retained": true
+                  }
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-pump",
+                  "name": "Pump name",
+                  "symbol": "PMP",
+                  "nested": {
+                    "retained": true
+                  },
+                  "untouched": 12
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-missing",
+                  "name": "synthetic-missing",
+                  "nested": {
+                    "retained": true
+                  },
+                  "untouched": 19,
+                  "symbol": "synthetic-missing"
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ]
+        ],
+        "language": "A",
+        "sameStockReference": false,
+        "samePumpReference": false,
+        "samePumpNestedReference": true,
+        "pickerFields": [
+          "isLoading",
+          "stocks",
+          "onSelect",
+          "onSelectPumpCoin",
+          "onClose"
+        ],
+        "pickerSameReaderArray": true,
+        "quoteSubscribers": 1,
+        "readerSubscribers": 1,
+        "translationSubscribers": 1,
+        "translations": [
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_mayhem_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_fee_sharing_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "Stock name",
+              "ticker": "STK"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "Stock name",
+              "ticker": "STK"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "PMP",
+              "ticker": "Pump name"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "PMP",
+              "ticker": "Pump name"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "synthetic-missing",
+              "ticker": "synthetic-missing"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          }
+        ]
+      },
+      "empty": {
+        "pair": {
+          "kind": "pump",
+          "coin": {
+            "mint": "synthetic-empty",
+            "name": "",
+            "symbol": "",
+            "untouched": 20
+          }
+        },
+        "isQuoteMintEnabled": false,
+        "mayhem": true,
+        "sharing": true,
+        "calls": [
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "stock",
+                "stock": {
+                  "mint": "synthetic-stock",
+                  "symbol": "Stock name",
+                  "ticker": "STK",
+                  "nested": {
+                    "retained": true
+                  }
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-pump",
+                  "name": "Pump name",
+                  "symbol": "PMP",
+                  "nested": {
+                    "retained": true
+                  },
+                  "untouched": 12
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-missing",
+                  "name": "synthetic-missing",
+                  "nested": {
+                    "retained": true
+                  },
+                  "untouched": 19,
+                  "symbol": "synthetic-missing"
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-empty",
+                  "name": "",
+                  "symbol": "",
+                  "untouched": 20
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ]
+        ],
+        "language": "A",
+        "sameStockReference": false,
+        "samePumpReference": false,
+        "samePumpNestedReference": false,
+        "pickerFields": [
+          "isLoading",
+          "stocks",
+          "onSelect",
+          "onSelectPumpCoin",
+          "onClose"
+        ],
+        "pickerSameReaderArray": true,
+        "quoteSubscribers": 1,
+        "readerSubscribers": 1,
+        "translationSubscribers": 1,
+        "translations": [
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_mayhem_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_fee_sharing_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "Stock name",
+              "ticker": "STK"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "Stock name",
+              "ticker": "STK"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "PMP",
+              "ticker": "Pump name"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "PMP",
+              "ticker": "Pump name"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "synthetic-missing",
+              "ticker": "synthetic-missing"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "synthetic-missing",
+              "ticker": "synthetic-missing"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          }
+        ]
+      },
+      "limit": "Defensive supplied callback branches only; no original asset-search eligibility proven.",
+      "status": "PASS",
+      "endedAt": "2026-10-29T23:36:31.075Z"
+    },
+    {
+      "name": "current stock/Pump retains third radio when reader empty/pending without disabling ordinary choices",
+      "startedAt": "2026-10-29T23:36:31.075Z",
+      "pending": {
+        "pair": {
+          "kind": "pump",
+          "coin": {
+            "mint": "synthetic-empty",
+            "name": "",
+            "symbol": "",
+            "untouched": 20
+          }
+        },
+        "isQuoteMintEnabled": false,
+        "mayhem": true,
+        "sharing": true,
+        "calls": [
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "stock",
+                "stock": {
+                  "mint": "synthetic-stock",
+                  "symbol": "Stock name",
+                  "ticker": "STK",
+                  "nested": {
+                    "retained": true
+                  }
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-pump",
+                  "name": "Pump name",
+                  "symbol": "PMP",
+                  "nested": {
+                    "retained": true
+                  },
+                  "untouched": 12
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-missing",
+                  "name": "synthetic-missing",
+                  "nested": {
+                    "retained": true
+                  },
+                  "untouched": 19,
+                  "symbol": "synthetic-missing"
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-empty",
+                  "name": "",
+                  "symbol": "",
+                  "untouched": 20
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ]
+        ],
+        "language": "A",
+        "sameStockReference": false,
+        "samePumpReference": false,
+        "samePumpNestedReference": false,
+        "pickerFields": [
+          "isLoading",
+          "stocks",
+          "onSelect",
+          "onSelectPumpCoin",
+          "onClose"
+        ],
+        "pickerSameReaderArray": false,
+        "quoteSubscribers": 1,
+        "readerSubscribers": 1,
+        "translationSubscribers": 1,
+        "translations": [
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_mayhem_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_fee_sharing_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "Stock name",
+              "ticker": "STK"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "Stock name",
+              "ticker": "STK"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "PMP",
+              "ticker": "Pump name"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "PMP",
+              "ticker": "Pump name"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "synthetic-missing",
+              "ticker": "synthetic-missing"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "synthetic-missing",
+              "ticker": "synthetic-missing"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          }
+        ]
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T23:36:31.168Z"
+    },
+    {
+      "name": "actual compiler updates source translation consumers while brand labels and selection remain",
+      "startedAt": "2026-10-29T23:36:31.168Z",
+      "changed": {
+        "pair": {
+          "kind": "pump",
+          "coin": {
+            "mint": "synthetic-empty",
+            "name": "",
+            "symbol": "",
+            "untouched": 20
+          }
+        },
+        "isQuoteMintEnabled": false,
+        "mayhem": true,
+        "sharing": true,
+        "calls": [
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "stock",
+                "stock": {
+                  "mint": "synthetic-stock",
+                  "symbol": "Stock name",
+                  "ticker": "STK",
+                  "nested": {
+                    "retained": true
+                  }
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-pump",
+                  "name": "Pump name",
+                  "symbol": "PMP",
+                  "nested": {
+                    "retained": true
+                  },
+                  "untouched": 12
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-missing",
+                  "name": "synthetic-missing",
+                  "nested": {
+                    "retained": true
+                  },
+                  "untouched": 19,
+                  "symbol": "synthetic-missing"
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-empty",
+                  "name": "",
+                  "symbol": "",
+                  "untouched": 20
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ]
+        ],
+        "language": "B",
+        "sameStockReference": false,
+        "samePumpReference": false,
+        "samePumpNestedReference": false,
+        "pickerFields": [
+          "isLoading",
+          "stocks",
+          "onSelect",
+          "onSelectPumpCoin",
+          "onClose"
+        ],
+        "pickerSameReaderArray": false,
+        "quoteSubscribers": 1,
+        "readerSubscribers": 1,
+        "translationSubscribers": 1,
+        "translations": [
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_mayhem_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_fee_sharing_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "Stock name",
+              "ticker": "STK"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "Stock name",
+              "ticker": "STK"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "PMP",
+              "ticker": "Pump name"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "PMP",
+              "ticker": "Pump name"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "synthetic-missing",
+              "ticker": "synthetic-missing"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "synthetic-missing",
+              "ticker": "synthetic-missing"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_change"
+          }
+        ]
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T23:36:31.200Z"
+    },
+    {
+      "name": "independent open state survives supplied quote change and real subscriptions clean up",
+      "startedAt": "2026-10-29T23:36:31.200Z",
+      "openSol": {
+        "pair": {
+          "kind": "sol"
+        },
+        "isQuoteMintEnabled": false,
+        "mayhem": true,
+        "sharing": true,
+        "calls": [
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "stock",
+                "stock": {
+                  "mint": "synthetic-stock",
+                  "symbol": "Stock name",
+                  "ticker": "STK",
+                  "nested": {
+                    "retained": true
+                  }
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-pump",
+                  "name": "Pump name",
+                  "symbol": "PMP",
+                  "nested": {
+                    "retained": true
+                  },
+                  "untouched": 12
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-missing",
+                  "name": "synthetic-missing",
+                  "nested": {
+                    "retained": true
+                  },
+                  "untouched": 19,
+                  "symbol": "synthetic-missing"
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-empty",
+                  "name": "",
+                  "symbol": "",
+                  "untouched": 20
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "sol"
+              },
+              "isQuoteMintEnabled": false
+            }
+          ]
+        ],
+        "language": "B",
+        "sameStockReference": false,
+        "samePumpReference": false,
+        "samePumpNestedReference": false,
+        "pickerFields": [
+          "isLoading",
+          "stocks",
+          "onSelect",
+          "onSelectPumpCoin",
+          "onClose"
+        ],
+        "pickerSameReaderArray": false,
+        "quoteSubscribers": 1,
+        "readerSubscribers": 1,
+        "translationSubscribers": 1,
+        "translations": [
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_mayhem_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_fee_sharing_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "Stock name",
+              "ticker": "STK"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "Stock name",
+              "ticker": "STK"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "PMP",
+              "ticker": "Pump name"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "PMP",
+              "ticker": "Pump name"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "synthetic-missing",
+              "ticker": "synthetic-missing"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "synthetic-missing",
+              "ticker": "synthetic-missing"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_change"
+          }
+        ]
+      },
+      "unmounted": {
+        "pair": {
+          "kind": "sol"
+        },
+        "isQuoteMintEnabled": false,
+        "mayhem": true,
+        "sharing": true,
+        "calls": [
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "stock",
+                "stock": {
+                  "mint": "synthetic-stock",
+                  "symbol": "Stock name",
+                  "ticker": "STK",
+                  "nested": {
+                    "retained": true
+                  }
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-pump",
+                  "name": "Pump name",
+                  "symbol": "PMP",
+                  "nested": {
+                    "retained": true
+                  },
+                  "untouched": 12
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-missing",
+                  "name": "synthetic-missing",
+                  "nested": {
+                    "retained": true
+                  },
+                  "untouched": 19,
+                  "symbol": "synthetic-missing"
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "pump",
+                "coin": {
+                  "mint": "synthetic-empty",
+                  "name": "",
+                  "symbol": "",
+                  "untouched": 20
+                }
+              },
+              "isQuoteMintEnabled": false
+            }
+          ],
+          [
+            "quote",
+            {
+              "pair": {
+                "kind": "sol"
+              },
+              "isQuoteMintEnabled": false
+            }
+          ]
+        ],
+        "language": "B",
+        "sameStockReference": false,
+        "samePumpReference": false,
+        "samePumpNestedReference": false,
+        "pickerFields": [
+          "isLoading",
+          "stocks",
+          "onSelect",
+          "onSelectPumpCoin",
+          "onClose"
+        ],
+        "pickerSameReaderArray": false,
+        "quoteSubscribers": 0,
+        "readerSubscribers": 0,
+        "translationSubscribers": 0,
+        "translations": [
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_mayhem_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stock_fee_sharing_unsupported"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_select_stock"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "Stock name",
+              "ticker": "STK"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "Stock name",
+              "ticker": "STK"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "PMP",
+              "ticker": "Pump name"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "PMP",
+              "ticker": "Pump name"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "synthetic-missing",
+              "ticker": "synthetic-missing"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "synthetic-missing",
+              "ticker": "synthetic-missing"
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "A",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_asset_label"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_stocks"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_change"
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_with_stock",
+            "variables": {
+              "symbol": "",
+              "ticker": ""
+            }
+          },
+          {
+            "prefix": "B",
+            "key": "web.create.pair_change"
+          }
+        ]
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T23:36:31.304Z"
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/bundle.js"
+    }
+  ],
+  "blockedRequests": [],
+  "pageErrors": [],
+  "startedAt": "2026-10-29T23:36:29.983Z",
+  "origin": "http://127.0.0.1:39729",
+  "status": "PASS",
+  "browserClosed": true,
+  "serverListening": false,
+  "endedAt": "2026-10-29T23:36:31.388Z"
+}
