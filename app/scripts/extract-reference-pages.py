@@ -87,6 +87,15 @@ class Node:
     children: list[Node | str] = field(default_factory=list)
 
 
+def attribute_map(attrs):
+    result = {}
+    for key, value in attrs:
+        if key in result:
+            raise ExtractionError(f'Duplicate HTML attribute: {key}')
+        result[key] = value
+    return result
+
+
 class TreeParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
@@ -96,7 +105,7 @@ class TreeParser(HTMLParser):
     def handle_starttag(
         self, tag: str, attrs: list[tuple[str, str | None]]
     ) -> None:
-        node = Node(tag, dict(attrs))
+        node = Node(tag, attribute_map(attrs))
         self.stack[-1].children.append(node)
         if tag not in {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}:
             self.stack.append(node)
@@ -104,7 +113,7 @@ class TreeParser(HTMLParser):
     def handle_startendtag(
         self, tag: str, attrs: list[tuple[str, str | None]]
     ) -> None:
-        self.stack[-1].children.append(Node(tag, dict(attrs)))
+        self.stack[-1].children.append(Node(tag, attribute_map(attrs)))
 
     def handle_endtag(self, tag: str) -> None:
         for index in range(len(self.stack) - 1, 0, -1):
