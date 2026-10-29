@@ -112,3 +112,27 @@ Checked PR #1368: no submitted reviews or inline review threads at the time of t
 The closure scores 1019 normalized / 188 raw; the other three retain 1020 / 188, with no gains. All builds had no stack warnings. Call counts alone do not establish callee equivalence. No rejected variant was runtime-qualified or retained. Exact source deltas and binary hashes are recorded in the focused patches and `FOCUSED-FOLLOWUP.json`; patches are relative to the retained source and must not be applied together.
 
 Restored the previously qualified source exactly. The six-slot sell residual remains. Further buy work should inspect the transfer error join and return-buffer reload in compiler IR before proposing another source shape; these tests do not justify additional blind rewrites.
+
+## Current-main revalidation (2026-10-29)
+
+Merged current main `665499915f9caedcd38921d415a90f0606686398` and rebuilt both
+control and candidate with the verified identity toolchain (2,785 SDK entries and
+hybrid libraries checked). Both retain **1,022 normalized / 276 raw** memberships:
+zero gains and zero losses. The two normalized gains versus the historical base
+belong to upstream. No backend stack warnings. Dependencies were reused.
+
+The candidate remains 6,032 bytes with only normalized slots 0x30–0x58 different
+from original; all 47 ordered immediate-callee signatures equal original and control.
+The unchanged retained replay executed 117 cases against all three images (351
+verified signed executions), with zero behavioral or ordered non-meter-log differences.
+Each image has 77 successes and 40 expected failures. Existing coverage limits apply.
+
+`current-main-comparison.json`, `current-main-runtime.json.gz`, and
+`current-main-manifest.json` retain the new memberships, receipts, binary hashes,
+source hashes and toolchain verification separately from historical evidence.
+Reproduce with the existing identity build instructions using the base above and
+this merged source, then run `verify_current_main.py --control CONTROL/unstripped.so
+--candidate CANDIDATE/unstripped.so --objdump SDK/llvm/bin/llvm-objdump --output REPORT`.
+Run `replay.py --control CONTROL/candidate.so --candidate CANDIDATE/candidate.so
+--output current-main-runtime.json.gz` with solders 0.27.1.
+`verify_current_runtime.py` independently verifies the retained refreshed packet.
