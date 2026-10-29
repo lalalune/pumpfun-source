@@ -1,0 +1,13 @@
+
+Running 5 tests using 1 worker
+
+(node:436287) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/5] tests/search-local-users.spec.ts:4:5 › searches the local user model and opens the exact profile
+[2/5] tests/search-local-users.spec.ts:34:5 › honors two UTF-16 units and the captured 500ms debounce
+[3/5] tests/search-local-users.spec.ts:67:5 › clears obsolete rows immediately and ignores an old response that ignores abort
+[4/5] tests/search-local-users.spec.ts:129:5 › closed dialogs cancel pending reads and preserve the existing Escape draft
+[5/5] tests/search-local-users.spec.ts:157:5 › shows unavailable reads without remote fallback and keeps Enter on Explore
+  5 passed (11.7s)

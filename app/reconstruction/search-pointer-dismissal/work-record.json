@@ -1,0 +1,86 @@
+{
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "sourceBeforeSha256": "a47fb602cc3a1793f30715fe324bca602ed1b5aeba9768bcdeb6958868057e87",
+  "sourceAfterSha256": "d6423d429f017e657cb7e29510e361d75928ba4d2c98fbe483b6d4fb5348ce1a",
+  "patchSha256": "fddcc540b41baf9645464cbd704355223bbb3ba2e857a4df038294ac726c82d3",
+  "testSha256": "60dc8262833e3b3d78e5869a09f53c7f4808a39e984842f052e6aa49add6751a",
+  "candidate": "One native SearchDialog closedby=any attribute; browser admits intentional outside pointer dismissal. No generic Dialog, reset, state, event-handler or data-flow changes. Existing maintained draft and Escape behavior preserved; full original ea reset parity excluded.",
+  "runtime": {
+    "frontend": "http://127.0.0.1:3010",
+    "unusedBackend": "http://127.0.0.1:3011",
+    "backendServiceStarted": false,
+    "developerReadKey": "empty",
+    "desktop": {
+      "width": 1280,
+      "height": 900
+    },
+    "touchEmulation": {
+      "width": 390,
+      "height": 844,
+      "hasTouch": true,
+      "isMobile": true
+    },
+    "workers": 1,
+    "retries": 0,
+    "maxFailures": 1,
+    "baseline": {
+      "passed": 1,
+      "failed": 1,
+      "notRun": 1,
+      "rawSha256": "f8e47ab8d06020ffc73b9ab5510d1edc4a88dc03a087dd35f2c1cbd3dc6f2b85",
+      "actualNativeClosedBy": "closerequest",
+      "attribute": null,
+      "supportsClosedBy": true,
+      "failure": "Trusted primary outside click leaves dialog open; route and draft unchanged."
+    },
+    "candidate": {
+      "passed": 3,
+      "rawSha256": "b194d45869a3726729169bb4f980790ab2b146bfe0ac285c4946958fcd723fe7",
+      "actualNativeClosedBy": "any",
+      "attribute": "any",
+      "nativeSequence": "trusted outside pointerup -> cancel -> actual BUTTON focus -> close",
+      "insideGuards": "inside click, inside-to-outside drag and right-button outside press remain open"
+    },
+    "existingRegressions": {
+      "passed": 5,
+      "rawSha256": "ea2e422d207bdd5b7a776f6fbb7622b3835d037d08eb9d412b5d1e71885310e2",
+      "scope": "Exact local profile, debounce, stale response/abort, closed cancellation/draft, failure/Enter"
+    },
+    "server": "stopped; ss3010 empty; owned inactive cache removed"
+  },
+  "checks": {
+    "originalUsedChain": "PASS strict captured AST witness comparison",
+    "unchangedShortcutSource": "PASS",
+    "rootCaptures": 9,
+    "rootToolingTests": 10,
+    "shellSourceTests": 3,
+    "appEvidence": "698 objects/npm/unchanged SDK integrity PASS",
+    "progress": "PASS",
+    "frontendTypegen": "PASS",
+    "frontendTypecheck": "PASS"
+  },
+  "actualInputs": {
+    "app/packages/frontend/src/components/shell/search/SearchDialog.tsx": "d6423d429f017e657cb7e29510e361d75928ba4d2c98fbe483b6d4fb5348ce1a",
+    "app/packages/frontend/tests/search-pointer-dismissal.spec.ts": "60dc8262833e3b3d78e5869a09f53c7f4808a39e984842f052e6aa49add6751a",
+    "app/packages/frontend/tests/search-local-users.spec.ts": "3bbf465b7abafc89aefc38d13db1c36b83865b339864942093d64e8d78b28dac",
+    "app/packages/frontend/tests/shell-controls.ts": "87ab91a5ade6b4a0826cb2eb55135aeb75e897b6c5aa81421ef58221bee682e8",
+    "app/packages/frontend/tests/browser-state.ts": "6ca60ac77b50bcc845c8073973265a980ece5aede9782cb955836b422128123a",
+    "app/packages/frontend/playwright.config.ts": "6b0b07bb37748d67ea396d3de6e331a15978b8b2e17815dbcb843f3299ad61b0",
+    "app/packages/frontend/node_modules/@types/react/index.d.ts": "5e76305d58bcdc924ff2bf14f6a9dc2aa5441ed06464b7e7bd039e611d66a89b",
+    "app/packages/frontend/src/lib/local-user-search-server.ts": "c631d32736477ee588069fb4e39f0edb2e419d5946d221a7c085f141c669a69a",
+    "app/packages/backend/src/users-seed.json": "56259663a146236df2f0e6e1d931df7cc2dda4d39ed7a090c18505434155b20d",
+    "app/packages/backend/src/posts-seed.json": "f4d12a7812b07be6dcef4b966430a086cba9e867ff89de669a95a74bdd73d705",
+    "app/pnpm-lock.yaml": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+  },
+  "limits": [
+    "Source-backed outside-dismissal need; native local adaptation is not full original onOpenChange/ea reset equivalence.",
+    "Original ea aborts/clears query and tab before openfalse; maintained local Escape/draft semantics deliberately preserved.",
+    "No captured script execution, original runtime differential or pixel parity.",
+    "Grouped logical IDs are not new literal factory variants or new captured bytes; inventories and source counts unchanged.",
+    "Finite Chromium1280mouse/390touch-emulation; not actual mobile hardware or other browsers/API fallback support.",
+    "Touch baseline stopped after desktop failure; candidate proves actual touchscreen tap and trusted touch events.",
+    "No nested dialog, multitouch, scrollbar, other pointer types or provider lifecycle equivalence claim.",
+    "No full production build/whole browser suite or composition with separate pending scroll/history/hydration/Clear-focus units.",
+    "No backend/API, SDK, wallet, capture, binary, feature milestone or private agent trajectory/usage upload."
+  ]
+}

@@ -1,0 +1,56 @@
+
+Running 3 tests using 1 worker
+
+(node:434228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/3] tests/search-pointer-dismissal.spec.ts:105:5 › inside clicks, an inside-to-outside drag and nonprimary outside press keep search open
+[2/3] tests/search-pointer-dismissal.spec.ts:130:5 › trusted backdrop click closes search and returns actual opener focus without changing the route
+  1) tests/search-pointer-dismissal.spec.ts:130:5 › trusted backdrop click closes search and returns actual opener focus without changing the route
+
+    Error: expect(locator).not.toBeVisible() failed
+
+    Locator:  getByRole('dialog', { name: 'Search for coins and users', exact: true })
+    Expected: not visible
+    Received: visible
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "not toBeVisible" getByRole('dialog', { name: 'Search for coins and users', exact: true }) with timeout 5000ms
+      - waiting for getByRole('dialog', { name: 'Search for coins and users', exact: true })
+        14 × locator resolved to <dialog open="" aria-label="Search for coins and users" class="mx-auto mt-[12vh] w-[min(560px,calc(100vw-32px))] overflow-hidden rounded-xl border border-border-tertiary bg-bg-secondary p-0 text-text-primary shadow-lg backdrop:bg-black/60">…</dialog>
+           - unexpected value "visible"
+
+
+      135 |     const { trigger, dialog, input, outside } = await prepare(page);
+      136 |     await page.mouse.click(outside.x, outside.y);
+    > 137 |     await expect(dialog).not.toBeVisible();
+          |                              ^
+      138 |     await expect(page).toHaveURL(/\/explore\?q=retained$/);
+      139 |     await expect(trigger).toBeFocused();
+      140 |     await save(page, observed, "after-outside-close");
+        at /workspace/pump-app-search-planner/app/packages/frontend/tests/search-pointer-dismissal.spec.ts:137:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../search-pointer-dismissal-094a06f1/baseline-browser-artifacts/search-pointer-dismissal-t-2110c--without-changing-the-route/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../search-pointer-dismissal-094a06f1/baseline-browser-artifacts/search-pointer-dismissal-t-2110c--without-changing-the-route/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../search-pointer-dismissal-094a06f1/baseline-browser-artifacts/search-pointer-dismissal-t-2110c--without-changing-the-route/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../search-pointer-dismissal-094a06f1/baseline-browser-artifacts/search-pointer-dismissal-t-2110c--without-changing-the-route/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+Testing stopped early after 1 maximum allowed failures.
+
+  1 failed
+    tests/search-pointer-dismissal.spec.ts:130:5 › trusted backdrop click closes search and returns actual opener focus without changing the route
+  1 did not run
+  1 passed (11.7s)
+  1 error was not a part of any test, see above for details

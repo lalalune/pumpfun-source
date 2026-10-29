@@ -1,0 +1,11 @@
+
+Running 3 tests using 1 worker
+
+(node:435497) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/3] tests/search-pointer-dismissal.spec.ts:105:5 › inside clicks, an inside-to-outside drag and nonprimary outside press keep search open
+[2/3] tests/search-pointer-dismissal.spec.ts:130:5 › trusted backdrop click closes search and returns actual opener focus without changing the route
+[3/3] tests/search-pointer-dismissal.spec.ts:159:7 › touch viewport › trusted backdrop tap closes search and preserves its maintained draft
+  3 passed (4.3s)

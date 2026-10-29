@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Source-backed outside dismissal through native local SearchDialog, preserving maintained draft/Escape; finite qualification.",
+  "files": {
+    "app/packages/frontend/src/components/shell/search/SearchDialog.tsx": {
+      "bytes": 5644,
+      "sha256": "d6423d429f017e657cb7e29510e361d75928ba4d2c98fbe483b6d4fb5348ce1a"
+    },
+    "app/packages/frontend/tests/search-pointer-dismissal.spec.ts": {
+      "bytes": 6217,
+      "sha256": "60dc8262833e3b3d78e5869a09f53c7f4808a39e984842f052e6aa49add6751a"
+    },
+    "app/reconstruction/search-pointer-dismissal/README.md": {
+      "bytes": 7706,
+      "sha256": "38ffe28362a409c226f6773d08b74740ce1ef5f4ce0186005c048b62faa3b98e"
+    },
+    "app/reconstruction/search-pointer-dismissal/actual-runtime-config.ts.txt": {
+      "bytes": 337,
+      "sha256": "d4f0a5830819f2bce1ef3503c54b9fac4eb17ff7862232e1f9c98b39661e14fd"
+    },
+    "app/reconstruction/search-pointer-dismissal/after-inside-final.json": {
+      "bytes": 4294,
+      "sha256": "ec9048aa8a135fada9ab2f2529e7ef27cf2072456c071c6f1e92905020f75a13"
+    },
+    "app/reconstruction/search-pointer-dismissal/after-outside-close.json": {
+      "bytes": 3124,
+      "sha256": "0cf75a7b48ac05e6311f9233133057127628ba69af9982434b0a2e331654d992"
+    },
+    "app/reconstruction/search-pointer-dismissal/after-outside-closed.png": {
+      "bytes": 73801,
+      "sha256": "e7b4ad8bfd98746b4b0fa33d94e1b9bae139aaca47a5f7d5cf4303345859af58"
+    },
+    "app/reconstruction/search-pointer-dismissal/after-outside-final.json": {
+      "bytes": 4095,
+      "sha256": "0585b0e9a349967f12f0137fe47cf48a3f56308f45f564046f1d1564a0bdd39f"
+    },
+    "app/reconstruction/search-pointer-dismissal/after-touch-close.json": {
+      "bytes": 3121,
+      "sha256": "7d511cbc1467e90235c89332c093f9d1195ed0630b9545c5a6496ef8644acc6f"
+    },
+    "app/reconstruction/search-pointer-dismissal/after-touch-closed.png": {
+      "bytes": 40318,
+      "sha256": "46bd25e7b5baac3236c076aa7eeec3709a2c5a2329cbb61a63abe904f44965e6"
+    },
+    "app/reconstruction/search-pointer-dismissal/after-touch-final.json": {
+      "bytes": 4190,
+      "sha256": "ef206ae7174e658a57e5f58b041e8af82283532d978f993f9ead1a571ec6e4bb"
+    },
+    "app/reconstruction/search-pointer-dismissal/app-evidence.log": {
+      "bytes": 72,
+      "sha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9"
+    },
+    "app/reconstruction/search-pointer-dismissal/baseline.log": {
+      "bytes": 3970,
+      "sha256": "68d19f1a37896a2721d8a9b14098f9e69bf8674a87f224ae945635aca0ba54b9"
+    },
+    "app/reconstruction/search-pointer-dismissal/baseline.raw.log.gz": {
+      "bytes": 1220,
+      "sha256": "e0c883196954af76367eb816c772d1fdaff32ea12df6ee85b2d7db40cfd0c8a7"
+    },
+    "app/reconstruction/search-pointer-dismissal/before-inside-final.json": {
+      "bytes": 4302,
+      "sha256": "6c93fcbba7a0c335a0084c74be555aa732aa2987d3cb0785a5cf409e6cda91c4"
+    },
+    "app/reconstruction/search-pointer-dismissal/before-outside-final.json": {
+      "bytes": 2765,
+      "sha256": "5c9da801627c21f8838fdd30c8ac33abdfa09b221268be1d3bbc4f8d62dd81ee"
+    },
+    "app/reconstruction/search-pointer-dismissal/before-outside-open.png": {
+      "bytes": 79177,
+      "sha256": "c6ee57146cfc4836f82f8b94b28277755ed8d5b1a488aed80816e7108d104032"
+    },
+    "app/reconstruction/search-pointer-dismissal/candidate.log": {
+      "bytes": 655,
+      "sha256": "b194d45869a3726729169bb4f980790ab2b146bfe0ac285c4946958fcd723fe7"
+    },
+    "app/reconstruction/search-pointer-dismissal/original-chain.json": {
+      "bytes": 34081,
+      "sha256": "7a2e3defbb2c2fc12ab34d4b1ced9b0a3aa839d5c4211ac5f330f9ea98ee12b6"
+    },
+    "app/reconstruction/search-pointer-dismissal/original-chain.log": {
+      "bytes": 92,
+      "sha256": "8a259004ef022216ff1e2d012115a2adffc7e9d725b19bbc7f0f65b533a481ec"
+    },
+    "app/reconstruction/search-pointer-dismissal/original-chain.mjs": {
+      "bytes": 10729,
+      "sha256": "9f09f1f01c4937f7021e23407a1c265fb72b7906236487d3e78d704f8efcb9b3"
+    },
+    "app/reconstruction/search-pointer-dismissal/progress.log": {
+      "bytes": 49,
+      "sha256": "7ab499988f3b70e197e23e42287d4cc4579dc2b9360a82be3e827e22c589fda4"
+    },
+    "app/reconstruction/search-pointer-dismissal/regressions.log": {
+      "bytes": 804,
+      "sha256": "ea2e422d207bdd5b7a776f6fbb7622b3835d037d08eb9d412b5d1e71885310e2"
+    },
+    "app/reconstruction/search-pointer-dismissal/server.log.gz": {
+      "bytes": 454,
+      "sha256": "4e4198827022f0904008b7eac64580afb3cda3a2a4b73d465a7349f66395fd52"
+    },
+    "app/reconstruction/search-pointer-dismissal/shell-tests.log": {
+      "bytes": 434,
+      "sha256": "8a136aedfe4b485bc554624f11b7611ce6897e65235e665675db353c885c30f3"
+    },
+    "app/reconstruction/search-pointer-dismissal/shortcut-source.log": {
+      "bytes": 126,
+      "sha256": "c509dd2970326273042f5987e90e8a6724ac9b307fd99f5ebb3fe2b3c6486995"
+    },
+    "app/reconstruction/search-pointer-dismissal/source.patch.gz": {
+      "bytes": 283,
+      "sha256": "34776693f88c267e6a2011064e5156a38ee4842bc6c9c63d4a9ef67e0c81c3e3"
+    },
+    "app/reconstruction/search-pointer-dismissal/test-tooling.log": {
+      "bytes": 109,
+      "sha256": "a6e63d0943e8bea12a8329e3812f8011912860fd0129106f2ffc046f8ba52c96"
+    },
+    "app/reconstruction/search-pointer-dismissal/typecheck.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "app/reconstruction/search-pointer-dismissal/typegen.log": {
+      "bytes": 59,
+      "sha256": "adba4af9194e10e47dda75ff0fd0f8c2b756474896d0eba5612799c527ff372a"
+    },
+    "app/reconstruction/search-pointer-dismissal/verify-evidence.log": {
+      "bytes": 376,
+      "sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9"
+    },
+    "app/reconstruction/search-pointer-dismissal/work-record.json": {
+      "bytes": 5019,
+      "sha256": "0c49750699794674cc02a4acd9fd65148c84952fac1a1629ed4ccd905388c391"
+    }
+  }
+}

@@ -1,0 +1,741 @@
+{
+  "method": "Authenticated captured AST and actual export/import/value bindings only; no capture execution",
+  "factories": [
+    {
+      "id": 238128,
+      "ids": [
+        238128
+      ],
+      "label": "factory 238128",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        119,
+        52138
+      ],
+      "utf8": [
+        119,
+        52142
+      ],
+      "sha256": "9e5affafd605f47d6c9466659c4bc0a654fae027f4beff481337a1cdf1263828"
+    },
+    {
+      "id": 167958,
+      "ids": [
+        167958
+      ],
+      "label": "factory 167958",
+      "source": "evidence/web/objects/337439e6bd8e9380.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/12g0kkarzdzbb.js",
+      "sourceSha256": "5d3eb05cb5db4cb2e1b86b93afb8a3ff59a9fc4fbcd5864df90ca8b3b683126f",
+      "sourceBytes": 22172,
+      "utf16": [
+        120,
+        4178
+      ],
+      "utf8": [
+        120,
+        4178
+      ],
+      "sha256": "8e3ad9678ffe969d7b3495045fdff943074fce05c79e8560241bb631ef0a2954"
+    },
+    {
+      "id": 439587,
+      "ids": [
+        439587
+      ],
+      "label": "factory 439587",
+      "source": "evidence/web/objects/0f4bad575370faed.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+      "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+      "sourceBytes": 97201,
+      "utf16": [
+        78265,
+        94686
+      ],
+      "utf8": [
+        78265,
+        94686
+      ],
+      "sha256": "556a5e98fc389f458883751f5ed829f9493c87444c6f5053b676b34a39f05fa9"
+    },
+    {
+      "id": 524684,
+      "ids": [
+        524684,
+        660315,
+        195636
+      ],
+      "label": "factory 524684",
+      "source": "evidence/web/objects/0f4bad575370faed.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+      "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+      "sourceBytes": 97201,
+      "utf16": [
+        9719,
+        19488
+      ],
+      "utf8": [
+        9719,
+        19488
+      ],
+      "sha256": "4a95dd69ab776beb22fce660c865256c7cc7ddc091c08d949c92213f537a1f1d"
+    },
+    {
+      "id": 385676,
+      "ids": [
+        10180,
+        385676
+      ],
+      "label": "factory 385676",
+      "source": "evidence/web/objects/eee6e838a0365a32.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rx-qd38rgpw0.js",
+      "sourceSha256": "0715c558588dd2494810557e48681d0775a6c37e45730baa68d017b53123442c",
+      "sourceBytes": 117589,
+      "utf16": [
+        101067,
+        108357
+      ],
+      "utf8": [
+        101067,
+        108357
+      ],
+      "sha256": "d18763456faf1ae85d0d574aba879b0fe2f8515be76364d8d9687c11ff60ec6d"
+    },
+    {
+      "id": 617614,
+      "ids": [
+        617614
+      ],
+      "label": "factory 617614",
+      "source": "evidence/web/objects/4da7a3f4580c8707.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2p2k-eoe7rs1_.js",
+      "sourceSha256": "d3ac051dc8989b6c57dc72c1899117ccf12cfa274a91cb707ea2c53099de37f8",
+      "sourceBytes": 77335,
+      "utf16": [
+        63744,
+        63995
+      ],
+      "utf8": [
+        63744,
+        63995
+      ],
+      "sha256": "aa91929315118bd84634d7861362b94a7e77a2d0bc89b6ad89c82ce6c201be2b"
+    }
+  ],
+  "runtime": [
+    {
+      "witness": {
+        "label": "uppercase S names/aliases/module decoder",
+        "source": "evidence/web/objects/f25d7686d048ae16.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+        "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+        "sourceBytes": 11255,
+        "utf16": [
+          1420,
+          1733
+        ],
+        "utf8": [
+          1420,
+          1733
+        ],
+        "sha256": "2da0d89d3a329e063817e4010d8d36380c0f6a6004bb789611070e6580eda5fa"
+      },
+      "text": "u.S=function(e,t){let r=[],n=0;for(;n<e.length;){let t=e[n++],o=n;for(;n<e.length&&0!==e[n];)n++;let l=n;n++;let i=\"string\"==typeof t||\"number\"==typeof t?w.call(this,t):t;if(l-o==1){let t=e[o].split(\",\");for(let e=0;e<t.length;e+=2)m(r,t[e],i,t[e+1])}else for(let t=o;t<l;t+=2)m(r,e[t],i,e[t+1])}d.call(this,r,t)}"
+    },
+    {
+      "witness": {
+        "label": "getter maps export name to original namespace property",
+        "source": "evidence/web/objects/f25d7686d048ae16.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+        "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+        "sourceBytes": 11255,
+        "utf16": [
+          1186,
+          1359
+        ],
+        "utf8": [
+          1186,
+          1359
+        ],
+        "sha256": "320b218cb427d3215246e021bf0e769d8b7786c906e0fe0bce47a70d86b73825"
+      },
+      "text": "function m(e,t,r,n){let o=Reflect.getOwnPropertyDescriptor(r,n);if(o){if(\"value\"in o)return void e.push(t,0,o.value);if(o.get)return void e.push(t,o.get)}e.push(t,()=>r[n])}"
+    },
+    {
+      "witness": {
+        "label": "non-null module ID selects the grouped module",
+        "source": "evidence/web/objects/f25d7686d048ae16.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+        "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+        "sourceBytes": 11255,
+        "utf16": [
+          1077,
+          1186
+        ],
+        "utf8": [
+          1077,
+          1186
+        ],
+        "sha256": "29ea4be9e29f7186a29e7a05edf5d0c7b0ef01c02ce0f80464d9af38c333cdbc"
+      },
+      "text": "function d(e,t,r){let n,o;null!=t?o=(n=f(this.c,t)).exports:(n=this.m,o=this.e),n.namespaceObject=o,h(o,e,r)}"
+    },
+    {
+      "witness": {
+        "label": "actual module-cache/import helper f",
+        "source": "evidence/web/objects/f25d7686d048ae16.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+        "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+        "sourceBytes": 11255,
+        "utf16": [
+          574,
+          646
+        ],
+        "utf8": [
+          574,
+          646
+        ],
+        "sha256": "8016aab51f068ccbfb7563cea9afad309e7bff5e7d5f4e703e1a30fd23e27e18"
+      },
+      "text": "function f(e,t){let r=e.get(t);return void 0===r&&(r=p(t),e.set(t,r)),r}"
+    },
+    {
+      "witness": {
+        "label": "actual module-cache/import helper p",
+        "source": "evidence/web/objects/f25d7686d048ae16.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+        "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+        "sourceBytes": 11255,
+        "utf16": [
+          646,
+          720
+        ],
+        "utf8": [
+          646,
+          720
+        ],
+        "sha256": "ac2ac4e69984b035976d7c0f113282c51f4a44aa4e4587d3e321bad7771fff97"
+      },
+      "text": "function p(e){return{exports:{},error:void 0,id:e,namespaceObject:void 0}}"
+    },
+    {
+      "witness": {
+        "label": "actual module-cache/import helper F",
+        "source": "evidence/web/objects/f25d7686d048ae16.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+        "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+        "sourceBytes": 11255,
+        "utf16": [
+          7317,
+          7408
+        ],
+        "utf8": [
+          7317,
+          7408
+        ],
+        "sha256": "d7264a8ebba1734710415af6e40ddb59af60d51a677711edc06f1df9a4c8f68c"
+      },
+      "text": "F=(e,t)=>{let r=D.get(e);if(r){if(r.error)throw r.error;return r}return W(e,o.Parent,t.id)}"
+    },
+    {
+      "witness": {
+        "label": "actual module-cache/import helper w",
+        "source": "evidence/web/objects/f25d7686d048ae16.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+        "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+        "sourceBytes": 11255,
+        "utf16": [
+          3120,
+          3340
+        ],
+        "utf8": [
+          3120,
+          3340
+        ],
+        "sha256": "7007a6083c434cce5331739264ada8b25f864c3976e83de312bf3447788e707b"
+      },
+      "text": "function w(e){let t=F(e,this.m);if(t.namespaceObject)return t.namespaceObject;let r=t.exports;return t.namespaceObject=O(r,\"function\"==typeof r?function(...e){return r.apply(this,e)}:Object.create(null),r&&r.__esModule)}"
+    },
+    {
+      "witness": {
+        "label": "actual module-cache/import helper h",
+        "source": "evidence/web/objects/f25d7686d048ae16.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+        "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+        "sourceBytes": 11255,
+        "utf16": [
+          720,
+          1077
+        ],
+        "utf8": [
+          720,
+          1077
+        ],
+        "sha256": "371fda7a2b1b7b05805e4a8cfc97dcf18ea159eb41073ad2ea0f0aa09dfe986d"
+      },
+      "text": "function h(e,t,r){a(e,\"__esModule\",{value:!0}),c&&a(e,c,{value:\"Module\"});let n=0;for(;n<t.length;){let r=t[n++],o=t[n++];if(\"number\"==typeof o)if(0===o)a(e,r,{value:t[n++],enumerable:!0,writable:!1});else throw Error(`unexpected tag: ${o}`);else\"function\"==typeof t[n]?a(e,r,{get:o,set:t[n++],enumerable:!0}):a(e,r,{get:o,enumerable:!0})}r||Object.seal(e)}"
+    },
+    {
+      "witness": {
+        "label": "export registration and namespace imports use the same cache",
+        "source": "evidence/web/objects/f25d7686d048ae16.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+        "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+        "sourceBytes": 11255,
+        "utf16": [
+          7307,
+          7312
+        ],
+        "utf8": [
+          7307,
+          7312
+        ],
+        "sha256": "0cb3e2877f82a761b4476fb223dc3816467cb10b728f32bb11c15085988fefcd"
+      },
+      "text": "u.c=D"
+    },
+    {
+      "witness": {
+        "label": "actual i method resolves through w and F",
+        "source": "evidence/web/objects/f25d7686d048ae16.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+        "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+        "sourceBytes": 11255,
+        "utf16": [
+          3463,
+          3468
+        ],
+        "utf8": [
+          3463,
+          3468
+        ],
+        "sha256": "5254ff77134b32834d9ad4c9c65207184c46741232dd9debbbe5688c4302c765"
+      },
+      "text": "u.i=w"
+    }
+  ],
+  "groupedRoot": {
+    "logicalModuleId": 396623,
+    "physicalFactoryId": 439587,
+    "exportName": "Root",
+    "namespaceProperty": "DrawerRoot",
+    "namespaceFactoryId": 524684,
+    "statements": [
+      {
+        "witness": {
+          "label": "actual DrawerRoot namespace",
+          "source": "evidence/web/objects/0f4bad575370faed.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+          "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+          "sourceBytes": 97201,
+          "utf16": [
+            84731,
+            84744
+          ],
+          "utf8": [
+            84731,
+            84744
+          ],
+          "sha256": "90bc32ad88bbf6afb9362f6df5a8df64e21c73695f37271d0e037ec51c05da01"
+        },
+        "text": "f=e.i(524684)"
+      },
+      {
+        "witness": {
+          "label": "actual uppercase grouped Root export",
+          "source": "evidence/web/objects/0f4bad575370faed.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+          "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+          "sourceBytes": 97201,
+          "utf16": [
+            84773,
+            84944
+          ],
+          "utf8": [
+            84773,
+            84944
+          ],
+          "sha256": "d60bcd5c51aba99f17fa85b895396c96d63d0390cc4d66af6a9d9f65e3cfbf19"
+        },
+        "text": "e.S([u,\"Backdrop,DrawerBackdrop\",0,c,\"Popup,DrawerPopup\",0,d,\"Portal,DrawerPortal\",0,f,\"Root,DrawerRoot\",0,p,\"Trigger,DrawerTrigger\",0,g,\"Viewport,DrawerViewport\"],396623)"
+      },
+      {
+        "witness": {
+          "label": "actual grouped Root import after registration",
+          "source": "evidence/web/objects/0f4bad575370faed.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+          "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+          "sourceBytes": 97201,
+          "utf16": [
+            84949,
+            84962
+          ],
+          "utf8": [
+            84949,
+            84962
+          ],
+          "sha256": "9f2855a6a434177473be46481a263c3292f1cb3ce63fbc1346f4fff49a24cbef"
+        },
+        "text": "h=e.i(396623)"
+      }
+    ]
+  },
+  "responsive": [
+    {
+      "witness": {
+        "label": "used modal wrapper forwards open callback",
+        "source": "evidence/web/objects/337439e6bd8e9380.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/12g0kkarzdzbb.js",
+        "sourceSha256": "5d3eb05cb5db4cb2e1b86b93afb8a3ff59a9fc4fbcd5864df90ca8b3b683126f",
+        "sourceBytes": 22172,
+        "utf16": [
+          1402,
+          2783
+        ],
+        "utf8": [
+          1402,
+          2783
+        ],
+        "sha256": "ad9cb2579b3e404d8edb0ecf21b6289c9ff336c073c0546bb94a589572b60072"
+      },
+      "text": "function(e){let n,s,l,c,f,p=(0,r.c)(30),{open:m,onOpenChange:g,onOpenChangeComplete:y,density:b,size:x,title:v,truncateTitle:w,aside:_,headerActions:z,hideClose:k,initialFocus:S,className:A,children:P,\"aria-label\":j,\"data-testid\":E}=e,I=void 0===b?\"comfortable\":b,T=void 0===x?\"md\":x,O=void 0===w||w,C=void 0!==k&&k,N=(0,o.useId)(),R=null!=v,U=R&&!j,$=U?void 0:j,L=U?N:void 0,F=u[T];return p[0]!==A||p[1]!==F?(n=(0,i.c)(\"flex max-h-[calc(100dvh-48px)] flex-col overflow-hidden !p-0\",F,A),p[0]=A,p[1]=F,p[2]=n):n=p[2],p[3]!==_||p[4]!==R||p[5]!==z||p[6]!==C||p[7]!==g||p[8]!==v||p[9]!==N||p[10]!==O?(s=R?(0,t.jsx)(h,{actions:z,aside:_,onClose:C?void 0:()=>g(!1),title:v,titleId:N,truncateTitle:O}):null,p[3]=_,p[4]=R,p[5]=z,p[6]=C,p[7]=g,p[8]=v,p[9]=N,p[10]=O,p[11]=s):s=p[11],p[12]!==P||p[13]!==I||p[14]!==S||p[15]!==T||p[16]!==$||p[17]!==L||p[18]!==n||p[19]!==s||p[20]!==E?(l=(0,t.jsxs)(a.s,{\"aria-label\":$,\"aria-labelledby\":L,className:n,\"data-density\":I,\"data-size\":T,\"data-testid\":E,initialFocus:S,children:[s,P]}),p[12]=P,p[13]=I,p[14]=S,p[15]=T,p[16]=$,p[17]=L,p[18]=n,p[19]=s,p[20]=E,p[21]=l):l=p[21],p[22]!==I||p[23]!==l?(c=(0,t.jsx)(d.Provider,{value:I,children:l}),p[22]=I,p[23]=l,p[24]=c):c=p[24],p[25]!==g||p[26]!==y||p[27]!==m||p[28]!==c?(f=(0,t.jsx)(a.v,{isOpen:m,onIsOpenChange:g,onOpenChangeComplete:y,children:c}),p[25]=g,p[26]=y,p[27]=m,p[28]=c,p[29]=f):f=p[29],f}"
+    },
+    {
+      "witness": {
+        "label": "actual responsive Root caller",
+        "source": "evidence/web/objects/0f4bad575370faed.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+        "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+        "sourceBytes": 97201,
+        "utf16": [
+          90190,
+          90347
+        ],
+        "utf8": [
+          90190,
+          90347
+        ],
+        "sha256": "a7172f60e43ca48c6183f9e95724eaa6127c0d683d09af344776d9fb70f677a9"
+      },
+      "text": "function(e){let{isOpen:t,onIsOpenChange:n,...r}=e;return(0,l.jsx)(h.Root,{\"data-slot\":\"dialog-responsive\",onOpenChange:n,open:t,swipeDirection:\"down\",...r})}"
+    },
+    {
+      "witness": {
+        "label": "actual content/backdrop caller",
+        "source": "evidence/web/objects/0f4bad575370faed.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+        "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+        "sourceBytes": 97201,
+        "utf16": [
+          90354,
+          90623
+        ],
+        "utf8": [
+          90354,
+          90623
+        ],
+        "sha256": "73c359c2eb41eec7bffbdbe15d19e25703a502722f1b1c95695ce4cc6f7d8194"
+      },
+      "text": "function(e){let{children:t,className:n=\"\",...r}=e,i=eb(`\n    ${eT.BASE}\n    ${n}\n  `);return(0,l.jsxs)(eE,{children:[(0,l.jsx)(ey,{}),(0,l.jsx)(eR,{children:(0,l.jsxs)(v.Popup,{className:i,\"data-slot\":\"dialog-responsive-popup\",...r,children:[(0,l.jsx)(ew,{}),t]})})]})}"
+    },
+    {
+      "witness": {
+        "label": "actual Backdrop rendering",
+        "source": "evidence/web/objects/0f4bad575370faed.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+        "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+        "sourceBytes": 97201,
+        "utf16": [
+          86823,
+          86989
+        ],
+        "utf8": [
+          86823,
+          86989
+        ],
+        "sha256": "84111628335f620c37424cdd992e58c6132478299c0195e7b85a25be3fe4084a"
+      },
+      "text": "function ey(e){let{className:t=\"\",...n}=e,r=eb(`\n    ${eS.BASE}\n    ${t}\n  `);return(0,l.jsx)(m.Backdrop,{className:r,\"data-slot\":\"dialog-responsive-backdrop\",...n})}"
+    }
+  ],
+  "drawer": [
+    {
+      "witness": {
+        "label": "DrawerRoot defaults pointer dismissal false and passes it through",
+        "source": "evidence/web/objects/0f4bad575370faed.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+        "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+        "sourceBytes": 97201,
+        "utf16": [
+          17427,
+          19478
+        ],
+        "utf8": [
+          17427,
+          19478
+        ],
+        "sha256": "4a99bab7845c7c515c227408daef0fffdaeddf2acd35786d86c96ee6bbad4c4b"
+      },
+      "text": "function(e){let{children:t,open:n,defaultOpen:s=!1,onOpenChange:u,onOpenChangeComplete:c,disablePointerDismissal:f=!1,modal:p=!0,actionsRef:g,handle:h,triggerId:m,defaultTriggerId:b=null,swipeDirection:x=\"down\",snapToSequentialPoints:y=!1,snapPoints:S,snapPoint:w,defaultSnapPoint:_,onSnapPointChange:E}=e,C=(0,a.f)(E),R=(0,d.R)(!0),T=R?.onNestedSwipeProgressChange,D=R?.onNestedFrontmostHeightChange,N=R?.onNestedSwipingChange,A=R?.onNestedDrawerPresenceChange,[M,O]=o.useState(0),[I,k]=o.useState(0),[F,B]=o.useState(!1),[z,j]=o.useState(!1),[$]=o.useState(ee),L=void 0!==_?_:S?.[0]??null,H=void 0!==w,[W,U]=(0,l.f)({controlled:w,default:L,name:\"Drawer\",state:\"snapPoint\"}),Y=o.useRef(!1),V=(0,a.f)((e,t)=>{let n=t??(0,v.f)(G.f.none);C?.(e,n),n.isCanceled||U(e)}),X=o.useMemo(()=>H||!S||0===S.length||null!==W&&S.some(e=>Object.is(e,W))?W:L,[W,H,L,S]),q=(0,a.f)(e=>{O(e),!Y.current&&e>0&&k(e)}),K=(0,a.f)(e=>{if(e>0){Y.current=!0,k(e);return}Y.current=!1,M>0&&k(M)}),J=(0,a.f)(e=>{B(e)}),Q=(0,a.f)(e=>{$.set(e),T?.(e)}),en=(0,a.f)(e=>{j(e),N?.(e)}),er=(0,a.f)((e,t)=>{u?.(e,t),!t.isCanceled&&!e&&S&&S.length>0&&V(L,(0,v.f)(t.reason,t.event,t.trigger))}),ei=o.useMemo(()=>({swipeDirection:x,snapToSequentialPoints:y,snapPoints:S,activeSnapPoint:X,setActiveSnapPoint:V,frontmostHeight:I,popupHeight:M,hasNestedDrawer:F,nestedSwiping:z,nestedSwipeProgressStore:$,onNestedDrawerPresenceChange:J,onPopupHeightChange:q,onNestedFrontmostHeightChange:K,onNestedSwipingChange:en,onNestedSwipeProgressChange:Q,notifyParentFrontmostHeight:D,notifyParentSwipingChange:N,notifyParentSwipeProgressChange:T,notifyParentHasNestedDrawer:A}),[X,I,F,z,$,A,T,N,D,J,K,Q,en,q,M,V,S,y,x]),eo=\"function\"==typeof t?e=>(0,P.jsxs)(o.Fragment,{children:[r||(r=(0,P.jsx)(et,{})),t(e)]}):(0,P.jsxs)(o.Fragment,{children:[i||(i=(0,P.jsx)(et,{})),t]});return(0,P.jsx)(d.d.Provider,{value:ei,children:(0,P.jsx)(Z.Root,{open:n,defaultOpen:s,onOpenChange:er,onOpenChangeComplete:c,disablePointerDismissal:f,modal:p,actionsRef:g,handle:h,triggerId:m,defaultTriggerId:b,children:eo})})}"
+    },
+    {
+      "witness": {
+        "label": "actual grouped base-Root import",
+        "source": "evidence/web/objects/0f4bad575370faed.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+        "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+        "sourceBytes": 97201,
+        "utf16": [
+          16551,
+          16564
+        ],
+        "utf8": [
+          16551,
+          16564
+        ],
+        "sha256": "c001d3c86cebf75c3ed1f5255be5d678aa2ccc74471975e589baae8907ab2a29"
+      },
+      "text": "Z=e.i(660315)"
+    },
+    {
+      "witness": {
+        "label": "actual base Root, callback store and interaction use",
+        "source": "evidence/web/objects/0f4bad575370faed.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+        "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+        "sourceBytes": 97201,
+        "utf16": [
+          13813,
+          16525
+        ],
+        "utf8": [
+          13813,
+          16525
+        ],
+        "sha256": "67fd602208302e24fb394577f426dd8f09aa86971f09cb60bae7d3ec2c27f0e8"
+      },
+      "text": "function(e){let{children:t,open:n,defaultOpen:r=!1,onOpenChange:i,onOpenChangeComplete:l,disablePointerDismissal:s=!1,modal:u=!0,actionsRef:c,handle:d,triggerId:f,defaultTriggerId:g=null}=e,h=(0,p.x)(!0),m=!!h,b=(0,A.f)(()=>d?.store??new X({open:r,openProp:n,activeTriggerId:g,triggerIdProp:f,modal:u,disablePointerDismissal:s,nested:m})).current;(0,M.f)(()=>{void 0===n&&!1===b.state.open&&!0===r&&b.update({open:!0,activeTriggerId:g})}),b.useControlledProp(\"openProp\",n),b.useControlledProp(\"triggerIdProp\",f),b.useSyncedValues({disablePointerDismissal:s,nested:m,modal:u}),b.useContextCallback(\"onOpenChange\",i),b.useContextCallback(\"onOpenChangeComplete\",l);let x=b.useState(\"payload\");!function(e){let{store:t,parentContext:n,actionsRef:r}=e,i=t.useState(\"open\"),l=t.useState(\"disablePointerDismissal\"),s=t.useState(\"modal\"),u=t.useState(\"popupElement\"),{openMethod:c,triggerProps:d}=(0,j.f)(i);(0,L.z)(t);let{forceUnmount:f}=(0,L.L)(i,t),p=(0,a.f)(e=>{let n=(0,v.f)(e);return n.preventUnmountOnClose=()=>{t.set(\"preventUnmountingOnClose\",!0)},n}),g=o.useCallback(()=>{t.setOpen(!1,p($.f.imperativeAction))},[t,p]);o.useImperativeHandle(r,()=>({unmount:f,close:g}),[f,g]);let h=(0,B.f)({popupStore:t,onOpenChange:t.setOpen,treatPopupAsFloatingElement:!0,noEmit:!0}),[m,b]=o.useState(0),x=0===m,y=(0,F.f)(h),S=(0,I.f)(h,{outsidePressEvent:()=>t.context.internalBackdropRef.current||t.context.backdropRef.current?\"intentional\":{mouse:\"trap-focus\"===s?\"sloppy\":\"intentional\",touch:\"sloppy\"},outsidePress(e){if(!t.context.outsidePressEnabledRef.current||\"button\"in e&&0!==e.button||\"touches\"in e&&1!==e.touches.length)return!1;let n=(0,z.Z)(e);return!!x&&!l&&(!s||!t.context.internalBackdropRef.current&&!t.context.backdropRef.current||t.context.internalBackdropRef.current===n||t.context.backdropRef.current===n||(0,z.I)(n,u)&&!n?.hasAttribute(\"data-base-ui-portal\"))},escapeKey:x});(0,O.f)(i&&!0===s,u);let{getReferenceProps:w,getFloatingProps:_,getTriggerProps:E}=(0,k.f)([y,S]);t.useContextCallback(\"onNestedDialogOpen\",e=>{b(e+1)}),t.useContextCallback(\"onNestedDialogClose\",()=>{b(0)}),o.useEffect(()=>(n?.onNestedDialogOpen&&i&&n.onNestedDialogOpen(m),n?.onNestedDialogClose&&!i&&n.onNestedDialogClose(),()=>{n?.onNestedDialogClose&&i&&n.onNestedDialogClose()}),[i,n,m]);let C=o.useMemo(()=>w(d),[w,d]),R=o.useMemo(()=>E(d),[E,d]),P=o.useMemo(()=>_(),[_]);t.useSyncedValues({openMethod:c,activeTriggerProps:C,inactiveTriggerProps:R,popupProps:P,floatingRootContext:h,nestedOpenDialogCount:m})}({store:b,actionsRef:c,parentContext:h?.store.context,onOpenChange:i,triggerIdProp:f});let y=o.useMemo(()=>({store:b}),[b]);return(0,P.jsx)(p.R.Provider,{value:y,children:\"function\"==typeof t?t({payload:x}):t})}"
+    },
+    {
+      "witness": {
+        "label": "actual outside handler dependency",
+        "source": "evidence/web/objects/0f4bad575370faed.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+        "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+        "sourceBytes": 97201,
+        "utf16": [
+          11973,
+          11986
+        ],
+        "utf8": [
+          11973,
+          11986
+        ],
+        "sha256": "1240f8a9b43d7cf9c141d9fe4103ae24b0a44f8a619f4f6d7703859cee5a217b"
+      },
+      "text": "I=e.i(385676)"
+    },
+    {
+      "witness": {
+        "label": "topmost primary/single-touch backdrop predicate",
+        "source": "evidence/web/objects/0f4bad575370faed.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+        "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+        "sourceBytes": 97201,
+        "utf16": [
+          15306,
+          15683
+        ],
+        "utf8": [
+          15306,
+          15683
+        ],
+        "sha256": "1fc3dd0f921bac99a584dadff7b9df62df568bdb51a271a2733f84ca636518ca"
+      },
+      "text": "outsidePress(e){if(!t.context.outsidePressEnabledRef.current||\"button\"in e&&0!==e.button||\"touches\"in e&&1!==e.touches.length)return!1;let n=(0,z.Z)(e);return!!x&&!l&&(!s||!t.context.internalBackdropRef.current&&!t.context.backdropRef.current||t.context.internalBackdropRef.current===n||t.context.backdropRef.current===n||(0,z.I)(n,u)&&!n?.hasAttribute(\"data-base-ui-portal\"))}"
+    },
+    {
+      "witness": {
+        "label": "store forwards false to the actual onOpenChange callback",
+        "source": "evidence/web/objects/0f4bad575370faed.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+        "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+        "sourceBytes": 97201,
+        "utf16": [
+          13005,
+          13518
+        ],
+        "utf8": [
+          13005,
+          13518
+        ],
+        "sha256": "dd156a4a427044e1fa484192cd5d8d6b50a05fdb89eb68f7a803e839af05a076"
+      },
+      "text": "setOpen=(e,t)=>{if(t.preventUnmountOnClose=()=>{this.set(\"preventUnmountingOnClose\",!0)},e||null!=t.trigger||null==this.state.activeTriggerId||(t.trigger=this.state.activeTriggerElement??void 0),this.context.onOpenChange?.(e,t),t.isCanceled)return;let n={open:e,nativeEvent:t.event,reason:t.reason,nested:this.state.nested};this.state.floatingRootContext.context.events?.emit(\"openchange\",n);let r={open:e},i=t.trigger?.id??null;(i||e)&&(r.activeTriggerId=i,r.activeTriggerElement=t.trigger??null),this.update(r)}"
+    }
+  ],
+  "outsideClose": [
+    {
+      "witness": {
+        "label": "actual outside handler consumes predicate then closes",
+        "source": "evidence/web/objects/eee6e838a0365a32.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/2rx-qd38rgpw0.js",
+        "sourceSha256": "0715c558588dd2494810557e48681d0775a6c37e45730baa68d017b53123442c",
+        "sourceBytes": 117589,
+        "utf16": [
+          103258,
+          104659
+        ],
+        "utf8": [
+          103258,
+          104659
+        ],
+        "sha256": "f02d17b07348ea81417436c703a6d0dbdbeea6b873ef9c391e7164f4e7429870"
+      },
+      "text": "function m(e){let r;if(\"intentional\"===(r=p())&&\"click\"!==e.type||\"sloppy\"===r&&\"click\"===e.type||E.current.insideReactTree)return void _();let i=(0,l.Z)(e),s=`[${(0,g.f)(\"inert\")}]`,a=Array.from((0,o.f)(y.select(\"floatingElement\")).querySelectorAll(s)),f=(0,n.m)(i)?i.getRootNode():null;(0,n.R)(f)&&(a=a.concat(Array.from(f.querySelectorAll(s))));let m=y.context.triggerElements;if(i&&(m.hasElement(i)||m.hasMatchingElement(e=>(0,l.I)(e,i))))return;let v=(0,n.m)(i)?i:null;for(;v&&!(0,n.Z)(v);){let e=(0,n.I)(v);if((0,n.Z)(e)||!(0,n.m)(e))break;v=e}if(a.length&&(0,n.m)(i)&&!(0,l.W)(i)&&!(0,l.I)(i,y.select(\"floatingElement\"))&&a.every(e=>!(0,l.I)(v,e)))return;if((0,n.E)(i)&&!(\"touches\"in e)){let t=(0,n.Z)(i),r=(0,n.X)(i),o=/auto|scroll/,l=t||o.test(r.overflowX),s=t||o.test(r.overflowY),u=l&&i.clientWidth>0&&i.scrollWidth>i.clientWidth,a=s&&i.clientHeight>0&&i.scrollHeight>i.clientHeight,c=\"rtl\"===r.direction,f=a&&(c?e.offsetX<=i.offsetWidth-i.clientWidth:e.offsetX>i.clientWidth),d=u&&e.offsetY>i.clientHeight;if(f||d)return}if(h(e))return;if(\"intentional\"===p()&&W.current){t.clear(),W.current=!1;return}if(\"function\"==typeof A&&!A(e))return;let b=E.current.floatingContext?.nodeId,w=P?(0,u.Q)(P.nodesRef.current,b):[];if(w.length>0){let e=!0;if(w.forEach(t=>{t.context?.open&&!t.context.dataRef.current.__outsidePressBubbles&&(e=!1)}),!e)return}y.setOpen(!1,(0,c.f)(d.f.outsidePress,e)),_()}"
+    },
+    {
+      "witness": {
+        "label": "actual false outsidePress state call",
+        "source": "evidence/web/objects/eee6e838a0365a32.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/2rx-qd38rgpw0.js",
+        "sourceSha256": "0715c558588dd2494810557e48681d0775a6c37e45730baa68d017b53123442c",
+        "sourceBytes": 117589,
+        "utf16": [
+          104613,
+          104654
+        ],
+        "utf8": [
+          104613,
+          104654
+        ],
+        "sha256": "ba95510128152befd10913a2c5ce23075573de7d167ae2b4439cfee5d52a7fef"
+      },
+      "text": "y.setOpen(!1,(0,c.f)(d.f.outsidePress,e))"
+    }
+  ],
+  "searchClose": [
+    {
+      "witness": {
+        "label": "actual modal import",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          15416,
+          15430
+        ],
+        "utf8": [
+          15416,
+          15430
+        ],
+        "sha256": "a1cf4981766ee434fd887bd4dabf87b7a7ca5f2cd1f279fce742476307aafba2"
+      },
+      "text": "ew=e.i(167958)"
+    },
+    {
+      "witness": {
+        "label": "actual modal onOpenChange callback",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          46997,
+          47012
+        ],
+        "utf8": [
+          46997,
+          47012
+        ],
+        "sha256": "e7d5d8daaf975e2b607275fccd73d173f23632f27e665d007faafeaac586133a"
+      },
+      "text": "onOpenChange:es"
+    },
+    {
+      "witness": {
+        "label": "false open change calls actual close callback",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          35982,
+          36028
+        ],
+        "utf8": [
+          35982,
+          36028
+        ],
+        "sha256": "92d155fdff7267e28248fe7b6dde0328da6548d138afadd599a2054e0a3e0046"
+      },
+      "text": "es=(0,a.useCallback)(e=>{e?b(!0):ea()},[ea,b])"
+    },
+    {
+      "witness": {
+        "label": "original close clears draft/tab and sets open false",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          35879,
+          35981
+        ],
+        "utf8": [
+          35879,
+          35981
+        ],
+        "sha256": "30766030c89e1a0ec368a5d4f00bee18dbf73dcbccecafd52a08e601d4310c12"
+      },
+      "text": "ea=(0,a.useCallback)(()=>{Y.current?.abort(),Y.current=null,er.current=null,_(\"\"),k(\"all\"),b(!1)},[b])"
+    },
+    {
+      "witness": {
+        "label": "actual search state getter/setter import",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          17339,
+          17353
+        ],
+        "utf8": [
+          17339,
+          17353
+        ],
+        "sha256": "699047438421857d8ada4ee3473cf431c3355b0725abc39fb2c4c6505b346474"
+      },
+      "text": "e8=e.i(617614)"
+    },
+    {
+      "witness": {
+        "label": "actual search-open store and boolean setter",
+        "source": "evidence/web/objects/4da7a3f4580c8707.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/2p2k-eoe7rs1_.js",
+        "sourceSha256": "d3ac051dc8989b6c57dc72c1899117ccf12cfa274a91cb707ea2c53099de37f8",
+        "sourceBytes": 77335,
+        "utf16": [
+          63744,
+          63995
+        ],
+        "utf8": [
+          63744,
+          63995
+        ],
+        "sha256": "aa91929315118bd84634d7861362b94a7e77a2d0bc89b6ad89c82ce6c201be2b"
+      },
+      "text": "e=>{var t=e.i(78436);let r={isSearchOpen:!1},n=(0,t.$)()(e=>({...r,setIsSearchOpen:t=>e({isSearchOpen:t}),toggleSearchDialog:()=>e(e=>({isSearchOpen:!e.isSearchOpen}))})),i=e=>e.isSearchOpen,a=e=>e.setIsSearchOpen;e.s([\"F\",0,()=>n(i),\"Z\",0,()=>n(a)])}"
+    }
+  ],
+  "limits": [
+    "Grouped logical IDs are not additional literal factories or new captured bytes.",
+    "Static outside-close attribution, not original runtime or pixel parity.",
+    "The native local adaptation preserves maintained draft/Escape semantics; original ea draft/tab reset equivalence is excluded."
+  ]
+}

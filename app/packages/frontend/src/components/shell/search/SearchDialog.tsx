@@ -90,6 +90,7 @@ export function SearchDialog() {
   return (
     <dialog
       ref={dialogRef}
+      closedby="any"
       aria-label="Search for coins and users"
       onKeyDown={(event) => {
         if (event.key !== "Escape") return;
