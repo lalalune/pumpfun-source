@@ -1,0 +1,33 @@
+✔ eaadb129bb56: pending reads versus committed getters, duplicates and ordered flush (2.472632ms)
+✔ eaadb129bb56: exact set/update/remove interleavings retain pending patches (0.274532ms)
+✔ eaadb129bb56: defined ATH maximum, unvalidated values and latest nonmonotonic time (0.414883ms)
+✔ eaadb129bb56: plain set does not force live flag; undefined patches and absent rows (0.27975ms)
+✔ eaadb129bb56: per-selector listeners, immediate callback and unsubscribe (0.447521ms)
+✔ eaadb129bb56: visible RAF, 100ms fallback, hidden/noRAF250 and visibility flush (0.350767ms)
+✔ eaadb129bb56: batch overwrite/merge/clear/direct flush and reentrancy (0.328253ms)
+✔ eaadb129bb56: callback Set snapshot, logger isolation and requeued callback (0.303185ms)
+✔ eaadb129bb56: nested pause release, direct flush during pause and cleanup reschedules (0.471017ms)
+✔ eaadb129bb56: pause completion flushes, dependency transition and idempotent cleanup (1.376076ms)
+✔ eaadb129bb56: all selectors preserve references/order and shallow object/Map/iterable rules (0.79252ms)
+✔ c232e5e54526: pending reads versus committed getters, duplicates and ordered flush (0.398458ms)
+✔ c232e5e54526: exact set/update/remove interleavings retain pending patches (0.20688ms)
+✔ c232e5e54526: defined ATH maximum, unvalidated values and latest nonmonotonic time (0.157026ms)
+✔ c232e5e54526: plain set does not force live flag; undefined patches and absent rows (0.11991ms)
+✔ c232e5e54526: per-selector listeners, immediate callback and unsubscribe (0.151958ms)
+✔ c232e5e54526: visible RAF, 100ms fallback, hidden/noRAF250 and visibility flush (0.186591ms)
+✔ c232e5e54526: batch overwrite/merge/clear/direct flush and reentrancy (0.23979ms)
+✔ c232e5e54526: callback Set snapshot, logger isolation and requeued callback (0.290546ms)
+✔ c232e5e54526: nested pause release, direct flush during pause and cleanup reschedules (0.277857ms)
+✔ c232e5e54526: pause completion flushes, dependency transition and idempotent cleanup (0.139569ms)
+✔ c232e5e54526: all selectors preserve references/order and shallow object/Map/iterable rules (0.210766ms)
+✔ real Node noRAF250ms fallback commits once; finite actual timer control (251.673221ms)
+✔ unknown physical variant is rejected rather than choosing a loader winner (0.582013ms)
+✔ source gate rejects actual generated code, contract values, variants, witnesses and ports mutations (2309.875479ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2705.240201

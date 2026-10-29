@@ -1,0 +1,125 @@
+✔ eaadb129bb56: pending reads versus committed getters, duplicates and ordered flush (2.432552ms)
+✔ eaadb129bb56: exact set/update/remove interleavings retain pending patches (0.29257ms)
+✖ eaadb129bb56: defined ATH maximum, unvalidated values and latest nonmonotonic time (0.927342ms)
+✔ eaadb129bb56: plain set does not force live flag; undefined patches and absent rows (0.247381ms)
+✔ eaadb129bb56: per-selector listeners, immediate callback and unsubscribe (0.58617ms)
+✔ eaadb129bb56: visible RAF, 100ms fallback, hidden/noRAF250 and visibility flush (0.470947ms)
+✔ eaadb129bb56: batch overwrite/merge/clear/direct flush and reentrancy (0.470937ms)
+✔ eaadb129bb56: callback Set snapshot, logger isolation and requeued callback (0.297626ms)
+✔ eaadb129bb56: nested pause release, direct flush during pause and cleanup reschedules (0.555634ms)
+✔ eaadb129bb56: pause completion flushes, dependency transition and idempotent cleanup (0.466531ms)
+✖ eaadb129bb56: all selectors preserve references/order and shallow object/Map/iterable rules (1.892451ms)
+✔ c232e5e54526: pending reads versus committed getters, duplicates and ordered flush (0.413761ms)
+✔ c232e5e54526: exact set/update/remove interleavings retain pending patches (0.117246ms)
+✖ c232e5e54526: defined ATH maximum, unvalidated values and latest nonmonotonic time (0.195484ms)
+✔ c232e5e54526: plain set does not force live flag; undefined patches and absent rows (0.135633ms)
+✔ c232e5e54526: per-selector listeners, immediate callback and unsubscribe (0.158017ms)
+✔ c232e5e54526: visible RAF, 100ms fallback, hidden/noRAF250 and visibility flush (0.225659ms)
+✔ c232e5e54526: batch overwrite/merge/clear/direct flush and reentrancy (0.157727ms)
+✔ c232e5e54526: callback Set snapshot, logger isolation and requeued callback (0.097997ms)
+✔ c232e5e54526: nested pause release, direct flush during pause and cleanup reschedules (0.297035ms)
+✔ c232e5e54526: pause completion flushes, dependency transition and idempotent cleanup (0.169354ms)
+✖ c232e5e54526: all selectors preserve references/order and shallow object/Map/iterable rules (0.288853ms)
+✔ real Node noRAF250ms fallback commits once; finite actual timer control (250.282103ms)
+✔ unknown physical variant is rejected rather than choosing a loader winner (0.684597ms)
+✔ source gate rejects actual generated code, contract values, variants, witnesses and ports mutations (2460.273579ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 21
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2861.612267
+
+✖ failing tests:
+
+test at app/tests/original_live_coin_state.test.mjs:37:2
+✖ eaadb129bb56: defined ATH maximum, unvalidated values and latest nonmonotonic time (0.927342ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  50 !== 4
+  
+      at TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_live_coin_state.test.mjs:40:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 50,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at app/tests/original_live_coin_state.test.mjs:92:2
+✖ eaadb129bb56: all selectors preserve references/order and shallow object/Map/iterable rules (1.892451ms)
+  AssertionError [ERR_ASSERTION]: Expected "actual" not to be reference-equal to "expected":
+  
+  Set(2) {
+    1,
+    2
+  }
+  
+      at TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_live_coin_state.test.mjs:102:124)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Set(2) { 1, 2 },
+    expected: Set(2) { 1, 2 },
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at app/tests/original_live_coin_state.test.mjs:37:2
+✖ c232e5e54526: defined ATH maximum, unvalidated values and latest nonmonotonic time (0.195484ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  50 !== 4
+  
+      at TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_live_coin_state.test.mjs:40:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 50,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at app/tests/original_live_coin_state.test.mjs:92:2
+✖ c232e5e54526: all selectors preserve references/order and shallow object/Map/iterable rules (0.288853ms)
+  AssertionError [ERR_ASSERTION]: Expected "actual" not to be reference-equal to "expected":
+  
+  Set(2) {
+    1,
+    2
+  }
+  
+      at TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_live_coin_state.test.mjs:102:124)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Set(2) { 1, 2 },
+    expected: Set(2) { 1, 2 },
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }

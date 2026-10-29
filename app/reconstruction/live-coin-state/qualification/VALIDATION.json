@@ -1,0 +1,47 @@
+{
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "runtimeFreeze": "9362d503fa47ee7db014204305edb9a039e47b2e",
+  "clientSha256": "1e637c556ace256355b1fd4c570f570136ee909f9d140f6753bcb1649301be8d",
+  "sourceGate": {
+    "witnesses": 66,
+    "sourceEntries": 9,
+    "selectedConsumers": 4,
+    "batchVariants": 2
+  },
+  "directTests": {
+    "passed": 25,
+    "failed": 0,
+    "log": "focused.log",
+    "includes": "22 variant cases, actual250ms control, explicit variant rejection, eight actual verifier-negative mutations"
+  },
+  "historicalInitialTests": {
+    "passed": 21,
+    "failed": 4,
+    "log": "focused-initial.log",
+    "limit": "Initial test source bytes were not separately sealed; preserve raw initial oracle/stepping failure log, not an exact final-test reproduction claim. Generated client remained unchanged."
+  },
+  "sharedSourceTests": {
+    "passed": 11,
+    "failed": 0,
+    "log": "shared-source.log"
+  },
+  "browser": {
+    "passed": 6,
+    "failed": 0,
+    "errors": 0,
+    "browserClosed": true,
+    "serverListening": false,
+    "inputs": "browser/INPUTS.json",
+    "result": "browser/RESULT.json",
+    "scope": "Real React/compiler, synthetic provider and manual scheduler; nativeRAF scenario per variant, no Next/backend/service."
+  },
+  "versions": {
+    "node": "v24.19.0",
+    "react": "19.2.3",
+    "reactDOM": "19.2.3",
+    "playwright": "1.64.1",
+    "esbuild": "0.25.12"
+  },
+  "mounted": false,
+  "productionOperationsQualified": 0
+}
