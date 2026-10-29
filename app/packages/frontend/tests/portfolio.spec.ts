@@ -8,6 +8,7 @@ const SPL_MINT = "Ht3cqPuEUR6jiNiFsF1n93TPokuq1jqiMKujAjDdxXCB";
 const TOKEN_2022_MINT = "2NrDzgpDWQKKHmVJZqQVn3XjMt6WGhLdrr941RtzsQZG";
 
 function tokenAccount({
+  owner,
   tokenAccount,
   mint,
   program,
@@ -15,6 +16,7 @@ function tokenAccount({
   amount,
   decimals,
 }: {
+  owner: string;
   tokenAccount: string;
   mint: string;
   program: "spl-token" | "token-2022";
@@ -25,7 +27,7 @@ function tokenAccount({
   return {
     tokenAccount,
     mint,
-    owner: WALLET,
+    owner,
     program,
     programId,
     rawAmount: amount,
@@ -42,6 +44,7 @@ function tokenAccount({
 
 function portfolio(address = WALLET, empty = false) {
   const splAccount = tokenAccount({
+    owner: address,
     tokenAccount: SPL_ACCOUNT,
     mint: SPL_MINT,
     program: "spl-token",
@@ -50,6 +53,7 @@ function portfolio(address = WALLET, empty = false) {
     decimals: 6,
   });
   const token2022Account = tokenAccount({
+    owner: address,
     tokenAccount: TOKEN_2022_ACCOUNT,
     mint: TOKEN_2022_MINT,
     program: "token-2022",
