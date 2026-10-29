@@ -52,6 +52,7 @@ export function objectProperty(object, name) {
 }
 
 export function literal(node) {
+  if ((node?.type === 'NumericLiteral' && !Number.isFinite(node.value)) || (node?.type === 'UnaryExpression' && node.operator === '-' && node.argument?.type === 'NumericLiteral' && !Number.isFinite(node.argument.value))) throw new Error('nonfinite numeric literal cannot be declared as JSON');
   if (['StringLiteral', 'NumericLiteral', 'BooleanLiteral'].includes(node?.type)) return node.value;
   if (node?.type === 'NullLiteral') return null;
   if (node?.type === 'UnaryExpression' && node.operator === '-' && node.argument.type === 'NumericLiteral') return -node.argument.value;
