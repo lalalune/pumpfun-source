@@ -1,0 +1,30 @@
+(node:373808) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/pump-app-leaderboard-navigation/app/packages/frontend/src/app/leaderboard/types.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/pump-app-leaderboard-navigation/app/packages/frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ actual native three display decisions bind complete original X and original DTO without port-stack dependency (444.96346ms)
+✔ source gate rejects rank-zero regression, zero-gain coloring and positive-prefix boundary change (672.955201ms)
+✔ same real React row assertion fails on exact base excerpt then passes candidate, retaining amount/identity/facts/order (87.950826ms)
+✖ current local response admission retains supplied rank-zero/finite PnL; nonfinite values still reject (0.608734ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1377.70688
+
+✖ failing tests:
+
+test at tests/competition-entry-presentation.test.mjs:46:1
+✖ current local response admission retains supplied rank-zero/finite PnL; nonfinite values still reject (0.608734ms)
+  Error: The leaderboard adapter returned an invalid response.
+      at parseLeaderboardResponse (file:///workspace/pump-app-leaderboard-navigation/app/packages/frontend/src/app/leaderboard/types.ts:362:9)
+      at TestContext.<anonymous> (file:///workspace/pump-app-leaderboard-navigation/app/tests/competition-entry-presentation.test.mjs:49:17)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

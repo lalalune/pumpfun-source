@@ -1,0 +1,88 @@
+
+Running 2 tests using 1 worker
+
+(node:377816) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] tests/competition-entry-presentation.spec.ts:45:7 › actual web row preserves supplied unranked and PnL display decisions at 390px
+  1) tests/competition-entry-presentation.spec.ts:45:7 › actual web row preserves supplied unranked and PnL display decisions at 390px 
+
+    Error: expect(locator).not.toHaveClass(expected) failed
+
+    Locator: getByRole('list', { name: 'Competition rankings' }).getByRole('listitem').nth(1).locator('.ranking-metric > strong')
+    Expected pattern: not /positive|negative/
+    Received string: "positive"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "not toHaveClass" getByRole('list', { name: 'Competition rankings' }).getByRole('listitem').nth(1).locator('.ranking-metric > strong') with timeout 5000ms
+      - waiting for getByRole('list', { name: 'Competition rankings' }).getByRole('listitem').nth(1).locator('.ranking-metric > strong')
+        14 × locator resolved to <strong class="positive">$0.00</strong>
+           - unexpected value "positive"
+
+
+       97 |       rows.nth(i).locator(".ranking-metric > strong");
+       98 |     await expect(metric(1)).toHaveText("$0.00");
+    >  99 |     await expect(metric(1)).not.toHaveClass(/positive|negative/);
+          |                                 ^
+      100 |     await expect(metric(2)).toHaveText("+$12.34");
+      101 |     await expect(metric(2)).toHaveClass("positive");
+      102 |     await expect(metric(3)).toHaveText("-$12.34");
+        at /workspace/pump-app-leaderboard-navigation/app/packages/frontend/tests/competition-entry-presentation.spec.ts:99:33
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../pump-app-entry-presentation-staging/baseline-causal/output/competition-entry-presenta-da229--display-decisions-at-390px/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../../../pump-app-entry-presentation-staging/baseline-causal/output/competition-entry-presenta-da229--display-decisions-at-390px/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../pump-app-entry-presentation-staging/baseline-causal/output/competition-entry-presenta-da229--display-decisions-at-390px/error-context.md
+
+
+(node:378017) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/2] tests/competition-entry-presentation.spec.ts:45:7 › actual web row preserves supplied unranked and PnL display decisions at 1280px
+  2) tests/competition-entry-presentation.spec.ts:45:7 › actual web row preserves supplied unranked and PnL display decisions at 1280px 
+
+    Error: expect(locator).not.toHaveClass(expected) failed
+
+    Locator: getByRole('list', { name: 'Competition rankings' }).getByRole('listitem').nth(1).locator('.ranking-metric > strong')
+    Expected pattern: not /positive|negative/
+    Received string: "positive"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "not toHaveClass" getByRole('list', { name: 'Competition rankings' }).getByRole('listitem').nth(1).locator('.ranking-metric > strong') with timeout 5000ms
+      - waiting for getByRole('list', { name: 'Competition rankings' }).getByRole('listitem').nth(1).locator('.ranking-metric > strong')
+        14 × locator resolved to <strong class="positive">$0.00</strong>
+           - unexpected value "positive"
+
+
+       97 |       rows.nth(i).locator(".ranking-metric > strong");
+       98 |     await expect(metric(1)).toHaveText("$0.00");
+    >  99 |     await expect(metric(1)).not.toHaveClass(/positive|negative/);
+          |                                 ^
+      100 |     await expect(metric(2)).toHaveText("+$12.34");
+      101 |     await expect(metric(2)).toHaveClass("positive");
+      102 |     await expect(metric(3)).toHaveText("-$12.34");
+        at /workspace/pump-app-leaderboard-navigation/app/packages/frontend/tests/competition-entry-presentation.spec.ts:99:33
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../pump-app-entry-presentation-staging/baseline-causal/output/competition-entry-presenta-8c935-display-decisions-at-1280px/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../../../pump-app-entry-presentation-staging/baseline-causal/output/competition-entry-presenta-8c935-display-decisions-at-1280px/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../pump-app-entry-presentation-staging/baseline-causal/output/competition-entry-presenta-8c935-display-decisions-at-1280px/error-context.md
+
+
+  2 failed
+    tests/competition-entry-presentation.spec.ts:45:7 › actual web row preserves supplied unranked and PnL display decisions at 390px 
+    tests/competition-entry-presentation.spec.ts:45:7 › actual web row preserves supplied unranked and PnL display decisions at 1280px 

@@ -1,0 +1,371 @@
+{
+  "schemaVersion": 1,
+  "base": "b08fd908203a76d84c8dd68b60310582aa2c4fba",
+  "sourceCommit": "025ac08b51f5807ee6ad2dc51df664aa77ddc830",
+  "sourceTree": "160aa0e06f12f5b7748406f6054a2ad633ac2a3c",
+  "inputs": {
+    "app/contracts/developer.openapi.json": {
+      "sha256": "ad2fdc2bbf0b86d92e01f539ca609fff8164fcc44556bb2691378a869f73ad73",
+      "bytes": 1552035,
+      "gitBlob": "dd2812c76275c198607f39bb63280a11b608e6ec"
+    },
+    "app/evidence/api-probes.json": {
+      "sha256": "2c348b8e63a3f776ef18c92072be4a40e2c210bad6aebe8a9543b23451798edc",
+      "bytes": 3369,
+      "gitBlob": "f3cf098a03426581c561ef6b08360e88b5144ac8"
+    },
+    "app/evidence/sdk/pump-sdk-4.3.1.tgz": {
+      "sha256": "c8ff4e850651c81e9f488bfc6dffb4513a041bb4bca0819879dc19d9a72a4641",
+      "bytes": 743347,
+      "gitBlob": "39ef7037496813c43f14341ca4ae1f1105edd107"
+    },
+    "app/evidence/sdk/registry.json": {
+      "sha256": "c9fb0596e4e5c8809a18964a34474ca7cb978e180125e5d5fb25da1c6cc69a66",
+      "bytes": 2699,
+      "gitBlob": "82c11c966d26bbcf2b473a00d75fe324f5a475dc"
+    },
+    "app/evidence/source-map-probes.json": {
+      "sha256": "a3360f8cdcb685cc44fa8dceabd353d56c15e13289cc1df53e3c9bcf4c5bcb57",
+      "bytes": 13107,
+      "gitBlob": "4c3fab7c2a8b6701d39cf180f79b66135f6399d2"
+    },
+    "app/evidence/web/manifest.json": {
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "bytes": 3026513,
+      "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda"
+    },
+    "app/evidence/web/objects/2b47dd0b38a1608f.js": {
+      "sha256": "e78d2f38b06f971847c18dd05457c75afc85208135f50d6e4022a5f197e8839d",
+      "bytes": 507700,
+      "gitBlob": "040939b52d9fd8de8d7638e8fd1637eb51e81d2b"
+    },
+    "app/evidence/web/objects/2fe17dced92b840b.js": {
+      "sha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "bytes": 117439,
+      "gitBlob": "4b9bd9abacbbb669f9eb1a4502fd2f719f3fab1b"
+    },
+    "app/package.json": {
+      "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+      "bytes": 3703,
+      "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8"
+    },
+    "app/packages/backend/package.json": {
+      "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "bytes": 463,
+      "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b"
+    },
+    "app/packages/backend/tsconfig.json": {
+      "sha256": "cf0abfd9a01f5efbcfe57c66fdf5db57f5cc9791d48cc0667a74168d3626806c",
+      "bytes": 215,
+      "gitBlob": "1a863bae065b07ea52a3a9b89b048c21f88876e2"
+    },
+    "app/packages/frontend/next.config.ts": {
+      "sha256": "d2a146c48e81f3d08a93dfabad75ac47e540667779a368b367ffb63be8e4ce45",
+      "bytes": 483,
+      "gitBlob": "6326d6c6274182f58c449f3f5bba914858023dfa"
+    },
+    "app/packages/frontend/package.json": {
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "bytes": 1048,
+      "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0"
+    },
+    "app/packages/frontend/src/app/globals.css": {
+      "sha256": "aa8b5c22bb2b4f057989b79107e108d69f5200d94c1502c3fd0e5376ad37ec91",
+      "bytes": 59893,
+      "gitBlob": "08651075813b909d3459daf74cc70b982abb2ce3"
+    },
+    "app/packages/frontend/src/app/leaderboard/leaderboard-client.tsx": {
+      "sha256": "011aabe291b3b41779b213563559de59a0d2a0070a0ebc6f80fa55d0b3e838e7",
+      "bytes": 27241,
+      "gitBlob": "f04b795dbc751be125f181c9eb8695df90ac587f"
+    },
+    "app/packages/frontend/src/app/leaderboard/types.ts": {
+      "sha256": "d3ffe9f9b6fe990766fc8fb7b26c6192064d2413298c30392f906dd24455162a",
+      "bytes": 10744,
+      "gitBlob": "b65661a9e321ad3dbf7cb99fce052784c67a70dc"
+    },
+    "app/packages/frontend/tests/browser-state.ts": {
+      "sha256": "6ca60ac77b50bcc845c8073973265a980ece5aede9782cb955836b422128123a",
+      "bytes": 366,
+      "gitBlob": "dad2bd240204528a984cc25718e9abfc40956347"
+    },
+    "app/packages/frontend/tests/competition-entry-presentation.spec.ts": {
+      "sha256": "3190249f984a7169ea6462fd2842e98f31ce7d16e2286d2e010b16e7f5249953",
+      "bytes": 4082,
+      "gitBlob": "1d2a63a4e81aecf9e5198409af80b4658ea243fb"
+    },
+    "app/packages/frontend/tsconfig.json": {
+      "sha256": "a5dc52a7664b2a81c4cadd7e5ac7eb73ec3f88af0d97edd9927344c01adb7a0b",
+      "bytes": 513,
+      "gitBlob": "232242f82f082ceecb0da2071d2528fc7b589d74"
+    },
+    "app/packages/sdk/package.json": {
+      "sha256": "9b85cdaaeee8387fd151783cc994fa8b80f24ca5c525c9accb3cccc5babd64d4",
+      "bytes": 1919,
+      "gitBlob": "ba5abc1bcc0fba0b6a7b7425eaa25544baeb43b4"
+    },
+    "app/packages/sdk/tsconfig.json": {
+      "sha256": "62333879f49f15d2b346bbb96a46f1fb66442c134aa7ea6ff55622971b8619c8",
+      "bytes": 210,
+      "gitBlob": "5c2bd6441f61feea7a6c21e6f02e6256483fd3f4"
+    },
+    "app/pnpm-lock.yaml": {
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "bytes": 113160,
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+    },
+    "app/pnpm-workspace.yaml": {
+      "sha256": "5348921b05aa1b79ce7e15492a2f39ed9d18136155e002fdbbfed5c38564a1b5",
+      "bytes": 183,
+      "gitBlob": "2ac2665ef5a28f8a1691518ad942fb07353810e6"
+    },
+    "app/reconstruction/competition-entry-presentation/README.md": {
+      "sha256": "49febd7f9958dc2189f96b2294a90ffb3a64361830ba5fb669b9f459ee0f475e",
+      "bytes": 4279,
+      "gitBlob": "94d0fe9154520b407342a6f4284227d89eb80647"
+    },
+    "app/reconstruction/competition-entry-presentation/contract.json": {
+      "sha256": "69203a6ba3b6410a9a9e70e287f4ce5198eca70c02754fb5563625732471f0e4",
+      "bytes": 6095,
+      "gitBlob": "933657ce32c5638a5f20d51a056468595df79f9c"
+    },
+    "app/reconstruction/competition-entry-presentation/reference/native-row.tsx": {
+      "sha256": "357fa51a7bb863c99d3cbbf64fade3c30dbcc6148ac3528162fc1c7def625176",
+      "bytes": 1505,
+      "gitBlob": "a4379d760f72cbd09692969fe279dc1ddde56030"
+    },
+    "app/recovered/modules.json": {
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+      "bytes": 2928853,
+      "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f"
+    },
+    "app/scripts/original-contracts/source.mjs": {
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+      "bytes": 9493,
+      "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df"
+    },
+    "app/scripts/verify-competition-entry-presentation.mjs": {
+      "sha256": "bf2183d3eb00265e1690e60880808457a7ac8fb36ebd5924e7edbee5d52a421c",
+      "bytes": 11248,
+      "gitBlob": "4cafdc2e19c709706af1f8602f6d68a7c4d046a3"
+    },
+    "app/scripts/verify-evidence.py": {
+      "sha256": "6429337cfea4b6da8f979c37b449f442ec6574a3f9cf1cc14c734b4f812c2307",
+      "bytes": 2935,
+      "gitBlob": "de916929321f830eac387403fb5cda9ff981005f"
+    },
+    "app/tests/competition-entry-presentation.test.mjs": {
+      "sha256": "b3ef4244ae332f2824daff6a8087c3fb97ad220d38863f8d698ff2149a41b0f5",
+      "bytes": 9378,
+      "gitBlob": "7ee9678a5a645fca0e2abcfcdafdf428fb1bd328"
+    },
+    "app/tests/original_source.test.mjs": {
+      "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3",
+      "bytes": 7401,
+      "gitBlob": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+    }
+  },
+  "commands": [
+    {
+      "cwd": "app",
+      "argv": [
+        "node",
+        "scripts/verify-competition-entry-presentation.mjs",
+        "--check"
+      ],
+      "exitCode": 0,
+      "log": "source-check.log"
+    },
+    {
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/competition-entry-presentation.test.mjs",
+        "tests/original_source.test.mjs"
+      ],
+      "exitCode": 0,
+      "passed": 15,
+      "log": "focused.log"
+    },
+    {
+      "cwd": "app",
+      "argv": [
+        "pnpm",
+        "-r",
+        "typecheck"
+      ],
+      "pnpm": "10.24.0",
+      "exitCode": 0,
+      "log": "typecheck.log"
+    },
+    {
+      "cwd": "app",
+      "argv": [
+        "python3",
+        "scripts/verify-evidence.py"
+      ],
+      "exitCode": 0,
+      "capturedObjects": 698,
+      "log": "capture-integrity.log"
+    },
+    {
+      "cwd": "app/packages/frontend",
+      "argv": [
+        "node",
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "--config",
+        "/workspace/pump-app-entry-presentation-staging/playwright.config.ts"
+      ],
+      "env": {
+        "ENTRY_PRESENTATION_PHASE": "baseline-causal"
+      },
+      "source": "exact b08 base full file",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 2,
+      "log": "baseline-browser.log"
+    },
+    {
+      "cwd": "app/packages/frontend",
+      "argv": [
+        "node",
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "--config",
+        "/workspace/pump-app-entry-presentation-staging/playwright.config.ts"
+      ],
+      "env": {
+        "ENTRY_PRESENTATION_PHASE": "fixed-causal"
+      },
+      "source": "025ac08b51f5807ee6ad2dc51df664aa77ddc830",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "log": "fixed-browser.log"
+    }
+  ],
+  "baseline": {
+    "gitCommit": "b08fd908203a76d84c8dd68b60310582aa2c4fba",
+    "file": "packages/frontend/src/app/leaderboard/leaderboard-client.tsx",
+    "gitBlob": "e7dd4d0f92421d6869ad83d8322ba32328d9bd34",
+    "fileSha256": "02310d1e8050387ca314da56dc6d560a31c847d99ada6ac62d2def335f542c48",
+    "functionUtf16": [
+      11453,
+      12957
+    ],
+    "functionSha256": "c9f5a9fce9cf82b82bc8a42ba86f92f49bc08db8d4de87292b68645c69571e8d"
+  },
+  "browser": {
+    "baseURL": "http://127.0.0.1:3027",
+    "viewports": [
+      390,
+      1280
+    ],
+    "engine": "Chromium1248 / Playwright1.64.1",
+    "durationSeconds": 16.1,
+    "recipe": "Next16.4.1 Webpack dev, shared read-only deps, no backend server",
+    "serverArgv": [
+      "node",
+      "node_modules/next/dist/bin/next",
+      "dev",
+      "--webpack",
+      "--hostname",
+      "127.0.0.1",
+      "--port",
+      "3027"
+    ],
+    "serverEnv": {
+      "PUMPFUN_DEVELOPER_API_KEY": "",
+      "BACKEND_URL": "http://127.0.0.1:3028",
+      "NEXT_TELEMETRY_DISABLED": "1"
+    },
+    "transport": "Synthetic local GET envelopes admitted by unchanged actual client parser; foreign origins and mutations blocked",
+    "causalBaselineFailure": "Both first fail at valid rank1 zero PnL incorrectly having positive class, before defensive rank0 assertion",
+    "validRanks": "rank1 zero / rank2 positive / rank3 negative supplied PnL",
+    "rankZero": "separate defensive admitted local display boundary only; no documented ranked-array compatibility claim",
+    "cleanup": "Owned server stopped exit0; cache removed after outputs retained; generated next-env restored"
+  },
+  "initialFixture": {
+    "log": "initial-fixture-failure.log",
+    "passed": 3,
+    "failed": 1,
+    "cause": "Fixture used a nonstandard source label; actual parser requires Pump developer API. Corrected fixture only, product unchanged."
+  },
+  "priorMethods": "Earlier three-row and defensive-first browser reports and a source-phase race attempt remain private setup evidence; final causal pair above is the only final browser qualification. No product variants were measured.",
+  "limits": [
+    "This adapts three proven display decisions, not the full original row/providers",
+    "Rank0 fixture tests admission/display only, not a claim original ranked arrays include unranked/struck entries",
+    "Negative-zero Intl amount remains unchanged; source equality makes its tone neutral",
+    "No unaccepted1296/1315/1380 dependency, server ranking, payout, eligibility or private backend claim",
+    "No full production build or full app/browser suite in this lane; root common/build gates separate",
+    "SSR exposes existing private native row for test, without replacing product row bodies or evaluating captured factories"
+  ],
+  "artifacts": {
+    "baseline-browser.log": {
+      "sha256": "b919f007a533d27024a24f29bd26540b96e700379e6659f5eae7bd34ccb8b806",
+      "bytes": 6809
+    },
+    "baseline-next.log": {
+      "sha256": "5d131bb14e8ae4790086494c23613d006bd444e312ab0f1b42441eca28f98b55",
+      "bytes": 4907
+    },
+    "capture-integrity.log": {
+      "sha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9",
+      "bytes": 72
+    },
+    "fixed-browser.log": {
+      "sha256": "ecac45e428061873b62738b4b0442a10aa5975f1430e2a5747d7969f5b1aaedf",
+      "bytes": 496
+    },
+    "fixed-next.log": {
+      "sha256": "0febb75da0f4354077060e18a614565c4f7de65d2181c6f21c5a8cecf2c6db0f",
+      "bytes": 4904
+    },
+    "focused.log": {
+      "sha256": "26c47b0cbe6d5a230a6827da81ef16bade458a69a402aae7d6fb7859c4ec70b8",
+      "bytes": 2129
+    },
+    "initial-fixture-failure.log": {
+      "sha256": "c7af11b9b4499ff2519ceda8ae32f01af85c9a5b1a90635e1dcae777e4d8f058",
+      "bytes": 2075
+    },
+    "playwright.config.executed.ts": {
+      "sha256": "c84a7f84ed166f9b367f7c903fa2315791a893a4bbad7ee24ce147425d2adb49",
+      "bytes": 866
+    },
+    "source-check.log": {
+      "sha256": "5c8e4d82d00e240e9329aa3427c30fdfeed8e05514edb67a8f8994e02d563139",
+      "bytes": 111
+    },
+    "source-swap.json": {
+      "sha256": "e142910c1b9692e30ec5c0b754696797033fc67ce80b25d3d7312d5908312bf4",
+      "bytes": 168
+    },
+    "source-swap.py": {
+      "sha256": "12d11445e84753e938a35c6bcc57ec53b8aed7e1b7330a1279b593b5f49c7207",
+      "bytes": 644
+    },
+    "typecheck.log": {
+      "sha256": "0684b54b3ba5e515a6fb4a5ce293615cf500a72c3f042dada4112ec2f0b7aca2",
+      "bytes": 249
+    },
+    "visual/baseline-1280.png": {
+      "sha256": "ff08bcda0ab8eb7211b24e6557b0b54a8003c2ec3829580ea0f03c281220d7f9",
+      "bytes": 34617
+    },
+    "visual/baseline-390.png": {
+      "sha256": "089db33cb0375d192d42190efa93bf600806de6f3a5d84115d232b1be81ec83e",
+      "bytes": 31588
+    },
+    "visual/fixed-1280.png": {
+      "sha256": "fd76d316121ff781746bec5c1d5da9ff3ab14bb8cd20b9be4995fbef9b8b67d3",
+      "bytes": 34405
+    },
+    "visual/fixed-390.png": {
+      "sha256": "8c676bf8115b579872caf88bc6ee0d9d5854994633eeae2eb606329582d2e74c",
+      "bytes": 31295
+    }
+  }
+}
