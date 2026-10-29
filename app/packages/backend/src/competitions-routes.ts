@@ -6,7 +6,7 @@
  */
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import { CompetitionStore, defaultCompetitionStore } from './competitions-store.js';
-import { sendSynthetic, errorBody, rejectDuplicateQueryKeys } from './users-routes.js';
+import { sendSynthetic, errorBody, rejectDuplicateQueryKeys, integerLiteral } from './users-routes.js';
 
 /**
  * All competition numeric query parameters are declared `type: integer` in
@@ -17,10 +17,15 @@ import { sendSynthetic, errorBody, rejectDuplicateQueryKeys } from './users-rout
  * the handlers then truncated it (limit=2.5 served 2 rows with 200), the
  * same silent-truncation shape the posts and pnl-leaderboard routes already
  * reject. Reject non-integer finite values here; integer clamping is
- * unchanged.
+ * unchanged. Hex, exponent, padded and leading-zero spellings are not
+ * integer literals either (see integerLiteral).
  */
 function rejectInvalidNumbers(query: Record<string, string | undefined>, keys: string[], reply: FastifyReply): boolean {
-  if (keys.some(key => query[key] !== undefined && (!query[key]!.trim() || !Number.isFinite(Number(query[key])) || !Number.isInteger(Number(query[key]))))) {
+  if (keys.some(key => {
+    if (query[key] === undefined) return false;
+    const parsed = integerLiteral(query[key]!);
+    return parsed === null || !Number.isFinite(parsed);
+  })) {
     reply.code(400).send(errorBody(400, 'INVALID_QUERY'));
     return true;
   }

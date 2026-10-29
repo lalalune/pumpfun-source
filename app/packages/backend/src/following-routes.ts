@@ -11,7 +11,7 @@
  */
 import type { FastifyInstance } from 'fastify';
 import { defaultFollowingStore, type FollowingStore } from './following-store.js';
-import { errorBody, sendSynthetic, rejectDuplicateQueryKeys, toDeveloperUser } from './users-routes.js';
+import { errorBody, sendSynthetic, rejectDuplicateQueryKeys, toDeveloperUser, integerLiteral } from './users-routes.js';
 
 const LIST_PAGE = { min: 1, max: 1000, default: 20 } as const;
 const SEARCH_PAGE = { min: 1, max: 100, default: 20 } as const;
@@ -33,9 +33,8 @@ function parseListPage(
     // Number('') is 0, so an empty or whitespace-only value must not read
     // as a page boundary: it is rejected like any other non-integer, matching
     // the posts and users pagination fix.
-    if (qs.limit.trim() === '') return 'INVALID_LIMIT';
-    const parsed = Number(qs.limit);
-    if (!Number.isInteger(parsed) || parsed < bounds.min || parsed > bounds.max) {
+    const parsed = integerLiteral(qs.limit);
+    if (parsed === null || parsed < bounds.min || parsed > bounds.max) {
       return 'INVALID_LIMIT';
     }
     limit = parsed;
@@ -44,9 +43,8 @@ function parseListPage(
   if (qs.offset !== undefined) {
     // Number('') is 0, so an empty or whitespace-only offset would otherwise
     // silently read as offset 0 and serve the first page with 200.
-    if (qs.offset.trim() === '') return 'INVALID_OFFSET';
-    const parsed = Number(qs.offset);
-    if (!Number.isSafeInteger(parsed) || parsed < 0) return 'INVALID_OFFSET';
+    const parsed = integerLiteral(qs.offset);
+    if (parsed === null || !Number.isSafeInteger(parsed) || parsed < 0) return 'INVALID_OFFSET';
     offset = parsed;
   }
   let sort: 'followers' | 'recent' | undefined;

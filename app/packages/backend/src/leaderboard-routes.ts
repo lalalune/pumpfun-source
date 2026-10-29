@@ -13,7 +13,7 @@ import {
   isPeriod,
   isSort,
 } from './leaderboard-store.js';
-import { sendSynthetic, errorBody, rejectDuplicateQueryKeys } from './users-routes.js';
+import { sendSynthetic, errorBody, rejectDuplicateQueryKeys, integerLiteral } from './users-routes.js';
 
 /**
  * Pagination on the PnL board is declared as integers in
@@ -31,9 +31,8 @@ function pageValue(
   raw: string | undefined,
 ): number | null | undefined {
   if (raw === undefined) return undefined;
-  if (raw.trim() === '') return null;
-  const parsed = Number(raw);
-  if (!Number.isSafeInteger(parsed)) return null;
+  const parsed = integerLiteral(raw);
+  if (parsed === null || !Number.isSafeInteger(parsed)) return null;
   return parsed;
 }
 

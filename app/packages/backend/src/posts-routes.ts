@@ -6,7 +6,7 @@
  */
 import type { FastifyInstance } from 'fastify';
 import { PostStore, defaultPostStore } from './posts-store.js';
-import { sendSynthetic, errorBody, rejectDuplicateQueryKeys } from './users-routes.js';
+import { sendSynthetic, errorBody, rejectDuplicateQueryKeys, integerLiteral } from './users-routes.js';
 
 const POST_ID = /^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$/;
 
@@ -33,9 +33,8 @@ function pageValue(
 ): number | null {
   const raw = qs[field];
   if (raw === undefined) return fallback;
-  if (raw.trim() === '') return null;
-  const parsed = Number(raw);
-  if (!Number.isSafeInteger(parsed)) return null;
+  const parsed = integerLiteral(raw);
+  if (parsed === null || !Number.isSafeInteger(parsed)) return null;
   return Math.min(maximum, Math.max(minimum, parsed));
 }
 

@@ -67,6 +67,18 @@ export function rejectDuplicateQueryKeys(request: { url: string }, reply: Fastif
 }
 
 /**
+ * Number() also accepts hex/binary/octal prefixes, exponents, surrounding
+ * whitespace and leading zeros, so limit=0x10 or limit=1e2 would otherwise
+ * read as 16 or 100 and be served with 200. Only a plain decimal integer
+ * literal, optionally negative, is an integer query value, matching the
+ * payouts, positions, callouts and user-trades routes. Returns null for
+ * anything else; callers keep their own safe-integer and range checks.
+ */
+export function integerLiteral(raw: string): number | null {
+  return /^-?(?:0|[1-9][0-9]*)$/.test(raw) ? Number(raw) : null;
+}
+
+/**
  * Both user read contracts bound offset/limit to JavaScript safe integers.
  * An empty or whitespace-only value is not an integer literal (Number('') is
  * 0, so it would otherwise read as offset=0 / limit=0) and is rejected like
@@ -74,9 +86,8 @@ export function rejectDuplicateQueryKeys(request: { url: string }, reply: Fastif
  */
 function userPageValue(raw: string | undefined): number | null | undefined {
   if (raw === undefined) return undefined;
-  if (raw.trim() === '') return null;
-  const parsed = Number(raw);
-  return Number.isSafeInteger(parsed) ? parsed : null;
+  const parsed = integerLiteral(raw);
+  return parsed !== null && Number.isSafeInteger(parsed) ? parsed : null;
 }
 
 function userPagination(qs: Record<string, string | undefined>) {
