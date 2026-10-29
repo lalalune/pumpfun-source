@@ -97,3 +97,17 @@ PYTHONDONTWRITEBYTECODE=1 python3 reconstruction/harness/test_integrate.py
 This test substitutes the builder and subprocess boundary with synthetic
 in-memory results. It does not compile source, read ELF/cache/pickle data, run a
 target program, or establish a new matched-window count.
+
+## Gate saved score reports
+
+After scoring a trial, compare its per-window memberships with the pinned baseline:
+
+```bash
+python3 reconstruction/harness/compare_scores.py reconstruction/pump-main/baseline/score.json /tmp/pump-out/score.json --json /tmp/pump-out/regressions.json
+```
+
+Exit status is 0 only when every normalized and raw membership is preserved and
+both inventories have identical addresses and lengths; 1 means a regression or
+inventory change, and 2 means malformed input. Gains cannot offset losses in other
+windows. Both harness score reports and inventory-format window lists are accepted.
+This gate checks saved results, not their provenance or the candidate binary itself.
