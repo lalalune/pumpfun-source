@@ -23,7 +23,9 @@ export function normalizeUserSearch(node, roles, imports = {}) {
   function bind(pattern, scope) {
     if (pattern.type === 'Identifier') scope.set(pattern.name, `local:${next++}`);
     else if (pattern.type === 'AssignmentPattern') bind(pattern.left, scope);
-    else if (pattern.type === 'ObjectPattern') for (const item of pattern.properties) bind(item.value, scope);
+    else if (pattern.type === 'RestElement') bind(pattern.argument, scope);
+    else if (pattern.type === 'ArrayPattern') { for (const item of pattern.elements) if (item) bind(item, scope); }
+    else if (pattern.type === 'ObjectPattern') for (const item of pattern.properties) bind(item.type === 'RestElement' ? item.argument : item.value, scope);
     else throw new Error(`unsupported user-search binding: ${pattern.type}`);
   }
   function lookup(name, scopes) {
