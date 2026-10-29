@@ -11,11 +11,11 @@ Prints counts and gains/losses vs the baseline (default: base/current/inventory.
 """
 import argparse, csv, hashlib, json, re, struct, subprocess, sys, pickle
 from pathlib import Path
+from llvm_tools import objdump
 
 H = Path(__file__).resolve().parent
 SC = H.parent
 BASE = SC / 'base'
-OBJDUMP = str(Path.home() / '.cache/solana/v1.52/platform-tools/llvm/bin/llvm-objdump')
 
 
 def sections(blob):
@@ -50,7 +50,7 @@ def body(image, secs, address, size):
 
 
 def candidate_functions(path):
-    text = subprocess.check_output([OBJDUMP, '-t', str(path)], text=True)
+    text = subprocess.check_output([objdump(), '-t', str(path)], text=True)
     funcs = []
     for line in text.splitlines():
         m = re.match(r'^([0-9a-f]+) .* F \.text\s+([0-9a-f]+)\s+(?:\.hidden\s+)?(\S+)$', line)
