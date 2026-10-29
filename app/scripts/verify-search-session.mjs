@@ -52,7 +52,7 @@ export function normalizeSession(node, roles, imports = {}) {
       for (const parameter of value.params) bind(parameter, scope);
       current = [...scopes, scope];
     } else if (value.type === 'CatchClause') {
-      const scope = new Map(); bind(value.param, scope); current = [...scopes, scope];
+      const scope = new Map(); if (value.param) bind(value.param, scope); current = [...scopes, scope];
     } else if (value.type === 'BlockStatement') {
       const scope = new Map();
       for (const statement of value.body) if (statement.type === 'VariableDeclaration') {
