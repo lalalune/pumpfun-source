@@ -31,7 +31,16 @@ class CargoHomeTests(unittest.TestCase):
             with self.subTest(namespace=namespace):
                 self.prepare_from_namespace(namespace)
 
-    def prepare_from_namespace(self, namespace):
+    def test_alternative_registry_is_rejected_before_output_creation(self):
+        self.prepare_from_namespace(
+            'index.crates.io-1949cf8c6b5b557f',
+            registry_source='registry+https://registry.example.invalid/index',
+            rejected=True,
+        )
+
+    def prepare_from_namespace(self, namespace,
+                               registry_source='registry+https://github.com/rust-lang/crates.io-index',
+                               rejected=False):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             home = root / 'cargo-home'
@@ -46,12 +55,17 @@ class CargoHomeTests(unittest.TestCase):
             lock = root / 'Cargo.lock'
             digest = hashlib.sha256(archive.read_bytes()).hexdigest()
             lock.write_text('[[package]]\nname="cache-probe"\nversion="1.0.0"\n'
-                            'source="registry+https://github.com/rust-lang/crates.io-index"\n'
+                            f'source="{registry_source}"\n'
                             f'checksum="{digest}"\n', encoding='utf-8')
             output = root / 'output'
             result = subprocess.run([sys.executable, str(Path(__file__).with_name('prepare_locked_cargo_home.py')),
                                      '--lockfile', str(lock), '--output', str(output)],
                                     env={**os.environ, 'CARGO_HOME': str(home)}, capture_output=True, text=True)
+            if rejected:
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('Unsupported registry source', result.stderr)
+                self.assertFalse(output.exists())
+                return
             self.assertEqual(result.returncode, 0, result.stderr)
             manifest = json.loads((output / 'cache-manifest.json').read_text())
             self.assertEqual(manifest['packages'][0]['archive_sha256'], digest)

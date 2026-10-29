@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prepare an isolated offline Cargo cache from checksum-verified local archives."""
+"""Prepare an isolated offline crates.io cache from checksum-verified local archives."""
 import argparse
 import hashlib
 import json
@@ -14,9 +14,16 @@ parser.add_argument('--output', type=Path, required=True)
 args = parser.parse_args()
 source = Path(os.environ.get('CARGO_HOME') or Path.home() / '.cargo').expanduser() / 'registry'
 args.output = args.output.resolve()
-args.output.mkdir(parents=True, exist_ok=False)
 raw_lock = args.lockfile.read_bytes()
 lock = tomllib.loads(raw_lock.decode())
+# Output namespaces and registry configuration below are specific to crates.io.
+# Reject other registries before creating a partial or mislabeled cache.
+for package in lock['package']:
+    registry_source = package.get('source', '')
+    if (registry_source.startswith('registry+') and
+            registry_source != 'registry+https://github.com/rust-lang/crates.io-index'):
+        parser.error('Unsupported registry source; this helper only prepares crates.io packages')
+args.output.mkdir(parents=True, exist_ok=False)
 namespaces = ['index.crates.io-6f17d22bba15001f', 'index.crates.io-1949cf8c6b5b557f']
 sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
 
