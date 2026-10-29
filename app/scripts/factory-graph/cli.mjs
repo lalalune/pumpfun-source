@@ -23,7 +23,7 @@ if (command === "build") {
 } else if (command === "route") {
   const route = args[0];
   const report = await readReport(root, output, "ROUTE-ATTRIBUTION.json");
-  if (!route || !report[route])
+  if (!route || !Object.hasOwn(report, route))
     throw new Error(
       `unknown route; choose one of: ${Object.keys(report).join(", ")}`,
     );
