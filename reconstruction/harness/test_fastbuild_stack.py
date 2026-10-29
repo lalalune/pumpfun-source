@@ -46,6 +46,7 @@ class BuildDiagnosticTests(unittest.TestCase):
                  patch.object(fastbuild, 'stage', return_value=work / 'ws/programs/pump'), \
                  patch.object(fastbuild, 'acquire_slot', side_effect=lambda: io.StringIO()), \
                  patch.object(fastbuild.subprocess, 'run', side_effect=run), \
+                 patch.object(fastbuild, 'run_compiler', side_effect=lambda command, **kw: (run(command), False)), \
                  contextlib.redirect_stderr(stderr):
                 result = fastbuild.build(src, work, out, quiet=quiet, recipe='identity')
             files = {p.name: p.read_bytes() for p in out.iterdir()}

@@ -48,12 +48,31 @@ class CompilerDeadlineTests(unittest.TestCase):
     def test_builder_releases_slot_and_retains_log_without_publication(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);slot=io.StringIO();out=root/'out';(root/'src').mkdir()
-            result=subprocess.CompletedProcess(['compiler'],-9,'partial compiler log\n')
-            with patch.object(fastbuild,'stage',return_value=root/'crate'),patch.object(fastbuild,'acquire_slot',return_value=slot),patch.object(fastbuild,'run_compiler',return_value=(result,True)),patch.object(fastbuild,'RECIPES',{'test':{'triple':'test','rustc':root/'rustc','template':root/'missing'}}):
-                report=fastbuild.build(root/'src',root/'work',out,quiet=True,recipe='test',timeout=1)
+            out.mkdir()
+            (out/'candidate.so').write_bytes(b'prior candidate')
+            (out/'unstripped.so').write_bytes(b'prior unstripped')
+            def compiler(command, **kwargs):
+                self.assertEqual(kwargs['timeout'], 0.2)
+                with self.assertRaisesRegex(RuntimeError, 'already in use'):
+                    with fastbuild.workspace_lock(root/'work'):
+                        pass
+                return self.run_python('import time; print("partial compiler log"); time.sleep(30)', timeout=kwargs['timeout'])
+            with patch.object(fastbuild,'stage',return_value=root/'crate'),patch.object(fastbuild,'acquire_slot',return_value=slot),patch.object(fastbuild,'run_compiler',side_effect=compiler),patch.object(fastbuild,'RECIPES',{'test':{'triple':'test','rustc':root/'rustc','template':root/'missing'}}),patch.object(fastbuild.subprocess,'run') as publish:
+                report=fastbuild.build(root/'src',root/'work',out,quiet=True,recipe='test',timeout=0.2)
+                publish.assert_not_called()
             self.assertFalse(report['ok']);self.assertTrue(report['timed_out']);self.assertTrue(slot.closed)
             self.assertEqual((out/'build.log').read_text(),'partial compiler log\n')
-            self.assertFalse((out/'candidate.so').exists())
+            self.assertEqual((out/'candidate.so').read_bytes(), b'prior candidate')
+            self.assertEqual((out/'unstripped.so').read_bytes(), b'prior unstripped')
+            with fastbuild.workspace_lock(root/'work'):
+                pass
+
+    def test_invalid_timeout_precedes_workspace_mutation(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)
+            with self.assertRaises(ValueError):
+                fastbuild.build(root/'src',root/'work',root/'out',timeout=0)
+            self.assertEqual(list(root.iterdir()), [])
 
 
 if __name__ == '__main__':unittest.main()
