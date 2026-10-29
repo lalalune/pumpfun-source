@@ -239,6 +239,8 @@ def blocks(node: Node, seen_ids: set[str]) -> list[dict[str, Any]]:
                 )
             continue
         if child.tag == "h1":
+            if node.tag != "main":
+                raise ExtractionError("Unexpected nested document title")
             continue
         if child.tag in {"section", "div", "thead", "tbody"}:
             result.extend(blocks(child, seen_ids))
