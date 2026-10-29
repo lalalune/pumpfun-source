@@ -12,7 +12,7 @@ and hash checks are unchanged. These checks do not qualify a live service.
 
 ## Reproduction and correction
 
-Start with `?q=previous`, hold the Clear/Reset navigation's RSC response, then
+Start with `?q=previous`, hold the Clear/Reset navigation's RSC request, then
 enter `new draft` before releasing it. Previously, the empty URL query committed
 by that older navigation replaced the newer draft with an empty string.
 
@@ -33,7 +33,7 @@ empty string. With the fix, all 27 existing and new Live/GO browser cases pass:
 pnpm --filter @pump-reconstruction/frontend exec playwright test live.spec.ts go.spec.ts
 ```
 
-The added cases hold the RSC response, preserve and submit the next draft, and
+The added cases hold the RSC request, preserve and submit the next draft, and
 exercise Back/Forward. Separate local before/after recordings cover both pages
 at 1440px and 390px widths. They demonstrate this interaction only; they are not
 comparisons against a running original website or a visual-parity claim.
