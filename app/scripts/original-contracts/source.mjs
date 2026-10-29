@@ -107,6 +107,8 @@ export async function openCorpus(appRoot) {
   if (index.rangeEncoding !== RANGE_ENCODING) throw new Error('unsupported inventory range encoding');
   const records = new Map();
   for (const record of manifest.records) {
+    // capture.py records transport failures as {url, error}, with no file.
+    if (Object.keys(record).length === 2 && typeof record.url === 'string' && typeof record.error === 'string') continue;
     if (records.has(record.path)) throw new Error(`duplicate capture path: ${record.path}`);
     records.set(record.path, record);
   }

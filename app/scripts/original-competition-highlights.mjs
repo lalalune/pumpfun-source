@@ -18,7 +18,7 @@ export const APP_ROOT = path.resolve(
 );
 export const DIRECTORY = "reconstruction/competition-highlights";
 const SHARED =
-  "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213";
+  "ef7acaad8c20e23d6f9821dc683cfc0dc66cc3eb1b14642674a9007c9c064205";
 const PINS = {
   590407: ["3f494070c58a6d7f0f70279887ef648107935b765fe849de3e9ec100cec45dda"],
   639287: ["4ed887ef8ddc186c2058ae314de45a3a562884ca8f1579a9f5030dd2463d1f2b"],

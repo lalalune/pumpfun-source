@@ -17,7 +17,7 @@ export const APP_ROOT = path.resolve(
 );
 export const DIRECTORY = "reconstruction/leaderboard-navigation";
 const SHARED =
-  "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213";
+  "ef7acaad8c20e23d6f9821dc683cfc0dc66cc3eb1b14642674a9007c9c064205";
 const PINS = {
   311282: ["3ccfe0dd0e060990f9e24ad766854850ce8d19b064b0c4a5e2c27bfa1310e44d"],
   747911: ["10a3a306908e746dbc1eebee6ec66a391c39c9c84de5a133f441e1149fa8e9ad"],

@@ -20,7 +20,7 @@ export const CONTRACT_PATH =
 export const COMPATIBILITY_PATH =
   "reconstruction/contract-http-errors/inventory-compatibility.json";
 const SHARED_SOURCE_SHA256 =
-  "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213";
+  "ef7acaad8c20e23d6f9821dc683cfc0dc66cc3eb1b14642674a9007c9c064205";
 const SOURCE = "evidence/web/objects/2b47dd0b38a1608f.js";
 const EXPECTED = {
   898661: [
@@ -308,7 +308,7 @@ export async function buildContractHttpErrors(appRoot = APP_ROOT) {
         JSON.stringify(selectedEntries(corpus.index)),
       ),
       sharedSource: {
-        revision: "0a9a1f084",
+        revision: "pathless-capture-errors-v1",
         sha256: SHARED_SOURCE_SHA256,
         attribution:
           "shared source authenticator from the original-search recovery",

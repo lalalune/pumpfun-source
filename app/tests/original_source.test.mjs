@@ -41,6 +41,22 @@ test('factory lookup authenticates original AST and preserves BOM, CRLF and Unic
   assert.equal(factory.capture.text, f.text);
 });
 
+test('pathless capture errors do not collide with authenticated source records', async (t) => {
+  const f = await fixture(t);
+  const failures = [
+    { url: 'https://example.invalid/unavailable-one.js', error: 'synthetic capture connection failure' },
+    { url: 'https://example.invalid/unavailable-two.js', error: 'synthetic capture timeout' },
+  ];
+  const manifestPath = path.join(f.root, 'evidence/web/manifest.json');
+  await writeFile(manifestPath, JSON.stringify({ records: [f.record, ...failures] }));
+  const corpus = await openCorpus(f.root);
+  assert.equal((await corpus.factory(7)).text(), 'e=>{const label="é😀";e.s(["x",0,label])}');
+  await assert.rejects(corpus.capture('evidence/web/objects/unavailable-one.js'), /unmanifested successful capture/);
+  assert.deepEqual(JSON.parse(await readFile(manifestPath, 'utf8')).records.slice(1), failures);
+  await writeFile(manifestPath, JSON.stringify({ records: [f.record, ...failures, f.record] }));
+  await assert.rejects(openCorpus(f.root), /duplicate capture path/);
+});
+
 test('UTF-16 offsets inside an astral character are not byte boundaries', async (t) => {
   const f = await fixture(t);
   const capture = await (await openCorpus(f.root)).capture(f.source);
