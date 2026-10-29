@@ -9,8 +9,11 @@ implement. It adds no mounted component, endpoint, provider, dataset or cache.
 The existing `/live` adapter authenticates 42 historical Most viewers records;
 it does not run these queries. Open #1570 and #1617 separately reconstruct
 Highest market cap archive navigation and six historical hero selections.
-Their captures, source attribution and work remain prerequisites, with no new
-fixture, unique-stream, native-feature or progress credit claimed here.
+Those open units are related archive/hero attribution, not dependencies of this
+model or its verification. All raw captures and shared proof helpers used here
+already exist in upstream main at the stated base; the model imports the accepted
+main search-session implementation. No new fixture, unique-stream, native-feature
+or progress credit is claimed here.
 
 ## Explicit capabilities
 
