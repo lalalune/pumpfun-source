@@ -48,3 +48,9 @@ are restricted to its owned same-origin GET/HEAD pages/assets. There is no real
 user-cookie/session/credential acquisition, preference mutation, permission
 request, tenant/backend authentication claim, pixel/native parity or completion
 claim. Original captured materials retain their authorship.
+
+The [frozen qualification](validation/README.md) retains the final same-method
+two-width causal failure → pass, the separate first method-setup failure,
+24 passing candidate model/shared-source tests, and the later config typecheck
+failure/correction with byte-identical TypeScript-erased JavaScript. Actual
+browser heads remain separately bound; no replay is relabeled to a newer head.
