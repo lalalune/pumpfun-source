@@ -43,15 +43,33 @@ const bytes = await readFile(
 );
 const hash = (value) => createHash("sha256").update(value).digest("hex");
 const expected = hash(bytes);
+const artifacts = resolve(frontend, "../../artifacts");
+await mkdir(artifacts, { recursive: true });
+const lifecycle = join(artifacts, `amm-record-fixture-${process.pid}.json`);
+const receipt = {
+  pid: process.pid,
+  fixtureSha256: expected,
+  target,
+  phase: "preparing",
+  installedAt: null,
+  removedAt: null,
+};
 await mkdir(directory);
 let wrote = false;
+let recorded = false;
 try {
   await writeFile(target, bytes, { flag: "wx" });
   wrote = true;
   if (hash(await readFile(target)) !== expected)
     throw new Error("Test fixture write verification failed");
+  receipt.phase = "installed";
+  receipt.installedAt = new Date().toISOString();
+  await writeFile(lifecycle, JSON.stringify(receipt, null, 2) + "\n", {
+    flag: "wx",
+  });
+  recorded = true;
   console.log(
-    `Installed temporary AMM test route; fixture SHA-256 ${expected}`,
+    `Installed temporary AMM test route; fixture SHA-256 ${expected}; lifecycle ${lifecycle}`,
   );
   const child = spawn(command, args, {
     cwd: frontend,
@@ -88,5 +106,12 @@ try {
   } catch (error) {
     if (error.code !== "ENOENT") throw error;
   }
-  console.log(`Removed temporary AMM test route; fixture SHA-256 ${expected}`);
+  if (recorded) {
+    receipt.phase = "removed";
+    receipt.removedAt = new Date().toISOString();
+    await writeFile(lifecycle, JSON.stringify(receipt, null, 2) + "\n");
+  }
+  console.log(
+    `Removed temporary AMM test route; fixture SHA-256 ${expected}; lifecycle ${lifecycle}`,
+  );
 }

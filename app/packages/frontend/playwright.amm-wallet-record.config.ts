@@ -8,8 +8,11 @@ export default defineConfig({
   testMatch: ["amm-wallet-record.spec.ts", "wallet-program-record.spec.ts"],
   webServer: {
     ...server,
+    stdout: "pipe",
+    stderr: "pipe",
+    gracefulShutdown: { signal: "SIGTERM", timeout: 10_000 },
     command:
-      "node tests/with-amm-record-fixture.mjs pnpm exec next dev --turbopack --hostname 127.0.0.1 --port 3010",
+      "node tests/with-amm-record-fixture.mjs node node_modules/next/dist/bin/next dev --turbopack --hostname 127.0.0.1 --port 3010",
     env: {
       ...server.env,
       SOLANA_RPC_URL: "",
