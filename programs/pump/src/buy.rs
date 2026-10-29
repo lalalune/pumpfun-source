@@ -4,8 +4,8 @@ use crate::{Global,PumpError};
 use crate::trade_types::{BondingCurve,TradeEvent};
 use crate::LegacyBuy;
 use crate::legacy_sell::fee_cpi::fee as ceil_fee;
-#[path="legacy_native_payments.rs"]
-pub mod native_payments;
+pub use crate::legacy_native_payments as native_payments;
+
 #[inline] pub fn buy_exact_sol_in<'info>(ctx:Context<'_,'_,'_,'info,LegacyBuy<'info>>,spendable_sol_in:u64,min_tokens_out:u64,track_volume:crate::OptionBool,partial_fill:crate::OptionBool)->Result<()>{
  let fee_recipient=&ctx.accounts.fee_recipient;
  let bonding_curve=&mut ctx.accounts.bonding_curve;let (associated_bonding_curve,associated_user,token_program)=(&ctx.accounts.associated_bonding_curve,&ctx.accounts.associated_user,&ctx.accounts.token_program);

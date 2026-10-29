@@ -9,8 +9,11 @@ gate. The retained legacy capture is
 upgradeable).
 
 The legacy loader has no ProgramData account, deployment slot or upgrade
-authority. This packet checks every retained capture:
+authority. This packet binds every known capture folder to its expected loader,
+then checks the record:
 
+- the legacy capture must declare `legacy-v2`; all other known captures must
+  omit `loader`, so unknown values and capture-folder swaps fail;
 - legacy: null slot and authority, no `programdata`, `programdata_sha256` or
   `programdata_bytes`, and the legacy loader owner;
 - upgradeable: integer slot, optional 32-byte base58 authority, all three

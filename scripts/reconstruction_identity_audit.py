@@ -34,7 +34,8 @@ def sections(raw):
     for entry in elf_layout(raw)['sections']:
         # SHT_NOBITS occupies memory but no file bytes.
         payload = b'' if entry['type'] == 8 else raw[entry['offset']:entry['offset'] + entry['size']]
-        assert entry['name'] not in result, 'Duplicate section name requires index-based comparison'
+        if entry['name'] in result:
+            raise ValueError('Duplicate section name requires index-based comparison')
         result[entry['name']] = dict(entry, sha256=sha(payload), payload=payload)
     return result
 
@@ -60,8 +61,46 @@ def measure(original, candidate):
             'note': 'Equal section sizes, matching instructions and finite behavior tests do not prove whole source or historical build identity.'}
 
 
+def load_object(data):
+    """Parse one JSON document and reject duplicate object keys."""
+    def pairs(items):
+        obj = {}
+        for key, value in items:
+            if key in obj:
+                raise ValueError('duplicate JSON key: ' + key)
+            obj[key] = value
+        return obj
+    return json.loads(data, object_pairs_hook=pairs)
+
+
+def locate(root, name):
+    """Return a regular path inside root, or raise before reading outside it."""
+    relative = Path(name)
+    if not isinstance(name, str) or relative.is_absolute() or not relative.parts or '..' in relative.parts:
+        raise ValueError('audit path escapes root: ' + str(name))
+    root = Path(root)
+    path = root / relative
+    current = path
+    while True:
+        if current.is_symlink():
+            raise ValueError('audit path is symlinked: ' + str(name))
+        if current == root:
+            break
+        parent = current.parent
+        if parent == current:
+            raise ValueError('audit path escapes root: ' + str(name))
+        current = parent
+    return path
+
+
+def inside_file(root, name):
+    return bool(name) and locate(root, name).is_file()
+
+
 def read(root, name, inputs):
-    path = root / name
+    path = locate(root, name)
+    if not path.is_file():
+        raise FileNotFoundError(path)
     data = path.read_bytes()
     inputs[name] = sha(data)
     return data
@@ -69,36 +108,38 @@ def read(root, name, inputs):
 
 def audit(root, index_path):
     inputs = {}
-    status = json.loads(read(root, 'repro/status.json', inputs))
-    index = json.loads(read(root, index_path, inputs))
+    status = load_object(read(root, 'repro/status.json', inputs))
+    index = load_object(read(root, index_path, inputs))
     snapshot = {}
     for name, entry in index['programs'].items():
         original = read(root, entry['original_path'], inputs)
         candidate_path = entry['candidate_path']
-        if not (root / candidate_path).is_file():
+        if not inside_file(root, candidate_path):
             snapshot[name] = {'error': 'snapshot_candidate_missing', 'candidate_path': candidate_path}
             continue
         candidate = read(root, candidate_path, inputs)
-        assert sha(original) == entry['original_sha256'], name
-        assert sha(candidate) == entry['candidate_sha256'], name
+        if sha(original) != entry['original_sha256']:
+            raise ValueError(f'{name}: original SHA-256 mismatch')
+        if sha(candidate) != entry['candidate_sha256']:
+            raise ValueError(f'{name}: candidate SHA-256 mismatch')
         snapshot[name] = {'candidate_path': candidate_path, 'original_path': entry['original_path'],
                           **measure(original, candidate)}
     status_health = {}
     for name, entry in status.items():
         candidate = entry.get('candidate_artifact')
         comparison = entry.get('comparison_report')
-        current = {'candidate_path': candidate, 'candidate_exists': bool(candidate and (root / candidate).is_file()),
-                   'comparison_path': comparison, 'comparison_exists': bool(comparison and (root / comparison).is_file())}
+        current = {'candidate_path': candidate, 'candidate_exists': inside_file(root, candidate),
+                   'comparison_path': comparison, 'comparison_exists': inside_file(root, comparison)}
         if current['candidate_exists']:
             binary = read(root, candidate, inputs)
             current['candidate_sha256'] = sha(binary)
         if current['comparison_exists']:
-            build = json.loads(read(root, comparison, inputs))
+            build = load_object(read(root, comparison, inputs))
             current['selected_toolchain'] = build.get('selected_toolchain')
             current['candidate_matches_build_report'] = current.get('candidate_sha256') == build['comparison']['candidate_sha256']
             missing, different = [], []
             for source, expected in build['source_sha256'].items():
-                if not (root / source).is_file():
+                if not inside_file(root, source):
                     missing.append(source)
                 elif sha(read(root, source, inputs)) != expected:
                     different.append(source)
@@ -111,7 +152,7 @@ def audit(root, index_path):
               'input_sha256': dict(sorted(inputs.items()))}
     try:
         result['repository_revision'] = subprocess.check_output(['git', '-C', str(root), 'rev-parse', 'HEAD'], text=True, stderr=subprocess.DEVNULL).strip()
-    except subprocess.CalledProcessError:
+    except (subprocess.CalledProcessError, FileNotFoundError):
         result['repository_revision'] = None
     return result
 
@@ -122,10 +163,12 @@ def main():
     parser.add_argument('--index', required=True, help='Repository-relative current-analysis-index.json of an explicitly selected pass')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
-    assert not args.output.exists(), 'Preserve prior audits; choose a fresh output file'
+    if args.output.exists():
+        raise FileExistsError('Preserve prior audits; choose a fresh output file')
     result = audit(args.repo.resolve(), args.index)
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(result, indent=2) + '\n')
+    with args.output.open('x', encoding='utf-8', newline='\n') as output:
+        output.write(json.dumps(result, indent=2) + '\n')
     print(json.dumps({'snapshot_programs': len(result['snapshot_programs']),
                       'exact_allocations': [name for name, row in result['snapshot_programs'].items()
                                             if row.get('allocation_comparison', {}).get('full_byte_equality')],

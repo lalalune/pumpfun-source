@@ -1,0 +1,61 @@
+{
+  "open_prs_scanned": 521,
+  "overlaps": [
+    {
+      "number": 1669,
+      "title": "pump-main: recover V3 Buy crossing loads and retain full-match experiment",
+      "shared_files": [
+        "programs/pump/src/trade_v3.rs"
+      ]
+    },
+    {
+      "number": 1565,
+      "title": "pump-main swarm: w4-sellv2-a: sell_v2 0x144508 normalized match (1024 norm; raw 0xa868 thunk drift)",
+      "shared_files": [
+        "programs/pump/src/sell_v2.rs"
+      ]
+    },
+    {
+      "number": 1554,
+      "title": "pump-main: compose upstream fixes to close the local raw-call span",
+      "shared_files": [
+        "programs/pump/src/trade_v3.rs"
+      ]
+    },
+    {
+      "number": 1539,
+      "title": "pump-main swarm: w4-v3execute: v3_execute_buy normalized match (1024 normalized; raw drift 0xa868)",
+      "shared_files": [
+        "programs/pump/src/trade_v3.rs"
+      ]
+    },
+    {
+      "number": 1518,
+      "title": "pump-main swarm: w4-buyexactquote-v3: buy_exact_quote 0.6135 -> 0.6603 (masked 0.8928; raw 0xa868 drift)",
+      "shared_files": [
+        "programs/pump/src/trade_v3.rs"
+      ]
+    },
+    {
+      "number": 1479,
+      "title": "pump-main: improve V3 buy payment result layout (partial, 0.9728 \u2192 0.9858)",
+      "shared_files": [
+        "programs/pump/src/trade_v3.rs"
+      ]
+    },
+    {
+      "number": 1384,
+      "title": "pump-main: preserve V2 rent argument with a zero-only size type",
+      "shared_files": [
+        "programs/pump/src/sell_v2.rs"
+      ]
+    },
+    {
+      "number": 1164,
+      "title": "fix(pump): restore multi-hop quote and sell fee helpers",
+      "shared_files": [
+        "programs/pump/src/trade_v3.rs"
+      ]
+    }
+  ]
+}

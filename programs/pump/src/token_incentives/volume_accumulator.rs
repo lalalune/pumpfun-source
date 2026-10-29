@@ -21,31 +21,31 @@ pub struct GlobalVolumeAccumulator {
 pub struct UserVolumeAccumulator{pub user:Pubkey,pub needs_claim:bool,pub total_unclaimed_tokens:u64,pub total_claimed_tokens:u64,pub current_sol_volume:u64,pub last_update_timestamp:i64,pub has_total_claimed_tokens:bool,pub cashback_earned:u64,pub total_cashback_claimed:u64,pub stable_cashback_earned:u64,pub total_stable_cashback_claimed:u64}
 // Captured main-Pump worker: 0x7bfd8. Claim passes zero new volume, while
 // the recovered worker retains the original generic update signature.
-#[inline(never)]
-pub fn update(
-    global: &mut GlobalVolumeAccumulator,
-    user: &mut UserVolumeAccumulator,
-    now: i64,
-    volume: u64,
-    key: &Pubkey,
-) -> Result<()> {
-    user.user = *key;
-    if user.last_update_timestamp < global.start_time && now < global.start_time {
-        user.total_claimed_tokens = 0;
-        user.has_total_claimed_tokens = false;
-    }
-    let result = match day_index(global, now) {
-        Some(current_day) => roll_over(global, user, current_day, now).map(|()| Some(current_day)),
-        None => return Ok(()),
-    };
-    if let Ok(Some(current_day)) = result {
-        if now <= global.end_time {
-            global.add_sol_volume(current_day, volume);
-            user.add_sol_volume(volume, now);
-        }
-    }
-    result.map(|_| ())
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 impl UserVolumeAccumulator {
     fn add_sol_volume(&mut self, sol_volume: u64, now: i64) {
@@ -196,31 +196,31 @@ pub fn record_cashback_claim(user: &mut UserVolumeAccumulator, amount: u64, nati
 
 // layout-pad(53): aligns the next Source site with the original line
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#[inline(never)]
+pub fn update(
+    global: &mut GlobalVolumeAccumulator,
+    user: &mut UserVolumeAccumulator,
+    now: i64,
+    volume: u64,
+    key: &Pubkey,
+) -> Result<()> {
+    user.user = *key;
+    if user.last_update_timestamp < global.start_time && now < global.start_time {
+        user.total_claimed_tokens = 0;
+        user.has_total_claimed_tokens = false;
+    }
+    let result = match day_index(global, now) {
+        Some(current_day) => roll_over(global, user, current_day, now).map(|()| Some(current_day)),
+        None => return Ok(()),
+    };
+    if let Ok(Some(current_day)) = result {
+        if now <= global.end_time {
+            global.add_sol_volume(current_day, volume);
+            user.add_sol_volume(volume, now);
+        }
+    }
+    result.map(|_| ())
+}
 
 
 
@@ -431,7 +431,7 @@ impl GlobalVolumeAccumulator {
             .expect("Overflowing sol volume");
     }
 }
-#[inline]
+
 fn time_index(value: i64) -> usize {
     usize::try_from(value).expect("SVM is 64-bit")
 }

@@ -1,14 +1,14 @@
-pub mod buy_v2;
+#[path="admin_set_idl_authority.rs"]pub mod idl_authority;#[path="util/account_name.rs"] pub mod account_name;#[path="buy.rs"]pub mod legacy_buy;pub mod buy_v2;
 pub use buy_v2::*;
 pub mod create_v2;
 pub use create_v2::*;
 #[path="creator/admin_cto.rs"]pub mod admin_cto;
 pub use admin_cto::*;
-#[path="creator/collect_creator_fee.rs"]pub mod collect_v2;
+pub mod creator{#[path="collect_creator_fee.rs"]pub mod collect_creator_fee;}pub use creator::collect_creator_fee as collect_v2;
 pub use collect_v2::*;
 #[path="creator/distribute_creator_fees.rs"]pub mod distribution;
 pub use distribution::*;
-pub mod minimum;
+pub use distribution::minimum;
 pub use minimum::*;
 #[path="creator/distribute_fee_to_holders.rs"]pub mod holder_distribution;
 pub use holder_distribution::*;
@@ -16,9 +16,9 @@ pub use holder_distribution::*;
 pub use creator_migration::*;
 #[path="creator/set_creator.rs"]pub mod set_creator;#[path="creator/set_metaplex_creator.rs"]pub mod set_metaplex_creator;
 pub use set_creator::*;pub use set_metaplex_creator::*;
-#[path="buy.rs"]pub mod legacy_buy;
+#[path="v2_native_payments.rs"]pub mod v2_native_payments;#[path="legacy_native_payments.rs"]pub mod legacy_native_payments;
 pub use legacy_buy::*;
-#[path="extend_account.rs"]pub mod extend;
+#[path="extend_account.rs"]pub mod extend;#[path = "fee_recipient.rs"] pub(crate) mod fee_recipient;pub mod mayhem_virtual_params;
 pub use extend::*;
 pub mod migrate;
 pub use migrate::*;
@@ -41,12 +41,12 @@ pub use incentives::*;
 pub mod token_incentives;
 pub use token_incentives::*;
 pub use token_incentives::volume_accumulator::{GlobalVolumeAccumulator, UserVolumeAccumulator};
-pub mod volume_sync;
+pub use token_incentives::volume_sync;
 pub use volume_sync::*;
 #[path = "trade_v3.rs"] pub mod trade;
 pub use trade::*;
-#[path="util/constant_product.rs"] pub mod constant_product;
-#[path="util/transfer_fee.rs"] pub mod transfer_fee_recovered;
+#[path="util/constant_product.rs"] pub mod constant_product; #[path="util/fee.rs"] pub mod fee_math;#[path="util/payments.rs"] pub mod payments;
+#[path="util/transfer_fee.rs"] pub mod transfer_fee_recovered;#[path="util/withheld.rs"] pub mod withheld;#[path="curve_quote_payments.rs"] pub mod quote_payments;#[path="util/user_payments.rs"] pub mod user_payments;
 pub mod global_init;
 pub use global_init::*;
 pub mod cashback;
@@ -55,12 +55,12 @@ pub mod create;
 pub use create::*;
 pub mod set_params;
 pub use set_params::*;
-#[path="admin_set_idl_authority.rs"]pub mod idl_authority;
+
 pub use idl_authority::*;
-pub mod mayhem_virtual_params;
+
 pub use mayhem_virtual_params::*;
-pub mod trade_types;
-#[path="util/account_name.rs"] pub mod account_name;
+
+
 use anchor_lang::prelude::*;
 
 
@@ -79,11 +79,11 @@ use anchor_lang::prelude::*;
 
 
 
-
+declare_id!("6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P");
 declare_program!(pump_amm);
 declare_program!(pump_fees);
+declare_program!(mayhem);
 
-declare_id!("6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P");
 
 // layout-pad: aligns the next Source site with the original lib.rs line
 
@@ -350,7 +350,7 @@ pub mod pump_recovered {
     pub fn create_v2<'info>(ctx:Context<'_,'_,'_,'info,CreateV2<'info>>,name:String,symbol:String,uri:String,creator:Pubkey,is_mayhem_mode:bool,is_cashback_enabled:OptionBool,creator_fee_bps:CreationOptionU64,is_holder_reward:OptionBool)->Result<()>{create_v2::execute(ctx,name,symbol,uri,creator,is_mayhem_mode,is_cashback_enabled,creator_fee_bps,is_holder_reward)}
     pub fn buy_v2<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,amount:u64,max_sol_cost:u64,partial_fill:OptionBool)->Result<()>{buy_v2::execute(ctx,amount,max_sol_cost,partial_fill.0,false)}
     pub fn buy_exact_quote_in_v2<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,spendable_quote_in:u64,min_tokens_out:u64,partial_fill:OptionBool)->Result<()>{buy_v2::execute(ctx,spendable_quote_in,min_tokens_out,partial_fill.0,true)}
-    pub fn sell_v2(ctx:Context<SellV2>,amount:u64,min_sol_output:u64)->Result<()>{sell_v2::execute(ctx,amount,min_sol_output)}
+    #[inline(never)]pub fn sell_v2(ctx:Context<SellV2>,amount:u64,min_sol_output:u64)->Result<()>{sell_v2::execute(ctx,amount,min_sol_output)}
     pub fn buy_v3(ctx: Context<SellV3>, amount:u64,max_sol_cost:u64,partial_fill:OptionBool)->Result<()>{trade::buy(ctx,amount,max_sol_cost,partial_fill.0)}
     pub fn buy_exact_quote_in_v3(ctx:Context<SellV3>,spendable_quote_in:u64,min_tokens_out:u64,partial_fill:OptionBool)->Result<()>{trade::buy_exact_quote(ctx,spendable_quote_in,min_tokens_out,partial_fill.0)}
     pub fn sell_v3(ctx: Context<SellV3>, amount: u64, min_sol_output: u64) -> Result<()> { trade::sell(ctx, amount, min_sol_output) }
@@ -1073,12 +1073,12 @@ pub mod pump_recovered {
     pub fn claim_token_incentives(ctx: Context<ClaimTokenIncentives>) -> Result<()> { token_incentives::claim(ctx) }
     pub fn claim_cashback(ctx:Context<ClaimCashback>)->Result<()>{cashback::claim(ctx)}
     pub fn claim_cashback_v2(ctx:Context<ClaimCashbackV2>)->Result<()>{cashback::claim_v2(ctx)}
-    pub fn init_user_volume_accumulator(ctx:Context<InitUserVolume>)->Result<()>{
-      let event=InitUserVolumeAccumulatorEvent{payer:ctx.accounts.payer.key(),user:ctx.accounts.user.key(),timestamp:Clock::get()?.unix_timestamp};ctx.accounts.user_volume_accumulator.user=ctx.accounts.user.key();emit!(event.clone());emit_cpi!(event);Ok(())
-    }
-    pub fn close_user_volume_accumulator(ctx:Context<CloseUserVolume>)->Result<()>{
-      let a=&ctx.accounts.user_volume_accumulator;let event=CloseUserVolumeAccumulatorEvent{total_unclaimed_tokens:a.total_unclaimed_tokens,total_claimed_tokens:a.total_claimed_tokens,current_sol_volume:a.current_sol_volume,last_update_timestamp:a.last_update_timestamp,user:ctx.accounts.user.key(),timestamp:Clock::get()?.unix_timestamp};emit!(event.clone());emit_cpi!(event);Ok(())
-    }
+    pub fn init_user_volume_accumulator(ctx:Context<InitUserVolume>)->Result<()>{token_incentives::init_user_volume_accumulator::execute(ctx)}
+
+
+    pub fn close_user_volume_accumulator(ctx:Context<CloseUserVolume>)->Result<()>{token_incentives::close_user_volume_accumulator::execute(ctx)}
+
+
     pub fn sync_user_volume_accumulator(ctx:Context<SyncUserVolumeAccumulator>)->Result<()>{volume_sync::execute(ctx)}
     pub fn admin_set_idl_authority(ctx:Context<AdminSetIdlAuthority>,idl_authority:Pubkey)->Result<()>{idl_authority::execute(ctx,idl_authority)}
     pub fn migrate_bonding_curve_creator(ctx:Context<MigrateBondingCurveCreator>)->Result<()>{creator_migration::execute(ctx)}
@@ -1939,10 +1939,10 @@ fn protocol_fee_split(buyback_basis_points: u64, protocol_fee: u64, is_mayhem_mo
             .expect("buyback_fee never exceeds protocol_fee");
     (buyback_fee, remaining)
 }
-
-
-
-
+#[inline(never)]
+pub(crate) fn split_protocol_fee(global: &crate::Global, protocol_fee: u64, is_mayhem_mode: bool) -> (u64, u64) {
+    protocol_fee_split(global.buyback_basis_points, protocol_fee, is_mayhem_mode)
+}
 
 
 impl Global {
@@ -1986,7 +1986,7 @@ impl Global {
      for slot in self.whitelisted_quote_mints.iter_mut(){if *slot==quote_mint{*slot=Pubkey::default();return Ok(());}} err!(PumpError::QuoteMintNotWhitelisted)
         }
 }
-
+pub mod trade_types;
 /// Checked normal-buy quote calculation precedes the fee CPI.
 pub fn buy_quote(curve: &trade_types::BondingCurve, amount: u64) -> Result<u128> {
     let numerator = u128::from(amount) * u128::from(curve.virtual_quote_reserves);
@@ -2454,7 +2454,7 @@ impl trade_types::BondingCurve {
   numerator.checked_div(self.virtual_token_reserves as u128+amount as u128).ok_or_else(||error!(PumpError::DivisionByZero))
  }
 }
-
+#[inline(never)] pub fn tokens_for_quote(curve:&crate::trade_types::BondingCurve,quote:u64)->Result<u128>{let effective=quote.checked_sub(1).ok_or(PumpError::Overflow)?;crate::constant_product::output(effective as u128,curve.virtual_quote_reserves as u128,curve.virtual_token_reserves as u128)}
 #[inline(never)]
 pub(crate) fn buy_fee_market_cap(curve:&trade_types::BondingCurve,mint:&anchor_spl::token_interface::Mint)->Result<u128>{
  let supply=if curve.is_mayhem_mode {curve.token_total_supply}else{mint.supply};
@@ -2563,57 +2563,57 @@ pub fn reserved_bonding_curve_fees(curve: &trade_types::BondingCurve) -> Result<
 }
 
 // layout-pad: aligns the next Source site with the original lib.rs line
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+impl crate::trade_types::BondingCurve {
+    // The original handler calls a separate helper at 0xa23f0.
+    #[inline(never)]
+    pub(crate) fn sync_virtual_quote_reserves(
+        &mut self,
+        initial_real_token_reserves: u64,
+        vault_amount: u64,
+        quote_mint: &Pubkey,
+    ) -> Result<()> {
+        let bc = self;
+        if bc.complete || !bc.is_mayhem_mode {
+            return Ok(());
+        }
+        let real_quote_reserves = bc.real_quote_reserves;
+        let virtual_token_reserves = bc.virtual_token_reserves;
+        let denominator = bc
+            .token_total_supply
+            .checked_mul(2)
+            .ok_or(PumpError::Overflow)?
+            .checked_sub(initial_real_token_reserves)
+            .ok_or(PumpError::Overflow)?
+            .checked_sub(vault_amount)
+            .ok_or(PumpError::Overflow)?;
+        if *quote_mint == Pubkey::default() {
+            if real_quote_reserves < 10_000_000 || denominator < 1_000_000_000_000 {
+                return Ok(());
+            }
+        } else if real_quote_reserves < 1_000_000 || denominator < 1_000_000_000_000 {
+            return Ok(());
+        }
+        // Keep these fallible operations separate: the captured helper has
+        // distinct Overflow returns for multiplication and division.
+        let numerator = (denominator as u128)
+            .checked_add(virtual_token_reserves as u128)
+            .ok_or(PumpError::Overflow)?
+            .checked_mul(real_quote_reserves as u128)
+            .ok_or(PumpError::Overflow)?;
+        let computed = numerator
+            .checked_div(denominator as u128)
+            .ok_or(PumpError::Overflow)?;
+        // Conversion precedes the cap in both captured branches.
+        if *quote_mint == Pubkey::default() {
+            let amount = u64::try_from(computed)?;
+            bc.virtual_quote_reserves = amount.min(2_000_000_000_000);
+        } else {
+            let amount = u64::try_from(computed)?;
+            bc.virtual_quote_reserves = amount.min(160_000_000_000);
+        }
+        Ok(())
+    }
+}
 
 
 
@@ -2702,14 +2702,14 @@ pub struct TradeEvent {
     pub unparsed_trailing_field: u64,
 }
 
-
-
-
-
-
-
-
-
+#[event]
+#[derive(Clone)]
+pub struct CompleteEvent {pub user:Pubkey,pub mint:Pubkey,pub bonding_curve:Pubkey,pub timestamp:i64,pub quote_mint:Pubkey}
+#[event]
+#[derive(Clone)]pub struct PostCompleteBuyEvent{pub user:Pubkey,pub mint:Pubkey,pub bonding_curve:Pubkey,pub quote_mint:Pubkey,pub timestamp:i64,pub base_out:u64,pub quote_in:u64,pub fee_basis_points:u64,pub fee:u64,pub creator_fee_basis_points:u64,pub creator_fee:u64,pub buyback_fee:u64,pub pool_base_reserves_before:u64,pub pool_quote_reserves_before:u64,pub pool_base_reserves_after:u64,pub pool_quote_reserves_after:u64}
+#[event]
+#[derive(Clone)]
+pub struct SetParamsEvent{pub initial_virtual_token_reserves:u64,pub initial_virtual_sol_reserves:u64,pub initial_real_token_reserves:u64,pub final_real_sol_reserves:u64,pub token_total_supply:u64,pub fee_basis_points:u64,pub withdraw_authority:Pubkey,pub enable_migrate:bool,pub pool_migration_fee:u64,pub creator_fee_basis_points:u64,pub fee_recipients:[Pubkey;8],pub timestamp:i64,pub set_creator_authority:Pubkey,pub admin_set_creator_authority:Pubkey}
 
 
 
@@ -2784,30 +2784,30 @@ pub struct Initialize<'info>{
 }
 
 // layout-pad: aligns the next Source site with the original lib.rs line
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #[event_cpi]
+#[derive(Accounts)]
+pub struct AdminGlobal<'info> {
+    #[account(mut, seeds = [b"global"], bump, has_one = authority @ PumpError::NotAuthorized)]
+    pub global: Account<'info, Global>,
+    #[account(mut)]
+    pub authority: Signer<'info>,
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+pub mod bonding_curve_instruction_accounts{use super::*;#[event_cpi]
 #[derive(Accounts)]
 pub struct Create<'info>{
  #[account(init,payer=user,mint::decimals=6,mint::authority=mint_authority)]
@@ -2895,43 +2895,43 @@ pub struct LegacyBuy<'info>{
  pub fee_program:Program<'info,legacy_sell::LegacyFeesProgram>,
 }
 
-#[event_cpi]
 #[derive(Accounts)]
-pub struct AdminGlobal<'info> {
-    #[account(mut, seeds = [b"global"], bump, has_one = authority @ PumpError::NotAuthorized)]
-    pub global: Account<'info, Global>,
-    #[account(mut)]
-    pub authority: Signer<'info>,
-}
+pub struct LegacySell<'info>{
+ #[account(seeds=[b"global"],bump)]pub global:Box<Account<'info,Global>>,#[doc="CHECK: handler validates recipient."]#[account(mut)]pub fee_recipient:UncheckedAccount<'info>,pub mint:InterfaceAccount<'info,anchor_spl::token_interface::Mint>,#[account(mut,seeds=[b"bonding-curve",mint.key().as_ref()],bump,constraint=bonding_curve.quote_mint==Pubkey::default() @ PumpError::UnsupportedQuoteMint)]pub bonding_curve:Account<'info,trade_types::BondingCurve>,
+ #[account(mut,associated_token::mint=mint,associated_token::authority=bonding_curve,associated_token::token_program=token_program)]pub associated_bonding_curve:InterfaceAccount<'info,anchor_spl::token_interface::TokenAccount>,#[account(mut,token::mint=mint)]pub associated_user:InterfaceAccount<'info,anchor_spl::token_interface::TokenAccount>,#[account(mut)]pub user:Signer<'info>,pub system_program:Program<'info,System>,#[doc="CHECK: PDA checked."]#[account(mut,seeds=[b"creator-vault",bonding_curve.creator.as_ref()],bump)]pub creator_vault:AccountInfo<'info>,pub token_program:Interface<'info,anchor_spl::token_interface::TokenInterface>,
+ #[doc="CHECK: event authority."]#[account(seeds=[b"__event_authority"],bump)]pub event_authority:AccountInfo<'info>,#[doc="CHECK: self CPI."]pub program:Program<'info,crate::program::PumpRecovered>,#[doc="CHECK: fee program validates config."]#[account(seeds=[b"fee_config",crate::ID.as_ref()],bump,seeds::program=fee_program.key())]pub fee_config:Account<'info,legacy_sell::LegacyFeeConfig>,#[doc="CHECK: canonical dependency."]pub fee_program:Program<'info,legacy_sell::LegacyFeesProgram>,
+}}pub use bonding_curve_instruction_accounts::*;
+
+
 
 #[derive(AnchorSerialize,Clone)]
 pub struct OptionBool(pub bool);
-impl AnchorDeserialize for OptionBool {
- fn deserialize_reader<R:std::io::Read>(reader:&mut R)->std::io::Result<Self>{
-  let mut b=[0u8];match reader.read_exact(&mut b){Err(e) if e.kind()==std::io::ErrorKind::UnexpectedEof=>Ok(Self(false)),Err(e)=>Err(e),Ok(())=>match b[0]{0=>Ok(Self(false)),1=>Ok(Self(true)),value=>Err(std::io::Error::new(std::io::ErrorKind::InvalidData,format!("Invalid bool representation: {}",value)))}}
- }
-}
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
 
 #[event]
 #[derive(Clone)]
 pub struct UpdateCreatorFeeConfigEvent {pub timestamp:i64,pub authority:Pubkey,pub creator_fee_configurable:bool,pub max_configurable_creator_fee_bps:u64}
 
-#[event_cpi]
-#[derive(Accounts)]
-pub struct AdminReadonly<'info>{
- #[account(mut,seeds=[b"global"],bump,has_one=authority @ PumpError::NotAuthorized)]
- pub global:Account<'info,Global>,
- pub authority:Signer<'info>,
-}
-#[event_cpi]
-#[derive(Accounts)]
-pub struct UpdateGlobalAuthority<'info>{
- #[account(mut,seeds=[b"global"],bump,has_one=authority @ PumpError::NotAuthorized)]
- pub global:Account<'info,Global>,
- pub authority:Signer<'info>,
- /// CHECK: new authority is assigned by the current signer; zero/self are accepted by the original.
- pub new_authority:AccountInfo<'info>,
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #[event]
 #[derive(Clone)]
 pub struct UpdateGlobalAuthorityEvent{pub global:Pubkey,pub authority:Pubkey,pub new_authority:Pubkey,pub timestamp:i64}
@@ -2939,13 +2939,13 @@ pub struct UpdateGlobalAuthorityEvent{pub global:Pubkey,pub authority:Pubkey,pub
 #[derive(Clone)]
 pub struct ReservedFeeRecipientsEvent{pub timestamp:i64,pub reserved_fee_recipient:Pubkey,pub reserved_fee_recipients:[Pubkey;7]}
 
-#[event_cpi]
-#[derive(Accounts)]
-pub struct CloseUserVolume<'info>{
- #[account(mut)] pub user:Signer<'info>,
- #[account(mut,close=user,seeds=[b"user_volume_accumulator",user.key().as_ref()],bump)]
- pub user_volume_accumulator:Account<'info,UserVolumeAccumulator>,
-}
+
+
+
+
+
+
+
 #[event]
 #[derive(Clone)]
 pub struct InitUserVolumeAccumulatorEvent{pub payer:Pubkey,pub user:Pubkey,pub timestamp:i64}
@@ -2953,27 +2953,6 @@ pub struct InitUserVolumeAccumulatorEvent{pub payer:Pubkey,pub user:Pubkey,pub t
 #[derive(Clone)]
 pub struct CloseUserVolumeAccumulatorEvent{pub user:Pubkey,pub timestamp:i64,pub total_unclaimed_tokens:u64,pub total_claimed_tokens:u64,pub current_sol_volume:u64,pub last_update_timestamp:i64}
 
-#[event_cpi]
-#[derive(Accounts)]
-pub struct CollectCreatorFee<'info>{
- /// CHECK: payout destination is bound to the vault PDA.
- #[account(mut)]pub creator:AccountInfo<'info>,
- /// CHECK: original defers owner/data restrictions to System transfer.
- #[account(mut,seeds=[b"creator-vault",creator.key().as_ref()],bump)]pub creator_vault:AccountInfo<'info>,
- pub system_program:Program<'info,System>,
-}
-#[event]
-#[derive(Clone)]
-pub struct CollectCreatorFeeEvent{pub timestamp:i64,pub creator:Pubkey,pub creator_fee:u64,pub quote_mint:Pubkey}
-
-/// Split protocol fees after the curve payment, preserving the buyback invariants.
-#[inline(never)]
-pub(crate) fn split_protocol_fee(
-    global: &crate::Global,
-    protocol_fee: u64,
-    is_mayhem_mode: bool,
-) -> (u64, u64) {
-    protocol_fee_split(global.buyback_basis_points, protocol_fee, is_mayhem_mode)
 
 
 
@@ -2981,7 +2960,28 @@ pub(crate) fn split_protocol_fee(
 
 
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 fn update_global_authority_handler(ctx:Context<UpdateGlobalAuthority>)->Result<()>{
     ctx.accounts.global.authority=ctx.accounts.new_authority.key();
@@ -2995,147 +2995,147 @@ pub mod user_quote_payments {
     use anchor_spl::token_interface::TokenInterface;
     use crate::trade_types::BondingCurve;
 
-    #[inline(never)]
-    pub fn transfer_native<'info>(
-        system_program: &AccountInfo<'info>,
-        payer: &Signer<'info>,
-        destination: &Account<'info, BondingCurve>,
-        amount: u64,
-    ) -> Result<()> {
-        if amount == 0 { return Ok(()); }
-        anchor_lang::system_program::transfer(
-            CpiContext::new(system_program.clone(), anchor_lang::system_program::Transfer {
-                from: payer.to_account_info(),
-                to: destination.to_account_info(),
-            }), amount,
-        )
-    }
+pub use crate::payments::uqp_transfer_native as transfer_native;
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
 
-    #[inline(never)]
-    pub fn transfer_native_unchecked<'info>(
-        system_program: &AccountInfo<'info>,
-        payer: &Signer<'info>,
-        destination: &AccountInfo<'info>,
-        amount: u64,
-    ) -> Result<()> {
-        anchor_lang::system_program::transfer(
-            CpiContext::new(system_program.clone(), anchor_lang::system_program::Transfer {
-                from: payer.to_account_info(),
-                to: destination.clone(),
-            }), amount,
-        )
-    }
+pub use crate::payments::uqp_transfer_native_unchecked as transfer_native_unchecked;
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
 
-    #[inline(never)]
-    pub fn transfer_native_curve_unchecked<'info>(
-        system_program: &AccountInfo<'info>,
-        payer: &Signer<'info>,
-        destination: &&AccountInfo<'info>,
-        amount: u64,
-    ) -> Result<()> {
-        anchor_lang::system_program::transfer(
-            CpiContext::new(system_program.clone(), anchor_lang::system_program::Transfer {
-                from: payer.to_account_info(),
-                to: destination.to_account_info(),
-            }), amount,
-        )
-    }
+pub use crate::payments::uqp_transfer_native_curve_unchecked as transfer_native_curve_unchecked;
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
 
-    #[inline(never)]
-    pub fn transfer_from_user<'info>(
-        native: bool,
-        system_program: &AccountInfo<'info>,
-        payer: &Signer<'info>,
-        destination: &Account<'info, BondingCurve>,
-        amount: u64,
-        token_program: &Interface<'info, TokenInterface>,
-        quote_decimals: u8,
-        quote_mint: &AccountInfo<'info>,
-        quote_source: Option<&AccountInfo<'info>>,
-        quote_destination: Option<&AccountInfo<'info>>,
-    ) -> Result<()> {
-        if native { return transfer_native(system_program, payer, destination, amount); }
-        let (from, to) = crate::user_quote_accounts(quote_source, quote_destination);
+pub use crate::user_payments::transfer_from_user as transfer_from_user;
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+pub use crate::payments::uqp_transfer_native_owned as transfer_native_owned;
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
 
-        let authority = payer.to_account_info();
-        crate::sell_v2::quote_token_transfers::transfer_quote_tokens(
-            token_program, from, to, authority, quote_decimals, quote_mint, amount, &[],
-        )
-    }
-    #[inline(never)]
-    pub fn transfer_native_owned<'info>(
-        system_program: &AccountInfo<'info>,
-        payer: &Signer<'info>,
-        destination: AccountInfo<'info>,
-        amount: u64,
-    ) -> Result<()> {
-        anchor_lang::system_program::transfer(
-            CpiContext::new(system_program.clone(), anchor_lang::system_program::Transfer {
-                from: payer.to_account_info(),
-                to: destination.clone(),
-            }), amount,
-        )
-    }
+pub use crate::user_payments::transfer_from_user_owned as transfer_from_user_owned;
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+pub use crate::payments::uqp_transfer_native_curve as transfer_native_curve;
+pub use crate::payments::uqp_transfer_native_recipient as transfer_native_recipient;
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
 
-    #[inline(never)]
-    pub fn transfer_from_user_owned<'info>(
-        native: bool,
-        system_program: &AccountInfo<'info>,
-        payer: &Signer<'info>,
-        destination: AccountInfo<'info>,
-        amount: u64,
-        token_program: &Interface<'info, TokenInterface>,
-        quote_decimals: u8,
-        quote_mint: &AccountInfo<'info>,
-        quote_source: Option<&AccountInfo<'info>>,
-        quote_destination: Option<&AccountInfo<'info>>,
-    ) -> Result<()> {
-        if native { return transfer_native_owned(system_program, payer, destination, amount); }
-        let (from, to) = crate::user_quote_accounts(quote_source, quote_destination);
-
-        let authority = payer.to_account_info();
-        crate::sell_v2::quote_token_transfers::transfer_quote_tokens(
-            token_program, from, to, authority, quote_decimals, quote_mint, amount, &[],
-        )
-    }
-    #[inline(never)] pub fn transfer_native_curve<'info>(system_program: &AccountInfo<'info>, payer: &Signer<'info>, destination: &&mut Account<'info, BondingCurve>, amount: u64) -> Result<()> { if amount == 0 { return Ok(()); } anchor_lang::system_program::transfer(CpiContext::new(system_program.clone(), anchor_lang::system_program::Transfer { from: payer.to_account_info(), to: destination.to_account_info() }), amount) }
-    #[inline(never)]
-    pub fn transfer_native_recipient<'info>(
-        system_program: &AccountInfo<'info>,
-        payer: &Signer<'info>,
-        destination: &&UncheckedAccount<'info>,
-        amount: u64,
-    ) -> Result<()> {
-        if amount == 0 { return Ok(()); }
-        anchor_lang::system_program::transfer(
-            CpiContext::new(system_program.clone(), anchor_lang::system_program::Transfer {
-                from: payer.to_account_info(),
-                to: destination.to_account_info(),
-            }), amount,
-        )
-    }
-
-    #[inline(never)]
-    pub fn transfer_from_user_recipient<'info>(
-        native: bool,
-        system_program: &AccountInfo<'info>,
-        payer: &Signer<'info>,
-        destination: &&UncheckedAccount<'info>,
-        amount: u64,
-        token_program: &Interface<'info, TokenInterface>,
-        quote_decimals: u8,
-        quote_mint: &AccountInfo<'info>,
-        quote_source: Option<&AccountInfo<'info>>,
-        quote_destination: Option<&AccountInfo<'info>>,
-    ) -> Result<()> {
-        if native { return transfer_native_recipient(system_program, payer, destination, amount); }
-        let (from, to) = crate::user_quote_accounts(quote_source, quote_destination);
-
-        let authority = payer.to_account_info();
-        crate::sell_v2::quote_token_transfers::transfer_quote_tokens(
-            token_program, from, to, authority, quote_decimals, quote_mint, amount, &[],
-        )
-    }
+pub use crate::user_payments::transfer_from_user_recipient as transfer_from_user_recipient;
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
+// layout-pad
 
 }
 

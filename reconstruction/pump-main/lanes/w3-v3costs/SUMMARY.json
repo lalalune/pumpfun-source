@@ -1,0 +1,6 @@
+{"lane":"w3-v3costs","targets":["0x80df8"],"base":"665499915",
+ "best":{"cand_bytes":2136,"ratio":0.92,"slots_diff":19,"calls":"17/17","normalized":1022,"raw":276,"losses":[]},
+ "attempts":["12fa6de7e00245f5a72476580b8fb42f","1aead9016986414b8e31b1a88b6709f7","701835f2d3a9407b8be8de041ca982e7","9cce2dfaccea45eea727e2c7068d90c8"],
+ "rejected":["nested #[cold]#[inline(always)] fn for 375 error (byte-identical)","nested #[inline(always)] fn (byte-identical)","nested #[cold] fn not inlined (outlined, 0.543)","IR: hint on 371 to_string only","IR: 1:2000 on all cold branches","IR: either-direction hints on or.cond/_54.1/%35/_91.not"],
+ "residual":"sret r6/r3 split; flips only with a 1:10..1:2e5 weight on the 375-path Display::fmt failure branch, which this rustc cannot emit from source",
+ "next_ideas":["Find out which platform-tools/rustc built the original (e.g. rustc that emits cold-path branch weights per MIR switch) and check whether it weights only some expect branches","Search for an Assert whose ok-edge feeds the 375 fmt branch and survives to llc as a merged FoldBranchToCommonDest weight"]}

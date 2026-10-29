@@ -1,0 +1,88 @@
+{
+  "source_base": "15486e0084d896c3ed84e09193b1f0aa36839f71",
+  "trials": [
+    {
+      "trial": "focused-sell-argument-order",
+      "target": "0x14a8a8",
+      "bytes": 6032,
+      "ratio": 0.99728,
+      "calls": 47,
+      "unstripped_sha256": "a4908a99b6593bab3e561cb611d2736a6c3552df537009821a5e77135692ec6d",
+      "stripped_sha256": "726d56ed8ea76d20cf1466de6c3387325a6d99739e366ea1970a6174bb5f79f7",
+      "stack_warnings": [],
+      "score": {
+        "normalized": 1020,
+        "raw": 188,
+        "total": 1035,
+        "gains": [],
+        "losses": [],
+        "raw_gains": [],
+        "raw_losses": []
+      },
+      "status": "rejected"
+    },
+    {
+      "trial": "focused-sell-output-reference",
+      "target": "0x14a8a8",
+      "bytes": 6040,
+      "ratio": 0.93533,
+      "calls": 47,
+      "unstripped_sha256": "e9ba946360ba44b22045f259918ec6f0f814196e516d26172c953b5477267332",
+      "stripped_sha256": "8be859f290498ee232ed4c00428f63872a5a42d34e9f0093f01d11d79fd57885",
+      "stack_warnings": [],
+      "score": {
+        "normalized": 1020,
+        "raw": 188,
+        "total": 1035,
+        "gains": [],
+        "losses": [],
+        "raw_gains": [],
+        "raw_losses": []
+      },
+      "status": "rejected"
+    },
+    {
+      "trial": "focused-buy-success-continuation",
+      "target": "0x83c00",
+      "bytes": 3104,
+      "ratio": 0.54364,
+      "calls": 17,
+      "unstripped_sha256": "272f84f0931e91433b0ced496eac6c5dcdfde2769fb998dc17b0bfb8c012e34b",
+      "stripped_sha256": "02bdd56675a33aa5744423d8b5641066e2063b61e4648af135c1ab54ff9a8c02",
+      "stack_warnings": [],
+      "score": {
+        "normalized": 1019,
+        "raw": 188,
+        "total": 1035,
+        "gains": [],
+        "losses": [
+          "0x84b78"
+        ],
+        "raw_gains": [],
+        "raw_losses": []
+      },
+      "status": "rejected"
+    },
+    {
+      "trial": "focused-buy-result-match",
+      "target": "0x83c00",
+      "bytes": 3472,
+      "ratio": 0.94811,
+      "calls": 22,
+      "unstripped_sha256": "2035fa2fd0a8a89fc02dcdc21e1aef137646870b57fe7d87f4fb5d2938a4b538",
+      "stripped_sha256": "0108e1dba0010f8ef5b224eaea0a35fcb6c3b3f0f71004c187bd4a83c02d48b1",
+      "stack_warnings": [],
+      "score": {
+        "normalized": 1020,
+        "raw": 188,
+        "total": 1035,
+        "gains": [],
+        "losses": [],
+        "raw_gains": [],
+        "raw_losses": []
+      },
+      "status": "rejected"
+    }
+  ],
+  "outcome": "No new match or retained source change. No runtime execution of rejected trials."
+}

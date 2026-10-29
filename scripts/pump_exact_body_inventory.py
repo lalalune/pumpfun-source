@@ -14,8 +14,21 @@ from pump_quote_control_function_match import sections, candidate_functions
 
 ROOT = Path(__file__).resolve().parents[1]
 ORIGINAL = ROOT / 'evidence/original/pump/deployed.so'
-WINDOWS = ROOT / 'repro/reconstruction-status-2026-10-26/functions.tsv'
+ARCHIVED_WINDOWS = Path('repro/reconstruction-status-2026-10-26/functions.tsv')
+CHECKED_IN_WINDOWS = Path('reconstruction/base/functions.tsv')
 EXPECTED_ORIGINAL = '7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d'
+
+
+def window_inventory(root=None):
+    """Return the archived window table, or the checked-in inventory."""
+    root = ROOT if root is None else Path(root)
+    archived = root / ARCHIVED_WINDOWS
+    if archived.is_file():
+        return archived
+    checked_in = root / CHECKED_IN_WINDOWS
+    if checked_in.is_file():
+        return checked_in
+    raise FileNotFoundError('no Pump window inventory')
 
 
 def sha(data):
@@ -38,7 +51,8 @@ def main():
         raw = candidate[offset:offset+size]
         counterparts.setdefault((size, sha(raw)), []).append({'address':address, 'symbol':name})
     rows = []
-    with WINDOWS.open() as stream:
+    windows = window_inventory()
+    with windows.open() as stream:
         for row in csv.DictReader(stream, delimiter='\t'):
             if row['program'] != 'pump' or row['variant'] != 'selected':continue
             start,end = int(row['original_start']),int(row['original_end'])
@@ -51,7 +65,7 @@ def main():
     assert rows[0]['original_start']==os['addr'] and rows[-1]['original_end']==os['addr']+os['size']
     assert all(a['original_end']==b['original_start'] for a,b in zip(rows,rows[1:]))
     result={'scope':__doc__,'original_sha256':sha(original),'candidate_sha256':sha(candidate),
-            'window_inventory_sha256':sha(WINDOWS.read_bytes()),'script_sha256':sha(Path(__file__).read_bytes()),
+            'window_inventory_sha256':sha(windows.read_bytes()),'script_sha256':sha(Path(__file__).read_bytes()),
             'helper_sha256':sha((ROOT/'scripts/pump_quote_control_function_match.py').read_bytes()),
             'objdump_sha256':sha(Path(args.objdump).read_bytes()),
             'candidate_bytes':len(candidate),'original_text_bytes':os['size'],
