@@ -223,6 +223,7 @@ test("retrying holdings invalidates an activity snapshot without automatically r
   await page.goto(`/portfolio?address=${ADDRESS}`);
   await inspect(page).click();
   await expect(page.getByTestId("public-pump-record-result")).toBeVisible();
+  const beforeRetry = balanceRequests;
   await page
     .locator(".portfolio-error")
     .getByRole("button", { name: "Try again", exact: true })
@@ -230,7 +231,7 @@ test("retrying holdings invalidates an activity snapshot without automatically r
   await expect(inspect(page)).toBeVisible();
   await expect(page.getByTestId("public-pump-record-result")).toHaveCount(0);
   expect(recordRequests).toBe(1);
-  expect(balanceRequests).toBe(2);
+  await expect.poll(() => balanceRequests).toBe(beforeRetry + 1);
   await inspect(page).click();
   await expect(page.getByTestId("public-pump-record-result")).toBeVisible();
   expect(recordRequests).toBe(2);
