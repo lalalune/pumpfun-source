@@ -1,0 +1,36 @@
+{
+ "lane": "callgraph-census",
+ "baseline": "origin/main d2cb88d (1019 normalized / 188 raw)",
+ "branch_result": {"normalized": 1019, "raw": 188, "gains": [], "losses": [], "unstripped_sha256": "c3d06d863fe8281d4395b5d21dd2413c041baf73dcc52b5dfc111dc0a340a42a"},
+ "targets_improved": {
+  "0x5b3b0": {"fn": "multi_hop_curve::swap_hop", "ratio": [0.15752, 0.22294], "calls": [94, 108], "orig_calls": 107, "bytes": [18056, 19024], "orig_bytes": 18584},
+  "0x1e7c0": {"fn": "create_v2::execute", "ratio": [0.2467, 0.26525], "calls": [126, 126], "orig_calls": 125, "bytes": [14848, 15992], "orig_bytes": 15576, "error_sites_hot_cold": {"orig": [11, 6], "before": [6, 11], "after": [11, 6]}}
+ },
+ "analysis_outputs": ["CENSUS.json", "CENSUS-TABLES.md", "HOTNESS.md", "NOTES.md", "t6-call-multiset-exact.patch"],
+ "tools": ["census.py", "capture_inline.py", "hotness.py", "blocksim.py"],
+ "attempts": ["295ed252", "15443db7", "ab955690", "1f217d1e", "141c0f0f", "a5064c2b", "75e75861", "8179d4d2", "5aeb7a66", "db8120b9", "65d1919f", "7dcc3207", "b0401991"],
+ "key_findings": [
+  "10 of 16 windows have identical direct-callee multisets (depth-6 identities); their residuals are intra-function",
+  "AccountInfo::clone (cost 60) and ToString::to_string (cost 130) are inlined only at non-cold call sites (threshold 325 vs cold 45, cold = block frequency < 2% of entry): every inlined-vs-called difference is a per-site hot/cold bit",
+  "#[inline(always)] helpers are inlined before their small callees, so their sites take the caller's (cold) frequency; plain helpers are optimized standalone (hot) first",
+  "admin_cto: original inlines 21 AccountInfo::clone at the transfer_creator_fees_to_pump_v2 (13) and admin_cto_sharing_config (8) CPIs; ours turns cold after admin_cto.rs:307 and calls all 54",
+  "swap_hop: original inlines emit!/emit_cpi! x3 and calls sub3, buy_fee_market_cap, tokens_for_quote, post_complete_buy_event, quote_payments::transfer_native"
+ ],
+ "rejected_mechanisms": [
+  "swap_hop clone-free validate_buyback args (t4/t5/t6): callee multiset becomes exact but win.py ratio drops 0.223 -> 0.12",
+  "claim_v2 manual lamport credit / data_is_empty (t7/t8): multiset closer, ratio 0.167 -> 0.163",
+  "admin_cto CPI helper extraction (t9-t11): clones inline in helper but helper is not inlined back (cost 1985, cold site); #[inline] byte-identical; #[inline(always)] undoes it",
+  "create_v2 dropping #[inline(always)] from create_quote_config: loses 0x18678"
+ ],
+ "unresolved": [
+  "0x22a10: find the control-flow difference that makes ours cold after admin_cto.rs:307 while the original stays hot through both CPIs and the :410/:648 error sites",
+  "0x5b3b0: one extra AccountInfo::clone (validate_buyback args / mint_key seeds); block order",
+  "0x1e7c0: one extra memcpy; block order",
+  "0x72810: original re-evaluates the native quote-mint compare after the admits (two memcmps); being handled by sweep-reconstruction"
+ ],
+ "next_ideas": [
+  "Dump BFI (-print-bfi -print-bfi-func-name) for admin_cto::execute in an experiment build to locate the branch that drops below 2%",
+  "Apply the hot/cold oracle to every #[inline(always)] helper in the unmatched functions (HOTNESS.md) before restructuring code",
+  "Use blocksim.py alongside win.py when a change moves blocks; win.py ratio under-rates t6-style swap_hop variants"
+ ]
+}

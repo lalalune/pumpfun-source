@@ -85,7 +85,7 @@ fn process_cashback_inner<'info>(
         if data.len() < 8 || &data[..8] != crate::UserVolumeAccumulator::DISCRIMINATOR { return err!(PumpError::InvalidCashbackAccumulator); }
     }
     crate::trade::quote_payments::transfer_native(bonding_curve, user_volume_accumulator, amount)?;
-    let mut user_volume_accumulator = Account::<crate::UserVolumeAccumulator>::try_from_unchecked(user_volume_accumulator)?;
+    let mut user_volume_accumulator = Account::<crate::UserVolumeAccumulator>::try_from(user_volume_accumulator)?;
     if user_volume_accumulator.user == Pubkey::default() {
         user_volume_accumulator.user = user_key;
     }

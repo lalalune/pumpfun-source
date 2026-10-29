@@ -364,6 +364,24 @@ def main():
         flips = [{'line': ln, 'orig': sorted(by_o.get(ln, [])), 'ours': sorted(by_c.get(ln, []))}
                  for ln in sorted(set(by_o) | set(by_c), key=str) if sorted(by_o.get(ln, [])) != sorted(by_c.get(ln, []))]
         t['error_format_forms'] = {'orig': ef_o, 'ours': ef_c, 'differing_lines': flips}
+
+        # inlined AccountInfo::clone estimate: Rc strong-count increments `ldxdw rX,[rY+0]; add64 rX,1`
+        # (two per clone: lamports and data). Inlined = hot site (>= 2 % entry freq), called = cold.
+        def rc_incs(img, start):
+            txt = img.text(start); ad = sorted(txt); n = []
+            for k in range(1, len(ad)):
+                if re.match(r'add64 (r\d+), 0x1$', txt[ad[k]]) and re.match(r'ldxdw ' + re.match(r'add64 (r\d+)', txt[ad[k]]).group(1) + r', \[r\d+ \+ 0x0\]$', txt[ad[k - 1]]):
+                    n.append(hex(ad[k] - start))
+            return n
+        ro, rc = rc_incs(O, o), rc_incs(C, c)
+        cl = lambda keys: sum(1 for k in keys if 'AccountInfo as core::clone::Clone' in kname(k))
+        t['account_info_clones'] = {'orig_called': cl(ok), 'orig_inlined_est': len(ro) // 2, 'ours_called': cl(ck), 'ours_inlined_est': len(rc) // 2,
+                                    'orig_rc_increment_sites': ro, 'ours_rc_increment_sites': rc}
+        hot_o = sum(1 for x in ef_o if x['form'] == 'fmt'); hot_c = sum(1 for x in ef_c if x['form'] == 'fmt')
+        t['hotness'] = {'error_sites_hot_orig': hot_o, 'error_sites_cold_orig': len(ef_o) - hot_o,
+                        'error_sites_hot_ours': hot_c, 'error_sites_cold_ours': len(ef_c) - hot_c,
+                        'clone_sites_hot_orig': len(ro) // 2, 'clone_sites_cold_orig': cl(ok),
+                        'clone_sites_hot_ours': len(rc) // 2, 'clone_sites_cold_ours': cl(ck)}
         report['targets'].append(t)
         md.append(f"## {hex(o)} {t['candidate']}  (orig {ofuncs[o][0]} B / ours {cfuncs[c][0]} B, ratio {r:.3f})\n")
         md.append(f"calls orig {len(ok)} / ours {len(ck)}, aligned {len(aligned)}, arg-setup diffs at aligned sites {len(arg_diffs)} (shape-only, stack offsets masked: {len(shape_diffs)}); syscalls orig {sum(osys.values())} ours {sum(csys.values())}\n")
@@ -375,6 +393,8 @@ def main():
             md.append(f"| `{d['callee']}` | {d['orig']} | {d['ours']} | {d['kind']} | {', '.join('`%s`' % x for x in ev)} |")
         if reordered:
             md.append(f"\nreordered (same count, different position): {', '.join('`%s`' % x for x in reordered)}")
+        hz = t['hotness']
+        md.append(f"hot/cold sites (inlined = hot, called = cold; LLVM cold threshold 45 vs 325): error-message to_string orig {hz['error_sites_hot_orig']} hot / {hz['error_sites_cold_orig']} cold, ours {hz['error_sites_hot_ours']} / {hz['error_sites_cold_ours']}; AccountInfo::clone orig ~{hz['clone_sites_hot_orig']} hot / {hz['clone_sites_cold_orig']} cold, ours ~{hz['clone_sites_hot_ours']} / {hz['clone_sites_cold_ours']}\n")
         if flips:
             md.append('error-message form differs (fmt = ToString inlined, to_string = outlined call), by following Source line:\n')
             for f in flips:

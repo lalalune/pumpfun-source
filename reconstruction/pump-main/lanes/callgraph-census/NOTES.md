@@ -130,6 +130,15 @@ site:
 - process_cashback_inner (0x6cd78): sell.rs:85 is cold in the original, hot in ours.
 - claim_v2 (0x77940): the original's two clones at pos 26/55 and the to_string at :333.
 
+**`#[inline(always)]` vs cost-model inlining.** An always-inline helper is inlined by the
+AlwaysInliner before the CGSCC inliner looks at its small callees, so its `to_string`/`clone` sites
+are judged at the caller's frequency (often cold). A normally inlined helper is optimized first on its
+own (entry frequency 100 %, sites hot) and then inlined. So: original hot + ours cold inside an
+always-inline helper -> the original helper was a plain fn (create_v2 t12); original cold + ours hot
+inside a plain nested fn -> the original was always-inline or inline code (process_cashback_inner t15).
+`HOTNESS.md` (from `hotness.py` over a `capture_inline.py --lines` build of this branch's swap_hop
+source) lists every remark site per target.
+
 Extracting a CPI into a small helper makes its clones inline (the helper's entry is hot), but the
 helper is then not inlined back (t9/t11); `#[inline(always)]` inlines it before the clones (t10). The
 fix has to be control flow (block frequency), not helper boundaries.
@@ -163,6 +172,9 @@ See the ledger (`--lane callgraph-census`) and the table below (filled as trials
 | t7 | 0x77940 | manual lamport credit instead of `add_lamports` | add_lamports/lamports/try_borrow_mut/From counts equal orig, aligned 48 -> 52, ratio 0.167 -> 0.164 (8179d4d2) |
 | t8 | 0x77940 | t7 + `data_is_empty()` before `try_borrow_data` | multiset diff down to fmt/to_string and clone 6 vs 8, ratio 0.163 (5aeb7a66) |
 | t9-t11 | 0x22a10 | CPI or accounts-struct helper for transfer_creator_fees | clones inline inside helper, helper stays outlined; inline(always) undoes it (db8120b9) |
+| t12 | 0x1e7c0 | drop `#[inline(always)]` from `initialize_quote_accounts` and `validate_create_metadata` (attribute lines blanked) | **0.2467 -> 0.2653, 126 calls unchanged, error hot/cold 11/6 = original (was 6/11), multiset diff only memcpy +1; kept in source** (7dcc3207). Only validate_create_metadata: 0.2760 (hot/cold 9/8); only initialize_quote_accounts: 0.2400 |
+| t13 | 0x1e7c0 | also drop it from `create_quote_config` / CPI helpers | loses 0x18678 (and 0x1c880); rejected (b0401991) |
+| t15 | 0x6cd78 | `#[inline(always)]` on nested `check_existing` | multiset identical, hot/cold equal orig, 8600 B, ratio 0.7354 -> 0.7321; same result already logged by cashback-inner-reconstruction (key collided), not re-recorded |
 
 win.py's ratio is a difflib alignment and collapses when LLVM re-lays blocks (t4-t6 match the
 original's callee multiset and size far better yet score lower). `blocksim.py` gives order-insensitive

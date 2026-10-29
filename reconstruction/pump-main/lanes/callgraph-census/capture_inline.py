@@ -21,11 +21,12 @@ def main():
     ap.add_argument('--out', type=Path, required=True); ap.add_argument('--caller', required=True)
     ap.add_argument('--callee')
     ap.add_argument('--parse-only', action='store_true', help='re-parse an existing <out>/build.log')
+    ap.add_argument('--lines', action='store_true', help='add -C debuginfo=line-tables-only so remarks carry call-site file:line (diagnostic; may perturb codegen)')
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
     if a.parse_only:
         return parse(a, {'ok': True})
-    extra = ['-C', 'remark=inline']
+    extra = ['-C', 'remark=inline'] + (['-C', 'debuginfo=line-tables-only'] if a.lines else [])
     real = subprocess.run
 
     def run(cmd, *ra, **kw):
@@ -55,7 +56,8 @@ def parse(a, res):
         if a.callee and not re.search(a.callee, demangle(callee)):
             continue
         cost = re.search(r'cost=(-?\d+|always|never)', text); thr = re.search(r'threshold=(-?\d+)', text)
-        rows.append({'kind': kind, 'callee': demangle(callee), 'caller': demangle(caller),
+        loc = re.search(r'note: ([^\s]+?):(\d+):(\d+) inline', m.group(0))
+        rows.append({'loc': (loc.group(1).split('/')[-1] + ':' + loc.group(2)) if loc else None, 'kind': kind, 'callee': demangle(callee), 'caller': demangle(caller),
                      'cost': cost.group(1) if cost else None, 'threshold': thr.group(1) if thr else None, 'text': text[:400]})
     (a.out / 'inline-remarks.json').write_text(json.dumps(rows, indent=1) + '\n')
     print(json.dumps({'ok': res.get('ok'), 'remarks': len(rows), 'unstripped_sha256': res.get('unstripped_sha256')}))
