@@ -1,0 +1,3 @@
+import { defineConfig } from '@playwright/test';
+import { acceptedClickwrapState } from './tests/browser-state';
+export default defineConfig({ testDir: './tests', testMatch: ['auth-button-backdrop.spec.ts', 'auth.spec.ts', 'public-wallet.spec.ts'], outputDir: '../../../work/auth-button-origin/controls/artifacts', retries: 0, workers: 1, fullyParallel: false, forbidOnly: true, timeout: 30000, reporter: [['line'], ['json', { outputFile: '../../../work/auth-button-origin/controls/report.json' }]], use: { baseURL: 'http://127.0.0.1:3027', browserName: 'chromium', storageState: acceptedClickwrapState, screenshot: 'only-on-failure', trace: 'retain-on-failure' } });

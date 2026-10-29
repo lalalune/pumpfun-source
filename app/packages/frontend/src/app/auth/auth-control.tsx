@@ -60,6 +60,7 @@ export function AuthControl({
     controller.getSnapshot,
   );
   const dialog = useRef<HTMLDialogElement>(null);
+  const backdropPress = useRef(false);
   const trigger = useRef<HTMLButtonElement>(null);
   const close = useRef<HTMLButtonElement>(null);
   const back = useRef<HTMLButtonElement>(null);
@@ -157,15 +158,36 @@ export function AuthControl({
             aria-modal="true"
             role={state.status === "error" ? "alertdialog" : "dialog"}
             onCancel={(event) => {
+              backdropPress.current = false;
               event.preventDefault();
               controller.close();
             }}
-            onClose={controller.close}
+            onClose={() => {
+              backdropPress.current = false;
+              controller.close();
+            }}
             onKeyDown={(event) => {
               if (event.key === "Escape") event.stopPropagation();
             }}
+            onPointerDown={(event) => {
+              const bounds = event.currentTarget.getBoundingClientRect();
+              backdropPress.current =
+                event.target === event.currentTarget &&
+                (event.clientX < bounds.left ||
+                  event.clientX > bounds.right ||
+                  event.clientY < bounds.top ||
+                  event.clientY > bounds.bottom);
+            }}
+            onPointerCancel={() => {
+              backdropPress.current = false;
+            }}
             onClick={(event) => {
-              if (event.target !== event.currentTarget) return;
+              const startedOutside = backdropPress.current;
+              backdropPress.current = false;
+              // An aborted button press can retarget its click to the dialog.
+              // Require both ends of the gesture to be outside the panel.
+              if (!startedOutside || event.target !== event.currentTarget)
+                return;
               const bounds = event.currentTarget.getBoundingClientRect();
               if (
                 event.clientX < bounds.left ||

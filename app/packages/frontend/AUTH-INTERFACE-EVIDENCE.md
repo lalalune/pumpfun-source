@@ -2,6 +2,16 @@
 
 # Sign-in presentation reconstruction
 
+The [Auth backdrop press-origin correction](../../research/auth-backdrop-press-origin-20261029/README.md)
+qualifies a later local dismissal fix. An aborted press on the public wallet's
+Disconnect button could retarget its click to the dialog and close the chooser.
+AuthControl now requires the press and release to be outside. Trusted desktop
+and mobile before/after cases use a native `closedby="any"` button control;
+18 product-browser cases and 28 controller/model tests pass. Seven unmounted
+synthetic-adapter browser cases remain skipped. This does not apply the separate
+public-wallet child-focus or connect-result changes, recover original backdrop
+code, enable sign-in/signing, or add compatibility/feature credit.
+
 ## Scope and acceptance boundary
 
 This adds the missing shared **Sign in** entrypoint and evidence-mapped chooser

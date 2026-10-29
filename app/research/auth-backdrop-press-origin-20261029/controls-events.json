@@ -1,0 +1,422 @@
+[
+  {
+    "test": "aborted public disconnect-button press preserves chooser and connection at 1280px",
+    "status": "passed",
+    "observed": {
+      "url": "http://127.0.0.1:3027/explore?marker=auth-address-selection#keep",
+      "events": {
+        "auth": [
+          {
+            "type": "pointerdown",
+            "trusted": true,
+            "target": "BUTTON",
+            "x": 491.5,
+            "y": 862.25,
+            "open": true
+          },
+          {
+            "type": "pointerup",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 227.25,
+            "y": 8,
+            "open": true
+          },
+          {
+            "type": "click",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 227,
+            "y": 8,
+            "open": true
+          }
+        ],
+        "native": [
+          {
+            "type": "pointerdown",
+            "trusted": true,
+            "target": "BUTTON",
+            "x": 494.5,
+            "y": 394,
+            "open": true
+          },
+          {
+            "type": "pointerup",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 227.25,
+            "y": 175,
+            "open": true
+          },
+          {
+            "type": "click",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 227,
+            "y": 175,
+            "open": true
+          },
+          {
+            "type": "pointerdown",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 227.25,
+            "y": 175,
+            "open": true
+          },
+          {
+            "type": "pointerup",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 227.25,
+            "y": 175,
+            "open": true
+          },
+          {
+            "type": "click",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 227,
+            "y": 175,
+            "open": false
+          },
+          {
+            "type": "close",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 0,
+            "y": 0,
+            "open": false
+          }
+        ]
+      },
+      "walletCalls": [
+        "connect",
+        "on"
+      ],
+      "open": true,
+      "focused": "BUTTON"
+    }
+  },
+  {
+    "test": "aborted public disconnect-button press preserves chooser and connection at 390px",
+    "status": "passed",
+    "observed": {
+      "url": "http://127.0.0.1:3027/explore?marker=auth-address-selection#keep",
+      "events": {
+        "auth": [
+          {
+            "type": "pointerdown",
+            "trusted": true,
+            "target": "BUTTON",
+            "x": 46.5,
+            "y": 790.25,
+            "open": true
+          },
+          {
+            "type": "pointerup",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 4.75,
+            "y": 8,
+            "open": true
+          },
+          {
+            "type": "click",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 4,
+            "y": 8,
+            "open": true
+          }
+        ],
+        "native": [
+          {
+            "type": "pointerdown",
+            "trusted": true,
+            "target": "BUTTON",
+            "x": 59,
+            "y": 366,
+            "open": true
+          },
+          {
+            "type": "pointerup",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 9.5,
+            "y": 161,
+            "open": true
+          },
+          {
+            "type": "click",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 9,
+            "y": 161,
+            "open": true
+          },
+          {
+            "type": "pointerdown",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 9.5,
+            "y": 161,
+            "open": true
+          },
+          {
+            "type": "pointerup",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 9.5,
+            "y": 161,
+            "open": true
+          },
+          {
+            "type": "click",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 9,
+            "y": 161,
+            "open": false
+          },
+          {
+            "type": "close",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 0,
+            "y": 0,
+            "open": false
+          }
+        ]
+      },
+      "walletCalls": [
+        "connect",
+        "on"
+      ],
+      "open": true,
+      "focused": "BUTTON"
+    }
+  },
+  {
+    "test": "a complete backdrop click still closes and restores trigger focus without navigation",
+    "status": "passed",
+    "observed": {
+      "url": "http://127.0.0.1:3027/explore?marker=auth-address-selection#keep",
+      "events": {
+        "auth": [
+          {
+            "type": "pointerdown",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 227.25,
+            "y": 8,
+            "open": true
+          },
+          {
+            "type": "pointerup",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 227.25,
+            "y": 8,
+            "open": true
+          },
+          {
+            "type": "click",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 227,
+            "y": 8,
+            "open": true
+          },
+          {
+            "type": "close",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 0,
+            "y": 0,
+            "open": false
+          }
+        ]
+      },
+      "walletCalls": [
+        "connect",
+        "on",
+        "off"
+      ],
+      "open": false,
+      "focused": "BUTTON"
+    }
+  },
+  {
+    "test": "inside clicks and a reverse backdrop-to-panel drag preserve the public address",
+    "status": "passed",
+    "observed": {
+      "url": "http://127.0.0.1:3027/explore?marker=auth-address-selection#keep",
+      "events": {
+        "auth": [
+          {
+            "type": "pointerdown",
+            "trusted": true,
+            "target": "H2",
+            "x": 632.5,
+            "y": 30.5,
+            "open": true
+          },
+          {
+            "type": "pointerup",
+            "trusted": true,
+            "target": "H2",
+            "x": 632.5,
+            "y": 30.5,
+            "open": true
+          },
+          {
+            "type": "click",
+            "trusted": true,
+            "target": "H2",
+            "x": 632,
+            "y": 30,
+            "open": true
+          },
+          {
+            "type": "pointerdown",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 227.25,
+            "y": 8,
+            "open": true
+          },
+          {
+            "type": "pointerup",
+            "trusted": true,
+            "target": "DIV",
+            "x": 581.5,
+            "y": 30.5,
+            "open": true
+          },
+          {
+            "type": "click",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 581,
+            "y": 30,
+            "open": true
+          }
+        ]
+      },
+      "walletCalls": [
+        "connect",
+        "on"
+      ],
+      "open": true,
+      "focused": "DIALOG"
+    }
+  },
+  {
+    "test": "activating Cancel connection still cancels and rejects its later approval",
+    "status": "passed",
+    "observed": {
+      "url": "http://127.0.0.1:3027/explore?marker=auth-address-selection#keep",
+      "events": {
+        "auth": [
+          {
+            "type": "pointerdown",
+            "trusted": true,
+            "target": "BUTTON",
+            "x": 632.5,
+            "y": 665.75,
+            "open": true
+          },
+          {
+            "type": "pointerup",
+            "trusted": true,
+            "target": "BUTTON",
+            "x": 632.5,
+            "y": 665.75,
+            "open": true
+          },
+          {
+            "type": "click",
+            "trusted": true,
+            "target": "BUTTON",
+            "x": 632,
+            "y": 665,
+            "open": true
+          }
+        ]
+      },
+      "walletCalls": [
+        "connect",
+        "approved"
+      ],
+      "open": true,
+      "focused": "BODY"
+    }
+  },
+  {
+    "test": "cancelled outside contact keeps the chooser open and a later click can dismiss",
+    "status": "passed",
+    "observed": {
+      "url": "http://127.0.0.1:3027/explore?marker=auth-address-selection#keep",
+      "events": {
+        "auth": [
+          {
+            "type": "pointerdown",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 4.75,
+            "y": 8,
+            "open": true
+          },
+          {
+            "type": "pointercancel",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 4.75,
+            "y": 8,
+            "open": true
+          },
+          {
+            "type": "pointerdown",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 4.75,
+            "y": 8,
+            "open": true
+          },
+          {
+            "type": "pointerup",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 4.75,
+            "y": 8,
+            "open": true
+          },
+          {
+            "type": "click",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 4,
+            "y": 8,
+            "open": true
+          },
+          {
+            "type": "close",
+            "trusted": true,
+            "target": "DIALOG",
+            "x": 0,
+            "y": 0,
+            "open": false
+          }
+        ]
+      },
+      "walletCalls": [
+        "connect",
+        "on",
+        "off"
+      ],
+      "open": false,
+      "focused": "BUTTON"
+    }
+  }
+]

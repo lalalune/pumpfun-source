@@ -1,0 +1,82 @@
+{
+  "scope": "Local AuthControl pointer-origin dismissal only; no original modal/authentication/signing/ownership/feature equivalence claim",
+  "baseRevision": "604917c16410d67d9b981305e28e160a93728f50",
+  "liveMainAtSubmissionCheck": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "baseAndLiveAppTree": "e3d6d8cd07df4f561a4fd058dad29d22de451bfc",
+  "sourceSha256": {
+    "app/packages/frontend/src/app/auth/auth-control.tsx": "533c632af7a3098e8519d351e05374945e83cd80bbfc4cb456e41240516d3b4f",
+    "app/packages/frontend/src/app/auth/auth-controller.ts": "06d5d325c9a73f2e31db0cbbecadddc743a867afcefd4ea12485fc7bc9b4f67c",
+    "app/packages/frontend/src/app/auth/public-wallet/controller.ts": "59241569d7a3e7286b5f13542a9f6c04c209dc097dd1e50bf5d8702214a24ad6",
+    "app/packages/frontend/src/app/auth/public-wallet/panel.tsx": "6ae003e49f5c39f7643b11aacd22dd5537af3c13cbdbd248c5be22f3153c7a9f",
+    "app/packages/frontend/tests/auth-button-backdrop.spec.ts": "55f13e0cc05479340f986b1550546e77b50755bfe6c1948111bfe4d451ae0e45",
+    "app/packages/frontend/tests/auth.spec.ts": "2e765460170d3a359364449a794cf3f0f38edcabb24a54934500e06a3a4eabb3",
+    "app/packages/frontend/tests/public-wallet.spec.ts": "9bd1a5d0fffa7857583b1a84927d231fb8ac4073412cc9e90dc15d0720b76061",
+    "app/packages/frontend/PUBLIC-WALLET-SOURCE.json": "6d3b3e81b79be773af9c5cf264d990c597bddb542c45f62adf1149d716bd8262",
+    "app/pnpm-lock.yaml": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+    "app/tsconfig.base.json": "ef2e5c4189cb284a1ffe8c64b78f8d0dbcea7f1f4a334bbdd67fb05de8b0582f"
+  },
+  "baseAuthControlSha256": "2ef51c58a9fb0f53b235721d70918bf2fce42ed73f783293b9702cd7bfdaa430",
+  "baselineDriverSha256": "22b1f7a1fe30b0f8232bd4ea874743a161607bfb17bfa9f4978dbee4953c17e3",
+  "sameMethod": {
+    "beforeFailed": 2,
+    "afterPassed": 2,
+    "sameBaselineDriverUsed": true,
+    "beforeRunnerErrors": [
+      "Testing stopped early after 2 maximum allowed failures."
+    ]
+  },
+  "finalBrowserBatch": {
+    "passed": 18,
+    "skipped": 7,
+    "failed": 0,
+    "skipReason": "Explicit synthetic adapter fixture is not mounted on the actual product route"
+  },
+  "frontendTypecheck": {
+    "command": "node node_modules/typescript/bin/tsc --noEmit --incremental false",
+    "cwd": "app/packages/frontend",
+    "exit": 0,
+    "context": "Next16.4.1 dev-generated route declarations; next-env restored byte-exact after the run. Generated declarations retained privately."
+  },
+  "nodeTests": {
+    "command": "node node_modules/tsx/dist/cli.mjs --test ../../tests/auth_interface.test.ts ../../tests/public_wallet.test.ts",
+    "cwd": "app/packages/backend",
+    "passed": 28,
+    "failed": 0
+  },
+  "sourceWitnesses": {
+    "factories": 3,
+    "fragments": 6,
+    "capturedCodeEvaluated": false
+  },
+  "appEvidence": {
+    "capturedObjects": 698,
+    "exit": 0
+  },
+  "limits": [
+    "Synthetic public Wallet Standard registry/provider, actual product and trusted browser input; not a real extension or original-server qualification.",
+    "Provider log off denotes event-listener unsubscribe, not a standard:disconnect call.",
+    "Seven explicit synthetic-adapter scenarios were skipped, not passed.",
+    "Chromium local HTTP only; no other browser engine, real wallet/signing/authentication or visual/source equivalence claim.",
+    "No child-focus fix from1361, connect/accounts change from1452, prepaint change from1401 or public overview from1350 applied.",
+    "An initial CODE-selection probe passed unchanged; retained privately with its initial missing-root-tsconfig setup failure, no product fix inferred from it."
+  ],
+  "artifactSha256": {
+    "after-events.json": "0ae9223eb460bf748cad0b2e0b902a141e62642a9269af588fe92d5b1058390e",
+    "after-report.json.gz": "f0bee22d1a95791f14442ba7aeb57a294db45227f8b921bf4d0b2927c6f52e50",
+    "after.log.gz": "1e3c9663ffb9840a893eee10f0fa273234a34f4770f1d0eb31c383924a2990c4",
+    "app-evidence.log": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9",
+    "baseline-driver.ts": "22b1f7a1fe30b0f8232bd4ea874743a161607bfb17bfa9f4978dbee4953c17e3",
+    "before-1280.png": "6aec350f88c81eee3cc7781983155102dda973991de900a2e7db18f4f31e83ff",
+    "before-390.png": "a8b0f4d4e8d2dcb9b2baff8eaeee6e5ccecb49744c3bc31969ef2d07a82cb834",
+    "before-events.json": "07cc4d9672842e9eedec2a70a37d9157ec2e933569709e406667e0131b8b00e5",
+    "before-report.json.gz": "9f3395a7f9b53a1de4e5aad0fcd7c4bd1e3a90d86fa3f89e91e49acadcc9c0a6",
+    "before.log.gz": "951dffd1fee99a3ba579ecd33e4f29c3c70222bf7ceb187e4c8f789cd34b8aaf",
+    "controls-events.json": "5ae562c34f0aa4be6f194cda4d12cd98bcc426eb10024fc0fb844255d176832b",
+    "controls-report.json.gz": "f3ba9051ddf2b5f2a77abdb70aa657dc3797fd2009a841060c3d594cfa9d7105",
+    "controls.log.gz": "03b5269bb331d1c185df2c2357c4096ee1982585f6df169a26ac694e8fc8570e",
+    "node-tests.log.gz": "3a080016575426910cb447ad84f28b68dc6e9a22aa3caaf54f59a6ef2e5343a9",
+    "source-evidence.log": "e4f248a965e1f57292a739b973eaae05921ea7d014a0c254884d09b8e0321edf",
+    "typecheck.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "browser-config.ts": "8b0b7acd89ab25a135cc4977d1e9ffc0c43acd9c47e92a7e63e987e201cc61eb"
+  }
+}
