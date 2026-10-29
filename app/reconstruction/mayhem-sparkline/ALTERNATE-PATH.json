@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "command": [
+    "node",
+    "<public export>/reconstruction/mayhem-sparkline/verify.mjs",
+    "--check"
+  ],
+  "cwd": "/tmp",
+  "pathContainsSpaces": true,
+  "exitCode": 0,
+  "publicFiles": [
+    {
+      "path": "evidence/web/manifest.json",
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5"
+    },
+    {
+      "path": "evidence/web/objects/0ba78d0f42544445.js",
+      "sha256": "0d9cc24434d881558fc187021af233d1ddf5afbda7b7ad6e554bbbe5fd3fd90f"
+    },
+    {
+      "path": "evidence/web/objects/0fea5750534737b2.js",
+      "sha256": "01b3ea982eb9ba3970a4b49714c827805ecc85699e35c3614d1d072fbe67949e"
+    },
+    {
+      "path": "evidence/web/objects/1e479323ffe53c14.js",
+      "sha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172"
+    },
+    {
+      "path": "evidence/web/objects/316ff95d024f8997.js",
+      "sha256": "622e66408a10bccb470d9187fb3f92253b5967e04787409598cf6bdcb9564454"
+    },
+    {
+      "path": "evidence/web/objects/3d84cd0300026f39.js",
+      "sha256": "0f59ef787f76993b5f7cd2c7c5abcdd390ebfc5f5727828ab4c379ec2b6cd6c9"
+    },
+    {
+      "path": "evidence/web/objects/43fc24878549d421.js",
+      "sha256": "7fb478c7b4ce8c3368859554b28a14ffb5652d261865aab199014c5d6f4705a2"
+    },
+    {
+      "path": "evidence/web/objects/6a1606765ef3e83e.js",
+      "sha256": "ddb057517a85d603c9db9defee195253a1d0fa4595e37da190b7d8e83117962e"
+    },
+    {
+      "path": "evidence/web/objects/7a7f27bff952614d.js",
+      "sha256": "0e439056ec2a5d6843ef17f57a9d2af00653abd7f7e78de1989bff334637c536"
+    },
+    {
+      "path": "evidence/web/objects/7f29829a20549143.js",
+      "sha256": "5b23da600328a2a3c412c40ceaab5d8c2fc9d2b380307e9d0f08d792658db1fd"
+    },
+    {
+      "path": "evidence/web/objects/97dc53c5c25c1fdc.js",
+      "sha256": "f0ced078d389550a49f6a68980b3eaac550b2a8b5a72ce8da284d621d061111b"
+    },
+    {
+      "path": "evidence/web/objects/994c0030bcc62017.js",
+      "sha256": "e19fc8c67314ff7ad3e69fcd4228558a461e246856f96d101b0596a1b61255b5"
+    },
+    {
+      "path": "evidence/web/objects/ad7136d0b3a7f323.js",
+      "sha256": "ee1eb91e3cbfb10fa33462a1a2f500fed9902a88454dc715f059d56f405475b3"
+    },
+    {
+      "path": "evidence/web/objects/b5dd8c92e81b5961.js",
+      "sha256": "5c37df61d37f2fe137803f151669385df362c5bca3cf4da12e2753bb07c90869"
+    },
+    {
+      "path": "evidence/web/objects/bf334c55745d2868.js",
+      "sha256": "83975d453f2344c68aa3a2edf64720af23f94ac55119dac64a8ffbb064fe9c00"
+    },
+    {
+      "path": "evidence/web/objects/c7e25d5561f3a8f8.js",
+      "sha256": "45bcff7a763beda1ec92f7aae4e38e41a690bf88e74442ed4bb8468a086090df"
+    },
+    {
+      "path": "evidence/web/objects/ee92e9e880aedbf0.js",
+      "sha256": "70b9afd79d3c32e9fcb707b0d4ace0766ff3dd66db7b71227780a186ffd24326"
+    },
+    {
+      "path": "reconstruction/mayhem-sparkline/PROVENANCE.json",
+      "sha256": "b65b8889b95f5ac552399e9776ba0f055eb8057d4b3f99553d2f53d9ed72e6ce"
+    },
+    {
+      "path": "reconstruction/mayhem-sparkline/sparkline.mjs",
+      "sha256": "e4ad265fb49356d61ee8e1a6f3f5970bc7be9d4828497aff5feb8625169c448f"
+    },
+    {
+      "path": "reconstruction/mayhem-sparkline/verify.mjs",
+      "sha256": "edfb7b2749101b17cec8aa1e74d0136e5aea9939ab628b0e6eea58387db45de9"
+    },
+    {
+      "path": "recovered/modules.json",
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2"
+    },
+    {
+      "path": "scripts/original-contracts/source.mjs",
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213"
+    }
+  ],
+  "onlyExternalInput": "existing pinned app/node_modules (read-only dependency reuse)",
+  "formattedFactoriesExported": false,
+  "privateInputsExported": false,
+  "capturedCodeExecuted": false
+}

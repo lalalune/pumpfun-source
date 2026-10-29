@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "testedLocalSourceCommit": "737183b3fbe8545468cd1810e9e1aebd5bc7cf9b",
+  "node": "v24.19.0",
+  "inputs": [
+    {
+      "path": "app/reconstruction/mayhem-sparkline/sparkline.mjs",
+      "sha256": "e4ad265fb49356d61ee8e1a6f3f5970bc7be9d4828497aff5feb8625169c448f",
+      "gitBlob": "19939bd8ee723491f4cefb0e501c453633bda039"
+    },
+    {
+      "path": "app/reconstruction/mayhem-sparkline/verify.mjs",
+      "sha256": "edfb7b2749101b17cec8aa1e74d0136e5aea9939ab628b0e6eea58387db45de9",
+      "gitBlob": "183d41f156d9997c00e1ccd69f6d36304f98e0fe"
+    },
+    {
+      "path": "app/reconstruction/mayhem-sparkline/PROVENANCE.json",
+      "sha256": "b65b8889b95f5ac552399e9776ba0f055eb8057d4b3f99553d2f53d9ed72e6ce",
+      "gitBlob": "a959ef7c0c98fd5a4a29126c61c7d89f2a167fe8"
+    },
+    {
+      "path": "app/reconstruction/mayhem-sparkline/README.md",
+      "sha256": "3f2da30f05b67545fed94f730cc71064a43d4686fa90c2c183d6d05d59cabd54",
+      "gitBlob": "a1d1c2ef00d310c56e63e57168f237cfcb6d2d4a"
+    },
+    {
+      "path": "app/tests/mayhem_sparkline.test.mjs",
+      "sha256": "7183206c68d91ff88615e36dbd509a9975f319ca2477172857c4ce9c538ef519",
+      "gitBlob": "a0ebc0a91e637a8fc6c234ee8c89cb292281b61c"
+    }
+  ],
+  "results": {
+    "newSemanticAndSourceMutationTests": 12,
+    "sharedSourceTests": 11,
+    "maintainedMayhemTests": 6,
+    "rootCaptures": 9,
+    "rootToolingTests": 10,
+    "appCapturedObjects": 698,
+    "appNpmIntegrity": true,
+    "unchangedSDK": true,
+    "progressCheck": true,
+    "sourcePhysicalFactoryContexts": 22,
+    "structuralComparisons": 63,
+    "publicOnlyAlternatePathCLI": true
+  },
+  "logs": [
+    {
+      "command": "node reconstruction/mayhem-sparkline/verify.mjs --check",
+      "cwd": "app",
+      "exitCode": 0,
+      "path": "logs/source-proof.log.gz",
+      "bytes": 35,
+      "sha256": "006690edc710bac36ef78ab895ca4b39a1b1b642135cab66838640dcd654bc99",
+      "compressedBytes": 55,
+      "compressedSha256": "1436eba4f12c377deba931483adda0a0e88a2ca01cb90b8285ce43a0dc7be69a"
+    },
+    {
+      "command": "node --test tests/mayhem_sparkline.test.mjs tests/original_source.test.mjs",
+      "cwd": "app",
+      "exitCode": 0,
+      "path": "logs/focused.log.gz",
+      "bytes": 2447,
+      "sha256": "7798e19588973eed0183b5a7bc7583ce31aaa9d0a9f1773da203c600c746a471",
+      "compressedBytes": 1289,
+      "compressedSha256": "d157d6575fb6c8207d3c41d8ff991b65b3906426a7e564f1ea503bacfdd80f36"
+    },
+    {
+      "command": "node --experimental-strip-types --test tests/mayhem_screener.test.ts tests/mayhem-missing-sort.test.mjs",
+      "cwd": "app",
+      "exitCode": 0,
+      "path": "logs/maintained-mayhem.log.gz",
+      "bytes": 1908,
+      "sha256": "ea1b85fb8878993ccb54f9db64fe46c527561bec2ce49161a149fbecd9c3dab3",
+      "compressedBytes": 687,
+      "compressedSha256": "fc6b39a0a9d4bda79d9516af11de45df97b8f1b267df5ddbd85e482fb8547feb"
+    },
+    {
+      "command": "python3 scripts/verify_evidence.py",
+      "cwd": ".",
+      "exitCode": 0,
+      "path": "logs/root-evidence.log.gz",
+      "bytes": 376,
+      "sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9",
+      "compressedBytes": 177,
+      "compressedSha256": "995576b68a1e52c055bcb991ac93146ad53ea9131e859ceb3331d45380b40ce3"
+    },
+    {
+      "command": "python3 scripts/test_tooling.py",
+      "cwd": ".",
+      "exitCode": 0,
+      "path": "logs/root-tooling.log.gz",
+      "bytes": 109,
+      "sha256": "5e39238e3da0317cd3d9781408f9fcf62bc07049ccb26f376587e501c9e709fb",
+      "compressedBytes": 55,
+      "compressedSha256": "4c69f20a60220f730bcc804bf92264e032e4e602cc175621492bdbaac009e72c"
+    },
+    {
+      "command": "python3 scripts/verify-evidence.py",
+      "cwd": "app",
+      "exitCode": 0,
+      "path": "logs/app-evidence.log.gz",
+      "bytes": 72,
+      "sha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9",
+      "compressedBytes": 89,
+      "compressedSha256": "c4ccac34440167b7170118e2af25a5865d395032af8ca1cf812341ed573c3243"
+    },
+    {
+      "command": "python3 scripts/progress.py --check",
+      "cwd": "app",
+      "exitCode": 0,
+      "path": "logs/progress.log.gz",
+      "bytes": 49,
+      "sha256": "7ab499988f3b70e197e23e42287d4cc4579dc2b9360a82be3e827e22c589fda4",
+      "compressedBytes": 69,
+      "compressedSha256": "8d25a71e7cd8c214cc56b246898d555fadb2c61682febfb7b183577299893a97"
+    },
+    {
+      "command": "node <public export>/reconstruction/mayhem-sparkline/verify.mjs --check",
+      "cwd": "/tmp",
+      "exitCode": 0,
+      "path": "logs/alternate-path.log.gz",
+      "bytes": 35,
+      "sha256": "006690edc710bac36ef78ab895ca4b39a1b1b642135cab66838640dcd654bc99",
+      "compressedBytes": 55,
+      "compressedSha256": "1436eba4f12c377deba931483adda0a0e88a2ca01cb90b8285ce43a0dc7be69a"
+    }
+  ],
+  "receiptOnlyFollowup": "Subsequent publication adds only VALIDATION.json, ALTERNATE-PATH.json and eight compressed logs. The five frozen reviewed files retain these exact hashes. Git-object transport may produce a distinct commit SHA; identical complete tree mapping is retained separately.",
+  "limits": {
+    "capturedExecution": false,
+    "liveAcquisition": false,
+    "NextOrBrowser": false,
+    "mountedOrNativeFeature": false,
+    "providerServicesOrFinancialData": false,
+    "ReactMemoScheduling": false,
+    "progressChanges": false,
+    "binaryWork": false,
+    "securityApproval": false,
+    "universalEquivalence": false
+  }
+}
