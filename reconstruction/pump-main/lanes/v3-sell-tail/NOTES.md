@@ -70,3 +70,11 @@ A source-level explanation is still needed for the original error cleanup and ea
 Moving prepare into the public wrapper worsened the target to 6,024 bytes / 0.98569. Predeclaring its result and delaying the account borrow were each binary-identical to the retained improvement. No follow-up sell variant was retained.
 
 The whole-body inline mechanism was also tested on `v3_buy_costs` (`0x80df8`): binary-identical, still 2,136 bytes / 0.920. Explicit `if let Err` propagation after `transfer_from_user` in `v3_execute_buy` (`0x83c00`) produced 3,448 bytes / 0.92781 with 23 calls versus the original 22, and was rejected. Both trials retained the existing 1,020 normalized / 188 raw memberships; neither found another match.
+
+## Independent compatibility check with PR #1356
+
+The layout-order contribution at `f98d2a7fb2e7c2295698ae2a7dd0604bdb895f47` ([PR #1356](https://github.com/lalalune/pumpfun-source/pull/1356)) reports 88 new raw matches. Its source patch was reviewed and independently built on the same base/toolchain, first alone and then with this lane's retained sell change. The layout-only build exactly reproduces its published unstripped SHA-256 `37a078b8c743a0cc95c8aefc145d5b2e497a967fe39ae7e7f084ff513d5cb432`.
+
+Both layout-only and combined builds score **1,020 normalized / 276 raw**, with the same 88 raw gains and no losses versus fresh main. Every membership is equal between those two builds. Combined sell remains 6,032 bytes with six differing normalized slots and all 47 ordered callee signatures equal to the original. Neither build reports stack warnings. The layout-only checkout also passes 10 tooling tests and nine capture checks; no VM run was performed.
+
+**All 88 raw gains belong to PR #1356, not this lane.** Its source changes are not included in this PR. This is independent compatibility evidence for composing the two contributions, not a duplicate source submission. `LAYOUT-COMPATIBILITY.json`, the two membership maps and combined source SHA-256 manifest retain the exact provenance and results. The local workspace was restored to this PR's own source after the check.

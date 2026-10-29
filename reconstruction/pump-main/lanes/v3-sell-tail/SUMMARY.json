@@ -8,7 +8,7 @@
     "target_bytes": 6040,
     "original_bytes": 6032,
     "target_ratio": 0.98707,
-    "unstripped_sha256": "c130803b9a27944efbcbff751fd1226fd82d6f56b9878343d95a21faad5cc70c"
+    "unstripped_sha256": "2364778f6dbd89927a406eed95451a72890c19331e9f9252b6837d9223a837de"
   },
   "trials": [
     {
@@ -142,5 +142,21 @@
     "gains": [],
     "losses": [],
     "unstripped_sha256": "a4908a99b6593bab3e561cb611d2736a6c3552df537009821a5e77135692ec6d"
+  },
+  "first_session_baseline": {
+    "normalized": 1020,
+    "raw": 188,
+    "total": 1035,
+    "target_bytes": 6040,
+    "original_bytes": 6032,
+    "target_ratio": 0.98707,
+    "unstripped_sha256": "2364778f6dbd89927a406eed95451a72890c19331e9f9252b6837d9223a837de"
+  },
+  "compatibility": {
+    "external_pr": 1356,
+    "combined_normalized": 1020,
+    "combined_raw": 276,
+    "raw_gains_attributed_to_external_pr": 88,
+    "losses": []
   }
 }
