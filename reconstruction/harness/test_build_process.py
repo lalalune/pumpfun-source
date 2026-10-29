@@ -51,19 +51,34 @@ class CompilerDeadlineTests(unittest.TestCase):
             out.mkdir()
             (out/'candidate.so').write_bytes(b'prior candidate')
             (out/'unstripped.so').write_bytes(b'prior unstripped')
+            (out/'build.log').write_text('prior log')
+            original_archive = fastbuild.archive_previous_outputs
+            def archive(path):
+                with self.assertRaisesRegex(RuntimeError, 'already in use'):
+                    with fastbuild.workspace_lock(root/'work'):
+                        pass
+                original_archive(path)
             def compiler(command, **kwargs):
+                self.assertFalse((out/'candidate.so').exists())
+                self.assertFalse((out/'unstripped.so').exists())
+                self.assertFalse((out/'build.log').exists())
+                self.assertEqual(len(list((out/'previous').glob('build-*'))), 1)
                 self.assertEqual(kwargs['timeout'], 1)
                 with self.assertRaisesRegex(RuntimeError, 'already in use'):
                     with fastbuild.workspace_lock(root/'work'):
                         pass
                 return self.run_python('import time; print("partial compiler log"); time.sleep(30)', timeout=kwargs['timeout'])
-            with patch.object(fastbuild,'stage',return_value=root/'crate'),patch.object(fastbuild,'acquire_slot',return_value=slot),patch.object(fastbuild,'run_compiler',side_effect=compiler),patch.object(fastbuild,'RECIPES',{'test':{'triple':'test','rustc':root/'rustc','template':root/'missing'}}),patch.object(fastbuild.subprocess,'run') as publish:
+            with patch.object(fastbuild,'archive_previous_outputs',side_effect=archive),patch.object(fastbuild,'stage',return_value=root/'crate'),patch.object(fastbuild,'acquire_slot',return_value=slot),patch.object(fastbuild,'run_compiler',side_effect=compiler),patch.object(fastbuild,'RECIPES',{'test':{'triple':'test','rustc':root/'rustc','template':root/'missing'}}),patch.object(fastbuild.subprocess,'run') as publish:
                 report=fastbuild.build(root/'src',root/'work',out,quiet=True,recipe='test',timeout=1)
                 publish.assert_not_called()
             self.assertFalse(report['ok']);self.assertTrue(report['timed_out']);self.assertTrue(slot.closed)
             self.assertEqual((out/'build.log').read_text(),'partial compiler log\n')
-            self.assertEqual((out/'candidate.so').read_bytes(), b'prior candidate')
-            self.assertEqual((out/'unstripped.so').read_bytes(), b'prior unstripped')
+            self.assertFalse((out/'candidate.so').exists())
+            self.assertFalse((out/'unstripped.so').exists())
+            archive, = (out/'previous').glob('build-*')
+            self.assertEqual((archive/'candidate.so').read_bytes(), b'prior candidate')
+            self.assertEqual((archive/'unstripped.so').read_bytes(), b'prior unstripped')
+            self.assertEqual((archive/'build.log').read_text(), 'prior log')
             with fastbuild.workspace_lock(root/'work'):
                 pass
 

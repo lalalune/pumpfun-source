@@ -10,8 +10,12 @@ Usage: fastbuild.py --src <crate dir with Cargo.toml/Cargo.lock/src[/recovered]>
   equals a fresh build of the same sources).
 - Seeds <work>/target from the warm template (APFS clone) on first use.
 - Writes <out>/unstripped.so and <out>/candidate.so (default <work>/last).
+- Before compilation, archives previous outputs and their log under <out>/previous/build-*.
+  Compiler failures leave no current binaries; callers must still check ok.
+- Stack diagnostics return ok=false with build.log and stack_warnings. Diagnostic callers
+  gated on ok (including exactsol-introspection capture.py) consequently skip IR extraction.
 """
-import argparse, hashlib, json, os, shutil, subprocess, sys, time, tomllib, fcntl
+import argparse, hashlib, json, os, shutil, subprocess, sys, time, tomllib, fcntl, tempfile
 from contextlib import contextmanager
 from pathlib import Path
 from build_process import run_compiler, validate_timeout
@@ -77,6 +81,20 @@ def acquire_slot():
         time.sleep(0.5)
 
 
+def archive_previous_outputs(out: Path):
+    """Keep old evidence separate from the next attempt's canonical output paths."""
+    names = ('unstripped.so', 'candidate.so', 'build.log')
+    present = [out / name for name in names
+               if (out / name).exists() or (out / name).is_symlink()]
+    if not present:
+        return
+    previous = out / 'previous'
+    previous.mkdir(exist_ok=True)
+    archive = Path(tempfile.mkdtemp(prefix='build-', dir=previous))
+    for path in present:
+        path.rename(archive / path.name)
+
+
 @contextmanager
 def workspace_lock(work: Path):
     """Protect staging, target invalidation and publication for one work directory."""
@@ -101,6 +119,7 @@ def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=No
 
 
 def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):
+
     recipe = recipe or DEFAULT_RECIPE
     R = RECIPES[recipe]; triple = R['triple']
     src = src.resolve(); work = work.resolve(); out = out.resolve()
@@ -130,6 +149,7 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     cmd = [str(SDK / 'rust/bin/cargo'), 'build', '--manifest-path', str(crate / 'Cargo.toml'), '--release',
            '--target', triple, '--locked', '--offline']
     out.mkdir(parents=True, exist_ok=True)
+    archive_previous_outputs(out)
     # Never trust mtime freshness for the main crate (rsync -a keeps source mtimes, so cargo could
     # otherwise reuse a stale pump artifact): drop its fingerprints and outputs so it always recompiles.
     for fp in list(target.glob('*/release/.fingerprint/pump-recovered-*')) + list(target.glob('release/.fingerprint/pump-recovered-*')):
