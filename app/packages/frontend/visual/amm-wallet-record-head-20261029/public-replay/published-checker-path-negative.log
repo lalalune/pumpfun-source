@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/workspace/pump-app-holder-config/work/public-replay-audit/checkout/app/packages/frontend/visual/amm-wallet-record-head-20261029/actual-next/check.py", line 27, in <module>
+    receipt["source_sha256"][rel] = hashlib.sha256((root / rel).read_bytes()).hexdigest()
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-app-holder-config/work/public-replay-audit/checkout/app/packages/frontend/app/packages/frontend/src/app/amm-wallet-record/handler.ts'

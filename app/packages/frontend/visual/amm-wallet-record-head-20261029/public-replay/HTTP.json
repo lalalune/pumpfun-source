@@ -1,0 +1,56 @@
+{
+  "origin": "http://127.0.0.1:39291",
+  "cases": [
+    {
+      "method": "GET",
+      "path": "/api/portfolio/amm-record?address=So11111111111111111111111111111111111111112",
+      "status": 503,
+      "headers": {
+        "server": "BaseHTTP/0.6 Python/3.12.14",
+        "date": "Thu, 29 Oct 2026 19:43:12 GMT",
+        "content-type": "application/json",
+        "cache-control": "no-store"
+      },
+      "body_utf8": "{\"error\":{\"code\":\"RPC_CONFIGURATION_INVALID\"}}",
+      "body_bytes": 46,
+      "elapsed_ms": 3.784
+    },
+    {
+      "method": "HEAD",
+      "path": "/api/portfolio/amm-record?address=So11111111111111111111111111111111111111112",
+      "status": 503,
+      "headers": {
+        "server": "BaseHTTP/0.6 Python/3.12.14",
+        "date": "Thu, 29 Oct 2026 19:43:12 GMT",
+        "content-type": "application/json",
+        "cache-control": "no-store"
+      },
+      "body_utf8": "",
+      "body_bytes": 0,
+      "elapsed_ms": 0.664
+    },
+    {
+      "method": "HEAD",
+      "path": "/api/portfolio/amm-record?address=So11111111111111111111111111111111111111112&unknown=1",
+      "status": 400,
+      "headers": {
+        "server": "BaseHTTP/0.6 Python/3.12.14",
+        "date": "Thu, 29 Oct 2026 19:43:12 GMT",
+        "content-type": "application/json",
+        "cache-control": "no-store"
+      },
+      "body_utf8": "",
+      "body_bytes": 0,
+      "elapsed_ms": 0.591
+    }
+  ],
+  "source_sha256": {
+    "app/packages/frontend/src/app/amm-wallet-record/handler.ts": "55a6cb25bbe69fbca99fdeca18fdac9e4d26bc1e7d342ed56c36ac174f684ca8",
+    "app/packages/frontend/src/app/amm-wallet-record/server.ts": "db49239f664ce56c49008d4bd68084025ae8268a4ad2b3f7b6c525e7ff42ddda",
+    "app/packages/frontend/src/app/api/portfolio/amm-record/route.ts": "2d8bd02a7bbc70c21cfc64500ac319e490bcfc7326110518670f11c582d1f70f"
+  },
+  "time_utc": "2026-10-29T19:43:12.023413+00:00",
+  "mode": "HTTP protocol observation; server implementation and configuration supplied by operator",
+  "head": "c1e4680b4bcc4f0b196690e9657ba1223280322f",
+  "result": "PASS"
+}

@@ -36,6 +36,49 @@ mainnet success is claimed for the HEAD correction.
 node --test tests/amm_wallet_record_head.test.mjs tests/amm_wallet_record.test.mjs tests/wallet_program_record.test.mjs
 ```
 
+### Public replay and retained checker layout
+
+Public fork commit `c1e4680b4bcc4f0b196690e9657ba1223280322f` contains the
+historically measured product inputs. A clean Git-blob export of its 8,117 app
+files reproduced the seven-source contract check and all 22 Node checks after
+building the SDK from that public source, using the existing pinned dependencies.
+No private fixture or prebuilt private SDK output was copied. From `app/`, after
+the documented frozen pnpm 10.24 dependency setup:
+
+```sh
+pnpm --filter @pump-fun/pump-sdk build
+node scripts/amm-wallet-record/contract.mjs --check
+node --test tests/amm_wallet_record_head.test.mjs tests/amm_wallet_record.test.mjs tests/wallet_program_record.test.mjs
+python3 -B -m unittest discover -s tests -p test_amm_wallet_record_http_check.py -v
+```
+
+The retained `actual-next/check.py` is the exact historical checker, executed
+originally under `work/amm-head-observation/`. Its relative-root calculation is
+not valid at its published packet location: the clean public run fails before
+HTTP with `FileNotFoundError`. It and the old real Next receipts are preserved
+unchanged. For a new observation use `scripts/amm-wallet-record/check-http.py`,
+which accepts explicit checkout/origin/output arguments, binds the three on-disk
+product sources to that checkout's HEAD, refuses to overwrite an earlier receipt,
+and never follows redirects or ambient proxies. With an independently started
+local server using this source and an explicitly empty `SOLANA_RPC_URL`:
+
+```sh
+python3 -B scripts/amm-wallet-record/check-http.py \
+  --repository "$(git rev-parse --show-toplevel)" \
+  --origin http://127.0.0.1:3027 --output /tmp/new-amm-http-receipt.json
+```
+
+Choose an unused output path and the server's actual loopback port. The checker
+does not start/configure a server or prove which implementation serves it. Its
+five isolated checks use a real local HTTP protocol fixture: explicit paths,
+metadata failure, dirty-source refusal, existing-receipt preservation and
+nonlocal-origin refusal. A separate run over the same public source export
+observes GET 503 / HEAD 503 / bad-query HEAD 400 from that synthetic fixture.
+These new observations qualify checker portability only; they are not a new
+Next, browser, SDK-runtime or configured-production success. Raw negative,
+protocol-only receipt, source bindings and clean-public Node logs are additive
+under `visual/amm-wallet-record-head-20261029/public-replay/`.
+
 The Portfolio public-balance result now offers a separate **Read public PumpSwap
 record** action beside the existing Pump record. Neither account is requested
 by loading balances; each read and refresh is explicit. Program/PDA, observed

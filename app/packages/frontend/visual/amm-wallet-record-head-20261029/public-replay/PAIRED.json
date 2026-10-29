@@ -1,0 +1,53 @@
+{
+  "checker_source_commit": "e7ca18c1313261f16479ee3843c462584a4f23e3",
+  "public_input_commit": "c1e4680b4bcc4f0b196690e9657ba1223280322f",
+  "mode": "Synthetic local HTTP protocol fixture only; no Next server, SDK operation or configured RPC success. Exact public product files are hashed and compared to HEAD before HTTP.",
+  "original_published_checker": "Preserved unchanged; FileNotFoundError before HTTP from its published location.",
+  "candidate_exit": 0,
+  "candidate_statuses": [
+    503,
+    503,
+    400
+  ],
+  "fixture_requests": [
+    [
+      "GET",
+      "/api/portfolio/amm-record?address=So11111111111111111111111111111111111111112"
+    ],
+    [
+      "HEAD",
+      "/api/portfolio/amm-record?address=So11111111111111111111111111111111111111112"
+    ],
+    [
+      "HEAD",
+      "/api/portfolio/amm-record?address=So11111111111111111111111111111111111111112&unknown=1"
+    ]
+  ],
+  "file_sha256": {
+    "app/scripts/amm-wallet-record/check-http.py": "6cf88a4f93625aa1dbfb489b2719923d66ba17e7bc62b35ce938c8f043287aa8",
+    "app/tests/test_amm_wallet_record_http_check.py": "40c2e652f0c50247d7eae92f8a3b7437813a7f77e85da3d785101c02728c8050"
+  },
+  "public_app_tree": "b142d454b505da59c1a9b0859d08c0f014783717",
+  "source_sha256": {
+    "app/packages/frontend/src/app/amm-wallet-record/handler.ts": "55a6cb25bbe69fbca99fdeca18fdac9e4d26bc1e7d342ed56c36ac174f684ca8",
+    "app/packages/frontend/src/app/amm-wallet-record/server.ts": "db49239f664ce56c49008d4bd68084025ae8268a4ad2b3f7b6c525e7ff42ddda",
+    "app/packages/frontend/src/app/api/portfolio/amm-record/route.ts": "2d8bd02a7bbc70c21cfc64500ac319e490bcfc7326110518670f11c582d1f70f"
+  },
+  "preserved_historical_checker_sha256": "e8856ba0185efcf425fd3d534425a5e55e0ca641e05cb898139d394b76aaf22a",
+  "public_app_file_count": 8117,
+  "public_sdk_source_tree": "b57740f1272b0457a3a9ef0b3276026d64ec3125",
+  "clean_public_checks": {
+    "sdk_only_build": 0,
+    "contract": 0,
+    "node": {
+      "pass": 22,
+      "fail": 0,
+      "skip": 0
+    },
+    "checker_tests": {
+      "pass": 5,
+      "fail": 0
+    }
+  },
+  "dependency_policy": "Existing pinned dependencies mounted read-only; frontend/SDK/backend dependency-link directories copied locally so the SDK workspace alias resolves the fresh public source build. No private fixtures, generated dist, installation or SDK/dependency edits."
+}
