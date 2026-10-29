@@ -1,0 +1,107 @@
+{
+  "base": "abd766d7a8c047f14af34851f64166b840c6728d",
+  "testedHead": "fc5e29e58eaa2edf4ff33b44ca4b3d1c20b3fe16",
+  "runtimeSourceHead": "2a2a0526a2fe9a3444acfa2ff758c6d596884c77",
+  "story": "Explicitly shared public wallet address \u2192 explicit mainnet overview read \u2192 existing address-bound no-cookie portfolio service \u2192 exact SOL and separate token inventory/provenance.",
+  "sourceBindings": [
+    {
+      "path": "app/packages/frontend/src/app/auth/public-wallet/balance-overview.tsx",
+      "gitBlob": "d12c9fe8839b2c825c518cdff504c5591c11756c",
+      "sha256": "3945b2742ecfa8e40dbb3579025e013ed811ca448c0d35f96a619835d8f229f4"
+    },
+    {
+      "path": "app/packages/frontend/src/app/auth/public-wallet/panel.tsx",
+      "gitBlob": "9ef6916a759c89589a8b13fc2847a70fb807bd0a",
+      "sha256": "db2dc3f3f8449f1de119c4c4a6e308c3538431665d487d7cab8634904e824998"
+    },
+    {
+      "path": "app/packages/frontend/src/app/auth/public-wallet/public-wallet.module.css",
+      "gitBlob": "c76e34b184d23cffb0edfd72007ac7d5167713cc",
+      "sha256": "98fb658f75259bca738707ecd6bccacc54ad631b4167cfe2a0017b92f4b494d6"
+    },
+    {
+      "path": "app/packages/frontend/tests/public-wallet.spec.ts",
+      "gitBlob": "c29f267d2dec88b3657d685e0fbd0ce459dc2b5a",
+      "sha256": "9a66ba47d49f5f61c79071a8acd6d1fe2528f2c7db01d0bc588a4a3b205b0991"
+    },
+    {
+      "path": "app/contracts/feature-progress.json",
+      "gitBlob": "19605d45a21c3976ba6498d06548bc70b8ddd5f2",
+      "sha256": "63fc0cf6d1b12f74f266ecfcb51a403df3104347d74562b3e99101019c216f78"
+    },
+    {
+      "path": "app/packages/frontend/playwright.config.ts",
+      "gitBlob": "f175a241b8b4a4226a90632409fb7721192e56ea",
+      "sha256": "6b0b07bb37748d67ea396d3de6e331a15978b8b2e17815dbcb843f3299ad61b0"
+    },
+    {
+      "path": "app/pnpm-lock.yaml",
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1",
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+    }
+  ],
+  "results": {
+    "browser": {
+      "pass": 15,
+      "skip": 0,
+      "new": 9,
+      "existing": 6
+    },
+    "reusedFoundations": {
+      "controller": 14,
+      "reader": 7,
+      "httpChromiumProtocol": 1
+    },
+    "frontendTypecheck": true,
+    "appEvidenceObjects": 698,
+    "requiredRootCaptures": 9,
+    "requiredRootToolingTests": 10,
+    "fullProductionBuild": "pending independent root qualification",
+    "progress": {
+      "checks": 9,
+      "pass": true,
+      "initialMissingSparseReferences": 16,
+      "exactReferencedGitBlobsHydrated": true
+    },
+    "format": true,
+    "finalFrontendTypecheck": true
+  },
+  "historicalFailures": [
+    {
+      "run": "first",
+      "result": "0 passed, first success case rejected malformed test DTO; production validator correctly rejected non-canonical token amount strings.",
+      "change": "Corrected only three synthetic amount strings to existing fixed-decimal contract."
+    },
+    {
+      "run": "retry",
+      "result": "5 passed, case6 initial sign-in setup timed out before wallet/read action;9 unrun. Trace shows SSR trigger click without mounted client dialog.",
+      "change": "Wait for existing auth-dialog portal attachment before test trigger; no sleep/retry/product/deadline edits."
+    }
+  ],
+  "privateTraceLedger": [
+    {
+      "retainedLocalPath": "/workspace/pump-app-holder-config/work/public-wallet-overview/browser/first-failure/playwright/trace.zip",
+      "sha256": "ef31570d4dd9ca4559eab674cdf7aa7b1045c98f8de1de283b8fd02c83ecc554",
+      "bytes": 2170858,
+      "published": false
+    },
+    {
+      "retainedLocalPath": "/workspace/pump-app-holder-config/work/public-wallet-overview/browser/retry-failure/playwright/trace.zip",
+      "sha256": "fa578d585d076d78be409ac3c2c58a7aa7d80844a8e45eeb2460174179b21d24",
+      "bytes": 5538901,
+      "published": false
+    }
+  ],
+  "limits": [
+    "Synthetic browser wallet and portfolio responses; no live-chain balance observation.",
+    "Local integration of existing public capability; no claim to original authenticated widget or private API.",
+    "No signing, authenticated session, prices, PnL, positions or reward eligibility.",
+    "Counts remain separate by token program, and independent read slots are not atomic.",
+    "No new developer-operation or SDK recovery credit."
+  ],
+  "review": {
+    "react": "Reviewed direct client-only imports, keyed identity lifetime, abort/generation/deadline cleanup, enabled disconnect, labelled status/error and narrow mobile containment.",
+    "screenshots": "Both320px and1440px viewed; panel scrolls, data remains contained.",
+    "sourceAndDeps": "Existing controller, reader, API, RPC, schema, SDK, captures and lockfile unchanged."
+  }
+}

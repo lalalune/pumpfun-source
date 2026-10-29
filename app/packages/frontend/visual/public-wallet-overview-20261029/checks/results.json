@@ -1,0 +1,59 @@
+{
+  "head": "2a2a0526a2fe9a3444acfa2ff758c6d596884c77",
+  "uncommittedDocOnly": "scope sentence clarification; no runtime delta",
+  "checks": [
+    {
+      "label": "controller",
+      "command": [
+        "/workspace/pumpfun-source-latest/work/app-native/pinned-bin/pnpm",
+        "--filter",
+        "@pump-reconstruction/backend",
+        "exec",
+        "tsx",
+        "--test",
+        "../../tests/public_wallet.test.ts"
+      ],
+      "started": "2026-10-29T14:23:42.486530+00:00",
+      "returncode": 0,
+      "finished": "2026-10-29T14:23:43.242402+00:00"
+    },
+    {
+      "label": "reader-protocol",
+      "command": [
+        "node",
+        "--test",
+        "tests/holder_public_balances.test.mjs",
+        "tests/public_wallet_protocol.test.mjs"
+      ],
+      "started": "2026-10-29T14:23:43.242435+00:00",
+      "returncode": 0,
+      "finished": "2026-10-29T14:23:44.239841+00:00"
+    },
+    {
+      "label": "types",
+      "command": [
+        "/workspace/pumpfun-source-latest/work/app-native/pinned-bin/pnpm",
+        "--filter",
+        "@pump-reconstruction/frontend",
+        "exec",
+        "tsc",
+        "--noEmit",
+        "--incremental",
+        "false"
+      ],
+      "started": "2026-10-29T14:23:44.239882+00:00",
+      "returncode": 0,
+      "finished": "2026-10-29T14:23:50.471420+00:00"
+    },
+    {
+      "label": "evidence",
+      "command": [
+        "python3",
+        "scripts/verify-evidence.py"
+      ],
+      "started": "2026-10-29T14:23:50.471482+00:00",
+      "returncode": 0,
+      "finished": "2026-10-29T14:23:50.643430+00:00"
+    }
+  ]
+}

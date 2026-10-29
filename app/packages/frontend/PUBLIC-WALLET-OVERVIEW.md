@@ -28,7 +28,7 @@ roles and owners. This unit aliases its name locally; its bytes are unchanged.
 
 The overview is keyed by the connected address. Account change, revocation,
 disconnect, dialog close and navigation discard the result and abort/invalidate
-pending reads. A20-second local deadline leaves an honest error and keeps
+pending reads. A 20-second local deadline leaves an honest error and keeps
 disconnect available. Refresh removes the previous observation while awaiting
 the next result; failures never substitute a cached, historical or zero value.
 Rate-limit and timeout messages are bounded local strings; provider bodies are
@@ -51,12 +51,22 @@ pnpm --filter @pump-reconstruction/frontend exec tsc --noEmit --incremental fals
 pnpm --filter @pump-reconstruction/frontend exec playwright test tests/public-wallet.spec.ts --max-failures=1
 ```
 
-The existing14 controller, seven balance-client and one real HTTP/Chromium
+The existing 14 controller, seven balance-client and one real HTTP/Chromium
 protocol checks pass, as does frontend TypeScript. They exercise the reused
 foundations, not this new mounted view. Nine new product cases are authored
 alongside the six existing public-wallet cases: explicit/no-cookie read, exact
 SOL/inventory/provenance, retry/rate limit, wrong identity, account changes,
-disconnect, close, deadline and320/1440px layout. Their actual Next results and
-full production qualification are pending until recorded. Synthetic wallet and
+disconnect, close, deadline and 320/1440px layout. All 15 actual Next cases pass on
+`fc5e29e58eaa2edf4ff33b44ca4b3d1c20b3fe16`. The packet at
+`visual/public-wallet-overview-20261029/RESULT.json` binds runtime/test bytes,
+raw logs and reviewed screenshots. The first success fixture used non-canonical
+amount strings and was correctly rejected; a later run passed five cases before
+initial Sign in setup raced client mounting. Both failures are preserved. Only
+the synthetic amounts and test setup synchronization changed before the final
+15-case pass. Required root gates pass (nine captures, ten tooling tests); the
+app verifier checks 698 captured objects; the progress gate and nine tests pass
+after restoring exact referenced sparse evidence. Both viewport screenshots
+were visually reviewed; no horizontal page overflow was observed. Full independent production build
+qualification is pending. Synthetic wallet and
 portfolio responses are test inputs; no live-chain observation, original API or
 visual parity, wallet signing or native developer-operation credit is claimed.

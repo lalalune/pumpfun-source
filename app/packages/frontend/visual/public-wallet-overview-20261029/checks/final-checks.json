@@ -1,0 +1,48 @@
+{
+  "revision": "fc5e29e58eaa2edf4ff33b44ca4b3d1c20b3fe16",
+  "setupNegative": "An accidental unpinned PATH pnpm11.25 attempted its implicit dependency check and refused unsafe shared backend module removal before checks. No reinstall was authorized/performed. Use explicit pinned10.24 shim below.",
+  "checks": [
+    {
+      "label": "final-types",
+      "command": [
+        "/workspace/pumpfun-source-latest/work/app-native/pinned-bin/pnpm",
+        "--filter",
+        "@pump-reconstruction/frontend",
+        "exec",
+        "tsc",
+        "--noEmit",
+        "--incremental",
+        "false"
+      ],
+      "returncode": 0,
+      "started": "2026-10-29T14:38:33.633004+00:00",
+      "finished": "2026-10-29T14:38:40.041548+00:00"
+    },
+    {
+      "label": "progress",
+      "command": [
+        "/workspace/pumpfun-source-latest/work/app-native/pinned-bin/pnpm",
+        "check:progress"
+      ],
+      "returncode": 1,
+      "started": "2026-10-29T14:38:40.041613+00:00",
+      "finished": "2026-10-29T14:38:40.566842+00:00"
+    },
+    {
+      "label": "format",
+      "command": [
+        "/workspace/pumpfun-source-latest/work/app-native/pinned-bin/pnpm",
+        "exec",
+        "prettier",
+        "--check",
+        "packages/frontend/src/app/auth/public-wallet/balance-overview.tsx",
+        "packages/frontend/src/app/auth/public-wallet/panel.tsx",
+        "packages/frontend/src/app/auth/public-wallet/public-wallet.module.css",
+        "packages/frontend/tests/public-wallet.spec.ts"
+      ],
+      "returncode": 0,
+      "started": "2026-10-29T14:38:40.566893+00:00",
+      "finished": "2026-10-29T14:38:41.333037+00:00"
+    }
+  ]
+}

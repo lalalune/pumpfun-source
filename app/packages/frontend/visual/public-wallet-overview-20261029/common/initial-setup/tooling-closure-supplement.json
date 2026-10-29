@@ -1,0 +1,43 @@
+{
+  "revision": "2a2a0526a2fe9a3444acfa2ff758c6d596884c77",
+  "originalRecordPreservedSha256": "ac203395df36788fed9297e53e3ba648ed8312ab507e3cc2673445c01f180a2d",
+  "supplement": "Exactnewlyrequiredlocalmoduleclosure added toonlythisisolatedperheadstage. Officialtestscripts/fixturesunchanged; originalmissing-importfailure retained.",
+  "inputs": [
+    {
+      "path": "scripts/deep_section_analysis.py",
+      "gitBlob": "d2bf308209d3d7d0134c099a6e4597f8f4d16c4c",
+      "sha256": "e074929f474a6b98153bb6fd12f7943fa45d80ba10750c9967e334feee0e59e1"
+    },
+    {
+      "path": "scripts/window_elf_reader.py",
+      "gitBlob": "a250085cdf09951f7078f7e7a5abd1cfc299cd38",
+      "sha256": "247700e9930d5e53daf93a50888ae1e5429f74ccb19155e7a205f72ee21d5883"
+    },
+    {
+      "path": "evidence/upstream/pump.json",
+      "gitBlob": "bb79d04e5a4ef8b286d67511757c23a15672ef51",
+      "sha256": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207",
+      "alreadyBound": true
+    },
+    {
+      "path": "evidence/upstream/pump_amm.json",
+      "gitBlob": "d907b16a91f035aeb3c3182bfa0972a91bf23a86",
+      "sha256": "b7d8c57a4d9c4dd0109a9ab893052352333252d4eedced10ac091d4d66cab89b",
+      "alreadyBound": true
+    },
+    {
+      "path": "evidence/upstream/pump_fees.json",
+      "gitBlob": "a06cfeca8aed4d984091c023ec4d5ef3fa0bdda7",
+      "sha256": "6b9fa3eccc6e06273076a47b581f9fcb9e531bb7c3c88acbcd44db55a4002b29",
+      "alreadyBound": true
+    }
+  ],
+  "command": [
+    "python3",
+    "-B",
+    "scripts/test_tooling.py"
+  ],
+  "started": "2026-10-29T14:32:28.840129+00:00",
+  "returncode": 0,
+  "finished": "2026-10-29T14:32:29.053346+00:00"
+}

@@ -1,0 +1,5 @@
+{
+  "beforeHead": "1526e4782487102fbadb0c81571e6ab2a91ff4a1",
+  "reason": "Previous retry reached SSR-visible trigger before client portal mounted; case6 never reached wallet connection or balance request. Synchronize on existing mounted portal without sleeps, retries, deadline/product edits.",
+  "preservedFailure": "retry-failure/playwright/trace.zip"
+}

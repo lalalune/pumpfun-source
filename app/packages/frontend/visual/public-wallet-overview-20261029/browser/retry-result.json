@@ -1,0 +1,18 @@
+{
+  "head": "1526e4782487102fbadb0c81571e6ab2a91ff4a1",
+  "runtimeSourceHead": "2a2a0526a2fe9a3444acfa2ff758c6d596884c77",
+  "command": [
+    "pnpm",
+    "--filter",
+    "@pump-reconstruction/frontend",
+    "exec",
+    "playwright",
+    "test",
+    "tests/public-wallet.spec.ts",
+    "--max-failures=1"
+  ],
+  "started": "2026-10-29T14:30:47.920639+00:00",
+  "setupCorrection": "Only syntheticSPLamountstrings now canonicalfixed6decimals; sameunchangedproductionreader/view.",
+  "returncode": 1,
+  "finished": "2026-10-29T14:31:29.341974+00:00"
+}

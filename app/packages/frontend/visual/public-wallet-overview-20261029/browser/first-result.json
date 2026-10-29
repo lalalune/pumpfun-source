@@ -1,0 +1,21 @@
+{
+  "head": "2a2a0526a2fe9a3444acfa2ff758c6d596884c77",
+  "base": "abd766d7a8c047f14af34851f64166b840c6728d",
+  "command": [
+    "pnpm",
+    "--filter",
+    "@pump-reconstruction/frontend",
+    "exec",
+    "playwright",
+    "test",
+    "tests/public-wallet.spec.ts",
+    "--max-failures=1"
+  ],
+  "started": "2026-10-29T14:27:00.379258+00:00",
+  "environment": {
+    "SOLANA_RPC_URL": ""
+  },
+  "limits": "Synthetic Wallet Standard andportfolioresponses inbrowsercases; no signing ororiginalAPI/visual equivalence.",
+  "returncode": 1,
+  "finished": "2026-10-29T14:27:13.457751+00:00"
+}
