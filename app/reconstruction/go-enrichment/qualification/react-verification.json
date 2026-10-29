@@ -1,0 +1,1437 @@
+{
+  "scope": "Isolated synthetic realReact composition only. Query/viewer/IPFS results are explicit ports; no HTTP data-provider, auth, live service, original query runtime, product UI, reward/accounting or native claim",
+  "observations": [
+    {
+      "name": "initial stubs/loading with explicit pending query results",
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": false,
+        "rows": [
+          {
+            "id": "synthetic-task",
+            "creator": {
+              "address": "Creator",
+              "id": "Creator",
+              "username": null,
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "synthetic-coin",
+              "mint": "synthetic-coin",
+              "name": "synthetic-coin",
+              "symbol": "synt",
+              "imageUri": ""
+            },
+            "viewerIsCreator": false,
+            "refundStatus": "none",
+            "acceptsSubmissions": true,
+            "allowsSubmissionMutations": true
+          }
+        ],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "synthetic-coin",
+            "symbol": "synt",
+            "marketCap": 0,
+            "price": 0
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": true
+      }
+    },
+    {
+      "name": "stable render preserves frame/result and query argument identities",
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": true,
+        "rows": [
+          {
+            "id": "synthetic-task",
+            "creator": {
+              "address": "Creator",
+              "id": "Creator",
+              "username": null,
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "synthetic-coin",
+              "mint": "synthetic-coin",
+              "name": "synthetic-coin",
+              "symbol": "synt",
+              "imageUri": ""
+            },
+            "viewerIsCreator": false,
+            "refundStatus": "none",
+            "acceptsSubmissions": true,
+            "allowsSubmissionMutations": true
+          }
+        ],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "synthetic-coin",
+            "symbol": "synt",
+            "marketCap": 0,
+            "price": 0
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": true
+      }
+    },
+    {
+      "name": "query result arrival projects metadata and last matching profile",
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": false,
+        "rows": [
+          {
+            "id": "synthetic-task",
+            "creator": {
+              "address": "Creator",
+              "id": "Creator",
+              "username": "last",
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "synthetic-coin",
+              "mint": "synthetic-coin",
+              "name": "LIVE",
+              "symbol": "LIVE",
+              "imageUri": ""
+            },
+            "viewerIsCreator": false,
+            "refundStatus": "none",
+            "acceptsSubmissions": true,
+            "allowsSubmissionMutations": true
+          }
+        ],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "LIVE",
+            "symbol": "LIVE",
+            "marketCap": 12,
+            "price": 12
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": false
+      }
+    },
+    {
+      "name": "clock alone does not invalidate original memo or create a timer",
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": true,
+        "rows": [
+          {
+            "id": "synthetic-task",
+            "creator": {
+              "address": "Creator",
+              "id": "Creator",
+              "username": "last",
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "synthetic-coin",
+              "mint": "synthetic-coin",
+              "name": "LIVE",
+              "symbol": "LIVE",
+              "imageUri": ""
+            },
+            "viewerIsCreator": false,
+            "refundStatus": "none",
+            "acceptsSubmissions": true,
+            "allowsSubmissionMutations": true
+          }
+        ],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "LIVE",
+            "symbol": "LIVE",
+            "marketCap": 12,
+            "price": 12
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": false
+      }
+    },
+    {
+      "name": "new data reference recomputes expiry admission with explicit clock",
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": false,
+        "rows": [
+          {
+            "id": "synthetic-task",
+            "creator": {
+              "address": "Creator",
+              "id": "Creator",
+              "username": "last",
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "synthetic-coin",
+              "mint": "synthetic-coin",
+              "name": "LIVE",
+              "symbol": "LIVE",
+              "imageUri": ""
+            },
+            "viewerIsCreator": false,
+            "refundStatus": "none",
+            "acceptsSubmissions": false,
+            "allowsSubmissionMutations": true
+          }
+        ],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "LIVE",
+            "symbol": "LIVE",
+            "marketCap": 12,
+            "price": 12
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": false
+      }
+    },
+    {
+      "name": "viewer address change recomputes only source display decisions",
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": false,
+        "rows": [
+          {
+            "id": "synthetic-task",
+            "creator": {
+              "address": "Creator",
+              "id": "Creator",
+              "username": "last",
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "synthetic-coin",
+              "mint": "synthetic-coin",
+              "name": "LIVE",
+              "symbol": "LIVE",
+              "imageUri": ""
+            },
+            "viewerIsCreator": true,
+            "refundStatus": "claimed",
+            "acceptsSubmissions": false,
+            "allowsSubmissionMutations": true
+          }
+        ],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "LIVE",
+            "symbol": "LIVE",
+            "marketCap": 12,
+            "price": 12
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": false
+      }
+    },
+    {
+      "name": "opaque query error does not invent enrichment error/loading policy",
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": false,
+        "rows": [
+          {
+            "id": "synthetic-task",
+            "creator": {
+              "address": "Creator",
+              "id": "Creator",
+              "username": "last",
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "synthetic-coin",
+              "mint": "synthetic-coin",
+              "name": "LIVE",
+              "symbol": "LIVE",
+              "imageUri": ""
+            },
+            "viewerIsCreator": true,
+            "refundStatus": "claimed",
+            "acceptsSubmissions": false,
+            "allowsSubmissionMutations": true
+          }
+        ],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "LIVE",
+            "symbol": "LIVE",
+            "marketCap": 12,
+            "price": 12
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": false
+      }
+    },
+    {
+      "name": "new input rows update ordered token and unique creator handoffs",
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": false,
+        "rows": [
+          {
+            "id": "synthetic-task",
+            "creator": {
+              "address": "Creator",
+              "id": "Creator",
+              "username": "last",
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "synthetic-coin",
+              "mint": "synthetic-coin",
+              "name": "LIVE",
+              "symbol": "LIVE",
+              "imageUri": ""
+            },
+            "viewerIsCreator": true,
+            "refundStatus": "claimed",
+            "acceptsSubmissions": false,
+            "allowsSubmissionMutations": true
+          },
+          {
+            "id": "second",
+            "creator": {
+              "address": "Second",
+              "id": "Second",
+              "username": null,
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "new-coin",
+              "mint": "new-coin",
+              "name": "new-coin",
+              "symbol": "new-",
+              "imageUri": ""
+            },
+            "viewerIsCreator": false,
+            "refundStatus": "none",
+            "acceptsSubmissions": false,
+            "allowsSubmissionMutations": true
+          }
+        ],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "LIVE",
+            "symbol": "LIVE",
+            "marketCap": 12,
+            "price": 12
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          },
+          {
+            "mint": "new-coin",
+            "name": "new-coin",
+            "symbol": "new-",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": false
+      }
+    },
+    {
+      "name": "empty inputs retain actual empty/disabled query calls",
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": false,
+        "rows": [],
+        "tokens": [],
+        "isEnriching": false
+      }
+    },
+    {
+      "name": "separate actual token hook does not acquire viewer/profile data",
+      "state": {
+        "kind": "useBountyTokens",
+        "sameResult": false,
+        "rows": [],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "synthetic-coin",
+            "symbol": "synt",
+            "marketCap": 0,
+            "price": 0
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": null
+      }
+    }
+  ],
+  "pageErrors": [],
+  "hostRequests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/fixture.js"
+    }
+  ],
+  "unexpected": [],
+  "bundleSha256": "b4ae72c103e713afba2484795283b5f91bebb4c7d9330ce1abfd63c0dac6afe8",
+  "nodeVersion": "v24.19.0",
+  "reactVersion": "19.2.3",
+  "reactDomVersion": "19.2.3",
+  "esbuildVersion": "0.25.12",
+  "bundledInputs": [
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "reconstruction/go-enrichment/client.mjs",
+      "bytes": 16922,
+      "sha256": "1c2849d60e0e594a16424bbb978fa222d1c35c662fe199eecc99de002538c13b"
+    },
+    {
+      "path": "reconstruction/search-client/contract.json",
+      "bytes": 126675,
+      "sha256": "10d78bb855e0c14b6dd9ee7320d2cb05edee1489047a63fc912209b6373505d4"
+    },
+    {
+      "path": "reconstruction/search-client/request.mjs",
+      "bytes": 4250,
+      "sha256": "45f4e8e634ea87bbcb958a789427dec166348d04477044802b74de30944959f3"
+    },
+    {
+      "path": "reconstruction/search-session/session.mjs",
+      "bytes": 9189,
+      "sha256": "1adde3f71efcc54fbd4e7e5e9cd511a728f7a7c371c00d9900d932dba950f2c9"
+    },
+    {
+      "path": "tests/fixtures/go-enrichment-browser.mjs",
+      "bytes": 4775,
+      "sha256": "5e8fbef8d407fab377a0c1bd6442b4f552c99afb474b0d3ab4270c361254dc0c"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "reconstruction/go-enrichment/client.mjs",
+      "bytes": 16922,
+      "sha256": "1c2849d60e0e594a16424bbb978fa222d1c35c662fe199eecc99de002538c13b"
+    },
+    {
+      "path": "reconstruction/go-enrichment/contract.json",
+      "bytes": 82826,
+      "sha256": "7d71ec9ed2062286f32e598dd99c6b8dd8f9cc8f1393847adec910e3d99471c7"
+    },
+    {
+      "path": "scripts/original-go-enrichment.mjs",
+      "bytes": 20268,
+      "sha256": "919c6ebe167b8f6499bf2cc2191daadcff82379a5d220d10f974346fce613aa5"
+    },
+    {
+      "path": "tests/fixtures/go-enrichment-browser.mjs",
+      "bytes": 4775,
+      "sha256": "5e8fbef8d407fab377a0c1bd6442b4f552c99afb474b0d3ab4270c361254dc0c"
+    },
+    {
+      "path": "tests/original_go_enrichment.browser.mjs",
+      "bytes": 13192,
+      "sha256": "1cfaff0453b77e9ea1dfe45170c8a0203d01f83ee1f674d4cfbf321e0a27e6d8"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+    }
+  ],
+  "chromiumVersion": "156.0.8078.4",
+  "events": [
+    {
+      "type": "memo",
+      "size": 21
+    },
+    {
+      "type": "viewer-port",
+      "address": "other"
+    },
+    {
+      "type": "memo",
+      "size": 13
+    },
+    {
+      "type": "memo",
+      "size": 32
+    },
+    {
+      "type": "coin-port",
+      "mints": [
+        "synthetic-coin",
+        "reward-token"
+      ],
+      "options": {
+        "limit": 50,
+        "offset": 0,
+        "sort": "market_cap",
+        "order": "DESC",
+        "includeNsfw": false,
+        "disabled": false
+      },
+      "sameMints": false,
+      "sameOptions": false
+    },
+    {
+      "type": "profile-port",
+      "addresses": [
+        "Creator"
+      ],
+      "sameOptions": false
+    },
+    {
+      "type": "clock-port",
+      "clock": 1767312000000
+    },
+    {
+      "type": "commit",
+      "serial": 1,
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": false,
+        "rows": [
+          {
+            "id": "synthetic-task",
+            "creator": {
+              "address": "Creator",
+              "id": "Creator",
+              "username": null,
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "synthetic-coin",
+              "mint": "synthetic-coin",
+              "name": "synthetic-coin",
+              "symbol": "synt",
+              "imageUri": ""
+            },
+            "viewerIsCreator": false,
+            "refundStatus": "none",
+            "acceptsSubmissions": true,
+            "allowsSubmissionMutations": true
+          }
+        ],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "synthetic-coin",
+            "symbol": "synt",
+            "marketCap": 0,
+            "price": 0
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": true
+      }
+    },
+    {
+      "type": "memo",
+      "size": 21
+    },
+    {
+      "type": "viewer-port",
+      "address": "other"
+    },
+    {
+      "type": "memo",
+      "size": 13
+    },
+    {
+      "type": "memo",
+      "size": 32
+    },
+    {
+      "type": "coin-port",
+      "mints": [
+        "synthetic-coin",
+        "reward-token"
+      ],
+      "options": {
+        "limit": 50,
+        "offset": 0,
+        "sort": "market_cap",
+        "order": "DESC",
+        "includeNsfw": false,
+        "disabled": false
+      },
+      "sameMints": true,
+      "sameOptions": true
+    },
+    {
+      "type": "profile-port",
+      "addresses": [
+        "Creator"
+      ],
+      "sameOptions": true
+    },
+    {
+      "type": "commit",
+      "serial": 2,
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": true,
+        "rows": [
+          {
+            "id": "synthetic-task",
+            "creator": {
+              "address": "Creator",
+              "id": "Creator",
+              "username": null,
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "synthetic-coin",
+              "mint": "synthetic-coin",
+              "name": "synthetic-coin",
+              "symbol": "synt",
+              "imageUri": ""
+            },
+            "viewerIsCreator": false,
+            "refundStatus": "none",
+            "acceptsSubmissions": true,
+            "allowsSubmissionMutations": true
+          }
+        ],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "synthetic-coin",
+            "symbol": "synt",
+            "marketCap": 0,
+            "price": 0
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": true
+      }
+    },
+    {
+      "type": "memo",
+      "size": 21
+    },
+    {
+      "type": "viewer-port",
+      "address": "other"
+    },
+    {
+      "type": "memo",
+      "size": 13
+    },
+    {
+      "type": "memo",
+      "size": 32
+    },
+    {
+      "type": "coin-port",
+      "mints": [
+        "synthetic-coin",
+        "reward-token"
+      ],
+      "options": {
+        "limit": 50,
+        "offset": 0,
+        "sort": "market_cap",
+        "order": "DESC",
+        "includeNsfw": false,
+        "disabled": false
+      },
+      "sameMints": true,
+      "sameOptions": true
+    },
+    {
+      "type": "profile-port",
+      "addresses": [
+        "Creator"
+      ],
+      "sameOptions": true
+    },
+    {
+      "type": "clock-port",
+      "clock": 1767312000000
+    },
+    {
+      "type": "commit",
+      "serial": 3,
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": false,
+        "rows": [
+          {
+            "id": "synthetic-task",
+            "creator": {
+              "address": "Creator",
+              "id": "Creator",
+              "username": "last",
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "synthetic-coin",
+              "mint": "synthetic-coin",
+              "name": "LIVE",
+              "symbol": "LIVE",
+              "imageUri": ""
+            },
+            "viewerIsCreator": false,
+            "refundStatus": "none",
+            "acceptsSubmissions": true,
+            "allowsSubmissionMutations": true
+          }
+        ],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "LIVE",
+            "symbol": "LIVE",
+            "marketCap": 12,
+            "price": 12
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": false
+      }
+    },
+    {
+      "type": "memo",
+      "size": 21
+    },
+    {
+      "type": "viewer-port",
+      "address": "other"
+    },
+    {
+      "type": "memo",
+      "size": 13
+    },
+    {
+      "type": "memo",
+      "size": 32
+    },
+    {
+      "type": "coin-port",
+      "mints": [
+        "synthetic-coin",
+        "reward-token"
+      ],
+      "options": {
+        "limit": 50,
+        "offset": 0,
+        "sort": "market_cap",
+        "order": "DESC",
+        "includeNsfw": false,
+        "disabled": false
+      },
+      "sameMints": true,
+      "sameOptions": true
+    },
+    {
+      "type": "profile-port",
+      "addresses": [
+        "Creator"
+      ],
+      "sameOptions": true
+    },
+    {
+      "type": "commit",
+      "serial": 4,
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": true,
+        "rows": [
+          {
+            "id": "synthetic-task",
+            "creator": {
+              "address": "Creator",
+              "id": "Creator",
+              "username": "last",
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "synthetic-coin",
+              "mint": "synthetic-coin",
+              "name": "LIVE",
+              "symbol": "LIVE",
+              "imageUri": ""
+            },
+            "viewerIsCreator": false,
+            "refundStatus": "none",
+            "acceptsSubmissions": true,
+            "allowsSubmissionMutations": true
+          }
+        ],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "LIVE",
+            "symbol": "LIVE",
+            "marketCap": 12,
+            "price": 12
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": false
+      }
+    },
+    {
+      "type": "memo",
+      "size": 21
+    },
+    {
+      "type": "viewer-port",
+      "address": "other"
+    },
+    {
+      "type": "memo",
+      "size": 13
+    },
+    {
+      "type": "memo",
+      "size": 32
+    },
+    {
+      "type": "coin-port",
+      "mints": [
+        "synthetic-coin",
+        "reward-token"
+      ],
+      "options": {
+        "limit": 50,
+        "offset": 0,
+        "sort": "market_cap",
+        "order": "DESC",
+        "includeNsfw": false,
+        "disabled": false
+      },
+      "sameMints": true,
+      "sameOptions": true
+    },
+    {
+      "type": "profile-port",
+      "addresses": [
+        "Creator"
+      ],
+      "sameOptions": true
+    },
+    {
+      "type": "clock-port",
+      "clock": 1767916800000
+    },
+    {
+      "type": "commit",
+      "serial": 5,
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": false,
+        "rows": [
+          {
+            "id": "synthetic-task",
+            "creator": {
+              "address": "Creator",
+              "id": "Creator",
+              "username": "last",
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "synthetic-coin",
+              "mint": "synthetic-coin",
+              "name": "LIVE",
+              "symbol": "LIVE",
+              "imageUri": ""
+            },
+            "viewerIsCreator": false,
+            "refundStatus": "none",
+            "acceptsSubmissions": false,
+            "allowsSubmissionMutations": true
+          }
+        ],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "LIVE",
+            "symbol": "LIVE",
+            "marketCap": 12,
+            "price": 12
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": false
+      }
+    },
+    {
+      "type": "memo",
+      "size": 21
+    },
+    {
+      "type": "viewer-port",
+      "address": "cREATOR"
+    },
+    {
+      "type": "memo",
+      "size": 13
+    },
+    {
+      "type": "memo",
+      "size": 32
+    },
+    {
+      "type": "coin-port",
+      "mints": [
+        "synthetic-coin",
+        "reward-token"
+      ],
+      "options": {
+        "limit": 50,
+        "offset": 0,
+        "sort": "market_cap",
+        "order": "DESC",
+        "includeNsfw": false,
+        "disabled": false
+      },
+      "sameMints": true,
+      "sameOptions": true
+    },
+    {
+      "type": "profile-port",
+      "addresses": [
+        "Creator"
+      ],
+      "sameOptions": true
+    },
+    {
+      "type": "clock-port",
+      "clock": 1767916800000
+    },
+    {
+      "type": "commit",
+      "serial": 6,
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": false,
+        "rows": [
+          {
+            "id": "synthetic-task",
+            "creator": {
+              "address": "Creator",
+              "id": "Creator",
+              "username": "last",
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "synthetic-coin",
+              "mint": "synthetic-coin",
+              "name": "LIVE",
+              "symbol": "LIVE",
+              "imageUri": ""
+            },
+            "viewerIsCreator": true,
+            "refundStatus": "claimed",
+            "acceptsSubmissions": false,
+            "allowsSubmissionMutations": true
+          }
+        ],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "LIVE",
+            "symbol": "LIVE",
+            "marketCap": 12,
+            "price": 12
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": false
+      }
+    },
+    {
+      "type": "memo",
+      "size": 21
+    },
+    {
+      "type": "viewer-port",
+      "address": "cREATOR"
+    },
+    {
+      "type": "memo",
+      "size": 13
+    },
+    {
+      "type": "memo",
+      "size": 32
+    },
+    {
+      "type": "coin-port",
+      "mints": [
+        "synthetic-coin",
+        "reward-token"
+      ],
+      "options": {
+        "limit": 50,
+        "offset": 0,
+        "sort": "market_cap",
+        "order": "DESC",
+        "includeNsfw": false,
+        "disabled": false
+      },
+      "sameMints": true,
+      "sameOptions": true
+    },
+    {
+      "type": "profile-port",
+      "addresses": [
+        "Creator"
+      ],
+      "sameOptions": true
+    },
+    {
+      "type": "clock-port",
+      "clock": 1767916800000
+    },
+    {
+      "type": "commit",
+      "serial": 7,
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": false,
+        "rows": [
+          {
+            "id": "synthetic-task",
+            "creator": {
+              "address": "Creator",
+              "id": "Creator",
+              "username": "last",
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "synthetic-coin",
+              "mint": "synthetic-coin",
+              "name": "LIVE",
+              "symbol": "LIVE",
+              "imageUri": ""
+            },
+            "viewerIsCreator": true,
+            "refundStatus": "claimed",
+            "acceptsSubmissions": false,
+            "allowsSubmissionMutations": true
+          }
+        ],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "LIVE",
+            "symbol": "LIVE",
+            "marketCap": 12,
+            "price": 12
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": false
+      }
+    },
+    {
+      "type": "memo",
+      "size": 21
+    },
+    {
+      "type": "viewer-port",
+      "address": "cREATOR"
+    },
+    {
+      "type": "memo",
+      "size": 13
+    },
+    {
+      "type": "memo",
+      "size": 32
+    },
+    {
+      "type": "coin-port",
+      "mints": [
+        "synthetic-coin",
+        "reward-token",
+        "new-coin"
+      ],
+      "options": {
+        "limit": 50,
+        "offset": 0,
+        "sort": "market_cap",
+        "order": "DESC",
+        "includeNsfw": false,
+        "disabled": false
+      },
+      "sameMints": false,
+      "sameOptions": false
+    },
+    {
+      "type": "profile-port",
+      "addresses": [
+        "Creator",
+        "Second"
+      ],
+      "sameOptions": false
+    },
+    {
+      "type": "clock-port",
+      "clock": 1767916800000
+    },
+    {
+      "type": "clock-port",
+      "clock": 1767916800000
+    },
+    {
+      "type": "commit",
+      "serial": 8,
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": false,
+        "rows": [
+          {
+            "id": "synthetic-task",
+            "creator": {
+              "address": "Creator",
+              "id": "Creator",
+              "username": "last",
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "synthetic-coin",
+              "mint": "synthetic-coin",
+              "name": "LIVE",
+              "symbol": "LIVE",
+              "imageUri": ""
+            },
+            "viewerIsCreator": true,
+            "refundStatus": "claimed",
+            "acceptsSubmissions": false,
+            "allowsSubmissionMutations": true
+          },
+          {
+            "id": "second",
+            "creator": {
+              "address": "Second",
+              "id": "Second",
+              "username": null,
+              "profileImage": "",
+              "rating": 0
+            },
+            "token": {
+              "id": "new-coin",
+              "mint": "new-coin",
+              "name": "new-coin",
+              "symbol": "new-",
+              "imageUri": ""
+            },
+            "viewerIsCreator": false,
+            "refundStatus": "none",
+            "acceptsSubmissions": false,
+            "allowsSubmissionMutations": true
+          }
+        ],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "LIVE",
+            "symbol": "LIVE",
+            "marketCap": 12,
+            "price": 12
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          },
+          {
+            "mint": "new-coin",
+            "name": "new-coin",
+            "symbol": "new-",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": false
+      }
+    },
+    {
+      "type": "memo",
+      "size": 21
+    },
+    {
+      "type": "viewer-port",
+      "address": "cREATOR"
+    },
+    {
+      "type": "memo",
+      "size": 13
+    },
+    {
+      "type": "memo",
+      "size": 32
+    },
+    {
+      "type": "coin-port",
+      "mints": [],
+      "options": {
+        "limit": 50,
+        "offset": 0,
+        "sort": "market_cap",
+        "order": "DESC",
+        "includeNsfw": false,
+        "disabled": true
+      },
+      "sameMints": false,
+      "sameOptions": false
+    },
+    {
+      "type": "profile-port",
+      "addresses": [],
+      "sameOptions": false
+    },
+    {
+      "type": "commit",
+      "serial": 9,
+      "state": {
+        "kind": "useEnrichedBounties",
+        "sameResult": false,
+        "rows": [],
+        "tokens": [],
+        "isEnriching": false
+      }
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 13
+    },
+    {
+      "type": "memo",
+      "size": 32
+    },
+    {
+      "type": "coin-port",
+      "mints": [
+        "synthetic-coin",
+        "reward-token"
+      ],
+      "options": {
+        "limit": 50,
+        "offset": 0,
+        "sort": "market_cap",
+        "order": "DESC",
+        "includeNsfw": false,
+        "disabled": false
+      },
+      "sameMints": false,
+      "sameOptions": false
+    },
+    {
+      "type": "commit",
+      "serial": 10,
+      "state": {
+        "kind": "useBountyTokens",
+        "sameResult": false,
+        "rows": [],
+        "tokens": [
+          {
+            "mint": "synthetic-coin",
+            "name": "synthetic-coin",
+            "symbol": "synt",
+            "marketCap": 0,
+            "price": 0
+          },
+          {
+            "mint": "reward-token",
+            "name": "reward-token",
+            "symbol": "rewa",
+            "marketCap": 0,
+            "price": 0
+          }
+        ],
+        "isEnriching": null
+      }
+    }
+  ],
+  "result": "PASS"
+}

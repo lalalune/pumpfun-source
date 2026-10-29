@@ -1,0 +1,10 @@
+file:///workspace/pump-app-search-planner/app/scripts/original-contracts/source.mjs:183
+    if (choices.length !== 1) throw new Error(`factory ${id}: ${choices.length} origins; explicit chunk context required`);
+                                    ^
+
+Error: factory 851373: 0 origins; explicit chunk context required
+    at Object.factory (file:///workspace/pump-app-search-planner/app/scripts/original-contracts/source.mjs:183:37)
+    at recover (file:///workspace/pump-app-search-planner/app/scripts/original-go-enrichment.mjs:201:30)
+    at async file:///workspace/pump-app-search-planner/app/scripts/original-go-enrichment.mjs:226:42
+
+Node.js v24.19.0
