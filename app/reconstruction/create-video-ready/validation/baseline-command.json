@@ -1,0 +1,16 @@
+{
+  "source": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "command": [
+    "corepack",
+    "pnpm",
+    "exec",
+    "playwright",
+    "test",
+    "--config",
+    "playwright.create-video-audit.tmp.config.ts",
+    "tests/create-video-early.probe.tmp.spec.ts"
+  ],
+  "cwd": "/workspace/pump-app-chart/app/packages/frontend",
+  "returncode": 1,
+  "seconds": 26.824934482574463
+}

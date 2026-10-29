@@ -1,0 +1,100 @@
+import { expect, test, type Page } from "@playwright/test";
+import { createHash } from "node:crypto";
+
+const file = "/workspace/pump-create-video-audit/native-2s.webm";
+type Log = Array<Record<string, unknown>>;
+
+async function observe(page: Page) {
+  const network: string[] = [];
+  page.on("request", request => {
+    const url = request.url();
+    if (/^https?:/u.test(url) && (new URL(url).origin !== "http://127.0.0.1:3010" || !["GET", "HEAD"].includes(request.method()))) network.push(`${request.method()} ${url}`);
+  });
+  await page.addInitScript(() => {
+    const log: Array<Record<string, unknown>> = [];
+    (window as unknown as { videoAudit: typeof log }).videoAudit = log;
+    for (const type of ["input", "change"]) document.addEventListener(type, event => {
+      const target = event.target;
+      if (target instanceof HTMLInputElement && target.id === "create-video") log.push({ type, trusted: event.isTrusted, files: Array.from(target.files ?? []).map(file => ({ name:file.name, bytes:file.size, type:file.type })), time:performance.now() });
+    }, true);
+    const value = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value")!;
+    Object.defineProperty(HTMLInputElement.prototype,"value",{...value,set(next:string){
+      if(this.id==="create-video") log.push({type:"value-set",value:next,files:this.files?.length,time:performance.now()});
+      value.set!.call(this,next);
+    }});
+    const create = URL.createObjectURL;
+    URL.createObjectURL = function(blob) {
+      const url = create.call(URL,blob);
+      log.push({type:"object-url",url,mediaType:blob instanceof Blob?blob.type:null,name:blob instanceof File?blob.name:null,time:performance.now()});
+      return url;
+    };
+  });
+  return network;
+}
+
+async function snapshot(page: Page) {
+  return page.evaluate(() => {
+    const input=document.querySelector<HTMLInputElement>('#create-video');
+    const preview=document.querySelector<HTMLVideoElement>('video[aria-label="Local draft video preview"]');
+    return {log:(window as unknown as {videoAudit:Log}).videoAudit,files:Array.from(input?.files??[]).map(file=>({name:file.name,type:file.type,bytes:file.size})),inputDisabled:input?.disabled,preview:preview?{duration:preview.duration,width:preview.videoWidth,height:preview.videoHeight,readyState:preview.readyState,src:preview.currentSrc}:null};
+  });
+}
+
+test("ready native video selection genuinely decodes three JPEG covers",async({page})=>{
+  const network=await observe(page);
+  await page.goto('/create');
+  await expect(page.locator('[data-clickwrap-overlay]')).toHaveCount(0);
+  await expect(page.locator('[data-app-shell]')).not.toHaveAttribute('inert');
+  const chooserPromise=page.waitForEvent('filechooser');
+  await page.getByLabel('Local video',{exact:true}).click();
+  await (await chooserPromise).setFiles(file);
+  const covers=page.getByRole('group',{name:'Video cover choices'});
+  await expect(covers.getByRole('button')).toHaveCount(3,{timeout:15000});
+  await expect(page.getByTestId('selected-image')).toContainText('video-cover-1.jpg');
+  await expect(page.getByRole('button',{name:'Launch unavailable in local reconstruction'})).toBeDisabled();
+  const state=await snapshot(page);
+  expect(state.preview?.duration).toBeGreaterThan(0);
+  expect(state.preview?.width).toBe(64);
+  expect(state.preview?.height).toBe(64);
+  await test.info().attach('ready-native.json',{body:JSON.stringify({state,network},null,2),contentType:'application/json'});
+  expect(network).toEqual([]);
+});
+
+test("a file chosen before the actual Create client chunk arrives is retained after bootstrap",async({page})=>{
+  const network=await observe(page);
+  let release!:()=>void;
+  const gate=new Promise<void>(resolve=>{release=resolve;});
+  const held:Array<{url:string,bytes:number,sha256:string}>=[];
+  await page.route('**/_next/static/chunks/**',async route=>{
+    const response=await route.fetch();
+    const bytes=await response.body();
+    const text=bytes.toString('utf8');
+    if(text.includes('create-video-input.tsx')&&text.includes('Local video')){
+      held.push({url:route.request().url(),bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')});
+      await gate;
+    }
+    await route.fulfill({response,body:bytes});
+  });
+  try{
+    await page.goto('/create',{waitUntil:'commit'});
+    await expect.poll(()=>held.length).toBeGreaterThan(0);
+    const input=page.getByLabel('Local video',{exact:true});
+    await expect(input).toBeEnabled();
+    const chooserPromise=page.waitForEvent('filechooser');
+    await input.click();
+    await (await chooserPromise).setFiles(file);
+    const before=await snapshot(page);
+    await test.info().attach('early-before-release.json',{body:JSON.stringify({held,before,network},null,2),contentType:'application/json'});
+    expect(before.files).toHaveLength(1);
+    release();
+    await expect(page.locator('[data-clickwrap-overlay]')).toHaveCount(0);
+    await expect(page.locator('[data-app-shell]')).not.toHaveAttribute('inert');
+    try{
+      await expect(page.getByRole('group',{name:'Video cover choices'}).getByRole('button')).toHaveCount(3,{timeout:15000});
+    }finally{
+      await test.info().attach('early-after-release.json',{body:JSON.stringify({held,after:await snapshot(page),network},null,2),contentType:'application/json'});
+    }
+    await expect(page.getByTestId('selected-image')).toContainText('video-cover-1.jpg');
+    expect(network).toEqual([]);
+  }finally{release();}
+});

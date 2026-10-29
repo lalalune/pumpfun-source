@@ -1,0 +1,65 @@
+[
+  {
+    "name": "qualified-model",
+    "command": [
+      "node",
+      "--experimental-strip-types",
+      "--test",
+      "tests/create_video_preview.test.mjs",
+      "tests/create_video_bindings.test.mjs"
+    ],
+    "cwd": "/workspace/pump-app-chart/app",
+    "returncode": 0,
+    "seconds": 0.30535078048706055
+  },
+  {
+    "name": "qualified-typecheck-final",
+    "command": [
+      "corepack",
+      "pnpm",
+      "--filter",
+      "@pump-reconstruction/frontend",
+      "typecheck"
+    ],
+    "cwd": "/workspace/pump-app-chart/app",
+    "returncode": 0,
+    "seconds": 6.130285978317261
+  },
+  {
+    "name": "evidence",
+    "command": [
+      "python3",
+      "scripts/verify-evidence.py"
+    ],
+    "cwd": "/workspace/pump-app-chart/app",
+    "returncode": 0,
+    "seconds": 0.17464494705200195
+  },
+  {
+    "name": "progress",
+    "command": [
+      "python3",
+      "scripts/progress.py",
+      "--check"
+    ],
+    "cwd": "/workspace/pump-app-chart/app",
+    "returncode": 0,
+    "seconds": 0.13630151748657227
+  },
+  {
+    "name": "progress-tests",
+    "command": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_progress.py"
+    ],
+    "cwd": "/workspace/pump-app-chart/app",
+    "returncode": 0,
+    "seconds": 0.71492600440979
+  }
+]

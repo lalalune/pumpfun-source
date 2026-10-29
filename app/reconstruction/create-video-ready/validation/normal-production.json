@@ -1,0 +1,79 @@
+{
+  "measured_source": "4fa1124d7d20bcb5182e23c2122c9e3e0dc65252",
+  "public_source": "f4c54995dac4a2d294799393a23f00f514b921f2",
+  "identical_full_tree": "569f4049c4d3af32f9dd50ff53b886da92ea870a",
+  "result": "PASS: normal pinned-pnpm SDK/backend/Next production build, recursive typecheck,698 evidence/npm/31SDK,progress9. Independent producer; no browser rerun or broader compatibility claim.",
+  "producer_receipt": "Original checks.json copied unchanged; four raw logs losslessly gzipped. Seven original generated Next manifests retained by producer; exact byte hashes below. Source/test/package/lock/CI unchanged by this receipt addition.",
+  "files": [
+    {
+      "path": "normal-production-build.log.gz",
+      "bytes": 1129,
+      "sha256": "decf910375ff27c6673fe1f107a4ed7957638ffa005d8b1ade1ecfdd8b3a1748",
+      "decoded_bytes": 3061,
+      "decoded_sha256": "5dc0d417ba6fc02764569955f70850e1108b363a6cf52a3c530352388cd024c5"
+    },
+    {
+      "path": "normal-production-typecheck.log.gz",
+      "bytes": 174,
+      "sha256": "4cdc860e8b70a5628bf9a16a5b1f72a015701f93062e18581116b83f8ba068a0",
+      "decoded_bytes": 348,
+      "decoded_sha256": "050b281c95589b3410266b6a100852147a33336492f6f125ebaa80bc7a33b236"
+    },
+    {
+      "path": "normal-production-evidence.log.gz",
+      "bytes": 168,
+      "sha256": "f7c2997aebcd8bf091c42d182b686232717b068f917874f9c8700a7efc77fd53",
+      "decoded_bytes": 194,
+      "decoded_sha256": "0f0c5fae20c1d78fdecb8eb80012fb68229500f574ab89c10dc419f663b17d61"
+    },
+    {
+      "path": "normal-production-progress.log.gz",
+      "bytes": 215,
+      "sha256": "20fbb97acc7a4e671fecf5cc5ad12ca39cadb295a175a5cb2065b08d1fe58185",
+      "decoded_bytes": 389,
+      "decoded_sha256": "a0f2b9c7c4f553caa8a073485e553ae6d2f28322dd953b9c5a79920756d660b9"
+    },
+    {
+      "path": "normal-production-checks.json",
+      "bytes": 670,
+      "sha256": "32838156f96ae587496799016ad016c18a51ffb563f5b94a38e94fce2606e8e0"
+    }
+  ],
+  "retained_next_manifests": [
+    {
+      "producer_name": "retained-next-BUILD_ID",
+      "bytes": 21,
+      "sha256": "5f2bc51e370231b10c3acc30d08728d03ee847c5ba741c92fa99b9d013a826cb"
+    },
+    {
+      "producer_name": "retained-next-build-manifest.json",
+      "bytes": 4590,
+      "sha256": "33d7e973abb418fbb74b1e3e50bf19cd40d0de87de9a42c14bb2443668818190"
+    },
+    {
+      "producer_name": "retained-next-prerender-manifest.json",
+      "bytes": 5513,
+      "sha256": "065ea7e3035fc3d3c137a2172a16057d190ba672c083acc105857915a3a7039f"
+    },
+    {
+      "producer_name": "retained-next-required-server-files.json",
+      "bytes": 10785,
+      "sha256": "f8f3d7d79a7ac0bba940d44090550cc5d8222e2f47f444bc6daf0fb4b0deb6c0"
+    },
+    {
+      "producer_name": "retained-next-routes-manifest.json",
+      "bytes": 4718,
+      "sha256": "a3f5653287b459fbe72fce43953a4f8198d80dec437d309b98cb6c2137b7d19c"
+    },
+    {
+      "producer_name": "retained-next-server--app-paths-manifest.json",
+      "bytes": 1156,
+      "sha256": "e58fc16e60f1f020c51a9b4446c6b3ca575fafe24e563ff1760de29beb9308a5"
+    },
+    {
+      "producer_name": "retained-next-server--pages-manifest.json",
+      "bytes": 58,
+      "sha256": "c354059caa217e72bdeb145e351b2038990972872c52df215cb1e4105c35097b"
+    }
+  ]
+}

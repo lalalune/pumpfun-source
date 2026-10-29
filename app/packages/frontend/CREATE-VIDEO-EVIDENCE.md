@@ -1,5 +1,18 @@
 # Offline Create video and cover lifecycle
 
+## Subsequent native-picker readiness correction
+
+The native input now waits until its actual local consumer is installed before
+admitting file selection. A delayed local client script previously let an
+enabled picker accept a file whose change event was never processed after
+bootstrap. The same final-method base reproduced missing covers and missing
+empty-video feedback; the fixed candidate passes 16 browser cases, including
+three new readiness workflows and all 13 retained Create/video cases. The new
+cases use a genuine locally generated VP8 file and the unmodified native media
+decoder/canvas pipeline. See the [scoped contract and limits](../../reconstruction/create-video-ready/README.md).
+The existing helper/session/image-ownership policies below remain unchanged.
+This does not establish the original site's startup policy or upload behavior.
+
 ## Browser verification fixture correction
 
 At `bbdc0ee08a82b17020efe2e6802504a6ac880fd6`, both existing Chromium
@@ -89,7 +102,7 @@ are not content authentication or malware scanning.
 - No localStorage, IndexedDB, downloads, persistence, service-worker changes,
   network calls, signing, transaction construction or token creation.
 
-## Verification and remaining gates
+## Original lifecycle checkpoint verification (historical)
 
 ```sh
 node --test tests/create_video_preview.test.mjs tests/create_video_bindings.test.mjs
