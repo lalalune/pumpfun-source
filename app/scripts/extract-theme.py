@@ -83,6 +83,8 @@ def normalize_color(value):
     match = RGB_ALPHA.match(value)
     if match:
         return '#%02x%02x%02x' % tuple(int(x) for x in match.groups())
+    if re.fullmatch(r'#[0-9a-fA-F]+', value) and len(value) - 1 not in (3, 4, 6, 8):
+        fail('invalid hexadecimal color width')
     if re.fullmatch(r'#[0-9a-fA-F]{3,8}', value):
         return canonical_hex(value)
     keyword = value.lower()
