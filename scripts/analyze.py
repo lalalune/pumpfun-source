@@ -85,7 +85,7 @@ def analyze():
     (ROOT/'evidence/binary-analysis.json').write_text(json.dumps(out,indent=2)+'\n')
     inventory={}
     for f in (ROOT/'evidence/upstream').glob('pump*.json'):
-        d=json.loads(f.read_text()); addresses={}
+        d=json.loads(f.read_text(encoding='utf-8')); addresses={}
         def walk(accounts,ix):
             for a in accounts:
                 if 'address' in a: addresses.setdefault(a['address'],[]).append({'instruction':ix,'account':a['name']})
