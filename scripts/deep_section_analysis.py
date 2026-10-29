@@ -525,7 +525,7 @@ def analyze_math_patterns(elf):
             elif opcode in (0x17, 0x1f):  # sub64
                 sub_count += 1
                 prev_op = "sub"
-            elif opcode in (0x67, 0x6f, 0x77, 0x7f):  # shifts
+            elif opcode in (0x67, 0x6f, 0x77, 0x7f, 0xc7, 0xcf):  # 64-bit shifts
                 shift_count += 1
                 prev_op = "shift"
             else:
