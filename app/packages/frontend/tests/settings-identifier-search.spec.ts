@@ -68,7 +68,9 @@ for (const width of [390, 1280])
             .evaluateAll((nodes) =>
               nodes.map((node) => node.getAttribute("data-setting-id")),
             ),
-          status: await results.getByRole("status").textContent(),
+          status: await results
+            .locator(':scope > p[role="status"]')
+            .textContent(),
         };
         observations.push(result);
         return result;
