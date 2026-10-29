@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { PublicWalletController } from "./controller";
+import { PublicWalletBalanceOverview } from "./balance-overview";
 import styles from "./public-wallet.module.css";
 
 /** A separate local connection boundary; never changes the application's auth state. */
@@ -58,6 +59,10 @@ function WalletChoices({ controller }: { controller: PublicWalletController }) {
           >
             Disconnect and forget address
           </button>
+          <PublicWalletBalanceOverview
+            key={state.address}
+            address={state.address}
+          />
         </>
       ) : (
         <>

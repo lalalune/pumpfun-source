@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 const ADDRESS = "So11111111111111111111111111111111111111112";
+const OTHER_ADDRESS = "11111111111111111111111111111111";
 
 type Probe = {
   calls: string[];
@@ -115,6 +116,353 @@ async function open(page: Page) {
     .getByRole("button", { name: "Connect a public wallet", exact: true })
     .click();
 }
+
+async function connectPublicAddress(page: Page) {
+  await installWallet(page);
+  await open(page);
+  await page
+    .getByRole("button", {
+      name: "Connect Browser Protocol Wallet",
+      exact: true,
+    })
+    .click();
+  await expect(page.getByTestId("public-wallet-address")).toHaveText(ADDRESS);
+}
+
+function publicOverview(address = ADDRESS) {
+  const programId = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA";
+  const accounts = ["3000000", "4000000"].map((rawAmount, index) => ({
+    tokenAccount: index
+      ? "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU"
+      : OTHER_ADDRESS,
+    mint: ADDRESS,
+    owner: address,
+    program: "spl-token",
+    programId,
+    rawAmount,
+    decimals: 6,
+    amount: index ? "4" : "3",
+    state: "initialized",
+    isNative: false,
+    extensions: [],
+  }));
+  return {
+    ok: true,
+    address,
+    cluster: "mainnet-beta",
+    genesisHash: "5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d",
+    commitment: "confirmed",
+    observedAt: "2026-10-29T14:00:00.000Z",
+    endpointHost: "public-rpc.example",
+    snapshotAtomic: false,
+    sol: {
+      lamports: "9007199254740993",
+      amount: "9007199.254740993",
+      contextSlot: 321,
+    },
+    splToken: {
+      program: "spl-token",
+      programId,
+      contextSlot: 322,
+      accounts,
+      mints: [
+        {
+          mint: ADDRESS,
+          program: "spl-token",
+          programId,
+          rawAmount: "7000000",
+          amount: "7",
+          decimals: 6,
+          accountCount: 2,
+        },
+      ],
+    },
+    token2022: {
+      program: "token-2022",
+      programId: "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+      contextSlot: 323,
+      accounts: [],
+      mints: [],
+    },
+  };
+}
+
+const readOverview = (page: Page) =>
+  page.getByRole("button", {
+    name: "Read public mainnet overview",
+    exact: true,
+  });
+
+test("connected public address reads mainnet only on explicit request without credentials or authentication", async ({
+  page,
+  context,
+}) => {
+  await context.addCookies([
+    {
+      name: "private_test_session",
+      value: "not-forwarded",
+      domain: "127.0.0.1",
+      path: "/",
+    },
+  ]);
+  const requests: {
+    address: string | null;
+    method: string;
+    cookie: string | undefined;
+  }[] = [];
+  await page.route("**/api/portfolio?*", async (route) => {
+    requests.push({
+      address: new URL(route.request().url()).searchParams.get("address"),
+      method: route.request().method(),
+      cookie: route.request().headers().cookie,
+    });
+    await route.fulfill({ json: publicOverview() });
+  });
+  await connectPublicAddress(page);
+  expect(requests).toEqual([]);
+  await readOverview(page).click();
+  const result = page.getByTestId("public-wallet-balance-result");
+  await expect(result).toContainText("9007199.254740993 SOL");
+  await expect(result).toContainText("2 accounts · 1 mint");
+  await expect(result).toContainText("0 accounts · 0 mints");
+  await expect(result).toContainText("SOL 321, SPL 322, Token-2022 323");
+  await expect(result).toContainText("public-rpc.example");
+  await expect(result).toContainText("not an atomic snapshot");
+  await expect(result).toContainText("do not establish ownership");
+  expect(requests).toEqual([
+    { address: ADDRESS, method: "GET", cookie: undefined },
+  ]);
+  expect((await probe(page)).calls).toEqual(["connect:0", "on:change"]);
+  await expect(page.locator("html")).toHaveAttribute("data-pf-auth", "out");
+  await expect(page.getByTestId("auth-google-button")).toBeDisabled();
+});
+
+test("public overview refresh removes prior data on failure and can recover from rate limiting", async ({
+  page,
+}) => {
+  let count = 0;
+  await page.route("**/api/portfolio?*", (route) => {
+    count++;
+    return route.fulfill(
+      count === 2
+        ? {
+            status: 429,
+            json: {
+              ok: false,
+              error: {
+                code: "RPC_RATE_LIMITED",
+                retryable: true,
+                message: "private-provider-body",
+              },
+            },
+          }
+        : { json: publicOverview() },
+    );
+  });
+  await connectPublicAddress(page);
+  await readOverview(page).click();
+  await expect(page.getByTestId("public-wallet-balance-result")).toBeVisible();
+  await page
+    .getByRole("button", {
+      name: "Refresh public mainnet overview",
+      exact: true,
+    })
+    .click();
+  await expect(
+    page.getByTestId("public-wallet-balance-overview").getByRole("alert"),
+  ).toContainText("rate limited");
+  await expect(page.getByTestId("public-wallet-balance-result")).toHaveCount(0);
+  await expect(page.getByTestId("public-wallet-panel")).not.toContainText(
+    "private-provider-body",
+  );
+  await expect(page.getByTestId("public-wallet-address")).toHaveText(ADDRESS);
+  await readOverview(page).click();
+  await expect(page.getByTestId("public-wallet-balance-result")).toBeVisible();
+  expect(count).toBe(3);
+});
+
+test("public overview rejects a response belonging to another address", async ({
+  page,
+}) => {
+  await page.route("**/api/portfolio?*", (route) =>
+    route.fulfill({ json: publicOverview(OTHER_ADDRESS) }),
+  );
+  await connectPublicAddress(page);
+  await readOverview(page).click();
+  await expect(
+    page.getByTestId("public-wallet-balance-overview").getByRole("alert"),
+  ).toContainText("unavailable");
+  await expect(page.getByTestId("public-wallet-balance-result")).toHaveCount(0);
+});
+
+test("an account change aborts the old overview and requires another explicit read", async ({
+  page,
+}) => {
+  let release!: () => void, started!: () => void;
+  const gate = new Promise<void>((resolve) => {
+      release = resolve;
+    }),
+    pending = new Promise<void>((resolve) => {
+      started = resolve;
+    });
+  const addresses: string[] = [];
+  await page.route("**/api/portfolio?*", async (route) => {
+    const address = new URL(route.request().url()).searchParams.get("address")!;
+    addresses.push(address);
+    if (address === ADDRESS) {
+      started();
+      await gate;
+    }
+    await route.fulfill({ json: publicOverview(address) }).catch(() => {});
+  });
+  await connectPublicAddress(page);
+  await readOverview(page).click();
+  await pending;
+  await page.evaluate(
+    (address) =>
+      (
+        window as unknown as { __publicWalletProbe: Probe }
+      ).__publicWalletProbe.change(address),
+    OTHER_ADDRESS,
+  );
+  await expect(page.getByTestId("public-wallet-address")).toHaveText(
+    OTHER_ADDRESS,
+  );
+  await expect(readOverview(page)).toBeEnabled();
+  release();
+  await expect(page.getByTestId("public-wallet-balance-result")).toHaveCount(0);
+  expect(addresses).toEqual([ADDRESS]);
+  await readOverview(page).click();
+  await expect(page.getByTestId("public-wallet-balance-result")).toBeVisible();
+  expect(addresses).toEqual([ADDRESS, OTHER_ADDRESS]);
+});
+
+test("disconnect discards the pending public read", async ({ page }) => {
+  let release!: () => void, started!: () => void;
+  const pending = new Promise<void>((resolve) => {
+      started = resolve;
+    }),
+    gate = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+  await page.route("**/api/portfolio?*", async (route) => {
+    started();
+    await gate;
+    await route.fulfill({ json: publicOverview() }).catch(() => {});
+  });
+  await connectPublicAddress(page);
+  await readOverview(page).click();
+  await pending;
+  await page
+    .getByRole("button", { name: "Disconnect and forget address", exact: true })
+    .click();
+  release();
+  await expect(page.getByTestId("public-wallet-balance-overview")).toHaveCount(
+    0,
+  );
+  await page
+    .getByTestId("auth-dialog")
+    .getByRole("button", { name: "Close", exact: true })
+    .click();
+  await page.getByTestId("sign-in-button").click();
+  await expect(page.getByTestId("public-wallet-address")).toHaveCount(0);
+  await expect(page.getByTestId("public-wallet-balance-result")).toHaveCount(0);
+});
+
+test("closing a connected dialog discards a late public balance response", async ({
+  page,
+}) => {
+  let release!: () => void, started!: () => void;
+  const pending = new Promise<void>((resolve) => {
+      started = resolve;
+    }),
+    gate = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+  await page.route("**/api/portfolio?*", async (route) => {
+    started();
+    await gate;
+    await route.fulfill({ json: publicOverview() }).catch(() => {});
+  });
+  await connectPublicAddress(page);
+  await readOverview(page).click();
+  await pending;
+  await page
+    .getByTestId("auth-dialog")
+    .getByRole("button", { name: "Close", exact: true })
+    .click();
+  release();
+  await page.getByTestId("sign-in-button").click();
+  await expect(page.getByTestId("public-wallet-address")).toHaveCount(0);
+  await expect(page.getByTestId("public-wallet-balance-result")).toHaveCount(0);
+});
+
+test("a finite public overview deadline clears the spinner without losing disconnect control", async ({
+  page,
+}) => {
+  await page.clock.install();
+  let release!: () => void, started!: () => void;
+  const pending = new Promise<void>((resolve) => {
+      started = resolve;
+    }),
+    gate = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+  await page.route("**/api/portfolio?*", async (route) => {
+    started();
+    await gate;
+    await route.fulfill({ json: publicOverview() }).catch(() => {});
+  });
+  await connectPublicAddress(page);
+  await readOverview(page).click();
+  await pending;
+  await page.clock.fastForward(20_001);
+  await expect(
+    page.getByTestId("public-wallet-balance-overview").getByRole("alert"),
+  ).toContainText("timed out");
+  await expect(readOverview(page)).toBeEnabled();
+  await expect(
+    page.getByRole("button", {
+      name: "Disconnect and forget address",
+      exact: true,
+    }),
+  ).toBeEnabled();
+  release();
+  await expect(page.getByTestId("public-wallet-balance-result")).toHaveCount(0);
+});
+
+for (const width of [320, 1440])
+  test(`connected public overview fits ${width}px without exposing signing or private auth`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: width === 320 ? 640 : 900 });
+    await page.route("**/api/portfolio?*", (route) =>
+      route.fulfill({ json: publicOverview() }),
+    );
+    await connectPublicAddress(page);
+    await readOverview(page).click();
+    const result = page.getByTestId("public-wallet-balance-result");
+    await expect(result).toBeVisible();
+    await result.scrollIntoViewIfNeeded();
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+    const box = await page.getByTestId("auth-dialog").boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.x).toBeGreaterThanOrEqual(0);
+    expect(box!.width).toBeLessThanOrEqual(width);
+    await page.screenshot({
+      path: `../../artifacts/public-wallet-overview-${width}.png`,
+    });
+    await page.keyboard.press("Escape");
+    await expect(page.getByTestId("auth-dialog")).not.toBeVisible();
+    await page.getByTestId("sign-in-button").click();
+    await expect(page.getByTestId("public-wallet-balance-result")).toHaveCount(
+      0,
+    );
+  });
 
 test("opt-in public connection, change and disconnect preserve auth/privacy boundary", async ({
   page,

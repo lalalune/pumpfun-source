@@ -49,3 +49,35 @@
   background: #202020;
   border-radius: 6px;
 }
+.overview {
+  border-top: 1px solid var(--color-border-secondary, #383838);
+  padding-top: 12px;
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+.overview h4 {
+  margin: 0;
+  font-weight: 600;
+}
+.overview .action {
+  min-height: 44px;
+}
+.observation {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.observation dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+.observation dt {
+  color: var(--color-text-secondary, #adadad);
+}
+.observation dd {
+  margin: 2px 0 0;
+  font-variant-numeric: tabular-nums;
+}

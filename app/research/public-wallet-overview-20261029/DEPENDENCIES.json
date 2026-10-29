@@ -1,0 +1,32 @@
+{
+  "base": "abd766d7a8c047f14af34851f64166b840c6728d",
+  "baseAppTree": "e3d6d8cd07df4f561a4fd058dad29d22de451bfc",
+  "authority": [
+    "Existing captured-supported Wallet Standard public-address capability (#774)",
+    "Existing public Solana RPC read contracts and safe portfolio service",
+    "Existing validated address-bound reader (#815)"
+  ],
+  "unchangedDependencies": [
+    {
+      "path": "app/packages/frontend/src/app/auth/public-wallet/controller.ts",
+      "sha256": "59241569d7a3e7286b5f13542a9f6c04c209dc097dd1e50bf5d8702214a24ad6"
+    },
+    {
+      "path": "app/packages/frontend/src/app/holder-rewards/read-balances.ts",
+      "sha256": "b768eaf8dddb2668a14b88945265ce99f5bb2f1636cf8eb5fe299e10aa07d5e1"
+    },
+    {
+      "path": "app/packages/frontend/src/app/api/portfolio/route.ts",
+      "sha256": "3d4bae26bc0a0a5dbfb47376d264ab3980ef0550a403114c1e76104a2ba216bd"
+    },
+    {
+      "path": "app/packages/frontend/src/app/portfolio/rpc.ts",
+      "sha256": "600e4a05c569dec818662b4be38ea513ad20a4b4bb7fb6bc1783a088c569259f"
+    },
+    {
+      "path": "app/packages/frontend/src/app/portfolio/types.ts",
+      "sha256": "059bce99fd82d1e7166c6cb57577abd6be2a11d606f76b4d20caf97f9b021122"
+    }
+  ],
+  "scope": "Explicit local public-mainnet overview; no original authenticated widget/privateAPI/newSDK source recovery claim."
+}
