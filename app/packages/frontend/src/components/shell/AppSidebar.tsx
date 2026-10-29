@@ -37,7 +37,7 @@ import { Logomark } from "./Logomark";
 /** The desktop sidebar of the captured app shell (factory 721426, AppSidebar). */
 export function AppSidebar() {
   const pathname = usePathname();
-  const { closeMobile } = useSidebar();
+  const { closeMobile, isMobile, mobileOpen } = useSidebar();
   return (
     <Sidebar>
       <SidebarHeader>
@@ -85,6 +85,9 @@ export function AppSidebar() {
         </nav>
         <div className="mt-3">
           <DropdownMenu
+            // The hidden trigger keeps route metadata; its popup state belongs
+            // to this drawer lifetime. Desktop rail toggles keep a stable key.
+            key={isMobile ? `mobile-${mobileOpen}` : "desktop"}
             label="Create"
             items={CREATE_MENU}
             onNavigate={() => closeMobile()}

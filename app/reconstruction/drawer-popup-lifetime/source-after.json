@@ -1,0 +1,88 @@
+{
+  "scope": "Static actual frozen candidate dataflow; not runtime focus/popup qualification.",
+  "base": "381dc30b35122022be7359215cb5d471fe9f778d",
+  "witnesses": [
+    {
+      "label": "actual mobile host identity; desktop constant",
+      "path": "app/packages/frontend/src/components/shell/AppSidebar.tsx",
+      "sourceSha256": "f9c0f71738cc4f6e6fc16605807955c28ffd91ae25b2c38839bed714456c8b6a",
+      "utf16": [
+        2783,
+        2834
+      ],
+      "utf8": [
+        2783,
+        2834
+      ],
+      "sha256": "edbd9f40f3c10edc49412bb6390d80e52880b83d84f03dd96f42adaf608d7a44",
+      "text": "key={isMobile ? `mobile-${mobileOpen}` : \"desktop\"}"
+    },
+    {
+      "label": "normal selection remains closeMobile() without focus steal",
+      "path": "app/packages/frontend/src/components/shell/AppSidebar.tsx",
+      "sourceSha256": "f9c0f71738cc4f6e6fc16605807955c28ffd91ae25b2c38839bed714456c8b6a",
+      "utf16": [
+        2906,
+        2938
+      ],
+      "utf8": [
+        2906,
+        2938
+      ],
+      "sha256": "9b8a30fdefee2dc621b72abaee472d01ddea2bf1afcc9ff085b6373df9564380",
+      "text": "onNavigate={() => closeMobile()}"
+    },
+    {
+      "label": "actual onKeyDown declaration",
+      "path": "app/packages/frontend/src/components/ui/sidebar.tsx",
+      "sourceSha256": "7db445a4ca318a95fdb621a26ff9eef41cf1b3c94835fd4c988e77441c67cd3f",
+      "utf16": [
+        3569,
+        3780
+      ],
+      "utf8": [
+        3569,
+        3780
+      ],
+      "sha256": "2964f2c0fa0f10dda7eb0abe1e2d91bda7e97beb98ab43fcdff5db9dc062028a",
+      "text": "onKeyDown = (event: KeyboardEvent) => {\n      if (event.key !== \"b\" || !(event.metaKey || event.ctrlKey)) return;\n      event.preventDefault();\n      if (mobileOpen) closeMobile(true);\n      else toggle();\n    }"
+    },
+    {
+      "label": "actual closeMobile declaration",
+      "path": "app/packages/frontend/src/components/ui/sidebar.tsx",
+      "sourceSha256": "7db445a4ca318a95fdb621a26ff9eef41cf1b3c94835fd4c988e77441c67cd3f",
+      "utf16": [
+        2175,
+        2352
+      ],
+      "utf8": [
+        2175,
+        2352
+      ],
+      "sha256": "5a1310b4a02ca4d828b926b1564f138b5d5f450983d1fb1a6f75f4b0a14d39ac",
+      "text": "closeMobile = useCallback((restoreFocus = false) => {\n    setMobileOpen(false);\n    if (restoreFocus)\n      requestAnimationFrame(() => mobileTrigger.current?.focus());\n  }, [])"
+    },
+    {
+      "label": "actual toggle declaration",
+      "path": "app/packages/frontend/src/components/ui/sidebar.tsx",
+      "sourceSha256": "7db445a4ca318a95fdb621a26ff9eef41cf1b3c94835fd4c988e77441c67cd3f",
+      "utf16": [
+        1928,
+        2165
+      ],
+      "utf8": [
+        1928,
+        2165
+      ],
+      "sha256": "161a2c45052e6097f1fdda2f734070968c6570867b6c7db2d829da6899e0882c",
+      "text": "toggle = useCallback(() => {\n    if (window.matchMedia(\"(max-width: 767px)\").matches)\n      setMobileOpen((open) => !open);\n    else\n      setState((current) =>\n        current === \"expanded\" ? \"collapsed\" : \"expanded\",\n      );\n  }, [])"
+    }
+  ],
+  "expected_edges": [
+    "Ctrl/Meta+B +mobileOpen→existing closeMobile(true)→realMore focus on animation frame",
+    "mobileOpen change→actual childkey change→used local popup state resets",
+    "normal selection→existing onNavigate closeMobile()",
+    "desktop keyconstant→same popup component/id/state across desktop rail toggle"
+  ],
+  "limit": "All expected DOM/focus behavior still requires actual3-case candidate replay."
+}

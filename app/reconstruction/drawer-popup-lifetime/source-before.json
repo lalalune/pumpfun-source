@@ -1,0 +1,149 @@
+{
+  "scope": "Static actual maintained source ownership/dataflow only; no runtime orphan/focus conclusion yet.",
+  "base": "381dc30b35122022be7359215cb5d471fe9f778d",
+  "witnesses": [
+    {
+      "label": "actual caller renders dropdown without a drawer-state lifetime condition",
+      "path": "app/packages/frontend/src/components/shell/AppSidebar.tsx",
+      "sourceSha256": "39e1ed50aa0f82f4e6566b5ac7bf4a6d240831967811df4f0f1ab23ffa39585f",
+      "utf16": [
+        2575,
+        3450
+      ],
+      "utf8": [
+        2575,
+        3450
+      ],
+      "sha256": "119d5a1fb0f21f18189966f3129c722630d0c74e381754a89dc9304d67811288",
+      "text": "<DropdownMenu\n            label=\"Create\"\n            items={CREATE_MENU}\n            onNavigate={() => closeMobile()}\n            placement=\"right-start\"\n            renderTrigger={(props) => (\n              <button\n                {...props}\n                aria-label=\"Create a coin\"\n                aria-current={pathname === \"/create\" ? \"page\" : undefined}\n                aria-pressed=\"false\"\n                data-testid=\"create-button-sidebar\"\n                className={`${pumpButtonClass({ size: 32, width: \"full\" })} overflow-hidden whitespace-nowrap !text-[13px] !font-medium group-data-[state=collapsed]:mx-auto group-data-[state=collapsed]:!size-8 group-data-[state=collapsed]:!p-0 group-data-[state=collapsed]:[&>span]:hidden`}\n              >\n                <CreateIcon />\n                <span>Create</span>\n              </button>\n            )}\n          />"
+    },
+    {
+      "label": "selection callback explicitly closes parent",
+      "path": "app/packages/frontend/src/components/shell/AppSidebar.tsx",
+      "sourceSha256": "39e1ed50aa0f82f4e6566b5ac7bf4a6d240831967811df4f0f1ab23ffa39585f",
+      "utf16": [
+        2660,
+        2692
+      ],
+      "utf8": [
+        2660,
+        2692
+      ],
+      "sha256": "9b8a30fdefee2dc621b72abaee472d01ddea2bf1afcc9ff085b6373df9564380",
+      "text": "onNavigate={() => closeMobile()}"
+    },
+    {
+      "label": "portal attaches to document.body, outside drawer aside inert boundary",
+      "path": "app/packages/frontend/src/components/ui/dropdown-menu.tsx",
+      "sourceSha256": "c9a4aedc4559ce74372d4317f198165881f2f73f8c93372bec975059a869d58b",
+      "utf16": [
+        6049,
+        6062
+      ],
+      "utf8": [
+        6049,
+        6062
+      ],
+      "sha256": "fdc6239283e9394f98bc62316f403605aaa0604c839721aebeed1ef1116b02d0",
+      "text": "document.body"
+    },
+    {
+      "label": "portal visibility is controlled only by dropdown local open state",
+      "path": "app/packages/frontend/src/components/ui/dropdown-menu.tsx",
+      "sourceSha256": "c9a4aedc4559ce74372d4317f198165881f2f73f8c93372bec975059a869d58b",
+      "utf16": [
+        5359,
+        5363
+      ],
+      "utf8": [
+        5359,
+        5363
+      ],
+      "sha256": "2348f998744212575d85959674f9607ab26f67708a917157472832386337c904",
+      "text": "open"
+    },
+    {
+      "label": "normal selection closes own state then invokes parent onNavigate",
+      "path": "app/packages/frontend/src/components/ui/dropdown-menu.tsx",
+      "sourceSha256": "c9a4aedc4559ce74372d4317f198165881f2f73f8c93372bec975059a869d58b",
+      "utf16": [
+        5885,
+        5987
+      ],
+      "utf8": [
+        5885,
+        5987
+      ],
+      "sha256": "b63e4df5cf4fef82b31291f2daa4ce2a2f5f465b2b73b8ebfeb4c9b9d33d59c9",
+      "text": "onSelect={() => {\n                  close(false);\n                  onNavigate?.();\n                }}"
+    },
+    {
+      "label": "mobile toggle changes parent open state; desktop toggles rail state",
+      "path": "app/packages/frontend/src/components/ui/sidebar.tsx",
+      "sourceSha256": "a1ba3fb227aacea783f1732070d886f39da9778e556f1303ba0a900ee3963925",
+      "utf16": [
+        1928,
+        2165
+      ],
+      "utf8": [
+        1928,
+        2165
+      ],
+      "sha256": "161a2c45052e6097f1fdda2f734070968c6570867b6c7db2d829da6899e0882c",
+      "text": "toggle = useCallback(() => {\n    if (window.matchMedia(\"(max-width: 767px)\").matches)\n      setMobileOpen((open) => !open);\n    else\n      setState((current) =>\n        current === \"expanded\" ? \"collapsed\" : \"expanded\",\n      );\n  }, [])"
+    },
+    {
+      "label": "actual Ctrl/Meta+B callback calls parent toggle",
+      "path": "app/packages/frontend/src/components/ui/sidebar.tsx",
+      "sourceSha256": "a1ba3fb227aacea783f1732070d886f39da9778e556f1303ba0a900ee3963925",
+      "utf16": [
+        3569,
+        3734
+      ],
+      "utf8": [
+        3569,
+        3734
+      ],
+      "sha256": "146671f4ea3dbe36291bab7bce72a17bc62ae58138ea1c7aec8c29794f6c3f28",
+      "text": "onKeyDown = (event: KeyboardEvent) => {\n      if (event.key !== \"b\" || !(event.metaKey || event.ctrlKey)) return;\n      event.preventDefault();\n      toggle();\n    }"
+    },
+    {
+      "label": "callback is registered on the actual window keydown path",
+      "path": "app/packages/frontend/src/components/ui/sidebar.tsx",
+      "sourceSha256": "a1ba3fb227aacea783f1732070d886f39da9778e556f1303ba0a900ee3963925",
+      "utf16": [
+        3740,
+        3785
+      ],
+      "utf8": [
+        3740,
+        3785
+      ],
+      "sha256": "6daf7ab759d1735455fb5d5b30049af664175df829d320f3320e304fd66ff5c1",
+      "text": "window.addEventListener(\"keydown\", onKeyDown)"
+    },
+    {
+      "label": "closed mobile aside becomes inert, not its body-level portal",
+      "path": "app/packages/frontend/src/components/ui/sidebar.tsx",
+      "sourceSha256": "a1ba3fb227aacea783f1732070d886f39da9778e556f1303ba0a900ee3963925",
+      "utf16": [
+        6028,
+        6059
+      ],
+      "utf8": [
+        6028,
+        6059
+      ],
+      "sha256": "aa350ae7fbc9b478d45f9202aea7f5bf1a8c3db7e60d66ad0cc704953eded645",
+      "text": "inert={isMobile && !mobileOpen}"
+    }
+  ],
+  "edges": [
+    "Sidebar globalwindow Ctrl/Meta+B→toggle→mobileOpen state",
+    "Sidebar mobileOpen→aside inert/hidden",
+    "AppSidebar→DropdownMenu (no parent-state reset)",
+    "DropdownMenu localopen→createPortal(document.body)",
+    "MenuItem selection→own close→AppSidebar onNavigate→parentclose"
+  ],
+  "limit": "Actual mounted shortcut must prove orphan is still rendered/focusable; expected selection close is a separate runtime control."
+}

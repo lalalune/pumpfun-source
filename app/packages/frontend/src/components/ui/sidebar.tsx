@@ -110,11 +110,12 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key !== "b" || !(event.metaKey || event.ctrlKey)) return;
       event.preventDefault();
-      toggle();
+      if (mobileOpen) closeMobile(true);
+      else toggle();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [toggle]);
+  }, [toggle, mobileOpen, closeMobile]);
 
   const value = useMemo(
     () => ({

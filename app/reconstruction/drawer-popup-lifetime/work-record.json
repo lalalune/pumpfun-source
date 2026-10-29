@@ -1,0 +1,125 @@
+{
+  "base": "381dc30b35122022be7359215cb5d471fe9f778d",
+  "latest_main_preimage_check": "b08fd908203a76d84c8dd68b60310582aa2c4fba",
+  "latest_preimage_blobs": {
+    "AppSidebar.tsx": "9741b702433ca68f7cd14f8e8d4c31a0fdf5749f",
+    "sidebar.tsx": "8c9d6972f3bef21b0008454217c68257f7de305f"
+  },
+  "source": [
+    {
+      "path": "app/packages/frontend/src/components/shell/AppSidebar.tsx",
+      "before_sha256": "39e1ed50aa0f82f4e6566b5ac7bf4a6d240831967811df4f0f1ab23ffa39585f",
+      "after_sha256": "f9c0f71738cc4f6e6fc16605807955c28ffd91ae25b2c38839bed714456c8b6a"
+    },
+    {
+      "path": "app/packages/frontend/src/components/ui/sidebar.tsx",
+      "before_sha256": "a1ba3fb227aacea783f1732070d886f39da9778e556f1303ba0a900ee3963925",
+      "after_sha256": "7db445a4ca318a95fdb621a26ff9eef41cf1b3c94835fd4c988e77441c67cd3f"
+    }
+  ],
+  "source_patch_sha256": "759a986f849df7a84a94c6aea6d0f0183940155454143d3da68f077673d78c8a",
+  "test": {
+    "path": "app/packages/frontend/tests/drawer-popup-lifetime.spec.ts",
+    "sha256": "b64c2557ac8ad40bd73e8bd116f773dbcaa78850d1ce9dce058d5d6437d9fcba"
+  },
+  "runtime": {
+    "port": 3027,
+    "backend_url": "http://127.0.0.1:3028",
+    "backend_service_started": false,
+    "developer_api_key": "empty",
+    "workers": 1,
+    "retries": 0,
+    "max_failures": 1,
+    "baseline": {
+      "passed": 1,
+      "failed": 1,
+      "not_run": 1,
+      "raw_sha256": "85582d4e4590991272501170676099538db5ea8ceac2cfbfee538628d3a96c66",
+      "actual_shortcut": {
+        "stage": "actual-parent-shortcut",
+        "time": 788.3999999761581,
+        "trusted": true,
+        "prevented": false,
+        "drawer": "open",
+        "portalPresent": true,
+        "portalRendered": true,
+        "focusedRole": "menuitem",
+        "focusedLabel": null,
+        "focusedText": "Create coin",
+        "url": "http://127.0.0.1:3027/explore"
+      },
+      "after_parent_close": {
+        "stage": "drawer-portal-change",
+        "time": 804.1999999880791,
+        "drawer": "closed",
+        "portalPresent": true,
+        "portalRendered": true,
+        "focusedRole": "menuitem",
+        "focusedLabel": null,
+        "focusedText": "Create coin",
+        "url": "http://127.0.0.1:3027/explore"
+      },
+      "final_active_portal": true,
+      "final_focused_role": "menuitem"
+    },
+    "candidate": {
+      "passed": 3,
+      "actual_shortcut": {
+        "stage": "actual-parent-shortcut",
+        "time": 808.2000000178814,
+        "trusted": true,
+        "prevented": false,
+        "drawer": "open",
+        "portalPresent": true,
+        "portalRendered": true,
+        "focusedRole": "menuitem",
+        "focusedLabel": null,
+        "focusedText": "Create coin",
+        "url": "http://127.0.0.1:3027/explore"
+      },
+      "after_parent_close": {
+        "stage": "drawer-portal-change",
+        "time": 824,
+        "drawer": "closed",
+        "portalPresent": false,
+        "portalRendered": false,
+        "focusedRole": null,
+        "focusedLabel": null,
+        "focusedText": "(() => { try {\n const root = document.documentElement, pathname = location.pathn",
+        "url": "http://127.0.0.1:3027/explore"
+      },
+      "actual_more_focus": {
+        "stage": "native-focus-change",
+        "time": 827.7000000178814,
+        "drawer": "closed",
+        "portalPresent": false,
+        "portalRendered": false,
+        "focusedRole": null,
+        "focusedLabel": "Open navigation",
+        "focusedText": "",
+        "url": "http://127.0.0.1:3027/explore"
+      },
+      "normal_selection": "passed before and after; hidden route metadata retained",
+      "desktop": "asserted same live popup id and menuitem focus while rail toggled, then normal Escape focus return"
+    },
+    "server": "owned3027 stopped; no server/browser retained"
+  },
+  "checks": {
+    "root_captures": 9,
+    "root_tooling": 10,
+    "shell_source_checks": 3,
+    "frontend_typegen": "PASS",
+    "frontend_typecheck": "PASS",
+    "app_evidence": "698 objects/npm/unchanged SDK PASS",
+    "progress": "PASS"
+  },
+  "limits": [
+    "Local reconstructed drawer/popup lifetime correction, not original popup source or pixel equivalence.",
+    "Finite767px mobile and1440px desktop Chromium proof, not complete browser or production build.",
+    "After mobile PNG shows completed keyboard-reopen/Create workflow; same-step portal removal/More focus is recorded in ordered JSON and actual assertions, not a separately captured same-step PNG.",
+    "No video recorded; no animation or layout changes claimed.",
+    "No generic Dropdown, placement, Tab, Settings or footer changes; peer1431/1394/1300 remain separate.",
+    "No backend/API/wallet/capture/SDK/feature milestone/binary changes."
+  ],
+  "source_patch_archive": "source.patch.gz"
+}

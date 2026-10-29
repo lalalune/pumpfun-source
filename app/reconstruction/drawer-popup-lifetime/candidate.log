@@ -1,0 +1,11 @@
+
+Running 3 tests using 1 worker
+
+(node:369484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/3] tests/drawer-popup-lifetime.spec.ts:100:5 › ordinary Create selection closes both menu and drawer
+[2/3] tests/drawer-popup-lifetime.spec.ts:135:5 › closing the drawer with its parent shortcut removes the active portal
+[3/3] tests/drawer-popup-lifetime.spec.ts:175:5 › desktop popup keeps identity and focus while its sidebar shortcut toggles the rail
+  3 passed (5.1s)

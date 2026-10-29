@@ -1,0 +1,116 @@
+{
+  "errors": [],
+  "trace": [
+    {
+      "stage": "drawer-portal-change",
+      "time": 119.7999999821186,
+      "portalPresent": false,
+      "portalRendered": false,
+      "url": "http://127.0.0.1:3027/explore"
+    },
+    {
+      "stage": "drawer-portal-change",
+      "time": 165.2999999821186,
+      "drawer": "closed",
+      "portalPresent": false,
+      "portalRendered": false,
+      "focusedRole": null,
+      "focusedLabel": null,
+      "focusedText": "(() => { try {\n const root = document.documentElement, pathname = location.pathn",
+      "url": "http://127.0.0.1:3027/explore"
+    },
+    {
+      "stage": "native-focus-change",
+      "time": 682,
+      "drawer": "closed",
+      "portalPresent": false,
+      "portalRendered": false,
+      "focusedRole": null,
+      "focusedLabel": "Open navigation",
+      "focusedText": "",
+      "url": "http://127.0.0.1:3027/explore"
+    },
+    {
+      "stage": "native-focus-change",
+      "time": 699.6999999880791,
+      "drawer": "open",
+      "portalPresent": false,
+      "portalRendered": false,
+      "focusedRole": null,
+      "focusedLabel": "Close navigation",
+      "focusedText": "×",
+      "url": "http://127.0.0.1:3027/explore"
+    },
+    {
+      "stage": "drawer-portal-change",
+      "time": 699.8999999761581,
+      "drawer": "open",
+      "portalPresent": false,
+      "portalRendered": false,
+      "focusedRole": null,
+      "focusedLabel": "Close navigation",
+      "focusedText": "×",
+      "url": "http://127.0.0.1:3027/explore"
+    },
+    {
+      "stage": "native-focus-change",
+      "time": 762.2999999821186,
+      "drawer": "open",
+      "portalPresent": false,
+      "portalRendered": false,
+      "focusedRole": null,
+      "focusedLabel": "Create a coin",
+      "focusedText": "Create",
+      "url": "http://127.0.0.1:3027/explore"
+    },
+    {
+      "stage": "native-focus-change",
+      "time": 765.8999999761581,
+      "drawer": "open",
+      "portalPresent": true,
+      "portalRendered": true,
+      "focusedRole": "menuitem",
+      "focusedLabel": null,
+      "focusedText": "Create coin",
+      "url": "http://127.0.0.1:3027/explore"
+    },
+    {
+      "stage": "drawer-portal-change",
+      "time": 767.3999999761581,
+      "drawer": "open",
+      "portalPresent": true,
+      "portalRendered": true,
+      "focusedRole": "menuitem",
+      "focusedLabel": null,
+      "focusedText": "Create coin",
+      "url": "http://127.0.0.1:3027/explore"
+    },
+    {
+      "stage": "actual-parent-shortcut",
+      "time": 788.3999999761581,
+      "trusted": true,
+      "prevented": false,
+      "drawer": "open",
+      "portalPresent": true,
+      "portalRendered": true,
+      "focusedRole": "menuitem",
+      "focusedLabel": null,
+      "focusedText": "Create coin",
+      "url": "http://127.0.0.1:3027/explore"
+    },
+    {
+      "stage": "drawer-portal-change",
+      "time": 804.1999999880791,
+      "drawer": "closed",
+      "portalPresent": true,
+      "portalRendered": true,
+      "focusedRole": "menuitem",
+      "focusedLabel": null,
+      "focusedText": "Create coin",
+      "url": "http://127.0.0.1:3027/explore"
+    }
+  ],
+  "drawer": "closed",
+  "activePortal": true,
+  "focusedRole": "menuitem"
+}
