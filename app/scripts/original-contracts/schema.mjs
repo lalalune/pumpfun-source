@@ -9,8 +9,11 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
   const pending = new Set();
   let primitiveWitnesses;
   const key = (id, name) => `${id}.${name}`;
+  function unconditional(ctx, name) {
+    if (ctx.conditional.has(name)) throw new Error(`conditional declaration binding ${ctx.id}.${name}`);
+  }
   function importedId(node, ctx) {
-    if (node?.type === 'Identifier') return ctx.imports.get(node.name);
+    if (node?.type === 'Identifier') { unconditional(ctx, node.name); return ctx.imports.get(node.name); }
     if (node?.type === 'CallExpression' && ['r', 'i'].some((method) => member(node.callee, ctx.factory.runtime, method)) &&
         node.arguments.length === 1 && node.arguments[0].type === 'NumericLiteral') return node.arguments[0].value;
     return undefined;
@@ -25,11 +28,13 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
     const locals = new Map();
     const exports = new Map();
     const imports = new Map();
+    const conditional = new Set();
     const output = factory.node.params[2]?.name;
     // Only declarations executed at factory scope, never inside nested code.
     walk(factory.node.body, (node, parents) => {
       if (parents.some((parent) => /Function|Method/.test(parent.type))) return;
       if (node.type === 'VariableDeclarator' && node.id.type === 'Identifier' && node.init) {
+        if (parents.some(parent => ['IfStatement', 'ConditionalExpression', 'SwitchStatement', 'SwitchCase', 'ForStatement', 'ForInStatement', 'ForOfStatement', 'WhileStatement', 'DoWhileStatement', 'TryStatement', 'CatchClause', 'LogicalExpression'].includes(parent.type))) conditional.add(node.id.name);
         locals.set(node.id.name, node.init);
         const init = node.init;
         if (init.type === 'CallExpression' && ['r', 'i'].some((method) => member(init.callee, factory.runtime, method)) &&
@@ -46,7 +51,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
         exports.set(name, node.right);
       }
     });
-    const result = { factory, id, locals, exports, imports, output };
+    const result = { factory, id, locals, exports, imports, output, conditional };
     modules.set(id, result);
     remember(factory, factory.node, `factory ${id}`);
     return result;
@@ -103,6 +108,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
       if (!value) throw new Error(`unknown export ${ctx.id}.${name}`);
       return { ctx, name, node: value };
     }
+    unconditional(ctx, node.object.name);
     const id = ctx.imports.get(node.object.name);
     if (id === undefined) return null;
     const target = await context(id);
@@ -123,6 +129,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
   }
   async function constant(node, ctx) {
     if (node.type === 'Identifier') {
+      unconditional(ctx, node.name);
       if (!ctx.locals.has(node.name)) throw new Error(`unknown constant ${ctx.id}.${node.name}`);
       return constant(ctx.locals.get(node.name), ctx);
     }
@@ -161,7 +168,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
     return literal(node);
   }
   async function shape(node, ctx) {
-    if (node.type === 'Identifier') return shape(ctx.locals.get(node.name), ctx);
+    if (node.type === 'Identifier') { unconditional(ctx, node.name); return shape(ctx.locals.get(node.name), ctx); }
     if (node?.type !== 'ObjectExpression') throw new Error(`unsupported object shape: ${node?.type}`);
     const properties = {};
     for (const property of node.properties) {
@@ -180,6 +187,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
   async function compileWith(node, ctx) {
     if (!node) throw new Error('missing schema expression');
     if (node.type === 'Identifier') {
+      unconditional(ctx, node.name);
       const value = ctx.locals.get(node.name);
       if (!value) throw new Error(`unknown schema identifier ${ctx.id}.${node.name}`);
       return ref(ctx, node.name, value);
