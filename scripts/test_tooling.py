@@ -465,7 +465,9 @@ class WindowScorerBaselineTests(unittest.TestCase):
     def test_default_baseline_reports_a_lost_window(self):
         scorer = load_window_scorer()
         # Window 0x120 is a normalized match in the committed baseline.
-        lost = {0x120: {'normalized': False, 'raw': False, 'symbols': [], 'bytes': 176}}
+        baseline = scorer.load_baseline(scorer.SC / 'pump-main/baseline/score.json')
+        lost = {address: dict(window) for address, window in baseline.items()}
+        lost[0x120] = {'normalized': False, 'raw': False, 'symbols': [], 'bytes': 176}
         with patch.object(scorer, 'score_with_hash', return_value=(lost, 'mock-sha256')), \
                 patch.object(pathlib.Path, 'read_bytes', return_value=b''):
             summary = self.run_main(scorer)
