@@ -18,6 +18,8 @@ import { createHash } from "node:crypto";
 import { writeFileSync, readdirSync, readFileSync, mkdirSync } from "node:fs";
 import { join, resolve } from "node:path";
 
+import { summariseCapture } from "./pumpportal-summary.mjs";
+
 // --------------- CLI args ---------------
 
 const args = process.argv.slice(2);
@@ -129,58 +131,15 @@ function finalise() {
 
   console.log(`[capture] finalising: ${events.length} events, ${trackedTokens.size} tokens`);
 
-  // Tally event types
-  const typeCounts = {};
-  for (const e of events) {
-    const t = e.data?.txType || e.data?.method || "unknown";
-    typeCounts[t] = (typeCounts[t] || 0) + 1;
-  }
-
-  // Per-token event counts
-  const tokenEventCounts = {};
-  for (const e of events) {
-    const mint = e.data?.mint;
-    if (mint) {
-      tokenEventCounts[mint] = (tokenEventCounts[mint] || 0) + 1;
-    }
-  }
+  // Aggregate event types and per-token summaries. Mint/type labels are
+  // untrusted stream values, so the helpers use null-prototype maps.
+  const { typeCounts, tokenIndex } = summariseCapture(events);
 
   // Write events.json
   const eventsPath = join(OUTPUT_DIR, "events.json");
   writeFileSync(eventsPath, JSON.stringify(events, null, 2));
 
   // Write token-index.json (per-token summaries)
-  const tokenIndex = {};
-  for (const e of events) {
-    const mint = e.data?.mint;
-    if (!mint) continue;
-    if (!tokenIndex[mint]) {
-      tokenIndex[mint] = {
-        mint,
-        name: e.data?.name || null,
-        symbol: e.data?.symbol || null,
-        first_seen: e.receivedAt,
-        last_seen: e.receivedAt,
-        event_count: 0,
-        creates: 0,
-        buys: 0,
-        sells: 0,
-        total_sol_volume: 0,
-      };
-    }
-    const ti = tokenIndex[mint];
-    ti.last_seen = e.receivedAt;
-    ti.event_count++;
-    if (e.data?.txType === "create") ti.creates++;
-    if (e.data?.txType === "buy") {
-      ti.buys++;
-      ti.total_sol_volume += e.data?.solAmount || 0;
-    }
-    if (e.data?.txType === "sell") {
-      ti.sells++;
-      ti.total_sol_volume += e.data?.solAmount || 0;
-    }
-  }
   const tokenIndexPath = join(OUTPUT_DIR, "token-index.json");
   writeFileSync(
     tokenIndexPath,
