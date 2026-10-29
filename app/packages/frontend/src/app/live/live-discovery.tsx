@@ -278,7 +278,13 @@ export default function LiveDiscovery({
   }
 
   function handleSectionKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
-    const current = sections.findIndex(({ id }) => id === section);
+    // The last requested URL can be ahead of the committed search parameters.
+    const requestedSection =
+      new URLSearchParams(pendingQuery.current).get("section") ===
+      "other-sections"
+        ? "other-sections"
+        : "most-viewers";
+    const current = sections.findIndex(({ id }) => id === requestedSection);
     let next = current;
     if (event.key === "ArrowRight" || event.key === "ArrowDown")
       next = current + 1;

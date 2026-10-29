@@ -24,6 +24,8 @@ export function FeedTabs({
 }) {
   const router = useRouter();
   const pendingKeyboardFocus = useRef(false);
+  // Compose keys against the latest request before the server commits its tab.
+  const requestedTab = useRef(activeTab);
   const tabs = nativeEnabled
     ? [
         ...offlineTabs,
@@ -36,13 +38,16 @@ export function FeedTabs({
     : offlineTabs;
 
   useEffect(() => {
+    requestedTab.current = activeTab;
     if (!pendingKeyboardFocus.current) return;
     pendingKeyboardFocus.current = false;
     document.getElementById(`feed-tab-${activeTab}`)?.focus();
   }, [activeTab]);
 
   function handleKeyDown(event: KeyboardEvent<HTMLAnchorElement>) {
-    const currentIndex = tabs.findIndex((tab) => tab.id === activeTab);
+    const currentIndex = tabs.findIndex(
+      (tab) => tab.id === requestedTab.current,
+    );
     let nextIndex: number | undefined;
     if (event.key === "ArrowRight")
       nextIndex = (currentIndex + 1) % tabs.length;
@@ -55,7 +60,8 @@ export function FeedTabs({
 
     event.preventDefault();
     const next = tabs[nextIndex];
-    pendingKeyboardFocus.current = true;
+    requestedTab.current = next.id;
+    pendingKeyboardFocus.current = next.id !== activeTab;
     router.push(next.href);
   }
 
@@ -74,6 +80,10 @@ export function FeedTabs({
             data-active={selected}
             href={tab.href}
             onKeyDown={handleKeyDown}
+            onNavigate={() => {
+              requestedTab.current = tab.id;
+              pendingKeyboardFocus.current = false;
+            }}
           >
             {tab.label}
           </Link>
