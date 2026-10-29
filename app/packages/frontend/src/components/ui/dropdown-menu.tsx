@@ -154,7 +154,8 @@ export function DropdownMenu({
         close(true);
         break;
       case "Tab":
-        close(false);
+        // Restore the portal's origin before native Tab advances outside it.
+        close(true);
         break;
     }
   }
