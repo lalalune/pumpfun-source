@@ -45,7 +45,16 @@ def normalize(raw, address, secs):
 
 
 def body(image, secs, address, size):
-    t = secs['.text']; o = address - t['addr'] + t['offset']
+    t = secs['.text']
+    if any(type(value) is not int or value < 0 for value in
+           (address, size, t['addr'], t['offset'], t['size'])):
+        raise ValueError('function and .text bounds must be nonnegative integers')
+    if t['offset'] + t['size'] > len(image):
+        raise ValueError('.text section extends beyond the ELF file')
+    relative = address - t['addr']
+    if relative < 0 or relative > t['size'] or size > t['size'] - relative:
+        raise ValueError(f'function range {address:#x}+{size:#x} is outside .text')
+    o = relative + t['offset']
     return image[o:o + size]
 
 
