@@ -38,6 +38,7 @@ def render():
             if row['completion']['source']['status'] in {'accepted','not-applicable'}:
                 require(all(g['status'] in {'accepted','not-applicable'} for g in row['source'].values()), 'Source completion requires all source gates')
     scripts=[r for r in manifest['records'] if urlsplit(r['url']).path.endswith('.js')]
+    require(len({r['path'] for r in scripts}) == len(scripts) and len({r['url'] for r in scripts}) == len(scripts), 'Duplicate captured script path or URL')
     verified=0
     for record in scripts:
         if record.get('status') != 200: continue
