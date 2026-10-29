@@ -39,8 +39,15 @@ The line census uses Babel token locations. It counts code lines once per unique
 Graph identity includes numeric module ID, factory hash, captured object, source range, and chunk URL. Calls whose receiver matches the top-level factory runtime parameter's spelling are recognized structurally:
 
 - `runtime.i(literal)` is a direct import boundary.
+- `runtime.r(literal)` is the CommonJS direct import boundary.
 - `runtime.A(literal)` is a dynamic import boundary.
 - `runtime.s(...)` supplies observed export names.
+
+The CommonJS regression authenticates retained factories **774101** and
+**510914** from `a0ec47219f76f808.js`. The first factory's top-level `e.r(510914)`
+call must produce an exact direct edge to the second factory. Both original
+capture ranges and formatted factories are authenticated before publishing and
+rebuilding this small graph; captured code is never executed.
 
 The export array follows the captured runtime's mixed descriptor grammar, not a
 fixed two-entry stride: `name, 0, value` is a constant, `name, getter` is an

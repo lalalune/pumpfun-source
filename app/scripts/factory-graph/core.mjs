@@ -236,7 +236,7 @@ export function analyzeFactory(source, label = "factory") {
     )
       return;
     const method = node.callee.property?.name;
-    if (method === "i" || method === "A") {
+    if (method === "i" || method === "r" || method === "A") {
       const target = literalValue(node.arguments[0]);
       imports.push({
         kind: method === "A" ? "dynamic" : "direct",
