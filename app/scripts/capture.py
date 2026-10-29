@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Capture public artifacts only; never submits forms or uses credentials."""
 import concurrent.futures, sys, datetime, hashlib, html, json, os, pathlib, re, stat, tempfile, urllib.request, urllib.error, urllib.parse
+import tinycss2
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUT = ROOT / 'evidence' / 'web'
 OBJECT_PATH = pathlib.PurePosixPath('evidence/web/objects')
@@ -13,6 +14,22 @@ def public_asset(value,base,extensions):
     parsed=urllib.parse.urlsplit(resolved)
     if parsed.scheme=='https' and parsed.netloc=='pump.fun' and parsed.path.endswith(extensions):return resolved
     return None
+def literal_css_urls(source):
+    """CSS tokens distinguish real URL values from comments and ordinary strings."""
+    def urls(tokens):
+        for token in tokens:
+            if token.type=='url':
+                yield token.value
+            elif token.type=='function':
+                if token.lower_name=='url':
+                    arguments=[item for item in token.arguments if item.type not in ('whitespace','comment')]
+                    if len(arguments)==1 and arguments[0].type=='string':
+                        yield arguments[0].value
+                else:
+                    yield from urls(token.arguments)
+            elif hasattr(token,'content'):
+                yield from urls(token.content)
+    yield from urls(tinycss2.parse_component_value_list(source,skip_comments=True))
 def atomic_write(target, body):
     """Publish complete bytes on the same filesystem; retain the old file on failure."""
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -134,15 +151,16 @@ def main():
         for r,b in results:
             if r.get('status')!=200: continue
             s=b.decode(errors='replace')
-            # Follow literal Turbopack chunk paths and local font/image dependencies only.
-            for path in re.findall(r'["\'(]((?:/_next/)?static/(?:immutable/)?(?:chunks|media)/[^"\'\s)]+)',s):
-                asset=public_asset(path,'https://pump.fun/_next/',('.js','.css','.woff2'))
-                if asset:assets.add(asset)
             if urllib.parse.urlsplit(r['url']).path.endswith('.css'):
-                for relative in re.findall(r'url\([\"\']?([^\s)\"\']+)',s):
+                for relative in literal_css_urls(s):
                     if not relative.startswith('data:'):
                         resolved=public_asset(relative,r['url'],('.woff2','.woff','.ttf','.png','.svg'))
                         if resolved:assets.add(resolved)
+            else:
+                # The JS chunk scanner must not inspect inert CSS strings/comments.
+                for path in re.findall(r'["\'(]((?:/_next/)?static/(?:immutable/)?(?:chunks|media)/[^"\'\s)]+)',s):
+                    asset=public_asset(path,'https://pump.fun/_next/',('.js','.css','.woff2'))
+                    if asset:assets.add(asset)
     OUT.mkdir(parents=True,exist_ok=True)
     manifest={'captured_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'user_agent':UA,'scope':PAGES,'exclusions':['support','terminal','mobile app','token/coin detail pages','pump-token'],'records':records,'limits':{'asset_discovery_waves':8,'waves_used':waves,'unfetched_discovered':sorted(assets-done)}}
     atomic_write(OUT/'manifest.json', (json.dumps(manifest,indent=2)+'\n').encode('utf-8'))
