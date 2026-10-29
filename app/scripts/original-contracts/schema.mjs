@@ -8,6 +8,32 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
   const witnesses = new Map();
   const pending = new Set();
   let primitiveWitnesses;
+  let failure;
+  let compilationQueue = Promise.resolve();
+  let queuedCompilations = 0;
+  // Recursive declarations need internal placeholders. Public operations must
+  // never observe those placeholders or reuse state after a failed build.
+  function enqueueCompilation(build) {
+    queuedCompilations += 1;
+    const result = compilationQueue.then(async () => {
+      if (failure) throw failure;
+      try {
+        return await build();
+      } catch (error) {
+        failure = error;
+        throw error;
+      }
+    });
+    compilationQueue = result.then(
+      () => { queuedCompilations -= 1; },
+      () => { queuedCompilations -= 1; },
+    );
+    return result;
+  }
+  function requireCompletedCompilation() {
+    if (failure) throw failure;
+    if (queuedCompilations) throw new Error('schema compilation is still in progress');
+  }
   const key = (id, name) => `${id}.${name}`;
   function importedId(node, ctx) {
     if (node?.type === 'Identifier') return ctx.imports.get(node.name);
@@ -89,9 +115,15 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
     if (!(label in definitions)) {
       definitions[label] = {};
       pending.add(label);
-      remember(ctx.factory, node, `schema ${label}`);
-      definitions[label] = await compileWith(node, ctx);
-      pending.delete(label);
+      try {
+        remember(ctx.factory, node, `schema ${label}`);
+        definitions[label] = await compileWith(node, ctx);
+      } catch (error) {
+        delete definitions[label];
+        throw error;
+      } finally {
+        pending.delete(label);
+      }
     }
     return { $ref: `#/$defs/${label}` };
   }
@@ -260,6 +292,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
     return ref(await context(id), name, node, true);
   }
   function document(roots) {
+    requireCompletedCompilation();
     function allowsUndefined(schema, seen = new Set()) {
       if (schema['x-zod-optional']) return true;
       if (schema.$ref) {
@@ -278,7 +311,9 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
     finish(result);
     return result;
   }
-  return { declaration, schema, compile, document,
-    constant: async (node, factory) => constant(node, await context(factory.id)),
-    witnesses: () => [...witnesses.values()] };
+  return { declaration, document,
+    schema: (id, name) => enqueueCompilation(() => schema(id, name)),
+    compile: (node, factory) => enqueueCompilation(() => compile(node, factory)),
+    constant: (node, factory) => enqueueCompilation(async () => constant(node, await context(factory.id))),
+    witnesses: () => { requireCompletedCompilation(); return [...witnesses.values()]; } };
 }
