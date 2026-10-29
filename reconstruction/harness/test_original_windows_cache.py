@@ -10,6 +10,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
@@ -55,9 +56,11 @@ class OriginalWindowCacheTests(unittest.TestCase):
         )
         self.previous = score.BASE
         score.BASE = self.base
+        score._INPUT_DIGESTS.clear()
 
     def tearDown(self):
         score.BASE = self.previous
+        score._INPUT_DIGESTS.clear()
         self.tmp.cleanup()
 
     def test_stale_pickle_does_not_replace_the_current_window_table(self):
@@ -89,6 +92,67 @@ class OriginalWindowCacheTests(unittest.TestCase):
         self.assertEqual(third[0]['start'], 64)
         self.assertEqual(third[0]['bytes'], 8)
         self.assertEqual(third[0]['raw'], self.text[:8])
+
+    def test_attribute_error_from_a_corrupt_pickle_rebuilds(self):
+        score.original_windows()
+        class Missing:
+            def __reduce__(self):
+                return (getattr, (object, 'missing_cache_field'))
+        payload = pickle.dumps(Missing())
+        with self.assertRaises(AttributeError):
+            pickle.loads(payload)
+        (self.base / 'original-windows.pkl').write_bytes(payload)
+        rows = score.original_windows()
+        self.assertEqual([row['start'] for row in rows], [64])
+        self.assertEqual(rows[0]['raw'], self.text)
+
+    def test_keyboard_interrupt_and_system_exit_propagate(self):
+        score.original_windows()
+        cache = self.base / 'original-windows.pkl'
+        preserved = cache.read_bytes()
+        for exc in (KeyboardInterrupt, SystemExit):
+            with mock.patch.object(score.pickle, 'loads', side_effect=exc):
+                with self.assertRaises(exc):
+                    score.original_windows()
+            self.assertEqual(cache.read_bytes(), preserved)
+
+    def test_minimal_elf_is_parsed_by_sections_body_and_normalize(self):
+        text = struct.pack('<BBhi', 0x18, 0x00, 0, 64) + struct.pack('<BBHI', 0, 0, 0, 0)
+        blob = elf_with_text(text)
+        secs = score.sections(blob)
+        self.assertIn('.text', secs)
+        self.assertIn('.shstrtab', secs)
+        self.assertEqual(secs['.text'], {'addr': 64, 'offset': 64, 'size': len(text)})
+        self.assertEqual(secs['.shstrtab']['addr'], 0)
+        self.assertGreater(secs['.shstrtab']['size'], 0)
+        raw = score.body(blob, secs, 64, len(text))
+        self.assertEqual(raw, text)
+        norm = score.normalize(raw, 64, secs)
+        self.assertEqual(len(norm), len(text))
+        self.assertEqual(norm[0], 0x18)
+        self.assertEqual(norm[4:8], b'\x00\x00\x00\x00')
+        self.assertEqual(norm[12:16], b'\x00\x00\x00\x00')
+        self.assertNotEqual(norm, raw)
+
+    def test_unchanged_inputs_reuse_the_content_hash(self):
+        first = score.window_cache_stamp()
+        reads = {'n': 0}
+        original = Path.read_bytes
+
+        def counting(self, *args, **kwargs):
+            reads['n'] += 1
+            return original(self, *args, **kwargs)
+
+        with mock.patch.object(Path, 'read_bytes', counting):
+            second = score.window_cache_stamp()
+        self.assertEqual(second, first)
+        self.assertEqual(reads['n'], 0)
+        (self.base / 'functions.tsv').write_text(
+            'program\tvariant\toriginal_start\toriginal_end\n'
+            'pump\tselected\t64\t72\n',
+            encoding='utf-8',
+        )
+        self.assertNotEqual(score.window_cache_stamp(), first)
 
 
 if __name__ == '__main__':
