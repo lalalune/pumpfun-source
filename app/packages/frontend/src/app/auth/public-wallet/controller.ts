@@ -150,7 +150,6 @@ export class PublicWalletController {
   }
   discover = () => {
     if (this.stopRegistry) return;
-    this.publish({ status: "choosing", message: null });
     let active = true;
     const register = (...candidates: unknown[]) => {
       if (!active) return () => {};
@@ -194,6 +193,8 @@ export class PublicWalletController {
         receive,
       );
     };
+    this.publish({ status: "choosing", message: null });
+    if (!active) return;
     this.target.dispatchEvent(
       new CustomEvent("wallet-standard:app-ready", { detail: api }),
     );
@@ -234,6 +235,7 @@ export class PublicWalletController {
       address: null,
       message: null,
     });
+    if (generation !== this.generation) return;
     this.timeout = setTimeout(() => {
       if (generation === this.generation)
         this.fail("Connection timed out. You can try again.");
@@ -287,9 +289,10 @@ export class PublicWalletController {
       this.state.selected === null
         ? null
         : this.wallets.get(this.state.selected);
-    this.forget(); // Clear before any asynchronous provider operation, including a rejection.
+    this.clearAttempt();
     const generation = this.generation;
-    this.publish({ status: "disconnecting" });
+    this.publish({ status: "disconnecting", selected: null, address: null, message: null });
+    if (generation !== this.generation) return;
     this.timeout = setTimeout(() => {
       if (generation === this.generation)
         this.fail("Address forgotten. The wallet disconnect timed out.");
