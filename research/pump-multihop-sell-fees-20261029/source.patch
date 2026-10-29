@@ -1,0 +1,22 @@
+--- a/programs/pump/src/multi_hop_curve_swap.rs
++++ b/programs/pump/src/multi_hop_curve_swap.rs
+@@ -676,7 +676,7 @@
+             let c_rate = if flag & 2 != 0 { selected.creator_fee_bps } else { 0 };
+             let pf = if flag & 1 != 0 { selected.protocol_fee } else { 0 };
+             let cf = if flag & 2 != 0 { selected.creator_fee } else { 0 };
+-            let net = sub(sub(gross_sell,pf)?,cf)?;
++            let net = crate::trade::sub3(gross_sell,pf,cf)?;
+ // layout-pad(6): aligns the next Source site with the original line
+ 
+ 
+--- a/programs/pump/src/trade_v3.rs
++++ b/programs/pump/src/trade_v3.rs
+@@ -291,7 +291,7 @@
+ 
+ 
+ #[inline(never)]
+-fn sub3(a:u64,b:u64,c:u64)->Result<u64>{a.checked_sub(b).and_then(|x|x.checked_sub(c)).ok_or_else(||error!(PumpError::Overflow))}
++pub(crate) fn sub3(a:u64,b:u64,c:u64)->Result<u64>{a.checked_sub(b).and_then(|x|x.checked_sub(c)).ok_or_else(||error!(PumpError::Overflow))}
+ // layout-pad(14): aligns the next Source site with the original line
+ 
+ 

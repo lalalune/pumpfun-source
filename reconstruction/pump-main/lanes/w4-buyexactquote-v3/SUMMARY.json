@@ -1,0 +1,79 @@
+{
+ "lane": "w4-buyexactquote-v3",
+ "target": "0x1489f8 trade::buy_exact_quote (v3)",
+ "base": "origin/main 630a07412 (1023/277): 7776 B ratio 0.61352 masked 0.8532",
+ "best": {
+  "trial": "x04",
+  "bytes": 7768,
+  "orig_bytes": 7856,
+  "ratio": 0.66033,
+  "masked_ratio": 0.8928,
+  "calls": "66/66",
+  "official": "1023 normalized / 276 raw, no normalized gains or losses, raw loss 0xa868 (call-span drift)",
+  "unstripped_sha256": "4c25285dad8a5d81cb1ef18e446bad8ea77e8e18e74195c65ef29af9db543c7e"
+ },
+ "zero_loss_subset": {
+  "trial": "t01",
+  "ratio": 0.63675,
+  "official": "1023/277, 0 losses",
+  "unstripped_sha256": "bd822199d31f8ee67db96109e128f8d2cd7ac6039e98e1f3be4d20aa1bb480ec"
+ },
+ "mechanisms": [
+  "t01: #[inline(always)] body wrapper (sell_v3 idiom): name String frame slot -0x180",
+  "x04: `let (is_sol,quote_fee);(is_sol,quote_fee)=check_quote(a)?;` + require_neq!(available,0): quote_fee lifetime.end moves to an outer exit block, so the error-path block created right after the v3_trade_fees block is empty and folds away"
+ ],
+ "attempts": [
+  "t01",
+  "u01",
+  "u02",
+  "u04",
+  "v01",
+  "v02",
+  "x01",
+  "x02",
+  "x03",
+  "x04",
+  "x05",
+  "x06",
+  "z01",
+  "z02",
+  "z03",
+  "z05",
+  "z06",
+  "z07",
+  "z08",
+  "z09",
+  "z12",
+  "z14",
+  "oracle: raw 891/bb112 moves, bb68/bb148 moves, phi swaps, _0 alloca position, arg alloca, move-to-end scan, hc1-hc3"
+ ],
+ "rejected": [
+  "nested fn/closure for 891 check (u01/u04)",
+  "scoped rebinding (u02)",
+  "require_neq alone (v01)",
+  "post_fee match Err-first (v02)",
+  "early decl at top (x01/x06: frame slot lost)",
+  "decl + require_gt (x02)",
+  "branch polarity spellings z01-z03",
+  "if can_cross spellings z05/z07",
+  "tail tuple first z06",
+  "deferred-init tuples z08/z09 (shadowing compile errors)",
+  "try_into z12",
+  "fees match z14"
+ ],
+ "unresolved": [
+  "return-phi order at quote_fee exit join (oracle +0.0275; needs _0 processed after ~54 allocas in early SROA)",
+  "cross-arm tail block creation order (+0.005)",
+  "cross-arm fees vs buy_costs block order (+0.0074)",
+  "register rotation partly from phi order",
+  "stack spill slots shifted by 8 (one fewer spill slot)",
+  "prepare_bonding_curve sret lea placement",
+  "raw 0xa868 drift whenever the target size changes"
+ ],
+ "next_ideas": [
+  "Find a source shape where the early-SROA PromotableAllocas order promotes _0.sroa.38 before _0.sroa.0 (use scripts/phichk.sh on raw bodies from candidate spellings; 30 s build + 0.3 s check)",
+  "Map bb68-early to source: something referenced at the cross/noncross split that becomes the cross tail (e.g. post/costs merge restructuring)",
+  "Apply the uninitialized-declaration lifetime trick to other allocas whose lifetime.end blocks sit next to call blocks",
+  "Coordinate with other lanes on the 0xa868 call-span raw drift policy"
+ ]
+}

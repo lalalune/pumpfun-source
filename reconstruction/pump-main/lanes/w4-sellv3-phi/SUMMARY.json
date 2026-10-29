@@ -1,0 +1,11 @@
+{
+  "lane": "w4-sellv3-phi",
+  "targets": ["0x14a8a8"],
+  "base": "origin/main 630a074 (1023 normalized / 277 raw)",
+  "best": {"trial": "t03", "normalized": 1024, "raw": 277, "gains": ["0x14a8a8"], "losses": [], "target": {"normalized_equal": true, "slots_diff": 0, "ratio": 1.0, "cand_bytes": 6032}, "unstripped_sha256": "d0f2111fe7f8b2abfb7f51537b69c0b4222a112d8df5533db8680fb454958bf5"},
+  "mechanism": "Plain (no-attribute) sell_event helper taking TradeFees by value: fees becomes SSA, CopyProp drops its StorageLive, the LLVM inliner adds a 4th entry lifetime.start in sell, and that chain depth makes the list-ilp critical-path check (depth spread > 6) schedule the prepare_bonding_curve sret lea early.",
+  "attempts": ["d204a146 analysis", "a44d34f0 t01 named error local (identical)", "ccfdd307 t02/t04 inline(always)/inline helper (MIR-inlined, 6080B)", "486e4c8f t05 inline(never) (5992B)", "0b0e4e3c t03 plain helper (normalized match)"],
+  "rejected_mechanisms": ["named error local in require_gt expansion", "MIR-inlined by-value helper (param copy is marked)", "inline(never) helper"],
+  "unresolved_residuals": ["0x14a8a8 raw bytes (call/reloc immediates) not checked by this lane"],
+  "next_ideas": ["Apply the same entry-lifetime-count lever to buy_exact_quote 0x1489f8 (original early lea, ours late): one more unmarked surviving alloca in an LLVM-inlined body, or a wrapper + inline(always) body", "Use llc -max-sched-reorder=0 / -disable-sched-critical-path as quick probes for other prologue-lea residuals"]
+}

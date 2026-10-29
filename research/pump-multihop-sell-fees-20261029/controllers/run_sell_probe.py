@@ -1,0 +1,12 @@
+from pathlib import Path
+import json,hashlib,shutil,difflib,subprocess
+P=Path('/mnt/c/Users/ahi20/Documents/ChatGPT/pumpfun-contribution-review');B=P/'pump-multihop-sell-fees-20261029';L=Path('/home/ahi200/pumpfun-work/20261029-pump-legacy-exact-sol');label='multihop-sell-sub3';parent=L/'source-multihop-tokens-quote';target=L/('source-'+label)
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+def inv(p):return {q.relative_to(p).as_posix():sha(q) for q in sorted(p.rglob('*')) if q.is_file()}
+expected=json.loads((P/'pump-multihop-clock-20261029/probe-inputs.json').read_text())['candidate_inputs'];before=inv(parent);assert before==expected;assert len(before)==66;assert not target.exists();assert not (L/label).exists();shutil.copytree(parent,target)
+changes={};patch=[]
+for name,lineno,oldline,newline in [('multi_hop_curve_swap.rs',679,'            let net = sub(sub(gross_sell,pf)?,cf)?;','            let net = crate::trade::sub3(gross_sell,pf,cf)?;'),('trade_v3.rs',294,'fn sub3(a:u64,b:u64,c:u64)->Result<u64>{a.checked_sub(b).and_then(|x|x.checked_sub(c)).ok_or_else(||error!(PumpError::Overflow))}','pub(crate) fn sub3(a:u64,b:u64,c:u64)->Result<u64>{a.checked_sub(b).and_then(|x|x.checked_sub(c)).ok_or_else(||error!(PumpError::Overflow))}')]:
+ f=target/'programs/pump/src'/name;old=f.read_text();lines=old.splitlines(keepends=True);assert lines[lineno-1].rstrip('\n')==oldline;lines[lineno-1]=newline+'\n';new=''.join(lines);assert len(new.splitlines())==len(old.splitlines());f.write_bytes(new.encode());changes[name]=[i for i,(a,b) in enumerate(zip(old.splitlines(),new.splitlines()),1) if a!=b];assert changes[name]==[lineno];patch.extend(difflib.unified_diff(old.splitlines(keepends=True),new.splitlines(keepends=True),fromfile='a/programs/pump/src/'+name,tofile='b/programs/pump/src/'+name))
+after=inv(target);assert {n for n in before if before[n]!=after[n]}=={'programs/pump/src/'+n for n in changes};assert inv(parent)==before
+(B/'source.patch').write_bytes(''.join(patch).encode());(B/'probe-inputs.json').write_bytes((json.dumps({'label':label,'parent':str(parent),'candidate':str(target),'parent_inputs':before,'candidate_inputs':after,'changed_lines':changes,'parent_unchanged':True,'source_lines_preserved':True},indent=2)+'\n').encode())
+print('PREPARED',label,changes,flush=True);subprocess.run(['python3',str(P/'pump-legacy-exact-sol-20261029/local_build.py'),label],check=True)

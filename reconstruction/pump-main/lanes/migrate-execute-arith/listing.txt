@@ -1,0 +1,1070 @@
+077940  mov r6, r2
+077948  mov r8, r1
+077950  ldxdw r7, [r6+8]
+077958  mov r1, r10
+077960  add r1, 4294966576
+077968  call 152057
+077970  ldxdw r1, [r10-720]
+077978  jne r1, 0, +97
+077980  mov r1, r7
+077988  add r1, 168
+077990  stxdw [r10-1216], r1
+077998  ldxdw r1, [r10-680]
+0779a0  stxdw [r10-1224], r1
+0779a8  ldxdw r9, [r7+0]
+0779b0  ldxdw r1, [r9+0]
+0779b8  ldxdw r2, [r1+24]
+0779c0  stxdw [r10-696], r2
+0779c8  ldxdw r2, [r1+16]
+0779d0  stxdw [r10-704], r2
+0779d8  ldxdw r2, [r1+8]
+0779e0  stxdw [r10-712], r2
+0779e8  ldxdw r1, [r1+0]
+0779f0  stxdw [r10-720], r1
+0779f8  mov r1, r10
+077a00  add r1, 4294966576
+077a08  lddw r2, 0x1b5cc8
+077a18  mov r3, 32
+077a20  call 161674
+077a28  stxdw [r10-1232], r0
+077a30  mov r1, r0
+077a38  lsh r1, 32
+077a40  rsh r1, 32
+077a48  jeq r1, 0, +171
+077a50  stxdw [r10-1240], r6
+077a58  ldxdw r1, [r7+8]
+077a60  ldxdw r6, [r1+0]
+077a68  ldxdw r1, [r6+24]
+077a70  stxdw [r10-696], r1
+077a78  ldxdw r1, [r6+16]
+077a80  stxdw [r10-704], r1
+077a88  ldxdw r1, [r6+8]
+077a90  stxdw [r10-712], r1
+077a98  ldxdw r1, [r6+0]
+077aa0  stxdw [r10-720], r1
+077aa8  mov r1, r10
+077ab0  add r1, 4294966576
+077ab8  lddw r2, 0x1b5b28
+077ac8  mov r3, 32
+077ad0  call 161652
+077ad8  lsh r0, 32
+077ae0  rsh r0, 32
+077ae8  jeq r0, 0, +67
+077af0  ldxdw r1, [r6+24]
+077af8  stxdw [r10-696], r1
+077b00  ldxdw r1, [r6+16]
+077b08  stxdw [r10-704], r1
+077b10  ldxdw r1, [r6+8]
+077b18  stxdw [r10-712], r1
+077b20  ldxdw r1, [r6+0]
+077b28  stxdw [r10-720], r1
+077b30  mov r1, r10
+077b38  add r1, 4294966576
+077b40  lddw r2, 0x1b5ca8
+077b50  mov r3, 32
+077b58  call 161635
+077b60  lsh r0, 32
+077b68  rsh r0, 32
+077b70  jeq r0, 0, +50
+077b78  mov r1, r10
+077b80  add r1, 4294967256
+077b88  lddw r2, 0x1b5f4c
+077b98  call 114428
+077ba0  stdw [r10-88], 0
+077ba8  stdw [r10-96], 1
+077bb0  stdw [r10-104], 0
+077bb8  lddw r1, 0x1bd838
+077bc8  stxdw [r10-400], r1
+077bd0  mov r1, r10
+077bd8  add r1, 4294967192
+077be0  stxdw [r10-408], r1
+077be8  stb [r10-384], 3
+077bf0  stdw [r10-392], 32
+077bf8  stdw [r10-424], 0
+077c00  stdw [r10-440], 0
+077c08  mov r2, r10
+077c10  add r2, 4294966856
+077c18  lddw r1, 0x1b5f4c
+077c28  call 117835
+077c30  jeq r0, 0, +129
+077c38  mov r3, r10
+077c40  add r3, 4294966424
+077c48  lddw r1, 0x1b5fa4
+077c58  mov r2, 55
+077c60  lddw r4, 0x1bd868
+077c70  lddw r5, 0x1bd888
+077c80  call 158258
+077c88  ldxdw r1, [r10-712]
+077c90  ldxdw r2, [r10-704]
+077c98  ldxdw r3, [r10-696]
+077ca0  stxdw [r10-704], r3
+077ca8  stxdw [r10-712], r2
+077cb0  stxdw [r10-720], r1
+077cb8  mov r1, r10
+077cc0  add r1, 4294966384
+077cc8  mov r2, r10
+077cd0  add r2, 4294966576
+077cd8  call 149467
+077ce0  ldxdw r0, [r10-904]
+077ce8  ldxdw r2, [r10-912]
+077cf0  stxdw [r8+8], r0
+077cf8  stxdw [r8+0], r2
+077d00  exit
+077d08  ldxdw r6, [r9+8]
+077d10  ldxdw r1, [r6+0]
+077d18  add r1, 1
+077d20  mov r2, 1
+077d28  jeq r1, 0, +1
+077d30  mov r2, 0
+077d38  stxdw [r10-1208], r8
+077d40  stxdw [r6+0], r1
+077d48  jne r2, 1, +1
+077d50  call 4294967295
+077d58  ldxdw r8, [r9+16]
+077d60  ldxdw r1, [r8+0]
+077d68  add r1, 1
+077d70  mov r2, 1
+077d78  jeq r1, 0, +1
+077d80  mov r2, 0
+077d88  stxdw [r8+0], r1
+077d90  jne r2, 1, +1
+077d98  ja -10
+077da0  ldxdw r1, [r9+24]
+077da8  ldxdw r2, [r7+8]
+077db0  ldxdw r2, [r2+0]
+077db8  ldxdw r3, [r2+24]
+077dc0  stxdw [r10-696], r3
+077dc8  ldxdw r3, [r2+16]
+077dd0  stxdw [r10-704], r3
+077dd8  ldxdw r3, [r2+8]
+077de0  stxdw [r10-712], r3
+077de8  ldxdw r2, [r2+0]
+077df0  stxdw [r10-720], r2
+077df8  mov r2, r10
+077e00  add r2, 4294966576
+077e08  mov r3, 32
+077e10  call 161548
+077e18  ldxdw r1, [r6+0]
+077e20  add r1, 4294967295
+077e28  stxdw [r6+0], r1
+077e30  jne r1, 0, +3
+077e38  ldxdw r1, [r6+8]
+077e40  add r1, 4294967295
+077e48  stxdw [r6+8], r1
+077e50  ldxdw r1, [r8+0]
+077e58  add r1, 4294967295
+077e60  stxdw [r8+0], r1
+077e68  jne r1, 0, +3
+077e70  ldxdw r1, [r8+8]
+077e78  add r1, 4294967295
+077e80  stxdw [r8+8], r1
+077e88  lsh r0, 32
+077e90  rsh r0, 32
+077e98  jne r0, 0, +80
+077ea0  ldxdw r1, [r7+24]
+077ea8  call 152977
+077eb0  ldxdw r8, [r10-1208]
+077eb8  jne r0, 0, +468
+077ec0  ldxdw r2, [r7+24]
+077ec8  mov r1, r10
+077ed0  add r1, 4294966576
+077ed8  call 153017
+077ee0  ldxdw r6, [r10-704]
+077ee8  ldxdw r1, [r10-712]
+077ef0  ldxdw r2, [r10-720]
+077ef8  lddw r3, 0x800000000000001a
+077f08  jeq r2, r3, +1
+077f10  ja +272
+077f18  ldxdw r2, [r1+0]
+077f20  ldxdw r1, [r1+8]
+077f28  stxdw [r10-432], r1
+077f30  stxdw [r10-440], r2
+077f38  mov r1, r10
+077f40  add r1, 4294966576
+077f48  mov r2, r10
+077f50  add r2, 4294966856
+077f58  call 138222
+077f60  ldxw r1, [r10-584]
+077f68  jeq r1, 2, +1
+077f70  ja +289
+077f78  ldxdw r0, [r10-712]
+077f80  ldxdw r2, [r10-720]
+077f88  ldxdw r3, [r6+0]
+077f90  add r3, 4294967295
+077f98  stxdw [r6+0], r3
+077fa0  ja -87
+077fa8  mov r1, r10
+077fb0  add r1, 4294966576
+077fb8  call 151884
+077fc0  ldxdw r1, [r10-712]
+077fc8  stxdw [r10-896], r1
+077fd0  ldxdw r1, [r10-704]
+077fd8  stxdw [r10-888], r1
+077fe0  ldxdw r1, [r10-696]
+077fe8  stxdw [r10-880], r1
+077ff0  ldxdw r1, [r10-720]
+077ff8  jeq r1, 0, +149
+078000  mov r1, r10
+078008  add r1, 4294966192
+078010  mov r2, r10
+078018  add r2, 4294966400
+078020  call 149362
+078028  ldxdw r0, [r10-1096]
+078030  ldxdw r2, [r10-1104]
+078038  ja -106
+078040  ldxdw r1, [r10-88]
+078048  stxdw [r10-648], r1
+078050  ldxdw r1, [r10-96]
+078058  stxdw [r10-656], r1
+078060  ldxdw r1, [r10-104]
+078068  stxdw [r10-664], r1
+078070  ldxdw r1, [r10-40]
+078078  stxdw [r10-688], r1
+078080  ldxdw r1, [r10-32]
+078088  stxdw [r10-680], r1
+078090  ldxdw r1, [r10-24]
+078098  stxdw [r10-672], r1
+0780a0  lddw r1, 0x1b7064
+0780b0  stxdw [r10-712], r1
+0780b8  stw [r10-568], 6064
+0780c0  stb [r10-640], 2
+0780c8  stw [r10-696], 305
+0780d0  stdw [r10-704], 60
+0780d8  stdw [r10-720], 0
+0780e0  mov r1, r10
+0780e8  add r1, 4294966368
+0780f0  mov r2, r10
+0780f8  add r2, 4294966576
+078100  call 149317
+078108  ldxdw r0, [r10-920]
+078110  ldxdw r2, [r10-928]
+078118  ja -134
+078120  mov r1, r10
+078128  add r1, 4294967256
+078130  lddw r2, 0x1b5f1c
+078140  call 114247
+078148  stdw [r10-88], 0
+078150  stdw [r10-96], 1
+078158  stdw [r10-104], 0
+078160  lddw r1, 0x1bd838
+078170  stxdw [r10-400], r1
+078178  mov r1, r10
+078180  add r1, 4294967192
+078188  stxdw [r10-408], r1
+078190  stb [r10-384], 3
+078198  stdw [r10-392], 32
+0781a0  stdw [r10-424], 0
+0781a8  stdw [r10-440], 0
+0781b0  mov r2, r10
+0781b8  add r2, 4294966856
+0781c0  lddw r1, 0x1b5f1c
+0781d0  call 117654
+0781d8  jeq r0, 0, +1
+0781e0  ja -182
+0781e8  ldxdw r1, [r10-88]
+0781f0  stxdw [r10-648], r1
+0781f8  ldxdw r1, [r10-96]
+078200  stxdw [r10-656], r1
+078208  ldxdw r1, [r10-104]
+078210  stxdw [r10-664], r1
+078218  ldxdw r1, [r10-40]
+078220  stxdw [r10-688], r1
+078228  ldxdw r1, [r10-32]
+078230  stxdw [r10-680], r1
+078238  ldxdw r1, [r10-24]
+078240  stxdw [r10-672], r1
+078248  lddw r1, 0x1b7064
+078258  stxdw [r10-712], r1
+078260  stw [r10-568], 6010
+078268  stb [r10-640], 2
+078270  stw [r10-696], 310
+078278  stdw [r10-704], 60
+078280  stdw [r10-720], 0
+078288  mov r1, r10
+078290  add r1, 4294966352
+078298  mov r2, r10
+0782a0  add r2, 4294966576
+0782a8  call 149264
+0782b0  ldxdw r1, [r7+0]
+0782b8  ldxdw r8, [r1+8]
+0782c0  ldxdw r4, [r8+0]
+0782c8  add r4, 1
+0782d0  mov r5, 1
+0782d8  jeq r4, 0, +1
+0782e0  mov r5, 0
+0782e8  ldxdw r3, [r10-936]
+0782f0  ldxdw r2, [r10-944]
+0782f8  stxdw [r8+0], r4
+078300  jne r5, 1, +1
+078308  ja -184
+078310  ldxdw r9, [r1+16]
+078318  ldxdw r4, [r9+0]
+078320  add r4, 1
+078328  mov r5, 1
+078330  jeq r4, 0, +1
+078338  mov r5, 0
+078340  stxdw [r9+0], r4
+078348  jne r5, 1, +1
+078350  ja -193
+078358  ldxdw r1, [r1+24]
+078360  ldxdw r4, [r1+24]
+078368  stxdw [r10-696], r4
+078370  ldxdw r4, [r1+16]
+078378  stxdw [r10-704], r4
+078380  ldxdw r4, [r1+8]
+078388  stxdw [r10-712], r4
+078390  ldxdw r1, [r1+0]
+078398  stxdw [r10-720], r1
+0783a0  ldxdw r1, [r7+8]
+0783a8  ldxdw r1, [r1+0]
+0783b0  ldxdw r4, [r1+24]
+0783b8  stxdw [r10-664], r4
+0783c0  ldxdw r4, [r1+16]
+0783c8  stxdw [r10-672], r4
+0783d0  ldxdw r4, [r1+8]
+0783d8  stxdw [r10-680], r4
+0783e0  ldxdw r1, [r1+0]
+0783e8  stxdw [r10-688], r1
+0783f0  mov r1, r10
+0783f8  add r1, 4294966336
+078400  mov r4, r10
+078408  add r4, 4294966576
+078410  call 149428
+078418  ldxdw r0, [r10-952]
+078420  ldxdw r2, [r10-960]
+078428  ldxdw r3, [r8+0]
+078430  add r3, 4294967295
+078438  stxdw [r8+0], r3
+078440  jne r3, 0, +3
+078448  ldxdw r3, [r8+8]
+078450  add r3, 4294967295
+078458  stxdw [r8+8], r3
+078460  ldxdw r3, [r9+0]
+078468  add r3, 4294967295
+078470  stxdw [r9+0], r3
+078478  ldxdw r8, [r10-1208]
+078480  jne r3, 0, -243
+078488  ldxdw r3, [r9+8]
+078490  add r3, 4294967295
+078498  stxdw [r9+8], r3
+0784a0  ja -247
+0784a8  ldxdw r1, [r10-880]
+0784b0  stxdw [r10-424], r1
+0784b8  ldxdw r1, [r10-888]
+0784c0  stxdw [r10-432], r1
+0784c8  ldxdw r1, [r10-896]
+0784d0  stxdw [r10-440], r1
+0784d8  ldxdw r2, [r7+56]
+0784e0  ldxdw r1, [r2+8]
+0784e8  ldxdw r4, [r1+0]
+0784f0  add r4, 1
+0784f8  mov r5, 1
+078500  jeq r4, 0, +1
+078508  mov r5, 0
+078510  ldxdw r3, [r2+0]
+078518  stxdw [r1+0], r4
+078520  jne r5, 1, +1
+078528  ja -252
+078530  ldxdw r4, [r2+16]
+078538  ldxdw r5, [r4+0]
+078540  add r5, 1
+078548  mov r0, 1
+078550  jeq r5, 0, +1
+078558  mov r0, 0
+078560  stxdw [r10-1240], r6
+078568  stxdw [r10-1208], r8
+078570  stxdw [r4+0], r5
+078578  jne r0, 1, +1
+078580  ja -263
+078588  ldxdw r5, [r2+24]
+078590  ldxdw r0, [r2+32]
+078598  ldxb r6, [r2+40]
+0785a0  ldxb r8, [r2+41]
+0785a8  ldxb r2, [r2+42]
+0785b0  stxb [r10-678], r2
+0785b8  stxb [r10-679], r8
+0785c0  stxb [r10-680], r6
+0785c8  stxdw [r10-688], r0
+0785d0  stxdw [r10-696], r5
+0785d8  stxdw [r10-704], r4
+0785e0  stxdw [r10-712], r1
+0785e8  stxdw [r10-720], r3
+0785f0  mov r1, r10
+0785f8  add r1, 4294966576
+078600  call 152716
+078608  mov r1, r10
+078610  add r1, 4294966856
+078618  mov r2, r0
+078620  call 151704
+078628  mov r9, r0
+078630  ldxdw r1, [r10-704]
+078638  ldxdw r2, [r10-712]
+078640  ldxdw r3, [r2+0]
+078648  add r3, 4294967295
+078650  stxdw [r2+0], r3
+078658  jne r3, 0, +3
+078660  ldxdw r3, [r2+8]
+078668  add r3, 4294967295
+078670  stxdw [r2+8], r3
+078678  ldxdw r2, [r1+0]
+078680  add r2, 4294967295
+078688  stxdw [r1+0], r2
+078690  ldxdw r8, [r10-1208]
+078698  jne r2, 0, +3
+0786a0  ldxdw r2, [r1+8]
+0786a8  add r2, 4294967295
+0786b0  stxdw [r1+8], r2
+0786b8  ldxdw r1, [r7+56]
+0786c0  call 152677
+0786c8  mov r1, r0
+0786d0  sub r1, r9
+0786d8  mov r6, 0
+0786e0  mov r2, 1
+0786e8  jgt r1, r0, +1
+0786f0  mov r2, 0
+0786f8  jne r2, 0, +1
+078700  mov r6, r1
+078708  jgt r0, r9, +1
+078710  ja +201
+078718  ldxdw r1, [r7+56]
+078720  call 152665
+078728  mov r9, r0
+078730  stxdw [r10-1248], r6
+078738  jge r9, r6, +22
+078740  lddw r1, 0x8000000000000017
+078750  stxdw [r10-720], r1
+078758  mov r1, r10
+078760  add r1, 4294966160
+078768  mov r2, r10
+078770  add r2, 4294966576
+078778  call 149127
+078780  ldxdw r0, [r10-1128]
+078788  ldxdw r2, [r10-1136]
+078790  ja +203
+078798  stxdw [r10-704], r6
+0787a0  stxdw [r10-712], r1
+0787a8  stxdw [r10-720], r2
+0787b0  mov r1, r10
+0787b8  add r1, 4294966320
+0787c0  mov r2, r10
+0787c8  add r2, 4294966576
+0787d0  call 149116
+0787d8  ldxdw r0, [r10-968]
+0787e0  ldxdw r2, [r10-976]
+0787e8  ja -352
+0787f0  ldxdw r2, [r7+56]
+0787f8  mov r1, r10
+078800  add r1, 4294966576
+078808  call 152708
+078810  ldxdw r1, [r10-720]
+078818  lddw r2, 0x800000000000001a
+078828  jne r1, r2, +172
+078830  sub r9, r6
+078838  ldxdw r1, [r10-704]
+078840  ldxdw r2, [r10-712]
+078848  ldxdw r2, [r2+0]
+078850  stxdw [r2+0], r9
+078858  ldxdw r2, [r1+0]
+078860  add r2, 1
+078868  stxdw [r1+0], r2
+078870  ldxdw r1, [r10-1216]
+078878  ja +176
+078880  ldxdw r2, [r10-656]
+078888  ldxdw r1, [r6+0]
+078890  add r1, 4294967295
+078898  stxdw [r6+0], r1
+0788a0  mov r6, r2
+0788a8  jeq r6, 0, +150
+0788b0  ldxdw r2, [r7+32]
+0788b8  mov r1, r10
+0788c0  add r1, 4294966576
+0788c8  call 4294914165
+0788d0  ldxdw r1, [r10-696]
+0788d8  ldxdw r2, [r7+8]
+0788e0  ldxdw r2, [r2+0]
+0788e8  ldxdw r3, [r2+24]
+0788f0  stxdw [r10-416], r3
+0788f8  ldxdw r3, [r2+16]
+078900  stxdw [r10-424], r3
+078908  ldxdw r3, [r2+8]
+078910  stxdw [r10-432], r3
+078918  ldxdw r2, [r2+0]
+078920  stxdw [r10-440], r2
+078928  mov r2, r10
+078930  add r2, 4294966856
+078938  mov r3, 32
+078940  call 161190
+078948  ldxdw r1, [r10-704]
+078950  ldxdw r2, [r10-712]
+078958  ldxdw r3, [r2+0]
+078960  add r3, 4294967295
+078968  stxdw [r2+0], r3
+078970  jne r3, 0, +3
+078978  ldxdw r3, [r2+8]
+078980  add r3, 4294967295
+078988  stxdw [r2+8], r3
+078990  ldxdw r2, [r1+0]
+078998  add r2, 4294967295
+0789a0  stxdw [r1+0], r2
+0789a8  jne r2, 0, +3
+0789b0  ldxdw r2, [r1+8]
+0789b8  add r2, 4294967295
+0789c0  stxdw [r1+8], r2
+0789c8  lsh r0, 32
+0789d0  rsh r0, 32
+0789d8  jne r0, 0, +367
+0789e0  stxdw [r10-1248], r6
+0789e8  ldxdw r2, [r7+32]
+0789f0  mov r1, r10
+0789f8  add r1, 4294966576
+078a00  call 152660
+078a08  ldxdw r6, [r10-704]
+078a10  ldxdw r1, [r10-712]
+078a18  ldxdw r2, [r10-720]
+078a20  lddw r3, 0x800000000000001a
+078a30  jeq r2, r3, +1
+078a38  ja +427
+078a40  ldxdw r2, [r1+0]
+078a48  ldxdw r1, [r1+8]
+078a50  stxdw [r10-432], r1
+078a58  stxdw [r10-440], r2
+078a60  mov r1, r10
+078a68  add r1, 4294966576
+078a70  mov r2, r10
+078a78  add r2, 4294966856
+078a80  call 137865
+078a88  ldxw r1, [r10-584]
+078a90  ldxdw r8, [r10-1208]
+078a98  jeq r1, 2, -357
+078aa0  mov r1, r10
+078aa8  add r1, 4294966456
+078ab0  mov r2, r10
+078ab8  add r2, 4294966592
+078ac0  mov r3, 120
+078ac8  call 161128
+078ad0  ldxdw r1, [r10-824]
+078ad8  stxdw [r10-872], r1
+078ae0  ldxdw r1, [r10-816]
+078ae8  stxdw [r10-864], r1
+078af0  ldxdw r1, [r10-808]
+078af8  stxdw [r10-856], r1
+078b00  ldxdw r1, [r10-800]
+078b08  stxdw [r10-848], r1
+078b10  ldxdw r1, [r6+0]
+078b18  add r1, 4294967295
+078b20  stxdw [r6+0], r1
+078b28  ldxdw r9, [r10-1216]
+078b30  ldxdw r1, [r9+0]
+078b38  ldxdw r2, [r1+24]
+078b40  stxdw [r10-696], r2
+078b48  ldxdw r2, [r1+16]
+078b50  stxdw [r10-704], r2
+078b58  ldxdw r2, [r1+8]
+078b60  stxdw [r10-712], r2
+078b68  ldxdw r1, [r1+0]
+078b70  stxdw [r10-720], r1
+078b78  mov r1, r10
+078b80  add r1, 4294966424
+078b88  mov r2, r10
+078b90  add r2, 4294966576
+078b98  mov r3, 32
+078ba0  call 161114
+078ba8  lsh r0, 32
+078bb0  rsh r0, 32
+078bb8  jeq r0, 0, +391
+078bc0  mov r6, r10
+078bc8  add r6, 4294966472
+078bd0  mov r1, r10
+078bd8  add r1, 4294966608
+078be0  lddw r2, 0x1b5e88
+078bf0  call 113905
+078bf8  mov r1, r10
+078c00  add r1, 4294966632
+078c08  lddw r2, 0x1b5e88
+078c18  call 4294910883
+078c20  lddw r1, 0x1b7064
+078c30  stxdw [r10-712], r1
+078c38  stb [r10-640], 2
+078c40  stw [r10-696], 342
+078c48  stdw [r10-704], 60
+078c50  stdw [r10-720], 0
+078c58  stw [r10-568], 6076
+078c60  mov r1, r10
+078c68  add r1, 4294966256
+078c70  mov r2, r10
+078c78  add r2, 4294966576
+078c80  call 148949
+078c88  ldxdw r3, [r10-1032]
+078c90  ldxdw r2, [r10-1040]
+078c98  ldxdw r1, [r6+24]
+078ca0  stxdw [r10-696], r1
+078ca8  ldxdw r1, [r6+16]
+078cb0  stxdw [r10-704], r1
+078cb8  ldxdw r1, [r6+8]
+078cc0  stxdw [r10-712], r1
+078cc8  ldxdw r1, [r6+0]
+078cd0  stxdw [r10-720], r1
+078cd8  ldxdw r1, [r9+0]
+078ce0  ldxdw r4, [r1+8]
+078ce8  stxdw [r10-680], r4
+078cf0  ldxdw r4, [r1+16]
+078cf8  stxdw [r10-672], r4
+078d00  ldxdw r4, [r1+24]
+078d08  stxdw [r10-664], r4
+078d10  ldxdw r1, [r1+0]
+078d18  stxdw [r10-688], r1
+078d20  mov r1, r10
+078d28  add r1, 4294966240
+078d30  mov r4, r10
+078d38  add r4, 4294966576
+078d40  call 149134
+078d48  ldxdw r0, [r10-1048]
+078d50  ldxdw r2, [r10-1056]
+078d58  ja -526
+078d60  lddw r1, 0x1b7050
+078d70  mov r2, 20
+078d78  call 4294967295
+078d80  mov r2, 2
+078d88  ja -532
+078d90  ldxdw r2, [r10-712]
+078d98  ldxdw r3, [r10-704]
+078da0  stxdw [r10-704], r3
+078da8  stxdw [r10-712], r2
+078db0  stxdw [r10-720], r1
+078db8  mov r1, r10
+078dc0  add r1, 4294966176
+078dc8  mov r2, r10
+078dd0  add r2, 4294966576
+078dd8  call 148923
+078de0  ldxdw r0, [r10-1112]
+078de8  ldxdw r2, [r10-1120]
+078df0  ldxdw r1, [r10-1216]
+078df8  jne r2, 2, -546
+078e00  call 152445
+078e08  mov r6, r0
+078e10  ldxdw r1, [r10-1248]
+078e18  add r6, r1
+078e20  mov r1, 1
+078e28  jlt r6, r0, +1
+078e30  mov r1, 0
+078e38  and r1, 1
+078e40  jne r1, 0, +17
+078e48  mov r1, r10
+078e50  add r1, 4294966576
+078e58  ldxdw r2, [r10-1216]
+078e60  call 152505
+078e68  ldxdw r1, [r10-704]
+078e70  ldxdw r2, [r10-712]
+078e78  ldxdw r3, [r10-720]
+078e80  lddw r4, 0x800000000000001a
+078e90  jeq r3, r4, +1
+078e98  ja +18
+078ea0  ldxdw r2, [r2+0]
+078ea8  stxdw [r2+0], r6
+078eb0  ldxdw r2, [r1+0]
+078eb8  add r2, 1
+078ec0  stxdw [r1+0], r2
+078ec8  ja +24
+078ed0  lddw r1, 0x8000000000000017
+078ee0  stxdw [r10-720], r1
+078ee8  mov r1, r10
+078ef0  add r1, 4294966128
+078ef8  mov r2, r10
+078f00  add r2, 4294966576
+078f08  call 148885
+078f10  ldxdw r0, [r10-1160]
+078f18  ldxdw r2, [r10-1168]
+078f20  jeq r2, 2, +13
+078f28  ja -584
+078f30  stxdw [r10-704], r1
+078f38  stxdw [r10-712], r2
+078f40  stxdw [r10-720], r3
+078f48  mov r1, r10
+078f50  add r1, 4294966144
+078f58  mov r2, r10
+078f60  add r2, 4294966576
+078f68  call 148873
+078f70  ldxdw r0, [r10-1144]
+078f78  ldxdw r2, [r10-1152]
+078f80  jeq r2, 2, +1
+078f88  ja -596
+078f90  stxdw [r10-1208], r8
+078f98  ldxdw r1, [r10-1232]
+078fa0  lsh r1, 32
+078fa8  rsh r1, 32
+078fb0  mov r4, 1
+078fb8  jeq r1, 0, +1
+078fc0  mov r4, 0
+078fc8  mov r2, r7
+078fd0  add r2, 64
+078fd8  mov r1, r10
+078fe0  add r1, 4294966112
+078fe8  ldxdw r8, [r10-1248]
+078ff0  mov r3, r8
+078ff8  call 1496
+079000  ldxdw r1, [r7+136]
+079008  ldxdw r2, [r7+128]
+079010  ldxdw r3, [r7+168]
+079018  ldxdw r4, [r3+24]
+079020  stxdw [r10-416], r4
+079028  ldxdw r4, [r3+16]
+079030  stxdw [r10-424], r4
+079038  ldxdw r4, [r3+8]
+079040  stxdw [r10-432], r4
+079048  ldxdw r3, [r3+0]
+079050  stxdw [r10-440], r3
+079058  stxdw [r10-384], r2
+079060  stxdw [r10-392], r1
+079068  ldxdw r1, [r10-1224]
+079070  stxdw [r10-400], r1
+079078  stxdw [r10-408], r8
+079080  mov r1, r10
+079088  add r1, 4294966576
+079090  mov r9, r10
+079098  add r9, 4294966856
+0790a0  mov r2, r9
+0790a8  call 66636
+0790b0  ldxdw r1, [r10-704]
+0790b8  stxdw [r10-96], r1
+0790c0  ldxdw r1, [r10-712]
+0790c8  stxdw [r10-104], r1
+0790d0  mov r1, r10
+0790d8  add r1, 4294967192
+0790e0  mov r2, 1
+0790e8  call 151169
+0790f0  add r7, 216
+0790f8  mov r6, r10
+079100  add r6, 4294967048
+079108  mov r1, r6
+079110  mov r2, r7
+079118  call 4294913899
+079120  ldxdw r1, [r10-1240]
+079128  ldxb r1, [r1+34]
+079130  stxdw [r10-1216], r1
+079138  mov r1, r10
+079140  add r1, 4294967096
+079148  mov r2, r9
+079150  call 66615
+079158  lddw r1, 0x1b64bf
+079168  lddw r2, 0x1b64bf
+079178  add r2, 8
+079180  stxdw [r10-136], r2
+079188  stxdw [r10-144], r1
+079190  ldxdw r1, [r10-200]
+079198  stxdw [r10-160], r1
+0791a0  ldxdw r1, [r10-192]
+0791a8  stxdw [r10-168], r1
+0791b0  stxdw [r10-176], r1
+0791b8  ldxdw r2, [r10-184]
+0791c0  add r1, r2
+0791c8  stxdw [r10-152], r1
+0791d0  mov r1, r10
+0791d8  add r1, 4294966424
+0791e0  mov r2, r10
+0791e8  add r2, 4294967120
+0791f0  call 4294914846
+0791f8  ldxdw r8, [r10-864]
+079200  ldxdw r9, [r10-856]
+079208  mov r1, 34
+079210  mov r2, 1
+079218  call 4294912084
+079220  ldxdw r1, [r10-248]
+079228  ldxdw r2, [r1+24]
+079230  ldxdw r3, [r1+16]
+079238  ldxdw r4, [r1+8]
+079240  ldxdw r1, [r1+0]
+079248  stxdw [r0+0], r1
+079250  stxdw [r0+8], r4
+079258  stxdw [r0+16], r3
+079260  stxdw [r0+24], r2
+079268  sth [r0+32], 1
+079270  stxdw [r10-96], r0
+079278  stdw [r10-104], 1
+079280  stdw [r10-88], 1
+079288  mov r7, r10
+079290  add r7, 4294966576
+079298  mov r5, r10
+0792a0  add r5, 4294967192
+0792a8  mov r1, r7
+0792b0  lddw r2, 0x1b79df
+0792c0  mov r3, r8
+0792c8  mov r4, r9
+0792d0  call 154817
+0792d8  mov r8, r10
+0792e0  add r8, 4294967192
+0792e8  mov r1, r8
+0792f0  mov r2, r6
+0792f8  mov r3, 48
+079300  call 160865
+079308  mov r1, r10
+079310  add r1, 4294967256
+079318  stxdw [r10-56], r1
+079320  mov r1, r10
+079328  add r1, 4294967295
+079330  stxdw [r10-24], r1
+079338  lddw r1, 0x1b6807
+079348  stxdw [r10-40], r1
+079350  ldxdw r1, [r10-1216]
+079358  stxb [r10-1], r1
+079360  stdw [r10-48], 2
+079368  stdw [r10-16], 1
+079370  stdw [r10-32], 17
+079378  mov r1, r10
+079380  add r1, 4294967240
+079388  stxdw [r10-4096], r1
+079390  stdw [r10-4088], 1
+079398  mov r1, r10
+0793a0  add r1, 4294967168
+0793a8  mov r5, r10
+0793b0  mov r2, r7
+0793b8  mov r3, r8
+0793c0  mov r4, 1
+0793c8  call 151084
+0793d0  lddw r1, 0x800000000000001a
+0793e0  ldxdw r2, [r10-128]
+0793e8  jeq r2, r1, +1
+0793f0  ja +19
+0793f8  ldxdw r1, [r10-88]
+079400  ldxdw r2, [r10-96]
+079408  ldxdw r3, [r2+0]
+079410  add r3, 4294967295
+079418  stxdw [r2+0], r3
+079420  jne r3, 0, +3
+079428  ldxdw r3, [r2+8]
+079430  add r3, 4294967295
+079438  stxdw [r2+8], r3
+079440  ldxdw r2, [r1+0]
+079448  add r2, 4294967295
+079450  stxdw [r1+0], r2
+079458  ldxdw r8, [r10-1208]
+079460  jne r2, 0, +3
+079468  ldxdw r2, [r1+8]
+079470  add r2, 4294967295
+079478  stxdw [r1+8], r2
+079480  mov r2, 2
+079488  ja -756
+079490  mov r1, r10
+079498  add r1, 4294966096
+0794a0  mov r2, r10
+0794a8  add r2, 4294967168
+0794b0  call 148704
+0794b8  ldxdw r3, [r10-88]
+0794c0  ldxdw r0, [r10-1192]
+0794c8  ldxdw r2, [r10-1200]
+0794d0  ldxdw r4, [r10-96]
+0794d8  ldxdw r5, [r4+0]
+0794e0  add r5, 4294967295
+0794e8  stxdw [r4+0], r5
+0794f0  jne r5, 0, +3
+0794f8  ldxdw r5, [r4+8]
+079500  add r5, 4294967295
+079508  stxdw [r4+8], r5
+079510  ldxdw r4, [r3+0]
+079518  add r4, 4294967295
+079520  stxdw [r3+0], r4
+079528  ldxdw r8, [r10-1208]
+079530  jne r4, 0, -777
+079538  ldxdw r4, [r3+8]
+079540  add r4, 4294967295
+079548  stxdw [r3+8], r4
+079550  ja -781
+079558  mov r1, r10
+079560  add r1, 4294966608
+079568  lddw r2, 0x1b5f1c
+079578  call 113600
+079580  mov r1, r10
+079588  add r1, 4294966632
+079590  lddw r2, 0x1b5f1c
+0795a0  call 4294910578
+0795a8  lddw r1, 0x1b7064
+0795b8  stxdw [r10-712], r1
+0795c0  stb [r10-640], 2
+0795c8  stw [r10-696], 333
+0795d0  stdw [r10-704], 60
+0795d8  stdw [r10-720], 0
+0795e0  stw [r10-568], 6010
+0795e8  mov r1, r10
+0795f0  add r1, 4294966304
+0795f8  mov r2, r10
+079600  add r2, 4294966576
+079608  call 148644
+079610  ldxdw r8, [r10-984]
+079618  ldxdw r9, [r10-992]
+079620  ldxdw r2, [r7+32]
+079628  mov r1, r10
+079630  add r1, 4294966856
+079638  call 4294913735
+079640  ldxdw r1, [r10-416]
+079648  ldxdw r2, [r1+0]
+079650  stxdw [r10-720], r2
+079658  ldxdw r2, [r1+8]
+079660  stxdw [r10-712], r2
+079668  ldxdw r2, [r1+16]
+079670  stxdw [r10-704], r2
+079678  ldxdw r1, [r1+24]
+079680  stxdw [r10-696], r1
+079688  ldxdw r1, [r7+8]
+079690  ldxdw r1, [r1+0]
+079698  ldxdw r2, [r1+24]
+0796a0  stxdw [r10-664], r2
+0796a8  ldxdw r2, [r1+16]
+0796b0  stxdw [r10-672], r2
+0796b8  ldxdw r2, [r1+8]
+0796c0  stxdw [r10-680], r2
+0796c8  ldxdw r1, [r1+0]
+0796d0  stxdw [r10-688], r1
+0796d8  mov r1, r10
+0796e0  add r1, 4294966288
+0796e8  mov r4, r10
+0796f0  add r4, 4294966576
+0796f8  mov r2, r9
+079700  mov r3, r8
+079708  call 148821
+079710  ldxdw r3, [r10-424]
+079718  ldxdw r0, [r10-1000]
+079720  ldxdw r2, [r10-1008]
+079728  ldxdw r4, [r10-432]
+079730  ldxdw r5, [r4+0]
+079738  add r5, 4294967295
+079740  stxdw [r4+0], r5
+079748  jne r5, 0, +3
+079750  ldxdw r5, [r4+8]
+079758  add r5, 4294967295
+079760  stxdw [r4+8], r5
+079768  ldxdw r4, [r3+0]
+079770  add r4, 4294967295
+079778  stxdw [r3+0], r4
+079780  ldxdw r8, [r10-1208]
+079788  jne r4, 0, -852
+079790  ja -76
+079798  stxdw [r10-704], r6
+0797a0  stxdw [r10-712], r1
+0797a8  stxdw [r10-720], r2
+0797b0  mov r1, r10
+0797b8  add r1, 4294966272
+0797c0  mov r2, r10
+0797c8  add r2, 4294966576
+0797d0  call 148604
+0797d8  ldxdw r0, [r10-1016]
+0797e0  ldxdw r2, [r10-1024]
+0797e8  ldxdw r8, [r10-1208]
+0797f0  ja -865
+0797f8  ldxdw r2, [r7+0]
+079800  mov r1, r10
+079808  add r1, 4294966576
+079810  call 152210
+079818  ldxdw r6, [r10-704]
+079820  ldxdw r1, [r10-712]
+079828  ldxdw r2, [r10-720]
+079830  lddw r3, 0x800000000000001a
+079840  jeq r2, r3, +1
+079848  ja +19
+079850  ldxdw r2, [r1+0]
+079858  ldxdw r1, [r1+8]
+079860  stxdw [r10-432], r1
+079868  stxdw [r10-440], r2
+079870  mov r1, r10
+079878  add r1, 4294966576
+079880  mov r2, r10
+079888  add r2, 4294966856
+079890  call 137547
+079898  ldxw r1, [r10-720]
+0798a0  jeq r1, 2, +1
+0798a8  ja +18
+0798b0  ldxdw r0, [r10-704]
+0798b8  ldxdw r2, [r10-712]
+0798c0  ldxdw r3, [r6+0]
+0798c8  add r3, 4294967295
+0798d0  stxdw [r6+0], r3
+0798d8  ldxdw r8, [r10-1208]
+0798e0  ja -895
+0798e8  stxdw [r10-704], r6
+0798f0  stxdw [r10-712], r1
+0798f8  stxdw [r10-720], r2
+079900  mov r1, r10
+079908  add r1, 4294966224
+079910  mov r2, r10
+079918  add r2, 4294966576
+079920  call 148562
+079928  ldxdw r0, [r10-1064]
+079930  ldxdw r2, [r10-1072]
+079938  ja -906
+079940  ldxb r8, [r10-672]
+079948  ldxdw r1, [r6+0]
+079950  add r1, 4294967295
+079958  stxdw [r6+0], r1
+079960  ldxdw r1, [r7+168]
+079968  ldxdw r2, [r1+24]
+079970  stxdw [r10-16], r2
+079978  ldxdw r2, [r1+16]
+079980  stxdw [r10-24], r2
+079988  ldxdw r2, [r1+8]
+079990  stxdw [r10-32], r2
+079998  ldxdw r1, [r1+0]
+0799a0  stxdw [r10-40], r1
+0799a8  ldxdw r1, [r10-1240]
+0799b0  ldxb r1, [r1+32]
+0799b8  mov r2, r10
+0799c0  add r2, 4294967192
+0799c8  stxdw [r10-56], r2
+0799d0  mov r2, r10
+0799d8  add r2, 4294967295
+0799e0  stxdw [r10-72], r2
+0799e8  mov r2, r10
+0799f0  add r2, 4294967256
+0799f8  stxdw [r10-88], r2
+079a00  lddw r2, 0x1b6f73
+079a10  stxdw [r10-104], r2
+079a18  stxb [r10-1], r1
+079a20  stdw [r10-48], 3
+079a28  stdw [r10-64], 1
+079a30  stdw [r10-80], 32
+079a38  stdw [r10-96], 23
+079a40  ldxdw r2, [r7+8]
+079a48  mov r1, r10
+079a50  add r1, 4294966600
+079a58  call 4294913603
+079a60  ldxdw r2, [r7+24]
+079a68  mov r9, r10
+079a70  add r9, 4294966856
+079a78  mov r1, r9
+079a80  call 4294913598
+079a88  ldxdw r2, [r7+0]
+079a90  mov r1, r10
+079a98  add r1, 4294966904
+079aa0  call 4294913594
+079aa8  ldxdw r2, [r7+32]
+079ab0  mov r1, r10
+079ab8  add r1, 4294966952
+079ac0  call 4294913590
+079ac8  ldxdw r2, [r7+56]
+079ad0  mov r1, r10
+079ad8  add r1, 4294967000
+079ae0  call 4294913586
+079ae8  mov r1, r10
+079af0  add r1, 4294966648
+079af8  mov r2, r9
+079b00  mov r3, 192
+079b08  call 160608
+079b10  mov r1, r10
+079b18  add r1, 4294967240
+079b20  stxdw [r10-456], r1
+079b28  stdw [r10-448], 1
+079b30  stdw [r10-704], 0
+079b38  stdw [r10-712], 8
+079b40  stdw [r10-720], 0
+079b48  mov r1, r10
+079b50  add r1, 4294966208
+079b58  mov r2, r10
+079b60  add r2, 4294966576
+079b68  ldxdw r3, [r10-1248]
+079b70  mov r4, r8
+079b78  call 134185
+079b80  ldxdw r2, [r10-1088]
+079b88  jeq r2, 2, +1
+079b90  ja +2
+079b98  ldxdw r8, [r10-1208]
+079ba0  ja -387
+079ba8  ldxdw r0, [r10-1080]
+079bb0  ldxdw r8, [r10-1208]
+079bb8  ja -986

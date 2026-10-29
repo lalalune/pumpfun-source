@@ -1,0 +1,31 @@
+{
+  "lane": "w3-buyhandler",
+  "base": "origin/main 665499915 (1022 normalized / 276 raw)",
+  "targets": {"0x13b9b8 buy_v2::buy_handler": {"before": {"bytes": 15488, "ratio": 0.95334, "llc_dist": 72}, "after": {"bytes": 15512, "ratio": 0.97682, "llc_dist": 50}, "original_bytes": 15480}},
+  "side_effects": {"0x13f630 buy_exact_quote_in_handler": "0.97829 -> 0.99392 (llc dist 19)", "0x144508 sell_v2": "0.95152 -> 0.96294"},
+  "official": {"normalized": 1022, "raw": 276, "gains": [], "losses": []},
+  "unstripped_sha256": "23aa203f24583bb4d8de58e0bdcd50cc9e0c9b512b49f8e417968227b2a7310a",
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/1412",
+  "mechanisms_kept": [
+    "let whitelisted=a.global.whitelist_pda==a.user.key(); bound before the fee tuple (f24ce58f)",
+    "v2 ensure_rent_exempt: if _size != 0 { unsafe { core::hint::unreachable_unchecked() } } keeps _size live through DeadArgElim, so callers emit mov r2,0 as the original does (c948be9c). REVIEW: uses unsafe",
+    "complete_and_prepare ends prepare_bonding_curve(..)?;Ok(()) (3a49f3ef)"
+  ],
+  "attempts": 60,
+  "rejected": [
+    "fee tuple: ? inside else arm (vA), != arms swapped (vD, identical), Ok(Default::default()), map identity, typed Ok",
+    "add-chain helper fn / IIFE closure / bound total (t1-t6 total_cost variants): closure windows lost or tag retests",
+    "TradeEvent emit_cpi in helper (h1-h3): helper-scoped lifetime markers shrink the frame",
+    "v2 program fns #[inline(never)] with handlers #[inline(always)] on r1: 0.96761",
+    "quote_mint respellings (new_from_array, block expr: identical; [u8;32]: worse)",
+    "Complete-if spellings (!= else, match 0, bound bool)",
+    "caller tail-call + helper prepare spellings (t1-t16): either identity-folded or an extra drop_in_place<Result> call"
+  ],
+  "unresolved_residuals": ["checked-add overflow block order (trade_fees Err block position)", "Complete if branch sense", "terminal prepare test / CompleteEvent CPI Err retest", "quote_mint scalar copy order", "whitelisted zero phi-copy order", "two spill-slot swaps"],
+  "next_ideas": [
+    "Find a spelling that makes rustc create the trade_fees Err block after the add chain, or an LLVM-inlined add-chain helper whose closure errors need no retest",
+    "Caller tail form (t1) plus a prepare spelling that creates the Err arm first without leaving drop_in_place<Result<(),Error>> (check whether the original binary has that shim)",
+    "quote_mint: find a source temp that SROA splits into i64 pieces (the same fix applies to all three v2 handlers)",
+    "Have the coordinator rule on the unsafe unreachable_unchecked hint versus a separate path crate"
+  ]
+}

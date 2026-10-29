@@ -1,5 +1,5 @@
-#[path = "fee_recipient.rs"]
-pub(crate) mod fee_recipient;
+pub(crate) use crate::fee_recipient;
+
 use anchor_lang::prelude::*;
 use anchor_spl::token_interface::{self,Mint,TokenAccount,TokenInterface,TransferChecked};
 use crate::{Global,PumpError};
@@ -17,10 +17,10 @@ pub use crate::pump_fees::{
 };
 
 fn process_cashback_inner<'info>(
-    remaining_accounts: &'info [AccountInfo<'info>], user: &AccountInfo<'info>, system_program: &AccountInfo<'info>,
+    remaining_accounts: &'info [AccountInfo<'info>], user: &Signer<'info>, system_program: &AccountInfo<'info>,
     bonding_curve: &Account<'info, BondingCurve>, amount: u64, mint: &Pubkey,
 ) -> Result<()> {
-    let user_volume_accumulator = remaining_accounts.first().ok_or_else(|| error!(PumpError::MissingCashbackAccounts))?;
+    let Some(user_volume_accumulator) = remaining_accounts.first() else { return err!(PumpError::MissingCashbackAccounts) };
     let user_key = user.key();
     let (expected, bump) = Pubkey::find_program_address(&[b"user_volume_accumulator", user_key.as_ref()], &crate::ID);
 // layout-pad(7): aligns the next Source site with the original line
@@ -41,7 +41,7 @@ fn process_cashback_inner<'info>(
             anchor_lang::system_program::transfer(
                 CpiContext::new(
                     system_program.clone(),
-                    anchor_lang::system_program::Transfer { from: user.clone(), to: user_volume_accumulator.clone() },
+                    anchor_lang::system_program::Transfer { from: user.to_account_info(), to: user_volume_accumulator.clone() },
                 ),
                 required_lamports,
             )?;
@@ -78,13 +78,13 @@ fn process_cashback_inner<'info>(
 
     } else {
         // An existing accumulator must already be owned by this program and carry its discriminator.
-        require!(user_volume_accumulator.owner == &crate::ID, PumpError::InvalidCashbackAccumulator);
+        if user_volume_accumulator.owner != &crate::ID { return err!(PumpError::InvalidCashbackAccumulator); }
         let data = user_volume_accumulator.try_borrow_data()?;
 // layout-pad(2): aligns the next Source site with the original line
 
         if data.len() < 8 || &data[..8] != crate::UserVolumeAccumulator::DISCRIMINATOR { return err!(PumpError::InvalidCashbackAccumulator); }
     }
-    crate::trade::quote_payments::transfer_native(bonding_curve, user_volume_accumulator, amount)?;
+    crate::trade::quote_payments::pay_out_native(bonding_curve, user_volume_accumulator, amount)?;
     let mut user_volume_accumulator = Account::<crate::UserVolumeAccumulator>::try_from(user_volume_accumulator)?;
     if user_volume_accumulator.user == Pubkey::default() {
         user_volume_accumulator.user = user_key;
@@ -114,14 +114,14 @@ fn process_cashback_inner<'info>(
     require!(bonding_curve_v2.key() == expected, PumpError::InvalidBondingCurveV2);
     Ok(())
 }
-#[derive(Accounts)]
-pub struct LegacySell<'info>{
- #[account(seeds=[b"global"],bump)]pub global:Box<Account<'info,Global>>,#[doc="CHECK: handler validates recipient."]#[account(mut)]pub fee_recipient:UncheckedAccount<'info>,pub mint:InterfaceAccount<'info,Mint>,#[account(mut,seeds=[b"bonding-curve",mint.key().as_ref()],bump,constraint=bonding_curve.quote_mint==Pubkey::default() @ PumpError::UnsupportedQuoteMint)]pub bonding_curve:Account<'info,BondingCurve>,
- #[account(mut,associated_token::mint=mint,associated_token::authority=bonding_curve,associated_token::token_program=token_program)]pub associated_bonding_curve:InterfaceAccount<'info,TokenAccount>,#[account(mut,token::mint=mint)]pub associated_user:InterfaceAccount<'info,TokenAccount>,#[account(mut)]pub user:Signer<'info>,pub system_program:Program<'info,System>,#[doc="CHECK: PDA checked."]#[account(mut,seeds=[b"creator-vault",bonding_curve.creator.as_ref()],bump)]pub creator_vault:AccountInfo<'info>,pub token_program:Interface<'info,TokenInterface>,
- #[doc="CHECK: event authority."]#[account(seeds=[b"__event_authority"],bump)]pub event_authority:AccountInfo<'info>,#[doc="CHECK: self CPI."]pub program:Program<'info,crate::program::PumpRecovered>,#[doc="CHECK: fee program validates config."]#[account(seeds=[b"fee_config",crate::ID.as_ref()],bump,seeds::program=fee_program.key())]pub fee_config:Account<'info,LegacyFeeConfig>,#[doc="CHECK: canonical dependency."]pub fee_program:Program<'info,LegacyFeesProgram>,
-}
+pub use crate::LegacySell;
+
+
+
+
+
 pub(crate) fn add(a:u64,b:u64)->Result<u64>{a.checked_add(b).ok_or_else(||error!(PumpError::Overflow))}pub(crate) fn sub(a:u64,b:u64)->Result<u64>{a.checked_sub(b).ok_or_else(||error!(PumpError::Overflow))}pub(crate) fn narrow(a:u128)->Result<u64>{u64::try_from(a).map_err(|_|error!(PumpError::Truncation))}
-#[path="fee_cpi.rs"] pub(crate) mod fee_cpi; #[path="util/fee.rs"] pub mod fee_math;
+#[path="fee_cpi.rs"] pub(crate) mod fee_cpi; pub use crate::fee_math;
 pub fn check_bonding_curve_v2<'info>(remaining_accounts:&[AccountInfo<'info>],mint:&Pubkey)->Result<()>{
     require!(!remaining_accounts.is_empty(),PumpError::InvalidBondingCurveV2);let bonding_curve_v2=&remaining_accounts[0];
     let (expected,_)=Pubkey::find_program_address(&[b"bonding-curve-v2",mint.as_ref()],&crate::ID);
@@ -149,10 +149,10 @@ pub fn buyback_fee_recipient<'a,'info>(remaining_accounts:&'a [AccountInfo<'info
 
 // Evaluate the borrowed mint key before coercing the user and system accounts.
 #[inline(always)]
-pub fn process_cashback<'info>(
+pub(crate) fn process_cashback<'info>(
     remaining_accounts: &'info [AccountInfo<'info>],
     mint: &Pubkey,
-    user: &AccountInfo<'info>,
+    user: &Signer<'info>,
     system_program: &AccountInfo<'info>,
     bonding_curve: &Account<'info, BondingCurve>,
     amount: u64,

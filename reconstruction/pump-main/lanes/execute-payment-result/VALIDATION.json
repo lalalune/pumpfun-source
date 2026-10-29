@@ -1,0 +1,40 @@
+{
+  "base_revision": "b08fd908203a76d84c8dd68b60310582aa2c4fba",
+  "model": "GPT-6 Astra (operator-reported)",
+  "recipe": "identity",
+  "triple": "sbpf-solana-solana",
+  "stack_warnings": [],
+  "repeated_build_identical": true,
+  "candidate_unstripped_sha256": "735c63ef6c361e8c548c333ae5d25a85e13d4460ad2fb5c534dd678e7c9ca9c2",
+  "images": {
+    "candidate": "603816ce481941d940d84a17ece3792ba58e7a0d158fb4733c39fbc7daa80214",
+    "control": "acf7932d5d5e92bb522fd296f665aaeb1dc701cf6d7d80d8ceb75f7c64465cec",
+    "original": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+  },
+  "case_count": 255,
+  "differences": [],
+  "regressions": [],
+  "runtime_python": "3.12",
+  "solders": "0.27.1",
+  "source_inputs": {
+    "scripts/pump_trade_fixture.py": "9ee647c928070734fe700929b87d4016f76ec244c873e6f484318b5212aea1e1",
+    "scripts/pump_v3_configured_fee_differential.py": "1c8af93c3d24d0c497b551391b0144f043d604766d9b12810f7c0b4a229c3b22"
+  },
+  "program_source_sha256": "a8bfbac75a28ab0a44ab21b3f3c5a25f7f909d1b9b02cf87c0816546b92959b0",
+  "fixture_origin": {
+    "pr": 1292,
+    "revision": "4a8336358fd5d2fd00257ef5523202222d6c8cc5",
+    "path": "reconstruction/pump-main/lanes/v3-sell-payment-layout/fixture.json.gz"
+  },
+  "packet": {
+    "fixture.json.gz": "5115eacfe57da02ec2c2a882730c58fd07ecea28241db2563257f8ff0af231fd",
+    "TRIALS.json": "71d8346ae747199dec471567e08434eeeeb6c3fcf4be3fec82346988431a1a13",
+    "baseline-memberships.json": "ee7b3bab49f800ee204e2c507bd3d75dae542c4766af2dd3aac5954bd40ce0de",
+    "runtime.json.gz": "44f0a224969a050c34a504ad8b6626070479cd1af36bc5489f48b489cc7a2e16",
+    "replay.py": "ea7da4d83a66b01e33ae7e7df3e000f19a32247fd368f603e12f0774953dd1b1",
+    "candidate-memberships.json": "ee7b3bab49f800ee204e2c507bd3d75dae542c4766af2dd3aac5954bd40ce0de",
+    "NOTES.md": "94f98ad1d0682f2dc367a7ac7672955fed09a8e33c8bb72534dd0caf0c760b28",
+    "call-audit.json": "811b40553b76bc68e6ce86a6e5ad586323d341252ee8a867bc1783cb9a3092d0"
+  },
+  "historical_packet_note": "Earlier measurements preserved. Presentation metadata marks the no-loss integration as superseding standalone-patch recommendations; old source results are not current-head validation."
+}

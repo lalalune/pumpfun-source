@@ -81,6 +81,8 @@ def main():
     args = parser.parse_args()
     inventory = args.inventory.resolve()
     manifest = json.loads((inventory / 'manifest.json').read_text())
+    if not manifest.get('programs'):
+        parser.error('inventory must contain at least one program to validate')
     tool = args.tool_source.resolve() / 'target/release/sbpf'
     if sha(tool.read_bytes()) != manifest['tool_sha256']:
         raise ValueError('assembler/disassembler executable mismatch')
@@ -98,7 +100,8 @@ def main():
                   counts_toward_source_reconstruction_acceptance=False)
     (output / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report, indent=2))
+    return 0 if report['all_text_roundtrips_exact'] else 1
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())

@@ -1,0 +1,9 @@
+[package]
+name = "sbf_census"
+version = "0.1.0"
+edition = "2021"
+
+# A standalone lane tool: keep it out of the repository's root workspace.
+[workspace]
+
+[dependencies]
