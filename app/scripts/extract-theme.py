@@ -79,7 +79,7 @@ def canonical_hex(value):
 
 
 def normalize_color(value):
-    value = value.strip()
+    value = re.sub(r'\s*!important\s*$', '', value.strip(), flags=re.I).strip()
     match = RGB_ALPHA.match(value)
     if match:
         return '#%02x%02x%02x' % tuple(int(x) for x in match.groups())
