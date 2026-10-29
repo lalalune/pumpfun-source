@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "runtimeAndBrowserMethodLocalFreeze": "c90c50e1607bd0e95d276a95e8dcc343f74dff2e",
+  "initialTestLocalFreeze": "ee5159f878",
+  "localCommitMeaning": "Producer checkout labels; public commits have different metadata/ancestry. All required runtime/method bytes and inert initial test bytes are retained here by hash. No public ancestor claim.",
+  "clientSha256": "1072bdaa15209e46bcf86bf5595e3d121f1cbecf91d149497d9e1ad3e27739f0",
+  "initialClientSame": true,
+  "initialResult": {
+    "pass": 25,
+    "fail": 1,
+    "cause": "One authored negative-code mutation searched60000, while generated source retains6e4; it changed no bytes. Corrected test changes6e4 and asserts every code mutation changed bytes. Not an original-source or runtime failure."
+  },
+  "finalDirect": {
+    "focused": 26,
+    "sharedSourceReader": 11,
+    "passed": 37,
+    "negativeVerifierMutations": 7,
+    "localHTTP": "Two actual loopbackPOST requests (success and HTTP503), no Cookie/Authorization, exact body/options, host closed"
+  },
+  "browser": {
+    "cases": 6,
+    "errors": 0,
+    "boundInputs": 17,
+    "status": "PASS",
+    "scope": "Actual React19.2.3/compiler; synthetic query/cache/clock/client ports and deferred native Promise; no Next/backend/dataHTTP/current cookies",
+    "cleanup": "observerCount0/rootChildren0/browserClosedtrue/serverListeningfalse"
+  },
+  "source": {
+    "witnesses": 50,
+    "entries": 15,
+    "callerContexts": 9
+  },
+  "limits": [
+    "No original loader/provider/mounted UI/native/service/auth/feature qualification",
+    "Runtime builtins/ports are explicit, no original scheduling/time guarantee",
+    "source contract gate compares parsed JSON semantics, not canonical-byte formatting",
+    "No original website baseline failure asserted; missing external source owner is the reconstruction gap"
+  ]
+}

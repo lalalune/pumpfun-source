@@ -1,0 +1,45 @@
+✔ source generator binds full owning frame, reader and all physical609252 callers (532.67451ms)
+✔ actual verifier rejects source-derived code/contract mutations (2089.839078ms)
+✔ explicit capabilities required; no implicit request destination (1.118418ms)
+✔ empty or disabled input retains stable empty rows and no source query enablement (0.670135ms)
+✔ source query fn empty guard never invokes factory (0.21987ms)
+✔ exact cache hit order and duplicates survive sorted missing key (0.255724ms)
+✔ exact TTL boundary fresh; one millisecond older retained stale and refetched (0.213541ms)
+✔ exact ton:-239 exception keeps old cache row (0.175003ms)
+✔ exact near:mainnet exception keeps old cache row (0.121873ms)
+✔ exact starknet:SN_MAIN exception keeps old cache row (0.144117ms)
+✔ chain exception is exact spelling, not chain-prefix admission (0.159409ms)
+✔ lowercase0x fallback scans only valid two-member coin query rows, newest then first tie (0.265719ms)
+✔ exact cache hit takes precedence even over newer canonical fallback (0.125288ms)
+✔ uppercase0X prefix does not request canonical fallback or lowercase merge (0.097537ms)
+✔ cache mutation and clock advance alone do not break captured identity memo (0.123716ms)
+✔ includeNsfw bypasses cache and preserves original missing order/duplicates (0.288793ms)
+✔ query option precedence is final spread; four pagination fields not forwarded (0.137277ms)
+✔ default stale/gc times are60s/120s and caller signals are not invented (0.137136ms)
+✔ merge last-wins canonical mint, requested order/duplicates, omitted missing (0.190285ms)
+✔ loading needs missing state and insufficient rows, success ignores query isSuccess (0.110937ms)
+✔ raw non-Error error and query flags/refetch identities propagate (0.118628ms)
+✔ queryFn writes each returned mint to exact coin key and returns response identity (0.278508ms)
+✔ reader empty/null input skips options getter/factory; nonempty reads includeNsfw (0.116054ms)
+✔ reader preserves identity/null and propagates exact factory failure (0.26627ms)
+✔ reader does not add response admission; malformed query list fails at source forEach (0.224467ms)
+✔ actual loopbackPOST observes exact options/body, identity and third-arg HTTP rejection (32.201506ms)
+✔ factory lookup authenticates original AST and preserves BOM, CRLF and Unicode byte ranges (25.824439ms)
+✔ UTF-16 offsets inside an astral character are not byte boundaries (7.09498ms)
+✔ capture hash and length changes fail before AST attribution (4.285088ms)
+✔ an updated manifest cannot make malformed UTF-8 into source text (3.123723ms)
+✔ indexed arbitrary substrings cannot substitute for actual registered factories (4.161763ms)
+✔ an aggregate inventory ID cannot substitute for the actual registration ID (4.544658ms)
+✔ multiple origin contexts stay ambiguous until explicitly selected (3.583399ms)
+✔ manifest source symlinks and traversal paths are rejected (6.734657ms)
+✔ a forged manifest cannot authorize reading a repository file outside retained objects (4.591467ms)
+✔ the runtime-leading nested-array grammar validates nested and trailing factories (10.126534ms)
+✔ outer two-element registration is metadata, not a nested factory container (3.651255ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2956.846512

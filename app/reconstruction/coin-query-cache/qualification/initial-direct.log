@@ -1,0 +1,50 @@
+✔ source generator binds full owning frame, reader and all physical609252 callers (532.746489ms)
+✖ actual verifier rejects source-derived code/contract mutations (988.416735ms)
+✔ explicit capabilities required; no implicit request destination (1.841893ms)
+✔ empty or disabled input retains stable empty rows and no source query enablement (0.849835ms)
+✔ source query fn empty guard never invokes factory (0.234812ms)
+✔ exact cache hit order and duplicates survive sorted missing key (0.364176ms)
+✔ exact TTL boundary fresh; one millisecond older retained stale and refetched (0.231537ms)
+✔ exact ton:-239 exception keeps old cache row (0.269354ms)
+✔ exact near:mainnet exception keeps old cache row (0.124106ms)
+✔ exact starknet:SN_MAIN exception keeps old cache row (0.178949ms)
+✔ chain exception is exact spelling, not chain-prefix admission (0.255313ms)
+✔ lowercase0x fallback scans only valid two-member coin query rows, newest then first tie (0.26044ms)
+✔ exact cache hit takes precedence even over newer canonical fallback (0.122114ms)
+✔ uppercase0X prefix does not request canonical fallback or lowercase merge (0.097647ms)
+✔ cache mutation and clock advance alone do not break captured identity memo (0.122083ms)
+✔ includeNsfw bypasses cache and preserves original missing order/duplicates (0.248172ms)
+✔ query option precedence is final spread; four pagination fields not forwarded (0.136245ms)
+✔ default stale/gc times are60s/120s and caller signals are not invented (0.076585ms)
+✔ merge last-wins canonical mint, requested order/duplicates, omitted missing (0.174722ms)
+✔ loading needs missing state and insufficient rows, success ignores query isSuccess (0.11358ms)
+✔ raw non-Error error and query flags/refetch identities propagate (0.117627ms)
+✔ queryFn writes each returned mint to exact coin key and returns response identity (0.225849ms)
+✔ reader empty/null input skips options getter/factory; nonempty reads includeNsfw (0.115654ms)
+✔ reader preserves identity/null and propagates exact factory failure (0.185719ms)
+✔ reader does not add response admission; malformed query list fails at source forEach (0.175573ms)
+✔ actual loopbackPOST observes exact options/body, identity and third-arg HTTP rejection (35.204963ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 25
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1747.932734
+
+✖ failing tests:
+
+test at app/tests/original_coin_query_cache.test.mjs:12:1
+✖ actual verifier rejects source-derived code/contract mutations (988.416735ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_coin_query_cache.test.mjs:12:534)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
