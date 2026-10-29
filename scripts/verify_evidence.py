@@ -34,6 +34,7 @@ def main():
         assert struct.unpack_from('<Q',d,4)[0]==m['last_deploy_slot']
         assert (b58(d[13:45]) if d[12] else None)==m['upgrade_authority']
         assert d[45:]==b and len(b)==m['payload_bytes'] and len(d)==m['programdata_bytes']
+        assert m['owner']=='BPFLoaderUpgradeab1e11111111111111111111111'
         assert m['genesis_hash']=='5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d'
         assert m['context_slots']==sorted(m['context_slots']) and m['last_deploy_slot']<=min(m['context_slots'])
         layout=elf_layout(b); assert layout['trailing_all_zero']
