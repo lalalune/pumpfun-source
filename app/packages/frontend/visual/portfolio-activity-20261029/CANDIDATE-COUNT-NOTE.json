@@ -1,0 +1,9 @@
+{
+  "firstHead": "d2d372d0f25f669f7ddfc3dd65de22faf0335cc3",
+  "passed": 6,
+  "failed": 1,
+  "notRun": 14,
+  "failure": "Test assumed exactly two total holdings calls; trace captures one initial aborted request plus initial 502 and retry 502. Product record reset/no-autoload assertions passed.",
+  "correction": "Capture settled pre-retry balance count and require exactly one additional request; preserve record-request exact counts.",
+  "productSourceChanged": false
+}

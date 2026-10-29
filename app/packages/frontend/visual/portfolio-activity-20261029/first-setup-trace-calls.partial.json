@@ -1,0 +1,491 @@
+{
+  "notice": "Selected call metadata only. Not the complete trace or original frontend source. The complete local trace is retained privately with this SHA256.",
+  "fullTraceSha256": "c9d193a2cf9ebe41f58f2d73d6c03b717242b5d13eaa49a9fff27a6bebbf0d37",
+  "calls": [
+    {
+      "type": "before",
+      "callId": "cpkk@1",
+      "startTime": 6217.04,
+      "class": "Test",
+      "method": "hook",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@34",
+      "startTime": 6225.97,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@35",
+      "startTime": 6227.524,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@35",
+      "endTime": 6268.679
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@34",
+      "endTime": 6268.777
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@38",
+      "startTime": 6270.024,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@39",
+      "startTime": 6279.554,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@39",
+      "endTime": 6289.586
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@38",
+      "endTime": 6296.603
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@46",
+      "startTime": 6297.029,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@47",
+      "startTime": 6297.692,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@47",
+      "endTime": 6330.1
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@46",
+      "endTime": 6330.149
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@1",
+      "endTime": 6330.208
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@49",
+      "startTime": 6331.593,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@49",
+      "endTime": 6333.536
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@51",
+      "startTime": 6333.827,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@51",
+      "endTime": 6334.283
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@53",
+      "startTime": 6334.978,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {
+        "url": "/portfolio?address=So11111111111111111111111111111111111111112"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@53",
+      "endTime": 7706.951
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@55",
+      "startTime": 7714.676,
+      "class": "Test",
+      "method": "expect",
+      "params": {
+        "locator": "getByRole('alert')",
+        "expected": "Token account response is unsupported."
+      }
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@57",
+      "startTime": 7888.45,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@59",
+      "startTime": 7889.973,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@57",
+      "endTime": 7894.519
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@59",
+      "endTime": 7894.649
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@55",
+      "endTime": 8012.221,
+      "error": {
+        "name": "",
+        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('alert')\nExpected substring: \u001b[32m\"Token account response is unsupported.\"\u001b[39m\nError: strict mode violation: getByRole('alert') resolved to 2 elements:\n    1) <section role=\"alert\" class=\"portfolio-error\" data-error-code=\"RPC_RESPONSE_INVALID\">\u2026</section> aka getByText('Live portfolio unavailableToken account response is unsupported.No cached,')\n    2) <div role=\"alert\" aria-live=\"assertive\" id=\"__next-route-announcer__\"></div> aka locator('[id=\"__next-route-announcer__\"]')\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('alert') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n\u001b[2m    - locator resolved to <div role=\"alert\" aria-live=\"assertive\" id=\"__next-route-announcer__\"></div>\u001b[22m\n\u001b[2m    - unexpected value \"\"\u001b[22m\n",
+        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('alert')\nExpected substring: \u001b[32m\"Token account response is unsupported.\"\u001b[39m\nError: strict mode violation: getByRole('alert') resolved to 2 elements:\n    1) <section role=\"alert\" class=\"portfolio-error\" data-error-code=\"RPC_RESPONSE_INVALID\">\u2026</section> aka getByText('Live portfolio unavailableToken account response is unsupported.No cached,')\n    2) <div role=\"alert\" aria-live=\"assertive\" id=\"__next-route-announcer__\"></div> aka locator('[id=\"__next-route-announcer__\"]')\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('alert') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n\u001b[2m    - locator resolved to <div role=\"alert\" aria-live=\"assertive\" id=\"__next-route-announcer__\"></div>\u001b[22m\n\u001b[2m    - unexpected value \"\"\u001b[22m\n\n    at /workspace/pump-app-holder-config/app/packages/frontend/tests/portfolio-activity-independent.spec.ts:55:41"
+      }
+    },
+    {
+      "type": "error"
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@61",
+      "startTime": 8012.706,
+      "class": "Test",
+      "method": "hook",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@63",
+      "startTime": 8080.379,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@63",
+      "endTime": 8080.509
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@64",
+      "startTime": 8080.68,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@71",
+      "startTime": 8169.362,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@71",
+      "endTime": 8175.775
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@64",
+      "endTime": 8175.813
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@78",
+      "startTime": 8178.975,
+      "class": "Test",
+      "method": "test.attach",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@78",
+      "endTime": 8178.984
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@81",
+      "startTime": 8179.562,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@81",
+      "endTime": 8179.578
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@85",
+      "startTime": 8180.106,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@85",
+      "endTime": 8180.152
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@61",
+      "endTime": 8183.835
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@107",
+      "startTime": 8183.972,
+      "class": "Test",
+      "method": "hook",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@112",
+      "startTime": 8184.573,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@112",
+      "endTime": 8201.324
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@116",
+      "startTime": 8201.651,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@116",
+      "endTime": 8201.658
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@117",
+      "startTime": 8201.662,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@117",
+      "endTime": 8201.667
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@107",
+      "endTime": 8202.566
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@47",
+      "startTime": 6298.141,
+      "class": "BrowserContext",
+      "method": "newPage",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@47",
+      "endTime": 6328.444
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@49",
+      "startTime": 6331.915,
+      "class": "Page",
+      "method": "setNetworkInterceptionPatterns",
+      "params": {
+        "patterns": [
+          {
+            "glob": "**/api/portfolio?*"
+          }
+        ]
+      }
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@49",
+      "endTime": 6333.386
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@51",
+      "startTime": 6334.066,
+      "class": "Page",
+      "method": "setNetworkInterceptionPatterns",
+      "params": {
+        "patterns": [
+          {
+            "glob": "**/api/portfolio/pump-record?*"
+          },
+          {
+            "glob": "**/api/portfolio?*"
+          }
+        ]
+      }
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@51",
+      "endTime": 6334.166
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@53",
+      "startTime": 6335.4,
+      "class": "Frame",
+      "method": "goto",
+      "params": {
+        "url": "/portfolio?address=So11111111111111111111111111111111111111112",
+        "waitUntil": "load"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@53",
+      "endTime": 7666.416
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@55",
+      "startTime": 7717.268,
+      "class": "Frame",
+      "method": "expect",
+      "params": {
+        "selector": "internal:role=alert",
+        "expression": "to.have.text",
+        "expectedText": [
+          {
+            "string": "Token account response is unsupported.",
+            "matchSubstring": true,
+            "normalizeWhiteSpace": true
+          }
+        ],
+        "expectedValue": {
+          "value": {
+            "v": "undefined"
+          },
+          "handles": []
+        },
+        "isNot": false,
+        "timeout": 5000
+      }
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@57",
+      "startTime": 7891.741,
+      "class": "Route",
+      "method": "fulfill",
+      "params": {
+        "status": 502,
+        "headers": [
+          {
+            "name": "content-type",
+            "value": "application/json"
+          },
+          {
+            "name": "content-length",
+            "value": "121"
+          }
+        ],
+        "body": "{\"ok\":false,\"error\":{\"code\":\"RPC_RESPONSE_INVALID\",\"message\":\"Token account response is unsupported.\",\"retryable\":false}}",
+        "isBase64": false
+      }
+    },
+    {
+      "type": "before",
+      "callId": "cpkk@59",
+      "startTime": 7892.594,
+      "class": "Route",
+      "method": "fulfill",
+      "params": {
+        "status": 502,
+        "headers": [
+          {
+            "name": "content-type",
+            "value": "application/json"
+          },
+          {
+            "name": "content-length",
+            "value": "121"
+          }
+        ],
+        "body": "{\"ok\":false,\"error\":{\"code\":\"RPC_RESPONSE_INVALID\",\"message\":\"Token account response is unsupported.\",\"retryable\":false}}",
+        "isBase64": false
+      }
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@57",
+      "endTime": 7894.217
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@59",
+      "endTime": 7894.352
+    },
+    {
+      "type": "after",
+      "callId": "cpkk@55",
+      "endTime": 8004.399,
+      "error": {
+        "message": "Expect failed",
+        "stack": "ExpectError: Expect failed\n    at _Frame.expect (/workspace/pump-app-holder-config/app/node_modules/.pnpm/playwright-core@1.64.1/node_modules/playwright-core/lib/coreBundle.js:25606:17)\n    at _FrameDispatcher.expect (/workspace/pump-app-holder-config/app/node_modules/.pnpm/playwright-core@1.64.1/node_modules/playwright-core/lib/coreBundle.js:56333:11)\n    at _ProgressController.run (/workspace/pump-app-holder-config/app/node_modules/.pnpm/playwright-core@1.64.1/node_modules/playwright-core/lib/coreBundle.js:13018:27)\n    at DispatcherConnection.dispatch (/workspace/pump-app-holder-config/app/node_modules/.pnpm/playwright-core@1.64.1/node_modules/playwright-core/lib/coreBundle.js:20191:27)",
+        "name": "ExpectError"
+      }
+    }
+  ]
+}

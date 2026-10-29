@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "story": "A canonical committed public address can explicitly inspect its existing Pump account record even while the separate holdings read is pending or fails.",
+  "base": "04be15f61e66d27282e2af3d581de984389eac90",
+  "unchangedProductBaseline": "8d97e6bc1090610e1cb1032dae7e70509a25d240",
+  "runtimeSource": "d2d372d0f25f669f7ddfc3dd65de22faf0335cc3",
+  "finalBrowserTestHead": "db13adf08eae30fd57854b651c963b9e4c1bf2fe",
+  "sourceHashes": {
+    "app/packages/frontend/src/app/portfolio/portfolio-client.tsx": {
+      "base": "b3ce685a6317add1126d9ba3a027863d5a9d62fe4dc4f9c1b1b63de1bea61723",
+      "runtime": "d7d60dc0a3c3c8bb7305a2ca70ec59279ba4f49dae30b18308bdb707891a4350",
+      "finalTests": "d7d60dc0a3c3c8bb7305a2ca70ec59279ba4f49dae30b18308bdb707891a4350"
+    },
+    "app/packages/frontend/src/app/portfolio/page.tsx": {
+      "base": "c46a97097aa798a49baee730634b977844f9f95da5871b56bf377d566a0e154d",
+      "runtime": "c46a97097aa798a49baee730634b977844f9f95da5871b56bf377d566a0e154d",
+      "finalTests": "c46a97097aa798a49baee730634b977844f9f95da5871b56bf377d566a0e154d"
+    },
+    "app/packages/frontend/src/app/auth/public-wallet/controller.ts": {
+      "base": "59241569d7a3e7286b5f13542a9f6c04c209dc097dd1e50bf5d8702214a24ad6",
+      "runtime": "59241569d7a3e7286b5f13542a9f6c04c209dc097dd1e50bf5d8702214a24ad6",
+      "finalTests": "59241569d7a3e7286b5f13542a9f6c04c209dc097dd1e50bf5d8702214a24ad6"
+    },
+    "app/packages/frontend/src/app/wallet-program-record/panel.tsx": {
+      "base": "f7fb670be01bf270c5ac90978ca33bc82a85e5d996083345f52835f9a0c27e51",
+      "runtime": "f7fb670be01bf270c5ac90978ca33bc82a85e5d996083345f52835f9a0c27e51",
+      "finalTests": "f7fb670be01bf270c5ac90978ca33bc82a85e5d996083345f52835f9a0c27e51"
+    },
+    "app/packages/frontend/src/app/wallet-program-record/client.ts": {
+      "base": "e78eb86b749089c0441135a378773925e557415459828e27b05fa938ea944664",
+      "runtime": "e78eb86b749089c0441135a378773925e557415459828e27b05fa938ea944664",
+      "finalTests": "e78eb86b749089c0441135a378773925e557415459828e27b05fa938ea944664"
+    },
+    "app/packages/frontend/src/app/wallet-program-record/server.ts": {
+      "base": "11257147e8ced311837b151e2cd4af6620ca9650f9ef0f08fc9ed849c7e7a770",
+      "runtime": "11257147e8ced311837b151e2cd4af6620ca9650f9ef0f08fc9ed849c7e7a770",
+      "finalTests": "11257147e8ced311837b151e2cd4af6620ca9650f9ef0f08fc9ed849c7e7a770"
+    },
+    "app/packages/frontend/src/app/wallet-program-record/handler.ts": {
+      "base": "8967eea443591d61caec4768aa537d2b77df55a6f95c16fb00581bf46494991c",
+      "runtime": "8967eea443591d61caec4768aa537d2b77df55a6f95c16fb00581bf46494991c",
+      "finalTests": "8967eea443591d61caec4768aa537d2b77df55a6f95c16fb00581bf46494991c"
+    },
+    "app/packages/frontend/src/app/portfolio/rpc.ts": {
+      "base": "600e4a05c569dec818662b4be38ea513ad20a4b4bb7fb6bc1783a088c569259f",
+      "runtime": "600e4a05c569dec818662b4be38ea513ad20a4b4bb7fb6bc1783a088c569259f",
+      "finalTests": "600e4a05c569dec818662b4be38ea513ad20a4b4bb7fb6bc1783a088c569259f"
+    },
+    "app/packages/frontend/src/app/api/portfolio/pump-record/route.ts": {
+      "base": "e54d2351f713901c192a7bd041fd9804b187a4f8972dec43e2dc261ccb5b4f58",
+      "runtime": "e54d2351f713901c192a7bd041fd9804b187a4f8972dec43e2dc261ccb5b4f58",
+      "finalTests": "e54d2351f713901c192a7bd041fd9804b187a4f8972dec43e2dc261ccb5b4f58"
+    },
+    "app/packages/frontend/next.config.ts": {
+      "base": "d2a146c48e81f3d08a93dfabad75ac47e540667779a368b367ffb63be8e4ce45",
+      "runtime": "d2a146c48e81f3d08a93dfabad75ac47e540667779a368b367ffb63be8e4ce45",
+      "finalTests": "d2a146c48e81f3d08a93dfabad75ac47e540667779a368b367ffb63be8e4ce45"
+    },
+    "app/packages/frontend/package.json": {
+      "base": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "runtime": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "finalTests": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e"
+    },
+    "app/pnpm-lock.yaml": {
+      "base": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "runtime": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "finalTests": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+    }
+  },
+  "productChangedPaths": [
+    "app/packages/frontend/src/app/portfolio/portfolio-client.tsx"
+  ],
+  "sourceBasis": {
+    "independentUsedReader": "src/app/wallet-program-record/server.ts readWalletRecordWithRpc performs getGenesisHash then getAccountInfo; it requires no successful balance result.",
+    "existingSdkSourceEvidence": "app/research/wallet-program-record-20261029/SOURCE.json; preserved and not claimed as new recovery.",
+    "ownership": "Open PR1349 pending-draft/navigation is distinct; this change leaves form, navigation/load state and page key untouched."
+  },
+  "verification": {
+    "baseline": "Actual intended missing-button failure. Earlier broad alert-locator setup failure retained separately.",
+    "browser": {
+      "productSourceHead": "d2d372d0f25f669f7ddfc3dd65de22faf0335cc3",
+      "finalTestHead": "db13adf08eae30fd57854b651c963b9e4c1bf2fe",
+      "firstCandidate": {
+        "passed": 6,
+        "failed": 1,
+        "notRun": 14,
+        "failure": "Test assumed total lifetime balance request count, rather than explicit retry delta."
+      },
+      "resume": {
+        "passed": 14,
+        "skipped": 1,
+        "selected": 15,
+        "returncode": 0
+      },
+      "uniqueBrowserCases": {
+        "passed": 20,
+        "skipped": 1,
+        "total": 21
+      },
+      "newCases": 7,
+      "existingPortfolioCases": 6,
+      "existingRecordCases": 8,
+      "skippedCase": "Existing actual SDK-loaded route guard requires WALLET_RECORD_TEST_NO_RPC=1; not selected/enabled here. No route/SDK execution claim from this mock-response UI batch.",
+      "ownedNextAfter": [],
+      "primary3010Released": true
+    },
+    "nodeChecks": {
+      "passed": 11,
+      "firstAttempt": "Missing sparse-excluded tracked SOURCE.json; exact HEAD file hydrated, rerun passed."
+    },
+    "frontendTypecheck": "PASS",
+    "appEvidence": "698 captured objects + npm integrity + unchanged SDK sources PASS",
+    "progress": "PASS plus 9 tests",
+    "rootOfficial": "9 captures + 10 tooling PASS at runtime d2d372d0f25f669f7ddfc3dd65de22faf0335cc3; final public-head rebind reported separately."
+  },
+  "reactReview": [
+    "Target is derived during render from committed prop, never draft state.",
+    "Existing keyed subtree is reset on canonical target or refresh generation; existing abort/deadline/generation controller remains unchanged.",
+    "No new effect, global listener, asynchronous operation, storage, credential or signing capability.",
+    "Target text wraps at narrow viewport; existing button/section accessibility is preserved."
+  ],
+  "images": {
+    "after-holdings-error-1280.png": {
+      "width": 1280,
+      "height": 720,
+      "sha256": "8d58a14368c8e17a874d4485531514a76c8d8346b081c69bb2dd02ae51bd1276"
+    },
+    "before-missing-control-1280.png": {
+      "width": 1280,
+      "height": 720,
+      "sha256": "66442623c59efa384aa871241c71d4c6df37eef4321175dd811626c52c59bcfc"
+    },
+    "after-explicit-record-320.png": {
+      "width": 320,
+      "height": 640,
+      "sha256": "1cc61e6a1f0a7b08d233657bec04a5f8094a411795d47f328cf0798f23346065"
+    }
+  },
+  "limits": [
+    "Correctness fix to the documented reconstruction, not newly recovered original server behavior.",
+    "Browser cases use controlled existing response DTOs; no configured production route/mainnet success or original visual parity claimed.",
+    "Existing SDK guard explicitly skipped; separate existing Node reader/handler/local HTTP tests passed.",
+    "No eligibility, ownership, authenticated session, entitlements, PnL, signing or mutation inferred.",
+    "No feature scoring or native API operation counts changed."
+  ]
+}

@@ -1,0 +1,703 @@
+{
+  "notice": "Selected call metadata only. Not the complete trace or original frontend source. The complete local trace is retained privately with this SHA256.",
+  "fullTraceSha256": "9861fb42a9ab3a51f7839adc5915df1927e4fe83a5d2107e57d8efcc01f15a4f",
+  "calls": [
+    {
+      "type": "before",
+      "callId": "ifup@673",
+      "startTime": 12527.444,
+      "class": "Test",
+      "method": "hook",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "ifup@702",
+      "startTime": 12533.608,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "ifup@703",
+      "startTime": 12533.884,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "ifup@703",
+      "endTime": 12536.453
+    },
+    {
+      "type": "after",
+      "callId": "ifup@702",
+      "endTime": 12539.849
+    },
+    {
+      "type": "before",
+      "callId": "ifup@710",
+      "startTime": 12540.014,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "ifup@711",
+      "startTime": 12540.304,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "ifup@711",
+      "endTime": 12561.6
+    },
+    {
+      "type": "after",
+      "callId": "ifup@710",
+      "endTime": 12561.635
+    },
+    {
+      "type": "after",
+      "callId": "ifup@673",
+      "endTime": 12561.66
+    },
+    {
+      "type": "before",
+      "callId": "ifup@713",
+      "startTime": 12562.332,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "ifup@713",
+      "endTime": 12563.613
+    },
+    {
+      "type": "before",
+      "callId": "ifup@715",
+      "startTime": 12563.879,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "ifup@715",
+      "endTime": 12564.114
+    },
+    {
+      "type": "before",
+      "callId": "ifup@717",
+      "startTime": 12564.406,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {
+        "url": "/portfolio?address=So11111111111111111111111111111111111111112"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "ifup@717",
+      "endTime": 12986.469
+    },
+    {
+      "type": "before",
+      "callId": "ifup@719",
+      "startTime": 12987.576,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {
+        "locator": "getByRole('button', { name: 'Read public Pump record', exact: true })"
+      }
+    },
+    {
+      "type": "before",
+      "callId": "ifup@721",
+      "startTime": 13160.398,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "ifup@723",
+      "startTime": 13164.614,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "ifup@721",
+      "endTime": 13167.135
+    },
+    {
+      "type": "after",
+      "callId": "ifup@723",
+      "endTime": 13167.268
+    },
+    {
+      "type": "before",
+      "callId": "ifup@725",
+      "startTime": 13179.707,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "ifup@725",
+      "endTime": 13182.733
+    },
+    {
+      "type": "after",
+      "callId": "ifup@719",
+      "endTime": 13209.553
+    },
+    {
+      "type": "before",
+      "callId": "ifup@727",
+      "startTime": 13210.11,
+      "class": "Test",
+      "method": "expect",
+      "params": {
+        "locator": "getByTestId('public-pump-record-result')"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "ifup@727",
+      "endTime": 13225.603
+    },
+    {
+      "type": "before",
+      "callId": "ifup@729",
+      "startTime": 13226.677,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {
+        "locator": "locator('.portfolio-error').getByRole('button', { name: 'Try again', exact: true })"
+      }
+    },
+    {
+      "type": "before",
+      "callId": "ifup@731",
+      "startTime": 13284.742,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "ifup@731",
+      "endTime": 13287.276
+    },
+    {
+      "type": "after",
+      "callId": "ifup@729",
+      "endTime": 13294.029
+    },
+    {
+      "type": "before",
+      "callId": "ifup@733",
+      "startTime": 13294.521,
+      "class": "Test",
+      "method": "expect",
+      "params": {
+        "locator": "getByRole('button', { name: 'Read public Pump record', exact: true })"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "ifup@733",
+      "endTime": 13306.874
+    },
+    {
+      "type": "before",
+      "callId": "ifup@735",
+      "startTime": 13307.416,
+      "class": "Test",
+      "method": "expect",
+      "params": {
+        "locator": "getByTestId('public-pump-record-result')"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "ifup@735",
+      "endTime": 13312.835
+    },
+    {
+      "type": "before",
+      "callId": "ifup@737",
+      "startTime": 13313.265,
+      "class": "Test",
+      "method": "expect",
+      "params": {
+        "expected": "1"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "ifup@737",
+      "endTime": 13313.326
+    },
+    {
+      "type": "before",
+      "callId": "ifup@738",
+      "startTime": 13313.607,
+      "class": "Test",
+      "method": "expect",
+      "params": {
+        "expected": "2"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "ifup@738",
+      "endTime": 13315.361,
+      "error": {
+        "name": "",
+        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m2\u001b[39m\nReceived: \u001b[31m3\u001b[39m",
+        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m2\u001b[39m\nReceived: \u001b[31m3\u001b[39m\n    at /workspace/pump-app-holder-config/app/packages/frontend/tests/portfolio-activity-independent.spec.ts:233:27"
+      }
+    },
+    {
+      "type": "error"
+    },
+    {
+      "type": "before",
+      "callId": "ifup@739",
+      "startTime": 13315.777,
+      "class": "Test",
+      "method": "hook",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "ifup@741",
+      "startTime": 13353.22,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "ifup@741",
+      "endTime": 13353.293
+    },
+    {
+      "type": "before",
+      "callId": "ifup@742",
+      "startTime": 13353.391,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "ifup@749",
+      "startTime": 13482.713,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "ifup@749",
+      "endTime": 13486.771
+    },
+    {
+      "type": "after",
+      "callId": "ifup@742",
+      "endTime": 13486.795
+    },
+    {
+      "type": "before",
+      "callId": "ifup@756",
+      "startTime": 13489.294,
+      "class": "Test",
+      "method": "test.attach",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "ifup@756",
+      "endTime": 13489.302
+    },
+    {
+      "type": "before",
+      "callId": "ifup@759",
+      "startTime": 13489.723,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "ifup@759",
+      "endTime": 13489.732
+    },
+    {
+      "type": "before",
+      "callId": "ifup@763",
+      "startTime": 13489.987,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "ifup@763",
+      "endTime": 13489.993
+    },
+    {
+      "type": "after",
+      "callId": "ifup@739",
+      "endTime": 13492.154
+    },
+    {
+      "type": "before",
+      "callId": "ifup@785",
+      "startTime": 13492.308,
+      "class": "Test",
+      "method": "hook",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "ifup@790",
+      "startTime": 13493.142,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "ifup@790",
+      "endTime": 13524.767
+    },
+    {
+      "type": "before",
+      "callId": "ifup@794",
+      "startTime": 13525.134,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "ifup@794",
+      "endTime": 13525.142
+    },
+    {
+      "type": "before",
+      "callId": "ifup@795",
+      "startTime": 13525.147,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "ifup@795",
+      "endTime": 13525.151
+    },
+    {
+      "type": "after",
+      "callId": "ifup@785",
+      "endTime": 13525.872
+    },
+    {
+      "type": "before",
+      "callId": "ifup@711",
+      "startTime": 12540.438,
+      "class": "BrowserContext",
+      "method": "newPage",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "ifup@711",
+      "endTime": 12561.103
+    },
+    {
+      "type": "before",
+      "callId": "ifup@713",
+      "startTime": 12562.531,
+      "class": "Page",
+      "method": "setNetworkInterceptionPatterns",
+      "params": {
+        "patterns": [
+          {
+            "glob": "**/api/portfolio?*"
+          }
+        ]
+      }
+    },
+    {
+      "type": "after",
+      "callId": "ifup@713",
+      "endTime": 12563.49
+    },
+    {
+      "type": "before",
+      "callId": "ifup@715",
+      "startTime": 12563.989,
+      "class": "Page",
+      "method": "setNetworkInterceptionPatterns",
+      "params": {
+        "patterns": [
+          {
+            "glob": "**/api/portfolio/pump-record?*"
+          },
+          {
+            "glob": "**/api/portfolio?*"
+          }
+        ]
+      }
+    },
+    {
+      "type": "after",
+      "callId": "ifup@715",
+      "endTime": 12564.018
+    },
+    {
+      "type": "before",
+      "callId": "ifup@717",
+      "startTime": 12564.529,
+      "class": "Frame",
+      "method": "goto",
+      "params": {
+        "url": "/portfolio?address=So11111111111111111111111111111111111111112",
+        "waitUntil": "load"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "ifup@717",
+      "endTime": 12957.176
+    },
+    {
+      "type": "before",
+      "callId": "ifup@719",
+      "startTime": 12988.015,
+      "class": "Frame",
+      "method": "click",
+      "params": {
+        "selector": "internal:role=button[name=\"Read public Pump record\"s]",
+        "strict": true
+      }
+    },
+    {
+      "type": "before",
+      "callId": "ifup@721",
+      "startTime": 13160.965,
+      "class": "Route",
+      "method": "fulfill",
+      "params": {
+        "status": 502,
+        "headers": [
+          {
+            "name": "content-type",
+            "value": "application/json"
+          },
+          {
+            "name": "content-length",
+            "value": "120"
+          }
+        ],
+        "body": "{\"ok\":false,\"error\":{\"code\":\"RPC_RESPONSE_INVALID\",\"message\":\"Token account response is unsupported.\",\"retryable\":true}}",
+        "isBase64": false
+      }
+    },
+    {
+      "type": "before",
+      "callId": "ifup@723",
+      "startTime": 13165.558,
+      "class": "Route",
+      "method": "fulfill",
+      "params": {
+        "status": 502,
+        "headers": [
+          {
+            "name": "content-type",
+            "value": "application/json"
+          },
+          {
+            "name": "content-length",
+            "value": "120"
+          }
+        ],
+        "body": "{\"ok\":false,\"error\":{\"code\":\"RPC_RESPONSE_INVALID\",\"message\":\"Token account response is unsupported.\",\"retryable\":true}}",
+        "isBase64": false
+      }
+    },
+    {
+      "type": "after",
+      "callId": "ifup@721",
+      "endTime": 13165.799
+    },
+    {
+      "type": "after",
+      "callId": "ifup@723",
+      "endTime": 13167.208
+    },
+    {
+      "type": "before",
+      "callId": "ifup@725",
+      "startTime": 13180.185,
+      "class": "Route",
+      "method": "fulfill",
+      "params": {
+        "status": 200,
+        "headers": [
+          {
+            "name": "content-type",
+            "value": "application/json"
+          },
+          {
+            "name": "content-length",
+            "value": "673"
+          }
+        ],
+        "body": "{\"ok\":true,\"address\":\"So11111111111111111111111111111111111111112\",\"programId\":\"6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P\",\"recordPda\":\"7WRvPtAPZbM3nK3W4fSGL4ACHegB7yd6rUQyEo5AXAEe\",\"cluster\":\"mainnet-beta\",\"commitment\":\"confirmed\",\"contextSlot\":321,\"endpointHost\":\"controlled-public.example\",\"observedAt\":\"2026-10-29T05:00:00.000Z\",\"dataBytes\":106,\"record\":{\"user\":\"So11111111111111111111111111111111111111112\",\"needsClaim\":false,\"hasTotalClaimedTokens\":false,\"totalUnclaimedTokens\":\"7\",\"totalClaimedTokens\":\"0\",\"currentSolVolume\":\"2\",\"lastUpdateTimestamp\":\"0\",\"cashbackEarned\":\"0\",\"totalCashbackClaimed\":\"0\",\"stableCashbackEarned\":\"0\",\"totalStableCashbackClaimed\":\"0\"}}",
+        "isBase64": false
+      }
+    },
+    {
+      "type": "after",
+      "callId": "ifup@725",
+      "endTime": 13182.314
+    },
+    {
+      "type": "after",
+      "callId": "ifup@719",
+      "endTime": 13199.687
+    },
+    {
+      "type": "before",
+      "callId": "ifup@727",
+      "startTime": 13210.595,
+      "class": "Frame",
+      "method": "expect",
+      "params": {
+        "selector": "internal:testid=[data-testid=\"public-pump-record-result\"s]",
+        "expression": "to.be.visible",
+        "expectedValue": {
+          "value": {
+            "v": "undefined"
+          },
+          "handles": []
+        },
+        "isNot": false,
+        "timeout": 5000
+      }
+    },
+    {
+      "type": "after",
+      "callId": "ifup@727",
+      "endTime": 13221.279
+    },
+    {
+      "type": "before",
+      "callId": "ifup@729",
+      "startTime": 13226.876,
+      "class": "Frame",
+      "method": "click",
+      "params": {
+        "selector": ".portfolio-error >> internal:role=button[name=\"Try again\"s]",
+        "strict": true
+      }
+    },
+    {
+      "type": "before",
+      "callId": "ifup@731",
+      "startTime": 13285.431,
+      "class": "Route",
+      "method": "fulfill",
+      "params": {
+        "status": 502,
+        "headers": [
+          {
+            "name": "content-type",
+            "value": "application/json"
+          },
+          {
+            "name": "content-length",
+            "value": "120"
+          }
+        ],
+        "body": "{\"ok\":false,\"error\":{\"code\":\"RPC_RESPONSE_INVALID\",\"message\":\"Token account response is unsupported.\",\"retryable\":true}}",
+        "isBase64": false
+      }
+    },
+    {
+      "type": "after",
+      "callId": "ifup@731",
+      "endTime": 13287.16
+    },
+    {
+      "type": "after",
+      "callId": "ifup@729",
+      "endTime": 13290.268
+    },
+    {
+      "type": "before",
+      "callId": "ifup@733",
+      "startTime": 13295.149,
+      "class": "Frame",
+      "method": "expect",
+      "params": {
+        "selector": "internal:role=button[name=\"Read public Pump record\"s]",
+        "expression": "to.be.visible",
+        "expectedValue": {
+          "value": {
+            "v": "undefined"
+          },
+          "handles": []
+        },
+        "isNot": false,
+        "timeout": 5000
+      }
+    },
+    {
+      "type": "after",
+      "callId": "ifup@733",
+      "endTime": 13303.473
+    },
+    {
+      "type": "before",
+      "callId": "ifup@735",
+      "startTime": 13308.001,
+      "class": "Frame",
+      "method": "expect",
+      "params": {
+        "selector": "internal:testid=[data-testid=\"public-pump-record-result\"s]",
+        "expression": "to.have.count",
+        "expectedNumber": 0,
+        "expectedValue": {
+          "value": {
+            "v": "undefined"
+          },
+          "handles": []
+        },
+        "isNot": false,
+        "timeout": 5000
+      }
+    },
+    {
+      "type": "after",
+      "callId": "ifup@735",
+      "endTime": 13311.015
+    }
+  ]
+}

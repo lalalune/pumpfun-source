@@ -1,0 +1,543 @@
+{
+  "notice": "Selected call metadata only. Not the complete trace or original frontend source. The complete local trace is retained privately with this SHA256.",
+  "fullTraceSha256": "5eec3d3f96e376ef509f59ca359976c923927565a20a1395b851ce664a1f52d1",
+  "calls": [
+    {
+      "type": "before",
+      "callId": "mllg@1",
+      "startTime": 7361.824,
+      "class": "Test",
+      "method": "hook",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "mllg@34",
+      "startTime": 7372.502,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "mllg@35",
+      "startTime": 7374.54,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "mllg@35",
+      "endTime": 7411.968
+    },
+    {
+      "type": "after",
+      "callId": "mllg@34",
+      "endTime": 7412.087
+    },
+    {
+      "type": "before",
+      "callId": "mllg@38",
+      "startTime": 7413.65,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "mllg@39",
+      "startTime": 7415.465,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "mllg@39",
+      "endTime": 7435.92
+    },
+    {
+      "type": "after",
+      "callId": "mllg@38",
+      "endTime": 7442.8
+    },
+    {
+      "type": "before",
+      "callId": "mllg@46",
+      "startTime": 7443.491,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "mllg@47",
+      "startTime": 7444.413,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "mllg@47",
+      "endTime": 7471.445
+    },
+    {
+      "type": "after",
+      "callId": "mllg@46",
+      "endTime": 7471.488
+    },
+    {
+      "type": "after",
+      "callId": "mllg@1",
+      "endTime": 7471.55
+    },
+    {
+      "type": "before",
+      "callId": "mllg@49",
+      "startTime": 7473.127,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "mllg@49",
+      "endTime": 7474.809
+    },
+    {
+      "type": "before",
+      "callId": "mllg@51",
+      "startTime": 7475.125,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "mllg@51",
+      "endTime": 7475.525
+    },
+    {
+      "type": "before",
+      "callId": "mllg@53",
+      "startTime": 7476.377,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {
+        "url": "/portfolio?address=So11111111111111111111111111111111111111112"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "mllg@53",
+      "endTime": 8853.579
+    },
+    {
+      "type": "before",
+      "callId": "mllg@55",
+      "startTime": 8860.241,
+      "class": "Test",
+      "method": "expect",
+      "params": {
+        "locator": "locator('.portfolio-error')",
+        "expected": "Token account response is unsupported."
+      }
+    },
+    {
+      "type": "before",
+      "callId": "mllg@57",
+      "startTime": 9039.472,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "mllg@59",
+      "startTime": 9040.668,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "mllg@57",
+      "endTime": 9045.78
+    },
+    {
+      "type": "after",
+      "callId": "mllg@59",
+      "endTime": 9046.016
+    },
+    {
+      "type": "after",
+      "callId": "mllg@55",
+      "endTime": 9112.175
+    },
+    {
+      "type": "before",
+      "callId": "mllg@61",
+      "startTime": 9112.868,
+      "class": "Test",
+      "method": "expect",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "mllg@61",
+      "endTime": 9113.012
+    },
+    {
+      "type": "before",
+      "callId": "mllg@62",
+      "startTime": 9113.955,
+      "class": "Test",
+      "method": "expect",
+      "params": {
+        "locator": "getByRole('button', { name: 'Read public Pump record', exact: true })"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "mllg@62",
+      "endTime": 14126.962,
+      "error": {
+        "name": "",
+        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Read public Pump record', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Read public Pump record', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Read public Pump record', exact: true })\u001b[22m\n",
+        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Read public Pump record', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Read public Pump record', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Read public Pump record', exact: true })\u001b[22m\n\n    at /workspace/pump-app-holder-config/app/packages/frontend/tests/portfolio-activity-independent.spec.ts:63:25"
+      }
+    },
+    {
+      "type": "error"
+    },
+    {
+      "type": "before",
+      "callId": "mllg@64",
+      "startTime": 14128.042,
+      "class": "Test",
+      "method": "hook",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "mllg@66",
+      "startTime": 14163.106,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "mllg@66",
+      "endTime": 14163.28
+    },
+    {
+      "type": "before",
+      "callId": "mllg@67",
+      "startTime": 14163.54,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "mllg@73",
+      "startTime": 14346.573,
+      "class": "Test",
+      "method": "pw:api",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "mllg@73",
+      "endTime": 14352.006
+    },
+    {
+      "type": "after",
+      "callId": "mllg@67",
+      "endTime": 14352.039
+    },
+    {
+      "type": "before",
+      "callId": "mllg@80",
+      "startTime": 14356.221,
+      "class": "Test",
+      "method": "test.attach",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "mllg@80",
+      "endTime": 14356.232
+    },
+    {
+      "type": "before",
+      "callId": "mllg@83",
+      "startTime": 14356.914,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "mllg@83",
+      "endTime": 14356.928
+    },
+    {
+      "type": "before",
+      "callId": "mllg@87",
+      "startTime": 14357.653,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "mllg@87",
+      "endTime": 14357.669
+    },
+    {
+      "type": "after",
+      "callId": "mllg@64",
+      "endTime": 14360.144
+    },
+    {
+      "type": "before",
+      "callId": "mllg@109",
+      "startTime": 14360.389,
+      "class": "Test",
+      "method": "hook",
+      "params": {}
+    },
+    {
+      "type": "before",
+      "callId": "mllg@114",
+      "startTime": 14361.158,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "mllg@114",
+      "endTime": 14373.902
+    },
+    {
+      "type": "before",
+      "callId": "mllg@118",
+      "startTime": 14374.294,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "mllg@118",
+      "endTime": 14374.302
+    },
+    {
+      "type": "before",
+      "callId": "mllg@119",
+      "startTime": 14374.309,
+      "class": "Test",
+      "method": "fixture",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "mllg@119",
+      "endTime": 14374.316
+    },
+    {
+      "type": "after",
+      "callId": "mllg@109",
+      "endTime": 14374.917
+    },
+    {
+      "type": "before",
+      "callId": "mllg@47",
+      "startTime": 7444.917,
+      "class": "BrowserContext",
+      "method": "newPage",
+      "params": {}
+    },
+    {
+      "type": "after",
+      "callId": "mllg@47",
+      "endTime": 7469.864
+    },
+    {
+      "type": "before",
+      "callId": "mllg@49",
+      "startTime": 7473.607,
+      "class": "Page",
+      "method": "setNetworkInterceptionPatterns",
+      "params": {
+        "patterns": [
+          {
+            "glob": "**/api/portfolio?*"
+          }
+        ]
+      }
+    },
+    {
+      "type": "after",
+      "callId": "mllg@49",
+      "endTime": 7474.675
+    },
+    {
+      "type": "before",
+      "callId": "mllg@51",
+      "startTime": 7475.368,
+      "class": "Page",
+      "method": "setNetworkInterceptionPatterns",
+      "params": {
+        "patterns": [
+          {
+            "glob": "**/api/portfolio/pump-record?*"
+          },
+          {
+            "glob": "**/api/portfolio?*"
+          }
+        ]
+      }
+    },
+    {
+      "type": "after",
+      "callId": "mllg@51",
+      "endTime": 7475.455
+    },
+    {
+      "type": "before",
+      "callId": "mllg@53",
+      "startTime": 7476.686,
+      "class": "Frame",
+      "method": "goto",
+      "params": {
+        "url": "/portfolio?address=So11111111111111111111111111111111111111112",
+        "waitUntil": "load"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "mllg@53",
+      "endTime": 8817.643
+    },
+    {
+      "type": "before",
+      "callId": "mllg@55",
+      "startTime": 8862.795,
+      "class": "Frame",
+      "method": "expect",
+      "params": {
+        "selector": ".portfolio-error",
+        "expression": "to.have.text",
+        "expectedText": [
+          {
+            "string": "Token account response is unsupported.",
+            "matchSubstring": true,
+            "normalizeWhiteSpace": true
+          }
+        ],
+        "expectedValue": {
+          "value": {
+            "v": "undefined"
+          },
+          "handles": []
+        },
+        "isNot": false,
+        "timeout": 5000
+      }
+    },
+    {
+      "type": "before",
+      "callId": "mllg@57",
+      "startTime": 9042.219,
+      "class": "Route",
+      "method": "fulfill",
+      "params": {
+        "status": 502,
+        "headers": [
+          {
+            "name": "content-type",
+            "value": "application/json"
+          },
+          {
+            "name": "content-length",
+            "value": "121"
+          }
+        ],
+        "body": "{\"ok\":false,\"error\":{\"code\":\"RPC_RESPONSE_INVALID\",\"message\":\"Token account response is unsupported.\",\"retryable\":false}}",
+        "isBase64": false
+      }
+    },
+    {
+      "type": "before",
+      "callId": "mllg@59",
+      "startTime": 9043.363,
+      "class": "Route",
+      "method": "fulfill",
+      "params": {
+        "status": 502,
+        "headers": [
+          {
+            "name": "content-type",
+            "value": "application/json"
+          },
+          {
+            "name": "content-length",
+            "value": "121"
+          }
+        ],
+        "body": "{\"ok\":false,\"error\":{\"code\":\"RPC_RESPONSE_INVALID\",\"message\":\"Token account response is unsupported.\",\"retryable\":false}}",
+        "isBase64": false
+      }
+    },
+    {
+      "type": "after",
+      "callId": "mllg@57",
+      "endTime": 9045.516
+    },
+    {
+      "type": "after",
+      "callId": "mllg@59",
+      "endTime": 9045.874
+    },
+    {
+      "type": "after",
+      "callId": "mllg@55",
+      "endTime": 9105.69
+    },
+    {
+      "type": "before",
+      "callId": "mllg@62",
+      "startTime": 9114.871,
+      "class": "Frame",
+      "method": "expect",
+      "params": {
+        "selector": "internal:role=button[name=\"Read public Pump record\"s]",
+        "expression": "to.be.visible",
+        "expectedValue": {
+          "value": {
+            "v": "undefined"
+          },
+          "handles": []
+        },
+        "isNot": false,
+        "timeout": 5000
+      }
+    },
+    {
+      "type": "after",
+      "callId": "mllg@62",
+      "endTime": 14117.164,
+      "error": {
+        "message": "Expect failed",
+        "stack": "ExpectError: Expect failed\n    at _Frame.expect (/workspace/pump-app-holder-config/app/node_modules/.pnpm/playwright-core@1.64.1/node_modules/playwright-core/lib/coreBundle.js:25606:17)\n    at _FrameDispatcher.expect (/workspace/pump-app-holder-config/app/node_modules/.pnpm/playwright-core@1.64.1/node_modules/playwright-core/lib/coreBundle.js:56333:11)\n    at _ProgressController.run (/workspace/pump-app-holder-config/app/node_modules/.pnpm/playwright-core@1.64.1/node_modules/playwright-core/lib/coreBundle.js:13018:27)\n    at DispatcherConnection.dispatch (/workspace/pump-app-holder-config/app/node_modules/.pnpm/playwright-core@1.64.1/node_modules/playwright-core/lib/coreBundle.js:20191:27)",
+        "name": "ExpectError"
+      }
+    }
+  ]
+}

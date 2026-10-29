@@ -1,0 +1,20 @@
+{
+  "head": "d2d372d0f25f669f7ddfc3dd65de22faf0335cc3",
+  "command": [
+    "pnpm",
+    "--filter",
+    "@pump-reconstruction/frontend",
+    "exec",
+    "playwright",
+    "test",
+    "--config",
+    "playwright.portfolio-activity.config.ts",
+    "--max-failures=1"
+  ],
+  "started": "2026-10-29T17:15:47.661502+00:00",
+  "port": 3010,
+  "configuration": "SOLANA_RPC_URL empty; explicit UI read; controlled existing API response fixtures; no live wallet or signing",
+  "pid": 388287,
+  "returncode": 1,
+  "finished": "2026-10-29T17:16:01.737984+00:00"
+}

@@ -1,0 +1,23 @@
+{
+  "head": "db13adf08eae30fd57854b651c963b9e4c1bf2fe",
+  "productTestedEarlierAt": "d2d372d0f25f669f7ddfc3dd65de22faf0335cc3",
+  "command": [
+    "pnpm",
+    "--filter",
+    "@pump-reconstruction/frontend",
+    "exec",
+    "playwright",
+    "test",
+    "--config",
+    "playwright.portfolio-activity.config.ts",
+    "--max-failures=1",
+    "--grep-invert",
+    "valid wallet activity|a pending holdings read|an (invalid|empty) committed address|editing a draft preserves|navigation invalidates a pending activity"
+  ],
+  "port": 3010,
+  "purpose": "Resume only failed retry and fourteen previously unrun cases; product unchanged.",
+  "started": "2026-10-29T17:17:03.069618+00:00",
+  "pid": 389036,
+  "returncode": 0,
+  "finished": "2026-10-29T17:17:28.025327+00:00"
+}

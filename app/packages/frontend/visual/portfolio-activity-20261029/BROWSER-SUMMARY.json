@@ -1,0 +1,27 @@
+{
+  "productSourceHead": "d2d372d0f25f669f7ddfc3dd65de22faf0335cc3",
+  "finalTestHead": "db13adf08eae30fd57854b651c963b9e4c1bf2fe",
+  "firstCandidate": {
+    "passed": 6,
+    "failed": 1,
+    "notRun": 14,
+    "failure": "Test assumed total lifetime balance request count, rather than explicit retry delta."
+  },
+  "resume": {
+    "passed": 14,
+    "skipped": 1,
+    "selected": 15,
+    "returncode": 0
+  },
+  "uniqueBrowserCases": {
+    "passed": 20,
+    "skipped": 1,
+    "total": 21
+  },
+  "newCases": 7,
+  "existingPortfolioCases": 6,
+  "existingRecordCases": 8,
+  "skippedCase": "Existing actual SDK-loaded route guard requires WALLET_RECORD_TEST_NO_RPC=1; not selected/enabled here. No route/SDK execution claim from this mock-response UI batch.",
+  "ownedNextAfter": [],
+  "primary3010Released": true
+}

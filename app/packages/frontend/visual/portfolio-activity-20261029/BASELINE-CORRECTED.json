@@ -1,0 +1,20 @@
+{
+  "head": "8d97e6bc1090610e1cb1032dae7e70509a25d240",
+  "productBase": "04be15f61e66d27282e2af3d581de984389eac90",
+  "command": [
+    "pnpm",
+    "--filter",
+    "@pump-reconstruction/frontend",
+    "exec",
+    "playwright",
+    "test",
+    "--config",
+    "playwright.portfolio-activity.config.ts",
+    "--max-failures=1"
+  ],
+  "started": "2026-10-29T17:08:10.905316+00:00",
+  "port": 3027,
+  "purpose": "Corrected scoped-error locator; actual missing-control baseline, product unchanged.",
+  "returncode": 1,
+  "finished": "2026-10-29T17:08:25.930548+00:00"
+}

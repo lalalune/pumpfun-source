@@ -1,0 +1,20 @@
+{
+  "head": "8f590a3dd7ac724aa120e165c8329ea2b13bf267",
+  "productBase": "04be15f61e66d27282e2af3d581de984389eac90",
+  "command": [
+    "pnpm",
+    "--filter",
+    "@pump-reconstruction/frontend",
+    "exec",
+    "playwright",
+    "test",
+    "--config",
+    "playwright.portfolio-activity.config.ts",
+    "--max-failures=1"
+  ],
+  "started": "2026-10-29T17:03:14.743273+00:00",
+  "port": 3027,
+  "otherNextAtStart": [],
+  "returncode": 1,
+  "finished": "2026-10-29T17:03:23.445195+00:00"
+}
