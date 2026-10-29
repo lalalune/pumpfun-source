@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { createRequire } from "node:module";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import test from "node:test";
 
 const backend = createRequire(
@@ -24,7 +24,7 @@ test("local feed routes and actual server-rendered navigation respect the histor
     process.execPath,
     [
       "--import",
-      backend.resolve("tsx"),
+      pathToFileURL(backend.resolve("tsx")).href,
       "--test",
       fileURLToPath(
         new URL("./support/native-feed-history.cjs", import.meta.url),
