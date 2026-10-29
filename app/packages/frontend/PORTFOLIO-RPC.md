@@ -63,8 +63,26 @@ dedicated provider); when it is unset the route returns 503
   fragments, non-443 ports, IP literals, localhost/local domains, redirects,
   and DNS resolutions to private or reserved addresses are rejected. The
   selected public DNS address is pinned for the request.
+- DNS setup has its own bounded wait using the configured per-call timeout,
+  and observes the caller's cancellation signal before and during lookup.
+  The portfolio, public-wallet-record and holder-configuration wrappers all
+  pass that signal into setup. A setup timeout reports `RPC_TIMEOUT`; caller
+  cancellation preserves its reason. This is a local transport policy, not a
+  Pump API contract or an aggregate deadline spanning DNS and every RPC call.
+  The setup timer and abort listener are removed on settlement. Node's pending
+  OS lookup cannot itself be canceled through this API: its late result is
+  observed and discarded, never used to initiate HTTPS after interruption.
+  Timer values must be integer milliseconds from 0 through 2,147,483,647;
+  ordinary reads retain their existing 10-second or 12-second phase limits.
 - The browser calls only the same-origin `/api/portfolio` route. No private key,
   signing method, mutation RPC, or arbitrary user-supplied RPC endpoint exists.
+
+`packages/backend/test/portfolio-dns-deadline.test.ts` exercises the maintained
+live-read wrappers with mocked DNS and HTTPS only, including never-settling and
+late lookups, cancellation, cleanup, rejected addresses and successful pinned
+reads. Run with the existing backend Node loader: `node --import tsx --test
+test/portfolio-dns-deadline.test.ts` from `packages/backend`. No DNS query, socket,
+production RPC, wallet connection or transaction is involved in these regressions.
 
 ## Live qualification
 

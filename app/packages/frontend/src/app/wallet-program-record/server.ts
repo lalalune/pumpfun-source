@@ -146,6 +146,7 @@ export async function readLiveWalletRecord(
   const { call, endpointHost } = await createPinnedRpcCall(
     process.env.SOLANA_RPC_URL,
     12_000,
+    options.signal,
   );
   return readWalletRecordWithRpc(address, call, endpointHost, options.signal);
 }

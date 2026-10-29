@@ -266,17 +266,55 @@ export function validateRpcUrl(raw: string | undefined): URL {
 
 async function pinRpcEndpoint(
   raw: string | undefined,
+  timeoutMs: number,
+  signal?: AbortSignal,
 ): Promise<PinnedEndpoint> {
   const url = validateRpcUrl(raw);
+  signal?.throwIfAborted();
+  if (
+    !Number.isSafeInteger(timeoutMs) ||
+    timeoutMs < 0 ||
+    timeoutMs > 2_147_483_647
+  )
+    throw new RangeError(
+      "RPC timeout must be an integer from 0 to 2147483647 milliseconds",
+    );
   let addresses: Array<{ address: string; family: number }>;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  let onAbort: (() => void) | undefined;
   try {
-    addresses = await lookup(url.hostname, { all: true, verbatim: true });
-  } catch {
+    const interrupted = new Promise<never>((_resolve, reject) => {
+      timer = setTimeout(() => reject(new PortfolioRpcError(
+        "RPC_TIMEOUT",
+        "The Solana RPC hostname lookup timed out.",
+        true,
+      )), timeoutMs);
+      onAbort = () => reject(signal!.reason);
+      signal?.addEventListener("abort", onAbort, { once: true });
+    });
+    // Node's lookup promise cannot be canceled. Stop awaiting it on interruption;
+    // Promise.race also observes any late rejection without starting HTTPS.
+    addresses = await Promise.race([
+      Promise.resolve().then(() => {
+        signal?.throwIfAborted();
+        return lookup(url.hostname, { all: true, verbatim: true });
+      }),
+      interrupted,
+    ]);
+  } catch (error) {
+    if (
+      error instanceof PortfolioRpcError ||
+      (signal?.aborted && Object.is(error, signal.reason))
+    )
+      throw error;
     throw new PortfolioRpcError(
       "RPC_DNS_REJECTED",
       "The configured RPC hostname could not be resolved safely.",
       true,
     );
+  } finally {
+    clearTimeout(timer);
+    if (onAbort) signal?.removeEventListener("abort", onAbort);
   }
   if (
     addresses.length === 0 ||
@@ -395,8 +433,9 @@ async function postPinnedJson(
 export async function createPinnedRpcCall(
   rawUrl: string | undefined,
   timeoutMs: number,
+  signal?: AbortSignal,
 ): Promise<{ call: RpcCall; endpointHost: string }> {
-  const endpoint = await pinRpcEndpoint(rawUrl);
+  const endpoint = await pinRpcEndpoint(rawUrl, timeoutMs, signal);
   let nextId = 1;
   const call: RpcCall = async (method, params, parentSignal) => {
     const id = nextId++;
@@ -777,6 +816,7 @@ export async function readLivePortfolio(
   const { call, endpointHost } = await createPinnedRpcCall(
     options.rpcUrl === undefined ? process.env.SOLANA_RPC_URL : options.rpcUrl,
     options.timeoutMs ?? 10_000,
+    options.signal,
   );
   return readPortfolioWithRpc(canonicalAddress, call, endpointHost, options.signal);
 }

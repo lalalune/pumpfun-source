@@ -215,6 +215,7 @@ export async function readLiveHolderConfiguration(
   const { call, endpointHost } = await createPinnedRpcCall(
     process.env.SOLANA_RPC_URL,
     10_000,
+    signal,
   );
   return readHolderConfigurationWithRpc(mint, call, endpointHost, signal);
 }
