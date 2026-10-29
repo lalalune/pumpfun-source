@@ -255,7 +255,7 @@ export function registerUserRoutes(app: FastifyInstance, store: UserStore = defa
     }
     // Contract declares items: type string, maxLength: 64
     for (const id of body.ids) {
-      if (typeof id !== 'string' || id.length > 64) {
+      if (typeof id !== 'string' || [...id].length > 64) {
         return reply.code(400).send(errorBody(400, 'INVALID_ID', { maxLength: 64, received: id }));
       }
     }
