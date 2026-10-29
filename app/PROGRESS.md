@@ -2,7 +2,7 @@
 
 ## Application source and feature progress
 
-As of **2026-10-28**. The [app workspace](README.md) contains the SDK, frontend and independent API-compatible backend. [PRD](PRD.md) · [Detailed ledger](contracts/feature-progress.json) · [Validation](evidence/validation.json).
+As of **2026-10-28**. The `app/` workspace contains the SDK, frontend and independent API-compatible backend. [PRD](PRD.md) · [Detailed ledger](contracts/feature-progress.json) · [Validation](evidence/validation.json).
 
 Source acquisition/extraction is separate from editable feature reconstruction and working behavior. Percentages below use explicit counts or accepted milestones; they are not estimates of engineering effort. The original backend source is unavailable.
 

@@ -6,11 +6,11 @@ Source code for pump.fun
 
 | Program | Matched windows | Matched % | Raw-equal bodies | Normalized only | Unmatched | Whole meaningful ELF equal |
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| [Pump Main](programs/pump/README.md) |1,020/1,035|98.6%|188|832|15|No|
-| [PumpSwap / AMM](programs/pump-amm/README.md) |785/785|100.0%|785|0|0|**Yes**|
-| [Fees](programs/pump-fees/README.md) |585/585|100.0%|585|0|0|**Yes**|
-| [Mayhem](programs/mayhem/README.md) |441/441|100.0%|441|0|0|**Yes**|
-| [Donation Relay](repro/donation-relay/canonical-exact-selection/README.md) |492/492|100.0%|492|0|0|**Yes**|
+| [Pump Main](programs/pump/) |1,020/1,035|98.6%|188|832|15|No|
+| [PumpSwap / AMM](programs/pump-amm/) |785/785|100.0%|785|0|0|**Yes**|
+| [Fees](programs/pump-fees/) |585/585|100.0%|585|0|0|**Yes**|
+| [Mayhem](programs/mayhem/) |441/441|100.0%|441|0|0|**Yes**|
+| [Donation Relay](programs/donation-relay/) |492/492|100.0%|492|0|0|**Yes**|
 | **Total** |**3,323/3,338**|**99.6%**|**2,491**|**832**|**15**|**4/5**|
 
 Matched windows cover **5,045,232/5,213,128 code bytes (96.8%)**.
@@ -25,7 +25,7 @@ scores it against the captured original in `evidence/original/`.
 <!-- app-progress:start -->
 ## Application source and feature progress
 
-As of **2026-10-28**. The [app workspace](app/README.md) contains the SDK, frontend and independent API-compatible backend. [PRD](app/PRD.md) · [Detailed ledger](app/contracts/feature-progress.json) · [Validation](app/evidence/validation.json).
+As of **2026-10-28**. The `app/` workspace contains the SDK, frontend and independent API-compatible backend. [PRD](app/PRD.md) · [Detailed ledger](app/contracts/feature-progress.json) · [Validation](app/evidence/validation.json).
 
 Source acquisition/extraction is separate from editable feature reconstruction and working behavior. Percentages below use explicit counts or accepted milestones; they are not estimates of engineering effort. The original backend source is unavailable.
 

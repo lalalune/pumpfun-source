@@ -58,7 +58,7 @@ def render():
     require(actual_sources==expected_sources, 'SDK source inventory differs from archive')
     operations=[(path,method,op) for path,item in spec['paths'].items() for method,op in item.items() if method in {'get','post','put','patch','delete','head','options'}]
     scope_counts=collections.Counter(op['x-api-scope'] for _,_,op in operations)
-    text=['## Application source and feature progress','',f'As of **{ledger["asOf"]}**. The [app workspace](app/README.md) contains the SDK, frontend and independent API-compatible backend. [PRD](app/PRD.md) · [Detailed ledger](app/contracts/feature-progress.json) · [Validation](app/evidence/validation.json).','',
+    text=['## Application source and feature progress','',f'As of **{ledger["asOf"]}**. The `app/` workspace contains the SDK, frontend and independent API-compatible backend. [PRD](app/PRD.md) · [Detailed ledger](app/contracts/feature-progress.json) · [Validation](app/evidence/validation.json).','',
     'Source acquisition/extraction is separate from editable feature reconstruction and working behavior. Percentages below use explicit counts or accepted milestones; they are not estimates of engineering effort. The original backend source is unavailable.','',
     '| Source / evidence measure | Complete / inventoried | Progress | Meaning |','| --- | ---: | ---: | --- |',
     f'| Published SDK source | {source_equal} / {source_count} files | {100*source_equal/source_count:.0f}% | Exact npm 4.3.1 source bytes; full behavior parity still unqualified |',
