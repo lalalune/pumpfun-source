@@ -40,7 +40,7 @@ it inside the block expression lets stack coloring reuse the slot: frame offsets
 |---|---|---|
 | 0x147ba0 buy | 3712 B, 0.645 | 3728 B, 0.849 |
 
-Official 1019/188, no gains or losses. unstripped sha256 .
+Official 1019/188, no gains or losses. unstripped sha256 8336a2200d8502bf8dded3bd2286032a9255112ec466c7b3fd30ae08c3a0e009.
 Rejected this round (ledger): single if/else-if chain (b02, b05), mutable-amount chain (b03),
 precomputed `whitelisted` bool in either operand order (b07-b09), sell tail-expression
 `emit_sell_cpi(..)` (t02: structurally closer but r8/r9 swap, 0.860), user/source quote Option
