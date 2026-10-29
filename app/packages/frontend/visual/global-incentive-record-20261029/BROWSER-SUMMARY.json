@@ -1,0 +1,27 @@
+{
+  "head": "b28b3368959752293f04884e6a1d90ebe8c43d4c",
+  "runtimeSource": "73807d0b93e604d3a2429e4d2995fc07b51b283e",
+  "browser": {
+    "discovered": 16,
+    "passed": 15,
+    "skipped": 1,
+    "failed": 0,
+    "newPassed": 8,
+    "existingRecordPassed": 7,
+    "existingRecordGuard": "Explicitly skipped under its pre-existing no-RPC flag gate"
+  },
+  "actualCompiledFixture": "PASS: existing handler+reader+actual SDK decoder returned 200 for controlled544B response; fixed two calls asserted",
+  "actualUnconfiguredProductGuard": "PASS: browser503/no-store+alert, independent APIRequest503 JSON RPC_CONFIGURATION_INVALID",
+  "configuredProductionRouteSuccess": "untested",
+  "fixture": {
+    "pid": 399982,
+    "fixtureSha256": "f4c8410a8b2f7c4e0d13f7cf132e596a03f57a223c840f8550c964219564d9b0",
+    "target": "/workspace/pump-app-holder-config/app/packages/frontend/src/app/global-record-test-fixture/route.ts",
+    "phase": "removed",
+    "installedAt": "2026-10-29T17:42:32.529Z",
+    "removedAt": "2026-10-29T17:42:59.939Z"
+  },
+  "installedFixtureAbsent": true,
+  "ownedNextAfter": [],
+  "primary3010Released": true
+}

@@ -1,0 +1,68 @@
+{
+  "runtimeSource": "73807d0b93e604d3a2429e4d2995fc07b51b283e",
+  "browserHead": "b28b3368959752293f04884e6a1d90ebe8c43d4c",
+  "testedSourceUnchanged": {
+    "app/packages/frontend/src/app/api/portfolio/incentive-record/route.ts": "78d0faa5b06624396117f7c879f2b61d432299f777525ce7768b8f6bcf4b5976",
+    "app/packages/frontend/src/app/global-incentive-record/client.ts": "6378063c23e6ac19b224f1f84564448703397a1d10877bdd2f090dc058672180",
+    "app/packages/frontend/src/app/global-incentive-record/contract.json": "5116a1647374fbc233ea75011c13ba9c0651724dd2961833a3ae2d403e5a818c",
+    "app/packages/frontend/src/app/global-incentive-record/handler.ts": "81f76de010c57fcf80503af88f5858d86818745441a4e92053d2e8e5f98b0e4d",
+    "app/packages/frontend/src/app/global-incentive-record/panel.tsx": "a3a8ff2e63a2a903bd184a0f88da48f04cf236c2d42d219d1f6246a981d133f5",
+    "app/packages/frontend/src/app/global-incentive-record/server.ts": "176d45fbef4c05cb6fc39e6491f33c27b4a43b0d25ad72edaa318c718b524e6b",
+    "app/packages/frontend/src/app/global-incentive-record/types.ts": "8a94c95ffaf253988e464fd667ef8f5b9b3a79ecf3ff49c4ccf803331890e9e4",
+    "app/packages/frontend/src/app/wallet-program-record/panel.tsx": "2e046969b60f16d97ee6f7cb2d8ae899aec8f39c29602652d1f1e125996ea478",
+    "app/packages/frontend/tests/global-incentive-record.spec.ts": "59a665dad7971be98b7b3d6cf9b6394f63e24b86f897c06e8af34543cc92f796",
+    "app/packages/frontend/tests/global-record-fixture/route.ts.in": "f4c8410a8b2f7c4e0d13f7cf132e596a03f57a223c840f8550c964219564d9b0",
+    "app/packages/frontend/tests/with-global-record-fixture.mjs": "0c36b6dcd7bd11db1dc1cd131261ecbfc7755d325fbdbb5b8af8fdceff866dbd"
+  },
+  "browser": {
+    "head": "b28b3368959752293f04884e6a1d90ebe8c43d4c",
+    "runtimeSource": "73807d0b93e604d3a2429e4d2995fc07b51b283e",
+    "browser": {
+      "discovered": 16,
+      "passed": 15,
+      "skipped": 1,
+      "failed": 0,
+      "newPassed": 8,
+      "existingRecordPassed": 7,
+      "existingRecordGuard": "Explicitly skipped under its pre-existing no-RPC flag gate"
+    },
+    "actualCompiledFixture": "PASS: existing handler+reader+actual SDK decoder returned 200 for controlled544B response; fixed two calls asserted",
+    "actualUnconfiguredProductGuard": "PASS: browser503/no-store+alert, independent APIRequest503 JSON RPC_CONFIGURATION_INVALID",
+    "configuredProductionRouteSuccess": "untested",
+    "fixture": {
+      "pid": 399982,
+      "fixtureSha256": "f4c8410a8b2f7c4e0d13f7cf132e596a03f57a223c840f8550c964219564d9b0",
+      "target": "/workspace/pump-app-holder-config/app/packages/frontend/src/app/global-record-test-fixture/route.ts",
+      "phase": "removed",
+      "installedAt": "2026-10-29T17:42:32.529Z",
+      "removedAt": "2026-10-29T17:42:59.939Z"
+    },
+    "installedFixtureAbsent": true,
+    "ownedNextAfter": [],
+    "primary3010Released": true
+  },
+  "images": {
+    "global-incentive-record-320.png": {
+      "width": 320,
+      "height": 900,
+      "sha256": "aefaf578ab5777a6a56d6695dfc67308f2dad02546ac2b6f4aeae228cad291c3",
+      "scope": "Partial viewport observation from controlled DTO response case; no full-page/original parity claim"
+    },
+    "global-incentive-record-1440.png": {
+      "width": 1440,
+      "height": 900,
+      "sha256": "d589594ff48172d4cedf83bec020c9a76207a8a8d0d86e892b059bc106aa50bd",
+      "scope": "Partial viewport observation from controlled DTO response case; no full-page/original parity claim"
+    }
+  },
+  "fixturePatternCredit": "Prior PR1488, not new generic-tooling recovery",
+  "reactReview": [
+    "Derived value stays local; no extra fetching effects or listeners",
+    "Fixed 30-entry table uses stable source indices; scope headers/caption and focusable horizontal region",
+    "Explicit action; prior value removed on refresh; abort/generation/deadline guard late updates",
+    "No SDK/server dependencies enter client module; client imports pure address validator only",
+    "No persisted wallet state, credentials, signing or user-selected account argument"
+  ],
+  "normalProductionBuild": "pending; not claimed",
+  "configuredProductionRouteSuccess": "untested; not inferred from fixture success"
+}

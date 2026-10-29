@@ -1,0 +1,22 @@
+{
+  "head": "b28b3368959752293f04884e6a1d90ebe8c43d4c",
+  "runtimeSource": "73807d0b93e604d3a2429e4d2995fc07b51b283e",
+  "command": [
+    "pnpm",
+    "--filter",
+    "@pump-reconstruction/frontend",
+    "exec",
+    "playwright",
+    "test",
+    "--config",
+    "playwright.global-incentive-record.config.ts",
+    "--max-failures=1"
+  ],
+  "started": "2026-10-29T17:42:31.527901+00:00",
+  "port": 3010,
+  "fixtureTemplateSha256": "f4c8410a8b2f7c4e0d13f7cf132e596a03f57a223c840f8550c964219564d9b0",
+  "configuration": "SOLANA_RPC_URL empty. Controlled loopback development fixture invokes actual service/decoder. Production route success untested.",
+  "pid": 399947,
+  "returncode": 0,
+  "finished": "2026-10-29T17:42:59.991149+00:00"
+}
