@@ -215,6 +215,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
       if (method === 'array' && node.arguments.length === 1) return { type: 'array', items: await compileWith(node.arguments[0], ctx) };
       if (method === 'enum' && node.arguments.length === 1) return { enum: await constant(node.arguments[0], ctx) };
       if (method === 'literal' && node.arguments.length === 1) return { const: await constant(node.arguments[0], ctx) };
+      if (method === 'union' && node.arguments[0]?.type === 'ArrayExpression' && node.arguments.length === 1 && node.arguments[0].elements.length === 0) throw new Error('empty union cannot be emitted as JSON Schema anyOf');
       if (method === 'union' && node.arguments[0]?.type === 'ArrayExpression' && node.arguments.length === 1) return { anyOf: await Promise.all(node.arguments[0].elements.map((value) => compileWith(value, ctx))) };
       throw new Error(`unsupported Zod constructor ${method}`);
     }
