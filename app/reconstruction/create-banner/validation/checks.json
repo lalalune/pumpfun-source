@@ -1,0 +1,159 @@
+{
+  "runtimeRevision": "e2eb54c388b60ec359accfec7e130d4c6a2efa4a",
+  "base": "ef400863f4e476b2eaaab0866c0b1187d8060abc",
+  "scope": "Separate optional ephemeral banner selector/preview, not token metadata or upload.",
+  "runtimeInputs": [
+    {
+      "path": "app/packages/frontend/src/app/create-coin-form.tsx",
+      "sha256": "f5173b3e15c186ddcacd1dbd0cbcf9b5bbc110a939e6e8377a6325aae84f11e7"
+    },
+    {
+      "path": "app/packages/frontend/src/app/create-banner-input.tsx",
+      "sha256": "75da6487421fd45ab6f1f1c65debce088f75483f97540ad0b04ff9bc5e82c656"
+    },
+    {
+      "path": "app/packages/frontend/src/app/create-banner-input.module.css",
+      "sha256": "d1618a878865225329d243992cedf4a55c41ee6cb083ba83a19504203ac83048"
+    },
+    {
+      "path": "app/packages/frontend/src/app/create-banner-preview.ts",
+      "sha256": "8868c37c5678f97560e84d1afd115010e213d42432ef3c4b734f241adf47ae55"
+    },
+    {
+      "path": "app/packages/frontend/tests/create-banner.spec.ts",
+      "sha256": "f158b1fed2e660a60d27bc8f3bc0a0ccdf10ef019b8ba9dfceaeb11b7ca2d058"
+    }
+  ],
+  "before": {
+    "method": "Pinned base form byte restored, unreferenced candidate modules remained on disk. Same browser test/harness; control inputsha below.",
+    "formSha256": "e2b3ffe7d5bccab73b52c34ab31b05bb80166a4a609ec7fdf235cefb2d707482",
+    "expectedFailure": "Add banner summary absent",
+    "testsFailed": 1
+  },
+  "after": {
+    "newBrowserCases": 7,
+    "maintainedBrowserCases": 18,
+    "passed": 25,
+    "failed": 0,
+    "seconds": 51.7,
+    "openBannerPageWidths": [
+      320,
+      375,
+      390,
+      768,
+      1440
+    ],
+    "realNativeSuccess": "PNG load and keyboard file chooser",
+    "syntheticPort": "Only stalled-decoder cancellation case; model platform/timers are synthetic."
+  },
+  "otherChecks": {
+    "modelTests": 10,
+    "sourceContractTests": 1,
+    "frontendTypecheck": "PASS",
+    "appEvidenceObjects": 698,
+    "sdkSourceFilesUnchanged": 31,
+    "npmIntegrity": "PASS",
+    "progress": "PASS",
+    "progressTests": 9,
+    "rootCaptures": 9,
+    "rootToolingTests": 10
+  },
+  "retainedDiagnostics": [
+    "First source candidateed61c5d7 browser run: sibling key0 collision introduced by banner reset key0 beside video key0; new Coin name test locator also matched the aside.7failed/3passed/1interrupted/14unrun; abortedexit130. Raw logs/traces remain private.",
+    "First corrected local run passed25 but screenshot inspection found open-banner mobile documentwidth443 at viewport375. Local min-width CSS corrected; final new width assertions pass. Earlier screenshots remain private.",
+    "Initial frontend type/progress attempts missed sparse baseline support. Exact Git HEAD files restored; no support source edits. Corepack invoked outsideapp once rejected installed unpinned version; corrected cwd used pinned10.24.0 without install or bypass."
+  ],
+  "limits": [
+    "Real PNG success only; no native OS drag, broad codec/GIF-animation/browser-platform qualification.",
+    "No original-bundle execution or original screenshot/pixel equivalence.",
+    "Full-page screenshots retain existing fixed-navigation placement; they do not establish whole-page occlusion/accessibility parity.",
+    "Production resize/sniff/auth/pin/upload/post-creation attach remain unsupported. Metadata JSON and SDK unchanged.",
+    "No production full-appbuild, broad workspace/browser suite or native backend compatibility claim from this worker.",
+    "No optional Slop run evidence or private usage traces are included."
+  ],
+  "artifacts": [
+    {
+      "path": "after-local-1440.png",
+      "bytes": 153847,
+      "sha256": "5b215e95c303463f3a800d4de1e22558d207c4086e9cb5150632ddddcf68eed5"
+    },
+    {
+      "path": "after-local-375.png",
+      "bytes": 145135,
+      "sha256": "3ac712dadcd1166607d31f10d20475188b0aebb1dc41a3ba9d6260fab384a84a"
+    },
+    {
+      "path": "app-evidence.log.gz",
+      "bytes": 89,
+      "sha256": "c4ccac34440167b7170118e2af25a5865d395032af8ca1cf812341ed573c3243",
+      "decodedBytes": 72,
+      "decodedSha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9"
+    },
+    {
+      "path": "app-progress.log.gz",
+      "bytes": 69,
+      "sha256": "8d25a71e7cd8c214cc56b246898d555fadb2c61682febfb7b183577299893a97",
+      "decodedBytes": 49,
+      "decodedSha256": "7ab499988f3b70e197e23e42287d4cc4579dc2b9360a82be3e827e22c589fda4"
+    },
+    {
+      "path": "before-local.png",
+      "bytes": 70706,
+      "sha256": "fcb2967414f563962ca5265c607a23cc52d5c905f627d7faf6f737b093490709"
+    },
+    {
+      "path": "browser-baseline.log.gz",
+      "bytes": 854,
+      "sha256": "117e68a8d12b12a867a615ba06bbf11b53603b75a1bb152269d4af1bdde342ec",
+      "decodedBytes": 4208,
+      "decodedSha256": "4d3e5e5a441c0a7f0f7fbcbbcbade6d878e73692bb1ed6a14fd947ad5142c232"
+    },
+    {
+      "path": "browser-final.log.gz",
+      "bytes": 1542,
+      "sha256": "86ed1891d1f1dcc0d802f0c67626a41ca920647c1d0aa90a8b80a4a2575c07f1",
+      "decodedBytes": 10891,
+      "decodedSha256": "9233b06d3bb941fca487020befc39feb28d8c86afb5a0cb93b03e29fc9ea6803"
+    },
+    {
+      "path": "frontend-typecheck.log.gz",
+      "bytes": 115,
+      "sha256": "c521e3237903de8237ee016329adcd9aab9d0042416546f08d848fc24b3b2e11",
+      "decodedBytes": 113,
+      "decodedSha256": "fd98baaf669b27bf3377ea080ae3edda90647e5bff41a6b367c10fdea8c25a12"
+    },
+    {
+      "path": "model.log.gz",
+      "bytes": 999,
+      "sha256": "cade5682a465879526b3857fc1b61010db046c2e1726c44ba2a3688a1f41d508",
+      "decodedBytes": 2193,
+      "decodedSha256": "a82b375ccc14cd60b68ff1d6fde9c8f898580abbe8c7d59efddef355bfec605b"
+    },
+    {
+      "path": "playwright-config.txt",
+      "bytes": 468,
+      "sha256": "ea61e31745638185d0c3564a72e6ceefea07bee4269e10fa597f322bf2001eab"
+    },
+    {
+      "path": "progress-tests.log.gz",
+      "bytes": 100,
+      "sha256": "d3400e80cdfbad922992a916215bc9c37ee2c00057c6bb426e360516bf4212e2",
+      "decodedBytes": 155,
+      "decodedSha256": "dfe31fcb7fbb75041c2af0811fe499f9566cdb32ed44fce36d4b58656ee6e1f4"
+    },
+    {
+      "path": "root-checks.log.gz",
+      "bytes": 459,
+      "sha256": "831a4242675c222d2b86ab33352cf2411f6c9b4ba0f238ecb397e21fdc1bf10c",
+      "decodedBytes": 1315,
+      "decodedSha256": "8a6fe18562b3e47d77582772432955febe5cc948e59cc125749735e785cb12c9"
+    },
+    {
+      "path": "source.log.gz",
+      "bytes": 188,
+      "sha256": "5ec88b31ceb8de6727566c7e5167b53a06ce8d75c8dd6b04aa5f5d6fd1cc0c4c",
+      "decodedBytes": 232,
+      "decodedSha256": "37e264568a6b8419b2faf98832d30ef047d127e05b7108da1d62e753c827d95c"
+    }
+  ]
+}
