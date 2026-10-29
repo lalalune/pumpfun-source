@@ -34,6 +34,7 @@ import {
   type LeaderboardResponse,
   type LeaderboardSuccess,
   type TraderEntry,
+  type TraderSort,
   type TradersData,
 } from "./types";
 import { CompetitionRules } from "./competition-rules";
@@ -290,41 +291,62 @@ function SearchControl({
   );
 }
 
-function TraderRows({ entries }: { entries: TraderEntry[] }) {
+function TraderRows({
+  entries,
+  sort,
+}: {
+  entries: TraderEntry[];
+  sort: TraderSort;
+}) {
   return (
     <ol className="ranking-list" aria-label="Trader rankings">
-      {entries.map((entry) => (
-        <li
-          className="ranking-row"
-          key={`${entry.rank}-${entry.walletAddress}`}
-        >
-          <span className="ranking-position" aria-label={`Rank ${entry.rank}`}>
-            {entry.rank}
-          </span>
-          <span className="ranking-identity">
-            <strong>
-              {identityLabel(entry.username, entry.walletAddress)}
-              <VerifiedMark
-                visible={entry.isVerified && entry.verifiedBadgeVisible}
-              />
-            </strong>
-            <small title={entry.walletAddress}>
-              {shortIdentity(entry.walletAddress)} · {entry.positionsCount}{" "}
-              positions
-            </small>
-          </span>
-          <span className="ranking-metric">
-            <strong className={entry.pnlUsd >= 0 ? "positive" : "negative"}>
-              {usd.format(entry.pnlUsd)}
-            </strong>
-            <small>{percent.format(entry.pnlPercent / 100)} combined PnL</small>
-          </span>
-          <span className="ranking-facts">
-            <small>Realized {usd.format(entry.realizedPnlUsd)}</small>
-            <small>Unrealized {usd.format(entry.unrealizedPnlUsd)}</small>
-          </span>
-        </li>
-      ))}
+      {entries.map((entry) => {
+        const value =
+          "realized" === sort
+            ? entry.realizedPnlUsd
+            : "unrealized" === sort
+              ? entry.unrealizedPnlUsd
+              : entry.pnlUsd;
+        return (
+          <li
+            className="ranking-row"
+            key={`${entry.rank}-${entry.walletAddress}`}
+          >
+            <span
+              className="ranking-position"
+              aria-label={`Rank ${entry.rank}`}
+            >
+              {entry.rank}
+            </span>
+            <span className="ranking-identity">
+              <strong>
+                {identityLabel(entry.username, entry.walletAddress)}
+                <VerifiedMark
+                  visible={entry.isVerified && entry.verifiedBadgeVisible}
+                />
+              </strong>
+              <small title={entry.walletAddress}>
+                {shortIdentity(entry.walletAddress)} · {entry.positionsCount}{" "}
+                positions
+              </small>
+            </span>
+            <span className="ranking-metric">
+              <strong className={value >= 0 ? "positive" : "negative"}>
+                {usd.format(value)}
+              </strong>
+              <small>
+                {sort === "combined"
+                  ? `${percent.format(entry.pnlPercent / 100)} combined PnL`
+                  : `${sort[0].toUpperCase()}${sort.slice(1)} PnL`}
+              </small>
+            </span>
+            <span className="ranking-facts">
+              <small>Realized {usd.format(entry.realizedPnlUsd)}</small>
+              <small>Unrealized {usd.format(entry.unrealizedPnlUsd)}</small>
+            </span>
+          </li>
+        );
+      })}
     </ol>
   );
 }
@@ -618,7 +640,7 @@ export default function LeaderboardClient() {
           <span>{data.periodLabel}</span>
           <span>{filtered.length} validated traders</span>
         </div>
-        <TraderRows entries={entries} />
+        <TraderRows entries={entries} sort={traderSort} />
         <Pagination
           page={visiblePage}
           totalPages={totalPages}

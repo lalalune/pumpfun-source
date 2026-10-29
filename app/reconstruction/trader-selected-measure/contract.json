@@ -1,0 +1,427 @@
+{
+  "schemaVersion": 1,
+  "base": "2c8a7900f240c8a50cccc2b4d263bdbd32a68924",
+  "scope": "Actual native selected-sort request-to-displayed-value correction, retaining native formatter/tone policy; no backend ranking/auth changes",
+  "prerequisite": {
+    "accepted": "829",
+    "producer": "scripts/original-pnl-leaderboard-client.mjs",
+    "sha256": "c213d6a41049542ca4e3e2dcd2f46fa651bc184b80766d57d18b68188489f33e",
+    "source": {
+      "repository": "lalalune/pumpfun-source",
+      "reviewBase": "c571e162500ee6a72a3cc942eb9dca1f4c825931",
+      "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "selectedCompleteEntriesSha256": "2d18030be8a2e10f2989db1cb073ec4e7b10595b70a1f0d139179bb4133cdc0f",
+      "selectedIndexEntries": [
+        {
+          "ids": [
+            996005
+          ],
+          "sha256": "80bc5bd7bf784ff392040b5157b0b51fd1e9e038179c66ce67b205b7041137da",
+          "origins": [
+            {
+              "source": "evidence/web/objects/dd1b7e2a0ecbaed0.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/39mrtwuhv50wq.js",
+              "start": 14830,
+              "end": 21884
+            }
+          ],
+          "path": "recovered/modules/996005-80bc5bd7bf78.js"
+        },
+        {
+          "ids": [
+            996005
+          ],
+          "sha256": "ac3ebd5b7d6f1227ac2defe6bdab4d173314d04315052350a509c8934aa02cae",
+          "origins": [
+            {
+              "source": "evidence/web/objects/bbad3cca63bc2aa5.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/2wq32g770zyfq.js",
+              "start": 14336,
+              "end": 21390
+            }
+          ],
+          "path": "recovered/modules/996005-ac3ebd5b7d6f.js"
+        },
+        {
+          "ids": [
+            154263
+          ],
+          "sha256": "cd01bde47e65d8950932e98d4dc853a8e18e53e527de909f905b5caf1b4fc878",
+          "origins": [
+            {
+              "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+              "start": 303120,
+              "end": 316163
+            }
+          ],
+          "path": "recovered/modules/154263-cd01bde47e65.js"
+        },
+        {
+          "ids": [
+            864024,
+            416287
+          ],
+          "sha256": "cec3cfd574ec5ecefe30bc96c8d3c5242ccaa83d7fa2056a7708ac557e7220b9",
+          "origins": [
+            {
+              "source": "evidence/web/objects/4fd6e792e7a336d9.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0jy7c_2b11et0.js",
+              "start": 15822,
+              "end": 17227
+            }
+          ],
+          "path": "recovered/modules/864024-cec3cfd574ec.js"
+        },
+        {
+          "ids": [
+            503630
+          ],
+          "sha256": "df5a12d4b76158889dd38a02d0d9afc0d0405065772b589c9cadf9806422d0e7",
+          "origins": [
+            {
+              "source": "evidence/web/objects/1e479323ffe53c14.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+              "start": 654,
+              "end": 1035
+            }
+          ],
+          "path": "recovered/modules/503630-df5a12d4b761.js"
+        },
+        {
+          "ids": [
+            759257,
+            67734
+          ],
+          "sha256": "e1c207697339004b48f6baa9f81f34e7644686ee424616b553e55b23c659b855",
+          "origins": [
+            {
+              "source": "evidence/web/objects/1e479323ffe53c14.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+              "start": 144,
+              "end": 646
+            }
+          ],
+          "path": "recovered/modules/759257-e1c207697339.js"
+        }
+      ],
+      "sharedSource": {
+        "revision": "0a9a1f084",
+        "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213"
+      }
+    },
+    "credit": "Source request/query/selector discoveries reused without recovery-count claim"
+  },
+  "witnesses": [
+    {
+      "label": "complete accepted raw selected-measure selector; reused not new recovery",
+      "source": "evidence/web/objects/4fd6e792e7a336d9.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0jy7c_2b11et0.js",
+      "sourceSha256": "b6d6a7f37e897b8ecd6819c4f2d36487fe6551c57c5e7ad5fc7fe4239eb65b41",
+      "sourceBytes": 26010,
+      "utf16": [
+        16225,
+        16308
+      ],
+      "utf8": [
+        16227,
+        16310
+      ],
+      "sha256": "15f6007781fd7b1df75db70934e0d0c2bd79ab11d4280a1bad7b6a4b71e1af95"
+    },
+    {
+      "label": "complete original row consumer context",
+      "source": "evidence/web/objects/dd1b7e2a0ecbaed0.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/39mrtwuhv50wq.js",
+      "sourceSha256": "40ea711965b8e822c72cb9123e9f25a88d2d9015a356b6741fb2df0a1778ed54",
+      "sourceBytes": 41728,
+      "utf16": [
+        15625,
+        19081
+      ],
+      "utf8": [
+        15627,
+        19085
+      ],
+      "sha256": "c5908500de6065f5d86b215d1ca1d3946b1a4480919018203e12c4ba3e2e9df9"
+    },
+    {
+      "label": "supplied row and selected sort choose displayed value",
+      "source": "evidence/web/objects/dd1b7e2a0ecbaed0.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/39mrtwuhv50wq.js",
+      "sourceSha256": "40ea711965b8e822c72cb9123e9f25a88d2d9015a356b6741fb2df0a1778ed54",
+      "sourceBytes": 41728,
+      "utf16": [
+        16399,
+        16411
+      ],
+      "utf8": [
+        16401,
+        16413
+      ],
+      "sha256": "9d3865e69522a084d37b6eec5e46f6687e955168f69661bd243bee5c4574eb94"
+    },
+    {
+      "label": "selected value reaches original formatter",
+      "source": "evidence/web/objects/dd1b7e2a0ecbaed0.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/39mrtwuhv50wq.js",
+      "sourceSha256": "40ea711965b8e822c72cb9123e9f25a88d2d9015a356b6741fb2df0a1778ed54",
+      "sourceBytes": 41728,
+      "utf16": [
+        18320,
+        18330
+      ],
+      "utf8": [
+        18324,
+        18334
+      ],
+      "sha256": "2f51a787f9e993cc0983ee8220776ba61c7e0811f661b610732e1765b412a365"
+    },
+    {
+      "label": "selected value reaches original tone",
+      "source": "evidence/web/objects/dd1b7e2a0ecbaed0.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/39mrtwuhv50wq.js",
+      "sourceSha256": "40ea711965b8e822c72cb9123e9f25a88d2d9015a356b6741fb2df0a1778ed54",
+      "sourceBytes": 41728,
+      "utf16": [
+        16414,
+        16424
+      ],
+      "utf8": [
+        16416,
+        16426
+      ],
+      "sha256": "09907494c2e58fbefa8105394f3d3e0f08a8bc0152cbb971e9dc79e63e3bc983"
+    },
+    {
+      "label": "actual board query consumer",
+      "source": "evidence/web/objects/dd1b7e2a0ecbaed0.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/39mrtwuhv50wq.js",
+      "sourceSha256": "40ea711965b8e822c72cb9123e9f25a88d2d9015a356b6741fb2df0a1778ed54",
+      "sourceBytes": 41728,
+      "utf16": [
+        20006,
+        20016
+      ],
+      "utf8": [
+        20010,
+        20020
+      ],
+      "sha256": "e1de50db3484a01d49a8dcb6b5364e8e5e288d4b89fd3ed8bcbef376f78b4bfa"
+    },
+    {
+      "label": "selected query arguments",
+      "source": "evidence/web/objects/dd1b7e2a0ecbaed0.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/39mrtwuhv50wq.js",
+      "sourceSha256": "40ea711965b8e822c72cb9123e9f25a88d2d9015a356b6741fb2df0a1778ed54",
+      "sourceBytes": 41728,
+      "utf16": [
+        19899,
+        19956
+      ],
+      "utf8": [
+        19903,
+        19960
+      ],
+      "sha256": "72a315ae1f7e08634bfd140415c9f23da9d0d8670b7574b15248a78a85443a9c"
+    },
+    {
+      "label": "same selected sort reaches real row",
+      "source": "evidence/web/objects/dd1b7e2a0ecbaed0.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/39mrtwuhv50wq.js",
+      "sourceSha256": "40ea711965b8e822c72cb9123e9f25a88d2d9015a356b6741fb2df0a1778ed54",
+      "sourceBytes": 41728,
+      "utf16": [
+        21442,
+        21548
+      ],
+      "utf8": [
+        21446,
+        21552
+      ],
+      "sha256": "3d91ff1534fdecec957786526274387400054e8ff9fbedaa557f4b8d892131d5"
+    },
+    {
+      "label": "complete original row consumer context",
+      "source": "evidence/web/objects/bbad3cca63bc2aa5.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2wq32g770zyfq.js",
+      "sourceSha256": "6211907e645a10d5cf6a5bbb570e90023de029c456e4d47c096a097c2d6dcf14",
+      "sourceBytes": 33269,
+      "utf16": [
+        15131,
+        18587
+      ],
+      "utf8": [
+        15133,
+        18591
+      ],
+      "sha256": "af4d79f49f3951af640cf8e26eaffb572683e05fd66a43a9c1dcfdbf7697e3a9"
+    },
+    {
+      "label": "supplied row and selected sort choose displayed value",
+      "source": "evidence/web/objects/bbad3cca63bc2aa5.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2wq32g770zyfq.js",
+      "sourceSha256": "6211907e645a10d5cf6a5bbb570e90023de029c456e4d47c096a097c2d6dcf14",
+      "sourceBytes": 33269,
+      "utf16": [
+        15905,
+        15917
+      ],
+      "utf8": [
+        15907,
+        15919
+      ],
+      "sha256": "d67e0a2d3a97271b643bded45f2e45fc93bca337263d0de147afeb24b16121ac"
+    },
+    {
+      "label": "selected value reaches original formatter",
+      "source": "evidence/web/objects/bbad3cca63bc2aa5.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2wq32g770zyfq.js",
+      "sourceSha256": "6211907e645a10d5cf6a5bbb570e90023de029c456e4d47c096a097c2d6dcf14",
+      "sourceBytes": 33269,
+      "utf16": [
+        17826,
+        17836
+      ],
+      "utf8": [
+        17830,
+        17840
+      ],
+      "sha256": "8c9fb2ef40883a347bb8485c207a7193475167908d73dee0d9f97c572f1b11ac"
+    },
+    {
+      "label": "selected value reaches original tone",
+      "source": "evidence/web/objects/bbad3cca63bc2aa5.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2wq32g770zyfq.js",
+      "sourceSha256": "6211907e645a10d5cf6a5bbb570e90023de029c456e4d47c096a097c2d6dcf14",
+      "sourceBytes": 33269,
+      "utf16": [
+        15920,
+        15930
+      ],
+      "utf8": [
+        15922,
+        15932
+      ],
+      "sha256": "571a91b9c35091e2c579a25193e302bc0a8438ee7fdfba83a0d087561129b524"
+    },
+    {
+      "label": "actual board query consumer",
+      "source": "evidence/web/objects/bbad3cca63bc2aa5.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2wq32g770zyfq.js",
+      "sourceSha256": "6211907e645a10d5cf6a5bbb570e90023de029c456e4d47c096a097c2d6dcf14",
+      "sourceBytes": 33269,
+      "utf16": [
+        19512,
+        19522
+      ],
+      "utf8": [
+        19516,
+        19526
+      ],
+      "sha256": "6ce1c54684b365575c29d701fd5fdc99711c25e06323b44e0fe3b302ff5ff26d"
+    },
+    {
+      "label": "selected query arguments",
+      "source": "evidence/web/objects/bbad3cca63bc2aa5.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2wq32g770zyfq.js",
+      "sourceSha256": "6211907e645a10d5cf6a5bbb570e90023de029c456e4d47c096a097c2d6dcf14",
+      "sourceBytes": 33269,
+      "utf16": [
+        19405,
+        19462
+      ],
+      "utf8": [
+        19409,
+        19466
+      ],
+      "sha256": "8e18b71be3005d0751d8b9146ded710e5f95559428f9b9084e55f283a310fa0a"
+    },
+    {
+      "label": "same selected sort reaches real row",
+      "source": "evidence/web/objects/bbad3cca63bc2aa5.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2wq32g770zyfq.js",
+      "sourceSha256": "6211907e645a10d5cf6a5bbb570e90023de029c456e4d47c096a097c2d6dcf14",
+      "sourceBytes": 33269,
+      "utf16": [
+        20948,
+        21054
+      ],
+      "utf8": [
+        20952,
+        21058
+      ],
+      "sha256": "0d21e6c4d82079205729d98ec72d3a746a9c1729e0e1aedd58d1c652e3f25d8d"
+    }
+  ],
+  "consumers": [
+    {
+      "id": 996005,
+      "ids": [
+        996005
+      ],
+      "label": "factory 996005",
+      "source": "evidence/web/objects/dd1b7e2a0ecbaed0.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/39mrtwuhv50wq.js",
+      "sourceSha256": "40ea711965b8e822c72cb9123e9f25a88d2d9015a356b6741fb2df0a1778ed54",
+      "sourceBytes": 41728,
+      "utf16": [
+        14830,
+        21884
+      ],
+      "utf8": [
+        14832,
+        21888
+      ],
+      "sha256": "80bc5bd7bf784ff392040b5157b0b51fd1e9e038179c66ce67b205b7041137da"
+    },
+    {
+      "id": 996005,
+      "ids": [
+        996005
+      ],
+      "label": "factory 996005",
+      "source": "evidence/web/objects/bbad3cca63bc2aa5.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2wq32g770zyfq.js",
+      "sourceSha256": "6211907e645a10d5cf6a5bbb570e90023de029c456e4d47c096a097c2d6dcf14",
+      "sourceBytes": 33269,
+      "utf16": [
+        14336,
+        21390
+      ],
+      "utf8": [
+        14338,
+        21394
+      ],
+      "sha256": "ac3ebd5b7d6f1227ac2defe6bdab4d173314d04315052350a509c8934aa02cae"
+    }
+  ],
+  "baseline": {
+    "gitCommit": "2c8a7900f240c8a50cccc2b4d263bdbd32a68924",
+    "file": "packages/frontend/src/app/leaderboard/leaderboard-client.tsx",
+    "gitBlob": "e7dd4d0f92421d6869ad83d8322ba32328d9bd34",
+    "fileSha256": "02310d1e8050387ca314da56dc6d560a31c847d99ada6ac62d2def335f542c48",
+    "functionUtf16": [
+      7157,
+      8556
+    ],
+    "functionSha256": "1506ff73a9a478e016c0cf792540d18a7e4b11a63056eb42808996c4cd47ff17"
+  },
+  "native": {
+    "page": "packages/frontend/src/app/leaderboard/leaderboard-client.tsx",
+    "rowSha256": "1182e76332d4ef381126a2e4aef70295bc594d1fe2f630060f86ceb73ce39b7c",
+    "sourceSortVariable": "traderSort",
+    "label": "Existing combined percentage only for combined; partial measures get existing native sort labels, no new percentage calculation",
+    "formatter": "Existing native USD Intl unchanged; original540805 formatter/neutral-band parity not claimed"
+  },
+  "unchanged": {
+    "packages/frontend/src/app/api/leaderboard/route.ts": "1dd85005d96dc77388fdeda001c27d1c0c9383c9f5560ae5b4b833db294b0a54",
+    "packages/frontend/src/app/api/leaderboard/upstream.ts": "5d734a1147f8ee159409c274b37ac9558e6879bba87a13f56bd3c8fcaa70a757",
+    "packages/frontend/src/app/leaderboard/types.ts": "d3ffe9f9b6fe990766fc8fb7b26c6192064d2413298c30392f906dd24455162a"
+  },
+  "limits": [
+    "No original ReactQuery/cache/wallet/provider parity from local tests",
+    "No native API compatibility/rank/PnL calculation/security claim; actual local backend is synthetic and unqualified",
+    "Existing server/operator-key transport and backend rules remain outside this display correction"
+  ]
+}
