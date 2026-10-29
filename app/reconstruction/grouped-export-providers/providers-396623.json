@@ -1,0 +1,721 @@
+{
+  "kind": "source-context-export-provider-diagnostic",
+  "query": "396623",
+  "anchors": {
+    "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+    "inventorySha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2"
+  },
+  "sourceContexts": [
+    {
+      "source": "evidence/web/objects/0f4bad575370faed.js",
+      "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+      "sourceBytes": 97201
+    }
+  ],
+  "runtime": [
+    {
+      "label": "runtime u.s",
+      "source": "evidence/web/objects/f25d7686d048ae16.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+      "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+      "sourceBytes": 11255,
+      "utf16": [
+        1414,
+        1419
+      ],
+      "utf8": [
+        1414,
+        1419
+      ],
+      "sha256": "779b31066678a61420e678e12428aaf07706b82b008f4550d10b0ae9c80c2e5c",
+      "text": "u.s=d"
+    },
+    {
+      "label": "runtime u.S",
+      "source": "evidence/web/objects/f25d7686d048ae16.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+      "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+      "sourceBytes": 11255,
+      "utf16": [
+        1420,
+        1733
+      ],
+      "utf8": [
+        1420,
+        1733
+      ],
+      "sha256": "2da0d89d3a329e063817e4010d8d36380c0f6a6004bb789611070e6580eda5fa",
+      "text": "u.S=function(e,t){let r=[],n=0;for(;n<e.length;){let t=e[n++],o=n;for(;n<e.length&&0!==e[n];)n++;let l=n;n++;let i=\"string\"==typeof t||\"number\"==typeof t?w.call(this,t):t;if(l-o==1){let t=e[o].split(\",\");for(let e=0;e<t.length;e+=2)m(r,t[e],i,t[e+1])}else for(let t=o;t<l;t+=2)m(r,e[t],i,e[t+1])}d.call(this,r,t)}"
+    },
+    {
+      "label": "runtime u.c",
+      "source": "evidence/web/objects/f25d7686d048ae16.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+      "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+      "sourceBytes": 11255,
+      "utf16": [
+        7307,
+        7312
+      ],
+      "utf8": [
+        7307,
+        7312
+      ],
+      "sha256": "0cb3e2877f82a761b4476fb223dc3816467cb10b728f32bb11c15085988fefcd",
+      "text": "u.c=D"
+    },
+    {
+      "label": "runtime u.i",
+      "source": "evidence/web/objects/f25d7686d048ae16.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+      "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+      "sourceBytes": 11255,
+      "utf16": [
+        3463,
+        3468
+      ],
+      "utf8": [
+        3463,
+        3468
+      ],
+      "sha256": "5254ff77134b32834d9ad4c9c65207184c46741232dd9debbbe5688c4302c765",
+      "text": "u.i=w"
+    },
+    {
+      "label": "runtime helper m",
+      "source": "evidence/web/objects/f25d7686d048ae16.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+      "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+      "sourceBytes": 11255,
+      "utf16": [
+        1186,
+        1359
+      ],
+      "utf8": [
+        1186,
+        1359
+      ],
+      "sha256": "320b218cb427d3215246e021bf0e769d8b7786c906e0fe0bce47a70d86b73825",
+      "text": "function m(e,t,r,n){let o=Reflect.getOwnPropertyDescriptor(r,n);if(o){if(\"value\"in o)return void e.push(t,0,o.value);if(o.get)return void e.push(t,o.get)}e.push(t,()=>r[n])}"
+    },
+    {
+      "label": "runtime helper d",
+      "source": "evidence/web/objects/f25d7686d048ae16.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+      "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+      "sourceBytes": 11255,
+      "utf16": [
+        1077,
+        1186
+      ],
+      "utf8": [
+        1077,
+        1186
+      ],
+      "sha256": "29ea4be9e29f7186a29e7a05edf5d0c7b0ef01c02ce0f80464d9af38c333cdbc",
+      "text": "function d(e,t,r){let n,o;null!=t?o=(n=f(this.c,t)).exports:(n=this.m,o=this.e),n.namespaceObject=o,h(o,e,r)}"
+    },
+    {
+      "label": "runtime helper h",
+      "source": "evidence/web/objects/f25d7686d048ae16.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+      "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+      "sourceBytes": 11255,
+      "utf16": [
+        720,
+        1077
+      ],
+      "utf8": [
+        720,
+        1077
+      ],
+      "sha256": "371fda7a2b1b7b05805e4a8cfc97dcf18ea159eb41073ad2ea0f0aa09dfe986d",
+      "text": "function h(e,t,r){a(e,\"__esModule\",{value:!0}),c&&a(e,c,{value:\"Module\"});let n=0;for(;n<t.length;){let r=t[n++],o=t[n++];if(\"number\"==typeof o)if(0===o)a(e,r,{value:t[n++],enumerable:!0,writable:!1});else throw Error(`unexpected tag: ${o}`);else\"function\"==typeof t[n]?a(e,r,{get:o,set:t[n++],enumerable:!0}):a(e,r,{get:o,enumerable:!0})}r||Object.seal(e)}"
+    },
+    {
+      "label": "runtime helper f",
+      "source": "evidence/web/objects/f25d7686d048ae16.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+      "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+      "sourceBytes": 11255,
+      "utf16": [
+        574,
+        646
+      ],
+      "utf8": [
+        574,
+        646
+      ],
+      "sha256": "8016aab51f068ccbfb7563cea9afad309e7bff5e7d5f4e703e1a30fd23e27e18",
+      "text": "function f(e,t){let r=e.get(t);return void 0===r&&(r=p(t),e.set(t,r)),r}"
+    },
+    {
+      "label": "runtime helper p",
+      "source": "evidence/web/objects/f25d7686d048ae16.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+      "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+      "sourceBytes": 11255,
+      "utf16": [
+        646,
+        720
+      ],
+      "utf8": [
+        646,
+        720
+      ],
+      "sha256": "ac2ac4e69984b035976d7c0f113282c51f4a44aa4e4587d3e321bad7771fff97",
+      "text": "function p(e){return{exports:{},error:void 0,id:e,namespaceObject:void 0}}"
+    },
+    {
+      "label": "runtime helper w",
+      "source": "evidence/web/objects/f25d7686d048ae16.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+      "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+      "sourceBytes": 11255,
+      "utf16": [
+        3120,
+        3340
+      ],
+      "utf8": [
+        3120,
+        3340
+      ],
+      "sha256": "7007a6083c434cce5331739264ada8b25f864c3976e83de312bf3447788e707b",
+      "text": "function w(e){let t=F(e,this.m);if(t.namespaceObject)return t.namespaceObject;let r=t.exports;return t.namespaceObject=O(r,\"function\"==typeof r?function(...e){return r.apply(this,e)}:Object.create(null),r&&r.__esModule)}"
+    },
+    {
+      "label": "runtime helper F",
+      "source": "evidence/web/objects/f25d7686d048ae16.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+      "sourceSha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+      "sourceBytes": 11255,
+      "utf16": [
+        7317,
+        7408
+      ],
+      "utf8": [
+        7317,
+        7408
+      ],
+      "sha256": "d7264a8ebba1734710415af6e40ddb59af60d51a677711edc06f1df9a4c8f68c",
+      "text": "F=(e,t)=>{let r=D.get(e);if(r){if(r.error)throw r.error;return r}return W(e,o.Parent,t.id)}"
+    }
+  ],
+  "ambiguous": false,
+  "literalRegistrations": [],
+  "providers": [
+    {
+      "physicalFactory": {
+        "ids": [
+          439587
+        ],
+        "label": "physical registered factory",
+        "source": "evidence/web/objects/0f4bad575370faed.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+        "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+        "sourceBytes": 97201,
+        "utf16": [
+          78265,
+          94686
+        ],
+        "utf8": [
+          78265,
+          94686
+        ],
+        "sha256": "556a5e98fc389f458883751f5ed829f9493c87444c6f5053b676b34a39f05fa9"
+      },
+      "method": "S",
+      "target": {
+        "kind": "literal",
+        "value": 396623,
+        "valueType": "number",
+        "raw": {
+          "label": "explicit target",
+          "source": "evidence/web/objects/0f4bad575370faed.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+          "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+          "sourceBytes": 97201,
+          "utf16": [
+            84937,
+            84943
+          ],
+          "utf8": [
+            84937,
+            84943
+          ],
+          "sha256": "8778bd693aff59eb01d898a3c74d11d8f2586879902ccffbaf3ea8614794af14",
+          "text": "396623"
+        }
+      },
+      "raw": {
+        "label": "runtime.S declaration",
+        "source": "evidence/web/objects/0f4bad575370faed.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+        "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+        "sourceBytes": 97201,
+        "utf16": [
+          84773,
+          84944
+        ],
+        "utf8": [
+          84773,
+          84944
+        ],
+        "sha256": "d60bcd5c51aba99f17fa85b895396c96d63d0390cc4d66af6a9d9f65e3cfbf19",
+        "text": "e.S([u,\"Backdrop,DrawerBackdrop\",0,c,\"Popup,DrawerPopup\",0,d,\"Portal,DrawerPortal\",0,f,\"Root,DrawerRoot\",0,p,\"Trigger,DrawerTrigger\",0,g,\"Viewport,DrawerViewport\"],396623)"
+      },
+      "status": "decoded",
+      "descriptors": [
+        {
+          "kind": "namespace-property",
+          "exportName": "Backdrop",
+          "exportNameType": "string",
+          "property": {
+            "kind": "literal",
+            "value": "DrawerBackdrop",
+            "valueType": "string"
+          },
+          "namespace": {
+            "kind": "expression",
+            "raw": {
+              "label": "namespace expression",
+              "source": "evidence/web/objects/0f4bad575370faed.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+              "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+              "sourceBytes": 97201,
+              "utf16": [
+                84778,
+                84779
+              ],
+              "utf8": [
+                84778,
+                84779
+              ],
+              "sha256": "0bfe935e70c321c7ca3afc75ce0d0ca2f98b5422e008bb31c00c6d7f1f1c0ad6",
+              "text": "u"
+            },
+            "importInitializerCandidates": [
+              {
+                "moduleId": 566023,
+                "moduleIdType": "number",
+                "raw": {
+                  "label": "preceding import initializer candidate",
+                  "source": "evidence/web/objects/0f4bad575370faed.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+                  "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+                  "sourceBytes": 97201,
+                  "utf16": [
+                    84689,
+                    84702
+                  ],
+                  "utf8": [
+                    84689,
+                    84702
+                  ],
+                  "sha256": "52d4dc938f18e3c4248df2ca3a75be46cbd2ebd452192f706f9169d956d74061",
+                  "text": "u=e.i(566023)"
+                }
+              }
+            ]
+          },
+          "encoding": "comma-packed",
+          "aliasFields": [
+            {
+              "label": "raw alias field",
+              "source": "evidence/web/objects/0f4bad575370faed.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+              "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+              "sourceBytes": 97201,
+              "utf16": [
+                84780,
+                84805
+              ],
+              "utf8": [
+                84780,
+                84805
+              ],
+              "sha256": "9e7f49c42242cf2751d8d8031ec22d5936bb5d7fde080dd98fb1b197d71aed3b",
+              "text": "\"Backdrop,DrawerBackdrop\""
+            }
+          ]
+        },
+        {
+          "kind": "namespace-property",
+          "exportName": "Popup",
+          "exportNameType": "string",
+          "property": {
+            "kind": "literal",
+            "value": "DrawerPopup",
+            "valueType": "string"
+          },
+          "namespace": {
+            "kind": "expression",
+            "raw": {
+              "label": "namespace expression",
+              "source": "evidence/web/objects/0f4bad575370faed.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+              "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+              "sourceBytes": 97201,
+              "utf16": [
+                84808,
+                84809
+              ],
+              "utf8": [
+                84808,
+                84809
+              ],
+              "sha256": "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6",
+              "text": "c"
+            },
+            "importInitializerCandidates": [
+              {
+                "moduleId": 464240,
+                "moduleIdType": "number",
+                "raw": {
+                  "label": "preceding import initializer candidate",
+                  "source": "evidence/web/objects/0f4bad575370faed.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+                  "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+                  "sourceBytes": 97201,
+                  "utf16": [
+                    84703,
+                    84716
+                  ],
+                  "utf8": [
+                    84703,
+                    84716
+                  ],
+                  "sha256": "afaeb96a85a7d7ded27b03fe0c5c7f8f1886489df19d1488fe27bf2e0e3f0e1c",
+                  "text": "c=e.i(464240)"
+                }
+              }
+            ]
+          },
+          "encoding": "comma-packed",
+          "aliasFields": [
+            {
+              "label": "raw alias field",
+              "source": "evidence/web/objects/0f4bad575370faed.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+              "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+              "sourceBytes": 97201,
+              "utf16": [
+                84810,
+                84829
+              ],
+              "utf8": [
+                84810,
+                84829
+              ],
+              "sha256": "963888cc18ebc1feb0117b593d4512900ce904839ca3b9934b1912806406f74b",
+              "text": "\"Popup,DrawerPopup\""
+            }
+          ]
+        },
+        {
+          "kind": "namespace-property",
+          "exportName": "Portal",
+          "exportNameType": "string",
+          "property": {
+            "kind": "literal",
+            "value": "DrawerPortal",
+            "valueType": "string"
+          },
+          "namespace": {
+            "kind": "expression",
+            "raw": {
+              "label": "namespace expression",
+              "source": "evidence/web/objects/0f4bad575370faed.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+              "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+              "sourceBytes": 97201,
+              "utf16": [
+                84832,
+                84833
+              ],
+              "utf8": [
+                84832,
+                84833
+              ],
+              "sha256": "18ac3e7343f016890c510e93f935261169d9e3f565436429830faf0934f4f8e4",
+              "text": "d"
+            },
+            "importInitializerCandidates": [
+              {
+                "moduleId": 255536,
+                "moduleIdType": "number",
+                "raw": {
+                  "label": "preceding import initializer candidate",
+                  "source": "evidence/web/objects/0f4bad575370faed.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+                  "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+                  "sourceBytes": 97201,
+                  "utf16": [
+                    84717,
+                    84730
+                  ],
+                  "utf8": [
+                    84717,
+                    84730
+                  ],
+                  "sha256": "bced42f5c36268289827d5884b68650050c44094e3a8a943002fe0d57e7af9d5",
+                  "text": "d=e.i(255536)"
+                }
+              }
+            ]
+          },
+          "encoding": "comma-packed",
+          "aliasFields": [
+            {
+              "label": "raw alias field",
+              "source": "evidence/web/objects/0f4bad575370faed.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+              "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+              "sourceBytes": 97201,
+              "utf16": [
+                84834,
+                84855
+              ],
+              "utf8": [
+                84834,
+                84855
+              ],
+              "sha256": "d035727492161ee6948ed1550c110b499993413cce0b7f8d67e3acb6bd6ac99c",
+              "text": "\"Portal,DrawerPortal\""
+            }
+          ]
+        },
+        {
+          "kind": "namespace-property",
+          "exportName": "Root",
+          "exportNameType": "string",
+          "property": {
+            "kind": "literal",
+            "value": "DrawerRoot",
+            "valueType": "string"
+          },
+          "namespace": {
+            "kind": "expression",
+            "raw": {
+              "label": "namespace expression",
+              "source": "evidence/web/objects/0f4bad575370faed.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+              "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+              "sourceBytes": 97201,
+              "utf16": [
+                84858,
+                84859
+              ],
+              "utf8": [
+                84858,
+                84859
+              ],
+              "sha256": "252f10c83610ebca1a059c0bae8255eba2f95be4d1d7bcfa89d7248a82d9f111",
+              "text": "f"
+            },
+            "importInitializerCandidates": [
+              {
+                "moduleId": 524684,
+                "moduleIdType": "number",
+                "raw": {
+                  "label": "preceding import initializer candidate",
+                  "source": "evidence/web/objects/0f4bad575370faed.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+                  "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+                  "sourceBytes": 97201,
+                  "utf16": [
+                    84731,
+                    84744
+                  ],
+                  "utf8": [
+                    84731,
+                    84744
+                  ],
+                  "sha256": "90bc32ad88bbf6afb9362f6df5a8df64e21c73695f37271d0e037ec51c05da01",
+                  "text": "f=e.i(524684)"
+                }
+              }
+            ]
+          },
+          "encoding": "comma-packed",
+          "aliasFields": [
+            {
+              "label": "raw alias field",
+              "source": "evidence/web/objects/0f4bad575370faed.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+              "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+              "sourceBytes": 97201,
+              "utf16": [
+                84860,
+                84877
+              ],
+              "utf8": [
+                84860,
+                84877
+              ],
+              "sha256": "de6665bce4f230c5093af4a1f7f24dab5ddc375b3885614b819f73aa6d1194c0",
+              "text": "\"Root,DrawerRoot\""
+            }
+          ]
+        },
+        {
+          "kind": "namespace-property",
+          "exportName": "Trigger",
+          "exportNameType": "string",
+          "property": {
+            "kind": "literal",
+            "value": "DrawerTrigger",
+            "valueType": "string"
+          },
+          "namespace": {
+            "kind": "expression",
+            "raw": {
+              "label": "namespace expression",
+              "source": "evidence/web/objects/0f4bad575370faed.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+              "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+              "sourceBytes": 97201,
+              "utf16": [
+                84880,
+                84881
+              ],
+              "utf8": [
+                84880,
+                84881
+              ],
+              "sha256": "148de9c5a7a44d19e56cd9ae1a554bf67847afb0c58f6e12fa29ac7ddfca9940",
+              "text": "p"
+            },
+            "importInitializerCandidates": [
+              {
+                "moduleId": 594347,
+                "moduleIdType": "number",
+                "raw": {
+                  "label": "preceding import initializer candidate",
+                  "source": "evidence/web/objects/0f4bad575370faed.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+                  "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+                  "sourceBytes": 97201,
+                  "utf16": [
+                    84745,
+                    84758
+                  ],
+                  "utf8": [
+                    84745,
+                    84758
+                  ],
+                  "sha256": "772b04059608324e7ace203b96451bcdbd5b6fad6e2c34c219d5fc259cc31090",
+                  "text": "p=e.i(594347)"
+                }
+              }
+            ]
+          },
+          "encoding": "comma-packed",
+          "aliasFields": [
+            {
+              "label": "raw alias field",
+              "source": "evidence/web/objects/0f4bad575370faed.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+              "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+              "sourceBytes": 97201,
+              "utf16": [
+                84882,
+                84905
+              ],
+              "utf8": [
+                84882,
+                84905
+              ],
+              "sha256": "99f994b287fe4492583a4f8ef915832caff12c37b48e8c32ce1a86632933edfb",
+              "text": "\"Trigger,DrawerTrigger\""
+            }
+          ]
+        },
+        {
+          "kind": "namespace-property",
+          "exportName": "Viewport",
+          "exportNameType": "string",
+          "property": {
+            "kind": "literal",
+            "value": "DrawerViewport",
+            "valueType": "string"
+          },
+          "namespace": {
+            "kind": "expression",
+            "raw": {
+              "label": "namespace expression",
+              "source": "evidence/web/objects/0f4bad575370faed.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+              "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+              "sourceBytes": 97201,
+              "utf16": [
+                84908,
+                84909
+              ],
+              "utf8": [
+                84908,
+                84909
+              ],
+              "sha256": "cd0aa9856147b6c5b4ff2b7dfee5da20aa38253099ef1b4a64aced233c9afe29",
+              "text": "g"
+            },
+            "importInitializerCandidates": [
+              {
+                "moduleId": 274119,
+                "moduleIdType": "number",
+                "raw": {
+                  "label": "preceding import initializer candidate",
+                  "source": "evidence/web/objects/0f4bad575370faed.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+                  "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+                  "sourceBytes": 97201,
+                  "utf16": [
+                    84759,
+                    84772
+                  ],
+                  "utf8": [
+                    84759,
+                    84772
+                  ],
+                  "sha256": "aa8938a61e957002302b9b04c8b5ff1b76d885c8d46ba0883f8ed056f6f52ce3",
+                  "text": "g=e.i(274119)"
+                }
+              }
+            ]
+          },
+          "encoding": "comma-packed",
+          "aliasFields": [
+            {
+              "label": "raw alias field",
+              "source": "evidence/web/objects/0f4bad575370faed.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3t5edifq9jgon.js",
+              "sourceSha256": "feb10137dd786820010700c4292fc2c38647c79de5493e6e0689552055ec7cbc",
+              "sourceBytes": 97201,
+              "utf16": [
+                84910,
+                84935
+              ],
+              "utf8": [
+                84910,
+                84935
+              ],
+              "sha256": "1d9510c787b3e0245d0a651e1cc239b26cb5a32350ca38393ccd671ab64f7dc9",
+              "text": "\"Viewport,DrawerViewport\""
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unresolvedTargets": [],
+  "limits": [
+    "Only supplied captured objects and direct factory-body declaration statements are inspected; absence is not a whole-corpus absence proof.",
+    "Receiver recognition uses the outer parameter spelling in direct statements, not the pending graph lexical-binding correction.",
+    "Every physical registration/provider is retained; no active variant or initialization winner is selected.",
+    "Implicit current-module IDs are possible registration/invocation contexts, not simultaneous export targets.",
+    "Declarations become available only if the producing factory and preceding expressions initialize successfully; imports/control flow are not executed.",
+    "Namespace initializer candidates are syntax witnesses, not alias, reassignment, lexical-binding or runtime-value resolution.",
+    "Uppercase S may copy a property descriptor or create a getter; no namespace property, getter, descriptor value or factory is evaluated.",
+    "Existing graph aggregate exports, literal identities, inventories, counts, route reachability and report files are unchanged."
+  ]
+}

@@ -32,12 +32,31 @@ if (command === "build") {
   const [id, hash] = args;
   if (!id)
     throw new Error("usage: graph:module -- <module-id> [sha256-prefix]");
-  const nodes = await readReport(root, output, "MODULE-IDENTITIES.json.gz");
-  const matches = nodes.filter(
-    (node) => String(node.id) === id && (!hash || node.sha256.startsWith(hash)),
-  );
-  if (!matches.length) throw new Error(`no selected identity for module ${id}`);
-  print({ ambiguous: matches.length > 1, matches });
+  if (args.includes("--source")) {
+    const sources = [];
+    for (let index = 1; index < args.length; index += 2) {
+      if (
+        args[index] !== "--source" ||
+        !args[index + 1] ||
+        args[index + 1].startsWith("--")
+      )
+        throw new Error(
+          "usage: graph:module -- <module-id> --source <captured-object> [--source <captured-object> ...]",
+        );
+      sources.push(args[index + 1]);
+    }
+    const { inspectExportProviders } = await import("./export-providers.mjs");
+    print(await inspectExportProviders(root, id, sources));
+  } else {
+    const nodes = await readReport(root, output, "MODULE-IDENTITIES.json.gz");
+    const matches = nodes.filter(
+      (node) =>
+        String(node.id) === id && (!hash || node.sha256.startsWith(hash)),
+    );
+    if (!matches.length)
+      throw new Error(`no selected identity for module ${id}`);
+    print({ ambiguous: matches.length > 1, matches });
+  }
 } else if (command === "operations") {
   const query = args.join(" ").toLowerCase();
   const report = await readReport(root, output, "API-ATTRIBUTION.json");

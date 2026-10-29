@@ -1,0 +1,96 @@
+{
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "outcome": "Read-only source-context export declaration diagnostic; existing graph identities/reports/aggregate exports remain unchanged.",
+  "before": {
+    "396623": {
+      "exitCode": 1,
+      "error": "no selected identity for module 396623"
+    },
+    "660315": {
+      "exitCode": 1,
+      "error": "no selected identity for module 660315"
+    },
+    "method": "Exact base CLI with identical module ID, --source and captured-object arguments; captured scripts never executed."
+  },
+  "after": {
+    "396623": {
+      "providerDeclarations": 1,
+      "method": "S",
+      "literalRegistrationsInContext": 0,
+      "physicalIds": [
+        439587
+      ],
+      "RootProperty": "DrawerRoot"
+    },
+    "660315": {
+      "providerDeclarations": 1,
+      "method": "s",
+      "literalRegistrationsInContext": 1,
+      "physicalIds": [
+        524684,
+        660315,
+        195636
+      ],
+      "names": [
+        "Backdrop",
+        "Close",
+        "Popup",
+        "Portal",
+        "Root",
+        "Title"
+      ]
+    },
+    "deterministicRepeat": true
+  },
+  "checks": {
+    "affectedNodeTests": {
+      "pass": 46,
+      "fail": 0,
+      "skip": 0,
+      "includes": "15 new provider tests, 11 shared source tests, existing graph/inventory/output-root/BOM tests and full selected-corpus rebuild"
+    },
+    "rootCapturedEvidence": 9,
+    "rootToolingTests": 10,
+    "applicationEvidence": 698,
+    "npmAndUnchangedSDK": "PASS",
+    "progress": "PASS",
+    "providerSnapshots": "PASS",
+    "preservedInputReportFiles": 15,
+    "gitDiffCheck": "PASS"
+  },
+  "inputs": [
+    {
+      "path": "app/scripts/factory-graph/cli.mjs",
+      "bytes": 2600,
+      "sha256": "f448602d3f54e6cc0c31212c3091cfde284e8b5ac3709ca5b6c1a5e9108eab46"
+    },
+    {
+      "path": "app/scripts/factory-graph/export-providers.mjs",
+      "bytes": 12879,
+      "sha256": "401b35933bd878ed2b2597589fe54bf175a8268104d6ba1cd986df6cca599ed7"
+    },
+    {
+      "path": "app/scripts/factory-graph/README.md",
+      "bytes": 10738,
+      "sha256": "ac5ed71490da4045baaeb6666d0516c53580080dc64b64bc932ef7db1bc74fa4"
+    },
+    {
+      "path": "app/tests/factory-graph-export-providers.test.mjs",
+      "bytes": 13686,
+      "sha256": "8275d486b22c147e6b5186277980b5071cfc1ee9a73fa5600ff6987419fcefc6"
+    },
+    {
+      "path": "app/reconstruction/grouped-export-providers/verify.mjs",
+      "bytes": 1250,
+      "sha256": "22c0e099948563b242fedee8e995d4fc2839f6f566b0142c9bb02beac613b3fa"
+    }
+  ],
+  "limits": [
+    "No runtime/captured code/getter/value/import execution; no active variant winner.",
+    "Only explicitly provided source objects and direct factory-body expression statements; not complete lexical/value/control-flow analysis.",
+    "Existing aggregate graph exports still ignore explicit s targets and omit S.",
+    "No literal factory/identity/count/reachability/source-credit or feature-milestone changes.",
+    "No app/backend/browser/production build/native equivalence or security qualification.",
+    "No private agent trajectory, usage or client version published."
+  ]
+}

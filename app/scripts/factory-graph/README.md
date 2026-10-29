@@ -12,11 +12,60 @@ pnpm graph:verify
 pnpm graph:summary
 pnpm graph:route -- /go
 pnpm graph:module -- 100281
+pnpm graph:module -- 396623 --source evidence/web/objects/0f4bad575370faed.js
 pnpm graph:operations -- auth/admins
 pnpm test:graph
 ```
 
 `graph:build` transactionally replaces `research/turbopack-route-graph-20261028/`. `graph:verify` rejects missing, modified, extra, or symlinked generated records. Module lookup accepts an optional SHA-256 prefix and reports all matching identities so a colliding numeric ID cannot be presented as unique.
+
+### Source-context export-provider diagnostic
+
+`module <id> --source <captured-object> [--source <captured-object> ...]` is a
+separate, read-only diagnostic for declarations in explicitly supplied objects.
+It authenticates each complete capture and actual physical factory range/hash
+against the existing inventory, then reports direct factory-body `runtime.s`
+and uppercase `runtime.S` statements, including direct comma expressions.
+The result includes every matching declaration in those contexts, actual literal
+registration aliases, raw method/target/descriptor expressions, UTF-16 and UTF-8
+half-open ranges, and complete source/factory/expression hashes. Numeric and
+string targets retain their types. Multiple providers are retained, not resolved
+to a winner. Unsupported dynamic targets are listed separately.
+
+This handles a concrete lookup limitation: selected module identities omit both
+396623 and660315. In `0f4bad575370faed.js`, physical439587 declares grouped396623
+through `S`; `Root,DrawerRoot` means export `Root` from namespace property
+`DrawerRoot`. Physical524684 declares `s(...,660315)` and separately exports
+`DrawerRoot` to524684. Here660315 is also an **existing literal registration
+alias**, alongside524684 and195636;396623 is not. This diagnostic creates no new
+factory, identity, inventory entry, source count or route-reachability edge.
+
+The grammar is pinned to authenticated runtime `f25d7686d048ae16.js` (hash below).
+Lowercase `s` accepts the existing complete literal-name/zero-constant/inline
+getter-and-optional-setter subset. Uppercase `S` accepts namespace segments
+separated by literal zero: one string field is comma-packed name/property pairs;
+multiple fields are alternating literal names/properties. Missing properties
+remain `undefined`, and empty strings remain empty; neither defaults to the
+export name. Literal namespace IDs mean a runtime import, while namespace
+expressions remain expressions. S's helper can copy an existing value/getter
+descriptor or create a getter; the diagnostic evaluates neither. Preceding
+simple import initializers are supplied only as syntax witnesses, without alias
+value or reassignment resolution.
+
+Declaration availability depends on successful initialization of its producing
+factory and preceding expressions. This is not runtime execution, active-variant
+selection, a full source closure, or lexical/value/control-flow resolution.
+Nested functions/blocks and unsupported descriptor shapes make no partial name
+claim. Receiver spelling is recognized only in the direct statements; the
+separate lexical-binding correction in PR1180 is not implemented here. The
+separate literal-origin graph correction in PR1385 is also not incorporated.
+**Existing aggregate `exports` lists still ignore `s`'s target argument and omit
+uppercase `S`; they are not repaired by this diagnostic.** All existing graph
+reports and their manifest remain unchanged. Run the source-bound regressions:
+
+```sh
+node --test tests/factory-graph-export-providers.test.mjs
+```
 
 ## Source authentication
 
