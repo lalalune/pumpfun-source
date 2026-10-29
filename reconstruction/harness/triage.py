@@ -12,7 +12,7 @@ from pathlib import Path
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
 from score import sections, body, normalize, original_windows, score, BASE, candidate_functions  # noqa
-from coords import sites, ORIG, OS  # noqa
+from coords import sites, non_coordinate_slots, ORIG, OS  # noqa
 from win import demangle  # noqa
 
 
@@ -31,9 +31,6 @@ def main():
         if cur[w['start']]['normalized']:
             continue
         osites = sites(ORIG, OS, w['start'], w['raw'])
-        cslots = set()
-        for s in osites:
-            cslots |= {s['len_slot'], s['line_slot']}
         on = normalize(w['raw'], w['start'], OS)
         best = None
         for (s, nm) in bylen.get(w['bytes'], []):
@@ -41,7 +38,7 @@ def main():
                 cache[s] = normalize(body(blob, cs, s, w['bytes']), s, cs)
             cn = cache[s]
             diff = [i for i in range(0, len(on), 8) if on[i:i + 8] != cn[i:i + 8]]
-            noncoord = [d for d in diff if d not in cslots]
+            noncoord = non_coordinate_slots(on, cn, osites)
             key = (len(noncoord), len(diff))
             if best is None or key < best[0]:
                 best = (key, s, nm, diff, noncoord)

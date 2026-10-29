@@ -81,6 +81,19 @@ def cand_sites(cand_blob, cs, addr, size):
     return sites(cand_blob, cs, addr, body(cand_blob, cs, addr, size))
 
 
+def non_coordinate_slots(original, candidate, source_sites):
+    """Return differing normalized slots outside Source coordinate fields."""
+    if len(original) != len(candidate):
+        raise ValueError('coordinate classification requires equal-length bodies')
+    coordinate_slots = {s[key]: opcode for s in source_sites
+                        for key, opcode in [('len_slot', 0x7a), ('line_slot', 0x62)]
+                        if s[key] is not None}
+    return [i for i in range(0, len(original), 8)
+            if original[i:i + 8] != candidate[i:i + 8]
+            and not (coordinate_slots.get(i) == original[i]
+                     and original[i:i + 4] == candidate[i:i + 4])]
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest='cmd', required=True)
@@ -107,15 +120,12 @@ def main():
             osites = sites(ORIG, OS, w['start'], w['raw'])
             if not osites:
                 continue
-            coord_slots = set()
-            for s in osites:
-                coord_slots |= {s['len_slot'], s['line_slot']}
             best = None
             on = normalize(w['raw'], w['start'], OS)
             for (s, nm) in bylen.get(w['bytes'], []):
                 cn = normalize(body(blob, cs, s, w['bytes']), s, cs)
                 diff = [i for i in range(0, len(on), 8) if on[i:i + 8] != cn[i:i + 8]]
-                if diff and all(d in coord_slots for d in diff):
+                if diff and not non_coordinate_slots(on, cn, osites):
                     best = (s, nm, diff, cand_sites(blob, cs, s, w['bytes'])); break
             rows.append({'start': hex(w['start']), 'bytes': w['bytes'], 'original_sites': osites,
                          'coordinate_only_candidate': None if not best else {'addr': hex(best[0]), 'symbol': best[1], 'diff_slots': best[2], 'candidate_sites': best[3]}})
