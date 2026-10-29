@@ -57,7 +57,7 @@ export function validateDeclared(document, schema, value) {
       else for (const [name, child] of Object.entries(rule.properties)) {
         // Missing properties and explicit undefined have Zod's same optional
         // boundary. No defaults, stripping or transformations are performed.
-        visit(child, Object.hasOwn(input, name) ? input[name] : undefined, `${path}/${name}`, depth + 1);
+        visit(child, Object.hasOwn(input, name) ? input[name] : undefined, `${path}/${name.replace(/~/g, "~0").replace(/\//g, "~1")}`, depth + 1);
       }
     }
   }
