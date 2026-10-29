@@ -62,7 +62,7 @@ def elf_layout(b):
     assert b[:6]==b'\x7fELF\x02\x01'
     h=struct.unpack_from('<HHIQQQIHHHHHH',b,16)
     _,machine,_,entry,phoff,shoff,flags,ehsize,phsize,phnum,shsize,shnum,shstr=h
-    assert phsize==56 and shsize==64 and shnum>0
+    assert (phnum==0 or phsize==56) and shsize==64 and shnum>0
     raw=[struct.unpack_from('<IIQQQQIIQQ',b,shoff+i*shsize) for i in range(shnum)]
     names=b[raw[shstr][4]:raw[shstr][4]+raw[shstr][5]]
     end=max(ehsize,phoff+phsize*phnum,shoff+shsize*shnum)
