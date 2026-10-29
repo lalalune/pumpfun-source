@@ -5,6 +5,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -55,6 +56,8 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileTrigger = useRef<HTMLButtonElement>(null);
   const mobileClose = useRef<HTMLButtonElement>(null);
+  const breakpointFocus = useRef<"mobile" | "desktop" | null>(null);
+  const lastFocused = useRef<HTMLElement | null>(null);
   const pathname = usePathname();
 
   const toggle = useCallback(() => {
@@ -75,6 +78,19 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const media = window.matchMedia("(max-width: 767px)");
     const update = () => {
+      // CSS can hide a focused trigger before matchMedia dispatches its change.
+      const focused =
+        document.activeElement === document.body
+          ? lastFocused.current
+          : document.activeElement;
+      breakpointFocus.current = !document.hasFocus()
+        ? null
+        : media.matches &&
+            document.getElementById(SIDEBAR_ID)?.contains(focused)
+          ? "mobile"
+          : !media.matches && focused === mobileTrigger.current
+            ? "desktop"
+            : null;
       setIsMobile(media.matches);
       if (!media.matches) setMobileOpen(false);
     };
@@ -82,6 +98,13 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
     media.addEventListener("change", update);
     return () => media.removeEventListener("change", update);
   }, []);
+  useLayoutEffect(() => {
+    const target = breakpointFocus.current;
+    breakpointFocus.current = null;
+    if (target === "mobile" && isMobile) mobileTrigger.current?.focus();
+    if (target === "desktop" && !isMobile)
+      document.getElementById(TRIGGER_ID)?.focus();
+  }, [isMobile]);
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
@@ -143,6 +166,10 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
         // The consent pre-paint helper may add inert before hydration.
         suppressHydrationWarning
         data-app-shell=""
+        onFocusCapture={(event) => {
+          if (event.target instanceof HTMLElement)
+            lastFocused.current = event.target;
+        }}
         data-mobile-navigation={mobileOpen ? "open" : "closed"}
       >
         {children}
