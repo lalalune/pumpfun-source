@@ -136,3 +136,7 @@ this merged source, then run `verify_current_main.py --control CONTROL/unstrippe
 Run `replay.py --control CONTROL/candidate.so --candidate CANDIDATE/candidate.so
 --output current-main-runtime.json.gz` with solders 0.27.1.
 `verify_current_runtime.py` independently verifies the retained refreshed packet.
+
+## Buy error lowering investigation
+
+See [BUY-ERROR-PATH.md](BUY-ERROR-PATH.md) for the original/candidate return-tail comparison, compiler evidence and four additional rejected source checks. No improvement was retained. Source and prior runtime qualification remain unchanged. Exact patches and diagnostic hashes accompany the analysis in `BUY-ERROR-TRIALS.json`.
