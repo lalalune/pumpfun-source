@@ -63,7 +63,7 @@ def extract(html: str) -> dict[str, str]:
         if not match:
             raise ValueError("Unsupported Flight push syntax")
         item = json.loads(match[1])
-        if isinstance(item, list) and len(item) == 2 and item[0] == 1 and isinstance(item[1], str):
+        if isinstance(item, list) and len(item) == 2 and not isinstance(item[0], bool) and item[0] == 1 and isinstance(item[1], str):
             chunks.append(item[1])
     rows = [line[3:] for line in "".join(chunks).splitlines() if line.startswith("c6:")]
     if len(rows) != 1:

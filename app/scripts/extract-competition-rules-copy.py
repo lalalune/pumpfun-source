@@ -53,7 +53,7 @@ def extract(html):
         if not match:
             raise ValueError("Unsupported Flight syntax")
         row = json.loads(match[1])
-        if isinstance(row, list) and len(row) == 2 and row[0] == 1 and isinstance(row[1], str):
+        if isinstance(row, list) and len(row) == 2 and not isinstance(row[0], bool) and row[0] == 1 and isinstance(row[1], str):
             chunks.append(row[1])
     records = {}
     for line in "".join(chunks).splitlines():
