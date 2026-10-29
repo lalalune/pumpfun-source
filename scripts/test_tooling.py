@@ -2,7 +2,9 @@
 """Mutation tests ensuring the byte comparator cannot hide code/padding changes."""
 import struct
 import unittest
+from pathlib import Path
 from types import SimpleNamespace
+from unittest.mock import patch
 import deep_section_analysis
 import analyze
 from compare import compare
@@ -34,6 +36,24 @@ class RelocationTargetTests(unittest.TestCase):
 
 
 class InstructionLogNameTests(unittest.TestCase):
+    def test_idl_names_are_independent_of_locale_encoding(self):
+        original_open = Path.open
+        for program in ('pump', 'pump_amm', 'pump_fees'):
+            expected = analyze.known_instruction_names(program)
+            self.assertIn('Buy' if program != 'pump_fees' else 'Withdraw', expected)
+            for locale_encoding in ('ascii', 'cp1252', 'cp936'):
+                with self.subTest(program=program, encoding=locale_encoding):
+                    def locale_open(path, mode='r', buffering=-1, encoding=None,
+                                    errors=None, newline=None):
+                        # Emulate a non-UTF-8 host for implicit text reads only.
+                        if 'b' not in mode and encoding in (None, 'locale'):
+                            encoding = locale_encoding
+                        return original_open(path, mode, buffering, encoding,
+                                             errors, newline)
+
+                    with patch.object(Path, 'open', locale_open):
+                        self.assertEqual(analyze.known_instruction_names(program), expected)
+
     def names(self, name):
         blob = (analyze.ROOT / 'evidence/original' / name / 'deployed.so').read_bytes()
         return set(analyze.instruction_log_names(blob, analyze.known_instruction_names(name)))

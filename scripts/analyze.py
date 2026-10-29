@@ -13,7 +13,7 @@ def known_instruction_names(name):
     path = ROOT / 'evidence/upstream' / f'{name}.json'
     if not path.is_file():
         return ()
-    data = json.loads(path.read_text())
+    data = json.loads(path.read_text(encoding='utf-8'))
     names = {
         ''.join(part[:1].upper() + part[1:] for part in item['name'].split('_'))
         for item in data.get('instructions', [])
