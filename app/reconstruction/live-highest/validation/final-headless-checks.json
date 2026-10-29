@@ -1,0 +1,36 @@
+[
+  {
+    "name": "ci-data-tests",
+    "command": [
+      "corepack",
+      "pnpm",
+      "test:live"
+    ],
+    "cwd": "/workspace/pump-app-chart/app",
+    "returncode": 0,
+    "seconds": 1.0210297107696533
+  },
+  {
+    "name": "final-typecheck",
+    "command": [
+      "corepack",
+      "pnpm",
+      "--filter",
+      "@pump-reconstruction/frontend",
+      "typecheck"
+    ],
+    "cwd": "/workspace/pump-app-chart/app",
+    "returncode": 0,
+    "seconds": 2.148239850997925
+  },
+  {
+    "name": "final-source-proof",
+    "command": [
+      "node",
+      "scripts/original-live-highest.mjs"
+    ],
+    "cwd": "/workspace/pump-app-chart/app",
+    "returncode": 0,
+    "seconds": 0.24014043807983398
+  }
+]

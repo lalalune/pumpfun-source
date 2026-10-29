@@ -1,0 +1,20 @@
+{
+  "phase": "baseline-final",
+  "command": [
+    "corepack",
+    "pnpm",
+    "exec",
+    "playwright",
+    "test",
+    "--config",
+    "playwright.live-highest.tmp.config.ts",
+    "tests/live-highest.spec.ts",
+    "--grep",
+    "the observed section route",
+    "--max-failures",
+    "1"
+  ],
+  "cwd": "/workspace/pump-app-chart/app/packages/frontend",
+  "returncode": 1,
+  "seconds": 6.755429983139038
+}

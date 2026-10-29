@@ -1,0 +1,95 @@
+import difflib
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import time
+
+root = Path('/workspace/pump-app-chart')
+frontend = root / 'app/packages/frontend'
+proof = Path('/workspace/pump-live-highest-validation')
+base = '03fa4494f36449cd8fd63e121f12ca40bf57090f'
+candidate = 'fb92d49884c609ff6522ace1a2a8d498d8e44006'
+env = {**os.environ, 'GIT_NO_LAZY_FETCH': '1'}
+git = lambda *args: subprocess.check_output(['git', *args], cwd=root, env=env)
+assert git('rev-parse', 'HEAD').decode().strip() == candidate
+assert not git('status', '--porcelain')
+paths = [p for p in git('diff', '--name-only', base, candidate, '--', 'app/packages/frontend/src').decode().splitlines()]
+source = {p: (root / p).read_bytes() for p in paths}
+for p, b in source.items():
+    q = proof / 'candidate-source' / p
+    q.parent.mkdir(parents=True, exist_ok=True)
+    q.write_bytes(b)
+
+test_source = frontend / 'tests/live.spec.ts'
+executed = frontend / 'tests/live.highest-port.tmp.spec.ts'
+original = test_source.read_text()
+assert original.count('http://127.0.0.1:3010') == 1
+adapted = original.replace('http://127.0.0.1:3010', 'http://127.0.0.1:3019')
+executed.write_text(adapted)
+(proof / 'executed-maintained-live.spec.ts.txt').write_text(adapted)
+(proof / 'maintained-port-only.patch').write_text(''.join(difflib.unified_diff(
+    original.splitlines(True), adapted.splitlines(True), fromfile='maintained live.spec.ts', tofile='executed live.highest-port.tmp.spec.ts')))
+config = frontend / 'playwright.live-highest.tmp.config.ts'
+config.write_text('''import { defineConfig } from "@playwright/test";
+import base from "./playwright.config";
+import { acceptedClickwrapState } from "./tests/browser-state";
+const origin="http://127.0.0.1:3019";
+export default defineConfig({
+ ...base,
+ reporter:[["line"],["json",{outputFile:`/workspace/pump-live-highest-validation/report-${process.env.LIVE_HIGHEST_PHASE}.json`}]],
+ outputDir:`/workspace/pump-live-highest-validation/browser-${process.env.LIVE_HIGHEST_PHASE}`,
+ use:{...base.use,baseURL:origin,storageState:acceptedClickwrapState},
+ webServer:{...base.webServer,command:"corepack pnpm exec next dev --turbopack --hostname 127.0.0.1 --port 3019",url:origin,reuseExistingServer:false,timeout:120000,env:{PUMPFUN_DEVELOPER_API_KEY:""}}
+});
+''')
+(proof / 'executed-playwright.config.ts.txt').write_text(config.read_text())
+
+def manifest(phase):
+    tracked = git('ls-files', 'app/packages/frontend/src').decode().splitlines()
+    values = []
+    for p in tracked:
+        q = root / p
+        if q.is_file():
+            b = q.read_bytes()
+            values.append({'path':p, 'bytes':len(b), 'sha256':hashlib.sha256(b).hexdigest()})
+    (proof / f'{phase}-runtime-inputs.json').write_text(json.dumps(values, indent=2)+'\n')
+
+def run(phase, tests, extra=()):
+    cmd=['corepack','pnpm','exec','playwright','test','--config',config.name,*tests,*extra]
+    start=time.time()
+    with (proof / f'{phase}-browser.log').open('wb') as log:
+        result=subprocess.run(cmd,cwd=frontend,env={**env,'LIVE_HIGHEST_PHASE':phase},stdout=log,stderr=subprocess.STDOUT)
+    record={'phase':phase,'command':cmd,'cwd':str(frontend),'returncode':result.returncode,'seconds':time.time()-start}
+    (proof / f'{phase}-command.json').write_text(json.dumps(record,indent=2)+'\n')
+    print(json.dumps(record),flush=True)
+    return result.returncode
+
+try:
+    for p in paths:
+        original_file=subprocess.run(['git','show',f'{base}:{p}'],cwd=root,env=env,capture_output=True)
+        if original_file.returncode == 0:
+            (root/p).write_bytes(original_file.stdout)
+        else:
+            assert p.endswith('/highest-market-cap/page.tsx')
+            (root/p).unlink()
+    manifest('baseline-final')
+    assert run('baseline-final',['tests/live-highest.spec.ts'],['--grep','the observed section route','--max-failures','1']) == 1
+finally:
+    for p,b in source.items():
+        (root/p).parent.mkdir(parents=True,exist_ok=True)
+        (root/p).write_bytes(b)
+manifest('candidate-final')
+try:
+    code=run('candidate-final',['tests/live-highest.spec.ts','tests/live.highest-port.tmp.spec.ts'])
+finally:
+    config.unlink(missing_ok=True)
+    executed.unlink(missing_ok=True)
+    generated=frontend/'next-env.d.ts'
+    if generated.is_file():
+        (proof/'generated-next-env.d.ts').write_bytes(generated.read_bytes())
+    generated.write_bytes(git('show',f'{candidate}:app/packages/frontend/next-env.d.ts'))
+    assert test_source.read_text() == original
+    for p,b in source.items(): assert (root/p).read_bytes() == b
+raise SystemExit(code)

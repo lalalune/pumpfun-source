@@ -46,5 +46,6 @@ corepack pnpm --filter @pump-reconstruction/frontend typecheck
 corepack pnpm --filter @pump-reconstruction/frontend exec playwright test tests/live-highest.spec.ts tests/live.spec.ts
 ```
 
-Qualification records will distinguish the exact tested source, baseline
-failure, finite browser controls and excluded/unrun checks.
+[Qualification records](validation/README.md) distinguish the exact tested
+source, retained baseline failure, 19 passing browser cases and excluded/unrun
+checks, including the initial focus-precondition and sparse-input failures.

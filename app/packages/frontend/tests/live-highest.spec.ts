@@ -87,11 +87,16 @@ test("archived metadata has native keyboard disclosures at mobile and desktop wi
   for (const width of [320, 1280]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/live/highest-market-cap");
+    // This suite uses the existing closed local-browser fixture. Wait for its
+    // startup dialog/focus cleanup before sending keys to native page controls.
+    await expect(page.locator("[data-clickwrap-overlay]")).toHaveCount(0);
+    await expect(page.locator("[data-app-shell]")).not.toHaveAttribute("inert");
     const card = page.getByTestId("highest-archived-card").first();
     const summary = card.locator("summary");
     const details = card.locator("details");
     await expect(details).not.toHaveAttribute("open");
     await summary.focus();
+    await expect(summary).toBeFocused();
     await page.keyboard.press("Enter");
     await expect(details).toHaveAttribute("open", "");
     await expect(summary).toBeFocused();

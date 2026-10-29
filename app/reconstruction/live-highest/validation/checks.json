@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 1,
+  "pullRequest": 1570,
+  "base": "03fa4494f36449cd8fd63e121f12ca40bf57090f",
+  "initialPublicSourceHead": "724d73a03c3b40d96789b3364bb8f6e7523071c3",
+  "initialLocalTestHead": "57047e90eba5a152f171f6e280a3d757916a0b35",
+  "finalLocalTestHead": "fb92d49884c609ff6522ace1a2a8d498d8e44006",
+  "initialPublicAndInitialLocalFullTree": "361aec33a6f8d9138b1aea0bbb2d88559486e011",
+  "finalTestDelta": "5 test-only readiness/focus lines; no frontend/src or app/package.json change from initialPublicSourceHead",
+  "finalTestedFrontendSourceTree": "0a455afd6fb908ec00a72fab6e22997492ea4266",
+  "results": {
+    "sameFinalMethodBase": {
+      "exit": 1,
+      "cases": 1,
+      "assertion": "expected HTTP200, received404"
+    },
+    "initialBrowser": {
+      "passed": 18,
+      "failed": 1,
+      "newCaseLimit": "320px disclosure passed;1280px Enter did not leave details open; focus admission unqualified"
+    },
+    "instrumentedFocusProbe": {
+      "passed": 1,
+      "viewports": [
+        320,
+        1280
+      ],
+      "observed": "trusted Enter targets focused SUMMARY with shellInert:false in passing probe; does not establish original failure cause"
+    },
+    "finalBrowser": {
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0,
+      "new": 3,
+      "retained": 16
+    },
+    "ciDataAndStaticSource": {
+      "passed": 22,
+      "new": 7,
+      "retained": 15
+    },
+    "frontendTypecheck": true,
+    "appEvidence": {
+      "capturedObjects": 698,
+      "npmIntegrity": true,
+      "sdkSourceFilesUnchanged": 31
+    },
+    "progress": true,
+    "progressTests": 9,
+    "requiredCommonOnInitialPublicSourceHead": {
+      "captures": 9,
+      "toolingTests": 10
+    }
+  },
+  "browserIsolation": {
+    "origin": "http://127.0.0.1:3019",
+    "allowedMethods": [
+      "GET",
+      "HEAD"
+    ],
+    "maintainedTestAdaptation": "one exact3010\u21923019 origin literal; all retained assertions unchanged",
+    "localBrowserState": "existing acceptedClickwrapState fixture; not an inference about original or user consent"
+  },
+  "stagingLimits": [
+    "The first headless test:live invocation after rebase lacked sparse test inputs; exact Git restoration recorded, then the actual script passes22/22. No product/source patch for this preflight failure.",
+    "First19-case browser run retained18/19; final method explicitly waits for closed-fixture overlay DOM removal/non-inert shell and asserts focus before Enter. No production workaround and no proven consent/native-details bug claim.",
+    "Existing React script-tag/NO_COLOR warnings remain in raw dev logs; retained scope assertions were not removed."
+  ],
+  "limits": [
+    "No original child-route HTML; no original visual/layout parity.",
+    "24 records are a subset of42; no additional unique streams claimed.",
+    "No ranking formula/current market-cap/current broadcast/provider API/native backend/feature-credit claim.",
+    "No player, remote image/media, wallet operation or excluded coin-detail link.",
+    "No full production Next build or full repository browser suite; finite19-case scope only."
+  ],
+  "runtimeSourceBinding": [
+    {
+      "phase": "baseline-final",
+      "revision": "03fa4494f36449cd8fd63e121f12ca40bf57090f",
+      "frontend_source_files": 209,
+      "all_present_source_bytes_equal_git": true
+    },
+    {
+      "phase": "candidate-final",
+      "revision": "fb92d49884c609ff6522ace1a2a8d498d8e44006",
+      "frontend_source_files": 210,
+      "all_present_source_bytes_equal_git": true
+    }
+  ],
+  "files": [
+    {
+      "path": "baseline-browser.log.gz",
+      "bytes": 1028,
+      "sha256": "644438de46dc7342845e5543f69d51b0b584c89399cc79b65075bb31fe6a5c14",
+      "decodedBytes": 4679,
+      "decodedSha256": "9257a483eb4d25206b40884f3a00b9041b2bfc2a9538ca2b52edb6145e9e0ddd"
+    },
+    {
+      "path": "baseline-final-browser.log.gz",
+      "bytes": 1024,
+      "sha256": "63d32a30564ca52d68520f34f998927bdbc9d20bca29f74feb5532eabf8638d4",
+      "decodedBytes": 4323,
+      "decodedSha256": "31e60d2ccf3cbd61d3375380b12b1be0dba0d84097dd3b9b29fd4fde1d098ab6"
+    },
+    {
+      "path": "baseline-final-command.json",
+      "bytes": 406,
+      "sha256": "c479b8209d14ed4aaa099c4d314a8079944fac25c8cfd250c3c922d16e1ef46b"
+    },
+    {
+      "path": "baseline-final-runtime-inputs.json",
+      "bytes": 38765,
+      "sha256": "893ddc1f6fbfd4e1dd81e64a3219c6a92bccf2d19a4aaea75f4de82dbb3a4fbc"
+    },
+    {
+      "path": "before-404.png",
+      "bytes": 39078,
+      "sha256": "9df547b3f1a098c1dc9ff454e5993463f238f2b970dfd42a1ac158aaf14ef260"
+    },
+    {
+      "path": "candidate-browser.log.gz",
+      "bytes": 1972,
+      "sha256": "88fc7185bf1df5bdec573544fd64891c9fdc05f70a5aedccc619493ffb9796e5",
+      "decodedBytes": 8558,
+      "decodedSha256": "4611a828f8bd4667b874555acd53ec10a4d850ccf1d5acd01f1c53739ac98f25"
+    },
+    {
+      "path": "candidate-final-browser.log.gz",
+      "bytes": 1293,
+      "sha256": "cb316156b5a7257d3f03efcbe88fd765114799eef314b808d4f7094d9ae3b3ad",
+      "decodedBytes": 4918,
+      "decodedSha256": "dd2a105ea2637e08ab1055e6314aba9d5d3e802d5d2cd2157b167370922a0861"
+    },
+    {
+      "path": "candidate-final-command.json",
+      "bytes": 372,
+      "sha256": "8fe7113ce9477eb917cbfc15fadb329c4a12c33b2e29c6e87c0e47292ddc750a"
+    },
+    {
+      "path": "candidate-final-runtime-inputs.json",
+      "bytes": 38954,
+      "sha256": "28028c4db6b9b09697fd27962f2683de8542f3f3dccf5ea8cbc248302c1a62ce"
+    },
+    {
+      "path": "ci-data-tests-missing-sparse-inputs.log.gz",
+      "bytes": 204,
+      "sha256": "6cbbbc6b78b2248df5d91d14ec76bf17ee6a14f37233c981524264fa47408f42",
+      "decodedBytes": 293,
+      "decodedSha256": "c64e39108f406571376434cfeac817edea03371c4c2c463c918663ba0735b5a3"
+    },
+    {
+      "path": "ci-data-tests.log.gz",
+      "bytes": 1539,
+      "sha256": "12523428b912f812cd818d27c77c2131bcb18072994b7ba6e12d2c45bc18bd7e",
+      "decodedBytes": 4150,
+      "decodedSha256": "951b2e56a38367e8e8df16321306ec9f32e965ed8ec2945401504e50a43b56b8"
+    },
+    {
+      "path": "data-tests.log.gz",
+      "bytes": 1479,
+      "sha256": "d829a557f214e05328c01599d7d16aa9485fbc25f7c65ec765abc86a7341b6fb",
+      "decodedBytes": 3983,
+      "decodedSha256": "897ae12880f2ea20d5435253ea18eca9554f45cb367ac0c1ddc17bc416269b80"
+    },
+    {
+      "path": "evidence.log.gz",
+      "bytes": 89,
+      "sha256": "c4ccac34440167b7170118e2af25a5865d395032af8ca1cf812341ed573c3243",
+      "decodedBytes": 72,
+      "decodedSha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9"
+    },
+    {
+      "path": "executed-focus-probe.spec.ts.txt",
+      "bytes": 5841,
+      "sha256": "8a891f8b288bb51e5b4eaa830a3a83c2ab230a2406cf95ad095ed2e6e745be08"
+    },
+    {
+      "path": "executed-maintained-live.spec.ts.txt",
+      "bytes": 18703,
+      "sha256": "7f16f6e74b2282f696d4fc6c9ba2f04c66e022a73dfa90bcd41ba4c56fc84598"
+    },
+    {
+      "path": "executed-playwright.config.ts.txt",
+      "bytes": 735,
+      "sha256": "47a4619dc486d23c92f4771ddb23428b510d493d81b6f225b5d9306a9a7360d5"
+    },
+    {
+      "path": "final-headless-checks.json",
+      "bytes": 706,
+      "sha256": "29ab97182096ccd109ddce05ade5312fc623d82c06529d4256447a4c4502c9b3"
+    },
+    {
+      "path": "final-source-proof.log.gz",
+      "bytes": 102,
+      "sha256": "bc908df5513b5d1890010e826197314d18253c8c9de1d8a4d3a7f2d0705bfa8e",
+      "decodedBytes": 90,
+      "decodedSha256": "fece62e89eb3c1f0905697462a595a3e7d6a20e6892502aca20704276d88541b"
+    },
+    {
+      "path": "final-typecheck.log.gz",
+      "bytes": 115,
+      "sha256": "c521e3237903de8237ee016329adcd9aab9d0042416546f08d848fc24b3b2e11",
+      "decodedBytes": 113,
+      "decodedSha256": "fd98baaf669b27bf3377ea080ae3edda90647e5bff41a6b367c10fdea8c25a12"
+    },
+    {
+      "path": "focus-1280.json",
+      "bytes": 683,
+      "sha256": "e876d45d8e71a0b32823e050c94d7d06c15b3fc7819d53c31257f3ee096d7bb1"
+    },
+    {
+      "path": "focus-320.json",
+      "bytes": 689,
+      "sha256": "e944d56e30c01634f3bbd8f19d81d77276418edbe829a0ed8d323b8067e14aa3"
+    },
+    {
+      "path": "focus-probe-browser.log.gz",
+      "bytes": 313,
+      "sha256": "b3caf6424d285a8fe5afd35857f20bc23b752c09690ba364c579306b56718b65",
+      "decodedBytes": 918,
+      "decodedSha256": "04520fb375ffbe4122e868b0f6d42fafa330226550d244b3f63a1e8af1dd3d2d"
+    },
+    {
+      "path": "headless-sparse-input-restoration.json",
+      "bytes": 12140,
+      "sha256": "85f9346aee75e38a1c6a2365a23ceee04cf84ece211bf3d6715bf393c172f634"
+    },
+    {
+      "path": "highest-1280.png",
+      "bytes": 145291,
+      "sha256": "9e12f7d3a902f722a1af0eedd3f4452edd5e26f67b9d7328e90c68869ccfb95d"
+    },
+    {
+      "path": "highest-320.png",
+      "bytes": 66312,
+      "sha256": "aaffb92305a030015478ad39b7a0395e6e08787b0855233e01a9f8c76c0a4fa3"
+    },
+    {
+      "path": "maintained-port-only.patch",
+      "bytes": 405,
+      "sha256": "757e73859b13516444f05e9748691eb722650adbaf394b499c08d646ec77a375"
+    },
+    {
+      "path": "preflight-inputs.json",
+      "bytes": 887,
+      "sha256": "3dfd1fda227f8a0b64ed851d14c4a15877167a49ec917bbcad17837a82af245f"
+    },
+    {
+      "path": "progress-tests.log.gz",
+      "bytes": 100,
+      "sha256": "03d82bb4ef7a5bafd6a8f3565cba1f0d3b0bcc0fd9082ec8f65c9c7af996e0e7",
+      "decodedBytes": 155,
+      "decodedSha256": "9d683789cdcf4d1d0aba43bf36806e261f8679b7ae2ac01b69aca2a4d3d3321b"
+    },
+    {
+      "path": "progress.log.gz",
+      "bytes": 69,
+      "sha256": "8d25a71e7cd8c214cc56b246898d555fadb2c61682febfb7b183577299893a97",
+      "decodedBytes": 49,
+      "decodedSha256": "7ab499988f3b70e197e23e42287d4cc4579dc2b9360a82be3e827e22c589fda4"
+    },
+    {
+      "path": "run-browser-initial.py.txt",
+      "bytes": 4574,
+      "sha256": "451fd8ef9db5a0231616806aa6cd585b90f98b39411baf5528e911267b5bebc3"
+    },
+    {
+      "path": "run-browser.py.txt",
+      "bytes": 4598,
+      "sha256": "100b508d2166ae4fd2c677bbe16f28b4f25ebad41a3d2388bc9be61667ad1403"
+    },
+    {
+      "path": "runtime-source-binding.json",
+      "bytes": 366,
+      "sha256": "07c5f795dabcc96beb4336fa4abafdbeaf6c21a2781dca8f8136bce29a95dbf4"
+    },
+    {
+      "path": "source-proof.log.gz",
+      "bytes": 102,
+      "sha256": "bc908df5513b5d1890010e826197314d18253c8c9de1d8a4d3a7f2d0705bfa8e",
+      "decodedBytes": 90,
+      "decodedSha256": "fece62e89eb3c1f0905697462a595a3e7d6a20e6892502aca20704276d88541b"
+    }
+  ]
+}
