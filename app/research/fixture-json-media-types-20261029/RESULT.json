@@ -1,0 +1,86 @@
+{
+  "scope": "Synthetic local fixture replay serialization only; no upstream/native compatibility or operation credit",
+  "baseRevision": "ccd3330bfd12ed04c3a598af9a2ab95ed5de77ac",
+  "liveMainAtOwnershipCheck": "604917c16410d67d9b981305e28e160a93728f50",
+  "baseAndLiveMainAppTree": "e3d6d8cd07df4f561a4fd058dad29d22de451bfc",
+  "inputs": {
+    "app/packages/backend/src/app.ts": {
+      "afterSha256": "fabf4b17f33c0b86847cb638df8020845abbf9e21dbe5a4c780d7c3283ca0284",
+      "baseSha256": "ec514eae9721cd9bafdc46f32008d7bec45c769b4a4eca5623f66a55dffe7d77"
+    },
+    "app/packages/backend/test/fixture-media-types.test.ts": {
+      "afterSha256": "9b655c9f7ef8f52f1c02b3f3c1b3f289ffa02aa90155f47c5a1f2083ee303967",
+      "baseSha256": null
+    },
+    "app/contracts/README.md": {
+      "afterSha256": "461d44a4e406c40f2b46dac28f13d6fe6b8f9c60dec6992b03dc2197f6279296",
+      "baseSha256": "7c4189b12c443526bda38d5fc7d8c79a79eca593d29481d3769799ec3fe72f8a"
+    },
+    "app/pnpm-lock.yaml": {
+      "afterSha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "baseSha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+    },
+    "app/packages/backend/package.json": {
+      "afterSha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "baseSha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7"
+    }
+  },
+  "installedReplyJsSha256": "8facc4dc9525ef8714ba7f1148e40644694de4017203c0d9a2ecd2bb7f55014c",
+  "node": "v24.19.0",
+  "commands": [
+    {
+      "cwd": "app/packages/backend",
+      "command": "node node_modules/tsx/dist/cli.mjs --test test/fixture-media-types.test.ts",
+      "before": {
+        "pass": 1,
+        "fail": 1
+      },
+      "after": {
+        "pass": 2,
+        "fail": 0
+      }
+    },
+    {
+      "cwd": "app/packages/backend",
+      "command": "node node_modules/tsx/dist/cli.mjs --test --test-concurrency=2 test/*.test.ts",
+      "after": {
+        "pass": 966,
+        "fail": 0
+      }
+    },
+    {
+      "cwd": "app/packages/backend",
+      "command": "node node_modules/typescript/bin/tsc --noEmit",
+      "after": {
+        "exit": 0
+      }
+    },
+    {
+      "cwd": ".",
+      "command": "python3 app/scripts/verify-evidence.py",
+      "after": {
+        "capturedObjects": 698,
+        "exit": 0
+      }
+    }
+  ],
+  "httpMatrix": {
+    "beforeCases": 9,
+    "beforeStatusMismatches": 4,
+    "afterCases": 9,
+    "afterStatusMismatches": 0,
+    "beforeAfterDriverIdentical": true
+  },
+  "artifactSha256": {
+    "after-http.json": "4c8452c77218da7d8faff477c2dfcf50d4cf8f4884df1b4d63fe9b1565906f01",
+    "after-tests.log": "6bd8fcc3797c7b1fda1c46f9252204b4ffbcbc2f3b4fe23f1d1c80d309005185",
+    "app-evidence.log": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9",
+    "backend-all-exit.json": "6f0d3b19642a4d12e80a288f500a86c80d828a96f8407dd32dd1babb55f1dbde",
+    "backend-all.log.gz": "0536d94c0f4bc476a372d7c46cb27db00348a847117a8243440883a4a5d51793",
+    "before-http.json": "3183ecdec0d9f25e7c52afc398b0d0866f58ac343d84e8e79f5bd4ab3a2a17bf",
+    "repro.mts": "71580dd4736b613a8ad33546cbcf4c21ecbe102b4b9a8bb10327002a2a7cb26f",
+    "typecheck-exit.json": "6118a5044e6fb37fa1fdef80b68b74c0a2c5faf737b16111e292972f7d2f3aa5",
+    "typecheck.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "before-portable-tests.log.gz": "aa97b423b454bf0c7bfc1100b16ca03930238a2225c49f2784186131b376e155"
+  }
+}

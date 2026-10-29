@@ -1,0 +1,12 @@
+{
+  "command": [
+    "node",
+    "node_modules/tsx/dist/cli.mjs",
+    "--test",
+    "--test-concurrency=2",
+    "test/*.test.ts"
+  ],
+  "cwd": "app/packages/backend",
+  "exit": 0,
+  "seconds": 33.5888466835022
+}

@@ -471,11 +471,13 @@ export function buildApp(fixtures: Fixture[] = [], opts: BuildAppOptions = {}) {
     if (fixture.headers) reply.headers(fixture.headers);
     // RFC 9110 section 15.3.6 forbids content in a 205 response.
     if (fixture.status === 205) return reply.code(205).send();
-    // Fixture bodies are JSON by default; explicit non-JSON types stay verbatim.
+    // JSON values need encoding even with an explicit non-JSON media type.
+    // Raw buffers and explicit non-JSON text/null retain their existing behavior.
     const contentType = reply.getHeader("content-type");
     if (
-      (fixture.body === null || typeof fixture.body === "string") &&
-      (contentType === undefined ||
+      !Buffer.isBuffer(fixture.body) &&
+      ((fixture.body !== null && typeof fixture.body !== "string") ||
+        contentType === undefined ||
         (typeof contentType === "string" &&
           /^application\/(?:[^;\s]+\+)?json(?:\s*;|$)/i.test(contentType)))
     ) {

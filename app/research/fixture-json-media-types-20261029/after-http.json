@@ -1,0 +1,183 @@
+{
+  "scope": "Actual loopback fixture replay only; no original/native compatibility claim",
+  "observations": [
+    {
+      "name": "json-object",
+      "declaredStatus": 200,
+      "declaredContentType": "application/json",
+      "actualStatus": 200,
+      "actualContentType": "application/json; charset=utf-8",
+      "bytes": [
+        123,
+        34,
+        118,
+        97,
+        108,
+        117,
+        101,
+        34,
+        58,
+        34,
+        115,
+        121,
+        110,
+        116,
+        104,
+        101,
+        116,
+        105,
+        99,
+        34,
+        125
+      ]
+    },
+    {
+      "name": "json-suffix-object",
+      "declaredStatus": 200,
+      "declaredContentType": "application/example+json",
+      "actualStatus": 200,
+      "actualContentType": "application/example+json; charset=utf-8",
+      "bytes": [
+        123,
+        34,
+        118,
+        97,
+        108,
+        117,
+        101,
+        34,
+        58,
+        34,
+        115,
+        121,
+        110,
+        116,
+        104,
+        101,
+        116,
+        105,
+        99,
+        34,
+        125
+      ]
+    },
+    {
+      "name": "plain-string",
+      "declaredStatus": 200,
+      "declaredContentType": "text/plain",
+      "actualStatus": 200,
+      "actualContentType": "text/plain",
+      "bytes": [
+        115,
+        121,
+        110,
+        116,
+        104,
+        101,
+        116,
+        105,
+        99,
+        32,
+        116,
+        101,
+        120,
+        116
+      ]
+    },
+    {
+      "name": "binary-buffer",
+      "declaredStatus": 200,
+      "declaredContentType": "application/octet-stream",
+      "actualStatus": 200,
+      "actualContentType": "application/octet-stream",
+      "bytes": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "plain-object",
+      "declaredStatus": 200,
+      "declaredContentType": "text/plain",
+      "actualStatus": 200,
+      "actualContentType": "text/plain",
+      "bytes": [
+        123,
+        34,
+        118,
+        97,
+        108,
+        117,
+        101,
+        34,
+        58,
+        34,
+        115,
+        121,
+        110,
+        116,
+        104,
+        101,
+        116,
+        105,
+        99,
+        34,
+        125
+      ]
+    },
+    {
+      "name": "plain-array",
+      "declaredStatus": 200,
+      "declaredContentType": "text/plain",
+      "actualStatus": 200,
+      "actualContentType": "text/plain",
+      "bytes": [
+        91,
+        34,
+        115,
+        121,
+        110,
+        116,
+        104,
+        101,
+        116,
+        105,
+        99,
+        34,
+        93
+      ]
+    },
+    {
+      "name": "plain-number",
+      "declaredStatus": 200,
+      "declaredContentType": "text/plain",
+      "actualStatus": 200,
+      "actualContentType": "text/plain",
+      "bytes": [
+        51
+      ]
+    },
+    {
+      "name": "plain-boolean",
+      "declaredStatus": 200,
+      "declaredContentType": "text/plain",
+      "actualStatus": 200,
+      "actualContentType": "text/plain",
+      "bytes": [
+        102,
+        97,
+        108,
+        115,
+        101
+      ]
+    },
+    {
+      "name": "plain-null",
+      "declaredStatus": 200,
+      "declaredContentType": "text/plain",
+      "actualStatus": 200,
+      "actualContentType": "text/plain",
+      "bytes": []
+    }
+  ]
+}
