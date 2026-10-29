@@ -245,7 +245,18 @@ export class CompetitionStore {
     // JSON turns NaN/Infinity into null. Reject them at construction, like
     // the leaderboard store does for its board measures.
     for (const comp of this.competitions) {
+      // These values are served as schedule dates and used for bucket order
+      // and integer leaderboard windows. Invalid Date would otherwise become
+      // a NaN comparator or a null JSON window. Null schedules remain unknown.
+      for (const key of ['registrationOpensAt', 'registrationClosesAt', 'startsAt', 'endsAt'] as const) {
+        if (comp[key] !== null && (typeof comp[key] !== 'string' || !Number.isFinite(Date.parse(comp[key])))) {
+          throw new TypeError(`Competition ${key} must be a parseable date or null`);
+        }
+      }
       for (const entry of comp.entries) {
+        if (typeof entry.registeredAt !== 'string' || !Number.isFinite(Date.parse(entry.registeredAt))) {
+          throw new TypeError('Competition entry registeredAt must be a parseable date');
+        }
         for (const key of ['pnlUsd', 'realizedPnlUsd', 'unrealizedPnlUsd',
           'buySpendSol', 'membersFresh', 'lastRefreshedAtMs'] as const) {
           if (!Number.isFinite(entry[key])) throw new TypeError(`Competition entry ${key} must be finite`);
