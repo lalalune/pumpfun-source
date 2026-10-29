@@ -1,7 +1,7 @@
 import {
   expect,
   test,
-} from "../../packages/frontend/node_modules/@playwright/test";
+} from "../../packages/frontend/node_modules/@playwright/test/index.mjs";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { startTraderMeasureHttp } from "../fixtures/trader-measure-http.mjs";
@@ -10,10 +10,7 @@ let fixture: any, server: any;
 const phase = process.env.PUMP_MEASURE_PHASE ?? "fixed";
 const output =
   process.env.PUMP_MEASURE_OUTPUT_DIR ??
-  new URL(
-    "../../artifacts/trader-selected-measure/" + phase + "/",
-    import.meta.url,
-  ).pathname;
+  new URL("../../artifacts/trader-selected-measure/" + phase + "/", import.meta.url).pathname;
 test.beforeAll(async () => {
   test.setTimeout(90_000);
   fixture = await startTraderMeasureHttp();

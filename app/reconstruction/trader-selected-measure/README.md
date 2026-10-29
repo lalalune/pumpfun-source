@@ -75,12 +75,24 @@ Next slot before this finite command; its fixture owns and closes that server:
 
     PUMP_MEASURE_PORT=3027 PUMP_MEASURE_PHASE=fixed \
       node packages/frontend/node_modules/@playwright/test/cli.js test \
-      --config tests/browser/trader-selected-measure.playwright.config.ts
+      --config tests/browser/trader-selected-measure.playwright.config.mts
 
 Use `PUMP_MEASURE_OUTPUT_DIR` for a separate owned output directory, and
 `PUMP_MEASURE_CHROMIUM` to select the already-installed matching browser on
 another machine. No install or lockfile change is required. The browser cases
 cover both widths, all three valid measures, actual backend responses before UI
 assertions, genuine upstream stop/Retry and absence of stale ranking rows.
-Actual before/fixed browser results and independent production/root checks are
-separate pending gates; no full app/browser suite is claimed here.
+The final same-method baseline failed both 390px and 1280px cases only after
+the actual realized HTTP response and authorized native-handler request were
+verified: the UI still displayed positive `$100.00` instead of `-$20.00`.
+The unchanged product candidate passed all three browser cases in 14.5 seconds,
+including all three valid measures at both widths and a real backend stop,
+Next 502/error/no stale rows, restart and Retry with the selected controls
+preserved. The harness uses explicit ESM `.mts` entry points; earlier test-loader
+bootstrap failures occurred before any product case and are not counted as
+product evidence. Both owned Next exit records are code 0 and the owned fixture
+was closed. Raw outputs, response bodies, handler request ledgers, desktop/mobile
+screenshots and exact tested inputs are retained in `qualification/`.
+
+Independent production/root checks remain a separate pending gate; no full
+app/browser suite, production API success or original visual parity is claimed.

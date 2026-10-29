@@ -1,16 +1,13 @@
-import { defineConfig } from "../../packages/frontend/node_modules/@playwright/test";
-import { acceptedClickwrapState } from "../../packages/frontend/tests/browser-state";
+import { defineConfig } from "../../packages/frontend/node_modules/@playwright/test/index.mjs";
+import { acceptedClickwrapState } from "../../packages/frontend/tests/browser-state.ts";
 const phase = process.env.PUMP_MEASURE_PHASE ?? "fixed";
 const port = Number(process.env.PUMP_MEASURE_PORT ?? 3027);
 const root =
   process.env.PUMP_MEASURE_OUTPUT_DIR ??
-  new URL(
-    "../../artifacts/trader-selected-measure/" + phase + "/",
-    import.meta.url,
-  ).pathname;
+  new URL("../../artifacts/trader-selected-measure/" + phase + "/", import.meta.url).pathname;
 export default defineConfig({
   testDir: ".",
-  testMatch: "trader-selected-measure.spec.ts",
+  testMatch: "trader-selected-measure.spec.mts",
   outputDir: root + "/output",
   forbidOnly: true,
   workers: 1,
