@@ -99,6 +99,7 @@ function resolveRef(ref: string, root?: SchemaRoot): SchemaNode | undefined {
   let node: unknown = root;
   let pointer: string;
   try { pointer = decodeURIComponent(ref.slice(1)); } catch { return undefined; }
+  if (pointer === '') return root as SchemaNode;
   if (!pointer.startsWith('/')) return undefined;
   for (const rawPart of pointer.slice(1).split('/')) {
     if (/~(?![01])/.test(rawPart)) return undefined;
