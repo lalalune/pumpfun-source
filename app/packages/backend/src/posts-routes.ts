@@ -55,11 +55,11 @@ export function registerPostRoutes(app: FastifyInstance, store: PostStore = defa
 
     const list: string[] = [];
     if (typeof rawIds === 'string') {
-      list.push(...rawIds.split(',').map(s => s.trim()).filter(Boolean));
+      list.push(...rawIds.split(',').map(s => s.trim()));
     } else if (Array.isArray(rawIds)) {
       for (const item of rawIds) {
         if (typeof item === 'string') {
-          list.push(...item.split(',').map(s => s.trim()).filter(Boolean));
+          list.push(...item.split(',').map(s => s.trim()));
         }
       }
     }
@@ -68,6 +68,7 @@ export function registerPostRoutes(app: FastifyInstance, store: PostStore = defa
       return reply.code(400).send(errorBody(400, 'IDS_REQUIRED'));
     }
 
+    // Check every supplied item: empty fields are invalid UUIDs, not omissions.
     // Contract specifies maxItems: 100 on ids array
     if (list.length > 100) {
       return reply.code(400).send(errorBody(400, 'TOO_MANY_IDS', { maxItems: 100, received: list.length }));
