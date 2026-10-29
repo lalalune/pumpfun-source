@@ -7,9 +7,15 @@ No command here signs or sends transactions to a network. LiteSVM uses local tes
 
 ## Verify the saved snapshot
 
+The maintained entry below runs the frozen saved-capture verifier with its
+assertions enabled. It refuses Python optimization (`-O`, `-OO` or
+`PYTHONOPTIMIZE`) rather than report evidence it has not checked. The historical
+`scripts/verify_evidence.py` stays byte-identical and must not be run optimized.
+
 ```sh
-python3 scripts/verify_evidence.py
+python3 repro/capture-verification-mode/verify.py
 python3 scripts/test_tooling.py
+python3 repro/capture-verification-mode/test_verify.py
 python3 scripts/analyze.py
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt

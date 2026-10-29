@@ -64,7 +64,7 @@ guard generation. New tooling belongs in the evidence package that uses it, as
 | `disassemble.py` |  | Generate analyst disassembly, never a source rebuild or candidate executable. |
 | `local_validation.py` | ✓ | Offline malformed-input smoke tests; not a functional or authorization audit. |
 | `recover_dispatch.py` |  | Locate Anchor discriminator comparisons and wrapper calls in original SBF. |
-| `verify_evidence.py` | ✓ | Verify saved evidence locally. This is NOT a rebuilt-source verification. |
+| `verify_evidence.py` | ✓ | Frozen saved-evidence implementation; use the [maintained entry](../repro/capture-verification-mode/README.md). This is NOT a rebuilt-source verification. |
 
 ## Builds, toolchains and dependency provenance
 

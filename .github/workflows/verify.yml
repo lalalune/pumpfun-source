@@ -325,7 +325,8 @@ jobs:
               python -B research/metaplex-exact-independent/test_verify.py
           - suite: evidence
             commands: |
-              python scripts/verify_evidence.py
+              python repro/capture-verification-mode/verify.py
+              python repro/capture-verification-mode/test_verify.py
               python scripts/test_tooling.py
               python scripts/test_build_source_manifest.py
               python scripts/test_core_linux_v144_retention.py
