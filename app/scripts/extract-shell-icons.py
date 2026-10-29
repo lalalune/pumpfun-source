@@ -126,7 +126,7 @@ def owner(segment, position):
     return keys
 
 
-def to_jsx(svg):
+def to_jsx(svg, *, root_props=False):
     """Convert one captured SVG to JSX, accepting only static presentational markup."""
     out = []
     for close, name, attrs, self_closing in TAG.findall(svg):
@@ -139,16 +139,18 @@ def to_jsx(svg):
         for attr, value in ATTR.findall(attrs):
             if attr.startswith('on') or attr in ('style', 'href', 'xlink:href'):
                 fail(f'unexpected attribute {attr} in captured icon')
-            parts.append(f'{JSX_ATTR.get(attr, attr)}={json.dumps(html.unescape(value))}')
+            parts.append(f'{JSX_ATTR.get(attr, attr)}={{{json.dumps(html.unescape(value))}}}')
+        if root_props and not out and name == 'svg':
+            parts.append('{...props}')
         tail = ' /' if self_closing else ''
         out.append(f'<{name} {" ".join(parts)}{tail}>' if parts else f'<{name}{tail}>')
     return ''.join(out)
 
 
 def component(name, svg, source):
-    jsx = to_jsx(svg)
-    end = jsx.index('>')  # end of the <svg> start tag: captured attributes are defaults, props override
-    jsx = jsx[:end] + ' {...props}' + jsx[end:]
+    # Add the spread while constructing the opening tag. A `>` inside a
+    # static attribute is data, not the end of that tag.
+    jsx = to_jsx(svg, root_props=True)
     return (f'/** {source} */\n'
             f'export function {name}(props: IconProps) {{\n  return {jsx};\n}}\n')
 
