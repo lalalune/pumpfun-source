@@ -1,0 +1,29 @@
+✔ d07a60b6380a: one keyed subscription, independent callbacks, default none and mode upgrade/downgrade (2.459733ms)
+✔ d07a60b6380a: sorted mint dependency, deduplication and add/remove reconciliation (0.370897ms)
+✔ d07a60b6380a: global keys trim, while per-hook keys preserve the captured whitespace-alias behavior (0.311208ms)
+✔ d07a60b6380a: callback ref updates after effect without resubscribing (0.28625ms)
+✔ d07a60b6380a: disabled, boot readiness, connection and empty mints clean existing subscriptions (0.428884ms)
+✔ d07a60b6380a: callback isolation and unsubscribe failure follow source rather than transport guarantees (0.412389ms)
+✔ d07a60b6380a: exact event-to-local-state values and pending ATH read (0.545028ms)
+✔ d07a60b6380a: actual ignored events, logged errors and latest callback after updater identity change (0.348703ms)
+✔ d07a60b6380a: mode prop changes reconcile; empty/disabled useLiteTrades remains inactive (0.298648ms)
+✔ d2419cfba786: one keyed subscription, independent callbacks, default none and mode upgrade/downgrade (0.365829ms)
+✔ d2419cfba786: sorted mint dependency, deduplication and add/remove reconciliation (0.200872ms)
+✔ d2419cfba786: global keys trim, while per-hook keys preserve the captured whitespace-alias behavior (1.300592ms)
+✔ d2419cfba786: callback ref updates after effect without resubscribing (0.108893ms)
+✔ d2419cfba786: disabled, boot readiness, connection and empty mints clean existing subscriptions (0.174372ms)
+✔ d2419cfba786: callback isolation and unsubscribe failure follow source rather than transport guarantees (0.138358ms)
+✔ d2419cfba786: exact event-to-local-state values and pending ATH read (0.17974ms)
+✔ d2419cfba786: actual ignored events, logged errors and latest callback after updater identity change (0.117076ms)
+✔ d2419cfba786: mode prop changes reconcile; empty/disabled useLiteTrades remains inactive (0.110746ms)
+✔ explicit protocol variant required; no inferred active module winner (0.427953ms)
+✔ actual source verifier rejects code, variants, witnesses, consumers and port/qualification mutations (2026.460159ms)
+✔ real React SSR executes hook reads but never activates the injected subscription capability (21.417111ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2180.527973

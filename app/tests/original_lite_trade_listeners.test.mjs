@@ -1,0 +1,402 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { readFile } from "node:fs/promises";
+import {
+  createLiteTradeHooks,
+  protocolVariantHashes,
+} from "../reconstruction/lite-trade-listeners/client.mjs";
+import {
+  manualReact,
+  localCapabilities,
+} from "../reconstruction/lite-trade-listeners/qualification/ports.mjs";
+import { verify } from "../scripts/original-lite-trade-listeners.mjs";
+function setup(protocolVariant) {
+  const hooks = manualReact(),
+    ports = localCapabilities();
+  const client = createLiteTradeHooks({
+    protocolVariant,
+    React: hooks.React,
+    ...ports,
+  });
+  return {
+    hooks,
+    ports,
+    client,
+    render: (id, options, config) =>
+      hooks.render(id, () => client.useSubscriptions(options), config),
+  };
+}
+for (const protocol of protocolVariantHashes) {
+  const tag = protocol.slice(0, 12);
+  test(`${tag}: one keyed subscription, independent callbacks, default none and mode upgrade/downgrade`, () => {
+    const { render, hooks, ports } = setup(protocol),
+      events = [];
+    render("a", {
+      mints: ["a"],
+      isEnabled: true,
+      coalesce: "latest",
+      onLiteTrade: (e) => events.push(["a", e]),
+    });
+    assert.deepEqual(ports.history, [
+      {
+        kind: "subscribe",
+        id: 1,
+        instance: "UNIFIED",
+        subject: "unifiedTradeEvent.lite.a",
+        extra: undefined,
+        options: { coalesce: "latest" },
+      },
+    ]);
+    render("b", {
+      mints: ["a"],
+      isEnabled: true,
+      onLiteTrade: (e) => events.push(["b", e]),
+    });
+    assert.equal(ports.subscriptions.size, 1);
+    assert.equal(ports.history.at(-1).options.coalesce, "none");
+    ports.emit("a", { n: 1 });
+    assert.deepEqual(events, [
+      ["a", { n: 1 }],
+      ["b", { n: 1 }],
+    ]);
+    hooks.unmount("b");
+    assert.equal(ports.subscriptions.size, 1);
+    assert.equal(ports.history.at(-1).options.coalesce, "latest");
+    ports.emit("a", { n: 2 });
+    assert.deepEqual(events.at(-1), ["a", { n: 2 }]);
+    hooks.unmount("a");
+    assert.equal(ports.subscriptions.size, 0);
+    assert.equal(ports.history.filter((h) => h.kind === "subscribe").length, 3);
+    assert.equal(
+      ports.history.filter((h) => h.kind === "unsubscribe").length,
+      3,
+    );
+  });
+  test(`${tag}: sorted mint dependency, deduplication and add/remove reconciliation`, () => {
+    const { render, hooks, ports } = setup(protocol);
+    const cb = () => {};
+    render("a", {
+      mints: ["b", "a", "a", ""],
+      isEnabled: true,
+      onLiteTrade: cb,
+    });
+    assert.equal(ports.subscriptions.size, 2);
+    const count = ports.history.length;
+    render("a", {
+      mints: ["a", "", "a", "b"],
+      isEnabled: true,
+      onLiteTrade: cb,
+    });
+    assert.equal(ports.history.length, count);
+    render("a", { mints: ["b", "c"], isEnabled: true, onLiteTrade: cb });
+    assert.deepEqual(
+      [...ports.subscriptions.values()].map((s) => s.subject),
+      ["unifiedTradeEvent.lite.b", "unifiedTradeEvent.lite.c"],
+    );
+    hooks.unmount("a");
+    assert.equal(ports.subscriptions.size, 0);
+  });
+  test(`${tag}: global keys trim, while per-hook keys preserve the captured whitespace-alias behavior`, () => {
+    const { render, hooks, ports } = setup(protocol),
+      cb = () => {};
+    render("a", { mints: [" a "], isEnabled: true, onLiteTrade: cb });
+    assert.equal(
+      [...ports.subscriptions.values()][0].subject,
+      "unifiedTradeEvent.lite.a",
+    );
+    render("b", { mints: ["a"], isEnabled: true, onLiteTrade: cb });
+    assert.equal(ports.subscriptions.size, 1);
+    hooks.unmount("a");
+    assert.equal(ports.subscriptions.size, 1);
+    hooks.unmount("b");
+    assert.equal(ports.subscriptions.size, 0);
+    render("c", { mints: ["   "], isEnabled: true, onLiteTrade: cb });
+    assert.equal(ports.subscriptions.size, 0);
+    hooks.unmount("c");
+  });
+  test(`${tag}: callback ref updates after effect without resubscribing`, () => {
+    const { render, hooks, ports } = setup(protocol),
+      events = [];
+    render("a", {
+      mints: ["a"],
+      isEnabled: true,
+      onLiteTrade: () => events.push("old"),
+    });
+    const count = ports.history.length;
+    render(
+      "a",
+      { mints: ["a"], isEnabled: true, onLiteTrade: () => events.push("new") },
+      { effects: false },
+    );
+    ports.emit("a", {});
+    assert.deepEqual(events, ["old"]);
+    hooks.commit("a");
+    ports.emit("a", {});
+    assert.deepEqual(events, ["old", "new"]);
+    assert.equal(ports.history.length, count);
+    hooks.unmount("a");
+  });
+  test(`${tag}: disabled, boot readiness, connection and empty mints clean existing subscriptions`, () => {
+    const { render, hooks, ports } = setup(protocol),
+      cb = () => {};
+    const on = (extra = {}) =>
+      render("a", { mints: ["a"], isEnabled: true, onLiteTrade: cb, ...extra });
+    ports.setReady(false);
+    on();
+    assert.equal(ports.subscriptions.size, 0);
+    ports.setReady(true);
+    on();
+    assert.equal(ports.subscriptions.size, 1);
+    ports.setActive(false);
+    on();
+    assert.equal(ports.subscriptions.size, 0);
+    ports.setActive(true);
+    on();
+    assert.equal(ports.subscriptions.size, 1);
+    on({ isEnabled: false });
+    assert.equal(ports.subscriptions.size, 0);
+    on();
+    assert.equal(ports.subscriptions.size, 1);
+    on({ mints: [] });
+    assert.equal(ports.subscriptions.size, 0);
+    hooks.unmount("a");
+  });
+  test(`${tag}: callback isolation and unsubscribe failure follow source rather than transport guarantees`, () => {
+    const hooks = manualReact(),
+      ports = localCapabilities(),
+      events = [];
+    const original = ports.useConnection();
+    const client = createLiteTradeHooks({
+      protocolVariant: protocol,
+      React: hooks.React,
+      ...ports,
+      useConnection: () => ({
+        ...original,
+        unsubscribe: () => {
+          throw Error("local failure");
+        },
+      }),
+    });
+    hooks.render("a", () =>
+      client.useSubscriptions({
+        mints: ["a"],
+        isEnabled: true,
+        onLiteTrade: () => {
+          events.push("throw");
+          throw Error("listener");
+        },
+      }),
+    );
+    hooks.render("b", () =>
+      client.useSubscriptions({
+        mints: ["a"],
+        isEnabled: true,
+        onLiteTrade: () => events.push("ok"),
+      }),
+    );
+    ports.emit("a", {});
+    assert.deepEqual(events, ["throw", "ok"]);
+    hooks.unmount("a");
+    hooks.unmount("b");
+    assert.equal(ports.subscriptions.size, 1); // injected unsubscribe threw; actual provider cleanup is not claimed
+    ports.emit("a", {});
+    assert.deepEqual(events, ["throw", "ok"]); // deleted registry entry stops delivery
+  });
+  test(`${tag}: exact event-to-local-state values and pending ATH read`, () => {
+    const { hooks, ports, client } = setup(protocol);
+    class Clock extends Date {
+      static now() {
+        return 12345;
+      }
+    }
+    const actual = createLiteTradeHooks({
+      protocolVariant: protocol,
+      React: hooks.React,
+      ...ports,
+      DatePort: Clock,
+    });
+    ports.coins.set("a", { usdAthMarketCap: 8 });
+    hooks.render("live", () => actual.useLiteTrades(["a"]));
+    ports.emit("a", {
+      mint: "a",
+      marketCap: "9",
+      priceUsd: "2.5",
+      timestamp: "2024-01-01T00:00:00Z",
+      type: "buy",
+    });
+    assert.deepEqual(ports.updates, [
+      {
+        mint: "a",
+        patch: {
+          usdMarketCap: 9,
+          priceUsd: 2.5,
+          lastTradeTimestamp: 1704067200000,
+          lastTradeIsBuy: true,
+          usdAthMarketCap: 9,
+        },
+      },
+    ]);
+    ports.emit("a", {
+      mint: "a",
+      marketCap: 7,
+      priceUsd: 0,
+      timestamp: 0,
+      type: "BUY",
+    });
+    assert.deepEqual(ports.updates.at(-1), {
+      mint: "a",
+      patch: {
+        usdMarketCap: 7,
+        priceUsd: undefined,
+        lastTradeTimestamp: 12345,
+        lastTradeIsBuy: false,
+      },
+    });
+    ports.coins.set("a", { usdAthMarketCap: 0 });
+    ports.emit("a", {
+      mint: "a",
+      marketCap: 10,
+      priceUsd: "Infinity",
+      timestamp: "not a date",
+    });
+    const patch = ports.updates.at(-1).patch;
+    assert.equal(patch.usdAthMarketCap, undefined);
+    assert.equal(patch.priceUsd, Infinity);
+    assert.ok(Number.isNaN(patch.lastTradeTimestamp));
+    hooks.unmount("live");
+    assert.equal(ports.subscriptions.size, 0);
+  });
+  test(`${tag}: actual ignored events, logged errors and latest callback after updater identity change`, () => {
+    const { hooks, ports, client } = setup(protocol);
+    hooks.render("live", () => client.useLiteTrades(["a"]));
+    assert.equal(ports.history[0].options.coalesce, "latest");
+    for (const e of [
+      null,
+      {},
+      { mint: "a", marketCap: 0 },
+      { mint: "a", marketCap: -1 },
+      { mint: "a", marketCap: "bad" },
+      { mint: "a", marketCap: Infinity },
+    ])
+      ports.emit("a", e);
+    assert.equal(ports.updates.length, 0);
+    assert.equal(ports.errors.length, 0);
+    ports.emit("a", { mint: "a", marketCap: Symbol("synthetic invalid") });
+    assert.equal(ports.errors.length, 1);
+    assert.equal(ports.errors[0][0], "Error handling lite trade event");
+    const events = [];
+    ports.storeState.updateCoin = (mint, patch) => events.push({ mint, patch });
+    hooks.render("live", () => client.useLiteTrades(["a"]));
+    assert.equal(ports.history.length, 1);
+    ports.emit("a", { mint: "a", marketCap: 1 });
+    assert.equal(events.length, 1);
+    assert.equal(ports.updates.length, 0);
+    hooks.unmount("live");
+  });
+  test(`${tag}: mode prop changes reconcile; empty/disabled useLiteTrades remains inactive`, () => {
+    const { render, hooks, ports, client } = setup(protocol),
+      cb = () => {};
+    render("a", {
+      mints: ["a"],
+      isEnabled: true,
+      coalesce: "none",
+      onLiteTrade: cb,
+    });
+    render("a", {
+      mints: ["a"],
+      isEnabled: true,
+      coalesce: "latest",
+      onLiteTrade: cb,
+    });
+    assert.equal(ports.history.at(-1).options.coalesce, "latest");
+    hooks.unmount("a");
+    hooks.render("live", () => client.useLiteTrades(["a"], false));
+    assert.equal(ports.subscriptions.size, 0);
+    hooks.render("live", () => client.useLiteTrades([], true));
+    assert.equal(ports.subscriptions.size, 0);
+    hooks.unmount("live");
+  });
+}
+test("explicit protocol variant required; no inferred active module winner", () => {
+  assert.throws(
+    () => createLiteTradeHooks({ protocolVariant: "unknown" }),
+    /explicit supported985526/,
+  );
+});
+test("actual source verifier rejects code, variants, witnesses, consumers and port/qualification mutations", async () => {
+  const code = await readFile(
+      new URL(
+        "../reconstruction/lite-trade-listeners/client.mjs",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+    contract = JSON.parse(
+      await readFile(
+        new URL(
+          "../reconstruction/lite-trade-listeners/contract.json",
+          import.meta.url,
+        ),
+      ),
+    );
+  assert.equal((await verify()).witnesses, 35);
+  for (const change of [
+    (c) => {
+      c.protocolVariants.pop();
+    },
+    (c) => {
+      c.witnesses[0].sha256 = "0".repeat(64);
+    },
+    (c) => {
+      c.subject = "different";
+    },
+    (c) => {
+      c.consumers[0].call.utf16[0]++;
+    },
+    (c) => {
+      c.externalPorts = [];
+    },
+    (c) => {
+      c.mounted = true;
+    },
+  ]) {
+    const c = structuredClone(contract);
+    change(c);
+    await assert.rejects(verify(undefined, { code, contract: c }));
+  }
+  for (const pair of [
+    ['"latest"', '"none"'],
+    ["r <= 0", "r < 0"],
+  ]) {
+    const changed = code.replace(...pair);
+    assert.notEqual(changed, code);
+    await assert.rejects(verify(undefined, { code: changed, contract }));
+  }
+});
+
+test("real React SSR executes hook reads but never activates the injected subscription capability", async () => {
+  const { createRequire } = await import("node:module");
+  const frontend = createRequire(
+    new URL("../packages/frontend/package.json", import.meta.url),
+  );
+  const React = frontend("react"),
+    { renderToString } = frontend("react-dom/server");
+  const ports = localCapabilities();
+  const client = createLiteTradeHooks({
+    protocolVariant: protocolVariantHashes[0],
+    React,
+    ...ports,
+  });
+  function Host() {
+    client.useLiteTrades(["a"]);
+    client.useSubscriptions({
+      mints: ["b"],
+      isEnabled: true,
+      onLiteTrade: () => {},
+    });
+    return React.createElement("output", null, "source reads only");
+  }
+  assert.match(renderToString(React.createElement(Host)), /source reads only/);
+  assert.deepEqual(ports.history, []);
+  assert.deepEqual(ports.updates, []);
+});

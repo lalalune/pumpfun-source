@@ -1,0 +1,2192 @@
+{
+  "scope": "Standalone real React host; injected local connection/readiness/store capabilities. No app route/service/provider qualification.",
+  "sourceHead": "9b19dc831ebb6530609433fce0d03f1faa44c2df",
+  "startedAt": "2026-10-29T22:48:20.055Z",
+  "inputs": [
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "reconstruction/lite-trade-listeners/client.mjs",
+      "bytes": 5680,
+      "sha256": "d717069cbcde604e96482164ce701d354f312776f787b4073011b59f0996306b"
+    },
+    {
+      "path": "reconstruction/lite-trade-listeners/qualification/ports.mjs",
+      "bytes": 4110,
+      "sha256": "99ec0922ddae245835d76998a58e69f69e393c2f241838d9f6b7b7933ce690d5"
+    },
+    {
+      "path": "reconstruction/lite-trade-listeners/qualification/fixture.mjs",
+      "bytes": 5465,
+      "sha256": "dea443851a1fb77688e234fa9fe1d924edec62ad90f25e3791132a6bd4ab5a7a"
+    },
+    {
+      "path": "reconstruction/lite-trade-listeners/qualification/browser.mjs",
+      "bytes": 11502,
+      "sha256": "cae71ab98808bc41ad565e182c2266172be23ddc952f4cbfc2e35709827aadad"
+    }
+  ],
+  "bundleSha256": "6b7fe479b7f38ffb9bbbc77257292217659266d896f5527f8751660611f24aa9",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/bundle.js"
+    }
+  ],
+  "cases": [
+    {
+      "name": "d07a60b6380a actual shared listener/coalescing and callback cleanup",
+      "startedAt": "2026-10-29T22:48:20.357Z",
+      "initial": {
+        "instance": 1,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "shared": {
+        "instance": 1,
+        "mounted": true,
+        "controls": {
+          "second": true,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "none"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "none"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "firstDelivery": {
+        "instance": 1,
+        "mounted": true,
+        "controls": {
+          "second": true,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [
+          "one:1",
+          "two:1"
+        ],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "none"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "none"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "callbackUpdate": {
+        "instance": 1,
+        "mounted": true,
+        "controls": {
+          "second": true,
+          "label": "updated",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [
+          "one:1",
+          "two:1",
+          "updated:2",
+          "two:2"
+        ],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "none"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "none"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "remaining": {
+        "instance": 1,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "updated",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [
+          "one:1",
+          "two:1",
+          "updated:2",
+          "two:2"
+        ],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 3,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "none"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 2
+          },
+          {
+            "kind": "subscribe",
+            "id": 3,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "unmounted": {
+        "instance": 1,
+        "mounted": false,
+        "controls": {
+          "second": false,
+          "label": "updated",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [
+          "one:1",
+          "two:1",
+          "updated:2",
+          "two:2"
+        ],
+        "active": true,
+        "ready": true,
+        "subscriptions": [],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "none"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 2
+          },
+          {
+            "kind": "subscribe",
+            "id": 3,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 3
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T22:48:20.687Z"
+    },
+    {
+      "name": "d07a60b6380a readiness/connection/enable/mint effect reconciliation",
+      "startedAt": "2026-10-29T22:48:20.687Z",
+      "initial": {
+        "instance": 2,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": false,
+        "subscriptions": [],
+        "history": [],
+        "updates": [],
+        "errors": []
+      },
+      "Ready": {
+        "instance": 2,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "Inactive": {
+        "instance": 2,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": false,
+        "ready": true,
+        "subscriptions": [],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "Active": {
+        "instance": 2,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "Disable": {
+        "instance": 2,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": false,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 2
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "Enable": {
+        "instance": 2,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 3,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 2
+          },
+          {
+            "kind": "subscribe",
+            "id": 3,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "mintB": {
+        "instance": 2,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "b"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 4,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.b",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 2
+          },
+          {
+            "kind": "subscribe",
+            "id": 3,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 3
+          },
+          {
+            "kind": "subscribe",
+            "id": 4,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.b",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "empty": {
+        "instance": 2,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": ""
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 2
+          },
+          {
+            "kind": "subscribe",
+            "id": 3,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 3
+          },
+          {
+            "kind": "subscribe",
+            "id": 4,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.b",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 4
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "unmounted": {
+        "instance": 2,
+        "mounted": false,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": ""
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 2
+          },
+          {
+            "kind": "subscribe",
+            "id": 3,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 3
+          },
+          {
+            "kind": "subscribe",
+            "id": 4,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.b",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 4
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T22:48:21.095Z"
+    },
+    {
+      "name": "d07a60b6380a actual event-to-local-store handoff",
+      "startedAt": "2026-10-29T22:48:21.095Z",
+      "initial": {
+        "instance": 3,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "valid": {
+        "instance": 3,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [
+          {
+            "mint": "a",
+            "patch": {
+              "usdMarketCap": 9,
+              "priceUsd": 2.5,
+              "lastTradeTimestamp": 1704067200000,
+              "lastTradeIsBuy": true,
+              "usdAthMarketCap": 9
+            }
+          }
+        ],
+        "errors": []
+      },
+      "ignored": {
+        "instance": 3,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [
+          {
+            "mint": "a",
+            "patch": {
+              "usdMarketCap": 9,
+              "priceUsd": 2.5,
+              "lastTradeTimestamp": 1704067200000,
+              "lastTradeIsBuy": true,
+              "usdAthMarketCap": 9
+            }
+          }
+        ],
+        "errors": []
+      },
+      "lower": {
+        "instance": 3,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [
+          {
+            "mint": "a",
+            "patch": {
+              "usdMarketCap": 9,
+              "priceUsd": 2.5,
+              "lastTradeTimestamp": 1704067200000,
+              "lastTradeIsBuy": true,
+              "usdAthMarketCap": 9
+            }
+          },
+          {
+            "mint": "a",
+            "patch": {
+              "usdMarketCap": 7,
+              "lastTradeTimestamp": 12345,
+              "lastTradeIsBuy": false
+            }
+          }
+        ],
+        "errors": []
+      },
+      "unmounted": {
+        "instance": 3,
+        "mounted": false,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          }
+        ],
+        "updates": [
+          {
+            "mint": "a",
+            "patch": {
+              "usdMarketCap": 9,
+              "priceUsd": 2.5,
+              "lastTradeTimestamp": 1704067200000,
+              "lastTradeIsBuy": true,
+              "usdAthMarketCap": 9
+            }
+          },
+          {
+            "mint": "a",
+            "patch": {
+              "usdMarketCap": 7,
+              "lastTradeTimestamp": 12345,
+              "lastTradeIsBuy": false
+            }
+          }
+        ],
+        "errors": []
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T22:48:21.257Z"
+    },
+    {
+      "name": "d2419cfba786 actual shared listener/coalescing and callback cleanup",
+      "startedAt": "2026-10-29T22:48:21.257Z",
+      "initial": {
+        "instance": 4,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "shared": {
+        "instance": 4,
+        "mounted": true,
+        "controls": {
+          "second": true,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "none"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "none"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "firstDelivery": {
+        "instance": 4,
+        "mounted": true,
+        "controls": {
+          "second": true,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [
+          "one:1",
+          "two:1"
+        ],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "none"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "none"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "callbackUpdate": {
+        "instance": 4,
+        "mounted": true,
+        "controls": {
+          "second": true,
+          "label": "updated",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [
+          "one:1",
+          "two:1",
+          "updated:2",
+          "two:2"
+        ],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "none"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "none"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "remaining": {
+        "instance": 4,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "updated",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [
+          "one:1",
+          "two:1",
+          "updated:2",
+          "two:2"
+        ],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 3,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "none"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 2
+          },
+          {
+            "kind": "subscribe",
+            "id": 3,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "unmounted": {
+        "instance": 4,
+        "mounted": false,
+        "controls": {
+          "second": false,
+          "label": "updated",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [
+          "one:1",
+          "two:1",
+          "updated:2",
+          "two:2"
+        ],
+        "active": true,
+        "ready": true,
+        "subscriptions": [],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "none"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 2
+          },
+          {
+            "kind": "subscribe",
+            "id": 3,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 3
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T22:48:21.561Z"
+    },
+    {
+      "name": "d2419cfba786 readiness/connection/enable/mint effect reconciliation",
+      "startedAt": "2026-10-29T22:48:21.561Z",
+      "initial": {
+        "instance": 5,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": false,
+        "subscriptions": [],
+        "history": [],
+        "updates": [],
+        "errors": []
+      },
+      "Ready": {
+        "instance": 5,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "Inactive": {
+        "instance": 5,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": false,
+        "ready": true,
+        "subscriptions": [],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "Active": {
+        "instance": 5,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "Disable": {
+        "instance": 5,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": false,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 2
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "Enable": {
+        "instance": 5,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 3,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 2
+          },
+          {
+            "kind": "subscribe",
+            "id": 3,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "mintB": {
+        "instance": 5,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "b"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 4,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.b",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 2
+          },
+          {
+            "kind": "subscribe",
+            "id": 3,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 3
+          },
+          {
+            "kind": "subscribe",
+            "id": 4,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.b",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "empty": {
+        "instance": 5,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": ""
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 2
+          },
+          {
+            "kind": "subscribe",
+            "id": 3,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 3
+          },
+          {
+            "kind": "subscribe",
+            "id": 4,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.b",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 4
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "unmounted": {
+        "instance": 5,
+        "mounted": false,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": ""
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          },
+          {
+            "kind": "subscribe",
+            "id": 2,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 2
+          },
+          {
+            "kind": "subscribe",
+            "id": 3,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 3
+          },
+          {
+            "kind": "subscribe",
+            "id": 4,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.b",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 4
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T22:48:21.922Z"
+    },
+    {
+      "name": "d2419cfba786 actual event-to-local-store handoff",
+      "startedAt": "2026-10-29T22:48:21.922Z",
+      "initial": {
+        "instance": 6,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [],
+        "errors": []
+      },
+      "valid": {
+        "instance": 6,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [
+          {
+            "mint": "a",
+            "patch": {
+              "usdMarketCap": 9,
+              "priceUsd": 2.5,
+              "lastTradeTimestamp": 1704067200000,
+              "lastTradeIsBuy": true,
+              "usdAthMarketCap": 9
+            }
+          }
+        ],
+        "errors": []
+      },
+      "ignored": {
+        "instance": 6,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [
+          {
+            "mint": "a",
+            "patch": {
+              "usdMarketCap": 9,
+              "priceUsd": 2.5,
+              "lastTradeTimestamp": 1704067200000,
+              "lastTradeIsBuy": true,
+              "usdAthMarketCap": 9
+            }
+          }
+        ],
+        "errors": []
+      },
+      "lower": {
+        "instance": 6,
+        "mounted": true,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [
+          {
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          }
+        ],
+        "updates": [
+          {
+            "mint": "a",
+            "patch": {
+              "usdMarketCap": 9,
+              "priceUsd": 2.5,
+              "lastTradeTimestamp": 1704067200000,
+              "lastTradeIsBuy": true,
+              "usdAthMarketCap": 9
+            }
+          },
+          {
+            "mint": "a",
+            "patch": {
+              "usdMarketCap": 7,
+              "lastTradeTimestamp": 12345,
+              "lastTradeIsBuy": false
+            }
+          }
+        ],
+        "errors": []
+      },
+      "unmounted": {
+        "instance": 6,
+        "mounted": false,
+        "controls": {
+          "second": false,
+          "label": "one",
+          "enabled": true,
+          "mint": "a"
+        },
+        "events": [],
+        "active": true,
+        "ready": true,
+        "subscriptions": [],
+        "history": [
+          {
+            "kind": "subscribe",
+            "id": 1,
+            "instance": "UNIFIED",
+            "subject": "unifiedTradeEvent.lite.a",
+            "options": {
+              "coalesce": "latest"
+            }
+          },
+          {
+            "kind": "unsubscribe",
+            "instance": "UNIFIED",
+            "id": 1
+          }
+        ],
+        "updates": [
+          {
+            "mint": "a",
+            "patch": {
+              "usdMarketCap": 9,
+              "priceUsd": 2.5,
+              "lastTradeTimestamp": 1704067200000,
+              "lastTradeIsBuy": true,
+              "usdAthMarketCap": 9
+            }
+          },
+          {
+            "mint": "a",
+            "patch": {
+              "usdMarketCap": 7,
+              "lastTradeTimestamp": 12345,
+              "lastTradeIsBuy": false
+            }
+          }
+        ],
+        "errors": []
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-29T22:48:22.057Z"
+    }
+  ],
+  "errors": [],
+  "origin": "http://127.0.0.1:39031",
+  "status": "PASS",
+  "browserClosed": true,
+  "serverListening": false,
+  "endedAt": "2026-10-29T22:48:22.132Z"
+}

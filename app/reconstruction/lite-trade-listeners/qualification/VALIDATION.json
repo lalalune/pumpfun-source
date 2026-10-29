@@ -1,0 +1,49 @@
+{
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "runtimeFreeze": "9b19dc831ebb6530609433fce0d03f1faa44c2df",
+  "clientSha256": "d717069cbcde604e96482164ce701d354f312776f787b4073011b59f0996306b",
+  "sourceGate": {
+    "witnesses": 35,
+    "sourceEntries": 8,
+    "protocolVariants": 2,
+    "listenerFactoryVariants": 1,
+    "selectedConsumers": 2
+  },
+  "directTests": {
+    "passed": 21,
+    "failed": 0,
+    "cwd": "app",
+    "log": "focused.log",
+    "scope": "18 variant checks, explicit variant selection, actual verifier with8negative mutations, realReact SSR no-effect control"
+  },
+  "historicalReplaySetup": {
+    "passed": 20,
+    "failed": 1,
+    "cwd": "app",
+    "log": "historical-cwd-setup.log",
+    "testCommit": "ab96bea6b0d078fd47ffea1bdcf497d2fc6b5b9d",
+    "testBlob": "266d68fd2439505d517207a9a75e1547bd1e4f3f",
+    "testSha256": "8a83c16a93f4d2610196c54b864965e6016b1520f0d17c4a9574c97ff6851d5b",
+    "cause": "SSR qualification test resolved dependency from CWD; corrected to module URL before browser. Not a translated-source or product failure.",
+    "translatedClientUnchanged": true,
+    "retainedTestBytes": "historical-cwd-test.source.txt",
+    "ancestryLimit": "Local pre-fix commit metadata; opaque original test bytes are included independently of public API commit ancestry, not a second active test module."
+  },
+  "sharedSourceTests": {
+    "passed": 11,
+    "failed": 0,
+    "log": "shared-source.log"
+  },
+  "browser": {
+    "passed": 6,
+    "failed": 0,
+    "pageErrors": 0,
+    "browserClosed": true,
+    "serverListening": false,
+    "inputBindings": 12,
+    "result": "browser/RESULT.json",
+    "scope": "RealReact with injected local subscription/readiness/store capabilities; no service delivery."
+  },
+  "mounted": false,
+  "productionOperationsQualified": 0
+}

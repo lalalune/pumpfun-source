@@ -1,0 +1,50 @@
+✔ d07a60b6380a: one keyed subscription, independent callbacks, default none and mode upgrade/downgrade (2.838321ms)
+✔ d07a60b6380a: sorted mint dependency, deduplication and add/remove reconciliation (0.449425ms)
+✔ d07a60b6380a: global keys trim, while per-hook keys preserve the captured whitespace-alias behavior (0.291508ms)
+✔ d07a60b6380a: callback ref updates after effect without resubscribing (0.275594ms)
+✔ d07a60b6380a: disabled, boot readiness, connection and empty mints clean existing subscriptions (0.528504ms)
+✔ d07a60b6380a: callback isolation and unsubscribe failure follow source rather than transport guarantees (0.387191ms)
+✔ d07a60b6380a: exact event-to-local-state values and pending ATH read (0.620772ms)
+✔ d07a60b6380a: actual ignored events, logged errors and latest callback after updater identity change (0.393331ms)
+✔ d07a60b6380a: mode prop changes reconcile; empty/disabled useLiteTrades remains inactive (0.264397ms)
+✔ d2419cfba786: one keyed subscription, independent callbacks, default none and mode upgrade/downgrade (0.539139ms)
+✔ d2419cfba786: sorted mint dependency, deduplication and add/remove reconciliation (0.262865ms)
+✔ d2419cfba786: global keys trim, while per-hook keys preserve the captured whitespace-alias behavior (3.368537ms)
+✔ d2419cfba786: callback ref updates after effect without resubscribing (0.134412ms)
+✔ d2419cfba786: disabled, boot readiness, connection and empty mints clean existing subscriptions (0.145067ms)
+✔ d2419cfba786: callback isolation and unsubscribe failure follow source rather than transport guarantees (0.152279ms)
+✔ d2419cfba786: exact event-to-local-state values and pending ATH read (0.218578ms)
+✔ d2419cfba786: actual ignored events, logged errors and latest callback after updater identity change (0.13336ms)
+✔ d2419cfba786: mode prop changes reconcile; empty/disabled useLiteTrades remains inactive (0.130836ms)
+✔ explicit protocol variant required; no inferred active module winner (0.477256ms)
+✔ actual source verifier rejects code, variants, witnesses, consumers and port/qualification mutations (1970.799442ms)
+✖ real React SSR executes hook reads but never activates the injected subscription capability (1.997869ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 20
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2111.515798
+
+✖ failing tests:
+
+test at tests/original_lite_trade_listeners.test.mjs:377:1
+✖ real React SSR executes hook reads but never activates the injected subscription capability (1.997869ms)
+  Error: Cannot find module 'react'
+  Require stack:
+  - /workspace/pump-app-privacy-links/app/app/packages/frontend/package.json
+      at Module._resolveFilename (node:internal/modules/cjs/loader:1517:15)
+      at wrapResolveFilename (node:internal/modules/cjs/loader:1071:27)
+      at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1095:10)
+      at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1122:12)
+      at Module._load (node:internal/modules/cjs/loader:1294:5)
+      at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+      at Module.require (node:internal/modules/cjs/loader:1617:12)
+      at require (node:internal/modules/helpers:153:16)
+      at TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_lite_trade_listeners.test.mjs:383:17)
+      at async Test.run (node:internal/test_runner/test:1389:7) {
+    code: 'MODULE_NOT_FOUND',
+    requireStack: [ '/workspace/pump-app-privacy-links/app/app/packages/frontend/package.json' ]
+  }

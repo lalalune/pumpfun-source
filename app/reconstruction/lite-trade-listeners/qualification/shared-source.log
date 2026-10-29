@@ -1,0 +1,19 @@
+✔ factory lookup authenticates original AST and preserves BOM, CRLF and Unicode byte ranges (18.135834ms)
+✔ UTF-16 offsets inside an astral character are not byte boundaries (6.304393ms)
+✔ capture hash and length changes fail before AST attribution (4.298903ms)
+✔ an updated manifest cannot make malformed UTF-8 into source text (3.20443ms)
+✔ indexed arbitrary substrings cannot substitute for actual registered factories (4.65012ms)
+✔ an aggregate inventory ID cannot substitute for the actual registration ID (5.664248ms)
+✔ multiple origin contexts stay ambiguous until explicitly selected (4.417911ms)
+✔ manifest source symlinks and traversal paths are rejected (4.78993ms)
+✔ a forged manifest cannot authorize reading a repository file outside retained objects (3.501326ms)
+✔ the runtime-leading nested-array grammar validates nested and trailing factories (8.082302ms)
+✔ outer two-element registration is metadata, not a nested factory container (3.825222ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 141.714112
