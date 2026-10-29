@@ -1,6 +1,9 @@
 # Maintained source and generated adapters are authenticated by exact LF bytes.
 # Keep Windows checkout conversion from changing their reviewed source hashes.
 scripts/**/*.mjs text eol=lf
+# Some recovered factories require exact pinned-formatter derivation when their
+# canonical AST changes during formatting. Preserve that derivation on checkout.
+recovered/modules/*.js text eol=lf
 packages/frontend/src/**/*.mjs text eol=lf
 packages/frontend/src/**/*.mts text eol=lf
 packages/frontend/src/**/*.ts text eol=lf
