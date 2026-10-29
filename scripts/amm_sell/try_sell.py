@@ -84,7 +84,8 @@ def main():
     sell_bytes = Path(a.sell).read_bytes() if a.sell else PRISTINE_SELL.read_bytes()
     patch_bytes = Path(a.patch).read_bytes() if a.patch else b''
     link_bytes = Path(a.link_script).read_bytes() if a.link_script else b''
-    key_doc = {'sell': sha(sell_bytes), 'patch': sha(patch_bytes) if patch_bytes else None,
+    key_doc = {'score_version': sell_score.SCORE_VERSION,
+               'sell': sha(sell_bytes), 'patch': sha(patch_bytes) if patch_bytes else None,
                'flags': a.extra_root_flags.strip(), 'link': sha(link_bytes) if link_bytes else None}
     key = sha(json.dumps(key_doc, sort_keys=True).encode())
     CACHE.mkdir(exist_ok=True)
@@ -114,7 +115,10 @@ def main():
         code = 2
     else:
         s = sell_score.score(out, want_disasm=a.disasm)
-        metrics = {k: s[k] for k in ('sell_raw_equal', 'whole_elf_equal', 'windows_raw_equal', 'sell_start',
+        metrics = {k: s[k] for k in ('score_version', 'sell_raw_equal', 'whole_elf_equal',
+                                     'allocation_image_equal', 'unstripped_elf_equal',
+                                     'original_bytes', 'candidate_bytes', 'unstripped_bytes',
+                                     'allocation_padding_bytes', 'windows_raw_equal', 'sell_start',
                                      'sell_size', 'slot_diffs', 'align_distance', 'ja_count', 'cond_count')}
         metrics['lost_windows_count'] = len(s['lost_windows'])
         metrics['lost_windows'] = s['lost_windows'][:20]
@@ -124,7 +128,8 @@ def main():
         metrics['candidate_windows'] = s['candidate_windows']
         metrics['borrow_branch'] = s['borrow_branch']['candidate']
         entry.update({'status': 'GOAL_SELL_RAW_EQUAL' if s['sell_raw_equal'] else 'scored',
-                      'metrics': metrics, 'candidate_sha256': s['candidate_sha256']})
+                      'metrics': metrics, 'candidate_sha256': s['candidate_sha256'],
+                      'unstripped_sha256': s['unstripped_sha256']})
         if a.disasm:
             entry['disasm'] = s.get('disasm')
         code = 3 if s['sell_raw_equal'] else 0

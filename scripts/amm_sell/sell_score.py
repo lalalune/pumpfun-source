@@ -7,7 +7,9 @@ BUILD_OUT_DIR must contain candidate.so (stripped) and symbols.so (unstripped).
 
 Reported (JSON):
   sell_raw_equal         candidate sell bytes == original sell bytes (THE GOAL)
-  whole_elf_equal        candidate == original meaningful prefix and the suffix is zero
+  whole_elf_equal        stripped candidate.so == captured original, including length
+  allocation_image_equal candidate.so zero-filled to the capture size == original
+  unstripped_elf_equal   raw compiler output symbols.so == captured original
   windows_raw_equal      raw-equal physical windows out of 785 (baseline 784)
   lost_windows           non-sell windows that are no longer raw-equal (must be [])
   sell_start/sell_size   candidate cashback symbol location (original 0x4c750 / 9024)
@@ -30,6 +32,7 @@ ORIGINAL = Path(os.environ.get('AMM_SELL_SWARM', HERE.parent)).resolve() / 'infr
 ORIGINAL_SHA = '6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7'
 SELL_START = 0x4c750
 SELL_SIZE = 9024
+SCORE_VERSION = 2
 sys.path.insert(0, str(HERE))
 try:
     import elf_reader  # noqa: E402
@@ -157,8 +160,10 @@ def score(out_dir, want_disasm=False):
     candidate = elf_reader.Elf(out / 'candidate.so')
     symbols = elf_reader.Elf(out / 'symbols.so')
     sell = find_sell(symbols)
-    meaningful = len(candidate.b)
-    whole = original.b[:meaningful] == candidate.b and not any(original.b[meaningful:])
+    whole = candidate.b == original.b
+    allocation_equal = (len(candidate.b) <= len(original.b)
+                        and original.b[:len(candidate.b)] == candidate.b
+                        and not any(original.b[len(candidate.b):]))
     o_sell = original.b[SELL_START:SELL_START + SELL_SIZE]
     c_sell = candidate.b[sell['start']:sell['start'] + sell['size']]
     sell_equal = sell['start'] == SELL_START and sell['size'] == SELL_SIZE and o_sell == c_sell
@@ -184,8 +189,15 @@ def score(out_dir, want_disasm=False):
         window = [r for r in rows if 0xcd0 <= r['off'] <= 0xd10]
         borrow[name] = [f"{r['off']:#x} {r['text']}" for r in window]
     report = {
-        'build': str(out), 'candidate_sha256': hashlib.sha256(candidate.b).hexdigest(),
+        'build': str(out), 'score_version': SCORE_VERSION,
+        'candidate_sha256': hashlib.sha256(candidate.b).hexdigest(),
+        'unstripped_sha256': hashlib.sha256(symbols.b).hexdigest(),
         'sell_raw_equal': sell_equal, 'whole_elf_equal': whole,
+        'allocation_image_equal': allocation_equal,
+        'unstripped_elf_equal': symbols.b == original.b,
+        'original_bytes': len(original.b), 'candidate_bytes': len(candidate.b),
+        'unstripped_bytes': len(symbols.b),
+        'allocation_padding_bytes': len(original.b) - len(candidate.b) if allocation_equal else None,
         'windows_raw_equal': sum(equal), 'windows_total': len(windows), 'lost_windows': lost,
         'candidate_windows': len(c_windows),
         'lost_windows_normalized': lost_norm,

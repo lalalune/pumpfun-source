@@ -1,0 +1,22 @@
+name: Verify AMM sell image identity
+on:
+  pull_request:
+    paths:
+      - 'scripts/amm_sell/**'
+      - 'scripts/window_elf_reader.py'
+      - '.github/workflows/verify-amm-sell-score.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/amm_sell/**'
+      - 'scripts/window_elf_reader.py'
+      - '.github/workflows/verify-amm-sell-score.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  identity:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -I -B scripts/amm_sell/test_sell_identity.py

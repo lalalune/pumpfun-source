@@ -54,6 +54,27 @@ raw-equal to the original.
 
 ## Score
 
+Image identity is reported separately from function-window matches:
+
+- `whole_elf_equal`: exact bytes and length of the stripped `candidate.so` versus
+  the captured original.
+- `allocation_image_equal`: equality after zero-filling a shorter `candidate.so`
+  to the capture's size. No file is modified. `allocation_padding_bytes` reports
+  the added length on a match (zero for an exact match), otherwise null.
+- `unstripped_elf_equal`: exact bytes and length of `symbols.so`, the retained raw
+  compiler output before `llvm-objcopy --strip-all`, versus the captured original.
+
+Reports include the three byte lengths and separate candidate/unstripped hashes.
+`score_version: 2` distinguishes these meanings. Historical unversioned reports
+used `whole_elf_equal` for the allocation comparison; they do not establish exact
+file equality. The attempt cache key includes the score version so those entries
+cannot be returned as current measurements. Historical logs and cached evidence
+are preserved. The sell-window success criterion and exit status are unchanged.
+
+Run the stdlib-only identity and cache regressions from the repository root:
+`python -I -B scripts/amm_sell/test_sell_identity.py`. They do not compile or
+execute a program, or require the native SDK.
+
 `sell_raw_equal` is the goal. `lost_windows_normalized` must stay empty (no other
 function may change). `align_distance` (instruction edit distance with branch
 displacements replaced by labels) and `slot_diffs` (differing 8-byte slots) rank
