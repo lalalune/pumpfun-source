@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+"""The original-window cache must follow original.so and functions.tsv.
+
+A pickle left in reconstruction/base is reused with no input check. After the
+window table or captured program changes, scoring keeps the previous bodies.
+"""
+import pickle
+import struct
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+H = Path(__file__).resolve().parent
+sys.path.insert(0, str(H))
+import score  # noqa: E402
+
+
+def elf_with_text(text):
+    """Minimal ELF64 whose .text file bytes are `text` and whose address matches."""
+    string_table = b'\0.text\0.shstrtab\0'
+    text_offset = 64
+    strings_offset = text_offset + len(text)
+    shoff = strings_offset + len(string_table)
+    header = bytearray(64)
+    header[0:4] = b'\x7fELF'
+    header[4] = 2
+    header[5] = 1
+    header[6] = 1
+    struct.pack_into(
+        '<HHIQQQIHHHHHH', header, 16,
+        1, 0xF7, 1, 0, 0, shoff, 0, 64, 0, 0, 64, 3, 2,
+    )
+    def shdr(name, kind, addr, offset, size):
+        return struct.pack('<IIQQQQIIQQ', name, kind, 0, addr, offset, size, 0, 0, 1, 0)
+    headers = b''.join((
+        shdr(0, 0, 0, 0, 0),
+        shdr(1, 1, text_offset, text_offset, len(text)),
+        shdr(7, 3, 0, strings_offset, len(string_table)),
+    ))
+    return bytes(header) + text + string_table + headers
+
+
+class OriginalWindowCacheTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.base = Path(self.tmp.name)
+        self.text = b'\x95' * 8 + b'\x05' * 8
+        (self.base / 'original.so').write_bytes(elf_with_text(self.text))
+        (self.base / 'functions.tsv').write_text(
+            'program\tvariant\toriginal_start\toriginal_end\n'
+            'pump\tselected\t64\t80\n'
+            'pump\tdraft\t64\t80\n',
+            encoding='utf-8',
+        )
+        self.previous = score.BASE
+        score.BASE = self.base
+
+    def tearDown(self):
+        score.BASE = self.previous
+        self.tmp.cleanup()
+
+    def test_stale_pickle_does_not_replace_the_current_window_table(self):
+        cache = self.base / 'original-windows.pkl'
+        cache.write_bytes(pickle.dumps([
+            {'start': 999, 'bytes': 1, 'raw': b'STALE', 'norm': b'STALE'},
+        ]))
+        rows = score.original_windows()
+        self.assertEqual([row['start'] for row in rows], [64])
+        self.assertEqual(rows[0]['raw'], self.text)
+        self.assertNotEqual(rows[0]['raw'], b'STALE')
+
+    def test_matching_stamp_reuses_the_cache_and_a_new_table_rebuilds(self):
+        first = score.original_windows()
+        self.assertEqual(first[0]['start'], 64)
+        cached = pickle.loads((self.base / 'original-windows.pkl').read_bytes())
+        cached[0]['marker'] = 'cached'
+        (self.base / 'original-windows.pkl').write_bytes(pickle.dumps(cached))
+        second = score.original_windows()
+        self.assertEqual(second[0].get('marker'), 'cached')
+
+        (self.base / 'functions.tsv').write_text(
+            'program\tvariant\toriginal_start\toriginal_end\n'
+            'pump\tselected\t64\t72\n',
+            encoding='utf-8',
+        )
+        third = score.original_windows()
+        self.assertNotIn('marker', third[0])
+        self.assertEqual(third[0]['start'], 64)
+        self.assertEqual(third[0]['bytes'], 8)
+        self.assertEqual(third[0]['raw'], self.text[:8])
+
+
+if __name__ == '__main__':
+    unittest.main()

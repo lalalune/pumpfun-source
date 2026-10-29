@@ -61,19 +61,44 @@ def candidate_functions(path):
     return funcs
 
 
+def window_cache_stamp():
+    """Identity of the two files the cached window bodies are sliced from."""
+    digest = hashlib.sha256()
+    for name in ('original.so', 'functions.tsv'):
+        digest.update(hashlib.sha256((BASE / name).read_bytes()).digest())
+    return digest.hexdigest()
+
+
 def original_windows():
+    """Selected Pump windows from the captured program and functions.tsv.
+
+    The local pickle is only a speed cache. It is reused when its stamp matches
+    those two files, and rebuilt when the stamp is missing, different, or the
+    pickle cannot be read. Match masking is unchanged.
+    """
     cache = BASE / 'original-windows.pkl'
-    if cache.exists():
-        return pickle.loads(cache.read_bytes())
+    stamp_path = BASE / 'original-windows.stamp'
+    stamp = window_cache_stamp()
+    if cache.is_file() and stamp_path.is_file() and stamp_path.read_text().strip() == stamp:
+        try:
+            rows = pickle.loads(cache.read_bytes())
+        except (pickle.UnpicklingError, EOFError, ValueError, TypeError):
+            rows = None
+        if isinstance(rows, list):
+            return rows
     orig = (BASE / 'original.so').read_bytes(); os_ = sections(orig)
     rows = []
-    for r in csv.DictReader((BASE / 'functions.tsv').open(), delimiter='\t'):
-        if r['program'] != 'pump' or r['variant'] != 'selected':
-            continue
-        s, e = int(r['original_start']), int(r['original_end'])
-        raw = body(orig, os_, s, e - s)
-        rows.append({'start': s, 'bytes': e - s, 'raw': raw, 'norm': normalize(raw, s, os_)})
-    cache.write_bytes(pickle.dumps(rows))
+    with (BASE / 'functions.tsv').open(newline='') as handle:
+        for r in csv.DictReader(handle, delimiter='\t'):
+            if r['program'] != 'pump' or r['variant'] != 'selected':
+                continue
+            s, e = int(r['original_start']), int(r['original_end'])
+            raw = body(orig, os_, s, e - s)
+            rows.append({'start': s, 'bytes': e - s, 'raw': raw, 'norm': normalize(raw, s, os_)})
+    temporary = cache.with_name('original-windows.pkl.tmp')
+    temporary.write_bytes(pickle.dumps(rows))
+    temporary.replace(cache)
+    stamp_path.write_text(stamp + '\n')
     return rows
 
 
