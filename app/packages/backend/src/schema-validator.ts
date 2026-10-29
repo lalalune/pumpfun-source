@@ -120,119 +120,143 @@ export function validateAgainstSchema(
   path = '$',
   root?: SchemaRoot,
 ): ValidationIssue[] {
-  const issues: ValidationIssue[] = [];
-  if (!schema || typeof schema !== 'object') return issues;
+  // Track active schema/value pairs, not schemas alone: recursive tree schemas
+  // must still validate distinct child values and shared sibling references.
+  const active = new Map<SchemaNode, Set<unknown>>();
+  let depth = 0;
+  return visit(value, schema, path, root);
 
-  if (value === null && schema.nullable === true) {
-    if (schema.enum && !schema.enum.includes(null)) {
-      issues.push({ path, message: `value null is not one of ${JSON.stringify(schema.enum)}` });
+  function visit(value: unknown, schema: SchemaNode, path: string, root?: SchemaRoot): ValidationIssue[] {
+    if (depth >= 128) return [{ path, message: 'validation nesting limit exceeded (128)' }];
+    const values = active.get(schema) ?? new Set<unknown>();
+    if (values.has(value)) return [{ path, message: 'cyclic schema/value evaluation' }];
+    values.add(value);
+    active.set(schema, values);
+    depth += 1;
+    try {
+      return evaluate(value, schema, path, root);
+    } finally {
+      depth -= 1;
+      values.delete(value);
+      if (values.size === 0) active.delete(schema);
     }
-    if ('const' in schema && schema.const !== null) {
-      issues.push({ path, message: `value null is not the required const ${JSON.stringify(schema.const)}` });
+  }
+
+  function evaluate(value: unknown, schema: SchemaNode, path: string, root?: SchemaRoot): ValidationIssue[] {
+    const issues: ValidationIssue[] = [];
+    if (!schema || typeof schema !== 'object') return issues;
+
+    if (value === null && schema.nullable === true) {
+      if (schema.enum && !schema.enum.includes(null)) {
+        issues.push({ path, message: `value null is not one of ${JSON.stringify(schema.enum)}` });
+      }
+      if ('const' in schema && schema.const !== null) {
+        issues.push({ path, message: `value null is not the required const ${JSON.stringify(schema.const)}` });
+      }
+      return issues;
     }
+
+    if (schema.$ref) {
+      const target = resolveRef(schema.$ref, root);
+      if (!target) {
+        return [{ path, message: `unresolved $ref ${schema.$ref}` }];
+      }
+      return visit(value, target, path, root);
+    }
+
+    for (const branch of schema.allOf ?? []) {
+      issues.push(...visit(value, branch, path, root));
+    }
+
+    if (schema.type !== undefined) {
+      const types = Array.isArray(schema.type) ? schema.type : [schema.type];
+      if (!types.some(t => typeMatches(value, t))) {
+        issues.push({ path, message: `expected type ${types.join('|')}, received ${describe(value)}` });
+        return issues; // further checks would be noise
+      }
+    }
+
+    if (schema.enum && !schema.enum.some(candidate => jsonEqual(candidate, value))) {
+      issues.push({ path, message: `value ${JSON.stringify(value)} is not one of ${JSON.stringify(schema.enum)}` });
+    }
+    if ('const' in schema && !jsonEqual(schema.const, value)) {
+      issues.push({ path, message: `value ${JSON.stringify(value)} is not the required const ${JSON.stringify(schema.const)}` });
+    }
+
+    if (schema.oneOf) {
+      const matches = schema.oneOf.filter(branch => visit(value, branch, path, root).length === 0).length;
+      if (matches !== 1) {
+        issues.push({ path, message: matches === 0 ? 'value matched none of the oneOf branches' : 'value matched multiple oneOf branches' });
+      }
+    }
+    if (schema.anyOf) {
+      const passed = schema.anyOf.some(branch => visit(value, branch, path, root).length === 0);
+      if (!passed) issues.push({ path, message: 'value matched none of the anyOf branches' });
+    }
+
+    if (typeof value === 'string') {
+      const length = [...value].length;
+      if (schema.minLength !== undefined && length < schema.minLength) {
+        issues.push({ path, message: `string shorter than minLength ${schema.minLength}` });
+      }
+      if (schema.maxLength !== undefined && length > schema.maxLength) {
+        issues.push({ path, message: `string longer than maxLength ${schema.maxLength}` });
+      }
+      if (schema.pattern !== undefined) {
+        let re: RegExp | undefined;
+        try {
+          re = new RegExp(schema.pattern);
+        } catch {
+          issues.push({ path, message: `schema pattern is not a valid regular expression: ${schema.pattern}` });
+        }
+        if (re && !re.test(value)) {
+          issues.push({ path, message: `string does not match pattern ${schema.pattern}` });
+        }
+      }
+    }
+
+    if (typeof value === 'number') {
+      if (schema.minimum !== undefined && value < schema.minimum) {
+        issues.push({ path, message: `number below minimum ${schema.minimum}` });
+      }
+      if (schema.maximum !== undefined && value > schema.maximum) {
+        issues.push({ path, message: `number above maximum ${schema.maximum}` });
+      }
+    }
+
+    if (Array.isArray(value)) {
+      if (schema.minItems !== undefined && value.length < schema.minItems) {
+        issues.push({ path, message: `array shorter than minItems ${schema.minItems}` });
+      }
+      if (schema.maxItems !== undefined && value.length > schema.maxItems) {
+        issues.push({ path, message: `array longer than maxItems ${schema.maxItems}` });
+      }
+      if (schema.items) {
+        for (let i = 0; i < value.length; i++) {
+          issues.push(...visit(value[i], schema.items as SchemaNode, `${path}[${i}]`, root));
+        }
+      }
+    }
+
+    if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
+      const obj = value as Record<string, unknown>;
+      for (const key of schema.required ?? []) {
+        if (!Object.hasOwn(obj, key)) issues.push({ path: `${path}.${key}`, message: 'required property is missing' });
+      }
+      const props = schema.properties ?? {};
+      for (const [key, v] of Object.entries(obj)) {
+        if (Object.hasOwn(props, key)) {
+          issues.push(...visit(v, props[key], `${path}.${key}`, root));
+        } else if (schema.additionalProperties === false) {
+          issues.push({ path: `${path}.${key}`, message: 'property is not allowed by additionalProperties: false' });
+        } else if (typeof schema.additionalProperties === 'object') {
+          issues.push(...visit(v, schema.additionalProperties, `${path}.${key}`, root));
+        }
+      }
+    }
+
     return issues;
   }
-
-  if (schema.$ref) {
-    const target = resolveRef(schema.$ref, root);
-    if (!target) {
-      return [{ path, message: `unresolved $ref ${schema.$ref}` }];
-    }
-    return validateAgainstSchema(value, target, path, root);
-  }
-
-  for (const branch of schema.allOf ?? []) {
-    issues.push(...validateAgainstSchema(value, branch, path, root));
-  }
-
-  if (schema.type !== undefined) {
-    const types = Array.isArray(schema.type) ? schema.type : [schema.type];
-    if (!types.some(t => typeMatches(value, t))) {
-      issues.push({ path, message: `expected type ${types.join('|')}, received ${describe(value)}` });
-      return issues; // further checks would be noise
-    }
-  }
-
-  if (schema.enum && !schema.enum.some(candidate => jsonEqual(candidate, value))) {
-    issues.push({ path, message: `value ${JSON.stringify(value)} is not one of ${JSON.stringify(schema.enum)}` });
-  }
-  if ('const' in schema && !jsonEqual(schema.const, value)) {
-    issues.push({ path, message: `value ${JSON.stringify(value)} is not the required const ${JSON.stringify(schema.const)}` });
-  }
-
-  if (schema.oneOf) {
-    const matches = schema.oneOf.filter(branch => validateAgainstSchema(value, branch, path, root).length === 0).length;
-    if (matches !== 1) {
-      issues.push({ path, message: matches === 0 ? 'value matched none of the oneOf branches' : 'value matched multiple oneOf branches' });
-    }
-  }
-  if (schema.anyOf) {
-    const passed = schema.anyOf.some(branch => validateAgainstSchema(value, branch, path, root).length === 0);
-    if (!passed) issues.push({ path, message: 'value matched none of the anyOf branches' });
-  }
-
-  if (typeof value === 'string') {
-    const length = [...value].length;
-    if (schema.minLength !== undefined && length < schema.minLength) {
-      issues.push({ path, message: `string shorter than minLength ${schema.minLength}` });
-    }
-    if (schema.maxLength !== undefined && length > schema.maxLength) {
-      issues.push({ path, message: `string longer than maxLength ${schema.maxLength}` });
-    }
-    if (schema.pattern !== undefined) {
-      let re: RegExp | undefined;
-      try {
-        re = new RegExp(schema.pattern);
-      } catch {
-        issues.push({ path, message: `schema pattern is not a valid regular expression: ${schema.pattern}` });
-      }
-      if (re && !re.test(value)) {
-        issues.push({ path, message: `string does not match pattern ${schema.pattern}` });
-      }
-    }
-  }
-
-  if (typeof value === 'number') {
-    if (schema.minimum !== undefined && value < schema.minimum) {
-      issues.push({ path, message: `number below minimum ${schema.minimum}` });
-    }
-    if (schema.maximum !== undefined && value > schema.maximum) {
-      issues.push({ path, message: `number above maximum ${schema.maximum}` });
-    }
-  }
-
-  if (Array.isArray(value)) {
-    if (schema.minItems !== undefined && value.length < schema.minItems) {
-      issues.push({ path, message: `array shorter than minItems ${schema.minItems}` });
-    }
-    if (schema.maxItems !== undefined && value.length > schema.maxItems) {
-      issues.push({ path, message: `array longer than maxItems ${schema.maxItems}` });
-    }
-    if (schema.items) {
-      for (let i = 0; i < value.length; i++) {
-        issues.push(...validateAgainstSchema(value[i], schema.items as SchemaNode, `${path}[${i}]`, root));
-      }
-    }
-  }
-
-  if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
-    const obj = value as Record<string, unknown>;
-    for (const key of schema.required ?? []) {
-      if (!Object.hasOwn(obj, key)) issues.push({ path: `${path}.${key}`, message: 'required property is missing' });
-    }
-    const props = schema.properties ?? {};
-    for (const [key, v] of Object.entries(obj)) {
-      if (Object.hasOwn(props, key)) {
-        issues.push(...validateAgainstSchema(v, props[key], `${path}.${key}`, root));
-      } else if (schema.additionalProperties === false) {
-        issues.push({ path: `${path}.${key}`, message: 'property is not allowed by additionalProperties: false' });
-      } else if (typeof schema.additionalProperties === 'object') {
-        issues.push(...validateAgainstSchema(v, schema.additionalProperties, `${path}.${key}`, root));
-      }
-    }
-  }
-
-  return issues;
 }
 
 function describe(value: unknown): string {
