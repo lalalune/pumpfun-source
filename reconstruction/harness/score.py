@@ -50,15 +50,8 @@ def body(image, secs, address, size):
 
 
 def candidate_functions(path):
-    text = subprocess.check_output([OBJDUMP, '-t', str(path)], text=True)
-    funcs = []
-    for line in text.splitlines():
-        m = re.match(r'^([0-9a-f]+) .* F \.text\s+([0-9a-f]+)\s+(?:\.hidden\s+)?(\S+)$', line)
-        if m:
-            addr, size, name = int(m.group(1), 16), int(m.group(2), 16), m.group(3)
-            if size:
-                funcs.append((addr, size, name))
-    return funcs
+    from elf_symbols import function_symbols
+    return function_symbols(Path(path).read_bytes())
 
 
 def original_windows():
