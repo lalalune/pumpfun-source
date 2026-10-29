@@ -1,0 +1,166 @@
+{
+  "schema": 1,
+  "testedHead": "da80fe42e79abe53a817e832201007e75582052a",
+  "testedTree": "563e3629fd23651257584e1760e3be44b7a89800",
+  "reviewBase": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Complete original Settings language selector and resource/cookie/provider/refresh workflow through explicit synthetic capability ports",
+  "inputs": {
+    "evidence/web/manifest.json": {
+      "bytes": 3026513,
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda"
+    },
+    "evidence/web/objects/11cf0bf8a734ea43.js": {
+      "bytes": 49565,
+      "sha256": "a859077ba48e8afb625cd917a674ace225a0959ad40932f02331402dd5365f83",
+      "gitBlob": "0316016b630a67035a86489f98bf1bb1e30d4c9e"
+    },
+    "evidence/web/objects/337439e6bd8e9380.js": {
+      "bytes": 22172,
+      "sha256": "5d3eb05cb5db4cb2e1b86b93afb8a3ff59a9fc4fbcd5864df90ca8b3b683126f",
+      "gitBlob": "786c68fbbe0938ef99ab059675a27df7ba36661d"
+    },
+    "evidence/web/objects/4490d02ba2117672.js": {
+      "bytes": 52381,
+      "sha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "gitBlob": "464a645f3fc99db61ab4cdab0395471031bc1715"
+    },
+    "evidence/web/objects/a0ec47219f76f808.js": {
+      "bytes": 28862,
+      "sha256": "557eb3547caea2d37bd9712a9cf3d07c835537e9354e0d7bd449b881fffdafc7",
+      "gitBlob": "af05d119599b983290aa518d3fb718059f39ead7"
+    },
+    "evidence/web/objects/babf5a6e1fea06e4.js": {
+      "bytes": 38344,
+      "sha256": "875af70f79f201571bcfebd044e51d57ae019eb7444641a1fe8fc4b9ec2cae62",
+      "gitBlob": "1aa78ebb050e76166f74b0d12f6654c06d775a08"
+    },
+    "package.json": {
+      "bytes": 3703,
+      "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+      "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8"
+    },
+    "packages/backend/package.json": {
+      "bytes": 463,
+      "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b"
+    },
+    "packages/frontend/package.json": {
+      "bytes": 1048,
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0"
+    },
+    "pnpm-lock.yaml": {
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+    },
+    "reconstruction/language-switch/client.mjs": {
+      "bytes": 11648,
+      "sha256": "394e23676bd599b6791229fdc55f66a8cbf9beaef3640c4d153def3e7bbcde5c",
+      "gitBlob": "3f3d4cfe565c6c4356417712f9841fa57010d1b1"
+    },
+    "reconstruction/language-switch/contract.json": {
+      "bytes": 24934,
+      "sha256": "81519112ff92bf96825418c7b0597a1794ce602a69b07251f66b49504df0a34c",
+      "gitBlob": "5aaae5ec049fae196538e30ec6762eda07c6c448"
+    },
+    "recovered/modules.json": {
+      "bytes": 2928853,
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+      "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f"
+    },
+    "scripts/original-contracts/source.mjs": {
+      "bytes": 9493,
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+      "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df"
+    },
+    "scripts/original-language-switch.mjs": {
+      "bytes": 13237,
+      "sha256": "e2bd8efcdc754e96bd157cabee96a5a168e3e8bcf21dc6d04acef42e8499afee",
+      "gitBlob": "a4544e8feecd3481c5e55a11d8ef05e958afa6a3"
+    },
+    "tests/fixtures/language-switch-browser.mjs": {
+      "bytes": 4636,
+      "sha256": "37c2885ebebf1c424e9b4965897a9b98e0e73096c868b1ea6079371967a1d655",
+      "gitBlob": "f0e60e8eac95399a7b093597ebdd00cb20a7dac4"
+    },
+    "tests/original_language_switch.test.mjs": {
+      "bytes": 14960,
+      "sha256": "3ed1f27438aff31f4c813732cf85dd7f8a1410c40b04d056b44b82270eafdc54",
+      "gitBlob": "a9d9b7dc09aa7a452a7522f12cccd779e8d2ea3d"
+    },
+    "tests/original_language_switch_browser.test.mjs": {
+      "bytes": 11504,
+      "sha256": "a32c1b1a30846a1b5610d8c5379780d73dbe79c07d917b8e9b718741727c021e",
+      "gitBlob": "d18f56ca94dfeacfc5cb7f10ab906b330ea431e7"
+    },
+    "tests/original_source.test.mjs": {
+      "bytes": 7401,
+      "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3",
+      "gitBlob": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+    }
+  },
+  "inputScope": "19 selected source/generator/test/capture/index/manifest/package inputs; not an exhaustive installed dependency or whole-app inventory.",
+  "results": [
+    {
+      "command": "node scripts/original-language-switch.mjs",
+      "exit": 0
+    },
+    {
+      "command": "node --test tests/original_language_switch.test.mjs tests/original_source.test.mjs",
+      "exit": 0,
+      "domain": 14,
+      "shared": 11
+    },
+    {
+      "command": "PUMP_LANGUAGE_OUTPUT=<owned-output> node --test tests/original_language_switch_browser.test.mjs",
+      "exit": 0,
+      "workflows": 1,
+      "widths": [
+        390,
+        1280
+      ],
+      "expectedPageErrorsPerWidth": [
+        "synthetic provider rejection"
+      ],
+      "unexpectedPageErrors": 0
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "workspaces": 3
+    },
+    {
+      "command": "python3 scripts/verify-evidence.py",
+      "exit": 0,
+      "captures": 698
+    },
+    {
+      "command": "pnpm check:progress",
+      "exit": 0,
+      "tests": 9
+    }
+  ],
+  "browserBundleSha256": "43503fef5324aaf07aef841909a7ff440fadaebc2a11827822ad62d8c39f6cc2",
+  "versions": {
+    "node": "24.19.0",
+    "pnpm": "10.24.0",
+    "react": "19.2.3",
+    "playwright": "1.64.1",
+    "chromiumBuild": 1248,
+    "esbuild": "0.25.12"
+  },
+  "cleanup": "Browser producer exit0 after finally-awaiting owned Chromium and loopback server closure, and deleting its temporary compiled fixture. No Next process/build. Standalone slot explicitly released.",
+  "preservation": "Executed inputs remain byte-identical to frozen da80; only README result clarification and additive receipts follow. Do not transfer these results to changed source/method/input bytes.",
+  "priorPhases": [
+    "Precommit14 domain tests passed; that raw output is retained separately and is not the final frozen25-test run.",
+    "The first progress command failed because sparse checkout omitted three baseline ledger references. Materializing only their unchanged Git blobs and running the normal app command passed; no ledger/scorer/source modification."
+  ],
+  "limits": [
+    "Only owned loopback GETs and injected synthetic dictionary/document/location/i18n/Select/router ports; no actual cookie/storage/session/credential access or tenant requests.",
+    "A deliberate synthetic provider rejection is an expected uncaught page error at each width. It is neither zero errors nor a discovered original-tenant failure. Source continuation after unmount is preserved, without invented cancellation or rollback.",
+    "Original private Select/provider, locale backend authorization/schema/current resources, cookie bootstrap and product/global translation mount remain unknown. No Next/whole-app build/browser, API/pixel/native compatibility, security or completion claim.",
+    "Existing locale/copy metadata helpers and privacy/local-settings mappings are credited. No1839 unmerged dependency or first-helper/whole-Settings claim."
+  ]
+}
