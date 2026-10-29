@@ -85,7 +85,8 @@ def best_candidates(w, cand, top=3):
     scored.sort(reverse=True)
     res = []
     orig_tok = [x[2] for x in insns(w['raw'], w['start'], ORIG_SECS)]
-    for j, s, n, name in scored[:8]:
+    # Keep the usual eight-way shortlist, but do not silently cap --top N.
+    for j, s, n, name in scored[:max(8, top)]:
         ct = [x[2] for x in insns(cand.fn(s, n), s, cand.secs)]
         res.append((difflib.SequenceMatcher(None, orig_tok, ct, autojunk=False).ratio(), j, s, n, name))
     res.sort(reverse=True)
