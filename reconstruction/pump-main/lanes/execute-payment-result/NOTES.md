@@ -1,3 +1,7 @@
+> Historical partial result on b08fd90. The current source and validation are
+> in ../v3-sellv2-integration/NOTES.md; these earlier receipts do not qualify
+> the new source or claim additional matches.
+
 # V3 execute-buy payment result
 
 Target `trade::v3_execute_buy`, original window `0x83c00`, 3440 bytes.

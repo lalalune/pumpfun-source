@@ -35,4 +35,3 @@ report={'case_count':len(cases),'images':{k:sha(p) for k,p in images.items()},'s
 args.output.write_bytes(gzip.compress((json.dumps(report,sort_keys=True)+'\n').encode(),mtime=0))
 print(json.dumps({k:v for k,v in report.items() if k!='rows'}),flush=True)
 raise SystemExit(1 if bad or changed else 0)
-
