@@ -121,30 +121,34 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
     }
     return schema;
   }
-  async function constant(node, ctx) {
+  async function constant(node, ctx, activeConstants = new Set()) {
     if (node.type === 'Identifier') {
       if (!ctx.locals.has(node.name)) throw new Error(`unknown constant ${ctx.id}.${node.name}`);
-      return constant(ctx.locals.get(node.name), ctx);
+      const label = key(ctx.id, node.name);
+      if (activeConstants.has(label)) throw new Error(`cyclic constant declaration: ${label}`);
+      activeConstants.add(label);
+      try { return await constant(ctx.locals.get(node.name), ctx, activeConstants); }
+      finally { activeConstants.delete(label); }
     }
     if (node.type === 'ArrayExpression') {
       const result = [];
       for (const element of node.elements) {
         if (!element) throw new Error('array hole');
         if (element.type === 'SpreadElement') {
-          const value = await constant(element.argument, ctx);
+          const value = await constant(element.argument, ctx, activeConstants);
           if (!Array.isArray(value)) throw new Error('non-array constant spread');
           result.push(...value);
-        } else result.push(await constant(element, ctx));
+        } else result.push(await constant(element, ctx, activeConstants));
       }
       return result;
     }
     if (node.type === 'TemplateLiteral') {
       let result = node.quasis[0].value.cooked;
-      for (let i = 0; i < node.expressions.length; i++) result += String(await constant(node.expressions[i], ctx)) + node.quasis[i + 1].value.cooked;
+      for (let i = 0; i < node.expressions.length; i++) result += String(await constant(node.expressions[i], ctx, activeConstants)) + node.quasis[i + 1].value.cooked;
       return result;
     }
     if (node.type === 'MemberExpression' && !node.computed && propertyName(node.property) === 'length') {
-      const value = await constant(node.object, ctx);
+      const value = await constant(node.object, ctx, activeConstants);
       if (!Array.isArray(value)) throw new Error('length of non-array');
       return value.length;
     }
@@ -156,7 +160,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
     const resolved = await resolveMember(node, ctx);
     if (resolved) {
       remember(resolved.ctx.factory, resolved.node, `constant ${resolved.ctx.id}.${resolved.name}`);
-      return constant(resolved.node, resolved.ctx);
+      return constant(resolved.node, resolved.ctx, activeConstants);
     }
     return literal(node);
   }
