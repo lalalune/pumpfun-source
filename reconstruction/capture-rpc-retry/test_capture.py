@@ -5,14 +5,16 @@ from contextlib import contextmanager
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from pathlib import Path
+import subprocess
+import sys
 import tempfile
 import threading
 import unittest
 from unittest.mock import patch
 
-from capture import capture
+from capture_retry import capture, module
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 
 
 @contextmanager
@@ -72,6 +74,19 @@ def capture_responses(name):
 
 
 class CaptureRetryTests(unittest.TestCase):
+    def test_changed_archive_is_rejected_before_execution(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'scripts').mkdir()
+            (root / 'scripts/capture.py').write_text("raise RuntimeError('untrusted source executed')\n")
+            adapter = root / 'reconstruction/capture-rpc-retry/capture_retry.py'
+            adapter.parent.mkdir(parents=True)
+            adapter.write_bytes(Path(__file__).with_name('capture_retry.py').read_bytes())
+            result = subprocess.run([sys.executable, '-B', str(adapter)], capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('archived capture source changed', result.stderr)
+            self.assertNotIn('untrusted source executed', result.stderr)
+
     def check_retry(self, name, failure):
         folder, manifest, responses = capture_responses(name)
         with tempfile.TemporaryDirectory() as temporary:
@@ -84,7 +99,7 @@ class CaptureRetryTests(unittest.TestCase):
                 error = RuntimeError
             with rpc_server(failed + responses) as (url, requests, pending):
                 # Keep the six real HTTP error responses, skipping only retry delays.
-                with patch('capture.time.sleep'), self.assertRaises(error):
+                with patch.object(module.time, 'sleep'), self.assertRaises(error):
                     capture(url, name, manifest['program'], output)
                 self.assertFalse(output.exists(), 'failed RPC capture reserved its destination')
                 capture(url, name, manifest['program'], output)

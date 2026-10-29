@@ -327,7 +327,7 @@ jobs:
             commands: |
               python scripts/verify_evidence.py
               python scripts/test_tooling.py
-              python scripts/test_capture.py
+              python -B reconstruction/capture-rpc-retry/test_capture.py
               python scripts/test_build_source_manifest.py
               python scripts/test_core_linux_v144_retention.py
               python repro/pump_fees/initializer-inline-runtime/verify.py
