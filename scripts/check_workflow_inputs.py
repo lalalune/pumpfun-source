@@ -31,6 +31,9 @@ def matrix_rows(job):
         return [{}]
     rows = [dict(zip(axes, values)) for values in itertools.product(*axes.values())] if axes else []
     rows = [r for r in rows if not any(all(r.get(k) == v for k, v in e.items()) for e in matrix.get('exclude', []))]
+    # Added combinations never participate in later include matching. Original
+    # rows may still receive successive updates to non-axis fields.
+    additions = []
     for entry in matrix.get('include', []):
         matched = False
         for row in rows:
@@ -38,8 +41,8 @@ def matrix_rows(job):
                 row.update(entry)
                 matched = True
         if not matched:
-            rows.append(dict(entry))
-    return rows or [{}]
+            additions.append(dict(entry))
+    return rows + additions or [{}]
 
 
 def substitute(value, row):

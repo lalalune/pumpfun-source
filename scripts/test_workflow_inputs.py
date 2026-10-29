@@ -126,6 +126,48 @@ class WorkflowInputsTests(unittest.TestCase):
 """)
         self.assertEqual({r[2] for r in refs}, {'scripts/one.py', 'scripts/two.py'})
 
+    def test_include_only_additions_remain_separate_and_missing_input_fails(self):
+        matrix = {'os': ['linux'], 'include': [
+            {'os': 'macos', 'script': 'one.py'},
+            {'os': 'macos', 'script': 'two.py'}]}
+        self.assertEqual(check.matrix_rows({'strategy': {'matrix': matrix}}),
+                         [{'os': 'linux'}, *matrix['include']])
+        self.write('scripts/two.py', 'pass\n')
+        self.write('.github/workflows/test.yml', """jobs:
+  test:
+    strategy:
+      matrix:
+        os: [linux]
+        include:
+          - {os: macos, script: one.py}
+          - {os: macos, script: two.py}
+    steps:
+      - run: python scripts/${{ matrix.script }}
+""")
+        status, report = self.run_check('--base', 'HEAD')
+        self.assertEqual(status, 1)
+        self.assertEqual([r[2] for r in report['new_missing']], ['scripts/one.py'])
+
+    def test_partial_added_combinations_do_not_require_every_axis(self):
+        matrix = {'version': [1, 2], 'os': ['linux', 'windows'],
+                  'include': [{'version': 3}, {'os': 'macos'}]}
+        self.assertEqual(check.matrix_rows({'strategy': {'matrix': matrix}}), [
+            {'version': 1, 'os': 'linux'}, {'version': 1, 'os': 'windows'},
+            {'version': 2, 'os': 'linux'}, {'version': 2, 'os': 'windows'},
+            {'version': 3}, {'os': 'macos'}])
+
+    def test_later_include_can_override_added_fields_on_original_rows(self):
+        matrix = {'fruit': ['apple', 'pear'], 'animal': ['cat', 'dog'],
+                  'include': [{'color': 'green'}, {'color': 'pink', 'animal': 'cat'},
+                              {'fruit': 'apple', 'shape': 'circle'},
+                              {'fruit': 'banana'}, {'fruit': 'banana', 'animal': 'cat'}]}
+        self.assertEqual(check.matrix_rows({'strategy': {'matrix': matrix}}), [
+            {'fruit': 'apple', 'animal': 'cat', 'color': 'pink', 'shape': 'circle'},
+            {'fruit': 'apple', 'animal': 'dog', 'color': 'green', 'shape': 'circle'},
+            {'fruit': 'pear', 'animal': 'cat', 'color': 'pink'},
+            {'fruit': 'pear', 'animal': 'dog', 'color': 'green'},
+            {'fruit': 'banana'}, {'fruit': 'banana', 'animal': 'cat'}])
+
     def test_malformed_yaml_fails_closed(self):
         self.write('.github/workflows/test.yml', 'jobs: [')
         with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as error:
