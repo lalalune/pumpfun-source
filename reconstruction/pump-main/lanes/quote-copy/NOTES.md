@@ -1,3 +1,11 @@
+# Current main 094a06f validation (2026-10-29)
+
+Fresh control and PR source 0ff8799 builds pass the unchanged verifier. Both 64-byte copy regions remain raw-equal to original: `0x13db90..0x13dbd0` and `0x142738..0x142778`. Exactly 16 byte positions change in the entire 1,934,648-byte stripped binary, none outside those regions. Function sizes remain 15,512/20,216; ratios improve 0.976818→0.979979 and 0.993917→0.996350. Both full functions remain unmatched.
+
+All 1,024 normalized and 277 raw memberships are unchanged, with 90/131 ordered callees preserved against control. Buy's original-callee mismatch remains pre-existing; Exact Quote equals original. No stack warnings. `main094-comparison.json` and `main094-builds.json` retain memberships, hashes, source/build bindings and exact byte-scope measurements. No VM replay or whole-original identity is claimed. Related #1384/#1383 source alternatives remain uncomposed here; merged #1412 is included through current main.
+
+## Earlier evidence (historical baselines)
+
 ## Current-main revalidation after merged #1412 (2026-10-29)
 
 Merged main `04be15f61e66d27282e2af3d581de984389eac90` into this PR; tested source `0aca09c8924366f3c461152b862a85cb5d466f4c`. The merge preserves #1412's whitelist binding, live rent argument and inlined completion-helper changes. No further implementation change was needed.
