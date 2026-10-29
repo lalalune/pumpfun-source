@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "archive": "historical-inputs.tar.gz",
+  "bytes": 6955,
+  "sha256": "2ad950796fc13e3de2df4023e4b204e79b2d3204317e777b8842cb19fa041b4b",
+  "members": {
+    "BROWSER-CONTROLLER-CORRECTED.json": {
+      "bytes": 3062,
+      "sha256": "3892c589dfb9165116061832abefadd656e8e3a0aa44c360152cd6529bd98896"
+    },
+    "BROWSER-CONTROLLER-INITIAL.json": {
+      "bytes": 3059,
+      "sha256": "8302343580eaa8498b6219131166e086d62a939d1c58edf49867b8139a3233cc"
+    },
+    "FROZEN-SOURCE-CORRECTED.json": {
+      "bytes": 2677,
+      "sha256": "48cff2413896579cefb2306eaf3e1da7278ccf391c5610bb84fa6fdf26a0550e"
+    },
+    "FROZEN-SOURCE.json": {
+      "bytes": 2338,
+      "sha256": "e5d21755160cc511c7eafeff40748360fe5e493e7c399c1e03d6129952e3c222"
+    },
+    "historical/983e6ee5-browser-method.mjs": {
+      "bytes": 10477,
+      "sha256": "781fdb64d42a1f30d03708fec9667ec4db4f699dfbe8e7273248070634e41796"
+    },
+    "method-correction.patch": {
+      "bytes": 6709,
+      "sha256": "c5ae7b85d4e347339e81655ecffd17862a314f6272c2bdf2eb9e14145548fd33"
+    },
+    "run-browser-corrected.py": {
+      "bytes": 2002,
+      "sha256": "b9ab637d26ba643bc50dd1702dd8904d662dbb317c8abdc3d16f8983a075a6c2"
+    },
+    "run-browser.py": {
+      "bytes": 1982,
+      "sha256": "d82ae08435af5affdeb2e5624a017a330ba66bee4f473d02286a809790f35805"
+    }
+  },
+  "scope": "Historical input bytes only, not maintained entrypoints. Absolute paths are recorded runner inputs. Current portable Node commands use public app-relative sources; recreating the old failed method needs current six unchanged files plus historical/983e6ee5-browser-method.mjs at its original app/tests path."
+}

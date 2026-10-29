@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "initialFrozenSourceAndMethod": "983e6ee5c424e91de215b99c39c3d64b68b19133",
+  "correctedFrozenMethod": "bbe55e9011a405cc53bd5fcf5b18fa8683e05663",
+  "inputs": [
+    {
+      "path": "app/reconstruction/callout-image-preview/PROVENANCE.json",
+      "bytes": 43154,
+      "sha256": "f58d7b396a2f0c491c56347fdbd79c0b64c75e099bb46f0890c4a7d136074c5d",
+      "gitBlob": "6a2c41a4df78bac32c87c5fe77d7780b73a4a383"
+    },
+    {
+      "path": "app/reconstruction/callout-image-preview/README.md",
+      "bytes": 5722,
+      "sha256": "ca0ca6e2e8ceaba34a2301923e47f9173290ba1b3d4a2ad88e6cc0890329e6d1",
+      "gitBlob": "8c73cda7d142fa737fb039cbf10429233240712c"
+    },
+    {
+      "path": "app/reconstruction/callout-image-preview/client.mjs",
+      "bytes": 8515,
+      "sha256": "6402437c094e78c04da2bcc0f4e71c734a3af6f309fd610f4d3b188a2619a7a5",
+      "gitBlob": "c9d78854d56e08efff56d72719171f759f709e58"
+    },
+    {
+      "path": "app/reconstruction/callout-image-preview/verify.mjs",
+      "bytes": 11792,
+      "sha256": "4afd3760cadb6b115e5f348e36c4d8cd4d898b252c1f54eb839f8d443137af9c",
+      "gitBlob": "fc93145baf9bd2a7cb8dd3d892654d10348d0ee3"
+    },
+    {
+      "path": "app/tests/callout_image_preview.browser.mjs",
+      "bytes": 11695,
+      "sha256": "3dfb5c3112b83571506ec9b8d8d739f689ade9b22212ec10e0de8761776cf565",
+      "gitBlob": "364edd147a66134f6115846389c9f0fcc91896c3"
+    },
+    {
+      "path": "app/tests/callout_image_preview.test.mjs",
+      "bytes": 10577,
+      "sha256": "a6dc5c894cfd2a38dd06112bfe47fc4d978c1f8fdea98187e8d94fe37356e9e3",
+      "gitBlob": "4c1b8a5677f4966eece1bdc25ac81d5a54904e1a"
+    },
+    {
+      "path": "app/tests/fixtures/callout-image-preview.mjs",
+      "bytes": 3906,
+      "sha256": "fe1c42952b92d54477cb5e4be464881d543c12f3c90d98f02ac80f0526bceb38",
+      "gitBlob": "b6268721000243bc3aa4e53aa5f68c7dad3c518f"
+    }
+  ],
+  "rawSourceCaptures": {
+    "evidence/web/objects/257d1f445453cc81.js": "bed2d972e23dadf21d5e06a082b54934910ddd1b1fb6b7101ca4d8f5fb309e82",
+    "evidence/web/objects/22c7280766814fe5.js": "d0735be3d7e59af8e8d3dda11f8987cda454ba87a6d37e5ed24c2acba8994e8e",
+    "evidence/web/objects/90c3a8321b0977ae.js": "289ca3d5c0155b3d36a5e5ebdc39eec573178307de9cd348cdbd31a0ffb5f685",
+    "evidence/web/objects/ff33be86d72ef271.js": "4ad8f9c81f7542130d058f4c7dca1b0bb3d4efbcb1d83faad46a8120c77c611d",
+    "evidence/web/objects/2560599a20517277.js": "9628cd2e513b8ae47a1885add63a7c26364d42db40b196df254634abc31ea344"
+  },
+  "results": {
+    "nodeDomainTests": 7,
+    "sharedSourceTests": 11,
+    "nodeFail": 0,
+    "nodeSkip": 0,
+    "sourceOwnerVariants": 3,
+    "physicalSourceContextsIncludingStyleAndCaller": 5,
+    "completeOwnerMemoSlots": 35,
+    "actualCallerDescriptors": 3,
+    "browserWorkflows": 1,
+    "widths": [
+      390,
+      1280
+    ],
+    "browserPass": true,
+    "pageErrors": 0,
+    "unexpectedRequests": 0,
+    "GETOnlyHostRequests": 4,
+    "actualCompiledInputs": 14,
+    "selectedDeclaredInputs": 7,
+    "rootCaptures": 9,
+    "rootToolingTests": 10,
+    "appCapturedObjects": 698,
+    "npmIntegrity": true,
+    "unchangedSDK": true,
+    "progressCheck": true
+  },
+  "sourceResultMapping": "Node/source/common checks ran at983e6ee5. Exactly one browser-method file changed tobbe55e90; the other six source/proof/doc/Node/fixture files remain Git+SHA identical, so no Node/runtime rerun is attributed to changed code. The corrected browser executed its own frozen method with all seven before/after source seals unchanged.",
+  "historicalFailure": {
+    "result": "Initial983e browser method exited1 after31 seconds at the nonzero native-motion readiness wait; it reached decoded image/mount but did not qualify hover/scroll behavior.",
+    "limit": "Initial packet has no last-state events, so it does not establish actual movementX/Y values or a product/source defect. It retains0pageErrors,0unexpected requests and clean browser/server shutdown.",
+    "correction": "Only method changed: second actual pointer position and phase/motion/last-state failure observation. No timeout increase, image-source change, runtime/variant edit, product fix or parity claim. Exact old method, controllers, manifests and patch are archived.",
+    "record": "browser/observations-initial.json"
+  },
+  "browserRecord": "browser/observations-corrected.json",
+  "logs": [
+    {
+      "path": "logs/source-proof-initial.log.gz",
+      "command": "node reconstruction/callout-image-preview/verify.mjs --check",
+      "cwd": "app",
+      "sourceCommit": "983e6ee5c424e91de215b99c39c3d64b68b19133",
+      "exitCode": 0,
+      "bytes": 91,
+      "sha256": "127b099855cefe7c269c740eb517d4d1e6efee8028278beec48917c370ea7d53",
+      "compressedBytes": 103,
+      "compressedSha256": "3ee681985182562dcb5401381021c458a1e77eec2397ac77a39ee0ec9b1400ca"
+    },
+    {
+      "path": "logs/focused-initial.log.gz",
+      "command": "node --test tests/callout_image_preview.test.mjs tests/original_source.test.mjs",
+      "cwd": "app",
+      "sourceCommit": "983e6ee5c424e91de215b99c39c3d64b68b19133",
+      "exitCode": 0,
+      "bytes": 1836,
+      "sha256": "1f7c90966bc9a51006459718a931650c5baa018e7f3d8c853f1a584e7271bed3",
+      "compressedBytes": 992,
+      "compressedSha256": "e8b3e08c8144449f9992430c60754aebd791fb420a8cf873fd0f447f94df747a"
+    },
+    {
+      "path": "logs/root-evidence.log.gz",
+      "command": "python3 scripts/verify_evidence.py",
+      "cwd": ".",
+      "sourceCommit": "983e6ee5c424e91de215b99c39c3d64b68b19133",
+      "exitCode": 0,
+      "bytes": 376,
+      "sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9",
+      "compressedBytes": 177,
+      "compressedSha256": "995576b68a1e52c055bcb991ac93146ad53ea9131e859ceb3331d45380b40ce3"
+    },
+    {
+      "path": "logs/root-tooling.log.gz",
+      "command": "python3 scripts/test_tooling.py",
+      "cwd": ".",
+      "sourceCommit": "983e6ee5c424e91de215b99c39c3d64b68b19133",
+      "exitCode": 0,
+      "bytes": 109,
+      "sha256": "b4e598e913e18f1f8212c068807eb3f6a7708e3f57e58fcbae3c6f57b924d2fa",
+      "compressedBytes": 55,
+      "compressedSha256": "058a3ef68c6a397f47ed066fbc6672db67b83884cbf6e53ee16afcf7c30d2901"
+    },
+    {
+      "path": "logs/app-evidence.log.gz",
+      "command": "python3 scripts/verify-evidence.py",
+      "cwd": "app",
+      "sourceCommit": "983e6ee5c424e91de215b99c39c3d64b68b19133",
+      "exitCode": 0,
+      "bytes": 72,
+      "sha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9",
+      "compressedBytes": 89,
+      "compressedSha256": "c4ccac34440167b7170118e2af25a5865d395032af8ca1cf812341ed573c3243"
+    },
+    {
+      "path": "logs/progress.log.gz",
+      "command": "python3 scripts/progress.py --check",
+      "cwd": "app",
+      "sourceCommit": "983e6ee5c424e91de215b99c39c3d64b68b19133",
+      "exitCode": 0,
+      "bytes": 49,
+      "sha256": "7ab499988f3b70e197e23e42287d4cc4579dc2b9360a82be3e827e22c589fda4",
+      "compressedBytes": 69,
+      "compressedSha256": "8d25a71e7cd8c214cc56b246898d555fadb2c61682febfb7b183577299893a97"
+    },
+    {
+      "path": "logs/browser-initial.log.gz",
+      "command": "node --test tests/callout_image_preview.browser.mjs",
+      "cwd": "app",
+      "sourceCommit": "983e6ee5c424e91de215b99c39c3d64b68b19133",
+      "exitCode": 1,
+      "bytes": 675,
+      "sha256": "6d4c57fe66e7bde83b75e622050d259493d05349e0c8d27106ab673048519407",
+      "compressedBytes": 375,
+      "compressedSha256": "3c1fb635bf531056b837bb4fdf5de18eda166cdc929873218b2b1f3db39bb738"
+    },
+    {
+      "path": "logs/browser-corrected.log.gz",
+      "command": "node --test tests/callout_image_preview.browser.mjs",
+      "cwd": "app",
+      "sourceCommit": "bbe55e9011a405cc53bd5fcf5b18fa8683e05663",
+      "exitCode": 0,
+      "bytes": 254,
+      "sha256": "18030e47024522e8410dd25debc971d689e3f8d5a6315d8ce494e5570c89fdbd",
+      "compressedBytes": 205,
+      "compressedSha256": "94818285c61436842c71cdedd97b03c1d096bc9241be12b183c1bf0dfc50d1ae"
+    }
+  ],
+  "historicalArchive": "ARCHIVE-INDEX.json",
+  "limits": [
+    "Actual generatededitable owner/React/nativeDOM/data-image with authored same-instance UI-provider and Link delivery; original752365 timing, focus, collision, portal and navigation are external.",
+    "Only source scroll-event/viewport/Node capabilities are acquired; no cookies/storage/session/credential/remoteimage/router/service/networkmutation or original captured-factory execution.",
+    "No Next/product mount, original visual/native/API/security/full-runtime equivalence, video/composer/upload/action or feature/progress qualification."
+  ]
+}
