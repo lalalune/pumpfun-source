@@ -47,7 +47,7 @@ class CompilerDeadlineTests(unittest.TestCase):
 
     def test_builder_releases_slot_and_retains_log_without_publication(self):
         with tempfile.TemporaryDirectory() as temp:
-            root=Path(temp);slot=io.StringIO();out=root/'out'
+            root=Path(temp);slot=io.StringIO();out=root/'out';(root/'src').mkdir()
             result=subprocess.CompletedProcess(['compiler'],-9,'partial compiler log\n')
             with patch.object(fastbuild,'stage',return_value=root/'crate'),patch.object(fastbuild,'acquire_slot',return_value=slot),patch.object(fastbuild,'run_compiler',return_value=(result,True)),patch.object(fastbuild,'RECIPES',{'test':{'triple':'test','rustc':root/'rustc','template':root/'missing'}}):
                 report=fastbuild.build(root/'src',root/'work',out,quiet=True,recipe='test',timeout=1)
