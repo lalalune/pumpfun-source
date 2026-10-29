@@ -215,3 +215,51 @@ test("interaction issues no external, mutating, wallet or signing requests", asy
   expect(violations).toEqual([]);
   await expect(page.getByTestId("mayhem-test-disclosure")).toBeVisible();
 });
+
+for (const first of ["filter", "sort"] as const) {
+  test(`pending ${first} navigation keeps the next Mayhem selection`, async ({
+    page,
+  }) => {
+    await page.goto("/mayhem", { waitUntil: "networkidle" });
+    const held: Route[] = [];
+    let hold = true;
+    await page.route("**/mayhem?**", async (route) => {
+      if (hold && new URL(route.request().url()).searchParams.has("_rsc"))
+        held.push(route);
+      else await route.continue();
+    });
+    const filter = () =>
+      page
+        .getByRole("navigation", { name: "Mayhem state filter" })
+        .getByRole("link", { name: "Active", exact: true })
+        .click();
+    const sort = () =>
+      page.getByLabel("Sort Mayhem coins").selectOption("volume");
+    try {
+      await (first === "filter" ? filter() : sort());
+      await expect.poll(() => held.length).toBeGreaterThan(0);
+      await (first === "filter" ? sort() : filter());
+      await expect.poll(() => held.length).toBeGreaterThan(1);
+      hold = false;
+      await Promise.all(held.map((route) => route.continue()));
+      await expect(page).toHaveURL(/\/mayhem\?state=active&sort=volume$/);
+      await expect(
+        page.getByRole("link", { name: "Active", exact: true }),
+      ).toHaveAttribute("aria-current", "page");
+      await expect(page.getByLabel("Sort Mayhem coins")).toHaveValue("volume");
+      await expect(page.getByTestId("mayhem-unavailable")).toBeVisible();
+      await page.goBack();
+      await expect(page).toHaveURL(/\/mayhem$/);
+      await expect(page.getByLabel("Sort Mayhem coins")).toHaveValue(
+        "lastTraded",
+      );
+      await page.goForward();
+      await expect(page).toHaveURL(/state=active&sort=volume$/);
+      await expect(
+        page.getByRole("link", { name: "Active", exact: true }),
+      ).toHaveAttribute("aria-current", "page");
+    } finally {
+      await page.unrouteAll({ behavior: "ignoreErrors" });
+    }
+  });
+}

@@ -81,3 +81,20 @@ viewports, excluded routes, and the no-external/no-mutation boundary.
 
 Screenshots in `packages/frontend/visual/mayhem-20261028/` are local acceptance
 evidence. They are not claims of original pixel parity.
+
+
+## Local pending-selection repair
+
+State and sort navigation must preserve both requested choices while a React
+Server Component (RSC) navigation is pending. On the previous implementation,
+selecting Active and then 24h volume before the first request completed dropped
+Active. Reversing those actions dropped the sort. Both cases are reproduced by
+holding the real local RSC requests; no Mayhem data response is substituted.
+
+The component now composes changes against its latest requested selection.
+Committed route props restore the history state. Next Link's `onNavigate` keeps
+ordinary link destinations and modified/new-tab clicks intact. The two added
+cases in `tests/mayhem.spec.ts` verify both orders and Back/Forward, alongside
+the seven existing cases. Desktop/mobile recordings show the same interaction
+before and after. The unavailable-data boundary and source/qualification claims
+above remain unchanged; this does not qualify the upstream service or market data.

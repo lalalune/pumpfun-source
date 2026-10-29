@@ -124,6 +124,19 @@ export default function MayhemScreener({
   const [loadState, setLoadState] = useState<LoadState>({ kind: "loading" });
   const [retry, setRetry] = useState(0);
   const requestSequence = useRef(0);
+  const pendingSelection = useRef({ filter: initialFilter, sort: initialSort });
+
+  useEffect(() => {
+    pendingSelection.current = { filter: initialFilter, sort: initialSort };
+  }, [initialFilter, initialSort]);
+
+  function navigate(
+    changes: Partial<{ filter: MayhemFilter; sort: MayhemSort }>,
+  ) {
+    const next = { ...pendingSelection.current, ...changes };
+    pendingSelection.current = next;
+    router.push(hrefFor(next.filter, next.sort));
+  }
 
   useEffect(() => {
     const sequence = ++requestSequence.current;
@@ -207,6 +220,10 @@ export default function MayhemScreener({
             <Link
               key={filter}
               href={hrefFor(filter, initialSort)}
+              onNavigate={(event) => {
+                event.preventDefault();
+                navigate({ filter });
+              }}
               aria-current={filter === initialFilter ? "page" : undefined}
               data-selected={filter === initialFilter}
             >
@@ -220,9 +237,7 @@ export default function MayhemScreener({
             aria-label="Sort Mayhem coins"
             value={initialSort}
             onChange={(event) =>
-              router.push(
-                hrefFor(initialFilter, event.target.value as MayhemSort),
-              )
+              navigate({ sort: event.target.value as MayhemSort })
             }
           >
             {MAYHEM_SORTS.map((sort) => (
