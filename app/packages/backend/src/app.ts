@@ -239,7 +239,8 @@ function registerFixtures(fixtures: Fixture[]) {
         `Duplicate canonical fixture key keySha256=${keyDigest}: ${previous}; ${provenance}`,
       );
     }
-    fixtureMap.set(key, fixture);
+    // Retain the validated record, independent of the caller's mutable inputs.
+    fixtureMap.set(key, structuredClone(fixture));
     provenanceByKey.set(key, provenance);
   });
   return fixtureMap;
