@@ -132,3 +132,78 @@ root builds completed without stack-offset warnings; static source/tool/
 dependency checks and official/independent scorer replays passed. Existing
 source and the original SUMMARY remain unchanged. No target/VM execution,
 native-host replay or new full normalized/raw window match is claimed.
+
+
+## Follow-up: exact accounting for the raw formatter call span
+
+The earlier local no-loss checks do not qualify the native raw `0xa868`
+barrier. On the retained main `604917c16410d67d9b981305e28e160a93728f50`
+control, **none of the seven normalized thunk matches is raw-equal**.
+Only one calls a complete normalized body matching the original 1,088-byte
+callee (`AccountInfo::fmt` in the candidate). Its span is already 112 bytes
+short, before applying sweep changes. Both images still score **1024
+normalized / 273 raw**, with every membership unchanged.
+
+The original thunk at `0xa868` calls `0x1a25b0`: a span of 1,670,472 bytes.
+The bound local thunk starts at `0xa820` in both outputs:
+
+| Retained compiler output | Callee address | Span | Difference from original |
+| --- | --- | ---: | ---: |
+| Main `604917c` | `0x1a24f8` | 1,670,360 | -112 |
+| Same main + upstream #1548 s6 | `0x1a2530` | 1,670,416 | -56 |
+
+Every byte in each interval is accounted for by physical function bodies:
+788 original bodies and 787 candidate bodies, with no gaps or overlaps.
+Their multiset intersection contains 775 bodies / 1,534,192 bytes.
+
+| Remaining contribution to span difference | Main | s6 |
+| --- | ---: | ---: |
+| Eleven unmatched function bodies, total size difference | -184 | -128 |
+| 232-byte account-name helper inside candidate span, outside original span | +232 | +232 |
+| 112-byte normalized formatter class: one fewer occurrence inside candidate span | -112 | -112 |
+| 48-byte normalized formatter class: one fewer occurrence inside candidate span | -48 | -48 |
+| **Total** | **-112** | **-56** |
+
+The three matched classes have unchanged whole-image multiplicities. The
+232-byte helper matches original `0x2bc0`; the 48-byte body matches original
+`0xa8f0`. The 112-byte class has six whole-image occurrences, so this is a
+**class multiplicity statement**, not an invented one-to-one assignment of
+generic formatter identities. No historical generic type is established.
+
+This explains why unchanged local membership cannot prove native raw
+preservation: the local baseline lacks that raw match. It also separates
+the remaining body-size work from the +72-byte boundary contribution. A
+sweep-size change alone cannot be treated as a complete explanation of
+the original/local span. This does **not** relax the official no-loss gate
+or propose padding, emitted-byte editing, or metadata/hash fishing.
+
+Credit: #1548 already identifies the sweep call-displacement interaction;
+#1518 and #1555 document the same barrier in other lanes. The
+`layout-order-census` / #1260 and `w3-raw-layout` / #1423 work already
+identifies generic hash order and the account-name helper's wrong block.
+This follow-up adds the complete two-image interval partition, callee
+disambiguation and exact byte equation for our qualified local recipe.
+
+`RAW-CALL-SPAN.json` retains all seven thunk matches, complete callee shape
+hashes, the eleven unmatched bodies, boundary-class occurrences and input
+hashes. Replay with Python's standard library and the existing scorer:
+
+```sh
+python3 reconstruction/pump-main/lanes/startrack3r-sweep-field-clone/verify_call_span.py \
+  --original /path/to/original-allocation.so \
+  --inventory reconstruction/base/functions.tsv \
+  --control /path/to/retained-604917c-unstripped.so \
+  --s6 /path/to/retained-604917c-with-s6-unstripped.so \
+  --harness reconstruction/harness \
+  --objdump /path/to/llvm-objdump
+```
+
+This is a **fixed-evidence verifier**: it requires the recorded local image
+hashes and pinned scorer bytes, then recomputes the entire report. It
+does not claim that a different host will reproduce these output hashes.
+An independent ELF reader agrees on both partitions. Standalone and
+optimized-Python replays pass; a real wrong-image input and a tampered
+byte equation are rejected. This increment executes no compiler, target
+program or VM, changes no reconstructed source, and claims no new raw or
+normalized match. The original remains an allocation capture, not a raw
+compiler image.
