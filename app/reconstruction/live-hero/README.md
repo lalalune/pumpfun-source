@@ -62,8 +62,8 @@ corepack pnpm --filter @pump-reconstruction/frontend typecheck
 corepack pnpm --filter @pump-reconstruction/frontend exec playwright test tests/live-hero.spec.ts tests/live.spec.ts
 ```
 
-The browser suite covers actual absence on the base, six-record mounting,
+The [qualified browser suite](validation/README.md) covers actual absence on the base, six-record mounting,
 wraparound/direct/native keyboard selection, captured-order metadata, local
 network/media boundaries, responsiveness, and cooperation with existing search,
 selection, Escape and reload. Qualification will retain the exact source,
-commands, results and any unproven limits separately.
+commands, 20 passing browser cases, 22 passing data/source cases and unproven limits separately.

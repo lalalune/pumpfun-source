@@ -1,0 +1,86 @@
+import hashlib
+import json
+import os
+from pathlib import Path
+import socket
+import subprocess
+import time
+
+root = Path('/workspace/pump-app-chart')
+frontend = root / 'app/packages/frontend'
+proof = Path('/workspace/pump-live-hero-validation')
+base = '604917c16410d67d9b981305e28e160a93728f50'
+candidate = '07bb57f3b515cb30b1e6c4ed6aeabdcf1391f218'
+env = {**os.environ, 'GIT_NO_LAZY_FETCH': '1'}
+git = lambda *args: subprocess.check_output(['git', *args], cwd=root, env=env)
+assert git('rev-parse', 'HEAD').decode().strip() == candidate
+assert not git('status', '--porcelain')
+with socket.socket() as check:
+    assert check.connect_ex(('127.0.0.1',3010)) != 0, 'PRIMARY3010 is in use'
+paths = git('diff','--name-only',base,candidate,'--','app/packages/frontend/src').decode().splitlines()
+source = {p:(root/p).read_bytes() for p in paths}
+for p,b in source.items():
+    q=proof/'candidate-source'/p
+    q.parent.mkdir(parents=True,exist_ok=True)
+    q.write_bytes(b)
+preflight=[]
+for p in ['app/packages/backend/src/posts-seed.json','app/packages/backend/src/users-seed.json','app/packages/backend/src/following-seed.json','app/tsconfig.base.json','app/package.json','app/pnpm-lock.yaml','app/packages/frontend/tests/live.spec.ts','app/packages/frontend/tests/live-hero.spec.ts']:
+    b=(root/p).read_bytes()
+    assert b==git('show',candidate+':'+p)
+    preflight.append({'path':p,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest(),'gitBlob':git('rev-parse',candidate+':'+p).decode().strip()})
+(proof/'preflight-inputs.json').write_text(json.dumps(preflight,indent=2)+'\n')
+config=frontend/'playwright.live-hero.tmp.config.ts'
+config.write_text('''import { defineConfig } from "@playwright/test";
+import base from "./playwright.config";
+export default defineConfig({
+ ...base,
+ reporter:[["line"],["json",{outputFile:`/workspace/pump-live-hero-validation/report-${process.env.LIVE_HERO_PHASE}.json`}]],
+ outputDir:`/workspace/pump-live-hero-validation/browser-${process.env.LIVE_HERO_PHASE}`,
+ webServer:{...base.webServer,command:"corepack pnpm exec next dev --turbopack --hostname 127.0.0.1 --port 3010",url:"http://127.0.0.1:3010",reuseExistingServer:false,timeout:120000,env:{PUMPFUN_DEVELOPER_API_KEY:""}}
+});
+''')
+(proof/'executed-playwright.config.ts.txt').write_text(config.read_text())
+
+def manifest(phase,revision):
+    expected=git('ls-tree','-r','--name-only',revision,'--','app/packages/frontend/src').decode().splitlines()
+    entries=[]
+    for p in expected:
+        b=(root/p).read_bytes()
+        assert b==git('show',revision+':'+p),p
+        entries.append({'path':p,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()})
+    (proof/f'{phase}-runtime-inputs.json').write_text(json.dumps(entries,indent=2)+'\n')
+
+def run(phase,tests,extra=()):
+    command=['corepack','pnpm','exec','playwright','test','--config',config.name,*tests,*extra]
+    start=time.time()
+    with (proof/f'{phase}-browser.log').open('wb') as log:
+        result=subprocess.run(command,cwd=frontend,env={**env,'LIVE_HERO_PHASE':phase},stdout=log,stderr=subprocess.STDOUT)
+    record={'phase':phase,'command':command,'cwd':str(frontend),'returncode':result.returncode,'seconds':time.time()-start}
+    (proof/f'{phase}-command.json').write_text(json.dumps(record,indent=2)+'\n')
+    print(json.dumps(record),flush=True)
+    return result.returncode
+
+try:
+    for p in paths:
+        old=subprocess.run(['git','show',base+':'+p],cwd=root,env=env,capture_output=True)
+        if old.returncode==0:(root/p).write_bytes(old.stdout)
+        else:
+            assert p.startswith('app/packages/frontend/src/app/live/')
+            (root/p).unlink()
+    manifest('baseline',base)
+    assert run('baseline',['tests/live-hero.spec.ts'],['--grep','the captured six-record highlight workflow','--max-failures','1'])==1
+finally:
+    for p,b in source.items():
+        (root/p).parent.mkdir(parents=True,exist_ok=True)
+        (root/p).write_bytes(b)
+manifest('candidate',candidate)
+try:
+    code=run('candidate',['tests/live-hero.spec.ts','tests/live.spec.ts'])
+finally:
+    config.unlink(missing_ok=True)
+    generated=frontend/'next-env.d.ts'
+    if generated.is_file():(proof/'generated-next-env.d.ts').write_bytes(generated.read_bytes())
+    generated.write_bytes(git('show',candidate+':app/packages/frontend/next-env.d.ts'))
+    for p,b in source.items():assert (root/p).read_bytes()==b
+    for row in preflight:assert hashlib.sha256((root/row['path']).read_bytes()).hexdigest()==row['sha256']
+raise SystemExit(code)

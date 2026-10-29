@@ -1,0 +1,17 @@
+{
+  "phase": "candidate",
+  "command": [
+    "corepack",
+    "pnpm",
+    "exec",
+    "playwright",
+    "test",
+    "--config",
+    "playwright.live-hero.tmp.config.ts",
+    "tests/live-hero.spec.ts",
+    "tests/live.spec.ts"
+  ],
+  "cwd": "/workspace/pump-app-chart/app/packages/frontend",
+  "returncode": 0,
+  "seconds": 49.79707050323486
+}

@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 1,
+  "base": "604917c16410d67d9b981305e28e160a93728f50",
+  "testedSource": "07bb57f3b515cb30b1e6c4ed6aeabdcf1391f218",
+  "testedFrontendSourceTree": "43504dee6eacdf3b113859d018c514ab373fde31",
+  "testedFullTree": "d754d0eb89757abc6bc32d0e88d32296c0e74e94",
+  "captureSHA256": "aeff704c15d99482fe6e6347a92db0170dffeceb940a70e61dcc10002b006355",
+  "sourceProof": {
+    "factories": 5,
+    "heroRecords": 6,
+    "intersectionMostViewers": 6,
+    "initialSelectedIndex": 0,
+    "originalSSRSelected": [
+      true,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "originalCodeExecuted": false
+  },
+  "results": {
+    "baseline": {
+      "cases": 1,
+      "exit": 1,
+      "healthyPageBeforeAssertion": {
+        "httpStatus": 200,
+        "mostViewersCards": 42
+      },
+      "failure": "Archived highlights heading absent"
+    },
+    "candidateBrowser": {
+      "passed": 20,
+      "failed": 0,
+      "skipped": 0,
+      "new": 4,
+      "retained": 16,
+      "retries": 0
+    },
+    "dataAndSource": {
+      "passed": 22,
+      "hero": 7,
+      "retainedLive": 15
+    },
+    "frontendTypecheck": true,
+    "appEvidence": {
+      "objects": 698,
+      "npmIntegrity": true,
+      "sdkSourceFilesUnchanged": 31
+    },
+    "progress": true,
+    "progressTests": 9,
+    "requiredRootOnTestedSource": {
+      "captures": 9,
+      "toolingTests": 10
+    }
+  },
+  "browser": {
+    "origin": "http://127.0.0.1:3010",
+    "allowedMethods": [
+      "GET",
+      "HEAD"
+    ],
+    "maintainedTestBytesChanged": false,
+    "localBrowserState": "Existing closed acceptedClickwrapState fixture; no inference of original or user consent."
+  },
+  "sourceBinding": [
+    {
+      "phase": "baseline",
+      "revision": "604917c16410d67d9b981305e28e160a93728f50",
+      "frontendSourceFiles": 209,
+      "allBytesEqualGit": true
+    },
+    {
+      "phase": "candidate",
+      "revision": "07bb57f3b515cb30b1e6c4ed6aeabdcf1391f218",
+      "frontendSourceFiles": 213,
+      "allBytesEqualGit": true
+    }
+  ],
+  "limits": [
+    "Six already-known archived identities; no additional unique streams or current-live claim.",
+    "Metadata-only adaptation of observed selection; no original visual/layout parity.",
+    "No provider query, media/player/mute, financial values, analytics, excluded coin action, wallet or chain mutation.",
+    "No full production build, whole-app browser suite, API/backend compatibility or feature credit.",
+    "Independent of1570/1534/1449/1328; retain both CI test additions at integration.",
+    "Existing NO_COLOR and React script-tag dev warnings remain in raw logs; no assertions removed."
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3692,
+      "sha256": "3783e4062e4d011fc048b04fc8b93b1cf57b9e636fcde0ff5927f1897be1651d"
+    },
+    {
+      "path": "baseline-browser.log.gz",
+      "bytes": 956,
+      "sha256": "03c48c2f8c149c93fb4495a10bf9f5244b9dc4eb1cd823f27ee2d163c62bfd38",
+      "decodedBytes": 4360,
+      "decodedSha256": "08d6d0842e0369190b67f2b9e709c3912492b43a905c76b285e14356bce422cd"
+    },
+    {
+      "path": "baseline-command.json",
+      "bytes": 411,
+      "sha256": "1cbc628c4fc8a529452f7546803e711575efb6c7b8f080b7ae5b89760def921b"
+    },
+    {
+      "path": "baseline-runtime-inputs.json.gz",
+      "bytes": 11245,
+      "sha256": "208e272b604d0f6822248b70f7219855b12b43eec1235fcbfa5618e00433399e",
+      "decodedBytes": 38765,
+      "decodedSha256": "893ddc1f6fbfd4e1dd81e64a3219c6a92bccf2d19a4aaea75f4de82dbb3a4fbc"
+    },
+    {
+      "path": "before-no-highlights.png",
+      "bytes": 75619,
+      "sha256": "dce0bcade9447a97cac9344874e1b207a858a63907e6caf5cae21e7c1417a60c"
+    },
+    {
+      "path": "candidate-browser.log.gz",
+      "bytes": 1315,
+      "sha256": "6a589bc92159709c108c7920552d4cc5162c7432158f0c77087efa7249b502f7",
+      "decodedBytes": 4763,
+      "decodedSha256": "00e40fe2963e8e8fadeb72f6935699159f1aca77b6c0144b66c0f803409c91b0"
+    },
+    {
+      "path": "candidate-command.json",
+      "bytes": 342,
+      "sha256": "e11ad0dd5eb66cfc15d3890472fe7536504e564fa1e6bc7c1903c2b41e0fcf2a"
+    },
+    {
+      "path": "candidate-runtime-inputs.json.gz",
+      "bytes": 11457,
+      "sha256": "bebf84127d61db9d606dab0720f389caa813a14ffc19a789a573e88380a750ee",
+      "decodedBytes": 39472,
+      "decodedSha256": "8f4fead03dbc5b5d00feffa7bd1bcbf758055acfcfd03b03cca0b4c5e36fcea0"
+    },
+    {
+      "path": "data-tests.log.gz",
+      "bytes": 1581,
+      "sha256": "01ae4ec43635b09414c98760ce94a730e89222951bad82db04700b2ec0219fdd",
+      "decodedBytes": 3480,
+      "decodedSha256": "bd7c410a80f5d9b82daef44e8b5c40410f9021c83e0cfdc9482938871bf61be7"
+    },
+    {
+      "path": "evidence.log.gz",
+      "bytes": 89,
+      "sha256": "c4ccac34440167b7170118e2af25a5865d395032af8ca1cf812341ed573c3243",
+      "decodedBytes": 72,
+      "decodedSha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9"
+    },
+    {
+      "path": "executed-playwright.config.ts.txt",
+      "bytes": 567,
+      "sha256": "43dc92555c1cdaff0c46f39d752dda71c35596aa2f5b7694a6dd6f9d0b4829d4"
+    },
+    {
+      "path": "headless-checks.json",
+      "bytes": 1406,
+      "sha256": "8aa65d8516acb6ee2bb3ae6a64e4f7c7ad167124f7244876a0a89ea5483445bb"
+    },
+    {
+      "path": "hero-1280.png",
+      "bytes": 83482,
+      "sha256": "f2d222f54d452724ae13cba69bf753863a0815485ed742c8a8ea33f6a3916c39"
+    },
+    {
+      "path": "hero-320.png",
+      "bytes": 43943,
+      "sha256": "a04fe441376ee4cb6f564d11370fede6880977da23bf1376b0e24133f2086ccc"
+    },
+    {
+      "path": "preflight-inputs.json",
+      "bytes": 1741,
+      "sha256": "e944d03c6d457ec074be907f496beb13fef3f3b3bbc620acfcc2665a49385172"
+    },
+    {
+      "path": "progress-tests.log.gz",
+      "bytes": 100,
+      "sha256": "23210dad5d2c865c7f6da316dbe2b139370b1c6d550032c889ad2fa01916245c",
+      "decodedBytes": 155,
+      "decodedSha256": "67fa8b5cefeaf89a20c573ebe9e1d600e07c6981d6db81de6caccb2cf0c25761"
+    },
+    {
+      "path": "progress.log.gz",
+      "bytes": 69,
+      "sha256": "8d25a71e7cd8c214cc56b246898d555fadb2c61682febfb7b183577299893a97",
+      "decodedBytes": 49,
+      "decodedSha256": "7ab499988f3b70e197e23e42287d4cc4579dc2b9360a82be3e827e22c589fda4"
+    },
+    {
+      "path": "run-browser.py.txt",
+      "bytes": 4505,
+      "sha256": "4d218f62d043105d0f08a7815bbae11a290427e3647fa9af50241880e644a6fe"
+    },
+    {
+      "path": "runtime-source-binding.json",
+      "bytes": 314,
+      "sha256": "f2b1276336dc128005b0cab1ed0ad59cf421b7a7244497565c76009e25b8dc85"
+    },
+    {
+      "path": "source-proof.log.gz",
+      "bytes": 95,
+      "sha256": "9019671b3e7df921b748e7a1ad361532e6e99ba9583ea47cccbed9997f5e38b4",
+      "decodedBytes": 91,
+      "decodedSha256": "1df3fcdb6c88fb2fd5590fde5253a2bc2891b699fd40422d98785b322dfe783a"
+    },
+    {
+      "path": "typecheck-final.log.gz",
+      "bytes": 115,
+      "sha256": "c521e3237903de8237ee016329adcd9aab9d0042416546f08d848fc24b3b2e11",
+      "decodedBytes": 113,
+      "decodedSha256": "fd98baaf669b27bf3377ea080ae3edda90647e5bff41a6b367c10fdea8c25a12"
+    }
+  ],
+  "publicSourceHead": "9667a81fd01ac7fe1e0c4180f6e576168993d499",
+  "publicSourceFullTree": "d754d0eb89757abc6bc32d0e88d32296c0e74e94",
+  "normalProductionAggregate": "Pending separate root qualification on the same frozen source; no full-production result claimed by this packet."
+}

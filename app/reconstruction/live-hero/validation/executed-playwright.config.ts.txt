@@ -1,0 +1,8 @@
+import { defineConfig } from "@playwright/test";
+import base from "./playwright.config";
+export default defineConfig({
+ ...base,
+ reporter:[["line"],["json",{outputFile:`/workspace/pump-live-hero-validation/report-${process.env.LIVE_HERO_PHASE}.json`}]],
+ outputDir:`/workspace/pump-live-hero-validation/browser-${process.env.LIVE_HERO_PHASE}`,
+ webServer:{...base.webServer,command:"corepack pnpm exec next dev --turbopack --hostname 127.0.0.1 --port 3010",url:"http://127.0.0.1:3010",reuseExistingServer:false,timeout:120000,env:{PUMPFUN_DEVELOPER_API_KEY:""}}
+});

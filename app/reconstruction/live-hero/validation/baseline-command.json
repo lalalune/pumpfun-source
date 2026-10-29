@@ -1,0 +1,20 @@
+{
+  "phase": "baseline",
+  "command": [
+    "corepack",
+    "pnpm",
+    "exec",
+    "playwright",
+    "test",
+    "--config",
+    "playwright.live-hero.tmp.config.ts",
+    "tests/live-hero.spec.ts",
+    "--grep",
+    "the captured six-record highlight workflow",
+    "--max-failures",
+    "1"
+  ],
+  "cwd": "/workspace/pump-app-chart/app/packages/frontend",
+  "returncode": 1,
+  "seconds": 12.464787721633911
+}

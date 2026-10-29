@@ -1,0 +1,73 @@
+[
+  {
+    "name": "source-proof",
+    "command": [
+      "node",
+      "scripts/original-live-hero.mjs"
+    ],
+    "cwd": "/workspace/pump-app-chart/app",
+    "returncode": 0,
+    "seconds": 0.26569032669067383
+  },
+  {
+    "name": "data-tests",
+    "command": [
+      "corepack",
+      "pnpm",
+      "test:live"
+    ],
+    "cwd": "/workspace/pump-app-chart/app",
+    "returncode": 0,
+    "seconds": 2.846331834793091
+  },
+  {
+    "name": "typecheck",
+    "command": [
+      "corepack",
+      "pnpm",
+      "--filter",
+      "@pump-reconstruction/frontend",
+      "typecheck"
+    ],
+    "cwd": "/workspace/pump-app-chart/app",
+    "returncode": 0,
+    "seconds": 2.564844846725464
+  },
+  {
+    "name": "evidence",
+    "command": [
+      "python3",
+      "scripts/verify-evidence.py"
+    ],
+    "cwd": "/workspace/pump-app-chart/app",
+    "returncode": 0,
+    "seconds": 0.19536662101745605
+  },
+  {
+    "name": "progress",
+    "command": [
+      "python3",
+      "scripts/progress.py",
+      "--check"
+    ],
+    "cwd": "/workspace/pump-app-chart/app",
+    "returncode": 0,
+    "seconds": 0.14655804634094238
+  },
+  {
+    "name": "progress-tests",
+    "command": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_progress.py"
+    ],
+    "cwd": "/workspace/pump-app-chart/app",
+    "returncode": 0,
+    "seconds": 0.8135647773742676
+  }
+]
