@@ -45,13 +45,15 @@
         "logic": {
           "status": "accepted",
           "evidence": [
-            "packages/frontend/src/app/app-shell.tsx"
+            "packages/frontend/src/app/app-shell.tsx",
+            "packages/frontend/src/components/shell/search/LocalUserSearch.tsx"
           ]
         },
         "adapters": {
           "status": "accepted",
           "evidence": [
-            "packages/frontend/src/app/globals.css"
+            "packages/frontend/src/app/globals.css",
+            "packages/frontend/src/lib/local-user-search-server.ts"
           ]
         }
       },
@@ -65,13 +67,15 @@
         "success": {
           "status": "accepted",
           "evidence": [
-            "packages/frontend/tests/shell.spec.ts"
+            "packages/frontend/tests/shell.spec.ts",
+            "packages/frontend/tests/search-local-users.spec.ts"
           ]
         },
         "failure": {
           "status": "accepted",
           "evidence": [
-            "packages/frontend/tests/shell.spec.ts"
+            "packages/frontend/tests/shell.spec.ts",
+            "tests/local_user_search.test.ts"
           ]
         },
         "consistency": {
@@ -81,7 +85,7 @@
           ]
         }
       },
-      "note": "Evidence-mapped responsive shell, active navigation, search URL state and failure boundaries pass browser tests. Pixel-level reference parity remains unqualified."
+      "note": "Evidence-mapped responsive shell, navigation, search URL state and failure boundaries pass browser tests. The shared search dialog also reads five hash-bound synthetic profiles through the maintained user-search adapter. Live search, full original runtime and visual parity remain unqualified; milestone statuses are unchanged."
     },
     {
       "id": "feed",

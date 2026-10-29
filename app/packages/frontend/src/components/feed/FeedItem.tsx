@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { isValidProfileIdentifier } from "../profile/profile-identifier";
 import type { LocalFeedPost } from "./feed-data";
 
 function initial(name: string): string {
@@ -12,6 +14,12 @@ function shortAddress(address: string): string {
 export function FeedItem({ item }: { item: LocalFeedPost }) {
   const headingId = `feed-author-${item.id}`;
   const contentId = `feed-content-${item.id}`;
+  const profileIdentifier = item.author.missing
+    ? undefined
+    : [item.author.address, item.author.userId].find(
+        (value): value is string =>
+          typeof value === "string" && isValidProfileIdentifier(value),
+      );
 
   return (
     <article
@@ -27,7 +35,19 @@ export function FeedItem({ item }: { item: LocalFeedPost }) {
       <div className="feed-item-body">
         <header className="feed-item-header">
           <div className="feed-author-block">
-            <h2 id={headingId}>{item.author.name}</h2>
+            <h2 id={headingId}>
+              {profileIdentifier ? (
+                <Link
+                  href={`/profile/${encodeURIComponent(profileIdentifier)}`}
+                  prefetch={false}
+                  className="hover:underline"
+                >
+                  {item.author.name}
+                </Link>
+              ) : (
+                item.author.name
+              )}
+            </h2>
             <span className="feed-author-address">
               {item.author.missing
                 ? "Unresolved seed identity"

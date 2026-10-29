@@ -11,6 +11,7 @@ it, function by function, with the deployed original in
 | `harness/fastbuild.py` | Builds a pump crate exactly like the verified builder (one-member workspace, `--locked --offline`, identity recipe). |
 | `harness/score.py` | Official window scorer: an original window matches when a candidate function has the same size and the same bytes after masking only internal call immediates and section-pointer `lddw` values. `raw` means exact bytes. |
 | `harness/win.py` | Window inspection: unmatched list, original/candidate disassembly and normalized diffs. |
+| `harness/target_metric.py` | Per-window closeness: differing normalized slots, instruction ratio and call counts for a candidate build. |
 | `harness/coords.py`, `triage.py`, `treediff.py`, `integrate.py` | Source-coordinate extraction, residual triage, tree diffs and multi-lane composition. |
 | `harness/make_hybrid144.sh`, `harness/linux144-sbpf-target-libs.sha256` | Recipe and pins for the identity toolchain. |
 | `toolchain/linux-v1.44-x86_64/` | The 25 `sbpf-solana-solana` target libraries from the official Linux x86_64 platform-tools v1.44 archive. |

@@ -18,7 +18,7 @@ import pump_text_layout
 import pump_target_library_profile
 import pump_data_order
 
-from build_source_manifest import source_manifest
+from source_manifest_guard import strict_manifest as source_manifest
 from compare import compare
 
 ROOT = Path(__file__).resolve().parents[1]

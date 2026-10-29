@@ -1,0 +1,46 @@
+{
+  "schema": "pump-main-swarm-lane-summary-v1",
+  "lane": "coordinate-archaeology",
+  "base": "origin/main d2cb88d (+#1171 harness)",
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/1202",
+  "targets": ["0x14f4e0","0x80df8","0x6cd78","0x83c00","0x13f630","0x13b9b8","0x144508","0x4c158","0x147ba0","0x14a8a8","0x1489f8","0x72810","0x1e7c0","0x77940","0x5b3b0","0x22a10"],
+  "best": {
+    "official": {"normalized": 1019, "raw": 188, "gains": [], "losses": []},
+    "unstripped_sha256": "c85c26bc7fd22a13bb84e849a486b677770b91fdf6b11966415805680f84fa37",
+    "change": "sell.rs process_cashback_inner copy_from_slice statements moved to original panic lines 76/77 (pad-balanced)",
+    "effect": "whole-program panic Location (file,line,col) multiset equals original (142/142); .text/.rodata byte-identical to baseline"
+  },
+  "linemap_result": {
+    "line_numbers_resolved_all_16": true,
+    "per_target": {
+      "order_identical": ["0x14f4e0","0x6cd78","0x83c00","0x13f630","0x13b9b8","0x144508","0x4c158","0x147ba0","0x14a8a8","0x1489f8","0x72810"],
+      "order_differs": ["0x80df8","0x1e7c0","0x77940","0x5b3b0","0x22a10"],
+      "extra_candidate_site": {"0x5b3b0": "multi_hop_curve_swap.rs:581 require!(q != 0, Overflow)"},
+      "no_sites": ["0x4c158"]
+    },
+    "normalized_windows_coordinate_sequences_identical": 1019,
+    "missing_original_literal": {"0x22a10": "Creator is a program; fees left in the vaults (executable-creator branch before the system-owner check)"}
+  },
+  "attempts": [
+    {"id": "3c120455d2ef4f16bbcefd8a65e12671", "target": "all", "status": "analyzed", "mechanism": "coordinate line-map census"},
+    {"id": "07a61bdab36e431395ceb5a07eacd85d", "target": "0x6cd78", "status": "built", "mechanism": "panic Location line realign (in PR)"},
+    {"id": "9976071f032f43f6b730d45c698ef801", "target": "0x5b3b0", "status": "partial", "mechanism": "drop Source site 581 via sub(q,1)?: coords equal, ratio +0.0001, calls 94->92 (orig 107)"},
+    {"id": "509950343b63499582f84b283ee29b95", "target": "0x22a10", "status": "partial", "mechanism": "restore 'Creator is a program' msg branch: literal restored, ratio 0.095->0.077"}
+  ],
+  "rejected_mechanisms": [
+    "Pure line-number rebalancing for any of the 16 unmatched windows: no line mismatches remain after the sell.rs fix",
+    "coords.py raw line readings as a fix basis: it mislabels sites sharing a stack slot (first stw [X+8] in +-30 insns)"
+  ],
+  "unresolved_residuals": [
+    "site order in 0x80df8, 0x1e7c0, 0x77940, 0x5b3b0, 0x22a10 (block layout, see NOTES.md)",
+    ".data.rel.ro Location record emission order (raw/whole-ELF only)",
+    "0x22a10 missing executable-creator msg branch (semantic)"
+  ],
+  "next_ideas": [
+    "admincto-reconstruction: adopt the executable-creator msg branch and aim for the original cold-tail order (284 mayhem and 556 not-writable sites last)",
+    "multihop-reconstruction: perform the q==0 Overflow check without an inline Source while keeping the call count, e.g. an outlined #[inline(never)] helper",
+    "v3trade-coordinates: keep the merged lib.rs:1939 checked_sub panic inline after the second protocol_fee_split rather than sunk to the tail",
+    "claimv2-reconstruction: original emits 342 InvalidCashbackRecipient before 333 AccountTypeNotSupported",
+    "createv2-reconstruction: original order 716 774 732 738 719 258 198 778 205 541 758 210 | 709 547 553 220 243"
+  ]
+}

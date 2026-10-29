@@ -99,6 +99,32 @@
         "packages/frontend/tests/profile-follow-list.spec.ts"
       ],
       "limits": "Local synthetic directed-edge reads and exact profile navigation only. Stored profile counters remain independent. No website/developer transport, credential, authenticated viewer, follow write, live graph, original layout or full compatibility qualification."
+    },
+    "localUserSearch": {
+      "status": "source-query-integrated-with-hash-bound-synthetic-user-results",
+      "qualified": false,
+      "uiIntegrated": true,
+      "evidence": [
+        "reconstruction/user-search/README.md",
+        "packages/frontend/LOCAL-USER-SEARCH.md",
+        "packages/frontend/src/components/shell/search/LocalUserSearch.tsx",
+        "packages/frontend/src/lib/local-user-search-server.ts",
+        "tests/local_user_search.test.ts",
+        "packages/frontend/tests/search-local-users.spec.ts"
+      ],
+      "limits": "Five fixed synthetic profiles and exact local navigation only. Existing local UsersStore matching/ordering is not website ranking. No authenticated viewer, live transport, remote paging, query-cache runtime, original layout or full compatibility qualification."
+    },
+    "offlineFeedAuthorNavigation": {
+      "status": "known-synthetic-feed-author-profile-navigation",
+      "qualified": false,
+      "uiIntegrated": true,
+      "evidence": [
+        "packages/frontend/HOME-FEED-EVIDENCE.md#local-author-profile-navigation-2026-10-29",
+        "packages/frontend/src/components/feed/FeedItem.tsx",
+        "packages/frontend/tests/home-feed.spec.ts",
+        "packages/frontend/tests/profile-walletless-render.node.ts"
+      ],
+      "limits": "Only exact known local author identities; unresolved names remain plain text. No username lookup, authenticated viewer, native callout resolver, original hover-card behavior, visual parity or API compatibility qualification."
     }
   },
   "sdk": {
@@ -193,6 +219,19 @@
         "packages/backend/test/profile-leaders.test.ts"
       ],
       "limits": "Existing local daily combined board and UserStore projection only; unresolved or duplicate selected profiles remain 501. No production PnL, ranking/deduplication/backfill policy, key/scope authorization or full operation compatibility claim."
+    },
+    "accountResolution": {
+      "operations": [
+        "GET /search/resolve"
+      ],
+      "status": "opt-in-known-uuid-account-resolution",
+      "defaultEnabled": false,
+      "qualified": false,
+      "evidence": [
+        "packages/backend/SEARCH-RESOLVE.md",
+        "packages/backend/test/search-resolve.test.ts"
+      ],
+      "limits": "Explicit injected UserStore, exact known UUID account IDs only; preserves order and repeated/mixed identifiers. Missing accounts, addresses, coins and unsupported shapes remain whole-request 501. No live registry, absence/chain classification, upstream fallback, production key/scope authorization or full operation compatibility claim."
     }
   },
   "frontendReadClients": {

@@ -1,0 +1,46 @@
+--- programs/pump/src/multi_hop_curve_swap.rs	2026-10-29 05:25:26
++++ programs/pump/src/multi_hop_curve_swap.rs	2026-10-29 05:25:26
+@@ -484,8 +484,8 @@
+         require!(!h.bonding_curve.is_mayhem_mode,PumpError::MultiHopMayhemCurveNotSupported);
+         let native = h.bonding_curve.quote_mint == Pubkey::default(); let quote_fee = if native { None } else { crate::transfer_fee_recovered::get_transfer_fee(&h.quote_mint.to_account_info())? }; let base_token_program = token_program_for(&a.token_program, &a.token_2022_program, h.base_mint.as_ref().as_ref())?; let quote_token_program = token_program_for(&a.token_program, &a.token_2022_program, h.quote_mint.as_ref().as_ref())?; admit_vaults(h,a,&base_token_program,&quote_token_program,native,require_ata)?;
+         if flag & 1 != 0 {
+-            crate::trade::validate_buyback_fee_recipient_account(&a.global,&a.buyback_fee_recipient.to_account_info(),false,
+-                &h.quote_mint.key(),h.quote_mint.to_account_info().owner)?;
++            crate::trade::validate_buyback_fee_recipient_account(&a.global,a.buyback_fee_recipient.as_ref(),false,
++                &h.quote_mint.key(),AsRef::<AccountInfo>::as_ref(&*h.quote_mint).owner)?;
+         }
+         let buy = *current_mint == h.quote_mint.key();
+ // layout-pad(55): aligns the next Source site with the original line
+@@ -710,7 +710,7 @@
+ 
+ 
+         }
+-        let mint_key = h.base_mint.key();
++        let mint_key = h.base_mint.to_account_info().key;
+         let bump = [curve_bump];
+         let seeds: &[&[u8]] = &[b"bonding-curve",mint_key.as_ref(),&bump];
+         if last && (buy || !native) && (if buy{output}else{raw_output}) != 0 {
+@@ -762,7 +762,7 @@
+             crate::trade::quote_payments::transfer_native(&h.bonding_curve,a.user.to_account_info(),output)?;
+         }
+         let c = &h.bonding_curve;
+-        let timestamp = Clock::get()?.unix_timestamp; let event = trade_event(c,&a.global,&crate::UserVolumeAccumulator::default(),&a.user.key(),&mint_key,buy,base_amount,quote_amount,&(pf,cf,p_rate,c_rate),buyback,adapter_difference,"multi_hop_swap",timestamp);
++        let timestamp = Clock::get()?.unix_timestamp; let event = trade_event(c,&a.global,&crate::UserVolumeAccumulator::default(),&a.user.key(),mint_key,buy,base_amount,quote_amount,&(pf,cf,p_rate,c_rate),buyback,adapter_difference,"multi_hop_swap",timestamp);
+ 
+ 
+ 
+@@ -781,12 +781,12 @@
+ 
+         route_event(a,&event,event_bump)?;
+         if completed {
+-            let completion=crate::trade_types::CompleteEvent { user:a.user.key(),mint:mint_key,
++            let completion=crate::trade_types::CompleteEvent { user:a.user.key(),mint:*mint_key,
+                 bonding_curve:h.bonding_curve.key(),timestamp,quote_mint:c.quote_mint };
+             route_event(a,&completion,event_bump)?;
+         }
+         if let Some(post)=post_fill.as_ref() {
+-            let post_event=crate::trade::post_complete_buy_event(post,a.user.key(),mint_key,
++            let post_event=crate::trade::post_complete_buy_event(post,a.user.key(),*mint_key,
+                 h.bonding_curve.key(),c.quote_mint,timestamp,post_buyback)?;
+ 
+ 

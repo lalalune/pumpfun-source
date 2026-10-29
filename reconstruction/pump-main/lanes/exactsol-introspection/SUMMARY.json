@@ -1,0 +1,15 @@
+{
+  "lane": "exactsol-introspection",
+  "targets": ["0x14f4e0 buy_exact_sol_in"],
+  "result": "mechanism-identified; source match delivered by sibling PR #1191 (exactsol-sibling-analogy), explained here",
+  "best_metrics": {"main_d2cb88d": {"slots_diff": 2, "bytes": 13224}, "ir_level_llc_extractvalue_swap": {"differing_instructions": 0}, "official_this_branch": {"normalized": 1019, "raw": 188, "gains": [], "losses": []}},
+  "attempts": [
+    {"id": "58737f4699ce417381c000c7d49da736", "key": "0x14f4e0-main-d2cb88d-ir-extractvalue-order-llc-v1", "status": "analyzed"},
+    {"id": "29d4f6d7885f496cb1f925c500aa0ebc", "key": "0x14f4e0-main-d2cb88d-instcombine-sink-reversal-trace-v1", "status": "analyzed"}
+  ],
+  "mechanism": "Post-call demoted-sret load order follows reverse extractvalue order in the call block. InstCombine reverses the extractvalue pair when it sinks both into a single-predecessor successor. That happens when the with_values call lands in its own block because the Error temp lives across a re-evaluated ? chain (require_gte! operand containing ?).",
+  "rejected_mechanisms": ["PHI order in the return join (shared by all 29 IR preds, not the discriminator)", "post-RA scheduling (prior lane)"],
+  "tools": ["scripts/irexp.py: llc on edited rustc IR (exactly reproduces fastbuild codegen, ~4 s)", "scripts/trace_ev.py", "scripts/preds.py", "scripts/errscan.py"],
+  "unresolved_residuals": ["raw parity of 0x14f4e0 needs global call-immediate/lddw section layout (with_values instantiation order), outside this lane"],
+  "next_ideas": ["Use irexp.py (llc on edited IR) as a 4 s oracle for any small residual: edit the IR to find the IR shape the original needs before searching source spellings", "Reconstruct with_values formatting-instantiation order for raw parity"]
+}

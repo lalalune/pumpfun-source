@@ -319,7 +319,7 @@ async function authenticateRecord(root, record) {
     throw new Error(`capture hash mismatch: ${record.path}`);
   let text;
   try {
-    text = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+    text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes);
   } catch {
     throw new Error(`invalid UTF-8: ${record.path}`);
   }

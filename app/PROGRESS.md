@@ -37,7 +37,7 @@ Source acquisition/extraction is separate from editable feature reconstruction a
 
 | Feature family | Reconstructed source readiness | Feature completion | Reviewed state |
 | --- | ---: | ---: | --- |
-| Shared layout / navigation | 3/3 (100%) | 3/4 (75%) | Evidence-mapped responsive shell, active navigation, search URL state and failure boundaries pass browser tests. Pixel-level reference parity remains unqualified. |
+| Shared layout / navigation | 3/3 (100%) | 3/4 (75%) | Evidence-mapped responsive shell, navigation, search URL state and failure boundaries pass browser tests. The shared search dialog also reads five hash-bound synthetic profiles through the maintained user-search adapter. Live search, full original runtime and visual parity remain unqualified; milestone statuses are unchanged. |
 | Home / feed | 3/3 (100%) | 3/4 (75%) | Evidence-mapped, hash-bound synthetic examples, strict local validation and honest For You/Following boundaries pass unit and browser tests. Native feed compatibility, authenticated personalization and original visual parity remain unqualified. |
 | Explore / search | 3/3 (100%) | 3/4 (75%) | Authenticated one-record historical snapshot, fail-closed adapter and offline name/symbol/mint search pass unit and browser tests. Native market discovery, production ranking and original visual parity remain unqualified. |
 | Leaderboards / competitions | 3/3 (100%) | 2/4 (50%) | Contract-driven read-only interface and failure paths verified. Live API success and original visual parity remain unqualified. |

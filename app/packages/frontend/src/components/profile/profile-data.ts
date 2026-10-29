@@ -4,6 +4,8 @@ import {
   validateLocalFeed,
   type LocalFeedPost,
 } from "../feed/feed-data";
+import { isValidProfileIdentifier } from "./profile-identifier";
+export { isValidProfileIdentifier } from "./profile-identifier";
 
 type UnknownRecord = Record<string, unknown>;
 
@@ -311,15 +313,6 @@ export function validateLocalProfiles(
       dataSource: LOCAL_PROFILE_DATA_SOURCE,
     })),
   };
-}
-
-export function isValidProfileIdentifier(value: string): boolean {
-  return (
-    value.length > 0 &&
-    value.length <= 128 &&
-    value === value.trim() &&
-    !/[/?#\\\u0000-\u001f\u007f]/u.test(value)
-  );
 }
 
 export function resolveLocalProfile(

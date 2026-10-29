@@ -89,3 +89,44 @@ that classification attached to every presentation record.
   matching authenticated viewport.
 - Whether every captured server-seeded callout was visible after client-side
   feature gates and filtering.
+
+
+## Local author profile navigation (2026-10-29)
+
+Known synthetic post authors now open their existing local profile by name.
+The previous offline card rendered every author name as plain text, even though
+the same seed identity already resolved at `/profile/[id]`.
+
+The captured card factory **910976** above imports **204478** and renders its
+`f` export with author address, user id and name. Factory **204478** is retained
+in `evidence/web/objects/2560599a20517277.js`, UTF-16 range `19372..72983`,
+factory SHA-256 `27cc0223b79ff95cac02f490600cc4de894dee66af739beca525502c424dae3f`.
+It imports profile-route helper **146695** and renders author avatar/name links
+only when an author href exists, with prefetch disabled; otherwise the name
+remains a span. **146695** and its exact address/user-id route construction are
+bound in [PROFILE-EVIDENCE.md](PROFILE-EVIDENCE.md#observed). All three selected
+factory body hashes were checked against the retained bytes without executing
+captured JavaScript.
+
+This integration uses only the **name** link in the existing local card. The
+avatar stays decorative. A known author selects its exact usable address, then
+its exact usable user id, and applies `encodeURIComponent`. The unchanged local
+profile identifier predicate is shared with the profile adapter: whitespace,
+route delimiters and identifiers outside its length bound are not repaired.
+Missing authors or authors without a usable local identifier remain plain text.
+The existing hash-bound seed, synthetic labels and profile route determine what
+is locally available; no username resolution, auth state, hover-card lookup,
+click telemetry, native callout author resolution or post-detail navigation is
+inferred from the captured link primitive.
+
+Qualification: the new browser case fails on the unchanged base because the
+author link is absent, then passes with the implementation. The focused Home
+Feed and Profile suites pass 13 cases, including name activation by keyboard,
+person/group identity, browser history, existing empty/error boundaries and
+320--1440 pixel viewports. Ten existing feed adapter tests and 16 profile/render
+tests pass; the render controls cover walletless ids, exact encoding, invalid
+identifiers and unresolved authors. Run those render controls from the frontend
+workspace using the backend's `tsx` runtime and `--tsconfig tsconfig.json`.
+[Local desktop/mobile screenshots](visual/feed-author-20261029/README.md) record
+the focused author state. Original visual parity and production compatibility
+remain unqualified; no completion milestone or denominator was raised.

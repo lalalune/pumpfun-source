@@ -13,7 +13,7 @@
     "test:public-wallet": "node scripts/original-contracts/public-wallet/verify.mjs --check && node --experimental-strip-types --test tests/public_wallet.test.ts",
     "test:explore": "node --experimental-strip-types --test tests/explore_snapshot.test.ts",
     "test:feed": "node --experimental-strip-types --test tests/home_feed.test.ts tests/native_home_feed.test.ts",
-    "test:profile": "pnpm --filter @pump-reconstruction/backend exec tsx --test ../../tests/profile_data.test.ts ../../tests/profile_follow_graph.test.ts",
+    "test:profile": "pnpm --filter @pump-reconstruction/backend exec tsx --test ../../tests/profile_data.test.ts ../../tests/profile_follow_graph.test.ts ../../tests/local_user_search.test.ts",
     "test:mayhem": "node --experimental-strip-types --test tests/mayhem_screener.test.ts",
     "test:live": "node --experimental-strip-types --test tests/live_snapshot.test.ts",
     "test:go": "node --experimental-strip-types --test tests/go_bounties.test.ts",

@@ -10,6 +10,7 @@ import { registerPayoutRoutes, PAYOUTS_NATIVE_ROUTES } from "./payouts-routes.js
 import type { UserTradesStore } from "./user-trades-store.js";
 import { registerUserTradesRoutes, USER_TRADES_NATIVE_ROUTES } from "./user-trades-routes.js";
 import { apiKeyGate } from "./api-key-gate.js";
+import { registerSearchResolveRoutes, SEARCH_RESOLVE_NATIVE_ROUTES } from "./search-resolve-routes.js";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { validateHeaderName, validateHeaderValue } from "node:http";
@@ -401,6 +402,7 @@ export function buildApp(fixtures: Fixture[] = [], opts: BuildAppOptions = {}) {
     native.addHook("preHandler", apiKeyGate);
     if (opts.portfolioBalancesStore) registerPortfolioBalancesRoutes(native, opts.portfolioBalancesStore);
     registerUserRoutes(native, store);
+    if (opts.userStore) registerSearchResolveRoutes(native, store);
     registerPostRoutes(native, postStore);
     registerCompetitionRoutes(native, compStore);
     registerFollowingRoutes(native, followStore);
@@ -421,6 +423,7 @@ export function buildApp(fixtures: Fixture[] = [], opts: BuildAppOptions = {}) {
     )) {
       // Skip operations that a native handler already serves.
       if (NATIVE_ROUTES.has(`${method.toUpperCase()} ${path}`) ||
+        (opts.userStore && SEARCH_RESOLVE_NATIVE_ROUTES.has(`${method.toUpperCase()} ${path}`)) ||
         (opts.portfolioBalancesStore && PORTFOLIO_BALANCES_NATIVE_ROUTES.has(`${method.toUpperCase()} ${path}`)) ||
         (opts.calloutDiscussionsStore && CALLOUT_DISCUSSIONS_NATIVE_ROUTES.has(`${method.toUpperCase()} ${path}`)) ||
         (opts.calloutsStore && CALLOUTS_NATIVE_ROUTES.has(`${method.toUpperCase()} ${path}`)) ||

@@ -1,0 +1,12 @@
+{
+  "kind": "tooling",
+  "scope": "Call/syscall classification correction; no payload-byte coverage claim.",
+  "totals": {
+    "windows": 2261,
+    "call_sites": 23160,
+    "internal_calls": 22582,
+    "external_calls": 578,
+    "windows_with_syscalls_after": 476,
+    "changed_windows": 476
+  }
+}

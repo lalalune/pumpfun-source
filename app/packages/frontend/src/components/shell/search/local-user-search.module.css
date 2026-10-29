@@ -1,0 +1,37 @@
+.results {
+  max-height: 50vh;
+  overflow-y: auto;
+  border-top: 1px solid var(--color-border-secondary);
+  padding: 0.75rem;
+}
+.results h2 {
+  margin: 0;
+  font-size: 0.875rem;
+}
+.results p,
+.results span {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  line-height: 1.5;
+}
+.note {
+  margin: 0.4rem 0 0.75rem;
+}
+.results ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+.results li {
+  display: grid;
+  gap: 0.2rem;
+}
+.results a {
+  color: var(--color-text-accent);
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+  width: fit-content;
+  max-width: 100%;
+}

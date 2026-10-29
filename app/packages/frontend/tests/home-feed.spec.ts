@@ -50,10 +50,80 @@ test("renders validated root posts with explicit synthetic provenance", async ({
     page.getByRole("img", { name: "External media withheld in offline mode" }),
   ).toBeVisible();
   await expect(page.locator("main img")).toHaveCount(0);
-  await expect(page.locator('main a[href^="/profile"]')).toHaveCount(0);
+  await expect(page.locator('main a[href^="/profile"]')).toHaveCount(3);
   await expect(
     page.getByText("Synthetic example", { exact: true }),
   ).toHaveCount(3);
+  expect(safety.requests).toEqual([]);
+  expect(safety.consoleErrors).toEqual([]);
+});
+
+test("known feed authors open their local profiles and preserve history", async ({
+  page,
+}, testInfo) => {
+  const safety = collectSafetyViolations(page);
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto("/");
+  const alice = page
+    .getByTestId("local-feed-item")
+    .filter({ hasText: "alice_pump" })
+    .getByRole("link", { name: "alice_pump", exact: true });
+  await expect(alice).toHaveAttribute(
+    "href",
+    "/profile/7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
+  );
+  await alice.focus();
+  await expect(alice).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(
+    /\/profile\/7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU$/,
+  );
+  await expect(
+    page.getByRole("heading", { level: 1, name: "alice_pump" }),
+  ).toBeVisible();
+  await expect(page.locator(".profile-page")).toHaveAttribute(
+    "data-profile-kind",
+    "person",
+  );
+  await page.goBack();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.getByTestId("local-feed-item")).toHaveCount(3);
+  const group = page
+    .getByTestId("local-feed-item")
+    .filter({ hasText: "chad_group" })
+    .getByRole("link", { name: "chad_group", exact: true });
+  await group.click();
+  await expect(page).toHaveURL(
+    /\/profile\/HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe4YWrH$/,
+  );
+  await expect(page.locator(".profile-page")).toHaveAttribute(
+    "data-profile-kind",
+    "group",
+  );
+  await expect(
+    page.getByRole("heading", { level: 1, name: "chad_group" }),
+  ).toBeVisible();
+  await page.goBack();
+  for (const [width, height] of [
+    [1280, 800],
+    [375, 812],
+  ] as const) {
+    await page.setViewportSize({ width, height });
+    await expect(group).toBeVisible();
+    await group.focus();
+    await expect(group).toBeFocused();
+    expect(
+      await page.evaluate(
+        () =>
+          document.documentElement.scrollWidth <=
+          document.documentElement.clientWidth,
+      ),
+    ).toBe(true);
+    await page.screenshot({
+      path: testInfo.outputPath(`feed-author-${width}.png`),
+      fullPage: true,
+    });
+  }
   expect(safety.requests).toEqual([]);
   expect(safety.consoleErrors).toEqual([]);
 });
