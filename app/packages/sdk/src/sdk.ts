@@ -38,6 +38,7 @@ import {
   HolderRewardDisabledError,
 } from "./errors";
 import { getFeeRecipient } from "./fees";
+import { lessSlippage } from "./slippage";
 import { Pump } from "./idl/pump";
 import pumpIdl from "./idl/pump.json";
 import { PumpAmm } from "./idl/pump_amm";
@@ -624,15 +625,6 @@ function buybackAtaInstructions(
       quoteTokenProgram,
     ),
   ];
-}
-
-// `amount` less `slippage` percent, never below `floor` (a buy's
-// `min_tokens_out` must be at least 1, a sell's minimum may be 0).
-function lessSlippage(amount: BN, slippage: number, floor = 0): BN {
-  return BN.max(
-    amount.sub(amount.mul(new BN(Math.floor(slippage * 10))).div(new BN(1000))),
-    new BN(floor),
-  );
 }
 
 /**
