@@ -66,7 +66,10 @@ the synthetic amounts and test setup synchronization changed before the final
 15-case pass. Required root gates pass (nine captures, ten tooling tests); the
 app verifier checks 698 captured objects; the progress gate and nine tests pass
 after restoring exact referenced sparse evidence. Both viewport screenshots
-were visually reviewed; no horizontal page overflow was observed. Full independent production build
-qualification is pending. Synthetic wallet and
+were visually reviewed; no horizontal page overflow was observed. Independent SDK/backend/Next production build, recursive TypeScript,
+698-object app evidence/npm/SDK and progress checks also pass on exact published
+`0ab103df9ac1d0fec6019e53b80c690dce259ab4`; raw aggregate logs are retained
+under the same packet’s `root-production/` directory. This receipt supplement
+changes no runtime or test bytes. Synthetic wallet and
 portfolio responses are test inputs; no live-chain observation, original API or
 visual parity, wallet signing or native developer-operation credit is claimed.

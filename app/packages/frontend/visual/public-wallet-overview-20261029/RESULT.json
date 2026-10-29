@@ -56,7 +56,14 @@
     "appEvidenceObjects": 698,
     "requiredRootCaptures": 9,
     "requiredRootToolingTests": 10,
-    "fullProductionBuild": "pending independent root qualification",
+    "fullProductionBuild": {
+      "qualifiedHead": "0ab103df9ac1d0fec6019e53b80c690dce259ab4",
+      "build": "SDK/backend/Next PASS",
+      "recursiveTypecheck": "PASS",
+      "appEvidence": "698 objects/npm/unchanged SDK PASS",
+      "progress": "PASS",
+      "receipt": "root-production/checks.json"
+    },
     "progress": {
       "checks": 9,
       "pass": true,
