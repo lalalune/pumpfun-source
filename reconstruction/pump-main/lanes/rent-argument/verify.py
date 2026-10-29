@@ -28,6 +28,8 @@ def main():
     ap.add_argument('--candidate', type=Path, required=True)
     ap.add_argument('--objdump', type=Path, required=True)
     ap.add_argument('--output', type=Path, required=True)
+    ap.add_argument('--require-equivalent-targets', action='store_true',
+                    help='Require identical normalized target bodies instead of caller improvement (for source-only replacement of merged #1412).')
     a = ap.parse_args()
     sys.path.insert(0, str(a.repo / 'reconstruction/harness'))
     import score
@@ -78,6 +80,7 @@ def main():
             rows[hex(start)] = {
                 'symbol': names[which], 'original_bytes': w['bytes'], 'candidate_bytes': n,
                 'normalized_equal': norm == w['norm'],
+                'normalized_sha256': digest(norm),
                 'diagnostic_ratio': round(difflib.SequenceMatcher(None, ot, ct, autojunk=False).ratio(), 6),
                 'calls': calls, 'ordered_callees_equal_original': calls == ocalls,
             }
@@ -101,14 +104,20 @@ def main():
             calls = row.pop('calls')
             row['call_count'] = len(calls)
             row['ordered_callee_signatures_sha256'] = digest(json.dumps(calls, separators=(',', ':')).encode())
+    equivalent_targets = all(control['targets'][hex(s)]['normalized_sha256'] == candidate['targets'][hex(s)]['normalized_sha256']
+                             and control['targets'][hex(s)]['candidate_bytes'] == candidate['targets'][hex(s)]['candidate_bytes']
+                             for s in TARGETS)
+    caller_improvement = all(candidate['targets'][hex(s)]['diagnostic_ratio'] > control['targets'][hex(s)]['diagnostic_ratio']
+                             for s in TARGETS if s != 0x3b598)
     passed = (all(not d['losses'] for d in delta.values()) and
               candidate['targets']['0x3b598']['normalized_equal'] and
               all(r['ordered_callees_equal_control'] for r in candidate['targets'].values()) and
-              all(candidate['targets'][hex(s)]['diagnostic_ratio'] > control['targets'][hex(s)]['diagnostic_ratio']
-                  for s in TARGETS if s != 0x3b598))
+              (equivalent_targets if a.require_equivalent_targets else caller_improvement))
     report = {'scope': 'Static source-build comparison; no runtime execution or new full-window gain implied.',
               'original_sha256': digest(original), 'control': control, 'candidate': candidate,
-              'delta': delta, 'checks_passed': passed}
+              'delta': delta, 'checks_passed': passed,
+              'acceptance_mode': 'equivalent-targets' if a.require_equivalent_targets else 'caller-improvement',
+              'equivalent_normalized_targets': equivalent_targets}
     a.output.write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps({'delta': delta, 'checks_passed': passed}))
     return 0 if passed else 1

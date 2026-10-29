@@ -1,3 +1,18 @@
+## Selected merge composition after #1412 merged (2026-10-29)
+
+Current main `04be15f61e66d27282e2af3d581de984389eac90` already contains #1412. This PR selects the single safe `ZeroRentSize` helper in place of its `unreachable_unchecked` invariant. Its whitelist binding and `complete_and_prepare` Result-tail improvements are preserved unchanged. Relative to main, only the three typed arguments and the helper/type declaration change; no unrelated production hunk is removed.
+
+Fresh control/candidate builds retain **1,023 normalized / 276 raw**, zero gains or losses, identical normalized bodies for the helper and three callers, and identical ordered callee signatures. Both have no stack diagnostics. The **entire stripped binaries are byte-identical**, SHA-256 `7eee248f17559a76a15daa2897c33ab6d07e46b4a69479512bb41267ff5a73ba`. Unstripped hashes differ; whole-unstripped equality is not claimed. This is a safe source representation replacement, not an additional caller diagnostic or match gain beyond merged #1412.
+
+Evidence: `main04be-comparison.json` contains full membership sets and target/callee hashes; `main04be-builds.json` binds source, verifier and build hashes. Reproduce with `verify.py --control CONTROL --candidate CANDIDATE --objdump OBJDUMP --require-equivalent-targets --output REPORT`. The new explicit mode requires equality of every normalized target body and size, in addition to the existing membership/helper/callee checks. Default mode still requires caller improvement for historical experiments. `rejected-premerge-targets.json` demonstrates that the older pre-#1412 safe candidate does not satisfy the new composition's target-equivalence checks. Ten root tooling tests and all nine captures pass; no new VM replay is claimed.
+
+Merge plan:
+1. Keep #1412's merged whitelist and Result-tail improvements, as in this tested branch.
+2. Merge #1384's zero-only type as the selected rent implementation. It replaces only the unsafe invariant; do not apply both helper implementations.
+3. Do not merge #1383's dual-helper source patch. Its only production change is that competing implementation; its independent rejected trials and research remain available at [its pinned notes](https://github.com/lalalune/pumpfun-source/blob/41a4ec622b8884fafbc9a97e402b4dd6aa40be58/reconstruction/pump-main/lanes/buyv2-residual/NOTES.md). Its author/maintainer can retain those as analysis-only evidence or close the superseded source proposal. This branch does not delete that evidence or close another contributor's PR.
+
+Historical pre-merge improvements below are credited to their original tested baselines and are not claimed again against current main.
+
 ## Current main 3159e64 (2026-10-29)
 
 Fresh identity control/candidate builds after merging main retain **1,023 normalized / 276 raw**, with zero gains or losses in either membership set. `main315-comparison.json` retains the complete sets, helper equality, ordered callee hashes and improved caller diagnostics; `main315-builds.json` binds both binaries and source hashes. Both builds have no stack warnings. This supersedes the 381dc30 baseline below; the 88 raw losses belong only to the rejected cross-crate experiment. Main now includes #1436, #1421 and #1445; their gains are credited to those PRs, not this rent change. No fresh runtime comparison is claimed.
