@@ -103,6 +103,45 @@ class FixtureTests(unittest.TestCase):
         fixtures[0]['source'] = 'evidence/web/objects/../../contracts/coverage.json'
         self.assertRejects(fixtures, coverage, 'repository-relative')
 
+    def test_rejects_boolean_number_type_swaps(self):
+        fixture, coverage = self.mutated()
+        fixture = fixture[0]
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            (root / 'contracts').mkdir()
+            (root / 'evidence/web/objects').mkdir(parents=True)
+            captured = {'enabled': True, 'count': 1, 'off': 0, 'tags': [True, 0]}
+            payload = json.dumps(captured, separators=(',', ':'))
+            record = {'url': 'https://example.invalid/sol-price', 'final_url': 'https://example.invalid/sol-price',
+                      'status': fixture['status'], 'path': fixture['source'],
+                      'bytes': len(payload.encode()), 'sha256': hashlib.sha256(payload.encode()).hexdigest(),
+                      'headers': {}}
+            (root / 'contracts/public-fixtures.json').write_text(json.dumps([fixture]), encoding='utf-8')
+            (root / 'contracts/coverage.json').write_text(json.dumps(coverage), encoding='utf-8')
+            (root / 'evidence/web/manifest.json').write_text(json.dumps({'records': []}), encoding='utf-8')
+            (root / 'evidence/api-probes.json').write_text(json.dumps([record]), encoding='utf-8')
+            (root / 'evidence/source-map-probes.json').write_text(json.dumps([]), encoding='utf-8')
+            (root / fixture['source']).write_text(payload, encoding='utf-8')
+            # The exact captured value verifies.
+            fixture['body'] = captured
+            (root / 'contracts/public-fixtures.json').write_text(json.dumps([fixture]), encoding='utf-8')
+            self.assertEqual(verify_fixtures.verify(root=root), 1)
+            # Boolean <-> number swaps must be rejected even though Python's ==
+            # treats True == 1 and False == 0 as equal, including nested values.
+            for mutated in ({'enabled': 1, 'count': 1, 'off': 0, 'tags': [True, 0]},
+                            {'enabled': True, 'count': True, 'off': 0, 'tags': [True, 0]},
+                            {'enabled': True, 'count': 1, 'off': False, 'tags': [True, 0]},
+                            {'enabled': True, 'count': 1, 'off': 0, 'tags': [1, 0]},
+                            {'enabled': True, 'count': 1, 'off': 0, 'tags': [True, False]}):
+                fixture['body'] = mutated
+                (root / 'contracts/public-fixtures.json').write_text(json.dumps([fixture]), encoding='utf-8')
+                with self.assertRaisesRegex(ValueError, 'body differs'):
+                    verify_fixtures.verify(root=root)
+            # Deliberate choice: numbers compare by value, so 1.0 and 0.0 match 1 and 0.
+            fixture['body'] = {'enabled': True, 'count': 1.0, 'off': 0.0, 'tags': [True, 0]}
+            (root / 'contracts/public-fixtures.json').write_text(json.dumps([fixture]), encoding='utf-8')
+            self.assertEqual(verify_fixtures.verify(root=root), 1)
+
     def test_rejects_captured_object_hash_drift(self):
         fixture, coverage = self.mutated()
         fixture = fixture[0]
