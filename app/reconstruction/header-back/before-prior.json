@@ -1,0 +1,37 @@
+{
+  "current": {
+    "url": "http://127.0.0.1:3027/explore?q=retained",
+    "historyLength": 3
+  },
+  "data": {
+    "errors": [],
+    "events": [
+      {
+        "stage": "actual-navigation",
+        "url": "http://127.0.0.1:3027/explore?q=retained"
+      },
+      {
+        "stage": "actual-navigation",
+        "url": "http://127.0.0.1:3027/explore?q=retained"
+      },
+      {
+        "stage": "actual-navigation",
+        "url": "http://127.0.0.1:3027/create"
+      },
+      {
+        "stage": "actual-back-click",
+        "trusted": true,
+        "url": "http://127.0.0.1:3027/create",
+        "historyLength": 3
+      },
+      {
+        "stage": "actual-navigation",
+        "url": "http://127.0.0.1:3027/explore?q=retained"
+      },
+      {
+        "stage": "actual-navigation",
+        "url": "http://127.0.0.1:3027/explore?q=retained"
+      }
+    ]
+  }
+}

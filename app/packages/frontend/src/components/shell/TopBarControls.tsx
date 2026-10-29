@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { CREATE_MENU } from '@/config/navigation';
 import { DropdownMenu } from '@/components/ui/dropdown-menu';
 import { BackIcon, SearchIcon, SearchMobileIcon, TopbarCreateIcon } from './captured-icons';
@@ -9,10 +9,20 @@ import { ICON_BUTTON_CLASS } from './styles';
 
 /* The interactive parts of the top bar; the rest of it renders on the server. */
 
+const BACK_HIDDEN_PATHS = new Set(['/', '/go', '/live']);
+
 export function BackButton() {
+  const pathname = usePathname();
   const router = useRouter();
+  if (BACK_HIDDEN_PATHS.has(pathname)) return null;
+
+  function goBack() {
+    if (window.history.length > 1) router.back();
+    else router.push('/');
+  }
+
   return (
-    <button type="button" aria-label="Go back" className={ICON_BUTTON_CLASS} onClick={() => router.back()}>
+    <button type="button" aria-label="Go back" className={ICON_BUTTON_CLASS} onClick={goBack}>
       <BackIcon />
     </button>
   );

@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "method": "Authenticated captured JavaScript parsed as AST; never executed",
+  "factory": {
+    "id": 400466,
+    "ids": [
+      400466
+    ],
+    "label": "factory 400466",
+    "source": "evidence/web/objects/13c13db9eb86191b.js",
+    "url": "https://pump.fun/_next/static/immutable/chunks/1ggmlsuhd8iw1.js",
+    "sourceSha256": "15e7cb5caef8d58d0d263486883e7aac6e39e9e2f7e037af29887849bd0cd6c6",
+    "sourceBytes": 215208,
+    "utf16": [
+      92522,
+      190511
+    ],
+    "utf8": [
+      92522,
+      190519
+    ],
+    "sha256": "b55e1d78341162edfc6c5ff1ba32c4b4faa3d0ade6de3a39f440fe39f2e9e5dd"
+  },
+  "component": {
+    "witness": {
+      "label": "actual Go-back component",
+      "source": "evidence/web/objects/13c13db9eb86191b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ggmlsuhd8iw1.js",
+      "sourceSha256": "15e7cb5caef8d58d0d263486883e7aac6e39e9e2f7e037af29887849bd0cd6c6",
+      "sourceBytes": 215208,
+      "utf16": [
+        147604,
+        148112
+      ],
+      "utf8": [
+        147612,
+        148120
+      ],
+      "sha256": "e5f4e591f0f090e1f0e57300673923ec1aac9f9f5d87e9ffbbd0565051aa6bc5"
+    },
+    "text": "function rD(){let e,a,i,l,s=(0,r.c)(8),{t:o}=(0,d.f)(),c=(0,rO.usePathname)(),u=(0,rO.useRouter)();if(rM.has(c))return null;s[0]!==u?(e=()=>{window.history.length>1?u.back():u.push(\"/\")},s[0]=u,s[1]=e):e=s[1];let m=e;return s[2]!==o?(a=o(\"common.go_back\"),s[2]=o,s[3]=a):a=s[3],s[4]===Symbol.for(\"react.memo_cache_sentinel\")?(i=(0,t.jsx)(n.S,{size:16}),s[4]=i):i=s[4],s[5]!==m||s[6]!==a?(l=(0,t.jsx)(\"button\",{type:\"button\",onClick:m,\"aria-label\":a,className:rw.q,children:i}),s[5]=m,s[6]=a,s[7]=l):l=s[7],l}"
+  },
+  "guard": {
+    "witness": {
+      "label": "actual hidden route set",
+      "source": "evidence/web/objects/13c13db9eb86191b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ggmlsuhd8iw1.js",
+      "sourceSha256": "15e7cb5caef8d58d0d263486883e7aac6e39e9e2f7e037af29887849bd0cd6c6",
+      "sourceBytes": 215208,
+      "utf16": [
+        147572,
+        147603
+      ],
+      "utf8": [
+        147580,
+        147611
+      ],
+      "sha256": "e845c04381def2da9eca8758cbda6fcdaa13c7ff1e9b9ac5d131ebab8a67e842"
+    },
+    "text": "rM=new Set([\"/\",\"/go\",\"/live\"])"
+  },
+  "header": {
+    "label": "actual header containing both Back calls",
+    "source": "evidence/web/objects/13c13db9eb86191b.js",
+    "url": "https://pump.fun/_next/static/immutable/chunks/1ggmlsuhd8iw1.js",
+    "sourceSha256": "15e7cb5caef8d58d0d263486883e7aac6e39e9e2f7e037af29887849bd0cd6c6",
+    "sourceBytes": 215208,
+    "utf16": [
+      169135,
+      182344
+    ],
+    "utf8": [
+      169143,
+      182352
+    ],
+    "sha256": "ff9ecb96b34fd119eaaa91df163bfe186d6930d34c72dabccfcfbeda28ec2067"
+  },
+  "actualHeaderCalls": [
+    {
+      "witness": {
+        "label": "actual header Back consumer",
+        "source": "evidence/web/objects/13c13db9eb86191b.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1ggmlsuhd8iw1.js",
+        "sourceSha256": "15e7cb5caef8d58d0d263486883e7aac6e39e9e2f7e037af29887849bd0cd6c6",
+        "sourceBytes": 215208,
+        "utf16": [
+          177843,
+          177859
+        ],
+        "utf8": [
+          177851,
+          177867
+        ],
+        "sha256": "713bbd7737e6ad578e829a02ed7427236eb84cb653108cc6e7e3c83dc754d81d"
+      },
+      "text": "(0,t.jsx)(rD,{})"
+    },
+    {
+      "witness": {
+        "label": "actual header Back consumer",
+        "source": "evidence/web/objects/13c13db9eb86191b.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1ggmlsuhd8iw1.js",
+        "sourceSha256": "15e7cb5caef8d58d0d263486883e7aac6e39e9e2f7e037af29887849bd0cd6c6",
+        "sourceBytes": 215208,
+        "utf16": [
+          178446,
+          178462
+        ],
+        "utf8": [
+          178454,
+          178470
+        ],
+        "sha256": "713bbd7737e6ad578e829a02ed7427236eb84cb653108cc6e7e3c83dc754d81d"
+      },
+      "text": "(0,t.jsx)(rD,{})"
+    }
+  ]
+}

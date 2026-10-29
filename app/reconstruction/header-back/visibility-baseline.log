@@ -1,0 +1,53 @@
+
+Running 1 test using 1 worker
+
+(node:390860) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] tests/header-back-history.spec.ts:121:5 › header Back follows the original route visibility on desktop and tablet
+  1) tests/header-back-history.spec.ts:121:5 › header Back follows the original route visibility on desktop and tablet
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('button', { name: 'Go back', exact: true })
+    Expected: 0
+    Received: 1
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('button', { name: 'Go back', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: 'Go back', exact: true })
+        14 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      133 |         const count = await back.count();
+      134 |         states.push({ width, path, count });
+    > 135 |         await expect(back).toHaveCount(
+          |                            ^
+      136 |           ["/", "/go", "/live"].includes(path) ? 0 : 1,
+      137 |         );
+      138 |       }
+        at /workspace/pump-app-search-planner/app/packages/frontend/tests/header-back-history.spec.ts:135:28
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../header-back-history-630a0741/visibility-baseline-browser-artifacts/header-back-history-header-f8b16-ility-on-desktop-and-tablet/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../header-back-history-630a0741/visibility-baseline-browser-artifacts/header-back-history-header-f8b16-ility-on-desktop-and-tablet/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../header-back-history-630a0741/visibility-baseline-browser-artifacts/header-back-history-header-f8b16-ility-on-desktop-and-tablet/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../header-back-history-630a0741/visibility-baseline-browser-artifacts/header-back-history-header-f8b16-ility-on-desktop-and-tablet/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+Testing stopped early after 1 maximum allowed failures.
+
+  1 failed
+    tests/header-back-history.spec.ts:121:5 › header Back follows the original route visibility on desktop and tablet
+  1 error was not a part of any test, see above for details

@@ -1,0 +1,2 @@
+import base from '/workspace/pump-app-search-planner/app/packages/frontend/playwright.config';
+export default {...base,webServer:undefined,use:{...base.use,baseURL:'http://127.0.0.1:3027'},testDir:'/workspace/pump-app-search-planner/app/packages/frontend/tests',outputDir:`/workspace/header-back-history-630a0741/${process.env.HEADER_BACK_PHASE??'baseline'}-browser-artifacts`};

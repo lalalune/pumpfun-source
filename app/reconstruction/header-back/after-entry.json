@@ -1,0 +1,49 @@
+{
+  "current": {
+    "url": "http://127.0.0.1:3027/create",
+    "historyLength": 2
+  },
+  "data": {
+    "errors": [],
+    "events": [
+      {
+        "stage": "actual-navigation",
+        "url": "http://127.0.0.1:3027/create"
+      },
+      {
+        "stage": "actual-navigation",
+        "url": "http://127.0.0.1:3027/create"
+      },
+      {
+        "stage": "actual-back-click",
+        "trusted": true,
+        "url": "http://127.0.0.1:3027/create",
+        "historyLength": 1
+      },
+      {
+        "stage": "actual-navigation",
+        "url": "http://127.0.0.1:3027/"
+      },
+      {
+        "stage": "actual-navigation",
+        "url": "http://127.0.0.1:3027/create"
+      },
+      {
+        "stage": "actual-navigation",
+        "url": "http://127.0.0.1:3027/create"
+      }
+    ],
+    "nativeHistory": {
+      "currentIndex": 0,
+      "entries": [
+        {
+          "id": 10,
+          "url": "http://127.0.0.1:3027/create",
+          "userTypedURL": "http://127.0.0.1:3027/create",
+          "title": "Create a coin · Pump reconstruction",
+          "transitionType": "typed"
+        }
+      ]
+    }
+  }
+}

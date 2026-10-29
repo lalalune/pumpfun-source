@@ -1,0 +1,11 @@
+
+Running 3 tests using 1 worker
+
+(node:392025) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/3] tests/header-back-history.spec.ts:66:5 › header Back follows a real prior entry and preserves the Explore query
+[2/3] tests/header-back-history.spec.ts:95:5 › a first-entry header Back falls home and uses push rather than replace
+[3/3] tests/header-back-history.spec.ts:121:5 › header Back follows the original route visibility on desktop and tablet
+  3 passed (10.9s)

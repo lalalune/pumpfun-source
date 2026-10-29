@@ -1,0 +1,69 @@
+{
+  "base": "630a074126a13d4133514d599129c6ac9a3179bc",
+  "sourceBeforeSha256": "1c362cafaa0557d71a60bb12a34df9950d6abc9d770c88aa83857c8804def1b4",
+  "sourceAfterSha256": "71daedffe62f984c1ec65dcd71bf0974efbdd49fbce552800a87d6d3682d1ff5",
+  "patchSha256": "bcc0b65753ad89a4429e7c979f18270facd5e63f10d08074adb48f15f7f467c1",
+  "testSha256": "e9aedf91547cc59162639421dcd57ff217f6d959ca21fd5a1d27544fc65db228",
+  "scope": "One original-used Back policy candidate; source operations and caller bindings recorded in READY.json. No other product source changed.",
+  "sourceAnchors": {
+    "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+    "inventorySha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2"
+  },
+  "actualInputs": {
+    "app/packages/frontend/src/components/shell/TopBarControls.tsx": "71daedffe62f984c1ec65dcd71bf0974efbdd49fbce552800a87d6d3682d1ff5",
+    "app/packages/frontend/tests/header-back-history.spec.ts": "e9aedf91547cc59162639421dcd57ff217f6d959ca21fd5a1d27544fc65db228",
+    "app/packages/frontend/tests/shell-controls.ts": "87ab91a5ade6b4a0826cb2eb55135aeb75e897b6c5aa81421ef58221bee682e8",
+    "app/packages/frontend/tests/browser-state.ts": "6ca60ac77b50bcc845c8073973265a980ece5aede9782cb955836b422128123a",
+    "app/packages/frontend/playwright.config.ts": "6b0b07bb37748d67ea396d3de6e331a15978b8b2e17815dbcb843f3299ad61b0",
+    "app/packages/frontend/package.json": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+    "app/pnpm-lock.yaml": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+  },
+  "runtime": {
+    "frontend": "http://127.0.0.1:3027",
+    "backendUrl": "http://127.0.0.1:3028",
+    "backendServiceStarted": false,
+    "developerReadKey": "empty",
+    "workers": 1,
+    "retries": 0,
+    "maxFailures": 1,
+    "baseline": {
+      "passed": 1,
+      "failed": 1,
+      "notRun": 1,
+      "rawSha256": "ea11219b69254a7bf1d2287ab1fa6c2c36900e48e4663b79a9c1eb161209133b"
+    },
+    "separateVisibilityBaseline": {
+      "failed": 1,
+      "rawSha256": "a278d8b761dcc07f92796acea72510adc28fc6de1f3c027a707d2c6aade09f30"
+    },
+    "candidate": {
+      "passed": 3,
+      "rawSha256": "0a8e661a4a7514a6d5c2535be28630acbeb5f4c0a955ef7db46344bea7d58aa3"
+    },
+    "nativeHistoryReset": "Page.resetNavigationHistory then Page.getNavigationHistory and actual window.history.length=1; no replaced getters or router hooks",
+    "actualNavigation": "trusted Go back click -> / -> native page.goBack() -> /create",
+    "visibilityWidths": [
+      1440,
+      768
+    ],
+    "server": "stopped; ss3027 empty; owned inactive cache removed"
+  },
+  "checks": {
+    "sourceEvidence": "PASS: exact component, hidden set, two actual header calls",
+    "shellSourceChecks": 3,
+    "rootCaptures": 9,
+    "rootToolingTests": 10,
+    "appEvidence": "698 objects, npm integrity, unchanged SDK sources PASS",
+    "progress": "PASS",
+    "frontendTypegen": "PASS",
+    "frontendTypecheck": "PASS"
+  },
+  "limits": [
+    "Finite Chromium local history and exact path visibility tests; no full production build or whole browser suite.",
+    "Native CDP reset makes an actual length1 entry; no cross-origin previous-history claim.",
+    "After screenshot is the completed Home-and-back workflow on Create, not the intermediate Home step. That step is recorded by actual ordered URL events and executable assertions.",
+    "The visibility baseline screenshot is Home; no matched after-Home screenshot was recorded. Route counts at all10 width/path pairs are in after-visibility.json.",
+    "No video recorded; no original SSR/HTML or pixel equivalence claim.",
+    "Captured JavaScript parsed as inert AST, never executed. No backend, clipboard, excluded token detail, wallet, API, binary, SDK or feature milestone change."
+  ]
+}
