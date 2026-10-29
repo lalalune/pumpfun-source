@@ -1,3 +1,13 @@
+# Current main 094a06f validation (2026-10-29)
+
+Fresh main and PR source b1da8f6 builds preserve all 1,024 normalized and 277 raw memberships. The complete stripped binaries are byte-identical (SHA-256 `2ec131ee13b63e93c22874562e8122c9bc45ed20a92c1ff6f957fb3c1c2c36ae`). All four target bodies/sizes and their ordered callee signatures equal control; the rent helper remains normalized-exact. Sell V2 includes merged [#1558](https://github.com/lalalune/pumpfun-source/pull/1558)'s fee tuple and account bindings, is 13,968 bytes, ratio 0.975781, and retains all 80 ordered original callee signatures.
+
+The verifier now follows main's `v2_native_payments` module name; no acceptance criterion changed. `main094-comparison.json` contains full memberships and target/callee hashes; `main094-builds.json` binds source trees, verifier and both fresh binaries. No stack warnings. No runtime replay is claimed for this source-only, stripped-identical replacement.
+
+Open [#1565](https://github.com/lalalune/pumpfun-source/pull/1565) also changes `sell_v2.rs`; this is shared-file overlap, and that alternative is not included/tested. Existing #1383/#1416 references and the selected single-helper plan below remain applicable.
+
+## Earlier evidence (historical baselines)
+
 ## Selected merge composition after #1412 merged (2026-10-29)
 
 Current main `04be15f61e66d27282e2af3d581de984389eac90` already contains #1412. This PR selects the single safe `ZeroRentSize` helper in place of its `unreachable_unchecked` invariant. Its whitelist binding and `complete_and_prepare` Result-tail improvements are preserved unchanged. Relative to main, only the three typed arguments and the helper/type declaration change; no unrelated production hunk is removed.
