@@ -81,6 +81,7 @@ export function DropdownMenu({
   const id = useId();
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const openingEdge = useRef<"first" | "last">("first");
   const [open, setOpen] = useState(false);
   const [position, setPosition] = useState<CSSProperties>({});
 
@@ -98,7 +99,13 @@ export function DropdownMenu({
 
   useEffect(() => {
     if (!open) return;
-    menuRef.current?.querySelector<HTMLElement>(ITEM_SELECTOR)?.focus();
+    const entries =
+      menuRef.current?.querySelectorAll<HTMLElement>(ITEM_SELECTOR);
+    const initial =
+      openingEdge.current === "last"
+        ? entries?.[entries.length - 1]
+        : entries?.[0];
+    initial?.focus({ preventScroll: true });
     const onPointerDown = (event: PointerEvent) => {
       const target = event.target as Node;
       if (
@@ -121,6 +128,7 @@ export function DropdownMenu({
   function onTriggerKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
     if (event.key === "ArrowDown" || event.key === "ArrowUp") {
       event.preventDefault();
+      openingEdge.current = event.key === "ArrowUp" ? "last" : "first";
       setOpen(true);
     }
   }
@@ -131,7 +139,9 @@ export function DropdownMenu({
     );
     const index = entries.indexOf(document.activeElement as HTMLElement);
     const focusAt = (next: number) =>
-      entries[(next + entries.length) % entries.length]?.focus();
+      entries[(next + entries.length) % entries.length]?.focus({
+        preventScroll: true,
+      });
     switch (event.key) {
       case "ArrowDown":
         event.preventDefault();
@@ -169,7 +179,10 @@ export function DropdownMenu({
         "aria-controls": open ? id : undefined,
         "data-slot": "dropdown-menu-trigger",
         ...(open ? { "data-popup-open": "" as const } : {}),
-        onClick: () => setOpen((current) => !current),
+        onClick: () => {
+          openingEdge.current = "first";
+          setOpen((current) => !current);
+        },
         onKeyDown: onTriggerKeyDown,
       })}
       {open &&
