@@ -1,0 +1,38 @@
+{
+  "head": "b74c1a175ca8fcdf592077c7f2ac247fa5c61e49",
+  "checks": [
+    {
+      "check": "build",
+      "returncode": 0,
+      "command": [
+        "pnpm",
+        "build"
+      ]
+    },
+    {
+      "check": "typecheck",
+      "returncode": 0,
+      "command": [
+        "pnpm",
+        "typecheck"
+      ]
+    },
+    {
+      "check": "evidence",
+      "returncode": 0,
+      "command": [
+        "pnpm",
+        "verify:evidence"
+      ]
+    },
+    {
+      "check": "progress",
+      "returncode": 0,
+      "command": [
+        "pnpm",
+        "check:progress"
+      ]
+    }
+  ],
+  "browser": "Separate affected app/React browser receipts; no broader parity claim"
+}
