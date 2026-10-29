@@ -97,10 +97,29 @@ def normalize_color(value):
 
 def declarations(body):
     result = {}
-    for declaration in body.split(';'):
-        name, _, value = declaration.partition(':')
-        if value:
-            result[name.strip()] = value.strip()
+    start = 0
+    quote = None
+    escaped = False
+    depth = 0
+    comment = False
+    index = 0
+    while index <= len(body):
+        char = body[index] if index < len(body) else ';'
+        if comment:
+            if body[index:index+2] == '*/': comment = False; index += 2; continue
+        elif quote:
+            if escaped: escaped = False
+            elif char == '\\': escaped = True
+            elif char == quote: quote = None
+        elif body[index:index+2] == '/*': comment = True; index += 2; continue
+        elif char in ('"', "'"): quote = char
+        elif char in '([': depth += 1
+        elif char in ')]': depth -= 1
+        elif char == ';' and depth == 0:
+            name, _, value = body[start:index].partition(':')
+            if value: result[name.strip()] = value.strip()
+            start = index + 1
+        index += 1
     return result
 
 
