@@ -34,6 +34,12 @@ The formatted binding first compares a complete canonical Babel factory AST. It 
 
 The line census uses Babel token locations. It counts code lines once per unique factory content hash and excludes the recovery banner, blank lines, comment-only lines, and duplicate variants.
 
+The exported builder's `targetLines` and `maximumLines` options must be
+nonnegative safe integers, with the target no larger than the maximum.
+Invalid budgets fail before reading or publishing corpus data; NaN and Infinity
+cannot bypass the range check or become JSON null bounds. A zero/zero budget
+remains an explicit empty selection. Normal CLI defaults remain 250,000/300,000.
+
 ## Resolution model
 
 Graph identity includes numeric module ID, factory hash, captured object, source range, and chunk URL. Calls whose receiver matches the top-level factory runtime parameter's spelling are recognized structurally:

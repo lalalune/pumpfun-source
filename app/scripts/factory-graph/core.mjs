@@ -329,6 +329,15 @@ async function authenticateRecord(root, record) {
 export async function buildGraph(root, options = {}) {
   const targetLines = options.targetLines ?? 250_000;
   const maximumLines = options.maximumLines ?? 300_000;
+  if (
+    !Number.isSafeInteger(targetLines) ||
+    targetLines < 0 ||
+    !Number.isSafeInteger(maximumLines) ||
+    maximumLines < targetLines
+  )
+    throw new Error(
+      "invalid source-line budget: require nonnegative safe integer targetLines <= maximumLines",
+    );
   const routes = options.routes ?? DEFAULT_ROUTES;
   const modulesIndex = await readJson(root, "recovered/modules.json");
   const capture = await readJson(root, "evidence/web/manifest.json");
