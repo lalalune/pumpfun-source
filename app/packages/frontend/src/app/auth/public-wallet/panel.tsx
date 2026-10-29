@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { PublicWalletController } from "./controller";
 import styles from "./public-wallet.module.css";
 
@@ -23,6 +23,17 @@ function WalletChoices({ controller }: { controller: PublicWalletController }) {
     controller.getSnapshot,
     controller.getSnapshot,
   );
+  const panel = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const element = panel.current;
+    // Replacing a focused wallet control can leave focus on body while the
+    // enclosing auth dialog stays ready. Preserve every surviving focus target.
+    if (
+      element?.closest("dialog")?.open &&
+      document.activeElement === document.body
+    )
+      element.focus();
+  }, [state.status, state.wallets]);
   if (state.status === "idle")
     return (
       <button
@@ -35,6 +46,8 @@ function WalletChoices({ controller }: { controller: PublicWalletController }) {
     );
   return (
     <section
+      ref={panel}
+      tabIndex={-1}
       className={styles.panel}
       aria-label="Public wallet connection"
       data-testid="public-wallet-panel"
