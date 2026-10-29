@@ -1,0 +1,78 @@
+{
+ "lane": "w3-sweep",
+ "target": "0x72810 sweep::execute (7832 B, 39 calls)",
+ "base": "origin/main 6654999 (1022 normalized / 276 raw); target ratio 0.46947, 7688 B, 38 calls",
+ "best": {
+  "trial": "a23",
+  "ratio": 0.49139,
+  "cand_bytes": 7824,
+  "calls": 39,
+  "structural_ratio_regs_stack_masked": 0.8805,
+  "official": {
+   "normalized": 1022,
+   "raw": 276,
+   "gains": [],
+   "losses": []
+  },
+  "unstripped_sha256": "b7005220e751980610ffc30b5b52cfe6bdbd1bff9d5b0ce52113aa7759fe1cc5",
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/1427"
+ },
+ "alternatives": [
+  {
+   "trial": "a37",
+   "ratio": 0.7883,
+   "calls": 40,
+   "official": {
+    "normalized": 1022,
+    "raw": 276,
+    "losses": []
+   },
+   "source": "reconstruction/pump-main/lanes/w3-sweep/a37_sweep_fees.rs.txt",
+   "note": "near match: frame offsets all match; only residual is the shared join's recipient clone left out of line (cold call site, pre-inline freq 1.47% < 2%)"
+  },
+  {
+   "trial": "a22",
+   "ratio": 0.4815,
+   "cand_bytes": 7840,
+   "official_raw": 282,
+   "note": "6 incidental raw gains (0xd300 0xd4c0 0xd878 0xdbf8 0xe858 0xe9c0) from call distances at 7840 B"
+  },
+  {
+   "trial": "a17",
+   "ratio": 0.6055,
+   "calls": 40,
+   "note": "best raw similarity but the shared join clone stays out of line (cold call site)"
+  }
+ ],
+ "mechanisms": [
+  "Per-bucket quote==default memcmp is rustc MIR JumpThreading: a separate `let amount = if creator {take} else {take}` puts the take switch within MIR JT's 5-block backtrack of `creator && native`, duplicating zero-check+memcmp per bucket.",
+  "SBF analyzeBranch cannot analyze conditional branches, so MachineBlockPlacement glues each conditional block to its next IR block: layout follows rustc's LLVM block creation order (first reference in MIR RPO; RPO visits the first switch successor first).",
+  "`match creator as u8 {1 => vault, _ => validate}` makes the creator path codegen first; `if creator`/`if !creator` both lower to [0: protocol, ..].",
+  "Protocol-native threading through the recipient clone is MIR JT: an explicit `(false,true) => {}` arm in `match (creator,native)` gives that edge its own MIR block (MIR JT never threads through a SwitchInt predecessor of a multi-predecessor block).",
+  "LLVM cold call sites: a call whose pre-inline block frequency is < 2% of entry gets inline threshold 45; after the threading the shared rent/token join's clone is at 1.5-1.7% unless the admit errors are merged (Result helper), raising it above 2%.",
+  "Rent top-up as a Result-returning helper (Rent::get error merged with the transfer Result before one `?`, orig +0x1538).",
+  "`emit!(event); emit_cpi!(event)` (both take &event), no clone.",
+  "&mut accounts param in the token helper reproduces per-call reloads of payer/system_program."
+ ],
+ "attempts": "ledger keys 0x72810-main-6654999-*-v1 (a01-a38 + diagnostics, ~45 rows)",
+ "rejected": [
+  "bool polarity on check/take (!creator): byte-identical (MIR normalizes)",
+  "if native {if creator}, token-first else-if, sequential ifs: lose per-bucket memcmp (38 calls)",
+  "hoisting transfer args (bc/base_mint/decimals) to cut MIR JT cost: no threading (cost was not the limiter)",
+  "rent helper #[inline] or no attribute: helper not inlined (cold site)",
+  "token helper #[inline]/no attr/tail admit, rent body variants (>=return, match, ?;Ok), event bucket as u8: equal or worse",
+  "tuple orders (native,creator), (true,false)|(false,false), wildcard last arm: no protocol-native threading (synthetic lab)"
+ ],
+ "residuals": [
+  "token helper: first-admit error branch form (orig jeq ok/ja err at +0xf28: error block IR-next at ISel)",
+  "rent: transfer block placed after the lamports compare (orig places it after protocol-native at +0x14f0), Rent::get From placement",
+  "base_mint/quote_mint load order near the join and protocol-native copy; event bucket store order; stack frame offsets (+0x10..0x18) and register assignment"
+ ],
+ "next_ideas": [
+  "Start from a37 (ratio 0.788): find the source shape that lifts the rent/token join's pre-inline block frequency to >=2% of entry (so LLVM inlines its AccountInfo::clone) without helpers (helper allocas move to the frame top) and keeping the (true,true),(_,false),(false,true) tuple threading. Measure with -print-before=inline + scripts/bfi.py.",
+  "Inline token code (as in a17, which matches the token region exactly) plus another natural way to lift the join above the 2% cold threshold (e.g. a different zero-check or native-test shape at inline time); measure with scripts/bfi.py on -print-before=inline dumps.",
+  "Rent helper block order: try writing the rent check in execute with the Result merged (e.g. let r = ...; r?) so the Ok edge is IR-next of the compare.",
+  "Use the synthetic MIR/BFI lab (lanes/w3-sweep/jt in scratch: lab.py, labinl.py, labbfi.py) to screen shapes in ~1 s before 100 s builds."
+ ],
+ "tools": "~/.cache/pumpfun-reconstruction/lanes/w3-sweep/scripts: oracle.py (one-function llc oracle), mkone.py, trial.sh (build+IR+MIR+BFI), bfi.py/bfipath.py (pre-inline block frequencies via homebrew opt), mbp.sh, sdiff.py, blk.py, bwscan.py; jt/: synthetic MIR JumpThreading and BFI lab"
+}
