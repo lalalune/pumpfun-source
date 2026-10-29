@@ -1,0 +1,37 @@
+{
+  "scope": "AMM vendor metadata preparation correction only; no compiler or installer execution",
+  "failed_run_url": "https://github.com/lalalune/pumpfun-source/actions/runs/40792092737",
+  "failed_head": "ba0524261f2140d7aee5d3290f681ad659a888e6",
+  "failed_preparer_sha256": "11c87e19cbe76e8b87db8c7e35289e0f6d9e4c1c619d5425b6a57197d1a3b886",
+  "prior_packet_manifest_sha256": "7e420f505e54332375aa2b7de8393cfdc6f06cae2c19568a6dd639d9536037ba",
+  "unchanged_helper_sha256": "21d9b0cc31440f72d02a034c8d60eb2dbf19500e76d36056d716eda5fe1c342e",
+  "reproduced_error": "cannot reconstruct pinned vendor checksum map: aes-0.8.4",
+  "first_archive_sha256": "b169f7a6d4742236a0a00c541b845991d0ac43e546831af1249753ab4c3aa3a0",
+  "first_checksum_file_sha256": "215a9c1695d18b4952e555b4eccd5351978cca51bbad2efcc4d14707657d5a5d",
+  "fixed_preparer_sha256": "cf2938912b98a8615b487e5798b883b6ae78ddd0a374c525ad04e784d5620922",
+  "tests_sha256": "cdbcec3980a96bd96e966f90034ee4bd4f0a5db92f9fee65938390713b9ee3c0",
+  "validation": {
+    "platform": "Windows",
+    "python": "3.13.7",
+    "tests_passed": 13,
+    "registry_archives": 257,
+    "source_files": 8180,
+    "checksum_maps": 257,
+    "exact_vendor_files": 8437,
+    "network_installer_compiler_calls": 0
+  },
+  "encoding": "json.dumps({package: archive_sha256, files: computed_file_sha256}, sort_keys=True) plus one LF, UTF-8",
+  "unchanged_inputs": {
+    "vendor-acquisition.json": "26b97fda7e87a0f25c35b37ad999b8058d4dc0d07304dbf6eea3d3b0d7400818",
+    "vendor-files.json.gz": "82a1cdd4c982788d7faf6159e08eafa42fbc09f6cf892a1a975bb76545ec71dd",
+    "source.tar.gz": "aaaf7ac67b672ca8759a898e6e56af455f72fadf2cf4dd752ecbbe232a7044f0",
+    "source-binding.json": "319ca716f2dd16fc7686d46f94c6aa53fc51ca7e907536f9b0c219df8c72263a",
+    "sdk-components.json.gz": "77233af8a2f353976b3e4a31703c1005c910c1ebfc9b052ddcf211ddf61a24cf",
+    "linux-sysroot-inputs.json": "7abcb8f4b4d0797db09f39b2e31b0fe1e286a416993addabffdd9aaa05b47ad9",
+    "host-tools.json": "6dfd9dcd25b79a806e0817883c63209e8429b2ae811a71f51c4d4507b091ba2e",
+    "proposal-pins.json": "6155b142c280c61a1ce0cf58bed1763526ddd63b8a51e5fb41e3aa2c8a439f45",
+    "build.py": "3400e5aa0fc3d84f8cdfd254565b37499eda044b4cfeee880bb4af8355ebfe57"
+  },
+  "no_recovered_windows_claimed": true,
+  "hosted_source_build_success_claimed": false
+}

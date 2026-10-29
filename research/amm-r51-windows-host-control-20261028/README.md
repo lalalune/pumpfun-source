@@ -1,6 +1,36 @@
 # Exact checked-r51 Windows default build
 
-This publishes the reviewed default-only recipe for the **first exact checked-r51 Windows measurement**. At recipe review, no hosted job or Windows compiler had executed this source. Execution results are recorded separately; preparing or dispatching this job awards no recovered windows. The original 19 bound parent files and manifest remain unchanged (`5a233805eb716d5a015e8d0f5592b57c93e4cde2a2bd4a09dd508aa3627e3dfd`).
+This publishes the reviewed default-only recipe for the **first exact checked-r51 Windows measurement**. At recipe review, no hosted job or Windows compiler had executed this source. Execution results are recorded separately; preparing or dispatching this job awards no recovered windows. `parent-proposal.json` retains the earlier 19-file proposal identity and review; the correction below records the first hosted failure and the changed current preparer.
+
+## Vendor preparation correction
+
+The first [hosted run, 40792092737](https://github.com/lalalune/pumpfun-source/actions/runs/40792092737),
+at `ba0524261f2140d7aee5d3290f681ad659a888e6`, passed the native inventory check
+but failed before compilation with `cannot reconstruct pinned vendor checksum
+map: aes-0.8.4`. The borrowed Mayhem extractor tries JSON formatting variations
+while preserving archive file order. AMM's pinned checksum files instead use
+`json.dumps(..., sort_keys=True)` followed by LF; the archive order differs.
+
+`prepare.py` now reconstructs that exact AMM encoding locally. Both the archive
+hash and generated checksum-file hash must match before any package files are
+written. Source contents, acquisition records, all 8,437 vendor-file pins, SDK
+and native pins, the shared historical helper, and build commands are unchanged.
+The failed revision and its prior hashes remain recorded in
+`vendor-preparation-check.json`; earlier review receipts describe the earlier
+recipe, not this correction.
+
+The 13 offline tests pass on Windows Python 3.13.7, including extraction from all
+257 authenticated package archives and exact equality of all 8,437 output file
+hashes (8,180 source files plus 257 checksum maps). The small controls reproduce
+the old order failure and reject changed archives, metadata, counts, paths,
+duplicates, symlinks and existing output. No network, installer or compiler is
+invoked by these tests; a successful hosted source build is not claimed here.
+
+```sh
+python3 -I -B research/amm-r51-windows-host-control-20261028/test_vendor.py
+# Include the full replay when the authenticated .crate archives are available:
+python3 -I -B research/amm-r51-windows-host-control-20261028/test_vendor.py --archives /path/to/archives
+```
 
 ## The existing reviewed native pin applies directly
 

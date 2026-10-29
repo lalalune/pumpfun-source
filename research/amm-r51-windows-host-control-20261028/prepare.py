@@ -1,11 +1,13 @@
-"""Unexecuted proposal: prepare fresh, byte-pinned Windows r51 inputs."""
+"""Prepare fresh, byte-pinned Windows r51 inputs."""
 import argparse
 import concurrent.futures
 import gzip
 import hashlib
 import importlib.util
+import io
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath
+import tarfile
 
 HERE = Path(__file__).resolve().parent
 
@@ -13,6 +15,51 @@ HERE = Path(__file__).resolve().parent
 def read(path):
     data = path.read_bytes()
     return json.loads(gzip.decompress(data) if path.suffix == '.gz' else data)
+
+
+def vendor_package(blob, output, record):
+    """Reproduce AMM's sorted-key, LF-terminated Cargo checksum metadata.
+
+    The sealed Mayhem helper preserves archive key order, which differs for
+    these AMM inputs. Authenticate the archive and the exact generated metadata
+    before writing anything; source bytes and existing pins are unchanged.
+    """
+    def require(ok, message):
+        if not ok:
+            raise ValueError(message)
+
+    def sha(data):
+        return hashlib.sha256(data).hexdigest()
+
+    require(sha(blob) == record['package_sha256'], 'registry archive differs')
+    directory = record['directory']
+    require(directory not in ('', '.', '..') and PurePosixPath(directory).name == directory
+            and ':' not in directory and '\\' not in directory, 'unsafe registry directory')
+    contents = {}
+    with tarfile.open(fileobj=io.BytesIO(blob), mode='r:gz') as archive:
+        for member in archive:
+            if member.isdir():
+                continue
+            require(member.isfile() and member.name.startswith(directory + '/'), 'unsafe crate member')
+            name = member.name[len(directory) + 1:]
+            path = PurePosixPath(name)
+            require(name and path.parts and not path.is_absolute() and '..' not in path.parts
+                    and ':' not in name and '\\' not in name and path.as_posix() == name
+                    and name != '.cargo-checksum.json' and name not in contents, 'unsafe crate path')
+            contents[name] = archive.extractfile(member).read()
+    require(len(contents) == record['file_count'], 'registry file count differs: ' + directory)
+    checksums = {name: sha(data) for name, data in contents.items()}
+    metadata = (json.dumps({'package': record['package_sha256'], 'files': checksums},
+                           sort_keys=True) + '\n').encode()
+    require(sha(metadata) == record['checksum_file_sha256'],
+            'pinned vendor checksum map differs: ' + directory)
+    target = output / directory
+    target.mkdir(parents=True, exist_ok=False)
+    for name, data in contents.items():
+        path = target / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(data)
+    (target / '.cargo-checksum.json').write_bytes(metadata)
 
 
 def prepare(args):
@@ -64,9 +111,9 @@ def prepare(args):
     def package(record):
         name = record['name']
         archive = helper.download(record['url'], archives / (name + '.crate'), record['sha256'])
-        helper.vendor_package(archive.read_bytes(), output / 'vendor', {
+        vendor_package(archive.read_bytes(), output / 'vendor', {
             'directory': name, 'package_sha256': record['sha256'],
-            'file_count': record['files'], 'checksum_file_newline': '\n',
+            'file_count': record['files'],
             'checksum_file_sha256': vendor_files[name + '/.cargo-checksum.json'],
         })
 
