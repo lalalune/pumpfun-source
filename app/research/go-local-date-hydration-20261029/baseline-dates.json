@@ -1,0 +1,18 @@
+{
+  "server": {
+    "datetime": "2026-10-28T06:53:34.915Z",
+    "label": "10/28/2026"
+  },
+  "client": {
+    "timezone": "America/Los_Angeles",
+    "label": "10/27/2026",
+    "expected": "10/27/2026"
+  },
+  "errors": [
+    "Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <RedirectErrorBoundary router={{...}}>\n      <InnerLayoutRouter url=\"/go\" tree={[...]} params={{}} renderTree={{...}} segmentPath={[...]} ...>\n        <SegmentViewNode type=\"page\" pagePath=\"go/page.tsx\">\n          <SegmentTrieNode>\n          <GoPage>\n            <section className=\"go-page\" aria-labelledby=\"go-title\">\n              <header>\n              <aside>\n              <Suspense fallback={<section>}>\n                <GoExplorer initialPage={{source:\"ar...\", ...}} initialQuery={{q:\"\",status:\"ALL\", ...}} ...>\n                  <div className=\"go-workspace\" aria-busy={undefined}>\n                    <form>\n                    <div>\n                    <div className=\"go-list\" aria-label=\"Archived b...\">\n                      <article className=\"go-card\" data-testid=\"go-bounty-...\">\n                        <div className=\"go-card-he...\">\n                          <span>\n                          <time dateTime=\"2026-10-28T06:53:34.915Z\">\n+                           10/27/2026\n-                           10/28/2026\n                        ...\n                      ...\n                    ...\n              ...\n        ...\n      ...\n",
+    "Failed to load resource: net::ERR_FAILED"
+  ],
+  "forbidden": [
+    "POST http://127.0.0.1:3010/__nextjs_original-stack-frames"
+  ]
+}

@@ -1,0 +1,247 @@
+{
+  "baseCommit": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "firstHarness": "978de6705755a81247304de2992ef97688ae3c96",
+  "causalBaselineHarness": "61ae6c8d59ea9597ce047acf0d8fed090828cb51",
+  "candidateCodeCommit": "d6d7c3baef91d8160ac8056f83d697c2b4fe69ef",
+  "firstMeasurement": {
+    "head": "978de6705755a81247304de2992ef97688ae3c96",
+    "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+    "command": [
+      "corepack",
+      "pnpm",
+      "exec",
+      "playwright",
+      "test",
+      "--config",
+      "playwright.go-dates.config.ts"
+    ],
+    "exitCode": 1,
+    "controllerSeconds": 6.82,
+    "rawLogSha256": "27f315b45e735ff581db1d6423f953c5332b6b299910fd4034a67e155747143f"
+  },
+  "causalBaseline": {
+    "head": "61ae6c8d59ea9597ce047acf0d8fed090828cb51",
+    "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+    "command": [
+      "corepack",
+      "pnpm",
+      "exec",
+      "playwright",
+      "test",
+      "--config",
+      "playwright.go-dates.config.ts"
+    ],
+    "exitCode": 1,
+    "controllerSeconds": 8.0,
+    "rawLogSha256": "e4ac8d60949a90adeec42cf76ed0c5f6eb65b3899541e116229dbb95bd1b94b2"
+  },
+  "candidate": {
+    "head": "d6d7c3baef91d8160ac8056f83d697c2b4fe69ef",
+    "command": [
+      "corepack",
+      "pnpm",
+      "exec",
+      "playwright",
+      "test",
+      "--config",
+      "playwright.go-dates.config.ts"
+    ],
+    "exitCode": 0,
+    "controllerSeconds": 35.46,
+    "sameCausalBaselineFlow": "61ae6c8d59ea9597ce047acf0d8fed090828cb51",
+    "configDelta": "Only selection expands; UTC server/LA browser default/Next command/guards unchanged; separate matching-UTC browser control explicit.",
+    "rawLogSha256": "fb81f5bfb9ba8317ed251fe3dd2705bb9a550fbc5711e05a24ccfc68a6913ebf"
+  },
+  "counts": {
+    "correctedBaselineFailed": 1,
+    "candidatePassed": 14,
+    "newCases": 3,
+    "retainedGoCases": 11,
+    "playwrightSeconds": 34.6
+  },
+  "failureBoundary": {
+    "first": "Date-specific React hydration error recorded, but first reached assertion failed at guard because Next dev overlay diagnostic POST was aborted. Hydration assertion was after it and unreached.",
+    "corrected": "Only two assertion lines swapped; unchanged guard aborts/records diagnostic POST; now the intended date-specific hydration assertion fails at line47 before guard assertion. Product source unchanged in both."
+  },
+  "sourceInputs": [
+    {
+      "path": "app/packages/frontend/src/app/go/go-explorer.tsx",
+      "bytes": 19700,
+      "sha256": "8a9bbde15e57ae585ef3c29ffbc6a3c344af556382fa1d51eaa08c7b5347960d",
+      "gitBlob": "8c11f7562805f85725bcf4edb6c5dcb3a42f0dc9",
+      "baseSha256": "b2ea8b650da8b4f60956618a5a4613dbef2f7f727ccba71234539f1373f89707",
+      "unchangedFromBase": false
+    },
+    {
+      "path": "app/packages/frontend/src/app/go/go-local-date.tsx",
+      "bytes": 730,
+      "sha256": "464625825f190ed9126d9fe8bdec17386216a71701f64a463e5ac6d06523c61b",
+      "gitBlob": "9c740d8bff4c9bad0cc043e8168dce7e274e9fb8"
+    },
+    {
+      "path": "app/packages/frontend/src/components/commons/InlineScript.tsx",
+      "bytes": 566,
+      "sha256": "b81a02f27d93649c40daf309026aa574f3f7217f5093281c8b5df0b75cc356e5",
+      "gitBlob": "421b88ae9a5fcc3f855284d368c5a112c51cd242",
+      "baseSha256": "b81a02f27d93649c40daf309026aa574f3f7217f5093281c8b5df0b75cc356e5",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "app/packages/frontend/src/app/go/go-data.ts",
+      "bytes": 20419,
+      "sha256": "bd286db83b05380c846462596f5519f80c8e1424f35bb64247fbaf9d231b88d9",
+      "gitBlob": "33ec9c144bd3c3f2924d5148ac6aa1e0c47724d8",
+      "baseSha256": "bd286db83b05380c846462596f5519f80c8e1424f35bb64247fbaf9d231b88d9",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "app/packages/frontend/src/app/go/evidence.ts",
+      "bytes": 973,
+      "sha256": "0ad153022ec54e377b2794b23f6a575023f3ea0186188a96f9ab69248ff0de33",
+      "gitBlob": "28c0fa8db2df9d53f6d7e532e15ba052a03b4487",
+      "baseSha256": "0ad153022ec54e377b2794b23f6a575023f3ea0186188a96f9ab69248ff0de33",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "app/packages/frontend/src/app/api/go-bounties/route.ts",
+      "bytes": 1080,
+      "sha256": "6db087b3c218c836ffd9435bf879553517020e24b06e42dcbe0664fdabe47232",
+      "gitBlob": "85d22070680b91a41ab990ed59fffd9bbad71208",
+      "baseSha256": "6db087b3c218c836ffd9435bf879553517020e24b06e42dcbe0664fdabe47232",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "app/packages/frontend/src/app/go/page.tsx",
+      "bytes": 3552,
+      "sha256": "9d8174c9cec28a0f84f89615f592fafc19abfec87cc11cce0fe9ca87e85c1147",
+      "gitBlob": "f964496693df8003666d112b5bd9d9770741d8b7",
+      "baseSha256": "9d8174c9cec28a0f84f89615f592fafc19abfec87cc11cce0fe9ca87e85c1147",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "app/packages/frontend/tests/go-date-hydration.flow.ts",
+      "bytes": 2123,
+      "sha256": "d581f1966433976a6cad73a484ed7065a4aa663b5c7fcffc70c07a256c434936",
+      "gitBlob": "fc48d9b02f3b81aec180fdf354661ed07bf0a434"
+    },
+    {
+      "path": "app/packages/frontend/tests/go-date-controls.flow.ts",
+      "bytes": 2465,
+      "sha256": "286622d79ed18d3d2510a7b1e4d69414b4af845b84c5b4ff5253b137d77ec51f",
+      "gitBlob": "27d039b3cfad57faf2d574aa2ecb550a8cbd5364"
+    },
+    {
+      "path": "app/packages/frontend/tests/go.spec.ts",
+      "bytes": 12759,
+      "sha256": "5bddef18ec42368779d22abc31986c2572b10ce7921ee4a847ce7862d0ebf5b6",
+      "gitBlob": "0929295f8521a72e95557eb7f95970336541f261",
+      "baseSha256": "5bddef18ec42368779d22abc31986c2572b10ce7921ee4a847ce7862d0ebf5b6",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "app/packages/frontend/playwright.go-dates.config.ts",
+      "bytes": 886,
+      "sha256": "465b70750db14daf37ff9e1a6e99c35fa5bf7038ed849d5f299236fcafceedb9",
+      "gitBlob": "2192fc76d11bd7422b9a1a1351e99ae6614392c0"
+    }
+  ],
+  "headlessChecks": [
+    {
+      "head": "d6d7c3baef91d8160ac8056f83d697c2b4fe69ef",
+      "name": "go-model",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:go"
+      ],
+      "cwd": "app",
+      "exitCode": 0,
+      "sha256": "01af62acceea839e8a7a0dc2f51c3a90ad7543ad6133a61ed61a3f7570dcc7b1"
+    },
+    {
+      "head": "d6d7c3baef91d8160ac8056f83d697c2b4fe69ef",
+      "name": "app-evidence",
+      "command": [
+        "python3",
+        "scripts/verify-evidence.py"
+      ],
+      "cwd": "app",
+      "exitCode": 0,
+      "sha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9"
+    },
+    {
+      "head": "d6d7c3baef91d8160ac8056f83d697c2b4fe69ef",
+      "name": "progress",
+      "command": [
+        "corepack",
+        "pnpm",
+        "check:progress"
+      ],
+      "cwd": "app",
+      "exitCode": 0,
+      "sha256": "ec4c8b8d81839dda7f2604cd53c926f94a8269154d4354e5ccbb9dab000f8ecb"
+    },
+    {
+      "head": "d6d7c3baef91d8160ac8056f83d697c2b4fe69ef",
+      "name": "root-evidence",
+      "command": [
+        "python3",
+        "scripts/verify_evidence.py"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9"
+    },
+    {
+      "head": "d6d7c3baef91d8160ac8056f83d697c2b4fe69ef",
+      "name": "root-tooling",
+      "command": [
+        "python3",
+        "scripts/test_tooling.py"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "sha256": "13b1bc01f581c56b256673cc8a9448d6c438ed43aaa6651ee986d6c53807be74"
+    },
+    {
+      "head": "d6d7c3baef91d8160ac8056f83d697c2b4fe69ef",
+      "name": "frontend-typecheck",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--filter",
+        "@pump-reconstruction/frontend",
+        "typecheck"
+      ],
+      "cwd": "app",
+      "exitCode": 0,
+      "sha256": "bbc47f8ba33204e163a48b95f4a661f68b7f61bf1a02411bc8d1c91572ecaa42"
+    }
+  ],
+  "guidance": {
+    "package": "next16.4.1",
+    "path": "node_modules/next/dist/docs/01-app/02-guides/preventing-flash-before-hydration.md",
+    "sha256": "9f5e8151c76dc56cea48bf6f7d2265267da94586d25f9c001239f0561dbba4fe",
+    "used": "Documented useId/time+InlineScript pattern for preserving browser-local dates through hydration. Existing shared InlineScript is reused unchanged; literals JSON-serialized and<escaped.",
+    "upstreamInteraction": "No original GO date component/interaction parity asserted; reproduced defect is in maintained host."
+  },
+  "privateNegativeTraces": [
+    {
+      "stage": "first-baseline",
+      "bytes": 2806370,
+      "sha256": "8b07822571a53d59eb4bd2aeaafa7cf576f2cc5b71fbf754634f67ac0322ea86"
+    },
+    {
+      "stage": "baseline",
+      "bytes": 2757378,
+      "sha256": "c468c53f2c72d5c2e49b282de95ae85e5b95b5f9c830003f4bfd9a6f76880565"
+    }
+  ],
+  "limits": [
+    "Focused created-date case retains actual SSR HTML date10/28 and native LA date10/27 before and after; positive errors[]/forbidden[] retained separately.",
+    "No paint-by-paint timing measurement: synchronous parser-script strategy is source-derived from installed Next guidance; screenshots are settled states.",
+    "Raw candidate log still includes separate existing shared SearchDialog query/history hydration diagnostics in retained tests; no global console-clean claim.",
+    "Date inputs, en-US locale, browser timezone formatting anddatetime attributes remain unchanged; no UTC display-policy default introduced.",
+    "No original captured JavaScript evaluated, original captures/SDK/dependencies/backend/API/feature ledger changed, live GO/auth/wallet/payout/compatibility/milestone/productionbuild claim."
+  ]
+}

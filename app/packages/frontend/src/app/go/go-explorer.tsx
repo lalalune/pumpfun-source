@@ -18,6 +18,7 @@ import type {
   GoSortOrder,
   PublicPhase,
 } from "./go-data";
+import { GoLocalDate } from "./go-local-date";
 
 const phases: ReadonlyArray<{ value: GoQuery["status"]; label: string }> = [
   { value: "ALL", label: "All" },
@@ -144,9 +145,11 @@ function BountyDetail({
         <div>
           <dt>Expires</dt>
           <dd>
-            {bounty.expiresAt
-              ? new Date(bounty.expiresAt).toLocaleDateString("en-US")
-              : "Not recorded"}
+            {bounty.expiresAt ? (
+              <GoLocalDate date={bounty.expiresAt} />
+            ) : (
+              "Not recorded"
+            )}
           </dd>
         </div>
       </dl>
@@ -508,9 +511,7 @@ export default function GoExplorer({
                     >
                       {phaseLabel(bounty.phaseAtCapture)}
                     </span>
-                    <time dateTime={bounty.createdAt}>
-                      {new Date(bounty.createdAt).toLocaleDateString("en-US")}
-                    </time>
+                    <GoLocalDate date={bounty.createdAt} />
                   </div>
                   <h3>{bounty.title}</h3>
                   <p className="go-card-copy">{bounty.bodyText}</p>
