@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { publicAddress } from "../auth/public-wallet/controller";
 import { PublicWalletRecordPanel } from "../wallet-program-record/panel";
 import {
   isPortfolioResponse,
@@ -253,7 +254,6 @@ function PortfolioResult({ value }: { value: PortfolioSuccess }) {
         prices, USD values, Pump positions, realized PnL or token legitimacy
         claims are inferred from RPC balances.
       </p>
-      <PublicWalletRecordPanel key={value.address} address={value.address} />
     </div>
   );
 }
@@ -270,6 +270,12 @@ export default function PortfolioClient({
     initialAddress ? { status: "loading" } : { status: "idle" },
   );
   const requestSequence = useRef(0);
+  let recordAddress: string | null = null;
+  try {
+    recordAddress = publicAddress(initialAddress.trim());
+  } catch {
+    // Activity inspection requires a canonical committed public address.
+  }
 
   useEffect(() => {
     if (!initialAddress) {
@@ -427,6 +433,18 @@ export default function PortfolioClient({
       ) : null}
       {state.status === "success" ? (
         <PortfolioResult value={state.value} />
+      ) : null}
+      {recordAddress ? (
+        <div
+          key={`${recordAddress}:${refreshVersion}`}
+          className="mt-6 min-w-0"
+          data-testid="portfolio-activity"
+        >
+          <p className="mb-3 break-all text-sm text-text-secondary">
+            Activity record wallet: <code>{recordAddress}</code>
+          </p>
+          <PublicWalletRecordPanel address={recordAddress} />
+        </div>
       ) : null}
     </>
   );
