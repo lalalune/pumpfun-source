@@ -25,6 +25,7 @@ import hashlib
 import json
 import os
 import shutil
+import tempfile
 import uuid
 from pathlib import Path
 
@@ -33,6 +34,23 @@ TRACKED = HERE / 'ATTEMPTS.jsonl'
 LEDGER = Path(os.environ.get('PUMP_SWARM_LEDGER', str(Path.home() / '.cache/pumpfun-reconstruction/pump-main/ATTEMPTS.jsonl')))
 LOCK = LEDGER.with_name('.attempts.lock')
 STATUSES = ['analyzed', 'built', 'compile-failed', 'rejected', 'partial', 'normalized-match', 'raw-match']
+
+
+def atomic_copy(source, destination):
+    """Publish complete ledger bytes without truncating the previous snapshot."""
+    destination = Path(destination)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    fd, name = tempfile.mkstemp(prefix='.attempts-', suffix='.tmp', dir=destination.parent)
+    os.close(fd)
+    temporary = Path(name)
+    try:
+        shutil.copyfile(source, temporary)
+        with temporary.open('r+b') as stream:
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, destination)
+    finally:
+        temporary.unlink(missing_ok=True)
 
 
 def read_rows():
@@ -54,7 +72,7 @@ def locked(fn):
     with LOCK.open('r+') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         if not LEDGER.exists() and TRACKED.exists():
-            shutil.copyfile(TRACKED, LEDGER)
+            atomic_copy(TRACKED, LEDGER)
         return fn(read_rows())
 
 
@@ -127,7 +145,7 @@ def main():
     if args.command == 'sync':
         def run(rows):
             args.to.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(LEDGER, args.to)
+            atomic_copy(LEDGER, args.to)
             print(json.dumps({'synced': str(args.to), 'attempts': len(rows), 'sha256': hashlib.sha256(args.to.read_bytes()).hexdigest()}))
         return locked(run)
 
