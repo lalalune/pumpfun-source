@@ -77,6 +77,8 @@ adapters remain outside this unit; no current cookie or credential is read.
 
 ## Repeatable qualification
 
+Run from `app/` with the existing pinned dependencies:
+
 ```sh
 node scripts/original-local-settings-runtime.mjs
 node --test tests/original_local_settings_runtime.test.mjs
@@ -99,6 +101,15 @@ mouse/keyboard updates, latest-value functional updates, failed-write fallback,
 external notifications and unmount subscription cleanup without accessing real
 browser storage or cookies. Its controlled fixture is not the product Settings
 page or an original screenshot. No Next process or backend is involved.
+
+The frozen source/method revision is
+`3e6abe66aed513eac9db5d396d242e06c0348790`: **19 domain + 11 shared-source
+tests pass**, and **one actual React browser workflow passes at both widths**.
+Recursive typecheck, 698 capture/npm/unchanged-SDK checks and nine progress tests
+also pass. See `validation/RECORD.json` for exact input/output hashes and setup
+failure limits. The later documentation/receipt commit preserves every executed
+runtime, generator, method and original-source input; no Next build or full-app
+browser result is claimed for this unmounted module.
 
 No server persistence, auth/session, support/Firebase, admin/trading/claim flow,
 signing, live request, network mutation, original private provider, production

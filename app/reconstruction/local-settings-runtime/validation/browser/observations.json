@@ -1,0 +1,369 @@
+{
+  "fixture": "actual source-adapted React components with explicit synthetic storage/control ports",
+  "bundleSha256": "0c8759f2c4ead52aecd3d73f1a5a1b7abbbf96e24c4c16902bf80c36e496e0db",
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    },
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    }
+  ],
+  "results": [
+    {
+      "width": 390,
+      "functional": {
+        "values": {
+          "home.show-animations": "false"
+        },
+        "calls": [
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "write",
+            "home.show-animations",
+            "true"
+          ],
+          [
+            "dispatch",
+            "local-storage",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "write",
+            "home.show-animations",
+            "false"
+          ],
+          [
+            "dispatch",
+            "local-storage",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ]
+        ],
+        "pointerBubbles": 0,
+        "setterChanged": false
+      },
+      "fallback": {
+        "values": {
+          "home.show-animations": "false"
+        },
+        "calls": [
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "write",
+            "home.show-animations",
+            "true"
+          ],
+          [
+            "dispatch",
+            "local-storage",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "write",
+            "home.show-animations",
+            "false"
+          ],
+          [
+            "dispatch",
+            "local-storage",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "write",
+            "home.show-animations",
+            "true"
+          ],
+          [
+            "dispatch",
+            "local-storage",
+            "home.show-animations"
+          ]
+        ],
+        "pointerBubbles": 0,
+        "setterChanged": false,
+        "freshRead": false
+      },
+      "overflow": 0,
+      "afterUnmount": {
+        "values": {
+          "home.show-animations": "false"
+        },
+        "calls": [
+          [
+            "dispatch",
+            "storage",
+            "home.show-animations"
+          ]
+        ],
+        "pointerBubbles": 0,
+        "setterChanged": false
+      },
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "functional": {
+        "values": {
+          "home.show-animations": "false"
+        },
+        "calls": [
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "write",
+            "home.show-animations",
+            "true"
+          ],
+          [
+            "dispatch",
+            "local-storage",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "write",
+            "home.show-animations",
+            "false"
+          ],
+          [
+            "dispatch",
+            "local-storage",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ]
+        ],
+        "pointerBubbles": 0,
+        "setterChanged": false
+      },
+      "fallback": {
+        "values": {
+          "home.show-animations": "false"
+        },
+        "calls": [
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "write",
+            "home.show-animations",
+            "true"
+          ],
+          [
+            "dispatch",
+            "local-storage",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "write",
+            "home.show-animations",
+            "false"
+          ],
+          [
+            "dispatch",
+            "local-storage",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "read",
+            "home.show-animations"
+          ],
+          [
+            "write",
+            "home.show-animations",
+            "true"
+          ],
+          [
+            "dispatch",
+            "local-storage",
+            "home.show-animations"
+          ]
+        ],
+        "pointerBubbles": 0,
+        "setterChanged": false,
+        "freshRead": false
+      },
+      "overflow": 0,
+      "afterUnmount": {
+        "values": {
+          "home.show-animations": "false"
+        },
+        "calls": [
+          [
+            "dispatch",
+            "storage",
+            "home.show-animations"
+          ]
+        ],
+        "pointerBubbles": 0,
+        "setterChanged": false
+      },
+      "errors": []
+    }
+  ],
+  "limits": "No real browser storage/cookies, original control/provider styling, mounted product Settings/Home effect, native API or server persistence claim."
+}

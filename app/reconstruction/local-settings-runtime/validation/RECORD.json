@@ -1,0 +1,158 @@
+{
+  "schema": 1,
+  "testedHead": "3e6abe66aed513eac9db5d396d242e06c0348790",
+  "testedTree": "03290860559fd74caff3d7c2433acbcd461a89be",
+  "scope": "Complete original local-settings framework and safe actual switch closure, actual React with explicit synthetic storage/event/control ports",
+  "inputs": {
+    "evidence/web/manifest.json": {
+      "bytes": 3026513,
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda"
+    },
+    "evidence/web/objects/11cf0bf8a734ea43.js": {
+      "bytes": 49565,
+      "sha256": "a859077ba48e8afb625cd917a674ace225a0959ad40932f02331402dd5365f83",
+      "gitBlob": "0316016b630a67035a86489f98bf1bb1e30d4c9e"
+    },
+    "evidence/web/objects/4490d02ba2117672.js": {
+      "bytes": 52381,
+      "sha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "gitBlob": "464a645f3fc99db61ab4cdab0395471031bc1715"
+    },
+    "evidence/web/objects/8401a8e00b4638cb.js": {
+      "bytes": 39392,
+      "sha256": "b161b408239a968b9cfc15b49b9cacd535c077a2b5b555683e30b90787b0d2ca",
+      "gitBlob": "abe60077bb0d9f01f14001dd50030317a98b37f5"
+    },
+    "package.json": {
+      "bytes": 3703,
+      "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+      "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8"
+    },
+    "packages/backend/package.json": {
+      "bytes": 463,
+      "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b"
+    },
+    "packages/frontend/package.json": {
+      "bytes": 1048,
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0"
+    },
+    "pnpm-lock.yaml": {
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+    },
+    "reconstruction/local-settings-runtime/client.mjs": {
+      "bytes": 9796,
+      "sha256": "82b4a34eb65df26e3f092e1c2b284aa25420082ff3020bdea630a208d9cd5545",
+      "gitBlob": "d4d13d208a39a27ca1663c821bc1af824a106379"
+    },
+    "reconstruction/local-settings-runtime/contract.json": {
+      "bytes": 17857,
+      "sha256": "07f0c3700e1d0c664e87a1240e7d14c08c10b3aab6899d93297f1f12f086cacc",
+      "gitBlob": "5469a7574cf9c033fcab8afa26a1330e1f681360"
+    },
+    "recovered/modules.json": {
+      "bytes": 2928853,
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+      "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f"
+    },
+    "scripts/original-contracts/source.mjs": {
+      "bytes": 9493,
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+      "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df"
+    },
+    "scripts/original-local-settings-runtime.mjs": {
+      "bytes": 13012,
+      "sha256": "b011789e1c34de32fcc52fb0d24da3d119f187da7197036770a0c91dbc4e8479",
+      "gitBlob": "cfb130dfa47195456ab7b9ed02062dd8cc494d54"
+    },
+    "tests/fixtures/local-settings-browser.mjs": {
+      "bytes": 4069,
+      "sha256": "c0f85166c91a3b53c183cd9952edd711e449442fb1415be566d220c10e0477de",
+      "gitBlob": "2fb31a472ce339cb2e075bb9265bbe476cb5cafd"
+    },
+    "tests/fixtures/local-settings-ports.mjs": {
+      "bytes": 1417,
+      "sha256": "8e648cdfc0889565ab571f89ae9de6da68a14dc3338a5b25bc6df76a2ab0e4ba",
+      "gitBlob": "6696da498a61247b75b10ab507eb464b87d5e990"
+    },
+    "tests/original_local_settings_runtime.test.mjs": {
+      "bytes": 15898,
+      "sha256": "2207e8d0b8e319f05885e9bdbf0ad611f7470796c9da41fc1bccdaa55ddd7f30",
+      "gitBlob": "b0dbdc38b2f9c222e2f82748e20721cdb402fb3b"
+    },
+    "tests/original_local_settings_runtime_browser.test.mjs": {
+      "bytes": 8241,
+      "sha256": "4e25f0ac47c3001997ee358da6fc04c9d05e6d65169d80a0553a2965c8b12f5e",
+      "gitBlob": "bd38979d552b450d7b71c59a6458cdf3abd677d6"
+    },
+    "tests/original_source.test.mjs": {
+      "bytes": 7401,
+      "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3",
+      "gitBlob": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+    }
+  },
+  "results": [
+    {
+      "command": "node scripts/original-local-settings-runtime.mjs",
+      "exit": 0
+    },
+    {
+      "command": "node --test tests/original_local_settings_runtime.test.mjs tests/original_source.test.mjs",
+      "exit": 0,
+      "domain": 19,
+      "shared": 11
+    },
+    {
+      "command": "PUMP_LOCAL_SETTINGS_OUTPUT=<owned-output> node --test tests/original_local_settings_runtime_browser.test.mjs",
+      "exit": 0,
+      "workflows": 1,
+      "widths": [
+        390,
+        1280
+      ]
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "workspaces": 3
+    },
+    {
+      "command": "python3 scripts/verify-evidence.py",
+      "exit": 0,
+      "captures": 698
+    },
+    {
+      "command": "pnpm check:progress",
+      "exit": 0,
+      "tests": 9
+    }
+  ],
+  "browserBundleSha256": "0c8759f2c4ead52aecd3d73f1a5a1b7abbbf96e24c4c16902bf80c36e496e0db",
+  "versions": {
+    "node": "24.19.0",
+    "pnpm": "10.24.0",
+    "react": "19.2.3",
+    "playwright": "1.64.1",
+    "chromiumBuild": 1248,
+    "esbuild": "0.25.12"
+  },
+  "cleanup": "Node producer exit0 after finally-awaiting browser and owned loopback server close; ephemeral generated bundle directory removed; no Next process or cache.",
+  "preservation": "Final source/method input bytes match tested 3e6. Only README cwd/result clarification and additive validation outputs follow. Do not transfer these results to changed module/test/source bytes.",
+  "priorPhases": [
+    "Initial 18 domain tests passed before adding canonical-contract negative coverage. The retained precommit 19-test run records18passes/one EXDEV fixture-setup failure; it is not a final-head result.",
+    "The negative fixture used hardlink for immutable inputs across filesystems. Its explicit EXDEV-only copy fallback fixes that fixture; client implementation is unchanged. A precommit browser pass is retained separately from frozen final 1/1.",
+    "Progress first failed because three baseline ledger-reference files were omitted by sparse checkout, then a command ran from repository root without --dir app. Both logs remain. Materializing only those unchanged Git blobs and running from app passes. No ledger/scorer/source change."
+  ],
+  "limits": [
+    "Synthetic storage/event ports only; no real browser storage/cookies, account/session/credential access or network mutation.",
+    "Real React/compiler renderer lifecycle and callback behavior, not the private original Switch/confirmation/provider implementation or product Settings/Home integration.",
+    "No Next/full-app browser/production build, server persistence, auth/admin/trading, original API/pixel/feature-milestone or security assurance claim.",
+    "Existing 654506 selected-key recovery is credited; no first-helper or whole-registry recovery claim. LocalBucket/locale-cookie stay separate.",
+    "Package/lock and observed tool versions are bound; this is not an exhaustive independent installed dependency or cold-toolchain identity proof."
+  ],
+  "inputScope": "18 selected module/generator/test/source-capture/package inputs; not an exhaustive installed dependency or whole-app file inventory."
+}
