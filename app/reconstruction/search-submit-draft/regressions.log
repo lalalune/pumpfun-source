@@ -1,0 +1,10 @@
+
+Running 2 tests using 1 worker
+
+(node:415544) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] tests/shell.spec.ts:222:5 › search encodes queries, follows history and handles clearing and empties
+[2/2] tests/shell.spec.ts:383:5 › a delayed search clear preserves a newly typed draft
+  2 passed (4.2s)

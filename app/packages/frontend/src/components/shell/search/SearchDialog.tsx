@@ -22,6 +22,7 @@ export function SearchDialog() {
   const currentQuery = params.get("q") ?? "";
   const [query, setQuery] = useState(currentQuery);
   const pendingClear = useRef(false);
+  const pendingSubmit = useRef<{ target: string; draft: string } | null>(null);
   const [open, setOpen] = useState(false);
   const { closeMobile } = useSidebar();
   useEffect(() => {
@@ -35,11 +36,18 @@ export function SearchDialog() {
     return () => observer.disconnect();
   }, []);
   useEffect(() => {
-    // Clear already updated the input; its delayed URL commit must not erase
-    // text entered since that click. Other navigation still follows the URL.
+    // Delayed commits must not erase edits made after their input snapshot.
+    // Unrelated navigation still follows the URL.
     const completedClear = pendingClear.current && currentQuery === "";
     pendingClear.current = false;
-    if (!completedClear) setQuery(currentQuery);
+    const submitted = pendingSubmit.current;
+    pendingSubmit.current = null;
+    if (!completedClear)
+      setQuery((draft) =>
+        submitted?.target === currentQuery && draft !== submitted.draft
+          ? draft
+          : currentQuery,
+      );
   }, [currentQuery]);
 
   useEffect(() => {
@@ -64,6 +72,7 @@ export function SearchDialog() {
     ]);
     const onPopState = () => {
       pendingClear.current = false;
+      pendingSubmit.current = null;
     };
     window.addEventListener("popstate", onPopState);
     window.addEventListener("keydown", onKeyDown);
@@ -79,6 +88,8 @@ export function SearchDialog() {
     event.preventDefault();
     pendingClear.current = false;
     const normalized = query.trim();
+    pendingSubmit.current =
+      normalized !== currentQuery ? { target: normalized, draft: query } : null;
     dialogRef.current?.close();
     router.push(
       normalized

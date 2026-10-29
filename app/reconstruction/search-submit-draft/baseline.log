@@ -1,0 +1,56 @@
+
+Running 3 tests using 1 worker
+
+(node:412491) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/3] tests/search-submit-draft.spec.ts:43:5 › normal search submit follows its normalized committed query
+[2/3] tests/search-submit-draft.spec.ts:60:7 › pending submit retains a newer reopened draft
+  1) tests/search-submit-draft.spec.ts:60:7 › pending submit retains a newer reopened draft ────────
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator:  getByRole('dialog', { name: 'Search for coins and users', exact: true }).getByRole('searchbox', { name: 'Search for coins and users', exact: true })
+    Expected: "new draft"
+    Received: "submitted"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveValue" getByRole('dialog', { name: 'Search for coins and users', exact: true }).getByRole('searchbox', { name: 'Search for coins and users', exact: true }) with timeout 5000ms
+      - waiting for getByRole('dialog', { name: 'Search for coins and users', exact: true }).getByRole('searchbox', { name: 'Search for coins and users', exact: true })
+        14 × locator resolved to <input name="q" autofocus="" type="search" value="submitted" id="global-search" autocomplete="off" aria-label="Search for coins and users" placeholder="Search for coins and users..." class="h-12 w-full bg-transparent text-[14px] outline-none placeholder:text-text-quaternary"/>
+           - unexpected value "submitted"
+
+
+      112 |         url: page.url(),
+      113 |       });
+    > 114 |       await expect(input).toHaveValue(edit ? "new draft" : "submitted");
+          |                           ^
+      115 |       await expect(dialog).toBeVisible();
+      116 |       await page.goBack();
+      117 |       await expect(page).toHaveURL(/\/explore\?q=previous$/);
+        at /workspace/pump-app-search-planner/app/packages/frontend/tests/search-submit-draft.spec.ts:114:27
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../search-submit-draft-604917c1/baseline-browser-artifacts/search-submit-draft-pendin-91cc5-ains-a-newer-reopened-draft/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../search-submit-draft-604917c1/baseline-browser-artifacts/search-submit-draft-pendin-91cc5-ains-a-newer-reopened-draft/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../search-submit-draft-604917c1/baseline-browser-artifacts/search-submit-draft-pendin-91cc5-ains-a-newer-reopened-draft/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../search-submit-draft-604917c1/baseline-browser-artifacts/search-submit-draft-pendin-91cc5-ains-a-newer-reopened-draft/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+Testing stopped early after 1 maximum allowed failures.
+
+  1 failed
+    tests/search-submit-draft.spec.ts:60:7 › pending submit retains a newer reopened draft ─────────
+  1 did not run
+  1 passed (16.1s)
+  1 error was not a part of any test, see above for details

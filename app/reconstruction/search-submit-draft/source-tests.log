@@ -1,0 +1,37 @@
+✔ actual submit/navigator/admission/route bodies and both guard contexts reproduce from raw captures (916.499885ms)
+✔ admission and route helpers preserve original trimming, decoding, exceptions and encoding (0.639871ms)
+✔ form submit -> navigator -> real resolver HTTP -> ordered navigation callbacks (35.027663ms)
+✔ definitive user differs from external-wallet on-curve admission and never falls back (1.102805ms)
+▶ fallback HTTP status/body controls whether the ordered read-probe ports may run
+  ✔ 200{"mint":"fallback-mint"} (9.934265ms)
+  ✔ 404{} (6.465206ms)
+  ✔ 503{} (5.938921ms)
+  ✔ 200"invalid-json" (4.828589ms)
+✔ fallback HTTP status/body controls whether the ordered read-probe ports may run (28.399082ms)
+✔ known-mint success short circuits the chain probe; negative reads may select an on-curve profile (4.764603ms)
+✔ invalid input aborts an old operation before admission and sends nothing (0.236425ms)
+✔ real pending resolver abort is cancelled and cannot clear the newer operation (5.050963ms)
+✔ stale read-probe results cannot navigate; DOM AbortError classification is preserved (0.669275ms)
+✔ form orchestration stops only on exact true/cancelled and otherwise reaches encoded Explore navigation (0.601053ms)
+✔ source proof rejects fallback status, freshness, navigation order, admission and enum mutations (1033.266339ms)
+✔ shell inputs remain bound to physical captured bytes and exact UTF-16 factory ranges (28.152617ms)
+✔ active layout reaches captured shell, generated assets and interactive prerequisites (211.255501ms)
+✔ inert reference renderer recovers stylesheet-gated boundaries without executing captured code (76.549102ms)
+✔ three actual hook contexts, consumer bindings, request and complete declared schemas reproduce (2003.67456ms)
+✔ label presence and two-pass user/wallet merge preserve served order, precedence and raw references (0.903176ms)
+✔ pagination counts non-wallet raw rows rather than deduplicated display rows (0.368183ms)
+✔ query callback -> real HTTP -> raw pages -> merge and next offset are usable together (47.343437ms)
+✔ minimum/enablement and debounce flags use the supplied snapshot and original UTF-16 length (0.427862ms)
+✔ enabled is query-runtime input; manually calling a disabled callback still performs its original request (0.29331ms)
+✔ snapshot values stay captured, request containers stay fresh and client/errors/signals remain unbound (0.713351ms)
+✔ real HTTP status hook throws the original plain error and pending fetch honors abort (13.725427ms)
+✔ declared schemas are separate from wire/client guards and retain true optional/safe-integer bounds (1.05189ms)
+✔ source proof rejects page/count/dedup/request/enablement/return-wiring mutations (466.684051ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2743.890235

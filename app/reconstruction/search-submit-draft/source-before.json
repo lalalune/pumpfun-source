@@ -1,0 +1,80 @@
+{
+  "method": "Static maintained input/URL/ref dataflow; not original Pump scheduling or native parity",
+  "witnesses": [
+    {
+      "label": "actual query-commit effect",
+      "path": "packages/frontend/src/components/shell/search/SearchDialog.tsx",
+      "sourceSha256": "a47fb602cc3a1793f30715fe324bca602ed1b5aeba9768bcdeb6958868057e87",
+      "utf16": [
+        1568,
+        1917
+      ],
+      "utf8": [
+        1570,
+        1919
+      ],
+      "sha256": "663906b5383164a8c017142c64ec9deb39a4e7b722322308ef7ffe3822d506bf",
+      "text": "useEffect(() => {\n    // Clear already updated the input; its delayed URL commit must not erase\n    // text entered since that click. Other navigation still follows the URL.\n    const completedClear = pendingClear.current && currentQuery === \"\";\n    pendingClear.current = false;\n    if (!completedClear) setQuery(currentQuery);\n  }, [currentQuery])"
+    },
+    {
+      "label": "actual submit close and push",
+      "path": "packages/frontend/src/components/shell/search/SearchDialog.tsx",
+      "sourceSha256": "a47fb602cc3a1793f30715fe324bca602ed1b5aeba9768bcdeb6958868057e87",
+      "utf16": [
+        2885,
+        3200
+      ],
+      "utf8": [
+        2887,
+        3202
+      ],
+      "sha256": "0b0672a8fc26d1cb605c5d840237b2f2f98c42b538865aeb9eb5523699c59d84",
+      "text": "function onSubmit(event: FormEvent<HTMLFormElement>) {\n    event.preventDefault();\n    pendingClear.current = false;\n    const normalized = query.trim();\n    dialogRef.current?.close();\n    router.push(\n      normalized\n        ? `/explore?${new URLSearchParams({ q: normalized })}`\n        : \"/explore\",\n    );\n  }"
+    },
+    {
+      "label": "actual input edit setter",
+      "path": "packages/frontend/src/components/shell/search/SearchDialog.tsx",
+      "sourceSha256": "a47fb602cc3a1793f30715fe324bca602ed1b5aeba9768bcdeb6958868057e87",
+      "utf16": [
+        4151,
+        4201
+      ],
+      "utf8": [
+        4153,
+        4203
+      ],
+      "sha256": "5b1e83ada53b67aef8b881c0d3c2f4f7c45d814718cc5b80905b4cb500e57452",
+      "text": "onChange={(event) => setQuery(event.target.value)}"
+    },
+    {
+      "label": "actual URL query snapshot",
+      "path": "packages/frontend/src/components/shell/search/SearchDialog.tsx",
+      "sourceSha256": "a47fb602cc3a1793f30715fe324bca602ed1b5aeba9768bcdeb6958868057e87",
+      "utf16": [
+        942,
+        978
+      ],
+      "utf8": [
+        944,
+        980
+      ],
+      "sha256": "8d4a43c7e9388be77972613ade33fa348b55c2de3b1900c1666f810b643d0930",
+      "text": "currentQuery = params.get(\"q\") ?? \"\""
+    },
+    {
+      "label": "actual native history cleanup",
+      "path": "packages/frontend/src/components/shell/search/SearchDialog.tsx",
+      "sourceSha256": "a47fb602cc3a1793f30715fe324bca602ed1b5aeba9768bcdeb6958868057e87",
+      "utf16": [
+        2484,
+        2546
+      ],
+      "utf8": [
+        2486,
+        2548
+      ],
+      "sha256": "9525a9e7ec90ffc87899c6b068014dd8ceb987905bccf62deb66c8da2ab6039e",
+      "text": "onPopState = () => {\n      pendingClear.current = false;\n    }"
+    }
+  ]
+}

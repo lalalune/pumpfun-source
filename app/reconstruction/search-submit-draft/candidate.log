@@ -1,0 +1,11 @@
+
+Running 3 tests using 1 worker
+
+(node:413487) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/3] tests/search-submit-draft.spec.ts:43:5 › normal search submit follows its normalized committed query
+[2/3] tests/search-submit-draft.spec.ts:60:7 › pending submit retains a newer reopened draft
+[3/3] tests/search-submit-draft.spec.ts:60:7 › pending submit still follows its URL without a new edit
+  3 passed (8.3s)

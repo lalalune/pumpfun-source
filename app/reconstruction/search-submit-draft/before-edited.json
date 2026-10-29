@@ -1,0 +1,37 @@
+{
+  "state": {
+    "url": "http://127.0.0.1:3010/explore?q=submitted",
+    "query": "submitted",
+    "open": true
+  },
+  "observations": {
+    "errors": [],
+    "navigations": [
+      "http://127.0.0.1:3010/explore?q=previous",
+      "http://127.0.0.1:3010/explore?q=previous",
+      "http://127.0.0.1:3010/explore?q=submitted"
+    ],
+    "observations": [
+      {
+        "stage": "held-actual-rsc",
+        "url": "http://127.0.0.1:3010/explore?q=submitted&_rsc=FsWI6MIpd5QGC2sv"
+      },
+      {
+        "stage": "before-release",
+        "query": "new draft",
+        "url": "http://127.0.0.1:3010/explore?q=previous"
+      },
+      {
+        "stage": "actual-rsc-response",
+        "url": "http://127.0.0.1:3010/explore?q=submitted&_rsc=FsWI6MIpd5QGC2sv",
+        "status": 200,
+        "contentType": "text/x-component"
+      },
+      {
+        "stage": "after-commit",
+        "query": "submitted",
+        "url": "http://127.0.0.1:3010/explore?q=submitted"
+      }
+    ]
+  }
+}

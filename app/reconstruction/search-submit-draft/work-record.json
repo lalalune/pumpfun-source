@@ -1,0 +1,67 @@
+{
+  "base": "604917c16410d67d9b981305e28e160a93728f50",
+  "sourceBeforeSha256": "a47fb602cc3a1793f30715fe324bca602ed1b5aeba9768bcdeb6958868057e87",
+  "sourceAfterSha256": "708eb42ae65dd3a7448a04a9013d047991f1170cc786b72b036b017f91cdec77",
+  "patchSha256": "62ac8cf67aadd3e2119f58e5ef071555f5b58626f4eef9ed84d0cf7e2862f5bc",
+  "testSha256": "91b27c6efed07426b2653046abb43c98c72997a28e842e4160a07a028aac6510",
+  "candidate": "One ref binds actual submitted normalized target and raw draft. A matching commit preserves a changed latest draft; unchanged drafts/other navigation follow URL. Native popstate clears intent. Existing Clear guard and raw onChange handler unchanged.",
+  "beforeFirstCandidateExecution": "Existing URL-effect comment updated to describe both guards; no candidate has run yet",
+  "priorTestOnlyBase": "ccd3330bfd12ed04c3a598af9a2ab95ed5de77ac",
+  "rebindBeforeAnyRuntime": "App tree identical ccd3330\u2192604917c1; previous test-only branch preserved. All recorded browser phases here use604917c1.",
+  "runtime": {
+    "frontend": "http://127.0.0.1:3010",
+    "unusedBackend": "http://127.0.0.1:3011",
+    "backendServiceStarted": false,
+    "developerReadKey": "empty",
+    "workers": 1,
+    "retries": 0,
+    "maxFailures": 1,
+    "baseline": {
+      "passed": 1,
+      "failed": 1,
+      "notRun": 1,
+      "rawSha256": "1c634248e9b9c6f053f9fca57365a6f779569826f168fbc74d082cf3ba7de40a",
+      "actualFailure": "before release field=new draft / URLqprevious; actual unchangedRSC200text/x-component; after commit field=submitted / URLqsubmitted"
+    },
+    "candidate": {
+      "passed": 3,
+      "rawSha256": "26d2a673a68410a0f7c20551b552be890693753dcf2ca5683c13bb26875d1a66",
+      "actualUsedValue": "after real commit field=new draft; unchanged raw draft normalizes; native Back/Forward follow URLs"
+    },
+    "existingRegressions": {
+      "passed": 2,
+      "scope": "Encoded query/empty/history behavior and delayed Clear preserves newer draft"
+    },
+    "transport": "Pause genuine target RSC route then route.continue(); no supplied JSON/body/router/hook/history replacement",
+    "server": "stopped; ss3010empty; owned inactive cache removed"
+  },
+  "checks": {
+    "rootCaptures": 9,
+    "rootToolingTests": 10,
+    "shellAndSearchSourceTests": 28,
+    "frontendTypegen": "PASS",
+    "frontendTypecheck": "PASS",
+    "appEvidence": "698 objects/npm/unchanged SDK integrity PASS",
+    "progress": "PASS",
+    "sourceLedger": "PASS: actual extractor output equals source-after.json"
+  },
+  "actualInputs": {
+    "app/packages/frontend/src/components/shell/search/SearchDialog.tsx": "708eb42ae65dd3a7448a04a9013d047991f1170cc786b72b036b017f91cdec77",
+    "app/packages/frontend/tests/search-submit-draft.spec.ts": "91b27c6efed07426b2653046abb43c98c72997a28e842e4160a07a028aac6510",
+    "app/packages/frontend/tests/shell.spec.ts": "f097d771a9211d4c124ec986b80068449ae316bee102a1b1b35444ddc4d86388",
+    "app/packages/frontend/tests/shell-controls.ts": "87ab91a5ade6b4a0826cb2eb55135aeb75e897b6c5aa81421ef58221bee682e8",
+    "app/packages/frontend/tests/browser-state.ts": "6ca60ac77b50bcc845c8073973265a980ece5aede9782cb955836b422128123a",
+    "app/packages/frontend/playwright.config.ts": "6b0b07bb37748d67ea396d3de6e331a15978b8b2e17815dbcb843f3299ad61b0",
+    "app/packages/frontend/src/app/explore/page.tsx": "cf9c0c7802edb57295e566fbd7a7e3b88e23e313276f816c27ae158a4d5f7dd8",
+    "app/pnpm-lock.yaml": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+  },
+  "limits": [
+    "Local maintained URL/draft synchronization correction, not original Pump async scheduling equivalence.",
+    "Finite3new+2existing Chromium cases, not whole browser suite or full production build.",
+    "After PNG is the completed Back/Forward control with canonical submitted field, not the earlier retained-newdraft step. Ordered JSON/executable assertions prove that intermediate step; no separate matching after-step PNG was recorded.",
+    "The unedited pending control stopped at maxfail1 on baseline; candidate proves its normalization/history.",
+    "No different-target non-history interleaving, cancelled navigation, same-query whitespace normalization or other browser-family claim.",
+    "No response body mocking, backend/API handler, SDK, wallet, capture, binary or feature-credit change.",
+    "No video or private conversations/usage/run-evidence upload."
+  ]
+}
