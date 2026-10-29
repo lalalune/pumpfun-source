@@ -77,8 +77,8 @@ ACTIVE_ICONS = [
     ('https://pump.fun/holder-rewards', '/holder-rewards', 'NavHolderRewardsActiveIcon'),
 ]
 SVG = re.compile(r'<svg\b.*?</svg>', re.S)
-TAG = re.compile(r'<(/?)([a-zA-Z]+)((?:\s+[a-zA-Z:-]+(?:="[^"]*")?)*)\s*(/?)>')
-ATTR = re.compile(r'([a-zA-Z:-]+)(?:="([^"]*)")?')
+TAG = re.compile(r'<(/?)([a-zA-Z]+)((?:\s+[a-zA-Z_:][a-zA-Z0-9_.:-]*(?:="[^"]*")?)*)\s*(/?)>')
+ATTR = re.compile(r'([a-zA-Z_:][a-zA-Z0-9_.:-]*)(?:="([^"]*)")?')
 JSX_ATTR = {'class': 'className', 'stroke-width': 'strokeWidth', 'stroke-linecap': 'strokeLinecap',
             'stroke-linejoin': 'strokeLinejoin', 'fill-rule': 'fillRule', 'clip-rule': 'clipRule',
             'fill-opacity': 'fillOpacity', 'stroke-dasharray': 'strokeDasharray',
