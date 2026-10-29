@@ -91,10 +91,14 @@ async function safeFile(root, relative) {
 }
 
 function isFactoryRegistration(node) {
-  if (node.type !== 'CallExpression' || node.callee?.type !== 'MemberExpression' ||
-      propertyName(node.callee.property) !== 'push' || node.arguments[0]?.type !== 'ArrayExpression') return false;
-  return findNodes(node.callee.object, (child) => child.type === 'MemberExpression' &&
-    member(child, 'globalThis', 'TURBOPACK')).length > 0;
+  if (node.type !== 'CallExpression' || node.callee?.type !== 'MemberExpression' || node.callee.computed ||
+      propertyName(node.callee.property) !== 'push' || node.arguments.length !== 1 || node.arguments[0]?.type !== 'ArrayExpression') return false;
+  const receiver = node.callee.object;
+  const queue = (value) => member(value, 'globalThis', 'TURBOPACK');
+  const initialized = (value) => value?.type === 'AssignmentExpression' && value.operator === '=' && queue(value.left) &&
+    value.right.type === 'ArrayExpression' && value.right.elements.length === 0;
+  return queue(receiver) || initialized(receiver) || (receiver?.type === 'LogicalExpression' && receiver.operator === '||' &&
+    queue(receiver.left) && initialized(receiver.right));
 }
 
 export async function openCorpus(appRoot) {
