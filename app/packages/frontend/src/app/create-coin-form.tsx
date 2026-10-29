@@ -363,7 +363,7 @@ export default function CreateCoinForm() {
         </div>
 
         <CreateBannerInput
-          key={bannerReset}
+          key={`banner:${bannerReset}`}
           state={banner}
           onChange={(next) => {
             setBanner(next);

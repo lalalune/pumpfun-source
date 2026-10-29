@@ -38,6 +38,11 @@ const EXPECTED = [
     "762f0784b7be61c0",
     "691ff5f669927ccece0478631066f80ac94a832dd5fadae2a3a175f09372e6fa",
   ],
+  [
+    320853,
+    "01f240a1f9100e9d",
+    "f11b9e82b5951d62d9717dad92358a120241bab0e6453ad8550cd8f2775975d9",
+  ],
 ];
 export async function recover(root = ROOT) {
   const corpus = await openCorpus(root),
@@ -49,12 +54,37 @@ export async function recover(root = ROOT) {
     assert.equal(f.provenance.sha256, hash, `changed selected factory ${id}`);
     factories.push(f);
   }
-  const [page, constants, resize, labels, selector] = factories;
+  const [page, constants, resize, labels, selector, loader] = factories;
   const html = await corpus.capture("evidence/web/objects/5e15667ed36cac85");
   assert.equal(html.record.url, "https://pump.fun/create");
   assert.ok(html.text.includes(new URL(page.provenance.url).pathname));
   assert.ok(html.text.includes(new URL(constants.provenance.url).pathname));
   // These are the exact selected siblings in retained Create HTML, not global-ID guesses.
+  const top = (name) =>
+    exactlyOne(
+      page.node.body.body
+        .flatMap((n) => n.declarations ?? [])
+        .filter((n) => n.id?.name === name),
+      `top ${name}`,
+    );
+  const lazy = top("$"),
+    wrapper = top("K");
+  assert.ok(page.text(lazy).includes("e.A(320853)"));
+  assert.ok(page.text(wrapper).includes("{...e}"));
+  assert.ok(loader.text().includes("m(658259)"));
+  assert.equal(
+    new URL(selector.provenance.url).pathname.split("/").at(-1),
+    "3r6p9e97ury3w.js",
+  );
+  assert.ok(loader.text().includes("static/immutable/chunks/3r6p9e97ury3w.js"));
+  const nativeInput = exactlyOne(
+    findNodes(
+      selector.node,
+      (n) => n.type === "CallExpression" && n.arguments[0]?.value === "input",
+    ),
+    "native selector input",
+  );
+  assert.equal(selector.text(nativeInput), '(0,t.jsx)("input",{...a()})');
   const banner = exactlyOne(
     findNodes(
       page.node,
@@ -189,6 +219,10 @@ export async function recover(root = ROOT) {
         "Separate pin/upload then POST /coins/add-banner after creation; not token metadata.",
     },
     witnesses: [
+      witness(page, lazy, "lazy selector loader edge"),
+      witness(page, wrapper, "K forwards selector props"),
+      witness(loader, loader.node, "actual lazy selector chunk/factory"),
+      witness(selector, nativeInput, "native selector input"),
       witness(page, banner, "actual optional banner consumer"),
       witness(page, choose, "used selection/normalization result"),
       witness(page, bound, "banner limit source"),

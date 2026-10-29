@@ -78,8 +78,8 @@ test("keyboard picker accepts a real decoded banner separately from the coin ima
   await expect(page.getByTestId("selected-image")).toHaveCount(0);
   // The draft JSON is deliberately unchanged: banner is a separate offline preview.
   await page.getByLabel(/^Coin image/).setInputFiles(image("coin.png"));
-  await page.getByLabel("Coin name", { exact: false }).fill("Draft");
-  await page.getByLabel("Ticker", { exact: false }).fill("LOCAL");
+  await page.getByRole("textbox", { name: /^Coin name/ }).fill("Draft");
+  await page.getByRole("textbox", { name: /^Ticker/ }).fill("LOCAL");
   await page.getByText("Inspect draft JSON", { exact: true }).click();
   const json = JSON.parse(await page.locator(".metadata-json pre").innerText());
   expect(json.image.localFileName).toBe("coin.png");
@@ -234,9 +234,16 @@ test("local banner preview fits desktop and mobile widths", async ({
   await open(page);
   await bannerInput(page).setInputFiles(image());
   await expect(page.getByTestId("selected-banner")).toBeVisible();
-  for (const width of [1440, 375]) {
+  for (const width of [320, 375, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 950 });
     await page.getByTestId("selected-banner").scrollIntoViewIfNeeded();
+    const dimensions = await page.evaluate(() => ({
+      client: document.documentElement.clientWidth,
+      scroll: document.documentElement.scrollWidth,
+    }));
+    expect(dimensions.scroll, `${width}px open banner`).toBeLessThanOrEqual(
+      dimensions.client,
+    );
     const box = await page
       .getByRole("img", { name: "Local draft banner preview" })
       .boundingBox();
@@ -244,9 +251,10 @@ test("local banner preview fits desktop and mobile widths", async ({
     expect(box!.x).toBeGreaterThanOrEqual(0);
     expect(box!.x + box!.width).toBeLessThanOrEqual(width);
     expect(Math.abs(box!.width / box!.height - 3)).toBeLessThan(0.05);
-    await page.screenshot({
-      path: testInfo.outputPath(`local-banner-${width}.png`),
-      fullPage: true,
-    });
+    if (width === 1440 || width === 375)
+      await page.screenshot({
+        path: testInfo.outputPath(`local-banner-${width}.png`),
+        fullPage: true,
+      });
   }
 });

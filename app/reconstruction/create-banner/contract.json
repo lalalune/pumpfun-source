@@ -110,6 +110,26 @@
         5776
       ],
       "sha256": "691ff5f669927ccece0478631066f80ac94a832dd5fadae2a3a175f09372e6fa"
+    },
+    {
+      "id": 320853,
+      "ids": [
+        320853
+      ],
+      "label": "factory 320853",
+      "source": "evidence/web/objects/01f240a1f9100e9d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/13--g72v0ugku.js",
+      "sourceSha256": "d342ebc4046f8be0723f9513e24649b615415b2923a09ea74a702145fda51bec",
+      "sourceBytes": 694,
+      "utf16": [
+        119,
+        224
+      ],
+      "utf8": [
+        119,
+        224
+      ],
+      "sha256": "f11b9e82b5951d62d9717dad92358a120241bab0e6453ad8550cd8f2775975d9"
     }
   ],
   "observed": {
@@ -126,6 +146,74 @@
     "productionAttach": "Separate pin/upload then POST /coins/add-banner after creation; not token metadata."
   },
   "witnesses": [
+    {
+      "label": "lazy selector loader edge",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        11133,
+        11203
+      ],
+      "utf8": [
+        11133,
+        11203
+      ],
+      "sha256": "01d5f5f0046fce523771b5003118f85e58f41eaab5731d99a0cde5fef4120e27",
+      "code": "$=(0,m.lazy)(()=>e.A(320853).then(e=>({default:e.FileDropzoneInner})))"
+    },
+    {
+      "label": "K forwards selector props",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        11204,
+        11591
+      ],
+      "utf8": [
+        11204,
+        11591
+      ],
+      "sha256": "9cff8e34aad3fc5cce1d9efe9a5d4ed9615157b0aa31eccb6d7c7de09430933c",
+      "code": "K=e=>{let r,a,i,s=(0,_.c)(7),n=e.isBanner?\"min-h-32\":\"h-80 min-h-44\",o=`w-full ${n} animate-pulse rounded-lg border border-dashed border-white/30 bg-transparent`;return s[0]!==o?(r=(0,t.jsx)(\"div\",{className:o}),s[0]=o,s[1]=r):r=s[1],s[2]!==e?(a=(0,t.jsx)($,{...e}),s[2]=e,s[3]=a):a=s[3],s[4]!==r||s[5]!==a?(i=(0,t.jsx)(m.Suspense,{fallback:r,children:a}),s[4]=r,s[5]=a,s[6]=i):i=s[6],i}"
+    },
+    {
+      "label": "actual lazy selector chunk/factory",
+      "source": "evidence/web/objects/01f240a1f9100e9d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/13--g72v0ugku.js",
+      "sourceSha256": "d342ebc4046f8be0723f9513e24649b615415b2923a09ea74a702145fda51bec",
+      "sourceBytes": 694,
+      "utf16": [
+        119,
+        224
+      ],
+      "utf8": [
+        119,
+        224
+      ],
+      "sha256": "f11b9e82b5951d62d9717dad92358a120241bab0e6453ad8550cd8f2775975d9",
+      "code": "t=>{t.v(m=>Promise.all([\"static/immutable/chunks/3r6p9e97ury3w.js\"].map(m=>t.l(m))).then(()=>m(658259)))}"
+    },
+    {
+      "label": "native selector input",
+      "source": "evidence/web/objects/762f0784b7be61c0.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3r6p9e97ury3w.js",
+      "sourceSha256": "bcf44369e779ce7350d3208f3b954d45fb60de35e553f9e07fa3f058ddc4ee03",
+      "sourceBytes": 26214,
+      "utf16": [
+        3079,
+        3106
+      ],
+      "utf8": [
+        3079,
+        3106
+      ],
+      "sha256": "c9175f70e9901bc30bec59184e4ef07f219a5328f391cd17dd115ba7962bafd0",
+      "code": "(0,t.jsx)(\"input\",{...a()})"
+    },
     {
       "label": "actual optional banner consumer",
       "source": "evidence/web/objects/89ce7de3b9bad421.js",
