@@ -38,8 +38,13 @@ node --test tests/amm_wallet_record_head.test.mjs tests/amm_wallet_record.test.m
 
 ### Public replay and retained checker layout
 
-Public fork commit `c1e4680b4bcc4f0b196690e9657ba1223280322f` contains the
-historically measured product inputs. A clean Git-blob export of its 8,117 app
+Use public fork commit `2ac58057e6993a6f5f03f09c829f917ed5e28d7e` for the
+maintained replay checker and its tests below. Its complete tree
+`4496c648e9a6c23f61cf9264fc3677980d84462b` equals local receipt commit
+`3be5616e3305403bd3a75f696dd0ba0ea86679ea`; commit metadata differs. Its product
+sources are identical to historical public
+`c1e4680b4bcc4f0b196690e9657ba1223280322f`. That older commit does not contain
+the new portable checker. A clean Git-blob export of its 8,117 app
 files reproduced the seven-source contract check and all 22 Node checks after
 building the SDK from that public source, using the existing pinned dependencies.
 No private fixture or prebuilt private SDK output was copied. From `app/`, after
