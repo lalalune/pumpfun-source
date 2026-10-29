@@ -63,6 +63,8 @@ def stage(src: Path, ws: Path):
 
 
 def acquire_slot():
+    if SLOTS <= 0:
+        raise ValueError('PUMP_BUILD_SLOTS must be a positive integer')
     LOCKDIR.mkdir(parents=True, exist_ok=True)
     while True:
         for i in range(SLOTS):
