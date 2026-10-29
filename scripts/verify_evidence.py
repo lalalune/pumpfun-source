@@ -35,7 +35,7 @@ def main():
         assert (b58(d[13:45]) if d[12] else None)==m['upgrade_authority']
         assert d[45:]==b and len(b)==m['payload_bytes'] and len(d)==m['programdata_bytes']
         assert m['genesis_hash']=='5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d'
-        assert m['context_slots']==sorted(m['context_slots']) and m['last_deploy_slot']<=min(m['context_slots'])
+        slots=m['context_slots']; assert slots and slots==sorted(slots) and m['last_deploy_slot']<=slots[0]
         layout=elf_layout(b); assert layout['trailing_all_zero']
         print(folder.relative_to(ROOT),'OK'); count+=1
     seen=frozenset(f.parent.relative_to(ROOT).as_posix() for f in (ROOT/'evidence').glob('**/capture.json'))
