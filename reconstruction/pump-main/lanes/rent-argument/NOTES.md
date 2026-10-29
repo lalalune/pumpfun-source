@@ -1,3 +1,8 @@
+> **Current status (2026-10-29): blocked on current main.** Fresh validation against
+> `665499915f9caedcd38921d415a90f0606686398` preserves all 1,022 normalized matches
+> but loses 88 raw matches (276 → 188). Historical no-loss claims below apply only
+> to the old base. This draft must not be treated as regression-free.
+
 # Preserve the V2 rent helper's zero argument across the crate boundary
 
 Base: `ef400863f4e476b2eaaab0866c0b1187d8060abc`.
@@ -83,3 +88,35 @@ There is no new complete original-window match, whole-ELF equality, runtime/VM
 execution, or security acceptance. Static call signatures do not establish runtime
 equivalence. Full legacy CI was not run because it references removed packages.
 Further source recovery remains necessary for all three handlers.
+
+## Current-main regression and refreshed verification
+
+The complete current-main control and merged candidate were freshly compiled using
+verified macOS v1.44 identity tooling (2,785 SDK inventory entries and hybrid checks
+pass). Both builds have no backend stack warnings. Dependencies were reused.
+`current-main-comparison.json` retains full memberships and callee diagnostics;
+`current-main-builds.json` binds source and build hashes. The verifier now follows
+Sell V2's upstream outlined symbol, `pump_recovered::pump_recovered::sell_v2`.
+It exits **1**, correctly rejecting the 88 raw losses; no scoring rules were changed.
+
+The 416-byte rent helper still matches. All four targets preserve ordered callee
+signatures versus control. Buy V2 retains its pre-existing original-callee mismatch.
+Diagnostic ratios improve (Buy V2 .953335 → .973656; Exact Quote .978292 → .993512;
+Sell V2 .951519 → .962941), but these improvements do not justify losing raw matches.
+
+The new 1,616-byte native-payments object is linked between pump-token-ext and later
+dependencies. This changes relative calls across that boundary. For example original
+window 0x17c3d8 (Fee::calculate_fee) is raw-equal in control and normalized-only in
+candidate, with changed call immediates at offsets 0x80 and 0x140. The loss set is
+exactly the 88 raw gains delivered by upstream's layout change.
+
+Rejected bounded alternative: start from current main without the new crate and add
+`#[no_mangle]` to the existing `ensure_rent_exempt` definition, preserving source line
+numbers. It retains 1,022/276 and an exported 416-byte helper, but callers' callee
+signatures change and their diagnostic ratios worsen. It is not included in source.
+`rejected-local-export-comparison.json` retains the failed check. No no-loss solution
+is established; keep this PR draft pending a source-level layout-compatible approach.
+
+Reproduce the current check using the prior build commands with base `6654999`, then
+run the updated `verify.py` with fresh control/candidate outputs. Expect failure until
+the raw membership regression is resolved. No VM qualification is claimed for this PR.
