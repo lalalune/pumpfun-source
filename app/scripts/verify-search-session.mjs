@@ -37,7 +37,7 @@ export function normalizeSession(node, roles, imports = {}) {
     if (value.type === 'UnaryExpression' && value.operator === '!' && value.argument.type === 'NumericLiteral' && [0, 1].includes(value.argument.value)) {
       return { type: 'BooleanLiteral', value: !value.argument.value };
     }
-    if (value.type === 'MemberExpression' && !value.computed && value.object.type === 'Identifier') {
+    if (value.type === 'MemberExpression' && !value.computed && value.object.type === 'Identifier' && !scopes.some(scope => scope.has(value.object.name))) {
       const target = imports[`${value.object.name}.${propertyName(value.property)}`];
       if (target) return { type: 'Identifier', name: target };
     }
