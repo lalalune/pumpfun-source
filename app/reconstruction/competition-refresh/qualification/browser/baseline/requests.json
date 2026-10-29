@@ -1,0 +1,28 @@
+{
+  "id": 4,
+  "version": 2,
+  "ledger": [
+    {
+      "generation": 2,
+      "version": 1,
+      "requestId": "req-1",
+      "method": "GET",
+      "path": "/v1/competitions",
+      "startedAtMs": 1793299591343,
+      "keyMatched": true,
+      "status": 200,
+      "completedAtMs": 1793299591347
+    },
+    {
+      "generation": 3,
+      "version": 2,
+      "requestId": "req-1",
+      "method": "GET",
+      "path": "/v1/competitions",
+      "startedAtMs": 1793299591703,
+      "keyMatched": true,
+      "status": 200,
+      "completedAtMs": 1793299591703
+    }
+  ]
+}

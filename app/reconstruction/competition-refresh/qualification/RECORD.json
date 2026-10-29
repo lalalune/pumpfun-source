@@ -1,0 +1,620 @@
+{
+  "schema": 1,
+  "scope": "Finite actual native web competition-read integration; no original query-cache/API/auth parity or milestone claim",
+  "baseline": {
+    "commit": "604917c16410d67d9b981305e28e160a93728f50",
+    "path": "app/packages/frontend/src/app/leaderboard/leaderboard-client.tsx",
+    "gitBlob": "e7dd4d0f92421d6869ad83d8322ba32328d9bd34",
+    "sha256": "02310d1e8050387ca314da56dc6d560a31c847d99ada6ac62d2def335f542c48",
+    "onlyProductSourceSwap": true
+  },
+  "cadenceTestedSource": {
+    "commit": "fdaabda4cde7823dc32706a709b9edcfd6fa67dc",
+    "tree": "00ee93c9819833eb147deec485ec4058474b3d87",
+    "baselineExpectedFailures": 2,
+    "initialFixedPasses": 2,
+    "initialFixedFocusFixtureFailures": 1
+  },
+  "lifecycleTestedSource": {
+    "commit": "4c88eae86131f6056d79359e79e24160c039c97e",
+    "tree": "cc12a7e726902597971966b700fde59f0540ec4c",
+    "focusedFinalPasses": 1,
+    "intermediateFixtureFailuresRetained": true
+  },
+  "harnessMapping": {
+    "changedPathsCadenceToFinal": [
+      "app/tests/browser/competition-refresh.spec.mts"
+    ],
+    "sharedSetupAndCadencePrefixBytes": 6305,
+    "sharedSetupAndCadencePrefixSha256": "7c2a4b105dfc4087552b3169606398fa5d7140646f1a260633e46b35aa362ef8",
+    "cadenceHarnessGitBlob": "2e1b767201607c3bfa210b13595c2ee06fc170b3",
+    "finalHarnessGitBlob": "f08830b451a61763ffbf50b1ab3d2b7c8cff6253",
+    "productGitBlobsUnchanged": {
+      "app/packages/frontend/src/app/leaderboard/leaderboard-client.tsx": "c3ab91e37aaaab3f2a0d3f46ed88e2a1349842f3",
+      "app/packages/frontend/src/app/leaderboard/competition-refresh.ts": "f82b1549502d86e6de83887663f87c73abadd763"
+    },
+    "method": "Only third-case driver focus capability/frame ordering and real unmountURL changed; no other callbacks, shared setup, transports, native source/admission or runtime inputs changed. No all3-clean-run claim."
+  },
+  "realClockObservations": {
+    "baseline": {
+      "detail": {
+        "elapsedMs": 25516,
+        "actualNextReplies": 1,
+        "actualNextResponseGapMs": null
+      },
+      "list": {
+        "elapsedMs": 71882,
+        "actualNextReplies": 1,
+        "actualNextResponseGapMs": null
+      }
+    },
+    "fixed": {
+      "detail": {
+        "elapsedMs": 17644,
+        "actualNextReplies": 2,
+        "actualNextResponseGapMs": 15035
+      },
+      "list": {
+        "elapsedMs": 61469,
+        "actualNextReplies": 2,
+        "actualNextResponseGapMs": 60019
+      }
+    }
+  },
+  "commands": [
+    {
+      "cwd": "app",
+      "command": "node scripts/verify-competition-refresh.mjs --check",
+      "exit": 0
+    },
+    {
+      "cwd": "app",
+      "command": "node --test tests/competition-refresh.test.mjs tests/original_source.test.mjs",
+      "exit": 0,
+      "tests": 20,
+      "new": 9,
+      "reused": 11,
+      "source": "fdaabda4cde7823dc32706a709b9edcfd6fa67dc"
+    },
+    {
+      "cwd": "app",
+      "command": "pnpm -r typecheck",
+      "exit": 0,
+      "packages": 3,
+      "pnpm": "10.24.0",
+      "source": "fdaabda4cde7823dc32706a709b9edcfd6fa67dc"
+    },
+    {
+      "cwd": "app",
+      "command": "python3 scripts/verify-evidence.py",
+      "exit": 0,
+      "objects": 698
+    },
+    {
+      "cwd": "app",
+      "command": "PUMP_REFRESH_PORT=3027 PUMP_REFRESH_PHASE=baseline PUMP_REFRESH_OUTPUT_DIR=<owned-baseline> node packages/frontend/node_modules/@playwright/test/cli.js test --config tests/browser/competition-refresh.playwright.config.mts --grep real-clock",
+      "exit": 1,
+      "expectedCausalFailures": 2,
+      "source": "fdaabda4cde7823dc32706a709b9edcfd6fa67dc"
+    },
+    {
+      "cwd": "app",
+      "command": "PUMP_REFRESH_PORT=3027 PUMP_REFRESH_PHASE=fixed PUMP_REFRESH_OUTPUT_DIR=<owned-fixed> node packages/frontend/node_modules/@playwright/test/cli.js test --config tests/browser/competition-refresh.playwright.config.mts",
+      "exit": 1,
+      "passed": 2,
+      "focusFixtureFailure": 1,
+      "source": "fdaabda4cde7823dc32706a709b9edcfd6fa67dc"
+    },
+    {
+      "cwd": "app",
+      "command": "PUMP_REFRESH_PORT=3027 PUMP_REFRESH_PHASE=fixed-lifecycle-final PUMP_REFRESH_OUTPUT_DIR=<owned-final-lifecycle> node packages/frontend/node_modules/@playwright/test/cli.js test --config tests/browser/competition-refresh.playwright.config.mts --grep \"actual foreground\"",
+      "exit": 0,
+      "passed": 1,
+      "source": "4c88eae86131f6056d79359e79e24160c039c97e"
+    }
+  ],
+  "versions": {
+    "node": "24.19.0",
+    "pnpm": "10.24.0",
+    "next": "16.4.1",
+    "react": "19.2.3",
+    "playwright": "1.64.1",
+    "chromiumBuild": 1248
+  },
+  "applicationInputs": {
+    "evidence/web/manifest.json": {
+      "bytes": 3026513,
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda"
+    },
+    "evidence/web/objects/2fe17dced92b840b.js": {
+      "bytes": 117439,
+      "sha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "gitBlob": "4b9bd9abacbbb669f9eb1a4502fd2f719f3fab1b"
+    },
+    "evidence/web/objects/7128bd47b219d222.js": {
+      "bytes": 43236,
+      "sha256": "a4a6c094610539a77840a391b47afe94764bf8c45c78b29024dcc8ec43569c4e",
+      "gitBlob": "4830ac980c0111d091734e768eac86c2b2508cfa"
+    },
+    "evidence/web/objects/b7df9c4704b957ab.js": {
+      "bytes": 29116,
+      "sha256": "8d9baa2dba38677ae4ee04e3683755713351572fa98f9dab72ee021f8a02d174",
+      "gitBlob": "5ad56b9d761ca83a42477a7dc52a052e5a4214a6"
+    },
+    "evidence/web/objects/c3601a995a6b7f37.js": {
+      "bytes": 45232,
+      "sha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "gitBlob": "886ffe8948aa4582f4bdc747f10cb2c076f07464"
+    },
+    "package.json": {
+      "bytes": 3703,
+      "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+      "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8"
+    },
+    "packages/backend/package.json": {
+      "bytes": 463,
+      "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b"
+    },
+    "packages/backend/src/.gitattributes": {
+      "bytes": 144,
+      "sha256": "ee1de29b9f7e3ad90bfa29c59f2c7b8566e186c35e4583357b9bd9ba529d8d14",
+      "gitBlob": "6be7d1ab7db6dd9b5884d31eac65bbc74a2e6b7f"
+    },
+    "packages/backend/src/api-key-gate.ts": {
+      "bytes": 3436,
+      "sha256": "96f83cd8d51f76e7aabbb6bc84e3ca8d9fc813beca069d86683d40a0e016583c",
+      "gitBlob": "7ae70e5c4528a8e2a8484384a38cd3e5ee4e15f9"
+    },
+    "packages/backend/src/app.ts": {
+      "bytes": 20139,
+      "sha256": "ec514eae9721cd9bafdc46f32008d7bec45c769b4a4eca5623f66a55dffe7d77",
+      "gitBlob": "86056478b4e3c7737c706e2e656b26884c5b9e0b"
+    },
+    "packages/backend/src/callout-discussions-routes.ts": {
+      "bytes": 1902,
+      "sha256": "86d7c4b6bf40b80525ab3fefd00286f492f9bafae4751ed4f1dc118887c19430",
+      "gitBlob": "fd6b8d0c70d3c787f6f85ac693a19a82dff48ac0"
+    },
+    "packages/backend/src/callout-discussions-store.ts": {
+      "bytes": 17473,
+      "sha256": "d676837afd591d805be1d6607affc9219f3800bed7bc91e2f94488f052a09f42",
+      "gitBlob": "4b5c27127dd7faa32786f04fd7729647ee43fdf1"
+    },
+    "packages/backend/src/callout-list-query.ts": {
+      "bytes": 3354,
+      "sha256": "f68b916fb62fbdc0b0d1b13d4fcb1db4bb968471a228b6e7c725d30673f874d5",
+      "gitBlob": "5d30be5ce6316c2cc52b430a1553275713c35ff1"
+    },
+    "packages/backend/src/callouts-routes.ts": {
+      "bytes": 4069,
+      "sha256": "625aeed0279a3cdacb96c368318de960559692cbf6e919c284523ad6dc28fa8a",
+      "gitBlob": "bfee7f79c58aa9dcf1c9991fff3aab2c686e87ad"
+    },
+    "packages/backend/src/callouts-store.ts": {
+      "bytes": 21990,
+      "sha256": "d5b819fddb7710620f3034969f64a558d42b2252b4e97197dbdce8bbab81a19c",
+      "gitBlob": "afdd7473c9f5f0c4cc9de66eecf09045317389d9"
+    },
+    "packages/backend/src/competitions-routes.ts": {
+      "bytes": 6353,
+      "sha256": "015c426d3b17701963f0d2775479077d9a7457454ef8760292ef7ef7fc3a586c",
+      "gitBlob": "6b05f4dd9d6c7dee5cf278cf8453c71dff6f92db"
+    },
+    "packages/backend/src/competitions-seed.json": {
+      "bytes": 13777,
+      "sha256": "fb892b644b87cee997eca17b1c4d2ca36afecce6a242d5dc220f77934762ee62",
+      "gitBlob": "0bdf231bd31b77a70c381b75d37d13ff39fda1c4"
+    },
+    "packages/backend/src/competitions-store.ts": {
+      "bytes": 25714,
+      "sha256": "2881c1809fb34e990cbb1445bc981a541a7091a59053fd0afc82c7cae9d901e7",
+      "gitBlob": "ac5e6e85fc7b8569aa0f93810cf3ae1f6630830a"
+    },
+    "packages/backend/src/following-routes.ts": {
+      "bytes": 7730,
+      "sha256": "4e224c4f6fe3e699b83246f37c6de6cc53068f77724e4cc6a107a5ce25db533d",
+      "gitBlob": "84d103773b74bbb4b524f415aa79f73a3e558ec9"
+    },
+    "packages/backend/src/following-seed.json": {
+      "bytes": 982,
+      "sha256": "37a0e7710055e94dd6035e3e6c418eac16797095471601ed059440ee97530dae",
+      "gitBlob": "ce98ba7f593439437d80f58b4ad91dd21ddec846"
+    },
+    "packages/backend/src/following-store.ts": {
+      "bytes": 7976,
+      "sha256": "bc63ba6d8dc7e42794b3e2ea7519e6f8b8cf4339b54b77c6fd685aa81d76c97f",
+      "gitBlob": "411c7eece2057435f050fa7e550b674060050406"
+    },
+    "packages/backend/src/generated/developer-api.d.ts": {
+      "bytes": 742425,
+      "sha256": "cc2d60d86ed0a5cfbf1fc3478d4985d98bef13b4321099c700815f47e6c5bee4",
+      "gitBlob": "7558518f76566e6431fef556e2eb74b8eadd2d3f"
+    },
+    "packages/backend/src/home-feed-routes.ts": {
+      "bytes": 10533,
+      "sha256": "9268d0103bba84a218802cbb087f7cfe5b1798fd49a2aae1c36c47a640615dd9",
+      "gitBlob": "bcdf48a6e0dcb10f161b23e8c1aaec6489c808b7"
+    },
+    "packages/backend/src/home-feed-seed.json": {
+      "bytes": 6632,
+      "sha256": "bbfda45009eca2205cd8f0e57d2568f34ae07d771a14e943ab3f92b74232a88d",
+      "gitBlob": "458438eeff440ffbb117e0d3a0850b8ebd7a3ce6"
+    },
+    "packages/backend/src/home-feed-store.ts": {
+      "bytes": 23108,
+      "sha256": "c0a389ab454e1f9a099e8839370397d77c300391ea6fbeacd6143ebc0bb8b58b",
+      "gitBlob": "d6387645ec1ccfc0f07b01c070114add5761f164"
+    },
+    "packages/backend/src/leaderboard-routes.ts": {
+      "bytes": 4172,
+      "sha256": "387e00bfbf78c999e2c20ed6a99ad4db160c7e89e6d7b371120d2f68145f0d71",
+      "gitBlob": "1b718f58b67901e887d785e894b45130e0fa081a"
+    },
+    "packages/backend/src/leaderboard-seed.json": {
+      "bytes": 7356,
+      "sha256": "1b4c22de2cd08894d888e17c214e334ecbfc7021de4ebaa82f6d111e0bfbe6c7",
+      "gitBlob": "86e4e164e3bb10dd8dc2fbfb040c31f931701b6c"
+    },
+    "packages/backend/src/leaderboard-store.ts": {
+      "bytes": 9039,
+      "sha256": "fc0c357a68b75b8b458e78bc1583feb63af2137b1b68d20961b77233fb91e39c",
+      "gitBlob": "e865c8ec6683a4e6dbc8001d11b2915e66c78da7"
+    },
+    "packages/backend/src/local-media-routes.ts": {
+      "bytes": 5859,
+      "sha256": "2243a67591b080d1c6edcd9c453756797182e08300dec81de13fae0a8e898ea5",
+      "gitBlob": "4d408832564ad4eb5e97e01788483711c69369cd"
+    },
+    "packages/backend/src/local-media-runtime.ts": {
+      "bytes": 1851,
+      "sha256": "8357d81509a176f2162c532a5eec2e751d77e58c69fafd876ed5e958ee278666",
+      "gitBlob": "b10f53308d08efda5fdf840d8e3aff38d90fe56a"
+    },
+    "packages/backend/src/local-media-store.ts": {
+      "bytes": 16185,
+      "sha256": "3df807d6e5fe847afe21c794fc5a7c79cc8b3f6680e22b36b6afde1a569a1a44",
+      "gitBlob": "c4c949cb67d59cd529f5bcdf083396082289f748"
+    },
+    "packages/backend/src/payouts-routes.ts": {
+      "bytes": 2283,
+      "sha256": "fe897275679effa6a137a75dcd6f692b91eafd8e18338424a14b446060db81c5",
+      "gitBlob": "95e62437975e0795bf35f868c4fe4f2ebddb8cd9"
+    },
+    "packages/backend/src/payouts-store.ts": {
+      "bytes": 13328,
+      "sha256": "61ac888e6527a59767f217a2a6cbfc7c559ff550d08ccf7002f333193ea07720",
+      "gitBlob": "21c7ea7340dc3b5c5e410be94b04eabc4a8fb0c7"
+    },
+    "packages/backend/src/portfolio-balances-routes.ts": {
+      "bytes": 1859,
+      "sha256": "85dab34f518f5b5f7aa752643a5584e15f8daa9de8d6b2a310b21b726fa56273",
+      "gitBlob": "88fd9814ea5e45725ca9563026cbabbf487dcdae"
+    },
+    "packages/backend/src/portfolio-balances-store.ts": {
+      "bytes": 5636,
+      "sha256": "5c892e994e3897a7596d1cdeeb636dc01b18be5da449dd0233bd3decfe4ab0cd",
+      "gitBlob": "b3aba5769190b99344b6bf4b8e77b2e9440ee681"
+    },
+    "packages/backend/src/positions-routes.ts": {
+      "bytes": 4836,
+      "sha256": "8cdd2ac57e5705a067d29b80fb4239f104efdb5b84d78f35f2e0a5a847d4cc8a",
+      "gitBlob": "8c7000b0905dfedc734963bd48f458c92eee91a5"
+    },
+    "packages/backend/src/positions-store.ts": {
+      "bytes": 20007,
+      "sha256": "a5519e7d2f2c64c3403a4360c1a6bdf2e87f1e38bf1126b174026b7428fe9d6f",
+      "gitBlob": "305afb155cab6835411eae624d9103b193bdea3e"
+    },
+    "packages/backend/src/posts-routes.ts": {
+      "bytes": 8321,
+      "sha256": "9f583a64535e784d7f14f124f6f4367c37d9a0907790b7a598aa7a2ca06b3bb2",
+      "gitBlob": "ef3e91a50719deec88b134406c1dd3699d0ee92b"
+    },
+    "packages/backend/src/posts-seed.json": {
+      "bytes": 8394,
+      "sha256": "f4d12a7812b07be6dcef4b966430a086cba9e867ff89de669a95a74bdd73d705",
+      "gitBlob": "c6e0d10ad59e93d2b88528e9487a50c7d7d64d48"
+    },
+    "packages/backend/src/posts-store.ts": {
+      "bytes": 15113,
+      "sha256": "95cfd77f5161bd60f7e607609da5f424c00af9f568f822e62088cf127a43094b",
+      "gitBlob": "fe5966b43f4b5ecbccf02c70a6d89f3b74c7467e"
+    },
+    "packages/backend/src/schema-validator.ts": {
+      "bytes": 10094,
+      "sha256": "9317f75f3df5ffd981c2c53ed0eeeefdb27ff2d4e0751867fd67005ccf60a246",
+      "gitBlob": "7f9e823bceca94e40a919f8a8f9fce3aa3164b14"
+    },
+    "packages/backend/src/search-resolve-routes.ts": {
+      "bytes": 2897,
+      "sha256": "e3efb8349d74068e1aaf9a0425186ddb125a327116de470a5046e1927f3748ea",
+      "gitBlob": "8aaa562eb6e8733da82174c9e57073d98afeb646"
+    },
+    "packages/backend/src/server.ts": {
+      "bytes": 2500,
+      "sha256": "9dafb85952707355663ff27d01f3670b18ea1b2b7c79662ef537105ff929593b",
+      "gitBlob": "c0506f2f625e61bab93d33529da3328b783cc77e"
+    },
+    "packages/backend/src/user-trades-routes.ts": {
+      "bytes": 2604,
+      "sha256": "4bf3d0110c5d079b043c834838d06c69306d5f35de51b1796fe8db721fc3435e",
+      "gitBlob": "d7be9039ac1008542821cf741fdf2117045c3688"
+    },
+    "packages/backend/src/user-trades-store.ts": {
+      "bytes": 14530,
+      "sha256": "e1fe427062aa58d4ef5c4c699f036573003aefa91ebd76fac84e15129efd5a88",
+      "gitBlob": "661e377e6b97b0cd066989f470de7adbe8f28225"
+    },
+    "packages/backend/src/users-routes.ts": {
+      "bytes": 11198,
+      "sha256": "bd62660f6f62b6b7b8611ae48ffa486a3ad42e9a355ddfef547a4854ba9462a6",
+      "gitBlob": "4e75371764113dd1a4606f3f27010576704d8a9a"
+    },
+    "packages/backend/src/users-seed.json": {
+      "bytes": 3866,
+      "sha256": "56259663a146236df2f0e6e1d931df7cc2dda4d39ed7a090c18505434155b20d",
+      "gitBlob": "25865477c3b94183b1fdcd6c25b0a378643c6061"
+    },
+    "packages/backend/src/users-store.ts": {
+      "bytes": 11006,
+      "sha256": "469eddf271fa6103d885844f9e4fee2525717804f15b7d7c84c3066d88d818d1",
+      "gitBlob": "12ebd96fda0ff7a816dee57644cad17c103141d7"
+    },
+    "packages/backend/tsconfig.json": {
+      "bytes": 215,
+      "sha256": "cf0abfd9a01f5efbcfe57c66fdf5db57f5cc9791d48cc0667a74168d3626806c",
+      "gitBlob": "1a863bae065b07ea52a3a9b89b048c21f88876e2"
+    },
+    "packages/frontend/next.config.ts": {
+      "bytes": 483,
+      "sha256": "d2a146c48e81f3d08a93dfabad75ac47e540667779a368b367ffb63be8e4ce45",
+      "gitBlob": "6326d6c6274182f58c449f3f5bba914858023dfa"
+    },
+    "packages/frontend/package.json": {
+      "bytes": 1048,
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0"
+    },
+    "packages/frontend/src/app/api/leaderboard/route.ts": {
+      "bytes": 6828,
+      "sha256": "1dd85005d96dc77388fdeda001c27d1c0c9383c9f5560ae5b4b833db294b0a54",
+      "gitBlob": "5d847458a033ae9cace6bb061b142cc3363404b9"
+    },
+    "packages/frontend/src/app/api/leaderboard/upstream.ts": {
+      "bytes": 15898,
+      "sha256": "5d734a1147f8ee159409c274b37ac9558e6879bba87a13f56bd3c8fcaa70a757",
+      "gitBlob": "73c3e91e875f07b0dd9808ca1d2c0ff4ebd24277"
+    },
+    "packages/frontend/src/app/app-shell.tsx": {
+      "bytes": 12455,
+      "sha256": "113c51387777a1ee3d9258725f8730756b500276e74d920410a5ecca856ff702",
+      "gitBlob": "0882cca4936e2a38bb23e2aa73e86bc5b260d4ef"
+    },
+    "packages/frontend/src/app/docs/fees/page.tsx": {
+      "bytes": 319,
+      "sha256": "d32697acaf66908297391a209a9d82d62bd21146fee6f4976a3e6067feb9d6c2",
+      "gitBlob": "29e42c3af7fbaccedc53bcb1c2913a02d165d41a"
+    },
+    "packages/frontend/src/app/docs/reference-data.ts": {
+      "bytes": 14582,
+      "sha256": "7d3e0299e029e3b335bc2f21dce12e06f5a8a70dd71d0ebe608fe1702c9cbb42",
+      "gitBlob": "f8cad9e6fa6aedc420b402e026dd4bb9ade0e82c"
+    },
+    "packages/frontend/src/app/docs/reference-loader.ts": {
+      "bytes": 1034,
+      "sha256": "26c1d9bce3cb213038b86f83b2705d6754bcf8fed8e58f81eaca511ef8320c11",
+      "gitBlob": "5ad6111a50dc4f692cbe1fd44c73d96f37019791"
+    },
+    "packages/frontend/src/app/docs/reference-page.tsx": {
+      "bytes": 5663,
+      "sha256": "7497340c441c1dbb4a1d0e88c3d8c2ef512b8a74b221a298ad4055aeb4d2237e",
+      "gitBlob": "9435d909fff5886d5973df87e7d39505da00e93a"
+    },
+    "packages/frontend/src/app/docs/reference-pages.generated.json": {
+      "bytes": 370982,
+      "sha256": "a1f105accd47c86ac2ee320081a17d4e907ea1ccc9f272444f4a6a592d05f5b0",
+      "gitBlob": "1fbf1243c3a5611bce41eb05a44de397672c96d2"
+    },
+    "packages/frontend/src/app/globals.css": {
+      "bytes": 59893,
+      "sha256": "aa8b5c22bb2b4f057989b79107e108d69f5200d94c1502c3fd0e5376ad37ec91",
+      "gitBlob": "08651075813b909d3459daf74cc70b982abb2ce3"
+    },
+    "packages/frontend/src/app/layout.tsx": {
+      "bytes": 970,
+      "sha256": "dd5ec133e8041238e8579bacf621644ff53a1a19f1a05944899c589de293959b",
+      "gitBlob": "24fdd3aad86aa30dd5ebfa95abe9962531c8a2cc"
+    },
+    "packages/frontend/src/app/leaderboard/competition-refresh.ts": {
+      "bytes": 3130,
+      "sha256": "efa8698d893d1a1337c42f7e7a4bbd692802d2f068412c371561d8050c9b9de4",
+      "gitBlob": "f82b1549502d86e6de83887663f87c73abadd763"
+    },
+    "packages/frontend/src/app/leaderboard/competition-rules-copy.json": {
+      "bytes": 3337,
+      "sha256": "88f8ede82071e4c771ecfa7336ced49b1ffda151a936981b791a0004684a64b9",
+      "gitBlob": "aaa4312623d07929c7a1a884c8cfbf8f6f2518ed"
+    },
+    "packages/frontend/src/app/leaderboard/competition-rules-model.ts": {
+      "bytes": 4526,
+      "sha256": "1f26aa03c58fd088a1bb9413a70d855701500111a3d40aa4cf4d0b326d2231e4",
+      "gitBlob": "349f23edb0ff533981752645744f7dbb5f644ab6"
+    },
+    "packages/frontend/src/app/leaderboard/competition-rules.module.css": {
+      "bytes": 1981,
+      "sha256": "26bdbec53931b9671445afb1e3f9e7f96482b95384b7593335ba4b5ab7ba9143",
+      "gitBlob": "f76a0b1609bf52cecdebe56369aa8e39941e7c0b"
+    },
+    "packages/frontend/src/app/leaderboard/competition-rules.tsx": {
+      "bytes": 5924,
+      "sha256": "729c1735015d5a3e9a496ee9530388334731e7c3c0d650bbd5a5822830cbf058",
+      "gitBlob": "74e0d7641b321e4ac90634226f345bad8464f99a"
+    },
+    "packages/frontend/src/app/leaderboard/creator-pagination.ts": {
+      "bytes": 536,
+      "sha256": "64e80be7edeb09e1300a37aa39afd48229d9c4f96ca11120e6e3ee174d63631c",
+      "gitBlob": "6b30744297bbba786d6537b7e84ba70693ef07d6"
+    },
+    "packages/frontend/src/app/leaderboard/leaderboard-client.tsx": {
+      "bytes": 27381,
+      "sha256": "6946052b46c383a6694e302ceb5b03477fd0a4c046825f6a34acb80239fe3412",
+      "gitBlob": "c3ab91e37aaaab3f2a0d3f46ed88e2a1349842f3"
+    },
+    "packages/frontend/src/app/leaderboard/page.tsx": {
+      "bytes": 1225,
+      "sha256": "a1c3e92169a5fb4d7ff6620618c930f051ef2c03ed752c9c92a5a30fa2cc20d5",
+      "gitBlob": "61ef5fd37fe6f4c13d84271002c6d9048f489066"
+    },
+    "packages/frontend/src/app/leaderboard/types.ts": {
+      "bytes": 10744,
+      "sha256": "d3ffe9f9b6fe990766fc8fb7b26c6192064d2413298c30392f906dd24455162a",
+      "gitBlob": "b65661a9e321ad3dbf7cb99fce052784c67a70dc"
+    },
+    "packages/frontend/src/components/leaderboard/CompetitionCountdown.tsx": {
+      "bytes": 1539,
+      "sha256": "29a6d989c191b99f6793234a9b1b56123be1105e91cc42d038947d9411c1dda6",
+      "gitBlob": "b81ff8b296a9baa22844d86a9140390d339f4401"
+    },
+    "packages/frontend/src/components/leaderboard/CompetitionPrizeDisplay.tsx": {
+      "bytes": 1344,
+      "sha256": "afce3adbf515f943fca973d28b6303895dfc3887a8e93fc474e50d57c24f998d",
+      "gitBlob": "0d2ce2db3c5119dde4e0f57e48312ff1d316193c"
+    },
+    "packages/frontend/src/components/leaderboard/original-countdown.d.mts": {
+      "bytes": 1045,
+      "sha256": "c3f6c788f3644c81a4a695ef7402ff6c7c0e7e5c2e97f95040bdb0d7ab19c005",
+      "gitBlob": "31afc5f0ef367437900068df111af274a4c19f57"
+    },
+    "packages/frontend/src/components/leaderboard/original-countdown.mjs": {
+      "bytes": 6252,
+      "sha256": "55c59f7226ed933b18c95f8c77d1679b1ed949656c42af26eb8fa4be8dc319e2",
+      "gitBlob": "fd40d84d00fc37dd81b6f6452b9c431fbe60fa7f"
+    },
+    "packages/frontend/src/components/leaderboard/original-prize-formats.d.mts": {
+      "bytes": 640,
+      "sha256": "ee1b5814e98c29f3dfa96d29af83d286c2f9de2c44722b22ad8a52f1fae33de7",
+      "gitBlob": "fea65887fa81c8d36d18b43cfecfecea4ce8cb93"
+    },
+    "packages/frontend/src/components/leaderboard/original-prize-formats.mjs": {
+      "bytes": 5571,
+      "sha256": "dd9d5e338db6c0b5b716c4f8edace574a42c11ca784663d6a6a29aec7fff86af",
+      "gitBlob": "de5722dd2a52dcfe1fa3b58d44d43579061c4554"
+    },
+    "packages/frontend/src/components/leaderboard/original-prizes.tsx": {
+      "bytes": 4348,
+      "sha256": "d9abf53464b6bd1be3b1a630a8ef3bfa7d1b876fd382d3bd86ef04b0c504928c",
+      "gitBlob": "9c138548d522462dab6ce3c618334a0bdb7543ec"
+    },
+    "packages/frontend/src/components/leaderboard/prize-number-variants/b6933f856a7f.mjs": {
+      "bytes": 751,
+      "sha256": "c2297af3d1d6cd2f2a9eefe490a9f2b4a9a09921e8e52f24ad2df966cd6a8804",
+      "gitBlob": "133beb69d6afb4c898ecf4ec0622c3f14e4f72f2"
+    },
+    "packages/frontend/src/components/leaderboard/prize-number-variants/f29f27e66af2.mjs": {
+      "bytes": 751,
+      "sha256": "3641cd417646cd7bdb2d908ce11d97fdf984d7b521a151c1d0809fffeb47c004",
+      "gitBlob": "7b32134c020b9051ba10666d3c84dc1fac87c23c"
+    },
+    "packages/frontend/tests/browser-state.ts": {
+      "bytes": 366,
+      "sha256": "6ca60ac77b50bcc845c8073973265a980ece5aede9782cb955836b422128123a",
+      "gitBlob": "dad2bd240204528a984cc25718e9abfc40956347"
+    },
+    "packages/frontend/tsconfig.json": {
+      "bytes": 513,
+      "sha256": "a5dc52a7664b2a81c4cadd7e5ac7eb73ec3f88af0d97edd9927344c01adb7a0b",
+      "gitBlob": "232242f82f082ceecb0da2071d2528fc7b589d74"
+    },
+    "packages/sdk/package.json": {
+      "bytes": 1919,
+      "sha256": "9b85cdaaeee8387fd151783cc994fa8b80f24ca5c525c9accb3cccc5babd64d4",
+      "gitBlob": "ba5abc1bcc0fba0b6a7b7425eaa25544baeb43b4"
+    },
+    "pnpm-lock.yaml": {
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+    },
+    "pnpm-workspace.yaml": {
+      "bytes": 183,
+      "sha256": "5348921b05aa1b79ce7e15492a2f39ed9d18136155e002fdbbfed5c38564a1b5",
+      "gitBlob": "2ac2665ef5a28f8a1691518ad942fb07353810e6"
+    },
+    "reconstruction/competition-refresh/contract.json": {
+      "bytes": 9430,
+      "sha256": "94cac72182d9f7dea533b6ffbd7a1b322e4c592842ef546fbb56ebb94d73b3c7",
+      "gitBlob": "6f16ff5cd96a32af9ad7643dbfa28c3904b928fc"
+    },
+    "recovered/modules.json": {
+      "bytes": 2928853,
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+      "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f"
+    },
+    "scripts/original-competition-client.mjs": {
+      "bytes": 17402,
+      "sha256": "6e3ddceb3a2631c77eadab2b4740fb76efec78cce3d0b8c4f2d30132f827f5a3",
+      "gitBlob": "7073f73526ba677992e4ecd4dd707e8766287d67"
+    },
+    "scripts/original-contracts/source.mjs": {
+      "bytes": 9493,
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+      "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df"
+    },
+    "scripts/verify-competition-refresh.mjs": {
+      "bytes": 11890,
+      "sha256": "b445464a0c5e097a26ed33f8d1b800caac5af78cddbbe9ecb02bc08363a35a29",
+      "gitBlob": "d15ebeb8b79e4df9262b2a1b8f141122d1a03b78"
+    },
+    "tests/browser/competition-refresh.playwright.config.mts": {
+      "bytes": 1081,
+      "sha256": "c6827ab9b8457924d7a806dea9135e4b885ce119adb071df81b5622d92ca490f",
+      "gitBlob": "b2cb124afdc83a2cb54b7f17d6f94242650a2faf"
+    },
+    "tests/browser/competition-refresh.spec.mts": {
+      "bytes": 9882,
+      "sha256": "0002d89127cf453b4c21ca66547160ec6d8ef1d78ff25076339005b88b9e3373",
+      "gitBlob": "f08830b451a61763ffbf50b1ab3d2b7c8cff6253"
+    },
+    "tests/competition-refresh.test.mjs": {
+      "bytes": 11777,
+      "sha256": "6f9898507a573dde05ab5dffcb36b19be5f7edf9c5ed3c5ffaa0b7b6dd57048e",
+      "gitBlob": "292df174698c1a575ef12ad3a0e2c1d6081dba3d"
+    },
+    "tests/fixtures/competition-refresh-http.mjs": {
+      "bytes": 3298,
+      "sha256": "e8046a70663d6d774dbc002d9e89a297908b5cf321f98f41122bbaa9c73fe272",
+      "gitBlob": "91e0d2a944f1e6febeab716d3acffdaa303fb7d6"
+    },
+    "tests/fixtures/competition-refresh-next-fetch.mjs": {
+      "bytes": 1165,
+      "sha256": "e712f5030a41fe651dea4fbde05418084bdd857c3305179a2f54df24df058974",
+      "gitBlob": "d61a4b17d31da417c1123f6c479c8df6e57bbc82"
+    },
+    "tests/fixtures/competition-refresh-next.mjs": {
+      "bytes": 3901,
+      "sha256": "1ad57db3c7cba7bc5da78ffbede9a9d46eabc49d8266b1eff2a9380a76677777",
+      "gitBlob": "6e030a5be3e4dd97a15ee290bf9e94c6a2363dd6"
+    },
+    "tests/fixtures/competition-refresh-server.mts": {
+      "bytes": 6645,
+      "sha256": "e69d533b58756dd9e451ae5c71e69f858a085cb2e686c1c08a701d29ab987f81",
+      "gitBlob": "b54db499092029d942fb55c20b6c797392fb0e5b"
+    },
+    "tests/original_source.test.mjs": {
+      "bytes": 7401,
+      "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3",
+      "gitBlob": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+    }
+  },
+  "limits": [
+    "Original source868 reused; no new factory-recovery credit.",
+    "Original cache/staleTime/viewer/null-only-disabled/focus-default semantics remain explicit provider boundaries.",
+    "Local completion-relative scheduler; actual elapsed intervals and native browser states only, no fake clock/DOM property override/JSON fulfillment.",
+    "Synthetic supplied facts and explicit child test key; existing native key gate active, no real credential/profile/wallet or public mutation.",
+    "Browser abort ownership does not establish cancellation of an already-issued upstream read behind the existing Next adapter.",
+    "No full app/browser suite, production API/auth, original provider/visual parity or feature-milestone claim.",
+    "Independent normalproduction and root mandatory gates pending; separately appended if qualified."
+  ]
+}

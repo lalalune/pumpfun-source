@@ -1,0 +1,95 @@
+{
+  "realClock": true,
+  "startedAtMs": 1793299557704,
+  "finishedAtMs": 1793299583220,
+  "unexpected": [],
+  "responses": [
+    {
+      "atMs": 1793299560788,
+      "url": "http://127.0.0.1:3027/api/leaderboard?category=competitions&status=live&id=synthetic-refresh",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "data": {
+          "kind": "competition-detail",
+          "competition": {
+            "id": "11111111-1111-4000-8000-000000000091",
+            "slug": "synthetic-refresh",
+            "kind": "person",
+            "title": "Synthetic read snapshot 1",
+            "description": "Explicit synthetic facts; no production competition or calculated phase",
+            "prizeCopy": "No supplied prizes",
+            "prizes": [],
+            "minMembers": 1,
+            "maxMembers": 1,
+            "registrationOpensAt": "2026-01-01T00:00:00.000Z",
+            "registrationClosesAt": "2026-01-02T00:00:00.000Z",
+            "startsAt": "2026-01-03T00:00:00.000Z",
+            "endsAt": "2030-01-04T00:00:00.000Z",
+            "maxEntries": 10,
+            "entriesCount": 1,
+            "participants": 1,
+            "joinable": false,
+            "phase": "live",
+            "isFinal": false
+          },
+          "entries": [
+            {
+              "entryId": "22222222-2222-4000-8000-000000000091",
+              "participantId": "33333333-3333-4000-8000-000000000091",
+              "kind": "person",
+              "rank": 1,
+              "pnlUsd": 100,
+              "realizedPnlUsd": 60,
+              "unrealizedPnlUsd": 40,
+              "memberCount": 1,
+              "membersFresh": 1,
+              "struck": false,
+              "lastRefreshedAtMs": 1780000000001,
+              "walletAddress": "11111111111111111111111111111112",
+              "username": null,
+              "isVerified": false,
+              "verifiedBadgeVisible": false
+            }
+          ],
+          "totalRanked": 1,
+          "builtAtMs": 1780000000001,
+          "isFinal": false
+        },
+        "source": {
+          "mode": "developer-api",
+          "label": "Pump developer API",
+          "fetchedAt": "2026-10-29T18:46:00.772Z"
+        }
+      }
+    }
+  ],
+  "native": {
+    "id": 3,
+    "version": 2,
+    "ledger": [
+      {
+        "generation": 2,
+        "version": 1,
+        "requestId": "req-1",
+        "method": "GET",
+        "path": "/v1/competitions/synthetic-refresh?limit=100&positionsLimit=0",
+        "startedAtMs": 1793299560658,
+        "keyMatched": true,
+        "status": 200,
+        "completedAtMs": 1793299560663
+      },
+      {
+        "generation": 3,
+        "version": 2,
+        "requestId": "req-1",
+        "method": "GET",
+        "path": "/v1/competitions/synthetic-refresh?limit=100&positionsLimit=0",
+        "startedAtMs": 1793299561053,
+        "keyMatched": true,
+        "status": 200,
+        "completedAtMs": 1793299561053
+      }
+    ]
+  }
+}

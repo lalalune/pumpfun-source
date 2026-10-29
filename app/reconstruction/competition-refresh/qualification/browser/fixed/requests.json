@@ -1,0 +1,83 @@
+{
+  "id": 10,
+  "version": 1,
+  "ledger": [
+    {
+      "generation": 2,
+      "version": 1,
+      "requestId": "req-1",
+      "method": "GET",
+      "path": "/v1/competitions/synthetic-refresh?limit=100&positionsLimit=0",
+      "startedAtMs": 1793299683200,
+      "keyMatched": true,
+      "status": 200,
+      "completedAtMs": 1793299683204
+    },
+    {
+      "generation": 3,
+      "version": 2,
+      "requestId": "req-1",
+      "method": "GET",
+      "path": "/v1/competitions/synthetic-refresh?limit=100&positionsLimit=0",
+      "startedAtMs": 1793299683710,
+      "keyMatched": true,
+      "status": 200,
+      "completedAtMs": 1793299683711
+    },
+    {
+      "generation": 3,
+      "version": 2,
+      "requestId": "req-2",
+      "method": "GET",
+      "path": "/v1/competitions/synthetic-refresh?limit=100&positionsLimit=0",
+      "startedAtMs": 1793299698288,
+      "keyMatched": true,
+      "status": 200,
+      "completedAtMs": 1793299698288
+    },
+    {
+      "generation": 4,
+      "version": 1,
+      "requestId": "req-1",
+      "method": "GET",
+      "path": "/v1/competitions",
+      "startedAtMs": 1793299700080,
+      "keyMatched": true,
+      "status": 200,
+      "completedAtMs": 1793299700081
+    },
+    {
+      "generation": 5,
+      "version": 2,
+      "requestId": "req-1",
+      "method": "GET",
+      "path": "/v1/competitions",
+      "startedAtMs": 1793299700187,
+      "keyMatched": true,
+      "status": 200,
+      "completedAtMs": 1793299700188
+    },
+    {
+      "generation": 5,
+      "version": 2,
+      "requestId": "req-2",
+      "method": "GET",
+      "path": "/v1/competitions",
+      "startedAtMs": 1793299760110,
+      "keyMatched": true,
+      "status": 200,
+      "completedAtMs": 1793299760111
+    },
+    {
+      "generation": 6,
+      "version": 1,
+      "requestId": "req-1",
+      "method": "GET",
+      "path": "/v1/competitions/synthetic-refresh?limit=100&positionsLimit=0",
+      "startedAtMs": 1793299762592,
+      "keyMatched": true,
+      "status": 200,
+      "completedAtMs": 1793299762593
+    }
+  ]
+}

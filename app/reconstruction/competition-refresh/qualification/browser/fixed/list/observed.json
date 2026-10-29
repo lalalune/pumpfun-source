@@ -1,0 +1,162 @@
+{
+  "realClock": true,
+  "startedAtMs": 1793299698766,
+  "finishedAtMs": 1793299760235,
+  "unexpected": [],
+  "responses": [
+    {
+      "atMs": 1793299700104,
+      "url": "http://127.0.0.1:3027/api/leaderboard?category=competitions&status=live",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "data": {
+          "kind": "competitions",
+          "upcoming": [],
+          "live": [
+            {
+              "id": "11111111-1111-4000-8000-000000000091",
+              "slug": "synthetic-refresh",
+              "kind": "person",
+              "title": "Synthetic read snapshot 1",
+              "description": "Explicit synthetic facts; no production competition or calculated phase",
+              "prizeCopy": "No supplied prizes",
+              "prizes": [],
+              "minMembers": 1,
+              "maxMembers": 1,
+              "registrationOpensAt": "2026-01-01T00:00:00.000Z",
+              "registrationClosesAt": "2026-01-02T00:00:00.000Z",
+              "startsAt": "2026-01-03T00:00:00.000Z",
+              "endsAt": "2030-01-04T00:00:00.000Z",
+              "maxEntries": 10,
+              "entriesCount": 1,
+              "participants": 1,
+              "joinable": false,
+              "phase": "live",
+              "isFinal": false
+            }
+          ],
+          "past": []
+        },
+        "source": {
+          "mode": "developer-api",
+          "label": "Pump developer API",
+          "fetchedAt": "2026-10-29T18:48:20.084Z"
+        }
+      }
+    },
+    {
+      "atMs": 1793299760123,
+      "url": "http://127.0.0.1:3027/api/leaderboard?category=competitions&status=live",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "data": {
+          "kind": "competitions",
+          "upcoming": [],
+          "live": [
+            {
+              "id": "11111111-1111-4000-8000-000000000091",
+              "slug": "synthetic-refresh",
+              "kind": "person",
+              "title": "Synthetic read snapshot 2",
+              "description": "Explicit synthetic facts; no production competition or calculated phase",
+              "prizeCopy": "No supplied prizes",
+              "prizes": [],
+              "minMembers": 1,
+              "maxMembers": 1,
+              "registrationOpensAt": "2026-01-01T00:00:00.000Z",
+              "registrationClosesAt": "2026-01-02T00:00:00.000Z",
+              "startsAt": "2026-01-03T00:00:00.000Z",
+              "endsAt": "2030-01-04T00:00:00.000Z",
+              "maxEntries": 10,
+              "entriesCount": 1,
+              "participants": 1,
+              "joinable": false,
+              "phase": "live",
+              "isFinal": false
+            }
+          ],
+          "past": []
+        },
+        "source": {
+          "mode": "developer-api",
+          "label": "Pump developer API",
+          "fetchedAt": "2026-10-29T18:49:20.113Z"
+        }
+      }
+    }
+  ],
+  "native": {
+    "id": 6,
+    "version": 2,
+    "ledger": [
+      {
+        "generation": 2,
+        "version": 1,
+        "requestId": "req-1",
+        "method": "GET",
+        "path": "/v1/competitions/synthetic-refresh?limit=100&positionsLimit=0",
+        "startedAtMs": 1793299683200,
+        "keyMatched": true,
+        "status": 200,
+        "completedAtMs": 1793299683204
+      },
+      {
+        "generation": 3,
+        "version": 2,
+        "requestId": "req-1",
+        "method": "GET",
+        "path": "/v1/competitions/synthetic-refresh?limit=100&positionsLimit=0",
+        "startedAtMs": 1793299683710,
+        "keyMatched": true,
+        "status": 200,
+        "completedAtMs": 1793299683711
+      },
+      {
+        "generation": 3,
+        "version": 2,
+        "requestId": "req-2",
+        "method": "GET",
+        "path": "/v1/competitions/synthetic-refresh?limit=100&positionsLimit=0",
+        "startedAtMs": 1793299698288,
+        "keyMatched": true,
+        "status": 200,
+        "completedAtMs": 1793299698288
+      },
+      {
+        "generation": 4,
+        "version": 1,
+        "requestId": "req-1",
+        "method": "GET",
+        "path": "/v1/competitions",
+        "startedAtMs": 1793299700080,
+        "keyMatched": true,
+        "status": 200,
+        "completedAtMs": 1793299700081
+      },
+      {
+        "generation": 5,
+        "version": 2,
+        "requestId": "req-1",
+        "method": "GET",
+        "path": "/v1/competitions",
+        "startedAtMs": 1793299700187,
+        "keyMatched": true,
+        "status": 200,
+        "completedAtMs": 1793299700188
+      },
+      {
+        "generation": 5,
+        "version": 2,
+        "requestId": "req-2",
+        "method": "GET",
+        "path": "/v1/competitions",
+        "startedAtMs": 1793299760110,
+        "keyMatched": true,
+        "status": 200,
+        "completedAtMs": 1793299760111
+      }
+    ]
+  }
+}

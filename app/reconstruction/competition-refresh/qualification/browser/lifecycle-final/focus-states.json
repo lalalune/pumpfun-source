@@ -1,0 +1,77 @@
+[
+  {
+    "label": "other tab foreground; real source document blurred",
+    "atMs": 1793300066647,
+    "state": {
+      "focused": false,
+      "visibility": "visible"
+    },
+    "native": {
+      "id": 3,
+      "version": 1,
+      "ledger": [
+        {
+          "generation": 2,
+          "version": 1,
+          "requestId": "req-1",
+          "method": "GET",
+          "path": "/v1/competitions/synthetic-refresh?limit=100&positionsLimit=0",
+          "startedAtMs": 1793300066442,
+          "keyMatched": true,
+          "status": 200,
+          "completedAtMs": 1793300066447
+        }
+      ]
+    }
+  },
+  {
+    "label": "17 real seconds blurred; no recurring read",
+    "atMs": 1793300083690,
+    "state": {
+      "focused": false,
+      "visibility": "visible"
+    },
+    "native": {
+      "id": 6,
+      "version": 2,
+      "ledger": [
+        {
+          "generation": 2,
+          "version": 1,
+          "requestId": "req-1",
+          "method": "GET",
+          "path": "/v1/competitions/synthetic-refresh?limit=100&positionsLimit=0",
+          "startedAtMs": 1793300066442,
+          "keyMatched": true,
+          "status": 200,
+          "completedAtMs": 1793300066447
+        }
+      ]
+    }
+  },
+  {
+    "label": "source tab foreground again",
+    "atMs": 1793300084067,
+    "state": {
+      "focused": true,
+      "visibility": "visible"
+    },
+    "native": {
+      "id": 7,
+      "version": 2,
+      "ledger": [
+        {
+          "generation": 2,
+          "version": 1,
+          "requestId": "req-1",
+          "method": "GET",
+          "path": "/v1/competitions/synthetic-refresh?limit=100&positionsLimit=0",
+          "startedAtMs": 1793300066442,
+          "keyMatched": true,
+          "status": 200,
+          "completedAtMs": 1793300066447
+        }
+      ]
+    }
+  }
+]

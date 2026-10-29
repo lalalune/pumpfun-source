@@ -1,0 +1,17 @@
+{
+  "pid": 435815,
+  "argv": [
+    "/workspace/pump-app-competition-highlights/app/node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/bin/next",
+    "dev",
+    "--webpack",
+    "--hostname",
+    "127.0.0.1",
+    "--port",
+    "3027"
+  ],
+  "cwd": "/workspace/pump-app-leaderboard-navigation/app/packages/frontend",
+  "baseURL": "http://127.0.0.1:3027",
+  "backendUrl": "http://127.0.0.1:43029",
+  "testOnlyPreload": "tests/fixtures/competition-refresh-next-fetch.mjs",
+  "credentials": "explicit public synthetic test-key format, never read from parent environment"
+}

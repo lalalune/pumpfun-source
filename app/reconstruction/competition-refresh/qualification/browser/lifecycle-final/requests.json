@@ -1,0 +1,39 @@
+{
+  "id": 13,
+  "version": 2,
+  "ledger": [
+    {
+      "generation": 2,
+      "version": 1,
+      "requestId": "req-1",
+      "method": "GET",
+      "path": "/v1/competitions/synthetic-refresh?limit=100&positionsLimit=0",
+      "startedAtMs": 1793300066442,
+      "keyMatched": true,
+      "status": 200,
+      "completedAtMs": 1793300066447
+    },
+    {
+      "generation": 3,
+      "version": 2,
+      "requestId": "req-1",
+      "method": "GET",
+      "path": "/v1/competitions/synthetic-refresh?limit=100&positionsLimit=0",
+      "startedAtMs": 1793300099081,
+      "keyMatched": true,
+      "status": 200,
+      "completedAtMs": 1793300099082
+    },
+    {
+      "generation": 4,
+      "version": 2,
+      "requestId": "req-1",
+      "method": "GET",
+      "path": "/v1/competitions/synthetic-refresh?limit=100&positionsLimit=0",
+      "startedAtMs": 1793300114465,
+      "keyMatched": true,
+      "status": 200,
+      "completedAtMs": 1793300114469
+    }
+  ]
+}
