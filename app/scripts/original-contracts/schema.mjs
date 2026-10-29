@@ -213,7 +213,11 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
       if (['string', 'number', 'boolean', 'null'].includes(method) && node.arguments.length === 0) return { type: method };
       if (method === 'object' && node.arguments.length === 1) return { type: 'object', properties: await shape(node.arguments[0], ctx) };
       if (method === 'array' && node.arguments.length === 1) return { type: 'array', items: await compileWith(node.arguments[0], ctx) };
-      if (method === 'enum' && node.arguments.length === 1) return { enum: await constant(node.arguments[0], ctx) };
+      if (method === 'enum' && node.arguments.length === 1) {
+        const values = await constant(node.arguments[0], ctx);
+        if (!Array.isArray(values) || !values.every(value => typeof value === 'string')) throw new Error('unsupported enum array domain');
+        return { enum: values };
+      }
       if (method === 'literal' && node.arguments.length === 1) return { const: await constant(node.arguments[0], ctx) };
       if (method === 'union' && node.arguments[0]?.type === 'ArrayExpression' && node.arguments.length === 1) return { anyOf: await Promise.all(node.arguments[0].elements.map((value) => compileWith(value, ctx))) };
       throw new Error(`unsupported Zod constructor ${method}`);
