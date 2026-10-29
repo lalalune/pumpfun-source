@@ -425,9 +425,9 @@ function CompetitionEntryRows({ entries }: { entries: CompetitionEntry[] }) {
           <li className="ranking-row" key={entry.entryId}>
             <span
               className="ranking-position"
-              aria-label={`Rank ${entry.rank}`}
+              aria-label={entry.rank > 0 ? `Rank ${entry.rank}` : "Not ranked"}
             >
-              {entry.rank}
+              {entry.rank > 0 ? entry.rank : "–"}
             </span>
             <span className="ranking-identity">
               <strong>
@@ -443,7 +443,16 @@ function CompetitionEntryRows({ entries }: { entries: CompetitionEntry[] }) {
               </small>
             </span>
             <span className="ranking-metric">
-              <strong className={entry.pnlUsd >= 0 ? "positive" : "negative"}>
+              <strong
+                className={
+                  0 === entry.pnlUsd
+                    ? undefined
+                    : entry.pnlUsd > 0
+                      ? "positive"
+                      : "negative"
+                }
+              >
+                {entry.pnlUsd > 0 ? "+" : ""}
                 {usd.format(entry.pnlUsd)}
               </strong>
               <small>competition PnL</small>
