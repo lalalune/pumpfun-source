@@ -21,7 +21,7 @@ All 47 ordered immediate-callee signatures (callee length plus normalized-body h
 
 Pinned identity build: no stack warnings. Main unstripped SHA-256 `2364778f6dbd89927a406eed95451a72890c19331e9f9252b6837d9223a837de`; candidate `a4908a99b6593bab3e561cb611d2736a6c3552df537009821a5e77135692ec6d`. Candidate stripped SHA-256 `726d56ed8ea76d20cf1466de6c3387325a6d99739e366ea1970a6174bb5f79f7`.
 
-Validation: official full-window score, ordered call audit, 10 tooling tests and 9 retained captures. The tooling tests/capture verification are not execution of the new binary. No VM differential run is claimed.
+Validation: official full-window score, ordered call audit, 10 tooling tests and 9 retained captures. The tooling tests/capture verification are not execution of the new binary. A later VM differential run is documented below.
 
 Rebuild using `reconstruction/harness/fastbuild.py --src programs/pump --work <cache> --out <output> --recipe identity` with the repository's pinned toolchain/cache setup. Score the fresh base and candidate with `score.py`, explicitly using the fresh base JSON as `--baseline`. Inspect `target_metric.py <candidate>/unstripped.so 0x14a8a8 --sym 'trade::sell$'`. Local cache locations were overridden for this machine; no flags, dependency versions, source wrapper or scorer matching rules were changed.
 
@@ -78,3 +78,22 @@ The layout-order contribution at `f98d2a7fb2e7c2295698ae2a7dd0604bdb895f47` ([PR
 Both layout-only and combined builds score **1,020 normalized / 276 raw**, with the same 88 raw gains and no losses versus fresh main. Every membership is equal between those two builds. Combined sell remains 6,032 bytes with six differing normalized slots and all 47 ordered callee signatures equal to the original. Neither build reports stack warnings. The layout-only checkout also passes 10 tooling tests and nine capture checks; no VM run was performed.
 
 **All 88 raw gains belong to PR #1356, not this lane.** Its source changes are not included in this PR. This is independent compatibility evidence for composing the two contributions, not a duplicate source submission. `LAYOUT-COMPATIBILITY.json`, the two membership maps and combined source SHA-256 manifest retain the exact provenance and results. The local workspace was restored to this PR's own source after the check.
+
+## Runtime qualification before review
+
+Executed the existing 117 `sell_v3` cases from `scripts/pump_v3_configured_fee_differential.py` against the captured original, fresh-main control and this candidate: **351 locally signed executions, zero compared differences or regressions**. Each image produced 77 successful transactions and 40 expected failures (28 custom error 6024, 12 custom error 6025). All 77 successful cases emitted events.
+
+Compared account bytes/hashes, owners and lamports (excluding the deliberately replaced Pump executable), errors, raw event payloads, inner instructions, return data and ordered logs. Only exact runtime compute-meter lines are excluded from log equality; all other logs remain ordered. Every transaction signature is verified. Compute consumption equality and exhaustive execution-path equivalence are not claimed. The suite covers native SOL and synthetic SPL Token/Token-2022 quote accounts without transfer-fee extensions, creator-fee extremes, mode flags, zero creator and reserve boundaries. The expected failures are fee validation failures, not forced event-CPI failures.
+
+The historical fixture and replay approach are reused with attribution from [PR #1292](https://github.com/lalalune/pumpfun-source/pull/1292), pinned to `4a8336358fd5d2fd00257ef5523202222d6c8cc5`; case definitions and fixture bytes are unchanged. `replay.py` additionally fails on mismatches and compares control logs. These are new executions of this PR's candidate, not reused runtime results from that contribution. No public RPC, user wallet or live transaction is involved.
+
+A fresh identity build from source revision `7175a27b894c6701e0f860e49ed000e3f922bb83` reproduced both tested candidate hashes exactly, without stack warnings. `runtime-manifest.json` binds fixture, receipts, runner, verifier, suite, all Rust/manifest/lock inputs, dependency images, base revision and tested binary hashes. Later commits only retain this evidence.
+
+Reproduce in an isolated Python 3.12 environment with `solders==0.27.1`:
+
+```sh
+python -B reconstruction/pump-main/lanes/v3-sell-tail/replay.py --control CONTROL.so --candidate CANDIDATE.so --output REPORT.json.gz
+python -B reconstruction/pump-main/lanes/v3-sell-tail/verify_runtime.py
+```
+
+The second command verifies retained receipts, hashes and signatures without executing programs. In-memory negative controls with an added event, an added non-meter log and invalid signature evidence were rejected. No additional normalized function match is claimed: the six-slot sell residual remains. The passing bounded runtime comparison supports marking this partial contribution ready for maintainer review.
