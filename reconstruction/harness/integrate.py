@@ -38,6 +38,9 @@ def main():
     ap.add_argument('--base-of', action='append', default=[])
     ap.add_argument('--no-build', action='store_true')
     a = ap.parse_args()
+    baseline = SC / 'pump-main/baseline/score.json'
+    if not a.no_build and not baseline.is_file():
+        raise FileNotFoundError(f'Required scoring baseline is missing: {baseline}')
     out = SC / 'integ' / a.name
     if out.exists():
         shutil.rmtree(out)
@@ -66,7 +69,9 @@ def main():
         res = fastbuild.build(src, out / 'work', out / 'build', quiet=True)
         report['build'] = res
         if res['ok']:
-            s = subprocess.run([sys.executable, str(H / 'score.py'), str(out / 'build/unstripped.so'), '--json', str(out / 'score.json'), '--quiet'],
+            s = subprocess.run([sys.executable, str(H / 'score.py'), str(out / 'build/unstripped.so'),
+                               '--baseline', str(baseline),
+                               '--json', str(out / 'score.json'), '--quiet'],
                                capture_output=True, text=True)
             report['score'] = json.loads(s.stdout)
     (out / 'report.json').write_text(json.dumps(report, indent=1))

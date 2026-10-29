@@ -48,3 +48,23 @@ The pinned canonical source (`git archive e38a8b97a programs/pump`) reproduces
 unstripped `0f50faa8c325104dc77898ed84866dec2ad1eec475b6abba72c475cf7bf9bab6` and
 stripped `d0377d7cef5b7378063f8bfabac5dc9c08d29eeaaaaa14022d36909688ff5e1b`, scoring
 1,019/1,035 normalized and 188 raw windows.
+
+The composition helper `harness/integrate.py` also passes
+`pump-main/baseline/score.json` explicitly when it invokes the scorer. Its gains
+and losses therefore refer to this checked-in historical baseline, not an absent
+`base/current/inventory.json` or a newly measured current-main build. Normalized
+and raw scoring definitions are unchanged; the report is not an automatic
+acceptance or runtime-validity gate.
+If the required baseline file is missing, composition stops with an explicit
+error before changing the output directory or invoking the builder or scorer. `--no-build` remains available
+without a baseline file.
+
+The baseline-argument regression can be checked without a compiler or scorer:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python3 reconstruction/harness/test_integrate.py
+```
+
+This test substitutes the builder and subprocess boundary with synthetic
+in-memory results. It does not compile source, read ELF/cache/pickle data, run a
+target program, or establish a new matched-window count.
