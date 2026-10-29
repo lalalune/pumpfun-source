@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/workspace/pump-app-chart/app/scripts/verify-evidence.py", line 11, in <module>
+    raise ValueError(f"Captured object inventory differs from records: unreferenced={sorted(actual_objects-referenced_objects)}, missing={sorted(referenced_objects-actual_objects)}")
+ValueError: Captured object inventory differs from records: unreferenced=[], missing=['evidence/web/objects/01ad4f413e529b60.js', 'evidence/web/objects/1e479323ffe53c14.js', 'evidence/web/objects/2b47dd0b38a1608f.js', 'evidence/web/objects/2c867fef5c76d400.js', 'evidence/web/objects/2d2e035b6050f6bd.js', 'evidence/web/objects/2d59b7c63a95235e.js', 'evidence/web/objects/a06b86c38599958e.js', 'evidence/web/objects/c02c04ce3dfbfd3c.js', 'evidence/web/objects/c7e25d5561f3a8f8.js', 'evidence/web/objects/da58569257a3fbc5.js', 'evidence/web/objects/eb0b23ee6feb7543.js']

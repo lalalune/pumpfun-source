@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "measuredLocalSource": "bb760cea233e18d1dd5c5a17d65dcf46f6dcc9ad",
+  "publicSource": "676820ca2b99380dd4dec6cf2ff5e323e5e5c9c3",
+  "exactCompleteTree": "2569d9f9d2c3fee6cf92fd77589a959cb4384448",
+  "frozenFiveFiles": [
+    {
+      "path": "app/reconstruction/create-validation/README.md",
+      "gitBlob": "622ff949ebbc6f2bb54c4dac881cfa5ecfd315b1",
+      "sha256": "ddc42d50e2507d6076483867739bbcedc71a4739b0abbc07ed1c40260ba706ab"
+    },
+    {
+      "path": "app/reconstruction/create-validation/client.mjs",
+      "gitBlob": "94426d38a1ba9051693e29d171fb0578be54358f",
+      "sha256": "1419e4f1a1b6e733abfd1631b46c21de89dda7524b27ad047607d4dccfbf13b9"
+    },
+    {
+      "path": "app/reconstruction/create-validation/contract.json",
+      "gitBlob": "f7bb1559cd8f132347d4dba15dfc681b9ef2f500",
+      "sha256": "248cccf728d1837f220fed03309282ceebd10cd4880e29f40df30dfad5791d54"
+    },
+    {
+      "path": "app/scripts/original-create-validation.mjs",
+      "gitBlob": "dbff02bc8a7f89495056215a7427ad7fc2529447",
+      "sha256": "40b60f1241663b41683ebf8bf62d3cf7304c4f2589549f2b590c0d39b37efcd8"
+    },
+    {
+      "path": "app/tests/original_create_validation.test.mjs",
+      "gitBlob": "625942be56a2465b6d403a9c1d41d0a1cfe4b896",
+      "sha256": "bba02a8e6676a1ca7ea81f054cc301aa5dbe52fad3cc1cd869a03cbfc97cd3f6"
+    }
+  ],
+  "checks": [
+    {
+      "command": [
+        "node",
+        "app/scripts/original-create-validation.mjs",
+        "--check"
+      ],
+      "result": "PASS;5physicalroles/4IDs/54witnesses/13fields/2validatorcallers",
+      "log": "source-check.log"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "app/tests/original_create_validation.test.mjs"
+      ],
+      "result": "15PASS/0FAIL/0SKIP;7actualmaintainedverifiermutationrejections",
+      "log": "focused-final-source.log"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "app/tests/original_source.test.mjs",
+        "app/tests/create_video_bindings.test.mjs"
+      ],
+      "result": "13PASS;11sharedsource+2video",
+      "log": "prior-source-video.log"
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_create_media_bindings.py"
+      ],
+      "cwd": "app",
+      "result": "2PASS",
+      "log": "prior-media.log"
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/verify-evidence.py"
+      ],
+      "cwd": "app",
+      "result": "698objects+npm+31SDKsourcefilesPASS",
+      "log": "app-evidence.log"
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/progress.py",
+        "--check"
+      ],
+      "cwd": "app",
+      "result": "PASS;9progressunittestsPASS",
+      "log": "progress.log"
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/verify_evidence.py"
+      ],
+      "result": "9capturesPASS;isolatedallinputsGitboundtomeasuredsource",
+      "log": "verify_evidence.log"
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/test_tooling.py"
+      ],
+      "result": "10toolingPASS;sameisolatedinputs",
+      "log": "test_tooling.log"
+    }
+  ],
+  "portableExport": {
+    "inputs": 13,
+    "source": "676820ca2b99380dd4dec6cf2ff5e323e5e5c9c3",
+    "pathContainsSpaces": true,
+    "same15CasesRepeatedNot30UniqueCases": true,
+    "result": "sourceverifier+15testsPASS;all13inputsunchangedafter",
+    "binding": "public-export-inputs.json",
+    "results": "public-export-results.json"
+  },
+  "historicalSetupFailures": {
+    "preserved": [
+      "prior-media-pre-capture-closure.log",
+      "app-evidence-pre-capture-closure.log",
+      "progress-pre-capture-closure.log"
+    ],
+    "cause": "Sparse branch switch removed11retainedrawcapturesnotlistedinthefirstrestorationlist;all11restoredonlyafterbothGitblobandmanifestSHAauthentication,thenexactsamechecksPASS. No product or source edits required.",
+    "restoration": "completed-capture-closure.json"
+  },
+  "limits": [
+    "Only reconstructed selected nonmutating callbacks execute with synthetic in-memory ports; original factories/privateH/submit/upload do not execute.",
+    "No HTTP, actual toast/translation/telemetry/wallet/session provider, credentials, React/Next/browser/build, signing or transaction.",
+    "LiteralpreviewStatus2caseandsyntheticPromisevalidatorarenotoriginalUIreachabilityclaims. LocalCreateformpolicyunchanged.",
+    "No native compatibility, backend authorization, provider winner, visual parity, security clearance or feature credit."
+  ]
+}

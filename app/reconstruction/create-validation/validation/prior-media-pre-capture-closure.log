@@ -1,0 +1,95 @@
+EEEEE
+======================================================================
+ERROR: test_actual_capture_and_static_import_chain (test_create_media_bindings.CreateMediaBindingTests.test_actual_capture_and_static_import_chain)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-app-chart/app/tests/test_create_media_bindings.py", line 90, in test_actual_capture_and_static_import_chain
+    self.assertEqual(verify_bindings(), (7, 10))
+                     ^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-app-chart/app/tests/test_create_media_bindings.py", line 33, in verify_bindings
+    data = path.read_bytes()
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-app-chart/app/evidence/web/objects/01ad4f413e529b60.js'
+
+======================================================================
+ERROR: test_origin_range_hash_and_route_context_mutations_fail (test_create_media_bindings.CreateMediaBindingTests.test_origin_range_hash_and_route_context_mutations_fail) (mutation='bad_range')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-app-chart/app/tests/test_create_media_bindings.py", line 104, in test_origin_range_hash_and_route_context_mutations_fail
+    with self.assertRaises(AssertionError): verify_bindings(packet=changed)
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-app-chart/app/tests/test_create_media_bindings.py", line 33, in verify_bindings
+    data = path.read_bytes()
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-app-chart/app/evidence/web/objects/01ad4f413e529b60.js'
+
+======================================================================
+ERROR: test_origin_range_hash_and_route_context_mutations_fail (test_create_media_bindings.CreateMediaBindingTests.test_origin_range_hash_and_route_context_mutations_fail) (mutation='bad_origin')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-app-chart/app/tests/test_create_media_bindings.py", line 104, in test_origin_range_hash_and_route_context_mutations_fail
+    with self.assertRaises(AssertionError): verify_bindings(packet=changed)
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-app-chart/app/tests/test_create_media_bindings.py", line 33, in verify_bindings
+    data = path.read_bytes()
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-app-chart/app/evidence/web/objects/01ad4f413e529b60.js'
+
+======================================================================
+ERROR: test_origin_range_hash_and_route_context_mutations_fail (test_create_media_bindings.CreateMediaBindingTests.test_origin_range_hash_and_route_context_mutations_fail) (mutation='bad_edge')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-app-chart/app/tests/test_create_media_bindings.py", line 104, in test_origin_range_hash_and_route_context_mutations_fail
+    with self.assertRaises(AssertionError): verify_bindings(packet=changed)
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-app-chart/app/tests/test_create_media_bindings.py", line 33, in verify_bindings
+    data = path.read_bytes()
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-app-chart/app/evidence/web/objects/01ad4f413e529b60.js'
+
+======================================================================
+ERROR: test_origin_range_hash_and_route_context_mutations_fail (test_create_media_bindings.CreateMediaBindingTests.test_origin_range_hash_and_route_context_mutations_fail) (mutation='sdk_changed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-app-chart/app/tests/test_create_media_bindings.py", line 104, in test_origin_range_hash_and_route_context_mutations_fail
+    with self.assertRaises(AssertionError): verify_bindings(packet=changed)
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-app-chart/app/tests/test_create_media_bindings.py", line 33, in verify_bindings
+    data = path.read_bytes()
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-app-chart/app/evidence/web/objects/01ad4f413e529b60.js'
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.258s
+
+FAILED (errors=5)

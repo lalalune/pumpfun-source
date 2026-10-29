@@ -1,0 +1,31 @@
+{
+  "publicSource": "676820ca2b99380dd4dec6cf2ff5e323e5e5c9c3",
+  "inputsUnchangedAfter": true,
+  "checks": [
+    {
+      "label": "source",
+      "command": [
+        "node",
+        "app/scripts/original-create-validation.mjs",
+        "--check"
+      ],
+      "cwd": "Git-authenticated export root with spaces",
+      "returncode": 0,
+      "seconds": 0.6998936180025339,
+      "log": "public-export-source.log"
+    },
+    {
+      "label": "focused",
+      "command": [
+        "node",
+        "--test",
+        "app/tests/original_create_validation.test.mjs"
+      ],
+      "cwd": "Git-authenticated export root with spaces",
+      "returncode": 0,
+      "seconds": 4.044009871024173,
+      "log": "public-export-focused.log"
+    }
+  ],
+  "limits": "Same15cases in a separate minimal public export; not30unique cases. No HTTP, React/Next or browser."
+}
