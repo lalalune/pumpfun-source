@@ -1,0 +1,42 @@
+{
+  "phase": "candidate",
+  "sourceSha256": "bd69f6cbd60ec0215efe7f461d362b6106ea95b81038009bfbb39cff48fc30ea",
+  "observations": [
+    {
+      "viewport": "desktop",
+      "width": 1280,
+      "height": 800,
+      "url": "http://127.0.0.1:3010/explore?q=second",
+      "stored": "[\"second\",\"alpha & β\"]",
+      "historyPresent": true,
+      "links": [
+        {
+          "text": "second",
+          "href": "/explore?q=second"
+        },
+        {
+          "text": "alpha & β",
+          "href": "/explore?q=alpha%20%26%20%CE%B2"
+        }
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "width": 375,
+      "height": 812,
+      "url": "http://127.0.0.1:3010/explore?q=second",
+      "stored": "[\"second\",\"alpha & β\"]",
+      "historyPresent": true,
+      "links": [
+        {
+          "text": "second",
+          "href": "/explore?q=second"
+        },
+        {
+          "text": "alpha & β",
+          "href": "/explore?q=alpha%20%26%20%CE%B2"
+        }
+      ]
+    }
+  ]
+}

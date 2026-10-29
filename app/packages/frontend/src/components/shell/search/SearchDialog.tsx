@@ -1,8 +1,10 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useSidebar } from "@/components/ui/sidebar";
+import { RECENT_SEARCHES_KEY, createRecentSearchAdder, createRecentSearchClearer, recentSearchHref, decodeRecentSearches } from "./recent-searches.mjs";
 import { SearchMobileIcon } from "../captured-icons";
 import { LocalUserSearch } from "./LocalUserSearch";
 import { onOpenSearch } from "./search-events";
@@ -21,6 +23,9 @@ export function SearchDialog() {
   const params = useSearchParams();
   const currentQuery = params.get("q") ?? "";
   const [query, setQuery] = useState(currentQuery);
+  const [historyTerms, setHistoryTerms] = useState<string[]>([]);
+  const [historyReady, setHistoryReady] = useState(false);
+  const [historyError, setHistoryError] = useState(false);
   const pendingClear = useRef(false);
   const [open, setOpen] = useState(false);
   const { closeMobile } = useSidebar();
@@ -41,6 +46,45 @@ export function SearchDialog() {
     pendingClear.current = false;
     if (!completedClear) setQuery(currentQuery);
   }, [currentQuery]);
+
+  useEffect(() => {
+    const refresh = () => {
+      try {
+        setHistoryTerms(decodeRecentSearches(window.localStorage.getItem(RECENT_SEARCHES_KEY)));
+        setHistoryError(false);
+      } catch {
+        setHistoryError(true);
+      }
+      setHistoryReady(true);
+    };
+    const changed = (event: Event) => {
+      const key = (event as StorageEvent).key;
+      if (key && key !== RECENT_SEARCHES_KEY) return;
+      refresh();
+    };
+    refresh();
+    window.addEventListener("storage", changed);
+    window.addEventListener("local-storage", changed);
+    return () => {
+      window.removeEventListener("storage", changed);
+      window.removeEventListener("local-storage", changed);
+    };
+  }, []);
+
+  const persistHistory = (terms: string[]) => {
+    try {
+      window.localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(terms));
+      setHistoryTerms(terms);
+      setHistoryError(false);
+      setHistoryReady(true);
+      window.dispatchEvent(new StorageEvent("local-storage", { key: RECENT_SEARCHES_KEY }));
+    } catch {
+      setHistoryError(true);
+      setHistoryReady(true);
+    }
+  };
+  const addRecentSearch = createRecentSearchAdder(historyTerms, persistHistory);
+  const clearRecentSearches = createRecentSearchClearer(persistHistory);
 
   useEffect(() => {
     const open = () => {
@@ -80,6 +124,7 @@ export function SearchDialog() {
     pendingClear.current = false;
     const normalized = query.trim();
     dialogRef.current?.close();
+    if (normalized) addRecentSearch(normalized);
     router.push(
       normalized
         ? `/explore?${new URLSearchParams({ q: normalized })}`
@@ -145,6 +190,43 @@ export function SearchDialog() {
           Esc
         </kbd>
       </form>
+      {query ? null : (
+        <section aria-label="Recent searches" className="border-t border-border-secondary px-3 py-2">
+          <div className="flex items-center justify-between gap-3 text-xs">
+            <h2 className="font-medium text-text-secondary">Recent searches</h2>
+            <button
+              type="button"
+              aria-label="Clear recent searches"
+              disabled={!historyReady || (!historyError && historyTerms.length === 0)}
+              onClick={clearRecentSearches}
+              className="text-text-tertiary hover:text-text-primary disabled:opacity-50"
+            >
+              Clear
+            </button>
+          </div>
+          {!historyReady ? (
+            <p role="status" className="mt-2 text-xs text-text-tertiary">Loading recent searches…</p>
+          ) : historyError ? (
+            <p role="alert" className="mt-2 text-xs text-text-tertiary">Recent searches are unavailable.</p>
+          ) : historyTerms.length === 0 ? (
+            <p className="mt-2 text-xs text-text-tertiary">No recent searches yet.</p>
+          ) : (
+            <ul className="mt-1 space-y-1">
+              {historyTerms.slice(0, 3).map((term, index) => (
+                <li key={`${index}:${term}`}>
+                  <Link
+                    href={recentSearchHref({ term })}
+                    onClick={() => { dialogRef.current?.close(); setQuery(""); }}
+                    className="block truncate rounded-md px-2 py-1.5 text-sm text-text-primary hover:bg-bg-tertiary focus-visible:outline focus-visible:outline-text-accent"
+                  >
+                    {term}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
       <LocalUserSearch
         query={query}
         open={open}

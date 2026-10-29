@@ -1,0 +1,52 @@
+
+Running 5 tests using 1 worker
+
+(node:292383) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/5] tests/recent-searches.spec.ts:20:5 › real submissions survive reload and text-history navigation keeps its recorded order
+  1) tests/recent-searches.spec.ts:20:5 › real submissions survive reload and text-history navigation keeps its recorded order 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Search for coins and users', exact: true }).getByRole('region', { name: 'Recent searches', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('dialog', { name: 'Search for coins and users', exact: true }).getByRole('region', { name: 'Recent searches', exact: true }) with timeout 5000ms
+      - waiting for getByRole('dialog', { name: 'Search for coins and users', exact: true }).getByRole('region', { name: 'Recent searches', exact: true })
+
+
+      28 |   await page.waitForFunction(() => Reflect.get(window, '__searchHistoryMounted') === true);
+      29 |   const input = await openShellSearch(page); await input.fill('');
+    > 30 |   await expect(history(page)).toBeVisible();
+         |                               ^
+      31 |   await expect(history(page).getByRole('link')).toHaveText(['second', 'first & β']);
+      32 |   await input.fill(' '); await expect(history(page)).not.toBeVisible();
+      33 |   await input.fill('');
+        at /workspace/pump-app-search-planner/app/packages/frontend/tests/recent-searches.spec.ts:30:31
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../search-recent-history-current-60bdd8a7/baseline-browser-artifacts/recent-searches-real-submi-56d09-on-keeps-its-recorded-order/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../search-recent-history-current-60bdd8a7/baseline-browser-artifacts/recent-searches-real-submi-56d09-on-keeps-its-recorded-order/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../search-recent-history-current-60bdd8a7/baseline-browser-artifacts/recent-searches-real-submi-56d09-on-keeps-its-recorded-order/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../search-recent-history-current-60bdd8a7/baseline-browser-artifacts/recent-searches-real-submi-56d09-on-keeps-its-recorded-order/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+Testing stopped early after 1 maximum allowed failures.
+
+  1 failed
+    tests/recent-searches.spec.ts:20:5 › real submissions survive reload and text-history navigation keeps its recorded order 
+  4 did not run
+  1 error was not a part of any test, see above for details

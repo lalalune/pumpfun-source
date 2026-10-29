@@ -1,0 +1,26 @@
+✔ factory lookup authenticates original AST and preserves BOM, CRLF and Unicode byte ranges (23.543274ms)
+✔ UTF-16 offsets inside an astral character are not byte boundaries (8.077035ms)
+✔ capture hash and length changes fail before AST attribution (6.652577ms)
+✔ an updated manifest cannot make malformed UTF-8 into source text (4.511934ms)
+✔ indexed arbitrary substrings cannot substitute for actual registered factories (8.327291ms)
+✔ an aggregate inventory ID cannot substitute for the actual registration ID (17.212205ms)
+✔ multiple origin contexts stay ambiguous until explicitly selected (10.673529ms)
+✔ manifest source symlinks and traversal paths are rejected (17.979342ms)
+✔ a forged manifest cannot authorize reading a repository file outside retained objects (6.974746ms)
+✔ the runtime-leading nested-array grammar validates nested and trailing factories (15.371847ms)
+✔ outer two-element registration is metadata, not a nested factory container (18.327218ms)
+✔ actual history operations, used caller and original storage boundaries reproduce (292.357087ms)
+✔ source promotion is strict, removes every matching occurrence, preserves case and caps at twenty (0.548303ms)
+✔ each render callback retains its snapshot and preserves raw values and write errors (0.596816ms)
+✔ clear writes a fresh empty array each time without mutating an earlier value (0.304187ms)
+✔ text-history href preserves the original encoding without term normalization (0.151357ms)
+✔ the explicit local decoder distinguishes absence, malformed JSON and non-string-array data (0.272268ms)
+✔ source proof rejects cutoff, comparison, key, href and used-UI input mutations (766.063597ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1168.850138

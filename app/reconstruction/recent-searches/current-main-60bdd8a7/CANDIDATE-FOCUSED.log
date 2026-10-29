@@ -1,0 +1,21 @@
+
+Running 13 tests using 1 worker
+
+(node:293029) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/13] tests/recent-searches.spec.ts:20:5 › real submissions survive reload and text-history navigation keeps its recorded order
+[2/13] tests/recent-searches.spec.ts:42:5 › strict duplicate promotion caps at twenty, collapsed display shows three, clear touches only its key
+[3/13] tests/recent-searches.spec.ts:61:5 › malformed local data is explicit and can be cleared without inventing history
+[4/13] tests/recent-searches.spec.ts:73:5 › a failed history write does not block actual search navigation
+[5/13] tests/recent-searches.spec.ts:89:5 › real same-origin storage events keep another open page in sync
+[6/13] tests/search-dialog.spec.ts:5:7 › Escape dismisses populated global search without changing URL at desktop size
+[7/13] tests/search-dialog.spec.ts:5:7 › Escape dismisses populated global search without changing URL at mobile size
+[8/13] tests/search-local-users.spec.ts:4:5 › searches the local user model and opens the exact profile
+[9/13] tests/search-shortcuts.spec.ts:19:5 › bare slash opens global search from non-editor focus and prevents the typed slash
+[10/13] tests/search-shortcuts.spec.ts:49:5 › bare slash remains text in an editor and does not open the dialog
+[11/13] tests/shell.spec.ts:222:5 › search encodes queries, follows history and handles clearing and empties
+[12/13] tests/shell.spec.ts:254:5 › keyboard traversal reaches shell navigation, search and actions
+[13/13] tests/shell.spec.ts:383:5 › a delayed search clear preserves a newly typed draft
+  13 passed (22.1s)

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "base": "31cea320be04121f25ebb2effb34ad54b5458a64",
+  "sourceBeforeSha256": "0f2a8e89f9dc5122b0c041f0ea35736b9b6301b93a476382e8eae9b25f6d7c42",
+  "sourceAfterSha256": "bd69f6cbd60ec0215efe7f461d362b6106ea95b81038009bfbb39cff48fc30ea",
+  "browserTestSha256": "b5ff54d20ffb2c14985b2819d00ce23024f1ddb5273ad13d79480fc3e2a57f07",
+  "baselineBrowser": {
+    "failed": 1,
+    "didNotRun": 4,
+    "maxFailures": 1,
+    "failure": "history region absent after actual form submissions and reload"
+  },
+  "candidateBrowser": {
+    "passed": 7,
+    "newHistoryCases": 5,
+    "existingShellCases": 2,
+    "maxFailures": 1,
+    "retries": 0,
+    "workers": 1
+  },
+  "focusedTests": {
+    "passed": 18,
+    "newDomainCases": 7,
+    "sharedSourceCases": 11
+  },
+  "viewports": {
+    "desktop": [
+      1280,
+      800
+    ],
+    "mobile": [
+      375,
+      812
+    ]
+  },
+  "evidence": [
+    {
+      "path": "baseline-capture.json",
+      "bytes": 554,
+      "sha256": "fc214c99b179890ff7943b524b3b2dbfedafeb763af409f91c53fb60d4f681d0"
+    },
+    {
+      "path": "candidate-capture.json",
+      "bytes": 999,
+      "sha256": "09482bdf163afe4ff650fd687a134a3c74f3a05496aee0cd39358b8e74a86b39"
+    },
+    {
+      "path": "baseline-desktop.png",
+      "bytes": 65373,
+      "sha256": "f20d3b0dc15a8979774f294d706d4c8d2b236d9ff92b00a0788a96a24c49450a"
+    },
+    {
+      "path": "candidate-desktop.png",
+      "bytes": 67606,
+      "sha256": "51241e56b06207633e535dd432474668692d36b4f997e4b8d3e614878561333e"
+    },
+    {
+      "path": "baseline-mobile.png",
+      "bytes": 39294,
+      "sha256": "d23d47247831dfa80c90eed3fe9b007722f0cdae0216244a49395a0ebc5c0b50"
+    },
+    {
+      "path": "candidate-mobile.png",
+      "bytes": 38086,
+      "sha256": "c93cf13037aa5f06331831f2146c6c2d06b017838e537e14b12d1dfcb250121b"
+    }
+  ],
+  "limits": [
+    "Frozen31cea320cohort; subsequent main merges are not relabeled or included in these UI receipts.",
+    "Views follow two actual synthetic form inputs, reload and opening blank search; no production data or original response fixture.",
+    "Only collapsed text-query history; no coin/user/squad enrichment or expansion-flag default inference.",
+    "Browser persistence/typed decoder/error UI is local design around exact source operations; full original hook or scheduling equivalence is not claimed.",
+    "No combined runtime proof with separate Escape/shortcut overlays; screenshots are maintained local reference, not original visual parity."
+  ]
+}

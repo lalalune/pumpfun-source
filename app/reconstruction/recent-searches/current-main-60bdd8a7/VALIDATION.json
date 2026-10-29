@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "base": "60bdd8a7a522921058d18563bb9335d2a06aec75",
+  "historicalValidation": "../VALIDATION.json",
+  "historicalSourceCommit": "3adb2e3f49",
+  "sourceBeforeSha256": "a47fb602cc3a1793f30715fe324bca602ed1b5aeba9768bcdeb6958868057e87",
+  "sourceAfterSha256": "af4f81bc1a67fd2a91573c0cfaba0803c6900d6354e2e35690fcce9f8c52a666",
+  "browserTestSha256": "b5ff54d20ffb2c14985b2819d00ce23024f1ddb5273ad13d79480fc3e2a57f07",
+  "baselineBrowser": {
+    "failed": 1,
+    "didNotRun": 4,
+    "maxFailures": 1,
+    "failure": "history region absent after two actual form submissions and reload"
+  },
+  "candidateBrowser": {
+    "passed": 14,
+    "newHistoryCases": 5,
+    "existingSearchCases": 9,
+    "commands": 2,
+    "workers": 1,
+    "retries": 0,
+    "maxFailures": 1
+  },
+  "focusedTests": {
+    "passed": 18,
+    "newDomainCases": 7,
+    "sharedSourceCases": 11
+  },
+  "otherChecks": {
+    "rootCaptures": 9,
+    "rootTooling": 6,
+    "appCaptureObjects": 698,
+    "nextTypegen": "pass",
+    "frontendTypecheck": "pass",
+    "progressFreshness": "pass"
+  },
+  "evidence": [
+    {
+      "path": "baseline-capture.json",
+      "bytes": 554,
+      "sha256": "5a63f964559c506ade2d5d8c74699d24279bb87fa0e74ccc01911d6d65d6a822"
+    },
+    {
+      "path": "candidate-capture.json",
+      "bytes": 999,
+      "sha256": "aa77f5eedbe145c010ab22f8a2081b9f1a529a92abda20834cc7439dd1985cba"
+    },
+    {
+      "path": "baseline-desktop.png",
+      "bytes": 69933,
+      "sha256": "37321bdd80ee0d92fabec0290f3f41fdf3f905494d1110e35dcc0d768088d854"
+    },
+    {
+      "path": "baseline-mobile.png",
+      "bytes": 40545,
+      "sha256": "d0880bad31a38c18eb6fe92edcf4826e8607faaf0a68b03c0e3bdba8b3356565"
+    },
+    {
+      "path": "candidate-desktop.png",
+      "bytes": 74362,
+      "sha256": "8d64c28e97093d4463884a856e68edfcde119174ab19591cd260810c7a00da53"
+    },
+    {
+      "path": "candidate-mobile.png",
+      "bytes": 41407,
+      "sha256": "82c2017ade63e77224f9ca5a390429898c7f16fd2f8b239c4aa8f54a1a189764"
+    },
+    {
+      "path": "BASE-REGRESSION.log",
+      "bytes": 3674,
+      "sha256": "07da529e4263bf41d28092350a9f5938534485c41b984770b8f5d675463c19ca"
+    },
+    {
+      "path": "CANDIDATE-FOCUSED.log",
+      "bytes": 1735,
+      "sha256": "a2b1f7c22986b2935a5e01ea791482bb2eb11397a54de0cbf58d230735b24019"
+    },
+    {
+      "path": "CANDIDATE-CTRL-K.log",
+      "bytes": 352,
+      "sha256": "3e1e36cb7cf0315bdb0e8d4b68019eb1db9c53b296ee5ccf42931a2779fba1cc"
+    },
+    {
+      "path": "SOURCE-TESTS-AFTER.log",
+      "bytes": 1821,
+      "sha256": "b22dd4c1fd6213a0fa54b8194ec795384bba1d38d8b5d9fde69ee1ed85ffd742"
+    },
+    {
+      "path": "ROOT-CAPTURES.log",
+      "bytes": 376,
+      "sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9"
+    },
+    {
+      "path": "ROOT-TOOLING.log",
+      "bytes": 104,
+      "sha256": "dcd2147edfda2291b456dfb6d9f3021f0fed07760d5a1c8869fc5446f30e28fe"
+    },
+    {
+      "path": "APP-EVIDENCE.log",
+      "bytes": 72,
+      "sha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9"
+    },
+    {
+      "path": "PROGRESS.log",
+      "bytes": 49,
+      "sha256": "7ab499988f3b70e197e23e42287d4cc4579dc2b9360a82be3e827e22c589fda4"
+    },
+    {
+      "path": "TYPEGEN-AFTER.log",
+      "bytes": 59,
+      "sha256": "adba4af9194e10e47dda75ff0fd0f8c2b756474896d0eba5612799c527ff372a"
+    },
+    {
+      "path": "TYPECHECK-TYPEGEN.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limits": [
+    "Fresh-main60bdd cohort; old31cea observations are preserved separately and not relabeled.",
+    "Five new history tests and nine existing search cases pass, not the full browser suite or production build.",
+    "Only collapsed text-query history; no coin/user/squad enrichment or expansion flag default.",
+    "Original callback ASTs are recovered; typed storage/error UI and React integration are local choices.",
+    "Screenshots follow actual synthetic user inputs and reload; they are maintained reference views, not original visual parity."
+  ]
+}
