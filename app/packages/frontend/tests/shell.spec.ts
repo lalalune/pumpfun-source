@@ -199,6 +199,11 @@ for (const width of [320, 375]) {
   test(`Create a coin remains reachable at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: width === 320 ? 640 : 812 });
     await page.goto("/");
+    // This case tests the mounted drawer/menu, after the responsive effect.
+    await expect(page.locator("#app-sidebar")).toHaveAttribute(
+      "aria-hidden",
+      "true",
+    );
     await page.getByRole("button", { name: "Open navigation" }).click();
     await page
       .getByRole("complementary", { name: "Application navigation" })
@@ -389,17 +394,16 @@ test("a delayed search clear preserves a newly typed draft", async ({
   const held: Route[] = [];
   let holdClear = true;
   await page.route("**/explore?**", async (route) => {
-    if (
-      holdClear &&
-      new URL(route.request().url()).searchParams.has("_rsc")
-    ) {
+    if (holdClear && new URL(route.request().url()).searchParams.has("_rsc")) {
       held.push(route);
     } else {
       await route.continue();
     }
   });
   try {
-    await page.getByRole("button", { name: "Clear search", exact: true }).click();
+    await page
+      .getByRole("button", { name: "Clear search", exact: true })
+      .click();
     await expect.poll(() => held.length).toBe(1);
     await input.fill("new draft");
     holdClear = false;

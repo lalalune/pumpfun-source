@@ -1,0 +1,73 @@
+{
+  "base": "ef400863f4e476b2eaaab0866c0b1187d8060abc",
+  "latest_main_at_submit_check": "665499915f9caedcd38921d415a90f0606686398",
+  "latest_relevant_preimages": {
+    "sidebar": "8c9d6972f3bef21b0008454217c68257f7de305f",
+    "dropdown": "cb53e178f1446c02d53b21e165f477539aa6b459",
+    "shell_test": "8231b3c54b778a03f8e9845fbbfe184b90549efa"
+  },
+  "before_sidebar_sha256": "a1ba3fb227aacea783f1732070d886f39da9778e556f1303ba0a900ee3963925",
+  "after_inputs": [
+    {
+      "path": "app/packages/frontend/src/components/ui/sidebar.tsx",
+      "sha256": "80ae056441ec46bab196ceb5d9b21ab216784e025f09cdc4ed3522e5dd3c45fc"
+    },
+    {
+      "path": "app/packages/frontend/tests/mobile-menu-escape.spec.ts",
+      "sha256": "8e45b8f7cf53b79eb6d379595a580cc425d50cb955c8f06b0b3e58e671bc70c7"
+    },
+    {
+      "path": "app/packages/frontend/tests/shell.spec.ts",
+      "sha256": "048b9cf2666f24c0412960aca245bfab399f9a8581385ed6aace770d5468589c"
+    }
+  ],
+  "baseline": {
+    "failed": 1,
+    "not_run": 1,
+    "workers": 1,
+    "retries": 0,
+    "max_failures": 1,
+    "error": "drawer expected open after child menu Escape, observed closed",
+    "raw_sha256": "85049b65be9a33a83cfcd480a3f181b5760c09a88854d6527f581b1270828fbd"
+  },
+  "candidate": {
+    "passed": 6,
+    "new_cases": 2,
+    "preservation_cases": 4,
+    "workers": 1,
+    "retries": 0
+  },
+  "causal_observation": "Actual document-bubble event has defaultPrevented=true, target role menuitem, drawer open before window listener; baseline then closes drawer/focusMore. Candidate preserves drawer/focusCreate for first Escape, then unprevented second Escape closes drawer/focusMore.",
+  "earlier_setup_attempts": [
+    {
+      "log": "early-767-setup-failure.log.gz",
+      "passed": 1,
+      "failed": 1,
+      "not_run": 3,
+      "scope": "767 case failed waiting Close navigation focus before any Escape; provider responsive effect not observed before first More click. Add actual aria-hidden=true readiness before opening."
+    },
+    {
+      "log": "early-320-setup-failure.log.gz",
+      "passed": 3,
+      "failed": 1,
+      "not_run": 2,
+      "scope": "Existing320 Create test failed before Escape/menu because first More click preceded responsive state. Add same natural aria-hidden=true setup assertion; assertions/timeouts/navigation unchanged."
+    }
+  ],
+  "checks": {
+    "root_captures": 9,
+    "root_tooling": 10,
+    "shell_source_tests": 3,
+    "app_evidence": "698 objects/npm/unchanged SDK PASS",
+    "progress": "PASS",
+    "typegen": "PASS",
+    "frontend_typecheck": "PASS"
+  },
+  "limits": [
+    "Local reconstructed mobile-drawer defect; not captured upstream popup-equivalence qualification.",
+    "Finite Chromium development-server6-case proof; no full production build/browser-suite result.",
+    "375 before/after and767 after-only; baseline stopped at375 first failure. Desktop preservation is keyboard navigation, not desktop visual parity.",
+    "Original captures, SDK sources, historical packets and peer1300/1304 work unchanged.",
+    "Existing shell test receives natural readiness guard plus formatter-only changes in delayed-clear formatting; no assertion or timeout weakened."
+  ]
+}

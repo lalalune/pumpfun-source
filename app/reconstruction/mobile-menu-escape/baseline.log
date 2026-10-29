@@ -1,0 +1,54 @@
+
+Running 2 tests using 1 worker
+
+(node:343620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] tests/mobile-menu-escape.spec.ts:52:7 › Escape closes the nested Create menu before the mobile drawer at 375px
+  1) tests/mobile-menu-escape.spec.ts:52:7 › Escape closes the nested Create menu before the mobile drawer at 375px
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('[data-app-shell]')
+    Expected: "open"
+    Received: "closed"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('[data-app-shell]') with timeout 5000ms
+      - waiting for locator('[data-app-shell]')
+        14 × locator resolved to <div data-app-shell="" data-mobile-navigation="closed" class="group/sidebar-wrapper flex min-h-svh w-full">…</div>
+           - unexpected value "closed"
+
+
+      87 |       await page.keyboard.press("Escape");
+      88 |       await expect(menu).not.toBeVisible();
+    > 89 |       await expect(shell).toHaveAttribute("data-mobile-navigation", "open");
+         |                           ^
+      90 |       await expect(create).toBeFocused();
+      91 |       await expect(page.locator("[data-shell-content]")).toHaveAttribute(
+      92 |         "inert",
+        at /workspace/pump-app-search-planner/app/packages/frontend/tests/mobile-menu-escape.spec.ts:89:27
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../mobile-menu-escape-ef400863/ready-baseline-browser-artifacts/mobile-menu-escape-Escape--8c4c5--the-mobile-drawer-at-375px/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../mobile-menu-escape-ef400863/ready-baseline-browser-artifacts/mobile-menu-escape-Escape--8c4c5--the-mobile-drawer-at-375px/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../mobile-menu-escape-ef400863/ready-baseline-browser-artifacts/mobile-menu-escape-Escape--8c4c5--the-mobile-drawer-at-375px/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../mobile-menu-escape-ef400863/ready-baseline-browser-artifacts/mobile-menu-escape-Escape--8c4c5--the-mobile-drawer-at-375px/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+Testing stopped early after 1 maximum allowed failures.
+
+  1 failed
+    tests/mobile-menu-escape.spec.ts:52:7 › Escape closes the nested Create menu before the mobile drawer at 375px
+  1 did not run
+  1 error was not a part of any test, see above for details

@@ -1,0 +1,14 @@
+
+Running 6 tests using 1 worker
+
+(node:344354) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/6] tests/mobile-menu-escape.spec.ts:52:7 › Escape closes the nested Create menu before the mobile drawer at 375px
+[2/6] tests/mobile-menu-escape.spec.ts:52:7 › Escape closes the nested Create menu before the mobile drawer at 767px
+[3/6] tests/shell.spec.ts:122:5 › mobile navigation traps focus, restores it and closes after navigation
+[4/6] tests/shell.spec.ts:199:7 › Create a coin remains reachable at 320px
+[5/6] tests/shell.spec.ts:199:7 › Create a coin remains reachable at 375px
+[6/6] tests/shell.spec.ts:259:5 › keyboard traversal reaches shell navigation, search and actions
+  6 passed (9.2s)

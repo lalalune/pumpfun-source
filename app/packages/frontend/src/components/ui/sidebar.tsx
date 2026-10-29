@@ -92,7 +92,8 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
     const unlockScroll = lockBodyScroll();
     mobileClose.current?.focus();
     const dismiss = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      // A nested popup may already have consumed this key to close itself.
+      if (event.key === "Escape" && !event.defaultPrevented) {
         event.preventDefault();
         closeMobile(true);
       }
