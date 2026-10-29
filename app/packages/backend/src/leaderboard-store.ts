@@ -121,6 +121,10 @@ export class LeaderboardStore {
           'lastRefreshedAtMs'] as const) {
           if (!Number.isFinite(entry[key])) throw new TypeError(`Leaderboard ${key} must be finite`);
         }
+        for (const position of entry.positions) {
+          if (!Number.isFinite(position.chainId))
+            throw new TypeError('Leaderboard position chainId must be finite');
+        }
       }
       const wallets = this.boards[period].map((entry) => entry.walletAddress);
       if (new Set(wallets).size !== wallets.length) throw new TypeError('Duplicate leaderboard wallet');
