@@ -9,7 +9,7 @@ section. Raw matches are counted separately.
 Usage: score.py <unstripped.so> [--baseline inventory.json] [--json out.json] [--quiet]
 Prints counts and gains/losses vs the baseline (default: base/current/inventory.json).
 """
-import argparse, csv, hashlib, json, re, struct, subprocess, sys, pickle
+import argparse, csv, hashlib, json, re, struct, subprocess, sys
 from pathlib import Path
 
 H = Path(__file__).resolve().parent
@@ -62,18 +62,17 @@ def candidate_functions(path):
 
 
 def original_windows():
-    cache = BASE / 'original-windows.pkl'
-    if cache.exists():
-        return pickle.loads(cache.read_bytes())
+    # Read both inputs each time: a previous inventory must not set today's
+    # window set or supply bytes from a different captured original.
     orig = (BASE / 'original.so').read_bytes(); os_ = sections(orig)
     rows = []
-    for r in csv.DictReader((BASE / 'functions.tsv').open(), delimiter='\t'):
-        if r['program'] != 'pump' or r['variant'] != 'selected':
-            continue
-        s, e = int(r['original_start']), int(r['original_end'])
-        raw = body(orig, os_, s, e - s)
-        rows.append({'start': s, 'bytes': e - s, 'raw': raw, 'norm': normalize(raw, s, os_)})
-    cache.write_bytes(pickle.dumps(rows))
+    with (BASE / 'functions.tsv').open() as inventory:
+        for r in csv.DictReader(inventory, delimiter='\t'):
+            if r['program'] != 'pump' or r['variant'] != 'selected':
+                continue
+            s, e = int(r['original_start']), int(r['original_end'])
+            raw = body(orig, os_, s, e - s)
+            rows.append({'start': s, 'bytes': e - s, 'raw': raw, 'norm': normalize(raw, s, os_)})
     return rows
 
 

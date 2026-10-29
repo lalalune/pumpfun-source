@@ -44,6 +44,13 @@ python3 reconstruction/harness/score.py /tmp/pump-out/unstripped.so --baseline r
 python3 reconstruction/harness/win.py show 0x14f4e0 --cand /tmp/pump-out/unstripped.so
 ```
 
+The scorer reads `base/original.so` and `base/functions.tsv` on each call.
+It ignores old `base/original-windows.pkl` files so an earlier read cannot
+hide a changed window inventory or original image. Run the offline input-change
+regressions with `python3 -B reconstruction/harness/test_score_inputs.py`.
+The tests use temporary copies of the captured ELF and inventory; they do not
+execute a program or establish a new reconstruction match count.
+
 The pinned canonical source (`git archive e38a8b97a programs/pump`) reproduces
 unstripped `0f50faa8c325104dc77898ed84866dec2ad1eec475b6abba72c475cf7bf9bab6` and
 stripped `d0377d7cef5b7378063f8bfabac5dc9c08d29eeaaaaa14022d36909688ff5e1b`, scoring
