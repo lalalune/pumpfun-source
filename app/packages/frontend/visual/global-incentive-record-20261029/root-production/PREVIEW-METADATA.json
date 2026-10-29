@@ -1,0 +1,54 @@
+{
+  "change": "Whole-file omission from current public packet; no preview value inspection or classification.",
+  "historical_artifact": {
+    "public_commit": "6ee012d6afe3dc9d0e3ec010ef2815eada643e6c",
+    "path": "app/packages/frontend/visual/global-incentive-record-20261029/root-production/retained-next-prerender-manifest.json",
+    "git_blob": "fc349774c1866cf5184cba2641b8c6eb31fa9b9f",
+    "bytes": 5513,
+    "sha256": "36efeda8885c33fadcce9a9207f3ee49c463b346fa819cb832bd6d0c02f07e53",
+    "private_preservation": "Opaque original retained with matching length/hash; no field parsing or display."
+  },
+  "provenance": {
+    "recorded_build": "60b6bae73d661444b6e80680e418be9dc92c417a",
+    "operator_context": "Undeployed local normal build, as reported by its operator; existing raw qualification receipts remain unchanged.",
+    "next_version": "16.4.1",
+    "installed_next_generation_sources": {
+      "dist/build/preview-key-utils.js": {
+        "bytes": 3711,
+        "sha256": "328c8ac551776bc55201dd1d47bd24ec4ef2837b40fe1365539e0dd574899af6"
+      },
+      "dist/build/index.js": {
+        "bytes": 192584,
+        "sha256": "2799d2454917571699b37390caf74242ff0ba41ec696a5480b3d392916530ce8"
+      },
+      "dist/server/cache-dir.js": {
+        "bytes": 757,
+        "sha256": "c4d6db3977e1bb709bb4271959b87c9b8aaee19f54179ff857776ddd791e0acb"
+      }
+    },
+    "public_repository_configuration": {
+      "app/packages/frontend/package.json": {
+        "git_blob": "f998048da959e90119cc58b720d6a09da9f897c0",
+        "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e"
+      },
+      "app/packages/frontend/next.config.ts": {
+        "git_blob": "6326d6c6274182f58c449f3f5bba914858023dfa",
+        "sha256": "d2a146c48e81f3d08a93dfabad75ac47e540667779a368b367ffb63be8e4ce45"
+      },
+      "app/pnpm-lock.yaml": {
+        "git_blob": "049b2153aa789a6def6cbd55c7b375a74a091fd1",
+        "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+      }
+    },
+    "generation_path": "Next build calls generatePreviewKeys(isBuild=true), which can generate random fields or reuse a valid local preview cache, then places previewProps in prerenderManifest.preview.",
+    "cache_or_values_inspected": false
+  },
+  "historical_inventory": "root-production/HISTORICAL-SHA256-MANIFEST-6ee012d6.json",
+  "current_inventory": "SHA256-MANIFEST.json",
+  "limits": [
+    "No classification of any particular retained value as placeholder, deployment secret or harmless data.",
+    "No actual cache/branch outcome or per-build freshness assertion.",
+    "Earlier public history still contains the raw artifact; no history rewrite, erasure or security clearance is claimed.",
+    "Source, tests, build configuration, existing logs, browser outcomes and measured revisions unchanged; no new tests/build/Next/provider/deployment run."
+  ]
+}

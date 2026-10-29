@@ -1,6 +1,6 @@
 {
   "algorithm": "sha256",
-  "scope": "Every packet file except this manifest; earlier PRE-BROWSER/POST-BROWSER remain preserved phases.",
+  "scope": "Current public packet membership. Historical inventory separately retained; one opaque raw prerender manifest is intentionally omitted.",
   "files": {
     "BROWSER-SUMMARY.json": "3088a3d31457b9f032d5b6630b2d1e7660512c8f8a1e5c90536ef1720494c0cf",
     "BROWSER.json": "568a0548f290c55d8a6f3bd8fa26256fa555ed237a7691e903e5855ee5a669b7",
@@ -20,6 +20,9 @@
     "progress-hydration.json": "6d2801344c1353a26b29b9a500c653723576af8c683f9dbea826b9e5321044b2",
     "progress-sparse-negative.log.gz": "e86e4e3f0344eabf004ebf8a29caedcb9341429bf2de034313f613e6de75ca99",
     "progress.log.gz": "7d18333239b091e6658ff951c58518f98867595b92ff2aa127b4b57a95bdd45a",
+    "root-production/HISTORICAL-SHA256-MANIFEST-6ee012d6.json": "a973dba64f6981b84996be004fc7948b782315d41edd9f6754bfad0003a86344",
+    "root-production/PREVIEW-METADATA-NOTE.md": "c1a3f7e2ea5ac72b49064abe23b93fa758a58ae3019b6255d03ebfb7693f2e4d",
+    "root-production/PREVIEW-METADATA.json": "544798e7511926f14984ace632caceb5772958076f32c0f4f15fcba9ee47b4a3",
     "root-production/SOURCE-UNCHANGED.json": "b475eed728a90c48cf942e47817e8f5d2cee079a1acd5051375e6cb852ae1ed4",
     "root-production/build.log.gz": "55e799dba79374867287f5f06177113c805c59b2c29b00051e0b31dbe9c4db3c",
     "root-production/checks.json": "d8b5ffa258d8fd3bc459943afa36e78d1e9b7351b2316c0f523fca2f430000cf",
@@ -29,7 +32,6 @@
     "root-production/progress.log.gz": "e9d653031a4c0fad8fcd2fcb8246b07f97f2422b97fae4df080a0ff021efcb30",
     "root-production/retained-next-BUILD_ID": "cd4dae5391b9e0d0efe0aa1af187113e78c505f0a06ea95d34093465338777fa",
     "root-production/retained-next-build-manifest.json": "035bb80d52a5d4956c95fdb13d07af8d53ea109b553477649e3645f7f730d22c",
-    "root-production/retained-next-prerender-manifest.json": "36efeda8885c33fadcce9a9207f3ee49c463b346fa819cb832bd6d0c02f07e53",
     "root-production/retained-next-required-server-files.json": "f8f3d7d79a7ac0bba940d44090550cc5d8222e2f47f444bc6daf0fb4b0deb6c0",
     "root-production/retained-next-routes-manifest.json": "acd62268e99079ffb0f02d601dc2325a6212c1f598f86aa77366136de1d3f1b0",
     "root-production/retained-next-server--app-paths-manifest.json": "882ba5b7a58b5c28e44ab860ac1429b2e839609ddf7bbdb2172ee25c75d9767e",

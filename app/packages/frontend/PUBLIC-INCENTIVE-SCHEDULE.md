@@ -73,7 +73,7 @@ Independent normal production qualification at exact public source
 `60b6bae73d661444b6e80680e418be9dc92c417a` passes all four checks: the pinned
 SDK/backend/Next production build, recursive workspace TypeScript, 698-object npm
 and unchanged-SDK evidence, and progress plus nine tests. The compressed complete
-logs, check receipt and seven retained Next manifests are under the visual packet's
+logs, check receipt and the retained Next build metadata are under the visual packet's
 `root-production/` directory. An earlier interrupted orchestration has its own
 qualified note; no exit result or pass is inferred from that attempt, and its
 replaced partial log is not represented as complete evidence. Later publication
@@ -83,6 +83,14 @@ bound by an unchanged Git-blob-map digest.
 Controlled compiled-fixture success and a passing production build do not
 establish configured production or live-mainnet success. The unconfigured
 production-route guard only proves closed configuration behavior.
+
+The current public packet omits the whole raw prerender manifest because its
+preview field values are unnecessary build evidence. Original bytes remain
+privately preserved and hash-bound; historical public Git exposure is not erased.
+The [preview metadata note](visual/global-incentive-record-20261029/root-production/PREVIEW-METADATA-NOTE.md)
+distinguishes Next-generated-or-cached framework provenance from any particular
+value classification. Prior qualification receipts and source revisions remain
+unchanged; this minimization adds no build/runtime or security qualification.
 
 Run from `app/` with the pinned pnpm 10.24 environment:
 
