@@ -64,9 +64,23 @@ class Cand:
     def __init__(self, path):
         self.path = Path(path); self.blob = self.path.read_bytes(); self.secs = sections(self.blob)
         self.funcs = candidate_functions(self.path)
+        self._opgrams = {}
+        self._tokens = {}
 
     def fn(self, start, size):
         return body(self.blob, self.secs, start, size)
+
+    def grams(self, start, size):
+        key = (start, size)
+        if key not in self._opgrams:
+            self._opgrams[key] = opgrams(self.fn(start, size))
+        return self._opgrams[key]
+
+    def tokens(self, start, size):
+        key = (start, size)
+        if key not in self._tokens:
+            self._tokens[key] = tuple(x[2] for x in insns(self.fn(start, size), start, self.secs))
+        return self._tokens[key]
 
 
 def opgrams(raw, k=3):
@@ -83,14 +97,14 @@ def best_candidates(w, cand, top=3):
     for (s, n, name) in cand.funcs:
         if not (0.4 * w['bytes'] <= n <= 2.5 * w['bytes']):
             continue
-        cg = opgrams(cand.fn(s, n)); inter = sum((og & cg).values()); uni = sum((og | cg).values()) or 1
+        cg = cand.grams(s, n); inter = sum((og & cg).values()); uni = sum((og | cg).values()) or 1
         scored.append((inter / uni, s, n, name))
     scored.sort(reverse=True)
     res = []
     orig_tok = [x[2] for x in insns(w['raw'], w['start'], ORIG_SECS)]
     # Keep the usual eight-way shortlist, but do not silently cap --top N.
     for j, s, n, name in scored[:max(8, top)]:
-        ct = [x[2] for x in insns(cand.fn(s, n), s, cand.secs)]
+        ct = cand.tokens(s, n)
         res.append((difflib.SequenceMatcher(None, orig_tok, ct, autojunk=False).ratio(), j, s, n, name))
     res.sort(reverse=True)
     return res[:top]
