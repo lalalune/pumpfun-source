@@ -229,6 +229,13 @@ export class CompetitionStore {
         new Set(this.competitions.map(c => c.slug.toLowerCase())).size !== this.competitions.length) {
       throw new TypeError('Duplicate competition ID or slug');
     }
+    const slugOwners = new Map(this.competitions.map(comp => [comp.slug.toLowerCase(), comp]));
+    for (const comp of this.competitions) {
+      const owner = slugOwners.get(comp.id.toLowerCase());
+      if (owner !== undefined && owner !== comp) {
+        throw new TypeError('Ambiguous competition ID/slug keyspace');
+      }
+    }
     this.byId = new Map(this.competitions.map(c => [c.id, c]));
     this.bySlug = new Map(this.competitions.map(c => [c.slug.toLowerCase(), c]));
     this.userStore = userStore ?? defaultStore;
