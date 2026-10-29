@@ -15,7 +15,10 @@ def score(items):
         require(item['status'] in {'pending','accepted','not-applicable'}, 'Unknown milestone status')
         if item['status'] in {'accepted','not-applicable'}:
             require(item['evidence'], 'Accepted/excluded gates require evidence or an explicit applicability decision')
-            for evidence in item['evidence']: require((ROOT/evidence.split('#')[0]).is_file(), evidence)
+            for evidence in item['evidence']:
+                relative = pathlib.Path(evidence.split('#')[0])
+                target = (ROOT / relative).resolve()
+                require(not relative.is_absolute() and target.is_relative_to(ROOT.resolve()) and target.is_file(), f'Evidence must be an app-local file: {evidence}')
     complete=sum(v['status']=='accepted' for v in applicable)
     return 'N/A' if not applicable else f'{complete}/{len(applicable)} ({100*complete/len(applicable):.0f}%)'
 def replace_readme(text,block):
