@@ -180,6 +180,12 @@ function comparePostsNewestFirst(a: RawPost, b: RawPost): number {
   return comparePostIds(b.postId, a.postId);
 }
 
+function pageValue(value: number | undefined, fallback: number, minimum: number, maximum: number): number {
+  if (value === undefined) return fallback;
+  if (!Number.isSafeInteger(value)) throw new RangeError('Invalid post pagination');
+  return Math.min(maximum, Math.max(minimum, value));
+}
+
 export class PostStore {
   private posts: RawPost[];
   private byPostId: Map<string, RawPost>;
@@ -327,6 +333,7 @@ export class PostStore {
    * Returns undefined if the post is not live.
    */
   getReplies(postId: string, opts: { cursor?: string; limit?: number }): { replies: Post[]; nextCursor: string | null } | undefined {
+    const limit = pageValue(opts.limit, 50, 1, 200);
     const post = this.byPostId.get(postId);
     if (!post || !this.isServed(post)) return undefined;
 
@@ -347,7 +354,6 @@ export class PostStore {
       });
     }
 
-    const limit = opts.limit ?? 50;
     const page = items.slice(0, limit);
     const hasMore = items.length > limit;
     const nextCursor = hasMore && page.length > 0 ? encodeCursor(page[page.length - 1]) : null;
@@ -363,6 +369,7 @@ export class PostStore {
    * Returns undefined if the post is not live.
    */
   getQuotes(postId: string, opts: { cursor?: string; limit?: number }): { quotes: Post[]; nextCursor: string | null } | undefined {
+    const limit = pageValue(opts.limit, 50, 1, 200);
     const post = this.byPostId.get(postId);
     if (!post || !this.isServed(post)) return undefined;
 
@@ -383,7 +390,6 @@ export class PostStore {
       });
     }
 
-    const limit = opts.limit ?? 50;
     const page = items.slice(0, limit);
     const hasMore = items.length > limit;
     const nextCursor = hasMore && page.length > 0 ? encodeCursor(page[page.length - 1]) : null;
@@ -399,12 +405,12 @@ export class PostStore {
    * Returns undefined if the post is not live.
    */
   getLikers(postId: string, opts: { offset?: number; limit?: number }): { likers: UserProfile[]; hasMore: boolean } | undefined {
+    const offset = pageValue(opts.offset, 0, 0, 10000);
+    const limit = pageValue(opts.limit, 50, 1, 200);
     const post = this.byPostId.get(postId);
     if (!post || !this.isServed(post)) return undefined;
 
     const likerIds = (post.likers ?? []).filter(id => this.userStore.getById(id) !== undefined);
-    const offset = Math.max(0, opts.offset ?? 0);
-    const limit = Math.max(1, opts.limit ?? 50);
 
     const slice = likerIds.slice(offset, offset + limit);
     const hasMore = offset + limit < likerIds.length;
@@ -425,12 +431,12 @@ export class PostStore {
    * Returns undefined if the post is not live.
    */
   getReposters(postId: string, opts: { offset?: number; limit?: number }): { reposters: UserProfile[]; hasMore: boolean } | undefined {
+    const offset = pageValue(opts.offset, 0, 0, 10000);
+    const limit = pageValue(opts.limit, 50, 1, 200);
     const post = this.byPostId.get(postId);
     if (!post || !this.isServed(post)) return undefined;
 
     const reposterIds = (post.reposters ?? []).filter(id => this.userStore.getById(id) !== undefined);
-    const offset = Math.max(0, opts.offset ?? 0);
-    const limit = Math.max(1, opts.limit ?? 50);
 
     const slice = reposterIds.slice(offset, offset + limit);
     const hasMore = offset + limit < reposterIds.length;
