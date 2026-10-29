@@ -74,6 +74,8 @@ factory remain unimplemented; string presence is not scope or compatibility.
   empty updates with `updatesApplied: false` on portfolio pages. A mint request
   requiring such a join fails explicitly; `updatesLimit=0` still works. An empty
   page/totals-only result has nothing to enrich and reports true.
+- Callout, quoted-callout and separate-update timestamps must be no later than
+  `observedAt`. Equality and explicitly unknown nullable timestamps remain valid.
 - Public spam uses the supplied public verdict and callout exemption. Owner
   rescue/dust/liked/reposted flags are rejected, never copied into public reads.
   No verdict remains absent; it is not fabricated as a known false verdict.

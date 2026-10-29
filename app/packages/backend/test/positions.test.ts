@@ -934,3 +934,27 @@ test('position state timestamps cannot exceed their observation checkpoint',()=>
   }
   assert.doesNotThrow(()=>new PositionsStore(dataset()));
 });
+
+for (const field of ['calloutTimestamp', 'maxMultiplierAt'] as const) {
+  for (const nested of [false, true]) test(`position ${nested ? 'quoted ' : ''}${field} cannot exceed observedAt`, () => {
+    const data = dataset();
+    const body = nested ? (data.callouts[0].body.quotedCallout = quoted()).callout : data.callouts[0].body;
+    body[field] = '2026-10-29T00:00:00.000Z';
+    assert.throws(() => new PositionsStore(data), /enrichment timestamp exceeds observedAt/);
+  });
+}
+
+test('position update enrichment cannot contain facts after observedAt', () => {
+  const data = dataset();
+  data.updates[0].body.createdAt = '2026-10-29T00:00:00.000Z';
+  assert.throws(() => new PositionsStore(data), /enrichment timestamp exceeds observedAt/);
+});
+
+test('checkpoint equality and unknown enrichment timestamps remain valid', () => {
+  const data = dataset();
+  data.callouts[0].body.maxMultiplierAt = now;
+  data.callouts[0].body.quotedCallout = quoted();
+  data.updates[0].body.createdAt = null;
+  const store = new PositionsStore(data);
+  assert.equal(store.positions('person-a', ['mint-a'])!.positions[0].callout!.maxMultiplierAt, now);
+});

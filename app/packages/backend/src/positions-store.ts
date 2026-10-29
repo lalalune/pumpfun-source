@@ -177,7 +177,7 @@ const enrichmentDates = new Set([
   "createdAt",
 ]);
 /** Additional local admission rules apply recursively to every emitted enrichment. */
-function publicCallout(value: unknown, quoteDepth = 0): void {
+function publicCallout(value: unknown, observedAt: number, quoteDepth = 0): void {
   if (!value || typeof value !== "object") return;
   for (const [field, child] of Object.entries(value)) {
     if (field === "updates" && Array.isArray(child) && child.length > 0)
@@ -194,7 +194,11 @@ function publicCallout(value: unknown, quoteDepth = 0): void {
       (typeof child !== "string" || !spotChain.test(child))
     )
       fail("unsupported enrichment chain");
-    if (enrichmentDates.has(field) && child !== null) iso(child, field);
+    if (enrichmentDates.has(field) && child !== null) {
+      iso(child, field);
+      if (Date.parse(child as string) > observedAt)
+        fail("enrichment timestamp exceeds observedAt");
+    }
     if (
       enrichmentCounters.has(field) &&
       (!Number.isSafeInteger(child) || (child as number) < 0)
@@ -203,7 +207,7 @@ function publicCallout(value: unknown, quoteDepth = 0): void {
     const nestedQuote = field === "quotedCallout" && child !== null;
     if (nestedQuote && quoteDepth > 0)
       fail("quoted callouts may be expanded only one level");
-    publicCallout(child, quoteDepth + (nestedQuote ? 1 : 0));
+    publicCallout(child, observedAt, quoteDepth + (nestedQuote ? 1 : 0));
   }
 }
 function spot(row: {
@@ -271,7 +275,7 @@ export class PositionsStore {
         fail("callout updates completeness must be explicit");
       if (item.body.assetClass && item.body.assetClass !== "ASSET_CLASS_TOKEN")
         fail("non-spot callout");
-      publicCallout(item.body);
+      publicCallout(item.body, Date.parse(this.observedAt));
       text(item.body.calloutId, "calloutId");
       if (this.callouts.has(item.body.calloutId)) fail("duplicate callout");
       this.callouts.set(item.body.calloutId, item);
@@ -288,7 +292,7 @@ export class PositionsStore {
       if (typeof item.deleted !== "boolean" || typeof item.hidden !== "boolean")
         fail("update visibility");
       assertSchema(item.body, updateSchema, "update", spec);
-      publicCallout(item.body);
+      publicCallout(item.body, Date.parse(this.observedAt));
       if (item.body.createdAt !== null)
         iso(item.body.createdAt, "update.createdAt");
       if (updateIds.has(item.body.id)) fail("duplicate update id");
