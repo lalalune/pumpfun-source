@@ -22,7 +22,7 @@ Source acquisition/extraction is separate from editable feature reconstruction a
 | --- | ---: | ---: | ---: | --- |
 | Identity / authentication | 30 | 0/3 (0%) | 0/4 (0%) | Original auth, sessions and authorization unavailable. |
 | Profiles / follow graph | 70 | 0/3 (0%) | 0/4 (0%) | Local GET /profiles/verified projects daily leaders to full profiles; production PnL, identity policy and authorization remain unqualified. Family milestones remain pending. |
-| Feed / posts / callouts | 39 | 0/3 (0%) | 0/4 (0%) | No native content handlers or persistence. |
+| Feed / posts / callouts | 39 | 0/3 (0%) | 0/4 (0%) | Independent read-only Posts/HomeFeed models use labelled synthetic seeds; opt-in materialized Callouts/Discussions reads exist. Developer routes retain the limited key-shape gate; identity authorization remains unqualified. Content writes/persistence and original backend source remain unavailable. Production/native API compatibility is unqualified, and family milestones remain pending. |
 | Market discovery / search | 35 | 0/3 (0%) | 0/4 (0%) | One dated price fixture; no native discovery or price service. |
 | Leaderboards / competitions | 27 | 0/3 (0%) | 0/4 (0%) | No native ranking, PnL or competition logic. |
 | Livestream / presence | 9 | 0/3 (0%) | 0/4 (0%) | LiveKit configuration observed; no native orchestration. |
