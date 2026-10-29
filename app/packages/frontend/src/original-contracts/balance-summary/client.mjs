@@ -1,6 +1,8 @@
 // Maintained source reconstruction. Captured factories are never executed.
 // Destination/fetch are explicit capabilities; import performs no request.
 export class BalanceSummaryHttpError extends Error {
+  status;
+  retryAfterMs;
   constructor(message, status, options) {
     super(message);
     this.name = "BalanceSummaryHttpError";

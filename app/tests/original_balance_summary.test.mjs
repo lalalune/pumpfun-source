@@ -153,6 +153,7 @@ test("401/other errors do not consume body; only429 reads retry header/clock", a
     await assert.rejects(c.read({ userAddress: "a" }), (e) => {
       assert.ok(e instanceof BalanceSummaryHttpError);
       assert.equal(e.name, "BalanceSummaryHttpError");
+      assert.deepEqual(Object.keys(e), ["status", "retryAfterMs", "name"]);
       assert.equal(e.status, status);
       assert.equal(
         e.message,
