@@ -1,0 +1,121 @@
+{
+  "schema": 1,
+  "reviewBase": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Restore only original identifier search text within already-mapped native Settings definitions",
+  "indexEntry": {
+    "ids": [
+      124884
+    ],
+    "sha256": "dfcb487f79e63fa817cef92fd322e172c6d44fb2270bad175820a463b2e382ea",
+    "origins": [
+      {
+        "source": "evidence/web/objects/4490d02ba2117672.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+        "start": 119,
+        "end": 52335
+      }
+    ],
+    "path": "recovered/modules/124884-dfcb487f79e6.js"
+  },
+  "factory": {
+    "id": 124884,
+    "ids": [
+      124884
+    ],
+    "label": "factory 124884",
+    "source": "evidence/web/objects/4490d02ba2117672.js",
+    "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+    "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+    "sourceBytes": 52381,
+    "utf16": [
+      119,
+      52335
+    ],
+    "utf8": [
+      119,
+      52341
+    ],
+    "sha256": "dfcb487f79e63fa817cef92fd322e172c6d44fb2270bad175820a463b2e382ea"
+  },
+  "witnesses": [
+    {
+      "label": "actual identifier indexing with periods replaced by spaces",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        34326,
+        34350
+      ],
+      "utf8": [
+        34332,
+        34356
+      ],
+      "sha256": "17cdec09ac875b5b58eae592cb9332f49651db1109925ff09a43a22b86555c6b"
+    },
+    {
+      "label": "actual translated label/description/search terms/section/id search document",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        34248,
+        34351
+      ],
+      "utf8": [
+        34254,
+        34357
+      ],
+      "sha256": "e1d08ea3821971458d320e4ea0930f17ebacb855c8faca0a48e87d19552c1e53"
+    },
+    {
+      "label": "complete source token-AND definition filter and hidden guard",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        34142,
+        34444
+      ],
+      "utf8": [
+        34148,
+        34450
+      ],
+      "sha256": "f67fb5414accc012ea261835281f85480ded95417fede0bf459c1dfc1f200c97"
+    },
+    {
+      "label": "complete original query/results/grouping consumer",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        33491,
+        35443
+      ],
+      "utf8": [
+        33497,
+        35449
+      ],
+      "sha256": "8cb31658cc9bce60555696c05e94fab82f07b89802bbbe8e0daac3191a09957b"
+    }
+  ],
+  "native": {
+    "file": "packages/frontend/src/components/settings/settings-model.ts",
+    "function": "findSettings",
+    "bindingAdaptation": "Original filter parameter e becomes existing native filter parameter setting; only its id.replace expression is restored."
+  },
+  "overlap": {
+    "pr": 1188,
+    "scope": "Open concurrent normalization-order fix remains distinct. This unit preserves current Unicode/locale/order policy; integration may touch the same file, without copying that patch."
+  },
+  "limits": [
+    "Native search remains limited to existing static mapped definitions; no added setting or preference value/control.",
+    "Only original ID indexing operand is restored. This is not whole original Settings/search/provider equivalence.",
+    "No extra normalization of dotted query strings, new Unicode policy, ranking, server preferences, auth, mutation or completion claim.",
+    "Captures and previous source/validation packages remain unchanged; no captured-code execution or tenant requests."
+  ]
+}
