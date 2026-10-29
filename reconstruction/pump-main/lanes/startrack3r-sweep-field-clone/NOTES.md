@@ -1,3 +1,85 @@
+# Current candidate: source composition closes the local call span
+
+This revision supersedes the earlier field-clone source. Base is
+`094a06f18df738d41e77070c1a009e135671ac1a`; `sweep_fees.rs` is restored to
+that base. Only two source files differ: unchanged upstream #1539's
+V3 execution patch and #1555's retained `T11-admit-inline.patch`.
+Credit for both source mechanisms belongs to those upstream contributions.
+This lane adds their controlled composition, raw-span closure and validation.
+
+| Local build | Execute bytes / ratio | Swap bytes / ratio | Normalized / raw | `0xa868` span delta |
+| --- | --- | --- | --- | ---: |
+| Main | 3448 / 0.97278 | 18328 / 0.60062 | 1024 / 273 | -112 |
+| #1539 only | 3440 / 1.0 | 18328 / 0.60062 | 1025 / 273 | -120 |
+| #1555 T11 only | 3448 / 0.97278 | 18448 / 0.68510 | 1024 / 273 | +8 |
+| **Both + independent repeat** | **3440 / 1.0** | **18448 / 0.68510** | **1025 / 275** | **0** |
+
+The composition gains normalized window `0x83c00` and raw windows `0xa7b0`
+(48 bytes) and `0xa868` (24 bytes), with **no normalized or raw losses**
+across all 1,035 windows. The raw matches call complete normalized callee
+bodies equal to the originals (1,872 and 1,088 bytes respectively).
+Execute retains the original 22 internal callees. Swap retains the complete
+original 107-callee multiset and its syscall instruction; callee order is
+not claimed equal. Swap remains 136 bytes shorter than the original and
+is not a full normalized match.
+
+The original `0xa868` call span is 1,670,472 bytes. The local control is
+112 bytes short. T11 adds 120 bytes and the exact execution body removes
+8, so their normal compiler output closes that gap. Every byte in the
+original and candidate intervals is accounted for by physical function
+bodies, without gaps or overlaps. Each patch independently improves its
+target's reconstruction; neither patch alone gains these raw windows.
+No padding, binary edits, hash fishing, compiler/scorer changes or target
+execution is used.
+
+The combined and independently compiled repeat are byte-identical:
+`c74e553e1af2c3c7823d55dd5f5b57875c07f82b282fa725a2d967029ed027da`
+(2,665,472 bytes, unstripped). Seven root compilations succeeded without
+stack-offset warnings. The same 71 source inputs / 62 base Git blobs,
+toolchain, target libraries, dependencies, flags and path-remap rules are
+bound in the retained receipts. `COMPOSITION.json` records hashes, exact
+source scope, all controls, gains and complete raw-callee bindings.
+
+The first patch application used Windows CRLF line endings. The publication
+whitespace check caught this; the two changed files were then restored to
+canonical LF and compiled twice more. Both complete outputs equal the
+earlier composition exactly. The original five controls and failed
+whitespace check remain retained; the published source is the verified LF
+form of the unchanged upstream patches.
+
+**Draft / host limit:** this is the qualified Windows v1.44 compiler plus
+retained Linux target-library/dependency recipe. The maintainer's native
+baseline already reports a raw `0xa868` match. This composition has not
+been rebuilt there and must not be assumed to preserve its raw set. The
+local result does not waive the native no-loss gate. No whole-image,
+historical-source, recursive behavior or security equivalence is claimed.
+
+Build base and candidate with the unchanged identity recipe, then replay:
+
+```sh
+python3 reconstruction/pump-main/lanes/startrack3r-sweep-field-clone/verify_composition.py \
+  --control /path/to/base-unstripped.so \
+  --candidate /path/to/combined-unstripped.so \
+  --repeat /path/to/repeat-unstripped.so \
+  --original /path/to/original-allocation.so \
+  --objdump /path/to/llvm-objdump \
+  --work /path/to/new-static-report-directory
+```
+
+`--inventory` and `--harness` can select the existing checked inputs in a
+sparse checkout. The verifier runs no compiler or program. It checks every
+membership, both full callee multisets, syscall instructions, both raw
+callee bindings and the exact whole-output repeat. Standalone and optimized
+Python replays pass; the real execute-only and swap-only outputs fail the
+integration gate, as does a wrong repeat.
+
+`SUMMARY.json`, `RENT-RESULT.json`, `RAW-CALL-SPAN.json`, `verify.py`,
+`verify_call_span.py` and the sections below retain **historical** field-clone
+and earlier-control evidence at their recorded revisions. Their old source
+build commands are not the current composition's validation instructions.
+
+---
+
 # Sweep recipient field clone
 
 Base: `630a074126a13d4133514d599129c6ac9a3179bc`. Target: `0x72810`,

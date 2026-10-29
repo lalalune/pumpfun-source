@@ -150,20 +150,13 @@ pub fn execute(ctx:Context<SweepFees>,creator:bool)->Result<()>{
  if amount==0{msg!("Nothing to sweep for fee bucket {}",creator as u8);return Ok(());}
  let native=a.bonding_curve.quote_mint==Pubkey::default();
  match (creator,native){
-  (true,true)=>match Rent::get(){
-   Ok(rent)=>{let minimum=rent.minimum_balance(0);if a.recipient.lamports()<minimum{crate::legacy_buy::native_payments::transfer(a.system_program.as_ref(),&a.payer,a.recipient.as_ref(),minimum)}else{Ok(())}}
-   Err(e)=>Err(e.into()),
-  }?,
-  (_,false)=>{
-  let quote_mint=a.quote_mint.key();let quote_token_program=a.quote_token_program.key();let quote_mint_info=a.quote_mint.to_account_info();let quote_token_program_info=a.quote_token_program.to_account_info();
-  crate::buy_v2::admit_associated_token_account(a.associated_quote_bonding_curve.as_ref(),&a.bonding_curve.to_account_info(),quote_mint,quote_token_program,&quote_mint_info,&quote_token_program_info,false,a.payer.as_ref(),a.system_program.as_ref())?;
-  crate::buy_v2::admit_associated_token_account(a.associated_quote_recipient.as_ref(),a.recipient.as_ref(),quote_mint,quote_token_program,&quote_mint_info,&quote_token_program_info,true,a.payer.as_ref(),a.system_program.as_ref())?;
-  }
+  (true,true)=>{ensure_rent_exempt(&a.system_program,&a.payer,a.recipient.as_ref())?;}
+  (_,false)=>admit_quote_accounts(a)?,
   (false,true)=>{}
  }
  crate::trade::quote_payments::transfer_to_owned(
   native,a.base_mint.as_ref().as_ref(),a.bonding_curve.as_ref(),
-  {let i: &AccountInfo<'_>=a.recipient.as_ref();AccountInfo{key:i.key,lamports:i.lamports.clone(),data:i.data.clone(),owner:i.owner,rent_epoch:i.rent_epoch,is_signer:i.is_signer,is_writable:i.is_writable,executable:i.executable}},amount,&a.quote_token_program,
+  a.recipient.to_account_info(),amount,&a.quote_token_program,
   a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),
   if native{None}else{Some(a.associated_quote_bonding_curve.as_ref())},
   if native{None}else{Some(a.associated_quote_recipient.as_ref())},
@@ -175,4 +168,11 @@ pub fn execute(ctx:Context<SweepFees>,creator:bool)->Result<()>{
 fn ensure_rent_exempt<'info>(system_program:&Program<'info,System>,payer:&Signer<'info>,destination:&AccountInfo<'info>)->Result<()>{
  let minimum=Rent::get()?.minimum_balance(0);
  if destination.lamports()<minimum{crate::legacy_buy::native_payments::transfer(system_program.as_ref(),payer,destination,minimum)}else{Ok(())}
+}
+#[inline(always)]
+fn admit_quote_accounts<'info>(a:&mut SweepFees<'info>)->Result<()>{
+  let quote_mint=a.quote_mint.key();let quote_token_program=a.quote_token_program.key();let quote_mint_info=a.quote_mint.to_account_info();let quote_token_program_info=a.quote_token_program.to_account_info();
+  crate::buy_v2::admit_associated_token_account(a.associated_quote_bonding_curve.as_ref(),&a.bonding_curve.to_account_info(),quote_mint,quote_token_program,&quote_mint_info,&quote_token_program_info,false,a.payer.as_ref(),a.system_program.as_ref())?;
+  crate::buy_v2::admit_associated_token_account(a.associated_quote_recipient.as_ref(),a.recipient.as_ref(),quote_mint,quote_token_program,&quote_mint_info,&quote_token_program_info,true,a.payer.as_ref(),a.system_program.as_ref())?;
+  Ok(())
 }

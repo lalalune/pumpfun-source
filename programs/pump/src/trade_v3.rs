@@ -719,16 +719,16 @@ fn v3_execute_buy<'info>(a:&mut SellV3<'info>,curve_bump:u8,is_sol:bool,amount:u
 
 
     let total=buyback.checked_add(post_buyback).ok_or_else(||error!(PumpError::Overflow))?;
-    match if is_sol{(add(pool_quote,total_buyback)?,None,None)}else{let curve_quote=Some(a.associated_quote_bonding_curve.as_ref());(pool_quote,Some(a.associated_quote_user.as_ref()),curve_quote)}{(user_quote_in,user_quote,curve_quote)=>user_quote_payments::transfer_from_user(is_sol,a.system_program.as_ref(),&a.user,&a.bonding_curve,user_quote_in,quote_token_program,a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),user_quote,curve_quote)?}
+    {
+        let user_quote_in=if is_sol{add(pool_quote,total_buyback)?}else{pool_quote};
+        let (user_quote,curve_quote)=if is_sol{(None,None)}else{let curve_quote=Some(a.associated_quote_bonding_curve.as_ref());(Some(a.associated_quote_user.as_ref()),curve_quote)};
+        user_quote_payments::transfer_from_user(is_sol,a.system_program.as_ref(),&a.user,&a.bonding_curve,user_quote_in,quote_token_program,a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),user_quote,curve_quote)?;
+    }
     if is_sol{quote_payments::pay_out_native(&a.bonding_curve,a.buyback_fee_recipient.to_account_info(),total)?;}
     else{crate::collect_v2::transfer_user_quote_tokens(quote_token_program,&a.associated_quote_user,&a.buyback_fee_recipient,a.user.as_ref(),a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),total)?;}
     let total_net=crate::transfer_fee_recovered::post_fee_amount(quote_fee,total)?;
     let post_net=crate::transfer_fee_recovered::post_fee_amount(quote_fee,post_buyback)?;
-// layout-pad(40): aligns the next Source site with the original line
-
-
-
-
+// layout-pad(36): aligns the next Source site with the original line
 
 
 
@@ -772,7 +772,7 @@ pub fn buy(mut ctx:Context<SellV3>,amount:u64,max_sol_cost:u64,partial_fill:bool
     crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.user)?;
     validate_trade(a.bonding_curve.complete as u8,a.bonding_curve.is_cashback_coin as u64,0)?;
     let real=a.bonding_curve.real_token_reserves;
-    let exempt=v3_fee_exempt(&a.global,&a.bonding_curve,&a.user.key());let (amount,excess)=if amount>real && !exempt{(real,amount-real)}else{(if partial_fill{amount.min(real)}else{amount},0)};
+    let can_cross=v3_can_cross(&a.global,&a.bonding_curve,&a.user.key());let (amount,excess)=if amount>real && can_cross{(real,amount-real)}else{(if partial_fill{amount.min(real)}else{amount},0)};
 
 // layout-pad(24): aligns the next Source site with the original line
 
@@ -1178,7 +1178,7 @@ pub fn sell(ctx:Context<SellV3>,amount:u64,min_sol_output:u64)->Result<()> {sell
 
 
 
-    let event=crate::multi_hop_curve::trade_event(&a.bonding_curve,&a.global,&a.user_volume_accumulator,&a.user.key(),&a.base_mint.key(),false,amount,quote,&fees,crate::transfer_fee_recovered::post_fee_amount(&quote_fee,buyback_fee)?,quote_transfer_fee,"sell",Clock::get()?.unix_timestamp);
+    let event=sell_event(&a.bonding_curve,&a.global,&a.user_volume_accumulator,&a.user.key(),&a.base_mint.key(),amount,quote,fees,crate::transfer_fee_recovered::post_fee_amount(&quote_fee,buyback_fee)?,quote_transfer_fee,Clock::get()?.unix_timestamp);
 
 
 
@@ -1221,7 +1221,7 @@ pub fn sell(ctx:Context<SellV3>,amount:u64,min_sol_output:u64)->Result<()> {sell
 // layout-pad
 // layout-pad
 // layout-pad
-fn quote_is_native(curve:&BondingCurve)->bool{curve.quote_mint==Pubkey::default()}
+fn quote_is_native(curve:&BondingCurve)->bool{curve.quote_mint==Pubkey::default()}  fn sell_event(curve:&BondingCurve,global:&Global,volume:&crate::UserVolumeAccumulator,user:&Pubkey,mint:&Pubkey,amount:u64,quote:u64,fees:TradeFees,buyback_fee:u64,quote_transfer_fee:u64,timestamp:i64)->TradeEvent{crate::multi_hop_curve::trade_event(curve,global,volume,user,mint,false,amount,quote,&fees,buyback_fee,quote_transfer_fee,"sell",timestamp)}
 
 
 
