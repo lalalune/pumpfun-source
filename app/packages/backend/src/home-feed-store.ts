@@ -449,7 +449,7 @@ function decodeCursor(
     typeof parsed.x[0] !== "number" ||
     !Number.isSafeInteger(parsed.x[0]) ||
     typeof parsed.x[1] !== "string" ||
-    !/^-?\d+$/u.test(parsed.x[1]) ||
+    !/^(0|-?[1-9]\d*)$/u.test(parsed.x[1]) ||
     typeof parsed.x[2] !== "string" ||
     !UUID.test(parsed.x[2])
   ) {
