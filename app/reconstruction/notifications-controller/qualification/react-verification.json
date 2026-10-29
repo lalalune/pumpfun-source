@@ -1,0 +1,1479 @@
+{
+  "scope": "Synthetic source-controller proof only. All permission/config/device/registration/viewer/messaging/storage/client/query/foreground values are inert supplied ports; NO real API, credentials, tokens, sessions, storage, notifications, subscription or provider HTTP request",
+  "observations": [
+    {
+      "name": "initial offered source prompt with no registration/provider activity",
+      "state": {
+        "permission": "default",
+        "hasRegistration": false,
+        "isRegistering": false,
+        "isConfigured": true
+      },
+      "counts": {
+        "registration": 0,
+        "api": 0,
+        "messaging": 0,
+        "installed": 0,
+        "active": 0,
+        "markerOwned": false
+      }
+    },
+    {
+      "name": "trusted source prompt click invokes only inert permission capability and busy state",
+      "state": {
+        "permission": "default",
+        "hasRegistration": false,
+        "isRegistering": true,
+        "isConfigured": true
+      },
+      "counts": {
+        "registration": 0,
+        "api": 0,
+        "messaging": 0,
+        "installed": 0,
+        "active": 0,
+        "markerOwned": false
+      }
+    },
+    {
+      "name": "held permission transition exposes original overlapping manual/automatic registration calls",
+      "state": {
+        "permission": "granted",
+        "hasRegistration": false,
+        "isRegistering": true,
+        "isConfigured": true
+      },
+      "counts": {
+        "registration": 2,
+        "api": 0,
+        "messaging": 0,
+        "installed": 0,
+        "active": 0,
+        "markerOwned": false
+      }
+    },
+    {
+      "name": "source publishes handle before client success; refs have not committed and overlapping client calls remain",
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": true,
+        "isConfigured": true
+      },
+      "counts": {
+        "registration": 2,
+        "api": 2,
+        "messaging": 1,
+        "installed": 0,
+        "active": 0,
+        "markerOwned": false
+      }
+    },
+    {
+      "name": "first finally clears boolean busy even while second call remains held",
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": false,
+        "isConfigured": true
+      },
+      "counts": {
+        "registration": 2,
+        "api": 2,
+        "messaging": 1,
+        "installed": 0,
+        "active": 0,
+        "markerOwned": true
+      }
+    },
+    {
+      "name": "successful calls commit source refs/marker and one inert listener",
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": false,
+        "isConfigured": true
+      },
+      "counts": {
+        "registration": 2,
+        "api": 2,
+        "messaging": 1,
+        "installed": 1,
+        "active": 1,
+        "markerOwned": true
+      }
+    },
+    {
+      "name": "same handle/viewer ref equality skips repeated client mutation",
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": false,
+        "isConfigured": true
+      },
+      "counts": {
+        "registration": 3,
+        "api": 2,
+        "messaging": 1,
+        "installed": 1,
+        "active": 1,
+        "markerOwned": true
+      }
+    },
+    {
+      "name": "latest path/flag refs and unawaited foreground→inbox→refresh callback order",
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": false,
+        "isConfigured": true
+      },
+      "counts": {
+        "registration": 3,
+        "api": 2,
+        "messaging": 1,
+        "installed": 1,
+        "active": 1,
+        "markerOwned": true
+      }
+    },
+    {
+      "name": "viewer change removes old registration and cancels late messaging installation before current listener",
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": false,
+        "isConfigured": true
+      },
+      "counts": {
+        "registration": 4,
+        "api": 3,
+        "messaging": 3,
+        "installed": 2,
+        "active": 1,
+        "markerOwned": true
+      }
+    },
+    {
+      "name": "actual logout branch clears owned marker/state and unregisters listener",
+      "state": {
+        "permission": "granted",
+        "hasRegistration": false,
+        "isRegistering": false,
+        "isConfigured": true
+      },
+      "counts": {
+        "registration": 4,
+        "api": 3,
+        "messaging": 3,
+        "installed": 2,
+        "active": 0,
+        "markerOwned": false
+      }
+    },
+    {
+      "name": "feature-disabled result uses source defaults and manual enable does no work",
+      "state": {
+        "permission": "unsupported",
+        "hasRegistration": false,
+        "isRegistering": false,
+        "isConfigured": false
+      },
+      "counts": {
+        "registration": 4,
+        "api": 3,
+        "messaging": 3,
+        "installed": 2,
+        "active": 0,
+        "markerOwned": false
+      }
+    },
+    {
+      "name": "client rejection propagates to source reporter/finally; handle state remains and no ownership marker commits",
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": false,
+        "isConfigured": true
+      },
+      "counts": {
+        "registration": 5,
+        "api": 4,
+        "messaging": 4,
+        "installed": 3,
+        "active": 1,
+        "markerOwned": false
+      }
+    },
+    {
+      "name": "messaging rejection reports its own source operation and installs no listener",
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": false,
+        "isConfigured": true
+      },
+      "counts": {
+        "registration": 6,
+        "api": 5,
+        "messaging": 5,
+        "installed": 3,
+        "active": 0,
+        "markerOwned": true
+      }
+    },
+    {
+      "name": "configuration-null guard prevents permission and registration work",
+      "state": {
+        "permission": "default",
+        "hasRegistration": false,
+        "isRegistering": false,
+        "isConfigured": false
+      },
+      "counts": {
+        "registration": 6,
+        "api": 5,
+        "messaging": 5,
+        "installed": 3,
+        "active": 0,
+        "markerOwned": false
+      }
+    }
+  ],
+  "pageErrors": [],
+  "unexpected": [],
+  "hostRequests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/fixture.js"
+    }
+  ],
+  "bundleSha256": "188321ad79edd56fed8fe83dc632c7bf49e521ad4aad732f25c45b8af1f71b1f",
+  "nodeVersion": "v24.19.0",
+  "reactVersion": "19.2.3",
+  "reactDomVersion": "19.2.3",
+  "esbuildVersion": "0.25.12",
+  "bundledInputs": [
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-jsx-runtime.development.js",
+      "bytes": 12452,
+      "sha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/jsx-runtime.js",
+      "bytes": 210,
+      "sha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "reconstruction/notifications-controller/client.mjs",
+      "bytes": 12406,
+      "sha256": "e3e49d869fd6084b603879c7c64bbaa9e2b281c16bc4d634ffc09424a20d5d71"
+    },
+    {
+      "path": "tests/fixtures/notifications-controller-browser.mjs",
+      "bytes": 9696,
+      "sha256": "c08b9e09c89885c946fc76b9f8fbc76efcb51d06a8aee61a627128c985b1ea36"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "reconstruction/notifications-controller/client.mjs",
+      "bytes": 12406,
+      "sha256": "e3e49d869fd6084b603879c7c64bbaa9e2b281c16bc4d634ffc09424a20d5d71"
+    },
+    {
+      "path": "reconstruction/notifications-controller/contract.json",
+      "bytes": 29275,
+      "sha256": "f375834e389f1f85b29503d4cfd77a8dea36f71d84d4affee850a3466e5464fe"
+    },
+    {
+      "path": "scripts/original-notifications-controller.mjs",
+      "bytes": 16802,
+      "sha256": "bfc0cf9a2b161fb50faba0711afe8e852de3fd237c847d2bef658128f586d619"
+    },
+    {
+      "path": "tests/fixtures/notifications-controller-browser.mjs",
+      "bytes": 9696,
+      "sha256": "c08b9e09c89885c946fc76b9f8fbc76efcb51d06a8aee61a627128c985b1ea36"
+    },
+    {
+      "path": "tests/original_notifications_controller.browser.mjs",
+      "bytes": 17376,
+      "sha256": "809ce1bedf8cf2d7f048267e894b7766c51126d2a191fc31e869bdcd29482228"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+    }
+  ],
+  "chromiumVersion": "156.0.8078.4",
+  "events": [
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "permission-read",
+      "permission": "default"
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 1,
+      "state": {
+        "permission": "default",
+        "hasRegistration": false,
+        "isRegistering": false,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "host-commit",
+      "serial": 1
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "permission-read",
+      "permission": "default"
+    },
+    {
+      "type": "permission-read",
+      "permission": "default"
+    },
+    {
+      "type": "permission-request",
+      "receiver": true
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 2,
+      "state": {
+        "permission": "default",
+        "hasRegistration": false,
+        "isRegistering": true,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "registration-start",
+      "id": 1
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 3,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": false,
+        "isRegistering": true,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "permission-read",
+      "permission": "granted"
+    },
+    {
+      "type": "registration-start",
+      "id": 2
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 4,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": false,
+        "isRegistering": true,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "registration-fulfilled",
+      "id": 1,
+      "hasValue": true
+    },
+    {
+      "type": "device-port"
+    },
+    {
+      "type": "api-put",
+      "path": "v1/device-tokens",
+      "keys": [
+        "token",
+        "platform",
+        "deviceId"
+      ],
+      "platform": "web",
+      "deviceIsSynthetic": true,
+      "registrationIsSynthetic": true
+    },
+    {
+      "type": "api-start",
+      "id": 1
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 5,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": true,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "messaging-start",
+      "id": 1
+    },
+    {
+      "type": "registration-fulfilled",
+      "id": 2,
+      "hasValue": true
+    },
+    {
+      "type": "device-port"
+    },
+    {
+      "type": "api-put",
+      "path": "v1/device-tokens",
+      "keys": [
+        "token",
+        "platform",
+        "deviceId"
+      ],
+      "platform": "web",
+      "deviceIsSynthetic": true,
+      "registrationIsSynthetic": true
+    },
+    {
+      "type": "api-start",
+      "id": 2
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "api-fulfilled",
+      "id": 1,
+      "hasValue": false
+    },
+    {
+      "type": "marker-set",
+      "key": "pump-push-token-owned",
+      "value": "1"
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 6,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": false,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "api-fulfilled",
+      "id": 2,
+      "hasValue": false
+    },
+    {
+      "type": "marker-set",
+      "key": "pump-push-token-owned",
+      "value": "1"
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 7,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": false,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "messaging-fulfilled",
+      "id": 1,
+      "hasValue": true
+    },
+    {
+      "type": "listener-install",
+      "id": 1
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "permission-read",
+      "permission": "granted"
+    },
+    {
+      "type": "registration-start",
+      "id": 3
+    },
+    {
+      "type": "registration-fulfilled",
+      "id": 3,
+      "hasValue": true
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 8,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": false,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 9,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": false,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "host-commit",
+      "serial": 2
+    },
+    {
+      "type": "foreground",
+      "pathname": "/after",
+      "dm": false,
+      "hasPayload": true,
+      "clientMatches": true,
+      "queryClientMatches": true
+    },
+    {
+      "type": "invalidate-inbox",
+      "viewer": "synthetic-viewer-a",
+      "queryClientMatches": true
+    },
+    {
+      "type": "refresh-user"
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "listener-cleanup",
+      "id": 1
+    },
+    {
+      "type": "commit",
+      "serial": 10,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": false,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "permission-read",
+      "permission": "granted"
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "messaging-start",
+      "id": 2
+    },
+    {
+      "type": "host-commit",
+      "serial": 3
+    },
+    {
+      "type": "remove-registration"
+    },
+    {
+      "type": "registration-start",
+      "id": 4
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 11,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": true,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "registration-fulfilled",
+      "id": 4,
+      "hasValue": true
+    },
+    {
+      "type": "device-port"
+    },
+    {
+      "type": "api-put",
+      "path": "v1/device-tokens",
+      "keys": [
+        "token",
+        "platform",
+        "deviceId"
+      ],
+      "platform": "web",
+      "deviceIsSynthetic": true,
+      "registrationIsSynthetic": true
+    },
+    {
+      "type": "api-start",
+      "id": 3
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 12,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": true,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "messaging-start",
+      "id": 3
+    },
+    {
+      "type": "messaging-fulfilled",
+      "id": 2,
+      "hasValue": true
+    },
+    {
+      "type": "messaging-fulfilled",
+      "id": 3,
+      "hasValue": true
+    },
+    {
+      "type": "listener-install",
+      "id": 2
+    },
+    {
+      "type": "api-fulfilled",
+      "id": 3,
+      "hasValue": false
+    },
+    {
+      "type": "marker-set",
+      "key": "pump-push-token-owned",
+      "value": "1"
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 13,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": false,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "listener-cleanup",
+      "id": 2
+    },
+    {
+      "type": "commit",
+      "serial": 14,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": false,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "marker-get",
+      "key": "pump-push-token-owned"
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "marker-remove",
+      "key": "pump-push-token-owned"
+    },
+    {
+      "type": "remove-registration"
+    },
+    {
+      "type": "host-commit",
+      "serial": 4
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 15,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": false,
+        "isRegistering": false,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 16,
+      "state": {
+        "permission": "unsupported",
+        "hasRegistration": false,
+        "isRegistering": false,
+        "isConfigured": false
+      }
+    },
+    {
+      "type": "host-commit",
+      "serial": 5
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "permission-read",
+      "permission": "granted"
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 17,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": false,
+        "isRegistering": false,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "permission-read",
+      "permission": "granted"
+    },
+    {
+      "type": "host-commit",
+      "serial": 6
+    },
+    {
+      "type": "registration-start",
+      "id": 5
+    },
+    {
+      "type": "registration-fulfilled",
+      "id": 5,
+      "hasValue": true
+    },
+    {
+      "type": "device-port"
+    },
+    {
+      "type": "api-put",
+      "path": "v1/device-tokens",
+      "keys": [
+        "token",
+        "platform",
+        "deviceId"
+      ],
+      "platform": "web",
+      "deviceIsSynthetic": true,
+      "registrationIsSynthetic": true
+    },
+    {
+      "type": "api-start",
+      "id": 4
+    },
+    {
+      "type": "report-error",
+      "feature": "notifications",
+      "operation": "register-token"
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 18,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": false,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "messaging-start",
+      "id": 4
+    },
+    {
+      "type": "messaging-fulfilled",
+      "id": 4,
+      "hasValue": true
+    },
+    {
+      "type": "listener-install",
+      "id": 3
+    },
+    {
+      "type": "listener-cleanup",
+      "id": 3
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "permission-read",
+      "permission": "granted"
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 19,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": false,
+        "isRegistering": false,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "permission-read",
+      "permission": "granted"
+    },
+    {
+      "type": "host-commit",
+      "serial": 7
+    },
+    {
+      "type": "registration-start",
+      "id": 6
+    },
+    {
+      "type": "registration-fulfilled",
+      "id": 6,
+      "hasValue": true
+    },
+    {
+      "type": "device-port"
+    },
+    {
+      "type": "api-put",
+      "path": "v1/device-tokens",
+      "keys": [
+        "token",
+        "platform",
+        "deviceId"
+      ],
+      "platform": "web",
+      "deviceIsSynthetic": true,
+      "registrationIsSynthetic": true
+    },
+    {
+      "type": "api-start",
+      "id": 5
+    },
+    {
+      "type": "api-fulfilled",
+      "id": 5,
+      "hasValue": false
+    },
+    {
+      "type": "marker-set",
+      "key": "pump-push-token-owned",
+      "value": "1"
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 20,
+      "state": {
+        "permission": "granted",
+        "hasRegistration": true,
+        "isRegistering": false,
+        "isConfigured": true
+      }
+    },
+    {
+      "type": "configuration-check",
+      "available": true
+    },
+    {
+      "type": "messaging-start",
+      "id": 5
+    },
+    {
+      "type": "report-error",
+      "feature": "notifications",
+      "operation": "init-messaging"
+    },
+    {
+      "type": "memo",
+      "size": 3
+    },
+    {
+      "type": "flag",
+      "key": "webDirectMessages"
+    },
+    {
+      "type": "viewer-scope",
+      "scope": "push-token"
+    },
+    {
+      "type": "memo",
+      "size": 2
+    },
+    {
+      "type": "permission-read",
+      "permission": "default"
+    },
+    {
+      "type": "configuration-check",
+      "available": false
+    },
+    {
+      "type": "memo",
+      "size": 27
+    },
+    {
+      "type": "commit",
+      "serial": 21,
+      "state": {
+        "permission": "default",
+        "hasRegistration": false,
+        "isRegistering": false,
+        "isConfigured": false
+      }
+    },
+    {
+      "type": "configuration-check",
+      "available": false
+    },
+    {
+      "type": "host-commit",
+      "serial": 8
+    },
+    {
+      "type": "configuration-check",
+      "available": false
+    }
+  ],
+  "result": "PASS"
+}

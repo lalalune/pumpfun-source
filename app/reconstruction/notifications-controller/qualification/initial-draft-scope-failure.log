@@ -1,0 +1,10 @@
+file:///workspace/pump-app-search-planner/app/scripts/original-contracts/source.mjs:33
+  if (nodes.length !== 1) throw new Error(`${label}: expected one AST node, got ${nodes.length}`);
+                                ^
+
+Error: emitted C: expected one AST node, got 2
+    at exactlyOne (file:///workspace/pump-app-search-planner/app/scripts/original-contracts/source.mjs:33:33)
+    at recover (file:///workspace/pump-app-search-planner/app/scripts/original-notifications-controller.mjs:63:13)
+    at async file:///workspace/pump-app-search-planner/app/scripts/original-notifications-controller.mjs:87:42
+
+Node.js v24.19.0

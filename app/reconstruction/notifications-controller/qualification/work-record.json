@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "sourceHead": "437c11eb299f980f34083ea76d2996699de77cc0",
+  "sourceTree": "20db5e0e3289c827dd6026a6dd0a128466ff5c9f",
+  "scope": "Full selected original controller/prompt source + finite realReact proof with inert supplied capabilities; no acquisition or real services",
+  "before": {
+    "gap": "Prior foreground unit explicitly excludes outer registration/permission/context/listener lifecycle; no maintained full source controller at base",
+    "absentPaths": [
+      "app/reconstruction/notifications-controller/client.mjs",
+      "app/scripts/original-notifications-controller.mjs"
+    ],
+    "notClaimed": "No original module/capture execution or live/browser/product before-after oracle"
+  },
+  "checks": [
+    {
+      "command": "node app/scripts/original-notifications-controller.mjs --check",
+      "cwd": "repository root",
+      "result": "PASS strict entire Provider/context/permission/default/marker/context/prompt ASTs and canonical bytes; metadata only normalization",
+      "log": "source.log"
+    },
+    {
+      "command": "node --test app/tests/original_notifications_controller.test.mjs",
+      "cwd": "repository root",
+      "result": "8 PASS,0 FAIL,0 SKIP; source/SSR/inert NativeAPI decision/negative binding",
+      "log": "node.log"
+    },
+    {
+      "command": "node --test app/tests/original_notifications_controller.browser.mjs",
+      "cwd": "repository root",
+      "result": "1 first frozen actualReact story PASS;14observations/14bundledfiles/6methodinputs;only2root/bundle GETs,zero provider/native API/HTTP/service/subscription",
+      "log": "browser.log",
+      "receipt": "react-verification.json"
+    },
+    {
+      "command": "python3 scripts/verify_evidence.py",
+      "cwd": "repository root",
+      "result": "9 captures PASS",
+      "log": "root-evidence.log"
+    },
+    {
+      "command": "python3 scripts/test_tooling.py",
+      "cwd": "repository root",
+      "result": "10 tests PASS",
+      "log": "root-tooling.log"
+    },
+    {
+      "command": "python3 app/scripts/verify-evidence.py",
+      "cwd": "repository root",
+      "result": "698 captured objects/npm integrity/unchanged SDK PASS",
+      "log": "app-evidence.log"
+    },
+    {
+      "command": "corepack pnpm exec prettier --check scripts/original-notifications-controller.mjs reconstruction/notifications-controller/client.mjs reconstruction/notifications-controller/README.md tests/original_notifications_controller.test.mjs tests/original_notifications_controller.browser.mjs tests/fixtures/notifications-controller-browser.mjs",
+      "cwd": "app",
+      "result": "PASS maintained MJS/README; generator-canonical JSON is checked exactly by source verifier",
+      "log": "prettier-source.log"
+    }
+  ],
+  "runtimeFacts": {
+    "observations": 14,
+    "bundledInputs": 14,
+    "declaredMethodInputs": 6,
+    "providerHttpRequests": 0,
+    "inertClientPortCalls": 5,
+    "syntheticRegistrationResultCalls": 6,
+    "inertListenerInstalls": 3,
+    "inertListenerCleanups": 3,
+    "notes": "These are inert callback/port interactions only, not HTTP mutations, token acquisitions, real subscriptions or provider behavior. Values are explicitly synthetic noncredential strings/objects; real Native APIs/storage/cookies/SW are blocked in host."
+  },
+  "preservedSourceLimits": [
+    "No in-flight lock; manual/automatic overlap and repeated client calls before ref commits are retained",
+    "Handle state precedes client success and can survive failure; first finally clearsboolean while anothercall remains held",
+    "Only late messaging installation is canceled; no added registration-continuation/unmount cancellation or ownership guarantee",
+    "Latest path/DM refs and unawaited foreground\u2192inbox\u2192refresh order retained; their effects remain ports",
+    "Feature/config/viewer/auth-ready/null-marker/reset guards retained; known12datedHermesconfigs remainfalse/currentavailabilityunknown"
+  ],
+  "initialDraftFailure": {
+    "log": "initial-draft-scope-failure.log",
+    "cause": "Uncommitted generator searched all declarations for C and rejected two: permission helper and prompt CSS local. No candidate module was written/executed from this failed draft.",
+    "correction": "Select only top-level declarations in actual createNotificationsController constructor, then strict AST-compare permission C. Full prompt CSS C remains unchanged and separately checked.",
+    "qualification": "Exact initial draft snapshot not retained; historical diagnostic only, not bound to frozen method or used as a runtime-before receipt."
+  },
+  "inputBinding": {
+    "file": "inputs.json",
+    "count": 71,
+    "result": "Every declared source/evidence file equals frozen Git bytes; all14actual bundled dependencies and six method files additionally hashed"
+  },
+  "limits": [
+    "No actual credential/config/env/cookie/session/token/device/storage/NotificationAPI/Firebase/SW/network/subscription acquisition or request",
+    "Only inert supplied source-signature results; no new browser/provider/query/auth/backend implementation",
+    "Original foreground/inbox/Hermes/settings attribution credited unchanged; auth root only source mount witness",
+    "No product mount, Next/full-app build, native/API/visual/security/wholefeature/completion qualification",
+    "Browser/host closed and SECONDARY released; no repeated finite story"
+  ]
+}

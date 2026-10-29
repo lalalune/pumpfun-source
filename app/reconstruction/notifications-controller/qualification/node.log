@@ -1,0 +1,16 @@
+✔ strict whole-source provider/context/permission/prompt AST proof retains actual used consumers and acquisition limits (361.456582ms)
+✔ no implicit browser/provider/query/config/identity/storage/rendering capability (1.390838ms)
+✔ permission helper preserves native availability, repeated getter decisions and request receiver without touching native APIs (0.522273ms)
+✔ permission Promise rejection is propagated unchanged rather than fabricated as denied or granted (0.336575ms)
+✔ actual React SSR initializes only supplied read-only snapshots and retains feature-disabled defaults with callbacks (5.439354ms)
+✔ actual source prompt default/denied/unsupported/granted and configuration/availability gates are retained (3.075376ms)
+✔ context reader preserves the actual missing-provider error (0.474121ms)
+✔ strict canonical module/contract binding rejects an altered permission branch and reformatted metadata (710.583348ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1208.804047
