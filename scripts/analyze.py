@@ -43,6 +43,7 @@ def instruction_log_names(b, known=()):
     an IDL keep the original alphanumeric fallback.
     """
     names = set()
+    known = sorted(known, key=lambda name: (-len(name), name))
     for match in re.finditer(rb'Instruction: ', b):
         rest = b[match.end():]
         exact = next((name for name in known if rest.startswith(name.encode())), None)
