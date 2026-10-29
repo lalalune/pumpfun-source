@@ -1022,9 +1022,9 @@ pub fn buy_exact_quote(mut ctx:Context<SellV3>,spendable_quote_in:u64,min_tokens
 
 
 
-
-
-pub fn sell(ctx:Context<SellV3>,amount:u64,min_sol_output:u64)->Result<()> {
+pub fn sell(ctx:Context<SellV3>,amount:u64,min_sol_output:u64)->Result<()>{sell_inner(ctx,amount,min_sol_output)}
+#[inline(always)]
+fn sell_inner(ctx:Context<SellV3>,amount:u64,min_sol_output:u64)->Result<()> {
     let a=&mut *ctx.accounts;
 
     crate::trade_types::prepare_bonding_curve(&a.bonding_curve, &a.system_program, &a.user)?;
@@ -1188,7 +1188,7 @@ pub fn sell(ctx:Context<SellV3>,amount:u64,min_sol_output:u64)->Result<()> {
 
 
     emit!(event);
-    emit_sell_cpi(&ctx,&event)?;
+    emit_cpi!(event);
     Ok(())
 }
 
@@ -1296,11 +1296,11 @@ pub use crate::user_quote_payments;
 
 fn init_volume_user(uva:&mut crate::UserVolumeAccumulator,user:&Signer){if uva.user==Pubkey::default(){uva.user=user.key();}}
 
-#[inline(always)]
-fn emit_sell_cpi(ctx:&Context<SellV3>,event:&crate::TradeEvent)->Result<()>{
-    emit_cpi!((*event));
-    Ok(())
-}
+
+
+
+
+
 #[inline(always)]
 fn transfer_curve_mint_tokens<'info>(token_program:&Interface<'info,TokenInterface>,mint:&InterfaceAccount<'info,Mint>,destination:&InterfaceAccount<'info,TokenAccount>,source:&InterfaceAccount<'info,TokenAccount>,authority:&Account<'info,BondingCurve>,amount:u64,signer_seeds:&[&[&[u8]];1])->Result<()>{
     crate::buy_v2::token_transfers::transfer_curve_tokens(token_program,source,destination,authority,mint.decimals,mint.as_ref(),amount,signer_seeds)
