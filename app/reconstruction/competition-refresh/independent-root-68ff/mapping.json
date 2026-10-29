@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "testedHead": "68ffd03b922ec3b9c7049372edf0ab7e5379af07",
+  "testedTree": "136dd81999a10e4c7ce21aa4cd1f59a352f836cb",
+  "finiteCadenceSource": {
+    "commit": "fdaabda4cde7823dc32706a709b9edcfd6fa67dc",
+    "tree": "00ee93c9819833eb147deec485ec4058474b3d87",
+    "baselineExpectedFailures": 2,
+    "initialFixedPasses": 2,
+    "initialFixedFocusFixtureFailures": 1
+  },
+  "finiteLifecycleSource": {
+    "commit": "4c88eae86131f6056d79359e79e24160c039c97e",
+    "tree": "cc12a7e726902597971966b700fde59f0540ec4c",
+    "focusedFinalPasses": 1,
+    "intermediateFixtureFailuresRetained": true
+  },
+  "originalHarnessMapping": {
+    "changedPathsCadenceToFinal": [
+      "app/tests/browser/competition-refresh.spec.mts"
+    ],
+    "sharedSetupAndCadencePrefixBytes": 6305,
+    "sharedSetupAndCadencePrefixSha256": "7c2a4b105dfc4087552b3169606398fa5d7140646f1a260633e46b35aa362ef8",
+    "cadenceHarnessGitBlob": "2e1b767201607c3bfa210b13595c2ee06fc170b3",
+    "finalHarnessGitBlob": "f08830b451a61763ffbf50b1ab3d2b7c8cff6253",
+    "productGitBlobsUnchanged": {
+      "app/packages/frontend/src/app/leaderboard/leaderboard-client.tsx": "c3ab91e37aaaab3f2a0d3f46ed88e2a1349842f3",
+      "app/packages/frontend/src/app/leaderboard/competition-refresh.ts": "f82b1549502d86e6de83887663f87c73abadd763"
+    },
+    "method": "Only third-case driver focus capability/frame ordering and real unmountURL changed; no other callbacks, shared setup, transports, native source/admission or runtime inputs changed. No all3-clean-run claim."
+  },
+  "receiptOnlyParent": "68ffd03b922ec3b9c7049372edf0ab7e5379af07",
+  "receiptPrefix": "app/reconstruction/competition-refresh/independent-root-68ff/",
+  "runtimeMapping": "Only eight independent compiler/check output files are added. All97 qualified application inputs and original finite seals stay identical. The original mixed-head2cadence+1focused-lifecycle mapping stays explicit; no all3-clean-run or changed-runtime transfer is inferred.",
+  "qualifiedInputs": {
+    "app/evidence/web/manifest.json": "8ff3e62cd191592c2e2abd0e58153857af014bda",
+    "app/evidence/web/objects/2fe17dced92b840b.js": "4b9bd9abacbbb669f9eb1a4502fd2f719f3fab1b",
+    "app/evidence/web/objects/7128bd47b219d222.js": "4830ac980c0111d091734e768eac86c2b2508cfa",
+    "app/evidence/web/objects/b7df9c4704b957ab.js": "5ad56b9d761ca83a42477a7dc52a052e5a4214a6",
+    "app/evidence/web/objects/c3601a995a6b7f37.js": "886ffe8948aa4582f4bdc747f10cb2c076f07464",
+    "app/package.json": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8",
+    "app/packages/backend/package.json": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b",
+    "app/packages/backend/src/.gitattributes": "6be7d1ab7db6dd9b5884d31eac65bbc74a2e6b7f",
+    "app/packages/backend/src/api-key-gate.ts": "7ae70e5c4528a8e2a8484384a38cd3e5ee4e15f9",
+    "app/packages/backend/src/app.ts": "86056478b4e3c7737c706e2e656b26884c5b9e0b",
+    "app/packages/backend/src/callout-discussions-routes.ts": "fd6b8d0c70d3c787f6f85ac693a19a82dff48ac0",
+    "app/packages/backend/src/callout-discussions-store.ts": "4b5c27127dd7faa32786f04fd7729647ee43fdf1",
+    "app/packages/backend/src/callout-list-query.ts": "5d30be5ce6316c2cc52b430a1553275713c35ff1",
+    "app/packages/backend/src/callouts-routes.ts": "bfee7f79c58aa9dcf1c9991fff3aab2c686e87ad",
+    "app/packages/backend/src/callouts-store.ts": "afdd7473c9f5f0c4cc9de66eecf09045317389d9",
+    "app/packages/backend/src/competitions-routes.ts": "6b05f4dd9d6c7dee5cf278cf8453c71dff6f92db",
+    "app/packages/backend/src/competitions-seed.json": "0bdf231bd31b77a70c381b75d37d13ff39fda1c4",
+    "app/packages/backend/src/competitions-store.ts": "ac5e6e85fc7b8569aa0f93810cf3ae1f6630830a",
+    "app/packages/backend/src/following-routes.ts": "84d103773b74bbb4b524f415aa79f73a3e558ec9",
+    "app/packages/backend/src/following-seed.json": "ce98ba7f593439437d80f58b4ad91dd21ddec846",
+    "app/packages/backend/src/following-store.ts": "411c7eece2057435f050fa7e550b674060050406",
+    "app/packages/backend/src/generated/developer-api.d.ts": "7558518f76566e6431fef556e2eb74b8eadd2d3f",
+    "app/packages/backend/src/home-feed-routes.ts": "bcdf48a6e0dcb10f161b23e8c1aaec6489c808b7",
+    "app/packages/backend/src/home-feed-seed.json": "458438eeff440ffbb117e0d3a0850b8ebd7a3ce6",
+    "app/packages/backend/src/home-feed-store.ts": "d6387645ec1ccfc0f07b01c070114add5761f164",
+    "app/packages/backend/src/leaderboard-routes.ts": "1b718f58b67901e887d785e894b45130e0fa081a",
+    "app/packages/backend/src/leaderboard-seed.json": "86e4e164e3bb10dd8dc2fbfb040c31f931701b6c",
+    "app/packages/backend/src/leaderboard-store.ts": "e865c8ec6683a4e6dbc8001d11b2915e66c78da7",
+    "app/packages/backend/src/local-media-routes.ts": "4d408832564ad4eb5e97e01788483711c69369cd",
+    "app/packages/backend/src/local-media-runtime.ts": "b10f53308d08efda5fdf840d8e3aff38d90fe56a",
+    "app/packages/backend/src/local-media-store.ts": "c4c949cb67d59cd529f5bcdf083396082289f748",
+    "app/packages/backend/src/payouts-routes.ts": "95e62437975e0795bf35f868c4fe4f2ebddb8cd9",
+    "app/packages/backend/src/payouts-store.ts": "21c7ea7340dc3b5c5e410be94b04eabc4a8fb0c7",
+    "app/packages/backend/src/portfolio-balances-routes.ts": "88fd9814ea5e45725ca9563026cbabbf487dcdae",
+    "app/packages/backend/src/portfolio-balances-store.ts": "b3aba5769190b99344b6bf4b8e77b2e9440ee681",
+    "app/packages/backend/src/positions-routes.ts": "8c7000b0905dfedc734963bd48f458c92eee91a5",
+    "app/packages/backend/src/positions-store.ts": "305afb155cab6835411eae624d9103b193bdea3e",
+    "app/packages/backend/src/posts-routes.ts": "ef3e91a50719deec88b134406c1dd3699d0ee92b",
+    "app/packages/backend/src/posts-seed.json": "c6e0d10ad59e93d2b88528e9487a50c7d7d64d48",
+    "app/packages/backend/src/posts-store.ts": "fe5966b43f4b5ecbccf02c70a6d89f3b74c7467e",
+    "app/packages/backend/src/schema-validator.ts": "7f9e823bceca94e40a919f8a8f9fce3aa3164b14",
+    "app/packages/backend/src/search-resolve-routes.ts": "8aaa562eb6e8733da82174c9e57073d98afeb646",
+    "app/packages/backend/src/server.ts": "c0506f2f625e61bab93d33529da3328b783cc77e",
+    "app/packages/backend/src/user-trades-routes.ts": "d7be9039ac1008542821cf741fdf2117045c3688",
+    "app/packages/backend/src/user-trades-store.ts": "661e377e6b97b0cd066989f470de7adbe8f28225",
+    "app/packages/backend/src/users-routes.ts": "4e75371764113dd1a4606f3f27010576704d8a9a",
+    "app/packages/backend/src/users-seed.json": "25865477c3b94183b1fdcd6c25b0a378643c6061",
+    "app/packages/backend/src/users-store.ts": "12ebd96fda0ff7a816dee57644cad17c103141d7",
+    "app/packages/backend/tsconfig.json": "1a863bae065b07ea52a3a9b89b048c21f88876e2",
+    "app/packages/frontend/next.config.ts": "6326d6c6274182f58c449f3f5bba914858023dfa",
+    "app/packages/frontend/package.json": "f998048da959e90119cc58b720d6a09da9f897c0",
+    "app/packages/frontend/src/app/api/leaderboard/route.ts": "5d847458a033ae9cace6bb061b142cc3363404b9",
+    "app/packages/frontend/src/app/api/leaderboard/upstream.ts": "73c3e91e875f07b0dd9808ca1d2c0ff4ebd24277",
+    "app/packages/frontend/src/app/app-shell.tsx": "0882cca4936e2a38bb23e2aa73e86bc5b260d4ef",
+    "app/packages/frontend/src/app/docs/fees/page.tsx": "29e42c3af7fbaccedc53bcb1c2913a02d165d41a",
+    "app/packages/frontend/src/app/docs/reference-data.ts": "f8cad9e6fa6aedc420b402e026dd4bb9ade0e82c",
+    "app/packages/frontend/src/app/docs/reference-loader.ts": "5ad6111a50dc4f692cbe1fd44c73d96f37019791",
+    "app/packages/frontend/src/app/docs/reference-page.tsx": "9435d909fff5886d5973df87e7d39505da00e93a",
+    "app/packages/frontend/src/app/docs/reference-pages.generated.json": "1fbf1243c3a5611bce41eb05a44de397672c96d2",
+    "app/packages/frontend/src/app/globals.css": "08651075813b909d3459daf74cc70b982abb2ce3",
+    "app/packages/frontend/src/app/layout.tsx": "24fdd3aad86aa30dd5ebfa95abe9962531c8a2cc",
+    "app/packages/frontend/src/app/leaderboard/competition-refresh.ts": "f82b1549502d86e6de83887663f87c73abadd763",
+    "app/packages/frontend/src/app/leaderboard/competition-rules-copy.json": "aaa4312623d07929c7a1a884c8cfbf8f6f2518ed",
+    "app/packages/frontend/src/app/leaderboard/competition-rules-model.ts": "349f23edb0ff533981752645744f7dbb5f644ab6",
+    "app/packages/frontend/src/app/leaderboard/competition-rules.module.css": "f76a0b1609bf52cecdebe56369aa8e39941e7c0b",
+    "app/packages/frontend/src/app/leaderboard/competition-rules.tsx": "74e0d7641b321e4ac90634226f345bad8464f99a",
+    "app/packages/frontend/src/app/leaderboard/creator-pagination.ts": "6b30744297bbba786d6537b7e84ba70693ef07d6",
+    "app/packages/frontend/src/app/leaderboard/leaderboard-client.tsx": "c3ab91e37aaaab3f2a0d3f46ed88e2a1349842f3",
+    "app/packages/frontend/src/app/leaderboard/page.tsx": "61ef5fd37fe6f4c13d84271002c6d9048f489066",
+    "app/packages/frontend/src/app/leaderboard/types.ts": "b65661a9e321ad3dbf7cb99fce052784c67a70dc",
+    "app/packages/frontend/src/components/leaderboard/CompetitionCountdown.tsx": "b81ff8b296a9baa22844d86a9140390d339f4401",
+    "app/packages/frontend/src/components/leaderboard/CompetitionPrizeDisplay.tsx": "0d2ce2db3c5119dde4e0f57e48312ff1d316193c",
+    "app/packages/frontend/src/components/leaderboard/original-countdown.d.mts": "31afc5f0ef367437900068df111af274a4c19f57",
+    "app/packages/frontend/src/components/leaderboard/original-countdown.mjs": "fd40d84d00fc37dd81b6f6452b9c431fbe60fa7f",
+    "app/packages/frontend/src/components/leaderboard/original-prize-formats.d.mts": "fea65887fa81c8d36d18b43cfecfecea4ce8cb93",
+    "app/packages/frontend/src/components/leaderboard/original-prize-formats.mjs": "de5722dd2a52dcfe1fa3b58d44d43579061c4554",
+    "app/packages/frontend/src/components/leaderboard/original-prizes.tsx": "9c138548d522462dab6ce3c618334a0bdb7543ec",
+    "app/packages/frontend/src/components/leaderboard/prize-number-variants/b6933f856a7f.mjs": "133beb69d6afb4c898ecf4ec0622c3f14e4f72f2",
+    "app/packages/frontend/src/components/leaderboard/prize-number-variants/f29f27e66af2.mjs": "7b32134c020b9051ba10666d3c84dc1fac87c23c",
+    "app/packages/frontend/tests/browser-state.ts": "dad2bd240204528a984cc25718e9abfc40956347",
+    "app/packages/frontend/tsconfig.json": "232242f82f082ceecb0da2071d2528fc7b589d74",
+    "app/packages/sdk/package.json": "ba5abc1bcc0fba0b6a7b7425eaa25544baeb43b4",
+    "app/pnpm-lock.yaml": "049b2153aa789a6def6cbd55c7b375a74a091fd1",
+    "app/pnpm-workspace.yaml": "2ac2665ef5a28f8a1691518ad942fb07353810e6",
+    "app/reconstruction/competition-refresh/contract.json": "6f16ff5cd96a32af9ad7643dbfa28c3904b928fc",
+    "app/recovered/modules.json": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f",
+    "app/scripts/original-competition-client.mjs": "7073f73526ba677992e4ecd4dd707e8766287d67",
+    "app/scripts/original-contracts/source.mjs": "982ba8058c78f80bb3816529166920e5c74c43df",
+    "app/scripts/verify-competition-refresh.mjs": "d15ebeb8b79e4df9262b2a1b8f141122d1a03b78",
+    "app/tests/browser/competition-refresh.playwright.config.mts": "b2cb124afdc83a2cb54b7f17d6f94242650a2faf",
+    "app/tests/browser/competition-refresh.spec.mts": "f08830b451a61763ffbf50b1ab3d2b7c8cff6253",
+    "app/tests/competition-refresh.test.mjs": "292df174698c1a575ef12ad3a0e2c1d6081dba3d",
+    "app/tests/fixtures/competition-refresh-http.mjs": "91e0d2a944f1e6febeab716d3acffdaa303fb7d6",
+    "app/tests/fixtures/competition-refresh-next-fetch.mjs": "d61a4b17d31da417c1123f6c479c8df6e57bbc82",
+    "app/tests/fixtures/competition-refresh-next.mjs": "6e030a5be3e4dd97a15ee290bf9e94c6a2363dd6",
+    "app/tests/fixtures/competition-refresh-server.mts": "b54db499092029d942fb55c20b6c797392fb0e5b",
+    "app/tests/original_source.test.mjs": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+  },
+  "checks": {
+    "sha256": "75e4ebaca18ee3feeccfea79f341300c32b4a1ac90f6b0c7867f04de2bd4bbfc",
+    "bytes": 670
+  },
+  "logs": {
+    "build.log": {
+      "raw": {
+        "sha256": "d2cb4ce83a25e779278aca498c57bf52153c8f75552d8ad38924dafb32c42247",
+        "bytes": 3061
+      },
+      "compressed": {
+        "sha256": "589796bd31d229c7187160166fccae2705b2037cf46ffc76cfef46dbbdb8fef0",
+        "bytes": 1129
+      },
+      "file": "build.log.gz"
+    },
+    "typecheck.log": {
+      "raw": {
+        "sha256": "050b281c95589b3410266b6a100852147a33336492f6f125ebaa80bc7a33b236",
+        "bytes": 348
+      },
+      "compressed": {
+        "sha256": "4cdc860e8b70a5628bf9a16a5b1f72a015701f93062e18581116b83f8ba068a0",
+        "bytes": 174
+      },
+      "file": "typecheck.log.gz"
+    },
+    "evidence.log": {
+      "raw": {
+        "sha256": "0f0c5fae20c1d78fdecb8eb80012fb68229500f574ab89c10dc419f663b17d61",
+        "bytes": 194
+      },
+      "compressed": {
+        "sha256": "f7c2997aebcd8bf091c42d182b686232717b068f917874f9c8700a7efc77fd53",
+        "bytes": 168
+      },
+      "file": "evidence.log.gz"
+    },
+    "progress.log": {
+      "raw": {
+        "sha256": "511930e5c4308e0e82ea0694f14a50caca178a9975d294be6add35c245dc8e35",
+        "bytes": 389
+      },
+      "compressed": {
+        "sha256": "8f8a0d9d1bdd37d75f6d05884bb9c598d1f051f0532207cf61abc6048d9d9e18",
+        "bytes": 215
+      },
+      "file": "progress.log.gz"
+    }
+  },
+  "commonGate": "Exact public68ff independently passed9captures+10tooling with53Git-bound inputs. The new receipt-only leaf requires its own common gate.",
+  "limits": [
+    "Local synthetic actualNext/Fastify evidence only, with source-bound intervals; no production API/auth or original query-provider/cache/visual parity claim.",
+    "No new fullbrowser execution or feature/API-milestone credit."
+  ]
+}
