@@ -8,6 +8,8 @@ export const LIVE_CAPTURE_BYTES = 785_309;
 
 export const LIVE_CAPTURED_AT = "2026-10-28T10:48:45.546100+00:00";
 export const LIVE_ARCHIVED_STREAM_COUNT = 42;
+export const LIVE_HIGHEST_MARKET_CAP_COUNT = 24;
+export type LiveArchiveSection = "most-viewers" | "highest-market-cap";
 
 const allowedCardFields = new Set([
   "id",
@@ -73,9 +75,9 @@ function safeString(
 }
 
 // Read the single retained Flight push as JSON, never as executable script.
-// The first initialSectionData array is the captured Most viewers section;
-// hero records and the second section must not be mixed into that inventory.
-function decodeArchivedSection(source: string): unknown[] {
+// Registry indexes 0 and 1 are Most viewers and Highest market cap. Keep their
+// captured membership/order separate; neither includes the hero records.
+function decodeArchivedSection(source: string, sectionIndex: 0 | 1): unknown[] {
   const pushes = [
     ...source.matchAll(
       /<script>self\.__next_f\.push\(([\s\S]*?)\)<\/script>/gu,
@@ -111,7 +113,39 @@ function decodeArchivedSection(source: string): unknown[] {
       "Captured Live section is missing or ambiguous",
     );
   }
-  const start = markerStart + marker.length;
+  let start = markerStart + marker.length;
+  for (let index = 0; index <= sectionIndex; index += 1) {
+    const end = sectionEnd(payload, start);
+    if (index < sectionIndex) {
+      // Skip only a complete preceding array and its single JSON separator.
+      const separator = /^\s*,\s*/u.exec(payload.slice(end));
+      if (!separator) {
+        throw new LiveEvidenceError("Captured Live section is missing");
+      }
+      start = end + separator[0].length;
+      continue;
+    }
+    let section: unknown;
+    try {
+      section = JSON.parse(payload.slice(start, end));
+    } catch {
+      throw new LiveEvidenceError("Captured Live section is invalid JSON");
+    }
+    const count =
+      sectionIndex === 0
+        ? LIVE_ARCHIVED_STREAM_COUNT
+        : LIVE_HIGHEST_MARKET_CAP_COUNT;
+    if (!Array.isArray(section) || section.length !== count) {
+      throw new LiveEvidenceError(
+        "Captured Live section record count does not match",
+      );
+    }
+    return section;
+  }
+  throw new LiveEvidenceError("Captured Live section is missing");
+}
+
+function sectionEnd(payload: string, start: number): number {
   if (payload[start] !== "[") {
     throw new LiveEvidenceError("Captured Live section is not an array");
   }
@@ -141,21 +175,7 @@ function decodeArchivedSection(source: string): unknown[] {
   if (end < 0) {
     throw new LiveEvidenceError("Captured Live section boundary is invalid");
   }
-  let section: unknown;
-  try {
-    section = JSON.parse(payload.slice(start, end));
-  } catch {
-    throw new LiveEvidenceError("Captured Live section is invalid JSON");
-  }
-  if (
-    !Array.isArray(section) ||
-    section.length !== LIVE_ARCHIVED_STREAM_COUNT
-  ) {
-    throw new LiveEvidenceError(
-      "Captured Live section record count does not match",
-    );
-  }
-  return section;
+  return end;
 }
 
 // React Flight stores a string that starts with "$" as "$$"; any other
@@ -252,6 +272,21 @@ export function parseLiveCapture(
   bytes: Uint8Array,
   expectedSha256 = LIVE_CAPTURE_SHA256,
 ): ArchivedStream[] {
+  return parseCaptureSection(bytes, 0, expectedSha256);
+}
+
+export function parseHighestMarketCapCapture(
+  bytes: Uint8Array,
+  expectedSha256 = LIVE_CAPTURE_SHA256,
+): ArchivedStream[] {
+  return parseCaptureSection(bytes, 1, expectedSha256);
+}
+
+function parseCaptureSection(
+  bytes: Uint8Array,
+  sectionIndex: 0 | 1,
+  expectedSha256: string,
+): ArchivedStream[] {
   if (bytes.byteLength > 1_000_000) {
     throw new LiveEvidenceError("Captured Live page exceeds the size limit");
   }
@@ -269,7 +304,7 @@ export function parseLiveCapture(
     throw new LiveEvidenceError("Captured Live page is not valid UTF-8");
   }
 
-  const streams = decodeArchivedSection(source).map((record) =>
+  const streams = decodeArchivedSection(source, sectionIndex).map((record) =>
     validateArchivedStream(unescapeFlightStrings(record)),
   );
   if (new Set(streams.map((stream) => stream.id)).size !== streams.length) {
@@ -284,6 +319,7 @@ export function parseLiveCapture(
 export function verifyLiveEvidence(
   bytes: Uint8Array,
   manifest: unknown,
+  section: LiveArchiveSection = "most-viewers",
 ): LiveSnapshot {
   if (!isRecord(manifest) || !Array.isArray(manifest.records)) {
     throw new LiveEvidenceError("Capture manifest records are missing");
@@ -320,6 +356,9 @@ export function verifyLiveEvidence(
     capturedAt: manifest.captured_at,
     sourceUrl: LIVE_CAPTURE_URL,
     sha256: LIVE_CAPTURE_SHA256,
-    streams: parseLiveCapture(bytes),
+    streams:
+      section === "highest-market-cap"
+        ? parseHighestMarketCapCapture(bytes)
+        : parseLiveCapture(bytes),
   };
 }

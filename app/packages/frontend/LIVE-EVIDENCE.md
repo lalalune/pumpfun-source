@@ -34,6 +34,20 @@ marker fails the whole snapshot; records are not silently dropped. The decoder
 accepts at most 1,000,000 source bytes and bounds the decoded section scan to
 250,000 UTF-16 code units (the retained first array occupies 162,528).
 
+The separate `/live/highest-market-cap` archive now maps the **second array's
+24 cards** in its own captured order, using the same provenance and strict card
+projection. Its label and route are bound to the actual registry index 1,
+`LiveHomepage`'s `initialSectionData[s]` consumer and Show-all callback, the
+section renderer, the enum, and the captured English translation resource.
+See [the executable source proof](../../scripts/original-live-highest.mjs)
+and [its contract](../../reconstruction/live-highest/contract.json).
+All 24 identities also occur in Most viewers. They are a separately ordered
+section, not 24 more unique streams. Hero data stays excluded. Neither array is
+used to derive a ranking formula, and market-cap values and nested coin fields
+are not exposed. No child-route HTML was captured; the child page's native
+metadata disclosures and layout are explicitly local design. The original
+Most viewers search, pagination, selection and two tabs remain unchanged.
+
 The separate `https://livestream-api.pump.fun/health` observation is object
 `evidence/web/objects/2f97956d4bb68473`, 191 bytes, SHA-256
 `fcc3587e9bb0c61121f2189a097cb57e6af7e39cdfd0ce0c53a927f198aa002f`.

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import { loadLiveEvidence } from "./evidence";
 import LiveDiscovery from "./live-discovery";
@@ -43,6 +44,11 @@ export default async function LivePage() {
 
       {evidence.ok ? (
         <>
+          <nav aria-label="Additional captured Live section">
+            <Link className="live-archive-link" href="/live/highest-market-cap">
+              Highest market cap — 24 archived cards
+            </Link>
+          </nav>
           <aside
             className="live-snapshot-note"
             aria-label="Snapshot provenance"

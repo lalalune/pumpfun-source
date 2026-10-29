@@ -307,6 +307,47 @@
   letter-spacing: -0.02em;
 }
 
+.live-card h2 {
+  overflow-wrap: anywhere;
+  font-size: 18px;
+}
+
+.live-archive-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 8px;
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.live-archived-details summary {
+  min-height: 44px;
+  padding: 10px 0;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.live-card .live-archived-details dl {
+  grid-template-columns: minmax(0, 1fr);
+  margin: 12px 0;
+}
+
+.live-card .live-archived-details dd {
+  overflow: visible;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.live-archived-details > p {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .live-symbol {
   margin: -5px 0 0;
   color: var(--color-text-tertiary);
