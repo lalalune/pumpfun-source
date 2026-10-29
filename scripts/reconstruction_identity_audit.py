@@ -60,8 +60,46 @@ def measure(original, candidate):
             'note': 'Equal section sizes, matching instructions and finite behavior tests do not prove whole source or historical build identity.'}
 
 
+def load_object(data):
+    """Parse one JSON document and reject duplicate object keys."""
+    def pairs(items):
+        obj = {}
+        for key, value in items:
+            if key in obj:
+                raise ValueError('duplicate JSON key: ' + key)
+            obj[key] = value
+        return obj
+    return json.loads(data, object_pairs_hook=pairs)
+
+
+def locate(root, name):
+    """Return a regular path inside root, or raise before reading outside it."""
+    relative = Path(name)
+    if not isinstance(name, str) or relative.is_absolute() or not relative.parts or '..' in relative.parts:
+        raise ValueError('audit path escapes root: ' + str(name))
+    root = Path(root)
+    path = root / relative
+    current = path
+    while True:
+        if current.is_symlink():
+            raise ValueError('audit path is symlinked: ' + str(name))
+        if current == root:
+            break
+        parent = current.parent
+        if parent == current:
+            raise ValueError('audit path escapes root: ' + str(name))
+        current = parent
+    return path
+
+
+def inside_file(root, name):
+    return bool(name) and locate(root, name).is_file()
+
+
 def read(root, name, inputs):
-    path = root / name
+    path = locate(root, name)
+    if not path.is_file():
+        raise FileNotFoundError(path)
     data = path.read_bytes()
     inputs[name] = sha(data)
     return data
@@ -69,13 +107,13 @@ def read(root, name, inputs):
 
 def audit(root, index_path):
     inputs = {}
-    status = json.loads(read(root, 'repro/status.json', inputs))
-    index = json.loads(read(root, index_path, inputs))
+    status = load_object(read(root, 'repro/status.json', inputs))
+    index = load_object(read(root, index_path, inputs))
     snapshot = {}
     for name, entry in index['programs'].items():
         original = read(root, entry['original_path'], inputs)
         candidate_path = entry['candidate_path']
-        if not (root / candidate_path).is_file():
+        if not inside_file(root, candidate_path):
             snapshot[name] = {'error': 'snapshot_candidate_missing', 'candidate_path': candidate_path}
             continue
         candidate = read(root, candidate_path, inputs)
@@ -87,18 +125,18 @@ def audit(root, index_path):
     for name, entry in status.items():
         candidate = entry.get('candidate_artifact')
         comparison = entry.get('comparison_report')
-        current = {'candidate_path': candidate, 'candidate_exists': bool(candidate and (root / candidate).is_file()),
-                   'comparison_path': comparison, 'comparison_exists': bool(comparison and (root / comparison).is_file())}
+        current = {'candidate_path': candidate, 'candidate_exists': inside_file(root, candidate),
+                   'comparison_path': comparison, 'comparison_exists': inside_file(root, comparison)}
         if current['candidate_exists']:
             binary = read(root, candidate, inputs)
             current['candidate_sha256'] = sha(binary)
         if current['comparison_exists']:
-            build = json.loads(read(root, comparison, inputs))
+            build = load_object(read(root, comparison, inputs))
             current['selected_toolchain'] = build.get('selected_toolchain')
             current['candidate_matches_build_report'] = current.get('candidate_sha256') == build['comparison']['candidate_sha256']
             missing, different = [], []
             for source, expected in build['source_sha256'].items():
-                if not (root / source).is_file():
+                if not inside_file(root, source):
                     missing.append(source)
                 elif sha(read(root, source, inputs)) != expected:
                     different.append(source)
