@@ -1,0 +1,3522 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "anchors": {
+    "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+    "inventorySha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2"
+  },
+  "origin": {
+    "source": "evidence/web/objects/c45d40b52df03727",
+    "url": "https://pump.fun/live",
+    "sha256": "aeff704c15d99482fe6e6347a92db0170dffeceb940a70e61dcc10002b006355",
+    "bytes": 785309,
+    "push": {
+      "label": "actual main /live Flight push",
+      "source": "evidence/web/objects/c45d40b52df03727",
+      "url": "https://pump.fun/live",
+      "sourceSha256": "aeff704c15d99482fe6e6347a92db0170dffeceb940a70e61dcc10002b006355",
+      "sourceBytes": 785309,
+      "utf16": [
+        299061,
+        784232
+      ],
+      "utf8": [
+        299065,
+        784461
+      ],
+      "sha256": "151db1c58d2643b04a71667f2b79f20beac05bbb4b6a87f41ccd0b6968d49e74"
+    },
+    "decodedFlightSha256": "12e7c92032b468672bb941e89e4501b9906e0f245e3bcb65e5fbabe5c9d84e5e",
+    "importRow": "116",
+    "elementRow": "7f",
+    "elementPath": [
+      "1"
+    ],
+    "component": "LiveHomepage",
+    "initialScripts": [
+      {
+        "id": 31113,
+        "source": "evidence/web/objects/8cb897425bbbb845.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3rs_udq010jf8.js"
+      },
+      {
+        "id": 133244,
+        "source": "evidence/web/objects/44a65b4313e51497.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js"
+      },
+      {
+        "id": 369731,
+        "source": "evidence/web/objects/44a65b4313e51497.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js"
+      },
+      {
+        "id": 41705,
+        "source": "evidence/web/objects/44a65b4313e51497.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js"
+      }
+    ],
+    "limit": "Captured main-page context only. Initial data is not replayed here; no lazy execution, active runtime winner, current stream or playback proof."
+  },
+  "generatedSha256": "5fa79d10d55ebf3b78eba8cf4bc7fc9473bae2ff7f83f9b1280e855d0341f0e0",
+  "factories": [
+    {
+      "id": 31113,
+      "ids": [
+        31113
+      ],
+      "label": "factory 31113",
+      "source": "evidence/web/objects/8cb897425bbbb845.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3rs_udq010jf8.js",
+      "sourceSha256": "5595433ee7d8f9179381f1a87264bd92aa99acc2352d1ff9918bc1b7902a5807",
+      "sourceBytes": 4758,
+      "utf16": [
+        118,
+        3161
+      ],
+      "utf8": [
+        118,
+        3161
+      ],
+      "sha256": "aa72011769a3b4ed93846aa469860c5b661aafea0e98fbf5da8432305f2348c5"
+    },
+    {
+      "id": 133244,
+      "ids": [
+        133244
+      ],
+      "label": "factory 133244",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        24553,
+        25689
+      ],
+      "utf8": [
+        24553,
+        25689
+      ],
+      "sha256": "248fcf72a5bbbd3cb39cd391e161c90c6d496a0828ec3e07c15e7df093aecd97"
+    },
+    {
+      "id": 369731,
+      "ids": [
+        369731
+      ],
+      "label": "factory 369731",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        8997,
+        20378
+      ],
+      "utf8": [
+        8997,
+        20378
+      ],
+      "sha256": "fc87a2c85f17569e3f50a0b0bd960e814109550629c9baef4200792008e6d9b3"
+    },
+    {
+      "id": 41705,
+      "ids": [
+        816882,
+        41705,
+        928196,
+        277167,
+        564861,
+        556120,
+        898337
+      ],
+      "label": "factory 41705",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        179,
+        7551
+      ],
+      "utf8": [
+        179,
+        7551
+      ],
+      "sha256": "f48d711e57f906fbbd073f0ff1817d8bbcb01bf2e7dd2949b90b91e7305b8dd1"
+    },
+    {
+      "id": 56999,
+      "ids": [
+        56999
+      ],
+      "label": "factory 56999",
+      "source": "evidence/web/objects/9bafadffbe6dc98b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1x1vr6gub7ts_.js",
+      "sourceSha256": "df2e6412acd96eb52217fb98440ea305782977869f1c22ea3af92586c42dbb46",
+      "sourceBytes": 76195,
+      "utf16": [
+        73536,
+        74475
+      ],
+      "utf8": [
+        73538,
+        74477
+      ],
+      "sha256": "b147f59a3399e72f198cd0cc0fcd9d4313163d4df08a5d64c6cab10ddde00dec"
+    },
+    {
+      "id": 798394,
+      "ids": [
+        798394,
+        70678,
+        65769
+      ],
+      "label": "factory 798394",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        7571,
+        8989
+      ],
+      "utf8": [
+        7571,
+        8989
+      ],
+      "sha256": "e575a7a694ecf784c0719f294ce12dc3e26802bb533fc5cdce704afd1e664945"
+    },
+    {
+      "id": 218921,
+      "ids": [
+        218921
+      ],
+      "label": "factory 218921",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21727,
+        23130
+      ],
+      "utf8": [
+        21727,
+        23130
+      ],
+      "sha256": "7741ad9f49b1ac1f9aacd299cb09413750cde77f2db613d2a539489938126782"
+    },
+    {
+      "id": 187807,
+      "ids": [
+        187807,
+        829010
+      ],
+      "label": "factory 187807",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        20393,
+        21719
+      ],
+      "utf8": [
+        20393,
+        21719
+      ],
+      "sha256": "35481d754b132116e547da47273d32706896e13c55178b0a51827bf07dc98504"
+    },
+    {
+      "id": 47367,
+      "ids": [
+        47367
+      ],
+      "label": "factory 47367",
+      "source": "evidence/web/objects/8cb897425bbbb845.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3rs_udq010jf8.js",
+      "sourceSha256": "5595433ee7d8f9179381f1a87264bd92aa99acc2352d1ff9918bc1b7902a5807",
+      "sourceBytes": 4758,
+      "utf16": [
+        4168,
+        4531
+      ],
+      "utf8": [
+        4168,
+        4531
+      ],
+      "sha256": "370927cfabd71b692febab98a052c05b82b3c60673917b30a479dcb0466dbbf3"
+    },
+    {
+      "id": 971491,
+      "ids": [
+        971491
+      ],
+      "label": "factory 971491",
+      "source": "evidence/web/objects/a9483154343c0216.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0i-s-acochgee.js",
+      "sourceSha256": "5e6d8072ef8872eeb47ade23127ac18d0cc9d9834ff4a854c65d8ab40f486db5",
+      "sourceBytes": 1224,
+      "utf16": [
+        119,
+        148
+      ],
+      "utf8": [
+        119,
+        148
+      ],
+      "sha256": "a27d34c42bdfdfc1d409518d54a42d45282cfbaa1bfd615e2cba3e2344ab137d"
+    },
+    {
+      "id": 773918,
+      "ids": [
+        773918
+      ],
+      "label": "factory 773918",
+      "source": "evidence/web/objects/8c58c5881aa03a4f.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3ioj_f9bfvhj6.js",
+      "sourceSha256": "daf8581430115a24bf16dbc8fe30e5bbf6365ffc15295e5ccd74c069e98a3e0d",
+      "sourceBytes": 22469,
+      "utf16": [
+        1108,
+        7810
+      ],
+      "utf8": [
+        1108,
+        7810
+      ],
+      "sha256": "2a42d2873a80c9df7d325105add1e1f5e43a318a872b880832735f787969f83b"
+    },
+    {
+      "id": 202541,
+      "ids": [
+        202541
+      ],
+      "label": "factory 202541",
+      "source": "evidence/web/objects/88f6e50054507165.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2jrcs_nq6xh23.js",
+      "sourceSha256": "62741e31f307301d839556eeff0a71058c67d12f6a2b9379280ac70942ae2f9c",
+      "sourceBytes": 256218,
+      "utf16": [
+        14699,
+        19235
+      ],
+      "utf8": [
+        14699,
+        19235
+      ],
+      "sha256": "634fb6385be3e3e0a31aec76e60ae32ffcd72b00633862e3a42aac47f62ecfe0"
+    }
+  ],
+  "fragments": [
+    {
+      "label": "actual 56999 import 732486",
+      "source": "evidence/web/objects/9bafadffbe6dc98b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1x1vr6gub7ts_.js",
+      "sourceSha256": "df2e6412acd96eb52217fb98440ea305782977869f1c22ea3af92586c42dbb46",
+      "sourceBytes": 76195,
+      "utf16": [
+        73546,
+        73559
+      ],
+      "utf8": [
+        73548,
+        73561
+      ],
+      "sha256": "94b23e0e9f16262c0678b93f316df1b288d655fa5c02c2318f8cd175ef7a417a"
+    },
+    {
+      "label": "actual 56999 import 445242",
+      "source": "evidence/web/objects/9bafadffbe6dc98b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1x1vr6gub7ts_.js",
+      "sourceSha256": "df2e6412acd96eb52217fb98440ea305782977869f1c22ea3af92586c42dbb46",
+      "sourceBytes": 76195,
+      "utf16": [
+        73560,
+        73573
+      ],
+      "utf8": [
+        73562,
+        73575
+      ],
+      "sha256": "e504b1087667c50d775e6347b13e2c72d7c85b55fe159e42e616473700daa588"
+    },
+    {
+      "label": "actual 56999 import 352386",
+      "source": "evidence/web/objects/9bafadffbe6dc98b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1x1vr6gub7ts_.js",
+      "sourceSha256": "df2e6412acd96eb52217fb98440ea305782977869f1c22ea3af92586c42dbb46",
+      "sourceBytes": 76195,
+      "utf16": [
+        73574,
+        73587
+      ],
+      "utf8": [
+        73576,
+        73589
+      ],
+      "sha256": "5afae61b80dc8b6f2413063b2b526807f9f6a132be3bae1eb9358e6f56dd7b3a"
+    },
+    {
+      "label": "complete 56999 local t",
+      "source": "evidence/web/objects/9bafadffbe6dc98b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1x1vr6gub7ts_.js",
+      "sourceSha256": "df2e6412acd96eb52217fb98440ea305782977869f1c22ea3af92586c42dbb46",
+      "sourceBytes": 76195,
+      "utf16": [
+        73544,
+        73545
+      ],
+      "utf8": [
+        73546,
+        73547
+      ],
+      "sha256": "e3b98a4da31a127d4bde6e43033f66ba274cab0eb7eb1c70ec41402bf6273dd8"
+    },
+    {
+      "label": "complete 56999 local a",
+      "source": "evidence/web/objects/9bafadffbe6dc98b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1x1vr6gub7ts_.js",
+      "sourceSha256": "df2e6412acd96eb52217fb98440ea305782977869f1c22ea3af92586c42dbb46",
+      "sourceBytes": 76195,
+      "utf16": [
+        73588,
+        73655
+      ],
+      "utf8": [
+        73590,
+        73657
+      ],
+      "sha256": "4878efc8660e16a6b8a600635297e0b7702a91a29faef76f55f4eb049a84c04d"
+    },
+    {
+      "label": "complete 56999 local s",
+      "source": "evidence/web/objects/9bafadffbe6dc98b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1x1vr6gub7ts_.js",
+      "sourceSha256": "df2e6412acd96eb52217fb98440ea305782977869f1c22ea3af92586c42dbb46",
+      "sourceBytes": 76195,
+      "utf16": [
+        73660,
+        73689
+      ],
+      "utf8": [
+        73662,
+        73691
+      ],
+      "sha256": "883fcfc04626584a758f81c38e2d8ee2a053bf948beb4acb0f5e5cc991849e97"
+    },
+    {
+      "label": "complete 56999 local l",
+      "source": "evidence/web/objects/9bafadffbe6dc98b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1x1vr6gub7ts_.js",
+      "sourceSha256": "df2e6412acd96eb52217fb98440ea305782977869f1c22ea3af92586c42dbb46",
+      "sourceBytes": 76195,
+      "utf16": [
+        73690,
+        73724
+      ],
+      "utf8": [
+        73692,
+        73726
+      ],
+      "sha256": "a22f91fb7f538fbedc17ce31ec683e3e82595f0bd991dc11f0a4a0e9365b3654"
+    },
+    {
+      "label": "complete 56999.k export value",
+      "source": "evidence/web/objects/9bafadffbe6dc98b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1x1vr6gub7ts_.js",
+      "sourceSha256": "df2e6412acd96eb52217fb98440ea305782977869f1c22ea3af92586c42dbb46",
+      "sourceBytes": 76195,
+      "utf16": [
+        73738,
+        73739
+      ],
+      "utf8": [
+        73740,
+        73741
+      ],
+      "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+    },
+    {
+      "label": "complete 56999.c export value",
+      "source": "evidence/web/objects/9bafadffbe6dc98b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1x1vr6gub7ts_.js",
+      "sourceSha256": "df2e6412acd96eb52217fb98440ea305782977869f1c22ea3af92586c42dbb46",
+      "sourceBytes": 76195,
+      "utf16": [
+        73746,
+        74337
+      ],
+      "utf8": [
+        73748,
+        74339
+      ],
+      "sha256": "34de0fcd14d0f401b49384887d50eca7436a39bb10c34a9154eac0767e72d503"
+    },
+    {
+      "label": "complete 56999.F export value",
+      "source": "evidence/web/objects/9bafadffbe6dc98b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1x1vr6gub7ts_.js",
+      "sourceSha256": "df2e6412acd96eb52217fb98440ea305782977869f1c22ea3af92586c42dbb46",
+      "sourceBytes": 76195,
+      "utf16": [
+        74344,
+        74472
+      ],
+      "utf8": [
+        74346,
+        74474
+      ],
+      "sha256": "6a8db15d135512428f20958c5d8ea80bb9acaa8d78807cb929c3ff1d527b29aa"
+    },
+    {
+      "label": "actual 798394 import 445242",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        7579,
+        7592
+      ],
+      "utf8": [
+        7579,
+        7592
+      ],
+      "sha256": "c9656759be4f291f16e9db0f150c6d1d2b89ed9244388f8fd2516424834771b0"
+    },
+    {
+      "label": "actual 798394 import 352386",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        7593,
+        7606
+      ],
+      "utf8": [
+        7593,
+        7606
+      ],
+      "sha256": "70be5feee88d37500d23b8a5d12679574e96a4cace46be91d08348df1c8b9750"
+    },
+    {
+      "label": "complete 798394.f export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        7618,
+        8282
+      ],
+      "utf8": [
+        7618,
+        8282
+      ],
+      "sha256": "6fdb6dc792aa85b16113ed01211d035c11430e5f4f3e2b2e9f5dface72cb5c08"
+    },
+    {
+      "label": "complete 70678.f export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        8303,
+        8636
+      ],
+      "utf8": [
+        8303,
+        8636
+      ],
+      "sha256": "6e98e0372f699c017f96b333fbf79c68f122add84c2b73adaf79dfb6d890734b"
+    },
+    {
+      "label": "complete 65769.f export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        8656,
+        8980
+      ],
+      "utf8": [
+        8656,
+        8980
+      ],
+      "sha256": "694dfe876b2276304319ffa312fc77daf772b1b70ba9600e0f0a1217f3124bd6"
+    },
+    {
+      "label": "actual 187807 import 732486",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        20401,
+        20414
+      ],
+      "utf8": [
+        20401,
+        20414
+      ],
+      "sha256": "6fe987520583f8a737145e7b3c5b87e3c34790702d51038e21f7ce5573c1ed9b"
+    },
+    {
+      "label": "actual 187807 import 445242",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        20415,
+        20428
+      ],
+      "utf8": [
+        20415,
+        20428
+      ],
+      "sha256": "d12d3b2dfd88ea5bdcf454ecb857db35794346dc3e6ae2b256963fd5fdd88a54"
+    },
+    {
+      "label": "actual 187807 import 426091",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        20429,
+        20442
+      ],
+      "utf8": [
+        20429,
+        20442
+      ],
+      "sha256": "5a1e49010351c901c48728b4cf21d182f017beb2ab8aadde257c206bdc52846d"
+    },
+    {
+      "label": "complete 187807 local l",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        20447,
+        20468
+      ],
+      "utf8": [
+        20447,
+        20468
+      ],
+      "sha256": "eb858a38b00f5c8aa0124358ca78d7907012c2ff5e0cc1fcf2ec10364fd43d39"
+    },
+    {
+      "label": "complete 187807 local r",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        20469,
+        20621
+      ],
+      "utf8": [
+        20469,
+        20621
+      ],
+      "sha256": "10c3325ef5eb84875e9507eb1970ff983b54cc664ac48c690153f494fe7ef79e"
+    },
+    {
+      "label": "complete 187807 local s",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        20622,
+        20753
+      ],
+      "utf8": [
+        20622,
+        20753
+      ],
+      "sha256": "3a80e690bffc7a660c01e24a60bd0c97d958146a111e1f6c25b685861d14611a"
+    },
+    {
+      "label": "complete 187807.HeroStage export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21059,
+        21709
+      ],
+      "utf8": [
+        21059,
+        21709
+      ],
+      "sha256": "179ee8ceb5457932411d689df42fbad90fd2c8570fed3dcd02e00906b5bf88d1"
+    },
+    {
+      "label": "complete 829010.F export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        20765,
+        20810
+      ],
+      "utf8": [
+        20765,
+        20810
+      ],
+      "sha256": "fcea7a918f3e53017412de625dafda335096540e3afdf3eb96667bc84fc2733e"
+    },
+    {
+      "label": "complete 829010.B export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        20817,
+        20850
+      ],
+      "utf8": [
+        20817,
+        20850
+      ],
+      "sha256": "88858bad530e3ad110b92a1ea68c05891b5033861941b0ea3b6260ce8c7bb6dc"
+    },
+    {
+      "label": "complete 829010.c export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        20857,
+        20859
+      ],
+      "utf8": [
+        20857,
+        20859
+      ],
+      "sha256": "b17ef6d19c7a5b1ee83b907c595526dcb1eb06db8227d650d5dda0a9f4ce8cd9"
+    },
+    {
+      "label": "complete 829010.s export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        20866,
+        20955
+      ],
+      "utf8": [
+        20866,
+        20955
+      ],
+      "sha256": "efdc21b057972944d14bfcb51a9a20d1bffad1711c7d547c0308f9aeae2bf64a"
+    },
+    {
+      "label": "complete 829010.h export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        20962,
+        21006
+      ],
+      "utf8": [
+        20962,
+        21006
+      ],
+      "sha256": "14ba6f33792f1531be5d2c7a83625f1f44fb07026676f0b8694d9748a3050377"
+    },
+    {
+      "label": "complete 829010.C export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21013,
+        21014
+      ],
+      "utf8": [
+        21013,
+        21014
+      ],
+      "sha256": "454349e422f05297191ead13e21d3db520e5abef52055e4964b82fb213f593a1"
+    },
+    {
+      "label": "complete 829010.U export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21021,
+        21022
+      ],
+      "utf8": [
+        21021,
+        21022
+      ],
+      "sha256": "acac86c0e609ca906f632b0e2dacccb2b77d22b0621f20ebece1a4835b93f6f0"
+    },
+    {
+      "label": "complete 829010.f export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21029,
+        21030
+      ],
+      "utf8": [
+        21029,
+        21030
+      ],
+      "sha256": "043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89"
+    },
+    {
+      "label": "actual 218921 import 732486",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21735,
+        21748
+      ],
+      "utf8": [
+        21735,
+        21748
+      ],
+      "sha256": "6fe987520583f8a737145e7b3c5b87e3c34790702d51038e21f7ce5573c1ed9b"
+    },
+    {
+      "label": "actual 218921 import 445242",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21749,
+        21762
+      ],
+      "utf8": [
+        21749,
+        21762
+      ],
+      "sha256": "d12d3b2dfd88ea5bdcf454ecb857db35794346dc3e6ae2b256963fd5fdd88a54"
+    },
+    {
+      "label": "actual 218921 import 426091",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21763,
+        21776
+      ],
+      "utf8": [
+        21763,
+        21776
+      ],
+      "sha256": "5a1e49010351c901c48728b4cf21d182f017beb2ab8aadde257c206bdc52846d"
+    },
+    {
+      "label": "actual 218921 import 398902",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21792,
+        21805
+      ],
+      "utf8": [
+        21792,
+        21805
+      ],
+      "sha256": "3a4b71d1509d75f341c241456df999d6634551559a7fdbde156b7b923af7171b"
+    },
+    {
+      "label": "actual 218921 import 375670",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21806,
+        21819
+      ],
+      "utf8": [
+        21806,
+        21819
+      ],
+      "sha256": "7f719ec125edd87cf57350e8c03b9ffbe3e574d029b4776045bfa6f4b5ccef19"
+    },
+    {
+      "label": "complete 218921 local s",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21824,
+        21878
+      ],
+      "utf8": [
+        21824,
+        21878
+      ],
+      "sha256": "716ba23236c42743e2b4802423558a0abb4411654062ff5153a0a5d570e8638b"
+    },
+    {
+      "label": "complete 218921 local function n",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21879,
+        21968
+      ],
+      "utf8": [
+        21879,
+        21968
+      ],
+      "sha256": "8be3df19a2cb16ac215f63b8b88f0175831f3445de30df2785c3b6ed92f0fd03"
+    },
+    {
+      "label": "complete 218921.PaginationDots export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21992,
+        22780
+      ],
+      "utf8": [
+        21992,
+        22780
+      ],
+      "sha256": "08c2ae50c349a6387f363fe72333f3ef30ab38c92f4ba061c49263c752bb23a7"
+    },
+    {
+      "label": "complete 218921.PaginationDotsSkeleton export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        22808,
+        23127
+      ],
+      "utf8": [
+        22808,
+        23127
+      ],
+      "sha256": "1c470261c51249720995dcf9fce550fcdef50894c32716156d5d1405d1ba4784"
+    },
+    {
+      "label": "actual 41705 import 732486",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        187,
+        200
+      ],
+      "utf8": [
+        187,
+        200
+      ],
+      "sha256": "6fe987520583f8a737145e7b3c5b87e3c34790702d51038e21f7ce5573c1ed9b"
+    },
+    {
+      "label": "actual 41705 import 445242",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        201,
+        214
+      ],
+      "utf8": [
+        201,
+        214
+      ],
+      "sha256": "d12d3b2dfd88ea5bdcf454ecb857db35794346dc3e6ae2b256963fd5fdd88a54"
+    },
+    {
+      "label": "actual 41705 import 157633",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        215,
+        228
+      ],
+      "utf8": [
+        215,
+        228
+      ],
+      "sha256": "2ed9dde288d679643c5dd575e5f1df94dd0b90f894e8a8eafde633ff9cae46a5"
+    },
+    {
+      "label": "actual 41705 import 426091",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        229,
+        242
+      ],
+      "utf8": [
+        229,
+        242
+      ],
+      "sha256": "b88df46f85979a6f55523d9780ce90a582b54bc6c3098d2233b162ea145f1ca2"
+    },
+    {
+      "label": "actual 41705 import 325320",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        796,
+        809
+      ],
+      "utf8": [
+        796,
+        809
+      ],
+      "sha256": "b6972de939318e29225939a27c4ece8aff04723a8d19d5f0cd8db40cae76cb15"
+    },
+    {
+      "label": "actual 41705 import 845785",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        810,
+        823
+      ],
+      "utf8": [
+        810,
+        823
+      ],
+      "sha256": "442956fb1a2492a79986f57395066c890dc18ab07f87a3a8422235493093aa17"
+    },
+    {
+      "label": "actual 41705 import 855376",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        824,
+        837
+      ],
+      "utf8": [
+        824,
+        837
+      ],
+      "sha256": "bab8a267b5cced32d7c86fc7678b99b33261dc8e4004a7d858684813cc642beb"
+    },
+    {
+      "label": "actual 41705 import 453706",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        838,
+        851
+      ],
+      "utf8": [
+        838,
+        851
+      ],
+      "sha256": "32510ab58563f251c3d569f65d00fcb041fbd2455fa62e04f4a09e538c4926f6"
+    },
+    {
+      "label": "actual 41705 import 352386",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        852,
+        865
+      ],
+      "utf8": [
+        852,
+        865
+      ],
+      "sha256": "dbfbb91698890e3d11790665825ec0c343cdff800eca6f993c24f1431498b5d5"
+    },
+    {
+      "label": "actual 41705 import 405048",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        866,
+        879
+      ],
+      "utf8": [
+        866,
+        879
+      ],
+      "sha256": "aa6046055cb251f7b67080c3a2b1e59ae305c58da7543e4626c038283876be0a"
+    },
+    {
+      "label": "actual 41705 import 425444",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        1983,
+        1996
+      ],
+      "utf8": [
+        1983,
+        1996
+      ],
+      "sha256": "734cad2be56505fb16bf0c25915ee3a9dbc9ffb097a625e53f070f804eb4c39d"
+    },
+    {
+      "label": "actual 41705 import 369091",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        1997,
+        2010
+      ],
+      "utf8": [
+        1997,
+        2010
+      ],
+      "sha256": "82efee6c8a5bda31ffbafe2bf09c26e811e0c63b0cf0d5bffb7e62cdbf97ec12"
+    },
+    {
+      "label": "complete 41705 local m",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        884,
+        996
+      ],
+      "utf8": [
+        884,
+        996
+      ],
+      "sha256": "c3ee7d15e8b3e450b23d388a107f1eaabf0ae80a9b3ae0973c14b4a5b087ee4e"
+    },
+    {
+      "label": "complete 41705 local u",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        997,
+        1966
+      ],
+      "utf8": [
+        997,
+        1966
+      ],
+      "sha256": "bea67e409f785a9d1e4dd7b99871c47fb3ce816c2d22b67310fe2738c57dccfd"
+    },
+    {
+      "label": "complete 41705 local x",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        2015,
+        3110
+      ],
+      "utf8": [
+        2015,
+        3110
+      ],
+      "sha256": "b9659a24c7c0eb2c65212cfa8b69ab976ebe33f9c1e85540bf63bba9e8fb4316"
+    },
+    {
+      "label": "complete 816882.f export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        254,
+        782
+      ],
+      "utf8": [
+        254,
+        782
+      ],
+      "sha256": "83133b770b6cd72f5bd07fe7a11b3d9f2e9300c445dbf4d2d13eeadeb4061794"
+    },
+    {
+      "label": "complete 41705.f export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        3122,
+        4195
+      ],
+      "utf8": [
+        3122,
+        4195
+      ],
+      "sha256": "9ab656c50d96bb980d52014ff83d76be0c175f41e2fe5b6fa7e75521a20c3f48"
+    },
+    {
+      "label": "actual 369731 import 732486",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9005,
+        9018
+      ],
+      "utf8": [
+        9005,
+        9018
+      ],
+      "sha256": "6fe987520583f8a737145e7b3c5b87e3c34790702d51038e21f7ce5573c1ed9b"
+    },
+    {
+      "label": "actual 369731 import 445242",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9019,
+        9032
+      ],
+      "utf8": [
+        9019,
+        9032
+      ],
+      "sha256": "d12d3b2dfd88ea5bdcf454ecb857db35794346dc3e6ae2b256963fd5fdd88a54"
+    },
+    {
+      "label": "actual 369731 import 157633",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9033,
+        9046
+      ],
+      "utf8": [
+        9033,
+        9046
+      ],
+      "sha256": "2ed9dde288d679643c5dd575e5f1df94dd0b90f894e8a8eafde633ff9cae46a5"
+    },
+    {
+      "label": "actual 369731 import 426091",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9047,
+        9060
+      ],
+      "utf8": [
+        9047,
+        9060
+      ],
+      "sha256": "b88df46f85979a6f55523d9780ce90a582b54bc6c3098d2233b162ea145f1ca2"
+    },
+    {
+      "label": "actual 369731 import 352386",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9061,
+        9074
+      ],
+      "utf8": [
+        9061,
+        9074
+      ],
+      "sha256": "5afae61b80dc8b6f2413063b2b526807f9f6a132be3bae1eb9358e6f56dd7b3a"
+    },
+    {
+      "label": "actual 369731 import 398902",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9090,
+        9103
+      ],
+      "utf8": [
+        9090,
+        9103
+      ],
+      "sha256": "0f0411e1525732202b97fe9404634694849045ee6bc2b8f229cada193c004052"
+    },
+    {
+      "label": "actual 369731 import 798394",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9104,
+        9117
+      ],
+      "utf8": [
+        9104,
+        9117
+      ],
+      "sha256": "683b2078c85d4e5aa6af5c996f21260a3707900be33026cf0c02c59e0caef652"
+    },
+    {
+      "label": "actual 369731 import 70678",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9118,
+        9130
+      ],
+      "utf8": [
+        9118,
+        9130
+      ],
+      "sha256": "f7f946ff462ee32a7f3f39667f16c1599de665305daa61d467840d897eeb0515"
+    },
+    {
+      "label": "actual 369731 import 65769",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9131,
+        9143
+      ],
+      "utf8": [
+        9131,
+        9143
+      ],
+      "sha256": "4e86581ca38fd737f4b7c3c67d8d1284461fd64e690d00ea2d25579fa621bdb1"
+    },
+    {
+      "label": "actual 369731 import 187807",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9144,
+        9157
+      ],
+      "utf8": [
+        9144,
+        9157
+      ],
+      "sha256": "8a98ac90cc46bb5bf4508211503b47cfb3c8fbd0fb373bc9090fd88ceaad442d"
+    },
+    {
+      "label": "actual 369731 import 218921",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9706,
+        9719
+      ],
+      "utf8": [
+        9706,
+        9719
+      ],
+      "sha256": "e8d38ad72527b08ef08658817ba5a8ce3d8f62fec1dc5a804d04762882654868"
+    },
+    {
+      "label": "actual 369731 import 292686",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9720,
+        9733
+      ],
+      "utf8": [
+        9720,
+        9733
+      ],
+      "sha256": "8b87fb9277133d1fa6a492096a202f2fcacf722b6f5e98f79d8746655acb183d"
+    },
+    {
+      "label": "actual 369731 import 458310",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9734,
+        9747
+      ],
+      "utf8": [
+        9734,
+        9747
+      ],
+      "sha256": "4bea95041a86865d20ec1098f4257688185c2e28198efc6d18ca857adf22f223"
+    },
+    {
+      "label": "actual 369731 import 816882",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9748,
+        9761
+      ],
+      "utf8": [
+        9748,
+        9761
+      ],
+      "sha256": "8911a50ba8027cbb83b27f9420f130b9cb065ac9b1b6b689b911c66c174fc8a0"
+    },
+    {
+      "label": "actual 369731 import 41705",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9762,
+        9774
+      ],
+      "utf8": [
+        9762,
+        9774
+      ],
+      "sha256": "932488f98b5d531ec1880f7ad03a402d371544cd94e1b4276d0c96b3b9753915"
+    },
+    {
+      "label": "actual 369731 import 146695",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9775,
+        9788
+      ],
+      "utf8": [
+        9775,
+        9788
+      ],
+      "sha256": "803c323fcc65b6944b4783ad636a91cbbd3cb44d67788573adf3509ea7121438"
+    },
+    {
+      "label": "actual 369731 import 705313",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9789,
+        9802
+      ],
+      "utf8": [
+        9789,
+        9802
+      ],
+      "sha256": "823bf1b2b01432ef9bc85201357f8abb1b7942ca75fa63d201cd2f94993968bb"
+    },
+    {
+      "label": "actual 369731 import 928196",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9803,
+        9816
+      ],
+      "utf8": [
+        9803,
+        9816
+      ],
+      "sha256": "1dc10e45b090d3ffcf8d3e13fd804e0924b0f0f69147c9a5a062e8043c4427de"
+    },
+    {
+      "label": "actual 369731 import 277167",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9817,
+        9830
+      ],
+      "utf8": [
+        9817,
+        9830
+      ],
+      "sha256": "490a002bfd31d225af75e00d1ec1f7b7f697382d2f53e53b702b1a5ce0475109"
+    },
+    {
+      "label": "actual 369731 import 564861",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9831,
+        9844
+      ],
+      "utf8": [
+        9831,
+        9844
+      ],
+      "sha256": "c9423a24e91a421bfb19ba520a410321c2dca1a8122a2b8f2a6ee515bc885ce8"
+    },
+    {
+      "label": "actual 369731 import 556120",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9845,
+        9858
+      ],
+      "utf8": [
+        9845,
+        9858
+      ],
+      "sha256": "c84a48eb5ac1ec52904f54acd9d5e3fbcf263afa4cefdd98d2927b60700c999b"
+    },
+    {
+      "label": "actual 369731 import 898337",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9859,
+        9872
+      ],
+      "utf8": [
+        9859,
+        9872
+      ],
+      "sha256": "149f338b64f7e2a206a97ad8f92a3df0a5905004a32674b4d975548471b22661"
+    },
+    {
+      "label": "actual 369731 import 454430",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9873,
+        9886
+      ],
+      "utf8": [
+        9873,
+        9886
+      ],
+      "sha256": "109d57f04231b645c6eaa622213562616b8b6ffa3425068a6028331dfa3827cb"
+    },
+    {
+      "label": "actual 369731 import 850175",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9887,
+        9900
+      ],
+      "utf8": [
+        9887,
+        9900
+      ],
+      "sha256": "5015b44aaf3a481cb2cbd49530f1ed5053e8fae7736ac30917f0e0e612fcd1b6"
+    },
+    {
+      "label": "actual 369731 import 369091",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9901,
+        9914
+      ],
+      "utf8": [
+        9901,
+        9914
+      ],
+      "sha256": "fa085ba2c7751e686a50f21cdd287cfb6b195ecc874c1a32a7a0af7a4586bcee"
+    },
+    {
+      "label": "actual 369731 import 829010",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        13183,
+        13196
+      ],
+      "utf8": [
+        13183,
+        13196
+      ],
+      "sha256": "2084e3a3624723f1b6f63661953a43d1e7af82ced667779f8bc2dc2fb8070cb0"
+    },
+    {
+      "label": "actual 369731 import 595673",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        13197,
+        13210
+      ],
+      "utf8": [
+        13197,
+        13210
+      ],
+      "sha256": "0ab1663eb18e5e02fd5ae6747a332681c583a2024ae5c0cf6e7efaf6ce58ae1c"
+    },
+    {
+      "label": "actual 369731 import 56999",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        13211,
+        13223
+      ],
+      "utf8": [
+        13211,
+        13223
+      ],
+      "sha256": "16215d66f662d30f0b6ebdfea5849f7ca3c53ac53fd508c2e9560ef8d8f0e8fd"
+    },
+    {
+      "label": "complete 369731 local m",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9162,
+        9701
+      ],
+      "utf8": [
+        9162,
+        9701
+      ],
+      "sha256": "fddbd686be6922e338ca853b12ee6a028d80873d1192b7f76c562629835611e6"
+    },
+    {
+      "label": "complete 369731 local k",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9919,
+        9923
+      ],
+      "utf8": [
+        9919,
+        9923
+      ],
+      "sha256": "97f1098875689897d54a6fe764e85b5c6e57310490e815c20b0d1a311f70a4a2"
+    },
+    {
+      "label": "complete 369731 local P",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9924,
+        13132
+      ],
+      "utf8": [
+        9924,
+        13132
+      ],
+      "sha256": "88a8b6302a18f12371201f1523950264115eb46f84b94e7f206e21f77efd092d"
+    },
+    {
+      "label": "complete 369731 local function C",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        13133,
+        13179
+      ],
+      "utf8": [
+        13133,
+        13179
+      ],
+      "sha256": "1e3475e123b19443ccafaee84fbdcebb5155c51c6182570ea0022d674e175d83"
+    },
+    {
+      "label": "complete 369731 local A",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        13228,
+        13232
+      ],
+      "utf8": [
+        13228,
+        13232
+      ],
+      "sha256": "473991b44d37f286fae88ba5c4939e4b28f741cb85f25cf3bce036ea71d0ecd7"
+    },
+    {
+      "label": "complete 369731 local I",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        13233,
+        17176
+      ],
+      "utf8": [
+        13233,
+        17176
+      ],
+      "sha256": "1669c3b0740fefb8c5adf6460fd3badec385292388e29f8e2dc36218867e3b42"
+    },
+    {
+      "label": "complete 369731.HeroCarousel export value",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        17199,
+        20368
+      ],
+      "utf8": [
+        17199,
+        20368
+      ],
+      "sha256": "8a65619eef01201dd5d1522d4e15a6ef61785f1cab8ba1614eb543095ef293ce"
+    },
+    {
+      "label": "source-bound context/explicit capability 31113.LiveHomepage; not implemented by this unit",
+      "source": "evidence/web/objects/8cb897425bbbb845.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3rs_udq010jf8.js",
+      "sourceSha256": "5595433ee7d8f9179381f1a87264bd92aa99acc2352d1ff9918bc1b7902a5807",
+      "sourceBytes": 4758,
+      "utf16": [
+        2057,
+        3152
+      ],
+      "utf8": [
+        2057,
+        3152
+      ],
+      "sha256": "005fad6fa83dd3e5ad072f51d0fa3ff82c745dc893f5488ff7625a7ee6e8ffb8"
+    },
+    {
+      "label": "source-bound context/explicit capability 133244._; not implemented by this unit",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        25155,
+        25688
+      ],
+      "utf8": [
+        25155,
+        25688
+      ],
+      "sha256": "09bcabd839e5a47034e702c4854cca2fc21c4ccc1b5270ccdfbad63e132446e0"
+    },
+    {
+      "label": "source-bound context/explicit capability 773918.LivestreamPreviewPlayer; not implemented by this unit",
+      "source": "evidence/web/objects/8c58c5881aa03a4f.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3ioj_f9bfvhj6.js",
+      "sourceSha256": "daf8581430115a24bf16dbc8fe30e5bbf6365ffc15295e5ccd74c069e98a3e0d",
+      "sourceBytes": 22469,
+      "utf16": [
+        5007,
+        7800
+      ],
+      "utf8": [
+        5007,
+        7800
+      ],
+      "sha256": "3514822ed4a681f7b8a2a2e5d6f8a412d3323b358830447299a7ee999168bbe2"
+    },
+    {
+      "label": "complete actual preview lazy chunk list; not executed",
+      "source": "evidence/web/objects/8cb897425bbbb845.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3rs_udq010jf8.js",
+      "sourceSha256": "5595433ee7d8f9179381f1a87264bd92aa99acc2352d1ff9918bc1b7902a5807",
+      "sourceBytes": 4758,
+      "utf16": [
+        4168,
+        4531
+      ],
+      "utf8": [
+        4168,
+        4531
+      ],
+      "sha256": "370927cfabd71b692febab98a052c05b82b3c60673917b30a479dcb0466dbbf3"
+    },
+    {
+      "label": "actual 971491 forwarder to 773918; not executed",
+      "source": "evidence/web/objects/a9483154343c0216.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0i-s-acochgee.js",
+      "sourceSha256": "5e6d8072ef8872eeb47ade23127ac18d0cc9d9834ff4a854c65d8ab40f486db5",
+      "sourceBytes": 1224,
+      "utf16": [
+        119,
+        148
+      ],
+      "utf8": [
+        119,
+        148
+      ],
+      "sha256": "a27d34c42bdfdfc1d409518d54a42d45282cfbaa1bfd615e2cba3e2344ab137d"
+    }
+  ],
+  "components": [
+    {
+      "factoryId": 56999,
+      "moduleId": 56999,
+      "name": "c",
+      "label": "complete selected 56999.c",
+      "source": "evidence/web/objects/9bafadffbe6dc98b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1x1vr6gub7ts_.js",
+      "sourceSha256": "df2e6412acd96eb52217fb98440ea305782977869f1c22ea3af92586c42dbb46",
+      "sourceBytes": 76195,
+      "utf16": [
+        73746,
+        74337
+      ],
+      "utf8": [
+        73748,
+        74339
+      ],
+      "sha256": "34de0fcd14d0f401b49384887d50eca7436a39bb10c34a9154eac0767e72d503"
+    },
+    {
+      "factoryId": 56999,
+      "moduleId": 56999,
+      "name": "F",
+      "label": "complete selected 56999.F",
+      "source": "evidence/web/objects/9bafadffbe6dc98b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1x1vr6gub7ts_.js",
+      "sourceSha256": "df2e6412acd96eb52217fb98440ea305782977869f1c22ea3af92586c42dbb46",
+      "sourceBytes": 76195,
+      "utf16": [
+        74344,
+        74472
+      ],
+      "utf8": [
+        74346,
+        74474
+      ],
+      "sha256": "6a8db15d135512428f20958c5d8ea80bb9acaa8d78807cb929c3ff1d527b29aa"
+    },
+    {
+      "factoryId": 798394,
+      "moduleId": 798394,
+      "name": "f",
+      "label": "complete selected 798394.f",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        7618,
+        8282
+      ],
+      "utf8": [
+        7618,
+        8282
+      ],
+      "sha256": "6fdb6dc792aa85b16113ed01211d035c11430e5f4f3e2b2e9f5dface72cb5c08"
+    },
+    {
+      "factoryId": 798394,
+      "moduleId": 70678,
+      "name": "f",
+      "label": "complete selected 70678.f",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        8303,
+        8636
+      ],
+      "utf8": [
+        8303,
+        8636
+      ],
+      "sha256": "6e98e0372f699c017f96b333fbf79c68f122add84c2b73adaf79dfb6d890734b"
+    },
+    {
+      "factoryId": 798394,
+      "moduleId": 65769,
+      "name": "f",
+      "label": "complete selected 65769.f",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        8656,
+        8980
+      ],
+      "utf8": [
+        8656,
+        8980
+      ],
+      "sha256": "694dfe876b2276304319ffa312fc77daf772b1b70ba9600e0f0a1217f3124bd6"
+    },
+    {
+      "factoryId": 187807,
+      "moduleId": 187807,
+      "name": "HeroStage",
+      "label": "complete selected 187807.HeroStage",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21059,
+        21709
+      ],
+      "utf8": [
+        21059,
+        21709
+      ],
+      "sha256": "179ee8ceb5457932411d689df42fbad90fd2c8570fed3dcd02e00906b5bf88d1"
+    },
+    {
+      "factoryId": 187807,
+      "moduleId": 829010,
+      "name": "f",
+      "label": "complete selected 829010.f",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        20624,
+        20753
+      ],
+      "utf8": [
+        20624,
+        20753
+      ],
+      "sha256": "9927f1300f63df1bc2c275d88fcb15031a9991aa96608a8166cfec2cfebdf525"
+    },
+    {
+      "factoryId": 218921,
+      "moduleId": 218921,
+      "name": "PaginationDots",
+      "label": "complete selected 218921.PaginationDots",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21992,
+        22780
+      ],
+      "utf8": [
+        21992,
+        22780
+      ],
+      "sha256": "08c2ae50c349a6387f363fe72333f3ef30ab38c92f4ba061c49263c752bb23a7"
+    },
+    {
+      "factoryId": 218921,
+      "moduleId": 218921,
+      "name": "PaginationDotsSkeleton",
+      "label": "complete selected 218921.PaginationDotsSkeleton",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        22808,
+        23127
+      ],
+      "utf8": [
+        22808,
+        23127
+      ],
+      "sha256": "1c470261c51249720995dcf9fce550fcdef50894c32716156d5d1405d1ba4784"
+    },
+    {
+      "factoryId": 41705,
+      "moduleId": 816882,
+      "name": "f",
+      "label": "complete selected 816882.f",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        254,
+        782
+      ],
+      "utf8": [
+        254,
+        782
+      ],
+      "sha256": "83133b770b6cd72f5bd07fe7a11b3d9f2e9300c445dbf4d2d13eeadeb4061794"
+    },
+    {
+      "factoryId": 41705,
+      "moduleId": 41705,
+      "name": "f",
+      "label": "complete selected 41705.f",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        3122,
+        4195
+      ],
+      "utf8": [
+        3122,
+        4195
+      ],
+      "sha256": "9ab656c50d96bb980d52014ff83d76be0c175f41e2fe5b6fa7e75521a20c3f48"
+    },
+    {
+      "factoryId": 369731,
+      "moduleId": 369731,
+      "name": "HeroCarousel",
+      "label": "complete selected 369731.HeroCarousel",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        17199,
+        20368
+      ],
+      "utf8": [
+        17199,
+        20368
+      ],
+      "sha256": "8a65619eef01201dd5d1522d4e15a6ef61785f1cab8ba1614eb543095ef293ce"
+    }
+  ],
+  "imports": [
+    {
+      "factoryId": 56999,
+      "alias": "n",
+      "moduleId": 732486,
+      "label": "actual 56999 import 732486",
+      "source": "evidence/web/objects/9bafadffbe6dc98b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1x1vr6gub7ts_.js",
+      "sourceSha256": "df2e6412acd96eb52217fb98440ea305782977869f1c22ea3af92586c42dbb46",
+      "sourceBytes": 76195,
+      "utf16": [
+        73546,
+        73559
+      ],
+      "utf8": [
+        73548,
+        73561
+      ],
+      "sha256": "94b23e0e9f16262c0678b93f316df1b288d655fa5c02c2318f8cd175ef7a417a"
+    },
+    {
+      "factoryId": 56999,
+      "alias": "i",
+      "moduleId": 445242,
+      "label": "actual 56999 import 445242",
+      "source": "evidence/web/objects/9bafadffbe6dc98b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1x1vr6gub7ts_.js",
+      "sourceSha256": "df2e6412acd96eb52217fb98440ea305782977869f1c22ea3af92586c42dbb46",
+      "sourceBytes": 76195,
+      "utf16": [
+        73560,
+        73573
+      ],
+      "utf8": [
+        73562,
+        73575
+      ],
+      "sha256": "e504b1087667c50d775e6347b13e2c72d7c85b55fe159e42e616473700daa588"
+    },
+    {
+      "factoryId": 56999,
+      "alias": "r",
+      "moduleId": 352386,
+      "label": "actual 56999 import 352386",
+      "source": "evidence/web/objects/9bafadffbe6dc98b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1x1vr6gub7ts_.js",
+      "sourceSha256": "df2e6412acd96eb52217fb98440ea305782977869f1c22ea3af92586c42dbb46",
+      "sourceBytes": 76195,
+      "utf16": [
+        73574,
+        73587
+      ],
+      "utf8": [
+        73576,
+        73589
+      ],
+      "sha256": "5afae61b80dc8b6f2413063b2b526807f9f6a132be3bae1eb9358e6f56dd7b3a"
+    },
+    {
+      "factoryId": 798394,
+      "alias": "t",
+      "moduleId": 445242,
+      "label": "actual 798394 import 445242",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        7579,
+        7592
+      ],
+      "utf8": [
+        7579,
+        7592
+      ],
+      "sha256": "c9656759be4f291f16e9db0f150c6d1d2b89ed9244388f8fd2516424834771b0"
+    },
+    {
+      "factoryId": 798394,
+      "alias": "a",
+      "moduleId": 352386,
+      "label": "actual 798394 import 352386",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        7593,
+        7606
+      ],
+      "utf8": [
+        7593,
+        7606
+      ],
+      "sha256": "70be5feee88d37500d23b8a5d12679574e96a4cace46be91d08348df1c8b9750"
+    },
+    {
+      "factoryId": 187807,
+      "alias": "t",
+      "moduleId": 732486,
+      "label": "actual 187807 import 732486",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        20401,
+        20414
+      ],
+      "utf8": [
+        20401,
+        20414
+      ],
+      "sha256": "6fe987520583f8a737145e7b3c5b87e3c34790702d51038e21f7ce5573c1ed9b"
+    },
+    {
+      "factoryId": 187807,
+      "alias": "a",
+      "moduleId": 445242,
+      "label": "actual 187807 import 445242",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        20415,
+        20428
+      ],
+      "utf8": [
+        20415,
+        20428
+      ],
+      "sha256": "d12d3b2dfd88ea5bdcf454ecb857db35794346dc3e6ae2b256963fd5fdd88a54"
+    },
+    {
+      "factoryId": 187807,
+      "alias": "i",
+      "moduleId": 426091,
+      "label": "actual 187807 import 426091",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        20429,
+        20442
+      ],
+      "utf8": [
+        20429,
+        20442
+      ],
+      "sha256": "5a1e49010351c901c48728b4cf21d182f017beb2ab8aadde257c206bdc52846d"
+    },
+    {
+      "factoryId": 218921,
+      "alias": "t",
+      "moduleId": 732486,
+      "label": "actual 218921 import 732486",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21735,
+        21748
+      ],
+      "utf8": [
+        21735,
+        21748
+      ],
+      "sha256": "6fe987520583f8a737145e7b3c5b87e3c34790702d51038e21f7ce5573c1ed9b"
+    },
+    {
+      "factoryId": 218921,
+      "alias": "a",
+      "moduleId": 445242,
+      "label": "actual 218921 import 445242",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21749,
+        21762
+      ],
+      "utf8": [
+        21749,
+        21762
+      ],
+      "sha256": "d12d3b2dfd88ea5bdcf454ecb857db35794346dc3e6ae2b256963fd5fdd88a54"
+    },
+    {
+      "factoryId": 218921,
+      "alias": "i",
+      "moduleId": 426091,
+      "label": "actual 218921 import 426091",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21763,
+        21776
+      ],
+      "utf8": [
+        21763,
+        21776
+      ],
+      "sha256": "5a1e49010351c901c48728b4cf21d182f017beb2ab8aadde257c206bdc52846d"
+    },
+    {
+      "factoryId": 218921,
+      "alias": "l",
+      "moduleId": 398902,
+      "label": "actual 218921 import 398902",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21792,
+        21805
+      ],
+      "utf8": [
+        21792,
+        21805
+      ],
+      "sha256": "3a4b71d1509d75f341c241456df999d6634551559a7fdbde156b7b923af7171b"
+    },
+    {
+      "factoryId": 218921,
+      "alias": "r",
+      "moduleId": 375670,
+      "label": "actual 218921 import 375670",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        21806,
+        21819
+      ],
+      "utf8": [
+        21806,
+        21819
+      ],
+      "sha256": "7f719ec125edd87cf57350e8c03b9ffbe3e574d029b4776045bfa6f4b5ccef19"
+    },
+    {
+      "factoryId": 41705,
+      "alias": "t",
+      "moduleId": 732486,
+      "label": "actual 41705 import 732486",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        187,
+        200
+      ],
+      "utf8": [
+        187,
+        200
+      ],
+      "sha256": "6fe987520583f8a737145e7b3c5b87e3c34790702d51038e21f7ce5573c1ed9b"
+    },
+    {
+      "factoryId": 41705,
+      "alias": "a",
+      "moduleId": 445242,
+      "label": "actual 41705 import 445242",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        201,
+        214
+      ],
+      "utf8": [
+        201,
+        214
+      ],
+      "sha256": "d12d3b2dfd88ea5bdcf454ecb857db35794346dc3e6ae2b256963fd5fdd88a54"
+    },
+    {
+      "factoryId": 41705,
+      "alias": "i",
+      "moduleId": 157633,
+      "label": "actual 41705 import 157633",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        215,
+        228
+      ],
+      "utf8": [
+        215,
+        228
+      ],
+      "sha256": "2ed9dde288d679643c5dd575e5f1df94dd0b90f894e8a8eafde633ff9cae46a5"
+    },
+    {
+      "factoryId": 41705,
+      "alias": "l",
+      "moduleId": 426091,
+      "label": "actual 41705 import 426091",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        229,
+        242
+      ],
+      "utf8": [
+        229,
+        242
+      ],
+      "sha256": "b88df46f85979a6f55523d9780ce90a582b54bc6c3098d2233b162ea145f1ca2"
+    },
+    {
+      "factoryId": 41705,
+      "alias": "r",
+      "moduleId": 325320,
+      "label": "actual 41705 import 325320",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        796,
+        809
+      ],
+      "utf8": [
+        796,
+        809
+      ],
+      "sha256": "b6972de939318e29225939a27c4ece8aff04723a8d19d5f0cd8db40cae76cb15"
+    },
+    {
+      "factoryId": 41705,
+      "alias": "s",
+      "moduleId": 845785,
+      "label": "actual 41705 import 845785",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        810,
+        823
+      ],
+      "utf8": [
+        810,
+        823
+      ],
+      "sha256": "442956fb1a2492a79986f57395066c890dc18ab07f87a3a8422235493093aa17"
+    },
+    {
+      "factoryId": 41705,
+      "alias": "n",
+      "moduleId": 855376,
+      "label": "actual 41705 import 855376",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        824,
+        837
+      ],
+      "utf8": [
+        824,
+        837
+      ],
+      "sha256": "bab8a267b5cced32d7c86fc7678b99b33261dc8e4004a7d858684813cc642beb"
+    },
+    {
+      "factoryId": 41705,
+      "alias": "c",
+      "moduleId": 453706,
+      "label": "actual 41705 import 453706",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        838,
+        851
+      ],
+      "utf8": [
+        838,
+        851
+      ],
+      "sha256": "32510ab58563f251c3d569f65d00fcb041fbd2455fa62e04f4a09e538c4926f6"
+    },
+    {
+      "factoryId": 41705,
+      "alias": "o",
+      "moduleId": 352386,
+      "label": "actual 41705 import 352386",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        852,
+        865
+      ],
+      "utf8": [
+        852,
+        865
+      ],
+      "sha256": "dbfbb91698890e3d11790665825ec0c343cdff800eca6f993c24f1431498b5d5"
+    },
+    {
+      "factoryId": 41705,
+      "alias": "d",
+      "moduleId": 405048,
+      "label": "actual 41705 import 405048",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        866,
+        879
+      ],
+      "utf8": [
+        866,
+        879
+      ],
+      "sha256": "aa6046055cb251f7b67080c3a2b1e59ae305c58da7543e4626c038283876be0a"
+    },
+    {
+      "factoryId": 41705,
+      "alias": "f",
+      "moduleId": 425444,
+      "label": "actual 41705 import 425444",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        1983,
+        1996
+      ],
+      "utf8": [
+        1983,
+        1996
+      ],
+      "sha256": "734cad2be56505fb16bf0c25915ee3a9dbc9ffb097a625e53f070f804eb4c39d"
+    },
+    {
+      "factoryId": 41705,
+      "alias": "h",
+      "moduleId": 369091,
+      "label": "actual 41705 import 369091",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        1997,
+        2010
+      ],
+      "utf8": [
+        1997,
+        2010
+      ],
+      "sha256": "82efee6c8a5bda31ffbafe2bf09c26e811e0c63b0cf0d5bffb7e62cdbf97ec12"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "t",
+      "moduleId": 732486,
+      "label": "actual 369731 import 732486",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9005,
+        9018
+      ],
+      "utf8": [
+        9005,
+        9018
+      ],
+      "sha256": "6fe987520583f8a737145e7b3c5b87e3c34790702d51038e21f7ce5573c1ed9b"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "a",
+      "moduleId": 445242,
+      "label": "actual 369731 import 445242",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9019,
+        9032
+      ],
+      "utf8": [
+        9019,
+        9032
+      ],
+      "sha256": "d12d3b2dfd88ea5bdcf454ecb857db35794346dc3e6ae2b256963fd5fdd88a54"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "i",
+      "moduleId": 157633,
+      "label": "actual 369731 import 157633",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9033,
+        9046
+      ],
+      "utf8": [
+        9033,
+        9046
+      ],
+      "sha256": "2ed9dde288d679643c5dd575e5f1df94dd0b90f894e8a8eafde633ff9cae46a5"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "l",
+      "moduleId": 426091,
+      "label": "actual 369731 import 426091",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9047,
+        9060
+      ],
+      "utf8": [
+        9047,
+        9060
+      ],
+      "sha256": "b88df46f85979a6f55523d9780ce90a582b54bc6c3098d2233b162ea145f1ca2"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "r",
+      "moduleId": 352386,
+      "label": "actual 369731 import 352386",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9061,
+        9074
+      ],
+      "utf8": [
+        9061,
+        9074
+      ],
+      "sha256": "5afae61b80dc8b6f2413063b2b526807f9f6a132be3bae1eb9358e6f56dd7b3a"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "s",
+      "moduleId": 398902,
+      "label": "actual 369731 import 398902",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9090,
+        9103
+      ],
+      "utf8": [
+        9090,
+        9103
+      ],
+      "sha256": "0f0411e1525732202b97fe9404634694849045ee6bc2b8f229cada193c004052"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "n",
+      "moduleId": 798394,
+      "label": "actual 369731 import 798394",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9104,
+        9117
+      ],
+      "utf8": [
+        9104,
+        9117
+      ],
+      "sha256": "683b2078c85d4e5aa6af5c996f21260a3707900be33026cf0c02c59e0caef652"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "c",
+      "moduleId": 70678,
+      "label": "actual 369731 import 70678",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9118,
+        9130
+      ],
+      "utf8": [
+        9118,
+        9130
+      ],
+      "sha256": "f7f946ff462ee32a7f3f39667f16c1599de665305daa61d467840d897eeb0515"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "o",
+      "moduleId": 65769,
+      "label": "actual 369731 import 65769",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9131,
+        9143
+      ],
+      "utf8": [
+        9131,
+        9143
+      ],
+      "sha256": "4e86581ca38fd737f4b7c3c67d8d1284461fd64e690d00ea2d25579fa621bdb1"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "d",
+      "moduleId": 187807,
+      "label": "actual 369731 import 187807",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9144,
+        9157
+      ],
+      "utf8": [
+        9144,
+        9157
+      ],
+      "sha256": "8a98ac90cc46bb5bf4508211503b47cfb3c8fbd0fb373bc9090fd88ceaad442d"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "u",
+      "moduleId": 218921,
+      "label": "actual 369731 import 218921",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9706,
+        9719
+      ],
+      "utf8": [
+        9706,
+        9719
+      ],
+      "sha256": "e8d38ad72527b08ef08658817ba5a8ce3d8f62fec1dc5a804d04762882654868"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "f",
+      "moduleId": 292686,
+      "label": "actual 369731 import 292686",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9720,
+        9733
+      ],
+      "utf8": [
+        9720,
+        9733
+      ],
+      "sha256": "8b87fb9277133d1fa6a492096a202f2fcacf722b6f5e98f79d8746655acb183d"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "h",
+      "moduleId": 458310,
+      "label": "actual 369731 import 458310",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9734,
+        9747
+      ],
+      "utf8": [
+        9734,
+        9747
+      ],
+      "sha256": "4bea95041a86865d20ec1098f4257688185c2e28198efc6d18ca857adf22f223"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "x",
+      "moduleId": 816882,
+      "label": "actual 369731 import 816882",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9748,
+        9761
+      ],
+      "utf8": [
+        9748,
+        9761
+      ],
+      "sha256": "8911a50ba8027cbb83b27f9420f130b9cb065ac9b1b6b689b911c66c174fc8a0"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "p",
+      "moduleId": 41705,
+      "label": "actual 369731 import 41705",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9762,
+        9774
+      ],
+      "utf8": [
+        9762,
+        9774
+      ],
+      "sha256": "932488f98b5d531ec1880f7ad03a402d371544cd94e1b4276d0c96b3b9753915"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "v",
+      "moduleId": 146695,
+      "label": "actual 369731 import 146695",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9775,
+        9788
+      ],
+      "utf8": [
+        9775,
+        9788
+      ],
+      "sha256": "803c323fcc65b6944b4783ad636a91cbbd3cb44d67788573adf3509ea7121438"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "g",
+      "moduleId": 705313,
+      "label": "actual 369731 import 705313",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9789,
+        9802
+      ],
+      "utf8": [
+        9789,
+        9802
+      ],
+      "sha256": "823bf1b2b01432ef9bc85201357f8abb1b7942ca75fa63d201cd2f94993968bb"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "b",
+      "moduleId": 928196,
+      "label": "actual 369731 import 928196",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9803,
+        9816
+      ],
+      "utf8": [
+        9803,
+        9816
+      ],
+      "sha256": "1dc10e45b090d3ffcf8d3e13fd804e0924b0f0f69147c9a5a062e8043c4427de"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "y",
+      "moduleId": 277167,
+      "label": "actual 369731 import 277167",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9817,
+        9830
+      ],
+      "utf8": [
+        9817,
+        9830
+      ],
+      "sha256": "490a002bfd31d225af75e00d1ec1f7b7f697382d2f53e53b702b1a5ce0475109"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "_",
+      "moduleId": 564861,
+      "label": "actual 369731 import 564861",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9831,
+        9844
+      ],
+      "utf8": [
+        9831,
+        9844
+      ],
+      "sha256": "c9423a24e91a421bfb19ba520a410321c2dca1a8122a2b8f2a6ee515bc885ce8"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "j",
+      "moduleId": 556120,
+      "label": "actual 369731 import 556120",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9845,
+        9858
+      ],
+      "utf8": [
+        9845,
+        9858
+      ],
+      "sha256": "c84a48eb5ac1ec52904f54acd9d5e3fbcf263afa4cefdd98d2927b60700c999b"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "w",
+      "moduleId": 898337,
+      "label": "actual 369731 import 898337",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9859,
+        9872
+      ],
+      "utf8": [
+        9859,
+        9872
+      ],
+      "sha256": "149f338b64f7e2a206a97ad8f92a3df0a5905004a32674b4d975548471b22661"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "N",
+      "moduleId": 454430,
+      "label": "actual 369731 import 454430",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9873,
+        9886
+      ],
+      "utf8": [
+        9873,
+        9886
+      ],
+      "sha256": "109d57f04231b645c6eaa622213562616b8b6ffa3425068a6028331dfa3827cb"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "E",
+      "moduleId": 850175,
+      "label": "actual 369731 import 850175",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9887,
+        9900
+      ],
+      "utf8": [
+        9887,
+        9900
+      ],
+      "sha256": "5015b44aaf3a481cb2cbd49530f1ed5053e8fae7736ac30917f0e0e612fcd1b6"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "S",
+      "moduleId": 369091,
+      "label": "actual 369731 import 369091",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        9901,
+        9914
+      ],
+      "utf8": [
+        9901,
+        9914
+      ],
+      "sha256": "fa085ba2c7751e686a50f21cdd287cfb6b195ecc874c1a32a7a0af7a4586bcee"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "L",
+      "moduleId": 829010,
+      "label": "actual 369731 import 829010",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        13183,
+        13196
+      ],
+      "utf8": [
+        13183,
+        13196
+      ],
+      "sha256": "2084e3a3624723f1b6f63661953a43d1e7af82ced667779f8bc2dc2fb8070cb0"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "R",
+      "moduleId": 595673,
+      "label": "actual 369731 import 595673",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        13197,
+        13210
+      ],
+      "utf8": [
+        13197,
+        13210
+      ],
+      "sha256": "0ab1663eb18e5e02fd5ae6747a332681c583a2024ae5c0cf6e7efaf6ce58ae1c"
+    },
+    {
+      "factoryId": 369731,
+      "alias": "T",
+      "moduleId": 56999,
+      "label": "actual 369731 import 56999",
+      "source": "evidence/web/objects/44a65b4313e51497.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+      "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+      "sourceBytes": 30190,
+      "utf16": [
+        13211,
+        13223
+      ],
+      "utf8": [
+        13211,
+        13223
+      ],
+      "sha256": "16215d66f662d30f0b6ebdfea5849f7ca3c53ac53fd508c2e9560ef8d8f0e8fd"
+    }
+  ],
+  "contextEdges": [
+    {
+      "from": 31113,
+      "to": 133244,
+      "name": "_",
+      "limit": "main-page hero render",
+      "import": {
+        "label": "actual 31113→133244 import",
+        "source": "evidence/web/objects/8cb897425bbbb845.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3rs_udq010jf8.js",
+        "sourceSha256": "5595433ee7d8f9179381f1a87264bd92aa99acc2352d1ff9918bc1b7902a5807",
+        "sourceBytes": 4758,
+        "utf16": [
+          195,
+          208
+        ],
+        "utf8": [
+          195,
+          208
+        ],
+        "sha256": "3b5d65d2c51c3eb448b1fe89d0c40dfa9f7909b41ee0e0dd92f977f685811766"
+      },
+      "calls": [
+        {
+          "label": "actual 31113→133244._ handoff",
+          "source": "evidence/web/objects/8cb897425bbbb845.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3rs_udq010jf8.js",
+          "sourceSha256": "5595433ee7d8f9179381f1a87264bd92aa99acc2352d1ff9918bc1b7902a5807",
+          "sourceBytes": 4758,
+          "utf16": [
+            2623,
+            2653
+          ],
+          "utf8": [
+            2623,
+            2653
+          ],
+          "sha256": "61d890868f31116f92482625e1deaf5b87fabd26ecd32ed221bbc140bc877234"
+        }
+      ]
+    },
+    {
+      "from": 133244,
+      "to": 859960,
+      "name": "L",
+      "limit": "reused listing/query capability; not implemented",
+      "import": {
+        "label": "actual 133244→859960 import",
+        "source": "evidence/web/objects/44a65b4313e51497.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+        "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+        "sourceBytes": 30190,
+        "utf16": [
+          24696,
+          24709
+        ],
+        "utf8": [
+          24696,
+          24709
+        ],
+        "sha256": "482dfda8197192ce8e202ea4ebe8ef51e942e9bbf21a457e4cf54158708d67da"
+      },
+      "calls": [
+        {
+          "label": "actual 133244→859960.L handoff",
+          "source": "evidence/web/objects/44a65b4313e51497.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+          "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+          "sourceBytes": 30190,
+          "utf16": [
+            25272,
+            25282
+          ],
+          "utf8": [
+            25272,
+            25282
+          ],
+          "sha256": "cd73df04606101ff55ed68d659329554f117c6d091d99e6864d737c2f94088b5"
+        }
+      ]
+    },
+    {
+      "from": 133244,
+      "to": 369731,
+      "name": "HeroCarousel",
+      "limit": "actual queried-data render",
+      "import": {
+        "label": "actual 133244→369731 import",
+        "source": "evidence/web/objects/44a65b4313e51497.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+        "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+        "sourceBytes": 30190,
+        "utf16": [
+          24626,
+          24639
+        ],
+        "utf8": [
+          24626,
+          24639
+        ],
+        "sha256": "38c1be2d1a40ae505283c7cb2cdc0da035269d912a21c388dfb4f9ad61dc5cee"
+      },
+      "calls": [
+        {
+          "label": "actual 133244→369731.HeroCarousel handoff",
+          "source": "evidence/web/objects/44a65b4313e51497.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+          "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+          "sourceBytes": 30190,
+          "utf16": [
+            25616,
+            25657
+          ],
+          "utf8": [
+            25616,
+            25657
+          ],
+          "sha256": "839907cbb747e2675cdeccba52d61d191d8e4b2a4737eb8672fd97849b2a7659"
+        }
+      ]
+    },
+    {
+      "from": 369731,
+      "to": 41705,
+      "name": "f",
+      "limit": "selected-slide media-prop handoff",
+      "import": {
+        "label": "actual 369731→41705 import",
+        "source": "evidence/web/objects/44a65b4313e51497.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+        "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+        "sourceBytes": 30190,
+        "utf16": [
+          9762,
+          9774
+        ],
+        "utf8": [
+          9762,
+          9774
+        ],
+        "sha256": "932488f98b5d531ec1880f7ad03a402d371544cd94e1b4276d0c96b3b9753915"
+      },
+      "calls": [
+        {
+          "label": "actual 369731→41705.f handoff",
+          "source": "evidence/web/objects/44a65b4313e51497.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+          "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+          "sourceBytes": 30190,
+          "utf16": [
+            15855,
+            16064
+          ],
+          "utf8": [
+            15855,
+            16064
+          ],
+          "sha256": "bb5a1c8316e0cc05c76231c2ed9fb82377556abd9063e19349a0659b45e99dcb"
+        }
+      ]
+    },
+    {
+      "from": 369731,
+      "to": 56999,
+      "name": "F",
+      "limit": "actual HeroSlide mute context",
+      "import": {
+        "label": "actual 369731→56999 import",
+        "source": "evidence/web/objects/44a65b4313e51497.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+        "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+        "sourceBytes": 30190,
+        "utf16": [
+          13211,
+          13223
+        ],
+        "utf8": [
+          13211,
+          13223
+        ],
+        "sha256": "16215d66f662d30f0b6ebdfea5849f7ca3c53ac53fd508c2e9560ef8d8f0e8fd"
+      },
+      "calls": [
+        {
+          "label": "actual 369731→56999.F handoff",
+          "source": "evidence/web/objects/44a65b4313e51497.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+          "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+          "sourceBytes": 30190,
+          "utf16": [
+            13587,
+            13596
+          ],
+          "utf8": [
+            13587,
+            13596
+          ],
+          "sha256": "a95c1191fe15f8e7bdf764c4d55e7d66cb01aefb46bf8f27542ae39325d3b5bf"
+        }
+      ]
+    },
+    {
+      "from": 41705,
+      "to": 325320,
+      "name": "t",
+      "limit": "provider wrapper port only; auth/join/presence not implemented",
+      "import": {
+        "label": "actual 41705→325320 import",
+        "source": "evidence/web/objects/44a65b4313e51497.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+        "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+        "sourceBytes": 30190,
+        "utf16": [
+          796,
+          809
+        ],
+        "utf8": [
+          796,
+          809
+        ],
+        "sha256": "b6972de939318e29225939a27c4ece8aff04723a8d19d5f0cd8db40cae76cb15"
+      },
+      "calls": [
+        {
+          "label": "actual 41705→325320.t handoff",
+          "source": "evidence/web/objects/44a65b4313e51497.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+          "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+          "sourceBytes": 30190,
+          "utf16": [
+            1792,
+            1922
+          ],
+          "utf8": [
+            1792,
+            1922
+          ],
+          "sha256": "6ef68e019486b5e861895ddf5d47bf8e378e03a7728cad803016e135da9a1f7a"
+        }
+      ]
+    },
+    {
+      "from": 41705,
+      "to": 405048,
+      "name": "V",
+      "limit": "metadata wrapper port only",
+      "import": {
+        "label": "actual 41705→405048 import",
+        "source": "evidence/web/objects/44a65b4313e51497.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+        "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+        "sourceBytes": 30190,
+        "utf16": [
+          866,
+          879
+        ],
+        "utf8": [
+          866,
+          879
+        ],
+        "sha256": "aa6046055cb251f7b67080c3a2b1e59ae305c58da7543e4626c038283876be0a"
+      },
+      "calls": [
+        {
+          "label": "actual 41705→405048.V handoff",
+          "source": "evidence/web/objects/44a65b4313e51497.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+          "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+          "sourceBytes": 30190,
+          "utf16": [
+            1635,
+            1723
+          ],
+          "utf8": [
+            1635,
+            1723
+          ],
+          "sha256": "da02502b31d61f4d9c8569f591057ff3004dbb095e1eac09498bbb3184aabe35"
+        }
+      ]
+    },
+    {
+      "from": 41705,
+      "to": 425444,
+      "name": "default",
+      "limit": "image component port only",
+      "import": {
+        "label": "actual 41705→425444 import",
+        "source": "evidence/web/objects/44a65b4313e51497.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+        "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+        "sourceBytes": 30190,
+        "utf16": [
+          1983,
+          1996
+        ],
+        "utf8": [
+          1983,
+          1996
+        ],
+        "sha256": "734cad2be56505fb16bf0c25915ee3a9dbc9ffb097a625e53f070f804eb4c39d"
+      },
+      "calls": [
+        {
+          "label": "actual 41705→425444.default handoff",
+          "source": "evidence/web/objects/44a65b4313e51497.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+          "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+          "sourceBytes": 30190,
+          "utf16": [
+            2853,
+            2959
+          ],
+          "utf8": [
+            2853,
+            2959
+          ],
+          "sha256": "819ae0e1edca39604531c2371f0e1df87fab898020cd670354b42532ae573a5e"
+        }
+      ]
+    },
+    {
+      "from": 41705,
+      "to": 369091,
+      "name": "useIpfsPrefix",
+      "limit": "configured URI-prefix port only",
+      "import": {
+        "label": "actual 41705→369091 import",
+        "source": "evidence/web/objects/44a65b4313e51497.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+        "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+        "sourceBytes": 30190,
+        "utf16": [
+          1997,
+          2010
+        ],
+        "utf8": [
+          1997,
+          2010
+        ],
+        "sha256": "82efee6c8a5bda31ffbafe2bf09c26e811e0c63b0cf0d5bffb7e62cdbf97ec12"
+      },
+      "calls": [
+        {
+          "label": "actual 41705→369091.useIpfsPrefix handoff",
+          "source": "evidence/web/objects/44a65b4313e51497.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1ymuvvi-037-_.js",
+          "sourceSha256": "fcdd6901e1f532633293b50f665824a234b4fdf79efbe3cc18f52698efdaf530",
+          "sourceBytes": 30190,
+          "utf16": [
+            2269,
+            2290
+          ],
+          "utf8": [
+            2269,
+            2290
+          ],
+          "sha256": "264833949b8221f5002a4038b2e2fd118db6ba8acbdf40d9314006783600d5e0"
+        }
+      ]
+    }
+  ],
+  "lazyAssets": [
+    {
+      "path": "evidence/web/objects/a9483154343c0216.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0i-s-acochgee.js",
+      "sha256": "5e6d8072ef8872eeb47ade23127ac18d0cc9d9834ff4a854c65d8ab40f486db5",
+      "bytes": 1224
+    },
+    {
+      "path": "evidence/web/objects/29b512f8287295c6.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2-ofzoc_66c62.js",
+      "sha256": "d40ec791948aef195a5d01bf6912f8ef42ebda84477d6a424952f82ae3393736",
+      "bytes": 109024
+    },
+    {
+      "path": "evidence/web/objects/8c58c5881aa03a4f.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3ioj_f9bfvhj6.js",
+      "sha256": "daf8581430115a24bf16dbc8fe30e5bbf6365ffc15295e5ccd74c069e98a3e0d",
+      "bytes": 22469
+    },
+    {
+      "path": "evidence/web/objects/bf7c5bfff1a96842.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1q6aqmd8vr3hp.js",
+      "sha256": "3b077e779923ec00ab42bf42eaf3b10ee042c43c5de01b63e178fe2db38f236d",
+      "bytes": 192057
+    },
+    {
+      "path": "evidence/web/objects/42e096457f5f39b7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2ul6mztqu7fii.js",
+      "sha256": "24358f0c087de296197e8172a7b06c32071d8c938a629fa82b556e36cbbf2a5c",
+      "bytes": 417254
+    },
+    {
+      "path": "evidence/web/objects/88f6e50054507165.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2jrcs_nq6xh23.js",
+      "sha256": "62741e31f307301d839556eeff0a71058c67d12f6a2b9379280ac70942ae2f9c",
+      "bytes": 256218
+    },
+    {
+      "path": "evidence/web/objects/0a266e9124be7219.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3pborxcsvjk20.js",
+      "sha256": "ba69f135cca4cd041fd95328737d36a4059c9cf09a36836653929b48ad6f00a3",
+      "bytes": 62202
+    }
+  ],
+  "transformation": {
+    "unchanged": "Complete selected declarations/component callback bodies, including compiler memo-cache slots and every state/effect/event operation.",
+    "changed": [
+      "actual imports become explicit module capabilities",
+      "selected exports become a returned object",
+      "sole preview runtime A(47367) becomes loadPreview(47367)",
+      "document/ResizeObserver/MutationObserver bind explicit DOM capabilities"
+    ],
+    "excluded": [
+      "style-only imports 12692/137793",
+      "unselected quick-trade and badge/metadata widget bodies in grouped 816882 factory",
+      "inner player, LiveKit/token/join/provider implementation",
+      "original module/runtime scheduling/caching"
+    ]
+  },
+  "limits": {
+    "capturedExecution": false,
+    "serviceAcquisition": false,
+    "mediaAcquisition": false,
+    "credentials": false,
+    "innerPlayer": false,
+    "authOrJoin": false,
+    "nativePlayback": false,
+    "mountedApplication": false,
+    "originalVisualParity": false,
+    "progressCredit": false
+  }
+}

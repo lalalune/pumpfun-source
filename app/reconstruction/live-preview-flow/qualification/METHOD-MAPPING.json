@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "geometryHead": "d3297e159fa29e3257bf7853642287597a9f9ec0",
+  "continuationHead": "c05727129adfa6667721195ca920a05490d49d0e",
+  "retainedCaseCallbacks": [
+    {
+      "name": "selected-only media activation, original lazy metadata and disabled provider flags",
+      "assertionCallbackSha256": "84357b5d6850f113c9575820faba22fa8fcf842c3a977eef1f494f665182cbb0",
+      "equal": true
+    },
+    {
+      "name": "ready callback clears outer loading; inactive click captures before child callback/navigation",
+      "assertionCallbackSha256": "639bf68e96deee97ecd623c83745d75c2128b78fe1ea3a88be8928261a607335",
+      "equal": true
+    }
+  ],
+  "fixtureChange": "Exactly one harness method added. It is first invoked in case3; components, module ports, DOM markup and prior controls are unchanged.",
+  "fixtureCurrentEqualsContinuation": true,
+  "componentsSha256": "5fa79d10d55ebf3b78eba8cf4bc7fc9473bae2ff7f83f9b1280e855d0341f0e0",
+  "componentsEqualBothMeasuredHeads": true,
+  "currentControllerChangeAfterRun": "Only the case6 descriptive label was narrowed to synthetic-player release; no assertion, operation, timeout or outcome was changed.",
+  "laterSourceProof": "Parent import/use edges and seven retained lazy assets added to provenance only; generated component text unchanged.",
+  "notClaimed": "No all-six result at current head; prior cohort failures and outcomes remain distinct.",
+  "currentControllerSha256": "ca5e39f748f5e7b0cfabcb27e14632844fd78b93ef2d169155bb86ee93ae5530",
+  "historicalContinuationControllerSha256": "299fb83f5d347b9a582cac92c4f0b9788ef0353d8c7a43d4b9723f46075659cb",
+  "currentControllerOnlyLabelDiffVerified": true
+}

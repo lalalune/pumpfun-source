@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "testedLocalHead": "2e3e95d3df7c9fb47536c4ce964b8a18a1d4552d",
+  "testedCompleteTree": "812de6dd6bdec50b1794a84a2f2fde518a5c5939",
+  "requiredGates": {
+    "gitBoundInputs": 53,
+    "originalCaptures": 9,
+    "toolingTests": 10,
+    "returnCodes": [
+      0,
+      0
+    ]
+  },
+  "commands": [
+    [
+      "python3",
+      "-B",
+      "scripts/verify_evidence.py"
+    ],
+    [
+      "python3",
+      "-B",
+      "scripts/test_tooling.py"
+    ]
+  ],
+  "publicReplay": "From repository root: python3 scripts/verify_evidence.py; python3 scripts/test_tooling.py. The private orchestration helper is not required."
+}

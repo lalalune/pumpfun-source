@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "members": {
+    "BROWSER-COHORTS.json": {
+      "sha256": "cf12c4c5be56ec85a56e0b744e0700e4510b3c277ff6dee6eec6cfd5d8763394",
+      "bytes": 7344
+    },
+    "CHECKS.json": {
+      "sha256": "6f84c1714598736d3863cc4c317fb266344f91b0575c9f788f4c57fc329f0060",
+      "bytes": 1105
+    },
+    "METHOD-MAPPING.json": {
+      "sha256": "7ddc97b6f5d28d2202c34abbf2de2a31fd8a907d8c536be6ad290c114fd4475c",
+      "bytes": 1679
+    },
+    "README.md": {
+      "sha256": "3abb23ae9cb9b82fcfa4f3238f1dc33d5e3d5d5a67d5e5e981ca8c543f9396d1",
+      "bytes": 4189
+    },
+    "ROOT-CHECKS.json": {
+      "sha256": "421ab26579dfb32dbecf2b39cf3cdb8fc1fab022b60dac2f69c6608a8ca5ddc4",
+      "bytes": 638
+    },
+    "SOURCE-INPUTS.json": {
+      "sha256": "b6fde7959ef50b26b1f510455209c2adad4403b582b9473558b9378e5c124b44",
+      "bytes": 1559
+    },
+    "SPARSE-RESTORATION.json": {
+      "sha256": "01ce77a4541593d2934809159a9386ef9a665e64c1f90cd30e8169aeaf9ba79c",
+      "bytes": 984
+    },
+    "browser/continuation/INPUTS.json": {
+      "sha256": "e49132091c936312759ec8f10a9bcbd374f9620b09f7f6cd682bdc27cf75bb28",
+      "bytes": 4284
+    },
+    "browser/continuation/RESULT.json": {
+      "sha256": "546d27044c88a86c04f08d34ed01725571e6ef5f63b8fd0828f5ae2d5f1a4a5a",
+      "bytes": 32121
+    },
+    "browser/continuation/trace.zip": {
+      "sha256": "9a4a9e0538a5b39f29f9bf3d640a03b85002d4e6f88977b97534f5b7d2f4e911",
+      "bytes": 182494
+    },
+    "browser/geometry/INPUTS.json": {
+      "sha256": "f2b8c16617397849f9d02987b2917d27c66f8963b12540c75c2be6b9ed46d891",
+      "bytes": 4242
+    },
+    "browser/geometry/RESULT.json": {
+      "sha256": "17466acd83208793cb090343b7058fcd36746f89b21f763fb4c6d0869c521e01",
+      "bytes": 15348
+    },
+    "browser/geometry/failure-3.png": {
+      "sha256": "f2d52e1e4d026a54015215b1c18b5160155a1e455ecec17a6e978e96bafec068",
+      "bytes": 20134
+    },
+    "browser/geometry/trace.zip": {
+      "sha256": "e636cbcaf3a1836fe196f643a95a3998170f1063e079c1d5ec36b2ccc51d429b",
+      "bytes": 115927
+    },
+    "browser/initial/INPUTS.json": {
+      "sha256": "23657b1ffa4d33bd14a8c0a73ed2393202692ab9625e341690feaf361f5482a2",
+      "bytes": 4242
+    },
+    "browser/initial/RESULT.json": {
+      "sha256": "33f2ff4d4cd8959d247b2bf37540fc79d447067694e15228a1476d229b930079",
+      "bytes": 5258
+    },
+    "browser/initial/failure-2.png": {
+      "sha256": "855c46a0d12284c158730a0e6f8b341e1a5923ac91e5b32435a312f530b6af2f",
+      "bytes": 17293
+    },
+    "browser/initial/trace.zip": {
+      "sha256": "5dbe2944a8d058bbba312f4103a7f3712c65e8dbb9258189a30dca2a73fdc797",
+      "bytes": 165199
+    },
+    "common.log.gz": {
+      "sha256": "afaf59e1dee6ac8d65c7b498e58de01b49cf1a681e07eb849496ba3e78e17a54",
+      "bytes": 471
+    },
+    "evidence.log.gz": {
+      "sha256": "0161658505835866be5f978f2113dccf25f2d60b6ab22fc2649ca6cce72e3fec",
+      "bytes": 102
+    },
+    "focused.log.gz": {
+      "sha256": "26d373c4ee6aaa00c47b28c2ee5b14cf17c9c2706023776ac249ffbc031bcef0",
+      "bytes": 897
+    },
+    "geometry-to-continuation-browser.mjs.patch.gz": {
+      "sha256": "fad058a7a2ad1a0fcb3acf8b1498d842ab5ce824c7bfdc16e7b2ce3dd6fd0f89",
+      "bytes": 2036
+    },
+    "geometry-to-continuation-fixture.mjs.patch.gz": {
+      "sha256": "dc69d37377cc458b5e9dec367789c6241d7e0f1433802646b237afe795b81792",
+      "bytes": 443
+    },
+    "initial-to-geometry-browser.mjs.patch.gz": {
+      "sha256": "1748f45a8ea0036930115f7a2e060ca51e75530e1ee485f6fef6e80362be45c5",
+      "bytes": 1269
+    },
+    "initial-to-geometry-fixture.mjs.patch.gz": {
+      "sha256": "ae8cd76cedf9b52d70887aa18b6f979236f9f917a0fbd2d9bd339435f136253f",
+      "bytes": 559
+    },
+    "methods/continuation/PROVENANCE.json.gz": {
+      "sha256": "7ee063fcc524f041201229395a6c16c47fa3e1f9466e15341438aadbe22b2a10",
+      "bytes": 12838
+    },
+    "methods/continuation/browser.mjs.gz": {
+      "sha256": "87db8c2b7a7f2a42673350d41d1bb160f93d3dc0cdb2f28f8811835b84de80ab",
+      "bytes": 3799
+    },
+    "methods/continuation/fixture.mjs.gz": {
+      "sha256": "af6bfb25133d0b1b21ce68f94d3be5d043dd0ee37f0487fbda8820fe00205562",
+      "bytes": 2495
+    },
+    "methods/geometry/PROVENANCE.json.gz": {
+      "sha256": "7ee063fcc524f041201229395a6c16c47fa3e1f9466e15341438aadbe22b2a10",
+      "bytes": 12838
+    },
+    "methods/geometry/browser.mjs.gz": {
+      "sha256": "ad5b75fc4fa04bb841fbee31fca165bbca06f3159d985e60b49d6c0400b017f1",
+      "bytes": 3592
+    },
+    "methods/geometry/fixture.mjs.gz": {
+      "sha256": "f6211d81b65771c3e2c159b802b35d8e60c996d041d9bf66e7808b367a09bc31",
+      "bytes": 2436
+    },
+    "methods/initial/PROVENANCE.json.gz": {
+      "sha256": "7ee063fcc524f041201229395a6c16c47fa3e1f9466e15341438aadbe22b2a10",
+      "bytes": 12838
+    },
+    "methods/initial/browser.mjs.gz": {
+      "sha256": "626abe6d84d8d78d4115f02dc614635ceb0fbf2816936e7849e8cc72a2f369be",
+      "bytes": 3540
+    },
+    "methods/initial/fixture.mjs.gz": {
+      "sha256": "72ac250d710f389ef4df5ab4e4f967efe98cd1453f0e763a9d05f121ccc5e6fb",
+      "bytes": 2333
+    },
+    "progress-initial.log.gz": {
+      "sha256": "42a5b70f0974415a36fb847a7967c204cea861a0245cb55b41ce6aca984c63b8",
+      "bytes": 510
+    },
+    "progress-restored.log.gz": {
+      "sha256": "5e14a56d9c6693cedc1b6cb4c26244bc979f9abd516be633a38d8889e26701fe",
+      "bytes": 91
+    },
+    "progress-tests.log.gz": {
+      "sha256": "f525631f6e9c91bc9ff7a4467019604e9f3cf9d6d4b184fa967a61b3d130e73c",
+      "bytes": 119
+    },
+    "source.log.gz": {
+      "sha256": "e542077db0929c2c7b5db6be58dc72115bc290105f13cb6182e4740d9ea07d26",
+      "bytes": 68
+    }
+  }
+}

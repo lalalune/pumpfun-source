@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "sourceVerifier": "PASS",
+  "focused": {
+    "newSourcePortableMutation": 5,
+    "sharedSourceReader": 11,
+    "failed": 0,
+    "skipped": 0
+  },
+  "applicationEvidence": {
+    "objects": 698,
+    "npmIntegrity": "PASS",
+    "sdkSourcesUnchanged": "PASS"
+  },
+  "progress": {
+    "initialExit": 1,
+    "initialReason": "three required existing evidence files omitted by sparse checkout",
+    "restoredCheckExit": 0,
+    "tests": 9
+  },
+  "browser": {
+    "uniqueInteractions": 6,
+    "geometryMeasuredCases": [
+      1,
+      2
+    ],
+    "continuationMeasuredCases": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "failuresRetained": 2,
+    "allSixAtFinalHead": false,
+    "pageErrorsEveryRun": 0,
+    "nonOriginRequestsEveryRun": 0,
+    "allOwnedHostsAndBrowsersClosed": true
+  },
+  "unexecuted": [
+    "Next/full-app build",
+    "maintained or original application mount",
+    "real player/provider/media requests",
+    "per-listener/observer cleanup counts"
+  ],
+  "limits": "No progress/compatibility/native/visual/service/security approval or current-live truth claim."
+}

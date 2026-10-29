@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "generatedComponentsSha256": "5fa79d10d55ebf3b78eba8cf4bc7fc9473bae2ff7f83f9b1280e855d0341f0e0",
+  "runs": {
+    "initial": {
+      "measuredLocalHead": "a2c4b71210bdc208a2ab314f13e121dabce42c6f",
+      "result": "browser/initial/RESULT.json",
+      "methods": {
+        "browser.mjs": {
+          "path": "qualification/methods/initial/browser.mjs.gz",
+          "sha256": "20fb7e611228659cfd3005a579357c443fb7a409190d59fc8a5f3a6f6a4ca639",
+          "bytes": 10051,
+          "gitBlob": "21aa8e5af9f5249f18bb4fdc0abe779179c5db70"
+        },
+        "fixture.mjs": {
+          "path": "qualification/methods/initial/fixture.mjs.gz",
+          "sha256": "ab0fb4d28915afc7831c47d328e429cff4f89be9788b73f286cc6df3d7886c5f",
+          "bytes": 5496,
+          "gitBlob": "ff81d44e0062286a843f266fda8be29e0d5ecd09"
+        },
+        "PROVENANCE.json": {
+          "path": "qualification/methods/initial/PROVENANCE.json.gz",
+          "sha256": "d26fb276c05db0d5548808c4cc9c64288c41ba44f21c2fbf657355db1e91eaba",
+          "bytes": 96578,
+          "gitBlob": "ed29bdf51c74c6f141354de22109aaf7b202eca7"
+        }
+      },
+      "cases": [
+        {
+          "name": "selected-only media activation, original lazy metadata and disabled provider flags",
+          "status": "PASS"
+        },
+        {
+          "name": "ready callback clears outer loading; inactive click captures before child callback/navigation",
+          "status": "FAIL"
+        }
+      ],
+      "runtime": {
+        "node": "v24.19.0",
+        "esbuild": "0.25.12",
+        "react": "19.2.3",
+        "playwright": "1.64.1"
+      },
+      "browserClosed": true,
+      "serverStopped": true
+    },
+    "geometry": {
+      "measuredLocalHead": "d3297e159fa29e3257bf7853642287597a9f9ec0",
+      "result": "browser/geometry/RESULT.json",
+      "methods": {
+        "browser.mjs": {
+          "path": "qualification/methods/geometry/browser.mjs.gz",
+          "sha256": "d7a4123b0d9ab84578e0ffb663083f0993e3deb87d6abc0b93e61a1271472c7d",
+          "bytes": 10230,
+          "gitBlob": "03e25e87949b01cfa69983d332f3defcf2b86a16"
+        },
+        "fixture.mjs": {
+          "path": "qualification/methods/geometry/fixture.mjs.gz",
+          "sha256": "691138a16c660fa7a78c00ed504bb9a88c370d8fabc6ff8317bfca2a813aa381",
+          "bytes": 5756,
+          "gitBlob": "c750008e88113595ee960602d8cd52be5940f135"
+        },
+        "PROVENANCE.json": {
+          "path": "qualification/methods/geometry/PROVENANCE.json.gz",
+          "sha256": "d26fb276c05db0d5548808c4cc9c64288c41ba44f21c2fbf657355db1e91eaba",
+          "bytes": 96578,
+          "gitBlob": "ed29bdf51c74c6f141354de22109aaf7b202eca7"
+        }
+      },
+      "cases": [
+        {
+          "name": "selected-only media activation, original lazy metadata and disabled provider flags",
+          "status": "PASS"
+        },
+        {
+          "name": "ready callback clears outer loading; inactive click captures before child callback/navigation",
+          "status": "PASS"
+        },
+        {
+          "name": "shared HeroSlide mute and outer autoplay-failure gesture recovery",
+          "status": "FAIL"
+        }
+      ],
+      "runtime": {
+        "node": "v24.19.0",
+        "esbuild": "0.25.12",
+        "react": "19.2.3",
+        "playwright": "1.64.1"
+      },
+      "browserClosed": true,
+      "serverStopped": true
+    },
+    "continuation": {
+      "measuredLocalHead": "c05727129adfa6667721195ca920a05490d49d0e",
+      "result": "browser/continuation/RESULT.json",
+      "methods": {
+        "browser.mjs": {
+          "path": "qualification/methods/continuation/browser.mjs.gz",
+          "sha256": "299fb83f5d347b9a582cac92c4f0b9788ef0353d8c7a43d4b9723f46075659cb",
+          "bytes": 10830,
+          "gitBlob": "e8a71279513a0959ea9898af20e1db75668b7120"
+        },
+        "fixture.mjs": {
+          "path": "qualification/methods/continuation/fixture.mjs.gz",
+          "sha256": "5952fb1ccb82fa8d17f102b0254b70bd23250931c9b6cb393f0e5e6ecf054d48",
+          "bytes": 5901,
+          "gitBlob": "85fc43596c98a048bda70cd6a8dbf96ab417dc79"
+        },
+        "PROVENANCE.json": {
+          "path": "qualification/methods/continuation/PROVENANCE.json.gz",
+          "sha256": "d26fb276c05db0d5548808c4cc9c64288c41ba44f21c2fbf657355db1e91eaba",
+          "bytes": 96578,
+          "gitBlob": "ed29bdf51c74c6f141354de22109aaf7b202eca7"
+        }
+      },
+      "cases": [
+        {
+          "name": "shared HeroSlide mute and outer autoplay-failure gesture recovery",
+          "status": "PASS"
+        },
+        {
+          "name": "thumbnail error/load state and inactive selection retain keyed slide state",
+          "status": "PASS"
+        },
+        {
+          "name": "looping arrows and count-shrink clamp retain actual scroll callback outputs",
+          "status": "PASS"
+        },
+        {
+          "name": "actual trailing stream spread can override child selection; unmount cleans preview/DOM listeners",
+          "status": "PASS"
+        }
+      ],
+      "runtime": {
+        "node": "v24.19.0",
+        "esbuild": "0.25.12",
+        "react": "19.2.3",
+        "playwright": "1.64.1"
+      },
+      "browserClosed": true,
+      "serverStopped": true
+    }
+  },
+  "uniqueInteractions": 6,
+  "passingEvidence": {
+    "geometry": [
+      1,
+      2
+    ],
+    "continuation": [
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  "notClaimed": "No all-six pass at any one final method/head; failures remain in their original cohorts.",
+  "initialFailure": "The fixture constrained cards off-screen, allowing Playwright automatic scrolling and source scrollend selection to participate. The action did not isolate the capture-only assertion. The complete failure trace/PNG remains retained; authored geometry then exposes targets for capture cases and constrains them only for scroll cases.",
+  "geometryFailure": "A synthetic failure called synchronously during a click also supplies a document gesture. The final continuation injects the player failure outside a click, then uses a subsequent real key gesture. This tests outer callbacks, not real player/autoplay scheduling.",
+  "applicability": "Geometry and continuation share exact generated components and React/compiler/URI-helper input bytes. Continuation adds one unused-until-case3 synthetic failure method, optional from3 setup/control and the changed case3 invocation. The case1/case2 assertion bodies are unchanged and not rerun or relabelled.",
+  "laterSourceProof": "After the browser runs, context-edge and seven retained lazy-asset authentication were added. Generated component bytes stayed identical. Five final source/portable/mutation plus eleven unchanged shared-reader checks passed.",
+  "runtimeLimits": [
+    "No actual media/service/provider/auth/join/coin navigation",
+    "No maintained app/Next mount or visual qualification",
+    "Observer/listener cleanup bodies are source-bound; runtime directly observes synthetic player unmount and stopped host/browser, not per-listener counts",
+    "The historical final-case name mentions DOM cleanup; current method label is narrowed to the measured synthetic-player release."
+  ],
+  "headless": {
+    "newCases": 5,
+    "sharedCases": 11,
+    "failed": 0,
+    "skipped": 0
+  }
+}
