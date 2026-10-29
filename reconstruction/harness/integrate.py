@@ -9,7 +9,7 @@ then applied in order with `patch -p2 --forward`. Rejects are reported and the p
 (the composition continues). The composed crate is built with fastbuild.py and scored.
 Output: SC/integ/<NAME>/{src, parts/<label>.patch, rejects/, report.json}
 """
-import argparse, json, shutil, subprocess, sys
+import argparse, json, shutil, subprocess, sys, re
 from pathlib import Path
 
 H = Path(__file__).resolve().parent
@@ -30,6 +30,44 @@ def make_patch(base: Path, part: Path, out: Path, tmp: Path):
     return d.stdout
 
 
+def preflight(name, base, parts, overrides):
+    """Validate the complete composition before touching its output or snapshots."""
+    def label(value):
+        if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,127}', value) or value in ('.', '..'):
+            raise ValueError(f'invalid composition name or label: {value!r}')
+        return value
+
+    def selections(values, kind):
+        result = {}
+        for value in values:
+            if '=' not in value:
+                raise ValueError(f'{kind} must be LABEL=PATH')
+            key, path = value.split('=', 1)
+            label(key)
+            if key in result or not path:
+                raise ValueError(f'duplicate label or empty path in {kind}: {key}')
+            result[key] = Path(path).resolve()
+        return result
+
+    label(name)
+    selected = selections(parts, '--part')
+    bases = selections(overrides, '--base-of')
+    unknown = bases.keys() - selected.keys()
+    if unknown:
+        raise ValueError('base overrides have no matching part: ' + ', '.join(sorted(unknown)))
+    out = (SC / 'integ' / name).resolve()
+    base = base.resolve()
+    for source in {base, *selected.values(), *bases.values()}:
+        if source == out or source in out.parents or out in source.parents:
+            raise ValueError(f'source overlaps composition output: {source}')
+        if not source.is_dir() or not (source / 'src').is_dir():
+            raise ValueError(f'source is not a crate directory with src/: {source}')
+        for required in ('Cargo.toml', 'Cargo.lock'):
+            if not (source / required).is_file():
+                raise ValueError(f'source is missing {required}: {source}')
+    return out, base, [(key, path, bases.get(key, base)) for key, path in selected.items()]
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--name', required=True)
@@ -38,17 +76,17 @@ def main():
     ap.add_argument('--base-of', action='append', default=[])
     ap.add_argument('--no-build', action='store_true')
     a = ap.parse_args()
-    out = SC / 'integ' / a.name
+    try:
+        out, base, parts = preflight(a.name, a.base_src, a.part, a.base_of)
+    except (ValueError, OSError) as error:
+        ap.error(str(error))
     if out.exists():
         shutil.rmtree(out)
     (out / 'parts').mkdir(parents=True); (out / 'rejects').mkdir()
     src = out / 'src'
-    shutil.copytree(a.base_src, src, ignore=shutil.ignore_patterns('target'))
-    base_of = dict(x.split('=', 1) for x in a.base_of)
+    shutil.copytree(base, src, ignore=shutil.ignore_patterns('target'))
     report = {'name': a.name, 'base': str(a.base_src), 'parts': []}
-    for spec in a.part:
-        label, path = spec.split('=', 1)
-        derived_from = Path(base_of.get(label, a.base_src))
+    for label, path, derived_from in parts:
         pf = out / 'parts' / f'{label}.patch'
         text = make_patch(derived_from, Path(path), pf, SC / 'integ' / '.tmp' / a.name / label)
         if not text.strip():
