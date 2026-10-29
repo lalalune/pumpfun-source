@@ -1,0 +1,302 @@
+{
+  "provenance": "Hand-authored synthetic facts, actual maintained Fastify handler and actual exported Next GET through a loopback HTTP bridge; this receipt is separate from the actual Next browser run",
+  "reads": [
+    {
+      "label": "direct handler without key",
+      "status": 401,
+      "cacheControl": null,
+      "body": {
+        "statusCode": 401,
+        "timestamp": "2026-10-29T18:15:14.097Z",
+        "path": "/pnl-leaderboard",
+        "error": "API_KEY_REQUIRED",
+        "message": "Send Authorization: Bearer <key> or x-api-key: <key>"
+      }
+    },
+    {
+      "label": "combined",
+      "status": 200,
+      "cacheControl": "no-store",
+      "body": {
+        "ok": true,
+        "data": {
+          "kind": "traders",
+          "entries": [
+            {
+              "rank": 1,
+              "walletAddress": "11111111111111111111111111111112",
+              "username": null,
+              "userId": null,
+              "xUsername": null,
+              "isVerified": false,
+              "verifiedBadgeVisible": false,
+              "pnlUsd": 100,
+              "pnlPercent": 10,
+              "realizedPnlUsd": -20,
+              "unrealizedPnlUsd": 120,
+              "buySpendSol": 10,
+              "positionsCount": 0,
+              "lastRefreshedAtMs": 1759200000000
+            },
+            {
+              "rank": 2,
+              "walletAddress": "11111111111111111111111111111113",
+              "username": null,
+              "userId": null,
+              "xUsername": null,
+              "isVerified": false,
+              "verifiedBadgeVisible": false,
+              "pnlUsd": 50,
+              "pnlPercent": 5,
+              "realizedPnlUsd": 40,
+              "unrealizedPnlUsd": 10,
+              "buySpendSol": 10,
+              "positionsCount": 0,
+              "lastRefreshedAtMs": 1759200000000
+            }
+          ],
+          "periodLabel": "Daily",
+          "windowStartSec": 1759276800
+        },
+        "source": {
+          "mode": "developer-api",
+          "label": "Pump developer API",
+          "fetchedAt": "2026-10-29T18:15:14.127Z"
+        }
+      }
+    },
+    {
+      "label": "realized",
+      "status": 200,
+      "cacheControl": "no-store",
+      "body": {
+        "ok": true,
+        "data": {
+          "kind": "traders",
+          "entries": [
+            {
+              "rank": 1,
+              "walletAddress": "11111111111111111111111111111113",
+              "username": null,
+              "userId": null,
+              "xUsername": null,
+              "isVerified": false,
+              "verifiedBadgeVisible": false,
+              "pnlUsd": 50,
+              "pnlPercent": 5,
+              "realizedPnlUsd": 40,
+              "unrealizedPnlUsd": 10,
+              "buySpendSol": 10,
+              "positionsCount": 0,
+              "lastRefreshedAtMs": 1759200000000
+            },
+            {
+              "rank": 2,
+              "walletAddress": "11111111111111111111111111111112",
+              "username": null,
+              "userId": null,
+              "xUsername": null,
+              "isVerified": false,
+              "verifiedBadgeVisible": false,
+              "pnlUsd": 100,
+              "pnlPercent": 10,
+              "realizedPnlUsd": -20,
+              "unrealizedPnlUsd": 120,
+              "buySpendSol": 10,
+              "positionsCount": 0,
+              "lastRefreshedAtMs": 1759200000000
+            }
+          ],
+          "periodLabel": "Daily",
+          "windowStartSec": 1759276800
+        },
+        "source": {
+          "mode": "developer-api",
+          "label": "Pump developer API",
+          "fetchedAt": "2026-10-29T18:15:14.135Z"
+        }
+      }
+    },
+    {
+      "label": "unrealized",
+      "status": 200,
+      "cacheControl": "no-store",
+      "body": {
+        "ok": true,
+        "data": {
+          "kind": "traders",
+          "entries": [
+            {
+              "rank": 1,
+              "walletAddress": "11111111111111111111111111111112",
+              "username": null,
+              "userId": null,
+              "xUsername": null,
+              "isVerified": false,
+              "verifiedBadgeVisible": false,
+              "pnlUsd": 100,
+              "pnlPercent": 10,
+              "realizedPnlUsd": -20,
+              "unrealizedPnlUsd": 120,
+              "buySpendSol": 10,
+              "positionsCount": 0,
+              "lastRefreshedAtMs": 1759200000000
+            },
+            {
+              "rank": 2,
+              "walletAddress": "11111111111111111111111111111113",
+              "username": null,
+              "userId": null,
+              "xUsername": null,
+              "isVerified": false,
+              "verifiedBadgeVisible": false,
+              "pnlUsd": 50,
+              "pnlPercent": 5,
+              "realizedPnlUsd": 40,
+              "unrealizedPnlUsd": 10,
+              "buySpendSol": 10,
+              "positionsCount": 0,
+              "lastRefreshedAtMs": 1759200000000
+            }
+          ],
+          "periodLabel": "Daily",
+          "windowStartSec": 1759276800
+        },
+        "source": {
+          "mode": "developer-api",
+          "label": "Pump developer API",
+          "fetchedAt": "2026-10-29T18:15:14.146Z"
+        }
+      }
+    },
+    {
+      "label": "invalid filter",
+      "status": 400,
+      "cacheControl": "no-store",
+      "body": {
+        "ok": false,
+        "error": {
+          "code": "INVALID_FILTER",
+          "message": "Invalid trader period or sort.",
+          "retryable": false
+        },
+        "source": {
+          "mode": "developer-api",
+          "label": "Pump developer API"
+        }
+      }
+    },
+    {
+      "label": "genuine stopped backend",
+      "status": 502,
+      "cacheControl": "no-store",
+      "body": {
+        "ok": false,
+        "error": {
+          "code": "NETWORK_FAILURE",
+          "message": "The leaderboard data source could not be reached.",
+          "retryable": true
+        },
+        "source": {
+          "mode": "developer-api",
+          "label": "Pump developer API"
+        }
+      }
+    },
+    {
+      "label": "restarted backend",
+      "status": 200,
+      "cacheControl": "no-store",
+      "body": {
+        "ok": true,
+        "data": {
+          "kind": "traders",
+          "entries": [
+            {
+              "rank": 1,
+              "walletAddress": "11111111111111111111111111111113",
+              "username": null,
+              "userId": null,
+              "xUsername": null,
+              "isVerified": false,
+              "verifiedBadgeVisible": false,
+              "pnlUsd": 50,
+              "pnlPercent": 5,
+              "realizedPnlUsd": 40,
+              "unrealizedPnlUsd": 10,
+              "buySpendSol": 10,
+              "positionsCount": 0,
+              "lastRefreshedAtMs": 1759200000000
+            },
+            {
+              "rank": 2,
+              "walletAddress": "11111111111111111111111111111112",
+              "username": null,
+              "userId": null,
+              "xUsername": null,
+              "isVerified": false,
+              "verifiedBadgeVisible": false,
+              "pnlUsd": 100,
+              "pnlPercent": 10,
+              "realizedPnlUsd": -20,
+              "unrealizedPnlUsd": 120,
+              "buySpendSol": 10,
+              "positionsCount": 0,
+              "lastRefreshedAtMs": 1759200000000
+            }
+          ],
+          "periodLabel": "Daily",
+          "windowStartSec": 1759276800
+        },
+        "source": {
+          "mode": "developer-api",
+          "label": "Pump developer API",
+          "fetchedAt": "2026-10-29T18:15:14.208Z"
+        }
+      }
+    }
+  ],
+  "ledger": [
+    {
+      "generation": 1,
+      "requestId": "req-1",
+      "method": "GET",
+      "path": "/v1/pnl-leaderboard?period=daily",
+      "keyMatched": false,
+      "status": 401
+    },
+    {
+      "generation": 1,
+      "requestId": "req-2",
+      "method": "GET",
+      "path": "/v1/pnl-leaderboard?period=daily&sort=combined&limit=100&positionsLimit=0",
+      "keyMatched": true,
+      "status": 200
+    },
+    {
+      "generation": 1,
+      "requestId": "req-3",
+      "method": "GET",
+      "path": "/v1/pnl-leaderboard?period=daily&sort=realized&limit=100&positionsLimit=0",
+      "keyMatched": true,
+      "status": 200
+    },
+    {
+      "generation": 1,
+      "requestId": "req-4",
+      "method": "GET",
+      "path": "/v1/pnl-leaderboard?period=daily&sort=unrealized&limit=100&positionsLimit=0",
+      "keyMatched": true,
+      "status": 200
+    },
+    {
+      "generation": 2,
+      "requestId": "req-1",
+      "method": "GET",
+      "path": "/v1/pnl-leaderboard?period=daily&sort=realized&limit=100&positionsLimit=0",
+      "keyMatched": true,
+      "status": 200
+    }
+  ],
+  "fixtureExitCode": 0
+}

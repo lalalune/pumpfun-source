@@ -1,0 +1,21 @@
+{
+  "id": 2,
+  "ledger": [
+    {
+      "generation": 1,
+      "requestId": "req-1",
+      "method": "GET",
+      "path": "/v1/pnl-leaderboard?period=daily&sort=combined&limit=100&positionsLimit=0",
+      "keyMatched": true,
+      "status": 200
+    },
+    {
+      "generation": 1,
+      "requestId": "req-2",
+      "method": "GET",
+      "path": "/v1/pnl-leaderboard?period=daily&sort=realized&limit=100&positionsLimit=0",
+      "keyMatched": true,
+      "status": 200
+    }
+  ]
+}

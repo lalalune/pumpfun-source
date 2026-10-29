@@ -1,0 +1,47 @@
+{
+  "ok": true,
+  "data": {
+    "kind": "traders",
+    "entries": [
+      {
+        "rank": 1,
+        "walletAddress": "11111111111111111111111111111113",
+        "username": null,
+        "userId": null,
+        "xUsername": null,
+        "isVerified": false,
+        "verifiedBadgeVisible": false,
+        "pnlUsd": 50,
+        "pnlPercent": 5,
+        "realizedPnlUsd": 40,
+        "unrealizedPnlUsd": 10,
+        "buySpendSol": 10,
+        "positionsCount": 0,
+        "lastRefreshedAtMs": 1759200000000
+      },
+      {
+        "rank": 2,
+        "walletAddress": "11111111111111111111111111111112",
+        "username": null,
+        "userId": null,
+        "xUsername": null,
+        "isVerified": false,
+        "verifiedBadgeVisible": false,
+        "pnlUsd": 100,
+        "pnlPercent": 10,
+        "realizedPnlUsd": -20,
+        "unrealizedPnlUsd": 120,
+        "buySpendSol": 10,
+        "positionsCount": 0,
+        "lastRefreshedAtMs": 1759200000000
+      }
+    ],
+    "periodLabel": "Daily",
+    "windowStartSec": 1759276800
+  },
+  "source": {
+    "mode": "developer-api",
+    "label": "Pump developer API",
+    "fetchedAt": "2026-10-29T18:12:42.421Z"
+  }
+}
