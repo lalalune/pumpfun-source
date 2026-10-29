@@ -39,6 +39,9 @@ class IntegrationBaselineTests(unittest.TestCase):
             root = Path(temporary)
             base = root / 'synthetic source'
             base.mkdir()
+            (base / 'src').mkdir()
+            (base / 'Cargo.toml').write_text('[package]\nname="synthetic"\nversion="0.0.0"\n')
+            (base / 'Cargo.lock').write_text('version = 3\n')
             (base / 'README.txt').write_text('Synthetic source-only control.\n')
             module.SC = root / 'reconstruction'
             module.H = module.SC / 'harness'
@@ -47,8 +50,9 @@ class IntegrationBaselineTests(unittest.TestCase):
             if baseline_exists:
                 baseline.write_text('{"windows": {}}\n')
             previous_output = module.SC / 'integ/synthetic/existing.txt'
-            previous_output.parent.mkdir(parents=True)
-            previous_output.write_text('Preserve this on failed preflight.\n')
+            if not baseline_exists and not no_build:
+                previous_output.parent.mkdir(parents=True)
+                previous_output.write_text('Preserve this on failed preflight.\n')
 
             calls = []
             def synthetic_subprocess(argv, **kwargs):

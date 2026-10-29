@@ -18,6 +18,12 @@ class CompositionFailures(unittest.TestCase):
             root = Path(temporary)
             source = root / 'crate'
             source.mkdir()
+            (source / 'src').mkdir()
+            (source / 'Cargo.toml').write_text('[package]\nname="synthetic"\nversion="0.0.0"\n')
+            (source / 'Cargo.lock').write_text('version = 3\n')
+            baseline = root / 'pump-main/baseline/score.json'
+            baseline.parent.mkdir(parents=True)
+            baseline.write_text('{"windows": {}}')
             (source / 'lib.rs').write_text('// test source\n')
             argv = ['integrate.py', '--name', 'trial', '--base-src', str(source)]
             if no_build:

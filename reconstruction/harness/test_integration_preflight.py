@@ -34,13 +34,23 @@ class PreflightTests(unittest.TestCase):
             with self.subTest(parts=parts,bases=bases),self.assertRaises(ValueError):
                 integrate.preflight(name,self.base,parts,bases)
 
-    def test_all_inputs_checked_before_existing_output_is_touched(self):
-        output=integrate.SC/'integ/trial';output.mkdir(parents=True);sentinel=output/'keep';sentinel.write_text('previous')
-        args=['integrate','--name','trial','--base-src',str(self.base),'--part',f'good={self.part}','--part',f'bad={self.root / "absent"}','--no-build']
-        with patch('sys.argv',args),contextlib.redirect_stderr(io.StringIO()):
-            with self.assertRaises(SystemExit) as caught:integrate.main()
-        self.assertEqual(caught.exception.code,2)
-        self.assertEqual(sentinel.read_text(),'previous')
+    def test_all_inputs_checked_before_output_is_touched(self):
+        for existing in (False, True):
+            with self.subTest(existing=existing):
+                name = 'existing' if existing else 'fresh'
+                output=integrate.SC/'integ'/name
+                sentinel=output/'keep'
+                if existing:
+                    output.mkdir(parents=True);sentinel.write_text('previous')
+                args=['integrate','--name',name,'--base-src',str(self.base),'--part',f'good={self.part}','--part',f'bad={self.root / "absent"}','--no-build']
+                with patch('sys.argv',args),contextlib.redirect_stderr(io.StringIO()),patch.object(integrate.shutil,'copytree') as copy:
+                    with self.assertRaises(SystemExit) as caught:integrate.main()
+                    copy.assert_not_called()
+                self.assertEqual(caught.exception.code,2)
+                if existing:
+                    self.assertEqual(sentinel.read_text(),'previous')
+                else:
+                    self.assertFalse((integrate.SC/'integ').exists())
 
     def test_source_and_output_overlap_in_both_directions(self):
         for source in [integrate.SC/'integ/trial',integrate.SC/'integ/trial/input',integrate.SC]:
