@@ -39,6 +39,30 @@ const WSOL_QUOTE:Pubkey=anchor_spl::token::spl_token::native_mint::ID;
 const QUOTE_2:Pubkey=Pubkey::new_from_array([131,13,252,159,222,95,230,184,170,124,4,164,118,233,30,138,198,187,38,74,173,144,250,25,201,223,73,216,92,62,91,94]);
 const USDC:Pubkey=anchor_lang::solana_program::pubkey!("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v");
 // layout-pad: aligns the next Source site with the original line
+/// Shared fee query and accounting. Account clones are created here before
+/// the fallible market-cap calculation, as in the original outer helper.
+pub fn trade_fees<'info>(
+    global: &Account<'info, crate::Global>,
+    curve: &Account<'info, BondingCurve>,
+    mint: &InterfaceAccount<'info, anchor_spl::token_interface::Mint>,
+    fee_config: &Account<'info, crate::legacy_sell::LegacyFeeConfig>,
+    fee_program: &Program<'info, crate::legacy_sell::LegacyFeesProgram>,
+    program: &AccountInfo<'info>,
+    quote_amount: u64,
+) -> Result<(u64, u64, u64, u64)> {
+    let fees = crate::pump_fees::cpi::get_fees_with_quote_mint(CpiContext::new(
+        fee_program.to_account_info(),
+        crate::pump_fees::cpi::accounts::GetFeesWithQuoteMint {
+            fee_config: fee_config.to_account_info(),
+            config_program_id: program.clone(),
+        },
+    ),
+    true, crate::buy_fee_market_cap(curve, mint)?, curve.quote_mint)?.get();
+
+    let (protocol_fee_bps, creator_fee_bps) = (fees.protocol_fee_bps, fees.creator_fee_bps);
+    let creator_fee_bps = if global.creator_fee_configurable && curve.creator_fee_bps != 0 { curve.creator_fee_bps } else { creator_fee_bps };
+    let protocol_fee = fee(quote_amount, protocol_fee_bps)?;
+    let creator_fee = if curve.creator != Pubkey::default() { fee(quote_amount, creator_fee_bps)? } else { 0 };
 
 
 
@@ -46,32 +70,8 @@ const USDC:Pubkey=anchor_lang::solana_program::pubkey!("EPjFWdd5AufqSSqeM2qN1xzy
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return Ok((protocol_fee, creator_fee, protocol_fee_bps, creator_fee_bps));
+}
 
 
 

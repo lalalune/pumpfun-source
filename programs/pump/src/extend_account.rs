@@ -109,19 +109,19 @@ fn get_account_size(account: &AccountInfo) -> Result<usize> {
     Ok(size)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+#[inline(never)]
+pub fn prepare_bonding_curve<'info>(
+    curve: &Account<'info, crate::trade_types::BondingCurve>,
+    system_program: &Program<'info, System>,
+    payer: &Signer<'info>,
+) -> Result<()> {
+    let current_size = curve.to_account_info().data_len();
+    let needs_realloc = current_size < 166;
+    let new_size = current_size.max(166);
+    fund_bonding_curve_rent(curve, system_program, payer, new_size)?;
+    if needs_realloc { curve.to_account_info().realloc(166, false)?; }
+    Ok(())
+}
 
 
 

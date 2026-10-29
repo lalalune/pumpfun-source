@@ -1,10 +1,17 @@
 {
   "lane": "cashback-inner-reconstruction",
   "targets": ["0x6cd78 legacy_sell::process_cashback_inner"],
-  "best": {"cand_bytes": 8584, "orig_bytes": 8544, "ratio": 0.80313, "baseline_ratio": 0.73542, "baseline_bytes": 8816, "callees_in_orig_order": "58/58", "official": {"normalized": 1019, "raw": 188, "gains": [], "losses": []}, "unstripped_sha256": "1791983e294a6b1aee9dfaaed5bc19da17f015580ca0d1193a178e0c84618922"},
-  "pr": "https://github.com/lalalune/pumpfun-source/pull/1234",
-  "accepted_mechanisms": ["try_from_unchecked", "inline else owner/discriminator check (no nested helper)", "if-return err! for line-33 key check and line-85 discriminator check", "named bump_seed array before seeds slice"],
-  "rejected_mechanisms": ["nested helper with #[inline]/#[inline(always)] (adds Result re-test)", "inline else with require! spellings (else-first glue)", "split discriminator requires (extra error site)", "chained Rent::get (loses rent copy)", "typed/nested seeds literals", "micro-variants: user==default eq, cashback temp, len>=2, required!=0, disc ref, lamports temp, get(0), &uva for transfer_native, *bonding_curve_v2.key"],
-  "residuals": ["user (r4) spilled at entry; orig keeps it in r7 and reloads user.key at the clone instead of keeping the key pointer live (2 extra spill slots)", "regalloc/scheduling differences in the CPI clone sequence"],
-  "next_ideas": ["find a natural source shape where user.key is loaded fresh at the clone rather than reusing the entry load", "vary the CpiContext/Transfer construction order relative to the lamports computation"]
+  "result": "normalized match",
+  "best": {"cand_bytes": 8544, "orig_bytes": 8544, "ratio": 1.0, "normalized_equal": true, "raw_equal": false,
+           "official": {"normalized": 1021, "raw": 188, "gains": ["0x6cd78", "0x14f4e0 (already on main)"], "losses": []},
+           "unstripped_sha256": "af5b9f02e925a4e32f675de12306d2d5fb50e9463248d7587b1c7ba6ba2e10cc"},
+  "progression": ["0.7354 baseline", "0.7611 inline else + keyif (PR 1234)", "0.8031 named bump seed array", "0.9858 &Signer user + pub(crate) wrapper (ArgumentPromotion drops noalias)", "1.0 owner check as if-return-err (IR block order)"],
+  "key_mechanisms": [
+    "EarlyCSE treats loads from noalias readonly args as constant memory; the original reloads user.key at AccountInfo::clone, so its user param had no noalias: produced by O3 ArgumentPromotion of an internal fn taking &Signer",
+    "BPF ISel branch polarity depends on IR block order (next block == true successor -> inverted); block placement cannot fix it because BPF analyzeBranch does not analyze conditional branches"
+  ],
+  "tools": ["oracle.py: llc on save-temps bitcode reproduces rustc bytes; diff vs original window", "reorder.py: IR block move sweep"],
+  "rejected": ["CPI block grammar (47 variants)", "try_borrow_data spellings (match/map_err/if-let)", "&Signer without pub(crate) (not promoted, loses sell 0x152888)", "pub(crate) alone", "MemDep/EarlyCSE/GVN flag diagnostics"],
+  "unresolved": ["raw (unmasked) equality for 0x6cd78 depends on whole-ELF layout"],
+  "next_ideas": ["Apply the same two mechanisms (ArgumentPromotion-stripped noalias; IR block order for ? branches) to the AMM cashback (pump-amm sell.rs cashback) Diff1 borrow jeq/ja and to other unmatched windows with entry-CSE'd AccountInfo key loads"]
 }
