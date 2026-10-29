@@ -1,16 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export function CopyAddressButton({ address }: { address: string }) {
-  const [status, setStatus] = useState<"idle" | "copied" | "failed">("idle");
+  const [outcome, setOutcome] = useState<{
+    address: string;
+    status: "copied" | "failed";
+  } | null>(null);
+  const request = useRef(0);
+  const status = outcome?.address === address ? outcome.status : "idle";
 
   async function copyAddress() {
+    const ticket = ++request.current;
+    setOutcome(null);
     try {
       await navigator.clipboard.writeText(address);
-      setStatus("copied");
+      if (ticket === request.current) setOutcome({ address, status: "copied" });
     } catch {
-      setStatus("failed");
+      if (ticket === request.current) setOutcome({ address, status: "failed" });
     }
   }
 
