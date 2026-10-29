@@ -245,6 +245,11 @@ export class CompetitionStore {
     // JSON turns NaN/Infinity into null. Reject them at construction, like
     // the leaderboard store does for its board measures.
     for (const comp of this.competitions) {
+      // Detail routes address entries by (competition, entryId). Two rows
+      // with the same key would rank separately but resolve to one detail.
+      if (new Set(comp.entries.map(entry => entry.entryId)).size !== comp.entries.length) {
+        throw new TypeError('Duplicate competition entry identity');
+      }
       for (const entry of comp.entries) {
         for (const key of ['pnlUsd', 'realizedPnlUsd', 'unrealizedPnlUsd',
           'buySpendSol', 'membersFresh', 'lastRefreshedAtMs'] as const) {
