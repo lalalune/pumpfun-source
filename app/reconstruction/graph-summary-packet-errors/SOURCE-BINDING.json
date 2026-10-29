@@ -1,0 +1,52 @@
+{
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "tested_source_commit": "496bd0718eeaac84f4a6555bc74c1242d5f0f7be",
+  "files": {
+    "app/scripts/factory-graph/cli.mjs": {
+      "after_sha256": "7cacb9b636170bd30ee464aefaccbfb331313d1b2f28aab9bdc97ca53fe32282",
+      "before_sha256": "38b7d069d89d28928a7256bdf5fb53bd65c75122545e58daee9fb60ab0bf3a01"
+    },
+    "app/scripts/factory-graph/core.mjs": {
+      "after_sha256": "7aefb37364f0d061d3b655490eff30cd254680318106ee751ecd2ee435657d0f",
+      "before_sha256": "7aefb37364f0d061d3b655490eff30cd254680318106ee751ecd2ee435657d0f"
+    },
+    "app/tests/factory-graph-summary-cli.test.mjs": {
+      "after_sha256": "a50dfe007d423718617588e8ed723b087a277155b8525c3b9e51e118465139aa",
+      "before_sha256": null
+    }
+  },
+  "test_protocol": {
+    "observed_base_scenarios": {
+      "pass": [
+        "absent packet performs default-budget analysis",
+        "valid retained packet summary"
+      ],
+      "fail": [
+        "malformed retained JSON returned fresh successful summary",
+        "missing summary inside existing packet returned fresh successful summary"
+      ]
+    },
+    "corrected_scenarios": {
+      "pass": 4,
+      "fail": 0
+    },
+    "node_test_counts": {
+      "baseline": {
+        "pass": 2,
+        "fail": 3,
+        "note": "two failed scenario subtests also fail their parent"
+      },
+      "candidate": {
+        "pass": 5,
+        "fail": 0
+      }
+    },
+    "inputs": "Synthetic inert multiline template in a single authenticated factory, satisfying the actual unchanged250000 default line budget. This is a test control, never a recovered-source census or execution of captured JavaScript."
+  },
+  "current_retained_packet_control": {
+    "path": "app/research/turbopack-route-graph-20261028/GRAPH-SUMMARY.json",
+    "git_bytes_sha256": "24c588fbeb46ac00c756d32c3aff10d0161eb5adf054cbb4d1b77995389aa153",
+    "stdout_sha256": "24c588fbeb46ac00c756d32c3aff10d0161eb5adf054cbb4d1b77995389aa153"
+  },
+  "scope": "CLI summary fallback only. Core parser, packet/hash authentication, graph algorithms, captures, recovered factories, prior packets, SDK and all application/program runtime sources are unchanged."
+}

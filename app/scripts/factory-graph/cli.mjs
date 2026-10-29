@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { resolve } from "node:path";
+import { lstat } from "node:fs/promises";
 import { buildGraph, publishGraph, readReport, verifyGraph } from "./core.mjs";
 
 const root = resolve(import.meta.dirname, "../..");
@@ -17,7 +18,18 @@ if (command === "build") {
 } else if (command === "summary") {
   try {
     print(await readReport(root, output, "GRAPH-SUMMARY.json"));
-  } catch {
+  } catch (error) {
+    // A first run may analyze without publishing. An existing, incomplete or
+    // unreadable packet must retain its own error instead of becoming a new graph.
+    if (error?.code !== "ENOENT") throw error;
+    const absent = await lstat(resolve(root, output)).then(
+      () => false,
+      (packetError) => {
+        if (packetError?.code !== "ENOENT") throw packetError;
+        return true;
+      },
+    );
+    if (!absent) throw error;
     print((await buildGraph(root))["GRAPH-SUMMARY.json"]);
   }
 } else if (command === "route") {
