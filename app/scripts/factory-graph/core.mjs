@@ -362,9 +362,28 @@ export async function buildGraph(root, options = {}) {
   };
 
   const variants = [];
+  // The census counts unique content, and node keys identify one ID/origin.
+  // Reject contradictory indexes instead of silently counting them twice.
+  const factoryHashes = new Set();
   const authenticatedAnalysisByHash = new Map();
   const formattedDerivationByHash = new Map();
   for (const module of modulesIndex.modules) {
+    if (factoryHashes.has(module.sha256))
+      throw new Error(`duplicate factory hash: ${module.sha256}`);
+    factoryHashes.add(module.sha256);
+    const ids = new Set();
+    for (const id of module.ids) {
+      if (ids.has(String(id)))
+        throw new Error(`duplicate factory ID: ${module.path} (${id})`);
+      ids.add(String(id));
+    }
+    const origins = new Set();
+    for (const origin of module.origins) {
+      const key = JSON.stringify([origin.source, origin.start, origin.end]);
+      if (origins.has(key))
+        throw new Error(`duplicate factory origin: ${module.path} (${key})`);
+      origins.add(key);
+    }
     const formattedPath = await safeFile(root, module.path);
     const formatted = await readFile(formattedPath, "utf8");
     let authenticatedSource;
