@@ -9,8 +9,11 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
   const pending = new Set();
   let primitiveWitnesses;
   const key = (id, name) => `${id}.${name}`;
+  function stable(ctx, name) {
+    if (ctx.unstable.has(name)) throw new Error(`reassigned declaration binding ${ctx.id}.${name}`);
+  }
   function importedId(node, ctx) {
-    if (node?.type === 'Identifier') return ctx.imports.get(node.name);
+    if (node?.type === 'Identifier') { stable(ctx, node.name); return ctx.imports.get(node.name); }
     if (node?.type === 'CallExpression' && ['r', 'i'].some((method) => member(node.callee, ctx.factory.runtime, method)) &&
         node.arguments.length === 1 && node.arguments[0].type === 'NumericLiteral') return node.arguments[0].value;
     return undefined;
@@ -25,10 +28,13 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
     const locals = new Map();
     const exports = new Map();
     const imports = new Map();
+    const unstable = new Set();
     const output = factory.node.params[2]?.name;
     // Only declarations executed at factory scope, never inside nested code.
     walk(factory.node.body, (node, parents) => {
       if (parents.some((parent) => /Function|Method/.test(parent.type))) return;
+      if (node.type === 'AssignmentExpression' && node.left.type === 'Identifier') unstable.add(node.left.name);
+      if (node.type === 'UpdateExpression' && node.argument.type === 'Identifier') unstable.add(node.argument.name);
       if (node.type === 'VariableDeclarator' && node.id.type === 'Identifier' && node.init) {
         locals.set(node.id.name, node.init);
         const init = node.init;
@@ -46,7 +52,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
         exports.set(name, node.right);
       }
     });
-    const result = { factory, id, locals, exports, imports, output };
+    const result = { factory, id, locals, exports, imports, output, unstable };
     modules.set(id, result);
     remember(factory, factory.node, `factory ${id}`);
     return result;
@@ -103,6 +109,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
       if (!value) throw new Error(`unknown export ${ctx.id}.${name}`);
       return { ctx, name, node: value };
     }
+    stable(ctx, node.object.name);
     const id = ctx.imports.get(node.object.name);
     if (id === undefined) return null;
     const target = await context(id);
@@ -123,6 +130,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
   }
   async function constant(node, ctx) {
     if (node.type === 'Identifier') {
+      stable(ctx, node.name);
       if (!ctx.locals.has(node.name)) throw new Error(`unknown constant ${ctx.id}.${node.name}`);
       return constant(ctx.locals.get(node.name), ctx);
     }
@@ -161,7 +169,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
     return literal(node);
   }
   async function shape(node, ctx) {
-    if (node.type === 'Identifier') return shape(ctx.locals.get(node.name), ctx);
+    if (node.type === 'Identifier') { stable(ctx, node.name); return shape(ctx.locals.get(node.name), ctx); }
     if (node?.type !== 'ObjectExpression') throw new Error(`unsupported object shape: ${node?.type}`);
     const properties = {};
     for (const property of node.properties) {
@@ -180,6 +188,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
   async function compileWith(node, ctx) {
     if (!node) throw new Error('missing schema expression');
     if (node.type === 'Identifier') {
+      stable(ctx, node.name);
       const value = ctx.locals.get(node.name);
       if (!value) throw new Error(`unknown schema identifier ${ctx.id}.${node.name}`);
       return ref(ctx, node.name, value);
