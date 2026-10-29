@@ -1,0 +1,11 @@
+{
+  "lane": "w3-v3execute",
+  "target": "0x83c00 trade::v3_execute_buy",
+  "base": "origin/main 665499915 (1022/276), 3456 B, ratio 0.9669",
+  "best": {"trial": "t16", "cand_bytes": 3448, "ratio": 0.97278, "calls": "22/22", "official": "1022/276", "gains": [], "losses": [], "unstripped_sha256": "36b2c053ae517315ac635d5cedbf856ae7cb394e20b76936db96b5ab114c1d83"},
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/1421",
+  "ir_oracle_full_match": "Two IR conditions give 0 differing instructions: (1) add-err and transfer-err share one store block (or extractvalue 1 kept in the call block); (2) transfer Ok block is the call block's IR layout successor, and the shared error block is not appended between them.",
+  "unresolved": "Find source with both (1) and (2). t16 gives (1) only; `if is_sol==false` / explicit match on add give (2) but lose (1), because the shared drop-tree block is appended between the call block and its Ok block, or SimplifyCFG drops it before sinking.",
+  "next_ideas": ["Get the tuple-StorageDead drop node first referenced before the is_sol branch (IR orders a6/a11 are exact)", "Find another way to keep extractvalue 1 in the call block without an extra call (IR D shape)"],
+  "attempts": 26
+}

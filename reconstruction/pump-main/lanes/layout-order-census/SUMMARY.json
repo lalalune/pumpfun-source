@@ -34,5 +34,68 @@
   "Consolidate per-module transfer helpers into one (likely generic) helper module at the original position",
   "Inline multi_hop add/sub/div/move_lamports/route_event and Lamports::add_lamports",
   "Recover original Cargo identity (lock graph/features/rustflags) to brute-force U hash order offline; otherwise raw identity needs an ordered link script as for AMM/Mayhem/Fees"
- ]
+ ],
+ "round2": {
+  "base": "origin/main ef400863 (1020/188)",
+  "best": {
+   "normalized": 1020,
+   "raw": 276,
+   "raw_gains": 88,
+   "losses": 0,
+   "unstripped_sha256": "37a078b8c743a0cc95c8aefc145d5b2e497a967fe39ae7e7f084ff513d5cb432",
+   "sell_v2_0x144508_ratio": [
+    0.93984,
+    0.95152
+   ],
+   "P16": [
+    286,
+    416
+   ],
+   "LIS": [
+    854,
+    884
+   ],
+   "L_breaks": [
+    167,
+    136
+   ],
+   "equal_offset_data_windows": [
+    163,
+    257
+   ],
+   "mismatched_rodata_operands": [
+    2758,
+    1457
+   ],
+   "mismatched_data_rel_ro_operands": [
+    125,
+    42
+   ]
+  },
+  "kept": [
+   "tail derive/event relocation + required_quote_account_len into pump_token_ext + bonding_curve_instruction_accounts module (MergeFunctions survivor) -> raw +88",
+   "sell_v2 outlined as the #[program] fn",
+   "MAYHEM_ID static",
+   "util/fee.rs mount + trade_fees, account_name first, fee_recipient after extend, prepare_bonding_curve in extend_account.rs",
+   "idl_authority first, mayhem_virtual_params after fee_recipient, sync_virtual_quote_reserves next to reserved_bonding_curve_fees"
+  ],
+  "rejected": [
+   "all six handlers as program fns (v3 worse, loses 0x859b0)",
+   "buy_v2/buy_exact_quote_in_v2 outlining after the buyv2-sibling-transplant merge (buy 0.95334->0.95256)",
+   "drop #[inline] on legacy buy_exact_sol_in (loses 0x14f4e0)",
+   "MAYHEM_ID static in the lib.rs body (no change)"
+  ],
+  "findings": [
+   "L tail + D windows only depend on tail order: the original order there gave +88 raw with current sizes; the L-only raw ceiling with current sizes is now reached (276)",
+   "LLVM MergeFunctions keeps the identical function with the smallest mangled name; the survivor position decides layout (root Create _ZN100 beat pump_amm InitBoost _ZN127)",
+   "the original lib.rs mod list is sorted by file path (rustfmt reorder_modules): derive pass and .rodata file strings follow file order",
+   "constants of a non-#[inline] fn are emitted at its def position even when LLVM inlines and drops it, so .rodata order reveals where the original defined inlined code",
+   "source-only P16 ceiling with U and D as built is about 647; the U-block hash order needs the original crate identity"
+  ],
+  "next": [
+   "move the transfer-helper run (24 site-free fns from 9 modules) into one util file between util/fee.rs and util/transfer_fee.rs (model LIS +42)",
+   "continue alphabetical mounts (buy.rs, curve_quote_payments.rs) once the legacy handlers can be codegen standalone without losing 0x14f4e0",
+   "mid-L def order from the front of L (P16 rises about 0.5 per fixed unit)"
+  ]
+ }
 }

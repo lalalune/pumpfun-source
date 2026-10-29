@@ -84,27 +84,27 @@ pub struct MigrateV2<'info>{
 
 
 
-#[inline(never)]
-pub fn required_quote_account_len(data:&[u8])->Option<usize>{
- let mut size=170usize;
- if data.len()==82{return Some(size)}
- if data.len()<167 || data[82..165].iter().any(|byte|*byte!=0) || data[165]!=1{return None}
- let tlv=&data[166..];
- let mut cursor=0usize;let mut seen=0u64;
- loop{
-  let rest=tlv.get(cursor..)?;
-  if rest.len()<2{return Some(size)}
-  let kind=u16::from_le_bytes(rest[..2].try_into().unwrap());
-  if kind==0{return Some(size)}
-  if rest.len()<4{return None}
-  let end=u16::from_le_bytes(rest[2..4].try_into().unwrap()) as usize+4;
-  if end>rest.len(){return None}
-  if let Some(payload)=match kind {1=>Some(8usize),9=>Some(0),14=>Some(1),26=>Some(0),_=>None}{
-   let mask=1u64<<kind;
-   if seen&mask==0{size=size.checked_add(4)?.checked_add(payload)?;seen|=mask;}}
-  cursor=cursor.checked_add(end)?;
- }
-}
+pub use pump_token_ext::required_quote_account_len;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #[inline(never)]fn transfer_base_to_pool_authority<'info>(a:&MigrateV2<'info>,bump:u8)->Result<()>{transfer_from_curve(a,&a.associated_base_bonding_curve,&a.base_mint,&a.bonding_curve,a.associated_base_bonding_curve.amount,&[&[b"bonding-curve",a.base_mint.key().as_ref(),&[bump]]])}#[inline(always)]fn transfer_from_curve<'info>(a:&MigrateV2<'info>,from:&InterfaceAccount<'info,TokenAccount>,mint:&InterfaceAccount<'info,Mint>,authority:&Account<'info,crate::trade_types::BondingCurve>,amount:u64,signer_seeds:&[&[&[u8]]])->Result<()>{if amount==0{return Ok(())}let decimals=mint.decimals;anchor_spl::token_2022::transfer_checked(CpiContext::new_with_signer(a.base_token_program.to_account_info(),anchor_spl::token_2022::TransferChecked{from:from.to_account_info(),to:a.pool_authority_mint_account.to_account_info(),authority:authority.to_account_info(),mint:mint.to_account_info()},signer_seeds),amount,decimals)}fn amount(a:&AccountInfo)->Result<u64>{Ok(u64::from_le_bytes(a.try_borrow_data()?[64..72].try_into().unwrap()))}
 #[inline(always)]fn burn_with_seeds<'info>(a:&MigrateV2<'info>,amount:u64,signer_seeds:&[&[&[u8]]])->Result<()>{anchor_spl::token_2022::burn(CpiContext::new_with_signer(a.token_2022_program.to_account_info(),anchor_spl::token_2022::Burn{mint:a.lp_mint.to_account_info(),from:a.user_pool_token_account.to_account_info(),authority:a.pool_authority.to_account_info()},signer_seeds),amount)}fn quote_amount(a:&AccountInfo)->Result<u64>{let d=a.try_borrow_data()?;let t=TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.amount)}
 
@@ -252,11 +252,11 @@ pub fn execute<'info>(ctx:Context<'_, '_, '_, 'info,MigrateV2<'info>>)->Result<(
  let fee=a.global.pool_migration_fee;
  pay_migration_fee(a,&a.pool_authority,native,fee)?;
  let bump=ctx.bumps.pool_authority;
- create_token_account_v2(a,bump,&a.pool_base_token_account,&a.pool,&a.base_mint,native,&a.base_token_program)?;
- create_token_account_v2(a,bump,&a.pool_quote_token_account,&a.pool,&a.quote_mint,native,&a.quote_token_program)?;
- create_token_account_v2(a,bump,&a.pool_authority_mint_account,&a.pool_authority,&a.base_mint,native,&a.base_token_program)?;
+ create_token_account_v2(&ctx,&a.pool_base_token_account,&a.pool,&a.base_mint,native,&a.base_token_program)?;
+ create_token_account_v2(&ctx,&a.pool_quote_token_account,&a.pool,&a.quote_mint,native,&a.quote_token_program)?;
+ create_token_account_v2(&ctx,&a.pool_authority_mint_account,&a.pool_authority,&a.base_mint,native,&a.base_token_program)?;
  let quote_account_created=a.pool_authority_quote_account.owner==&anchor_lang::system_program::ID;
- create_token_account_v2(a,bump,&a.pool_authority_quote_account,&a.pool_authority,&a.quote_mint,native,&a.quote_token_program)?;
+ create_token_account_v2(&ctx,&a.pool_authority_quote_account,&a.pool_authority,&a.quote_mint,native,&a.quote_token_program)?;
  transfer_base_to_pool_authority(a,ctx.bumps.bonding_curve)?;
  let base=pool_authority_mint_token_account(a)?.amount;
 
@@ -412,12 +412,12 @@ fn tq<'info>(a:&MigrateV2<'info>,mint:&InterfaceAccount<'info,Mint>,from:&Accoun
  anchor_spl::token_2022::transfer_checked(CpiContext::new_with_signer(a.quote_token_program.to_account_info(),anchor_spl::token_2022::TransferChecked{from:from.clone(),to:a.pool_authority_quote_account.to_account_info(),authority:authority.to_account_info(),mint:mint_info.clone()},signer_seeds),amount,decimals)
 }
 #[inline(never)]
-pub fn create_token_account_v2<'info>(a:&MigrateV2<'info>,bump:u8,account:&AccountInfo<'info>,wallet:&AccountInfo<'info>,mint:&InterfaceAccount<'info,Mint>,native:bool,token_program:&AccountInfo<'info>)->Result<()>{
- let token_program=token_program.clone();let tp=&token_program;
+fn create_token_account_v2<'info>(ctx:&Context<'_,'_,'_,'info,MigrateV2<'info>>,account:&AccountInfo<'info>,wallet:&AccountInfo<'info>,mint:&Box<InterfaceAccount<'info,Mint>>,native:bool,token_program:&AccountInfo<'info>)->Result<()>{
+ let bump=ctx.bumps.pool_authority;let a=&ctx.accounts;let token_program=token_program.clone();let tp=&token_program;
  if native{
   cta_signed(a,&a.bonding_curve,account,wallet,mint,token_program,&[&[b"pool-authority",a.base_mint.key().as_ref(),&[bump]]])?;
  }else{
-  anchor_lang::solana_program::program::invoke(&Instruction{program_id:anchor_spl::associated_token::ID,accounts:vec![AccountMeta::new(a.user.key(),true),AccountMeta::new(account.key(),false),AccountMeta::new_readonly(wallet.key(),false),AccountMeta::new_readonly(mint.key(),false),AccountMeta::new_readonly(a.system_program.key(),false),AccountMeta::new_readonly(tp.key(),false)],data:anchor_lang::prelude::borsh::to_vec(&1u8).unwrap()},&[a.user.to_account_info(),account.clone(),wallet.clone(),mint.to_account_info(),a.system_program.to_account_info(),token_program])?;
+  let mint_info:&AccountInfo<'info>;anchor_lang::solana_program::program::invoke(&Instruction{program_id:anchor_spl::associated_token::ID,accounts:vec![AccountMeta::new(a.user.key(),true),AccountMeta::new(account.key(),false),AccountMeta::new_readonly(wallet.key(),false),AccountMeta::new_readonly({mint_info=mint.as_ref().as_ref();mint_info.key()},false),AccountMeta::new_readonly(a.system_program.key(),false),AccountMeta::new_readonly(tp.key(),false)],data:anchor_lang::prelude::borsh::to_vec(&1u8).unwrap()},&[a.user.to_account_info(),account.clone(),wallet.clone(),mint_info.clone(),a.system_program.to_account_info(),token_program])?;
  }
  Ok(())
 }

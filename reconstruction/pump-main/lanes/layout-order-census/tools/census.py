@@ -12,8 +12,8 @@ from score import sections, normalize, body, candidate_functions, original_windo
 
 UNMATCHED_NAMES = {
     0x14f4e0: r'14pump_recovered16buy_exact_sol_in', 0x80df8: r'v3_buy_costs', 0x6cd78: r'process_cashback_inner',
-    0x83c00: r'v3_execute_buy', 0x13f630: r'buy_exact_quote_in_handler', 0x13b9b8: r'6buy_v2.*buy_handler',
-    0x144508: r'7sell_v2.*7execute', 0x4c158: r'create_token_account_v2', 0x147ba0: r'5trade3buy17',
+    0x83c00: r'v3_execute_buy', 0x13f630: r'(buy_exact_quote_in_handler17h|14pump_recovered21buy_exact_quote_in_v217h)', 0x13b9b8: r'(6buy_v211buy_handler17h|14pump_recovered6buy_v217h)',
+    0x144508: r'(7sell_v27execute17h|14pump_recovered7sell_v217h)', 0x4c158: r'create_token_account_v2', 0x147ba0: r'5trade3buy17',
     0x14a8a8: r'5trade4sell17', 0x1489f8: r'5trade15buy_exact_quote17', 0x72810: r'5sweep7execute',
     0x1e7c0: r'9create_v27execute', 0x77940: r'8cashback8claim_v2', 0x5b3b0: r'swap_hop',
     0x22a10: r'9admin_cto7execute',
