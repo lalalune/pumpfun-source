@@ -174,6 +174,7 @@ export default function LiveDiscovery({
   const selectedId = searchParams.get("stream");
   const [draftQuery, setDraftQuery] = useState(query);
   const [controlsReady, setControlsReady] = useState(false);
+  const pendingClear = useRef(false);
   const cardRefs = useRef(new Map<string, HTMLButtonElement>());
   const searchRef = useRef<HTMLInputElement>(null);
   const selected = streams.find((stream) => stream.id === selectedId);
@@ -185,7 +186,20 @@ export default function LiveDiscovery({
 
   const page = paginateArchivedStreams(results, searchParams.getAll("page"));
 
-  useEffect(() => setDraftQuery(query), [query]);
+  useEffect(() => {
+    // A delayed clear must not overwrite a draft typed after the click.
+    const completedClear = pendingClear.current && query === "";
+    pendingClear.current = false;
+    if (!completedClear) setDraftQuery(query);
+  }, [query]);
+
+  useEffect(() => {
+    const onPopState = () => {
+      pendingClear.current = false;
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
 
   useEffect(() => {
     pendingQuery.current = searchParams.toString();
@@ -251,6 +265,7 @@ export default function LiveDiscovery({
 
   function submitSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    pendingClear.current = false;
     navigate({ q: draftQuery.trim() || null, stream: null, page: null });
   }
 
@@ -352,6 +367,7 @@ export default function LiveDiscovery({
                       type="button"
                       className="live-secondary-button"
                       onClick={() => {
+                        pendingClear.current = query !== "";
                         setDraftQuery("");
                         navigate({ q: null, stream: null, page: null });
                       }}

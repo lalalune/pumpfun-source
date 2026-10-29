@@ -328,3 +328,36 @@ test("filter changes compose while the previous navigation is pending", async ({
     await page.unrouteAll({ behavior: "ignoreErrors" });
   }
 });
+
+test("delayed reset preserves the next archive search draft and URL history", async ({
+  page,
+}) => {
+  await page.goto("/go?q=previous", { waitUntil: "networkidle" });
+  const input = page.locator("#go-search");
+  await expect(input).toHaveValue("previous");
+  const held: Route[] = [];
+  let hold = true;
+  await page.route("**/go?**", async (route) => {
+    if (hold && new URL(route.request().url()).searchParams.has("_rsc"))
+      held.push(route);
+    else await route.continue();
+  });
+  try {
+    await page.getByRole("button", { name: "Reset", exact: true }).click();
+    await expect.poll(() => held.length).toBeGreaterThan(0);
+    await input.fill("new draft");
+    hold = false;
+    await Promise.all(held.map((route) => route.continue()));
+    await expect(page).toHaveURL(/\/go$/);
+    await expect(input).toHaveValue("new draft");
+    await input.press("Enter");
+    await expect(page).toHaveURL(/\/go\?q=new\+draft$/);
+    await page.goBack();
+    await expect(page).toHaveURL(/\/go$/);
+    await expect(input).toHaveValue("");
+    await page.goForward();
+    await expect(input).toHaveValue("new draft");
+  } finally {
+    await page.unrouteAll({ behavior: "ignoreErrors" });
+  }
+});
