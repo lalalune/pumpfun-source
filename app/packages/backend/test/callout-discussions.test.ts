@@ -29,7 +29,7 @@ import {
 import { PositionsStore } from "../src/positions-store.js";
 import { startWithLocalMedia } from "../src/local-media-runtime.js";
 import { assertSchema } from "../src/schema-validator.js";
-const now = "2026-10-29T00:00:00.000Z";
+const now = "2026-10-29T00:01:00.000Z";
 const headers = { authorization: `Bearer pf_live_${"a".repeat(49)}` };
 const spec = JSON.parse(
   readFileSync(
@@ -197,6 +197,35 @@ function store(data = dataset(), callouts = calloutsData()) {
   return new CalloutDiscussionsStore(data, new CalloutsStore(callouts));
 }
 const q = (text = "") => new URLSearchParams(text);
+test('discussion file admission enforces its advertised observation checkpoint', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'discussion-checkpoint-'));
+  const path = join(dir, 'discussions.json');
+  try {
+    for (const createdAt of [null, '2026-10-29T00:00:59.999Z', now, '2026-10-29T00:01:00.001Z']) {
+      const data = dataset();
+      data.replies = [node('checkpoint-reply', null)];
+      data.replies[0].facts!.createdAt = createdAt;
+      writeFileSync(path, JSON.stringify(data));
+      const load = () => loadCalloutDiscussionsStore(path, new CalloutsStore(calloutsData()));
+      if (createdAt !== null && Date.parse(createdAt) > Date.parse(now)) {
+        assert.throws(load, /reply timestamp exceeds observedAt/);
+        continue;
+      }
+      const app = buildApp([], { calloutDiscussionsStore: load() });
+      try {
+        const origin = await app.listen({ host: '127.0.0.1', port: 0 });
+        const response = await fetch(`${origin}/v1/callout/root/replies`, { headers });
+        assert.equal(response.status, 200);
+        assert.equal(response.headers.get('x-reconstruction-observed-at'), now);
+        assert.equal((await response.json() as { replies: { createdAt: string | null }[] }).replies[0].createdAt, createdAt);
+      } finally {
+        await app.close();
+      }
+    }
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
 function fails(fn: () => unknown, status: number, reason?: string) {
   assert.throws(
     fn,

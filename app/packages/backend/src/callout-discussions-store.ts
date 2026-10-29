@@ -280,7 +280,11 @@ export class CalloutDiscussionsStore {
         id(row.authorId);
         if (!this.authors.has(row.authorId)) invalid("unresolved reply author");
         assertSchema(row.facts, factsSchema, "discussion facts", spec);
-        if (row.facts!.createdAt !== null) date(row.facts!.createdAt);
+        if (row.facts!.createdAt !== null) {
+          date(row.facts!.createdAt);
+          if (Date.parse(row.facts!.createdAt) > Date.parse(this.observedAt))
+            invalid("reply timestamp exceeds observedAt");
+        }
         for (const key of [
           "positionAmountHeld",
           "positionValueUsd",
