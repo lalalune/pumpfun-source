@@ -36,10 +36,14 @@ is claimed. Existing source/evidence contracts and captured bytes are unchanged.
 - All 10 Settings model tests and 3 source-contract tests pass.
 - Application evidence verifier passes all 698 objects, npm integrity and
   unchanged SDK sources. `git diff --check` passes.
-- Frontend typecheck fails on the same unrelated base error:
-  `src/app/holder-rewards-config/server.ts:77`, `unknown` is not assignable to
-  `PublicKeyInitData`. [Actual output](typecheck.log). No unrelated cast or source
-  repair is included. No full production build is claimed.
+- Frontend typecheck **passes** with the complete pinned package dependency
+  layout. The [earlier failure](typecheck.log) came from missing local SDK
+  dependency links, not a holder-configuration source error. The same source,
+  TS 5.9.3, configs and SDK declarations pass after restoring those links.
+  [TYPE-RESOLUTION.json](TYPE-RESOLUTION.json) records the compiler/declaration
+  hashes and actual before/after types. Credit to worker `pump_v2` for the
+  independent resolution pointer. No unsafe assertion or source fix was needed.
+  No full production build is claimed.
 
 Reproduce from `/app` with the existing installed dependencies and Chromium:
 

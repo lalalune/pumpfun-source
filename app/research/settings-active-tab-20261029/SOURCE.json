@@ -18,13 +18,14 @@
   "baseComponentBlob": "76ff8d94d0d1c43c6fa10185a7c15120489b41c4",
   "unchangedSettingsTestBlob": "718c4857382a85ec19117058ebf7f6eabd4be48a",
   "artifacts": {
-    "README.md": "848ad27c31af3be92f41b24cdc30a6e3a32f97ebb989c7c84951f38325a1a979",
+    "README.md": "33ffe37f3648401faa90eb29a926f9db6367cd491abc35895ae8974527f88ba0",
     "final-browser.log": "6d52644ccd1bee657dca678ff8081502b43d1975b0bff6d585284d5494838ede",
     "typecheck.log": "b9840dadba35d012e052eb71ffcc827b931adf9a05cefaef88acba430a97177e",
     "before-mobile.png": "d50d54881bc0e9766839a5eadafc1187aa6ed8d6debe457ac6a7f4021b047f9d",
     "after-390.png": "e87bae97c09e94fab9a62898091bdc65be8e70dcff1233b0ded72945f836058a",
     "after-1440.png": "b43c20c89a1f0d62ad1b43423dbeb85b78226ea762cb3fdabe4a58b39f0dcadf",
-    "before.log.gz": "eb2465bcb3116e70aa243a40ee81c80715d3df5da67ba095502bbc356f21ab6f"
+    "before.log.gz": "eb2465bcb3116e70aa243a40ee81c80715d3df5da67ba095502bbc356f21ab6f",
+    "TYPE-RESOLUTION.json": "833d8a68a3e192d9be2e16ccaf679ba97e11147c9e13968d904ca5b4bfe84001"
   },
   "checks": {
     "browser": {
@@ -38,7 +39,7 @@
     "evidenceObjects": 698,
     "npmIntegrity": true,
     "sdkSourceUnchanged": true,
-    "frontendTypecheck": "FAIL: pre-existing holder-rewards-config/server.ts:77 unknown to PublicKeyInitData",
+    "frontendTypecheck": "PASS with complete pinned dependency layout; historical missing-SDK-dependency failure retained",
     "productionBuild": "Not run"
   },
   "rawBaselineLogSha256": "35699700a4b491e164a4df53aa8547026efa24755389eaddf7d15723af1253ed"

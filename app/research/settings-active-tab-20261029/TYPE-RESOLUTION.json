@@ -1,0 +1,95 @@
+{
+  "classification": "Dependency-layout setup correction; no program or UI source change",
+  "qualifiedSourceHead": "01d369dfa2432ea26a09e22da03d47511ef5cbbb",
+  "command": "node_modules/.bin/tsc --noEmit --incremental false",
+  "cwd": "app/packages/frontend",
+  "exitCode": 0,
+  "stdoutBytes": 0,
+  "stderrBytes": 0,
+  "sourceSha256": "338ec763fa88c100e18e9e6632496794727d8d8cc6eadcb793191d67d53aac3a",
+  "sourceGitBlob": "579e6774f561baf0dacdad10ebc6ecde43bbdf09",
+  "typescriptVersion": "5.9.3",
+  "tsconfigSha256": "a5dc52a7664b2a81c4cadd7e5ac7eb73ec3f88af0d97edd9927344c01adb7a0b",
+  "rootConfigSha256": "ef2e5c4189cb284a1ffe8c64b78f8d0dbcea7f1f4a334bbdd67fb05de8b0582f",
+  "compilerFiles": {
+    "tsc.js": "2cffde0b8c6760dfb0b5b0382bbb7e00ba6a8b2d981b9205b256a700a481d983",
+    "_tsc.js": "e8f349eabd48486bdb2bf9dc1a00c89d58297270c54b745838879e2859194419",
+    "typescript.js": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+  },
+  "sdkDeclarationSha256": "9719342b98c25085acbfc3e932e7f831303a28a5233bfe73ad63d69d8e75205f",
+  "before": {
+    "compilerVersion": "5.9.3",
+    "configSha256": "a5dc52a7664b2a81c4cadd7e5ac7eb73ec3f88af0d97edd9927344c01adb7a0b",
+    "targetSha256": "338ec763fa88c100e18e9e6632496794727d8d8cc6eadcb793191d67d53aac3a",
+    "sourceFileCount": 777,
+    "rows": [
+      {
+        "line": 48,
+        "column": 5,
+        "type": "unknown",
+        "parent": "raw.owner !== PUMP_PROGRAM_ID.toBase58()"
+      },
+      {
+        "line": 77,
+        "column": 26,
+        "type": "unknown",
+        "parent": "new PublicKey(raw.owner)"
+      }
+    ],
+    "callRows": [
+      {
+        "expression": "PUMP_PROGRAM_ID.toBase58()",
+        "type": "any"
+      },
+      {
+        "expression": "PUMP_PROGRAM_ID.toBase58()",
+        "type": "any"
+      }
+    ],
+    "sdkWeb3": null
+  },
+  "after": {
+    "compilerVersion": "5.9.3",
+    "configSha256": "a5dc52a7664b2a81c4cadd7e5ac7eb73ec3f88af0d97edd9927344c01adb7a0b",
+    "targetSha256": "338ec763fa88c100e18e9e6632496794727d8d8cc6eadcb793191d67d53aac3a",
+    "sourceFileCount": 1027,
+    "rows": [
+      {
+        "line": 48,
+        "column": 5,
+        "type": "unknown",
+        "parent": "raw.owner !== PUMP_PROGRAM_ID.toBase58()"
+      },
+      {
+        "line": 77,
+        "column": 26,
+        "type": "string",
+        "parent": "new PublicKey(raw.owner)"
+      }
+    ],
+    "callRows": [
+      {
+        "expression": "PUMP_PROGRAM_ID.toBase58()",
+        "type": "string"
+      },
+      {
+        "expression": "PUMP_PROGRAM_ID.toBase58()",
+        "type": "string"
+      }
+    ],
+    "sdkWeb3": {
+      "resolvedFileName": "/workspace/pump-app-privacy-links/app/node_modules/.pnpm/@solana+web3.js@1.99.0_bufferutil@4.1.0_typescript@5.9.3_utf-8-validate@6.0.6/node_modules/@solana/web3.js/lib/index.d.ts",
+      "originalPath": "/workspace/pump-app-privacy-links/app/packages/sdk/node_modules/@solana/web3.js/lib/index.d.ts",
+      "extension": ".d.ts",
+      "isExternalLibraryImport": true,
+      "packageId": {
+        "name": "@solana/web3.js",
+        "subModuleName": "lib/index.d.ts",
+        "version": "1.99.0"
+      },
+      "resolvedUsingTsExtension": false
+    }
+  },
+  "resolvedWeb3DeclarationSha256": "87efccefb701d27432d07466c6df462701ab008c4ec82e17826bfad6960ad007",
+  "correction": "Copied only the already-installed pinned SDK node_modules directory with cp -al from the sibling validated worktree. Missing SDK-context dependencies were hidden by skipLibCheck; the SDK method was any. Correct resolution restores string equality narrowing. No install, lockfile, compiler, SDK distribution, declaration, application source, type assertion, configuration or skipLibCheck change. Independent resolution pointer credited to worker pump_v2."
+}
