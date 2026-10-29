@@ -6,6 +6,7 @@ import {
   NativeFeedDataError,
   validateNativeFeedPage,
   validateNativeNewCount,
+  validateNativeCursorInput,
   type NativeFeedKind,
   type NativeFeedPage,
   type NativeNewCount,
@@ -118,6 +119,8 @@ export async function loadNativeFeed(
     };
   }
   try {
+    if (kind !== "ranked" && kind !== "newest") throw new NativeFeedDataError("Unsupported native feed kind");
+    validateNativeCursorInput(pageToken, "pageToken");
     const endpoint =
       kind === "newest"
         ? "/services/frontend/home-feed/new"
