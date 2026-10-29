@@ -1,0 +1,291 @@
+{
+  "scope": "Reproduced maintained GO draft loss across its own delayed normal-submit navigation; no live service or original interaction parity claim.",
+  "baseCommit": "604917c16410d67d9b981305e28e160a93728f50",
+  "baselineHarnessCommit": "536911f27939640ad6f1dfe81c4bbcff42bcf7bb",
+  "candidateCodeCommit": "891add9f5488083c0a4d6dd8df0d8b77b1be2072",
+  "baseline": {
+    "head": "536911f27939640ad6f1dfe81c4bbcff42bcf7bb",
+    "base": "604917c16410d67d9b981305e28e160a93728f50",
+    "command": [
+      "corepack",
+      "pnpm",
+      "exec",
+      "playwright",
+      "test",
+      "--config",
+      "playwright.go-submit.config.ts"
+    ],
+    "exitCode": 1,
+    "rawLogSha256": "ed0a1f0587266a0d32c78670bfdada17645b45564d825fe5dd0c5b6442e49f52"
+  },
+  "candidate": {
+    "head": "891add9f5488083c0a4d6dd8df0d8b77b1be2072",
+    "command": [
+      "corepack",
+      "pnpm",
+      "exec",
+      "playwright",
+      "test",
+      "--config",
+      "playwright.go-submit.config.ts"
+    ],
+    "exitCode": 0,
+    "controllerSeconds": 37.83,
+    "sameBaselineFlow": "536911f27939640ad6f1dfe81c4bbcff42bcf7bb",
+    "configDelta": "testMatch expands only; Next command/environment/origin unchanged",
+    "rawLogSha256": "966547c4c4aa77ab1ad2911f9c4fb9ac9ee7643ae41855d00b86c522eae97f05"
+  },
+  "actualCounts": {
+    "baselineFailed": 2,
+    "candidatePassed": 14,
+    "candidateNew": 3,
+    "candidateRetained": 11,
+    "candidatePlaywrightSeconds": 36.7
+  },
+  "measurements": [
+    {
+      "stage": "baseline",
+      "file": "baseline-375-draft.json",
+      "data": {
+        "width": 375,
+        "pending": {
+          "url": "http://127.0.0.1:3010/go",
+          "draft": "next archive draft",
+          "held": 1
+        },
+        "after": {
+          "url": "http://127.0.0.1:3010/go?q=Follow",
+          "draft": "Follow",
+          "archiveStatus": 200
+        },
+        "forbidden": []
+      }
+    },
+    {
+      "stage": "baseline",
+      "file": "baseline-1280-draft.json",
+      "data": {
+        "width": 1280,
+        "pending": {
+          "url": "http://127.0.0.1:3010/go",
+          "draft": "next archive draft",
+          "held": 1
+        },
+        "after": {
+          "url": "http://127.0.0.1:3010/go?q=Follow",
+          "draft": "Follow",
+          "archiveStatus": 200
+        },
+        "forbidden": []
+      }
+    },
+    {
+      "stage": "fixed",
+      "file": "fixed-375-draft.json",
+      "data": {
+        "width": 375,
+        "pending": {
+          "url": "http://127.0.0.1:3010/go",
+          "draft": "next archive draft",
+          "held": 1
+        },
+        "after": {
+          "url": "http://127.0.0.1:3010/go?q=Follow",
+          "draft": "next archive draft",
+          "archiveStatus": 200
+        },
+        "forbidden": []
+      }
+    },
+    {
+      "stage": "fixed",
+      "file": "fixed-1280-draft.json",
+      "data": {
+        "width": 1280,
+        "pending": {
+          "url": "http://127.0.0.1:3010/go",
+          "draft": "next archive draft",
+          "held": 1
+        },
+        "after": {
+          "url": "http://127.0.0.1:3010/go?q=Follow",
+          "draft": "next archive draft",
+          "archiveStatus": 200
+        },
+        "forbidden": []
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "path": "app/packages/frontend/src/app/go/go-explorer.tsx",
+      "bytes": 20158,
+      "sha256": "dfda4f0d4ab861d92735f10ab0af8b5a0c530b333ed681259fbdcd43c380c496",
+      "gitBlob": "35306e2ff2ce386602bf25b9cf53b3aecf1ec8ad",
+      "baseSha256": "b2ea8b650da8b4f60956618a5a4613dbef2f7f727ccba71234539f1373f89707",
+      "unchangedFromBase": false
+    },
+    {
+      "path": "app/packages/frontend/src/app/go/go-data.ts",
+      "bytes": 20419,
+      "sha256": "bd286db83b05380c846462596f5519f80c8e1424f35bb64247fbaf9d231b88d9",
+      "gitBlob": "33ec9c144bd3c3f2924d5148ac6aa1e0c47724d8",
+      "baseSha256": "bd286db83b05380c846462596f5519f80c8e1424f35bb64247fbaf9d231b88d9",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "app/packages/frontend/src/app/go/page.tsx",
+      "bytes": 3552,
+      "sha256": "9d8174c9cec28a0f84f89615f592fafc19abfec87cc11cce0fe9ca87e85c1147",
+      "gitBlob": "f964496693df8003666d112b5bd9d9770741d8b7",
+      "baseSha256": "9d8174c9cec28a0f84f89615f592fafc19abfec87cc11cce0fe9ca87e85c1147",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "app/packages/frontend/src/app/go/evidence.ts",
+      "bytes": 973,
+      "sha256": "0ad153022ec54e377b2794b23f6a575023f3ea0186188a96f9ab69248ff0de33",
+      "gitBlob": "28c0fa8db2df9d53f6d7e532e15ba052a03b4487",
+      "baseSha256": "0ad153022ec54e377b2794b23f6a575023f3ea0186188a96f9ab69248ff0de33",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "app/packages/frontend/src/app/api/go-bounties/route.ts",
+      "bytes": 1080,
+      "sha256": "6db087b3c218c836ffd9435bf879553517020e24b06e42dcbe0664fdabe47232",
+      "gitBlob": "85d22070680b91a41ab990ed59fffd9bbad71208",
+      "baseSha256": "6db087b3c218c836ffd9435bf879553517020e24b06e42dcbe0664fdabe47232",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "app/packages/frontend/tests/go-pending-submit.flow.ts",
+      "bytes": 2921,
+      "sha256": "25d19827f54d6475b2940cc2b854bdb16f34c9212df1f28893648197cd59dacb",
+      "gitBlob": "2b51a9da89fc59cbb0dcace2fb21c4a96467ff60"
+    },
+    {
+      "path": "app/packages/frontend/tests/go-submit-controls.flow.ts",
+      "bytes": 1226,
+      "sha256": "a7897255371646629d073f21bd6d237d0a81c318ca2c24573a854bea81d41bd9",
+      "gitBlob": "908715d299e66a1e7f1c0d7572e857fc63366896"
+    },
+    {
+      "path": "app/packages/frontend/tests/go.spec.ts",
+      "bytes": 12759,
+      "sha256": "5bddef18ec42368779d22abc31986c2572b10ce7921ee4a847ce7862d0ebf5b6",
+      "gitBlob": "0929295f8521a72e95557eb7f95970336541f261",
+      "baseSha256": "5bddef18ec42368779d22abc31986c2572b10ce7921ee4a847ce7862d0ebf5b6",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "app/packages/frontend/playwright.go-submit.config.ts",
+      "bytes": 839,
+      "sha256": "389bad2ab08612b31e8ed0efccdd30edbfc031f07f8f0f7a7b165c1492816da1",
+      "gitBlob": "22005e5dd4c9b65680034bee2a52c15d0f52865c"
+    }
+  ],
+  "headlessChecks": [
+    {
+      "name": "go-model",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:go"
+      ],
+      "exitCode": 0,
+      "sha256": "bf153abfbacba015031878221fbad3ffb5b07574e32760c9baf4ab72a6ffd21e",
+      "codeCommit": "891add9f5488083c0a4d6dd8df0d8b77b1be2072"
+    },
+    {
+      "name": "frontend-typecheck",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--filter",
+        "@pump-reconstruction/frontend",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "sha256": "bbc47f8ba33204e163a48b95f4a661f68b7f61bf1a02411bc8d1c91572ecaa42",
+      "codeCommit": "891add9f5488083c0a4d6dd8df0d8b77b1be2072"
+    },
+    {
+      "name": "app-evidence",
+      "command": [
+        "python3",
+        "scripts/verify-evidence.py"
+      ],
+      "cwd": "app",
+      "exitCode": 0,
+      "sha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9",
+      "codeCommit": "891add9f5488083c0a4d6dd8df0d8b77b1be2072"
+    },
+    {
+      "name": "progress",
+      "command": [
+        "corepack",
+        "pnpm",
+        "check:progress"
+      ],
+      "cwd": "app",
+      "exitCode": 0,
+      "sha256": "48e866460baf9ff6727ae4e3edd8a986a6f62a6e6c2d7745efa510d0b3cf9eb0",
+      "codeCommit": "891add9f5488083c0a4d6dd8df0d8b77b1be2072"
+    },
+    {
+      "name": "root-evidence",
+      "command": [
+        "python3",
+        "scripts/verify_evidence.py"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9",
+      "codeCommit": "891add9f5488083c0a4d6dd8df0d8b77b1be2072"
+    },
+    {
+      "name": "root-tooling",
+      "command": [
+        "python3",
+        "scripts/test_tooling.py"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "sha256": "c4739a0fee2940b3298a9d7b18e684891c235b11e0f4e87921d82b7315f3333b",
+      "codeCommit": "891add9f5488083c0a4d6dd8df0d8b77b1be2072"
+    }
+  ],
+  "originalArchive": {
+    "path": "app/evidence/web/objects/e66810e11f481135",
+    "sha256": "8037ac8c628063897531326090f1a4d3cbf8ed0051f4f6e9f88c821f4fee9ece",
+    "bytes": 1030034,
+    "data": "Existing authenticated first-party HTML; maintained verifier/JSON-only extractor and25direct archived bounties unchanged."
+  },
+  "privateNegativeTraces": [
+    {
+      "sha256": "fcbf5c3e69a5ecf3dd67125038651eca36199866b411c4826b6cb912be5d9048",
+      "bytes": 1212467,
+      "scope": "go-pending-submit.flow.ts--816fe--next-unsent-draft-at-375px"
+    },
+    {
+      "sha256": "cf19890168784e69a53273775d0c4cc885a577ab14fff0ac3b98b3dc53168ea0",
+      "bytes": 5367551,
+      "scope": "go-pending-submit.flow.ts--b1447-next-unsent-draft-at-1280px"
+    }
+  ],
+  "limits": [
+    "The2new before/after cases hold then continue real localhost RSC GETs, never fulfill/replace payload; actual local archive GET200 is separately awaited/asserted.",
+    "Only authored localhost browser runtime is tested; captured original JavaScript is not evaluated. Existing archive extractor parses authenticated captured HTML/RSC as data.",
+    "Raw candidate log includes shared SearchDialog hydration diagnostic during query/history activity. Its source is unchanged; no all-routes console-clean claim and no shared-shell fix is included.",
+    "Retained cases include intentionally replaced error/malformed responses. New cases do not.",
+    "No production build, other-engine/screen-reader/original visual parity, live GO API/auth/wallet/payout or feature/compatibility/milestone credit."
+  ],
+  "overlap": {
+    "baseIsInspectedMain": true,
+    "related": {
+      "1344": "Cursor syntax/validation in go-explorer and other layers; query-search effect/submission spans disjoint.",
+      "1469": "Task page positioning in go-data only plus tests; no go-explorer search change.",
+      "1547": "Explore navigation family intentionally excluded; no copied/existing private Explore packet in this tree."
+    }
+  }
+}

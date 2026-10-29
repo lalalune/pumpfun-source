@@ -185,6 +185,7 @@ export default function GoExplorer({
   const pendingQuery = useRef<string | null>(null);
   const initialKey = useRef<string | undefined>(undefined);
   const pendingClear = useRef(false);
+  const pendingSearch = useRef<{ query: string; draft: string } | null>(null);
   const cardRefs = useRef(new Map<string, HTMLButtonElement>());
 
   const rawQ = searchParams.get("q") ?? "";
@@ -264,6 +265,7 @@ export default function GoExplorer({
   useEffect(() => {
     const onPopState = () => {
       pendingClear.current = false;
+      pendingSearch.current = null;
       pendingQuery.current = null;
     };
     window.addEventListener("popstate", onPopState);
@@ -273,8 +275,13 @@ export default function GoExplorer({
   useEffect(() => {
     // A delayed clear must not overwrite a draft typed after the click.
     const completedClear = pendingClear.current && q === "";
+    const submitted = pendingSearch.current;
     pendingClear.current = false;
-    if (!completedClear) setDraftQuery(q);
+    pendingSearch.current = null;
+    if (!completedClear)
+      setDraftQuery((current) =>
+        submitted?.query === q && current !== submitted.draft ? current : q,
+      );
   }, [q]);
 
   useEffect(() => {
@@ -344,7 +351,9 @@ export default function GoExplorer({
   function submitSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     pendingClear.current = false;
-    navigate({ q: draftQuery.trim() || null, cursor: null, task: null });
+    const query = draftQuery.trim();
+    pendingSearch.current = { query, draft: draftQuery };
+    navigate({ q: query || null, cursor: null, task: null });
   }
 
   return (
@@ -383,6 +392,7 @@ export default function GoExplorer({
           type="button"
           onClick={() => {
             pendingClear.current = q !== "";
+            pendingSearch.current = null;
             setDraftQuery("");
             navigate({
               q: null,
