@@ -20,9 +20,8 @@ test('declared response and executor-returned cancellation retain their actual l
 });
 
 test('packet changes to origin, method, fields, status, result or invented auth/qualification fail', async () => {
-  // Reconstruct once from real captured ASTs. These are packet integrity checks,
-  // not simulated uploads, HTTP responses or tests of original runtime behavior.
-  const actual = await recover(root);
+  // Exercise the maintained verifier for every altered packet. These are source
+  // integrity checks, not simulated uploads or original-runtime behavior tests.
   for (const mutate of [
     (x) => { x.request.origin = 'https://example.invalid'; },
     (x) => { x.providerUpload.method = 'PUT'; },
@@ -36,6 +35,6 @@ test('packet changes to origin, method, fields, status, result or invented auth/
   ]) {
     const changed = structuredClone(packet);
     mutate(changed);
-    assert.throws(() => assert.deepEqual(changed, actual));
+    await assert.rejects(verify(root, changed));
   }
 });
