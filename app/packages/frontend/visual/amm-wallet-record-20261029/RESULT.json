@@ -47,7 +47,16 @@
     "Independent public-chain localintegration; no original frontend/privateAPI/nativeoperation/visual/sourceparity claim.",
     "Synthetic controlledpublicaccount data; no livechainobservation, signing, authenticatedownership, eligibility or cross-program totals.",
     "KnownAMMprefix90B omits Pumpstablefields; unknowntrailingbytes notinterpreted.",
-    "Full production aggregate pending; actualconfigured production/mainnetHTTPS success remainsuntested after any build."
+    "Normal production aggregate passed; configured production/mainnet HTTPS success remains untested."
   ],
-  "review": "Client/server imports separated; explicitread only; keyed existingwallet parent/abort/generation/deadline cleanup; no clientSDKsigning; exactstrings; genericerrors;320/1440screenshots reviewed. Existingcontroller/transport/SDK/captures/lockfile andprogresscounts unchanged."
+  "review": "Client/server imports separated; explicitread only; keyed existingwallet parent/abort/generation/deadline cleanup; no clientSDKsigning; exactstrings; genericerrors;320/1440screenshots reviewed. Existingcontroller/transport/SDK/captures/lockfile andprogresscounts unchanged.",
+  "normalProductionAggregate": {
+    "testedHead": "116d0f64a4d04d04bcc8631ae94da7a5b2f5d1cc",
+    "build": "SDK/backend/Next PASS",
+    "recursiveTypecheck": "PASS",
+    "evidence": "698/npm/SDK PASS",
+    "progress": "PASS",
+    "sourceToPublicMapping": "root-production/tested-to-public.json",
+    "configuredProductionRouteSuccess": "UNTESTED"
+  }
 }
