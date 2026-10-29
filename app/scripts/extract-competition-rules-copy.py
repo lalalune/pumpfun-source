@@ -56,7 +56,7 @@ def extract(html):
         if isinstance(row, list) and len(row) == 2 and row[0] == 1 and isinstance(row[1], str):
             chunks.append(row[1])
     records = {}
-    for line in "".join(chunks).splitlines():
+    for line in "".join(chunks).split('\n'):
         key, _, value = line.partition(":")
         if key in ("c1", "103"):
             if key in records:

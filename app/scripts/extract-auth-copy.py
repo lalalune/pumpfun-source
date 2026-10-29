@@ -65,7 +65,7 @@ def extract(html: str) -> dict[str, str]:
         item = json.loads(match[1])
         if isinstance(item, list) and len(item) == 2 and item[0] == 1 and isinstance(item[1], str):
             chunks.append(item[1])
-    rows = [line[3:] for line in "".join(chunks).splitlines() if line.startswith("c6:")]
+    rows = [line[3:] for line in "".join(chunks).split('\n') if line.startswith("c6:")]
     if len(rows) != 1:
         raise ValueError("Expected exactly one captured c6 locale record")
     locale = json.loads(rows[0])
