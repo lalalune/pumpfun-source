@@ -192,6 +192,11 @@ export class PostStore {
     if (new Set(this.posts.map(p => p.postId)).size !== this.posts.length) throw new TypeError('Duplicate post identity');
     this.byPostId = new Map(this.posts.map(p => [p.postId, p]));
     this.userStore = userStore ?? defaultStore;
+    // Every emitted keyset anchor must be accepted by our cursor decoder.
+    if (this.posts.some(post => post.createdAt !== null &&
+        (typeof post.createdAt !== 'string' || !Number.isFinite(Date.parse(post.createdAt))))) {
+      throw new TypeError('Invalid post timestamp');
+    }
   }
 
   /** Hydrate a raw post to conform to Shared_47a8d5353d95. depth > 0 omits nested embeds. */
