@@ -16,7 +16,7 @@ Ours from `-C remark=inline -C debuginfo=line-tables-only` (experiment only). Or
 ## 0x6cd78 legacy_sell::process_cashback_inner
 
 - original error sites (by following Source line): sell.rs:33 hot, sell.rs:33 hot, sell.rs:81 hot, sell.rs:85 cold, sell.rs:102 cold, sell.rs:107 cold, sell.rs:102 cold, sell.rs:114 cold
-- ours: sell.rs:33:5 to_string hot, sell.rs:51:15 clone hot, sell.rs:43:21 clone hot, sell.rs:44:67 clone hot, sell.rs:44:85 clone hot, sell.rs:56:15 clone hot, sell.rs:102:113 to_string cold, sell.rs:107:5 to_string cold, sell.rs:114:5 to_string cold
+- ours: sell.rs:33:59 to_string hot, sell.rs:81:9 to_string hot, sell.rs:85:97 to_string cold, sell.rs:51:15 clone hot, sell.rs:43:21 clone hot, sell.rs:44:67 clone hot, sell.rs:44:85 clone hot, sell.rs:56:15 clone hot, sell.rs:102:113 to_string cold, sell.rs:107:5 to_string cold, sell.rs:114:5 to_string cold
 
 ## 0x83c00 trade::v3_execute_buy
 
@@ -66,12 +66,12 @@ Ours from `-C remark=inline -C debuginfo=line-tables-only` (experiment only). Or
 ## 0x1e7c0 create_v2::execute
 
 - original error sites (by following Source line): create_v2.rs:716 hot, create_v2.rs:774 cold, create_v2.rs:732 hot, create_v2.rs:738 hot, create_v2.rs:738 hot, create_v2.rs:719 hot, create_v2.rs:258 cold, create_v2.rs:778 cold, create_v2.rs:205 hot, create_v2.rs:541 hot, create_v2.rs:541 hot, create_v2.rs:758 cold, create_v2.rs:210 hot, create_v2.rs:709 hot, create_v2.rs:709 hot, create_v2.rs:220 cold, create_v2.rs:243 cold
-- ours: create_v2.rs:709:3 to_string hot, create_v2.rs:716:2 to_string hot, create_v2.rs:719:3 to_string hot, create_v2.rs:732:2 to_string hot, create_v2.rs:198:2 to_string hot, create_v2.rs:205:2 to_string cold, create_v2.rs:210:2 to_string cold, create_v2.rs:220:2 to_string cold, create_v2.rs:243:2 to_string cold, lib.rs:180:9 clone cold, create_v2.rs:260:231 clone cold, create_v2.rs:260:308 clone cold, create_v2.rs:260:465 clone cold, create_v2.rs:258:2 to_string cold, create_v2.rs:738:2 to_string hot, create_v2.rs:758:3 to_string cold, create_v2.rs:774:3 to_string cold, create_v2.rs:778:3 to_string cold, create_v2.rs:541:2 to_string cold, create_v2.rs:547:2 to_string cold, create_v2.rs:553:2 to_string cold
+- ours: create_v2.rs:709:3 to_string hot, create_v2.rs:716:2 to_string hot, create_v2.rs:719:3 to_string hot, create_v2.rs:732:2 to_string hot, create_v2.rs:738:2 to_string hot, create_v2.rs:758:3 to_string cold, create_v2.rs:774:3 to_string cold, create_v2.rs:778:3 to_string cold, lib.rs:180:9 clone cold, create_v2.rs:258:2 to_string cold, create_v2.rs:260:172 clone cold, create_v2.rs:260:124 clone cold, create_v2.rs:260:78 clone cold, create_v2.rs:243:2 to_string cold, create_v2.rs:220:2 to_string cold
 
 ## 0x77940 token_incentives::claim_token_incentives::cashback::claim_v2
 
 - original error sites (by following Source line): None hot, claim_token_incentives.rs:310 hot, claim_token_incentives.rs:342 cold, claim_token_incentives.rs:333 cold
-- ours: token_incentives/claim_token_incentives.rs:305:14 to_string hot, token_incentives/claim_token_incentives.rs:310:4 to_string hot, lib.rs:180:9 clone hot, token_incentives/claim_token_incentives.rs:333:4 to_string hot, token_incentives/claim_token_incentives.rs:342:103 to_string cold, lib.rs:180:9 clone cold
+- ours: token_incentives/claim_token_incentives.rs:305:25 to_string hot, lib.rs:180:9 clone hot, token_incentives/claim_token_incentives.rs:310:4 to_string hot, token_incentives/claim_token_incentives.rs:333:4 to_string hot, token_incentives/claim_token_incentives.rs:342:103 to_string cold, lib.rs:180:9 clone cold
 
 ## 0x5b3b0 multi_hop_curve::swap_hop
 
