@@ -20,7 +20,10 @@ export default defineConfig({
     storageState: {
       cookies: [],
       origins: acceptedClickwrapState.origins.map((entry) => ({
-        ...entry,
+        ...(entry as {
+          origin: string;
+          localStorage: { name: string; value: string }[];
+        }),
         origin: new URL(baseURL).origin,
       })),
     },
