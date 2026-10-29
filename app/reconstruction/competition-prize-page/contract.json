@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "base": "ef400863f4e476b2eaaab0866c0b1187d8060abc",
+  "original": [
+    {
+      "label": "accepted complete J selected by actual rank",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        31880,
+        31939
+      ],
+      "utf8": [
+        31880,
+        31939
+      ],
+      "sha256": "9bebb883706e1c66135fe1b46afe4280394968c3f09e98b86da8a2961f30d24f"
+    },
+    {
+      "label": "actual branch: empty unfiltered standings use supplied prize tiers",
+      "source": "evidence/web/objects/2fe17dced92b840b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3h-drub813nrm.js",
+      "sourceSha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "sourceBytes": 117439,
+      "utf16": [
+        61686,
+        62471
+      ],
+      "utf8": [
+        61694,
+        62479
+      ],
+      "sha256": "7e9a2369bf942ed6086016f11877653be375315ec6186435da631c740ab80667"
+    }
+  ],
+  "localBindings": {
+    "page": "packages/frontend/src/app/leaderboard/leaderboard-client.tsx",
+    "bridge": "packages/frontend/src/app/leaderboard/competition-prizes.tsx",
+    "rankedRows": {
+      "entries": "entries after existing local filtering/paging",
+      "prizes": "data.competition.prizes",
+      "rank": "entry.rank"
+    },
+    "emptyGuard": "data.entries.length === 0 && data.competition.prizes.length > 0"
+  },
+  "unchangedPolicy": {
+    "amount": "existing native BigInt formatter",
+    "labels": "existing captured English prize-only labels",
+    "originalComponents": "accepted #937 D/T/badge bytes unchanged; formatter/translation are explicit native providers"
+  },
+  "scope": [
+    "Mounted web detail display, no app/mobile promotion or deep links",
+    "No API/projection/ranking/payout/auth policy changes",
+    "No original NumberFormat variant selection or full provider/native API parity claim"
+  ],
+  "reference": {
+    "leaderboard-client.tsx": "02310d1e8050387ca314da56dc6d560a31c847d99ada6ac62d2def335f542c48",
+    "competition-rules-model.ts": "1f26aa03c58fd088a1bb9413a70d855701500111a3d40aa4cf4d0b326d2231e4"
+  }
+}

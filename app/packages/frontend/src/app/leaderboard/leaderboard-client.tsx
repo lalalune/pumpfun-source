@@ -37,6 +37,10 @@ import {
   type TradersData,
 } from "./types";
 import { CompetitionRules } from "./competition-rules";
+import {
+  CompetitionPrizeTiers,
+  CompetitionRankPrize,
+} from "./competition-prizes";
 
 const PAGE_SIZE = 10;
 const SEARCH_LIMIT = 200;
@@ -416,7 +420,13 @@ function CompetitionCards({
   );
 }
 
-function CompetitionEntryRows({ entries }: { entries: CompetitionEntry[] }) {
+function CompetitionEntryRows({
+  entries,
+  prizes,
+}: {
+  entries: CompetitionEntry[];
+  prizes: CompetitionSummary["prizes"];
+}) {
   return (
     <ol className="ranking-list" aria-label="Competition rankings">
       {entries.map((entry) => {
@@ -447,6 +457,7 @@ function CompetitionEntryRows({ entries }: { entries: CompetitionEntry[] }) {
                 {usd.format(entry.pnlUsd)}
               </strong>
               <small>competition PnL</small>
+              <CompetitionRankPrize prizes={prizes} rank={entry.rank} />
             </span>
             <span className="ranking-facts">
               <small>Realized {usd.format(entry.realizedPnlUsd)}</small>
@@ -763,13 +774,18 @@ export default function LeaderboardClient() {
         </div>
         {entries.length ? (
           <>
-            <CompetitionEntryRows entries={entries} />
+            <CompetitionEntryRows
+              entries={entries}
+              prizes={data.competition.prizes}
+            />
             <Pagination
               page={visiblePage}
               totalPages={totalPages}
               onPage={setPage}
             />
           </>
+        ) : data.entries.length === 0 && data.competition.prizes.length > 0 ? (
+          <CompetitionPrizeTiers prizes={data.competition.prizes} />
         ) : (
           <EmptyState message="No ranked competition entry matches this local filter." />
         )}

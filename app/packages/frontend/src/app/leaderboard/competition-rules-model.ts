@@ -43,6 +43,9 @@ function amount(text: string): string {
   return `${formatWhole(cents / 100n)}.${(cents % 100n).toString().padStart(2, "0")}`;
 }
 
+// Shared native display policy; the original formatter bodies stay unchanged.
+export { amount as formatCompetitionAmount, fill as formatCompetitionLabel };
+
 export function competitionRules(competition: CompetitionSummary) {
   const group = competition.kind === "group";
   const registrationEnd = date(competition.registrationClosesAt);
