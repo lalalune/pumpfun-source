@@ -1559,3 +1559,7 @@ repro/pump_amm/v2-mint-clone-recovery-20261028/followup/** -whitespace
 # Reconstruction harness inputs, ledger and toolchain libraries must keep exact bytes.
 reconstruction/** -text
 *.rlib binary
+
+# Preserve the token-detector packet and its hash-bound archived source exactly.
+research/tooling-token-program-constant-detector-20261029/** -text
+scripts/bytecode_signatures.py -text
