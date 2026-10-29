@@ -37,3 +37,14 @@ to6024. Some cases select rates from observed events; injected cases independent
 check selected rates. These standalone arithmetic files are not linked into the
 SBF crate. The crate now separately implements a partial regular-SOL sell path;
 full trade reconstruction remains unfinished.
+
+`legacy_buy.rs` models the accounting of legacy `buy` and `buy_exact_sol_in`
+for a regular SOL coin: guard order, option-bool parsing, the market-cap fee
+tier choice, the configurable creator-bps override, ceiling fees, the trimmed
+exact-in quote (fees stay on the untrimmed quote), partial fills, buyback
+split, and the creator-vault rent top-up (the full zero-byte minimum, not the
+shortfall). `tests/test_legacy_buy_captured.py` runs 84 fixed and 60 seeded
+cases on the captured Pump ELF with the captured Pump Fees program and compares
+errors, lamport movements, stored reserves, delivered tokens, and TradeEvent
+fields with `legacy_buy_host.rs`. Mayhem, cashback, whitelist, and holder-reward
+paths are not modeled. This is not a byte-identity claim.
