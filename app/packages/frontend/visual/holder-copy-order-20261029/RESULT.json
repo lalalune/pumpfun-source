@@ -1,0 +1,38 @@
+{
+  "base": "60bdd8a7a522921058d18563bb9335d2a06aec75",
+  "baselineTestHead": "cda5ae3c13dad4864037b92aa9bee42481eb08ed",
+  "runtimeHead": "57bab0a89e3c8acbb79daf39ec0877469d2a5958",
+  "beforeSha256": "2e6378ec3376bc17c2b331a03b531263f20a6d1417075dcf9aa66e9d3b743e82",
+  "afterSha256": "9bc73f0b71b3dc2bb1b6b38cc66b97f51577f0ee441fe69e23007c74f5be95c0",
+  "baseline": {
+    "result": "baseline/result.json",
+    "expected": "empty live-region after mint edit",
+    "actual": "Normalized mint copied.",
+    "failureMeaning": "Actual stale asynchronous feedback reproduced in maintained component; controlled browser Clipboard API Promise."
+  },
+  "firstCandidate": {
+    "passed": 10,
+    "failed": 1,
+    "reason": "One missing tracked font404 caught by existing console-error assertion. All3new cases passed.",
+    "receipt": "candidate/font-restoration.json"
+  },
+  "finalCandidate": {
+    "passed": 11,
+    "failed": 0,
+    "newCases": 3,
+    "existingCases": 8,
+    "seconds": 19.8,
+    "result": "candidate/retry-result.json"
+  },
+  "sourceChecks": {
+    "frontendTypecheck": "checks/typecheck-result.json",
+    "sdkDerivationGroups": 4,
+    "sdkResult": "checks/sdk-result.json"
+  },
+  "limits": [
+    "The browser Clipboard API is deliberately delayed by the test; there is no live wallet or signing.",
+    "The change discards stale feedback; an already-started browser clipboard operation may still complete.",
+    "No styling, new SDK source recovery or original visual/API equivalence claim.",
+    "Production build qualification is recorded separately by the parent when available."
+  ]
+}

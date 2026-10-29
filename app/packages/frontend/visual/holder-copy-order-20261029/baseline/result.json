@@ -1,0 +1,21 @@
+{
+  "head": "cda5ae3c13dad4864037b92aa9bee42481eb08ed",
+  "productSourceBase": "60bdd8a7a522921058d18563bb9335d2a06aec75",
+  "sourceSha256": "2e6378ec3376bc17c2b331a03b531263f20a6d1417075dcf9aa66e9d3b743e82",
+  "command": [
+    "pnpm",
+    "--filter",
+    "@pump-reconstruction/frontend",
+    "exec",
+    "playwright",
+    "test",
+    "tests/holder-copy-order.spec.ts",
+    "--grep",
+    "editing the mint",
+    "--max-failures=1"
+  ],
+  "started": "2026-10-29T13:00:07.571618+00:00",
+  "expected": "Regression on unchanged maintainedcomponent: late success reappears after mint edit.",
+  "returncode": 1,
+  "finished": "2026-10-29T13:00:22.667210+00:00"
+}

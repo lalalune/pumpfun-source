@@ -1,0 +1,93 @@
+{
+  "algorithm": "sha256",
+  "files": {
+    "INPUT.json": {
+      "bytes": 970,
+      "sha256": "71a1d3cae5d6c81e568320ef32ff1f0bc290525c65a9873acca11f820dc3d056"
+    },
+    "README.md": {
+      "bytes": 1029,
+      "sha256": "06a4202c3d804da1bceaed524711332483ffa4129aa2fd4aeb4c2297a3aa2abd"
+    },
+    "RESULT.json": {
+      "bytes": 1601,
+      "sha256": "68460ce88ef140e9196fe65edb81c1636a55efa9ba958e45dba92ebc62180d0c"
+    },
+    "baseline/browser.log.gz": {
+      "bytes": 1152,
+      "sha256": "dd11c9c66dcbdb764d794f668719f722195f1395dd133270aa35ea45ab0cde4a"
+    },
+    "baseline/playwright/error-context.md.gz": {
+      "bytes": 1694,
+      "sha256": "f2a23301761275e6cf24b950cc69df440123d6746c501f0c058a279a391fd17d"
+    },
+    "baseline/playwright/test-failed-1.png": {
+      "bytes": 82366,
+      "sha256": "fd93c0531dc6dabd3fec786c2ed29cc86451f937ed9544acaac103ced70c4ec8"
+    },
+    "baseline/playwright/trace.zip": {
+      "bytes": 3600816,
+      "sha256": "f6caf76dafaa9cf05f7606ecd3c749e374777488b70f0d6a31df6ae941d0bcfe"
+    },
+    "baseline/result.json": {
+      "bytes": 657,
+      "sha256": "ef88fae48688f7dab3fa41d634748a16cde30658fedaf484abff412d2dd5ea31"
+    },
+    "candidate/browser.log.gz": {
+      "bytes": 1509,
+      "sha256": "57e614f2a39603ec8eeb8306fe46e1fed35161f619941adbbbf3cf39d75d7551"
+    },
+    "candidate/cleanup.json": {
+      "bytes": 169,
+      "sha256": "bd2a8bba88422b22bc38f475457d8c798a99ab2793cac16e05698ce3afb7db06"
+    },
+    "candidate/first-failure/playwright/error-context.md.gz": {
+      "bytes": 4231,
+      "sha256": "6c1f86dec061349d2904b95d047e64f92526eccfe78f6a1be88b72634f350f8e"
+    },
+    "candidate/first-failure/playwright/test-failed-1.png": {
+      "bytes": 78052,
+      "sha256": "5ca2e4607c6e72e15c3ab6ae13b53fc7944381a80de78a8cd4632e33b976c462"
+    },
+    "candidate/first-failure/playwright/trace.zip": {
+      "bytes": 1601072,
+      "sha256": "f0253359879674dbcfbd46256387c7c745f6927b93db10777543767641380eb8"
+    },
+    "candidate/font-restoration.json": {
+      "bytes": 496,
+      "sha256": "90c3d620bae49628b005102708b5e2793279e50ed088b67b88f7f4461b706f88"
+    },
+    "candidate/result.json": {
+      "bytes": 540,
+      "sha256": "7806d43060ac85233d36d904033408b05e1f95f0a28426333c8801288d628da5"
+    },
+    "candidate/retry-browser.log.gz": {
+      "bytes": 891,
+      "sha256": "c2675b80896de65130cd72f7f73f3dc3be3593cc0fe8ffc5d350a3d3482db65c"
+    },
+    "candidate/retry-result.json": {
+      "bytes": 585,
+      "sha256": "ab6a2f99d8da3c883661b9ffe9338e181e66a905f27877a17d406ddb1ba46f50"
+    },
+    "candidate.patch.gz": {
+      "bytes": 669,
+      "sha256": "9e24b2354f2ad9fa723ff61cdc1752ced451c58e8b5fc098839ff9ccb71f226e"
+    },
+    "checks/sdk-result.json": {
+      "bytes": 257,
+      "sha256": "f4b7e95248dbb874e328aae82131186b2d8aaa7ba0499dc9cfe8185b3b5288cb"
+    },
+    "checks/sdk.log.gz": {
+      "bytes": 634,
+      "sha256": "b6c3b11680fcee79c222faf11a1f55fd892e438a5ac0f8b749904de129c825a9"
+    },
+    "checks/typecheck-result.json": {
+      "bytes": 392,
+      "sha256": "ec674d57e4c930721e3bf5951174c5a05409e9b35157d58c836a77491b7407c4"
+    },
+    "checks/typecheck.log.gz": {
+      "bytes": 20,
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    }
+  }
+}

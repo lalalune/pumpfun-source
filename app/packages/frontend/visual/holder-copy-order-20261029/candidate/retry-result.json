@@ -1,0 +1,19 @@
+{
+  "head": "57bab0a89e3c8acbb79daf39ec0877469d2a5958",
+  "sourceSha256": "9bc73f0b71b3dc2bb1b6b38cc66b97f51577f0ee441fe69e23007c74f5be95c0",
+  "command": [
+    "pnpm",
+    "--filter",
+    "@pump-reconstruction/frontend",
+    "exec",
+    "playwright",
+    "test",
+    "tests/holder-copy-order.spec.ts",
+    "tests/holder-rewards.spec.ts",
+    "--max-failures=1"
+  ],
+  "started": "2026-10-29T13:04:34.566895+00:00",
+  "setupCorrection": "Exact tracked missing publicfonts restored; same product/test source57bab.",
+  "returncode": 0,
+  "finished": "2026-10-29T13:04:55.124150+00:00"
+}

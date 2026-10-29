@@ -1,0 +1,14 @@
+{
+  "base": "60bdd8a7a522921058d18563bb9335d2a06aec75",
+  "source": "app/packages/frontend/src/app/holder-rewards-inspector.tsx",
+  "beforeSha256": "2e6378ec3376bc17c2b331a03b531263f20a6d1417075dcf9aa66e9d3b743e82",
+  "afterSha256": "9bc73f0b71b3dc2bb1b6b38cc66b97f51577f0ee441fe69e23007c74f5be95c0",
+  "problem": "Clipboard promises set copyStatus unconditionally after mint editing, Clear, or a new derivation resets that status. The live-region and visible feedback can revert to an older context.",
+  "fix": "Advance one operation generation on copy, mint edit, Clear and derive; update success/failure feedback only for current generation. Browser clipboard completion itself is not cancelled.",
+  "newCases": [
+    "Late success after mint edit",
+    "Late rejection after Clear",
+    "Late success after a new derivation"
+  ],
+  "qualification": "Static candidate only; baseline and candidate browser outcomes pending. No SDK/RPC/API/auth/claim/style changes."
+}
