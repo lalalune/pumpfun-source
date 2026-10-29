@@ -1,0 +1,230 @@
+{
+  "scope": "Local Mayhem Retry keyboard focus through the maintained actual unavailable GET; no market data/API/visual/feature qualification.",
+  "baseCommit": "630a074126a13d4133514d599129c6ac9a3179bc",
+  "firstBaselineHarnessCommit": "8849efb800d2561da53ebfc7f8c95361bc0c5e47",
+  "correctedBaselineHarnessCommit": "6b67098b77693aff008e92355984e661162d1e10",
+  "browserCodeCommit": "1d4ea15abe6ca67232edbe67a33888fdfd9e9f83",
+  "browserCommand": [
+    "corepack",
+    "pnpm",
+    "exec",
+    "playwright",
+    "test",
+    "--config",
+    "playwright.mayhem-retry.config.ts"
+  ],
+  "browserCwd": "app/packages/frontend",
+  "firstBaseline": {
+    "exitCode": 1,
+    "failure": "Retry toBeFocused assertion at mayhem-retry.flow.ts:96",
+    "focus": [
+      "BUTTON",
+      "BODY",
+      "BODY"
+    ],
+    "actualStatus": 503,
+    "actualCode": "MAYHEM_DATA_UNAVAILABLE",
+    "countLimit": "Old absolute two-request assumption was after the failing focus assertion and was never reached. Two initial development request events plus one retry were observed."
+  },
+  "correctedBaseline": {
+    "exitCode": 1,
+    "failure": "Retry toBeFocused assertion at mayhem-retry.flow.ts:99",
+    "initialRequestEvents": 2,
+    "totalRequestEvents": 3,
+    "retryDelta": 1,
+    "retryDeltaAssertion": "passed before final focus failure",
+    "focus": [
+      "BUTTON",
+      "BODY",
+      "BODY"
+    ],
+    "actualStatus": 503,
+    "actualCode": "MAYHEM_DATA_UNAVAILABLE",
+    "productIdenticalToBase": true
+  },
+  "candidate": {
+    "exitCode": 0,
+    "passed": 12,
+    "newActual503Cases": 3,
+    "retainedCases": 9,
+    "seconds": 23.5,
+    "sameBeforeAfterFlow": true,
+    "selectionDelta": "Only testMatch expands to two busy/no-steal cases and unchanged mayhem.spec.ts; command/environment/origin remain the same.",
+    "asserted": "Retry stays focused through loading and actual503; aria-disabled guards two extra Enter presses without a native disabled attribute; retry request delta is exactly1; focus moved to Sort is not stolen.",
+    "attachmentLimit": "Passed line-reporter run retained its explicit PNG and raw log, not a separate positive focus JSON/trace. Positive states are test assertions, not an independently published positive attachment."
+  },
+  "headlessChecks": [
+    {
+      "name": "mayhem-model",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:mayhem"
+      ],
+      "cwd": "app",
+      "exitCode": 0,
+      "seconds": 0.78,
+      "rawLogSha256": "efffd5c8a4337d53eb0babfc4e8505136661a58f6a9ea64a2a1873c4b2eac16c",
+      "codeCommit": "1d4ea15abe6ca67232edbe67a33888fdfd9e9f83"
+    },
+    {
+      "name": "frontend-typecheck",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--filter",
+        "@pump-reconstruction/frontend",
+        "typecheck"
+      ],
+      "cwd": "app",
+      "exitCode": 0,
+      "seconds": 3.54,
+      "rawLogSha256": "bbc47f8ba33204e163a48b95f4a661f68b7f61bf1a02411bc8d1c91572ecaa42",
+      "codeCommit": "1d4ea15abe6ca67232edbe67a33888fdfd9e9f83"
+    },
+    {
+      "name": "app-evidence",
+      "command": [
+        "python3",
+        "scripts/verify-evidence.py"
+      ],
+      "cwd": "app",
+      "exitCode": 0,
+      "seconds": 0.28,
+      "rawLogSha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9",
+      "codeCommit": "1d4ea15abe6ca67232edbe67a33888fdfd9e9f83"
+    },
+    {
+      "name": "progress",
+      "command": [
+        "corepack",
+        "pnpm",
+        "check:progress"
+      ],
+      "cwd": "app",
+      "exitCode": 0,
+      "seconds": 1.93,
+      "rawLogSha256": "e359f0a4685996b52babcac0375c3ef3187b05c9ee6e0b01f49f13ce63545d1a",
+      "codeCommit": "1d4ea15abe6ca67232edbe67a33888fdfd9e9f83"
+    },
+    {
+      "name": "root-evidence",
+      "command": [
+        "python3",
+        "scripts/verify_evidence.py"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "seconds": 0.44,
+      "rawLogSha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9",
+      "codeCommit": "1d4ea15abe6ca67232edbe67a33888fdfd9e9f83"
+    },
+    {
+      "name": "root-tooling",
+      "command": [
+        "python3",
+        "scripts/test_tooling.py"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "seconds": 0.49,
+      "rawLogSha256": "60edc1642bc553a74493a5c86c8b549d2b54d4c1316c73371f77e066e2776ca0",
+      "codeCommit": "1d4ea15abe6ca67232edbe67a33888fdfd9e9f83"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "app/packages/frontend/src/app/mayhem/mayhem-screener.tsx",
+      "bytes": 10321,
+      "sha256": "0dff24d8968da72e1572f7254c66a47bc7284915bfa42415e9138c57c66b81b4",
+      "gitBlob": "db794ff5293dda6e464cf7de4eb93da9cad3ac4d",
+      "baseSha256": "46758064806d594b578c9b1adddb4de4117085ceb8db1cf1c909cded8b518ca6",
+      "unchangedFromBase": false
+    },
+    {
+      "path": "app/packages/frontend/src/app/mayhem/mayhem-data.ts",
+      "bytes": 6061,
+      "sha256": "522dc05455962a43836a6b4211137aac9bb546f3b166b1d3e3e493289aed387e",
+      "gitBlob": "78bd6139515c100e9e9717d43247d5b57bdb13d5",
+      "baseSha256": "522dc05455962a43836a6b4211137aac9bb546f3b166b1d3e3e493289aed387e",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "app/packages/frontend/src/app/mayhem/page.tsx",
+      "bytes": 751,
+      "sha256": "4130d4a418ac319b46087638c0530fcda6841c13a828a791348263fc1b885830",
+      "gitBlob": "ae6d4dbfc7a853f7dd69e87f643bbe045806725d",
+      "baseSha256": "4130d4a418ac319b46087638c0530fcda6841c13a828a791348263fc1b885830",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "app/packages/frontend/src/app/api/mayhem-screener/route.ts",
+      "bytes": 984,
+      "sha256": "8de97b2e47037f06fb152e76079238b0a48884d1d931ed6b7e3890cd0fcd1a14",
+      "gitBlob": "5064ae35d17432563e981a7b1d15f6a4e93b7353",
+      "baseSha256": "8de97b2e47037f06fb152e76079238b0a48884d1d931ed6b7e3890cd0fcd1a14",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "app/packages/frontend/tests/mayhem-retry.flow.ts",
+      "bytes": 3570,
+      "sha256": "0eee5cf70cd81ce4c8f1901bfbae8b3c77ef21671fa5d65a16836de3400676bf",
+      "gitBlob": "1d77ab36f07fd42c97782351e0133bc186fa3e4c"
+    },
+    {
+      "path": "app/packages/frontend/tests/mayhem-retry-controls.flow.ts",
+      "bytes": 3488,
+      "sha256": "e85b906ca6df79f18028c93809706b3a320faaa3274efa88ab06c854c6acd9da",
+      "gitBlob": "855fcce17d9a919a6a4e7d5225a47550c3fcf131"
+    },
+    {
+      "path": "app/packages/frontend/tests/mayhem.spec.ts",
+      "bytes": 9590,
+      "sha256": "236e9d53b8b7a77af33e8782833cafa4fbbfd060233f3af27d174bfff74f1766",
+      "gitBlob": "2d3956ae7575f1897a2527cec0939fc64957b4d2",
+      "baseSha256": "236e9d53b8b7a77af33e8782833cafa4fbbfd060233f3af27d174bfff74f1766",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "app/packages/frontend/playwright.mayhem-retry.config.ts",
+      "bytes": 860,
+      "sha256": "c897230aaab15bb2b1228e5f11c26fb418e416e6e3c88b509027cf2e03ad4fb0",
+      "gitBlob": "ad6510fc1dccf41f28abf70531ae87c05f6ebcc8"
+    }
+  ],
+  "privateNegativeTraces": [
+    {
+      "commit": "8849efb800d2561da53ebfc7f8c95361bc0c5e47",
+      "bytes": 3817062,
+      "sha256": "aa0decaad512b381e36da7612284b634d3c6c5f8b537743a15094b6a73778851",
+      "retention": "Full negative trace retained privately; selected raw JSON/log/PNG published here."
+    },
+    {
+      "commit": "6b67098b77693aff008e92355984e661162d1e10",
+      "bytes": 3273917,
+      "sha256": "4110060ea92753b12569ec82330e3e75a58527d297542acc6408404b690751d0",
+      "retention": "Full negative trace retained privately; selected raw JSON/log/PNG published here."
+    }
+  ],
+  "overlap": {
+    "inspectedMain": "604917c16410d67d9b981305e28e160a93728f50",
+    "baseProductIdenticalToCurrentMain": true,
+    "openPrPages": [
+      100,
+      100,
+      100,
+      47
+    ],
+    "related": {
+      "1307": "Only integer query validation in API routes; no screener component edits.",
+      "1499": "Backend per-coin trader board; no Retry UI.",
+      "1547": "Competing Explore navigation; private Explore packet left unpublished."
+    }
+  },
+  "limitations": [
+    "Chromium development-mode local workflow at1280x800 for new focus cases; no screen-reader, other-engine or production-build claim.",
+    "Actual503 is retained; no successful market response is substituted in the3 new cases. Existing controls include explicit synthetic datasets and actual failure states.",
+    "No captured original Retry interaction is asserted. This fixes a reproduced defect in the maintained reconstruction.",
+    "No original captures, SDK source, API/data/query logic, feature ledger or prerequisite packets are changed."
+  ]
+}

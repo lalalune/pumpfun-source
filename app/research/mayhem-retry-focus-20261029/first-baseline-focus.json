@@ -1,0 +1,27 @@
+{
+  "before": {
+    "tag": "BUTTON",
+    "id": "",
+    "label": null,
+    "text": "Retry local adapter"
+  },
+  "loading": {
+    "tag": "BODY",
+    "id": "",
+    "label": null,
+    "text": "(() => { try {\n const root = document.documentElement, pathname = location.pathn"
+  },
+  "after": {
+    "tag": "BODY",
+    "id": "",
+    "label": null,
+    "text": "(() => { try {\n const root = document.documentElement, pathname = location.pathn"
+  },
+  "status": 503,
+  "code": "MAYHEM_DATA_UNAVAILABLE",
+  "reads": [
+    "http://127.0.0.1:3010/api/mayhem-screener?limit=60&offset=0&includeNsfw=false&filter=all",
+    "http://127.0.0.1:3010/api/mayhem-screener?limit=60&offset=0&includeNsfw=false&filter=all",
+    "http://127.0.0.1:3010/api/mayhem-screener?limit=60&offset=0&includeNsfw=false&filter=all"
+  ]
+}

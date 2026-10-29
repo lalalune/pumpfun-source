@@ -250,11 +250,41 @@ export default function MayhemScreener({
       </div>
 
       <div aria-live="polite">
-        {loadState.kind === "loading" ? (
-          <section className="mayhem-state" data-testid="mayhem-loading">
-            <span className="mayhem-spinner" aria-hidden="true" />
-            <h2>Loading local screener data</h2>
-            <p>Checking the read-only data boundary.</p>
+        {loadState.kind === "loading" || loadState.kind === "unavailable" ? (
+          <section
+            className="mayhem-state"
+            data-testid={
+              loadState.kind === "loading"
+                ? "mayhem-loading"
+                : "mayhem-unavailable"
+            }
+            aria-busy={loadState.kind === "loading"}
+          >
+            {loadState.kind === "loading" ? (
+              <span className="mayhem-spinner" aria-hidden="true" />
+            ) : null}
+            <h2>
+              {loadState.kind === "loading"
+                ? "Loading local screener data"
+                : "Screener data unavailable offline"}
+            </h2>
+            <p>
+              {loadState.kind === "loading"
+                ? "Checking the read-only data boundary."
+                : loadState.message}
+            </p>
+            {loadState.kind === "unavailable" || retry > 0 ? (
+              <button
+                type="button"
+                aria-disabled={loadState.kind === "loading" || undefined}
+                onClick={() => {
+                  if (loadState.kind !== "loading")
+                    setRetry((value) => value + 1);
+                }}
+              >
+                Retry local adapter
+              </button>
+            ) : null}
           </section>
         ) : loadState.kind === "invalid" ? (
           <section
@@ -267,17 +297,6 @@ export default function MayhemScreener({
               The response was rejected. No partial or fabricated rows are
               displayed.
             </p>
-          </section>
-        ) : loadState.kind === "unavailable" ? (
-          <section className="mayhem-state" data-testid="mayhem-unavailable">
-            <h2>Screener data unavailable offline</h2>
-            <p>{loadState.message}</p>
-            <button
-              type="button"
-              onClick={() => setRetry((value) => value + 1)}
-            >
-              Retry local adapter
-            </button>
           </section>
         ) : coins.length === 0 ? (
           <section className="mayhem-state" data-testid="mayhem-empty">
