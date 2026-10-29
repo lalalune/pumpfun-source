@@ -61,6 +61,7 @@ export function normalizeUserSearch(node, roles, imports = {}) {
     } else if (value.type === 'BlockStatement') {
       const scope = new Map();
       for (const statement of value.body) if (statement.type === 'VariableDeclaration') {
+        expect(statement.kind !== 'var' || functions.has(parent?.type), 'nested function-scoped var binding is not qualified');
         for (const entry of statement.declarations) bind(entry.id, scope);
       }
       current = [...scopes, scope];
