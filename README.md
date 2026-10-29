@@ -6,14 +6,14 @@ Source code for pump.fun
 
 | Program | Matched windows | Matched % | Raw-equal bodies | Normalized only | Unmatched | Whole meaningful ELF equal |
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| [Pump Main](programs/pump/README.md) |1,019/1,035|98.5%|188|831|16|No|
-| [PumpSwap / AMM](programs/pump-amm/README.md) |784/785|99.9%|784|0|1|No|
+| [Pump Main](programs/pump/README.md) |1,020/1,035|98.6%|188|832|15|No|
+| [PumpSwap / AMM](programs/pump-amm/README.md) |785/785|100.0%|785|0|0|**Yes**|
 | [Fees](programs/pump-fees/README.md) |585/585|100.0%|585|0|0|**Yes**|
 | [Mayhem](programs/mayhem/README.md) |441/441|100.0%|441|0|0|**Yes**|
 | [Donation Relay](repro/donation-relay/canonical-exact-selection/README.md) |492/492|100.0%|492|0|0|**Yes**|
-| **Total** |**3,321/3,338**|**99.5%**|**2,490**|**831**|**17**|**3/5**|
+| **Total** |**3,323/3,338**|**99.6%**|**2,491**|**832**|**15**|**4/5**|
 
-Matched windows cover **5,022,984/5,213,128 code bytes (96.4%)**.
+Matched windows cover **5,045,232/5,213,128 code bytes (96.8%)**.
 Raw equality compares complete instruction bytes. Normalized windows mask
 specified call/address operands and do not prove whole-program identity.
 These counts describe the selected maintained recipes; they are not a
