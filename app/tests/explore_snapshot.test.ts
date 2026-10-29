@@ -55,6 +55,18 @@ test("authenticates and validates the exact captured one-record response", async
   assert.equal(snapshot.coins[0]?.marketCapUsd, 3300.025664965192);
 });
 
+test('Explore provenance requires one probe and the recorded capture checkpoint', async () => {
+  const { bytes, probes, capturedManifest } = await realSnapshot();
+  const probe = probes.find((record: { url?: string }) => record.url === CAPTURED_COIN_ENDPOINT);
+  for (const duplicate of [probe, { ...probe, status: 503 }]) {
+    assert.throws(() => verifySnapshotProvenance(bytes, [...probes, duplicate], capturedManifest), /not unique/);
+  }
+  for (const captured_at of ['2026-10-29T10:48:45.546100+00:00', '2026-02-30T10:48:45Z', '2026-10-28T10:48:45']) {
+    assert.throws(() => verifySnapshotProvenance(bytes, probes, { ...capturedManifest, captured_at }), /timestamp/);
+  }
+  assert.equal(verifySnapshotProvenance(bytes, probes, capturedManifest).capturedAt, capturedManifest.captured_at);
+});
+
 test("preserves exact identity while allowing omitted optional fields", () => {
   const input = {
     mint: "MiXeDCaseMint123",

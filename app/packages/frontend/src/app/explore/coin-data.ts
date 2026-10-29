@@ -6,6 +6,7 @@ export const CAPTURED_COIN_PATH = "evidence/web/objects/cd3f926d4d318056";
 export const CAPTURED_COIN_SHA256 =
   "b41a41c70fb4b2548dfc166e9c31e1b5b9dfd73d233cf94ee384a9c5d75e017d";
 export const CAPTURED_COIN_BYTES = 1813;
+export const CAPTURED_COIN_CAPTURED_AT = "2026-10-28T10:48:45.546100+00:00";
 
 export type HistoricalCoin = {
   mint: string;
@@ -187,11 +188,13 @@ export function verifySnapshotProvenance(
   if (!Array.isArray(probes)) {
     throw new ValueError("API probe inventory must be an array");
   }
-  const probe = probes.find(
+  const matches = probes.filter(
     (value): value is UnknownRecord =>
       isRecord(value) && value.url === CAPTURED_COIN_ENDPOINT,
   );
-  if (!probe) throw new ValueError("Captured coin API probe is missing");
+  if (!matches.length) throw new ValueError("Captured coin API probe is missing");
+  if (matches.length !== 1) throw new ValueError("Captured coin API probe is not unique");
+  const probe = matches[0];
   if (
     probe.final_url !== CAPTURED_COIN_ENDPOINT ||
     probe.status !== 200 ||
@@ -207,9 +210,8 @@ export function verifySnapshotProvenance(
   if (!isRecord(manifest) || typeof manifest.captured_at !== "string") {
     throw new ValueError("Capture manifest timestamp is missing");
   }
-  const capturedAt = new Date(manifest.captured_at);
-  if (!Number.isFinite(capturedAt.getTime())) {
-    throw new ValueError("Capture manifest timestamp is invalid");
+  if (manifest.captured_at !== CAPTURED_COIN_CAPTURED_AT) {
+    throw new ValueError("Capture manifest timestamp is invalid or does not match the recorded checkpoint");
   }
 
   return {
