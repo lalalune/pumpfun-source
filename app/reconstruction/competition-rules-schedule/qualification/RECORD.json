@@ -1,0 +1,1795 @@
+{
+  "schema": 1,
+  "scope": "Measured source-backed native Rules schedule columns; one schedule-only CSS property, no dialog-dismissal/API/date/prize behavior change",
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "baseline": {
+    "head": "aaac6d9dcbcc14caa413260eda30350ba876a60b",
+    "tree": "90093d495be53ebcc9946cb0424bb409d5a06978",
+    "mobileCausalFailure": 1,
+    "desktopControlPass": 1
+  },
+  "candidate": {
+    "browserRuntimeHead": "9dc2b26ab4a1ebc619974ce3fecaad6d9785ad84",
+    "tree": "dafcbd94c57446ece713f220a133b5d96faade11",
+    "passes": 2,
+    "durationSeconds": 10.3
+  },
+  "evidenceToolHead": "5bde170bdc55dda71807d80d84c946d4bdb89ce0",
+  "evidenceToolTree": "b525bdef7cd38a7b4fcfd39119d6347ca91c6d6b",
+  "runtimeMapping": "Every selected runtime and browser-method blob is identical between browser-tested9dc and evidence-tool5bde. Only README and standalone source verifier were added after browser qualification. The source-evidence JSON field was renamed before9dc to clarify tooling reference rather than ancestry; it is not read by the browser probe.",
+  "observations": {
+    "390": {
+      "beforeLabelLines": [
+        2,
+        2
+      ],
+      "afterLabelLines": [
+        1,
+        1
+      ],
+      "beforeValueFlex": [
+        "0 1 auto",
+        "0 1 auto"
+      ],
+      "afterValueFlex": [
+        "1 1 0%",
+        "1 1 0%"
+      ],
+      "afterLabelWidths": [
+        77.078125,
+        77.921875
+      ],
+      "afterValueWidths": [
+        201.921875,
+        201.078125
+      ],
+      "dateTextEqual": true,
+      "prizeTextAndRowHeightsEqual": true,
+      "actualApiDataEqual": true,
+      "afterOverflow": 0
+    },
+    "1280": {
+      "beforeLabelLines": [
+        1,
+        1
+      ],
+      "afterLabelLines": [
+        1,
+        1
+      ],
+      "beforeValueFlex": [
+        "0 1 auto",
+        "0 1 auto"
+      ],
+      "afterValueFlex": [
+        "1 1 0%",
+        "1 1 0%"
+      ],
+      "afterLabelWidths": [
+        77.078125,
+        77.921875
+      ],
+      "afterValueWidths": [
+        304.921875,
+        304.078125
+      ],
+      "dateTextEqual": true,
+      "prizeTextAndRowHeightsEqual": true,
+      "actualApiDataEqual": true,
+      "afterOverflow": 0
+    }
+  },
+  "referenceTooling": {
+    "commit": "1eaf0fb1e3bf5e2d31d074adc1edcb75f0c40e7a",
+    "files": {
+      "tests/fixtures/rules-dismiss-http.mjs": {
+        "bytes": 2773,
+        "sha256": "3342d417b412b6461e77766b3a7febfdcef5210beac344e1b3075fcefe1bd348",
+        "gitBlob": "ee873ea2232ac70f892171fb1899a497f28a737a"
+      },
+      "tests/fixtures/rules-dismiss-next.mjs": {
+        "bytes": 3979,
+        "sha256": "bd0cc82ea468c0aca8971f4c1c875a491377bd87defb87dac905167f6cf0dd52",
+        "gitBlob": "56864b8dcd896a16dcf14b82d63aa9a429310054"
+      },
+      "tests/fixtures/rules-dismiss-next-fetch.mjs": {
+        "bytes": 1325,
+        "sha256": "55290eeda42a4784ad79b850c5146c5c8b9df203b869692b7c9d03c80364e452",
+        "gitBlob": "a569c2f9343597953fe58c2f99dbaaeab3eb28b1"
+      },
+      "tests/fixtures/rules-dismiss-server.mts": {
+        "bytes": 1500,
+        "sha256": "f3ac0b4a3a3311314581eb5f38d923bbc78ee0e74977370479a778b1ab832729",
+        "gitBlob": "2c1117f1b254f3b865b0fc5ea62c247a94a4361a"
+      }
+    }
+  },
+  "referenceScope": "Only four public1751 test modules prepared by hash and cleaned as untracked copies; no1751 feature ancestry or duplicated source/packet. Existing native backend/frontend of THIS branch are loaded.",
+  "commands": [
+    {
+      "command": "node reconstruction/competition-rules-schedule/verify-source.mjs",
+      "exit": 0,
+      "head": "5bde170bdc55dda71807d80d84c946d4bdb89ce0"
+    },
+    {
+      "command": "pnpm --filter @pump-reconstruction/frontend typecheck",
+      "exit": 0,
+      "head": "9dc2b26ab4a1ebc619974ce3fecaad6d9785ad84"
+    },
+    {
+      "command": "python3 scripts/verify-evidence.py",
+      "exit": 0,
+      "checks": 698
+    },
+    {
+      "command": "prettier --check competition-rules.tsx competition-rules.module.css",
+      "exit": 0
+    }
+  ],
+  "ownedNextExits": [
+    {
+      "code": 0,
+      "signal": null
+    },
+    {
+      "code": 0,
+      "signal": null
+    }
+  ],
+  "qualifiedInputs": {
+    "evidence/web/manifest.json": {
+      "bytes": 3026513,
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda",
+      "kind": "source-evidence"
+    },
+    "evidence/web/objects/2fe17dced92b840b.js": {
+      "bytes": 117439,
+      "sha256": "287cecc2183a9c0bbed6f7a7e77edca9fbbae4d4a9615d786fac4cc613e4ede5",
+      "gitBlob": "4b9bd9abacbbb669f9eb1a4502fd2f719f3fab1b",
+      "kind": "source-evidence"
+    },
+    "evidence/web/objects/4a341ff6a9551721.css": {
+      "bytes": 374665,
+      "sha256": "8bda96ca39398a46befb900a2d43a4e695ff9975ce6c4bb83c1f45bb47eced93",
+      "gitBlob": "2f797e887a27ac6c72023519392df552885f7bcd",
+      "kind": "source-evidence"
+    },
+    "evidence/web/objects/d8e580782f84e190": {
+      "bytes": 365706,
+      "sha256": "1108d23f5f07255ac5e380359b4acc96aabd3b36fb4b6409d1d686bc468050d6",
+      "gitBlob": "333863127e5c8466c5cbd014fcfe1fb8c86db724",
+      "kind": "source-evidence"
+    },
+    "package.json": {
+      "bytes": 3703,
+      "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+      "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8",
+      "kind": "runtime"
+    },
+    "packages/backend/package.json": {
+      "bytes": 463,
+      "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b",
+      "kind": "runtime"
+    },
+    "packages/backend/src/.gitattributes": {
+      "bytes": 144,
+      "sha256": "ee1de29b9f7e3ad90bfa29c59f2c7b8566e186c35e4583357b9bd9ba529d8d14",
+      "gitBlob": "6be7d1ab7db6dd9b5884d31eac65bbc74a2e6b7f",
+      "kind": "runtime"
+    },
+    "packages/backend/src/api-key-gate.ts": {
+      "bytes": 3436,
+      "sha256": "96f83cd8d51f76e7aabbb6bc84e3ca8d9fc813beca069d86683d40a0e016583c",
+      "gitBlob": "7ae70e5c4528a8e2a8484384a38cd3e5ee4e15f9",
+      "kind": "runtime"
+    },
+    "packages/backend/src/app.ts": {
+      "bytes": 20139,
+      "sha256": "ec514eae9721cd9bafdc46f32008d7bec45c769b4a4eca5623f66a55dffe7d77",
+      "gitBlob": "86056478b4e3c7737c706e2e656b26884c5b9e0b",
+      "kind": "runtime"
+    },
+    "packages/backend/src/callout-discussions-routes.ts": {
+      "bytes": 1902,
+      "sha256": "86d7c4b6bf40b80525ab3fefd00286f492f9bafae4751ed4f1dc118887c19430",
+      "gitBlob": "fd6b8d0c70d3c787f6f85ac693a19a82dff48ac0",
+      "kind": "runtime"
+    },
+    "packages/backend/src/callout-discussions-store.ts": {
+      "bytes": 17473,
+      "sha256": "d676837afd591d805be1d6607affc9219f3800bed7bc91e2f94488f052a09f42",
+      "gitBlob": "4b5c27127dd7faa32786f04fd7729647ee43fdf1",
+      "kind": "runtime"
+    },
+    "packages/backend/src/callout-list-query.ts": {
+      "bytes": 3354,
+      "sha256": "f68b916fb62fbdc0b0d1b13d4fcb1db4bb968471a228b6e7c725d30673f874d5",
+      "gitBlob": "5d30be5ce6316c2cc52b430a1553275713c35ff1",
+      "kind": "runtime"
+    },
+    "packages/backend/src/callouts-routes.ts": {
+      "bytes": 4069,
+      "sha256": "625aeed0279a3cdacb96c368318de960559692cbf6e919c284523ad6dc28fa8a",
+      "gitBlob": "bfee7f79c58aa9dcf1c9991fff3aab2c686e87ad",
+      "kind": "runtime"
+    },
+    "packages/backend/src/callouts-store.ts": {
+      "bytes": 21990,
+      "sha256": "d5b819fddb7710620f3034969f64a558d42b2252b4e97197dbdce8bbab81a19c",
+      "gitBlob": "afdd7473c9f5f0c4cc9de66eecf09045317389d9",
+      "kind": "runtime"
+    },
+    "packages/backend/src/competitions-routes.ts": {
+      "bytes": 6353,
+      "sha256": "015c426d3b17701963f0d2775479077d9a7457454ef8760292ef7ef7fc3a586c",
+      "gitBlob": "6b05f4dd9d6c7dee5cf278cf8453c71dff6f92db",
+      "kind": "runtime"
+    },
+    "packages/backend/src/competitions-seed.json": {
+      "bytes": 13777,
+      "sha256": "fb892b644b87cee997eca17b1c4d2ca36afecce6a242d5dc220f77934762ee62",
+      "gitBlob": "0bdf231bd31b77a70c381b75d37d13ff39fda1c4",
+      "kind": "runtime"
+    },
+    "packages/backend/src/competitions-store.ts": {
+      "bytes": 25714,
+      "sha256": "2881c1809fb34e990cbb1445bc981a541a7091a59053fd0afc82c7cae9d901e7",
+      "gitBlob": "ac5e6e85fc7b8569aa0f93810cf3ae1f6630830a",
+      "kind": "runtime"
+    },
+    "packages/backend/src/following-routes.ts": {
+      "bytes": 7730,
+      "sha256": "4e224c4f6fe3e699b83246f37c6de6cc53068f77724e4cc6a107a5ce25db533d",
+      "gitBlob": "84d103773b74bbb4b524f415aa79f73a3e558ec9",
+      "kind": "runtime"
+    },
+    "packages/backend/src/following-seed.json": {
+      "bytes": 982,
+      "sha256": "37a0e7710055e94dd6035e3e6c418eac16797095471601ed059440ee97530dae",
+      "gitBlob": "ce98ba7f593439437d80f58b4ad91dd21ddec846",
+      "kind": "runtime"
+    },
+    "packages/backend/src/following-store.ts": {
+      "bytes": 7976,
+      "sha256": "bc63ba6d8dc7e42794b3e2ea7519e6f8b8cf4339b54b77c6fd685aa81d76c97f",
+      "gitBlob": "411c7eece2057435f050fa7e550b674060050406",
+      "kind": "runtime"
+    },
+    "packages/backend/src/generated/developer-api.d.ts": {
+      "bytes": 742425,
+      "sha256": "cc2d60d86ed0a5cfbf1fc3478d4985d98bef13b4321099c700815f47e6c5bee4",
+      "gitBlob": "7558518f76566e6431fef556e2eb74b8eadd2d3f",
+      "kind": "runtime"
+    },
+    "packages/backend/src/home-feed-routes.ts": {
+      "bytes": 10533,
+      "sha256": "9268d0103bba84a218802cbb087f7cfe5b1798fd49a2aae1c36c47a640615dd9",
+      "gitBlob": "bcdf48a6e0dcb10f161b23e8c1aaec6489c808b7",
+      "kind": "runtime"
+    },
+    "packages/backend/src/home-feed-seed.json": {
+      "bytes": 6632,
+      "sha256": "bbfda45009eca2205cd8f0e57d2568f34ae07d771a14e943ab3f92b74232a88d",
+      "gitBlob": "458438eeff440ffbb117e0d3a0850b8ebd7a3ce6",
+      "kind": "runtime"
+    },
+    "packages/backend/src/home-feed-store.ts": {
+      "bytes": 23108,
+      "sha256": "c0a389ab454e1f9a099e8839370397d77c300391ea6fbeacd6143ebc0bb8b58b",
+      "gitBlob": "d6387645ec1ccfc0f07b01c070114add5761f164",
+      "kind": "runtime"
+    },
+    "packages/backend/src/leaderboard-routes.ts": {
+      "bytes": 4172,
+      "sha256": "387e00bfbf78c999e2c20ed6a99ad4db160c7e89e6d7b371120d2f68145f0d71",
+      "gitBlob": "1b718f58b67901e887d785e894b45130e0fa081a",
+      "kind": "runtime"
+    },
+    "packages/backend/src/leaderboard-seed.json": {
+      "bytes": 7356,
+      "sha256": "1b4c22de2cd08894d888e17c214e334ecbfc7021de4ebaa82f6d111e0bfbe6c7",
+      "gitBlob": "86e4e164e3bb10dd8dc2fbfb040c31f931701b6c",
+      "kind": "runtime"
+    },
+    "packages/backend/src/leaderboard-store.ts": {
+      "bytes": 9039,
+      "sha256": "fc0c357a68b75b8b458e78bc1583feb63af2137b1b68d20961b77233fb91e39c",
+      "gitBlob": "e865c8ec6683a4e6dbc8001d11b2915e66c78da7",
+      "kind": "runtime"
+    },
+    "packages/backend/src/local-media-routes.ts": {
+      "bytes": 5859,
+      "sha256": "2243a67591b080d1c6edcd9c453756797182e08300dec81de13fae0a8e898ea5",
+      "gitBlob": "4d408832564ad4eb5e97e01788483711c69369cd",
+      "kind": "runtime"
+    },
+    "packages/backend/src/local-media-runtime.ts": {
+      "bytes": 1851,
+      "sha256": "8357d81509a176f2162c532a5eec2e751d77e58c69fafd876ed5e958ee278666",
+      "gitBlob": "b10f53308d08efda5fdf840d8e3aff38d90fe56a",
+      "kind": "runtime"
+    },
+    "packages/backend/src/local-media-store.ts": {
+      "bytes": 16185,
+      "sha256": "3df807d6e5fe847afe21c794fc5a7c79cc8b3f6680e22b36b6afde1a569a1a44",
+      "gitBlob": "c4c949cb67d59cd529f5bcdf083396082289f748",
+      "kind": "runtime"
+    },
+    "packages/backend/src/payouts-routes.ts": {
+      "bytes": 2283,
+      "sha256": "fe897275679effa6a137a75dcd6f692b91eafd8e18338424a14b446060db81c5",
+      "gitBlob": "95e62437975e0795bf35f868c4fe4f2ebddb8cd9",
+      "kind": "runtime"
+    },
+    "packages/backend/src/payouts-store.ts": {
+      "bytes": 13328,
+      "sha256": "61ac888e6527a59767f217a2a6cbfc7c559ff550d08ccf7002f333193ea07720",
+      "gitBlob": "21c7ea7340dc3b5c5e410be94b04eabc4a8fb0c7",
+      "kind": "runtime"
+    },
+    "packages/backend/src/portfolio-balances-routes.ts": {
+      "bytes": 1859,
+      "sha256": "85dab34f518f5b5f7aa752643a5584e15f8daa9de8d6b2a310b21b726fa56273",
+      "gitBlob": "88fd9814ea5e45725ca9563026cbabbf487dcdae",
+      "kind": "runtime"
+    },
+    "packages/backend/src/portfolio-balances-store.ts": {
+      "bytes": 5636,
+      "sha256": "5c892e994e3897a7596d1cdeeb636dc01b18be5da449dd0233bd3decfe4ab0cd",
+      "gitBlob": "b3aba5769190b99344b6bf4b8e77b2e9440ee681",
+      "kind": "runtime"
+    },
+    "packages/backend/src/positions-routes.ts": {
+      "bytes": 4836,
+      "sha256": "8cdd2ac57e5705a067d29b80fb4239f104efdb5b84d78f35f2e0a5a847d4cc8a",
+      "gitBlob": "8c7000b0905dfedc734963bd48f458c92eee91a5",
+      "kind": "runtime"
+    },
+    "packages/backend/src/positions-store.ts": {
+      "bytes": 20007,
+      "sha256": "a5519e7d2f2c64c3403a4360c1a6bdf2e87f1e38bf1126b174026b7428fe9d6f",
+      "gitBlob": "305afb155cab6835411eae624d9103b193bdea3e",
+      "kind": "runtime"
+    },
+    "packages/backend/src/posts-routes.ts": {
+      "bytes": 8321,
+      "sha256": "9f583a64535e784d7f14f124f6f4367c37d9a0907790b7a598aa7a2ca06b3bb2",
+      "gitBlob": "ef3e91a50719deec88b134406c1dd3699d0ee92b",
+      "kind": "runtime"
+    },
+    "packages/backend/src/posts-seed.json": {
+      "bytes": 8394,
+      "sha256": "f4d12a7812b07be6dcef4b966430a086cba9e867ff89de669a95a74bdd73d705",
+      "gitBlob": "c6e0d10ad59e93d2b88528e9487a50c7d7d64d48",
+      "kind": "runtime"
+    },
+    "packages/backend/src/posts-store.ts": {
+      "bytes": 15113,
+      "sha256": "95cfd77f5161bd60f7e607609da5f424c00af9f568f822e62088cf127a43094b",
+      "gitBlob": "fe5966b43f4b5ecbccf02c70a6d89f3b74c7467e",
+      "kind": "runtime"
+    },
+    "packages/backend/src/schema-validator.ts": {
+      "bytes": 10094,
+      "sha256": "9317f75f3df5ffd981c2c53ed0eeeefdb27ff2d4e0751867fd67005ccf60a246",
+      "gitBlob": "7f9e823bceca94e40a919f8a8f9fce3aa3164b14",
+      "kind": "runtime"
+    },
+    "packages/backend/src/search-resolve-routes.ts": {
+      "bytes": 2897,
+      "sha256": "e3efb8349d74068e1aaf9a0425186ddb125a327116de470a5046e1927f3748ea",
+      "gitBlob": "8aaa562eb6e8733da82174c9e57073d98afeb646",
+      "kind": "runtime"
+    },
+    "packages/backend/src/server.ts": {
+      "bytes": 2500,
+      "sha256": "9dafb85952707355663ff27d01f3670b18ea1b2b7c79662ef537105ff929593b",
+      "gitBlob": "c0506f2f625e61bab93d33529da3328b783cc77e",
+      "kind": "runtime"
+    },
+    "packages/backend/src/user-trades-routes.ts": {
+      "bytes": 2604,
+      "sha256": "4bf3d0110c5d079b043c834838d06c69306d5f35de51b1796fe8db721fc3435e",
+      "gitBlob": "d7be9039ac1008542821cf741fdf2117045c3688",
+      "kind": "runtime"
+    },
+    "packages/backend/src/user-trades-store.ts": {
+      "bytes": 14530,
+      "sha256": "e1fe427062aa58d4ef5c4c699f036573003aefa91ebd76fac84e15129efd5a88",
+      "gitBlob": "661e377e6b97b0cd066989f470de7adbe8f28225",
+      "kind": "runtime"
+    },
+    "packages/backend/src/users-routes.ts": {
+      "bytes": 11198,
+      "sha256": "bd62660f6f62b6b7b8611ae48ffa486a3ad42e9a355ddfef547a4854ba9462a6",
+      "gitBlob": "4e75371764113dd1a4606f3f27010576704d8a9a",
+      "kind": "runtime"
+    },
+    "packages/backend/src/users-seed.json": {
+      "bytes": 3866,
+      "sha256": "56259663a146236df2f0e6e1d931df7cc2dda4d39ed7a090c18505434155b20d",
+      "gitBlob": "25865477c3b94183b1fdcd6c25b0a378643c6061",
+      "kind": "runtime"
+    },
+    "packages/backend/src/users-store.ts": {
+      "bytes": 11006,
+      "sha256": "469eddf271fa6103d885844f9e4fee2525717804f15b7d7c84c3066d88d818d1",
+      "gitBlob": "12ebd96fda0ff7a816dee57644cad17c103141d7",
+      "kind": "runtime"
+    },
+    "packages/backend/tsconfig.json": {
+      "bytes": 215,
+      "sha256": "cf0abfd9a01f5efbcfe57c66fdf5db57f5cc9791d48cc0667a74168d3626806c",
+      "gitBlob": "1a863bae065b07ea52a3a9b89b048c21f88876e2",
+      "kind": "runtime"
+    },
+    "packages/frontend/next.config.ts": {
+      "bytes": 483,
+      "sha256": "d2a146c48e81f3d08a93dfabad75ac47e540667779a368b367ffb63be8e4ce45",
+      "gitBlob": "6326d6c6274182f58c449f3f5bba914858023dfa",
+      "kind": "runtime"
+    },
+    "packages/frontend/package.json": {
+      "bytes": 1048,
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/[...slug]/page.tsx": {
+      "bytes": 2934,
+      "sha256": "0c94f171373e001317bf1f4354530bc202d9fad353be19327b32d0a4cab79efc",
+      "gitBlob": "962b75d5e289ddf442668f57d0f5522affcf66b1",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/api/go-bounties/route.ts": {
+      "bytes": 1080,
+      "sha256": "6db087b3c218c836ffd9435bf879553517020e24b06e42dcbe0664fdabe47232",
+      "gitBlob": "85d22070680b91a41ab990ed59fffd9bbad71208",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/api/holder-rewards/configuration/route.ts": {
+      "bytes": 239,
+      "sha256": "64ab83e8ae0f1e11848899829bd25b42914406191e33aa63c11d0dbf3bcdb3bf",
+      "gitBlob": "5eac23e8f40c730ac15fcf31bd0603b982cb3fb2",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/api/leaderboard/route.ts": {
+      "bytes": 6828,
+      "sha256": "1dd85005d96dc77388fdeda001c27d1c0c9383c9f5560ae5b4b833db294b0a54",
+      "gitBlob": "5d847458a033ae9cace6bb061b142cc3363404b9",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/api/leaderboard/upstream.ts": {
+      "bytes": 15898,
+      "sha256": "5d734a1147f8ee159409c274b37ac9558e6879bba87a13f56bd3c8fcaa70a757",
+      "gitBlob": "73c3e91e875f07b0dd9808ca1d2c0ff4ebd24277",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/api/local-users/search/route.ts": {
+      "bytes": 200,
+      "sha256": "6f662bac0dd42adb3ae2e0b966a2428a0a2a6ab902d55d0b0dcb822d6a8b84a9",
+      "gitBlob": "1716fb1d59218d514ec935651c8b9659588b8867",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/api/mayhem-screener/route.ts": {
+      "bytes": 984,
+      "sha256": "8de97b2e47037f06fb152e76079238b0a48884d1d931ed6b7e3890cd0fcd1a14",
+      "gitBlob": "5064ae35d17432563e981a7b1d15f6a4e93b7353",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/api/portfolio/pump-record/route.ts": {
+      "bytes": 225,
+      "sha256": "e54d2351f713901c192a7bd041fd9804b187a4f8972dec43e2dc261ccb5b4f58",
+      "gitBlob": "615434bba063e941a999654b80591c45d36b68f1",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/api/portfolio/route.ts": {
+      "bytes": 1722,
+      "sha256": "3d4bae26bc0a0a5dbfb47376d264ab3980ef0550a403114c1e76104a2ba216bd",
+      "gitBlob": "5a08b4ea4da37d093449bbe432dac014f140165f",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/app-shell.tsx": {
+      "bytes": 12455,
+      "sha256": "113c51387777a1ee3d9258725f8730756b500276e74d920410a5ecca856ff702",
+      "gitBlob": "0882cca4936e2a38bb23e2aa73e86bc5b260d4ef",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/auth/auth-control.tsx": {
+      "bytes": 15012,
+      "sha256": "2ef51c58a9fb0f53b235721d70918bf2fce42ed73f783293b9702cd7bfdaa430",
+      "gitBlob": "ce273fe2b68270b519c79a825d3650732238b31d",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/auth/auth-controller.ts": {
+      "bytes": 3863,
+      "sha256": "06d5d325c9a73f2e31db0cbbecadddc743a867afcefd4ea12485fc7bc9b4f67c",
+      "gitBlob": "b80d0c6c9b9f74c33b534e12715bec5581aaafb8",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/auth/auth-copy.json": {
+      "bytes": 1345,
+      "sha256": "2d9a53cffb1c0dd7eda22ccc7696a95de1b48e43bbead4c0729d30caaab4216a",
+      "gitBlob": "0e52015e8c447035e42baeae381a9fd96573cb5f",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/auth/auth-dialog.module.css": {
+      "bytes": 6035,
+      "sha256": "4acbee07e081c9166242c540a450ab05f921670a7d08ff7eea1d35b326b589c3",
+      "gitBlob": "887f5b5cc6e3a2fd0cbceed8b08812547bf382ae",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/auth/auth-model.ts": {
+      "bytes": 4554,
+      "sha256": "fc3c0d942c2c49317e789f482a8d1cf496208b15f964024cd02f75c109f493f0",
+      "gitBlob": "c08ab5cd3867d37635b97d6702817160bb2c95c9",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/auth/public-wallet/controller.ts": {
+      "bytes": 10540,
+      "sha256": "59241569d7a3e7286b5f13542a9f6c04c209dc097dd1e50bf5d8702214a24ad6",
+      "gitBlob": "f2cf0e2662a4cd6da587a752766744639c8cf3f0",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/auth/public-wallet/panel.tsx": {
+      "bytes": 3245,
+      "sha256": "6ae003e49f5c39f7643b11aacd22dd5537af3c13cbdbd248c5be22f3153c7a9f",
+      "gitBlob": "6b98548f7b86c6fead2a01e4268cb4b4926e3d77",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/auth/public-wallet/public-wallet.module.css": {
+      "bytes": 847,
+      "sha256": "db1318894e51484d0215679e3d8093f4a513e11b9f2f43aea93ae5049c9f3ab9",
+      "gitBlob": "456251d9c0ba2ff451227b1781ecf136c9e073d2",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/auth/sign-in-control.tsx": {
+      "bytes": 523,
+      "sha256": "5709421d11fbf219c2f6e2e9037e9d6ddf2ccac0af3ca33c6ba04c250f3de810",
+      "gitBlob": "5d5c9803e9c9e351adb65949c535dcba1e490cd3",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/captured-root.css": {
+      "bytes": 6133,
+      "sha256": "ea510ac3612d58b02605fbb64c8738ae3446978ec657c2139878b9deb068761c",
+      "gitBlob": "46efe6ce70bb3d217013dff5d2970862fdfa0d73",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/captured-shell.css": {
+      "bytes": 3305,
+      "sha256": "06b9de553cfd357d2407170a3137bb3356563e9c2576769e9f8d783a314c6df9",
+      "gitBlob": "69bdba711379338d4b668e2526a9f74d2a788b07",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/create-coin-form.tsx": {
+      "bytes": 15275,
+      "sha256": "e2b3ffe7d5bccab73b52c34ab31b05bb80166a4a609ec7fdf235cefb2d707482",
+      "gitBlob": "9904c504896d327059410b3bae4e3a5633e6749d",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/create-coin-validation.ts": {
+      "bytes": 3474,
+      "sha256": "3a86c12ff1cfc1bd365b20afafbfbf8a737fccedf2a9d878929aef49101ffaca",
+      "gitBlob": "741bb73d4c3e9f078002ca60f78b87a1107f2927",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/create-draft-links.module.css": {
+      "bytes": 941,
+      "sha256": "943a5cba1cc7efccc4d40ed581e52af5b07a13977ba831c011fded1dd4e84ec9",
+      "gitBlob": "0f3821ecfb2213bbfdb82353c0f7b16a0b81e270",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/create-draft-links.tsx": {
+      "bytes": 4052,
+      "sha256": "f0aeefd8ed7c79c2f8a38049580badb191656188d51c770de58c66f5fc9062a3",
+      "gitBlob": "7ab8f02b41509b5dc2b3590820561df14ddb8036",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/create-video-input.module.css": {
+      "bytes": 721,
+      "sha256": "fb72769a776d35824e555fdaa26c7da7f8438e942d02d51a20723279d1137a5f",
+      "gitBlob": "289d1ef9c80385e08e920e66d36c7bbe395b2c0d",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/create-video-input.tsx": {
+      "bytes": 4242,
+      "sha256": "beb12e757c22f736fcf44ff6fecafb4fc161b7331016c59e930365726e67b6f7",
+      "gitBlob": "58064605615bda3e67d31080fcc08a5ff06068a0",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/create-video-preview.ts": {
+      "bytes": 10737,
+      "sha256": "5f7f3a42352afdc37f0550cf9cfb267591678cabcdb6f3d8fc3b01539d74378a",
+      "gitBlob": "78df677a03d4ef7d969f588459bdbcfed8151b25",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/docs/fees/page.tsx": {
+      "bytes": 319,
+      "sha256": "d32697acaf66908297391a209a9d82d62bd21146fee6f4976a3e6067feb9d6c2",
+      "gitBlob": "29e42c3af7fbaccedc53bcb1c2913a02d165d41a",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/docs/privacy-policy/page.tsx": {
+      "bytes": 336,
+      "sha256": "45ca58d3d6b7e520c67c06545177ef0e6160daf623aa290ed5858591e77c5ac7",
+      "gitBlob": "542ba7c79a7d4693b9c0ef2e922b27af581253b9",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/docs/reference-data.ts": {
+      "bytes": 14582,
+      "sha256": "7d3e0299e029e3b335bc2f21dce12e06f5a8a70dd71d0ebe608fe1702c9cbb42",
+      "gitBlob": "f8cad9e6fa6aedc420b402e026dd4bb9ade0e82c",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/docs/reference-loader.ts": {
+      "bytes": 1034,
+      "sha256": "26c1d9bce3cb213038b86f83b2705d6754bcf8fed8e58f81eaca511ef8320c11",
+      "gitBlob": "5ad6111a50dc4f692cbe1fd44c73d96f37019791",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/docs/reference-page.tsx": {
+      "bytes": 5663,
+      "sha256": "7497340c441c1dbb4a1d0e88c3d8c2ef512b8a74b221a298ad4055aeb4d2237e",
+      "gitBlob": "9435d909fff5886d5973df87e7d39505da00e93a",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/docs/reference-pages.css": {
+      "bytes": 3583,
+      "sha256": "2e22154c1c71d08bec30925d08d661ca1eef2d91195c60d398bcb18896d1f00a",
+      "gitBlob": "5e76dbd16323eb00f88fa5589853f7e58fe2e7ec",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/docs/reference-pages.generated.json": {
+      "bytes": 370982,
+      "sha256": "a1f105accd47c86ac2ee320081a17d4e907ea1ccc9f272444f4a6a592d05f5b0",
+      "gitBlob": "1fbf1243c3a5611bce41eb05a44de397672c96d2",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/docs/terms-and-conditions/page.tsx": {
+      "bytes": 328,
+      "sha256": "4390fa876cfca4b78ef8707448dea84e315bc798854dcae3a863272350123ec3",
+      "gitBlob": "544a8aab15bfc50d0bc24e51d49065c52188fb00",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/explore/coin-data.ts": {
+      "bytes": 7474,
+      "sha256": "ad8aef762b772e1f98dda5f1ce7656d3e8e9de8e6d7c7f53cc31858565008011",
+      "gitBlob": "2ddbaa1f01e1390ffafa37d160325b3de48cb968",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/explore/explore-controls.tsx": {
+      "bytes": 2850,
+      "sha256": "76309cbbfa2e2aa60d820b453990163e29c8f4439fcfcd3240569c216d99c455",
+      "gitBlob": "aa7f8dc64f4a341dd7763b47aa98a9d34137555e",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/explore/explore.css": {
+      "bytes": 6223,
+      "sha256": "45f735b7363566050ed46cc4abdfebc32f24a7f2828f8f7ec8d2aa459f50d877",
+      "gitBlob": "86c62b0818f0cd63b0c329b19570e1ce97187100",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/explore/page.tsx": {
+      "bytes": 6011,
+      "sha256": "cf9c0c7802edb57295e566fbd7a7e3b88e23e313276f816c27ae158a4d5f7dd8",
+      "gitBlob": "a5ad8e1d61554a27fef12a810ab155dbacd4ac28",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/explore/snapshot.ts": {
+      "bytes": 1181,
+      "sha256": "19aae7c38920787c12479d633d85e8def91142a1d9167a251e0a18a380951e8d",
+      "gitBlob": "b7cb80756464a45a6c3467ddb8f35a7a11b49c12",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/globals.css": {
+      "bytes": 59893,
+      "sha256": "aa8b5c22bb2b4f057989b79107e108d69f5200d94c1502c3fd0e5376ad37ec91",
+      "gitBlob": "08651075813b909d3459daf74cc70b982abb2ce3",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/go/evidence.ts": {
+      "bytes": 973,
+      "sha256": "0ad153022ec54e377b2794b23f6a575023f3ea0186188a96f9ab69248ff0de33",
+      "gitBlob": "28c0fa8db2df9d53f6d7e532e15ba052a03b4487",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/go/go-data.ts": {
+      "bytes": 20419,
+      "sha256": "bd286db83b05380c846462596f5519f80c8e1424f35bb64247fbaf9d231b88d9",
+      "gitBlob": "33ec9c144bd3c3f2924d5148ac6aa1e0c47724d8",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/go/go-explorer.tsx": {
+      "bytes": 19738,
+      "sha256": "b2ea8b650da8b4f60956618a5a4613dbef2f7f727ccba71234539f1373f89707",
+      "gitBlob": "317951c14af1e646151c497a1a78ce27d79b0f15",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/go/go.css": {
+      "bytes": 8694,
+      "sha256": "ee4c467720816a7a525c449c428dc0c7a894307b5831b356a7a89f3fae1f567b",
+      "gitBlob": "a10d870f313015afd6fa259be9ce6a5cafa67b23",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/go/loading.tsx": {
+      "bytes": 210,
+      "sha256": "8069890bd801a8686859ac4be89ff0c3e1df80d240a1f3b2c6dfa29261d1e411",
+      "gitBlob": "ca53aa1985f736a030cb931915e6bd3fa9196250",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/go/page.tsx": {
+      "bytes": 3552,
+      "sha256": "9d8174c9cec28a0f84f89615f592fafc19abfec87cc11cce0fe9ca87e85c1147",
+      "gitBlob": "f964496693df8003666d112b5bd9d9770741d8b7",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/holder-rewards-config/client.ts": {
+      "bytes": 4509,
+      "sha256": "927ed51d64cc20d5633e00a6072ba2b628c13d54752f8dda4ad7aa077a1f9ca4",
+      "gitBlob": "78c517e80c21ca7800fca70d36af8c3c49a26c41",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/holder-rewards-config/contract.json": {
+      "bytes": 878,
+      "sha256": "f4848ed071257f8e11b1d8b16daf86119af2d98e147099af43565789fe14d6e2",
+      "gitBlob": "97e3e622548b1597ecb544691b07bbc9a00a19f2",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/holder-rewards-config/handler.ts": {
+      "bytes": 2066,
+      "sha256": "e3620c2a2cabb7e03e8fecee6b6755d9e8de91c8a211996cef77f6bc22cd2a59",
+      "gitBlob": "3beffe3f806c1e4824162d748e6ea42096915e4e",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/holder-rewards-config/panel.tsx": {
+      "bytes": 7898,
+      "sha256": "931fa20f5d459dbef6b34677947801fe8f3c45036bbda19f6502f2804d14427a",
+      "gitBlob": "884f26b8f7fbf5f12cd5aa16dbb1e03ff8e10e83",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/holder-rewards-config/server.ts": {
+      "bytes": 6499,
+      "sha256": "338ec763fa88c100e18e9e6632496794727d8d8cc6eadcb793191d67d53aac3a",
+      "gitBlob": "579e6774f561baf0dacdad10ebc6ecde43bbdf09",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/holder-rewards-config/types.ts": {
+      "bytes": 882,
+      "sha256": "189f96fd16349b145e5f39f6ddaf8721f45fa50bd09da7c3de3e83460099c357",
+      "gitBlob": "f9e7b8e46a1bbfe42b095da59f2b79530aa0cc27",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/holder-rewards-derivation.ts": {
+      "bytes": 1013,
+      "sha256": "01d5dc18ac17bfd7ea78eaa4d777166f3decbb03cefe8e601385197bc891b1b6",
+      "gitBlob": "bb6c12bbe665f6418ee1fbd0cca38855aa0b9180",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/holder-rewards-inspector.tsx": {
+      "bytes": 9351,
+      "sha256": "2e6378ec3376bc17c2b331a03b531263f20a6d1417075dcf9aa66e9d3b743e82",
+      "gitBlob": "4c7a036cacfec4dc2d0a895ddb95699d81e166a2",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/holder-rewards/public-balances.tsx": {
+      "bytes": 7431,
+      "sha256": "124484032da7a3fa41f8ef085324ca5d2d2a580879cfe47f8b63aa9379f6fc18",
+      "gitBlob": "ae4235772b9ea7296737356305d85f510b4aa9f2",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/holder-rewards/read-balances.ts": {
+      "bytes": 2230,
+      "sha256": "b768eaf8dddb2668a14b88945265ce99f5bb2f1636cf8eb5fe299e10aa07d5e1",
+      "gitBlob": "f2b6270d5f9d677ad70c447cee644c180a901238",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/layout.tsx": {
+      "bytes": 970,
+      "sha256": "dd5ec133e8041238e8579bacf621644ff53a1a19f1a05944899c589de293959b",
+      "gitBlob": "24fdd3aad86aa30dd5ebfa95abe9962531c8a2cc",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/leaderboard/competition-rules-copy.json": {
+      "bytes": 3337,
+      "sha256": "88f8ede82071e4c771ecfa7336ced49b1ffda151a936981b791a0004684a64b9",
+      "gitBlob": "aaa4312623d07929c7a1a884c8cfbf8f6f2518ed",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/leaderboard/competition-rules-model.ts": {
+      "bytes": 4526,
+      "sha256": "1f26aa03c58fd088a1bb9413a70d855701500111a3d40aa4cf4d0b326d2231e4",
+      "gitBlob": "349f23edb0ff533981752645744f7dbb5f644ab6",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/leaderboard/competition-rules.module.css": {
+      "bytes": 2014,
+      "sha256": "454a1f534ece2305c61a2f180b26981c372749e6b8b79d6e7cac23f4994b23ce",
+      "gitBlob": "1ed8afc130f0b5325850653f2f0d15417f929254",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/leaderboard/competition-rules.tsx": {
+      "bytes": 5952,
+      "sha256": "076e72f218da3b34a5883024c4697bcd272b60f6dcf91666a269425751f17a2d",
+      "gitBlob": "e0edd0ec9ee1bb0b24f45dc715c640697f5f7065",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/leaderboard/creator-pagination.ts": {
+      "bytes": 536,
+      "sha256": "64e80be7edeb09e1300a37aa39afd48229d9c4f96ca11120e6e3ee174d63631c",
+      "gitBlob": "6b30744297bbba786d6537b7e84ba70693ef07d6",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/leaderboard/leaderboard-client.tsx": {
+      "bytes": 26955,
+      "sha256": "02310d1e8050387ca314da56dc6d560a31c847d99ada6ac62d2def335f542c48",
+      "gitBlob": "e7dd4d0f92421d6869ad83d8322ba32328d9bd34",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/leaderboard/page.tsx": {
+      "bytes": 1225,
+      "sha256": "a1c3e92169a5fb4d7ff6620618c930f051ef2c03ed752c9c92a5a30fa2cc20d5",
+      "gitBlob": "61ef5fd37fe6f4c13d84271002c6d9048f489066",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/leaderboard/types.ts": {
+      "bytes": 10744,
+      "sha256": "d3ffe9f9b6fe990766fc8fb7b26c6192064d2413298c30392f906dd24455162a",
+      "gitBlob": "b65661a9e321ad3dbf7cb99fce052784c67a70dc",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/live/evidence.ts": {
+      "bytes": 991,
+      "sha256": "601b3a12f1abfd1bc9356c50462aab1659860391bd385559ef25c157cb68e21b",
+      "gitBlob": "1b158c5c7219796a705feef42d231675edd3f1e2",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/live/live-data.ts": {
+      "bytes": 9137,
+      "sha256": "8157b194492a474dc50a2c15bfa82d20338f5b44b366eb932250f2e0428a7463",
+      "gitBlob": "db0fc6051e0f67f71013e0a664c429a729e0f9a7",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/live/live-discovery.tsx": {
+      "bytes": 18667,
+      "sha256": "33a387dbbb99b5015c899a370b4c82c54cfc6a4b1895a62fa98483bb4cd1f922",
+      "gitBlob": "86c3e55ea59a73fe4a60fd33868a11147b33746f",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/live/live-filter.ts": {
+      "bytes": 2068,
+      "sha256": "813264ec2a4d8ea8cae32fb84d4d583a7b67db79fccd05261bad9388bec505f6",
+      "gitBlob": "083003088f656644ef5aada2a902d3d70d426864",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/live/live.css": {
+      "bytes": 10625,
+      "sha256": "d6ed65dcfb13b49c75d737de0319877e73561b69cd040ea4e454c9e38212803e",
+      "gitBlob": "fcc5dc5ed179742b4fa6ea6c4ed822a0a6719d7f",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/live/loading.tsx": {
+      "bytes": 218,
+      "sha256": "2cec31bf3ba079c221bfdb7adbca7285ccc6e1fa7b1bde18d5ce7b9a31f322ac",
+      "gitBlob": "ca3f01d64654bb93199f762f26c75fa1afeb72bc",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/live/page.tsx": {
+      "bytes": 2931,
+      "sha256": "b316a1ac6d3781b16d9d25b11d18728f4e0fc3635e3ea51ce84d5dfc8082784f",
+      "gitBlob": "0c2507368c5952684f2ee61367336b71f917c061",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/mayhem/mayhem-data.ts": {
+      "bytes": 6061,
+      "sha256": "522dc05455962a43836a6b4211137aac9bb546f3b166b1d3e3e493289aed387e",
+      "gitBlob": "78bd6139515c100e9e9717d43247d5b57bdb13d5",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/mayhem/mayhem-screener.tsx": {
+      "bytes": 9741,
+      "sha256": "46758064806d594b578c9b1adddb4de4117085ceb8db1cf1c909cded8b518ca6",
+      "gitBlob": "21d2c22c3c182632e146df95b55ff58ff3c8f786",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/mayhem/mayhem.css": {
+      "bytes": 6173,
+      "sha256": "40322adc302e944ce36df65c19860f6f8161505696aff654382579feffbeb75f",
+      "gitBlob": "e522caa3ca3db59eccc42491de2bd848a1dd2c00",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/mayhem/page.tsx": {
+      "bytes": 751,
+      "sha256": "4130d4a418ac319b46087638c0530fcda6841c13a828a791348263fc1b885830",
+      "gitBlob": "ae6d4dbfc7a853f7dd69e87f643bbe045806725d",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/not-found.tsx": {
+      "bytes": 625,
+      "sha256": "c28cf910f84fc6c6aabb2ad4aa92b292f76f87bc0befdde4e5bfdc2ee0edcf84",
+      "gitBlob": "feeef95efc775a03f687a3029ad92c5fded28f81",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/page.tsx": {
+      "bytes": 4248,
+      "sha256": "c7d6c2443e2a3c603c69454c950e56b94f1f375d984187861adab42d7e9005cc",
+      "gitBlob": "80a793dafd82b23e719d3fe4a1f6fd959db89bfe",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/portfolio/page.tsx": {
+      "bytes": 1126,
+      "sha256": "c46a97097aa798a49baee730634b977844f9f95da5871b56bf377d566a0e154d",
+      "gitBlob": "9f706ca43c67930072cbc8804418b02752f6e07b",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/portfolio/portfolio-client.tsx": {
+      "bytes": 13583,
+      "sha256": "b3ce685a6317add1126d9ba3a027863d5a9d62fe4dc4f9c1b1b63de1bea61723",
+      "gitBlob": "52f515d761fbadcc25a286d8da76dba76c16cd65",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/portfolio/rpc.ts": {
+      "bytes": 22157,
+      "sha256": "600e4a05c569dec818662b4be38ea513ad20a4b4bb7fb6bc1783a088c569259f",
+      "gitBlob": "119a38493f3e5e39ba58419b0a83c44e0383669c",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/portfolio/types.ts": {
+      "bytes": 5499,
+      "sha256": "059bce99fd82d1e7166c6cb57577abd6be2a11d606f76b4d20caf97f9b021122",
+      "gitBlob": "356c5280b3f3d53b7d38368f207e06895208b616",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/profile/[id]/page.tsx": {
+      "bytes": 2824,
+      "sha256": "5728ebdc59d96c6b3ddfcdf4371279e5ca93147c3e3ece3c249d5a19ba045447",
+      "gitBlob": "e9bc279d3c0dbab65ff965d3bb69e867fa76a945",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/recovered-fonts.css": {
+      "bytes": 63739,
+      "sha256": "83a7d307b6b3624e081bda08d282a10d3852cf2577e65aa50bdf72e2f507f8e6",
+      "gitBlob": "2a6fbc3475c22dd55ed4d8a29aca645b18fdca52",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/recovered-tokens.css": {
+      "bytes": 3331,
+      "sha256": "14804137a142561602d60e11af5a3b5dcb9f4281df03d098443adf5f4e7eb1ca",
+      "gitBlob": "d5af4afc9d5aae97bd03d07f17e3ccb12bf7d513",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/wallet-program-record/client.ts": {
+      "bytes": 3356,
+      "sha256": "e78eb86b749089c0441135a378773925e557415459828e27b05fa938ea944664",
+      "gitBlob": "8c89ec3b75ada924c41ee51477d1867f0c4a7cfb",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/wallet-program-record/contract.json": {
+      "bytes": 2035,
+      "sha256": "8b82d6b5f1a3852dcd23200e3313dc48353a3ebcae8632831434e541613a1700",
+      "gitBlob": "bc1c05a99cef4ea29c4c020ddf5e9494cf8eb182",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/wallet-program-record/handler.ts": {
+      "bytes": 1543,
+      "sha256": "8967eea443591d61caec4768aa537d2b77df55a6f95c16fb00581bf46494991c",
+      "gitBlob": "00d9edd08bf664af990185a7c1a099a392cb6b8e",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/wallet-program-record/panel.tsx": {
+      "bytes": 6080,
+      "sha256": "f7fb670be01bf270c5ac90978ca33bc82a85e5d996083345f52835f9a0c27e51",
+      "gitBlob": "02a8f6a6bbe2e7a19b62e338ddddade4800067b0",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/wallet-program-record/server.ts": {
+      "bytes": 4710,
+      "sha256": "11257147e8ced311837b151e2cd4af6620ca9650f9ef0f08fc9ed849c7e7a770",
+      "gitBlob": "c437cfee73132392fa6e4a3c6c5b9ad524d39752",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/app/wallet-program-record/types.ts": {
+      "bytes": 660,
+      "sha256": "d38e5a7313555a460d9725b7ccb94390814ff75dc84781af08194259975d5074",
+      "gitBlob": "2e551f6e8418c27499a6dfef1e93c395e1384d1b",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/coins/CoinCard.tsx": {
+      "bytes": 2194,
+      "sha256": "5bd353a6a5fb02cd4db872735f8a5a6b78a2df731eba34c7c08a814cf9f07eea",
+      "gitBlob": "95eef1b5425643f0e5dc74f5a996486e8c74556e",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/coins/CoinGrid.tsx": {
+      "bytes": 881,
+      "sha256": "e223c494d392522b09710b8ab0039f7f10edc2ec52e5fde8500d7473eab8143c",
+      "gitBlob": "9976d94f7ed214143f15a1862829fc8bf494943e",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/commons/InlineScript.tsx": {
+      "bytes": 566,
+      "sha256": "b81a02f27d93649c40daf309026aa574f3f7217f5093281c8b5df0b75cc356e5",
+      "gitBlob": "421b88ae9a5fcc3f855284d368c5a112c51cd242",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/commons/ScaffoldNotice.tsx": {
+      "bytes": 587,
+      "sha256": "176ca2a66f13a334e28e1683ee93a1fd910c1113f5fbb68e3c07be9a5665c322",
+      "gitBlob": "15f793e436092b61c35022c3c3284cf430fdd715",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/feed/FeedItem.tsx": {
+      "bytes": 3306,
+      "sha256": "64812ac899259ab232baf89e99f6c3104bf5831f1a5fbeb9316f3b166dc2cb4d",
+      "gitBlob": "c6074a02cf1a4085503c6bb8eca20936675c2e1f",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/feed/FeedList.tsx": {
+      "bytes": 905,
+      "sha256": "955d2e84410ca62ee8dc186f4b94c5829b24659823cd24aa77a364bdc42a758d",
+      "gitBlob": "1bcb4798ca9e14312c0a9b4a34e50ee2f24d4187",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/feed/FeedTabs.tsx": {
+      "bytes": 2273,
+      "sha256": "3f078f7caf42a39c70356ee4afbded718e8c94e4e5b456cfaa337676fe8d861d",
+      "gitBlob": "45ae8f9338e1c1fbe1445489ac2fd061b28df650",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/feed/NativeCalloutFeed.tsx": {
+      "bytes": 7502,
+      "sha256": "b2bb97fe487293fe24dabd77fd637693ab7b0e0b6297bba33249ad226837b7f0",
+      "gitBlob": "5372926bc5f672afe6216e9c793ba697b5d4ea2a",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/feed/feed-data.ts": {
+      "bytes": 9017,
+      "sha256": "ffbf2ca44457c400d0cb6fb55df24b980d700d8d8fd1d36917f0588c10cf8209",
+      "gitBlob": "8f7f12a8ea5a90498a3e1004c42e3439ec239d5b",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/feed/feed-snapshot.ts": {
+      "bytes": 1831,
+      "sha256": "98c015a6d0b3a5532603ac1938e79501ac59047dd7da2d49615e8df7b030cb16",
+      "gitBlob": "aed9c16d4ce36ea9091c8e7abf59a41b62187692",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/feed/native-feed-data.ts": {
+      "bytes": 9257,
+      "sha256": "aec5f6f08b8ae49ed1334baade922b7f72134dec72476a71cf146c6f582e9796",
+      "gitBlob": "ba4760e866f32b47eb049272e1837710dcab3447",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/feed/native-feed-navigation.ts": {
+      "bytes": 2258,
+      "sha256": "1816248ca2bcdeaf5b0c73765fa6abdfd0fe67a644a521e730b866cfc0a8f1ee",
+      "gitBlob": "200128a32c79616380a0060014a26f10ff3c5fea",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/feed/native-feed-server.ts": {
+      "bytes": 4087,
+      "sha256": "fb35e05a6e75f164fcaa4ef4f55a1cedfdf2ab7a6a3a51654dfeb8e29e29bc60",
+      "gitBlob": "99cf7c77239054c5bfc1e156967583977f9ca421",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/leaderboard/CompetitionCountdown.tsx": {
+      "bytes": 1539,
+      "sha256": "29a6d989c191b99f6793234a9b1b56123be1105e91cc42d038947d9411c1dda6",
+      "gitBlob": "b81ff8b296a9baa22844d86a9140390d339f4401",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/leaderboard/CompetitionPrizeDisplay.tsx": {
+      "bytes": 1344,
+      "sha256": "afce3adbf515f943fca973d28b6303895dfc3887a8e93fc474e50d57c24f998d",
+      "gitBlob": "0d2ce2db3c5119dde4e0f57e48312ff1d316193c",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/leaderboard/original-countdown.d.mts": {
+      "bytes": 1045,
+      "sha256": "c3f6c788f3644c81a4a695ef7402ff6c7c0e7e5c2e97f95040bdb0d7ab19c005",
+      "gitBlob": "31afc5f0ef367437900068df111af274a4c19f57",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/leaderboard/original-countdown.mjs": {
+      "bytes": 6252,
+      "sha256": "55c59f7226ed933b18c95f8c77d1679b1ed949656c42af26eb8fa4be8dc319e2",
+      "gitBlob": "fd40d84d00fc37dd81b6f6452b9c431fbe60fa7f",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/leaderboard/original-prize-formats.d.mts": {
+      "bytes": 640,
+      "sha256": "ee1b5814e98c29f3dfa96d29af83d286c2f9de2c44722b22ad8a52f1fae33de7",
+      "gitBlob": "fea65887fa81c8d36d18b43cfecfecea4ce8cb93",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/leaderboard/original-prize-formats.mjs": {
+      "bytes": 5571,
+      "sha256": "dd9d5e338db6c0b5b716c4f8edace574a42c11ca784663d6a6a29aec7fff86af",
+      "gitBlob": "de5722dd2a52dcfe1fa3b58d44d43579061c4554",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/leaderboard/original-prizes.tsx": {
+      "bytes": 4348,
+      "sha256": "d9abf53464b6bd1be3b1a630a8ef3bfa7d1b876fd382d3bd86ef04b0c504928c",
+      "gitBlob": "9c138548d522462dab6ce3c618334a0bdb7543ec",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/leaderboard/prize-number-variants/b6933f856a7f.mjs": {
+      "bytes": 751,
+      "sha256": "c2297af3d1d6cd2f2a9eefe490a9f2b4a9a09921e8e52f24ad2df966cd6a8804",
+      "gitBlob": "133beb69d6afb4c898ecf4ec0622c3f14e4f72f2",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/leaderboard/prize-number-variants/f29f27e66af2.mjs": {
+      "bytes": 751,
+      "sha256": "3641cd417646cd7bdb2d908ce11d97fdf984d7b521a151c1d0809fffeb47c004",
+      "gitBlob": "7b32134c020b9051ba10666d3c84dc1fac87c23c",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/profile/CopyAddressButton.tsx": {
+      "bytes": 831,
+      "sha256": "f7a510da6fcd34a0f00d9ec439ccc365ce9c0fa152c526f944561dd35b2f127c",
+      "gitBlob": "4c80e6c1867c8da423b6c4f818945417c3586d37",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/profile/PositionsTable.tsx": {
+      "bytes": 2638,
+      "sha256": "a6b50fbd69b732a3ad2b48fb703848ec76729f699ea358b101af710cd2fc0ea1",
+      "gitBlob": "43d7ebb8c794cc599a2e5c47eb8c686e8204a13a",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/profile/ProfileFollowGraph.tsx": {
+      "bytes": 2660,
+      "sha256": "31cb810ca323645c944d68d2ec35bc04518d694945d7c55ecf744377bb24697a",
+      "gitBlob": "0d07787c55aca26e21dc11d28cdd54694c6c838e",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/profile/ProfileHeader.tsx": {
+      "bytes": 2771,
+      "sha256": "488343162aafd30f7a6ff6230e29694d71aed3406d86e2ab68b7ab214df13e60",
+      "gitBlob": "8aaccfd45c1e1951dd756874d6bb5ec9807f4c9c",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/profile/profile-data.ts": {
+      "bytes": 9691,
+      "sha256": "5a06e3d80d8e309ced298565900a183edda8594489aa046dc2a08b7e7a235085",
+      "gitBlob": "3478504c1b80250f2af8aab1857e2fc4f8f0aa93",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/profile/profile-follow-graph.module.css": {
+      "bytes": 1017,
+      "sha256": "02b7014ffbbcf6822cad7d1b642041674d6b7f72522a8641824afd40f285b20a",
+      "gitBlob": "08cf65d9f45561ab126cd81398d37d5e9ab5cd5e",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/profile/profile-follow-graph.ts": {
+      "bytes": 3476,
+      "sha256": "66e292e91100fbe56e94c5b5cf79622ea7383c2cdc65d4a21622e0cb0ed69621",
+      "gitBlob": "f520f2ae1fe5489f5bee937cfe97ec9ed4a84696",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/profile/profile-identifier.ts": {
+      "bytes": 213,
+      "sha256": "1a17bc5659601ae511e6548d5738d21dd6bc56e8d232b9a5e4c5532c9336d1bc",
+      "gitBlob": "e1c2d545dd8a945eaae634442e32f1c5d89c8a18",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/profile/profile-snapshot.ts": {
+      "bytes": 2044,
+      "sha256": "dd1084e7007242f9045131f8d8988b894d4dcba9a9edbeb26051108d816ca8bc",
+      "gitBlob": "cd22797ff015ff267f8a2e4db2ff9a20f9d84f0d",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/rewards/RewardSummary.tsx": {
+      "bytes": 1133,
+      "sha256": "2c79fe7603dd8889d2847d58d6a7d01afafb4ad5ea1d660b9c19afcca0ee9f0b",
+      "gitBlob": "d8f94b04c0bf114ce0dd68e67d06360b64419a37",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/settings/notification-settings.module.css": {
+      "bytes": 1227,
+      "sha256": "ec92a92f8039c942561fb818795d173ab63187148b89a3aefc6062926213d30f",
+      "gitBlob": "1c9aefcf9b1211d769213f64af252c88e9ec9b47",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/settings/notification-settings.tsx": {
+      "bytes": 8614,
+      "sha256": "5ae700e1ff0457d3feb2a9716e7d461e8ee75edd44a328cc179714ff813026e3",
+      "gitBlob": "21905b09c15c0b969722c9efda4323aa98a950a8",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/settings/privacy-setting-control.module.css": {
+      "bytes": 1036,
+      "sha256": "6aad577d476487b93183fef4f0931f545e216f4ab04204516a49e634ada92b98",
+      "gitBlob": "cc8f1a6cddff7c1dc3e75296c34cebdd35d6a119",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/settings/privacy-setting-control.tsx": {
+      "bytes": 2997,
+      "sha256": "709792ac82f26b8b4944187e936d63f6877db114b9d1d5451f3d7dbaa4fe3f72",
+      "gitBlob": "896d19ba552b734c3a53de4f25f7075f7bd76db9",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/settings/settings-control.tsx": {
+      "bytes": 15646,
+      "sha256": "904127d60d3ee6eeb29295e0c760d946881550757f7393be1388b2774d44664d",
+      "gitBlob": "76ff8d94d0d1c43c6fa10185a7c15120489b41c4",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/settings/settings-model.ts": {
+      "bytes": 7474,
+      "sha256": "08a911de10b27f3db54cccedcb0b72ac5f9f1e054aee6e946e9ba544051ff7dc",
+      "gitBlob": "c30837d86f08ca6af25105c51daf25529a94e9da",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/settings/settings.module.css": {
+      "bytes": 5278,
+      "sha256": "4445494bb8df9b65cc592da94a312fd6f125fd5267ae82ac161d1c755edff8bb",
+      "gitBlob": "c54a43e4ac451dd052965e2d660d9615f8baed81",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/AppShell.tsx": {
+      "bytes": 2310,
+      "sha256": "44239f040b1a39a10a952557d7d2c52479b18ab1f78a085bff2190c433612b89",
+      "gitBlob": "f74ec1d38dd37f0567ffb9310c71dac4ab210591",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/AppSidebar.tsx": {
+      "bytes": 8196,
+      "sha256": "39e1ed50aa0f82f4e6566b5ac7bf4a6d240831967811df4f0f1ab23ffa39585f",
+      "gitBlob": "9741b702433ca68f7cd14f8e8d4c31a0fdf5749f",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/ClickwrapDialog.tsx": {
+      "bytes": 7558,
+      "sha256": "9f03439b8a1abe815b8a34f2b5a43c88302cb01c83db9d04efb6e171ca938266",
+      "gitBlob": "ed6fdefe8616308b56b0fa20a2375bd1a8ffcb14",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/FooterMenu.tsx": {
+      "bytes": 833,
+      "sha256": "080c4411fa84ae70cd280460a00d003a8d32303f1e557fb67994d4736781a7ba",
+      "gitBlob": "6ed008da8028b0d4e63114b29997849a650efb61",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/Logomark.tsx": {
+      "bytes": 348,
+      "sha256": "92327d4368e004c33e461c2c34a57c799229995cda20f829c2eb6fba0f71fd26",
+      "gitBlob": "964b5c53ff68ef3a9c016b74b3d222699501f74e",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/MobileNav.tsx": {
+      "bytes": 3022,
+      "sha256": "bfe24790d3433ebdd3f4e0732f2320ccb20eb1e7ab3e1d6f5695cb3e5e7d1e49",
+      "gitBlob": "50118c4934c18f70352b96477d25a3a3103d4eb2",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/SiteFooter.tsx": {
+      "bytes": 3047,
+      "sha256": "f69767b9e157edee32f2c874ee3a8c8ed59bfd964ca4b56ebea7ded941126804",
+      "gitBlob": "05c5149059605032950b57e97e8c1f8535e0f2a5",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/TokenInfoBar.tsx": {
+      "bytes": 4697,
+      "sha256": "9dabcfcfbc79bbc8a1f67d1f8a6d0ffe9c7949f611b91d504c2a90b6eb93bccf",
+      "gitBlob": "a4429e92f833fd64ee3a83604525163f0e997c12",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/TopBar.tsx": {
+      "bytes": 4446,
+      "sha256": "4e2d7e32e7cba70d665b36fccf44b5b715815d2d9735519eecd1fce174ca9198",
+      "gitBlob": "e84d7c9e369eb26bd6e3cc5838aa9c921f34408e",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/TopBarControls.tsx": {
+      "bytes": 3085,
+      "sha256": "1c362cafaa0557d71a60bb12a34df9950d6abc9d770c88aa83857c8804def1b4",
+      "gitBlob": "3a07b2acbbc7fb9b716a30ab2e38fea10ff46502",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/captured-icons.tsx": {
+      "bytes": 35823,
+      "sha256": "940251bdbb833f026cf50ddaa128b33ba10d962212f75f968c2729cb1b516cc1",
+      "gitBlob": "5c747ccf7bb3b0ece0d75a0b4167f270a3324a9a",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/clickwrap.ts": {
+      "bytes": 4559,
+      "sha256": "9b2ae57a81ebc2db84c004c35b75561b18b8177071ce7debf45e14ed6fef654a",
+      "gitBlob": "c82caef20e84e75c99aba0b10fea0891b1b24b45",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/search/LocalUserSearch.tsx": {
+      "bytes": 4191,
+      "sha256": "de1b467123ba79cfbbc017fccd908ce252d5f222cbbd8c16f90cb27153ae4878",
+      "gitBlob": "e8a4824c509de42c382d61327bd0d18b11ce71f9",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/search/SearchDialog.tsx": {
+      "bytes": 5623,
+      "sha256": "a47fb602cc3a1793f30715fe324bca602ed1b5aeba9768bcdeb6958868057e87",
+      "gitBlob": "ebedbdaf55fefed7b343682599143501d42e3352",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/search/local-user-search.module.css": {
+      "bytes": 612,
+      "sha256": "aeb22a2b93a8d9e05101452643f03cd7c4705aa255574a7de108b6e3392ab935",
+      "gitBlob": "28b0837b12b3d2ac11700b64c9d9031333a5f2bd",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/search/search-events.ts": {
+      "bytes": 764,
+      "sha256": "091e9cc203f41d118a87745f85f7785ae9575c11ad2bc3b36900bc423d1433c6",
+      "gitBlob": "38e647ae3d75b961bcf1302863da4013c1313e67",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/search/search-shortcuts.d.mts": {
+      "bytes": 270,
+      "sha256": "7f30d67d847741ecc939595f4922082e75e3118e2c0b5f48cf547221285e465b",
+      "gitBlob": "f5837dd43232b4d4456398a275a09553eb1290b0",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/search/search-shortcuts.mjs": {
+      "bytes": 1014,
+      "sha256": "339c2081b3dbfbc408b5b8dbf736f755894e33a962584c0c9c77c38772e5384d",
+      "gitBlob": "83f4d1c29bfeb6f9a378aa689b7190d59334bc73",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/shell/styles.ts": {
+      "bytes": 371,
+      "sha256": "5e19ac41eac75b4c995780ef28d38afad6e0265f62866d9641a51eb6fb07ec99",
+      "gitBlob": "c2f5ffba2ae7980ff032978fca099cb702e85ee3",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/stream/StreamCard.tsx": {
+      "bytes": 2477,
+      "sha256": "654f49f90e3af503527355bc6cac4dd5194957aa1768578db58b8ec29f9238dd",
+      "gitBlob": "3d9beb2857e0b48e9bb8abb4fa8294f7c3408a4b",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/ui/EmptyState.tsx": {
+      "bytes": 712,
+      "sha256": "603377a6e61e99ad737816068657e7b102ab737abbc09f6de22679d32701e38f",
+      "gitBlob": "a786a5be5d2b92d4df4b38683568f5c218acb3cf",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/ui/FilterTabs.tsx": {
+      "bytes": 905,
+      "sha256": "6690fb0a0b94175ba9b06fe13f8ccb184b187c8953c3f0ed2a2acb4fb72f8551",
+      "gitBlob": "9ce0c2e12e8533c6b51f167813226c0f314a0ee9",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/ui/Pagination.tsx": {
+      "bytes": 1065,
+      "sha256": "998d24322fd3d89fa8c38b04ae78387d9f5985ba28ece1f39581272bc3f20e52",
+      "gitBlob": "6d2712473b49a4cf09353db830c07e5216ca5d1f",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/ui/SearchInput.tsx": {
+      "bytes": 2243,
+      "sha256": "74c948045953c692381ed4480f7a364ed9074e1eb3a2b4f218fe3b201b8575ed",
+      "gitBlob": "84e0211ec1a19d99747b0ff0bdc4163ee5ef38ff",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/ui/Skeleton.tsx": {
+      "bytes": 1304,
+      "sha256": "857787d47413d71852c247963dd856803542375181b612b8f9141dcfa56f3ff0",
+      "gitBlob": "6c08fa8b03b72e71b1ef23637e60dc5c9c244bc2",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/ui/SortDropdown.tsx": {
+      "bytes": 861,
+      "sha256": "07e2515ecc4da816240cb04e44365f2761d27ab2b68e299fb73ce884f33c11e5",
+      "gitBlob": "564760d1bc035a72a6860a8f6599fb3359d303c1",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/ui/dropdown-menu.tsx": {
+      "bytes": 7007,
+      "sha256": "c9a4aedc4559ce74372d4317f198165881f2f73f8c93372bec975059a869d58b",
+      "gitBlob": "cb53e178f1446c02d53b21e165f477539aa6b459",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/ui/pump-button.ts": {
+      "bytes": 707,
+      "sha256": "1d42a477c268000595bd23508432eb8841fb99a9de4ee7e379dde20f6b1f2bb0",
+      "gitBlob": "d8bdbc4719ade9c2eb44c8ab5420507d665cf654",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/components/ui/sidebar.tsx": {
+      "bytes": 13041,
+      "sha256": "a1ba3fb227aacea783f1732070d886f39da9778e556f1303ba0a900ee3963925",
+      "gitBlob": "8c9d6972f3bef21b0008454217c68257f7de305f",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/config/navigation.ts": {
+      "bytes": 5468,
+      "sha256": "fc9517df83e7a40c302778abe2bce6431651b8f301826cf96ddba5603690a028",
+      "gitBlob": "8bfc02522afea5238b5abd6f25a95c23ca7cd9b4",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/lib/body-scroll-lock.ts": {
+      "bytes": 825,
+      "sha256": "b7bf13a947e800010e635067c6c8f58f6e9b81d5d192e4122551ee7c151dcc5c",
+      "gitBlob": "7f43d661d69c59e9b431912674d6f65e517a8ff0",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/lib/cn.ts": {
+      "bytes": 178,
+      "sha256": "320f0e2e06034b55e6b29b343dde4d0e655787c27f3134a833e76858931651cf",
+      "gitBlob": "ea0f26d560c03c4c8d0a6fc8e411dd38633fb2d8",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/lib/env.ts": {
+      "bytes": 899,
+      "sha256": "5e06b1920144cc02bb332fd673441c88d72913f5dc76d6c2ba6e1e5a1914df79",
+      "gitBlob": "2de3f828684eae0407f6df56706bc51da6475fcd",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/lib/local-user-search-data.ts": {
+      "bytes": 1218,
+      "sha256": "98ffb151b0d5fe4cc75f53be6e7a6767f6c61bcc14e108fb9e0027f8ba5987d0",
+      "gitBlob": "f80442568b7f286d71622d05b3950fdbc96ee38b",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/lib/local-user-search-server.ts": {
+      "bytes": 2966,
+      "sha256": "c631d32736477ee588069fb4e39f0edb2e419d5946d221a7c085f141c669a69a",
+      "gitBlob": "2b42e57e5e8837111bd58474cabfa2b80a78a063",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/lib/notification-actions.ts": {
+      "bytes": 2222,
+      "sha256": "c295dab940bd911bd1ae02e40791a28ee70f5e425a2ff6c5532361b16c2218c1",
+      "gitBlob": "e5ac2f26949d38251ed992279453c8427c3860be",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/lib/notification-controller.ts": {
+      "bytes": 11804,
+      "sha256": "51fbbba915e0703fb00a32577b04efd160671047cfb4519146bca9a174a06754",
+      "gitBlob": "5242d246693481b3f4ecf28f9f7ace96cb85ebae",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/lib/notification-state.ts": {
+      "bytes": 4965,
+      "sha256": "3e88f6c70862c634139c49f8295aa479ef385ceb105449d44132439dfe1c9af7",
+      "gitBlob": "42253b6575d35dbcb012f06baf412a2db26b10f5",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/lib/original-follow-list.mjs": {
+      "bytes": 3166,
+      "sha256": "46021371f1f1da5ab243baed9e3eab3f83ed54645d7dcd88cf528813e1f2356d",
+      "gitBlob": "1c5288791cca388d22aa29030ef52e72c0955f54",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/lib/original-profile-callouts.mjs": {
+      "bytes": 3707,
+      "sha256": "c419fc183cdc0c4910caaa930bff92fd309d71d39405a487d1586ea5e8f5952f",
+      "gitBlob": "76719109d966d4dd53810477d057ab623f979a4d",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth-display-restore/index.ts": {
+      "bytes": 2378,
+      "sha256": "1c65f3735c8d02dff6a6d4aa861b3c5b8a74624c451f0dee90af5c966bf52005",
+      "gitBlob": "a99dc65c489953619196b1eb37470d60402bd4a0",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth-display-restore/pending.d.mts": {
+      "bytes": 168,
+      "sha256": "e861b10cd93d57b4cc4d5f711ac2961a9829e8b09a30de5b3bdbe4500c21b0e2",
+      "gitBlob": "f5a10f6dc5384adcff2a931cfe7e0f1e0abec22f",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth-display-restore/pending.mjs": {
+      "bytes": 636,
+      "sha256": "dfd22f1f67eb99e6d37c2e67cff808b0ba967b159029370b3b96510a30b6193c",
+      "gitBlob": "d7f577cb312a93b18c108a27bb2e565fb507efb5",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth-display-restore/restore.d.mts": {
+      "bytes": 759,
+      "sha256": "34047052c4c4e4383143e8dc70b80ef12d471c0062aa124cef58a921060c3d0e",
+      "gitBlob": "bb49d41fea05a29147abdcf94b04bc50d39ac1ae",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth-display-restore/restore.mjs": {
+      "bytes": 1217,
+      "sha256": "4032d049f7a1bdfd84a63c5894b53a7635b526a8d9a42b14cd3a9252df28ad7d",
+      "gitBlob": "92b81c0079b4363ed1558ccad43a1ce54fde133e",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth-revalidation/consumer.d.mts": {
+      "bytes": 677,
+      "sha256": "0ec5b070c2796ccc5b9ce5f25b13bfcbe260da1645c69ee96cc23d63700e75a8",
+      "gitBlob": "0091f8363bbfc4022f6b9bcb5beaba6970273d6b",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth-revalidation/consumer.mjs": {
+      "bytes": 795,
+      "sha256": "066acb49dcb5772e39f2eba6cd75156692bbf7edd680626a0c3bf8f8fb61fd89",
+      "gitBlob": "8d07c6481bd36bcdf5c397ac458e56165ce4f897",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth-revalidation/index.ts": {
+      "bytes": 2245,
+      "sha256": "a588b8eaae26b3a501b0ccb0211ace90c37076e143e27e0632272d2ba0ae9682",
+      "gitBlob": "8792f178a3e171c5c333eeb26475dbfd671c00b2",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth-revalidation/request.d.mts": {
+      "bytes": 171,
+      "sha256": "69662c00d4a36d5b655a20de85d870e036c35116674cac47eaa1a4dade32a5f9",
+      "gitBlob": "49f5022b5d83fad84217770d6609347c923e39bb",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth-revalidation/request.mjs": {
+      "bytes": 676,
+      "sha256": "2398f3acfd10668cb7547e1e35bd94ca9f2c7b1b637357986b886ce7aa267436",
+      "gitBlob": "f01aac16dcf258d04b96b0fc39780f9112a67d45",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth-state/index.ts": {
+      "bytes": 1523,
+      "sha256": "80f7cbe26182917138a1dc0045dccd11c9d02665a721dd52e296fea7cce7c01b",
+      "gitBlob": "1adbc044e40c84c8a089ece476908dbce5cf6b5d",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth-state/kernel.d.mts": {
+      "bytes": 381,
+      "sha256": "f7ac7de32e782e335859710781ec68a9b60211467a934464b342b1df1cc5f233",
+      "gitBlob": "1b590851c08da801d2e53f7b396418adacfc409c",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth-state/kernel.mjs": {
+      "bytes": 739,
+      "sha256": "6bd896c47f698d2e4754aa34017cb1e793cb575e836ce4bc8862474fda094030",
+      "gitBlob": "9a27ea6a3a87e7a3197cc0e242cf9bb964d21db5",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth/index.ts": {
+      "bytes": 2293,
+      "sha256": "6bac7396cbd6126e088c9417f8f6a3c6cd1aacc3c81b5d30befa8bf0b170498d",
+      "gitBlob": "943e982f122d42ea4462268f3b70ad500a6421b2",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth/kernels/decoder-6acdbc74d187.d.mts": {
+      "bytes": 135,
+      "sha256": "60c98f56604ffc606597901f300ccf46c1d39526e4a0a21eb476185aa76af510",
+      "gitBlob": "4761eae7cd3127620dd4471e0a1270c87b816484",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth/kernels/decoder-6acdbc74d187.mjs": {
+      "bytes": 1128,
+      "sha256": "6cd71594a775fa43efa9ea7977e80d866e13f934611047e9006f4169f37d4c3a",
+      "gitBlob": "3a74794064654a20a9bb40875c595908e9cb94b1",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth/kernels/decoder-b672846d9145.d.mts": {
+      "bytes": 135,
+      "sha256": "60c98f56604ffc606597901f300ccf46c1d39526e4a0a21eb476185aa76af510",
+      "gitBlob": "4761eae7cd3127620dd4471e0a1270c87b816484",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth/kernels/decoder-b672846d9145.mjs": {
+      "bytes": 1128,
+      "sha256": "ee40a971cc1bbe00b4f32e0e697da7229d78f4a176df4fe5b6e88333d2229f46",
+      "gitBlob": "1af425bcbaabb9e8c45f6ab7a84ff12e83a6abb3",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth/kernels/decoder-d48cce6d6408.d.mts": {
+      "bytes": 135,
+      "sha256": "60c98f56604ffc606597901f300ccf46c1d39526e4a0a21eb476185aa76af510",
+      "gitBlob": "4761eae7cd3127620dd4471e0a1270c87b816484",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth/kernels/decoder-d48cce6d6408.mjs": {
+      "bytes": 1128,
+      "sha256": "a05039d5691b9f178c66a8dfe215135041a9d9389cd77a07bef8a1a32087c3ed",
+      "gitBlob": "b80ecd9fee9368f82443459c0c1fd94cbdc42306",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth/kernels/reader-160a6dc5c856.d.mts": {
+      "bytes": 222,
+      "sha256": "59b3d707bca5004c3f2f1f7ecab6a6a236373ed8de5f43d80eee4f741c8339b2",
+      "gitBlob": "3a97b7b14b113db6c5968df359b7f50f9aff888f",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth/kernels/reader-160a6dc5c856.mjs": {
+      "bytes": 2557,
+      "sha256": "0292a827e6e8dacc53571f0b434d38a06f4783d1ee75e08f52287f45b80656e5",
+      "gitBlob": "732ce3fbb3f790e91edae5f88ec4f5ecc809cc63",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth/kernels/reader-9dbafa1f0ea5.d.mts": {
+      "bytes": 222,
+      "sha256": "59b3d707bca5004c3f2f1f7ecab6a6a236373ed8de5f43d80eee4f741c8339b2",
+      "gitBlob": "3a97b7b14b113db6c5968df359b7f50f9aff888f",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth/kernels/reader-9dbafa1f0ea5.mjs": {
+      "bytes": 2557,
+      "sha256": "e92583cc1751f5bcb3aa5c6721fc24c04b6ee2fedb2a8dfdfa4181a4b9690c9b",
+      "gitBlob": "2d0bddd3d3961c78be71b112877d8bdc2cd52c5b",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth/kernels/reader-b7990dc05987.d.mts": {
+      "bytes": 222,
+      "sha256": "59b3d707bca5004c3f2f1f7ecab6a6a236373ed8de5f43d80eee4f741c8339b2",
+      "gitBlob": "3a97b7b14b113db6c5968df359b7f50f9aff888f",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth/kernels/reader-b7990dc05987.mjs": {
+      "bytes": 2557,
+      "sha256": "f2e0355eb5cace42eed2ed16071fde94d0dca6bd2d690c8e0d42d8175ec02171",
+      "gitBlob": "6cb1e98b947c08f4541991450b71ec5543c085a5",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/auth/types.ts": {
+      "bytes": 2125,
+      "sha256": "88c37acceab70ce00353300edd130d0ce418bd77641a5f16c742bb1f66863081",
+      "gitBlob": "201a63a4071b4f82be7f367a180b336262622815",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/portfolio-chart/local-http.mjs": {
+      "bytes": 1748,
+      "sha256": "5015532e8b1e09c1b351c26d41389e4e7405daf45b926ee9b5dfc23c33eedfb7",
+      "gitBlob": "07234fcd2304b8732eb18bb46f8828caa50af599",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/portfolio-chart/reader.mjs": {
+      "bytes": 1823,
+      "sha256": "59bdf67a80eddb8b822f29c249d08063484bb972ec0d38a96aff7a1a4e391a9c",
+      "gitBlob": "6fd4b8690d72ca245e31ce834b7d3d2b89ef672a",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/portfolio-read-policies/client.mjs": {
+      "bytes": 4157,
+      "sha256": "bba0580924702946e003455d221d62d4e830322752f6722f30fccc47a6632834",
+      "gitBlob": "673f205be7871a14c75984464b4747030bf4cf7b",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/portfolio-read-policies/local-http.mjs": {
+      "bytes": 2100,
+      "sha256": "a09d83803fab1b1dc94c68a1b7c7dfeb93668e9ed11c57646854ff716d073a26",
+      "gitBlob": "6577e320cc292fa648be6cdcf6758e5af5251521",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/portfolio-summary/client.mjs": {
+      "bytes": 1362,
+      "sha256": "94e00aa21db66ba89798d005517c30ef2bf3548ae9cb7d6b2ae10c80c5d97b5a",
+      "gitBlob": "77230e6502a35570004a19a54b3390fdf9dd22c3",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/portfolio-summary/local-http.mjs": {
+      "bytes": 1974,
+      "sha256": "ccb0526ed44c190e6c40a0a3363718b0d91938f26cf52619a1f83cec96eb6173",
+      "gitBlob": "21f145caa2724b84678afac9eada6e0d4912de4e",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/portfolio-summary/normalize.mjs": {
+      "bytes": 2777,
+      "sha256": "d802336fdd2d869ebb380dc643cad550472d43c8cc0198ec2291a7e2b1d0b71c",
+      "gitBlob": "0359487951378ca7bf078bf6c0aa4322e8536fde",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/positions-by-mint/local-http.mjs": {
+      "bytes": 2081,
+      "sha256": "a07248dd4abf5b308598c91cabaf397f7e74a1a56e49007afbe951549ea6e128",
+      "gitBlob": "04131c0aa4c1e8308ac73dc35eaf3fb653454299",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/original-contracts/positions-by-mint/reader.mjs": {
+      "bytes": 2827,
+      "sha256": "e135b54361f954eac3918124503dbab9cb35f322423af09483bdfed54905f1db",
+      "gitBlob": "8f2380d2f13b457509c87d37d9d8986c75c73138",
+      "kind": "runtime"
+    },
+    "packages/frontend/src/theme/captured-theme.json": {
+      "bytes": 6590,
+      "sha256": "dee321bdb8fb0917617f959400cd3eb7cf557f336563de01e561828a349e3359",
+      "gitBlob": "dc6fe3f2ad3e9deac8daa7b1fbab2b21334b9f9e",
+      "kind": "runtime"
+    },
+    "packages/frontend/tests/browser-state.ts": {
+      "bytes": 366,
+      "sha256": "6ca60ac77b50bcc845c8073973265a980ece5aede9782cb955836b422128123a",
+      "gitBlob": "dad2bd240204528a984cc25718e9abfc40956347",
+      "kind": "runtime"
+    },
+    "packages/frontend/tsconfig.json": {
+      "bytes": 513,
+      "sha256": "a5dc52a7664b2a81c4cadd7e5ac7eb73ec3f88af0d97edd9927344c01adb7a0b",
+      "gitBlob": "232242f82f082ceecb0da2071d2528fc7b589d74",
+      "kind": "runtime"
+    },
+    "packages/sdk/package.json": {
+      "bytes": 1919,
+      "sha256": "9b85cdaaeee8387fd151783cc994fa8b80f24ca5c525c9accb3cccc5babd64d4",
+      "gitBlob": "ba5abc1bcc0fba0b6a7b7425eaa25544baeb43b4",
+      "kind": "runtime"
+    },
+    "pnpm-lock.yaml": {
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1",
+      "kind": "runtime"
+    },
+    "pnpm-workspace.yaml": {
+      "bytes": 183,
+      "sha256": "5348921b05aa1b79ce7e15492a2f39ed9d18136155e002fdbbfed5c38564a1b5",
+      "gitBlob": "2ac2665ef5a28f8a1691518ad942fb07353810e6",
+      "kind": "runtime"
+    },
+    "reconstruction/competition-rules-schedule/prepare-fixtures.py": {
+      "bytes": 2697,
+      "sha256": "d1d45aea02894d01d717031777a8019d176ad20247d743185b797d87503f4ad8",
+      "gitBlob": "3cc172003fe4efbc312c9dd2dc868a78b2cf466b",
+      "kind": "browser-method"
+    },
+    "reconstruction/competition-rules-schedule/probe.config.mts": {
+      "bytes": 1002,
+      "sha256": "1111a2d9083dedd1f6367d1ae01f3fc9f6a10ef492ba68ff84ebe064cafc375d",
+      "gitBlob": "701ae89d152909af218d516ed852bc0c5764ea13",
+      "kind": "browser-method"
+    },
+    "reconstruction/competition-rules-schedule/probe.mts": {
+      "bytes": 6624,
+      "sha256": "53be81bcd1fd690dfba7ad92fbb4775f2d49ac462fa8af433e0e762fa721d984",
+      "gitBlob": "dfd07aff4b2d45e74364ef6d2d82bc64e1735254",
+      "kind": "browser-method"
+    },
+    "reconstruction/competition-rules-schedule/reference-pins.json": {
+      "bytes": 960,
+      "sha256": "bebf002d51713a19aa3971af2025260a6b3f34a4f41ec116afa118b1c17e52d1",
+      "gitBlob": "7dafbf7d9e7dc29f0cb51d3a6d7315ea3587e4d7",
+      "kind": "browser-method"
+    },
+    "reconstruction/competition-rules-schedule/source-evidence.json": {
+      "bytes": 11869,
+      "sha256": "2fc381f799331014c2219c85f10d1c492a544734a1c8cf950d297588e1f04e02",
+      "gitBlob": "030920965419db3cd9f39a3f0c7b319ac5f1b81a",
+      "kind": "source-evidence"
+    },
+    "reconstruction/competition-rules-schedule/verify-source.mjs": {
+      "bytes": 3627,
+      "sha256": "cbfee4ee2d22822997984fa2f38b8535bfd66bfbedf999e2015e5ffacb63a3d4",
+      "gitBlob": "b57f94301a128c8340257fcc47a964788e8a60cc",
+      "kind": "source-evidence"
+    },
+    "recovered/modules.json": {
+      "bytes": 2928853,
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+      "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f",
+      "kind": "source-evidence"
+    },
+    "scripts/original-contracts/source.mjs": {
+      "bytes": 9493,
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+      "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df",
+      "kind": "source-evidence"
+    },
+    "tsconfig.base.json": {
+      "bytes": 254,
+      "sha256": "ef2e5c4189cb284a1ffe8c64b78f8d0dbcea7f1f4a334bbdd67fb05de8b0582f",
+      "gitBlob": "842e7c253d9b67c26866e5538d1f823ca6e0de4b",
+      "kind": "runtime"
+    }
+  },
+  "versions": {
+    "node": "24.19.0",
+    "pnpm": "10.24.0",
+    "next": "16.4.1",
+    "react": "19.2.3",
+    "playwright": "1.64.1",
+    "chromiumBuild": 1248
+  },
+  "limits": [
+    "No maintained test suite added for one CSS property; the finite probe is evidence tooling.",
+    "Actual NextGET/Fastify/default synthetic competition data and real browser geometry; no fulfilledJSON, fakefont/clock/DOM-property layout override.",
+    "Date strings, prize text and measured prize row heights are equal; full prize/shell/pixel geometry is not claimed. Surrounding shell layout is outside this scope.",
+    "Original complete component/provider/native productionAPI equivalence and financial/eligibility semantics are not reconstructed or claimed.",
+    "Public synthetic child key only, native gate active; no real account/session, signing, remoteprofile or network mutation.",
+    "Raw generated Next manifests remain private; normal production outputs may be appended separately with explicit unchanged-runtime mapping."
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "measured": {
+    "bounds": {
+      "left": 433.5,
+      "right": 831.5,
+      "top": 289,
+      "bottom": 339,
+      "width": 398,
+      "height": 50
+    },
+    "clientWidth": 398,
+    "scrollWidth": 398,
+    "rows": [
+      {
+        "label": "Registration",
+        "value": "Nov 1, 12:00 AM – Dec 1, 12:00 AM",
+        "row": {
+          "left": 433.5,
+          "right": 831.5,
+          "top": 289,
+          "bottom": 310,
+          "width": 398,
+          "height": 21
+        },
+        "labelBounds": {
+          "left": 433.5,
+          "right": 510.578125,
+          "top": 289,
+          "bottom": 310,
+          "width": 77.078125,
+          "height": 21
+        },
+        "valueBounds": {
+          "left": 526.578125,
+          "right": 831.5,
+          "top": 289,
+          "bottom": 310,
+          "width": 304.921875,
+          "height": 21
+        },
+        "labelRects": [
+          {
+            "left": 433.5,
+            "right": 510.578125,
+            "top": 290,
+            "bottom": 308,
+            "width": 77.078125,
+            "height": 18
+          }
+        ],
+        "valueRects": [
+          {
+            "left": 611.90625,
+            "right": 831.5,
+            "top": 290,
+            "bottom": 308,
+            "width": 219.59375,
+            "height": 18
+          }
+        ],
+        "flex": "1 1 0%"
+      },
+      {
+        "label": "Competition",
+        "value": "Nov 15, 12:00 AM – Dec 1, 12:00 AM",
+        "row": {
+          "left": 433.5,
+          "right": 831.5,
+          "top": 318,
+          "bottom": 339,
+          "width": 398,
+          "height": 21
+        },
+        "labelBounds": {
+          "left": 433.5,
+          "right": 511.421875,
+          "top": 318,
+          "bottom": 339,
+          "width": 77.921875,
+          "height": 21
+        },
+        "valueBounds": {
+          "left": 527.421875,
+          "right": 831.5,
+          "top": 318,
+          "bottom": 339,
+          "width": 304.078125,
+          "height": 21
+        },
+        "labelRects": [
+          {
+            "left": 433.5,
+            "right": 511.421875,
+            "top": 319,
+            "bottom": 337,
+            "width": 77.921875,
+            "height": 18
+          }
+        ],
+        "valueRects": [
+          {
+            "left": 603.140625,
+            "right": 831.5,
+            "top": 319,
+            "bottom": 337,
+            "width": 228.359375,
+            "height": 18
+          }
+        ],
+        "flex": "1 1 0%"
+      }
+    ]
+  },
+  "prizeData": {
+    "text": "Prize breakdown$25,000 Grand Prize#1$25,000Top 1 gets paid",
+    "rows": [
+      {
+        "label": "#1",
+        "value": "$25,000",
+        "height": 21
+      }
+    ]
+  },
+  "admitted": {
+    "ok": true,
+    "data": {
+      "kind": "competition-detail",
+      "competition": {
+        "id": "11111111-1111-4000-8000-000000000001",
+        "slug": "solana-autumn-arena",
+        "kind": "person",
+        "title": "Solana Autumn Arena",
+        "description": "Upcoming solo trader showdown.",
+        "prizeCopy": "$25,000 Grand Prize",
+        "prizes": [
+          {
+            "rankFrom": 1,
+            "rankTo": 1,
+            "amount": "$25,000"
+          }
+        ],
+        "minMembers": 1,
+        "maxMembers": 1,
+        "registrationOpensAt": "2026-11-01T00:00:00.000Z",
+        "registrationClosesAt": "2026-12-01T00:00:00.000Z",
+        "startsAt": "2026-11-15T00:00:00.000Z",
+        "endsAt": "2026-12-01T00:00:00.000Z",
+        "maxEntries": 250,
+        "entriesCount": 0,
+        "participants": 0,
+        "joinable": false,
+        "phase": "upcoming",
+        "isFinal": false
+      },
+      "entries": [],
+      "totalRanked": 0,
+      "builtAtMs": 0,
+      "isFinal": false
+    },
+    "source": {
+      "mode": "developer-api",
+      "label": "Pump developer API",
+      "fetchedAt": "2026-10-29T20:32:57.657Z"
+    }
+  },
+  "errors": []
+}
