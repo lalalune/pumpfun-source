@@ -9,7 +9,7 @@ back mechanically instead of being re-typed by hand:
   forms such as ``hover:bg-<name>``) yields ``<name> -> value``. A name must
   resolve to one value across every prefix and variant, or extraction fails.
 * borderRadius / fontFamily: the compiled ``rounded*`` and ``font-*`` rules.
-* rootVariables: the stylesheet's ``:root`` custom properties, emitted verbatim
+* rootVariables: the stylesheet's ``:root`` custom properties, serialized as CSS
   as CSS so arbitrary values such as ``var(--color-bg-secondary)`` resolve.
 
 The capture is read through ``evidence/web/manifest.json`` and its SHA-256 is
@@ -21,6 +21,7 @@ import json
 import pathlib
 import re
 import sys
+import tinycss2
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SOURCE_URL = 'https://pump.fun/_next/static/immutable/chunks/219hatf4piwx4.css'
@@ -169,27 +170,28 @@ def extract_scale(css, pattern, prop):
 
 
 def root_block(css):
-    blocks = re.findall(r'(?<![\w-]):root\{([^}]*)\}', css)
+    blocks = [body for _, selectors, body in style_rules(css) if selectors == ':root']
     if len(blocks) != 1:
         fail(f'expected one :root block, found {len(blocks)}')
     return blocks[0]
 
 
 def style_rules(css):
-    """Yield (at_rule, selectors, body) for every style rule; at_rule is the enclosing block or ''."""
-    stack, start = [], 0
-    for index, char in enumerate(css):
-        if char == '{':
-            stack.append((css[start:index].strip(), index))
-            start = index + 1
-        elif char == '}':
-            selectors, brace = stack.pop()
-            start = index + 1
-            if not selectors.startswith('@') and len(stack) <= 1:
-                outer = stack[0][0] if stack else ''
-                if outer and not outer.startswith('@'):
-                    continue
-                yield outer, selectors, css[brace + 1:index]
+    """Serialize style rules at the existing top-level/one-at-rule scope.
+
+    CSS tokenization keeps braces in strings, comments and URL values inert.
+    Serialization preserves their meaning; it need not retain original spelling.
+    """
+    def rules(nodes, outer=''):
+        for node in nodes:
+            if node.type == 'error':
+                fail(f'cannot parse stylesheet structure: {node.message}')
+            if node.type == 'qualified-rule':
+                yield outer, tinycss2.serialize(node.prelude).strip(), tinycss2.serialize(node.content)
+            elif node.type == 'at-rule' and node.content is not None and not outer:
+                header = ('@'+node.at_keyword+tinycss2.serialize(node.prelude)).strip()
+                yield from rules(tinycss2.parse_blocks_contents(node.content,skip_comments=False,skip_whitespace=True),header)
+    yield from rules(tinycss2.parse_stylesheet(css,skip_comments=False,skip_whitespace=True))
 
 
 # Tailwind's own preflight `body` rule; our build regenerates it.
