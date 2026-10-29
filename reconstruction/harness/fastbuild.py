@@ -13,6 +13,7 @@ Usage: fastbuild.py --src <crate dir with Cargo.toml/Cargo.lock/src[/recovered]>
 """
 import argparse, hashlib, json, os, shutil, subprocess, sys, time, tomllib, fcntl
 from pathlib import Path
+from build_process import run_compiler, validate_timeout
 
 H = Path(__file__).resolve().parent
 SC = H.parent
@@ -75,7 +76,8 @@ def acquire_slot():
         time.sleep(0.5)
 
 
-def build(src: Path, work: Path, out: Path, quiet=False, recipe=None):
+def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):
+    validate_timeout(timeout)
     recipe = recipe or DEFAULT_RECIPE
     R = RECIPES[recipe]; triple = R['triple']
     src = src.resolve(); work = work.resolve(); out = out.resolve()
@@ -114,15 +116,15 @@ def build(src: Path, work: Path, out: Path, quiet=False, recipe=None):
     slot = acquire_slot()
     t0 = time.time()
     try:
-        r = subprocess.run(cmd, cwd=ws, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        r, timed_out = run_compiler(cmd, cwd=ws, env=env, timeout=timeout)
     finally:
         slot.close()
     dt = time.time() - t0
     (out / 'build.log').write_text(r.stdout)
-    if r.returncode != 0:
+    if timed_out or r.returncode != 0:
         if not quiet:
             sys.stdout.write(r.stdout[-6000:])
-        return {'ok': False, 'recipe': recipe, 'seconds': round(dt, 1), 'log': str(out / 'build.log')}
+        return {'ok': False, 'timed_out': timed_out, 'recipe': recipe, 'seconds': round(dt, 1), 'log': str(out / 'build.log')}
     # SBF frames are 4 KiB: any "Stack offset ... exceeded max offset" warning means the program can fault at
     # runtime (the original runs, so its functions fit). Such a build must never be delivered or integrated.
     stack = [l.strip() for l in r.stdout.splitlines() if 'exceeded max offset' in l]
@@ -141,7 +143,12 @@ if __name__ == '__main__':
     ap.add_argument('--work', type=Path, required=True)
     ap.add_argument('--out', type=Path)
     ap.add_argument('--recipe', choices=sorted(RECIPES), default=DEFAULT_RECIPE, help='identity (default) = Linux v1.44 sbpf target libs; mac = Codex harness recipe')
+    ap.add_argument('--timeout', type=float, help='compiler execution deadline in seconds (excludes staging and slot wait)')
     a = ap.parse_args()
-    res = build(a.src, a.work, a.out or (a.work / 'last'), recipe=a.recipe)
+    try:
+        validate_timeout(a.timeout)
+    except ValueError as error:
+        ap.error(str(error))
+    res = build(a.src, a.work, a.out or (a.work / 'last'), recipe=a.recipe, timeout=a.timeout)
     print(json.dumps(res, indent=2))
     sys.exit(0 if res['ok'] else 1)
