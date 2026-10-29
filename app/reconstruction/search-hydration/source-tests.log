@@ -1,0 +1,23 @@
+✔ the merged clear-navigation ref binds without changing captured shortcut evidence (1089.526304ms)
+✔ the maintained clear ref must come from the actual React useRef(false) binding (1173.646148ms)
+✔ unmapped free variables in the merged effect still fail closed (520.856514ms)
+✔ known clear-ref mutations still change the complete caller fingerprint (614.605603ms)
+✔ actual mounted matcher, keys, consumer and distinct fallback source reproduce (1115.852412ms)
+✔ exact modifier sets preserve Ctrl/Meta K, case normalization and bare slash (1.009936ms)
+✔ mounted editor admission ignores bare text keys but permits matching modified shortcuts (0.335584ms)
+✔ normalizer lowercases only; it does not invent modifier aliases or trim keys (0.616696ms)
+✔ callback receiver/order, thrown errors and multiple matches preserve source behavior (0.309885ms)
+✔ the callback retains actual binding references and does not add target-shape validation (0.334673ms)
+✔ source proof rejects modifier/editor/normalizer and actual UI-wiring mutations (1352.321609ms)
+✔ the separately published Escape render handler does not stale this bounded caller binding (609.148607ms)
+✔ shell inputs remain bound to physical captured bytes and exact UTF-16 factory ranges (68.291726ms)
+✔ active layout reaches captured shell, generated assets and interactive prerequisites (263.750394ms)
+✔ inert reference renderer recovers stylesheet-gated boundaries without executing captured code (99.158407ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3519.478703

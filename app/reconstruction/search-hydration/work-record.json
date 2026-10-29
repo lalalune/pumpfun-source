@@ -1,0 +1,55 @@
+{
+  "base": "abd766d7a8c047f14af34851f64166b840c6728d",
+  "latest_main_at_submit_check": "ef400863f4e476b2eaaab0866c0b1187d8060abc",
+  "latest_shared_source_blob_equals_base": "ebedbdaf55fefed7b343682599143501d42e3352",
+  "before_source_sha256": "a47fb602cc3a1793f30715fe324bca602ed1b5aeba9768bcdeb6958868057e87",
+  "source": {
+    "path": "app/packages/frontend/src/components/shell/search/SearchDialog.tsx",
+    "sha256": "88da18486c0099f00451870d044a9eeb421f06cf71046daf6d9b4f5ef4d61cdc"
+  },
+  "test": {
+    "path": "app/packages/frontend/tests/search-dialog-hydration.spec.ts",
+    "sha256": "91e7c9f5a320a3369590c9e855c05dcc6abd41efc0d36109989f1a7748b9537b"
+  },
+  "browser": {
+    "before": {
+      "failed": 1,
+      "not_run": 1,
+      "max_failures": 1,
+      "workers": 1,
+      "retries": 0,
+      "log": "baseline.log"
+    },
+    "after": {
+      "passed": 17,
+      "workers": 1,
+      "retries": 0,
+      "log": "candidate.log"
+    },
+    "instrumentation": "Passive DOM/mount/native-popstate observations. Real native history and actual local HTTP; no app, hook, route or response replacement in new tests. First case CPU4x, DOMContentLoaded reload and mount-complete Back before Forward. Second case390x844 direct query.",
+    "cause": "Reload server markup has query-dependent Clear; native Back changes q before the shared Suspense boundary hydrates, so client initial draft is empty and its first button is Search.",
+    "initial_experiments": "Two earlier unchanged two-case probes passed; traces showed Forward before hidden boundary mount. Completing Back before Forward exposed the actual server/client mismatch twice; no assertion relaxed."
+  },
+  "checks": {
+    "capture_integrity": 9,
+    "tooling": 10,
+    "source_tests": 15,
+    "frontend_typegen": "PASS",
+    "frontend_typecheck": "PASS",
+    "app_evidence": "698 objects/npm/unchanged SDK PASS",
+    "progress": "PASS"
+  },
+  "limits": [
+    "Finite Chromium development-server proof, not all browsers or production build.",
+    "No full Next build/full browser suite/production compatibility or visual parity claimed.",
+    "No captures executed or modified; original empty initializer support does not establish complete original dialog/hook equivalence.",
+    "Before mobile is not supplied: initial failing desktop ends maxfailures1; mobile direct query is an after-only preservation control.",
+    "Prior recent-history1245 and all binary packets remain separate and unchanged."
+  ],
+  "baseline_log_preservation": {
+    "raw_gzip": "baseline.raw.log.gz",
+    "raw_sha256": "70ab7ed1f6f6b4259351da45d749e2ab31c6bc66a4631bae99869de01117f305",
+    "readable_log": "baseline.log",
+    "readable_transform": "Only the reporter two trailing end-of-line spaces stripped. Exact raw bytes retained in gzip."
+  }
+}

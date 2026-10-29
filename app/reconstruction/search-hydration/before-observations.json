@@ -1,0 +1,415 @@
+{
+  "errors": [
+    "Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <RedirectBoundary>\n      <RedirectErrorBoundary router={{...}}>\n        <Head>\n        <__next_root_layout_boundary__>\n          <SegmentViewNode type=\"layout\" pagePath=\"layout.tsx\">\n            <SegmentTrieNode>\n            <link>\n            <script>\n            <script>\n            <Layout>\n              <html lang=\"en\" data-pf-auth=\"out\" suppressHydrationWarning={true}>\n                <body>\n                  <script>\n                  <ClickwrapDialog>\n                  <AppShell>\n                    <SidebarProvider>\n                      ...\n                        <Suspense>\n                          <SearchDialog>\n                            <dialog ref={{current:null}} aria-label=\"Search for...\" onKeyDown={function onKeyDown} ...>\n                              <form onSubmit={function onSubmit} role=\"search\" className=\"flex items...\">\n                                <SearchMobileIcon>\n                                <input>\n                                <button\n+                                 type=\"button\"\n-                                 type=\"submit\"\n+                                 aria-label=\"Clear search\"\n-                                 aria-label={null}\n+                                 className=\"px-2 py-3 text-sm\"\n-                                 className=\"rounded-md bg-bg-accent px-3 py-2 text-sm text-text-on-accent\"\n                                  onClick={function onClick}\n                                >\n+                                 ×\n-                                 Search\n                                ...\n                              ...\n                  ...\n        ...\n",
+    "Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <RedirectBoundary>\n      <RedirectErrorBoundary router={{...}}>\n        <Head>\n        <__next_root_layout_boundary__>\n          <SegmentViewNode type=\"layout\" pagePath=\"layout.tsx\">\n            <SegmentTrieNode>\n            <link>\n            <script>\n            <script>\n            <Layout>\n              <html lang=\"en\" data-pf-auth=\"out\" suppressHydrationWarning={true}>\n                <body>\n                  <script>\n                  <ClickwrapDialog>\n                  <AppShell>\n                    <SidebarProvider>\n                      ...\n                        <Suspense>\n                          <SearchDialog>\n                            <dialog ref={{current:null}} aria-label=\"Search for...\" onKeyDown={function onKeyDown} ...>\n                              <form onSubmit={function onSubmit} role=\"search\" className=\"flex items...\">\n                                <SearchMobileIcon>\n                                <input>\n                                <button\n+                                 type=\"submit\"\n-                                 type=\"button\"\n+                                 className=\"rounded-md bg-bg-accent px-3 py-2 text-sm text-text-on-accent\"\n-                                 className=\"px-2 py-3 text-sm\"\n-                                 aria-label=\"Clear search\"\n                                >\n+                                 Search\n-                                 ×\n                                ...\n                              ...\n                  ...\n        ...\n"
+  ],
+  "observations": [
+    {
+      "stage": "search-markup-change",
+      "time": 897.7000000178814,
+      "url": "http://127.0.0.1:3010/go",
+      "mounted": false,
+      "inputValue": "",
+      "serverValueAttribute": "",
+      "buttons": [
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "DOMContentLoaded",
+      "time": 1655.300000011921,
+      "url": "http://127.0.0.1:3010/go",
+      "mounted": false,
+      "inputValue": "",
+      "serverValueAttribute": "",
+      "buttons": [
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "search-markup-change",
+      "time": 5716.9000000059605,
+      "url": "http://127.0.0.1:3010/go?q=alpha+%26+beta%3Done",
+      "mounted": false,
+      "inputValue": "alpha & beta=one",
+      "serverValueAttribute": "alpha & beta=one",
+      "buttons": [
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "search-markup-change",
+      "time": 5766.300000011921,
+      "url": "http://127.0.0.1:3010/go?q=alpha+%26+beta%3Done",
+      "mounted": false,
+      "inputValue": "alpha & beta=one",
+      "serverValueAttribute": "alpha & beta=one",
+      "buttons": [
+        {
+          "type": "button",
+          "label": "Clear search",
+          "text": "×"
+        },
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "actual-search-listener-mounted",
+      "time": 5797.0999999940395,
+      "url": "http://127.0.0.1:3010/go?q=alpha+%26+beta%3Done",
+      "mounted": true,
+      "inputValue": "alpha & beta=one",
+      "serverValueAttribute": "alpha & beta=one",
+      "buttons": [
+        {
+          "type": "button",
+          "label": "Clear search",
+          "text": "×"
+        },
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "search-markup-change",
+      "time": 296.80000001192093,
+      "url": "http://127.0.0.1:3010/go?q=alpha+%26+beta%3Done",
+      "mounted": false,
+      "inputValue": "alpha & beta=one",
+      "serverValueAttribute": "alpha & beta=one",
+      "buttons": [
+        {
+          "type": "button",
+          "label": "Clear search",
+          "text": "×"
+        },
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "DOMContentLoaded",
+      "time": 301.7000000178814,
+      "url": "http://127.0.0.1:3010/go?q=alpha+%26+beta%3Done",
+      "mounted": false,
+      "inputValue": "alpha & beta=one",
+      "serverValueAttribute": "alpha & beta=one",
+      "buttons": [
+        {
+          "type": "button",
+          "label": "Clear search",
+          "text": "×"
+        },
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "native-popstate",
+      "time": 705.8000000119209,
+      "url": "http://127.0.0.1:3010/go",
+      "mounted": false,
+      "inputValue": "alpha & beta=one",
+      "serverValueAttribute": "alpha & beta=one",
+      "buttons": [
+        {
+          "type": "button",
+          "label": "Clear search",
+          "text": "×"
+        },
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "search-markup-change",
+      "time": 1955.1000000238419,
+      "url": "http://127.0.0.1:3010/go",
+      "mounted": false,
+      "inputValue": "",
+      "serverValueAttribute": "",
+      "buttons": [
+        {
+          "type": "button",
+          "label": "Clear search",
+          "text": "×"
+        },
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "search-markup-change",
+      "time": 1978.5,
+      "url": "http://127.0.0.1:3010/go",
+      "mounted": false,
+      "inputValue": "",
+      "serverValueAttribute": "",
+      "buttons": [
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "actual-search-listener-mounted",
+      "time": 1988.1000000238419,
+      "url": "http://127.0.0.1:3010/go",
+      "mounted": true,
+      "inputValue": "",
+      "serverValueAttribute": "",
+      "buttons": [
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "native-popstate",
+      "time": 2546.800000011921,
+      "url": "http://127.0.0.1:3010/go?q=alpha+%26+beta%3Done",
+      "mounted": true,
+      "inputValue": "",
+      "serverValueAttribute": "",
+      "buttons": [
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "search-markup-change",
+      "time": 2884,
+      "url": "http://127.0.0.1:3010/go?q=alpha+%26+beta%3Done",
+      "mounted": true,
+      "inputValue": "alpha & beta=one",
+      "serverValueAttribute": "alpha & beta=one",
+      "buttons": [
+        {
+          "type": "button",
+          "label": "Clear search",
+          "text": "×"
+        },
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "search-markup-change",
+      "time": 3926.600000023842,
+      "url": "http://127.0.0.1:3010/go",
+      "mounted": true,
+      "inputValue": "",
+      "serverValueAttribute": "",
+      "buttons": [
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    }
+  ],
+  "latestDocument": [
+    {
+      "stage": "search-markup-change",
+      "time": 296.80000001192093,
+      "url": "http://127.0.0.1:3010/go?q=alpha+%26+beta%3Done",
+      "mounted": false,
+      "inputValue": "alpha & beta=one",
+      "serverValueAttribute": "alpha & beta=one",
+      "buttons": [
+        {
+          "type": "button",
+          "label": "Clear search",
+          "text": "×"
+        },
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "DOMContentLoaded",
+      "time": 301.7000000178814,
+      "url": "http://127.0.0.1:3010/go?q=alpha+%26+beta%3Done",
+      "mounted": false,
+      "inputValue": "alpha & beta=one",
+      "serverValueAttribute": "alpha & beta=one",
+      "buttons": [
+        {
+          "type": "button",
+          "label": "Clear search",
+          "text": "×"
+        },
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "native-popstate",
+      "time": 705.8000000119209,
+      "url": "http://127.0.0.1:3010/go",
+      "mounted": false,
+      "inputValue": "alpha & beta=one",
+      "serverValueAttribute": "alpha & beta=one",
+      "buttons": [
+        {
+          "type": "button",
+          "label": "Clear search",
+          "text": "×"
+        },
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "search-markup-change",
+      "time": 1955.1000000238419,
+      "url": "http://127.0.0.1:3010/go",
+      "mounted": false,
+      "inputValue": "",
+      "serverValueAttribute": "",
+      "buttons": [
+        {
+          "type": "button",
+          "label": "Clear search",
+          "text": "×"
+        },
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "search-markup-change",
+      "time": 1978.5,
+      "url": "http://127.0.0.1:3010/go",
+      "mounted": false,
+      "inputValue": "",
+      "serverValueAttribute": "",
+      "buttons": [
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "actual-search-listener-mounted",
+      "time": 1988.1000000238419,
+      "url": "http://127.0.0.1:3010/go",
+      "mounted": true,
+      "inputValue": "",
+      "serverValueAttribute": "",
+      "buttons": [
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "native-popstate",
+      "time": 2546.800000011921,
+      "url": "http://127.0.0.1:3010/go?q=alpha+%26+beta%3Done",
+      "mounted": true,
+      "inputValue": "",
+      "serverValueAttribute": "",
+      "buttons": [
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "search-markup-change",
+      "time": 2884,
+      "url": "http://127.0.0.1:3010/go?q=alpha+%26+beta%3Done",
+      "mounted": true,
+      "inputValue": "alpha & beta=one",
+      "serverValueAttribute": "alpha & beta=one",
+      "buttons": [
+        {
+          "type": "button",
+          "label": "Clear search",
+          "text": "×"
+        },
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    },
+    {
+      "stage": "search-markup-change",
+      "time": 3926.600000023842,
+      "url": "http://127.0.0.1:3010/go",
+      "mounted": true,
+      "inputValue": "",
+      "serverValueAttribute": "",
+      "buttons": [
+        {
+          "type": "submit",
+          "label": null,
+          "text": "Search"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+
+Running 2 tests using 1 worker
+
+(node:332596) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] tests/search-dialog-hydration.spec.ts:94:5 › query reload and browser history keep the shared search hydration consistent on a slow CPU
+  1) tests/search-dialog-hydration.spec.ts:94:5 › query reload and browser history keep the shared search hydration consistent on a slow CPU
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -   1
+    + Received  + 104
+
+    - Array []
+    + Array [
+    +   "Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+    +
+    + - A server/client branch `if (typeof window !== 'undefined')`.
+    + - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+    + - Date formatting in a user's locale which doesn't match the server.
+    + - External changing data without sending a snapshot of it along with the HTML.
+    + - Invalid HTML tag nesting.
+    +
+    + It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+    +
+    + https://react.dev/link/hydration-mismatch
+    +
+    +   ...
+    +     <RedirectBoundary>
+    +       <RedirectErrorBoundary router={{...}}>
+    +         <Head>
+    +         <__next_root_layout_boundary__>
+    +           <SegmentViewNode type=\"layout\" pagePath=\"layout.tsx\">
+    +             <SegmentTrieNode>
+    +             <link>
+    +             <script>
+    +             <script>
+    +             <Layout>
+    +               <html lang=\"en\" data-pf-auth=\"out\" suppressHydrationWarning={true}>
+    +                 <body>
+    +                   <script>
+    +                   <ClickwrapDialog>
+    +                   <AppShell>
+    +                     <SidebarProvider>
+    +                       ...
+    +                         <Suspense>
+    +                           <SearchDialog>
+    +                             <dialog ref={{current:null}} aria-label=\"Search for...\" onKeyDown={function onKeyDown} ...>
+    +                               <form onSubmit={function onSubmit} role=\"search\" className=\"flex items...\">
+    +                                 <SearchMobileIcon>
+    +                                 <input>
+    +                                 <button
+    + +                                 type=\"button\"
+    + -                                 type=\"submit\"
+    + +                                 aria-label=\"Clear search\"
+    + -                                 aria-label={null}
+    + +                                 className=\"px-2 py-3 text-sm\"
+    + -                                 className=\"rounded-md bg-bg-accent px-3 py-2 text-sm text-text-on-accent\"
+    +                                   onClick={function onClick}
+    +                                 >
+    + +                                 ×
+    + -                                 Search
+    +                                 ...
+    +                               ...
+    +                   ...
+    +         ...
+    + ",
+    +   "Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+    +
+    + - A server/client branch `if (typeof window !== 'undefined')`.
+    + - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+    + - Date formatting in a user's locale which doesn't match the server.
+    + - External changing data without sending a snapshot of it along with the HTML.
+    + - Invalid HTML tag nesting.
+    +
+    + It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+    +
+    + https://react.dev/link/hydration-mismatch
+    +
+    +   ...
+    +     <RedirectBoundary>
+    +       <RedirectErrorBoundary router={{...}}>
+    +         <Head>
+    +         <__next_root_layout_boundary__>
+    +           <SegmentViewNode type=\"layout\" pagePath=\"layout.tsx\">
+    +             <SegmentTrieNode>
+    +             <link>
+    +             <script>
+    +             <script>
+    +             <Layout>
+    +               <html lang=\"en\" data-pf-auth=\"out\" suppressHydrationWarning={true}>
+    +                 <body>
+    +                   <script>
+    +                   <ClickwrapDialog>
+    +                   <AppShell>
+    +                     <SidebarProvider>
+    +                       ...
+    +                         <Suspense>
+    +                           <SearchDialog>
+    +                             <dialog ref={{current:null}} aria-label=\"Search for...\" onKeyDown={function onKeyDown} ...>
+    +                               <form onSubmit={function onSubmit} role=\"search\" className=\"flex items...\">
+    +                                 <SearchMobileIcon>
+    +                                 <input>
+    +                                 <button
+    + +                                 type=\"submit\"
+    + -                                 type=\"button\"
+    + +                                 className=\"rounded-md bg-bg-accent px-3 py-2 text-sm text-text-on-accent\"
+    + -                                 className=\"px-2 py-3 text-sm\"
+    + -                                 aria-label=\"Clear search\"
+    +                                 >
+    + +                                 Search
+    + -                                 ×
+    +                                 ...
+    +                               ...
+    +                   ...
+    +         ...
+    + ",
+    + ]
+
+      128 |     );
+      129 |     await expect(await openShellSearch(page)).toHaveValue("");
+    > 130 |     expect(errors).toEqual([]);
+          |                    ^
+      131 |   } finally {
+      132 |     await saveTrace(page, errors, observations);
+      133 |   }
+        at /workspace/pump-app-search-planner/app/packages/frontend/tests/search-dialog-hydration.spec.ts:130:20
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../search-dialog-hydration-abd766d7/portable-baseline-browser-artifacts/search-dialog-hydration-qu-23df4-on-consistent-on-a-slow-CPU/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../search-dialog-hydration-abd766d7/portable-baseline-browser-artifacts/search-dialog-hydration-qu-23df4-on-consistent-on-a-slow-CPU/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../search-dialog-hydration-abd766d7/portable-baseline-browser-artifacts/search-dialog-hydration-qu-23df4-on-consistent-on-a-slow-CPU/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../search-dialog-hydration-abd766d7/portable-baseline-browser-artifacts/search-dialog-hydration-qu-23df4-on-consistent-on-a-slow-CPU/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+Testing stopped early after 1 maximum allowed failures.
+
+  1 failed
+    tests/search-dialog-hydration.spec.ts:94:5 › query reload and browser history keep the shared search hydration consistent on a slow CPU
+  1 did not run
+  1 error was not a part of any test, see above for details

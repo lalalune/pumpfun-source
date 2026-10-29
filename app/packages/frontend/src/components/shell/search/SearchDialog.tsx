@@ -20,7 +20,9 @@ export function SearchDialog() {
   const pathname = usePathname();
   const params = useSearchParams();
   const currentQuery = params.get("q") ?? "";
-  const [query, setQuery] = useState(currentQuery);
+  // A shared Suspense boundary can hydrate after native history changes q.
+  // Keep its first server/client markup stable; the effect below follows q.
+  const [query, setQuery] = useState("");
   const pendingClear = useRef(false);
   const [open, setOpen] = useState(false);
   const { closeMobile } = useSidebar();

@@ -1,0 +1,25 @@
+
+Running 17 tests using 1 worker
+
+(node:332802) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/17] tests/search-dialog-hydration.spec.ts:94:5 › query reload and browser history keep the shared search hydration consistent on a slow CPU
+[2/17] tests/search-dialog-hydration.spec.ts:136:5 › a direct nonempty URL still initializes the dialog and follows later browser history
+[3/17] tests/search-dialog.spec.ts:5:7 › Escape dismisses populated global search without changing URL at desktop size
+[4/17] tests/search-dialog.spec.ts:5:7 › Escape dismisses populated global search without changing URL at mobile size
+[5/17] tests/search-dialog.spec.ts:28:7 › first search click opens the dialog during CPU-bound hydration at desktop size
+[6/17] tests/search-dialog.spec.ts:28:7 › first search click opens the dialog during CPU-bound hydration at mobile size
+[7/17] tests/search-local-users.spec.ts:4:5 › searches the local user model and opens the exact profile
+[8/17] tests/search-local-users.spec.ts:34:5 › honors two UTF-16 units and the captured 500ms debounce
+[9/17] tests/search-local-users.spec.ts:67:5 › clears obsolete rows immediately and ignores an old response that ignores abort
+[10/17] tests/search-local-users.spec.ts:129:5 › closed dialogs cancel pending reads and preserve the existing Escape draft
+[11/17] tests/search-local-users.spec.ts:157:5 › shows unavailable reads without remote fallback and keeps Enter on Explore
+[12/17] tests/search-shortcuts.spec.ts:19:5 › bare slash opens global search from non-editor focus and prevents the typed slash
+[13/17] tests/search-shortcuts.spec.ts:30:5 › Ctrl-K toggles the mounted dialog from an editor while additional modifiers do not match
+[14/17] tests/search-shortcuts.spec.ts:49:5 › bare slash remains text in an editor and does not open the dialog
+[15/17] tests/shell.spec.ts:222:5 › search encodes queries, follows history and handles clearing and empties
+[16/17] tests/shell.spec.ts:254:5 › keyboard traversal reaches shell navigation, search and actions
+[17/17] tests/shell.spec.ts:383:5 › a delayed search clear preserves a newly typed draft
+  17 passed (39.9s)
