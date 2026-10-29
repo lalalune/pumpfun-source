@@ -16,6 +16,8 @@ import {
   validateDraftField,
   validateImage,
 } from "./create-coin-validation";
+import CreateBannerInput from "./create-banner-input";
+import { EMPTY_BANNER, type BannerState } from "./create-banner-preview";
 import { CreateDraftLinks } from "./create-draft-links";
 import CreateVideoInput, { type VideoInputControl } from "./create-video-input";
 import {
@@ -101,6 +103,8 @@ export default function CreateCoinForm() {
     owner: VideoPreview;
   } | null>(null);
   const [videoReset, setVideoReset] = useState(0);
+  const [banner, setBanner] = useState<BannerState>(EMPTY_BANNER);
+  const [bannerReset, setBannerReset] = useState(0);
   const formRef = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoControlRef = useRef<VideoInputControl>(null);
@@ -128,6 +132,18 @@ export default function CreateCoinForm() {
 
   function previewDraft(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (banner.pending || banner.error) {
+      setStatus(
+        banner.pending
+          ? "Wait for the local banner preview to finish."
+          : "Replace or remove the rejected banner selection before previewing.",
+      );
+      const input =
+        formRef.current?.querySelector<HTMLInputElement>("#create-banner");
+      input?.closest("details")?.setAttribute("open", "");
+      input?.focus();
+      return;
+    }
     const nextErrors = validateDraft(draft, selectedImage?.file ?? null);
     setErrors(nextErrors);
     const firstError = Object.keys(nextErrors)[0];
@@ -147,6 +163,8 @@ export default function CreateCoinForm() {
 
   function resetDraft() {
     setDraft(EMPTY_DRAFT);
+    setBanner(EMPTY_BANNER);
+    setBannerReset((value) => value + 1);
     setErrors({});
     setSelectedImage(null);
     setSelectedVideo(null);
@@ -343,6 +361,15 @@ export default function CreateCoinForm() {
           ) : null}
           <FieldError field="image" error={errors.image} />
         </div>
+
+        <CreateBannerInput
+          key={bannerReset}
+          state={banner}
+          onChange={(next) => {
+            setBanner(next);
+            setStatus("");
+          }}
+        />
 
         <CreateVideoInput
           key={videoReset}

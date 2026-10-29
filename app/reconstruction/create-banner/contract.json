@@ -1,0 +1,332 @@
+{
+  "authority": "Static authenticated captured frontend evidence; original JavaScript is never executed.",
+  "anchors": {
+    "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+    "inventorySha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2"
+  },
+  "createHtml": {
+    "path": "evidence/web/objects/5e15667ed36cac85",
+    "sha256": "6568b22a593755b49e02ccc9cb85fdc7655d50e09ccac6d9e0942783ff9f2b26",
+    "bytes": 368123,
+    "selectedPageAndCommonChunkPresent": true
+  },
+  "factories": [
+    {
+      "id": 734638,
+      "ids": [
+        734638
+      ],
+      "label": "factory 734638",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        119,
+        66825
+      ],
+      "utf8": [
+        119,
+        66827
+      ],
+      "sha256": "616b013f89f1cf3e446817865c602c16b9eb6f07e09fa05145c0191ce60f63bc"
+    },
+    {
+      "id": 586090,
+      "ids": [
+        586090
+      ],
+      "label": "factory 586090",
+      "source": "evidence/web/objects/6a1606765ef3e83e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3y5r8v8wybyb1.js",
+      "sourceSha256": "ddb057517a85d603c9db9defee195253a1d0fa4595e37da190b7d8e83117962e",
+      "sourceBytes": 38332,
+      "utf16": [
+        21522,
+        21848
+      ],
+      "utf8": [
+        21522,
+        21848
+      ],
+      "sha256": "5ddcdce058dfb79522bc03a2ba9bf7d9cae7eccccaad65d80ea43b368f114fc4"
+    },
+    {
+      "id": 66094,
+      "ids": [
+        66094
+      ],
+      "label": "factory 66094",
+      "source": "evidence/web/objects/6a1606765ef3e83e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3y5r8v8wybyb1.js",
+      "sourceSha256": "ddb057517a85d603c9db9defee195253a1d0fa4595e37da190b7d8e83117962e",
+      "sourceBytes": 38332,
+      "utf16": [
+        32872,
+        35745
+      ],
+      "utf8": [
+        32872,
+        35745
+      ],
+      "sha256": "a47ef1abe034e30194f5ebc662e2dddefb6beb96a7a9d9cd04f639d6cf664f2d"
+    },
+    {
+      "id": 29542,
+      "ids": [
+        29542
+      ],
+      "label": "factory 29542",
+      "source": "evidence/web/objects/fd402d4185b44ce9.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/19xl-yywkv-8p.js",
+      "sourceSha256": "1dc5d2351887b14932acbddf37ea653566df106b41c56ddc19ae70158e43f806",
+      "sourceBytes": 31128,
+      "utf16": [
+        5207,
+        9672
+      ],
+      "utf8": [
+        5207,
+        9673
+      ],
+      "sha256": "ede316c07dd8ceb3faff4f840fefbb61a5b1a18d372e600225db0f8410a661bd"
+    },
+    {
+      "id": 658259,
+      "ids": [
+        658259
+      ],
+      "label": "factory 658259",
+      "source": "evidence/web/objects/762f0784b7be61c0.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3r6p9e97ury3w.js",
+      "sourceSha256": "bcf44369e779ce7350d3208f3b954d45fb60de35e553f9e07fa3f058ddc4ee03",
+      "sourceBytes": 26214,
+      "utf16": [
+        138,
+        5776
+      ],
+      "utf8": [
+        138,
+        5776
+      ],
+      "sha256": "691ff5f669927ccece0478631066f80ac94a832dd5fadae2a3a175f09372e6fa"
+    }
+  ],
+  "observed": {
+    "accepted": [
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/webp"
+    ],
+    "maximumBytes": 4500000,
+    "maximumFiles": 1,
+    "bannerIsSeparateFromCoinImage": true,
+    "recommendation": "3:1,1500x500; not a hard dimension gate",
+    "productionAttach": "Separate pin/upload then POST /coins/add-banner after creation; not token metadata."
+  },
+  "witnesses": [
+    {
+      "label": "actual optional banner consumer",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        64019,
+        64362
+      ],
+      "utf8": [
+        64021,
+        64364
+      ],
+      "sha256": "022d2bbb50ae53f91502ac2e3dba73fb4f2ed58df3fda74f0b1eeb840531dfd5",
+      "code": "(0,t.jsx)(K,{onDrop:e=>ta(e),onDropRejected:t=>{\"too-many-files\"===t[0]?.errors[0]?.code?p.c.error(e(\"web.create.banner_one_file\")):tr(\"unsupported_type\")},accept:eX.G,maxFiles:1,preview:eS,fileType:J,onReplace:()=>{ep(void 0),eu(void 0),ex(void 0)},isBanner:!0,showWallet:()=>{(0,F.Lw)({source:\"coin_creation_form\"}),eP(!0)},isLoggedIn:!!eL})"
+    },
+    {
+      "label": "used selection/normalization result",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        58616,
+        58789
+      ],
+      "utf8": [
+        58618,
+        58791
+      ],
+      "sha256": "063733aea143e96d8ac5c39b5a1b640996bf0ee278aca8723eeb2f74f921c2e0",
+      "code": "ta=async t=>{if(!eD)return void p.c.error(e(\"web.create.connect_wallet_to_upload\"));let r=t?.[0];if(!r)return void ep(void 0);let a=await e7(r);a.ok?ep(a.file):tr(a.reason)}"
+    },
+    {
+      "label": "banner limit source",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        36865,
+        36879
+      ],
+      "utf8": [
+        36867,
+        36881
+      ],
+      "sha256": "060c20c186d2c2f3c63b7a2e5b479ac9110a71c7ddd2979a089d599e32e78862",
+      "code": "e5=eX.O.BANNER"
+    },
+    {
+      "label": "production normalization NOT implemented locally",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        37227,
+        38090
+      ],
+      "utf8": [
+        37229,
+        38092
+      ],
+      "sha256": "4abdbe57dce72fa194f8dd5b1a1910f234b46e0effe00d4f2e8ad2d41d0eec63",
+      "code": "e7=async e=>{let t,r=await e9(e);if(!r)return{ok:!1,reason:\"unsupported_type\"};if(\"image/gif\"===r||await (0,eJ.q)(e))return e.size<=e5?{ok:!0,file:e,type:r,resized:!1}:{ok:!1,reason:\"too_large\"};try{t=await (0,eJ.$)(e)}catch{return{ok:!1,reason:\"unreadable\"}}let{width:a,height:i}=(0,eJ.H)(t);try{if(!(e.size>1e6||Math.max(a,i)>3e3))return e.size<=e5?{ok:!0,file:e,type:r,width:a,height:i,resized:!1}:{ok:!1,reason:\"too_large\"};let s=await (0,eJ.I)({file:e,source:t,profile:e6});if(!s)return e.size<=e5?{ok:!0,file:e,type:r,width:a,height:i,resized:!1}:{ok:!1,reason:\"too_large\"};if(!(s.size<=e5))return{ok:!1,reason:\"too_large\"};return{ok:!0,file:s,type:\"image/png\"===s.type?\"image/png\":\"image/jpeg\",width:a,height:i,resized:!0}}catch{return e.size<=e5?{ok:!0,file:e,type:r,width:a,height:i,resized:!1}:{ok:!1,reason:\"too_large\"}}finally{\"close\"in t&&t.close()}}"
+    },
+    {
+      "label": "production MIME sniff NOT implemented locally",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        37100,
+        37226
+      ],
+      "utf8": [
+        37102,
+        37228
+      ],
+      "sha256": "e3211e9ac46d9b0d905d609169a0d14b05ad44a87f6051ac8f4c0f6a3d9c0911",
+      "code": "e9=async e=>{if(e.type in eX.G)return e.type;let t=await (0,eY.x)(e);return\"image/jpg\"===t?\"image/jpeg\":t&&t in eX.G?t:void 0}"
+    },
+    {
+      "label": "separate production pin/attach boundary EXCLUDED",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        47744,
+        48679
+      ],
+      "utf8": [
+        47746,
+        48681
+      ],
+      "sha256": "1013726dc5dd8cf23b096238b9b191c4ecf092a0ea482e451299063c6fb91d2b",
+      "code": "e6=(0,m.useCallback)(async t=>{let r;if(!X)return;let a=eD?X&&X.size>e5?ts:void 0:\"connect your wallet and sign in to upload a file\";if(a)return void p.c.error(e(\"web.create.banner_upload_failed\"),{description:a});try{let e=await (0,eZ.w)(X);r=`https://ipfs.io/ipfs/${e.cid}`}catch(r){(0,eb.l)({error:r,feature:\"coin-creation\",operation:\"pin-banner\",context:{mint:t.toBase58(),fileSize:X.size,fileType:X.type}}),p.c.error(e(\"web.create.banner_upload_failed\"),{description:e(\"web.create.unexpected_error\")});return}let i=await ti({mint:t.toBase58(),fileUri:r});i.ok||((0,eb.l)({error:Error(i.message??`add-banner ${i.reason}`),feature:\"coin-creation\",operation:\"attach-banner\",context:{mint:t.toBase58(),reason:i.reason,status:i.status}}),p.c.error(e(\"web.create.banner_upload_failed\"),{description:\"too_large\"===i.reason?e(\"web.create.banner_too_large_description\",{max_mb:e8}):i.message??e(\"web.create.unexpected_error\")}))},[eD,X,e])"
+    },
+    {
+      "label": "separate production request EXCLUDED",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        38377,
+        39111
+      ],
+      "utf8": [
+        38379,
+        39113
+      ],
+      "sha256": "d538f2705a17391f759ef3abea02ed55eda5f85bffd4086cd106e6cd9221fcb2",
+      "code": "ti=async({mint:e,fileUri:t,retries:r=4,retryDelayMs:a=1e3,fetchImpl:i})=>{let s=0;for(;;){let n;try{let r=0,a=await (0,et.j)({...ta(i),throwHttpErrors:!1,parseJson:te,hooks:{afterResponse:[(e,t,a)=>{r=a.status}]}})(\"POST /coins/add-banner\",{body:{mint:e,banner:t},credentials:\"include\",headers:{\"Content-Type\":\"application/json\"}});if(r>=200&&r<300)return{ok:!0};if(413===r)return{ok:!1,reason:\"too_large\",status:413};let s=tt(a);if(404===r)n={ok:!1,reason:\"rejected\",status:r,message:s};else{if(r>=400&&r<500)return{ok:!1,reason:\"rejected\",status:r,message:s};n={ok:!1,reason:\"unavailable\",status:r,message:s}}}catch(e){n={ok:!1,reason:\"unavailable\",message:e instanceof Error?e.message:String(e)}}if(s>=r)return n;s+=1,await tr(a)}}"
+    },
+    {
+      "label": "banner attach after successful create response EXCLUDED",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        48722,
+        49898
+      ],
+      "utf8": [
+        48724,
+        49900
+      ],
+      "sha256": "6d984cf8dcb8f474cb51d936af68d4f48c5e50d3959e444138d1b7323cded1f5",
+      "code": "te=(0,m.useCallback)(async({metadata:t,metadataUri:r})=>{try{let a=await (0,et.j)()(\"POST /coins/create-v2\",{credentials:\"include\",throwHttpErrors:!1,body:{name:e_,ticker:ey,description:ew,twitter:ej,telegram:eT,website:ek,showName:eN,metadataUri:r,image:t.image,video:t.video,tokenProgram:o.S.toBase58()}});if(\"error\"in a&&\"string\"==typeof a.error&&a.error)throw Error(a.error);if(!(\"mint\"in a)||!a.mint)throw Error(\"could not create coin\");let{mint:i}=a;await e6(new l.PublicKey(i));let n=t.video?s.Vx.VIDEO:s.Vx.IMAGE;return(0,F.vR)({mint:i.toString(),isFree:!0,tokensBought:0,solPaid:0,isMayhemMode:!1,assetType:n}),eg(\"\"),ev(\"\"),eE(\"\"),eA(\"\"),eo(void 0),ec(void 0),el(void 0),em(!1),eM(!1),ef(),p.c.success(e(\"web.create.created_new_coin\"),{action:{label:e(\"web.create.view_coin_action\"),onClick:()=>window.open(`/coin/${i}`,\"_blank\")}}),i?.toString()}catch(i){console.error(\"could not create\",i);let r=t.video?s.Vx.VIDEO:s.Vx.IMAGE,a=i instanceof Error?i.message:\"could not create coin\";(0,F.$X)({isFree:!0,tokensBought:0,solPaid:0,isMayhemMode:!1,error:a,assetType:r}),p.c.error(e(\"web.create.could_not_create\"),{description:i?.message})}},[ew,e6,e_,eN,eT,ey,ej,ek,ef])"
+    },
+    {
+      "label": "banner attach awaits actual confirmation EXCLUDED",
+      "source": "evidence/web/objects/89ce7de3b9bad421.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d42gkuet1_-2.js",
+      "sourceSha256": "d275ba753876846f4bf1e5a6923b88b9e8daac07d56fb1fdca785d35a9bb096e",
+      "sourceBytes": 66830,
+      "utf16": [
+        56557,
+        56665
+      ],
+      "utf8": [
+        56559,
+        56667
+      ],
+      "sha256": "70ef332d26c09b55c3f23e51eaa8f9ea439bd4c6406f233e17bf8949e1d05b8d",
+      "code": "(({confirmation:e,attachBanner:t})=>e.then(async e=>(await t(),e)))({confirmation:L,attachBanner:()=>e6(S)})"
+    },
+    {
+      "label": "recommendation and historical production wording",
+      "source": "evidence/web/objects/fd402d4185b44ce9.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/19xl-yywkv-8p.js",
+      "sourceSha256": "1dc5d2351887b14932acbddf37ea653566df106b41c56ddc19ae70158e43f806",
+      "sourceBytes": 31128,
+      "utf16": [
+        5774,
+        6097
+      ],
+      "utf8": [
+        5774,
+        6097
+      ],
+      "sha256": "507609e3a55daf053990e0b8726d132ffeaba849bb373e606ac53635307ef494",
+      "code": "BANNER:{DESCRIPTION:\"This will be shown on the coin page in addition to the coin image. Images or animated GIFs up to 4.5 MB; larger images are resized automatically, GIFs are not. 3:1 aspect ratio, 1500x500px recommended. You can only do this when creating the coin, and it cannot be changed later.\",LABEL:\"Upload banner\"}"
+    },
+    {
+      "label": "banner display frame",
+      "source": "evidence/web/objects/762f0784b7be61c0.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3r6p9e97ury3w.js",
+      "sourceSha256": "bcf44369e779ce7350d3208f3b954d45fb60de35e553f9e07fa3f058ddc4ee03",
+      "sourceBytes": 26214,
+      "utf16": [
+        4303,
+        4357
+      ],
+      "utf8": [
+        4303,
+        4357
+      ],
+      "sha256": "1eb6e4a06089a33180b54fe12e4f46434531b0da8750f81ae3be97f67310d814",
+      "code": "\"aspect-[3/1] max-h-96 w-full rounded-lg object-cover\""
+    }
+  ],
+  "localAdaptation": {
+    "anonymousEphemeralPicker": true,
+    "mimeDeclaredOnly": true,
+    "inputBytes": 4500000,
+    "maximumDecodedPixels": 16777216,
+    "timeoutMs": 10000,
+    "normalizationImplemented": false,
+    "tokenMetadataChanged": false,
+    "noUploadUriOrChainOperation": true
+  },
+  "limits": [
+    "No source equivalence for normalization, MIME sniffing, authentication or upload.",
+    "Historical irreversibility wording does not apply to a reversible offline draft.",
+    "Pixel frame is display-only; file bytes are unchanged."
+  ]
+}
