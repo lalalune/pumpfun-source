@@ -36,7 +36,7 @@ The line census uses Babel token locations. It counts code lines once per unique
 
 ## Resolution model
 
-Graph identity includes numeric module ID, factory hash, captured object, source range, and chunk URL. Calls whose receiver matches the top-level factory runtime parameter's spelling are recognized structurally:
+Graph identity includes numeric module ID, factory hash, captured object, source range, and chunk URL. Calls whose receiver resolves to the top-level factory runtime parameter's lexical binding are recognized structurally:
 
 - `runtime.i(literal)` is a direct import boundary.
 - `runtime.A(literal)` is a dynamic import boundary.
@@ -52,11 +52,17 @@ This analyzer supports complete literal arrays with string names, literal zero
 tags and inline function accessors. Non-array/dynamic calls, spreads and incomplete
 or unsupported descriptors make no partial static export claim. This is a local
 supported-format policy, not a statement that every omitted form is invalid at
-runtime (for example, a truncated constant can evaluate to `undefined`). Receiver
-recognition still matches the top-level runtime parameter's spelling; it is not
-a lexical binding resolver and can misattribute a nested shadowed `.s` call.
-This correction does not change import resolution or claim complete JavaScript
-scope analysis.
+runtime (for example, a truncated constant can evaluate to `undefined`). Babel's
+scope analysis excludes nested parameters, hoisted locals, catch bindings and
+block bindings that shadow the runtime name. Closures that retain the original
+binding still contribute imports and exports. This does not track aliases,
+reassignment values or runtime control flow.
+
+The binding regression authenticates captured factory **504554** from
+`c91c073126eced3d.js` before analyzing it. Its inner `e.i(self)` call belongs to
+a different function parameter, not the outer loader. It contributes no import
+boundary; name-only matching previously reported an unresolved dynamic target.
+The test parses retained source without executing the factory.
 
 The retained runtime `evidence/web/objects/f25d7686d048ae16.js` has SHA-256
 `b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e`.

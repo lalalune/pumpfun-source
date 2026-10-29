@@ -12,7 +12,10 @@ import {
 import { dirname, join, relative, resolve, sep } from "node:path";
 import { gzipSync, gunzipSync } from "node:zlib";
 import { parse } from "@babel/parser";
+import babelTraverse from "@babel/traverse";
 import prettier from "prettier";
+
+const traverse = babelTraverse.default;
 
 export const GRAPH_VERSION = 1;
 export const DEFAULT_ROUTES = [
@@ -88,27 +91,6 @@ async function safeFile(root, relativePath) {
     throw new Error(`real path escapes root: ${relativePath}`);
   }
   return absolute;
-}
-
-function walk(node, visit) {
-  if (!node || typeof node !== "object") return;
-  visit(node);
-  for (const [key, value] of Object.entries(node)) {
-    if (
-      key === "loc" ||
-      key === "extra" ||
-      key === "comments" ||
-      key === "tokens"
-    )
-      continue;
-    if (Array.isArray(value)) for (const child of value) walk(child, visit);
-    else if (
-      value &&
-      typeof value === "object" &&
-      typeof value.type === "string"
-    )
-      walk(value, visit);
-  }
 }
 
 function literalValue(node) {
@@ -223,32 +205,42 @@ export function analyzeFactory(source, label = "factory") {
     throw new Error(`factory ${label} has no runtime parameter`);
   const imports = [];
   const exports = new Set();
-  walk(expression.body, (node) => {
-    if (
-      node.type !== "CallExpression" ||
-      node.callee?.type !== "MemberExpression" ||
-      node.callee.computed
-    )
-      return;
-    if (
-      node.callee.object?.type !== "Identifier" ||
-      node.callee.object.name !== runtime.name
-    )
-      return;
-    const method = node.callee.property?.name;
-    if (method === "i" || method === "A") {
-      const target = literalValue(node.arguments[0]);
-      imports.push({
-        kind: method === "A" ? "dynamic" : "direct",
-        runtimeMethod: method,
-        target: target === undefined ? null : target,
-        static: target !== undefined,
-        line: node.loc?.start.line ?? null,
-        column: node.loc?.start.column ?? null,
-      });
-    } else if (method === "s") {
-      for (const name of exportNames(node.arguments[0])) exports.add(name);
-    }
+  let runtimeBinding;
+  traverse(ast, {
+    Function(path) {
+      if (path.node === expression)
+        runtimeBinding = path.scope.getBinding(runtime.name);
+    },
+    CallExpression(path) {
+      const node = path.node;
+      if (
+        node.type !== "CallExpression" ||
+        node.callee?.type !== "MemberExpression" ||
+        node.callee.computed
+      )
+        return;
+      if (
+        node.callee.object?.type !== "Identifier" ||
+        node.callee.object.name !== runtime.name ||
+        !runtimeBinding ||
+        path.scope.getBinding(runtime.name) !== runtimeBinding
+      )
+        return;
+      const method = node.callee.property?.name;
+      if (method === "i" || method === "A") {
+        const target = literalValue(node.arguments[0]);
+        imports.push({
+          kind: method === "A" ? "dynamic" : "direct",
+          runtimeMethod: method,
+          target: target === undefined ? null : target,
+          static: target !== undefined,
+          line: node.loc?.start.line ?? null,
+          column: node.loc?.start.column ?? null,
+        });
+      } else if (method === "s") {
+        for (const name of exportNames(node.arguments[0])) exports.add(name);
+      }
+    },
   });
   imports.sort(
     (a, b) => a.line - b.line || a.column - b.column || lexical(a.kind, b.kind),
@@ -905,10 +897,14 @@ export async function verifyGraph(root, outputRelative, options = {}) {
   }
   const rebuilt = await buildGraph(root, options);
   const listed = manifest.files.map((entry) => entry.path);
-  if (new Set(listed).size !== listed.length ||
-      listed.length !== Object.keys(rebuilt).length ||
-      Object.keys(rebuilt).some((name) => !listed.includes(name)))
-    throw new Error("generated evidence inventory differs from rebuilt reports");
+  if (
+    new Set(listed).size !== listed.length ||
+    listed.length !== Object.keys(rebuilt).length ||
+    Object.keys(rebuilt).some((name) => !listed.includes(name))
+  )
+    throw new Error(
+      "generated evidence inventory differs from rebuilt reports",
+    );
   for (const entry of manifest.files) {
     if (!(entry.path in rebuilt))
       throw new Error(`generated evidence is not reproducible: ${entry.path}`);
