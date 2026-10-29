@@ -467,7 +467,7 @@ fn buy_handler<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,mut input:u64,lim
 // layout-pad
 // layout-pad
  let quote_transfer_fee=gross.checked_sub(quote).ok_or_else(||error!(PumpError::Overflow))?;
- let (pf,cf,protocol_fee_bps,creator_fee_bps)=if a.global.whitelist_pda==a.user.key(){Ok((0,0,0,0))}else{crate::legacy_sell::fee_cpi::trade_fees(
+ let whitelisted=a.global.whitelist_pda==a.user.key();let (pf,cf,protocol_fee_bps,creator_fee_bps)=if whitelisted{Ok((0,0,0,0))}else{crate::legacy_sell::fee_cpi::trade_fees(
   &a.global,&a.bonding_curve,&a.base_mint,&a.fee_config,&a.fee_program,a.program.as_ref(),quote
  )}?;
 // layout-pad
@@ -1040,8 +1040,8 @@ use crate::legacy_sell::fee_cpi::fee as ceil_fee;
 
 
 
-#[path="v2_native_payments.rs"]
-pub mod native_payments;
+
+pub use crate::v2_native_payments as native_payments;
 
 #[path="v2_token_transfers.rs"]
 pub mod token_transfers;
@@ -1057,5 +1057,5 @@ fn move_curve_tokens<'info>(token_program:&Interface<'info,TokenInterface>,sourc
 #[inline(always)]
 fn complete_and_prepare<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,timestamp:i64)->Result<()>{
   let a=&mut *ctx.accounts;if a.bonding_curve.real_token_reserves==0{a.bonding_curve.complete=true;let event=crate::trade_types::CompleteEvent{mint:a.base_mint.key(),user:a.user.key(),bonding_curve:a.bonding_curve.key(),quote_mint:a.bonding_curve.quote_mint,timestamp};emit!(event);emit_cpi!(event);}
-  let a=&mut *ctx.accounts;crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.user)
+  let a=&mut *ctx.accounts;crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.user)?;Ok(())
 }
