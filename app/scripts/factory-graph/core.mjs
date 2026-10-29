@@ -319,7 +319,9 @@ async function authenticateRecord(root, record) {
     throw new Error(`capture hash mismatch: ${record.path}`);
   let text;
   try {
-    text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes);
+    text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(
+      bytes,
+    );
   } catch {
     throw new Error(`invalid UTF-8: ${record.path}`);
   }
@@ -646,17 +648,52 @@ export async function buildGraph(root, options = {}) {
       )
       .map((identity) => identity.key)
       .sort(lexical);
+  const operationLiterals = new Map();
+  const authenticateOperation = async (occurrence, operation) => {
+    const mismatch = () =>
+      new Error(
+        `operation literal mismatch: ${occurrence.source} [${occurrence.start},${occurrence.end})`,
+      );
+    if (
+      !Number.isSafeInteger(occurrence.start) ||
+      !Number.isSafeInteger(occurrence.end) ||
+      occurrence.start < 0 ||
+      occurrence.end <= occurrence.start
+    )
+      throw mismatch();
+    if (!operationLiterals.has(occurrence.source)) {
+      const captured = await getCapture(occurrence.source);
+      const literals = new Map();
+      // Parse the captured object, not just a slice: text inside a comment or
+      // a larger string must not become an executable operation literal.
+      walk(parse(captured.text, { sourceType: "unambiguous" }), (node) => {
+        if (node.type === "StringLiteral")
+          literals.set(`${node.start}:${node.end}`, node.value);
+      });
+      operationLiterals.set(occurrence.source, literals);
+    }
+    const literals = operationLiterals.get(occurrence.source);
+    const key = `${occurrence.start}:${occurrence.end}`;
+    if (
+      typeof operation !== "string" ||
+      !literals.has(key) ||
+      literals.get(key) !== operation
+    )
+      throw mismatch();
+  };
   const internalAttribution = [];
   for (const operation of internal.operations || []) {
     const sites = [];
     const nodes = findIdentitiesForOccurrence(operation);
-    if (nodes.length)
+    if (nodes.length) {
+      await authenticateOperation(operation, operation.operation);
       sites.push({
         source: operation.source,
         start: operation.start,
         end: operation.end,
         nodes,
       });
+    }
     if (sites.length)
       internalAttribution.push({
         operation: operation.operation,
@@ -670,7 +707,10 @@ export async function buildGraph(root, options = {}) {
     const sites = [];
     for (const site of binding.evidence?.clientCallSites || []) {
       const nodes = findIdentitiesForOccurrence(site);
-      if (nodes.length) sites.push({ ...site, nodes });
+      if (nodes.length) {
+        await authenticateOperation(site, binding.operation);
+        sites.push({ ...site, nodes });
+      }
     }
     if (sites.length)
       developerAttribution.push({
@@ -905,10 +945,14 @@ export async function verifyGraph(root, outputRelative, options = {}) {
   }
   const rebuilt = await buildGraph(root, options);
   const listed = manifest.files.map((entry) => entry.path);
-  if (new Set(listed).size !== listed.length ||
-      listed.length !== Object.keys(rebuilt).length ||
-      Object.keys(rebuilt).some((name) => !listed.includes(name)))
-    throw new Error("generated evidence inventory differs from rebuilt reports");
+  if (
+    new Set(listed).size !== listed.length ||
+    listed.length !== Object.keys(rebuilt).length ||
+    Object.keys(rebuilt).some((name) => !listed.includes(name))
+  )
+    throw new Error(
+      "generated evidence inventory differs from rebuilt reports",
+    );
   for (const entry of manifest.files) {
     if (!(entry.path in rebuilt))
       throw new Error(`generated evidence is not reproducible: ${entry.path}`);
