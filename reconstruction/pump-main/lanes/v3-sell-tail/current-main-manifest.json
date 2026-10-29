@@ -1,6 +1,6 @@
 {
-  "base_revision": "665499915f9caedcd38921d415a90f0606686398",
-  "tested_source_revision": "934b6772b03ab2d50b9c08a6e8634756dd1ca671",
+  "base_revision": "381dc30b35122022be7359215cb5d471fe9f778d",
+  "tested_source_revision": "af00256f14d28550b5ce6a62ccb3aa7372106ee6",
   "scope": "Fresh current-main control and merged V3 source; 117 retained cases, compute-meter lines excluded.",
   "toolchain": {
     "sdk_inventory_entries": 2785,
@@ -14,10 +14,10 @@
       "stack_warnings": [],
       "recipe": "identity",
       "triple": "sbpf-solana-solana",
-      "seconds": 79.8,
-      "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/control/unstripped.so",
-      "unstripped_sha256": "86ed3f6a08cfb77e150b8fbf135acc167698d3b9dd2f7867b7197a7e3b4dde5d",
-      "candidate_sha256": "e412a3cbebea18b305e2915a79b5c8ef23606565dd8a3e24bac1a6bcc4cad66c"
+      "seconds": 18.5,
+      "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/latest-control/unstripped.so",
+      "unstripped_sha256": "826b44727ab1c1b7a741371209afd23bd83833df2f65b4399d7230b4a36f3b5f",
+      "candidate_sha256": "3c93e4986bb80eb99f390beab9c7c1980a62d9f94b62f8c088ffb7e233efe9fb"
     },
     "v3": {
       "ok": true,
@@ -26,18 +26,19 @@
       "recipe": "identity",
       "triple": "sbpf-solana-solana",
       "seconds": 16.2,
-      "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/v3/unstripped.so",
-      "unstripped_sha256": "0d2fc8eed6034ce78227cc9fbfa4857a9a6b765f5ea9c137146230999fe134b8",
-      "candidate_sha256": "d33d79f3ddbf40b7ea5d71b27f71419c355583dc4c05bd3fc30c300a2f7c591f"
+      "unstripped": "/Users/jonasvanravenstein/Documents/ChatGPT/pump/review-validation/latest-v3/unstripped.so",
+      "unstripped_sha256": "87254f4db6903086b8b3c8902f562504b30297a9a7d763437f6e99c0db4956d0",
+      "candidate_sha256": "6e635bf4684bc69e091951353907f15367625c41759e136749271864b06392b9"
     }
   },
   "packet": {
-    "current-main-comparison.json": "96e98b387377efbe32a1210d5e3e826c0d0870fc617971926e95b98fca823f4c",
-    "current-main-runtime.json.gz": "ca06ff31aad455148033b8eb777e5a290719811e37f1ea2eb42d5a44f88a053f",
+    "current-main-comparison.json": "f8f60704f0562fa86fb9a805dbb5ca10a85a97a98b6b5115e690d91face7b046",
+    "current-main-runtime.json.gz": "40e092ed63b1bfae3627ba76bf05d30c82cc1c5eaf2765a038c046e63e4b69da",
     "fixture.json.gz": "5115eacfe57da02ec2c2a882730c58fd07ecea28241db2563257f8ff0af231fd",
     "replay.py": "05a8ebc61dedb95d154293c0467b56d6fdb19dc5956a62bef5ec0db063f561e0",
     "verify_runtime.py": "6d6eadfd5050522b82eacec2ce8aca6c7d6e4c600a5439a29fb8bb52a287a4bf",
-    "verify_current_main.py": "1fb25b848b6eaf73faed85cfa59d4ca7739e551c2e9f5c2877eb36cf91583d28"
+    "verify_current_main.py": "f53c98c11e78030b4ff94b04d431e1c3d7054bd75159b1b108f59a47672b25ef",
+    "verify_current_runtime.py": "5b118d667af99529dd5623670e6c33b446c6e641b55b0e20ea734552388c0443"
   },
   "external": {
     "programs/pump/Cargo.lock": "65498a93b0e9c1c11f292ccb71b0ce6392d3d568783859e23a2fc8142da545da",
@@ -56,7 +57,7 @@
     "programs/pump/src/buy_v2.rs": "72da443c973c11e8a20e567b544236d2db0961e53227b12d6635b80f6de3b565",
     "programs/pump/src/cashback.rs": "1c632938b7f4d9c08b4f6ef173a47f1674b1c53dd255f0a3fd38109570a17863",
     "programs/pump/src/create.rs": "8af4fb0525644d230f5fd394cd479aaeab412ca76d39e7995b963f5dbaae8e33",
-    "programs/pump/src/create_v2.rs": "8b671bba0cbe885d28ea78a9b0e8da4a8c6d5d6e84032d480023e7bf8d703c4c",
+    "programs/pump/src/create_v2.rs": "722e20a620ef4244cb0980252caa565c331d6ab4c9c504d339a936a0c9616ff2",
     "programs/pump/src/creator/admin_cto.rs": "0bf8ef30364e822b174957aa2214e667207ea9d8c4bebe5077e2a9709433f6dd",
     "programs/pump/src/creator/collect_creator_fee.rs": "408c492e0f50a9f6a6c2c1faf5a3888abcbffd4aa73e1a3f043468d320cc5b33",
     "programs/pump/src/creator/distribute_creator_fee_v2.rs": "b7ede82daff0311c3b6efa0a8836746bd5dbdbb3686e804709af198aa56f0a52",

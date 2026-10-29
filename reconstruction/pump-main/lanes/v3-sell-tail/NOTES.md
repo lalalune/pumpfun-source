@@ -140,3 +140,14 @@ Run `replay.py --control CONTROL/candidate.so --candidate CANDIDATE/candidate.so
 ## Buy error lowering investigation
 
 See [BUY-ERROR-PATH.md](BUY-ERROR-PATH.md) for the original/candidate return-tail comparison, compiler evidence and four additional rejected source checks. No improvement was retained. Source and prior runtime qualification remain unchanged. Exact patches and diagnostic hashes accompany the analysis in `BUY-ERROR-TRIALS.json`.
+
+### Latest upstream follow-up
+
+Create V2 change #1389 landed during this validation. Merged
+`381dc30b35122022be7359215cb5d471fe9f778d`, then freshly rebuilt control and candidate
+and repeated all static checks and 351 runtime executions. Results remain 1,022
+normalized / 276 raw, zero losses, six differing sell slots, all 47 original/control
+callee signatures, and zero runtime differences. Current-main JSON files and replay
+receipts now bind this latest base and candidate source `af00256`.
+The strengthened static verifier also rejects an original-callee mismatch or a call
+count other than 47. All build logs are free of backend stack warnings.

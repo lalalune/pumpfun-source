@@ -97,7 +97,7 @@ def main():
             row['call_count'] = len(calls)
             row['ordered_callee_signatures_sha256'] = digest(json.dumps(calls, separators=(',', ':')).encode())
     passed = (all(not d['losses'] for d in delta.values()) and
-              all(r['ordered_callees_equal_control'] for r in candidate['targets'].values()))
+              all(r['ordered_callees_equal_control'] and r['ordered_callees_equal_original'] and r['call_count'] == 47 for r in candidate['targets'].values()))
     report = {'scope': 'Static source-build comparison; no runtime execution or new full-window gain implied.',
               'original_sha256': digest(original), 'control': control, 'candidate': candidate,
               'delta': delta, 'checks_passed': passed}
