@@ -1,0 +1,53 @@
+{
+ "lane": "w3-migrate",
+ "targets": [
+  "0x4c158"
+ ],
+ "base": "665499915f9caedcd38921d415a90f0606686398",
+ "best": {
+  "target": "0x4c158",
+  "normalized_equal": true,
+  "ratio": 1.0,
+  "slots_diff": 0,
+  "cand_bytes": 8368,
+  "official_normalized": 1023,
+  "official_raw": 276,
+  "gains": [
+   "0x4c158"
+  ],
+  "losses": [],
+  "unstripped_sha256": "840458fb7fe9be24fe4906557fe72eb82ae5d5e673934a5f47f676ae8a2881f0"
+ },
+ "mechanism": "private fn create_token_account_v2(ctx:&Context<..>,account,wallet,mint:&Box<InterfaceAccount<Mint>>,native,token_program): LLVM O3 ArgumentPromotion turns ctx into (accounts ptr w/o noalias, bumps.pool_authority) and the &Box into the box pointer; nn a.user/a.system_program are re-loaded (no noalias); nn mint info loaded once at the meta via a deferred-init binding",
+ "attempts": [
+  "2aa5dbc9 llc reload oracle",
+  "clang middle-end oracle",
+  "adjacent swap scan",
+  "branch weights",
+  "v1/v2 nn closure",
+  "v3 ctx param",
+  "v4 ctx+box mint",
+  "v5/v6 reborrow",
+  "v7 nn mint_info at branch start (0.911)",
+  "v8 nn helper cta(ctx)",
+  "v9 deferred mint_info (match)"
+ ],
+ "rejected": [
+  "adjacent swap hill climb",
+  "branch weights",
+  "nn closure",
+  "ctx + &InterfaceAccount mint (promoted, loses 0x49888)",
+  "&Box mint double deref",
+  "reborrow at fn/branch top",
+  "nn helper taking ctx"
+ ],
+ "unresolved": [
+  "raw match (Location columns / rodata) not attempted",
+  "a more conventional spelling than the deferred-init mint_info binding"
+ ],
+ "next_ideas": [
+  "look for an ordinary spelling that blocks ArgPromotion of an &InterfaceAccount mint (pre-IR oracle says that also matches)",
+  "apply the ctx-param ArgPromotion lens to other unmatched windows whose 'a' loads are not merged (e.g. other migrate/sweep helpers)",
+  "reuse tools/pre.py (rustc -Cno-prepopulate-passes + clang --target=sbf -O3) as a middle-end oracle for other lanes"
+ ]
+}

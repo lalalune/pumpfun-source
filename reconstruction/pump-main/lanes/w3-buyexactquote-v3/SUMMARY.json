@@ -1,0 +1,45 @@
+{
+  "lane": "w3-buyexactquote-v3",
+  "wave": 3,
+  "approach": "semantic reconstruction (callgraph census, then llc/opt IR oracles)",
+  "base": {"commit": "665499915f9caedcd38921d415a90f0606686398", "normalized": 1022, "raw": 276},
+  "targets": ["0x1489f8 trade::buy_exact_quote (v3), 7856 B"],
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/1420",
+  "best": {
+    "trial": "h01",
+    "target": {"cand_bytes": 7776, "ratio": 0.61352, "masked_ratio": 0.8532, "calls": "66/66", "normalized_equal": false},
+    "base_target": {"cand_bytes": 7656, "ratio": 0.31293, "masked_ratio": 0.7100},
+    "official": {"normalized": 1022, "raw": 276, "gains": [], "losses": []},
+    "siblings_unchanged": {"0x147ba0 buy_v3": [3680, 0.87739], "0x14a8a8 sell_v3": [6040, 0.98707]},
+    "unstripped_sha256": "bed0a5681b87f99bf4b7c7ff3466f2828411984c0198db3fe786b9011ed8e649 (official fastbuild; IR-capture build differs only in metadata)"
+  },
+  "mechanisms_kept": [
+    "non-inline helper fn v3_can_cross(..)->bool{!v3_fee_exempt(..)}: MIR inliner skips it (no inline attr, not a leaf), so MIR JumpThreading cannot thread the mayhem-arm constant into require!(can_cross||partial_fill); LLVM inlines it later and keeps the original phi/and64/jne shape with can_cross polarity (ratio 0.3129 -> 0.3287)",
+    "let rest=available.saturating_sub(first) hoisted + bitwise `can_cross & (available>first)` guard + `match &post{Some(p)=>p.base_out,None=>0}`: the borrow takes post out of MIR JumpThreading's tracked places, so the post merge and the can_cross retest stay a single join as in the original (ratio 0.3287 -> 0.6135)"
+  ],
+  "tools": [
+    "opt oracle: rustc -C no-prepopulate-passes IR + platform-tools v1.44 opt -O3 + SDK llc reproduces the target byte for byte; -print-changed -filter-print-funcs + scripts/passes.py names the pass (or shows the shape is already in rustc's MIR output)",
+    "scripts/trial.py: parallel-safe capture builds (SLOT work dirs) with score, llc-oracle metrics and sibling metrics",
+    "scripts/hc.py: greedy block-order hill-climb on a slimmed module (about 0.2 s per llc eval)"
+  ],
+  "attempts": 40,
+  "rejected": [
+    "exempt local (c01, c10), if !can_cross{require!} (c02, identical), partial_fill||can_cross (c03), amount before require (c04, identical), top-level can_cross (c05), inline || expression (c06), #[inline] hint (c08, identical)",
+    "rest local with && / rest>0 guards (g02, g03), est local (g04/g05 identical), Some(ref mut post) (g06, 65 calls), match &post with && guard (h02)",
+    "891 check spellings: require_neq (k01, same metric), 0u64 (k02), fees-before-check (k03 better metric but wrong execution order), match-spelled ? (k04, k06, k07 identical), early fees call (k08, 67 calls)",
+    "non-cross local rebinding (m01/m02 identical)"
+  ],
+  "unresolved_residuals": [
+    "MBP layout at the top of the function: the [post_fee err, 891 err, EXIT] chain sits after v3_trade_fees in ours and after the non-whitelist path in the original. Oracle: any IR position of bb18 (891 err) that is not directly after bb23 (the fees call) gives 0.6434 / masked 0.8917",
+    "frame/alloca layout: name String -0x180 and to_string buf -0x160 in the original vs -0x90 and -0x180 in ours, so stack immediates differ almost everywhere",
+    "register allocation residuals: r6/r8 vs r6/r9 error pairs, the merge-block copies after the whitelist tuple, v3_buy_costs result spills",
+    "prepare_bonding_curve demoted-return lea comes after the argument leas (the original has it first)",
+    "size 7776 vs 7856 (-10 insns)"
+  ],
+  "next_ideas": [
+    "Find a first-reference spelling that keeps both bb18 (891 err) and the error-return join away from bb23 in IR order; check each candidate with iredits/reorder.py before building",
+    "Use the opt oracle on rustc's pre-opt IR to test MIR-level shapes (local order, alloca order) without a full rustc build: edit the raw IR's alloca order to find the original frame layout, then look for the source local order that produces it",
+    "Run hc.py from h01 for more rounds and with masked-ratio scoring to separate layout from regalloc",
+    "Apply the v3_can_cross / borrow-to-untrack mechanisms to buy_v3 and sell_v3 where the original keeps phis that ours threads"
+  ]
+}

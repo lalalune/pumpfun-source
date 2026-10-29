@@ -20,7 +20,7 @@ fn process_cashback_inner<'info>(
     remaining_accounts: &'info [AccountInfo<'info>], user: &Signer<'info>, system_program: &AccountInfo<'info>,
     bonding_curve: &Account<'info, BondingCurve>, amount: u64, mint: &Pubkey,
 ) -> Result<()> {
-    let user_volume_accumulator = remaining_accounts.first().ok_or_else(|| error!(PumpError::MissingCashbackAccounts))?;
+    let Some(user_volume_accumulator) = remaining_accounts.first() else { return err!(PumpError::MissingCashbackAccounts) };
     let user_key = user.key();
     let (expected, bump) = Pubkey::find_program_address(&[b"user_volume_accumulator", user_key.as_ref()], &crate::ID);
 // layout-pad(7): aligns the next Source site with the original line
@@ -84,7 +84,7 @@ fn process_cashback_inner<'info>(
 
         if data.len() < 8 || &data[..8] != crate::UserVolumeAccumulator::DISCRIMINATOR { return err!(PumpError::InvalidCashbackAccumulator); }
     }
-    crate::trade::quote_payments::transfer_native(bonding_curve, user_volume_accumulator, amount)?;
+    crate::trade::quote_payments::pay_out_native(bonding_curve, user_volume_accumulator, amount)?;
     let mut user_volume_accumulator = Account::<crate::UserVolumeAccumulator>::try_from(user_volume_accumulator)?;
     if user_volume_accumulator.user == Pubkey::default() {
         user_volume_accumulator.user = user_key;

@@ -1,3 +1,9 @@
+## Evidence-only after merged #1436 (2026-10-29)
+
+Merged main `3159e64` and adopted its `trade_v3.rs` verbatim. **This PR now has no production source changes.** #1436 implements the same whole-body inline sell helper and direct event CPI approach; its implementation is authoritative. #1421 and #1445 are also retained from main. The duplicate helper/source edit and merge conflict are removed.
+
+The remaining unique contribution is independent historical research evidence: complete membership and callee comparisons, signed 117-case/351-execution runtime receipts, source/dependency manifests, replay and signature verification tools, negative controls, and residual-layout experiments. These artifacts remain bound to their stated historical revisions, especially `381dc30` and tested candidate `af00256`; they do **not** claim runtime qualification of current main or additional match gains beyond #1436. To reproduce source-bound historical verification, check out the revision identified by the corresponding manifest. Related #1426 compiler-IR work and neighboring #1420/#1419/#1400 source work remain separately credited below.
+
 # V3 sell tail investigation
 
 Base: `abd766d7a8c047f14af34851f64166b840c6728d`. Target: `trade::sell`, original address `0x14a8a8`.
