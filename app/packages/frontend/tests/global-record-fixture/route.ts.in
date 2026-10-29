@@ -1,0 +1,27 @@
+/** Installed temporarily by the isolated test helper; never a product route. */
+import { PublicKey } from "@solana/web3.js";
+import { handleGlobalIncentiveRecord } from "../global-incentive-record/handler";
+import { readGlobalIncentiveRecordWithRpc } from "../global-incentive-record/server";
+import contract from "../global-incentive-record/contract.json";
+import { MAINNET_GENESIS_HASH } from "../portfolio/types";
+export const runtime = "nodejs";
+export async function GET(request: Request) {
+  const host = new URL(request.url).hostname;
+  if (process.env.NODE_ENV !== "development" || process.env.GLOBAL_RECORD_FIXTURE_TEST !== "1" || !["127.0.0.1", "localhost", "[::1]"].includes(host)) return new Response(null, { status: 404 });
+  const bytes = Buffer.alloc(contract.minimumBytes);
+  Buffer.from(contract.discriminator).copy(bytes);
+  bytes.writeBigInt64LE(-9223372036854775808n, 8);
+  bytes.writeBigInt64LE(9223372036854775807n, 16);
+  bytes.writeBigInt64LE(86400n, 24);
+  new PublicKey("So11111111111111111111111111111111111111112").toBuffer().copy(bytes, 32);
+  for (let i = 0; i < 60; i++) bytes.writeBigUInt64LE(18446744073709551615n - BigInt(i), 64 + i * 8);
+  const calls: string[] = [];
+  const response = await handleGlobalIncentiveRecord(request, () => readGlobalIncentiveRecordWithRpc(async (method, params) => {
+    calls.push(method);
+    if (calls.length === 1 && method === "getGenesisHash" && params.length === 0) return MAINNET_GENESIS_HASH;
+    if (calls.length === 2 && method === "getAccountInfo" && JSON.stringify(params) === JSON.stringify([contract.recordPda, { encoding: "base64", commitment: "confirmed" }])) return { context: { slot: 991 }, value: { owner: contract.programId, executable: false, lamports: 1, space: bytes.length, data: [bytes.toString("base64"), "base64"] } };
+    throw new Error("Unexpected controlled read");
+  }, "compiled-fixture.example", request.signal));
+  response.headers.set("X-Test-Rpc-Calls", calls.join(","));
+  return response;
+}

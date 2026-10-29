@@ -1,0 +1,80 @@
+{
+  "sdkVersion": "4.3.1",
+  "programId": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+  "recordPda": "Hq2wp8uJ9jCPsYgNHex8RtqdvMPfVGoYwjvF1ATiwn2Y",
+  "pdaSeed": "global_volume_accumulator",
+  "account": "GlobalVolumeAccumulator",
+  "discriminator": [
+    202,
+    42,
+    246,
+    43,
+    142,
+    190,
+    30,
+    255
+  ],
+  "minimumBytes": 544,
+  "fields": [
+    {
+      "name": "start_time",
+      "decoded": "startTime",
+      "type": "i64",
+      "count": 1,
+      "bytes": [
+        8,
+        16
+      ]
+    },
+    {
+      "name": "end_time",
+      "decoded": "endTime",
+      "type": "i64",
+      "count": 1,
+      "bytes": [
+        16,
+        24
+      ]
+    },
+    {
+      "name": "seconds_in_a_day",
+      "decoded": "secondsInADay",
+      "type": "i64",
+      "count": 1,
+      "bytes": [
+        24,
+        32
+      ]
+    },
+    {
+      "name": "mint",
+      "decoded": "mint",
+      "type": "pubkey",
+      "count": 1,
+      "bytes": [
+        32,
+        64
+      ]
+    },
+    {
+      "name": "total_token_supply",
+      "decoded": "totalTokenSupply",
+      "type": "u64",
+      "count": 30,
+      "bytes": [
+        64,
+        304
+      ]
+    },
+    {
+      "name": "sol_volumes",
+      "decoded": "solVolumes",
+      "type": "u64",
+      "count": 30,
+      "bytes": [
+        304,
+        544
+      ]
+    }
+  ]
+}

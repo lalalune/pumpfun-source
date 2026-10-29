@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { COUNTERS, fetchWalletRecord } from "./client";
 import type { WalletRecordSuccess } from "./types";
+import { GlobalIncentiveRecordPanel } from "../global-incentive-record/panel";
 
 export function PublicWalletRecordPanel({ address }: { address: string }) {
   const [value, setValue] = useState<WalletRecordSuccess | null>(null);
@@ -148,12 +149,14 @@ export function PublicWalletRecordPanel({ address }: { address: string }) {
             </>
           )}
           <p className="mt-3 text-sm leading-6 text-text-secondary">
-            Only the Pump program’s wallet PDA is inspected; AMM and other
-            records are not included. This response and the separate balance
-            reads can observe different slots. Nothing is persisted.
+            This user-record response covers only the Pump wallet PDA; AMM and
+            other records are not included in it. This response, the separate
+            Global context below and balance reads can observe different slots.
+            Nothing is persisted.
           </p>
         </div>
       )}
+      <GlobalIncentiveRecordPanel />
     </section>
   );
 }
