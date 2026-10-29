@@ -95,4 +95,8 @@ Route attribution requires an authenticated route HTML record to reference an au
 
 Outputs use stable ordering, deterministic JSON, deterministic gzip headers, and a content manifest. Publication happens in a temporary sibling directory and is renamed only after every output is written. Verification authenticates the current inputs, rebuilds every report, and compares the regenerated content with the packet manifest. Because gzip output can differ between zlib builds bundled with different Node releases, each `.json.gz` record is additionally pinned by the sha256 and length of its decompressed content, and rebuild comparison uses that content identity rather than compressed bytes. The checked-in packet records no timestamps or machine-specific measurements, so repeat builds are content-identical.
 
+A failed backup rename leaves the current packet untouched. Retained recovery
+backups block replacement until reconciled, and a cleanup error after commit
+does not roll back or remove the newly published graph.
+
 The selected corpus deliberately targets approximately 250,000 authenticated code lines rather than the entire recovered inventory. An unresolved edge may simply lead outside that selection. Exact route captures were not retained for `/profile/:id` or `/portfolio`; their reports fail closed with no attributed nodes. This is dependency evidence, not recovered original TypeScript and not proof of runtime behavior.

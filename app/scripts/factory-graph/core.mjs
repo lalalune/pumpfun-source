@@ -825,8 +825,13 @@ export async function publishGraph(root, outputRelative, options = {}) {
   const reports = await buildGraph(root, options);
   const temporary = `${output}.tmp-${process.pid}`;
   const backup = `${output}.previous-${process.pid}`;
+  try {
+    await lstat(backup);
+    throw new Error(`previous graph backup already exists: ${backup}`);
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
+  }
   await rm(temporary, { recursive: true, force: true });
-  await rm(backup, { recursive: true, force: true });
   await mkdir(temporary, { recursive: true });
   const manifestFiles = [];
   for (const name of Object.keys(reports).sort(lexical)) {
@@ -847,13 +852,23 @@ export async function publishGraph(root, outputRelative, options = {}) {
     }
     await options.onPublishStage?.("backup-created");
     await rename(temporary, output);
-    if (previous) await rm(backup, { recursive: true, force: true });
   } catch (error) {
-    await rm(output, { recursive: true, force: true });
-    if (previous) await rename(backup, output);
-    await rm(temporary, { recursive: true, force: true });
+    // No output has been published if its atomic rename failed. In particular,
+    // a failed backup rename still leaves the previous complete graph in place.
+    try {
+      if (previous) await rename(backup, output);
+    } catch (rollbackError) {
+      throw new AggregateError(
+        [error, rollbackError],
+        `graph rollback failed; previous graph retained at ${backup}`,
+      );
+    } finally {
+      await rm(temporary, { recursive: true, force: true });
+    }
     throw error;
   }
+  // Cleanup failure after commit must never trigger deletion of the new graph.
+  if (previous) await rm(backup, { recursive: true, force: true });
   return { output, summary: reports["GRAPH-SUMMARY.json"], manifest };
 }
 
