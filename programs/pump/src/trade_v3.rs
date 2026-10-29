@@ -698,7 +698,7 @@ fn v3_execute_buy<'info>(a:&mut SellV3<'info>,curve_bump:u8,is_sol:bool,amount:u
         let quote_mint=a.bonding_curve.quote_mint;
         a.bonding_curve.sync_virtual_quote_reserves(a.associated_base_bonding_curve.amount,a.associated_base_user.amount,&quote_mint)?;
     }
-    if a.user_volume_accumulator.user==Pubkey::default(){a.user_volume_accumulator.user=a.user.key();}
+    init_volume_user(&mut a.user_volume_accumulator,&a.user);
     let buyback=a.bonding_curve.accrue_fees(&a.global,protocol_fee,creator_fee)?;
     let post_buyback=match post{Some(p)=>{a.bonding_curve.post_complete_base_out=p.base_out;a.bonding_curve.post_complete_quote_in=p.quote_in;a.bonding_curve.accrue_fees(&a.global,p.fees.protocol_fee,p.fees.creator_fee)?},None=>0};
 // layout-pad(17): aligns the next Source site with the original line
@@ -1293,3 +1293,4 @@ use crate::buy_fee_market_cap;
 pub mod quote_payments;
 
 pub use crate::user_quote_payments;
+fn init_volume_user(uva:&mut crate::UserVolumeAccumulator,user:&Signer){if uva.user==Pubkey::default(){uva.user=user.key();}}
