@@ -121,6 +121,7 @@ function SettingsControlContent({
   );
   const open = section !== null;
   const dialog = useRef<HTMLDialogElement>(null);
+  const backdropPress = useRef(false);
   const scrollArea = useRef<HTMLDivElement>(null);
   const launcher = useRef<HTMLButtonElement>(null);
   const tabButtons = useRef(new Map<SettingsSection, HTMLButtonElement>());
@@ -147,6 +148,16 @@ function SettingsControlContent({
       { scroll: false },
     );
     setQuery("");
+  }
+
+  function outsideDialog(event: {
+    currentTarget: HTMLDialogElement;
+    clientX: number;
+    clientY: number;
+  }) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    return event.clientX < rect.left || event.clientX >= rect.right ||
+      event.clientY < rect.top || event.clientY >= rect.bottom;
   }
 
   useEffect(() => {
@@ -282,8 +293,19 @@ function SettingsControlContent({
                 event.preventDefault();
                 select(null);
               }}
+              onPointerDown={(event) => {
+                backdropPress.current = event.target === event.currentTarget &&
+                  outsideDialog(event);
+              }}
+              onPointerCancel={() => { backdropPress.current = false; }}
               onClick={(event) => {
-                if (event.target === event.currentTarget) select(null);
+                const startedOutside = backdropPress.current;
+                backdropPress.current = false;
+                // A selection drag can retarget its click to the dialog even
+                // when the press began inside. Only a complete backdrop click
+                // dismisses; release coordinates also handle pointer capture.
+                if (startedOutside && event.target === event.currentTarget && outsideDialog(event))
+                  select(null);
               }}
             >
               <div className={styles.frame}>
