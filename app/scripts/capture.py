@@ -125,7 +125,7 @@ def main():
         if r.get('status')!=200 or not r['url'].startswith('https://pump.fun'): continue
         s=b.decode(errors='replace')
         for value in re.findall(r'(?:src|href)="(/[^"\s]+)"',s):
-            asset=public_asset(html.unescape(value),r['url'],('.js','.css','.woff2','.svg','.png'))
+            asset=public_asset(html.unescape(value),r.get('final_url') or r['url'],('.js','.css','.woff2','.svg','.png'))
             if asset:assets.add(asset)
     done=set(); waves=0
     while assets-done and waves<8:
@@ -141,7 +141,7 @@ def main():
             if urllib.parse.urlsplit(r['url']).path.endswith('.css'):
                 for relative in re.findall(r'url\([\"\']?([^\s)\"\']+)',s):
                     if not relative.startswith('data:'):
-                        resolved=public_asset(relative,r['url'],('.woff2','.woff','.ttf','.png','.svg'))
+                        resolved=public_asset(relative,r.get('final_url') or r['url'],('.woff2','.woff','.ttf','.png','.svg'))
                         if resolved:assets.add(resolved)
     OUT.mkdir(parents=True,exist_ok=True)
     manifest={'captured_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'user_agent':UA,'scope':PAGES,'exclusions':['support','terminal','mobile app','token/coin detail pages','pump-token'],'records':records,'limits':{'asset_discovery_waves':8,'waves_used':waves,'unfetched_discovered':sorted(assets-done)}}
