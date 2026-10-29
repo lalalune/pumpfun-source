@@ -224,7 +224,7 @@ export function createSchemaExtractor(corpus, { sources = {} } = {}) {
     if (method === 'nullable') return { anyOf: [base, { type: 'null' }] };
     if (method === 'describe' && node.arguments.length === 1) return { ...base, description: await constant(node.arguments[0], ctx) };
     const expanded = deref(base);
-    if (method === 'int' && expanded.type === 'number') return { ...expanded, type: 'integer',
+    if (method === 'int' && ['number', 'integer'].includes(expanded.type)) return { ...expanded, type: 'integer',
       minimum: Math.max(expanded.minimum ?? -Infinity, Number.MIN_SAFE_INTEGER),
       maximum: Math.min(expanded.maximum ?? Infinity, Number.MAX_SAFE_INTEGER) };
     if (method === 'nonnegative' && ['number', 'integer'].includes(expanded.type)) return { ...expanded, minimum: Math.max(expanded.minimum ?? -Infinity, 0) };
