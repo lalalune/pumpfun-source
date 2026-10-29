@@ -14,6 +14,7 @@ import {
   SellBaseInputResult,
   SellQuoteInputResult,
 } from "./types";
+import { minAfterSlippage } from "./slippage";
 import { ceilDiv, fee } from "./util";
 
 export function sellBaseInput({
@@ -133,13 +134,7 @@ export function sellBaseInput({
   // 4) Calculate minQuote with slippage
   //    - If slippage=1 => 1%, we allow receiving as low as 99% of finalQuote
   // -----------------------------------------
-  const precision = new BN(1_000_000_000); // For safe integer math
-  // (1 - slippage/100) => e.g. slippage=1 => factor= 0.99
-  const slippageFactorFloat = (1 - slippage / 100) * 1_000_000_000;
-  const slippageFactor = new BN(Math.floor(slippageFactorFloat));
-
-  // minQuote = finalQuote * (1 - slippage/100)
-  const minQuote = finalQuote.mul(slippageFactor).div(precision);
+  const minQuote = minAfterSlippage(finalQuote, slippage);
 
   return {
     uiQuote: finalQuote, // actual tokens user receives after fees
@@ -321,11 +316,7 @@ export function sellQuoteInput({
   // 4) Calculate minQuote with slippage
   //    - If slippage=1 => 1%, we allow receiving as low as 99% of the desired quote
   // -----------------------------------------
-  const precision = new BN(1_000_000_000); // For slippage calculations
-  const slippageFactorFloat = (1 - slippage / 100) * 1_000_000_000;
-  const slippageFactor = new BN(Math.floor(slippageFactorFloat));
-
-  const minQuote = quote.mul(slippageFactor).div(precision);
+  const minQuote = minAfterSlippage(quote, slippage);
 
   return {
     internalRawQuote: rawQuote,

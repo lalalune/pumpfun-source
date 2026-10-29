@@ -14,6 +14,7 @@ import {
   FeeConfig,
   GlobalConfig,
 } from "./types";
+import { maxAfterSlippage } from "./slippage";
 import { ceilDiv, fee } from "./util";
 
 /**
@@ -215,12 +216,7 @@ export function buyBaseInput({
   // 4) Calculate maxQuote with slippage
   //    If slippage=1 => factor = (1 + 1/100) = 1.01
   // -----------------------------------------------------
-  const precision = new BN(1_000_000_000); // For slippage calculations
-  const slippageFactorFloat = (1 + slippage / 100) * 1_000_000_000;
-  const slippageFactor = new BN(Math.floor(slippageFactorFloat));
-
-  // maxQuote = totalQuote * slippageFactor / 1e9
-  const maxQuote = totalQuote.mul(slippageFactor).div(precision);
+  const maxQuote = maxAfterSlippage(totalQuote, slippage);
 
   return {
     internalQuoteAmount: quoteAmountIn,
@@ -372,12 +368,7 @@ export function buyQuoteInput({
   // 5) Calculate maxQuote with slippage
   //    If slippage=1 => factor = (1 + 1/100) = 1.01
   // -----------------------------------------------------
-  const precision = new BN(1_000_000_000); // For slippage calculations
-  const slippageFactorFloat = (1 + slippage / 100) * 1_000_000_000;
-  const slippageFactor = new BN(Math.floor(slippageFactorFloat));
-
-  // maxQuote = quote * slippageFactor / 1e9
-  const maxQuote = quote.mul(slippageFactor).div(precision);
+  const maxQuote = maxAfterSlippage(quote, slippage);
 
   return {
     base: baseAmountOut, // Base tokens received after fees

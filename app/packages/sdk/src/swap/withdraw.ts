@@ -1,5 +1,6 @@
 import BN from "bn.js";
 
+import { minAfterSlippage } from "./slippage";
 import { netOfTransferFee, QuoteTransferFee } from "./transferFee";
 import { WithdrawResult } from "./types";
 
@@ -26,11 +27,8 @@ export function withdraw(
     quoteReserve.mul(lpAmount).div(totalLpTokens),
   );
 
-  // Calculate the minimum amounts considering slippage
-  const scaleFactor = new BN(1_000_000_000);
-  const slippageFactor = new BN((1 - slippage / 100) * 1_000_000_000);
-  const minBase = base.mul(slippageFactor).div(scaleFactor);
-  const minQuote = quote.mul(slippageFactor).div(scaleFactor);
+  const minBase = minAfterSlippage(base, slippage);
+  const minQuote = minAfterSlippage(quote, slippage);
 
   return {
     base,

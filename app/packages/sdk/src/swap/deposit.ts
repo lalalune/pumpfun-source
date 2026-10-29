@@ -1,5 +1,6 @@
 import BN from "bn.js";
 
+import { maxAfterSlippage } from "./slippage";
 import { grossForTransferFee, QuoteTransferFee } from "./transferFee";
 import { DepositLpTokenResult, DepositResult } from "./types";
 
@@ -10,17 +11,11 @@ export function depositToken0(
   token1Reserve: BN,
   totalLpTokens: BN,
 ): DepositResult {
-  if (slippage < 0 || slippage > 100) {
-    throw new Error("Slippage must be between 0 and 100 (0% to 100%)");
-  }
-
   // Calculate the corresponding output amount based on the pool's reserves
   const token1 = token0.mul(token1Reserve).div(token0Reserve);
 
-  // Apply slippage tolerance
-  const slippageFactor = new BN((1 + slippage / 100) * 1_000_000_000);
-  const maxToken0 = token0.mul(slippageFactor).div(new BN(1_000_000_000));
-  const maxToken1 = token1.mul(slippageFactor).div(new BN(1_000_000_000));
+  const maxToken0 = maxAfterSlippage(token0, slippage);
+  const maxToken1 = maxAfterSlippage(token1, slippage);
 
   // Calculate the LP tokens to mint, proportional to the deposit amount
   const lpToken = token0.mul(totalLpTokens).div(token0Reserve);
@@ -59,11 +54,8 @@ export function depositLpToken(
     ceilDiv(quoteReserve.mul(lpToken), totalLpTokens),
   );
 
-  const slippageFactor = new BN((1 + slippage / 100) * 1_000_000_000);
-  const slippageDenominator = new BN(1_000_000_000);
-
-  const maxBase = baseAmountIn.mul(slippageFactor).div(slippageDenominator);
-  const maxQuote = quoteAmountIn.mul(slippageFactor).div(slippageDenominator);
+  const maxBase = maxAfterSlippage(baseAmountIn, slippage);
+  const maxQuote = maxAfterSlippage(quoteAmountIn, slippage);
 
   return {
     maxBase,
