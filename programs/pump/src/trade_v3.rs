@@ -772,8 +772,8 @@ pub fn buy(mut ctx:Context<SellV3>,amount:u64,max_sol_cost:u64,partial_fill:bool
     crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.user)?;
     validate_trade(a.bonding_curve.complete as u8,a.bonding_curve.is_cashback_coin as u64,0)?;
     let real=a.bonding_curve.real_token_reserves;
-    let excess=if !(a.bonding_curve.is_mayhem_mode || a.user.key()==a.global.whitelist_pda) && amount>real{amount-real}else{0};
-    let amount=if excess>0 || (partial_fill && amount>=real){real}else{amount};
+    let mut excess=0;
+    let amount={let user_key=a.user.key(); if a.bonding_curve.is_mayhem_mode {if partial_fill{amount.min(real)}else{amount}}else if user_key!=a.global.whitelist_pda && amount>real{excess=amount-real;real}else{if partial_fill{amount.min(real)}else{amount}}};
 // layout-pad(24): aligns the next Source site with the original line
 
 
