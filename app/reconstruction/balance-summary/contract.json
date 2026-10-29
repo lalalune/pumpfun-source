@@ -1,0 +1,1470 @@
+{
+  "schemaVersion": 1,
+  "authority": "Authenticated shipped JavaScript parsed as inert AST; no captured execution or live request",
+  "anchors": {
+    "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+    "inventorySha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2"
+  },
+  "readers": [
+    {
+      "factory": {
+        "id": 524711,
+        "ids": [
+          524711,
+          349572
+        ],
+        "label": "factory 524711",
+        "source": "evidence/web/objects/87a44458ebf665fe.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1gctkhohgp5tt.js",
+        "sourceSha256": "d62bb10c5b564d521582e67f6309ed7b64d1153f461de323a9d5f9525822a1a7",
+        "sourceBytes": 32115,
+        "utf16": [
+          393,
+          2186
+        ],
+        "utf8": [
+          393,
+          2186
+        ],
+        "sha256": "dadc0b38be490a453d40051fca0e0ccab736951a921d9a71b867802d36d8eaa9"
+      },
+      "sourceNodes": [
+        {
+          "label": "literal source/cache-key provider import",
+          "source": "evidence/web/objects/87a44458ebf665fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gctkhohgp5tt.js",
+          "sourceSha256": "d62bb10c5b564d521582e67f6309ed7b64d1153f461de323a9d5f9525822a1a7",
+          "sourceBytes": 32115,
+          "utf16": [
+            429,
+            441
+          ],
+          "utf8": [
+            429,
+            441
+          ],
+          "sha256": "d187f9881c76a3ead4e0bf70b086e12a826a7706d55d1b4161e3d0bf258aca48",
+          "text": "n=e.i(38279)"
+        },
+        {
+          "label": "complete HTTP reader and error/Retry-After path",
+          "source": "evidence/web/objects/87a44458ebf665fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gctkhohgp5tt.js",
+          "sourceSha256": "d62bb10c5b564d521582e67f6309ed7b64d1153f461de323a9d5f9525822a1a7",
+          "sourceBytes": 32115,
+          "utf16": [
+            760,
+            1338
+          ],
+          "utf8": [
+            760,
+            1338
+          ],
+          "sha256": "436b193ef9414d1023ef1a367fc831ed41a1237f0b0e157e5d8266f9c9742edc",
+          "text": "async function l(e){let{fetchOptions:t,userAddress:r,multiChain:s}=e,o=new URL(`${n.t.BALANCE_SUMMARY}/${r}`);s&&o.searchParams.set(\"multi_chain\",\"true\");let a=await fetch(o.toString(),t);if(401===a.status)throw new i(\"Unauthorized\",401);if(!a.ok)throw new i(`Failed to fetch wallet summary (${a.status})`,a.status,{retryAfterMs:429===a.status?((e,t=Date.now())=>{if(!e)return;let r=e.trim();if(/^-?\\d+$/.test(r)){let e=Number(r);return e>=0?1e3*e:void 0}let n=Date.parse(r);return Number.isNaN(n)?void 0:Math.max(0,n-t)})(a.headers.get(\"retry-after\")):void 0});return a.json()}"
+        },
+        {
+          "label": "actual HTTP error constructor",
+          "source": "evidence/web/objects/87a44458ebf665fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gctkhohgp5tt.js",
+          "sourceSha256": "d62bb10c5b564d521582e67f6309ed7b64d1153f461de323a9d5f9525822a1a7",
+          "sourceBytes": 32115,
+          "utf16": [
+            442,
+            597
+          ],
+          "utf8": [
+            442,
+            597
+          ],
+          "sha256": "e5c2153df24e4252a2cee9215d9d6c4aee7d10da4f51f3b631d5a1c6ce67d54f",
+          "text": "class i extends Error{status;retryAfterMs;constructor(e,t,r){super(e),this.name=\"BalanceSummaryHttpError\",this.status=t,this.retryAfterMs=r?.retryAfterMs}}"
+        },
+        {
+          "label": "finite property guard shared by status/retry-after",
+          "source": "evidence/web/objects/87a44458ebf665fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gctkhohgp5tt.js",
+          "sourceSha256": "d62bb10c5b564d521582e67f6309ed7b64d1153f461de323a9d5f9525822a1a7",
+          "sourceBytes": 32115,
+          "utf16": [
+            603,
+            715
+          ],
+          "utf8": [
+            603,
+            715
+          ],
+          "sha256": "e62a3f9f1b5b79379c31e5ca22c6db951da78295507bd78954b03ceae742ab2b",
+          "text": "(e,t)=>{if(\"object\"!=typeof e||null===e)return;let r=e[t];return\"number\"==typeof r&&Number.isFinite(r)?r:void 0}"
+        },
+        {
+          "label": "finite status extraction",
+          "source": "evidence/web/objects/87a44458ebf665fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gctkhohgp5tt.js",
+          "sourceSha256": "d62bb10c5b564d521582e67f6309ed7b64d1153f461de323a9d5f9525822a1a7",
+          "sourceBytes": 32115,
+          "utf16": [
+            718,
+            734
+          ],
+          "utf8": [
+            718,
+            734
+          ],
+          "sha256": "258f172cbf9e5b16b991c9abcd6531959c93355a17a2281d61de30138453bf67",
+          "text": "e=>s(e,\"status\")"
+        },
+        {
+          "label": "finite retry-after extraction",
+          "source": "evidence/web/objects/87a44458ebf665fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gctkhohgp5tt.js",
+          "sourceSha256": "d62bb10c5b564d521582e67f6309ed7b64d1153f461de323a9d5f9525822a1a7",
+          "sourceBytes": 32115,
+          "utf16": [
+            737,
+            759
+          ],
+          "utf8": [
+            737,
+            759
+          ],
+          "sha256": "2b37c3cd373aae0899b71647f34dff825b231abd36e805d1f8cb67fbc45f0dc5",
+          "text": "e=>s(e,\"retryAfterMs\")"
+        },
+        {
+          "label": "query builder and closed-over request input",
+          "source": "evidence/web/objects/87a44458ebf665fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gctkhohgp5tt.js",
+          "sourceSha256": "d62bb10c5b564d521582e67f6309ed7b64d1153f461de323a9d5f9525822a1a7",
+          "sourceBytes": 32115,
+          "utf16": [
+            1517,
+            1678
+          ],
+          "utf8": [
+            1517,
+            1678
+          ],
+          "sha256": "cf58e6c1a855aeb2c831fe69b03e8e4966f93f74fc3c03ea70d4d42dc89877b0",
+          "text": "e=>{let{userAddress:t,fetchOptions:r}=e;return{queryFn:()=>l({userAddress:t,multiChain:!0,fetchOptions:r}),queryKey:n.Q.BALANCE_SUMMARY(t),retry:u,retryDelay:c}}"
+        },
+        {
+          "label": "retry admission",
+          "source": "evidence/web/objects/87a44458ebf665fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gctkhohgp5tt.js",
+          "sourceSha256": "d62bb10c5b564d521582e67f6309ed7b64d1153f461de323a9d5f9525822a1a7",
+          "sourceBytes": 32115,
+          "utf16": [
+            1382,
+            1404
+          ],
+          "utf8": [
+            1382,
+            1404
+          ],
+          "sha256": "7cac0daa1c9a98859e5b8cf37a1f235b03ffeb85465c0043c8b266cb3542e019",
+          "text": "(e,t)=>401!==o(t)&&e<2"
+        },
+        {
+          "label": "retry delay",
+          "source": "evidence/web/objects/87a44458ebf665fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gctkhohgp5tt.js",
+          "sourceSha256": "d62bb10c5b564d521582e67f6309ed7b64d1153f461de323a9d5f9525822a1a7",
+          "sourceBytes": 32115,
+          "utf16": [
+            1407,
+            1514
+          ],
+          "utf8": [
+            1407,
+            1514
+          ],
+          "sha256": "bd8e849bd362cc463dc4551ddc74974a4d7cf3924e85593c5f7ed48db4ba664c",
+          "text": "(e,t)=>{if(429!==o(t))return Math.min(1e3*2**e,3e4);let r=a(t);return void 0!==r?Math.min(r,6e4):5e3*(e+1)}"
+        },
+        {
+          "label": "poll interval",
+          "source": "evidence/web/objects/87a44458ebf665fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gctkhohgp5tt.js",
+          "sourceSha256": "d62bb10c5b564d521582e67f6309ed7b64d1153f461de323a9d5f9525822a1a7",
+          "sourceBytes": 32115,
+          "utf16": [
+            1679,
+            1774
+          ],
+          "utf8": [
+            1679,
+            1774
+          ],
+          "sha256": "619afc6b31c6a732e474c543c03e3405f270ab00e4733527006d8229c203e266",
+          "text": "function d(e){let t;return t=e.state.data,\"success\"===e.state.status&&t?.success===!0?6e4:15e3}"
+        },
+        {
+          "label": "complete query hook/memo and last-spread overrides",
+          "source": "evidence/web/objects/87a44458ebf665fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gctkhohgp5tt.js",
+          "sourceSha256": "d62bb10c5b564d521582e67f6309ed7b64d1153f461de323a9d5f9525822a1a7",
+          "sourceBytes": 32115,
+          "utf16": [
+            1793,
+            2176
+          ],
+          "utf8": [
+            1793,
+            2176
+          ],
+          "sha256": "ab28abb7760bc1284af377763cc0a3265d31298ed406a8ff04b0920899fd1d49",
+          "text": "function(e){let n,i,s=(0,t.c)(7),{userAddress:o,fetchOptions:a,queryOptions:l}=e,u=!!o;return s[0]!==a||s[1]!==o?(n=h({userAddress:o,fetchOptions:a}),s[0]=a,s[1]=o,s[2]=n):n=s[2],s[3]!==u||s[4]!==l||s[5]!==n?(i={enabled:u,...n,staleTime:1/0,refetchOnMount:!0,refetchOnWindowFocus:!0,refetchOnReconnect:!0,refetchInterval:d,...l},s[3]=u,s[4]=l,s[5]=n,s[6]=i):i=s[6],(0,r.useQuery)(i)}"
+        }
+      ]
+    },
+    {
+      "factory": {
+        "id": 524711,
+        "ids": [
+          524711,
+          349572
+        ],
+        "label": "factory 524711",
+        "source": "evidence/web/objects/864111a9a40a97f0.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1nvec4rl8_ur5.js",
+        "sourceSha256": "90b554c6ac7cf6d115eb1d7421bd5bdbe5c46286ab6a08f038e4532aba17e367",
+        "sourceBytes": 40114,
+        "utf16": [
+          21972,
+          23765
+        ],
+        "utf8": [
+          21978,
+          23771
+        ],
+        "sha256": "b6438cee42592063a7b39d4b7bc7e309f27eb68ed6e9d9e2919da8683437b97d"
+      },
+      "sourceNodes": [
+        {
+          "label": "literal source/cache-key provider import",
+          "source": "evidence/web/objects/864111a9a40a97f0.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1nvec4rl8_ur5.js",
+          "sourceSha256": "90b554c6ac7cf6d115eb1d7421bd5bdbe5c46286ab6a08f038e4532aba17e367",
+          "sourceBytes": 40114,
+          "utf16": [
+            22008,
+            22020
+          ],
+          "utf8": [
+            22014,
+            22026
+          ],
+          "sha256": "71c31f4ae12cfa1de8a55c1efd3de8a5568410fe5587cfdeaddf1113e79de8dd",
+          "text": "r=e.i(38279)"
+        },
+        {
+          "label": "complete HTTP reader and error/Retry-After path",
+          "source": "evidence/web/objects/864111a9a40a97f0.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1nvec4rl8_ur5.js",
+          "sourceSha256": "90b554c6ac7cf6d115eb1d7421bd5bdbe5c46286ab6a08f038e4532aba17e367",
+          "sourceBytes": 40114,
+          "utf16": [
+            22339,
+            22917
+          ],
+          "utf8": [
+            22345,
+            22923
+          ],
+          "sha256": "4beb53185e4518bc58abeb6aae499f33e68927e0330c4b3ef1f55b345e24e4f7",
+          "text": "async function o(e){let{fetchOptions:t,userAddress:n,multiChain:a}=e,s=new URL(`${r.t.BALANCE_SUMMARY}/${n}`);a&&s.searchParams.set(\"multi_chain\",\"true\");let l=await fetch(s.toString(),t);if(401===l.status)throw new i(\"Unauthorized\",401);if(!l.ok)throw new i(`Failed to fetch wallet summary (${l.status})`,l.status,{retryAfterMs:429===l.status?((e,t=Date.now())=>{if(!e)return;let n=e.trim();if(/^-?\\d+$/.test(n)){let e=Number(n);return e>=0?1e3*e:void 0}let r=Date.parse(n);return Number.isNaN(r)?void 0:Math.max(0,r-t)})(l.headers.get(\"retry-after\")):void 0});return l.json()}"
+        },
+        {
+          "label": "actual HTTP error constructor",
+          "source": "evidence/web/objects/864111a9a40a97f0.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1nvec4rl8_ur5.js",
+          "sourceSha256": "90b554c6ac7cf6d115eb1d7421bd5bdbe5c46286ab6a08f038e4532aba17e367",
+          "sourceBytes": 40114,
+          "utf16": [
+            22021,
+            22176
+          ],
+          "utf8": [
+            22027,
+            22182
+          ],
+          "sha256": "1b61c07de9ba3ad200eb4ccac2840835154042951282780733d6e0871468299e",
+          "text": "class i extends Error{status;retryAfterMs;constructor(e,t,n){super(e),this.name=\"BalanceSummaryHttpError\",this.status=t,this.retryAfterMs=n?.retryAfterMs}}"
+        },
+        {
+          "label": "finite property guard shared by status/retry-after",
+          "source": "evidence/web/objects/864111a9a40a97f0.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1nvec4rl8_ur5.js",
+          "sourceSha256": "90b554c6ac7cf6d115eb1d7421bd5bdbe5c46286ab6a08f038e4532aba17e367",
+          "sourceBytes": 40114,
+          "utf16": [
+            22182,
+            22294
+          ],
+          "utf8": [
+            22188,
+            22300
+          ],
+          "sha256": "e439a270593fa34e7f12c603fbee6d0fa2b84262a6759c8b1c02130741191e58",
+          "text": "(e,t)=>{if(\"object\"!=typeof e||null===e)return;let n=e[t];return\"number\"==typeof n&&Number.isFinite(n)?n:void 0}"
+        },
+        {
+          "label": "finite status extraction",
+          "source": "evidence/web/objects/864111a9a40a97f0.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1nvec4rl8_ur5.js",
+          "sourceSha256": "90b554c6ac7cf6d115eb1d7421bd5bdbe5c46286ab6a08f038e4532aba17e367",
+          "sourceBytes": 40114,
+          "utf16": [
+            22297,
+            22313
+          ],
+          "utf8": [
+            22303,
+            22319
+          ],
+          "sha256": "c46ad9ec6214c098f995acf091f51c366aa14427e30d525cedbff5209e7222db",
+          "text": "e=>a(e,\"status\")"
+        },
+        {
+          "label": "finite retry-after extraction",
+          "source": "evidence/web/objects/864111a9a40a97f0.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1nvec4rl8_ur5.js",
+          "sourceSha256": "90b554c6ac7cf6d115eb1d7421bd5bdbe5c46286ab6a08f038e4532aba17e367",
+          "sourceBytes": 40114,
+          "utf16": [
+            22316,
+            22338
+          ],
+          "utf8": [
+            22322,
+            22344
+          ],
+          "sha256": "f511f04f9bdb5eaeea13e4872b6a10f3235836a8de78e1e95df66c702df80c44",
+          "text": "e=>a(e,\"retryAfterMs\")"
+        },
+        {
+          "label": "query builder and closed-over request input",
+          "source": "evidence/web/objects/864111a9a40a97f0.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1nvec4rl8_ur5.js",
+          "sourceSha256": "90b554c6ac7cf6d115eb1d7421bd5bdbe5c46286ab6a08f038e4532aba17e367",
+          "sourceBytes": 40114,
+          "utf16": [
+            23096,
+            23257
+          ],
+          "utf8": [
+            23102,
+            23263
+          ],
+          "sha256": "a6e05e56e235fdf216fe6065925d06b633281c0631db4003ede02f9fbfaef047",
+          "text": "e=>{let{userAddress:t,fetchOptions:n}=e;return{queryFn:()=>o({userAddress:t,multiChain:!0,fetchOptions:n}),queryKey:r.Q.BALANCE_SUMMARY(t),retry:u,retryDelay:c}}"
+        },
+        {
+          "label": "retry admission",
+          "source": "evidence/web/objects/864111a9a40a97f0.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1nvec4rl8_ur5.js",
+          "sourceSha256": "90b554c6ac7cf6d115eb1d7421bd5bdbe5c46286ab6a08f038e4532aba17e367",
+          "sourceBytes": 40114,
+          "utf16": [
+            22961,
+            22983
+          ],
+          "utf8": [
+            22967,
+            22989
+          ],
+          "sha256": "68febaad23b9febbb534dad30282fdc08f9c2d3f03039099c9c4fa412b89f0a8",
+          "text": "(e,t)=>401!==s(t)&&e<2"
+        },
+        {
+          "label": "retry delay",
+          "source": "evidence/web/objects/864111a9a40a97f0.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1nvec4rl8_ur5.js",
+          "sourceSha256": "90b554c6ac7cf6d115eb1d7421bd5bdbe5c46286ab6a08f038e4532aba17e367",
+          "sourceBytes": 40114,
+          "utf16": [
+            22986,
+            23093
+          ],
+          "utf8": [
+            22992,
+            23099
+          ],
+          "sha256": "5d4544a182bae847e803c45103ab71ae805d761d539a5a410c75a3954a38aafa",
+          "text": "(e,t)=>{if(429!==s(t))return Math.min(1e3*2**e,3e4);let n=l(t);return void 0!==n?Math.min(n,6e4):5e3*(e+1)}"
+        },
+        {
+          "label": "poll interval",
+          "source": "evidence/web/objects/864111a9a40a97f0.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1nvec4rl8_ur5.js",
+          "sourceSha256": "90b554c6ac7cf6d115eb1d7421bd5bdbe5c46286ab6a08f038e4532aba17e367",
+          "sourceBytes": 40114,
+          "utf16": [
+            23258,
+            23353
+          ],
+          "utf8": [
+            23264,
+            23359
+          ],
+          "sha256": "3eeec6125c6c0dd58f70316587439c714310a51957a65d729384caefe6c91bf9",
+          "text": "function m(e){let t;return t=e.state.data,\"success\"===e.state.status&&t?.success===!0?6e4:15e3}"
+        },
+        {
+          "label": "complete query hook/memo and last-spread overrides",
+          "source": "evidence/web/objects/864111a9a40a97f0.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1nvec4rl8_ur5.js",
+          "sourceSha256": "90b554c6ac7cf6d115eb1d7421bd5bdbe5c46286ab6a08f038e4532aba17e367",
+          "sourceBytes": 40114,
+          "utf16": [
+            23372,
+            23755
+          ],
+          "utf8": [
+            23378,
+            23761
+          ],
+          "sha256": "2ee50cd90d1e20bf21e0fec870051006f3c6956f8ce02d5b614de18ce00c9f3a",
+          "text": "function(e){let r,i,a=(0,t.c)(7),{userAddress:s,fetchOptions:l,queryOptions:o}=e,u=!!s;return a[0]!==l||a[1]!==s?(r=d({userAddress:s,fetchOptions:l}),a[0]=l,a[1]=s,a[2]=r):r=a[2],a[3]!==u||a[4]!==o||a[5]!==r?(i={enabled:u,...r,staleTime:1/0,refetchOnMount:!0,refetchOnWindowFocus:!0,refetchOnReconnect:!0,refetchInterval:m,...o},a[3]=u,a[4]=o,a[5]=r,a[6]=i):i=a[6],(0,n.useQuery)(i)}"
+        }
+      ]
+    },
+    {
+      "factory": {
+        "id": 524711,
+        "ids": [
+          524711,
+          349572
+        ],
+        "label": "factory 524711",
+        "source": "evidence/web/objects/d96bd90b2de3d9da.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3oneyi8iwyxl2.js",
+        "sourceSha256": "833d8d1a648493788a91c565ba29ee3e8cd373d8cae1d000b32f55e5dceb8c73",
+        "sourceBytes": 59686,
+        "utf16": [
+          24189,
+          25982
+        ],
+        "utf8": [
+          24193,
+          25986
+        ],
+        "sha256": "9ee77e30c3477bf495a93c0e1a43c835eedaa60520f5693225596881cdac621a"
+      },
+      "sourceNodes": [
+        {
+          "label": "literal source/cache-key provider import",
+          "source": "evidence/web/objects/d96bd90b2de3d9da.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3oneyi8iwyxl2.js",
+          "sourceSha256": "833d8d1a648493788a91c565ba29ee3e8cd373d8cae1d000b32f55e5dceb8c73",
+          "sourceBytes": 59686,
+          "utf16": [
+            24225,
+            24237
+          ],
+          "utf8": [
+            24229,
+            24241
+          ],
+          "sha256": "b47e17d7d3f5a33c22bb67b35b5eeb50556e0771474a7b7c894e6c75ac8bfcaf",
+          "text": "i=e.i(38279)"
+        },
+        {
+          "label": "complete HTTP reader and error/Retry-After path",
+          "source": "evidence/web/objects/d96bd90b2de3d9da.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3oneyi8iwyxl2.js",
+          "sourceSha256": "833d8d1a648493788a91c565ba29ee3e8cd373d8cae1d000b32f55e5dceb8c73",
+          "sourceBytes": 59686,
+          "utf16": [
+            24556,
+            25134
+          ],
+          "utf8": [
+            24560,
+            25138
+          ],
+          "sha256": "82d872c4cdcf2575cbf39838044e05c4d85f9fcbeedfde50f23092dcc97aedab",
+          "text": "async function o(e){let{fetchOptions:t,userAddress:n,multiChain:r}=e,s=new URL(`${i.t.BALANCE_SUMMARY}/${n}`);r&&s.searchParams.set(\"multi_chain\",\"true\");let l=await fetch(s.toString(),t);if(401===l.status)throw new a(\"Unauthorized\",401);if(!l.ok)throw new a(`Failed to fetch wallet summary (${l.status})`,l.status,{retryAfterMs:429===l.status?((e,t=Date.now())=>{if(!e)return;let n=e.trim();if(/^-?\\d+$/.test(n)){let e=Number(n);return e>=0?1e3*e:void 0}let i=Date.parse(n);return Number.isNaN(i)?void 0:Math.max(0,i-t)})(l.headers.get(\"retry-after\")):void 0});return l.json()}"
+        },
+        {
+          "label": "actual HTTP error constructor",
+          "source": "evidence/web/objects/d96bd90b2de3d9da.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3oneyi8iwyxl2.js",
+          "sourceSha256": "833d8d1a648493788a91c565ba29ee3e8cd373d8cae1d000b32f55e5dceb8c73",
+          "sourceBytes": 59686,
+          "utf16": [
+            24238,
+            24393
+          ],
+          "utf8": [
+            24242,
+            24397
+          ],
+          "sha256": "0aee72ab7f01cb9da7c7a3499faab2e09ba3cf651ba4bb8eb103018438dec036",
+          "text": "class a extends Error{status;retryAfterMs;constructor(e,t,n){super(e),this.name=\"BalanceSummaryHttpError\",this.status=t,this.retryAfterMs=n?.retryAfterMs}}"
+        },
+        {
+          "label": "finite property guard shared by status/retry-after",
+          "source": "evidence/web/objects/d96bd90b2de3d9da.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3oneyi8iwyxl2.js",
+          "sourceSha256": "833d8d1a648493788a91c565ba29ee3e8cd373d8cae1d000b32f55e5dceb8c73",
+          "sourceBytes": 59686,
+          "utf16": [
+            24399,
+            24511
+          ],
+          "utf8": [
+            24403,
+            24515
+          ],
+          "sha256": "e439a270593fa34e7f12c603fbee6d0fa2b84262a6759c8b1c02130741191e58",
+          "text": "(e,t)=>{if(\"object\"!=typeof e||null===e)return;let n=e[t];return\"number\"==typeof n&&Number.isFinite(n)?n:void 0}"
+        },
+        {
+          "label": "finite status extraction",
+          "source": "evidence/web/objects/d96bd90b2de3d9da.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3oneyi8iwyxl2.js",
+          "sourceSha256": "833d8d1a648493788a91c565ba29ee3e8cd373d8cae1d000b32f55e5dceb8c73",
+          "sourceBytes": 59686,
+          "utf16": [
+            24514,
+            24530
+          ],
+          "utf8": [
+            24518,
+            24534
+          ],
+          "sha256": "243e36e34a914ec173276f80b41bf9f7dd86407565ce3006ff776917d6fd21d4",
+          "text": "e=>r(e,\"status\")"
+        },
+        {
+          "label": "finite retry-after extraction",
+          "source": "evidence/web/objects/d96bd90b2de3d9da.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3oneyi8iwyxl2.js",
+          "sourceSha256": "833d8d1a648493788a91c565ba29ee3e8cd373d8cae1d000b32f55e5dceb8c73",
+          "sourceBytes": 59686,
+          "utf16": [
+            24533,
+            24555
+          ],
+          "utf8": [
+            24537,
+            24559
+          ],
+          "sha256": "fb2732f680dcc98d55ce416d070531109ff27125cff41e2fd97295696bc0258f",
+          "text": "e=>r(e,\"retryAfterMs\")"
+        },
+        {
+          "label": "query builder and closed-over request input",
+          "source": "evidence/web/objects/d96bd90b2de3d9da.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3oneyi8iwyxl2.js",
+          "sourceSha256": "833d8d1a648493788a91c565ba29ee3e8cd373d8cae1d000b32f55e5dceb8c73",
+          "sourceBytes": 59686,
+          "utf16": [
+            25313,
+            25474
+          ],
+          "utf8": [
+            25317,
+            25478
+          ],
+          "sha256": "3852e1c22c2be670a1cc9b03fc6bb160f666868d9880c50c681117891e582ec5",
+          "text": "e=>{let{userAddress:t,fetchOptions:n}=e;return{queryFn:()=>o({userAddress:t,multiChain:!0,fetchOptions:n}),queryKey:i.Q.BALANCE_SUMMARY(t),retry:u,retryDelay:d}}"
+        },
+        {
+          "label": "retry admission",
+          "source": "evidence/web/objects/d96bd90b2de3d9da.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3oneyi8iwyxl2.js",
+          "sourceSha256": "833d8d1a648493788a91c565ba29ee3e8cd373d8cae1d000b32f55e5dceb8c73",
+          "sourceBytes": 59686,
+          "utf16": [
+            25178,
+            25200
+          ],
+          "utf8": [
+            25182,
+            25204
+          ],
+          "sha256": "68febaad23b9febbb534dad30282fdc08f9c2d3f03039099c9c4fa412b89f0a8",
+          "text": "(e,t)=>401!==s(t)&&e<2"
+        },
+        {
+          "label": "retry delay",
+          "source": "evidence/web/objects/d96bd90b2de3d9da.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3oneyi8iwyxl2.js",
+          "sourceSha256": "833d8d1a648493788a91c565ba29ee3e8cd373d8cae1d000b32f55e5dceb8c73",
+          "sourceBytes": 59686,
+          "utf16": [
+            25203,
+            25310
+          ],
+          "utf8": [
+            25207,
+            25314
+          ],
+          "sha256": "5d4544a182bae847e803c45103ab71ae805d761d539a5a410c75a3954a38aafa",
+          "text": "(e,t)=>{if(429!==s(t))return Math.min(1e3*2**e,3e4);let n=l(t);return void 0!==n?Math.min(n,6e4):5e3*(e+1)}"
+        },
+        {
+          "label": "poll interval",
+          "source": "evidence/web/objects/d96bd90b2de3d9da.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3oneyi8iwyxl2.js",
+          "sourceSha256": "833d8d1a648493788a91c565ba29ee3e8cd373d8cae1d000b32f55e5dceb8c73",
+          "sourceBytes": 59686,
+          "utf16": [
+            25475,
+            25570
+          ],
+          "utf8": [
+            25479,
+            25574
+          ],
+          "sha256": "3eeec6125c6c0dd58f70316587439c714310a51957a65d729384caefe6c91bf9",
+          "text": "function m(e){let t;return t=e.state.data,\"success\"===e.state.status&&t?.success===!0?6e4:15e3}"
+        },
+        {
+          "label": "complete query hook/memo and last-spread overrides",
+          "source": "evidence/web/objects/d96bd90b2de3d9da.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3oneyi8iwyxl2.js",
+          "sourceSha256": "833d8d1a648493788a91c565ba29ee3e8cd373d8cae1d000b32f55e5dceb8c73",
+          "sourceBytes": 59686,
+          "utf16": [
+            25589,
+            25972
+          ],
+          "utf8": [
+            25593,
+            25976
+          ],
+          "sha256": "d4b211e7405deed5e0ccc7fcb80ee4dfcf20dc388faa0fd1717686e37005974d",
+          "text": "function(e){let i,a,r=(0,t.c)(7),{userAddress:s,fetchOptions:l,queryOptions:o}=e,u=!!s;return r[0]!==l||r[1]!==s?(i=c({userAddress:s,fetchOptions:l}),r[0]=l,r[1]=s,r[2]=i):i=r[2],r[3]!==u||r[4]!==o||r[5]!==i?(a={enabled:u,...i,staleTime:1/0,refetchOnMount:!0,refetchOnWindowFocus:!0,refetchOnReconnect:!0,refetchInterval:m,...o},r[3]=u,r[4]=o,r[5]=i,r[6]=a):a=r[6],(0,n.useQuery)(a)}"
+        }
+      ]
+    },
+    {
+      "factory": {
+        "id": 524711,
+        "ids": [
+          524711,
+          349572
+        ],
+        "label": "factory 524711",
+        "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+        "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+        "sourceBytes": 49844,
+        "utf16": [
+          37496,
+          39289
+        ],
+        "utf8": [
+          37499,
+          39292
+        ],
+        "sha256": "5bbfa5818419ab77ec3f23176573ccdbbc3b3effe7354231d2bc2712611aa86d"
+      },
+      "sourceNodes": [
+        {
+          "label": "literal source/cache-key provider import",
+          "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+          "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+          "sourceBytes": 49844,
+          "utf16": [
+            37532,
+            37544
+          ],
+          "utf8": [
+            37535,
+            37547
+          ],
+          "sha256": "d187f9881c76a3ead4e0bf70b086e12a826a7706d55d1b4161e3d0bf258aca48",
+          "text": "n=e.i(38279)"
+        },
+        {
+          "label": "complete HTTP reader and error/Retry-After path",
+          "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+          "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+          "sourceBytes": 49844,
+          "utf16": [
+            37863,
+            38441
+          ],
+          "utf8": [
+            37866,
+            38444
+          ],
+          "sha256": "4b0dfb2ddb0dcbd70bc451c66e58f3a57b18b0888373e6119e7a0c76116702a0",
+          "text": "async function o(e){let{fetchOptions:t,userAddress:r,multiChain:l}=e,i=new URL(`${n.t.BALANCE_SUMMARY}/${r}`);l&&i.searchParams.set(\"multi_chain\",\"true\");let s=await fetch(i.toString(),t);if(401===s.status)throw new a(\"Unauthorized\",401);if(!s.ok)throw new a(`Failed to fetch wallet summary (${s.status})`,s.status,{retryAfterMs:429===s.status?((e,t=Date.now())=>{if(!e)return;let r=e.trim();if(/^-?\\d+$/.test(r)){let e=Number(r);return e>=0?1e3*e:void 0}let n=Date.parse(r);return Number.isNaN(n)?void 0:Math.max(0,n-t)})(s.headers.get(\"retry-after\")):void 0});return s.json()}"
+        },
+        {
+          "label": "actual HTTP error constructor",
+          "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+          "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+          "sourceBytes": 49844,
+          "utf16": [
+            37545,
+            37700
+          ],
+          "utf8": [
+            37548,
+            37703
+          ],
+          "sha256": "fd77cf000441ca9338d0c2ff50b57b223f603ab01410fa91be65f46f04098f34",
+          "text": "class a extends Error{status;retryAfterMs;constructor(e,t,r){super(e),this.name=\"BalanceSummaryHttpError\",this.status=t,this.retryAfterMs=r?.retryAfterMs}}"
+        },
+        {
+          "label": "finite property guard shared by status/retry-after",
+          "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+          "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+          "sourceBytes": 49844,
+          "utf16": [
+            37706,
+            37818
+          ],
+          "utf8": [
+            37709,
+            37821
+          ],
+          "sha256": "e62a3f9f1b5b79379c31e5ca22c6db951da78295507bd78954b03ceae742ab2b",
+          "text": "(e,t)=>{if(\"object\"!=typeof e||null===e)return;let r=e[t];return\"number\"==typeof r&&Number.isFinite(r)?r:void 0}"
+        },
+        {
+          "label": "finite status extraction",
+          "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+          "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+          "sourceBytes": 49844,
+          "utf16": [
+            37821,
+            37837
+          ],
+          "utf8": [
+            37824,
+            37840
+          ],
+          "sha256": "bb9867ee89705b26d23eafac1d14b53de12af0d51a16b1eed211d39650f1f2c0",
+          "text": "e=>l(e,\"status\")"
+        },
+        {
+          "label": "finite retry-after extraction",
+          "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+          "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+          "sourceBytes": 49844,
+          "utf16": [
+            37840,
+            37862
+          ],
+          "utf8": [
+            37843,
+            37865
+          ],
+          "sha256": "5932d5c08d99e1174af1422210ebc5bf79bbd04b0cc1b6d205562f82127a27de",
+          "text": "e=>l(e,\"retryAfterMs\")"
+        },
+        {
+          "label": "query builder and closed-over request input",
+          "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+          "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+          "sourceBytes": 49844,
+          "utf16": [
+            38620,
+            38781
+          ],
+          "utf8": [
+            38623,
+            38784
+          ],
+          "sha256": "2dd1390875c443f5c982f6f99719f261133640aa88c6d92c2280b48adc30b42f",
+          "text": "e=>{let{userAddress:t,fetchOptions:r}=e;return{queryFn:()=>o({userAddress:t,multiChain:!0,fetchOptions:r}),queryKey:n.Q.BALANCE_SUMMARY(t),retry:c,retryDelay:d}}"
+        },
+        {
+          "label": "retry admission",
+          "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+          "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+          "sourceBytes": 49844,
+          "utf16": [
+            38485,
+            38507
+          ],
+          "utf8": [
+            38488,
+            38510
+          ],
+          "sha256": "846e299b4edb040a32a9ef5c37b98b5d53dcdc79f0f0cdd349585b961d137523",
+          "text": "(e,t)=>401!==i(t)&&e<2"
+        },
+        {
+          "label": "retry delay",
+          "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+          "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+          "sourceBytes": 49844,
+          "utf16": [
+            38510,
+            38617
+          ],
+          "utf8": [
+            38513,
+            38620
+          ],
+          "sha256": "e9ea68000d0167fdcee2d396fb995f3ca70381fd498105b5acd207ad9941c04d",
+          "text": "(e,t)=>{if(429!==i(t))return Math.min(1e3*2**e,3e4);let r=s(t);return void 0!==r?Math.min(r,6e4):5e3*(e+1)}"
+        },
+        {
+          "label": "poll interval",
+          "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+          "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+          "sourceBytes": 49844,
+          "utf16": [
+            38782,
+            38877
+          ],
+          "utf8": [
+            38785,
+            38880
+          ],
+          "sha256": "2571d01805e73804dac814c2a1c7024c1fe90bac0c8e3048a743fa400d7239d3",
+          "text": "function f(e){let t;return t=e.state.data,\"success\"===e.state.status&&t?.success===!0?6e4:15e3}"
+        },
+        {
+          "label": "complete query hook/memo and last-spread overrides",
+          "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+          "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+          "sourceBytes": 49844,
+          "utf16": [
+            38896,
+            39279
+          ],
+          "utf8": [
+            38899,
+            39282
+          ],
+          "sha256": "971be86eb5db4e09a6908bc89247f5e5057035b5ba3b19cd45efaf331354252e",
+          "text": "function(e){let n,a,l=(0,t.c)(7),{userAddress:i,fetchOptions:s,queryOptions:o}=e,c=!!i;return l[0]!==s||l[1]!==i?(n=u({userAddress:i,fetchOptions:s}),l[0]=s,l[1]=i,l[2]=n):n=l[2],l[3]!==c||l[4]!==o||l[5]!==n?(a={enabled:c,...n,staleTime:1/0,refetchOnMount:!0,refetchOnWindowFocus:!0,refetchOnReconnect:!0,refetchInterval:f,...o},l[3]=c,l[4]=o,l[5]=n,l[6]=a):a=l[6],(0,r.useQuery)(a)}"
+        }
+      ]
+    },
+    {
+      "factory": {
+        "id": 524711,
+        "ids": [
+          524711,
+          349572
+        ],
+        "label": "factory 524711",
+        "source": "evidence/web/objects/5c900f5590ba04fe.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1gyrxmalaapq-.js",
+        "sourceSha256": "c611c7dac152160dcf538134de414f2590813413b313a1ec882a22ad8736f374",
+        "sourceBytes": 14603,
+        "utf16": [
+          10285,
+          12078
+        ],
+        "utf8": [
+          10289,
+          12082
+        ],
+        "sha256": "44abb461d255ba2a12e430255b7ce095be2d68e8f0b9f658d3d91e36c15a2fb8"
+      },
+      "sourceNodes": [
+        {
+          "label": "literal source/cache-key provider import",
+          "source": "evidence/web/objects/5c900f5590ba04fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gyrxmalaapq-.js",
+          "sourceSha256": "c611c7dac152160dcf538134de414f2590813413b313a1ec882a22ad8736f374",
+          "sourceBytes": 14603,
+          "utf16": [
+            10321,
+            10333
+          ],
+          "utf8": [
+            10325,
+            10337
+          ],
+          "sha256": "a3ef553cdbe47ba71dc02335a2985ed5de339734ab1d79ca7023d569607c0ba7",
+          "text": "s=e.i(38279)"
+        },
+        {
+          "label": "complete HTTP reader and error/Retry-After path",
+          "source": "evidence/web/objects/5c900f5590ba04fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gyrxmalaapq-.js",
+          "sourceSha256": "c611c7dac152160dcf538134de414f2590813413b313a1ec882a22ad8736f374",
+          "sourceBytes": 14603,
+          "utf16": [
+            10652,
+            11230
+          ],
+          "utf8": [
+            10656,
+            11234
+          ],
+          "sha256": "a1806205f44d51f29077ddfe715fa4cb34f6a59ae95afe274ac019379b372f45",
+          "text": "async function o(e){let{fetchOptions:t,userAddress:a,multiChain:n}=e,i=new URL(`${s.t.BALANCE_SUMMARY}/${a}`);n&&i.searchParams.set(\"multi_chain\",\"true\");let r=await fetch(i.toString(),t);if(401===r.status)throw new l(\"Unauthorized\",401);if(!r.ok)throw new l(`Failed to fetch wallet summary (${r.status})`,r.status,{retryAfterMs:429===r.status?((e,t=Date.now())=>{if(!e)return;let a=e.trim();if(/^-?\\d+$/.test(a)){let e=Number(a);return e>=0?1e3*e:void 0}let s=Date.parse(a);return Number.isNaN(s)?void 0:Math.max(0,s-t)})(r.headers.get(\"retry-after\")):void 0});return r.json()}"
+        },
+        {
+          "label": "actual HTTP error constructor",
+          "source": "evidence/web/objects/5c900f5590ba04fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gyrxmalaapq-.js",
+          "sourceSha256": "c611c7dac152160dcf538134de414f2590813413b313a1ec882a22ad8736f374",
+          "sourceBytes": 14603,
+          "utf16": [
+            10334,
+            10489
+          ],
+          "utf8": [
+            10338,
+            10493
+          ],
+          "sha256": "ac120fc2cde688e8acd5852f117888736a086f716f89d76438ee011bb26dc943",
+          "text": "class l extends Error{status;retryAfterMs;constructor(e,t,a){super(e),this.name=\"BalanceSummaryHttpError\",this.status=t,this.retryAfterMs=a?.retryAfterMs}}"
+        },
+        {
+          "label": "finite property guard shared by status/retry-after",
+          "source": "evidence/web/objects/5c900f5590ba04fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gyrxmalaapq-.js",
+          "sourceSha256": "c611c7dac152160dcf538134de414f2590813413b313a1ec882a22ad8736f374",
+          "sourceBytes": 14603,
+          "utf16": [
+            10495,
+            10607
+          ],
+          "utf8": [
+            10499,
+            10611
+          ],
+          "sha256": "885e9a23bee33b6f314ebbbed1de93a82abc0e55cf20a8f298048c5fd6fd0167",
+          "text": "(e,t)=>{if(\"object\"!=typeof e||null===e)return;let a=e[t];return\"number\"==typeof a&&Number.isFinite(a)?a:void 0}"
+        },
+        {
+          "label": "finite status extraction",
+          "source": "evidence/web/objects/5c900f5590ba04fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gyrxmalaapq-.js",
+          "sourceSha256": "c611c7dac152160dcf538134de414f2590813413b313a1ec882a22ad8736f374",
+          "sourceBytes": 14603,
+          "utf16": [
+            10610,
+            10626
+          ],
+          "utf8": [
+            10614,
+            10630
+          ],
+          "sha256": "d47467551292c47d035db4092fec7beb98f2e1e8716cff036cee5a56d6599b08",
+          "text": "e=>n(e,\"status\")"
+        },
+        {
+          "label": "finite retry-after extraction",
+          "source": "evidence/web/objects/5c900f5590ba04fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gyrxmalaapq-.js",
+          "sourceSha256": "c611c7dac152160dcf538134de414f2590813413b313a1ec882a22ad8736f374",
+          "sourceBytes": 14603,
+          "utf16": [
+            10629,
+            10651
+          ],
+          "utf8": [
+            10633,
+            10655
+          ],
+          "sha256": "76966cec8ca041fefa6e86ed2acf223ce2b2c2143c81676424669d7a1194f54d",
+          "text": "e=>n(e,\"retryAfterMs\")"
+        },
+        {
+          "label": "query builder and closed-over request input",
+          "source": "evidence/web/objects/5c900f5590ba04fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gyrxmalaapq-.js",
+          "sourceSha256": "c611c7dac152160dcf538134de414f2590813413b313a1ec882a22ad8736f374",
+          "sourceBytes": 14603,
+          "utf16": [
+            11409,
+            11570
+          ],
+          "utf8": [
+            11413,
+            11574
+          ],
+          "sha256": "a4a19cb8229523adc562ce05026397cfabe7652f4405998f1791d4cd4cb2955d",
+          "text": "e=>{let{userAddress:t,fetchOptions:a}=e;return{queryFn:()=>o({userAddress:t,multiChain:!0,fetchOptions:a}),queryKey:s.Q.BALANCE_SUMMARY(t),retry:u,retryDelay:c}}"
+        },
+        {
+          "label": "retry admission",
+          "source": "evidence/web/objects/5c900f5590ba04fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gyrxmalaapq-.js",
+          "sourceSha256": "c611c7dac152160dcf538134de414f2590813413b313a1ec882a22ad8736f374",
+          "sourceBytes": 14603,
+          "utf16": [
+            11274,
+            11296
+          ],
+          "utf8": [
+            11278,
+            11300
+          ],
+          "sha256": "846e299b4edb040a32a9ef5c37b98b5d53dcdc79f0f0cdd349585b961d137523",
+          "text": "(e,t)=>401!==i(t)&&e<2"
+        },
+        {
+          "label": "retry delay",
+          "source": "evidence/web/objects/5c900f5590ba04fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gyrxmalaapq-.js",
+          "sourceSha256": "c611c7dac152160dcf538134de414f2590813413b313a1ec882a22ad8736f374",
+          "sourceBytes": 14603,
+          "utf16": [
+            11299,
+            11406
+          ],
+          "utf8": [
+            11303,
+            11410
+          ],
+          "sha256": "b60a9ed5cc4889b99772bf8d6eada8069ede8ebc60cb9d367e3b0fae76b17a12",
+          "text": "(e,t)=>{if(429!==i(t))return Math.min(1e3*2**e,3e4);let a=r(t);return void 0!==a?Math.min(a,6e4):5e3*(e+1)}"
+        },
+        {
+          "label": "poll interval",
+          "source": "evidence/web/objects/5c900f5590ba04fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gyrxmalaapq-.js",
+          "sourceSha256": "c611c7dac152160dcf538134de414f2590813413b313a1ec882a22ad8736f374",
+          "sourceBytes": 14603,
+          "utf16": [
+            11571,
+            11666
+          ],
+          "utf8": [
+            11575,
+            11670
+          ],
+          "sha256": "3eeec6125c6c0dd58f70316587439c714310a51957a65d729384caefe6c91bf9",
+          "text": "function m(e){let t;return t=e.state.data,\"success\"===e.state.status&&t?.success===!0?6e4:15e3}"
+        },
+        {
+          "label": "complete query hook/memo and last-spread overrides",
+          "source": "evidence/web/objects/5c900f5590ba04fe.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/1gyrxmalaapq-.js",
+          "sourceSha256": "c611c7dac152160dcf538134de414f2590813413b313a1ec882a22ad8736f374",
+          "sourceBytes": 14603,
+          "utf16": [
+            11685,
+            12068
+          ],
+          "utf8": [
+            11689,
+            12072
+          ],
+          "sha256": "302cc5214541ead94b520b7b16d737a4e08e45dd429d77658bbce7552713c4c9",
+          "text": "function(e){let s,l,n=(0,t.c)(7),{userAddress:i,fetchOptions:r,queryOptions:o}=e,u=!!i;return n[0]!==r||n[1]!==i?(s=d({userAddress:i,fetchOptions:r}),n[0]=r,n[1]=i,n[2]=s):s=n[2],n[3]!==u||n[4]!==o||n[5]!==s?(l={enabled:u,...s,staleTime:1/0,refetchOnMount:!0,refetchOnWindowFocus:!0,refetchOnReconnect:!0,refetchInterval:m,...o},n[3]=u,n[4]=o,n[5]=s,n[6]=l):l=n[6],(0,a.useQuery)(l)}"
+        }
+      ]
+    },
+    {
+      "factory": {
+        "id": 524711,
+        "ids": [
+          524711,
+          349572
+        ],
+        "label": "factory 524711",
+        "source": "evidence/web/objects/a6c540af7c959989.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/2-kg4dyla6ci5.js",
+        "sourceSha256": "fd454ec9b6d36b46c36e1c0bb13132875e17a197a7168e310eb52268baab5d29",
+        "sourceBytes": 86521,
+        "utf16": [
+          38144,
+          39937
+        ],
+        "utf8": [
+          38144,
+          39937
+        ],
+        "sha256": "12d13770ea05abbe3cfb7478c209096462fc962ecc9be8ef52e67284ab70f56c"
+      },
+      "sourceNodes": [
+        {
+          "label": "literal source/cache-key provider import",
+          "source": "evidence/web/objects/a6c540af7c959989.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2-kg4dyla6ci5.js",
+          "sourceSha256": "fd454ec9b6d36b46c36e1c0bb13132875e17a197a7168e310eb52268baab5d29",
+          "sourceBytes": 86521,
+          "utf16": [
+            38180,
+            38192
+          ],
+          "utf8": [
+            38180,
+            38192
+          ],
+          "sha256": "71c31f4ae12cfa1de8a55c1efd3de8a5568410fe5587cfdeaddf1113e79de8dd",
+          "text": "r=e.i(38279)"
+        },
+        {
+          "label": "complete HTTP reader and error/Retry-After path",
+          "source": "evidence/web/objects/a6c540af7c959989.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2-kg4dyla6ci5.js",
+          "sourceSha256": "fd454ec9b6d36b46c36e1c0bb13132875e17a197a7168e310eb52268baab5d29",
+          "sourceBytes": 86521,
+          "utf16": [
+            38511,
+            39089
+          ],
+          "utf8": [
+            38511,
+            39089
+          ],
+          "sha256": "7637fa4b7ef91023ab5a7e385520b630260677627714bb72fb1e01e48e13df4b",
+          "text": "async function l(e){let{fetchOptions:t,userAddress:i,multiChain:a}=e,o=new URL(`${r.t.BALANCE_SUMMARY}/${i}`);a&&o.searchParams.set(\"multi_chain\",\"true\");let s=await fetch(o.toString(),t);if(401===s.status)throw new n(\"Unauthorized\",401);if(!s.ok)throw new n(`Failed to fetch wallet summary (${s.status})`,s.status,{retryAfterMs:429===s.status?((e,t=Date.now())=>{if(!e)return;let i=e.trim();if(/^-?\\d+$/.test(i)){let e=Number(i);return e>=0?1e3*e:void 0}let r=Date.parse(i);return Number.isNaN(r)?void 0:Math.max(0,r-t)})(s.headers.get(\"retry-after\")):void 0});return s.json()}"
+        },
+        {
+          "label": "actual HTTP error constructor",
+          "source": "evidence/web/objects/a6c540af7c959989.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2-kg4dyla6ci5.js",
+          "sourceSha256": "fd454ec9b6d36b46c36e1c0bb13132875e17a197a7168e310eb52268baab5d29",
+          "sourceBytes": 86521,
+          "utf16": [
+            38193,
+            38348
+          ],
+          "utf8": [
+            38193,
+            38348
+          ],
+          "sha256": "9f49207194fdf2e691752d660093fc66adbcd8a59ef0a2b1120c39886b1498e0",
+          "text": "class n extends Error{status;retryAfterMs;constructor(e,t,i){super(e),this.name=\"BalanceSummaryHttpError\",this.status=t,this.retryAfterMs=i?.retryAfterMs}}"
+        },
+        {
+          "label": "finite property guard shared by status/retry-after",
+          "source": "evidence/web/objects/a6c540af7c959989.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2-kg4dyla6ci5.js",
+          "sourceSha256": "fd454ec9b6d36b46c36e1c0bb13132875e17a197a7168e310eb52268baab5d29",
+          "sourceBytes": 86521,
+          "utf16": [
+            38354,
+            38466
+          ],
+          "utf8": [
+            38354,
+            38466
+          ],
+          "sha256": "5f411e170bad2453f2cb9be3c4dea70ddc2ec76c38c32b999fe6441aab2a6d20",
+          "text": "(e,t)=>{if(\"object\"!=typeof e||null===e)return;let i=e[t];return\"number\"==typeof i&&Number.isFinite(i)?i:void 0}"
+        },
+        {
+          "label": "finite status extraction",
+          "source": "evidence/web/objects/a6c540af7c959989.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2-kg4dyla6ci5.js",
+          "sourceSha256": "fd454ec9b6d36b46c36e1c0bb13132875e17a197a7168e310eb52268baab5d29",
+          "sourceBytes": 86521,
+          "utf16": [
+            38469,
+            38485
+          ],
+          "utf8": [
+            38469,
+            38485
+          ],
+          "sha256": "c46ad9ec6214c098f995acf091f51c366aa14427e30d525cedbff5209e7222db",
+          "text": "e=>a(e,\"status\")"
+        },
+        {
+          "label": "finite retry-after extraction",
+          "source": "evidence/web/objects/a6c540af7c959989.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2-kg4dyla6ci5.js",
+          "sourceSha256": "fd454ec9b6d36b46c36e1c0bb13132875e17a197a7168e310eb52268baab5d29",
+          "sourceBytes": 86521,
+          "utf16": [
+            38488,
+            38510
+          ],
+          "utf8": [
+            38488,
+            38510
+          ],
+          "sha256": "f511f04f9bdb5eaeea13e4872b6a10f3235836a8de78e1e95df66c702df80c44",
+          "text": "e=>a(e,\"retryAfterMs\")"
+        },
+        {
+          "label": "query builder and closed-over request input",
+          "source": "evidence/web/objects/a6c540af7c959989.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2-kg4dyla6ci5.js",
+          "sourceSha256": "fd454ec9b6d36b46c36e1c0bb13132875e17a197a7168e310eb52268baab5d29",
+          "sourceBytes": 86521,
+          "utf16": [
+            39268,
+            39429
+          ],
+          "utf8": [
+            39268,
+            39429
+          ],
+          "sha256": "5c2cffdfaf497085c98e4c3f18d9e6e49a9ae5b72649a68d7f11cb851009fc6f",
+          "text": "e=>{let{userAddress:t,fetchOptions:i}=e;return{queryFn:()=>l({userAddress:t,multiChain:!0,fetchOptions:i}),queryKey:r.Q.BALANCE_SUMMARY(t),retry:d,retryDelay:c}}"
+        },
+        {
+          "label": "retry admission",
+          "source": "evidence/web/objects/a6c540af7c959989.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2-kg4dyla6ci5.js",
+          "sourceSha256": "fd454ec9b6d36b46c36e1c0bb13132875e17a197a7168e310eb52268baab5d29",
+          "sourceBytes": 86521,
+          "utf16": [
+            39133,
+            39155
+          ],
+          "utf8": [
+            39133,
+            39155
+          ],
+          "sha256": "7cac0daa1c9a98859e5b8cf37a1f235b03ffeb85465c0043c8b266cb3542e019",
+          "text": "(e,t)=>401!==o(t)&&e<2"
+        },
+        {
+          "label": "retry delay",
+          "source": "evidence/web/objects/a6c540af7c959989.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2-kg4dyla6ci5.js",
+          "sourceSha256": "fd454ec9b6d36b46c36e1c0bb13132875e17a197a7168e310eb52268baab5d29",
+          "sourceBytes": 86521,
+          "utf16": [
+            39158,
+            39265
+          ],
+          "utf8": [
+            39158,
+            39265
+          ],
+          "sha256": "e654beeaa353f823a544472002135ded77fcedb2e7bef916e7b9c6a20951c5a1",
+          "text": "(e,t)=>{if(429!==o(t))return Math.min(1e3*2**e,3e4);let i=s(t);return void 0!==i?Math.min(i,6e4):5e3*(e+1)}"
+        },
+        {
+          "label": "poll interval",
+          "source": "evidence/web/objects/a6c540af7c959989.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2-kg4dyla6ci5.js",
+          "sourceSha256": "fd454ec9b6d36b46c36e1c0bb13132875e17a197a7168e310eb52268baab5d29",
+          "sourceBytes": 86521,
+          "utf16": [
+            39430,
+            39525
+          ],
+          "utf8": [
+            39430,
+            39525
+          ],
+          "sha256": "3eeec6125c6c0dd58f70316587439c714310a51957a65d729384caefe6c91bf9",
+          "text": "function m(e){let t;return t=e.state.data,\"success\"===e.state.status&&t?.success===!0?6e4:15e3}"
+        },
+        {
+          "label": "complete query hook/memo and last-spread overrides",
+          "source": "evidence/web/objects/a6c540af7c959989.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2-kg4dyla6ci5.js",
+          "sourceSha256": "fd454ec9b6d36b46c36e1c0bb13132875e17a197a7168e310eb52268baab5d29",
+          "sourceBytes": 86521,
+          "utf16": [
+            39544,
+            39927
+          ],
+          "utf8": [
+            39544,
+            39927
+          ],
+          "sha256": "9db25daf4c63696920acd3f5b492b1e2e7297f47e1ff78ff02c86d56e9a8da97",
+          "text": "function(e){let r,n,a=(0,t.c)(7),{userAddress:o,fetchOptions:s,queryOptions:l}=e,d=!!o;return a[0]!==s||a[1]!==o?(r=u({userAddress:o,fetchOptions:s}),a[0]=s,a[1]=o,a[2]=r):r=a[2],a[3]!==d||a[4]!==l||a[5]!==r?(n={enabled:d,...r,staleTime:1/0,refetchOnMount:!0,refetchOnWindowFocus:!0,refetchOnReconnect:!0,refetchInterval:m,...l},a[3]=d,a[4]=l,a[5]=r,a[6]=n):n=a[6],(0,i.useQuery)(n)}"
+        }
+      ]
+    }
+  ],
+  "provider": {
+    "factory": {
+      "id": 38279,
+      "ids": [
+        38279
+      ],
+      "label": "factory 38279",
+      "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1qqfn5g-bst3e.js",
+      "sourceSha256": "ee1eb91e3cbfb10fa33462a1a2f500fed9902a88454dc715f059d56f405475b3",
+      "sourceBytes": 35014,
+      "utf16": [
+        260,
+        12654
+      ],
+      "utf8": [
+        260,
+        12654
+      ],
+      "sha256": "8d71db5a2d47da722166199f0a64e93e0295051da46086355f136b93a3f3b89a"
+    },
+    "sourceNodes": [
+      {
+        "label": "profile service origin",
+        "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1qqfn5g-bst3e.js",
+        "sourceSha256": "ee1eb91e3cbfb10fa33462a1a2f500fed9902a88454dc715f059d56f405475b3",
+        "sourceBytes": 35014,
+        "utf16": [
+          333,
+          363
+        ],
+        "utf8": [
+          333,
+          363
+        ],
+        "sha256": "4965860e93f15f7868cb97a5bc96041ba7ddfb2dea608970944f3eb2d1ed7df9",
+        "text": "\"https://profile-api.pump.fun\""
+      },
+      {
+        "label": "balance summary endpoint",
+        "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1qqfn5g-bst3e.js",
+        "sourceSha256": "ee1eb91e3cbfb10fa33462a1a2f500fed9902a88454dc715f059d56f405475b3",
+        "sourceBytes": 35014,
+        "utf16": [
+          459,
+          489
+        ],
+        "utf8": [
+          459,
+          489
+        ],
+        "sha256": "1ed7a4ee62b9d88b3b86893d7cf2e56d437579b35fcd2aa98d27388e084fd928",
+        "text": "`${t.PROFILE}/balance/summary`"
+      },
+      {
+        "label": "query/cache key; not a credential",
+        "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1qqfn5g-bst3e.js",
+        "sourceSha256": "ee1eb91e3cbfb10fa33462a1a2f500fed9902a88454dc715f059d56f405475b3",
+        "sourceBytes": 35014,
+        "utf16": [
+          3091,
+          3114
+        ],
+        "utf8": [
+          3091,
+          3114
+        ],
+        "sha256": "0f3866893e528a3eb5db9d17c24132c2c3515e316e851c114b15ce10b7a13f18",
+        "text": "e=>[\"balanceSummary\",e]"
+      }
+    ]
+  },
+  "caller": {
+    "factory": {
+      "id": 465363,
+      "ids": [
+        465363
+      ],
+      "label": "factory 465363",
+      "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+      "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+      "sourceBytes": 49844,
+      "utf16": [
+        7374,
+        29539
+      ],
+      "utf8": [
+        7375,
+        29542
+      ],
+      "sha256": "0457d6da501f92a1a4e47d297a28feb6fae5512889e4eff04a9087ef1d956556"
+    },
+    "sourceNodes": [
+      {
+        "label": "actual UI reader import",
+        "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+        "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+        "sourceBytes": 49844,
+        "utf16": [
+          7815,
+          7828
+        ],
+        "utf8": [
+          7816,
+          7829
+        ],
+        "sha256": "9b127afa29e610497d2938a17d2e1df36891e356a7a52be2a0aefea631100c70",
+        "text": "L=e.i(524711)"
+      },
+      {
+        "label": "UI query input fields",
+        "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+        "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+        "sourceBytes": 49844,
+        "utf16": [
+          21720,
+          21738
+        ],
+        "utf8": [
+          21723,
+          21741
+        ],
+        "sha256": "083029206bc4770c1d47b86bebd9f9c7fbaa1f7ac02151b3f300f404612b5339",
+        "text": "d={userAddress:eX}"
+      },
+      {
+        "label": "actual UI query call",
+        "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+        "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+        "sourceBytes": 49844,
+        "utf16": [
+          21846,
+          21856
+        ],
+        "utf8": [
+          21849,
+          21859
+        ],
+        "sha256": "96ed89ae4d1dc4908ea97272aa0340a89f4917eb8084ce9c2cb3642532c97f09",
+        "text": "(0,L._)(d)"
+      },
+      {
+        "label": "raw successful response data handoff",
+        "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+        "sourceSha256": "7080934e3d249b0d8f579f37a57a78811912c471e944ee9b2961996eda3da97c",
+        "sourceBytes": 49844,
+        "utf16": [
+          21972,
+          22001
+        ],
+        "utf8": [
+          21975,
+          22004
+        ],
+        "sha256": "5806d9c3d7ecde2a8ec83002208ba816dab816da3d227b6617a4d886be8c2f35",
+        "text": "e5=eY?.success?eY.data:void 0"
+      }
+    ]
+  },
+  "behavior": {
+    "capturedBaseUrl": "https://profile-api.pump.fun/balance/summary",
+    "method": "Fetch default GET unless explicitly overridden by passed fetchOptions",
+    "subjectEncoding": "raw interpolation before URL parsing; no path-segment encoding or validation",
+    "multiChain": "truthy flag adds multi_chain=true; query builder always requests it",
+    "fetchOptions": "forwarded unchanged; query context AbortSignal is not read",
+    "success": "raw response.json(); no schema or success:true enforcement in reader",
+    "unauthorized": "status401 throws BalanceSummaryHttpError Unauthorized without reading body/header",
+    "otherErrors": "status plus Failed to fetch wallet summary; Retry-After header only on429",
+    "retry": "non401 and failureCount<2",
+    "retryDelay": "non429 exponential 1s capped30s; finite429 retryAfter capped60s, otherwise5s*(count+1)",
+    "polling": "60000 only for query state success AND data.success===true; otherwise15000",
+    "cache": "balanceSummary/subject; infinite staleTime, mount/focus/reconnect refetch; overrides spread LAST",
+    "uiHandoff": "actual caller passes subject only; raw response success truthiness controls data handoff"
+  },
+  "limits": [
+    "No active provider/variant, authenticated availability, server ownership or response/accounting schema is established.",
+    "Original React/query scheduler is an explicit injected port; finite tests do not qualify its lifecycle/retry scheduling.",
+    "HTTP provider is explicit and synthetic in tests. No default destination or request occurs on import.",
+    "No RPC, financial/PnL calculation, live pricing/repricing, original UI/animation or native backend compatibility is implemented."
+  ]
+}
