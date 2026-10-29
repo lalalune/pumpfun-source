@@ -11,6 +11,7 @@ route is active. Output is deterministic; `--check` fails when it is stale.
 import argparse
 import hashlib
 import html
+from html.parser import HTMLParser
 import json
 import pathlib
 import re
@@ -23,7 +24,8 @@ HOME = 'https://pump.fun/'
 LOGO_URL = 'https://pump.fun/pump-logomark.svg'
 
 # (position in the home page's S:2 segment, export name, expected owning control).
-# Owners: "href:<path>", "label:<aria-label>", "testid:<data-testid>" or None when the
+# Owners: "href:<path>", "label:<aria-label>", "testid:<data-testid>",
+# "role:search" for the search landmark, or None when the
 # icon's owner is a plain wrapper. Excluded app-promotion icons are listed so
 # positions stay checked, but are not exported.
 HOME_ICONS = [
@@ -50,7 +52,7 @@ HOME_ICONS = [
     (20, None, None),  # app banner arrow: excluded surface
     (21, None, 'label:Close'),  # app banner close: excluded surface
     (22, 'BackIcon', 'label:Go back'),
-    (23, 'SearchIcon', 'label:Go back'),  # inside the search box, after the back button
+    (23, 'SearchIcon', 'role:search'),  # search landmark; the back button is closed
     (24, 'ForwardIcon', None),
     (27, 'SearchMobileIcon', 'label:Search for coins and users'),
     (28, 'TopbarCreateIcon', 'testid:topbar-create-button'),
@@ -114,16 +116,37 @@ def shell_segment(text):
 
 
 def owner(segment, position):
-    """The nearest preceding link or button start tag, as `href:` / `label:` / `testid:` keys."""
-    candidates = [segment.rfind('<a ', 0, position), segment.rfind('<button', 0, position)]
-    start = max(candidates)
-    tag = segment[start:segment.find('>', start) + 1]
-    keys = set()
-    for name, prefix in (('href', 'href'), ('aria-label', 'label'), ('data-testid', 'testid')):
-        match = re.search(rf'\s{name}="([^"]*)"', tag)
-        if match:
-            keys.add(f'{prefix}:{html.unescape(match.group(1))}')
-    return keys
+    """Keys of the nearest open control or explicit search landmark ancestor."""
+    class Ancestors(HTMLParser):
+        void = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+                'link', 'meta', 'param', 'source', 'track', 'wbr'}
+
+        def __init__(self):
+            super().__init__(convert_charrefs=True)
+            self.stack = []
+
+        def handle_starttag(self, tag, attrs):
+            if tag not in self.void:
+                self.stack.append((tag, dict(attrs)))
+
+        def handle_startendtag(self, tag, attrs):
+            pass
+
+        def handle_endtag(self, tag):
+            for index in range(len(self.stack) - 1, -1, -1):
+                if self.stack[index][0] == tag:
+                    del self.stack[index:]
+                    break
+
+    parser = Ancestors()
+    parser.feed(segment[:position])
+    for tag, attrs in reversed(parser.stack):
+        if tag in {'a', 'button'} or attrs.get('role') == 'search':
+            return {f'{prefix}:{attrs[name]}' for name, prefix in
+                    (('href', 'href'), ('aria-label', 'label'),
+                     ('data-testid', 'testid'), ('role', 'role'))
+                    if attrs.get(name) is not None}
+    return set()
 
 
 def to_jsx(svg):
