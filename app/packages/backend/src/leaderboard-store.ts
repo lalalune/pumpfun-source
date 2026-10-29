@@ -205,6 +205,7 @@ export class LeaderboardStore {
    * descending, tie-broken on walletAddress, then serves up to `limit` rows.
    */
   public getBoard(query: BoardQuery): LeaderboardView {
+    if (!isPeriod(query.period) || (query.sort !== undefined && !isSort(query.sort))) throw new RangeError('Invalid leaderboard query');
     const sort: SortKey = query.sort ?? 'combined';
     const positionsLimit = this.clampPositionsLimit(query.positionsLimit);
     const limit = this.clampLimit(query.limit);
