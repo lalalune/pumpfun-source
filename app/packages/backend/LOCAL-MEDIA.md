@@ -150,6 +150,24 @@ Validation/quotas happen before publication. Failed publication retains the
 prior state and removes that operation's temporary file. This is bounded
 development storage, not an efficient large-file database.
 
+The snapshot byte bound is derived from the admitted image-byte and record
+quotas, not from the HTTP metadata body limit. It accounts for each image's
+base64 padding and JSON envelope, each metadata record's fixed fields, and up to
+six JSON-encoded bytes per permitted UTF-16 text code unit. The same bound checks
+serialized writes and files before reopening. Quota values are fixed for the
+store lifetime; aggregate bounds that cannot be represented exactly as a safe
+integer are rejected before acquiring ownership. Reopening uses explicitly
+supplied limits again; lowering them below the stored contents still fails.
+
+This corrects an ordinary restart inconsistency: under explicit small image
+quotas, valid programmatic metadata with escaped/multibyte text, or many short
+signature-accepted images, could be written successfully and then rejected by
+the old independent size estimate on restart. For example, four admitted
+metadata records produced a 194,172-byte snapshot while that estimate allowed
+only 133,120 bytes. No snapshot schema, content hash, field limit, HTTP request
+cap, or access policy changes. The 16 KiB HTTP JSON cap is still independent:
+larger programmatic metadata is not newly admitted through that route.
+
 An exclusive `.media-owner` file enforces one store/process per directory.
 `store.close()` stops new access, drains admitted writes and removes its own
 owner file. Graceful close/reopen is tested. **Crash-stale owner files are never
@@ -175,6 +193,7 @@ python3 -m unittest discover -s tests -p test_create_media_bindings.py
 cd packages/backend
 node --import tsx --test test/local-media.test.ts
 node --import tsx --test test/local-media-runtime.test.ts
+node --import tsx --test test/local-media-snapshot-size.test.ts
 ```
 
 Synthetic tests cover the complete lifecycle, restart, exact byte readback,
@@ -187,5 +206,8 @@ SDK-binding drift. Bootstrap tests additionally cover default-off, paired config
 pre-filesystem host validation, actual opt-in app routing, ownership preservation,
 shutdown, restart and startup-failure cleanup. The listen failure is synthetic;
 tests do not open a network socket or instantiate a real capability.
+Snapshot-size regressions additionally exercise escaped/Unicode metadata and
+many short image records across restart, failed-quota rollback, read bounds,
+ownership cleanup after rejected files, and exact aggregate quota arithmetic.
 These qualify only the stated local service, not the original
 website/backend behavior.

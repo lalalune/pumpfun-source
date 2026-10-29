@@ -16,6 +16,7 @@ export const IMAGE_TYPES = [
 export type ImageType = (typeof IMAGE_TYPES)[number];
 const ID = /^[a-f0-9]{64}$/;
 const CREATED_ON = "urn:pump-reconstruction:local-media";
+const TEXT_LIMITS = { name: 32, symbol: 10, description: 2000, social: 2048 };
 
 export class LocalMediaError extends Error {
   constructor(
@@ -97,7 +98,7 @@ function text(value: unknown, max: number, required: boolean): string {
 }
 function social(value: unknown, field: "website" | "twitter" | "telegram") {
   if (value === undefined) return undefined;
-  const result = text(value, 2048, true).trim();
+  const result = text(value, TEXT_LIMITS.social, true).trim();
   let url: URL;
   try {
     url = new URL(result);
@@ -137,9 +138,9 @@ function metadata(input: unknown): { imageId: string; value: LocalMetadata } {
   if (typeof item.showName !== "boolean")
     fail("LOCAL_MEDIA_INVALID", "showName must be a boolean.");
   const value: LocalMetadata = {
-    name: text(item.name, 32, true),
-    symbol: text(item.symbol, 10, true),
-    description: text(item.description, 2000, false),
+    name: text(item.name, TEXT_LIMITS.name, true),
+    symbol: text(item.symbol, TEXT_LIMITS.symbol, true),
+    description: text(item.description, TEXT_LIMITS.description, false),
     image: `${LOCAL_MEDIA_PREFIX}/images/${imageId}/content`,
     showName: item.showName,
     createdOn: CREATED_ON,
@@ -200,6 +201,64 @@ function validateImage(bytes: Buffer, mime: unknown): ImageType {
   return detected;
 }
 
+/** Upper bound for every canonical snapshot admitted by the record/byte quotas. */
+function snapshotByteLimit(limits: Required<LocalMediaLimits>): number {
+  const id = "0".repeat(64);
+  const imageEnvelope = Math.max(
+    ...IMAGE_TYPES.map((mime) =>
+      Buffer.byteLength(JSON.stringify({ id, mime, data: "" })),
+    ),
+  );
+  // A JSON string requires at most six UTF-8 bytes per admitted UTF-16 code unit
+  // (for example, a control character serialized as \u0000). Include optional
+  // fields and the longer boolean spelling, plus all fixed IDs/URI/key overhead.
+  const metadataEnvelope = Buffer.byteLength(
+    JSON.stringify({
+      id,
+      imageId: id,
+      value: {
+        name: "",
+        symbol: "",
+        description: "",
+        image: `${LOCAL_MEDIA_PREFIX}/images/${id}/content`,
+        showName: false,
+        createdOn: CREATED_ON,
+        twitter: "",
+        telegram: "",
+        website: "",
+      },
+    }),
+  );
+  const metadataBytes =
+    metadataEnvelope +
+    6 *
+      (TEXT_LIMITS.name +
+        TEXT_LIMITS.symbol +
+        TEXT_LIMITS.description +
+        3 * TEXT_LIMITS.social);
+  // Every image has at least one byte. Each base64 record has its own padding;
+  // rounding only the total byte quota undercounts many short images.
+  const images = BigInt(Math.min(limits.maxImages, limits.maxBytes));
+  const capacity = images * BigInt(MAX_IMAGE_BYTES);
+  const quota = BigInt(limits.maxBytes);
+  const bytes = quota < capacity ? quota : capacity;
+  const encodedBytes = 4n * ((bytes + 2n * images) / 3n);
+  const empty = Buffer.byteLength(
+    JSON.stringify({ version: 1, images: [], metadata: [] }),
+  );
+  // One extra comma per record is conservative, including single-item arrays.
+  const maximum =
+    BigInt(empty) +
+    encodedBytes +
+    images * BigInt(imageEnvelope + 1) +
+    BigInt(limits.maxMetadata) * BigInt(metadataBytes + 1);
+  if (maximum > BigInt(Number.MAX_SAFE_INTEGER))
+    throw new Error(
+      "Invalid local media quota: serialized snapshot bound is not a safe integer.",
+    );
+  return Number(maximum);
+}
+
 /** One process/store instance per directory. Atomic snapshots; no external providers. */
 export class LocalMediaStore {
   private state: Snapshot = { version: 1, images: [], metadata: [] };
@@ -209,21 +268,23 @@ export class LocalMediaStore {
   private lock?: FileHandle;
   private closed = false;
   private closing?: Promise<void>;
-  readonly limits: Required<LocalMediaLimits>;
+  private readonly maxSnapshotBytes: number;
+  readonly limits: Readonly<Required<LocalMediaLimits>>;
   private constructor(
     private readonly directory: string,
     limits: LocalMediaLimits,
   ) {
     this.file = join(directory, "media.json");
     this.lockPath = join(directory, ".media-owner");
-    this.limits = {
+    this.limits = Object.freeze({
       maxBytes: limits.maxBytes ?? 16_000_000,
       maxImages: limits.maxImages ?? 128,
       maxMetadata: limits.maxMetadata ?? 128,
-    };
+    });
     for (const n of Object.values(this.limits))
       if (!Number.isSafeInteger(n) || n <= 0)
         throw new Error("Invalid local media quota.");
+    this.maxSnapshotBytes = snapshotByteLimit(this.limits);
   }
 
   static async open(directory: string, limits: LocalMediaLimits = {}) {
@@ -257,11 +318,11 @@ export class LocalMediaStore {
       }
       try {
         const stat = await file.stat();
-        const maxSnapshot =
-          store.limits.maxBytes * 2 +
-          store.limits.maxMetadata * 16_384 +
-          65_536;
-        if (!stat.isFile() || stat.size > maxSnapshot)
+        if (
+          !stat.isFile() ||
+          !Number.isSafeInteger(stat.size) ||
+          stat.size > store.maxSnapshotBytes
+        )
           throw new Error("Invalid local media snapshot size/type.");
         store.state = store.validateSnapshot(
           JSON.parse(await file.readFile("utf8")),
@@ -392,12 +453,17 @@ export class LocalMediaStore {
       const next = structuredClone(this.state);
       const result = edit(next);
       this.checkQuota(next);
+      const serialized = JSON.stringify(next);
+      // Keep publication and reopening on the same bound. The bound covers all
+      // admitted fields, unlike the independent HTTP request body limit.
+      if (Buffer.byteLength(serialized) > this.maxSnapshotBytes)
+        throw new Error("Invalid local media snapshot size/type.");
       // Write completely before replacing the prior snapshot; failed writes leave memory unchanged.
       const temporary = join(this.directory, `.media-${randomUUID()}.tmp`);
       try {
         const file = await open(temporary, "wx", 0o600);
         try {
-          await file.writeFile(JSON.stringify(next));
+          await file.writeFile(serialized);
           await file.sync();
         } finally {
           await file.close();
