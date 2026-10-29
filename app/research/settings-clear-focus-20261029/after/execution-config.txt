@@ -1,0 +1,3 @@
+import { defineConfig } from '@playwright/test';
+import base from './playwright.config';
+export default defineConfig({ ...base, testMatch: 'settings-clear-focus.spec.ts', outputDir: "/workspace/pump-app-privacy-links/work/settings-clear-focus/after/artifacts", use: { ...base.use, baseURL: "http://127.0.0.1:3027", trace: 'off' }, webServer: undefined });

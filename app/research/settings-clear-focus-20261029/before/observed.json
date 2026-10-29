@@ -1,0 +1,72 @@
+{
+  "code": 1,
+  "stats": {
+    "startTime": "2026-10-29T16:50:39.320Z",
+    "duration": 13355.965,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  },
+  "inputs": {
+    "src/components/settings/settings-control.tsx": "904127d60d3ee6eeb29295e0c760d946881550757f7393be1388b2774d44664d",
+    "src/components/settings/settings.module.css": "4445494bb8df9b65cc592da94a312fd6f125fd5267ae82ac161d1c755edff8bb",
+    "src/components/settings/settings-model.ts": "08a911de10b27f3db54cccedcb0b72ac5f9f1e054aee6e946e9ba544051ff7dc",
+    "src/lib/body-scroll-lock.ts": "b7bf13a947e800010e635067c6c8f58f6e9b81d5d192e4122551ee7c151dcc5c",
+    "tests/settings-clear-focus.spec.ts": "4c0fa00da893dd4538db8521d020731baae1bb6f191dfbc05fc8fb4749e29a37",
+    "tests/browser-state.ts": "6ca60ac77b50bcc845c8073973265a980ece5aede9782cb955836b422128123a",
+    "playwright.config.ts": "6b0b07bb37748d67ea396d3de6e331a15978b8b2e17815dbcb843f3299ad61b0"
+  },
+  "observed": [
+    {
+      "title": "clearing Settings allows immediate continued typing at 1280px by mouse",
+      "status": "failed",
+      "error": {
+        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Settings', exact: true }).getByRole('searchbox', { name: 'Search settings' })\nExpected: \u001b[32m\"group\"\u001b[39m\nReceived: \u001b[31m\"\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" getByRole('dialog', { name: 'Settings', exact: true }).getByRole('searchbox', { name: 'Search settings' }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Settings', exact: true }).getByRole('searchbox', { name: 'Search settings' })\u001b[22m\n\u001b[2m    14 × locator resolved to <input value=\"\" type=\"search\" maxlength=\"200\" autocomplete=\"off\" spellcheck=\"false\" id=\"_R_bkjlb_-search\" placeholder=\"Search settings\"/>\u001b[22m\n\u001b[2m       - unexpected value \"\"\u001b[22m\n",
+        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Settings', exact: true }).getByRole('searchbox', { name: 'Search settings' })\nExpected: \u001b[32m\"group\"\u001b[39m\nReceived: \u001b[31m\"\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" getByRole('dialog', { name: 'Settings', exact: true }).getByRole('searchbox', { name: 'Search settings' }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Settings', exact: true }).getByRole('searchbox', { name: 'Search settings' })\u001b[22m\n\u001b[2m    14 × locator resolved to <input value=\"\" type=\"search\" maxlength=\"200\" autocomplete=\"off\" spellcheck=\"false\" id=\"_R_bkjlb_-search\" placeholder=\"Search settings\"/>\u001b[22m\n\u001b[2m       - unexpected value \"\"\u001b[22m\n\n    at /workspace/pump-app-privacy-links/app/packages/frontend/tests/settings-clear-focus.spec.ts:96:28",
+        "location": {
+          "file": "/workspace/pump-app-privacy-links/app/packages/frontend/tests/settings-clear-focus.spec.ts",
+          "column": 28,
+          "line": 96
+        },
+        "snippet": "  94 |       // and conceal the loss of focus caused by removing the Clear button.\n  95 |       await page.keyboard.type(\"group\");\n> 96 |       await expect(search).toHaveValue(\"group\");\n     |                            ^\n  97 |       await expect(search).toBeFocused();\n  98 |       await expect(dialog.getByRole(\"heading\", { name: \"Group chats\", exact: true })).toBeVisible();\n  99 |       expect(new URL(page.url()).search).toBe(\"?marker=clear&settings=notifications\");"
+      },
+      "payload": {
+        "errors": [],
+        "blocked": [],
+        "activeTag": "BODY",
+        "activeId": "",
+        "settingsOpen": true,
+        "trace": "[{\"type\":\"keydown\",\"key\":\"g\",\"trusted\":true,\"target\":\"BODY\"},{\"type\":\"keydown\",\"key\":\"r\",\"trusted\":true,\"target\":\"BODY\"},{\"type\":\"keydown\",\"key\":\"o\",\"trusted\":true,\"target\":\"BODY\"},{\"type\":\"keydown\",\"key\":\"u\",\"trusted\":true,\"target\":\"BODY\"},{\"type\":\"keydown\",\"key\":\"p\",\"trusted\":true,\"target\":\"BODY\"}]",
+        "nativeReference": "{\"activation\":\"mouse\",\"cleared\":true,\"continuedTyping\":\"group\",\"inputFocused\":true}",
+        "url": "http://127.0.0.1:3027/?marker=clear&settings=notifications#keep"
+      }
+    },
+    {
+      "title": "clearing Settings allows immediate continued typing at 390px by keyboard",
+      "status": "failed",
+      "error": {
+        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Settings', exact: true }).getByRole('searchbox', { name: 'Search settings' })\nExpected: \u001b[32m\"group\"\u001b[39m\nReceived: \u001b[31m\"\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" getByRole('dialog', { name: 'Settings', exact: true }).getByRole('searchbox', { name: 'Search settings' }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Settings', exact: true }).getByRole('searchbox', { name: 'Search settings' })\u001b[22m\n\u001b[2m    14 × locator resolved to <input value=\"\" type=\"search\" maxlength=\"200\" autocomplete=\"off\" spellcheck=\"false\" id=\"_R_bkjlb_-search\" placeholder=\"Search settings\"/>\u001b[22m\n\u001b[2m       - unexpected value \"\"\u001b[22m\n",
+        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Settings', exact: true }).getByRole('searchbox', { name: 'Search settings' })\nExpected: \u001b[32m\"group\"\u001b[39m\nReceived: \u001b[31m\"\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" getByRole('dialog', { name: 'Settings', exact: true }).getByRole('searchbox', { name: 'Search settings' }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Settings', exact: true }).getByRole('searchbox', { name: 'Search settings' })\u001b[22m\n\u001b[2m    14 × locator resolved to <input value=\"\" type=\"search\" maxlength=\"200\" autocomplete=\"off\" spellcheck=\"false\" id=\"_R_bkjlb_-search\" placeholder=\"Search settings\"/>\u001b[22m\n\u001b[2m       - unexpected value \"\"\u001b[22m\n\n    at /workspace/pump-app-privacy-links/app/packages/frontend/tests/settings-clear-focus.spec.ts:96:28",
+        "location": {
+          "file": "/workspace/pump-app-privacy-links/app/packages/frontend/tests/settings-clear-focus.spec.ts",
+          "column": 28,
+          "line": 96
+        },
+        "snippet": "  94 |       // and conceal the loss of focus caused by removing the Clear button.\n  95 |       await page.keyboard.type(\"group\");\n> 96 |       await expect(search).toHaveValue(\"group\");\n     |                            ^\n  97 |       await expect(search).toBeFocused();\n  98 |       await expect(dialog.getByRole(\"heading\", { name: \"Group chats\", exact: true })).toBeVisible();\n  99 |       expect(new URL(page.url()).search).toBe(\"?marker=clear&settings=notifications\");"
+      },
+      "payload": {
+        "errors": [],
+        "blocked": [],
+        "activeTag": "BODY",
+        "activeId": "",
+        "settingsOpen": true,
+        "trace": "[{\"type\":\"keydown\",\"key\":\"Enter\",\"trusted\":true,\"target\":\"BUTTON\"},{\"type\":\"keydown\",\"key\":\"g\",\"trusted\":true,\"target\":\"BODY\"},{\"type\":\"keydown\",\"key\":\"r\",\"trusted\":true,\"target\":\"BODY\"},{\"type\":\"keydown\",\"key\":\"o\",\"trusted\":true,\"target\":\"BODY\"},{\"type\":\"keydown\",\"key\":\"u\",\"trusted\":true,\"target\":\"BODY\"},{\"type\":\"keydown\",\"key\":\"p\",\"trusted\":true,\"target\":\"BODY\"}]",
+        "nativeReference": "{\"activation\":\"keyboard\",\"cleared\":true,\"continuedTyping\":\"group\",\"inputFocused\":true}",
+        "url": "http://127.0.0.1:3027/?marker=clear&settings=notifications#keep"
+      }
+    }
+  ],
+  "baseline": true,
+  "productCompatibilityClaimed": false
+}

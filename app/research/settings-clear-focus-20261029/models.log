@@ -1,0 +1,18 @@
+✔ all public captured sections can be selected; privileged admin is unavailable (1.332462ms)
+✔ malformed, duplicate, unknown and absent sections fail closed (1.109156ms)
+✔ focus targets must be known and belong to the selected section (0.271688ms)
+✔ close removes all owned keys and preserves unrelated repeated query values and hash (0.325178ms)
+✔ selection replaces, never accumulates settings and drops stale focus target (0.215174ms)
+✔ unsafe routing destinations cannot enter the router (0.357267ms)
+✔ search is case/accent/whitespace insensitive and supports multiple terms (1.154524ms)
+✔ display definitions expose no fabricated user preference values (0.240111ms)
+✔ general settings and section labels equal the bound captured English strings (0.641273ms)
+✔ settings links reject URL parser control-character normalization (0.685649ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 254.953887

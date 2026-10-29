@@ -1,0 +1,29 @@
+✔ source binds selected device descriptor, all four hooks/three actual consumers and import variants (1.755337ms)
+✔ only decoded strict false disables; absent, malformed and other stored values retain default true (0.421393ms)
+✔ coerced writes persist/recreate, share one runtime and leave unrelated keys alone (0.379951ms)
+✔ failed writes use shared runtime fallback, not durable acknowledgement; external events do not clear it (0.229765ms)
+✔ failed remove clears fallback but cannot fabricate deletion of persisted old data (0.196184ms)
+✔ storage subscriptions use selected/global-clear keys, deduplicate callbacks and preserve cleanup semantics (0.209525ms)
+✔ URL normalization preserves captured HTTPS-only and exact trusted-host decisions (0.964759ms)
+✔ default confirmation, cancel/checkbox reset and remember-on-confirm preserve actual state order (0.482384ms)
+✔ settings-hub gate forces confirmation and prevents remember write even with persisted false (0.24593ms)
+✔ trusted/direct requests and invalid requests do not silently clear an already open dialog (0.233872ms)
+✔ source write happens before open; popup return is not a success acknowledgement (0.263406ms)
+✔ failed storage remains in-memory only; failed open preserves pending dialog after the attempted preference write (0.235985ms)
+✔ link click always prevents/stops before caller and navigation; caller exception aborts later effect (0.222183ms)
+✔ external preference events update the settled controller snapshot and disposal unsubscribes (0.153471ms)
+✔ resealed storage/fallback/gate/consumer changes cannot keep stale source claims (832.029786ms)
+✔ raw corruption, missing variant and invented persistence/owner metadata fail closed (494.970662ms)
+✔ browser receipt binds actual executed client/test/contract bytes and cannot silently gain navigation claims (7.571193ms)
+✔ actual Settings receipt binds renderer/screenshots and rejects edits or global-policy claims (19.452369ms)
+✔ settings source bindings exactly match the immutable recovery index (5.976386ms)
+✔ Hermes route binding separates client observations from native compatibility (0.312279ms)
+✔ general settings text is bound to the exact captured English Flight resources (23.77501ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2035.368794

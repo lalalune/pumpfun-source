@@ -1,0 +1,52 @@
+{
+  "baseRevision": "04be15f61e66d27282e2af3d581de984389eac90",
+  "baseAppTree": "e3d6d8cd07df4f561a4fd058dad29d22de451bfc",
+  "sourceInputs": {
+    "src/components/settings/settings-control.tsx": "907c5f61f3805989c163b97c5bb827f685e200ed7508529560e37512a3d1e111",
+    "src/components/settings/settings.module.css": "4445494bb8df9b65cc592da94a312fd6f125fd5267ae82ac161d1c755edff8bb",
+    "src/components/settings/settings-model.ts": "08a911de10b27f3db54cccedcb0b72ac5f9f1e054aee6e946e9ba544051ff7dc",
+    "src/lib/body-scroll-lock.ts": "b7bf13a947e800010e635067c6c8f58f6e9b81d5d192e4122551ee7c151dcc5c",
+    "tests/settings-clear-focus.spec.ts": "4c0fa00da893dd4538db8521d020731baae1bb6f191dfbc05fc8fb4749e29a37",
+    "tests/browser-state.ts": "6ca60ac77b50bcc845c8073973265a980ece5aede9782cb955836b422128123a",
+    "playwright.config.ts": "6b0b07bb37748d67ea396d3de6e331a15978b8b2e17815dbcb843f3299ad61b0"
+  },
+  "baseline": {
+    "selectedCasesFailed": 2,
+    "actualKeystrokeTarget": "BODY",
+    "actualSearchValue": "",
+    "nativeUaControlsPassed": 2,
+    "dialogAndUrlPreserved": true
+  },
+  "candidate": {
+    "targetedCasesPassed": 4,
+    "nativeUaControlsPassed": 4,
+    "actualKeystrokeTarget": "INPUT",
+    "actualSearchValue": "group"
+  },
+  "regressions": {
+    "initial3027": {
+      "passed": 23,
+      "originAssertionFailed": 1,
+      "notRun": 1
+    },
+    "canonical3010Recovery": {
+      "passed": 2,
+      "failed": 0
+    },
+    "uniqueCasesPassed": 25,
+    "repeatTargetedCases": 4,
+    "singleClean25CaseBatchClaimed": false
+  },
+  "frontendTypecheck": 0,
+  "sourceContractTests": 21,
+  "modelTests": 10,
+  "evidenceCaptures": 698,
+  "sdkAndDependenciesUnchanged": true,
+  "transportIncident": "transport-incident.json",
+  "portLimit": "Existing service-boundary test hardcodes3010; normal3027 assets were counted unexpected. No assertion or mask changed; only failed and unrun cases were executed at3010 with identical source.",
+  "limits": [
+    "Finite Chromium mouse/keyboard cases at two viewport widths; no OS touch/IME or other engines.",
+    "Authored local UI repair, not original-site parity, backend compatibility or feature-milestone completion.",
+    "Open1304 composingEscape and1490 backdrop fixes remain separate; no unrelated source copied."
+  ]
+}

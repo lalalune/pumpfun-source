@@ -121,6 +121,7 @@ function SettingsControlContent({
   );
   const open = section !== null;
   const dialog = useRef<HTMLDialogElement>(null);
+  const searchInput = useRef<HTMLInputElement>(null);
   const scrollArea = useRef<HTMLDivElement>(null);
   const launcher = useRef<HTMLButtonElement>(null);
   const tabButtons = useRef(new Map<SettingsSection, HTMLButtonElement>());
@@ -335,6 +336,7 @@ function SettingsControlContent({
                       Search settings
                     </label>
                     <input
+                      ref={searchInput}
                       id={`${id}-search`}
                       type="search"
                       placeholder="Search settings"
@@ -348,7 +350,10 @@ function SettingsControlContent({
                       <button
                         type="button"
                         aria-label="Clear settings search"
-                        onClick={() => setQuery("")}
+                        onClick={() => {
+                          setQuery("");
+                          searchInput.current?.focus();
+                        }}
                       >
                         Clear
                       </button>
