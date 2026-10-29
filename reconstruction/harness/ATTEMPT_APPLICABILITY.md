@@ -16,7 +16,7 @@ For newly recorded attempts, the existing ledger's --data JSON may contain:
 }
 ```
 
-Replace ellipses with actual hashes. Paths must be relative to --evidence-root. The inspector does not add these fields to historical records or derive missing identities from prose. It selects the exact approach and numerically equal target, preserving the recorded status/hypothesis for interpretation.
+Replace ellipses with actual hashes. Paths must be relative to --evidence-root. The inspector does not add these fields to historical records or derive missing identities from prose. It selects the exact approach and numerically equal address target (or exact named scope such as `all`), preserving the recorded status/hypothesis for interpretation.
 
 - **compatible**: all five recorded identities agree and every declared evidence file is present with the expected hash.
 - **stale**: at least one recorded identity differs; changed field names are reported.

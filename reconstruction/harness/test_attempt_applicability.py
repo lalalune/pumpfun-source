@@ -35,6 +35,13 @@ class ApplicabilityTests(unittest.TestCase):
             self.row['data']['evidence'][0]['path'] = name
             self.assertEqual(classify(self.row, self.context, self.root)['applicability'], 'unverifiable')
 
+    def test_named_scopes_are_valid_and_selected_exactly(self):
+        ledger = self.root/'ledger.jsonl'
+        ledger.write_text(json.dumps(dict(self.row, target='all')) + '\n' + json.dumps(self.row))
+        result = inspect(ledger, self.context, 'all', 'shape-A', self.root)
+        self.assertEqual(len(result['rows']), 1)
+        self.assertEqual(result['parse_errors'], [])
+
     def test_exact_selection_errors_and_read_only_behavior(self):
         ledger = self.root/'ledger.jsonl'
         other = dict(self.row, approach='shape-B')
