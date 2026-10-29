@@ -9,7 +9,7 @@ back mechanically instead of being re-typed by hand:
   forms such as ``hover:bg-<name>``) yields ``<name> -> value``. A name must
   resolve to one value across every prefix and variant, or extraction fails.
 * borderRadius / fontFamily: the compiled ``rounded*`` and ``font-*`` rules.
-* rootVariables: the stylesheet's ``:root`` custom properties, serialized as CSS
+* rootVariables: the stylesheet's ``:root`` custom properties, serialized
   as CSS so arbitrary values such as ``var(--color-bg-secondary)`` resolve.
 
 The capture is read through ``evidence/web/manifest.json`` and its SHA-256 is
