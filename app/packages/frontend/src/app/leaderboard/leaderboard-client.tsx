@@ -746,6 +746,7 @@ export default function LeaderboardClient() {
           <h2>{data.competition.title}</h2>
           <p>{data.competition.description}</p>
           <CompetitionRules key={data.competition.id} competition={data.competition} />
+          <CompetitionCountdown competition={data.competition} />
           <dl>
             <div>
               <dt>Ranked entries</dt>
