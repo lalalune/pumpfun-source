@@ -18,6 +18,7 @@ H = Path(__file__).resolve().parent
 SC = H.parent
 sys.path.insert(0, str(H))
 from treediff import reject_source_link
+from source_inputs import snapshot, assert_unchanged
 
 
 def build_source(*args, **kwargs):
@@ -182,6 +183,36 @@ def preflight(name, base, parts, overrides):
     return out, base, [(key, path, bases.get(key, base)) for key, path in selected.items()]
 
 
+def apply_part(src, pf, text, patch_command, diagnostic):
+    """Only exit 1 from a dry run is a skippable content conflict."""
+    try:
+        git_format = text.startswith('diff --git ')
+        if git_format:
+            command, root, directory = git_patch_command(src)
+            dry_command = command + ['--check', str(pf)]
+            apply_command = command + [str(pf)]
+        else:
+            root = None
+            common = patch_command + ['-p2', '--forward', '-E', '-d', str(src), '-i', str(pf)]
+            dry_command, apply_command = common + ['--dry-run'], common
+        for phase, argv in [('check', dry_command), ('apply', apply_command)]:
+            result = subprocess.run(argv, cwd=root, capture_output=True, text=True)
+            if result.returncode:
+                detail = result.stdout + result.stderr
+                diagnostic.write_text(detail, encoding='utf-8')
+                return {'status': 'conflict' if phase == 'check' and result.returncode == 1 else 'error',
+                        'phase': phase, 'returncode': result.returncode, 'detail': detail[-1500:]}
+        files = git_patched_files(command, root, directory, pf) if git_format else patched_files(text)
+        return {'status': 'applied', 'files': files}
+    except (OSError, subprocess.CalledProcessError) as error:
+        detail = str(error)
+        for value in (getattr(error, 'stdout', None), getattr(error, 'stderr', None)):
+            if value:
+                detail += '\n' + (value.decode('utf-8', errors='replace') if isinstance(value, bytes) else value)
+        diagnostic.write_text(detail, encoding='utf-8')
+        return {'status': 'error', 'detail': detail[-1500:]}
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--name', required=True)
@@ -198,57 +229,68 @@ def main():
     except (ValueError, OSError) as error:
         ap.error(str(error))
     (out / 'parts').mkdir(parents=True); (out / 'rejects').mkdir()
-    src = out / 'src'
-    shutil.copytree(base, src, ignore=crate_ignore(base))
     report = {'name': a.name, 'base': str(a.base_src), 'parts': []}
     exit_code = 0
-    # GNU patch on Windows otherwise strips CR bytes from patch/source input.
-    patch_command = ['patch'] + (['--binary'] if sys.platform == 'win32' else [])
-    for label, path, derived_from in parts:
-        pf = out / 'parts' / f'{label}.patch'
-        text = make_patch(derived_from, Path(path), pf, SC / 'integ' / '.tmp' / a.name / label)
-        if not text.strip():
-            report['parts'].append({'label': label, 'status': 'empty'}); continue
-        git_format = text.startswith('diff --git ')
-        if git_format:
-            command, patch_root, directory = git_patch_command(src)
-            dry = subprocess.run(command + ['--check', str(pf)], cwd=patch_root,
-                                 capture_output=True, text=True)
-        else:
-            dry = subprocess.run(patch_command + ['-p2', '--forward', '--dry-run', '-E', '-d', str(src), '-i', str(pf)], capture_output=True, text=True)
-        if dry.returncode == 0:
-            if git_format:
-                subprocess.run(command + [str(pf)], cwd=patch_root, check=True)
-                files = git_patched_files(command, patch_root, directory, pf)
-            else:
-                subprocess.run(patch_command + ['-s', '-p2', '--forward', '-E', '-d', str(src), '-i', str(pf)], check=True)
-                files = patched_files(text)
-            for o in src.rglob('*.orig'):
-                o.unlink()
-            report['parts'].append({'label': label, 'status': 'applied', 'files': files})
-        else:
-            (out / 'rejects' / f'{label}.txt').write_text(dry.stdout + dry.stderr)
-            report['parts'].append({'label': label, 'status': 'conflict', 'detail': (dry.stdout + dry.stderr)[-1500:]})
-    if not a.no_build:
-        res = build_source(src, out / 'work', out / 'build', quiet=True)
-        report['build'] = res
-        if res['ok']:
-            s = subprocess.run([sys.executable, str(H / 'score.py'), str(out / 'build/unstripped.so'),
-                               '--baseline', str(baseline),
-                               '--json', str(out / 'score.json'), '--quiet'],
-                               capture_output=True, text=True)
-            if s.returncode:
-                report['score_error'] = {'returncode': s.returncode, 'stdout': s.stdout, 'stderr': s.stderr}
+    try:
+        sources = sorted({base, *(path for _, path, _ in parts), *(derived for _, _, derived in parts)}, key=str)
+        before = {path: snapshot(path) for path in sources}
+        owned = {}
+        for index, path in enumerate(sources):
+            copied = out / 'inputs' / str(index)
+            shutil.copytree(path, copied, ignore=crate_ignore(path))
+            assert_unchanged(path, before[path])
+            assert_unchanged(copied, before[path])
+            owned[path] = copied
+        def validate_inputs():
+            for path in sources:
+                assert_unchanged(path, before[path])
+                assert_unchanged(owned[path], before[path])
+        report['sources'] = {str(path): value for path, value in before.items()}
+        validate_inputs()
+        base = owned[base]
+        parts = [(label, owned[path], owned[derived]) for label, path, derived in parts]
+        shutil.copytree(base, out / 'src', ignore=crate_ignore(base))
+        src = out / 'src'
+        # GNU patch on Windows otherwise strips CR bytes from patch/source input.
+        patch_command = ['patch'] + (['--binary'] if sys.platform == 'win32' else [])
+        for label, path, derived_from in parts:
+            pf = out / 'parts' / f'{label}.patch'
+            text = make_patch(derived_from, Path(path), pf, SC / 'integ' / '.tmp' / a.name / label)
+            if not text.strip():
+                report['parts'].append({'label': label, 'status': 'empty'}); continue
+            result = apply_part(src, pf, text, patch_command, out / 'rejects' / f'{label}.txt')
+            report['parts'].append({'label': label, **result})
+            if result['status'] == 'error':
                 exit_code = 1
-            else:
-                try:
-                    report['score'] = json.loads(s.stdout)
-                except json.JSONDecodeError:
-                    report['score_error'] = {'returncode': s.returncode, 'stdout': s.stdout,
-                                             'stderr': s.stderr, 'error': 'scorer returned invalid JSON'}
+                break
+            if result['status'] == 'applied':
+                for o in src.rglob('*.orig'):
+                    o.unlink()
+        validate_inputs()
+        if not a.no_build and not exit_code:
+            res = build_source(src, out / 'work', out / 'build', quiet=True)
+            report['build'] = res
+            if res['ok']:
+                s = subprocess.run([sys.executable, str(H / 'score.py'), str(out / 'build/unstripped.so'),
+                                   '--baseline', str(baseline),
+                                   '--json', str(out / 'score.json'), '--quiet'],
+                                   capture_output=True, text=True)
+                if s.returncode:
+                    report['score_error'] = {'returncode': s.returncode, 'stdout': s.stdout, 'stderr': s.stderr}
                     exit_code = 1
-        else:
-            exit_code = 1
+                else:
+                    try:
+                        report['score'] = json.loads(s.stdout)
+                    except json.JSONDecodeError:
+                        report['score_error'] = {'returncode': s.returncode, 'stdout': s.stdout,
+                                                 'stderr': s.stderr, 'error': 'scorer returned invalid JSON'}
+                        exit_code = 1
+            else:
+                exit_code = 1
+        validate_inputs()
+    except (OSError, ValueError, subprocess.CalledProcessError) as error:
+        report['error'] = str(error)
+        exit_code = 1
     (out / 'report.json').write_text(json.dumps(report, indent=1))
     print(json.dumps({k: v for k, v in report.items() if k != 'parts'} | {'parts': [{k: p[k] for k in ('label', 'status')} for p in report['parts']]}, indent=1))
     return exit_code
