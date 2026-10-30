@@ -1,0 +1,57 @@
+{
+  "lane": "w12b06-hop-cfsig",
+  "wave": 12,
+  "pool": "b",
+  "target": {
+    "window": "0x5b3b0",
+    "function": "multi_hop_curve::swap_hop",
+    "file": "programs/pump/src/multi_hop_curve_swap.rs",
+    "pinned_bytes": 18584
+  },
+  "base": {
+    "main": "20a1ae9c0",
+    "ratio": 0.99913,
+    "slots_diff": 18,
+    "bytes": 18584,
+    "normalized": 1033,
+    "raw": 1033
+  },
+  "best": {
+    "trial": "t3",
+    "change": "line 599: #[cold] fn global_of<'a>(a: &'a MultiHopCurve<'_>) -> &'a Global { &a.global } let global = global_of(a); whitelist uses global; line 600: complete_fill(global, ..)",
+    "ratio": 1.0,
+    "slots_diff": 0,
+    "bytes": 18584,
+    "normalized": 1034,
+    "raw": 1034,
+    "losses": [],
+    "raw_losses": [],
+    "gains": ["0x5b3b0"],
+    "unstripped_sha256_prefix": "cbd9bf08d09967f7",
+    "landed": false,
+    "landing_note": "Same binary as w12b09-hop-hillclimb's unannotated tuple spelling (PR #2766), which was already in the landing queue and landed as 0b5fc0d5d (main 70f27048e, 1034/1034). t3 is kept as an alternative spelling, not landed."
+  },
+  "attempts": [
+    {"trial": "oracle", "change": "llc on main post-opt IR: gep %_618,8 moved from bb64 to bb57 or bb58 (3 placements)", "ratio": 1.0, "slots_diff": 0, "status": "analyzed"},
+    {"trial": "t1", "change": "let global: &Global = &a.global before allowed; complete_fill(global,..)", "result": "byte-identical to main", "status": "rejected"},
+    {"trial": "t2", "change": "let (allowed, global): (bool, &Global) = {..; (cond, global)} with type annotation", "result": "byte-identical to main", "status": "rejected"},
+    {"trial": "t3", "change": "#[cold] global_of helper result passed to whitelist check and complete_fill", "result": "normalized+raw match 1034/1034, 0 losses", "status": "normalized-match"}
+  ],
+  "mechanism": "The call argument of a &T parameter is an implicit reborrow &*global; MIR ReferencePropagation rewrites it to &((*box).0) when global is an SSA &PLACE, so the +8 GEP is recomputed in the call block. Making global opaque at RefProp time (a #[cold] helper call, which the MIR inliner refuses but LLVM inlines; or an unannotated tuple-field copy) keeps the GEP in the over-reserves block. InstCombine cannot sink it (the call block's unique predecessor is the memcmp block), and MachineSink places the add at the top of the call block, as in the original.",
+  "rejected_mechanisms": [
+    "typed &Global binding passed to complete_fill (RefProp re-derives the reborrow at the call)",
+    "type-annotated (bool, &Global) tuple (the annotation makes the tuple field a coercion site, so it is a reborrow again and InstCombine sinks the rebuilt GEP)",
+    "complete_fill taking &Account<Global>, reordered parameters, or a method on the curve (all would change complete_fill's matched body or register assignment; not built)"
+  ],
+  "unresolved_residuals": [],
+  "next_ideas": [
+    "swap_hop is fully matched on main since #2766 (0b5fc0d5d); nothing is left on this window.",
+    "For admin_cto lanes: any argument or field address that the original computes early, but ours computes at the use, may be the same RefProp re-derivation. A #[cold] wrapper or an unannotated tuple-field copy keeps it early."
+  ],
+  "ledger_keys": [
+    "0x5b3b0-w12-20a1ae9-cfsig-ir-oracle-gep-in-bb57-bb58-v1",
+    "0x5b3b0-w12-20a1ae9-cfsig-typed-global-ref-bound-before-allowed-passed-to-complete-fill-v1",
+    "0x5b3b0-w12-20a1ae9-cfsig-allowed-block-returns-bool-and-global-tuple-v1",
+    "0x5b3b0-w12-20a1ae9-cfsig-cold-helper-global-of-opaque-to-mir-inliner-v1"
+  ]
+}
