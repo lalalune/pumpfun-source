@@ -1,0 +1,41 @@
+{
+  "actual_source68_and_safe_stage69_all_hashes_verified": true,
+  "all59_rust_bytes_unchanged": true,
+  "correction": "Initial lexical existing/symlink check retained; canonical output assigned, canonical existing target rejected; all consumed-member guards precede expected_workspace/mkdir; writes now use canonical target.",
+  "final_qualification_sha256": "ae8bebe3c06084b4aa1508b8527eb2c3cbd82edcfaf825ab1c2f378948a0110f",
+  "focused_new_regressions": {
+    "cases": 2,
+    "command": [
+      "python3",
+      "-I",
+      "-B",
+      "scripts/amm_sell/test_workspace_recipe_staging.py",
+      "SourceContainmentTests.test_safe_dotdot_output_does_not_create_parents_in_input_crate",
+      "SourceContainmentTests.test_canonical_existing_output_is_preserved_without_dotdot_parents"
+    ],
+    "exit": 0,
+    "log_sha256": "b711bbf9acd59b7b9cb8a42674b8e3e566bcee589ed6473ef9504a55514d1637"
+  },
+  "limits": [
+    "Not a GitHub approval, native build/window gain, or security clearance.",
+    "No concurrent filesystem mutation/TOCTOU assurance.",
+    "No compiler, SDK, VM, network, capture or financial behavior executed.",
+    "No2048 provenance-package edits; one author same unit."
+  ],
+  "no_author_files_changed": true,
+  "prior_blocked_review_sha256": "f2d4a8a25b8cdf48f9c76b9b2aed22d2aaaae1cff33a85482231df5d316bede7",
+  "reviewed_source_head": "642f37bcaa5cb7da76961b3df037e3f8d5602bbe",
+  "same_final8_test_author_cohorts": "Retained original5causal failures / first fix2causal failures / final8PASS normal and-O; reviewer ran only the two previously unresolved controls.",
+  "source_pins": {
+    "scripts/amm_sell/test_workspace_recipe_staging.py": {
+      "git_blob": "9da594faff5e156499cec0030af9559b900333b7",
+      "sha256": "06340e1d0bb9262a49c9f4550caed554239d3aa6784f9acf1c8aa881c50d15c9"
+    },
+    "scripts/amm_sell/workspace_recipe.py": {
+      "git_blob": "2292ea84285d9d53542fee909405d910b7be11f9",
+      "sha256": "085321c6d37d9102e8364c000e7acb07322e3010f0231dca6191fda4a2ab15e4"
+    }
+  },
+  "status": "No remaining blocking issue found in bounded deterministic CLI path/source-preservation review.",
+  "unrelated_gate_status": "Retained verify_evidence9PASS, tooling40FAILED3 interface-inventory fixture errors; not rerun, waived or fixed by peer."
+}

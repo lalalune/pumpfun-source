@@ -20,11 +20,11 @@ class RelocatedSyscallTests(unittest.TestCase):
     def test_hash_immediate_syscalls_still_count(self):
         blob = bytearray(8)
         blob[0] = 0x85
-        struct.pack_into('<I', blob, 4, 0xe4042040)
+        struct.pack_into('<I', blob, 4, 0xd7449092)
         elf = SimpleNamespace(b=bytes(blob), relocations={})
         found = bytecode_signatures.detect_cpi_patterns(elf, 0, 8)
         self.assertEqual([row['syscall'] for row in found], ['sol_invoke_signed_rust'])
-        struct.pack_into('<I', blob, 4, 0xa22b9c85)
+        struct.pack_into('<I', blob, 4, 0x717cc4a3)
         elf.b = bytes(blob)
         self.assertEqual(
             bytecode_signatures.detect_serialization_patterns(elf, 0, 8)['memcpy_calls'],

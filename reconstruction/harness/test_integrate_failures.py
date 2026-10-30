@@ -30,7 +30,7 @@ class CompositionFailures(unittest.TestCase):
                 argv.append('--no-build')
             response = subprocess.CompletedProcess(['scorer'], score_code, stdout=score_stdout, stderr='diagnostic')
             with patch.object(integrate, 'SC', root), patch.object(sys, 'argv', argv), \
-                 patch.object(integrate.fastbuild, 'build', return_value={'ok': build_ok}) as build, \
+                 patch.object(integrate, 'build_source', return_value={'ok': build_ok}) as build, \
                  patch.object(integrate.subprocess, 'run', return_value=response) as run, \
                  contextlib.redirect_stdout(io.StringIO()):
                 status = integrate.main()

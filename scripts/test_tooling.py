@@ -45,6 +45,15 @@ import shutil
 import sys
 import tempfile
 import unittest
+import copy
+import json
+import pump_validate_all as corpus
+import pump_validate_parallel as parallel
+
+
+from window_elf_reader import Elf
+
+
 from amm_sell.test_best_version import BestScoreVersionTests
 from amm_sell.test_sell_distance import AlignmentDistanceTests
 
@@ -125,6 +134,8 @@ import struct
 import sys
 import unittest
 from test_analysis_interface_inventory import InterfaceInventoryEncodingTests
+from test_capture_verification_modes import CaptureVerificationModeTests
+from test_fees_external_codec_cases import ExternalCodecBooleanCases
 from types import SimpleNamespace
 import deep_disassembly
 from pathlib import Path
@@ -133,6 +144,126 @@ from unittest.mock import patch
 import deep_section_analysis
 import deep_disassembly
 import analyze
+from window_elf_reader import Elf
+from compare import compare
+class CaseComparisonReceiptTests(unittest.TestCase):
+    original = analyze.ROOT / 'evidence/original/pump/deployed.so'
+    candidate = analyze.ROOT / 'evidence/original/mayhem/deployed.so'
+
+    def report(self, row):
+        return json.loads(json.dumps({
+            'original_sha256': corpus.sha(self.original),
+            'candidate_sha256': corpus.sha(self.candidate),
+            'case_count': corpus.EXPECTED_CASES['volume'],
+            'mismatches': [],
+            'cases': [copy.deepcopy(row) for _ in range(corpus.EXPECTED_CASES['volume'])],
+        }))
+
+    def validate(self, report):
+        return parallel.validate_result('volume', report, self.candidate, self.original)
+
+    def test_explicit_case_differences_cannot_hide_behind_empty_summary(self):
+        for field in ('different_fields', 'diff', 'differences', 'mismatched_fields'):
+            with self.subTest(field=field):
+                report = self.report({'original': {}, 'candidate': {}, field: []})
+                report['cases'][0][field] = ['account']
+                with self.assertRaises(AssertionError):
+                    self.validate(report)
+
+    def test_false_case_match_cannot_hide_behind_empty_summary(self):
+        report = self.report({'original': {}, 'candidate': {}, 'match': True})
+        report['cases'][0]['match'] = False
+        with self.assertRaises(AssertionError):
+            self.validate(report)
+
+    def test_missing_paired_outcomes_or_comparison_are_rejected(self):
+        for row in ({'original': {}, 'match': True},
+                    {'original': {}, 'candidate': None, 'diff': []},
+                    {'original': {}, 'candidate': {}},
+                    {'original': {}, 'candidate': {}, 'diff': None},
+                    {'original': {}, 'candidate': {}, 'match': 1}):
+            with self.subTest(row=row), self.assertRaises(AssertionError):
+                self.validate(self.report(row))
+
+    def test_all_published_generic_case_comparison_encodings_still_pass(self):
+        for field in ('different_fields', 'diff', 'differences', 'mismatched_fields', 'match'):
+            with self.subTest(field=field):
+                self.assertEqual(self.validate(self.report({
+                    'original': {}, 'candidate': {}, field: True if field == 'match' else [],
+                })), corpus.EXPECTED_CASES['volume'])
+
+
+
+
+
+
+class MathDensityOrderTests(unittest.TestCase):
+    def analyze(self, windows):
+        data = bytearray()
+        entries = []
+        for opcodes in windows:
+            entries.append(len(data))
+            data.extend(b''.join(struct.pack('<BBhi', opcode, 0, 0, 0) for opcode in opcodes))
+        return deep_section_analysis.analyze_math_patterns(SimpleNamespace(b=bytes(data), entries=entries, hi=len(data), funcs=[]))
+
+    def test_addition_heavy_window_ranks_by_density(self):
+        report = self.analyze([[0x27, 0x37, *([0x07] * 3), *([0x95] * 15)], [0x07] * 5])
+        rows = report['math_intensive_windows']
+        self.assertEqual([row['arithmetic_density'] for row in rows], [1.0, 0.25])
+        self.assertEqual([row['address'] for row in rows], ['0xa0', '0x0'])
+        self.assertEqual(report['total_math_windows'], 2)
+        self.assertEqual(sum(row['additions'] for row in rows), 8)
+
+    def test_equal_density_preserves_entry_order(self):
+        rows = self.analyze([[0x07] * 5, [0x07] * 10])['math_intensive_windows']
+        self.assertEqual([row['address'] for row in rows], ['0x0', '0x28'])
+        self.assertEqual([row['arithmetic_density'] for row in rows], [1.0, 1.0])
+
+    def test_real_captured_math_windows_are_density_ordered(self):
+        for name in ('pump', 'pump_amm', 'pump_fees', 'mayhem'):
+            with self.subTest(program=name):
+                elf = Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+                rows = deep_section_analysis.analyze_math_patterns(elf)['math_intensive_windows']
+                densities = [row['arithmetic_density'] for row in rows]
+                self.assertEqual(densities, sorted(densities, reverse=True))
+
+
+import deep_disassembly
+from compare import compare
+
+
+class StackAddressOperandTests(unittest.TestCase):
+    def analyze(self, *instructions):
+        raw = b''.join(struct.pack('<BBhi', *instruction) for instruction in instructions)
+        decoded = []
+        for offset in range(0, len(raw), 8):
+            decoded.append(deep_disassembly.decode_instruction(raw, offset, None)[0])
+        return deep_disassembly.analyze_stack_frame(decoded)
+
+    def test_storing_frame_pointer_value_is_not_a_stack_address(self):
+        # stxdw [r1-64], r10: r1 is the address; r10 is only the stored value.
+        result = self.analyze((0x7b, 0xa1, -64, 0))
+        self.assertEqual(result, {'max_stack_depth': 0, 'stack_slots': 0, 'most_accessed_offsets': []})
+
+    def test_frame_pointer_as_both_base_and_value_counts_once(self):
+        result = self.analyze((0x7b, 0xaa, -16, 0))
+        self.assertEqual(result['max_stack_depth'], 16)
+        self.assertEqual(result['most_accessed_offsets'], [{'offset': -16, 'count': 1}])
+
+    def test_load_and_store_address_bases_keep_real_stack_accesses(self):
+        result = self.analyze(
+            (0x79, 0xa2, -24, 0),  # ldxdw r2, [r10-24]
+            (0x7b, 0x2a, -24, 0),  # stxdw [r10-24], r2
+            (0x7a, 0x0a, -8, 5),  # stdw [r10-8], 5
+        )
+        self.assertEqual(result['max_stack_depth'], 24)
+        self.assertEqual(result['stack_slots'], 2)
+        self.assertEqual(result['most_accessed_offsets'], [{'offset': -24, 'count': 2}, {'offset': -8, 'count': 1}])
+
+    def test_nonmemory_frame_pointer_operand_does_not_count(self):
+        self.assertEqual(self.analyze((0xbf, 0xa1, 0, 0))['stack_slots'], 0)
+
+
 import bytecode_signatures
 from window_elf_reader import Elf
 
@@ -265,6 +396,93 @@ import analyze_program
 import deep_disassembly
 from window_elf_reader import Elf
 from compare import compare
+class InferredStructExtentTests(unittest.TestCase):
+    def analyze_offsets(self, offsets):
+        return self.analyze_loads([(0x79, offset) for offset in offsets])
+
+    def analyze_loads(self, loads):
+        code = b''.join(struct.pack('<BBhi', opcode, 0x21, offset, 0)
+                        for opcode, offset in loads)
+        header = bytearray(64)
+        struct.pack_into('<Q', header, 24, 64)
+        elf = SimpleNamespace(b=bytes(header) + code, lo=64, hi=64+len(code),
+                              entries=[64], funcs=[], secs={})
+        return deep_section_analysis.recover_anchor_idl(elf)
+
+    def test_size_inference_is_not_limited_to_twenty_displayed_fields(self):
+        for count in (20, 21, 35):
+            with self.subTest(count=count):
+                result = self.analyze_offsets(list(range(0, count*8, 8)))
+                row = result['deserialization_patterns'][0]
+                self.assertEqual(row['field_offsets'], list(range(0, min(count, 20)*8, 8)))
+                self.assertEqual(row['field_sizes'], [8]*min(count, 20))
+                self.assertEqual(row['likely_struct_size'], count*8)
+                self.assertEqual(result['inferred_struct_sizes'], [count*8])
+
+    def test_duplicate_reads_do_not_change_the_observed_extent(self):
+        offsets = list(range(0, 21*8, 8))
+        result = self.analyze_offsets(offsets + offsets[-5:])
+        self.assertEqual(result['deserialization_patterns'][0]['likely_struct_size'], 168)
+        self.assertEqual(len(result['deserialization_patterns'][0]['field_offsets']), 20)
+
+    def test_extent_uses_the_actual_load_width(self):
+        for opcode, width in ((0x71, 1), (0x69, 2), (0x61, 4), (0x79, 8)):
+            with self.subTest(width=width):
+                result = self.analyze_loads([(opcode, offset) for offset in (0, 16, 32)])
+                row = result['deserialization_patterns'][0]
+                self.assertEqual(row['field_sizes'], [width] * 3)
+                self.assertEqual(row['likely_struct_size'], 32 + width)
+                self.assertEqual(result['inferred_struct_sizes'], [32 + width])
+
+    def test_extent_can_end_at_an_earlier_wider_load(self):
+        result = self.analyze_loads([(0x79, 0), (0x71, 1), (0x71, 2)])
+        self.assertEqual(result['deserialization_patterns'][0]['likely_struct_size'], 8)
+
+    def test_mixed_width_duplicate_reads_are_order_independent(self):
+        loads = [(0x71, 0), (0x79, 0), (0x71, 16), (0x69, 32)]
+        for ordered in (loads, list(reversed(loads))):
+            with self.subTest(loads=ordered):
+                row = self.analyze_loads(ordered)['deserialization_patterns'][0]
+                self.assertEqual(row['field_sizes'], [8, 1, 2])
+                self.assertEqual(row['likely_struct_size'], 34)
+
+    def test_narrow_loads_after_the_display_cap_contribute_to_extent(self):
+        result = self.analyze_loads([(0x71, offset) for offset in range(35)])
+        row = result['deserialization_patterns'][0]
+        self.assertEqual(row['field_offsets'], list(range(20)))
+        self.assertEqual(row['field_sizes'], [1] * 20)
+        self.assertEqual(row['likely_struct_size'], 35)
+
+    def test_captured_pump_short_layout_extent(self):
+        elf = Elf(analyze.ROOT / 'evidence/original/pump/deployed.so')
+        rows = deep_section_analysis.recover_anchor_idl(elf)['deserialization_patterns']
+        row = next(row for row in rows if row['window'] == '0x2ca8' and row['base_reg'] == 3)
+        self.assertEqual(row['likely_struct_size'], 43)
+
+    def test_retained_patterns_use_the_full_observed_load_extent(self):
+        checked = capped = 0
+        for path in sorted(analyze.ROOT.glob('evidence/**/deployed.so')):
+            elf = Elf(path)
+            ends = dict(zip(elf.entries, elf.entries[1:] + [elf.hi]))
+            result = deep_section_analysis.recover_anchor_idl(elf)
+            for row in result['deserialization_patterns']:
+                start = int(row['window'], 16)
+                widths = {0x61: 4, 0x69: 2, 0x71: 1, 0x79: 8}
+                loads = [(struct.unpack_from('<h', elf.b, at+2)[0], widths[elf.b[at]])
+                         for at in range(start, ends[start], 8)
+                         if elf.b[at] in widths and elf.b[at+1] >> 4 == row['base_reg']]
+                offsets = {offset for offset, width in loads}
+                self.assertEqual(row['likely_struct_size'], max(offset + width for offset, width in loads),
+                                 f'{path.parent.name}:{start:#x}:r{row["base_reg"]}')
+                self.assertLessEqual(len(row['field_offsets']), 20)
+                checked += 1
+                capped += len(offsets) > 20
+        self.assertGreater(checked, 0)
+        self.assertGreater(capped, 0)
+
+
+
+
 import verify_evidence
 
 
@@ -666,7 +884,8 @@ class ParallelCaseCountTests(unittest.TestCase):
             for explicit_count in (True, False):
                 with self.subTest(suite=name, explicit_count=explicit_count):
                     artifact, report = self.report(count)
-                    report['cases'] = [{'case': index} for index in range(count)]
+                    report['cases'] = [{'case': index, 'original': {}, 'candidate': {}, 'match': True}
+                                       for index in range(count)]
                     if not explicit_count:
                         del report['case_count']
                     self.assertEqual(pump_validate_parallel.validate_result(name, report, artifact, artifact), count)
@@ -767,6 +986,7 @@ class RevalidationReportTests(unittest.TestCase):
 
 
 from test_pump_diagnostic_audit import DiagnosticMetadataTests
+from test_build_quote_fees import QuoteFeesBuildLogTests
 class ComparisonTests(unittest.TestCase):
     def test_equal(self): self.assertTrue(compare(b'abc\0\0',b'abc\0\0')['full_byte_equality'])
     def test_code_mutation(self): self.assertEqual(compare(b'abc\0\0',b'axc\0\0')['first_difference'],1)
@@ -1055,6 +1275,31 @@ class CompareProgramNamesTests(unittest.TestCase):
             capture.mkdir(parents=True)
             (capture / 'deployed.so').write_bytes(b'ELF')
             self.assertEqual(compare_module.program_names(root), ['probe'])
+
+
+class AnalyzeProgramRootTests(unittest.TestCase):
+    def test_explicit_root_overrides_current_default(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            selected = root / 'selected'
+            (selected / 'repro').mkdir(parents=True)
+            mapping = {'mayhem': _CAPTURED_PROGRAMS['mayhem']}
+            (selected / 'repro/programs.json').write_text(json.dumps(mapping))
+            with patch.object(analyze, 'ROOT', root / 'other'):
+                self.assertEqual(analyze.program_names(selected), mapping)
+                self.assertEqual(analyze.program_names(), [])
+
+    def test_current_root_keeps_missing_selected_binary_error(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'repro').mkdir()
+            mapping = {'mayhem': _CAPTURED_PROGRAMS['mayhem']}
+            (root / 'repro/programs.json').write_text(json.dumps(mapping))
+            with patch.object(analyze, 'ROOT', root):
+                self.assertEqual(analyze.program_names(), mapping)
+                with self.assertRaises(FileNotFoundError):
+                    analyze.analyze()
+                self.assertFalse((root / 'evidence/binary-analysis.json').exists())
 
 
 class RodataStringAddressTests(unittest.TestCase):
@@ -1462,7 +1707,7 @@ class EvidenceCommitmentTests(unittest.TestCase):
         self.run_gate()
 
     def test_weaker_commitment_is_rejected(self):
-        with self.assertRaises(AssertionError) as raised:
+        with self.assertRaises(verify_evidence.EvidenceError) as raised:
             self.run_gate(commitment='processed')
         self.assertIn(self.FOLDER, str(raised.exception))
         self.assertIn('commitment', str(raised.exception))
@@ -1497,7 +1742,7 @@ class EvidenceProgramBindingTests(unittest.TestCase):
         (original / 'pump').rename(original / 'swap')
         (original / 'pump_amm').rename(original / 'pump')
         (original / 'swap').rename(original / 'pump_amm')
-        with self.assertRaisesRegex(AssertionError, 'evidence/original/pump: capture program'):
+        with self.assertRaisesRegex(verify_evidence.EvidenceError, 'evidence/original/pump: capture program'):
             self.run_gate()
 
 
@@ -1694,6 +1939,180 @@ class WindowScorerBaselineTests(unittest.TestCase):
             with self.assertRaises(SystemExit) as exit_:
                 self.run_main(scorer, '--baseline', 'missing/score.json')
         self.assertEqual(exit_.exception.code, 2)
+
+
+class FallbackDispatchRelocationTests(unittest.TestCase):
+    """The IDL-less entry heuristic must not report loader addresses as selectors."""
+
+    @staticmethod
+    def entry_elf(relocated):
+        # Entrypoint 0x40: lddw r1, 0x1234; call +0.
+        blob = bytearray(0x58)
+        struct.pack_into('<Q', blob, 24, 0x40)
+        blob[0x40:0x50] = bytes.fromhex('18010000341200000000000000000000')
+        blob[0x50:0x58] = bytes.fromhex('8510000000000000')
+        return SimpleNamespace(
+            b=bytes(blob), lo=0x40, hi=0x58, funcs=[],
+            relocations={0x40: {'type': 8, 'symbol': ''}} if relocated else {},
+        )
+
+    def test_relocated_lddw_is_not_a_selector(self):
+        self.assertEqual(
+            deep_disassembly.recover_anchor_dispatch(self.entry_elf(True)), {})
+
+    def test_unrelocated_scalar_candidate_is_kept(self):
+        self.assertEqual(
+            list(deep_disassembly.recover_anchor_dispatch(self.entry_elf(False))),
+            ['0x1234'])
+
+    def test_captured_mayhem_reports_no_relocated_addresses(self):
+        from window_elf_reader import Elf
+        elf = Elf(analyze.ROOT / 'evidence/original/mayhem/deployed.so')
+        relocated = set()
+        for at, relocation in elf.relocations.items():
+            if (elf.lo <= at < elf.hi and elf.b[at] == 0x18
+                    and relocation['type'] == 8):
+                low, = struct.unpack_from('<I', elf.b, at + 4)
+                high, = struct.unpack_from('<I', elf.b, at + 12)
+                relocated.add(hex(low | high << 32))
+        dispatch = deep_disassembly.recover_anchor_dispatch(elf)
+        # Panic-location and string pointers formerly reported as selectors.
+        for address in ('0xb1bd8', '0xb1b48', '0xb1b30', '0xae2a7'):
+            self.assertIn(address, relocated)
+            self.assertNotIn(address, dispatch)
+        self.assertEqual(relocated & set(dispatch), set())
+
+
+class UpstreamEvidenceSetTests(unittest.TestCase):
+    """verify_evidence.py must not take the upstream IDL set from the data it checks."""
+
+    def run_gate(self, root):
+        import contextlib
+        import io
+        import verify_evidence
+        with patch.object(verify_evidence, 'ROOT', root), contextlib.redirect_stdout(io.StringIO()):
+            verify_evidence.main()
+
+    def copy_evidence(self, temporary):
+        import shutil
+        import verify_evidence
+        root = Path(temporary)
+        shutil.copytree(verify_evidence.ROOT / 'evidence', root / 'evidence')
+        self.run_gate(root)  # control: the unmodified copy passes
+        return root
+
+    def rewrite_listing(self, root, change):
+        import json
+        provenance = root / 'evidence/upstream/provenance.json'
+        record = json.loads(provenance.read_bytes())
+        change(record['file_sha256'])
+        provenance.write_bytes((json.dumps(record, indent=2) + '\n').encode())
+
+    def test_removed_idl_and_listing_entry_are_rejected(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = self.copy_evidence(temporary)
+            (root / 'evidence/upstream/pump_fees.json').unlink()
+            self.rewrite_listing(root, lambda files: files.pop('pump_fees.json'))
+            with self.assertRaisesRegex(verify_evidence.EvidenceError, r"missing .*'pump_fees\.json'"):
+                self.run_gate(root)
+
+    def test_unexpected_listing_entry_is_rejected(self):
+        import hashlib
+        with tempfile.TemporaryDirectory() as temporary:
+            root = self.copy_evidence(temporary)
+            extra = root / 'evidence/upstream/pump_extra.json'
+            extra.write_bytes(b'{}\n')
+            digest = hashlib.sha256(extra.read_bytes()).hexdigest()
+            self.rewrite_listing(root, lambda files: files.update({'pump_extra.json': digest}))
+            with self.assertRaisesRegex(verify_evidence.EvidenceError, r"unexpected .*'pump_extra\.json'"):
+                self.run_gate(root)
+
+
+class EndianDecodeTests(unittest.TestCase):
+    def test_conversion_direction_and_width(self):
+        for opcode, direction in ((0xd4, 'le'), (0xdc, 'be')):
+            for width in (16, 32, 64):
+                with self.subTest(direction=direction, width=width):
+                    blob = struct.pack('<BBhi', opcode, 5, 0, width)
+                    record, size = deep_disassembly.decode_instruction(blob, 0, None)
+                    self.assertEqual(record['mnemonic'], f'{direction}{width} r5')
+                    self.assertEqual(record['imm'], width)
+                    self.assertEqual(record['hex'], blob.hex())
+                    self.assertEqual(size, 8)
+
+    def test_other_alu_operand_forms_are_unchanged(self):
+        for opcode, regs, immediate, mnemonic in (
+            (0x04, 5, 16, 'add32 r5, 16'),
+            (0x0c, 0x35, 0, 'add32 r5, r3'),
+        ):
+            with self.subTest(opcode=opcode):
+                blob = struct.pack('<BBhi', opcode, regs, 0, immediate)
+                record, _ = deep_disassembly.decode_instruction(blob, 0, None)
+                self.assertEqual(record['mnemonic'], mnemonic)
+
+    def test_captured_big_endian_conversions(self):
+        for relative in ('original/mayhem', 'dependencies/spl_token_2022'):
+            with self.subTest(capture=relative):
+                elf = deep_disassembly.Elf(
+                    analyze.ROOT / 'evidence' / relative / 'deployed.so')
+                offset = elf.lo
+                widths = []
+                while offset < elf.hi:
+                    record, size = deep_disassembly.decode_instruction(elf.b, offset, elf)
+                    if elf.b[offset] == 0xdc:
+                        widths.append(record['imm'])
+                        self.assertEqual(record['mnemonic'],
+                                         f"be{record['imm']} r{record['dst']}")
+                    offset += size
+                self.assertEqual(sorted(widths), [16] + [32] * 7)
+
+
+class MemoryWidthDecodeTests(unittest.TestCase):
+    # Explicit instruction spellings from SBPF's LD/ST/STX definitions,
+    # including word operations whose spelling was already correct.
+    FORMS = {
+        0x61: 'ldxw', 0x69: 'ldxh', 0x71: 'ldxb', 0x79: 'ldxdw',
+        0x62: 'stw', 0x6a: 'sth', 0x72: 'stb', 0x7a: 'stdw',
+        0x63: 'stxw', 0x6b: 'stxh', 0x73: 'stxb', 0x7b: 'stxdw',
+    }
+
+    def test_all_load_and_store_widths_preserve_operands(self):
+        for opcode, operation in self.FORMS.items():
+            with self.subTest(opcode=hex(opcode)):
+                cls = opcode & 7
+                regs = 5 if cls == 2 else 0x35
+                blob = struct.pack('<BBhi', opcode, regs, -16, 7)
+                record, size = deep_disassembly.decode_instruction(blob, 0, None)
+                if cls == 1:
+                    expected = f'{operation} r5, [r3-16]'
+                elif cls == 2:
+                    expected = f'{operation} [r5-16], 7'
+                else:
+                    expected = f'{operation} [r5-16], r3'
+                self.assertEqual(record['mnemonic'], expected)
+                self.assertTrue(record['memory_access'])
+                self.assertEqual((record['dst'], record['src'], record['off'], record['imm']),
+                                 (5, regs >> 4, -16, 7))
+                self.assertEqual(record['hex'], blob.hex())
+                self.assertEqual(size, 8)
+
+    def test_memory_widths_in_all_four_captured_programs(self):
+        for name in ('pump', 'pump_amm', 'pump_fees', 'mayhem'):
+            with self.subTest(program=name):
+                elf = deep_disassembly.Elf(
+                    analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+                offset = elf.lo
+                seen = set()
+                mismatches = 0
+                while offset < elf.hi:
+                    record, size = deep_disassembly.decode_instruction(elf.b, offset, elf)
+                    opcode = elf.b[offset]
+                    if opcode in self.FORMS:
+                        seen.add(opcode)
+                        mismatches += record['mnemonic'].split()[0] != self.FORMS[opcode]
+                    offset += size
+                self.assertEqual(seen, set(self.FORMS))
+                self.assertEqual(mismatches, 0)
 
 
 if __name__=='__main__': unittest.main()

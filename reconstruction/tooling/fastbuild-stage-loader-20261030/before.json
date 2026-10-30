@@ -1,0 +1,45 @@
+{
+  "head": "6a1d23a306ce0b2213aac937d7a81472efe5986b",
+  "command": [
+    "python3",
+    "-I",
+    "-B",
+    "tests/test_fastbuild_stage.py"
+  ],
+  "exit": 1,
+  "inputs": {
+    "tests/test_fastbuild_stage.py": "8f93cd11a08f6c9659e9c15727d4964aaf10fe09fb50dc096d70474ed20d89b6",
+    "reconstruction/harness/fastbuild.py": "04c6669348ac45b9230498f2656b66a740fe358b11c86a0f19060048e09e23bb",
+    "reconstruction/harness/build_process.py": "fa8f7d321f29e829fe59ca11740fc5a47978fc73d052778c641bb233ae0e12a4",
+    "reconstruction/harness/source_inputs.py": "62e58c2403f106c14aff725e0626883d2a46da8e5d3fe25185b5e9fc000af960"
+  },
+  "stderrSha256": "9d1349c9e73357d794c17ae81e8e937eff4bcd5a27d1b95f799446c268917523",
+  "hostTools": {
+    "debianSnapshot": "20260925T181338Z trixie/main amd64",
+    "packages": [
+      {
+        "package": "rsync",
+        "version": "3.4.1+ds1-5+deb13u4",
+        "archive": "rsync_3.4.1+ds1-5+deb13u4_amd64.deb",
+        "archiveSha256": "8aa122f6ba8d2ff112c72bb9814ee096ee516f0213b36b98bbe79c83c92fb226",
+        "archiveBytes": 432964,
+        "indexFilename": "pool/main/r/rsync/rsync_3.4.1+ds1-5+deb13u4_amd64.deb",
+        "archiveMatchesAPTIndex": true
+      },
+      {
+        "package": "libpopt0",
+        "version": "1.19+dfsg-2",
+        "archive": "libpopt0_1.19+dfsg-2_amd64.deb",
+        "archiveSha256": "07f649b706852af937654295697dcfc7858f3295718ec18681dce1704663e4f2",
+        "archiveBytes": 43844,
+        "indexFilename": "pool/main/p/popt/libpopt0_1.19+dfsg-2_amd64.deb",
+        "archiveMatchesAPTIndex": true
+      }
+    ],
+    "rsyncExecutableSha256": "a56c05b960beb734169619d5760b43ff495e84f85a93eb1f54fe58118262fb20",
+    "rsyncVersion": "rsync  version 3.4.1  protocol version 32",
+    "taskOwnedExtraction": true,
+    "SDKCompilerPathsUnchanged": true
+  },
+  "compilerExecuted": false
+}

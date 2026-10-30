@@ -61,6 +61,7 @@ def _no_linked_directories(top):
 
 def strict_manifest(crate, workspace, repository, extra_inputs=(), cwd=None):
     """Return the archived manifest after rejecting symlinked or outside inputs."""
+    extra_inputs = tuple(extra_inputs)
     root = Path(repository).resolve()
     crate_path, workspace_path = Path(crate).resolve(), Path(workspace).resolve()
     _no_linked_directories(crate_path)

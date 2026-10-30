@@ -1,0 +1,352 @@
+{
+  "recipe_path": "scripts/amm_sell/workspace_recipe.py",
+  "recipe_sha256": "66108c658683bc82437323d0fbefb4ba4921dd66ec79c00ec64c3cfd19498656",
+  "schema": "amm-recipe-source-provenance-v1",
+  "selected_checkpoint_status": "not present in source commit; no ELF identity is inferred",
+  "source_commit": "8498ea4c5307d8537484464d27d6d82bb90a85c1",
+  "source_inputs": {
+    "crates/native-transfer-fee/Cargo.toml": {
+      "git_blob": "fbdbd37edc185126b5a7d233a9c44f35183b6190",
+      "sha256": "e550826786df78ee7c57fc30b8d5491d8a9bfcbf7582aa5ebeac2a93257c4d28"
+    },
+    "crates/native-transfer-fee/src/lib.rs": {
+      "git_blob": "670366c46d33d363fd1867c96b81b4552417c91d",
+      "sha256": "a7a68badf3c875817b865a6ad83a794f70a53d2fba226f32a9b693ddceb0b83a"
+    },
+    "programs/pump-amm/Cargo.lock": {
+      "git_blob": "c3b408d0b24c151166e26df34d9d0459164ef532",
+      "sha256": "799a8a32e862a81a73c5301a2d69f3d718d0e448670c48c4e077cfdc7dc35ac7"
+    },
+    "programs/pump-amm/Cargo.toml": {
+      "git_blob": "cdfad62030220e1fa42a310fb33c11350614db55",
+      "sha256": "12522e6f084a0cdab4b7edba48352dcfe88b69362204b3fb855f4498230cccf8"
+    },
+    "programs/pump-amm/idls/pump.json": {
+      "git_blob": "f39ab02a89759265a233426dfdb4489518859cb7",
+      "sha256": "4aa0dec033d0afbb05ee12968c7d214920a1c4ecfd1a5ae65173d4241271134a"
+    },
+    "programs/pump-amm/idls/pump_fees.json": {
+      "git_blob": "a06cfeca8aed4d984091c023ec4d5ef3fa0bdda7",
+      "sha256": "6b9fa3eccc6e06273076a47b581f9fcb9e531bb7c3c88acbcd44db55a4002b29"
+    },
+    "programs/pump-amm/src/create.rs": {
+      "git_blob": "6ceeef8a84e137abb11c6d1e2396c62457f0b75d",
+      "sha256": "1ae8c438515e9d9b8a86c6d5ed2bbc9935ab23ec7f236791678202b7668f05df"
+    },
+    "programs/pump-amm/src/creator_reassignment.rs": {
+      "git_blob": "a5d5307ea3512f19795b2618f04f6b396de8ef17",
+      "sha256": "c462b8c8e8520d0e1b08c473c6ae5fa0ae3d091ec47fdc4b37faaabe78ee6932"
+    },
+    "programs/pump-amm/src/curve/constant_product.rs": {
+      "git_blob": "b6ddc9a939742af49745edcf16bfbbe127399e68",
+      "sha256": "149b00bd089d2a3d964512f4db0d20e4ea13f400be987e5ebc158c3f765b40bb"
+    },
+    "programs/pump-amm/src/curve/fees.rs": {
+      "git_blob": "1084f825a10c8bdb631f40cb75c3cca05555e162",
+      "sha256": "c24dc756e512f1eaf3d6069c7a4c2cb155b2211758beadbc6e98e5dc6f213ae4"
+    },
+    "programs/pump-amm/src/curve/mod.rs": {
+      "git_blob": "5a64d8c09d9e07bda74c0bc4847c1f144b5c9d31",
+      "sha256": "a5d39135a3bc2e95e7edfb4f226554ae13c6cd67e43da2e97526f7149cc1d570"
+    },
+    "programs/pump-amm/src/errors.rs": {
+      "git_blob": "c69768d924dfa43faa5a3bfe27af3981b3abbae0",
+      "sha256": "3e0a5e58576f232ead517370c76149e4d2cd070d1107164395e05039b4965aa6"
+    },
+    "programs/pump-amm/src/incentives.rs": {
+      "git_blob": "aba1c04542225b480041c9f06266caaaca354bae",
+      "sha256": "599985b86d72e73bea6e52c11691f400bd7845b5c6a1c21f9cde954ef21e18ab"
+    },
+    "programs/pump-amm/src/instructions/admin/admin_cto_pool.rs": {
+      "git_blob": "d3020a0f09e4ea12673510b55f0c7a4e69472059",
+      "sha256": "fd41bb41ce2772d16bcf43834540930898d1fad44b7e29351137d81847d58c59"
+    },
+    "programs/pump-amm/src/instructions/admin/admin_update_token_incentives.rs": {
+      "git_blob": "bf9340f649a81fe20e6f66ead613901700ff3b55",
+      "sha256": "af67464ecd487c02650314cd748419586a6f0f7f40a7ba9d476981a2b82c274e"
+    },
+    "programs/pump-amm/src/instructions/admin/create_config.rs": {
+      "git_blob": "f46072bbc9d0c3cb3f7f8bb92cf9b0ea9ce2946f",
+      "sha256": "46d69d5f9b9456efcb2f3d66cd755a5b1d36eb4c820d93553987223eb3acf0cb"
+    },
+    "programs/pump-amm/src/instructions/admin/disable.rs": {
+      "git_blob": "3dc321eb6f7ce02af2de03be3b0c172f2d1b04b9",
+      "sha256": "3ab1fab02c705689ac9434163b7d9f7e23ef85aa128c5c9548043a9c620fb06a"
+    },
+    "programs/pump-amm/src/instructions/admin/mod.rs": {
+      "git_blob": "e43edfe6b9a7c1f0fef63580fec93c2e323f0c2b",
+      "sha256": "89a5b8740cf0286c15b9753bf15ca8d001faf77858691d802b991c77163dd320"
+    },
+    "programs/pump-amm/src/instructions/admin/set_boost_authority.rs": {
+      "git_blob": "bc1b49506ff163c230029da17385f6e804126f44",
+      "sha256": "0d639e5d3d9d72ba78ad29f946822a43232bd0f8dadf1283a534c869602e45de"
+    },
+    "programs/pump-amm/src/instructions/admin/set_reserved_fee_recipients.rs": {
+      "git_blob": "4f87c0b384f1fe1097cd37051a97f8fc51732866",
+      "sha256": "d6f5f3cc766d8fc1ac832ea07a8138d00207966a51e6d359f125c1e322a6d258"
+    },
+    "programs/pump-amm/src/instructions/admin/toggle_boost.rs": {
+      "git_blob": "ddcce31245a48b174aaecdaae019e153eb1d0236",
+      "sha256": "0ff35343571517fd142dd16c1c656bba5a2144136d046dbd66ae062513767ac1"
+    },
+    "programs/pump-amm/src/instructions/admin/toggle_cashback_enabled.rs": {
+      "git_blob": "794c98984754e330a3b3ed6ccd04d9d871763781",
+      "sha256": "7b3114ea17fd8aa5a5ee65b941524f9abb4b1af98aed749a330f76f7a1bc4425"
+    },
+    "programs/pump-amm/src/instructions/admin/toggle_mayhem_mode.rs": {
+      "git_blob": "bfcf805ccf453d14870d3fec9f35192df8673c52",
+      "sha256": "8b7a46ff110f66d9e2d31e00874d35ace62718e84320710f3a86273a844300a8"
+    },
+    "programs/pump-amm/src/instructions/admin/update_admin.rs": {
+      "git_blob": "6b60d6493971da4f6eeff479f685462117f88f83",
+      "sha256": "65e1eb36be65a7561cd0762af4909d018758fba9a50d2c95de00d3f17fdf6f38"
+    },
+    "programs/pump-amm/src/instructions/admin/update_buyback_config.rs": {
+      "git_blob": "8128b270046f476ae062a79fcb7369c073d331bc",
+      "sha256": "40bfd88a126cb45fb438d8308f8b08a915fe85229f637421087d8717b792f9f8"
+    },
+    "programs/pump-amm/src/instructions/admin/update_creator_fee_config.rs": {
+      "git_blob": "6159576b4c7131eeda8704f2c7debe41b5f7f94c",
+      "sha256": "02b03d0a50fe62bb09ec2fe16f1be32fdd19ac19449405767d6562d7748f3871"
+    },
+    "programs/pump-amm/src/instructions/admin/update_fee_config.rs": {
+      "git_blob": "5fbf300dbe4c96d9a1b39af8cc74a243e38b8d1d",
+      "sha256": "e76216225818c9be5006603fd54a439d32820a01366091623c2615800540f14e"
+    },
+    "programs/pump-amm/src/instructions/boost.rs": {
+      "git_blob": "d910b668a4d25ee8d6e2b563357773a796d13bac",
+      "sha256": "402ba34061773ce448c340c42cfc8b1ecf474d13b182d52d21428d060b9b24ce"
+    },
+    "programs/pump-amm/src/instructions/coin_creator/collect_coin_creator_fee.rs": {
+      "git_blob": "8c4ff9529036271ac097914bada4d982ffb5d498",
+      "sha256": "2991645176bb5953bb71e9d62e176ca6ba93b4a61048b428cd3b75cc014d43ef"
+    },
+    "programs/pump-amm/src/instructions/coin_creator/migrate_pool_coin_creator.rs": {
+      "git_blob": "44bc02758bb52dcd90bb60fd9c8c238420b078d1",
+      "sha256": "eee955d1f4bb56e9f16afffac63e73047fd2ecfaa8739684c9a654fd1c1d7d5c"
+    },
+    "programs/pump-amm/src/instructions/coin_creator/mod.rs": {
+      "git_blob": "be11f80da8ee5a36d67ae6cd8eee2bd771ad7b0d",
+      "sha256": "0dabf4e3431c6ac57081a00cf1136a96ed79bf529ca95ebbe7f9b778decde876"
+    },
+    "programs/pump-amm/src/instructions/coin_creator/set_coin_creator.rs": {
+      "git_blob": "73f5d21bd1316d67645cb5303e2742a02fe0b726",
+      "sha256": "848f4c3c99ec23ef538f67d957efa793e03f99963fa35ef0869edd95d70561d0"
+    },
+    "programs/pump-amm/src/instructions/coin_creator/transfer_creator_fees_to_pump.rs": {
+      "git_blob": "e95ea6c5db8563cf3938e5eb92f5e7db76db1f7d",
+      "sha256": "736d5f984a726726098c5d29f5160d7f9b040c7bc2e3a05ec9174717ba57ff9c"
+    },
+    "programs/pump-amm/src/instructions/create_pool.rs": {
+      "git_blob": "d7b175d543aa6b8add42fa2a24ccd611025ff8f8",
+      "sha256": "5b7bf08c7a9b5550c35481a532d91b7ee2e5fc5737eb238a829687390589c9e3"
+    },
+    "programs/pump-amm/src/instructions/extend_account.rs": {
+      "git_blob": "877777fd28c44a9ab0ea6282d5ae27102e26d574",
+      "sha256": "d8b508ebf8436a4fab32b03ce439e700bbd6b22b878d84ce0e77064ba4d99272"
+    },
+    "programs/pump-amm/src/instructions/liquidity/deposit.rs": {
+      "git_blob": "134bee15ff05ff9e1ceeab56970296dd5bdd53dd",
+      "sha256": "ca7d2dea272639d405b88c0e9c732b291aa838fcba39a28dd565b2e42dfa60d5"
+    },
+    "programs/pump-amm/src/instructions/liquidity/mod.rs": {
+      "git_blob": "15652e22a9a135b6d55944f7df7209909b493709",
+      "sha256": "57a08079cd486cb2b56e1489a91a44ffcc81a9316887e0c5d6d8098120daeea7"
+    },
+    "programs/pump-amm/src/instructions/liquidity/withdraw.rs": {
+      "git_blob": "5041233bf71c330b599729f324d9310adbbb0771",
+      "sha256": "4020b2630730ba6d733e7d0beff3b95636a79a4a6e2e93d18f4e575dafd244b5"
+    },
+    "programs/pump-amm/src/instructions/mod.rs": {
+      "git_blob": "9771113180fa18649d42f45c8e5211af579b3b61",
+      "sha256": "415bc8960fa21a6bf964c7ed36b514861b2759e69d5ce7b0f836460c38d06c72"
+    },
+    "programs/pump-amm/src/instructions/swap/buy.rs": {
+      "git_blob": "29cd155d00e71ed6d0a943310abf622ab873ae43",
+      "sha256": "9660b9f664c61830d3f7d1cbc01b85e99845ffe60b51b749e7a60589ec7a2522"
+    },
+    "programs/pump-amm/src/instructions/swap/mod.rs": {
+      "git_blob": "dd2d4ff9dbbc9fd53bd13ecbdd0220826672d50e",
+      "sha256": "fb8d07c5c4b52f52b9af665106d5aabcf266c87cfcb66d227e847d3c222a2b09"
+    },
+    "programs/pump-amm/src/instructions/swap/multi_hop_swap.rs": {
+      "git_blob": "3d676b80fdda292c79728f9f1ece5caa39875089",
+      "sha256": "1f78c36e84ec30b085aee1b144e7c1ebd188de44b05ba39044abdcabc778849a"
+    },
+    "programs/pump-amm/src/instructions/swap/sell.rs": {
+      "git_blob": "2d8d281fe3572f0a2386496e713be80a9c66a330",
+      "sha256": "f115f36e05ad97b7d1ea40a72c16e891cb2d7fec0844d8024f8d26cd53a48a6b"
+    },
+    "programs/pump-amm/src/instructions/swap/trade_v2.rs": {
+      "git_blob": "d09ae1b2047c41e76ef84979785873d59a2079a1",
+      "sha256": "5ac9e40b7af52a246b1cd4de5e46ead5be355bdd234150249b0756b8667ce3ea"
+    },
+    "programs/pump-amm/src/instructions/sweep_fees.rs": {
+      "git_blob": "26234b6ec081dbffc448a4a313a3844753e5b33c",
+      "sha256": "8a06ae1d25c22f9f8b0000b2779031d2bb95ee3249c485531684231cf96203ba"
+    },
+    "programs/pump-amm/src/instructions/token_incentives/claim.rs": {
+      "git_blob": "97389f29366f116a7c9e334a78eadb0a849f928f",
+      "sha256": "ab3141d96f9a75f1a6462474dab5c9f73de0eb3a6fb3de8c48b84a8c49ffb211"
+    },
+    "programs/pump-amm/src/instructions/token_incentives/close_user_volume_accumulator.rs": {
+      "git_blob": "2b70b3507108e56eeba5f0680d51d82a1c2d8c8a",
+      "sha256": "b9db8eccffbd2da349c57e44ce2004942ffe2e701357e8bc7d136fd830cce7bf"
+    },
+    "programs/pump-amm/src/instructions/token_incentives/init_user_volume_accumulator.rs": {
+      "git_blob": "a3e680aa98a930bc45c73afd06051afa817acc8e",
+      "sha256": "415c43353e6bf206a056904dbbc5e25a2b6e91595c7ed4a3a7a8ed169b573106"
+    },
+    "programs/pump-amm/src/instructions/token_incentives/mod.rs": {
+      "git_blob": "99a2d9a24b0b8f9599d3aefefac254441b2143dd",
+      "sha256": "a121ad2fa1bb3328a4c29ddb20004a0558c45b056f12f09c8bf0c3434f99a86e"
+    },
+    "programs/pump-amm/src/instructions/token_incentives/sync_user_volume_accumulator.rs": {
+      "git_blob": "a0ee027af4cdd6185089a1f47bfd58ee78a53bbc",
+      "sha256": "0cfbe238a1cad7b11d5fb6fc40cbc60d8250b295e5aa2014f5d66b55e4869442"
+    },
+    "programs/pump-amm/src/lib.rs": {
+      "git_blob": "091127294b312ff75e84c99f545470b1e757ebeb",
+      "sha256": "15116922258b21fd223a62a0e2d569a5c66d987d54437201099190a4a54fa3e6"
+    },
+    "programs/pump-amm/src/multi_hop.rs": {
+      "git_blob": "b5e9f58cb2756c7a85e4084fbcaf76e32cbf467e",
+      "sha256": "433a21399bb1ffa54b16ae48ffda0e32eda65b8032e29e3a8e1668d263180434"
+    },
+    "programs/pump-amm/src/state.rs": {
+      "git_blob": "d26d7e73b46201796be4f2d55e79274d140e98f8",
+      "sha256": "979f1bec0fb7c82ca4313fe6e3b38e3dd88880d9e47a32cc586e92cbb8c63410"
+    },
+    "programs/pump-amm/src/state/global_config.rs": {
+      "git_blob": "b3627a4b018cc21e2fb2fb1b9e55ffc4cac1ae41",
+      "sha256": "452646806abdd0d0c04cc3440b5123998e3c5a95eed91f8cc51daaa48cc3e093"
+    },
+    "programs/pump-amm/src/state/pool.rs": {
+      "git_blob": "ea72073efd9a58a15daf85562ce41a5d265fb8ae",
+      "sha256": "b21ef296d86b51777652880a487fac82e03a6c04e22155f9a6ea544e5e1c2cb9"
+    },
+    "programs/pump-amm/src/state/volume_accumulator.rs": {
+      "git_blob": "cafee8c0235d9ab157a5056a92da32df1645c6d5",
+      "sha256": "4775cde0b57923bb60ec8ccd944e03b31b59fefe4be96bcb3b4e9527dbdac9a0"
+    },
+    "programs/pump-amm/src/trade.rs": {
+      "git_blob": "acf8edfa0747268759077deec5c7257225880d65",
+      "sha256": "932fb851328fe4f4f83c5e16077d2c18c30477c9fac7f3480c088b6e0c66f94e"
+    },
+    "programs/pump-amm/src/utils/math.rs": {
+      "git_blob": "c775c51f9cee627df85cb4ebdf18d007e9bdf9eb",
+      "sha256": "8f1ea54e0d21dd5bc8d9ac5e3cdd7145aaa6a7805cd142228d3c005508eafdcb"
+    },
+    "programs/pump-amm/src/utils/mod.rs": {
+      "git_blob": "4026a5694cd46866027b3f789a0c9a27e93c5742",
+      "sha256": "24f35d5f6448699263b4d762d7bc9fb905cb56e8719d15bf9043accb8a14c014"
+    },
+    "programs/pump-amm/src/utils/quote.rs": {
+      "git_blob": "2c78eabdee1ec543c65aac94afe5fe7a4b9dcae0",
+      "sha256": "ccf1a799aa96e8bae8dc8a60ba340b538054f6f3d391b630ff25d39f3c13246e"
+    },
+    "programs/pump-amm/src/utils/token.rs": {
+      "git_blob": "0a039e28623283542bdad1d733d2cded16d02083",
+      "sha256": "aa579ec8a867aea897a83fd3b6103d5c92dd959a98ec5b0644cc3126fc6b7fc0"
+    },
+    "programs/pump-amm/src/utils/transfer_fee.rs": {
+      "git_blob": "a33711a5db2358d7746d091a974878bfcfec2695",
+      "sha256": "3a42247c0c301fd07812a39d258730de4df5e21c6da583020dbba105fe40e2ee"
+    },
+    "programs/pump-amm/vendor/solana-pubkey/.cargo_vcs_info.json": {
+      "git_blob": "21f983299b57f159b90fd40d6352d9704a993c19",
+      "sha256": "f17fc5ffbac6f431c2aa85ca9085d0b13c9ec7d0a1b45c68eb78c594f9a4e35b"
+    },
+    "programs/pump-amm/vendor/solana-pubkey/Cargo.lock": {
+      "git_blob": "4cd90a98db94f97a4eb77df4d25c34012c19d408",
+      "sha256": "88a2140668cbfafa5c788d3fa08e37943a62e24c2ec5e3860978236bef9dd66f"
+    },
+    "programs/pump-amm/vendor/solana-pubkey/Cargo.toml": {
+      "git_blob": "8b759d3ee05603aa2cace4c1b7bbd13d4003bcb1",
+      "sha256": "52b641f13e7f50f5a06910886cbaa9c1f7bb1c939d21dee5bfdd3dadf0f56226"
+    },
+    "programs/pump-amm/vendor/solana-pubkey/Cargo.toml.orig": {
+      "git_blob": "d58fa3594edf222bba2b78510c4946e7e6cf647e",
+      "sha256": "f3404fd496623fd5cb5a2c2af09880bff01b4b458f638cd220ec7c6c3da9fa40"
+    },
+    "programs/pump-amm/vendor/solana-pubkey/src/lib.rs": {
+      "git_blob": "272b55f6b76e0094c9c30c6b829b0b2a1460f3e9",
+      "sha256": "6060ba2f7ea5bfd9c1e89a29e44450008cd047e4b18ca4b6e72688f389c1e87f"
+    },
+    "programs/pump-amm/vendor/solana-pubkey/src/syscalls.rs": {
+      "git_blob": "13baad1c0e6ca1358465929cb4c5c384b4589fae",
+      "sha256": "0e663a1df9a8cf9da46bc03c231e65594ee891c2ebd7468272a1c78c8ff46524"
+    }
+  },
+  "staged_workspace_sha256": {
+    "Cargo.lock": "799a8a32e862a81a73c5301a2d69f3d718d0e448670c48c4e077cfdc7dc35ac7",
+    "Cargo.toml": "0c1daed3272e54c8aeae1c34415d0e25b7d5ca8f2a8a68c3d466a57305f222d3",
+    "crates/native-transfer-fee/Cargo.toml": "e550826786df78ee7c57fc30b8d5491d8a9bfcbf7582aa5ebeac2a93257c4d28",
+    "crates/native-transfer-fee/src/lib.rs": "a7a68badf3c875817b865a6ad83a794f70a53d2fba226f32a9b693ddceb0b83a",
+    "programs/pump-amm/Cargo.toml": "50230faf4f12ab0dd21b72b9c7144393dec7308344c08f3257a6834840fca178",
+    "programs/pump-amm/idls/pump.json": "4aa0dec033d0afbb05ee12968c7d214920a1c4ecfd1a5ae65173d4241271134a",
+    "programs/pump-amm/idls/pump_fees.json": "6b9fa3eccc6e06273076a47b581f9fcb9e531bb7c3c88acbcd44db55a4002b29",
+    "programs/pump-amm/src/create.rs": "1ae8c438515e9d9b8a86c6d5ed2bbc9935ab23ec7f236791678202b7668f05df",
+    "programs/pump-amm/src/creator_reassignment.rs": "c462b8c8e8520d0e1b08c473c6ae5fa0ae3d091ec47fdc4b37faaabe78ee6932",
+    "programs/pump-amm/src/curve/constant_product.rs": "149b00bd089d2a3d964512f4db0d20e4ea13f400be987e5ebc158c3f765b40bb",
+    "programs/pump-amm/src/curve/fees.rs": "c24dc756e512f1eaf3d6069c7a4c2cb155b2211758beadbc6e98e5dc6f213ae4",
+    "programs/pump-amm/src/curve/mod.rs": "a5d39135a3bc2e95e7edfb4f226554ae13c6cd67e43da2e97526f7149cc1d570",
+    "programs/pump-amm/src/errors.rs": "3e0a5e58576f232ead517370c76149e4d2cd070d1107164395e05039b4965aa6",
+    "programs/pump-amm/src/incentives.rs": "599985b86d72e73bea6e52c11691f400bd7845b5c6a1c21f9cde954ef21e18ab",
+    "programs/pump-amm/src/instructions/admin/admin_cto_pool.rs": "fd41bb41ce2772d16bcf43834540930898d1fad44b7e29351137d81847d58c59",
+    "programs/pump-amm/src/instructions/admin/admin_update_token_incentives.rs": "af67464ecd487c02650314cd748419586a6f0f7f40a7ba9d476981a2b82c274e",
+    "programs/pump-amm/src/instructions/admin/create_config.rs": "46d69d5f9b9456efcb2f3d66cd755a5b1d36eb4c820d93553987223eb3acf0cb",
+    "programs/pump-amm/src/instructions/admin/disable.rs": "3ab1fab02c705689ac9434163b7d9f7e23ef85aa128c5c9548043a9c620fb06a",
+    "programs/pump-amm/src/instructions/admin/mod.rs": "89a5b8740cf0286c15b9753bf15ca8d001faf77858691d802b991c77163dd320",
+    "programs/pump-amm/src/instructions/admin/set_boost_authority.rs": "0d639e5d3d9d72ba78ad29f946822a43232bd0f8dadf1283a534c869602e45de",
+    "programs/pump-amm/src/instructions/admin/set_reserved_fee_recipients.rs": "d6f5f3cc766d8fc1ac832ea07a8138d00207966a51e6d359f125c1e322a6d258",
+    "programs/pump-amm/src/instructions/admin/toggle_boost.rs": "0ff35343571517fd142dd16c1c656bba5a2144136d046dbd66ae062513767ac1",
+    "programs/pump-amm/src/instructions/admin/toggle_cashback_enabled.rs": "7b3114ea17fd8aa5a5ee65b941524f9abb4b1af98aed749a330f76f7a1bc4425",
+    "programs/pump-amm/src/instructions/admin/toggle_mayhem_mode.rs": "8b7a46ff110f66d9e2d31e00874d35ace62718e84320710f3a86273a844300a8",
+    "programs/pump-amm/src/instructions/admin/update_admin.rs": "65e1eb36be65a7561cd0762af4909d018758fba9a50d2c95de00d3f17fdf6f38",
+    "programs/pump-amm/src/instructions/admin/update_buyback_config.rs": "40bfd88a126cb45fb438d8308f8b08a915fe85229f637421087d8717b792f9f8",
+    "programs/pump-amm/src/instructions/admin/update_creator_fee_config.rs": "02b03d0a50fe62bb09ec2fe16f1be32fdd19ac19449405767d6562d7748f3871",
+    "programs/pump-amm/src/instructions/admin/update_fee_config.rs": "e76216225818c9be5006603fd54a439d32820a01366091623c2615800540f14e",
+    "programs/pump-amm/src/instructions/boost.rs": "402ba34061773ce448c340c42cfc8b1ecf474d13b182d52d21428d060b9b24ce",
+    "programs/pump-amm/src/instructions/coin_creator/collect_coin_creator_fee.rs": "2991645176bb5953bb71e9d62e176ca6ba93b4a61048b428cd3b75cc014d43ef",
+    "programs/pump-amm/src/instructions/coin_creator/migrate_pool_coin_creator.rs": "eee955d1f4bb56e9f16afffac63e73047fd2ecfaa8739684c9a654fd1c1d7d5c",
+    "programs/pump-amm/src/instructions/coin_creator/mod.rs": "0dabf4e3431c6ac57081a00cf1136a96ed79bf529ca95ebbe7f9b778decde876",
+    "programs/pump-amm/src/instructions/coin_creator/set_coin_creator.rs": "848f4c3c99ec23ef538f67d957efa793e03f99963fa35ef0869edd95d70561d0",
+    "programs/pump-amm/src/instructions/coin_creator/transfer_creator_fees_to_pump.rs": "736d5f984a726726098c5d29f5160d7f9b040c7bc2e3a05ec9174717ba57ff9c",
+    "programs/pump-amm/src/instructions/create_pool.rs": "5b7bf08c7a9b5550c35481a532d91b7ee2e5fc5737eb238a829687390589c9e3",
+    "programs/pump-amm/src/instructions/extend_account.rs": "d8b508ebf8436a4fab32b03ce439e700bbd6b22b878d84ce0e77064ba4d99272",
+    "programs/pump-amm/src/instructions/liquidity/deposit.rs": "ca7d2dea272639d405b88c0e9c732b291aa838fcba39a28dd565b2e42dfa60d5",
+    "programs/pump-amm/src/instructions/liquidity/mod.rs": "57a08079cd486cb2b56e1489a91a44ffcc81a9316887e0c5d6d8098120daeea7",
+    "programs/pump-amm/src/instructions/liquidity/withdraw.rs": "4020b2630730ba6d733e7d0beff3b95636a79a4a6e2e93d18f4e575dafd244b5",
+    "programs/pump-amm/src/instructions/mod.rs": "415bc8960fa21a6bf964c7ed36b514861b2759e69d5ce7b0f836460c38d06c72",
+    "programs/pump-amm/src/instructions/swap/buy.rs": "9660b9f664c61830d3f7d1cbc01b85e99845ffe60b51b749e7a60589ec7a2522",
+    "programs/pump-amm/src/instructions/swap/mod.rs": "fb8d07c5c4b52f52b9af665106d5aabcf266c87cfcb66d227e847d3c222a2b09",
+    "programs/pump-amm/src/instructions/swap/multi_hop_swap.rs": "1f78c36e84ec30b085aee1b144e7c1ebd188de44b05ba39044abdcabc778849a",
+    "programs/pump-amm/src/instructions/swap/sell.rs": "f115f36e05ad97b7d1ea40a72c16e891cb2d7fec0844d8024f8d26cd53a48a6b",
+    "programs/pump-amm/src/instructions/swap/trade_v2.rs": "5ac9e40b7af52a246b1cd4de5e46ead5be355bdd234150249b0756b8667ce3ea",
+    "programs/pump-amm/src/instructions/sweep_fees.rs": "8a06ae1d25c22f9f8b0000b2779031d2bb95ee3249c485531684231cf96203ba",
+    "programs/pump-amm/src/instructions/token_incentives/claim.rs": "ab3141d96f9a75f1a6462474dab5c9f73de0eb3a6fb3de8c48b84a8c49ffb211",
+    "programs/pump-amm/src/instructions/token_incentives/close_user_volume_accumulator.rs": "b9db8eccffbd2da349c57e44ce2004942ffe2e701357e8bc7d136fd830cce7bf",
+    "programs/pump-amm/src/instructions/token_incentives/init_user_volume_accumulator.rs": "415c43353e6bf206a056904dbbc5e25a2b6e91595c7ed4a3a7a8ed169b573106",
+    "programs/pump-amm/src/instructions/token_incentives/mod.rs": "a121ad2fa1bb3328a4c29ddb20004a0558c45b056f12f09c8bf0c3434f99a86e",
+    "programs/pump-amm/src/instructions/token_incentives/sync_user_volume_accumulator.rs": "0cfbe238a1cad7b11d5fb6fc40cbc60d8250b295e5aa2014f5d66b55e4869442",
+    "programs/pump-amm/src/lib.rs": "15116922258b21fd223a62a0e2d569a5c66d987d54437201099190a4a54fa3e6",
+    "programs/pump-amm/src/multi_hop.rs": "433a21399bb1ffa54b16ae48ffda0e32eda65b8032e29e3a8e1668d263180434",
+    "programs/pump-amm/src/state.rs": "979f1bec0fb7c82ca4313fe6e3b38e3dd88880d9e47a32cc586e92cbb8c63410",
+    "programs/pump-amm/src/state/global_config.rs": "452646806abdd0d0c04cc3440b5123998e3c5a95eed91f8cc51daaa48cc3e093",
+    "programs/pump-amm/src/state/pool.rs": "b21ef296d86b51777652880a487fac82e03a6c04e22155f9a6ea544e5e1c2cb9",
+    "programs/pump-amm/src/state/volume_accumulator.rs": "4775cde0b57923bb60ec8ccd944e03b31b59fefe4be96bcb3b4e9527dbdac9a0",
+    "programs/pump-amm/src/trade.rs": "932fb851328fe4f4f83c5e16077d2c18c30477c9fac7f3480c088b6e0c66f94e",
+    "programs/pump-amm/src/utils/math.rs": "8f1ea54e0d21dd5bc8d9ac5e3cdd7145aaa6a7805cd142228d3c005508eafdcb",
+    "programs/pump-amm/src/utils/mod.rs": "24f35d5f6448699263b4d762d7bc9fb905cb56e8719d15bf9043accb8a14c014",
+    "programs/pump-amm/src/utils/quote.rs": "ccf1a799aa96e8bae8dc8a60ba340b538054f6f3d391b630ff25d39f3c13246e",
+    "programs/pump-amm/src/utils/token.rs": "aa579ec8a867aea897a83fd3b6103d5c92dd959a98ec5b0644cc3126fc6b7fc0",
+    "programs/pump-amm/src/utils/transfer_fee.rs": "3a42247c0c301fd07812a39d258730de4df5e21c6da583020dbba105fe40e2ee",
+    "programs/pump-amm/vendor/solana-pubkey/.cargo_vcs_info.json": "f17fc5ffbac6f431c2aa85ca9085d0b13c9ec7d0a1b45c68eb78c594f9a4e35b",
+    "programs/pump-amm/vendor/solana-pubkey/Cargo.lock": "88a2140668cbfafa5c788d3fa08e37943a62e24c2ec5e3860978236bef9dd66f",
+    "programs/pump-amm/vendor/solana-pubkey/Cargo.toml": "52b641f13e7f50f5a06910886cbaa9c1f7bb1c939d21dee5bfdd3dadf0f56226",
+    "programs/pump-amm/vendor/solana-pubkey/Cargo.toml.orig": "f3404fd496623fd5cb5a2c2af09880bff01b4b458f638cd220ec7c6c3da9fa40",
+    "programs/pump-amm/vendor/solana-pubkey/src/lib.rs": "6060ba2f7ea5bfd9c1e89a29e44450008cd047e4b18ca4b6e72688f389c1e87f",
+    "programs/pump-amm/vendor/solana-pubkey/src/syscalls.rs": "0e663a1df9a8cf9da46bc03c231e65594ee891c2ebd7468272a1c78c8ff46524"
+  }
+}

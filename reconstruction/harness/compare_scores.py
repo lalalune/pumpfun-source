@@ -8,8 +8,17 @@ import json
 from pathlib import Path
 
 
+def unique_fields(items):
+    result = {}
+    for key, value in items:
+        if key in result:
+            raise ValueError(f'duplicate score report field: {key}')
+        result[key] = value
+    return result
+
+
 def load_report(path):
-    document = json.loads(Path(path).read_text(encoding='utf-8'))
+    document = json.loads(Path(path).read_text(encoding='utf-8'), object_pairs_hook=unique_fields)
     windows = document.get('windows') if isinstance(document, dict) else None
     if not isinstance(windows, (dict, list)) or not windows:
         raise ValueError('report must contain a nonempty windows object or inventory list')
@@ -18,7 +27,7 @@ def load_report(path):
     for key, row in rows:
         if isinstance(key, bool) or not isinstance(key, (int, str)):
             raise ValueError('window start must be an integer or decimal/hex string')
-        start = int(key, 16 if isinstance(key, str) and key.startswith('0x') else 10) if isinstance(key, str) else key
+        start = int(key, 16 if isinstance(key, str) and key.lower().startswith('0x') else 10) if isinstance(key, str) else key
         if start < 0 or start % 8 or start in result:
             raise ValueError(f'invalid or duplicate window start: {key}')
         if not isinstance(row, dict):
@@ -36,6 +45,11 @@ def load_report(path):
         if type(normalized) is not bool or type(raw) is not bool or (raw and not normalized):
             raise ValueError(f'window {key} has inconsistent match flags')
         result[start] = {'bytes': size, 'normalized': normalized, 'raw': raw}
+    previous_end = -1
+    for start in sorted(result):
+        if start < previous_end:
+            raise ValueError(f'overlapping window range: {start}')
+        previous_end = start + result[start]['bytes']
     return result
 
 
@@ -67,8 +81,13 @@ def main(argv=None):
         parser.exit(2, f'invalid score report: {error}\n')
     output = json.dumps(report, indent=2) + '\n'
     if args.json:
-        args.json.parent.mkdir(parents=True, exist_ok=True)
-        args.json.write_text(output, encoding='utf-8')
+        try:
+            args.json.parent.mkdir(parents=True, exist_ok=True)
+            # Exclusive creation also protects aliased inputs and concurrent receipts.
+            with args.json.open('x', encoding='utf-8') as stream:
+                stream.write(output)
+        except OSError as error:
+            parser.exit(2, f'cannot create comparison report: {error}\n')
     print(output, end='')
     return 0 if report['accepted'] else 1
 

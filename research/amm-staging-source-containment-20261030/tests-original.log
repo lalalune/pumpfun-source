@@ -1,0 +1,51 @@
+FF.F.F.F.
+======================================================================
+FAIL: test_alias_into_either_input_crate_is_rejected_before_writing (__main__.SourceContainmentTests.test_alias_into_either_input_crate_is_rejected_before_writing) (member='programs/pump-amm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-amm-staging-audit-20261030/baseline-final-method/test_workspace_recipe_staging.py", line 112, in test_alias_into_either_input_crate_is_rejected_before_writing
+    self.assert_rejected_without_source_changes(alias / 'generated')
+  File "/workspace/pump-amm-staging-audit-20261030/baseline-final-method/test_workspace_recipe_staging.py", line 80, in assert_rejected_without_source_changes
+    self.assertFalse(output.exists(), 'stager wrote the rejected output')
+AssertionError: True is not false : stager wrote the rejected output
+
+======================================================================
+FAIL: test_alias_into_either_input_crate_is_rejected_before_writing (__main__.SourceContainmentTests.test_alias_into_either_input_crate_is_rejected_before_writing) (member='crates/native-transfer-fee')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-amm-staging-audit-20261030/baseline-final-method/test_workspace_recipe_staging.py", line 112, in test_alias_into_either_input_crate_is_rejected_before_writing
+    self.assert_rejected_without_source_changes(alias / 'generated')
+  File "/workspace/pump-amm-staging-audit-20261030/baseline-final-method/test_workspace_recipe_staging.py", line 80, in assert_rejected_without_source_changes
+    self.assertFalse(output.exists(), 'stager wrote the rejected output')
+AssertionError: True is not false : stager wrote the rejected output
+
+======================================================================
+FAIL: test_canonical_existing_output_is_preserved_without_dotdot_parents (__main__.SourceContainmentTests.test_canonical_existing_output_is_preserved_without_dotdot_parents)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-amm-staging-audit-20261030/baseline-final-method/test_workspace_recipe_staging.py", line 161, in test_canonical_existing_output_is_preserved_without_dotdot_parents
+    self.assertFalse(missing.exists())
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_output_under_local_dependency_is_rejected_before_writing (__main__.SourceContainmentTests.test_output_under_local_dependency_is_rejected_before_writing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-amm-staging-audit-20261030/baseline-final-method/test_workspace_recipe_staging.py", line 102, in test_output_under_local_dependency_is_rejected_before_writing
+    self.assert_rejected_without_source_changes(self.source / MEMBERS[1] / 'generated')
+  File "/workspace/pump-amm-staging-audit-20261030/baseline-final-method/test_workspace_recipe_staging.py", line 80, in assert_rejected_without_source_changes
+    self.assertFalse(output.exists(), 'stager wrote the rejected output')
+AssertionError: True is not false : stager wrote the rejected output
+
+======================================================================
+FAIL: test_safe_dotdot_output_does_not_create_parents_in_input_crate (__main__.SourceContainmentTests.test_safe_dotdot_output_does_not_create_parents_in_input_crate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-amm-staging-audit-20261030/baseline-final-method/test_workspace_recipe_staging.py", line 148, in test_safe_dotdot_output_does_not_create_parents_in_input_crate
+    self.assertFalse(missing.exists(), 'lexical mkdir created a directory inside an input crate')
+AssertionError: True is not false : lexical mkdir created a directory inside an input crate
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.460s
+
+FAILED (failures=5)

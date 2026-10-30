@@ -31,7 +31,7 @@ def inspect_ledger(text, statuses):
             result[key] = value
         return result
 
-    for number, line in enumerate(text.splitlines(), 1):
+    for number, line in enumerate(text.split('\n'), 1):
         if not line.strip():
             continue
         try:
