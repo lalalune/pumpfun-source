@@ -45,21 +45,12 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def rank(entry):
-    """Lower is better. None = regresses some other function (never 'best')."""
-    m = entry.get('metrics') or {}
-    if not m or m.get('lost_windows_normalized_count') != 0:
-        return None
-    return (0 if m.get('sell_raw_equal') else 1, 0 if m.get('sell_size') == 9024 else 1,
-            m.get('align_distance', 10**9), m.get('slot_diffs', 10**9))
-
-
 def locked_append(entry):
     with LOCK.open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         with LOG.open('a') as log:
             log.write(json.dumps(entry, sort_keys=True) + '\n')
-        r = rank(entry)
+        r = sell_score.rank(entry)
         if r is not None:
             best = json.loads(BEST.read_text()) if BEST.exists() else None
             if best is None or r < tuple(best['rank']):

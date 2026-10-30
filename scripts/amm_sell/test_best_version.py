@@ -1,6 +1,7 @@
 """Real locked bookkeeping I/O; no compiler or VM execution."""
 import contextlib
 import importlib.util
+import io
 import json
 import os
 from pathlib import Path
@@ -88,6 +89,54 @@ class BestScoreVersionTests(unittest.TestCase):
                 runner.locked_append(self.entry(0, lost=1))
             self.assertFalse((root/'BEST-v3.json').exists())
             self.assertEqual(len((root/'ATTEMPTS.jsonl').read_text().splitlines()), 1)
+
+    def test_attempts_best_agrees_with_the_ranker(self):
+        # attempts.py best used a three-part key without the sell-size guard,
+        # so a wrong-size attempt with fewer slot diffs could print above the
+        # attempt BEST-v3.json actually tracks.
+        import contextlib
+        import importlib.util
+        from unittest import mock
+
+        def build(name, size, diffs):
+            return {'schema': 'amm-sell-attempt-v1', 'status': 'scored', 'lane': 'test',
+                    'approach': name, 'hypothesis': name,
+                    'metrics': {'score_version': 3, 'lost_windows_normalized_count': 0,
+                                'sell_raw_equal': False, 'sell_size': size,
+                                'align_distance': 120, 'slot_diffs': diffs}}
+
+        parent = HERE.parent.parent / 'work'
+        parent.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=parent) as folder:
+            root = Path(folder)
+            full_size = build('full-size', 9024, 6)
+            wrong_size = build('wrong-size', 200, 4)
+            (root / 'ATTEMPTS.jsonl').write_text(
+                json.dumps(full_size) + '\n' + json.dumps(wrong_size) + '\n')
+            previous = sys.path.pop(0) if sys.path and sys.path[0] == str(HERE) else None
+            sys.path.insert(0, str(HERE))
+            try:
+                spec = importlib.util.spec_from_file_location('attempts_probe', HERE / 'attempts.py')
+                probe = importlib.util.module_from_spec(spec)
+                os.environ['AMM_SELL_SWARM'] = str(root)
+                spec.loader.exec_module(probe)
+            finally:
+                os.environ.pop('AMM_SELL_SWARM', None)
+                sys.path.pop(0)
+                if previous is not None:
+                    sys.path.insert(0, previous)
+            out = io.StringIO()
+            argv = sys.argv
+            sys.argv = ['attempts.py', 'best', '2']
+            try:
+                with contextlib.redirect_stdout(out):
+                    probe.main()
+            finally:
+                sys.argv = argv
+            lines = out.getvalue().splitlines()
+            self.assertEqual(len(lines), 2)
+            self.assertIn('full-size', lines[0])
+            self.assertIn('wrong-size', lines[1])
 
 
 if __name__ == '__main__':

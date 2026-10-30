@@ -20,7 +20,7 @@ import json
 import os
 import sys
 import uuid
-from sell_score import SCORE_VERSION
+from sell_score import SCORE_VERSION, rank
 
 SWARM = Path(os.environ.get('AMM_SELL_SWARM', Path(__file__).resolve().parent.parent)).resolve()
 LOG = SWARM / 'ATTEMPTS.jsonl'
@@ -70,7 +70,7 @@ def main():
         ok = [e for e in builds
               if (e.get('metrics') or {}).get('score_version') == a.score_version
               and (e.get('metrics') or {}).get('lost_windows_normalized_count') == 0]
-        ok.sort(key=lambda e: (not e['metrics']['sell_raw_equal'], e['metrics']['align_distance'], e['metrics']['slot_diffs']))
+        ok.sort(key=rank)
         for e in ok[:a.n]:
             print(short(e))
     elif a.cmd == 'grep':
