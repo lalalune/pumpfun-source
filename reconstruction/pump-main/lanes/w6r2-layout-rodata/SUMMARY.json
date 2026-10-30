@@ -1,0 +1,48 @@
+{
+ "lane": "w6r2-layout-rodata",
+ "wave": 6,
+ "round": 2,
+ "target": "raw (lddw targets, rodata): .rodata/.data.rel.ro layout so data lddw addresses match",
+ "base": "origin/main a7135a6a6, rebased onto 2162b3b00 (1027/1035 normalized, 276 raw)",
+ "pr": "https://github.com/lalalune/pumpfun-source/pull/2255",
+ "best": {
+  "official_normalized": 1027,
+  "official_raw": 276,
+  "gains": [],
+  "losses": [],
+  "raw_losses": [],
+  "unstripped_sha256": "ec660de760c3feb4e7b0b8ff9672fb906ba3777366b9f1fe705d83d11f0b726a",
+  "rodata_aligned_bytes_of_32031": [31993, 32031],
+  "rodata_section_byte_identical_to_original": true,
+  "path_string_order_mismatches_of_33": [1, 0],
+  "normalized_windows_data_offset_equal": [1027, 1027],
+  "data_rel_ro_vs_main": "identical",
+  "text_vs_main": "17 bytes, all lddw operands in admin_cto::execute",
+  "admin_cto_0x22a10": {"ratio": [0.37637, 0.37637], "bytes": [27344, 27344]},
+  "model_raw_if_only_data_bases_moved": {"main_a7135a6": 405, "pr2168": 407}
+ },
+ "mechanisms_kept": [
+  "7e25255a: admin_cto validate as a module-level fn defined before execute (Source lines unchanged; execute header + first statement line moved to line 339). The lower DefIndex makes rustc codegen validate first, so the creator/admin_cto.rs path literal precedes execute's line-766 msg literal, as in the original .rodata"
+ ],
+ "analyses": [
+  "29916500: PreCodegen MIR + rustc RPO model (Postorder next_back): msg bb49 RPO 61/120; the only in-execute Source (410, require!(x==0) -> SimplifyComparisonIntegral switchInt(x)[0:continue,otherwise:err]) RPO 112; nested validate/wallet/sweep are separate mono items codegened after execute",
+  "b41d91fc: all 1027 normalized windows have every .rodata/.data.rel.ro lddw at the original offset (duplicate string copies resolved per symbol). Official raw is blocked only by .text size (main +0x238 B). With data bases rebased, raw would be 405 (main) / 407 (#2168). The rest is call displacement and text-pointer lddw (function placement)",
+  "admin_cto has 86 vs 84 data lddw: 2 extra refs to .data.rel.ro 0x128 (24-B String fmt::Write vtable, error_msg to_string sites; 11 vs 9 sites), which is the source of the 2 extra .rel.dyn entries"
+ ],
+ "rejected": [
+  "44545178 t01 line 410 require! -> if !=0 {return err!}: byte-identical",
+  "48e7cf01 t02 #[inline(always)] nested validate: not MIR-inlined, rodata order unchanged, admin_cto 27168 B / 0.37756",
+  "bd8860c2 t03 require!(creator_fee<1) (non-integral bool switch puts the 410 error block RPO-early): .rodata identical but admin_cto 0.37637 -> 0.35977 (diagnostic only)"
+ ],
+ "unresolved": [
+  ".data.rel.ro: 158 slots differ, all text pointers (function placement / .text size)",
+  ".rel.dyn: 2 extra entries from admin_cto's two extra String-vtable lddw (admin_cto code structure)",
+  "official raw: needs .text at the original size (sum of unmatched-window deltas = 0, plus #2168's wrapper removal); then function placement (layout-order lanes)"
+ ],
+ "next_ideas": [
+  "admin_cto lanes: keep validate module-level before execute (or any form that codegens an admin_cto.rs Source site before the line-766 msg block), or the path literal falls back after the msg",
+  "admin_cto lanes: the original has 9 String fmt::Write vtable (error_msg to_string) sites against our 11, so two error constructions are merged or shared in the original",
+  "integration: rerun tools/dataoff.py and tools/shiftraw.py after each code merge; data layout needs no more work, and official raw jumps (model >=405) as soon as .text total size equals 0x1b58d0"
+ ],
+ "tools": "reconstruction/pump-main/lanes/w6r2-layout-rodata/tools/"
+}

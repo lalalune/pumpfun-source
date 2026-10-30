@@ -1,0 +1,31 @@
+{
+  "lane": "w7r1-buyhandler-inline",
+  "targets": ["0x13b9b8"],
+  "base": "origin/main 6edd839 (1027 normalized / 276 raw); buy_handler 15512 B ratio 0.97998 llc dist 42",
+  "best": {"trial": "qB1", "normalized_match": true, "bytes": 15480, "official_normalized": 1028, "official_raw": 276, "gains": ["0x13b9b8"], "losses": [], "raw_losses": [], "unstripped_sha256": "5a670388f726ef269c9f6b25e357c29f9fd3b87c6fbe7025169779f1f5cb234c", "pr": "https://github.com/lalalune/pumpfun-source/pull/2225"},
+  "mechanism": [
+    "Program-fn form: #[inline(never)] buy_v2 #[program] fn with #[inline(always)] buy_handler (LLVM-inlined body)",
+    "CompleteEvent emission and prepare_bonding_curve(..)? written inline in the handler, drop(ev) after emit_cpi!(ev) (complete_and_prepare helper no longer used by buy_handler)",
+    "TradeEvent literal: virtual_token_reserves, virtual_sol_reserves before real_sol_reserves (regsched/frame mechanism)",
+    "Fee tuple cf-first sell_v2 spelling: let (cf,pf,pbps,cbps)=if whitelisted{(0,0,0,0)}else{let (pf,cf,p,c)=trade_fees(..)?;(cf,pf,p,c)}"
+  ],
+  "key_insight": "Interaction effect: the original body is an LLVM-inlined handler inside the program fn; only in that form do the inline Complete block and the cf-first fee tuple place blocks like the original. Each change alone is neutral or worse in the module form.",
+  "attempts": ["c1","c2","a1","a2","census","m1-mir-probe","P0","D1","PD1","PD1vs","qB1","qV2","qT3"],
+  "rejected": {
+    "complete-and-prepare-plain-fn / inline-hint": "outlined call, 13896 B",
+    "fee-helper buy_fees inline(always)/plain": "dist 123 / 426",
+    "program-fn form alone": "15520 dist 40",
+    "inline complete alone (module form)": "15480 dist 46",
+    "sell_v2 fee tuple pf-first (program form)": "dist 2, zero-mov order"
+  },
+  "analysis": [
+    "Callee census 90/90 identical multiset; only order diff was add-chain overflow closure placement",
+    "Raw-only callee target diffs: orig calls 0x3b598 (ensure_rent_exempt_matched) where we call ensure_rent_exempt; two identical transfer_from_user copies 0x97930 (curve) / 0x97bf0 (recipients)",
+    "rustc MIR inliner applies its cost threshold to #[inline(always)]: complete_and_prepare and snapshot_quote_mint are LLVM-inlined, tiny predicates MIR-inlined"
+  ],
+  "unresolved": ["0x13b9b8 raw: only call/lddw displacement left (global layout)"],
+  "next_ideas": [
+    "Apply the same program-fn form + inline Complete + cf-first fee tuple to buy_exact_quote_in_handler (0x13f630, shares the residuals)",
+    "Raw: call v2_native_payments::ensure_rent_exempt_matched-equivalent from buy_handler as the original does (0x3b598)"
+  ]
+}

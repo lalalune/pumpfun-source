@@ -48,6 +48,7 @@ class PathCrateInvalidationTests(unittest.TestCase):
                  patch.object(fastbuild, 'stage', return_value=crate), \
                  patch.object(fastbuild, 'snapshot', return_value={'sha256': '0' * 64}), \
                  patch.object(fastbuild, 'assert_unchanged'), \
+                 patch.object(fastbuild.link_order, 'configure', return_value=({}, None)), \
                  patch.object(fastbuild, 'acquire_slot', side_effect=lambda: io.StringIO()), \
                  patch.object(fastbuild, 'run_compiler', side_effect=cargo), \
                  patch.object(fastbuild.subprocess, 'run', side_effect=strip):

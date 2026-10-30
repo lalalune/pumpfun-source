@@ -33,11 +33,38 @@ Similarity is `win.py`'s diagnostic ratio, not acceptance.
 ## Acceptance
 
 Only `reconstruction/harness/score.py` decides. A window is done when the scorer says
-`normalized: true` (then `raw: true`). A change is acceptable only if it keeps every
-baseline normalized and raw membership. Never inject original machine code, patch
-emitted bytes, add padding, alter the scorer or toolchain, or treat similarity as
-acceptance. Line numbers are part of the code (`line!()` immediates), so keep the
-`// layout-pad` comment lines balanced when you move code.
+`normalized: true` (then `raw: true`); the end goal is whole meaningful-ELF identity. A change
+is acceptable only if it keeps every baseline normalized and raw membership. Line numbers are
+part of the code (`line!()` immediates), so keep the `// layout-pad` comment lines balanced
+when you move code. Similarity is evidence, not acceptance.
+
+### Build inputs are in scope (2026-10-30)
+
+Anything that is an input to the build may change if it gets closer to the deployed bytes:
+
+- crate and workspace metadata: package name, version, edition, authors, features,
+  workspace layout and paths, `[lib]` settings — everything that feeds `-C metadata`
+  and symbol hashes;
+- `Cargo.lock`, dependency versions, sources and features, vendored or patched dependencies;
+- `[profile.*]` settings, `RUSTFLAGS`/`-C`/`-Z` options, `cargo build-sbf` options, linker
+  arguments and linker scripts;
+- toolchain choice and version (rustc, platform-tools, LLVM, target libraries), and the
+  build recipe itself (`fastbuild.py`, `toolchain/`), as long as it stays pinned.
+
+`programs/pump/link/ordered.ld` is such an input: it puts the upstream-generic instances
+of the root crate and all dependency code in the original's order (the AMM/Fees/Mayhem recipe),
+while local items keep rustc's def order. After a source change that adds or renames generic
+instances, regenerate it with `lanes/w8-sibling-recipes/tools/regen.sh`.
+
+Every such change must be committed, pinned (versions and hashes) and reproducible from a
+clean checkout with the documented recipe, so anyone can rebuild the same bytes.
+
+Still not allowed, because the output would be copied rather than rebuilt:
+
+- inserting original machine code or data (byte blobs, `global_asm!`/inline asm that
+  transcribes original instructions, `include_bytes!` of original sections);
+- patching, padding or rewriting the emitted ELF after the linker;
+- changing the scorer or its normalization (bug fixes reviewed separately are fine).
 
 ## Working rules
 
