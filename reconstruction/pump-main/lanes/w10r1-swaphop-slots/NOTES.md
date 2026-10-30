@@ -106,3 +106,12 @@ dcf89de3 (IR polarity oracle), dccdfce1 (reload curve Box), 6523f883 (split else
    for example the order of the route's temporaries (`authority_info`, `ix_data`, `ix`), or the event built before
    `complete=true`.
 3. 0x3978 is probably a downstream effect of global RA. Re-check it after each structural fix upstream on x1m.
+
+## Landing addendum (merge of origin/main bf0b20087)
+
+The figures above were measured against e9e87de87. Since then, w10r1-swaphop-stitch (#2574) changed
+`programs/pump/src/multi_hop_curve_swap.rs`. A fresh build of bf0b20087 scores 1033 normalized / 1033 raw
+with zero losses, and swap_hop is 18,584 B, ratio 0.97551, slots_diff 672. The merged branch builds
+byte-identically to main (unstripped sha256 5de92be1…), because this lane adds only notes and tools.
+Before reusing the per-site slot values (+142 for the 0x3978/0x3df8 pair, and the others), rerun
+`shift_sites.py` against the current build.
