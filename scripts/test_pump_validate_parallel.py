@@ -75,6 +75,45 @@ class ParallelReportPublicationTests(unittest.TestCase):
         self.assertFalse(self.run_validator(output))
         self.assertEqual(json.loads(output.read_bytes())['case_count'], 1)
 
+    def test_malformed_loader_completion_marker_is_not_admitted(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / 'loader.json'
+            for flag in (0, 1, None, "false", "true"):
+                with self.subTest(flag=flag):
+                    path.write_text(json.dumps({'loads': [{}], 'ok': flag}))
+                    with self.assertRaisesRegex(AssertionError, 'invalid loader completion marker'):
+                        validator.validate_loader_receipt('suite', path, path, path, path, [])
+
+    def test_failed_loader_receipt_is_not_admitted(self):
+        # A receipt written after a failed harness run carries ok:false and
+        # the failure text; admission must reject it before binding checks,
+        # while receipts sealed before the marker existed stay admissible.
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            script = root / 'suite.py'
+            script.write_text('pass\n', encoding='utf-8')
+            receipt = root / 'loader.json'
+            receipt.write_text(json.dumps({
+                'loads': [{'elf_sha256': '0' * 64}],
+                'ok': False,
+                'error': 'RuntimeError: fixture exploded',
+                'harness': str(script.resolve()),
+            }), encoding='utf-8')
+            with self.assertRaisesRegex(AssertionError, 'loader harness run failed'):
+                validator.validate_loader_receipt(
+                    'suite', receipt, script, script, script, [])
+            legacy = root / 'legacy-loader.json'
+            payload = json.loads(receipt.read_text())
+            payload.pop('ok')
+            payload.pop('error')
+            legacy.write_text(json.dumps(payload), encoding='utf-8')
+            # The legacy receipt gets past the new marker check and fails
+            # later on its (absent) input binding, not on the marker.
+            with self.assertRaises((AssertionError, KeyError)) as raised:
+                validator.validate_loader_receipt(
+                    'suite', legacy, script, script, script, [])
+            self.assertNotIn('loader harness run failed', str(raised.exception))
+
     def test_bound_inputs_are_rejected_before_worker_publication(self):
         for output in (self.candidate, self.build_comparison, self.suite):
             with self.subTest(output=output):
