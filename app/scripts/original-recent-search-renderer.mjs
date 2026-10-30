@@ -244,6 +244,24 @@ export async function recover(root = APP_ROOT) {
     constants[name] = p.value.value;
     proofs.push(cite(roles, p, "source event enum " + name));
   }
+  const chainFactory = await corpus.factory(646908, {
+      source: "evidence/web/objects/1e479323ffe53c14.js",
+    }),
+    chain = value(chainFactory, "d");
+  assert.equal(chain.type, "StringLiteral");
+  assert.equal(chain.value, "near:mainnet");
+  const chainImport = own(f, "eY");
+  assert.equal(chainImport.init.arguments[0].value, 646908);
+  proofs.push(
+    cite(f, chainImport, "credited Near helper chain namespace"),
+    cite(chainFactory, chain, "credited Near result chain_id literal"),
+  );
+  const nearResult = {
+    byAddress:
+      "Map keyed by raw Near address; supplied records preserve other fields and carry chain_id",
+    chainId: chain.value,
+    pending: "cohort boolean from credited tc combine",
+  };
   const ns = Object.entries({ ...namespaces, ...rendererNamespaces })
 
     .map(
@@ -414,6 +432,7 @@ export async function recover(root = APP_ROOT) {
     queryKeyBinding: "eK.f.profile -> ports.groupProfileKey",
     rendererNamespaces,
     constants,
+    nearResult,
     bindings,
     proofs,
     dependencies,

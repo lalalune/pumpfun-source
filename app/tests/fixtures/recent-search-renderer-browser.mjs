@@ -71,6 +71,7 @@ const renderers = {
   CoinRow: (p) => {
     records.coinRows.push({
       mint: p.coin.mint,
+      chainId: p.coin.chain_id,
       index: p.index,
       sourceScreen: p.sourceScreen,
       sourceElement: p.sourceElement,

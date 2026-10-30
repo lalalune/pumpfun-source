@@ -22,6 +22,7 @@ test("complete RecentTerms/address/group-query frames and MAIN/provider boundari
   assert.equal(c.requiredFunctions.length, 22);
   assert.equal(c.requiredRenderers.length, 8);
   assert.equal(c.constants.RECENT_LIST, 30);
+  assert.equal(c.nearResult.chainId, "near:mainnet");
   assert(
     c.proofs.some(
       (p) => p.label === "actual MAIN/#1925 RecentTerms props handoff",

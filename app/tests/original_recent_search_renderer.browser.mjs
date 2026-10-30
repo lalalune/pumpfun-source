@@ -232,7 +232,12 @@ test(
         coinLoading: false,
         coins: [{ mint: values.EVM, name: "Evm" }],
         nearPending: false,
-        nearData: [[values.NEAR, { mint: values.NEAR, name: "Near" }]],
+        nearData: [
+          [
+            values.NEAR,
+            { mint: values.NEAR, name: "Near", chain_id: "near:mainnet" },
+          ],
+        ],
       });
       await page.waitForFunction(
         () =>
@@ -254,6 +259,11 @@ test(
             c.sourceElement === 30 &&
             c.searchTerm === values.EVM &&
             c.callbackMatches,
+        ),
+      );
+      assert(
+        r.coinRows.some(
+          (row) => row.mint === values.NEAR && row.chainId === "near:mainnet",
         ),
       );
       assert(r.groupRows.at(-1).callbackMatches);
