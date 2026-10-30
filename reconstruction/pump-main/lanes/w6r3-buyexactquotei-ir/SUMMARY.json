@@ -1,0 +1,13 @@
+{
+  "lane": "w6r3-buyexactquotei-ir",
+  "base": "origin/main 6484b2837d182e9e6f8e0784c930e9bdff584b7d",
+  "targets": ["0x13f630"],
+  "best": {"normalized": 1028, "raw": 293, "gains": ["0x13f630"], "losses": [], "raw_losses": [],
+           "target": {"slots_diff": 0, "ratio": 1.0, "cand_bytes": 20184, "normalized_equal": true, "raw_equal": false},
+           "unstripped_sha256": "7ec420ec6bb52548ebfe84516da1d75dae00e1af3333b66809ae81f681a0a5d0"},
+  "attempts": ["98e2a07cab034f83bd247895341e29f4"],
+  "mechanism": "PR #2269 by-ref partial into #[inline(always)] handler under #[inline(never)] program fn, inline Complete tail + drop(ev), ported to current main",
+  "rejected_mechanisms": [],
+  "unresolved_residuals": ["raw: 130 call displacements + 49 section lddw from layout of other unmatched windows"],
+  "next_ideas": ["raw match follows once the windows between call sites and targets match; supersedes PRs #2240/#2264/#2269 for this window"]
+}

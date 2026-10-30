@@ -13,6 +13,7 @@ it, function by function, with the deployed original in
 | `harness/win.py` | Window inspection: unmatched list, original/candidate disassembly and normalized diffs. |
 | `harness/target_metric.py` | Per-window closeness: differing normalized slots, instruction ratio and call counts for a candidate build. |
 | `harness/coords.py`, `triage.py`, `treediff.py`, `integrate.py` | Source-coordinate extraction, residual triage, tree diffs and multi-lane composition. |
+| `harness/link_order.py`, `pump_link_rustc.py`, `pump_link_lld.py`, `sbf_default.ld` | Pinned link order: when the crate carries `link/ordered.ld`, fastbuild links the root cdylib with it instead of the SBF default script (input-section reordering only; see `pump-main/lanes/w8-sibling-recipes/NOTES.md`). |
 | `harness/make_hybrid144.sh`, `harness/linux144-sbpf-target-libs.sha256` | Recipe and pins for the identity toolchain. |
 | `toolchain/linux-v1.44-x86_64/` | The 25 `sbpf-solana-solana` target libraries from the official Linux x86_64 platform-tools v1.44 archive. |
 | `toolchain/v1.44-macos-inventory.json` | SHA-256 of every file in the macOS arm64 platform-tools v1.44 SDK. |

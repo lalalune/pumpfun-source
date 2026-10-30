@@ -1,0 +1,24 @@
+{
+  "lane": "w6r2-buyexactquote-sem",
+  "target": "0x1489f8 pump_recovered::trade::buy_exact_quote",
+  "base": {"commit": "a7135a6a6", "ratio": 0.851, "bytes": 7872, "masked": 0.9675, "normalized": 1027, "raw": 276},
+  "best": {"trial": "r6", "ratio": 0.9895, "bytes": 7856, "insns": "952/952", "calls": "66/66", "slots_diff": 10,
+           "normalized": 1027, "raw": 293, "main": "e3f3be8bb", "losses": [], "raw_losses": [],
+           "unstripped_sha256": "5d8296db26c8fb335301481448bde6b93efd0b9ff5f586d1406f50536b4468e0"},
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/2287",
+  "mechanisms_landed": [
+    "plain non-leaf wrappers net_quote(&fees) and net_costs(&net_fees): the locals stay address-taken until LLVM inlining, so LLVM SROA splits them after the MIR-SROA fragments (0.851 -> 0.956)",
+    "cost_total(&costs) for both add(costs.0,costs.1) sites (-> 0.965)",
+    "emit_exact_quote(fees, post by value): SSA in MIR, CopyProp drops the markers, the inliner adds entry lifetime.starts, prologue lea early (-> 0.972)",
+    "block-scoped base_reserves before v3_pool_before: argument load order (-> 0.974)",
+    "estimate Option first, fit in a separate match: the join block is created after the v3_pool_before Ok block, jne polarity (-> 0.9895, 7856 B)"
+  ],
+  "key_insight": "LLVM SROA pops allocas lowest-MIR-local first; the original behaves as if user locals (fees, net_fees, costs) are split after the ? temporaries. Plain non-leaf helpers taking &local reproduce that order. BPF cannot reverse branches after ISel, so block creation order decides the branch polarity.",
+  "attempts": 90,
+  "rejected_mechanisms": ["tuple/destructure/rename spellings of net_fees (a*, c*, f*, s*)", "let mut fees reassigned (e*)", "field-wise rebuilt TradeFees (t*, a03)", "leaf &TradeFees helpers (MIR-inlined)", "single wrapper only (y1/y3)", "no wrapper / named quoted? (w*)", "cross arm reading net_fees bps (v*)", "deferred trade_fees per arm (db*)", "emit/execute helper variants (u1/u3/k1/k2)", "post-split spellings (q*, r2, r3, e1, e2)"],
+  "unresolved_residuals": ["stack colouring: fees10 (emit &fees) in our 0x40 formatter/post23 group instead of the original's 0x160 group, which also moves _301 (v3_execute_buy result) from 0x90 to 0x160: 10 slots"],
+  "next_ideas": [
+    "make fees10's first use fall inside post23's lifetime (between the estimate payload's death and the end of fit_post_complete), e.g. a cross-arm spelling where the final fees value is stored to the emitted alloca right after fit",
+    "check with frameoracle --edit which marker placement for fees10 / estimate reproduces the original groups exactly, then find the source for it"
+  ]
+}
