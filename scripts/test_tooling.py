@@ -1212,6 +1212,7 @@ class SyscallFingerprintTests(unittest.TestCase):
         rel = b''.join(struct.pack('<QQ', at, (idx << 32) | 10)
                        for at, idx in ((8, 1), (16, 2), (48, 1)))
         elf = SimpleNamespace(b=code + dynsym + rel, symbols={1: 'abort', 2: 'helper'},
+            file_offset=lambda address, size: address,
             secs={'.dynsym': (0, 11, 0, 0, len(code), len(dynsym), 0, 0, 8, 24),
                   '.rel.dyn': (0, 9, 0, 0, len(code)+len(dynsym), len(rel), 0, 0, 8, 16)})
         fp = deep_disassembly.fingerprint_window(elf, 0, len(code))
@@ -1226,6 +1227,7 @@ class SyscallFingerprintTests(unittest.TestCase):
                 sym = bytes(48)
                 rel = struct.pack('<QQ', 0, (index << 32) | typ)
                 elf = SimpleNamespace(b=code + sym + rel, symbols={1: 'abort'},
+                    file_offset=lambda address, size: address,
                     secs={'.dynsym': (0, 11, 0, 0, 8, 48, 0, 0, 8, entry_size),
                           '.rel.dyn': (0, 9, 0, 0, 56, 16, 0, 0, 8, 16)})
                 self.assertEqual(deep_disassembly.fingerprint_window(
@@ -2137,6 +2139,7 @@ class FallbackDispatchRelocationTests(unittest.TestCase):
         blob[0x50:0x58] = bytes.fromhex('8510000000000000')
         return SimpleNamespace(
             b=bytes(blob), lo=0x40, hi=0x58, funcs=[],
+            text_offset=lambda address: address if 0x40 <= address < 0x58 else None,
             relocations={0x40: {'type': 8, 'symbol': ''}} if relocated else {},
         )
 

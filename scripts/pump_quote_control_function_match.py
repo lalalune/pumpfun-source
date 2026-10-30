@@ -13,10 +13,19 @@ offsets and branch displacements) must be identical. Raw equality is separate;
 masked matches do not prove callee or data identity. This is analysis only; no
 executable is written or patched.
 """
-import argparse, hashlib, json, pathlib, re, shutil, struct, subprocess, tempfile
+import argparse, hashlib, json, pathlib, re, shutil, struct, subprocess, sys, tempfile
+from functools import lru_cache
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 ORIGINAL = ROOT / 'evidence/original/pump/deployed.so'
+sys.path.insert(0, str(ROOT / 'reconstruction/harness'))
+from instruction_stream import instruction_boundaries
+
+
+@lru_cache(maxsize=2)
+def _text_boundaries(image, offset, size):
+    # Decode once per immutable image, not once per function in a full census.
+    return instruction_boundaries(memoryview(image)[offset:offset + size])
 
 
 def resolve_objdump(objdump):
@@ -30,7 +39,8 @@ def protect_report_output(output, inputs, objdump):
         return
     destination = pathlib.Path(output)
     tool = resolve_objdump(objdump)
-    for value in [*inputs, pathlib.Path(__file__), pathlib.Path(tool)]:
+    for value in [*inputs, pathlib.Path(__file__), pathlib.Path(tool),
+                  pathlib.Path(instruction_boundaries.__code__.co_filename)]:
         source = pathlib.Path(value)
         if (destination.resolve() == source.resolve()
                 or (destination.exists() and source.exists() and destination.samefile(source))):
@@ -47,13 +57,16 @@ def sections(blob):
 
 
 def function_body(image, image_sections, address, size):
-    """Read complete SBF slots only from a physically present .text range."""
+    """Read complete logical instructions from a physically present .text range."""
     text = image_sections['.text']
     relative = address - text['addr']
     if size <= 0 or size % 8 or relative % 8 or not 0 <= relative <= text['size'] - size:
         raise ValueError('function range must contain complete aligned slots within .text')
     if text['offset'] < 0 or text['size'] < 0 or text['offset'] + text['size'] > len(image):
         raise ValueError('truncated .text file payload')
+    boundaries = _text_boundaries(bytes(image), text['offset'], text['size'])
+    if relative not in boundaries or relative + size not in boundaries:
+        raise ValueError('function range does not follow a logical instruction boundary')
     offset = text['offset'] + relative
     return image[offset:offset + size]
 

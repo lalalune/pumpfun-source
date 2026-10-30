@@ -61,6 +61,11 @@ def run_compiler(command, *, timeout=None, **kwargs):
         except subprocess.TimeoutExpired:
             timed_out = True
             output = stop_and_collect()
+        else:
+            # A leader can exit while a descendant with redirected output is
+            # still running. Stop the group before callers release build locks
+            # or publish artifacts, just as on timeout or interruption.
+            stop_group()
     except BaseException:
         stop_and_collect()
         raise

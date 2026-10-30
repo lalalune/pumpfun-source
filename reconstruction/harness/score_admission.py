@@ -27,7 +27,7 @@ def sections(blob):
         if h[1] != 8 and h[4] + h[5] > len(blob): raise ValueError('truncated section payload: ' + name)
         if h[3] + h[5] > 1 << 64: raise ValueError('section address overflow')
         if name == '.text' and h[1] != 1: raise ValueError('.text must be file-backed PROGBITS')
-        result[name] = {'addr': h[3], 'offset': h[4], 'size': h[5]}
+        result[name] = {'addr': h[3], 'offset': h[4], 'size': h[5], 'type': h[1]}
     if '.text' not in result: raise ValueError('missing .text section')
     return result
 

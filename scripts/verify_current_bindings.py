@@ -93,6 +93,12 @@ def verify_maps(root, groups, tracked):
     return checked, historical
 
 
+def tracked_key(path):
+    """Git ls-files spelling: str(relative_to) is host-dependent and never
+    matched the forward-slash tracked set on Windows."""
+    return path.relative_to(ROOT).as_posix()
+
+
 def current_pump_groups(package):
     """Bind live published inputs without treating scratch origins as live files."""
     read = lambda name: json.loads((package / name).read_text())
@@ -111,7 +117,7 @@ def current_pump_groups(package):
         "canonical_harness": maps["canonical_harness"],
         "static_and_saved_verifiers": maps["static_and_saved_verifiers"],
         "documentation": maps["owned_documentation"],
-        "candidate": {str((package / "candidate.so").relative_to(ROOT)):
+        "candidate": {tracked_key(package / "candidate.so"):
                       read("manifest-sha256.json")["candidate.so"]["sha256"]},
     }
     # The old single-curve runner and verifier have exact published aliases in

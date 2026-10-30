@@ -30,6 +30,7 @@ import sys
 
 sys.path.insert(0, str(ROOT / "scripts"))
 from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
 ORIGINAL = ROOT / "evidence/original/pump/deployed.so"
 IDL = ROOT / "evidence/upstream/pump.json"
 FIXTURE = ROOT / "research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json"
@@ -272,6 +273,19 @@ def main():
     parser.add_argument("--candidate", type=Path)
     parser.add_argument("--output", type=Path, default=OUT)
     args = parser.parse_args()
+    source_names = (
+        "programs/pump/Cargo.toml", "programs/pump/Cargo.lock",
+        "programs/pump/src/lib.rs", "programs/pump/src/volume_sync.rs",
+        "programs/pump/src/token_incentives/mod.rs",
+        "programs/pump/src/token_incentives/claim_token_incentives.rs",
+        "scripts/pump_claim_token_incentives_differential.py")
+    dependency_paths = {name: ROOT / f"evidence/dependencies/{name}/deployed.so"
+                        for name in ("spl_token_2022", "associated_token")}
+    inputs = [ORIGINAL, IDL, FIXTURE, *dependency_paths.values(),
+              *(ROOT / name for name in source_names)]
+    if args.candidate:
+        inputs.append(BUILD)
+    publisher = PumpReport(args.output, ROOT, args.candidate, __file__, extra_inputs=inputs)
     original = pin_program(ORIGINAL)
     assert sha(original.read_bytes()) == \
            "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
@@ -297,14 +311,8 @@ def main():
                "build_receipt_sha256": sha(build_bytes) if args.candidate else None,
                "idl_sha256": sha(IDL.read_bytes()),
                "fixture_sha256": sha(FIXTURE.read_bytes()),
-               "dependency_sha256": {name: sha((ROOT / f"evidence/dependencies/{name}/deployed.so").read_bytes())
-                                     for name in ("spl_token_2022", "associated_token")},
-               "source_sha256": {name: sha((ROOT / name).read_bytes()) for name in (
-                   "programs/pump/Cargo.toml", "programs/pump/Cargo.lock",
-                   "programs/pump/src/lib.rs", "programs/pump/src/volume_sync.rs",
-                   "programs/pump/src/token_incentives/mod.rs",
-                   "programs/pump/src/token_incentives/claim_token_incentives.rs",
-                   "scripts/pump_claim_token_incentives_differential.py")},
+               "dependency_sha256": {name: sha(path.read_bytes()) for name, path in dependency_paths.items()},
+               "source_sha256": {name: sha((ROOT / name).read_bytes()) for name in source_names},
                "script_sha256": sha(Path(__file__).read_bytes()),
                "signed_local": True, "offline_only": True,
                "summary": {"cases": len(report_rows),
@@ -313,8 +321,7 @@ def main():
                            "target_successes": sum(row["target"]["success"] for row in report_rows)},
                "qualification": "GlobalVolumeAccumulator and its incentive ATA are locally constructed; the user volume, mint and user ATA come from a saved signed Pump-created/traded fixture and are modified only as listed per case. Positive synthetic state is not a proven live accrual. Token-2022 CPI executes its pinned dependency. No full handler/source or current fund-risk claim.",
                "cases": report_rows}
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(receipt, indent=2) + "\n")
+    publisher.write((json.dumps(receipt, indent=2) + "\n").encode("utf-8"))
     print(json.dumps({"cases": len(report_rows),
                       "successes": receipt["summary"]["target_successes"],
                       "results": [(row["case"]["name"], row["target"]["error_code"],
