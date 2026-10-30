@@ -56,7 +56,7 @@ class FailedRebuildPreservationTests(unittest.TestCase):
         def run(command, **options):
             if command[0] == 'rsync':
                 return types.SimpleNamespace(returncode=0)
-            if command[0].endswith("/cargo"):
+            if Path(command[0]).name == 'cargo':
                 target = Path(options["env"]["CARGO_TARGET_DIR"])
                 artifact = target / "sbpf-solana-solana/release" / BUILD.PROGRAM
                 artifact.parent.mkdir(parents=True)
