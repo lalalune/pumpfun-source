@@ -1,17 +1,44 @@
-# w14a20-cto-reloadarm: deref-behind-short-circuit / in-arm reload spellings for admin_cto::execute (0x22a10)
+# w14a20-cto-reloadarm: in-arm / after-clobber reload spellings for admin_cto::execute (0x22a10)
 
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
-Base: main b174038c1 (#3250): 0.63571, 3,173 slots, 27,400 B, **M = 2,122** (matched original instructions).
-Angle: continue w14a14-cto-mf1fill (#3241 qlin2, #3246 notes). qlin2 showed that a source re-read becomes a real reload only
-when no load of the same address dominates it. This lane looked for more source forms of that mechanism.
-Ledger keys: `0x22a10-w14-b174038-reloadarm-*-v1` (approach `reloadarm-source`).
+Angle: continue w14a14-cto-mf1fill (#3241 qlin2, #3246 notes): a source re-read becomes a real reload only when no load of
+the same address dominates it, or when a store that may alias it sits in between.
+Ledger keys: `0x22a10-w14-b174038-reloadarm-*-v1` and `0x22a10-w14-1b0ae70-reloadarm-*-v1` (approach `reloadarm-source`).
 
-**Result: no zero-loss gain and no source change. On b174038 the mechanism has no second faithful instance.** Of the
-three IR re-read leads above main, one is a stack-slot artifact with broken semantics. The other two have no source
-spelling that keeps main's CFG. Every in-arm or short-circuit spelling that would make the read a real reload either
-folds back to main (GVN), or it adds a branch to the head and the layout collapses (M −150 to −560).
+## Landing candidate on main 1b0ae7021 (0.63661, M 2,125): `g1_ev_hr_curve`
 
-## 1. Oracles re-run on b174038, ranked by M
+| | main 1b0ae70 | g1_ev_hr_curve |
+| --- | ---: | ---: |
+| admin_cto ratio | 0.63661 | **0.63930** |
+| slots_diff | 3,173 | 3,174 |
+| bytes | 27,400 | 27,400 |
+| M (matched original instructions) | 2,125 | **2,134** |
+| normalized / raw | 1034 / 1034 | 1034 / 1034, 0 losses |
+| differential | | 363 cases, 0 mismatches |
+| unstripped sha16 | | e0535b7613ed973d |
+
+```rust
+// sharing CPI, event_authority clone. before:
+event_authority:{let x=&*a.pump_fees_event_authority;AccountInfo{lamports:x.lamports.clone(),data:x.data.clone(),key:x.key,owner:x.owner,..}}
+// after: every field read through a.pump_fees_event_authority
+event_authority:AccountInfo{lamports:a.pump_fees_event_authority.lamports.clone(),data:a.pump_fees_event_authority.data.clone(),key:a.pump_fees_event_authority.key,..}
+// AdminCtoEvent. before: is_holder_reward:holder   after (the original's event form, orig 0x4fe0 ldxb [curve+0xa5]):
+is_holder_reward:a.bonding_curve.is_holder_reward
+```
+
+Mechanism:
+- **g1 is a real reload with a real clobber.** `lamports.clone()`/`data.clone()` store to the Rc strong counts. Those
+  stores have no noalias metadata, so they may alias the accounts struct. A field read written as
+  `a.pump_fees_event_authority.<f>` after the first clone therefore reloads the AccountInfo pointer (accounts+160).
+  With the `x` binding, x stays one SSA value across the clones. g1 reproduces the IR re-read lead `%x20` (found on
+  1b0ae70) token for token: M 2,130 at +8 B.
+- `ev_hr_curve` (w12a13 size-knob catalog) repays the 8 B. The event reads `is_holder_reward` back from the curve, as the
+  original does, instead of holding `holder` in a register (#3257 had switched it to `holder`). Together: M 2,134 at 27,400 B.
+- The other hand-written clones (pool_authority, global, mint and the two sweep pump_amm clones) lose M when read
+  this way in full (`irreM-1b0ae70.tsv`, `%x`, `%x18`, `%x19`, `%x.i`, `%x11.i`). Partial forms (only the reads after the
+  first Rc clone) are screened in section 5.
+
+## 1. Oracles re-run on b174038 (before #3257), ranked by M
 
 w14a03's raw-IR capture (`capvar.sh` -> `capraw.py`) plus `rx.py` (opt -O3 + llc) reproduces main exactly (`eq_main`,
 0.63571 / 27,400 B / M 2,122). `rx.py`, `irre.py`, `irhold.py` and `irremat.py` now also print M. Tables:
