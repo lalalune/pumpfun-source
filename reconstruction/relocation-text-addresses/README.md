@@ -55,3 +55,13 @@ virtual address for strings that reach its end. The comparison predicate and
 all three relocation substitutions remain unchanged. The six math and five
 relocation successor tests pass against these combined bytes. The reader pin
 remains `5a57f32949f983fc6f9ddf40916cd04bfcd2a73b6a16cc0e9d5d6872180dac32`.
+
+The source binding was reviewed again with the #2625 analyzer
+(`2c1c81602986cb0d988446923a6add9e10f4cffa6189737fa1cf1497345ce09b`).
+It binds immediate comparisons to the destination register and recovers real IDL
+discriminators from the dispatch tables. The replaced comparison predicate and
+the three relocation substitutions remain unchanged, and the six math and five
+relocation successor tests pass against these bytes, including the captured
+Pump pair at file offset `0xd278` and every relocation report recorded above.
+The reader pin remains
+`5a57f32949f983fc6f9ddf40916cd04bfcd2a73b6a16cc0e9d5d6872180dac32`.

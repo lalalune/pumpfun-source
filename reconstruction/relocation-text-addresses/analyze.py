@@ -7,7 +7,7 @@ import sys
 import types
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE_SHA256 = '4b3c5cb204f8a287b5337e14932468c47713f0a0a38f274e1e46fec1e905f8c2'
+SOURCE_SHA256 = '2c1c81602986cb0d988446923a6add9e10f4cffa6189737fa1cf1497345ce09b'
 READER_SHA256 = '5a57f32949f983fc6f9ddf40916cd04bfcd2a73b6a16cc0e9d5d6872180dac32'
 
 
