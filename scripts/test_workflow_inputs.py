@@ -2,6 +2,7 @@ import contextlib
 import io
 import json
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -173,6 +174,57 @@ class WorkflowInputsTests(unittest.TestCase):
         with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as error:
             self.run_check('--base', 'HEAD')
         self.assertEqual(error.exception.code, 2)
+
+    def test_retained_dependency_workflow_detects_deleted_script(self):
+        repository = Path(__file__).resolve().parents[1]
+        workflow = '.github/workflows/search-dependency.yml'
+        script = 'scripts/search_dependency_commit.py'
+        self.write(workflow, (repository / workflow).read_text(encoding='utf-8'))
+        self.write(script, (repository / script).read_text(encoding='utf-8'))
+        self.git('add', '.')
+        self.git('-c', 'user.name=fixture', '-c', 'user.email=fixture@example.invalid',
+                 '-c', 'commit.gpgsign=false', 'commit', '-qm', 'retained dependency workflow')
+        self.assertEqual(self.run_check('--base', 'HEAD')[0], 0)
+        (self.root / script).unlink()
+        completed = subprocess.run([
+            sys.executable, '-B', check.__file__, '--repo', str(self.root), '--base', 'HEAD',
+        ], capture_output=True, text=True)
+        self.assertEqual(completed.returncode, 1, completed.stdout + completed.stderr)
+        report = json.loads(completed.stdout)
+        self.assertEqual({tuple(row) for row in report['new_missing']}, {
+            (workflow, job, script) for job in (
+                'associated-token', 'token-metadata-plain',
+                'token-metadata-resize', 'token-metadata-resize-padded')})
+
+    def test_continuations_preserve_shell_quote_and_comment_boundaries(self):
+        cases = [
+            ('python \\\n-B scripts/ok.py', 'python -B scripts/ok.py'),
+            ('python scripts/o\\\nk.py', 'python scripts/ok.py'),
+            ('python "scripts/o\\\nk.py"', 'python "scripts/ok.py"'),
+            ("python 'scripts/o\\\nk.py'", "python 'scripts/o\\\nk.py'"),
+            ('# comment \\\npython scripts/ok.py', '# comment \\\npython scripts/ok.py'),
+            ('echo ># comment \\\npython scripts/ok.py', 'echo ># comment \\\npython scripts/ok.py'),
+            ('echo <# comment \\\npython scripts/ok.py', 'echo <# comment \\\npython scripts/ok.py'),
+            ('python scripts/ok.py # comment \\\npython scripts/next.py',
+             'python scripts/ok.py # comment \\\npython scripts/next.py'),
+            ('python scripts/ok.py \\\\\npython scripts/next.py',
+             'python scripts/ok.py \\\\\npython scripts/next.py'),
+        ]
+        for command, expected in cases:
+            with self.subTest(command=command):
+                self.assertEqual(check.join_line_continuations(command), expected)
+
+    def test_continued_commands_and_comments_keep_distinct_references(self):
+        source = 'jobs:\n  test:\n    steps:\n      - run: |\n          python -B scripts/o\\\n          k.py\n          # comment \\\n          python scripts/next.py\n'
+        refs, unsupported = check.references('test.yml', source)
+        self.assertEqual({row[2] for row in refs}, {'scripts/ok.py', 'scripts/next.py'})
+        self.assertFalse(unsupported)
+
+    def test_continued_heredoc_operator_does_not_expose_body_commands(self):
+        source = 'jobs:\n  test:\n    steps:\n      - run: |\n          cat <\\\n          <EOF\n          python scripts/not-executed.py\n          EOF\n'
+        refs, unsupported = check.references('test.yml', source)
+        self.assertFalse(refs)
+        self.assertIn(('test.yml', 'test', 'heredoc body requires shell parsing'), unsupported)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "classification": "Proposed existing-script asset transition; requires maintainer review",
+  "baseRevision": "2bb05a51af71a8b8e3ba834f16c8db720f57ce2b",
+  "hashScope": "Exact Git source bytes; no captured ELF normalization",
+  "files": [
+    {
+      "path": "scripts/check_workflow_inputs.py",
+      "beforeSha256": "602c56a1f123d1302f5c0a696420dcf42267fa7ad1862714bb28159907d18f30",
+      "proposedSha256": "90faa47d44f55597c0e72c5742121e52c12e4e2e68fc7fbc301457ae2f907aaf"
+    },
+    {
+      "path": "scripts/test_workflow_inputs.py",
+      "beforeSha256": "bdc7cc38d85c64839f697c7803df05b85d1edb6d9f374fe9369ac9d3bd17f523",
+      "proposedSha256": "4e65ebc60bf19017e70576ef3b700ebf0fc2c4cddafd380728373dce473c1b3e"
+    }
+  ],
+  "scriptSetChanged": false,
+  "programSourceChanged": false,
+  "captureBytesChanged": false
+}
