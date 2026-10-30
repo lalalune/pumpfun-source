@@ -16,7 +16,12 @@ from pathlib import Path
 H = Path(__file__).resolve().parent
 SC = H.parent
 sys.path.insert(0, str(H))
-import fastbuild  # noqa
+
+
+def build_source(*args, **kwargs):
+    # File-only composition does not need the builder's POSIX locking support.
+    import fastbuild
+    return fastbuild.build(*args, **kwargs)
 
 
 def make_patch(base: Path, part: Path, out: Path, tmp: Path):
@@ -131,7 +136,7 @@ def main():
             (out / 'rejects' / f'{label}.txt').write_text(dry.stdout + dry.stderr)
             report['parts'].append({'label': label, 'status': 'conflict', 'detail': (dry.stdout + dry.stderr)[-1500:]})
     if not a.no_build:
-        res = fastbuild.build(src, out / 'work', out / 'build', quiet=True)
+        res = build_source(src, out / 'work', out / 'build', quiet=True)
         report['build'] = res
         if res['ok']:
             s = subprocess.run([sys.executable, str(H / 'score.py'), str(out / 'build/unstripped.so'),
