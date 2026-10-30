@@ -3,7 +3,8 @@
 Target: `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Angle: register assignment and ISel temporaries. That covers the error-payload registers (orig r9/r7), which value is
 computed first, and by-value copies.
-Bases: main 3912c47ac (0.48772), then 085e5dffb (#2885, 0.48922), then 8370e2f8a (0.49071, 3,313 slots).
+Bases: main 3912c47ac (0.48772), then 085e5dffb (#2885, 0.48922), 8370e2f8a (0.49071), cb298d5c8 (0.49101) and
+9eb6c0084 (0.49131, 3,280 slots).
 
 Everything below is an experiment on IR or a measured source build. No source change is proposed yet.
 
@@ -21,6 +22,8 @@ Everything below is an experiment on IR or a measured source build. No source ch
 | `regdelta.py A B [seg]` | matched tokens per original region for two builds or `fn.bin` files: where a change gains or loses |
 | `side2.py`, `objdis.sh`, `tokio.py` | side-by-side view with registers and frame masked (`R` = register-only difference); disassembler for llc objects |
 | `edit_sink1.py` | the IR edit behind finding 3 (`SINK=<value> ctoracle.py run mod.ll out --edit edit_sink1.py`) |
+| `greedymv.py <mod.ll> <scan.jsonl> <out>` | greedy stacking of the `movescan.py` edits that changed code, size pinned |
+| `clonefeat.py` | copy of w13a09's clone-run register-allocation feature (accounts-pointer spill/reg uses), reading tokens through `ctoracle.py` |
 
 ## Findings
 
@@ -47,6 +50,22 @@ Everything below is an experiment on IR or a measured source build. No source ch
    for example from the flags it keeps in frame slots as phis of constants (orig reloads cashback/holder from `[r10-0x950]` /
    `[r10-0x958]` right after the sharing CPI; ours recomputes them in registers). Sinking all 5 loads gives 27,408 B.
    Hoists are all <= main.
+   It holds on every base this lane measured (all at 27,400 B, single edit, llc oracle tokens equal to the build):
+
+| main | main ratio | + sink one mint-clone field load | abs |
+| --- | ---: | ---: | --- |
+| 085e5dffb | 0.48922 | 0.5009 | 0.69053 -> 0.70491 |
+| 8370e2f8a | 0.49071 | 0.5027 | 0.68933 -> 0.70371 |
+| cb298d5c8 | 0.49101 | 0.5030 | 0.68993 -> 0.70431 |
+| 9eb6c0084 | 0.49131 | 0.5033 | 0.68993 -> 0.70431 |
+
+   - w13a09's `clonefeat.py` (spill/reg of accounts-pointer uses in the clone runs): 2/6 -> 3/5; the original is 6/2.
+   - `swept` is still spilled (`[r10-0x948]`). The original keeps it in r9 from the sweep exit to the event store.
+   - `greedymv.py` stacks the changed scan edits greedily at 27,400 B. Round 2 adds a sink of the first clone key in the
+     transfer_creator_fees CPI (0.50359 on cb298d5c8), and round 3 finds nothing. **Edits that only move register pressure
+     cap at about +0.0126 at the pinned size.**
+   - w13a09-cto-cpiclone (#2904) already showed that no CPI spelling, IR branch weight or register pin moves the clone run.
+     This sink is the first local IR edit that does, and only partly.
 4. Source spellings of the sharing CPI, none landable:
 
 | variant | ratio | bytes |
@@ -61,6 +80,23 @@ Everything below is an experiment on IR or a measured source build. No source ch
 
 Ledger keys: `0x22a10-w13-085e5df-regalloc-intrablock-pure-order-scan-v1`,
 `0x22a10-w13-8370e2f-regalloc-crossblock-move-scan-v1`, `0x22a10-w13-8370e2f-{mint-clone-*,sharing-*}-v1`.
+
+## Where the remaining register differences come from (tail, orig 0x4000-0x5400)
+
+| value | original | ours |
+| --- | --- | --- |
+| accounts pointer in the sharing/pool CPI clone runs | spilled, reloaded per account (`[r10-0x8d8]`) | region-split into r6 |
+| `swept` | r9 from the sweep exit (`ldxdw r9,[r10-0x828]`) to the event store | spilled at the sweep exit, reloaded at the event |
+| old creator fee (event field at `[r10-0x228]`) | spilled right after its load (`[r10-0x8e0]`) | in r8 to the event |
+| holder / cashback after the sharing CPI | reloaded from phi-of-constants frame slots `[r10-0x958]` / `[r10-0x950]` | recomputed from the spilled `holder` arg into registers (older mains) |
+
+The original keeps fewer values in registers through the tail. That frees a callee-saved register for `swept` and lets
+the greedy allocator spill the accounts pointer everywhere instead of region-splitting it. These are consequences of
+structure, such as flags kept in frame slots and the entry copy of `new` (see w13a03/w13a05/w13a08). No local source
+spelling reaches them. This lane's evidence that the register-allocation angle is exhausted:
+- the 226-edit intra-block scan does nothing;
+- the 864-edit cross-block scan caps at +0.0126;
+- 9 source spellings fail (byte-identical, size change, or worse).
 
 ## For other lanes
 

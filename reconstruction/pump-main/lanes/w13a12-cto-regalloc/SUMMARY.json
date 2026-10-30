@@ -1,0 +1,66 @@
+{
+  "lane": "w13a12-cto-regalloc",
+  "wave": 13,
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "angle": "register assignment and ISel temporaries (error payload registers, value order, by-value copies)",
+  "bases": {
+    "3912c47ac": 0.48772,
+    "085e5dffb": 0.48922,
+    "8370e2f8a": 0.49071,
+    "cb298d5c8": 0.49101,
+    "9eb6c0084": 0.49131
+  },
+  "landed": false,
+  "pr": 2911,
+  "best_zero_loss_source": {"ratio": 0.49071, "slots_diff": 3313, "cand_bytes": 27400, "note": "no source gain; best source variants were byte-identical to main"},
+  "oracles": {
+    "error_payload_rename_r9_r7": {"gain": 0.0006, "note": "symptom only; sret slots sit 0x20 lower in our frame"},
+    "intrablock_pure_swaps": {"edits": 226, "changed": 0},
+    "crossblock_move_scan": {"edits": 864, "changed": 222, "best_single": "sink one plain-field load (owner/rent_epoch/flag) of the sharing-CPI mint AccountInfo clone into the AdminCtoSharingConfig store block", "by_main": {"085e5dffb": 0.5009, "8370e2f8a": 0.5027, "cb298d5c8": 0.503, "9eb6c0084": 0.5033}, "clonefeat_spill_reg": "2/6 -> 3/5 (orig 6/2)"},
+    "greedy_stack": {"ratio": 0.50359, "bytes": 27400, "base": "cb298d5c8", "note": "RA-only edits cap at about +0.0126"},
+    "register_metrics_8370e2f": {"plain": 0.49071, "frame_masked": 0.68933, "regs_and_frame_masked": 0.873, "reg_agreement_3912c47": 0.7618, "reg_agreement_085e5df": 0.7756}
+  },
+  "source_trials": [
+    {"name": "mint AsRef::as_ref(&a.mint).clone()", "ratio": 0.49071, "bytes": 27400, "result": "byte-identical"},
+    {"name": "mint (*a.mint).clone()", "ratio": 0.49071, "bytes": 27400, "result": "byte-identical"},
+    {"name": "sharing CPI accounts via ctx.accounts.X", "ratio": 0.49071, "bytes": 27400, "result": "byte-identical"},
+    {"name": "mint last in AdminCtoSharingConfig literal", "ratio": 0.49027, "bytes": 27448},
+    {"name": "mint after sharing_config in literal", "ratio": 0.47506, "bytes": 27408},
+    {"name": "let program/let accs before CpiContext", "ratio": 0.48861, "bytes": 27368},
+    {"name": "let cpi=CpiContext::new_with_signer(..)", "ratio": 0.47184, "bytes": 27400},
+    {"name": "if let Some(val)=sharing_update", "ratio": 0.49109, "bytes": 27392}
+  ],
+  "rejected_mechanisms": [
+    "error-payload register rename (r8/r6 -> r9/r7) as a target in itself",
+    "intra-block order of pure computations (statement / field-init order of independent reads)",
+    "phi definition order of the error-exit {i64,ptr}",
+    "AccountInfo clone spelling for the sharing CPI mint",
+    "AdminCtoSharingConfig field-init order",
+    "let-bound CpiContext / accounts / program",
+    "memory-resident (volatile slot) copies of values live through the sharing CPI (IR): frame shift, abs <= +0.002"
+  ],
+  "unresolved_residuals": [
+    "accounts pointer region-split into r6 through the CPI clone runs (orig spills it everywhere: clonefeat 6/2)",
+    "swept spilled at the sweep exit (orig keeps it in r9 to the event store)",
+    "old creator fee kept in r8 to the event (orig spills it at [r10-0x8e0])",
+    "ISel sret slots: count now equal (33/33); block is 0x20 lower in our frame"
+  ],
+  "next_ideas": [
+    "structural changes that take tail values out of registers (phi-of-constants flags in frame slots, entry copy of new), then re-run movescan.py / clonefeat.py to see whether swept moves to r9",
+    "use movescan.py as a 5-minute screen on any captured candidate before spending build slots",
+    "combine the sink oracle with frame oracles (w12a02 F1 alloca move, w13a02 target 8/24) in one llc run to bound the tail"
+  ],
+  "ledger_keys": [
+    "0x22a10-w13-085e5df-regalloc-intrablock-pure-order-scan-v1",
+    "0x22a10-w13-8370e2f-regalloc-crossblock-move-scan-v1",
+    "0x22a10-w13-cb298d5-regalloc-crossblock-move-scan-greedy-v1",
+    "0x22a10-w13-8370e2f-mint-clone-asref-clone-v1",
+    "0x22a10-w13-8370e2f-mint-clone-deref-clone-v1",
+    "0x22a10-w13-8370e2f-sharing-literal-mint-last-v1",
+    "0x22a10-w13-8370e2f-sharing-literal-mint-after-sc-v1",
+    "0x22a10-w13-8370e2f-sharing-let-program-accs-v1",
+    "0x22a10-w13-8370e2f-sharing-let-cpi-v1",
+    "0x22a10-w13-8370e2f-sharing-ctx-accounts-spelling-v1",
+    "0x22a10-w13-8370e2f-sharing-iflet-v1"
+  ]
+}
