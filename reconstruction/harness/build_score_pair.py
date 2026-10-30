@@ -4,13 +4,13 @@ import argparse
 import hashlib
 import json
 import os
-import shutil
 import subprocess
 from pathlib import Path
 
 import compare_scores
 import fastbuild
 import score
+from original_input import copy_original_inputs
 
 
 def sha(path):
@@ -56,12 +56,11 @@ def run_pair(base, candidate, out, sdk, hybrid):
     score.BASE = out / 'scoring-inputs'
     score.BASE.mkdir()
     canonical = Path(__file__).resolve().parents[1] / 'base'
-    for name in ('original.so', 'functions.tsv'):
-        shutil.copyfile(canonical / name, score.BASE / name)
+    copy_original_inputs(canonical, score.BASE)
     receipt = {'sources': before, 'recipe': 'identity', 'cold_targets': True,
                'inputs': {name: sha(score.BASE / name) for name in ('original.so', 'functions.tsv')},
                'tools': {name: sha(Path(__file__).parent / name) for name in
-                         ('build_score_pair.py', 'fastbuild.py', 'score.py', 'compare_scores.py', 'pump_physical_source_wrapper.py')},
+                         ('build_score_pair.py', 'fastbuild.py', 'score.py', 'original_input.py', 'compare_scores.py', 'pump_physical_source_wrapper.py')},
                'sdk_inventory_sha256': sha(canonical.parent / 'toolchain/v1.44-macos-inventory.json'),
                'target_library_manifest_sha256': sha(Path(__file__).parent / 'linux144-sbpf-target-libs.sha256'),
                'compiler_sha256': sha(hybrid / 'rust/bin/rustc'),

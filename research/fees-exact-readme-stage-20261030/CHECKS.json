@@ -1,0 +1,24 @@
+{
+  "base": "1cacecfbf9a58b698f99d5e11d6723a254588b81",
+  "scope": "Unchanged official scripts with current Git-authenticated source/evidence inputs in owned staging; no rebuild",
+  "results": [
+    {
+      "command": "python3 -B scripts/verify_evidence.py",
+      "returncode": 0,
+      "captures": 9,
+      "log": "verify_evidence.log"
+    },
+    {
+      "command": "python3 -B scripts/test_tooling.py",
+      "returncode": 1,
+      "tests": 40,
+      "errors": 3,
+      "log": "test_tooling.log",
+      "preexistingFailure": "InterfaceInventoryEncodingTests copies only Mayhem, patches analyze.ROOT; program_names root default was bound earlier to full repository and returns pump first, absent from the test-owned fixture."
+    }
+  ],
+  "focusedTests": 4,
+  "focusedReturncode": 0,
+  "portableStageReturncode": 0,
+  "coldBuildInvocations": 0
+}

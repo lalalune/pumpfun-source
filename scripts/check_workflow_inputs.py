@@ -42,7 +42,7 @@ def matrix_rows(job):
                 matched = True
         if not matched:
             additions.append(dict(entry))
-    return rows + additions or [{}]
+    return rows + additions
 
 
 def substitute(value, row):
@@ -81,10 +81,18 @@ def references(name, source):
                     index = 1
                     while index < len(tokens) and tokens[index].startswith('-'):
                         option = tokens[index]
-                        if option in ('-c', '-m', '-') or option.startswith(('-c', '-m')):
+                        python = tokens[0].startswith('python')
+                        if option == '--':
+                            index += 1
+                            break
+                        if (python and (option in ('-c', '-m', '-') or option.startswith(('-c', '-m')))
+                                or not python and not option.startswith('--') and 'c' in option[1:]):
                             index = len(tokens)
                             break
-                        index += 2 if option in ('-X', '-W') else 1
+                        takes_value = (option in ('-X', '-W', '--check-hash-based-pycs') if python else
+                                       option in ('--rcfile', '--init-file') or
+                                       not option.startswith('--') and option[-1:] in ('o', 'O'))
+                        index += 2 if takes_value else 1
                     if index >= len(tokens):
                         continue
                     script = tokens[index]
