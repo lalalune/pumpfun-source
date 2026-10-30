@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Measure how close a candidate build is to one original window.
 
-  target_metric.py <unstripped.so> <orig_start> [--sym REGEX] [--top N] [--slots N]
+  target_metric.py <unstripped.so> <orig_start> [<orig_start> ...] [--sym REGEX] [--top N] [--slots N]
 
 For each candidate function (those whose symbol matches --sym, else the closest by
 opcode n-grams) prints one JSON line: size, normalized/raw equality, the instruction
@@ -35,21 +35,13 @@ def calls(raw):
     return internal, syscalls
 
 
-def main():
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('candidate', type=Path)
-    ap.add_argument('start')
-    ap.add_argument('--sym', help='regex over mangled or demangled candidate symbols')
-    ap.add_argument('--top', type=int, default=3)
-    ap.add_argument('--slots', type=int, default=12, help='how many differing slot offsets to list')
-    a = ap.parse_args()
-    start = int(a.start, 0)
-    w = next(x for x in original_windows() if x['start'] == start)
-    cand = Cand(a.candidate)
-    if a.sym:
-        picks = [(s, n, nm) for s, n, nm in cand.funcs if re.search(a.sym, nm) or re.search(a.sym, demangle(nm))]
+def measure_window(w, cand, pattern=None, top=3, slots=12):
+    """Measure one window while sharing the loaded candidate across a batch."""
+    start = w['start']
+    if pattern:
+        picks = [(s, n, nm) for s, n, nm in cand.funcs if pattern.search(nm) or pattern.search(demangle(nm))]
     else:
-        picks = [(s, n, nm) for _, _, s, n, nm in best_candidates(w, cand, a.top)]
+        picks = [(s, n, nm) for _, _, s, n, nm in best_candidates(w, cand, top)]
     otok = [x[2] for x in insns(w['raw'], start, ORIG_SECS)]
     ocalls = calls(w['raw'])
     rows = []
@@ -64,12 +56,41 @@ def main():
         if n == w['bytes']:
             diff = [i for i in range(0, n, 8) if norm[i:i + 8] != w['norm'][i:i + 8]]
             row['slots_diff'] = len(diff)
-            row['first_diff_offsets'] = [hex(i) for i in diff[:a.slots]]
+            row['first_diff_offsets'] = [hex(i) for i in diff[:slots]]
         rows.append(row)
     rows.sort(key=lambda r: (-r['normalized_equal'], r.get('slots_diff', 1 << 30), -r['ratio']))
-    for row in rows[:a.top] if not a.sym else rows:
+    return rows[:top] if pattern is None else rows
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('candidate', type=Path)
+    ap.add_argument('start', nargs='+', type=lambda value: int(value, 0), help='one or more original window addresses')
+    ap.add_argument('--sym', help='regex over mangled or demangled candidate symbols')
+    ap.add_argument('--top', type=int, default=3)
+    ap.add_argument('--slots', type=int, default=12)
+    ap.add_argument('--json', type=Path, help='also save all rows as one JSON array')
+    a = ap.parse_args(argv)
+    if a.top <= 0 or a.slots < 0:
+        ap.error('--top must be positive and --slots must be nonnegative')
+    try:
+        pattern = re.compile(a.sym) if a.sym is not None else None
+    except re.error as error:
+        ap.error(f'invalid symbol regex: {error}')
+    starts = list(dict.fromkeys(a.start))
+    windows = {w['start']: w for w in original_windows()}
+    missing = [hex(start) for start in starts if start not in windows]
+    if missing:
+        ap.error('unknown original windows: ' + ', '.join(missing))
+    cand = Cand(a.candidate)
+    rows = [row for start in starts for row in measure_window(windows[start], cand, pattern, a.top, a.slots)]
+    if a.json:
+        a.json.parent.mkdir(parents=True, exist_ok=True)
+        a.json.write_text(json.dumps(rows, indent=2) + '\n', encoding='utf-8')
+    for row in rows:
         print(json.dumps(row))
+    return 0
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())
