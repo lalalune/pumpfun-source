@@ -32,3 +32,27 @@ Ledger 060a7948bb2b47a89dbbf2c79e89be7a.
 - gross+pf+cf checked-add block placement (add1/add2/err1/err2/cmp), +32 B.
 - zero-mov order after `call 0xeccc` (r3/r1 vs r1/r3).
 - Complete-if branch sense and terminal `jne r8,2` (known: helper vs inline complete).
+
+## Inline-complete frame (di1 on this branch)
+
+di1 (CompleteEvent + prepare written inline in buy_handler, `drop(ev)` after the Trade
+emit_cpi): 15,480 B, 0.97943, 0 losses. frameoracle: the Complete emit_cpi temporaries
+(`authority_info37`, `inner_data38`, chain iterator `_464`) have no lifetime markers.
+MIR (`--emit=mir`) shows they have no StorageLive/StorageDead at all, the same as the
+Trade emit_cpi temporaries. So the markers the original has on the Complete CPI temps
+come from an LLVM-inliner function boundary, not from MIR scoping.
+
+## Fee-tuple phi order (zero movs)
+
+IR oracle over the 24 orders of the four GVN-PRE phis: order cf,pf,cbps,pbps gives
+0.98314. Re-reading the tuple fields in other orders is byte-identical, because SROA
+splits the tuple copy in offset order. (w7r1-buyhandler-inline / -regsched found the source
+form: the sell_v2 cf-first fee tuple.)
+
+## Status
+
+0x13b9b8 now reaches a normalized match in PR #2225 (w7r1-buyhandler-inline: program-fn
+form + inline complete + cf-first fee tuple + sol-reserve order). Verified independently
+here: 1028/276, gains [0x13b9b8], 0 losses, sha 5a670388f726. This PR's single change is
+subsumed by #2225 (its literal order (virtual_token, virtual_sol, real_sol) is byte-identical
+to the one here, trial sel2), so this PR is kept only as analysis.
