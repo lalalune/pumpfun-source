@@ -4,7 +4,7 @@ Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`)
 Base: main cef0574cf (0.63421, 3,178 slots, 27,400 B). This lane continues w14a03-cto-liverange's open IR leads (#3210, #3228).
 Ledger keys: `0x22a10-w14-cef0574-mf1fill-*-v1`.
 
-**Result: one small zero-loss gain, 0.63421 -> 0.63481 at 27,400 B (3,173 slots).** It is `qlin2`, a source form of the
+**Result: landed #3241 (merge f8dc9016f): admin_cto 0.63421 -> 0.63481 at 27,400 B (3,173 slots), 0 losses.** It is `qlin2`, a source form of the
 IR re-read lead `%_255` (section 3). The mf1 lead itself is dead. So are the other re-read leads, which were mostly size artifacts, and no catalog
 fill pays for them.
 
@@ -136,3 +136,25 @@ The 47 knobs of `$SWARM/w11/sizeknobs-cto.json` that still apply to cef0574, plu
 - Anything that frees r9 in validate (entry copy of `new`, w13a42) is the only route to the original's max_fee register.
   mf1 is not that route.
 - Payload register r9 vs r8 at the 15 error sites (tagreg).
+
+## After the landing (main f8dc9016f, 0.63481, M 2,119)
+
+| trial | bytes | ratio | M |
+| --- | ---: | ---: | ---: |
+| qlin variants: `iter().any`, `g:&Global` binding, `if/else` | 27,400 | = main (byte-identical) | 2,119 |
+| qlin variant: native-mint test first | 27,400 | 0.63271 | 2,112 |
+| qlin variants: direct field compares / `&q` | 27,168 | 0.60268 | 2,003 |
+| qlin variant: match guard | 27,464 | 0.61730 | 2,063 |
+| mf1 on f8dc901 | 27,352 | 0.63328 | 2,112 (−7) |
+| IR re-read scan (`data/irreM-f8dc901.tsv`, whole + per-block): best is holder_enabled `%33` (global+1087) at the 296 test | 27,360 | 0.63619 | 2,122 (+3, −40 B) |
+| collect Ok payload `%_195.1.i` | 27,232 | 0.63772 | 2,122 (+3, −168 B) |
+| sharing_config AccountInfo pointer re-read in the owner test (bb1) | 27,408 | 0.63502 | 2,120 (+1, +8 B) |
+| pure-value remat (`irremat.py`, 38) / hold (`irhold.py`, 84) | | ≤ main | ≤2,119 |
+
+None of these has a source form. Each loses its dominating load only in IR, and no catalog knob adds 40 B or more without losing M.
+
+**The general mechanism (for other lanes).** A field read in source becomes a fresh load at the use only when no load of
+the same address dominates it. GVN load-PRE inserts a load into at most one predecessor. A deref that sits behind `||`/`&&`, or
+inside an `if` arm, therefore leaves the later reads of the same box pointer as reloads. Inlining a helper's body by hand moves
+the `&Account<T>` -> `&T` coercion from the call site into that arm. qlin2 is one instance. In execute, the other helpers take
+`&Account`/`&AccountInfo` and do no coercion at the call site, so there is no second instance.

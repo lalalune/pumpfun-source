@@ -1,0 +1,34 @@
+{
+  "lane": "w14a14-cto-mf1fill",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "base": "main cef0574cf (0.63421, 3,178 slots, M 2,117)",
+  "landed": [{"pr": 3241, "merge_commit": "f8dc9016f", "change": "quote_locked as global_quote's body inline (Global box deref only on the whitelist path; CtoState literal reloads it)", "ratio": [0.63421, 0.63481], "slots_diff": [3178, 3173], "bytes": 27400, "normalized": 1034, "raw": 1034, "losses": 0, "differential": "363/0", "unstripped_sha16": "5b221a80bc1019ea"}],
+  "best": {"ratio": 0.63481, "slots_diff": 3173, "bytes": 27400, "M": 2119},
+  "metric_note": "ratio = 2M/(3339+n); off-pin ratios are size artifacts, compare M (matched original instructions). At the pin only M matters.",
+  "attempts": {
+    "mf1_cef0574": {"bytes": 27224, "ratio": 0.6327, "M": 2105},
+    "mf1_f8dc901": {"bytes": 27352, "ratio": 0.63328, "M": 2112},
+    "mf1_best_fill": {"form": "mf1 + do_collect||collection_native", "bytes": 27288, "ratio": 0.63224, "M": 2106},
+    "knob_screen_cef0574": "49 knobs single on main + 6 positive-size on mf1: best non-identical M 2,116 at 27,400; every positive-size knob costs 3-830 M (data/knobs-cef0574.tsv)",
+    "irre_cef0574": "fee_configurable %34 M 2,121 @27,224; global box %_255 M 2,119 @27,400 (-> qlin2); ctx.accounts per-block <= 2,116",
+    "irre_f8dc901": "holder_enabled %33 M 2,122 @27,360; collect payload %_195.1 M 2,122 @27,232; sharing_config ptr bb1 M 2,120 @27,408; remat/hold <= main",
+    "qlin_variants": "iter/gbind/if = main; nmfirst 0.63271; direct/ref 0.60268@27168; match 0.6173@27464; qlin3 (keep call) 0.58139@27472",
+    "blkmv_334": "334 error block next to 338 in IR: identical / 0.62723"
+  },
+  "rejected_mechanisms": [
+    "mf1 (max_fee by &'g u64): stores the pointer where the original stores the value, still spills; M -12/-7",
+    "fee_configurable re-read: the original also loads it at entry and spills it to -0x940 like ours; no source form (GVN folds)",
+    "ctx.accounts re-read at pool_updated: M <= 2,116 on cef0574",
+    "catalog fills for any shrinking lead: no positive-size knob is M-neutral"
+  ],
+  "unresolved_residuals": [
+    "max_fee in r9 needs r9 free in validate: entry copy of new (w13a42), not an mf1 form",
+    "error payload register (r9,r7) at 15 orig error sites vs ours (r8,r7) at 11 (tagreg/colderr)",
+    "orig shared-arm block reads st.creator back from the st stack copy and stores it twice (0xd78-0xe58); ours forwards it"
+  ],
+  "next_ideas": [
+    "look for other deref-behind-|| / helper-inlining spots in sibling-style code once the entry is restructured (the qlin2 mechanism)",
+    "holder_enabled %33 re-read (M +3, -40 B) only if a -40 B faithful change elsewhere is found that also frees a load"
+  ],
+  "ledger_keys": ["0x22a10-w14-cef0574-mf1fill-*-v1", "0x22a10-w14-f8dc901-mf1fill-*-v1"]
+}
