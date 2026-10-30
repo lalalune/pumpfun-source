@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Synthetic AMM-owned fixtures, ordinary verified local transaction signatures; no RPC."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import sys,base64,struct,json,pathlib,hashlib,argparse,itertools
 sys.path.insert(0,'scripts')
 from pump_amm_admin_differential import *
