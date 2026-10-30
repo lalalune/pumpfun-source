@@ -24,6 +24,11 @@ H['hCb']=[(_M,_M+'let cbe=a.bonding_curve.is_cashback_coin;'),('cashback:a.bondi
 H['hMay']=[(_M,_M+'let mye=a.bonding_curve.is_mayhem_mode;'),('mayhem:a.bonding_curve.is_mayhem_mode,','mayhem:mye,')]
 H['hHr']=[(_M,_M+'let hre=a.bonding_curve.is_holder_reward;'),('holder_reward:a.bonding_curve.is_holder_reward,','holder_reward:hre,')]
 H['hHoldE']=[('let hopt=holder;let holder=hopt==Some(true);','let hopt=holder;let holder=matches!(hopt,Some(true));')]
+_CB='  curve.is_cashback_coin=cashback;\n'
+H['cbS']=[(_CB,'  curve.is_cashback_coin=curve.is_cashback_coin&&!holder;\n')]
+H['cbA']=[(_CB,'  curve.is_cashback_coin&=!holder;\n')]
+H['cbIf']=[(_CB,'  if holder{curve.is_cashback_coin=false;}\n')]
+H['hRs']=[(_M,_M+'let harg=holder;'),('  curve.is_holder_reward=holder;\n','  curve.is_holder_reward=harg==Some(true);\n')]
 def edits(name):
     gs=name.split('+'); E=[]
     if gs[0]=='nopda': gs=gs[1:]

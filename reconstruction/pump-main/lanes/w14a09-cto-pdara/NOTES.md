@@ -9,7 +9,7 @@ Scratch: `~/.cache/pumpfun-reconstruction/lanes/w14a09-cto-pdara/` (not in git).
 Ledger: approach `pda-first-ra-partner`, keys `0x22a10-w14-{769f331,cef0574}-pdara-*`.
 
 **Result: no zero-loss gain, no source change.** The pda front is worth at most +0.005 even with a perfect partner
-(splice bound below), and no partner in the partner screen (running; see table) source screens keeps main's tail RA. Best pda composite:
+(splice bound below), and no partner in 285 source screens (263 single partners on 769f331, 22 on cef0574) keeps main's tail RA. Best pda composite:
 pda+hL+g_ev_reset_shared 0.57426 at 27,208 B on 769f331 (main 0.63241); plain pda+hL 0.56548 on cef0574 (main 0.63421).
 
 ## Oracles
@@ -80,7 +80,21 @@ reshuffles the tail.
 
 ## Partner screen
 
-Screen in progress (pda+hL + each of 253 genes47/size-knob partners on 769f331). Interim best: hL+g_ev_reset_shared 0.57426 (27,208 B, tail 189 exact vs main 331), hL+g_ev_cb_local / g_ev_cbl 0.56728. No partner recovers the 0x3000-0x3800 tail.
+pda+hL + each applicable genes47 (`g_*`) / sizeknobs (`k_*`) gene, 769f331 (main 0.63241): 263 rows, 216 compiled
+(the 47 failures are k_/g_ duplicates whose pattern hL or another gene already consumed). Every row is below
+main; 12 beat plain hL. Full rows: `results2.jsonl` (769f331) and `results3.jsonl` (cef0574).
+
+| trial | bytes | ratio | exact 0x0 / 0x3000 / 0x3800 | tail exact (main 331) | payload / `%0` split |
+| --- | ---: | ---: | --- | ---: | --- |
+| hL+g_ev_reset_shared (= g_rs_presig = k_ev_reset_shared) | 27,208 | **0.57426** | 96 / 70 / 119 | 189 | r9 / r8 |
+| hL+g_ev_cb_local (= g_ev_cbl, g_e_cb_local) | 27,384 | 0.56728 | 93 / 29 / 110 | 139 | r6 / r6 |
+| hL+g_pre_cb_match / g_pre_cb_not | 27,384 | 0.56518 | | 137 | r6 / r6 |
+| hL+g_v_cbv_fwd | 27,256 | 0.53560 | 93 / 74 / 136 | 210 (but 0x800/0x1000 fall to 41/27) | |
+| hL+g_okp_hold | 27,368 | 0.55036 | | 186 | |
+
+Round 2 on cef0574 (main 0.63421): hL+ev_reset_shared+ev_cb_local 0.57658; +okp_hold 0.56122; +v_cbv_fwd 0.56253
+(tail 269, but validate falls); hL+okp_hold+v_cbv_fwd 0.51352. Without pda, g_ev_reset_shared alone is 0.58403.
+The partners that move the tail toward main's tail all break another region, and none comes near main.
 
 Hand partners (`e/g2.py`), all applied after pda:
 
@@ -95,7 +109,7 @@ Hand partners (`e/g2.py`), all applied after pda:
 | hMint | PDA seeds use `a.mint.key()` inline | 0.55775 | +80 B |
 
 On cef0574 (0.63421): pda 0.56458, hL 0.56548, hL+hHold (holder bool bound at entry) 0.55314, hL+hCb (cashback byte
-read at entry) 0.53633, hL+hHoldE (`matches!`) 0.54613, hL+hMay 0.47926.
+read at entry) 0.53633, hL+hHoldE (`matches!`) 0.54613, hL+hMay 0.47926. Partners on the final curve stores: hL+cbS (`curve.is_cashback_coin=curve.is_cashback_coin&&!holder`) / cbA (`&=!holder`) / cbIf (`if holder{..=false}`): 0.55278 / 0.55278 / 0.55298. They move the payload class to r8 and the split to r9, but the tail stays at 147 exact. hRs (holder recomputed from the argument at the store) is byte-identical (GVN folds it).
 
 IR oracles on the cashback/holder lifetime (`pe/cbR.py`, `pe/hR.py`: recompute at the final curve stores): hL+cbR
 0.56685, hL+hR 0.56466, hL+both 0.55133 (payload on r8, but the split stays on r6). An IR hoist of `new`'s piece
@@ -103,7 +117,7 @@ copies to entry (`pe/nh1.py`, `pe/nh2.py`, the original's 0x4d8-0x538) reproduce
 shape, but it keeps reloading the `new` pointer instead of holding it in r7, and the tail collapses (0.477/0.434).
 
 Side lead, off angle: main 769f331 + `hR` (the final `curve.is_holder_reward` store recomputes holder from the
-argument) gives 0.6326 at 27,384 B (+4 exact, -16 B). It needs a +16 B faithful repay to be landable.
+argument) gives 0.6326 at 27,384 B (+4 exact, -16 B). It needs a +16 B faithful repay to be landable, and the plain source form (`hRs`) is folded back by GVN to main's bytes.
 
 ## Next ideas
 

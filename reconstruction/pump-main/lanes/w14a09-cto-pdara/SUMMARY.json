@@ -1,0 +1,39 @@
+{
+  "lane": "w14a09-cto-pdara",
+  "wave": 14,
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "bases": {"769f331": {"ratio": 0.63241, "slots": 3288}, "cef0574": {"ratio": 0.63421, "slots": 3178}},
+  "result": "no zero-loss gain; notes only (PR #3234)",
+  "best_pda_composite": {"name": "pda+hL+g_ev_reset_shared+g_ev_cb_local", "base": "cef0574", "ratio": 0.57658, "bytes": 27216},
+  "best_pda_plain": {"name": "pda+hL", "base": "cef0574", "ratio": 0.56548, "bytes": 27384},
+  "bound": {"method": "splice pda+hL front (to orig 0x400-0x18a0) with main cef0574 tail", "ratio": 0.6391, "delta_vs_main": 0.0049},
+  "attempts": {"source_screens_769f331": 263, "source_screens_cef0574": 22, "ir_oracles": 14, "ledger_rows": 290},
+  "mechanism": [
+    "pda gains +17 exact instructions in orig 0x0-0x800 and loses 194 exact in orig 0x3000-0x3800",
+    "main computes shared first; its global pointer load holds r8 across the entry, so cashback (validate -> final curve store) cannot take r8",
+    "with the PDA first, cashback takes r8; the Err-payload class finds r6-r9 occupied, evicts into r6, and the %0 accounts-pointer region split moves r8 -> r6 (static cost 3.0057 -> 3.1625 vs r6 3.1232)",
+    "pinning the payload class to the same register on both bases leaves pda 0.007-0.009 below main; reloading the sharing pointer moves %0 back to r8 but not the tail"
+  ],
+  "rejected": [
+    "hL creator-left memcmp (best hand partner, +0.0009 over pda)",
+    "hK1/hK2 PDA result as temp or tuple",
+    "hSK/hSKp sharing key bound before/after the PDA",
+    "hBC curve pointer binding (GVN-identical)",
+    "hIF if-form shared",
+    "hQL quote_locked before shared",
+    "hMint inline mint key seed",
+    "hHold/hHoldE/hCb/hMay entry-bound flags",
+    "cbS/cbA/cbIf cashback read back at the final store",
+    "hRs holder recomputed from the argument (GVN-identical)",
+    "253 genes47/sizeknobs single partners on pda+hL; round-2 combos of the tail movers"
+  ],
+  "unresolved_residuals": [
+    "entry RA: original r6=args, r7=new pointer (0x1e0-0x538), r8=accounts, r9=curve, sharing pointer spilled to -0x8e0; ours r9=args, r6=accounts, r7=curve, r8=sharing pointer",
+    "the original's entry copy of new (ldxw +1/+4 pieces at 0x4d8-0x538) needs the new pointer kept in r7"
+  ],
+  "next_ideas": [
+    "re-screen pda after a tail-RA landing where cashback/holder are no longer long-lived register values from validate to the curve stores",
+    "pda + entry copy of new + sharing-pointer spill as one state (the original's four-callee-saved entry pressure); the IR hoist alone (nh2) is not enough",
+    "off-angle lead: main + holder recomputed from the argument at curve.is_holder_reward gives IR 0.6326 at 27,384 B on 769f331 (needs a source form GVN does not fold, plus a +16 B repay)"
+  ]
+}
