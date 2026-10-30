@@ -243,7 +243,8 @@ def verify(root=ROOT, bindings=None, coverage=None):
     source_cache = {}
     route_cache = {}
 
-    require(bindings.get('schemaVersion') == 1, 'Unsupported bindings schema')
+    require(type(bindings.get('schemaVersion')) in (int, float)
+            and bindings.get('schemaVersion') == 1, 'Unsupported bindings schema')
     require(bindings.get('specVersion') == spec['info']['version'], 'Bindings were made against a different spec version')
     scopes = bindings.get('boundScopes')
     require(
@@ -370,6 +371,9 @@ def verify(root=ROOT, bindings=None, coverage=None):
                 require(operation in observed_seen, f'{operation}: captured publicRead route is neither bound nor recorded as undeclared')
 
     api = coverage['developerApi']
+    # bool subclasses int in Python, but JSON false/true are not numeric claims.
+    for field in ('contractBound', 'documentedOperations', 'implementedNatively', 'qualified'):
+        require(type(api.get(field)) in (int, float), f'coverage.json {field} must be numeric')
     require(api.get('bindings') == 'developer-bindings.json', 'coverage.json developerApi.bindings must point to developer-bindings.json')
     require(api.get('contractBound') == len(seen), 'coverage.json contractBound differs from the bindings ledger')
     require(api.get('documentedOperations') == len(operations), 'coverage.json documentedOperations differs from the spec')
