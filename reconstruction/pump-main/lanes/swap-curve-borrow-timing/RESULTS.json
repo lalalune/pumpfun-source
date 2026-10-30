@@ -1,0 +1,124 @@
+{
+  "baseline_revision": "77c67c4e",
+  "attribution": "OpenAI / GPT-6.1 Sol High (operator-reported)",
+  "target": "0x5b3b0",
+  "baseline_metric": {
+    "bytes": 18584,
+    "ratio": 0.92654,
+    "slots_diff": 1017
+  },
+  "candidate_metric": {
+    "window": "0x5b3b0",
+    "window_bytes": 18584,
+    "symbol": "pump_recovered::multi_hop_curve::swap_hop",
+    "cand_start": "0x5b3b0",
+    "cand_bytes": 18584,
+    "normalized_equal": false,
+    "raw_equal": false,
+    "ratio": 0.96371,
+    "calls_original": [
+      107,
+      1
+    ],
+    "calls_candidate": [
+      107,
+      1
+    ],
+    "call_counts_original": {
+      "internal": 107,
+      "syscall_or_relocated": 1,
+      "indirect": 0
+    },
+    "call_counts_candidate": {
+      "internal": 107,
+      "syscall_or_relocated": 1,
+      "indirect": 0
+    },
+    "normalized_field_differences": {
+      "comparable": false,
+      "reason": "instruction boundaries or byte lengths differ"
+    },
+    "slots_diff": 874,
+    "first_diff_offsets": [
+      "0x1850",
+      "0x18f8",
+      "0x1900",
+      "0x1908",
+      "0x1910",
+      "0x1918",
+      "0x1920",
+      "0x1928",
+      "0x1930",
+      "0x1938",
+      "0x1940",
+      "0x1948"
+    ]
+  },
+  "comparison": {
+    "normalized": 1033,
+    "raw": 1033,
+    "gains": [],
+    "losses": [],
+    "raw_gains": [],
+    "raw_losses": []
+  },
+  "builds": {
+    "baseline": {
+      "source_sha256": "62883d82c835c5a816502c3d1688be708a55e41c65b60ff85841e775a98843bc",
+      "unstripped_sha256": "307ea73b86776c98cfb2b74aabd2d4952b4aceecab95bde65f0e87292bdfa0d5",
+      "candidate_sha256": "3401f377c7957124125f59ab0d2d395d975aac67705b579c3a2bf3f4c41605e7",
+      "recipe": "identity",
+      "triple": "sbpf-solana-solana",
+      "link_order": {
+        "script": "link/ordered.ld",
+        "script_sha256": "6954d9901b005312be6e7f980cb5e74a1440c174547c2040a881acf2e5c25b45",
+        "selectors": {
+          ".text": 555,
+          ".rodata": 0,
+          ".data.rel.ro": 0
+        },
+        "lld_sha256": "a4d765c822f68b267e87765771da87a0fd4d640d9df27884bd10c0750d1b58f4"
+      },
+      "runtime_valid": true,
+      "stack_warnings": []
+    },
+    "candidate": {
+      "source_sha256": "dac2cec6833bc62b3f3c669be4c3cfcdeebd4cbcd5c4451eb7714fc3dc1469fc",
+      "unstripped_sha256": "9812f6cdb139c7d793d480cfe99a97b2021a1b434346c7043e99e5258e94f47e",
+      "candidate_sha256": "3d920651fbf823f82f2e46e27cbc80eaef04cdfc78b228a762d369cae1b40fb5",
+      "recipe": "identity",
+      "triple": "sbpf-solana-solana",
+      "link_order": {
+        "script": "link/ordered.ld",
+        "script_sha256": "6954d9901b005312be6e7f980cb5e74a1440c174547c2040a881acf2e5c25b45",
+        "selectors": {
+          ".text": 555,
+          ".rodata": 0,
+          ".data.rel.ro": 0
+        },
+        "lld_sha256": "a4d765c822f68b267e87765771da87a0fd4d640d9df27884bd10c0750d1b58f4"
+      },
+      "runtime_valid": true,
+      "stack_warnings": []
+    },
+    "clean_confirmation": {
+      "source_sha256": "dac2cec6833bc62b3f3c669be4c3cfcdeebd4cbcd5c4451eb7714fc3dc1469fc",
+      "unstripped_sha256": "9812f6cdb139c7d793d480cfe99a97b2021a1b434346c7043e99e5258e94f47e",
+      "candidate_sha256": "3d920651fbf823f82f2e46e27cbc80eaef04cdfc78b228a762d369cae1b40fb5",
+      "recipe": "identity",
+      "triple": "sbpf-solana-solana",
+      "link_order": {
+        "script": "link/ordered.ld",
+        "script_sha256": "6954d9901b005312be6e7f980cb5e74a1440c174547c2040a881acf2e5c25b45",
+        "selectors": {
+          ".text": 555,
+          ".rodata": 0,
+          ".data.rel.ro": 0
+        },
+        "lld_sha256": "a4d765c822f68b267e87765771da87a0fd4d640d9df27884bd10c0750d1b58f4"
+      },
+      "runtime_valid": true,
+      "stack_warnings": []
+    }
+  }
+}

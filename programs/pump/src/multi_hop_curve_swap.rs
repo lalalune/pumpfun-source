@@ -546,7 +546,7 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
         let buy = if *current_mint == h.quote_mint.key() { true } else if *current_mint == h.base_mint.key() { false } else { return err!(PumpError::MultiHopDiscontinuousPath) };
         let seeds: &[&[&[u8]];1] = &[&[b"bonding-curve",h.base_mint.to_account_info().key.as_ref(),&[curve_bump]]];
         let c = &h.bonding_curve;
-        let fee_config_len = a.fee_config.to_account_info().data_len(); let cap = match crate::buy_fee_market_cap(c,&h.base_mint) { Ok(v) => v, Err(e) => return Err(e) };
+        #[inline(always)] fn len_cap<'info>(fee:&Account<'info,crate::pump_fees::accounts::FeeConfig>,curve:&BondingCurve,mint:&Mint)->Result<(usize,u128)>{let len=fee.to_account_info().data_len();let cap=crate::buy_fee_market_cap(curve,mint)?;Ok((len,cap))} let (fee_config_len,cap)=len_cap(&a.fee_config,c,&h.base_mint)?;
         let trade_amount = if buy {
             crate::transfer_fee_recovered::post_fee_amount(&quote_fee,amount)?
         }else{amount};
