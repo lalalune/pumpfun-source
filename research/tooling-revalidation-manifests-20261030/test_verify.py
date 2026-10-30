@@ -38,7 +38,7 @@ class ManifestTests(unittest.TestCase):
     def test_retained_flat_manifest(self):
         # roadmap-call-classification also keeps its reviewed script under archived/.
         for name, count in (('legacy-capture-metadata', 7), ('roadmap-call-classification', 8),
-                            ('source-manifest-symlinks', 7), ('token-program-constant-detector', 7)):
+                            ('source-manifest-symlinks', 7), ('token-program-constant-detector', 9)):
             with self.subTest(packet=name):
                 packet = ROOT / f'research/tooling-{name}-20261029'
                 result = audit.check_manifest(packet)

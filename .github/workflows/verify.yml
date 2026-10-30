@@ -147,6 +147,7 @@ jobs:
               python -B scripts/test_admin_cto_optimization.py
               python -B scripts/test_build_token_dependency_optimization.py
               python -B scripts/test_revalidate_empty_manifest.py
+              python -B scripts/test_revalidate_all_manifest_records.py
               python -B scripts/test_measure_relay13_v148_optimization.py
               python -B scripts/test_fees_withdraw_runtime_optimization.py
               python -B scripts/test_measure_relay_v148_optimization.py
@@ -248,6 +249,7 @@ jobs:
               python -B scripts/test_probe_report.py
               python -B scripts/test_probe_report_atomicity.py
               python -B scripts/test_pump_validate_all_retention.py
+              python -B scripts/test_pump_validate_all_windows_publish.py
               python -B scripts/test_prepare_pump_nested_runtime_publication.py
               python -B scripts/test_prepare_fees_withdraw_runtime_publication.py
               python -B scripts/test_current673_macos_archive_publication.py
