@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "frozenSourceCommit": "e08451201fecdb052109c917f6dd39a62a550fac",
+  "scope": "Complete395-slot root/update display workflow through exact required renderer/hook/native-observer APIs; no provider/action/comment service implementation",
+  "frozenInputs": [
+    {
+      "path": "app/reconstruction/callout-card/PROVENANCE.json",
+      "gitBlob": "8fef269d543e90efea16fd85f05d8005bf710da2",
+      "bytes": 93074,
+      "sha256": "74d58646aab01de00b85a95055a50a0fd097067d921ae1ec5dba8bad9f10b62c",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/reconstruction/callout-card/README.md",
+      "gitBlob": "786125081c9f089e3c03a1220d77ce6b47163a81",
+      "bytes": 6790,
+      "sha256": "7608d71d4979ee422f1677f185b4c68654c3626fa572188505fc08e04eda612e",
+      "currentIdentical": false
+    },
+    {
+      "path": "app/reconstruction/callout-card/client.mjs",
+      "gitBlob": "89c4fe34cec52522d3b7dfca59cab4a21b6dff23",
+      "bytes": 50869,
+      "sha256": "dd17fae8619f369c38e076a34a07fbc647933bea8029d28b9c2b8f1b9600defc",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/reconstruction/callout-card/verify.mjs",
+      "gitBlob": "4d426a1ea9e6be378d2433de2b450e3c924e9675",
+      "bytes": 18801,
+      "sha256": "47ffc4abb2ba3e7ccc4166571dc7fbc91a7d3d7b94c0b836cb6def5af80d29c2",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/tests/callout_card.browser.mjs",
+      "gitBlob": "35fd909f80277c0cd12895a168fd1d5b498ce286",
+      "bytes": 9951,
+      "sha256": "bcbf6567b4d7e418087a60e21151e834da5e14747486c24c0575ea925b5bc178",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/tests/callout_card.test.mjs",
+      "gitBlob": "23d6c1771115ff75c26f5db74503349c99197120",
+      "bytes": 8758,
+      "sha256": "cd13fa20f932f887ac9de5a6e4ed974ccafcf3591107445c2059acf48788a0c8",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/tests/fixtures/callout-card-ports.mjs",
+      "gitBlob": "dc17cb0adc4cf4ae300ff81fbedbdb37f0845c75",
+      "bytes": 3905,
+      "sha256": "2cec0ddf744c21ca59b6fe298783167aedf62ba85b76faf9ebb45571f6347c09",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/tests/fixtures/callout-card.mjs",
+      "gitBlob": "f9bc8f0d6201257a6e3dbf0a5c3d759fbd17e919",
+      "bytes": 2148,
+      "sha256": "7be4241cbeeb0038bcb1454946248b3d778c4bd6240fd2aa5a587154cb67b386",
+      "currentIdentical": true
+    }
+  ],
+  "sourceContexts": 32,
+  "rawWitnesses": 119,
+  "lexicallyClosedFunctions": 9,
+  "tests": {
+    "newNode": 13,
+    "sharedSource": 11,
+    "nodePass": 24,
+    "browserWorkflows": 1,
+    "browserWidths": [
+      390,
+      1280
+    ],
+    "appEvidence": 698,
+    "progress": "PASS"
+  },
+  "initialPreflights": {
+    "source": "Generic session auditor rejects ArrayPattern before freeze. Raw failure retained; unfrozen attempt not separately retained as code/qualified. Final bounded state-destructuring auditor closes all nine emitted functions; shared auditor unchanged.",
+    "Node": "23pass1fail because root override expectation also included independent update hover wrappers; one test line isolates root with empty updates; no generated owner change; old test/raw failure/exact patch retained."
+  },
+  "browser": {
+    "result": "PASS",
+    "actualBundledInputs": [
+      {
+        "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+        "bytes": 1065698,
+        "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+      },
+      {
+        "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+        "bytes": 17673,
+        "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+      },
+      {
+        "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+        "bytes": 1373,
+        "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+      },
+      {
+        "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+        "bytes": 1359,
+        "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+        "bytes": 1090,
+        "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-jsx-runtime.development.js",
+        "bytes": 12452,
+        "sha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+        "bytes": 47219,
+        "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+        "bytes": 412,
+        "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+        "bytes": 186,
+        "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/jsx-runtime.js",
+        "bytes": 210,
+        "sha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc"
+      },
+      {
+        "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+        "bytes": 12144,
+        "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+      },
+      {
+        "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+        "bytes": 194,
+        "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+      },
+      {
+        "path": "reconstruction/callout-card/client.mjs",
+        "bytes": 50869,
+        "sha256": "dd17fae8619f369c38e076a34a07fbc647933bea8029d28b9c2b8f1b9600defc"
+      },
+      {
+        "path": "tests/fixtures/callout-card-ports.mjs",
+        "bytes": 3905,
+        "sha256": "2cec0ddf744c21ca59b6fe298783167aedf62ba85b76faf9ebb45571f6347c09"
+      },
+      {
+        "path": "tests/fixtures/callout-card.mjs",
+        "bytes": 2148,
+        "sha256": "7be4241cbeeb0038bcb1454946248b3d778c4bd6240fd2aa5a587154cb67b386"
+      }
+    ],
+    "declaredInputs": [
+      {
+        "path": "reconstruction/callout-card/client.mjs",
+        "bytes": 50869,
+        "sha256": "dd17fae8619f369c38e076a34a07fbc647933bea8029d28b9c2b8f1b9600defc"
+      },
+      {
+        "path": "reconstruction/callout-card/verify.mjs",
+        "bytes": 18801,
+        "sha256": "47ffc4abb2ba3e7ccc4166571dc7fbc91a7d3d7b94c0b836cb6def5af80d29c2"
+      },
+      {
+        "path": "reconstruction/callout-card/PROVENANCE.json",
+        "bytes": 93074,
+        "sha256": "74d58646aab01de00b85a95055a50a0fd097067d921ae1ec5dba8bad9f10b62c"
+      },
+      {
+        "path": "tests/callout_card.test.mjs",
+        "bytes": 8758,
+        "sha256": "cd13fa20f932f887ac9de5a6e4ed974ccafcf3591107445c2059acf48788a0c8"
+      },
+      {
+        "path": "tests/callout_card.browser.mjs",
+        "bytes": 9951,
+        "sha256": "bcbf6567b4d7e418087a60e21151e834da5e14747486c24c0575ea925b5bc178"
+      },
+      {
+        "path": "tests/fixtures/callout-card-ports.mjs",
+        "bytes": 3905,
+        "sha256": "2cec0ddf744c21ca59b6fe298783167aedf62ba85b76faf9ebb45571f6347c09"
+      },
+      {
+        "path": "tests/fixtures/callout-card.mjs",
+        "bytes": 2148,
+        "sha256": "7be4241cbeeb0038bcb1454946248b3d778c4bd6240fd2aa5a587154cb67b386"
+      },
+      {
+        "path": "pnpm-lock.yaml",
+        "bytes": 113160,
+        "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/"
+      },
+      {
+        "method": "GET",
+        "path": "/fixture.js"
+      },
+      {
+        "method": "GET",
+        "path": "/"
+      },
+      {
+        "method": "GET",
+        "path": "/fixture.js"
+      }
+    ],
+    "pageErrors": [],
+    "unexpectedAttempts": [],
+    "console": [
+      {
+        "width": 390,
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+      },
+      {
+        "width": 1280,
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+      }
+    ],
+    "cleanup": {
+      "browserClosed": true,
+      "serverListening": false
+    }
+  },
+  "MAINLimit": "Static conditional rootFlight/mobileHome/349919 admission only, no original returned-row/rendered Home observation;316917 detail-only contexts excluded",
+  "portLimit": "Existing child/React/compiler/translation/profile/Link/IPFS/class/action/comment APIs required; no original renderer/provider/router/acquisition/financial/protected-action behavior claimed",
+  "geometryLimit": "Authored240px/two-line CSS; native ResizeObserver measurements/lifetime and source wiring only, no Tailwind/visual/pixel parity",
+  "publicationMapping": "Eight frozen inputs; README gets only exact-prefix qualification addendum, otherwise receipt-only additions. No runtime rerun/source retarget.",
+  "requiredRootGates": "Pending initial exact-public53Git/9capture/10tooling; final PR body records actual author gates. No root independent/Next/fullapp/native/API/UI/security claim.",
+  "filesManifest": "MANIFEST.json",
+  "archiveIndex": "ARCHIVE-INDEX.json"
+}
