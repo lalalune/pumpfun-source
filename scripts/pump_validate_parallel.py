@@ -16,11 +16,15 @@ import traceback
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
+sys.path.insert(0, str(ROOT / 'reconstruction/harness'))
+from build_process import run_compiler, validate_timeout
 from pump_diagnostic_audit import audit
 import pump_validate_all as base
 from pump_amm_reusable_harness import pin_program
 sha = base.sha
 protect_inputs = base.protect_inputs
+DEFAULT_SUITE_TIMEOUT = 1800.0
+PROCESS_RUNNER = Path(run_compiler.__code__.co_filename).resolve()
 
 
 def report_destinations(output, suites, captured_loader, execute):
@@ -30,7 +34,7 @@ def report_destinations(output, suites, captured_loader, execute):
         paths.append(output.with_name(output.name + '.failed.json'))
         retained = output.parent / (output.name + '.suites')
         for name in suites:
-            paths.extend(retained / (name + suffix) for suffix in ('.log', '.json.gz'))
+            paths.extend(retained / (name + suffix) for suffix in ('.log', '.json.gz', '.failed-output'))
             if captured_loader:
                 paths.append(retained / (name + '.loader.json'))
     return paths
@@ -110,11 +114,17 @@ def main():
     parser.add_argument('--build-comparison', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--workers', type=int, choices=range(1, 5), default=2)
+    parser.add_argument('--suite-timeout', type=float, default=DEFAULT_SUITE_TIMEOUT,
+                        help='execution deadline per suite in seconds (default: 1800)')
     parser.add_argument('--validate-existing', type=Path)
     parser.add_argument('--captured-loader', action='store_true')
     parser.add_argument('--shard', type=int, default=1)
     parser.add_argument('--shards', type=int, choices=range(1, 5), default=1)
     args = parser.parse_args()
+    try:
+        validate_timeout(args.suite_timeout)
+    except ValueError:
+        parser.error('--suite-timeout must be a positive finite number of seconds')
     assert 1 <= args.shard <= args.shards
     buckets = [[] for _ in range(args.shards)]
     loads = [0] * args.shards
@@ -134,7 +144,7 @@ def main():
     assert record['comparison']['candidate_sha256'] == sha(candidate)
     sources = record['source_sha256']
     assert all(sha(ROOT / k) == v for k, v in sources.items())
-    bound_files = {str(p): sha(p) for p in [candidate, original, Path(__file__), Path(base.__file__), ROOT / 'scripts/pump_diagnostic_audit.py', args.build_comparison]}
+    bound_files = {str(p): sha(p) for p in [candidate, original, Path(__file__), Path(base.__file__), PROCESS_RUNNER, ROOT / 'scripts/pump_diagnostic_audit.py', args.build_comparison]}
     loader_wrapper = ROOT / 'scripts/pump_with_captured_loader.py'
     loader_inputs = [loader_wrapper, loader_wrapper.with_name('pump_captured_loader.py'), ROOT / 'evidence/original/pump/capture.json', ROOT / 'evidence/original/pump/program-account.bin', ROOT / 'evidence/original/pump/programdata-account.bin', original]
     if args.captured_loader:
@@ -180,20 +190,30 @@ def main():
                 command += ['--build-report', str(args.build_comparison)]
                 if '--source-directory' not in command:
                     command += ['--source-directory', str(args.source_directory.resolve())]
-            completed = subprocess.run(command, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-            (retained / (name + '.log')).write_text(completed.stdout)
-            if completed.returncode and output.is_file():
-                raw = output.read_bytes()
+            completed, timed_out = run_compiler(command, cwd=ROOT, timeout=args.suite_timeout)
+            (retained / (name + '.log')).write_text(completed.stdout, encoding='utf-8')
+
+            def retain_rejected(raw, reason):
                 rejected = retained / (name + '.failed-output')
                 rejected.write_bytes(raw)
                 failed_suite_outputs[name] = {
                     'path': base.bound_input_key(rejected, ROOT),
                     'sha256': sha(rejected), 'bytes': len(raw),
                     'returncode': completed.returncode,
+                    'timed_out': timed_out, 'reason': reason,
                 }
+
+            if (completed.returncode or timed_out) and output.is_file():
+                retain_rejected(output.read_bytes(), 'suite execution failed')
+            if timed_out:
+                raise subprocess.TimeoutExpired(command, args.suite_timeout, output=completed.stdout)
             completed.check_returncode()
             raw = output.read_bytes()
-            result = json.loads(gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw)
+            try:
+                result = json.loads(gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw)
+            except (ValueError, OSError, EOFError) as error:
+                retain_rejected(raw, repr(error))
+                raise
         (retained / (name + '.json.gz')).write_bytes(gzip.compress(json.dumps(result, separators=(',', ':')).encode(), mtime=0))
         count = validate_result(name, result, candidate, original)
         if args.captured_loader:
@@ -263,6 +283,7 @@ def main():
               'source_directory': str(args.source_directory.resolve()),
               'script_sha256': {str(scripts[name].relative_to(ROOT)): digest for name, digest in script_hashes.items()},
               'workers': 0 if args.validate_existing else args.workers,
+              'suite_timeout_seconds': args.suite_timeout,
               'shard': args.shard, 'shards': args.shards, 'suite_schedule': [name for name, _ in selected_suites],
               'loader_profile': 'captured-upgradeable' if args.captured_loader else 'legacy-raw',
               'loader_receipts': loader_receipts,
