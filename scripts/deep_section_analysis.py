@@ -22,6 +22,7 @@ import hashlib
 import json
 import os
 import struct
+import stat
 import sys
 from pathlib import Path
 
@@ -51,6 +52,18 @@ SYSCALL_NAMES = {
     0xd7793abb: "sol_keccak256",
     0x5d2245e4: "sol_get_return_data",
 }
+
+
+def linked(path):
+    """Identify output symlinks and Windows reparse points without following them."""
+    try:
+        metadata = path.lstat()
+    except FileNotFoundError:
+        return False
+    return (stat.S_ISLNK(metadata.st_mode)
+            or bool(getattr(metadata, "st_file_attributes", 0)
+                    & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0))
+            or bool(getattr(metadata, "st_reparse_tag", 0)))
 
 
 def sha256_file(path):
@@ -649,7 +662,11 @@ def main():
         return 1
 
     output_dir = Path(args.output)
+    if linked(output_dir):
+        raise ValueError("output directory is a link")
     output_dir.mkdir(parents=True, exist_ok=True)
+    if linked(output_dir):
+        raise ValueError("output directory is a link")
 
     # The manifest hashes every file here and verify.py requires exactly the
     # generated set, so reject leftovers from another run before writing.
@@ -662,7 +679,8 @@ def main():
     if unexpected:
         raise ValueError("unexpected packet entry: " + ", ".join(unexpected))
     invalid = sorted(name for name in packet_files
-                     if (output_dir / name).exists() and not (output_dir / name).is_file())
+                     if linked(output_dir / name)
+                     or ((output_dir / name).exists() and not (output_dir / name).is_file()))
     if invalid:
         raise ValueError("packet entry is not a regular file: " + ", ".join(invalid))
 
@@ -692,15 +710,15 @@ def main():
     # --- Write outputs ---
 
     (output_dir / "layer1-data-layout.json").write_text(
-        json.dumps(data_layout, indent=2) + "\n", encoding="utf-8")
+        json.dumps(data_layout, indent=2) + "\n", encoding="utf-8", newline="\n")
     (output_dir / "layer2-relocation-map.json").write_text(
-        json.dumps(reloc_map, indent=2) + "\n", encoding="utf-8")
+        json.dumps(reloc_map, indent=2) + "\n", encoding="utf-8", newline="\n")
     (output_dir / "layer3-cross-section.json").write_text(
-        json.dumps(cross_section, indent=2) + "\n", encoding="utf-8")
+        json.dumps(cross_section, indent=2) + "\n", encoding="utf-8", newline="\n")
     (output_dir / "layer4-anchor-idl.json").write_text(
-        json.dumps(idl_recovery, indent=2) + "\n", encoding="utf-8")
+        json.dumps(idl_recovery, indent=2) + "\n", encoding="utf-8", newline="\n")
     (output_dir / "layer5-math-analysis.json").write_text(
-        json.dumps(math_analysis, indent=2) + "\n", encoding="utf-8")
+        json.dumps(math_analysis, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # Summary
     text_bytes = elf.hi - elf.lo
@@ -736,7 +754,7 @@ def main():
             "overflow_protected": math_analysis["windows_with_overflow_checks"],
         },
     }
-    (output_dir / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+    (output_dir / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # README
     l1 = summary["layer1_data_layout"]
@@ -799,7 +817,7 @@ and mathematical pattern extraction.
 python3 verify.py
 ```
 """
-    (output_dir / "README.md").write_text(readme, encoding="utf-8")
+    (output_dir / "README.md").write_text(readme, encoding="utf-8", newline="\n")
 
     verify_py = '''#!/usr/bin/env python3
 import hashlib, json, os, sys
@@ -834,7 +852,7 @@ if __name__ == "__main__": sys.exit(main())
         'layer3-cross-section.json', 'layer4-anchor-idl.json', 'layer5-math-analysis.json',
         'summary.json', 'verify.py',
     ]))
-    (output_dir / "verify.py").write_text(verify_py, encoding="utf-8")
+    (output_dir / "verify.py").write_text(verify_py, encoding="utf-8", newline="\n")
 
     manifest = {}
     for name in sorted(os.listdir(output_dir)):
@@ -843,7 +861,7 @@ if __name__ == "__main__": sys.exit(main())
         path = output_dir / name
         if path.is_file():
             manifest[name] = sha256_file(str(path))
-    (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     total_lines = sum(
         sum(1 for _ in open(output_dir / name, encoding="utf-8"))

@@ -62,6 +62,7 @@ def main():
             p=(folder/'program-account.bin').read_bytes(); b=(folder/'deployed.so').read_bytes()
             check(p==b and sha(b)==m['payload_sha256']==m['program_sha256'] and len(b)==m['payload_bytes'])
             check(m['owner']=='BPFLoader2111111111111111111111111111111111')
+            slots=m['context_slots']; check(slots and slots==sorted(slots))
             check(m['genesis_hash']=='5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d')
             check(m.get('last_deploy_slot') is None and m.get('upgrade_authority') is None and not any(k in m for k in ('programdata','programdata_sha256','programdata_bytes')))
             check(elf_layout(b)['trailing_all_zero']); print(key,'OK (legacy loader)'); count+=1; continue

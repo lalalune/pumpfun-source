@@ -32,3 +32,18 @@ The oracle JSON contains the same `command`, `inputs` and `timeout` fields as a 
 `patches.json` is an array of absolute paths to independently supplied patch units. Units may be files or carefully prepared hunks; the tool does not guess how to split a diff. Selected units are always applied in original order in a disposable git-initialized source copy. Application failures are infrastructure errors, with diagnostics retained in the report. --want fail searches for a valid nonmatching build; compilation failures never count as reproducing a loss.
 
 The algorithm removes groups, then checks individual removals. `one_minimal` means no single remaining unit can be removed while retaining the predicate, under the completed tests. It does not mean globally smallest. Exhausted budgets or untestable removals report bounded results without claiming minimality. An empty result means the unmodified base already has the requested property. Source and output trees must be separate. Reports include source/patch hashes and tested subsets; original source and patch files are never edited. Use the selected indices to construct the final proposed source change and rerun full no-loss validation; a one-window predicate alone is insufficient for PR acceptance.
+
+### Preserve existing matches during target searches
+
+Pass `--baseline /absolute/path/to/control-score.json` to `match_oracle.py`
+when a target search must also preserve every control normalized and raw
+membership. The oracle snapshots and hashes the report before compilation and
+requires the same original inventory and window sizes. A target match with any
+membership loss is exit 1 (`fail`), with the full preservation comparison in
+`verdict.json`; invalid baseline inputs are exit 2. A target match with all
+memberships preserved is exit 0. Without this option, the existing target-only
+predicate remains available for exploratory searches.
+
+When used through the matrix, minimizer or bisection runner, include the baseline
+file in the oracle configuration's `inputs` list so its content participates in
+trial reuse identity. This gate does not establish runtime equivalence.

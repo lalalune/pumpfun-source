@@ -38,7 +38,7 @@ def run_alias(alias_kind):
         # Stub the analysis so only the destination guard is exercised.
         triage.sections = lambda blob: {'.text': {'addr': 0x1000, 'offset': 0, 'size': 8}}
         triage.score = lambda p: {0x1000: {'normalized': False}}
-        triage.candidate_functions = lambda p: [(0x1000, 8, '_ZN4testE')]
+        triage.function_symbols = lambda blob: [(0x1000, 8, '_ZN4testE')]
         triage.original_windows = lambda: [{'start': 0x1000, 'bytes': 8, 'raw': b'ELFELFEL'}]
         triage.sites = lambda blob, secs, start, raw: []
         triage.normalize = lambda raw, addr, secs: raw
@@ -66,7 +66,7 @@ def run_ok():
         out = tmp / 'triage.json'
         triage.sections = lambda blob: {'.text': {'addr': 0x1000, 'offset': 0, 'size': 8}}
         triage.score = lambda p: {0x1000: {'normalized': False}}
-        triage.candidate_functions = lambda p: [(0x1000, 8, '_ZN4testE')]
+        triage.function_symbols = lambda blob: [(0x1000, 8, '_ZN4testE')]
         triage.original_windows = lambda: [{'start': 0x1000, 'bytes': 8, 'raw': b'ELFELFEL'}]
         triage.sites = lambda blob, secs, start, raw: []
         triage.normalize = lambda raw, addr, secs: raw

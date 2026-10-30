@@ -6,6 +6,7 @@ import argparse,hashlib,json,pathlib,subprocess
 from elftools.elf.elffile import ELFFile
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 ap=argparse.ArgumentParser();ap.add_argument('--toolchain',type=pathlib.Path,required=True);ap.add_argument('--output',type=pathlib.Path,required=True);args=ap.parse_args()
+args.toolchain=args.toolchain.resolve();args.output=args.output.resolve()
 args.output.mkdir(parents=True,exist_ok=False)
 source=ROOT/'programs/pump-fees/recovered/fee_selection.rs';rustc=args.toolchain/'rust/bin/rustc';obj=args.output/'fee_selection.o'
 command=[str(rustc),'--edition=2021','--crate-type','lib','--emit=obj','--target','sbf-solana-solana','-C','opt-level=3','-C','overflow-checks=yes','-C','panic=abort',str(source),'-o',str(obj)]
@@ -26,5 +27,6 @@ for r in relocs:
  elif r['type']==10: relocation_fields.update(range(offset+4,offset+8))
 report={'source_sha256':sha(source.read_bytes()),'rustc_sha256':sha(rustc.read_bytes()),'rustc_version':subprocess.check_output([str(rustc),'--version','--verbose'],text=True),'command':command,'object_sha256':sha(obj.read_bytes()),'original_binary_sha256':sha(original),'original_function_start':start,'original_function_end':end,'original_function_bytes':len(reference),'compiled_function_bytes':len(compiled),'compiled_function_sha256':sha(compiled),'original_function_sha256':sha(reference),'first_difference':diffs[0] if diffs else None,'different_byte_offsets':diffs,'relocations':relocs,'instruction_match_except_unresolved_relocations':len(reference)==len(compiled) and not(set(diffs)-relocation_fields),'whole_program_byte_equality':False,'scope':'One unlinked function only. Relocations remain unresolved and object bytes are never patched.'}
 # Replace local absolute locations in portable evidence; build command remains reproducible via arguments.
-report['command']=[x.replace(str(args.toolchain),'<toolchain>').replace(str(ROOT),'<repo>').replace(str(args.output),'<output>') for x in command]
+locations={str(rustc):'<toolchain>/rust/bin/rustc',str(source):'<repo>/'+source.relative_to(ROOT).as_posix(),str(obj):'<output>/'+obj.name}
+report['command']=[locations.get(x,x) for x in command]
 (args.output/'comparison.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))

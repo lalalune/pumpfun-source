@@ -10,6 +10,7 @@ Usage: fastbuild.py --src <crate dir with Cargo.toml/Cargo.lock/src[/recovered]>
   codegen-units=1, non-incremental release => output equals a fresh build of the same sources).
 - Seeds <work>/target from the warm template (APFS clone) on first use.
 - Writes <out>/unstripped.so and <out>/candidate.so (default <work>/last).
+  An explicit output directory may equal the work directory, including with a pinned link script.
 - Before compilation, archives previous outputs and their log under <out>/previous/build-*.
   Compiler failures leave no current binaries; callers must still check ok.
 - A crate carrying link/ordered.ld (a pinned link order, see link_order.py) is linked with that
@@ -17,6 +18,8 @@ Usage: fastbuild.py --src <crate dir with Cargo.toml/Cargo.lock/src[/recovered]>
   fails unless the linker hook ran in this build.
 - Stack diagnostics return ok=false with build.log and stack_warnings. Diagnostic callers
   gated on ok (including exactsol-introspection capture.py) consequently skip IR extraction.
+- Cargo manifests, lockfiles and saved compiler logs use UTF-8 independently of the host locale.
+  Non-UTF-8 consoles escape unrepresentable diagnostic characters without changing the saved log.
 """
 import argparse, hashlib, json, os, re, shutil, subprocess, sys, time, tomllib, fcntl, tempfile
 from contextlib import contextmanager
@@ -50,6 +53,12 @@ def sha(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 
+def echo_diagnostics(text):
+    # Keep the saved log in UTF-8; a legacy console may need escaped characters.
+    encoding = getattr(sys.stdout, 'encoding', None) or 'utf-8'
+    sys.stdout.write(text.encode(encoding, errors='backslashreplace').decode(encoding))
+
+
 def table_start(text, name):
     """Find a real literal table header, excluding comments and string contents."""
     pattern = r'(?m)^[ \t]*\[' + re.escape(name) + r'\][ \t]*(?:#[^\n]*)?$'
@@ -65,7 +74,7 @@ def table_start(text, name):
 
 
 def stage(src: Path, ws: Path):
-    text = (src / 'Cargo.toml').read_text()
+    text = (src / 'Cargo.toml').read_text(encoding='utf-8')
     parsed = tomllib.loads(text)
     assert parsed.get('workspace') == {} and set(parsed.get('profile', {})) == {'release'}, 'unsupported manifest layout'
     ps = table_start(text, 'profile.release'); wsi = table_start(text, 'workspace')
@@ -82,11 +91,11 @@ def stage(src: Path, ws: Path):
                     '--exclude', '/target/', '--exclude', '/Cargo.toml', '--exclude', '/Cargo.lock',
                     str(src) + '/', str(crate) + '/'], check=True)
     def put(p, t):
-        if not p.exists() or p.read_text() != t:
-            p.write_text(t)
+        if not p.exists() or p.read_text(encoding='utf-8') != t:
+            p.write_text(t, encoding='utf-8')
     put(crate / 'Cargo.toml', crate_text)
     put(ws / 'Cargo.toml', '[workspace]\nmembers = ["programs/pump"]\nresolver = "2"\n\n' + profile)
-    lock = (src / 'Cargo.lock').read_text()
+    lock = (src / 'Cargo.lock').read_text(encoding='utf-8')
     put(ws / 'Cargo.lock', lock)
     return crate
 
@@ -95,7 +104,7 @@ def local_packages(crate: Path):
     """Package names of the staged crate and of every path crate nested in it."""
     names = set()
     for manifest in crate.rglob('Cargo.toml'):
-        name = tomllib.loads(manifest.read_text()).get('package', {}).get('name')
+        name = tomllib.loads(manifest.read_text(encoding='utf-8')).get('package', {}).get('name')
         if name:
             names.add(name)
     return names
@@ -149,6 +158,11 @@ def archive_previous_outputs(out: Path):
 
 def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):
     validate_timeout(timeout)
+    src = src.resolve(); work = work.resolve(); out = out.resolve()
+    # Reject overlap before workspace_lock can create a directory or lock in
+    # the source tree (and thereby change its source-input receipt).
+    if src == work or src in work.parents or work in src.parents or src == out or src in out.parents:
+        raise ValueError('source must not overlap the build workspace or contain output')
     with workspace_lock(work):
         return _build_locked(src, work, out, quiet=quiet, recipe=recipe, timeout=timeout)
 
@@ -157,9 +171,6 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
 
     recipe = recipe or DEFAULT_RECIPE
     R = RECIPES[recipe]; triple = R['triple']
-    src = src.resolve(); work = work.resolve(); out = out.resolve()
-    if src == work or src in work.parents or work in src.parents or src == out or src in out.parents:
-        raise ValueError('source must not overlap the build workspace or contain output')
     source_inputs = snapshot(src)
     work.mkdir(parents=True, exist_ok=True)
     ws = work / 'ws'
@@ -188,14 +199,16 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     env['CARGO_TARGET_' + triple.upper().replace('-', '_') + '_RUSTFLAGS'] = '-Zremap-cwd-prefix='
     env.pop('RUSTFLAGS', None); env.pop('CARGO_ENCODED_RUSTFLAGS', None)
     receipt = work / 'link-receipt.json'
-    receipt.unlink(missing_ok=True)
-    receipt.with_name('link.map').unlink(missing_ok=True)
     link_env, link_record = link_order.configure(crate, R['rustc'], receipt)
     env.update(link_env)
     cmd = [str(SDK / 'rust/bin/cargo'), 'build', '--manifest-path', str(crate / 'Cargo.toml'), '--release',
            '--target', triple, '--locked', '--offline']
     out.mkdir(parents=True, exist_ok=True)
     archive_previous_outputs(out)
+    # If out == work, these are previous published evidence. Archive them
+    # before clearing the transient linker paths for the next compiler run.
+    receipt.unlink(missing_ok=True)
+    receipt.with_name('link.map').unlink(missing_ok=True)
     (out / 'source-inputs.json').write_text(json.dumps(source_inputs, indent=2) + '\n', encoding='utf-8')
     # Never trust mtime freshness for local crates (rsync -a keeps source mtimes, so cargo could
     # otherwise reuse a stale pump artifact): drop their fingerprints (and the main output) so they
@@ -214,10 +227,10 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     finally:
         slot.close()
     dt = time.time() - t0
-    (out / 'build.log').write_text(r.stdout)
+    (out / 'build.log').write_text(r.stdout, encoding='utf-8')
     if timed_out or r.returncode != 0:
         if not quiet:
-            sys.stdout.write(r.stdout[-6000:])
+            echo_diagnostics(r.stdout[-6000:])
         return {'ok': False, 'timed_out': timed_out, 'source_sha256': source_inputs['sha256'], 'recipe': recipe, 'seconds': round(dt, 1), 'log': str(out / 'build.log')}
     # SBF frames are 4 KiB: any "Stack offset ... exceeded max offset" warning means the program can fault at
     # runtime (the original runs, so its functions fit). Such a build must never be delivered or integrated.
@@ -234,8 +247,9 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
         got = json.loads(receipt.read_text())
         if got['script_sha256'] != link_record['script_sha256'] or got['lld_sha256'] != link_record['lld_sha256']:
             raise RuntimeError('link receipt does not match the pinned link script')
-        shutil.copy2(receipt, out / 'link-receipt.json')
-        shutil.copy2(receipt.with_name('link.map'), out / 'link.map')
+        if out != work:  # Otherwise the linker already wrote the output files.
+            shutil.copy2(receipt, out / 'link-receipt.json')
+            shutil.copy2(receipt.with_name('link.map'), out / 'link.map')
     built = target / triple / 'release' / f'{library}.so'
     shutil.copy2(built, out / 'unstripped.so')
     subprocess.run([str(SDK / 'llvm/bin/llvm-objcopy'), '--strip-all', str(built), str(out / 'candidate.so')], check=True)

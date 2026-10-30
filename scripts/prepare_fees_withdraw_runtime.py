@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Extract the sealed, unchanged focused Fees harness for current-artifact CI."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse
 import hashlib
 import json

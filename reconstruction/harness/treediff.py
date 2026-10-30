@@ -1,5 +1,6 @@
 import difflib
 import json
+import os
 import stat
 from pathlib import Path
 
@@ -22,12 +23,17 @@ def tree_files(root):
     if not root.is_dir():
         raise NotADirectoryError(f'source tree is not a directory: {root}')
     files = {}
-    # Inspect each directory before rglob can descend into it. Eagerly sorting
-    # rglob first would already traverse Windows junctions before this check.
-    for path in root.rglob('*'):
-        reject_source_link(path)
-        if path.is_file():
-            files[path.relative_to(root).as_posix()] = path.read_bytes()
+    def scan_error(error):
+        raise error
+
+    # Fail on inaccessible/disappearing directories instead of certifying an
+    # incomplete tree. Inspect links before walk can descend into them.
+    for directory, directories, names in os.walk(root, followlinks=False, onerror=scan_error):
+        for name in sorted(directories + names):
+            path = Path(directory) / name
+            reject_source_link(path)
+            if path.is_file():
+                files[path.relative_to(root).as_posix()] = path.read_bytes()
     return dict(sorted(files.items()))
 
 

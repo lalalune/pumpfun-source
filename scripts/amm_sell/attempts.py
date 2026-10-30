@@ -69,7 +69,7 @@ def main():
     if a.cmd == 'best':
         ok = [e for e in builds
               if (e.get('metrics') or {}).get('score_version') == a.score_version
-              and (e.get('metrics') or {}).get('lost_windows_count') == 0]
+              and (e.get('metrics') or {}).get('lost_windows_normalized_count') == 0]
         ok.sort(key=lambda e: (not e['metrics']['sell_raw_equal'], e['metrics']['align_distance'], e['metrics']['slot_diffs']))
         for e in ok[:a.n]:
             print(short(e))

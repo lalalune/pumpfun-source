@@ -61,6 +61,9 @@ from amm_sell.test_sell_distance import AlignmentDistanceTests
 from amm_sell.test_cached_status import CachedAttemptStatusTests
 
 
+from amm_sell.test_attempt_queries import AttemptQueryTests
+
+
 import gzip
 
 

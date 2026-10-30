@@ -13,6 +13,19 @@ def sha(path):
     with Path(path).open('rb')as f:
         for chunk in iter(lambda:f.read(1024*1024),b''):h.update(chunk)
     return h.hexdigest()
+def download_archive(path,url,expected_sha):
+    if path.is_symlink() or path.exists():raise FileExistsError(f'refusing to replace retained archive: {path}')
+    partial=path.with_name('.'+path.name+'.partial')
+    if partial.is_symlink() or partial.exists():raise FileExistsError(f'refusing to replace retained partial archive: {partial}')
+    created=False
+    try:
+        with partial.open('xb')as f:
+            created=True
+            with urllib.request.urlopen(url)as response:shutil.copyfileobj(response,f)
+        if sha(partial)!=expected_sha:raise ValueError(path.name)
+        os.link(partial,path)
+    finally:
+        if created:partial.unlink(missing_ok=True)
 def run(name,args,env=None):
     with (EVIDENCE/(name+'.log')).open('w')as log:
         p=subprocess.run([str(x)for x in args],cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT)
@@ -43,8 +56,7 @@ def main():
     assert platform.system()=='Darwin'and platform.machine()=='arm64','Requires the standard Apple Silicon macOS runner'
     for label,definition in spec['archives'].items():
         path=OUT/(label+'.tar.bz2')
-        with urllib.request.urlopen(definition['url'])as response,path.open('wb')as f:shutil.copyfileobj(response,f)
-        assert sha(path)==definition['sha256'],label
+        download_archive(path,definition['url'],definition['sha256'])
         destination=OUT/label;destination.mkdir()
         with tarfile.open(path)as t:t.extractall(destination,filter='data')
     sdk=OUT/'macos';libraries=OUT/'linux/rust/lib/rustlib/sbf-solana-solana/lib'

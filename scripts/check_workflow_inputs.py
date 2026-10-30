@@ -51,6 +51,50 @@ def substitute(value, row):
     return EXPRESSION.sub(lambda m: str(row.get(m[1], m[0])), value)
 
 
+def join_line_continuations(command):
+    """Remove shell backslash-newline pairs outside single quotes/comments.
+
+    This only reconstructs logical lines for the existing literal-command
+    checker; it does not evaluate expansions or compound shell commands.
+    """
+    result = []
+    quote = None
+    comment = False
+    word_start = True
+    index = 0
+    while index < len(command):
+        char = command[index]
+        if comment:
+            result.append(char)
+            if char == '\n':
+                comment = False
+                word_start = True
+        elif quote == "'":
+            result.append(char)
+            if char == "'":
+                quote = None
+        elif char == '\\' and index + 1 < len(command):
+            following = command[index + 1]
+            if following != '\n':
+                result.extend((char, following))
+                word_start = False
+            index += 1
+        else:
+            result.append(char)
+            if char == quote:
+                quote = None
+            elif quote is None:
+                if char in ("'", '"'):
+                    quote = char
+                    word_start = False
+                elif char == '#' and word_start:
+                    comment = True
+                else:
+                    word_start = char.isspace() or char in ';&|()<>'
+        index += 1
+    return ''.join(result)
+
+
 def command_start(tokens):
     """Return the interpreter index after shell assignments and env options."""
     index = 0
@@ -88,7 +132,7 @@ def references(name, source):
             for step in job.get('steps', []):
                 if 'run' not in step:
                     continue
-                command = substitute(str(step['run']), row)
+                command = join_line_continuations(substitute(str(step['run']), row))
                 cwd = substitute(str(step.get('working-directory', directory)), row)
                 if re.search(r'<<-?\s*[^\s<]', command):
                     unsupported.add((name, str(job_id), 'heredoc body requires shell parsing'))

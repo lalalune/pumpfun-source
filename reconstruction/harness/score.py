@@ -76,6 +76,8 @@ def _window_rows(orig, inventory):
     rows = []
     seen = set()
     text = os_['.text']
+    from instruction_stream import instruction_boundaries
+    boundaries = instruction_boundaries(body(orig, os_, text['addr'], text['size']))
     for r in reader:
         if r['program'] != 'pump' or r['variant'] != 'selected':
             continue
@@ -83,6 +85,8 @@ def _window_rows(orig, inventory):
         if (start in seen or start % 8 or end % 8 or end <= start
                 or start < text['addr'] or end > text['addr'] + text['size']):
             raise ValueError(f'invalid or duplicate selected window: {start}:{end}')
+        if start - text['addr'] not in boundaries or end - text['addr'] not in boundaries:
+            raise ValueError(f'selected window must follow logical instruction boundaries: {start}:{end}')
         seen.add(start)
         raw = body(orig, os_, start, end - start)
         if len(raw) != end - start:

@@ -55,6 +55,19 @@ class AttemptQueryTests(unittest.TestCase):
         self.assertNotIn('historical/probe', result)
         self.assertNotIn('unversioned/probe', result)
 
+    def test_best_treats_only_normalized_losses_as_regressions(self):
+        # A legitimate sell-size change shifts every later window, inflating the
+        # RAW lost_windows_count while lost_windows_normalized_count stays 0 (no
+        # function actually changed; see sell_score.py). try_sell.rank() and the
+        # README define a loss as lost_windows_normalized_count != 0, so `best`
+        # must surface the shifted-but-non-losing attempt and drop the one whose
+        # normalized windows truly regressed.
+        rows = [entry('shifted', raw_loss=3, normalized_loss=0),
+                entry('regressed', raw_loss=0, normalized_loss=2)]
+        result = self.query(rows, 'best')
+        self.assertIn('shifted/probe', result)
+        self.assertNotIn('regressed/probe', result)
+
     def test_explicit_historical_version_is_ranked_separately(self):
         result = self.query([entry('current'),
                              entry('historical', version=SCORE_VERSION - 1)],

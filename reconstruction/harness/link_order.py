@@ -93,7 +93,7 @@ def configure(crate, rustc, receipt):
     script = Path(crate) / SCRIPT
     if not script.is_file():
         return {}, None
-    manifest = tomllib.loads((Path(crate) / 'Cargo.toml').read_text())
+    manifest = tomllib.loads((Path(crate) / 'Cargo.toml').read_text(encoding='utf-8'))
     lib_name = manifest.get('lib', {}).get('name') or manifest['package']['name'].replace('-', '_')
     counts = check_script(script.read_text())
     lld = sorted(Path(rustc).parents[1].glob('lib/rustlib/*/bin/rust-lld'))

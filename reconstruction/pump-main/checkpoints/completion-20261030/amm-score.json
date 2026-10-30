@@ -1,0 +1,52 @@
+{
+  "score_version": 3,
+  "candidate_sha256": "51a5f6a7fb5a812de7686e593ce6159f6ee59b15771a3d5d37ab661c46d64586",
+  "unstripped_sha256": "0e53a35f38d434d2b48ad8c9aa6c9a90bb9126de68071c125aedfb8a095bf4bf",
+  "sell_raw_equal": true,
+  "whole_elf_equal": false,
+  "allocation_image_equal": true,
+  "unstripped_elf_equal": false,
+  "original_bytes": 10485715,
+  "candidate_bytes": 1268504,
+  "unstripped_bytes": 1781960,
+  "allocation_padding_bytes": 9217211,
+  "windows_raw_equal": 785,
+  "windows_total": 785,
+  "lost_windows": [],
+  "candidate_windows": 785,
+  "lost_windows_normalized": [],
+  "sell_start": "0x4c750",
+  "sell_size": 9024,
+  "slot_diffs": 0,
+  "align_distance": 0,
+  "ja_count": {
+    "original": 35,
+    "candidate": 35
+  },
+  "cond_count": {
+    "original": 43,
+    "candidate": 43
+  },
+  "borrow_branch": {
+    "original": [
+      "0xcd0 call internal 96172",
+      "0xcd8 ldxdw r6, [r10-672]",
+      "0xce0 ldxdw r1, [r10-680]",
+      "0xce8 ldxdw r2, [r10-688]",
+      "0xcf0 lddw r3, 0x800000000000001a",
+      "0xd00 jeq r2, r3, +1  ; -> 0x0d10",
+      "0xd08 ja +201  ; -> 0x1358",
+      "0xd10 ldxdw r2, [r1+8]"
+    ],
+    "candidate": [
+      "0xcd0 call internal 96172",
+      "0xcd8 ldxdw r6, [r10-672]",
+      "0xce0 ldxdw r1, [r10-680]",
+      "0xce8 ldxdw r2, [r10-688]",
+      "0xcf0 lddw r3, 0x800000000000001a",
+      "0xd00 jeq r2, r3, +1  ; -> 0x0d10",
+      "0xd08 ja +201  ; -> 0x1358",
+      "0xd10 ldxdw r2, [r1+8]"
+    ]
+  }
+}

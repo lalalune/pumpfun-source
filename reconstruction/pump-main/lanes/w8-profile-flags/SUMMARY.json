@@ -1,0 +1,71 @@
+{
+ "lane": "w8-profile-flags",
+ "wave": 8,
+ "angle": "profile and codegen flags (build inputs)",
+ "bases": {
+  "global": "main ce53d867a 1027/276 unstripped 31ec6381",
+  "root_only": "main 2b8582135 1027/276 unstripped ec660de7"
+ },
+ "targets": [
+  "0x80df8",
+  "0x1e7c0",
+  "0x22a10",
+  "0x5b3b0",
+  "0x72810",
+  "0x13b9b8",
+  "0x13f630",
+  "0x1489f8"
+ ],
+ "best_result": "no flag gains; current profile/flags proven to be the original's wherever they affect code",
+ "best_metrics": {
+  "normalized": 1027,
+  "raw": 276,
+  "gains": [],
+  "losses": []
+ },
+ "attempts": {
+  "ledger_rows": 53,
+  "real_builds_or_relinks": 78,
+  "llc_diff_screens": 59
+ },
+ "established": {
+  "opt-level": "3 (2: -267; s: stack overflow)",
+  "codegen-units": "1 for root and deps (16: -428; deps 16: -117)",
+  "overflow-checks": "on for root and deps (deps off: -72)",
+  "debug-assertions": "off (on: -386; no ub_checks strings in original)",
+  "debuginfo": "none (-g: -82; =1: stack overflow)",
+  "incremental": "false (stack overflow)",
+  "target-cpu": "generic (= default; v1/v2 fail to link)",
+  "mir": "default inline thresholds and mir-opt-level 2 (all variants lose or are no-ops)",
+  "share-generics": "off (-492)",
+  "mutable-noalias": "on (-266)",
+  "cargo-build-sbf": "2.1 adds only -Zremap-cwd-prefix= (the recipe)"
+ },
+ "code_neutral": [
+  "lto false/off/thin/fat",
+  "panic=abort set/unset",
+  "[profile.release.build-override] (Anchor template)",
+  "-Cforce-frame-pointers",
+  "-Cno-vectorize-loops",
+  "-Cinline-threshold=225",
+  "-Zcross-crate-inline-threshold=50/200",
+  "-Csymbol-mangling-version (layout only)"
+ ],
+ "metadata_finding": "profile fields feed -C metadata (re-roll all 17h hashes and U/D order); target RUSTFLAGS do not (symbol set identical)",
+ "rejected_mechanisms": [
+  "global profile variants",
+  "global RUSTFLAGS (-g, debuginfo, mir/inline thresholds, share-generics, noalias, jump threading, target-cpu)",
+  "per-package overrides (deps overflow/opt/cgu, pump-token-ext overflow)",
+  "root-only MIR/LLVM IR thresholds (16)",
+  "codegen-stage llc knobs (59: RA, schedulers, tail dup/merge, placement, machine passes)"
+ ],
+ "unresolved_residuals": "all 8; none is flag-sensitive in isolation; 0x80df8 sret split tie not reachable by any RA knob without changing other functions",
+ "diagnostic_signals": {
+  "-tail-dup-size=3": "create_v2 0.851->0.892, buy_exact_quote 0.851->0.915, -21 windows: original likely duplicates smaller tail blocks at those joins (source)"
+ },
+ "next_ideas": [
+  "diff out/m-taildup3 vs base for 0x1e7c0/0x1489f8 to locate the duplicated joins and shrink the shared tail in source",
+  "if root crate identity is reproduced, enumerate the 16 code-neutral profiles on U/D group agreement",
+  "use PUMP_EXTRA_RUSTFLAGS / tools/mainonly.py for any future flag experiment (no metadata disturbance)"
+ ]
+}

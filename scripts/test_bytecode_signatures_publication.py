@@ -21,6 +21,22 @@ def generate(output):
 
 
 class BytecodeSignaturePublicationTests(unittest.TestCase):
+    def test_symlinked_packet_entry_is_rejected_before_the_target_is_modified(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            output = root / "packet"
+            output.mkdir()
+            target = root / "external-summary.json"
+            target.write_text("external sentinel\n")
+            try:
+                (output / "summary.json").symlink_to(target)
+            except (OSError, NotImplementedError) as error:
+                self.skipTest(f"symlinks are unavailable: {error}")
+            with self.assertRaisesRegex(ValueError, "packet entry is not a regular file: summary.json"):
+                generate(output)
+            self.assertEqual(target.read_text(), "external sentinel\n")
+            self.assertEqual([path.name for path in output.iterdir()], ["summary.json"])
+
     def test_stale_entry_is_rejected_before_any_packet_file_is_written(self):
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary) / "packet"
@@ -29,6 +45,36 @@ class BytecodeSignaturePublicationTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "unexpected packet entry: stale.txt"):
                 generate(output)
             self.assertEqual([path.name for path in output.iterdir()], ["stale.txt"])
+
+    def test_packet_bytes_do_not_follow_the_host_line_ending(self):
+        # Model Windows text-I/O defaults at the actual file-open boundary.
+        # Patching os.linesep alone does not change CPython TextIOWrapper.
+        real_open = Path.open
+
+        def windows_text_open(path, mode="r", buffering=-1, encoding=None,
+                              errors=None, newline=None):
+            if "b" not in mode and any(flag in mode for flag in "wax"):
+                if newline is None:
+                    newline = "\r\n"
+                if encoding is None:
+                    encoding = "cp1252"
+            return real_open(path, mode, buffering=buffering, encoding=encoding,
+                             errors=errors, newline=newline)
+
+        with tempfile.TemporaryDirectory() as temporary:
+            control = Path(temporary) / "control"
+            output = Path(temporary) / "windows-defaults"
+            with contextlib.redirect_stdout(io.StringIO()):
+                generate(control)
+                with mock.patch.object(Path, "open", windows_text_open):
+                    generate(output)
+            self.assertEqual(sorted(p.name for p in control.iterdir()),
+                             sorted(p.name for p in output.iterdir()))
+            for path in sorted(output.iterdir()):
+                with self.subTest(entry=path.name):
+                    self.assertEqual(path.read_bytes(),
+                                     (control / path.name).read_bytes())
+                    self.assertNotIn(b"\r", path.read_bytes())
 
     def test_regenerated_packet_still_verifies(self):
         with tempfile.TemporaryDirectory() as temporary:

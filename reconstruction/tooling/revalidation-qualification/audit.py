@@ -319,7 +319,12 @@ def classify(has_manifest, has_verify, manifest_before, verify, manifest_after, 
 
 def safe_manifest_check(frozen, packet):
     try:
-        return frozen.check_manifest(packet)
+        result = frozen.check_manifest(packet)
+        if result.get("status") == "pass" and not result.get("files_expected"):
+            # A manifest that declares no files verifies nothing.
+            result = {**result, "status": "fail",
+                      "errors": [*result.get("errors", []), "manifest declares no files"]}
+        return result
     except Exception as error:
         return {
             "status": "error",

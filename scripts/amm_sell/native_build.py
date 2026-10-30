@@ -237,10 +237,14 @@ def build(lane, build_id, source_root=None, sell=None, patch=None, extra_root_fl
             result = subprocess.run([str(SDK / 'rust/bin/cargo'), 'build', '--release', '--target', 'sbpf-solana-solana',
                                      '--manifest-path', str(ws / 'Cargo.toml'), '--locked', '--offline', '--verbose'],
                                     cwd=ws, env=env, stdout=log, stderr=subprocess.STDOUT)
-        record = {'lane': str(lane), 'id': build_id, 'returncode': result.returncode,
+        stack_warnings = [line.strip() for line in (staging / 'build.log').read_text(errors='replace').splitlines()
+                          if 'exceeded max offset' in line]
+        returncode = result.returncode or (1 if stack_warnings else 0)
+        record = {'lane': str(lane), 'id': build_id, 'returncode': returncode,
+                  'compiler_returncode': result.returncode, 'stack_warnings': stack_warnings,
                   'seconds': round(time.time() - started, 1), 'sell_sha256': sha(staging / 'sell.rs'),
                   'extra_root_flags': extra_root_flags, 'link_script': link_script}
-        if result.returncode == 0:
+        if returncode == 0:
             unstripped = target / 'sbpf-solana-solana/release' / PROGRAM
             shutil.copyfile(unstripped, staging / 'symbols.so')
             subprocess.run([str(SDK / 'llvm/bin/llvm-objcopy'), '--strip-all', str(staging / 'symbols.so'),
@@ -248,7 +252,7 @@ def build(lane, build_id, source_root=None, sell=None, patch=None, extra_root_fl
             record['candidate_sha256'] = sha(staging / 'candidate.so')
             record['symbols_sha256'] = sha(staging / 'symbols.so')
         (staging / 'build-record.json').write_text(json.dumps(record, indent=2) + '\n')
-        if result.returncode == 0:
+        if returncode == 0:
             publish_output(staging, out)
             record['output_dir'] = str(out)
         else:

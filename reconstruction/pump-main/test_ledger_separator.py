@@ -7,6 +7,10 @@ import sys
 import tempfile
 import unittest
 
+OLD_ROW = json.dumps({
+    'schema': 'main-pump-attempt-v1', 'attempt_id': 'old-id', 'timestamp_utc': '2026-10-29T00:00:00+00:00',
+    'lane': 'test', 'approach': 'synthetic', 'target': '0x10', 'dedupe_key': 'old-attempt',
+    'hypothesis': 'test only', 'status': 'analyzed', 'data': {}}).encode()
 
 class LedgerSeparatorTests(unittest.TestCase):
     def record(self, initial):
@@ -22,7 +26,7 @@ class LedgerSeparatorTests(unittest.TestCase):
             return result, ledger.read_bytes()
 
     def test_unterminated_row_remains_parseable(self):
-        initial = b'{"dedupe_key":"old-attempt"}'
+        initial = OLD_ROW
         result, raw = self.record(initial)
         self.assertEqual(result.returncode, 0, result.stderr)
         rows = [json.loads(line) for line in raw.splitlines()]
@@ -30,7 +34,7 @@ class LedgerSeparatorTests(unittest.TestCase):
         self.assertTrue(raw.startswith(initial + b'\n'))
 
     def test_terminated_row_gets_no_blank_line(self):
-        result, raw = self.record(b'{"dedupe_key":"old-attempt"}\n')
+        result, raw = self.record(OLD_ROW + b'\n')
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(len(raw.splitlines()), 2)
         self.assertNotIn(b'\n\n', raw)

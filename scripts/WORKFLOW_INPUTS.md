@@ -24,6 +24,11 @@ and workflow/job/step working-directory defaults. A removed script still referen
 by an unchanged workflow is a regression. Removing both the obsolete workflow
 reference and its script is allowed.
 
+POSIX shell backslash-newline continuations are joined before checking literal
+commands, including continuations within double-quoted paths. Single-quoted text,
+escaped backslashes and shell comments keep their boundaries; this does not add
+shell expansion or compound-command evaluation.
+
 Existing missing references are compared by (workflow, job, path) and printed in
 `existing_missing`; they are not described as passing verification. This allows
 adoption while the historical evidence matrix is being repaired, without a static
