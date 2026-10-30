@@ -1,0 +1,66 @@
+[
+  {
+    "name": "source-final",
+    "argv": [
+      "node",
+      "scripts/original-settings-focus-frames.mjs"
+    ],
+    "exit": 0,
+    "seconds": 0.6956798849860206
+  },
+  {
+    "name": "focused-final",
+    "argv": [
+      "node",
+      "--test",
+      "tests/original_settings_focus_frames.test.mjs",
+      "tests/original_source.test.mjs"
+    ],
+    "exit": 0,
+    "seconds": 0.8276396169967484
+  },
+  {
+    "name": "typecheck",
+    "argv": [
+      "node",
+      "/home/agent/.cache/node/corepack/v1/pnpm/10.24.0/bin/pnpm.cjs",
+      "typecheck"
+    ],
+    "exit": 0,
+    "seconds": 5.0990856679854915
+  },
+  {
+    "name": "evidence",
+    "argv": [
+      "python3",
+      "scripts/verify-evidence.py"
+    ],
+    "exit": 0,
+    "seconds": 0.16917036299128085
+  },
+  {
+    "name": "progress",
+    "argv": [
+      "python3",
+      "scripts/progress.py",
+      "--check"
+    ],
+    "exit": 0,
+    "seconds": 0.14646975899813697
+  },
+  {
+    "name": "progress-tests",
+    "argv": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_progress.py"
+    ],
+    "exit": 0,
+    "seconds": 0.804812803020468
+  }
+]

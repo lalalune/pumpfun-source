@@ -1,0 +1,205 @@
+{
+  "schema": 1,
+  "testedHead": "b9a972138d6e5175e4e73b5c4d43a31f1c18ec39",
+  "testedTree": "05b356721ac2b4887e5d22f75ae7bff786535a84",
+  "reviewBase": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Complete original grouped Settings transient focus/context + fullRow/Section rendering and actualcaller binding, readonly supplied nodes only.",
+  "inputs": {
+    "evidence/web/manifest.json": {
+      "bytes": 3026513,
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda"
+    },
+    "evidence/web/objects/4490d02ba2117672.js": {
+      "bytes": 52381,
+      "sha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "gitBlob": "464a645f3fc99db61ab4cdab0395471031bc1715"
+    },
+    "evidence/web/objects/8401a8e00b4638cb.js": {
+      "bytes": 39392,
+      "sha256": "b161b408239a968b9cfc15b49b9cacd535c077a2b5b555683e30b90787b0d2ca",
+      "gitBlob": "abe60077bb0d9f01f14001dd50030317a98b37f5"
+    },
+    "package.json": {
+      "bytes": 3703,
+      "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+      "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8"
+    },
+    "packages/backend/package.json": {
+      "bytes": 463,
+      "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b"
+    },
+    "packages/frontend/package.json": {
+      "bytes": 1048,
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0"
+    },
+    "pnpm-lock.yaml": {
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+    },
+    "reconstruction/settings-focus-frames/client.mjs": {
+      "bytes": 7462,
+      "sha256": "9ad777c54badecf93131eafdaf11da1783aca25489fcd9e6402b4e5a3871dd08",
+      "gitBlob": "c48f47e1d7c407e72120e9a1616f8a5a4dc0d79e"
+    },
+    "reconstruction/settings-focus-frames/contract.json": {
+      "bytes": 13276,
+      "sha256": "54e8c1f4f67887ea3df1bf67829b3eecd74de4ec4d6bf9d9f2816f31df233ed3",
+      "gitBlob": "b4697d67cea9436b91e314e60d0d5f92c770e354"
+    },
+    "recovered/modules.json": {
+      "bytes": 2928853,
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+      "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f"
+    },
+    "scripts/original-contracts/source.mjs": {
+      "bytes": 9493,
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+      "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df"
+    },
+    "scripts/original-settings-focus-frames.mjs": {
+      "bytes": 12562,
+      "sha256": "0c4a26584fccf02c874f74638d455ce10a191e92587f8a8a7149566820972b7f",
+      "gitBlob": "e892a6edf574469ef777fec300d9f823c0cf6de5"
+    },
+    "tests/fixtures/settings-focus-frames-browser.mjs": {
+      "bytes": 4661,
+      "sha256": "6dc6fc996c22394eae1f0b247ff464ad75a4a1d19dd8b75209fad7ac8d5e2121",
+      "gitBlob": "f2c0b43f03f4580a6d1c1c5efe185167ae913c9e"
+    },
+    "tests/original_settings_focus_frames.test.mjs": {
+      "bytes": 4242,
+      "sha256": "d829d277aab191e31f9f0379a857b2db11e9c068687822269b1e455690340b14",
+      "gitBlob": "937e5d2206ef536608749d7695f87bb232a5187f"
+    },
+    "tests/original_settings_focus_frames_browser.test.mjs": {
+      "bytes": 12482,
+      "sha256": "95506ed6da0d76917cc71266edc3d3dc47b79a3abfcfee05d6ed110ba9a11a3d",
+      "gitBlob": "5890378d99fede3e0f35787afdd141c739e7e3c5"
+    },
+    "tests/original_source.test.mjs": {
+      "bytes": 7401,
+      "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3",
+      "gitBlob": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+    }
+  },
+  "inputScope": "16 selected executed source/generator/tests/sharedreader/captures/index/manifest/package inputs, not exhaustive installed/cold/whole-app identity.",
+  "results": [
+    {
+      "name": "source-final",
+      "argv": [
+        "node",
+        "scripts/original-settings-focus-frames.mjs"
+      ],
+      "exit": 0,
+      "seconds": 0.6956798849860206
+    },
+    {
+      "name": "focused-final",
+      "argv": [
+        "node",
+        "--test",
+        "tests/original_settings_focus_frames.test.mjs",
+        "tests/original_source.test.mjs"
+      ],
+      "exit": 0,
+      "seconds": 0.8276396169967484
+    },
+    {
+      "name": "typecheck",
+      "argv": [
+        "node",
+        "/home/agent/.cache/node/corepack/v1/pnpm/10.24.0/bin/pnpm.cjs",
+        "typecheck"
+      ],
+      "exit": 0,
+      "seconds": 5.0990856679854915
+    },
+    {
+      "name": "evidence",
+      "argv": [
+        "python3",
+        "scripts/verify-evidence.py"
+      ],
+      "exit": 0,
+      "seconds": 0.16917036299128085
+    },
+    {
+      "name": "progress",
+      "argv": [
+        "python3",
+        "scripts/progress.py",
+        "--check"
+      ],
+      "exit": 0,
+      "seconds": 0.14646975899813697
+    },
+    {
+      "name": "progress-tests",
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_progress.py"
+      ],
+      "exit": 0,
+      "seconds": 0.804812803020468
+    },
+    {
+      "name": "browser-final",
+      "argv": [
+        "node",
+        "--test",
+        "tests/original_settings_focus_frames_browser.test.mjs"
+      ],
+      "outputEnvironment": "PUMP_SETTINGS_FOCUS_OUTPUT=<owned-output>",
+      "exit": 0,
+      "workflows": 1,
+      "widths": [
+        390,
+        1280
+      ],
+      "pageErrors": 0,
+      "clock": "Native actual2500ms callback; instrumented suppliedtimerport forwards nativewindow calls; nofakeclock/globaloverride."
+    }
+  ],
+  "browserBundleSha256": "72200986846af7c7f73d2d721191313bb7d9628b0c801cf3f07b2b9a8e66f042",
+  "versions": {
+    "node": "24.19.0",
+    "pnpm": "10.24.0",
+    "react": "19.2.3",
+    "playwright": "1.64.1",
+    "chromiumBuild": 1248,
+    "esbuild": "0.25.12",
+    "browserLocale": "en-US"
+  },
+  "cleanup": "Owned GET-only ephemeralhost and Chromium closed in producerfinally before exit0,temporary compiledfixture deleted; PRIMARY explicitlyreleased. No Next/process/cache owned.",
+  "preservation": "Complete source/method frozenb9a beforefinalqualification;publication addsREADMEresulttext andsealedvalidationonly. All16selectedinputs stayGitblob-identical.",
+  "priorPhases": [
+    "A failed pre-generation source-witness selector required a control property on unrelated row candidates; the strict sharedobjectProperty helper correctly rejected that assumption. Raw failure and corrected-generation output retained. Seven copiedsource bodies were not altered by the selector correction.",
+    "Development andpre-freeze16-testpasses retained separately from final frozen16-testpass.",
+    "Three unchanged progress refs omitted by sparsecheckout were materialized fromexactHEADblobs; noledger/scorerchange."
+  ],
+  "runtimeAssertions": [
+    "Native smoothscroll centers targetrow within6pxofdiagnostichostcenter; original Roweffect usescenter/smooth without invoking keyboardfocus.",
+    "Actual focusedrowmarker/completeReadonlyslots render; changing target beforeexpiry clears/restarts native2500ms timer andscrolls newlyfocusedrow.",
+    "ManualnativeScrollTo0 plus unrelatedReactrerender doesnotrepeat Roweffect or restarttimer.",
+    "Real callback occurs after2500ms approximately; changing targetafterexpiry starts timer butpreserves inactive state.",
+    "Remount restores initialtruefocus; subtreeunmount clears pendingtimer. Across2650msafterunmount,noadditionalcallbackfires.",
+    "Falseytarget remount schedulesnotimer; nooverflow/pageerrors, finalsourceunmountleavesnoactivetimers."
+  ],
+  "limits": [
+    "ActualReact/compiler and nativeclock/scroll geometry inauthoredreadonlyfixture; classcombiner/timerports explicit. NooriginalCSS/vendor/provider/globalSettings/nativeAPI/pixel/security/completionclaim.",
+    "Originalone-shotno-reset behavior preserved; visualhighlight/scroll isnotkeyboardfocus/parentfocustrap or a fullgenericmodal.",
+    "Actual124884usesh(H)+context.Provider; exportedw iscompletealternativeexport, notfalselyclaimed literalcaller.",
+    "Noactualcookies/storage/sessions/credentials/userdata/tenantrequests, preferences/controlmutation orprotectedavailability/wallet/admin/tradingacquisition.",
+    "1839state/1872fields/1898results/1911loading andpriornativeSettingsfixes remaincredited/frozenexternalcallers; no unmergedruntimeimports/copy/retally."
+  ]
+}

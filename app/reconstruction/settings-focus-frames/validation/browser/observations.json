@@ -1,0 +1,1406 @@
+{
+  "bundleSha256": "72200986846af7c7f73d2d721191313bb7d9628b0c801cf3f07b2b9a8e66f042",
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    },
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    }
+  ],
+  "results": [
+    {
+      "width": 390,
+      "initial": {
+        "host": {
+          "target": "feed.beta",
+          "instance": 0,
+          "show": true,
+          "active": [
+            1
+          ],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 139.30000001192093,
+              "fired": null,
+              "cleared": []
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ]
+          ]
+        },
+        "focused": [
+          "feed.beta"
+        ],
+        "scrollTop": 540
+      },
+      "initialCenter": {
+        "offset": -4,
+        "scrollTop": 540
+      },
+      "sameTarget": {
+        "host": {
+          "target": "feed.beta",
+          "instance": 0,
+          "show": true,
+          "active": [
+            1
+          ],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 139.30000001192093,
+              "fired": null,
+              "cleared": []
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ]
+          ]
+        },
+        "focused": [
+          "feed.beta"
+        ],
+        "scrollTop": 0
+      },
+      "changed": {
+        "host": {
+          "target": "feed.alpha",
+          "instance": 0,
+          "show": true,
+          "active": [
+            2
+          ],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 139.30000001192093,
+              "fired": null,
+              "cleared": [
+                568.1000000238419
+              ]
+            },
+            {
+              "id": 2,
+              "delay": 2500,
+              "start": 568.7000000178814,
+              "fired": null,
+              "cleared": []
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ],
+            [
+              "timer-clear",
+              1
+            ],
+            [
+              "timer-set",
+              2,
+              2500
+            ]
+          ]
+        },
+        "focused": [
+          "feed.alpha"
+        ],
+        "scrollTop": 65
+      },
+      "changedCenter": {
+        "offset": -4.5,
+        "scrollTop": 65
+      },
+      "expired": {
+        "host": {
+          "target": "feed.alpha",
+          "instance": 0,
+          "show": true,
+          "active": [],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 139.30000001192093,
+              "fired": null,
+              "cleared": [
+                568.1000000238419
+              ]
+            },
+            {
+              "id": 2,
+              "delay": 2500,
+              "start": 568.7000000178814,
+              "fired": 3068.9000000059605,
+              "cleared": []
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ],
+            [
+              "timer-clear",
+              1
+            ],
+            [
+              "timer-set",
+              2,
+              2500
+            ],
+            [
+              "timer-fired",
+              2
+            ]
+          ]
+        },
+        "focused": [],
+        "scrollTop": 70
+      },
+      "elapsed": 2500.199999988079,
+      "afterExpiry": {
+        "host": {
+          "target": "feed.beta",
+          "instance": 0,
+          "show": true,
+          "active": [
+            3
+          ],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 139.30000001192093,
+              "fired": null,
+              "cleared": [
+                568.1000000238419
+              ]
+            },
+            {
+              "id": 2,
+              "delay": 2500,
+              "start": 568.7000000178814,
+              "fired": 3068.9000000059605,
+              "cleared": [
+                3089.7000000178814
+              ]
+            },
+            {
+              "id": 3,
+              "delay": 2500,
+              "start": 3089.9000000059605,
+              "fired": null,
+              "cleared": []
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ],
+            [
+              "timer-clear",
+              1
+            ],
+            [
+              "timer-set",
+              2,
+              2500
+            ],
+            [
+              "timer-fired",
+              2
+            ],
+            [
+              "timer-clear",
+              2
+            ],
+            [
+              "timer-set",
+              3,
+              2500
+            ]
+          ]
+        },
+        "focused": [],
+        "scrollTop": 70
+      },
+      "remounted": {
+        "host": {
+          "target": "feed.beta",
+          "instance": 1,
+          "show": true,
+          "active": [
+            4
+          ],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 139.30000001192093,
+              "fired": null,
+              "cleared": [
+                568.1000000238419
+              ]
+            },
+            {
+              "id": 2,
+              "delay": 2500,
+              "start": 568.7000000178814,
+              "fired": 3068.9000000059605,
+              "cleared": [
+                3089.7000000178814
+              ]
+            },
+            {
+              "id": 3,
+              "delay": 2500,
+              "start": 3089.9000000059605,
+              "fired": null,
+              "cleared": [
+                3126.4000000059605
+              ]
+            },
+            {
+              "id": 4,
+              "delay": 2500,
+              "start": 3126.9000000059605,
+              "fired": null,
+              "cleared": []
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ],
+            [
+              "timer-clear",
+              1
+            ],
+            [
+              "timer-set",
+              2,
+              2500
+            ],
+            [
+              "timer-fired",
+              2
+            ],
+            [
+              "timer-clear",
+              2
+            ],
+            [
+              "timer-set",
+              3,
+              2500
+            ],
+            [
+              "timer-clear",
+              3
+            ],
+            [
+              "timer-set",
+              4,
+              2500
+            ]
+          ]
+        },
+        "focused": [
+          "feed.beta"
+        ],
+        "scrollTop": 540
+      },
+      "remountCenter": {
+        "offset": -4,
+        "scrollTop": 540
+      },
+      "hidden": {
+        "host": {
+          "target": "feed.beta",
+          "instance": 1,
+          "show": false,
+          "active": [],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 139.30000001192093,
+              "fired": null,
+              "cleared": [
+                568.1000000238419
+              ]
+            },
+            {
+              "id": 2,
+              "delay": 2500,
+              "start": 568.7000000178814,
+              "fired": 3068.9000000059605,
+              "cleared": [
+                3089.7000000178814
+              ]
+            },
+            {
+              "id": 3,
+              "delay": 2500,
+              "start": 3089.9000000059605,
+              "fired": null,
+              "cleared": [
+                3126.4000000059605
+              ]
+            },
+            {
+              "id": 4,
+              "delay": 2500,
+              "start": 3126.9000000059605,
+              "fired": null,
+              "cleared": [
+                3488.9000000059605
+              ]
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ],
+            [
+              "timer-clear",
+              1
+            ],
+            [
+              "timer-set",
+              2,
+              2500
+            ],
+            [
+              "timer-fired",
+              2
+            ],
+            [
+              "timer-clear",
+              2
+            ],
+            [
+              "timer-set",
+              3,
+              2500
+            ],
+            [
+              "timer-clear",
+              3
+            ],
+            [
+              "timer-set",
+              4,
+              2500
+            ],
+            [
+              "timer-clear",
+              4
+            ]
+          ]
+        },
+        "focused": [],
+        "scrollTop": null
+      },
+      "afterUnmount": {
+        "host": {
+          "target": "feed.beta",
+          "instance": 1,
+          "show": false,
+          "active": [],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 139.30000001192093,
+              "fired": null,
+              "cleared": [
+                568.1000000238419
+              ]
+            },
+            {
+              "id": 2,
+              "delay": 2500,
+              "start": 568.7000000178814,
+              "fired": 3068.9000000059605,
+              "cleared": [
+                3089.7000000178814
+              ]
+            },
+            {
+              "id": 3,
+              "delay": 2500,
+              "start": 3089.9000000059605,
+              "fired": null,
+              "cleared": [
+                3126.4000000059605
+              ]
+            },
+            {
+              "id": 4,
+              "delay": 2500,
+              "start": 3126.9000000059605,
+              "fired": null,
+              "cleared": [
+                3488.9000000059605
+              ]
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ],
+            [
+              "timer-clear",
+              1
+            ],
+            [
+              "timer-set",
+              2,
+              2500
+            ],
+            [
+              "timer-fired",
+              2
+            ],
+            [
+              "timer-clear",
+              2
+            ],
+            [
+              "timer-set",
+              3,
+              2500
+            ],
+            [
+              "timer-clear",
+              3
+            ],
+            [
+              "timer-set",
+              4,
+              2500
+            ],
+            [
+              "timer-clear",
+              4
+            ]
+          ]
+        },
+        "focused": [],
+        "scrollTop": null
+      },
+      "emptyTarget": {
+        "host": {
+          "target": null,
+          "instance": 2,
+          "show": true,
+          "active": [],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 139.30000001192093,
+              "fired": null,
+              "cleared": [
+                568.1000000238419
+              ]
+            },
+            {
+              "id": 2,
+              "delay": 2500,
+              "start": 568.7000000178814,
+              "fired": 3068.9000000059605,
+              "cleared": [
+                3089.7000000178814
+              ]
+            },
+            {
+              "id": 3,
+              "delay": 2500,
+              "start": 3089.9000000059605,
+              "fired": null,
+              "cleared": [
+                3126.4000000059605
+              ]
+            },
+            {
+              "id": 4,
+              "delay": 2500,
+              "start": 3126.9000000059605,
+              "fired": null,
+              "cleared": [
+                3488.9000000059605
+              ]
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ],
+            [
+              "timer-clear",
+              1
+            ],
+            [
+              "timer-set",
+              2,
+              2500
+            ],
+            [
+              "timer-fired",
+              2
+            ],
+            [
+              "timer-clear",
+              2
+            ],
+            [
+              "timer-set",
+              3,
+              2500
+            ],
+            [
+              "timer-clear",
+              3
+            ],
+            [
+              "timer-set",
+              4,
+              2500
+            ],
+            [
+              "timer-clear",
+              4
+            ]
+          ]
+        },
+        "focused": [],
+        "scrollTop": 0
+      },
+      "final": {
+        "host": {
+          "target": null,
+          "instance": 2,
+          "show": true,
+          "active": [],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 139.30000001192093,
+              "fired": null,
+              "cleared": [
+                568.1000000238419
+              ]
+            },
+            {
+              "id": 2,
+              "delay": 2500,
+              "start": 568.7000000178814,
+              "fired": 3068.9000000059605,
+              "cleared": [
+                3089.7000000178814
+              ]
+            },
+            {
+              "id": 3,
+              "delay": 2500,
+              "start": 3089.9000000059605,
+              "fired": null,
+              "cleared": [
+                3126.4000000059605
+              ]
+            },
+            {
+              "id": 4,
+              "delay": 2500,
+              "start": 3126.9000000059605,
+              "fired": null,
+              "cleared": [
+                3488.9000000059605
+              ]
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ],
+            [
+              "timer-clear",
+              1
+            ],
+            [
+              "timer-set",
+              2,
+              2500
+            ],
+            [
+              "timer-fired",
+              2
+            ],
+            [
+              "timer-clear",
+              2
+            ],
+            [
+              "timer-set",
+              3,
+              2500
+            ],
+            [
+              "timer-clear",
+              3
+            ],
+            [
+              "timer-set",
+              4,
+              2500
+            ],
+            [
+              "timer-clear",
+              4
+            ]
+          ]
+        },
+        "focused": [],
+        "scrollTop": null
+      },
+      "overflow": 0,
+      "errors": [],
+      "limit": "Actual React/compiler, native timer and native scrollIntoView with source frames; injected readonly nodes/class combiner/window timer port only. No original provider/global Settings/CSS/vendor parity."
+    },
+    {
+      "width": 1280,
+      "initial": {
+        "host": {
+          "target": "feed.beta",
+          "instance": 0,
+          "show": true,
+          "active": [
+            1
+          ],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 140.7000000178814,
+              "fired": null,
+              "cleared": []
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ]
+          ]
+        },
+        "focused": [
+          "feed.beta"
+        ],
+        "scrollTop": 522
+      },
+      "initialCenter": {
+        "offset": -3,
+        "scrollTop": 522
+      },
+      "sameTarget": {
+        "host": {
+          "target": "feed.beta",
+          "instance": 0,
+          "show": true,
+          "active": [
+            1
+          ],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 140.7000000178814,
+              "fired": null,
+              "cleared": []
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ]
+          ]
+        },
+        "focused": [
+          "feed.beta"
+        ],
+        "scrollTop": 0
+      },
+      "changed": {
+        "host": {
+          "target": "feed.alpha",
+          "instance": 0,
+          "show": true,
+          "active": [
+            2
+          ],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 140.7000000178814,
+              "fired": null,
+              "cleared": [
+                573
+              ]
+            },
+            {
+              "id": 2,
+              "delay": 2500,
+              "start": 573.6000000238419,
+              "fired": null,
+              "cleared": []
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ],
+            [
+              "timer-clear",
+              1
+            ],
+            [
+              "timer-set",
+              2,
+              2500
+            ]
+          ]
+        },
+        "focused": [
+          "feed.alpha"
+        ],
+        "scrollTop": 46
+      },
+      "changedCenter": {
+        "offset": -4.5,
+        "scrollTop": 46
+      },
+      "expired": {
+        "host": {
+          "target": "feed.alpha",
+          "instance": 0,
+          "show": true,
+          "active": [],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 140.7000000178814,
+              "fired": null,
+              "cleared": [
+                573
+              ]
+            },
+            {
+              "id": 2,
+              "delay": 2500,
+              "start": 573.6000000238419,
+              "fired": 3073.7000000178814,
+              "cleared": []
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ],
+            [
+              "timer-clear",
+              1
+            ],
+            [
+              "timer-set",
+              2,
+              2500
+            ],
+            [
+              "timer-fired",
+              2
+            ]
+          ]
+        },
+        "focused": [],
+        "scrollTop": 51
+      },
+      "elapsed": 2500.0999999940395,
+      "afterExpiry": {
+        "host": {
+          "target": "feed.beta",
+          "instance": 0,
+          "show": true,
+          "active": [
+            3
+          ],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 140.7000000178814,
+              "fired": null,
+              "cleared": [
+                573
+              ]
+            },
+            {
+              "id": 2,
+              "delay": 2500,
+              "start": 573.6000000238419,
+              "fired": 3073.7000000178814,
+              "cleared": [
+                3084.300000011921
+              ]
+            },
+            {
+              "id": 3,
+              "delay": 2500,
+              "start": 3084.4000000059605,
+              "fired": null,
+              "cleared": []
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ],
+            [
+              "timer-clear",
+              1
+            ],
+            [
+              "timer-set",
+              2,
+              2500
+            ],
+            [
+              "timer-fired",
+              2
+            ],
+            [
+              "timer-clear",
+              2
+            ],
+            [
+              "timer-set",
+              3,
+              2500
+            ]
+          ]
+        },
+        "focused": [],
+        "scrollTop": 51
+      },
+      "remounted": {
+        "host": {
+          "target": "feed.beta",
+          "instance": 1,
+          "show": true,
+          "active": [
+            4
+          ],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 140.7000000178814,
+              "fired": null,
+              "cleared": [
+                573
+              ]
+            },
+            {
+              "id": 2,
+              "delay": 2500,
+              "start": 573.6000000238419,
+              "fired": 3073.7000000178814,
+              "cleared": [
+                3084.300000011921
+              ]
+            },
+            {
+              "id": 3,
+              "delay": 2500,
+              "start": 3084.4000000059605,
+              "fired": null,
+              "cleared": [
+                3098.600000023842
+              ]
+            },
+            {
+              "id": 4,
+              "delay": 2500,
+              "start": 3098.9000000059605,
+              "fired": null,
+              "cleared": []
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ],
+            [
+              "timer-clear",
+              1
+            ],
+            [
+              "timer-set",
+              2,
+              2500
+            ],
+            [
+              "timer-fired",
+              2
+            ],
+            [
+              "timer-clear",
+              2
+            ],
+            [
+              "timer-set",
+              3,
+              2500
+            ],
+            [
+              "timer-clear",
+              3
+            ],
+            [
+              "timer-set",
+              4,
+              2500
+            ]
+          ]
+        },
+        "focused": [
+          "feed.beta"
+        ],
+        "scrollTop": 522
+      },
+      "remountCenter": {
+        "offset": -3,
+        "scrollTop": 522
+      },
+      "hidden": {
+        "host": {
+          "target": "feed.beta",
+          "instance": 1,
+          "show": false,
+          "active": [],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 140.7000000178814,
+              "fired": null,
+              "cleared": [
+                573
+              ]
+            },
+            {
+              "id": 2,
+              "delay": 2500,
+              "start": 573.6000000238419,
+              "fired": 3073.7000000178814,
+              "cleared": [
+                3084.300000011921
+              ]
+            },
+            {
+              "id": 3,
+              "delay": 2500,
+              "start": 3084.4000000059605,
+              "fired": null,
+              "cleared": [
+                3098.600000023842
+              ]
+            },
+            {
+              "id": 4,
+              "delay": 2500,
+              "start": 3098.9000000059605,
+              "fired": null,
+              "cleared": [
+                3466.300000011921
+              ]
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ],
+            [
+              "timer-clear",
+              1
+            ],
+            [
+              "timer-set",
+              2,
+              2500
+            ],
+            [
+              "timer-fired",
+              2
+            ],
+            [
+              "timer-clear",
+              2
+            ],
+            [
+              "timer-set",
+              3,
+              2500
+            ],
+            [
+              "timer-clear",
+              3
+            ],
+            [
+              "timer-set",
+              4,
+              2500
+            ],
+            [
+              "timer-clear",
+              4
+            ]
+          ]
+        },
+        "focused": [],
+        "scrollTop": null
+      },
+      "afterUnmount": {
+        "host": {
+          "target": "feed.beta",
+          "instance": 1,
+          "show": false,
+          "active": [],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 140.7000000178814,
+              "fired": null,
+              "cleared": [
+                573
+              ]
+            },
+            {
+              "id": 2,
+              "delay": 2500,
+              "start": 573.6000000238419,
+              "fired": 3073.7000000178814,
+              "cleared": [
+                3084.300000011921
+              ]
+            },
+            {
+              "id": 3,
+              "delay": 2500,
+              "start": 3084.4000000059605,
+              "fired": null,
+              "cleared": [
+                3098.600000023842
+              ]
+            },
+            {
+              "id": 4,
+              "delay": 2500,
+              "start": 3098.9000000059605,
+              "fired": null,
+              "cleared": [
+                3466.300000011921
+              ]
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ],
+            [
+              "timer-clear",
+              1
+            ],
+            [
+              "timer-set",
+              2,
+              2500
+            ],
+            [
+              "timer-fired",
+              2
+            ],
+            [
+              "timer-clear",
+              2
+            ],
+            [
+              "timer-set",
+              3,
+              2500
+            ],
+            [
+              "timer-clear",
+              3
+            ],
+            [
+              "timer-set",
+              4,
+              2500
+            ],
+            [
+              "timer-clear",
+              4
+            ]
+          ]
+        },
+        "focused": [],
+        "scrollTop": null
+      },
+      "emptyTarget": {
+        "host": {
+          "target": null,
+          "instance": 2,
+          "show": true,
+          "active": [],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 140.7000000178814,
+              "fired": null,
+              "cleared": [
+                573
+              ]
+            },
+            {
+              "id": 2,
+              "delay": 2500,
+              "start": 573.6000000238419,
+              "fired": 3073.7000000178814,
+              "cleared": [
+                3084.300000011921
+              ]
+            },
+            {
+              "id": 3,
+              "delay": 2500,
+              "start": 3084.4000000059605,
+              "fired": null,
+              "cleared": [
+                3098.600000023842
+              ]
+            },
+            {
+              "id": 4,
+              "delay": 2500,
+              "start": 3098.9000000059605,
+              "fired": null,
+              "cleared": [
+                3466.300000011921
+              ]
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ],
+            [
+              "timer-clear",
+              1
+            ],
+            [
+              "timer-set",
+              2,
+              2500
+            ],
+            [
+              "timer-fired",
+              2
+            ],
+            [
+              "timer-clear",
+              2
+            ],
+            [
+              "timer-set",
+              3,
+              2500
+            ],
+            [
+              "timer-clear",
+              3
+            ],
+            [
+              "timer-set",
+              4,
+              2500
+            ],
+            [
+              "timer-clear",
+              4
+            ]
+          ]
+        },
+        "focused": [],
+        "scrollTop": 0
+      },
+      "final": {
+        "host": {
+          "target": null,
+          "instance": 2,
+          "show": true,
+          "active": [],
+          "timers": [
+            {
+              "id": 1,
+              "delay": 2500,
+              "start": 140.7000000178814,
+              "fired": null,
+              "cleared": [
+                573
+              ]
+            },
+            {
+              "id": 2,
+              "delay": 2500,
+              "start": 573.6000000238419,
+              "fired": 3073.7000000178814,
+              "cleared": [
+                3084.300000011921
+              ]
+            },
+            {
+              "id": 3,
+              "delay": 2500,
+              "start": 3084.4000000059605,
+              "fired": null,
+              "cleared": [
+                3098.600000023842
+              ]
+            },
+            {
+              "id": 4,
+              "delay": 2500,
+              "start": 3098.9000000059605,
+              "fired": null,
+              "cleared": [
+                3466.300000011921
+              ]
+            }
+          ],
+          "events": [
+            [
+              "timer-set",
+              1,
+              2500
+            ],
+            [
+              "timer-clear",
+              1
+            ],
+            [
+              "timer-set",
+              2,
+              2500
+            ],
+            [
+              "timer-fired",
+              2
+            ],
+            [
+              "timer-clear",
+              2
+            ],
+            [
+              "timer-set",
+              3,
+              2500
+            ],
+            [
+              "timer-clear",
+              3
+            ],
+            [
+              "timer-set",
+              4,
+              2500
+            ],
+            [
+              "timer-clear",
+              4
+            ]
+          ]
+        },
+        "focused": [],
+        "scrollTop": null
+      },
+      "overflow": 0,
+      "errors": [],
+      "limit": "Actual React/compiler, native timer and native scrollIntoView with source frames; injected readonly nodes/class combiner/window timer port only. No original provider/global Settings/CSS/vendor parity."
+    }
+  ],
+  "limits": "Owned GET-only fixture, synthetic identifiers/readonly views. Timer capability records and forwards actual native2500ms callbacks; no global overrides/fake clock/scroll spy, actualcookies/storage/userdata/credentials/service acquisition or preference mutation. Source scroll changes visual position, not keyboard focus."
+}
