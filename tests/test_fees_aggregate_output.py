@@ -4,6 +4,7 @@ The child programs only isolate publication; they do not simulate SBF execution.
 The recorded manual reproduction additionally runs all 18 real LiteSVM suites.
 """
 import ast
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -27,8 +28,12 @@ class FeesAggregateOutputTests(unittest.TestCase):
     def fixture(self, root):
         scripts = root / 'scripts'
         scripts.mkdir()
-        for name in ('fees_validate_all.py', 'pump_differential_output.py', 'pump_amm_reusable_harness.py'):
+        for name in ('fees_validate_all.py', 'pump_differential_output.py', 'pump_amm_reusable_harness.py', 'serial_suite_process.py'):
             shutil.copyfile(ROOT / 'scripts' / name, scripts / name)
+        harness = root / 'reconstruction/harness'
+        harness.mkdir(parents=True)
+        shutil.copyfile(ROOT / 'reconstruction/harness/build_process.py',
+                        harness / 'build_process.py')
         tree = ast.parse(SCRIPT.read_text())
         suites = next(ast.literal_eval(node.iter) for node in ast.walk(tree)
                       if isinstance(node, ast.For) and isinstance(node.iter, ast.List))
@@ -111,6 +116,7 @@ class FeesAggregateOutputTests(unittest.TestCase):
                 self.assertEqual(report['case_count'], 18)
                 self.assertEqual(len(report['suites']), 18)
                 self.assertEqual(report['mismatches'], [])
+                self.assertEqual(report['process_runner_sha256'], {name: hashlib.sha256((root/name).read_bytes()).hexdigest() for name in ('scripts/serial_suite_process.py', 'reconstruction/harness/build_process.py')})
                 self.assertEqual(candidate.read_bytes(), b'retained candidate input')
 
     @unittest.skipUnless(sys.platform in ('darwin', 'linux'), 'requires POSIX file-size limits')

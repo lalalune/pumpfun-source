@@ -188,7 +188,7 @@ def main():
                         tool_lockfile_sha256=sha((source / 'Cargo.lock').read_bytes()),
                         generator_sha256=sha(Path(__file__).read_bytes()), programs=results,
                         proves_byte_identical_reconstruction=False)
-        (staging / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+        (staging / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n',encoding='utf-8',newline='\n')
         staging.rename(output)
     except BaseException:
         shutil.rmtree(staging, ignore_errors=True)

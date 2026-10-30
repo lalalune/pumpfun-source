@@ -8,14 +8,24 @@ from solders.instruction import Instruction,AccountMeta
 from solders.keypair import Keypair
 from solders.transaction_metadata import FailedTransactionMetadata
 R=pathlib.Path(__file__).resolve().parents[1]
-x=json.load(open(R/'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json'))
+# Every file read while constructing this shared fixture or its program set.
+# Report writers must protect these paths as well as their public candidate.
+REPORT_INPUTS = (
+ pathlib.Path(__file__),
+ R/'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json',
+ *(R/'evidence'/group/name/filename
+   for group,names in [('original',('pump','pump_fees')),
+                       ('dependencies',('spl_token','spl_token_2022','associated_token'))]
+   for name in names for filename in ('capture.json','deployed.so')),
+)
+x=json.load(open(R/'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json',encoding='utf-8'))
 s=x['steps'][4]
 t=Transaction.from_bytes(base64.b64decode(s['transaction_base64']));msg=t.message
 vm=LiteSVM().with_transaction_history(0)
 for name in ['pump','pump_fees']:
- cap=json.load(open(R/f'evidence/original/{name}/capture.json'));vm.add_program_from_file(Pubkey.from_string(cap['program']),R/f'evidence/original/{name}/deployed.so')
+ cap=json.load(open(R/f'evidence/original/{name}/capture.json',encoding='utf-8'));vm.add_program_from_file(Pubkey.from_string(cap['program']),R/f'evidence/original/{name}/deployed.so')
 for name in ['spl_token','spl_token_2022','associated_token']:
- cap=json.load(open(R/f'evidence/dependencies/{name}/capture.json'));vm.add_program_from_file(Pubkey.from_string(cap['program']),R/f'evidence/dependencies/{name}/deployed.so')
+ cap=json.load(open(R/f'evidence/dependencies/{name}/capture.json',encoding='utf-8'));vm.add_program_from_file(Pubkey.from_string(cap['program']),R/f'evidence/dependencies/{name}/deployed.so')
 for k in msg.account_keys:
  if vm.get_account(k) is None: vm.set_account(k, Account(10**10,b'',Pubkey.default()))
 for name,r in s['before'].items():

@@ -1,0 +1,41 @@
+{
+  "issue": "analyze() serializes and publishes evidence/binary-analysis.json and evidence/interface-inventory.json even when no capture or IDL was found, replacing the tracked reports with {} and exiting 0.",
+  "base_revision": "5889e795eba64e85e613b4409921323bfecec414",
+  "affected": "scripts/analyze.py:139-166 at base (program_names() may be empty; the evidence/upstream glob may match nothing; publish_reports is called unconditionally)",
+  "reproduction": {
+    "method": "import analyze, point analyze.ROOT at a temporary tree containing only an empty evidence/upstream directory, call analyze()",
+    "before": {
+      "returned": "normally",
+      "binary-analysis.json": "{}",
+      "interface-inventory.json": "{}",
+      "exit": 0
+    },
+    "after": {
+      "raised": "SystemExit: no captured programs or upstream IDLs; refusing to publish empty reports",
+      "binary-analysis.json": "absent",
+      "interface-inventory.json": "absent"
+    }
+  },
+  "controls": {
+    "captures_without_idls": "refused, no reports written",
+    "pump capture plus pump.json": "both reports published with only the pump key"
+  },
+  "tests": {
+    "new_test": "tests/test_analyze_empty_inputs.py",
+    "before": "2 failures (both empty-input cases published {} and returned)",
+    "after": "3 tests OK in 0.11s"
+  },
+  "required_checks": {
+    "scripts/test_tooling.py": "217 tests OK",
+    "scripts/verify_evidence.py": "9 captures verified"
+  },
+  "environment": {
+    "platform": "macOS arm64",
+    "python": "3.14.3"
+  },
+  "unchanged": [
+    "the tracked reports in the repository",
+    "captured ELFs and upstream IDL bytes",
+    "report serialization"
+  ]
+}

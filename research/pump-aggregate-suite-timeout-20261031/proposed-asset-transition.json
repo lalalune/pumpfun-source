@@ -1,0 +1,20 @@
+{
+  "scope": "Proposed maintained-script asset transition for bounded serial Pump suite execution; captures, suites and prior receipts remain unchanged.",
+  "base": "8cf3c5f8a7912b36ced352e49ac8538ff864a4c2",
+  "files": {
+    "scripts/pump_validate_all.py": {
+      "before_sha256": "51876926bab87acca22aed6d0fad2915839337c9fe4fa77f0b9aa769dd277664",
+      "proposed_sha256": "4a61682c531b373648dd8a77d894cfacd145df73ca53bfe27458156d6824f79d"
+    },
+    "scripts/test_pump_validate_all_retention.py": {
+      "before_sha256": "414d5a0b606fdea02fab2b3fd33b816d6f1cb7f748295c9c0066928dd7cab17e",
+      "proposed_sha256": "c0dca4b4888e0748b3330ca93c89b2a6d27f6fc58bcb5d52c626fc36ccf7d2fc"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false,
+  "new_test": "tests/test_pump_validate_all_suite_timeout.py",
+  "updated_test": "scripts/test_pump_validate_all_retention.py now stubs the bounded run_compiler call instead of the removed subprocess attribute; its ten publication cases are otherwise unchanged",
+  "existing_ci_discovery": "contract-tests: python -B -m unittest discover -s tests -v"
+}

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Independent SBF fee-schedule mutations using synthetic authorized local state."""
 from fees_admin_differential import *
+from pump_differential_output import PumpReport
 from fee_recovery_fixture import FeeFixture
 import random
 CONFIG_PROGRAM=Pubkey.from_string('6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P')
@@ -59,12 +60,12 @@ def cases():
    n=rng.randrange(1,32);ts=[(rng.randrange(2**128),(rng.randrange(11000),rng.randrange(500),rng.randrange(500))) for _ in range(n)];ts.sort();add('random-'+str(i),ts,flat=tuple(rng.randrange(4000) for _ in range(3)))
  return out
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();o=ConfigFixture(ROOT/'evidence/original/pump_fees/deployed.so');b=ConfigFixture(a.candidate) if a.candidate else None;rows=[];failures=[]
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();publisher=PumpReport(a.output,ROOT,a.candidate,__file__);o=ConfigFixture(ROOT/'evidence/original/pump_fees/deployed.so');b=ConfigFixture(a.candidate) if a.candidate else None;rows=[];failures=[]
  for c in cases():
   x=o.run(c);y=b.run(c) if b else None;match=all(x[k]==y[k] for k in ['error','data_hex','lamports','owner','balance_deltas','events','inner_instructions']) if b else None
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:failures.append(c['name'])
  report={'scope':'Three fee configuration setters: synthetic authorized state; state/errors/lamports/events/inner instructions. No complete source identity or security finding.','original_sha256':o.program_sha256,'candidate_sha256':b.program_sha256 if b else None,'case_count':len(rows),'mismatches':failures,'cases':rows}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatches':failures[:30]}))
+ publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatches':failures[:30]}))
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

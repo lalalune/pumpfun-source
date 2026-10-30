@@ -125,7 +125,7 @@ def main():
     args.output = args.output.resolve()
     args.output.parent.mkdir(parents=True, exist_ok=True)
     binding = args.output.with_name(args.output.name + '.source-binding.json')
-    binding.write_text(json.dumps(record, indent=2) + '\n')
+    binding.write_text(json.dumps(record, indent=2) + '\n',encoding='utf-8',newline='\n')
     command = [sys.executable, '-B', str(ROOT / 'scripts/pump_validate_parallel.py'),
                '--candidate', str(package / 'candidate.so'),
                '--source-directory', str(ROOT / 'programs/pump'),

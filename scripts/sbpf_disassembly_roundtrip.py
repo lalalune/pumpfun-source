@@ -134,7 +134,7 @@ def main():
                       generator_sha256=sha(Path(__file__).read_bytes()),
                       programs=results, all_text_roundtrips_exact=all(r['full_text_equality'] for r in results),
                       counts_toward_source_reconstruction_acceptance=False)
-        (staging / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
+        (staging / 'report.json').write_text(json.dumps(report, indent=2) + '\n',encoding='utf-8',newline='\n')
         staging.rename(output)
     except BaseException:
         shutil.rmtree(staging, ignore_errors=True)

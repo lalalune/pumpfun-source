@@ -234,13 +234,13 @@ def main():
     bootstrap_hash=sha(Path(nested.__file__))
     bootstraps=[nested.prepare(c) for c in nested.cases()]
     cases=[c for b,c in bootstraps]
-    (args.output / 'root-bootstrap-transactions.json').write_text(json.dumps([{'case':c,'bootstrap':b} for c,(b,_) in zip(nested.cases(),bootstraps)],indent=2)+'\n')
+    (args.output / 'root-bootstrap-transactions.json').write_text(json.dumps([{'case':c,'bootstrap':b} for c,(b,_) in zip(nested.cases(),bootstraps)],indent=2)+'\n',encoding='utf-8',newline='\n')
     fixture_hash, runner_hash = sha(Path(fixtures.__file__)), sha(Path(__file__))
     prepared = [prepare(case) for case in cases]
-    (args.output / 'fixtures.json').write_text(json.dumps(prepared, indent=2) + '\n')
+    (args.output / 'fixtures.json').write_text(json.dumps(prepared, indent=2) + '\n',encoding='utf-8',newline='\n')
     left = run(original, prepared, args.surfpool, args.output)
     right = run(candidate, prepared, args.surfpool, args.output)
-    (args.output / 'raw-transactions.json').write_text(json.dumps({'original': left, 'candidate': right}, indent=2) + '\n')
+    (args.output / 'raw-transactions.json').write_text(json.dumps({'original': left, 'candidate': right}, indent=2) + '\n',encoding='utf-8',newline='\n')
     import re
     def expected_error(value):
         if value is None: return None
@@ -262,7 +262,7 @@ def main():
         'cases': len(cases), 'signed_transactions': len(left) + len(right), 'mismatches': mismatches,
         'unexpected_original_errors': unexpected, 'original': left, 'candidate': right}
     assert sha(Path(nested.__file__))==bootstrap_hash
-    (args.output / 'pump-create-nested-transactions.json').write_text(json.dumps(report, indent=2) + '\n')
+    (args.output / 'pump-create-nested-transactions.json').write_text(json.dumps(report, indent=2) + '\n',encoding='utf-8',newline='\n')
     print(json.dumps({key: report[key] for key in ['cases', 'signed_transactions', 'mismatches', 'unexpected_original_errors', 'original_sha256', 'candidate_sha256']}, indent=2))
     if mismatches or unexpected:
         raise SystemExit(1)

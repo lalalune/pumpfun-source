@@ -63,7 +63,7 @@ def frame_difference(original, candidate, offset):
 def write_report(path, rows):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(rows, indent=1))
+    path.write_text(json.dumps(rows, indent=1), encoding='utf-8', newline='\n')
 
 
 def main():

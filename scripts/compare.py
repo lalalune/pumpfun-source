@@ -49,7 +49,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='.compare-',dir=args.output.parent) as temporary:
         staging=pathlib.Path(temporary)/'result'
         staging.mkdir()  # Retain ordinary umask permissions after publication.
-        (staging/'comparison.json').write_text(json.dumps(result,indent=2)+'\n')
+        (staging/'comparison.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8',newline='\n')
         if args.pad_zero_to_allocation: (staging/'candidate.deployed.so').write_bytes(candidate)
         # Publish the complete packet without replacing a concurrent output.
         rename_directory(staging,args.output)

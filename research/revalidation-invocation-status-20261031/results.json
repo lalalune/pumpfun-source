@@ -1,0 +1,427 @@
+{
+  "issue": "A verifier that exits 2 because argparse rejected an uninvoked invocation was reported as a failed verification.",
+  "base_revision": "5889e795eba64e85e613b4409921323bfecec414",
+  "method": {
+    "checkout": "git worktree add --detach <temporary path> 5889e795eba64e85e613b4409921323bfecec414",
+    "command": "python3 -B scripts/revalidate_all.py --output <temporary path>",
+    "python": "3.14.3",
+    "platform": "macOS arm64",
+    "difference_between_runs": "scripts/revalidate_all.py only"
+  },
+  "before": {
+    "pass": 112,
+    "fail": 49,
+    "skip_or_inconclusive": 48,
+    "failed_packets": [
+      "pump-admin-cto-pool-sharing-cpi-20261030",
+      "pump-admin-cto-validation-boundaries-20261030",
+      "pump-amm-admin-cto-pool-boundaries-20261030",
+      "pump-amm-create-pool-initial-liquidity-20261030",
+      "pump-amm-global-config-setter-layouts-20261030",
+      "pump-amm-instruction-decode-boundaries-20261030",
+      "pump-amm-liquidity-rounding-boundaries-20261030",
+      "pump-amm-sweep-fees-boundaries-20261030",
+      "pump-buyback-recipient-lookup-cu-20261030",
+      "pump-claim-incentives-cashback-boundaries-20261030",
+      "pump-create-v2-quote-control-scan-cu-20261030",
+      "pump-create-v2-quote-mint-extension-allowlist-20261030",
+      "pump-creator-fee-collect-boundaries-20261030",
+      "pump-fee-recipient-lookup-cu-20261030",
+      "pump-fees-admin-cto-sharing-direct-20261030",
+      "pump-fees-authority-transition-sequences-20261029",
+      "pump-fees-buyback-init-withdraw-sequences-20261030",
+      "pump-fees-donation-crank-sequences-20261030",
+      "pump-fees-donation-create-sequences-20261030",
+      "pump-fees-instruction-decode-boundaries-20261030",
+      "pump-fees-sharing-config-create-20261030",
+      "pump-fees-social-claim-sequences-20261030",
+      "pump-fees-social-claim-v2-token2022-20261030",
+      "pump-fees-tier-lookup-cost-20261030",
+      "pump-fees-tier-setter-cost-20261030",
+      "pump-fees-token2022-account-decode-boundaries-20261030",
+      "pump-fees-token2022-mint-decode-boundaries-20261030",
+      "pump-fees-update-shares-graduated-amm-route-20261030",
+      "pump-fees-update-shares-holder-cost-20261030",
+      "pump-fees-update-shares-v2-native-quote-route-20261030",
+      "pump-fees-update-shares-v2-token-quote-cost-20261030",
+      "pump-global-admin-sequences-20261030",
+      "pump-instruction-decode-boundaries-20261030",
+      "pump-multihop-sell-fees-20261029",
+      "pump-multihop-token-quote-20261029",
+      "pump-quote-control-admin-lifecycle-20261030",
+      "pump-quote-control-list-scan-cu-20261030",
+      "pump-sell-historical-curve-layouts-20261030",
+      "pump-token-incentive-schedule-boundaries-20261030",
+      "pump-trade-cu-scaling-20261030",
+      "pump-trade-post-fee-quote-boundaries-20261030",
+      "pump-v2-sharing-config-shareholders-20261030",
+      "pump-v2-token-quote-cu-scaling-20261030",
+      "pump-v2-token-quote-curve-rent-topup-20261030",
+      "pump-v2-token-quote-transfer-fee-boundaries-20261030",
+      "pump-v3-fee-tier-cu-scaling-20261030",
+      "pump-v3-token-quote-boundaries-20261030",
+      "pump-v3-trade-boundaries-20261030",
+      "tooling-source-manifest-symlinks-20261029"
+    ]
+  },
+  "after": {
+    "pass": 112,
+    "fail": 1,
+    "not_invoked": 48,
+    "skip_or_inconclusive": 48,
+    "failed_packets": [
+      "tooling-source-manifest-symlinks-20261029"
+    ]
+  },
+  "reclassified": [
+    {
+      "packet": "pump-admin-cto-pool-sharing-cpi-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-admin-cto-validation-boundaries-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-amm-admin-cto-pool-boundaries-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-amm-create-pool-initial-liquidity-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-amm-global-config-setter-layouts-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-amm-instruction-decode-boundaries-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-amm-liquidity-rounding-boundaries-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-amm-sweep-fees-boundaries-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-buyback-recipient-lookup-cu-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-claim-incentives-cashback-boundaries-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-create-v2-quote-control-scan-cu-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-create-v2-quote-mint-extension-allowlist-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-creator-fee-collect-boundaries-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fee-recipient-lookup-cu-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-admin-cto-sharing-direct-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-authority-transition-sequences-20261029",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-buyback-init-withdraw-sequences-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-donation-crank-sequences-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-donation-create-sequences-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-instruction-decode-boundaries-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-sharing-config-create-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-social-claim-sequences-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-social-claim-v2-token2022-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-tier-lookup-cost-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-tier-setter-cost-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-token2022-account-decode-boundaries-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-token2022-mint-decode-boundaries-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-update-shares-graduated-amm-route-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-update-shares-holder-cost-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-update-shares-v2-native-quote-route-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-fees-update-shares-v2-token-quote-cost-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-global-admin-sequences-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-instruction-decode-boundaries-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-multihop-sell-fees-20261029",
+      "required": [
+        "--repo-root"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-multihop-token-quote-20261029",
+      "required": [
+        "--repo-root"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-quote-control-admin-lifecycle-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-quote-control-list-scan-cu-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-sell-historical-curve-layouts-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-token-incentive-schedule-boundaries-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-trade-cu-scaling-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-trade-post-fee-quote-boundaries-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-v2-sharing-config-shareholders-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-v2-token-quote-cu-scaling-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-v2-token-quote-curve-rent-topup-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-v2-token-quote-transfer-fee-boundaries-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-v3-fee-tier-cu-scaling-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-v3-token-quote-boundaries-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    },
+    {
+      "packet": "pump-v3-trade-boundaries-20261030",
+      "required": [
+        "--images"
+      ],
+      "returncode": 2
+    }
+  ],
+  "required_option_totals": {
+    "--images": 46,
+    "--repo-root": 2
+  },
+  "unchanged_failure": {
+    "packet": "tooling-source-manifest-symlinks-20261029",
+    "output": "Traceback (most recent call last):\n  File \"/private/tmp/reval-base/research/tooling-source-manifest-symlinks-20261029/verify.py\", line 30, in <module>\n    assert sha((root / name).read_bytes()) == digest, name\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: scripts/build_source_"
+  },
+  "unchanged": [
+    "passing packets",
+    "skipped packets",
+    "packet files and captures"
+  ]
+}

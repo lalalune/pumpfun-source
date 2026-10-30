@@ -38,7 +38,7 @@ def _capture_to_directory(url,name,key,out):
         after,p2=account(url,key,before['context']['slot']); check(p==p2)
         (out/'program-account.bin').write_bytes(p); (out/'deployed.so').write_bytes(p)
         report={'program':key,'owner':before['value']['owner'],'loader':'legacy-v2','last_deploy_slot':None,'upgrade_authority':None,'context_slots':[before['context']['slot'],after['context']['slot']],'commitment':'finalized','captured_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'genesis_hash':rpc(url,'getGenesisHash',[]),'program_sha256':sha(p),'payload_sha256':sha(p),'payload_bytes':len(p)}
-        (out/'capture.json').write_text(json.dumps(report,indent=2)+'\n'); print(name,'legacy-v2',len(p),sha(p),flush=True); return
+        (out/'capture.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n'); print(name,'legacy-v2',len(p),sha(p),flush=True); return
     check(before['value']['executable'] and before['value']['owner']=='BPFLoaderUpgradeab1e11111111111111111111111')
     check(len(p)==36 and struct.unpack_from('<I',p)[0]==2)
     pd=b58(p[4:36]); data,d=account(url,pd,before['context']['slot'])
@@ -52,7 +52,7 @@ def _capture_to_directory(url,name,key,out):
     (out/'program-account.bin').write_bytes(p); (out/'programdata-account.bin').write_bytes(d); (out/'deployed.so').write_bytes(payload)
     # Avoid publishing credentials if caller supplies a private RPC URL.
     report={'program':key,'programdata':pd,'owner':before['value']['owner'],'last_deploy_slot':slot,'upgrade_authority':b58(d[13:45]) if d[12] else None,'context_slots':[before['context']['slot'],data['context']['slot'],after['context']['slot'],meta['context']['slot']],'commitment':'finalized','captured_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'genesis_hash':rpc(url,'getGenesisHash',[]),'program_sha256':sha(p),'programdata_sha256':sha(d),'payload_sha256':sha(payload),'payload_bytes':len(payload),'programdata_bytes':len(d),'lamports':data['value']['lamports']}
-    (out/'capture.json').write_text(json.dumps(report,indent=2)+'\n'); print(name,slot,len(payload),sha(payload),flush=True)
+    (out/'capture.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n'); print(name,slot,len(payload),sha(payload),flush=True)
 def capture(url,name,key,out):
     out=pathlib.Path(out)
     if out.exists():raise FileExistsError('capture output already exists: '+str(out))

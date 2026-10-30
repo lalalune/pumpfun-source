@@ -162,7 +162,7 @@ def write_report(path, text):
     for _ in range(100):
         temporary = path.parent / f'.score-{os.getpid()}-{secrets.token_hex(8)}'
         try:
-            stream = temporary.open('x', encoding='utf-8')
+            stream = temporary.open('x', encoding='utf-8', newline='\n')
         except FileExistsError:
             continue
         break

@@ -1997,7 +1997,7 @@ class LocalValidationProgramTests(unittest.TestCase):
             self.assertEqual(receipt['program'], address)
             idl_path = root / 'evidence/upstream' / f'{name}.json'
             if idl_path.is_file():
-                self.assertEqual(json.loads(idl_path.read_text())['address'], address)
+                self.assertEqual(json.loads(idl_path.read_text(encoding='utf-8'))['address'], address)
             else:
                 self.assertEqual(name, 'mayhem')
 
@@ -2366,6 +2366,8 @@ class LddwImmediateDecodeTests(unittest.TestCase):
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tests.test_current_bindings_paths import CurrentBindingsPathTests
+from tests.test_revalidate_all_invocation import (
+    RequiredArgumentTests, ReportTests, RunVerifyTests, InvocationCliTests)
 from test_fees_error_messages_exit import FeesErrorMessageExitTests, FeesErrorMessageOptimizationTests
 FeesErrorMessageExitTests = requires_litesvm(FeesErrorMessageExitTests)
 from test_pump_window_inventory import WindowInventoryTests

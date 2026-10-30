@@ -16,7 +16,7 @@ sha=lambda b:hashlib.sha256(b).hexdigest()
 # Hash the inputs before the build: the report binds these hashes, so a later
 # change must fail the run instead of certifying bytes that were never compiled.
 source_before=sha(source.read_bytes());rustc_before=sha(rustc.read_bytes())
-r=subprocess.run(command,capture_output=True,text=True);(args.output/'build.log').write_text(r.stdout+r.stderr);r.check_returncode()
+r=subprocess.run(command,capture_output=True,text=True);(args.output/'build.log').write_text(r.stdout+r.stderr,encoding='utf-8',newline='\n');r.check_returncode()
 assert sha(source.read_bytes())==source_before,'source changed during build'
 assert sha(rustc.read_bytes())==rustc_before,'rustc changed during build'
 with obj.open('rb') as f:
@@ -36,4 +36,4 @@ report={'source_sha256':source_before,'rustc_sha256':rustc_before,'rustc_version
 # Replace local absolute locations in portable evidence; build command remains reproducible via arguments.
 locations={str(rustc):'<toolchain>/rust/bin/rustc',str(source):'<repo>/'+source.relative_to(ROOT).as_posix(),str(obj):'<output>/'+obj.name}
 report['command']=[locations.get(x,x) for x in command]
-(args.output/'comparison.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
+(args.output/'comparison.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n');print(json.dumps(report,indent=2))

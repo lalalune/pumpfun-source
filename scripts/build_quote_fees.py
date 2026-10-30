@@ -11,7 +11,7 @@ def build(extra):
  cmd=[str(rustc),'--edition=2021','--target','sbf-solana-solana','-C','opt-level='+args.opt_level,'-C','overflow-checks=yes','-C','panic=abort']+extra
  r=subprocess.run(cmd,text=True,capture_output=True);commands.append(cmd);logs.append(r.stdout+r.stderr)
  # Retain diagnostics before raising so a failed step still leaves its compiler output.
- (args.output/'build.log').write_text('\n'.join(logs));r.check_returncode()
+ (args.output/'build.log').write_text('\n'.join(logs),encoding='utf-8',newline='\n');r.check_returncode()
 sha256=lambda b:hashlib.sha256(b).hexdigest()
 # Hash the inputs before the builds: the report binds these hashes, so a later
 # change must fail the run instead of certifying bytes that were never compiled.
@@ -36,4 +36,4 @@ for r in relocs:
  elif r['type']==10:fields.update(range(o+4,o+8))
 def portable(s):return s.replace(str(rustc.parent.parent.parent),'<toolchain>').replace(str(args.output.resolve()),'<output>').replace(str(ROOT),'<repo>')
 report={'scope':'Unlinked quote-selector function only. Original bytes never enter compilation and object remains unmodified.','source_sha256':source_before,'rustc_version':subprocess.check_output([str(rustc),'--version','--verbose'],text=True),'rustc_sha256':rustc_before if rustc_before is not None else sha(rustc.read_bytes()),'commands':[[portable(x) for x in cmd] for cmd in commands],'object_sha256':sha(obj.read_bytes()),'math_rlib_sha256':sha(lib.read_bytes()),'memory_object_sha256':sha((args.output/'memory_compare.o').read_bytes()),'original_program_sha256':sha(original),'original_function_start':0x3f748,'original_function_end':0x3f9d8,'original_function_bytes':len(ref),'compiled_function_bytes':len(data),'original_function_sha256':sha(ref),'compiled_function_sha256':sha(data),'relocations':relocs,'different_byte_offsets':diff,'instruction_match_except_unresolved_relocations':len(ref)==len(data) and not(set(diff)-fields),'whole_program_byte_equality':None}
-(args.output/'comparison.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({k:report[k] for k in ['original_function_bytes','compiled_function_bytes','instruction_match_except_unresolved_relocations']}))
+(args.output/'comparison.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n');print(json.dumps({k:report[k] for k in ['original_function_bytes','compiled_function_bytes','instruction_match_except_unresolved_relocations']}))

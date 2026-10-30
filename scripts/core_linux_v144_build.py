@@ -6,6 +6,7 @@ patched. Public Linux Criterion v2.3.3 follows its existing platform branch.
 Captured program binaries are opened only after the single successful build.
 """
 import argparse
+import gzip
 import datetime as dt
 import hashlib
 import json
@@ -56,7 +57,7 @@ def digest(path):
 
 def write_json(path, value):
     Path(path).parent.mkdir(parents=True, exist_ok=True)
-    Path(path).write_text(json.dumps(value, indent=2, sort_keys=True) + "\n")
+    Path(path).write_text(json.dumps(value, indent=2, sort_keys=True) + "\n",encoding='utf-8',newline='\n')
 
 
 def generated_keypair_path(relative_path):
@@ -364,7 +365,11 @@ def snapshot_source(source, expected, evidence):
     if actual != expected:
         raise ValueError("The source workspace does not contain exactly the frozen 22 inputs")
     write_json(evidence / "source-before.json", actual)
-    with tarfile.open(evidence / "source-snapshot.tar.gz", "w:gz") as tar:
+    # Pin the gzip header mtime: the snapshot is retained evidence, and a
+    # wall-clock header made identical inputs archive differently per run.
+    with open(evidence / "source-snapshot.tar.gz", "wb") as raw_archive, gzip.GzipFile(
+            filename="", fileobj=raw_archive, mode="wb", mtime=0) as compressed, tarfile.open(
+            fileobj=compressed, mode="w") as tar:
         for name in sorted(expected):
             tar.add(source / name, arcname=name, recursive=False)
 
@@ -814,7 +819,7 @@ def main():
     except BaseException as error:
         failed = True
         attempt.state.update(status="failed", error_type=type(error).__name__, error=str(error))
-        (attempt.evidence / "exception.txt").write_text(traceback.format_exc())
+        (attempt.evidence / "exception.txt").write_text(traceback.format_exc(),encoding='utf-8',newline='\n')
         attempt.save()
         print(str(error), file=sys.stderr)
     finally:
@@ -823,7 +828,7 @@ def main():
         except BaseException as error:
             failed = True
             attempt.state.update(status="failed", retention_error_type=type(error).__name__, retention_error=str(error))
-            (attempt.evidence / "retention-exception.txt").write_text(traceback.format_exc())
+            (attempt.evidence / "retention-exception.txt").write_text(traceback.format_exc(),encoding='utf-8',newline='\n')
         attempt.state["finished_utc"] = dt.datetime.now(dt.timezone.utc).isoformat()
         seal_evidence(attempt)
     return 1 if failed else 0

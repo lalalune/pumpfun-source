@@ -120,7 +120,7 @@ def main():
                           'pyelftools': importlib.metadata.version('pyelftools')},
               'case_count': len(cases), 'mismatches': mismatches, 'cases': cases}
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(report, indent=2) + '\n')
+    args.output.write_text(json.dumps(report, indent=2) + '\n',encoding='utf-8',newline='\n')
     print(json.dumps({'cases': len(cases), 'mismatches': mismatches}))
     return bool(mismatches)
 

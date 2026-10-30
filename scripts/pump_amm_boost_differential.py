@@ -6,6 +6,7 @@ import sys
 sys.path.insert(0,'scripts')
 from pump_amm_create_differential import *
 from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
 def boost(candidate=None,overrides=None,fixture=False):
  r=create();h=Harness(candidate or pin_program(ROOT/'evidence/original/pump_amm/deployed.so'));h.vm.set_clock(Clock(100,1234567890,0,0,1234567890))
  for pid,n in [(TOKEN,'spl_token'),(TOKEN22,'spl_token_2022'),(ATA,'associated_token')]:h.vm.add_program_from_file(pid,ROOT/'evidence/dependencies'/n/'deployed.so')
@@ -26,7 +27,7 @@ def boost(candidate=None,overrides=None,fixture=False):
  return {'states':states,'error':str(r.err()) if fail else None,'logs':meta.logs(),'inner':json.loads(meta.to_json())['inner_instructions']}
 
 PUMP=Pubkey.from_string(json.load(open('evidence/upstream/pump.json', encoding='utf-8'))['address']);ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
-p=json.load(open('research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json'))
+p=json.load(open('research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json',encoding='utf-8'))
 def run_migration(candidate=None,label='missing_boost',overrides=None):
  row=p[label];tx=Transaction.from_bytes(base64.b64decode(row['transaction_base64']));assert all(tx.verify_with_results())
  vm=LiteSVM().with_transaction_history(0).with_blockhash_check(False).with_log_bytes_limit(None);vm.set_clock(Clock(100,1234567890,0,0,1234567890))
@@ -47,7 +48,7 @@ def run_migration(candidate=None,label='missing_boost',overrides=None):
  return {'states':states,'error':str(r.err()) if failed else None,'logs':meta.logs(),'inner':json.loads(meta.to_json())['inner_instructions']}
 
 def main():
- parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args();candidate=pin_program(args.candidate);rows=[]
+ parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args();publisher=PumpReport(args.output,ROOT,args.candidate,__file__,extra_inputs=[ROOT/'research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json',ROOT/'research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json']);candidate=pin_program(args.candidate);rows=[]
  def test(case,kind='direct',overrides=None,**kw):
   fn=boost if kind=='direct' else run_migration
   x=fn(overrides=overrides,**kw);y=fn(candidate=candidate,overrides=overrides,**kw)
@@ -91,7 +92,7 @@ def main():
    test('vault-field='+str((idx,off)),overrides=field)
  sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
  report={'scope':'init_boost: direct signed constraints and fully committed saved signed Pump migrate_v2 through original PDA caller, with documented synthetic account variations. Historical blockhash freshness disabled, signatures retained. Full states, exact inner CPI/event bytes, errors; not full-program equivalence.','candidate_sha256':sha(candidate),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
- args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(report['mismatches']),'mismatches':report['mismatches']}))
+ publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatch_count':len(report['mismatches']),'mismatches':report['mismatches']}))
  if report['mismatches']:raise SystemExit(1)
 
 if __name__=='__main__':main()

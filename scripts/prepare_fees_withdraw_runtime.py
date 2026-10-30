@@ -84,7 +84,7 @@ def prepare(output):
             assert hashlib.sha256((PACKAGE / 'source' / name).read_bytes()).hexdigest() == digest, name
         source_map = staging / 'validation-layer/corrected-source-sha256.json'
         (staging / 'historical-corrected-source-sha256.json').write_bytes(source_map.read_bytes())
-        source_map.write_text(json.dumps(current_source, indent=2) + '\n')
+        source_map.write_text(json.dumps(current_source, indent=2) + '\n',encoding='utf-8',newline='\n')
         witness = {'historical_checkpoint': str(PACKAGE.relative_to(ROOT)),
                    'historical_manifest_sha256': HISTORICAL_SEAL,
                    'historical_archive_sha256': sha(archive),
@@ -92,7 +92,7 @@ def prepare(output):
                    'harness_sha256': {str(p.relative_to(staging)): sha(p) for p in sorted((staging / 'validation-layer/harness').glob('*.py'))},
                    'current': binding, 'target_executions': 0}
         (staging / 'source-binding-witness.json').write_text(
-            json.dumps(witness, indent=2) + '\n')
+            json.dumps(witness, indent=2) + '\n',encoding='utf-8',newline='\n')
         rename_directory(staging, output, exchange=False)
     except BaseException:
         shutil.rmtree(staging, ignore_errors=True)

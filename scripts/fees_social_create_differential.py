@@ -67,7 +67,7 @@ def main():
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:failures.append(c['name'])
  a.output.parent.mkdir(parents=True,exist_ok=True)
- a.output.write_text(json.dumps({'original_sha256':hashlib.sha256(original).hexdigest(),'candidate_sha256':hashlib.sha256(candidate).hexdigest() if a.candidate else None,'scope':'Normally signed synthetic local creation cases; no full-program or byte identity claim.','cases':rows,'mismatches':failures},indent=2)+'\n')
+ a.output.write_text(json.dumps({'original_sha256':hashlib.sha256(original).hexdigest(),'candidate_sha256':hashlib.sha256(candidate).hexdigest() if a.candidate else None,'scope':'Normally signed synthetic local creation cases; no full-program or byte identity claim.','cases':rows,'mismatches':failures},indent=2)+'\n',encoding='utf-8',newline='\n')
  print('cases',len(rows),'mismatches',failures)
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

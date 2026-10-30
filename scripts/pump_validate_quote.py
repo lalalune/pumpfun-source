@@ -5,6 +5,11 @@ from pump_differential_output import PumpReport
 import pump_trade_fixture as f
 from pump_amm_reusable_harness import pin_program
 p=argparse.ArgumentParser();p.add_argument('--candidate',type=f.pathlib.Path,required=True);p.add_argument('--source-directory',type=f.pathlib.Path,default=f.R/'programs/pump');p.add_argument('--output',type=f.pathlib.Path,required=True);a=p.parse_args()
+source_paths = [path for path in sorted(a.source_directory.rglob('*'))
+                if path.is_file() and 'target' not in path.relative_to(a.source_directory).parts
+                and (path.suffix == '.rs' or path.name in ('Cargo.toml', 'Cargo.lock'))]
+if not source_paths:
+ raise SystemExit('no Rust/Cargo inputs under '+str(a.source_directory))
 report_roots = (f.R/"evidence", a.source_directory)
 report_inputs = [report_roots[1]] + [path for folder in report_roots
                  for path in folder.rglob("*") if path.is_file()]
@@ -105,7 +110,7 @@ for c in cases:
  rows.append({'case':c,'different_fields':different,'original':o,'candidate':n})
 fails=[i for i,r in enumerate(rows) if r['different_fields']]
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
-sources={str(p.relative_to(a.source_directory)):sha(p) for p in sorted(a.source_directory.rglob('*')) if p.is_file() and 'target' not in p.parts and (p.suffix=='.rs' or p.name in ['Cargo.toml','Cargo.lock'])}
+sources={str(p.relative_to(a.source_directory)):sha(p) for p in source_paths}
 report={'scope':'Partial USDC-quote buy_v3/sell_v3 reconstruction: local synthetic quote mint/token accounts layered on saved Pump fixture, not captured real USDC account state. Tests SPL Token and Token2022 ownership variants without extensions, fees, flags and account guards. Compares all nonexecutecutable account state, errors, raw events and full inner instructions. Other quote routes and complete program byte identity remain unproven.','candidate_sha256':sha(a.candidate),'original_sha256':sha(f.R/'evidence/original/pump/deployed.so'),'source_sha256':sources,'cases':rows,'case_count':len(rows),'mismatches':fails}
 payload=(json.dumps(report,indent=2)+'\n').encode();report_output.write(__import__('gzip').compress(payload,mtime=0) if a.output.suffix=='.gz' else payload)
 print(len(rows),fails)

@@ -1,6 +1,7 @@
 import sys
 sys.path.insert(0,'scripts')
 from pump_amm_liquidity_differential import *
+from pump_differential_output import PumpReport
 ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');CREATOR=OUTSIDER.pubkey();AUTH,BUMP=Pubkey.find_program_address([b'creator_vault',bytes(CREATOR)],PROGRAM);VAULT=Pubkey.find_program_address([bytes(AUTH),bytes(TOKEN),bytes(quote)],ATA)[0];DEST=Pubkey.from_bytes(bytes([94])*32)
 def collect(amount=1000,candidate=None,overrides=None,payload_length=None):
  h=acquire_harness(pin_program(candidate or ROOT/'evidence/original/pump_amm/deployed.so'));h.vm.set_clock(Clock(100,1234567890,0,0,1234567890))
@@ -17,7 +18,7 @@ def collect(amount=1000,candidate=None,overrides=None,payload_length=None):
  return {'error':str(r.err()) if failed else None,'states':states,'logs':meta.logs(),'inner':json.loads(meta.to_json())['inner_instructions']}
 
 def main():
- parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args();candidate=args.candidate;rows=[]
+ parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args();candidate=args.candidate;output=PumpReport(args.output,ROOT,candidate,__file__,extra_inputs=[ROOT/'research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json']);rows=[]
  def test(label,**kw):
   x=collect(**kw);y=collect(candidate=candidate,**kw)
   for r in [x,y]:r['events']=[v for v in r.pop('logs') if v.startswith('Program data: ')]
@@ -47,7 +48,7 @@ def main():
     test('transfer-fee='+str((amount,bps,maximum)),amount=amount,overrides=transferfee)
  sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
  report={'scope':'SBF collect_coin_creator_fee: signed local transactions, token CPI, events, committed states and error constraints. Bounded recovery, not whole-program or byte equivalence.','candidate_sha256':sha(pin_program(candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
- args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(report['mismatches']),'mismatches':report['mismatches']}))
+ output.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatch_count':len(report['mismatches']),'mismatches':report['mismatches']}))
  if report['mismatches']:raise SystemExit(1)
 
 if __name__=='__main__':main()

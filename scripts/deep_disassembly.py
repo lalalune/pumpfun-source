@@ -984,7 +984,7 @@ if __name__ == "__main__":
         'extern-usage.json', 'fingerprints.json', 'rodata-strings.json', 'summary.json',
         'syscall-usage.json', 'verify.py', 'windows-deep.json',
     ]))
-    (output_dir / "verify.py").write_text(verify_py)
+    (output_dir / "verify.py").write_text(verify_py,encoding='utf-8',newline='\n')
 
 
     (output_dir / "verify.py").write_text(verify_py, encoding="utf-8", newline="\n")

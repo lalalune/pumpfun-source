@@ -105,7 +105,7 @@ def main():
     report = dict(dependency=a.dependency, features=a.features, image=cfg['image'], repo=cfg['repo'],
                   original_sha256=sha(original), original_bytes=len(original),
                   matches=[r['head'] for r in results if r.get('full_byte_equality')], results=results)
-    (out / 'search-report.json').write_text(json.dumps(report, indent=2) + '\n')
+    (out / 'search-report.json').write_text(json.dumps(report, indent=2) + '\n',encoding='utf-8',newline='\n')
     print('\n=== SUMMARY ===')
     for r in results:
         print(r.get('head', r['commit'])[:12], 'built' if r.get('built') else 'BUILD-FAIL',

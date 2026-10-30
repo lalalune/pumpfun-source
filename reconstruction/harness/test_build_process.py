@@ -81,9 +81,11 @@ class CompilerDeadlineTests(unittest.TestCase):
             root = Path(temp)
             leader_pid = root / 'leader.pid'
             descendant_pid = root / 'descendant.pid'
+            child_ready, leader_ready, armed = (root / name for name in ('child.ready', 'leader.ready', 'armed'))
             child = (
-                'import sys,time; '
-                f'print("detached-{stream}",file=sys.{stream},flush=True); time.sleep(30)'
+                'import sys,time; from pathlib import Path; '
+                f'print("detached-{stream}",file=sys.{stream},flush=True); '
+                f'Path({str(child_ready)!r}).touch(); time.sleep(30)'
             )
             leader_tail = 'sys.exit(0)' if leader_exits else 'time.sleep(30)'
             leader = (
@@ -91,28 +93,41 @@ class CompilerDeadlineTests(unittest.TestCase):
                 f'Path({str(leader_pid)!r}).write_text(str(os.getpid())); '
                 f'c=subprocess.Popen([sys.executable,"-u","-c",{child!r}],start_new_session=True); '
                 f'Path({str(descendant_pid)!r}).write_text(str(c.pid)); '
-                f'print("leader-{stream}",file=sys.{stream},flush=True); {leader_tail}'
+                f'print("leader-{stream}",file=sys.{stream},flush=True); '
+                f'Path({str(leader_ready)!r}).touch(); {leader_tail}'
             )
             harness = str(Path(__file__).resolve().parent)
+            # Start the short cleanup clock only after both real processes
+            # have emitted their diagnostics. CPU load must not turn this into
+            # a test of whether two Python interpreters start within 200ms.
+            wrapper = (
+                'import json,os,signal,sys,threading,time\nfrom pathlib import Path\n'
+                f'sys.path.insert(0,{harness!r})\n'
+                'import build_process\n'
+                'original_popen=build_process.subprocess.Popen\n'
+                'def ready_popen(*args,**kwargs):\n'
+                ' process=original_popen(*args,**kwargs)\n'
+                ' deadline=time.monotonic()+3\n'
+                f' while not (Path({str(child_ready)!r}).exists() and Path({str(leader_ready)!r}).exists()):\n'
+                '  if time.monotonic()>deadline: raise RuntimeError("process fixture did not become ready")\n'
+                '  time.sleep(0.005)\n'
+                f' Path({str(armed)!r}).write_text(str(time.monotonic()))\n'
+                + (' threading.Timer(0.2,lambda:os.kill(os.getpid(),signal.SIGINT)).start()\n' if interrupt else '')
+                + ' return process\n'
+                'build_process.subprocess.Popen=ready_popen\n'
+                f'command=[sys.executable,"-u","-c",{leader!r}]\n'
+            )
             if interrupt:
-                wrapper = (
-                    'import json,os,signal,sys,threading\n'
-                    f'sys.path.insert(0,{harness!r})\n'
-                    'from build_process import run_compiler\n'
-                    f'command=[sys.executable,"-u","-c",{leader!r}]\n'
-                    'threading.Timer(0.2,lambda:os.kill(os.getpid(),signal.SIGINT)).start()\n'
+                wrapper += (
                     'try:\n'
-                    ' run_compiler(command,timeout=30)\n'
+                    ' build_process.run_compiler(command,timeout=30)\n'
                     'except KeyboardInterrupt:\n'
                     ' print(json.dumps({"interrupted":True}),flush=True)\n'
                 )
             else:
-                wrapper = (
-                    'import json,sys; '
-                    f'sys.path.insert(0,{harness!r}); from build_process import run_compiler; '
-                    f'command=[sys.executable,"-u","-c",{leader!r}]; '
-                    'r,t=run_compiler(command,timeout=0.2); '
-                    'print(json.dumps({"timed_out":t,"returncode":r.returncode,"stdout":r.stdout}),flush=True)'
+                wrapper += (
+                    'r,t=build_process.run_compiler(command,timeout=0.2)\n'
+                    'print(json.dumps({"timed_out":t,"returncode":r.returncode,"stdout":r.stdout}),flush=True)\n'
                 )
             started = time.monotonic()
             outer = subprocess.Popen(
@@ -123,7 +138,7 @@ class CompilerDeadlineTests(unittest.TestCase):
             output = ''
             descendant_alive = False
             try:
-                output, _ = outer.communicate(timeout=2.5)
+                output, _ = outer.communicate(timeout=5.5)
                 returned = True
             except subprocess.TimeoutExpired as error:
                 output = error.output or ''
@@ -151,7 +166,8 @@ class CompilerDeadlineTests(unittest.TestCase):
                             pass
             return {
                 'returned': returned,
-                'elapsed': time.monotonic() - started,
+                'elapsed': time.monotonic() - float(armed.read_text()) if armed.exists() else time.monotonic() - started,
+                'total_elapsed': time.monotonic() - started,
                 'outer_returncode': outer.returncode,
                 'pids': pids,
                 'descendant_alive_before_cleanup': descendant_alive,

@@ -49,3 +49,8 @@ evidence/original when repro/programs.json is absent (#1277). The guard also app
 explicit-input inventory() function returned by load_inventory(); the tests
 exercise that actual path. CLI --help succeeds, but a complete multi-program
 CLI run is not claimed.
+
+The current adapter also admits the reviewed UTF-8/LF-only writer update.
+Its source binding is `5d00aedbccf78c2a00780ada287d4ae2c2cb649d88da7dfc796c843803c9d3b2`;
+RPC, parsing and admission behavior are unchanged. The earlier binding above
+identifies the historical baseline.

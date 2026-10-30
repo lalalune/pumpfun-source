@@ -134,5 +134,22 @@ class TriageReportTests(unittest.TestCase):
             self.assertEqual(path.read_text(), '[]')
 
 
+class TriageReportBytesTests(unittest.TestCase):
+    def test_report_bytes_do_not_follow_the_host_line_ending(self):
+        from unittest.mock import patch
+        original_open = Path.open
+        def windows_open(path, mode='r', *args, **kwargs):
+            if 'b' not in mode and any(flag in mode for flag in 'wax'):
+                if kwargs.get('newline') is None:
+                    kwargs['newline'] = '\r\n'
+            return original_open(path, mode, *args, **kwargs)
+        rows = [{'symbol': 'sample', 'category': 'equal-len'}]
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / 'triage.json'
+            with patch.object(Path, 'open', windows_open):
+                triage.write_report(output, rows)
+            self.assertEqual(output.read_bytes(), json.dumps(rows, indent=1).encode('utf-8'))
+
+
 if __name__ == '__main__':
     unittest.main()

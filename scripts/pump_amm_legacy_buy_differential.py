@@ -5,6 +5,7 @@ _CALLER_CWD=pathlib.Path.cwd()
 sys.path.insert(0,str(ROOT/'scripts'))
 os.chdir(ROOT)
 from pump_amm_legacy_sell_differential import *
+from pump_differential_output import PumpReport
 GLOBAL_VOLUME=Pubkey.find_program_address([b'global_volume_accumulator'],PROGRAM)[0]
 GDISC=bytes(next(x for x in IDL['accounts'] if x['name']=='GlobalVolumeAccumulator')['discriminator'])
 def legacy_buy(name='buy',amount=10**10,limit=10**12,track=b'\0',overrides=None,candidate=None,unsigned=False,payload_length=None,remaining=True):
@@ -52,7 +53,7 @@ def existing_volume(length=137,offset=8,value=None):
   h.vm.set_account(volume,Account(10**9,bytes(raw[:length]).ljust(length,b'\0'),PROGRAM))
  return ov
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();a.candidate=(_CALLER_CWD/a.candidate).resolve();a.output=(_CALLER_CWD/a.output).resolve();rows=[]
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();a.candidate=(_CALLER_CWD/a.candidate).resolve();a.output=(_CALLER_CWD/a.output).resolve();publisher=PumpReport(a.output,ROOT,a.candidate,__file__,extra_inputs=[TRADE_FIXTURE_PATH,PUMP_IDL_PATH]);rows=[]
  def test(name,label,**kw):
   params=dict(name=name,amount=10**10 if name=='buy' else 10**7,limit=10**12 if name=='buy' else 1);params.update(kw);x=legacy_buy(**params);y=legacy_buy(candidate=a.candidate,**params);diff=[k for k in x if k!='logs' and x[k]!=y[k]];rows.append({'instruction':name,'case':label,'original':x,'candidate':y,'diff':diff})
  for name in ['buy','buy_exact_quote_in']:
@@ -156,5 +157,5 @@ def main():
  for bps in [1,100,10000]:
   for maximum in [1,123,2**64-1]:
    for limit in [1847795,1847796,1847797,1847918,1847919,1847920,1866233,1866234,1866235]:test('buy','transferfee-limit='+str((bps,maximum,limit)),limit=limit,overrides=adapt_sell_helper(legacy_transferfee(quote,bps,maximum)))
- failures=[i for i,x in enumerate(rows) if x['diff']];sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest();report={'scope':'Isolated AMM buy/exact-quote reconstruction with synthetic state, normal verified test-owned signatures, and actual captured dependencies. No full ELF identity or exhaustive equivalence.','candidate_sha256':sha(pin_program(a.candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':failures,'cases':rows};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatches':failures}));raise SystemExit(bool(failures))
+ failures=[i for i,x in enumerate(rows) if x['diff']];sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest();report={'scope':'Isolated AMM buy/exact-quote reconstruction with synthetic state, normal verified test-owned signatures, and actual captured dependencies. No full ELF identity or exhaustive equivalence.','candidate_sha256':sha(pin_program(a.candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':failures,'cases':rows};publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatches':failures}));raise SystemExit(bool(failures))
 if __name__=='__main__':main()

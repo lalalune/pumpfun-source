@@ -152,7 +152,7 @@ try:
     manifest = {'scope': 'Existing local archives verified against a fixed Cargo.lock; no network download.',
                 'lockfile_sha256': hashlib.sha256(raw_lock).hexdigest(),
                 'registry_config_sha256': config_sha256, 'packages': records}
-    (staging / 'cache-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    (staging / 'cache-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n',encoding='utf-8',newline='\n')
     publish_directory(staging, args.output)
 finally:
     shutil.rmtree(wrapper, ignore_errors=True)

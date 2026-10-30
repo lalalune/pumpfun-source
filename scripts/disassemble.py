@@ -66,7 +66,7 @@ try:
             with target.open('wb') as output:
                 run_tool(['-d',snapshot.name],cwd=snapshot.parent,stdout=output)
             manifest['outputs'][name]={'input_sha256':input_sha256,'output_sha256':hashlib.sha256(target.read_bytes()).hexdigest()}
-    (staging/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+    (staging/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8',newline='\n')
     staging.rename(args.output)
 except BaseException:
     shutil.rmtree(staging,ignore_errors=True)

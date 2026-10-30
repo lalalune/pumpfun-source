@@ -553,7 +553,7 @@ if __name__ == "__main__":
         json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     total_lines = sum(
-        sum(1 for _ in open(output_dir / name))
+        sum(1 for _ in open(output_dir / name,encoding='utf-8'))
         for name in os.listdir(output_dir)
         if (output_dir / name).is_file()
     )

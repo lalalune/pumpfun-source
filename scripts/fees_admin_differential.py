@@ -8,6 +8,7 @@ from solders.litesvm import LiteSVM
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
+from pump_differential_output import PumpReport
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 IDL=json.loads((ROOT/'evidence/upstream/pump_fees.json').read_text())
 PROGRAM=Pubkey.from_string(IDL['address']);GLOBAL,BUMP=Pubkey.find_program_address([b'fee-program-global'],PROGRAM);EVENT=Pubkey.find_program_address([b'__event_authority'],PROGRAM)[0]
@@ -55,7 +56,7 @@ def cases():
   out.append({'name':name+'-extra-args','instruction':name,'arg':(values[-1]+bytes([255])*16).hex()})
  return out
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();publisher=PumpReport(a.output,ROOT,a.candidate,__file__)
  orig=ROOT/'evidence/original/pump_fees/deployed.so';o=Fixture(orig);b=Fixture(a.candidate) if a.candidate else None;rows=[];failures=[]
  for c in cases():
   x=o.run(c);y=b.run(c) if b else None
@@ -63,6 +64,6 @@ def main():
   rows.append({'case':c,'original':x,'candidate':y,'match':matched})
   if matched is False:failures.append(c['name'])
  report={'scope':'Four administrative handlers only; local synthetic accounts, errors/state/lamports/events/inner instructions compared. No full byte identity or audit completion.','original_sha256':o.program_sha256,'candidate_sha256':b.program_sha256 if b else None,'case_count':len(rows),'mismatches':failures,'cases':rows}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatches':failures}))
+ publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatches':failures}))
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()
