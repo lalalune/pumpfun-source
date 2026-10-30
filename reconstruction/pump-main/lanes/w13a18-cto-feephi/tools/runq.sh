@@ -7,7 +7,7 @@ run(){ W=$1; shift; while read -r N P; do [ -z "$N" ] && continue
   ES=$(python3 tools/errseq.py rx/$N/fn.bin 2>/dev/null | cut -d' ' -f2-)
   bash tools/dis.sh rx/$N/m.o > rx/$N/m.dis 2>/dev/null; FM=$(python3 tools/absratio.py rx/$N/m.dis 2>/dev/null | awk '{print $3}')
   echo "{\"n\":\"$N\",\"r\":$R,\"feetests\":$FT,\"fm\":\"$FM\",\"errseq\":\"$ES\"}" >> results_ir.jsonl
-  rm -f ir/$N.ll rx/$N/o3.ll rx/$N/in.ll
+  rm -f ir/$N.ll rx/$N/in.ll
 done; }
 L=$(wc -l < $1); H=$(( (L+1)/2 ))
 head -n $H $1 > $1.a; tail -n +$((H+1)) $1 > $1.b
