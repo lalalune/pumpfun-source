@@ -56,7 +56,7 @@ def classify(row, context, evidence_root):
         if not isinstance(item, dict) or not isinstance(item.get('path'), str) or not isinstance(item.get('sha256'), str) or not re.fullmatch('[0-9a-f]{64}', item['sha256']):
             reasons.append('invalid evidence descriptor'); continue
         relative = Path(item['path'])
-        if relative.is_absolute() or '..' in relative.parts or not relative.parts:
+        if relative.anchor or '..' in relative.parts or not relative.parts:
             reasons.append('evidence path must remain within evidence root'); continue
         path = root / relative
         if any(p.is_symlink() for p in [path, *path.parents] if p != root and root in p.parents):
