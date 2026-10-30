@@ -71,6 +71,7 @@ jobs:
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py
               python -B reconstruction/harness/test_integrate_no_build_cli.py
+              python -B reconstruction/harness/test_integrate_build_input_recheck.py
               python -B reconstruction/harness/test_composition_boundaries.py
               python -B reconstruction/harness/test_build_pair_boundaries.py
               python -B reconstruction/harness/test_composition_deadline.py
