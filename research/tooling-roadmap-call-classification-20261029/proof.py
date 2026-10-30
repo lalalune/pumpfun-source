@@ -28,6 +28,8 @@ REPO = next(
 )
 SCRIPTS = REPO / 'scripts'
 SOURCE = 'scripts/reconstruction_roadmap.py'
+# The reviewed bytes of SOURCE, kept in this packet after #1639 corrected the live script.
+ARCHIVED = P / 'archived/reconstruction_roadmap.py'
 PROGRAMS = ('pump', 'pump_amm', 'mayhem')
 EXPECTED = {
     'pump': {'call_sites': 10861, 'internal_calls': 10591, 'external_calls': 270, 'windows': 1035},
@@ -36,14 +38,14 @@ EXPECTED = {
 }
 LF_SHA256 = 'e7f51159a9345abe7e7434ecda88346023446b47fc56aab01d0a2d1867b9603f'
 CRLF_SHA256 = hashlib.sha256(
-    (REPO / SOURCE).read_bytes().replace(b'\r\n', b'\n').replace(b'\n', b'\r\n')
+    ARCHIVED.read_bytes().replace(b'\r\n', b'\n').replace(b'\n', b'\r\n')
 ).hexdigest()
 REVIEWED = {LF_SHA256, CRLF_SHA256}
 sha = lambda data: hashlib.sha256(data).hexdigest()
 
 
 def _load_archived(root=REPO):
-    path = Path(root) / SOURCE
+    path = ARCHIVED
     raw = path.read_bytes()
     digest = sha(raw)
     lf = raw.replace(b'\r\n', b'\n')
@@ -52,7 +54,8 @@ def _load_archived(root=REPO):
     if str(Path(root) / 'scripts') not in sys.path:
         sys.path.insert(0, str(Path(root) / 'scripts'))
     module = types.ModuleType('reviewed_reconstruction_roadmap')
-    module.__file__ = str(path)
+    # REPO inside the archived script resolves from its original location.
+    module.__file__ = str(Path(root) / SOURCE)
     exec(compile(lf, str(path), 'exec'), module.__dict__)
     return module
 
@@ -220,7 +223,7 @@ def check(root=REPO):
     assert totals['external_calls'] == 578
     return {
         'script': SOURCE,
-        'script_sha256': sha((root / SOURCE).read_bytes()),
+        'script_sha256': sha(ARCHIVED.read_bytes()),
         'method': 'source-nibble comparison corrected; relocation type 10 separates external calls',
         'totals': dict(totals),
         'programs': programs,

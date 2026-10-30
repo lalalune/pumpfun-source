@@ -66,7 +66,7 @@ class ErrorPatternBoundaryTests(unittest.TestCase):
 class EvidenceTests(unittest.TestCase):
     def test_changed_source_is_rejected_before_loading(self):
         with patch.object(proof.Path, 'read_bytes', return_value=b'changed source'):
-            with self.assertRaisesRegex(ValueError, 'bound input changed: scripts/bytecode_signatures.py'):
+            with self.assertRaisesRegex(ValueError, 'bound input changed: research/tooling-terminal-error-patterns-20261030/archived/bytecode_signatures.py'):
                 proof.reviewed()
 
     def test_archived_detector_still_reproduces_omission(self):

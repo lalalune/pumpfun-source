@@ -55,3 +55,12 @@ The wrapper verifies all bound inputs before loading the archived module.
 The output schema and all other archived detectors remain unchanged; generated
 packet metadata retains the archived terminology described above. Run the
 output directory's `verify.py` to check that generated packet's inventory.
+
+## Re-binding after tool merges (2026-10-30)
+
+`scripts/bytecode_signatures.py` and `scripts/window_elf_reader.py` changed on main
+after this packet was sealed (#2319 extended the conditional-jump set and the live
+detector now also scans the terminal slot; #2388 and #2075 touched the reader). The
+reviewed bytes are therefore kept in `archived/` with their original SHA-256 values,
+and `proof.py` loads the archived detector and reader from there. The observations
+are unchanged.
