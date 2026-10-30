@@ -388,8 +388,24 @@ class AuditTests(unittest.TestCase):
         output = self.root / "audit"
         command = [sys.executable, "-B", str(Path(audit.__file__)),
                    "--repo", str(self.root), "--output", str(output)]
+        # A shell background job starts with SIGINT ignored, and Python then
+        # never raises KeyboardInterrupt; give the CLI a real SIGINT handler.
         proc = subprocess.Popen(command, cwd=self.root, stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT, text=True, start_new_session=True)
+                                stderr=subprocess.STDOUT, text=True, start_new_session=True,
+                                preexec_fn=lambda: signal.signal(signal.SIGINT, signal.SIG_DFL))
+        def cleanup():
+            if proc.poll() is None:
+                try:
+                    os.killpg(proc.pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+                proc.communicate(timeout=3)
+            if verifier_pid.exists():
+                try:
+                    os.kill(int(verifier_pid.read_text()), signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+        self.addCleanup(cleanup)
         deadline = time.monotonic() + 3
         while time.monotonic() < deadline and not verifier_pid.exists():
             time.sleep(0.02)
