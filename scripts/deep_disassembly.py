@@ -104,7 +104,9 @@ def decode_instruction(b, offset, elf):
     if opcode == 0x95:
         result["mnemonic"] = "exit"
     elif opcode == 0x85:
-        if src_reg == 0x10:
+        # src_reg is the decoded nibble, not the packed register byte.
+        # Type-10 external calls also use src=1 with a placeholder immediate.
+        if src_reg == 1 and elf.relocations.get(offset, {}).get("type") != 10:
             target = offset + 8 + imm * 8
             target_name = None
             for f in elf.funcs:
@@ -125,6 +127,18 @@ def decode_instruction(b, offset, elf):
             sym = reloc.get("symbol", "?")
             result["mnemonic"] = f"call_extern {sym}"
             result["extern_symbol"] = sym
+    elif opcode == 0x8d:
+        # CALL_REG's register field changes across SBPF versions. The target
+        # address is runtime data, not a statically resolved direct call.
+        image = getattr(elf, "b", b"")
+        version = struct.unpack_from("<I", image, 48)[0] if len(image) >= 52 else None
+        register = (imm if version in (0, 1) else src_reg if version == 2
+                    else dst_reg if version in (3, 4) else None)
+        if register is not None and 0 <= register <= 10:
+            result["mnemonic"] = f"callx r{register}"
+            result["indirect_call_register"] = register
+        else:
+            result["mnemonic"] = f"raw_{opcode:#04x} {dst},{src},{off},{imm}"
     elif opcode == 0x18:
         imm2 = struct.unpack_from("<i", b, offset + 12)[0]
         val64 = (imm & 0xFFFFFFFF) | (imm2 << 32)
@@ -425,7 +439,42 @@ def analyze_stack_frame(instructions):
     }
 
 
-def fingerprint_window(elf, start, end):
+def relocated_syscalls(elf):
+    """Resolve call relocations without changing the captured ELF reader.
+
+    The pinned SBPF loader treats a function symbol with a nonzero value as
+    BPF-to-BPF; other call symbols are resolved through its syscall registry.
+    None retains a defined-function relocation or an unresolved symbol.
+    """
+    calls = {at: None for at, relocation in getattr(elf, 'relocations', {}).items()
+             if relocation.get('type') == 10}
+    rel = elf.secs.get('.rel.dyn')
+    sym = elf.secs.get('.dynsym')
+    if rel is None or sym is None:
+        return calls
+    if rel[9] != 16 or sym[9] != 24:
+        return calls
+    b = elf.b
+    if (rel[4] + rel[5] > len(b) or sym[4] + sym[5] > len(b)
+            or rel[5] % 16 or sym[5] % 24):
+        return calls
+    for pos in range(rel[4], rel[4] + rel[5], 16):
+        at, info = struct.unpack_from('<QQ', b, pos)
+        if info & 0xffffffff != 10:
+            continue
+        calls[at] = None
+        index = info >> 32
+        if index >= sym[5] // 24:
+            continue
+        _, kind, _, _, value, _ = struct.unpack_from(
+            '<IBBHQQ', b, sym[4] + index * 24)
+        if kind & 15 == 2 and value != 0:
+            continue
+        calls[at] = elf.symbols.get(index) or None
+    return calls
+
+
+def fingerprint_window(elf, start, end, call_symbols=None):
     """Create a bytecode signature fingerprint for pattern matching."""
     b = elf.b
     # Opcode sequence (normalized — ignore operands)
@@ -438,13 +487,20 @@ def fingerprint_window(elf, start, end):
         else:
             offset += 8
 
-    # Syscall sequence
+    # Walk logical instructions: the second LDDW slot is operand data.
+    if call_symbols is None:
+        call_symbols = relocated_syscalls(elf)
     syscalls = []
-    for at in range(start, end, 8):
-        if b[at] == 0x85 and b[at + 1] == 0x00:
-            uimm = struct.unpack_from("<I", b, at + 4)[0]
-            name = SYSCALL_NAMES.get(uimm, f"unknown_{uimm:#x}")
-            syscalls.append(name)
+    at = start
+    while at + 8 <= end:
+        if b[at] == 0x85:
+            if at in call_symbols:
+                if call_symbols[at] is not None:
+                    syscalls.append(call_symbols[at])
+            elif b[at + 1] == 0x00:
+                uimm = struct.unpack_from("<I", b, at + 4)[0]
+                syscalls.append(SYSCALL_NAMES.get(uimm, f"unknown_{uimm:#x}"))
+        at += 16 if b[at] == 0x18 else 8
 
     # Structural fingerprint (opcode bigrams)
     bigrams = collections.Counter()
@@ -487,6 +543,7 @@ def main():
 
     print(f"[disasm] Reading {deployed_path}")
     elf = Elf(deployed_path)
+    call_symbols = relocated_syscalls(elf)
     entries = elf.entries
     boundaries = entries + [elf.hi]
 
@@ -543,7 +600,7 @@ def main():
         stack = analyze_stack_frame(instructions)
 
         # Fingerprint
-        fp = fingerprint_window(elf, start, end)
+        fp = fingerprint_window(elf, start, end, call_symbols)
         fp["address"] = hex(start)
         fp["name"] = name
         fingerprints.append(fp)

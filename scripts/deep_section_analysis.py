@@ -208,9 +208,12 @@ def analyze_data_layout(elf):
 
 def analyze_relocations(elf):
     """Full relocation table analysis with type classification."""
+    # Solana's SBPF loader uses 8 for relative addresses and 10 for calls;
+    # these are not the generic BPF absolute-data relocation names.
+    # https://github.com/anza-xyz/sbpf/blob/f754c707f99779a756978f87c9afd25eeeb3d92e/src/elf.rs#L175-L207
     reloc_types = {
-        0: "R_BPF_NONE", 1: "R_BPF_64_64", 2: "R_BPF_64_RELATIVE",
-        8: "R_BPF_64_ABS64", 10: "R_BPF_64_ABS32",
+        0: "R_BPF_NONE", 1: "R_BPF_64_64",
+        8: "R_BPF_64_RELATIVE", 10: "R_BPF_64_32",
     }
 
     rel_sec = elf.secs.get(".rel.dyn")
@@ -408,7 +411,7 @@ def recover_anchor_idl(elf):
                 for back in range(1, 6):
                     prev = at - back * 8
                     if prev >= elf.lo:
-                        if b[prev] in (0xb7, 0xb4):  # mov imm
+                        if b[prev] in (0xb7, 0xb4) and b[prev + 1] & 0xF == 1:  # mov imm into size argument r1
                             size_val = struct.unpack_from("<i", b, prev + 4)[0]
                             if 8 < size_val < 100000:
                                 account_sizes.append({

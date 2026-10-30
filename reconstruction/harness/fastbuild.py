@@ -19,6 +19,7 @@ import argparse, hashlib, json, os, shutil, subprocess, sys, time, tomllib, fcnt
 from contextlib import contextmanager
 from pathlib import Path
 from build_process import run_compiler, validate_timeout
+from source_inputs import snapshot, assert_unchanged
 
 H = Path(__file__).resolve().parent
 SC = H.parent
@@ -54,10 +55,11 @@ def stage(src: Path, ws: Path):
     crate_text = text[:ps].rstrip() + '\n'
     crate = ws / 'programs/pump'
     crate.mkdir(parents=True, exist_ok=True)
-    # mirror .rs sources (+ any non-target files) with rsync --checksum so unchanged files keep mtimes;
+    # Exclude only the crate-root build directory; nested target directories can contain source.
+    # Mirror inputs with rsync --checksum so unchanged files keep mtimes;
     # only the crate-root manifest/lock are excluded (rewritten below), nested path crates keep their Cargo.toml
     subprocess.run(['rsync', '-a', '--checksum', '--delete',
-                    '--exclude', 'target', '--exclude', '/Cargo.toml', '--exclude', '/Cargo.lock',
+                    '--exclude', '/target/', '--exclude', '/Cargo.toml', '--exclude', '/Cargo.lock',
                     str(src) + '/', str(crate) + '/'], check=True)
     def put(p, t):
         if not p.exists() or p.read_text() != t:
@@ -126,9 +128,13 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     recipe = recipe or DEFAULT_RECIPE
     R = RECIPES[recipe]; triple = R['triple']
     src = src.resolve(); work = work.resolve(); out = out.resolve()
+    if src == work or src in work.parents or work in src.parents or src == out or src in out.parents:
+        raise ValueError('source must not overlap the build workspace or contain output')
+    source_inputs = snapshot(src)
     work.mkdir(parents=True, exist_ok=True)
     ws = work / 'ws'
     crate = stage(src, ws)
+    assert_unchanged(src, source_inputs)
     target = work / ('target' if recipe == 'mac' else f'target-{recipe}')
     if not target.exists() and R['template'].exists():
         subprocess.run(['cp', '-cRp', str(R['template']), str(target)], check=True)
@@ -153,6 +159,7 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
            '--target', triple, '--locked', '--offline']
     out.mkdir(parents=True, exist_ok=True)
     archive_previous_outputs(out)
+    (out / 'source-inputs.json').write_text(json.dumps(source_inputs, indent=2) + '\n', encoding='utf-8')
     # Never trust mtime freshness for the main crate (rsync -a keeps source mtimes, so cargo could
     # otherwise reuse a stale pump artifact): drop its fingerprints and outputs so it always recompiles.
     for fp in list(target.glob('*/release/.fingerprint/pump-recovered-*')) + list(target.glob('release/.fingerprint/pump-recovered-*')):
@@ -170,7 +177,7 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     if timed_out or r.returncode != 0:
         if not quiet:
             sys.stdout.write(r.stdout[-6000:])
-        return {'ok': False, 'timed_out': timed_out, 'recipe': recipe, 'seconds': round(dt, 1), 'log': str(out / 'build.log')}
+        return {'ok': False, 'timed_out': timed_out, 'source_sha256': source_inputs['sha256'], 'recipe': recipe, 'seconds': round(dt, 1), 'log': str(out / 'build.log')}
     # SBF frames are 4 KiB: any "Stack offset ... exceeded max offset" warning means the program can fault at
     # runtime (the original runs, so its functions fit). Such a build must never be delivered or integrated.
     stack = [l.strip() for l in r.stdout.splitlines() if 'exceeded max offset' in l]
@@ -183,7 +190,7 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     built = target / triple / 'release/pump_recovered.so'
     shutil.copy2(built, out / 'unstripped.so')
     subprocess.run([str(SDK / 'llvm/bin/llvm-objcopy'), '--strip-all', str(built), str(out / 'candidate.so')], check=True)
-    return {'ok': True, 'runtime_valid': not stack, 'stack_warnings': stack, 'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1), 'unstripped': str(out / 'unstripped.so'),
+    return {'ok': True, 'source_sha256': source_inputs['sha256'], 'runtime_valid': not stack, 'stack_warnings': stack, 'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1), 'unstripped': str(out / 'unstripped.so'),
             'unstripped_sha256': sha(out / 'unstripped.so'), 'candidate_sha256': sha(out / 'candidate.so')}
 
 

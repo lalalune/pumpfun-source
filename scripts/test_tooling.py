@@ -1,5 +1,27 @@
 #!/usr/bin/env python3
 """Mutation tests ensuring the byte comparator cannot hide code/padding changes."""
+import contextlib
+import io
+import json
+import pathlib
+import shutil
+import struct
+
+
+import pathlib
+import shutil
+import struct
+
+
+import hashlib
+import json
+import pathlib
+import shutil
+import struct
+import subprocess
+import sys
+
+
 import json
 import pathlib
 import struct
@@ -35,8 +57,19 @@ from unittest.mock import patch
 import deep_section_analysis
 import deep_disassembly
 import analyze
+import verify_evidence
+
+
+
+
+from capture import b58
+
+
 import local_validation
 from compare import compare
+from test_revalidation_output import RevalidationOutputTests
+
+
 
 
 class RevalidationReportTests(unittest.TestCase):
@@ -108,6 +141,179 @@ class ComparisonTests(unittest.TestCase):
     def test_truncated_padding(self): self.assertFalse(compare(b'abc\0\0',b'abc\0')['full_byte_equality'])
     def test_extended_padding(self): self.assertFalse(compare(b'abc\0',b'abc\0\0')['full_byte_equality'])
     def test_empty(self): self.assertEqual(compare(b'a',b'')['first_difference'],0)
+
+
+class EvidenceCheckOptimizeTests(unittest.TestCase):
+    def test_check_survives_python_optimize(self):
+        # `python -O` strips `assert`; verify_evidence must still fail closed.
+        import subprocess, sys, pathlib
+        here = pathlib.Path(__file__).resolve().parent
+        code = 'import verify_evidence as v\ntry:\n    v.check(False, "x")\nexcept v.EvidenceError:\n    raise SystemExit(7)\n'
+        r = subprocess.run([sys.executable, '-O', '-c', code], cwd=here)
+        self.assertEqual(r.returncode, 7)
+
+
+class SyscallFingerprintTests(unittest.TestCase):
+    def test_mixed_calls_preserve_order_and_skip_lddw_data(self):
+        call = lambda src, imm: struct.pack('<BBhI', 0x85, src, 0, imm)
+        code = (call(0, 0x207559bd) + call(0x10, 0xffffffff)
+                + call(0x10, 0xffffffff) + call(0, 0x12345678)
+                + struct.pack('<BBhi', 0x18, 0, 0, 0) + call(0, 0x207559bd)
+                + call(0x10, 0xffffffff) + call(0x10, 1))
+        # Symbol 1 is imported, symbol 2 is a defined BPF function.
+        dynsym = bytes(24) + struct.pack('<IBBHQQ', 0, 0, 0, 0, 0, 0)
+        dynsym += struct.pack('<IBBHQQ', 0, 2, 0, 1, 16, 8)
+        rel = b''.join(struct.pack('<QQ', at, (idx << 32) | 10)
+                       for at, idx in ((8, 1), (16, 2), (48, 1)))
+        elf = SimpleNamespace(b=code + dynsym + rel, symbols={1: 'abort', 2: 'helper'},
+            secs={'.dynsym': (0, 11, 0, 0, len(code), len(dynsym), 0, 0, 8, 24),
+                  '.rel.dyn': (0, 9, 0, 0, len(code)+len(dynsym), len(rel), 0, 0, 8, 16)})
+        fp = deep_disassembly.fingerprint_window(elf, 0, len(code))
+        self.assertEqual(fp['syscall_sequence'],
+                         ['sol_log_64_', 'abort', 'unknown_0x12345678', 'abort'])
+        self.assertEqual(fp['opcode_count'], 7)
+
+    def test_missing_invalid_and_noncall_relocations(self):
+        code = struct.pack('<BBhI', 0x85, 0x10, 0, 0xffffffff)
+        for typ, index, entry_size in ((8, 1, 24), (10, 5, 24), (10, 1, 0)):
+            with self.subTest(typ=typ, index=index, entry_size=entry_size):
+                sym = bytes(48)
+                rel = struct.pack('<QQ', 0, (index << 32) | typ)
+                elf = SimpleNamespace(b=code + sym + rel, symbols={1: 'abort'},
+                    secs={'.dynsym': (0, 11, 0, 0, 8, 48, 0, 0, 8, entry_size),
+                          '.rel.dyn': (0, 9, 0, 0, 56, 16, 0, 0, 8, 16)})
+                self.assertEqual(deep_disassembly.fingerprint_window(
+                    elf, 0, 8)['syscall_sequence'], [])
+        elf.secs = {}
+        self.assertEqual(deep_disassembly.fingerprint_window(elf, 0, 8)['syscall_sequence'], [])
+
+    def test_unresolved_relocation_does_not_become_literal_syscall(self):
+        code = struct.pack('<BBhI', 0x85, 0, 0, 0x207559bd) * 2
+        for sections in ({}, {'.dynsym': (0, 11, 0, 0, 16, 24, 0, 0, 8, 0),
+                              '.rel.dyn': (0, 9, 0, 0, 16, 16, 0, 0, 8, 16)}):
+            with self.subTest(sections=sections):
+                elf = SimpleNamespace(b=code, secs=sections, symbols={},
+                                      relocations={0: {'type': 10, 'symbol': 'unresolved'}})
+                self.assertEqual(deep_disassembly.fingerprint_window(
+                    elf, 0, len(code))['syscall_sequence'], ['sol_log_64_'])
+
+    def test_captured_import_sequences(self):
+        for name, count in (('pump', 269), ('pump_amm', 173),
+                            ('pump_fees', 154), ('mayhem', 133)):
+            with self.subTest(program=name):
+                elf = deep_disassembly.Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+                sym = elf.secs['.dynsym']
+                rel = elf.secs['.rel.dyn']
+                expected = []
+                for pos in range(rel[4], rel[4] + rel[5], 16):
+                    at, info = struct.unpack_from('<QQ', elf.b, pos)
+                    if info & 0xffffffff != 10:
+                        continue
+                    index = info >> 32
+                    fields = struct.unpack_from('<IBBHQQ', elf.b, sym[4] + index * 24)
+                    if fields[3] == 0:
+                        expected.append((at, elf.symbols[index]))
+                expected = [label for _, label in sorted(expected)]
+                self.assertEqual(len(expected), count)
+                self.assertEqual(deep_disassembly.fingerprint_window(
+                    elf, elf.lo, elf.hi)['syscall_sequence'], expected)
+                self.assertNotIn('custom_panic', expected)
+
+
+class InternalCallDecodeTests(unittest.TestCase):
+    def test_forward_and_backward_internal_targets(self):
+        for offset, immediate, target in ((8, 2, 32), (16, -2, 8)):
+            with self.subTest(immediate=immediate):
+                blob = bytes(offset) + struct.pack('<BBhi', 0x85, 0x10, 0, immediate)
+                elf = SimpleNamespace(
+                    funcs=[{'start': target, 'name': 'helper'}], relocations={})
+                record, size = deep_disassembly.decode_instruction(blob, offset, elf)
+                self.assertEqual(size, 8)
+                self.assertEqual(record['call_target'], target)
+                self.assertEqual(record['call_name'], 'helper')
+                self.assertEqual(record['mnemonic'], 'call helper')
+                self.assertNotIn('extern_symbol', record)
+
+    def test_relocated_placeholder_stays_external(self):
+        blob = struct.pack('<BBhi', 0x85, 0x10, 0, -1)
+        elf = SimpleNamespace(funcs=[], relocations={
+            0: {'type': 10, 'symbol': 'sol_log_'},
+        })
+        record, _ = deep_disassembly.decode_instruction(blob, 0, elf)
+        self.assertEqual(record['extern_symbol'], 'sol_log_')
+        self.assertEqual(record['mnemonic'], 'call_extern sol_log_')
+        self.assertNotIn('call_target', record)
+
+    def test_hashed_syscall_stays_syscall(self):
+        blob = struct.pack('<BBhI', 0x85, 0, 0, 0x207559bd)
+        elf = SimpleNamespace(funcs=[], relocations={})
+        record, _ = deep_disassembly.decode_instruction(blob, 0, elf)
+        self.assertEqual(record['syscall'], 'sol_log_64_')
+        self.assertNotIn('call_target', record)
+
+    def test_captured_call_targets_match_window_reader(self):
+        for name in ('pump', 'pump_amm', 'pump_fees', 'mayhem'):
+            with self.subTest(program=name):
+                elf = deep_disassembly.Elf(
+                    analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+                self.assertGreater(len(elf.calls), 0)
+                for offset, target in elf.calls.items():
+                    record, _ = deep_disassembly.decode_instruction(elf.b, offset, elf)
+                    self.assertEqual(record['call_target'], target)
+                    self.assertNotIn('extern_symbol', record)
+                for offset, relocation in elf.relocations.items():
+                    if relocation['type'] == 10:
+                        record, _ = deep_disassembly.decode_instruction(elf.b, offset, elf)
+                        self.assertEqual(record['extern_symbol'], relocation['symbol'])
+                        self.assertNotIn('call_target', record)
+
+
+class RelocationTypeTests(unittest.TestCase):
+    def test_sbpf_relocation_names(self):
+        types = (0, 1, 8, 10, 2, 255)
+        blob = b''.join(struct.pack('<QQ', 0, typ) for typ in types)
+        elf = SimpleNamespace(
+            b=blob, symbols={}, lo=0x1000, hi=0x2000,
+            secs={'.rel.dyn': (0, 9, 0, 0, 0, len(blob), 0, 0, 8, 16)},
+        )
+        report = deep_section_analysis.analyze_relocations(elf)
+        self.assertEqual(
+            [entry['type'] for entry in report['entries']],
+            ['R_BPF_NONE', 'R_BPF_64_64', 'R_BPF_64_RELATIVE',
+             'R_BPF_64_32', 'UNKNOWN_2', 'UNKNOWN_255'],
+        )
+        self.assertEqual([entry['type_id'] for entry in report['entries']], list(types))
+
+    def test_captured_relative_and_call_relocations(self):
+        for name in ('pump', 'pump_amm', 'pump_fees', 'mayhem'):
+            with self.subTest(program=name):
+                elf = deep_section_analysis.Elf(
+                    analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+                report = deep_section_analysis.analyze_relocations(elf)
+                self.assertEqual(set(report['type_distribution']),
+                                 {'R_BPF_64_RELATIVE', 'R_BPF_64_32'})
+                for entry in report['entries']:
+                    self.assertEqual(entry['type'], {
+                        8: 'R_BPF_64_RELATIVE', 10: 'R_BPF_64_32',
+                    }[entry['type_id']])
+
+
+class AllocationSizeRegisterTests(unittest.TestCase):
+    def sizes(self, instructions):
+        blob = bytes(64) + b''.join(struct.pack('<BBhi', *ix) for ix in instructions)
+        elf = SimpleNamespace(b=blob, lo=64, hi=len(blob), entries=[64], funcs=[])
+        return deep_section_analysis.recover_anchor_idl(elf)['unique_allocation_sizes']
+
+    def test_size_comes_from_r1_not_nearer_r2(self):
+        self.assertEqual(self.sizes([
+            (0xb7, 1, 0, 64), (0xb7, 2, 0, 0),
+            (0x85, 0, 0, -2081419633),
+        ]), [64])
+
+    def test_other_register_does_not_supply_size(self):
+        self.assertEqual(self.sizes([
+            (0xb7, 2, 0, 64), (0x85, 0, 0, -2081419633),
+        ]), [])
 
 
 class CompareProgramNamesTests(unittest.TestCase):
@@ -330,6 +536,117 @@ class InstructionLogNameTests(unittest.TestCase):
         self.assertEqual(len(names), 25)
         self.assertIn('Buy', names)
         self.assertIn('InitializeGlobalParams', names)
+
+
+class EvidenceCommitmentTests(unittest.TestCase):
+    """The saved-evidence gate must reject a capture that is not finalized."""
+    FOLDER = 'evidence/original/pump'
+
+    def run_gate(self, **changes):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = pathlib.Path(temporary)
+            shutil.copytree(analyze.ROOT / self.FOLDER, root / self.FOLDER)
+            shutil.copytree(analyze.ROOT / 'evidence/upstream', root / 'evidence/upstream')
+            path = root / self.FOLDER / 'capture.json'
+            record = json.loads(path.read_text())
+            record.update(changes)
+            path.write_text(json.dumps(record))
+            old_root, old_expected = verify_evidence.ROOT, verify_evidence.EXPECTED_CAPTURES
+            verify_evidence.ROOT = root
+            verify_evidence.EXPECTED_CAPTURES = frozenset({self.FOLDER})
+            try:
+                with contextlib.redirect_stdout(io.StringIO()):
+                    verify_evidence.main()
+            finally:
+                verify_evidence.ROOT, verify_evidence.EXPECTED_CAPTURES = old_root, old_expected
+
+    def test_finalized_capture_passes(self):
+        self.run_gate()
+
+    def test_weaker_commitment_is_rejected(self):
+        with self.assertRaises(AssertionError) as raised:
+            self.run_gate(commitment='processed')
+        self.assertIn(self.FOLDER, str(raised.exception))
+        self.assertIn('commitment', str(raised.exception))
+
+
+class EvidenceProgramBindingTests(unittest.TestCase):
+    """A capture must carry the address of the folder that publishes it."""
+    def setUp(self):
+        self.tmp = pathlib.Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, self.tmp)
+        shutil.copytree(verify_evidence.ROOT / 'evidence', self.tmp / 'evidence')
+        self.root = verify_evidence.ROOT
+        self.expected = verify_evidence.EXPECTED_CAPTURES
+        verify_evidence.ROOT = self.tmp
+        verify_evidence.EXPECTED_CAPTURES = frozenset(
+            p.parent.relative_to(self.tmp).as_posix()
+            for p in (self.tmp / 'evidence').glob('**/capture.json'))
+        self.addCleanup(setattr, verify_evidence, 'ROOT', self.root)
+        self.addCleanup(setattr, verify_evidence, 'EXPECTED_CAPTURES', self.expected)
+
+    def run_gate(self):
+        with contextlib.redirect_stdout(io.StringIO()):
+            verify_evidence.main()
+
+    def test_control_pair_passes(self):
+        self.run_gate()
+
+    def test_swapped_captures_are_rejected(self):
+        # Swap the whole folders: payloads and hashes stay self-consistent, so only
+        # the program/folder binding can catch the exchange.
+        original = self.tmp / 'evidence/original'
+        (original / 'pump').rename(original / 'swap')
+        (original / 'pump_amm').rename(original / 'pump')
+        (original / 'swap').rename(original / 'pump_amm')
+        with self.assertRaisesRegex(AssertionError, 'evidence/original/pump: capture program'):
+            self.run_gate()
+
+
+class ProgramDataAuthorityTagTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        workspace = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(workspace.cleanup)
+        cls.root = pathlib.Path(workspace.name)
+        (cls.root / 'scripts').mkdir()
+        for name in ('verify_evidence.py', 'capture.py', 'analyze.py'):
+            shutil.copyfile(analyze.ROOT / 'scripts' / name, cls.root / 'scripts' / name)
+        shutil.copytree(analyze.ROOT / 'evidence/upstream', cls.root / 'evidence/upstream')
+        for relative in verify_evidence.EXPECTED_CAPTURES:
+            shutil.copytree(analyze.ROOT / relative, cls.root / relative)
+        cls.folder = cls.root / 'evidence/original/pump_fees'
+        cls.original_data = (cls.folder / 'programdata-account.bin').read_bytes()
+        cls.original_record = json.loads((cls.folder / 'capture.json').read_text())
+
+    def verify_tag(self, tag, optimized):
+        data = bytearray(self.original_data)
+        data[12] = tag
+        record = dict(self.original_record)
+        # Keep hashes and declared authority consistent so the tag itself is tested.
+        record['programdata_sha256'] = hashlib.sha256(data).hexdigest()
+        record['upgrade_authority'] = b58(data[13:45]) if tag else None
+        (self.folder / 'programdata-account.bin').write_bytes(data)
+        (self.folder / 'capture.json').write_text(json.dumps(record))
+        command = [sys.executable, *(['-O'] if optimized else []), 'scripts/verify_evidence.py']
+        return subprocess.run(command, cwd=self.root, capture_output=True, text=True, timeout=30)
+
+    def test_valid_authority_option_tags(self):
+        for tag in (0, 1):
+            for optimized in (False, True):
+                with self.subTest(tag=tag, optimized=optimized):
+                    result = self.verify_tag(tag, optimized)
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    self.assertIn('9 captures verified', result.stdout)
+
+    def test_invalid_authority_option_tags(self):
+        for tag in (2, 255):
+            for optimized in (False, True):
+                with self.subTest(tag=tag, optimized=optimized):
+                    result = self.verify_tag(tag, optimized)
+                    self.assertNotEqual(result.returncode, 0, result.stdout)
+                    self.assertIn('invalid ProgramData upgrade authority option tag', result.stderr)
+                    self.assertIn('evidence/original/pump_fees', result.stderr)
 
 
 # capture.json program ids. pump, pump_amm and pump_fees also match their IDL
