@@ -70,6 +70,17 @@ class SourceReceiptTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'directory symlinks'):
             snapshot(self.source)
 
+    def test_root_target_directory_symlink_is_rejected(self):
+        (self.source/'src').mkdir()
+        (self.source/'src/lib.rs').write_text(
+            '#[path = "../target/mod.rs"] pub mod target;\n')
+        outside=self.root/'external'
+        outside.mkdir()
+        (outside/'mod.rs').write_text('pub const VALUE: u8 = 1;\n')
+        (self.source/'target').symlink_to(outside,target_is_directory=True)
+        with self.assertRaisesRegex(ValueError,'directory symlinks'):
+            snapshot(self.source)
+
     def test_file_and_directory_symlinks_are_rejected(self):
         for target in [self.source/'lib.rs',self.source]:
             link=self.source/'link';link.symlink_to(target)
