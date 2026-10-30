@@ -26,6 +26,13 @@ every port keeps 88 lddw (ledger `0x22a10-w13-bf9a05d-outlineport-*`, 30 source 
   `take()`, `ok_or_else(||error!(..))?`, `match new{..}?` with an explicit Result, `if let ..{Ok(t)}else{Err(..)}?`, `ok_or(()).or_else(..)?`.
   The holder spellings `unwrap_or(false)`, `matches!`, `map_or`, `is_some_and` and `if let` produce identical IR. Per-site `matches!(hopt,Some(true))`
   (w13a06 a4) makes 307/312 cold in validate (0.018), but execute inlines them again and outlines 326 instead.
+- More weight probes (`brw.py`): Some:None 2:3 or 3:5 alone does not outline. 2:3 plus 5:3 on the holder split (`bb21`)
+  gives the original set (26,936 B, 0.55498). 2:1 on both holder splits outlines 307 only (27,192 B, 0.56022).
+- **First source form that outlines 307/312 on bf9a05d** (`hc4` = genes `HB H892`): validate takes the holder flag by
+  reference (`hb:&bool`, `let holder=*hb;`, called with `&holder`), so the split is a load and the zero heuristic applies.
+  Line 289 is written `!matches!(hopt,Some(true))`. `HB` alone lowers validate's 307/312 frequency from 0.028 to 0.022, which is still inlined.
+  `HB H892` outlines 307 and 312 but also 326 (85 lddw, 26,752 B, 0.47257; the frame moves). Keeping 326 inlined is open:
+  `FLE` and `match fee{None=>{}..}` keep 85 lddw (hd1 26,840 B 0.47814, hd2 = hc4).
 - So the remaining source question is which spelling makes the 306 `Some` edge colder than `None` in BPI.
   The zero/pointer heuristics always make the `None`/null side unlikely, so it has to be structural. The original also loads
   all of `new`'s pieces at entry (orig 0x4d8-0x538).

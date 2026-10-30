@@ -1,16 +1,57 @@
 {
   "lane": "w13a17-cto-outlineport",
   "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
-  "bases": {"74b31714a": {"ratio": 0.51348, "lddw": 88}, "bf9a05d": {"ratio": 0.55872, "lddw": 88}},
-  "best_source_outlined": {"base": "74b31714a", "genes": "EL296 TAKE306 CBA FLE (c3)", "bytes": 27176, "ratio": 0.48241, "lddw": 86, "losses": 0},
-  "best_ir_outlined": {"base": "bf9a05d", "edit": "branch weights Some:None=1:2 on validate's 306 tag switch (raw IR)", "bytes": 26944, "ratio": 0.56064, "lddw": 86,
-    "outlined_to_string_lines": [307, 312, 330, 334, 338, 660, 719], "note": "first outlined build above main ratio; exactly the original's outlined set; 456 B short"},
-  "other_oracles": {
-    "bf9a05d noinline 307/312": {"bytes": 26936, "ratio": 0.55257},
-    "bf9a05d cold-callsite-rel-freq=3": {"bytes": 24064, "ratio": 0.53666, "outlined": "original set"},
-    "74b3171 c3 + mv _114.i + nolt _408.sroa.6 + nolt _40.sroa.43": {"bytes": 27128, "ratio": 0.52769}
+  "bases": {
+    "74b31714a": {
+      "ratio": 0.51348,
+      "lddw": 88
+    },
+    "bf9a05d": {
+      "ratio": 0.55872,
+      "lddw": 88
+    }
   },
-  "attempts": 75,
+  "best_source_outlined": {
+    "base": "74b31714a",
+    "genes": "EL296 TAKE306 CBA FLE (c3)",
+    "bytes": 27176,
+    "ratio": 0.48241,
+    "lddw": 86,
+    "losses": 0
+  },
+  "best_ir_outlined": {
+    "base": "bf9a05d",
+    "edit": "branch weights Some:None=1:2 on validate's 306 tag switch (raw IR)",
+    "bytes": 26944,
+    "ratio": 0.56064,
+    "lddw": 86,
+    "outlined_to_string_lines": [
+      307,
+      312,
+      330,
+      334,
+      338,
+      660,
+      719
+    ],
+    "note": "first outlined build above main ratio; exactly the original's outlined set; 456 B short"
+  },
+  "other_oracles": {
+    "bf9a05d noinline 307/312": {
+      "bytes": 26936,
+      "ratio": 0.55257
+    },
+    "bf9a05d cold-callsite-rel-freq=3": {
+      "bytes": 24064,
+      "ratio": 0.53666,
+      "outlined": "original set"
+    },
+    "74b3171 c3 + mv _114.i + nolt _408.sroa.6 + nolt _40.sroa.43": {
+      "bytes": 27128,
+      "ratio": 0.52769
+    }
+  },
+  "attempts": 95,
   "rejected_mechanisms": [
     "w13a04 n4c/n7c/c3 and w13a06 a4 ports on bf9a05d: no outline (88 lddw)",
     "IN296, EL296, 296 operand orders, take306, let-else/match/ok_or_else/? spellings of 306, holder spellings (unwrap_or/matches!/map_or/is_some_and): no outline on bf9a05d",
@@ -25,8 +66,26 @@
     "CtoState at the original's frame top (-0x38): in the original it dies after validation (last read 0x0e10) and shares the index-1 48 B slot"
   ],
   "next_ideas": [
+    "start from HB+H892 (hc4) and find the change that keeps 326 inlined (warmer fee-Some path), then check the frame with tools/sc.sh",
     "306 as part of a multi-way match whose Some case has more siblings (e.g. match on (hopt,new) with the holder cases split out), checked with tools/bfi.sh before building",
     "unpack new at entry (original loads all its pieces before the mayhem test) and test the tag on a stored copy",
     "after the outline: fill the 456 B with the per-arm fee-None threading and a validate-scoped CtoState"
-  ]
+  ],
+  "first_source_outline_bf9a05d": {
+    "genes": "HB H892 (validate takes holder flag as &bool; 289 as !matches!(hopt,Some(true)))",
+    "bytes": 26752,
+    "ratio": 0.47257,
+    "lddw": 85,
+    "outlined_to_string_lines": [
+      307,
+      312,
+      326,
+      330,
+      334,
+      338,
+      660,
+      719
+    ],
+    "note": "outlines 307/312 but also 326; FLE / None-first fee match keep 85 lddw"
+  }
 }
