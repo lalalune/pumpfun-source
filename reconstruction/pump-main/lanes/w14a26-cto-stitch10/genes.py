@@ -58,6 +58,11 @@ def gene(name):
     if name in G: return G[name]
     m=re.fullmatch(r'o_(\w\w)_([KLDORSWE]{8})',name)
     if m: assert sorted(m.group(2))==sorted('KLDORSWE'); return ordg(m.group(1),m.group(2))
+    if name.startswith('x47_'):
+        import sys as _s,os as _o; _s.path.insert(0,_o.path.join(_o.path.dirname(_o.path.abspath(__file__)),'..','ext')); import genes47
+        return genes47.G[name[4:]]
+    m=re.fullmatch(r'lfx_([a-z]+)_(\w+?)(__(dl|aa|dlaa))?',name)
+    if m: return lfx(m.group(1),m.group(2),m.group(4) or '')
     raise KeyError(name)
 def apply(s,names):
     n0=s.count('\n')
@@ -112,6 +117,11 @@ def gene(name):
     if name in G: return G[name]
     m=re.fullmatch(r'o_(\w\w)_([KLDORSWE]{8})',name)
     if m: assert sorted(m.group(2))==sorted('KLDORSWE'); return ordg(m.group(1),m.group(2))
+    if name.startswith('x47_'):
+        import sys as _s,os as _o; _s.path.insert(0,_o.path.join(_o.path.dirname(_o.path.abspath(__file__)),'..','ext')); import genes47
+        return genes47.G[name[4:]]
+    m=re.fullmatch(r'lfx_([a-z]+)_(\w+?)(__(dl|aa|dlaa))?',name)
+    if m: return lfx(m.group(1),m.group(2),m.group(4) or '')
     raise KeyError(name)
 def apply(s,names):
     n0=s.count('\n')
@@ -123,3 +133,79 @@ def apply(s,names):
     return s
 # #3277 (w14a24-cto-shareauth, kutluhaneth46): sharing CPI authority as an explicit clone with Rc locals first
 G['sh_auth']=[("authority:a.admin_set_creator_authority.to_account_info(),global:","authority:{let x:&AccountInfo=a.admin_set_creator_authority.as_ref();let lamports=x.lamports.clone();let data=x.data.clone();AccountInfo{rent_epoch:x.rent_epoch,owner:x.owner,lamports:lamports,key:x.key,is_writable:x.is_writable,is_signer:x.is_signer,executable:x.executable,data:data}},global:")]
+# ---- Rc-locals-first clone class (from #3277) over the sharing CPI accounts ----
+SHL=['pool_authority','authority','global','mint','sharing_config','event_authority','program']
+SHX={'pool_authority':'a.pool_authority.as_ref()','authority':'a.admin_set_creator_authority.as_ref()','global':'a.global.as_ref().as_ref()','mint':'a.mint.as_ref()','sharing_config':'a.sharing_config.as_ref()','event_authority':'&*a.pump_fees_event_authority','program':'a.pump_fees.as_ref()'}
+def _shsplit(s):
+    i=s.index('crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{')+len('crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{')
+    j=s.index('},signer_seeds),val)?;',i)
+    body=s[i:j]; parts={}; pos=[]
+    for k,l in enumerate(SHL):
+        p=0 if k==0 else body.index(','+l+':',pos[-1][1])+1; pos.append((l,p))
+    for k,(l,p) in enumerate(pos):
+        e=pos[k+1][1]-1 if k+1<len(pos) else len(body)
+        parts[l]=body[p+len(l)+1:e]
+    return i,j,parts
+def _shjoin(s,i,j,parts): return s[:i]+','.join(f'{l}:{parts[l]}' for l in SHL)+s[j:]
+def lit_order(init):
+    m=re.search(r'AccountInfo\{(.*)\}',init); fs=re.findall(r'(\w+):',m.group(1)) if m else []
+    inv={v:c for c,v in F.items()}; o=''.join(inv[f] for f in fs if f in inv)
+    return o if len(o)==8 else None
+def lf_text(expr,order,dfirst=False):
+    loc='let data=x.data.clone();let lamports=x.lamports.clone();' if dfirst else 'let lamports=x.lamports.clone();let data=x.data.clone();'
+    fx=lambda c:{'L':'lamports:lamports','D':'data:data'}.get(c,f'{F[c]}:x.{F[c]}')
+    return '{let x:&AccountInfo='+expr+';'+loc+'AccountInfo{'+','.join(fx(c) for c in order)+'}}'
+def lfg(label,order=None,dfirst=False):
+    def g(s):
+        i,j,parts=_shsplit(s); o=order or lit_order(parts[label]) or 'ROLKWSED'
+        parts[label]=lf_text(SHX[label],o,dfirst); return _shjoin(s,i,j,parts)
+    return [g]
+LAB={'pa':'pool_authority','au':'authority','gl':'global','mi':'mint','sc':'sharing_config','ea':'event_authority','pr':'program'}
+for k,l in LAB.items():
+    G[f'lf_{k}']=lfg(l); G[f'lf_{k}_R']=lfg(l,'ROLKWSED'); G[f'lf_{k}_dl']=lfg(l,None,True)
+CPP="admin_cto_sharing_config(CpiContext::new_with_signer(a.pump_fees.to_account_info(),"
+G['lf_cp']=[(CPP,"admin_cto_sharing_config(CpiContext::new_with_signer("+lf_text('a.pump_fees.as_ref()','ROLKWSED')+",")]
+def lfo(k,order): return lfg(LAB[k],order)
+for _o in ['ORLKWSED','RLOKWSED','ROKLWSED','ROLWKSED','ROLKSWED','ROLKWESD','ROLKWSDE','LDROKWSE','KLDORSWE','LKDORSWE','ROKWSELD']:
+    G[f'lfau_{_o}']=lfo('au',_o)
+# Rc-locals-first on to_account_info() fields of other CPIs: lfx_<site>_<label>[_dl|_aa]
+SITES={'tcf':'crate::pump_amm::cpi::accounts::TransferCreatorFeesToPumpV2{','cre':'anchor_spl::associated_token::Create{payer:a.admin_set_creator_authority.to_account_info(),associated_token:a.current_creator_quote_token_account','ccf':'crate::pump_amm::cpi::accounts::CollectCoinCreatorFee{','pool':'crate::pump_amm::cpi::accounts::AdminCtoPool{','hcre':'anchor_spl::associated_token::Create{payer:a.admin_set_creator_authority.to_account_info(),associated_token:a.holder_creator_vault_quote_token_account'}
+def lfx(site,label,mode=''):
+    def g(s):
+        i=s.index(SITES[site]); assert s.count(SITES[site])==1
+        m=re.compile(r'([,{])'+label+r':a\.(\w+)\.to_account_info\(\)').search(s,i)
+        assert m and m.start()<s.index('}',i)+1+0 or True
+        acct=m.group(2); expr=f'a.{acct}.as_ref()'+('.as_ref()' if 'aa' in mode else '')
+        return s[:m.start()+1]+label+':'+lf_text(expr,'ROLKWSED','dl' in mode)+s[m.end():]
+    return [g]
+# curve-store order and tail statement order (65df90f)
+CS=['  curve.creator=target;\n','  curve.is_cashback_coin=cashback;\n','  curve.is_holder_reward=holder;\n','  if let Some(f)=fee{curve.creator_fee_bps=f;}\n','  curve.can_edit_creator_fee=false;\n']
+def csperm(order):
+    return [(''.join(CS),''.join(CS[k] for k in order))]
+for _i in range(4):
+    _o=list(range(5)); _o[_i],_o[_i+1]=_o[_i+1],_o[_i]; G[f'cs_swap{_i}']=csperm(_o)
+G['cs_canedit_first']=csperm([4,0,1,2,3])
+G['cs_creator_last']=csperm([1,2,3,4,0])
+G['cs_rev']=csperm([4,3,2,1,0])
+G['cs_old_fee_first']=[("let old_creator=curve.creator;let old_fee=curve.creator_fee_bps;","let old_fee=curve.creator_fee_bps;let old_creator=curve.creator;")]
+TN="let nf=a.bonding_curve.creator_fee_bps;"; TP="let pool_updated=!a.pool.data_is_empty() && a.pool.owner==&AMM;"; TA="let pargs=(target,a.bonding_curve.is_holder_reward,fee);"
+_T={'N':TN,'P':TP,'A':TA}
+for _o in ['NAP','PNA','PAN','ANP','APN']:
+    G['tl_'+_o]=[(TN+TP+TA,''.join(_T[c] for c in _o))]
+G['tl_nf_late']=[(TN+TP+TA,TP+TA),(" let e=AdminCtoEvent{"," let nf=a.bonding_curve.creator_fee_bps;let e=AdminCtoEvent{")]
+G['tl_a_before_block']=[(" let (old_creator,old_fee)={\n"," let (old_creator,old_fee)={ \n")]
+# v7c (w14a21-cto-helperbound #3273): validate body as an immediately-called capturing closure at the same lines
+def _v7c(s):
+    VL='fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{let holder=hopt==Some(true);'
+    CALL='let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;'
+    i=s.index(VL); j=s.index(' Ok(target)}pub fn execute('); k=s.index(CALL)
+    body=s[i+len(VL):j]; head=s[j+len(' Ok(target)}'):k]
+    op='let mut target=(||->Result<Pubkey>{let st=&st;let holder_key=&holder_key;let sharing=&sk;let holder=hopt==Some(true);'
+    return s[:i]+head+op+body+' Ok(target)})()?;'+s[k+len(CALL):]
+G['v7c']=[_v7c]
+# tail polarity knobs (06967d3)
+G['pu_neg']=[("\n if pool_updated{\n","\n if !pool_updated{msg!(\"No canonical pump pool for this mint; curve only\");}else{\n"),("\n }else{msg!(\"No canonical pump pool for this mint; curve only\");}\n","\n }\n")]
+G['sh_nonefirst']=[("\n match sharing_update{Some(val)=>{\n","\n match sharing_update{None=>{}Some(val)=>{\n"),("\n }None=>{}}\n","\n }}\n")]
+G['sh_iflet']=[("\n match sharing_update{Some(val)=>{\n","\n if let Some(val)=sharing_update{{\n"),("\n }None=>{}}\n","\n }}\n")]
+G['ev_reset_early']=[("\n match sharing_update{Some(val)=>{\n","\n let reset=sharing_update.is_some();match sharing_update{Some(val)=>{\n"),("sharing_config_reset:sharing_update.is_some(),","sharing_config_reset:reset,")]
+G['sh_ref']=[("\n match sharing_update{Some(val)=>{\n","\n match &sharing_update{Some(val)=>{let val=*val;\n")]
