@@ -1,0 +1,29 @@
+{
+  "lane": "w13a28-cto-entrycopy2",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs)",
+  "pinned_bytes": 27400,
+  "bases": {"6ac6f9b": 0.56291, "06e6bb8": 0.57669, "dfc3693": 0.59916},
+  "result": "no zero-loss gain; notes only",
+  "best_zero_loss": null,
+  "best_oracle": {"trial": "g1 (hk PDA before shared, = w13a24 k2)", "base": "06e6bb8", "ratio": 0.57687, "bytes": 27384, "note": "16 B short; below main on dfc3693 (0.59745 @27392); owned by w13a32-cto-hkfirst2"},
+  "attempts": 54,
+  "mechanisms": [
+    "plain copies of new (args=&(new,), Some(new), &Some(new), mut su) are dropped: new is a noalias readonly arg, the copy is forwarded and the sharing arm reads the arg",
+    "the original 7/8/8/9 split of the copy appears only when validate reads the copy (y4/t4/d1); b1 (y4 + plain PDA) reproduces the original entry sequence and puts the pieces at 0x658/0x668",
+    "plain let (holder_key,_)=PDA gives the original PDA sequence (seeds -0x450, sret -0x2d0) and helps every entry-copy form by +0.01..0.03, but loses on k1 where hk stands in for the 40 B",
+    "raw-IR clobber of %new after validate keeps the copy at entry but unsplit (32 B piece at 0x678): 0.511"
+  ],
+  "rejected": ["y4","t4","U5/y3","y4/t4/U5 + plain PDA","args=&(new.map(|k|k),)","nc=new.map read by sharing only","su=Some(new) variants","mutable su overwritten per arm","PDA first with entry copy","args by value (-256 B)","IR clobber of %new"],
+  "frame_oracle": {"b2+x24+mv target.sroa.0": 0.53417, "d2+x24": 0.53854, "b1+x24": 0.53762, "k1": 0.56291},
+  "unresolved": [
+    "original validate reads new's 7/9 ends from the arg and its [8]/[16] from the entry copy SSA (GVN), so the copy must survive without validate reading it",
+    "target.sroa.0 (7 B piece of the 7/8/8/9 target) occupies 0x650/0x658; the original target is 8/24 split",
+    "P2 (outer sharing payload) 7/9 at 0x550/0x560 missing",
+    "sret/spill slots -8 once target.sroa.0 moves below mint"
+  ],
+  "next_ideas": [
+    "a sharing-payload use of the copy with i64 access at [8]/[16] plus a write to new after validate, to get the 7/8/8/9 split without validate reading the copy",
+    "combine the copy after CtoState with w13a02's fee-first 8/24 target split to drop target.sroa.0",
+    "args=(new,) by value is a -256 B size lever for composites"
+  ]
+}
