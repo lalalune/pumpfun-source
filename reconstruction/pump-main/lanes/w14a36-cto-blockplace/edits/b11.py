@@ -1,0 +1,1 @@
+EDITS=[('  if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}', '  match st.fee_configurable{false=>return Err(error!(PumpError::CreatorFeeNotConfigurable)),true=>{}}')]

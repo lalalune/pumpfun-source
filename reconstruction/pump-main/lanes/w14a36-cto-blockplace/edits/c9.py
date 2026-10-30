@@ -1,0 +1,1 @@
+EDITS=[('let nf=a.bonding_curve.creator_fee_bps;let pool_updated=!a.pool.data_is_empty() && a.pool.owner==&AMM;let pargs=(target,a.bonding_curve.is_holder_reward,fee);', 'let nf=a.bonding_curve.creator_fee_bps;let pool_updated={let p:&AccountInfo=a.pool.as_ref();p.owner==&AMM&&!p.data_is_empty()};let pargs=(target,a.bonding_curve.is_holder_reward,fee);')]

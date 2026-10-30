@@ -1,0 +1,1 @@
+EDITS=[(' match fee{Some(f)=>{if st.quote_locked', ' match fee{None=>{}Some(f)=>{if st.quote_locked'), ('  if f==0||f>st.max_fee{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}}None=>{}}', '  if f==0||f>st.max_fee{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}}}')]
