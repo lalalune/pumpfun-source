@@ -93,13 +93,16 @@ def main():
     args = parser.parse_args()
 
     output_dir = Path(args.output)
-    output_dir.mkdir(parents=True, exist_ok=True)
 
     research_dir = REPO / "research"
     packets = sorted([
         d for d in research_dir.iterdir()
         if d.is_dir() and not d.name.startswith(".")
     ])
+
+    # Snapshot inputs before creating an audit beneath research/, and preserve
+    # prior reports by refusing an existing output before running any verifier.
+    output_dir.mkdir(parents=True, exist_ok=False)
 
     print(f"[revalidate] Found {len(packets)} research packets")
 

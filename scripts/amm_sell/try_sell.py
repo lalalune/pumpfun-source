@@ -95,6 +95,8 @@ def main():
         result = json.loads(cached.read_text())
         result['duplicate'] = True
         print(json.dumps(result, indent=1))
+        if result.get('status') == 'build_failed':
+            return 2
         return 3 if (result.get('metrics') or {}).get('sell_raw_equal') else 0
     (SOURCES / (key_doc['sell'] + '.rs')).write_bytes(sell_bytes)
     if patch_bytes:
