@@ -205,7 +205,7 @@ def run_captured(item):
         code = re.search(r'Custom\((\d+)\)', text)
         return {'error': int(code.group(1)) if code else text}
     delta = dict(zip(('user', 'curve', 'recipient', 'buyback', 'vault'),
-                     (abs(lamports(k) - b) for k, b in zip(watched, before))))
+                     (lamports(k) - b for k, b in zip(watched, before))))
     events = [base64.b64decode(line[14:]) for line in result.logs() if line.startswith('Program data: ')]
     stored = vm.get_account(CURVE).data
     return {
@@ -355,7 +355,9 @@ class LegacyBuyCapturedTests(unittest.TestCase):
         return out.splitlines()
 
     def check(self, item, answer):
-        captured = run_captured(item)
+        self.assert_matches(item, answer, run_captured(item))
+
+    def assert_matches(self, item, answer, captured):
         if answer == 'panic':
             self.assertIn('ProgramFailedToComplete', str(captured['error']))
             return
@@ -366,7 +368,8 @@ class LegacyBuyCapturedTests(unittest.TestCase):
         (tokens, sol, protocol_bps, protocol_fee, creator_bps, creator_fee, buyback_fee, vault_credit,
          vt, vs, rt, rs, complete) = map(int, answer.split(',')[1:])
         self.assertEqual(captured['delta'], {
-            'user': TX_FEE + sol + protocol_fee + vault_credit, 'curve': sol,
+            # Signed after - before: the buyer pays, every receiver is credited.
+            'user': -(TX_FEE + sol + protocol_fee + vault_credit), 'curve': sol,
             'recipient': protocol_fee - buyback_fee, 'buyback': buyback_fee, 'vault': vault_credit,
         })
         self.assertEqual(captured['reserves'], (vt, vs, rt, rs))
@@ -394,6 +397,21 @@ class LegacyBuyCapturedTests(unittest.TestCase):
 
     def test_seeded_random_cases_match_captured_program(self):
         self.run_cases(random_cases())
+
+    def test_checker_rejects_reversed_balance_movements(self):
+        # Negative control: a captured run that passes must fail once any one
+        # balance movement is reversed (debit <-> credit of the same size).
+        item = next(c for c, a in zip(fixed_cases(), self.host_answers(fixed_cases()))
+                    if a.startswith('ok') and int(a.split(',')[7]) > 0 and int(a.split(',')[8]) > 0)
+        answer = self.host_answers([item])[0]
+        captured = run_captured(item)
+        self.assert_matches(item, answer, captured)
+        for key in ('user', 'curve', 'recipient', 'buyback', 'vault'):
+            with self.subTest(reversed=key):
+                self.assertNotEqual(captured['delta'][key], 0)
+                flipped = dict(captured, delta=dict(captured['delta'], **{key: -captured['delta'][key]}))
+                with self.assertRaises(AssertionError):
+                    self.assert_matches(item, answer, flipped)
 
     def test_fixed_cases_cover_every_outcome(self):
         answers = self.host_answers(fixed_cases())
