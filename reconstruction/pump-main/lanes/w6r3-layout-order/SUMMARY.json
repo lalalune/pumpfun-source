@@ -1,0 +1,16 @@
+{
+ "lane": "w6r3-layout-order",
+ "base": "origin/main 6484b2837 (1027/293)",
+ "targets": ["raw (normalized-but-not-raw windows): function order / placement"],
+ "best": {"official": "1027/293 (no source change; analysis)", "full_original_order_real_build": "1027/293, identical raw set (sha 54d3a48c)",
+   "model_base_all8_fixed_extra_kept": 293, "model_base_all8_fixed_extra_dropped": 477,
+   "model_2168_all8_fixed": 607, "model_2168_all8_fixed_plus_buy_handler": 1027},
+ "attempts": ["244adfcc","fdb3523b","0c2a1ff1","6d4be17f","5e738ee1","fb891d7b"],
+ "rejected_or_unreachable": [
+  "any faithful source-order change at today's sizes: full original L+U+D order relink = base raw set",
+  "standalone buy_handler at the #[program] position via DefIndex (nested fn / include! / late mod / macro): spans or collection order wrong"
+ ],
+ "unresolved": ["512-B v2_native_payments::ensure_rent_exempt ours-only unit (PR #2168 removes it; composes cleanly, 0 losses, regenerate ordered.ld)",
+   "8 unmatched windows' size deltas (+40 B net)", "buy_handler program-fn form (+8 B codegen)"],
+ "next_ideas": ["merge #2168 then regen.sh", "handler lanes: buy_handler in program-fn form at 15480 B", "re-run tools/bh.py after each size fix"]
+}

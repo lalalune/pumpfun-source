@@ -12,17 +12,22 @@ from solders.pubkey import Pubkey
 from solders.rent import Rent
 from solders.clock import Clock
 ROOT=Path(__file__).resolve().parents[1]
+def check(ok, message="captured-loader check failed"):
+    # Explicit check instead of `assert`: `python -O` / `-OO` strips asserts,
+    # which let tampered captured evidence load into LiteSVM unchecked.
+    if not ok:
+        raise AssertionError(message)
 CAPTURE=json.loads((ROOT/'evidence/original/pump/capture.json').read_text())
 PROGRAM=Pubkey.from_string(CAPTURE['program']);PROGRAMDATA=Pubkey.from_string(CAPTURE['programdata']);OWNER=Pubkey.from_string(CAPTURE['owner'])
 PROGRAM_BYTES=(ROOT/'evidence/original/pump/program-account.bin').read_bytes();PD_CAPTURE=(ROOT/'evidence/original/pump/programdata-account.bin').read_bytes();HEADER=PD_CAPTURE[:45];SLOT=struct.unpack_from('<Q',HEADER,4)[0]
-assert len(PROGRAM_BYTES)==36 and PROGRAM_BYTES[4:]==bytes(PROGRAMDATA)
-assert hashlib.sha256(PD_CAPTURE).hexdigest()==CAPTURE['programdata_sha256']
-assert hashlib.sha256(PD_CAPTURE[45:]).hexdigest()==CAPTURE['payload_sha256']
+check(len(PROGRAM_BYTES)==36 and PROGRAM_BYTES[4:]==bytes(PROGRAMDATA))
+check(hashlib.sha256(PD_CAPTURE).hexdigest()==CAPTURE['programdata_sha256'])
+check(hashlib.sha256(PD_CAPTURE[45:]).hexdigest()==CAPTURE['payload_sha256'])
 LOADS=[]
 def sha(b):return hashlib.sha256(b).hexdigest()
 @functools.lru_cache(maxsize=2)
 def _programdata_image(raw):
-    assert len(raw)<=CAPTURE['payload_bytes']
+    check(len(raw)<=CAPTURE['payload_bytes'])
     zero_tail=bytes(CAPTURE['payload_bytes']-len(raw))
     return HEADER+raw+zero_tail,zero_tail
 class CapturedLiteSVM(BaseVM):
@@ -48,8 +53,8 @@ class CapturedLiteSVM(BaseVM):
         self.set_account(PROGRAM,Account(Rent.default().minimum_balance(36),PROGRAM_BYTES,OWNER,True))
         program=self.get_account(PROGRAM);data=self.get_account(PROGRAMDATA)
         program_bytes,data_bytes=program.data,data.data
-        assert program_bytes==PROGRAM_BYTES and program.owner==OWNER and program.executable
-        assert data_bytes==expected_data and data.owner==OWNER
+        check(program_bytes==PROGRAM_BYTES and program.owner==OWNER and program.executable)
+        check(data_bytes==expected_data and data.owner==OWNER)
         LOADS.append({'input_path':path,'elf_sha256':sha(raw),'elf_bytes':len(raw),'program_owner':str(program.owner),'program_bytes':len(program_bytes),'program_sha256':sha(program_bytes),'programdata_bytes':len(data_bytes),'programdata_sha256':sha(data_bytes),'header_sha256':sha(data_bytes[:45]),'elf_prefix_unchanged':data_bytes[45:45+len(raw)]==raw,'zero_allocation_tail':data_bytes[45+len(raw):]==zero_tail,'slot':self.get_clock().slot})
     def add_program_from_file(self,program_id,path):
         if program_id==PROGRAM:return self._add_captured_pump(Path(path).read_bytes(),str(Path(path).resolve()))

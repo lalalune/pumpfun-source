@@ -29,12 +29,12 @@ class WorkspaceLockTests(unittest.TestCase):
                     self.fail('same workspace admitted')
             return {'ok': True}
         with patch.object(fastbuild, '_build_locked', side_effect=trial):
-            self.assertEqual(fastbuild.build(self.root, self.work, self.root / 'out'), {'ok': True})
+            self.assertEqual(fastbuild.build(self.root / 'source', self.work, self.root / 'out'), {'ok': True})
 
     def test_failure_releases_lock_and_preserves_inode(self):
         with patch.object(fastbuild, '_build_locked', side_effect=ValueError('trial failed')):
             with self.assertRaisesRegex(ValueError, 'trial failed'):
-                fastbuild.build(self.root, self.work, self.root / 'out')
+                fastbuild.build(self.root / 'source', self.work, self.root / 'out')
         inode = (self.work / '.fastbuild.lock').stat().st_ino
         with fastbuild.workspace_lock(self.work):
             self.assertEqual((self.work / '.fastbuild.lock').stat().st_ino, inode)

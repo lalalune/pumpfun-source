@@ -1,0 +1,29 @@
+{
+  "lane": "w7r1-execute-inline",
+  "target": "0x1e7c0 pump_recovered::create_v2::execute",
+  "angle": "inlining boundary and callee-multiset census",
+  "base": {"commit": "2b8582135", "ratio": 0.96854, "bytes": 15584, "official": "1027/276"},
+  "best": {"build": "d1", "ratio": 0.99892, "slots_diff": 4, "bytes": 15576, "calls": "125/125", "official": "1027/276, 0 normalized losses, 0 raw losses (scored against a 2b85821 build)", "unstripped_sha256": "e17cc2c011cb21fe2e3cb86e63c26ab99e53366a0ad43e2c2387b14d84d1d92c", "pr": "https://github.com/lalalune/pumpfun-source/pull/2293"},
+  "accepted_mechanisms": [
+    "census: 125/125 direct calls, identical callee sequence; no syscalls; every inline/outline decision already matched",
+    "t1: init_curve creator store after token_total_supply (SSA &mut BondingCurve pointer keeps memcpy order) 0.96854->0.97284",
+    "t2: + fee as if/else expression (sibling blockorder-b/frame) 0.98763 at orig size",
+    "t3: + vqr, ivqr, vtr store order (sibling frame o2) 0.98870",
+    "d1: field stores in plain helper write_curve called from both arms of the quote_mint==sol test; RA sees two copies (name pointer live-through -> reload at copy top, creator ptr r4), post-RA branch folding tail-merges them -> 0.99892, slots_diff 4"
+  ],
+  "rejected": [
+    "inline attrs: #[inline]/#[inline(always)] on init_curve, validate_metadata, validate_quote_mint; #[inline]/#[inline(always)]/#[inline(never)] on global_quote (identical, worse, or loses 0x60ee0)",
+    "init_curve param order (bonding_curve after global / last): identical",
+    "validate result binding/destructure/explicit match in execute; Sol Pubkey spellings; Ok tuple from mint.key()/*mint.key (0.534)",
+    "validate wrapper fn (0.710); empty-remaining Sol tuple in execute (0.627/0.588); shared let sol (0.56); QuoteSource Default/repr/Copy (identical); const Sol tuple (0.949-0.976); system_program::ID Sol returns (identical)",
+    "IR oracle: exhaustive single-instruction moves (20,951) and block moves (7,267) on t3+phi: none reach r4 creator ptr; store-block split before len loads identical; per-pred duplication in IR not tail-merged by llc"
+  ],
+  "unresolved": "Residual A (4 slots): mov r7,0/mov r2,0 order in the two Sol returns = bb112 phi order. IR oracle d1 + phi fix = 1.00000 (normalized match). Root cause: SROA promotes the ptr-typed quote word-0 slice of the inlined validate result in a later round because the Sol returns' 32-byte zero memset spans it and the non-promotable [24,48) slice. A 34-byte memset (covering QuoteSource tag+payload) or an 8-byte word-0 write gives the original order; a 33-byte one (const Pubkey) does not.",
+  "next_ideas": [
+    "find a Sol-return spelling whose zero write also covers the QuoteSource payload byte 49 (a 34-byte merged memset), e.g. a Sol quote+source pair copied as one aggregate",
+    "a spelling that writes quote word 0 separately from the remaining 24 bytes in both Sol returns",
+    "rebase on current main (sweep/buy matches merged since 2b85821) and re-score",
+    "once A is fixed, check raw membership (call displacements) and window 0xa868"
+  ],
+  "attempts": 45
+}

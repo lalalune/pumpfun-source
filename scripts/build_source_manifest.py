@@ -14,6 +14,17 @@ def _input_path(path, root):
     return '.git' not in parts and not (len(parts) > 1 and parts[0] == 'target')
 
 
+def _regular_file(path, root):
+    if not path.exists():
+        return False
+    current = root
+    for part in path.relative_to(root).parts:
+        current /= part
+        if current.is_symlink():
+            raise ValueError(f'symlinked compiler input: {path}')
+    return path.is_file()
+
+
 def file_digest(path):
     digest = hashlib.sha256()
     with path.open('rb') as source:
@@ -29,16 +40,19 @@ def source_manifest(crate, workspace, repository, extra_inputs=(), cwd=None, bef
     workspace.relative_to(repository)
     files = {
         p for p in crate.rglob('*')
-        if p.is_file() and _input_path(p, crate)
+        if _regular_file(p, repository) and _input_path(p, crate)
         and (p.suffix == '.rs' or p.name in ('Cargo.toml', 'Cargo.lock'))
     }
     for name in ('Cargo.toml', 'Cargo.lock'):
         p = workspace / name
-        if p.is_file():
+        if _regular_file(p, repository):
             files.add(p)
     # declare_program! searches ancestor idls directories, not just src/.
     for directory in (crate, *crate.parents):
-        files.update(p for p in (directory / 'idls').glob('**/*.json') if p.is_file())
+        files.update(
+            p for p in (directory / 'idls').glob('**/*.json')
+            if _regular_file(p, repository)
+        )
         if directory == workspace:
             break
     # Cargo config lookup starts from its invocation directory; record repository
@@ -48,19 +62,25 @@ def source_manifest(crate, workspace, repository, extra_inputs=(), cwd=None, bef
         for directory in (start, *start.parents):
             for name in ('.cargo/config', '.cargo/config.toml', 'rust-toolchain', 'rust-toolchain.toml'):
                 p = directory / name
-                if p.is_file():
+                if _regular_file(p, repository):
                     files.add(p)
             if directory == repository:
                 break
     for extra in extra_inputs:
-        p = Path(extra).resolve()
+        p = Path(extra)
+        if p.is_symlink():
+            raise ValueError(f'symlinked compiler input: {p}')
+        p = p.resolve()
         p.relative_to(repository)
         if not p.exists():
             raise FileNotFoundError(p)
         if p.is_file():
             files.add(p)
         else:
-            files.update(f for f in p.rglob('*') if f.is_file() and _input_path(f, p))
+            files.update(
+                f for f in p.rglob('*')
+                if _regular_file(f, repository) and _input_path(f, p)
+            )
     manifest = {}
     for path in sorted(files):
         if before_read is not None:

@@ -1,5 +1,6 @@
 """Retained-input regression; no captured code executes."""
 import unittest
+from test_support import copy_harness_modules
 
 class SourceCoordinatePairingTests(unittest.TestCase):
     def test_cli_keeps_reused_source_descriptors_at_their_own_lines(self):
@@ -16,8 +17,7 @@ class SourceCoordinatePairingTests(unittest.TestCase):
             self.assertTrue(root.name.startswith('pump-coordinate-pairing-'))
             (root / 'harness').mkdir()
             (root / 'base').mkdir()
-            for name in ['coords.py', 'score.py', 'score_admission.py', 'llvm_tools.py', 'elf_symbols.py', 'original_input.py']:
-                shutil.copyfile(repo / 'reconstruction/harness' / name, root / 'harness' / name)
+            copy_harness_modules(root / 'harness')
             shutil.copyfile(repo / 'evidence/original/pump/deployed.so', root / 'base/original.so')
             shutil.copyfile(repo / 'reconstruction/base/functions.tsv', root / 'base/functions.tsv')
             result = subprocess.run(

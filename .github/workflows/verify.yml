@@ -34,6 +34,7 @@ jobs:
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py
               python -B reconstruction/harness/test_integrate_no_build_cli.py
+              python -B reconstruction/harness/test_integrate_empty_files.py
               python -B reconstruction/harness/test_integrate_source_links.py
               python -I -B tests/test_integrate_patch_bytes.py
               python -I -B reconstruction/harness/test_treediff_links.py
@@ -49,6 +50,7 @@ jobs:
               python -I -B tests/test_dispatch_root.py
               python -I -B tests/test_analyze_input_admission.py
               python scripts/test_tooling.py
+              python -B tests/test_recovered_builds_optimization.py
               python -B scripts/test_mayhem_burn_sequence_optimization.py
               python -B -X utf8 tests/test_dispatch_idl_encoding.py
               python -B tests/test_local_validation_idl_encoding.py
@@ -82,12 +84,14 @@ jobs:
               python -B research/tooling-arithmetic-shift-counts-20261030/test_verify.py
               python -B research/tooling-revalidation-manifests-20261030/test_verify.py
               python -B research/tooling-revalidation-invocation-20261030/test_verify.py
+              python -B reconstruction/tooling/revalidation-qualification/test_audit.py
               python -B reconstruction/relocation-text-addresses/test_analyze.py
               python -B reconstruction/math-register-comparisons/test_analyze.py
               python research/tooling-terminal-error-patterns-20261030/test_verify.py
               python research/tooling-terminal-error-patterns-20261030/verify.py
               python research/tooling-token-program-constant-detector-20261029/verify.py
               python -B reconstruction/capture-rpc-retry/test_capture.py
+              python -B reconstruction/verification/donation-relay-idl-lifecycle/test_lifecycle.py
               python -B reconstruction/verification/donation-relay-stateful/test_stateful.py
           - suite: host-fragments
             commands: |

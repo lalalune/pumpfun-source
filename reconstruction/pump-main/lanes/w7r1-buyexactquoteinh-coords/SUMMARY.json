@@ -1,0 +1,5 @@
+{"lane":"w7r1-buyexactquoteinh-coords","targets":["0x13f630"],"base":"origin/main 6edd839","best":{"source_change":false,"ratio":0.99635,"cand_bytes":20216,"normalized":1027,"raw":276,"losses":[]},
+"attempts":["ddb201a47b714ad88581e02b6e4fe19f","beb24bc2bd34489a9d3546ed6368cde5","d11cf12b0fda431f8bb1657d4589ca8d","6b1247e0fcdf490f977b5ee3ee5f48b3","099a5cd3e726454a8c53fa0a8fdfdff3"],
+"rejected_mechanisms":["coordinate realignment (all sites already match)","helper rename for inliner eligibility"],
+"unresolved_residuals":["Complete CPI temps stack-slot class vs Err-path Result re-test (helper forms are LLVM-inlined, not MIR-inlined)","mov r7,2 schedule (shareholders phi order)"],
+"next_ideas":["determine why local #[inline(always)] helpers are not MIR-inlined into the eq handler; a MIR-inlined emit helper may give markers without the Result re-test"]}

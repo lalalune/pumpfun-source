@@ -1,0 +1,25 @@
+{
+  "lane": "w7r1-buyexactquoteinh-regsched",
+  "targets": ["0x13f630"],
+  "base": "PR #2240 head d946fdfea (program-fn form + inline Complete tail), itself on origin/main 6edd839",
+  "best": {
+    "normalized_equal": true,
+    "ratio": 1.0,
+    "cand_bytes": 20184,
+    "official": {"normalized": 1028, "raw": 276, "gains": ["0x13f630"], "losses": [], "raw_losses": []},
+    "unstripped_sha256": "bd7cb4247cf730fb4cd5b540eb7be44d815fdd096d4166f2be639db8b72c0537"
+  },
+  "mechanism": "mov r7,2 residual = phi order of shareholders Vec slices on the None edge; set by PromoteMem2Reg swap-with-last removal in the post-inline SROA run. Needs >=2 removable promotable allocas processed before shareholders; a program-fn local passed by reference into the always-inline handler (partial:&bool) supplies one.",
+  "attempts": 26,
+  "rejected_mechanisms": [
+    "shareholders spellings (unwrap_or_else/unwrap_or/match/if-let/split let): phi order unchanged",
+    "is_native_quote by-value spellings: byte-identical or worse",
+    "Error temp across ? inside require_*! args: fixes phi order but swaps with_values result loads at the site",
+    "block-scoped snapshot temp: breaks quote_mint copy order"
+  ],
+  "unresolved_residuals": [],
+  "next_ideas": [
+    "Same phi-order lens for buy_handler 0x13b9b8 and other handlers with multi-slice phis",
+    "A more idiomatic carrier for the extra removable alloca (e.g. an args struct by reference) if reviewers object to partial:&bool"
+  ]
+}

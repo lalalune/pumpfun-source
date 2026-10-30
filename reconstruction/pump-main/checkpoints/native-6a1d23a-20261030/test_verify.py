@@ -7,7 +7,9 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+from types import SimpleNamespace
 import unittest
+from unittest.mock import patch
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -15,6 +17,24 @@ import verify as v
 
 
 class CheckpointTests(unittest.TestCase):
+    def test_full_frozen_replay_without_symlink_privileges(self):
+        supplied = os.environ.get('PUMP_CHECKPOINT_ORIGINAL')
+        original = Path(supplied) if supplied else (
+            HERE.parents[3] / 'evidence/original/pump/deployed.so' if len(HERE.parents) > 3 else None)
+        if not supplied and (original is None or not original.is_file()):
+            self.skipTest('set PUMP_CHECKPOINT_ORIGINAL to the real captured Pump ELF for full replay')
+        args = SimpleNamespace(toolchain_inputs=None, sdk_root=None, registry_source=None,
+                               require_local_inputs=False)
+        with patch.object(Path, 'symlink_to', side_effect=OSError('symlink creation unavailable')):
+            result = v.execute(HERE, original, args)
+        expected = v.q.read_json(HERE / 'CHECKPOINT.json')
+        self.assertTrue(result['ok'])
+        self.assertEqual(result['summary'], expected['summary'])
+        self.assertEqual(len(result['memberships']), 1035)
+        self.assertEqual(result['summary']['normalized'], 1027)
+        self.assertEqual(result['summary']['raw'], 276)
+        self.assertEqual(result['archive_sha256'], v.ARCHIVE)
+
     def test_git_proof_checks_real_commit_and_source_leaf_set(self):
         proof = v.GitProof(v.q.read_json(HERE / 'git-proof.json'))
         self.assertEqual(len(proof.leaves(v.BASE, 'programs/pump')), 99)
