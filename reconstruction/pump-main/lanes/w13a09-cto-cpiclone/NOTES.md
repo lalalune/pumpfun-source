@@ -109,6 +109,24 @@ ev_reset_shared 27,360, ev_mint_reload 27,416, tf_inline 28,464, tra_inline 28,0
 shared_empty_first 27,272, sweep_coin_present 27,448. Ported 7fb9a5e3e7a2 genes: `if let Some(val)=sharing_update`
 27,392 / 0.49109, can_edit first 27,400 / 0.49011, shared `&` 27,232.
 
+## Re-landed on main a33309705 (#2917, 0.49431)
+
+#2917 re-added `let reset=sharing_update.is_some();` (-8 B). Main moved while this PR waited for the
+landing lock, and then the two sweep edits merged to 27,392 / 0.49588 (raw losses). Putting the reset flag
+back into the event (`sharing_config_reset:sharing_update.is_some()`) brings it to 27,400 B:
+
+| metric | main a33309705 | this branch |
+| --- | ---: | ---: |
+| admin_cto ratio | 0.49431 | **0.49551** |
+| admin_cto slots_diff | 3,306 | 3,300 |
+| bytes | 27,400 | 27,400 |
+| losses (norm / raw) | | 0 / 0 |
+| runtime differential | | 363/363 |
+| unstripped sha256 | | `d4e1617d8b66dbf4b8f36f084218d55feb143c3a19c19bd1551163112681c365` |
+
+Other compensations on that base: the scalar bump alone is 27,424 / 0.49558; the transfer-CPI program let alone is 27,368 / 0.49251;
+the scalar bump with the sharing-CPI program let is 27,392 / 0.49468; `match &sharing_update` is 27,400 / 0.30437 (frame shift).
+
 ## Ledger
 
 Approach `cpi-clone-placement`, keys `0x22a10-w13-3912c47-cpiclone-*`.
