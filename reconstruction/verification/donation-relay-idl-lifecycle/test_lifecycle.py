@@ -32,10 +32,33 @@ class LifecycleUnitTests(unittest.TestCase):
         self.assertEqual(first, second)
         self.assertNotEqual(first[0], first[1])
 
-    def test_comparator_controls_detect_all_dimensions(self) -> None:
-        controls = producer.comparator_controls()
+    @staticmethod
+    def matching_step():
+        import copy
+        row = {
+            "error": None,
+            "logs": ["Program log: reserved", "Program consumed: 1 of 1400000 compute units"],
+            "events": ["Program data: event"],
+            "inner_instructions": [],
+            "return_data": [None, ""],
+            "before": {"SomeAccount11111111111111111111111111111111": {"lamports": 1}},
+            "after": {"SomeAccount11111111111111111111111111111111": {"lamports": 2}},
+        }
+        return {"original": row, "candidate": copy.deepcopy(row)}
+
+    def test_comparator_controls_replay_mutations_through_the_case_comparison(self) -> None:
+        controls = producer.comparator_controls(self.matching_step())
         self.assertTrue(controls["all_detected"])
-        self.assertEqual(set(controls["detected"]), {"account_state", "error", "event_payload"})
+        self.assertEqual(controls["detected"],
+                         {"account_state": True, "error": True, "event_payload": True})
+
+    def test_comparator_controls_fail_when_the_comparison_stops_reporting(self) -> None:
+        from unittest import mock
+        with mock.patch.object(producer.Pair, "_comparable", staticmethod(lambda row: {})):
+            controls = producer.comparator_controls(self.matching_step())
+        self.assertFalse(controls["all_detected"])
+        self.assertEqual(controls["detected"],
+                         {"account_state": False, "error": False, "event_payload": False})
 
     def test_output_refuses_overwrite_before_execution(self) -> None:
         root = HERE.parents[2]
