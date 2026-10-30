@@ -119,6 +119,7 @@ def main():
         scripts['tokenkeg_two_curve'] = ROOT / 'scripts/pump_tokenkeg_checkpoint_differential.py'
     script_hashes = {name: sha(path) for name, path in scripts.items()}
     suites, counts = {}, {}
+    failed_suite_outputs = {}
     retained = args.output.parent / (args.output.name + '.suites')
     retained.mkdir(parents=True, exist_ok=True)
 
@@ -144,6 +145,15 @@ def main():
                     command += ['--source-directory', str(args.source_directory.resolve())]
             completed = subprocess.run(command, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
             (retained / (name + '.log')).write_text(completed.stdout)
+            if completed.returncode and output.is_file():
+                raw = output.read_bytes()
+                rejected = retained / (name + '.failed-output')
+                rejected.write_bytes(raw)
+                failed_suite_outputs[name] = {
+                    'path': base.bound_input_key(rejected, ROOT),
+                    'sha256': sha(rejected), 'bytes': len(raw),
+                    'returncode': completed.returncode,
+                }
             completed.check_returncode()
             raw = output.read_bytes()
             result = json.loads(gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw)
@@ -200,6 +210,7 @@ def main():
                     'candidate_sha256': sha(candidate),
                     'completed_suites': list(suites),
                     'errors': errors,
+                    'failed_suite_outputs': failed_suite_outputs,
                     'bound_files_sha256': bound_files,
                 }
                 publish_report(
