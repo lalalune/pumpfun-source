@@ -9,6 +9,8 @@ from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
 
+from validation_report import protected_inputs, validate_destination, write_report
+
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
 PROGRAM = Pubkey.from_string(IDL['address'])
@@ -85,6 +87,8 @@ def execute(binary, instruction, arg, mutation):
 
 
 p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--source-directory',type=pathlib.Path,default=ROOT/'programs/pump');p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args()
+protected = protected_inputs(ROOT, __file__, a.candidate, getattr(a, "source_directory", ROOT/"programs/pump"))
+validate_destination(a.output, protected)
 import gzip
 original=ROOT/'evidence/original/pump/deployed.so';mutations=['none','global_owner','global_discriminator','global_truncated','global_address','global_readonly','authority_readonly','authority_unsigned','authority_wrong','event_wrong','program_wrong','missing_event','missing_program','initialized_invalid','length_1087','length_1088'];specs=[]
 for name in ['update_global_authority','set_reserved_fee_recipients']:
@@ -97,6 +101,6 @@ cases=[]
 for name,args,mutation in specs:
  o=execute(original,name,args,mutation);n=execute(a.candidate,name,args,mutation);fields=['error','data_hex','lamports','payer_lamports','authority_lamports','event_payloads','inner_instructions'];different=[key for key in fields if o[key]!=n[key]];cases.append({'instruction':name,'args_hex':args.hex(),'mutation':mutation,'different_fields':different,'original':o,'candidate':n})
 fails=[i for i,r in enumerate(cases) if r['different_fields']];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();sources={str(p.relative_to(a.source_directory)):sha(p) for p in sorted(a.source_directory.rglob('*')) if p.is_file() and 'target' not in p.parts and (p.suffix=='.rs' or p.name in ['Cargo.toml','Cargo.lock'])}
-report={'scope':'Two recovered authority/recipient administration handlers; all global state, errors, balances, raw events and CPI instructions compared in local synthetic fixtures.','candidate_sha256':sha(a.candidate),'original_sha256':sha(original),'source_sha256':sources,'case_count':len(cases),'mismatches':fails,'cases':cases};payload=(json.dumps(report,indent=2)+'\n').encode();a.output.write_bytes(gzip.compress(payload,mtime=0) if a.output.suffix=='.gz' else payload);print(len(cases),fails)
+report={'scope':'Two recovered authority/recipient administration handlers; all global state, errors, balances, raw events and CPI instructions compared in local synthetic fixtures.','candidate_sha256':sha(a.candidate),'original_sha256':sha(original),'source_sha256':sources,'case_count':len(cases),'mismatches':fails,'cases':cases};write_report(a.output, report, protected);print(len(cases),fails)
 for i in fails:print(i,cases[i]['instruction'],cases[i]['mutation'],cases[i]['different_fields'],cases[i]['original']['error'],cases[i]['candidate']['error'])
 if fails:raise SystemExit(1)
