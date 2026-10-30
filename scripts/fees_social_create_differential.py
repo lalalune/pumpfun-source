@@ -6,6 +6,7 @@ import sys,pathlib,json,hashlib,base64,argparse
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
 from fees_admin_differential import *
+from pump_differential_output import PumpReport
 from solders.clock import Clock
 IX=next(x for x in IDL['instructions'] if x['name']=='create_social_fee_pda')
 ORIGINAL=ROOT/'evidence/original/pump_fees/deployed.so'
@@ -39,7 +40,7 @@ def run(c,image):
  return {'case':c,'address':str(key),'bump':bump,'error':str(r.err()) if failed else None,'logs':m.logs(),'inner':json.loads(m.to_json())['inner_instructions'],'data':a.data.hex() if a else None,'lamports':a.lamports if a else None,'owner':str(a.owner) if a else None,'authority_lamports':vm.get_account(AUTH.pubkey()).lamports,'transaction_base64':base64.b64encode(bytes(tx)).decode()}
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,default=ROOT/'work/fees-social-recovery/create-probes.json');a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,default=ROOT/'work/fees-social-recovery/create-probes.json');a=p.parse_args();publisher=PumpReport(a.output,ROOT,a.candidate,__file__)
  cases=[{'name':'base'},{'name':'other-order','order':'platform-first'}]
  cases += [{'name':'platform-'+str(n),'platform':n} for n in range(256)]
  cases += [{'name':'user-'+repr(u),'user':u} for u in ['', '0','00','01','-1','+1',' 1','1 ','a','1a','18446744073709551615','18446744073709551616','9'*20,'1'*21,'1'*32,'1'*33,'é'*10,'😀'*5,'\x00']]
@@ -66,8 +67,7 @@ def main():
   match=all(x[k]==y[k] for k in keys) and [l for l in x['logs'] if l.startswith('Program data:')]==[l for l in y['logs'] if l.startswith('Program data:')] if y else None
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:failures.append(c['name'])
- a.output.parent.mkdir(parents=True,exist_ok=True)
- a.output.write_text(json.dumps({'original_sha256':hashlib.sha256(original).hexdigest(),'candidate_sha256':hashlib.sha256(candidate).hexdigest() if a.candidate else None,'scope':'Normally signed synthetic local creation cases; no full-program or byte identity claim.','cases':rows,'mismatches':failures},indent=2)+'\n',encoding='utf-8',newline='\n')
+ publisher.write((json.dumps({'original_sha256':hashlib.sha256(original).hexdigest(),'candidate_sha256':hashlib.sha256(candidate).hexdigest() if a.candidate else None,'scope':'Normally signed synthetic local creation cases; no full-program or byte identity claim.','cases':rows,'mismatches':failures},indent=2)+'\n').encode('utf-8'))
  print('cases',len(rows),'mismatches',failures)
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

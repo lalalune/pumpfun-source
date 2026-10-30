@@ -130,13 +130,17 @@ class CompilerDeadlineTests(unittest.TestCase):
                     'print(json.dumps({"timed_out":t,"returncode":r.returncode,"stdout":r.stdout}),flush=True)\n'
                 )
             started = time.monotonic()
+            # A shell background job starts with SIGINT ignored, and Python then
+            # never raises KeyboardInterrupt; give the wrapper a real handler.
             outer = subprocess.Popen(
                 [sys.executable, '-u', '-c', wrapper], start_new_session=True,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+                preexec_fn=lambda: signal.signal(signal.SIGINT, signal.SIG_DFL),
             )
             returned = False
             output = ''
             descendant_alive = False
+            leader_alive = False
             try:
                 output, _ = outer.communicate(timeout=5.5)
                 returned = True
@@ -154,12 +158,14 @@ class CompilerDeadlineTests(unittest.TestCase):
                     if pid_path.exists():
                         pid = int(pid_path.read_text())
                         pids.append(pid)
-                        if pid_path == descendant_pid:
-                            try:
-                                os.kill(pid, 0)
+                        try:
+                            os.kill(pid, 0)
+                            if pid_path == descendant_pid:
                                 descendant_alive = True
-                            except ProcessLookupError:
-                                pass
+                            else:
+                                leader_alive = True
+                        except ProcessLookupError:
+                            pass
                         try:
                             os.kill(pid, signal.SIGKILL)
                         except ProcessLookupError:
@@ -171,6 +177,7 @@ class CompilerDeadlineTests(unittest.TestCase):
                 'outer_returncode': outer.returncode,
                 'pids': pids,
                 'descendant_alive_before_cleanup': descendant_alive,
+                'leader_alive_before_cleanup': leader_alive,
                 'output': output,
             }
 
@@ -218,6 +225,7 @@ class CompilerDeadlineTests(unittest.TestCase):
         self.assertTrue(trial['returned'], trial)
         self.assertLess(trial['elapsed'], 2.5)
         self.assertEqual(json.loads(trial['output']), {'interrupted': True})
+        self.assertFalse(trial['leader_alive_before_cleanup'], trial)
 
     def test_compiler_descendants_are_stopped(self):
         with tempfile.TemporaryDirectory() as temp:

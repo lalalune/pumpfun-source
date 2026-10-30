@@ -1,0 +1,25 @@
+{
+  "issue": "scripts/local_validation.py published a vacuous audit receipt when repro/programs.json was an empty or malformed selector: main() validated no program, wrote programs: {} to audit/local-validation.json and exited 0.",
+  "base_revision": "9b9440fe5",
+  "affected": "scripts/local_validation.py:17-21 (program_addresses) at base",
+  "cause": "The archived selector was returned verbatim after only a dict check. An empty object makes main()'s loop run zero times; a blank or non-string address only surfaced later, inside Pubkey.from_string, with no hint that the selector was at fault.",
+  "reproduction": {
+    "base": "repro/programs.json = {} -> program_addresses() returns {}; main() writes {'programs': {}} and exits 0",
+    "after": "ValueError: repro/programs.json selects no programs",
+    "address_variants": ["{'pump': ''}", "{'pump': 123}", "{'pump': None}", "{'': 'address'}"]
+  },
+  "change": "Refuse an empty selector and any non-string or blank program name or address before returning it, so a run cannot publish a receipt that validated nothing.",
+  "tests": {
+    "new_test": "tests/test_local_validation_selector.py",
+    "before": "5 failing subtests against the base script (empty selector and the four malformed-address selectors); the valid-selector and capture-fallback controls pass on both",
+    "after": "4 tests OK in 0.003s"
+  },
+  "required_checks": {
+    "scripts/test_tooling.py": "228 tests OK",
+    "scripts/verify_evidence.py": "9 captures verified"
+  },
+  "environment": {"platform": "macOS arm64", "python": "3.14.3"},
+  "not_claimed": "No LiteSVM smoke run is executed here (main() needs solders; the maintained audit/local-validation.json receipt was not regenerated). The valid-selector path is unchanged, so an existing receipt remains reproducible.",
+  "pin_note": "No live binding pins scripts/local_validation.py. research/amm-staging-source-containment-20261030/REQUIRED-INPUTS.json records a historical donor revision, not a drift guard on the working tree, so nothing is rebound.",
+  "peer_note": "Open PR lalalune/pumpfun-source#3104 also edits this file, at the report write in main() (encoding only); its diff does not overlap program_addresses()."
+}

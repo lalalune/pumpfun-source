@@ -15,9 +15,18 @@ def program_addresses(root=None):
     root=ROOT if root is None else pathlib.Path(root)
     archived=root/'repro/programs.json'
     if archived.is_file():
-        selected=json.loads(archived.read_text())
+        selected=json.loads(archived.read_text(encoding="utf-8"))
         if not isinstance(selected,dict):
             raise ValueError('repro/programs.json must map program names to addresses')
+        # An empty or malformed selector would publish a receipt that validates
+        # nothing, so refuse it here rather than in the report writer.
+        if not selected:
+            raise ValueError('repro/programs.json selects no programs')
+        for name,address in selected.items():
+            if not isinstance(name,str) or not name.strip():
+                raise ValueError('repro/programs.json has a non-string program name')
+            if not isinstance(address,str) or not address.strip():
+                raise ValueError(f'repro/programs.json has no address for {name!r}')
         return selected
     selected={}
     for name in _CAPTURE_ORDER:
@@ -25,8 +34,8 @@ def program_addresses(root=None):
         if not binary.is_file():
             continue
         receipt_path=root/'evidence/original'/name/'capture.json'
-        program=json.loads(receipt_path.read_text()).get('program')
-        if not isinstance(program,str) or not program:
+        program=json.loads(receipt_path.read_text(encoding="utf-8")).get('program')
+        if not isinstance(program,str) or not program.strip():
             raise ValueError(f'{receipt_path} has no program address')
         selected[name]=program
     if not selected:

@@ -65,6 +65,7 @@ from solders.instruction import Instruction, AccountMeta
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
 from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
 from solders.clock import Clock
 from solders.compute_budget import set_compute_unit_limit
 
@@ -183,7 +184,8 @@ def main():
     ap.add_argument('--candidate', type=pathlib.Path, required=True,
                     help='source-built mayhem ELF (comparison target)')
     ap.add_argument('--output', type=pathlib.Path, required=True)
-    a = ap.parse_args(); a.candidate = pin_program(a.candidate)
+    a = ap.parse_args(); publisher = PumpReport(a.output, ROOT, a.candidate, __file__, extra_inputs=[ROOT/'evidence/original/mayhem/deployed.so', *(ROOT/f'evidence/dependencies/{name}/capture.json' for name in ('spl_token','spl_token_2022','associated_token'))])
+    a.candidate = pin_program(a.candidate)
     original = pin_program(ROOT / 'evidence/original/mayhem/deployed.so')
     o = Fixture(original); b = Fixture(a.candidate)
     rows = []; mismatches = []
@@ -231,7 +233,7 @@ def main():
         'cases': rows,
     }
     a.output.parent.mkdir(parents=True, exist_ok=True)
-    a.output.write_text(json.dumps(report, indent=2) + '\n',encoding='utf-8',newline='\n')
+    publisher.write((json.dumps(report, indent=2) + '\n').encode('utf-8'))
     print(json.dumps({'cases': len(rows), 'mismatches': [m['case'] for m in mismatches],
                       'valid_init_transaction_constructible': False,
                       'terminal_blocker_confirmed': bool(signer_gate),

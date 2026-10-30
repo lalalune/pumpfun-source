@@ -18,7 +18,7 @@ covering **5,185,728/5,213,128 code bytes (99.47%)**. Only `admin_cto::execute`
 
 - [summary.json](summary.json) records source, binary and runtime report hashes,
   the no-loss comparison and the semantic review.
-- [source-inputs.json](source-inputs.json) matches all 137 merged program inputs.
+- [source-inputs.json](source-inputs.json) matches all 141 merged program inputs.
 - [baseline-score.json.gz](baseline-score.json.gz) retains the previous checkpoint;
   [score.json.gz](score.json.gz) records the freshly built candidate inventory.
 - **771/771** paired synthetic cases pass on this candidate: 363 signed admin-CTO

@@ -1,0 +1,15 @@
+{
+  "scope": "Proposed maintained-script transition: refuse an archived selector that names no program or carries an unusable address. Captures, historical packets and published audit receipts are unchanged.",
+  "base": "9b9440fe5",
+  "files": {
+    "scripts/local_validation.py": {
+      "before_sha256": "398a72c82ac5cdffd85b47bdbee15157b54ac0c9249fa1de2cd9006f4a0f9738",
+      "proposed_sha256": "651d1ff5284ab71578dd03a61a1a96ca5d370ca4f53b5a13a57b79272a211c99"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false,
+  "new_test": "tests/test_local_validation_selector.py",
+  "existing_ci_discovery": "contract-tests: python -B -m unittest discover -s tests -v"
+}

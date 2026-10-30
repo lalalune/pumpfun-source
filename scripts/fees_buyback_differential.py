@@ -5,6 +5,7 @@ if not __debug__:
 import sys,pathlib,json,hashlib,base64,argparse
 ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 from fees_admin_differential import *
+from pump_differential_output import PumpReport
 from solders.clock import Clock
 TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');WSOL=Pubkey.from_string('So11111111111111111111111111111111111111112');MINT=Pubkey.from_bytes(bytes([61])*32)
 TOKEN2022=Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb')
@@ -61,7 +62,7 @@ def run(c,image):
  return {'case':c,'vault':str(vault),'bump':bump,'error':str(r.err()) if failed else None,'logs':m.logs(),'before':before,'after':snap(),'inner':json.loads(m.to_json())['inner_instructions'],'return':json.loads(m.to_json()).get('return_data'),'transaction_base64':base64.b64encode(bytes(tx)).decode()}
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,default=ROOT/'work/fees-buyback-recovery/probes.json');a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,default=ROOT/'work/fees-buyback-recovery/probes.json');a=p.parse_args();publisher=PumpReport(a.output,ROOT,a.candidate,__file__)
  cases=[{'name':'init-'+str(n),'index':n} for n in [0,1,2,3,4,5,6,7,8,9,255]]
  cases += [{'name':'init-nonnative','native':False},{'name':'init-existing','existing':True}]
  for op in ['update_buyback_authority','update_buyback_claim_rate_limit','sweep_buyback']:
@@ -99,8 +100,7 @@ def main():
   match=all(x[k]==y[k] for k in ['error','before','after','inner','return']) and [l for l in x['logs'] if l.startswith('Program data:')]==[l for l in y['logs'] if l.startswith('Program data:')] if y else None
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:bad.append(c['name'])
- a.output.parent.mkdir(parents=True,exist_ok=True)
- a.output.write_text(json.dumps({'scope':'Normal signed synthetic buyback fixtures; no full-byte identity claim.','original_sha256':hashlib.sha256(original).hexdigest(),'candidate_sha256':hashlib.sha256(candidate).hexdigest() if a.candidate else None,'cases':rows,'mismatches':bad},indent=2)+'\n',encoding='utf-8',newline='\n')
+ publisher.write((json.dumps({'scope':'Normal signed synthetic buyback fixtures; no full-byte identity claim.','original_sha256':hashlib.sha256(original).hexdigest(),'candidate_sha256':hashlib.sha256(candidate).hexdigest() if a.candidate else None,'cases':rows,'mismatches':bad},indent=2)+'\n').encode('utf-8'))
  print('Cases',len(rows),'mismatches',bad)
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

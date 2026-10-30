@@ -1,0 +1,68 @@
+{
+  "issue": "pump_create_differential.py and pump_cashback_differential.py wrote their receipts with a.output.write_bytes() after running the cases, without the shared PumpReport publisher, so --output could name the candidate ELF (or any bound input) and replace it with the report.",
+  "base_revision": "8cf3c5f8a7912b36ced352e49ac8538ff864a4c2",
+  "affected": "scripts/pump_create_differential.py:80 and scripts/pump_cashback_differential.py:91 at base",
+  "finding": "Both scripts published with a.output.parent.mkdir(...); a.output.write_bytes(...). Neither resolves the destination against the candidate or the shared evidence images, and both exit 0 after the replacement. Sixty-two scripts already import pump_differential_output.PumpReport for exactly this check.",
+  "change": {
+    "publisher": "PumpReport(output, ROOT|R, candidate, __file__, ...) is constructed before the case loop, so aliasing is refused before case execution; imported fixtures may initialize a VM before main.",
+    "write": "publisher.write stages complete bytes then atomically replaces the destination; staging failures preserve the prior report",
+    "cashback_inputs": "the curve-fresh-trades fixture that pump_trade_fixture loads is added to the bound inputs",
+    "unchanged_behaviour": "create still always gzips; cashback still gzips only for a .gz destination"
+  },
+  "runs": {
+    "base_alias": {
+      "command": "python -B scripts/pump_create_differential.py --candidate <temp>/candidate.so --output <temp>/candidate.so",
+      "exit": 0,
+      "candidate_before": "10485715 bytes, sha256 7a19affa...b02d",
+      "candidate_after": "349915 bytes, sha256 90e1ce1a...7c8e, gzip magic 1f8b0800",
+      "note": "the 10 MB captured ELF was replaced by the report"
+    },
+    "base_alias_cashback": {
+      "command": "python -B scripts/pump_cashback_differential.py --candidate <temp>/candidate.so --output <temp>/candidate.so",
+      "exit": 0,
+      "candidate_after": "3228918 bytes JSON, sha256 8d97289d...3b1a"
+    },
+    "fixed_alias": {
+      "command": "python -B scripts/{pump_create_differential,pump_cashback_differential}.py --candidate <temp>/candidate.so --output <temp>/candidate.so",
+      "exit": 1,
+      "stderr": "ValueError: report output aliases an input: <temp>/candidate.so",
+      "candidate_unchanged": true
+    },
+    "fixed_normal": {
+      "create": "87 cases, 0 mismatches, exit 0, 349914-byte gzip report",
+      "cashback": "283 cases, 0 mismatches, exit 0, 67638-byte gzip report"
+    }
+  },
+  "tests": {
+    "new_test": "tests/test_pump_create_cashback_output_publication.py",
+    "before": "2 subtest failures (each script exits 0 and replaces its candidate: 2 == 1 assertion)",
+    "after": "2 tests OK in 8.1s"
+  },
+  "required_checks": {
+    "scripts/test_tooling.py": "228 tests OK",
+    "scripts/verify_evidence.py": "9 captures verified"
+  },
+  "environment": {
+    "platform": "macOS arm64",
+    "python": "3.14.3"
+  },
+  "unchanged": [
+    "the case corpora and comparison fields",
+    "captured ELFs and fixture images",
+    "the aggregate 44-suite corpus, which already supplies fresh temporary outputs"
+  ],
+  "not_claimed": "No full-corpus run is repeated for this packet; the two smoke runs above execute every case in both differentials and report zero mismatches, and the shared PumpReport boundary is already covered by its own tests.",
+  "review_followup": {
+    "extra_inputs": "create Token Metadata and Mayhem program images; cashback complete shared REPORT_INPUTS including capture metadata",
+    "counterexamples": "Original migration exits0 and overwrites token_metadata/deployed.so and spl_token/capture.json after two real paired cases; repaired publication refuses these destinations.",
+    "historical_runs": "The author run descriptions above are retained as historical claims; independent review results are recorded separately.",
+    "tests": {
+      "full_create_cases": 87,
+      "full_cashback_cases": 283,
+      "mismatches": 0,
+      "real_test_methods": 3,
+      "seconds": 46.164,
+      "controls": "direct/symlink/hardlink consumed-input aliases, late alias, fsync failure, prior output, recreated staging path, original-only"
+    }
+  }
+}

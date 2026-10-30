@@ -247,11 +247,12 @@ def main():
             if not isinstance(row, dict):
                 raise ValueError('each trial must be an object')
             name = row.get('name', '')
-            if not isinstance(name, str) or not name or any(c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-' for c in name) or name in names:
+            # Each name is an output directory, and macOS volumes fold case by default.
+            if not isinstance(name, str) or not name or any(c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-' for c in name) or name.casefold() in names:
                 raise ValueError('trial names must be unique simple identifiers')
             if not isinstance(row.get('inputs', []), list):
                 raise ValueError('trial inputs must be an array of file paths')
-            names.add(name)
+            names.add(name.casefold())
             identity(row['source'], row['command'], row.get('inputs', []), row.get('timeout', 300))
         # Admit the entire matrix before the first command, including cross-row inputs.
         for row in rows:

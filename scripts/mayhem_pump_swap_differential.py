@@ -6,6 +6,8 @@ from pathlib import Path
 import json,hashlib,base64,argparse,re
 import mayhem_pump_swap_fixture as p
 from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
+from pump_diagnostic_audit import bound_input_key
 from solders.transaction import Transaction
 D=Path(__file__).resolve().parent
 def cases(path):
@@ -26,7 +28,7 @@ def limit_value(text):
  return value
 
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--limit',type=limit_value);ap.add_argument('--cases',type=Path,required=True);ap.add_argument('--instruction',choices=['buy_pump_swap','sell_pump_swap'],required=True);ap.add_argument('--family',choices=['native','token','token22'],required=True);a=ap.parse_args();a.candidate=pin_program(a.candidate);rows=[];mismatches=[]
+ ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--limit',type=limit_value);ap.add_argument('--cases',type=Path,required=True);ap.add_argument('--instruction',choices=['buy_pump_swap','sell_pump_swap'],required=True);ap.add_argument('--family',choices=['native','token','token22'],required=True);a=ap.parse_args();publisher=PumpReport(a.output,p.R,a.candidate,__file__,extra_inputs=(a.cases,p.R/'evidence/original/mayhem/deployed.so',p.R/'research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json'));a.candidate=pin_program(a.candidate);rows=[];mismatches=[]
  for c in cases(a.cases)[:a.limit]:
   c=dict(c,instruction=a.instruction,token_quote=a.family!='native',quote_token22=a.family=='token22');c.setdefault('tokens',10**11 if a.instruction.startswith('buy') else 10**9)
   original=p.run(c);candidate=p.run(c,a.candidate);diff=[]
@@ -45,6 +47,6 @@ def main():
   row={'case':c,'original':original,'candidate':candidate,'different_fields':diff,'normalized_log_difference':logdiff};rows.append(row)
   if diff:mismatches.append({'case':c['name'],'fields':diff,'original_error':original['error'],'candidate_error':candidate['error']})
   print(c['name'],original['error'],diff,flush=True)
- report={'scope':__doc__,'candidate_sha256':p.sha(a.candidate.read_bytes()),'candidate_bytes':a.candidate.stat().st_size,'original_sha256':p.sha((p.R/'evidence/original/mayhem/deployed.so').read_bytes()),'case_count':len(rows),'successful_original_cases':sum(r['original']['error'] is None for r in rows),'signed_transactions':2*len(rows),'mismatches':mismatches,'normalized_log_differences':[r['case']['name'] for r in rows if r['normalized_log_difference']],'harness_sha256':{str(x.relative_to(p.R)):p.sha(x.read_bytes()) for x in [Path(__file__).resolve(),D/'mayhem_pump_swap_fixture.py',a.cases.resolve(),p.R/'research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json',p.R/'research/imported-lab/analysis/pump_fun/config-snapshot.json']},'cases':rows}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n');print(json.dumps({k:report[k] for k in ['case_count','successful_original_cases','mismatches']}));raise SystemExit(bool(mismatches))
+ report={'scope':__doc__,'candidate_sha256':p.sha(a.candidate.read_bytes()),'candidate_bytes':a.candidate.stat().st_size,'original_sha256':p.sha((p.R/'evidence/original/mayhem/deployed.so').read_bytes()),'case_count':len(rows),'successful_original_cases':sum(r['original']['error'] is None for r in rows),'signed_transactions':2*len(rows),'mismatches':mismatches,'normalized_log_differences':[r['case']['name'] for r in rows if r['normalized_log_difference']],'harness_sha256':{bound_input_key(x,p.R):p.sha(x.read_bytes()) for x in [Path(__file__).resolve(),D/'mayhem_pump_swap_fixture.py',a.cases.resolve(),p.R/'research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json',p.R/'research/imported-lab/analysis/pump_fun/config-snapshot.json']},'cases':rows}
+ publisher.write((json.dumps(report,indent=2)+'\n').encode('utf-8'));print(json.dumps({k:report[k] for k in ['case_count','successful_original_cases','mismatches']}));raise SystemExit(bool(mismatches))
 if __name__=='__main__':main()
