@@ -78,6 +78,25 @@ remain:
 The TCF clone run (orig 0x2690-0x3b40) is already structurally faithful on main: main and s1 both have 36 structural
 mismatches there and s1t_p2 has 30. What remains there is register assignment and spill placement.
 
+## Re-measure on main 769f331 (0.63241) and accounts-reload probe
+
+- s1 on 769f331: 0.61631 at 27,368 B, fm 0.72092, rm **0.86001**. Main is 0.63241, fm 0.72259, rm 0.84691,
+  so the gap is unchanged (-0.016).
+- The w14a01 `accprobe.py` reloads the accounts pointer from an alloca before every sharing-region clone (post-opt IR).
+  Sharing-region segstat bsum (0x3e00-0x4a00) is main 285, main+probe 291, s1 327 and **s1+probe 362**. Clonefeat
+  is 6/2 in every probe. The probe alloca shifts the frame, so the probe's positional ratio (0.35) is not comparable.
+  The original's sharing region is therefore s1's source form plus the per-clone accounts-pointer reload. That reload
+  is the RA state w14a01, w13a40 and w13a44 describe: r6/r8/r9 hold the sharing tag, pool_updated and swept, and r7
+  holds the Result tag. No clone-run source form produces it.
+
+## Conclusion
+
+The angle is exhausted at source level. Sibling idioms give exactly one structural fix: the sharing CPI as plain
+`to_account_info()` (s1). It is the best sharing-region shape measured (rm +0.013), but at the pinned size it is
+0.016 below main in positional ratio, and no seeds, helper, closure, rebinding, TCF, size-knob or gene variant
+recovers that. Port s1 once the tail RA state (swept/payload coalescing, holder phi) gets the original's register
+classes. At that point the per-clone reload follows and s1 should flip from a loss to a gain.
+
 ## Tools (`tools/`)
 
 - `side.py orig.dis cand.dis lo hi`: register-masked side-by-side alignment for an orig range (`~` = register or

@@ -1,0 +1,24 @@
+{
+  "lane": "w14a05-cto-sibclone",
+  "wave": 14,
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "bases": {"23322b07c": {"ratio": 0.62882, "slots": 3287, "fm": 0.72049, "rm": 0.84781},
+            "769f331fe": {"ratio": 0.63241, "slots": 3287, "fm": 0.72259, "rm": 0.84691}},
+  "result": "no zero-loss gain; notes-only PR #3217 (sibling-idiom map)",
+  "best_zero_loss": null,
+  "best_structural": {"name": "s1", "form": "sharing CPI (admin_cto_sharing_config) with all 7 accounts as plain a.x.to_account_info() (migrate::create_pool idiom) instead of main's literal AccountInfo{..} field-order forms",
+    "23322b0": {"ratio": 0.61271, "bytes": 27368, "fm": 0.71882, "rm": 0.86091},
+    "769f331": {"ratio": 0.61631, "bytes": 27368, "fm": 0.72092, "rm": 0.86001},
+    "s1t_p2_23322b0": {"ratio": 0.60432, "bytes": 27368, "fm": 0.72092, "rm": 0.86181}},
+  "findings": [
+    "Matched siblings with inline AccountInfo clones (migrate*/create_pool 13-19, init_pump_amm_boost*, holder_distribution::execute, create_v2::mint_supply, payments::initialize_mayhem) all use plain to_account_info(); none uses literal AccountInfo{..} or create_idempotent. collect_creator_fee/migrate_bonding_curve_creator have no clone runs.",
+    "s1 keeps the sharing clones inlined (157 calls), the same account order, and reproduces the original's canonical per-clone load order through orig 0x3d88-0x4a00 (only register/spill-offset differences remain, including the original's three dead reloads); rm 0.848 -> 0.861, spills -6 -> -1 vs orig.",
+    "s1's exact-token loss is all in orig 0x4000-0x5000 (-37/-19): its sharing clone spill colors are exactly 0x18 deeper than the original's; a what-if shift gives 0.6286 (= main 23322b0).",
+    "The original reloads the accounts pointer before every sharing clone (32 B, clonefeat 6/2); accprobe on s1 gives the best sharing-region segstat (362 vs main 285). That reload is the tail RA state (w14a01/w13a40/w13a44), not a clone-run source form.",
+    "The TCF clone run (orig 0x2690-0x3b40) is already structurally faithful on main (36 struct mismatches); TCF to_account_info variants only move registers."
+  ],
+  "rejected": ["s2/s3/s6/s7 helper fn share(&Context|&AdminCto) plain/#[inline]/#[inline(always)]", "s4 migrate-style helper building seeds (compile)", "s5 migrate move-closure", "s1t_p1/at/p12/all TCF literal->to_account_info", "c1-c8 ctx.accounts / rebinding / accounts-first / CpiContext-first / program-let", "p1 if let, p3 bump let, p4 inline seeds, p6 match &, p2/p5 a.mint.key() seeds (compile)", "24 size knobs (#3137) on s1/s1t_p2: best 0.61333", "8 genes47 on s1: best 0.61271"],
+  "ledger_keys": "0x22a10-w14-{23322b0,769f331}-sibclone-*",
+  "unresolved": ["sharing-region spill colors +3 slots vs orig", "accounts pointer kept in r5/r7 instead of per-clone reload (tail RA: swept/payload class, holder phi)", "s1 is 32 B short of the pinned size (the missing reloads)"],
+  "next_ideas": ["Carry s1 onto any future state that puts swept/sharing tag/pool_updated in callee-saved regs (w13a40/w13a44 coalescing routes): with the reload, s1's region should flip to a gain", "IR spill-color probe: find which spill intervals take the 3 extra low colors before the sharing temporaries in s1 (debug llc -debug-only=stack-slot-coloring)", "Re-screen genes47 on s1 at the pinned size with +32 B companions"]
+}
