@@ -28,11 +28,16 @@ def program_names(root=None):
     path = root / 'repro/programs.json'
     if path.is_file():
         return json.loads(path.read_text())
-    order = ('pump', 'pump_amm', 'pump_fees', 'mayhem')
+    order = ('pump', 'pump_amm', 'pump_fees', 'mayhem', 'donation_relay')
     return [
         name for name in order
-        if (root / 'evidence/original' / name / 'deployed.so').is_file()
+        if (capture_directory(root, name) / 'deployed.so').is_file()
     ]
+
+
+def capture_directory(root, name):
+    group = 'dependencies' if name == 'donation_relay' else 'original'
+    return root / 'evidence' / group / name
 
 
 def program_addresses():
@@ -42,7 +47,7 @@ def program_addresses():
         return json.loads(path.read_text())
     return {
         name: json.loads(
-            (ROOT / 'evidence/original' / name / 'capture.json').read_text()
+            (capture_directory(ROOT, name) / 'capture.json').read_text()
         )['program']
         for name in program_names()
     }
@@ -134,7 +139,7 @@ def elf_layout(b):
 def analyze():
     out={}
     for name in program_names():
-        b=(ROOT/f'evidence/original/{name}/deployed.so').read_bytes(); r=elf_layout(b)
+        b=(capture_directory(ROOT,name)/'deployed.so').read_bytes(); r=elf_layout(b)
         r['source_path_evidence']=[{'offset':m.start(),'path':m.group().decode()} for m in re.finditer(rb'(?:programs|/home/runner/work/platform-tools)[a-zA-Z0-9_./-]+?\.rs',b)]
         r['instruction_log_names']=instruction_log_names(b, known_instruction_names(name))
         r['compiler_version']='unresolved'; r['dependency_versions']='unresolved'; out[name]=r

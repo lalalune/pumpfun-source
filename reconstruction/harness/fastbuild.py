@@ -12,7 +12,9 @@ Usage: fastbuild.py --src <crate dir with Cargo.toml/Cargo.lock/src[/recovered]>
 - Writes <out>/unstripped.so and <out>/candidate.so (default <work>/last).
   An explicit output directory may equal the work directory, including with a pinned link script.
 - Before compilation, archives previous outputs and their log under <out>/previous/build-*.
-  Compiler failures leave no current binaries; callers must still check ok.
+  Compiler/strip failures install no binaries; callers must still check ok.
+  Each binary is installed without replacement. If a later publication step fails,
+  an earlier complete binary remains, but no successful build receipt is returned.
 - Concurrent trials must use distinct workspaces and output directories. A busy output is
   rejected before staging/publication, so its binary and source receipt cannot come from different trials.
 - A crate carrying link/ordered.ld (a pinned link order, see link_order.py) is linked with that
@@ -198,6 +200,14 @@ def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=No
             return _build_locked(src, work, out, quiet=quiet, recipe=recipe, timeout=timeout)
 
 
+def publish_binary(source, destination):
+    """Install one complete binary without replacing an unexpected late file."""
+    if os.name == 'nt':
+        os.rename(source, destination)
+    else:
+        os.link(source, destination)
+
+
 def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):
 
     recipe = recipe or DEFAULT_RECIPE
@@ -283,10 +293,32 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
             shutil.copy2(receipt, out / 'link-receipt.json')
             shutil.copy2(receipt.with_name('link.map'), out / 'link.map')
     built = target / triple / 'release' / f'{library}.so'
-    shutil.copy2(built, out / 'unstripped.so')
-    subprocess.run([str(SDK / 'llvm/bin/llvm-objcopy'), '--strip-all', str(built), str(out / 'candidate.so')], check=True)
+    with tempfile.TemporaryDirectory(prefix='.publish-', dir=out) as temporary:
+        pending = Path(temporary)
+        shutil.copy2(built, pending / 'unstripped.so')
+        try:
+            subprocess.run([str(SDK / 'llvm/bin/llvm-objcopy'), '--strip-all', str(pending / 'unstripped.so'),
+                            str(pending / 'candidate.so')], check=True,
+                           capture_output=True, text=True, encoding='utf-8', errors='replace')
+            hashes = {name: sha(pending / name) for name in ('unstripped.so', 'candidate.so')}
+            for name in hashes:
+                publish_binary(pending / name, out / name)
+            if any(sha(out / name) != digest for name, digest in hashes.items()):
+                raise ValueError('published binary changed before build receipt')
+        except BaseException as error:
+            # A late writer may own either destination. Keep any complete binary
+            # already installed; a failing build never returns an accepted receipt.
+            try:
+                with (out / 'build.log').open('a', encoding='utf-8') as log:
+                    log.write('\nBinary publication failed: ' + str(error) + '\n')
+                    for detail in (getattr(error, 'stdout', None), getattr(error, 'stderr', None)):
+                        if detail:
+                            log.write(detail.decode('utf-8', errors='replace') if isinstance(detail, bytes) else detail)
+            except OSError as logging_error:
+                error.add_note('Could not append build log: ' + str(logging_error))
+            raise
     return {'ok': True, 'source_sha256': source_inputs['sha256'], 'link_order': link_record, 'runtime_valid': not stack, 'stack_warnings': stack, 'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1), 'unstripped': str(out / 'unstripped.so'),
-            'unstripped_sha256': sha(out / 'unstripped.so'), 'candidate_sha256': sha(out / 'candidate.so')}
+            'unstripped_sha256': hashes['unstripped.so'], 'candidate_sha256': hashes['candidate.so']}
 
 
 if __name__ == '__main__':

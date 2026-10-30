@@ -99,7 +99,7 @@ class SavedAmmRankingTests(unittest.TestCase):
             sentinel = root / 'builder-module-executed'
             prefix = ('from pathlib import Path\nPath(' + repr(str(sentinel)) + ').write_text("unexpected")\n'
                       'raise RuntimeError("builder module must never execute")\n').encode('utf-8')
-            changed = prefix + source + b'\n# unrelated builder maintenance\n'
+            changed = prefix + source + b'\n# unrelated builder maintenance\nm = 123  # same name as a function local\n'
             builder.write_bytes(changed)
             result = json.loads(self.invoke(script, '--ledger', saved, '--limit', 1000).stdout)
             self.assertEqual(result['best'], expected['best'])
@@ -113,11 +113,16 @@ class SavedAmmRankingTests(unittest.TestCase):
             self.assertFalse(sentinel.exists())
             # Whole signatures/bodies/decorators are admitted, not only returns.
             controls = [
-                (changed.replace(b'== 9024', b'== 9025'), 'reviewed AMM rank function changed'),
+                (changed.replace(b'SELL_SIZE = 9024', b'SELL_SIZE = 9025'), 'reviewed AMM rank function changed'),
                 (changed.replace(b'def rank(entry):', b'def rank(entry, unused=None):'), 'reviewed AMM rank function changed'),
                 (changed.replace(b'def rank(entry):', b'@unreviewed\ndef rank(entry):'), 'reviewed AMM rank function changed'),
                 (changed + b'\ndef rank(entry):\n    return None\n', 'expected one reviewed rank function'),
                 (changed.replace(b'def rank(entry):', b'async def rank(entry):'), 'expected one reviewed rank function'),
+                (changed + b'\nSELL_SIZE += 1\n', 'reviewed AMM rank function changed'),
+                (changed + b'\nif True:\n    SELL_SIZE = 9025\n', 'reviewed AMM rank function changed'),
+                (changed + b'\nSELL_SIZE: int = 9025\n', 'reviewed AMM rank function changed'),
+                (changed + b'\nfrom math import pi as SELL_SIZE\n', 'reviewed AMM rank function changed'),
+                (changed + b'\ndel SELL_SIZE\n', 'reviewed AMM rank function changed'),
             ]
             for mutated, message in controls:
                 with self.subTest(message=message, digest=hashlib.sha256(mutated).hexdigest()):

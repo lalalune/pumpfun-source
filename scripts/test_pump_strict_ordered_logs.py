@@ -1,10 +1,14 @@
-"""Reject changed real logs, including a coordinate-only Source change."""
+"""Reject mutations of a captured log pair, including Source coordinates.
+
+This is a small identical-capture control, not a historical full-suite claim.
+"""
 from pathlib import Path
-import copy,gzip,json,re,unittest
+import copy,json,re,unittest
 import pump_strict_ordered_logs as gate
 ROOT=Path(__file__).resolve().parents[1]
-SOURCE=ROOT/'research/pump-final-composition-673-20261028/runtime/full44.json.gz'
-RAW=SOURCE.read_bytes();REPORT=json.loads(gzip.decompress(RAW));PAIRS=[]
+SOURCE=ROOT/'tests/fixtures/strict-ordered-logs/set-params-rejection.json'
+RAW=SOURCE.read_bytes();FIXTURE=json.loads(RAW);PAIRS=[]
+REPORT={'original_sha256':FIXTURE['original_sha256'],'candidate_sha256':FIXTURE['original_sha256'],'case_count':1,'suites':{'captured-control':[{'original':{'logs':FIXTURE['logs']},'candidate':{'logs':list(FIXTURE['logs'])}}]}}
 def collect(value):
  if isinstance(value,dict):
   if isinstance(value.get('original'),dict)and isinstance(value.get('candidate'),dict):PAIRS.append(value)
@@ -20,7 +24,7 @@ class StrictLogs(unittest.TestCase):
   self.logs=self.report['suites']['retained'][0]['candidate']['logs']
  def audit(self):return gate.audit(self.report,REPORT['candidate_sha256'],1)
  def reject(self):self.assertGreater(self.audit()['strict_ordered_log_mismatch_cases'],0)
- def test_actual_complete_report(self):self.assertEqual(gate.audit(REPORT,REPORT['candidate_sha256'],10468)['strict_ordered_log_mismatch_cases'],0)
+ def test_captured_log_control(self):self.assertEqual(gate.audit(REPORT,REPORT['candidate_sha256'],1)['strict_ordered_log_mismatch_cases'],0)
  def test_coordinate_only_change(self):
   i=next(i for i,s in enumerate(self.logs)if 'AnchorError thrown in 'in s and re.search(r':\d+\.',s))
   self.logs[i]=re.sub(r':(\d+)\.',lambda m:':'+str(int(m[1])+1)+'.',self.logs[i],count=1);self.reject()

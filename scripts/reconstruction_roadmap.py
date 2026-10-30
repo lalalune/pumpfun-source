@@ -254,6 +254,28 @@ def analyze_cross_references(elf, entries):
     return rodata_strings
 
 
+def planning_windows(data):
+    return [{'address': w['address'], 'size': w['size'], 'complexity': w['complexity_score'],
+             'callers': [c[0] for c in w['likely_callers'][:5]],
+             'callees': [c[0] for c in w['likely_callees'][:5]],
+             'strings': w['string_references'][:3]}
+            for w in sorted(data['window_details'], key=lambda w: -w['size']) if not w['name']]
+
+
+def cluster_windows(unnamed_windows):
+    clusters = []
+    for w in unnamed_windows:
+        names = {c[0] for c in w['likely_callers']}
+        if not names:
+            continue
+        joined = [c for c in clusters if c['callers'] & names]
+        clusters = [c for c in clusters if not c['callers'] & names]
+        clusters.append({'callers': names.union(*(c['callers'] for c in joined)),
+                         'windows': [a for c in joined for a in c['windows']] + [w['address']],
+                         'total_bytes': sum(c['total_bytes'] for c in joined) + w['size']})
+    return clusters
+
+
 def prepare_output_directory(output_dir):
     """Keep a new roadmap packet from adopting entries left by another run."""
     if output_dir.is_symlink():
@@ -353,25 +375,7 @@ def generate_roadmap(output_dir):
         unnamed_windows.sort(key=lambda w: -w["size"])
 
         # Identify clusters of related unnamed windows
-        clusters = []
-        for w in unnamed_windows:
-            if w["likely_callers"]:
-                caller_names = set(c[0] for c in w["likely_callers"])
-                # Find cluster with same callers
-                found = False
-                for cluster in clusters:
-                    if cluster["callers"] & caller_names:
-                        cluster["windows"].append(w["address"])
-                        cluster["total_bytes"] += w["size"]
-                        cluster["callers"] |= caller_names
-                        found = True
-                        break
-                if not found:
-                    clusters.append({
-                        "callers": caller_names,
-                        "windows": [w["address"]],
-                        "total_bytes": w["size"],
-                    })
+        clusters = cluster_windows(unnamed_windows)
 
         # Sort clusters by total bytes
         clusters.sort(key=lambda c: -c["total_bytes"])
@@ -407,6 +411,7 @@ def generate_roadmap(output_dir):
                 for w in unnamed_windows[:100]
             ],
             "reconstruction_clusters": serializable_clusters,
+            "reconstruction_clusters_total": len(clusters),
             "rodata_strings_count": len(rodata_strings),
         }
         all_program_data[prog_name] = prog_data
@@ -441,7 +446,8 @@ def generate_roadmap(output_dir):
             "unnamed_windows_total": data["unnamed_windows_total"],
             "unnamed_bytes_total": data["unnamed_bytes_total"],
             "largest_unnamed": data["unnamed_windows_by_size"][:5],
-            "reconstruction_clusters": len(data["reconstruction_clusters"]),
+            "reconstruction_clusters": data["reconstruction_clusters_total"],
+            "displayed_reconstruction_clusters": len(data["reconstruction_clusters"]),
         }
         summary["total_unmatched_estimate"] += unmatched
         summary["total_unmatched_bytes_estimate"] += unmatched_bytes
@@ -460,13 +466,14 @@ def generate_roadmap(output_dir):
     # 3. Reconstruction plan
     plan = {
         "phases": [],
-        "total_estimated_windows_to_close": summary["total_unmatched_estimate"],
+        "historical_unmatched_estimate": summary["total_unmatched_estimate"],
+        "candidate_basis": "Unnamed captured windows selected by size and call context; not unmatched membership.",
     }
 
     # Phase 1: Low-hanging fruit (small unnamed windows with known callers)
     phase1_windows = []
     for prog_name, data in all_program_data.items():
-        for w in data["unnamed_windows_by_size"]:
+        for w in planning_windows(data):
             if w["size"] <= 512 and w["callers"]:
                 phase1_windows.append({
                     "program": prog_name,
@@ -481,13 +488,15 @@ def generate_roadmap(output_dir):
                        "whose behavior can be inferred from calling context.",
         "window_count": len(phase1_windows),
         "total_bytes": sum(w["size"] for w in phase1_windows),
+        "display_limit": 50,
+        "displayed_window_count": min(50, len(phase1_windows)),
         "windows": phase1_windows[:50],
     })
 
     # Phase 2: Medium windows with call context
     phase2_windows = []
     for prog_name, data in all_program_data.items():
-        for w in data["unnamed_windows_by_size"]:
+        for w in planning_windows(data):
             if 512 < w["size"] <= 4096 and (w["callers"] or w["callees"]):
                 phase2_windows.append({
                     "program": prog_name,
@@ -504,13 +513,15 @@ def generate_roadmap(output_dir):
                        "or major helper functions.",
         "window_count": len(phase2_windows),
         "total_bytes": sum(w["size"] for w in phase2_windows),
+        "display_limit": 50,
+        "displayed_window_count": min(50, len(phase2_windows)),
         "windows": phase2_windows[:50],
     })
 
     # Phase 3: Large handler bodies
     phase3_windows = []
     for prog_name, data in all_program_data.items():
-        for w in data["unnamed_windows_by_size"]:
+        for w in planning_windows(data):
             if w["size"] > 4096:
                 phase3_windows.append({
                     "program": prog_name,
@@ -531,8 +542,13 @@ def generate_roadmap(output_dir):
                        "careful IR-level matching.",
         "window_count": len(phase3_windows),
         "total_bytes": sum(w["size"] for w in phase3_windows),
+        "display_limit": 30,
+        "displayed_window_count": min(30, len(phase3_windows)),
         "windows": phase3_windows[:30],
     })
+
+    plan["total_planning_candidates"] = sum(p["window_count"] for p in plan["phases"])
+    plan["total_planning_bytes"] = sum(p["total_bytes"] for p in plan["phases"])
 
     plan_path = output_dir / "reconstruction-plan.json"
     plan_path.write_text(json.dumps(plan, indent=2) + "\n", encoding="utf-8", newline="\n")
@@ -571,8 +587,9 @@ only the official candidate scorer establishes matching membership.
 
 **Full unnamed inventory:** {summary["total_unnamed_windows"]} windows,
 {summary["total_unnamed_bytes"]:,} bytes. This is a separate naming diagnostic,
-not a completion deficit. Phase lists below use the largest-100 display subset
-per program and are not exhaustive.
+not a completion deficit. Phase totals below use every eligible unnamed window,
+including windows that may already match. The JSON phase lists display at most
+50, 50 and 30 entries respectively; those displayed lists are not exhaustive.
 
 ## Reconstruction Phases
 

@@ -128,6 +128,8 @@ def main(argv=None):
         ap.error('unknown original windows: ' + ', '.join(missing))
     cand = Cand(a.candidate)
     rows = [row for start in starts for row in measure_window(windows[start], cand, pattern, a.top, a.slots)]
+    if pattern is not None and not rows:
+        ap.error('explicit --sym did not select any candidate function')
     if a.json:
         try:
             a.json.parent.mkdir(parents=True, exist_ok=True)

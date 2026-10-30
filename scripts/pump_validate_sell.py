@@ -1,10 +1,17 @@
 #!/usr/bin/env python3
 """Compare the partial regular-SOL sell-v3 SBF path with the captured original."""
 import argparse, hashlib, json, struct
+from pump_differential_output import PumpReport
 import pump_trade_fixture as f
 from pump_amm_reusable_harness import pin_program
 from pump_constant_product_cases import input_cases
-p=argparse.ArgumentParser();p.add_argument('--candidate',type=f.pathlib.Path,required=True);p.add_argument('--source-directory',type=f.pathlib.Path,default=f.R/'programs/pump');p.add_argument('--output',type=f.pathlib.Path,required=True);a=p.parse_args();a.candidate=pin_program(a.candidate)
+p=argparse.ArgumentParser();p.add_argument('--candidate',type=f.pathlib.Path,required=True);p.add_argument('--source-directory',type=f.pathlib.Path,default=f.R/'programs/pump');p.add_argument('--output',type=f.pathlib.Path,required=True);a=p.parse_args()
+report_roots = (f.R/"evidence", a.source_directory)
+report_inputs = [report_roots[1]] + [path for folder in report_roots
+                 for path in folder.rglob("*") if path.is_file()]
+report_inputs.append(f.R/"research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json")
+report_output = PumpReport(a.output, f.R, a.candidate, __file__, extra_inputs=report_inputs)
+a.candidate=pin_program(a.candidate)
 program=f.Pubkey.from_string(f.x['program']);user=f.Keypair.from_seed(bytes([231])*32)
 initial={key:f.vm.get_account(key) for key in f.msg.account_keys}
 curve=f.Pubkey.from_string(f.x['accounts']['curve']);global_key=f.Pubkey.from_string(f.x['accounts']['global']);fee_key=f.Pubkey.from_string(f.x['accounts']['fee_config'])
@@ -80,7 +87,7 @@ failures=[i for i,r in enumerate(rows) if not r['match']]
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 sources={str(path.relative_to(a.source_directory)):sha(path) for path in sorted(a.source_directory.rglob('*')) if path.is_file() and 'target' not in path.parts and (path.suffix=='.rs' or path.name in ['Cargo.toml','Cargo.lock'])}
 report={'scope':'Partial SOL including Mayhem/holder-reward accounting and cashback rejection sell_v3 path, not a complete instruction reconstruction. Compares errors, all instruction-account bytes/owners/lamports except the replaced executable Pump image, raw event payloads and full recorded inner instructions. Captured external token dependencies loaded explicitly; no public RPC.','source_sha256':sources,'original_sha256':sha(f.R/'evidence/original/pump/deployed.so'),'candidate_sha256':sha(a.candidate),'case_count':len(rows),'mismatches':failures,'cases':rows}
-a.output.parent.mkdir(parents=True,exist_ok=True);payload=(json.dumps(report,indent=2)+'\n').encode();a.output.write_bytes(__import__('gzip').compress(payload,mtime=0) if a.output.suffix=='.gz' else payload);print(json.dumps({'case_count':len(rows),'mismatches':failures}))
+payload=(json.dumps(report,indent=2)+'\n').encode();report_output.write(__import__('gzip').compress(payload,mtime=0) if a.output.suffix=='.gz' else payload);print(json.dumps({'case_count':len(rows),'mismatches':failures}))
 for i in failures:
     r=rows[i];print(i,r['case'],r['different_fields'],r['original']['error'],r['candidate']['error'])
 if failures:raise SystemExit(1)

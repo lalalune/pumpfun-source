@@ -12,7 +12,7 @@ ARCHIVE = 'research/tooling-roadmap-call-classification-20261029/proof.py'
 SOURCE = 'scripts/reconstruction_roadmap.py'
 # Values come from reviewed repository assets, never the current input bytes.
 REVIEWED = {
-    SOURCE: '9842355d2356c4263677fff485117b967f6a093386be2d2af345cce16b6eb5a2',
+    SOURCE: '7ff87816fe95ceb4b4f3540a34256a5a906665fc9cbe6ae42852c64c27b75f4e',
     ARCHIVE: '4acff7a33fff43773b730b4518a8beb8685abc683740945f27c9296ab4031800',
 }
 
