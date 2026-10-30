@@ -24,7 +24,7 @@ def file_sha(path: Path) -> str:
 
 
 def manifest(base: Path, root: Path) -> tuple[dict[str, str], str]:
-    rows = {str(path.relative_to(root)): file_sha(path) for path in sorted(base.rglob("*")) if path.is_file()}
+    rows = {path.relative_to(root).as_posix(): file_sha(path) for path in sorted(base.rglob("*")) if path.is_file()}
     digest = sha(json.dumps(rows, sort_keys=True, separators=(",", ":")).encode())
     return rows, digest
 
@@ -64,7 +64,7 @@ def validate(report: dict[str, Any], root: Path, candidate: Path) -> list[str]:
     if inputs.get("source_manifest_sha256") != source_digest or inputs.get("source_files") != source_rows:
         problems.append("source_manifest")
     package = Path(__file__).resolve().parent
-    package_rows = {str(path.relative_to(root)): file_sha(path) for path in sorted(package.iterdir()) if path.is_file()}
+    package_rows = {path.relative_to(root).as_posix(): file_sha(path) for path in sorted(package.iterdir()) if path.is_file()}
     if inputs.get("test_package_files") != package_rows:
         problems.append("test_package_manifest")
 

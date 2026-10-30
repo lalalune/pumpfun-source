@@ -450,14 +450,14 @@ def comparator_controls(step: dict[str, Any]) -> dict[str, Any]:
 
 def source_manifest(root: Path) -> tuple[dict[str, str], str]:
     base = root / "programs/donation-relay"
-    rows = {str(path.relative_to(root)): file_sha(path) for path in sorted(base.rglob("*")) if path.is_file()}
+    rows = {path.relative_to(root).as_posix(): file_sha(path) for path in sorted(base.rglob("*")) if path.is_file()}
     encoded = json.dumps(rows, sort_keys=True, separators=(",", ":")).encode()
     return rows, sha(encoded)
 
 
 def package_manifest(root: Path) -> dict[str, str]:
     base = Path(__file__).resolve().parent
-    return {str(path.relative_to(root)): file_sha(path) for path in sorted(base.iterdir()) if path.is_file() and path.name != "__pycache__"}
+    return {path.relative_to(root).as_posix(): file_sha(path) for path in sorted(base.iterdir()) if path.is_file() and path.name != "__pycache__"}
 
 
 def transaction_identity(cases: list[dict[str, Any]]) -> dict[str, Any]:
@@ -488,7 +488,7 @@ def execute(root: Path, candidate: Path, output: Path) -> bool:
         "selector_hex": IDL_SELECTOR.hex(),
         "inputs": {
             "upstream_commit": "2bb05a51af71a8b8e3ba834f16c8db720f57ce2b",
-            "captured_elf": {"path": str(original.relative_to(root)), "bytes": original.stat().st_size, "sha256": file_sha(original)},
+            "captured_elf": {"path": original.relative_to(root).as_posix(), "bytes": original.stat().st_size, "sha256": file_sha(original)},
             "candidate_elf": {"bytes": candidate.stat().st_size, "sha256": file_sha(candidate)},
             "source_manifest_sha256": source_digest,
             "source_files": sources,
