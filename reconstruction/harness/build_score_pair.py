@@ -55,7 +55,8 @@ def run_pair(base, candidate, out, sdk, hybrid):
                'inputs': {name: sha(score.BASE / name) for name in ('original.so', 'functions.tsv')},
                'tools': {name: sha(Path(__file__).parent / name) for name in
                          ('build_score_pair.py', 'fastbuild.py', 'score.py', 'original_input.py', 'compare_scores.py', 'pump_physical_source_wrapper.py',
-                          'link_order.py', 'pump_link_rustc.py', 'pump_link_lld.py', 'sbf_default.ld',
+                          'link_order.py', 'pump_link_rustc.py', 'pump_link_lld.py',
+                          'pump_link_rustc.sh', 'pump_link_lld.sh', 'pump_physical_source_wrapper.sh', 'sbf_default.ld',
                           'build_process.py', 'elf_symbols.py', 'instruction_stream.py',
                           'llvm_tools.py', 'score_admission.py', 'source_inputs.py')},
                'sdk_inventory_sha256': sha(canonical.parent / 'toolchain/v1.44-macos-inventory.json'),

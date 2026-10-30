@@ -8,6 +8,7 @@ from solders.litesvm import LiteSVM
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
+from pump_amm_reusable_harness import pin_program
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
@@ -71,6 +72,7 @@ def main():
     p.add_argument('--candidate', type=pathlib.Path, required=True)
     p.add_argument('--output', type=pathlib.Path, required=True)
     a = p.parse_args()
+    a.candidate = pin_program(a.candidate)
     original = ROOT / 'evidence/original/pump/deployed.so'
     cases = []
     names = ['toggle_create_v2', 'toggle_mayhem_mode', 'toggle_cashback_enabled', 'set_max_curve_depth']

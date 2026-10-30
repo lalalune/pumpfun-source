@@ -63,7 +63,7 @@ class HookTests(unittest.TestCase):
         root = L.rustc_args(['w', 'rustc', '--crate-name', 'pump_recovered', '--crate-type', 'cdylib',
                              '--crate-type', 'lib', 'src/lib.rs'], env)
         self.assertEqual(root[:3], [sys.executable, '/next.py', 'rustc'])
-        self.assertEqual(root[-2:], ['-C', 'linker=' + str(L.H / 'pump_link_lld.py')])
+        self.assertEqual(root[-2:], ['-C', 'linker=' + str(L.H / 'pump_link_lld.sh')])
         for args in (['--crate-name', 'anchor_lang', '--crate-type', 'lib'],
                      ['--crate-name', 'pump_recovered', '--crate-type', 'lib'], ['-vV']):
             with self.subTest(args=args):
@@ -105,6 +105,8 @@ class HookTests(unittest.TestCase):
             lld = root / 'rust/lib/rustlib/host/bin/rust-lld'; lld.parent.mkdir(parents=True); lld.write_bytes(b'lld')
             env, record = L.configure(crate, root / 'rust/bin/rustc', root / 'r.json')
             self.assertEqual(env['PUMP_LINK_ROOT_CRATE'], 'pump_recovered')
+            self.assertEqual(env['RUSTC_WRAPPER'], str(L.H / 'pump_link_rustc.sh'))
+            self.assertEqual(env['PUMP_RECON_PYTHON'], sys.executable)
             self.assertEqual(env['PUMP_LINK_LLD'], str(lld))
             self.assertEqual(record['selectors']['.text'], 1)
             self.assertEqual(record['lld_sha256'], L.sha(lld))

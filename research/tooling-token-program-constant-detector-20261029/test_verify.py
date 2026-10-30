@@ -77,7 +77,7 @@ class TokenDetectorTests(unittest.TestCase):
         self.assertEqual(saved, self.report)
 
     def test_manifest_inventory(self):
-        saved = json.loads((P / 'manifest.json').read_text())
+        saved = json.loads((P / 'manifest.json').read_text(encoding='utf-8'))
         actual = {
             str(path.relative_to(P)): hashlib.sha256(path.read_bytes()).hexdigest()
             for path in sorted(P.rglob('*'))
@@ -85,6 +85,35 @@ class TokenDetectorTests(unittest.TestCase):
             and '__pycache__' not in path.parts and path.suffix != '.pyc'
         }
         self.assertEqual(saved, actual)
+
+    def test_publisher_refuses_optimized_python(self):
+        # The corpus-count gates in check() are bare asserts, so seal() used
+        # to re-publish the packet under python -O with every check stripped;
+        # verify.py already refused, the publisher must too.
+        import os
+        import subprocess
+        import sys
+        for argv, environment in (
+            ([sys.executable, '-O', str(P / 'proof.py')], None),
+            ([sys.executable, str(P / 'proof.py')],
+             dict(os.environ, PYTHONOPTIMIZE='1')),
+        ):
+            with self.subTest(argv=argv[1:], env=bool(environment)):
+                completed = subprocess.run(argv, cwd=P, env=environment,
+                                           capture_output=True, text=True)
+                self.assertNotEqual(completed.returncode, 0)
+                self.assertIn('Normal Python is required', completed.stderr)
+
+
+    def test_packet_io_pins_utf8(self):
+        # #1731 discipline: the sibling packet pins encoding='utf-8' on every
+        # text read and write; a bare call inherits the host locale.
+        verify = (P / 'verify.py').read_text(encoding='utf-8')
+        proof = (P / 'proof.py').read_text(encoding='utf-8')
+        for name in ('manifest.json', 'inputs.json', 'coverage-delta.json'):
+            self.assertIn("(P / '%s').read_text(encoding='utf-8')" % name, verify)
+        self.assertNotIn('read_text()', verify)
+        self.assertEqual(proof.count("encoding='utf-8'"), 2)
 
 
 if __name__ == '__main__':

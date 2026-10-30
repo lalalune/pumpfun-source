@@ -8,6 +8,7 @@ from solders.pubkey import Pubkey
 from solders.litesvm import LiteSVM
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
+from pump_amm_reusable_harness import pin_program
 R=pathlib.Path(__file__).resolve().parents[1];J=json.load(open(R/'evidence/upstream/pump.json',encoding='utf-8'));P=Pubkey.from_string(J['address']);U=Keypair.from_seed(bytes([222])*32);PAY=Keypair.from_seed(bytes([223])*32);V=Pubkey.find_program_address([b'user_volume_accumulator',bytes(U.pubkey())],P)[0];E=Pubkey.find_program_address([b'__event_authority'],P)[0];D=bytes(next(a['discriminator'] for a in J['accounts'] if a['name']=='UserVolumeAccumulator'))
 def execute(binary,name,mutation):
  vm=LiteSVM().with_transaction_history(0);vm.add_program_from_file(P,binary);vm.airdrop(PAY.pubkey(),10**12);vm.airdrop(U.pubkey(),10**12)
@@ -37,7 +38,7 @@ def execute(binary,name,mutation):
  payload=bytes(idef['discriminator'])+(b'\xff' if mutation=='trailing_data' else b'')
  tx=Transaction.new_signed_with_payer([Instruction(P,payload,metas)],fee_payer,signers,vm.latest_blockhash());r=vm.send_transaction(tx);failed=isinstance(r,FailedTransactionMetadata);meta=r.meta() if failed else r;a=vm.get_account(key)
  return {'error':str(r.err()) if failed else None,'account':json.loads(a.to_json()) if a else None,'payer_lamports':vm.get_account(PAY.pubkey()).lamports,'user_lamports':vm.get_account(U.pubkey()).lamports,'logs':meta.logs(),'events':[s[14:] for s in meta.logs() if s.startswith('Program data: ')],'inner_instructions':json.loads(meta.to_json())['inner_instructions']}
-p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();cases=[]
+p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();a.candidate=pin_program(a.candidate);cases=[]
 common=['none','pda_wrong','event_authority_wrong','program_wrong','user_volume_accumulator_readonly','trailing_data']
 for name,mutations in [('init_user_volume_accumulator',common+['existing_'+m for m in ['stored_user_wrong','needs_claim','unclaimed','claimed','cashback','stable_cashback','wrong_owner','wrong_discriminator','length_106','length_136']]+['user_zero','already_exists','prefunded','prefunded_rent','payer_readonly','payer_unsigned','system_program_wrong']+['missing_'+str(i) for i in range(6)]),('close_user_volume_accumulator',common+['stored_user_wrong','needs_claim','unclaimed','claimed','volume','last_timestamp','has_claimed','cashback','stable_cashback','bool_invalid','wrong_owner','wrong_discriminator','user_readonly','user_unsigned']+['length_'+str(n) for n in [0,8,40,73,74,82,90,98,105,106,107,136,137]]+['missing_'+str(i) for i in range(4)])]:
  for m in mutations:

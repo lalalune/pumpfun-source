@@ -52,6 +52,10 @@ observed along the (necessarily failing) validation chain, and
 `valid_init_transaction_constructible` is reported false with the precise reason.
 No binary patching, no synthetic-signer bypass, no fabricated success.
 """
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
+
+
 import argparse, hashlib, json, pathlib, struct
 from solders.litesvm import LiteSVM
 from solders.pubkey import Pubkey
@@ -60,6 +64,7 @@ from solders.account import Account
 from solders.instruction import Instruction, AccountMeta
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
+from pump_amm_reusable_harness import pin_program
 from solders.clock import Clock
 from solders.compute_budget import set_compute_unit_limit
 
@@ -178,7 +183,7 @@ def main():
     ap.add_argument('--candidate', type=pathlib.Path, required=True,
                     help='source-built mayhem ELF (comparison target)')
     ap.add_argument('--output', type=pathlib.Path, required=True)
-    a = ap.parse_args()
+    a = ap.parse_args(); a.candidate = pin_program(a.candidate)
     original = ROOT / 'evidence/original/mayhem/deployed.so'
     o = Fixture(original); b = Fixture(a.candidate)
     rows = []; mismatches = []

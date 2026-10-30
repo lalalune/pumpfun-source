@@ -10,10 +10,17 @@ def build(extra):
  r=subprocess.run(cmd,text=True,capture_output=True);commands.append(cmd);logs.append(r.stdout+r.stderr)
  # Retain diagnostics before raising so a failed step still leaves its compiler output.
  (args.output/'build.log').write_text('\n'.join(logs));r.check_returncode()
+sha256=lambda b:hashlib.sha256(b).hexdigest()
+# Hash the inputs before the builds: the report binds these hashes, so a later
+# change must fail the run instead of certifying bytes that were never compiled.
+source_before={p:sha256((source/p).read_bytes()) for p in ['fee_selection.rs','quote_fees.rs','memory_compare.rs']}
+rustc_before=sha256(rustc.read_bytes()) if rustc.is_file() else None
 build(['--crate-name','pump_fees_math','--crate-type','rlib',str(source/'fee_selection.rs'),'-o',str(lib)])
 build(['--crate-name','pump_quote_fees','--crate-type','lib','--emit=obj','--extern','pump_fees_math='+str(lib),str(source/'quote_fees.rs'),'-o',str(obj)])
 build(['--crate-name','recovered_memory','--crate-type','lib','--emit=obj',str(source/'memory_compare.rs'),'-o',str(args.output.resolve()/'memory_compare.o')])
-sha=lambda b:hashlib.sha256(b).hexdigest()
+assert all(sha256((source/p).read_bytes())==h for p,h in source_before.items()),'source changed during build'
+assert (sha256(rustc.read_bytes()) if rustc.is_file() else None)==rustc_before,'rustc changed during build'
+sha=sha256
 with obj.open('rb') as f:
  e=ELFFile(f);data=e.get_section_by_name('.text.get_fees_with_quote').data();relocs=[]
  for sec in e.iter_sections():
@@ -26,5 +33,5 @@ for r in relocs:
  if r['type']==1:fields.update(range(o+4,o+8));fields.update(range(o+12,o+16))
  elif r['type']==10:fields.update(range(o+4,o+8))
 def portable(s):return s.replace(str(rustc.parent.parent.parent),'<toolchain>').replace(str(args.output.resolve()),'<output>').replace(str(ROOT),'<repo>')
-report={'scope':'Unlinked quote-selector function only. Original bytes never enter compilation and object remains unmodified.','source_sha256':{p:sha((source/p).read_bytes()) for p in ['fee_selection.rs','quote_fees.rs','memory_compare.rs']},'rustc_version':subprocess.check_output([str(rustc),'--version','--verbose'],text=True),'rustc_sha256':sha(rustc.read_bytes()),'commands':[[portable(x) for x in cmd] for cmd in commands],'object_sha256':sha(obj.read_bytes()),'math_rlib_sha256':sha(lib.read_bytes()),'memory_object_sha256':sha((args.output/'memory_compare.o').read_bytes()),'original_program_sha256':sha(original),'original_function_start':0x3f748,'original_function_end':0x3f9d8,'original_function_bytes':len(ref),'compiled_function_bytes':len(data),'original_function_sha256':sha(ref),'compiled_function_sha256':sha(data),'relocations':relocs,'different_byte_offsets':diff,'instruction_match_except_unresolved_relocations':len(ref)==len(data) and not(set(diff)-fields),'whole_program_byte_equality':None}
+report={'scope':'Unlinked quote-selector function only. Original bytes never enter compilation and object remains unmodified.','source_sha256':source_before,'rustc_version':subprocess.check_output([str(rustc),'--version','--verbose'],text=True),'rustc_sha256':rustc_before if rustc_before is not None else sha(rustc.read_bytes()),'commands':[[portable(x) for x in cmd] for cmd in commands],'object_sha256':sha(obj.read_bytes()),'math_rlib_sha256':sha(lib.read_bytes()),'memory_object_sha256':sha((args.output/'memory_compare.o').read_bytes()),'original_program_sha256':sha(original),'original_function_start':0x3f748,'original_function_end':0x3f9d8,'original_function_bytes':len(ref),'compiled_function_bytes':len(data),'original_function_sha256':sha(ref),'compiled_function_sha256':sha(data),'relocations':relocs,'different_byte_offsets':diff,'instruction_match_except_unresolved_relocations':len(ref)==len(data) and not(set(diff)-fields),'whole_program_byte_equality':None}
 (args.output/'comparison.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({k:report[k] for k in ['original_function_bytes','compiled_function_bytes','instruction_match_except_unresolved_relocations']}))

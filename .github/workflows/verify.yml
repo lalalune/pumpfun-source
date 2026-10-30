@@ -16,6 +16,9 @@ jobs:
       max-parallel: 12
       matrix:
         include:
+          - suite: linux-bootstrap-host-libraries
+            commands: |
+              python -B reconstruction/toolchain/test_bootstrap_linux.py
           - suite: byte-comparison-input-preservation
             commands: |
               sudo apt-get update
@@ -47,6 +50,7 @@ jobs:
           - suite: fastbuild-staging
             commands: |
               python -I -B tests/test_fastbuild_stage.py
+              python -B reconstruction/harness/test_fastbuild_output_race.py
               python -B reconstruction/harness/test_fastbuild_library_name.py
           - suite: admin-cto-call-report
             commands: |
@@ -76,10 +80,14 @@ jobs:
               python -I -B tests/test_analyze_input_admission.py
               python scripts/test_tooling.py
               python -B scripts/test_pump_diagnostic_audit_coverage.py
+              python -B scripts/test_pump_diagnostic_audit_publication.py
               python -B scripts/test_pump_fresh_output_optimized.py
               python -B scripts/test_amm_harness_content_cache.py
               python -B tests/test_amm_pinned_candidate.py
               python -B tests/test_pump_create_nested_pinned_image.py
+              python -B tests/test_mayhem_differential_pinned_image.py
+              python -B tests/test_aggregate_pinned_image.py
+              python -B tests/test_pump_validators_pinned_image.py
               python -B tests/test_two_curve_optimization_guard.py
               python -O -B tests/test_two_curve_optimization_guard.py
               python -B scripts/test_dispatch_recovery.py
@@ -101,7 +109,11 @@ jobs:
               python -B tests/test_verify_dependencies_optimization.py
               python -B tests/test_recovered_builds_optimization.py
               python -B scripts/test_mayhem_burn_sequence_optimization.py
+              python -B scripts/test_macos_v144_qualification_optimization.py
+              python -B scripts/test_mayhem_initialize_state_optimization.py
+              python -B scripts/test_fees_crank_probe_optimization.py
               python -B scripts/test_constant_product_range_pinning.py
+              python -B scripts/test_pump_build_constant_product_binding.py
               python -B scripts/test_fees_validate_all_optimization.py
               python -B scripts/test_claim_differentials_optimization.py
               python -B scripts/test_differentials_optimization.py
@@ -112,6 +124,9 @@ jobs:
               python -B scripts/test_current673_macos_optimized_mode.py
               python -B scripts/test_pump_differential_optimized_mode.py
               python -B scripts/test_pump_validate_constant_product_optimization.py
+              python -B scripts/test_pump_with_captured_loader_paths.py
+              python -B tests/test_fees_external_codec_pinned_image.py
+              python -B scripts/test_pump_validate_parallel.py
               python -B scripts/test_pump_validate_volume_optimization.py
               python -B scripts/test_pump_validate_sell_accounting_optimization.py
               python -B scripts/test_imported_lab_optimization.py
@@ -119,6 +134,7 @@ jobs:
               python -B scripts/test_pump_data_order_publication.py
               python -B scripts/test_deep_disassembly_syscall_usage.py
               python -B scripts/test_disassemble_output_mode.py
+              python -B scripts/test_disassemble_tool_binding.py
               python -B scripts/test_analyze_publication.py
               python -B scripts/test_pump_compare_function_bytes_report.py
               python -B scripts/test_sbpf_disassembly_roundtrip_build_log.py
@@ -161,6 +177,8 @@ jobs:
               python -B reconstruction/harness/test_diagnostic_range_boundaries.py
               python -B reconstruction/harness/test_stack_access_isa.py
               python scripts/test_build_source_manifest.py
+              python -B scripts/test_build_fee_selection_binding.py
+              python -B scripts/test_build_quote_fees_binding.py
               python -I -B tests/test_manifest_nested_target.py
               python scripts/test_core_linux_v144_retention.py
               # Two of three tests: the third compares against a frozen helper that was removed with repro/;
@@ -202,6 +220,7 @@ jobs:
               python research/tooling-terminal-error-patterns-20261030/test_verify.py
               python research/tooling-terminal-error-patterns-20261030/verify.py
               python research/tooling-token-program-constant-detector-20261029/verify.py
+              python -B research/tooling-token-program-constant-detector-20261029/test_verify.py
               python -B -m unittest discover -s reconstruction/capture-rpc-retry -p 'test_*.py'
               python -B reconstruction/verification/donation-relay-idl-lifecycle/test_lifecycle.py
               python -B reconstruction/verification/donation-relay-idl-lifecycle/test_verify_steps.py

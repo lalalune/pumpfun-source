@@ -596,8 +596,8 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
 
 
 
-                let allowed = { let global = &*a.global; let user = a.user.key(); !c.is_mayhem_mode && user!=global.whitelist_pda }; require!(allowed,PumpError::NotEnoughTokensToBuy);
-                match complete_fill(&a.global,&a.fee_config,fee_config_len,cap,c,
+                let (allowed, global) = { let global: &Global = &a.global; let user = a.user.key(); (!c.is_mayhem_mode && user!=global.whitelist_pda, global) }; require!(allowed,PumpError::NotEnoughTokensToBuy);
+                match complete_fill(global,&a.fee_config,fee_config_len,cap,c,
                     &h.associated_base_bonding_curve,flag,p_rate,c_rate,trade_amount)? {
                     None => (reserves,q,nf,None),
                     Some((f, quote, post)) => (reserves,quote,f,Some(post)),
