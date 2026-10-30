@@ -89,3 +89,22 @@ the sharing CPI as `#[inline(always)]` nested fn (`sh_fn_ia`). A plain nested fn
 
 **Size knobs measured on 1043a51 (0.53206):** `sk_inline` -24 B 0.53229, `ev_reset_local` -8 B 0.53184,
 `cb_rev_back` -8 B 0.53154, `ev_reset_local+cb_rev_back` -16 B 0.53221, `pool_hlocal` +32 B 0.53024.
+
+## Later mains (1043a51 0.53206, c8e30b0 0.55872)
+
+- **High-index locals via `Ok::<_,Error>(x)?`** (the w13a16 e32late mechanism) on region-3 values are all
+  byte-identical on 1043a51: the sharing CPI `val` in its arm (`vh_arm`) or the whole `sharing_update` before the
+  match (`vh_su`), `(old_creator,old_fee)` and `old_creator` after the curve block (`oc_hi`, `oc_hi1`), `swept`
+  (`sw_hi`). Wrapping the event literal (`ev_hi`) is +72 B / 0.47928; `target` before the pool CPI collapses (0.31029).
+- **Temporary-creation order in the final `emit_cpi!(e)`** (the w13a23 wallet mechanism), on c8e30b0 (0.55872):
+  block-wrapped `invoke_signed` result (`f_wrap`), block-valued `ix_data` / `ix` (`f_ixd_wrap`, `f_ix_wrap`,
+  `f_ixd_then_wrap`) are byte-identical; a named signer array at any position is 0.55722; wrapping the whole body
+  is 0.55452. `let res;res={invoke_signed(..)};res.map_err(..)?` is **-296 B** (27,104 B, 0.55099): a large size
+  lever if some other change needs that much room.
+- On c8e30b0 the signer/ix_data slot swap above is already fixed (other lanes' frame changes). Region 3 is
+  911/1117 exact; the remaining R3 frame residual is (a) RA spill slots (accounts pointer -0x8d8 -> -0x8f0 x9,
+  holder phi -0x950 -> -0x908 x8, -0x910 -> -0x920 x4) and (b) a uniform +8 B shift of every object from orig
+  -0x500 to -0x8c0 (about 60 accesses, about 20 of them in region 3), caused by the 0x440..0x500 band being laid
+  out differently (ours has a 7 B piece at -0x52d/-0x530 and no objects at -0x478/-0x4c0 where the original has them).
+- Library single-gene screen on 1043a51 (curve/fee/pool/event/sweep/vsigner genes, 40 builds): none above main;
+  byte-identical ones are listed in the ledger rows `0x22a10-w13-1043a51-r3-*`.

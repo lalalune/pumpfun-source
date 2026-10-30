@@ -1,0 +1,17 @@
+{
+  "lane": "w13a15-cto-region3of3",
+  "target": "0x22a10 admin_cto::execute",
+  "angle": "region 3 of 3 (orig 0x475a..0x6b08): sharing CPI tail, curve stores, pool CPI, AdminCtoEvent emit/emit_cpi, sweep and wallet bodies",
+  "result": "no landed change: step 1 (event is_cashback_coin from the curve + reset inline, 0.51228 -> 0.51348, PR #2963) reached main first through w13a11-cto-stitch-5 (#2933); later region-3 screens on mains 1043a51 and c8e30b0 found nothing above main",
+  "best_zero_loss": {"main": "7d7d9e5", "ratio": 0.51348, "slots_diff": 3334, "bytes": 27400, "sha": "620d90b0b2e33a2f", "differential": "363/363"},
+  "prs": [2963, 2981],
+  "findings": [
+    "Region 3 has the original's code shape (0.95 skeleton); the residual is frame slots and registers",
+    "Original pool CPI holder comes from the phi-of-constants slot [-0x950]; the event reads is_holder_reward back from the curve; main has the opposite pair, and restoring it loses at 27,400 B",
+    "Curve store order spellings are byte-identical; Ok::<_,Error>(x)? on val/old_creator/swept is byte-identical",
+    "Final emit_cpi!(e) hand expansion is byte-identical; block-wrapped result/ix_data/ix are byte-identical; let res;res={invoke_signed};res.map_err()? is -296 B",
+    "On c8e30b0 the R3 frame residual is RA spill slots plus a uniform +8 B shift for orig -0x500..-0x8c0 from the 0x440..0x500 band"
+  ],
+  "tools": ["tools/annot.py", "tools/rdiff.py", "tools/framemap.py", "tools/regcon.py", "tools/r3run.py", "tools/ledger_sync.py", "tools/genes_r3.py", "tools/genes_fe.py", "tools/genes_fe2.py"],
+  "ledger": "0x22a10-w13-<main>-r3-*-v1"
+}
