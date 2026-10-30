@@ -8,7 +8,7 @@ from pump_amm_reusable_harness import pin_program
 from pump_differential_output import PumpReport
 p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args()
 selected=a.candidate.resolve()
-publication=PumpReport(a.output,ROOT,selected,__file__,extra_inputs=(ROOT/'evidence',ROOT/'scripts',ROOT/'programs/pump_fees',ROOT/'research/fees-query-inputs'))
+publication=PumpReport(a.output,ROOT,selected,__file__,extra_inputs=(ROOT/'evidence',ROOT/'scripts',ROOT/'programs/pump-fees',ROOT/'research/fees-query-inputs'))
 candidate=pin_program(selected)
 suites={}
 with tempfile.TemporaryDirectory(prefix='fees-differential-') as temp:

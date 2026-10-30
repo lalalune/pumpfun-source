@@ -31,7 +31,9 @@ behavior, not reconstruction gains. It then repeats the actual aggregate
 CLI with that copied ELF as output. Before, the aggregate exits zero and
 destroys its caller's ELF; after, admission rejects the alias and preserves
 the bytes before any suite starts. It finally checks that an ordinary prior
-report can be replaced after a second complete 18-suite execution.
+report can be replaced after a second complete 18-suite execution, and uses
+an owned unused file under the actual `programs/pump-fees` directory to
+check source-directory output admission without risking tracked source files.
 
 Only disposable copies are used for destructive before reproduction. The
 canonical capture is hashed before and after and never modified. Logs,

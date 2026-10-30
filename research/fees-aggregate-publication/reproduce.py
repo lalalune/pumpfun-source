@@ -6,6 +6,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+import tempfile
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'work/scoped-proof'
@@ -61,5 +62,19 @@ assert replaced['case_count'] == result['case_count'] and len(replaced['suites']
 prior.unlink()
 result['normal_replacement_cli_returncode'] = replacement_code
 result['replacement_suite_count'] = len(replaced['suites'])
+# Exercise the actual Fees source-directory spelling with an owned unused file.
+# The original program sources are never used as destructive output targets.
+with tempfile.NamedTemporaryFile(dir=ROOT / 'programs/pump-fees',
+                                 prefix='.fees-publication-proof-', suffix='.rs',
+                                 delete=False) as stream:
+    source_output = Path(stream.name)
+    stream.write(b'// owned output-admission control; not compiled\n')
+try:
+    saved = source_output.read_bytes()
+    source_code = run('source-output-alias', candidate, source_output)
+    assert source_code != 0 and source_output.read_bytes() == saved
+    result['source_directory_output_rejected'] = True
+finally:
+    source_output.unlink()
 (OUT / 'result.json').write_text(json.dumps(result, indent=2) + '\n')
 print(json.dumps(result))
