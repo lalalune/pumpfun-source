@@ -19,6 +19,7 @@ jobs:
           - suite: linux-bootstrap-host-libraries
             commands: |
               python -B reconstruction/toolchain/test_bootstrap_linux.py
+              python -B tests/test_linux_hybrid_publication.py
           - suite: byte-comparison-input-preservation
             commands: |
               sudo apt-get update
@@ -51,6 +52,7 @@ jobs:
             commands: |
               python -I -B tests/test_fastbuild_stage.py
               python -B reconstruction/harness/test_fastbuild_output_race.py
+              python -B reconstruction/harness/test_build_publication_boundaries.py
               python -B reconstruction/harness/test_fastbuild_library_name.py
               python -B reconstruction/harness/test_physical_source_wrapper.py
           - suite: admin-cto-call-report
@@ -69,6 +71,10 @@ jobs:
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py
               python -B reconstruction/harness/test_integrate_no_build_cli.py
+              python -B reconstruction/harness/test_composition_boundaries.py
+              python -B reconstruction/harness/test_build_pair_boundaries.py
+              python -B reconstruction/harness/test_composition_deadline.py
+              python -B reconstruction/harness/test_fastbuild_stack.py
               python -B reconstruction/harness/test_integrate_empty_files.py
               python -B reconstruction/harness/test_integrate_binary_files.py
               python -B reconstruction/harness/test_integrate_file_directory.py
@@ -90,7 +96,9 @@ jobs:
               python -I -B tests/test_dispatch_root.py
               python -I -B tests/test_analyze_input_admission.py
               python scripts/test_tooling.py
+              python -B scripts/test_pump_text_layout_linker_options.py
               python -B scripts/test_tooling_litesvm_collection.py
+              python -B -m unittest discover -s scripts -p 'test_sbf_backend*.py'
               python -B scripts/test_pump_diagnostic_audit_coverage.py
               python -B scripts/test_pump_diagnostic_audit_publication.py
               python -B scripts/test_pump_fresh_output_optimized.py
@@ -122,6 +130,7 @@ jobs:
               python -B tests/test_checkpoint_verifiers_normal_python.py
               python -B tests/test_pump_output_parents.py
               python -B tests/test_remaining_output_parents.py
+              python -B scripts/test_validation_report_boundaries.py
               python -B tests/test_create_mayhem_normal_python.py
               python -B tests/test_two_curve_optimization_guard.py
               python -O -B tests/test_two_curve_optimization_guard.py
@@ -175,6 +184,7 @@ jobs:
               python -B scripts/test_imported_lab_optimization.py
               python -B scripts/test_deep_section_analysis_publication.py
               python -B scripts/test_pump_data_order_publication.py
+              python -B scripts/test_pump_data_order_windows_publish.py
               python -B scripts/test_deep_disassembly_syscall_usage.py
               python -B scripts/test_disassemble_output_mode.py
               python -B scripts/test_disassemble_tool_binding.py
@@ -190,9 +200,11 @@ jobs:
               python -B scripts/test_analyze_program_publication.py
               python -B scripts/test_reconstruction_roadmap_publication.py
               python -B tests/test_pump_planning_regressions.py
+              python -B tests/test_analyze_donation_relay_regression.py
               python -B reconstruction/diagnostics/roadmap-reviewed-regeneration/test_generate.py
               python -B reconstruction/diagnostics/roadmap-stable-attribution/test_generate.py
               python -B reconstruction/diagnostics/defined-dynamic-calls/test_generate.py
+              python -B reconstruction/diagnostics/amm-ledger-best/test_read.py
               python -B scripts/test_bytecode_signatures_publication.py
               python -B scripts/test_bytecode_signatures_atomic_publication.py
               python -B scripts/test_revalidate_all_publication.py
@@ -207,6 +219,7 @@ jobs:
               python -B tests/test_local_validation_idl_encoding.py
               python -B tests/test_claim_token_incentives_idl_encoding.py
               python -B tests/test_claim_token_incentives_8099_idl_encoding.py
+              python -B tests/test_window_elf_boundaries.py
               python -B tests/test_function_body_file_ranges.py
               python -O -B tests/test_function_body_file_ranges.py
               python -B reconstruction/harness/test_treediff_line_boundaries.py
@@ -214,6 +227,7 @@ jobs:
               python -B reconstruction/harness/test_score_empty_baseline.py
               python -B reconstruction/harness/test_score_baseline_option_conflict.py
               python -B reconstruction/harness/test_score_symbol_admission.py
+              python -B reconstruction/harness/test_batch_target_metric.py
               python -B reconstruction/pump-main/test_ledger_negative_limit.py
               python -B reconstruction/diagnostics/census-portability/test_output_guard.py
               python -B reconstruction/harness/test_census_argument_constants.py
@@ -224,9 +238,12 @@ jobs:
               python -B reconstruction/harness/test_bisect_membership.py
               python -B reconstruction/harness/test_bisect_missing_source.py
               python -B reconstruction/harness/test_experiment_directory_identity.py
+              python -B reconstruction/harness/test_experiment_receipt_integrity.py
               python -B reconstruction/harness/test_minimize_oracle_encoding.py
               python -B reconstruction/harness/test_minimize_patch_list_encoding.py
               python -B reconstruction/harness/test_treediff.py
+              python -B reconstruction/harness/test_inventory_fidelity.py
+              python -B reconstruction/harness/test_attempt_applicability.py
               python -B scripts/test_probe_report_mode.py
               python -B scripts/test_probe_report.py
               python -B scripts/test_probe_report_atomicity.py
@@ -287,10 +304,7 @@ jobs:
               python -B research/tooling-arithmetic-shift-counts-20261030/test_verify.py
               python -B research/tooling-revalidation-manifests-20261030/test_verify.py
               python -B research/tooling-revalidation-invocation-20261030/test_verify.py
-              python -B reconstruction/tooling/revalidation-qualification/test_audit.py
-              python -B reconstruction/tooling/revalidation-qualification/test_capture_memory.py
-              python -B -m unittest discover -s reconstruction/tooling/revalidation-qualification -p 'test_packet_root_links.py'
-              python -B -m unittest discover -s reconstruction/tooling/revalidation-qualification -p 'test_packet_identity_stability.py'
+              python -B -m unittest discover -s reconstruction/tooling/revalidation-qualification -p 'test_*.py'
               python -B reconstruction/relocation-text-addresses/test_analyze.py
               python -B reconstruction/math-register-comparisons/test_analyze.py
               python research/tooling-terminal-error-patterns-20261030/test_verify.py

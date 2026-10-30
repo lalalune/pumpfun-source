@@ -6,7 +6,10 @@
 
 Each part is turned into a patch against the crate it was derived from (default: --base-src),
 then applied in order. Empty-file transitions use Git patch metadata; ordinary text
-changes retain `patch -p2 --forward`. Rejects are reported and the part is skipped
+changes retain `patch -p2 --forward`. File and directory changes are checked
+together before changing the composed tree. Directory changes are applied after
+each file patch; a removal that still holds composed files is reported as retained.
+Rejects are reported and the part is skipped
 (the composition continues). The composed crate is built with fastbuild.py and scored.
 Output: SC/integ/<NAME>/{src, parts/<label>.patch, rejects/, report.json}
 Names must be fresh; an earlier result is never overwritten.
@@ -15,13 +18,14 @@ distinct on case-insensitive filesystems. Labels and composition names exclude
 trailing dots and reserved Windows device names. --base-of labels match the
 declared --part spelling exactly.
 """
-import argparse, ast, json, os, shutil, subprocess, sys, re
+import argparse, ast, errno, json, os, shutil, subprocess, sys, re
 from pathlib import Path
 
 H = Path(__file__).resolve().parent
 SC = H.parent
 sys.path.insert(0, str(H))
 from treediff import reject_source_link
+from source_inputs import snapshot, assert_unchanged
 
 
 def build_source(*args, **kwargs):
@@ -44,6 +48,44 @@ def crate_ignore(root: Path, *patterns):
             ignored.add('target')
         return ignored
     return ignore
+
+
+def composition_directories(root: Path):
+    """Directories a composition copy of `root` contains, after crate_ignore."""
+    root = Path(root)
+    ignore = crate_ignore(root, '*.rej', '.DS_Store')
+    result = set()
+    def traversal_error(error):
+        raise error
+    for directory, dirs, files in os.walk(root, onerror=traversal_error):
+        skipped = set(ignore(directory, dirs + files))
+        dirs[:] = sorted(d for d in dirs if d not in skipped)
+        if Path(directory) != root:
+            result.add(Path(directory).relative_to(root).as_posix())
+    return result
+
+
+def directory_delta(derived_from: Path, part: Path):
+    before, after = composition_directories(derived_from), composition_directories(part)
+    return sorted(after - before), sorted(before - after)
+
+
+def apply_directory_delta(src: Path, added, removed):
+    """Apply a part's directory delta; keep a removal that still holds composed files."""
+    for name in added:
+        (src / name).mkdir(parents=True, exist_ok=True)
+    retained = []
+    for name in sorted(removed, key=lambda value: value.count('/'), reverse=True):
+        try:
+            (src / name).rmdir()
+        except (FileNotFoundError, NotADirectoryError):
+            # A file patch may already have replaced this directory with a file.
+            pass
+        except OSError as error:
+            if error.errno not in (errno.ENOTEMPTY, errno.EEXIST):
+                raise
+            retained.append(name)
+    return retained
 
 
 def make_patch(base: Path, part: Path, out: Path, tmp: Path):
@@ -143,6 +185,17 @@ def patched_files(text: str):
     return sorted(files)
 
 
+def apply_file_patch(source, patch, text, patch_command):
+    if text.startswith('diff --git '):
+        command, root, directory = git_patch_command(source)
+        subprocess.run(command + [str(patch)], cwd=root, check=True,
+                       capture_output=True)
+        return git_patched_files(command, root, directory, patch)
+    subprocess.run(patch_command + ['-s', '-p2', '--forward', '-E', '-d', str(source),
+                                   '-i', str(patch)], check=True, capture_output=True)
+    return patched_files(text)
+
+
 def reject_source_tree_links(root: Path):
     """Reject links before copytree can follow them into a composition."""
     reject_source_link(root)
@@ -211,6 +264,36 @@ def preflight(name, base, parts, overrides):
     return out, base, [(key, path, bases.get(key, base)) for key, path in selected.items()]
 
 
+def apply_part(src, pf, text, patch_command, diagnostic):
+    """Only exit 1 from a dry run is a skippable content conflict."""
+    try:
+        git_format = text.startswith('diff --git ')
+        if git_format:
+            command, root, directory = git_patch_command(src)
+            dry_command = command + ['--check', str(pf)]
+            apply_command = command + [str(pf)]
+        else:
+            root = None
+            common = patch_command + ['-p2', '--forward', '-E', '-d', str(src), '-i', str(pf)]
+            dry_command, apply_command = common + ['--dry-run'], common
+        for phase, argv in [('check', dry_command), ('apply', apply_command)]:
+            result = subprocess.run(argv, cwd=root, capture_output=True, text=True)
+            if result.returncode:
+                detail = result.stdout + result.stderr
+                diagnostic.write_text(detail, encoding='utf-8')
+                return {'status': 'conflict' if phase == 'check' and result.returncode == 1 else 'error',
+                        'phase': phase, 'returncode': result.returncode, 'detail': detail[-1500:]}
+        files = git_patched_files(command, root, directory, pf) if git_format else patched_files(text)
+        return {'status': 'applied', 'files': files}
+    except (OSError, subprocess.CalledProcessError) as error:
+        detail = str(error)
+        for value in (getattr(error, 'stdout', None), getattr(error, 'stderr', None)):
+            if value:
+                detail += '\n' + (value.decode('utf-8', errors='replace') if isinstance(value, bytes) else value)
+        diagnostic.write_text(detail, encoding='utf-8')
+        return {'status': 'error', 'detail': detail[-1500:]}
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--name', required=True)
@@ -218,7 +301,14 @@ def main():
     ap.add_argument('--part', action='append', default=[])
     ap.add_argument('--base-of', action='append', default=[])
     ap.add_argument('--no-build', action='store_true')
+    ap.add_argument('--timeout', type=float, help='compiler deadline in seconds')
     a = ap.parse_args()
+    if a.timeout is not None:
+        from build_process import validate_timeout
+        try:
+            validate_timeout(a.timeout)
+        except ValueError as error:
+            ap.error(str(error))
     baseline = SC / 'pump-main/baseline/score.json'
     if not a.no_build and not baseline.is_file():
         raise FileNotFoundError(f'Required scoring baseline is missing: {baseline}')
@@ -227,56 +317,93 @@ def main():
     except (ValueError, OSError) as error:
         ap.error(str(error))
     (out / 'parts').mkdir(parents=True); (out / 'rejects').mkdir()
-    src = out / 'src'
-    shutil.copytree(base, src, ignore=crate_ignore(base))
     report = {'name': a.name, 'base': str(a.base_src), 'parts': []}
     exit_code = 0
-    # GNU patch on Windows otherwise strips CR bytes from patch/source input.
-    # Disable mismatch backups rather than deleting *.orig, which can be source.
-    patch_command = ['patch', '-V', 'none'] + (['--binary'] if sys.platform == 'win32' else [])
-    for label, path, derived_from in parts:
-        pf = out / 'parts' / f'{label}.patch'
-        text = make_patch(derived_from, Path(path), pf, SC / 'integ' / '.tmp' / a.name / label)
-        if not text.strip():
-            report['parts'].append({'label': label, 'status': 'empty'}); continue
-        git_format = text.startswith('diff --git ')
-        if git_format:
-            command, patch_root, directory = git_patch_command(src)
-            dry = subprocess.run(command + ['--check', str(pf)], cwd=patch_root,
-                                 capture_output=True, text=True)
-        else:
-            dry = subprocess.run(patch_command + ['-p2', '--forward', '--dry-run', '-E', '-d', str(src), '-i', str(pf)], capture_output=True, text=True)
-        if dry.returncode == 0:
-            if git_format:
-                subprocess.run(command + [str(pf)], cwd=patch_root, check=True)
-                files = git_patched_files(command, patch_root, directory, pf)
-            else:
-                subprocess.run(patch_command + ['-s', '-p2', '--forward', '-E', '-d', str(src), '-i', str(pf)], check=True)
-                files = patched_files(text)
-            report['parts'].append({'label': label, 'status': 'applied', 'files': files})
-        else:
-            (out / 'rejects' / f'{label}.txt').write_text(dry.stdout + dry.stderr)
-            report['parts'].append({'label': label, 'status': 'conflict', 'detail': (dry.stdout + dry.stderr)[-1500:]})
-    if not a.no_build:
-        res = build_source(src, out / 'work', out / 'build', quiet=True)
-        report['build'] = res
-        if res['ok']:
-            s = subprocess.run([sys.executable, str(H / 'score.py'), str(out / 'build/unstripped.so'),
-                               '--baseline', str(baseline),
-                               '--json', str(out / 'score.json'), '--quiet'],
-                               capture_output=True, text=True)
-            if s.returncode:
-                report['score_error'] = {'returncode': s.returncode, 'stdout': s.stdout, 'stderr': s.stderr}
-                exit_code = 1
-            else:
+    try:
+        sources = sorted({base, *(path for _, path, _ in parts), *(derived for _, _, derived in parts)}, key=str)
+        before = {path: snapshot(path) for path in sources}
+        before_dirs = {path: composition_directories(path) for path in sources}
+        owned = {}
+        for index, path in enumerate(sources):
+            copied = out / 'inputs' / str(index)
+            shutil.copytree(path, copied, ignore=crate_ignore(path))
+            assert_unchanged(path, before[path])
+            assert_unchanged(copied, before[path])
+            if composition_directories(copied) != before_dirs[path]:
+                raise ValueError('source directories changed during staging')
+            owned[path] = copied
+        def validate_inputs():
+            for path in sources:
+                assert_unchanged(path, before[path])
+                assert_unchanged(owned[path], before[path])
+                if (composition_directories(path) != before_dirs[path]
+                        or composition_directories(owned[path]) != before_dirs[path]):
+                    raise ValueError('source directories changed during staging')
+        report['sources'] = {str(path): value | {'directories': sorted(before_dirs[path])}
+                             for path, value in before.items()}
+        validate_inputs()
+        base = owned[base]
+        parts = [(label, owned[path], owned[derived]) for label, path, derived in parts]
+        shutil.copytree(base, out / 'src', ignore=crate_ignore(base))
+        src = out / 'src'
+        # GNU patch on Windows otherwise strips CR bytes from patch/source input.
+        patch_command = ['patch', '-V', 'none'] + (['--binary'] if sys.platform == 'win32' else [])
+        for label, path, derived_from in parts:
+            pf = out / 'parts' / f'{label}.patch'
+            text = make_patch(derived_from, Path(path), pf, SC / 'integ' / '.tmp' / a.name / label)
+            added, removed = directory_delta(derived_from, Path(path))
+            if not text.strip() and not added and not removed:
+                report['parts'].append({'label': label, 'status': 'empty'}); continue
+            # A part is checked in a private tree, including its directory delta.
+            # Neither conflicts nor patch-tool errors may partly modify src.
+            prospective = SC / 'integ' / '.tmp' / a.name / label / 'prospective'
+            shutil.copytree(src, prospective)
+            diagnostic = out / 'rejects' / f'{label}.txt'
+            result = (apply_part(prospective, pf, text, patch_command, diagnostic)
+                      if text.strip() else {'status': 'applied', 'files': []})
+            if result['status'] == 'applied':
                 try:
-                    report['score'] = json.loads(s.stdout)
-                except json.JSONDecodeError:
-                    report['score_error'] = {'returncode': s.returncode, 'stdout': s.stdout,
-                                             'stderr': s.stderr, 'error': 'scorer returned invalid JSON'}
+                    retained = apply_directory_delta(prospective, added, removed)
+                except (FileExistsError, NotADirectoryError) as error:
+                    detail = 'directory composition conflict: ' + str(error)
+                    diagnostic.write_text(detail, encoding='utf-8')
+                    result = {'status': 'conflict', 'detail': detail}
+                else:
+                    if added or removed:
+                        result['directories'] = {key: value for key, value in
+                            (('added', added), ('removed', removed), ('retained', retained)) if value}
+                    shutil.rmtree(src)
+                    shutil.copytree(prospective, src)
+            report['parts'].append({'label': label, **result})
+            if result['status'] == 'error':
+                exit_code = 1
+                break
+        validate_inputs()
+        if not a.no_build and not exit_code:
+            build_options = {'timeout': a.timeout} if a.timeout is not None else {}
+            res = build_source(src, out / 'work', out / 'build', quiet=True, **build_options)
+            report['build'] = res
+            if res['ok']:
+                s = subprocess.run([sys.executable, str(H / 'score.py'), str(out / 'build/unstripped.so'),
+                                   '--baseline', str(baseline),
+                                   '--json', str(out / 'score.json'), '--quiet'],
+                                   capture_output=True, text=True)
+                if s.returncode:
+                    report['score_error'] = {'returncode': s.returncode, 'stdout': s.stdout, 'stderr': s.stderr}
                     exit_code = 1
-        else:
-            exit_code = 1
+                else:
+                    try:
+                        report['score'] = json.loads(s.stdout)
+                    except json.JSONDecodeError:
+                        report['score_error'] = {'returncode': s.returncode, 'stdout': s.stdout,
+                                                 'stderr': s.stderr, 'error': 'scorer returned invalid JSON'}
+                        exit_code = 1
+            else:
+                exit_code = 1
+        validate_inputs()
+    except (OSError, ValueError, subprocess.CalledProcessError) as error:
+        report['error'] = str(error)
+        exit_code = 1
     (out / 'report.json').write_text(json.dumps(report, indent=1))
     print(json.dumps({k: v for k, v in report.items() if k != 'parts'} | {'parts': [{k: p[k] for k in ('label', 'status')} for p in report['parts']]}, indent=1))
     return exit_code

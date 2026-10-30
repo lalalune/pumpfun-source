@@ -10,6 +10,11 @@ HERE = Path(__file__).resolve().parent
 RULE = '  .text : { *(.text*) } :text'
 FILEPAT = r'\*[A-Za-z0-9_.*:$+@/-]*'
 SELECTOR = re.compile(r'^    ' + FILEPAT + r'\((?:"\.text[A-Za-z0-9_.$:+@/-]*"|\.text\*)\)$')
+# lld also reads these long options with one dash, a spelling that
+# declared_inputs and prepare_link do not otherwise recognize.
+FILE_OPTIONS = ('--script', '--version-script', '--just-symbols', '--dynamic-list',
+                '--retain-symbols-file', '--symbol-ordering-file',
+                '--call-graph-ordering-file', '--export-dynamic-symbol-list', '--remap-inputs')
 SUFFIXES = {'.o': 'object', '.obj': 'object', '.a': 'archive', '.rlib': 'archive',
             '.so': 'shared-object', '.dylib': 'shared-object', '.bc': 'bitcode'}
 sha = lambda path: hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -96,6 +101,8 @@ def reject_attached_script(arg):
     # separate-argument check never sees.
     if isinstance(arg, str) and arg.startswith('-T') and arg != '-T':
         raise AssertionError('attached linker script is not admitted: ' + arg)
+    if isinstance(arg, str) and ('-' + arg).startswith(FILE_OPTIONS):
+        raise AssertionError('single-dash linker file option is not admitted: ' + arg)
     if isinstance(arg, str) and (
         arg == '--call-graph-ordering-file'
         or arg.startswith('--call-graph-ordering-file=')
@@ -119,7 +126,8 @@ def declared_inputs(args):
         # These options introduce additional files not present in the admitted
         # SBF recipe. Refuse them rather than leave an unbound file input.
         check(not arg.startswith(('--just-symbols', '--dynamic-list', '--retain-symbols-file',
-                                   '--symbol-ordering-file', '--version-script ')), 'unsupported file option')
+                                   '--symbol-ordering-file', '--version-script ', '--remap-inputs',
+                                   '--export-dynamic-symbol-list')), 'unsupported file option')
         if arg == '--version-script':
             check(i + 1 < len(args), 'option missing its argument')
             result[args[i + 1]] = 'version-script'

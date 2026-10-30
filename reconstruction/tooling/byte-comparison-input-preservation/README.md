@@ -22,8 +22,8 @@ fabricated, and no repository capture is overwritten.
 On Linux Python 3.12.14 and LLVM 14.0.0, the before version exits successfully
 and changes input bytes in all 25 alias cases. The fixed version rejects those
 cases and leaves their bytes unchanged. Five tests also check valid reports,
-repeat publication, selection of an archived window inventory, and a real executable
-selected through PATH. Previously `--objdump llvm-objdump` ran the tool but failed
+refusal to replace a published exact-body report, selection of an archived window
+inventory, and a real executable selected through PATH. Previously `--objdump llvm-objdump` ran the tool but failed
 when hashing its unresolved name. The inventory now resolves it once for execution
 and provenance; the bare-name report equals the absolute-path report. The valid
 exact-body report contains all 1,035 windows, including 188 raw-equal windows
