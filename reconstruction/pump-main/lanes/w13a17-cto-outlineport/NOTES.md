@@ -1,5 +1,40 @@
 # w13a17-cto-outlineport: outlined `to_string` (307/312) ported to main 74b31714a
 
+## 0. Update on main bf9a05d (0.55872): the outline is now nearly free, and one branch weight gives it
+
+Main moved to bf9a05d while this lane ran. On that main, none of the w13a04/w13a06 outline forms outline any more:
+every port keeps 88 lddw (ledger `0x22a10-w13-bf9a05d-outlineport-*`, 30 source trials). Measured with the raw-IR oracle:
+
+| IR edit on main bf9a05d (raw IR, then `opt -O3` + llc) | bytes | ratio | lddw | outlined `to_string` lines |
+| --- | ---: | ---: | ---: | --- |
+| none (= main) | 27,400 | 0.55872 | 88 | 330 334 338 660 719 |
+| `noinline` on the 307/312 call sites | 26,936 | 0.55257 | 86 | 307 312 330 334 338 660 719 |
+| **branch weights Some:None = 1:2 on validate's 306 tag switch** | 26,944 | **0.56064** | 86 | **307 312 330 334 338 660 719** |
+| `opt -cold-callsite-rel-freq=3` (whole module) | 24,064 | 0.53666 | 86 | 307 312 330 334 338 660 719 |
+| original | 27,400 | | 86 | 307 312 330 334 338 660 719 (`tools/tsites.py` on orig) |
+
+- The 1:2 weight is the first outlined build above main's ratio. It outlines exactly the original's set
+  (326 stays inlined), is 456 B short, and adds no other change. 1:3 gives the same bytes.
+- The outline tax on this main is -0.006 at -464 B (it was -0.21 on ea78c08), so the outline is now nearly free.
+- Mechanism: the cold-callsite cut is 2 % of the caller's entry frequency. `tools/bfi.sh` gives validate's
+  pre-inliner BFI: 307 is at 0.0283 and 312 at 0.0287. With `-cold-callsite-rel-freq=3` they outline, and so does nothing else in validate.
+  The path to both runs through the 306 `Some` edge. That edge is 50/50 today because the tag switch becomes a `br` on a
+  `trunc` with no heuristic. In the original that edge must be at most about 1/3.
+- What does not work: weights on the holder split alone (2:1, 3:1) do not outline. Weights on the 307 memcmp branch
+  outline 312 only. The full single-branch scan of validate (17 branches x 3:5/5:3) is in `brscan-bf9a05d.txt`.
+- Source spellings tried for 306 (all byte-identical or no outline): `let Some(t)=new else`, `match new{None=>..,Some(t)=>t}`,
+  `take()`, `ok_or_else(||error!(..))?`, `match new{..}?` with an explicit Result, `if let ..{Ok(t)}else{Err(..)}?`, `ok_or(()).or_else(..)?`.
+  The holder spellings `unwrap_or(false)`, `matches!`, `map_or`, `is_some_and` and `if let` produce identical IR. Per-site `matches!(hopt,Some(true))`
+  (w13a06 a4) makes 307/312 cold in validate (0.018), but execute inlines them again and outlines 326 instead.
+- So the remaining source question is which spelling makes the 306 `Some` edge colder than `None` in BPI.
+  The zero/pointer heuristics always make the `None`/null side unlikely, so it has to be structural. The original also loads
+  all of `new`'s pieces at entry (orig 0x4d8-0x538).
+
+Tools for this: `bfi.sh <var>` (validate pre-inliner BFI per `to_string` site), `bfix.sh` (execute post-inline BFI,
+all `to_string` noinline), `tsites.py <xdir>..` (which error lines have an outlined `to_string`, from the object's relocations),
+`brscan.py` (3:5/5:3 on every conditional branch of validate's raw IR) and `brw.py <raw.ll> <out> <tag> <idx:a:b>..`
+(weights on given raw-IR lines, `switch` included; `idx` is the 0-based line index).
+
 Target: `0x22a10 admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Base: main 74b31714a (0.51348, 3,334 slots, 88 lddw, 5 inlined `to_string`). Continues w13a04 (#2912) and w13a06 (#2903).
 Ledger keys `0x22a10-w13-74b3171-outlineport-*-v1`. Every ratio below was produced by the raw-IR capture + `opt -O3` +
