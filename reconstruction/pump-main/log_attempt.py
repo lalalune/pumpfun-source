@@ -25,6 +25,7 @@ import hashlib
 import json
 import os
 import shutil
+import stat
 import uuid
 from pathlib import Path
 
@@ -33,6 +34,31 @@ TRACKED = HERE / 'ATTEMPTS.jsonl'
 LEDGER = Path(os.environ.get('PUMP_SWARM_LEDGER', str(Path.home() / '.cache/pumpfun-reconstruction/pump-main/ATTEMPTS.jsonl')))
 LOCK = LEDGER.with_name('.attempts.lock')
 STATUSES = ['analyzed', 'built', 'compile-failed', 'rejected', 'partial', 'normalized-match', 'raw-match']
+
+
+def atomic_copy(source, destination):
+    """Publish complete ledger bytes without truncating the previous snapshot."""
+    destination = Path(destination)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        mode = stat.S_IMODE(destination.stat().st_mode)
+    except FileNotFoundError:
+        mode = None
+    temporary = destination.parent / f'.attempts-{uuid.uuid4().hex}.tmp'
+    # Exclusive creation applies the umask without reading/changing global state.
+    fd = os.open(temporary, os.O_CREAT | os.O_EXCL | os.O_RDWR, 0o666)
+    try:
+        if mode is None:
+            mode = stat.S_IMODE(os.fstat(fd).st_mode)
+        # Keep incomplete bytes private and writable even with a restrictive mask.
+        os.fchmod(fd, 0o600)
+        shutil.copyfile(source, temporary)
+        os.fchmod(fd, mode)
+        os.fsync(fd)
+        os.replace(temporary, destination)
+    finally:
+        os.close(fd)
+        temporary.unlink(missing_ok=True)
 
 
 def read_rows():
@@ -54,7 +80,7 @@ def locked(fn):
     with LOCK.open('r+') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         if not LEDGER.exists() and TRACKED.exists():
-            shutil.copyfile(TRACKED, LEDGER)
+            atomic_copy(TRACKED, LEDGER)
         return fn(read_rows())
 
 
@@ -127,7 +153,7 @@ def main():
     if args.command == 'sync':
         def run(rows):
             args.to.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(LEDGER, args.to)
+            atomic_copy(LEDGER, args.to)
             print(json.dumps({'synced': str(args.to), 'attempts': len(rows), 'sha256': hashlib.sha256(args.to.read_bytes()).hexdigest()}))
         return locked(run)
 
@@ -150,7 +176,16 @@ def main():
             'status': args.status,
             'data': data | ({'pr': args.pr} if args.pr else {}),
         }
+        # read_rows accepts a final JSON record without a newline. Keep that
+        # record separate when appending, under the existing exclusive lock.
+        separator = ''
+        if LEDGER.exists() and LEDGER.stat().st_size:
+            with LEDGER.open('rb') as current:
+                current.seek(-1, os.SEEK_END)
+                if current.read(1) != b'\n':
+                    separator = '\n'
         with LEDGER.open('a') as output:
+            output.write(separator)
             output.write(json.dumps(row, sort_keys=True, separators=(',', ':')) + '\n')
             output.flush()
             os.fsync(output.fileno())

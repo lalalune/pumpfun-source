@@ -34,8 +34,13 @@ supplied extra-input file for symlinks and for a resolved path outside the
 repository before returning the manifest. The packet compares the reviewed
 helper's output with the production guard's output on the real repository, and
 its tests assert that `pump_build_verified.source_manifest` is the production
-guard. `observations.json.gz` records the 65 files and the empty symlink set;
-`coverage-delta.json` records only those totals.
+guard. `observations.json.gz` records the 65 files, the empty symlink set and
+`manifest_sha256`, the source-manifest identity at seal time.
+`coverage-delta.json` records only the totals. The hash is provenance for the
+sealed revision, not a continuing claim: `programs/pump` changes in independent
+reconstruction lanes. The verifier compares the guard's claims (scope,
+reviewed-script identity, program, file count and symlink list) and prints the
+fresh source hash without requiring it to equal the sealed one.
 
 This is an admission check for local compiler inputs. It does not build the
 crate, prove that the recorded files are the historical source, validate Cargo

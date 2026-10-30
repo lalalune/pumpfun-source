@@ -1,0 +1,11 @@
+{
+ "lane": "w3-createv2",
+ "target": "0x1e7c0 create_v2::execute",
+ "base": {"commit": "665499915", "ratio": 0.74106, "bytes": 15584, "calls": 125, "official": "1022/276"},
+ "best": {"ratio": 0.75114, "bytes": 15632, "calls": 125, "official": "1022/276", "gains": [], "losses": [], "unstripped_sha256": "826b44727ab1c1b7a741371209afd23bd83833df2f65b4399d7230b4a36f3b5f", "mechanism": "port of unmerged createv2-reconstruction round-2 commits"},
+ "ir_oracle_best": {"ratio": 0.81412, "edits": ["sel: eager ivqr load + select in else block", "swap: quote_mint 32B alloca at top slot, val8.sroa.2 24B at quote_mint slot"]},
+ "attempts": 13,
+ "rejected": ["vqr helper by value (0.452)", "vqr helper by ref (0.509)", "quote kept as struct, fields in place (0.416)", "to_bytes compare (0.448)", "by-value is_sol_quote helper, default and inline(always) (0.455)"],
+ "unresolved": ["source form where quote_mint is unified with the ? value fragment AND compared in place (32B, top slot)", "source form that keeps unwrap_or default load as select (blocks InstCombine sinking into None arm)", "regalloc residual after both (orig keeps &accounts.bonding_curve spilled; loads accounts+0x100 before event call)"],
+ "next_ideas": ["compare via a by-value helper that MIR does not inline but LLVM does (caller temp copy-propagated into quote_mint, pointer escapes, no SROA split)", "place a memory-writing statement between the unwrap_or default load and the inlined match (e.g. evaluate default before a curve field store) to block InstCombine sinking", "apply ir.py oracle to the spill residual after sel+swap: move the accounts+0x100 load before the event call"]
+}

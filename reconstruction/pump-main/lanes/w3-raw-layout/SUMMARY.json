@@ -1,0 +1,89 @@
+{
+ "lane": "w3-raw-layout",
+ "wave": 3,
+ "target": "raw (whole-program layout: function order, rodata/data.rel.ro order, call immediates, lddw pointers)",
+ "base": "origin/main 2c8a7900f (1023 normalized / 277 raw); started from 665499915 (1022/276), rebased three times",
+ "pr": "https://github.com/lalalune/pumpfun-source/pull/1423",
+ "best": {
+  "official_normalized": 1023,
+  "official_raw": 277,
+  "gains": [],
+  "losses": [],
+  "unstripped_sha256": "1c66d0a9acffb0ccd9f9141c498fbdfe7d658be85adf8096a4985864d406f90d",
+  "data_offset_equal_windows": [
+   683,
+   1021
+  ],
+  "rodata_bytes_aligned_of_32031": [
+   31682,
+   31993
+  ],
+  "path_string_order_mismatches_of_33": [
+   32,
+   1
+  ],
+  "data_rel_ro_non_text_slot_diffs": [
+   130,
+   6
+  ],
+  "model_raw_unmatched_fixed_full_order_data_as_built": [
+   683,
+   1017
+  ],
+  "model_raw_unmatched_fixed_L_order_data_as_built": [
+   481,
+   653
+  ],
+  "P13_our_order": [
+   416,
+   429
+  ],
+  "P13_with_handler_bodies_at_program_position_model": 648,
+  "LIS": [
+   884,
+   970
+  ],
+  "L_adjacent_breaks": [
+   136,
+   15
+  ],
+  "unmatched_window_ratios": "all 12 unchanged vs main (tools/unm13.sh)",
+  "callid_audit": "same as main (no new hidden call targets)"
+ },
+ "mechanisms_kept": [
+  ".rodata/.data.rel.ro order = rustc codegen order: constants are created at the first codegen'd function that references them, in mono-item (def-index) order; #[inline] local fns are mono items; MIR inlining moves a callee's constants into the caller",
+  "legacy buy.rs mounted second (keeps #[inline]); native_payments split out to legacy_native_payments",
+  "declare_id! before declare_program!(pump_amm) (on line 82; pump_amm stays at lib.rs:83 col 1 because a panic Location refers to it); declare_program!(mayhem) from idls/mayhem.json (initialize_fee_recipient + initialize_mayhem_state)",
+  "process_cashback_inner: let-else err! for MissingCashbackAccounts (sell.rs Source in the parent MIR before the PDA seed)",
+  "DistributionCurve defined after migrate::execute (unwrap message position)",
+  "time_index without #[inline] (its constants at its own def position)",
+  "file-order module mounts: distribute_creator_fee_v2 first, minimum inline, token_incentives claim/close/init/sync/volume_accumulator with close/init handler bodies outlined there, quote_control set_* file before state, lib.rs body trade_types before buy_quote",
+  "util/payments.rs (25-fn helper run after util/fee.rs), util/withheld.rs + curve quote_payments + util/user_payments.rs after util/transfer_fee.rs; visibility kept exactly (pub vs pub(crate) changes linkage/codegen)",
+  "MergeFunctions survivor = smallest mangled name, body at its def position: uqp curve/recipient moved together; collect module as creator::collect_creator_fee; pump_amm IDL without sweep_* instructions; mayhem IDL with initialize_fee_recipient",
+  "site-free fns moved into pad lines (collect_creator_fee, migrate, migrate_v2, create_v2, volume_accumulator, trade_v3, multi_hop helpers moved out of swap_hop to module level); second curve lamport generic pay_out_native after move_native",
+  "panic Location lines checked slot by slot (tools/drr.py) and kept at the original lines",
+  "DistributeCreatorFeesV2 struct defined before DistributeCreatorFees in the same file (derive order); moving it into the v2 file had changed codegen"
+ ],
+ "rejected": [
+  "067f03ab DistributeCreatorFeesV2 struct into the v2 file: loses 0x2d920/0x2fa60 (derive order changes distribute_tokens codegen)",
+  "t08 transfer helpers made pub: loses 0x2b490/0x33c50/0x8d5c8 (linkage)",
+  "80989f5b buy_v2/buy_exact_quote_in_v2 as #[inline(never)] program fns with #[inline(always)] handlers: P13 428->511 but buy_v2 0.95334->0.95256 on main and 0.97629->0.96761 on w3-buyhandler's branch",
+  "288af402 handlers as plain fns: stay outlined at module position, program fns inlined into dispatchers",
+  "f2409d8a v3 trio program-fn form: buy_v3 0.87739->0.77928 at exactly 3672 B, beq 0.61352->0.61555, loses 0x859b0",
+  "t37 buy_v2 program-fn form after the buyhandler merge: 0.97682->0.96813, raw loss 0xa868",
+  "4af96169 renaming pay_out_native to re-roll instance hash order: unchanged"
+ ],
+ "unresolved": [
+  "the five v2/v3 handler bodies belong at the #[program] position between create and buy (P13 429 -> 648 in the model); handler lanes must reach their match in the program-fn form",
+  "U-block hash order (~365 windows once everything else matches) and D-block within-crate hash order: fixed by dependency/root crate metadata of the build environment, unreachable from programs/pump",
+  "with_owned_name (0x2bc0) is an upstream-generic-block unit in the original (between Error::with_account_name instances); no ToString instance reproduces its body without a drop, so its identity is unknown",
+  ".data.rel.ro: one swapped pair created by U-block items (TryFromIntError Debug vs GlobalVolumeAccumulator Debug)",
+  ".rodata: cst4 S/Y swap and admin_cto.rs path/'No canonical' order, both first used inside admin_cto (unmatched window)",
+  "pay_out_native's two instances are in hash order 856,1080 (original 1080,856)"
+ ],
+ "next_ideas": [
+  "Handler lanes: compare program-fn form vs module form codegen (only stack-slot differences remain) and adopt the program-fn form once equal",
+  "After any handler/size fix lands, rerun tools/metrics.py: model raw with full original order and data as built is 1017/1023, so official raw follows the size fixes for every window outside U/D hash dependence",
+  "If raw identity beyond the source-reachable ~650 is required, it needs the original build environment metadata (as the AMM/mayhem/fees programs did with ordered link scripts)"
+ ]
+}

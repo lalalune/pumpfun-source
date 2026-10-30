@@ -65,7 +65,7 @@ Image identity is reported separately from function-window matches:
   compiler output before `llvm-objcopy --strip-all`, versus the captured original.
 
 Reports include the three byte lengths and separate candidate/unstripped hashes.
-`score_version: 2` distinguishes these meanings. Historical unversioned reports
+`score_version: 2` introduced these meanings. Historical unversioned reports
 used `whole_elf_equal` for the allocation comparison; they do not establish exact
 file equality. The attempt cache key includes the score version so those entries
 cannot be returned as current measurements. Historical logs and cached evidence
@@ -78,9 +78,28 @@ execute a program, or require the native SDK.
 `sell_raw_equal` is the goal. `lost_windows_normalized` must stay empty (no other
 function may change). `align_distance` (instruction edit distance with branch
 displacements replaced by labels) and `slot_diffs` (differing 8-byte slots) rank
-partial progress; the maintained baseline is distance 112, 709 slots. Error-macro
+partial progress; the version-2 baseline was distance 112, 709 slots. Error-macro
 line numbers are encoded as immediates, so edits must keep every
 `error!`/`err!`/`require!` on its current line.
+
+Version 3 binds each branch label to the token of the instruction it reaches.
+Previously, labels appeared only on the branch edges: moving a destination while
+preserving its order among the other destinations produced the same token stream,
+even when the branch skipped a different computation. Targets outside decoded
+instruction boundaries now retain their window-relative offset. There is still
+one token per instruction, so aligned disassembly retains its row correspondence.
+
+The regression suite retargets each eligible destination in the actual 9,024-byte
+captured sell window to a nearby instruction boundary while preserving destination
+order. All 52 such mutations collided with the original token stream in version 2;
+none collide in version 3. A separate control checks that moving a whole function
+does not change its branch tokens. These are static, in-memory controls; the
+captured ELF is never changed or executed. Token equality is not a proof of
+semantic equivalence, and edit distance remains a diagnostic, not acceptance.
+
+Version-3 distances must be measured afresh rather than compared numerically with
+historical version-2 distances. The score-version cache key prevents reuse of the
+old metric. Historical evidence and all raw image-equality criteria are preserved.
 
 ## Provisioning a new machine
 

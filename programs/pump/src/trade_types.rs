@@ -315,19 +315,19 @@ mod historical_curve {
 // Original shared preparation 0x3cd50 and rent funding 0x3d250.
 // The Account is already decoded; temporary AccountInfo clones do not keep a
 // data borrow alive across the System CPI or realloc. No state reload follows.
-#[inline(never)]
-pub fn prepare_bonding_curve<'info>(
-    curve: &Account<'info, BondingCurve>,
-    system_program: &Program<'info, System>,
-    payer: &Signer<'info>,
-) -> Result<()> {
-    let current_size = curve.to_account_info().data_len();
-    let needs_realloc = current_size < 166;
-    let new_size = current_size.max(166);
-    fund_bonding_curve_rent(curve, system_program, payer, new_size)?;
-    if needs_realloc { curve.to_account_info().realloc(166, false)?; }
-    Ok(())
-}
+pub use crate::extend::prepare_bonding_curve;
+
+
+
+
+
+
+
+
+
+
+
+
 
 pub use crate::extend::fund_bonding_curve_rent;
 
@@ -366,9 +366,9 @@ pub use crate::pump_fees::{
     types::{FeeTier, Fees, Shareholder},
 };
 
-#[event]
-#[derive(Clone)]
-pub struct CompleteEvent {pub user:Pubkey,pub mint:Pubkey,pub bonding_curve:Pubkey,pub timestamp:i64,pub quote_mint:Pubkey}
+pub use crate::CompleteEvent;
+
+
 
 // Route decoding has its own Rust type; the external CPI account keeps the IDL type.
 #[derive(AnchorSerialize, AnchorDeserialize, Clone)]
