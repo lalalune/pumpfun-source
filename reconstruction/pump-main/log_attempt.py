@@ -20,7 +20,6 @@ already-tried mechanism to get past the check.
 import argparse
 import collections
 import datetime as dt
-import fcntl
 import hashlib
 import json
 import os
@@ -73,6 +72,7 @@ def read_rows():
 
 
 def locked(fn):
+    import fcntl  # Only live-ledger operations need POSIX locking.
     LEDGER.parent.mkdir(parents=True, exist_ok=True)
     LOCK.touch(exist_ok=True)
     with LOCK.open('r+') as lock:
