@@ -66,6 +66,28 @@ match complete_fill(global,&a.fee_config,fee_config_len,cap,c,
 `0x5b3b0-w12-e61df03-hc-oracle-gep8-bb57-or-bb58-v1` (oracle),
 `0x5b3b0-w12-e61df03-hc-tuple-allowed-global-refprop-blocker-v1` (this change).
 
+## Landed
+
+PR #2766 was squash-merged as `0b5fc0d5d`. While `land.py` was verifying it, its merge build
+against main `b5975fa67` (after #2749) scored 1034/1034 normalized/raw, gained 0x5b3b0 and lost
+nothing (unstripped `cc795ce7…`).
+
+A second route also matches. w12b07-hop-gepsib (PR #2780, closed after this landed) runs the
+whitelist test through a plain local helper `whitelist_ok(&a.global, ..)`. That helper is not
+MIR-inlined, so the `&Global` deref is a real call argument in the over-reserves block, and LLVM
+CSEs `complete_fill`'s GEP into it.
+
+## For the admin_cto lanes
+
+When the original computes a reference or address earlier than ours, check rustc's first IR dump
+(`-C llvm-args=-print-changed`, the dump before `LowerExpectIntrinsicPass`) for this pattern:
+an early GEP left dead, and a fresh one at the use. That is ReferencePropagation acting at a
+coercion reborrow. One fix is to route the reference through a tuple or aggregate field, so the
+early definition is kept. Another is to pass it through a non-MIR-inlined helper.
+
 ## Trials
 
-See `SUMMARY.json` and the ledger (lane `w12b09-hop-hillclimb`).
+See `SUMMARY.json` and the ledger (lane `w12b09-hop-hillclimb`). Variants I prepared but did not
+build, because the target was already matched: `(global, allowed)` tuple order, a
+`(global, user)` tuple, a one-element array binding, and `complete_fill(&global, ..)` with an
+address-taken `&Global` binding.

@@ -1,0 +1,110 @@
+{
+  "lane": "w12b09-hop-hillclimb",
+  "wave": 12,
+  "pool": "b",
+  "angle": "hill-climb on multi_hop_curve_swap.rs whitelist/allowed/complete_fill region (binding scope, argument form)",
+  "base": {
+    "main": "20a1ae9c0 (programs/ identical at e61df0357)",
+    "baseline_unstripped_sha256": "8cd7695c3fc638fc...",
+    "normalized": 1033,
+    "raw": 1033
+  },
+  "targets": {
+    "0x5b3b0": {
+      "function": "multi_hop_curve::swap_hop",
+      "file": "programs/pump/src/multi_hop_curve_swap.rs",
+      "before": {
+        "ratio": 0.99913,
+        "slots_diff": 18,
+        "cand_bytes": 18584
+      },
+      "after": {
+        "ratio": 1.0,
+        "slots_diff": 0,
+        "cand_bytes": 18584,
+        "normalized_equal": true,
+        "raw_equal": true
+      }
+    }
+  },
+  "best": {
+    "variant": "tup_allowed_global",
+    "change": "line 599: let (allowed, global) = { let global: &Global = &a.global; let user = a.user.key(); (!c.is_mayhem_mode && user!=global.whitelist_pda, global) }; require!(allowed,..); line 600: complete_fill(global, ..)",
+    "normalized": 1034,
+    "raw": 1034,
+    "gains": [
+      "0x5b3b0"
+    ],
+    "raw_gains": [
+      "0x5b3b0"
+    ],
+    "losses": [],
+    "raw_losses": [],
+    "unstripped_sha256": "cbd9bf08d09967f71921acaf2b89ad576abd96654a192834a268cd1e18f59269",
+    "pr": "https://github.com/lalalune/pumpfun-source/pull/2766"
+  },
+  "mechanism": [
+    "IR oracle on main: moving gep %box,8 (complete_fill &Global arg) from the call block bb64 into bb57 (after the Box<Account<Global>> load) or bb58 (after the whitelist gep 648) gives 0 differing slots; MachineSink then places ldxdw r2,[r10-0xb28]; add64 r2,8 at the top of bb64 as in the original.",
+    "A hoisted let global: &Global passed directly is byte-identical to main: rustc's own unoptimized IR already has the binding's GEP dead and a fresh gep at the call. Passing a &Global local to a &Global parameter inserts a coercion reborrow &*global, and MIR ReferencePropagation rewrites it to &(*box).account at the call site.",
+    "Returning the &Global from the whitelist block in a tuple field makes it opaque to ReferencePropagation (Use(Copy(_tup.1)) is not a local), so the early GEP is reused by the call."
+  ],
+  "attempts": [
+    {
+      "name": "oracle g57/g58 (llc on main IR, gep +8 moved to bb57 or bb58)",
+      "status": "analyzed",
+      "ratio": 1.0,
+      "slots_diff": 0,
+      "bytes": 18584
+    },
+    {
+      "name": "glob_typed_hoist (let global: &Global hoisted, complete_fill(global))",
+      "status": "not built here; same source as w12b04 v1: byte-identical to main",
+      "ratio": 0.99913,
+      "slots_diff": 18
+    },
+    {
+      "name": "tup_allowed_global",
+      "status": "raw-match",
+      "ratio": 1.0,
+      "slots_diff": 0,
+      "bytes": 18584,
+      "normalized": 1034,
+      "raw": 1034
+    },
+    {
+      "name": "tup_global_allowed / tup_global_user / arr_global / refarg_global / refarg_global_keepblock",
+      "status": "prepared, not built (target already matched; build slots left to other lanes)"
+    }
+  ],
+  "rejected_mechanisms": [
+    "let global: &Global = &a.global hoisted before the allowed block, complete_fill(global,..): byte-identical to main (w12b04 v1); ReferencePropagation re-derives the borrow at the call",
+    "let global = &*a.global (an &Account<Global>) hoisted: byte-identical (earlier waves); the Account->Global deref coercion happens at the call"
+  ],
+  "unresolved_residuals": [],
+  "next_ideas": [
+    "General tool for admin_cto lanes: when the original computes a reference/GEP earlier than ours, check rustc's first IR dump for a dead early GEP and a fresh one at the use (ReferencePropagation at a reborrow); route the reference through a tuple/aggregate field to keep the early def."
+  ],
+  "landed": {
+    "pr": "https://github.com/lalalune/pumpfun-source/pull/2766",
+    "merge_commit": "0b5fc0d5d7e2e17ea939714cde8f35d5716bff14",
+    "land_py_merge_build": {
+      "main": "b5975fa67",
+      "normalized": 1034,
+      "raw": 1034,
+      "gains": [
+        "0x5b3b0"
+      ],
+      "raw_gains": [
+        "0x5b3b0"
+      ],
+      "losses": [],
+      "raw_losses": [],
+      "unstripped_sha256": "cc795ce731592a4871090533155b9ed669f3af4f2d27086126def824e1582543"
+    }
+  },
+  "alternatives": [
+    "w12b07-hop-gepsib (PR #2780, closed after #2766 landed): whitelist test through a plain local helper whitelist_ok(&a.global,&a.user.key(),c); the helper is not MIR-inlined, so the &Global deref is a real call argument in the over-reserves block, and LLVM CSEs complete_fill's GEP into it. Also a full match."
+  ],
+  "exhausted": false,
+  "finished_because": "target reached normalized and raw match"
+}
