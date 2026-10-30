@@ -1,0 +1,2 @@
+EDITS=[(" let initial_virtual_quote_reserves=global.initial_virtual_quote_reserves;\n let virtual_quote_reserves=if quote_mint==Pubkey::default() {global.initial_virtual_sol_reserves} else {reserves.unwrap_or(initial_virtual_quote_reserves)};",
+" let virtual_quote_reserves=if quote_mint==Pubkey::default() {global.initial_virtual_sol_reserves} else {let initial_virtual_quote_reserves=global.initial_virtual_quote_reserves;reserves.unwrap_or(initial_virtual_quote_reserves)};")]

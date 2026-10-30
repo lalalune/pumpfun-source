@@ -10,16 +10,24 @@ Usage: fastbuild.py --src <crate dir with Cargo.toml/Cargo.lock/src[/recovered]>
   equals a fresh build of the same sources).
 - Seeds <work>/target from the warm template (APFS clone) on first use.
 - Writes <out>/unstripped.so and <out>/candidate.so (default <work>/last).
+- Before compilation, archives previous outputs and their log under <out>/previous/build-*.
+  Compiler failures leave no current binaries; callers must still check ok.
+- Stack diagnostics return ok=false with build.log and stack_warnings. Diagnostic callers
+  gated on ok (including exactsol-introspection capture.py) consequently skip IR extraction.
 """
-import argparse, hashlib, json, os, shutil, subprocess, sys, time, tomllib, fcntl
+import argparse, hashlib, json, os, shutil, subprocess, sys, time, tomllib, fcntl, tempfile
+from contextlib import contextmanager
 from pathlib import Path
+from build_process import run_compiler, validate_timeout
+from source_inputs import snapshot, assert_unchanged
 
 H = Path(__file__).resolve().parent
 SC = H.parent
 SDK = Path.home() / '.cache/solana/v1.44/platform-tools'
 # Generated toolchain, dependency caches and build-slot locks live outside the repository so every
 # worktree shares them (see reconstruction/toolchain/bootstrap.py).
-CACHE = Path(os.environ.get('PUMP_RECON_HOME', str(Path.home() / '.cache/pumpfun-reconstruction')))
+# Cargo runs from the staged workspace; anchor relative overrides without resolving symlinks.
+CACHE = Path(os.environ.get('PUMP_RECON_HOME', str(Path.home() / '.cache/pumpfun-reconstruction'))).absolute()
 # Recipes: 'mac' = installed macOS v1.44 SDK, triple sbf-solana-solana (Codex harness default);
 # 'identity' = same macOS rustc binary with the official Linux x86_64 v1.44 target libraries, triple
 # sbpf-solana-solana (the original's toolchain identity, proven by TypeId constants; identity-01).
@@ -47,10 +55,11 @@ def stage(src: Path, ws: Path):
     crate_text = text[:ps].rstrip() + '\n'
     crate = ws / 'programs/pump'
     crate.mkdir(parents=True, exist_ok=True)
-    # mirror .rs sources (+ any non-target files) with rsync --checksum so unchanged files keep mtimes;
+    # Exclude only the crate-root build directory; nested target directories can contain source.
+    # Mirror inputs with rsync --checksum so unchanged files keep mtimes;
     # only the crate-root manifest/lock are excluded (rewritten below), nested path crates keep their Cargo.toml
     subprocess.run(['rsync', '-a', '--checksum', '--delete',
-                    '--exclude', 'target', '--exclude', '/Cargo.toml', '--exclude', '/Cargo.lock',
+                    '--exclude', '/target/', '--exclude', '/Cargo.toml', '--exclude', '/Cargo.lock',
                     str(src) + '/', str(crate) + '/'], check=True)
     def put(p, t):
         if not p.exists() or p.read_text() != t:
@@ -63,6 +72,8 @@ def stage(src: Path, ws: Path):
 
 
 def acquire_slot():
+    if SLOTS <= 0:
+        raise ValueError('PUMP_BUILD_SLOTS must be a positive integer')
     LOCKDIR.mkdir(parents=True, exist_ok=True)
     while True:
         for i in range(SLOTS):
@@ -75,13 +86,55 @@ def acquire_slot():
         time.sleep(0.5)
 
 
-def build(src: Path, work: Path, out: Path, quiet=False, recipe=None):
+@contextmanager
+def workspace_lock(work: Path):
+    """Protect staging, target invalidation and publication for one work directory."""
+    work = work.resolve()
+    work.mkdir(parents=True, exist_ok=True)
+    # Keep the inode after releasing it; unlinking would permit split locks.
+    with (work / '.fastbuild.lock').open('a+b') as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as error:
+            raise RuntimeError(f'build workspace already in use: {work}') from error
+        try:
+            yield
+        finally:
+            fcntl.flock(lock, fcntl.LOCK_UN)
+
+
+def archive_previous_outputs(out: Path):
+    """Keep old evidence separate from the next attempt's canonical output paths."""
+    names = ('unstripped.so', 'candidate.so', 'build.log')
+    present = [out / name for name in names
+               if (out / name).exists() or (out / name).is_symlink()]
+    if not present:
+        return
+    previous = out / 'previous'
+    previous.mkdir(exist_ok=True)
+    archive = Path(tempfile.mkdtemp(prefix='build-', dir=previous))
+    for path in present:
+        path.rename(archive / path.name)
+
+
+def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):
+    validate_timeout(timeout)
+    with workspace_lock(work):
+        return _build_locked(src, work, out, quiet=quiet, recipe=recipe, timeout=timeout)
+
+
+def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):
+
     recipe = recipe or DEFAULT_RECIPE
     R = RECIPES[recipe]; triple = R['triple']
     src = src.resolve(); work = work.resolve(); out = out.resolve()
+    if src == work or src in work.parents or work in src.parents or src == out or src in out.parents:
+        raise ValueError('source must not overlap the build workspace or contain output')
+    source_inputs = snapshot(src)
     work.mkdir(parents=True, exist_ok=True)
     ws = work / 'ws'
     crate = stage(src, ws)
+    assert_unchanged(src, source_inputs)
     target = work / ('target' if recipe == 'mac' else f'target-{recipe}')
     if not target.exists() and R['template'].exists():
         subprocess.run(['cp', '-cRp', str(R['template']), str(target)], check=True)
@@ -105,6 +158,8 @@ def build(src: Path, work: Path, out: Path, quiet=False, recipe=None):
     cmd = [str(SDK / 'rust/bin/cargo'), 'build', '--manifest-path', str(crate / 'Cargo.toml'), '--release',
            '--target', triple, '--locked', '--offline']
     out.mkdir(parents=True, exist_ok=True)
+    archive_previous_outputs(out)
+    (out / 'source-inputs.json').write_text(json.dumps(source_inputs, indent=2) + '\n', encoding='utf-8')
     # Never trust mtime freshness for the main crate (rsync -a keeps source mtimes, so cargo could
     # otherwise reuse a stale pump artifact): drop its fingerprints and outputs so it always recompiles.
     for fp in list(target.glob('*/release/.fingerprint/pump-recovered-*')) + list(target.glob('release/.fingerprint/pump-recovered-*')):
@@ -114,24 +169,28 @@ def build(src: Path, work: Path, out: Path, quiet=False, recipe=None):
     slot = acquire_slot()
     t0 = time.time()
     try:
-        r = subprocess.run(cmd, cwd=ws, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        r, timed_out = run_compiler(cmd, cwd=ws, env=env, timeout=timeout)
     finally:
         slot.close()
     dt = time.time() - t0
     (out / 'build.log').write_text(r.stdout)
-    if r.returncode != 0:
+    if timed_out or r.returncode != 0:
         if not quiet:
             sys.stdout.write(r.stdout[-6000:])
-        return {'ok': False, 'recipe': recipe, 'seconds': round(dt, 1), 'log': str(out / 'build.log')}
+        return {'ok': False, 'timed_out': timed_out, 'source_sha256': source_inputs['sha256'], 'recipe': recipe, 'seconds': round(dt, 1), 'log': str(out / 'build.log')}
     # SBF frames are 4 KiB: any "Stack offset ... exceeded max offset" warning means the program can fault at
     # runtime (the original runs, so its functions fit). Such a build must never be delivered or integrated.
     stack = [l.strip() for l in r.stdout.splitlines() if 'exceeded max offset' in l]
     if stack and not quiet:
         sys.stderr.write('STACK OVERFLOW RISK (runtime-invalid build):\n  ' + '\n  '.join(stack) + '\n')
+    if stack:
+        return {'ok': False, 'runtime_valid': False, 'stack_warnings': stack,
+                'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1),
+                'log': str(out / 'build.log')}
     built = target / triple / 'release/pump_recovered.so'
     shutil.copy2(built, out / 'unstripped.so')
     subprocess.run([str(SDK / 'llvm/bin/llvm-objcopy'), '--strip-all', str(built), str(out / 'candidate.so')], check=True)
-    return {'ok': True, 'runtime_valid': not stack, 'stack_warnings': stack, 'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1), 'unstripped': str(out / 'unstripped.so'),
+    return {'ok': True, 'source_sha256': source_inputs['sha256'], 'runtime_valid': not stack, 'stack_warnings': stack, 'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1), 'unstripped': str(out / 'unstripped.so'),
             'unstripped_sha256': sha(out / 'unstripped.so'), 'candidate_sha256': sha(out / 'candidate.so')}
 
 
@@ -141,7 +200,12 @@ if __name__ == '__main__':
     ap.add_argument('--work', type=Path, required=True)
     ap.add_argument('--out', type=Path)
     ap.add_argument('--recipe', choices=sorted(RECIPES), default=DEFAULT_RECIPE, help='identity (default) = Linux v1.44 sbpf target libs; mac = Codex harness recipe')
+    ap.add_argument('--timeout', type=float, help='compiler execution deadline in seconds (excludes staging and slot wait)')
     a = ap.parse_args()
-    res = build(a.src, a.work, a.out or (a.work / 'last'), recipe=a.recipe)
+    try:
+        validate_timeout(a.timeout)
+    except ValueError as error:
+        ap.error(str(error))
+    res = build(a.src, a.work, a.out or (a.work / 'last'), recipe=a.recipe, timeout=a.timeout)
     print(json.dumps(res, indent=2))
     sys.exit(0 if res['ok'] else 1)

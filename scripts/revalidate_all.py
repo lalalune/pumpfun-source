@@ -18,6 +18,15 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 
+# These archived verifiers document --repo and otherwise default it to cwd.
+# Keep packet-relative cwd for legacy verifiers; supply only this known option.
+REPOSITORY_ARGUMENT_PACKETS = frozenset({
+    'research/tooling-legacy-capture-metadata-20261029',
+    'research/tooling-roadmap-call-classification-20261029',
+    'research/tooling-source-manifest-symlinks-20261029',
+    'research/tooling-token-program-constant-detector-20261029',
+})
+
 
 def sha256_file(path):
     h = hashlib.sha256()
@@ -27,35 +36,75 @@ def sha256_file(path):
     return h.hexdigest()
 
 
-def check_manifest(packet_dir):
-    """Check manifest.json integrity without running verify.py."""
-    manifest_path = packet_dir / "manifest.json"
-    if not manifest_path.exists():
-        return {"status": "no_manifest", "errors": []}
+def manifest_paths(packet_dir):
+    """Recognize retained manifest filenames by exact directory-entry spelling."""
+    return sorted(path for path in packet_dir.iterdir()
+                  if path.name in ("manifest.json", "MANIFEST.json"))
 
+
+def manifest_records(manifest):
+    """Read retained flat hash maps or files records with optional byte counts."""
+    if not isinstance(manifest, dict):
+        raise ValueError("manifest must be an object")
+    if set(manifest) == {"files"} and isinstance(manifest["files"], list):
+        records = manifest["files"]
+    else:
+        records = [{"path": name, "sha256": digest} for name, digest in manifest.items()]
+    names = set()
+    for row in records:
+        if not isinstance(row, dict) or not {"path", "sha256"} <= row.keys():
+            raise ValueError("manifest record requires path and sha256")
+        if not row.keys() <= {"path", "sha256", "bytes"}:
+            raise ValueError("unsupported manifest record fields")
+        name, digest = row["path"], row["sha256"]
+        if not isinstance(name, str) or not name:
+            raise ValueError("manifest path must be a nonempty string")
+        if name in names:
+            raise ValueError("duplicate manifest path: " + name)
+        names.add(name)
+        if (not isinstance(digest, str) or len(digest) != 64
+                or any(char not in "0123456789abcdef" for char in digest)):
+            raise ValueError("invalid SHA-256 for: " + name)
+        if "bytes" in row and (type(row["bytes"]) is not int or row["bytes"] < 0):
+            raise ValueError("invalid byte count for: " + name)
+    return records
+
+
+def check_manifest(packet_dir):
+    """Check either retained manifest format without running verify.py."""
+    paths = manifest_paths(packet_dir)
+    if not paths:
+        return {"status": "no_manifest", "errors": []}
+    if len(paths) != 1:
+        return {"status": "fail", "errors": ["ambiguous manifest filenames"]}
     try:
-        manifest = json.loads(manifest_path.read_text())
+        manifest = json.loads(paths[0].read_text(encoding="utf-8"))
+        records = manifest_records(manifest)
     except Exception as e:
         return {"status": "manifest_parse_error", "errors": [str(e)]}
 
     errors = []
     checked = 0
-    for name, expected in manifest.items():
+    for row in records:
+        name, expected = row["path"], row["sha256"]
         full = packet_dir / name
         if not full.exists():
             errors.append(f"missing: {name}")
             continue
-        if full.is_dir():
-            continue  # skip directory entries in manifest
+        if not full.is_file():
+            errors.append(f"not_a_file: {name}")
+            continue
         actual = sha256_file(str(full))
         if actual != expected:
             errors.append(f"hash_mismatch: {name}")
+        if "bytes" in row and full.stat().st_size != row["bytes"]:
+            errors.append(f"size_mismatch: {name}")
         checked += 1
 
     return {
         "status": "pass" if not errors else "fail",
         "files_checked": checked,
-        "files_expected": len(manifest),
+        "files_expected": len(records),
         "errors": errors,
     }
 
@@ -66,9 +115,17 @@ def run_verify(packet_dir):
     if not verify_path.exists():
         return {"status": "no_verify_script", "output": ""}
 
+    command = [sys.executable, "-B", str(verify_path)]
+    try:
+        relative = packet_dir.resolve().relative_to(REPO.resolve()).as_posix()
+    except ValueError:
+        relative = None
+    if relative in REPOSITORY_ARGUMENT_PACKETS:
+        command.extend(["--repo", str(REPO.resolve())])
+
     try:
         result = subprocess.run(
-            [sys.executable, "-B", str(verify_path)],
+            command,
             cwd=str(packet_dir),
             capture_output=True,
             text=True,
@@ -93,13 +150,16 @@ def main():
     args = parser.parse_args()
 
     output_dir = Path(args.output)
-    output_dir.mkdir(parents=True, exist_ok=True)
 
     research_dir = REPO / "research"
     packets = sorted([
         d for d in research_dir.iterdir()
         if d.is_dir() and not d.name.startswith(".")
     ])
+
+    # Snapshot inputs before creating an audit beneath research/, and preserve
+    # prior reports by refusing an existing output before running any verifier.
+    output_dir.mkdir(parents=True, exist_ok=False)
 
     print(f"[revalidate] Found {len(packets)} research packets")
 
@@ -112,7 +172,7 @@ def main():
 
     for i, packet in enumerate(packets):
         has_verify = (packet / "verify.py").exists()
-        has_manifest = (packet / "manifest.json").exists()
+        has_manifest = bool(manifest_paths(packet))
 
         if not has_verify and not has_manifest:
             results.append({
@@ -133,20 +193,17 @@ def main():
         verify_result = run_verify(packet) if has_verify else {"status": "skipped"}
 
         # Determine overall status
-        if manifest_result["status"] == "pass" or verify_result["status"] == "pass":
+        checks = [result for enabled, result in (
+            (has_manifest, manifest_result), (has_verify, verify_result)
+        ) if enabled]
+        if all(result["status"] == "pass" for result in checks):
             overall = "pass"
             pass_count += 1
-        elif manifest_result["status"] == "fail" or verify_result["status"] == "fail":
+        elif any(result["status"] in {
+            "fail", "manifest_parse_error", "timeout", "error"
+        } for result in checks):
             overall = "fail"
             fail_count += 1
-        elif manifest_result["status"] == "no_manifest" and verify_result["status"] != "pass":
-            overall = "verify_only"
-            if verify_result["status"] == "pass":
-                pass_count += 1
-            elif verify_result["status"] == "fail":
-                fail_count += 1
-            else:
-                skip_count += 1
         else:
             overall = "inconclusive"
             skip_count += 1
@@ -209,7 +266,7 @@ def main():
 
 ## Scope
 Systematic revalidation of every research packet in the repository.
-Each packet is checked via its manifest.json (SHA-256 integrity) and
+Each packet is checked via its manifest.json or MANIFEST.json (SHA-256 integrity) and
 verify.py (standalone verification script).
 
 ## Results
@@ -218,7 +275,7 @@ verify.py (standalone verification script).
 |--------|------:|
 | Total packets | {len(packets)} |
 | With verify.py | {sum(1 for r in results if r["has_verify"])} |
-| With manifest.json | {sum(1 for r in results if r["has_manifest"])} |
+| With a manifest | {sum(1 for r in results if r["has_manifest"])} |
 | **Pass** | **{pass_count}** |
 | **Fail** | **{fail_count}** |
 | Skip/inconclusive | {skip_count} |

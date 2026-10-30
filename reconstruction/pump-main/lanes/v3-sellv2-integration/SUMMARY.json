@@ -1,0 +1,127 @@
+{
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "source_credits": {
+    "1539": "8803c0dff736fa99dfc2e104234f301596424da1",
+    "1565": "c819b40c5837f8a93eca446bbdd119f0e8a60362"
+  },
+  "builds": {
+    "main": {
+      "ok": true,
+      "recipe": "identity",
+      "triple": "sbpf-solana-solana",
+      "seconds": 24.7,
+      "unstripped_sha256": "498103bb88e11727a59096c25386cb4fecce970f4d73b37591b8f53f691a21e2",
+      "candidate_sha256": "2ec131ee13b63e93c22874562e8122c9bc45ed20a92c1ff6f957fb3c1c2c36ae",
+      "no_backend_stack_warnings": true
+    },
+    "execute-only": {
+      "ok": true,
+      "recipe": "identity",
+      "triple": "sbpf-solana-solana",
+      "seconds": 26.6,
+      "unstripped_sha256": "aa5c31b6fb237206170ac0084763f2a9c824ecb94c99d923113864c50c17ca2f",
+      "candidate_sha256": "32ab6bbd2145699a6c4dab47cb2a957e87bda31c804d9f21d692151f21156b9a",
+      "no_backend_stack_warnings": true
+    },
+    "sell-only": {
+      "ok": true,
+      "recipe": "identity",
+      "triple": "sbpf-solana-solana",
+      "seconds": 16.8,
+      "unstripped_sha256": "c4d0043e1b1c8a4cc72843e76a09cbb71f06d4792c0fac250a7560e93f10dab6",
+      "candidate_sha256": "98177cf6f3cd29b3e665295ebe000e6d8bb673b2462a4d5441bb5939646f85a1",
+      "no_backend_stack_warnings": true
+    },
+    "combined": {
+      "ok": true,
+      "recipe": "identity",
+      "triple": "sbpf-solana-solana",
+      "seconds": 21.0,
+      "unstripped_sha256": "8782e053456077638080965e0b86d11376a55e01c2ff91e4ebcecb7fef233e7b",
+      "candidate_sha256": "5e75c115a6997b93606edf5114a220b31f0efac0535fed8404daac805c6b8a81",
+      "no_backend_stack_warnings": true
+    },
+    "repeat": {
+      "ok": true,
+      "recipe": "identity",
+      "triple": "sbpf-solana-solana",
+      "seconds": 17.9,
+      "unstripped_sha256": "8782e053456077638080965e0b86d11376a55e01c2ff91e4ebcecb7fef233e7b",
+      "candidate_sha256": "5e75c115a6997b93606edf5114a220b31f0efac0535fed8404daac805c6b8a81",
+      "no_backend_stack_warnings": true
+    }
+  },
+  "runtime": {
+    "buy": {
+      "cases": 255,
+      "executions": 765,
+      "differences": [],
+      "regressions": [],
+      "per_image": {
+        "original": {
+          "success": 213,
+          "failure": 42
+        },
+        "control": {
+          "success": 213,
+          "failure": 42
+        },
+        "candidate": {
+          "success": 213,
+          "failure": 42
+        }
+      }
+    },
+    "sell": {
+      "cases": 206,
+      "executions": 618,
+      "differences": [],
+      "regressions": [],
+      "per_image": {
+        "original": {
+          "success": 108,
+          "failure": 98
+        },
+        "control": {
+          "success": 108,
+          "failure": 98
+        },
+        "candidate": {
+          "success": 108,
+          "failure": 98
+        }
+      }
+    }
+  },
+  "tooling": {
+    "reconstruction/harness/fastbuild.py": "656dc3ac139d4f8f4bcf81dbedb1c5504fc0aaec4b80059e9377a90138dc7736",
+    "reconstruction/harness/score.py": "99475a567c96c2b8d609857fe96d1ed42058c795f19ac2374968c2905ee1fb3a",
+    "reconstruction/harness/pump_physical_source_wrapper.py": "d959fe0074fafe7f310a8f40051ce87f795b1e81b104a38dfe57086efa6bae1b",
+    "scripts/pump_trade_fixture.py": "9ee647c928070734fe700929b87d4016f76ec244c873e6f484318b5212aea1e1",
+    "scripts/pump_v3_configured_fee_differential.py": "1c8af93c3d24d0c497b551391b0144f043d604766d9b12810f7c0b4a229c3b22",
+    "scripts/pump_sell_v2_differential.py": "08d4ff860d64fb7bf65dd6b26e5ec38f8f0030873ce488919fdc3189c7e0a99f"
+  },
+  "artifacts": {
+    "control-source.tar.gz": "cc5fb408c05a976612319174ced1cd33d4d335773ddd0919b79b45e9c8475eb1",
+    "replay_buy.py": "ea7da4d83a66b01e33ae7e7df3e000f19a32247fd368f603e12f0774953dd1b1",
+    "runtime-buy.json.gz": "62a22371d76c7313fd64935b2486c1e7e96d6bfbded9fb711d46328dd3a8fd36",
+    "fixture.json.gz": "5115eacfe57da02ec2c2a882730c58fd07ecea28241db2563257f8ff0af231fd",
+    "replay_sell.py": "91e4eadae0f9a57facc875be41ae3c5bc26dde77312e907d7475d9af6474a1e8",
+    "call-audit-0x83c00.json": "811b40553b76bc68e6ce86a6e5ad586323d341252ee8a867bc1783cb9a3092d0",
+    "execute-only-memberships.json": "1ccebf2e4e725e2291f48f84e6d5327a5a056fa7b52f8519030d280b48adc3fd",
+    "call-audit-0x144508.json": "81747d2395318be5ed16fc2c54e025397d590ca2d85aeb9299df25e750a7ef9b",
+    "runtime-sell.json.gz": "1d96fe91b3040735c2a16472821fed5fcc9c4155bc112a564f220287281a7f70",
+    "main-memberships.json": "77fcc96d9fed582799e38ecf90cfbb96124198dd586f063638e2428a93248d4b",
+    "sell-only-memberships.json": "b5676a9320fa730085c0b158ac2a5c4b4c402119c94af31c9f4ce293ea7cf447",
+    "combined-memberships.json": "51dcf7146fc80e97d07711b504858d8f75134d8bc7877c26ec15a573878176d1",
+    "pr1539.patch": "cb98f727a75d00ff5c9c3cffec767d5e18c85bf32e6a9313d5da5e9f8d9e1638",
+    "pr1565.patch": "3ee68c10e51eeaf91a2c1646e1d0764eaa5d4278ef354ec1ce92ad16ec015b72",
+    "source-inputs.json": "1e9f79d723faac53ea6ac8165e0f1b3f6839c95913d5631bd2062bfb12bd2c69",
+    "raw-span.json": "73b4d037e5e20783bb8a9d39641a1db572f3afdb8c73df166cd5618dab5fa2c1",
+    "verify.py": "bc718a64d98032ac4468d2e8082bbeba7c586c409ef39a3ba186a51a0add550a",
+    "verification.json": "18f8ffe8cd4f66d261f9d6af8e1e4a033bb6765eb0d050caa17191759df89404",
+    "pr-overlap.json": "1e18252865e196522d61589bf3ba2bae1b4df397a8d635cbeeb6f1aabdeea7be",
+    "NOTES.md": "81357e74ab8a5ccf2af1a2e7da9a3cb9dd8b69178659c25f1956f11a6030f32c",
+    "attempts.jsonl": "c444bffbd2a33b6cd803c7af410d34f76855cdb025163925936a8a98438810c5"
+  }
+}

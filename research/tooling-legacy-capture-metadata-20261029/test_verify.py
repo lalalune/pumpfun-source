@@ -27,6 +27,9 @@ class CaptureMetadataTests(unittest.TestCase):
         record.update(changes)
         return proof.validate(record, FOLDER)
 
+    def load(self, folder):
+        return json.loads((proof.REPO / folder / 'capture.json').read_text())
+
     def test_baseline(self):
         self.assertEqual(self.report['legacy_captures'], 1)
         self.assertEqual(self.report['upgradeable_captures'], 8)
@@ -46,9 +49,19 @@ class CaptureMetadataTests(unittest.TestCase):
 
     def test_upgradeable_authority_must_decode_to_32_bytes(self):
         folder = 'evidence/original/pump'
-        record = json.loads((proof.REPO / folder / 'capture.json').read_text())
+        record = self.load(folder)
         record['upgrade_authority'] = 'not-a-pubkey'
         self.assertIn('upgradeable authority', ' '.join(proof.validate(record, folder)))
+
+    def test_unknown_loader_is_rejected(self):
+        folder = 'evidence/original/pump'
+        record = self.load(folder)
+        record['loader'] = 'upgradeable-v2'
+        self.assertIn('expected loader', ' '.join(proof.validate(record, folder)))
+
+    def test_loader_is_bound_to_the_known_capture_folder(self):
+        record = self.load('evidence/original/pump')
+        self.assertIn('expected loader', ' '.join(proof.validate(record, FOLDER)))
 
     def test_archived_gate_accepts_the_legacy_mutation(self):
         sys.path.insert(0, str(proof.REPO / 'scripts'))

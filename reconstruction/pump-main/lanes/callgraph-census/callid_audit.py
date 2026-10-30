@@ -28,7 +28,7 @@ import census as C  # noqa: E402
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--cand', type=Path, default=C.DEFAULT_CAND)
+    ap.add_argument('--cand', type=Path, required=True)
     ap.add_argument('--json', type=Path)
     a = ap.parse_args()
     wins = C.original_windows()

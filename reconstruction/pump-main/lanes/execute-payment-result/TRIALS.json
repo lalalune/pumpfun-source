@@ -1,0 +1,812 @@
+[
+  {
+    "trial": "execute-add-match",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3456,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.9669,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-arm-scope",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3464,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.90673,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-body-wrapper",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3448,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.97278,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-deferred-add-error",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3464,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.79811,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-delayed-amount",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3448,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.97278,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-independent-selects",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3448,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.97041,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-inner-success",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3480,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.8881,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-labelled-both",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3456,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.9669,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-labelled-exit",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3456,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.9669,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-named-add-match",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3472,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.75236,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-named-add-result",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3464,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.75797,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-options-first",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3456,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.9669,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-outer-propagation",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3448,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.97278,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-pair-curve",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3448,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.97278,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-pair-user",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3448,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.96331,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-payment-explicit",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3440,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.98578,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ],
+      "slots_diff": 24,
+      "first_diff_offsets": [
+        "0xae0",
+        "0xae8",
+        "0xaf0",
+        "0xaf8",
+        "0xb00",
+        "0xb08",
+        "0xb10",
+        "0xb18",
+        "0xb20",
+        "0xb28",
+        "0xb30",
+        "0xb38"
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-payment-result-base",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3440,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.98578,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ],
+      "slots_diff": 24,
+      "first_diff_offsets": [
+        "0xae0",
+        "0xae8",
+        "0xaf0",
+        "0xaf8",
+        "0xb00",
+        "0xb08",
+        "0xb10",
+        "0xb18",
+        "0xb20",
+        "0xb28",
+        "0xb30",
+        "0xb38"
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-payment-result-paired",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3440,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.98578,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ],
+      "slots_diff": 24,
+      "first_diff_offsets": [
+        "0xae0",
+        "0xae8",
+        "0xaf0",
+        "0xaf8",
+        "0xb00",
+        "0xb08",
+        "0xb10",
+        "0xb18",
+        "0xb20",
+        "0xb28",
+        "0xb30",
+        "0xb38"
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-prebound-options",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3448,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.97278,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-prebound-user",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3448,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.97041,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-result-select",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3448,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.97278,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-result-tuple",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3448,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.97278,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-select-helper-always",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3432,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.92289,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-select-helper-hint",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3440,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.81517,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ],
+      "slots_diff": 217,
+      "first_diff_offsets": [
+        "0x80",
+        "0xe0",
+        "0x120",
+        "0x130",
+        "0x2f0",
+        "0x3a0",
+        "0x590",
+        "0x5a0",
+        "0x5a8",
+        "0x5b0",
+        "0x5b8",
+        "0x5c0"
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  {
+    "trial": "execute-single-amount",
+    "metrics": {
+      "window": "0x83c00",
+      "window_bytes": 3440,
+      "symbol": "pump_recovered::trade::v3_execute_buy",
+      "cand_start": "0x977e0",
+      "cand_bytes": 3448,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.97278,
+      "calls_original": [
+        22,
+        0
+      ],
+      "calls_candidate": [
+        22,
+        0
+      ]
+    },
+    "score": {
+      "normalized": 1023,
+      "raw": 276,
+      "total": 1035,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  }
+]

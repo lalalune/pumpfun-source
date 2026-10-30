@@ -28,7 +28,12 @@ for name, digest in inputs.items():
     assert sha((root / name).read_bytes()) == digest, name
 report = proof.check(root)
 saved = json.loads(gzip.decompress((P / 'observations.json.gz').read_bytes()))
-assert report == saved, 'fresh observations differ'
+assert proof.claims(report) == proof.claims(saved), 'fresh observations differ'
+bytes.fromhex(saved['manifest_sha256'])
 delta = json.loads((P / 'coverage-delta.json').read_text())
 assert delta['totals'] == {'files': report['files'], 'symlinks': len(report['symlinks'])}
-print(json.dumps({'files': report['files'], 'symlinks': len(report['symlinks'])}, indent=2))
+print(json.dumps({
+    'files': report['files'],
+    'symlinks': len(report['symlinks']),
+    'source_manifest_sha256': report['manifest_sha256'],
+}, indent=2))

@@ -1,0 +1,74 @@
+name: Pump cold-build score regression
+on:
+  workflow_dispatch:
+    inputs:
+      base:
+        description: Full base commit SHA in this repository
+        required: true
+      candidate:
+        description: Full candidate commit SHA in this repository
+        required: true
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: macos-14
+    timeout-minutes: 90
+    steps:
+      - name: Validate immutable input revisions
+        env:
+          BASE: ${{ inputs.base }}
+          CANDIDATE: ${{ inputs.candidate }}
+        run: |
+          [[ "$BASE" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$CANDIDATE" =~ ^[0-9a-f]{40}$ ]]
+          test "$(uname -m)" = arm64
+      - uses: actions/checkout@v4
+        with:
+          path: tooling
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.base }}
+          path: baseline
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.candidate }}
+          path: candidate
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test the gate
+        run: |
+          python -B tooling/reconstruction/harness/test_compare_scores.py
+          python -B tooling/reconstruction/harness/test_build_score_pair.py
+      - name: Install and authenticate the pinned SDK
+        run: |
+          curl --fail --location --retry 3 https://github.com/anza-xyz/platform-tools/releases/download/v1.44/platform-tools-osx-aarch64.tar.bz2 -o "$RUNNER_TEMP/sdk.tar.bz2"
+          echo "66e20d135fddd70ff519baf7ff320d762957f9aedf93a50e23756db23ad79351  $RUNNER_TEMP/sdk.tar.bz2" | shasum -a 256 -c -
+          mkdir -p "$HOME/.cache/solana/v1.44/platform-tools"
+          tar -xjf "$RUNNER_TEMP/sdk.tar.bz2" -C "$HOME/.cache/solana/v1.44/platform-tools"
+          python -B tooling/reconstruction/toolchain/bootstrap.py --sdk-check full
+      - name: Fetch locked dependencies for both source revisions
+        run: |
+          export RUSTC="$HOME/.cache/pumpfun-reconstruction/toolchains/hybrid144/rust/bin/rustc"
+          export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
+          "$HOME/.cache/solana/v1.44/platform-tools/rust/bin/cargo" fetch --locked --target sbpf-solana-solana --manifest-path baseline/programs/pump/Cargo.toml
+          "$HOME/.cache/solana/v1.44/platform-tools/rust/bin/cargo" fetch --locked --target sbpf-solana-solana --manifest-path candidate/programs/pump/Cargo.toml
+      - name: Build and compare with one scorer and isolated cold targets
+        run: >-
+          python -B tooling/reconstruction/harness/build_score_pair.py
+          --base baseline --candidate candidate --out "$RUNNER_TEMP/pump-score-pair"
+      - name: Retain measurements and compiler logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pump-score-pair
+          path: |
+            ${{ runner.temp }}/pump-score-pair/receipt.json
+            ${{ runner.temp }}/pump-score-pair/*-score.json
+            ${{ runner.temp }}/pump-score-pair/base/build.log
+            ${{ runner.temp }}/pump-score-pair/candidate/build.log
+          if-no-files-found: warn

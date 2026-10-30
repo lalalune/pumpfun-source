@@ -381,8 +381,11 @@ def locked_registry_packages(source):
 
 def registry_namespace_sets(cargo_home):
     result = {}
+    registry = cargo_home / "registry"
     for kind in ["cache", "src", "index"]:
-        root = cargo_home / "registry" / kind
+        root = registry / kind
+        if any(path.is_symlink() or not path.is_dir() for path in [cargo_home, registry, root]):
+            raise ValueError("Registry views must be real directories: " + kind)
         paths = list(root.iterdir()) if root.is_dir() else []
         if any(p.is_symlink() or not p.is_dir() for p in paths):
             raise ValueError("Registry views must be real directories: " + kind)

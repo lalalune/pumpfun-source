@@ -11,7 +11,7 @@
 * Identical inputs (sell bytes + patch bytes + flags + link script) are built once per swarm:
   a repeat returns the cached result with "duplicate": true and is NOT re-logged.
 * Every executed attempt is appended to ATTEMPTS.jsonl (flock) and its sell.rs is kept in
-  sources/<sha256>.rs. BEST.json tracks the best non-losing attempt.
+  sources/<sha256>.rs. BEST-v<SCORE_VERSION>.json tracks the best non-losing attempt.
 
 Exit status: 0 = built and scored, 2 = build failed, 3 = SELL RAW-EQUAL (goal reached).
 """
@@ -35,7 +35,7 @@ LOG = SWARM / 'ATTEMPTS.jsonl'
 LOCK = SWARM / '.attempts.lock'
 CACHE = SWARM / 'cache'
 SOURCES = SWARM / 'sources'
-BEST = SWARM / 'BEST.json'
+BEST = SWARM / f'BEST-v{sell_score.SCORE_VERSION}.json'
 PRISTINE_SELL = SWARM / 'baselines/pristine-ws' / native_build.SELL_REL
 
 
@@ -95,6 +95,8 @@ def main():
         result = json.loads(cached.read_text())
         result['duplicate'] = True
         print(json.dumps(result, indent=1))
+        if result.get('status') == 'build_failed':
+            return 2
         return 3 if (result.get('metrics') or {}).get('sell_raw_equal') else 0
     (SOURCES / (key_doc['sell'] + '.rs')).write_bytes(sell_bytes)
     if patch_bytes:
@@ -103,7 +105,7 @@ def main():
     build_id = key[:16]
     record = native_build.build(lane_build, build_id, sell=a.sell, patch=a.patch,
                                 extra_root_flags=a.extra_root_flags, link_script=a.link_script)
-    out = lane_build / 'out' / build_id
+    out = Path(record.get('output_dir') or lane_build / 'out' / build_id)
     entry = {'schema': 'amm-sell-attempt-v1', 'attempt_id': uuid.uuid4().hex,
              'timestamp_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
              'lane': a.lane, 'approach': a.approach, 'hypothesis': a.hypothesis, 'key': key,

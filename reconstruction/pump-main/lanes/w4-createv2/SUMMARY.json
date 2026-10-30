@@ -1,0 +1,17 @@
+{
+ "lane": "w4-createv2",
+ "target": "0x1e7c0 create_v2::execute (orig 15,576 B, 125 calls)",
+ "base": {"commit": "630a074", "ratio": 0.75114, "bytes": 15632, "calls": 125, "official": "1023/277"},
+ "best": {"ratio": 0.82553, "bytes": 15544, "calls": 125, "official": "1023/276", "gains": [], "losses": [], "raw_losses": ["0xa868"],
+  "unstripped_sha256": "e6c4ce57b0b0583f6d2c7f36c50444da64ccd04d60233f533d0ac3f00e560b82",
+  "mechanisms": ["R1 rep (Option<u64> reserves, QuoteSource::Nested(u8))",
+   "curve init in impl CreateV2 { fn init_curve(&mut self, creator, quote_mint: Pubkey, ...) }: MIR inliner refuses, LLVM inlines; by-value Pubkey arg copy is emitted first among execute allocas -> top slot, compared in place; frame = original through -0x508",
+   "let initial_virtual_quote_reserves = global.ivqr before the test (no sink.split)",
+   "let sol = Pubkey::default() before that load (ivqr load lands in the non-SOL block, as original)",
+   "let mut fee = 0; if matches!(source, Controlled|Nested(_)) && creator_fee_bps.0 > 0 { ...; fee = ... } (original fee-check layout)"]},
+ "raw_caveat": "0xa868 (<&T as Debug>::fmt, 24 B) is raw only while the net size of code between it and its callee equals the original distance; execute lies in between (base +56 B). Any size change of execute flips it; v13 (15,584 B) scored raw 283 by the same coincidence.",
+ "attempts": 60,
+ "rejected": ["plain unwrap_or in helper (sink.split back)", "ivqr let inside else", "depth inside helper / right after validate", "store-order permutations (identical or worse)", "helper taking (&mut BondingCurve,&Global) 0.807", "!matches!(Sol|Whitelisted) fee (0.82597 but jlt tag,2 unlike original)", "fee>0 first with mut fee 0.81454", "non-mut matches-first 0.82359", "vqr as mutable default 0.716/0.723", "quote_mint!=sol non-SOL first 0.730", "validate tuple reorders 0.749/0.756", "holder store outside helper 0.81862", "IR oracle: creator data-ptr GEP hoist 0.820, reuse early curve load at end 0.786, split fee and-cond 0.750/0.773"],
+ "unresolved": ["callee-saved role rotation (holder r6 vs ctx r6): worth +0.044 (0.8697)", "depth select in register (jlt tag,3)", "creator stores after u64 fields via r4 data pointer", "validate-time curve Account pointer reused at the end (-0x760)", "raw 0xa868 layout coincidence"],
+ "next_ideas": ["find what gives is_holder_reward greedy-RA priority over ctx in the original (a physreg copy hint, or a shorter/split ctx range): llc -print-after=greedy on g7 IR plus IR perturbations, then map to source", "coordinate with other lanes on the raw-layout coincidences: any size change of the 12 unmatched windows between 0xa7b0 and 0x1a24f8 flips 0xa868"]
+}

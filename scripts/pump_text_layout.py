@@ -39,9 +39,7 @@ def configure(order, out, sdk, crate_name, physical_wrapper, data_certificate=No
         certificate = pump_data_order.load_certificate(data_certificate)
         script = pump_data_order.render(script, certificate)
         certificate_copy = Path(out) / 'data-order-certificate.json'
-        certificate_copy.write_bytes(Path(data_certificate).read_bytes())
     dest = Path(out) / 'ordered.ld'
-    dest.write_text(script)
     rustc_version = subprocess.check_output([str(Path(sdk) / 'rust/bin/rustc'), '-vV'], text=True)
     hosts = re.findall(r'^host: ([A-Za-z0-9_-]+)$', rustc_version, re.M)
     assert len(hosts) == 1, 'SDK rustc must report exactly one host triple'
@@ -52,12 +50,17 @@ def configure(order, out, sdk, crate_name, physical_wrapper, data_certificate=No
              'pump_text_layout_linker.py', 'pump_text_layout_default.ld']]
     if data_certificate:
         files += [HERE / name for name in pump_data_order.implementation_hashes()]
+    helper_sha256 = {str(p): sha(p) for p in files}
+    external_wrapper_sha256 = sha(physical_wrapper)
+    if certificate_copy:
+        certificate_copy.write_bytes(Path(data_certificate).read_bytes())
+    dest.write_text(script)
     record = {'scope': 'Optional main-only compiler/link recipe; no original ELF input or byte patching.',
               'selectors': count, 'script': str(dest), 'script_sha256': sha(dest),
-              'helper_sha256': {str(p): sha(p) for p in files},
+              'helper_sha256': helper_sha256,
               'real_linker': str(linker), 'real_linker_sha256': sha(linker),
               'rustc_host': host, 'rustc_verbose_version': rustc_version,
-              'external_wrapper': str(physical_wrapper), 'external_wrapper_sha256': sha(physical_wrapper),
+              'external_wrapper': str(physical_wrapper), 'external_wrapper_sha256': external_wrapper_sha256,
               'link_receipt': str(Path(out) / 'link/linker-invocation.json')}
     env = {'RUSTC_WRAPPER': str(HERE / 'pump_text_layout_rustc.py'),
            'PUMP_TEXT_ROOT_CRATE': crate_name,
@@ -81,12 +84,20 @@ def rustc_command(rustc, args, env):
     return [sys.executable, env['PUMP_TEXT_PHYSICAL_WRAPPER'], rustc, *result]
 
 
+def reject_attached_script(arg):
+    # `-T file` is admitted as two arguments. `-Tfile` is a second script the
+    # separate-argument check never sees.
+    if isinstance(arg, str) and arg.startswith('-T') and arg != '-T':
+        raise AssertionError('attached linker script is not admitted: ' + arg)
+
+
 def declared_inputs(args):
     result = {}
     skip = {'-o', '--output', '-L', '--library-path', '--script', '-T', '-z', '-flavor'}
     i = 0
     while i < len(args):
         arg = args[i]
+        reject_attached_script(arg)
         if arg in skip:
             assert i + 1 < len(args)
             i += 2
@@ -140,6 +151,7 @@ def prepare_link(args, env):
     i = 0
     while i < len(args):
         arg = args[i]
+        reject_attached_script(arg)
         if arg in ('--script', '-T'):
             assert Path(args[i + 1]).read_text() == default, 'unexpected SDK script'
             after += [arg, str(replacement)]

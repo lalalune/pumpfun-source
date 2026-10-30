@@ -32,7 +32,7 @@ ORIGINAL = Path(os.environ.get('AMM_SELL_SWARM', HERE.parent)).resolve() / 'infr
 ORIGINAL_SHA = '6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7'
 SELL_START = 0x4c750
 SELL_SIZE = 9024
-SCORE_VERSION = 2
+SCORE_VERSION = 3
 sys.path.insert(0, str(HERE))
 try:
     import elf_reader  # noqa: E402
@@ -127,22 +127,49 @@ def listing(elf, start, size, names=None):
 
 
 def normalized_tokens(rows):
-    """Instruction tokens with branch displacements replaced by relative block labels.
+    """Instruction tokens with labels bound to their destination instructions.
 
+    A label names both the edge and the instruction it reaches. Destinations
+    outside the decoded instruction boundaries keep their window-relative offset.
     Calls keep their absolute target (callee identity matters); lddw keeps its value.
     """
-    targets = sorted({r['target'] for r in rows if isinstance(r['target'], int)})
+    offsets = {r['off'] for r in rows}
+    targets = sorted({r['target'] for r in rows
+                      if isinstance(r['target'], int) and r['target'] in offsets})
     label = {t: f'L{i}' for i, t in enumerate(targets)}
     tokens = []
     for r in rows:
         f = r['fields']
         if isinstance(r['target'], int):
-            tokens.append(' '.join(map(str, f[:-1])) + ' ->' + label[r['target']])
+            destination = label.get(r['target'], f"offset({r['target']:#x})")
+            token = ' '.join(map(str, f[:-1])) + ' ->' + destination
         elif isinstance(r['target'], tuple):
-            tokens.append(f'call {r["target"][1]:#x}')
+            token = f'call {r["target"][1]:#x}'
         else:
-            tokens.append(' '.join(map(str, f)))
+            token = ' '.join(map(str, f))
+        if r['off'] in label:
+            token = label[r['off']] + ': ' + token
+        tokens.append(token)
     return tokens
+
+
+def alignment_distance(left, right):
+    """Minimum unit-cost insertions, deletions and substitutions of tokens.
+
+    SequenceMatcher chooses matching blocks for display, not a minimum-cost
+    edit script. Keep its visual alignment separate from this ranking metric.
+    Use one row of memory, bounded by the shorter instruction sequence.
+    """
+    if len(left) < len(right):
+        left, right = right, left
+    previous = list(range(len(right) + 1))
+    for i, token in enumerate(left, 1):
+        row = [i]
+        for j, other in enumerate(right, 1):
+            row.append(min(previous[j] + 1, row[-1] + 1,
+                           previous[j - 1] + (token != other)))
+        previous = row
+    return previous[-1]
 
 
 def find_sell(symbols):
@@ -182,7 +209,7 @@ def score(out_dir, want_disasm=False):
     c_rows = listing(candidate, sell['start'], sell['size'], names)
     o_tok, c_tok = normalized_tokens(o_rows), normalized_tokens(c_rows)
     matcher = difflib.SequenceMatcher(None, o_tok, c_tok, autojunk=False)
-    distance = sum(max(i2 - i1, j2 - j1) for tag, i1, i2, j1, j2 in matcher.get_opcodes() if tag != 'equal')
+    distance = alignment_distance(o_tok, c_tok)
     slot_diffs = sum(1 for i in range(0, min(len(o_sell), len(c_sell)), 8) if o_sell[i:i + 8] != c_sell[i:i + 8])
     borrow = {}
     for name, rows in (('original', o_rows), ('candidate', c_rows)):

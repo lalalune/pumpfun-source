@@ -1,0 +1,64 @@
+{
+ "lane": "w4-sweep",
+ "target": "0x72810 sweep::execute",
+ "base": "630a074 (1023/277)",
+ "best": {
+  "trial": "s6",
+  "ratio": 0.88669,
+  "structural": 0.9459,
+  "cand_bytes": 7880,
+  "orig_bytes": 7832,
+  "calls": 39,
+  "orig_calls": 39,
+  "official": {
+   "normalized": 1023,
+   "raw": 276,
+   "gains": [],
+   "losses": [],
+   "raw_losses": [
+    "0xa868 (call-span drift, any sweep size != 7824)"
+   ]
+  },
+  "unstripped_sha256": "b944e16bdfb2f1b523b56b94c877134b0984a0d5dc6e51f06ee03ae711782033"
+ },
+ "progress": [
+  [
+   "base a23",
+   0.49139
+  ],
+  [
+   "p1 admit_quote_pair helper (39 calls, frame kept)",
+   0.82199
+  ],
+  [
+   "s6 rent helper Rent::get().map(..)?",
+   0.88669
+  ]
+ ],
+ "attempts": 52,
+ "mechanisms_found": [
+  "An inline(always) helper that the MIR inliner skips (too big) but AlwaysInliner inlines keeps a Result merge that MIR JumpThreading cannot thread: the join's pre-inline frequency rises 1.47% -> 2.34% so the AccountInfo clone is inlined (39 calls) while the locals stay in execute (frame kept).",
+  "Second admit as the helper tail expression: the bonding-curve to_account_info temporary drop is hoisted before the first admit's branch as in the original.",
+  "Rent top-up as LLVM-inlined helper restores the single jeq r1,2 test after From and transfer.",
+  "Original rent region = `?` ControlFlow payload slice WITH lifetime markers (IR oracle 0.8808); MemCpyOpt stack-move erases them in source builds."
+ ],
+ "rejected": [
+  "merged admits inline in execute (match/and_then/is_ok): MIR JT threads",
+  "rent arm variants inline (Rent::get()? inline, map_err.and_then, closure)",
+  "rent helper with Rent::get()? bodies (+24 uncolored slot)",
+  "map/and_then/map_err/early-return/>= spellings (byte-identical)",
+  "transfer arg lets (breaks threading)"
+ ],
+ "unresolved": [
+  "admit branch polarity (block order)",
+  "rent payload slice lifetime",
+  "join field load order",
+  "raw 0xa868 call-span drift"
+ ],
+ "next_ideas": [
+  "Find a source shape that yields the ControlFlow payload copy without a stack-move (e.g. a capture or size mismatch on the residual path)",
+  "Put admit2 in a MIR block created after the protocol-native block while keeping an LLVM-level error merge",
+  "Coordinate the +8 B drift elsewhere in the 0xa868 call span so sweep size changes do not cost raw 0xa868"
+ ],
+ "pr": "https://github.com/lalalune/pumpfun-source/pull/1548"
+}

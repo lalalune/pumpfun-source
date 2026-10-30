@@ -5,6 +5,7 @@ import importlib.util
 import contextlib
 import io
 import json
+import struct
 import sys
 import tempfile
 import types
@@ -78,7 +79,7 @@ class ImageIdentityTests(unittest.TestCase):
         self.assertTrue(report['whole_elf_equal'])
         self.assertTrue(report['allocation_image_equal'])
         self.assertTrue(report['unstripped_elf_equal'])
-        self.assertEqual(report['score_version'], 2)
+        self.assertEqual(report['score_version'], 3)
 
     def test_attempt_cache_separates_old_meaning_and_preserves_new_metrics(self):
         # Native build and flock are never called. The stubs also let this
@@ -102,6 +103,11 @@ class ImageIdentityTests(unittest.TestCase):
             old_path = cache / (old_key + '.json')
             old_bytes = b'{"metrics":{"whole_elf_equal":true,"sell_raw_equal":true}}'
             old_path.write_bytes(old_bytes)
+            v2_inputs = {**old_inputs, 'score_version': 2}
+            v2_key = runner.sha(json.dumps(v2_inputs, sort_keys=True).encode())
+            v2_path = cache / (v2_key + '.json')
+            v2_bytes = b'{"metrics":{"align_distance":112}}'
+            v2_path.write_bytes(v2_bytes)
             args = ['try_sell.py', '--lane', 'fixture', '--approach', 'identity',
                     '--hypothesis', 'cache version regression', '--baseline']
             with patch.multiple(runner, SWARM=root, CACHE=cache, SOURCES=root / 'sources',
@@ -116,15 +122,94 @@ class ImageIdentityTests(unittest.TestCase):
             self.assertEqual(scoring.call_count, 1)
             self.assertEqual(append.call_count, 1)
             self.assertEqual(old_path.read_bytes(), old_bytes)
-            new_paths = [p for p in cache.glob('*.json') if p != old_path]
+            self.assertEqual(v2_path.read_bytes(), v2_bytes)
+            new_paths = [p for p in cache.glob('*.json') if p not in (old_path, v2_path)]
             self.assertEqual(len(new_paths), 1)
             entry = json.loads(new_paths[0].read_bytes())
-            self.assertEqual(entry['inputs']['score_version'], 2)
+            self.assertEqual(entry['inputs']['score_version'], 3)
             self.assertFalse(entry['metrics']['whole_elf_equal'])
             self.assertTrue(entry['metrics']['allocation_image_equal'])
             self.assertFalse(entry['metrics']['unstripped_elf_equal'])
             self.assertEqual(entry['metrics']['allocation_padding_bytes'], 24)
             self.assertEqual(entry['unstripped_sha256'], report['unstripped_sha256'])
+
+
+class BranchTokenTests(unittest.TestCase):
+    def rows(self, code, start=0):
+        return score.listing(types.SimpleNamespace(b=bytes(start) + code), start, len(code))
+
+    def program(self, displacement):
+        return b''.join(struct.pack('<BBhi', *instruction) for instruction in (
+            (0xb7, 0, 0, 0), (0x05, 0, displacement, 0),
+            (0xb7, 0, 0, 7), (0x95, 0, 0, 0)))
+
+    def test_jump_that_skips_assignment_differs_from_jump_into_assignment(self):
+        # These programs return 0 and 7 respectively. Merely giving their
+        # sole branch destinations the same name must not erase that change.
+        skip = self.rows(self.program(1))
+        execute = self.rows(self.program(0))
+        self.assertNotEqual(skip[1]['target'], execute[1]['target'])
+        self.assertNotEqual(score.normalized_tokens(skip), score.normalized_tokens(execute))
+
+    def test_function_base_relocation_preserves_branch_tokens(self):
+        code = self.program(1)
+        self.assertEqual(score.normalized_tokens(self.rows(code)),
+                         score.normalized_tokens(self.rows(code, start=64)))
+
+    def test_outside_window_destinations_remain_distinct(self):
+        left = self.rows(self.program(10))
+        right = self.rows(self.program(11))
+        self.assertNotEqual(score.normalized_tokens(left), score.normalized_tokens(right))
+
+    def test_backward_destination_change_remains_visible(self):
+        left = self.rows(self.program(-2))
+        right = self.rows(self.program(-1))
+        self.assertNotEqual(score.normalized_tokens(left), score.normalized_tokens(right))
+
+    def test_call_targets_are_not_renamed_as_branch_labels(self):
+        def call(displacement):
+            return struct.pack('<BBhi', 0x85, 0x10, 0, displacement)
+        self.assertNotEqual(score.normalized_tokens(self.rows(call(0))),
+                            score.normalized_tokens(self.rows(call(1))))
+
+    def test_lddw_continuation_is_not_an_instruction_destination(self):
+        def program(displacement):
+            return (struct.pack('<BBhi', 0x05, 0, displacement, 0)
+                    + struct.pack('<BBhi', 0x18, 0, 0, 1) + bytes(8)
+                    + struct.pack('<BBhi', 0x95, 0, 0, 0))
+        instruction = self.rows(program(0))
+        continuation = self.rows(program(1))
+        self.assertEqual(len(instruction), len(score.normalized_tokens(instruction)))
+        self.assertNotEqual(score.normalized_tokens(instruction), score.normalized_tokens(continuation))
+
+    def test_captured_sell_target_mutations_are_visible(self):
+        path = HERE.parents[1] / 'evidence/original/pump_amm/deployed.so'
+        blob = path.read_bytes()
+        self.assertEqual(hashlib.sha256(blob).hexdigest(), score.ORIGINAL_SHA)
+        original = score.listing(types.SimpleNamespace(b=blob), score.SELL_START, score.SELL_SIZE)
+        tokens = score.normalized_tokens(original)
+        offsets = {r['off'] for r in original}
+        targets = sorted({r['target'] for r in original if isinstance(r['target'], int)})
+        tested = 0
+        for i, target in enumerate(targets):
+            low = targets[i - 1] if i else -1
+            high = targets[i + 1] if i + 1 < len(targets) else score.SELL_SIZE
+            choices = [o for o in offsets if low < o < high and o != target]
+            if target not in offsets or not choices:
+                continue
+            destination = min(choices, key=lambda o: (abs(o - target), o))
+            changed = bytearray(blob)
+            for row in original:
+                if row['target'] == target:
+                    displacement = (destination - row['off'] - row['len']) // 8
+                    struct.pack_into('<h', changed, score.SELL_START + row['off'] + 2, displacement)
+            mutated = score.listing(types.SimpleNamespace(b=bytes(changed)),
+                                    score.SELL_START, score.SELL_SIZE)
+            with self.subTest(target=hex(target), destination=hex(destination)):
+                self.assertNotEqual(tokens, score.normalized_tokens(mutated))
+            tested += 1
+        self.assertEqual(tested, 52)
+        self.assertEqual(path.read_bytes(), blob)
 
 
 if __name__ == '__main__':

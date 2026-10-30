@@ -1,0 +1,50 @@
+{
+  "original": {
+    "start": 43112,
+    "bytes": "791100000000000085100000a72f03009500000000000000",
+    "calls": [
+      {
+        "offset": 8,
+        "target": 1713584,
+        "kind": "internal",
+        "size": 1088,
+        "body_sha256": "dd57f23602c618b8b75b8d970b99299afbd61b7c15f741b6bff6974441f7a450",
+        "syscall": null
+      }
+    ]
+  },
+  "buy-current-control": [
+    {
+      "name": "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hc7eb8f545b1bbf09E",
+      "start": 42928,
+      "bytes": "791100000000000085100000a72f03009500000000000000",
+      "calls": [
+        {
+          "offset": 8,
+          "target": 1713400,
+          "kind": "internal",
+          "size": 1088,
+          "body_sha256": "dd57f23602c618b8b75b8d970b99299afbd61b7c15f741b6bff6974441f7a450",
+          "syscall": null
+        }
+      ]
+    }
+  ],
+  "buy-full-pool-tuple-base-first": [
+    {
+      "name": "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hc7eb8f545b1bbf09E",
+      "start": 42928,
+      "bytes": "791100000000000085100000a62f03009500000000000000",
+      "calls": [
+        {
+          "offset": 8,
+          "target": 1713392,
+          "kind": "internal",
+          "size": 1088,
+          "body_sha256": "dd57f23602c618b8b75b8d970b99299afbd61b7c15f741b6bff6974441f7a450",
+          "syscall": null
+        }
+      ]
+    }
+  ]
+}

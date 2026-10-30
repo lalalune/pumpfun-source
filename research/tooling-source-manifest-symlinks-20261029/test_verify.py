@@ -76,9 +76,32 @@ class SourceManifestSymlinkTests(unittest.TestCase):
         for path in (proof.REPO / 'programs/pump').rglob('*'):
             self.assertFalse(path.is_symlink(), path)
 
-    def test_saved_observations_match(self):
-        saved = json.loads(gzip.decompress((P / 'observations.json.gz').read_bytes()))
-        self.assertEqual(saved, self.report)
+    def saved_observations(self):
+        return json.loads(gzip.decompress((P / 'observations.json.gz').read_bytes()))
+
+    def test_saved_claims_match(self):
+        self.assertEqual(proof.claims(self.report), proof.claims(self.saved_observations()))
+
+    def test_sealed_source_revision_is_provenance(self):
+        saved = self.saved_observations()
+        bytes.fromhex(saved['manifest_sha256'])
+        changed = dict(saved, manifest_sha256='0' * 64)
+        self.assertEqual(proof.claims(changed), proof.claims(self.report))
+
+    def test_claim_drift_is_rejected(self):
+        saved = self.saved_observations()
+        mutations = {
+            'scope': 'a different scope',
+            'script': 'scripts/other.py',
+            'script_sha256': '0' * 64,
+            'program': 'pump_amm',
+            'files': saved['files'] + 1,
+            'symlinks': ['programs/pump/src/lib.rs'],
+        }
+        for key, value in mutations.items():
+            with self.subTest(key=key):
+                mutated = dict(saved, **{key: value})
+                self.assertNotEqual(proof.claims(mutated), proof.claims(self.report))
 
     def test_manifest_inventory(self):
         saved = json.loads((P / 'manifest.json').read_text())
