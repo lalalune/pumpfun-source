@@ -385,12 +385,18 @@ def generate_roadmap(output_dir):
             for c in clusters[:50]
         ]
 
+        unmatched_estimate = len(entries) - prog_info["frontier_normalized"]
         prog_data = {
             "program": prog_name,
             "deployed_sha256": sha256_file(str(deployed_path)),
             "total_windows": len(entries),
             "frontier_normalized": prog_info["frontier_normalized"],
-            "unmatched_estimate": len(entries) - prog_info["frontier_normalized"],
+            "unmatched_estimate": unmatched_estimate,
+            # Preserve the historical largest-N estimate, but calculate it
+            # before the display cap. Unnamed does not imply byte-unmatched.
+            "unmatched_bytes_estimate": sum(w["size"] for w in unnamed_windows[:unmatched_estimate]),
+            "unnamed_windows_total": len(unnamed_windows),
+            "unnamed_bytes_total": sum(w["size"] for w in unnamed_windows),
             "window_details": window_details,
             "unnamed_windows_by_size": [
                 {"address": w["address"], "size": w["size"],
@@ -419,21 +425,28 @@ def generate_roadmap(output_dir):
         "programs": {},
         "total_unmatched_estimate": 0,
         "total_unmatched_bytes_estimate": 0,
+        "total_unnamed_windows": 0,
+        "total_unnamed_bytes": 0,
+        "estimate_basis": "Largest unnamed windows up to the historical unmatched count; not a candidate byte comparison.",
         "priority_order": [],
     }
     for prog_name, data in all_program_data.items():
         unmatched = data["unmatched_estimate"]
-        unmatched_bytes = sum(w["size"] for w in data["unnamed_windows_by_size"][:unmatched])
+        unmatched_bytes = data["unmatched_bytes_estimate"]
         summary["programs"][prog_name] = {
             "total_windows": data["total_windows"],
             "frontier_normalized": data["frontier_normalized"],
             "unmatched_estimate": unmatched,
             "unmatched_bytes_estimate": unmatched_bytes,
-            "largest_unmatched": data["unnamed_windows_by_size"][:5] if data["unnamed_windows_by_size"] else [],
+            "unnamed_windows_total": data["unnamed_windows_total"],
+            "unnamed_bytes_total": data["unnamed_bytes_total"],
+            "largest_unnamed": data["unnamed_windows_by_size"][:5],
             "reconstruction_clusters": len(data["reconstruction_clusters"]),
         }
         summary["total_unmatched_estimate"] += unmatched
         summary["total_unmatched_bytes_estimate"] += unmatched_bytes
+        summary["total_unnamed_windows"] += data["unnamed_windows_total"]
+        summary["total_unnamed_bytes"] += data["unnamed_bytes_total"]
 
     # Priority: most unmatched first, then by bytes
     summary["priority_order"] = sorted(
@@ -531,11 +544,16 @@ def generate_roadmap(output_dir):
 
 ## Overview
 
-Cross-program analysis of all three incomplete program binaries, identifying
-unmatched code windows, call graph relationships, instruction patterns, and
+Cross-program analysis of all three incomplete program binaries, cataloguing
+unnamed code windows, call graph relationships, instruction patterns, and
 a phased reconstruction plan.
 
-## Current Frontier
+## Historical reference frontier
+
+The fixed frontier counts below are historical references, not the official
+current completion score. Byte estimates take the largest unnamed windows up
+to each reference's unmatched count. An unnamed window may already byte-match;
+only the official candidate scorer establishes matching membership.
 
 | Program | Windows | Matched | Unmatched (est.) | Match % |
 |---------|---------|---------|------------------|---------|"""]
@@ -550,6 +568,11 @@ a phased reconstruction plan.
     readme_parts.append(f"""
 **Total estimated unmatched:** {summary["total_unmatched_estimate"]} windows, """
         f"""{summary["total_unmatched_bytes_estimate"]:,} bytes
+
+**Full unnamed inventory:** {summary["total_unnamed_windows"]} windows,
+{summary["total_unnamed_bytes"]:,} bytes. This is a separate naming diagnostic,
+not a completion deficit. Phase lists below use the largest-100 display subset
+per program and are not exhaustive.
 
 ## Reconstruction Phases
 
