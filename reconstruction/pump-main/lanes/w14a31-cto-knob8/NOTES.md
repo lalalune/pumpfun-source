@@ -3,8 +3,8 @@
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Angle: find faithful ±8 / ±16 B spellings in the tail, event, wallet, sweep and error-message code (outside the
 frame/validate regions), and pair them with the known off-size leads to land exactly at 27,400 B.
-Bases: main f100a59 (0.6423, M 2,144), b2e90aa (0.6444, M 2,151), 5ee681d (0.645, M 2,153), e87e001 (0.64709, M 2,160).
-Main moved four times during the lane; every pairing below was re-run on the main it is reported against.
+Bases: main f100a59 (0.6423, M 2,144), b2e90aa (0.6444, M 2,151), 5ee681d (0.645, M 2,153), e87e001 (0.64709, M 2,160), 81d3d9a (0.65069, M 2,172).
+Main moved five times during the lane; every pairing below was re-run on the main it is reported against.
 Ledger: approach `sizeknob`, keys `0x22a10-w14-<sha7>-knob8-<name>-v1`.
 
 **Result: no zero-loss gain.** No pair or triple of faithful size knobs beats main at 27,400 B. The knob catalog is
@@ -93,6 +93,34 @@ The jM gains of P2/P3 (+8) are lost again in jump offsets: the knobs sit at diff
 ~0x2418-0x2500, s_rent_get in the native arm ~0x5700, ev_old_fee_curve in the event ~0x4968), so they shift regions that
 main already aligns.
 
+On e87e001 (main M 2,160, 0.64709; pairs picked from the `shift.py` hot spots: +8 near main 0x2418-0x24e0 where
+k3 / wl_writ_eq act, -8 in 0x3f38-0x5540 where sh_iflet / tp_dlen / ev_nf_drop act):
+
+| pair | bytes | M | ratio | jM (main 2,188) |
+| --- | ---: | ---: | ---: | ---: |
+| Q1 k3 + sh_iflet | 27,400 | **2160 (tie)** | 0.64709 | 2189 |
+| Q2 wl_writ_eq + sh_iflet | 27,400 | 2160 (tie) | 0.64709 | 2188 |
+| Q3 / Q4 k3 / wl_writ_eq + tp_dlen | 27,400 | 2157 | 0.6462 | |
+| Q5 / Q6 + n_andthen | 27,400 | 2151 | 0.6444 | |
+| Q8 n_ensiflet + sh_iflet | 27,400 | 2155 | | |
+| Q10 k3 + wl_writ_eq + sh_iflet + tp_dlen | 27,400 | 2155 | | |
+| R2 s_rent_get + ev_nf_drop + k3 | 27,400 | 2156 | 0.6459 | **2196 (+8)** |
+| R3 / R6 s_rent_get + ev_nf_drop + wl_writ_eq (+ sh_iflet + k3) | 27,400 | 2157 | 0.6462 | 2195 / 2196 |
+| R4 s_rent_get + sh_iflet + tp_dlen | 27,400 | 2150 | | |
+| R5 ev_nf_drop + k3 + wl_writ_eq + n_ensiflet | 27,400 | 2156 | | |
+
+Re-measured on 81d3d9a (main M 2,172, 0.65069): Q1 ties again (2,172), R3 2,169, R2 2,168, sh_iflet 2,167 @-8,
+k3 2,167 @+8, ev_nf_drop 2,171 @-24, s_rent_get 2,160 @+16. The knob deltas are stable across the four mains.
+
+`shift.py` on R2 (jM +8, M -4): a pure +8 at R2 0x3be0 with -8 at 0x2038 or in 0x40c8-0x5528 would give M +7 (+3 over
+main). R2 0x3be0 is the `Rent::get()` Err-conversion block (`Error::from(ProgramError)`, the Ok path jumps to the native
+arm). s_rent_get itself removed one instruction there (`ldxdw r1;mov r7,r1` -> `ldxdw r7`). The +8 it wants back is
+that same instruction, so the oracle just undoes s_rent_get's jump damage. There is no independent knob.
+
+Vault-seed spellings (`vs_*`, the shift oracle's -8 hot spot at main 0x2038 is the `creator-vault` seed slice): vs_inline,
+vs_oldfirst, vs_olda and vs_bytes are token-identical. vs_let (no deferred `vsigner`) gives -4 at 0 B, vs_arr
+(`let bump=[..]`) gives -156 at -16 B, and vs_slice1 does not compile.
+
 ### v7c (w14a21 validate closure) + repay, on 5ee681d
 
 v7c is now **+32 B** (27,432), jM **2,240 (+61 over main)**, M 2,106. With repay knobs at 27,400:
@@ -109,3 +137,15 @@ At the pinned size v7c still has jM - M = 135: its jump mismatches are spread (`
 block layout (src 0x0000-0x1000 with deltas of hundreds of bytes), so tail repay knobs cannot recover them. The v7c
 offset profile is -24..-8 through orig 0x5800 and +56/+32/+8 after: the repay must be ~-56 B inside the native arm plus
 the original's 24 B out-of-line ensure Err block later, i.e. the unthreaded sweep join, which no spelling here produced.
+`shiftk.py rx/v7c/fn.bin 4` (pure -32 B: delete 4 unmatched instructions at any 0x100 grid position, jumps fixed): the best
+position recovers only **+3 M** (2,109 at orig ~0x5c60). Size alone cannot repay v7c.
+
+## Conclusion / next ideas
+
+- The size-pairing family is used up on main. The synthetic bound is +2 M, real pairs reach a tie at best (Q1), and the
+  jM-positive knobs (s_rent_get +6, ev_nf_drop +2, sh_iflet +1) lose their gain to jump offsets at the pinned size.
+- The remaining jump mismatches (105 on main) come from block layout: the sweep join (orig 0x3c58, one unthreaded
+  `jne r7,2`), the ensure_rent_exempt Err block outlined at orig 0x62e8, and the validate error blocks
+  (src 0x2000-0x3000 -> dst 0x2000, ±8..-32). A lane that makes the native arm reach one unthreaded sweep join would gain
+  both the 48 B native-arm excess and the 24 B tail block, and would also make v7c landable.
+- Use `jm.py` (jM) rather than M to screen knobs. M at an off size mixes code value with jump-offset damage.

@@ -1,0 +1,20 @@
+{
+ "lane": "w14a31-cto-knob8",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "angle": "size-pairing: faithful +-8/+-16 B spellings in tail/event/wallet/sweep code paired at exactly 27,400 B",
+ "bases": {"f100a59": [0.6423, 2144], "b2e90aa": [0.6444, 2151], "5ee681d": [0.645, 2153], "e87e001": [0.64709, 2160], "81d3d9a": [0.65069, 2172]},
+ "result": "no zero-loss gain; best at pinned size is a tie with main (Q1 = k3 + sh_iflet, M equal, ratio equal) on e87e001 and 81d3d9a",
+ "best_zero_loss": {"ratio": 0.65069, "slots": 3173, "bytes": 27400, "note": "Q1 tie on main 81d3d9a (raw-IR oracle); not an improvement, not proposed"},
+ "attempts": 150,
+ "oracle": "w14a03 raw-IR capture + opt + llc (rx.py with matched-token count M); jm.py jump-masked jM; shift.py synthetic size-pair oracle; shiftk.py synthetic -8K repay oracle",
+ "key_findings": [
+  "main jM - M = 26: a perfect size distribution is worth at most ~0.008 on main",
+  "shift.py (e87e001): no single +-8 position gains; best of 1,344 pure size pairs is +2 M (+0.0006)",
+  "new knobs: ev_nf_drop -24 B M -1 jM +2; s_rent_get +16 B jM +6 (M -10..-12); sh_iflet -8 B jM +1; k3 / n_ensiflet / wl_writ_eq +8 B jM 0; n_andthen -8 jM -3; n_ensmatch -8 jM -7; tp_dlen -8; wl_coin_dlen -16; ~50 spellings token-identical",
+  "v7c (#3273) on 5ee681d: +32 B, jM +61, but at 27,400 B M 2,108 vs 2,153; shiftk.py: a pure -32 B repay recovers only +3 M (its jump mismatches are validate-region layout)",
+  "main's +48 B in the sweep native arm and missing 24 B at orig 0x62e8 = original's out-of-line ensure_rent_exempt Err block + one unthreaded sweep join (orig 0x3c58); block layout / JumpThreading, not a size knob"
+ ],
+ "rejected_mechanisms": ["s_rent_get+ev_nf_drop+{k3,wl_writ_eq,n_ensiflet} (R1-R3, R6)", "k3/wl_writ_eq + tp_dlen/n_andthen (Q3-Q6)", "v7c + tail repay knobs (V1-V8)", "native-arm helper/closure forms (outline: call multiset change)", "native-arm ?/match/and_then/if-let spellings", "vault-seed spellings", "Rent spellings (r_*)", "wallet/event/pool-gate spellings (see NOTES.md)"],
+ "unresolved_residuals": ["unthreaded sweep join (orig 0x3c58 jne r7,2 shared by native-arm Ok/Err)", "ensure_rent_exempt Err block outlined at orig 0x62e8", "validate error-block layout (jumps src 0x2000-0x3000 -> 0x2000, -32..+8)"],
+ "next_ideas": ["screen knobs by jM (jump-masked) instead of M at off sizes", "find a source form whose native arm reaches a single unthreaded sweep join (would also make v7c landable)", "use shift.py on any jM-positive candidate to locate where a pure +-8 would restore offsets before searching for a knob there"]
+}
