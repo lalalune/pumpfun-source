@@ -1,41 +1,43 @@
-# admin_cto: event holder flag and cashback operand order
+# admin_cto: PDA ordering, lazy sweep and rent expression
 
-This candidate changes two expressions in `programs/pump/src/creator/admin_cto.rs`:
+This candidate changes three lines in `programs/pump/src/creator/admin_cto.rs`:
 
-- Compute cashback as `st.cashback && !holder`; both operands are local booleans.
-- Read the event's holder flag from `a.bonding_curve.is_holder_reward`, assigned
-  from `holder` earlier in the same instruction. No intervening code modifies or
-  reloads that field, and the AMM CPI does not receive the bonding-curve account.
+- Compute the holder PDA after the local sharing-state reads. The PDA inputs and
+  subsequent validation are unchanged.
+- Express the sweep as `(!skip).then(...).transpose()?.unwrap_or(0)`. The closure
+  runs exactly once when `!skip`; its error propagates and a skipped sweep returns zero.
+- Read the minimum rent balance directly from `Rent::get()?` in the same native
+  branch, without retaining a local reference to the plain `Rent` value.
 
-Both changes preserve validation, CPI order and event values. The 24 macro call
-sites remain on their original lines.
+The existing borrowed argument copy and event flags read from the curve remain.
+These changes preserve validation, CPI order and values. All 24 macro sites
+retain their original line numbers.
 
 ## Verified measurements
 
-The comparison baseline is the source inventory
-`7ee4d07a5f56e1785f0183fec688a7906e625ba2793ee75a0dc014cc8c44fe1a`,
-which matches main `c6519c2451bbf208ab6e1a79f6bde6b403a25638`.
-A fresh identity build of this candidate produced:
+The review includes current main `1f1a717091798e3d3e5ff31a9bd1398d4ac4b08e`,
+whose full Pump source inventory is
+`976a6bf25dd46c867047081de1bc0a0ff758ff0e3dc0a7192d200f7ce1d1e430`.
+A fresh identity build produced:
 
 | Measure | Baseline | Candidate |
 | --- | ---: | ---: |
 | admin_cto bytes | 27,400 | 27,400 |
-| Sequence diagnostic ratio | 0.49071 | 0.49101 |
-| Differing normalized instruction slots | 3,313 | 3,280 |
+| Sequence diagnostic ratio | 0.49431 | 0.50929 |
+| Differing normalized 8-byte slots | 3,306 | 3,325 |
 | Raw / normalized matched windows | 1,034 / 1,034 | 1,034 / 1,034 |
 
-The official inventory contains 1,035 windows. No window is missing or resized,
-and no existing raw or normalized match is lost. This remains a partial-window
-improvement; the matched-window completion percentage does not change.
+The sequence ratio improves while the positional mismatch count increases.
+The official 1,035-window inventory has no missing or resized windows and no
+lost raw or normalized matches. This is a partial-window improvement; it does
+not increase the matched-window completion percentage or prove whole-ELF identity.
 
-The signed admin_cto differential suite passed all 363 cases against the captured
-program, including its genuine dependency CPIs. This is bounded runtime evidence,
-not whole-program equivalence or whole-ELF identity.
+All 363 signed admin_cto differential cases matched the captured program with
+genuine dependency CPIs. This is bounded runtime evidence, not all-input proof.
 
-Candidate source inventory:
-`5571f6efadb7003d11becbf574ca1c21c369423f91883c1d4b3e60959d709832`.
-Unstripped ELF: `ac2fb189d6152a7f74de4aa98f7a0fd8750bf8101a57d5dfd66747561f9457f6`.
-Runtime ELF: `26c417379134f0397562eab011ae5c0a970492429788e9ef41080e8bef2b7ade`.
+Source inventory: `acc7d171b7b95e86658ed1403884b354746028559b267e0ed9bf3d0cda57393e`.
+Unstripped ELF: `e06cef03802a9473f5de5b40ff1ae07d527fed899c7ed52d59a2a32633e9d702`.
+Runtime ELF: `b0ab591683f953051dd8e2a1a94449459872baa63c537f8850d3ca75f5220afd`.
 
 Validation used `reconstruction/harness/fastbuild.py` (identity recipe), `score.py`,
 `compare_scores.py`, `target_metric.py` and `scripts/pump_admin_cto_differential.py`.

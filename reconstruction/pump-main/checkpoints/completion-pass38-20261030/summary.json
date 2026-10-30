@@ -1,0 +1,178 @@
+{
+  "schema": "pump-completion-pass38-v1",
+  "date": "2026-10-30",
+  "baseline_checkpoint": "../completion-pass36-20261030",
+  "baseline_revision": "1f1a717091798e3d3e5ff31a9bd1398d4ac4b08e",
+  "source_pr": 2921,
+  "reviewed_source_head": "35bf64d773da14812fa794ba13c044f2a6eabd11",
+  "merged_source_head": "35bf64d773da14812fa794ba13c044f2a6eabd11",
+  "merged_source_revision": "ea78c08f12c79d39e09ad98ba5907c59bd905528",
+  "recipe": "identity",
+  "source_sha256": "acc7d171b7b95e86658ed1403884b354746028559b267e0ed9bf3d0cda57393e",
+  "unstripped_sha256": "e06cef03802a9473f5de5b40ff1ae07d527fed899c7ed52d59a2a32633e9d702",
+  "stripped_sha256": "b0ab591683f953051dd8e2a1a94449459872baa63c537f8850d3ca75f5220afd",
+  "baseline_source_sha256": "976a6bf25dd46c867047081de1bc0a0ff758ff0e3dc0a7192d200f7ce1d1e430",
+  "baseline_unstripped_sha256": "46ba0c60c7b4dd11f7a67f01b81ff7e305b700dd2e1f459fccd07ddca58b3d2c",
+  "runtime_valid": true,
+  "stack_warnings": [],
+  "pump": {
+    "normalized": 1034,
+    "raw": 1034,
+    "total": 1035,
+    "matched_percent": 99.9,
+    "normalized_only": 0,
+    "unmatched": 1,
+    "matched_code_bytes": 1764808,
+    "total_code_bytes": 1792208,
+    "unmatched_windows": [
+      {
+        "address": "0x22a10",
+        "symbol": "admin_cto::execute",
+        "bytes": 27400
+      }
+    ]
+  },
+  "aggregate": {
+    "normalized": 3337,
+    "raw": 3337,
+    "total": 3338,
+    "matched_percent": 99.97,
+    "normalized_only": 0,
+    "unmatched": 1,
+    "matched_code_bytes": 5185728,
+    "total_code_bytes": 5213128,
+    "whole_meaningful_elf_equal_programs": 4,
+    "programs": 5
+  },
+  "comparison": {
+    "missing": [],
+    "added": [],
+    "resized": [],
+    "normalized_gains": [],
+    "normalized_losses": [],
+    "normalized_gained_bytes": 0,
+    "normalized_lost_bytes": 0,
+    "raw_gains": [],
+    "raw_losses": [],
+    "raw_gained_bytes": 0,
+    "raw_lost_bytes": 0,
+    "accepted": true
+  },
+  "partial_admin_progress": {
+    "baseline": {
+      "window": "0x22a10",
+      "window_bytes": 27400,
+      "symbol": "pump_recovered::admin_cto::execute",
+      "cand_start": "0x22a10",
+      "cand_bytes": 27400,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.49431,
+      "calls_original": [
+        154,
+        3
+      ],
+      "calls_candidate": [
+        154,
+        3
+      ],
+      "slots_diff": 3306
+    },
+    "candidate": {
+      "window": "0x22a10",
+      "window_bytes": 27400,
+      "symbol": "pump_recovered::admin_cto::execute",
+      "cand_start": "0x22a10",
+      "cand_bytes": 27400,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.50929,
+      "calls_original": [
+        154,
+        3
+      ],
+      "calls_candidate": [
+        154,
+        3
+      ],
+      "slots_diff": 3325
+    }
+  },
+  "runtime": [
+    {
+      "suite": "admin",
+      "cases": 363,
+      "mismatches": 0,
+      "report_sha256": "277b87636858ed97719b0002df0eb52d0a0697ad71f4c30c34cd808ef3b957a5",
+      "scope": "Signed synthetic captured Pump admin_cto calling Fees by genuine CPI. Pool authority nonsigner at transaction boundary; no privileged signer injection. Not full program identity."
+    },
+    {
+      "suite": "swap",
+      "cases": 120,
+      "mismatches": 0,
+      "report_sha256": "7825e1153566fbc61e962acb570388ea3182c0b9c26f14188a2cf7ce05617d07",
+      "scope": "Synthetic one-hop fixtures; signature verification disabled for AMM PDA. Compares errors, curve bytes, curve quote change, user base change and buyback receipt only. No post-complete fill, two-hop or Token-2022 coverage."
+    },
+    {
+      "suite": "boundaries",
+      "cases": 288,
+      "mismatches": 0,
+      "report_sha256": "63dad10cd23148ae59183bb935327f8762e1c5ce79658e636c18d19ca6c79a80",
+      "scope": "Paired captured-vs-compiled one-hop boundary cases with small real reserves; AMM PDA signature verification disabled. Includes post-complete admission failures; not full successful post-complete/two-hop proof."
+    }
+  ],
+  "runtime_candidate_sha256": "b0ab591683f953051dd8e2a1a94449459872baa63c537f8850d3ca75f5220afd",
+  "semantic_review": [
+    "The shared-account reads commute with the fixed-seed holder PDA calculation.",
+    "Lazy then/transpose evaluates the sweep under exactly the same condition and propagates the same result or error.",
+    "Inlining the Rent local preserves the same one fallible call and the same minimum-balance value.",
+    "All 24 error, require, log and event macro sites remain on the same lines. The complete 137-file merged program inventory matches the tested build."
+  ],
+  "reference_models": {
+    "exact_quote": {
+      "pr": 2836,
+      "cases": 1014,
+      "fixed_cases": 774,
+      "seeded_random_cases": 240,
+      "tests": 5,
+      "original_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "scope": "Captured original versus a separate pure Rust exact-quote/crossing model, with synthetic admitted accounts. Unconfirmed budget-shrink branches remain explicitly marked in the model.",
+      "checker_repairs": [
+        "Pin captured program bytes for every VM",
+        "Require exactly one model response per input case"
+      ],
+      "final_test_log_sha256": "a573030c059c23918e1ca9902d94ea3f772d63d31cab88f98ee67cfc9b8f0090",
+      "source_sha256": {
+        "programs/pump/recovered/v3_exact_quote.rs": "cc9d16fe593589b776f7258b1bbd3ceb644084608880057a6dee08ac6deb3331",
+        "programs/pump/recovered/v3_exact_quote_host.rs": "ff359bf85a5b1a5e07a9ee5708224250c0ac21e4d0f4db4169820f53478d5bf2",
+        "tests/test_v3_exact_quote_captured.py": "c9a54a23c37bfc5b27ab114e6cb611ea88b050a1b885597f72bb311271885111"
+      }
+    },
+    "multi_hop": {
+      "pr": 2846,
+      "cases": 507,
+      "fixed_cases": 387,
+      "random_cases": 120,
+      "successful_cases": 444,
+      "error_cases": 63,
+      "successful_multihop": 154,
+      "successful_crossing": 176,
+      "tests": 7,
+      "optimized_controls": 2,
+      "scope": "Synthetic direct captured-Pump calls, using sigverify=false for an AMM PDA slot. This is not a genuine outer AMM CPI. SPL Token only; events, compute units, Token-2022 and additional admission/fee variants are outside coverage.",
+      "source_sha256": {
+        "programs/pump/recovered/multi_hop_route.rs": "224112ededd2cff382df060a73ee3fdf0e7411fbe42e3c7684c5f3051cd56c23",
+        "programs/pump/recovered/multi_hop_route_host.rs": "161b9094a643b39e849fe0a61a90e0bc77d2dc8c54d0570323985a01e0aefe53",
+        "tests/test_multi_hop_route_captured.py": "0bc53783af0d98261a24aef6c09d3bd9cc8d2705cd44a962b2fe5cd5b7bea322"
+      }
+    }
+  },
+  "scope_limits": [
+    "771 paired synthetic cases are bounded runtime evidence, not general equivalence.",
+    "Swap fixtures disable AMM PDA signature verification and do not prove all successful post-complete, multihop or Token-2022 behavior.",
+    "Only Pump was rebuilt; four other programs retain their previous exact-ELF checkpoints.",
+    "Pump meaningful ELF is not equal."
+  ],
+  "build_tool_revision": "d94c9478efb7db8f1b2da0c61ef051ce24cb6b4d",
+  "built_source_head": "d94c9478efb7db8f1b2da0c61ef051ce24cb6b4d"
+}

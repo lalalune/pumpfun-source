@@ -39,7 +39,7 @@ def narrow(revisions, evaluate, budget):
 
 
 def git(repo, *args):
-    return subprocess.check_output(['git', '-C', str(repo), *args])
+    return subprocess.check_output(['git', '-C', str(repo), *args], stderr=subprocess.PIPE)
 
 
 def revision_chain(repo, good, bad):
@@ -70,15 +70,23 @@ def main():
     revisions = revision_chain(args.repo, args.good, args.bad)
     config = load_oracle(args.oracle)
     args.out.mkdir(parents=True, exist_ok=True)
+    archive_errors = []
     def evaluate(revision):
         with tempfile.TemporaryDirectory(prefix='bisect-source-', dir=args.out) as temporary:
-            blob = git(args.repo, 'archive', revision, '--', subdir.as_posix())
+            try:
+                blob = git(args.repo, 'archive', revision, '--', subdir.as_posix())
+            except subprocess.CalledProcessError as error:
+                archive_errors.append({'revision': revision, 'returncode': error.returncode,
+                                       'stderr': error.stderr.decode('utf-8', errors='replace')})
+                return 'error'
             with tarfile.open(fileobj=io.BytesIO(blob)) as archive:
                 if any(m.issym() or m.islnk() for m in archive.getmembers()): raise ValueError('source links unsupported')
                 archive.extractall(temporary, filter='data')
             return run_trial(Path(temporary) / subdir, config['command'], args.out / 'trials' / revision,
                              config.get('inputs', []), config.get('timeout', 300))['status']
     result = narrow(revisions, evaluate, args.max_trials)
+    if archive_errors:
+        result['archive_errors'] = archive_errors
     atomic_json(args.out / 'bisect.json', result)
     print(json.dumps(result, indent=2))
     return 0 if result['status'] == 'boundary-found' else 2
