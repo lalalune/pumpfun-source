@@ -1,0 +1,198 @@
+# _ZN14pump_recovered15multi_hop_curve8swap_hop17h5829570f64b6c47bE  window 0x5b3b0
+cand bytes 18496 orig 18584  abstracted-ratio 0.7123  r10 pairs 744 equal 450  max-off cand 0x1000 orig 0x1000
+objects: allocas 152  surviving 103  merged 84  no-lifetime 50  PEI rule check: ok
+  fi      T   orig  delta  size al lt   votes  name  [merged: ...]
+  16   0x30   0x30     +0    48  8  0   1/1   _566* ~
+  17   0x50   0x50     +0    32  8  0  12/12  _564*
+  18   0x51   0x51     +0     1  1  1   2/2   _561
+  19   0x78   0x78     +0    32  8  1  15/15  _557  [_516#32 _499#40 _456#52]
+  21   0xa8   0xa8     +0    48  8  1  20/21  _551  [_539#23 _524#30 _517#31 ix_data48#46 _449#54]
+  22   0xc0   0xc0     +0    24  8  0   3/3   _547*
+  25   0xf0   0xf0     +0    48  8  0   7/7   _533*
+  27  0x108  0x108     +0    24  8  0   4/4   inner_data55*
+  28  0x138  0x138     +0    48  8  0   1/1   authority_info54* ~
+  33  0x158  0x158     +0    32  8  1   9/9   _515  [ix_data56#26 _506#38]
+  34  0x178  0x178     +0    32  8  1   8/8   _514  [_554#20]
+  35  0x260  0x260     +0   232  8  1  52/57  _512  [formatter.i#1 _38.i#4 _22.i#10 _14.i#12 ix57#24 _526#29 ix49#44 _471#49 ix#58 _418#63 _404#67 user#86 _75#105 _39#113]
+  36  0x340  0x340     +0   224  8  1  40/44  post_event  [buf.i#2 _36.i#5 _24.i#8 _12.i#13 _496#41 _484#43 _469#50 _446#55 _434#57 _416#64 _408#65]
+  37  0x380  0x380     +0    64  8  1  16/16  post51  [_502#39 ix_data#60]
+  42  0x398  0x398     +0    24  8  0   3/3   _492*
+  45  0x3c8  0x3c8     +0    48  8  0   7/7   _478*
+  47  0x3e0  0x3e0     +0    24  8  0   4/4   inner_data47*
+  48  0x410  0x410     +0    48  8  0   1/1   authority_info46* ~
+  51  0x498  0x498     +0   136  8  1  25/32  completion  [_34.i#6 _23.i#9 _10.i#14 _452#53 _406#66 _28#116]
+  56  0x4b0  0x4b0     +0    24  8  0   3/3   _442*
+  59  0x4e0  0x4e0     +0    48  8  0   7/7   _426*
+  61  0x4f8  0x4f8     +0    24  8  0   4/4   inner_data*
+  62  0x528  0x528     +0    48  8  0   1/1   authority_info* ~
+  68  0x6d0  0x6d0     +0   424  8  1 162/167 event  [_11.i#0 _40.i#3 _26.i#7 _16.i#11 _956#15 _398#69 _394#70 _388#71 _364#72 _359#73 _345#74 _332#75 _323#76 _306#77 _292#78 _282#79 _274#80 _263#81 _256#82 _247#83 _196#84 _187#85 _167#87 _158#88 _150#89 _143#90 _134#91 _116#95 _108#96 _106#97 _94#100 _85#101 _83#102 _81#103 _77#104 _54#106 _46#110 _41#112 _36#115 _27#117]
+  92  0x6f0  0x730    +64    32  8  1   1/1   fees ~
+  93  0x700  0x700     +0    16  8  2   2/2   post_fill.sroa.16
+  94  0x710  0x710     +0    16  8  2   2/2   post_fill.sroa.20
+  98  0x740      ?      ?    48  8  1   0/0   _98 ~
+  99  0x741      ?      ?     1  1  1   0/0   bump ~
+ 107  0x758      ?      ?    16  8  0   0/0   val18.sroa.10.sroa.0.sroa.3* ~
+ 108  0x768  0xaa0   +824    16  8  0   1/1   val18.sroa.10.sroa.3.sroa.2* ~
+ 109  0x798  0x7c8    +48    48  8  1  13/13  quote_token_program
+ 111  0x7c8  0x7f8    +48    48  8  1  12/14  base_token_program
+ 114  0x7e8  0x818    +48    32  8  1   6/7   quote_fee
+ 118  0x7f8  0x828    +48    16  8  0   3/3   *
+ 119  0x808  0x838    +48    16  8  0   2/2   *
+ 120  0x818  0x848    +48    16  8  0   3/3   *
+ 121  0x828  0x868    +64    16  8  0   1/2   * ~
+ 122  0x838      ?      ?    16  8  0   0/0   * ~
+ 123  0x848      ?      ?    16  8  0   0/0   * ~
+ 124  0x858  0x888    +48    16  8  0   2/3   *
+ 125  0x868  0x898    +48    16  8  0   3/3   *
+ 126  0x878  0x8a8    +48    16  8  0   3/3   *
+ 127  0x888  0x8b8    +48    16  8  0   3/3   *
+ 128  0x898  0x8c8    +48    16  8  0   3/3   *
+ 129  0x8a8  0x8d8    +48    16  8  0   2/2   *
+ 130  0x8b8  0x8e8    +48    16  8  0   3/3   *
+ 131  0x8c8  0x8f8    +48    16  8  0   3/3   *
+ 132  0x8d8  0x908    +48    16  8  0   3/3   *
+ 133  0x8e8  0x918    +48    16  8  0   3/3   *
+ 134  0x8f8  0x928    +48    16  8  0   1/2   * ~
+ 135  0x908  0x938    +48    16  8  0   1/3   * ~
+ 136  0x918  0x948    +48    16  8  0   1/3   * ~
+ 137  0x928  0x958    +48    16  8  0   1/2   * ~
+ 138  0x938  0x968    +48    16  8  0   2/3   *
+ 139  0x948  0x978    +48    16  8  0   2/2   *
+ 140  0x958  0x988    +48    16  8  0   3/3   *
+ 141  0x968  0x998    +48    16  8  0   3/3   *
+ 142  0x978  0x9a8    +48    16  8  0   3/3   *
+ 143  0x988  0x9b8    +48    16  8  0   3/3   *
+ 144  0x998  0x9c8    +48    16  8  0   3/3   *
+ 145  0x9a8      ?      ?    16  8  0   0/0   * ~
+ 146  0x9b8      ?      ?    16  8  0   0/0   * ~
+ 147  0x9c8  0x9f8    +48    16  8  0   1/3   * ~
+ 148  0x9d8  0xa08    +48    16  8  0   2/2   *
+ 149  0x9e8  0xa18    +48    16  8  0   3/3   *
+ 150  0x9f8  0xa28    +48    16  8  0   3/3   *
+ 151  0xa08  0xa38    +48    16  8  0   3/3   *
+ 152  0xa10  0xab0   +160     8  8  0  12/13  *
+ 153  0xa18  0xa40    +40     8  8  0   7/7   *
+ 154  0xa20  0xa48    +40     8  8  0  10/10  *
+ 155  0xa28  0xa58    +48     8  8  0   5/5   *
+ 156  0xa30  0xa70    +64     8  8  0   1/1   * ~
+ 157  0xa38  0xa68    +48     8  8  0   1/1   * ~
+ 158  0xa40  0xa80    +64     8  8  0   2/4   * ~
+ 159  0xa48  0xa78    +48     8  8  0   7/9   *
+ 160  0xa50  0xb28   +216     8  8  0   5/8   *
+ 161  0xa58  0xa80    +40     8  8  0   3/5   *
+ 162  0xa60  0xa88    +40     8  8  0   3/4   *
+ 163  0xa68  0xa60     -8     8  8  0  13/13  *
+ 164  0xa70  0xa90    +32     8  8  0   5/5   *
+ 165  0xa78  0xaa0    +40     8  8  0   2/2   *
+ 166  0xa80  0xaa8    +40     8  8  0   6/7   *
+ 167  0xa88  0xac8    +64     8  8  0   1/2   * ~
+ 168  0xa90  0xac0    +48     8  8  0   6/6   *
+ 169  0xa98  0xab8    +32     8  8  0   1/2   * ~
+ 170  0xaa0  0xad0    +48     8  8  0   2/2   *
+ 171  0xaa8  0xa68    -64     8  8  0   4/4   *
+ 172  0xab0  0xad8    +40     8  8  0   5/5   *
+ 173  0xab8      ?      ?     8  8  0   0/0   * ~
+ 174  0xac0  0xae8    +40     8  8  0   2/2   *
+ 175  0xac8  0xab8    -16     8  8  0   6/6   *
+ 176  0xad0      ?      ?     8  8  0   0/0   * ~
+ 177  0xad8  0xb08    +48     8  8  0   3/5   *
+ 178  0xae0  0xb10    +48     8  8  0   3/5   *
+ 179  0xae8  0xaf0     +8     8  8  0   6/6   *
+ 180  0xaf0  0xaf8     +8     8  8  0   4/4   *
+ 181  0xaf8  0xb00     +8     8  8  0   4/4   *
+ 182  0xb00  0xa98   -104     8  8  0   1/1   * ~
+ 183  0xb08  0xac8    -64     8  8  0   1/1   * ~
+ 184  0xb10  0xb08     -8     8  8  0   1/1   * ~
+ 185  0xb18  0xb30    +24     8  8  0   1/1   * ~
+ 186  0xb20  0xb10    -16     8  8  0   1/1   * ~
+
+# delta breaks (orig has DIFF more bytes between A and B):
+    +48 between fi94 post_fill.sroa.20 (T 0x710) and fi109 quote_token_program (T 0x798)
+   +112 between fi151  (T 0xa08) and fi152  (T 0xa10)
+   -120 between fi152  (T 0xa10) and fi153  (T 0xa18)
+     +8 between fi154  (T 0xa20) and fi155  (T 0xa28)
+   +168 between fi159  (T 0xa48) and fi160  (T 0xa50)
+   -176 between fi160  (T 0xa50) and fi161  (T 0xa58)
+    -48 between fi162  (T 0xa60) and fi163  (T 0xa68)
+    +40 between fi163  (T 0xa68) and fi164  (T 0xa70)
+     +8 between fi164  (T 0xa70) and fi165  (T 0xa78)
+     +8 between fi166  (T 0xa80) and fi168  (T 0xa90)
+   -112 between fi170  (T 0xaa0) and fi171  (T 0xaa8)
+   +104 between fi171  (T 0xaa8) and fi172  (T 0xab0)
+    -56 between fi174  (T 0xac0) and fi175  (T 0xac8)
+    +64 between fi175  (T 0xac8) and fi177  (T 0xad8)
+    -40 between fi178  (T 0xae0) and fi179  (T 0xae8)
+
+# original layout implied by confident objects (sorted by orig T); gaps = orig bytes ours does not place there
+  orig   0x30..  0x50  fi17   _564                         size 32   ours T 0x50   gap +48
+  orig   0x50..  0x51  fi18   _561                         size 1    ours T 0x51
+  orig   0x58..  0x78  fi19   _557                         size 32   ours T 0x78   gap +7
+  orig   0x78..  0xa8  fi21   _551                         size 48   ours T 0xa8
+  orig   0xa8..  0xc0  fi22   _547                         size 24   ours T 0xc0
+  orig   0xc0..  0xf0  fi25   _533                         size 48   ours T 0xf0
+  orig   0xf0.. 0x108  fi27   inner_data55                 size 24   ours T 0x108
+  orig  0x138.. 0x158  fi33   _515                         size 32   ours T 0x158   gap +48
+  orig  0x158.. 0x178  fi34   _514                         size 32   ours T 0x178
+  orig  0x178.. 0x260  fi35   _512                         size 232  ours T 0x260
+  orig  0x260.. 0x340  fi36   post_event                   size 224  ours T 0x340
+  orig  0x340.. 0x380  fi37   post51                       size 64   ours T 0x380
+  orig  0x380.. 0x398  fi42   _492                         size 24   ours T 0x398
+  orig  0x398.. 0x3c8  fi45   _478                         size 48   ours T 0x3c8
+  orig  0x3c8.. 0x3e0  fi47   inner_data47                 size 24   ours T 0x3e0
+  orig  0x410.. 0x498  fi51   completion                   size 136  ours T 0x498   gap +48
+  orig  0x498.. 0x4b0  fi56   _442                         size 24   ours T 0x4b0
+  orig  0x4b0.. 0x4e0  fi59   _426                         size 48   ours T 0x4e0
+  orig  0x4e0.. 0x4f8  fi61   inner_data                   size 24   ours T 0x4f8
+  orig  0x528.. 0x6d0  fi68   event                        size 424  ours T 0x6d0   gap +48
+  orig  0x6f0.. 0x700  fi93   post_fill.sroa.16            size 16   ours T 0x700   gap +32
+  orig  0x700.. 0x710  fi94   post_fill.sroa.20            size 16   ours T 0x710
+  orig  0x798.. 0x7c8  fi109  quote_token_program          size 48   ours T 0x798   gap +136
+  orig  0x7c8.. 0x7f8  fi111  base_token_program           size 48   ours T 0x7c8
+  orig  0x7f8.. 0x818  fi114  quote_fee                    size 32   ours T 0x7e8
+  orig  0x818.. 0x828  fi118  -                            size 16   ours T 0x7f8
+  orig  0x828.. 0x838  fi119  -                            size 16   ours T 0x808
+  orig  0x838.. 0x848  fi120  -                            size 16   ours T 0x818
+  orig  0x878.. 0x888  fi124  -                            size 16   ours T 0x858   gap +48
+  orig  0x888.. 0x898  fi125  -                            size 16   ours T 0x868
+  orig  0x898.. 0x8a8  fi126  -                            size 16   ours T 0x878
+  orig  0x8a8.. 0x8b8  fi127  -                            size 16   ours T 0x888
+  orig  0x8b8.. 0x8c8  fi128  -                            size 16   ours T 0x898
+  orig  0x8c8.. 0x8d8  fi129  -                            size 16   ours T 0x8a8
+  orig  0x8d8.. 0x8e8  fi130  -                            size 16   ours T 0x8b8
+  orig  0x8e8.. 0x8f8  fi131  -                            size 16   ours T 0x8c8
+  orig  0x8f8.. 0x908  fi132  -                            size 16   ours T 0x8d8
+  orig  0x908.. 0x918  fi133  -                            size 16   ours T 0x8e8
+  orig  0x958.. 0x968  fi138  -                            size 16   ours T 0x938   gap +64
+  orig  0x968.. 0x978  fi139  -                            size 16   ours T 0x948
+  orig  0x978.. 0x988  fi140  -                            size 16   ours T 0x958
+  orig  0x988.. 0x998  fi141  -                            size 16   ours T 0x968
+  orig  0x998.. 0x9a8  fi142  -                            size 16   ours T 0x978
+  orig  0x9a8.. 0x9b8  fi143  -                            size 16   ours T 0x988
+  orig  0x9b8.. 0x9c8  fi144  -                            size 16   ours T 0x998
+  orig  0x9f8.. 0xa08  fi148  -                            size 16   ours T 0x9d8   gap +48
+  orig  0xa08.. 0xa18  fi149  -                            size 16   ours T 0x9e8
+  orig  0xa18.. 0xa28  fi150  -                            size 16   ours T 0x9f8
+  orig  0xa28.. 0xa38  fi151  -                            size 16   ours T 0xa08
+  orig  0xa38.. 0xa40  fi153  -                            size 8    ours T 0xa18
+  orig  0xa40.. 0xa48  fi154  -                            size 8    ours T 0xa20
+  orig  0xa50.. 0xa58  fi155  -                            size 8    ours T 0xa28   gap +8
+  orig  0xa58.. 0xa60  fi163  -                            size 8    ours T 0xa68
+  orig  0xa60.. 0xa68  fi171  -                            size 8    ours T 0xaa8
+  orig  0xa70.. 0xa78  fi159  -                            size 8    ours T 0xa48   gap +8
+  orig  0xa78.. 0xa80  fi161  -                            size 8    ours T 0xa58
+  orig  0xa80.. 0xa88  fi162  -                            size 8    ours T 0xa60
+  orig  0xa88.. 0xa90  fi164  -                            size 8    ours T 0xa70
+  orig  0xa98.. 0xaa0  fi165  -                            size 8    ours T 0xa78   gap +8
+  orig  0xaa0.. 0xaa8  fi166  -                            size 8    ours T 0xa80
+  orig  0xaa8.. 0xab0  fi152  -                            size 8    ours T 0xa10
+  orig  0xab0.. 0xab8  fi175  -                            size 8    ours T 0xac8
+  orig  0xab8.. 0xac0  fi168  -                            size 8    ours T 0xa90
+  orig  0xac8.. 0xad0  fi170  -                            size 8    ours T 0xaa0   gap +8
+  orig  0xad0.. 0xad8  fi172  -                            size 8    ours T 0xab0
+  orig  0xae0.. 0xae8  fi174  -                            size 8    ours T 0xac0   gap +8
+  orig  0xae8.. 0xaf0  fi179  -                            size 8    ours T 0xae8
+  orig  0xaf0.. 0xaf8  fi180  -                            size 8    ours T 0xaf0
+  orig  0xaf8.. 0xb00  fi181  -                            size 8    ours T 0xaf8
+  orig  0xb00.. 0xb08  fi177  -                            size 8    ours T 0xad8
+  orig  0xb08.. 0xb10  fi178  -                            size 8    ours T 0xae0
+  orig  0xb20.. 0xb28  fi160  -                            size 8    ours T 0xa50   gap +16

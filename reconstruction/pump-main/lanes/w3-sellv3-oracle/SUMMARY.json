@@ -1,0 +1,13 @@
+{
+ "lane": "w3-sellv3-oracle",
+ "base": "665499915f9caedcd38921d415a90f0606686398",
+ "targets": ["0x14a8a8"],
+ "best_source": {"change": "none (base kept)", "normalized": 1022, "raw": 276, "gains": [], "losses": [], "target": {"cand_bytes": 6040, "ratio": 0.98707}},
+ "best_ir": {"slots_diff": 4, "ratio": 0.9973, "insns": "734/734", "edits": ["helper result tag==2 recheck removed (or helper as tail)", "Clock ? error block placed directly after the event block", "ret-block phis tag-first"], "residual": "prologue -0x358 sret lea placement"},
+ "attempts": 12,
+ "ledger_ids": ["591ae388","804cc186","d7e67cb1","eb423d0f","e886ef3a","1a126ad2","7520ae6c","fa00fe7f"],
+ "rejected_mechanisms": ["entry GEP reorder/hoist (IR)", "explicit sret for prepare_bonding_curve (IR)", "extractvalue placement (IR)", "entry block split (IR, re-merged by CGP)", "spilled amount/min_sol_output arg after _0 (pre-opt IR)", "inline expansion with named infos array (ba)", "inline expansion with bound invoke result (bb)", "inline expansion with iter().copied() (bc)"],
+ "unresolved": ["tag-first ret phi order: needs _0 late in SROA processing; no rustc spelling found", "family B: storage markers on moved emit locals", "family A: non-chain block after the event block requires emit blocks in rustc order, not LLVM-inliner order", "prologue lea scheduling"],
+ "next_ideas": ["pre-opt oracle: identify the promotable non-fast-path alloca at the end of the SROA list in sell", "spellings that keep StorageLive/Dead on authority_info/inner_data/chain iter/invoke result", "entry DAG comparison of early-lea vs late-lea prepare_bonding_curve callers"],
+ "tools": ["scripts/preor.py (pre-opt opt+llc oracle)", "scripts/ired.py (post-opt IR edit oracle)", "scripts/t.sh"]
+}

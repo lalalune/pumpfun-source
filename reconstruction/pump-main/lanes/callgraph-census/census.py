@@ -17,13 +17,13 @@ import argparse, difflib, hashlib, json, re, struct, subprocess, sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
-H = Path('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness')
+H = Path(__file__).resolve().parents[3] / 'harness'
 sys.path.insert(0, str(H))
 from score import sections, normalize, body, candidate_functions, original_windows, BASE  # noqa: E402
 from win import demangle, insns, objdump_text  # noqa: E402
 from coords import sites as source_sites  # noqa: E402
 
-DEFAULT_CAND = Path.home() / '.cache/pumpfun-reconstruction/baseline-main-d2cb88d/unstripped.so'
+DEFAULT_CAND = BASE / 'current/unstripped.so'
 
 # original window -> regex for the paired candidate function (README table), best ratio wins
 PAIRS = {
@@ -130,16 +130,45 @@ def ratio(img_a, a, img_b, b):
     return difflib.SequenceMatcher(None, ta, tb, autojunk=False).ratio()
 
 
+def load_pairs(path):
+    def unique(items):
+        result = {}
+        for key, value in items:
+            if key in result:
+                raise ValueError(f'duplicate pair key: {key}')
+            result[key] = value
+        return result
+    data = json.loads(Path(path).read_text(), object_pairs_hook=unique)
+    if not isinstance(data, dict) or not data:
+        raise ValueError('pairs must be a nonempty JSON object')
+    pairs = {}
+    for key, pattern in data.items():
+        address = int(key, 0)
+        if address < 0 or address in pairs or not isinstance(pattern, str) or not pattern:
+            raise ValueError('invalid or duplicate pair address/pattern')
+        try:
+            re.compile(pattern)
+        except re.error as exc:
+            raise ValueError(f'invalid pair regex: {pattern}') from exc
+        pairs[address] = pattern
+    return pairs
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--cand', type=Path, default=DEFAULT_CAND)
+    ap.add_argument('--cand', type=Path, required=True)
     ap.add_argument('--json', type=Path)
     ap.add_argument('--md', type=Path)
     ap.add_argument('--only')
+    ap.add_argument('--pairs', type=Path, help='JSON object mapping original addresses to symbol regexes')
     ap.add_argument('--depth', type=int, default=6, help='identity refinement rounds (0 = body hash only)')
     a = ap.parse_args()
 
+    pairs = PAIRS if a.pairs is None else load_pairs(a.pairs)
     wins = original_windows()
+    missing = set(pairs) - {w['start'] for w in wins}
+    if missing:
+        ap.error('pair addresses absent from inventory: ' + ', '.join(hex(x) for x in sorted(missing)))
     ofuncs = {w['start']: (w['bytes'], []) for w in wins}
     O = Image(ORIG_PATH, ofuncs)
     cfl = candidate_functions(a.cand)
@@ -165,8 +194,10 @@ def main():
 
     # pair the unmatched windows
     pair = {}
-    for o, rx in PAIRS.items():
+    for o, rx in pairs.items():
         cs = [s for s, (n, nms) in cfuncs.items() if any(re.search(rx, demangle(x)) for x in nms)]
+        if not cs:
+            ap.error(f'no candidate matches pair {o:#x}: {rx}')
         best = max(cs, key=lambda c: ratio(O, o, C, c))
         pair[o] = best
     cpair = {c: o for o, c in pair.items()}
@@ -265,7 +296,7 @@ def main():
               'method': 'direct call target = site+8+imm*8; callee identity = normalized-body sha256 (score.py masking) with explicit pairing of unmatched windows; difflib alignment of callee key sequences',
               'targets': []}
     md = []
-    for o in sorted(PAIRS, key=lambda x: -ratio(O, x, C, pair[x])):
+    for o in sorted(pairs, key=lambda x: -ratio(O, x, C, pair[x])):
         if only and o not in only:
             continue
         c = pair[o]

@@ -14,10 +14,17 @@ import struct
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
+from analyze import program_names
 
 
 def sha(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def program_inputs(root):
+    """Capture paths for every selected program, in selector order."""
+    return [(name, root / 'evidence/original' / name / 'deployed.so')
+            for name in program_names(root)]
 
 
 def sections(data):
@@ -116,8 +123,7 @@ def main():
         raise ValueError('tool source has tracked modifications')
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
-    inputs = [(name, ROOT / 'evidence/original' / name / 'deployed.so')
-              for name in json.loads((ROOT / 'repro/programs.json').read_text())]
+    inputs = program_inputs(ROOT)
     inputs += [(p.parent.name, p) for p in sorted((ROOT / 'evidence/dependencies').glob('*/deployed.so'))]
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         futures = [pool.submit(inventory, tool, name, path, output) for name, path in inputs]

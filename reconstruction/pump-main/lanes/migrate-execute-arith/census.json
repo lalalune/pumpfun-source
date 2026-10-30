@@ -1,0 +1,14 @@
+{
+ "capture_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+ "window": {"vaddr": "0x77940", "bytes": 8832, "source": "reconstruction/pump-main/prior-swarm/TARGETS-20261029.json (migrate_v2::execute)"},
+ "instruction_count": 1070,
+ "opcode_histogram": {"mov": 165, "ldxdw": 284, "add": 145, "call": 70, "jne": 28, "stxdw": 198, "lddw": 34, "lsh": 7, "rsh": 7, "jeq": 26, "stdw": 34, "stb": 6, "exit": 1, "ja": 35, "ldxw": 3, "stw": 8, "ldxb": 6, "stxb": 5, "sub": 2, "jgt": 2, "jge": 1, "jlt": 1, "and": 1, "sth": 1},
+ "checked_arithmetic_sites": ["0x786d0: sub64 reg guarded by jgt(reg) @ 0x786e8", "0x78e18: add64 reg guarded by jlt(reg) @ 0x78e28"],
+ "saturating_arithmetic_sites": [],
+ "error_code_constants": ["0x780b8: store stw32 6064", "0x78260: store stw32 6010", "0x78c58: store stw32 6076", "0x795e0: store stw32 6010"],
+ "32bit_lddw_constants": {"0x1b5cc8": "0x77a08", "0x1b5b28": "0x77ab8", "0x1b5ca8": "0x77b40", "0x1b5f4c": "0x77b88", "0x1bd838": "0x77bb8", "0x1b5fa4": "0x77c48", "0x1bd868": "0x77c60", "0x1bd888": "0x77c70", "0x1a": "0x77ef8", "0x1b7064": "0x780a0", "0x1b5f1c": "0x78130", "0x17": "0x78740", "0x1b5e88": "0x78be0", "0x1b7050": "0x78d60", "0x1b64bf": "0x79158", "0x1b79df": "0x792b0", "0x1b6807": "0x79338", "0x1b6f73": "0x79a00"},
+ "division_multiplication_sites": [],
+ "call_sites": 70,
+ "exit_sites": 1,
+ "listing": "../listing.txt"
+}

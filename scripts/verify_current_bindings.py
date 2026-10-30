@@ -8,7 +8,9 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
+import stat
 import struct
 import subprocess
 import sys
@@ -31,15 +33,46 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def read_regular(root, name):
+    """Read one tracked file through a non-symlinked regular path."""
+    root = Path(os.path.abspath(root))
+    path = Path(os.path.abspath(root / name))
+    try:
+        path.relative_to(root)
+    except ValueError:
+        raise AssertionError(("Input outside root", name))
+    current = path
+    while True:
+        if current.is_symlink():
+            raise AssertionError(("Symlink ancestry", str(current)))
+        if current == root:
+            break
+        current = current.parent
+    fd = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    with os.fdopen(fd, "rb") as stream:
+        before = os.fstat(stream.fileno())
+        if not stat.S_ISREG(before.st_mode):
+            raise AssertionError(("Nonregular input", name))
+        data = stream.read()
+        after = os.fstat(stream.fileno())
+    identity = lambda value: (value.st_dev, value.st_ino, value.st_size, value.st_mtime_ns)
+    current = os.stat(path, follow_symlinks=False)
+    if (not stat.S_ISREG(current.st_mode)
+            or identity(current) != identity(before)
+            or identity(before) != identity(after)):
+        raise AssertionError(("Input changed during read", name))
+    return data
+
+
 def verify_maps(root, groups, tracked):
     checked, historical = 0, []
     for group, entries in groups.items():
         for name, expected in entries.items():
             target = HISTORICAL_COPIES.get(name, name)
-            assert target in tracked, ("Unpublished input", group, name, target)
-            path = root / target
-            assert not path.is_symlink(), target
-            assert sha(path.read_bytes()) == expected, (group, name, target)
+            if target not in tracked:
+                raise AssertionError(("Unpublished input", group, name, target))
+            if sha(read_regular(root, target)) != expected:
+                raise AssertionError(("Binding mismatch", group, name, target))
             checked += 1
             if target != name:
                 historical.append({"recorded_path": name, "published_copy": target, "sha256": expected})
