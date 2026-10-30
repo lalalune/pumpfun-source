@@ -13,11 +13,10 @@ changes only the lifecycle around those checks:
 6. publish a complete, self-verified audit directory with one rename.
 
 The exact reviewed root source is pinned as SHA-256
-`6f9ef9f8c9109a4173fdc4c3a681da1c430cd60b85c318124a5bbcaa11353c2d`.
+`3f8e5965ddbebb9ff5947061ceffc4f661d3fc53eea32dbc5352f190c2fbb1b1`.
 The adapter refuses to execute if those bytes change. This binding includes
-#2522, which makes the frozen `check_manifest` fail a manifest that declares no
-files; the adapter already applied the same rule, and the defects below still
-reproduce against these bytes.
+#2522's empty-manifest rejection and #2559's UTF-8/LF packet writes; the adapter
+already rejects empty manifests, and the writer change preserves audit content.
 
 ## Reproduced defects
 

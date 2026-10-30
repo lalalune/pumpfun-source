@@ -76,10 +76,12 @@ jobs:
               python -B scripts/test_mayhem_burn_sequence_optimization.py
               python -B scripts/test_constant_product_range_pinning.py
               python -B scripts/test_fees_validate_all_optimization.py
+              python -B scripts/test_pump_validate_volume_optimization.py
               python -B scripts/test_deep_section_analysis_publication.py
               python -B scripts/test_analyze_program_publication.py
               python -B scripts/test_reconstruction_roadmap_publication.py
               python -B scripts/test_bytecode_signatures_publication.py
+              python -B scripts/test_revalidate_all_publication.py
               python -B scripts/test_donation_relay_oracle_optimization.py
               python -B -X utf8 tests/test_dispatch_idl_encoding.py
               python -B tests/test_local_validation_idl_encoding.py
@@ -123,6 +125,7 @@ jobs:
               python -B reconstruction/capture-rpc-retry/test_capture.py
               python -B reconstruction/verification/donation-relay-idl-lifecycle/test_lifecycle.py
               python -B reconstruction/verification/donation-relay-stateful/test_stateful.py
+              python -B reconstruction/verification/pump-migration-lifecycle/test_lifecycle.py
               python -B reconstruction/verification/mayhem-dispatch-boundaries/test_inventory.py
           - suite: host-fragments
             commands: |

@@ -434,7 +434,11 @@ CASES = [
 
 def source_manifest(root: Path) -> tuple[dict[str, str], str]:
     base = root / "programs/donation-relay"
-    rows = {str(path.relative_to(root)): file_sha(path) for path in sorted(base.rglob("*")) if path.is_file()}
+    # POSIX key spelling on every host: str(relative_to) yields backslashes
+    # on Windows, so the published manifest keys and their digest would
+    # differ between hosts for the same tree.
+    rows = {path.relative_to(root).as_posix(): file_sha(path)
+            for path in sorted(base.rglob("*")) if path.is_file()}
     return rows, sha(json.dumps(rows, sort_keys=True, separators=(",", ":")).encode())
 
 

@@ -30,7 +30,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 VERSION = "pump-revalidation-qualification-v1"
 FROZEN_SOURCE = "scripts/revalidate_all.py"
-FROZEN_SHA256 = "6f9ef9f8c9109a4173fdc4c3a681da1c430cd60b85c318124a5bbcaa11353c2d"
+FROZEN_SHA256 = "3f8e5965ddbebb9ff5947061ceffc4f661d3fc53eea32dbc5352f190c2fbb1b1"
 REPORT_MEMBERS = (
     "README.md",
     "failed.json",
@@ -87,6 +87,7 @@ def entry_record(packet, path):
         return {
             "path": relative,
             "kind": "file",
+            "mode": stat.S_IMODE(info.st_mode),
             "bytes": info.st_size,
             "sha256": sha256_file(path),
         }
@@ -317,8 +318,21 @@ def classify(has_manifest, has_verify, manifest_before, verify, manifest_after, 
     return "inconclusive"
 
 
+def unique_manifest_fields(pairs):
+    result = {}
+    for name, value in pairs:
+        if name in result:
+            raise ValueError('duplicate manifest JSON field: ' + name)
+        result[name] = value
+    return result
+
+
 def safe_manifest_check(frozen, packet):
     try:
+        # The frozen parser keeps only the last occurrence of a JSON key.
+        # Reject ambiguous declarations before delegating its format/hash checks.
+        for path in frozen.manifest_paths(packet):
+            json.loads(path.read_text(encoding='utf-8'), object_pairs_hook=unique_manifest_fields)
         result = frozen.check_manifest(packet)
         if result.get("status") == "pass" and not result.get("files_expected"):
             # A manifest that declares no files verifies nothing.
