@@ -1,0 +1,43 @@
+{
+  "lane": "w9r1-integrator",
+  "wave": 9,
+  "targets": ["0x22a10", "0x5b3b0", "0x1489f8", "0x1e7c0", "whole-ELF"],
+  "final_state": {
+    "main": "5cba072f2 (contains #2397, #2403, #2412)",
+    "normalized": 1032,
+    "raw": 347,
+    "total": 1035,
+    "losses": 0,
+    "raw_losses": 0,
+    "unstripped_sha256": "3ca6911a64bdfb6251603f60d69ae6c8919af03d801b82b72fcc3e0dd6c8ec4d",
+    "elf_meta_diff": ".text -56 (admin_cto only); every non-.text difference follows from .text; no build-input differences",
+    "windows": {
+      "0x1489f8 buy_exact_quote_in_v3": "normalized match (#2397)",
+      "0x5b3b0 swap_hop": "18584 B = original, ratio 0.85352, slots_diff 1023 (#2403 v2 content)",
+      "0x22a10 admin_cto::execute": "27344 B (orig 27400), ratio 0.37637 (#2214 hunk reverted)",
+      "0x1e7c0 create_v2::execute": "15576 B, ratio 0.99892, 4 slots (bb112 phi order)"
+    }
+  },
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/2412 (merged)",
+  "attempts": ["cf07fac9359143518e45cf9e5a527702", "9c3174d4844c4a54ad253202716f279a", "0e0ffcb44d4c4ff19327d84acc31d5f2", "7230782a35e940078c6b52c1de92a5ea", "4ad8fa8f80834541b8a3d668c4ef9359", "876c163605cf4f0f9a6e09586b6e5c00", "8737d5fcc8d845eeae5fecb4c7ab6412"],
+  "trials": 50,
+  "rejected": [
+    "#2370 alone on 2bb05a51a: admin_cto 26928 B, 0.32392",
+    "#2416 (validate new.take()) with #2403: admin_cto 27128 B, further from 27400",
+    "#2403 v3 post_fill tuple: 0.89006 but 18520 B; every v2-hunk removal reaching 18584 B has 1282..1631 slots (> 1023)",
+    "hunk census of #2366/#2368/#2387 on #2403 v1: 16 subsets, only F1F2 / F1F2E reach 18584",
+    "w7r1-swaphop-hillclimb mutations3 single mutations on #2403+#2368: ~105 tried, none < 1636 slots at 18584 B",
+    "F1F2NEU (18640 B) gives raw 948 only because +56 cancels admin_cto -56: artifact",
+    "create_v2: validate_quote_mint returning #[repr(C)] struct (Pubkey first): 15560 B, 0.87083"
+  ],
+  "unresolved": [
+    "admin_cto -56 B: needs a mechanism that adds ~56 B without inlining to_string at 307/312",
+    "swap_hop at original size has 1023 slots; the v3 post_fill tuple (+0.04 ratio) costs 64 B",
+    "create_v2 two mov r2,0/mov r7,0 phi-order swaps (SROA promotion order of quote word0 slice)"
+  ],
+  "next_ideas": [
+    "Combine #2403 v3 post_fill tuple with a +64 B mechanism from swap_hop hill-climb catalogs (sizes are non-additive; search pairs)",
+    "admin_cto: combine the lddw-correct #2370/#2416 shape with spill-increasing mechanisms (local copy of new) to reach 27400",
+    "Keep integrating wave-10 lanes (w10r1-*) on main 5cba072f2"
+  ]
+}
