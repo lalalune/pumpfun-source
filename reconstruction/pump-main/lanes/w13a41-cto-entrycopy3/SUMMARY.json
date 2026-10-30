@@ -1,0 +1,30 @@
+{
+  "lane": "w13a41-cto-entrycopy3",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": {"16c10e631": 0.62043, "52c0b087c": 0.62103},
+  "result": "no zero-loss gain; notes only",
+  "best_zero_loss": null,
+  "best_oracle": {"t3": {"ratio": 0.57271, "bytes": 27408, "base": "16c10e6"}, "t22": {"ratio": 0.57305, "bytes": 27544, "base": "52c0b08"}, "t8n": {"ratio": 0.56081, "bytes": 27400, "base": "52c0b08"}},
+  "oracle": "raw-IR capture + rx opt/llc (tokens = measure.sh build; eq_main true on both mains)",
+  "attempts": 32,
+  "findings": [
+    "Original form of the entry copy: validate takes new, holder_key and the sharing key by value; t8 (args=&(new,) after the CtoState literal, validate(..,args.0,holder_key,sk), plain PDA) reproduces the 1/7/8/8/9 entry copy after CtoState, the sk copy at -0x470, the hk copy at -0x518, validate's t built exactly like orig 0x23618, holder_key 0x6a0, mint 0x6c0, P2 0x550/0x560, E32 0x580, at exactly 27400 B",
+    "validate does read the copy in the original too (its [8]/[16] SSA values; the 7/9 B ends come from %new via GVN), so a copy that validate does not read is moot",
+    "the 7/8/8/9 cut is the Result<Pubkey> overlay: tag at 0, Pubkey at [1,33), Error at [8,24)",
+    "skeleton ratio (regs and frame masked) t8 0.8538 > main 0.8517 (16c10e6), t8n 0.8568 > 0.8544 (52c0b08); t22 frame-masked 0.7183 > main 0.7121",
+    "the entry copy lowers spill reloads (orig 330, main 304, t3 289, t8n 292), so it is not the original's pressure source",
+    "frame ceilings from single-edit scans are about +0.001 (t3 0.57421, t8n 0.56171, t22 0.57395); a 24 B stand-in giving the original val6..mint frame is worse (0.54238)",
+    "t28 (curve bools read before global_quote, creator copied after the call) gives 311 reloads and an original-like entry (mayhem flag kept in a register) but costs +344 B and moves a to_string error chunk"
+  ],
+  "rejected": ["t1 b1 0.56515", "t2 v1 0.55764", "t3 b1+v1 0.57271@27408", "t4/t5/t7/t9/t12 args after CtoState with v1 or an inline key: 0.43 layout collapse", "t6 0.53021", "t8/t14 0.56111@27400", "t10/t11/t13/t16/t17", "t20-t23/t26/t28/t29 CtoState literal reorders and bool locals", "t24/t25/t27", "t30-t32 IN296 (no outlining on 52c0b08)"],
+  "unresolved_residuals": [
+    "greedy-RA state: spill slots shifted -24/-8 across orig 0x2800-0x4800 and fewer reloads in validate and the clone runs (orig 0x25a10-0x25c10)",
+    "[16] of new is kept in r9 in the original and spilled in ours",
+    "the original's extra pressure comes from upstream of the entry copy (bools before global_quote, PDA first)"
+  ],
+  "next_ideas": [
+    "t22 or t28 plus w13a32's PDA-first form once it lands",
+    "t28 (faithful bools-before-global_quote entry, +344 B) paired with any current-main form that outlines to_string at 307/312, to repay the size",
+    "with t8/t22's frame and structure, look for the RA lever: why the original keeps [16] in r9 (live-range split or hint), e.g. by IR-level spill-weight or branch-weight oracles on t22's m.ll"
+  ]
+}
