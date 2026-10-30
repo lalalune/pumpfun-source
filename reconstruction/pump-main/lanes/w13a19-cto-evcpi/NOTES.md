@@ -69,6 +69,43 @@ accounts-pointer slot [-0x8d8] and keeps the bump byte in r6; ours keeps `a` in 
 and spills the bump. Unmerging any emit_cpi temporary (`nolt`) costs 0.04-0.09; moving non-leader allocas is
 byte-identical (they sit in stack-coloring groups led by wallet locals).
 
+## Later screens (mains d81d0f5 0.571, 06e6bb8 0.59197)
+
+| variant | d81d0f5 bytes / ratio | 06e6bb8 bytes / ratio |
+| --- | --- | --- |
+| main | 27,400 / 0.571 | 27,400 / 0.59197 |
+| `o_ab_late`: execute emit_cpi reads `authority_bump` after `ix` (bump stays in r9, no spill) | 27,384 / **0.57117** | 27,384 / **0.59215** |
+| `o_ab_late` + `s_rent_local` (`let rent=Rent::get()?;`) | 27,368 / **0.57224** | 27,368 / **0.59323** |
+| `s_rent_local` alone | 27,384 / 0.57027 | 27,384 / 0.59125 |
+| `evhr`: AdminCtoEvent `is_holder_reward` from the curve (frees r9 for `swept`, as the original) | 27,392 / 0.57049 | 27,392 / 0.59146 |
+| `ph`: pool CPI holder from the local | | 27,432 / 0.59042 |
+| `evhr` + `ph` | | 27,424 / 0.59081 |
+| `tail1`: execute ends with `invoke_signed(..).map_err(Error::from)` (no `?;Ok(())`) | 27,256 / 0.56684 | |
+| wallet bump read after `ix` (`wab`) | 27,376 / 0.56976 | |
+| `L_bump_inline` (sweep seeds `&[ctx.bumps.creator_vault]`) | 27,400 / 0.5713 (+0.0003; main 06e6bb8 then landed the same scalar bump) | |
+| `g_old_fee_first` | 27,400 / 0.5707 | 27,400 / 0.59167 |
+
+`o_ab_late` and `o_ab_late`+`s_rent_local` are ratio gains at -16 / -32 B; they need a faithful +16 / +32 B
+partner to land at the pinned size.
+
+## Step 2 (main dfc3693, 0.59916 / 3,312 slots): -96 slots at the same ratio
+
+| | bytes | ratio | slots | normalized/raw | losses |
+| --- | ---: | ---: | ---: | --- | --- |
+| main dfc3693 | 27,400 | 0.59916 | 3,312 | 1034/1034 | |
+| `abr_ph` | 27,400 | 0.59916 (same matched-token count) | **3,216** | 1034/1034 | none |
+
+Unstripped sha `47b7ee2163173163`; runtime differential 363/363. On dfc3693 the parts alone: `o_ab_late`
+27,384 / 0.59934, `o_ab_late`+`s_rent_local` 27,368 / 0.60042 (+0.0013 at -32 B).
+
+Three source changes, all same-semantics:
+1. execute's AdminCtoEvent `emit_cpi!` hand-expanded with `authority_bump` read after `ix` (the bump byte stays
+   in a callee-saved register instead of a spill/reload pair: -16 B);
+2. the native sweep binds `let rent=Rent::get()?;` before `minimum_balance(0)` (-16 B);
+3. the pool CPI `is_holder_reward` argument is the `holder` local again (the original reads the holder phi from
+   its slot [-0x950] at orig 0x4e20; +32 B), which pays the 32 B back at the pinned size.
+Ranked by land.py as closer (ratio tie, 96 fewer differing positional slots).
+
 ## Tools (in `$OUT/tools`, from w13a01 with paths changed)
 
 - `gen.py`: emits `e/<name>.py` edit lists for the execute emit_cpi expansion (deferred decls x anchor points,
