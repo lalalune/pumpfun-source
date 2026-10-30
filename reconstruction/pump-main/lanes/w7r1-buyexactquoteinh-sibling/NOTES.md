@@ -41,3 +41,24 @@ alone: body identical to main).
 | s2/s6 | s1 with TradeEvent by value | 20224 / 20200 frame shift | rejected |
 | p1 | program-fn form + e2 | 20184 / 0.99959 | **best** |
 | p3 | program-fn form + h1 | 20216 / 0.98865 | rejected |
+| m1-m4 | shareholders `unwrap_or_else(Vec::new)` / match / `unwrap_or(vec![])` / if-let (on p1) | = p1 | byte-identical |
+| v3,v4,v6,v7 | shareholders type annotation / block / `.map(Option::unwrap_or_default)?` / split `?` | = p1, or 0.61-0.79 | rejected |
+| f1,f2 | TradeEvent `shareholders` field before `buyback_fee` / first | 20200 / 0.99513 | fixes mov r7,2 (no drop flag) but flips mayhem select + prepare sense |
+| f3,f4 | `shareholders` field last / after quote_mint | = p1 | byte-identical |
+| u1-u3 | buy_handler snapshot spelling (`let uva=..`, `let c=..` rebind) | = p1 | byte-identical |
+| w1 | sell_v2 `is_native_quote(quote_mint)` helper | 20232 / 0.778 | rejected |
+| w2 | ix_name `.to_string()` | = p1 | byte-identical |
+| w3 | `is_sol` before shareholders | 20208 / 0.982 | rejected |
+
+## Analysis of the last residual (mov r7,2 at orig 0x1430d0)
+
+llc oracle on the p1 IR (`ir/p1/o0710`): the residual is purely the order of the three
+`shareholders` Vec phis (`sroa.7` ptr=2, `sroa.0` cap=0, `sroa.10` len=0) in the merge after
+`sharing_config_shareholders(..)?.unwrap_or_default()`. Any order with `sroa.0` first gives llc
+distance 0 (full match). The phis come from mem2reg in the post-inline SROA run of the program fn
+(reverse of promotion order). Sibling evidence: buy_handler has [0,7,10], sell_v2 (matched) [10,7,0],
+eq [7,0,10], with the same pre-SROA access pattern, so the order is set by the other allocas SROA
+processes around `shareholders.i` (LIFO worklist), not by the shareholders spelling. Spellings of
+the Option/Vec default are canonicalized away by MIR. Lane w7r1-buyexactquoteinh-regsched found a
+lever on top of this branch (PR #2269: handler takes `partial:&bool`, adding one removable alloca)
+that gives the normalized match.
