@@ -40,10 +40,14 @@ class MayhemLimitTests(unittest.TestCase):
                         args = arguments(directory / 'missing.so', output,
                                          directory / 'missing-cases.json', instruction)
                         result = run([*args, '--limit', value], flags)
-                        self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
-                        self.assertIn('argument --limit:', result.stderr)
-                        if value.startswith('-'):
-                            self.assertIn('--limit must not be negative', result.stderr)
+                        if flags:
+                            self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                            self.assertIn('Normal Python is required', result.stderr)
+                        else:
+                            self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
+                            self.assertIn('argument --limit:', result.stderr)
+                            if value.startswith('-'):
+                                self.assertIn('--limit must not be negative', result.stderr)
                         self.assertNotIn('Traceback', result.stderr)
                         self.assertEqual(output.read_bytes(), b'retained')
 

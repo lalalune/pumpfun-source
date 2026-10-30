@@ -60,6 +60,9 @@ class LocalValidationIdlEncodingTests(unittest.TestCase):
         ]
         self.assertEqual(encodings, ["utf-8"])
 
+    @unittest.skipUnless(sys.platform != "win32",
+                         "LC_ALL does not select Python's locale codec on Windows; "
+                         "the ANSI code page may decode the file either way")
     def test_checked_in_pump_idl_is_locale_sensitive(self):
         idl = ROOT / "evidence/upstream/pump.json"
         self.assertTrue(idl.is_file(), f"missing checked-in IDL: {idl}")

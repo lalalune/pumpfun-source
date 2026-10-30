@@ -98,6 +98,7 @@ jobs:
               python -B tests/test_aggregate_pinned_image.py
               python -B tests/test_pump_validators_pinned_image.py
               python -B tests/test_create_mayhem_candidate_pair.py
+              python -B tests/test_mayhem_trade_normal_python.py
               python -B tests/test_fees_donation_create_pinned_image.py
               python -B tests/test_fees_social_claim_pinned_image.py
               python -B tests/test_fees_donation_crank_pinned_image.py
@@ -162,6 +163,7 @@ jobs:
               python -B scripts/test_analyze_program_publication.py
               python -B scripts/test_reconstruction_roadmap_publication.py
               python -B scripts/test_bytecode_signatures_publication.py
+              python -B scripts/test_bytecode_signatures_atomic_publication.py
               python -B scripts/test_revalidate_all_publication.py
               python -B scripts/test_donation_relay_oracle_optimization.py
               python -B tests/test_claim_token_incentives_pinned_image.py
