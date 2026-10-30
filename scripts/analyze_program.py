@@ -180,8 +180,8 @@ def analyze_program(program_name, output_dir):
     summary = {
         "program": program_name,
         "deployed_path": str(deployed_path.relative_to(REPO)),
-        "deployed_sha256": sha256_file(deployed_path),
-        "file_size": deployed_path.stat().st_size,
+        "deployed_sha256": hashlib.sha256(elf.b).hexdigest(),
+        "file_size": len(elf.b),
         "text_section": {
             "start": hex(elf.lo),
             "end": hex(elf.hi),
@@ -202,21 +202,21 @@ def analyze_program(program_name, output_dir):
     # --- Write outputs ---
     # 1. Summary
     summary_path = output_dir / "summary.json"
-    summary_path.write_text(json.dumps(summary, indent=2) + "\n")
+    summary_path.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print(f"[analyze] summary: {len(windows)} windows, {total_text:,} text bytes")
 
     # 2. Full window inventory
     inventory_path = output_dir / "window-inventory.json"
-    inventory_path.write_text(json.dumps(windows, indent=2) + "\n")
+    inventory_path.write_text(json.dumps(windows, indent=2) + "\n", encoding="utf-8")
 
     # 3. Call graph
     callgraph_path = output_dir / "call-graph.json"
-    callgraph_path.write_text(json.dumps(call_graph_edges, indent=2) + "\n")
+    callgraph_path.write_text(json.dumps(call_graph_edges, indent=2) + "\n", encoding="utf-8")
 
     # 4. Function index (name -> address mapping)
     func_index = {f["name"]: hex(f["start"]) for f in elf.funcs if f["name"]}
     func_index_path = output_dir / "function-index.json"
-    func_index_path.write_text(json.dumps(func_index, indent=2, sort_keys=True) + "\n")
+    func_index_path.write_text(json.dumps(func_index, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     # 5. Section layout
     section_layout = {}
@@ -230,15 +230,15 @@ def analyze_program(program_name, output_dir):
             "sha256": hashlib.sha256(elf.b[s[4]:s[4] + s[5]]).hexdigest() if s[1] != 8 else None,
         }
     layout_path = output_dir / "section-layout.json"
-    layout_path.write_text(json.dumps(section_layout, indent=2) + "\n")
+    layout_path.write_text(json.dumps(section_layout, indent=2) + "\n", encoding="utf-8")
 
     # 6. README
     readme = f"""# {program_name} — Deployed Binary Analysis
 
 ## Source
 - Binary: `{deployed_path.relative_to(REPO)}`
-- SHA-256: `{sha256_file(deployed_path)}`
-- File size: {deployed_path.stat().st_size:,} bytes
+- SHA-256: `{summary["deployed_sha256"]}`
+- File size: {summary["file_size"]:,} bytes
 
 ## .text Section
 - Start: `{hex(elf.lo)}`
@@ -278,7 +278,7 @@ def analyze_program(program_name, output_dir):
 python3 verify.py
 ```
 """
-    (output_dir / "README.md").write_text(readme)
+    (output_dir / "README.md").write_text(readme, encoding="utf-8")
 
     # 7. Verify script
     verify_py = '''#!/usr/bin/env python3
@@ -286,6 +286,7 @@ python3 verify.py
 import hashlib, json, os, sys
 
 PACKET = os.path.dirname(os.path.abspath(__file__))
+EXPECTED_FILES = frozenset(__EXPECTED_PACKET_FILES__)
 
 def sha256_file(path):
     h = hashlib.sha256()
@@ -295,7 +296,9 @@ def sha256_file(path):
     return h.hexdigest()
 
 def main():
-    manifest = json.load(open(os.path.join(PACKET, "manifest.json")))
+    manifest = json.load(open(os.path.join(PACKET, "manifest.json"), encoding="utf-8"))
+    if not isinstance(manifest, dict) or set(manifest) != EXPECTED_FILES:
+        print("FAIL: manifest artifact set mismatch"); return 1
     errors = 0
     for name, expected in manifest.items():
         path = os.path.join(PACKET, name)
@@ -306,8 +309,8 @@ def main():
             print(f"FAIL: {name} hash mismatch"); errors += 1
         else:
             print(f"  OK: {name}")
-    summary = json.load(open(os.path.join(PACKET, "summary.json")))
-    inventory = json.load(open(os.path.join(PACKET, "window-inventory.json")))
+    summary = json.load(open(os.path.join(PACKET, "summary.json"), encoding="utf-8"))
+    inventory = json.load(open(os.path.join(PACKET, "window-inventory.json"), encoding="utf-8"))
     if summary["total_windows"] != len(inventory):
         print(f"FAIL: summary says {summary['total_windows']} windows but inventory has {len(inventory)}")
         errors += 1
@@ -320,17 +323,21 @@ def main():
 if __name__ == "__main__":
     sys.exit(main())
 '''
-    (output_dir / "verify.py").write_text(verify_py)
+    verify_py = verify_py.replace('__EXPECTED_PACKET_FILES__', repr([
+        'README.md', 'call-graph.json', 'function-index.json', 'section-layout.json',
+        'summary.json', 'verify.py', 'window-inventory.json',
+    ]))
+    (output_dir / "verify.py").write_text(verify_py, encoding="utf-8")
 
     # 8. Manifest
     manifest = {
         name: sha256_file(str(output_dir / name))
         for name in sorted(PACKET_FILES - {"manifest.json"})
     }
-    (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 
     total_lines = sum(
-        len((output_dir / name).read_text().splitlines()) for name in manifest
+        len((output_dir / name).read_text(encoding="utf-8").splitlines()) for name in manifest
     )
     print(f"[analyze] wrote {len(manifest) + 1} files, ~{total_lines:,} lines to {output_dir}")
     return 0

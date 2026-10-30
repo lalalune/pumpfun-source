@@ -153,6 +153,25 @@ def normalized_tokens(rows):
     return tokens
 
 
+def alignment_distance(left, right):
+    """Minimum unit-cost insertions, deletions and substitutions of tokens.
+
+    SequenceMatcher chooses matching blocks for display, not a minimum-cost
+    edit script. Keep its visual alignment separate from this ranking metric.
+    Use one row of memory, bounded by the shorter instruction sequence.
+    """
+    if len(left) < len(right):
+        left, right = right, left
+    previous = list(range(len(right) + 1))
+    for i, token in enumerate(left, 1):
+        row = [i]
+        for j, other in enumerate(right, 1):
+            row.append(min(previous[j] + 1, row[-1] + 1,
+                           previous[j - 1] + (token != other)))
+        previous = row
+    return previous[-1]
+
+
 def find_sell(symbols):
     hits = [f for f in symbols.funcs if '4sell8cashback' in f['name']]
     if len(hits) != 1:
@@ -190,7 +209,7 @@ def score(out_dir, want_disasm=False):
     c_rows = listing(candidate, sell['start'], sell['size'], names)
     o_tok, c_tok = normalized_tokens(o_rows), normalized_tokens(c_rows)
     matcher = difflib.SequenceMatcher(None, o_tok, c_tok, autojunk=False)
-    distance = sum(max(i2 - i1, j2 - j1) for tag, i1, i2, j1, j2 in matcher.get_opcodes() if tag != 'equal')
+    distance = alignment_distance(o_tok, c_tok)
     slot_diffs = sum(1 for i in range(0, min(len(o_sell), len(c_sell)), 8) if o_sell[i:i + 8] != c_sell[i:i + 8])
     borrow = {}
     for name, rows in (('original', o_rows), ('candidate', c_rows)):

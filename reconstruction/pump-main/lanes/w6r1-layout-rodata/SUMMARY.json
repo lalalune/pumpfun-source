@@ -1,0 +1,34 @@
+{
+ "lane": "w6r1-layout-rodata",
+ "wave": 6,
+ "target": "raw (lddw targets, rodata): .rodata/.data.rel.ro layout so data lddw addresses match",
+ "base": "origin/main c2f6d6509 (= 099b0dd for programs/pump), rebased onto 8289b1712; 1027 normalized / 276 raw",
+ "pr": "https://github.com/lalalune/pumpfun-source/pull/2169",
+ "best": {
+  "official_normalized": 1027,
+  "official_raw": 276,
+  "gains": [],
+  "losses": [],
+  "unstripped_sha256": "94a9b81f542613dd8c88ca2a25cf83e70c7fed6a08908a95a50ef82d62fb1446",
+  "data_offset_equal_windows": [1021, 1023],
+  "data_rel_ro_non_text_slot_diffs": [6, 0],
+  "rodata_aligned_bytes_of_32031": [31993, 31993],
+  "model_raw_unmatched_fixed_full_order_data_as_built": [1017, 1019]
+ },
+ "mechanisms_kept": [
+  "The &() Debug vtable vs borsh fill_buffer Location swap comes from the cross-crate-inlinable local copy of <TryFromSliceError as Debug>::fmt (sorted _ZN67 before fill_buffer). It exists only because fixed-length slice.try_into().unwrap() sites need TFSE: Debug. Seven sites now use unwrap_or_default (the conversions are infallible), so TryFromIntError Debug creates the vtable after the Location, as in the original."
+ ],
+ "rejected": [
+  "17497f92 #[inline] on admin_cto's nested validate to create admin_cto.rs Sources before the line-766 msg!: byte-identical"
+ ],
+ "unresolved": [
+  "admin_cto::execute (unmatched): the admin_cto.rs path must be created before the 'No canonical pump pool' msg! (RPO codegen order); 16 vs 15 path refs and 12 vs 10 refs to the .data.rel.ro:0x128 vtable",
+  "official raw: the remaining 601 data-lddw windows need .text at the original size (now +0x140); data offsets are all equal"
+ ],
+ "next_ideas": [
+  "admin_cto lanes: check rodiff; a correct execute CFG reaches an admin_cto.rs error block before the msg block in RPO",
+  "keep slice.try_into().unwrap()/expect() out of all source (it brings back the TFSE Debug mono item)",
+  "after any code-lane merge, rerun scripts/unmdata.py and drr.py. Data references of the unmatched windows other than admin_cto already equal the original's"
+ ],
+ "tools": "reconstruction/pump-main/lanes/w6r1-layout-rodata/tools/ (copies of ~/.cache/.../w6r1-layout-rodata/scripts/) {trial.sh,capture.py,unmdata.py,unmdata2.py,rodiff.py,drr.py,secdiff.py}"
+}

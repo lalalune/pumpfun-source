@@ -99,8 +99,12 @@ def main(argv=None):
         parser.error(str(error))
     output = json.dumps(report, indent=2) + '\n'
     if args.json:
-        args.json.parent.mkdir(parents=True, exist_ok=True)
-        args.json.write_text(output, encoding='utf-8')
+        try:
+            args.json.parent.mkdir(parents=True, exist_ok=True)
+            with args.json.open('x', encoding='utf-8') as stream:
+                stream.write(output)
+        except OSError as error:
+            parser.error(f'cannot create diagnostic report: {error}')
     print(output, end='')
     return 1 if report['diagnostics'] else 0
 

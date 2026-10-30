@@ -22,8 +22,9 @@ def known_instruction_names(name):
     return tuple(sorted(names, key=len, reverse=True))
 
 
-def program_names(root=ROOT):
+def program_names(root=None):
     """Use the archived mapping when present, otherwise the captured programs."""
+    root = ROOT if root is None else root
     path = root / 'repro/programs.json'
     if path.is_file():
         return json.loads(path.read_text())
@@ -107,7 +108,7 @@ def analyze():
         r['compiler_version']='unresolved'; r['dependency_versions']='unresolved'; out[name]=r
     (ROOT/'evidence/binary-analysis.json').write_text(json.dumps(out,indent=2)+'\n')
     inventory={}
-    for f in (ROOT/'evidence/upstream').glob('pump*.json'):
+    for f in sorted((ROOT/'evidence/upstream').glob('pump*.json')):
         d=json.loads(f.read_text(encoding='utf-8')); addresses={}
         def walk(accounts,ix):
             for a in accounts:
