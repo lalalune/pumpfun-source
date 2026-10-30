@@ -10,7 +10,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from pump_quote_control_function_match import sections, candidate_functions
+from pump_quote_control_function_match import sections, candidate_functions, function_body
 
 ROOT = Path(__file__).resolve().parents[1]
 ORIGINAL = ROOT / 'evidence/original/pump/deployed.so'
@@ -43,12 +43,11 @@ def main():
     args = parser.parse_args()
     original, candidate = ORIGINAL.read_bytes(), args.candidate.read_bytes()
     assert sha(original) == EXPECTED_ORIGINAL
-    os = sections(original)['.text']; cs = sections(candidate)['.text']
+    original_sections, candidate_sections = sections(original), sections(candidate)
+    os = original_sections['.text']
     counterparts = {}
     for address, size, name in candidate_functions(args.candidate, args.objdump, '.'):
-        offset = address - cs['addr'] + cs['offset']
-        assert 0 <= address-cs['addr'] <= cs['size']-size
-        raw = candidate[offset:offset+size]
+        raw = function_body(candidate, candidate_sections, address, size)
         counterparts.setdefault((size, sha(raw)), []).append({'address':address, 'symbol':name})
     rows = []
     windows = window_inventory()
@@ -56,8 +55,7 @@ def main():
         for row in csv.DictReader(stream, delimiter='\t'):
             if row['program'] != 'pump' or row['variant'] != 'selected':continue
             start,end = int(row['original_start']),int(row['original_end'])
-            assert os['addr'] <= start < end <= os['addr']+os['size']
-            offset = start-os['addr']+os['offset']; raw=original[offset:offset+end-start]
+            raw = function_body(original, original_sections, start, end-start)
             matches=counterparts.get((end-start,sha(raw)),[])
             rows.append({'original_start':start,'original_end':end,'bytes':end-start,
                          'sha256':sha(raw),'raw_counterparts':matches})

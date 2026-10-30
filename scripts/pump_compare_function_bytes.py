@@ -13,7 +13,7 @@ import struct
 from pathlib import Path
 
 from pump_exact_body_inventory import window_inventory
-from pump_quote_control_function_match import sections, candidate_functions
+from pump_quote_control_function_match import sections, candidate_functions, function_body as body
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -40,12 +40,6 @@ def normalize(raw, address, image_sections):
                 operands.append({'offset':i,'kind':'direct-call','target':address+i+8+immediate*8})
             i += 8
     return bytes(masked), operands
-
-
-def body(image, sections_, address, size):
-    text = sections_['.text']; offset = address-text['addr']+text['offset']
-    assert text['addr'] <= address < address+size <= text['addr']+text['size']
-    return image[offset:offset+size]
 
 
 def main():
