@@ -85,7 +85,9 @@ ORIG = resolve_original(BASE / 'original.so').read_bytes(); OS = sections(ORIG)
 
 
 def orig_sites(start):
-    w = next(x for x in original_windows() if x['start'] == start)
+    w = next((x for x in original_windows() if x['start'] == start), None)
+    if w is None:
+        print(f'coords.py: error: {start:#x} is not an original window start (see `win.py list --all`)', file=sys.stderr); sys.exit(2)
     return sites(ORIG, OS, start, w['raw'])
 
 
@@ -117,7 +119,13 @@ def main():
         print(json.dumps(orig_sites(int(a.start, 0)), indent=1))
     elif a.cmd == 'fn':
         blob = a.cand.read_bytes(); cs = sections(blob)
-        f = next((s, n, nm) for (s, n, nm) in function_symbols(blob) if s == int(a.addr, 0))
+        try:
+            address = int(a.addr, 0)
+        except ValueError:
+            ap.error(f'{a.addr!r} is not a numeric address')
+        f = next(((s, n, nm) for (s, n, nm) in function_symbols(blob) if s == address), None)
+        if f is None:
+            print(f'coords.py: error: {address:#x} is not a function symbol in the candidate', file=sys.stderr); sys.exit(2)
         print(json.dumps(cand_sites(blob, cs, f[0], f[1]), indent=1))
     else:
         if a.json:
