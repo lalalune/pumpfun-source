@@ -23,11 +23,12 @@ class RoundtripStatusTests(unittest.TestCase):
             inventory = root / 'inventory'
             inventory.mkdir()
             manifest = {'tool_sha256': hashlib.sha256(executable.read_bytes()).hexdigest(),
-                        'tool_revision': 'fixture', 'programs': list(equalities)}
+                        'tool_revision': 'fixture',
+                        'programs': [{'name': name} for name in equalities]}
             (inventory / 'manifest.json').write_text(json.dumps(manifest))
             output = root / 'output'
             def worker(_tool, _inventory, entry, _output):
-                return {'name': entry, 'full_text_equality': equalities[entry]}
+                return {'name': entry['name'], 'full_text_equality': equalities[entry['name']]}
             argv = ['roundtrip', '--tool-source', str(root / 'tool'),
                     '--inventory', str(inventory), '--output', str(output)]
             with patch.object(sys, 'argv', argv), patch.object(tool, 'roundtrip', worker), \

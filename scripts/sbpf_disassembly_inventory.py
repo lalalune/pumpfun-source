@@ -18,7 +18,7 @@ import subprocess
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-from analyze import program_names
+from analyze import capture_directory, program_names
 
 
 def sha(data):
@@ -63,7 +63,7 @@ def tool_snapshot(path, expected=None):
 
 def program_inputs(root):
     """Capture paths for every selected program, in selector order."""
-    return [(name, root / 'evidence/original' / name / 'deployed.so')
+    return [(name, capture_directory(root, name) / 'deployed.so')
             for name in program_names(root)]
 
 

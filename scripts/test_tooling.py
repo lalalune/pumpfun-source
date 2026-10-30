@@ -923,7 +923,11 @@ class ParallelCaseCountTests(unittest.TestCase):
         artifact = self.artifact
         reports = {
             'quote_control': {'bound_inputs_sha256': {artifact.relative_to(analyze.ROOT).as_posix(): self.digest},
-                              'cases': 507, 'results': [{'matches': True, 'different_fields': []} for _ in range(507)]},
+                              'cases': 507, 'compare_keys': list(corpus.QUOTE_CONTROL_COMPARE_KEYS),
+                              'results': [{'case': f'fixture/{index}', 'matches': True, 'different_fields': [],
+                                           'original': dict.fromkeys(corpus.QUOTE_CONTROL_COMPARE_KEYS),
+                                           'candidate': dict.fromkeys(corpus.QUOTE_CONTROL_COMPARE_KEYS)}
+                                          for index in range(507)]},
             'multi_hop_curve_partial': {'candidate_sha256': self.digest, 'original_pump_sha256': self.digest,
                                         'passed': 56, 'case_count': 56, 'cases': [{'mismatches': []} for _ in range(56)]},
             'tokenkeg_two_curve': {'candidate_sha256': self.digest,
@@ -1669,11 +1673,11 @@ class InstructionLogNameTests(unittest.TestCase):
     def test_program_names_fall_back_to_captures(self):
         self.assertEqual(
             analyze.program_names(),
-            ['pump', 'pump_amm', 'pump_fees', 'mayhem'],
+            ['pump', 'pump_amm', 'pump_fees', 'mayhem', 'donation_relay'],
         )
 
     def test_program_addresses_fall_back_to_captures(self):
-        # Matches the archived repro/programs.json removed in fce9f28.
+        # The four original programs plus the retained Donation Relay dependency.
         self.assertEqual(
             analyze.program_addresses(),
             {
@@ -1681,6 +1685,7 @@ class InstructionLogNameTests(unittest.TestCase):
                 'pump_amm': 'pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA',
                 'pump_fees': 'pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ',
                 'mayhem': 'MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e',
+                'donation_relay': 'RLAYHr9TRFcKB2ubYQhspcnXiaGpaVzNQvHytt47RZu',
             },
         )
 
@@ -2040,14 +2045,16 @@ class DispatchRecoveryTests(unittest.TestCase):
         import recover_dispatch
         report = recover_dispatch.dispatch()
         self.assertEqual(
-            list(report), ['pump', 'pump_amm', 'pump_fees', 'mayhem'])
+            list(report), ['pump', 'pump_amm', 'pump_fees', 'mayhem', 'donation_relay'])
         self.assertEqual(
             [sum(bool(row['matches']) for row in rowset['instructions'].values())
-             for rowset in report.values()],
+             for name, rowset in report.items() if name != 'donation_relay'],
             [56, 38, 31, 25])
         self.assertEqual(
-            report,
+            {name: row for name, row in report.items() if name != 'donation_relay'},
             json.loads((analyze.ROOT / 'evidence/dispatch-map.json').read_text()))
+        self.assertEqual(report['donation_relay']['binary_sha256'],
+                         '367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563')
 
 
 class SbpfInventoryInputTests(unittest.TestCase):

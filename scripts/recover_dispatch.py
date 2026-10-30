@@ -3,15 +3,15 @@
 This produces addresses for manual recovery, never compiler inputs or rebuilt code.
 """
 import hashlib,json,pathlib,re,struct
-from analyze import elf_layout, program_names
+from analyze import capture_directory, elf_layout, instruction_log_names, program_names
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 def recover(name, root=ROOT):
- b=(root/f'evidence/original/{name}/deployed.so').read_bytes(); layout=elf_layout(b)
+ b=(capture_directory(root,name)/'deployed.so').read_bytes(); layout=elf_layout(b)
  text=next(s for s in layout['sections'] if s['name']=='.text'); start=text['offset']; end=start+text['size']; delta=text['address']-start
  idl=root/f'evidence/upstream/{name}.json'
  if idl.exists(): candidates={i['name']:bytes(i['discriminator']) for i in json.loads(idl.read_text(encoding="utf-8"))['instructions']}
  else:
-  names=json.loads((root/'evidence/binary-analysis.json').read_text())[name]['instruction_log_names']
+  names=instruction_log_names(b)
   names=[re.sub(r'(?<!^)(?=[A-Z])','_',n).lower() for n in names]
   candidates={n:hashlib.sha256(('global:'+n).encode()).digest()[:8] for n in names}
  result={}

@@ -83,13 +83,21 @@ def manifest_paths(packet_dir):
 
 
 def manifest_records(manifest):
-    """Read retained flat hash maps or files records with optional byte counts."""
+    """Read retained flat hash maps, path-keyed records or files records.
+
+    Records may carry optional byte counts.
+    """
     if not isinstance(manifest, dict):
         raise ValueError("manifest must be an object")
     if set(manifest) == {"files"} and isinstance(manifest["files"], list):
         records = manifest["files"]
     else:
-        records = [{"path": name, "sha256": digest} for name, digest in manifest.items()]
+        records = []
+        for name, value in manifest.items():
+            if isinstance(value, dict) and "path" in value:
+                raise ValueError("path-keyed record repeats its path: " + name)
+            fields = value if isinstance(value, dict) else {"sha256": value}
+            records.append({"path": name, **fields})
     names = set()
     for row in records:
         if not isinstance(row, dict) or not {"path", "sha256"} <= row.keys():
