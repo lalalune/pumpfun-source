@@ -1,0 +1,38 @@
+{
+  "lane": "w13a50-cto-perarmval",
+  "target": "0x22a10 admin_cto::execute",
+  "pinned_bytes": 27400,
+  "bases": {"6ff770f7a": {"ratio": 0.62403}, "53abf28b1": {"ratio": 0.62672, "slots_diff": 3305, "fm": 0.72169, "rm": 0.84991, "validate_rm_0x0_0x1800": 429}},
+  "result": "no zero-loss gain; angle exhausted",
+  "best": null,
+  "oracle": "raw-IR capture + opt -O3 + llc (tools/capvar.sh -> tools/rx.py), eq_main true on 53abf28",
+  "attempts": [
+    {"name": "P1", "form": "target arms as nested plain fns hold()/other() -> Result<Pubkey>", "bytes": 27448, "ratio": 0.61419, "fm": 0.71805, "rm": 0.84645, "val_rm": 420},
+    {"name": "P2", "form": "P1 + (target,holder) tuple per arm", "bytes": 27448, "ratio": 0.61419, "note": "= P1"},
+    {"name": "P3", "form": "P2 + h2 holder out-param phi", "bytes": 27256, "ratio": 0.59057},
+    {"name": "H2b", "form": "w13a38 h2 on 53abf28", "bytes": 27200, "ratio": 0.60232, "fm": 0.7214, "rm": 0.8528, "val_rm": 431},
+    {"name": "F1", "form": "per-arm nested fee_ok() helper", "bytes": 26288, "ratio": 0.48305, "note": "not inlined (2 call sites)"},
+    {"name": "F3", "form": "F1 + h2", "bytes": 26128, "ratio": 0.50322},
+    {"name": "V2", "form": "w13a43 nested 289 (holder threading)", "bytes": 26968, "ratio": 0.51902, "fm": 0.66214, "rm": 0.80525, "val_rm": 358},
+    {"name": "V2H", "form": "V2 + h2", "bytes": 26704, "ratio": 0.54923, "fm": 0.69822, "rm": 0.82294},
+    {"name": "V2P", "form": "V2 + P1", "bytes": 27400, "ratio": 0.51917, "slots_diff": 3275, "note": "helpers undo the threading"},
+    {"name": "6ff770f P1/P2/P3/P4/H2", "ratios": [0.61209, 0.61209, 0.59048, 0.59027, 0.60192], "bytes": [27448, 27448, 27264, 27256, 27208]}
+  ],
+  "rejected_mechanisms": [
+    "per-arm plain helper split of validate's target arms (inlined back, +48 B, -0.0125)",
+    "holder phi exported from per-arm helpers (= h2 family, -200 B)",
+    "per-arm fee helper (not inlined; #[inline(always)] duplicates the fee block, w10r1)",
+    "helper split on top of the 289 threading (undoes the threading)"
+  ],
+  "findings": [
+    "With the original outline set (V2) the remaining ~430 B gap is spill traffic: -40 reloads and -16 spills vs the original (tools/hist.py)",
+    "orig accounts-pointer slot -0x8d8 has 2 stores / 32 reloads vs main 1/20; holder phi -0x950 8/18 vs h2 2/4",
+    "orig holder-phi reloads precede branches into multi-pred joins 0x1d28, 0x3c58 and 0x5868 (greedy RA split artifacts of holder live across the sweep)"
+  ],
+  "unresolved_residuals": ["validate block order 289/298, 306 placement, 334 after 410", "spill/reload traffic deficit (~56 insns)", "CPI clone region RA"],
+  "next_ideas": [
+    "Combine the threading + holder phi with a source change that raises register pressure across the sweep and CPI clone region (long-lived values used after the sweep), since every single faithful gene removes pressure",
+    "Build on w13a43 e2n (validate keys by value + bool locals + nested 289, -32 B) rather than on helper splits"
+  ],
+  "ledger_keys": "0x22a10-w13-{6ff770f,53abf28}-perarmval-*-v1"
+}
