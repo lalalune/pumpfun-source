@@ -197,9 +197,15 @@ def fixed_cases():
     add(now=START + 25 * DAY, end=START + DAY - 1, unclaimed=40)
     add(now=START + 25 * DAY, last_update=START + 21 * DAY, end=START + 20 * DAY, days=((21, 10**12, 3 * 10**10),))
     add(secs=0, unclaimed=40)
+    # A rollover worth 0 tokens past the end clears needs_claim (no stamp afterwards).
+    add(now=START + 25 * DAY, end=START + 20 * DAY, unclaimed=0, needs_claim=True, days=((1, 0, 3 * 10**10),))
+    add(now=START + 25 * DAY, end=START + 20 * DAY, unclaimed=0, needs_claim=True, days=((1, 1, 3 * 10**10),))
     add(secs=1, now=START + 29, last_update=START + 3, days=((3, 1000, 7),), volume=5)
     # Panics and errors.
     add(end=START - 1)
+    # The stamp indexes the current day: day 29 is fine, day 30 panics.
+    for now in (START + 30 * DAY - 1, START + 30 * DAY):
+        add(now=now, end=START + 40 * DAY, last_update=now - 1)
     add(now=START + 31 * DAY, end=START + 40 * DAY)
     add(now=START + 31 * DAY, end=START + 40 * DAY, volume=0)
     add(now=START + 31 * DAY, end=START + 30 * DAY)
@@ -280,7 +286,9 @@ class TokenIncentivesCapturedTests(unittest.TestCase):
         return out.splitlines()
 
     def check(self, item, answer):
-        captured = run_captured(item)
+        self.assert_matches(item, answer, run_captured(item))
+
+    def assert_matches(self, item, answer, captured):
         if answer == 'panic':
             self.assertIn('ProgramFailedToComplete', str(captured['error']))
             return
@@ -314,6 +322,27 @@ class TokenIncentivesCapturedTests(unittest.TestCase):
 
     def test_seeded_random_cases_match_captured_program(self):
         self.run_cases(random_cases())
+
+    def test_checker_rejects_tampered_claims(self):
+        # Negative control: a passing captured claim must fail once the token
+        # movement is reversed (vault credited instead of debited) or the
+        # stored claimed total or the event amount is off by one.
+        item = case()
+        answer = self.host_answers([item])[0]
+        captured = run_captured(item)
+        self.assert_matches(item, answer, captured)
+        vault, user_ata = captured['tokens']
+        moved = item['vault'] - vault
+        self.assertGreater(moved, 0)
+        tampered = {
+            'reversed': dict(captured, tokens=(item['vault'] + moved, user_ata)),
+            'claimed': dict(captured, user=dict(captured['user'], claimed=captured['user']['claimed'] + 1)),
+            'event': dict(captured, events=[e[:72] + struct.pack('<Q', moved - 1) + e[80:] for e in captured['events']]),
+        }
+        for name, bad in tampered.items():
+            with self.subTest(tampered=name):
+                with self.assertRaises(AssertionError):
+                    self.assert_matches(item, answer, bad)
 
     def test_fixed_cases_cover_every_outcome(self):
         answers = self.host_answers(fixed_cases())
