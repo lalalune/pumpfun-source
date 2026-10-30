@@ -1,0 +1,1 @@
+EDITS=[('let pargs=(target,a.bonding_curve.is_holder_reward,fee);', 'let pargs=(target,a.bonding_curve.is_holder_reward,fee,sharing_update.is_some());'), ('sharing_config_reset:sharing_update.is_some(),', 'sharing_config_reset:pargs.3,')]

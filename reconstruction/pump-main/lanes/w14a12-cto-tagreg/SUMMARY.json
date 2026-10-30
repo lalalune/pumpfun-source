@@ -1,0 +1,50 @@
+{
+ "lane": "w14a12-cto-tagreg",
+ "target": "0x22a10 admin_cto::execute",
+ "pinned_bytes": 27400,
+ "bases": {
+  "cef0574cf": {
+   "ratio": 0.63421,
+   "slots": 3178
+  },
+  "f8dc9016f": {
+   "ratio": 0.63481,
+   "slots": 3172
+  }
+ },
+ "best": {
+  "ratio": 0.63481,
+  "slots": 3172,
+  "bytes": 27400,
+  "note": "= main; no zero-loss gain"
+ },
+ "result": "notes: tag-register bound +0.0018 (r6 tokens) / +0.0027 (plus 9 tag reload/re-spill tokens, -72 B) on f8dc901; no source form beats main",
+ "attempts": {
+  "ir_oracles": 12,
+  "source_forms": 35,
+  "knob_screen": 47,
+  "ledger_keys": "0x22a10-w14-{cef0574,f8dc901}-tagreg-*"
+ },
+ "rejected_mechanisms": [
+  "tuple order of sharing_update (inner tuple, Ok re-wrap)",
+  "event reset spellings (matches!, !=None, is_some position, shared)",
+  "reset bound early/late/in tuples (pargs, nf, pool_updated)",
+  "sharing match None-first / as_ref",
+  "tag in own u8 slot (IR)",
+  "nf read late at the event (+ 47 knobs, pairs)",
+  "pool owner test first (+nf late)",
+  "pool-CPI holder arg loaded late (IR)",
+  "curve holder store before cashback",
+  "asm {r6}/{r8} pins of tag/pool_updated (IR)"
+ ],
+ "unresolved_residuals": [
+  "tag in r6 at the sharing-section entry needs the sweep-join CFG (swept r9 + tag r6 live-ins from skip path, sweep exit, native exit)",
+  "9 SplitKit ldx/stx re-spill tokens of the tag at -0x8e8",
+  "nf read late and owner-first pool test are the original's forms but lose ~0.002 on the current shape"
+ ],
+ "next_ideas": [
+  "re-run tagbound.py and the a1 pin on any swept-coalescing (w14a06) or holder-phi (w13a51) candidate",
+  "combine nf-late + owner-first with a swept-coalescing candidate",
+  "eliminate the tag re-spill pairs together with the sweep-join change"
+ ]
+}

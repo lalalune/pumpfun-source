@@ -1,0 +1,1 @@
+EDITS=[('let nf=a.bonding_curve.creator_fee_bps;let pool_updated=', 'let reset=sharing_update.is_some();let nf=a.bonding_curve.creator_fee_bps;let pool_updated='), ('sharing_config_reset:sharing_update.is_some(),', 'sharing_config_reset:reset,')]

@@ -1,0 +1,1 @@
+EDITS=[("  %704 = zext i1 %564 to i8\n","  %tz = zext i8 %_501.sroa.0.0 to i64\n  %pz = zext i1 %pool_updated.sroa.0.1.off0 to i64\n  call void asm sideeffect \"\", \"{r6},{r8}\"(i64 %tz, i64 %pz)\n  %704 = zext i1 %564 to i8\n")]

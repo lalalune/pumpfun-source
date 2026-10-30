@@ -1,0 +1,1 @@
+EDITS=[('sharing_config_reset:sharing_update.is_some(),', ''), ('swept_to_holder_vault:swept,pool_updated};', 'swept_to_holder_vault:swept,pool_updated,sharing_config_reset:sharing_update.is_some()};')]

@@ -1,0 +1,1 @@
+EDITS=[('let nf=a.bonding_curve.creator_fee_bps;let pool_updated=', 'let pool_updated='), ('new_creator_fee_bps:nf,', 'new_creator_fee_bps:a.bonding_curve.creator_fee_bps,')]

@@ -1,0 +1,1 @@
+EDITS=[('let pool_updated=!a.pool.data_is_empty() && a.pool.owner==&AMM;', 'let (reset,pool_updated)=(sharing_update.is_some(),!a.pool.data_is_empty() && a.pool.owner==&AMM);'), ('sharing_config_reset:sharing_update.is_some(),', 'sharing_config_reset:reset,')]
