@@ -151,6 +151,8 @@ def cmd_show(a):
         best.sort(reverse=True)
     else:
         best = best_candidates(w, cand, 3)
+    if not best:
+        sys.exit('no candidate function in the requested window search scope')
     print(f"original window {st:#x}..{st + w['bytes']:#x} ({w['bytes']} B, {w['bytes'] // 8} slots)")
     for r, j, s, n, nm in best:
         print(f"  cand {s:#x} {n:6d}B ratio={r:.4f}  {demangle(nm)}")
@@ -199,4 +201,12 @@ if __name__ == '__main__':
     p = sub.add_parser('orig'); p.add_argument('start')
     p = sub.add_parser('sym'); p.add_argument('regex'); p.add_argument('--cand', type=Path, default=BASE / 'current/unstripped.so')
     a = ap.parse_args()
+    if getattr(a, 'top', 0) < 0 or getattr(a, 'context', 0) < 0:
+        ap.error('--top and --context must be nonnegative')
+    pattern = getattr(a, 'sym', None) if a.cmd == 'show' else getattr(a, 'regex', None)
+    if pattern is not None:
+        try:
+            re.compile(pattern)
+        except re.error as error:
+            ap.error(f'invalid symbol regex: {error}')
     {'list': cmd_list, 'show': cmd_show, 'orig': cmd_orig, 'sym': cmd_sym}[a.cmd](a)
