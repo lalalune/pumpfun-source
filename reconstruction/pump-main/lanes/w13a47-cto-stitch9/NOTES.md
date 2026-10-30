@@ -63,3 +63,24 @@ Main moved to 6ff770f (#3155, which also carries `t_cus`) before these were prop
 
 Ledger: approach `stitch-composite`, keys `0x22a10-w13-<main7>-stitch9-<variant>-v1`; scans
 `0x22a10-w13-52c0b08-stitch9-{segscan-singles,fieldscan-pairs6,mkscan3}-v1`.
+
+## Step 2 (wave 14 continuation) — %2 composite on main 53abf28b1 (0.62672)
+
+Single-gene screen of 92 catalog genes + 25 genes rebased on 53abf28 (pool args, `shared` chain, Ok tuple orders,
+event locals). Positive singles: `n_cb_rev` (`let cashback=!holder&&st.cashback;`, same as `n_cb_if`) 27,392 / 0.62772,
+`s_rent_local` (`let rent=Rent::get()?;let min=rent.minimum_balance(0);`) 27,384 / 0.62691.
+Composite with the +24 B `ev_nf_pre` (`let nf=a.bonding_curve.creator_fee_bps;` before `pool_updated`, event reads `nf`):
+
+| metric | main 53abf28b1 | this composite |
+| --- | ---: | ---: |
+| admin_cto bytes | 27,400 | 27,400 |
+| ratio | 0.62672 | **0.62882** |
+| slots_diff | 3,305 | 3,288 |
+| normalized / raw | 1034 / 1034 | 1034 / 1034 |
+| gains / losses | | 0 / 0 |
+| runtime differential | | 363 cases, 0 mismatches |
+| unstripped sha256 | | `74617479b7688b5d16aac7af7476282b513f68aff900bca0ac07c600d10a0080` |
+
+`ev_cb_pre` (`let cbc=a.bonding_curve.is_cashback_coin;`) as the +24 B partner ties (0.62882, different bytes).
+Other pairs: `n_cb_rev`+`c_fee_unwrap` 0.62732, `+e_cb_local+s_su_iflet` 0.62762, `+s_rent_local+wl_ts_clockvar+c_fee_unwrap` 0.62762,
+`+x_ata_rev` 0.62493, `+wl_ts_clockvar+e_reset/s_su_iflet` 0.62672. Keys `0x22a10-w13-53abf28-stitch9-<name>-v1`.
