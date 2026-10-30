@@ -418,7 +418,8 @@ def main():
     if unexpected:
         raise ValueError("unexpected packet entry: " + ", ".join(unexpected))
     invalid = sorted(name for name in packet_files
-                     if (output_dir / name).exists() and not (output_dir / name).is_file())
+                     if (output_dir / name).is_symlink()
+                     or ((output_dir / name).exists() and not (output_dir / name).is_file()))
     if invalid:
         raise ValueError("packet entry is not a regular file: " + ", ".join(invalid))
 

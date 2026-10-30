@@ -27,6 +27,8 @@ valid transaction can be built with locally-owned state (donations, reserved IDL
 ops, and donation rejections). The swap/distribute family needs an external
 Jupiter-style CPI target and is out of scope for this oracle.
 """
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse, base64, hashlib, json, re
 from pathlib import Path
 from solders.account import Account
