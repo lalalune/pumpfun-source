@@ -251,8 +251,7 @@ class Pair:
             raise RuntimeError("locally signed transaction did not verify")
         addresses = watch | set(tx.message.account_keys)
         rows = {side: self._run(vm, tx, addresses) for side, vm in self.vms.items()}
-        comparable = {side: self._comparable(row) for side, row in rows.items()}
-        mismatches = [field for field in comparable["original"] if comparable["original"][field] != comparable["candidate"][field]]
+        mismatches = self.compare_rows(rows["original"], rows["candidate"])
         return {
             "signature": str(tx.signatures[0]),
             "signature_verified": all(tx.verify_with_results()),
@@ -260,6 +259,12 @@ class Pair:
             "original": rows["original"],
             "candidate": rows["candidate"],
         }
+
+    @classmethod
+    def compare_rows(cls, original: dict[str, Any], candidate: dict[str, Any]) -> list[str]:
+        """Use one comparison for transaction receipts and negative controls."""
+        left, right = cls._comparable(original), cls._comparable(candidate)
+        return [field for field in left if left[field] != right[field]]
 
     @staticmethod
     def _run(vm: LiteSVM, tx: Transaction, addresses: set[Pubkey]) -> dict[str, Any]:
@@ -325,9 +330,7 @@ def negative_control(step: dict[str, Any]) -> dict[str, bool]:
     ):
         changed = json.loads(json.dumps(step["candidate"]))
         mutate(changed)
-        left = Pair._comparable(step["original"])
-        right = Pair._comparable(changed)
-        mismatches = [name for name in left if left[name] != right[name]]
+        mismatches = Pair.compare_rows(step["original"], changed)
         checks[field] = field in mismatches
     return checks
 

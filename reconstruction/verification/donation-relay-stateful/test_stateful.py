@@ -49,6 +49,11 @@ class EncodingTests(unittest.TestCase):
         with unittest.mock.patch.object(relay.Pair, "_comparable", staticmethod(lambda row: {})):
             self.assertEqual(relay.negative_control(step), {"error": False, "after": False})
 
+    def test_negative_control_fails_when_shared_comparison_reports_no_differences(self):
+        step = self.matching_step()
+        with unittest.mock.patch.object(relay.Pair, "compare_rows", return_value=[]):
+            self.assertEqual(relay.negative_control(step), {"error": False, "after": False})
+
     def test_transaction_identity_rejects_reused_signature(self):
         cases = [{"steps": [
             {"signature": "same", "signature_verified": True},
