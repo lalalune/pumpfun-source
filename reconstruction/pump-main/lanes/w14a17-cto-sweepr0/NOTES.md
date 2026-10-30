@@ -115,3 +115,18 @@ Scans and results:
 | 7e6aa9c | d2: d1 + d3 | 27,400 | 0.6423 |
 | f100a59 | main | 27,400 | 0.6423 |
 | f100a59 | **d2** | 27,400 | **0.6432** (0 losses, differential 363/0, sha16 45e53ecb3dd66fcd) |
+
+## Part 3 (branch -3): exhaustion of the inlined-clone placement space
+
+| main | scan | result |
+| --- | --- | --- |
+| ca03a2b (0.6432, after #3289) | 11 TCF clones x 729 | every clone at its local optimum |
+| b2e90aa (0.6444) | all 16 inlined clones (11 TCF + 5 sharing) | only the sharing `program:` clone with the key between the Rc clones (+0.0003). #3298 (w14a30) landed the same literal first |
+| 65df90f (0.6453) | 15 inlined clones x 729, plus `tools/fpair.py` pairs (top 3 near-best moves per clone, 945 pairs) | nothing above main, single or pair |
+
+`fpair.py <named m.ll> <fsdir> <out.jsonl> [topk] [threads] <clone list>` applies two single-clone placements together.
+
+Only these 15 AccountInfo clones are inlined in execute. The wallet, sweep `create_idempotent` and pool CPIs call
+the outlined `AccountInfo::clone`, so no field order can be chosen there. On 65df90f, field-read placement is a local
+optimum, both per clone and per pair. Further gains in this run need register-pressure changes outside the clones
+(part 1: bump and `&holder_creator_vault` held across the run) or block-shape changes.

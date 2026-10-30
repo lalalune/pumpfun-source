@@ -1,0 +1,66 @@
+{
+ "lane": "w14a17-cto-sweepr0",
+ "target": "0x22a10 admin_cto::execute",
+ "pinned_bytes": 27400,
+ "landed": [
+  {
+   "pr": 3250,
+   "merge": "b174038c1",
+   "main_before": "f8dc9016f",
+   "ratio": [
+    0.63481,
+    0.63571
+   ],
+   "change": "sweep TCF associated_token_program as plain to_account_info()"
+  },
+  {
+   "pr": 3289,
+   "merge": "ca03a2b41",
+   "main_before": "f100a59c1",
+   "ratio": [
+    0.6423,
+    0.6432
+   ],
+   "change": "TCF pump_creator_vault_ata literal owner-mid + coin_creator_vault_ata literal key-mid"
+  }
+ ],
+ "best": {
+  "ratio": 0.6432,
+  "slots_diff": 3173,
+  "bytes": 27400,
+  "normalized": 1034,
+  "raw": 1034,
+  "losses": 0,
+  "unstripped_sha16": "45e53ecb3dd66fcd"
+ },
+ "mechanisms": [
+  "RA chain for TCF clone-5 key: split for r0, evicted by INF spill-reload of clone-5 rent_epoch because bump (r9) and &holder_creator_vault (r6) stay live across the run",
+  "inlined AccountInfo clone field-read placement (P0 before lamports Rc, P1 between Rc clones, P2 after data) maps 1:1 to literal field order and moves RA in the clone run"
+ ],
+ "rejected": [
+  "asm {r0} pin of key5 (0.566-0.572)",
+  "&hcv gep remat at late uses (0.569)",
+  "bump re-read at vsigner (0.599)",
+  "first pump_amm natural order / to_account_info (+16 B, -0.015)",
+  "last TCF program owner-last/natural/to_account_info (-0.008..-0.009)",
+  "sharing literal->plain subsets on b174038 (best sh4, landed by w14a13)",
+  "sh4 + 46 size knobs"
+ ],
+ "unresolved": [
+  "original spills bump/&holder_creator_vault/native at the sweep top; ours keeps bump r9 and &hcv r6 across the TCF clone run; no source spill form without loss (w13a48)"
+ ],
+ "tools": [
+  "tools/fscan.py",
+  "tools/fpair.py",
+  "tools/pe.py",
+  "tools/sbs.py",
+  "tools/occ2.py",
+  "tools/combo_gen.py",
+  "tools/runq.sh"
+ ],
+ "next_ideas": [
+  "re-run fscan/fpair after every landing elsewhere: the optimum moves with the RA cascade (3 of 4 rescans found a new winner)",
+  "extend fscan to inline-in-struct accounts (current_creator, creator_vault at r8+0xa8/0xd8) via literal AccountInfo of &a.x fields",
+  "triples on fscan near-best moves if a pair ever comes within 0.0003"
+ ]
+}
