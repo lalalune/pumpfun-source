@@ -33,6 +33,15 @@ ORIGINAL_SHA = '6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7
 SELL_START = 0x4c750
 SELL_SIZE = 9024
 SCORE_VERSION = 3
+
+
+def rank(entry):
+    """Lower is better. None = regresses some other function (never 'best')."""
+    m = entry.get('metrics') or {}
+    if not m or m.get('lost_windows_normalized_count') != 0:
+        return None
+    return (0 if m.get('sell_raw_equal') else 1, 0 if m.get('sell_size') == SELL_SIZE else 1,
+            m.get('align_distance', 10**9), m.get('slot_diffs', 10**9))
 sys.path.insert(0, str(HERE))
 try:
     import elf_reader  # noqa: E402

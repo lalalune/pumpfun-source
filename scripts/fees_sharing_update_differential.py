@@ -5,6 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 import fees_sharing_create_differential as f
 from fees_sharing_create_differential import *
+from pump_amm_reusable_harness import pin_program
 from solders.clock import Clock
 from solders.system_program import transfer,TransferParams
 TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');TOKEN22=Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
@@ -19,7 +20,7 @@ def run(c,binary=None):
  try:created=f.run(c.get('bootstrap',{}))
  finally:f.LiteSVM=orig
  assert created['error'] is None,created['error'];vm=vms[0]
- if binary:vm.add_program_from_file(PROGRAM,binary)
+ if binary:vm.add_program_from_file(PROGRAM,pin_program(binary))
  for key,patches in [(pump.GLOBAL,c.get('global_patches',[])),(CURVE,c.get('curve_patches',[]))]:
   a=vm.get_account(key);data=bytearray(a.data)
   for offset,value in patches:data[offset:offset+len(bytes.fromhex(value))]=bytes.fromhex(value)
@@ -140,6 +141,6 @@ def main():
  for c in cases():
   x=run(c);y=run(c,a.candidate) if a.candidate else None;match=all(x[k]==y[k] for k in ['error','before','after','events','inner','return']) if y else None;rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:bad.append(c['name'])
- report={'scope':'Normally signed synthetic sharing updates; captured original bootstraps creation before candidate replacement. No complete-source or byte identity claim.','original_sha256':hashlib.sha256(ORIGINAL.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(a.candidate.read_bytes()).hexdigest() if a.candidate else None,'cases':rows,'mismatches':bad};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n');print('Cases',len(rows),'mismatches',bad)
+ report={'scope':'Normally signed synthetic sharing updates; captured original bootstraps creation before candidate replacement. No complete-source or byte identity claim.','original_sha256':hashlib.sha256(ORIGINAL.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'cases':rows,'mismatches':bad};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n');print('Cases',len(rows),'mismatches',bad)
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

@@ -1,0 +1,394 @@
+{
+ "lane": "w12a13-cto-sizeknobs",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs)",
+ "pinned_bytes": 27400,
+ "orig_first_store": -2344,
+ "bases": {
+  "main": {
+   "commit": "20a1ae9c0",
+   "bytes": 27400,
+   "ratio": 0.43919,
+   "sha16": "8cd7695c3fc638fc",
+   "first_store": -2288
+  },
+  "k4": {
+   "bytes": 27384,
+   "ratio": 0.4525,
+   "sha16": "07c7e215dbe32e7b",
+   "first_store": -2288,
+   "genes": [
+    "wallet_flags",
+    "region2_tree",
+    "fee_unwrap",
+    "canedit_first",
+    "old_fee_first"
+   ]
+  },
+  "j3": {
+   "bytes": 27312,
+   "ratio": 0.45251,
+   "sha16": "a0a2d2146fd9b1b8",
+   "genes": [
+    "wallet_flags"
+   ]
+  },
+  "L1": {
+   "pr": 2749,
+   "bytes": 27400,
+   "ratio": 0.45147,
+   "sha16": "784bea21ed580b15",
+   "first_store": null,
+   "genes": [
+    "wallet_flags",
+    "region2_tree",
+    "fee_unwrap",
+    "canedit_first",
+    "old_fee_first",
+    "s_bump_first",
+    "p_share_match"
+   ]
+  }
+ },
+ "how_to_read": "delta_bytes/delta_ratio are against the named base build. Sizes are NOT additive: always re-measure a combination. identical_to_base=true means the unstripped .so sha equals the base (no codegen change). first_store is the first [r10-X] spill offset in admin_cto::execute (frame proxy; original -2344, ours -2288). Every knob keeps the newline count and every error/require/msg site on its line.",
+ "knobs": [
+  {
+   "name": "s_old_borrow",
+   "category": "copied-vs-borrowed Pubkey",
+   "edit": [
+    {
+     "old": "let old=a.current_creator.key();",
+     "new": "let old=a.current_creator.key;"
+    }
+   ],
+   "results": {
+    "main": {
+     "bytes": 27320,
+     "delta_bytes": -80,
+     "ratio": 0.43624,
+     "delta_ratio": -0.00295,
+     "identical_to_base": false,
+     "first_store": -2288,
+     "losses": [],
+     "raw_losses": 686,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "gate_rev",
+   "category": "other",
+   "edit": null,
+   "results": {
+    "k4+s_bump_first": {
+     "bytes": 27392,
+     "delta_bytes": 0,
+     "ratio": 0.45094,
+     "delta_ratio": 0.0,
+     "source": "w12a04-cto-k4size (their gene names)"
+    }
+   }
+  },
+  {
+   "name": "p_canedit_revert",
+   "category": "other",
+   "edit": null,
+   "results": {
+    "k4+s_bump_first": {
+     "bytes": 27392,
+     "delta_bytes": 0,
+     "ratio": 0.45124,
+     "delta_ratio": 0.0003,
+     "source": "w12a04-cto-k4size (their gene names)"
+    }
+   }
+  },
+  {
+   "name": "p_feeunwrap_revert",
+   "category": "other",
+   "edit": null,
+   "results": {
+    "k4+s_bump_first": {
+     "bytes": 27384,
+     "delta_bytes": -8,
+     "ratio": 0.4519,
+     "delta_ratio": 0.00096,
+     "source": "w12a04-cto-k4size (their gene names)"
+    }
+   }
+  },
+  {
+   "name": "p_oldfee_revert",
+   "category": "other",
+   "edit": null,
+   "results": {
+    "k4+s_bump_first": {
+     "bytes": 27392,
+     "delta_bytes": 0,
+     "ratio": 0.45094,
+     "delta_ratio": 0.0,
+     "source": "w12a04-cto-k4size (their gene names)"
+    }
+   }
+  },
+  {
+   "name": "p_su_match",
+   "category": "other",
+   "edit": null,
+   "results": {
+    "k4+s_bump_first": {
+     "bytes": 27400,
+     "delta_bytes": 8,
+     "ratio": 0.45147,
+     "delta_ratio": 0.00053,
+     "source": "w12a04-cto-k4size (their gene names)"
+    }
+   }
+  },
+  {
+   "name": "target_rebind_drop",
+   "category": "other",
+   "edit": null,
+   "results": {
+    "k4+s_bump_first": {
+     "bytes": 27392,
+     "delta_bytes": 0,
+     "ratio": 0.45094,
+     "delta_ratio": 0.0,
+     "source": "w12a04-cto-k4size (their gene names)"
+    }
+   }
+  },
+  {
+   "name": "g_old_fee_first",
+   "category": "statement / evaluation order",
+   "edit": [
+    {
+     "old": "let old_creator=curve.creator;let old_fee=curve.creator_fee_bps;",
+     "new": "let old_fee=curve.creator_fee_bps;let old_creator=curve.creator;"
+    }
+   ],
+   "results": {
+    "main": {
+     "bytes": 27448,
+     "delta_bytes": 48,
+     "ratio": 0.43999,
+     "delta_ratio": 0.0008,
+     "identical_to_base": false,
+     "first_store": -2288,
+     "losses": [],
+     "raw_losses": 686,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "s_frozen_first",
+   "category": "statement / evaluation order",
+   "edit": [
+    {
+     "old": "let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;",
+     "new": "let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;"
+    }
+   ],
+   "results": {
+    "k4+s_bump_first": {
+     "bytes": 27328,
+     "delta_bytes": -64,
+     "ratio": 0.43768,
+     "delta_ratio": -0.01326,
+     "source": "w12a04-cto-k4size (their gene names)"
+    }
+   }
+  },
+  {
+   "name": "st_ql_first",
+   "category": "statement / evaluation order",
+   "edit": [
+    {
+     "old": "let st=CtoState{creator:a.bonding_curve.creator,",
+     "new": "let st=CtoState{quote_locked,creator:a.bonding_curve.creator,"
+    },
+    {
+     "old": "cashback:a.bonding_curve.is_cashback_coin,quote_locked,holder_enabled",
+     "new": "cashback:a.bonding_curve.is_cashback_coin,holder_enabled"
+    }
+   ],
+   "results": {
+    "main": {
+     "bytes": 27400,
+     "delta_bytes": 0,
+     "ratio": 0.43919,
+     "delta_ratio": 0.0,
+     "identical_to_base": true,
+     "first_store": -2288,
+     "losses": [],
+     "raw_losses": 0,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  }
+ ],
+ "prior_on_main_from_ledger": [
+  {
+   "name": "wallet_flags",
+   "desc": "genes.G wallet_flags (#2518 do_collect/do_coin)",
+   "delta_bytes": -88,
+   "ratio": 0.45251,
+   "delta_ratio": 0.01332,
+   "source": "w9r2-admincto-harvest j3 (re-measured here)"
+  },
+  {
+   "name": "g_region2_tree",
+   "desc": "sharing_update/collect_old as one if-tree (#2515)",
+   "delta_bytes": 16,
+   "ratio": 0.43995,
+   "delta_ratio": 0.00076,
+   "source": "w9r2-admincto-harvest j5"
+  },
+  {
+   "name": "g_fee_unwrap",
+   "desc": "curve.creator_fee_bps=fee.unwrap_or(old_fee)",
+   "delta_bytes": 8,
+   "ratio": 0.43822,
+   "delta_ratio": -0.00097,
+   "source": "w9r2-admincto-sibling h4"
+  },
+  {
+   "name": "g_canedit_first",
+   "desc": "curve.can_edit_creator_fee=false right after the old reads",
+   "delta_bytes": 48,
+   "ratio": 0.43969,
+   "delta_ratio": 0.0005,
+   "source": "w9r2-admincto-sibling h3"
+  },
+  {
+   "name": "p_pool_empty_first",
+   "desc": "pool_updated tests !data_is_empty() first",
+   "delta_bytes": 0,
+   "ratio": 0.43859,
+   "delta_ratio": -0.0006,
+   "source": "w9r2-admincto-harvest i4"
+  },
+  {
+   "name": "p_hr_before_creator",
+   "desc": "is_holder_reward stored before creator (#2621)",
+   "delta_bytes": 0,
+   "ratio": 0.43919,
+   "delta_ratio": 0.0,
+   "source": "w9r2-admincto-harvest i1 (same ratio/slots)"
+  },
+  {
+   "name": "cashback_late",
+   "desc": "cashback computed at the curve store (!holder&&cashback)",
+   "delta_bytes": -104,
+   "ratio": 0.30977,
+   "delta_ratio": -0.12942,
+   "source": "w9r2-admincto-harvest j1"
+  },
+  {
+   "name": "with_signer_sharing",
+   "desc": "sharing CPI CpiContext::new(..).with_signer(..)",
+   "delta_bytes": 24,
+   "ratio": 0.40844,
+   "delta_ratio": -0.03075,
+   "source": "w9r2-admincto-harvest j2"
+  },
+  {
+   "name": "errseq_target",
+   "desc": "validate returns st.creator when shared (#2564)",
+   "delta_bytes": -24,
+   "ratio": 0.28893,
+   "delta_ratio": -0.15026,
+   "source": "w9r2-admincto-harvest j4"
+  },
+  {
+   "name": "holder_unwrap_and",
+   "desc": "holder.unwrap_or(false) + cashback with & (#2550)",
+   "delta_bytes": -184,
+   "ratio": 0.4371,
+   "delta_ratio": -0.00209,
+   "source": "w9r2-admincto-harvest j6"
+  },
+  {
+   "name": "fee_range_sibling",
+   "desc": "if !(f>0&&f<=st.max_fee) (pump-amm sibling spelling)",
+   "delta_bytes": 0,
+   "ratio": 0.43919,
+   "delta_ratio": 0.0,
+   "source": "w9r2-admincto-sibling v3 (byte-identical)"
+  },
+  {
+   "name": "rent_named",
+   "desc": "sweep native arm: let rent=Rent::get()?;let min=rent.minimum_balance(0);",
+   "delta_bytes": 16,
+   "ratio": 0.43816,
+   "delta_ratio": -0.00103,
+   "source": "w12a11-cto-sibling sib-rent-local"
+  },
+  {
+   "name": "cpi_sws",
+   "desc": "sharing CPI with_signer (re-measured)",
+   "delta_bytes": 24,
+   "ratio": 0.40844,
+   "delta_ratio": -0.03075,
+   "source": "w12b12-cto-cpi cpi-sws"
+  },
+  {
+   "name": "cpi_seeds_inline",
+   "desc": "signer seeds as inline literal in both signed CPIs (no pb/poolseeds/signer_seeds locals)",
+   "delta_bytes": 184,
+   "ratio": 0.39982,
+   "delta_ratio": -0.03937,
+   "source": "w12b12-cto-cpi seedsinline"
+  }
+ ],
+ "prior_on_k4_from_ledger": [
+  {
+   "name": "rent_named",
+   "desc": "sweep native arm named Rent local",
+   "delta_bytes": -32,
+   "ratio": 0.45217,
+   "source": "w12a11-cto-sibling sib-k4-rent-local"
+  },
+  {
+   "name": "s_bump_first",
+   "desc": "sweep binds bump before old (l1)",
+   "delta_bytes": 8,
+   "ratio": 0.45094,
+   "source": "w9r2-admincto-harvest l1"
+  },
+  {
+   "name": "p_hr_before_creator",
+   "desc": "curve.creator stored after is_holder_reward (l2)",
+   "delta_bytes": -48,
+   "ratio": 0.45231,
+   "source": "w9r2-admincto-harvest l2"
+  },
+  {
+   "name": "p_pool_empty_first",
+   "desc": "pool_updated tests !data_is_empty() first (l3)",
+   "delta_bytes": -8,
+   "ratio": 0.45197,
+   "source": "w9r2-admincto-harvest l3"
+  },
+  {
+   "name": "g_region2_tree_revert",
+   "desc": "k4 without region2_tree (l4)",
+   "delta_bytes": -16,
+   "ratio": 0.45174,
+   "source": "w9r2-admincto-harvest l4"
+  }
+ ]
+}
