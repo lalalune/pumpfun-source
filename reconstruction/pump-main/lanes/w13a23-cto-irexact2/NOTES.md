@@ -92,3 +92,13 @@ Machine-readable: `recipe.json`. All runs are the post-opt `llc` oracle at 27,40
 | `csedit.py` + `csscan.sh` | raw-IR opt oracle with a noinline/alwaysinline attribute on the k-th call site of a function |
 | `rsplit.py fn.bin` | ratio split by original thirds for oracle outputs |
 | `allocas.py post.ll` | alloca list with sizes and lifetime flags |
+
+### Main 06e6bb829 (0.57669, after 6968c84's system-clone literal)
+
+Single-edit scan plus size-pinned greedy: **0.58748**. The new lead is block frequency in the clone runs:
+`bw 1:2000` on an `AccountInfo::clone` `Rc::inc_strong` overflow-abort branch (`..inc_strong..exit.i98.i`) alone gives
+**0.58448** at 27,400 B, abs 0.67466 -> 0.68814. It changes register allocation in the clone run (our insns ~1157-1413).
+The greedy then adds `exit.i115.i` (+0.0015), `bw:bb27.i64` (+0.0009), `mv:target.sroa.8` (+0.0003) and `inv:bb69`
+(+0.0003). BPI already treats the abort edge as cold, so the gain comes from making it colder; this is clonefeat's
+clone-run register allocation territory. Alloca moves still give only `mv:target.sroa.8` (+0.0003). Perfect-frame
+bound: 0.61714.

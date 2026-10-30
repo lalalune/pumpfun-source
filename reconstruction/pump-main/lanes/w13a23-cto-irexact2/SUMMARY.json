@@ -1,0 +1,33 @@
+{
+  "lane": "w13a23-cto-irexact2",
+  "target": "0x22a10 admin_cto::execute (pinned 27,400 B)",
+  "landed": [{"pr": 2991, "merge_commit": "224ff93aa", "before": 0.53206, "after_on_own_base": 0.54793, "after_merged_main": 0.55123, "slots": 3222, "bytes": 27400,
+    "mechanism": "wallet emit_cpi invoke_signed sret created after ix's init temps and before the signer temps: ({let event_inner..;event_signers=[event_inner];invoke_signed(..)}).map_err(..)? (as_temp allocates the receiver temp before lowering the block); equals IR oracle mv:_115.i:_92.i"}],
+  "notes_pr": 3057,
+  "best_zero_loss": {"ratio": 0.54793, "slots_diff": 3323, "bytes": 27400, "base": "1043a51e8", "sha": "32fc305775dd5c06"},
+  "recipe": "recipe.json (ranked single edits and greedy stacks on 1043a51e8, bf9a05d02, d81d0f588, 06e6bb829)",
+  "attempts": {
+    "source_builds": ["v2 (landed)", "t1 deferred let r (27128 B)", "t4 anchor literal signers (0.52756)", "v1 let r=block (27128 B)", "w2/w3 sk into validate via &UncheckedAccount (0.36358, 27328 B)"],
+    "oracle_scans": ["single-edit 6051 x4 mains", "stride-1 move matrix 15k (bf9a05d, partial 11k)", "TOP/END move pairs 7.9k (d81d0f5)", "movescan 861", "greedy x3", "size oracle 766", "st:40 proxy scan 6051", "per-call-site noinline/alwaysinline 53", "to_string noinline 307/312"]
+  },
+  "rejected_mechanisms": [
+    "named Result<(),ProgramError> local for the wallet invoke (needs drop: +drop code, 27128 B)",
+    "anchor emit_cpi! literal signer arg in the wallet (moves the 16 B signer slice out of its F1 slot)",
+    "sk computed inside validate from &UncheckedAccount (code collapse)",
+    "all single and paired alloca moves on d81d0f5/06e6bb8 beyond mv:target.sroa.8 (+0.0003)",
+    "per-call-site inline attribute changes (all move size)",
+    "to_string outlining at 307/312 alone (-416 B, 0.55478)"
+  ],
+  "unresolved_residuals": [
+    "0x630-0x6a0 frame block: val6, target.sroa.0 (7 B), hk (33 B), holder_key; original 24 B signer-slice host at 0x680 (unmerged24/e32late)",
+    "deep RA spill slots 0x8d0+ (allocation order)",
+    "clone-run register allocation: block-frequency oracle on the Rc::inc_strong abort edges gives +0.0078 (abs +0.0135) on 06e6bb8 (clonefeat)",
+    "abs ratio ~0.675-0.686: code shape/register assignment, not frame; perfect-frame bound 0.617-0.634"
+  ],
+  "next_ideas": [
+    "source forms that change the clone run's register pressure the way the inc_strong-abort frequency edit does (clonefeat)",
+    "mv:target.sroa.8 (+0.0003): make the inner let mut target's 9 B SROA piece a high-index local",
+    "rerun tools/mkscan.py + pscan.sh after every landing: a 6k scan takes ~6 min and is the quickest way to see whether a single frame lever reappeared"
+  ],
+  "exhausted": "alloca-order / lifetime / branch-inversion levers on current main (well evidenced); block-frequency levers remain but have no source construct"
+}

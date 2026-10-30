@@ -1,28 +1,132 @@
 {
-  "target": "0x22a10 admin_cto::execute",
-  "oracle": "post-opt llc oracle (w12a02 iredit.py) on rustc's pre-opt IR run through the SDK opt -O3 (tools/capraw.py + tools/rx.py); eq_main=true on every base below",
-  "landed": [
-    {"pr": 2991, "merge": "224ff93aa", "base": "1043a51e8", "spec": "mv:_115.i:_92.i", "what": "wallet emit_cpi invoke_signed sret created after ix's init temps and before the signer temps", "ratio_before": 0.53206, "ratio_after": 0.54793, "source": "({let event_inner..;event_signers=[event_inner];invoke_signed(..)}).map_err(..)?"}
-  ],
-  "ranked": {
-    "1043a51e8": {"base": 0.53206, "single_at_27400": [
-      {"spec": "mv:t.i:END (or sk before t.i)", "ratio": 0.55183, "owner": "valslot (landed #2989)"},
-      {"spec": "mv:_115.i:_92.i", "ratio": 0.54793, "owner": "irexact2 (landed #2991)"}]},
-    "bf9a05d02": {"base": 0.55872, "single_at_27400": [
-      {"spec": "bw:bb82:2000:1", "ratio": 0.56351, "kind": "block frequency only (sharing-update Some arm after the sweep); spill-slot order", "owner": "none (no source construct)"},
-      {"spec": "mv:target.sroa.8:<inlined>", "ratio": 0.55902}],
-      "greedy_27400": {"spec": "bw:bb82:2000:1, bw:clone.exit52.i:1:2000, bw:bb27.i64:1:2000, mv:target.sroa.8:_117.i", "ratio": 0.56681},
-      "size_oracle": [{"spec": "sz:holder_key:24", "ratio": 0.56651}, {"spec": "sz:st:40", "ratio": 0.56621}, {"spec": "sz:val6:25", "ratio": 0.56591}, {"spec": "sz:mint:24", "ratio": 0.56501}],
-      "size_oracle_meaning": "region old_creator..holder_key 8 B too deep: st (48 B, kept in memory by st.creator memcmp) sits in the original's 40 B new-copy/X24 area; owner ctostatesroa (landed #3011) / e32late",
-      "on_st40_proxy": {"base": 0.56621, "best": {"spec": "bw:bb7:2000:1", "ratio": 0.5746, "kind": "frequency only (global_quote default-mint memcmp)"}},
-      "movescan": "no 27400 gain (best 0.56419 at 27336)",
-      "callsite_inline": "no gain; every noinline/alwaysinline change moves size"},
-    "d81d0f588": {"base": 0.571, "single_at_27400": [
-      {"spec": "mv:target.sroa.8:<inlined>", "ratio": 0.5713, "owner": "none"},
-      {"spec": "bw:bb27.i64:1:2000", "ratio": 0.5719, "kind": "frequency only"}],
-      "pairs_TOP_END": "no pair above the single +0.0003",
-      "to_string_noinline_307_312": {"ratio": 0.55478, "bytes": 26984},
-      "frame_object_map": "tools/objmap.py: every frame object at or above old_creator (0x630) and mint plus the spill slots 0x6d0-0x8c8 sit at the original offsets; remaining displacement is the 0x630-0x6a0 block (val6, target.sroa.0 7 B, hk 33 B, holder_key; orig X24 host at 0x680) and the deep RA spill slots 0x8d0+",
-      "perfect_frame_bound": 0.6336}
+ "target": "0x22a10 admin_cto::execute",
+ "oracle": "post-opt llc oracle (w12a02 iredit.py) on rustc's pre-opt IR run through the SDK opt -O3 (tools/capraw.py + tools/rx.py); eq_main=true on every base below",
+ "landed": [
+  {
+   "pr": 2991,
+   "merge": "224ff93aa",
+   "base": "1043a51e8",
+   "spec": "mv:_115.i:_92.i",
+   "what": "wallet emit_cpi invoke_signed sret created after ix's init temps and before the signer temps",
+   "ratio_before": 0.53206,
+   "ratio_after": 0.54793,
+   "source": "({let event_inner..;event_signers=[event_inner];invoke_signed(..)}).map_err(..)?"
   }
+ ],
+ "ranked": {
+  "1043a51e8": {
+   "base": 0.53206,
+   "single_at_27400": [
+    {
+     "spec": "mv:t.i:END (or sk before t.i)",
+     "ratio": 0.55183,
+     "owner": "valslot (landed #2989)"
+    },
+    {
+     "spec": "mv:_115.i:_92.i",
+     "ratio": 0.54793,
+     "owner": "irexact2 (landed #2991)"
+    }
+   ]
+  },
+  "bf9a05d02": {
+   "base": 0.55872,
+   "single_at_27400": [
+    {
+     "spec": "bw:bb82:2000:1",
+     "ratio": 0.56351,
+     "kind": "block frequency only (sharing-update Some arm after the sweep); spill-slot order",
+     "owner": "none (no source construct)"
+    },
+    {
+     "spec": "mv:target.sroa.8:<inlined>",
+     "ratio": 0.55902
+    }
+   ],
+   "greedy_27400": {
+    "spec": "bw:bb82:2000:1, bw:clone.exit52.i:1:2000, bw:bb27.i64:1:2000, mv:target.sroa.8:_117.i",
+    "ratio": 0.56681
+   },
+   "size_oracle": [
+    {
+     "spec": "sz:holder_key:24",
+     "ratio": 0.56651
+    },
+    {
+     "spec": "sz:st:40",
+     "ratio": 0.56621
+    },
+    {
+     "spec": "sz:val6:25",
+     "ratio": 0.56591
+    },
+    {
+     "spec": "sz:mint:24",
+     "ratio": 0.56501
+    }
+   ],
+   "size_oracle_meaning": "region old_creator..holder_key 8 B too deep: st (48 B, kept in memory by st.creator memcmp) sits in the original's 40 B new-copy/X24 area; owner ctostatesroa (landed #3011) / e32late",
+   "on_st40_proxy": {
+    "base": 0.56621,
+    "best": {
+     "spec": "bw:bb7:2000:1",
+     "ratio": 0.5746,
+     "kind": "frequency only (global_quote default-mint memcmp)"
+    }
+   },
+   "movescan": "no 27400 gain (best 0.56419 at 27336)",
+   "callsite_inline": "no gain; every noinline/alwaysinline change moves size"
+  },
+  "d81d0f588": {
+   "base": 0.571,
+   "single_at_27400": [
+    {
+     "spec": "mv:target.sroa.8:<inlined>",
+     "ratio": 0.5713,
+     "owner": "none"
+    },
+    {
+     "spec": "bw:bb27.i64:1:2000",
+     "ratio": 0.5719,
+     "kind": "frequency only"
+    }
+   ],
+   "pairs_TOP_END": "no pair above the single +0.0003",
+   "to_string_noinline_307_312": {
+    "ratio": 0.55478,
+    "bytes": 26984
+   },
+   "frame_object_map": "tools/objmap.py: every frame object at or above old_creator (0x630) and mint plus the spill slots 0x6d0-0x8c8 sit at the original offsets; remaining displacement is the 0x630-0x6a0 block (val6, target.sroa.0 7 B, hk 33 B, holder_key; orig X24 host at 0x680) and the deep RA spill slots 0x8d0+",
+   "perfect_frame_bound": 0.6336
+  },
+  "06e6bb829": {
+   "base": 0.57669,
+   "abs": 0.67466,
+   "single_at_27400": [
+    {
+     "spec": "bw:_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i98.i:1:2000",
+     "ratio": 0.58448,
+     "abs": 0.68814,
+     "kind": "block frequency: AccountInfo clone Rc::inc_strong overflow-abort edge made colder than BPI's cold-call weight; changes register allocation of the clone run (insns ~1157-1413)",
+     "owner": "clonefeat"
+    },
+    {
+     "spec": "mv:target.sroa.8:<inlined>",
+     "ratio": 0.57699,
+     "owner": "none"
+    }
+   ],
+   "greedy_27400": {
+    "steps": [
+     "bw inc_strong exit.i98.i 1:2000 +0.00779",
+     "bw inc_strong exit.i115.i 1:2000 +0.0015",
+     "bw:bb27.i64:1:2000 +0.0009",
+     "mv:target.sroa.8:_123.i79 +0.0003",
+     "inv:bb69 +0.0003"
+    ],
+    "ratio": 0.58748
+   },
+   "perfect_frame_bound": 0.61714
+  }
+ }
 }
