@@ -182,6 +182,9 @@ def fixed_cases():
         add('add', 4, 9, len=length, lamports=rent(min(length, 228)) - 1)
         add('add', 4, 9, len=length)
     add('add', 4, 9, mints=tuple((m, m) for m in range(2, 10) if m != 4) * 7, len=2108, lamports=rent(2108))
+    # No cap at 50: a 51st entry grows the account past the initial 2,108 bytes.
+    add('add', 4, 9, mints=tuple((m, m) for m in range(2, 10) if m != 4) * 7 + ((1, 1),), len=2108,
+        lamports=rent(2108))
     add('add', 4, 9, signer_lamports=278_400)
     add('add', 4, 9, signer_lamports=278_399)
     add('add', 4, 9, signer_lamports=278_399, lamports=rent(228) + 1)
