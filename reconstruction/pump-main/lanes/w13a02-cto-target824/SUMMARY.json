@@ -1,0 +1,36 @@
+{
+  "lane": "w13a02-cto-target824",
+  "target": "0x22a10 admin_cto::execute (27,400 B pinned)",
+  "angle": "8/24 target split and the X24 host slot for the wallet emit_cpi! signer slice",
+  "landed": false,
+  "pr": 2929,
+  "bases": {"3912c47": 0.48772, "43946852": 0.49071, "9eb6c00": 0.49131, "74b3171": 0.51348, "538729b": 0.51857},
+  "best_zero_loss_exact_size": {"name": "g4", "base": "9eb6c00", "ratio": 0.50352, "slots_diff": 3240, "bytes": 27400,
+    "normalized": 1034, "raw": 1034, "losses": 0, "calls": [157, 3], "edits": "reconstruction/pump-main/lanes/w13a02-cto-target824/ir/g4_edits.py",
+    "status": "superseded: main reached 0.51348 before landing, and the form does not port to the args entry-copy main"},
+  "mechanism": [
+    "StackColoring merges a slot into the first earlier non-conflicting representative in size order, so the 16 B slice needs a slot of at least 24 B that every wallet 24 B group conflicts with",
+    "conservative slots (two or more lifetime markers) start at the marker, not at the first use: a MIR local with StorageLive before the validation block and StorageDead on the ? path and after the join spans validation",
+    "fee-first Result<(Option<u64>,Pubkey)> gives the 8/24 split; the validate tail, the ? tail and the block target tail are 24 B pieces that block ix_data.i, inner_data.i and val.sroa.6.i",
+    "a scoped deferred-init x assigned twice (if st.quote_locked{x=target}else{x=target}) stays non-SSA, so CopyProp keeps its storage markers; x.sroa (24 B) hosts _114.i directly above holder_key, as orig T 0x680 does"
+  ],
+  "attempts": ["ir-x24 v1-v7, w1", "fee-first S1/S2/h5a", "p6 p6b p9 p9b p10 p11 p13 p14", "q0 q1 q14 q14n q16-q19", "r0-r5", "t8-t11", "u1-u3 (g8 entry copy)", "w1-w8", "x2-x15", "y1 y3 y4 f1-f3", "z1-z6", "a1-a8", "b1-b6", "d1-d6", "e1-e6", "g1-g4", "n0-n5 m1-m6 (74b3171)", "p0 + IR what-ifs (538729b)", "h1 h3-h6 h8 h9 (E32 front)"],
+  "rejected": [
+    "short-lived X24 (absorbed by _54.i)",
+    "x assigned once (CopyProp unifies, no markers)",
+    "x under if holder / if shared (MIR threads into the sharing arms: abstracted -0.04)",
+    "x=if shared{target}else{target} (folds)",
+    "g8 entry copy plus x (abstracted 0.53)",
+    "fee-first on the args main (RA flips the accounts pointer register)",
+    "identity keep<T>() and let r=..; destructuring for the E32 placement (byte-identical)"
+  ],
+  "unresolved": [
+    "E32 (target1) and sharing_update.sroa.3 at the front of execute's allocas: IR what-if +0.0078 on 538729b (0.52636)",
+    "an exact-size fee-first X24 composite on the newest main; the slice itself is already past the inlined region there through event_signers"
+  ],
+  "next_ideas": [
+    "make the outer target class head a local appended by MIR inlining or SROA (a non-identity #[inline] helper whose param is non-SSA) so that target1 moves to the front",
+    "on the args main, check whether fee-first with (None,target) plus a fourth conservative 24 B copy fills _107.i so that x can host",
+    "the v_fee_split gain (+0.03) appears only in the fee-first world; recheck it on any future 8/24 base"
+  ]
+}

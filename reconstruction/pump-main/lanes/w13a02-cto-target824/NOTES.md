@@ -72,6 +72,25 @@ Not composable as measured: entry-copy `g8` (`let args=&(new,)`) with x drops th
 - Size: every X24 form found so far is 8..104 B short of 27,400 B. The known size knobs either keep the size or lose ratio.
 - The original's E32 (full target, T 0x580) sits in front of `_184`. Ours (`target1`, marker-less) does not move.
 
+## Update on main 74b3171 / 538729b (later in the lane)
+
+- Exact-size result on 9eb6c00 (not landed, main moved): `g4` = flat `let x;` form + `v_fee_split` - `s_frozen_first` +
+  `sh_key_borrow` + `s_old_borrow` + `w_ev_creator_first`. `measure.sh` gives 0.50352, 3,240 slots at 27,400 B, 1034/1034 and 0 losses,
+  against base 0.49131. Calls are 157+3 (the split 338 check adds a site). The edit list is in `ir/g4_edits.py`. In the fee-first world,
+  `v_fee_split` is worth +0.03 (flat x + split: 0.53493 at 27,496 B). The nearest sizes were 0.53042 at 27,408 B (`a1`) and 0.52728 at 27,392 B.
+- On 74b3171 (`let args=&(new,)` entry copy, `st` at function scope), fee-first alone flips the register allocation of the accounts pointer
+  (r8 -> r6), and the abstracted ratio falls from 0.698 to 0.596. Returning `(None,target)` instead restores about 0.675. The `?` 24 B tail piece also
+  disappears. The validate, block and x 24 B pieces then fill `_107.i`, `ix_data.i` and `inner_data.i`, so x is absorbed and the slice is not
+  hosted.
+- 538729b (`event_signers` deferred init in the wallet) already moves the signer slice to fi 54, after `val.sroa.6.i`. That is the F1
+  position. IR what-ifs there: moving the slice above `holder_key` changes nothing (0.51857). Giving it the original's 24 B X24 size is
+  -0.021. Moving `target1` (E32) and `sharing_update.sroa.3` to the front of execute's allocas is +0.0078 (0.52636). This is the
+  next open frame feature in this area.
+- Source forms tried for the E32 front placement, all byte-identical: `#[inline]`/`#[inline(always)] fn keep<T>(t:T)->T{t}`
+  on the tuple field or the shadow binding; `let r={..}; let (..)=r;`; `let mut target=r.2`. The class head stays a
+  mid-index local (`_61`). MIR locals are not renumbered by first appearance, so the head would have to be a local appended by the
+  inliner or by SROA.
+
 ## Tools
 
 - `ir/x24lib.py`, `ir/w1.py`: IR emulation of a conservative X24 (llc oracle + `w12b12-cto-cpi/tools/scmerge.py`).
