@@ -69,16 +69,49 @@ None:Some >= 2:1 at llc: the 20:12 order is `296 306 326 312` and the 1:1 order 
   default tag test the best is the tag test itself at 20:12. With the tag test at 1:1, the best is `bb94.i` 20:12 at 0.62940
   (308b545). No source-reachable heuristic weight reproduces the 2:1 placement.
 
-Bound: on 769f331 the outline source form sits at 0.62385 (1:1 reachable only with a codegen change: 0.62889) against
-main's 0.63241. Even the full oracle is only +0.001 over main, and 488 B must still be filled.
+## 4. A natural source form: `has` + tag test (no marker), the original's test forms
+
+```rust
+fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:Option<Pubkey>,has:bool,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{...
+  let t=if let (true,Some(t))=(has,new){t}else{return Err(error!(PumpError::CtoNewCreatorRequired));};   // line 306
+... validate(&st,hopt,fee,new,args.0.is_some(),&holder_key,&sk)?   // + RAR
+```
+
+- Before inlining, validate tests the `has` argument (no heuristic, 1:1) and then the tag (zero heuristic, 20:12).
+  Some = 0.5 x 0.625 = 0.3125, which is under the 0.333 cut, so 307 and 312 are outlined with **no** cold marker.
+  (e3 = the same form plus `cold()` is byte-identical.)
+- After inlining, the inner tag test folds away. The 306 test becomes `and i8 %_27.sroa.0.0.copyload, 1` (range-free,
+  from the SROA copy of `args`), while 298 keeps `icmp eq %copyload, 0`. These are exactly the original's two forms on one
+  spill slot: orig 0x730 `ldxdw r1,[r10-0x8f8]; and64 r1,1; jeq` (306) and 0x900 `ldxdw r1,[r10-0x8f8]; jeq r1,0` (298).
+- `has` must come from `args.0` (the copy). From `new` it is a ranged load and folds back to c1 (e2). With
+  `new.unwrap_or_default()` in the arm it is e1 (codegen change).
+
+| form | 769f331 | cef0574 (main 0.63421) |
+| --- | --- | --- |
+| RAR | 0.62371 @ 27,376 | 0.62500 @ 27,368 |
+| c1 (cold marker) | 0.62385 @ 26,912 | |
+| **f2 (has + tag test)** | 0.62778 @ 26,912 | **0.62808 @ 26,912** |
+| f2 + llc None:Some 2:1 (or 3:1) on the and-1 test = weights ceiling | 0.63231 | 0.63261 |
+| f1 = f2 without RAR | 0.58273 @ 26,968 | |
+| g2: `has` + `if has{new.unwrap()}`, no RAR, no outline | | 0.62433 @ 27,400 (88 lddw, panic folds away) |
+
+The f2 layout is `298 289 296 312 306 326 307`. The original's is `289 298 306 296 326 312 307`. Holder threading on e3
+(x/n/nh/xh) gives 0.6267-0.6269. The llc scan on e3 tops out at `bb95.i` 20:12 (the holder-path `quote_locked` phi
+test) at 0.63070.
+
+Bound: on cef0574 even the full weights ceiling (0.63261 at 26,912) is under main (0.63421), before the 488 B fill.
+The outline basin stopped paying when main's non-outline basin improved (#3207, #3215, #3210). Landing it would take a
+fill worth at least +0.006 on f2. No catalog knob is anywhere near that: the knobs that add bytes all cost ratio.
 
 ## Next ideas
 
 - A 306 tag test on the entry-copied tag that is range-free *and* placed first. The original's whole validate region works
   on the SROA'd entry copy of `new` (orig 0x4d8-0x538). Combine c1 with w13a41/w13a42 entry-copy forms that keep the tag
   as a copyload, and check layout at 1:1.
-- w14a08 outlinefill: screen fills on c1 (the real source form), not on the `!prof` oracle. The oracle's extra 0.0096
+- w14a08 outlinefill: screen fills on f2 (the real source form), not on the `!prof` oracle. The oracle's extra 0.0045
   comes from the llc weight, which source cannot express.
+- The `has` + tag-test form gives the original's range-free `and 1` at 306. Combine it with a CFG change that makes
+  MBP place the None path first at 1:1 (the original does that at 1:1). Threading does not do it.
 
 ## Tools (`tools/`)
 

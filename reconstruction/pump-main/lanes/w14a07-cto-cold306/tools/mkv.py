@@ -40,6 +40,21 @@ G['OR2']=[SIGN,("let t=if let Some(t)=new{cold();t}","let t=if let Some(&t)=new{
 G['HB']=[('new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{','new:Option<Pubkey>,has:bool,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{'),("let t=if let Some(t)=new{cold();t}","let t=if has{cold();new.unwrap_or_default()}"),("validate(&st,hopt,fee,new,","validate(&st,hopt,fee,new,args.0.is_some(),")]
 
 G['HB2']=[('new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{','new:Option<Pubkey>,has:bool,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{'),("let t=if let Some(t)=new{cold();t}else{","let t=if let (true,Some(t))=(has,new){cold();t}else{"),("validate(&st,hopt,fee,new,","validate(&st,hopt,fee,new,new.is_some(),")]
+
+G['HB3']=[('new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{','new:Option<Pubkey>,has:bool,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{'),("let t=if let Some(t)=new{cold();t}else{","let t=if let (true,Some(t))=(has,new){cold();t}else{"),("validate(&st,hopt,fee,new,","validate(&st,hopt,fee,new,args.0.is_some(),")]
+G['HB4']=[('new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{','new:Option<Pubkey>,has:bool,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{'),("let t=if let Some(t)=new{cold();t}else{","let t=if let (Some(t),true)=(new,has){cold();t}else{"),("validate(&st,hopt,fee,new,","validate(&st,hopt,fee,new,args.0.is_some(),")]
+
+G['HB0']=[('new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{','new:Option<Pubkey>,has:bool,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{'),("let t=if let Some(t)=new{t}else{","let t=if let (true,Some(t))=(has,new){t}else{"),("validate(&st,hopt,fee,new,","validate(&st,hopt,fee,new,args.0.is_some(),")]
+
+_HS=('new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{','new:Option<Pubkey>,has:bool,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{')
+_HC=("validate(&st,hopt,fee,new,","validate(&st,hopt,fee,new,args.0.is_some(),")
+G['G1']=[_HS,("let t=if let Some(t)=new{t}else{","let t=if has{new.unwrap_or_default()}else{"),_HC]
+G['G2']=[_HS,("let t=if let Some(t)=new{t}else{","let t=if has{new.unwrap()}else{"),_HC]
+
+_AM=("let cashback=!holder&&st.cashback;let args=&(new,);","let cashback=!holder&&st.cashback;")
+G['P1']=[_AM,("{ let a=&ctx.accounts;","{ let a=&ctx.accounts;let args=&(new,);")]
+G['P2']=[_AM,("holder_key=hk.0;","holder_key=hk.0;let args=&(new,);")]
+G['P3']=[_AM,("fee_configurable:a.global.creator_fee_configurable};","fee_configurable:a.global.creator_fee_configurable};let args=&(new,);")]
 v=sys.argv[1]; d=f'{O}/var/{v}'
 assert not os.path.exists(d), d+' exists'
 subprocess.run(['rsync','-a',f'{O}/var/'+os.environ.get('MKV_BASE','m3')+'/',d+'/'],check=True)

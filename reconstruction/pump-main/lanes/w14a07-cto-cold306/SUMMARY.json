@@ -1,0 +1,53 @@
+{
+  "lane": "w14a07-cto-cold306",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "bases": {"308b545": 0.63062, "769f331": 0.63241, "cef0574": 0.63421},
+  "result": "notes only; no landable change. The outline basin no longer pays on cef0574.",
+  "oracle": "raw-IR capture + opt -O3 + extracted llc (w13a43 tools/src.sh); reproduces main exactly",
+  "best_source_form": {
+    "name": "f2",
+    "genes": "RAR + HB0 (tools/mkv.py)",
+    "source": "validate(...,new,args.0.is_some(),...) with has:bool param; line 306: let t=if let (true,Some(t))=(has,new){t}else{return Err(..306..)};",
+    "cef0574": {"ratio": 0.62808, "bytes": 26912, "lddw": 86, "outlined_to_string": [307, 312, 330, 334, 338, 660, 719]},
+    "769f331": {"ratio": 0.62778, "bytes": 26912},
+    "mechanism": "has arg test (1:1) x tag test (zero heuristic 20:12) -> Some 0.3125 < 0.333 cut at validate's inliner; after inlining the 306 test is a range-free and-1 of the args SROA copyload (the original's 0x730 form) and 298 stays icmp eq copyload,0 (the original's 0x900 form)"
+  },
+  "other_forms": {
+    "c1_cold_marker": {"source": "#[cold] fn cold(){} called at the head of the 306 Some arm (+RAR)", "769f331": 0.62385, "bytes": 26912, "note": "exactly = the 1:2 weights oracle with !prof stripped before llc; cold() inlined away, no extra call"},
+    "c2_cold_marker_in_307_312_errors": {"308b545": 0.62117, "bytes": 26960},
+    "d1_option_ref_args": {"308b545": 0.60088, "bytes": 26752},
+    "d2_option_ref_new": "byte-identical to c1",
+    "e1_has_unwrap_or_default": {"769f331": 0.62035, "bytes": 26720},
+    "e2_has_from_new": "byte-identical to c1 (ranged load folds back)",
+    "g2_has_unwrap_no_outline": {"cef0574": 0.62433, "bytes": 27400},
+    "f1_has_without_RAR": {"cef0574": 0.58394, "bytes": 26968},
+    "p1_p2_p3_args_placements": {"cef0574": [0.53633, 0.52858, 0.58394]}
+  },
+  "weight_maps": {
+    "pre_inline_306_switch_RAR_308b545": {"20:12": 0.62191, "1:1": 0.61402, "12:20": "0.60893 no outline (307 BFI 0.0212)", "12:22": "0.62622 307 only", "12:24=1:2": 0.63161, "12:26..12:30": 0.62989},
+    "llc_time_final_tag_test_769f331_on_c1": {"default(12:20 Some likely)": 0.62385, "1:1": 0.62889, "2:1 None": 0.63342},
+    "llc_ceiling_cef0574_on_f2": {"2:1": 0.63261, "3:1": 0.63261, "main": 0.63421},
+    "llc_single_weight_scan_e3_769f331": "best bb95.i (holder-path quote_locked phi) 20:12 0.63070"
+  },
+  "rejected_mechanisms": [
+    "zero/pointer-heuristic spelling of the 306 test alone (12:20 cannot outline 307)",
+    "Option<&Pubkey> param (pointer test; MIR forwards to a ranged %new load)",
+    "has computed from new instead of args.0 (folds back)",
+    "holder threading on c1/e1/e3 (306 stays behind 296)",
+    "swapped successor order at 1:1 (0.60955)",
+    "args placements other than RAR with the has form",
+    "has form without the outline (g1/g2)"
+  ],
+  "unresolved": [
+    "MBP places 306 after 296/312 at 1:1; the original places the None path (306 to_string inline at 0x750) first at 1:1 under a different CFG (289/298 order)",
+    "488 B fill on the outlined forms; the size-knob catalog has no positive-ratio fill",
+    "RAR basin trails main by ~0.009 on cef0574 (main's #3207/#3215/#3210 gains do not transfer)"
+  ],
+  "next_ideas": [
+    "combine the f2 has+tag form with a 289/298-order fix so the None path is laid out first at 1:1",
+    "w14a08 outlinefill: screen fills on f2 (the real source form), not on the !prof oracle",
+    "find why RAR loses on cef0574 (regcmp: 0x1900 -13, 0x2580 -11) and fix it in the RAR basin"
+  ],
+  "ledger_keys": "0x22a10-w14-{308b545,769f331,cef0574}-cold306-*-v1",
+  "pr": 3223
+}
