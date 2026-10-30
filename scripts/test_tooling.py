@@ -136,6 +136,7 @@ import unittest
 from test_analysis_interface_inventory import InterfaceInventoryEncodingTests
 from test_capture_verification_modes import CaptureVerificationModeTests
 from test_mayhem_receipt_admission import MayhemReceiptAdmissionTests
+from test_fees_runtime_image_binding import FeesRuntimeImageBindingTests
 from test_fees_external_codec_cases import ExternalCodecBooleanCases
 from types import SimpleNamespace
 import deep_disassembly
@@ -1339,6 +1340,53 @@ class CompareProgramNamesTests(unittest.TestCase):
             self.assertEqual(compare_module.program_names(root), ['probe'])
 
 
+class CompareRelayCliTests(unittest.TestCase):
+    def test_primary_relay_capture_and_negative_controls(self):
+        source_root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'scripts').mkdir()
+            for script in ('compare.py', 'analyze.py'):
+                shutil.copyfile(source_root / 'scripts' / script, root / 'scripts' / script)
+            captures = {
+                'donation_relay': 'dependencies',
+                'pump': 'original',
+                'spl_token': 'dependencies',
+            }
+            for name, group in captures.items():
+                destination = root / 'evidence' / group / name / 'deployed.so'
+                destination.parent.mkdir(parents=True)
+                shutil.copyfile(source_root / 'evidence' / group / name / 'deployed.so', destination)
+            relay = root / 'evidence/dependencies/donation_relay/deployed.so'
+            changed = root / 'changed.so'
+            data = bytearray(relay.read_bytes())
+            data[0] ^= 1
+            changed.write_bytes(data)
+            for name, candidate, code, equal in (
+                ('donation_relay', relay, 0, True),
+                ('pump', root / 'evidence/original/pump/deployed.so', 0, True),
+                ('donation_relay', changed, 1, False),
+                ('spl_token', root / 'evidence/dependencies/spl_token/deployed.so', 2, None),
+            ):
+                with self.subTest(program=name, candidate=candidate.name):
+                    output = root / ('result-' + str(len(list(root.glob('result-*')))))
+                    result = subprocess.run(
+                        [sys.executable, str(root / 'scripts/compare.py'), name,
+                         str(candidate), '--output', str(output)],
+                        capture_output=True, text=True,
+                    )
+                    self.assertEqual(result.returncode, code, result.stderr)
+                    if equal is None:
+                        self.assertIn('unknown program', result.stderr)
+                        self.assertFalse(output.exists())
+                    else:
+                        report = json.loads((output / 'comparison.json').read_text())
+                        self.assertEqual(report['full_byte_equality'], equal)
+                        if not equal:
+                            self.assertEqual(report['first_difference'], 0)
+                            self.assertEqual(report['different_positions_in_shared_length'], 1)
+
+
 class AnalyzeProgramRootTests(unittest.TestCase):
     def test_explicit_root_overrides_current_default(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -1411,6 +1459,20 @@ class SectionTerminalStringTests(unittest.TestCase):
         elf = SimpleNamespace(b=b'abc', lo=0x1000, hi=0x2000,
             secs={'.rodata': (0, 1, 2, 0, 0, 3, 0, 0, 1, 0)})
         self.assertEqual(deep_section_analysis.analyze_data_layout(elf)['.rodata']['strings'], [])
+
+
+class AllocationBackscanBarrierTests(unittest.TestCase):
+    sizes = AllocationSizeRegisterTests.sizes
+
+    def test_intervening_operations_do_not_reuse_stale_size(self):
+        for instruction in ((0xbf, 0x61, 0, 0), (0x07, 1, 0, 8),
+                            (0x79, 0x61, 0, 0), (0x85, 0, 0, 123),
+                            (0x05, 0, 0, 0)):
+            with self.subTest(instruction=instruction):
+                self.assertEqual(self.sizes([
+                    (0xb7, 1, 0, 64), instruction,
+                    (0x85, 0, 0, -2081419633),
+                ]), [])
 
 
 class RelocationTargetTests(unittest.TestCase):
@@ -2177,8 +2239,71 @@ class MemoryWidthDecodeTests(unittest.TestCase):
                 self.assertEqual(mismatches, 0)
 
 
+class LddwImmediateDecodeTests(unittest.TestCase):
+    # LDDW carries one unsigned 64-bit value: low word, then high word.
+    def test_both_words_form_one_unsigned_value(self):
+        for low, high in ((0, 0), (0x80000000, 0), (0xffffffff, 0x7fffffff),
+                          (0, 0x80000000), (0xffffffff, 0xffffffff),
+                          (0x1f6dafaf, 0xed9b980d)):
+            with self.subTest(low=hex(low), high=hex(high)):
+                blob = struct.pack('<BBhIBBhI', 0x18, 4, 0, low, 0, 0, 0, high)
+                record, size = deep_disassembly.decode_instruction(blob, 0, None)
+                value = high << 32 | low
+                self.assertEqual(record['imm64'], value)
+                self.assertEqual(record['mnemonic'], f'lddw r4, {value:#018x}')
+                self.assertEqual(record['hex'], blob.hex())
+                self.assertEqual(size, 16)
+
+    def test_captured_selector_constants_match_the_dispatch_table(self):
+        # Selectors with bit 63 set; every one used to print as a negative value.
+        expected_high = {'pump': 33, 'pump_amm': 28, 'pump_fees': 15}
+        for name, high_count in expected_high.items():
+            with self.subTest(program=name):
+                elf = deep_disassembly.Elf(
+                    analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+                selectors = deep_disassembly.load_idl_discriminators(elf)
+                table = deep_disassembly.recover_anchor_dispatch(elf)
+                offset = elf.lo
+                sites = high = 0
+                while offset < elf.hi:
+                    record, size = deep_disassembly.decode_instruction(elf.b, offset, elf)
+                    raw = elf.b[offset + 4:offset + 8] + elf.b[offset + 12:offset + 16]
+                    if elf.b[offset] == 0x18 and raw in selectors:
+                        value = int.from_bytes(raw, 'little')
+                        self.assertIn(hex(value), table)
+                        self.assertEqual(record['imm64'], value)
+                        self.assertEqual(record['mnemonic'],
+                                         f"lddw r{record['dst']}, {value:#018x}")
+                        sites += 1
+                        high += value >> 63
+                    offset += size
+                self.assertEqual(sites, len(table))
+                self.assertEqual(high, high_count)
+
+    def test_every_captured_lddw_matches_its_encoded_bytes(self):
+        for name in ('pump', 'pump_amm', 'pump_fees', 'mayhem'):
+            with self.subTest(program=name):
+                elf = deep_disassembly.Elf(
+                    analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+                offset = elf.lo
+                high = mismatches = 0
+                while offset < elf.hi:
+                    record, size = deep_disassembly.decode_instruction(elf.b, offset, elf)
+                    if elf.b[offset] == 0x18:
+                        value = int.from_bytes(
+                            elf.b[offset + 4:offset + 8] + elf.b[offset + 12:offset + 16],
+                            'little')
+                        high += value >> 63
+                        mismatches += (record['imm64'] != value
+                                       or not record['mnemonic'].endswith(f'{value:#018x}'))
+                    offset += size
+                self.assertGreater(high, 0)
+                self.assertEqual(mismatches, 0)
+
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tests.test_current_bindings_paths import CurrentBindingsPathTests
+from test_fees_error_messages_exit import FeesErrorMessageExitTests
 
 
 if __name__=='__main__': unittest.main()

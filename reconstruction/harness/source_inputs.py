@@ -11,11 +11,15 @@ def snapshot(root):
     if not root.is_dir():
         raise ValueError('source root must be a directory')
     files = []
-    for directory, dirs, names in os.walk(root, followlinks=False):
+    def scan_error(error):
+        raise error
+
+    for directory, dirs, names in os.walk(root, followlinks=False, onerror=scan_error):
         dirs[:] = sorted(name for name in dirs if name != '.git')
         for name in dirs:
-            if (Path(directory) / name).is_symlink():
-                raise ValueError('source directory symlinks are not supported')
+            entry = Path(directory) / name
+            if entry.is_symlink() or entry.is_junction():
+                raise ValueError('source directory links are not supported')
         if Path(directory) == root:
             dirs[:] = [name for name in dirs if name != 'target']
         for name in sorted(names):

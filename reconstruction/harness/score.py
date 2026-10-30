@@ -124,9 +124,17 @@ def score_with_hash(cand_path):
         snapshot.write_bytes(cand)
         funcs = candidate_functions(snapshot)
     by = {}
+    ranges = {}
     for start, length, name in funcs:
-        raw = body(cand, cs, start, length)
-        by.setdefault((length, hashlib.sha256(normalize(raw, start, cs)).digest()), []).append((start, name, raw))
+        location = (start, length)
+        cached = ranges.get(location)
+        if cached is None:
+            raw = body(cand, cs, start, length)
+            key = (length, hashlib.sha256(normalize(raw, start, cs)).digest())
+            ranges[location] = (key, raw)
+        else:
+            key, raw = cached
+        by.setdefault(key, []).append((start, name, raw))
     res = {}
     for w in original_windows():
         ms = by.get((w['bytes'], hashlib.sha256(w['norm']).digest()), [])

@@ -142,7 +142,9 @@ def decode_instruction(b, offset, elf):
         else:
             result["mnemonic"] = f"raw_{opcode:#04x} {dst},{src},{off},{imm}"
     elif opcode == 0x18:
-        imm2 = struct.unpack_from("<i", b, offset + 12)[0]
+        # The high word is the top half of one unsigned 64-bit value; a
+        # signed read made every constant with bit 63 set negative.
+        imm2 = struct.unpack_from("<I", b, offset + 12)[0]
         val64 = (imm & 0xFFFFFFFF) | (imm2 << 32)
         result["mnemonic"] = f"lddw {dst}, {val64:#018x}"
         result["imm64"] = val64

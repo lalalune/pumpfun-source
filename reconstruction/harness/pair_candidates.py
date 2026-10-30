@@ -34,8 +34,11 @@ def body_groups(candidate):
     by_digest = defaultdict(list)
     key_for_range = {}
     for start, size, name in candidate.funcs:
-        key = (size, hashlib.sha256(normalize(candidate.fn(start, size), start, candidate.secs)).digest())
-        key_for_range[(start, size)] = key
+        location = (start, size)
+        key = key_for_range.get(location)
+        if key is None:
+            key = (size, hashlib.sha256(normalize(candidate.fn(start, size), start, candidate.secs)).digest())
+            key_for_range[location] = key
         by_digest[key].append({'start': start, 'bytes': size, 'symbol': name})
     return {key: by_digest[digest] for key, digest in key_for_range.items()}
 

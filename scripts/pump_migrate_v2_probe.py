@@ -11,6 +11,7 @@ from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
 from solders.compute_budget import set_compute_unit_limit
 from solders.clock import Clock
+from probe_report import write_json_report
 R=Path(__file__).resolve().parents[1];IDL=json.loads((R/'evidence/upstream/pump.json').read_text());P=Pubkey.from_string(IDL['address']);A=Pubkey.from_string('pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA');TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');T22=Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');WSOL=Pubkey.from_string('So11111111111111111111111111111111111111112');USER=Keypair.from_seed(bytes([212])*32);PAYER=Keypair.from_seed(bytes([213])*32);MINT=Pubkey.from_bytes(bytes([214])*32)
 SAVED=json.loads((R/'research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json').read_text())['missing_boost']['before'];pda=lambda seeds,program:Pubkey.find_program_address(seeds,program)[0];ata=lambda w,m,t=TOKEN:pda([bytes(w),bytes(t),bytes(m)],ATA)
 def run(c={},candidate=None):
@@ -56,4 +57,4 @@ def run(c={},candidate=None):
  return {'case':c,'signature_verification':True,'transaction_base64':base64.b64encode(bytes(tx)).decode(),'error':str(r.err()) if failed else None,'logs':meta.logs(),'inner':json.loads(meta.to_json())['inner_instructions'],'return':json.loads(meta.to_json()).get('return_data'),'before':before,'after':snap(),'names':{k:str(v) for k,v in names.items()},'account_keys':[str(k) for k in tx.message.account_keys]}
 if __name__=='__main__':
  rows=[run(c) for c in [{'boost':True},{'boost':True,'token22':False},{'boost':True,'stable':True},{'boost':True,'stable':True,'quote22':True}]]
- (R/'work/pump-migrate-v2-recovery/prerequisites.json').write_text(json.dumps(rows,indent=2));print(json.dumps([{'case':r['case'],'error':r['error'],'logs':r['logs'][-5:]} for r in rows],indent=2))
+ write_json_report(R/'work/pump-migrate-v2-recovery/prerequisites.json',rows);print(json.dumps([{'case':r['case'],'error':r['error'],'logs':r['logs'][-5:]} for r in rows],indent=2))

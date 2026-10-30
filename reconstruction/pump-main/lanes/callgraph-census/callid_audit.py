@@ -8,8 +8,9 @@ function than the original (e.g. Account::try_from vs try_from_unchecked: identi
 masking, differing only in which deserializer they call). Such windows can never match raw.
 
 Method (greatest-fixpoint bisimulation over the call graph):
-  R(o, c) starts as "same length and same normalized body" (score.py's relation); the 16 unmatched
-  windows are pinned to their README candidate. Repeatedly drop (o, c) when some call site i of o
+  R(o, c) starts as "same length and same normalized body" (score.py's relation); historical
+  unmatched-window pairings are pinned only while that window has no normalized candidate.
+  Repeatedly drop (o, c) when some call site i of o
   calls t_o and the same site of c calls t_c with (t_o, t_c) not in R. At the fixpoint, a window
   that matched normalized but has no surviving candidate calls a wrong target somewhere; we report
   the first failing site per candidate (its callee pair), and the "root" sites whose callee pairs
@@ -47,6 +48,8 @@ def main():
     matched = {o for o in R if R[o]}
     pinned = {}
     for o, rx in C.PAIRS.items():
+        if o in matched:
+            continue
         import re
         cs = [s for s, (n, nms) in cf.items() if any(re.search(rx, C.demangle(x)) for x in nms)]
         pinned[o] = max(cs, key=lambda c: C.ratio(O, o, K, c))

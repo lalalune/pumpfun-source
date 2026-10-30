@@ -21,8 +21,8 @@ class EmptyFilePatchTests(unittest.TestCase):
                 (candidate / name).write_bytes(data)
             patch = tree_diff(base, candidate)
             self.assertTrue(patch)
-            result = subprocess.run(['git', 'apply', '-'], cwd=checkout,
-                                    input=patch, text=True, capture_output=True)
+            result = subprocess.run(['git', '-c', 'core.autocrlf=false', 'apply', '-'], cwd=checkout,
+                                    input=patch.encode('utf-8'), capture_output=True)
             self.assertEqual(result.returncode, 0, result.stderr)
             actual = {p.name: p.read_bytes() for p in (checkout / 'programs/pump').glob('*')}
             self.assertEqual(actual, new)

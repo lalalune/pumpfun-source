@@ -14,18 +14,24 @@ SUFFIXES = {'.o': 'object', '.obj': 'object', '.a': 'archive', '.rlib': 'archive
 sha = lambda path: hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def check(condition, message):
+    """Fail closed under optimized Python, where assert statements vanish."""
+    if not condition:
+        raise AssertionError(message)
+
+
 def check_script(default, script, data_certificate=None):
     if data_certificate:
         import pump_data_order
         script = pump_data_order.check_combined(script, pump_data_order.load_certificate(data_certificate))
-    assert default.count(RULE) == 1
+    check(default.count(RULE) == 1, 'default script must contain exactly one .text rule')
     head, tail = default.split(RULE)
     opening, closing = head + '  .text : {\n', '\n    *(.text*)\n  } :text' + tail
-    assert script.startswith(opening) and script.endswith(closing)
+    check(script.startswith(opening) and script.endswith(closing), 'replacement script must wrap the default .text rule')
     inner = script[len(opening):-len(closing)]
     lines = inner.split('\n') if inner else []
-    assert all(SELECTOR.fullmatch(line) for line in lines), 'unexpected linker statement'
-    assert len(lines) == len(set(lines)), 'duplicate selector'
+    check(all(SELECTOR.fullmatch(line) for line in lines), 'unexpected linker statement')
+    check(len(lines) == len(set(lines)), 'duplicate selector')
     return len(lines)
 
 
@@ -42,10 +48,10 @@ def configure(order, out, sdk, crate_name, physical_wrapper, data_certificate=No
     dest = Path(out) / 'ordered.ld'
     rustc_version = subprocess.check_output([str(Path(sdk) / 'rust/bin/rustc'), '-vV'], text=True)
     hosts = re.findall(r'^host: ([A-Za-z0-9_-]+)$', rustc_version, re.M)
-    assert len(hosts) == 1, 'SDK rustc must report exactly one host triple'
+    check(len(hosts) == 1, 'SDK rustc must report exactly one host triple')
     host = hosts[0]
     linker = Path(sdk) / f'rust/lib/rustlib/{host}/bin/rust-lld'
-    assert linker.is_file()
+    check(linker.is_file(), 'SDK linker must be a file')
     files = [HERE / name for name in ['pump_text_layout.py', 'pump_text_layout_rustc.py',
              'pump_text_layout_linker.py', 'pump_text_layout_default.ld']]
     if data_certificate:
@@ -89,6 +95,11 @@ def reject_attached_script(arg):
     # separate-argument check never sees.
     if isinstance(arg, str) and arg.startswith('-T') and arg != '-T':
         raise AssertionError('attached linker script is not admitted: ' + arg)
+    if isinstance(arg, str) and (
+        arg == '--call-graph-ordering-file'
+        or arg.startswith('--call-graph-ordering-file=')
+    ):
+        raise AssertionError('call-graph ordering file is not admitted: ' + arg)
 
 
 def declared_inputs(args):
@@ -99,17 +110,17 @@ def declared_inputs(args):
         arg = args[i]
         reject_attached_script(arg)
         if arg in skip:
-            assert i + 1 < len(args)
+            check(i + 1 < len(args), 'option missing its argument')
             i += 2
             continue
-        assert not arg.startswith('@'), 'response-file input unsupported'
-        assert not (arg.startswith('-l') or arg == '--library' or arg.startswith('--library=')), 'library lookup unsupported'
+        check(not arg.startswith('@'), 'response-file input unsupported')
+        check(not (arg.startswith('-l') or arg == '--library' or arg.startswith('--library=')), 'library lookup unsupported')
         # These options introduce additional files not present in the admitted
         # SBF recipe. Refuse them rather than leave an unbound file input.
-        assert not arg.startswith(('--just-symbols', '--dynamic-list', '--retain-symbols-file',
-                                   '--symbol-ordering-file', '--version-script ')), 'unsupported file option'
+        check(not arg.startswith(('--just-symbols', '--dynamic-list', '--retain-symbols-file',
+                                   '--symbol-ordering-file', '--version-script ')), 'unsupported file option')
         if arg == '--version-script':
-            assert i + 1 < len(args)
+            check(i + 1 < len(args), 'option missing its argument')
             result[args[i + 1]] = 'version-script'
             i += 2
             continue
@@ -124,12 +135,12 @@ def declared_inputs(args):
 
 
 def check_bindings(args, records):
-    assert declared_inputs(args).keys() == records.keys(), 'input set differs'
+    check(declared_inputs(args).keys() == records.keys(), 'input set differs')
     for path, kind in declared_inputs(args).items():
         rec = records[path]
-        assert kind == rec['kind']
+        check(kind == rec['kind'], 'input kind differs')
         data = Path(rec['copy']).read_bytes()
-        assert len(data) == rec['bytes'] and hashlib.sha256(data).hexdigest() == rec['sha256'], path
+        check(len(data) == rec['bytes'] and hashlib.sha256(data).hexdigest() == rec['sha256'], path)
 
 
 def prepare_link(args, env):
@@ -153,13 +164,13 @@ def prepare_link(args, env):
         arg = args[i]
         reject_attached_script(arg)
         if arg in ('--script', '-T'):
-            assert Path(args[i + 1]).read_text() == default, 'unexpected SDK script'
+            check(Path(args[i + 1]).read_text() == default, 'unexpected SDK script')
             after += [arg, str(replacement)]
             scripts += 1
             i += 2
             continue
         if arg.startswith('--script='):
-            assert Path(arg.split('=', 1)[1]).read_text() == default
+            check(Path(arg.split('=', 1)[1]).read_text() == default, 'unexpected SDK script')
             arg = '--script=' + str(replacement)
             scripts += 1
         elif arg.startswith('--version-script='):
@@ -168,7 +179,7 @@ def prepare_link(args, env):
             arg = records[arg]['copy']
         after.append(arg)
         i += 1
-    assert scripts == 1
+    check(scripts == 1, 'exactly one linker script must be forwarded')
     after.append('-Map=' + str(directory / 'link.map'))
     check_bindings(args, records)
     if certificate_path:
@@ -185,22 +196,22 @@ def prepare_link(args, env):
 def finish(record):
     certificate = record.get('data_order_certificate')
     if certificate:
-        assert sha(certificate['path']) == certificate['sha256']
+        check(sha(certificate['path']) == certificate['sha256'], 'data-order certificate hash mismatch')
         import pump_data_order
         cert = pump_data_order.load_certificate(certificate['path'])
         pump_data_order.check_combined(Path(record['script']).read_text(), cert)
-    assert sha(record['script']) == record['script_sha256']
-    assert sha(record['real_linker']) == record['real_linker_sha256']
-    assert sha(record['external_wrapper']) == record['external_wrapper_sha256']
-    assert all(sha(path) == digest for path, digest in record['helper_sha256'].items())
+    check(sha(record['script']) == record['script_sha256'], 'link script hash mismatch')
+    check(sha(record['real_linker']) == record['real_linker_sha256'], 'real linker hash mismatch')
+    check(sha(record['external_wrapper']) == record['external_wrapper_sha256'], 'external wrapper hash mismatch')
+    check(all(sha(path) == digest for path, digest in record['helper_sha256'].items()), 'helper hash mismatch')
     inv = json.loads(Path(record['link_receipt']).read_text())
     check_bindings(inv['incoming'], inv['link_inputs'])
     if certificate:
         pump_data_order.check_link(inv['incoming'], inv['link_inputs'], cert)
-    assert inv['replacement_script_sha256'] == record['script_sha256']
-    assert inv['real_linker_sha256'] == record['real_linker_sha256']
+    check(inv['replacement_script_sha256'] == record['script_sha256'], 'replacement script hash mismatch')
+    check(inv['real_linker_sha256'] == record['real_linker_sha256'], 'receipt linker hash mismatch')
     # Verify the actual forwarded file operands point at the bound copies.
     expected = {rec['copy'] for rec in inv['link_inputs'].values()}
-    assert set(declared_inputs(inv['forwarded'])) == expected
+    check(set(declared_inputs(inv['forwarded'])) == expected, 'forwarded operands must point at bound copies')
     return dict(record, linker_invocation_sha256=sha(record['link_receipt']),
                 bound_inputs=len(inv['link_inputs']))

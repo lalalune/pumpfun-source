@@ -420,7 +420,11 @@ def recover_anchor_idl(elf):
                 for back in range(1, 6):
                     prev = at - back * 8
                     if prev >= elf.lo:
-                        if b[prev] in (0xb7, 0xb4) and b[prev + 1] & 0xF == 1:  # mov imm into size argument r1
+                        # Only cross immediate argument setup: other operations
+                        # may overwrite r1 or change the incoming control flow.
+                        if b[prev] not in (0xb7, 0xb4):
+                            break
+                        if b[prev + 1] & 0xF == 1:  # mov imm into size argument r1
                             size_val = struct.unpack_from("<i", b, prev + 4)[0]
                             if 8 < size_val < 100000:
                                 account_sizes.append({

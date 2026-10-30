@@ -3,6 +3,8 @@
 import os,sys,json,hashlib
 from pathlib import Path
 compiler=sys.argv[1];args=sys.argv[2:];registry=os.environ.get('PUMP_LOGICAL_REGISTRY_SRC','')
+response=next((arg for arg in args if arg.startswith('@')),None)
+if response is not None: raise SystemExit('response-file compiler input unsupported: '+response)
 for i,arg in enumerate(args):
  if registry and arg.startswith(registry+'/') and arg.endswith('.rs'):
   p=Path(arg)

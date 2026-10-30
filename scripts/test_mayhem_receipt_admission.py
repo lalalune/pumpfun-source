@@ -154,7 +154,7 @@ class MayhemReceiptAdmissionTests(unittest.TestCase):
                 with self.subTest(script=script, flags=flags, optimize=optimize):
                     result, output = self.verify(script, document, flags, optimize)
                     self.assertNotEqual(result.returncode, 0, result.stdout)
-                    self.assertIn('requires unoptimized Python', result.stderr)
+                    self.assertIn('Normal Python is required', result.stderr)
                     self.assertFalse(output.exists())
 
 

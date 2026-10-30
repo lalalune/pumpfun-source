@@ -4,9 +4,13 @@ Run before pushing a feature branch (Python 3.12):
 
 ```sh
 python -m pip install PyYAML==6.0.3
-python -B scripts/test_workflow_inputs.py
+python -B -m unittest discover -s scripts -p 'test_workflow_*.py' -v
 python -B scripts/check_workflow_inputs.py --base origin/main
 ```
+
+The first command runs every checker regression suite (`scripts/test_workflow_*.py`).
+CI runs the same command, so a new suite added under that name is executed without
+editing the workflow.
 
 The working tree, including untracked workflows, is inspected by default. Use
 `--head HEAD` to inspect only committed content, or `--all` instead of `--base`
