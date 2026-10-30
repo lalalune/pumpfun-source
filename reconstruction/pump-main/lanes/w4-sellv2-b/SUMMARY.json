@@ -1,0 +1,6 @@
+{"lane":"w4-sellv2-b","target":"0x144508","pr":"https://github.com/lalalune/pumpfun-source/pull/1558",
+ "best_committed":{"ratio":0.97578,"bytes":13968,"llc_difflines":23,"normalized":1023,"raw":277,"losses":[],"unstripped_sha256":"6cb95958b2c4a969d51e09f7f0c13b2d632d5153a5e92451c5c976f0c3b8afe0"},
+ "best_uncommitted":{"name":"t11 shareholders after buyback","ratio":0.9965,"bytes":13976,"slots_diff":8,"normalized":1023,"raw":276,"raw_losses":["0xa868"]},
+ "mechanisms":["fee tuple bound cf-first (MIR SROA local order -> phi order)","(base_token_program,base_mint) tuple binding keeps GEP in entry block","event field order: shareholders after buyback fields"],
+ "residuals":["quote_mint snapshot copy: needs no lifetime.start at the snapshot def"],
+ "next_ideas":["find a snapshot spelling whose local lacks storage markers but stays a stack copy","coordinator: resolve 0xa868 raw-thunk drift jointly with buy_handler size fixes"]}

@@ -1,0 +1,24 @@
+name: Verify assembly round-trip status
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  # Independent of legacy evidence jobs, which reference removed packages.
+  roundtrip-status:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Execute all three round-trip status regressions
+        run: |
+          python -B - <<'PYTEST'
+          import sys
+          import unittest
+          suite = unittest.defaultTestLoader.discover(
+              'reconstruction/harness', pattern='test_roundtrip_status.py')
+          result = unittest.TextTestRunner(verbosity=2).run(suite)
+          sys.exit(0 if result.wasSuccessful() and result.testsRun == 3 and not result.skipped else 1)
+          PYTEST

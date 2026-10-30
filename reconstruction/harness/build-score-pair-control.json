@@ -1,0 +1,64 @@
+{
+  "scope": "Local macOS arm64 cold-build control; same source revision in two separate target directories; hosted workflow not executed. Receipt metadata was subsequently extended with SDK inventory and target manifest hashes; build/scoring logic unchanged.",
+  "sources": {
+    "base": {
+      "revision": "3b6b96a24bf5b4a1052436536a3090bdaf666be6",
+      "sha256": "1152edd11cb1eac37db5b721d3bd9a22f08c04fe44c5b75d32980ba78ca0c5b4"
+    },
+    "candidate": {
+      "revision": "3b6b96a24bf5b4a1052436536a3090bdaf666be6",
+      "sha256": "1152edd11cb1eac37db5b721d3bd9a22f08c04fe44c5b75d32980ba78ca0c5b4"
+    }
+  },
+  "inputs": {
+    "original.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8"
+  },
+  "executed_tool_hashes": {
+    "build_score_pair.py": "f078b66259dd50eb3742cd1d3bb293abaa5b8fa7f35caeb023185594ad12aab5",
+    "fastbuild.py": "656dc3ac139d4f8f4bcf81dbedb1c5504fc0aaec4b80059e9377a90138dc7736",
+    "score.py": "99475a567c96c2b8d609857fe96d1ed42058c795f19ac2374968c2905ee1fb3a",
+    "compare_scores.py": "e066be9aacae0dd9c3731efef8dc2bf2ff86fa39ae8e5b1540de181398ffb3d6",
+    "pump_physical_source_wrapper.py": "d959fe0074fafe7f310a8f40051ce87f795b1e81b104a38dfe57086efa6bae1b"
+  },
+  "compiler_sha256": "1f26338cc2cabd0a6057dcbd0528bba262b23ca1296d357a55304ee31d1d9e5a",
+  "objdump_sha256": "24f83fd4c314fdc358920bf9936261985b8c39266f1ba7d556716c9dec1d24f9",
+  "builds": {
+    "base": {
+      "ok": true,
+      "runtime_valid": true,
+      "stack_warnings": [],
+      "recipe": "identity",
+      "triple": "sbpf-solana-solana",
+      "seconds": 76.9,
+      "unstripped_sha256": "2364778f6dbd89927a406eed95451a72890c19331e9f9252b6837d9223a837de",
+      "candidate_sha256": "1589b4b61543c6f2a416f2e6458deabbd1f70fdb932bfd117ba509bed332ad2d"
+    },
+    "candidate": {
+      "ok": true,
+      "runtime_valid": true,
+      "stack_warnings": [],
+      "recipe": "identity",
+      "triple": "sbpf-solana-solana",
+      "seconds": 86.4,
+      "unstripped_sha256": "2364778f6dbd89927a406eed95451a72890c19331e9f9252b6837d9223a837de",
+      "candidate_sha256": "1589b4b61543c6f2a416f2e6458deabbd1f70fdb932bfd117ba509bed332ad2d"
+    }
+  },
+  "comparison": {
+    "missing": [],
+    "added": [],
+    "resized": [],
+    "normalized_gains": [],
+    "normalized_losses": [],
+    "normalized_gained_bytes": 0,
+    "normalized_lost_bytes": 0,
+    "raw_gains": [],
+    "raw_losses": [],
+    "raw_gained_bytes": 0,
+    "raw_lost_bytes": 0,
+    "accepted": true
+  },
+  "normalized": 1020,
+  "raw": 188
+}

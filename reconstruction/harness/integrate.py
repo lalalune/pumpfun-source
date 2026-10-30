@@ -8,8 +8,9 @@ Each part is turned into a patch against the crate it was derived from (default:
 then applied in order with `patch -p2 --forward`. Rejects are reported and the part is skipped
 (the composition continues). The composed crate is built with fastbuild.py and scored.
 Output: SC/integ/<NAME>/{src, parts/<label>.patch, rejects/, report.json}
+Names must be fresh; an earlier result is never overwritten.
 """
-import argparse, json, shutil, subprocess, sys
+import argparse, ast, json, shutil, subprocess, sys, re
 from pathlib import Path
 
 H = Path(__file__).resolve().parent
@@ -25,9 +26,74 @@ def make_patch(base: Path, part: Path, out: Path, tmp: Path):
     ign = shutil.ignore_patterns('target', '*.orig', '*.rej', '.DS_Store')
     shutil.copytree(base, tmp / 'a/pump', ignore=ign)
     shutil.copytree(part, tmp / 'b/pump', ignore=ign)
-    d = subprocess.run(['diff', '-ruN', 'a/pump', 'b/pump'], cwd=tmp, capture_output=True, text=True)
-    out.write_text(d.stdout)
-    return d.stdout
+    d = subprocess.run(['diff', '-ruN', 'a/pump', 'b/pump'], cwd=tmp, capture_output=True)
+    if d.returncode not in (0, 1):
+        raise subprocess.CalledProcessError(d.returncode, d.args, output=d.stdout, stderr=d.stderr)
+    out.write_bytes(d.stdout)
+    # Decode only for report metadata; patch must receive the original diff bytes.
+    return d.stdout.decode('utf-8', errors='surrogateescape')
+
+
+def patched_files(text: str):
+    files = set()
+    in_headers = False
+    for line in text.split('\n'):
+        if line.startswith('diff '):
+            in_headers = True
+        elif line.startswith('@@'):
+            in_headers = False
+        if not in_headers or not line.startswith('+++ '):
+            continue
+        name = line[4:].split('\t', 1)[0]
+        if name.startswith('"') and name.endswith('"'):
+            # GNU diff C-quotes paths, including octal UTF-8 bytes. Decode a
+            # bytes literal so those escapes round-trip to the original path.
+            literal = name.encode('utf-8', errors='surrogateescape').decode('ascii', errors='backslashreplace')
+            name = ast.literal_eval('b' + literal).decode('utf-8', errors='surrogateescape')
+        if name.startswith('b/pump/'):
+            files.add(name[len('b/pump/'):])
+    return sorted(files)
+
+
+def preflight(name, base, parts, overrides):
+    """Validate the complete composition before touching its output or snapshots."""
+    def label(value):
+        if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,127}', value) or value in ('.', '..'):
+            raise ValueError(f'invalid composition name or label: {value!r}')
+        return value
+
+    def selections(values, kind):
+        result = {}
+        for value in values:
+            if '=' not in value:
+                raise ValueError(f'{kind} must be LABEL=PATH')
+            key, path = value.split('=', 1)
+            label(key)
+            if key in result or not path:
+                raise ValueError(f'duplicate label or empty path in {kind}: {key}')
+            result[key] = Path(path).resolve()
+        return result
+
+    label(name)
+    selected = selections(parts, '--part')
+    bases = selections(overrides, '--base-of')
+    unknown = bases.keys() - selected.keys()
+    if unknown:
+        raise ValueError('base overrides have no matching part: ' + ', '.join(sorted(unknown)))
+    output_path = SC / 'integ' / name
+    if output_path.exists() or output_path.is_symlink():
+        raise ValueError('output already exists; choose a new --name to preserve the earlier result')
+    out = output_path.resolve()
+    base = base.resolve()
+    for source in {base, *selected.values(), *bases.values()}:
+        if source == out or source in out.parents or out in source.parents:
+            raise ValueError(f'source overlaps composition output: {source}')
+        if not source.is_dir() or not (source / 'src').is_dir():
+            raise ValueError(f'source is not a crate directory with src/: {source}')
+        for required in ('Cargo.toml', 'Cargo.lock'):
+            if not (source / required).is_file():
+                raise ValueError(f'source is missing {required}: {source}')
+    return out, base, [(key, path, bases.get(key, base)) for key, path in selected.items()]
 
 
 def main():
@@ -38,17 +104,19 @@ def main():
     ap.add_argument('--base-of', action='append', default=[])
     ap.add_argument('--no-build', action='store_true')
     a = ap.parse_args()
-    out = SC / 'integ' / a.name
-    if out.exists():
-        shutil.rmtree(out)
+    baseline = SC / 'pump-main/baseline/score.json'
+    if not a.no_build and not baseline.is_file():
+        raise FileNotFoundError(f'Required scoring baseline is missing: {baseline}')
+    try:
+        out, base, parts = preflight(a.name, a.base_src, a.part, a.base_of)
+    except (ValueError, OSError) as error:
+        ap.error(str(error))
     (out / 'parts').mkdir(parents=True); (out / 'rejects').mkdir()
     src = out / 'src'
-    shutil.copytree(a.base_src, src, ignore=shutil.ignore_patterns('target'))
-    base_of = dict(x.split('=', 1) for x in a.base_of)
+    shutil.copytree(base, src, ignore=shutil.ignore_patterns('target'))
     report = {'name': a.name, 'base': str(a.base_src), 'parts': []}
-    for spec in a.part:
-        label, path = spec.split('=', 1)
-        derived_from = Path(base_of.get(label, a.base_src))
+    exit_code = 0
+    for label, path, derived_from in parts:
         pf = out / 'parts' / f'{label}.patch'
         text = make_patch(derived_from, Path(path), pf, SC / 'integ' / '.tmp' / a.name / label)
         if not text.strip():
@@ -58,7 +126,7 @@ def main():
             subprocess.run(['patch', '-s', '-p2', '--forward', '-E', '-d', str(src), '-i', str(pf)], check=True)
             for o in src.rglob('*.orig'):
                 o.unlink()
-            report['parts'].append({'label': label, 'status': 'applied', 'files': sorted({l[11:].split('\t')[0] for l in text.splitlines() if l.startswith('+++ b/')})})
+            report['parts'].append({'label': label, 'status': 'applied', 'files': patched_files(text)})
         else:
             (out / 'rejects' / f'{label}.txt').write_text(dry.stdout + dry.stderr)
             report['parts'].append({'label': label, 'status': 'conflict', 'detail': (dry.stdout + dry.stderr)[-1500:]})
@@ -66,12 +134,26 @@ def main():
         res = fastbuild.build(src, out / 'work', out / 'build', quiet=True)
         report['build'] = res
         if res['ok']:
-            s = subprocess.run([sys.executable, str(H / 'score.py'), str(out / 'build/unstripped.so'), '--json', str(out / 'score.json'), '--quiet'],
+            s = subprocess.run([sys.executable, str(H / 'score.py'), str(out / 'build/unstripped.so'),
+                               '--baseline', str(baseline),
+                               '--json', str(out / 'score.json'), '--quiet'],
                                capture_output=True, text=True)
-            report['score'] = json.loads(s.stdout)
+            if s.returncode:
+                report['score_error'] = {'returncode': s.returncode, 'stdout': s.stdout, 'stderr': s.stderr}
+                exit_code = 1
+            else:
+                try:
+                    report['score'] = json.loads(s.stdout)
+                except json.JSONDecodeError:
+                    report['score_error'] = {'returncode': s.returncode, 'stdout': s.stdout,
+                                             'stderr': s.stderr, 'error': 'scorer returned invalid JSON'}
+                    exit_code = 1
+        else:
+            exit_code = 1
     (out / 'report.json').write_text(json.dumps(report, indent=1))
     print(json.dumps({k: v for k, v in report.items() if k != 'parts'} | {'parts': [{k: p[k] for k in ('label', 'status')} for p in report['parts']]}, indent=1))
+    return exit_code
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
