@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Plan size-compensating combos from single-gene screen results on a base set.
   plan.py <baseset> [target_bytes=27400] [max_genes=3] [min_ratio]"""
-import json, sys
-from pathlib import Path, itertools, importlib.util
+import json, sys, itertools
+from pathlib import Path
 sys.path.insert(0, str(Path.home() / '.cache/pumpfun-reconstruction/lanes/w12a14-cto-hillclimb/hc'))
 from hc12 import done_ids, apply, load_genes, BASEFILE, vid_of
 G = load_genes(str(Path.home() / '.cache/pumpfun-reconstruction/lanes/w12a14-cto-hillclimb/hc/genes12.py'))
