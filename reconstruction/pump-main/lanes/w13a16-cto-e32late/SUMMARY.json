@@ -1,0 +1,14 @@
+{
+  "lane": "w13a16-cto-e32late",
+  "target": "0x22a10 admin_cto::execute",
+  "pinned_bytes": 27400,
+  "result": "landed #2974 (merge 1043a51e8): 0.52277 -> 0.53206 at 27400 B, 1034/1034, 0 losses, differential 363/363",
+  "mechanism": "let (target,sharing_update)=Ok::<_,anchor_lang::error::Error>((target,sharing_update))?; after the state block. The inlined Try::branch leaves a ControlFlow::Continue variant projection that GVN does not fold. MIR SROA splits the val binding into new highest-index locals, which become the marker-less CopyProp heads of target (E32) and the sharing payload (P2), so their allocas sit above the final emit_cpi temps (original T 0x580). It reproduces the IR oracle mv:target1:_186 + mv:sharing_update.sroa.3:_186 exactly.",
+  "mir_proof": "On 74b3171 target1 = MIR _61, the operand temp of the block-tail tuple expression (copy of the non-SSA inner let mut target). P2 = _47, the inner destructure binding (copy of the non-SSA SROA field _408 = P1). A CopyProp class head keeps the index of the statement that created it. A high index needs a MIR-SROA field assigned from a non-foldable projection.",
+  "best": {"main": "62eb841", "ratio": 0.53206, "slots_diff": 3324, "bytes": 27400},
+  "attempts": ["oracle-alone", "mir-heads", "u1/u2 r-fields (identical)", "n1/n2/n3 non-SSA r two arms (0.44-0.47)", "n5 r from if (0.235)", "h0 whole block Ok? (0.362)", "h1/h2 closure/nested fn", "m1/m2 Some projection (folded)", "p1 (landed), p2/p3 single-value forms (= single-move oracle)", "frame-only single-move scan on 1043a51 (exhausted, +0.0003 max)", "Ok-trick extra fields and other values", "w13a02 fee-first/x forms on 1043a51", "inner Ok forms on 6af878b"],
+  "rejected": ["using r.2/r.3 of an SSA tuple", "two-arm non-SSA aggregate", "Option wrapper (GVN folds)", "whole 6-tuple through Ok", "fee-first validate on 1043a51"],
+  "unresolved": ["st (48 B) where the original has the 7/9 B new-copy pieces + X24: holder_key, mint and spills at +8", "P1 7/9 pieces in its own slot at T 0x538/0x548 (ours 32 B merged into _54.i)", "E32 built from w0 + X24 (aligned 8/24) in the original, ours 7/8/8/9 pieces of the validate target"],
+  "next_ideas": ["make st.creator not escape to memcmp (compare the curve field), so st is SROA'd and the 40 B region above val6 can hold the new-copy pieces + X24", "combine the entry copy of new (w13a03) with this change: P1/P2 pieces would then split 7/9 as in the original", "the holder-in-Ok size knob (-24 B on 6af878b) is available for forms that add 24 B"],
+  "tools": ["tools/offmap.py (frame vote map orig->cand offsets)", "tools/frame.sh (llc prologepilog frame map)", "tools/exmir.py (extract execute from --emit=mir)"]
+}

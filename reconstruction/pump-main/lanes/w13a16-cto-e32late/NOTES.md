@@ -84,3 +84,33 @@ memcpy source as ours.
 - `frame.sh <m.ll>`: `llc -stop-after=prologepilog` + w13a04 `mirframe.py` frame map.
 - `exmir.py`: extracts execute from `--emit=mir` output. The capture is w13a01's `capraw.py`/`capvar.sh`, with
   `--emit=link,llvm-ir,mir`. Adding mir does not change the IR (main capture `eq_main`).
+
+## After landing (#2974, merge 1043a51e8)
+
+Landed: main 62eb841 0.52277 -> 1043a51 **0.53206** at 27,400 B, no losses. Main then moved to 6af878b (#2989, 0.53895).
+
+Frame map of 1043a51 (`tools/frame.sh`): target11 (E32) at T 0x580, then _193 0x598, _178 0x5c8, inner_data 0x5e0,
+authority_info 0x610, old_creator 0x630 and val6 0x651. These are all the original's offsets. What remains in the named region:
+- `st` (48 B, T 0x688) sits where the original has the 7/9 B entry-copy pieces of `new` (T 0x658/0x668) and X24 (T 0x680).
+  holder_key and mint, plus the spills that originally sat at T 0x6e0..0x8c8, are therefore at +8. In the original these are
+  `st.creator` copies, kept by the `memcmp` for `st.creator!=Pubkey::default()`.
+- In the original, P1 (the inner sharing payload, 7/9 pieces at T 0x538/0x548) sits where our wallet signer slice
+  `event_signers.i` is. Ours P1 is 32 B and stack-colored into `_54.i`. Giving it its own slot (`nolt`) costs 0.037.
+
+Size-pinned frame-only single-move scan on 1043a51 (44 execute allocas x 11 anchors + nolt, 511 runs): the best is
+`mv:target.i.sroa.9:END` at 0.53235 (+0.0003). Every other move is <= 0.53206. F1 (signer slice near holder_key) now
+loses (0.52277). So single alloca moves are exhausted after this change.
+
+More `Ok(..)?` trials (ledger `0x22a10-w13-{1043a51,6af878b}-e32late-*`):
+
+| trial | ratio | bytes |
+| --- | ---: | ---: |
+| + cashback in the tuple (1043a51) | 0.53235 | 27,400 |
+| same on 6af878b | 0.53895 (= main) | 27,400 |
+| + holder (1043a51 / 6af878b) | 0.52242 / 0.5275 | 27,344 / 27,376 (size knob) |
+| + collect_old / skip | = main | 27,400 |
+| old_creator, (old_creator,old_fee), pool_updated, swept, holder_key, quote_locked, shared | = main | 27,400 |
+| mint | 0.49431 | 27,432 |
+| inner if-tuple through Ok (6af878b) | 0.4976 | 27,400 |
+| validate result through Ok((..,))? (6af878b) | 0.33109 | 27,392 |
+| w13a02 fee-first `?.1` / + scoped x / x only (1043a51) | 0.31873 / 0.27792 / 0.5009 | 27,304 / 27,360 / 27,528 |
