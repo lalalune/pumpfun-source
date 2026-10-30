@@ -1,0 +1,34 @@
+{
+ "lane": "w13a24-cto-ctostatesroa",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "landed": [
+  {"pr": 3011, "merge": "6ac6f9b67", "via": "land.py", "main_before": "bf9a05d", "before": 0.55872, "after": 0.56291, "slots": 3315, "bytes": 27400, "sha16": "042992c528f0f1cd",
+   "change": "CtoState literal inside the block (merges into _77.i at the original's [r10-0x38]); let holder_key;let hk=find_program_address(..);holder_key=hk.0; (PDA result long-lived above holder_key: holder_key/mint/sret slots at the original's 0x6a0/0x6c0/0x6d0); plain 32 B sk (lands at the original's 0x470)"},
+  {"pr": 3095, "merge": "b8656d257", "via": "merged by another agent while land.py waited for the lock", "main_before": "dfc3693", "before": 0.59916, "after": 0.60126, "slots": 3313, "bytes": 27400, "sha16": "572d269e1c77a501",
+   "change": "validate InvalidCreator test t==*sharing||t==*holder_key (gene v312_rev)"}
+ ],
+ "best": {"ratio": 0.60126, "slots_diff": 3313, "bytes": 27400, "normalized": 1034, "raw": 1034, "losses": [], "differential": "363/0"},
+ "mechanisms": [
+  "StackColoring: a function-scope CtoState never dies, so it gets its own slot (-0x688); scoped in the block it joins the 48 B _77.i group at -0x38 like the original",
+  "A long-lived 33 B local (the PDA sret result bound by let) between holder_key and the 7 B target piece is a size surrogate for the original's X24 + new's 9 B piece; it realigns holder_key, mint and the 33 sret-demotion slots",
+  "With st in _77.i the 33 B MaybeUninit sk tuple of #2998 loses its slot ordering trick; a 32 B sk lands at the original's sharing-key temp 0x470"
+ ],
+ "attempts": "~200 IR-oracle items per scan (y1, y4, main2, nh2, k1, v1, v3) + 25 source captures + 30 gene captures; ledger keys 0x22a10-w13-{1043a51,6ac6f9b,dfc3693}-ctostatesroa-*",
+ "rejected": [
+  "u5/y3/y4/e1/e2 faithful entry copy (validate reads args.0): 0.47-0.52, +64/-32 B, 110 spill slots",
+  "z1/z2 hoisted zero=Pubkey::default() (slot lands below the target piece)",
+  "v1/v2/v3/v4 validate takes holder_key by value (faithful sk 0x470 + holder_key copy 0x518, abs ratio up, plain ratio down)",
+  "k3 plain let (holder_key,_)= before shared (0.51866, 27360)",
+  "k2 + e1/e2/v1/v3 (collapse, +80..+340 B)"
+ ],
+ "unresolved": [
+  "k2 (holder-rewards PDA before shared, the original's entry order): 0.56813 at 27360 on 6ac6f9b, 0.59745/27392 on dfc3693, 0.59955/27392 with v312_rev; needs an 8 B faithful companion",
+  "the original has 109 8 B spill slots, ours 108 (deep spill area partly 8 B off)",
+  "X24 + new's 7/9 B pieces in place of the hk surrogate (orig 0x658/0x668/0x670-0x680)"
+ ],
+ "next_ideas": [
+  "Re-run k2 (PDA before shared) on the latest main and scan for an 8 B size companion (it is 8 B short on dfc3693)",
+  "Combine v3 (holder_key by value + entry copy, 27400 B exact) with removing hk and the target.sroa.0 own slot, once X24 has a source form",
+  "Find the original's extra spill slot (109 vs 108) with an aligned spill-site diff"
+ ]
+}
