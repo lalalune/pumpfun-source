@@ -106,6 +106,8 @@ Below it sits the 48 B `CtoState` at `-0x38`.
 - p4c on ea78c08: 0.30663 -> 0.41898 with the ZST kept.
 
 So a source outline on the newest main must also keep fi0 unmerged (the original does) and keep `_121.i` colored.
+A scan that drops the lifetime markers of each of execute's 139 allocas in turn (outlined ea78c08 IR, llc only) finds
+no single repair: best `_107.i` 0.43652, the 24 B `val.sroa.6.i`/`ix_data.i`/`inner_data.i`/`_114.i` 0.43622, fi0 0.42443.
 
 ## 7. Outline + the 24 B frame lever (w13a07 `nolt:_68`)
 
