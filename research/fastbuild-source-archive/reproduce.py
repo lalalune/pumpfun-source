@@ -34,6 +34,8 @@ with tempfile.TemporaryDirectory(prefix='pump-source-archive-', dir=ROOT / 'work
         shutil.copyfile(out / 'build.log', proof / 'first-build.log')
         raise RuntimeError('the real initial control build did not succeed')
     original_receipt = (out / 'source-inputs.json').read_bytes()
+    original_link_artifacts = {name: (out / name).read_bytes()
+                               for name in ('link-receipt.json', 'link.map')}
     if json.loads(original_receipt)['sha256'] != first['source_sha256']:
         raise RuntimeError('initial source receipt does not bind the real build')
     (proof / 'expected-prior-source-inputs.json').write_bytes(original_receipt)
@@ -51,6 +53,9 @@ with tempfile.TemporaryDirectory(prefix='pump-source-archive-', dir=ROOT / 'work
     if len(archives) != 1:
         raise RuntimeError('expected one previous actual build')
     previous = archives[0]
+    for name, expected in original_link_artifacts.items():
+        if (previous / name).read_bytes() != expected:
+            raise RuntimeError('prior genuine linker provenance changed: ' + name)
     for name in ('unstripped.so', 'candidate.so'):
         data = (previous / name).read_bytes()
         field = 'unstripped_sha256' if name == 'unstripped.so' else 'candidate_sha256'
@@ -66,6 +71,7 @@ with tempfile.TemporaryDirectory(prefix='pump-source-archive-', dir=ROOT / 'work
                'archive_files': sorted(p.name for p in previous.iterdir()),
                'new_receipt_differs': new_receipt != original_receipt,
                'prior_receipt_retained': old_receipt.is_file(),
+               'prior_link_artifacts_preserved': True,
                'all_1035_memberships_preserved': before_membership == after_membership,
                'normalized': sum(v['normalized'] for v in after_membership.values()),
                'raw': sum(v['raw'] for v in after_membership.values())}

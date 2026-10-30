@@ -51,6 +51,11 @@ Anything that is an input to the build may change if it gets closer to the deplo
 - toolchain choice and version (rustc, platform-tools, LLVM, target libraries), and the
   build recipe itself (`fastbuild.py`, `toolchain/`), as long as it stays pinned.
 
+`programs/pump/link/ordered.ld` is such an input: it puts the upstream-generic instances
+of the root crate and all dependency code in the original's order (the AMM/Fees/Mayhem recipe),
+while local items keep rustc's def order. After a source change that adds or renames generic
+instances, regenerate it with `lanes/w8-sibling-recipes/tools/regen.sh`.
+
 Every such change must be committed, pinned (versions and hashes) and reproducible from a
 clean checkout with the documented recipe, so anyone can rebuild the same bytes.
 

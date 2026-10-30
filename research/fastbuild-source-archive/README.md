@@ -9,6 +9,11 @@ Archive `source-inputs.json` together with the same attempt's ELF/log files. New
 attempts still publish their own current source receipt. No source, compiler,
 matching, normalization or receipt schema changes.
 
+Current main also archives the genuine `link-receipt.json` and `link.map` from its
+pinned link-order hook. Keep those entries and add the source receipt to that
+same attempt archive. The current-main proof additionally compares both archived
+link artifacts byte-for-byte with their actual producer outputs.
+
 The proof performs an actual cold Pump compilation with the authenticated v1.44
 identity SDK, checks its genuine producer source receipt against the returned
 source digest, then reruns the same workspace/output with a temporary source copy
