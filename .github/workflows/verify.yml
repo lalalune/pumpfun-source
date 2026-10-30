@@ -73,6 +73,7 @@ jobs:
               python -I -B tests/test_analyze_input_admission.py
               python scripts/test_tooling.py
               python -B scripts/test_pump_diagnostic_audit_coverage.py
+              python -B scripts/test_pump_diagnostic_audit_publication.py
               python -B scripts/test_pump_fresh_output_optimized.py
               python -B scripts/test_amm_harness_content_cache.py
               python -B tests/test_amm_pinned_candidate.py
