@@ -28,11 +28,17 @@ From a checkout containing the two complete source directories and this packet:
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 python3 -B research/amm-recipe-provenance-20261030/verify.py
+PYTHONDONTWRITEBYTECODE=1 python3 -B research/amm-recipe-provenance-20261030/test_verify.py
 ```
 
 The verifier checks the pinned Git tree and current source bytes, regenerates
 the 69-file workspace in a temporary directory, and removes only that temporary
 directory. It never invokes Cargo, a compiler, RPC, a VM, the target program,
-or the original ELF. A sparse checkout missing any pinned input fails closed.
+or the original ELF. It checks the recipe path and SHA-256 before executing
+exactly those verified Python source bytes, without an import bytecode cache.
+The three synthetic tests reject a mismatched source before its sentinel side
+effect, show a stale timestamp-matching `.pyc` cannot replace the verified
+source, and reject a symlinked recipe. A sparse checkout missing any pinned
+input fails closed.
 The selected historical checkpoint cannot be recovered from this packet; it
 would require separately authenticated artifacts and their full verification.

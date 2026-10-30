@@ -2,11 +2,11 @@
 """Check the tracked AMM workspace recipe inputs without compiling or running ELF."""
 
 import hashlib
-import importlib.util
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import subprocess
 import tempfile
+from types import ModuleType
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -19,6 +19,27 @@ def git(*args):
 
 def sha(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def load_recipe(root, relative, expected_sha256):
+    # The path is fixed by this verifier; a packet edit cannot select other code.
+    if relative != 'scripts/amm_sell/workspace_recipe.py' or PurePosixPath(relative).is_absolute():
+        raise ValueError('Unexpected AMM recipe path')
+    path = root
+    for part in PurePosixPath(relative).parts:
+        path = path / part
+        if path.is_symlink():
+            raise ValueError(f'Symlinked AMM recipe path: {path}')
+    if not path.is_file():
+        raise ValueError(f'Missing AMM recipe: {path}')
+    source = path.read_bytes()
+    if sha(source) != expected_sha256:
+        raise ValueError('AMM workspace recipe changed from the pinned source')
+    # Compile the same bytes just hashed; never consult an importlib .pyc cache.
+    recipe = ModuleType('amm_workspace_recipe')
+    recipe.__file__ = str(path)
+    exec(compile(source, str(path), 'exec'), recipe.__dict__)
+    return recipe
 
 
 def tree_blobs(revision):
@@ -37,11 +58,7 @@ def tree_blobs(revision):
 
 def verify():
     manifest = json.loads((PACKET / 'manifest.json').read_text())
-    spec = importlib.util.spec_from_file_location('amm_workspace_recipe', ROOT / manifest['recipe_path'])
-    recipe = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(recipe)
-    if sha((ROOT / manifest['recipe_path']).read_bytes()) != manifest['recipe_sha256']:
-        raise ValueError('AMM workspace recipe changed from the pinned source')
+    recipe = load_recipe(ROOT, manifest['recipe_path'], manifest['recipe_sha256'])
 
     inputs, workspace = recipe.expected_workspace(ROOT)
     expected = manifest['source_inputs']
