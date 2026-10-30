@@ -3,6 +3,16 @@ import datetime as dt
 import json
 
 
+def unique_object(pairs):
+    """Admit JSON objects without silently overwriting retained evidence."""
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f'duplicate JSON property: {key}')
+        result[key] = value
+    return result
+
+
 def validate_row(row, statuses):
     if not isinstance(row, dict) or row.get('schema') != 'main-pump-attempt-v1':
         raise ValueError('expected a main-pump-attempt-v1 object')
@@ -22,14 +32,6 @@ def validate_row(row, statuses):
 def inspect_ledger(text, statuses):
     rows, errors = [], []
     ids, keys = {}, {}
-
-    def unique_object(pairs):
-        result = {}
-        for key, value in pairs:
-            if key in result:
-                raise ValueError(f'duplicate JSON property: {key}')
-            result[key] = value
-        return result
 
     for number, line in enumerate(text.split('\n'), 1):
         if not line.strip():
