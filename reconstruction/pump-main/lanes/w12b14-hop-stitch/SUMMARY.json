@@ -1,0 +1,95 @@
+{
+ "lane": "w12b14-hop-stitch",
+ "wave": 12,
+ "angle": "swap_hop integrator/stitcher",
+ "target": {
+  "window": "0x5b3b0",
+  "function": "multi_hop_curve::swap_hop",
+  "file": "programs/pump/src/multi_hop_curve_swap.rs",
+  "pinned_bytes": 18584
+ },
+ "base": {
+  "main": "20a1ae9c0 (programs/ identical at e61df0357)",
+  "swap_hop": {
+   "ratio": 0.99913,
+   "slots_diff": 18,
+   "cand_bytes": 18584
+  },
+  "normalized": 1033,
+  "raw": 1033
+ },
+ "best": {
+  "trial": "v1tuple",
+  "ratio": 1.0,
+  "slots_diff": 0,
+  "cand_bytes": 18584,
+  "normalized_equal": true,
+  "raw_equal": true,
+  "normalized": 1034,
+  "raw": 1034,
+  "losses": [],
+  "raw_losses": [],
+  "unstripped_sha16": "cbd9bf08d09967f7",
+  "spelling": "line 599: let (global,): (&Global,) = (&a.global,); let allowed = { let user = a.user.key(); !c.is_mayhem_mode && user!=global.whitelist_pda }; ... line 600: match complete_fill(global, ..."
+ },
+ "landed_by_this_lane": false,
+ "landed_equivalent": {
+  "pr": 2766,
+  "lane": "w12b09-hop-hillclimb",
+  "merge_commit": "0b5fc0d5d",
+  "note": "same unstripped sha cbd9bf08 as v1tuple; spelling let (allowed, global) = { let global: &Global = &a.global; ...; (cond, global) }"
+ },
+ "after_landing": {
+  "main": "70f27048e",
+  "swap_hop": {
+   "ratio": 1.0,
+   "slots_diff": 0,
+   "cand_bytes": 18584,
+   "normalized_equal": true,
+   "raw_equal": true
+  },
+  "normalized": 1034,
+  "raw": 1034
+ },
+ "mechanism": [
+  "Post-opt llc oracle on main: moving gep %_618,8 (complete_fill &Global arg) into bb57 or bb58 gives 1.0/0 slots; at the top of bb64 it stays 0.99913/18. MachineSink sinks a cross-block GEP to the top of the call block (orig ldxdw r2,[r10-0xb28]; add64 r2,8 right after the memcmp jeq).",
+  "MIR (--emit=mir) of 'let global: &Global = &a.global; complete_fill(global,..)': the coercion-site reborrow &*global is rewritten by ReferencePropagation into _219 = &((*_697).0: Global) at the call, so the early binding is dead.",
+  "Pre-opt oracle (-Cno-prepopulate-passes + hybrid144 opt default<O3> + llc): using the bb57 %global GEP as the call arg survives opt and gives 1.0/0; LLVM never moves it (InstCombine sinking needs the user block's unique predecessor to be the GEP's block).",
+  "Fix: route the &Global through a tuple field (opaque to ReferencePropagation)."
+ ],
+ "attempts": [
+  {
+   "key": "0x5b3b0-w12-20a1ae9-stitch-postopt-gep8-placement-4way-v1",
+   "status": "analyzed",
+   "result": "bb57/bb58 placements 1.0/0; bb64-top 0.99913/18"
+  },
+  {
+   "key": "0x5b3b0-w12-20a1ae9-stitch-preopt-opt-o3-call-arg-bb57-global-v1",
+   "status": "analyzed",
+   "result": "1.0/0 through opt+llc"
+  },
+  {
+   "key": "0x5b3b0-w12-20a1ae9-stitch-mir-refprop-rebuilds-global-reborrow-v1",
+   "status": "analyzed",
+   "result": "ReferencePropagation rebuilds the arg at the call"
+  },
+  {
+   "key": "0x5b3b0-w12-20a1ae9-stitch-one-tuple-global-binding-into-complete-fill-v1",
+   "status": "normalized-match",
+   "result": "1.0/0, 1034/1034, 0 losses"
+  },
+  {
+   "key": "0x5b3b0-w12-20a1ae9-stitch-global-binding-deref-of-ref-arg-v1",
+   "status": "rejected",
+   "result": "complete_fill(*&global,..) byte-identical to main"
+  }
+ ],
+ "rejected_mechanisms": [
+  "complete_fill(*&global, ..) with a hoisted let global: &Global (local stays SSA for ReferencePropagation; byte-identical to main)"
+ ],
+ "unresolved_residuals": [],
+ "next_untried_ideas": [
+  "none for swap_hop (matched). Same ReferencePropagation lens may help admin_cto where a reference argument is rebuilt at a call site instead of reusing an early GEP."
+ ],
+ "stitch_checks": "listed w12 hop PRs/branches at 05:20 (none) and 05:37 (#2766 hillclimb full match, #2758/#2771 notes); nothing to combine: a single residual fixed by one edit"
+}
