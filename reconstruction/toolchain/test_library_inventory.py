@@ -1,5 +1,6 @@
 """Verify exact library inputs using temporary fixtures and the retained inventory."""
 import hashlib
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -64,6 +65,33 @@ class LibraryInventoryTests(unittest.TestCase):
 class RetainedInventoryTest(unittest.TestCase):
     def test_all_retained_libraries_verify(self):
         self.assertEqual(bootstrap.check_linux_libs(bootstrap.LINUX), [])
+
+
+class SdkInventoryTests(unittest.TestCase):
+    def test_unlisted_host_library_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            sdk = root / 'sdk'
+            host_lib = sdk / 'rust/lib/rustlib/aarch64-apple-darwin/lib'
+            host_lib.mkdir(parents=True)
+            known = host_lib / 'libknown.rlib'
+            known.write_bytes(b'known library')
+            inventory = root / 'v1.44-macos-inventory.json'
+            rel = known.relative_to(sdk).as_posix()
+            inventory.write_text(json.dumps({'entries': {
+                rel: {'type': 'file', 'bytes': known.stat().st_size,
+                      'sha256': hashlib.sha256(known.read_bytes()).hexdigest()}
+            }}))
+            with patch.object(bootstrap, 'HERE', root), patch.object(bootstrap, 'SDK', sdk):
+                self.assertEqual(bootstrap.check_sdk('full'), (1, []))
+                extra = host_lib / 'libunlisted.rlib'
+                extra.write_bytes(b'unlisted library')
+                self.assertIn('unexpected SDK input: ' + extra.relative_to(sdk).as_posix(),
+                              bootstrap.check_sdk('full')[1])
+                extra.unlink()
+                extra.symlink_to(known.name)
+                self.assertIn('unexpected SDK input: ' + extra.relative_to(sdk).as_posix(),
+                              bootstrap.check_sdk('quick')[1])
 
 
 if __name__ == '__main__':
