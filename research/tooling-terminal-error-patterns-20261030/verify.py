@@ -6,7 +6,7 @@ import proof
 
 def main():
     expected = json.loads((proof.P / 'manifest.json').read_text(encoding='utf-8'))
-    actual = {str(path.relative_to(proof.P)): hashlib.sha256(path.read_bytes()).hexdigest()
+    actual = {path.relative_to(proof.P).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
               for path in sorted(proof.P.rglob('*')) if path.is_file()
               and path.name != 'manifest.json' and '__pycache__' not in path.parts
               and path.suffix != '.pyc'}
