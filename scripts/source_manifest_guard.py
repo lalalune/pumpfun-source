@@ -6,6 +6,7 @@ for local inputs. `Path.rglob` plus `is_file()` follows symlinks, so a symlinked
 repository. This module keeps the archived helper unchanged and adds the
 admission check used by the production Pump build verifier.
 """
+import os
 from pathlib import Path
 
 from build_source_manifest import source_manifest
@@ -41,15 +42,39 @@ def _plain(path, root):
     return resolved
 
 
+def _no_linked_directories(top):
+    """Reject a symlinked directory anywhere below `top`.
+
+    `Path.rglob('*')` does not descend into symlinked directories, so files
+    behind one never reach the manifest and `_plain` never sees them, while
+    the compiler still reads them through the link.
+    """
+    top = Path(top)
+    for directory, names, _ in os.walk(top):
+        if Path(directory) == top:
+            names[:] = [name for name in names if name not in ('target', '.git')]
+        for name in names:
+            path = Path(directory) / name
+            if path.is_symlink():
+                raise ValueError('symlinked directory under compiler inputs: ' + str(path))
+
+
 def strict_manifest(crate, workspace, repository, extra_inputs=(), cwd=None):
     """Return the archived manifest after rejecting symlinked or outside inputs."""
     root = Path(repository).resolve()
+    crate_path, workspace_path = Path(crate).resolve(), Path(workspace).resolve()
+    _no_linked_directories(crate_path)
+    for directory in (crate_path, *crate_path.parents):
+        _no_linked_directories(directory / 'idls')
+        if directory == workspace_path:
+            break
     for extra in extra_inputs:
         extra_path = Path(extra)
         if not extra_path.is_absolute():
             extra_path = root / extra_path
         _plain(extra_path, root)
         if extra_path.is_dir():
+            _no_linked_directories(extra_path)
             for path in extra_path.rglob('*'):
                 if path.is_file():
                     _plain(path, root)
