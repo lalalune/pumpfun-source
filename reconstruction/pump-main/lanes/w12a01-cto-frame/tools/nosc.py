@@ -3,8 +3,7 @@
 usage: nosc.py <module.ll> <sym-regex> [name] [--mir mir --mir-fn rx]"""
 import sys, re, collections, runpy, json
 from pathlib import Path
-WT='/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w12a01-cto-frame'
-sys.path.insert(0, WT+'/reconstruction/pump-main/lanes/w4-frame-oracle')
+sys.path.insert(0, str(Path(__file__).resolve().parents[1].parent / 'w4-frame-oracle'))
 sys.argv_saved = sys.argv[:]
 import frameoracle as fo
 args = sys.argv_saved[1:]

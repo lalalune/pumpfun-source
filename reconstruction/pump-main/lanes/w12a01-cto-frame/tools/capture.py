@@ -3,7 +3,7 @@
 capture.py <src> <work> <out>"""
 import sys, json, shutil, os
 from pathlib import Path
-T=Path('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w12a01-cto-frame/reconstruction/harness')
+T=Path(__file__).resolve().parents[5] / 'reconstruction/harness'
 sys.path.insert(0,str(T)); import fastbuild
 src,work,out=map(Path,sys.argv[1:4])
 real=fastbuild.run_compiler

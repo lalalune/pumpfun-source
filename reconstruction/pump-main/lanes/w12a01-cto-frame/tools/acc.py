@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """acc.py <so|orig> [lo hi]: list r10 accesses (offset, width, kind, addr) of admin_cto window, grouped by offset."""
 import sys, collections, struct
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w12a01-cto-frame/reconstruction/pump-main/lanes/w4-frame-oracle')
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1].parent / 'w4-frame-oracle'))
 av=sys.argv; sys.argv=av[:1]
 import frameoracle as fo
 sc=fo.load_score()

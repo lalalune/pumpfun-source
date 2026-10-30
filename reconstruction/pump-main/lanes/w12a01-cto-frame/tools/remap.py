@@ -2,7 +2,8 @@
 """remap.py <so> <map-spec>: remap r10 offsets of our admin_cto window by piecewise rules and report masked ratio.
 map-spec: comma list of lo-hi:+d (offsets in [lo,hi] shift by d), hex."""
 import sys, struct, difflib
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w12a01-cto-frame/reconstruction/pump-main/lanes/w4-frame-oracle')
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1].parent / 'w4-frame-oracle'))
 av=sys.argv; sys.argv=av[:1]
 import frameoracle as fo
 from pathlib import Path
