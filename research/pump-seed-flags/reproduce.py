@@ -18,7 +18,10 @@ WORK.mkdir()
 REVISION = '75e2066c99a4f862f545cb66fda855e67d684a03'
 PREFIX = 'repro/pump/main-contract-round38-20261027/primary/'
 EXPECTED_TREE = 'fb436ff37d4ff6e0d05d7af8f2011b056b258511'
-subprocess.run(['git', 'fetch', '--no-tags', 'origin', REVISION], cwd=ROOT, check=True, timeout=180)
+subprocess.run(['git', 'config', 'remote.origin.promisor', 'true'], cwd=ROOT, check=True)
+subprocess.run(['git', 'config', 'remote.origin.partialclonefilter', 'blob:none'], cwd=ROOT, check=True)
+subprocess.run(['git', 'fetch', '--depth=1', '--filter=blob:none', '--no-tags', 'origin', REVISION],
+               cwd=ROOT, check=True, timeout=180)
 tree = subprocess.check_output(['git', 'rev-parse', REVISION + ':' + PREFIX.rstrip('/')], cwd=ROOT, text=True).strip()
 assert tree == EXPECTED_TREE
 archive = subprocess.check_output(['git', 'archive', REVISION, PREFIX], cwd=ROOT)
