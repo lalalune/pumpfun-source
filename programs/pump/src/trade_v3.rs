@@ -890,7 +890,7 @@ pub fn buy_exact_quote(ctx:Context<SellV3>,spendable_quote_in:u64,min_tokens_out
 
     require_gt!(available,0,PumpError::BuyNotEnoughSolToCoverFees);
     let fees=v3_trade_fees(a,available)?;
-    let curve=&a.bonding_curve;
+    let curve=&a.bonding_curve;let mut fit_post;
     let (net_fees,tokens,net)=if a.global.whitelist_pda==a.user.key(){
 
 
@@ -937,7 +937,7 @@ pub fn buy_exact_quote(ctx:Context<SellV3>,spendable_quote_in:u64,min_tokens_out
         let estimate=if can_cross & (available>first){
             let (pool_base,pool_quote)={let base_reserves=a.associated_base_bonding_curve.amount;v3_pool_before(curve.real_quote_reserves,a.global.pool_migration_fee,base_reserves,is_sol,amount,quote)}?;
             estimate_post_complete(&curve.creator,pool_base,pool_quote,fees.protocol_fee_bps,fees.creator_fee_bps,rest,false)?}else{None};let (post,costs)=match estimate{
-                Some(mut post)=>fit_post_complete(a.global.buyback_basis_points,curve.is_mayhem_mode,&quote_fee,quote,curve_fees.protocol_fee,curve_fees.creator_fee,&mut post,spendable_quote_in)?,
+                Some(post)=>{fit_post=post;fit_post_complete(a.global.buyback_basis_points,curve.is_mayhem_mode,&quote_fee,quote,curve_fees.protocol_fee,curve_fees.creator_fee,&mut fit_post,spendable_quote_in)?},
                 None=>(None,costs),
             };
 
