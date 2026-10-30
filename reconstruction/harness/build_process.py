@@ -13,6 +13,7 @@ def validate_timeout(timeout):
 
 def run_compiler(command, *, timeout=None, **kwargs):
     validate_timeout(timeout)
+    kwargs.setdefault('encoding', 'utf-8')
     process = subprocess.Popen(command, start_new_session=True, stdout=subprocess.PIPE,
                                stderr=subprocess.STDOUT, text=True, **kwargs)
 
