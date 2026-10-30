@@ -55,10 +55,12 @@ jobs:
               python -B scripts/test_pump_compare_window_alignment.py
               python -B scripts/test_pump_compare_window_columns.py
               python -B reconstruction/tooling/parallel-input-preservation-20261030/test_input_preservation.py
+              python -B reconstruction/tooling/serial-input-preservation-20261030/test_serial_admission.py
               python -B scripts/test_pump_compare_window_strict_csv.py
               python -B scripts/test_replay_macos_frontier_optimization.py
               python -B scripts/test_admin_cto_optimization.py
               python -B scripts/test_build_token_dependency_optimization.py
+              python -B scripts/test_revalidate_empty_manifest.py
               python -B scripts/test_measure_relay13_v148_optimization.py
               python -B scripts/test_fees_withdraw_runtime_optimization.py
               python -B scripts/test_measure_relay_v148_optimization.py
@@ -76,6 +78,7 @@ jobs:
               python -O -B tests/test_function_body_file_ranges.py
               python -B reconstruction/harness/test_treediff_line_boundaries.py
               python -B reconstruction/harness/test_score_inputs.py
+              python -B reconstruction/harness/test_score_atomic_report.py
               python -B reconstruction/harness/test_short_window_ranking.py
               python -B reconstruction/harness/test_applicability_evidence_paths.py
               python -B reconstruction/harness/test_diagnostic_range_boundaries.py
@@ -111,6 +114,7 @@ jobs:
               python -B reconstruction/capture-rpc-retry/test_capture.py
               python -B reconstruction/verification/donation-relay-idl-lifecycle/test_lifecycle.py
               python -B reconstruction/verification/donation-relay-stateful/test_stateful.py
+              python -B reconstruction/verification/mayhem-dispatch-boundaries/test_inventory.py
           - suite: host-fragments
             commands: |
               python -B -m unittest discover -s tests -p 'test_global_*_captured.py' -v

@@ -37,6 +37,40 @@ codegen-units = 1
 '''
 
 
+class FastbuildOverlapGuardTests(unittest.TestCase):
+    def test_output_directory_containing_the_source_is_rejected(self):
+        # build() used to reject only src==out and src inside out; an output
+        # directory that is an ANCESTOR of the source passed the guard and the
+        # build then archived and wrote outputs inside the tree holding src.
+        from unittest import mock
+
+        with tempfile.TemporaryDirectory(prefix="fastbuild-overlap-") as temporary:
+            out = Path(temporary) / "lane"
+            src = out / "crate"
+            src.mkdir(parents=True)
+            work = Path(temporary) / "work"
+            with mock.patch.object(
+                    fastbuild, "workspace_lock",
+                    side_effect=AssertionError("the overlap guard passed")):
+                with self.assertRaisesRegex(ValueError, "overlap"):
+                    fastbuild.build(src, work, out)
+
+    def test_disjoint_directories_reach_the_workspace_lock(self):
+        from unittest import mock
+
+        with tempfile.TemporaryDirectory(prefix="fastbuild-disjoint-") as temporary:
+            src = Path(temporary) / "crate"
+            src.mkdir()
+            work = Path(temporary) / "work"
+            out = Path(temporary) / "out"
+            with mock.patch.object(
+                    fastbuild, "workspace_lock",
+                    side_effect=RuntimeError("reached the lock")) as locked:
+                with self.assertRaisesRegex(RuntimeError, "reached the lock"):
+                    fastbuild.build(src, work, out)
+            locked.assert_called_once()
+
+
 class FastbuildStageTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory(prefix="fastbuild-stage-")

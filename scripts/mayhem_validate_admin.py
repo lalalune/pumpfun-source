@@ -20,7 +20,9 @@ OPS=['reset_sol_deployed','reset_stable_deployed','reset_state','stop_trading','
 class Fixture:
  def __init__(self,binary):
   self.vm=LiteSVM().with_transaction_history(0)
-  self.vm.add_program_from_file(PROGRAM,binary)
+  # Hash and load one byte snapshot, so the receipt names the executed image.
+  image=pathlib.Path(binary).read_bytes();self.sha256=hashlib.sha256(image).hexdigest()
+  self.vm.add_program(PROGRAM,image)
   for key in [ADMIN.pubkey(),PAYER.pubkey(),OTHER,EVENT]: self.vm.set_account(key,Account(10**10,b'',Pubkey.default()))
  def execute(self,c):
   data=bytes.fromhex(c['data']);kind=c.get('kind','ok');key=OTHER if kind=='wrong_pda' else GLOBAL
@@ -97,5 +99,5 @@ if __name__=='__main__':
   x=o.execute(c);y=b.execute(c);equal=all(x[k]==y[k] for k in ['error','data','lamports','events','inner_instructions','owner','admin_lamports_delta','payer_lamports_delta'])
   rows.append({'case':c,'original':x,'candidate':y,'equal':equal})
   if not equal:mismatches.append(c['name'])
- report={'scope':'Eleven complete admin instruction paths; other instructions absent. Local synthetic state; compared error, account data, lamports, emitted events and inner instructions, not complete log byte identity or full program identity.','original_sha256':hashlib.sha256(original.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(a.candidate.read_bytes()).hexdigest(),'source_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'programs/mayhem/Cargo.toml',ROOT/'programs/mayhem/Cargo.lock',ROOT/'programs/mayhem/src/lib.rs',pathlib.Path(__file__).resolve()]},'case_count':len(rows),'mismatches':mismatches,'cases':rows}
+ report={'scope':'Eleven complete admin instruction paths; other instructions absent. Local synthetic state; compared error, account data, lamports, emitted events and inner instructions, not complete log byte identity or full program identity.','original_sha256':o.sha256,'candidate_sha256':b.sha256,'source_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'programs/mayhem/Cargo.toml',ROOT/'programs/mayhem/Cargo.lock',ROOT/'programs/mayhem/src/lib.rs',pathlib.Path(__file__).resolve()]},'case_count':len(rows),'mismatches':mismatches,'cases':rows}
  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'cases':len(rows),'mismatches':mismatches}));raise SystemExit(bool(mismatches))
