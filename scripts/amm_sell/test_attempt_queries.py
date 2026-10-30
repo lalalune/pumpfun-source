@@ -82,6 +82,13 @@ class AttemptQueryTests(unittest.TestCase):
         self.assertIn('valid/probe scored', result)
         self.assertNotIn('old/probe scored', result)
 
+    def test_usage_documents_every_accepted_note_kind(self):
+        # The module docstring is the argparse description shown by --help, so a
+        # --kind value the CLI accepts but the usage omits is a help/behavior
+        # contradiction. Guard every accepted kind against that drift.
+        for kind in queries.NOTE_KINDS:
+            self.assertIn(kind, queries.__doc__)
+
     def test_approach_statistics_keep_versions_separate(self):
         result = self.query([entry('current', distance=10),
                              entry('historical', version=SCORE_VERSION - 1, distance=0)],

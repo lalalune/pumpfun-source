@@ -275,7 +275,9 @@ def run_verifier(frozen, repo, packet, timeout_seconds=60.0, cleanup_seconds=1.0
         returncode = None
         interrupted = False
         try:
-            kwargs = {}
+            # An inherited PYTHONOPTIMIZE would strip verifier assertions.
+            kwargs = {"env": {name: value for name, value in os.environ.items()
+                              if name != "PYTHONOPTIMIZE"}}
             if os.name == "posix":
                 kwargs["start_new_session"] = True
             elif os.name == "nt":

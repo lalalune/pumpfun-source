@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from pump_diagnostic_audit import audit
 import pump_validate_all as base
+from pump_amm_reusable_harness import pin_program
 sha = base.sha
 protect_inputs = base.protect_inputs
 
@@ -115,7 +116,7 @@ def main():
     args.output = args.output.resolve()
     args.build_comparison = args.build_comparison.resolve()
     args.source_directory = args.source_directory.resolve()
-    candidate = args.candidate.resolve()
+    candidate = pin_program(args.candidate.resolve())
     original = ROOT / 'evidence/original/pump/deployed.so'
     record = json.loads(args.build_comparison.read_text())
     assert record['returncode'] == 0 and record['source_unchanged']

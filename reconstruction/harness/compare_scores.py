@@ -37,7 +37,8 @@ def load_report(path):
             raise ValueError(f'window {key} has invalid byte length')
         if isinstance(windows, list):
             matches = row.get('normalized_matches')
-            if not isinstance(matches, list):
+            if (not isinstance(matches, list) or
+                    any(not isinstance(name, str) or not name for name in matches)):
                 raise ValueError(f'window {key} has invalid normalized_matches')
             normalized, raw = bool(matches), row.get('raw_match')
         else:
