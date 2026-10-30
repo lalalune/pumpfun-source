@@ -87,6 +87,7 @@ def entry_record(packet, path):
         return {
             "path": relative,
             "kind": "file",
+            "mode": stat.S_IMODE(info.st_mode),
             "bytes": info.st_size,
             "sha256": sha256_file(path),
         }
