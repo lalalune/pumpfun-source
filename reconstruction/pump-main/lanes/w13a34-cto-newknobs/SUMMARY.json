@@ -1,0 +1,17 @@
+{
+  "lane": "w13a34-cto-newknobs",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": {"06e6bb829": {"ratio": 0.57669, "slots": 3311}, "8cf3c5f8a": {"ratio": 0.62043, "slots": 3305}},
+  "best": {"ratio": 0.62043, "bytes": 27400, "note": "no zero-loss gain over main; z_sh_flat+pool_args_pre ties main 8cf3c5f at 27400 B (IR oracle)"},
+  "attempts": {"new_knobs": 46, "rescreened_genes": 54, "pairs": 3, "method": "w13a23 raw-IR oracle (capvar.sh + rx.py), eq_main verified on both bases"},
+  "catalog": "$SWARM/w11/sizeknobs-cto.json: 58 knobs added with results on bases m06e6bb8 and m8cf3c5f (95 total)",
+  "findings": [
+    "Tail knobs (event field sources, pool/sharing CPI arg forms, Clock/Rent sites, curve update block) are local: same delta_ratio to 1e-5 on 06e6bb8 and 8cf3c5f; all <= 0.",
+    "pool_args_pre is a near-neutral +8 B filler (-0.00008 / -0.00009) on both mains.",
+    "ev_reset_shared (sharing_config_reset:shared) is a global RA lever: -128 B +0.0032 on 06e6bb8, -112 B -0.0164 on 8cf3c5f.",
+    "Reading keys, curve fields or Clock before the pool CPI costs 0.065-0.11; the original reads them after."
+  ],
+  "rejected": ["ev_nc_target", "pool_tgt_curve", "ev_ts_presig", "ev_ts_prepool", "ev_auth_pre", "ev_bc_pre", "ev_nc_pre", "sig_mint_acct", "pool_accs_let", "sh_accs_let", "ev_mint_key", "ev_newfee_unwrap", "rent_map", "cu_typed", "sh_prog_let", "cu_fee_replace", "ev_ts_clockvar", "pu_amm_keyfn", "ev_reset_shared on 8cf3c5f"],
+  "unresolved": ["admin_cto residual is upstream (frame, clone layout, validate RPO) rather than in the tail", "to_string inlining at 307/312 (+2 lddw relocs) untouched by this lane"],
+  "next": ["use pool_args_pre as the +8 filler for any -8 B gain", "re-screen ev_reset_shared with frame-lane +-128 B levers on each new main"]
+}
