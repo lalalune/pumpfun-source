@@ -89,6 +89,22 @@ for g in [g for g in sys.argv[2].split(',') if g]:
     if g.startswith('@'):   # whole admin_cto.rs from another branch (e.g. @w13a22-cto-valslot)
         s = subprocess.run(['git', '-C', str(Path(__file__).resolve().parents[5]), 'show', f'origin/swarm/{g[1:]}:programs/pump/src/creator/admin_cto.rs'], capture_output=True, text=True, check=True).stdout
         continue
+    if g.startswith('tf:') or g.startswith('sh:'):
+        # tf:<field>:<order> / sh:<field>:<order>: hand-written AccountInfo clone of that CPI account with the literal's
+        # fields in <order> (k key, l lamports, d data, o owner, r rent_epoch, s is_signer, w is_writable, e executable)
+        _, fld, order = g.split(':')
+        if g.startswith('tf:'):
+            x = _TF[fld]; i = s.index('crate::pump_amm::cpi::accounts::TransferCreatorFeesToPumpV2{'); j = s.index('}))?;}', i)
+        else:
+            x = _SH[fld]; i = s.index('crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{'); j = s.index('signer_seeds),val)?;', i)
+        F = {'k': 'key:x.key', 'l': 'lamports:x.lamports.clone()', 'd': 'data:x.data.clone()', 'o': 'owner:x.owner', 'r': 'rent_epoch:x.rent_epoch',
+             's': 'is_signer:x.is_signer', 'w': 'is_writable:x.is_writable', 'e': 'executable:x.executable'}
+        assert sorted(order) == sorted('kldorswe'), order
+        ref = f"AsRef::<AccountInfo>::as_ref(&*{x})" if fld == 'quote_mint' else f"&*{x}"
+        seg = s[i:j]; old = f"{fld}:{x}.to_account_info()"
+        if seg.count(old) != 1: sys.exit(f'{g}: anchor')
+        s = s[:i] + seg.replace(old, f"{fld}:{{let x:&AccountInfo={ref};AccountInfo{{" + ','.join(F[c] for c in order) + "}}") + s[j:]
+        continue
     if callable(G[g]):
         s = G[g](s); continue
     for old, new in G[g]:

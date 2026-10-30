@@ -55,12 +55,36 @@ Other pairs at 27,400 B on d81d0f5: system_program + quote_mint 0.57669 (built: 
 coin_creator_vault_ata 0.5725, the transfer CPI's final program clone alone 0.5719. `quote_mint` is a Box<InterfaceAccount>, so its
 binding is `AsRef::<AccountInfo>::as_ref(&*a.quote_mint)`.
 
+## Third step: field order of two more transfer-CPI clones (main 06e6bb8, 0.57669)
+
+Main took the system_program key-late clone first (zo lane, 0.57669), so the coin_creator_vault_ata pair above became
+-8 B (0.57588). `fieldscan.py` (per clone: key late K, owner early O, rent_epoch early R, is_signer early F, all plain
+fields early A; then pairs of the 6 best singles with everything) on 06e6bb8 gives at 27,400 B:
+K(payer) + O(coin_creator_vault_authority) 0.58418; singles O(ccv_authority) 0.58059, K(payer) 0.58029.
+
+```rust
+payer:{let x:&AccountInfo=&*a.admin_set_creator_authority;AccountInfo{lamports:..clone(),data:..clone(),key:x.key,owner:x.owner,..}},
+coin_creator_vault_authority:{let x:&AccountInfo=&*a.coin_creator_vault_authority;AccountInfo{key:x.key,owner:x.owner,lamports:..clone(),data:..clone(),..}}
+```
+
+| metric | main 06e6bb8 | this branch |
+| --- | ---: | ---: |
+| admin_cto ratio | 0.57669 | **0.58418** |
+| slots_diff / bytes | 3,312 / 27,400 | 3,312 / 27,400 |
+| normalized / raw | 1034 / 1034 | 1034 / 1034 (0 losses) |
+| runtime differential | | 363 / 0 |
+| unstripped sha256 | | `396a2079af832fc81173ae912162bfba3fb31dbac389bd957ed77967697b02bf` |
+
+Off-size leads for size pairing: owner-early on the sharing CPI's first clone (pump_fees program) is 0.58534 at 27,376
+(with K(quote_mint) 0.59416 at 27,392); K(quote_mint) alone 0.58311 at 27,416.
+
 ## Oracles and tools (`scripts/`)
 
 | script | what it does |
 | --- | --- |
 | `keyscan.py <mod.ll> <out>` | llc oracle: for each inlined `AccountInfo::clone` of the sharing CPI, move the key load after both Rc increments (= the hand-written literal above). |
 | `keycombo.py <mod.ll> <out>` | every subset of those moves (64 llc runs, ~10 s). |
+| `fieldscan.py <mod.ll> <out> [--pairs N]` | per clone K/O/R/F/A field-order moves, then pairs; `var.py` gene `tf:<field>:<order>` / `sh:<field>:<order>` writes the matching literal (order letters k l d o r s w e). |
 | `keypairs.py <mod.ll> <out> [k]` | singles/pairs/triples of key-after-Rc moves over every inlined AccountInfo clone in execute (17 on d81d0f5). |
 | `movescan2.py` | w13a12 `movescan.py` plus `clonefeat` spill/reg per edit. |
 | `edit_move.py` | `MOVE='v@x@before:w;...'` ctoracle edit: move a def before another value. |
