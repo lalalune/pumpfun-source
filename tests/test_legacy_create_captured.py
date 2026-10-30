@@ -38,7 +38,7 @@ ELF_SHA256 = {
 }
 HOST_SOURCE = ROOT / 'programs/pump/recovered/legacy_create_host.rs'
 
-IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text())
+IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
 PUMP = Pubkey.from_string(IDL['address'])
 CREATE = next(i for i in IDL['instructions'] if i['name'] == 'create')
 ACCOUNT_DISC = {a['name']: bytes(a['discriminator']) for a in IDL['accounts']}

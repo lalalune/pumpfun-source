@@ -21,6 +21,29 @@ import pump_validate_all as base
 sha = base.sha
 
 
+def report_destinations(output, suites, captured_loader, execute):
+    """List every file this invocation can publish, including failure sidecars."""
+    paths = [output]
+    if execute:
+        paths.append(output.with_name(output.name + '.failed.json'))
+        retained = output.parent / (output.name + '.suites')
+        for name in suites:
+            paths.extend(retained / (name + suffix) for suffix in ('.log', '.json.gz'))
+            if captured_loader:
+                paths.append(retained / (name + '.loader.json'))
+    return paths
+
+
+def protect_inputs(destinations, inputs):
+    """Reject path, symlink and existing hardlink aliases before any output write."""
+    protected = {Path(path).resolve() for path in inputs}
+    for destination in destinations:
+        resolved = destination.resolve()
+        if resolved in protected or (resolved.exists() and any(
+                resolved.samefile(path) for path in protected)):
+            raise ValueError('validation output aliases a bound input: ' + str(destination))
+
+
 def publish_report(path, payload):
     """Atomically replace a report, gzip-compressing only .gz destinations."""
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -110,16 +133,28 @@ def main():
     assert all(sha(ROOT / k) == v for k, v in sources.items())
     bound_files = {str(p): sha(p) for p in [candidate, original, Path(__file__), Path(base.__file__), ROOT / 'scripts/pump_diagnostic_audit.py', args.build_comparison]}
     loader_wrapper = ROOT / 'scripts/pump_with_captured_loader.py'
-    loader_inputs = [loader_wrapper, loader_wrapper.with_name('pump_captured_loader.py'), ROOT / 'evidence/original/pump/capture.json', ROOT / 'evidence/original/pump/program-account.bin', ROOT / 'evidence/original/pump/programdata-account.bin']
+    loader_inputs = [loader_wrapper, loader_wrapper.with_name('pump_captured_loader.py'), ROOT / 'evidence/original/pump/capture.json', ROOT / 'evidence/original/pump/program-account.bin', ROOT / 'evidence/original/pump/programdata-account.bin', original]
     if args.captured_loader:
         bound_files.update({str(p): sha(p) for p in loader_inputs})
     loader_receipts = {}
-    scripts = {name: ROOT / filename if filename.startswith('repro/') else ROOT / 'scripts' / filename for name, filename in selected_suites}
+    scripts = {name: ROOT / filename if filename.startswith(('repro/', 'research/')) else ROOT / 'scripts' / filename for name, filename in selected_suites}
     if record.get('portable_source_binding') and 'tokenkeg_two_curve' in scripts:
         scripts['tokenkeg_two_curve'] = ROOT / 'scripts/pump_tokenkeg_checkpoint_differential.py'
     script_hashes = {name: sha(path) for name, path in scripts.items()}
     suites, counts = {}, {}
+    failed_suite_outputs = {}
     retained = args.output.parent / (args.output.name + '.suites')
+    previous = None
+    protected = [*bound_files, *(ROOT / name for name in sources), *scripts.values()]
+    if args.validate_existing:
+        raw = args.validate_existing.read_bytes()
+        previous = json.loads(gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw)
+        bound_files[str(args.validate_existing.resolve())] = sha(args.validate_existing)
+        protected.append(args.validate_existing)
+        if args.captured_loader:
+            protected.extend(ROOT / row['path'] for row in previous['loader_receipts'].values())
+    protect_inputs(report_destinations(args.output, scripts, args.captured_loader,
+                                      not args.validate_existing), protected)
     retained.mkdir(parents=True, exist_ok=True)
 
     def check_bound_files():
@@ -144,6 +179,15 @@ def main():
                     command += ['--source-directory', str(args.source_directory.resolve())]
             completed = subprocess.run(command, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
             (retained / (name + '.log')).write_text(completed.stdout)
+            if completed.returncode and output.is_file():
+                raw = output.read_bytes()
+                rejected = retained / (name + '.failed-output')
+                rejected.write_bytes(raw)
+                failed_suite_outputs[name] = {
+                    'path': base.bound_input_key(rejected, ROOT),
+                    'sha256': sha(rejected), 'bytes': len(raw),
+                    'returncode': completed.returncode,
+                }
             completed.check_returncode()
             raw = output.read_bytes()
             result = json.loads(gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw)
@@ -157,15 +201,12 @@ def main():
         return name, count, result
 
     if args.validate_existing:
-        raw = args.validate_existing.read_bytes()
-        previous = json.loads(gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw)
         assert set(previous['suites']) == set(scripts)
         assert previous.get('loader_profile', 'legacy-raw') == ('captured-upgradeable' if args.captured_loader else 'legacy-raw')
         expected_previous_scripts = {str(scripts[name].relative_to(ROOT)): script_hashes[name]
                                      for name, _ in selected_suites}
         assert previous['script_sha256'] == expected_previous_scripts, 'saved report harness hashes differ'
         assert previous['compiled_source_sha256'] == sources, 'saved report compiled-source binding differs'
-        bound_files[str(args.validate_existing.resolve())] = sha(args.validate_existing)
         if args.captured_loader:
             assert set(previous['loader_receipts']) == set(scripts), 'saved loader evidence is incomplete'
             for name, saved in previous['loader_receipts'].items():
@@ -200,6 +241,7 @@ def main():
                     'candidate_sha256': sha(candidate),
                     'completed_suites': list(suites),
                     'errors': errors,
+                    'failed_suite_outputs': failed_suite_outputs,
                     'bound_files_sha256': bound_files,
                 }
                 publish_report(

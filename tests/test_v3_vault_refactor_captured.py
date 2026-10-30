@@ -82,7 +82,7 @@ def fixture(name):
 GLOBAL_ROW, GLOBAL_BYTES = fixture('pump_global_slot_461019957.json')
 AMM_CONFIG_ROW, AMM_CONFIG_BYTES = fixture('pump_amm_global_config_slot_461019958.json')
 
-IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text())
+IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
 AMM_IDL = json.loads((ROOT / 'evidence/upstream/pump_amm.json').read_text())
 IX = {ix['name']: ix for ix in IDL['instructions']}
 MULTI_HOP = next(ix for ix in AMM_IDL['instructions'] if ix['name'] == 'multi_hop_swap')

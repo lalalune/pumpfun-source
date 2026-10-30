@@ -3,10 +3,11 @@
 import hashlib
 from pathlib import Path
 import struct
+import sys
 import types
 
 ROOT = Path(__file__).resolve().parents[2]
-ARCHIVED_SHA256 = '831cee56ca07bba6be4b057dcf33873319e63cc27aa3d7b45a7f2ab66adaee6c'
+ARCHIVED_SHA256 = '9fd0cca58d98df8704984d801069516f0a8b1ac23f41c79262d74467213c0c63'
 
 
 def load_inventory(root=ROOT):
@@ -14,6 +15,9 @@ def load_inventory(root=ROOT):
     source = path.read_bytes()
     if hashlib.sha256(source).hexdigest() != ARCHIVED_SHA256:
         raise ValueError('archived disassembly inventory source drift')
+    # The archived script imports its scripts/ sibling `analyze` by plain name.
+    if str(path.parent) not in sys.path:
+        sys.path.insert(0, str(path.parent))
     module = types.ModuleType('archived_sbpf_inventory')
     module.__file__ = str(path)
     exec(compile(source, str(path), 'exec'), module.__dict__)
