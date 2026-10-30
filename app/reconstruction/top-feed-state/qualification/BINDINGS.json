@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "runtimeAndMethodLocalFreeze": "6bd7e2b1a85e53e0f0e4fa5abff44430f3a218c1",
+  "commitMeaning": "Local producer checkout label, not a public ancestor claim. Qualified source/method preserved by bytes/hash. Final28 direct/shared tests preceded this local commit with the same committed bytes.",
+  "source": {
+    "witnesses": 95,
+    "entries": 22,
+    "ownerVariants": 2,
+    "readContexts": 2,
+    "qualificationOnlyPrior1846HelperContexts": 6
+  },
+  "initialPhases": [
+    {
+      "log": "initial-source-link.log",
+      "result": "Initial generator incorrectly expected a direct object-property reference for the TOP handoff; actual code spreads the owner result and separately wraps callouts. The guard rejected generation. Final checker binds that real spread/call and complete shared wrapper.",
+      "limit": "Initial generator bytes were not separately sealed; this raw log is retained as a failed authoring phase, not final source proof."
+    }
+  ],
+  "finalTests": {
+    "focused": 17,
+    "sharedSourceReader": 11,
+    "passed": 28,
+    "actualNegativeVerifierMutations": 7,
+    "loopback": "Four actual GET paths: success/nonOK503/malformedJSON/abort. No Cookie or Authorization; host closed."
+  },
+  "browser": {
+    "cases": 6,
+    "errors": 0,
+    "inputBindings": 21,
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/"
+      },
+      {
+        "method": "GET",
+        "path": "/bundle.js"
+      }
+    ],
+    "cleanup": {
+      "queryListeners": 0,
+      "rootChildren": 0,
+      "browserClosed": true,
+      "serverListening": false
+    },
+    "scope": "Standalone real React/compiler cache with injected finite query/cache/client and prior1846 helper capabilities. No Next, original provider/query scheduler, current cookies, endpoint, ranking calculation or service qualification."
+  },
+  "limits": [
+    "Sourcecompiler memoization is preserved, not repaired; synthetic queryport is not TanStack/focus/staleness scheduling qualification.",
+    "Prior1846 timestamp/update/count/engagement source helper namespaces remain required credited ports; qualification-only reuse is not new helper credit.",
+    "No original loader/providerwinner/mountedUI/currentdata/personalization/auth/service/cookie/CORS/financial/native/feature/security qualification.",
+    "Two owner/read choices are explicit finite compositions; browser is not Cartesian across all helper contexts. Direct tests cover retained variants.",
+    "Contract verification compares parsedJSON semantics, not canonical formatting."
+  ]
+}

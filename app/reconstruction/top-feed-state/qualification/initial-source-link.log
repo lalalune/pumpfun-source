@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok(handoffs.length>0)
+
+    at derive (file:///workspace/pump-app-privacy-links/app/scripts/original-top-feed-state.mjs:154:138)
+    at async main (file:///workspace/pump-app-privacy-links/app/scripts/original-top-feed-state.mjs:191:413)
+    at async file:///workspace/pump-app-privacy-links/app/scripts/original-top-feed-state.mjs:192:89 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

@@ -1,0 +1,394 @@
+{
+  "scope": "Standalone real React/compiler cache with injected finite query/cache/client and prior1846 helper capabilities. No Next, original provider/query scheduler, current cookies, endpoint, ranking calculation or service qualification.",
+  "sourceHead": "6bd7e2b1a85e53e0f0e4fa5abff44430f3a218c1",
+  "startedAt": "2026-10-30T01:21:49.617Z",
+  "inputs": [
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js",
+      "bytes": 3932,
+      "sha256": "829eadd8a1a441d25be0cb93b00e16a0d0c20fd294db95d8f2ed87e6954b7182"
+    },
+    {
+      "path": "node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js",
+      "bytes": 2154,
+      "sha256": "fe3e2b20c1ebb57c3b390c8f685ad1e04e6f493517fa7e432f4351bb77a1a4d0"
+    },
+    {
+      "path": "node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js",
+      "bytes": 58353,
+      "sha256": "c25853fd31addfce188b01061fe85bfe667d5fb6c7a7bbb1c83d0ddfd8627acc"
+    },
+    {
+      "path": "node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js",
+      "bytes": 1670,
+      "sha256": "184d5c4a83512e3f49d4d5b52f7073f601f933bad11f1fbb3ad364ca5e6478e1"
+    },
+    {
+      "path": "node_modules/.pnpm/base-x@3.0.11/node_modules/base-x/src/index.js",
+      "bytes": 4236,
+      "sha256": "eaf1b7363a6a3144f0297786c8dc8ae6b84c2b43e096c0b009ab31d8d599a274"
+    },
+    {
+      "path": "node_modules/.pnpm/bs58@4.0.1/node_modules/bs58/index.js",
+      "bytes": 140,
+      "sha256": "0cfcec7b298a0c33588b432fad41e2fba216336d34ffd8c13422d21d3134ab57"
+    },
+    {
+      "path": "reconstruction/search-navigation/navigation.mjs",
+      "bytes": 5429,
+      "sha256": "3df06f823f7ad2fe9888a640a369c8e26f7566e28dcb6961ac7b89d7e6a7c6c5"
+    },
+    {
+      "path": "reconstruction/top-feed-state/client.mjs",
+      "bytes": 12991,
+      "sha256": "abff332ccbf83ceb9f80dd5f97fc3309ff86c509f300f58666a066e1e662b827"
+    },
+    {
+      "path": "reconstruction/top-feed-state/qualification/helper-ports.mjs",
+      "bytes": 17972,
+      "sha256": "2fee81d5196bc7f13d30c594c6dd4a601a821e298bf7320999a95dae815f8f29"
+    },
+    {
+      "path": "reconstruction/top-feed-state/qualification/fixture.mjs",
+      "bytes": 9934,
+      "sha256": "e52bf5d94c1e3f5f8e59172542524bf8fdd66ddb9163163cd35ff41559b8eee5"
+    },
+    {
+      "path": "reconstruction/top-feed-state/qualification/browser.mjs",
+      "bytes": 6318,
+      "sha256": "8b5adb4943ddd28db1618344fba198872e38e33da497402748ce9745e0381034"
+    }
+  ],
+  "bundleSha256": "64d4a56bc74940d68ab4ea849d83ae98dcc8ce94216dc990cdc32a4f826a2e66",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/bundle.js"
+    }
+  ],
+  "cases": [
+    {
+      "name": "mapping-15362ee5bd00",
+      "startedAt": "2026-10-30T01:21:49.866Z",
+      "observed": {
+        "rows": [
+          "cid:first",
+          "cid:last"
+        ],
+        "request": {
+          "operation": "GET /pnl-leaderboard/positions",
+          "query": {
+            "period": "daily"
+          },
+          "credentials": "include",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "hasSignal": true
+        },
+        "authorExcluded": true
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T01:21:49.900Z"
+    },
+    {
+      "name": "options-prefetch-15362ee5bd00",
+      "startedAt": "2026-10-30T01:21:49.900Z",
+      "observed": {
+        "partitions": [
+          [
+            "callouts",
+            "top-feed",
+            "weekly",
+            true
+          ],
+          [
+            "callouts",
+            "top-feed",
+            "daily",
+            true
+          ]
+        ],
+        "requests": [
+          {
+            "period": "weekly",
+            "includeFollowedHolders": true,
+            "followedHoldersLimit": 5
+          },
+          {
+            "period": "daily",
+            "includeFollowedHolders": true,
+            "followedHoldersLimit": 5
+          }
+        ],
+        "policy": {
+          "focus": true,
+          "stale": 300000,
+          "retry": 3
+        }
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T01:21:49.919Z"
+    },
+    {
+      "name": "error-refetch-memo-15362ee5bd00",
+      "startedAt": "2026-10-30T01:21:49.919Z",
+      "observed": {
+        "requests": 2,
+        "refetchReturn": "undefined",
+        "sameArrayMutationIgnored": true,
+        "newArrayObserved": true,
+        "errorAfterInvalidRows": "Could not load top callouts"
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T01:21:49.943Z"
+    },
+    {
+      "name": "mapping-a77c407f788d",
+      "startedAt": "2026-10-30T01:21:49.943Z",
+      "observed": {
+        "rows": [
+          "cid:first",
+          "cid:last"
+        ],
+        "request": {
+          "operation": "GET /pnl-leaderboard/positions",
+          "query": {
+            "period": "daily"
+          },
+          "credentials": "include",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "hasSignal": true
+        },
+        "authorExcluded": true
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T01:21:49.955Z"
+    },
+    {
+      "name": "options-prefetch-a77c407f788d",
+      "startedAt": "2026-10-30T01:21:49.955Z",
+      "observed": {
+        "partitions": [
+          [
+            "callouts",
+            "top-feed",
+            "weekly",
+            true
+          ],
+          [
+            "callouts",
+            "top-feed",
+            "daily",
+            true
+          ]
+        ],
+        "requests": [
+          {
+            "period": "weekly",
+            "includeFollowedHolders": true,
+            "followedHoldersLimit": 5
+          },
+          {
+            "period": "daily",
+            "includeFollowedHolders": true,
+            "followedHoldersLimit": 5
+          }
+        ],
+        "policy": {
+          "focus": true,
+          "stale": 300000,
+          "retry": 3
+        }
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T01:21:49.966Z"
+    },
+    {
+      "name": "error-refetch-memo-a77c407f788d",
+      "startedAt": "2026-10-30T01:21:49.966Z",
+      "observed": {
+        "requests": 2,
+        "refetchReturn": "undefined",
+        "sameArrayMutationIgnored": true,
+        "newArrayObserved": true,
+        "errorAfterInvalidRows": "Could not load top callouts"
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T01:21:49.983Z"
+    }
+  ],
+  "errors": [],
+  "origin": "http://127.0.0.1:40109",
+  "cleanup": {
+    "queryListeners": 0,
+    "rootChildren": 0
+  },
+  "status": "PASS",
+  "browserClosed": true,
+  "serverListening": false,
+  "endedAt": "2026-10-30T01:21:50.036Z",
+  "afterInputs": [
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js",
+      "bytes": 3932,
+      "sha256": "829eadd8a1a441d25be0cb93b00e16a0d0c20fd294db95d8f2ed87e6954b7182"
+    },
+    {
+      "path": "node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js",
+      "bytes": 2154,
+      "sha256": "fe3e2b20c1ebb57c3b390c8f685ad1e04e6f493517fa7e432f4351bb77a1a4d0"
+    },
+    {
+      "path": "node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js",
+      "bytes": 58353,
+      "sha256": "c25853fd31addfce188b01061fe85bfe667d5fb6c7a7bbb1c83d0ddfd8627acc"
+    },
+    {
+      "path": "node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js",
+      "bytes": 1670,
+      "sha256": "184d5c4a83512e3f49d4d5b52f7073f601f933bad11f1fbb3ad364ca5e6478e1"
+    },
+    {
+      "path": "node_modules/.pnpm/base-x@3.0.11/node_modules/base-x/src/index.js",
+      "bytes": 4236,
+      "sha256": "eaf1b7363a6a3144f0297786c8dc8ae6b84c2b43e096c0b009ab31d8d599a274"
+    },
+    {
+      "path": "node_modules/.pnpm/bs58@4.0.1/node_modules/bs58/index.js",
+      "bytes": 140,
+      "sha256": "0cfcec7b298a0c33588b432fad41e2fba216336d34ffd8c13422d21d3134ab57"
+    },
+    {
+      "path": "reconstruction/search-navigation/navigation.mjs",
+      "bytes": 5429,
+      "sha256": "3df06f823f7ad2fe9888a640a369c8e26f7566e28dcb6961ac7b89d7e6a7c6c5"
+    },
+    {
+      "path": "reconstruction/top-feed-state/client.mjs",
+      "bytes": 12991,
+      "sha256": "abff332ccbf83ceb9f80dd5f97fc3309ff86c509f300f58666a066e1e662b827"
+    },
+    {
+      "path": "reconstruction/top-feed-state/qualification/helper-ports.mjs",
+      "bytes": 17972,
+      "sha256": "2fee81d5196bc7f13d30c594c6dd4a601a821e298bf7320999a95dae815f8f29"
+    },
+    {
+      "path": "reconstruction/top-feed-state/qualification/fixture.mjs",
+      "bytes": 9934,
+      "sha256": "e52bf5d94c1e3f5f8e59172542524bf8fdd66ddb9163163cd35ff41559b8eee5"
+    },
+    {
+      "path": "reconstruction/top-feed-state/qualification/browser.mjs",
+      "bytes": 6318,
+      "sha256": "8b5adb4943ddd28db1618344fba198872e38e33da497402748ce9745e0381034"
+    }
+  ]
+}
