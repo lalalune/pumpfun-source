@@ -303,7 +303,7 @@ fn validate(st:&CtoState,holder:bool,fee:Option<u64>,new:Option<Pubkey>,holder_k
 
 
 
-  let Some(t)=new else{return Err(error!(PumpError::CtoNewCreatorRequired));};
+  let t=if let Some(t)=new{t}else{return Err(error!(PumpError::CtoNewCreatorRequired));};
   if t==Pubkey::default(){return Err(error!(PumpError::CreatorShouldNotBeZero).with_pubkeys((t,Pubkey::default())));}
 
 
@@ -560,8 +560,19 @@ fn validate(st:&CtoState,holder:bool,fee:Option<u64>,new:Option<Pubkey>,holder_k
   let do_coin=coin_present&&!token_frozen(a.coin_creator_vault_ata.as_ref())?;
   if !collection_native||coin_present{anchor_spl::associated_token::create_idempotent(CpiContext::new(a.associated_token_program.to_account_info(),anchor_spl::associated_token::Create{payer:a.admin_set_creator_authority.to_account_info(),associated_token:a.current_creator_quote_token_account.to_account_info(),authority:a.current_creator.to_account_info(),mint:a.quote_mint.to_account_info(),system_program:a.system_program.to_account_info(),token_program:a.quote_token_program.to_account_info()}))?;}
   if do_collect{
-    if let Some((collected,quote_mint))=crate::collect_v2::collect(&a.current_creator,a.current_creator_quote_token_account.as_ref(),&a.creator_vault,ctx.bumps.creator_vault,a.creator_vault_quote_token_account.as_ref(),a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),&a.quote_token_program,a.system_program.as_ref())?{
-     let e=CollectCreatorFeeEvent{timestamp:Clock::get()?.unix_timestamp,creator:a.current_creator.key(),creator_fee:collected,quote_mint};emit!(e);emit_cpi!(e);
+    let event_signers:[&[&[u8]];1];if let Some((collected,quote_mint))=crate::collect_v2::collect(&a.current_creator,a.current_creator_quote_token_account.as_ref(),&a.creator_vault,ctx.bumps.creator_vault,a.creator_vault_quote_token_account.as_ref(),a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),&a.quote_token_program,a.system_program.as_ref())?{
+     let e=CollectCreatorFeeEvent{timestamp:Clock::get()?.unix_timestamp,creator:a.current_creator.key(),creator_fee:collected,quote_mint};emit!(e);
+     {
+         let authority_info=ctx.accounts.event_authority.to_account_info();
+         let authority_bump=ctx.bumps.event_authority;
+         let disc=anchor_lang::event::EVENT_IX_TAG_LE;
+         let inner_data=anchor_lang::Event::data(&e);
+         let ix_data:Vec<u8>=disc.into_iter().map(|b|*b).chain(inner_data.into_iter()).collect();
+         let ix=anchor_lang::solana_program::instruction::Instruction::new_with_bytes(crate::ID,&ix_data,vec![anchor_lang::solana_program::instruction::AccountMeta::new_readonly(*authority_info.key,true)]);
+         let event_inner:&[&[u8]]=&[b"__event_authority",&[authority_bump]];
+         event_signers=[event_inner];
+         anchor_lang::solana_program::program::invoke_signed(&ix,&[authority_info],&event_signers).map_err(anchor_lang::error::Error::from)?;
+     }
     }
   }
   if do_coin{
@@ -569,17 +580,6 @@ fn validate(st:&CtoState,holder:bool,fee:Option<u64>,new:Option<Pubkey>,holder_k
  }}Ok(())}
  let swept;
 // layout-pad(75): aligns the next Source site with the original line
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -750,9 +750,9 @@ fn validate(st:&CtoState,holder:bool,fee:Option<u64>,new:Option<Pubkey>,holder_k
 
  }None=>{}}
  let (old_creator,old_fee)={
-  let curve=&mut ctx.accounts.bonding_curve;let old_creator=curve.creator;
+  let curve=&mut ctx.accounts.bonding_curve;let old_creator=curve.creator;let old_fee=curve.creator_fee_bps;
   curve.creator=target;
-  curve.is_cashback_coin=cashback;let old_fee=curve.creator_fee_bps;
+  curve.is_cashback_coin=cashback;
   curve.is_holder_reward=holder;
   if let Some(f)=fee{curve.creator_fee_bps=f;}
   curve.can_edit_creator_fee=false;

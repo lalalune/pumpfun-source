@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Offline original-vs-recovered Pump administrative instruction differential tests."""
 import argparse, base64, hashlib, json, pathlib
+from pump_differential_output import PumpReport
 from solders.account import Account
 from solders.instruction import AccountMeta, Instruction
 from solders.keypair import Keypair
@@ -72,6 +73,11 @@ def main():
     p.add_argument('--candidate', type=pathlib.Path, required=True)
     p.add_argument('--output', type=pathlib.Path, required=True)
     a = p.parse_args()
+    report_roots = (ROOT/"evidence", ROOT/'programs/pump')
+    report_inputs = [report_roots[1]] + [path for folder in report_roots
+                     for path in folder.rglob("*") if path.is_file()]
+    report_inputs.append(ROOT/"research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json")
+    report_output = PumpReport(a.output, ROOT, a.candidate, __file__, extra_inputs=report_inputs)
     a.candidate = pin_program(a.candidate)
     original = ROOT / 'evidence/original/pump/deployed.so'
     cases = []
@@ -100,8 +106,7 @@ def main():
     mismatches = [i for i,c in enumerate(cases) if not c['match']]
     sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
     report = {'scope':'Four recovered administrative handlers only; local synthetic-authority state, not full program equivalence.', 'original_sha256':sha(original), 'candidate_sha256':sha(a.candidate), 'source_sha256':sha(ROOT/'programs/pump/src/lib.rs'), 'case_count':len(cases), 'mismatches':mismatches, 'cases':cases}
-    a.output.parent.mkdir(parents=True, exist_ok=True)
-    a.output.write_text(json.dumps(report, indent=2)+'\n')
+    report_output.write((json.dumps(report, indent=2)+'\n').encode('utf-8'))
     print(json.dumps({'case_count':len(cases), 'mismatches':mismatches}))
     for i in mismatches:
         c=cases[i];print(c['instruction'],c.get('value'),c['mutation'],c['original']['error'],c['candidate']['error'])
