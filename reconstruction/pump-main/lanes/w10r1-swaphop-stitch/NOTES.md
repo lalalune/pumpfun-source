@@ -49,5 +49,22 @@ stxdw [b28]` spill of the Global pointer appears (the 0x10 shift at the region 2
 | **+ fee_inputs + global-first** | **18,584** | **0.97464** | **680** | **0/0** |
 | + fee_inputs + post_fill `let global` | 18,584 | 0.96458 | 874 | 0/0 |
 
+## Composite 4 (merged as #2574): + post_fill-branch Global binding
+`let global: &Global = &a.global;` at the top of the post_fill accrue branch (x1-p2-post-fill-global-before-curve-stores):
+0.97464/680 -> **0.97551/672** at 18,584 B, zero losses. Main 3cf8eed08 now carries this source.
+
+## Rejected on the composite (all zero normalized losses, but size or slots worse)
+| trial | bytes | ratio | slots | note |
+|---|---:|---:|---:|---|
+| + d1 (match complete_fill Some-first + bind adapter_difference) | 18,584 | 0.98076 | 736 | fewer unmatched insns (58 -> 44), but an 8-byte-shifted stretch in region 3 |
+| + adapter_difference bind only | 18,592 | 0.98142 | - | +8 B, 696 raw losses |
+| + match complete_fill only | 18,576 | 0.9696 | - | -8 B, 696 raw losses |
+| x1 + le + complete_fill None-first (`let fill; match fill {None,Some}`) | 18,544 | 0.8851 | - | -40 B |
+
+## Remaining residual (main 3cf8eed08, 56 unmatched original instructions: 0/11/35/10 per quarter)
+- region 2: `?` polarity at post_fee_amount (orig `jeq tag,2,+1; ja err`, ours `jne`) and at the buy-arm get_fees (orig `jne`, ours `jeq +1; ja`); `mov r9,r3; stxdw [-0xfe8]` scheduled 4 insns early.
+- region 3: the raw_output `checked_add(..).ok_or_else(..)` closure block is laid out after the `jeq r2,2` block (orig: right after the check); the over-reserves / complete_fill dispatch blocks (region3 lane R2/R4).
+- region 4: post_fill test before HopOutput (orig `jeq r1,0` with Some falling through; ours `jne +1; ja`), the 8-byte shift after it.
+
 ## Trials
 See the ledger (lane w10r1-swaphop-stitch, keys 0x5b3b0-main-43daa2043-stitch-*).
