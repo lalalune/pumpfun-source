@@ -1,0 +1,40 @@
+{
+  "lane": "w13a25-cto-mintsink",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": {"224ff93a": {"ratio": 0.55123, "slots_diff": 3222}, "bf9a05d0": {"ratio": 0.55872, "slots_diff": 3323}},
+  "best_zero_loss": null,
+  "result": "angle exhausted: w13a12's mint-clone field sink (+0.012 at 27400 on 085e5df..9eb6c00) no longer gains on 224ff93 (+40 B, 0.54842) or bf9a05d (-8 B, 0.5564); on bf9a05d no single cross-block move of 861 gains at 27400 B",
+  "attempts": [
+    {"kind": "ir", "main": "224ff93", "edit": "sink mint owner/rent/flag", "ratio": 0.54842, "bytes": 27440},
+    {"kind": "ir", "main": "224ff93", "edit": "sink event_authority key", "ratio": 0.55542, "bytes": 27400},
+    {"kind": "ir", "main": "224ff93", "edit": "sink sharing_config owner", "ratio": 0.55974, "bytes": 27360},
+    {"kind": "ir", "main": "bf9a05d", "edit": "sink mint owner", "ratio": 0.5564, "bytes": 27392},
+    {"kind": "ir", "main": "bf9a05d", "edit": "sink sharing_config owner", "ratio": 0.56419, "bytes": 27336},
+    {"kind": "ir", "main": "bf9a05d", "edit": "movescan 861 edits", "best_at_27400": "none above main"},
+    {"kind": "ir", "main": "bf9a05d", "edit": "hoist cashback/holder curve-store zext to entry", "ratio": 0.5585, "bytes": 27392},
+    {"kind": "source", "main": "224ff93", "gene": "m_let", "ratio": 0.54921, "bytes": 27392},
+    {"kind": "source", "main": "bf9a05d", "gene": "m_let", "ratio": 0.55259, "bytes": 27384},
+    {"kind": "source", "main": "224ff93", "gene": "m_let2", "ratio": 0.54145, "bytes": 27360},
+    {"kind": "source", "main": "224ff93", "gene": "m_helper", "ratio": 0.54052, "bytes": 27392},
+    {"kind": "source", "main": "224ff93", "gene": "ea_let", "ratio": 0.54164, "bytes": 27400},
+    {"kind": "source", "main": "224ff93", "gene": "sc_let", "ratio": 0.5478, "bytes": 27384},
+    {"kind": "source", "main": "224ff93", "gene": "hr_first", "ratio": 0.55063, "bytes": 27400},
+    {"kind": "source", "main": "bf9a05d", "gene": "scx_own", "ratio": 0.54676, "bytes": 27456, "clonefeat": "6/3"},
+    {"kind": "source", "main": "bf9a05d", "gene": "eax_key", "ratio": 0.54769, "bytes": 27424}
+  ],
+  "rejected_mechanisms": [
+    "late re-read of one clone field (mint, sharing_config, event_authority) in any source spelling: let-bound clone, inline helper, let mut cpi patch",
+    "curve flag store order holder-first",
+    "IR hoist of the flag zexts"
+  ],
+  "unresolved_residuals": [
+    "holder/cashback are phi slots in the original (0x950 written on 5 paths, 0x958 on 6); ours keeps the cashback and-operands live across the sharing clone run (MachineSink)",
+    "spill-slot map (slotmap-bf9a05d.txt): 0xa50-0xb30 all +8 and 0x9e8-0xa08 +0x20 in ours; the low long-lived slots 0x8d8-0x9a0 are scrambled (accounts 0x8d8->0x8f0)"
+  ],
+  "next_ideas": [
+    "find the one extra spill above orig 0xa50 (ours +8 B for 0xa50-0xb30): removing it aligns about 40 tail slots",
+    "make cashback/holder phis through the validate arms (flags as phis of constants) so MachineSink cannot move the and",
+    "an off-size clone-run sink (sharing_config owner, -64 B, +0.0055) only pays with a neutral +64 B source knob"
+  ],
+  "tools": ["scripts/sinkrun.sh", "scripts/slotmap.py", "scripts/var.py", "scripts/trial.sh", "scripts/edit_hoist.py"]
+}
