@@ -1,0 +1,330 @@
+import assert from 'node:assert/strict';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { parse } from '@babel/parser';
+import { generate } from '@babel/generator';
+import { openCorpus, findNodes, exactlyOne, propertyName, objectProperty, sha256 } from './original-contracts/source.mjs';
+
+export const APP_ROOT = fileURLToPath(new URL('..', import.meta.url));
+export const CLIENT = 'reconstruction/create-asset-picker/client.mjs';
+export const CONTRACT = 'reconstruction/create-asset-picker/contract.json';
+const EXPECTED = [
+  {
+    "id": 734638,
+    "source": "evidence/web/objects/89ce7de3b9bad421.js",
+    "sha256": "616b013f89f1cf3e446817865c602c16b9eb6f07e09fa05145c0191ce60f63bc"
+  },
+  {
+    "id": 267951,
+    "source": "evidence/web/objects/f4e16ef1b0b97d5e.js",
+    "sha256": "d4fe78bdcc5e788c8f3bf51f21cf9ec2f7ca14e945e99f11f3636d006dcfd2a5"
+  },
+  {
+    "id": 449597,
+    "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+    "sha256": "27810e842f44349bdbc7a4559242349452788688f52ca1a227ddbb3e8f5dbb97"
+  },
+  {
+    "id": 997887,
+    "source": "evidence/web/objects/020facfab961bf67.js",
+    "sha256": "b3f04a9fc27d4a13b26872efbdca69f8326a8076803e24b93eff8539c4f6636c"
+  },
+  {
+    "id": 493025,
+    "source": "evidence/web/objects/fd402d4185b44ce9.js",
+    "sha256": "caf75bc3eccbd7ed43e0b67b65d9dedd31c7e24427113ed4848f6401fd852d81"
+  },
+  {
+    "id": 47938,
+    "source": "evidence/web/objects/6a1606765ef3e83e.js",
+    "sha256": "8f0ac69ea9ce9f4220425f29d1986008bc10174b9bfd3abed6abd23fa06fd8e9"
+  },
+  {
+    "id": 951425,
+    "source": "evidence/web/objects/14e6e6128bf5710e.js",
+    "sha256": "7dd498502d5d70fe363f0a4f8d20df5b4159b1571f93bcbb838e79df3d389eb4"
+  },
+  {
+    "id": 951425,
+    "source": "evidence/web/objects/6a1606765ef3e83e.js",
+    "sha256": "617750132c3b8a99c60548fa1964189cd658405c112604030e3e4b4b01bcafef"
+  },
+  {
+    "id": 951425,
+    "source": "evidence/web/objects/510a393a71ae05c0.js",
+    "sha256": "7e079868c16a61fd025d9a46ef6438907b560a66a2e0ac20578101309f5f1a42"
+  },
+  {
+    "id": 951425,
+    "source": "evidence/web/objects/57624d7eddba52e1.js",
+    "sha256": "20649e79234e3a771cec5a4adf840f785392c6888c8e9b5417dcfd19c10262a9"
+  },
+  {
+    "id": 951425,
+    "source": "evidence/web/objects/767cc801e3f88f8b.js",
+    "sha256": "48f2899dffb05521a2e57c0ff8994c3b05a41ce983ff42c31b3ebdf0b52bc6ef"
+  },
+  {
+    "id": 951425,
+    "source": "evidence/web/objects/730ffeda1be91104.js",
+    "sha256": "e8bbe8ef06d10fbe3f66478b767e122319f33f739dd1df50164be2227c2f6d76"
+  },
+  {
+    "id": 896024,
+    "source": "evidence/web/objects/bf334c55745d2868.js",
+    "sha256": "5f91b0b725d81c9630192527b009b53b2ef977507fc008bd88ed3c1b7b46e0c2"
+  },
+  {
+    "id": 896024,
+    "source": "evidence/web/objects/7a7f27bff952614d.js",
+    "sha256": "df0e4b3faaf933918637fa3e4300b19c05695ed7b80a5ec06e7b620a01b63267"
+  },
+  {
+    "id": 187611,
+    "source": "evidence/web/objects/a0ec47219f76f808.js",
+    "sha256": "bd62a3ae8bc3cb897b656e246f762a897468e49c9752cfbe9e82f51de8397c3b"
+  },
+  {
+    "id": 445242,
+    "source": "evidence/web/objects/01ad4f413e529b60.js",
+    "sha256": "2d7f3e592645b5e2d997e444ee9b10be6dc8c357680552dccddafb63e4887576"
+  },
+  {
+    "id": 732486,
+    "source": "evidence/web/objects/e01139c6299580b1.js",
+    "sha256": "1327928dc08f8c5ad213c67d8b2b042e579ca141db8b23ac448bf178077cfadd"
+  },
+  {
+    "id": 352386,
+    "source": "evidence/web/objects/e01139c6299580b1.js",
+    "sha256": "94c140de6329c130f107d5731a5574eec51cc1a23c2266c2d99db6dea7a71d88"
+  },
+  {
+    "id": 536925,
+    "source": "evidence/web/objects/d048caae282716b0.js",
+    "sha256": "d503628851adb78d1e27064e5c50a64ad4d9075116954601b84277b6c5e2bb79"
+  },
+  {
+    "id": 759257,
+    "source": "evidence/web/objects/1e479323ffe53c14.js",
+    "sha256": "e1c207697339004b48f6baa9f81f34e7644686ee424616b553e55b23c659b855"
+  },
+  {
+    "id": 690877,
+    "source": "evidence/web/objects/d53e210f3ad485f2.js",
+    "sha256": "d7f6154cd14d89343ad7f9e12d735a944bdc0061f2dee2ed1d679793c885ab95"
+  },
+  {
+    "id": 213618,
+    "source": "evidence/web/objects/d53e210f3ad485f2.js",
+    "sha256": "51dfcf4d66e10db47386983ceac9966f73e3f347ae13be7769c4eefd17e6c93c"
+  },
+  {
+    "id": 369091,
+    "source": "evidence/web/objects/7128bd47b219d222.js",
+    "sha256": "088fd0b0aa42de2a5d4a2797e3fbc2190ae623da2e301374857636ac7c9caa29"
+  },
+  {
+    "id": 369091,
+    "source": "evidence/web/objects/d048caae282716b0.js",
+    "sha256": "d75fd268adfb74ad9472afcdb0f4d73b7a11ac4f568c83048ad8ed7dff054ee1"
+  },
+  {
+    "id": 358893,
+    "source": "evidence/web/objects/11cf0bf8a734ea43.js",
+    "sha256": "5adc58d562f652cfc69ab06c0735b0bc196440d952f1f2fc61eaaa8725dd3edf"
+  },
+  {
+    "id": 466931,
+    "source": "evidence/web/objects/1e479323ffe53c14.js",
+    "sha256": "94b38786eef00e48e94b02ada3f9c296c4b776e735917557554f38d8ccbd8b17"
+  },
+  {
+    "id": 90832,
+    "source": "evidence/web/objects/a0ec47219f76f808.js",
+    "sha256": "4338f013e20debf9abf08d64e2fd71df845208712ad7737a91216f3b9c48da90"
+  },
+  {
+    "id": 338319,
+    "source": "evidence/web/objects/12a924bb94557764.js",
+    "sha256": "5b27b6647671eec79898f430326e92e0e8c08d9fc9e2984c70a664def7ae1cb2"
+  },
+  {
+    "id": 34011,
+    "source": "evidence/web/objects/b52b9253b1dcf191.js",
+    "sha256": "2e47964258000544484a80e0c6e499ba920ed0e03ea6569981e17352426690c0"
+  },
+  {
+    "id": 116830,
+    "source": "evidence/web/objects/f4e16ef1b0b97d5e.js",
+    "sha256": "59491fa0e77487cd69c955090386b49cb2cd483c1fc01acda984bf39f8c9f060"
+  },
+  {
+    "id": 967694,
+    "source": "evidence/web/objects/c730cb27a185a8ad.js",
+    "sha256": "8356ccfd73b9416c56cce89c18387b8df8042da9ce534b4206c68a75500134dc"
+  },
+  {
+    "id": 967694,
+    "source": "evidence/web/objects/2d59b7c63a95235e.js",
+    "sha256": "759d2f3b02e0a5dac88ecbb0dc9a784c4339812a626c4bf803f48d68f4ea9902"
+  },
+  {
+    "id": 967694,
+    "source": "evidence/web/objects/6a1606765ef3e83e.js",
+    "sha256": "ac26d6aa4316d161e1a17a8decbf80ecdc2412504ebef429f69455b2479e066d"
+  },
+  {
+    "id": 967694,
+    "source": "evidence/web/objects/c02c04ce3dfbfd3c.js",
+    "sha256": "bbb238432d0b7cf88117814397aeff6c5948db4aaa8ea7be4d5b8f1e0cb3de93"
+  },
+  {
+    "id": 967694,
+    "source": "evidence/web/objects/c9d58b1f7b1c6f01.js",
+    "sha256": "bd26305012bbdf8e888e022929409ef6e2e8187c95f851dc8a82399126860180"
+  },
+  {
+    "id": 967694,
+    "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+    "sha256": "826f227869326535ec0c5d363e4df067aeea54b13fa8202b3164f7c0d9961056"
+  },
+  {
+    "id": 248496,
+    "source": "evidence/web/objects/b52b9253b1dcf191.js",
+    "sha256": "98c7083f780ae537f4559367a338f469e2d9897504c37398858270a41e5d5da1"
+  },
+  {
+    "id": 114081,
+    "source": "evidence/web/objects/6a1606765ef3e83e.js",
+    "sha256": "205dc7d8a4be019a6409c922c0b3c9669cf20f0338aecdd9db6863a5af75e4c3"
+  }
+];
+const one = (scope, test, label) => exactlyOne(findNodes(scope, test), label);
+const print = (node) => generate(node, { comments: false }).code;
+const cite = (f, n, label, includeText = true) => ({ ...f.witness(n, label), astType: n.type, ...(includeText ? { text: f.text(n) } : {}) });
+const declarations = (f) => f.node.body.body.flatMap((n) => n.type === 'VariableDeclaration' ? n.declarations : [n]);
+const declaration = (f, name) => exactlyOne(declarations(f).filter((n) => n.id?.name === name), name);
+function exported(f, key) {
+  const matches = [];
+  for (const s of f.node.body.body) {
+    const n = s.expression;
+    if (n?.type !== 'CallExpression' || n.callee.object?.name !== f.runtime || propertyName(n.callee.property) !== 's' ||
+      (n.arguments[1] && n.arguments[1].value !== f.provenance.id)) continue;
+    const values = n.arguments[0].elements;
+    for (let i = 0; i < values.length; i += 3) if (values[i]?.value === key) matches.push(values[i + 2]);
+  }
+  return exactlyOne(matches, `export ${f.provenance.id}.${key}`);
+}
+const resolve = (f, n) => n.type === 'Identifier' ? declaration(f, n.name).init ?? declaration(f, n.name) : n;
+const imported = (f, id) => exactlyOne(declarations(f).filter((n) => n.init?.type === 'CallExpression' &&
+  n.init.callee.object?.name === f.runtime && n.init.arguments[0]?.value === id), `import ${id}`);
+
+export async function recover(root = APP_ROOT) {
+  const corpus = await openCorpus(root), roles = [];
+  for (const role of EXPECTED) {
+    const f = await corpus.factory(role.id, { source: role.source });
+    assert.equal(f.provenance.sha256, role.sha256, `review changed ${role.id}/${role.source}`);
+    roles.push(f);
+  }
+  for (const id of new Set(EXPECTED.map((r) => r.id))) assert.deepEqual(
+    corpus.index.modules.filter((m) => m.ids.includes(id)).map((m) => m.sha256).sort(),
+    EXPECTED.filter((r) => r.id === id).map((r) => r.sha256).sort(), `all indexed ${id} variants explicit`);
+  const get = (id, source) => exactlyOne(roles.filter((f) => f.provenance.id === id && (!source || f.provenance.source === source)), `role ${id}`);
+  const f = get(734638), risk = get(267951), quote = get(449597), read = get(997887), normalize = get(493025);
+  const styleRoles = roles.filter((r) => r.provenance.id === 951425), categoryRoles = roles.filter((r) => r.provenance.id === 896024);
+  const controls = ['em', 'eM', 'eD', 'eF', 'eB'].map((name) => declaration(f, name));
+  const [categories, picker, row, loading, skeleton] = controls;
+  const localHelpers = ['el', 'ec', 'eU', 'ev', 'ew', 'eS', 'eO', 'eP', 'eR'].map((name) => declaration(f, name));
+  const memoSlots = (n) => findNodes(n, (x) => x.type === 'CallExpression' && x.callee.type === 'SequenceExpression' &&
+    x.callee.expressions.at(-1)?.object?.name === '_' && x.callee.expressions.at(-1)?.property?.name === 'c').map((x) => x.arguments[0]?.value);
+  assert.deepEqual(controls.map(memoSlots), [[25], [54, 34], [31], [1], []]);
+  const queryBody = one(picker, (n) => n.type === 'FunctionExpression' && memoSlots(n).includes(34), 'complete used inline search hook');
+  const queryCall = one(queryBody, (n) => n.type === 'CallExpression' && n.callee.type === 'SequenceExpression' &&
+    n.callee.expressions.at(-1)?.object?.name === 'ep', 'actual useQuery handoff');
+  const queryOptions = one(queryBody, (n) => n.type === 'ObjectExpression' && n.properties.some((p) => propertyName(p.key) === 'queryKey'), 'complete query options');
+  assert.deepEqual(queryOptions.properties.map((p) => propertyName(p.key)), ['queryKey', 'enabled', 'staleTime', 'placeholderData', 'select', 'queryFn']);
+  const request = one(queryBody, (n) => n.type === 'CallExpression' && n.arguments[0]?.value === 'GET /coins/search-unrestricted', 'used request call');
+  const select = one(queryBody, (n) => n.type === 'ArrowFunctionExpression' && n.body.type === 'CallExpression' && n.body.callee.property?.name === 'filter', 'complete eligibility selector');
+  const actualGateway = one(f.node, (n) => n.type === 'CallExpression' && n.arguments[0]?.name === 'eM' && n.arguments[1]?.type === 'ObjectExpression', 'actual eL to eM caller');
+  const defaultMount = one(f.node, (n) => n.type === 'CallExpression' && n.arguments[0]?.name === 'eq' && n.arguments[1]?.type === 'ObjectExpression' && n.arguments[1].properties.length === 0, 'actual default Create coordinator mount');
+  const caller = one(f.node, (n) => n.type === 'CallExpression' && n.arguments[0]?.name === 'eL' && n.arguments[1]?.type === 'ObjectExpression', 'actual eq to eL caller');
+  assert.deepEqual(actualGateway.arguments[1].properties.map((p) => propertyName(p.key)), ['isLoading', 'stocks', 'onSelect', 'onSelectPumpCoin', 'onClose']);
+  const input = one(picker, (n) => n.type === 'VariableDeclarator' && n.id?.type === 'ObjectPattern' && n.id.properties.some((p) => propertyName(p.key) === 'onSelectPumpCoin'), 'complete picker input');
+  assert.deepEqual(input.id.properties.map((p) => propertyName(p.key)), ['isLoading', 'stocks', 'onSelect', 'onSelectPumpCoin', 'onClose']);
+  const riskFn = exported(risk, 'z'), sol = resolve(quote, exported(quote, 'Q')), usdc = resolve(quote, exported(quote, 'Y'));
+  const quoteConstants = ['n', 'r', 'i', 'o', 'u'].map((name) => declaration(quote, name));
+  const styles = {};
+  for (const key of ['s', 'x', 'n', 'B', 'e', 'N', 'C']) {
+    const values = styleRoles.map((r) => resolve(r, exported(r, key)));
+    assert.ok(values.every((v) => print(v) === print(values[0])), `selected style export ${key} agrees across six contexts`);
+    styles[key] = values[0];
+  }
+  const label = exported(get(187611), 'T'); assert.equal(print(label), '(e, t) => e');
+  const placeholder = exported(get(213618), 'y'); assert.equal(placeholder.type, 'FunctionExpression');
+  const requestError = declaration(f, 'eE'), mintRead = declaration(f, 'eN');
+  const stockReader = get(47938), stockHook = exported(stockReader, 'u'), stockOptions = declaration(stockReader, 'x');
+  const stockFull = exported(stockReader, 's');
+  const mapper = exported(normalize, 'f'), identity = resolve(read, exported(read, 'l'));
+  assert.equal(print(identity), 'e => e', 'read is identity, not a response schema admission');
+  const readerPort = one(queryBody, (n) => n.type === 'CallExpression' && n.callee.type === 'SequenceExpression' && n.callee.expressions.at(-1)?.object?.name === 'ef', 'unfiltered supported-mints reader');
+  assert.equal(readerPort.callee.expressions.at(-1).property.name, 'u'); assert.equal(readerPort.arguments.length, 0);
+  const dependencyImports = [445242,732486,352386,398902,745018,951425,896024,213618,690877,536925,997887,47938,466931,369091,358893,493025,267951,449597,759257,90832,187611,338319,34011,116830,967694,248496,114081].map((id) => imported(f,id));
+  const code = `export function createQuoteAssetPicker({React,compiler,jsxRuntime,useTranslation,useDebouncedValue,useIpfsPrefix,useIncludeNsfw,useSupportedMints,useQuery,getContractClient,readCoins,normalizeCoins,reportError,formatUsd,classes,CategorySelector,StockArt,CoinAvatar,CoinName,LoadError,Skeleton,CloseIcon,SearchIcon}){
+    const m=React,_={c:compiler},t=jsxRuntime,u={f:useTranslation},ex={r:useDebouncedValue},e_={useIpfsPrefix},eg={M:useIncludeNsfw},ef={u:useSupportedMints},ep={useQuery},et={j:getContractClient},eh={l:readCoins},ey={f:normalizeCoins},eb={l:reportError},G={N:formatUsd},ek={c:classes},ed={f:CategorySelector},en={f:StockArt},ej={CoinAvatar},eC={f:CoinName},eT={f:LoadError},eI={l:Skeleton},a={AD:CloseIcon,L3:SearchIcon};
+    const P={z:${print(riskFn)}},z=(()=>{let ${quoteConstants.map(print).join(',')};const Q=${print(sol)},Y=${print(usdc)};return{Q,Y}})(),eA={T:${print(label)}},eu={y:${print(placeholder)}},eo={${Object.entries(styles).map(([k,v])=>`${JSON.stringify(k)}:${print(v)}`).join(',')}};
+    let ${localHelpers.map(print).join(',')};
+    ${print(requestError)}
+    ${print(mintRead)}
+    ${controls.map(print).join('\n')}
+    return {Picker:eM};
+  }`;
+  const client = generate(parse(code, {sourceType:'module'}), {comments:false}).code+'\n';
+  const witnesses = [
+    ...controls.map((n)=>cite(f,n,`complete ${n.id.name} source component`)),
+    ...localHelpers.map((n)=>cite(f,n,`complete ${n.id.name} local helper/constant`)),
+    cite(f,queryBody,'complete actually invoked inline query hook'), cite(f,queryCall,'actual useQuery handoff'), cite(f,queryOptions,'complete original options and precedence'),
+    cite(f,request,'actual request body and AbortSignal'), cite(f,select,'complete original eligibility/dedup selector'),
+    cite(f,actualGateway,'actual eL open-only picker caller'),cite(f,caller,'actual coordinator gateway call',false),cite(f,input,'exact five-field picker signature'),
+    cite(f,declaration(f,'eL'),'complete external open-only gateway'),cite(f,declaration(f,'eq'),'complete external coordinator caller',false),cite(f,defaultMount,'actual default Create coordinator mount'),
+    cite(f,requestError,'original afterResponse rejection'),cite(f,mintRead,'supported mint projection'),
+    cite(risk,riskFn,'actual Mayhem-state-presence classifier'),cite(quote,sol,'actual SOL quote classifier'),cite(quote,usdc,'actual USDC quote classifier'),
+    ...quoteConstants.map((n)=>cite(quote,n,`used quote constant ${n.id.name}`)),
+    cite(read,identity,'identity read, not schema parser'),cite(normalize,mapper,'existing normalizer external-port signature/body'),
+    cite(stockReader,stockHook,'unfiltered supported-mints useQuery reader'),cite(stockReader,stockOptions,'supported-mints shared options'),cite(stockReader,stockFull,'distinct filtered stock-list reader, not used here'),
+    cite(get(187611),label,'existing identity label helper'),cite(get(213618),placeholder,'keep previous query data identity'),
+    ...dependencyImports.map((n)=>cite(f,n,`actual import ${n.init.arguments[0].value}`)),
+    ...styleRoles.flatMap((r)=>['s','x','n','B','e','N','C'].map((key)=>cite(r,resolve(r,exported(r,key)),`literal row style ${key}; selected contexts agree`))),
+    ...categoryRoles.map((r)=>cite(r,exported(r,'f'),'external category selector signature/body',false)),
+    ...roles.filter((r)=>[536925,369091,358893,759257,690877,466931,90832,338319,34011,116830,967694,248496,114081].includes(r.provenance.id)).map((r)=>cite(r,r.node,`external capability context ${r.provenance.id}`,false)),
+  ];
+  const contract = {schemaVersion:1,sourceCommit:'094a06f18df738d41e77070c1a009e135671ac1a',sources:roles.map((r)=>r.provenance),witnesses,
+    implementation:{entry:'createQuoteAssetPicker',components:['em','eM','eD','eF','eB'],compilerSlots:[25,54,34,31,1],totalCompilerSlots:145,clientSha256:sha256(Buffer.from(client)),mounted:false},
+    actualCallers:{gateway:'eL mounts eM only while open with exactly five fields; eq caller remains attributed to1906',parent:'default Create mounts eq; no default component execution'},
+    behavior:{request:'Injected getContractClient() called by queryFn with GET /coins/search-unrestricted, exact query, credentials include, context signal and afterResponse hook; no real transport acquisition.',
+      query:'Full original key/options/memo/effect/refetch; query is enabled by nonempty debounced term even when category hides Pump rows. Query cache/scheduling and debounce are external ports.',
+      selection:'Source eligibility+first raw mint duplicate and supported-mint exclusions are preserved. No financial admission, authenticity or launch eligibility inference.',
+      local:'Stock category then case-insensitive symbol/ticker filtering. Search text is stored raw, trimmed for query/classification. Categories show only if a classified stock exists.',
+      display:'Full source row/loading/error/no-results handoff, exact stock reference callbacks and Pump references. Supplied monetary formatting is display-only, no price calculation.',
+      mapper:'997887.l is identity, not schema validation.493025 mutating normalizer/URI rewrite are already maintained in search-session; required typed ports, not copied or newly credited.',
+      errors:'Full afterResponse error and error-report effect. isError masks query data even if fetching; exposed isError requires !isFetching. Report port receives mint only if original regex matches.',
+      pointer:'Mouse pointerdown stops propagation; touch/pen unchanged; original dismiss/keyboard policy external.'},
+    externalPorts:['React/compiler/JSX and useTranslation','Debounced tuple hook(value,250), IPFS-prefix snapshot, NSFW snapshot, unfiltered supported-mint query snapshot','useQuery complete options/result/signal/refetch; real cache/scheduler excluded','Contract client factory/call and already-attributed identity/normalizer','Error reporter only, no telemetry acquisition','Shared category/art/avatar/name/error/skeleton/icon/class/format renderer signatures'],
+    priorAttribution:['1906 coordinator/store gateway and275799 context; no runtime dependency on that open PR','1869 validation and1884 fee control separate','Main search-session already recovers997887.l/493025/426091; no schema engine added','Existing SDK quote classification is distinct; source literals/helpers reused only in actual picker gate','No new avatar/image/metadata/upload implementation; prior681/885/1817 unaffected'],
+    limits:['Captured factories are parsed but never executed. Full default Create, private H, provider acquisition, wallet/session, credentials/cookies, funding/upload/signing/transactions/submit excluded.',
+      'All indexed physical roles pinned; selected literal style exports agree only for used fields. No global active-loader/provider winner or original React runtime execution claim.',
+      'Synthetic query/debounce/provider/render ports qualify full selected used boundary; no real request, protected access, server schemas/ranking, current assets/prices, mounted site, native/API compatibility, security or milestone claim.']};
+  return {client,contract};
+}
+export async function verify(root=APP_ROOT, supplied={}) {
+  const result=await recover(root), expected={client:Buffer.from(result.client),contract:Buffer.from(JSON.stringify(result.contract,null,2)+'\n')};
+  for(const [key,relative] of [['client',CLIENT],['contract',CONTRACT]])assert.ok((supplied[key]??await readFile(path.join(root,relative))).equals(expected[key]), `${key} canonical source-derived bytes differ`);
+  return {sources:result.contract.sources.length,witnesses:result.contract.witnesses.length,components:5,compilerSlots:145,mounted:false};
+}
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
+  try{assert.equal(process.argv.length,3);assert.ok(['--check','--write'].includes(process.argv[2]));
+    if(process.argv[2]==='--write'){const {client,contract}=await recover();await mkdir(path.dirname(path.join(APP_ROOT,CLIENT)),{recursive:true});await writeFile(path.join(APP_ROOT,CLIENT),client);await writeFile(path.join(APP_ROOT,CONTRACT),JSON.stringify(contract,null,2)+'\n');}
+    console.log(JSON.stringify(await verify()));
+  }catch(error){console.error(error.stack);process.exitCode=1;}
+}
