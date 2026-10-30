@@ -58,6 +58,8 @@ def sha(data):
 
 
 def main():
+    if not __debug__:
+        raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--candidate', type=Path, required=True, help='Unstripped main Pump source build')
     parser.add_argument('--output', type=Path, required=True)

@@ -3,9 +3,14 @@ from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from threading import Thread
 from pathlib import Path
 import tempfile,unittest
+from unittest import mock
 import capture_retry
 ROOT=Path(__file__).resolve().parents[2]
 class CaptureContextTests(unittest.TestCase):
+ def test_string_encoding_option_remains_supported(self):
+  response={'context':{'slot':100},'value':None}
+  with mock.patch.object(capture_retry,'_archived_rpc',return_value=response):
+   self.assertEqual(capture_retry.contextual_rpc('local','getAccountInfo',['pubkey','base64']),response)
  def exercise(self,second,valid):
   payload=(ROOT/'evidence/original/pump/deployed.so').read_bytes()
   requests=[]

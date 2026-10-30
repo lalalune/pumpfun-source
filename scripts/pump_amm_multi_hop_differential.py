@@ -20,7 +20,7 @@ PUMP_GLOBAL=Pubkey.find_program_address([b'global'],PUMP)[0];PUMP_FEES=Pubkey.fi
 PUMP_GLOBAL=Pubkey.find_program_address([b'global'],PUMP)[0];PUMP_FEES=Pubkey.find_program_address([b'fee_config',bytes(PUMP)],FEES)[0];PUMP_EVENT=Pubkey.find_program_address([b'__event_authority'],PUMP)[0]
 
 def run(amount=10**9,limit=1,sell=False,tail=True,overrides=None,candidate=None,unsigned=False,separate_payer=False,payload_length=None,extra_data=b''):
- h=acquire_harness(candidate or ROOT/'evidence/original/pump_amm/deployed.so');h.vm.set_clock(Clock(100,1234567890,0,0,1234567890))
+ h=acquire_harness(pin_program(candidate or ROOT/'evidence/original/pump_amm/deployed.so'));h.vm.set_clock(Clock(100,1234567890,0,0,1234567890))
  for pid,p in [(TOKEN,'evidence/dependencies/spl_token/deployed.so'),(TOKEN22,'evidence/dependencies/spl_token_2022/deployed.so'),(FEES,'evidence/original/pump_fees/deployed.so'),(ATA,'evidence/dependencies/associated_token/deployed.so'),(PUMP,'evidence/original/pump/deployed.so')]:h.vm.add_program_from_file(pid,ROOT/p)
  for row in f['accounts'].values():h.vm.set_account(Pubkey.from_string(row['address']),Account(row['lamports'],base64.b64decode(row['data_base64']),Pubkey.from_string(row['owner'])))
  raw=bytearray(RAW);raw[56]=0;h.vm.set_account(CONFIG_KEY,Account(CONFIG['lamports'],bytes(raw),PROGRAM))
@@ -247,5 +247,5 @@ if __name__=='__main__':
    for bps in [0,1,100,10000]:
     for maximum in [123,2**64-1]:test(f'two-amm-tf-{sell}-{key}-{bps}-{maximum}',sell=sell,overrides=two_amm_tf(sell,key,bps,maximum))
  test('mixed-direction',overrides=mixed_direction)
- failures=[i for i,r in enumerate(rows)if r['mismatches']];sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest();output.write_text(json.dumps({'scope':'Bounded original-vs-candidate offline MultiHopSwap with normal verified test-owned signatures and captured dependencies. Synthetic fixture mutations.','candidate':str(candidate),'candidate_sha256':sha(candidate),'original_sha256':sha(ROOT/'evidence/original/pump_amm/deployed.so'),'case_count':len(rows),'passed':len(rows)-len(failures),'mismatches':failures,'cases':rows},separators=(',',':'))+'\n');print(len(rows),len(failures));raise SystemExit(bool(failures))
+ failures=[i for i,r in enumerate(rows)if r['mismatches']];sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest();output.write_text(json.dumps({'scope':'Bounded original-vs-candidate offline MultiHopSwap with normal verified test-owned signatures and captured dependencies. Synthetic fixture mutations.','candidate':str(candidate),'candidate_sha256':sha(pin_program(candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'case_count':len(rows),'passed':len(rows)-len(failures),'mismatches':failures,'cases':rows},separators=(',',':'))+'\n');print(len(rows),len(failures));raise SystemExit(bool(failures))
 

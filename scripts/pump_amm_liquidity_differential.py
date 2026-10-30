@@ -4,7 +4,7 @@ import sys,json,base64,struct,argparse,hashlib,pathlib,random
 from solders.clock import Clock
 sys.path.insert(0,'scripts')
 from pump_amm_admin_differential import *
-from pump_amm_reusable_harness import acquire_harness
+from pump_amm_reusable_harness import acquire_harness, pin_program
 TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');TOKEN22=Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb')
 f=json.load(open('research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json'));pool=Pubkey.from_string(f['pool']);poolraw=bytearray(base64.b64decode(f['accounts']['pool']['data_base64']));lp=Pubkey.from_bytes(bytes(poolraw[107:139]));supply=struct.unpack_from('<Q',poolraw,203)[0]
 base=Pubkey.from_string(f['keys']['base_mint']);quote=Pubkey.from_string(f['keys']['quote_mint']);vaultbase=Pubkey.from_string(f['keys']['pool_base_token_account']);vaultquote=Pubkey.from_string(f['keys']['pool_quote_token_account'])
@@ -14,7 +14,7 @@ def token(mint,owner,amount,native=False):
  if native:struct.pack_into('<IQ',data,109,1,2039280)
  return bytes(data)
 def run(name,amount,maxbase=2**64-1,maxquote=2**64-1,virtual=0,mint_supply=None, overrides=None, candidate=None,unsigned=False,payload_length=None):
- h=acquire_harness(candidate or ROOT/'evidence/original/pump_amm/deployed.so')
+ h=acquire_harness(pin_program(candidate or ROOT/'evidence/original/pump_amm/deployed.so'))
  h.vm.set_clock(Clock(100,1234567890,0,0,1234567890))
  h.vm.add_program_from_file(TOKEN,ROOT/'evidence/dependencies/spl_token/deployed.so');h.vm.add_program_from_file(TOKEN22,ROOT/'evidence/dependencies/spl_token_2022/deployed.so')
  glob=bytearray(RAW);glob[56]=0;h.vm.set_account(CONFIG_KEY,Account(CONFIG['lamports'],bytes(glob),PROGRAM))
@@ -110,7 +110,7 @@ def main():
    fee=rng.choice([0,1,10**9,10**11])
    test(n,'seeded-math='+str((i,amount,virtual,fee)),amount=amount,virtual=virtual,overrides=mutate(pool,271,struct.pack('<Q',fee)))
  failures=[i for i,r in enumerate(rows) if not r['match']];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
- report={'scope':'SBF deposit/withdraw: committed account bytes, lamports, errors, event bytes, exact inner CPI instructions. Captured classic SPL and Token2022 ELFs; synthetic transfer-fee extension cases. Not whole-program equivalence or exhaustive extension coverage.','original_sha256':sha(ROOT/'evidence/original/pump_amm/deployed.so'),'candidate_sha256':sha(args.candidate),'script_sha256':sha(pathlib.Path(__file__)),'harness_sha256':sha(ROOT/'scripts/pump_amm_reusable_harness.py'),'dependencies':{name:sha(ROOT/'evidence/dependencies'/name/'deployed.so') for name in ['spl_token','spl_token_2022']},'case_count':len(rows),'mismatches':failures,'cases':rows}
+ report={'scope':'SBF deposit/withdraw: committed account bytes, lamports, errors, event bytes, exact inner CPI instructions. Captured classic SPL and Token2022 ELFs; synthetic transfer-fee extension cases. Not whole-program equivalence or exhaustive extension coverage.','original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'candidate_sha256':sha(pin_program(args.candidate)),'script_sha256':sha(pathlib.Path(__file__)),'harness_sha256':sha(ROOT/'scripts/pump_amm_reusable_harness.py'),'dependencies':{name:sha(ROOT/'evidence/dependencies'/name/'deployed.so') for name in ['spl_token','spl_token_2022']},'case_count':len(rows),'mismatches':failures,'cases':rows}
  args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(failures),'mismatches':failures[:40]}))
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

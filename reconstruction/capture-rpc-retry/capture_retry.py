@@ -36,7 +36,8 @@ def contextual_rpc(url, method, params):
         slot = result.get('context', {}).get('slot') if isinstance(result, dict) else None
         if type(slot) is not int or slot < 0:
             raise ValueError('account response requires a nonnegative integer context slot')
-        minimum = params[1].get('minContextSlot') if len(params) > 1 else None
+        options = params[1] if len(params) > 1 else None
+        minimum = options.get('minContextSlot') if isinstance(options, dict) else None
         if minimum is not None and slot < minimum:
             raise ValueError('account response context slot is below requested minContextSlot')
     return result

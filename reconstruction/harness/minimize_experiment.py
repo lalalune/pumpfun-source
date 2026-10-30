@@ -40,6 +40,11 @@ def minimize(count, evaluate, budget, wanted='pass'):
             'tested': [{'selected': list(key), 'status': value} for key, value in cache.items()]}
 
 
+def load_oracle(path):
+    """Read the oracle config as UTF-8 regardless of the host locale."""
+    return json.loads(path.read_text(encoding='utf-8'))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path, required=True)
@@ -55,7 +60,7 @@ def main():
     source_identity = manifest(args.source)
     paths = [Path(p).resolve() for p in json.loads(args.patches.read_text())]
     patches = [p.read_bytes() for p in paths]
-    config = json.loads(args.oracle.read_text())
+    config = load_oracle(args.oracle)
     args.out.mkdir(parents=True, exist_ok=True)
     patch_errors = []
     def evaluate(selected):
