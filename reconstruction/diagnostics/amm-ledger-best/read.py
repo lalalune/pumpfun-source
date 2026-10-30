@@ -9,17 +9,24 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 RANK_SOURCE = 'scripts/amm_sell/try_sell.py'
-REVIEWED = '02fe288b5d741abef165bfb0de7bf26ffa2fdc838ee24dfe27c207a5c2386ec5'
+REVIEWED_RANK = '2ee89cb5049617f764f9a92e1e0f2b672d32b6828d5037f7b07c59c75275bed8'
 
 
 def canonical_rank():
     raw = (ROOT / RANK_SOURCE).read_bytes()
-    if hashlib.sha256(raw.replace(b'\r\n', b'\n')).hexdigest() != REVIEWED:
-        raise ValueError('reviewed AMM rank source changed')
-    parsed = ast.parse(raw)
-    functions = [node for node in parsed.body if isinstance(node, ast.FunctionDef) and node.name == 'rank']
-    if len(functions) != 1:
+    source = raw.decode('utf-8').replace('\r\n', '\n')
+    parsed = ast.parse(source)
+    functions = [node for node in parsed.body
+                 if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name == 'rank']
+    if len(functions) != 1 or not isinstance(functions[0], ast.FunctionDef):
         raise ValueError('expected one reviewed rank function')
+    function = functions[0]
+    start = min([function.lineno, *[node.lineno for node in function.decorator_list]])
+    # Bind the entire signature/body (and any decorators), excluding unrelated
+    # module statements. Physical LF lines avoid Python-version AST differences.
+    reviewed = ('\n'.join(source.split('\n')[start - 1:function.end_lineno]) + '\n').encode('utf-8')
+    if hashlib.sha256(reviewed).hexdigest() != REVIEWED_RANK:
+        raise ValueError('reviewed AMM rank function changed')
     namespace = {}
     exec(compile(ast.Module(body=functions, type_ignores=[]), str(ROOT / RANK_SOURCE), 'exec'), namespace)
     return namespace['rank'], hashlib.sha256(raw).hexdigest()

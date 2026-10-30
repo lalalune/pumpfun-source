@@ -11,6 +11,7 @@ from instruction_stream import require_instruction_range
 
 
 def analyze(raw, start=0):
+    # This decoder uses the legacy SBPFv0/v1 instruction layout.
     if start < 0 or start % 8 or not raw or len(raw) % 8:
         raise ValueError('function must have a nonempty, 8-byte aligned range')
     instructions = {}
@@ -51,6 +52,11 @@ def analyze(raw, start=0):
                 leaders.add(target)
             elif 0 <= target < len(raw):
                 diagnostics.append({'offset': offset, 'target': target, 'error': 'branch enters lddw continuation'})
+            else:
+                diagnostics.append({'offset': offset, 'target': target, 'error': 'branch target outside function'})
+            if kind != 0 and following not in instructions:
+                diagnostics.append({'offset': offset, 'target': following,
+                                    'error': 'conditional fallthrough outside function'})
         if following in instructions:
             leaders.add(following)
     ordered = sorted(leaders)
@@ -88,6 +94,9 @@ def main(argv=None):
     try:
         blob = args.binary.read_bytes()
         secs = sections(blob)
+        version = struct.unpack_from('<I', blob, 0x30)[0]
+        if version not in (0, 1):
+            raise ValueError('control-flow decoding supports legacy SBPFv0/v1 ELF inputs only')
         text = secs['.text']
         if args.size <= 0 or args.start < text['addr'] or args.start + args.size > text['addr'] + text['size']:
             raise ValueError('requested range is outside .text')

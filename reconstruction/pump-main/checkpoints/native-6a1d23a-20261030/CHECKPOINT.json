@@ -1,0 +1,639 @@
+{
+  "artifactId": 12954757170,
+  "artifactMembers": {
+    "RESULT.json": {
+      "bytes": 2729,
+      "sha256": "a4c719fe9ff8a2c24f2af840209a6d302bc8b8e2b8f67a676e0be8bb77c82aa3"
+    },
+    "baseline-input.json": {
+      "bytes": 228,
+      "sha256": "d063bfe4d196ea65d6670c9528e172452efcc240f5b29ae0b771aff218070873"
+    },
+    "bootstrap-after.log": {
+      "bytes": 199,
+      "sha256": "326aec33bf8b06d4426cbbaeaa72f4ccd9e708ac1ca243655f5da91aee3e0e69"
+    },
+    "bootstrap-before.log": {
+      "bytes": 404,
+      "sha256": "df8ee5f0b3f033130a22cbb9bb23da70b9fe1522c9abb4bbbe8ed9f0e89decd2"
+    },
+    "build.json": {
+      "bytes": 529,
+      "sha256": "06eff521d5af7cf277144f06464e6ac299026e90dc0eccca2538c84d68330d0c"
+    },
+    "build.log": {
+      "bytes": 30841,
+      "sha256": "83c18f51c3154147e633c2e9cfbbcb6faf8120c1fff0b187f9fd4cf5054f48ca"
+    },
+    "candidate.so": {
+      "bytes": 1935152,
+      "sha256": "0c141fa73e4981152201b87e6a50a8172ca6e52e48e6e65a103743e7f96cf578"
+    },
+    "cold-build.log": {
+      "bytes": 529,
+      "sha256": "06eff521d5af7cf277144f06464e6ac299026e90dc0eccca2538c84d68330d0c"
+    },
+    "commands.jsonl": {
+      "bytes": 1718,
+      "sha256": "2c95d154e246560dc30ffaa9d088c0f74cb76a4a77ab99f7e886900a4ba8960f"
+    },
+    "compiled-workspace-inputs.json": {
+      "bytes": 15377,
+      "sha256": "3fda5e7a98b0c594ffebfbc822c57c718f21251fcb0cc4898e2ce1f560ef571b"
+    },
+    "compiled-workspace.tar.gz": {
+      "bytes": 150730,
+      "sha256": "7994dca320165ab20e4dd5a56cc45a12da52f4ffae55fdd9eb2f3dd537725b6a"
+    },
+    "controller-inputs.json": {
+      "bytes": 659,
+      "sha256": "8bef949e7714aa23274c96ae06d164f1922b1563bad6ec73d10d0611d70950ac"
+    },
+    "fetch-locked.log": {
+      "bytes": 9003,
+      "sha256": "ec77892c7be8139c52305655cc210a2bcefc1e93c15903a2ee9d7a52f2269f35"
+    },
+    "host.json": {
+      "bytes": 230,
+      "sha256": "a86a9771e73e5f6a91e35a041427c2b983886fa586798a03412c76ebf51c9b73"
+    },
+    "program-source-inputs.json": {
+      "bytes": 25933,
+      "sha256": "a210dec3ff144910c4c91bbb0ea4e9a59e3cdc6b58104f682854b5affecbc566"
+    },
+    "program-source.tar.gz": {
+      "bytes": 151293,
+      "sha256": "5f0b566b6921218dcdae3168526fcb43b9c5f138631fe6a2b87ebce66003aeb9"
+    },
+    "registry-source-inputs.json": {
+      "bytes": 1258468,
+      "sha256": "8edb1e4e5d38fdc18f1965226b7025feeb03cf587ff82c40f35f9d764d3d3a6a"
+    },
+    "score.json": {
+      "bytes": 325591,
+      "sha256": "d2e6782e22afddb69c29b6f841175081f94d0d2254e06eaea3f4ad8a446f93df"
+    },
+    "score.log": {
+      "bytes": 1582,
+      "sha256": "f5926e4567e069fa1c7f39105b9304694bc6d4bd95b03ca71f8711f533f416f4"
+    },
+    "sdk-downloads.json": {
+      "bytes": 735,
+      "sha256": "6620e5ded296cfcfebc0d8e04564ab2c82e427cd57a319b658e4375412ae970e"
+    },
+    "source-inputs.json": {
+      "bytes": 18868,
+      "sha256": "1658ffc29dfc6b223033099baee50cce329015de4ca401d4c1db193598592be7"
+    },
+    "tool-inputs.json": {
+      "bytes": 10130,
+      "sha256": "4509c0e034ae3d947d695cd11d157552c6d8882211f17cacdb54aee3c7620ba2"
+    },
+    "toolchain-source-inputs.json": {
+      "bytes": 33085,
+      "sha256": "27a4d7c88690d7106b942c445968d29f3b5fb31d217de0fff3c8e5ce1e39e19e"
+    },
+    "unstripped.so": {
+      "bytes": 2666080,
+      "sha256": "d9484de78533d6c55f76cacbee89b2ae15b0ed9d070f0d9f6df99507e53082a5"
+    }
+  },
+  "artifactZip": {
+    "bytes": 1769007,
+    "sha256": "d3bfd56530ba9aa5fe0a0a3681bc1db20d34269ff4fcf08a472847a41cc6afbf"
+  },
+  "controllerCommit": "2e208af56710ddfa404cd9dffacc2069580d27fb",
+  "frozenInputs": {
+    "members": {
+      "controller/.github/workflows/qualify-pump-macos-v144.yml": {
+        "bytes": 1892,
+        "sha256": "89ae5bcecc3da9a48fc4fd3c7bf0e69cf3e6edd559ab655ea19f90f31dffbb8b"
+      },
+      "controller/reconstruction/pump-main/lanes/current-native-control/pump_current_control.py": {
+        "bytes": 11270,
+        "sha256": "e7ed2474df380c81d55b822515055c953f0947117d28ef5bb783355d4f415c2e"
+      },
+      "evidence/original/pump/capture.json": {
+        "bytes": 884,
+        "sha256": "ffb53e71ce9cbee60df91e54cc1d677527a6eeb5806cb8d68e525af698744110"
+      },
+      "evidence/original/pump/program-account.bin": {
+        "bytes": 36,
+        "sha256": "8101492b544ce08703d5de95363bf796e7e4cd17d03639cfe603071fb59652eb"
+      },
+      "reconstruction/base/functions.tsv": {
+        "bytes": 1459668,
+        "sha256": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8"
+      },
+      "reconstruction/base/original.so": {
+        "bytes": 40,
+        "sha256": "866f650843ae423a57516a1c735ffed9492821a4aafcbcfddeef17f5a34f43a6"
+      },
+      "reconstruction/harness/ATTEMPT_APPLICABILITY.md": {
+        "bytes": 2569,
+        "sha256": "b654a96c16b1fdaf085341dac382d420a4cc87332de7a421fb0c25cb519aa1d1"
+      },
+      "reconstruction/harness/BATCH_METRICS.md": {
+        "bytes": 958,
+        "sha256": "bb2f0e35c5160fd7e8f3cef8d58649d545347ee83cfff5892938ea9901b802a5"
+      },
+      "reconstruction/harness/BUILD_SCORE_PAIR.md": {
+        "bytes": 3483,
+        "sha256": "70c2a29b8443036cf1929bdcc0db8757ffadc7b7ca8b60ee0f807db2dafb3d19"
+      },
+      "reconstruction/harness/CONTROL_FLOW.md": {
+        "bytes": 952,
+        "sha256": "88a573e305a71594c6037d9465ccc5e08431794f3afb3b0505b3311b64eb56cb"
+      },
+      "reconstruction/harness/EXPERIMENTS.md": {
+        "bytes": 4912,
+        "sha256": "3205abe6938766ad05012796ab5557af64b89f4e3fce68e87bbad570bf039d73"
+      },
+      "reconstruction/harness/SOURCE_INPUTS.md": {
+        "bytes": 1139,
+        "sha256": "bf2a32930510debe04734603a4e0d53068ed036147ed782d6a287e0b178bac15"
+      },
+      "reconstruction/harness/STACK_ACCESS.md": {
+        "bytes": 1126,
+        "sha256": "cad9f72f01e83f769bc02ab97d67bd21e88229d37a9dd31fdc3b081ced8046fb"
+      },
+      "reconstruction/harness/attempt_applicability.py": {
+        "bytes": 5010,
+        "sha256": "d582e1f8f1b4d2d9eeb1c5eeb59ad5c315f2fa9c7a7aa85439c2a22e878d9313"
+      },
+      "reconstruction/harness/bisect_membership.py": {
+        "bytes": 4167,
+        "sha256": "e6b76b72d857430ae48e81aa1204e0e30f978e84b1f215e2becd5b9346033827"
+      },
+      "reconstruction/harness/build-score-pair-control.json": {
+        "bytes": 2611,
+        "sha256": "a8cf230964528019afcf3e9b1e8f6af5af93199aba0bac125c1a3e503710b3a7"
+      },
+      "reconstruction/harness/build_process.py": {
+        "bytes": 1256,
+        "sha256": "fa8f7d321f29e829fe59ca11740fc5a47978fc73d052778c641bb233ae0e12a4"
+      },
+      "reconstruction/harness/build_score_pair.py": {
+        "bytes": 5310,
+        "sha256": "7535675ade168c5e6460bf9353e9b81fbcb51faa1bb3b378939a27a90d5896fa"
+      },
+      "reconstruction/harness/compare_scores.py": {
+        "bytes": 3956,
+        "sha256": "e066be9aacae0dd9c3731efef8dc2bf2ff86fa39ae8e5b1540de181398ffb3d6"
+      },
+      "reconstruction/harness/control_flow.py": {
+        "bytes": 4719,
+        "sha256": "96c809cae42dee39985ca22142a7d7442538b0b598aecf0cf7669f5440c5618c"
+      },
+      "reconstruction/harness/coords.py": {
+        "bytes": 6654,
+        "sha256": "99d6982de3f60651f99e8d33e3f9090d1a3b64fd3bebfe60c5b903a296ab48de"
+      },
+      "reconstruction/harness/elf_symbols.py": {
+        "bytes": 3199,
+        "sha256": "7156bee72eaf1870dd1f8771a7172ea5090f6f19c1eba87ef48e05a3fb669e71"
+      },
+      "reconstruction/harness/experiment_runner.py": {
+        "bytes": 7673,
+        "sha256": "4fb22eb71138d15b8ae44539ecba3f54cde9e1c74e9d9360f38b9cc169e78b06"
+      },
+      "reconstruction/harness/fastbuild.py": {
+        "bytes": 11161,
+        "sha256": "04c6669348ac45b9230498f2656b66a740fe358b11c86a0f19060048e09e23bb"
+      },
+      "reconstruction/harness/instruction_stream.py": {
+        "bytes": 385,
+        "sha256": "d2e4d6edacfc831269890e01143418d6b8c83a733554f3bd9c8a834dee745b9d"
+      },
+      "reconstruction/harness/integrate.py": {
+        "bytes": 7809,
+        "sha256": "d5a150f4845d8e7fa636710abc227009af7ceb7e52f49b49f4575204cb24194a"
+      },
+      "reconstruction/harness/linux144-sbpf-target-libs.sha256": {
+        "bytes": 3117,
+        "sha256": "d9b506af7d0b3681776aae5ed3dd7ec99309db1a95ba40ae1fa0db767586f389"
+      },
+      "reconstruction/harness/llvm_tools.py": {
+        "bytes": 855,
+        "sha256": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af"
+      },
+      "reconstruction/harness/make_hybrid144.sh": {
+        "bytes": 2409,
+        "sha256": "4c71dcd5dba0c216144d109b10ca9d97f8eb426729ebf5cccee964ace715700d"
+      },
+      "reconstruction/harness/match_oracle.py": {
+        "bytes": 2744,
+        "sha256": "77aeaf3d9489f8d6114bc0097c9b7b31a0c40c60505c92153c5d8f65fb94d594"
+      },
+      "reconstruction/harness/minimize_experiment.py": {
+        "bytes": 4551,
+        "sha256": "b7b91b84a00b4f90fc3083d2b4fe53dac0d97c29edc9997da4ab8f0565d1dcab"
+      },
+      "reconstruction/harness/pair_candidates.py": {
+        "bytes": 3250,
+        "sha256": "8a39f79a982712daf950631fae1708854db78e32cf430d36884ccaa6369cc242"
+      },
+      "reconstruction/harness/pump_physical_source_wrapper.py": {
+        "bytes": 887,
+        "sha256": "d959fe0074fafe7f310a8f40051ce87f795b1e81b104a38dfe57086efa6bae1b"
+      },
+      "reconstruction/harness/score.py": {
+        "bytes": 7747,
+        "sha256": "549862761d672586123c7085c3cc61fe27137f12ca75116f07c4de5dd9e7b983"
+      },
+      "reconstruction/harness/source_inputs.py": {
+        "bytes": 2514,
+        "sha256": "62e58c2403f106c14aff725e0626883d2a46da8e5d3fe25185b5e9fc000af960"
+      },
+      "reconstruction/harness/stack_access.py": {
+        "bytes": 3323,
+        "sha256": "2b18d60cf54964c964ff6c0da595ddcd8cb9ca81a87f9b80f5557b3f3745c629"
+      },
+      "reconstruction/harness/target_metric.py": {
+        "bytes": 4256,
+        "sha256": "0f41c1ab92dd966bf06f50f9663e755e45b280c631d86d708454d56a33f49420"
+      },
+      "reconstruction/harness/test_attempt_applicability.py": {
+        "bytes": 2827,
+        "sha256": "4d503f8e84b493e259b0ab2d14951a6abc0963f677ad867237f5f6374cdcc699"
+      },
+      "reconstruction/harness/test_batch_target_metric.py": {
+        "bytes": 3282,
+        "sha256": "c85b8b34a783f63460a043d22f0f165a23a3fa478b421146f1e2ddc49f882763"
+      },
+      "reconstruction/harness/test_bisect_membership.py": {
+        "bytes": 1104,
+        "sha256": "d75c6c6ba27163de575c9638961ac4b13fa38d77985f0e28f4928aea4fbfab7d"
+      },
+      "reconstruction/harness/test_build_process.py": {
+        "bytes": 5162,
+        "sha256": "86d988223b8862f11da31a1f84b69e0fbff046f6aba451118c2a37cee81e50e2"
+      },
+      "reconstruction/harness/test_build_score_pair.py": {
+        "bytes": 5051,
+        "sha256": "7be27b2f679cbc0a336a9acb4a53a7805a46fa075f3611d44f164e942de6962e"
+      },
+      "reconstruction/harness/test_build_slots.py": {
+        "bytes": 1401,
+        "sha256": "567624ac9ad4bd8aae251c18416da88bfab984217116332dd49e60719d3440b6"
+      },
+      "reconstruction/harness/test_cache_paths.py": {
+        "bytes": 4550,
+        "sha256": "96ae9c5025b6de1ee06f47c16b438581c136ea7280b47d77e6bda8dd12a44421"
+      },
+      "reconstruction/harness/test_candidate_index.py": {
+        "bytes": 2883,
+        "sha256": "da8fdef71976a7e676867be7fb795652afbb779e0a0b1bd193dc5f57f3e9c517"
+      },
+      "reconstruction/harness/test_candidate_limit.py": {
+        "bytes": 1460,
+        "sha256": "df7d3b54644ce89dbc1f9422bd9534fe386bf3c780a6785cb02f1a3222986849"
+      },
+      "reconstruction/harness/test_compare_scores.py": {
+        "bytes": 2905,
+        "sha256": "c104ce2f07125949f3c542e3ec74c430b038160832c246597dcb8025a56f9d82"
+      },
+      "reconstruction/harness/test_control_flow.py": {
+        "bytes": 2161,
+        "sha256": "b975be3c0a0bce4fdc5cac574c46abdbf17bbc556e6e75ac9b8a5efbe4cd0779"
+      },
+      "reconstruction/harness/test_coordinate_diff_fields.py": {
+        "bytes": 2635,
+        "sha256": "c9844273d968c17c507ba07f06616960d67ea9de85fe9f2580b53543e0a2cb9a"
+      },
+      "reconstruction/harness/test_coords_bounds.py": {
+        "bytes": 1147,
+        "sha256": "ddee459efe2a2b898f9b9ef4cbc1556373c8af3c9cac96aac2951680be3f4895"
+      },
+      "reconstruction/harness/test_coords_pairing.py": {
+        "bytes": 1768,
+        "sha256": "63e5d41d104341924ca9995b7c9abff628390348a5d7addb63b6b24935d5c433"
+      },
+      "reconstruction/harness/test_demangle_names.py": {
+        "bytes": 2342,
+        "sha256": "418bc0a52b5c6326cc50ea168ad58722f5bbe4a8f443b635173d53c1771c0445"
+      },
+      "reconstruction/harness/test_elf_symbols.py": {
+        "bytes": 2891,
+        "sha256": "bdab9b713681c3bf105b3cfa6daba5a5a77aa17cc9220c7547edba62161bb71d"
+      },
+      "reconstruction/harness/test_experiment_clis.py": {
+        "bytes": 3460,
+        "sha256": "3a148d3e406ef8fa57461dc348752bb3cd05d5537ef926fdc45fa97cddbbdbe4"
+      },
+      "reconstruction/harness/test_experiment_runner.py": {
+        "bytes": 3170,
+        "sha256": "c3fac94c26aa787a89c04f53ed31755877554242497177c4cc85a982a720aee1"
+      },
+      "reconstruction/harness/test_fastbuild_stack.py": {
+        "bytes": 8558,
+        "sha256": "4e4a2d86e00b98473b658294a53d8da08eb8463283e8450aba99717f74376821"
+      },
+      "reconstruction/harness/test_fastbuild_workspace_lock.py": {
+        "bytes": 3151,
+        "sha256": "2d93497579b43eed784e89c145ae1821be9f8e305815f44344305e500264397f"
+      },
+      "reconstruction/harness/test_hybrid_staging.py": {
+        "bytes": 3395,
+        "sha256": "f8d1629c74008a8c135849035f12c7e0ff5ee0cd09c7c56f0322405603a8a4d0"
+      },
+      "reconstruction/harness/test_instruction_stream.py": {
+        "bytes": 2620,
+        "sha256": "278330be4c6d84cf5e50c25c6ae9ffc8324d3ef01eb2b34b9fcf8b241a1e9a41"
+      },
+      "reconstruction/harness/test_integrate.py": {
+        "bytes": 5195,
+        "sha256": "10b0e936d9eca2008744106b635801a0f1bb2f30c6e4e17d1bb1a80a3aa86f09"
+      },
+      "reconstruction/harness/test_integrate_failures.py": {
+        "bytes": 4642,
+        "sha256": "4cbf16c835c2b12026f01e9a310954bedbf86ea4646720ddc796672f93738fca"
+      },
+      "reconstruction/harness/test_integrate_retention.py": {
+        "bytes": 2582,
+        "sha256": "3a2e0adb6654d1f9275e5a0e76305f8b736fa6bc0c5d7b2dc870bb88d4e965e3"
+      },
+      "reconstruction/harness/test_integration_preflight.py": {
+        "bytes": 3963,
+        "sha256": "5285d32e2cdb3e56f61c3784a17875d1dd8a9a9827229ab7df011d04545a673c"
+      },
+      "reconstruction/harness/test_llvm_tools.py": {
+        "bytes": 3199,
+        "sha256": "381ec1de6aa9c54c3a75426e5ff65f42ed16418a3f229b8c199f0d2043caa386"
+      },
+      "reconstruction/harness/test_match_oracle.py": {
+        "bytes": 2288,
+        "sha256": "e5361b4dc646777a8d29e68312dff8bc0991756fbb35e518f44c480c0f4723da"
+      },
+      "reconstruction/harness/test_minimize_experiment.py": {
+        "bytes": 1332,
+        "sha256": "c6a9b64dead27b169207df74fbd5f561ee7b3fd7b1995d7df8b9d794debdc3f2"
+      },
+      "reconstruction/harness/test_normalization_conformance.py": {
+        "bytes": 3477,
+        "sha256": "599ae88ace464fb8ab0609956ec105a57320b7fc994fea85d39f3ef7189da6b7"
+      },
+      "reconstruction/harness/test_opgrams.py": {
+        "bytes": 1493,
+        "sha256": "e44acdfca52e1df48db10f2d7a5296826694018e6e8a8367d3d2f78af0ca07f3"
+      },
+      "reconstruction/harness/test_pair_candidates.py": {
+        "bytes": 1546,
+        "sha256": "5c4e10f2d97ad7704c84f758b438e7464b5c962aeaf15833e32e579362d60543"
+      },
+      "reconstruction/harness/test_portable_census.py": {
+        "bytes": 1670,
+        "sha256": "0ce8387b4a344258e82713a0ffb1e8a0aa8d6ea37c832104af1e7ae7b754e52f"
+      },
+      "reconstruction/harness/test_roundtrip_status.py": {
+        "bytes": 2449,
+        "sha256": "b9d97375514ce57205342900e01574a28c55c86e48769dd9f8db98a00e3ac983"
+      },
+      "reconstruction/harness/test_score_body_bounds.py": {
+        "bytes": 3447,
+        "sha256": "4fcd3cc0f849e970a1debe799a64dea07a0d9b9a69df17aac46400e99f15575f"
+      },
+      "reconstruction/harness/test_score_inputs.py": {
+        "bytes": 2746,
+        "sha256": "133d72644db2936dcb35b0aa81681fdbfb69be9732b12da3facca9dff17e9178"
+      },
+      "reconstruction/harness/test_score_snapshot.py": {
+        "bytes": 4290,
+        "sha256": "2cd51842b662a6e76c295f8e3fe630b976cff76e4ff4887226e791ebd2a744e0"
+      },
+      "reconstruction/harness/test_source_inputs.py": {
+        "bytes": 3701,
+        "sha256": "688702cb596b1ea3f09bf28d718458dabcc0ed6a30c5998768e4d1d0211740be"
+      },
+      "reconstruction/harness/test_stack_access.py": {
+        "bytes": 1512,
+        "sha256": "77a83561629bd2af7f5bc0302a0930f195e854e603855e4379ee71a1b7115de9"
+      },
+      "reconstruction/harness/test_strict_log_coverage.py": {
+        "bytes": 2556,
+        "sha256": "93b90d43872f201403e49ab519102eaec8b6795aef593afc5f9faee96815c54f"
+      },
+      "reconstruction/harness/test_treediff.py": {
+        "bytes": 2446,
+        "sha256": "b1787ca6ae816e371c1c84b5825a2197946c89e62fa8f22d4776e44eae711f43"
+      },
+      "reconstruction/harness/test_treediff_empty.py": {
+        "bytes": 1647,
+        "sha256": "d6065c73353f5b52b42e893c15893ba7218c212a488014bf855adb1087070883"
+      },
+      "reconstruction/harness/test_treediff_line_boundaries.py": {
+        "bytes": 2421,
+        "sha256": "2545f70af1dcef76074503ad768a3e8ea17afa7a0c4e0661f9774ed0c5b0e480"
+      },
+      "reconstruction/harness/test_treediff_roots.py": {
+        "bytes": 1463,
+        "sha256": "88d51c1f504bb56a52f46236baceab83d4096daaba72e099ebbb90e5bf8836f6"
+      },
+      "reconstruction/harness/test_triage_report.py": {
+        "bytes": 1046,
+        "sha256": "5b2e0159ca12feda30e41d3ee20a44f6dd598f336fcc27acb1a919618e1aa6af"
+      },
+      "reconstruction/harness/test_window_cache.py": {
+        "bytes": 2825,
+        "sha256": "6dd10bdc9af338e0a1813189edd9963f383bca1e68c5683a3a93d18e10ebcfc7"
+      },
+      "reconstruction/harness/treediff.py": {
+        "bytes": 2026,
+        "sha256": "636df73463e94f70f61026b3561b4faca24ced7e8b4527231f541dfc17e0ae6c"
+      },
+      "reconstruction/harness/triage.py": {
+        "bytes": 3132,
+        "sha256": "a4cb7787bdd5e39e8da06d8dfb1300e862820fb9e3133c8771384c6de6dbfc15"
+      },
+      "reconstruction/harness/win.py": {
+        "bytes": 8708,
+        "sha256": "8aee1013c1bd6db26e9d910f45f17f2579f3dcbf977a58410a283d654b91fb6b"
+      },
+      "reconstruction/pump-main/baseline/rescore.json": {
+        "bytes": 323071,
+        "sha256": "24fe5efbe4c0b2a959b1e9c273dd76bdae610d7caef215be9f1d4c8b27c083c8"
+      },
+      "reconstruction/pump-main/baseline/score.json": {
+        "bytes": 351868,
+        "sha256": "d8b94e211ab43543f8c36bcc566440dec73d8c1c590df3fcb33536c88a21727d"
+      },
+      "reconstruction/toolchain/bootstrap.py": {
+        "bytes": 8016,
+        "sha256": "97cb5808004e082883f58804f7665b8d5678d633415d352aa3fb1c2f9ae5b956"
+      },
+      "reconstruction/toolchain/linux-v1.44-x86_64/version.md": {
+        "bytes": 240,
+        "sha256": "491be940d44a3d446354c039281404793c670bb0acb8a67a42fae14563f014a9"
+      },
+      "reconstruction/toolchain/test_dependency_cache.py": {
+        "bytes": 4898,
+        "sha256": "989c49674eec411e82688818e61def02eac4ec1f10b1a613aa1369a8d64d6847"
+      },
+      "reconstruction/toolchain/test_library_inventory.py": {
+        "bytes": 2885,
+        "sha256": "1b65525431dde6c7885a8296b470c0d63c5c6df0bf160e7abee52d3d99d7d452"
+      },
+      "reconstruction/toolchain/v1.44-macos-inventory.json": {
+        "bytes": 525621,
+        "sha256": "9e130a98569fc66a9e31087b01caac9173ff6cba0067d5f71c8fd42a90c8c28a"
+      }
+    },
+    "sha256": "9c792cbfeb5580fa68e643a06d3d45650d35663889c278facf072778001d3184"
+  },
+  "gitProofSha256": "b39f8d959629c963601c20f1a5cccb1f933271e71d6ca40603b3fc1ddc98862e",
+  "independentHistoricalSealSha256": "32e6db3297aeddbd10cb1f2f0be7da07ef1b16af5762a58ea3c82d9ac7414319",
+  "publicationBase": "a7135a6a64c446166895f7e3ea4ca84ac1a9b848",
+  "remaining": [
+    "0x1e7c0",
+    "0x22a10",
+    "0x5b3b0",
+    "0x72810",
+    "0x80df8",
+    "0x13b9b8",
+    "0x13f630",
+    "0x1489f8"
+  ],
+  "retentionDays": 30,
+  "run": 41003848803,
+  "runUrl": "https://github.com/shawkkkkk/pumpfun-source/actions/runs/41003848803",
+  "schema": "pump-native-checkpoint-v1",
+  "sourceCommit": "6a1d23a306ce0b2213aac937d7a81472efe5986b",
+  "summary": {
+    "candidate_sha256": "d9484de78533d6c55f76cacbee89b2ae15b0ed9d070f0d9f6df99507e53082a5",
+    "gains": [
+      "0x4c158",
+      "0x6cd78",
+      "0x77940",
+      "0x83c00",
+      "0x144508",
+      "0x147ba0",
+      "0x14a8a8",
+      "0x14f4e0"
+    ],
+    "losses": [],
+    "matched_text_bytes": 1677176,
+    "normalized": 1027,
+    "raw": 276,
+    "raw_gains": [
+      "0x1570c0",
+      "0x1571c8",
+      "0x1639e8",
+      "0x163bf0",
+      "0x17bc38",
+      "0x17c3d8",
+      "0x17c548",
+      "0x17cae8",
+      "0x17cca8",
+      "0x17cf10",
+      "0x17d240",
+      "0x17d638",
+      "0x17daf8",
+      "0x17dc60",
+      "0x17e088",
+      "0x17e428",
+      "0x17fcc8",
+      "0x180558",
+      "0x180cc0",
+      "0x181428",
+      "0x181b80",
+      "0x182148",
+      "0x1827d0",
+      "0x182e00",
+      "0x183430",
+      "0x183a60",
+      "0x184088",
+      "0x1846a8",
+      "0x184a60",
+      "0x184e38",
+      "0x1858a0",
+      "0x1862f0",
+      "0x1868b8",
+      "0x187820",
+      "0x187bf8",
+      "0x188758",
+      "0x188840",
+      "0x188928",
+      "0x188960",
+      "0x188990",
+      "0x188a48",
+      "0x189088",
+      "0x189728",
+      "0x18e728",
+      "0x191338",
+      "0x194848",
+      "0x194c40",
+      "0x1970a8",
+      "0x197160",
+      "0x1973b8",
+      "0x198b08",
+      "0x198df8",
+      "0x1993f0",
+      "0x199b80",
+      "0x199bc0",
+      "0x199bf8",
+      "0x199db8",
+      "0x19a020",
+      "0x19a1d8",
+      "0x19a620",
+      "0x19b378",
+      "0x19bb30",
+      "0x19bbb8",
+      "0x19bc58",
+      "0x19c1b8",
+      "0x19d240",
+      "0x19d630",
+      "0x19d9c0",
+      "0x19dd50",
+      "0x19e090",
+      "0x19e3b0",
+      "0x1a0e30",
+      "0x1a1d70",
+      "0x1a2158",
+      "0x1a3690",
+      "0x1a3a88",
+      "0x1a6690",
+      "0x1a6808",
+      "0x1a78e0",
+      "0x1a7a40",
+      "0x1a8de0",
+      "0x1a8e60",
+      "0x1a91f8",
+      "0x1a9db0",
+      "0x1aad00",
+      "0x1ab048",
+      "0x1ab1b0",
+      "0x1ab748"
+    ],
+    "raw_losses": [],
+    "total": 1035
+  },
+  "unbundledToolchainPaths": [
+    "evidence/original/pump/deployed.so",
+    "evidence/original/pump/programdata-account.bin",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libaddr2line-e6aeb2e4b400d273.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libadler-a1ecf6226fab4e4c.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/liballoc-f3c66a8de450488e.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libcfg_if-ea0575808b373f94.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libcompiler_builtins-c45c2ded080d9668.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libcore-52876eb403c2f847.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libgetopts-70e39e4d407d9f9d.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libgimli-e8cd2ed6ba81ed3d.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libhashbrown-acc155a66701b798.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/liblibc-6e7ddecf4e3040fb.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libmemchr-014ff96e10cd0668.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libminiz_oxide-35c9473c472b3826.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libobject-f88c80390b2ba95c.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libpanic_abort-103d29f0ede7c858.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libpanic_unwind-0c092adc710fd79f.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libproc_macro-b0e8b13964190326.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/librustc_std_workspace_alloc-43985c5bf5cb3cc1.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/librustc_std_workspace_core-0d013a368a425fcf.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/librustc_std_workspace_std-e66af626521502ee.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libstd-b21c434e0a696890.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libstd_detect-ec5d45a0e20fae33.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libsysroot-b6b213ae1df94df5.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libtest-080eee5a22e558c4.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libunicode_width-e11e6d0a5e02b016.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libunwind-411a1a08afc96e48.rlib"
+  ]
+}

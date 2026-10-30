@@ -33,6 +33,12 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def check(condition, message):
+    """Fail closed under optimized Python, where assert statements vanish."""
+    if not condition:
+        raise AssertionError(message)
+
+
 def read_regular(root, name):
     """Read one tracked file through a non-symlinked regular path."""
     root = Path(os.path.abspath(root))
@@ -48,7 +54,14 @@ def read_regular(root, name):
         if current == root:
             break
         current = current.parent
-    fd = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    try:
+        listed = os.lstat(path)
+    except OSError as error:
+        raise AssertionError(("Unreadable input", name, error.errno)) from error
+    if not stat.S_ISREG(listed.st_mode):
+        raise AssertionError(("Nonregular input", name))
+    fd = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
+                 | getattr(os, "O_NONBLOCK", 0) | getattr(os, "O_BINARY", 0))
     with os.fdopen(fd, "rb") as stream:
         before = os.fstat(stream.fileno())
         if not stat.S_ISREG(before.st_mode):
@@ -58,6 +71,7 @@ def read_regular(root, name):
     identity = lambda value: (value.st_dev, value.st_ino, value.st_size, value.st_mtime_ns)
     current = os.stat(path, follow_symlinks=False)
     if (not stat.S_ISREG(current.st_mode)
+            or identity(listed) != identity(before)
             or identity(current) != identity(before)
             or identity(before) != identity(after)):
         raise AssertionError(("Input changed during read", name))
@@ -84,11 +98,11 @@ def current_pump_groups(package):
     read = lambda name: json.loads((package / name).read_text())
     maps = read("source-harness-sha256.json")
     scratch = read("scratch-inputs-before.json")
-    assert maps["source"] == read("source-sha256.json")
-    assert len(maps["source"]) == 36
-    assert len(scratch["harness_sha256"]) == 94
-    assert len(scratch["repository_fixture_snapshot_sha256"]) == 28
-    assert len(maps["canonical_harness"]) == 2
+    check(maps["source"] == read("source-sha256.json"), "source map differs from source-sha256.json")
+    check(len(maps["source"]) == 36, "source map must bind exactly 36 files")
+    check(len(scratch["harness_sha256"]) == 94, "harness map must bind exactly 94 files")
+    check(len(scratch["repository_fixture_snapshot_sha256"]) == 28, "runtime snapshot map must bind exactly 28 files")
+    check(len(maps["canonical_harness"]) == 2, "canonical harness map must bind exactly 2 files")
     groups = {
         "source": maps["source"],
         "harness": scratch["harness_sha256"],
@@ -103,7 +117,7 @@ def current_pump_groups(package):
     # The old single-curve runner and verifier have exact published aliases in
     # HISTORICAL_COPIES. The adapted new runner has its own canonical hashes;
     # scratch orchestration remains historical evidence inside the package.
-    assert len(groups["build_helpers"]) == 3
+    check(len(groups["build_helpers"]) == 3, "build helper map must bind exactly 3 files")
     return groups
 
 
@@ -116,30 +130,30 @@ def verify_pump_body(root, package):
     candidate = module.Elf(package / "candidate.so")
     symbols = module.Elf(package / "unstripped.so")
     match = json.loads((package / "function-match.json").read_text())
-    assert sha(original.b) == "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
-    assert sha(candidate.b) == "92575cd082bf76b332044a7d09371a9764db8b2cc40180bf1418f261945bbd6a"
-    assert candidate.b[candidate.lo:candidate.hi] == symbols.b[symbols.lo:symbols.hi]
-    assert candidate.pattern(candidate.lo, candidate.hi-candidate.lo) == symbols.pattern(symbols.lo, symbols.hi-symbols.lo)
+    check(sha(original.b) == "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d", "original deployed bytes differ")
+    check(sha(candidate.b) == "92575cd082bf76b332044a7d09371a9764db8b2cc40180bf1418f261945bbd6a", "candidate bytes differ")
+    check(candidate.b[candidate.lo:candidate.hi] == symbols.b[symbols.lo:symbols.hi], "candidate body bytes differ from symbols")
+    check(candidate.pattern(candidate.lo, candidate.hi-candidate.lo) == symbols.pattern(symbols.lo, symbols.hi-symbols.lo), "candidate body pattern differs from symbols")
     start, origin, size = match["candidate_body"]["start"], match["original_body"]["start"], 1840
-    assert original.normalized[origin:origin+size] == candidate.normalized[start:start+size]
-    assert original.pattern(origin, size) == candidate.pattern(start, size)
+    check(original.normalized[origin:origin+size] == candidate.normalized[start:start+size], "normalized body bytes differ")
+    check(original.pattern(origin, size) == candidate.pattern(start, size), "body patterns differ")
     functions = {(f["start"], f["size"]) for f in symbols.funcs}
     ranges = {p: (original.entries[i+1] if i+1 < len(original.entries) else original.hi)-p for i, p in enumerate(original.entries)}
     calls = candidate.callsites(start, size)
-    assert len(calls) == 25
+    check(len(calls) == 25, "body must have exactly 25 callsites")
     for call in calls:
         dest = original.calls[origin+call["offset"]]
         sizes = [n for at, n in functions if at == call["target"]]
-        assert len(sizes) == 1
+        check(len(sizes) == 1, "callsite target must resolve to exactly one function")
         n = sizes[0]
-        assert ranges[dest] == n
-        assert original.normalized[dest:dest+n] == candidate.normalized[call["target"]:call["target"]+n]
-        assert original.pattern(dest, n) == candidate.pattern(call["target"], n)
-    assert candidate.pattern(start, size) == [{"offset": 248, "type": 8, "symbol": ""}]
+        check(ranges[dest] == n, "callsite target size differs from original range")
+        check(original.normalized[dest:dest+n] == candidate.normalized[call["target"]:call["target"]+n], "normalized call target bytes differ")
+        check(original.pattern(dest, n) == candidate.pattern(call["target"], n), "call target patterns differ")
+    check(candidate.pattern(start, size) == [{"offset": 248, "type": 8, "symbol": ""}], "body pattern differs from the expected single-symbol pattern")
     for elf, at in [(original, origin), (candidate, start)]:
         at += 248
         ptr = struct.unpack_from("<I", elf.b, at+4)[0] | struct.unpack_from("<I", elf.b, at+12)[0] << 32
-        assert elf.b[ptr:ptr+8] == bytes.fromhex("17b7f83760d8ac60")
+        check(elf.b[ptr:ptr+8] == bytes.fromhex("17b7f83760d8ac60"), "literal at relocated pointer differs")
 
 
 def main():
@@ -223,7 +237,7 @@ def main():
                 ["git", "-C", str(ROOT), "ls-files", "-z"]).decode().split("\0"))
             groups = current_pump_groups(directory)
             count, historical = verify_maps(ROOT, groups, tracked)
-            assert len(historical) == 2
+            check(len(historical) == 2, "exactly 2 historical exact-copy bindings expected")
         command = ([sys.executable, str(directory / "verify-package.py"), "--current-main"]
                    if args.program == "pump" else
                    [sys.executable, str(directory / "verify_current_bindings.py"), "--repo", str(ROOT)])
@@ -237,19 +251,19 @@ def main():
                               "runtime_replayed_by_this_script": False}, indent=2))
         return
     expected_old = PACKAGES[args.program] + ("/candidate.so" if args.program == "pump" else "/pump_fees_candidate.so")
-    assert artifact == expected_old, ("No reviewed binding verifier for current candidate", artifact)
+    check(artifact == expected_old, ("No reviewed binding verifier for current candidate", artifact))
     package = ROOT / PACKAGES[args.program]
     read = lambda name: json.loads((package / name).read_text())
     tracked = set(subprocess.check_output(["git", "-C", str(ROOT), "ls-files", "-z"]).decode().split("\0"))
     if args.program == "pump":
         maps = read("source-harness-sha256.json")
         groups = {k: maps[k] for k in ["source", "harness", "runtime", "documentation", "build_helpers"]}
-        assert len(groups["source"]) == 36
+        check(len(groups["source"]) == 36, "source group must bind exactly 36 files")
     else:
         groups = {n: read(n) for n in ["source-sha256.json", "build-helper-sha256.json", "documentation-sha256.json", "harness-source-sha256.json", "runtime-inputs.json"]}
-        assert len(groups["source-sha256.json"]) == 22
+        check(len(groups["source-sha256.json"]) == 22, "fees source group must bind exactly 22 files")
     count, historical = verify_maps(ROOT, groups, tracked)
-    assert len(historical) == 2
+    check(len(historical) == 2, "exactly 2 historical exact-copy bindings expected")
     if args.program == "pump":
         verify_pump_body(ROOT, package)
     result = {"verified": True, "program": args.program, "current_tracked_bindings": count,

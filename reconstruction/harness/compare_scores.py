@@ -27,7 +27,7 @@ def load_report(path):
     for key, row in rows:
         if isinstance(key, bool) or not isinstance(key, (int, str)):
             raise ValueError('window start must be an integer or decimal/hex string')
-        start = int(key, 16 if isinstance(key, str) and key.startswith('0x') else 10) if isinstance(key, str) else key
+        start = int(key, 16 if isinstance(key, str) and key.lower().startswith('0x') else 10) if isinstance(key, str) else key
         if start < 0 or start % 8 or start in result:
             raise ValueError(f'invalid or duplicate window start: {key}')
         if not isinstance(row, dict):

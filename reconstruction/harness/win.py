@@ -9,13 +9,14 @@
 Diff tokens use the scorer's normalization (internal call imm + section-pointer lddw masked).
 '-' = original only, '+' = candidate only. Default candidate = base/current/unstripped.so.
 """
-import argparse, difflib, re, subprocess, sys
+import argparse, difflib, re, subprocess, sys, tempfile
+from contextlib import contextmanager
 from pathlib import Path
 from collections import Counter
-from llvm_tools import objdump
 
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
+from llvm_tools import objdump  # noqa: E402
 from score import sections, normalize, body, original_windows, score, BASE  # noqa
 from instruction_stream import instruction_offsets
 from elf_symbols import function_symbols
@@ -53,11 +54,15 @@ def insns(raw, addr, secs):
 
 def objdump_text(path, start, end):
     txt = subprocess.check_output([objdump(), '-d', '--no-show-raw-insn', f'--start-address={start:#x}', f'--stop-address={end:#x}', str(path)], text=True)
+    # LLVM's BPF/SBF backend prints decimal instruction-slot indices even
+    # though start/stop arguments and the comparison tokens use byte addresses.
+    slots = bool(re.search(r'file format elf64-(?:sbf|bpf)\b', txt))
     d = {}
     for line in txt.splitlines():
         m = re.match(r'^\s*([0-9a-f]+):\s+(.*)$', line)
         if m:
-            d[int(m.group(1), 16)] = re.sub(r'\s+<\.text\+0x[0-9a-f]+>', '', m.group(2).strip())
+            address = int(m.group(1), 10) * 8 if slots else int(m.group(1), 16)
+            d[address] = re.sub(r'\s+<\.text\+0x[0-9a-f]+>', '', m.group(2).strip())
     return d
 
 
@@ -70,6 +75,23 @@ class Cand:
 
     def fn(self, start, size):
         return body(self.blob, self.secs, start, size)
+
+    @contextmanager
+    def _snapshot(self):
+        with tempfile.TemporaryDirectory(prefix='pump-win-') as temporary:
+            snapshot = Path(temporary) / 'candidate.so'
+            snapshot.write_bytes(self.blob)
+            yield snapshot
+
+    def disassembly(self, start, size):
+        """Disassemble the same bytes used for symbols, tokens and ranking."""
+        with self._snapshot() as snapshot:
+            return objdump_text(snapshot, start, start + size)
+
+    def memberships(self):
+        """Filter unmatched windows against the loaded candidate, too."""
+        with self._snapshot() as snapshot:
+            return score(snapshot)
 
     def grams(self, start, size):
         key = (start, size)
@@ -104,8 +126,11 @@ def best_candidates(w, cand, top=3):
     scored.sort(reverse=True)
     res = []
     orig_tok = [x[2] for x in insns(w['raw'], w['start'], ORIG_SECS)]
-    # Keep the usual eight-way shortlist, but do not silently cap --top N.
-    for j, s, n, name in scored[:max(8, top)]:
+    # One- and two-instruction windows have no opcode 3-grams. Their coarse
+    # scores all tie at zero, so an address-ordered shortlist can exclude even
+    # an exact match. These small bodies are cheap to compare exhaustively.
+    shortlist = scored[:max(8, top)] if og else scored
+    for j, s, n, name in shortlist:
         ct = cand.tokens(s, n)
         res.append((difflib.SequenceMatcher(None, orig_tok, ct, autojunk=False).ratio(), j, s, n, name))
     res.sort(reverse=True)
@@ -113,7 +138,7 @@ def best_candidates(w, cand, top=3):
 
 
 def cmd_list(a):
-    cand = Cand(a.cand); cur = score(a.cand); rows = []
+    cand = Cand(a.cand); cur = cand.memberships(); rows = []
     for w in original_windows():
         if cur[w['start']]['normalized'] and not a.all:
             continue
@@ -160,7 +185,7 @@ def cmd_show(a):
         print(f"  cand {s:#x} {n:6d}B ratio={r:.4f}  {demangle(nm)}")
     r, j, s, n, nm = best[0]
     oi = insns(w['raw'], st, ORIG_SECS); ci = insns(cand.fn(s, n), s, cand.secs)
-    ot = objdump_text(resolve_original(BASE / 'original.so'), st, st + w['bytes']); ctx = objdump_text(cand.path, s, s + n)
+    ot = objdump_text(resolve_original(BASE / 'original.so'), st, st + w['bytes']); ctx = cand.disassembly(s, n)
     sm = difflib.SequenceMatcher(None, [x[2] for x in oi], [x[2] for x in ci], autojunk=False)
     print(f"\n--- diff vs {demangle(nm)} @ {s:#x} (ratio {sm.ratio():.4f}; '-' original, '+' candidate)")
     C = a.context

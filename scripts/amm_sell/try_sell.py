@@ -8,8 +8,9 @@
 * --sell FILE   full replacement for programs/pump-amm/src/instructions/swap/sell.rs
 * --patch FILE  unified diff (-p1) against the pristine workspace root (may touch any file)
 * --slot N      independent build directory inside the lane (parallel builds in one lane)
-* Identical inputs (sell bytes + patch bytes + flags + link script) are built once per swarm:
-  a repeat returns the cached result with "duplicate": true and is NOT re-logged.
+* Cache inputs bind the complete selected baseline, harness, SDK and listing request,
+  as well as sell bytes + patch bytes + flags + link script. Only a repeat with
+  intact retained outputs returns "duplicate": true and is NOT re-logged.
 * Every executed attempt is appended to ATTEMPTS.jsonl (flock) and its sell.rs is kept in
   sources/<sha256>.rs. BEST-v<SCORE_VERSION>.json tracks the best non-losing attempt.
 
@@ -30,6 +31,7 @@ SWARM = Path(os.environ.get('AMM_SELL_SWARM', HERE.parent)).resolve()
 sys.path.insert(0, str(HERE))
 import native_build  # noqa: E402
 import sell_score  # noqa: E402
+import cache_inputs  # noqa: E402
 
 LOG = SWARM / 'ATTEMPTS.jsonl'
 LOCK = SWARM / '.attempts.lock'
@@ -81,27 +83,35 @@ def main():
     p.add_argument('--force', action='store_true', help='rebuild even if identical inputs were already tried')
     a = p.parse_args()
 
-    sell_bytes = Path(a.sell).read_bytes() if a.sell else PRISTINE_SELL.read_bytes()
+    lane_build = SWARM / 'lanes' / a.lane / ('build' + a.slot)
+    baseline = lane_build / 'baseline-ws'
+    if not baseline.exists():
+        baseline = native_build.PRISTINE
+    sell_bytes = Path(a.sell).read_bytes() if a.sell else (baseline / native_build.SELL_REL).read_bytes()
     patch_bytes = Path(a.patch).read_bytes() if a.patch else b''
     link_bytes = Path(a.link_script).read_bytes() if a.link_script else b''
     key_doc = {'score_version': sell_score.SCORE_VERSION,
                'sell': sha(sell_bytes), 'patch': sha(patch_bytes) if patch_bytes else None,
-               'flags': a.extra_root_flags.strip(), 'link': sha(link_bytes) if link_bytes else None}
+               'flags': a.extra_root_flags.strip(), 'link': sha(link_bytes) if link_bytes else None,
+               'context': cache_inputs.context(SWARM, HERE, baseline, Path(sell_score.elf_reader.__file__), a.disasm)}
     key = sha(json.dumps(key_doc, sort_keys=True).encode())
     CACHE.mkdir(exist_ok=True)
     SOURCES.mkdir(exist_ok=True)
     cached = CACHE / (key + '.json')
     if cached.exists() and not a.force:
-        result = json.loads(cached.read_text())
-        result['duplicate'] = True
-        print(json.dumps(result, indent=1))
-        if result.get('status') == 'build_failed':
-            return 2
-        return 3 if (result.get('metrics') or {}).get('sell_raw_equal') else 0
+        try:
+            result = json.loads(cached.read_text())
+        except (OSError, ValueError):
+            result = {}
+        if cache_inputs.admitted(result, key, key_doc, SWARM):
+            result['duplicate'] = True
+            print(json.dumps(result, indent=1))
+            if result.get('status') == 'build_failed':
+                return 2
+            return 3 if (result.get('metrics') or {}).get('sell_raw_equal') else 0
     (SOURCES / (key_doc['sell'] + '.rs')).write_bytes(sell_bytes)
     if patch_bytes:
         (SOURCES / (key_doc['patch'] + '.patch')).write_bytes(patch_bytes)
-    lane_build = SWARM / 'lanes' / a.lane / ('build' + a.slot)
     build_id = key[:16]
     record = native_build.build(lane_build, build_id, sell=a.sell, patch=a.patch,
                                 extra_root_flags=a.extra_root_flags, link_script=a.link_script)
@@ -135,7 +145,10 @@ def main():
         if a.disasm:
             entry['disasm'] = s.get('disasm')
         code = 3 if s['sell_raw_equal'] else 0
-    cached.write_text(json.dumps(entry, indent=1, sort_keys=True) + '\n')
+    if cache_inputs.context(SWARM, HERE, baseline, Path(sell_score.elf_reader.__file__), a.disasm) != key_doc['context']:
+        raise RuntimeError('cache inputs changed during the attempt; outputs retained without publishing a cache hit')
+    entry['output_sha256'] = cache_inputs.outputs(entry, SWARM)
+    cache_inputs.publish(cached, entry)
     locked_append(entry)
     print(json.dumps(entry, indent=1, sort_keys=True))
     return code

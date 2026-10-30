@@ -1,0 +1,81 @@
+{
+  "base": "950c94c7acab2ea3b96a5a464a51b8f8e6043127",
+  "textBlobsScanned": 1578,
+  "missingBlobs": [],
+  "matches": [
+    {
+      "path": "research/tooling-disassembly-reproducibility-20261030/README.md",
+      "needles": [
+        "deep_disassembly.py"
+      ],
+      "lines": [
+        "Two runs of `scripts/deep_disassembly.py` on the same captured Mayhem binary",
+        "`scripts/deep_disassembly.py`, without checkout newline conversion."
+      ]
+    },
+    {
+      "path": "research/tooling-disassembly-reproducibility-20261030/test_verify.py",
+      "needles": [
+        "deep_disassembly.py"
+      ],
+      "lines": [
+        "                    [sys.executable, str(ROOT / 'scripts/deep_disassembly.py'),"
+      ]
+    },
+    {
+      "path": "research/tooling-indirect-call-decoding-20261030/README.md",
+      "needles": [
+        "deep_disassembly.py"
+      ],
+      "lines": [
+        "PYTHONHASHSEED=1 PYTHONUTF8=1 python -B scripts/deep_disassembly.py --program mayhem --output /tmp/indirect-calls-after"
+      ]
+    },
+    {
+      "path": "research/tooling-interior-string-references-20261030/README.md",
+      "needles": [
+        "deep_disassembly.py"
+      ],
+      "lines": [
+        "PYTHONHASHSEED=1 PYTHONUTF8=1 python -B scripts/deep_disassembly.py --program mayhem --output /tmp/string-references-after"
+      ]
+    },
+    {
+      "path": "research/tooling-interior-string-references-20261030/test_verify.py",
+      "needles": [
+        "deep_disassembly.py"
+      ],
+      "lines": [
+        "                run = subprocess.run([sys.executable, '-B', str(ROOT / 'scripts/deep_disassembly.py'),"
+      ]
+    },
+    {
+      "path": "scripts/README.md",
+      "needles": [
+        "recover_dispatch.py"
+      ],
+      "lines": [
+        "| `recover_dispatch.py` |  | Locate Anchor discriminator comparisons and wrapper calls in original SBF. |"
+      ]
+    },
+    {
+      "path": "scripts/deep_disassembly.py",
+      "needles": [
+        "deep_disassembly.py"
+      ],
+      "lines": [
+        "    python3 scripts/deep_disassembly.py --program pump --output research/pump-deep-disasm-20261028"
+      ]
+    },
+    {
+      "path": "scripts/test_tooling.py",
+      "needles": [
+        "deep_disassembly.py"
+      ],
+      "lines": [
+        "        ('deep_disassembly.py', 'fingerprints.json'),"
+      ]
+    }
+  ],
+  "networkDisabledForScan": true
+}

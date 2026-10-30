@@ -15,7 +15,8 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install PyYAML==6.0.3
       - name: Test the input checker
-        run: python -B scripts/test_workflow_inputs.py
+        # Runs every checker regression suite (scripts/test_workflow_*.py).
+        run: python -B -m unittest discover -s scripts -p 'test_workflow_*.py' -v
       - name: Check for newly missing script inputs
         env:
           PR_BASE: ${{ github.event.pull_request.base.sha }}

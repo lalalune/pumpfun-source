@@ -14,6 +14,15 @@ from pathlib import Path
 import re
 
 
+def bound_input_key(path, root):
+    """Keep repository labels stable while admitting explicit external inputs."""
+    path, root = Path(path).resolve(), Path(root).resolve()
+    try:
+        return str(path.relative_to(root))
+    except ValueError:
+        return str(path)
+
+
 def logs(value):
     result = []
     if isinstance(value, dict):

@@ -12,6 +12,10 @@ target directories, offline after locked dependency acquisition. The official
 macOS arm64 SDK archive is SHA-256 pinned, every SDK inventory entry is verified,
 and the hybrid Linux target libraries are authenticated by the existing bootstrap.
 The SDK Cargo performs acquisition too, preserving its registry-cache namespace.
+Acquisition fetches the complete locked dependency closure, without a target
+filter, before the harness stages its virtual workspace. Target-filtered fetching
+can omit archives needed by the later offline build. Fetch and build use the same
+Cargo home and sparse registry protocol; compilation remains `--locked --offline`.
 The runner label follows [GitHub's macOS arm64 runner documentation](https://docs.github.com/en/actions/reference/runners/github-hosted-runners).
 
 One copy of the official scorer processes both binaries against the same captured
@@ -27,6 +31,14 @@ score reports, and the comparison. Logs and reports are uploaded on failures too
 build outputs/caches and keypairs are not uploaded. This is not a runtime test or
 a proof of whole-ELF identity. Source changes during a build are rejected. Output
 directories must be fresh so previous measurements cannot be overwritten.
+
+Paired-build source receipts use the same `pump-source-inputs-v1` snapshot as
+`fastbuild`. They bind relative paths, exact bytes and executable bits; exclude
+only the Pump crate-root `target` build directory and Git metadata; and retain
+legitimate nested inputs such as `src/target/mod.rs` and
+`assets/target/data.bin`. Source symlinks and nonregular files are rejected,
+including a directory symlink named `target` at the crate root. The clean Git
+checkout check and the source snapshot are both repeated after each build.
 
 Local use on a provisioned macOS arm64 host (Python 3.12):
 

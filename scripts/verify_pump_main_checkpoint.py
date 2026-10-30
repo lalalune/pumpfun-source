@@ -193,19 +193,25 @@ def verify(root):
             require(selected[key] == current + relative and (root / selected[key]).is_file(), 'Pump selected ' + key)
         return {'status': 'PASS', 'actual_current_sources_checked': True, 'goal_complete': False, **report}
     package = root / PACKAGE
-    assert sha(package / 'MANIFEST.json') == MANIFEST_SHA256
+    def require(value, message):
+        # Explicit check instead of `assert`: `python -O` / PYTHONOPTIMIZE
+        # strips asserts, which made tampered main-checkpoint evidence
+        # report PASS. Mirrors the sealed branches above.
+        if not value:
+            raise ValueError(message)
+    require(sha(package / 'MANIFEST.json') == MANIFEST_SHA256, 'Pump main checkpoint seal')
     checkpoint = json.loads((package / 'CHECKPOINT.json').read_text())
     status = json.loads((root / 'repro/status.json').read_text())['pump']
-    assert status['candidate_artifact'] == PACKAGE + '/candidate.so'
-    assert status['candidate_sha256'] == checkpoint['candidate_sha256']
-    assert status['symbols_sha256'] == checkpoint['unstripped_sha256']
-    assert not status['full_byte_equality'] and not checkpoint['goal_complete']
+    require(status['candidate_artifact'] == PACKAGE + '/candidate.so', 'Pump main checkpoint selection')
+    require(status['candidate_sha256'] == checkpoint['candidate_sha256'], 'Pump main checkpoint candidate')
+    require(status['symbols_sha256'] == checkpoint['unstripped_sha256'], 'Pump main checkpoint symbols')
+    require(not status['full_byte_equality'] and not checkpoint['goal_complete'], 'Pump main checkpoint scope')
     for name, expected in checkpoint['primary_source_sha256'].items():
         path = root / 'programs/pump' / name
-        assert not path.is_symlink() and sha(path) == expected, name
+        require(not path.is_symlink() and sha(path) == expected, name)
     compiled_inputs = source_manifest(root / 'programs/pump', root / 'programs/pump', root)
     actual = {str((root / name).relative_to(root / 'programs/pump')) for name in compiled_inputs}
-    assert actual == set(checkpoint['primary_source_sha256'])
+    require(actual == set(checkpoint['primary_source_sha256']), 'Pump main checkpoint source scope')
     subprocess.run([sys.executable, '-B', str(package / 'verify.py')],
                    cwd=root, check=True)
     return {'status': 'PASS', 'program': 'pump',

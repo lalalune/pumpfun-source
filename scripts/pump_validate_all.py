@@ -12,6 +12,7 @@ import tempfile
 from pathlib import Path
 
 from pump_diagnostic_audit import audit as audit_diagnostics
+from pump_diagnostic_audit import bound_input_key
 
 ROOT = Path(__file__).resolve().parents[1]
 SUITES = [('volume', 'pump_validate_volume.py'), ('administration', 'pump_validate_admin.py'), ('authority', 'pump_validate_authority.py'), ('configuration', 'pump_validate_config_admin.py'), ('buy', 'pump_validate_buy.py'), ('sell', 'pump_validate_sell.py'), ('quote', 'pump_validate_quote.py'), ('creator_collection', 'pump_creator_collect_differential.py'), ('creator_distribution', 'pump_creator_distribution_differential.py'), ('minimum_distribution', 'pump_minimum_fee_differential.py'), ('creator_collection_v2', 'pump_creator_collect_v2_differential.py'), ('extension', 'pump_extend_differential.py'), ('volume_sync', 'pump_volume_sync_differential.py'), ('fee_sweeps', 'pump_fee_sweep_differential.py'), ('creator_migration', 'pump_creator_migration_differential.py'), ('admin_cto', 'pump_admin_cto_differential.py'), ('set_params', 'pump_set_params_differential.py'), ('set_creator', 'pump_set_creator_differential.py'), ('idl_authority', 'pump_idl_authority_differential.py'), ('legacy_create', 'pump_create_differential.py'), ('exact_quote_v3', 'pump_exact_quote_differential.py'), ('create_v2', 'pump_create_quote_differential.py'), ('legacy_sell', 'pump_legacy_sell_differential.py'), ('legacy_sell_configured_fee', 'pump_legacy_sell_configured_fee_differential.py'), ('sell_v2', 'pump_sell_v2_differential.py'), ('create_control', 'pump_create_control_differential.py'), ('migration', 'pump_migrate_differential.py'), ('v3_configured_fee', 'pump_v3_configured_fee_differential.py'), ('legacy_buy', 'pump_legacy_buy_differential.py'), ('buy_v2', 'pump_buy_v2_differential.py'), ('migrate_v2', 'pump_migrate_v2_differential.py'), ('cashback', 'pump_cashback_differential.py'), ('global_init', 'pump_global_init_differential.py'), ('holder_distribution', 'pump_holder_distribution_differential.py'), ('nested_create', 'pump_create_nested_differential.py'), ('quote_control', 'pump_quote_control_fresh_differential.py'), ('multi_hop_curve_partial', 'repro/pump/native-curve-partial-fortyeight/harness/pump_multi_hop_curve_differential.py')]
@@ -55,6 +56,16 @@ def retained_case_count(result):
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def validate_quote_control(result, candidate, original):
+    bound = result['bound_inputs_sha256']
+    assert bound[bound_input_key(candidate, ROOT)] == sha(candidate)
+    assert bound[bound_input_key(original, ROOT)] == sha(original)
+    count = result['cases']
+    assert count == len(result['results'])
+    assert all(row['matches'] and not row['different_fields'] for row in result['results'])
+    return count
 
 
 CASE_DIFFERENCE_FIELDS = ('different_fields', 'diff', 'differences', 'mismatched_fields')
@@ -105,12 +116,7 @@ def main():
             raw = output.read_bytes()
             result = json.loads(gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw)
             if name == 'quote_control':
-                bound = result['bound_inputs_sha256']
-                assert bound[str(candidate.relative_to(ROOT))] == candidate_sha
-                assert bound[str(original.relative_to(ROOT))] == original_sha
-                count = result['cases']
-                assert count == len(result['results'])
-                assert all(row['matches'] and not row['different_fields'] for row in result['results'])
+                count = validate_quote_control(result, candidate, original)
             elif name == 'multi_hop_curve_partial':
                 assert result['candidate_sha256'] == candidate_sha
                 assert result['original_pump_sha256'] == original_sha

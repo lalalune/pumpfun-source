@@ -1,0 +1,1775 @@
+.....EEEEEE............EEEEEEEEFFFFFEEEEEEEEEEEEEEEEEE.......EEEE.....F............FEE...EEEEEE..EE.......FEEFF..EEEEEEE......E...EEEE.EEEE.E......E...E.EEE....EE.EEEE.EEEE......EEEE..........EEEE........EEEE
+======================================================================
+ERROR: test_replaced_files_do_not_rebind_already_parsed_analysis (__main__.AnalysisInputSnapshotTests.test_replaced_files_do_not_rebind_already_parsed_analysis) (generator='analyze_program')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 603, in test_replaced_files_do_not_rebind_already_parsed_analysis
+    self.check_generation(module, True)
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 557, in check_generation
+    shutil.copyfile(analyze.ROOT / 'evidence/original/mayhem/deployed.so', source)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/shutil.py", line 260, in copyfile
+    with open(src, 'rb') as fsrc:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_replaced_files_do_not_rebind_already_parsed_analysis (__main__.AnalysisInputSnapshotTests.test_replaced_files_do_not_rebind_already_parsed_analysis) (generator='deep_disassembly')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 603, in test_replaced_files_do_not_rebind_already_parsed_analysis
+    self.check_generation(module, True)
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 557, in check_generation
+    shutil.copyfile(analyze.ROOT / 'evidence/original/mayhem/deployed.so', source)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/shutil.py", line 260, in copyfile
+    with open(src, 'rb') as fsrc:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_replaced_files_do_not_rebind_already_parsed_analysis (__main__.AnalysisInputSnapshotTests.test_replaced_files_do_not_rebind_already_parsed_analysis) (generator='deep_section_analysis')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 603, in test_replaced_files_do_not_rebind_already_parsed_analysis
+    self.check_generation(module, True)
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 557, in check_generation
+    shutil.copyfile(analyze.ROOT / 'evidence/original/mayhem/deployed.so', source)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/shutil.py", line 260, in copyfile
+    with open(src, 'rb') as fsrc:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_unchanged_inputs_keep_their_existing_identity (__main__.AnalysisInputSnapshotTests.test_unchanged_inputs_keep_their_existing_identity) (generator='analyze_program')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 608, in test_unchanged_inputs_keep_their_existing_identity
+    self.check_generation(module, False)
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 557, in check_generation
+    shutil.copyfile(analyze.ROOT / 'evidence/original/mayhem/deployed.so', source)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/shutil.py", line 260, in copyfile
+    with open(src, 'rb') as fsrc:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_unchanged_inputs_keep_their_existing_identity (__main__.AnalysisInputSnapshotTests.test_unchanged_inputs_keep_their_existing_identity) (generator='deep_disassembly')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 608, in test_unchanged_inputs_keep_their_existing_identity
+    self.check_generation(module, False)
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 557, in check_generation
+    shutil.copyfile(analyze.ROOT / 'evidence/original/mayhem/deployed.so', source)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/shutil.py", line 260, in copyfile
+    with open(src, 'rb') as fsrc:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_unchanged_inputs_keep_their_existing_identity (__main__.AnalysisInputSnapshotTests.test_unchanged_inputs_keep_their_existing_identity) (generator='deep_section_analysis')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 608, in test_unchanged_inputs_keep_their_existing_identity
+    self.check_generation(module, False)
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 557, in check_generation
+    shutil.copyfile(analyze.ROOT / 'evidence/original/mayhem/deployed.so', source)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/shutil.py", line 260, in copyfile
+    with open(src, 'rb') as fsrc:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_legacy_program_identity_is_rejected (test_capture_verification_modes.CaptureVerificationModeTests.test_legacy_program_identity_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 92, in test_legacy_program_identity_is_rejected
+    with self.changed_record('evidence/dependencies/associated_token/capture.json', mutate):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 40, in changed_record
+    original = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/capture-verification-modes-8z7ns5ro/evidence/dependencies/associated_token/capture.json'
+
+======================================================================
+ERROR: test_nonfinalized_commitments_are_rejected (test_capture_verification_modes.CaptureVerificationModeTests.test_nonfinalized_commitments_are_rejected) (folder='original/pump', commitment='processed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 74, in test_nonfinalized_commitments_are_rejected
+    with self.changed_record(f'evidence/{folder}/capture.json', mutate):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 40, in changed_record
+    original = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/capture-verification-modes-8z7ns5ro/evidence/original/pump/capture.json'
+
+======================================================================
+ERROR: test_nonfinalized_commitments_are_rejected (test_capture_verification_modes.CaptureVerificationModeTests.test_nonfinalized_commitments_are_rejected) (folder='original/pump', commitment='confirmed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 74, in test_nonfinalized_commitments_are_rejected
+    with self.changed_record(f'evidence/{folder}/capture.json', mutate):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 40, in changed_record
+    original = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/capture-verification-modes-8z7ns5ro/evidence/original/pump/capture.json'
+
+======================================================================
+ERROR: test_nonfinalized_commitments_are_rejected (test_capture_verification_modes.CaptureVerificationModeTests.test_nonfinalized_commitments_are_rejected) (folder='original/pump', commitment=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 74, in test_nonfinalized_commitments_are_rejected
+    with self.changed_record(f'evidence/{folder}/capture.json', mutate):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 40, in changed_record
+    original = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/capture-verification-modes-8z7ns5ro/evidence/original/pump/capture.json'
+
+======================================================================
+ERROR: test_nonfinalized_commitments_are_rejected (test_capture_verification_modes.CaptureVerificationModeTests.test_nonfinalized_commitments_are_rejected) (folder='dependencies/associated_token', commitment='processed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 74, in test_nonfinalized_commitments_are_rejected
+    with self.changed_record(f'evidence/{folder}/capture.json', mutate):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 40, in changed_record
+    original = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/capture-verification-modes-8z7ns5ro/evidence/dependencies/associated_token/capture.json'
+
+======================================================================
+ERROR: test_nonfinalized_commitments_are_rejected (test_capture_verification_modes.CaptureVerificationModeTests.test_nonfinalized_commitments_are_rejected) (folder='dependencies/associated_token', commitment='confirmed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 74, in test_nonfinalized_commitments_are_rejected
+    with self.changed_record(f'evidence/{folder}/capture.json', mutate):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 40, in changed_record
+    original = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/capture-verification-modes-8z7ns5ro/evidence/dependencies/associated_token/capture.json'
+
+======================================================================
+ERROR: test_nonfinalized_commitments_are_rejected (test_capture_verification_modes.CaptureVerificationModeTests.test_nonfinalized_commitments_are_rejected) (folder='dependencies/associated_token', commitment=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 74, in test_nonfinalized_commitments_are_rejected
+    with self.changed_record(f'evidence/{folder}/capture.json', mutate):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 40, in changed_record
+    original = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/capture-verification-modes-8z7ns5ro/evidence/dependencies/associated_token/capture.json'
+
+======================================================================
+ERROR: test_payload_hash_checks_remain_active (test_capture_verification_modes.CaptureVerificationModeTests.test_payload_hash_checks_remain_active)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 120, in test_payload_hash_checks_remain_active
+    original = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/capture-verification-modes-8z7ns5ro/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_removed_idl_and_listing_entry_are_rejected (test_capture_verification_modes.CaptureVerificationModeTests.test_removed_idl_and_listing_entry_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 97, in test_removed_idl_and_listing_entry_are_rejected
+    original = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/capture-verification-modes-8z7ns5ro/evidence/upstream/pump_fees.json'
+
+======================================================================
+ERROR: test_self_consistent_swapped_program_captures_are_rejected (test_capture_verification_modes.CaptureVerificationModeTests.test_self_consistent_swapped_program_captures_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 79, in test_self_consistent_swapped_program_captures_are_rejected
+    (original / 'pump').rename(original / 'swap')
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1363, in rename
+    os.rename(self, target)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/capture-verification-modes-8z7ns5ro/evidence/original/pump' -> '/tmp/capture-verification-modes-8z7ns5ro/evidence/original/swap'
+
+======================================================================
+ERROR: test_unexpected_upstream_listing_entry_is_rejected (test_capture_verification_modes.CaptureVerificationModeTests.test_unexpected_upstream_listing_entry_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 111, in test_unexpected_upstream_listing_entry_is_rejected
+    shutil.copyfile(self.root / 'evidence/upstream/pump.json', extra)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/shutil.py", line 260, in copyfile
+    with open(src, 'rb') as fsrc:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/capture-verification-modes-8z7ns5ro/evidence/upstream/pump.json'
+
+======================================================================
+ERROR: test_all_published_generic_case_comparison_encodings_still_pass (__main__.CaseComparisonReceiptTests.test_all_published_generic_case_comparison_encodings_still_pass) (field='different_fields')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 191, in test_all_published_generic_case_comparison_encodings_still_pass
+    self.assertEqual(self.validate(self.report({
+                                   ^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 155, in report
+    'original_sha256': corpus.sha(self.original),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_all_published_generic_case_comparison_encodings_still_pass (__main__.CaseComparisonReceiptTests.test_all_published_generic_case_comparison_encodings_still_pass) (field='diff')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 191, in test_all_published_generic_case_comparison_encodings_still_pass
+    self.assertEqual(self.validate(self.report({
+                                   ^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 155, in report
+    'original_sha256': corpus.sha(self.original),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_all_published_generic_case_comparison_encodings_still_pass (__main__.CaseComparisonReceiptTests.test_all_published_generic_case_comparison_encodings_still_pass) (field='differences')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 191, in test_all_published_generic_case_comparison_encodings_still_pass
+    self.assertEqual(self.validate(self.report({
+                                   ^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 155, in report
+    'original_sha256': corpus.sha(self.original),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_all_published_generic_case_comparison_encodings_still_pass (__main__.CaseComparisonReceiptTests.test_all_published_generic_case_comparison_encodings_still_pass) (field='mismatched_fields')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 191, in test_all_published_generic_case_comparison_encodings_still_pass
+    self.assertEqual(self.validate(self.report({
+                                   ^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 155, in report
+    'original_sha256': corpus.sha(self.original),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_all_published_generic_case_comparison_encodings_still_pass (__main__.CaseComparisonReceiptTests.test_all_published_generic_case_comparison_encodings_still_pass) (field='match')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 191, in test_all_published_generic_case_comparison_encodings_still_pass
+    self.assertEqual(self.validate(self.report({
+                                   ^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 155, in report
+    'original_sha256': corpus.sha(self.original),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_explicit_case_differences_cannot_hide_behind_empty_summary (__main__.CaseComparisonReceiptTests.test_explicit_case_differences_cannot_hide_behind_empty_summary) (field='different_fields')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 168, in test_explicit_case_differences_cannot_hide_behind_empty_summary
+    report = self.report({'original': {}, 'candidate': {}, field: []})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 155, in report
+    'original_sha256': corpus.sha(self.original),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_explicit_case_differences_cannot_hide_behind_empty_summary (__main__.CaseComparisonReceiptTests.test_explicit_case_differences_cannot_hide_behind_empty_summary) (field='diff')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 168, in test_explicit_case_differences_cannot_hide_behind_empty_summary
+    report = self.report({'original': {}, 'candidate': {}, field: []})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 155, in report
+    'original_sha256': corpus.sha(self.original),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_explicit_case_differences_cannot_hide_behind_empty_summary (__main__.CaseComparisonReceiptTests.test_explicit_case_differences_cannot_hide_behind_empty_summary) (field='differences')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 168, in test_explicit_case_differences_cannot_hide_behind_empty_summary
+    report = self.report({'original': {}, 'candidate': {}, field: []})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 155, in report
+    'original_sha256': corpus.sha(self.original),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_explicit_case_differences_cannot_hide_behind_empty_summary (__main__.CaseComparisonReceiptTests.test_explicit_case_differences_cannot_hide_behind_empty_summary) (field='mismatched_fields')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 168, in test_explicit_case_differences_cannot_hide_behind_empty_summary
+    report = self.report({'original': {}, 'candidate': {}, field: []})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 155, in report
+    'original_sha256': corpus.sha(self.original),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_false_case_match_cannot_hide_behind_empty_summary (__main__.CaseComparisonReceiptTests.test_false_case_match_cannot_hide_behind_empty_summary)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 174, in test_false_case_match_cannot_hide_behind_empty_summary
+    report = self.report({'original': {}, 'candidate': {}, 'match': True})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 155, in report
+    'original_sha256': corpus.sha(self.original),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_missing_paired_outcomes_or_comparison_are_rejected (__main__.CaseComparisonReceiptTests.test_missing_paired_outcomes_or_comparison_are_rejected) (row={'original': {}, 'match': True})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 186, in test_missing_paired_outcomes_or_comparison_are_rejected
+    self.validate(self.report(row))
+                  ^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 155, in report
+    'original_sha256': corpus.sha(self.original),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_missing_paired_outcomes_or_comparison_are_rejected (__main__.CaseComparisonReceiptTests.test_missing_paired_outcomes_or_comparison_are_rejected) (row={'original': {}, 'candidate': None, 'diff': []})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 186, in test_missing_paired_outcomes_or_comparison_are_rejected
+    self.validate(self.report(row))
+                  ^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 155, in report
+    'original_sha256': corpus.sha(self.original),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_missing_paired_outcomes_or_comparison_are_rejected (__main__.CaseComparisonReceiptTests.test_missing_paired_outcomes_or_comparison_are_rejected) (row={'original': {}, 'candidate': {}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 186, in test_missing_paired_outcomes_or_comparison_are_rejected
+    self.validate(self.report(row))
+                  ^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 155, in report
+    'original_sha256': corpus.sha(self.original),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_missing_paired_outcomes_or_comparison_are_rejected (__main__.CaseComparisonReceiptTests.test_missing_paired_outcomes_or_comparison_are_rejected) (row={'original': {}, 'candidate': {}, 'diff': None})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 186, in test_missing_paired_outcomes_or_comparison_are_rejected
+    self.validate(self.report(row))
+                  ^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 155, in report
+    'original_sha256': corpus.sha(self.original),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_missing_paired_outcomes_or_comparison_are_rejected (__main__.CaseComparisonReceiptTests.test_missing_paired_outcomes_or_comparison_are_rejected) (row={'original': {}, 'candidate': {}, 'match': 1})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 186, in test_missing_paired_outcomes_or_comparison_are_rejected
+    self.validate(self.report(row))
+                  ^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 155, in report
+    'original_sha256': corpus.sha(self.original),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_captured_unconditional_jumps_have_no_fallthrough (__main__.ControlFlowJumpTests.test_captured_unconditional_jumps_have_no_fallthrough) (program='pump')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1403, in test_captured_unconditional_jumps_have_no_fallthrough
+    elf = deep_disassembly.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_captured_unconditional_jumps_have_no_fallthrough (__main__.ControlFlowJumpTests.test_captured_unconditional_jumps_have_no_fallthrough) (program='pump_amm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1403, in test_captured_unconditional_jumps_have_no_fallthrough
+    elf = deep_disassembly.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_amm/deployed.so'
+
+======================================================================
+ERROR: test_captured_unconditional_jumps_have_no_fallthrough (__main__.ControlFlowJumpTests.test_captured_unconditional_jumps_have_no_fallthrough) (program='pump_fees')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1403, in test_captured_unconditional_jumps_have_no_fallthrough
+    elf = deep_disassembly.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_fees/deployed.so'
+
+======================================================================
+ERROR: test_captured_unconditional_jumps_have_no_fallthrough (__main__.ControlFlowJumpTests.test_captured_unconditional_jumps_have_no_fallthrough) (program='mayhem')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1403, in test_captured_unconditional_jumps_have_no_fallthrough
+    elf = deep_disassembly.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_captured_big_endian_conversions (__main__.EndianDecodeTests.test_captured_big_endian_conversions) (capture='original/mayhem')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 2056, in test_captured_big_endian_conversions
+    elf = deep_disassembly.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_captured_big_endian_conversions (__main__.EndianDecodeTests.test_captured_big_endian_conversions) (capture='dependencies/spl_token_2022')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 2056, in test_captured_big_endian_conversions
+    elf = deep_disassembly.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/dependencies/spl_token_2022/deployed.so'
+
+======================================================================
+ERROR: test_finalized_capture_passes (__main__.EvidenceCommitmentTests.test_finalized_capture_passes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1707, in test_finalized_capture_passes
+    self.run_gate()
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1691, in run_gate
+    shutil.copytree(analyze.ROOT / self.FOLDER, root / self.FOLDER)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/shutil.py", line 598, in copytree
+    with os.scandir(src) as itr:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump'
+
+======================================================================
+ERROR: test_weaker_commitment_is_rejected (__main__.EvidenceCommitmentTests.test_weaker_commitment_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1711, in test_weaker_commitment_is_rejected
+    self.run_gate(commitment='processed')
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1691, in run_gate
+    shutil.copytree(analyze.ROOT / self.FOLDER, root / self.FOLDER)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/shutil.py", line 598, in copytree
+    with os.scandir(src) as itr:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump'
+
+======================================================================
+ERROR: test_control_pair_passes (__main__.EvidenceProgramBindingTests.test_control_pair_passes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1736, in test_control_pair_passes
+    self.run_gate()
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1733, in run_gate
+    verify_evidence.main()
+  File "/workspace/pump-relay-native-reproduction/scripts/verify_evidence.py", line 48, in main
+    upstream=json.loads((ROOT/'evidence/upstream/provenance.json').read_text())
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmppgq_xlr6/evidence/upstream/provenance.json'
+
+======================================================================
+ERROR: test_swapped_captures_are_rejected (__main__.EvidenceProgramBindingTests.test_swapped_captures_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1742, in test_swapped_captures_are_rejected
+    (original / 'pump').rename(original / 'swap')
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1363, in rename
+    os.rename(self, target)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpt5e9dkhh/evidence/original/pump' -> '/tmp/tmpt5e9dkhh/evidence/original/swap'
+
+======================================================================
+ERROR: test_boolean_cases_corrupt_a_bool_field (test_fees_external_codec_cases.ExternalCodecBooleanCases.test_boolean_cases_corrupt_a_bool_field)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_fees_external_codec_cases.py", line 78, in test_boolean_cases_corrupt_a_bool_field
+    cases = recorded_cases()
+            ^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_fees_external_codec_cases.py", line 72, in recorded_cases
+    codec.main()
+  File "/workspace/pump-relay-native-reproduction/scripts/fees_external_codec_differential.py", line 29, in main
+    d={'scope':'Nine normal-signature synthetic external-account decoder rejections. Compare error logs excluding only source file/line, selected state/balances/events/inner calls; raw logs retained. Not whole-program/security/byte identity.','original_sha256':sha(ORIGINAL),'candidate_sha256':sha(a.candidate),'case_count':len(rows),'cases':rows,'mismatches':[r['case']['name'] for r in rows if r['mismatches']]}
+                                                                                                                                                                                                                                                                     ^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/fees_external_codec_differential.py", line 28, in <lambda>
+    sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+                                ^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_fees/deployed.so'
+
+======================================================================
+ERROR: test_captured_mayhem_reports_no_relocated_addresses (__main__.FallbackDispatchRelocationTests.test_captured_mayhem_reports_no_relocated_addresses)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1970, in test_captured_mayhem_reports_no_relocated_addresses
+    elf = Elf(analyze.ROOT / 'evidence/original/mayhem/deployed.so')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: setUpClass (__main__.GeneratedPacketMembershipTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 644, in setUpClass
+    raise AssertionError(result.stdout + result.stderr)
+AssertionError: b'ERROR: /workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so not found\n'
+
+======================================================================
+ERROR: test_captured_pump_short_layout_extent (__main__.InferredStructExtentTests.test_captured_pump_short_layout_extent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 457, in test_captured_pump_short_layout_extent
+    elf = Elf(analyze.ROOT / 'evidence/original/pump/deployed.so')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_idl_names_do_not_absorb_adjacent_text (__main__.InstructionLogNameTests.test_idl_names_do_not_absorb_adjacent_text)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1472, in test_idl_names_do_not_absorb_adjacent_text
+    pump = self.names('pump')
+           ^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1468, in names
+    blob = (analyze.ROOT / 'evidence/original' / name / 'deployed.so').read_bytes()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_mayhem_fallback_is_unchanged (__main__.InstructionLogNameTests.test_mayhem_fallback_is_unchanged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1511, in test_mayhem_fallback_is_unchanged
+    names = self.names('mayhem')
+            ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1468, in names
+    blob = (analyze.ROOT / 'evidence/original' / name / 'deployed.so').read_bytes()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_retained_interfaces_are_independent_of_default_text_encoding (test_analysis_interface_inventory.InterfaceInventoryEncodingTests.test_retained_interfaces_are_independent_of_default_text_encoding) (default_encoding='cp936')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_analysis_interface_inventory.py", line 28, in test_retained_interfaces_are_independent_of_default_text_encoding
+    shutil.copyfile(REPOSITORY / 'evidence/original/mayhem/deployed.so', program / 'deployed.so')
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/shutil.py", line 260, in copyfile
+    with open(src, 'rb') as fsrc:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_retained_interfaces_are_independent_of_default_text_encoding (test_analysis_interface_inventory.InterfaceInventoryEncodingTests.test_retained_interfaces_are_independent_of_default_text_encoding) (default_encoding='utf-8')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_analysis_interface_inventory.py", line 28, in test_retained_interfaces_are_independent_of_default_text_encoding
+    shutil.copyfile(REPOSITORY / 'evidence/original/mayhem/deployed.so', program / 'deployed.so')
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/shutil.py", line 260, in copyfile
+    with open(src, 'rb') as fsrc:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_retained_interfaces_are_independent_of_default_text_encoding (test_analysis_interface_inventory.InterfaceInventoryEncodingTests.test_retained_interfaces_are_independent_of_default_text_encoding)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_analysis_interface_inventory.py", line 46, in test_retained_interfaces_are_independent_of_default_text_encoding
+    self.assertEqual(outputs[0], outputs[1])
+                     ~~~~~~~^^^
+IndexError: list index out of range
+
+======================================================================
+ERROR: test_captured_call_targets_match_window_reader (__main__.InternalCallDecodeTests.test_captured_call_targets_match_window_reader) (program='pump')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1208, in test_captured_call_targets_match_window_reader
+    elf = deep_disassembly.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_captured_call_targets_match_window_reader (__main__.InternalCallDecodeTests.test_captured_call_targets_match_window_reader) (program='pump_amm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1208, in test_captured_call_targets_match_window_reader
+    elf = deep_disassembly.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_amm/deployed.so'
+
+======================================================================
+ERROR: test_captured_call_targets_match_window_reader (__main__.InternalCallDecodeTests.test_captured_call_targets_match_window_reader) (program='pump_fees')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1208, in test_captured_call_targets_match_window_reader
+    elf = deep_disassembly.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_fees/deployed.so'
+
+======================================================================
+ERROR: test_captured_call_targets_match_window_reader (__main__.InternalCallDecodeTests.test_captured_call_targets_match_window_reader) (program='mayhem')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1208, in test_captured_call_targets_match_window_reader
+    elf = deep_disassembly.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_missing_selector_uses_capture_receipts (__main__.LocalValidationProgramTests.test_missing_selector_uses_capture_receipts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1807, in test_missing_selector_uses_capture_receipts
+    got = local_validation.program_addresses()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/local_validation.py", line 33, in program_addresses
+    raise FileNotFoundError('no archived program selector and no captured originals')
+FileNotFoundError: no archived program selector and no captured originals
+
+======================================================================
+ERROR: test_real_captured_math_windows_are_density_ordered (__main__.MathDensityOrderTests.test_real_captured_math_windows_are_density_ordered) (program='pump')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 225, in test_real_captured_math_windows_are_density_ordered
+    elf = Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_real_captured_math_windows_are_density_ordered (__main__.MathDensityOrderTests.test_real_captured_math_windows_are_density_ordered) (program='pump_amm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 225, in test_real_captured_math_windows_are_density_ordered
+    elf = Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_amm/deployed.so'
+
+======================================================================
+ERROR: test_real_captured_math_windows_are_density_ordered (__main__.MathDensityOrderTests.test_real_captured_math_windows_are_density_ordered) (program='pump_fees')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 225, in test_real_captured_math_windows_are_density_ordered
+    elf = Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_fees/deployed.so'
+
+======================================================================
+ERROR: test_real_captured_math_windows_are_density_ordered (__main__.MathDensityOrderTests.test_real_captured_math_windows_are_density_ordered) (program='mayhem')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 225, in test_real_captured_math_windows_are_density_ordered
+    elf = Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_memory_widths_in_all_four_captured_programs (__main__.MemoryWidthDecodeTests.test_memory_widths_in_all_four_captured_programs) (program='pump')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 2102, in test_memory_widths_in_all_four_captured_programs
+    elf = deep_disassembly.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_memory_widths_in_all_four_captured_programs (__main__.MemoryWidthDecodeTests.test_memory_widths_in_all_four_captured_programs) (program='pump_amm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 2102, in test_memory_widths_in_all_four_captured_programs
+    elf = deep_disassembly.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_amm/deployed.so'
+
+======================================================================
+ERROR: test_memory_widths_in_all_four_captured_programs (__main__.MemoryWidthDecodeTests.test_memory_widths_in_all_four_captured_programs) (program='pump_fees')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 2102, in test_memory_widths_in_all_four_captured_programs
+    elf = deep_disassembly.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_fees/deployed.so'
+
+======================================================================
+ERROR: test_memory_widths_in_all_four_captured_programs (__main__.MemoryWidthDecodeTests.test_memory_widths_in_all_four_captured_programs) (program='mayhem')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 2102, in test_memory_widths_in_all_four_captured_programs
+    elf = deep_disassembly.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_captured_negations_have_no_invented_immediate (__main__.NegationDecodeTests.test_captured_negations_have_no_invented_immediate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1083, in test_captured_negations_have_no_invented_immediate
+    elf = Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: setUpClass (__main__.ParallelCaseCountTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 852, in setUpClass
+    cls.digest = pump_validate_parallel.sha(cls.artifact)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_retained_pump_terminal_branch (__main__.PatternTailScanTests.test_retained_pump_terminal_branch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1055, in test_retained_pump_terminal_branch
+    elf = Elf(analyze.ROOT / 'evidence/original/pump/deployed.so')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: setUpClass (__main__.ProgramDataAuthorityTagTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1758, in setUpClass
+    shutil.copytree(analyze.ROOT / 'evidence/upstream', cls.root / 'evidence/upstream')
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/shutil.py", line 598, in copytree
+    with os.scandir(src) as itr:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/upstream'
+
+======================================================================
+ERROR: test_gate_checks_every_upgradeable_capture (__main__.ProgramDataPdaTests.test_gate_checks_every_upgradeable_capture)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1613, in test_gate_checks_every_upgradeable_capture
+    verify_evidence.main()
+  File "/workspace/pump-relay-native-reproduction/scripts/verify_evidence.py", line 48, in main
+    upstream=json.loads((ROOT/'evidence/upstream/provenance.json').read_text())
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/upstream/provenance.json'
+
+======================================================================
+ERROR: test_other_programs_bytes_under_this_program_id_are_rejected (__main__.ProgramDataPdaTests.test_other_programs_bytes_under_this_program_id_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1602, in test_other_programs_bytes_under_this_program_id_are_rejected
+    m = self.record('original/pump')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1593, in record
+    return json.loads((analyze.ROOT / 'evidence' / name / 'capture.json').read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/capture.json'
+
+======================================================================
+ERROR: test_cpi_detection_resolves_relocated_call_targets (__main__.RelocatedCallTargetTests.test_cpi_detection_resolves_relocated_call_targets)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1668, in setUp
+    self.elf = Elf(Path(analyze.ROOT) / 'evidence/original/pump_amm/deployed.so')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_amm/deployed.so'
+
+======================================================================
+ERROR: test_serialization_counts_relocated_memcpy_calls (__main__.RelocatedCallTargetTests.test_serialization_counts_relocated_memcpy_calls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1668, in setUp
+    self.elf = Elf(Path(analyze.ROOT) / 'evidence/original/pump_amm/deployed.so')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_amm/deployed.so'
+
+======================================================================
+ERROR: test_captured_relative_and_call_relocations (__main__.RelocationTypeTests.test_captured_relative_and_call_relocations) (program='pump')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1241, in test_captured_relative_and_call_relocations
+    elf = deep_section_analysis.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_captured_relative_and_call_relocations (__main__.RelocationTypeTests.test_captured_relative_and_call_relocations) (program='pump_amm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1241, in test_captured_relative_and_call_relocations
+    elf = deep_section_analysis.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_amm/deployed.so'
+
+======================================================================
+ERROR: test_captured_relative_and_call_relocations (__main__.RelocationTypeTests.test_captured_relative_and_call_relocations) (program='pump_fees')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1241, in test_captured_relative_and_call_relocations
+    elf = deep_section_analysis.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_fees/deployed.so'
+
+======================================================================
+ERROR: test_captured_relative_and_call_relocations (__main__.RelocationTypeTests.test_captured_relative_and_call_relocations) (program='mayhem')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1241, in test_captured_relative_and_call_relocations
+    elf = deep_section_analysis.Elf(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_existing_output_is_preserved_before_any_verifier_runs (test_revalidation_output.RevalidationOutputTests.test_existing_output_is_preserved_before_any_verifier_runs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_revalidation_output.py", line 25, in setUp
+    self.source = (REPO / 'evidence/upstream/pump.json').read_bytes()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/upstream/pump.json'
+
+======================================================================
+ERROR: test_fresh_external_report_remains_self_verifiable (test_revalidation_output.RevalidationOutputTests.test_fresh_external_report_remains_self_verifiable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_revalidation_output.py", line 25, in setUp
+    self.source = (REPO / 'evidence/upstream/pump.json').read_bytes()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/upstream/pump.json'
+
+======================================================================
+ERROR: test_output_under_research_is_not_counted_as_an_input_packet (test_revalidation_output.RevalidationOutputTests.test_output_under_research_is_not_counted_as_an_input_packet)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_revalidation_output.py", line 25, in setUp
+    self.source = (REPO / 'evidence/upstream/pump.json').read_bytes()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/upstream/pump.json'
+
+======================================================================
+ERROR: test_real_audit_requires_every_available_packet_check (__main__.RevalidationReportTests.test_real_audit_requires_every_available_packet_check)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 930, in test_real_audit_requires_every_available_packet_check
+    source = (repo / 'evidence/upstream/pump.json').read_bytes()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/upstream/pump.json'
+
+======================================================================
+ERROR: test_retained_four_store_ranges (__main__.SerializationBoundaryTests.test_retained_four_store_ranges) (program='pump')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1024, in test_retained_four_store_ranges
+    elf = Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_retained_four_store_ranges (__main__.SerializationBoundaryTests.test_retained_four_store_ranges) (program='pump_amm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1024, in test_retained_four_store_ranges
+    elf = Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_amm/deployed.so'
+
+======================================================================
+ERROR: test_retained_four_store_ranges (__main__.SerializationBoundaryTests.test_retained_four_store_ranges) (program='pump_fees')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1024, in test_retained_four_store_ranges
+    elf = Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_fees/deployed.so'
+
+======================================================================
+ERROR: test_retained_four_store_ranges (__main__.SerializationBoundaryTests.test_retained_four_store_ranges) (program='mayhem')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1024, in test_retained_four_store_ranges
+    elf = Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_captured_import_sequences (__main__.SyscallFingerprintTests.test_captured_import_sequences) (program='pump')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1155, in test_captured_import_sequences
+    elf = deep_disassembly.Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_captured_import_sequences (__main__.SyscallFingerprintTests.test_captured_import_sequences) (program='pump_amm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1155, in test_captured_import_sequences
+    elf = deep_disassembly.Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_amm/deployed.so'
+
+======================================================================
+ERROR: test_captured_import_sequences (__main__.SyscallFingerprintTests.test_captured_import_sequences) (program='pump_fees')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1155, in test_captured_import_sequences
+    elf = deep_disassembly.Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/pump_fees/deployed.so'
+
+======================================================================
+ERROR: test_captured_import_sequences (__main__.SyscallFingerprintTests.test_captured_import_sequences) (program='mayhem')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1155, in test_captured_import_sequences
+    elf = deep_disassembly.Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/window_elf_reader.py", line 8, in __init__
+    self.path=path;self.b=path.read_bytes();b=self.b;off=struct.unpack_from('<Q',b,40)[0];size,count,ni=struct.unpack_from('<HHH',b,58);self.raw=[struct.unpack_from('<IIQQQQIIQQ',b,off+i*size) for i in range(count)];ns=self.raw[ni];names=b[ns[4]:ns[4]+ns[5]];self.secs={names[s[0]:].split(b'\0',1)[0].decode():s for s in self.raw};self.text=self.secs['.text'];self.lo=self.text[4];self.hi=self.lo+self.text[5];self.symbols={};self.funcs=[]
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/evidence/original/mayhem/deployed.so'
+
+======================================================================
+ERROR: test_removed_idl_and_listing_entry_are_rejected (__main__.UpstreamEvidenceSetTests.test_removed_idl_and_listing_entry_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 2013, in test_removed_idl_and_listing_entry_are_rejected
+    root = self.copy_evidence(temporary)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 2001, in copy_evidence
+    self.run_gate(root)  # control: the unmodified copy passes
+    ^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1994, in run_gate
+    verify_evidence.main()
+  File "/workspace/pump-relay-native-reproduction/scripts/verify_evidence.py", line 48, in main
+    upstream=json.loads((ROOT/'evidence/upstream/provenance.json').read_text())
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmp0akovcnp/evidence/upstream/provenance.json'
+
+======================================================================
+ERROR: test_unexpected_listing_entry_is_rejected (__main__.UpstreamEvidenceSetTests.test_unexpected_listing_entry_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 2022, in test_unexpected_listing_entry_is_rejected
+    root = self.copy_evidence(temporary)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 2001, in copy_evidence
+    self.run_gate(root)  # control: the unmodified copy passes
+    ^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1994, in run_gate
+    verify_evidence.main()
+  File "/workspace/pump-relay-native-reproduction/scripts/verify_evidence.py", line 48, in main
+    upstream=json.loads((ROOT/'evidence/upstream/provenance.json').read_text())
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmp4ibrbi6z/evidence/upstream/provenance.json'
+
+======================================================================
+ERROR: test_default_baseline_reports_a_lost_window (__main__.WindowScorerBaselineTests.test_default_baseline_reports_a_lost_window)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1926, in test_default_baseline_reports_a_lost_window
+    scorer = load_window_scorer()
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1913, in load_window_scorer
+    spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1132, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1190, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/reconstruction/harness/score.py'
+
+======================================================================
+ERROR: test_missing_baseline_is_an_error (__main__.WindowScorerBaselineTests.test_missing_baseline_is_an_error)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1937, in test_missing_baseline_is_an_error
+    scorer = load_window_scorer()
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1913, in load_window_scorer
+    spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1132, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1190, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/pump-relay-native-reproduction/reconstruction/harness/score.py'
+
+======================================================================
+FAIL: test_real_corpus_passes_in_all_modes (test_capture_verification_modes.CaptureVerificationModeTests.test_real_corpus_passes_in_all_modes) (flags=(), environment_optimize=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 62, in test_real_corpus_passes_in_all_modes
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "/tmp/capture-verification-modes-8z7ns5ro/scripts/verify_evidence.py", line 90, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/tmp/capture-verification-modes-8z7ns5ro/scripts/verify_evidence.py", line 48, in main
+    upstream=json.loads((ROOT/'evidence/upstream/provenance.json').read_text())
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/capture-verification-modes-8z7ns5ro/evidence/upstream/provenance.json'
+
+
+======================================================================
+FAIL: test_real_corpus_passes_in_all_modes (test_capture_verification_modes.CaptureVerificationModeTests.test_real_corpus_passes_in_all_modes) (flags=('-O',), environment_optimize=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 62, in test_real_corpus_passes_in_all_modes
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "/tmp/capture-verification-modes-8z7ns5ro/scripts/verify_evidence.py", line 90, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/tmp/capture-verification-modes-8z7ns5ro/scripts/verify_evidence.py", line 48, in main
+    upstream=json.loads((ROOT/'evidence/upstream/provenance.json').read_text())
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/capture-verification-modes-8z7ns5ro/evidence/upstream/provenance.json'
+
+
+======================================================================
+FAIL: test_real_corpus_passes_in_all_modes (test_capture_verification_modes.CaptureVerificationModeTests.test_real_corpus_passes_in_all_modes) (flags=('-OO',), environment_optimize=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 62, in test_real_corpus_passes_in_all_modes
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "/tmp/capture-verification-modes-8z7ns5ro/scripts/verify_evidence.py", line 90, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/tmp/capture-verification-modes-8z7ns5ro/scripts/verify_evidence.py", line 48, in main
+    upstream=json.loads((ROOT/'evidence/upstream/provenance.json').read_text())
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/capture-verification-modes-8z7ns5ro/evidence/upstream/provenance.json'
+
+
+======================================================================
+FAIL: test_real_corpus_passes_in_all_modes (test_capture_verification_modes.CaptureVerificationModeTests.test_real_corpus_passes_in_all_modes) (flags=(), environment_optimize='1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 62, in test_real_corpus_passes_in_all_modes
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "/tmp/capture-verification-modes-8z7ns5ro/scripts/verify_evidence.py", line 90, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/tmp/capture-verification-modes-8z7ns5ro/scripts/verify_evidence.py", line 48, in main
+    upstream=json.loads((ROOT/'evidence/upstream/provenance.json').read_text())
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/capture-verification-modes-8z7ns5ro/evidence/upstream/provenance.json'
+
+
+======================================================================
+FAIL: test_real_corpus_passes_in_all_modes (test_capture_verification_modes.CaptureVerificationModeTests.test_real_corpus_passes_in_all_modes) (flags=(), environment_optimize='2')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_capture_verification_modes.py", line 62, in test_real_corpus_passes_in_all_modes
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "/tmp/capture-verification-modes-8z7ns5ro/scripts/verify_evidence.py", line 90, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/tmp/capture-verification-modes-8z7ns5ro/scripts/verify_evidence.py", line 48, in main
+    upstream=json.loads((ROOT/'evidence/upstream/provenance.json').read_text())
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/capture-verification-modes-8z7ns5ro/evidence/upstream/provenance.json'
+
+
+======================================================================
+FAIL: test_normal_mode_still_rejects_invalid_artifact_bindings (__main__.CorpusOptimizationTests.test_normal_mode_still_rejects_invalid_artifact_bindings)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 786, in test_normal_mode_still_rejects_invalid_artifact_bindings
+    self.assertIn(b'AssertionError', result.stderr)
+AssertionError: b'AssertionError' not found in b'Traceback (most recent call last):\n  File "<string>", line 6, in <module>\n  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_parallel.py", line 59, in validate_result\n    assert result.get(\'original_sha256\', result.get(\'provenance\', {}).get(str(original))) == sha(original)\n                                                                                             ^^^^^^^^^^^^^\n  File "/workspace/pump-relay-native-reproduction/scripts/pump_validate_all.py", line 58, in sha\n    return hashlib.sha256(path.read_bytes()).hexdigest()\n                          ^^^^^^^^^^^^^^^^^\n  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes\n    with self.open(mode=\'rb\') as f:\n         ^^^^^^^^^^^^^^^^^^^^\n  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: \'/workspace/pump-relay-native-reproduction/evidence/original/pump/deployed.so\'\n'
+
+======================================================================
+FAIL: test_every_captured_program_is_recovered (__main__.DispatchRecoveryTests.test_every_captured_program_is_recovered)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1865, in test_every_captured_program_is_recovered
+    self.assertEqual(
+AssertionError: Lists differ: [] != ['pump', 'pump_amm', 'pump_fees', 'mayhem']
+
+Second list contains 4 additional elements.
+First extra element 0:
+'pump'
+
+- []
++ ['pump', 'pump_amm', 'pump_fees', 'mayhem']
+
+======================================================================
+FAIL: test_idl_names_are_independent_of_locale_encoding (__main__.InstructionLogNameTests.test_idl_names_are_independent_of_locale_encoding)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1453, in test_idl_names_are_independent_of_locale_encoding
+    self.assertIn('Buy' if program != 'pump_fees' else 'Withdraw', expected)
+AssertionError: 'Buy' not found in ()
+
+======================================================================
+FAIL: test_program_addresses_fall_back_to_captures (__main__.InstructionLogNameTests.test_program_addresses_fall_back_to_captures)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1500, in test_program_addresses_fall_back_to_captures
+    self.assertEqual(
+AssertionError: {} != {'pump': '6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ[184 chars]D4e'}
+- {}
++ {'mayhem': 'MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e',
++  'pump': '6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P',
++  'pump_amm': 'pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA',
++  'pump_fees': 'pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ'}
+
+======================================================================
+FAIL: test_program_names_fall_back_to_captures (__main__.InstructionLogNameTests.test_program_names_fall_back_to_captures)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1493, in test_program_names_fall_back_to_captures
+    self.assertEqual(
+AssertionError: Lists differ: [] != ['pump', 'pump_amm', 'pump_fees', 'mayhem']
+
+Second list contains 4 additional elements.
+First extra element 0:
+'pump'
+
+- []
++ ['pump', 'pump_amm', 'pump_fees', 'mayhem']
+
+----------------------------------------------------------------------
+Ran 157 tests in 2.441s
+
+FAILED (failures=10, errors=92)

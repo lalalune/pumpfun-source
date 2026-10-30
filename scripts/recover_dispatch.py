@@ -9,7 +9,7 @@ def recover(name, root=ROOT):
  b=(root/f'evidence/original/{name}/deployed.so').read_bytes(); layout=elf_layout(b)
  text=next(s for s in layout['sections'] if s['name']=='.text'); start=text['offset']; end=start+text['size']; delta=text['address']-start
  idl=root/f'evidence/upstream/{name}.json'
- if idl.exists(): candidates={i['name']:bytes(i['discriminator']) for i in json.loads(idl.read_text())['instructions']}
+ if idl.exists(): candidates={i['name']:bytes(i['discriminator']) for i in json.loads(idl.read_text(encoding="utf-8"))['instructions']}
  else:
   names=json.loads((root/'evidence/binary-analysis.json').read_text())[name]['instruction_log_names']
   names=[re.sub(r'(?<!^)(?=[A-Z])','_',n).lower() for n in names]
@@ -38,7 +38,7 @@ def recover(name, root=ROOT):
  return {'binary_sha256':hashlib.sha256(b).hexdigest(),'basis':'official IDL' if idl.exists() else 'SHA256(global:snake_case(instruction log name)) hypothesis','instructions':result}
 def dispatch(root=ROOT):
  """Dispatch report for every selected program, in selector order."""
- return {n:recover(n, root) for n in program_names()}
+ return {n:recover(n, root) for n in program_names(root)}
 if __name__=='__main__':
  out=dispatch(ROOT)
  (ROOT/'evidence/dispatch-map.json').write_text(json.dumps(out,indent=2)+'\n')

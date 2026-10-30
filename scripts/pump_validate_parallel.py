@@ -46,12 +46,7 @@ def publish_report(path, payload):
 
 def validate_result(name, result, candidate, original):
     if name == 'quote_control':
-        bound = result['bound_inputs_sha256']
-        assert bound[str(candidate.relative_to(ROOT))] == sha(candidate)
-        assert bound[str(original.relative_to(ROOT))] == sha(original)
-        count = result['cases']
-        assert count == len(result['results'])
-        assert all(row['matches'] and not row['different_fields'] for row in result['results'])
+        count = base.validate_quote_control(result, candidate, original)
     elif name == 'multi_hop_curve_partial':
         assert result['candidate_sha256'] == sha(candidate)
         assert result['original_pump_sha256'] == sha(original)
@@ -68,6 +63,19 @@ def validate_result(name, result, candidate, original):
     assert count == base.EXPECTED_CASES[name], (name, count, base.EXPECTED_CASES[name])
     assert not result.get('mismatches', result.get('failures', [])), name
     return count
+
+
+def validate_loader_receipt(name, path, script, candidate, original, inputs):
+    """Admit the actual retained loader evidence for execution and revalidation."""
+    loaded = json.loads(path.read_text())
+    assert loaded['loads'], name
+    assert Path(loaded['harness']).resolve() == script.resolve(), name
+    expected_inputs = {str(p): sha(p) for p in [*inputs, script]}
+    assert loaded['input_sha256'] == expected_inputs, (name, 'loader inputs differ')
+    assert {row['elf_sha256'] for row in loaded['loads']} == {sha(candidate), sha(original)}, name
+    assert all(row['program_bytes'] == 36 and row['program_owner'] == 'BPFLoaderUpgradeab1e11111111111111111111111' and row['programdata_bytes'] == 10485760 and row['elf_prefix_unchanged'] and row['zero_allocation_tail'] for row in loaded['loads']), name
+    return {'path': base.bound_input_key(path, ROOT), 'sha256': sha(path),
+            'load_count': len(loaded['loads'])}
 
 
 def main():
@@ -142,13 +150,7 @@ def main():
         (retained / (name + '.json.gz')).write_bytes(gzip.compress(json.dumps(result, separators=(',', ':')).encode(), mtime=0))
         count = validate_result(name, result, candidate, original)
         if args.captured_loader:
-            loaded = json.loads(loader_receipt.read_text())
-            assert loaded['loads'], name
-            expected = {sha(candidate), sha(original)}
-            assert {row['elf_sha256'] for row in loaded['loads']} == expected, name
-            assert all(row['program_bytes'] == 36 and row['program_owner'] == 'BPFLoaderUpgradeab1e11111111111111111111111' and row['programdata_bytes'] == 10485760 and row['elf_prefix_unchanged'] and row['zero_allocation_tail'] for row in loaded['loads']), name
-            assert all(sha(Path(path)) == digest for path, digest in loaded['input_sha256'].items())
-            loader_receipts[name] = {'path': str(loader_receipt.relative_to(ROOT)), 'sha256': sha(loader_receipt), 'load_count': len(loaded['loads'])}
+            loader_receipts[name] = validate_loader_receipt(name, loader_receipt, script, candidate, original, loader_inputs)
         check_bound_files()
         result['case_count'] = count
         (retained / (name + '.json.gz')).write_bytes(gzip.compress(json.dumps(result, separators=(',', ':')).encode(), mtime=0))
@@ -164,6 +166,14 @@ def main():
         assert previous['script_sha256'] == expected_previous_scripts, 'saved report harness hashes differ'
         assert previous['compiled_source_sha256'] == sources, 'saved report compiled-source binding differs'
         bound_files[str(args.validate_existing.resolve())] = sha(args.validate_existing)
+        if args.captured_loader:
+            assert set(previous['loader_receipts']) == set(scripts), 'saved loader evidence is incomplete'
+            for name, saved in previous['loader_receipts'].items():
+                receipt = (ROOT / saved['path']).resolve()
+                assert sha(receipt) == saved['sha256'], (name, 'saved loader receipt changed')
+                entry = validate_loader_receipt(name, receipt, scripts[name], candidate, original, loader_inputs)
+                assert entry == saved, (name, 'saved loader receipt binding differs')
+                loader_receipts[name] = entry
         for name, result in previous['suites'].items():
             counts[name] = validate_result(name, result, candidate, original)
             suites[name] = result
@@ -196,6 +206,8 @@ def main():
                     args.output.with_name(args.output.name + '.failed.json'),
                     (json.dumps(failure, indent=2) + '\n').encode())
                 raise RuntimeError('suite failure; completed receipts and logs retained')
+    for entry in loader_receipts.values():
+        bound_files[str((ROOT / entry['path']).resolve())] = entry['sha256']
     check_bound_files()
     assert len(suites) == len(selected_suites) and sum(counts.values()) == loads[args.shard - 1]
     assert set(suites) == {name for name, _ in selected_suites}

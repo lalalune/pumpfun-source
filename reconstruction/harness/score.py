@@ -67,7 +67,7 @@ def candidate_functions(path):
 def _window_rows(orig, inventory):
     """Cache immutable rows by input bytes, never by timestamps or a saved pickle."""
     os_ = sections(orig)
-    reader = csv.DictReader(io.StringIO(inventory), delimiter='\t')
+    reader = csv.DictReader(io.StringIO(inventory), delimiter='\t', strict=True)
     required = {'program', 'variant', 'original_start', 'original_end'}
     if not required.issubset(reader.fieldnames or []):
         raise ValueError('window inventory is missing required columns')
@@ -90,6 +90,11 @@ def _window_rows(orig, inventory):
         rows.append((start, end - start, raw, normalize(raw, start, os_)))
     if not rows:
         raise ValueError('window inventory contains no selected Pump windows')
+    previous_end = text['addr']
+    for start, length, _, _ in sorted(rows, key=lambda row: row[0]):
+        if start < previous_end:
+            raise ValueError(f'overlapping window range: {start}')
+        previous_end = start + length
     return tuple(rows)
 
 
@@ -162,7 +167,8 @@ def main():
     else:
         print(f'score.py: baseline not found: {a.baseline} (pass --no-baseline to score without one)', file=sys.stderr)
         sys.exit(2)
-    inputs = [a.candidate, BASE / 'original.so', BASE / 'functions.tsv']
+    inputs = [a.candidate, BASE / 'original.so', resolve_original(BASE / 'original.so'),
+              BASE / 'functions.tsv']
     if base is not None:
         inputs.insert(1, a.baseline)
     report_destination(a.json, inputs)
