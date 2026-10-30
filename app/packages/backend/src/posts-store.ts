@@ -109,7 +109,9 @@ export const SYNTHETIC_POSTS_SEED: readonly RawPost[] = seedData as RawPost[];
 
 export function userToProfile(user: User, isVerified: boolean): UserProfile {
   return {
-    userId: user.userId ?? user.address,
+    // A blank userId is not an identity (UserStore does not index it), so it
+    // falls back to the wallet like an absent one instead of emitting ''.
+    userId: user.userId || user.address,
     username: user.username ?? user.address.slice(0, 8),
     bio: user.bio ?? '',
     profileImageUrl: user.profile_image ?? '',
