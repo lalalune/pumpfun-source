@@ -43,6 +43,31 @@ after the fee store (the original also clears it last, `stb [r1+0xa4],0` at orig
 27,400 B and raises the ratio 0.45147 -> **0.45177** (slots_diff 3,308 unchanged), 1033/1033, zero
 losses, unstripped sha256 `6892c2a15de3ba6a...`.
 
+## Step 3: fee match + per-arm cashback, size-compensated to 27,400 B (0.48472)
+
+Two validate genes from other wave-12 lanes raise the ratio a lot but leave admin_cto short of
+27,400 B: w12a09-cto-cleanroom's `match fee{None=>{},Some(f)=>{..}}` (None successor first; on L1
+27,392 B / 0.47551) and w12a11-cto-sibling's AMM-sibling per-arm cashback
+(`let cashback=if holder{false}else{st.cashback};`, tested by 330; on L1 27,384 B / 0.48367).
+On L2 together they give 27,384 B / 0.48517. Size compensation from the knob search:
+
+| L2 + | bytes | ratio |
+| --- | ---: | ---: |
+| fee match + cashback local | 27,384 | 0.48517 |
+| + old fee read after the cashback store (`curve.is_cashback_coin=cashback;let old_fee=..`) | 27,392 | 0.48599 |
+| + old fee read after the creator store instead | 27,384 | 0.48517 |
+| + old fee after cashback + event `is_holder_reward:holder,is_cashback_coin:cashback` | 27,408 | 0.48465 |
+| + the same + `if let Some(f)=fee` fee store | 27,408 | 0.48525 |
+| + old fee after cashback + event `sharing_config_reset` bound early | 27,384 | 0.48547 |
+| + old fee after cashback + event `is_holder_reward:holder` only | 27,384 | 0.48547 |
+| **+ old fee after cashback + event flags from locals + `pool_updated=if ..{cpi?;true}else{msg!;false}`** | **27,400** | **0.48472** |
+
+The landed form: fee match, cashback local, old fee read after the cashback store, the event's
+holder/cashback flags from the locals just stored, and `pool_updated` as an if-expression whose arms
+set the constant (the original materializes it the same way: `mov r8,1` after the admin_cto_pool
+call, `mov r8,0` in the msg arm). 1034/1034 normalized/raw (swap_hop matched on main), zero
+losses, slots_diff 3,308 -> 3,289, unstripped sha256 `772e9bf153bb488f...`.
+
 ## Knob table (single genes, admin_cto bytes and ratio)
 
 Bases: k4 = 27,384 / 0.4525; L1 = k4 + bump-first + su-match = 27,400 / 0.45147 (main after #2749);
