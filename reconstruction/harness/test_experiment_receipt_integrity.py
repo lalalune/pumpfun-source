@@ -24,6 +24,7 @@ class ReceiptIntegrityTests(unittest.TestCase):
     def test_deleted_input_and_source_leave_error_receipts(self):
         for kind in ['declared','source','staged','source-root','staged-root']:
             with self.subTest(kind=kind):
+                self.source.mkdir(exist_ok=True)
                 declared=self.root/'declared';declared.write_text('bound')
                 target=declared if kind=='declared' else self.source/'value'
                 target.write_text('bound')
@@ -45,6 +46,7 @@ class ReceiptIntegrityTests(unittest.TestCase):
     def test_input_changes_during_lock_wait_do_not_reuse_stale_pass(self):
         for kind in ['source','declared']:
             with self.subTest(kind=kind):
+                self.source.mkdir(exist_ok=True)
                 declared=self.root/'declared';declared.write_text('one')
                 out=self.root/('wait-'+kind)
                 initial=E.run_trial(self.source,self.command,out,inputs=[declared])
