@@ -7,7 +7,7 @@ import json
 from pathlib import Path, PurePosixPath
 
 HERE = Path(__file__).resolve().parent
-MANIFEST_SHA256 = 'fba71e51b54e96c730d87c6ade4393ec7ed254fe089e30f0a8a7115848bf8133'
+MANIFEST_SHA256 = '977c888f1d57b9609d2c6cca8b881fbab036a6a6aa1e8835dee145e79e7b2693'
 ENTRYPOINT_SHA256 = 'e6ff50da38e45d1d2a843bc5f2407e265c84643a2daa5a67ef6376df3c2ae595'
 PUBLIC_COMMIT = 'decb244ccf8a81b086e940568a2d03336309046f'
 sha = lambda b: hashlib.sha256(b).hexdigest()
@@ -42,9 +42,17 @@ def verify(repository, staged=None):
         require(len(data) == row['bytes'] and sha(data) == row['sha256'], 'restored bytes differ: ' + row['path'])
         blob = hashlib.sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest()
         require(blob == row['source_git_blob'], 'public Git blob differs: ' + row['path'])
+    policy = manifest['checkout_policy']
+    require(policy['path'] == 'research/mayhem-fresh-host-20261028/.gitattributes', 'checkout policy path differs')
+    policy_bytes = regular(repository, policy['path']).read_bytes()
+    require(policy_bytes == b'* -text\n' and len(policy_bytes) == policy['bytes']
+            and sha(policy_bytes) == policy['sha256'], 'checkout byte-preservation policy differs')
+    require(hashlib.sha1(b'blob ' + str(len(policy_bytes)).encode() + b'\0' + policy_bytes).hexdigest()
+            == policy['source_git_blob'], 'public checkout-policy blob differs')
     entrypoint = regular(repository, 'programs/mayhem/build_exact.py')
     require(sha(entrypoint.read_bytes()) == ENTRYPOINT_SHA256, 'maintained entrypoint changed')
     result = {'public_source_commit': PUBLIC_COMMIT, 'restored_inputs': len(records),
+              'checkout_policies': 1,
               'stage_checked': staged is not None, 'fresh_compilation_checked': False,
               'fresh_elf_equality_checked': False}
     if staged is None:

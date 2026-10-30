@@ -23,13 +23,16 @@ class ExactStageTests(unittest.TestCase):
         shutil.copytree(ROOT / 'programs/mayhem', self.root / 'programs/mayhem')
         manifest_path = ROOT / 'reconstruction/mayhem/recovered-stage-inputs.json'
         manifest = json.loads(manifest_path.read_text())
-        for row in manifest['files']:
+        for row in manifest['files'] + [manifest['checkout_policy']]:
             target = self.root / row['path']
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / row['path'], target)
         target = self.root / 'reconstruction/mayhem/recovered-stage-inputs.json'
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(manifest_path, target)
+        shutil.copyfile(ROOT / '.gitattributes', self.root / '.gitattributes')
+        for name in ('verify_stage.py', 'test_exact_stage.py', 'README.md'):
+            shutil.copyfile(ROOT / 'reconstruction/mayhem' / name, self.root / 'reconstruction/mayhem' / name)
         self.output = Path(self.temporary.name) / 'real stage output'
 
     def stage(self):
@@ -107,6 +110,31 @@ class ExactStageTests(unittest.TestCase):
         manifest.write_text(json.dumps(document))
         with self.assertRaisesRegex(ValueError, 'recovery manifest changed'):
             verify(self.root)
+
+    def test_original_checkout_policy_preserves_crlf_with_autocrlf(self):
+        checkout = self.root
+        manifest = json.loads((self.root / 'reconstruction/mayhem/recovered-stage-inputs.json').read_text())
+        prefix = 'research/mayhem-fresh-host-20261028/'
+        expected = {p.relative_to(checkout).as_posix(): p.read_bytes() for p in checkout.rglob('*')
+                    if p.is_file() and p != checkout / '.gitattributes'}
+        for name in ['controller/historical-macro.json', 'controller/source-inputs.json',
+                     'host-inputs/supplement-packages.json']:
+            self.assertIn(b'\r\n', expected[prefix + name])
+        def git(*args):
+            return subprocess.run(['git', '-c', 'core.autocrlf=true', '-C', str(checkout), *args],
+                                  text=True, capture_output=True, check=True)
+        git('init', '-q')
+        git('add', '.')
+        for name, data in expected.items():
+            staged = subprocess.check_output(['git', '-C', str(checkout), 'show', ':' + name])
+            self.assertEqual(staged, data)
+            (checkout / name).unlink()
+        git('checkout-index', '--all', '--force')
+        changed = [name for name, data in expected.items() if (checkout / name).read_bytes() != data]
+        self.assertEqual(changed, [], 'checkout changed sealed/canonical bytes: ' + repr(changed))
+        result = self.stage()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(verify(checkout, self.output)['source_files'], 67)
 
 
 if __name__ == '__main__':
