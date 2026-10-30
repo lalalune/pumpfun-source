@@ -267,7 +267,8 @@ def analyze_relocations(elf):
 
         # Determine target
         target_section = "unknown"
-        if elf.lo <= at < elf.hi:
+        text_section = elf.secs.get(".text")
+        if text_section and text_section[3] <= at < text_section[3] + text_section[5]:
             target_section = ".text"
         for sec_name, sec in elf.secs.items():
             if sec[3] <= at < sec[3] + sec[5] and sec_name != ".text":
@@ -284,11 +285,18 @@ def analyze_relocations(elf):
         }
 
         # For lddw relocations in .text, resolve the pointer value
-        if target_section == ".text" and typ == 8 and elf.b[at] == 0x18:
-            imm_lo = struct.unpack_from("<I", elf.b, at + 4)[0]
-            imm_hi = struct.unpack_from("<I", elf.b, at + 12)[0]
-            resolved = imm_lo | (imm_hi << 32)
-            entry["resolved_value"] = hex(resolved)
+        if target_section == ".text" and typ == 8:
+            text_offset = at - text_section[3]
+            file_offset = text_section[4] + text_offset
+            if file_offset >= len(elf.b):
+                raise ValueError("relocation target exceeds captured file")
+            if elf.b[file_offset] == 0x18:
+                if text_offset + 16 > text_section[5] or file_offset + 16 > len(elf.b):
+                    raise ValueError("truncated lddw relocation target")
+                imm_lo = struct.unpack_from("<I", elf.b, file_offset + 4)[0]
+                imm_hi = struct.unpack_from("<I", elf.b, file_offset + 12)[0]
+                resolved = imm_lo | (imm_hi << 32)
+                entry["resolved_value"] = hex(resolved)
 
         entries.append(entry)
 

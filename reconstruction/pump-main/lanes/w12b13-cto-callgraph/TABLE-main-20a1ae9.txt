@@ -1,0 +1,178 @@
+original 0x22a10 27400 B: 157 calls; candidate 0x22a10 27400 B: 157 calls; callee-sequence ratio 0.8662
+multiset differs:
+  orig 8 cand 10  PumpError::fmt
+  orig 7 cand 5  to_string
+tag       #o   +off |   #c   +off | callee (orig / cand)
+equal      0   0xf8 |    0   0xf8 | solana_pubkey::Pubkey::find_program_address
+equal      1  0x1c8 |    1  0x1c0 | memcmp
+equal      2  0x238 |    2  0x230 | memcmp
+equal      3  0x260 |    3  0x258 | AccountInfo::data_is_empty
+equal      4  0x340 |    4  0x308 | memcmp
+equal      5  0x3a0 |    5  0x368 | memcmp
+equal      6  0x3f0 |    6  0x3b8 | memcmp
+equal      7  0x668 |    7  0x5e8 | PumpError::name   [v6083:HolderRewardCreatorImmutable | v6083:HolderRewardCreatorImmutable]
+equal      8  0x6f8 |    8  0x678 | PumpError::fmt   [v6083:HolderRewardCreatorImmutable | v6083:HolderRewardCreatorImmutable]
+replace    9  0x770 |    9  0x6f0 | PumpError::name  //  PumpError::name   [v6089:CtoNewCreatorRequired | v6084:HolderRewardDisabled]
+replace   10  0x800 |   10  0x780 | PumpError::fmt  //  PumpError::fmt   [v6089:CtoNewCreatorRequired | v6084:HolderRewardDisabled]
+replace   11  0x8d8 |    -      - | From<AnchorError>  //  -   [E6083:HolderRewardCreatorImmutable L289 | ]
+equal     12  0x930 |   11  0x7d0 | PumpError::name   [v6090:CtoNewCreatorNotAllowed | v6090:CtoNewCreatorNotAllowed]
+equal     13  0x9c0 |   12  0x860 | PumpError::fmt   [v6090:CtoNewCreatorNotAllowed | v6090:CtoNewCreatorNotAllowed]
+equal     14  0xa98 |   13  0x938 | From<AnchorError>   [E6090:CtoNewCreatorNotAllowed L298 | E6090:CtoNewCreatorNotAllowed L298]
+replace   15  0xb60 |   14  0xa18 | PumpError::name  //  From<AnchorError>   [v6091:CreatorFeeNotConfigurableForQuote | E6083:HolderRewardCreatorImmutable L289]
+replace   16  0xbf0 |   15  0xb00 | PumpError::fmt  //  PumpError::name   [v6091:CreatorFeeNotConfigurableForQuote | v6080:CreatorFeeNotAllowedForCashbackCoin]
+replace    -      - |   16  0xb28 | -  //  to_string   [ | v6080:CreatorFeeNotAllowedForCashbackCoin]
+replace    -      - |   17  0xb90 | -  //  From<AnchorError>   [ | E6080:CreatorFeeNotAllowedForCashbackCoin L330]
+equal     17  0xcc8 |   18  0xc68 | memcmp
+equal     18  0xd10 |   19  0xcc0 | memcmp
+equal     19  0xd58 |   20  0xd08 | memcmp
+insert     -      - |   21  0xd48 | -  //  PumpError::name   [ | v6019:InvalidCreator]
+insert     -      - |   22  0xdd8 | -  //  PumpError::fmt   [ | v6019:InvalidCreator]
+insert     -      - |   23  0xeb0 | -  //  From<AnchorError>   [ | E6084:HolderRewardDisabled L296]
+insert     -      - |   24  0xef0 | -  //  PumpError::name   [ | v6091:CreatorFeeNotConfigurableForQuote]
+insert     -      - |   25  0xf80 | -  //  PumpError::fmt   [ | v6091:CreatorFeeNotConfigurableForQuote]
+insert     -      - |   26 0x1028 | -  //  From<AnchorError>   [ | E6091:CreatorFeeNotConfigurableForQuote L326]
+insert     -      - |   27 0x1068 | -  //  PumpError::name   [ | v6089:CtoNewCreatorRequired]
+insert     -      - |   28 0x10f8 | -  //  PumpError::fmt   [ | v6089:CtoNewCreatorRequired]
+equal     20  0xf20 |   29 0x11d0 | From<AnchorError>   [E6089:CtoNewCreatorRequired L306 | E6089:CtoNewCreatorRequired L306]
+delete    21  0xf60 |    -      - | PumpError::name  //  -   [v6084:HolderRewardDisabled | ]
+delete    22  0xff0 |    -      - | PumpError::fmt  //  -   [v6084:HolderRewardDisabled | ]
+delete    23 0x10c8 |    -      - | From<AnchorError>  //  -   [E6084:HolderRewardDisabled L296 | ]
+delete    24 0x1238 |    -      - | From<AnchorError>  //  -   [E6091:CreatorFeeNotConfigurableForQuote L326 | ]
+delete    25 0x1278 |    -      - | PumpError::name  //  -   [v6019:InvalidCreator | ]
+delete    26 0x12a0 |    -      - | to_string  //  -   [v6019:InvalidCreator | ]
+equal     27 0x1308 |   30 0x12b0 | From<AnchorError>   [E6019:InvalidCreator L312 | E6019:InvalidCreator L312]
+equal     28 0x1348 |   31 0x12f0 | PumpError::name   [v6030:CreatorShouldNotBeZero | v6030:CreatorShouldNotBeZero]
+replace   29 0x1370 |   32 0x1380 | to_string  //  PumpError::fmt   [v6030:CreatorShouldNotBeZero | v6030:CreatorShouldNotBeZero]
+equal     30 0x13d8 |   33 0x1458 | From<AnchorError>   [E6030:CreatorShouldNotBeZero L307 | E6030:CreatorShouldNotBeZero L307]
+equal     31 0x1470 |   34 0x14f0 | anchor_lang::error::Error::with_pubkeys
+delete    32 0x1588 |    -      - | PumpError::name  //  -   [v6080:CreatorFeeNotAllowedForCashbackCoin | ]
+delete    33 0x15b0 |    -      - | to_string  //  -   [v6080:CreatorFeeNotAllowedForCashbackCoin | ]
+delete    34 0x1618 |    -      - | From<AnchorError>  //  -   [E6080:CreatorFeeNotAllowedForCashbackCoin L330 | ]
+equal     35 0x1680 |   35 0x1558 | PumpError::name   [v6078:CreatorFeeBpsOutOfRange | v6078:CreatorFeeBpsOutOfRange]
+equal     36 0x16a8 |   36 0x1580 | to_string   [v6078:CreatorFeeBpsOutOfRange | v6078:CreatorFeeBpsOutOfRange]
+equal     37 0x1710 |   37 0x15e8 | From<AnchorError>   [E6078:CreatorFeeBpsOutOfRange L338 | E6078:CreatorFeeBpsOutOfRange L338]
+delete    38 0x1750 |    -      - | PumpError::name  //  -   [v6077:CreatorFeeNotConfigurable | ]
+delete    39 0x1778 |    -      - | to_string  //  -   [v6077:CreatorFeeNotConfigurable | ]
+delete    40 0x17e0 |    -      - | From<AnchorError>  //  -   [E6077:CreatorFeeNotConfigurable L334 | ]
+equal     41 0x1940 |   38 0x1890 | memcmp
+equal     42 0x1a88 |   39 0x1998 | extend::prepare_bonding_curve
+equal     43 0x1ae0 |   40 0x19e8 | PumpError::name   [v6095:CreatorFeesNotSwept | v6095:CreatorFeesNotSwept]
+equal     44 0x1b70 |   41 0x1a78 | PumpError::fmt   [v6095:CreatorFeesNotSwept | v6095:CreatorFeesNotSwept]
+equal     45 0x1c58 |   42 0x1b60 | From<AnchorError>   [E6095:CreatorFeesNotSwept L410 | E6095:CreatorFeesNotSwept L410]
+equal     46 0x1cc8 |   43 0x1bd0 | memcmp   [v6000:NotAuthorized | v6000:NotAuthorized]
+insert     -      - |   44 0x1c30 | -  //  PumpError::name   [ | v6077:CreatorFeeNotConfigurable]
+insert     -      - |   45 0x1c58 | -  //  to_string   [ | v6077:CreatorFeeNotConfigurable]
+insert     -      - |   46 0x1cc0 | -  //  From<AnchorError>   [ | E6077:CreatorFeeNotConfigurable L334]
+equal     47 0x1d20 |   47 0x1cf8 | sol_log_
+equal     48 0x1df0 |   48 0x1df8 | memcmp
+equal     49 0x1e78 |   49 0x1e80 | solana_pubkey::Pubkey::find_program_address
+equal     50 0x1f30 |   50 0x1f38 | memcmp
+equal     51 0x1f80 |   51 0x1f78 | AccountInfo::data_is_empty
+equal     52 0x1fa0 |   52 0x1f98 | AccountInfo::data_is_empty
+equal     53 0x20c8 |   53 0x2098 | admin_cto::token_raw_amount
+equal     54 0x2110 |   54 0x20f0 | admin_cto::token_frozen
+equal     55 0x2188 |   55 0x2158 | PumpError::name   [v6093:CtoSharedVaultFrozen | v6093:CtoSharedVaultFrozen]
+equal     56 0x21b0 |   56 0x2180 | to_string   [v6093:CtoSharedVaultFrozen | v6093:CtoSharedVaultFrozen]
+equal     57 0x2218 |   57 0x21e8 | From<AnchorError>   [E6093:CtoSharedVaultFrozen L719 | E6093:CtoSharedVaultFrozen L719]
+equal     58 0x2258 |   58 0x2228 | anchor_lang::error::ErrorCode::name
+equal     59 0x22e8 |   59 0x22b8 | ErrorCode::fmt
+equal     60 0x23c0 |   60 0x2390 | From<AnchorError>   [E2006 L648 | E2006 L648]
+equal     61 0x2488 |   61 0x2450 | anchor_lang::error::Error::with_pubkeys
+equal     62 0x24d0 |   62 0x2488 | admin_cto::token_frozen
+equal     63 0x2518 |   63 0x24c8 | admin_cto::token_raw_amount
+equal     64 0x2560 |   64 0x2510 | PumpError::name   [v6093:CtoSharedVaultFrozen | v6093:CtoSharedVaultFrozen]
+equal     65 0x2588 |   65 0x2538 | to_string   [v6093:CtoSharedVaultFrozen | v6093:CtoSharedVaultFrozen]
+equal     66 0x25f0 |   66 0x25a0 | From<AnchorError>   [E6093:CtoSharedVaultFrozen L660 | E6093:CtoSharedVaultFrozen L660]
+equal     67 0x2648 |   67 0x25f8 | admin_cto::token_frozen
+equal     68 0x26e0 |   68 0x2690 | abort
+equal     69 0x3b70 |   69 0x3b60 | pump_amm::cpi::transfer_creator_fees_to_pump_v2
+equal     70 0x3bd0 |   70 0x3bb0 | Rent::get
+equal     71 0x3c38 |   71 0x3c18 | From<ProgramError>
+equal     72 0x4a78 |   72 0x49e8 | pump_fees::cpi::admin_cto_sharing_config
+equal     73 0x4be8 |   73 0x4b80 | memcmp
+equal     74 0x4c10 |   74 0x4ba8 | AccountInfo::data_is_empty
+equal     75 0x4c38 |   75 0x4bd0 | sol_log_
+equal     76 0x4c70 |   76 0x4c00 | AccountInfo::clone
+equal     77 0x4c98 |   77 0x4c28 | AccountInfo::clone
+equal     78 0x4cb8 |   78 0x4c48 | AccountInfo::clone
+equal     79 0x4cd8 |   79 0x4c68 | AccountInfo::clone
+equal     80 0x4cf8 |   80 0x4c88 | AccountInfo::clone
+equal     81 0x4d18 |   81 0x4ca8 | AccountInfo::clone
+equal     82 0x4d38 |   82 0x4cc8 | AccountInfo::clone
+equal     83 0x4d60 |   83 0x4ce8 | AccountInfo::clone
+equal     84 0x4d88 |   84 0x4d10 | memcpy   [L336 | L336]
+equal     85 0x4e28 |   85 0x4dd0 | pump_amm::cpi::admin_cto_pool
+equal     86 0x4e60 |   86 0x4e00 | Clock::get
+equal     87 0x50a0 |   87 0x5038 | <admin_cto::AdminCtoEvent as anchor_lang::Event>::data
+equal     88 0x50e0 |   88 0x5078 | solana_program::log::sol_log_data
+equal     89 0x5110 |   89 0x50a8 | AccountInfo::clone
+equal     90 0x5140 |   90 0x50e0 | <admin_cto::AdminCtoEvent as anchor_lang::Event>::data
+equal     91 0x51e0 |   91 0x5180 | Vec::from_iter
+equal     92 0x5208 |   92 0x51a8 | alloc::alloc::exchange_malloc
+equal     93 0x52c0 |   93 0x5260 | solana_instruction::Instruction::new_with_bytes
+equal     94 0x52f0 |   94 0x5290 | memcpy
+equal     95 0x53b0 |   95 0x5358 | solana_program::program::invoke_signed
+equal     96 0x54c8 |   96 0x5468 | From<ProgramError>
+equal     97 0x5510 |   97 0x54a8 | From<ProgramError>
+equal     98 0x55d8 |   98 0x5568 | PumpError::name   [v6092:CtoCreatorAccountNotWritable | v6092:CtoCreatorAccountNotWritable]
+equal     99 0x5668 |   99 0x55f8 | PumpError::fmt   [v6092:CtoCreatorAccountNotWritable | v6092:CtoCreatorAccountNotWritable]
+equal    100 0x56a0 |  100 0x5630 | PumpError::name   [v6088:CtoNotAllowedForMayhemCoin | v6088:CtoNotAllowedForMayhemCoin]
+equal    101 0x5730 |  101 0x56c0 | PumpError::fmt   [v6088:CtoNotAllowedForMayhemCoin | v6088:CtoNotAllowedForMayhemCoin]
+equal    102 0x5788 |  102 0x5718 | core::result::unwrap_failed
+equal    103 0x5850 |  103 0x57e0 | From<AnchorError>   [E6088:CtoNotAllowedForMayhemCoin L284 | E6088:CtoNotAllowedForMayhemCoin L284]
+equal    104 0x5948 |  104 0x58d8 | From<AnchorError>   [E6092:CtoCreatorAccountNotWritable L556 | E6092:CtoCreatorAccountNotWritable L556]
+equal    105 0x59c0 |  105 0x5948 | solana_rent::Rent::minimum_balance
+equal    106 0x59e8 |  106 0x5968 | AccountInfo::lamports
+equal    107 0x5a80 |  107 0x5a00 | legacy_native_payments::ensure_rent_exempt
+equal    108 0x5af0 |  108 0x5a90 | payments::collect_transfer_native
+equal    109 0x5bd8 |  109 0x5b50 | memcmp
+equal    110 0x5bf0 |  110 0x5b68 | AccountInfo::data_is_empty
+equal    111 0x5c28 |  111 0x5bb0 | AccountInfo::data_is_empty
+equal    112 0x5c80 |  112 0x5c00 | admin_cto::token_frozen
+equal    113 0x5ce0 |  113 0x5c98 | AccountInfo::clone
+equal    114 0x5d08 |  114 0x5cc0 | AccountInfo::clone
+equal    115 0x5d28 |  115 0x5ce0 | AccountInfo::clone
+equal    116 0x5d48 |  116 0x5d00 | AccountInfo::clone
+equal    117 0x5d70 |  117 0x5d28 | AccountInfo::clone
+equal    118 0x5d90 |  118 0x5d48 | AccountInfo::clone
+equal    119 0x5db0 |  119 0x5d68 | AccountInfo::clone
+equal    120 0x5dd8 |  120 0x5d90 | memcpy   [L288 | L288]
+equal    121 0x5e28 |  121 0x5de0 | anchor_spl::associated_token::create_idempotent
+insert     -      - |  122 0x5ec0 | -  //  payments::collect_transfer_vault_tokens
+insert     -      - |  123 0x5f68 | -  //  admin_cto::token_frozen
+equal    122 0x5eb0 |  124 0x5fd8 | AccountInfo::clone
+equal    123 0x5ed8 |  125 0x6000 | AccountInfo::clone
+equal    124 0x5ef8 |  126 0x6020 | AccountInfo::clone
+equal    125 0x5f18 |  127 0x6040 | AccountInfo::clone
+equal    126 0x5f40 |  128 0x6068 | AccountInfo::clone
+equal    127 0x5f60 |  129 0x6088 | AccountInfo::clone
+equal    128 0x5f80 |  130 0x60a8 | AccountInfo::clone
+equal    129 0x5fa8 |  131 0x60d0 | memcpy   [L288 | L288]
+equal    130 0x5ff8 |  132 0x6120 | anchor_spl::associated_token::create_idempotent
+delete   131 0x60b8 |    -      - | payments::collect_transfer_vault_tokens  //  -
+equal    132 0x61d8 |  133 0x6240 | creator::collect_creator_fee::collect
+equal    133 0x6250 |  134 0x62b8 | Clock::get
+delete   134 0x62b8 |    -      - | From<ProgramError>  //  -
+delete   135 0x6320 |    -      - | admin_cto::token_frozen  //  -
+equal    136 0x6480 |  135 0x6398 | <creator::collect_creator_fee::CollectCreatorFeeEvent as an~
+equal    137 0x64c0 |  136 0x63d8 | solana_program::log::sol_log_data
+equal    138 0x64f0 |  137 0x6408 | AccountInfo::clone
+equal    139 0x6528 |  138 0x6438 | <creator::collect_creator_fee::CollectCreatorFeeEvent as an~
+equal    140 0x65c8 |  139 0x64d8 | Vec::from_iter
+equal    141 0x65f8 |  140 0x6508 | alloc::alloc::exchange_malloc
+equal    142 0x66b0 |  141 0x65c0 | solana_instruction::Instruction::new_with_bytes
+equal    143 0x66e0 |  142 0x65f0 | memcpy
+equal    144 0x67a8 |  143 0x66b0 | solana_program::program::invoke_signed
+equal    145 0x6898 |  144 0x67a8 | AccountInfo::clone
+equal    146 0x68c8 |  145 0x67d8 | AccountInfo::clone
+equal    147 0x68e8 |  146 0x67f8 | AccountInfo::clone
+equal    148 0x6908 |  147 0x6818 | AccountInfo::clone
+equal    149 0x6928 |  148 0x6838 | AccountInfo::clone
+equal    150 0x6948 |  149 0x6858 | AccountInfo::clone
+equal    151 0x6968 |  150 0x6878 | AccountInfo::clone
+equal    152 0x6988 |  151 0x6898 | AccountInfo::clone
+equal    153 0x69a8 |  152 0x68b8 | AccountInfo::clone
+equal    154 0x69d0 |  153 0x68e0 | memcpy   [L384 | L384]
+equal    155 0x6a20 |  154 0x6930 | pump_amm::cpi::collect_coin_creator_fee
+equal    156 0x6a68 |  155 0x6a18 | From<ProgramError>
+insert     -      - |  156 0x6a60 | -  //  From<ProgramError>

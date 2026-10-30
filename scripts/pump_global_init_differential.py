@@ -6,13 +6,14 @@ from solders.account import Account
 from solders.instruction import AccountMeta,Instruction
 from solders.keypair import Keypair
 from solders.litesvm import LiteSVM
+from pump_amm_reusable_harness import pin_program
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
 R=Path(__file__).resolve().parents[1];IDL=json.loads((R/'evidence/upstream/pump.json').read_text(encoding='utf-8'));P=Pubkey.from_string(IDL['address']);G=Pubkey.find_program_address([b'global'],P)[0];USER=Keypair.from_seed(bytes([201])*32);PAYER=Keypair.from_seed(bytes([203])*32)
 IX=next(i for i in IDL['instructions'] if i['name']=='initialize');ORIGINAL=R/'evidence/original/pump/deployed.so'
 def run(c,binary=None):
- vm=LiteSVM().with_transaction_history(0).with_sigverify(True);vm.add_program_from_file(P,binary or ORIGINAL)
+ vm=LiteSVM().with_transaction_history(0).with_sigverify(True);vm.add_program_from_file(P,pin_program(binary or ORIGINAL))
  vm.set_account(USER.pubkey(),Account(c.get('funds',10**12),b'',Pubkey.default()));vm.set_account(PAYER.pubkey(),Account(10**12,b'',Pubkey.default()))
  g=Pubkey.from_bytes(bytes([91])*32) if c.get('wrong_global') else G
  vm.set_account(G,Account(0,b'',Pubkey.default()));vm.set_account(Pubkey.from_bytes(bytes([91])*32),Account(0,b'',Pubkey.default()))
@@ -47,4 +48,4 @@ if __name__=='__main__':
   if a.candidate:
    b=run(c,a.candidate);diff=[k for k in ['error','accounts','events','inner','return_data'] if o[k]!=b[k]];r.update(candidate=b,different_fields=diff,match=not diff)
   rows.append(r)
- d={'scope':'Offline Pump initialize only, ordinary verified test-owned signatures. Full binary identity false.','case_count':len(rows),'original_sha256':hashlib.sha256(ORIGINAL.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(a.candidate.read_bytes()).hexdigest() if a.candidate else None,'harness_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'cases':rows,'mismatches':[i for i,r in enumerate(rows) if r.get('match') is False]};a.output.write_text(json.dumps(d,indent=2)+'\n');print([(r['case']['name'],r['original']['error'],r.get('different_fields')) for r in rows]);assert not d['mismatches']
+ d={'scope':'Offline Pump initialize only, ordinary verified test-owned signatures. Full binary identity false.','case_count':len(rows),'original_sha256':hashlib.sha256(pin_program(ORIGINAL).read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'harness_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'cases':rows,'mismatches':[i for i,r in enumerate(rows) if r.get('match') is False]};a.output.write_text(json.dumps(d,indent=2)+'\n');print([(r['case']['name'],r['original']['error'],r.get('different_fields')) for r in rows]);assert not d['mismatches']

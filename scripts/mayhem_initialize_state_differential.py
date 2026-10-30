@@ -60,6 +60,7 @@ from solders.account import Account
 from solders.instruction import Instruction, AccountMeta
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
+from pump_amm_reusable_harness import pin_program
 from solders.clock import Clock
 from solders.compute_budget import set_compute_unit_limit
 
@@ -178,7 +179,7 @@ def main():
     ap.add_argument('--candidate', type=pathlib.Path, required=True,
                     help='source-built mayhem ELF (comparison target)')
     ap.add_argument('--output', type=pathlib.Path, required=True)
-    a = ap.parse_args()
+    a = ap.parse_args(); a.candidate = pin_program(a.candidate)
     original = ROOT / 'evidence/original/mayhem/deployed.so'
     o = Fixture(original); b = Fixture(a.candidate)
     rows = []; mismatches = []

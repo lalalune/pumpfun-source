@@ -14,6 +14,10 @@ Git blob IDs and the SHA-256 values in `manifest.json`. The recipe transforms
 the standalone crate manifest into a 69-file workspace; all 59 Rust files stay
 byte-identical. A fresh source-only stage passes its own workspace verifier.
 
+The recipe SHA-256 in `manifest.json` is pinned to the file as changed by
+#2139. That change only tightened `stage()`'s output-containment check; the
+selected inputs and the workspace transformation checked here are unchanged.
+
 The same commit tracks neither `repro/status.json` nor any
 `repro/pump_amm` checkpoint. The repository's selected AMM verifier refers to
 those missing paths. Consequently this packet cannot recheck the root README's
