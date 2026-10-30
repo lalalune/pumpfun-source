@@ -95,7 +95,7 @@ def main():
     orig = ORIGINAL.read_bytes()
     cand = a.candidate.read_bytes()
     os_, cs = sections(orig)['.text'], sections(cand)['.text']
-    otext = orig[os_['offset']:os_['offset'] + os_['size']]
+    otext = function_body(orig, {'.text': os_}, os_['addr'], os_['size'])
     omask = mask(otext)
     rows = []
     for addr, size, name in candidate_functions(a.candidate, a.objdump, a.pattern):
