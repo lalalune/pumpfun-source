@@ -92,6 +92,8 @@ test('changed maintained output and changed captured bytes fail the source gate'
   await mkdir(path.dirname(path.join(temporary,relative)),{recursive:true});await copyFile(path.join(root,relative),path.join(temporary,relative));
  }
  await verify(temporary);
+ const credited=path.join(temporary,'reconstruction/contract-http-errors/decode.mjs');
+ await writeFile(credited,(await readFile(credited,'utf8')).replace(/\r\n/g,'\n'));await verify(temporary);
  await writeFile(path.join(temporary,'reconstruction/contract-client/client.mjs'),'changed');await assert.rejects(verify(temporary),/saved request compiler contract differs/);
  await copyFile(path.join(root,'reconstruction/contract-client/client.mjs'),path.join(temporary,'reconstruction/contract-client/client.mjs'));
  await writeFile(path.join(temporary,saved.owner.source),(await readFile(path.join(temporary,saved.owner.source),'utf8'))+'\n// changed');

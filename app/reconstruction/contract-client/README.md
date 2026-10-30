@@ -14,7 +14,9 @@ ranges and maintained adapter bytes. Its producer reads the original physical
 registration through the shared authenticated source reader, pins the reviewed
 factory and requires the actual export/import edges. No captured JavaScript is
 evaluated. The already maintained `contract-http-errors/decode.mjs` is imported
-unchanged and receives no new recovery credit.
+unchanged and receives no new recovery credit. Its credited source hash uses
+UTF-8 text with checkout CRLF normalized to LF; original capture hashes remain
+strict raw-byte hashes, and the new maintained compiler is checked out as LF.
 
 ## Explicit integration
 
