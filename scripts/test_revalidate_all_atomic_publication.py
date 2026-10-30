@@ -62,11 +62,13 @@ class RevalidateAllAtomicPublicationTests(unittest.TestCase):
             self.assertEqual(
                 sorted(path.name for path in output.iterdir()),
                 [
-                    'README.md', 'failed.json', 'manifest.json',
-                    'passed.json', 'results.json', 'skipped.json',
-                    'summary.json', 'verify.py',
+                    'README.md', 'failed.json', 'invocation-errors.json',
+                    'manifest.json', 'passed.json', 'results.json',
+                    'skipped.json', 'summary.json', 'verify.py',
                 ],
             )
+            self.assertEqual(
+                json.loads((output / 'invocation-errors.json').read_text()), [])
             self.assertEqual(
                 json.loads((output / 'results.json').read_text()),
                 [{

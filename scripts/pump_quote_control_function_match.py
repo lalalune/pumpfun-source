@@ -149,7 +149,7 @@ def main():
     if a.output:
         a.output.parent.mkdir(parents=True, exist_ok=True)
         a.output.write_text(json.dumps({'candidate': str(a.candidate), 'candidate_sha256': hashlib.sha256(cand).hexdigest(),
-                                        'original_sha256': hashlib.sha256(orig).hexdigest(), 'functions': rows}, indent=1))
+                                        'original_sha256': hashlib.sha256(orig).hexdigest(), 'functions': rows}, indent=1),encoding='utf-8',newline='\n')
 
 
 if __name__ == '__main__':

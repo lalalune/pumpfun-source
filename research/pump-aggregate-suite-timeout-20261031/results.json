@@ -1,0 +1,32 @@
+{
+  "issue": "pump_validate_all.py ran each of its 44 serial suites with subprocess.run(check=True) and no timeout or process group, so a hung suite blocks the aggregate indefinitely and killing the driver leaves its descendants running.",
+  "base_revision": "8cf3c5f8a7912b36ced352e49ac8538ff864a4c2",
+  "affected": "scripts/pump_validate_all.py:208 at base",
+  "finding": "grep for 'timeout' in the base script returns nothing; the parallel sibling pump_validate_parallel.py already imports reconstruction/harness/build_process.run_compiler and bounds every suite with --suite-timeout (DEFAULT_SUITE_TIMEOUT 1800s, start_new_session plus killpg).",
+  "change": {
+    "runner": "run_compiler(command, cwd=ROOT, timeout=args.suite_timeout) from reconstruction/harness/build_process.py",
+    "option": "--suite-timeout (float, default DEFAULT_SUITE_TIMEOUT = 1800.0), validated by validate_timeout, the same helper and default the parallel driver uses",
+    "expiry": "SystemExit: suite <name> exceeded <seconds>s before any retained suite or report is published",
+    "report": "suite_timeout_seconds recorded in the aggregate receipt",
+    "test_stub": "scripts/test_pump_validate_all_retention.py patches run_compiler instead of the subprocess attribute that the serial path no longer has"
+  },
+  "runs": {
+    "expired": {"command": "python -B scripts/pump_validate_all.py --candidate <temp>/candidate.so --output <temp>/out/report.json.gz --suite-timeout 0.001", "exit": 1, "stderr": "suite volume exceeded 0.001s", "report_written": false, "wall_clock_seconds": 0.075},
+    "nonpositive": {"command": "... --suite-timeout 0", "exit": 1, "stderr": "ValueError: compiler timeout must be a positive finite number of seconds"},
+    "base_option_missing": {"command": "python -B <base scripts/pump_validate_all.py> ... --suite-timeout 0.001", "exit": 2, "stderr": "error: unrecognized arguments: --suite-timeout 0.001"},
+    "retention_tests": "scripts/test_pump_validate_all_retention.py: 10 tests OK",
+    "parallel_tests": "scripts/test_pump_validate_parallel.py: OK"
+  },
+  "tests": {
+    "new_test": "tests/test_pump_validate_all_suite_timeout.py",
+    "before": "3 failure subcases against the base script (2 tests: expired, and non-positive for 0 and -1), exit 2 instead of 1",
+    "after": "2 tests OK in 0.204s"
+  },
+  "required_checks": {
+    "scripts/test_tooling.py": "228 tests OK",
+    "scripts/verify_evidence.py": "9 captures verified"
+  },
+  "environment": {"platform": "macOS arm64", "python": "3.14.3"},
+  "unchanged": ["the 44 suite scripts and their fixtures", "case corpora, EXPECTED_CASES and comparison fields", "captured ELFs and retained packets"],
+  "not_claimed": "The 0.001s run proves the bound and the process-group kill path, not SBF execution of the 44 suites; no full serial corpus run is repeated for this packet, and the existing stub-suite retention tests still cover publication."
+}

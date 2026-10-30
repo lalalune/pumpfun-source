@@ -1997,7 +1997,7 @@ class LocalValidationProgramTests(unittest.TestCase):
             self.assertEqual(receipt['program'], address)
             idl_path = root / 'evidence/upstream' / f'{name}.json'
             if idl_path.is_file():
-                self.assertEqual(json.loads(idl_path.read_text())['address'], address)
+                self.assertEqual(json.loads(idl_path.read_text(encoding='utf-8'))['address'], address)
             else:
                 self.assertEqual(name, 'mayhem')
 

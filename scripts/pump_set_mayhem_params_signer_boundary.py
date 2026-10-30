@@ -172,7 +172,7 @@ def replay(fixture_path, trace_path, target, output):
         "or fund movement is established.",
     }
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(report, indent=2) + "\n")
+    output.write_text(json.dumps(report, indent=2) + "\n",encoding='utf-8',newline='\n')
     print(json.dumps({"error": error, "slot": fixture["context_slot"],
                       "watched_accounts_unchanged": True}))
 

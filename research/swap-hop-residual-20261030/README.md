@@ -39,6 +39,10 @@ measurement-tool identities, metadata consistency, malformed-input controls,
 and synthetic relocated-function admission. Its checks remain active under
 optimized Python.
 
+The recorded `score.sections` identity follows `f49c8e86`, which adds each
+section's ELF type to the returned map. The measurement reads only each
+section's address, offset and size, which that change leaves unchanged.
+
 ## Limits and author-reported work
 
 The original contributor reported a native-Linux candidate with 125 raw and

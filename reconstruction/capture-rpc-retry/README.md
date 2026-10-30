@@ -49,3 +49,8 @@ qualification. Publication is a single directory rename; a crash that
 prevents the `finally` cleanup can leave a hidden `.<name>.capture-*` stage
 beside the destination, never a partial destination. The archived CLI's missing `repro/programs.json` selector remains
 separate work in PR #1289.
+
+The current adapter also admits the reviewed UTF-8/LF-only writer update.
+Its source binding is `d332969152829dc75dc855dc93f3132b9d6674b9765aee3be3bfe0f5c4453a5d`;
+RPC, parsing and admission behavior are unchanged. The earlier binding above
+identifies the historical baseline.

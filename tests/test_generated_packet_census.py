@@ -10,6 +10,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 GENERATORS = {
+    'analyze_program': ['--program', 'mayhem'],
     'deep_disassembly': ['--program', 'mayhem'],
     'deep_section_analysis': ['--program', 'mayhem'],
     'bytecode_signatures': [],

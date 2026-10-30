@@ -1,0 +1,16 @@
+{
+  "scope": "Proposed maintained-script asset transition for analyze.py empty-input publication; tracked reports, captures and IDLs remain unchanged.",
+  "base": "5889e795eba64e85e613b4409921323bfecec414",
+  "files": {
+    "scripts/analyze.py": {
+      "before_sha256": "58c66b5796645a833ad0cf6a57122a893fdc0376c1817ca132da8c99924038d1",
+      "proposed_sha256": "d5c1350bcaa955257c80513a9e37bc91c5fe94b17691fe48506152eaddf3ffeb"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false,
+  "new_test": "tests/test_analyze_empty_inputs.py",
+  "existing_ci_discovery": "contract-tests: python -B -m unittest discover -s tests -v",
+  "historical_checkpoint_note": "evidence/binary-analysis.json and evidence/interface-inventory.json are unchanged by this proposal; the guard only prevents an empty replacement."
+}

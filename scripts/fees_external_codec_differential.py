@@ -34,5 +34,5 @@ def main():
  sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
  d={'scope':'Nine normal-signature synthetic external-account decoder rejections. Compare error logs excluding only source file/line, selected state/balances/events/inner calls; raw logs retained. Not whole-program/security/byte identity.','original_sha256':sha(original),'candidate_sha256':sha(candidate),'case_count':len(rows),'cases':rows,'mismatches':[r['case']['name'] for r in rows if r['mismatches']]}
  if a.baseline:d['baseline_sha256']=sha(baseline)
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(d,indent=2)+'\n');print(json.dumps({'cases':len(rows),'mismatches':d['mismatches']}));assert not d['mismatches']
+ a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(d,indent=2)+'\n',encoding='utf-8',newline='\n');print(json.dumps({'cases':len(rows),'mismatches':d['mismatches']}));assert not d['mismatches']
 if __name__=='__main__':main()

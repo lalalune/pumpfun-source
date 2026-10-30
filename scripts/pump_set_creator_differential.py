@@ -77,6 +77,6 @@ def main():
   if match is False:bad.append(c['name'])
  sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();report={'scope':'Normally signed synthetic local creator setters, no privileged signatures or live writes; bounded behavior only.','original_sha256':sha(ROOT/'evidence/original/pump/deployed.so'),'candidate_sha256':sha(a.candidate) if a.candidate else None,'case_count':len(rows),'cases':rows,'mismatches':bad,'provenance':hashes}
  assert all(hashlib.sha256(Path(p).read_bytes()).hexdigest()==h for p,h in hashes.items()),'Input changed during execution'
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n');print(len(rows),bad)
+ a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n');print(len(rows),bad)
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

@@ -1,0 +1,16 @@
+{
+  "scope": "Proposed maintained-script asset transition for bounded serial Fees suite execution; captures, suites and prior receipts remain unchanged.",
+  "base": "5889e795eba64e85e613b4409921323bfecec414",
+  "files": {
+    "scripts/fees_validate_all.py": {
+      "before_sha256": "bfaf82be017a38bf35a9a6d6965032cacb5aab12f249c4f64968cc8b55cbd795",
+      "proposed_sha256": "d9f7f83bb52784a42550c20f72e781d42c6944ece644027372ac554ef4b7278a"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false,
+  "new_test": "tests/test_fees_suite_timeout.py",
+  "updated_test": "tests/test_fees_aggregate_output.py copies reconstruction/harness/build_process.py into its isolated CLI fixture, as that PR's own convention does for dependency modules",
+  "existing_ci_discovery": "contract-tests: python -B -m unittest discover -s tests -v"
+}

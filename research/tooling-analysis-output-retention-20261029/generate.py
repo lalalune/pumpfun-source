@@ -11,12 +11,22 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[2]
 HELPERS = {
     "scripts/analyze_program.py": {
+        "038de3a138c8fb2b55a7ef870064b4f1cd39f104f45a182b49d44d05f8654bd5",
+        "646aadd3a8eb0f8da7131da81461921fef7e9b1f0928d988a51998599e390471",
         "b6e945c08aac13ebd5c4411b9f7ce21fecd8daf6753eb432769189b96a820e5a",
         "149d5d3dd0a9765f0da71abcdda42169d4e06ee0ed1bd64e355b8d3978aa8969",
     },
     "scripts/window_elf_reader.py": {
+        "df1c2b1369e996146f05bd9f9714b112a013550fa25d1206f6b29e3ef079dd74",
+        "b1b47d11c2f19868bb9ba9671f3591821dd552a401ebe5dff0bdf11cb926fc51",
         "247700e9930d5e53daf93a50888ae1e5429f74ccb19155e7a205f72ee21d5883",
         "bc2f71be6e043735dda5c6d43e5e3ed614f405c6e15adefe47d6e0a74d94d10a",
+    },
+    "scripts/deep_disassembly.py": {
+        "c71540059cb76cf4b6cca866113395f11092134d9110201e38aaa36475f360af",
+        "a91c80af30d1fa9bdb217f1450e8856b98c2873e57502aef48b06cfe6602e854",
+        "0275d4680af3b239ac4bca442685357d4dff2a59b2f633a58fed768980682bab",
+        "6ca5d4711d64b8af061d9becd71eff289dd4b1aa40f5ba9d234ef7675e098efc",
     },
 }
 PROGRAMS = ("pump", "pump_amm", "pump_fees", "mayhem")

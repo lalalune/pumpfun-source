@@ -65,8 +65,10 @@ class RetentionTests(unittest.TestCase):
             self.copied_helpers(root)
             output = root / "analysis"
             # This repository-shaped copy deliberately has no captured program.
-            with self.assertRaises(subprocess.CalledProcessError):
+            with self.assertRaises(subprocess.CalledProcessError) as failure:
                 GEN.generate("mayhem", output, root)
+            self.assertIn("not found", failure.exception.output)
+            self.assertNotIn("ModuleNotFoundError", failure.exception.stderr)
             self.assertFalse(output.exists())
             self.assertEqual(sorted(p.name for p in root.iterdir()), ["scripts"])
 
@@ -74,11 +76,17 @@ class RetentionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             self.copied_helpers(root)
-            helper = root / "scripts/analyze_program.py"
-            helper.write_bytes(helper.read_bytes() + b"\n# unreviewed drift\n")
-            with self.assertRaisesRegex(ValueError, "Unreviewed"):
-                GEN.generate("mayhem", root / "analysis", root)
-            self.assertFalse((root / "analysis").exists())
+            for name in GEN.HELPERS:
+                with self.subTest(helper=name):
+                    helper = root / name
+                    before = helper.read_bytes()
+                    helper.write_bytes(before + b"\n# unreviewed drift\n")
+                    try:
+                        with self.assertRaisesRegex(ValueError, "Unreviewed"):
+                            GEN.generate("mayhem", root / "analysis", root)
+                        self.assertFalse((root / "analysis").exists())
+                    finally:
+                        helper.write_bytes(before)
 
 
 if __name__ == "__main__":

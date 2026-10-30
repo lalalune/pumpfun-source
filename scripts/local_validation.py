@@ -59,7 +59,7 @@ def main():
         print(name,len(rows),results[name]['all_rejected'],flush=True)
     report=ROOT/'audit/local-validation.json'
     report.parent.mkdir(parents=True,exist_ok=True)
-    report.write_text(json.dumps({'runtime':'solders 0.27.1 / LiteSVM','scope':'Malformed instruction data and missing accounts only; no network or broadcast. No valid-state authorization/economic/CPI coverage.','programs':results},indent=2)+'\n')
+    report.write_text(json.dumps({'runtime':'solders 0.27.1 / LiteSVM','scope':'Malformed instruction data and missing accounts only; no network or broadcast. No valid-state authorization/economic/CPI coverage.','programs':results},indent=2)+'\n',encoding='utf-8',newline='\n')
     accepted=[name for name,x in results.items() if not x['all_rejected']]
     # An explicit exit: a bare assert would vanish under python -O.
     if accepted: raise SystemExit('malformed input accepted by: '+', '.join(accepted))

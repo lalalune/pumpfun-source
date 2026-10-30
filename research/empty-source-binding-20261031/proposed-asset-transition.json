@@ -1,0 +1,35 @@
+{
+  "scope": "Proposed maintained-script asset transition for empty source-directory admission; captures, fixtures and prior receipts remain unchanged.",
+  "base": "5889e795eba64e85e613b4409921323bfecec414",
+  "files": {
+    "scripts/pump_validate_buy.py": {
+      "before_sha256": "5b7d5f62f8f4b2bb56a33f8ee314c7e393433a6b3cc2f515317517f111cad29a",
+      "proposed_sha256": "dd1fa0c7edc76b788f1b50af5ec20f71ec86f894e7c6da459a8cd559f0f14e1c"
+    },
+    "scripts/pump_validate_quote.py": {
+      "before_sha256": "264b9a591162f2708fb678d0d68744b20c4ea7147fa8234a803db153de9861c9",
+      "proposed_sha256": "6fa36c6ad7b22c7353a574b371f2f8bcdfe3db99806ed7cc3d7e026d67dbff9d"
+    },
+    "scripts/pump_validate_sell.py": {
+      "before_sha256": "0b08c954378f9ee8f5b4b0816a8ad0be3b1ad88a943c073f153fd95f99f7c054",
+      "proposed_sha256": "fdc288532c20e56351f6c24a0420b229ac695712e788135785614e12c8d11950"
+    },
+    "scripts/pump_validate_config_admin.py": {
+      "before_sha256": "8844812ff96a81ba02e7f8cfe96ad8b879d7acf9c65cd69d95d26a94287b8f83",
+      "proposed_sha256": "f69cb691647e76a73aa5e1fd6c374a790c60e2fb6729183405e702d3a96dd023"
+    },
+    "scripts/pump_validate_authority.py": {
+      "before_sha256": "bcf1bcaa91d46c3ac985f715f598552df6f239474c1b5abf2d31014227d779d4",
+      "proposed_sha256": "4095ea35775349c7e127db4df48b28d287a34967d55c0c856d55c68e1dfb2e6a"
+    },
+    "scripts/pump_validate_all.py": {
+      "before_sha256": "51876926bab87acca22aed6d0fad2915839337c9fe4fa77f0b9aa769dd277664",
+      "proposed_sha256": "2fccba87f8c1493f7770f96c1fac7a41e912fcd66c493f347e159e4518dfd33f"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false,
+  "new_test": "tests/test_empty_source_binding.py",
+  "existing_ci_discovery": "contract-tests: python -B -m unittest discover -s tests -v"
+}

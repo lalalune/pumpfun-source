@@ -123,8 +123,11 @@ def run(binary,family,manifest,index,side,outdir):
 def main():
     global ROOT
     p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--candidate',type=Path,required=True);p.add_argument('--fixtures',type=Path,required=True);a=p.parse_args();ROOT=a.fixtures.resolve()
-    a.output.mkdir(parents=True,exist_ok=False)
     manifest_path=ROOT/'fixture-manifest.json';manifest=json.loads(manifest_path.read_text())
+    # A manifest that selects no family would publish an empty comparison that
+    # looks like a clean run; refuse before creating any output.
+    if not manifest['eligible_families']:raise SystemExit('fixture manifest selects no eligible families: '+str(manifest_path))
+    a.output.mkdir(parents=True,exist_ok=False)
     original=REPO/'evidence/original/mayhem/deployed.so'
     candidate=a.candidate.resolve()
     inputs={'fixtures:fixture-manifest.json':sha(manifest_path.read_bytes()),
@@ -153,7 +156,7 @@ def main():
         if not same_message:differences.append('signed_message')
         cases.append({'index':i,'mint':family['accounts']['mint'],'original':x,'candidate':y,
                       'same_signed_message':same_message,'different_fields':differences})
-        (a.output/f'case-{i}.json').write_text(json.dumps(cases[-1],indent=2)+'\n')
+        (a.output/f'case-{i}.json').write_text(json.dumps(cases[-1],indent=2)+'\n',encoding='utf-8',newline='\n')
         print(json.dumps({'case':i,'original_error':x['error'],'candidate_error':y['error'],'different_fields':differences}),flush=True)
     assert inputs=={path:sha(((ROOT/path.removeprefix('fixtures:')) if path.startswith('fixtures:') else (REPO/path)).read_bytes()) for path in inputs}
     out={'scope':'Three two-step offline burn sequences over exact public eligible snapshots, not historical replay. Each second transaction uses the first transaction post-state without writes/resets and a new blockhash. Signature and blockhash checks enabled. Only the explicitly authorized ordinary test payer is funded. No initializer or privileged state edits.',
@@ -165,7 +168,8 @@ def main():
          'raw_log_equality':[c['original']['logs']==c['candidate']['logs'] for c in cases],
          'log_comparison':'Retain raw logs. Compare additionally after replacing only consumed/remaining compute-unit numbers; never remove error or instruction lines.',
          'cases':cases}
-    (a.output/'comparison.json').write_text(json.dumps(out,indent=2)+'\n')
+    (a.output/'comparison.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf-8',newline='\n')
     print(json.dumps({'case_count':len(cases),'mismatches':out['mismatches'],'inputs_unchanged':True}))
+    raise SystemExit(bool(out['mismatches']))
 
 if __name__=='__main__':main()

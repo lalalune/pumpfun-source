@@ -14,6 +14,7 @@ _CALLER_CWD=pathlib.Path.cwd()
 ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'));os.chdir(ROOT)
 
 from pump_amm_legacy_sell_differential import *
+from pump_differential_output import PumpReport
 
 PUMP_GLOBAL=Pubkey.find_program_address([b'global'],PUMP)[0];PUMP_FEES=Pubkey.find_program_address([b'fee_config',bytes(PUMP)],FEES)[0];PUMP_EVENT=Pubkey.find_program_address([b'__event_authority'],PUMP)[0]
 
@@ -68,11 +69,11 @@ def route2(sell=False):
 
 """Synthetic local curve routes executed through the original AMM's actual CPI signer."""
 
-x=json.load(open(ROOT/'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json'));s=x['steps'][4];keys={k:Pubkey.from_string(v)for k,v in x['accounts'].items()}
+x=json.load(open(ROOT/'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json',encoding='utf-8'));s=x['steps'][4];keys={k:Pubkey.from_string(v)for k,v in x['accounts'].items()}
 
-x=json.load(open(ROOT/'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json'));s=x['steps'][4];keys={k:Pubkey.from_string(v)for k,v in x['accounts'].items()}
+x=json.load(open(ROOT/'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json',encoding='utf-8'));s=x['steps'][4];keys={k:Pubkey.from_string(v)for k,v in x['accounts'].items()}
 
-x=json.load(open(ROOT/'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json'));s=x['steps'][4];keys={k:Pubkey.from_string(v)for k,v in x['accounts'].items()}
+x=json.load(open(ROOT/'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json',encoding='utf-8'));s=x['steps'][4];keys={k:Pubkey.from_string(v)for k,v in x['accounts'].items()}
 
 CURVE=keys['curve'];CB=keys['curve_base'];CM=keys['mint'];CQ=Pubkey.find_program_address([bytes(CURVE),bytes(TOKEN),bytes(quote)],ATA)[0];CU=Pubkey.from_bytes(bytes([83])*32)
 
@@ -210,7 +211,7 @@ def mixed_direction(h,m):
  route2(False)(h,m);second=m[21:];m[21]=second[1];m[22]=second[0];d=bytearray(h.vm.get_account(USER2).data);d[:32]=bytes(BASE2);h.vm.set_account(USER2,Account(10**9,bytes(d),TOKEN))
 
 if __name__=='__main__':
- parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args();candidate=(_CALLER_CWD/args.candidate).resolve();output=(_CALLER_CWD/args.output).resolve();output.parent.mkdir(parents=True,exist_ok=True);rows=[]
+ parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args();candidate=(_CALLER_CWD/args.candidate).resolve();output=(_CALLER_CWD/args.output).resolve();publisher=PumpReport(output,ROOT,candidate,__file__,extra_inputs=[TRADE_FIXTURE_PATH,PUMP_IDL_PATH,ROOT/'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json']);rows=[]
  def test(label,**params):
   original=run(**params);recovered=run(candidate=candidate,**params);diff=[k for k in original if k!='logs'and original[k]!=recovered[k]];rows.append({'case':label,'mismatches':diff,'original':original,'candidate':recovered});None
  for sell in [False,True]:
@@ -249,5 +250,5 @@ if __name__=='__main__':
    for bps in [0,1,100,10000]:
     for maximum in [123,2**64-1]:test(f'two-amm-tf-{sell}-{key}-{bps}-{maximum}',sell=sell,overrides=two_amm_tf(sell,key,bps,maximum))
  test('mixed-direction',overrides=mixed_direction)
- failures=[i for i,r in enumerate(rows)if r['mismatches']];sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest();output.write_text(json.dumps({'scope':'Bounded original-vs-candidate offline MultiHopSwap with normal verified test-owned signatures and captured dependencies. Synthetic fixture mutations.','candidate':str(candidate),'candidate_sha256':sha(pin_program(candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'case_count':len(rows),'passed':len(rows)-len(failures),'mismatches':failures,'cases':rows},separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(len(rows),len(failures));raise SystemExit(bool(failures))
+ failures=[i for i,r in enumerate(rows)if r['mismatches']];sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest();publisher.write((json.dumps({'scope':'Bounded original-vs-candidate offline MultiHopSwap with normal verified test-owned signatures and captured dependencies. Synthetic fixture mutations.','candidate':str(candidate),'candidate_sha256':sha(pin_program(candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'case_count':len(rows),'passed':len(rows)-len(failures),'mismatches':failures,'cases':rows},separators=(',',':'))+'\n').encode('utf-8'));print(len(rows),len(failures));raise SystemExit(bool(failures))
 

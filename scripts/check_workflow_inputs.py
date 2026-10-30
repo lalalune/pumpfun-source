@@ -11,7 +11,7 @@ from pathlib import Path
 
 import yaml
 
-ROOTS = {'scripts', 'research', 'reconstruction'}
+ROOTS = {'scripts', 'research', 'reconstruction', 'tests'}
 INTERPRETER = re.compile(r'^(?:python(?:3(?:\.\d+)?)?|bash|sh)$')
 EXPRESSION = re.compile(r'\$\{\{\s*matrix\.(\w+)\s*\}\}')
 ASSIGNMENT = re.compile(r'^[A-Za-z_][A-Za-z0-9_]*=')

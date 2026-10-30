@@ -71,7 +71,13 @@ def execute(binary, instruction, arg, mutation):
 
 
 
-p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--source-directory',type=pathlib.Path,default=ROOT/'programs/pump');p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();report_output=PumpReport(a.output,ROOT,a.candidate,__file__,extra_inputs=(a.source_directory,));a.candidate=pin_program(a.candidate)
+p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--source-directory',type=pathlib.Path,default=ROOT/'programs/pump');p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args()
+source_paths = [path for path in sorted(a.source_directory.rglob('*'))
+                if path.is_file() and 'target' not in path.relative_to(a.source_directory).parts
+                and (path.suffix == '.rs' or path.name in ('Cargo.toml', 'Cargo.lock'))]
+if not source_paths:
+ raise SystemExit('no Rust/Cargo inputs under '+str(a.source_directory))
+report_output=PumpReport(a.output,ROOT,a.candidate,__file__,extra_inputs=(a.source_directory,));a.candidate=pin_program(a.candidate)
 import struct,gzip
 original=ROOT/'evidence/original/pump/deployed.so';u=lambda n:struct.pack('<Q',n)
 arguments={
@@ -87,7 +93,7 @@ for name,args_list in arguments.items():
  for args in args_list+[b'',args_list[0]+b'\xff']:
   for mutation in ((mutations if args in args_list[:3] else ['none'])+(['whitelist_empty','whitelist_wsol'] if 'quote_mint' in name else [])):
    o=execute(original,name,args,mutation);n=execute(a.candidate,name,args,mutation);fields=['error','data_hex','lamports','payer_lamports','authority_lamports','event_payloads','inner_instructions'];different=[key for key in fields if o[key]!=n[key]];cases.append({'instruction':name,'args_hex':args.hex(),'mutation':mutation,'different_fields':different,'original':o,'candidate':n})
-fails=[i for i,r in enumerate(cases) if r['different_fields']];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();sources={str(p.relative_to(a.source_directory)):sha(p) for p in sorted(a.source_directory.rglob('*')) if p.is_file() and 'target' not in p.parts and (p.suffix=='.rs' or p.name in ['Cargo.toml','Cargo.lock'])}
+fails=[i for i,r in enumerate(cases) if r['different_fields']];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();sources={str(p.relative_to(a.source_directory)):sha(p) for p in source_paths}
 report={'scope':'Six additional recovered configuration administration handlers. Compares errors, global bytes and lamports, signer/payer balances, raw events and complete inner CPI instructions. Local synthetic authority, no network transactions.','candidate_sha256':sha(a.candidate),'original_sha256':sha(original),'source_sha256':sources,'case_count':len(cases),'mismatches':fails,'cases':cases};payload=(json.dumps(report,indent=2)+'\n').encode();report_output.write(gzip.compress(payload,mtime=0) if a.output.suffix=='.gz' else payload);print(len(cases),fails)
 for i in fails:print(i,cases[i]['instruction'],cases[i]['mutation'],cases[i]['different_fields'],cases[i]['original']['error'],cases[i]['candidate']['error'])
 if fails:raise SystemExit(1)

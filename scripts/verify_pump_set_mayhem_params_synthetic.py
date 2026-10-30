@@ -52,6 +52,22 @@ def assert_account_event(case):
     assert bytes(event_cpi[1:]) == bytes.fromhex("e445a52e51cb9a1d") + event
 
 
+def assert_regression_receipt(receipt, expected_cases):
+    """Recount a regression receipt's case list instead of trusting its header.
+
+    When a receipt includes a case list, its header must agree with that list.
+    Historical aggregate receipts and count-only shapes keep their existing
+    claimed-count check; this does not validate their nested case contents.
+    """
+    cases = receipt.get("cases")
+    if isinstance(cases, list):
+        assert len(cases) == expected_cases
+        assert receipt.get("case_count", len(cases)) == len(cases)
+    else:
+        assert receipt.get("case_count", cases) == expected_cases
+    assert receipt["mismatches"] in ([], 0)
+
+
 def main():
     report = json.loads(gzip.decompress((DIRECTORY / "differential.json.gz").read_bytes()))
     build = json.loads((DIRECTORY / "build-provenance.json").read_text())
@@ -86,8 +102,7 @@ def main():
         raw = (ROOT / row["receipt_file"]).read_bytes()
         assert sha(raw) == row["receipt_sha256"] and len(raw) == row["receipt_bytes"]
         receipt = json.loads(gzip.decompress(raw))
-        assert receipt.get("case_count", receipt.get("cases")) == row["cases"]
-        assert receipt["mismatches"] in ([], 0)
+        assert_regression_receipt(receipt, row["cases"])
     fixture = json.loads(gzip.decompress((DIRECTORY / "account-snapshot.json.gz").read_bytes()))
     assert fixture["context_slot"] == report["fixture_slot"]
     assert fixture["accounts"][2]["address"] == MINT

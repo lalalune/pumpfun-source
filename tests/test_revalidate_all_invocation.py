@@ -114,7 +114,7 @@ class ReportTests(unittest.TestCase):
         self.assertEqual(json.loads((output / 'invocation-errors.json').read_text()),
                          ['uninvoked'])
         self.assertEqual(json.loads((output / 'passed.json').read_text()), ['passes'])
-        self.assertIn('Invocation error', (output / 'README.md').read_text())
+        self.assertIn('Invocation error', (output / 'README.md').read_text(encoding='utf-8'))
 
 
 class InvocationCliTests(unittest.TestCase):
@@ -139,7 +139,7 @@ class InvocationCliTests(unittest.TestCase):
             self.assertEqual(json.loads((output/'invocation-errors.json').read_text()),['needs'])
             self.assertIn('bad-manifest-needs',json.loads((output/'failed.json').read_text()))
             self.assertEqual({r['packet']:r['overall'] for r in rows}['spoof'],'fail')
-            self.assertNotIn('List of packets whose verifier was never invoked',(output/'README.md').read_text())
+            self.assertNotIn('List of packets whose verifier was never invoked',(output/'README.md').read_text(encoding='utf-8'))
             verified=subprocess.run([sys.executable,'-B',str(output/'verify.py')],capture_output=True,text=True)
             self.assertEqual(verified.returncode,0,verified.stdout+verified.stderr)
 

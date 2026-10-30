@@ -353,7 +353,7 @@ class DependencyCache:
                 "producer_snapshot_sha256": digest(snapshot),
                 "clone_methods": sorted(methods),
             }
-            (temp / "MANIFEST.json").write_text(json.dumps(record, indent=2) + "\n")
+            (temp / "MANIFEST.json").write_text(json.dumps(record, indent=2) + "\n",encoding='utf-8',newline='\n')
             try:
                 temp.rename(self.entry)
             except OSError:
@@ -509,7 +509,7 @@ class DependencyCache:
         # verified external libraries after the plan, before invoking main rustc.
         self.seed(target)
         plan_path = target.parent / "build-plan.json"
-        plan_path.write_text(json.dumps(plan, indent=2) + "\n")
+        plan_path.write_text(json.dumps(plan, indent=2) + "\n",encoding='utf-8',newline='\n')
         package = tomllib.loads((self.crate / "Cargo.toml").read_text())["package"][
             "name"
         ]

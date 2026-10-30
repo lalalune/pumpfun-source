@@ -231,7 +231,7 @@ def main():
         'cases': rows,
     }
     a.output.parent.mkdir(parents=True, exist_ok=True)
-    a.output.write_text(json.dumps(report, indent=2) + '\n')
+    a.output.write_text(json.dumps(report, indent=2) + '\n',encoding='utf-8',newline='\n')
     print(json.dumps({'cases': len(rows), 'mismatches': [m['case'] for m in mismatches],
                       'valid_init_transaction_constructible': False,
                       'terminal_blocker_confirmed': bool(signer_gate),

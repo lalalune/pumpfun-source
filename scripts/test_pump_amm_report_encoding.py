@@ -19,7 +19,6 @@ class AmmReportEncodingTests(unittest.TestCase):
     def test_every_report_writer_pins_utf8_and_lf(self):
         writers = sorted(SCRIPTS.glob("pump_amm_*differential*.py"))
         self.assertGreater(len(writers), 15)
-        checked = 0
         for path in writers:
             with self.subTest(driver=path.name):
                 for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"))):
@@ -31,8 +30,8 @@ class AmmReportEncodingTests(unittest.TestCase):
                         self.assertEqual(keywords["encoding"].value, "utf-8")
                         self.assertIn("newline", keywords)
                         self.assertEqual(keywords["newline"].value, "\n")
-                        checked += 1
-        self.assertGreater(checked, 15)
+        # Direct writers decrease as scripts adopt the shared byte publisher.
+        # Every remaining direct call above must still pin UTF-8 and LF.
 
 
 if __name__ == "__main__":

@@ -11,7 +11,7 @@ import uuid
 
 ROOT = Path(__file__).resolve().parents[3]
 SOURCE = 'scripts/reconstruction_roadmap.py'
-REVIEWED = '7ff87816fe95ceb4b4f3540a34256a5a906665fc9cbe6ae42852c64c27b75f4e'
+REVIEWED = 'a5174827043a35b76916afef10acb4ab25294bbec15eb55ae67a158ede521f85'
 
 
 def trace_handler_attribution(elf, entries, forward, reverse):

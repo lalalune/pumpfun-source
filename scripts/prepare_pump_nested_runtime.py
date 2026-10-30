@@ -73,7 +73,7 @@ def prepare(output):
             copied[str(relative)] = sha(target)
         source_map = staging / 'expected-source-map.json'
         historical_sha = sha(source_map)
-        source_map.write_text(json.dumps(sources, indent=2, sort_keys=True) + '\n')
+        source_map.write_text(json.dumps(sources, indent=2, sort_keys=True) + '\n',encoding='utf-8',newline='\n')
         record = {
             'status': 'PASS', 'target_executions': 0, 'source_inputs': len(sources),
             'frozen_harness_seal': HARNESS_SEAL, 'copied_harness_sha256': copied,
@@ -85,7 +85,7 @@ def prepare(output):
             'scope': 'Only the copied expected source map changes; cases, runtime code and assertions retain their sealed bytes.'
         }
         (staging / 'binding-update.json').write_text(
-            json.dumps(record, indent=2, sort_keys=True) + '\n')
+            json.dumps(record, indent=2, sort_keys=True) + '\n',encoding='utf-8',newline='\n')
         rename_directory(staging, output)
     except BaseException:
         shutil.rmtree(staging, ignore_errors=True)

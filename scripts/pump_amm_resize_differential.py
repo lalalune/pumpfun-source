@@ -2,6 +2,7 @@
 """Original/rebuilt SBF global-config resize and system-CPI differential."""
 import argparse,hashlib,json,pathlib,struct
 from pump_amm_admin_differential import *
+from pump_differential_output import PumpReport
 class ResizeHarness(Harness):
  def run(self,instruction,payload=b'',length=949,lamports=None,new_key=None,mutation=None):
   config=bytes(RAW[:length]).ljust(length,b'\0');admin=PAYER
@@ -24,7 +25,7 @@ class ResizeHarness(Harness):
   after=[self.vm.get_account(k).lamports for k in [PAYER.pubkey(),OUTSIDER.pubkey(),CONFIG_KEY]]
   return {'error':str(r.err()) if failed else None,'state_hex':bytes(self.vm.get_account(CONFIG_KEY).data).hex(),'lamport_deltas':[a-b for a,b in zip(after,before)],'events':[x for x in meta.logs() if x.startswith('Program data: ')],'logs':meta.logs()}
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);p.add_argument('--creator',action='store_true');a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);p.add_argument('--creator',action='store_true');a=p.parse_args();publisher=PumpReport(a.output,ROOT,a.candidate,__file__)
  original=ROOT/'evidence/original/pump_amm/deployed.so';left,right=ResizeHarness(original),ResizeHarness(a.candidate);rows=[]
  def test(**kwargs):
   x,y=left.run(**kwargs),right.run(**kwargs);same=all(x[k]==y[k] for k in ['error','state_hex','lamport_deltas','events'])
@@ -46,6 +47,6 @@ def main():
   for payload in [b'',b'\0'+bytes(7),b'\2'+bytes(8),b'\1'+bytes(8)+b'ignored']:test(instruction='update_creator_fee_config',payload=payload)
  failures=[i for i,x in enumerate(rows) if not x['match']];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
  report={'scope':'SBF resize-enabled administrative paths and system CPI; not full program equivalence.','original_sha256':left.sha256,'candidate_sha256':right.sha256,'script_sha256':sha(pathlib.Path(__file__)),'case_count':len(rows),'mismatches':failures,'cases':rows}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'case_count':len(rows),'mismatches':failures[:30],'mismatch_count':len(failures)}))
+ publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatches':failures[:30],'mismatch_count':len(failures)}))
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

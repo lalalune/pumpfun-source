@@ -30,3 +30,8 @@ The directory rename and final existence check do not implement a cross-process
 locking protocol. Use a distinct destination per concurrent analysis. This is
 packet retention and publication, not a correction to the archived decoder,
 independent source reconstruction, fresh VM evidence, or security acceptance.
+
+The current helper allowlist also covers the imported `deep_disassembly.py`
+publication functions and the latest reviewed analyzer/ELF-reader LF/CRLF
+forms. Its generated packets include the directory census. Prior generated
+packets and the earlier accepted helper versions are retained unchanged.

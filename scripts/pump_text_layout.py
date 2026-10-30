@@ -66,7 +66,7 @@ def configure(order, out, sdk, crate_name, physical_wrapper, data_certificate=No
     external_wrapper_sha256 = sha(physical_wrapper)
     if certificate_copy:
         certificate_copy.write_bytes(Path(data_certificate).read_bytes())
-    dest.write_text(script)
+    dest.write_text(script,encoding='utf-8',newline='\n')
     record = {'scope': 'Optional main-only compiler/link recipe; no original ELF input or byte patching.',
               'selectors': count, 'script': str(dest), 'script_sha256': sha(dest),
               'helper_sha256': helper_sha256,
@@ -198,7 +198,7 @@ def prepare_link(args, env):
               'link_inputs': records, 'real_linker': env['PUMP_TEXT_LINKER'],
               'real_linker_sha256': sha(env['PUMP_TEXT_LINKER']),
               'replacement_script_sha256': sha(replacement)}
-    (directory / 'linker-invocation.json').write_text(json.dumps(record, indent=2) + '\n')
+    (directory / 'linker-invocation.json').write_text(json.dumps(record, indent=2) + '\n',encoding='utf-8',newline='\n')
     return [env['PUMP_TEXT_LINKER'], *after]
 
 

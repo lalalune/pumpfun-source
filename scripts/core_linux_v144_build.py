@@ -57,7 +57,7 @@ def digest(path):
 
 def write_json(path, value):
     Path(path).parent.mkdir(parents=True, exist_ok=True)
-    Path(path).write_text(json.dumps(value, indent=2, sort_keys=True) + "\n")
+    Path(path).write_text(json.dumps(value, indent=2, sort_keys=True) + "\n",encoding='utf-8',newline='\n')
 
 
 def generated_keypair_path(relative_path):
@@ -819,7 +819,7 @@ def main():
     except BaseException as error:
         failed = True
         attempt.state.update(status="failed", error_type=type(error).__name__, error=str(error))
-        (attempt.evidence / "exception.txt").write_text(traceback.format_exc())
+        (attempt.evidence / "exception.txt").write_text(traceback.format_exc(),encoding='utf-8',newline='\n')
         attempt.save()
         print(str(error), file=sys.stderr)
     finally:
@@ -828,7 +828,7 @@ def main():
         except BaseException as error:
             failed = True
             attempt.state.update(status="failed", retention_error_type=type(error).__name__, retention_error=str(error))
-            (attempt.evidence / "retention-exception.txt").write_text(traceback.format_exc())
+            (attempt.evidence / "retention-exception.txt").write_text(traceback.format_exc(),encoding='utf-8',newline='\n')
         attempt.state["finished_utc"] = dt.datetime.now(dt.timezone.utc).isoformat()
         seal_evidence(attempt)
     return 1 if failed else 0

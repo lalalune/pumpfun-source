@@ -328,6 +328,8 @@ def sha256_file(path):
     return h.hexdigest()
 
 def main():
+    if set(os.listdir(PACKET)) != EXPECTED_FILES | {"manifest.json"}:
+        print("FAIL: packet directory entry set mismatch"); return 1
     manifest = json.load(open(os.path.join(PACKET, "manifest.json"), encoding="utf-8"))
     if not isinstance(manifest, dict) or set(manifest) != EXPECTED_FILES:
         print("FAIL: manifest artifact set mismatch"); return 1

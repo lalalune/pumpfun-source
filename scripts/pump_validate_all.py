@@ -14,7 +14,6 @@ import hashlib
 import json
 import os
 import shutil
-import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -24,6 +23,9 @@ from pump_diagnostic_audit import bound_input_key
 from pump_amm_reusable_harness import pin_program
 
 ROOT = Path(__file__).resolve().parents[1]
+from serial_suite_process import PROCESS_INPUTS, run_suite_process, validate_timeout
+
+DEFAULT_SUITE_TIMEOUT = 1800.0
 SUITES = [('volume', 'pump_validate_volume.py'), ('administration', 'pump_validate_admin.py'), ('authority', 'pump_validate_authority.py'), ('configuration', 'pump_validate_config_admin.py'), ('buy', 'pump_validate_buy.py'), ('sell', 'pump_validate_sell.py'), ('quote', 'pump_validate_quote.py'), ('creator_collection', 'pump_creator_collect_differential.py'), ('creator_distribution', 'pump_creator_distribution_differential.py'), ('minimum_distribution', 'pump_minimum_fee_differential.py'), ('creator_collection_v2', 'pump_creator_collect_v2_differential.py'), ('extension', 'pump_extend_differential.py'), ('volume_sync', 'pump_volume_sync_differential.py'), ('fee_sweeps', 'pump_fee_sweep_differential.py'), ('creator_migration', 'pump_creator_migration_differential.py'), ('admin_cto', 'pump_admin_cto_differential.py'), ('set_params', 'pump_set_params_differential.py'), ('set_creator', 'pump_set_creator_differential.py'), ('idl_authority', 'pump_idl_authority_differential.py'), ('legacy_create', 'pump_create_differential.py'), ('exact_quote_v3', 'pump_exact_quote_differential.py'), ('create_v2', 'pump_create_quote_differential.py'), ('legacy_sell', 'pump_legacy_sell_differential.py'), ('legacy_sell_configured_fee', 'pump_legacy_sell_configured_fee_differential.py'), ('sell_v2', 'pump_sell_v2_differential.py'), ('create_control', 'pump_create_control_differential.py'), ('migration', 'pump_migrate_differential.py'), ('v3_configured_fee', 'pump_v3_configured_fee_differential.py'), ('legacy_buy', 'pump_legacy_buy_differential.py'), ('buy_v2', 'pump_buy_v2_differential.py'), ('migrate_v2', 'pump_migrate_v2_differential.py'), ('cashback', 'pump_cashback_differential.py'), ('global_init', 'pump_global_init_differential.py'), ('holder_distribution', 'pump_holder_distribution_differential.py'), ('nested_create', 'pump_create_nested_differential.py'), ('quote_control', 'pump_quote_control_fresh_differential.py'), ('multi_hop_curve_partial', 'research/pump-multi-hop-corpus/harness.py')]
 EXPECTED_CASES = {'volume': 66, 'administration': 93, 'creator_collection_v2': 154, 'extension': 308, 'exact_quote_v3': 352, 'sell_v2': 206, 'legacy_buy': 284, 'migrate_v2': 827, 'global_init': 40, 'buy': 334, 'creator_collection': 119, 'creator_distribution': 298, 'admin_cto': 363, 'set_params': 169, 'legacy_create': 87, 'migration': 228, 'holder_distribution': 649, 'multi_hop_curve_partial': 56, 'authority': 59, 'configuration': 351, 'sell': 301, 'minimum_distribution': 181, 'creator_migration': 139, 'set_creator': 509, 'legacy_sell': 115, 'legacy_sell_configured_fee': 28, 'v3_configured_fee': 372, 'cashback': 283, 'quote': 130, 'volume_sync': 341, 'fee_sweeps': 504, 'idl_authority': 171, 'create_v2': 297, 'create_control': 85, 'buy_v2': 216, 'nested_create': 48, 'quote_control': 507}
 
@@ -163,7 +165,15 @@ def main():
     parser.add_argument('--source-directory', type=Path, default=ROOT / 'programs/pump')
     parser.add_argument('--build-report', type=Path,
                         help='Actual producer build-comparison.json; defaults beside the selected candidate')
+    parser.add_argument('--suite-timeout', type=float, default=DEFAULT_SUITE_TIMEOUT,
+                        help='Seconds per suite; POSIX timeouts terminate its process group')
     args = parser.parse_args()
+    validate_timeout(args.suite_timeout)
+    source_paths = [path for path in args.source_directory.rglob('*')
+                    if path.is_file() and 'target' not in path.relative_to(args.source_directory).parts
+                    and (path.suffix == '.rs' or path.name in ('Cargo.toml', 'Cargo.lock'))]
+    if not source_paths:
+        raise SystemExit(f'no Rust/Cargo inputs under {args.source_directory}')
     candidate_input = args.candidate.resolve()
     build_report = (args.build_report or candidate_input.parent / 'build-comparison.json').resolve()
     build_attempt = build_report.with_name('build-attempt.json')
@@ -172,17 +182,15 @@ def main():
     original = ROOT / 'evidence/original/pump/deployed.so'
     runner = Path(__file__).resolve()
     candidate_sha, original_sha, runner_sha = map(sha, (candidate, original, runner))
+    process_hashes = {path: sha(path) for path in PROCESS_INPUTS}
     suites, scripts = {}, {}
     assert len(SUITES) == len(EXPECTED_CASES) == len({name for name, _ in SUITES}) == 44
     assert {name for name, _ in SUITES} == set(EXPECTED_CASES)
     retained = args.output.parent / (args.output.name + '.suites')
     suite_paths = [ROOT / filename if filename.startswith(('repro/', 'research/'))
                    else ROOT / 'scripts' / filename for _, filename in SUITES]
-    source_paths = [path for path in args.source_directory.rglob('*')
-                    if path.is_file() and 'target' not in path.relative_to(args.source_directory).parts
-                    and (path.suffix == '.rs' or path.name in ('Cargo.toml', 'Cargo.lock'))]
     protect_inputs([args.output, *(retained / (name + '.json.gz') for name, _ in SUITES)],
-                   [candidate_input, candidate, original, runner, *build_inputs,
+                   [candidate_input, candidate, original, runner, *build_inputs, *PROCESS_INPUTS,
                     ROOT / 'scripts/pump_diagnostic_audit.py',
                     *suite_paths, *source_paths])
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -205,9 +213,15 @@ def main():
                 output = Path(tmp) / (name + '.json')
                 command = suite_command(name, script, candidate, output,
                                         args.source_directory, build_report)
-                subprocess.run(command, check=True, cwd=ROOT)
+                completed, timed_out = run_suite_process(command, cwd=ROOT, timeout=args.suite_timeout)
+                if completed.stdout:
+                    print(completed.stdout, end='', flush=True)
+                if timed_out:
+                    raise SystemExit(f'suite {name} exceeded {args.suite_timeout}s')
+                completed.check_returncode()
                 assert before == sha(script), f'harness changed during execution: {filename}'
                 assert runner_sha == sha(runner), 'aggregate runner changed during execution'
+                assert all(sha(path) == digest for path, digest in process_hashes.items()), 'suite process helper changed'
                 assert candidate_sha == sha(candidate), 'candidate changed during execution'
                 assert original_sha == sha(original), 'original changed during execution'
                 assert all(sha(path) == digest for path, digest in build_inputs.items()), 'build receipt changed during execution'
@@ -243,6 +257,8 @@ def main():
             'scope': 'Published 44-suite bounded Pump differential corpus. Per-suite limits remain in receipts; not full source recovery or binary identity.',
             'original_sha256': original_sha, 'candidate_sha256': candidate_sha,
             'runner_sha256': runner_sha, 'script_sha256': scripts,
+            'suite_timeout_seconds': args.suite_timeout,
+            'process_runner_sha256': {bound_input_key(path, ROOT): digest for path, digest in process_hashes.items()},
             'build_inputs_sha256': {bound_input_key(path, ROOT): digest
                                     for path, digest in build_inputs.items()},
             'case_count': sum(s['case_count'] for s in suites.values()),

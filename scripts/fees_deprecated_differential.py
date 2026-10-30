@@ -18,6 +18,6 @@ def main():
    for count in [0,1,4,8]:
     c={'instruction':name,'count':count,'arg':rng.randbytes(length).hex()};x=o.run(c);y=b.run(c);match=x==y;rows.append({'case':c,'original':x,'candidate':y,'match':match})
     if not match:mismatches.append(len(rows)-1)
- r={'scope':'Two deprecated dispatches: tested payload/account shapes reject with6023, no effects. Historical successful implementations are not claimed.','original_sha256':o.program_sha256,'candidate_sha256':b.program_sha256,'case_count':len(rows),'mismatches':mismatches,'cases':rows};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(r,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatches':mismatches}))
+ r={'scope':'Two deprecated dispatches: tested payload/account shapes reject with6023, no effects. Historical successful implementations are not claimed.','original_sha256':o.program_sha256,'candidate_sha256':b.program_sha256,'case_count':len(rows),'mismatches':mismatches,'cases':rows};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(r,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'case_count':len(rows),'mismatches':mismatches}))
  if mismatches:raise SystemExit(1)
 if __name__=='__main__':main()

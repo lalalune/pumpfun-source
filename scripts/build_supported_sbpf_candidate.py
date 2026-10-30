@@ -263,7 +263,7 @@ def execute(planned, env, *, runner=subprocess.run):
     output.mkdir(parents=True, exist_ok=False)
     record = {**planned, 'dry_run': False, 'compile_returncode': None, 'strip_returncode': None,
               'wrapper_exit_status': None, 'comparison_reference_read': False, 'stage': 'prepare'}
-    def save(): (output/'build-attempt.json').write_text(json.dumps(record, indent=2)+'\n')
+    def save(): (output/'build-attempt.json').write_text(json.dumps(record, indent=2)+'\n',encoding='utf-8',newline='\n')
     save(); started = time.time()
     try:
         for name, digest in planned['source_sha256'].items():
@@ -325,7 +325,7 @@ def execute(planned, env, *, runner=subprocess.run):
                       'length_difference': len(candidate)-len(original)}
         record.update(stage='complete', wrapper_exit_status=0, elapsed_seconds=time.time()-started)
         report = {**record, 'comparison': comparison, 'historical_compiler_identity_proven': False, 'runtime_executions': 0}
-        (output/'build-comparison.json').write_text(json.dumps(report, indent=2)+'\n')
+        (output/'build-comparison.json').write_text(json.dumps(report, indent=2)+'\n',encoding='utf-8',newline='\n')
         record['stage'] = 'complete'; record['wrapper_exit_status'] = 0; return 0
     except Exception as error:
         record['error'] = {'type': type(error).__name__, 'message': str(error)}

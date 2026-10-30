@@ -41,5 +41,5 @@ def dispatch(root=ROOT):
  return {n:recover(n, root) for n in program_names(root)}
 if __name__=='__main__':
  out=dispatch(ROOT)
- (ROOT/'evidence/dispatch-map.json').write_text(json.dumps(out,indent=2)+'\n')
+ (ROOT/'evidence/dispatch-map.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf-8',newline='\n')
  for name,r in out.items(): print(name,sum(bool(i['matches']) for i in r['instructions'].values()),'/',len(r['instructions']))

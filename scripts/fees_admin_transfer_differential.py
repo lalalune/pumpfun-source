@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """FeeConfig administration transfer with ordinary signatures and synthetic state."""
 from fees_config_differential import *
+from pump_differential_output import PumpReport
 class TransferFixture(Fixture):
  def run(self,c):
   data=bytearray(encode([(0,(1,2,3))],[(0,(4,5,6))]).ljust(c.get('allocation',4097),b'\0'));owner=PROGRAM;key=CONFIG;config_program=CONFIG_PROGRAM;admin=AUTH;event=EVENT;program=PROGRAM;mutation=c.get('mutation','none')
@@ -30,10 +31,10 @@ def cases():
  for n in [1,2,8,32,64,256]:out.append({'name':'extra-args-'+str(n),'new_admin':str(OTHER.pubkey()),'arg':'ff'*n})
  return out
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();orig=ROOT/'evidence/original/pump_fees/deployed.so';o=TransferFixture(orig);b=TransferFixture(a.candidate) if a.candidate else None;rows=[];bad=[]
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();publisher=PumpReport(a.output,ROOT,a.candidate,__file__);orig=ROOT/'evidence/original/pump_fees/deployed.so';o=TransferFixture(orig);b=TransferFixture(a.candidate) if a.candidate else None;rows=[];bad=[]
  for c in cases():
   x=o.run(c);y=b.run(c) if b else None;match=all(x[k]==y[k] for k in ['error','data_hex','lamports','owner','payer_delta','events','inner_instructions']) if b else None;rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:bad.append(c['name'])
- report={'scope':'update_admin on synthetic FeeConfig with actual local signatures, errors/state/balances/events/inner instructions. No historical authority control or byte identity claimed.','original_sha256':o.program_sha256,'candidate_sha256':b.program_sha256 if b else None,'case_count':len(rows),'mismatches':bad,'cases':rows};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatches':bad}))
+ report={'scope':'update_admin on synthetic FeeConfig with actual local signatures, errors/state/balances/events/inner instructions. No historical authority control or byte identity claimed.','original_sha256':o.program_sha256,'candidate_sha256':b.program_sha256 if b else None,'case_count':len(rows),'mismatches':bad,'cases':rows};publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatches':bad}))
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

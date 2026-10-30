@@ -29,7 +29,7 @@ def verify(args,output):
  steps=[]
  def run(name,phase):
   r=subprocess.run([sys.executable,str(replay/'scripts'/f'{name}.py')],cwd=replay,capture_output=True,text=True)
-  log=output/f'{phase}-{name}.log';log.write_text(r.stdout+r.stderr)
+  log=output/f'{phase}-{name}.log';log.write_text(r.stdout+r.stderr,encoding='utf-8',newline='\n')
   steps.append({'script':name,'phase':phase,'exit_code':r.returncode,'log_sha256':sha(log)})
   print(phase,name,r.returncode,flush=True);return r.returncode==0
  initial=all([run(n,'saved') for n in VERIFIERS]);runtime=None;tool=None
@@ -40,7 +40,7 @@ def verify(args,output):
   runtime=all([run(n,'runtime') for n in REPLAY])
   if runtime:runtime=all([run(n,'fresh') for n in VERIFIERS])
  report={'source_commit':manifest['commit'],'imported_file_count':len(manifest['files']),'all_import_hashes_verified':True,'original_binary_matches':binary_matches,'docs_commit':docs_commit,'saved_receipt_verifiers_passed':initial,'fresh_offline_runtime_passed':runtime,'surfpool_sha256':sha(tool) if tool else None,'steps':steps,'scope':'Import integrity, original binary correspondence, and bounded offline paths only. No exact program source builds or complete security audit claimed.'}
- (output/'integration-verification.json').write_text(json.dumps(report,indent=2)+'\n')
+ (output/'integration-verification.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n')
  return initial,runtime
 
 
