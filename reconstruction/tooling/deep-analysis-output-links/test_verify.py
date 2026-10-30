@@ -19,6 +19,12 @@ def snapshot(folder):
 
 
 class DeepAnalysisOutputLinkTests(unittest.TestCase):
+    def create_link(self, link, target, *, directory=False):
+        try:
+            link.symlink_to(target, target_is_directory=directory)
+        except (OSError, NotImplementedError) as error:
+            self.skipTest(f'symlinks are unavailable: {error}')
+
     def run_analysis(self, script, output, case):
         completed = subprocess.run(
             [sys.executable, '-B', str(ROOT / 'scripts' / script),
@@ -42,7 +48,7 @@ class DeepAnalysisOutputLinkTests(unittest.TestCase):
                         if existing:
                             target.write_bytes(sentinel)
                         link = output / member
-                        link.symlink_to(target)
+                        self.create_link(link, target)
                         result = self.run_analysis(script, output, f'{member}:existing={existing}')
                         self.assertNotEqual(result.returncode, 0, result.stdout)
                         self.assertIn('packet entry is not a regular file', result.stderr)
@@ -60,7 +66,7 @@ class DeepAnalysisOutputLinkTests(unittest.TestCase):
                 target = root / 'retained-directory'
                 target.mkdir()
                 output = root / 'packet'
-                output.symlink_to(target, target_is_directory=True)
+                self.create_link(output, target, directory=True)
                 result = self.run_analysis(script, output, 'directory-symlink')
                 self.assertNotEqual(result.returncode, 0, result.stdout)
                 self.assertIn('output directory is a link', result.stderr)
