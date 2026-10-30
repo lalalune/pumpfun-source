@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "classification": "Complete selected SOL-to-EVM mapping read/cache/query owner, required transport and query ports; no identity inference or native API claim",
+  "anchors": {
+    "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+    "inventoryCanonicalLfSha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2"
+  },
+  "owner": {
+    "id": 795663,
+    "ids": [
+      795663
+    ],
+    "label": "factory 795663",
+    "source": "evidence/web/objects/020facfab961bf67.js",
+    "url": "https://pump.fun/_next/static/immutable/chunks/3kzbjd9f7spuf.js",
+    "sourceSha256": "0bf8e18790da39b746a248938fd7d13a3503ae587cb72d9fa9bda4b5d8442161",
+    "sourceBytes": 22195,
+    "utf16": [
+      3128,
+      4739
+    ],
+    "utf8": [
+      3128,
+      4739
+    ],
+    "sha256": "11dbd34fa7c445a0bad7970b695619d27c2c16a9242ad1e6c37d2e1269e912cc"
+  },
+  "occurrences": [
+    {
+      "source": "evidence/web/objects/020facfab961bf67.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3kzbjd9f7spuf.js",
+      "start": 3128,
+      "end": 4739
+    }
+  ],
+  "fullOwner": {
+    "syntax": "e=>{var t=e.i(445242),r=e.i(528600),n=e.i(690877),a=e.i(544930),i=e.i(503630);let s=a.p,o=e=>[\"walletMapping\",\"solToEvm\",e];async function l(e){let{solAddresses:t,signal:r}=e,n=Array.from(new Set(t)),i=[];for(let e=0;e<n.length;e+=s)i.push(n.slice(e,e+s));let o=await Promise.all(i.map(e=>(0,a.u)({userAddresses:e,fetchOptions:{signal:r}}))),l={};for(let e of n)l[e]=null;for(let e of o)for(let t of e)t?.address&&t.address in l&&(l[t.address]=t.canonical_evm_wallet??null);return l;}async function u(e){let{solAddress:t,signal:n}=e;try{return(await(0,r.e)({clientServerUrl:(0,i.R)(),userIdentifier:t,fetchOptions:{signal:n}})).canonical_evm_wallet??null;}catch(e){if((0,r.g)(e))return null;throw e;}}async function d(e){let{solAddresses:t,queryClient:r,signal:n}=e,a={},i=[],s=Date.now();for(let e of new Set(t)){let t=r.getQueryState(o(e)),n=t?.data;\"string\"==typeof n||null===n&&void 0!==t&&s-t.dataUpdatedAt<3e5?a[e]=n:i.push(e);}if(i.length>0){let e=await l({solAddresses:i,signal:n});for(let t of i){let n=e[t]??null;a[t]=n,r.setQueryData(o(t),n);}}return a;}e.s([\"a\",0,u,\"i\",0,l,\"m\",0,d,\"O\",0,function(e){let r,a,i,s,l=(0,t.c)(12),{solAddress:d,enabled:c,fresh:m}=e,f=void 0!==m&&m,h=d??null;l[0]!==h?(r=o(h),l[0]=h,l[1]=r):r=l[1];let p=!!d&&(void 0===c||c),y=3e5*!f;return l[2]!==f?(a=f?{refetchOnWindowFocus:!1}:{},l[2]=f,l[3]=a):a=l[3],l[4]!==d?(i=e=>{let{signal:t}=e;return u({solAddress:d??\"\",signal:t});},l[4]=d,l[5]=i):i=l[5],l[6]!==r||l[7]!==p||l[8]!==y||l[9]!==a||l[10]!==i?(s={queryKey:r,enabled:p,staleTime:y,...a,queryFn:i},l[6]=r,l[7]=p,l[8]=y,l[9]=a,l[10]=i,l[11]=s):s=l[11],(0,n.useQuery)(s);}]);}",
+    "evidence": {
+      "label": "complete original wallet mapping owner",
+      "source": "evidence/web/objects/020facfab961bf67.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3kzbjd9f7spuf.js",
+      "sourceSha256": "0bf8e18790da39b746a248938fd7d13a3503ae587cb72d9fa9bda4b5d8442161",
+      "sourceBytes": 22195,
+      "utf16": [
+        3128,
+        4739
+      ],
+      "utf8": [
+        3128,
+        4739
+      ],
+      "sha256": "11dbd34fa7c445a0bad7970b695619d27c2c16a9242ad1e6c37d2e1269e912cc"
+    }
+  },
+  "exports": {
+    "label": "four actual mapping exports",
+    "source": "evidence/web/objects/020facfab961bf67.js",
+    "url": "https://pump.fun/_next/static/immutable/chunks/3kzbjd9f7spuf.js",
+    "sourceSha256": "0bf8e18790da39b746a248938fd7d13a3503ae587cb72d9fa9bda4b5d8442161",
+    "sourceBytes": 22195,
+    "utf16": [
+      4188,
+      4738
+    ],
+    "utf8": [
+      4188,
+      4738
+    ],
+    "sha256": "1f0ac86bbab8e254630c4b9aa4d256f59504abf50358ab09d0aaf9eaf7435584"
+  },
+  "imports": [
+    445242,
+    528600,
+    690877,
+    544930,
+    503630
+  ],
+  "caller": {
+    "provenance": {
+      "id": 689943,
+      "ids": [
+        689943,
+        783111
+      ],
+      "label": "factory 689943",
+      "source": "evidence/web/objects/020facfab961bf67.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3kzbjd9f7spuf.js",
+      "sourceSha256": "0bf8e18790da39b746a248938fd7d13a3503ae587cb72d9fa9bda4b5d8442161",
+      "sourceBytes": 22195,
+      "utf16": [
+        4754,
+        17390
+      ],
+      "utf8": [
+        4754,
+        17390
+      ],
+      "sha256": "2f14d3455aeb9f4d16ae197ae4f9ca0ca62d74422f0c816b5776336c96644f6e"
+    },
+    "evidence": {
+      "label": "actual owner import; not a rendered-reachability or active-provider claim",
+      "source": "evidence/web/objects/020facfab961bf67.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3kzbjd9f7spuf.js",
+      "sourceSha256": "0bf8e18790da39b746a248938fd7d13a3503ae587cb72d9fa9bda4b5d8442161",
+      "sourceBytes": 22195,
+      "utf16": [
+        4832,
+        4845
+      ],
+      "utf8": [
+        4832,
+        4845
+      ],
+      "sha256": "7feb031a987fb3a3e9a0f8d1326586673ab97f7aae31f6089ea93f5a18e3ebbe"
+    }
+  },
+  "maintainedSha256": "02e50a7fa292820b574d4079b23b5f7e70ac2228b6c4e2b83adb2cfc573f6022",
+  "prerequisites": [
+    {
+      "path": "reconstruction/profile-lookup/client.mjs",
+      "canonicalLfSha256": "e8039acc986f36dc614f976c348032644a7ed4d7115f75091142a091a8c98b52",
+      "newlyRecovered": false
+    },
+    {
+      "path": "reconstruction/user-batch/client.mjs",
+      "canonicalLfSha256": "5080d9d8272f8eae7bd0db5a80da1a23a1a6b1103856242e0d7e73d4d9a27b85",
+      "newlyRecovered": false
+    }
+  ],
+  "boundaries": [
+    "Only supplied local identifiers/facts are used in tests; no wallet discovery, credential, session, provider or default production request.",
+    "Credited source hashes normalize checkout CRLF to LF; raw captured bytes remain strict.",
+    "The host supplies actual useQuery/cache scheduling and schema/transport behavior. Compiler memo identity and arbitrary React interleavings are not qualified."
+  ]
+}
