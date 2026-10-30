@@ -12,6 +12,10 @@ target directories, offline after locked dependency acquisition. The official
 macOS arm64 SDK archive is SHA-256 pinned, every SDK inventory entry is verified,
 and the hybrid Linux target libraries are authenticated by the existing bootstrap.
 The SDK Cargo performs acquisition too, preserving its registry-cache namespace.
+Acquisition fetches the complete locked dependency closure, without a target
+filter, before the harness stages its virtual workspace. Target-filtered fetching
+can omit archives needed by the later offline build. Fetch and build use the same
+Cargo home and sparse registry protocol; compilation remains `--locked --offline`.
 The runner label follows [GitHub's macOS arm64 runner documentation](https://docs.github.com/en/actions/reference/runners/github-hosted-runners).
 
 One copy of the official scorer processes both binaries against the same captured
