@@ -135,6 +135,7 @@ import sys
 import unittest
 from test_analysis_interface_inventory import InterfaceInventoryEncodingTests
 from test_capture_verification_modes import CaptureVerificationModeTests
+from test_mayhem_receipt_admission import MayhemReceiptAdmissionTests
 from test_fees_external_codec_cases import ExternalCodecBooleanCases
 from types import SimpleNamespace
 import deep_disassembly
@@ -2113,6 +2114,10 @@ class MemoryWidthDecodeTests(unittest.TestCase):
                     offset += size
                 self.assertEqual(seen, set(self.FORMS))
                 self.assertEqual(mismatches, 0)
+
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tests.test_current_bindings_paths import CurrentBindingsPathTests
 
 
 if __name__=='__main__': unittest.main()

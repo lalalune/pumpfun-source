@@ -405,6 +405,21 @@ def main():
         if len(set(w["program"] for w in windows)) > 1
     }
 
+    # The manifest hashes every file here and verify.py requires exactly the
+    # generated set, so reject leftovers from another run before writing.
+    packet_files = {
+        "README.md", "manifest.json", "shared-signatures.json", "summary.json",
+        "top-ngrams.json", "verify.py",
+        *[f"{program}-{kind}.json" for program in program_summaries for kind in ("patterns", "signatures")],
+    }
+    unexpected = sorted(path.name for path in output_dir.iterdir() if path.name not in packet_files)
+    if unexpected:
+        raise ValueError("unexpected packet entry: " + ", ".join(unexpected))
+    invalid = sorted(name for name in packet_files
+                     if (output_dir / name).exists() and not (output_dir / name).is_file())
+    if invalid:
+        raise ValueError("packet entry is not a regular file: " + ", ".join(invalid))
+
     # --- Write outputs ---
 
     # 1. Per-program signatures

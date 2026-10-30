@@ -90,6 +90,11 @@ def _window_rows(orig, inventory):
         rows.append((start, end - start, raw, normalize(raw, start, os_)))
     if not rows:
         raise ValueError('window inventory contains no selected Pump windows')
+    previous_end = text['addr']
+    for start, length, _, _ in sorted(rows, key=lambda row: row[0]):
+        if start < previous_end:
+            raise ValueError(f'overlapping window range: {start}')
+        previous_end = start + length
     return tuple(rows)
 
 

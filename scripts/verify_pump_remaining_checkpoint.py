@@ -36,7 +36,13 @@ def plain_path(path):
 
 def content(path):
     path = plain_path(path)
-    fd = os.open(path, os.O_RDONLY | getattr(os, 'O_NOFOLLOW', 0))
+    # Reject a FIFO, socket or device before opening it: a blocking open of
+    # a FIFO with no writer never returns. The nonblocking open below keeps
+    # a file swapped for a FIFO after this check from blocking as well; the
+    # descriptor check then rejects it. Mirrors verify_current_checkpoint.
+    assert stat.S_ISREG(path.lstat().st_mode), ('Nonregular path', str(path))
+    fd = os.open(path, os.O_RDONLY | getattr(os, 'O_NOFOLLOW', 0)
+                 | getattr(os, 'O_NONBLOCK', 0) | getattr(os, 'O_BINARY', 0))
     with os.fdopen(fd, 'rb') as stream:
         assert stat.S_ISREG(os.fstat(stream.fileno()).st_mode), path
         return stream.read()

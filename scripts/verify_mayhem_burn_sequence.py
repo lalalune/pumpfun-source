@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 """Independently verify saved runtime receipts; no VM or network use."""
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O.")
+
 import argparse, base64, hashlib, json, re, struct
 from pathlib import Path
 from solders.pubkey import Pubkey

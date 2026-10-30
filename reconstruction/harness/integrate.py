@@ -16,6 +16,7 @@ from pathlib import Path
 H = Path(__file__).resolve().parent
 SC = H.parent
 sys.path.insert(0, str(H))
+from treediff import reject_source_link
 
 
 def build_source(*args, **kwargs):
@@ -60,6 +61,17 @@ def patched_files(text: str):
     return sorted(files)
 
 
+def reject_source_tree_links(root: Path):
+    """Reject links before copytree can follow them into a composition."""
+    reject_source_link(root)
+    if not root.is_dir():
+        return  # Preserve the existing missing/not-a-crate diagnostics.
+    # Check entries as rglob yields them. Building an eager list first could
+    # already traverse a Windows directory junction before it is inspected.
+    for path in root.rglob('*'):
+        reject_source_link(path)
+
+
 def preflight(name, base, parts, overrides):
     """Validate the complete composition before touching its output or snapshots."""
     def label(value):
@@ -76,7 +88,7 @@ def preflight(name, base, parts, overrides):
             label(key)
             if key in result or not path:
                 raise ValueError(f'duplicate label or empty path in {kind}: {key}')
-            result[key] = Path(path).resolve()
+            result[key] = Path(path)
         return result
 
     label(name)
@@ -88,8 +100,12 @@ def preflight(name, base, parts, overrides):
     output_path = SC / 'integ' / name
     if output_path.exists() or output_path.is_symlink():
         raise ValueError('output already exists; choose a new --name to preserve the earlier result')
+    for source in {Path(base), *selected.values(), *bases.values()}:
+        reject_source_tree_links(source)
     out = output_path.resolve()
-    base = base.resolve()
+    base = Path(base).resolve()
+    selected = {key: path.resolve() for key, path in selected.items()}
+    bases = {key: path.resolve() for key, path in bases.items()}
     for source in {base, *selected.values(), *bases.values()}:
         if source == out or source in out.parents or out in source.parents:
             raise ValueError(f'source overlaps composition output: {source}')

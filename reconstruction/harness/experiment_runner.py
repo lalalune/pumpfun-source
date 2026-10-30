@@ -12,7 +12,23 @@ import subprocess
 import tempfile
 import uuid
 
-IGNORED = {'.git', 'target', '__pycache__'}
+# Generated directories are never source, but only the experiment root's
+# target directory is generated build output: nested target directories can
+# contain source, mirroring source_inputs and build_source_manifest.
+ALWAYS_IGNORED = ('.git', '__pycache__')
+
+
+def stage_ignore(source):
+    """copytree ignore matching manifest(): target only at the source root."""
+    source = Path(source)
+
+    def ignore(directory, names):
+        ignored = [name for name in names if name in ALWAYS_IGNORED]
+        if Path(directory) == source and 'target' in names:
+            ignored.append('target')
+        return ignored
+
+    return ignore
 
 
 def digest(data): return hashlib.sha256(data).hexdigest()
@@ -24,7 +40,14 @@ def manifest(source):
         raise ValueError('source must be a real directory')
     result = {}
     for directory, dirs, files in os.walk(source):
-        dirs[:] = sorted(d for d in dirs if d not in IGNORED)
+        dirs[:] = sorted(d for d in dirs if d not in ALWAYS_IGNORED)
+        # Validate directory links before the root-target exclusion, so a
+        # symlinked root target is rejected instead of silently skipped.
+        for name in dirs:
+            if (Path(directory) / name).is_symlink():
+                raise ValueError('source symlinks are unsupported')
+        if Path(directory) == source:
+            dirs[:] = [d for d in dirs if d != 'target']
         for name in dirs + sorted(files):
             path = Path(directory) / name
             if path.is_symlink(): raise ValueError('source symlinks are unsupported')
@@ -100,7 +123,7 @@ def run_trial(source, command, destination, inputs=(), timeout=300):
         attempt = destination / ('attempt-' + uuid.uuid4().hex)
         attempt.mkdir()
         copied, work, output = (attempt / x for x in ('source', 'work', 'output'))
-        shutil.copytree(source, copied, ignore=shutil.ignore_patterns(*IGNORED))
+        shutil.copytree(source, copied, ignore=stage_ignore(source))
         if manifest(copied) != admission['source'] or manifest(source) != admission['source']:
             raise ValueError('source changed while copying')
         work.mkdir(); output.mkdir()

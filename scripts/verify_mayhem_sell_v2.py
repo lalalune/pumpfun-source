@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
 """Offline verification of saved signed sell_v2 receipts; never executes a VM or RPC."""
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O.")
+
 from pathlib import Path
 import argparse, base64, gzip, hashlib, json, re, struct
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
+
+if not __debug__:
+ raise RuntimeError('Mayhem receipt verification requires unoptimized Python')
 
 ROOT=next(p for p in Path(__file__).resolve().parents if (p/'evidence/original/mayhem/deployed.so').is_file())
 MAY=Pubkey.from_string('MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e')
@@ -18,6 +24,7 @@ def main():
  raw=a.receipts.read_bytes();report=json.loads(gzip.decompress(raw) if a.receipts.suffix=='.gz' else raw);assert report['candidate_sha256']==sha(a.candidate.read_bytes())
  assert report['original_sha256']==sha((ROOT/'evidence/original/mayhem/deployed.so').read_bytes())
  for path,digest in report['harness_sha256'].items():assert sha((ROOT/path).read_bytes())==digest
+ if type(report.get('case_count')) is not int or report['case_count']<=0: raise ValueError('case_count must be a positive integer')
  assert report['case_count']==len(report['cases']) and not report['mismatches']
  successes=failures=quote_checks=event_checks=rollback_checks=0
  for pair in report['cases']:
@@ -39,6 +46,7 @@ def main():
    payer=str(keys[0]);expected=dict(r['before'][payer],lamports=r['before'][payer]['lamports']-5000*required)
    assert r['after'][payer]==expected
    ix=tx.message.instructions[-1];assert keys[ix.program_id_index]==MAY
+   if bytes(ix.data[:8])!=hashlib.sha256(b'global:sell_v2').digest()[:8]: raise ValueError('expected Mayhem sell_v2 instruction')
    if r['error'] is not None:
     assert all(r['before'][key]==r['after'][key] for key in r['before'] if key!=payer)
     rollback_checks+=1;continue

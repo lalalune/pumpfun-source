@@ -12,10 +12,10 @@ Diff tokens use the scorer's normalization (internal call imm + section-pointer 
 import argparse, difflib, re, subprocess, sys
 from pathlib import Path
 from collections import Counter
-from llvm_tools import objdump
 
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
+from llvm_tools import objdump  # noqa: E402
 from score import sections, normalize, body, original_windows, score, BASE  # noqa
 from instruction_stream import instruction_offsets
 from elf_symbols import function_symbols

@@ -226,6 +226,12 @@ class WorkflowInputsTests(unittest.TestCase):
         self.assertFalse(refs)
         self.assertIn(('test.yml', 'test', 'heredoc body requires shell parsing'), unsupported)
 
+    def test_continuations_compose_with_environment_prefixes(self):
+        source = 'jobs:\n  test:\n    steps:\n      - run: |\n          env FLAG=1 \\\n            python -B scripts/env.py\n          FLAG=1 python \\\n            scripts/assignment.py\n'
+        refs, unsupported = check.references('test.yml', source)
+        self.assertEqual({row[2] for row in refs}, {'scripts/env.py', 'scripts/assignment.py'})
+        self.assertFalse(unsupported)
+
 
 if __name__ == '__main__':
     unittest.main()
