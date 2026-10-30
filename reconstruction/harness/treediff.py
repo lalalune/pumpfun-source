@@ -5,11 +5,18 @@ import stat
 from pathlib import Path
 
 
+class SourceBytes(bytes):
+    def __new__(cls, data, executable):
+        value = super().__new__(cls, data)
+        value.executable = executable
+        return value
+
+
 def reject_source_link(path):
     try:
         info = path.lstat()
     except FileNotFoundError:
-        return  # Keep the existing missing-root diagnostic below.
+        return
     reparse = getattr(info, 'st_file_attributes', 0) & getattr(stat, 'FILE_ATTRIBUTE_REPARSE_POINT', 0)
     if stat.S_ISLNK(info.st_mode) or reparse:
         raise ValueError(f'unsupported source tree link: {path}')
@@ -33,7 +40,8 @@ def tree_files(root):
             path = Path(directory) / name
             reject_source_link(path)
             if path.is_file():
-                files[path.relative_to(root).as_posix()] = path.read_bytes()
+                files[path.relative_to(root).as_posix()] = SourceBytes(
+                    path.read_bytes(), bool(path.stat().st_mode & 0o111))
     return dict(sorted(files.items()))
 
 
@@ -57,15 +65,21 @@ def tree_diff(base, new, prefix='programs/pump'):
     out = []
     for rel in sorted(set(a) | set(b)):
         x, y = a.get(rel), b.get(rel)
-        if x == y:
+        old_mode = '100755' if getattr(x, 'executable', False) else '100644'
+        new_mode = '100755' if getattr(y, 'executable', False) else '100644'
+        if x == y and old_mode == new_mode:
             continue
         quoted_a = quote_path(f'a/{prefix}/{rel}')
         quoted_b = quote_path(f'b/{prefix}/{rel}')
         out.append(f'diff --git {quoted_a} {quoted_b}\n')
         if x is None:
-            out.append('new file mode 100644\n')
+            out.append(f'new file mode {new_mode}\n')
         elif y is None:
-            out.append('deleted file mode 100644\n')
+            out.append(f'deleted file mode {old_mode}\n')
+        elif old_mode != new_mode:
+            out.append(f'old mode {old_mode}\nnew mode {new_mode}\n')
+        if x is not None and y is not None and x == y:
+            continue
         if (x is None and y == b'') or (x == b'' and y is None):
             # Unified text hunks cannot represent an empty file's existence.
             if x is None:

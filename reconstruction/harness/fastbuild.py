@@ -216,7 +216,8 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     env.pop('CARGO_BUILD_TARGET_DIR', None)
     reg = Path.home() / '.cargo'
     env.update(
-        RUSTC_WRAPPER=str(H / 'pump_physical_source_wrapper.py'),
+        RUSTC_WRAPPER=str(H / 'pump_physical_source_wrapper.sh'),
+        PUMP_RECON_PYTHON=sys.executable,
         PUMP_LOGICAL_REGISTRY_SRC=str(reg / 'registry/src'),
         CARGO_HOME=str(reg),
         CARGO_TARGET_DIR=str(target),

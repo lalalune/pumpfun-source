@@ -26,6 +26,7 @@ from solders.litesvm import LiteSVM
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
+from pump_amm_reusable_harness import pin_program
 
 ROOT = Path(__file__).resolve().parents[1]
 IDL = json.loads((ROOT/'evidence/upstream/pump.json').read_text(encoding='utf-8'))
@@ -76,6 +77,8 @@ def _init_global_params(vm):
     return vm.send_transaction(tx)
 
 def run(c, pump_bin=ORIGINAL_PUMP, mayhem_bin=ORIGINAL_MAYHEM):
+    pump_bin = pin_program(pump_bin)
+    mayhem_bin = pin_program(mayhem_bin)
     vm = LiteSVM().with_transaction_history(0)
     vm.add_program_from_file(PROGRAM, pump_bin)
     vm.add_program_from_file(MAYHEM, mayhem_bin)
@@ -143,7 +146,12 @@ def main():
     p.add_argument('--candidate-mayhem',type=Path)
     p.add_argument('--output',type=Path,required=True)
     a=p.parse_args()
-    has_cand = a.candidate_pump and a.candidate_mayhem
+    if bool(a.candidate_pump) != bool(a.candidate_mayhem):
+        p.error('--candidate-pump and --candidate-mayhem must be supplied together')
+    if a.candidate_pump:
+        a.candidate_pump = pin_program(a.candidate_pump)
+        a.candidate_mayhem = pin_program(a.candidate_mayhem)
+    has_cand = bool(a.candidate_pump)
     rows=[]; bad=[]
     for c in cases():
         x=run(c)
@@ -152,8 +160,8 @@ def main():
         rows.append({'case':c,'original':x,'candidate':y,'diff':diff})
         if diff: bad.append(c['case'])
     report={'scope':'End-to-end pump create_v2 Mayhem-mode -> mayhem initialize_mayhem_state via the real pump->mayhem invoke_signed CPI. No byte-identity claim.',
-            'original_pump_sha256':hashlib.sha256(ORIGINAL_PUMP.read_bytes()).hexdigest(),
-            'original_mayhem_sha256':hashlib.sha256(ORIGINAL_MAYHEM.read_bytes()).hexdigest(),
+            'original_pump_sha256':hashlib.sha256(pin_program(ORIGINAL_PUMP).read_bytes()).hexdigest(),
+            'original_mayhem_sha256':hashlib.sha256(pin_program(ORIGINAL_MAYHEM).read_bytes()).hexdigest(),
             'candidate_pump_sha256':hashlib.sha256(a.candidate_pump.read_bytes()).hexdigest() if has_cand else None,
             'candidate_mayhem_sha256':hashlib.sha256(a.candidate_mayhem.read_bytes()).hexdigest() if has_cand else None,
             'cases':rows,'mismatches':bad,'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}

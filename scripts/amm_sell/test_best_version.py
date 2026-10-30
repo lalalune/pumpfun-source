@@ -113,18 +113,19 @@ class BestScoreVersionTests(unittest.TestCase):
             wrong_size = build('wrong-size', 200, 4)
             (root / 'ATTEMPTS.jsonl').write_text(
                 json.dumps(full_size) + '\n' + json.dumps(wrong_size) + '\n')
+            previous_env = os.environ.get('AMM_SELL_SWARM')
             previous = sys.path.pop(0) if sys.path and sys.path[0] == str(HERE) else None
             sys.path.insert(0, str(HERE))
             try:
                 spec = importlib.util.spec_from_file_location('attempts_probe', HERE / 'attempts.py')
                 probe = importlib.util.module_from_spec(spec)
-                os.environ['AMM_SELL_SWARM'] = str(root)
-                spec.loader.exec_module(probe)
+                with mock.patch.dict(os.environ, {'AMM_SELL_SWARM': str(root)}):
+                    spec.loader.exec_module(probe)
             finally:
-                os.environ.pop('AMM_SELL_SWARM', None)
                 sys.path.pop(0)
                 if previous is not None:
                     sys.path.insert(0, previous)
+            self.assertEqual(os.environ.get('AMM_SELL_SWARM'), previous_env)
             out = io.StringIO()
             argv = sys.argv
             sys.argv = ['attempts.py', 'best', '2']

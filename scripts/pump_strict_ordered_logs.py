@@ -30,7 +30,7 @@ def audit(report,candidate_sha256,expected_pairs=None):
 def main():
  p=argparse.ArgumentParser();p.add_argument('--report',type=Path,required=True);p.add_argument('--candidate',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--expected-pairs',type=int);a=p.parse_args()
  raw=a.report.read_bytes();report=json.loads(gzip.decompress(raw)if raw.startswith(b'\x1f\x8b')else raw);candidate=a.candidate.read_bytes();result=audit(report,hashlib.sha256(candidate).hexdigest(),a.expected_pairs);result['source_report_sha256']=hashlib.sha256(raw).hexdigest();result['checker_sha256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest();require(not a.output.exists(),'Output already exists')
- staged=None;published=False
+ a.output.parent.mkdir(parents=True,exist_ok=True);staged=None;published=False
  try:
   with tempfile.NamedTemporaryFile('w',dir=a.output.parent,prefix='.'+a.output.name+'.',delete=False,encoding='utf-8',newline='\n')as stream:
    staged=Path(stream.name);stream.write(json.dumps(result,indent=2)+'\n');stream.flush();os.fsync(stream.fileno())
