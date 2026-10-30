@@ -568,7 +568,7 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
 
 
 
-        amount.checked_sub(trade_amount).ok_or_else(|| error!(PumpError::Overflow))?;
+        let adapter_difference = amount.checked_sub(trade_amount).ok_or_else(|| error!(PumpError::Overflow))?;
 
 
 
@@ -628,7 +628,7 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
             if native { crate::user_quote_payments::transfer_native(a.system_program.as_ref(),&a.user,h.bonding_curve.as_ref(),amount)?; } else { transfer_input(a,previous,&quote_token_program,&h.associated_quote_bonding_curve,h.quote_mint.decimals,AsRef::<AccountInfo>::as_ref(&*h.quote_mint),amount)?; }
             h.bonding_curve.apply_buy(base_amount,quote_amount)?;
             if last { transfer_base_out(&base_token_program,&h.associated_base_bonding_curve,&a.destination,&h.bonding_curve,h.base_mint.decimals,AsRef::<AccountInfo>::as_ref(&*h.base_mint),raw_output,seeds)?; }
-            (fees,base_amount,quote_amount,raw_output,amount - trade_amount,post_fill)
+            (fees,base_amount,quote_amount,raw_output,adapter_difference,post_fill)
 
 
 
@@ -785,7 +785,7 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
                 bonding_curve:h.bonding_curve.key(),timestamp,quote_mint:h.bonding_curve.quote_mint };
             route_event!(&*a,&completion,event_bump);
 
-        if let Some(post)=post_fill {
+        for post in post_fill {
             let post_event=crate::trade::post_complete_buy_event(&post,a.user.key(),h.base_mint.key(),
                 h.bonding_curve.key(),h.bonding_curve.quote_mint,timestamp,post_buyback)?;
 
