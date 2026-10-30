@@ -57,6 +57,8 @@ jobs:
               python -I -B tests/test_dispatch_root.py
               python -I -B tests/test_analyze_input_admission.py
               python scripts/test_tooling.py
+              python -B tests/test_two_curve_optimization_guard.py
+              python -O -B tests/test_two_curve_optimization_guard.py
               python -B scripts/test_dispatch_recovery.py
               python -B scripts/test_pump_compare_window_alignment.py
               python -B scripts/test_pump_compare_window_columns.py
@@ -92,6 +94,7 @@ jobs:
               python -O -B tests/test_function_body_file_ranges.py
               python -B reconstruction/harness/test_treediff_line_boundaries.py
               python -B reconstruction/harness/test_score_inputs.py
+              python -B reconstruction/harness/test_coords_cli_admission.py
               python -B reconstruction/harness/test_match_oracle.py
               python -B reconstruction/harness/test_score_atomic_report.py
               python -B reconstruction/harness/test_coords_report_destination.py
