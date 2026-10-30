@@ -1,0 +1,1 @@
+EDITS=[('sharing_config:a.sharing_config.to_account_info()','sharing_config:AccountInfo{key:a.sharing_config.key,lamports:a.sharing_config.lamports.clone(),data:a.sharing_config.data.clone(),owner:a.sharing_config.owner,rent_epoch:a.sharing_config.rent_epoch,is_signer:a.sharing_config.is_signer,is_writable:a.sharing_config.is_writable,executable:a.sharing_config.executable}')]

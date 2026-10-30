@@ -1,0 +1,1 @@
+EDITS=[('authority:a.current_creator.to_account_info()','authority:AccountInfo{key:a.current_creator.key,lamports:a.current_creator.lamports.clone(),data:a.current_creator.data.clone(),owner:a.current_creator.owner,rent_epoch:a.current_creator.rent_epoch,is_signer:a.current_creator.is_signer,is_writable:a.current_creator.is_writable,executable:a.current_creator.executable}')]

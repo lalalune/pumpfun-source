@@ -1,0 +1,1 @@
+EDITS=[('pool_authority:a.pool_authority.to_account_info()','pool_authority:AccountInfo{key:a.pool_authority.key,lamports:a.pool_authority.lamports.clone(),data:a.pool_authority.data.clone(),owner:a.pool_authority.owner,rent_epoch:a.pool_authority.rent_epoch,is_signer:a.pool_authority.is_signer,is_writable:a.pool_authority.is_writable,executable:a.pool_authority.executable}')]

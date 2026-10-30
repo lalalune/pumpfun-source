@@ -162,6 +162,13 @@ On main d2d187555 (#3281, 0.6417, M 2,142) the re-read scan looks the same: hold
 sharing pointer `%_370@bb1` 2,143 @ +8 B, and no clone x lead at or above main. On the current main, the after-clobber
 reload family is used up.
 
+Fresh-path literals for `to_account_info()` on d2d1875: 14 unique sites (`X:a.F.to_account_info()` rewritten as
+`AccountInfo{key:a.F.key,lamports:a.F.lamports.clone(),..}` in derive order). **All of them lose.** The best is
+sharing_config, M 2,122 @ +16 B. The rest give M 1,118-2,097, often with a size jump of +400-650 B, because
+to_account_info is an inlined library clone that sits in the same CPI account-list layout. Per site (M@bytes): sharing_config_sharing_config 2122@27416; quote_token_program_quote_token_program 1415@27808; pump_creator_vault_creator_vault 2032@27384; program_pump_fees 2097@27424; pool_authority_pool_authority 1657@27976; pool_pool 1681@27928; coin_creator_token_account_current_creator_quote_token_account 1202@28048; global_config_amm_global_config 1887@27800; authority_current_creator 1591@27928; authority_holder_creator_vault 1118@27920; associated_token_program_associated_token_program 2070@27400; authority_admin_set_creator_authority 2091@27368; associated_token_current_creator_quote_token_account 2084@27840; associated_token_holder_creator_vault_quote_token_account 1272@27864.
+The mechanism only pays where the source already writes a hand-made literal with an `x` binding, and among those only
+event_authority (#3267).
+
 ## Tools (experiment only)
 
 | file | what |

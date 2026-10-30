@@ -1,0 +1,1 @@
+EDITS=[('pool:a.pool.to_account_info()','pool:AccountInfo{key:a.pool.key,lamports:a.pool.lamports.clone(),data:a.pool.data.clone(),owner:a.pool.owner,rent_epoch:a.pool.rent_epoch,is_signer:a.pool.is_signer,is_writable:a.pool.is_writable,executable:a.pool.executable}')]

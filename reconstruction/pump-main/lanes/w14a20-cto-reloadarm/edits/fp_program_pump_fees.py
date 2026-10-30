@@ -1,0 +1,1 @@
+EDITS=[('program:a.pump_fees.to_account_info()','program:AccountInfo{key:a.pump_fees.key,lamports:a.pump_fees.lamports.clone(),data:a.pump_fees.data.clone(),owner:a.pump_fees.owner,rent_epoch:a.pump_fees.rent_epoch,is_signer:a.pump_fees.is_signer,is_writable:a.pump_fees.is_writable,executable:a.pump_fees.executable}')]

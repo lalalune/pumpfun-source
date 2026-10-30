@@ -32,7 +32,7 @@
   }
  ],
  "mechanism": "A source read becomes a real reload only when no load of the same address dominates it, or a may-alias store sits in between. The hand-written AccountInfo clones' Rc strong-count stores carry no noalias metadata, so field reads written as a.<field>.<f> after a clone reload the account pointer from the accounts struct, whereas an x binding keeps it in one SSA value.",
- "attempts": "about 75 source variants through the raw-IR capture + rx oracle, plus re-read/hold/remat oracle scans on b174038, 1b0ae70, e1, g1e1, the candidate and 7e6aa9c. Ledger keys 0x22a10-w14-{b174038,1b0ae70,g1hr,7e6aa9c}-reloadarm-*",
+ "attempts": "about 115 source variants through the raw-IR capture + rx oracle, plus re-read/hold/remat oracle scans on b174038, 1b0ae70, e1, g1e1, the candidate and 7e6aa9c. Ledger keys 0x22a10-w14-{b174038,1b0ae70,g1hr,7e6aa9c}-reloadarm-*",
  "rejected": [
   "short-circuit or in-arm global reads in the CtoState literal (holder_enabled/fee_configurable/max_fee behind holder/fee tests): they add a head block and the layout collapses (M 1547-1958)",
   "in-arm re-reads through a fresh &ctx.accounts (shared chain, pool_updated): byte-identical, because ctx is noalias and GVN folds them",
@@ -42,7 +42,8 @@
   "tail holds: pargs holder, event cashback (M -11 to -24); curve stores holder before cashback (M -12 to -15); pool owner-first (M -6)",
   "partial clone reloads on the mint and the two sweep pump_amm clones on top of the landed candidate (M -4 to -9)",
   "event nf read from the curve (e1): M = main at -24 B on 1b0ae70; on the candidate M -8",
-  "22 zero-size catalog knobs singly on 7e6aa9c: best = main (14 byte-identical, others M -1 to -13)"
+  "22 zero-size catalog knobs singly on 7e6aa9c: best = main (14 byte-identical, others M -1 to -13)",
+  "fresh-path AccountInfo literals replacing 14 unique to_account_info() sites on d2d1875: all lose (best M 2122 @ +16 B vs main 2142)"
  ],
  "unresolved_residuals": [
   "holder_enabled re-read %33 at the line-296 test (M +3 @ -40 B) has no source form that keeps the head CFG",
