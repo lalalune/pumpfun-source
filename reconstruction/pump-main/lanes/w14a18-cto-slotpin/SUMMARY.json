@@ -1,0 +1,83 @@
+{
+ "lane": "w14a18-cto-slotpin",
+ "target": "0x22a10 admin_cto::execute (pinned 27,400 B)",
+ "bases": {
+  "f8dc9016f": {
+   "ratio": 0.63481,
+   "M": 2119
+  },
+  "cef0574cf": {
+   "ratio": 0.63421,
+   "M": 2117
+  },
+  "b174038c1": {
+   "ratio": 0.63571,
+   "M": 2122
+  }
+ },
+ "result": "notes only; no source change. Calibrated MIR frame-pin oracle (colour, interval and alloca levels) and the bound table of 27 bases. No skeleton-positive base beats main with any legal original-like frame.",
+ "oracle": {
+  "colour_level": "llc -stop-before=prologepilog; stack objects -> fixedStack at chosen offsets; -start-before=prologepilog; identity pin byte-identical",
+  "interval_level": "llc -stop-before=stack-slot-coloring (one FI per spill interval); colmap pin reproduces the real build byte for byte on all 27 bases; legal sharing via debug-llc live ranges",
+  "alloca_level": "llc -stop-before=stack-coloring; every IR alloca a fixed object; identity (StackColoring merge log) byte-identical",
+  "outgoing_arg_fix": "MIR round trip prints stack-arg stores as [r10+X]; rewritten to [r10-(0x1000-X)]"
+ },
+ "bound_table_interval_pin_M": {
+  "main_f8dc": 2258,
+  "U2_e3+tu8+s1": 2271,
+  "s1": 2266,
+  "e3+tu8": 2264,
+  "RAR+V2N": 2258,
+  "RAR+HK0": 2240,
+  "RAR+w12": 2236,
+  "RAR+VS": 2228,
+  "RAR+B3": 2221,
+  "f2": 2217,
+  "RAR+V1": 2149,
+  "f2+V1": 2101,
+  "RAR+V2": 2056,
+  "RAR+PDA": 1997,
+  "main_cef": 2256,
+  "RAR+V1_cef": 2255,
+  "U2_cef": 2273
+ },
+ "hill_climbed_legal_frame_M": {
+  "main_f8dc": 2292,
+  "main_cef": 2290,
+  "main_b174": 2295,
+  "U2": 2273,
+  "RAR+w12": 2271,
+  "s1": 2270,
+  "e3+tu8": 2266,
+  "V2N": 2260,
+  "RAR+V1_cef": 2257
+ },
+ "findings": [
+  "Frame-masked M is not a frame bound: e3+tu8 masked 2374 vs legal interval pin 2264; RAR+V1 masked +67 over main ties main (2255 vs 2256) with the original's frame",
+  "Unrealizable masked credit sits in per-access splits of single objects (alloca merges _112.i/_109.i, sk in the 0x518 group, holder_key) and alignment artifacts",
+  "Colour-level pins are ~65 M below interval pins: the frame gap is colouring, not slot order",
+  "Best single interval move on main +12 M; best pairwise colour swap 0x8d8<->0x8e0 (holder vs accounts pointer) +12 M (+0.0036)",
+  "Colour order = StackSlotColoring weight order (sum of block frequency of spill/reload instructions); on ours holder outweighs the accounts pointer",
+  "difflib ratio is non-monotone: more consistent frame accesses can lower the score (alloca pin 797->842 consistent, ratio 0.63481->0.62972)"
+ ],
+ "attempts": "27 base bounds + hill + alloca + swap screen + 4 source holder variants (HV1 0.63122, HV2 byte-identical, HV1+HV2 = HV1, HV3 0.38871); 3 sk-lifetime variants (SK1 0.53426, SK2 0.54144, SK3 0.53977)",
+ "rejected_mechanisms": [
+  "holder 289 as !holder",
+  "holder let after mayhem check",
+  "matches! holder in validate",
+  "any skeleton base under a legal frame",
+  "sk bound early (shared test / before PDA / before CtoState)"
+ ],
+ "unresolved_residuals": [
+  "holder/accounts-pointer head colour order (+12 M)",
+  "validate error temps merged into _112.i (orig 0x488)",
+  "sk alloca group (ours 0x518, orig 0x470)"
+ ],
+ "next_ideas": [
+  "Rank skelunion/sharingslots candidates by bound2.py interval-pin M or hill.py legal-frame M instead of frame-masked M",
+  "Hill-climb source genes on main with hill.py's legal-frame M as a screen to find code-shape changes whose frame potential exceeds main's 2292",
+  "Alloca StackColoring for sk/_112.i without moving the sk binding (SK1-3 reshape entry code): screen post-opt IR lifetime-marker edits first"
+ ],
+ "ledger_keys": "0x22a10-w14-{f8dc901,cef0574,b174038}-slotpin-*",
+ "pr": 3253
+}

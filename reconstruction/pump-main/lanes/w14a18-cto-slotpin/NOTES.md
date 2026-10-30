@@ -98,11 +98,62 @@ Findings:
 Step 4 of the angle (find the 1-3 flipped spill intervals of a base that beats main by at least 0.005 when pinned) does
 not apply: no base clears the bar. U2 is at +0.004/+0.005 by M and needs 128 B of size repay.
 
+## 2b. Hill-climbed legal frames (`tools/hill.py`)
+
+The vote mapping maximizes consistent frame accesses. The scorer instead uses `difflib`'s greedy block matching, which
+is not monotone in local edits. So `hill.py` starts from each base's interval pin and hill-climbs on the scorer's own
+ratio. Each move puts an object at its real colour or at one of its top-3 vote targets. Moves are liveness-checked, so
+every frame stays legal. The run takes about 15 s per base.
+
+| base | interval pin M | hill-climbed legal-frame M |
+| --- | ---: | ---: |
+| **main f8dc** | 2262 | **2292** (ratio 0.6865) |
+| main cef0574 | 2260 | 2290 |
+| U2 | 2271 | 2273 |
+| RAR+w12 | 2240 | 2271 |
+| s1 | 2268 | 2270 |
+| e3+tu8 | 2264 | 2266 |
+| V2N | 2258 | 2260 |
+| RAR+V1 (cef0574) | 2255 | 2257 |
+
+After the hill-climb, **main is the best base by at least 19 M**. No skeleton-positive base is worth more than main
+under any legal frame this oracle can find. The same climb started from main's real colouring, with single legal
+interval moves only, gains +1.
+
+The interval-pin values for main here (2262 / 2260) are higher than in table 2 (2258 / 2256). In this run, objects
+without a vote keep main's real coloured offsets instead of their uncoloured layout offsets.
+
+**Alloca level** (`slotpin.py prepa` + `attrib.py` + `map3`):
+- `-stop-before=stack-coloring` makes every IR alloca its own fixed object. Pinning each one to its real merged offset is
+  byte-identical (calibrated).
+- `attrib.py` attributes 1,151 output lines to their IR alloca by moving each alloca alone.
+- Pinning main's allocas to the original's slots, with StackColoring-interval legality, raises consistent aligned alloca
+  accesses from 797 to 842, but the ratio *drops* from 0.63481 to 0.62972. This is the difflib non-monotonicity again.
+- The alloca differences are:
+  - validate's error temporaries `_44.i`, `_34.i`, `_24.i` and `_12.i` (24 B) are merged into `_112.i` at 0x470, where
+    the original uses 0x488;
+  - ours materializes `sk` in the 48 B `authority_info.i` group at 0x518, where the original has `sk` at 0x470 and a
+    `holder_key` copy at 0x518 (the w12 residual).
+
 ## 3. Main's own frame levers (`data/perint_main_f8dc.txt`, `data/perobj_main_f8dc.txt`)
 
 - **Single intervals are small.** Moving one interval at a time to its original slot on top of main's real colouring
   gains at most +12 M: SS#180, the accounts-pointer reload interval, moved to -0x8d8. Next come SS#275 (+7),
   SS#179 (+6), and SS#299, #280 and #258 (+5 each). The whole interval pin is worth +139, spread over about 100 intervals.
+- **Pairwise colour swaps** (`tools/swaps.py`; all 5,778 swaps of main f8dc's 8-byte spill colours, in `data/swaps_main_f8dc.txt`).
+  - The best is 0x8d8 <-> 0x8e0, the `holder` arg colour against the accounts pointer, at +12 M (+0.0036).
+  - Next come 0x930<->0x938 and 0x900<->0x908 (+6 each), then 0x928<->0x950 and 0x8e8<->0x950 (+5 each).
+  - No two-slot frame change is worth 0.005.
+- **Source screen on main b174038c1** (0.63571; this capture reproduces it):
+  - `HV1`: validate's 289 test spelled `!holder`. It reorders validate's blocks around the 289 test (33 lines) and gives
+    0.63122.
+  - `HV2`: `let holder=` moved below the mayhem check. Byte-identical.
+  - `HV1+HV2`: equal to HV1.
+  - `HV3`: `matches!` in validate. 0.38871.
+  - `SK1`/`SK2`/`SK3`: `sk` bound earlier (used in the `shared` test / before the holder_key PDA / before CtoState), meant to
+    push `sk` out of the 0x518 group toward the original's 0x470. They give 0.53426 / 0.54144 / 0.53977, with legal-frame
+    hill M 2,179 / - / 2,164, far below main. The early `sk` reshapes the entry code.
+  - On b174038c1 itself: interval pin 2,262, hill-climbed 2,295 (main M 2,122).
 - **The head of the spill area is where the colours differ.**
   - Colour-level regional pins on main: the head 0x8d8-0x9c8 gives +46 M (0.64859). The middle of the area alone gives
     -13. A -8 shift of the 0xbb0+ tail alone gives -4.

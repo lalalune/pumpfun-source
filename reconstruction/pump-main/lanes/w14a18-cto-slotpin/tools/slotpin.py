@@ -192,3 +192,62 @@ def mkmap2(d,ref,bc,out=None,kinds='all',alignsrc=None,raw=False):
     return mp
 if __name__=='__main__' and sys.argv[1]=='map2':
     mp=mkmap2(*sys.argv[2:6]); print('mapped',len(mp))
+
+def prep_alloca(bc,d,realdir):
+    """alloca level: stop before stack-coloring; every IR alloca becomes its own fixed object. Identity map = the real
+    merged offset (StackColoring merge log from llvm-dbg + the real PEI offsets of the representatives in realdir)."""
+    os.makedirs(d,exist_ok=True); open(d+'/stage','w').write('stack-coloring')
+    subprocess.run([B+'/llc']+F+[bc,'-stop-before=stack-coloring','-o',d+'/pre.mir'],check=True)
+    pr=objs(d+'/pre.mir')
+    r=subprocess.run([DL]+F+[bc,'-filetype=obj','-o',d+'/_dbg.o','-debug-only=stack-coloring'],capture_output=True,text=True)
+    t=r.stderr; i=t.find('admin_cto7execute'); j=t.find('Removed',t.find('Merge ',i)); t=t[i:j]
+    rep={int(b):int(a) for a,b in re.findall(r'Merging #(\d+) and slots #(\d+) together',t)}
+    real={int(k):v for k,v in json.load(open(realdir+'/objs.json')).items()}
+    mp={}
+    for k in pr:
+        x=rep.get(k,k)
+        if x in real: mp[str(k)]=real[x]['off']
+    json.dump(mp,open(d+'/col.json','w'))
+    ob={k:dict(v,off=mp.get(str(k),0)) for k,v in pr.items() if str(k) in mp}
+    json.dump(ob,open(d+'/objs.json','w')); os.remove(d+'/_dbg.o')
+    subprocess.run(['cp',realdir+'/direct.txt',d+'/real.txt'])
+    return mp,[k for k in pr if str(k) not in mp]
+if __name__=='__main__' and sys.argv[1]=='prepa':
+    mp,miss=prep_alloca(*sys.argv[2:5]); print('allocas',len(mp),'unmapped (dead?)',miss)
+
+def alloca_live(d):
+    f=d+'/alloca_live.json'
+    if os.path.exists(f): return {int(k):v for k,v in json.load(open(f)).items()}
+    return {}
+def mkmap3(d,ref,bc,out=None):
+    """alloca-level map: votes via attr.json (line -> IR alloca); allocas may overlap only if StackColoring intervals are disjoint"""
+    import difflib,collections
+    if not os.path.exists(d+'/alloca_live.json'):
+        r=subprocess.run([DL]+F+[bc,'-filetype=obj','-o',d+'/_dbg.o','-debug-only=stack-coloring'],capture_output=True,text=True)
+        t=r.stderr; i=t.find('admin_cto7execute'); t=t[i:t.find('Removed',t.find('Merge ',i))]
+        LV={int(m.group(1)):[(int(a),int(b)) for a,b in re.findall(r'\[(\d+)[rBed],(\d+)[rBed]:',m.group(2))] for m in re.finditer(r'Interval\[(\d+)\]:\n(.*?)\n',t)}
+        json.dump(LV,open(d+'/alloca_live.json','w')); os.remove(d+'/_dbg.o')
+    LV=alloca_live(d)
+    ob={int(k):v for k,v in json.load(open(d+'/objs.json')).items()}; col={int(k):v for k,v in json.load(open(d+'/col.json')).items()}
+    at={int(k):v for k,v in json.load(open(d+'/attr.json')).items()}
+    a,ta=_rd(d+'/real.txt'); b,tb=_rd(ref); oa=_offs(a); obb=_offs(b)
+    V=collections.defaultdict(collections.Counter)
+    for t,i1,i2,j1,j2 in difflib.SequenceMatcher(None,ta,tb,autojunk=False).get_opcodes():
+        if t!='equal': continue
+        for k in range(i2-i1):
+            i=i1+k; x,y=oa[i],obb[j1+k]
+            if x is None or y is None or i not in at: continue
+            al=at[i]; V[al][y-(x-col[al])]+=1
+    cands=sorted(((n,i,t) for i,c in V.items() for t,n in c.items()),reverse=True)
+    mp={}; used=[]
+    for n,i,t in cands:
+        if i in mp: continue
+        sz=ob[i]['size']; ok=True
+        for u,us,j in used:
+            if t<u+us and u<t+sz and (i not in LV or j not in LV or ovl(LV[i],LV[j])): ok=False; break
+        if ok: mp[i]=t; used.append((t,sz,i))
+    full={str(k):mp.get(k,col[k]) for k in col}
+    if out: json.dump(full,open(out,'w'))
+    return mp
+if __name__=='__main__' and sys.argv[1]=='map3':
+    mp=mkmap3(*sys.argv[2:6]); print('alloca-mapped',len(mp))

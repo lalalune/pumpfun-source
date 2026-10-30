@@ -50,3 +50,10 @@ G['V1H']=[('new:Option<Pubkey>,has:bool,holder_key:&Pubkey,sharing:&Pubkey)->Res
 QLc='let quote_locked=crate::pump_quote::global_quote(a.bonding_curve.quote_mint,&a.global);'
 G['B3c']=[(QLc,'let (cb0,hr0,my0)=(a.bonding_curve.is_cashback_coin,a.bonding_curve.is_holder_reward,a.bonding_curve.is_mayhem_mode);'+QLc),(STB,'mayhem:my0,holder_reward:hr0,cashback:cb0')]
 G['QLINc']=[(QLc,''),('cashback:a.bonding_curve.is_cashback_coin,quote_locked,','cashback:a.bonding_curve.is_cashback_coin,quote_locked:crate::pump_quote::global_quote(a.bonding_curve.quote_mint,&a.global),')]
+G['HV1']=[('if st.holder_reward&&!(hopt==Some(true)){','if st.holder_reward&&!holder{')]
+G['HV2']=[('->Result<Pubkey>{let holder=hopt==Some(true);\n if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}','->Result<Pubkey>{\n if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}let holder=hopt==Some(true);')]
+G['HV3']=[('->Result<Pubkey>{let holder=hopt==Some(true);','->Result<Pubkey>{let holder=matches!(hopt,Some(true));')]
+_SK=';let args=&(new,);let sk=a.sharing_config.key();let mut target='
+G['SK1']=[(_SK,';let args=&(new,);let mut target='),('let shared=a.sharing_config.key()==a.bonding_curve.creator&&','let sk=a.sharing_config.key();let shared=sk==a.bonding_curve.creator&&')]
+G['SK2']=[(_SK,';let args=&(new,);let mut target='),('let holder_key;let hk=','let sk=a.sharing_config.key();let holder_key;let hk=')]
+G['SK3']=[(_SK,';let args=&(new,);let mut target='),('let (holder,cashback,target,sharing_update,collect_old,skip)={ let st=','let sk=a.sharing_config.key();let (holder,cashback,target,sharing_update,collect_old,skip)={ let st=')]
