@@ -36,7 +36,7 @@ remain unchanged through compilation.
   against both in LiteSVM and report per-case results. Most write a `mismatches` list;
   a few use per-row `match` fields instead.
 - `*_surfpool.py` scripts replay the same cases against a local Surfpool validator
-  (`localnet/`). Nothing is sent to a live network.
+  (formerly `localnet/`, removed from the tree). Nothing is sent to a live network.
 - `*_fixture.py` modules build the synthetic accounts shared by a family of
   differentials. The Pump `*_probe.py` scripts record prerequisite observations
   without asserting equality; `fees_donation_crank_probe.py` is a full differential
@@ -45,15 +45,33 @@ remain unchanged through compilation.
 ## Why the set is frozen
 
 The pass-27 CI guard pins this directory: the exact set of 187 `scripts/*.py` files
-and the SHA-256 of each one. Evidence packages under `repro/` also record the
-script hashes they ran with. Editing an existing script needs a reviewed asset
-transition (as in `repro/consolidation/2026-10-26/`) and must not change a script
-that an immutable checkpoint verifier pins (for example `build_partial_candidate.py`).
-Adding, renaming or merging scripts changes the pinned set itself and needs a new
-guard generation. New tooling belongs in the evidence package that uses it, as
-`repro/behavioral-recovery/scripts/` does.
+and the SHA-256 of each one. Evidence packages formerly under `repro/` (removed from
+the tree) also recorded the script hashes they ran with. Editing an existing script
+needs a reviewed asset transition (formerly `repro/consolidation/2026-10-26/`,
+removed from the tree) and must not change a script that an immutable checkpoint
+verifier pins (for example `build_partial_candidate.py`). Adding, renaming or merging
+scripts changes the pinned set itself and needs a new guard generation. New tooling
+belongs in the evidence package that uses it, as the former
+`repro/behavioral-recovery/scripts/` layout did.
 
 ## Core: capture, analysis, comparison
+
+### Saved-capture checks on the current checkout
+
+From the repository root, run:
+
+```sh
+python -E -X utf8 scripts/verify_evidence.py
+python -E -X utf8 scripts/test_tooling.py
+```
+
+The saved-capture verifier uses Python assertions: do not add `-O` or `-OO`.
+`-E` prevents an inherited `PYTHONOPTIMIZE` from disabling those assertions;
+`-X utf8` also lets the tooling tests read the checked-in UTF-8 IDLs on Windows.
+These commands verify saved evidence and comparator behavior, not a source
+rebuild or runtime equivalence. The previously recommended
+`research/evidence-checks-optimized-python/` package is absent from this checkout;
+do not treat that historical package path as an installed entrypoint.
 
 | Script | CI | Purpose |
 | --- | :-: | --- |
@@ -64,7 +82,7 @@ guard generation. New tooling belongs in the evidence package that uses it, as
 | `disassemble.py` |  | Generate analyst disassembly, never a source rebuild or candidate executable. |
 | `local_validation.py` | ✓ | Offline malformed-input smoke tests; not a functional or authorization audit. |
 | `recover_dispatch.py` |  | Locate Anchor discriminator comparisons and wrapper calls in original SBF. |
-| `verify_evidence.py` | ✓ | Archived saved-evidence implementation, run unoptimized in CI. For local checks use the existing [optimization-safe entrypoint](../research/evidence-checks-optimized-python/README.md). This is NOT a rebuilt-source verification. |
+| `verify_evidence.py` | ✓ | Archived saved-evidence implementation, run unoptimized in CI. Use the [current local commands](#saved-capture-checks-on-the-current-checkout) with assertions enabled. This is NOT a rebuilt-source verification. |
 
 ## Builds, toolchains and dependency provenance
 

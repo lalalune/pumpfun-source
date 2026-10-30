@@ -3,15 +3,15 @@
 This produces addresses for manual recovery, never compiler inputs or rebuilt code.
 """
 import hashlib,json,pathlib,re,struct
-from analyze import elf_layout
+from analyze import elf_layout, program_names
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-def recover(name):
- b=(ROOT/f'evidence/original/{name}/deployed.so').read_bytes(); layout=elf_layout(b)
+def recover(name, root=ROOT):
+ b=(root/f'evidence/original/{name}/deployed.so').read_bytes(); layout=elf_layout(b)
  text=next(s for s in layout['sections'] if s['name']=='.text'); start=text['offset']; end=start+text['size']; delta=text['address']-start
- idl=ROOT/f'evidence/upstream/{name}.json'
+ idl=root/f'evidence/upstream/{name}.json'
  if idl.exists(): candidates={i['name']:bytes(i['discriminator']) for i in json.loads(idl.read_text())['instructions']}
  else:
-  names=json.loads((ROOT/'evidence/binary-analysis.json').read_text())[name]['instruction_log_names']
+  names=json.loads((root/'evidence/binary-analysis.json').read_text())[name]['instruction_log_names']
   names=[re.sub(r'(?<!^)(?=[A-Z])','_',n).lower() for n in names]
   candidates={n:hashlib.sha256(('global:'+n).encode()).digest()[:8] for n in names}
  result={}
@@ -36,7 +36,10 @@ def recover(name):
    else: pc+=8
   result[n]={'discriminator':d.hex(),'matches':hits}
  return {'binary_sha256':hashlib.sha256(b).hexdigest(),'basis':'official IDL' if idl.exists() else 'SHA256(global:snake_case(instruction log name)) hypothesis','instructions':result}
+def dispatch(root=ROOT):
+ """Dispatch report for every selected program, in selector order."""
+ return {n:recover(n, root) for n in program_names()}
 if __name__=='__main__':
- out={n:recover(n) for n in json.loads((ROOT/'repro/programs.json').read_text())}
+ out=dispatch(ROOT)
  (ROOT/'evidence/dispatch-map.json').write_text(json.dumps(out,indent=2)+'\n')
  for name,r in out.items(): print(name,sum(bool(i['matches']) for i in r['instructions'].values()),'/',len(r['instructions']))

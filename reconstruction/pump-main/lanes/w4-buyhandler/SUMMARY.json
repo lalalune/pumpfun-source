@@ -1,0 +1,31 @@
+{
+  "lane": "w4-buyhandler",
+  "base": "origin/main 630a074126 (1023 normalized / 277 raw)",
+  "target": {"window":"0x13b9b8","fn":"buy_v2::buy_handler","orig_bytes":15480},
+  "best": {"source_change": null, "buy_ratio": 0.97682, "buy_bytes": 15512, "llc_masked_diff": 50, "normalized": 1023, "raw": 277, "note": "base is already w3's merged optimum; no raw-safe improvement found"},
+  "key_finding": "Inlining the CompleteEvent emission into buy_handler (i1/di1, with or without drop(ev)) fixes the Complete-if branch sense and terminal jne (stack+reg masked diff 37/35 vs base 39) and di1 reaches the exact original size 15480, but BOTH lose raw window 0xa868 (3-insn thunk; raw 277->276). The complete_and_prepare inline(always) helper that base uses is what keeps 0xa868 raw-matched. This rules out w3's leading next idea (if-let-Err / caller-tail-call complete forms).",
+  "oracle_results": {
+    "addchain_bb214_after_bb218": "base 50 -> 25 (raw-safe target, no source form)",
+    "di1_complete_cpi_lifetime_markers": "di1 54 -> 41 (needs inlined-fn boundary = raw-unsafe)"
+  },
+  "attempts": 25,
+  "rejected_mechanisms": [
+    "inline-complete family (i1/di1/s1/s2/c1/c2) - raw loss 0xa868",
+    "drop(ev) early - raw loss 0xa868",
+    "tailcall-helper prepare forms (match/and/map/and_then/is_err) - drop_in_place<Result> call, dist 339",
+    "fee tuple: destructure-assign / match-bool / ? in else / unwrapped - 0.90 or identical",
+    "add-chain: add()-bound-total (closure loss), operand-swap (identical), IIFE (w3)",
+    "complete-if invert / <1 in helper - identical or worse",
+    "quote_mint respellings, spill-slot swaps - byte-identical / stack-coloring (w3)"
+  ],
+  "unresolved_residuals": [
+    "add-chain overflow block placement (bb214 after add2): 25-insn raw-safe win, no source form",
+    "quote_mint 32-byte snapshot copy field order (insn ~1060, shared with eq + sell_v2)",
+    "two spill-slot swaps -0x750/-0x790 -> -0x7d0/-0x7d8 (stack coloring)"
+  ],
+  "next_ideas": [
+    "Find a source form where rustc emits trade_fees' Break block after the checked-add chain without an inlined helper's Result tag retest (the only raw-safe path to -25).",
+    "Investigate 0xa868: identify the exact drop/thunk instantiation it is, then find whether any complete-inlining form preserves it (unlikely).",
+    "quote_mint: a source temporary SROA-split into 4 i64 pieces (one fix covers buy/eq/sell_v2); eq is at masked diff ~19."
+  ]
+}

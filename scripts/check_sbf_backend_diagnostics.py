@@ -7,7 +7,7 @@ STACK=re.compile(r'^Error: Function (.*?) Stack offset of (-?\d+) exceeded max o
 def inspect(path):
  path=Path(path);raw=path.read_bytes();decoded=gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw
  errors=[]
- for number,line in enumerate(decoded.decode('utf-8',errors='replace').splitlines(),1):
+ for number,line in enumerate(decoded.decode('utf-8').splitlines(),1):
   plain=ANSI.sub('',line).lstrip()
   if not plain.startswith('Error:'):continue
   row={'line_number':number,'text':line,'kind':'backend_error'};m=STACK.match(plain)
