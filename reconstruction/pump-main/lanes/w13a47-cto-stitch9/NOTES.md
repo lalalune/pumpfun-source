@@ -120,3 +120,27 @@ Same-screen dead ends on 23322b0 (bytes / ratio): `v_hr_rev` 26,576 / 0.519, `v_
 | gains / losses | | 0 / 0 |
 | runtime differential | | 363 cases, 0 mismatches |
 | unstripped sha256 | | `83f55c383a65db04d090e22dd9644da29b9d936b28ba2d0faf0744e6abe5a271` |
+
+## Screens after #3215 (no further gain from this lane)
+
+Every landing flips the sign of some genes (`p_empty_first` was -0.0006 on 53abf28 and +0.0018 after #3200), so the loop is:
+after each landing, re-screen the whole catalog (`tools/genes47.py`, ~160 newline-preserving genes) on the new main with
+`run47.py`, land any 27,400 B gain, repeat.
+
+- **769f331 (0.63241), 126 trials:** none above main. Shared conjunct permutations (`shp_*`/`shq_*`, 24 forms) are -0.0003 to
+  -0.21; moving `!data_is_empty()` first costs 0.06-0.21. Validate operand swaps (`cmp_v_*`) -0.0003..-0.06. Event-field locals
+  (`e6_*`) are +24..+64 B. Best size pairs: `o_ab_late`+`wl_ts_clockvar` / `s_su_iflet`+`e_cb_local` 0.63182.
+- **cef0574 (0.63421, #3210), 129 trials:** none above main. Redundant-use (live-range) genes, all equivalent by construction:
+  `ru_co_sh` (`if !shared&&collect_old`) 27,408 / 0.609, `ru_skip_*` (sweep gate `!skip&&shared/holder`) 0.48-0.54,
+  `ru_su_guard` (`Some(val) if shared`) 0.491, `ru_su_wild` (`_=>{}`) 27,392 / 0.633, `ru_pool_cp` 27,448 / 0.629.
+  Wallet gate: `wc_rev` (`do_coin&&coin_present`) byte-neutral, `wc_tf` 27,352 / 0.608.
+- **f8dc901 (0.63481, #3241), 67 trials:** none above main. `quote_locked` disjunct orders and operand swaps (`qlp_*`, 23 forms)
+  -0.0006..-0.004; `ql_ref` 27,168 / 0.603. The best 27,400 B singles are `c_ce_cr`, `c_of_first`, `n_hk_direct`, `cmp_pool_rev`,
+  `cmp_fees_rev`, `cmp_v_tsh2` at 0.63451 (-0.0003): they are the first genes to re-screen after the next landing.
+- llc oracles on 53abf28: segscan (228 clone field-segment moves) and fieldscan pairs: best +0.0006 (R3160, sharing CPI authority
+  clone rent_epoch first), neutral as source (`sc_auth_*`) and as oracle on 23322b0.
+
+Semantics: every landed gene is a pure-read reorder or an equal local. Genes that move a fallible call across another fallible
+call (`wc_nf`: `token_frozen(..)?` inlined into the coin gate) were dropped without building, since they change error precedence.
+- **1b0ae70 (0.63661, #3250/#3257), 24-gene mini-screen:** none above main; `wc_rev`, `okp_tcu` byte-neutral, the cmp family
+  -0.0003..-0.0009, `o_ab_late` 27,384 / 0.6359.

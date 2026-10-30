@@ -1,0 +1,38 @@
+{
+ "lane": "w13a47-cto-stitch9",
+ "wave": "13, continued in 14",
+ "angle": "integrator/stitcher: cheap oracle scans + catalog gene screens re-run after every landing, size-balanced compositions at 27,400 B",
+ "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+ "start_main": {"sha": "6ff770f7a", "ratio": 0.62403, "slots_diff": 3325},
+ "landed": [
+  {"pr": 3168, "merge": "53abf28b1", "ratio": [0.62403, 0.62672], "slots": [3325, 3305], "genes": ["pool_args_pre (w13a34)", "u_sand: shared as one && chain"]},
+  {"pr": 3200, "merge": "23322b07c", "ratio": [0.62672, 0.62882], "slots": [3305, 3288], "genes": ["n_cb_rev: let cashback=!holder&&st.cashback", "s_rent_local: let rent=Rent::get()?;let min=rent.minimum_balance(0)", "ev_nf_pre: let nf=a.bonding_curve.creator_fee_bps before pool_updated (+24 B partner)"], "unstripped_sha256": "74617479b7688b5d16aac7af7476282b513f68aff900bca0ac07c600d10a0080"},
+  {"pr": 3207, "merge": "308b545f1", "ratio": [0.62882, 0.63062], "slots": [3288, 3288], "genes": ["pu_rev: let pool_updated=!a.pool.data_is_empty() && a.pool.owner==&AMM"], "unstripped_sha256": "c38b85038579b0d7c5d275864e06fecf16c635868434919b3378ba9f4fa73752"},
+  {"pr": 3215, "merge": "769f331fe", "ratio": [0.63062, 0.63241], "slots": [3288, 3288], "genes": ["cmp_sh_rev: a.sharing_config.key()==a.bonding_curve.creator"], "unstripped_sha256": "83f55c383a65db04d090e22dd9644da29b9d936b28ba2d0faf0744e6abe5a271"}
+ ],
+ "best_zero_loss_at_pinned_size": {"ratio": 0.63241, "slots_diff": 3288, "bytes": 27400, "pr": 3215, "differential": "363/0"},
+ "end_main": {"sha": "1b0ae7021", "ratio": 0.63661, "slots_diff": 3173, "note": "later gains by w14a03/w14a14/w14a17/w14a13 on top of #3215"},
+ "attempts": {"builds": 620, "oracle_runs": 570, "ledger_approach": ["stitch-composite", "stitch-oracle"], "dedupe_key_prefix": "0x22a10-w13-<main7>-stitch9-"},
+ "mechanism_findings": [
+  "Operand order of pure comparisons and && chains moves admin_cto by +-0.002 per edit at constant size; the sign flips after unrelated landings (p_empty_first -0.0006 on 53abf28, +0.0018 on 23322b0), so the catalog must be re-screened after every landing.",
+  "Size-balanced composition works when a -k B gain gene meets a +k B local-let gene from the #3137 catalog (n_cb_rev -8 + s_rent_local -16 + ev_nf_pre +24)."
+ ],
+ "rejected_mechanisms": [
+  "shared conjunct permutations other than key-first (shp_/shq_, 24 forms): -0.0003..-0.21",
+  "validate operand swaps cmp_v_* and v_hr_rev/v_he_b/v_he_c/v_hold_eq",
+  "redundant-use live-range genes ru_* (collect_old&&!shared, sweep gate &&shared/holder, Some(val) if shared, pool_updated re-test)",
+  "quote_locked disjunct orders / operand swaps qlp_* and ql_ref",
+  "event-field locals before pool_updated beyond nf (e6_*: +24..+64 B, no partner repays them)",
+  "sharing CPI authority literal clone sc_auth_* (oracle R3160 +0.0006 on 53abf28 only)",
+  "segscan / fieldscan clone-field moves on 53abf28 and 23322b0"
+ ],
+ "unresolved": [
+  "code-shape residual (instruction selection, block structure, RA) beyond operand-order levers",
+  "the BRIEF frame/regalloc residuals (spill-slot order, to_string outlining at 307/312)"
+ ],
+ "next_ideas": [
+  "After each landing re-run tools/run47.py over the full genes47 catalog (about 160 genes, 10-20 min at 2 builds); the first to re-screen are the -0.0003 27,400 B singles on f8dc901: c_ce_cr, c_of_first, n_hk_direct, cmp_pool_rev, cmp_fees_rev, cmp_v_tsh2",
+  "Extend the operand-order family to the regions later lanes rewrote (sweep transfer ATA program, sharing program to_account_info, quote_locked) and to the helper fns token_frozen/token_raw_amount if they inline",
+  "Pair o_ab_late (-16 B, -0.0001 on 769f331) with a +16 B gene that is neutral on the then-current main"
+ ]
+}

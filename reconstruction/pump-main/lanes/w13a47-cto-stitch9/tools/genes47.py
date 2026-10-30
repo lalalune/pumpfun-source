@@ -137,3 +137,74 @@ G['neg_frozen'] = [tuple(_j.load(open(os.path.join(os.path.dirname(os.path.abspa
 _NC = 'msg!("No canonical pump pool for this mint; curve only");'
 G['neg_pool'] = [("\n  if pool_updated{\n", "\n  if !pool_updated{" + _NC + "}else{\n"), ("\n  }else{" + _NC + "}\n", "\n  }\n")]
 G['neg_pool'] = [("\n if pool_updated{\n", "\n if !pool_updated{" + _NC + "}else{\n"), ("\n }else{" + _NC + "}\n", "\n }\n")]
+
+# ---- main 769f331fe: shared conjunct permutations, more comparison swaps ----
+import itertools as _it
+_SH6 = "let shared=a.sharing_config.key()==a.bonding_curve.creator&&a.sharing_config.owner==&FEES&&!a.sharing_config.data_is_empty();"
+_C = {'k': "a.sharing_config.key()==a.bonding_curve.creator", 'K': "a.bonding_curve.creator==a.sharing_config.key()",
+      'o': "a.sharing_config.owner==&FEES", 'O': "&FEES==a.sharing_config.owner", 'e': "!a.sharing_config.data_is_empty()"}
+for _p in _it.permutations('koe'):
+    for _kk in 'kK':
+        for _oo in 'oO':
+            _m = {'k': _kk, 'o': _oo, 'e': 'e'}
+            _nm = 'shp_' + ''.join(_m[c] for c in _p)
+            if _nm == 'shp_koe': continue
+            G[_nm] = [(_SH6, "let shared=" + "&&".join(_C[_m[c]] for c in _p) + ";")]
+G['cmp_v_hold'] = [("Result<Pubkey>{let holder=hopt==Some(true);", "Result<Pubkey>{let holder=Some(true)==hopt;")]
+G['cmp_v_hr'] = [("if st.holder_reward&&!(hopt==Some(true)){", "if st.holder_reward&&!(Some(true)==hopt){")]
+G['cmp_x_hold'] = [("let hopt=holder;let holder=hopt==Some(true);", "let hopt=holder;let holder=Some(true)==hopt;")]
+G['cmp_v_tzero'] = [("  if t==Pubkey::default(){return Err(", "  if Pubkey::default()==t{return Err(")]
+G['cmp_frz_amt'] = [("if frozen{require!(amount==0,", "if frozen{require!(0==amount,")]
+G['cmp_amm_amt'] = [("token_raw_amount(a.coin_creator_vault_ata.as_ref())?==0,", "0==token_raw_amount(a.coin_creator_vault_ata.as_ref())?,")]
+G['v_new_some'] = [("let target=if holder{if new.is_some(){return Err(", "let target=if holder{if !new.is_none(){return Err(")]
+G['ev_reset_none'] = [("sharing_config_reset:sharing_update.is_some(),", "sharing_config_reset:!sharing_update.is_none(),")]
+for _n in [k for k in list(G) if k.startswith('shp_')]:
+    G['shq_' + ''.join({'k':'k','K':'kr','o':'o','O':'or','e':'e'}[c] for c in _n[4:])] = G[_n]
+G['cmp_v_tsh1'] = [("if t==*sharing||t==*holder_key{", "if *sharing==t||t==*holder_key{")]
+G['cmp_v_tsh2'] = [("if t==*sharing||t==*holder_key{", "if t==*sharing||*holder_key==t{")]
+G['cmp_v_f0'] = [("if f==0||f>st.max_fee{", "if 0==f||f>st.max_fee{")]
+G['x_dcol_in'] = [("(!a.creator_vault_quote_token_account.data_is_empty()&&!token_frozen(a.creator_vault_quote_token_account.as_ref())?)", "(!token_frozen(a.creator_vault_quote_token_account.as_ref())?&&!a.creator_vault_quote_token_account.data_is_empty())")]
+G['x_ata_dm'] = [("if !collection_native||coin_present{", "if !(collection_native&&!coin_present){")]
+G['v_hr_some'] = [("if st.holder_reward&&!(hopt==Some(true)){", "if st.holder_reward&&!holder{")]
+
+# ---- event-local lets rebased on 769f331fe (nf already before pool_updated) ----
+_NF = "let nf=a.bonding_curve.creator_fee_bps;"
+_PU6 = "let pool_updated=!a.pool.data_is_empty() && a.pool.owner==&AMM;"
+_EVA = "authority:a.admin_set_creator_authority.key(),mint,bonding_curve:a.bonding_curve.key(),"
+for _pos in ('a', 'b'):   # a: before nf, b: between nf and pool_updated
+    def _ins(x, _pos=_pos):
+        return (_NF + _PU6, (x + _NF + _PU6) if _pos == 'a' else (_NF + x + _PU6))
+    G['e6_cb_' + _pos] = [_ins("let cbc=a.bonding_curve.is_cashback_coin;"), ("is_cashback_coin:a.bonding_curve.is_cashback_coin,", "is_cashback_coin:cbc,")]
+    G['e6_nc_' + _pos] = [_ins("let nc=a.bonding_curve.creator;"), ("new_creator:a.bonding_curve.creator,", "new_creator:nc,")]
+    G['e6_hr_' + _pos] = [_ins("let hr=a.bonding_curve.is_holder_reward;"), ("is_holder_reward:a.bonding_curve.is_holder_reward,", "is_holder_reward:hr,")]
+    G['e6_auth_' + _pos] = [_ins("let auth=a.admin_set_creator_authority.key();"), (_EVA, "authority:auth,mint,bonding_curve:a.bonding_curve.key(),")]
+    G['e6_bc_' + _pos] = [_ins("let bck=a.bonding_curve.key();"), (_EVA, "authority:a.admin_set_creator_authority.key(),mint,bonding_curve:bck,")]
+    G['e6_rs_' + _pos] = [_ins("let reset=sharing_update.is_some();"), ("sharing_config_reset:sharing_update.is_some(),", "sharing_config_reset:reset,")]
+    G['e6_ts_' + _pos] = [_ins("let ts=Clock::get()?.unix_timestamp;"), ("let e=AdminCtoEvent{timestamp:Clock::get()?.unix_timestamp,", "let e=AdminCtoEvent{timestamp:ts,")]
+G['e6_nf_after'] = [(_NF + _PU6, _PU6 + _NF)]
+
+# ---- main cef0574cf (wallet coin gate `if coin_present&&do_coin{`) ----
+G['wc_rev'] = [("  if coin_present&&do_coin{", "  if do_coin&&coin_present{")]
+G['wc_tf'] = [("  let do_coin=coin_present&&!token_frozen(a.coin_creator_vault_ata.as_ref())?;", "  let do_coin=!token_frozen(a.coin_creator_vault_ata.as_ref())?;"), ("  if coin_present&&do_coin{", "  if coin_present&&do_coin{")]
+
+# ---- redundant-use (live-range) genes, main cef0574cf; each is equivalent by construction ----
+G['ru_co_sh'] = [(" if collect_old{wallet(&ctx)?;}fn wallet", " if !shared&&collect_old{wallet(&ctx)?;}fn wallet")]
+G['ru_co_sh2'] = [(" if collect_old{wallet(&ctx)?;}fn wallet", " if collect_old&&!shared{wallet(&ctx)?;}fn wallet")]
+G['ru_skip_sh'] = [("swept=(!skip).then(||sweep(&ctx,&holder_key))", "swept=(!skip&&shared).then(||sweep(&ctx,&holder_key))")]
+G['ru_skip_sh2'] = [("swept=(!skip).then(||sweep(&ctx,&holder_key))", "swept=(shared&&!skip).then(||sweep(&ctx,&holder_key))")]
+G['ru_skip_hold'] = [("swept=(!skip).then(||sweep(&ctx,&holder_key))", "swept=(!skip&&holder).then(||sweep(&ctx,&holder_key))")]
+G['ru_su_guard'] = [("match sharing_update{Some(val)=>{", "match sharing_update{Some(val) if shared=>{"), ("signer_seeds),val)?;\n\n }None=>{}}", "signer_seeds),val)?;\n\n }_=>{}}")]
+G['ru_su_wild'] = [("signer_seeds),val)?;\n\n }None=>{}}", "signer_seeds),val)?;\n\n }_=>{}}")]
+G['ru_pool_cp'] = [("let pargs=(target,a.bonding_curve.is_holder_reward,fee);", "let pargs=(target,a.bonding_curve.is_holder_reward,fee);let pool_updated=pool_updated&&!a.pool.data_is_empty();")]
+
+# ---- quote_locked inline (main f8dc9016f, #3241): disjunct order and operand swaps ----
+_QL8 = "let quote_locked={let q=a.bonding_curve.quote_mint;q==Pubkey::default()||q==anchor_spl::token::spl_token::native_mint::ID||a.global.whitelisted_quote_mints.contains(&q)};"
+_QD = {'d': "q==Pubkey::default()", 'D': "Pubkey::default()==q", 'n': "q==anchor_spl::token::spl_token::native_mint::ID", 'N': "anchor_spl::token::spl_token::native_mint::ID==q", 'w': "a.global.whitelisted_quote_mints.contains(&q)"}
+for _p in _it.permutations('dnw'):
+    for _d in 'dD':
+        for _n in 'nN':
+            _m = {'d': _d, 'n': _n, 'w': 'w'}
+            _nm = 'qlp_' + ''.join({'d':'d','D':'dr','n':'n','N':'nr','w':'w'}[_m[c]] for c in _p)
+            if _nm == 'qlp_dnw': continue
+            G[_nm] = [(_QL8, "let quote_locked={let q=a.bonding_curve.quote_mint;" + "||".join(_QD[_m[c]] for c in _p) + "};")]
+G['ql_ref'] = [(_QL8, "let quote_locked={let q=&a.bonding_curve.quote_mint;*q==Pubkey::default()||*q==anchor_spl::token::spl_token::native_mint::ID||a.global.whitelisted_quote_mints.contains(q)};")]
