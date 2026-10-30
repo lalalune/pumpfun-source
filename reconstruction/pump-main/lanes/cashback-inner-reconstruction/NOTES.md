@@ -53,7 +53,6 @@ coordinate-archaeology Location realign of the `copy_from_slice` lines). Step 2 
 | --- | ---: | ---: | --- | --- |
 | origin/main 60bdd8a | 8,584 | 0.7611 | 1020 / 188 | 0x14f4e0 / none |
 | round 2 t00 (bump_seed) | 8,584 | 0.8031 | 1020 / 188 | 0x14f4e0 / none |
-<<<<<<< HEAD
 | round 2 sg2 (&Signer user + pub(crate) wrapper) | 8,536 | 0.9858 | 1020 / 188 | 0x14f4e0 / none |
 
 ### Mechanism (round 2): ArgumentPromotion strips noalias from `user`
@@ -94,5 +93,3 @@ tail `ja` block placement near +0x2150.
 - Also adopted `Account::try_from` (checked) per callgraph-census row
   `0x6cd78-main-60bdd8a-checked-try-from-callee-identity-v1`. Normalized output is unchanged because the callee is masked.
 - unstripped sha256 af5b9f02e925a4e32f675de12306d2d5fb50e9463248d7587b1c7ba6ba2e10cc. Raw-equal is still false (whole-ELF addresses).
-=======
->>>>>>> origin/main

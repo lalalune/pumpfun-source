@@ -1,0 +1,23 @@
+name: Verify fastbuild stack rejection
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stack-rejection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test compiler failure and artifact publication paths
+        run: python -m unittest discover -s reconstruction/harness -p test_fastbuild_stack.py -v

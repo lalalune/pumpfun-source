@@ -12,13 +12,13 @@ Diff tokens use the scorer's normalization (internal call imm + section-pointer 
 import argparse, difflib, re, subprocess, sys
 from pathlib import Path
 from collections import Counter
+from llvm_tools import objdump
 
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
 from score import sections, normalize, body, candidate_functions, original_windows, score, BASE  # noqa
 from instruction_stream import instruction_offsets
 
-OBJDUMP = str(Path.home() / '.cache/solana/v1.52/platform-tools/llvm/bin/llvm-objdump')
 
 
 def demangle(s):
@@ -28,7 +28,9 @@ def demangle(s):
     rest, parts = m.group(1), []
     while rest and rest[0].isdigit():
         n = re.match(r'^(\d+)', rest).group(1); rest = rest[len(n):]
-        parts.append(rest[:int(n)]); rest = rest[int(n):]
+        part = rest[:int(n)]
+        parts.append(part[1:] if part.startswith('_$') else part)
+        rest = rest[int(n):]
     if parts and re.fullmatch(r'h[0-9a-f]{16}', parts[-1]):
         parts = parts[:-1]
     t = '::'.join(parts)
@@ -49,7 +51,7 @@ def insns(raw, addr, secs):
 
 
 def objdump_text(path, start, end):
-    txt = subprocess.check_output([OBJDUMP, '-d', '--no-show-raw-insn', f'--start-address={start:#x}', f'--stop-address={end:#x}', str(path)], text=True)
+    txt = subprocess.check_output([objdump(), '-d', '--no-show-raw-insn', f'--start-address={start:#x}', f'--stop-address={end:#x}', str(path)], text=True)
     d = {}
     for line in txt.splitlines():
         m = re.match(r'^\s*([0-9a-f]+):\s+(.*)$', line)
@@ -86,7 +88,8 @@ def best_candidates(w, cand, top=3):
     scored.sort(reverse=True)
     res = []
     orig_tok = [x[2] for x in insns(w['raw'], w['start'], ORIG_SECS)]
-    for j, s, n, name in scored[:8]:
+    # Keep the usual eight-way shortlist, but do not silently cap --top N.
+    for j, s, n, name in scored[:max(8, top)]:
         ct = [x[2] for x in insns(cand.fn(s, n), s, cand.secs)]
         res.append((difflib.SequenceMatcher(None, orig_tok, ct, autojunk=False).ratio(), j, s, n, name))
     res.sort(reverse=True)
