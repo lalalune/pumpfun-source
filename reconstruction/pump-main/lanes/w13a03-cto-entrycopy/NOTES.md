@@ -48,6 +48,19 @@ let (holder,..,skip)={ ..; validate(&st,holder,fee,new,..)?; .. else{target=st.c
 All need size compensation to 27,400; catalog size knobs are chaotic on these frames (v_ik_split, val_sh_borrow
 collapse the ratio). w13a10-cto-pfclimb pairs `x_g8` with its gene library.
 
+## Landed candidate N3 (main 9eb6c0084, admin_cto 0.49131 / 3,280 slots)
+
+r1 plus three size companions from the w13a10 gene library: `curve_deref` (`&mut *ctx.accounts.bonding_curve`),
+`m_rent_inline` (`Rent::get()?.minimum_balance(0)`) and `shared_nested` (`shared` as an if-expression).
+
+| build | bytes | ratio | slots_diff | normalized / raw | losses |
+| --- | ---: | ---: | ---: | --- | --- |
+| main 9eb6c0084 | 27,400 | 0.49131 | 3,280 | 1034 / 1034 | |
+| r1 alone (N1) | 27,424 | 0.50337 | | 1034 / 347 | 0 normalized |
+| **N3** | **27,400** | **0.50030** | 3,291 | 1034 / 1034 | none |
+
+Unstripped sha16 98491f37fdc32d40. Runtime differential: 363 cases, 0 mismatches.
+
 ## Rejected (this lane)
 
 `mut new`+`take()` in the sharing arm (e1/n1) or at the validate call (t2/n2); shadow `let mut new=new`+take
