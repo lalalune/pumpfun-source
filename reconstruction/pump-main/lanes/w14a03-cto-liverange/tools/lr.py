@@ -142,6 +142,25 @@ def main():
             ds = [desc(defs, v) for v in sorted(vs, key=lambda q: int(q[1:]))]
             print(tag); [print('     ', d) for d in ds[:3]]
             res['only'][k].append({'addr': addr, 'insn': s, 'values': ds})
+    # per-value traffic: ours from ival, orig via nearest aligned pair of the same orig slot
+    tv = collections.defaultdict(lambda: [0, 0, 0, 0])
+    for a1, s1 in C:
+        if a1 in ival:
+            k = '; '.join(desc(defs, v)[:70] for v in sorted(ival[a1], key=lambda q: int(q[1:]))[:2])
+            tv[k][0 if s1.startswith('st') else 1] += 1
+    for oi, (a0, s0) in enumerate(O):
+        mm = SP.match(s0) or RL.match(s0)
+        if not mm: continue
+        x = int(mm.group(1) if s0.startswith('st') else mm.group(2), 16)
+        nn = near.get(x, [])
+        if not nn: tv['(orig slot -%#x unpaired)' % x][2 if s0.startswith('st') else 3] += 1; continue
+        vs = min(nn, key=lambda t: abs(t[0] - oi))[1]
+        k = '; '.join(desc(defs, v)[:70] for v in sorted(vs, key=lambda q: int(q[1:]))[:2])
+        tv[k][2 if s0.startswith('st') else 3] += 1
+    print('\n== per-value traffic: ours st/ld | orig st/ld (orig via nearest aligned pair)')
+    for k, t in sorted(tv.items(), key=lambda kv: -abs((kv[1][2] + kv[1][3]) - (kv[1][0] + kv[1][1]))):
+        print('%3d/%3d | %3d/%3d  %+4d  %s' % (t[0], t[1], t[2], t[3], (t[2] + t[3]) - (t[0] + t[1]), k))
+    res['pervalue'] = {k: t for k, t in tv.items()}
     print('\nratio(n2)=%.5f' % sm.ratio())
     if jo: json.dump(res, open(jo, 'w'), indent=1)
 

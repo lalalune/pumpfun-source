@@ -87,7 +87,7 @@ def make(L, var, tag='rl'):
     v, ty, p, rest, i, uses = var; v = v.split('@')[0]
     N = list(L); ins = {}
     for n, (b, ks) in enumerate(uses.items()):
-        nv = '%s.%s%d' % (v, tag, n); rx = re.compile(re.escape(v) + TOK)
+        nv = '%%%s_%s_%d' % (tag, re.sub(r'[^\w]', '_', v[1:]), n); rx = re.compile(re.escape(v) + TOK)
         for k in ks: N[k] = rx.sub(nv, N[k])
         ins[ks[0]] = '  %s = load %s, ptr %s%s' % (nv, ty, p, rest)
     R = []

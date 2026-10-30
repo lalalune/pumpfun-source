@@ -3,9 +3,36 @@
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Base: main 53abf28b1 (0.62672, 3,305 slots). Ledger keys `0x22a10-w14-53abf28-liverange-*-v1`.
 
-**Result: no zero-loss gain at 27,400 B.** Every live-range lever on the values this lane owns either is byte-identical
-(GVN/CSE folds it back), collapses the frame, or gains ratio only by shrinking execute (-88 to -184 B), and no size knob
-set gives those bytes back. The tools and the value table below are for the other lanes.
+## Landed candidate (main 769f331fe, 0.63241, 3,287 slots)
+
+| | main 769f331 | w10 |
+| --- | ---: | ---: |
+| admin_cto ratio | 0.63241 | **0.63421** |
+| slots_diff | 3,287 (cto.json 3,288) | **3,179** |
+| bytes | 27,400 | 27,400 |
+| normalized / raw | 1034 / 1034 | 1034 / 1034, 0 losses |
+| differential | | 363 cases, 0 mismatches |
+| unstripped sha16 | | 5c7bf697fbbfe4cb |
+
+**w10, wallet:** `if do_coin{` -> `if coin_present&&do_coin{`. The two are equivalent, because `do_coin` is
+`coin_present&&!token_frozen(..)?`.
+- Mechanism: this is the one register-assignment swap the census found outside other lanes' values. The original spills
+  `coin_present` (the coin ATA `data_is_empty` result, `stxdw [r10-0x918], r0` at orig 0x5bf8) and keeps the
+  `do_collect`/`do_coin` flag in r8. Main did the opposite: it kept `coin_present` in r8 and spilled the flag phi
+  (`%92`, 4 stores and 2 reloads at -0x920).
+- A late extra use of `coin_present` lengthens its live range and lowers its spill weight, so greedy now evicts
+  `coin_present` instead of the flag.
+- `if do_coin&&coin_present{` gives the same tokens.
+- Statement-order forms do not flip the choice (w1-w9 on 53abf28: best = main). The other use-count forms are
+  `do_collect&&(..)`, which is byte-identical, and `collection_native||do_collect`, which gives 0.62737 @ 27,472.
+- Ledger: `0x22a10-w14-769f331-liverange-w10-coin-gate-use-v1`.
+
+**Before w10 (53abf28):** no zero-loss gain at 27,400 B. Every live-range lever on the values this lane owns did one of three things:
+- it was byte-identical, because GVN/CSE folds it back;
+- it collapsed the frame;
+- it gained ratio only by shrinking execute by 88 to 184 B, and no size-knob set gives those bytes back.
+
+The tools and the value table below are for the other lanes.
 
 ## Tools (experiment only, under `tools/`)
 
