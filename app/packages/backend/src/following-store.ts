@@ -90,7 +90,11 @@ export class FollowingStore {
     this.users = userStore;
     this.edges = structuredClone(seed);
     if (this.edges.some(edge => !Number.isSafeInteger(edge.timestamp) || edge.timestamp < 0)) throw new TypeError('Invalid follow timestamp');
-    const pairs = this.edges.map((edge) => JSON.stringify([edge.follower_id, edge.following_id]));
+    const canonical = (id: string) => {
+      const user = this.users.getById(id);
+      return user ? user.userId || user.address : id;
+    };
+    const pairs = this.edges.map((edge) => JSON.stringify([canonical(edge.follower_id), canonical(edge.following_id)]));
     if (new Set(pairs).size !== pairs.length) throw new TypeError('Duplicate follow relation');
   }
 
