@@ -86,8 +86,12 @@ def main(argv=None):
     cand = Cand(a.candidate)
     rows = [row for start in starts for row in measure_window(windows[start], cand, pattern, a.top, a.slots)]
     if a.json:
-        a.json.parent.mkdir(parents=True, exist_ok=True)
-        a.json.write_text(json.dumps(rows, indent=2) + '\n', encoding='utf-8')
+        try:
+            a.json.parent.mkdir(parents=True, exist_ok=True)
+            with a.json.open('x', encoding='utf-8') as stream:
+                stream.write(json.dumps(rows, indent=2) + '\n')
+        except OSError as error:
+            ap.error(f'cannot create diagnostic report: {error}')
     for row in rows:
         print(json.dumps(row))
     return 0

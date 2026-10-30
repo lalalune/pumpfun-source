@@ -1,5 +1,7 @@
 """Verify exact library inputs using temporary fixtures and the retained inventory."""
 import hashlib
+import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -64,6 +66,78 @@ class LibraryInventoryTests(unittest.TestCase):
 class RetainedInventoryTest(unittest.TestCase):
     def test_all_retained_libraries_verify(self):
         self.assertEqual(bootstrap.check_linux_libs(bootstrap.LINUX), [])
+
+
+class SdkInventoryTests(unittest.TestCase):
+    def test_sdk_scan_error_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            sdk = root / 'sdk'
+            library = sdk / 'rust/lib/rustlib/aarch64-apple-darwin/lib'
+            library.mkdir(parents=True)
+            known = library / 'libknown.rlib'
+            known.write_bytes(b'known library')
+            (library / 'libhidden.rlib').write_bytes(b'hidden library')
+            rel = known.relative_to(sdk).as_posix()
+            (root / 'v1.44-macos-inventory.json').write_text(json.dumps({'entries': {
+                rel: {'type': 'file', 'bytes': known.stat().st_size,
+                      'sha256': hashlib.sha256(known.read_bytes()).hexdigest()}
+            }}))
+            real_scandir = os.scandir
+
+            def unreadable(path):
+                if Path(path) == library:
+                    raise PermissionError('synthetic SDK scan failure')
+                return real_scandir(path)
+
+            with patch.object(bootstrap, 'HERE', root), patch.object(bootstrap, 'SDK', sdk), \
+                    patch.object(os, 'scandir', side_effect=unreadable):
+                self.assertIn('SDK traversal:', '\n'.join(bootstrap.check_sdk('full')[1]))
+
+    def test_recorded_dangling_link_and_unlisted_directory_link(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            sdk = root / 'sdk'
+            sdk.mkdir()
+            recorded = sdk / 'recorded-link'
+            recorded.symlink_to('absent-target')
+            (root / 'v1.44-macos-inventory.json').write_text(json.dumps({'entries': {
+                'recorded-link': {'type': 'symlink', 'target': 'absent-target'}
+            }}))
+            outside = root / 'outside'
+            outside.mkdir()
+            (outside / 'unlisted.rlib').write_bytes(b'outside')
+            with patch.object(bootstrap, 'HERE', root), patch.object(bootstrap, 'SDK', sdk):
+                self.assertEqual(bootstrap.check_sdk('full'), (1, []))
+                (sdk / 'unlisted-dir').symlink_to(outside, target_is_directory=True)
+                problems = bootstrap.check_sdk('quick')[1]
+                self.assertIn('unexpected SDK input: unlisted-dir', problems)
+                self.assertEqual(len(problems), 1)
+
+    def test_unlisted_host_library_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            sdk = root / 'sdk'
+            host_lib = sdk / 'rust/lib/rustlib/aarch64-apple-darwin/lib'
+            host_lib.mkdir(parents=True)
+            known = host_lib / 'libknown.rlib'
+            known.write_bytes(b'known library')
+            inventory = root / 'v1.44-macos-inventory.json'
+            rel = known.relative_to(sdk).as_posix()
+            inventory.write_text(json.dumps({'entries': {
+                rel: {'type': 'file', 'bytes': known.stat().st_size,
+                      'sha256': hashlib.sha256(known.read_bytes()).hexdigest()}
+            }}))
+            with patch.object(bootstrap, 'HERE', root), patch.object(bootstrap, 'SDK', sdk):
+                self.assertEqual(bootstrap.check_sdk('full'), (1, []))
+                extra = host_lib / 'libunlisted.rlib'
+                extra.write_bytes(b'unlisted library')
+                self.assertIn('unexpected SDK input: ' + extra.relative_to(sdk).as_posix(),
+                              bootstrap.check_sdk('full')[1])
+                extra.unlink()
+                extra.symlink_to(known.name)
+                self.assertIn('unexpected SDK input: ' + extra.relative_to(sdk).as_posix(),
+                              bootstrap.check_sdk('quick')[1])
 
 
 if __name__ == '__main__':

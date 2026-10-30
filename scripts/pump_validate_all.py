@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Run the published 44-suite bounded Pump corpus against one compiled ELF."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse
 import gzip
 import hashlib
@@ -42,8 +44,35 @@ def validate_two_curve(result, candidate_sha, original_sha):
     assert all(row['candidate'] is not None and row['mismatches'] == [] for row in result['cases'])
     return 20
 
+def retained_case_count(result):
+    """Bind a reported count to the retained JSON case array, not just a claim."""
+    cases = result.get('cases')
+    assert isinstance(cases, list), 'a retained cases array is required'
+    count = result.get('case_count', len(cases))
+    assert count == len(cases), ('case_count differs from retained cases', count, len(cases))
+    return count
+
+
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+CASE_DIFFERENCE_FIELDS = ('different_fields', 'diff', 'differences', 'mismatched_fields')
+
+
+def validate_case_results(result):
+    """Reject explicit failed/incomplete pairs even if the summary says zero."""
+    assert isinstance(result['cases'], list), 'case results must be a list'
+    for index, row in enumerate(result['cases']):
+        assert isinstance(row, dict), f'case {index}: result must be an object'
+        assert isinstance(row.get('original'), dict), f'case {index}: original outcome missing'
+        assert isinstance(row.get('candidate'), dict), f'case {index}: candidate outcome missing'
+        fields = [name for name in CASE_DIFFERENCE_FIELDS if name in row]
+        assert fields or 'match' in row, f'case {index}: comparison result missing'
+        if 'match' in row:
+            assert row['match'] is True, f'case {index}: match is not true'
+        for name in fields:
+            assert row[name] == [], f'case {index}: {name} is not an empty difference list'
 
 
 def main():
@@ -94,7 +123,8 @@ def main():
             else:
                 assert result.get('original_sha256', result.get('provenance', {}).get(str(original))) == original_sha
                 assert result.get('candidate_sha256', result.get('provenance', {}).get(str(candidate))) == candidate_sha
-                count = result['case_count'] if 'case_count' in result else len(result['cases'])
+                count = retained_case_count(result)
+                validate_case_results(result)
             assert count == EXPECTED_CASES[name], (name, count, EXPECTED_CASES[name])
             assert not result.get('mismatches', result.get('failures', [])), name
             result['case_count'] = count

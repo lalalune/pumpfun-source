@@ -52,7 +52,7 @@ class BodyBoundsTests(unittest.TestCase):
                 originals.assert_not_called()
 
     def test_all_retained_original_windows_keep_exact_bytes(self):
-        image = (score.BASE / 'original.so').read_bytes()
+        image = score.resolve_original(score.BASE / 'original.so').read_bytes()
         sections = score.sections(image)
         text = sections['.text']
         count = 0

@@ -15,6 +15,20 @@ from score import sections, body, normalize, original_windows, score, BASE, cand
 from coords import sites, non_coordinate_slots, ORIG, OS  # noqa
 from win import demangle  # noqa
 
+FRAME_LOADS = {0x61, 0x69, 0x71, 0x79}   # ldx*: r10 is the source register
+FRAME_STORES = {0x62, 0x63, 0x6a, 0x6b, 0x72, 0x73, 0x7a, 0x7b}  # stx*: r10 is the destination
+FRAME_WRITES = {0x07, 0xb7, 0xbf}        # add64/mov64 immediates and mov64 register
+
+
+def frame_slot(raw, i):
+    """True when the instruction at i uses r10 as its frame operand."""
+    op, regs = raw[i], raw[i + 1]
+    if op in FRAME_LOADS:
+        return regs >> 4 == 10
+    if op in FRAME_STORES:
+        return regs & 0xf == 10
+    return op in FRAME_WRITES and regs & 0xf == 10
+
 
 def write_report(path, rows):
     path = Path(path)
@@ -57,8 +71,7 @@ def main():
             elif len(nc) <= 3:
                 cat = 'near<=3'
             else:
-                frame_ops = {0x7b, 0x79, 0x7a, 0x62, 0x72, 0x6a, 0x63, 0x61, 0x73, 0x71, 0x6b, 0x69, 0xbf, 0x07, 0xb7}
-                cat = 'frame' if all(on[d] in frame_ops for d in nc) else 'equal-len'
+                cat = 'frame' if all(frame_slot(on, d) for d in nc) else 'equal-len'
         rows.append({'start': hex(w['start']), 'bytes': w['bytes'], 'category': cat, 'has_source_sites': bool(osites),
                      'original_sites': [{'path': s['path'], 'line': s['line']} for s in osites],
                      'nearest': None if best is None else {'addr': hex(best[1]), 'symbol': demangle(best[2]), 'diff_slots': len(best[3]), 'noncoord_slots': len(best[4])}})
