@@ -1,5 +1,15 @@
 # w14a33-cto-nativejoin: the sweep native arm's Result join
 
+**Result (main faf9962, 0.65129 / 3,170 slots): 0.65458 / 3,280 slots at 27,400 B, normalized 1034 / raw 1034, zero losses,
+differential 363/0 mismatches** (`t/b9q7`, unstripped sha 1afec025103d223b). Source change (`e/b9q_Q7.py`):
+1. native arm: `let min={let rent=Rent::get()?;rent.minimum_balance(0)};` and
+   `(if amount>0{ensure_rent_exempt(..)?;transfer_native(..)}else{Ok(())}).map(|()|amount)` (r1j1, section 2);
+2. token arm: `transfer_vault_tokens(..)?;return Ok(amount);` inside `else if amount>0` (w14a27's b9, which on its own is +8 B);
+3. -8 B repay with w14a31's Q7 knob set: TCF first `program` literal `data:a.pump_amm.data.clone()`,
+   `is_writable==false`, and the event's `new_creator_fee_bps:a.bonding_curve.creator_fee_bps` read in place (drops `nf`).
+r1j1 + b9 is 27,408 B (jM 2220 vs main 2199); other -8 B repays on it: sh_iflet 0.65339, ev_hr_curve 0.65309,
+tp_dlen 0.65249 (oracle, 81d3d9a, main 0.65069).
+
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Bases: main 5ee681d (0.6450), 4233bd9 (0.64979), 81d3d9a (0.65069). Ledger: approach `nativejoin`,
 keys `0x22a10-w14-<main7>-nativejoin-*`.
