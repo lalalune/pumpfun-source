@@ -8,12 +8,13 @@ Source {filename: &str, line: u32} on the stack: ptr @X-8 (stxdw from an lddw'd 
   coords.py fn <cand_addr> [--cand so]      # sites in one candidate function
   coords.py unmatched [--cand so]           # unmatched windows: original sites vs coordinate-only equal-length candidate
 """
-import argparse, json, struct, sys
+import argparse, hashlib, json, struct, sys
 from pathlib import Path
 
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
-from score import sections, body, original_windows, score, BASE, candidate_functions, normalize  # noqa
+from score import sections, body, original_windows, score_with_hash, BASE, normalize  # noqa
+from elf_symbols import function_symbols
 
 
 def read_cstr_at(blob, secs, vaddr, length):
@@ -112,13 +113,15 @@ def main():
         print(json.dumps(orig_sites(int(a.start, 0)), indent=1))
     elif a.cmd == 'fn':
         blob = a.cand.read_bytes(); cs = sections(blob)
-        f = next((s, n, nm) for (s, n, nm) in candidate_functions(a.cand) if s == int(a.addr, 0))
+        f = next((s, n, nm) for (s, n, nm) in function_symbols(blob) if s == int(a.addr, 0))
         print(json.dumps(cand_sites(blob, cs, f[0], f[1]), indent=1))
     else:
         blob = a.cand.read_bytes(); cs = sections(blob)
-        cur = score(a.cand)
+        cur, candidate_hash = score_with_hash(a.cand)
+        if candidate_hash != hashlib.sha256(blob).hexdigest():
+            ap.error('candidate changed during coordinate analysis; retry with a stable file')
         bylen = {}
-        for s, n, nm in candidate_functions(a.cand):
+        for s, n, nm in function_symbols(blob):
             bylen.setdefault(n, []).append((s, nm))
         rows = []
         for w in original_windows():
