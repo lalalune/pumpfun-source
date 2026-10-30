@@ -1,0 +1,56 @@
+{
+ "lane": "w14a24-cto-walletlit",
+ "wave": 14,
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "bytes": 27400
+ },
+ "start": {
+  "main": "1b0ae7021",
+  "ratio": 0.63661,
+  "slots": 3173
+ },
+ "best": {
+  "main_before": "7e6aa9caa",
+  "ratio_before": 0.6414,
+  "ratio": 0.6417,
+  "slots": 3173,
+  "bytes": 27400,
+  "normalized": 1034,
+  "raw": 1034,
+  "losses": [],
+  "differential": "363/0",
+  "unstripped_sha": "79275da273f8503383dcfacd13a2b9d59c61e9645ab3d938f5905444bb4e1822",
+  "pr": 3281,
+  "landed": true,
+  "merge_commit": "d2d187555",
+  "change": "wallet coin gate if coin_present&&do_coin -> if coin_present&do_coin"
+ },
+ "attempts": 31,
+ "rejected_mechanisms": [
+  "wallet CPI AccountInfo literals (create_idempotent payer, collect_coin_creator_fee coin_creator_token_account): +368/+624 B, a clone call is lost; the wallet CPIs already have the original's out-of-line clone form",
+  "Create{..} / CollectCoinCreatorFee{..} accounts-struct field orders: +48..+80 B, worse (the original's clone order already equals main)",
+  "{let x:&AccountInfo=..;x.clone()} spellings: byte-identical",
+  "do_coin/do_collect as if/else, !(token_frozen()?): byte-identical; ATA gate coin_present||!native: -0.0045",
+  "non-short-circuit & / | at the 13 other pure gates (289, 296x2, 312, 338, shared x2, quote_locked x2, cashback, collect_old, ATA gate, pool_updated): worse or byte-identical"
+ ],
+ "bounds": {
+  "wallet_splice_0x5c40_0x6b08": 0.0357,
+  "ata_flags_0x5c40_0x6060": 0.0132,
+  "collect_event_0x6060_0x6800": 0.0177,
+  "coin_cpi_run_0x6878_0x6a28": 0.0018,
+  "wallet_spill_slot_remap_only": 0.0039,
+  "same_remap_function_wide": 0.0069
+ },
+ "unresolved_residuals": [
+  "wallet do_coin flag spilled to -0x938 (original: r8); it cascades into clone buffer r9->r7, accounts r7->r8, the original's tail-duplicated gate and the Err-edge payload copies; blocked by the sweep payload copy mov r8,r2 at 0x5b18 (swept coalescing, w14a06)",
+  "wallet spill-slot offsets: accounts 0x8e0 vs 0x8d8, exit r1 0x8e8 vs 0x950, mint ptr 0x920 vs 0x910 (frame-wide)",
+  "collect emit_cpi frame objects: event_signers 0x540 vs orig 0x680, bump 0x658 vs orig 0x548 (w14a25-cto-poollit screening)"
+ ],
+ "next_ideas": [
+  "after any swept/payload coalescing landing, retest 'if do_coin{' and 'if coin_present&do_coin{': with r8 free the flag should take r8 and the wallet region should collapse toward the +0.036 splice bound",
+  "IR bound: in post-opt IR, rematerialize the sweep payload copy instead of keeping it in r8 at 0x5b18, then see whether the flag takes r8"
+ ]
+}

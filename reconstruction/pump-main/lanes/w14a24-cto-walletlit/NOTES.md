@@ -69,3 +69,28 @@ problem (w14a06).
 
 - `tools/hunks.py <orig.dis> <cand.dis> <lo> <hi>`: difflib hunks over a region with registers and frame offsets masked.
 - Oracle: w14a03 `capvar.sh` and `rx.py`, repointed to this lane (each variant is about 10-28 s, and `eq_main` holds on the base).
+
+## After the landing (#3281, main d2d1875, 0.6417): non-short-circuit screen of every other pure gate
+
+I screened every other `&&`/`||` in admin_cto.rs whose operands are free of side effects and `?`, using the oracle on main d2d1875.
+Comparisons are parenthesized, because `|` and `&` bind tighter than `==`. None helps:
+
+| site | form | bytes | ratio |
+| --- | --- | ---: | ---: |
+| 289 holder test | `st.holder_reward&!(hopt==Some(true))` | 26,608 | 0.52736 |
+| 296 | `holder&!st.holder_reward&&..` | 26,872 | 0.43013 |
+| 296 | `..&&!st.holder_reward&!st.holder_enabled` | 27,360 | 0.6197 |
+| 312 | `(t==*sharing)\|(t==*holder_key)` | 27,400 | 0.60485 |
+| 338 | `(f==0)\|(f>st.max_fee)` | 27,400 | byte-identical |
+| shared | `(key==creator)&(owner==&FEES)&&!empty` | 27,392 | 0.55251 |
+| shared | `..&&(owner==&FEES)&!empty` (eager) | 27,312 | 0.59715 |
+| quote_locked | `(q==default)\|(q==native)\|\|contains` | 27,384 | 0.56818 |
+| quote_locked | `..\|\|(q==native)\|contains` (eager) | 27,288 | 0.60883 |
+| cashback | `!holder&st.cashback` | 27,400 | byte-identical |
+| collect_old | `!st.holder_reward&(st.creator!=default)` | 27,368 | 0.63129 |
+| wallet ATA gate | `!collection_native\|coin_present` | 27,416 | 0.63672 |
+| pool_updated | `!empty&(owner==&AMM)` | 27,440 | 0.63673 |
+
+The wallet coin gate is the only place where `&` helped, because only there does `&&` cost a separate xor/or block.
+The collect-arm `emit_cpi` frame objects (event_signers at 0x680 and the bump at 0x548 in the original, versus 0x540 and 0x658 in ours)
+are being screened by w14a25-cto-poollit, so I did not repeat them here.
