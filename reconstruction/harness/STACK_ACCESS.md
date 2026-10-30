@@ -5,3 +5,10 @@ Run `python reconstruction/harness/stack_access.py --original original.so --orig
 Each input receipt includes the binary hash and selected range. Access records retain instruction offsets, signed frame offsets, widths and read/write classification. Differences count accesses by offset, width and direction, exposing moved slots and additional spill/load instructions without treating overlapping ranges as disjoint variables. LDDW continuation words are never decoded as memory instructions.
 
 This is a syntactic comparison, not variable matching, live-range analysis or stack safety verification. Only direct r10-based ordinary memory accesses are classified. Atomic/nonstandard direct operations are listed separately; accesses through aliases to r10 are not resolved. Matching counts do not imply matching order, values or program behavior. No official score is changed.
+
+The `decoded_access_sequence_equal` and `sequence_edits` fields compare the order
+of decoded direct-r10 accesses by stack offset, width and read/write kind. Edit
+rows retain instruction offsets on both sides. Equal histograms can still have
+different access order. Non-stack instructions are ignored; unclassified direct
+operations remain listed separately. Equality is not a claim about alias accesses,
+register values, liveness, instruction scheduling or runtime equivalence.
