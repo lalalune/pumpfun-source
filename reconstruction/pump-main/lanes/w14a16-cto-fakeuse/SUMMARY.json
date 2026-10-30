@@ -1,0 +1,34 @@
+{
+  "lane": "w14a16-cto-fakeuse",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "bases": {"cef0574": 0.63421, "b174038": 0.63571, "7e6aa9c": 0.6414},
+  "result": "no zero-loss gain; notes + live-range-extension oracle (tools/irext.py)",
+  "best": {"ratio": null, "note": "nothing source-expressible beats main; IR-only best at 27,400 on cef0574 = +0.0018 (3 asm uses in drop/Ok-arm/emit_cpi blocks)"},
+  "oracle": "irext.py: zero-instruction asm sideeffect \"r\"(V) use at start/end of blocks V dominates and is dead in (modes start/end/all/impl/calib); llc only, ~8 variants/s",
+  "attempts": {
+    "cef0574_asm": {"variants": 37195, "at_27400": 3499, "gain_at_27400": 55, "loss_at_27400": 2669, "identical": 433},
+    "cef0574_impl_and_or_merge": {"variants": 6618, "at_27400": 949, "gain_at_27400": 1},
+    "b174038_asm": {"variants": 22063, "at_27400": 1621, "gain_at_27400": 29},
+    "pda_hL_b174038_asm": {"variants": 22087, "base": 0.56663, "best": 0.62704, "best_2nd_round": 0.62992},
+    "source_forms": 12
+  },
+  "ranked_map": ["map-cef0574.txt", "map-b174038.txt", "map-pda-b174038.txt", "top-pda-b174038.txt", "chunks-pda.txt"],
+  "rejected": [
+    "single asm extensions on main: best source-relevant +0.0009 (holder mask into curve-store block; token coincidence)",
+    "#3210 shape (and/or merge of a dominating dead i1 into any cond branch): no gain at 27,400 except an Rc overflow check",
+    "pda+mf1 0.55309, pda+fee_configurable-ref 0.26489",
+    "sharing CPI arg new instead of val: 0.43412 (pda) / 0.51225 (main)",
+    "holder=new.is_none() after tuple: 0.56339 (pda) / 0.49641 (main); curve.is_holder_reward=new.is_none() 0.49641",
+    "cashback&&new.is_some(): store 0.57422, after tuple 0.45926 (main) / 0.46551 (pda)"
+  ],
+  "unresolved": [
+    "pda-first front (+15 exact at 0x0) only survives with the new-tag extension to the post-tuple join, and even then pda stays ~0.006 below main in IR",
+    "calibration: the asm use is zero-instruction only while V stays in a register (91% of extensions change size)"
+  ],
+  "next_ideas": [
+    "a source use of new.is_some() that only feeds a value already computed at the shared/holder tuple join (keeps the new tag live to bb26 without moving holder/cashback)",
+    "pair off-size main hits (!holder into bb6.i +0.0017 @27,408) with a -8 B source-expressible knob",
+    "run irext.py --mode impl on any new a&&b implied-use idea before building"
+  ],
+  "ledger_keys": ["0x22a10-w14-cef0574-fakeuse-asmscan-v1", "0x22a10-w14-cef0574-fakeuse-implscan-v1", "0x22a10-w14-b174038-fakeuse-pda-ext-v1", "0x22a10-w14-b174038-fakeuse-pda-srcforms-v1"]
+}
