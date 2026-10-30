@@ -78,6 +78,15 @@ the frame-masked wallet match is still lower than main's (384 vs 392). Every bou
 The per-call-site Err spellings fold back to main's tokens (SimplifyCFG/GVN re-merge the Err edges), or they re-lay the
 wallet CFG.
 
+On 81d3d9a (0.65069), since the tag split is the blocker:
+- The 19 w14a12-cto-tagreg source forms were re-screened. 11 give main's tokens. The rest are lower: p_own / v4 0.64889,
+  v8 0.64909 @ 27,384, c_hfirst 0.6458 @ 27,408, v13 0.63929, v6 0.6388. The only near-tie is **s_nf** (the event reads
+  `creator_fee_bps`, so there is no `nf` local): 0.65068 @ 27,376.
+- s_nf + each of the 50 applicable `sizeknobs-cto.json` knobs: the best at 27,400 B is 0.6444 (ev_newfee_unwrap), and the best
+  near that size is 0.64959 @ 27,392 (wl_ts_clockvar / g_w_clock_local). No knob repays the 24 B.
+- swept routed through the tail (in `pargs` last or first, with `nf`, rebound before `pool_updated`, or `match Some(r)=>r?` where
+  it is produced) gives main's tokens in all 5 forms.
+
 ## 4. Next ideas
 
 1. The lever is the tag's (`%60`) region split, not the wallet. If a tag form ever makes greedy split it to r6 in the tail

@@ -132,7 +132,10 @@
   "accounts-pointer reloads in wallet (accblk/accuse)",
   "do_coin register pin (p1/p2)",
   "tag out of registers (t1)",
-  "llc greedy option sweep"
+  "llc greedy option sweep",
+  "tag spellings re-screen (w14a12 forms)",
+  "s_nf + size knobs",
+  "swept routed through pargs/nf tuples"
  ],
  "unresolved_residuals": [
   "wallet do_coin spilled (-0x938) vs orig r8; root = tag %60 live-through split in r9 (w14a12 domain)",
@@ -143,5 +146,37 @@
   "after that, flip coin_present/do_coin naming (reverse of the w14a03 w10 use-count trick); the orig reloads coin_present in two tail-duplicated ATA-gate blocks (0x5c50, 0x6108)"
  ],
  "ledger_keys": "0x22a10-w14-06967d3-walletr8-*, 0x22a10-w14-81d3d9a-walletr8-rerun-v1",
- "attempts": 27
+ "attempts": 101,
+ "tagreg_rescreen_81d3d9a": {
+  "s_nf": [
+   0.65068,
+   27376
+  ],
+  "p_own": 0.64889,
+  "v4": 0.64889,
+  "v8": [
+   0.64909,
+   27384
+  ],
+  "c_hfirst": [
+   0.6458,
+   27408
+  ],
+  "v13": 0.63929,
+  "v6": 0.6388,
+  "others(11)": "= main tokens"
+ },
+ "snf_knob_screen_81d3d9a": {
+  "n": 50,
+  "best_at_27400": [
+   "ev_newfee_unwrap",
+   0.6444
+  ],
+  "best_near": [
+   "wl_ts_clockvar",
+   0.64959,
+   27392
+  ]
+ },
+ "swept_route_forms_81d3d9a": "w1-w5 (pargs last/first, with nf, rebind, match at production): = main tokens"
 }
