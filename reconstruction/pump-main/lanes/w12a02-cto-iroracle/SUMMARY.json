@@ -1,31 +1,136 @@
 {
   "lane": "w12a02-cto-iroracle",
   "wave": 12,
-  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "target": {
+    "window": "0x22a10",
+    "function": "admin_cto::execute",
+    "file": "programs/pump/src/creator/admin_cto.rs",
+    "pinned_bytes": 27400
+  },
   "angle": "llc IR oracle master: capture post-opt IR, prove llc reproduces the build, edit IR to rank which differences from the original are worth the most",
-  "bases": {"20a1ae9c0": {"ratio": 0.43919, "slots_diff": 3352}, "b5975fa67": {"ratio": 0.45147, "slots_diff": 3308}, "70f27048e": {"ratio": 0.45177}},
+  "bases": {
+    "20a1ae9c0": {
+      "ratio": 0.43919,
+      "slots_diff": 3352
+    },
+    "b5975fa67": {
+      "ratio": 0.45147,
+      "slots_diff": 3308
+    },
+    "70f27048e": {
+      "ratio": 0.45177
+    },
+    "fa778418d": {
+      "ratio": 0.48742,
+      "slots_diff": 3273,
+      "heuristic_frame_remap_score": 0.59886
+    }
+  },
   "landed": false,
-  "prs": [{"number": 2772, "state": "merged (notes v1/v2)"}, {"number": 2828, "state": "draft (notes v3/v4)"}],
+  "prs": [
+    {
+      "number": 2772,
+      "state": "merged (notes v1/v2)"
+    },
+    {
+      "number": 2828,
+      "state": "merged (notes v3/v4, reviewed)"
+    },
+    {
+      "number": 2841,
+      "state": "draft (notes v5, features.py, SUMMARY)"
+    }
+  ],
   "oracle": {
     "reproduction": "trimmed 3 MB module (trim.py + trim2.py); ctoracle.py cmp: tokens equal on 20a1ae9c0, b5975fa67 and sibling t23",
-    "tools": ["scripts/capture.py", "scripts/trim.py", "scripts/trim2.py", "scripts/ctoracle.py", "scripts/iredit.py", "scripts/greedy.py", "scripts/framebound.py", "scripts/regionmap.py", "scripts/pfboard.py"],
-    "decomposition_b5975fa": {"ratio": 0.45147, "heuristic_frame_remap_score": 0.58119, "abs_ratio": 0.66597}
+    "tools": [
+      "scripts/capture.py",
+      "scripts/trim.py",
+      "scripts/trim2.py",
+      "scripts/ctoracle.py",
+      "scripts/iredit.py",
+      "scripts/greedy.py",
+      "scripts/framebound.py",
+      "scripts/regionmap.py",
+      "scripts/pfboard.py",
+      "scripts/features.py"
+    ],
+    "decomposition_b5975fa": {
+      "ratio": 0.45147,
+      "heuristic_frame_remap_score": 0.58119,
+      "abs_ratio": 0.66597
+    }
   },
   "ranked_features_b5975fa_27400": [
-    {"rank": 1, "edit": "mv:_114.i (wallet emit_cpi signer slice out of the inlined region)", "ratio": 0.4967, "gain": 0.04523},
-    {"rank": 2, "edit": "+ nolt one 24 B validate/wallet buffer (proxy for the original's unmerged 7/9 piece pair)", "ratio": 0.50899, "gain": 0.01229},
-    {"rank": 3, "edit": "+ mv:val6 below old_creator", "ratio": 0.51618, "gain": 0.00719},
-    {"rank": 4, "edit": "+ mv:sharing_update.sroa.3", "ratio": 0.51648, "gain": 0.0003},
-    {"rank": "C1", "edit": "inv:bb11.i (validate holder test successors; 289 before 298)", "pf_gain": 0.0114, "ratio_gain_alone": 0.0018},
-    {"rank": "C2", "edit": "bw:bb1.i:2000:1 on F1+C1 (validate block frequencies)", "pf_ratio": 0.61174, "pf_gain": 0.0192},
-    {"rank": "C3", "edit": "any single branch weight elsewhere (pf objective)", "pf_gain_max": 0.003}
+    {
+      "rank": 1,
+      "edit": "mv:_114.i (wallet emit_cpi signer slice out of the inlined region)",
+      "ratio": 0.4967,
+      "gain": 0.04523
+    },
+    {
+      "rank": 2,
+      "edit": "+ nolt one 24 B validate/wallet buffer (proxy for the original's unmerged 7/9 piece pair)",
+      "ratio": 0.50899,
+      "gain": 0.01229
+    },
+    {
+      "rank": 3,
+      "edit": "+ mv:val6 below old_creator",
+      "ratio": 0.51618,
+      "gain": 0.00719
+    },
+    {
+      "rank": 4,
+      "edit": "+ mv:sharing_update.sroa.3",
+      "ratio": 0.51648,
+      "gain": 0.0003
+    },
+    {
+      "rank": "C1",
+      "edit": "inv:bb11.i (validate holder test successors; 289 before 298)",
+      "pf_gain": 0.0114,
+      "ratio_gain_alone": 0.0018
+    },
+    {
+      "rank": "C2",
+      "edit": "bw:bb1.i:2000:1 on F1+C1 (validate block frequencies)",
+      "pf_ratio": 0.61174,
+      "pf_gain": 0.0192
+    },
+    {
+      "rank": "C3",
+      "edit": "any single branch weight elsewhere (pf objective)",
+      "pf_gain_max": 0.003
+    }
   ],
-  "on_sibling_t23": {"base": 0.48449, "F1": 0.51026, "F1_buffer_val6": 0.52614, "plus_C1": 0.52718, "bytes": 27392},
-  "best_zero_loss_measurement": {"ratio": 0.45147, "slots_diff": 3308, "bytes": 27400, "note": "no source change of this lane improved main; best measurement is main b5975fa67 itself"},
+  "on_sibling_t23": {
+    "base": 0.48449,
+    "F1": 0.51026,
+    "F1_nolt_buf": 0.52135,
+    "F1_nolt_buf_val6": 0.52854,
+    "plus_C1": 0.52718,
+    "bytes": 27392
+  },
+  "best_zero_loss_measurement": {
+    "ratio": 0.45147,
+    "slots_diff": 3308,
+    "bytes": 27400,
+    "note": "no source change of this lane improved main; best measurement is main b5975fa67 itself"
+  },
   "source_trials": [
-    {"key": "0x22a10-w12-20a1ae9-iroracle-state-block-nested-fn-v1", "result": "0.37845 at 27896 B: deep frame equals the original's pair A / pair B / E32 order, code regresses"},
-    {"key": "0x22a10-w12-b5975fa-iroracle-state-nested-fn-v1", "result": "0.3871 at 27808 B, pf 0.54259"},
-    {"key": "0x22a10-w12-b5975fa-iroracle-state-move-closure-v1", "result": "0.20254 at 28184 B"}
+    {
+      "key": "0x22a10-w12-20a1ae9-iroracle-state-block-nested-fn-v1",
+      "result": "0.37845 at 27896 B: deep frame equals the original's pair A / pair B / E32 order, code regresses"
+    },
+    {
+      "key": "0x22a10-w12-b5975fa-iroracle-state-nested-fn-v1",
+      "result": "0.3871 at 27808 B, pf 0.54259"
+    },
+    {
+      "key": "0x22a10-w12-b5975fa-iroracle-state-move-closure-v1",
+      "result": "0.20254 at 28184 B"
+    }
   ],
   "rejected_mechanisms": [
     "branch weights as a layout lever once the frame is factored out (<= +0.003 pf)",
@@ -45,5 +150,13 @@
     "use pfboard.py to pick bases: a build with a higher pf is closer in code even when its frame hides it",
     "apply the frame features (F1, 24 B unmerged piece, val6) on any new leading candidate with iredit.py before spending a build",
     "find a source form whose validation join splits target 8/24 (framemir's layout probe: Pubkey at offset 16 of the Ok payload) while keeping the code shape of main"
-  ]
+  ],
+  "on_main_fa778418d": {
+    "base": 0.48742,
+    "F1": 0.51528,
+    "F1_nolt_buf": 0.51947,
+    "F1_nolt_buf_val6": 0.52666,
+    "bytes": 27400,
+    "slots_F1": 3248
+  }
 }

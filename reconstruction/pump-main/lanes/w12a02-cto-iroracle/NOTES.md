@@ -50,6 +50,22 @@ Individual gains are on main's IR; cumulative is the greedy composite.
 | F5 | branch weights judged by the **perfect-frame ratio** (`PF=1`), on top of F1: best of 286 | pf 0.5749 vs 0.5719 | +0.003 | the Rc `inc_strong` overflow checks of the AccountInfo clones; median single weight -0.008. Once the frame is factored out, block-placement probabilities are not where the gap is. |
 | S1 | **source**: the CtoState/validate/sharing_update/collect_old block as a nested `fn state(..)->Result<(bool,bool,Pubkey,Option<Option<Pubkey>>,bool)>` (LLVM-inlined) | 0.37845 at 27,896 B | (negative) | frame: validate's target pieces (`target.i.sroa.0/9.i`), state's target pieces (`target.sroa.0/8.i`) and execute's `target` (32 B, no lifetime) land in **exactly the original's pair A / pair B / E32 order right after val.sroa.6.i**, and `_124.i` merges into `target.i.sroa.9.i` (which F4 lacked). Only the -16 of `_117` and an extra 12 B `sharing_update.sroa.5` piece are off. The Result<tuple> plumbing costs +496 B and the perfect-frame ratio drops to 0.5337, so this spelling is evidence for where those allocas come from, not a candidate. |
 
+## Refresh on origin/main fa778418d (#2831 hillclimb-2: admin_cto 0.48742 / 3,273 slots)
+
+Oracle re-captured; `ctoracle.py cmp` -> tokens equal. ratio 0.48742, heuristic frame-remap score
+0.59886, abs 0.67795. The frame defect is unchanged (`_114.i` alone at fi41). `features.py`:
+
+| edit (all 27,400 B) | ratio | slots_diff |
+| --- | ---: | ---: |
+| main fa778418d | 0.48742 | 3,273 |
+| F1 `mv:_114.i:_182` | **0.51528** (+0.0279) | 3,248 |
+| + `nolt:buf.i32.i` | 0.51947 | 3,250 |
+| + `mv:val6:_182` | **0.52666** (+0.0392) | 3,250 |
+
+The region map on this main is the same shape as on b5975fa67: the CPI AccountInfo clone runs
+(orig 0x41f0, 194 tokens unmatched after the frame remap) and the validate error chain 326/312/307
+(orig 0x10b8, 165) are still the largest code-level residuals.
+
 ## Refresh on main b5975fa67 (#2749 k4size landed: 0.45147 / 3,308 slots)
 
 Oracle re-captured and re-validated: `ctoracle.py cmp` -> tokens equal; ratio 0.45147, abs 0.66597.
