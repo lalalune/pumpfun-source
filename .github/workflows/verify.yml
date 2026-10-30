@@ -20,6 +20,7 @@ jobs:
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py
               python -I -B tests/test_integrate_patch_bytes.py
+              python -I -B reconstruction/harness/test_treediff_links.py
           - suite: pump-claim-v2-account-boundaries
             commands: |
               python -I -B research/pump-claim-v2-account-boundaries/verify.py
