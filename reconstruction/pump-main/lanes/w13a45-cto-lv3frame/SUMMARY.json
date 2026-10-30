@@ -1,0 +1,92 @@
+{
+ "lane": "w13a45-cto-lv3frame",
+ "target": "0x22a10 admin_cto::execute",
+ "pinned_bytes": 27400,
+ "base_mains": {
+  "52c0b087c": {
+   "ratio": 0.62103,
+   "fm": 0.7121,
+   "sk": 0.8544
+  },
+  "6ff770f7a": {
+   "ratio": 0.62403,
+   "fm": 0.72499,
+   "sk": 0.8541
+  }
+ },
+ "landed": false,
+ "best_zero_loss": null,
+ "best_oracle": {
+  "what": "lv3+s_map + holder arm-split remat + 5 frame edits (post-opt IR, not source)",
+  "ratio": 0.52886,
+  "bytes": 27208,
+  "fm": 0.71046,
+  "sk": 0.87583
+ },
+ "results": {
+  "s_map_52c0b08": {
+   "ratio": 0.31705,
+   "bytes": 27384,
+   "fm": 0.69044,
+   "sk": 0.85766
+  },
+  "frame_bound_t5": {
+   "ratio": 0.51483,
+   "spec": "mv:target:END,nolt:target,mv:_27.sroa.5:END,nolt:_11.i275,mv:_116.i:hk"
+  },
+  "holder_remat_br": {
+   "ratio": 0.33123,
+   "bytes": 27224,
+   "fm": 0.71025,
+   "sk": 0.87556
+  },
+  "s_mapn_6ff770f": {
+   "ratio": 0.31478,
+   "bytes": 27312,
+   "fm": 0.63946,
+   "sk": 0.82461
+  }
+ },
+ "mechanisms": [
+  "frame cascade: 32 B out-param target wins authority_info.i over sk -> sk blocks 307/312 bufs in _112.i -> new 24 B top group buf.i277 (+0x10); _11 merges into event_signers.i; _116.i own slot; _27.sroa.5 unmerged (+0x20)",
+  "register shift: validate arm split reads execute holder i1 (needed for threading) -> tag web r7->r6 at 18 sites; remat after opt restores r7 and fm 0.710/sk 0.876",
+  "lv3 sits near MBP thresholds: on 6ff770f it relays out again (410 after 326)"
+ ],
+ "rejected": [
+  "okw",
+  "resout",
+  "L9m",
+  "okw_L9",
+  "L9m bw sweep",
+  "tgtfirst",
+  "skinline",
+  "in296",
+  "el296",
+  "vA",
+  "vB",
+  "h296m",
+  "h296l",
+  "h296u",
+  "h296s",
+  "nh",
+  "nh2",
+  "nh3",
+  "nh4",
+  "single-alloca frame sweep (415 items)",
+  "frgreedy on t5"
+ ],
+ "unresolved": [
+  "source form that keeps one holder SSA through JumpThreading but a separate vreg for the arm split in RA",
+  "target leaving validate as main's 7/9 B Result pieces while the fee join holds one memcpy",
+  "306 placement (orig 289 298 306 296)",
+  "AccountInfo-clone chunk order at orig 0x2900-0x2a00 / 0x3200-0x3300 in the hb oracle",
+  "lv3 relayout on 6ff770f (410 after 326)"
+ ],
+ "next_ideas": [
+  "bw sweep on s_mapn (6ff770f) to find the new MBP edge, then a source form for it",
+  "make the holder arm split read a value that opt proves equal only after JumpThreading (e.g. a field of the tree tuple written in both arms) and test with hbremat-style check of tag regs",
+  "combine lv3 with outline306 (original has both the threading and outlined 307/312 to_string); outlining removes buf.i277 at the source of the cascade",
+  "source for _27.sroa.5: let the sharing payload read new directly (as main) in the lv3 family"
+ ],
+ "ledger_keys": "0x22a10-w13-52c0b08-lv3frame-*, 0x22a10-w13-6ff770f-lv3frame-*"
+}
