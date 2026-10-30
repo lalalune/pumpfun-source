@@ -1,0 +1,110 @@
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+import { createHash } from 'node:crypto';
+import { readFile, writeFile, mkdir, stat } from 'node:fs/promises';
+import { once } from 'node:events';
+import http from 'node:http';
+import { execFileSync } from 'node:child_process';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const appRoot = fileURLToPath(new URL('../../../', import.meta.url));
+const repoRoot = path.dirname(appRoot);
+const args = process.argv.slice(2);
+assert.equal(args.length, 4, 'Usage: browser.mjs --source FULL_PUBLIC_OR_LOCAL_SHA --output NEW_DIRECTORY');
+assert.equal(args[0], '--source'); assert.match(args[1], /^[a-f0-9]{40}$/); assert.equal(args[2], '--output');
+const source = args[1], output = path.resolve(args[3]);
+await assert.rejects(stat(output), { code: 'ENOENT' });
+await mkdir(output, { recursive: true });
+const sha = (b) => createHash('sha256').update(b).digest('hex');
+const git = (...a) => execFileSync('git', a, { cwd: repoRoot, env: { ...process.env, GIT_NO_LAZY_FETCH: '1' } });
+git('cat-file', '-e', `${source}^{commit}`);
+const sourceFiles = ['reconstruction/mobile-feed-list/client.mjs', 'reconstruction/mobile-feed-list/client.d.mts',
+  'reconstruction/mobile-feed-list/qualification/browser.mjs', 'reconstruction/mobile-feed-list/qualification/fixture.mjs'];
+const sourceBinding = [];
+for (const relative of sourceFiles) {
+  const bytes = await readFile(path.join(appRoot, relative));
+  assert.ok(bytes.equals(git('show', `${source}:app/${relative}`)), `actual source differs: ${relative}`);
+  sourceBinding.push({ path: relative, bytes: bytes.length, sha256: sha(bytes), gitBlob: git('rev-parse', `${source}:app/${relative}`).toString().trim() });
+}
+const frontend = createRequire(path.join(appRoot, 'packages/frontend/package.json'));
+const backend = createRequire(path.join(appRoot, 'packages/backend/package.json'));
+const esbuild = createRequire(backend.resolve('tsx'))('esbuild');
+const { chromium } = frontend('@playwright/test');
+const built = await esbuild.build({ entryPoints: [fileURLToPath(new URL('fixture.mjs', import.meta.url))], absWorkingDir: appRoot,
+  bundle: true, write: false, platform: 'browser', format: 'iife', metafile: true,
+  define: { 'process.env.NODE_ENV': '"development"' },
+  alias: { react: frontend.resolve('react'), 'react/jsx-runtime': frontend.resolve('react/jsx-runtime'),
+    'react/compiler-runtime': frontend.resolve('react/compiler-runtime'), 'react-dom/client': frontend.resolve('react-dom/client'), 'react-dom': frontend.resolve('react-dom') } });
+const bundle = built.outputFiles[0].contents;
+const inputs = [];
+for (const relative of Object.keys(built.metafile.inputs)) {
+  const bytes = await readFile(path.resolve(appRoot, relative)); inputs.push({ path: relative, bytes: bytes.length, sha256: sha(bytes) });
+}
+for (const row of sourceBinding) if (!inputs.some((r) => r.path === row.path)) inputs.push({ path: row.path, bytes: row.bytes, sha256: row.sha256 });
+const record = { scope: 'Standalone real React/compiler; complete mobile feed-list display owner with synthetic read/classifier/flag/renderer/scroll ports. No original provider, wallet/auth, financial acquisition or action execution.',
+  selectedSource: source, repositoryHead: git('rev-parse', 'HEAD').toString().trim(), sourceBinding, inputs, bundleSha256: sha(bundle),
+  cases: [], requests: [], blockedRequests: [], pageErrors: [], startedAt: new Date().toISOString() };
+await writeFile(path.join(output, 'INPUTS.json'), JSON.stringify(record, null, 2) + '\n');
+await writeFile(path.join(output, 'bundle.js'), bundle);
+const server = http.createServer((req, res) => {
+  record.requests.push({ method: req.method, path: req.url });
+  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'self'; connect-src 'none'; style-src 'none'; img-src 'none'");
+  if (req.method !== 'GET') { res.writeHead(405); return res.end(); }
+  if (req.url === '/') { res.setHeader('Content-Type', 'text/html'); return res.end('<!doctype html><meta charset="utf-8"><title>Supplied mobile feed display</title><div id="root"></div><script src="/bundle.js"></script>'); }
+  if (req.url === '/bundle.js') { res.setHeader('Content-Type', 'text/javascript'); return res.end(bundle); }
+  res.writeHead(404); res.end();
+});
+let browser, context, page;
+async function observed() { return page.evaluate(() => window.harness.observe()); }
+async function scenario(name, run) {
+  const row = { name, startedAt: new Date().toISOString() }; record.cases.push(row);
+  try { await run(row); row.status = 'PASS'; }
+  catch (e) { row.status = 'FAIL'; row.error = String(e.stack ?? e); await page.screenshot({ path: path.join(output, `failure-${record.cases.length}.png`) }).catch(() => {}); throw e; }
+  finally { row.endedAt = new Date().toISOString(); }
+}
+try{
+ server.listen(0,'127.0.0.1');await once(server,'listening');record.origin=`http://127.0.0.1:${server.address().port}`;
+ browser=await chromium.launch({headless:true});context=await browser.newContext({viewport:{width:1000,height:850}});await context.tracing.start({screenshots:true,snapshots:true,sources:true});page=await context.newPage();
+ page.on('pageerror',error=>record.pageErrors.push(String(error.stack??error)));await page.route('**/*',route=>{if(new URL(route.request().url()).origin===record.origin)return route.continue();record.blockedRequests.push(route.request().url());return route.abort('blockedbyclient');});
+ await page.goto(record.origin);await page.waitForFunction(()=>!!window.harness);
+ const last=(o,name)=>o.calls.filter(c=>c[0]===name).at(-1);
+ await scenario('full loading/error/empty branches retain required snapshot hook handoffs',async row=>{
+  await page.getByTestId('feed-skeleton').waitFor({state:'attached'});assert.equal(await page.getByTestId('feed-skeleton').locator(':scope > div').count(),6);row.loading=await observed();assert.deepEqual(last(row.loading,'coins')[1],{mints:[],disabled:true});assert.deepEqual(last(row.loading,'users')[1],{userAddresses:[]});
+  await page.evaluate(()=>window.harness.empty());await page.getByRole('heading',{name:'provided:web.feed.empty_for_you_title',exact:true}).waitFor();await page.evaluate(()=>window.harness.error());await page.getByText('Provided error supplied failure',{exact:true}).waitFor();row.error=await observed();assert.deepEqual(last(row.error,'label').slice(1),['supplied failure','error-message']);
+ });
+ await scenario('mixed list joins and all read/row/repost/preview handoffs use supplied metadata only',async row=>{
+  await page.evaluate(()=>window.harness.provideRows());await page.locator('[data-callout="one"]').waitFor();assert.equal(await page.locator('[data-callout]').count(),3);assert.equal(await page.locator('[data-callout="one"]').getAttribute('data-coin'),'Joined supplied coin');assert.equal(await page.locator('[data-callout="one"]').getAttribute('data-user'),'Joined supplied user');assert.equal(await page.locator('[data-callout="one"]').getAttribute('data-priority'),'true');assert.equal(await page.locator('[data-callout="two"]').getAttribute('data-priority'),'true');assert.equal(await page.locator('[data-callout="three"]').getAttribute('data-priority'),'false');assert.equal(await page.locator('[data-callout="two"]').getAttribute('data-position'),'5');
+  assert.equal(await page.locator('[data-main-row="reply"]').getAttribute('data-symbol'),'READ');assert.equal(await page.locator('[data-main-row="reply"]').getAttribute('data-chain'),'99');assert.equal(await page.locator('[data-main-row="quote"]').getAttribute('data-chain'),'8');assert.equal(await page.locator('[data-root-callout]').getAttribute('data-author'),'Author');assert.equal(await page.locator('[data-root-callout]').getAttribute('data-href'),'/callouts/repost-mint/supplied-callout');assert.equal(await page.locator('[data-profile-link]').innerText(),'Reposter');
+  row.list=await observed();assert.deepEqual(last(row.list,'coins')[1].mints,['alias','reply-mint','quote-mint','repost-mint','pack-missing','collectible','filtered-mint']);assert.ok(last(row.list,'users')[1].userAddresses.includes('supplied-user-perp'));assert.deepEqual(last(row.list,'positions')[1],[{userId:'supplied-reply-author',mint:'reply-actual'},{userId:undefined,mint:undefined},{userId:'supplied-author',mint:'repost-mint'}]);assert.deepEqual(row.list.latest.pending.avatars,[{key:'pending',mint:'alias',imageUrl:'provided-image'}]);
+ });
+ await scenario('source feature/classifier and loading branches preserve pack delegation and visible-media selection',async row=>{
+  await page.evaluate(()=>window.harness.packs(true));await page.waitForFunction(()=>window.harness.observe().calls.filter(c=>c[0]==='packs').at(-1)[1].length===1);row.packs=await observed();assert.deepEqual(last(row.packs,'packs')[1],['pack-missing']);assert.equal(await page.locator('[data-callout="two"]').getAttribute('data-card'),'provided-card');
+  await page.evaluate(()=>window.harness.coinLoading(true));await page.waitForFunction(()=>window.harness.observe().calls.filter(c=>c[0]==='packs').at(-1)[1].length===0);await page.evaluate(()=>window.harness.coinLoading(false));await page.waitForFunction(()=>window.harness.observe().calls.filter(c=>c[0]==='packs').at(-1)[1].length===1);await page.evaluate(()=>window.harness.perps(true));await page.locator('[data-callout="perp"]').waitFor();assert.equal(await page.locator('[data-callout]').count(),4);assert.equal(await page.locator('[data-callout="perp"]').getAttribute('data-priority'),'false');row.perps=await observed();assert.deepEqual(last(row.perps,'coins')[1],last(row.packs,'coins')[1]);
+ });
+ await scenario('complete selection/gated row and native pagination delegate exact supplied props and callback',async row=>{
+  await page.evaluate(()=>window.harness.hideOne(true));await page.locator('[data-callout="one"]').waitFor({state:'hidden'});row.gated=await observed();assert.deepEqual(row.gated.calls.filter(c=>c[0]==='gate'&&c[1].mint==='alias').at(-1)[1],{mint:'alias',authorAddress:'supplied-user-one',positionPnl:undefined});
+  await page.evaluate(()=>window.harness.tab('top'));await page.locator('[data-callout="one"]').waitFor();assert.equal(await page.locator('ul').getAttribute('aria-label'),'provided:web.feed.list_top');row.top=await observed();assert.equal(row.top.latest.more.autoLoad,false);assert.equal(row.top.latest.more.hasNextPage,true);assert.equal(row.top.latest.more.autoLoadHasMore,false);assert.equal(await page.locator('[data-callout="one"]').getAttribute('data-surface'),null);await page.getByRole('button',{name:'Supplied pagination',exact:true}).click();row.pagination=await observed();assert.equal(last(row.pagination,'fetch-next')[0],'fetch-next');
+ });
+ await scenario('source tap and threshold-auto callbacks plus dependency cleanup through explicit scroll port',async row=>{
+  await page.evaluate(()=>window.harness.tab('following'));await page.waitForFunction(()=>window.harness.observe().scrollListeners===1);row.away=await observed();assert.equal(row.away.scrollY,9);const before=row.away.calls.filter(c=>c[0]==='show').length;await page.evaluate(()=>window.harness.scroll(8));row.atTop=await observed();assert.equal(row.atTop.calls.filter(c=>c[0]==='show').length,before+1);assert.deepEqual(last(row.atTop,'show')[1],{trigger:'auto'});
+  await page.getByRole('button',{name:'Supplied pending reveal',exact:true}).click();row.tapped=await observed();assert.deepEqual(row.tapped.calls.slice(-2),[['show',{trigger:'tap'}],['scroll-to',{top:0,behavior:'smooth'}]]);await page.evaluate(()=>window.harness.pending(0));await page.waitForFunction(()=>window.harness.observe().scrollListeners===0);await page.evaluate(()=>window.harness.pending(2));await page.waitForFunction(()=>window.harness.observe().scrollListeners===1);row.resubscribed=await observed();assert.deepEqual(last(row.resubscribed,'show')[1],{trigger:'auto'});
+ });
+ await scenario('existing rows survive supplied error and signed-out selection unmounts source/listener subscriptions',async row=>{
+  row.before=await observed();await page.evaluate(()=>window.harness.error());await page.locator('ul').waitFor();assert.equal(await page.locator('ul').getAttribute('aria-label'),'provided:web.feed.list_following');row.withRows=await observed();assert.equal(row.withRows.calls.filter(c=>c[0]==='label').length,row.before.calls.filter(c=>c[0]==='label').length);const calls=row.withRows.calls.filter(c=>c[0]==='coins').length;
+  await page.evaluate(()=>window.harness.signedOut(true));await page.getByRole('heading',{name:'provided:web.feed.signed_out_following_title',exact:true}).waitFor();row.signedOut=await observed();assert.equal(row.signedOut.scrollListeners,0);assert.equal(row.signedOut.subscribers,1);assert.equal(row.signedOut.calls.filter(c=>c[0]==='coins').length,calls);row.unmounted=await page.evaluate(()=>window.harness.unmount());assert.equal(row.unmounted.subscribers,0);assert.equal(row.unmounted.scrollListeners,0);
+ });
+ assert.equal(record.cases.length,6);assert.deepEqual(record.pageErrors,[]);assert.deepEqual(record.blockedRequests,[]);record.status='PASS';
+} finally {
+  if (context) await context.tracing.stop({ path: path.join(output, 'trace.zip') }).catch(() => {});
+  if (browser) await browser.close(); record.browserClosed = browser ? !browser.isConnected() : true;
+  if (server.listening) await new Promise((resolve) => server.close(resolve)); record.serverListening = server.listening;
+  for (const input of record.inputs) {
+    const bytes = await readFile(path.resolve(appRoot, input.path)); input.afterRunSha256 = sha(bytes); input.unchanged = input.sha256 === input.afterRunSha256;
+  }
+  record.endedAt = new Date().toISOString(); await writeFile(path.join(output, 'RESULT.json'), JSON.stringify(record, null, 2) + '\n');
+}
+assert.ok(record.inputs.every((i) => i.unchanged));
+console.log(JSON.stringify({ status: record.status, cases: record.cases.length, pageErrors: record.pageErrors,
+  browserClosed: record.browserClosed, serverListening: record.serverListening, allInputsUnchanged: record.inputs.every((i) => i.unchanged) }));
