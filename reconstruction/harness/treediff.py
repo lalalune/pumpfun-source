@@ -1,15 +1,34 @@
 import difflib
 import json
+import stat
 from pathlib import Path
+
+
+def reject_source_link(path):
+    try:
+        info = path.lstat()
+    except FileNotFoundError:
+        return  # Keep the existing missing-root diagnostic below.
+    reparse = getattr(info, 'st_file_attributes', 0) & getattr(stat, 'FILE_ATTRIBUTE_REPARSE_POINT', 0)
+    if stat.S_ISLNK(info.st_mode) or reparse:
+        raise ValueError(f'unsupported source tree link: {path}')
 
 
 def tree_files(root):
     root = Path(root)
+    reject_source_link(root)
     if not root.exists():
         raise FileNotFoundError(f'source tree does not exist: {root}')
     if not root.is_dir():
         raise NotADirectoryError(f'source tree is not a directory: {root}')
-    return {p.relative_to(root).as_posix(): p.read_bytes() for p in sorted(root.rglob('*')) if p.is_file()}
+    files = {}
+    # Inspect each directory before rglob can descend into it. Eagerly sorting
+    # rglob first would already traverse Windows junctions before this check.
+    for path in root.rglob('*'):
+        reject_source_link(path)
+        if path.is_file():
+            files[path.relative_to(root).as_posix()] = path.read_bytes()
+    return dict(sorted(files.items()))
 
 
 def diff_lines(data):
@@ -20,6 +39,12 @@ def diff_lines(data):
     return [part + '\n' for part in parts[:-1]] + ([parts[-1]] if parts[-1] else [])
 
 
+def quote_path(path):
+    """Git C-quoted pathname, with octal escapes for arbitrary UTF-8 bytes."""
+    return '"' + ''.join(chr(b) if 32 <= b < 127 and b not in (34, 92)
+                         else '\\%03o' % b for b in path.encode('utf-8')) + '"'
+
+
 def tree_diff(base, new, prefix='programs/pump'):
     """Deterministic unified diff of two crate trees (text files), pure Python."""
     a, b = tree_files(base), tree_files(new)
@@ -28,8 +53,8 @@ def tree_diff(base, new, prefix='programs/pump'):
         x, y = a.get(rel), b.get(rel)
         if x == y:
             continue
-        quoted_a = json.dumps(f'a/{prefix}/{rel}', ensure_ascii=False)
-        quoted_b = json.dumps(f'b/{prefix}/{rel}', ensure_ascii=False)
+        quoted_a = quote_path(f'a/{prefix}/{rel}')
+        quoted_b = quote_path(f'b/{prefix}/{rel}')
         out.append(f'diff --git {quoted_a} {quoted_b}\n')
         if x is None:
             out.append('new file mode 100644\n')
@@ -44,8 +69,8 @@ def tree_diff(base, new, prefix='programs/pump'):
             continue
         xl = diff_lines(x)
         yl = diff_lines(y)
-        fa = f'a/{prefix}/{rel}' if x is not None else '/dev/null'
-        fb = f'b/{prefix}/{rel}' if y is not None else '/dev/null'
+        fa = quoted_a if x is not None else '/dev/null'
+        fb = quoted_b if y is not None else '/dev/null'
         for line in difflib.unified_diff(xl, yl, fa, fb, n=3):
             out.append(line if line.endswith('\n') else line + '\n\\ No newline at end of file\n')
     return ''.join(out)

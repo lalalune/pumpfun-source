@@ -16,325 +16,22 @@ jobs:
       max-parallel: 12
       matrix:
         include:
+          - suite: fees-exact-source-staging
+            commands: |
+              python -B research/fees-exact-readme-stage-20261030/test_stage.py
+              python -B research/fees-exact-readme-stage-20261030/replay.py --repo . --output work/fees-exact-source-staging
           - suite: analysis-packet-encoding
             commands: |
               python -B research/tooling-analysis-encoding-20261030/test_verify.py
-          - suite: composition-patch-bytes
-            commands: |
           - suite: fastbuild-staging
             commands: |
               python -I -B tests/test_fastbuild_stage.py
           - suite: composition-patch-bytes
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py
+              python -B reconstruction/harness/test_integrate_no_build_cli.py
               python -I -B tests/test_integrate_patch_bytes.py
-          - suite: pump-claim-v2-account-boundaries
-            commands: |
-              python -I -B research/pump-claim-v2-account-boundaries/verify.py
-              python -I -B research/pump-claim-v2-account-boundaries/mutation_controls.py
-          - suite: mayhem-canonical-exact
-            commands: |
-              python -O -B scripts/verify_current_checkpoint.py mayhem
-              python -O -B research/mayhem-canonical-promotion-20261028/test_verify.py
-          - suite: pump-multi-hop-quote-admission
-            commands: |
-              python -I -B research/pump-multi-hop-quote-admission/verify.py
-              python -I -B research/pump-multi-hop-quote-admission/test_controls.py
-          - suite: pump-canonical-frontier
-            commands: |
-              python -B scripts/verify_current_checkpoint.py pump
-              python -O -B scripts/test_pump_strict_ordered_logs.py
-              python -B research/pump-program-creator-notice-qualification-20261028/replay_focused.py --candidate research/pump-program-creator-notice-qualification-20261028/artifacts/candidate.so --output work/pump-canonical-focused
-              python -B research/pump-program-creator-notice-qualification-20261028/verify_focused.py --candidate research/pump-program-creator-notice-qualification-20261028/artifacts/candidate.so --reports work/pump-canonical-focused
-              python -B research/pump-program-creator-notice-qualification-20261028/replay_captured_create.py --candidate research/pump-program-creator-notice-qualification-20261028/artifacts/candidate.so --output work/pump-captured-create
-              python -B scripts/pump_verify_program_creator_captured_create.py --candidate research/pump-program-creator-notice-qualification-20261028/artifacts/candidate.so --runtime-directory work/pump-captured-create
-          - suite: pump-program-creator-notice
-            commands: |
-              python -B research/pump-multihop-accrual-qualification-20261028/verify.py
-              python -B research/pump-program-creator-notice-qualification-20261028/verify.py
-              python -B research/pump-program-creator-notice-qualification-20261028/integrity_controls.py --report work/pump-program-creator-notice-controls.json
-          - suite: relay-current-repeat
-            commands: |
-              python -O -B research/relay-current-repeat-20261028/verify.py --repo .
-              python -O -B research/relay-current-repeat-20261028/test_verify.py
-          - suite: amm-canonical-frontier
-            commands: |
-              python -O -B scripts/verify_current_checkpoint.py pump_amm
-              python -O -B research/amm-layout-closure-20261028/test_verify.py
-              python -O -B research/pump-create-portable-repeat-20261028/test_verify.py
-          - suite: fees-canonical-exact
-            commands: |
-              python -B scripts/verify_current_checkpoint.py pump_fees
-              python -O -B research/all-contract-completion-20261028/test_current_fees.py
-              python -O -B research/contract-completion-20261028/test_fees_runtime.py
-              python scripts/fees_validate_all.py --candidate research/all-contract-completion-20261028/fees-built/canonical-01/candidate.so --output work/fees-canonical-fresh.json
-          - suite: pump-v3-buy-cost-overflow
-            commands: |
-              python -I -B research/pump-v3-buy-cost-overflow/verify.py
-              python -I -B research/pump-v3-buy-cost-overflow/test_controls.py
-          - suite: amm-v2-selector-union-recovery
-            commands: |
-              python -I -B -X pycache_prefix=/tmp/amm-selector-union-unused research/amm-v2-selector-union-recovery/verify.py
-              python -I -B -X pycache_prefix=/tmp/amm-selector-union-unused research/amm-v2-selector-union-recovery/test_runtime_controls.py
-          - suite: amm-v2-fee-selector-recovery
-            commands: |
-              python -I -B research/amm-v2-fee-selector-recovery/verify.py
-              python -I -B research/amm-v2-fee-selector-recovery/test_runtime_controls.py
-          - suite: amm-hop-gate-recovery
-            commands: |
-              python -I -B research/amm-hop-gate-recovery/verify.py
-              python -I -B research/amm-hop-gate-recovery/test_runtime_controls.py
-          - suite: amm-fee-value-call-recovery
-            commands: |
-              python -I -B research/amm-fee-value-call-recovery/verify.py
-              python -I -B research/amm-fee-value-call-recovery/test_inventory.py
-          - suite: amm-native-transfer-fee-recovery
-            commands: |
-              python -I -B research/amm-native-transfer-fee-recovery/verify.py
-              python -I -B research/amm-native-transfer-fee-recovery/test_inventory.py
-          - suite: amm-prepare-pool-recovery
-            commands: |
-              python -I -B research/amm-prepare-pool-recovery/verify.py
-          - suite: amm-buy-reserve-order
-            commands: |
-              python -I -B research/amm-buy-reserve-order/verify.py
-          - suite: amm-quote-base-recovery
-            commands: |
-              python -I -B research/amm-quote-base-recovery/verify.py
-          - suite: amm-recipient-mode-recovery
-            commands: |
-              python -I -B research/amm-recipient-mode-recovery/verify.py
-          - suite: amm-mint-fee-reader-recovery
-            commands: |
-              python -I -B research/amm-mint-fee-reader-recovery/verify.py
-          - suite: pump-feeconfig-decoder
-            commands: |
-              python -I -B research/pump-feeconfig-decoder-recovery/verify.py
-          - suite: mayhem-clean-linux-evidence
-            commands: |
-              python -B research/mayhem-clean-linux-build-20261027/verify.py
-              python -O -B research/mayhem-clean-linux-build-20261027/verify.py
-          - suite: mayhem-native-current432
-            commands: |
-              python -B research/mayhem-cpi-abort-proof/verify.py
-              python -B research/mayhem-cpi-abort-proof/test_verify.py
-              python -B research/mayhem-fee-net-accounting/verify.py
-              python -B research/mayhem-fee-net-accounting/test_verify.py
-              python -I -B research/mayhem-native-current432-composition/verify.py
-              python -I -B research/mayhem-native-current432-composition/test_verify.py
-              python -B research/mayhem-allocator-call-closure/verify.py
-              python -B research/mayhem-allocator-call-closure/test_verify.py
-          - suite: mayhem-signer-seed-order
-            commands: |
-              python -I -B research/mayhem-signer-seed-order/verify.py
-              python -I -B research/mayhem-signer-seed-order/test_verify.py
-          - suite: mayhem-amm-shape-controls
-            commands: |
-              python -B research/mayhem-amm-handler-shape-controls-20261027/verify.py
-              python -B research/mayhem-amm-handler-shape-controls-20261027/test_verify.py
-              python -B research/mayhem-amm-sell-cfg-recovery-20261027/verify.py
-              python -B research/mayhem-amm-sell-cfg-recovery-20261027/test_verify.py
-              python -B research/mayhem-trade-ownership-current-20261027/verify.py --signatures
-              python -B research/mayhem-trade-ownership-current-20261027/test_verify.py
-              python -B research/mayhem-direct-call-closure-20261027/verify.py
-              python -B research/mayhem-direct-call-closure-20261027/test_verify.py
-              python -O -B research/mayhem-direct-call-closure-20261027/test_verify.py
-              python -B research/mayhem-direct-call-closure-20261027/portable_followup.py
-              python -O -B research/mayhem-direct-call-closure-20261027/portable_followup.py
-              python -B research/mayhem-sweep-admin-attribution-20261027/verify.py
-              python -B research/mayhem-sweep-admin-attribution-20261027/test_verify.py
-              python -O -B research/mayhem-sweep-admin-attribution-20261027/test_verify.py
-          - suite: mayhem-current-quotes
-            commands: |
-              python -B research/mayhem-quotes-current-recovery-20261027/verify.py
-              python -B research/mayhem-quotes-current-recovery-20261027/test_verify.py
-          - suite: mayhem-current-macro-closure
-            commands: |
-              python -B research/mayhem-current-macro-call-closure-20261027/verify.py --require-runtime
-              python -B research/mayhem-current-macro-call-closure-20261027/test_verify.py
-          - suite: mayhem-source-origins
-            commands: |
-              python -B research/mayhem-source-origin-recovery-20261027/verify.py --require-runtime
-              python -B research/mayhem-source-origin-recovery-20261027/test_verify.py
-          - suite: mayhem-current434
-            commands: |
-              python -B research/mayhem-current434-composition-20261027/verify.py
-              python -B research/mayhem-current434-composition-20261027/test_verify.py
-          - suite: mayhem-current434-code-references
-            commands: |
-              python -B research/mayhem-current434-code-reference-closure-20261027/proof.py
-              python -B research/mayhem-current434-code-reference-closure-20261027/test_proof.py
-          - suite: mayhem-current434-format-route
-            commands: |
-              python -B research/mayhem-current434-format-route-20261027/verify.py
-              python -B research/mayhem-current434-format-route-20261027/test_verify.py
-          - suite: mayhem-current434-custom-format
-            commands: |
-              python -B research/mayhem-current434-custom-format-route-20261027/verify.py
-              python -B research/mayhem-current434-custom-format-route-20261027/test_verify.py
-          - suite: mayhem-current437-data
-            commands: |
-              python -B research/mayhem-current437-selected-data-20261028/verify.py
-              python -B research/mayhem-current437-selected-data-20261028/test_verify.py
-              python -B research/mayhem-current437-data-coverage-20261028/analyze.py --output-dir work/mayhem437-data-coverage
-              cmp research/mayhem-current437-data-coverage-20261028/coverage.json work/mayhem437-data-coverage/coverage.json
-          - suite: mayhem-current437-error-names
-            commands: |
-              python -B research/mayhem-current437-error-names-20261028/verify.py
-              python -B research/mayhem-current437-error-names-20261028/test_verify.py
-          - suite: mayhem-current437-error-messages
-            commands: |
-              python -B research/mayhem-current437-error-messages-20261028/verify.py
-              python -B research/mayhem-current437-error-messages-20261028/test_verify.py
-          - suite: mayhem-current437-program-error-messages
-            commands: |
-              python -B research/mayhem-current437-program-error-messages-20261028/verify.py
-              python -B research/mayhem-current437-program-error-messages-20261028/test_verify.py
-          - suite: mayhem-current437-error-kind-tables
-            commands: |
-              python -B research/mayhem-current437-error-kind-tables-20261028/verify.py
-              python -B research/mayhem-current437-error-kind-tables-20261028/test_verify.py
-          - suite: mayhem-current437-unicode-tables
-            commands: |
-              python -B research/mayhem-current437-unicode-tables-20261028/verify.py
-              python -B research/mayhem-current437-unicode-tables-20261028/test_verify.py
-          - suite: mayhem-current438
-            commands: |
-              python -B research/mayhem-current438-composition-20261028/verify.py
-              python -B research/mayhem-current438-composition-20261028/test_verify.py
-              python -B research/mayhem-current438-composition-20261028/test_runtime.py
-          - suite: mayhem-current437-buy-prefix
-            commands: |
-              mkdir -p work/mayhem-priority-20261027/amm-body-audit
-              cp research/mayhem-amm-sell-cfg-recovery-20261027/runtime/frozen/work/mayhem-priority-20261027/amm-body-audit/revisit-cases.json work/mayhem-priority-20261027/amm-body-audit/revisit-cases.json
-              python -B research/mayhem-current437-buy-prefix-20261028/verify.py
-              python -B research/mayhem-current437-buy-prefix-20261028/test_verify.py
-          - suite: mayhem-clean-rebuild-archive
-            commands: |
-              python -B research/mayhem-frontier-clean-rebuild-20261028/verify.py
-              python -B research/mayhem-frontier-clean-rebuild-20261028/test_verify.py
-          - suite: mayhem-current436-native
-            commands: |
-              python -I -B research/mayhem-current436-native-20261028/verify.py
-              python -I -B research/mayhem-current436-native-20261028/test_verify.py
-          - suite: mayhem-current437
-            commands: |
-              python -B research/mayhem-current437-composition-20261028/verify.py
-              python -B research/mayhem-current437-composition-20261028/test_verify.py
-              python -B research/mayhem-current437-composition-20261028/test_runtime.py
-          - suite: mayhem-current436
-            commands: |
-              python -B research/mayhem-current436-composition-20261027/verify.py
-              python -B research/mayhem-current436-composition-20261027/test_verify.py
-              python -B research/mayhem-current436-composition-20261027/test_runtime.py
-          - suite: mayhem-current436-linux-recipe
-            commands: |
-              python -B research/mayhem-current436-linux-dependency-control-20261028/verify.py
-              python -B research/mayhem-current436-linux-dependency-control-20261028/test_verify.py
-          - suite: mayhem-current436-selected-data
-            commands: |
-              python -B research/mayhem-current436-selected-prefixes-20261027/verify.py
-              python -B research/mayhem-current436-selected-prefixes-20261027/test_verify.py
-              python -B research/mayhem-current436-writer-records-20261028/verify.py
-              python -B research/mayhem-current436-writer-records-20261028/test_verify.py
-              python -B research/mayhem-current436-counted-literals-20261028/verify.py
-              python -B research/mayhem-current436-counted-literals-20261028/test_verify.py
-          - suite: mayhem-current436-residual-controls
-            commands: |
-              mkdir -p work/mayhem-priority-20261027/amm-body-audit
-              cp research/mayhem-amm-sell-cfg-recovery-20261027/runtime/frozen/work/mayhem-priority-20261027/amm-body-audit/revisit-cases.json work/mayhem-priority-20261027/amm-body-audit/revisit-cases.json
-              python -B research/mayhem-current436-amm-event-controls-20261027/verify.py
-              python -B research/mayhem-current436-amm-event-controls-20261027/test_verify.py
-              python -B research/mayhem-current436-v2-controls-20261027/verify.py
-              python -B research/mayhem-current436-v2-controls-20261027/test_verify.py
-              python -B research/mayhem-current436-sweep-controls-20261027/verify.py
-              python -B research/mayhem-current436-sweep-controls-20261027/test_verify.py
-              python -B research/mayhem-current436-sweep-rent-lifetime-20261028/verify.py
-              python -B research/mayhem-current436-sweep-rent-lifetime-20261028/test_verify.py
-              python -B research/mayhem-current436-sweep-address-selection-20261028/verify.py
-              python -B research/mayhem-current436-sweep-address-selection-20261028/test_verify.py
-          - suite: mayhem-current-native-ownership
-            commands: |
-              python -B research/mayhem-current-native-ownership-composition/verify.py
-              python -B research/mayhem-current-native-ownership-composition/test_verify.py
-          - suite: mayhem-current-provider-closure
-            commands: |
-              python -B research/mayhem-current-provider-closure-20261027/verify.py --signatures
-              python -B research/mayhem-current-provider-closure-20261027/test_verify.py
-              python -O -B research/mayhem-current-provider-closure-20261027/test_verify.py
-          - suite: mayhem-quote-debug-data
-            commands: |
-              python -B research/mayhem-quote-integer-debug-data/verify.py
-              python -B research/mayhem-quote-integer-debug-data/test_scope.py
-          - suite: fees-current-sweep
-            commands: |
-              python -B research/fees-sweep-entry-recovery-20261027/verify.py
-              python -B research/fees-sweep-entry-recovery-20261027/test_verify.py
-              python -O -B research/fees-sweep-entry-recovery-20261027/test_verify.py
-              python -B research/fees-sweep-integration-20261027/verify.py
-              python -B research/fees-sweep-integration-20261027/test_verify.py
-              python -O -B research/fees-sweep-integration-20261027/test_verify.py
-              python -B research/fees-residual-current583-20261027/verify.py
-          - suite: recovered-source-proposals
-            commands: |
-              python -B research/fees-causal582-source/source_tools.py --public-root .
-              python -B -m unittest discover -s research/fees-causal582-source -p 'test_*.py'
-              python -B research/amm647-harvest-source/source_tools.py
-              python -B research/amm647-harvest-source/test_scope.py
-          - suite: mayhem-current-sell
-            commands: |
-              python -B research/mayhem-sell-current-recovery-20261027/verify.py
-              python -B research/mayhem-sell-current-recovery-20261027/test_verify.py
-          - suite: mayhem-validate-sweep-o0073
-            commands: |
-              python -B research/claude-fees-final-mayhem-o0073/verify.py
-          - suite: mayhem-436-o0081-o0082
-            commands: |
-              python -B research/claude-mayhem-436-20261027/verify.py
-          - suite: mayhem-437-o0079
-            commands: |
-              python -B research/claude-mayhem-437-20261028/verify.py
-              python -B research/claude-mayhem-437-20261028/test_elf_check.py
-          - suite: mayhem-439-o0077
-            commands: |
-              python -B research/claude-mayhem-439-20261028/verify.py
-              python -B research/claude-mayhem-439-20261028/test_verify.py
-          - suite: mayhem-441-o0083-o0084-raw
-            commands: |
-              python -B research/claude-mayhem-441-20261028/verify.py
-              python -B research/claude-mayhem-441-20261028/test_verify.py
-          - suite: mayhem-sweep-failures
-            commands: |
-              python -B research/mayhem-sweep-failure-recovery/verify.py
-              python -B research/mayhem-sweep-failure-recovery/test_scope.py
-          - suite: mayhem-sweep-rate-current
-            commands: |
-              python -B research/mayhem-sweep-rate-current-recovery/verify.py
-              python -B research/mayhem-sweep-rate-current-recovery/test_scope.py
-          - suite: mayhem-initializer-current
-            commands: |
-              python -B research/mayhem-initializer-current-recovery-20261027/verify.py
-              python -B research/mayhem-initializer-current-recovery-20261027/test_verify.py
-              python -B research/mayhem-initializer-staged-snapshot-20261027/verify.py --signatures
-              python -B research/mayhem-initializer-staged-snapshot-20261027/test_verify.py
-          - suite: mayhem-ownership
-            commands: |
-              python -B research/mayhem-initializer-owned-snapshot-20261027/verify.py --signatures
-              python -B research/mayhem-initializer-owned-snapshot-20261027/test_verify.py
-              python -B research/mayhem-legacy-buy-cpi-ownership/verify.py
-              python -B research/mayhem-legacy-buy-cpi-ownership/test_verify.py
-              python -B research/mayhem-current-ownership-composition-20261027/verify.py
-              python -B research/mayhem-current-ownership-composition-20261027/test_verify.py
-          - suite: mayhem-initializer-machine
-            commands: |
-              python -B research/mayhem-initializer-machine-paths/verify.py --signatures
-              python -B research/mayhem-initializer-machine-paths/test_verify.py
-          - suite: metaplex-exact
-            commands: |
-              python -B research/metaplex-utilize-exact-recovery/verify.py
-              python -B research/metaplex-utilize-exact-recovery/test_verify.py
-              python -B research/metaplex-exact-independent/verify.py --execute
-              python -B research/metaplex-exact-independent/test_verify.py
+              python -I -B reconstruction/harness/test_treediff_links.py
           - suite: offline-cargo-cache
             commands: |
               python -I -B scripts/test_prepare_locked_cargo_home.py
@@ -342,9 +39,23 @@ jobs:
             commands: |
               python -B research/tooling-relocated-data-pointers-20261030/test_pointer_analysis.py
               python scripts/verify_evidence.py
+              python -I -B tests/test_analyze_input_admission.py
               python scripts/test_tooling.py
               python -B tests/test_function_body_file_ranges.py
               python -O -B tests/test_function_body_file_ranges.py
+              python -B reconstruction/harness/test_treediff_line_boundaries.py
+              python -B reconstruction/harness/test_score_inputs.py
+              python -B reconstruction/harness/test_short_window_ranking.py
+              python -B reconstruction/harness/test_applicability_evidence_paths.py
+              python -B reconstruction/harness/test_diagnostic_range_boundaries.py
+              python scripts/test_build_source_manifest.py
+              python -I -B tests/test_manifest_nested_target.py
+              python scripts/test_core_linux_v144_retention.py
+              # Two of three tests: the third compares against a frozen helper that was removed with repro/;
+              # see .github/retired-workflows/2026-10-29-verify-matrix.md.
+              python scripts/test_reconstruction_build_selection.py ResearchSelectionTests.test_default_does_not_select_header_incompatible_older_family ResearchSelectionTests.test_explicit_experiment_and_argument_boundaries_are_preserved
+              python scripts/test_reconstruction_identity_audit.py
+              python scripts/local_validation.py
               python -B research/tooling-arithmetic-shift-counts-20261030/test_verify.py
               python -B research/tooling-revalidation-manifests-20261030/test_verify.py
               python -B research/tooling-revalidation-invocation-20261030/test_verify.py
@@ -360,21 +71,6 @@ jobs:
               python research/tooling-token-program-constant-detector-20261029/verify.py
               python -B tests/test_checkpoint_manifest_paths.py
               python -B reconstruction/capture-rpc-retry/test_capture.py
-              python -B reconstruction/harness/test_treediff_line_boundaries.py
-              python -B reconstruction/harness/test_score_inputs.py
-              python scripts/test_build_source_manifest.py
-              python scripts/test_core_linux_v144_retention.py
-              python scripts/verify_recovered_builds.py
-              python -B scripts/verify_current_reconstruction.py --repo .
-              python scripts/pump_verify_dependencies.py
-              python -B scripts/verify_supported_sbpf_history.py
-              python -B scripts/test_supported_sbpf_history.py
-              python -B scripts/test_supported_sbpf_policy.py
-              python scripts/test_reconstruction_build_selection.py
-              python scripts/test_reconstruction_identity_audit.py
-              python scripts/test_localnet_sdk_plan.py
-              python scripts/local_validation.py
-              git diff --exit-code -- audit/local-validation.json
           - suite: host-fragments
             commands: |
               python -B tests/test_recovered_curve_arithmetic.py
@@ -382,176 +78,6 @@ jobs:
               python scripts/validate_fee_selection.py --host work/fee-selector-host --output work/fee-selector-validation.json
               python scripts/build_quote_host.py --output work/quote-host
               python scripts/validate_quote_fees.py --host work/quote-host/quote-fees-host --output work/quote-validation.json
-              rustc --edition=2021 -O programs/pump/recovered/constant_product_host.rs -o work/pump-math-host
-              python scripts/pump_validate_constant_product.py --host work/pump-math-host --output work/pump-math.json
-              rustc --edition=2021 -O programs/pump/recovered/sell_accounting_host.rs -o work/pump-sell-accounting-host
-              python scripts/pump_validate_sell_accounting.py --host work/pump-sell-accounting-host --output work/pump-sell-accounting.json
-          - suite: fees
-            commands: |
-              python -B research/fees-causal-independent/verify.py
-              python -B research/fees-causal-independent/test_verify.py
-              python -B research/fees-sharing-handler-recovery/verify.py
-              python -B research/fees-sharing-handler-recovery/test_verify.py
-              python -B research/fees-work-checkpoint-20261027/test_restore.py
-              python -B research/fees-readonly-order-recovery/verify.py
-              python -B research/fees-readonly-order-recovery/test_verify.py
-              # Includes positive native-receipt verification before mutation checks.
-              python -B research/fees-program-id-references/test_verify.py
-              python -B research/fees-social-claim-v2-recovery/test_verify.py
-              python -B -m unittest discover -s research/fees-crank-safe-context-source -p 'test_*.py'
-              python -B research/fees-withdraw-tuple-integration/test_verify.py
-              python -B research/fees-ata-prefix-integration/test_verify.py
-              python -B research/fees-extend-integration/test_verify.py
-              python -B research/fees-sweep-integration/test_verify.py
-              python -B research/fees-donation-lifecycle/test_verify.py
-              python -B research/fees-donation-lifecycle/replay.py
-              # Merged Fees packets that previously had no CI coverage.
-              python -B research/fees-sweep-entry-recovery-20261027/verify.py
-              python -B research/fees-sweep-entry-recovery-20261027/test_verify.py
-              python -B research/fees-sweep-integration-20261027/verify.py
-              python -B research/fees-sweep-integration-20261027/test_verify.py
-              python -B research/fees-causal582-source/source_tools.py
-              python -B research/fees-causal582-source/test_source.py
-              python -B research/fees-residual-current583-20261027/verify.py
-              python -B research/claude-fees100-ata-stable-rust-20261027/verify.py
-              python -B research/fees-safe-residual-source/test_source.py
-              python -B research/fees-donation-two-boundary-source/test_source.py
-              python -B research/fees-renderer-local-controls-20261027/verify.py
-              python -B research/fees-branch-inline-controls-20261027/verify.py
-              python -B research/fees-residual-scope-layout-20261027/verify.py
-              python -B research/fees-linux-qualified-replay/verify.py
-
-              python -B research/fees-work-continuation-20261027/test_restore.py
-              python -B research/fees-residual-parallel-checkpoint-20261027/test_restore.py
-              python -B research/fees-residual-source-checkpoint-20261027/test_restore.py
-              python -B research/fees-frame-inline-research-20261027/test_restore.py
-              python -B research/fees-frame-inline-research-20261027/restore_combined.py
-              python -B research/fees-withdraw-tuple-ownership-source/source_tools.py
-              python -B research/fees-withdraw-tuple-ownership-source/test_scope.py
-              python scripts/fees_validate_all.py --candidate repro/pump_fees/sharing-authorize-main-v144/main/candidate.so --output work/fee-handlers.json
-              python scripts/fees_donation_sequence.py --candidate repro/pump_fees/sharing-authorize-main-v144/main/candidate.so --output work/donation-sequence.json
-              python repro/pump_fees/initializer-history/replay_history.py --candidate repro/pump_fees/sharing-authorize-main-v144/main/candidate.so --output work/fees-init-history.json
-              python repro/pump_fees/initializer-history/negative_differential.py --candidate repro/pump_fees/sharing-authorize-main-v144/main/candidate.so --output work/fees-init-rejections.json
-              python scripts/fees_error_messages_differential.py --candidate repro/pump_fees/sharing-authorize-main-v144/main/candidate.so --output work/fees-error-messages.json
-              python scripts/fees_external_codec_differential.py --candidate repro/pump_fees/sharing-authorize-main-v144/main/candidate.so --output work/fees-codec-rejections.json
-              python repro/pump_fees/fee-config-serialization-v144/compared_values.py --candidate repro/pump_fees/sharing-authorize-main-v144/main/candidate.so --output work/fees-compared-values.json
-              python repro/pump_fees/fee-config-serialization-v144/authority_logs.py --candidate repro/pump_fees/sharing-authorize-main-v144/main/candidate.so --output work/fees-authority-logs.json
-              python repro/pump_fees/fee-config-serialization-v144/signed_transfers.py --candidate repro/pump_fees/sharing-authorize-main-v144/main/candidate.so --output work/fees-signed-transfers.json
-              python repro/pump_fees/fee-config-serialization-v144/serialization_error.py --candidate repro/pump_fees/sharing-authorize-main-v144/main/candidate.so --output work/fees-serialization-error.json
-              python repro/pump_fees/fee-config-serialization-v144/verify_publication.py
-              python -B scripts/verify_current_checkpoint.py pump_fees
-              python -B scripts/prepare_fees_withdraw_runtime.py --output work/fees-focused-current
-              python -B work/fees-focused-current/validation-layer/harness/fees_donation_business_differential.py --repo . --source-root repro/pump_fees/sharing-authorize-main-v144/source --candidate repro/pump_fees/sharing-authorize-main-v144/main/candidate.so --candidate-sha256 2387f8139a13918a5c9c523f140ecdd72db7243c8e2ed9cd7e1ff9d42ad6c8af --build-record repro/pump_fees/sharing-authorize-main-v144/main/build-comparison.json --output work/fees-donation-focused20.json
-              python -B repro/pump_fees/sharing-authorize-v144/verify.py --runtime-signatures
-              python scripts/verify_current_bindings.py fees
-          - suite: pump-round37-composites
-            commands: |
-              python -I -B research/claude-pump-integration-20261027/verify_round37_12.py
-              python -I -B research/claude-pump-integration-20261027/test_round37_12.py
-          - suite: pump-1
-            commands: |
-              python -B research/pump-typeid-reference-proof/verify.py
-              python -B research/pump-typeid-reference-proof/test_verify.py
-              python -B scripts/pump_replay_main_checkpoint.py --shard 1 --shards 4 --workers 2 --output work/pump-main-shard-1.json.gz
-          - suite: pump-2
-            commands: |
-              python -B scripts/pump_replay_main_checkpoint.py --shard 2 --shards 4 --workers 2 --output work/pump-main-shard-2.json.gz
-          - suite: pump-3
-            commands: |
-              python -B scripts/pump_replay_main_checkpoint.py --shard 3 --shards 4 --workers 2 --output work/pump-main-shard-3.json.gz
-          - suite: pump-4
-            commands: |
-              python -B scripts/pump_replay_main_checkpoint.py --shard 4 --shards 4 --workers 2 --output work/pump-main-shard-4.json.gz
-          - suite: pump-amm
-            commands: |
-              python -B research/amm-math-error-reference/verify.py
-              python -B research/amm-math-error-reference/test_verify.py
-              python -B research/amm-transfer-fee-epoch/verify.py
-              python -B research/amm-transfer-fee-epoch/test_verify.py
-              python -I -B scripts/test_amm_checkpoint_modules.py
-              python -B scripts/verify_pump_amm_checkpoint.py
-              python -B research/amm-layout-closure-20261028/replay.py --repo . --candidate research/amm-layout-closure-20261028/results/build-a/candidate.so --output work/pump-amm-current-replay
-              python -B scripts/verify_pump_amm_checkpoint.py --runtime work/pump-amm-current-replay/receipts
-          - suite: mayhem-1
-            commands: |
-              python -B research/mayhem-trade-origins-validator/verify.py
-              python -B research/mayhem-trade-origins-validator/test_verify.py
-              python -I -B research/mayhem-allocator-parser-provenance/verify.py
-              python -I -B research/mayhem-allocator-parser-provenance/test_verify.py
-              python -B research/mayhem-native-quote-controls/verify.py
-              python -B research/mayhem-native-quote-controls/test_verify.py
-              python -I -B research/mayhem-historical-macro-context/verify.py
-              python -I -B research/mayhem-historical-macro-context/test_verify.py
-              python -I -B research/mayhem-historical-macro-current-20261027/verify.py
-              python -I -B research/mayhem-historical-macro-current-20261027/test_verify.py
-              python -I -B research/mayhem-historical-framework/verify.py
-              python -I -B research/mayhem-historical-framework/test_verify.py
-              python -I -B research/mayhem-historical-root-compat/verify.py
-              python -I -B research/mayhem-historical-root-compat/test_verify.py
-              python -I -B research/mayhem-allocator-context/verify.py
-              python -I -B research/mayhem-allocator-context/test_verify.py
-              python -B research/mayhem-provider-sharing/verify.py --repository-root .
-              python -B research/mayhem-provider-sharing/test_scope.py
-              python -B research/mayhem-host-llvm-comparison/verify.py
-              python -B research/mayhem-host-llvm-comparison/test_scope.py
-              python -B research/mayhem-quote-backend-replay-20261027/verify.py
-              python -B research/mayhem-quote-backend-replay-20261027/test_verify.py
-              python -I -B research/mayhem-native-qualified-identity/verify.py
-              python -I -B research/mayhem-native-qualified-identity/test_verify.py
-              python -B scripts/verify_current_checkpoint.py mayhem
-              python scripts/mayhem_validate_admin.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --output work/mayhem-admin.json
-              python scripts/mayhem_validate_fee_recipient.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --output work/mayhem-recipient.json
-              python scripts/mayhem_buy_differential.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --cases repro/mayhem/twenty/buy-cases.json --output work/mayhem-buy.json
-              python scripts/verify_mayhem_buy.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --receipts work/mayhem-buy.json --output work/mayhem-buy-verification.json
-              python scripts/mayhem_sell_v2_differential.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --cases repro/mayhem/twentyone/sell-v2-cases.json --family token22 --output work/mayhem-sell-v2-token22.json
-              python scripts/verify_mayhem_sell_v2.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --receipts work/mayhem-sell-v2-token22.json --output work/mayhem-sell-v2-token22-verification.json
-              python scripts/mayhem_pump_swap_differential.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --cases repro/mayhem/twentyfour/buy-pump-swap-cases.json --instruction buy_pump_swap --family token22 --output work/mayhem-buy-pump-swap-token22.json
-              python scripts/verify_mayhem_pump_swap.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --receipts work/mayhem-buy-pump-swap-token22.json --output work/mayhem-buy-pump-swap-token22-verification.json
-              python scripts/mayhem_pump_swap_differential.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --cases repro/mayhem/twentyfour/sell-pump-swap-cases.json --instruction sell_pump_swap --family token22 --output work/mayhem-sell-pump-swap-token22.json
-              python scripts/verify_mayhem_pump_swap.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --receipts work/mayhem-sell-pump-swap-token22.json --output work/mayhem-sell-pump-swap-token22-verification.json
-              mkdir -p work/mayhem-captured-fixtures
-              python -c "import tarfile; tarfile.open('repro/mayhem/twentyfour/captured-fixtures.tar.gz').extractall('work/mayhem-captured-fixtures', filter='data')"
-              python work/mayhem-captured-fixtures/verify_fixtures.py
-              python scripts/mayhem_burn_sequence.py --fixtures work/mayhem-captured-fixtures --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --output work/mayhem-burn-replay
-              python scripts/verify_mayhem_burn_sequence.py --fixtures work/mayhem-captured-fixtures --receipts work/mayhem-burn-replay
-          - suite: mayhem-2
-            commands: |
-              python scripts/mayhem_validate_withdraw.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --output work/mayhem-withdraw.json
-              python scripts/mayhem_validate_quote_withdraw.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --output work/mayhem-quote-withdraw.json
-              python scripts/mayhem_validate_sweeps.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --output work/mayhem-sweeps.json
-              python scripts/mayhem_sell_v2_differential.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --cases repro/mayhem/twentyone/sell-v2-cases.json --family token --output work/mayhem-sell-v2-token.json
-              python scripts/verify_mayhem_sell_v2.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --receipts work/mayhem-sell-v2-token.json --output work/mayhem-sell-v2-token-verification.json
-              python scripts/mayhem_buy_v2_differential.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --cases repro/mayhem/twentytwo/buy-v2-cases.json --family token22 --output work/mayhem-buy-v2-token22.json
-              python scripts/verify_mayhem_buy_v2.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --receipts work/mayhem-buy-v2-token22.json --output work/mayhem-buy-v2-token22-verification.json
-              python scripts/mayhem_pump_swap_differential.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --cases repro/mayhem/twentyfour/buy-pump-swap-cases.json --instruction buy_pump_swap --family token --output work/mayhem-buy-pump-swap-token.json
-              python scripts/verify_mayhem_pump_swap.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --receipts work/mayhem-buy-pump-swap-token.json --output work/mayhem-buy-pump-swap-token-verification.json
-              python scripts/mayhem_pump_swap_differential.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --cases repro/mayhem/twentyfour/sell-pump-swap-cases.json --instruction sell_pump_swap --family token --output work/mayhem-sell-pump-swap-token.json
-              python scripts/verify_mayhem_pump_swap.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --receipts work/mayhem-sell-pump-swap-token.json --output work/mayhem-sell-pump-swap-token-verification.json
-          - suite: mayhem-3
-            commands: |
-              python -B research/mayhem-sizing-panic-recovery/verify.py
-              python -B research/mayhem-sizing-panic-recovery/test_scope.py
-              command -v zstd >/dev/null || { sudo apt-get update && sudo apt-get install -y zstd; }
-              python -B research/mayhem-control-work-20261027/verify_frontier.py
-              python -B research/mayhem-control-work-20261027/test_restore.py
-              python -B research/mayhem-control-work-20261027/test_frontier.py
-              python scripts/mayhem_validate_extend.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --output work/mayhem-extend.json
-              python scripts/mayhem_sell_differential.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --output work/mayhem-sell.json
-              python scripts/verify_mayhem_sell.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --receipts work/mayhem-sell.json --output work/mayhem-sell-verification.json
-              python scripts/mayhem_sell_v2_differential.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --cases repro/mayhem/twentyone/sell-v2-cases.json --family native --output work/mayhem-sell-v2-native.json
-              python scripts/verify_mayhem_sell_v2.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --receipts work/mayhem-sell-v2-native.json --output work/mayhem-sell-v2-native-verification.json
-              python scripts/mayhem_buy_v2_differential.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --cases repro/mayhem/twentytwo/buy-v2-cases.json --family native --output work/mayhem-buy-v2-native.json
-              python scripts/verify_mayhem_buy_v2.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --receipts work/mayhem-buy-v2-native.json --output work/mayhem-buy-v2-native-verification.json
-              python scripts/mayhem_buy_v2_differential.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --cases repro/mayhem/twentytwo/buy-v2-cases.json --family token --output work/mayhem-buy-v2-token.json
-              python scripts/verify_mayhem_buy_v2.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --receipts work/mayhem-buy-v2-token.json --output work/mayhem-buy-v2-token-verification.json
-              python scripts/mayhem_pump_swap_differential.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --cases repro/mayhem/twentyfour/buy-pump-swap-cases.json --instruction buy_pump_swap --family native --output work/mayhem-buy-pump-swap-native.json
-              python scripts/verify_mayhem_pump_swap.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --receipts work/mayhem-buy-pump-swap-native.json --output work/mayhem-buy-pump-swap-native-verification.json
-              python scripts/mayhem_pump_swap_differential.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --cases repro/mayhem/twentyfour/sell-pump-swap-cases.json --instruction sell_pump_swap --family native --output work/mayhem-sell-pump-swap-native.json
-              python scripts/verify_mayhem_pump_swap.py --candidate research/mayhem-canonical-promotion-20261028/runtime/loader/payload.bin --receipts work/mayhem-sell-pump-swap-native.json --output work/mayhem-sell-pump-swap-native-verification.json
-          - suite: imported-lab
-            commands: |
-              git clone https://github.com/pump-fun/pump-public-docs.git work/pump-public-docs
-              python scripts/verify_imported_lab.py --docs-checkout work/pump-public-docs --output work/lab-saved-verification
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -568,7 +94,5 @@ jobs:
           path: |
             work/*.json
             work/*.json.gz
-            work/mayhem-burn-replay/**
-            work/pump-amm-current-replay/**
           if-no-files-found: ignore
 

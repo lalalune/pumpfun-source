@@ -15,9 +15,17 @@ def program_names(root):
 
 
 def compare(original,candidate):
-    first=next((i for i,(a,b) in enumerate(zip(original,candidate)) if a!=b),None)
-    if first is None and len(original)!=len(candidate): first=min(len(original),len(candidate))
-    return {'original_bytes':len(original),'candidate_bytes':len(candidate),'original_sha256':digest(original),'candidate_sha256':digest(candidate),'full_byte_equality':original==candidate,'first_difference':first,'different_positions_in_shared_length':sum(a!=b for a,b in zip(original,candidate)),'length_difference':len(candidate)-len(original)}
+    equal = original == candidate
+    if equal:
+        first = None
+        different = 0
+    else:
+        first = next((i for i,(a,b) in enumerate(zip(original,candidate)) if a!=b),None)
+        if first is None:
+            first = min(len(original),len(candidate))
+        different = sum(a!=b for a,b in zip(original,candidate))
+    return {'original_bytes':len(original),'candidate_bytes':len(candidate),'original_sha256':digest(original),'candidate_sha256':digest(candidate),'full_byte_equality':equal,'first_difference':first,'different_positions_in_shared_length':different,'length_difference':len(candidate)-len(original)}
+
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('program'); ap.add_argument('candidate',type=pathlib.Path); ap.add_argument('--pad-zero-to-allocation',action='store_true'); ap.add_argument('--output',type=pathlib.Path,required=True); args=ap.parse_args()
     root=pathlib.Path(__file__).resolve().parents[1]

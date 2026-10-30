@@ -29,7 +29,7 @@ class CandidateIndexTests(unittest.TestCase):
             path = Path(directory) / 'candidate.so'
             path.write_bytes(raw * 4)
             funcs = [(0, 32, 'a'), (0, 32, 'alias'), (32, 24, 'b'), (64, 32, 'c')]
-            with patch.object(win, 'sections', return_value={'.text': {'addr': 0, 'offset': 0, 'size': 128}}), patch.object(win, 'candidate_functions', return_value=funcs):
+            with patch.object(win, 'sections', return_value={'.text': {'addr': 0, 'offset': 0, 'size': 128}}), patch.object(win, 'function_symbols', return_value=funcs):
                 candidate = win.Cand(path)
                 second = win.Cand(path)
             window = {'raw': raw, 'bytes': len(raw), 'start': 0}

@@ -14,6 +14,7 @@ every matched window as a gain and no losses. Pass --no-baseline to score withou
 import argparse, csv, hashlib, json, re, struct, subprocess, sys, tempfile
 from pathlib import Path
 from llvm_tools import objdump
+from original_input import resolve_original
 from functools import lru_cache
 import io
 
@@ -66,10 +67,12 @@ def candidate_functions(path):
 def _window_rows(orig, inventory):
     """Cache immutable rows by input bytes, never by timestamps or a saved pickle."""
     os_ = sections(orig)
-    reader = csv.DictReader(io.StringIO(inventory), delimiter='\t')
+    reader = csv.DictReader(io.StringIO(inventory), delimiter='\t', strict=True)
     required = {'program', 'variant', 'original_start', 'original_end'}
     if not required.issubset(reader.fieldnames or []):
         raise ValueError('window inventory is missing required columns')
+    if any(reader.fieldnames.count(name) != 1 for name in required):
+        raise ValueError('window inventory has duplicate required columns')
     rows = []
     seen = set()
     text = os_['.text']
@@ -91,7 +94,7 @@ def _window_rows(orig, inventory):
 
 
 def original_windows():
-    orig = (BASE / 'original.so').read_bytes()
+    orig = resolve_original(BASE / 'original.so').read_bytes()
     inventory = (BASE / 'functions.tsv').read_text(encoding='utf-8')
     # Return fresh containers so an analysis consumer cannot poison later scores.
     return [dict(zip(('start', 'bytes', 'raw', 'norm'), row))
@@ -129,6 +132,21 @@ def score_with_hash(cand_path):
 
 
 
+def write_report(path, text):
+    """Publish without truncating an input linked to the destination mid-score."""
+    path = Path(path)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8',
+                                         dir=path.parent, prefix='.score-', delete=False) as stream:
+            temporary = Path(stream.name)
+            stream.write(text)
+        temporary.replace(path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('candidate', type=Path)
@@ -164,7 +182,7 @@ def main():
                'gains': [hex(x) for x in gains], 'losses': [hex(x) for x in losses],
                'raw_gains': [hex(x) for x in rg], 'raw_losses': [hex(x) for x in rl]}
     if a.json:
-        a.json.write_text(json.dumps({'summary': summary, 'windows': {str(k): v for k, v in cur.items()}}, indent=1))
+        write_report(a.json, json.dumps({'summary': summary, 'windows': {str(k): v for k, v in cur.items()}}, indent=1))
     print(json.dumps(summary, indent=None if a.quiet else 1))
 
 

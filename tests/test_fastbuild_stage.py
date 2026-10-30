@@ -2,6 +2,7 @@
 import importlib.util
 import os
 from pathlib import Path
+import sys
 import tempfile
 import unittest
 
@@ -11,7 +12,12 @@ SPEC = importlib.util.spec_from_file_location(
     "fastbuild", ROOT / "reconstruction/harness/fastbuild.py"
 )
 fastbuild = importlib.util.module_from_spec(SPEC)
-SPEC.loader.exec_module(fastbuild)
+# The builder imports sibling helpers, including under the workflow's -I mode.
+sys.path.insert(0, str(ROOT / "reconstruction/harness"))
+try:
+    SPEC.loader.exec_module(fastbuild)
+finally:
+    sys.path.pop(0)
 
 MANIFEST = '''[package]
 name = "pump-recovered"

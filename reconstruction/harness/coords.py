@@ -8,12 +8,13 @@ Source {filename: &str, line: u32} on the stack: ptr @X-8 (stxdw from an lddw'd 
   coords.py fn <cand_addr> [--cand so]      # sites in one candidate function
   coords.py unmatched [--cand so]           # unmatched windows: original sites vs coordinate-only equal-length candidate
 """
-import argparse, json, struct, sys
+import argparse, hashlib, json, struct, sys
 from pathlib import Path
 
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
-from score import sections, body, original_windows, score, BASE, candidate_functions, normalize  # noqa
+from score import sections, body, original_windows, score_with_hash, BASE, normalize  # noqa
+from elf_symbols import function_symbols
 
 
 def read_cstr_at(blob, secs, vaddr, length):
@@ -56,6 +57,8 @@ def sites(blob, secs, start, raw):
                 ry = src(r2)
                 for jj in range(j - 1, max(-1, j - 40), -1):
                     p3, o3, r3, of3, v3 = insn[jj]
+                    if o3 in (0x85, 0x8d) and ry <= 5:
+                        break  # Calls may overwrite caller-saved pointer registers.
                     if dst(r3) == ry and o3 == 0x18:
                         ptr = v3; break
                     if dst(r3) == ry and o3 not in (0x7b, 0x7a, 0x62, 0x72, 0x6a, 0x63, 0x73, 0x6b):
@@ -76,7 +79,8 @@ def sites(blob, secs, start, raw):
     return out
 
 
-ORIG = (BASE / 'original.so').read_bytes(); OS = sections(ORIG)
+from original_input import resolve_original
+ORIG = resolve_original(BASE / 'original.so').read_bytes(); OS = sections(ORIG)
 
 
 def orig_sites(start):
@@ -112,13 +116,15 @@ def main():
         print(json.dumps(orig_sites(int(a.start, 0)), indent=1))
     elif a.cmd == 'fn':
         blob = a.cand.read_bytes(); cs = sections(blob)
-        f = next((s, n, nm) for (s, n, nm) in candidate_functions(a.cand) if s == int(a.addr, 0))
+        f = next((s, n, nm) for (s, n, nm) in function_symbols(blob) if s == int(a.addr, 0))
         print(json.dumps(cand_sites(blob, cs, f[0], f[1]), indent=1))
     else:
         blob = a.cand.read_bytes(); cs = sections(blob)
-        cur = score(a.cand)
+        cur, candidate_hash = score_with_hash(a.cand)
+        if candidate_hash != hashlib.sha256(blob).hexdigest():
+            ap.error('candidate changed during coordinate analysis; retry with a stable file')
         bylen = {}
-        for s, n, nm in candidate_functions(a.cand):
+        for s, n, nm in function_symbols(blob):
             bylen.setdefault(n, []).append((s, nm))
         rows = []
         for w in original_windows():

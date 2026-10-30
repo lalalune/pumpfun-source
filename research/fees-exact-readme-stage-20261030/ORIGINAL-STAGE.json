@@ -1,0 +1,681 @@
+{
+  "revision": "d01d64aa7f6abfd864fdc157552cd36bf73728a5",
+  "controllerGitBlob": "7f08441ef81c480fb43ab8042d0f3c0416410a2e",
+  "controllerSHA256": "6fffc0c2d0eedf2e84541445c6a388092accb6bf3371e159acc851bc397a92b8",
+  "inputs": [
+    {
+      "logical": "Cargo.lock",
+      "currentPath": "programs/pump-fees/Cargo.lock",
+      "gitBlob": "d9363196142abb1018505b321fe37774684dbfd8",
+      "mode": "100644",
+      "bytes": 69955,
+      "expectedSHA256": "8aafb199ee71c8ba61ecd9b2cd696de265ba555cc137f119fcd105d4a391054d",
+      "actualSHA256": "8aafb199ee71c8ba61ecd9b2cd696de265ba555cc137f119fcd105d4a391054d",
+      "matches": true
+    },
+    {
+      "logical": "Cargo.toml",
+      "currentPath": "programs/pump-fees/exact/workspace-Cargo.toml",
+      "gitBlob": "a44c57d6f9f6561684c3b0a5ffeaeb1c1edd4794",
+      "mode": "100644",
+      "bytes": 245,
+      "expectedSHA256": "1c25a12f9be349b4f618626af65c28e292b23a043067b35da237bc4dc34dca03",
+      "actualSHA256": "1c25a12f9be349b4f618626af65c28e292b23a043067b35da237bc4dc34dca03",
+      "matches": true
+    },
+    {
+      "logical": "ordered.ld",
+      "currentPath": "programs/pump-fees/exact/ordered.ld",
+      "gitBlob": "b5421f6c94e3ac56f8bc1023fc2c15529e014d47",
+      "mode": "100644",
+      "bytes": 235454,
+      "expectedSHA256": "e09d1871017310c034313c7e4c2bf6cfb83a5c93d000a6f02ba1d278bd7a04c5",
+      "actualSHA256": "e09d1871017310c034313c7e4c2bf6cfb83a5c93d000a6f02ba1d278bd7a04c5",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/Cargo.toml",
+      "currentPath": "programs/pump-fees/exact/package-Cargo.toml",
+      "gitBlob": "26135e9d3f82e17ba9181d6c68dad6c7540ff0ee",
+      "mode": "100644",
+      "bytes": 583,
+      "expectedSHA256": "553ce1bf5313023a7f2f26f080f4eed418438ce5be9f32aa150b5204416d74f7",
+      "actualSHA256": "553ce1bf5313023a7f2f26f080f4eed418438ce5be9f32aa150b5204416d74f7",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/README.md",
+      "currentPath": "programs/pump-fees/exact/research-README.md",
+      "gitBlob": "68aa1d57131f704bdd99d980946c30e1f83a11b2",
+      "mode": "100644",
+      "bytes": 37517,
+      "expectedSHA256": "4bfba2b9f43bfa49440bcd31799b4cd212c08509b0a3b96ff84f1a9589101dc9",
+      "actualSHA256": "cce346bd98b407907bddb55fb14f2580464bcbf521c2f71d0ca0426b4304bc6e",
+      "matches": false
+    },
+    {
+      "logical": "programs/pump-fees/idls/pump.json",
+      "currentPath": "programs/pump-fees/idls/pump.json",
+      "gitBlob": "70a129f19bcdd5de4396cb4affbc38bfca2e3039",
+      "mode": "100644",
+      "bytes": 149121,
+      "expectedSHA256": "ccd21395125608d08e396e6eeb7de91a90c79688de4afd1088c9e077725f7168",
+      "actualSHA256": "ccd21395125608d08e396e6eeb7de91a90c79688de4afd1088c9e077725f7168",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/idls/pump_amm.json",
+      "currentPath": "programs/pump-fees/idls/pump_amm.json",
+      "gitBlob": "d577cce493c4950270fe215e70ef1f1d4c9ef02f",
+      "mode": "100644",
+      "bytes": 154330,
+      "expectedSHA256": "56d5cd9faa4c580f3b539ea96ab6a60fbfae35bd5f6e36efffd183687e2d3934",
+      "actualSHA256": "56d5cd9faa4c580f3b539ea96ab6a60fbfae35bd5f6e36efffd183687e2d3934",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/recovered/fee_selection.rs",
+      "currentPath": "programs/pump-fees/recovered/fee_selection.rs",
+      "gitBlob": "eed1879a922559c74faa053be62cce6080c773d4",
+      "mode": "100644",
+      "bytes": 1040,
+      "expectedSHA256": "936f89b8a364a0624de8bddd63db4add53be2256650b58ab13f84e9a7caf8a00",
+      "actualSHA256": "936f89b8a364a0624de8bddd63db4add53be2256650b58ab13f84e9a7caf8a00",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/recovered/fee_selection_host.rs",
+      "currentPath": "programs/pump-fees/recovered/fee_selection_host.rs",
+      "gitBlob": "57973c184db697543f664f2c4c85120af426cd68",
+      "mode": "100644",
+      "bytes": 914,
+      "expectedSHA256": "cfc288a48f281313ea4da634e61d147752a71c999ec625dccf195b2f94c1e2a2",
+      "actualSHA256": "cfc288a48f281313ea4da634e61d147752a71c999ec625dccf195b2f94c1e2a2",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/recovered/memory_compare.rs",
+      "currentPath": "programs/pump-fees/recovered/memory_compare.rs",
+      "gitBlob": "13b53ad20b535a2dbe28117ef367d3122b662223",
+      "mode": "100644",
+      "bytes": 805,
+      "expectedSHA256": "479147a1027dc339a404f480ce035e2435c79d9c35712f70876ddbf8907d4be6",
+      "actualSHA256": "479147a1027dc339a404f480ce035e2435c79d9c35712f70876ddbf8907d4be6",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/recovered/quote_fees.rs",
+      "currentPath": "programs/pump-fees/recovered/quote_fees.rs",
+      "gitBlob": "6c4beda2b277d77345ef9155b4ca1dc83464cf1d",
+      "mode": "100644",
+      "bytes": 2202,
+      "expectedSHA256": "d02960e4f3c42774085c89e26d2b4e536fb4b1e425170e997a18912b6a746d28",
+      "actualSHA256": "d02960e4f3c42774085c89e26d2b4e536fb4b1e425170e997a18912b6a746d28",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/recovered/quote_fees_host.rs",
+      "currentPath": "programs/pump-fees/recovered/quote_fees_host.rs",
+      "gitBlob": "2637beb548fc2c518e6adce0b9ed4d21da4f6b8d",
+      "mode": "100644",
+      "bytes": 1504,
+      "expectedSHA256": "9f2f8b19746bc661414f0325fb21eb8e2f869b271a309f6e7f630499e445bdfd",
+      "actualSHA256": "9f2f8b19746bc661414f0325fb21eb8e2f869b271a309f6e7f630499e445bdfd",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/buyback.rs",
+      "currentPath": "programs/pump-fees/src/buyback.rs",
+      "gitBlob": "eee36298738bf793b4f76d674263d8b886b620f4",
+      "mode": "100644",
+      "bytes": 2571,
+      "expectedSHA256": "aa28eadd72b21d8f6211139b44321c94dc2817888d5fb78120b62649efa43a6f",
+      "actualSHA256": "aa28eadd72b21d8f6211139b44321c94dc2817888d5fb78120b62649efa43a6f",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/common/mod.rs",
+      "currentPath": "programs/pump-fees/src/common/mod.rs",
+      "gitBlob": "dba9cee8fa7167c5724603e7eb2dc7e28e380eaf",
+      "mode": "100644",
+      "bytes": 531,
+      "expectedSHA256": "8b2e7265206ed7dca6b53afbd001b09201098fa72668e31e881af65f0db44ee0",
+      "actualSHA256": "8b2e7265206ed7dca6b53afbd001b09201098fa72668e31e881af65f0db44ee0",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/contexts.rs",
+      "currentPath": "programs/pump-fees/src/contexts.rs",
+      "gitBlob": "7dc09d075807026f9b0872ac307e1ac97129e3de",
+      "mode": "100644",
+      "bytes": 5499,
+      "expectedSHA256": "7b3e4585ec236aae0650c6ad850f60aea52afbdee09e7fbc579f95cb0bf4c197",
+      "actualSHA256": "7b3e4585ec236aae0650c6ad850f60aea52afbdee09e7fbc579f95cb0bf4c197",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/donation.rs",
+      "currentPath": "programs/pump-fees/src/donation.rs",
+      "gitBlob": "edb6ad457e990cc334197a31ada65f65c4e78c18",
+      "mode": "100644",
+      "bytes": 9232,
+      "expectedSHA256": "fd05bfe51356fe3d9b734f2682f4931d93fe56181f9fb1035bfae93073e366c3",
+      "actualSHA256": "fd05bfe51356fe3d9b734f2682f4931d93fe56181f9fb1035bfae93073e366c3",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/admin/extend_fee_config.rs",
+      "currentPath": "programs/pump-fees/src/instructions/admin/extend_fee_config.rs",
+      "gitBlob": "5f61132666f063f9b2de23d2047303102ce3d93b",
+      "mode": "100644",
+      "bytes": 2037,
+      "expectedSHA256": "25f09e6e9d373cf9892d825974b41d95f39b8785638aaaeeeef48c663ebabfc5",
+      "actualSHA256": "25f09e6e9d373cf9892d825974b41d95f39b8785638aaaeeeef48c663ebabfc5",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/admin/initialize_fee_config.rs",
+      "currentPath": "programs/pump-fees/src/instructions/admin/initialize_fee_config.rs",
+      "gitBlob": "35a19ec88d8cd4984b7f3982c01674db803aa982",
+      "mode": "100644",
+      "bytes": 745,
+      "expectedSHA256": "8e08a4586f5cdbc9e2e437a42096a3840d9531c0f80194fe1e74752ddbd11a70",
+      "actualSHA256": "8e08a4586f5cdbc9e2e437a42096a3840d9531c0f80194fe1e74752ddbd11a70",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/admin/initialize_fee_program_global.rs",
+      "currentPath": "programs/pump-fees/src/instructions/admin/initialize_fee_program_global.rs",
+      "gitBlob": "8ff74ed587bede96dcda1c979518ee7669ead3c4",
+      "mode": "100644",
+      "bytes": 653,
+      "expectedSHA256": "20b38afb6442d4c159dde061eb2ac0ae46861169d6967372847c7880e6b8d94f",
+      "actualSHA256": "20b38afb6442d4c159dde061eb2ac0ae46861169d6967372847c7880e6b8d94f",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/admin/mod.rs",
+      "currentPath": "programs/pump-fees/src/instructions/admin/mod.rs",
+      "gitBlob": "3913aa7956c8f7693dfcc70410171d27b9aafb90",
+      "mode": "100644",
+      "bytes": 185,
+      "expectedSHA256": "0fd521af1a8e5156bed932e2efe3d7f71482fdb8a143e8131d4d69ca773898de",
+      "actualSHA256": "0fd521af1a8e5156bed932e2efe3d7f71482fdb8a143e8131d4d69ca773898de",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/admin/update_buyback_authority.rs",
+      "currentPath": "programs/pump-fees/src/instructions/admin/update_buyback_authority.rs",
+      "gitBlob": "c6dfda2321343208cd9b749a6b0ee264726aac97",
+      "mode": "100644",
+      "bytes": 574,
+      "expectedSHA256": "61a1ed7998c8390be2619fa92803fe4d1d31027cdd922bfacb4a5cf848300aa7",
+      "actualSHA256": "61a1ed7998c8390be2619fa92803fe4d1d31027cdd922bfacb4a5cf848300aa7",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/admin/update_fee_config.rs",
+      "currentPath": "programs/pump-fees/src/instructions/admin/update_fee_config.rs",
+      "gitBlob": "c09d94c49f50363eccdbc3ca4000b083f9bdb04a",
+      "mode": "100644",
+      "bytes": 470,
+      "expectedSHA256": "42b2fd7108663429e1a540cb213bda2a1291940d72cdfd5a8b0e55a3656f6cc2",
+      "actualSHA256": "42b2fd7108663429e1a540cb213bda2a1291940d72cdfd5a8b0e55a3656f6cc2",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/admin/update_fee_program_global.rs",
+      "currentPath": "programs/pump-fees/src/instructions/admin/update_fee_program_global.rs",
+      "gitBlob": "d75b1b339bda34a00dc6bca6b125e67f095f56ed",
+      "mode": "100644",
+      "bytes": 441,
+      "expectedSHA256": "ece0be0807437d0a1e4f42327cd452d2045bbcf835ad1d2d5df483bc8212ddbb",
+      "actualSHA256": "ece0be0807437d0a1e4f42327cd452d2045bbcf835ad1d2d5df483bc8212ddbb",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/admin/upsert_fee_tiers.rs",
+      "currentPath": "programs/pump-fees/src/instructions/admin/upsert_fee_tiers.rs",
+      "gitBlob": "4fb6cb0b90815381bae346ec3d193acbbf38c809",
+      "mode": "100644",
+      "bytes": 457,
+      "expectedSHA256": "62b1b8fcf20d584fd893c8adb8bf494b62f998706a12d2969d287c009bb1f71f",
+      "actualSHA256": "62b1b8fcf20d584fd893c8adb8bf494b62f998706a12d2969d287c009bb1f71f",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/buyback/mod.rs",
+      "currentPath": "programs/pump-fees/src/instructions/buyback/mod.rs",
+      "gitBlob": "6b18d7638d2b50138025342df2857c40877651ec",
+      "mode": "100644",
+      "bytes": 2729,
+      "expectedSHA256": "df7a6047e1c595a80b036983e06eb0105458e6609bb1e3d95b0f459e59f8b532",
+      "actualSHA256": "df7a6047e1c595a80b036983e06eb0105458e6609bb1e3d95b0f459e59f8b532",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/fee_sharing/admin_cto_sharing_config.rs",
+      "currentPath": "programs/pump-fees/src/instructions/fee_sharing/admin_cto_sharing_config.rs",
+      "gitBlob": "727fb665802d0a10e093004fc1af889d2faf1f0a",
+      "mode": "100644",
+      "bytes": 1311,
+      "expectedSHA256": "676a299e9681a12557c194f725c9933223e5bff93e34b200cab0a37e22311b13",
+      "actualSHA256": "676a299e9681a12557c194f725c9933223e5bff93e34b200cab0a37e22311b13",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/fee_sharing/claim_social_fee_pda.rs",
+      "currentPath": "programs/pump-fees/src/instructions/fee_sharing/claim_social_fee_pda.rs",
+      "gitBlob": "b8577f0815abae6efa26587903d875d006dc2477",
+      "mode": "100644",
+      "bytes": 565,
+      "expectedSHA256": "9434361dc343c7c829f4fabac663cb04c88b53c195c5dca47172fcabbba11350",
+      "actualSHA256": "9434361dc343c7c829f4fabac663cb04c88b53c195c5dca47172fcabbba11350",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/fee_sharing/create_donation_fee_pda.rs",
+      "currentPath": "programs/pump-fees/src/instructions/fee_sharing/create_donation_fee_pda.rs",
+      "gitBlob": "87611b9d7450d3e3fb00cd7e2400b27df958761a",
+      "mode": "100644",
+      "bytes": 5698,
+      "expectedSHA256": "4c7ce24dda5f011f7baa39d7e38264c404ada5b77fd79cb437676099d0369915",
+      "actualSHA256": "4c7ce24dda5f011f7baa39d7e38264c404ada5b77fd79cb437676099d0369915",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/fee_sharing/create_fee_sharing_config.rs",
+      "currentPath": "programs/pump-fees/src/instructions/fee_sharing/create_fee_sharing_config.rs",
+      "gitBlob": "6c6fbcfc01662924344f4f09ba1e7d7b8dd82d95",
+      "mode": "100644",
+      "bytes": 6793,
+      "expectedSHA256": "a711cd4a3b9cb31ab3840206de5f90930be0a0f9fdcc2d7ca3cfee6b81f84ae3",
+      "actualSHA256": "a711cd4a3b9cb31ab3840206de5f90930be0a0f9fdcc2d7ca3cfee6b81f84ae3",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/fee_sharing/create_social_fee_pda.rs",
+      "currentPath": "programs/pump-fees/src/instructions/fee_sharing/create_social_fee_pda.rs",
+      "gitBlob": "9f32d1ff2a08e39088c487477c2e60e7d45a9cd1",
+      "mode": "100644",
+      "bytes": 1883,
+      "expectedSHA256": "ecde325af7b333c78633ed14263d70072363bd776b4c11dd4fb3f55d72543a58",
+      "actualSHA256": "ecde325af7b333c78633ed14263d70072363bd776b4c11dd4fb3f55d72543a58",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/fee_sharing/mod.rs",
+      "currentPath": "programs/pump-fees/src/instructions/fee_sharing/mod.rs",
+      "gitBlob": "fefcfcf4010ebeb804dbed432042e513d64846fa",
+      "mode": "100644",
+      "bytes": 4065,
+      "expectedSHA256": "0a3e54c01e5be4103dacaf6f06459d78e1fac6e2afdc340690f6506ceff06962",
+      "actualSHA256": "0a3e54c01e5be4103dacaf6f06459d78e1fac6e2afdc340690f6506ceff06962",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/fee_sharing/update_fee_shares.rs",
+      "currentPath": "programs/pump-fees/src/instructions/fee_sharing/update_fee_shares.rs",
+      "gitBlob": "db8885ca4134337109d1727a1bcded1089bc32cf",
+      "mode": "100644",
+      "bytes": 5751,
+      "expectedSHA256": "af1ea87cfbd2e4a6a91900fbc47cce9157dee3fa18ce6a9f45a58d58bada1443",
+      "actualSHA256": "af1ea87cfbd2e4a6a91900fbc47cce9157dee3fa18ce6a9f45a58d58bada1443",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/fee_sharing/update_fee_shares_v2.rs",
+      "currentPath": "programs/pump-fees/src/instructions/fee_sharing/update_fee_shares_v2.rs",
+      "gitBlob": "93fb29f7277b9f0929021481b3820899d01977bf",
+      "mode": "100644",
+      "bytes": 6896,
+      "expectedSHA256": "a603edaa4b6eca4e034dc9d5ddee3b8b2820fa2483dca69c35ff3bccb44759f9",
+      "actualSHA256": "a603edaa4b6eca4e034dc9d5ddee3b8b2820fa2483dca69c35ff3bccb44759f9",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/mod.rs",
+      "currentPath": "programs/pump-fees/src/instructions/mod.rs",
+      "gitBlob": "f027b3c55b8f55c58135b3b82ab5f985f94edfdd",
+      "mode": "100644",
+      "bytes": 72,
+      "expectedSHA256": "bab5423c6d9bf1f026ec22cdf860f0db575f1b78f8d53ae6972a148d9e158666",
+      "actualSHA256": "bab5423c6d9bf1f026ec22cdf860f0db575f1b78f8d53ae6972a148d9e158666",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/instructions/withdraw.rs",
+      "currentPath": "programs/pump-fees/src/instructions/withdraw.rs",
+      "gitBlob": "f0c90e7e25b9127c809b46a8288eba4c3218e185",
+      "mode": "100644",
+      "bytes": 2321,
+      "expectedSHA256": "59c1dbb754dad58dd44808f1f18acc060b467c0204abd80a63469184cd5f407e",
+      "actualSHA256": "59c1dbb754dad58dd44808f1f18acc060b467c0204abd80a63469184cd5f407e",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/lib.rs",
+      "currentPath": "programs/pump-fees/src/lib.rs",
+      "gitBlob": "ddc67efda4c161db96bbc26ec688b68214079ec4",
+      "mode": "100644",
+      "bytes": 19375,
+      "expectedSHA256": "12beea218b9fed31fff24205dc73df4264ce715ebbcaa4597a65a67ac37f70cc",
+      "actualSHA256": "12beea218b9fed31fff24205dc73df4264ce715ebbcaa4597a65a67ac37f70cc",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/pump_global.rs",
+      "currentPath": "programs/pump-fees/src/pump_global.rs",
+      "gitBlob": "345e5ebe5df771522754a0ba47bb03c31f88dfe0",
+      "mode": "100644",
+      "bytes": 253,
+      "expectedSHA256": "8078aa5bbc0e19763040cbc228603a1701b894975b3d032980afba89a54fdc93",
+      "actualSHA256": "8078aa5bbc0e19763040cbc228603a1701b894975b3d032980afba89a54fdc93",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/relay_cpi.rs",
+      "currentPath": "programs/pump-fees/src/relay_cpi.rs",
+      "gitBlob": "3bf35a311a91b54556272be29066287511c63baf",
+      "mode": "100644",
+      "bytes": 3331,
+      "expectedSHA256": "c6d29fff0d6d2668e04b830bb803ca53392cf9083db1107f8faec208bbbe4655",
+      "actualSHA256": "c6d29fff0d6d2668e04b830bb803ca53392cf9083db1107f8faec208bbbe4655",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/sharing.rs",
+      "currentPath": "programs/pump-fees/src/sharing.rs",
+      "gitBlob": "3f282e6dba163fac8729832bd4d68e5e019c40e6",
+      "mode": "100644",
+      "bytes": 5487,
+      "expectedSHA256": "e3dcf56fca245d9d35608e01514c9c801b3c77f428042ff54c6cb9f62ab390ca",
+      "actualSHA256": "e3dcf56fca245d9d35608e01514c9c801b3c77f428042ff54c6cb9f62ab390ca",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/sharing_admin.rs",
+      "currentPath": "programs/pump-fees/src/sharing_admin.rs",
+      "gitBlob": "069c66a2d1a1aae6ed9b0b8ac77dc4ab6e4a920e",
+      "mode": "100644",
+      "bytes": 1175,
+      "expectedSHA256": "328996bf7b611469e2278904a8033a0012b787691d62d4e06bbe55c00ca6f0ca",
+      "actualSHA256": "328996bf7b611469e2278904a8033a0012b787691d62d4e06bbe55c00ca6f0ca",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/sharing_update.rs",
+      "currentPath": "programs/pump-fees/src/sharing_update.rs",
+      "gitBlob": "d2054f84cc479a432c0e2b099b5a7ce102704d89",
+      "mode": "100644",
+      "bytes": 17220,
+      "expectedSHA256": "8c61ba23b36799498838fa6dbbda91171c65e4676b3b6cda72524b9ea8cdaa51",
+      "actualSHA256": "8c61ba23b36799498838fa6dbbda91171c65e4676b3b6cda72524b9ea8cdaa51",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/social.rs",
+      "currentPath": "programs/pump-fees/src/social.rs",
+      "gitBlob": "70b7d228d58c864e3ef1487ce546c8b3a684fd85",
+      "mode": "100644",
+      "bytes": 9340,
+      "expectedSHA256": "ba03d1530a42fc0371218a769de8276e1389f66708a288b1bb91cd65fe37c468",
+      "actualSHA256": "ba03d1530a42fc0371218a769de8276e1389f66708a288b1bb91cd65fe37c468",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/state.rs",
+      "currentPath": "programs/pump-fees/src/state.rs",
+      "gitBlob": "e85287000aa18892ea68c51dd604aa3545daaa2b",
+      "mode": "100644",
+      "bytes": 5170,
+      "expectedSHA256": "369b4bf3069ddb9aad564e7cbeafeb6e29850af93004f978789090d5b98d164c",
+      "actualSHA256": "369b4bf3069ddb9aad564e7cbeafeb6e29850af93004f978789090d5b98d164c",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/types.rs",
+      "currentPath": "programs/pump-fees/src/types.rs",
+      "gitBlob": "92e95af18c244bba4e6482342467598bf6133c7c",
+      "mode": "100644",
+      "bytes": 5383,
+      "expectedSHA256": "a7fb98ee7e869f60a5af997e8de46cc9f29e2914f1785266c49f90dac732f8ac",
+      "actualSHA256": "a7fb98ee7e869f60a5af997e8de46cc9f29e2914f1785266c49f90dac732f8ac",
+      "matches": true
+    },
+    {
+      "logical": "programs/pump-fees/src/withdrawal.rs",
+      "currentPath": "programs/pump-fees/src/withdrawal.rs",
+      "gitBlob": "0f42f72ed40adabcbf5b3e5f9b40b044813f0f8b",
+      "mode": "100644",
+      "bytes": 1283,
+      "expectedSHA256": "1304cd178eb4c8c7b2e2206382e53c25508171a4bd1e93bb33c418bc34e19790",
+      "actualSHA256": "1304cd178eb4c8c7b2e2206382e53c25508171a4bd1e93bb33c418bc34e19790",
+      "matches": true
+    },
+    {
+      "logical": "pump-fees-math/Cargo.toml",
+      "currentPath": "programs/pump-fees/pump-fees-math/Cargo.toml",
+      "gitBlob": "73be8d1a620a7097f3de599ccbc250e2adf694a5",
+      "mode": "100644",
+      "bytes": 125,
+      "expectedSHA256": "23390a1193e48b8ad806e510eb524b4bf6bdda1e63b5ee7b81731fbc85992094",
+      "actualSHA256": "23390a1193e48b8ad806e510eb524b4bf6bdda1e63b5ee7b81731fbc85992094",
+      "matches": true
+    },
+    {
+      "logical": "pump-fees-math/src/lib.rs",
+      "currentPath": "programs/pump-fees/pump-fees-math/src/lib.rs",
+      "gitBlob": "c08b0c885032145357bfdb23aa7b2d9079e0131d",
+      "mode": "100644",
+      "bytes": 858,
+      "expectedSHA256": "93749761133cc2117bf60221094f7002a5d8c3f008581b07faa3a9545ed04ba5",
+      "actualSHA256": "93749761133cc2117bf60221094f7002a5d8c3f008581b07faa3a9545ed04ba5",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/.cargo-ok",
+      "currentPath": "programs/pump-fees/vendor/used-public/.cargo-ok",
+      "gitBlob": "5f8b795830acbab5961c1a28c76a7916c9631493",
+      "mode": "100644",
+      "bytes": 7,
+      "expectedSHA256": "afbf9d0f3560b0fd7795e81c42a0a79ee6b6fc67e064f77826aee642cad28d91",
+      "actualSHA256": "afbf9d0f3560b0fd7795e81c42a0a79ee6b6fc67e064f77826aee642cad28d91",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/.cargo_vcs_info.json",
+      "currentPath": "programs/pump-fees/vendor/used-public/.cargo_vcs_info.json",
+      "gitBlob": "4590c9b5bf8bc31469b7276db0903941f09b2c4a",
+      "mode": "100644",
+      "bytes": 116,
+      "expectedSHA256": "6d8cb0bb9e7d49b70c6f6d1f62d99a03155e5f0b74097d9cc137e2f71f851966",
+      "actualSHA256": "6d8cb0bb9e7d49b70c6f6d1f62d99a03155e5f0b74097d9cc137e2f71f851966",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/Cargo.lock",
+      "currentPath": "programs/pump-fees/vendor/used-public/Cargo.lock",
+      "gitBlob": "6f15e512103d7e78de83a84c445e6f126ad15c7c",
+      "mode": "100644",
+      "bytes": 9720,
+      "expectedSHA256": "1ff07f6ae7ee10b327dbf0b60ef2cefa827e1672bf2cd678e8ad5b10ce612093",
+      "actualSHA256": "1ff07f6ae7ee10b327dbf0b60ef2cefa827e1672bf2cd678e8ad5b10ce612093",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/Cargo.toml",
+      "currentPath": "programs/pump-fees/vendor/used-public/Cargo.toml",
+      "gitBlob": "66bcbb7fcfb6220e59a80feef3edcc2c8ef045e2",
+      "mode": "100644",
+      "bytes": 1494,
+      "expectedSHA256": "1c2ba81b80305d2bb8d3ca362b1e07d4f86280232b894c4126f44d1f13ab58d6",
+      "actualSHA256": "1c2ba81b80305d2bb8d3ca362b1e07d4f86280232b894c4126f44d1f13ab58d6",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/Cargo.toml.orig",
+      "currentPath": "programs/pump-fees/vendor/used-public/Cargo.toml.orig",
+      "gitBlob": "583aefb914c5ebe45db34c91d6cc315c1d64d958",
+      "mode": "100644",
+      "bytes": 739,
+      "expectedSHA256": "42b5da542128b198a7f95f30aad1e99ac0a0e18953616d160bdba0347d283df6",
+      "actualSHA256": "42b5da542128b198a7f95f30aad1e99ac0a0e18953616d160bdba0347d283df6",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/src/declare_program/common.rs",
+      "currentPath": "programs/pump-fees/vendor/used-public/src/declare_program/common.rs",
+      "gitBlob": "f316fc55b13b20c8ad27f2a7caa34b8b01df2948",
+      "mode": "100644",
+      "bytes": 12758,
+      "expectedSHA256": "6cadf5a7657586fd543087ccd0e964c7eb7627d0d4a6d7f05d8b8a6c807ce1ad",
+      "actualSHA256": "6cadf5a7657586fd543087ccd0e964c7eb7627d0d4a6d7f05d8b8a6c807ce1ad",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/src/declare_program/mod.rs",
+      "currentPath": "programs/pump-fees/vendor/used-public/src/declare_program/mod.rs",
+      "gitBlob": "51740cf1f69a198dbe72dc63a5899d3848519195",
+      "mode": "100644",
+      "bytes": 3688,
+      "expectedSHA256": "f5d3659ba554dacc0c674565e09fd6414ceaab5d8896818d0bd5dff185cd94eb",
+      "actualSHA256": "f5d3659ba554dacc0c674565e09fd6414ceaab5d8896818d0bd5dff185cd94eb",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/src/declare_program/mods/accounts.rs",
+      "currentPath": "programs/pump-fees/vendor/used-public/src/declare_program/mods/accounts.rs",
+      "gitBlob": "9b4821e992af69d8be6c96924b3eb80f95334af8",
+      "mode": "100644",
+      "bytes": 4621,
+      "expectedSHA256": "36eec6a0742c5112601fa85e5bb432f467fe73a4e29ed1adba19a54c1b543d01",
+      "actualSHA256": "36eec6a0742c5112601fa85e5bb432f467fe73a4e29ed1adba19a54c1b543d01",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/src/declare_program/mods/client.rs",
+      "currentPath": "programs/pump-fees/vendor/used-public/src/declare_program/mods/client.rs",
+      "gitBlob": "031275058433c41e3093886b75162fc73f9f5de7",
+      "mode": "100644",
+      "bytes": 740,
+      "expectedSHA256": "acfb0c56e48d024eaff4bf9eb535d1363d6a1edda587f6e2f33ee9ee07b55969",
+      "actualSHA256": "acfb0c56e48d024eaff4bf9eb535d1363d6a1edda587f6e2f33ee9ee07b55969",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/src/declare_program/mods/constants.rs",
+      "currentPath": "programs/pump-fees/vendor/used-public/src/declare_program/mods/constants.rs",
+      "gitBlob": "cf046fa05f8cec768847e4fa9036d4cc1ab25b35",
+      "mode": "100644",
+      "bytes": 922,
+      "expectedSHA256": "442151d0a2fbd41560e01425e9b764717bd6355228308ce4b8867fbc800b3ed8",
+      "actualSHA256": "442151d0a2fbd41560e01425e9b764717bd6355228308ce4b8867fbc800b3ed8",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/src/declare_program/mods/cpi.rs",
+      "currentPath": "programs/pump-fees/vendor/used-public/src/declare_program/mods/cpi.rs",
+      "gitBlob": "a409b410acf0a41867fd9dfe3ea0e21613dc8f0b",
+      "mode": "100644",
+      "bytes": 3905,
+      "expectedSHA256": "e2025210f6f205b9d1c67f1401a9243375bcd41c19f803a0a98f40891b8e1e8d",
+      "actualSHA256": "e2025210f6f205b9d1c67f1401a9243375bcd41c19f803a0a98f40891b8e1e8d",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/src/declare_program/mods/events.rs",
+      "currentPath": "programs/pump-fees/vendor/used-public/src/declare_program/mods/events.rs",
+      "gitBlob": "bc07a5ba31ccb7e49404530aeb8ffde5906d3b47",
+      "mode": "100644",
+      "bytes": 1256,
+      "expectedSHA256": "26c3e67a7f1f88171189c32d59021ab5ed265d5d5966e9a43097cbaf2dad6eb1",
+      "actualSHA256": "26c3e67a7f1f88171189c32d59021ab5ed265d5d5966e9a43097cbaf2dad6eb1",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/src/declare_program/mods/internal.rs",
+      "currentPath": "programs/pump-fees/vendor/used-public/src/declare_program/mods/internal.rs",
+      "gitBlob": "4a394a59799aee4b60c90b9905b3e32286e810ae",
+      "mode": "100644",
+      "bytes": 7616,
+      "expectedSHA256": "16f008c139b672e5d046dac1249d7df7099c248b68553c9a86b3fd386fcb0bc2",
+      "actualSHA256": "16f008c139b672e5d046dac1249d7df7099c248b68553c9a86b3fd386fcb0bc2",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/src/declare_program/mods/mod.rs",
+      "currentPath": "programs/pump-fees/vendor/used-public/src/declare_program/mods/mod.rs",
+      "gitBlob": "8c9c58a45c7ca51947b33fbb0a18c908cda609fd",
+      "mode": "100644",
+      "bytes": 167,
+      "expectedSHA256": "76d2b93fef3ffede1f4e8e81cfb36e6b662806ea81364819212df041fa433e16",
+      "actualSHA256": "76d2b93fef3ffede1f4e8e81cfb36e6b662806ea81364819212df041fa433e16",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/src/declare_program/mods/program.rs",
+      "currentPath": "programs/pump-fees/vendor/used-public/src/declare_program/mods/program.rs",
+      "gitBlob": "46806e831d695dbe09dd50cad19595a9e36d70ca",
+      "mode": "100644",
+      "bytes": 624,
+      "expectedSHA256": "b70a0c900e78bd3f08ca7b427ae1368ad799cb0721c7a0ba3a9f5dfc14873628",
+      "actualSHA256": "b70a0c900e78bd3f08ca7b427ae1368ad799cb0721c7a0ba3a9f5dfc14873628",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/src/declare_program/mods/types.rs",
+      "currentPath": "programs/pump-fees/vendor/used-public/src/declare_program/mods/types.rs",
+      "gitBlob": "85449e75ba5419b497f0c129ba8b3264b7b2e2be",
+      "mode": "100644",
+      "bytes": 782,
+      "expectedSHA256": "bf865962aac43edc7a528ff4087a6e8c715c0e403821563511811bbaccdb8cb6",
+      "actualSHA256": "bf865962aac43edc7a528ff4087a6e8c715c0e403821563511811bbaccdb8cb6",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/src/declare_program/mods/utils.rs",
+      "currentPath": "programs/pump-fees/vendor/used-public/src/declare_program/mods/utils.rs",
+      "gitBlob": "6b7ccf943847875706fadd1c49505b2eec247d7e",
+      "mode": "100644",
+      "bytes": 3386,
+      "expectedSHA256": "804a58ead7dcf21f242a5f49174b7302c14014ce35908d84396136cd450f5f91",
+      "actualSHA256": "804a58ead7dcf21f242a5f49174b7302c14014ce35908d84396136cd450f5f91",
+      "matches": true
+    },
+    {
+      "logical": "vendor/used-public/src/lib.rs",
+      "currentPath": "programs/pump-fees/vendor/used-public/src/lib.rs",
+      "gitBlob": "71c01e9c2b48109b614ede4302e9d70079f32fc0",
+      "mode": "100644",
+      "bytes": 5109,
+      "expectedSHA256": "beb7b9fa19453fe8a3788e3e81a676e0649761cccdcb0e997f34bc776f7918da",
+      "actualSHA256": "beb7b9fa19453fe8a3788e3e81a676e0649761cccdcb0e997f34bc776f7918da",
+      "matches": true
+    }
+  ],
+  "matched": 64,
+  "mismatches": [
+    {
+      "logical": "programs/pump-fees/README.md",
+      "currentPath": "programs/pump-fees/exact/research-README.md",
+      "gitBlob": "68aa1d57131f704bdd99d980946c30e1f83a11b2",
+      "mode": "100644",
+      "bytes": 37517,
+      "expectedSHA256": "4bfba2b9f43bfa49440bcd31799b4cd212c08509b0a3b96ff84f1a9589101dc9",
+      "actualSHA256": "cce346bd98b407907bddb55fb14f2580464bcbf521c2f71d0ca0426b4304bc6e",
+      "matches": false
+    }
+  ],
+  "invocation": "Import unchanged public builder, then stage(ownedOutput); no main()/SDK/container/Cargo",
+  "compilerInvocations": 0,
+  "stageStatus": "FAILED",
+  "errorType": "ValueError",
+  "error": "canonical input changed: programs/pump-fees/README.md",
+  "retainedPartialOutputs": [
+    "source/Cargo.toml",
+    "source/ordered.ld",
+    "source/Cargo.lock",
+    "source/programs/pump-fees/Cargo.toml"
+  ]
+}

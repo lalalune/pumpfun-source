@@ -51,7 +51,7 @@ pub fn set_reserved_fee_recipients(ctx: Context<AdminReadonly>, whitelist_pda: P
 
 
     let recipients: [Pubkey; 8] = remaining_accounts[..8].iter().map(|account| account.key()).collect::<Vec<Pubkey>>().try_into().map_err(|_| ErrorCode::AccountNotEnoughKeys).unwrap();
-    let reserved_fee_recipients: [Pubkey; 7] = recipients[1..].try_into().unwrap();
+    let reserved_fee_recipients: [Pubkey; 7] = recipients[1..].try_into().unwrap_or_default();
     let reserved_fee_recipient = recipients[0];
     let rent = Rent::get()?;
     {
