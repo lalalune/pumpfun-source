@@ -750,15 +750,15 @@ fn validate(st:&CtoState,holder:bool,fee:Option<u64>,new:Option<Pubkey>,holder_k
 
  }
  let (old_creator,old_fee)={
-  let curve=&mut ctx.accounts.bonding_curve;let old_creator=curve.creator;let old_fee=curve.creator_fee_bps;curve.can_edit_creator_fee=false;
-  curve.creator=target;
+  let curve=&mut ctx.accounts.bonding_curve;let old_creator=curve.creator;
+  curve.creator=target;let old_fee=curve.creator_fee_bps;
   curve.is_holder_reward=holder;
   curve.is_cashback_coin=cashback;
-  curve.creator_fee_bps=fee.unwrap_or(old_fee);
-
+  if let Some(f)=fee{curve.creator_fee_bps=f;}
+  curve.can_edit_creator_fee=false;
  (old_creator,old_fee)};
  let a=&ctx.accounts;
- let pool_updated=!a.pool.data_is_empty() && a.pool.owner==&AMM;
+ let pool_updated=a.pool.owner==&AMM && !a.pool.data_is_empty();
  if pool_updated{
 
 
