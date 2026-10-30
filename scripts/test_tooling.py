@@ -2,6 +2,12 @@
 """Mutation tests ensuring the byte comparator cannot hide code/padding changes."""
 import contextlib
 import io
+import json
+import pathlib
+import shutil
+import struct
+
+
 import pathlib
 import shutil
 import struct
@@ -52,6 +58,8 @@ import deep_section_analysis
 import deep_disassembly
 import analyze
 import verify_evidence
+
+
 
 
 from capture import b58
@@ -528,6 +536,38 @@ class InstructionLogNameTests(unittest.TestCase):
         self.assertEqual(len(names), 25)
         self.assertIn('Buy', names)
         self.assertIn('InitializeGlobalParams', names)
+
+
+class EvidenceCommitmentTests(unittest.TestCase):
+    """The saved-evidence gate must reject a capture that is not finalized."""
+    FOLDER = 'evidence/original/pump'
+
+    def run_gate(self, **changes):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = pathlib.Path(temporary)
+            shutil.copytree(analyze.ROOT / self.FOLDER, root / self.FOLDER)
+            shutil.copytree(analyze.ROOT / 'evidence/upstream', root / 'evidence/upstream')
+            path = root / self.FOLDER / 'capture.json'
+            record = json.loads(path.read_text())
+            record.update(changes)
+            path.write_text(json.dumps(record))
+            old_root, old_expected = verify_evidence.ROOT, verify_evidence.EXPECTED_CAPTURES
+            verify_evidence.ROOT = root
+            verify_evidence.EXPECTED_CAPTURES = frozenset({self.FOLDER})
+            try:
+                with contextlib.redirect_stdout(io.StringIO()):
+                    verify_evidence.main()
+            finally:
+                verify_evidence.ROOT, verify_evidence.EXPECTED_CAPTURES = old_root, old_expected
+
+    def test_finalized_capture_passes(self):
+        self.run_gate()
+
+    def test_weaker_commitment_is_rejected(self):
+        with self.assertRaises(AssertionError) as raised:
+            self.run_gate(commitment='processed')
+        self.assertIn(self.FOLDER, str(raised.exception))
+        self.assertIn('commitment', str(raised.exception))
 
 
 class EvidenceProgramBindingTests(unittest.TestCase):
