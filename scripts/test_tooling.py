@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 """Mutation tests ensuring the byte comparator cannot hide code/padding changes."""
+import contextlib
+import io
+import pathlib
+import shutil
+import struct
+
+
 import hashlib
 import json
 import pathlib
@@ -45,6 +52,8 @@ import deep_section_analysis
 import deep_disassembly
 import analyze
 import verify_evidence
+
+
 from capture import b58
 
 
@@ -519,6 +528,39 @@ class InstructionLogNameTests(unittest.TestCase):
         self.assertEqual(len(names), 25)
         self.assertIn('Buy', names)
         self.assertIn('InitializeGlobalParams', names)
+
+
+class EvidenceProgramBindingTests(unittest.TestCase):
+    """A capture must carry the address of the folder that publishes it."""
+    def setUp(self):
+        self.tmp = pathlib.Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, self.tmp)
+        shutil.copytree(verify_evidence.ROOT / 'evidence', self.tmp / 'evidence')
+        self.root = verify_evidence.ROOT
+        self.expected = verify_evidence.EXPECTED_CAPTURES
+        verify_evidence.ROOT = self.tmp
+        verify_evidence.EXPECTED_CAPTURES = frozenset(
+            p.parent.relative_to(self.tmp).as_posix()
+            for p in (self.tmp / 'evidence').glob('**/capture.json'))
+        self.addCleanup(setattr, verify_evidence, 'ROOT', self.root)
+        self.addCleanup(setattr, verify_evidence, 'EXPECTED_CAPTURES', self.expected)
+
+    def run_gate(self):
+        with contextlib.redirect_stdout(io.StringIO()):
+            verify_evidence.main()
+
+    def test_control_pair_passes(self):
+        self.run_gate()
+
+    def test_swapped_captures_are_rejected(self):
+        # Swap the whole folders: payloads and hashes stay self-consistent, so only
+        # the program/folder binding can catch the exchange.
+        original = self.tmp / 'evidence/original'
+        (original / 'pump').rename(original / 'swap')
+        (original / 'pump_amm').rename(original / 'pump')
+        (original / 'swap').rename(original / 'pump_amm')
+        with self.assertRaisesRegex(AssertionError, 'evidence/original/pump: capture program'):
+            self.run_gate()
 
 
 class ProgramDataAuthorityTagTests(unittest.TestCase):

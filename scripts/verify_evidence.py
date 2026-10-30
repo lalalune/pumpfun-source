@@ -4,14 +4,25 @@ import hashlib,json,pathlib,struct
 from capture import b58
 from analyze import elf_layout
 ROOT=pathlib.Path(__file__).resolve().parents[1]
+# Canonical address of every capture this repository publishes. The gate used to hash the
+# payload and the ProgramData link but never compare `capture.json["program"]` with the
+# folder it sits in, so swapping pump and pump_amm still printed "9 captures verified".
+# The originals come from the archived IDL/inventory addresses (`evidence/interface-inventory.json`
+# and `declare_id!`); the dependencies carry the fixed mainnet program ids.
+PROGRAM_ADDRESS={
+ 'evidence/dependencies/associated_token':'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL',
+ 'evidence/dependencies/donation_relay':'RLAYHr9TRFcKB2ubYQhspcnXiaGpaVzNQvHytt47RZu',
+ 'evidence/dependencies/spl_token':'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+ 'evidence/dependencies/spl_token_2022':'TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb',
+ 'evidence/dependencies/token_metadata':'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s',
+ 'evidence/original/mayhem':'MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e',
+ 'evidence/original/pump':'6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P',
+ 'evidence/original/pump_amm':'pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA',
+ 'evidence/original/pump_fees':'pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ'}
 # Every capture this repository publishes. The gate used to assert a count floor (`count>=4`),
 # which hid the loss of up to five captures: deleting four of the nine still passed
 # (verified on a sealed copy). Pin the exact set so a removal is a hard failure.
-EXPECTED_CAPTURES=frozenset({
- 'evidence/dependencies/associated_token','evidence/dependencies/donation_relay',
- 'evidence/dependencies/spl_token','evidence/dependencies/spl_token_2022',
- 'evidence/dependencies/token_metadata','evidence/original/mayhem','evidence/original/pump',
- 'evidence/original/pump_amm','evidence/original/pump_fees'})
+EXPECTED_CAPTURES=frozenset(PROGRAM_ADDRESS)
 def sha(b): return hashlib.sha256(b).hexdigest()
 class EvidenceError(Exception): pass
 def check(ok,msg='evidence check failed'):
@@ -24,7 +35,8 @@ def main():
     for name,expected in upstream['file_sha256'].items():
         check(sha((ROOT/'evidence/upstream'/name).read_bytes())==expected)
     for f in sorted((ROOT/'evidence').glob('**/capture.json')):
-        m=json.loads(f.read_text()); folder=f.parent
+        m=json.loads(f.read_text()); folder=f.parent; key=folder.relative_to(ROOT).as_posix()
+        assert m['program']==PROGRAM_ADDRESS[key], f'{key}: capture program {m["program"]}, expected {PROGRAM_ADDRESS[key]}'
         if m.get('loader')=='legacy-v2':
             p=(folder/'program-account.bin').read_bytes(); b=(folder/'deployed.so').read_bytes()
             check(p==b and sha(b)==m['payload_sha256']==m['program_sha256'] and len(b)==m['payload_bytes'])

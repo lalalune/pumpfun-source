@@ -16,6 +16,8 @@ jobs:
       max-parallel: 12
       matrix:
         include:
+          - suite: composition-patch-bytes
+            commands: |
           - suite: fastbuild-staging
             commands: |
               python -I -B tests/test_fastbuild_stage.py
