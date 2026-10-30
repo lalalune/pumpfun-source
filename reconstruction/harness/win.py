@@ -16,8 +16,9 @@ from llvm_tools import objdump
 
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
-from score import sections, normalize, body, candidate_functions, original_windows, score, BASE  # noqa
+from score import sections, normalize, body, original_windows, score, BASE  # noqa
 from instruction_stream import instruction_offsets
+from elf_symbols import function_symbols
 
 
 
@@ -63,7 +64,7 @@ def objdump_text(path, start, end):
 class Cand:
     def __init__(self, path):
         self.path = Path(path); self.blob = self.path.read_bytes(); self.secs = sections(self.blob)
-        self.funcs = candidate_functions(self.path)
+        self.funcs = function_symbols(self.blob)
         self._opgrams = {}
         self._tokens = {}
 
