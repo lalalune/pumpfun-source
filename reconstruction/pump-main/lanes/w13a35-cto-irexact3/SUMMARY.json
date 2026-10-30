@@ -1,0 +1,50 @@
+{
+ "lane": "w13a35-cto-irexact3",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "pr": 3136,
+ "result": "notes only; no source change landed",
+ "mains_scanned": {
+  "dfc3693d8": {"main_ratio": 0.59916, "oracle_eq_main": true, "edits": 1522, "best_single_27400": 0.60066, "greedy_27400": 0.60425, "perfect_frame_bound": 0.62822},
+  "16c10e631": {"main_ratio": 0.62043, "oracle_eq_main": true, "edits": 1674, "best_single_27400": 0.62223, "greedy_27400": 0.62403,
+                "frame_bound": {"named_objects_only": 0.62612, "spill_area_only": 0.6438, "perfect_frame": 0.64949},
+                "movescan": "860 edits, none above main at 27400",
+                "callsite_inline": "26 outlined sites alwaysinline: none at 27400, best 0.61665 at 27664",
+                "pair_scan_err296_tail": "best 0.61684 < main"}
+ },
+ "best_zero_loss_measurement": {"ratio": 0.62043, "slots_diff": 3306, "bytes": 27400, "note": "main 16c10e631 as measured by the oracle (eq_main); no improvement found"},
+ "attempts": [
+  "0x22a10-w13-dfc3693-irexact3-nonalloca-single-scan-v1",
+  "0x22a10-w13-dfc3693-irexact3-coloring-obj-moves-v1",
+  "0x22a10-w13-dfc3693-irexact3-greedy-v1",
+  "0x22a10-w13-dfc3693-irexact3-blkswap-scan-v1",
+  "0x22a10-w13-dfc3693-irexact3-movescan-partial-v1",
+  "0x22a10-w13-16c10e6-irexact3-nonalloca-single-scan-greedy-v1",
+  "0x22a10-w13-16c10e6-irexact3-size-oracle-open-objects-v1",
+  "0x22a10-w13-16c10e6-irexact3-frame-bound-split-v1",
+  "0x22a10-w13-16c10e6-irexact3-err296-tail-pair-scan-v1",
+  "0x22a10-w13-16c10e6-irexact3-callsite-inline-scan-v1",
+  "0x22a10-w13-16c10e6-irexact3-movescan-v1"
+ ],
+ "rejected_mechanisms": [
+  "branch weights on Rc::inc_strong trap edges of AccountInfo clones (+0.0015..0.0018; std code, BPI unreachable weight already applies)",
+  "bw on collect_creator_fee Err edge bb27.i64 (+0.0009; no source weight for ?)",
+  "StackColoring size class of sk vs validate error Strings (+0.0015 on dfc3693, loses on 16c10e6; alloca order cannot reproduce it)",
+  "post-opt br polarity (inv:bb69/bb47.i, +0.0003..0.0006; InstCombine undoes source negation)",
+  "successor layout swaps = source arm order (294 edits, all neutral at 27400)",
+  "swapphi (26 blocks neutral)",
+  "sizes of open frame objects (target 7/9 pieces, event_signers, sharing_update, val6, hk, holder_key): max +0.0003",
+  "movescan sinks/hoists of pure values (none at 27400)",
+  "per-call-site inline flips (all size-changing)"
+ ],
+ "unresolved_residuals": [
+  "RA spill area: 80% of the frame headroom (spill-only remap 0.6438 vs named-only 0.62612); deep slots 0xb38.. sit 8 B shallower (original has one more spill slot), 0x8d0-0xa08 permuted",
+  "named: event_signers.i/target.i.sroa.0 (orig 0x680), sharing_update12.sroa.3, target.sroa.0 7 B (orig 0x538/0x548), hk, holder_key -0x18",
+  "line-296 HolderRewardDisabled error block placement (blk:bb17.i:END abs +0.0063 but frame -0.0087)",
+  "validate holder_reward test bb6.i layout (bw 1:2000 abs +0.017 at 27360)"
+ ],
+ "next_ideas": [
+  "code-shape data-flow changes that alter register pressure in the clone/CPI runs (the spill-order headroom), measured with fbsplit.py spill_only",
+  "combine the err-296 tail placement with a frame-compensating source change (the pair scan says no single IR edit compensates)",
+  "re-run tools/mkscan3.py + pscan.sh on each new main (about 3 min) to catch new levers"
+ ]
+}

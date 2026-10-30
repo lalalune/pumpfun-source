@@ -66,12 +66,25 @@ so the next gains come from code-shape (data-flow) changes, not frame edits.
 ## Movescan and call-site scan
 
 - movescan (w13a12 sinks/hoists of pure values): on dfc3693, 601 of 865 edits ran (all 125 sinks): nothing above main at 27,400 B
-  (best size-changing: hoist of `%239` from bb78.i into bb24.i, 0.60015 at 27,392). The 16c10e6 rerun is in SUMMARY.json.
-- Per-call-site `noinline`/`alwaysinline` (raw-IR opt oracle via `csedit.py`, 36 source-expressible sites: execute,
-  wallet and sweep calls to own helpers, CPI builders, Event data and `AccountInfo::clone`): see SUMMARY.json. Each real
-  inline-state change moves the size (global_quote noinline 0.57825 at 26,944 B, validate noinline 0.29849, prepare_bonding_curve
-  alwaysinline 0.53472 at 28,608 B, sharing-CPI clone sites 27/31 alwaysinline 0.40/0.43 at 27,896/28,072 B). The already-inlined
-  clone sites are no-ops.
+  (best size-changing: hoist of `%239` from bb78.i into bb24.i, 0.60015 at 27,392). On 16c10e6 all 860 ran: 661 stay at
+  27,400 B and none beats main. The best size-changing edits are hoist `%539` bb105.i->bb45.i107 (0.62212 at 27,384 B) and hoist `%239` (0.62142 at 27,392 B).
+- Per-call-site `noinline`/`alwaysinline`, using the raw-IR opt oracle via `csedit.py` on the `mkslim4.py` slim module.
+  - Sites: 36 source-expressible ones in execute, wallet and sweep: calls to own helpers, the CPI builders, Event data
+    and `AccountInfo::clone`.
+  - Runs: 8 on dfc3693, then the 26 outlined sites with `alwaysinline` on 16c10e6.
+  - None reaches 27,400 B, and none beats main. Every real inline-state change moves the size:
+    - closest: wallet `CollectCreatorFeeEvent` data inlined, 0.61665 at 27,664 B; sweep
+      `transfer_creator_fees_to_pump_v2` inlined, 0.61541 at 27,784 B;
+    - global_quote noinline: 0.57825 at 26,944 B;
+    - validate noinline: 0.29849;
+    - prepare_bonding_curve alwaysinline: 0.53472 at 28,608 B;
+    - the sharing/pool CPI clone sites 27-32 alwaysinline: 0.29-0.48 at 27,896-28,296 B;
+    - wallet or sweep noinline: the function collapses.
+  - The already-inlined clone sites are no-ops.
+- Pair scan: the best code-shape single edit at 27,400 B is `blk:bb17.i:END`, which moves the line-296
+  HolderRewardDisabled error formatting to the tail. It lifts abs 0.7124 -> 0.7187, but the ratio drops to 0.61174.
+  Adding each of the 1,177 single edits on top of it gives at most 0.61684, so no pair recovers the frame. The largest abs
+  gains (`bw:bb6.i` 1:2000 on validate's holder_reward test, abs 0.7291) all change size.
 
 ## Conclusion
 
