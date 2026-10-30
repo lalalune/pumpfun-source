@@ -94,3 +94,20 @@ orders (`tools/eperm.py`) leave main's K,O,R,S,W,E as the best.
 | a5+pa3 | 0.64709 | 3,171 |
 
 a4+pa3 has 0 losses and differential 363/0. Unstripped sha256 `379daca3fa00622aeef26904ad97e1baf85b9f3122ad857920b49d9a2ac1e1ac`.
+
+## Part 6 (branch -6, main e87e001, 0.64709): Rc clone order + round 4
+
+The pscan anchors assume lamports is cloned before data. Swapping the two Rc clones inside each sharing literal (source
+builds):
+
+| literal with data.clone() before lamports.clone() | ratio | bytes |
+| --- | ---: | ---: |
+| pool_authority | 0.61813 | 27,392 |
+| authority | 0.642 | 27,400 |
+| global | 0.63781 | 27,400 |
+| mint | 0.64649 | 27,400 |
+| **event_authority** | **0.64769** | 27,400 |
+| **program** (last field) | **0.64769** (same bytes as event_authority + program swapped together) | 27,400 |
+
+Round 4 pp: authority W,E,S,R | L,D | O,K = 0.64739. Composite **a6 + event_authority D,L = 0.64799** (a6 + program D,L is
+the same ratio), 3,171 slots, 27,400 B, 0 losses, differential 363/0. Unstripped sha256 `551988c2c32475a8ff1e312078b8de908a4cd4c9a95752e004d6229d2e8b6031`.
