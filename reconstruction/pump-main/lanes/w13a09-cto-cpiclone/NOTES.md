@@ -1,7 +1,7 @@
 # Lane w13a09-cto-cpiclone (wave 13): CPI AccountInfo clone placement in admin_cto
 
 Target: `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
-Bases: main 3912c47ac (0.48772), 085e5dffb (#2885, 0.48922), b78bf199a (0.49071; programs identical to 43946852e).
+Bases: main 3912c47ac (0.48772), 085e5dffb (#2885, 0.48922), b78bf199a (0.49071), cb298d5c8 (#2907, 0.49101).
 Angle: the sharing-CPI AccountInfo clone run (orig 0x26798..0x27048, regionmap segments 0x41f0/0x45f0, about
 100 + 80 tokens unmatched even with a perfect frame).
 
@@ -71,6 +71,43 @@ On 085e5df, `let mut swept=0; if !skip{swept=sweep(..)?;}` was 27,392 / 0.48959 
 back in the event, 27,400 / **0.48951** (> 0.48922, 0 losses), but main moved to b78bf19 (0.49071) first;
 on b78bf19 every swept spelling (`let mut`, `if skip{Ok(0)}else{..}?`, `match skip`, late `let`) is
 byte-identical to main.
+
+## Gain: sweep transfer CPI program clone bound before the call + scalar vault bump (+0.0003 at 27,400 B)
+
+```rust
+// before (sweep)
+crate::pump_amm::cpi::transfer_creator_fees_to_pump_v2(CpiContext::new(a.pump_amm.to_account_info(),..))?;
+let bump=[ctx.bumps.creator_vault];..;let vaultseeds:&[&[u8]]=&[b"creator-vault",old.as_ref(),&bump];
+// after
+let program=a.pump_amm.to_account_info();crate::pump_amm::cpi::transfer_creator_fees_to_pump_v2(CpiContext::new(program,..))?;
+let bump=ctx.bumps.creator_vault;..;let vaultseeds:&[&[u8]]=&[b"creator-vault",old.as_ref(),&[bump]];
+```
+
+| metric | main cb298d5c8 | this change |
+| --- | ---: | ---: |
+| admin_cto ratio | 0.49101 | **0.49131** |
+| admin_cto slots_diff | 3,280 | 3,182 |
+| admin_cto bytes | 27,400 | 27,400 |
+| normalized / raw | 1034 / 1034 | 1034 / 1034 |
+| losses (norm / raw) | | 0 / 0 |
+| runtime differential | | 363 cases, 0 mismatches |
+| unstripped sha256 | | `6ccde910316e764b5f343855265d9541ec79fd47fdcebaf70d67553b791ccc0d` |
+
+The scalar bump (w12a14 gene `seeds_bump_inline_b`) alone is 27,432 / 0.49162; the let-bound program
+clone of the transfer CPI alone is 27,368 / 0.49011. Together they are exactly 27,400. The same pair
+on b78bf19 was 27,400 / 0.49101 (> 0.49071). With the sharing CPI's program let instead of the transfer CPI's,
+it is 27,400 / 0.49011. The clone-run RA (clonefeat 2/6) is unchanged.
+
+## Single-gene clone-RA screen on b78bf19 (w12a14 genes12, 28 genes)
+
+No gene flips the clone run (clonefeat stays 2/6; ev_new_creator_local 3/5 at 27,392 / 0.31101, ql_before_shared 1/7).
+Byte-identical to main: pool_owner_deref, pool_nested, pool_match_cpi, curve_flat, a_reborrow_deref, a_deref,
+su_none_first, n298_iflet, cashback_bitand, sweep_inline. 27,400 but lower: pool_empty_first 0.48951,
+ev_clock_first 0.48742, su_match_ref 0.47364. Other sizes: curve_deref 27,352 / 0.48906, ev_fee_local 27,424 / 0.48241,
+ev_reset_shared 27,360, ev_mint_reload 27,416, tf_inline 28,464, tra_inline 28,064 (1 loss), shared_owner_first
+27,152, ql_before_shared 27,384, ql_inline_st 27,176, cashback_after_validate 27,048, hk_after_shared 27,152,
+shared_empty_first 27,272, sweep_coin_present 27,448. Ported 7fb9a5e3e7a2 genes: `if let Some(val)=sharing_update`
+27,392 / 0.49109, can_edit first 27,400 / 0.49011, shared `&` 27,232.
 
 ## Ledger
 
