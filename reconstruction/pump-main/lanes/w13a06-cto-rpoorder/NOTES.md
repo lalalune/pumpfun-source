@@ -1,5 +1,31 @@
 # w13a06-cto-rpoorder: admin_cto sret-slot RPO order and the per-site holder test
 
+## Landing result (main 2f268ad0a: 0.51857 / 3,327 slots)
+
+| build | bytes | ratio | slots | normalized / raw | losses |
+| --- | ---: | ---: | ---: | --- | --- |
+| main 2f268ad0a | 27,400 | 0.51857 | 3,327 | 1034 / 1034 | - |
+| this branch | 27,400 | **0.52277** | 3,324 | 1034 / 1034 | 0 / 0 |
+
+Unstripped sha256 prefix `a598a13a0e471651`; `pump_admin_cto_differential.py`: 363 cases, 0 mismatches.
+
+Three edits, every error line kept:
+
+1. `validate` takes the raw `Option<bool>` and computes `let holder=hopt==Some(true);` itself; execute keeps its own
+   `holder` for later uses and passes `hopt`. The holder compare is now local to validate, where its only users are
+   branches and the cashback select, so InstCombine inverts it and every holder branch puts the **non-holder successor
+   first**. ISel's RPO then gives the original's exact sret-slot order, every slot at the original's offset + 8:
+   `284:6d8 289:6e8 298:6f8 296:708 .. 410:768 556:7b8 648:7c8 660:7e8 719:808 312:8a8 307:8b8 306:8d8`
+   (orig `284:6d0 289:6e0 298:6f0 296:700 .. 312:8a0 307:8b0 306:8d0`). The `to_string` set stays main's (5).
+   On main 10b4ddf this alone was 27,392 B / 0.50936 (main 0.50929).
+2. 289 as `st.holder_reward&&!(hopt==Some(true))`: +0.003 to +0.004 on every base tried. `hopt!=Some(true)` gives the
+   same text but shifts a rodata constant (raw loss in `creator_migration::execute`, 0x37e08).
+3. Size companion for the -8 B: `let shared=if creator==sharing_key{owner==&FEES&&!data_is_empty()}else{false};`
+   (gene `shared_nested` from w13a10-cto-pfclimb).
+
+Measured on the way: main 10b4ddf + (1)+(2) = 27,392 / 0.51745; main 538729b + (1)+(2)+`cashback=st.cashback&&!holder` =
+27,400 / 0.52217 (main 0.51857); after #2964 the same was 27,392 / 0.52255, and `shared_nested` brings it to 27,400.
+
 Target: `0x22a10 admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Bases: main `3912c47ac` (0.48772 / 3,273 slots), then main `8370e2f8a` (#2885 + w13a11-cto-stitch-2: 0.49071 / 3,313 slots).
 Angle: make the 33 sret-demotion (`{i64, ptr}` call result) slots follow the original's ISel RPO

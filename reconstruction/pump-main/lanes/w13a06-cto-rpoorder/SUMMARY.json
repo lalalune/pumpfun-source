@@ -1,43 +1,71 @@
 {
-  "lane": "w13a06-cto-rpoorder",
-  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
-  "bases": {
-    "3912c47ac": {"ratio": 0.48772, "slots_diff": 3273},
-    "8370e2f8a": {"ratio": 0.49071, "slots_diff": 3313},
-    "10b4ddf5b": {"ratio": 0.50929, "slots_diff": 3325}
+ "lane": "w13a06-cto-rpoorder",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "bases": {
+  "3912c47ac": {
+   "ratio": 0.48772,
+   "slots_diff": 3273
   },
-  "best_zero_loss_at_27400": {"ratio": null, "note": "no zero-loss gain; every trial at 27400 B was equal to or below the main it was built on"},
-  "attempts": 65,
-  "mechanism_found": {
-    "name": "per-site and-1 holder tests",
-    "edit": "validate gets hopt:Option<bool>; 289/296/target split/per-arm cashback test matches!(hopt,Some(true)) (or 296 alone, or 296+target+cashback)",
-    "effect": "sret-slot RPO exactly the original's (284 289 298 296 330 338 334 326 | 410 556 648 660 719 | 312 307 306), 7 outlined to_string and 86 lddw (= original multiset, no extra .rel.dyn entries)",
-    "cost": "-248 to -808 B; ratio 0.35-0.44 (a4 on 10b4ddf: 26744 B, 0.43693)"
+  "8370e2f8a": {
+   "ratio": 0.49071,
+   "slots_diff": 3313
   },
-  "ir_oracle_facts": [
-    "swap of the hr==0 holder test bb11.i alone reproduces the original RPO at the same size but costs ratio on every main (3912c47: 0.48023; 10b4ddf: 0.50180)",
-    "on 10b4ddf: holder trunc + 306 (tag&1)==0 + bb11.i swap = 27088 B, ratio 0.49932, abs_ratio 0.69128 (> main 0.68993)",
-    "on g8 (w13a03 entry copy, 27416 B) the hr-test flip bb5.i gives 27400 B / 0.49670, but no source spelling produces it and the original uses the canonical successor order there",
-    "410 require error-first flip (bb74 / bb76) is a frame artefact: abs_ratio drops 0.679 -> 0.633"
-  ],
-  "rejected_mechanisms": [
-    "410 as if creator_fee>0 / require!(!(creator_fee>0)): byte-identical",
-    "holder.unwrap_or(false) in execute: -336 B, RPO unchanged",
-    "nested hr tree for 289/296: -384 B, RPO unchanged; plus entry-copy forms: no gain",
-    "hopt==Some(true)/hopt!=Some(true) at individual sites: EarlyCSE merges, RPO unchanged",
-    "hr as separate bool param, #[inline(always)] validate, CtoState hr==true, bitwise 289/296, tuple/match 289 forms",
-    "306 if let / match Some-first: same size, -0.0006",
-    "non-holder arm as nested fn or closure: +48/+216 B, RPO unchanged",
-    "a-family + entry copy (mut new take, args tuple, keys by value) or + helper boundaries: original RPO but 26.8-27.3 KB and <= 0.45"
-  ],
-  "unresolved_residuals": [
-    "the original's and-1 tests (holder arg&1 at each site, 306 tag&1) come with the original RPO and to_string set, but our source forms for them also change BFI (3-way Option<bool> switch) and drop 250-800 B",
-    "about 300 B of original data flow is still missing even at the IR level once holder/306 tests are and-1"
-  ],
-  "next_ideas": [
-    "combine the per-site and-1 form (a4) with the size lanes' faithful payload pieces (8/24 target, sharing payload, phi flags) once those add ~300-400 B",
-    "find a per-site holder spelling with 50/50 BPI (2-way, not the 3-way Option<bool> switch) so the to_string inline set stays at main's 5 while the RPO becomes the original's",
-    "use the +48 B closure / +216 B nested-fn non-holder arm as size knobs for candidates that come out short"
-  ],
-  "pr": 2903
+  "10b4ddf5b": {
+   "ratio": 0.50929,
+   "slots_diff": 3325
+  },
+  "2f268ad0a": {
+   "ratio": 0.51857,
+   "slots_diff": 3327
+  }
+ },
+ "best_zero_loss_at_27400": {
+  "base": "2f268ad0a",
+  "ratio": 0.52277,
+  "slots_diff": 3324,
+  "cand_bytes": 27400,
+  "normalized": 1034,
+  "raw": 1034,
+  "unstripped_sha_prefix": "a598a13a0e471651",
+  "differential": "363/0",
+  "edits": [
+   "validate(st,hopt:Option<bool>,..){let holder=hopt==Some(true);..} with execute passing the raw Option",
+   "289 as st.holder_reward&&!(hopt==Some(true))",
+   "shared as if creator==sharing_key{owner==&FEES&&!data_is_empty()}else{false} (+8 B companion)"
+  ]
+ },
+ "attempts": 120,
+ "mechanism_found": {
+  "name": "per-site and-1 holder tests",
+  "edit": "validate gets hopt:Option<bool>; 289/296/target split/per-arm cashback test matches!(hopt,Some(true)) (or 296 alone, or 296+target+cashback)",
+  "effect": "sret-slot RPO exactly the original's (284 289 298 296 330 338 334 326 | 410 556 648 660 719 | 312 307 306), 7 outlined to_string and 86 lddw (= original multiset, no extra .rel.dyn entries)",
+  "cost": "-248 to -808 B; ratio 0.35-0.44 (a4 on 10b4ddf: 26744 B, 0.43693)"
+ },
+ "ir_oracle_facts": [
+  "swap of the hr==0 holder test bb11.i alone reproduces the original RPO at the same size but costs ratio on every main (3912c47: 0.48023; 10b4ddf: 0.50180)",
+  "on 10b4ddf: holder trunc + 306 (tag&1)==0 + bb11.i swap = 27088 B, ratio 0.49932, abs_ratio 0.69128 (> main 0.68993)",
+  "on g8 (w13a03 entry copy, 27416 B) the hr-test flip bb5.i gives 27400 B / 0.49670, but no source spelling produces it and the original uses the canonical successor order there",
+  "410 require error-first flip (bb74 / bb76) is a frame artefact: abs_ratio drops 0.679 -> 0.633"
+ ],
+ "rejected_mechanisms": [
+  "410 as if creator_fee>0 / require!(!(creator_fee>0)): byte-identical",
+  "holder.unwrap_or(false) in execute: -336 B, RPO unchanged",
+  "nested hr tree for 289/296: -384 B, RPO unchanged; plus entry-copy forms: no gain",
+  "hopt==Some(true)/hopt!=Some(true) at individual sites: EarlyCSE merges, RPO unchanged",
+  "hr as separate bool param, #[inline(always)] validate, CtoState hr==true, bitwise 289/296, tuple/match 289 forms",
+  "306 if let / match Some-first: same size, -0.0006",
+  "non-holder arm as nested fn or closure: +48/+216 B, RPO unchanged",
+  "a-family + entry copy (mut new take, args tuple, keys by value) or + helper boundaries: original RPO but 26.8-27.3 KB and <= 0.45"
+ ],
+ "unresolved_residuals": [
+  "the original's and-1 tests (holder arg&1 at each site, 306 tag&1) come with the original RPO and to_string set, but our source forms for them also change BFI (3-way Option<bool> switch) and drop 250-800 B",
+  "about 300 B of original data flow is still missing even at the IR level once holder/306 tests are and-1"
+ ],
+ "next_ideas": [
+  "combine the per-site and-1 form (a4) with the size lanes' faithful payload pieces (8/24 target, sharing payload, phi flags) once those add ~300-400 B",
+  "find a per-site holder spelling with 50/50 BPI (2-way, not the 3-way Option<bool> switch) so the to_string inline set stays at main's 5 while the RPO becomes the original's",
+  "use the +48 B closure / +216 B nested-fn non-holder arm as size knobs for candidates that come out short"
+ ],
+ "pr": 2903,
+ "mechanism_landed": "a validate-local holder compare (only branch/select users) is inverted by InstCombine, so every holder branch is non-holder-first: exact original sret-slot RPO at orig+8 with main's to_string set"
 }
