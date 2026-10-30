@@ -1378,7 +1378,7 @@ class CompareRelayCliTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             (root / 'scripts').mkdir()
-            for script in ('compare.py', 'analyze.py'):
+            for script in ('compare.py', 'analyze.py', 'deep_disassembly.py', 'window_elf_reader.py'):
                 shutil.copyfile(source_root / 'scripts' / script, root / 'scripts' / script)
             captures = {
                 'donation_relay': 'dependencies',

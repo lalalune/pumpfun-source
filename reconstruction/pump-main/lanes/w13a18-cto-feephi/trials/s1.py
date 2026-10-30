@@ -1,0 +1,1 @@
+EDITS=[("let mut target=validate(&st,holder,fee,new,&holder_key,&a.sharing_config.key())?;","let mut target=match validate(&st,holder,fee,new,&holder_key,&a.sharing_config.key()){Ok(t)=>t,Err(e)=>return Err(e)};")]

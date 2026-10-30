@@ -16,6 +16,7 @@ SCRIPTS = tuple(
         "pump_amm_cashback_differential.py",
         "pump_amm_creator_reassignment_cto_differential.py",
         "pump_amm_creator_reassignment_differential.py",
+        "pump_amm_incentives_differential.py",
         "pump_amm_migration_create_differential.py",
         "pump_amm_multi_hop_differential.py",
     )

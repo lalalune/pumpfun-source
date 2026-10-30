@@ -20,6 +20,7 @@ jobs:
             commands: |
               python -B reconstruction/toolchain/test_bootstrap_linux.py
               python -B tests/test_linux_hybrid_publication.py
+              python -B reconstruction/toolchain/test_bootstrap_macos.py
           - suite: byte-comparison-input-preservation
             commands: |
               sudo apt-get update
@@ -71,6 +72,7 @@ jobs:
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py
               python -B reconstruction/harness/test_integrate_no_build_cli.py
+              python -B reconstruction/harness/test_integrate_build_input_recheck.py
               python -B reconstruction/harness/test_composition_boundaries.py
               python -B reconstruction/harness/test_build_pair_boundaries.py
               python -B reconstruction/harness/test_composition_deadline.py
@@ -148,6 +150,7 @@ jobs:
               python -B scripts/test_build_token_dependency_optimization.py
               python -B scripts/test_revalidate_empty_manifest.py
               python -B scripts/test_revalidate_all_manifest_records.py
+              python -B scripts/test_revalidate_packet_root_link.py
               python -B scripts/test_measure_relay13_v148_optimization.py
               python -B scripts/test_fees_withdraw_runtime_optimization.py
               python -B scripts/test_measure_relay_v148_optimization.py
@@ -175,6 +178,7 @@ jobs:
               python -B scripts/test_current673_macos_optimized_mode.py
               python -B scripts/test_pump_differential_optimized_mode.py
               python -B scripts/test_pump_validate_constant_product_optimization.py
+              python -B scripts/test_pump_validate_constant_product_report.py
               python -B scripts/test_pump_with_captured_loader_paths.py
               python -B scripts/test_pump_with_captured_loader_input_hashes.py
               python -B tests/test_fees_external_codec_pinned_image.py
@@ -195,7 +199,10 @@ jobs:
               python -B scripts/test_disassemble_publication.py
               python -B scripts/test_analyze_publication.py
               python -B scripts/test_verify_imported_lab_publication.py
+              python -B scripts/test_verify_recovered_builds_receipts.py
               python -B scripts/test_pump_compare_function_bytes_report.py
+              python -B tests/test_pump_compare_report_staging.py
+              python -B tests/test_experiment_placeholder_expansion.py
               python -B scripts/test_sbpf_disassembly_roundtrip_build_log.py
               python -B scripts/test_supported_sbpf_package_paths.py
               python -B scripts/test_pump_quote_control_function_match_output.py

@@ -130,7 +130,9 @@ class PumpCreateNestedPinnedImageTests(unittest.TestCase):
 
             helper = types.ModuleType("pump_amm_reusable_harness")
             helper.pin_program = pin
-            with patch.dict(sys.modules, {"pump_amm_reusable_harness": helper}):
+            # The differential imports its scripts/ siblings by plain name.
+            with patch.dict(sys.modules, {"pump_amm_reusable_harness": helper}), \
+                    patch.object(sys, "path", [str(DIFFERENTIAL.parent), *sys.path]):
                 spec = importlib.util.spec_from_file_location(
                     "pump_create_nested_differential", DIFFERENTIAL
                 )

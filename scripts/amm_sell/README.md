@@ -34,7 +34,7 @@ The sealed podman recipe (cold, empty target) reproduces the same pair.
 | `infra/original/deployed.so` | captured original, SHA-256 `6a7ad345…8d8ff7` |
 | `baselines/pristine-ws` | workspace staged from the maintained sources by `workspace_recipe.py` |
 | `baselines/warm-target` | warm dependency target cloned (APFS `cp -c`) into each new lane |
-| `ATTEMPTS.jsonl`, `BEST-v3.json`, `cache/`, `sources/` | swarm log, best result, dedupe cache, every tried sell.rs |
+| `ATTEMPTS.jsonl`, `BEST-v4.json`, `cache/`, `sources/` | swarm log, best result, dedupe cache, every tried sell.rs |
 
 ## Use
 
@@ -86,14 +86,14 @@ execute a program, or require the native SDK.
 `sell_raw_equal` is the goal. `lost_windows_normalized` must stay empty (no other
 function may change). `align_distance` (instruction edit distance with branch
 displacements replaced by labels) and `slot_diffs` (differing 8-byte slots) rank
-partial progress. Score version 3 computes the minimum unit-cost instruction
+partial progress. Score version 3 introduced the minimum unit-cost instruction
 insertions, deletions and substitutions with dynamic programming; SequenceMatcher
 still supplies the visual diff. Earlier versions counted edits in its greedy
 matching-block alignment, which can overcount a single substitution as two.
 The historical version-2 baseline reports distance 112 and 709 slots. Its distance
 must not be compared directly with version-3 distances; no new native baseline is
 claimed here. Versioned cache keys prevent reuse of the old metric and preserve
-prior receipts. The current best record is also versioned (`BEST-v3.json`) so
+prior receipts. The current best record is also versioned (`BEST-v4.json`) so
 new distances are never ranked against an older metric. Legacy `BEST.json` is
 left untouched; the shared append lock still protects current best updates. Error-macro
 line numbers are encoded as immediates, so edits must keep every
@@ -114,9 +114,20 @@ does not change its branch tokens. These are static, in-memory controls; the
 captured ELF is never changed or executed. Token equality is not a proof of
 semantic equivalence, and edit distance remains a diagnostic, not acceptance.
 
-Version-3 distances must be measured afresh rather than compared numerically with
-historical version-2 distances. The score-version cache key prevents reuse of the
-old metric. Historical evidence and all raw image-equality criteria are preserved.
+The version-3 transition required fresh distances rather than numerical comparison
+with historical version-2 distances. The score-version cache key prevents reuse of
+an older metric. Historical evidence and all raw image-equality criteria are preserved.
+
+Version 4 distinguishes register-indirect `callx` instructions from immediate
+calls in listings and alignment tokens, retaining version 3's distance algorithm
+and branch labels. For the captured SBPF v0 encoding,
+`callx` selects the register from the immediate field; its destination address
+is runtime data and is not reported as a direct target. See the pinned
+[SBPF disassembler](https://github.com/anza-xyz/sbpf/blob/f754c707f99779a756978f87c9afd25eeeb3d92e/src/disassembler.rs#L297).
+Current cache keys, best records and default history queries select version 4,
+leaving version-3 records available as historical evidence. Byte-equality
+criteria are unchanged. The captured sell window has no indirect calls;
+this correction makes no new native baseline or match-count claim.
 
 ## Provisioning a new machine
 
