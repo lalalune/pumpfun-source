@@ -104,6 +104,7 @@ jobs:
               python -B tests/test_pump_v3_configured_fee_pinned_image.py
               python -B tests/test_pump_v3_token_extensions_pinned_image.py
               python -B tests/test_pump_cashback_accept_pinned_image.py
+              python -B tests/test_pump_quote_control_pinned_image.py
               python -B tests/test_create_mayhem_candidate_pair.py
               python -B tests/test_mayhem_trade_normal_python.py
               python -B tests/test_pump_set_mayhem_params_synthetic_cpi_pinned_image.py
@@ -195,6 +196,7 @@ jobs:
               python -B scripts/test_bytecode_signatures_atomic_publication.py
               python -B scripts/test_revalidate_all_publication.py
               python -B scripts/test_revalidate_all_atomic_publication.py
+              python -B reconstruction/diagnostics/manifest-admission/test_run.py
               python -B scripts/test_donation_relay_oracle_optimization.py
               python -B tests/test_claim_token_incentives_pinned_image.py
               python -B tests/test_pump_admin_token_incentives_pinned_image.py

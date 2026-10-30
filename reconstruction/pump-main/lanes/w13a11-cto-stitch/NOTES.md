@@ -109,3 +109,36 @@ genuine dependency CPIs. This is bounded runtime evidence, not all-input proof.
 Source inventory: `976a6bf25dd46c867047081de1bc0a0ff758ff0e3dc0a7192d200f7ce1d1e430`.
 Unstripped ELF: `46ba0c60c7b4dd11f7a67f01b81ff7e305b700dd2e1f459fccd07ddca58b3d2c`.
 Runtime ELF: `95f21f881dbf6c3be67819735a291eceaa934314b4e43b2427cda21228420302`.
+
+## Later composite: cashback field and sharing reset
+
+Relative to the verified #2927 source, the event reads cashback from the curve
+field assigned earlier in the same call, and computes the reset flag directly
+from immutable `sharing_update` instead of caching it. The emitted values are
+unchanged: there is no intervening curve-field write/reload or mutation of the
+sharing option. Validation and CPI order, and all 24 macro call-site line
+numbers, are unchanged.
+
+The reviewed branch includes main
+`b720cf9267d2ef8ea1e73a36b78f53260e03839e`, whose full Pump source inventory
+matches the verified #2927 build:
+`6ec93b9004c2374f087c98d93a6d5bc3c211ef133999b84a0e995b8b080a3761`.
+
+| Measure | #2927 baseline | Candidate |
+| --- | ---: | ---: |
+| admin_cto bytes | 27,400 | 27,400 |
+| Sequence diagnostic ratio | 0.51228 | 0.51348 |
+| Differing normalized 8-byte slots | 3,334 | 3,334 |
+| Raw / normalized matched windows | 1,034 / 1,034 | 1,034 / 1,034 |
+
+A fresh identity build and official score preserve every existing raw and
+normalized match across the 1,035-window inventory, with no missing or resized
+windows. This remains a partial-window sequence improvement; the matched-window
+completion percentage is unchanged and whole-ELF identity is not established.
+
+All 363 signed admin_cto differential cases matched the captured program with
+genuine dependency CPIs. This is bounded runtime evidence, not all-input proof.
+
+Source inventory: `e3c9b449d89df914be23f8ba7f42027ae27a6f25e1b6fa25f938f0bc1dae6275`.
+Unstripped ELF: `620d90b0b2e33a2f422cbb6755437804dc3a30d9a125f2e298d39cd3da9ca9fc`.
+Runtime ELF: `1559324ef78658e3d6130754196ebbc17ec77df89d868c7b5b669c1f7b159666`.
