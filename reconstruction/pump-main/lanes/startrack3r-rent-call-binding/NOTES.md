@@ -224,6 +224,12 @@ these recorded `fd8b94dfa` measurements.
 
 ## Maintainer context and next step
 
+The [remaining dependency-path packet](path-producers/NOTES.md) qualifies main
+`3bbbe91e8` and corrects ten further raw data bytes. The selected compiler inputs
+reduce `.rodata` differences from 104 to 87, with all other output bytes and
+every function membership preserved. Broad remaps that worsen raw matching,
+three failed root builds and wrong-cache producer controls are retained.
+
 The [fresh-main Metaplex producer packet](mpl-producer/NOTES.md) extends the
 dependency evidence to a second compiler boundary. On `a7135a6a6`, seven raw
 data bytes are corrected with every other output byte unchanged; `.rodata`

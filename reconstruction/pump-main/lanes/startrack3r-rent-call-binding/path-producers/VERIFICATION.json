@@ -1,0 +1,354 @@
+{
+  "result": "PASS",
+  "source_revision": "3bbbe91e881df9ff617ecb5392ecb0559a7691c0",
+  "pins": {
+    "control": "8d9c35696664888ec05c42de2e81f40d9ef79284839f32b090aae36df570c88c",
+    "prior": "3eb5a1e655ed741aa9ad8fb6ab54940834dbbc5e9f8b5abf3d81ecfb18e4f20e",
+    "candidate": "2838d90f7e6d15904f9d3727746fa020c23e6248568ccbaa91badc14befc379b",
+    "repeat": "2838d90f7e6d15904f9d3727746fa020c23e6248568ccbaa91badc14befc379b",
+    "original": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "spl_token_control": "0cb8d94cdecf01a3aa8cadd9e1920dd8710da464f030209e9541ade5a24747fe",
+    "spl_token_candidate": "8a6180d9dfa96b3c6bffe8a5b96465eaa6b0ce3ee6a4c9f076f27e80453c467a",
+    "spl_token_repeat": "8a6180d9dfa96b3c6bffe8a5b96465eaa6b0ce3ee6a4c9f076f27e80453c467a",
+    "spl_token_2022_control": "deecc38549c9d94898fdcebabb630eea9f1c56af02d7185add0df133ea5f6861",
+    "spl_token_2022_candidate": "9a18cac91d18412fda334cc08bd06c4ee64b1e5d9c402a72db828f73577b67f0",
+    "spl_token_2022_repeat": "9a18cac91d18412fda334cc08bd06c4ee64b1e5d9c402a72db828f73577b67f0",
+    "spl_token_metadata_interface_control": "9f6480ec542cb664d5f163b1787fa1908022848d091d67ad6a9a640f1a2fa8f9",
+    "spl_token_metadata_interface_candidate": "72686546666811f14d4e8e0d648c94e09343a18c12ddaedd3fb23c461bf37783",
+    "spl_token_metadata_interface_repeat": "72686546666811f14d4e8e0d648c94e09343a18c12ddaedd3fb23c461bf37783",
+    "anchor_lang_control": "4ef13175ee9425e0c60f4c15d1d6e8a35e177d7923aa0a18eb7022e27eac4fa1",
+    "anchor_lang_candidate": "fd7ce8d2e8e1b4e211cf0a2e17fd0b5af1a64c05187a343c651542248cdb725e",
+    "anchor_lang_repeat": "fd7ce8d2e8e1b4e211cf0a2e17fd0b5af1a64c05187a343c651542248cdb725e",
+    "solana_borsh_control": "72660343eeac29be8c4b9e659ddb626876dfce333b105b2feaf343e625d71f8b",
+    "solana_borsh_candidate": "0a0e740144241275f12e1f06c5ab0f6efdcae74789a37babe635270b67a4de23",
+    "solana_borsh_repeat": "0a0e740144241275f12e1f06c5ab0f6efdcae74789a37babe635270b67a4de23",
+    "bincode_control": "dd92307162b992ce70acb0b21c44bba19ae16a5f7a6741c7a388c30d22e5ce4b",
+    "bincode_candidate": "f68da424ebcbef4e1fab9563bbcac9fe57f11bef9e9ad1b1675b6668be81a176",
+    "bincode_repeat": "f68da424ebcbef4e1fab9563bbcac9fe57f11bef9e9ad1b1675b6668be81a176",
+    "bs58_control": "9a695ce7b9800ac3a6b5a2b15a0b088ad9b3ff97836e01caf141fcf679b715fe",
+    "bs58_candidate": "1d07bae0119f0e35749f25aafb006808f433d3858cca00512abee17f5ef97ae5",
+    "bs58_repeat": "1d07bae0119f0e35749f25aafb006808f433d3858cca00512abee17f5ef97ae5"
+  },
+  "stages": {
+    "control": {
+      "sha256": "8d9c35696664888ec05c42de2e81f40d9ef79284839f32b090aae36df570c88c",
+      "bytes": 2666328,
+      "whole_image_changes": [],
+      "original_rodata_differences": 104
+    },
+    "prior": {
+      "sha256": "3eb5a1e655ed741aa9ad8fb6ab54940834dbbc5e9f8b5abf3d81ecfb18e4f20e",
+      "bytes": 2666328,
+      "whole_image_changes": [
+        [
+          1794469,
+          92,
+          47
+        ],
+        [
+          1794472,
+          92,
+          47
+        ],
+        [
+          1810847,
+          92,
+          47
+        ],
+        [
+          1810850,
+          92,
+          47
+        ],
+        [
+          1811191,
+          92,
+          47
+        ],
+        [
+          1811201,
+          92,
+          47
+        ],
+        [
+          1811214,
+          92,
+          47
+        ]
+      ],
+      "original_rodata_differences": 97
+    },
+    "candidate": {
+      "sha256": "2838d90f7e6d15904f9d3727746fa020c23e6248568ccbaa91badc14befc379b",
+      "bytes": 2666328,
+      "whole_image_changes": [
+        [
+          1794469,
+          92,
+          47
+        ],
+        [
+          1794472,
+          92,
+          47
+        ],
+        [
+          1810847,
+          92,
+          47
+        ],
+        [
+          1810850,
+          92,
+          47
+        ],
+        [
+          1811191,
+          92,
+          47
+        ],
+        [
+          1811201,
+          92,
+          47
+        ],
+        [
+          1811214,
+          92,
+          47
+        ],
+        [
+          1811467,
+          92,
+          47
+        ],
+        [
+          1811477,
+          92,
+          47
+        ],
+        [
+          1811490,
+          92,
+          47
+        ],
+        [
+          1811687,
+          92,
+          47
+        ],
+        [
+          1811787,
+          92,
+          47
+        ],
+        [
+          1811909,
+          92,
+          47
+        ],
+        [
+          1812641,
+          92,
+          47
+        ],
+        [
+          1812658,
+          92,
+          47
+        ],
+        [
+          1818339,
+          92,
+          47
+        ],
+        [
+          1820190,
+          92,
+          47
+        ]
+      ],
+      "original_rodata_differences": 87
+    }
+  },
+  "archive_changes": {
+    "spl_token": {
+      "/": [],
+      "//": [],
+      "lib.rmeta": [
+        [
+          268901,
+          92,
+          47
+        ],
+        [
+          277892,
+          92,
+          47
+        ]
+      ],
+      "spl_token-7ca1262583b82163.spl_token.79ba02a2ec74a813-cgu.0.rcgu.o": [
+        [
+          99963,
+          92,
+          47
+        ],
+        [
+          102947,
+          92,
+          47
+        ]
+      ]
+    },
+    "spl_token_2022": {
+      "/": [],
+      "//": [],
+      "lib.rmeta": [
+        [
+          2174905,
+          92,
+          47
+        ],
+        [
+          2174915,
+          92,
+          47
+        ],
+        [
+          2174928,
+          92,
+          47
+        ]
+      ],
+      "spl_token_2022-c6b0045447a83567.spl_token_2022.820efb5331770f81-cgu.0.rcgu.o": [
+        [
+          495267,
+          92,
+          47
+        ],
+        [
+          495277,
+          92,
+          47
+        ],
+        [
+          495290,
+          92,
+          47
+        ]
+      ]
+    },
+    "spl_token_metadata_interface": {
+      "/": [],
+      "//": [],
+      "lib.rmeta": [
+        [
+          151724,
+          92,
+          47
+        ]
+      ],
+      "spl_token_metadata_interface-e556355ac12a8256.spl_token_metadata_interface.8831a7b49e50557-cgu.0.rcgu.o": [
+        [
+          34923,
+          92,
+          47
+        ]
+      ]
+    },
+    "anchor_lang": {
+      "/": [],
+      "//": [],
+      "lib.rmeta": [
+        [
+          907029,
+          92,
+          47
+        ],
+        [
+          911305,
+          92,
+          47
+        ]
+      ],
+      "anchor_lang-50d487237eba7062.anchor_lang.a24aa37086471d27-cgu.0.rcgu.o": [
+        [
+          99388,
+          92,
+          47
+        ],
+        [
+          99463,
+          92,
+          47
+        ]
+      ]
+    },
+    "solana_borsh": {
+      "/": [],
+      "//": [],
+      "lib.rmeta": [
+        [
+          36285,
+          92,
+          47
+        ]
+      ],
+      "solana_borsh-c44b7cc8b1706cb3.solana_borsh.b45bb8b03d3ff525-cgu.0.rcgu.o": [
+        [
+          9219,
+          92,
+          47
+        ]
+      ]
+    },
+    "bincode": {
+      "/": [],
+      "//": [],
+      "lib.rmeta": [
+        [
+          626071,
+          92,
+          47
+        ],
+        [
+          626075,
+          92,
+          47
+        ]
+      ],
+      "bincode-3eccc8163badc9f5.bincode.836da658f946809-cgu.0.rcgu.o": [
+        [
+          4923,
+          92,
+          47
+        ],
+        [
+          4927,
+          92,
+          47
+        ]
+      ]
+    },
+    "bs58": {
+      "/": [],
+      "//": [],
+      "lib.rmeta": [
+        [
+          123153,
+          92,
+          47
+        ]
+      ],
+      "bs58-bc6305babaf38146.bs58.92ecefe42d280f8a-cgu.0.rcgu.o": [
+        [
+          5411,
+          92,
+          47
+        ]
+      ]
+    }
+  },
+  "independent_repeats_equal": true,
+  "scope": "Seventeen section-relative raw data corrections, ten beyond the prior producer chain. No formatter-gap closure, function-window gain, native qualification, whole-original identity or runtime claim."
+}
