@@ -51,7 +51,3 @@ the best unlanded composite (w9r2-admincto-harvest k4).
      compensates the entry/validate deficit by accident.
    So a landable wallet_flags needs compensation in the entry/validate region (where the original
    really has more code), not in the wallet.
-
-## Ledger keys
-
-See SUMMARY.json at the end of the lane.
