@@ -410,9 +410,17 @@ export function normalizeUpstreamResponse(
 ): LeaderboardData {
   if (category === "traders") return parseTraders(value);
   if (category === "creators") return parseCreators(value, options.page);
-  return options.competitionId
-    ? parseCompetitionDetail(value)
-    : parseCompetitions(value);
+  if (!options.competitionId) return parseCompetitions(value);
+  const detail = parseCompetitionDetail(value);
+  if (
+    detail.competition.id !== options.competitionId &&
+    detail.competition.slug.toLowerCase() !== options.competitionId.toLowerCase()
+  ) {
+    throw new UpstreamValidationError(
+      "The returned competition does not match the requested id or slug.",
+    );
+  }
+  return detail;
 }
 
 export async function readBoundedJson(response: Response): Promise<unknown> {
