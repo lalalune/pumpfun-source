@@ -104,6 +104,17 @@ kept) on main b5975fa: 27,368 B (-32), ratio 0.45147 -> 0.48381, callee-sequence
 `to_string` split is unchanged (5 calls); the gain is error-site layout. It needs +32 B of
 compensation to land.
 
+### 298 hoist + fee None-first (c2) and what does not compensate it
+
+On main 70f2704 (swap_hop matched): `if holder&&new.is_some(){..298..}let target=if holder{*holder_key}else{..}`
+plus `match fee{None=>{},Some(f)=>{..326..338..}}` gives 27,384 B (-16) at ratio 0.48487 (callee-sequence
+0.9236; ledger `0x22a10-w12-70f2704-callgraph-298-hoist-plus-fee-none-first-v1`). Its post-opt IR has the
+original's holder-threaded fee checks (holder arm: fee tag, quote_locked, then straight to the
+fee_configurable test; 330 only on the non-holder arm). Same metrics for the spellings
+`if holder{if new.is_some(){..}}` and `if holder&&!new.is_none(){..}`; `if new.is_some()&&holder{..}`
+breaks the threading (27,008 B, 0.42359). Not compensators: curve bools read before `global_quote`
+(-72 B, 0.46962), inverted wallet flags (byte-identical).
+
 ## Scope
 
 These are instruction and call-layout observations for the named baseline.
