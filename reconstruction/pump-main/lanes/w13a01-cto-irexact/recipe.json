@@ -1,0 +1,24 @@
+{
+  "target": "0x22a10 admin_cto::execute",
+  "base_main": "43946852e",
+  "base": {"ratio": 0.49071, "slots_diff": 3313, "bytes": 27400},
+  "oracle": "post-opt llc oracle (w12a02 iredit.py) on main's opt -O3 output; names are 4394685's",
+  "steps": [
+    {"spec": "mv:_114.i:_179", "what": "F1: wallet emit_cpi signer slice group {_114.i, target.i.sroa.0} at an execute-level frame index (orig T 0x680 above holder_key)", "ratio": 0.51917, "bytes": 27400},
+    {"spec": "nolt:buf.i32.i", "what": "one unmerged 24 B slot in the validate region (any 24 B validate/wallet buffer ties)", "ratio": 0.53865, "bytes": 27400},
+    {"spec": "mv:val5:_179", "what": "sharing CPI val (33 B) late in the frame (orig val7 below old_creator)", "ratio": 0.54614, "bytes": 27400},
+    {"spec": "bw:start:1:2000", "what": "block frequency only (shared memcmp mismatch hot); no source construct", "ratio": 0.54853, "bytes": 27400},
+    {"spec": "bw:bb7.i:2000:1", "what": "block frequency only", "ratio": 0.54883, "bytes": 27400}
+  ],
+  "perfect_frame_bound_after_step3": 0.62013,
+  "skeleton_ratio": {"main": 0.82864, "after_step3": 0.84871},
+  "structural_raw_ir": [
+    {"edit": "to_string noinline at 307/312", "base": "3912c47", "ratio": 0.43304, "bytes": 26960},
+    {"edit": "holder = trunc(load holder)", "ratio": 0.44364, "bytes": 27152},
+    {"edit": "local copy of new at entry block start", "ratio": 0.3972, "bytes": 27728, "note": "original piece load pattern and F7/G9 + A7/B9 + C7/D9 frame objects"},
+    {"edit": "local copy of new at bb7 start", "ratio": 0.47751, "bytes": 27536},
+    {"edit": "local copy of new after CtoState", "ratio": 0.484, "bytes": 27744, "note": "pieces forwarded by MemCpyOpt from the noalias readonly arg, deleted by InstCombine"},
+    {"edit": "w13a06 a4 (source)", "ratio": 0.43764, "bytes": 27024},
+    {"edit": "a4 + copy of new at bb7 start", "ratio": 0.45053, "bytes": 27176}
+  ]
+}

@@ -77,13 +77,12 @@ The anchor `_179` is the final emit_cpi `invoke_signed` sret (24 B, no lifetime)
 at `_174`/ix/`_167` -> **0.54434** at any X from `_186` upward (the final emit_cpi temporaries). Moving
 `old_creator` down to just above `target1` instead of moving `val` gives the same +0.0024 as the first plateau.
 
-## Structural raw-IR features (on 3912c47, then frame steps on top)
+## Structural raw-IR features (first row on 3912c47, the rest on 4394685; frame steps on top)
 
 | raw-IR edit | bytes | ratio | + steps 1-3 |
 | --- | ---: | ---: | ---: |
 | none (main 3912c47) | 27,400 | 0.48772 | 0.52666 |
 | `to_string` noinline at 307 and 312 (the original's outlined set; w12a10 `noinl.py`) | 26,960 | 0.43304 | 0.46867 (best 24 B nolt: `inner_data.i`) |
-
 | holder as `trunc(load holder arg)` instead of `Option::eq` (orig `and64 r8,1`) | 27,152 | 0.44364 | 0.52430 (skeleton 0.811) |
 | `new` copied into a local 33 B alloca at the **entry block start**, all uses read the local | 27,728 | 0.39720 | 0.42608 (F1 only) |
 | same copy at the start of bb7 (after `shared`, before `global_quote`) | 27,536 | 0.47751 | |
@@ -99,12 +98,35 @@ survives (with +0x10 loaded before +8); placed after `global_quote` or later, th
 pieces vanish. The SROA'd local must exist before the code that follows it is simplified; a source spelling
 needs a copy that MemCpyOpt cannot forward (w13a03-cto-entrycopy's `mut new` + `take()` direction).
 
+Why the later copies vanish (`opt -O3 -print-changed -filter-print-funcs=<execute>` with the debug opt, copy
+after the CtoState stores): SROA cuts the local into `new.sroa.3.sroa.0/5` (7/9 B) exactly as the original
+does; then **MemCpyOpt forwards every reader of the pieces to copy straight from `%new.arg`** (execute's
+`new` is a `noalias readonly` by-value argument, so it can never change), and the next InstCombine deletes
+the now write-only piece allocas. At the entry-block position the forwarding does not happen. Two raw-IR
+controls: a `store None` into the local after the sharing copy (what `Some(new.take())` adds) is dead and
+removed by DSE, so it changes nothing; dropping `readonly` from the argument is re-inferred by FunctionAttrs.
+A source spelling must keep the local copy's pieces live past a real write or a read after a write.
+
+### Composite: the per-site holder test plus the copy of `new` (both faithful, opposite size effects)
+
+w13a06-cto-rpoorder's a4 (per-site `matches!(hopt,Some(true))` holder tests) gives the original's sret-slot
+RPO and `to_string` set but is 376 B short; the copy of `new` adds bytes. On 4394685:
+
+| raw IR | bytes | ratio | F1 | F1 + 24 B | + val |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| a4 (source, captured) | 27,024 | 0.43764 | 0.48379 | 0.50943 | 0.51576 |
+| a4 + entry-block copy of `new` | 27,120 | 0.44107 | | | |
+| a4 + copy at bb7 start | 27,176 | 0.45053 | 0.49684 | 0.50827 | 0.50767 |
+
+The pair recovers 152 of the 376 B; 224 B are still missing (8/24 target, phi flags).
+
 The outlined `to_string` set costs 440 B that the original fills with data flow (see w12a09-cto-cleanroom).
 
 ## Source trials (main 085e5df, measure.sh)
 
 | trial | change | result |
 | --- | --- | --- |
+| wi1 | wallet's body written inline in execute (no nested fn), so the signer slice is an execute alloca | collapse: 28,840 B, 0.1415, loses 0xbc108 |
 | oc1-oc4 | declare `old_creator` (deferred init / destructuring assignment) before the sharing CPI match, to emulate the val-below-old_creator frame step | **byte-identical** to main (sha 4fc952ce): declaration position does not move that alloca |
 
 Ledger keys: `0x22a10-w13-*-irexact-*`.
