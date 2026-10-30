@@ -1,0 +1,39 @@
+{
+  "lane": "w14a01-cto-acctlive",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "bases": {"53abf28b1": 0.62672, "23322b07c": 0.62882, "308b545f1": 0.63062, "769f331fe": 0.63241},
+  "pr": 3211,
+  "landed": false,
+  "result": "notes only: no liveness/evaluation-order source form of the accounts pointer beats main; per-clone reload bound measured",
+  "best_zero_loss": {"ratio": 0.63241, "slots_diff": 3287, "bytes": 27400, "note": "= main 769f331fe; no improvement"},
+  "attempts": 48,
+  "findings": [
+    "Original reloads the accounts pointer [r10-0x8d8] 32x, one per clone in the sharing CPI (8 sites); main 19x and keeps it in r5/r8",
+    "Sibling reload hits (create_v2::mint_supply, holder_distribution::execute, trade::check_quote, migrate_v2::create_token_account_v2) reload once per clone run, not per clone: no source idiom",
+    "accprobe.py (entry-slot reloads before each sharing clone, post-opt IR) gives clonefeat 6/2 and +0.0096 fbsplit-all vs the null probe; every other region is <= +0.0023 or negative",
+    "Debug-llc on 23322b0: %0 global split picks r8 over 94 bundles; the sharing arm is live-through with no interference, so it stays in the register region",
+    "Original tail holds swept r9, sharing tag r6, pool_updated r8, Result tag r7: all callee-saved regs busy, so the pointer is spilled; main spills swept and the tag instead",
+    "Source forms giving per-clone reloads: accounts-struct-first 3/5 (-80 B, -0.026), inline(always) share helper 3/4 (-64 B, -0.034), with_signer 3/5 (+16 B, -0.024)"
+  ],
+  "rejected_mechanisms": [
+    "per-region let a=&ctx.accounts / &*ctx.accounts / ctx.accounts.x rebinding (byte-identical)",
+    "sharing CPI clones into locals first (0.6235 @27368 on 53abf28)",
+    "let accs first / let cpi first / with_signer at the sharing and other CPIs",
+    "sharing CPI behind fn share(&AdminCto|&Context) inline(always) or plain",
+    "wallet/sweep helpers taking (&AdminCto,&AdminCtoBumps)",
+    "signer seeds inline per CPI or bound in the sharing arm",
+    "tail nf/pool_updated/pargs/reset orders, if-let / match-ref on sharing_update",
+    "llc RA knobs (no source effect, diagnostic only)"
+  ],
+  "unresolved_residuals": [
+    "sharing-arm clone run: accounts pointer in r5 (main) vs per-clone spill reloads (original), worth ~+0.0096 frame-held",
+    "tail callee-saved occupancy: swept r9 / sharing tag r6 / pool_updated r8 in the original"
+  ],
+  "next_ideas": [
+    "Re-run accprobe.py + clonefeat on any candidate that puts swept in the Err-payload class (w13a40/w13a44 R1) or the holder phi (w13a38/w13a49): the sharing-arm 6/2 should follow, worth ~+0.0096 once the frame holds",
+    "Find a source form that keeps the sharing_update tag in a register from the sweep exit to the event (orig r6 at 0x3c58 and 0x4a90); it is the third callee-saved occupant",
+    "accounts-struct-first (3/5) combined with an R1 candidate: check whether the arm then reaches 6/2 without the -80 B relayout"
+  ],
+  "tools": ["tools/accprobe.py", "tools/reloads.py", "tools/csrlive.py", "tools/batch.sh", "tools/rec.py", "tools/llfn.py"],
+  "ledger_keys": "0x22a10-w14-{53abf28,23322b0,308b545,769f331}-acctlive-*"
+}

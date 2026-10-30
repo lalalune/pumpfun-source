@@ -1,11 +1,27 @@
 # w14a01-cto-acctlive: live range of the `ctx.accounts` pointer in admin_cto::execute
 
 Target: `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
-Bases: main 53abf28b1 (0.62672, 3,305 slots), then main 23322b07c (0.62882, 3,287 slots, after #3200).
+Bases: main 53abf28b1 (0.62672, 3,305 slots), 23322b07c (0.62882, #3200), 308b545f1 (0.63062, #3207) and 769f331fe
+(0.63241, #3215).
 Angle: continues w13a44 next_idea 2, w13a33 next_idea 1, w13a35 next_idea 1 and w13a45's register finding.
 Scratch: `~/.cache/pumpfun-reconstruction/lanes/w14a01-cto-acctlive/` (not in git).
 
-No source change is proposed yet. This PR holds the reload map, the probe oracle and the source-form screen.
+No source change is proposed. This PR holds the reload map, the probe oracle and the source-form screen.
+
+**Result.** No source form found raises the ratio. Source forms that produce per-clone `[r10-X]` reloads of the
+accounts pointer in the sharing CPI (clonefeat: original 6/2, main 2/6; stack reloads: original 537, main 505-506;
+tag==2 tests on r7: original 21, main 18):
+
+| form | clonefeat | stack reloads | tag==2 on r7 | size delta | ratio vs main |
+| --- | --- | ---: | ---: | ---: | ---: |
+| `let accs=AdminCtoSharingConfig{..}` before the CpiContext (program clone evaluated last) | 3/5 | 504 | 18 | -80 B | -0.026 |
+| sharing CPI in `#[inline(always)] fn share(&AdminCto,seeds,val)` | 3/4 | 503 | 18 | -64 B | -0.034 |
+| sharing CPI as `CpiContext::new(..).with_signer(seeds)` | 3/5 | 507 | 18 | +16 B | -0.024 |
+| IR probe only: accounts pointer reloaded from an entry slot before each sharing clone | **6/2** | 517 | 18 | +88-96 B | +0.0096 frame-held |
+
+The full 6/2 form needs the register allocator to spill the pointer across the sharing arm. That happens only when the
+callee-saved registers hold swept, the sharing tag and pool_updated, as in the original (section 3). Those are the
+swept/Err-payload (w13a40/w13a44/w13a49) and holder-phi (w13a38) representations, not accounts-pointer source forms.
 
 ## 1. Where the original reloads the accounts pointer
 
@@ -42,27 +58,59 @@ In each one the accounts pointer is reloaded once at the start of a clone run an
 0x34cc8 `ldxdw r5,[r10-0x3a0]; ldxdw r2,[r5+0x38]`, with r5 reused for the next account). None reloads per clone, so they
 show no source idiom for the per-clone form. Their source uses plain `ctx.accounts.x.to_account_info()` like ours.
 
-## 3. Oracle: per-use reloads in the sharing arm are worth about +0.005
+## 3. Oracle: per-clone reloads in the sharing arm are worth about +0.0096 with the frame held
 
-`tools/accprobe.py <m.ll> <out.ll> <lo> <hi>` edits the post-opt slim module. It stores `%_247` (the accounts pointer)
-to a new alloca at entry and reloads it before every account load in IR lines [lo,hi]. On main 23322b0's module:
+`tools/accprobe.py <m.ll> <out.ll> <lo> <hi> [blk]` edits the post-opt slim module. It stores `%_247` (the accounts
+pointer) to a new alloca at entry, then reloads it before every account load in IR lines [lo,hi]. With `blk` it reloads
+once per basic block, like an RA reload reused within its block. Scores use w13a35 `fbsplit.py` "all" (perfect frame
+remap), because the probe's alloca shifts the frame. The null probe (alloca and store, no reloads) scores 0.59757,
+against main's 0.60216. Main 23322b0's module:
 
-| probe | clonefeat | bytes | ratio | fbsplit all (perfect frame) | sharing segstat |
-| --- | --- | ---: | ---: | ---: | ---: |
-| main | 2/6 | 27,400 | 0.62882 | 0.60216 | 285 |
-| sharing arm (lines 5440-5939, 10 loads) | **6/2** | 27,496 | 0.35167 | **0.60676** | 291 |
-| every region after entry (101 loads) | 7/1 | 27,864 | 0.29581 | 0.52866 | 291 |
+| probe region (IR lines of `rx/base1/m.ll`) | loads | clonefeat | bytes | fbsplit all | vs null |
+| --- | ---: | --- | ---: | ---: | ---: |
+| none (null probe) | 0 | 2/6 | 27,408 | 0.59757 | |
+| **sharing arm 5440-5939** | 10 | **6/2** | 27,488 | **0.60715** | **+0.0096** |
+| wallet AMM-collect clones 2700-3600 | 5 | 2/6 | 27,368 | 0.59982 | +0.0023 |
+| 4900-5200 | 2 | 2/6 | 27,416 | 0.59689 | -0.0007 |
+| 5940-6345 (pool CPI, event, emit) | 15 | 2/6 | 27,432 | 0.59461 | -0.0030 |
+| 4300-4640 | 9 | 2/6 | 27,472 | 0.58998 | -0.0076 |
+| 3600-3900 | 17 | 2/6 | 27,424 | 0.58871 | -0.0089 |
+| 5200-5440 (sweep AMM transfer) | 11 | 2/6 | 27,416 | 0.58850 | -0.0091 |
+| every load after entry (per use) | 101 | 7/1 | 27,864 | 0.52866 | -0.069 |
 
-The sharing-arm form reproduces the original's clone addressing exactly. With the frame held, it is worth about +0.0046.
-That agrees with w13a44's bound (+49 tokens over 0x4200-0x4800). Reloading at every use everywhere is worse, because the
-original keeps multi-use reloads inside a block (0x3128, 0x4ab8, 0x6010, 0x6130).
+The sharing-arm probe reproduces the original's clone addressing exactly (`ldxdw r1,[r10-X]; ldxdw rB,[r1+0x98|0x68|..]`
+before each of the 8 clones). It is the only region where spilling the accounts pointer pays. Elsewhere the original
+keeps a reload live across several uses in a block (0x3128, 0x4ab8, 0x6010, 0x6130), and forcing more reloads loses.
 
-llc RA knobs (split-spill-mode, local-reassign, exhaustive search, deferred spilling, eviction cutoff, CSR cost) never move
-clonefeat off 2/6.
+The llc RA knobs (split-spill-mode, local-reassign, exhaustive search, deferred spilling, eviction cutoff, CSR cost) never
+move clonefeat off 2/6.
+
+### Why main keeps the pointer in a register: callee-saved occupancy
+
+The debug-llc trace on 23322b0 (`radbg.sh`, `rsplit.py ra.log 0`) splits %0 into r8 over 94 bundles. In the r8 region,
+every sharing-arm block is "live-through, straight through" with no interference ("intf invalid-invalid"), so the arm
+stays in the register region. Its first use reloads into r8, and a later eviction moves the piece to r5. The original's
+arm is in the stack complement, so it spills everywhere and reloads once per clone.
+
+The tail shows what fills the registers in the original:
+
+| | original (0x4e00-0x5030) | main 23322b0 (0x4de8-0x4ff0) |
+| --- | --- | --- |
+| r6 | sharing_update tag, reloaded after the sharing call (0x4a90) and kept to the event | pool_updated |
+| r7 | CPI Result tag | CPI Result tag |
+| r8 | pool_updated | accounts pointer (reloaded once at 0x4e40) |
+| r9 | swept (from the sweep exit 0x3c40 to the event store 0x5030) | nf (the #3200 event fee local) |
+| accounts | reloaded per use (0x4e80, 0x4f38) | in r8 |
+
+The same holds in the native sweep (orig 0x59b0 `mov64 r9,0` = swept; main spills swept to `[r10-0x968]`). All four
+callee-saved registers are taken by long-lived small values in the original, so a pointer live across calls has none.
+Main spills swept and the tag, which leaves r8 free for the pointer. This is w13a44's R1 (swept in the Err-payload class,
+r9) plus w13a49's finding that the holder phi moves the payload class to r9. The accounts-pointer form follows from those
+value representations. It is not a separate source lever.
 
 ## 4. Source forms screened (raw-IR capture + rx oracle = build tokens)
 
-Ledger approach `acct-liverange`, keys `0x22a10-w14-53abf28-acctlive-*` and `0x22a10-w14-23322b0-acctlive-*`.
+Ledger approach `acct-liverange`, keys `0x22a10-w14-{53abf28,23322b0,308b545,769f331}-acctlive-*`.
 
 | form | base | ratio | bytes | clonefeat | stack reloads |
 | --- | --- | ---: | ---: | --- | ---: |
@@ -89,13 +137,21 @@ Ledger approach `acct-liverange`, keys `0x22a10-w14-53abf28-acctlive-*` and `0x2
 | locals-first at the to_account_info CPIs (wallet x2, sweep create, pool) | 23322b0 | = main | | | |
 | locals-first at the sweep AMM transfer | 23322b0 | 0.56795 | 27,264 | 2/6 | 508 |
 
+| main | 308b545 | 0.63062 | 27,400 | 2/6 | 506 |
+| `if let Some(val)=sharing_update` | 308b545 | 0.62921 | 27,392 | 2/6 | 506 |
+| tail pool_updated/nf/pargs orders (3) | 308b545 | 0.62564-0.62734 | 27,416-27,424 | 2/6 | 506-507 |
+| main | 769f331 | 0.63241 | 27,400 | 2/6 | 506 |
+| sharing CPI as `CpiContext::new(..).with_signer(seeds)` | 769f331 | 0.60797 | 27,416 | 3/5 | 507 |
+| pool CPI as `CpiContext::new(..).with_signer(seeds)` | 769f331 | 0.54224 | 27,400 | 2/6 | 506 |
+
 No form changes the tag==2 register web (r7 at 18 sites; original r7 at 21 of 26). The only forms that produce
 per-clone reloads (3/5, 3/4) evaluate the program clone last or move the CPI behind a helper boundary. Both relayout the
 arm and lose 0.02-0.04.
 
 ## Tools (`tools/`)
 
-- `accprobe.py`: the per-use reload probe above (post-opt IR, experiment only).
+- `accprobe.py`: the per-use / per-block reload probe above (post-opt IR, experiment only).
+- `csrlive.py <dis> <lo> <hi>`: callee-saved registers read after each call before being written.
 - `reloads.py <fn.bin|orig>`: stack reload/store counts and tag==2 test registers.
 - `batch.sh <slot> <names..>`: capvar + llcb + reloads for `edits/<name>.py` into `res.jsonl`.
 - `livein.py`, `rng.py`, `llfn.py`: disassembly helpers. `rec.py`: ledger recorder.
