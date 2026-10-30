@@ -57,3 +57,22 @@ Ledger `0x22a10-w14-5ee681d-shareauthport-program-lit-keymid-v1`.
 
 The CpiContext program (`%_418`) and sharing_config (`%_452`) to_account_info clones are at their placement optimum
 (the current key-first order); every all-P2 permutation of them loses (best 0.62133 / 0.63601).
+
+## Part 4 (branch -4, main 65df90f, 0.6453): in-position permutations (pscan `MODE=pp`)
+
+`MODE=pp` keeps a clone's placement and permutes the read order inside each position. The `|` in an order marks the
+lamports and data Rc clones.
+
+| variant on 65df90f | literal read order | ratio | slots |
+| --- | --- | ---: | ---: |
+| main | | 0.6453 | 3,172 |
+| g2 global | W,E,S,R \| L,D \| O,K | 0.6462 | 3,172 |
+| a3 authority | K,R,W,E \| L,D \| S,O (inline Rc; the let-bound form a3b is the same) | 0.6456 | 3,170 |
+| pa2 pool_authority | E \| L,D \| K,W,S,R,O | 0.6456 | 3,172 |
+| **g2+a3** | | **0.64649** | 3,170 |
+| g2+pa2 | | 0.64649 | 3,172 |
+| g2+a3+pa2 / a3+pa2 | | 0.63751 / 0.63661 | 3,168 |
+
+g2+a3 at 27,400 B has 0 losses and differential 363/0. Unstripped sha256 `927c4de8ae17595d136b623c023b021e9d3c8d112a4bd1fec5ed27040dca413f`.
+Also tried on 65df90f: sharing_config and the CpiContext program written as literals. The to_account_info clone order
+(K,L,D,O,R,S,W,E) equals main. The #3260 forms a and b and the #3277 form all lose, mostly through size changes.
