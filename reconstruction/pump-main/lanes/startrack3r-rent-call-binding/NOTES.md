@@ -1,6 +1,12 @@
 # V2 rent call binding beyond window membership
 
-Latest follow-up: [composed source and Windows linker-order verification](combined-span/NOTES.md)
+Latest follow-up: [current-source composition](source-composition/NOTES.md)
+qualifies **1,031 normalized / 335 raw** matches, gains 42 raw windows without
+losses against fresh current main, and accounts for four remaining bodies.
+The formatter is now 96 bytes short: the earlier positive errors no longer
+cancel admin-CTO's 56-byte and swap-hop's 40-byte deficits.
+
+Earlier follow-up: [composed source and Windows linker-order verification](combined-span/NOTES.md)
 measures a **40-byte** formatter span excess with upstream #2168 + #2272,
 20 recovered raw matches over the Windows diagnostic baseline, and an exact
 repeat of the full compiler output. Seven unmatched bodies account for the

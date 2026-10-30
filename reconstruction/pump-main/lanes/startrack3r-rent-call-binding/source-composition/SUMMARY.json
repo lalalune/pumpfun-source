@@ -1,0 +1,149 @@
+{
+  "source_revision": "42babccf82001346f26f020caea38bf63f5c22a2",
+  "original": {
+    "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "start": 43112,
+    "end": 1713584,
+    "bytes": 1670472,
+    "callee_bytes": 1088,
+    "callee_normalized_sha256": "dd57f23602c618b8b75b8d970b99299afbd61b7c15f741b6bff6974441f7a450",
+    "span_function_count": 788,
+    "gaps": []
+  },
+  "inventory_sha256": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8",
+  "all_outputs": {
+    "01-main-map": "fc2aee224483d5708e759d1352c21d82d84bf3400badf515edc112f0e175df04",
+    "02-main-ordered": "3548f6fc654ea304636df4a98fceb4d11cc9194152acbecf660f0da50e066ae4",
+    "06-composed-map": "df2c5b90420ec6c7aee6d22ec92e185e2ce569e8a49b6fb081913340c802ebab",
+    "04-composed-ordered": "8286c8d7c86e9c44ff51f9b5fa5014536e94aab17c571b12cda3550dd376a2e4",
+    "05-composed-repeat": "8286c8d7c86e9c44ff51f9b5fa5014536e94aab17c571b12cda3550dd376a2e4"
+  },
+  "images": {
+    "01-main-map": {
+      "sha256": "fc2aee224483d5708e759d1352c21d82d84bf3400badf515edc112f0e175df04",
+      "output_bytes": 2666360,
+      "normalized": 1029,
+      "raw": 273,
+      "formatter": {
+        "start": 43040,
+        "end": 1714088,
+        "span_delta": 576,
+        "raw_equal": false,
+        "names": [
+          "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa916cc1caf72622E"
+        ],
+        "callee_match": true
+      },
+      "text_delta": 504,
+      "span_missing_bytes": 92888,
+      "span_extra_bytes": 93464,
+      "span_function_count": 788,
+      "span_common_count": 780
+    },
+    "02-main-ordered": {
+      "sha256": "3548f6fc654ea304636df4a98fceb4d11cc9194152acbecf660f0da50e066ae4",
+      "output_bytes": 2666360,
+      "normalized": 1029,
+      "raw": 293,
+      "formatter": {
+        "start": 42880,
+        "end": 1714088,
+        "span_delta": 736,
+        "raw_equal": false,
+        "names": [
+          "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa916cc1caf72622E"
+        ],
+        "callee_match": true
+      },
+      "text_delta": 504,
+      "span_missing_bytes": 92728,
+      "span_extra_bytes": 93464,
+      "span_function_count": 790,
+      "span_common_count": 782
+    },
+    "06-composed-map": {
+      "sha256": "df2c5b90420ec6c7aee6d22ec92e185e2ce569e8a49b6fb081913340c802ebab",
+      "output_bytes": 2665720,
+      "normalized": 1031,
+      "raw": 315,
+      "formatter": {
+        "start": 43272,
+        "end": 1713488,
+        "span_delta": -256,
+        "raw_equal": false,
+        "names": [
+          "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa916cc1caf72622E"
+        ],
+        "callee_match": true
+      },
+      "text_delta": -96,
+      "span_missing_bytes": 69576,
+      "span_extra_bytes": 69320,
+      "span_function_count": 786,
+      "span_common_count": 782
+    },
+    "04-composed-ordered": {
+      "sha256": "8286c8d7c86e9c44ff51f9b5fa5014536e94aab17c571b12cda3550dd376a2e4",
+      "output_bytes": 2665720,
+      "normalized": 1031,
+      "raw": 335,
+      "formatter": {
+        "start": 43112,
+        "end": 1713488,
+        "span_delta": -96,
+        "raw_equal": false,
+        "names": [
+          "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa916cc1caf72622E"
+        ],
+        "callee_match": true
+      },
+      "text_delta": -96,
+      "span_missing_bytes": 69416,
+      "span_extra_bytes": 69320,
+      "span_function_count": 788,
+      "span_common_count": 784
+    }
+  },
+  "credited_patches": [
+    {
+      "pr": "2168",
+      "base": "a7135a6a64c446166895f7e3ea4ca84ac1a9b848",
+      "head": "b588742e5bce9b00c7774fe676c0f75bc3bd557e",
+      "paths": [
+        "programs/pump/src"
+      ],
+      "patch_sha256": "5d183eeffd75857d0950cae1763183ae4868a12612b011d8e9ed25a1cb5e8074"
+    },
+    {
+      "pr": "2225",
+      "base": "3bbbe91e881df9ff617ecb5392ecb0559a7691c0",
+      "head": "8b8ebe7812489ee3bb1792b256a474c82c014eb0",
+      "paths": [
+        "programs/pump/src/buy_v2.rs",
+        "programs/pump/src/lib.rs"
+      ],
+      "patch_sha256": "14b784310b00e82d74f450f3776aec61cb785b07d725763087d99b5f36787dd9"
+    },
+    {
+      "pr": "2309",
+      "base": "7e26cbf36c5c0c824e3eb36417ce8a35866f530a",
+      "head": "44428ebcb2d3a380b0e82161bc4dcc9eec1774cd",
+      "paths": [
+        "programs/pump/src/sweep_fees.rs"
+      ],
+      "patch_sha256": "6536a6b985a8e5928cee23214ea52aef107143bc36189f50fdbc2fbc73ae4a34"
+    },
+    {
+      "pr": "2341",
+      "base": "7e26cbf36c5c0c824e3eb36417ce8a35866f530a",
+      "head": "61ea2e62de1fc541c231c03952dc65ebd95ef8ce",
+      "paths": [
+        "programs/pump/src/create_v2.rs"
+      ],
+      "patch_sha256": "9448de493348e7b1d1d975a8121a5c1a4f368cff95fcb9104271080c2becd15e"
+    }
+  ],
+  "composition_patch_sha256": "68294c3728f1766fdf1dccbd7720e1ab21e6c35c28768615f0ea708e75519791",
+  "root_compiles": 5,
+  "target_executions": 0
+}

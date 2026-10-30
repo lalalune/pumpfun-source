@@ -1,0 +1,160 @@
+[
+  {
+    "pr": "2168",
+    "path": "programs/pump/src/buy_v2.rs",
+    "returncode": 1,
+    "ours": "0399e19ef870a65adfc7882d7e157f1ddcb0a8b76634b8a755ea00642ae079dc",
+    "base": "488bee88c18e166e53fe1965091df2e8762e88318cffc0154e74cfd502f259c5",
+    "theirs": "cb336f28d678273085453f992743062e83e3e75fa0e1d56287c03f24def9be8c",
+    "merged": "e08283d57ea3736f5b0a2f1c5ea348e25bad50993770846b1bf1aceb3586189b",
+    "resolution": {
+      "rule": "Line-wise union of disjoint upstream edits; preserve current exact-quote attribute whitespace. No new semantic edit.",
+      "conflicts": [
+        {
+          "ours": "#[inline(always)]\nfn buy_exact_quote_in_handler<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,input:u64,limit:u64,partial:&bool)->Result<()>{\n",
+          "base": "#[inline(never)]\nfn buy_exact_quote_in_handler<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,input:u64,limit:u64,partial:bool)->Result<()>{\n",
+          "theirs": "#[inline(always)]\nfn buy_exact_quote_in_handler<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,input:u64,limit:u64,partial:bool)->Result<()>{\n",
+          "resolved": "#[inline(always)]\nfn buy_exact_quote_in_handler<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,input:u64,limit:u64,partial:&bool)->Result<()>{\n"
+        }
+      ],
+      "resolved_sha256": "0399e19ef870a65adfc7882d7e157f1ddcb0a8b76634b8a755ea00642ae079dc"
+    }
+  },
+  {
+    "pr": "2168",
+    "path": "programs/pump/src/creator/distribute_creator_fee_v2.rs",
+    "returncode": 0,
+    "ours": "b7ede82daff0311c3b6efa0a8836746bd5dbdbb3686e804709af198aa56f0a52",
+    "base": "b7ede82daff0311c3b6efa0a8836746bd5dbdbb3686e804709af198aa56f0a52",
+    "theirs": "c4b54902fcf93b74c561c99fbba05eda115a15da14a5043e0c9e41f0364ca621",
+    "merged": "c4b54902fcf93b74c561c99fbba05eda115a15da14a5043e0c9e41f0364ca621"
+  },
+  {
+    "pr": "2168",
+    "path": "programs/pump/src/creator/distribute_creator_fees.rs",
+    "returncode": 0,
+    "ours": "ac9f92c7615ca8da67e0762776e2cae06299765ddecef5ce8f408d5cc9931bdc",
+    "base": "ac9f92c7615ca8da67e0762776e2cae06299765ddecef5ce8f408d5cc9931bdc",
+    "theirs": "d6f226494a58ba672e3deb8fafae9b9a130da614474da24f5841b0f05632bbea",
+    "merged": "d6f226494a58ba672e3deb8fafae9b9a130da614474da24f5841b0f05632bbea"
+  },
+  {
+    "pr": "2168",
+    "path": "programs/pump/src/curve_quote_payments.rs",
+    "returncode": 0,
+    "ours": "c85b0cd7d2d1fae850194e76e713de325627f51bd3a08f6027f732b86327aa9e",
+    "base": "c85b0cd7d2d1fae850194e76e713de325627f51bd3a08f6027f732b86327aa9e",
+    "theirs": "2d8978bfdf66cc06b4aed5205e2b7f1045c502d0d35655ccf8d6de8339e925ac",
+    "merged": "2d8978bfdf66cc06b4aed5205e2b7f1045c502d0d35655ccf8d6de8339e925ac"
+  },
+  {
+    "pr": "2168",
+    "path": "programs/pump/src/lib.rs",
+    "returncode": 1,
+    "ours": "05f71ac84e08c460a731af11db2f6a50d12d9792f89f3b8464efbb0e1ccda18d",
+    "base": "16912468ec5d587f73a184cf50b7e7ffb5a5d69422777f3f19e8c79d5222a7c1",
+    "theirs": "b910a541cd349c324e428e219379f4e4c46f29f7baf1146a3a27e19ffea2443d",
+    "merged": "fb9c7b51de775a055a81551b91d90ec15f85dde9909a961d3793f5981d7050f5",
+    "resolution": {
+      "rule": "Line-wise union of disjoint upstream edits; preserve current exact-quote attribute whitespace. No new semantic edit.",
+      "conflicts": [
+        {
+          "ours": "    #[inline(never)] pub fn buy_exact_quote_in_v2<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,spendable_quote_in:u64,min_tokens_out:u64,partial_fill:OptionBool)->Result<()>{buy_v2::execute(ctx,spendable_quote_in,min_tokens_out,partial_fill.0,true)}\n",
+          "base": "    pub fn buy_exact_quote_in_v2<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,spendable_quote_in:u64,min_tokens_out:u64,partial_fill:OptionBool)->Result<()>{buy_v2::execute(ctx,spendable_quote_in,min_tokens_out,partial_fill.0,true)}\n",
+          "theirs": "    #[inline(never)]pub fn buy_exact_quote_in_v2<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,spendable_quote_in:u64,min_tokens_out:u64,partial_fill:OptionBool)->Result<()>{buy_v2::execute(ctx,spendable_quote_in,min_tokens_out,partial_fill.0,true)}\n",
+          "resolved": "    #[inline(never)] pub fn buy_exact_quote_in_v2<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,spendable_quote_in:u64,min_tokens_out:u64,partial_fill:OptionBool)->Result<()>{buy_v2::execute(ctx,spendable_quote_in,min_tokens_out,partial_fill.0,true)}\n"
+        }
+      ],
+      "resolved_sha256": "b49e92cfa3acfcd551e02bd25ed24ce6229b9573e902ffb6b3b2926a027f640c"
+    }
+  },
+  {
+    "pr": "2168",
+    "path": "programs/pump/src/multi_hop_curve_swap.rs",
+    "returncode": 0,
+    "ours": "efc030de336bcd571177fd80d67d2edd6391496cb67d7ffc50210b29d6df61ad",
+    "base": "efc030de336bcd571177fd80d67d2edd6391496cb67d7ffc50210b29d6df61ad",
+    "theirs": "e52f9274f5b927ba288eb90466ab9b88ffa210dde343fe6abd7886c7ad1fceb8",
+    "merged": "e52f9274f5b927ba288eb90466ab9b88ffa210dde343fe6abd7886c7ad1fceb8"
+  },
+  {
+    "pr": "2168",
+    "path": "programs/pump/src/set_reserved_fee_recipients.rs",
+    "returncode": 0,
+    "ours": "cdce041b32512490c6c8cad9eab5796b3cb18e500a77dec6fe21277baa9f22f1",
+    "base": "cdce041b32512490c6c8cad9eab5796b3cb18e500a77dec6fe21277baa9f22f1",
+    "theirs": "235b87abf644c43257c0246d61b1cb0ace029deaf2b4f46b99d3879b86fbfaf8",
+    "merged": "235b87abf644c43257c0246d61b1cb0ace029deaf2b4f46b99d3879b86fbfaf8"
+  },
+  {
+    "pr": "2168",
+    "path": "programs/pump/src/trade_v3.rs",
+    "returncode": 0,
+    "ours": "c9f1897ed6566755947d38202874986cde3f4749320a94e4b27d3d8027bca498",
+    "base": "25a11d39367c6a1fdfe8e7794e63ccf8dc8673f6fb207c73ed1dc7af87a5982d",
+    "theirs": "0f7421ad65b67a37ce99ec287ea7a2a2c3ad368e7a557cd98749fcea523f47f6",
+    "merged": "b91f1b23c1a7b81a4156d8d60f839300ba53c8f319d0866bb25c8c0063ece1de"
+  },
+  {
+    "pr": "2168",
+    "path": "programs/pump/src/util/account_name.rs",
+    "deleted_sha256": "d1f56578bc7f5f9ba770b14d97108984ec38d84b62a938f0def71e518602113e"
+  },
+  {
+    "pr": "2168",
+    "path": "programs/pump/src/v2_native_payments.rs",
+    "returncode": 0,
+    "ours": "912ad1b168c741eb6add911867fe9e8970f526b826edc4ed135f0bfcb6a8e35a",
+    "base": "912ad1b168c741eb6add911867fe9e8970f526b826edc4ed135f0bfcb6a8e35a",
+    "theirs": "2c356dba05f46f44aee3c83eb754df38b9922ed49490baa499091b6e3817bc9a",
+    "merged": "2c356dba05f46f44aee3c83eb754df38b9922ed49490baa499091b6e3817bc9a"
+  },
+  {
+    "pr": "2225",
+    "path": "programs/pump/src/buy_v2.rs",
+    "returncode": 0,
+    "ours": "0399e19ef870a65adfc7882d7e157f1ddcb0a8b76634b8a755ea00642ae079dc",
+    "base": "488bee88c18e166e53fe1965091df2e8762e88318cffc0154e74cfd502f259c5",
+    "theirs": "c44a182dfae3c12eafdc4b5b800581f360f0bab12bf6842606274f2bf757d3d2",
+    "merged": "20074f7776c7f5f7fc5fdcdccd15a6b483a9f217ebb4da217c80be5a4723ce10"
+  },
+  {
+    "pr": "2225",
+    "path": "programs/pump/src/lib.rs",
+    "returncode": 1,
+    "ours": "b49e92cfa3acfcd551e02bd25ed24ce6229b9573e902ffb6b3b2926a027f640c",
+    "base": "16912468ec5d587f73a184cf50b7e7ffb5a5d69422777f3f19e8c79d5222a7c1",
+    "theirs": "1edcf1821df0ed3a67fccac6c6b726fc4acbcddfae23d5b5c232b0b71baffb25",
+    "merged": "5465f21d0c315774e9bc4b0cf847735a42212122b18df50aaf61d1662471e71c",
+    "resolution": {
+      "rule": "Line-wise union of disjoint upstream edits; preserve current exact-quote attribute whitespace. No new semantic edit.",
+      "conflicts": [
+        {
+          "ours": "    pub fn buy_v2<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,amount:u64,max_sol_cost:u64,partial_fill:OptionBool)->Result<()>{buy_v2::execute(ctx,amount,max_sol_cost,partial_fill.0,false)}\n    #[inline(never)] pub fn buy_exact_quote_in_v2<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,spendable_quote_in:u64,min_tokens_out:u64,partial_fill:OptionBool)->Result<()>{buy_v2::execute(ctx,spendable_quote_in,min_tokens_out,partial_fill.0,true)}\n",
+          "base": "    pub fn buy_v2<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,amount:u64,max_sol_cost:u64,partial_fill:OptionBool)->Result<()>{buy_v2::execute(ctx,amount,max_sol_cost,partial_fill.0,false)}\n    pub fn buy_exact_quote_in_v2<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,spendable_quote_in:u64,min_tokens_out:u64,partial_fill:OptionBool)->Result<()>{buy_v2::execute(ctx,spendable_quote_in,min_tokens_out,partial_fill.0,true)}\n",
+          "theirs": "    #[inline(never)] pub fn buy_v2<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,amount:u64,max_sol_cost:u64,partial_fill:OptionBool)->Result<()>{buy_v2::execute(ctx,amount,max_sol_cost,partial_fill.0,false)}\n    pub fn buy_exact_quote_in_v2<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,spendable_quote_in:u64,min_tokens_out:u64,partial_fill:OptionBool)->Result<()>{buy_v2::execute(ctx,spendable_quote_in,min_tokens_out,partial_fill.0,true)}\n",
+          "resolved": "    #[inline(never)] pub fn buy_v2<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,amount:u64,max_sol_cost:u64,partial_fill:OptionBool)->Result<()>{buy_v2::execute(ctx,amount,max_sol_cost,partial_fill.0,false)}\n    #[inline(never)] pub fn buy_exact_quote_in_v2<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,spendable_quote_in:u64,min_tokens_out:u64,partial_fill:OptionBool)->Result<()>{buy_v2::execute(ctx,spendable_quote_in,min_tokens_out,partial_fill.0,true)}\n"
+        }
+      ],
+      "resolved_sha256": "2af96164188edb72955c7a38624002a3d651e69a67fa71b8a63ef5116e02cae6"
+    }
+  },
+  {
+    "pr": "2309",
+    "path": "programs/pump/src/sweep_fees.rs",
+    "returncode": 0,
+    "ours": "4e2cf1e7e6c1c07c85b51e7c06c6425bece6d8278787c27cb66b6ee7b0b2ba94",
+    "base": "4e2cf1e7e6c1c07c85b51e7c06c6425bece6d8278787c27cb66b6ee7b0b2ba94",
+    "theirs": "d4a37d627954cd65ccb0a4f0725b033517276b156683d76ed9483cde701ed14a",
+    "merged": "d4a37d627954cd65ccb0a4f0725b033517276b156683d76ed9483cde701ed14a"
+  },
+  {
+    "pr": "2341",
+    "path": "programs/pump/src/create_v2.rs",
+    "returncode": 0,
+    "ours": "dccf14d8e4e62553a3eff0a9a2e5b0c75573cb9ef8d33280f20f3a15049c2112",
+    "base": "dccf14d8e4e62553a3eff0a9a2e5b0c75573cb9ef8d33280f20f3a15049c2112",
+    "theirs": "b5e8e80470a96201af77740d2345fc320fddf4084212237749b9b6b9dd7b51a9",
+    "merged": "b5e8e80470a96201af77740d2345fc320fddf4084212237749b9b6b9dd7b51a9"
+  }
+]

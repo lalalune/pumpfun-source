@@ -1,0 +1,66 @@
+{
+  "result": "PASS",
+  "runs": {
+    "normal": {
+      "stdout_sha256": "27f2eb451ddcb44c6f64434a673a0eb41cc9c83bfbbbc96f5a4e24df56e343f5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "optimized": {
+      "stdout_sha256": "27f2eb451ddcb44c6f64434a673a0eb41cc9c83bfbbbc96f5a4e24df56e343f5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "minimal_relocated_identical": true,
+  "parent_helper_sha256": "1989efd6b080faccac727ca2518eeb37bcd02d96d41341ee3c494c934f246dcb",
+  "independent_census": {
+    "01-main-map": {
+      "all_1035_memberships_equal": true,
+      "sha256": "fc2aee224483d5708e759d1352c21d82d84bf3400badf515edc112f0e175df04",
+      "total": 1035,
+      "normalized": 1029,
+      "raw": 273,
+      "unmatched": 6,
+      "matched_text_bytes": 1699480
+    },
+    "02-main-ordered": {
+      "all_1035_memberships_equal": true,
+      "sha256": "3548f6fc654ea304636df4a98fceb4d11cc9194152acbecf660f0da50e066ae4",
+      "total": 1035,
+      "normalized": 1029,
+      "raw": 293,
+      "unmatched": 6,
+      "matched_text_bytes": 1699480
+    },
+    "06-composed-map": {
+      "all_1035_memberships_equal": true,
+      "sha256": "df2c5b90420ec6c7aee6d22ec92e185e2ce569e8a49b6fb081913340c802ebab",
+      "total": 1035,
+      "normalized": 1031,
+      "raw": 315,
+      "unmatched": 4,
+      "matched_text_bytes": 1722792
+    },
+    "04-composed-ordered": {
+      "all_1035_memberships_equal": true,
+      "sha256": "8286c8d7c86e9c44ff51f9b5fa5014536e94aab17c571b12cda3550dd376a2e4",
+      "total": 1035,
+      "normalized": 1031,
+      "raw": 335,
+      "unmatched": 4,
+      "matched_text_bytes": 1722792
+    }
+  },
+  "source_patch_replay": "Complete final source tree equals separate application to pinned fresh-main source, including deletion.",
+  "credited_upstream_patches": [
+    "2168",
+    "2225",
+    "2309",
+    "2341"
+  ],
+  "merge_provenance": "Every recorded base/theirs file checked against selected exact Git revision; conflict inputs retained.",
+  "script_regeneration": {
+    "main": "e5df24b5ad14a66b2bc60350ae7ec08d30af3ebbd8f64d85f79be2953aa9ba9b",
+    "composed": "72ef693c883fb68e9939f408f785f230742cb533b30cbf1321719d4852123569"
+  },
+  "scope": "Offline retained inputs; no new source authorship, native bootstrap, historical authentication, runtime or whole-original raw identity."
+}

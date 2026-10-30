@@ -1,0 +1,63 @@
+{
+  "revision": "42babccf82001346f26f020caea38bf63f5c22a2",
+  "previous_increment": "progress:484f035f6 published measured40B span and20raw gains",
+  "harness_hashes": {
+    "elf_symbols.py": "ae1d283bfe028e6afe1ebf711d72c669899f98424f1acb0e546ec8fbef6f68f7",
+    "link_order.py": "b1fec42eed222d285ef1f82a97443bfa757cc6370bcb588a2688b732f160652e",
+    "llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+    "original_input.py": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade",
+    "pump_link_lld.py": "10593121ecc457f22b574b20ea5af810e9e1e627dfac38140369ccd33a9a24ba",
+    "sbf_default.ld": "5e8370b9380f55411d827721e2e43c8cfd1eac71d1383e20b938397bc0bd82c3",
+    "score.py": "3975499eb09033a9c25cdef1824ef01318de97e434de6269e7f382f6f554f7f1",
+    "score_admission.py": "0c462e5086828c11e4d336a07213f0090c7b701db7ac7772e0672b480bd822c1"
+  },
+  "layout_hashes": {
+    "census.py": "e19e72aae8df17b8e323777e903bb3abc2a45957fdeef5ec6a26f64f3c59138c",
+    "fastmodel.py": "d78e7e86840ff5c840cca563832421185a46b3e5155d1d0cb83933f8719a3bcb",
+    "genld.py": "684a472535931363e3640d49516abdcbcc711ee0bf535ca4650f559a59b1674b",
+    "m13.py": "b89832cf9d081e793edc2fbc8cfca291e01f4a23a2c0eba12e4042da0c2f7a79",
+    "moves.py": "04f371a8f66a0df16a2fad1a779aae32979cb153630638eaba049e95f4ec9b24",
+    "refine.py": "ec3751ed250b80e671fa69819e5d625fec971a82417fb2cbb94b57a7c5dd9d0f"
+  },
+  "patches": [
+    {
+      "pr": "2168",
+      "base": "a7135a6a64c446166895f7e3ea4ca84ac1a9b848",
+      "head": "b588742e5bce9b00c7774fe676c0f75bc3bd557e",
+      "paths": [
+        "programs/pump/src"
+      ],
+      "patch_sha256": "5d183eeffd75857d0950cae1763183ae4868a12612b011d8e9ed25a1cb5e8074"
+    },
+    {
+      "pr": "2225",
+      "base": "3bbbe91e881df9ff617ecb5392ecb0559a7691c0",
+      "head": "8b8ebe7812489ee3bb1792b256a474c82c014eb0",
+      "paths": [
+        "programs/pump/src/buy_v2.rs",
+        "programs/pump/src/lib.rs"
+      ],
+      "patch_sha256": "14b784310b00e82d74f450f3776aec61cb785b07d725763087d99b5f36787dd9"
+    },
+    {
+      "pr": "2309",
+      "base": "7e26cbf36c5c0c824e3eb36417ce8a35866f530a",
+      "head": "44428ebcb2d3a380b0e82161bc4dcc9eec1774cd",
+      "paths": [
+        "programs/pump/src/sweep_fees.rs"
+      ],
+      "patch_sha256": "6536a6b985a8e5928cee23214ea52aef107143bc36189f50fdbc2fbc73ae4a34"
+    },
+    {
+      "pr": "2341",
+      "base": "7e26cbf36c5c0c824e3eb36417ce8a35866f530a",
+      "head": "61ea2e62de1fc541c231c03952dc65ebd95ef8ce",
+      "paths": [
+        "programs/pump/src/create_v2.rs"
+      ],
+      "patch_sha256": "9448de493348e7b1d1d975a8121a5c1a4f368cff95fcb9104271080c2becd15e"
+    }
+  ],
+  "nonduplication": "#2288 now064a4cd combines2225+2269+2272+2313; #2356 layout analysis on6484b28 tests2168 only. New composition uses merged2346/2347 plus2225,2168, complete sweep2309 and create2341. Not source authorship or a competing integration PR.",
+  "feedback": "PR2208 limited bot review at484f035f6, in scope, no maintainer request."
+}

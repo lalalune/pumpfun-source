@@ -1,0 +1,14 @@
+{
+  "patch": {
+    "pr": "2168",
+    "base": "a7135a6a64c446166895f7e3ea4ca84ac1a9b848",
+    "head": "b588742e5bce9b00c7774fe676c0f75bc3bd557e",
+    "paths": [
+      "programs/pump/src"
+    ],
+    "patch_sha256": "5d183eeffd75857d0950cae1763183ae4868a12612b011d8e9ed25a1cb5e8074"
+  },
+  "returncode": 1,
+  "root_compiler_commands": 0,
+  "stderr": "error: patch failed: programs/pump/src/buy_v2.rs:541\nerror: programs/pump/src/buy_v2.rs: patch does not apply\nerror: patch failed: programs/pump/src/lib.rs:349\nerror: programs/pump/src/lib.rs: patch does not apply\n"
+}

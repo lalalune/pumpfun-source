@@ -1,0 +1,95 @@
+{
+  "revision": "255a0fd2e431627bb01e139aabb51b56eaa0357a",
+  "different_paths": {
+    "programs/pump/src/buy_v2.rs": {
+      "compiled_sha256": "e77a82e4ba75f88f1a5c7b682ba3831302cd3e562efc39b8843be215a75d63a5",
+      "cutoff_sha256": "20074f7776c7f5f7fc5fdcdccd15a6b483a9f217ebb4da217c80be5a4723ce10",
+      "compiled_crlf_count": 1073,
+      "cutoff_crlf_count": 0,
+      "equal_after_crlf_to_lf": true,
+      "display_diff_after_crlf_to_lf": ""
+    },
+    "programs/pump/src/create_v2.rs": {
+      "compiled_sha256": "d6adce9c12b4cce0df73f3db099ad6ced78460f27c334965d54f3a330aa5f589",
+      "cutoff_sha256": "7acfec68699ae4380ceacc18cec6cbe968af1ed884c74d80bb003bf7d32b2d86",
+      "compiled_crlf_count": 837,
+      "cutoff_crlf_count": 0,
+      "equal_after_crlf_to_lf": false,
+      "display_diff_after_crlf_to_lf": "--- compiled/programs/pump/src/create_v2.rs\n+++ cutoff/programs/pump/src/create_v2.rs\n@@ -769,15 +769,15 @@\n \n \n \n- let fee=if matches!(source,QuoteSource::Controlled|QuoteSource::Nested(_)) && creator_fee_bps.0>0 {\n+ let mut fee=0;if matches!(source,QuoteSource::Controlled|QuoteSource::Nested(_)) {if creator_fee_bps.0==0 {} else {\n \n   require!(a.global.creator_fee_configurable,PumpError::CreatorFeeNotConfigurable);\n \n \n \n   require!(creator_fee_bps.0<=a.global.max_configurable_creator_fee_bps,PumpError::CreatorFeeBpsOutOfRange);\n-  creator_fee_bps.0\n- } else {0};\n+  fee=creator_fee_bps.0;\n+ }}\n \n \n \n@@ -818,9 +818,9 @@\n  let sol=Pubkey::default();\n  let initial_virtual_quote_reserves=global.initial_virtual_quote_reserves;\n  let virtual_quote_reserves=if quote_mint==sol {global.initial_virtual_sol_reserves} else {reserves.unwrap_or(initial_virtual_quote_reserves)};\n- bonding_curve.virtual_quote_reserves=virtual_quote_reserves;\n  bonding_curve.initial_virtual_quote_reserves=virtual_quote_reserves;\n  bonding_curve.virtual_token_reserves=global.initial_virtual_token_reserves;\n+ bonding_curve.virtual_quote_reserves=virtual_quote_reserves;\n  bonding_curve.real_token_reserves=global.initial_real_token_reserves;\n  bonding_curve.real_quote_reserves=0;\n  bonding_curve.token_total_supply=global.token_total_supply;\n"
+    },
+    "programs/pump/src/creator/distribute_creator_fee_v2.rs": {
+      "compiled_sha256": "dca972cd849d9723a421569aa770fae63f642c87542d6dbc32086ccd02908490",
+      "cutoff_sha256": "c4b54902fcf93b74c561c99fbba05eda115a15da14a5043e0c9e41f0364ca621",
+      "compiled_crlf_count": 381,
+      "cutoff_crlf_count": 0,
+      "equal_after_crlf_to_lf": true,
+      "display_diff_after_crlf_to_lf": ""
+    },
+    "programs/pump/src/creator/distribute_creator_fees.rs": {
+      "compiled_sha256": "dc2d9de3771bd4668d47a84e854e6e4411d5143d7f56f6531753e54b3449522e",
+      "cutoff_sha256": "d6f226494a58ba672e3deb8fafae9b9a130da614474da24f5841b0f05632bbea",
+      "compiled_crlf_count": 357,
+      "cutoff_crlf_count": 0,
+      "equal_after_crlf_to_lf": true,
+      "display_diff_after_crlf_to_lf": ""
+    },
+    "programs/pump/src/curve_quote_payments.rs": {
+      "compiled_sha256": "3572da801bcf0f777c7760879f6b58f200c614904d2025aed9f6122c212d358e",
+      "cutoff_sha256": "2d8978bfdf66cc06b4aed5205e2b7f1045c502d0d35655ccf8d6de8339e925ac",
+      "compiled_crlf_count": 94,
+      "cutoff_crlf_count": 0,
+      "equal_after_crlf_to_lf": true,
+      "display_diff_after_crlf_to_lf": ""
+    },
+    "programs/pump/src/lib.rs": {
+      "compiled_sha256": "6b92a78dde426b5bf9ef215d721c2ab1e2153ff44f355d06dc078509c062e212",
+      "cutoff_sha256": "2af96164188edb72955c7a38624002a3d651e69a67fa71b8a63ef5116e02cae6",
+      "compiled_crlf_count": 3215,
+      "cutoff_crlf_count": 0,
+      "equal_after_crlf_to_lf": true,
+      "display_diff_after_crlf_to_lf": ""
+    },
+    "programs/pump/src/multi_hop_curve_swap.rs": {
+      "compiled_sha256": "5c47211ca1857dcf502334bee1c5c2249752d6993599442ae48100b72ae0454b",
+      "cutoff_sha256": "e52f9274f5b927ba288eb90466ab9b88ffa210dde343fe6abd7886c7ad1fceb8",
+      "compiled_crlf_count": 931,
+      "cutoff_crlf_count": 0,
+      "equal_after_crlf_to_lf": true,
+      "display_diff_after_crlf_to_lf": ""
+    },
+    "programs/pump/src/set_reserved_fee_recipients.rs": {
+      "compiled_sha256": "7d38d5051b178a7fcdb13dc3940286c74e4214c356adf3878c533c010a13f9dc",
+      "cutoff_sha256": "235b87abf644c43257c0246d61b1cb0ace029deaf2b4f46b99d3879b86fbfaf8",
+      "compiled_crlf_count": 128,
+      "cutoff_crlf_count": 0,
+      "equal_after_crlf_to_lf": true,
+      "display_diff_after_crlf_to_lf": ""
+    },
+    "programs/pump/src/sweep_fees.rs": {
+      "compiled_sha256": "0ef17adaa9569d0872c85ac537821f79fbf397f35642921b91c29a5810c57071",
+      "cutoff_sha256": "d4a37d627954cd65ccb0a4f0725b033517276b156683d76ed9483cde701ed14a",
+      "compiled_crlf_count": 180,
+      "cutoff_crlf_count": 0,
+      "equal_after_crlf_to_lf": true,
+      "display_diff_after_crlf_to_lf": ""
+    },
+    "programs/pump/src/trade_v3.rs": {
+      "compiled_sha256": "13c6d6363d20a7acff205e0ec1ffb8bff1945ac671deaa8198c3d91da2d29377",
+      "cutoff_sha256": "b91f1b23c1a7b81a4156d8d60f839300ba53c8f319d0866bb25c8c0063ece1de",
+      "compiled_crlf_count": 1315,
+      "cutoff_crlf_count": 0,
+      "equal_after_crlf_to_lf": true,
+      "display_diff_after_crlf_to_lf": ""
+    },
+    "programs/pump/src/v2_native_payments.rs": {
+      "compiled_sha256": "eabb4284e4a78f9c4703b938ecceac3e3df6704e84bbdff7b101c348078a0fc9",
+      "cutoff_sha256": "2c356dba05f46f44aee3c83eb754df38b9922ed49490baa499091b6e3817bc9a",
+      "compiled_crlf_count": 18,
+      "cutoff_crlf_count": 0,
+      "equal_after_crlf_to_lf": true,
+      "display_diff_after_crlf_to_lf": ""
+    }
+  },
+  "compiled_revision": "42babccf82001346f26f020caea38bf63f5c22a2 plus recorded composition",
+  "claim": "Source comparison only; latest cutoff not compiled. No metrics or hashes transferred."
+}
