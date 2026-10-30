@@ -1,0 +1,298 @@
+{
+  "scope": "Standalone real React/compiler cache with primed realMap cache and injected event/prefetch/chain/query-descriptor APIs. Prior1966/1846/1973 read/query cores are not copied or executed. No Next, original provider/events/service/auth/UI/native qualification.",
+  "sourceHead": "ea73078afb50fd8f76c98660111f79c5e895f3b9",
+  "startedAt": "2026-10-30T01:44:17.687Z",
+  "inputs": [
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "reconstruction/home-feed-coordination/client.mjs",
+      "bytes": 4702,
+      "sha256": "bdea74bf61223dac864822c2d5a3211f1ea0abb2f82f12311e2afc5bbbb2a7db"
+    },
+    {
+      "path": "reconstruction/home-feed-coordination/qualification/key-ports.mjs",
+      "bytes": 265,
+      "sha256": "2e4a6a8ccd3bf2588eb9cf95c4ad9823ad849545009eb5d8245b92a5b657e97e"
+    },
+    {
+      "path": "reconstruction/home-feed-coordination/qualification/ports.mjs",
+      "bytes": 2469,
+      "sha256": "5f8cbe73ae127fc7d3916b151e6ba0d35cc5a3e4259a8cecc9c451414563ec47"
+    },
+    {
+      "path": "reconstruction/home-feed-coordination/qualification/fixture.mjs",
+      "bytes": 10988,
+      "sha256": "ce89f30d4785d6ffd4881e3fa83f1bfc0cc52af227866377d4d504903cb0edea"
+    },
+    {
+      "path": "reconstruction/home-feed-coordination/qualification/browser.mjs",
+      "bytes": 6321,
+      "sha256": "7b508f8213c0c8467ce34f25ef5bd268e0e326328a7ebe5700583c3fae1c067d"
+    }
+  ],
+  "bundleSha256": "d1c545acc564b59bf4d0c353edf98e65b20017cbdea44b70f0fac2b3334e2665",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/bundle.js"
+    }
+  ],
+  "cases": [
+    {
+      "name": "prefix-trim-and-dedup",
+      "startedAt": "2026-10-30T01:44:17.913Z",
+      "observed": {
+        "count": 2,
+        "trimmedCaches": 3,
+        "unrelatedPages": 2,
+        "calls": [
+          "setQueriesData",
+          "invalidateQueries",
+          "setQueriesData",
+          "invalidateQueries",
+          "setQueriesData",
+          "invalidateQueries"
+        ]
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T01:44:17.933Z"
+    },
+    {
+      "name": "viewer-active-chain-lifecycle",
+      "startedAt": "2026-10-30T01:44:17.933Z",
+      "observed": {
+        "count": 0,
+        "eventTransitions": [
+          "subscribe",
+          "unsubscribe",
+          "subscribe",
+          "unsubscribe",
+          "subscribe"
+        ],
+        "key": [
+          "callouts",
+          "following-alerts",
+          "other",
+          20,
+          "callout,update,reply,quote,repost",
+          "synthetic:near"
+        ]
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T01:44:17.944Z"
+    },
+    {
+      "name": "read-ahead-order-and-descriptor",
+      "startedAt": "2026-10-30T01:44:17.944Z",
+      "observed": {
+        "order": [
+          "home",
+          "top",
+          "followingOptions"
+        ],
+        "inputs": [
+          {
+            "chain": "base",
+            "includeFollowedHolders": true,
+            "viewerAddress": "a"
+          },
+          {
+            "includeFollowedHolders": true
+          },
+          {
+            "viewer": "v",
+            "pageSize": 20,
+            "chain": "near"
+          }
+        ],
+        "descriptorSame": true,
+        "homePromiseNotAwaited": true
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T01:44:17.950Z"
+    },
+    {
+      "name": "dependencies-and-client-replacement",
+      "startedAt": "2026-10-30T01:44:17.950Z",
+      "observed": {
+        "readCalls": 9,
+        "listeners": 1,
+        "newCacheInvalidated": true,
+        "oldCacheInvalidated": false
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T01:44:17.961Z"
+    },
+    {
+      "name": "null-undefined-readiness",
+      "startedAt": "2026-10-30T01:44:17.961Z",
+      "observed": {
+        "readKinds": [
+          "home",
+          "top",
+          "home",
+          "top",
+          "followingOptions",
+          "home",
+          "top",
+          "followingOptions"
+        ],
+        "count": 1,
+        "followingChain": null
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T01:44:17.968Z"
+    },
+    {
+      "name": "rendered-reset-callback",
+      "startedAt": "2026-10-30T01:44:17.968Z",
+      "observed": {
+        "resetStable": true,
+        "afterResetEventCount": 1,
+        "activeCount": 0
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T01:44:17.981Z"
+    }
+  ],
+  "errors": [],
+  "origin": "http://127.0.0.1:41121",
+  "cleanup": {
+    "eventListeners": 0,
+    "rootChildren": 0
+  },
+  "status": "PASS",
+  "browserClosed": true,
+  "serverListening": false,
+  "endedAt": "2026-10-30T01:44:18.040Z",
+  "afterInputs": [
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "reconstruction/home-feed-coordination/client.mjs",
+      "bytes": 4702,
+      "sha256": "bdea74bf61223dac864822c2d5a3211f1ea0abb2f82f12311e2afc5bbbb2a7db"
+    },
+    {
+      "path": "reconstruction/home-feed-coordination/qualification/key-ports.mjs",
+      "bytes": 265,
+      "sha256": "2e4a6a8ccd3bf2588eb9cf95c4ad9823ad849545009eb5d8245b92a5b657e97e"
+    },
+    {
+      "path": "reconstruction/home-feed-coordination/qualification/ports.mjs",
+      "bytes": 2469,
+      "sha256": "5f8cbe73ae127fc7d3916b151e6ba0d35cc5a3e4259a8cecc9c451414563ec47"
+    },
+    {
+      "path": "reconstruction/home-feed-coordination/qualification/fixture.mjs",
+      "bytes": 10988,
+      "sha256": "ce89f30d4785d6ffd4881e3fa83f1bfc0cc52af227866377d4d504903cb0edea"
+    },
+    {
+      "path": "reconstruction/home-feed-coordination/qualification/browser.mjs",
+      "bytes": 6321,
+      "sha256": "7b508f8213c0c8467ce34f25ef5bd268e0e326328a7ebe5700583c3fae1c067d"
+    }
+  ]
+}
