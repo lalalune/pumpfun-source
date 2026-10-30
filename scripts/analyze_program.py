@@ -9,6 +9,7 @@ Usage:
     python3 scripts/analyze_program.py --program pump_amm --output research/amm-window-analysis-20261028
 """
 import argparse
+import bisect
 import collections
 import hashlib
 import json
@@ -69,48 +70,53 @@ def analyze_program(program_name, output_dir):
     windows = []
     entries = elf.entries
     boundaries = entries + [elf.hi]
+    function_names = {}
+    for function in elf.funcs:
+        function_names.setdefault(function["start"], function["name"])
+    outgoing = collections.defaultdict(list)
+    incoming = collections.defaultdict(list)
+    relocations = collections.defaultdict(list)
+    for at, target in elf.calls.items():
+        index = bisect.bisect_right(entries, at) - 1
+        if index >= 0 and at < elf.hi:
+            outgoing[entries[index]].append((at, target))
+        incoming[target].append(at)
+    for at, relocation in sorted(elf.relocations.items()):
+        index = bisect.bisect_right(entries, at) - 1
+        if index >= 0 and at < elf.hi:
+            relocations[entries[index]].append(
+                {"offset": at - entries[index], **relocation})
 
     for i, start in enumerate(entries):
         end = boundaries[i + 1]
         size = end - start
         # Find function name if any
-        name = None
-        for f in elf.funcs:
-            if f["start"] == start:
-                name = f["name"]
-                break
+        name = function_names.get(start)
 
         # Analyze calls from this window
         calls_out = []
-        for at, target in elf.calls.items():
-            if start <= at < end:
-                target_name = None
-                for f in elf.funcs:
-                    if f["start"] == target:
-                        target_name = f["name"]
-                        break
-                calls_out.append({
-                    "offset": at - start,
-                    "target_address": hex(target),
-                    "target_name": target_name,
-                })
+        for at, target in outgoing.get(start, ()):
+            calls_out.append({
+                "offset": at - start,
+                "target_address": hex(target),
+                "target_name": function_names.get(target),
+            })
 
         # Analyze calls into this window
         calls_in = []
-        for at, target in elf.calls.items():
-            if target == start:
-                caller_name = None
-                for f in elf.funcs:
-                    if f["start"] <= at < f["start"] + f["size"]:
-                        caller_name = f["name"]
-                        break
-                calls_in.append({
-                    "caller_address": hex(at),
-                    "caller_name": caller_name,
-                })
+        for at in incoming.get(start, ()):
+            caller_name = None
+            for f in elf.funcs:
+                if f["start"] <= at < f["start"] + f["size"]:
+                    caller_name = f["name"]
+                    break
+            calls_in.append({
+                "caller_address": hex(at),
+                "caller_name": caller_name,
+            })
 
         # Relocation analysis
-        relocs = elf.pattern(start, size)
+        relocs = relocations.get(start, [])
 
         # Compute normalized hash for this window
         norm_bytes = elf.normalized[start:end]
