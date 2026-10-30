@@ -4,6 +4,16 @@ import argparse,hashlib,json,pathlib,sys
 from analyze import elf_layout
 
 def digest(b): return hashlib.sha256(b).hexdigest()
+def program_names(root):
+    path = root / 'repro/programs.json'
+    if path.is_file():
+        return json.loads(path.read_text())
+    return sorted(
+        item.name for item in (root / 'evidence/original').iterdir()
+        if (item / 'deployed.so').is_file()
+    )
+
+
 def compare(original,candidate):
     first=next((i for i,(a,b) in enumerate(zip(original,candidate)) if a!=b),None)
     if first is None and len(original)!=len(candidate): first=min(len(original),len(candidate))
@@ -11,7 +21,7 @@ def compare(original,candidate):
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('program'); ap.add_argument('candidate',type=pathlib.Path); ap.add_argument('--pad-zero-to-allocation',action='store_true'); ap.add_argument('--output',type=pathlib.Path,required=True); args=ap.parse_args()
     root=pathlib.Path(__file__).resolve().parents[1]
-    if args.program not in json.loads((root/'repro/programs.json').read_text()): ap.error('unknown program')
+    if args.program not in program_names(root): ap.error('unknown program')
     original=(root/f'evidence/original/{args.program}/deployed.so').read_bytes(); candidate=args.candidate.read_bytes()
     if args.output.exists(): ap.error('output already exists')
     before=digest(candidate)

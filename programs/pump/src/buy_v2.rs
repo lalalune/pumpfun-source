@@ -467,7 +467,7 @@ fn buy_handler<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,mut input:u64,lim
 // layout-pad
 // layout-pad
  let quote_transfer_fee=gross.checked_sub(quote).ok_or_else(||error!(PumpError::Overflow))?;
- let (pf,cf,protocol_fee_bps,creator_fee_bps)=if a.global.whitelist_pda==a.user.key(){Ok((0,0,0,0))}else{crate::legacy_sell::fee_cpi::trade_fees(
+ let whitelisted=a.global.whitelist_pda==a.user.key();let (pf,cf,protocol_fee_bps,creator_fee_bps)=if whitelisted{Ok((0,0,0,0))}else{crate::legacy_sell::fee_cpi::trade_fees(
   &a.global,&a.bonding_curve,&a.base_mint,&a.fee_config,&a.fee_program,a.program.as_ref(),quote
  )}?;
 // layout-pad
@@ -518,13 +518,13 @@ fn buy_handler<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,mut input:u64,lim
   pay_from_user_recipient(native,system_program,&a.user,&fee_recipient,protocol_fee,&a.quote_token_program,&a.quote_mint,if native{None}else{Some(a.associated_quote_user.as_ref())},if native{None}else{Some(a.associated_quote_fee_recipient.as_ref())})?;
   pay_from_user_recipient(native,system_program,&a.user,&buyback_fee_recipient,bf,&a.quote_token_program,&a.quote_mint,if native{None}else{Some(a.associated_quote_user.as_ref())},if native{None}else{Some(a.associated_quote_buyback_fee_recipient.as_ref())})?;
  let c=&a.bonding_curve;let virtual_token_reserves=c.virtual_token_reserves;let virtual_quote_reserves=c.virtual_quote_reserves;let real_token_reserves=c.real_token_reserves;let real_quote_reserves=c.real_quote_reserves;
- let creator=c.creator;let quote_mint=c.quote_mint;let timestamp=Clock::get()?.unix_timestamp;
+ let creator=c.creator;let mut quote_mint=Pubkey::default();snapshot_quote_mint(&c.quote_mint,&mut quote_mint);let timestamp=Clock::get()?.unix_timestamp;
  let uva=&a.user_volume_accumulator;let total_unclaimed_tokens=uva.total_unclaimed_tokens;let total_claimed_tokens=uva.total_claimed_tokens;let current_sol_volume=uva.current_sol_volume;let last_update_timestamp=uva.last_update_timestamp;let shareholders=crate::distribution::sharing_config_shareholders(&a.sharing_config.to_account_info())?.unwrap_or_default();
  let c=&a.bonding_curve;let is_sol=quote_mint==Pubkey::default();
   let ev=TradeEvent{user:a.user.key(),mint:a.base_mint.key(),sol_amount:if is_sol{quote}else{0},token_amount:input,is_buy:true,timestamp,real_sol_reserves:if is_sol{real_quote_reserves}else{0},virtual_token_reserves,virtual_sol_reserves:if is_sol{virtual_quote_reserves}else{0},real_token_reserves,fee_recipient:a.fee_recipient.key(),fee_basis_points:protocol_fee_bps,fee:pf,creator,creator_fee_basis_points:if c.is_cashback_coin{0}else{creator_fee_bps},creator_fee:if c.is_cashback_coin{0}else{cf},holder_rewards_bps:if c.is_holder_reward{creator_fee_bps}else{0},holder_rewards:if c.is_holder_reward{cf}else{0},track_volume:false,total_unclaimed_tokens,total_claimed_tokens,current_sol_volume,last_update_timestamp,ix_name:"buy".to_string(),mayhem_mode:c.is_mayhem_mode,cashback_fee_basis_points:if c.is_cashback_coin{creator_fee_bps}else{0},cashback:if c.is_cashback_coin{cf}else{0},buyback_fee:crate::transfer_fee_recovered::post_fee_amount(&fee,bf)?,buyback_fee_basis_points:if c.is_mayhem_mode{0}else{a.global.buyback_basis_points},shareholders,quote_mint:c.quote_mint,quote_amount:quote,virtual_quote_reserves,real_quote_reserves,creator_fee_unclaimed:c.creator_fee,unparsed_trailing_field:quote_transfer_fee};
   emit!(ev);emit_cpi!(ev);
-  let a=&mut *ctx.accounts;if a.bonding_curve.real_token_reserves==0{a.bonding_curve.complete=true;let event=crate::trade_types::CompleteEvent{mint:a.base_mint.key(),user:a.user.key(),bonding_curve:a.bonding_curve.key(),quote_mint:a.bonding_curve.quote_mint,timestamp};emit!(event);emit_cpi!(event);}
-  let a=&mut *ctx.accounts;crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.user)?;
+  complete_and_prepare(ctx,timestamp)?;
+
 
 
 Ok(())
@@ -1011,11 +1011,11 @@ fn buy_exact_quote_in_handler<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,in
   let (bf,protocol_fee)=recipient_payments::split_protocol_fee(&a.global,pf,a.bonding_curve.is_mayhem_mode);
   pay_from_user_recipient(native,&a.system_program,&a.user,&fee_recipient,protocol_fee,&a.quote_token_program,&a.quote_mint,if native{None}else{Some(a.associated_quote_user.as_ref())},if native{None}else{Some(a.associated_quote_fee_recipient.as_ref())})?;
   pay_from_user_recipient(native,&a.system_program,&a.user,&buyback_fee_recipient,bf,&a.quote_token_program,&a.quote_mint,if native{None}else{Some(a.associated_quote_user.as_ref())},if native{None}else{Some(a.associated_quote_buyback_fee_recipient.as_ref())})?;
- let c=&a.bonding_curve;let virtual_token_reserves=c.virtual_token_reserves;let virtual_quote_reserves=c.virtual_quote_reserves;let real_token_reserves=c.real_token_reserves;let real_quote_reserves=c.real_quote_reserves;let creator=c.creator;let quote_mint=c.quote_mint;let timestamp=Clock::get()?.unix_timestamp;let total_unclaimed_tokens=a.user_volume_accumulator.total_unclaimed_tokens;let total_claimed_tokens=a.user_volume_accumulator.total_claimed_tokens;let current_sol_volume=a.user_volume_accumulator.current_sol_volume;let last_update_timestamp=a.user_volume_accumulator.last_update_timestamp;let shareholders=crate::distribution::sharing_config_shareholders(&a.sharing_config.to_account_info())?.unwrap_or_default();let is_sol=quote_mint==Pubkey::default();
+ let c=&a.bonding_curve;let virtual_token_reserves=c.virtual_token_reserves;let virtual_quote_reserves=c.virtual_quote_reserves;let real_token_reserves=c.real_token_reserves;let real_quote_reserves=c.real_quote_reserves;let creator=c.creator;let mut quote_mint=Pubkey::default();snapshot_quote_mint(&c.quote_mint,&mut quote_mint);let timestamp=Clock::get()?.unix_timestamp;let total_unclaimed_tokens=a.user_volume_accumulator.total_unclaimed_tokens;let total_claimed_tokens=a.user_volume_accumulator.total_claimed_tokens;let current_sol_volume=a.user_volume_accumulator.current_sol_volume;let last_update_timestamp=a.user_volume_accumulator.last_update_timestamp;let shareholders=crate::distribution::sharing_config_shareholders(&a.sharing_config.to_account_info())?.unwrap_or_default();let is_sol=quote_mint==Pubkey::default();
   let ev=TradeEvent{user:a.user.key(),mint:a.base_mint.key(),sol_amount:if is_sol{quote}else{0},token_amount:amount,is_buy:true,timestamp,virtual_sol_reserves:if is_sol{virtual_quote_reserves}else{0},virtual_token_reserves,real_sol_reserves:if is_sol{real_quote_reserves}else{0},real_token_reserves,fee_recipient:fee_recipient.key(),fee_basis_points:protocol_fee_bps,fee:pf,creator,creator_fee_basis_points:if c.is_cashback_coin{0}else{creator_fee_bps},creator_fee:if c.is_cashback_coin{0}else{cf},holder_rewards_bps:if c.is_holder_reward{creator_fee_bps}else{0},holder_rewards:if c.is_holder_reward{cf}else{0},track_volume:false,total_unclaimed_tokens,total_claimed_tokens,current_sol_volume,last_update_timestamp,ix_name:"buy_exact_quote_in".into(),mayhem_mode:c.is_mayhem_mode,cashback_fee_basis_points:if c.is_cashback_coin{creator_fee_bps}else{0},cashback:if c.is_cashback_coin{cf}else{0},buyback_fee:crate::transfer_fee_recovered::post_fee_amount(&transfer_fee,bf)?,buyback_fee_basis_points:if c.is_mayhem_mode{0}else{a.global.buyback_basis_points},shareholders,quote_mint:c.quote_mint,quote_amount:quote,virtual_quote_reserves,real_quote_reserves,creator_fee_unclaimed:c.creator_fee,unparsed_trailing_field:quote_transfer_fee};
   emit!(ev);emit_cpi!(ev);
-  let a=&mut *ctx.accounts;if a.bonding_curve.real_token_reserves==0{a.bonding_curve.complete=true;let event=crate::trade_types::CompleteEvent{mint:a.base_mint.key(),user:a.user.key(),bonding_curve:a.bonding_curve.key(),quote_mint:a.bonding_curve.quote_mint,timestamp};emit!(event);emit_cpi!(event);}
-  let a=&mut *ctx.accounts;crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.user)?;
+  complete_and_prepare(ctx,timestamp)?;
+
 
 
 
@@ -1040,8 +1040,8 @@ use crate::legacy_sell::fee_cpi::fee as ceil_fee;
 
 
 
-#[path="v2_native_payments.rs"]
-pub mod native_payments;
+
+pub use crate::v2_native_payments as native_payments;
 
 #[path="v2_token_transfers.rs"]
 pub mod token_transfers;
@@ -1053,3 +1053,21 @@ fn pay_from_user<'info>(native:bool,system_program:&Program<'info,System>,user:&
 fn pay_from_user_owned<'info>(native:bool,system_program:&Program<'info,System>,user:&Signer<'info>,to:AccountInfo<'info>,amount:u64,token_program:&Interface<'info,TokenInterface>,mint:&InterfaceAccount<'info,Mint>,from:Option<&AccountInfo<'info>>,dst:Option<&AccountInfo<'info>>)->Result<()>{crate::user_quote_payments::transfer_from_user_owned(native,system_program.as_ref(),user,to,amount,token_program,mint.decimals,AsRef::<AccountInfo<'info>>::as_ref(mint),from,dst)}
 fn pay_from_user_recipient<'info>(native:bool,system_program:&Program<'info,System>,user:&Signer<'info>,to:&&UncheckedAccount<'info>,amount:u64,token_program:&Interface<'info,TokenInterface>,mint:&InterfaceAccount<'info,Mint>,from:Option<&AccountInfo<'info>>,dst:Option<&AccountInfo<'info>>)->Result<()>{crate::user_quote_payments::transfer_from_user_recipient(native,system_program.as_ref(),user,to,amount,token_program,mint.decimals,AsRef::<AccountInfo<'info>>::as_ref(mint),from,dst)}
 fn move_curve_tokens<'info>(token_program:&Interface<'info,TokenInterface>,source:&InterfaceAccount<'info,TokenAccount>,destination:&InterfaceAccount<'info,TokenAccount>,authority:&Account<'info,BondingCurve>,mint:&InterfaceAccount<'info,Mint>,amount:u64,signer_seeds:&[&[&[u8]];1])->Result<()>{token_transfers::transfer_curve_tokens(token_program,source,destination,authority,mint.decimals,AsRef::<AccountInfo<'info>>::as_ref(mint),amount,signer_seeds)}
+
+#[inline(always)]
+fn complete_and_prepare<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,timestamp:i64)->Result<()>{
+  let a=&mut *ctx.accounts;if a.bonding_curve.real_token_reserves==0{a.bonding_curve.complete=true;let event=crate::trade_types::CompleteEvent{mint:a.base_mint.key(),user:a.user.key(),bonding_curve:a.bonding_curve.key(),quote_mint:a.bonding_curve.quote_mint,timestamp};emit!(event);emit_cpi!(event);}
+  let a=&mut *ctx.accounts;crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.user)?;Ok(())
+}
+
+// Separate fixed-size copies reproduce the original's interleaved load/store order.
+// Returning a Pubkey temporary instead hoists all loads before the stores.
+#[inline(always)]
+fn snapshot_quote_mint(key: &Pubkey, target: &mut Pubkey) {
+    let src = key.as_ref();
+    let out = target.as_mut();
+    out[0..8].copy_from_slice(&src[0..8]);
+    out[8..16].copy_from_slice(&src[8..16]);
+    out[16..24].copy_from_slice(&src[16..24]);
+    out[24..32].copy_from_slice(&src[24..32]);
+}

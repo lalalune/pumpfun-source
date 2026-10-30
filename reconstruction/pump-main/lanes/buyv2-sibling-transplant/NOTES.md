@@ -91,3 +91,43 @@ structural diff), `scripts/callseq.py` (call-name sequence diff), `scripts/frame
 offset census), and `scripts/fastbuild_ir.py` + `irwrap.py`, which emit optimized IR and
 `-print-after=prologepilog` frame objects for one function without changing the target
 bytes (verified: identical eq function bytes).
+
+## Result 3 (round 2): CompleteEvent emission + prepare in an `#[inline(always)]` helper (attempt 83bd6497)
+
+Tooling: `scripts/llcor.py` (lane cache) runs the SDK `llc` on rustc's emitted optimized IR
+(reproduces the built function exactly), optionally moving IR blocks or allocas, and diffs the
+function against the original with call/lddw immediates and branch offsets masked.
+`scripts/lifeexp.py` inserts lifetime markers into the IR; `scripts/scmerge.py` turns
+`-print-before/after=stack-coloring` dumps into a slot-merge map.
+
+Root cause of the stack residual (item 3 above), in both handlers: the `emit_cpi!` temporaries
+of the CompleteEvent CPI (`_647` from_iter iterator 48 B, `inner_data`, `authority_info`, the
+invoke Result) have **no lifetime markers** in IR, so StackColoring never merges anything into
+the 48-byte iterator slot at -0x100. Group A (post_fee Result, TradeEvent ix_data, unwrap temp)
+then merges into the 32-byte CompleteEvent seeds slot at -0x28. Adding helper-scoped markers to
+just those four allocas in IR removes every stack hunk (llc oracle dist 40 -> 27). LLVM's
+inliner inserts exactly such markers for a callee's marker-less allocas, so in the original the
+CompleteEvent emission was inside an inlined function. Matched precedents: legacy
+`buy_exact_sol_in` (`#[inline]` body, iterator temps `_459.i` have markers) and sell_v3's
+`#[inline(always)] emit_sell_cpi`.
+
+| variant (both handlers) | eq bytes / ratio | buy bytes / ratio |
+| --- | --- | --- |
+| PR head before (shareholders order) | 20,168 / 0.97361 | 15,464 / 0.94776 |
+| helper = `emit_cpi!` only, `?` in caller (4489cf56) | 20,200 / 0.97201 | 15,496 / 0.9457 |
+| helper = Complete if-block, caller `?` then prepare (b6418523) | 20,192 / 0.97221 | 15,488 / 0.94595 |
+| helper = then-body only (4aa11725) | byte-identical to emit_cpi-only | |
+| **helper = Complete if-block + `prepare_bonding_curve`, caller `helper(ctx,ts)?; Ok(())` (83bd6497)** | **20,192 / 0.97829** | **15,488 / 0.95334** |
+| same, helper call as tail expression (0bb5e918) | 20,136 / 0.97562 | 15,432 / 0.944 |
+
+Official 1020/188, no gains or losses vs main. Unstripped sha256
+86b0298046ab3f1968902467de019482e99391e57b745c0025c7d5e5db32edef.
+
+Remaining eq residuals (oracle on the new IR): quote_mint copy order, the `ensure_rent_exempt`
+r2=0 spill (needs a cross-crate callee), one `mov r7,2` schedule, the Complete `if` branch
+sense (orig `jeq r1,0; ja`), and the terminal `jne r7,2`. Moving the helper's CPI-error drop
+chain after the Ok return block in IR fixes the terminal branch (oracle 36 -> 32).
+
+Other round-2 trials: `size.min(0)` to keep the ensure_rent_exempt arg alive (byte-identical:
+MIR-inlined), `if let Err(e)=prepare(..)` (eq 0.797), `drop(ev)` after prepare (identical),
+`if r.is_err(){return r;}` (outlines drop_in_place<TradeEvent>, both ~0.80).

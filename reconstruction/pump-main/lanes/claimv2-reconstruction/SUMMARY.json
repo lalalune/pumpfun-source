@@ -1,0 +1,29 @@
+{
+  "schema": "main-pump-swarm-lane-summary-v1",
+  "lane": "claimv2-reconstruction",
+  "date": "2026-10-29",
+  "round": 2,
+  "pr_round1": "https://github.com/lalalune/pumpfun-source/pull/1230",
+  "pr_round2_partial": "https://github.com/lalalune/pumpfun-source/pull/1303",
+  "target": {"window": "0x77940", "bytes": 8832, "symbol": "token_incentives::claim_token_incentives::cashback::claim_v2"},
+  "result": {"normalized_equal": true, "raw_equal": false, "cand_bytes": 8832, "ratio": 1.0, "slots_diff": 0,
+             "official": {"normalized": 1021, "raw": 188, "gains": ["0x77940", "0x14f4e0 (from main)"], "losses": []}},
+  "progression": [
+    ["round-1 S3", 0.377], ["r3D2 recipient owner binding", 0.601], ["r5SW native branch first", 0.817],
+    ["r6U3 v1-style uva binding", 0.818], ["r7X3 let user=&mut ctx.accounts.user", 0.927],
+    ["r9FP user first + event totals bound", 0.938], ["r11d2 bound borrow guard, field inside block", 0.969],
+    ["r17Z1 empty-ATA early return", 0.99626], ["r18S4 scalar bump binding", 1.0]
+  ],
+  "mechanisms": [
+    "LLVM StackColoring re-implemented (scsim.py) to explain frame-slot merging; recipient TokenAccount lifetime decided which slots merged",
+    "frame index order is reverse MIR local creation order: native branch must be textually first",
+    "a &mut binding survives MIR reference propagation (a & binding does not), giving one entry-block &user value",
+    "LLVM block creation order decides jeq ok,+1; ja err vs jne err (BPF cannot reverse branches): empty-ATA early return fixes it",
+    "statement order of bindings (event totals, bump) fixes load/store scheduling"
+  ],
+  "rejected": ["let rent binding", "decode inside require_keys_eq (re-evaluated)", "block-scoped recipient binding", "let cpi_ctx",
+               "ctx.accounts everywhere", "shared &user binding (identical)", "destructuring accounts (E0502)", "token_amount helper fn (67 calls)",
+               "if-not-empty / match / let mut amount spellings (identical)", "305 as if-return-err (identical)", "seed spellings &[seeds], inline, bump array"],
+  "unresolved": ["raw (unmasked) equality not checked/required"],
+  "next_ideas": []
+}

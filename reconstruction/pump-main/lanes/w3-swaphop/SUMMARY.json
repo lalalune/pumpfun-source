@@ -1,0 +1,30 @@
+{
+  "lane": "w3-swaphop",
+  "base": "origin/main 665499915 (1022 normalized / 276 raw)",
+  "targets": ["0x5b3b0 multi_hop_curve::swap_hop"],
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/1391",
+  "best": {"build": "peL1", "unstripped_sha256": "a2e1055b4a5b4032e681ad6af9924edee4608fbeb57bd64a7f247e5804bfdee4",
+    "normalized": 1022, "raw": 276, "gains": [], "losses": [], "bytes": 18328, "orig_bytes": 18584,
+    "win_ratio": 0.35843, "opregs": 0.6821, "op": 0.7693, "segdist_opregs": 1049, "segdist_exact": 1659,
+    "calls": "107/107, callee multiset exact (census msdiff 0), 98 aligned"},
+  "progression": [
+    {"build": "main", "win_ratio": 0.0915, "opregs": 0.6574, "segdist": "1132/1886"},
+    {"build": "pf1m (round-2 multihop port)", "win_ratio": 0.2148, "opregs": 0.7233, "segdist": "903/1628"},
+    {"build": "peA (mint from h.base_mint.key())", "win_ratio": 0.1876, "opregs": 0.7320, "segdist": "861/1631"},
+    {"build": "peL1 (split if completed: fresh post-event key copies)", "win_ratio": 0.3584, "opregs": 0.6821, "segdist": "1049/1659"}
+  ],
+  "key_findings": [
+    "Frame-index order = alloca order (reverse MIR local order); llc -stop-after=prologepilog gives exact frame objects; fimap.py maps them to original object bases",
+    "Original post_complete_buy_event gets fresh user/mint 32-byte copies in two unmerged slots before the 232-byte result; ours reused the CompleteEvent temps (+24 frame shift)",
+    "Cause is MIR GVN: derefs of &Pubkey reached through a: &MultiHopCurve are stable values, so the post arg reuses the dominating CompleteEvent temp _451; only breaking dominance helps (spelling, helpers, closures, clone, indirect stores do not)",
+    "IR oracle: on peL1, separating the post call block from its Ok continuation gives segdist 844/1479, opregs 0.736, 101 aligned calls"
+  ],
+  "attempts": 40,
+  "rejected_mechanisms": ["post user key spellings", "post args in closure/#[inline]/#[inline(always)] helper", "complete store after completion emit", "post event un-nested", "tuple if-let", "post_fill by value", "match Err-first on post Result", "then-first integer compares", "post-first condition", "non-SSA CompleteEvent user temp via clone/&*"],
+  "unresolved": ["post-call block order (Ok continuation adjacent to call block)", "buy-arm 589/599/memcmp placement (prior lane)", "-16 shift in the 16-byte object region and quote_fee"],
+  "next_ideas": [
+    "Find a spelling whose MIR emits the post ? Err block (or another block) between the call block and the PostComplete emission while keeping non-dominance, e.g. an else arm with real work on the second if completed, or the post emission in a nested scope whose join survives MIR SimplifyCfg",
+    "Run nsweep.py on the full function (buy arm) on top of best1 to get the next IR-level target",
+    "Census the remaining -16 band (16-byte objects 0x820-0xa38, quote_fee) with fimap.py"
+  ]
+}

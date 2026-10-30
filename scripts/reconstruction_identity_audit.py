@@ -111,7 +111,7 @@ def audit(root, index_path):
               'input_sha256': dict(sorted(inputs.items()))}
     try:
         result['repository_revision'] = subprocess.check_output(['git', '-C', str(root), 'rev-parse', 'HEAD'], text=True, stderr=subprocess.DEVNULL).strip()
-    except subprocess.CalledProcessError:
+    except (subprocess.CalledProcessError, FileNotFoundError):
         result['repository_revision'] = None
     return result
 

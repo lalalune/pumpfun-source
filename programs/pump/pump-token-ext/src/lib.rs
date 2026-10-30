@@ -1,4 +1,65 @@
 //! Token-2022 mint extension helpers (separate crate: the original links them as their own object).
+#[inline(never)]
+pub fn quote_extensions_supported(data:&[u8],allow_token_extensions:bool)->bool {
+ tlv_check(data,allow_token_extensions).is_some()
+}
+fn tlv_check(data:&[u8],allow_token_extensions:bool)->Option<()> {
+ if data.len()==82{return Some(());}
+ if data.len()<167 || data[82..165].iter().any(|&b|b!=0) || data[165]!=1{return None;}
+ let tlv=&data[166..];
+ let mut seen=0u64;
+ let mut offset=0usize;
+ loop{
+  let rest=tlv.get(offset..)?;
+  if rest.len()<2{return Some(())}
+  let kind=u16::from_le_bytes(rest[..2].try_into().unwrap());
+  if kind==0{return Some(())}
+  if rest.len()<4{return None}
+  let size=u16::from_le_bytes(rest[2..4].try_into().unwrap()) as usize;
+  if size+4>rest.len(){return None}
+  match kind{
+   18|19=>{},
+   1|4|6|12|14|16|25|26=>if !allow_token_extensions{return None},
+   _=>return None,
+  }
+  let bit=1u64<<kind;
+  if seen&bit!=0{return None}
+  if !extension_data_valid(kind,&rest[4..size+4]){return None}
+  seen|=bit;
+  offset=offset.checked_add(size+4)?;
+ }
+}
+fn extension_data_valid(kind:u16,bytes:&[u8])->bool{
+ match kind{
+  14=>bytes.len()>=64 && bytes[32..64].iter().all(|&b|b==0),
+  6=>!bytes.is_empty() && bytes[0]==1,
+  1=>bytes.len()>=108,
+  _=>true,
+ }
+}
+
+#[inline(never)]
+pub fn required_quote_account_len(data:&[u8])->Option<usize>{
+ let mut size=170usize;
+ if data.len()==82{return Some(size)}
+ if data.len()<167 || data[82..165].iter().any(|byte|*byte!=0) || data[165]!=1{return None}
+ let tlv=&data[166..];
+ let mut cursor=0usize;let mut seen=0u64;
+ loop{
+  let rest=tlv.get(cursor..)?;
+  if rest.len()<2{return Some(size)}
+  let kind=u16::from_le_bytes(rest[..2].try_into().unwrap());
+  if kind==0{return Some(size)}
+  if rest.len()<4{return None}
+  let end=u16::from_le_bytes(rest[2..4].try_into().unwrap()) as usize+4;
+  if end>rest.len(){return None}
+  if let Some(payload)=match kind {1=>Some(8usize),9=>Some(0),14=>Some(1),26=>Some(0),_=>None}{
+   let mask=1u64<<kind;
+   if seen&mask==0{size=size.checked_add(4)?.checked_add(payload)?;seen|=mask;}}
+  cursor=cursor.checked_add(end)?;
+ }
+}
+
 /// Native fee schedule shape observed at the original pre-fee helper boundary.
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -137,41 +198,3 @@ pub fn get_transfer_fee_config(data: &[u8]) -> Result<Option<TransferFeeConfig>,
     Ok(config)
 }
 
-#[inline(never)]
-pub fn quote_extensions_supported(data:&[u8],allow_token_extensions:bool)->bool {
- tlv_check(data,allow_token_extensions).is_some()
-}
-fn tlv_check(data:&[u8],allow_token_extensions:bool)->Option<()> {
- if data.len()==82{return Some(());}
- if data.len()<167 || data[82..165].iter().any(|&b|b!=0) || data[165]!=1{return None;}
- let tlv=&data[166..];
- let mut seen=0u64;
- let mut offset=0usize;
- loop{
-  let rest=tlv.get(offset..)?;
-  if rest.len()<2{return Some(())}
-  let kind=u16::from_le_bytes(rest[..2].try_into().unwrap());
-  if kind==0{return Some(())}
-  if rest.len()<4{return None}
-  let size=u16::from_le_bytes(rest[2..4].try_into().unwrap()) as usize;
-  if size+4>rest.len(){return None}
-  match kind{
-   18|19=>{},
-   1|4|6|12|14|16|25|26=>if !allow_token_extensions{return None},
-   _=>return None,
-  }
-  let bit=1u64<<kind;
-  if seen&bit!=0{return None}
-  if !extension_data_valid(kind,&rest[4..size+4]){return None}
-  seen|=bit;
-  offset=offset.checked_add(size+4)?;
- }
-}
-fn extension_data_valid(kind:u16,bytes:&[u8])->bool{
- match kind{
-  14=>bytes.len()>=64 && bytes[32..64].iter().all(|&b|b==0),
-  6=>!bytes.is_empty() && bytes[0]==1,
-  1=>bytes.len()>=108,
-  _=>true,
- }
-}

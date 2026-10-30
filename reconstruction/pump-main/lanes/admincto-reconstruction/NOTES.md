@@ -44,3 +44,21 @@ block_jaccard and insn_jaccard (callgraph-census `blocksim.py`) both rise.
 t5/t6 not kept: in the original the gate flags are computed before prepare, but here that pushes the
 sharing_config CPI site below 2 % entry frequency. Next: tune what is computed early
 so physical order matches without losing the hot CPI sites; replace closures with named helpers.
+
+## Round 2 (base: merged main 60bdd8a, then abd766d with #1246 = t8 merged)
+
+Pre-inline BFI of execute (`-print-bfi`, `-print-before=inline`, diagnostic build d5): every `?` tag
+check on a Result is 50/50 and `require!(creator_fee==0)` is 37.5 %. t5 called the wallet closure
+unconditionally (gate inside), so the post-wallet join was 0.047 of entry and the sharing_config CPI
+site 0.0176 (< 2 %, cold, clones outlined). The original branches once on a precomputed gate
+(`1c78: jne r6`) before the inlined wallet body, so its join keeps the 0.047 skip mass plus 0.023.
+
+| trial | mechanism | bytes | calls | blocks | win ratio | callseq |
+|---|---|---:|---:|---:|---:|---:|
+| t7 | `collect_old` before prepare; `if collect_old { wallet()? }` (one precomputed gate) | 27,440 | 154 | 370 | 0.152 | 0.667 |
+| t8 | sweep body in original shape (native = quote_mint==native_mint at sweep start; `!empty && token_frozen`; seeds before the native branch; Rent::get then minimum_balance then lamports; raw_amount, frozen, `if frozen {require 719} else if amount>0 {create; transfer}`) | 27,176 | 154 | **378 = orig** | 0.167 | 0.778 |
+| t9 | `sharing_update: Option<Option<Pubkey>>` computed after validation (event's `sharing_config_reset` is `tag != 2` in the original); `target=old` for shared&&!holder fixed before prepare | 27,064 | 154 | 374 | 0.183 | 0.778 |
+| t10 | old creator/fee read from the curve right before the update; event reads new_creator, fee bps, holder and cashback flags back from the curve (as the original's event block does) | 27,160 | 154 | 371 | **0.193** | 0.778 |
+
+All zero losses (1020/188). t7 and t8 were merged in #1246. Ledger ids: t7 44d5741f, d5 62ab6da8,
+t8 eeff1b3e, t9 fe58b274, t10 43a05a3d.
