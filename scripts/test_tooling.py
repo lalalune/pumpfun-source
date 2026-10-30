@@ -721,7 +721,7 @@ class GeneratedPacketMembershipTests(unittest.TestCase):
         capture = view / 'evidence/original/mayhem/deployed.so'
         capture.parent.mkdir(parents=True)
         shutil.copyfile(analyze.ROOT / 'evidence/original/mayhem/deployed.so', capture)
-        for name in ('bytecode_signatures.py', 'window_elf_reader.py'):
+        for name in ('bytecode_signatures.py', 'window_elf_reader.py', 'deep_disassembly.py'):
             shutil.copyfile(analyze.ROOT / 'scripts' / name, view / 'scripts' / name)
         output = view / 'packet'
         generated = self.run_python(view / 'scripts/bytecode_signatures.py', '--output', output)

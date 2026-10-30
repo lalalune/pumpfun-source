@@ -2,6 +2,8 @@
 import contextlib
 import hashlib
 import io
+import shutil
+import subprocess
 from pathlib import Path
 import sys
 import tempfile
@@ -30,6 +32,22 @@ def packet_hashes(output):
 
 
 class BytecodeSignaturesAtomicPublicationTests(unittest.TestCase):
+    def test_copied_read_only_helpers_do_not_load_packet_publisher(self):
+        with tempfile.TemporaryDirectory() as directory:
+            scripts = Path(directory) / 'scripts'
+            scripts.mkdir()
+            for name in ('bytecode_signatures.py', 'window_elf_reader.py'):
+                shutil.copyfile(SCRIPTS / name, scripts / name)
+            code = (
+                "import sys; from types import SimpleNamespace; "
+                "sys.path.insert(0, sys.argv[1]); import bytecode_signatures as b; "
+                "rows=b.detect_cpi_patterns(SimpleNamespace(b=bytes(8), relocations={}),0,8); "
+                "raise SystemExit(0 if rows==[] and 'deep_disassembly' not in sys.modules else 1)"
+            )
+            result = subprocess.run([sys.executable, '-I', '-B', '-c', code, str(scripts)],
+                                    capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_late_write_failure_leaves_no_partial_new_packet(self):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / 'packet'

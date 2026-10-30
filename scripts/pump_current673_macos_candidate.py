@@ -14,7 +14,6 @@ import shutil
 import subprocess
 import sys
 import tarfile
-import urllib.request
 
 import pump_current673_macos_control as control
 
@@ -117,9 +116,7 @@ def main():
         downloads = {}
         for label, pin in spec['archives'].items():
             archive_path = work / (label + '.tar.bz2')
-            with urllib.request.urlopen(pin['url'], timeout=120) as response, archive_path.open('wb') as f:
-                shutil.copyfileobj(response, f)
-            assert control.sha(archive_path) == pin['sha256']
+            control.download_archive(pin['url'], pin['sha256'], archive_path)
             destination = work / label
             destination.mkdir()
             with tarfile.open(archive_path) as archive:

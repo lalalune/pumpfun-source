@@ -4,6 +4,7 @@ if not __debug__:
     raise SystemExit("Normal Python is required; do not use -O or PYTHONOPTIMIZE.")
 import argparse,hashlib,json,struct,gzip,base64
 import pump_trade_fixture as f
+from pump_amm_reusable_harness import pin_program
 program=f.Pubkey.from_string(f.x['program']);user=f.Keypair.from_seed(bytes([231])*32)
 initial={key:f.vm.get_account(key) for key in f.msg.account_keys}
 curve=f.Pubkey.from_string(f.x['accounts']['curve']);global_key=f.Pubkey.from_string(f.x['accounts']['global']);fee_key=f.Pubkey.from_string(f.x['accounts']['fee_config'])
@@ -113,7 +114,7 @@ def cases():
   rows.append({'amount':rng.randrange(1,10**12),'max_cost':rng.choice([1,10**9,10**14]),'fees':[rng.randrange(0,1001),rng.randrange(0,1001),rng.randrange(0,10001)],'user_lamports':10**16,'trailing':[rng.randrange(2)]})
  return [{'reserve_in':base_in,'reserve_out':base_out,**c} for c in rows]
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=f.pathlib.Path);p.add_argument('--output',type=f.pathlib.Path,required=True);a=p.parse_args();rows=[];bad=[];original=f.R/'evidence/original/pump/deployed.so'
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=f.pathlib.Path);p.add_argument('--output',type=f.pathlib.Path,required=True);a=p.parse_args();a.candidate=pin_program(a.candidate) if a.candidate else None;rows=[];bad=[];original=pin_program(f.R/'evidence/original/pump/deployed.so')
  for i,c in enumerate(cases()):
   x=run(original,c);y=run(a.candidate,c) if a.candidate else None;match=all(x[k]==y[k] for k in ['error','accounts','inner_instructions','event_payloads','return_data']) if y else None;rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:bad.append(i)

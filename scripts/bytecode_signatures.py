@@ -10,6 +10,9 @@ Builds a signature database from all three programs, identifying:
 - Token transfer patterns
 - Anchor serialization/deserialization patterns
 
+Read-only helper imports require only window_elf_reader.py. Packet generation also
+requires deep_disassembly.py for its shared publication implementation.
+
 Publication uses shared atomic no-replace/exchange operations. Replacements
 retain the prior packet in a printed .previous-* sibling; unsupported hosts
 fail closed.
@@ -31,7 +34,6 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "scripts"))
 from window_elf_reader import Elf
-from deep_disassembly import directory_identity, publish_packet, temporary_sibling
 
 PROGRAMS = ["pump", "pump_amm", "mayhem"]
 
@@ -560,6 +562,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", required=True)
     args = parser.parse_args()
+    from deep_disassembly import publish_packet, temporary_sibling
     output_dir = Path(args.output)
     identity = prepare_destination(output_dir)
     staging = temporary_sibling(output_dir, "staging")
@@ -596,6 +599,7 @@ def linked(path):
 
 
 def prepare_destination(output_dir):
+    from deep_disassembly import directory_identity
     output_dir = Path(output_dir)
     if linked(output_dir):
         raise ValueError("output directory is a link")
