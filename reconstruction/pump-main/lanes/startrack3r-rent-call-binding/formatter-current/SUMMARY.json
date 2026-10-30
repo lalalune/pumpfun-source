@@ -1,0 +1,87 @@
+{
+  "scope": "Offline compiler-output observations, without VM/runtime validation or historical compiler authentication. Source fix belongs to PR2272; this lane verifies it and measures its formatter-span contribution.",
+  "original_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+  "inventory_sha256": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8",
+  "source_pr": {
+    "url": "https://github.com/lalalune/pumpfun-source/pull/2272",
+    "revision": "fcce9275e35c1cb6685a83c40d70b84c9caa91fd"
+  },
+  "images": {
+    "01-main-2162b3b": {
+      "sha256": "98462a583bd17fbfc9d39d5b74083fc123ee11b81e6dc1d77f3a5e36866b3aa6",
+      "output_bytes": 2666344,
+      "text_delta": 568,
+      "normalized": 1027,
+      "raw": 273
+    },
+    "05-full-sdk143": {
+      "sha256": "acfdad3cad08f874623f2a84b6019835e86a98201c68d215f3b23e81374cb709",
+      "output_bytes": 2824040,
+      "text_delta": 90864,
+      "normalized": 241,
+      "raw": 72
+    },
+    "06-sdk143-root-paths": {
+      "sha256": "2d3b097159b74be176e241bdccde939b16a95200ac084fd28e3f2eada885d873",
+      "output_bytes": 2824040,
+      "text_delta": 90864,
+      "normalized": 241,
+      "raw": 72
+    },
+    "07-main-2b858": {
+      "sha256": "f541b7ed2515d0321a92ad1d3c1d874f4183b9155029a7eef4400e09ddb7a076",
+      "output_bytes": 2666344,
+      "text_delta": 568,
+      "normalized": 1027,
+      "raw": 273
+    },
+    "08-pr2272": {
+      "sha256": "58c51cd9ecff786cbdb68d3c4442504cec3a82368350d78d6f9b7197f7801170",
+      "output_bytes": 2666264,
+      "text_delta": 552,
+      "normalized": 1028,
+      "raw": 273
+    }
+  },
+  "formatter_spans": {
+    "01-main-2162b3b": {
+      "start": 43040,
+      "end": 1714152,
+      "span_delta": 640,
+      "raw_equal": false,
+      "names": [
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa916cc1caf72622E"
+      ],
+      "callee_match": true
+    },
+    "07-main-2b858": {
+      "start": 43040,
+      "end": 1714152,
+      "span_delta": 640,
+      "raw_equal": false,
+      "names": [
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa916cc1caf72622E"
+      ],
+      "callee_match": true
+    },
+    "08-pr2272": {
+      "start": 43040,
+      "end": 1714136,
+      "span_delta": 624,
+      "raw_equal": false,
+      "names": [
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa916cc1caf72622E"
+      ],
+      "callee_match": true
+    }
+  },
+  "compiler_commands": {
+    "root": 7,
+    "target_dependencies": 119,
+    "target_executions": 0,
+    "host": 90
+  },
+  "preflight_failure": "04-full-sdk143: unavailable optional CC_sbf_solana_solana path, no compiler launched. Retry removed only CC; retained AR exists.",
+  "qualification": "The v1.43 comparison changes compiler, standard libraries, target spelling and freshly built dependencies. Compiler-only trial failed before code generation; it is not output equivalence evidence.",
+  "published_source_changes": false
+}

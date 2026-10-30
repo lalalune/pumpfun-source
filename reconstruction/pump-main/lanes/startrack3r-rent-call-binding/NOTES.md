@@ -258,8 +258,11 @@ modules are unchanged, but that new main was **not rebuilt here**. All fresh
 measurements in this packet remain bound to `fd8b94dfa`; they are not retargeted
 to the later tree. This research-only branch contains no program-source diff.
 
-Next work should account for the remaining -120-byte span under the qualified
-fresh baseline, and obtain native compiler output before transferring local
-no-loss conclusions. Program-source adoption of the credited #1384 hypothesis
-is a separate maintainer decision. No completeness, historical-source
-authentication, runtime equivalence or security claim is made here.
+The later [current formatter packet](formatter-current/NOTES.md) supersedes
+that historical next-step measurement. Fresh main `2b8582135` has a 640-byte
+span excess. Independently rebuilding upstream #2272 removes 16 bytes,
+gains the V3 normalized window and loses no raw or normalized memberships;
+all 17 V3 callees bind to original bodies. The source credit remains with
+#2272. The rejected full v1.43 recipe and its immediate-store mismatch are
+also retained. No completeness, historical-source authentication, runtime
+equivalence or security claim is made here.

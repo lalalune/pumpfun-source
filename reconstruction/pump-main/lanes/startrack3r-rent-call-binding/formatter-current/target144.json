@@ -1,0 +1,50 @@
+{
+  "arch": "sbf",
+  "c-enum-min-bits": 32,
+  "crt-objects-fallback": "false",
+  "data-layout": "e-m:e-p:64:64-i64:64-n32:64-S128",
+  "default-hidden-visibility": true,
+  "dll-prefix": "",
+  "dynamic-linking": true,
+  "eh-frame-header": false,
+  "emit-debug-gdb-scripts": false,
+  "features": "+store-imm,+jmp-ext",
+  "is-builtin": true,
+  "link-script": "\nPHDRS\n{\n  text PT_LOAD ;\n  rodata PT_LOAD ;\n  data PT_LOAD ;\n  dynamic PT_DYNAMIC ;\n}\n\nSECTIONS\n{\n  . = SIZEOF_HEADERS;\n  .text : { *(.text*) } :text\n  .rodata : { *(.rodata*) } :rodata\n  .data.rel.ro : { *(.data.rel.ro*) } :rodata\n  .dynamic : { *(.dynamic) } :dynamic\n  .dynsym : { *(.dynsym) } :data\n  .dynstr : { *(.dynstr) } :data\n  .rel.dyn : { *(.rel.dyn) } :data\n  /DISCARD/ : {\n      *(.eh_frame*)\n      *(.gnu.hash*)\n      *(.hash*)\n    }\n}\n",
+  "linker": "rust-lld",
+  "linker-flavor": "gnu-lld",
+  "llvm-target": "sbf",
+  "main-needs-argc-argv": false,
+  "max-atomic-width": 64,
+  "metadata": {
+    "description": null,
+    "host_tools": null,
+    "std": null,
+    "tier": null
+  },
+  "only-cdylib": true,
+  "os": "solana",
+  "panic-strategy": "abort",
+  "position-independent-executables": true,
+  "pre-link-args": {
+    "gnu": [
+      "--threads=1",
+      "-z",
+      "notext",
+      "--Bdynamic"
+    ],
+    "gnu-lld": [
+      "--threads=1",
+      "-z",
+      "notext",
+      "--Bdynamic"
+    ]
+  },
+  "singlethread": true,
+  "target-c-int-width": "64",
+  "target-family": [
+    "solana"
+  ],
+  "target-pointer-width": "64",
+  "vendor": "solana"
+}

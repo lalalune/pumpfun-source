@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-30T06:09:34.572073+00:00",
+  "release_url": "https://github.com/anza-xyz/platform-tools/releases/tag/v1.43",
+  "asset_id": 188696270,
+  "download_url": "https://github.com/anza-xyz/platform-tools/releases/download/v1.43/platform-tools-windows-x86_64.tar.bz2",
+  "api_digest": null,
+  "archive_bytes": 424692177,
+  "archive_sha256": "3f071c9b3c5fee327f6b7ea4d65b9b1486391254f3cf7ed03020ca93282a920c",
+  "selected_members": [
+    {
+      "path": "rust/bin/cargo.exe",
+      "bytes": 26391552,
+      "sha256": "5a71f2a514b18f54c212ae75a202c2a4206fa88f225f4a6a3634895c630a0a54"
+    },
+    {
+      "path": "rust/bin/rustc.exe",
+      "bytes": 112640,
+      "sha256": "149f2dd5030600a6ba2cbfb635f0ed0a30a62083a8cc17d0830754b4f62ceaf4"
+    },
+    {
+      "path": "rust/bin/rustc_driver-373530a41d2e5237.dll",
+      "bytes": 113390080,
+      "sha256": "07a4ec5470c841de5c82ab3acd6ea8e5c3d20723a88404f053363fda02a1b38e"
+    },
+    {
+      "path": "rust/bin/rustdoc.exe",
+      "bytes": 9968128,
+      "sha256": "80bd22382699efcc56e39e6cd3d4ac525238469c21501c33c514f089db53b332"
+    },
+    {
+      "path": "rust/bin/std-93818a84b222487c.dll",
+      "bytes": 9233408,
+      "sha256": "930dbdf1cc8215e00af1fba1932276b57242c9592dcf2de975fc4a357e599af6"
+    }
+  ],
+  "scope": "Provider release observation and local content hashes, not historical artifact authentication. No target execution."
+}

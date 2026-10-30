@@ -1,0 +1,74 @@
+{
+  "result": "PASS",
+  "runs": {
+    "normal": {
+      "returncode": 0,
+      "stdout_sha256": "188ae5a770633ecfedbd2950a5f8802c63bcb2bb45bf8798d4b3f200f200de95",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "optimized": {
+      "returncode": 0,
+      "stdout_sha256": "188ae5a770633ecfedbd2950a5f8802c63bcb2bb45bf8798d4b3f200f200de95",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "relocated_identical": true,
+  "parent_verifier_sha256": "1989efd6b080faccac727ca2518eeb37bcd02d96d41341ee3c494c934f246dcb",
+  "independent_census": {
+    "01-main-2162b3b": {
+      "sha256": "98462a583bd17fbfc9d39d5b74083fc123ee11b81e6dc1d77f3a5e36866b3aa6",
+      "total": 1035,
+      "normalized": 1027,
+      "raw": 273,
+      "unmatched": 8,
+      "matched_text_bytes": 1677176,
+      "all_1035_memberships_equal": true
+    },
+    "05-full-sdk143": {
+      "sha256": "acfdad3cad08f874623f2a84b6019835e86a98201c68d215f3b23e81374cb709",
+      "total": 1035,
+      "normalized": 241,
+      "raw": 72,
+      "unmatched": 794,
+      "matched_text_bytes": 75608,
+      "all_1035_memberships_equal": true
+    },
+    "06-sdk143-root-paths": {
+      "sha256": "2d3b097159b74be176e241bdccde939b16a95200ac084fd28e3f2eada885d873",
+      "total": 1035,
+      "normalized": 241,
+      "raw": 72,
+      "unmatched": 794,
+      "matched_text_bytes": 75608,
+      "all_1035_memberships_equal": true
+    },
+    "07-main-2b858": {
+      "sha256": "f541b7ed2515d0321a92ad1d3c1d874f4183b9155029a7eef4400e09ddb7a076",
+      "total": 1035,
+      "normalized": 1027,
+      "raw": 273,
+      "unmatched": 8,
+      "matched_text_bytes": 1677176,
+      "all_1035_memberships_equal": true
+    },
+    "08-pr2272": {
+      "sha256": "58c51cd9ecff786cbdb68d3c4442504cec3a82368350d78d6f9b7197f7801170",
+      "total": 1035,
+      "normalized": 1028,
+      "raw": 273,
+      "unmatched": 7,
+      "matched_text_bytes": 1679296,
+      "all_1035_memberships_equal": true
+    }
+  },
+  "wrong_callee_negative_test": "rejected despite identical normalized body",
+  "source_changed": [
+    "programs/pump/src/trade_v3.rs"
+  ],
+  "production_and_logs": "seven recorded command/result pairs and all log hashes checked; observed unchanged inputs; extended control byte-identical",
+  "retained_initial_failure": {
+    "stderr_sha256": "6050f1209e002a838fc96d1fa6d1187c9bb4dd0ca35ed62ecde3b7f5b51c3052",
+    "reason": "Two feature-source copies omitted the final line; provider Git-blob checks rejected both, then exact bytes restored."
+  },
+  "scope": "Pinned retained inputs/outputs only; no clean-machine build bootstrap, target/VM execution or historical compiler attestation."
+}

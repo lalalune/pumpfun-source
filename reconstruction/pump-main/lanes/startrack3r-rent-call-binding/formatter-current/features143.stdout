@@ -1,0 +1,24 @@
+Features supported by rustc for this target:
+    alu32           - Enable ALU32 instructions.
+    static-syscalls - Enable static syscalls.
+    crt-static      - Enables C Run-time Libraries to be statically linked.
+
+Code-generation features supported by LLVM for this target:
+    callx-reg-src   - Encode Callx destination register in the src field.
+    dummy           - unused feature.
+    dwarfris        - Disable MCAsmInfo DwarfUsesRelocationsAcrossSections.
+    dynamic-frames  - Enable dynamic frames.
+    new-call-conv   - Enable new call convetion for SBFv2.
+    no-lddw         - Disable the lddw instruction.
+    no-neg          - Disable the neg instruction.
+    pqr-instr       - Enable the PQR instruction class.
+    reloc-abs64     - Fix 64bit data relocations.
+    reverse-sub     - Reverse the operands in the 'sub reg, imm' instruction.
+    solana          - Enable Solana extensions.
+
+Use +feature to enable a feature, or -feature to disable it.
+For example, rustc -C target-cpu=mycpu -C target-feature=+feature1,-feature2
+
+Code-generation features cannot be used in cfg or #[target_feature],
+and may be renamed or removed in a future version of LLVM or rustc.
+
