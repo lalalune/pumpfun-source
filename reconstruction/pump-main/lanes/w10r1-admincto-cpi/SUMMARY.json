@@ -1,0 +1,39 @@
+{
+  "lane": "w10r1-admincto-cpi",
+  "target": "0x22a10 admin_cto::execute",
+  "angle": "CPI shapes: admin_cto_pool / admin_cto_sharing_config CPIs, token transfers and sweeps, CpiContext and signer seeds, clone order",
+  "base": "origin/main e61baa928 (1032 normalized / 347 raw)",
+  "best": {
+    "branch": "swarm/w10r1-admincto-cpi",
+    "pr": "https://github.com/lalalune/pumpfun-source/pull/2528",
+    "mechanism": "CpiContext::new(..).with_signer(signer_seeds) on the admin_cto_sharing_config CPI",
+    "unstripped_sha256_prefix": "b87fba618e99c1c9",
+    "official": {"normalized": 1032, "raw": 1032, "gains": [], "raw_gains": 685, "losses": [], "raw_losses": []},
+    "target": {"cand_bytes": 27400, "orig_bytes": 27400, "ratio": 0.34572, "slots_diff": 3372, "calls": [154, 3]}
+  },
+  "attempts": 38,
+  "findings": [
+    "CPI construction already equals the original: clone order and accounts-struct field offsets of admin_cto_pool, sharing_config, transfer_creator_fees (inlined Rc increments), both create_idempotent and collect_coin_creator_fee",
+    "with_signer adds exactly 56 B (by-value move of the built CpiContext); CpiContext literal == new_with_signer byte for byte",
+    "ratio drop at 27400 is a jump-offset artifact: with jump immediates masked the listing ratio is 0.3856 vs main 0.3860",
+    "sweep tail placement: MBP picks bb38 (post-sweep) as a 50% CFG-break successor of the tail-duplicated re-check after the vault-frozen error because no hotter unplaced pred of bb38 exists; in the original the merged sweep exit (Ok constants + errors, 0x3c50) is that pred"
+  ],
+  "rejected": [
+    "with_signer on the pool CPI or both CPIs",
+    "inline signer-seed literal / per-call seeds",
+    "CpiContext struct literal (identical to main)",
+    "sweep Result merged with the skip path, gate passed into sweep (breaks inlining), native/frozen early returns",
+    "IR un-threading of sweep Ok paths",
+    "20 compositions with PR #2509/#2515/#2518 genes at or near 27400"
+  ],
+  "unresolved": [
+    "sweep tail (amm frozen check, transfer_creator_fees CPI, native path) placed after post-sweep code",
+    "frame/spill-slot offsets differ from the first instruction (mint copy at -0x6a8 vs -0x6c0)",
+    "validate error-block order and the two outlined to_string calls (307/312)"
+  ],
+  "next_ideas": [
+    "a source form that keeps the sweep's constant-Ok exits merged (not jump-threaded) so the merged exit is the hot predecessor of post-sweep (IR !prof 1:2000 gives 0.4067)",
+    "pre-opt IR capture + llvm-dbg opt -O3 to test which pre-opt shape stops JumpThreading on the sweep exit",
+    "use the +56 with_signer knob as a size compensator when stitching structural region fixes"
+  ]
+}

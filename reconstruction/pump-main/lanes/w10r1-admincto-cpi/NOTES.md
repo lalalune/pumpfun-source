@@ -48,10 +48,33 @@ that block changes its immediate. With jump offsets masked the listing ratio is 
   bb38 is hot; in the original, the merged sweep exit (Ok constants + errors, 0x3c50) is that hotter
   predecessor and falls through into post-sweep.
 
+## Size catalogue of mechanisms (for stitchers; deltas vs main 27,344 B, not additive)
+
+`with_signer` / `c.signer_seeds=` on the sharing CPI: +56 (exactly the original size). Where it comes from:
+the struct literal `CpiContext{..}` is byte-identical to `new_with_signer` (both build the context in the
+call's argument slot); `with_signer(self)` and the `let mut c` form move the finished context once more.
+On the pool CPI the same change is 0 B (ratio down). Other genes measured on this base: PR #2509 `ql_before_shared` +56,
+PR #2518 wallet flags +32, PR #2515 sharing tree +24, inline signer-seed literal 0, sweep Result merged with
+the skip path (`if g {sweep()} else {Ok(0)}?`) -104, native early return +64. Compositions are strongly
+non-additive (#2518+#2515 = +136; sws+#2518+w8 = +48; sws+hc+w8 = +120). None of 20 compositions beat
+PR #2509 at 27,400 B (0.358 / 3,361 slots); the best near-miss was sws+#2518+w8, 27,392 B, 0.35835.
+
 ## Attempts (ledger approach `cpi-shapes`)
 
 | trial | mechanism | bytes | ratio |
 | --- | --- | ---: | ---: |
 | base | main e61baa9 | 27,344 | 0.37637 |
 | v1 | `.with_signer()` on both signed CPIs | **27,400** | 0.33074 |
+| r2 | `.with_signer()` on the sharing CPI only (kept) | **27,400** | **0.34572** |
+| pool | `.with_signer()` on the pool CPI only | 27,344 | 0.34128 |
 | v2 | signer seeds as one literal (no pb/poolseeds locals) | 27,344 | 0.37727 |
+| r2+v2 | | 27,400 | 0.34512 |
+| sl, slp | `CpiContext{..}` literal (sharing / pool / both) | 27,344 | identical to main |
+| mset | `let mut c=CpiContext::new(..);c.signer_seeds=..` | 27,400 | identical to r2 |
+| w8 | `swept=if shared&&holder{sweep()}else{Ok(0)}?` | 27,240 | 0.3765 |
+| w10 | gate passed into sweep | 24,416 | sweep not inlined |
+| w1 | native arm returns early | 27,408 | 0.3199 |
+| w3 | frozen arm returns `Ok(0)` | +168 on r2 | callseq worse |
+| IR u1 | un-thread sweep Ok paths (llc oracle) | 27,480 | 0.3228 |
+| IR bw | `!prof` 1:2000 on sweep.exit re-check (llc oracle) | 27,336 | 0.4067 |
+| combos | 20 gene compositions (see ledger `gene-combo-*`) | | none better at 27,400 |
