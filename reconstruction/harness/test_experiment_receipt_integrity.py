@@ -74,6 +74,9 @@ class ReceiptIntegrityTests(unittest.TestCase):
         listing=self.root/'patches.json';listing.write_text(json.dumps([str(patchfile)],ensure_ascii=False),encoding='utf-8')
         oracle=self.root/'oracle.json';oracle.write_text(json.dumps({'command':[sys.executable,'-c','raise SystemExit(0)']}))
         env=dict(os.environ,LC_ALL='C',LANG='C',PYTHONUTF8='0',PYTHONCOERCECLOCALE='0')
+        filesystem=subprocess.check_output([sys.executable,'-c','import sys;print(sys.getfilesystemencoding())'],env=env).decode().strip()
+        if filesystem.lower().replace('-', '')!='utf8':
+            self.skipTest('non-UTF-8 text locale with a UTF-8 filesystem is required for this filename control')
         result=subprocess.run([sys.executable,str(H/'minimize_experiment.py'),'--source',str(self.source),'--patches',str(listing),'--oracle',str(oracle),'--out',str(self.root/'reduction')],env=env,capture_output=True)
         self.assertEqual(result.returncode,0,result.stderr)
         report=json.loads((self.root/'reduction/minimized.json').read_text())
