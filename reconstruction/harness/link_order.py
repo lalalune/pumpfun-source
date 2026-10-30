@@ -22,6 +22,8 @@ import os
 import re
 import sys
 import tomllib
+import subprocess
+import tempfile
 from pathlib import Path
 
 H = Path(__file__).resolve().parent
@@ -95,7 +97,8 @@ def configure(crate, rustc, receipt):
         return {}, None
     manifest = tomllib.loads((Path(crate) / 'Cargo.toml').read_text(encoding='utf-8'))
     lib_name = manifest.get('lib', {}).get('name') or manifest['package']['name'].replace('-', '_')
-    counts = check_script(script.read_text())
+    script_bytes = script.read_bytes()
+    counts = check_script(script_bytes.decode('utf-8'))
     lld = sorted(Path(rustc).parents[1].glob('lib/rustlib/*/bin/rust-lld'))
     if len(lld) != 1:
         raise ValueError('expected one host rust-lld beside ' + str(rustc))
@@ -103,7 +106,7 @@ def configure(crate, rustc, receipt):
             'PUMP_LINK_NEXT_WRAPPER': str(H / 'pump_physical_source_wrapper.py'),
             'PUMP_LINK_ROOT_CRATE': lib_name,
             'PUMP_LINK_SCRIPT': str(script.resolve()),
-            'PUMP_LINK_SCRIPT_SHA256': sha(script),
+            'PUMP_LINK_SCRIPT_SHA256': hashlib.sha256(script_bytes).hexdigest(),
             'PUMP_LINK_LLD': str(lld[0]),
             'PUMP_LINK_RECEIPT': str(receipt),
             'PUMP_LINK_MAP': str(Path(receipt).with_name('link.map'))}
@@ -128,13 +131,14 @@ def rustc_main(argv, env):
     os.execv(command[0], command)
 
 
-def lld_args(args, env):
+def lld_args(args, env, *, script_path=None, script_bytes=None):
     """Linker arguments with the default script replaced; raises unless exactly one default script."""
     default = DEFAULT.read_text()
-    script = env['PUMP_LINK_SCRIPT']
-    if sha(script) != env['PUMP_LINK_SCRIPT_SHA256']:
+    raw = Path(env['PUMP_LINK_SCRIPT']).read_bytes() if script_bytes is None else script_bytes
+    script = env['PUMP_LINK_SCRIPT'] if script_path is None else str(script_path)
+    if hashlib.sha256(raw).hexdigest() != env['PUMP_LINK_SCRIPT_SHA256']:
         raise ValueError('pinned link script changed during the build')
-    check_script(Path(script).read_text(), default)
+    check_script(raw.decode('utf-8'), default)
     out, seen, i = [], 0, 0
     while i < len(args):
         arg = args[i]
@@ -156,10 +160,16 @@ def lld_args(args, env):
 
 
 def lld_main(argv, env):
-    args = lld_args(list(argv[1:]), env)
-    lld = env['PUMP_LINK_LLD']
-    Path(env['PUMP_LINK_RECEIPT']).write_text(json.dumps({
-        'script': env['PUMP_LINK_SCRIPT'], 'script_sha256': env['PUMP_LINK_SCRIPT_SHA256'],
-        'default_script_sha256': sha(DEFAULT), 'lld': lld, 'lld_sha256': sha(lld),
-        'forwarded': args}, indent=1) + '\n')
-    os.execv(lld, [lld, *args])
+    raw = Path(env['PUMP_LINK_SCRIPT']).read_bytes()
+    # The mutable crate pathname is never forwarded to the linker. Keep the
+    # private checked copy alive until the child exits, then remove it.
+    with tempfile.TemporaryDirectory(prefix='pump-link-script-') as temporary:
+        script = Path(temporary) / 'ordered.ld'
+        script.write_bytes(raw)
+        args = lld_args(list(argv[1:]), env, script_path=script, script_bytes=raw)
+        lld = env['PUMP_LINK_LLD']
+        Path(env['PUMP_LINK_RECEIPT']).write_text(json.dumps({
+            'script': env['PUMP_LINK_SCRIPT'], 'script_sha256': hashlib.sha256(raw).hexdigest(),
+            'default_script_sha256': sha(DEFAULT), 'lld': lld, 'lld_sha256': sha(lld),
+            'forwarded': args}, indent=1) + '\n', encoding='utf-8')
+        return subprocess.run([lld, *args]).returncode
