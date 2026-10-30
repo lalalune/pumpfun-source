@@ -4,7 +4,7 @@ Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`)
 Angle: w14a02-cto-validatecr (#3209) next idea 1. `pda` (holder_key PDA before `shared`, the original's call order at
 orig 0x98-0xf8) is the only validate-region step that clears the skeleton bar, but it loses on register assignment in
 orig 0x3000-0x3800. This lane looks for a source partner that keeps main's tail RA while the PDA call moves first.
-Bases: main 769f331 (0.63241) for the screen; main cef0574 (#3210, 0.63421) for the re-checks.
+Bases: main 769f331 (0.63241) for the screen; main cef0574 (#3210, 0.63421) for the re-checks; main b174038 (#3250, 0.63571) final check: pda 0.56573, pda+hL 0.56663 (27,360 B), the same payload r6 / split r6 cascade (`results5.jsonl`).
 Scratch: `~/.cache/pumpfun-reconstruction/lanes/w14a09-cto-pdara/` (not in git).
 Ledger: approach `pda-first-ra-partner`, keys `0x22a10-w14-{769f331,cef0574}-pdara-*`.
 
