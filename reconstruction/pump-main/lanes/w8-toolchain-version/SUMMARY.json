@@ -1,0 +1,153 @@
+{
+ "lane": "w8-toolchain-version",
+ "wave": 8,
+ "baseline": {
+  "commit": "ce53d86",
+  "normalized": 1027,
+  "raw": 276,
+  "unstripped_sha256": "31ec6381b4e7b4a7fb4c2a27820e65df8919196e9af15e3f398d55c5bbc88d58"
+ },
+ "targets": [
+  "0x13f630",
+  "0x13b9b8",
+  "0x80df8",
+  "0x72810",
+  "0x1489f8",
+  "0x1e7c0",
+  "0x5b3b0",
+  "0x22a10"
+ ],
+ "conclusion": "Original toolchain = official platform-tools v1.44 linux-x86_64 package (rustc 1.79.0-dev 08b7341, LLVM 18.1.7, cargo 1.79.0 804e325, x86_64 Linux host). The identity recipe already uses that compiler's codegen exactly; no toolchain version or host changes any of the 8 unmatched windows. Angle exhausted for the residuals.",
+ "best": {
+  "trial": "ga-linux",
+  "normalized": 1027,
+  "raw": 280,
+  "raw_gains": [
+   "0x18a3b0",
+   "0x18e9c0",
+   "0x18eb28",
+   "0x18ec88",
+   "0x18fc98"
+  ],
+  "raw_losses": [
+   "0x1a7b00"
+  ],
+  "accepted": false,
+  "unstripped_sha256": "2976eb3f076d19bea0b2e57358c4eafb9c3b7987ea608b5fb7b021d101a7f248",
+  "recipe": "linuxbuild.py (full Linux x86_64 v1.44) + Cargo.lock generic-array 0.14.7 / crypto-common 0.1.7"
+ },
+ "attempts": [
+  {
+   "id": "60ee9801",
+   "trial": "base",
+   "normalized": 1027,
+   "raw": 276
+  },
+  {
+   "id": "d2a539cf",
+   "trial": "full-linux-x86_64-v1.44",
+   "normalized": 1027,
+   "raw": 270,
+   "status": "rejected"
+  },
+  {
+   "id": "409c34d7",
+   "trial": "binary-evidence",
+   "status": "analyzed"
+  },
+  {
+   "id": "2c60d5f3",
+   "trial": "v1.45-compiler+v1.44-sysroot",
+   "normalized": 1027,
+   "raw": 276,
+   "status": "rejected",
+   "note": "byte-identical code; LOAD p_align 0x1000 vs 0x8"
+  },
+  {
+   "id": "a0d33bd0",
+   "trial": "v1.46-compiler+v1.44-sysroot",
+   "normalized": 949,
+   "raw": 251,
+   "status": "rejected"
+  },
+  {
+   "id": "40dd208c",
+   "trial": "v1.46.1-compiler+v1.44-sysroot",
+   "normalized": 776,
+   "raw": 141,
+   "status": "rejected"
+  },
+  {
+   "id": "92cbec32",
+   "trial": "shim-host-linux",
+   "normalized": 1027,
+   "raw": 270,
+   "status": "rejected"
+  },
+  {
+   "id": "0bd88570",
+   "trial": "shim-host-osx-x86_64",
+   "normalized": 1027,
+   "raw": 269,
+   "status": "rejected"
+  },
+  {
+   "id": "4ab57167",
+   "trial": "full-linux-aarch64-package",
+   "normalized": 1022,
+   "raw": 255,
+   "status": "rejected"
+  },
+  {
+   "id": "45ec72be",
+   "trial": "full-osx-x86_64-package",
+   "normalized": 1022,
+   "raw": 269,
+   "status": "rejected"
+  },
+  {
+   "id": "8f554dae",
+   "trial": "linux+amm-lock-ga-cc",
+   "normalized": 1027,
+   "raw": 280,
+   "status": "partial"
+  },
+  {
+   "id": "77a41b0d",
+   "trial": "mac+amm-lock-ga-cc",
+   "normalized": 1027,
+   "raw": 268,
+   "status": "rejected"
+  }
+ ],
+ "rejected_mechanisms": [
+  "platform-tools v1.43 (e_machine 247, no sbpf target)",
+  "v1.45 (identical codegen, linker p_align 0x1000)",
+  "v1.46 / v1.46.1 (LLVM codegen changes, 78/251 losses)",
+  "v1.47+ (Rust 1.84+)",
+  "osx-x86_64 / linux-aarch64 / osx-aarch64 packages (sysroot TypeIds)",
+  "cargo -vV host alone (Linux, Intel Mac)"
+ ],
+ "unresolved": [
+  "Original Cargo.lock (current lock has post-deployment versions: libc 0.2.191 2026-10-16, cc 1.10.0 2026-10-23); hash order of U/D blocks depends on it jointly with the Linux host",
+  "Lone raw loss 0x1a7b00 (solana_pubkey Debug pair order) under the best Linux+lock variant"
+ ],
+ "next_ideas": [
+  "After #2251 (ordered link script) lands: switch to the evidence-correct Linux x86_64 host with a link script regenerated from a Linux build; check MergeFunctions twin choices",
+  "Lock-as-of-date search (T <= 2026-10-15) under the Linux host scored by tools/dgroups.py per-crate hash-group agreement and raw",
+  "Residuals of the 8 windows are source-level; the toolchain cannot move them"
+ ],
+ "deployment": {
+  "last_deploy_slot": 458921440,
+  "approx_date": "2026-10-15"
+ },
+ "downloads": {
+  "v1.44 linux-x86_64": "6719b889d60677a8a2fcf4c82f68441a1afe0ab093edd2efe9f84a67a808b3e9",
+  "v1.44 linux-aarch64": "35746bf0ee850d5f72ecd126f97325f0032bde5c864665c3b777ee3bcc71938d",
+  "v1.44 osx-x86_64": "37eaae7397161361a8daa9635851cb26ff752875de66bc3fa22f316db9c23cb5",
+  "v1.45 osx-aarch64": "5fbe76de75dd9daf22db6680facca037f84aee0e609cc77c97b099c11868a8ee",
+  "v1.46 osx-aarch64": "06224b2ec78bc5bbd04e64046c536d2aefb8b5ec2cf0e926fe149b6371aa3be0",
+  "v1.46.1 osx-aarch64": "b8764fbd1cd2c7e99011f7b1ac645e1a6eb9313d3356c44ec7a2d46c4b340f5a (release digest verified)"
+ },
+ "pr": "https://github.com/lalalune/pumpfun-source/pull/2292"
+}
