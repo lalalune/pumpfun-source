@@ -10,6 +10,7 @@ import unittest
 from unittest import mock
 
 import pump_validate_parallel as validator
+from source_manifest_guard import strict_manifest
 
 
 class ParallelReportPublicationTests(unittest.TestCase):
@@ -26,6 +27,10 @@ class ParallelReportPublicationTests(unittest.TestCase):
         self.candidate.write_bytes(b'candidate')
         self.source = self.root / 'source'
         self.source.mkdir()
+        (self.source / 'src').mkdir()
+        (self.source / 'Cargo.toml').write_text('[package]\nname="fixture"\nversion="0.1.0"\n[workspace]\n')
+        (self.source / 'Cargo.lock').write_text('version = 3\n')
+        (self.source / 'src/lib.rs').write_text('pub fn fixture() {}\n')
         self.build_comparison = self.root / 'build-comparison.json'
         self.build_comparison.write_text(json.dumps({
             'returncode': 0,
@@ -34,7 +39,7 @@ class ParallelReportPublicationTests(unittest.TestCase):
                 'candidate_sha256': hashlib.sha256(
                     self.candidate.read_bytes()).hexdigest(),
             },
-            'source_sha256': {},
+            'source_sha256': strict_manifest(self.source, self.source, self.root, cwd=self.source),
         }))
         (self.scripts / 'pump_diagnostic_audit.py').write_text('')
         self.suite = self.scripts / 'fixture.py'
