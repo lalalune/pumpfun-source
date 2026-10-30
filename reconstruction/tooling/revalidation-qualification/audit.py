@@ -317,8 +317,21 @@ def classify(has_manifest, has_verify, manifest_before, verify, manifest_after, 
     return "inconclusive"
 
 
+def unique_manifest_fields(pairs):
+    result = {}
+    for name, value in pairs:
+        if name in result:
+            raise ValueError('duplicate manifest JSON field: ' + name)
+        result[name] = value
+    return result
+
+
 def safe_manifest_check(frozen, packet):
     try:
+        # The frozen parser keeps only the last occurrence of a JSON key.
+        # Reject ambiguous declarations before delegating its format/hash checks.
+        for path in frozen.manifest_paths(packet):
+            json.loads(path.read_text(encoding='utf-8'), object_pairs_hook=unique_manifest_fields)
         result = frozen.check_manifest(packet)
         if result.get("status") == "pass" and not result.get("files_expected"):
             # A manifest that declares no files verifies nothing.
