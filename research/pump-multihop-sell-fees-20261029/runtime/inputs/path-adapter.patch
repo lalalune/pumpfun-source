@@ -1,0 +1,28 @@
+--- upstream/tools/focused.py
++++ executed/focused.py
+@@ -1,12 +1,12 @@
+ """Local signed multi-hop parser-order comparisons through the captured AMM."""
+ from pathlib import Path
+ import argparse,base64,gzip,hashlib,importlib.util,json,struct,sys,re
+-ROOT=Path(__file__).resolve().parents[3]
++ROOT=Path('/mnt/c/Users/ahi20/Documents/ChatGPT/pumpfun-source')
+ sys.dont_write_bytecode=True
+ sys.path.insert(0,str(ROOT/'scripts'))
+ import pump_captured_loader as loader
+ loader.install()
+-H=Path(__file__).resolve().parents[1]/'runtime/inputs/pump_tokenkeg_two_curve_differential.py'
++H=Path(__file__).resolve().parent/'pump_tokenkeg_two_curve_differential.py'
+ spec=importlib.util.spec_from_file_location('two_curve_fixture',H);f=importlib.util.module_from_spec(spec);spec.loader.exec_module(f)
+ Base=f.LiteSVM
+ CASE={};SENDS=[]
+--- upstream/runtime/inputs/pump_tokenkeg_two_curve_differential.py
++++ executed/pump_tokenkeg_two_curve_differential.py
+@@ -17,7 +17,7 @@
+ from solders.transaction import Transaction,VersionedTransaction
+ from solders.transaction_metadata import FailedTransactionMetadata
+ W=Path(__file__).resolve().parent
+-R=next(p for p in W.parents if(p/'evidence/original/pump/deployed.so').is_file())
++R=Path('/mnt/c/Users/ahi20/Documents/ChatGPT/pumpfun-source')
+ sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+ TEMPLATE=json.loads((W/'base-fixture.json').read_text())
+ PUMP=Pubkey.from_string('6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P')

@@ -3,12 +3,16 @@
 import argparse,gzip,hashlib,json,re
 from pathlib import Path
 ANSI=re.compile(r'\x1b\[[0-?]*[ -/]*[@-~]')
+# U+FEFF is not whitespace to str.lstrip(), yet a UTF-8 signature can start any line of
+# concatenated or color-wrapped logs; drop it with other leading whitespace before matching.
+LEADING=re.compile(r'^[\s\ufeff]+')
 STACK=re.compile(r'^Error: Function (.*?) Stack offset of (-?\d+) exceeded max offset of (\d+) by (\d+) bytes.*?Estimated function frame size: (\d+) bytes\.')
 def inspect(path):
  path=Path(path);raw=path.read_bytes();decoded=gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw
  errors=[]
- for number,line in enumerate(decoded.decode('utf-8',errors='replace').splitlines(),1):
+ for number,line in enumerate(decoded.decode('utf-8').splitlines(),1):
   plain=ANSI.sub('',line).lstrip()
+  plain=LEADING.sub('',plain)
   if not plain.startswith('Error:'):continue
   row={'line_number':number,'text':line,'kind':'backend_error'};m=STACK.match(plain)
   if m:row.update(kind='stack_offset_exceeded',function=m[1],reported_offset=int(m[2]),maximum_offset=int(m[3]),excess_bytes=int(m[4]),estimated_frame_bytes=int(m[5]))

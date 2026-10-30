@@ -7,15 +7,16 @@ direct-call immediates (op 0x85, src=1, imm!=-1) and lddw values pointing inside
 section. Raw matches are counted separately.
 
 Usage: score.py <unstripped.so> [--baseline inventory.json] [--json out.json] [--quiet]
-Prints counts and gains/losses vs the baseline (default: base/current/inventory.json).
+Prints counts and gains/losses vs the baseline (default: pump-main/baseline/score.json).
+A missing baseline file is an error; losses are never reported against an empty baseline.
 """
-import argparse, csv, hashlib, json, re, struct, subprocess, sys, pickle
+import argparse, csv, hashlib, json, re, struct, subprocess, sys
 from pathlib import Path
+from llvm_tools import objdump
 
 H = Path(__file__).resolve().parent
 SC = H.parent
 BASE = SC / 'base'
-OBJDUMP = str(Path.home() / '.cache/solana/v1.52/platform-tools/llvm/bin/llvm-objdump')
 
 
 def sections(blob):
@@ -45,12 +46,21 @@ def normalize(raw, address, secs):
 
 
 def body(image, secs, address, size):
-    t = secs['.text']; o = address - t['addr'] + t['offset']
+    t = secs['.text']
+    if any(type(value) is not int or value < 0 for value in
+           (address, size, t['addr'], t['offset'], t['size'])):
+        raise ValueError('function and .text bounds must be nonnegative integers')
+    if t['offset'] + t['size'] > len(image):
+        raise ValueError('.text section extends beyond the ELF file')
+    relative = address - t['addr']
+    if relative < 0 or relative > t['size'] or size > t['size'] - relative:
+        raise ValueError(f'function range {address:#x}+{size:#x} is outside .text')
+    o = relative + t['offset']
     return image[o:o + size]
 
 
 def candidate_functions(path):
-    text = subprocess.check_output([OBJDUMP, '-t', str(path)], text=True)
+    text = subprocess.check_output([objdump(), '-t', str(path)], text=True)
     funcs = []
     for line in text.splitlines():
         m = re.match(r'^([0-9a-f]+) .* F \.text\s+([0-9a-f]+)\s+(?:\.hidden\s+)?(\S+)$', line)
@@ -62,18 +72,17 @@ def candidate_functions(path):
 
 
 def original_windows():
-    cache = BASE / 'original-windows.pkl'
-    if cache.exists():
-        return pickle.loads(cache.read_bytes())
+    # Read both inputs each time: a previous inventory must not set today's
+    # window set or supply bytes from a different captured original.
     orig = (BASE / 'original.so').read_bytes(); os_ = sections(orig)
     rows = []
-    for r in csv.DictReader((BASE / 'functions.tsv').open(), delimiter='\t'):
-        if r['program'] != 'pump' or r['variant'] != 'selected':
-            continue
-        s, e = int(r['original_start']), int(r['original_end'])
-        raw = body(orig, os_, s, e - s)
-        rows.append({'start': s, 'bytes': e - s, 'raw': raw, 'norm': normalize(raw, s, os_)})
-    cache.write_bytes(pickle.dumps(rows))
+    with (BASE / 'functions.tsv').open() as inventory:
+        for r in csv.DictReader(inventory, delimiter='\t'):
+            if r['program'] != 'pump' or r['variant'] != 'selected':
+                continue
+            s, e = int(r['original_start']), int(r['original_end'])
+            raw = body(orig, os_, s, e - s)
+            rows.append({'start': s, 'bytes': e - s, 'raw': raw, 'norm': normalize(raw, s, os_)})
     return rows
 
 
@@ -101,12 +110,14 @@ def load_baseline(p):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('candidate', type=Path)
-    ap.add_argument('--baseline', type=Path, default=BASE / 'current/inventory.json')
+    ap.add_argument('--baseline', type=Path, default=SC / 'pump-main/baseline/score.json')
     ap.add_argument('--json', type=Path)
     ap.add_argument('--quiet', action='store_true')
     a = ap.parse_args()
+    if not a.baseline.is_file():
+        ap.error(f'baseline not found: {a.baseline}')
     cur = score(a.candidate)
-    base = load_baseline(a.baseline) if a.baseline and a.baseline.exists() else {}
+    base = load_baseline(a.baseline)
     n = sum(v['normalized'] for v in cur.values()); r = sum(v['raw'] for v in cur.values())
     tb = sum(v['bytes'] for v in cur.values() if v['normalized'])
     gains = sorted(k for k, v in cur.items() if v['normalized'] and not base.get(k, {}).get('normalized'))

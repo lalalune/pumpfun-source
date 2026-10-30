@@ -12,6 +12,9 @@ A lane is seeded once (staged from --source-root, target cloned from a warm seed
 when available) and then rebuilt any number of times; only the two local crates
 recompile.
 
+Outputs are staged before publication. A failed rerun keeps the prior LANE/out/<id>
+and retains its own log and build record under LANE/out/.failed.
+
 Examples:
   native_build.py --lane LANES/a --source-root /path/to/repo --id baseline
   native_build.py --lane LANES/a --sell candidate_sell.rs --id try-17
@@ -26,7 +29,9 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
+import uuid
 
 HERE = Path(__file__).resolve().parent
 SWARM = Path(os.environ.get('AMM_SELL_SWARM', HERE.parent)).resolve()
@@ -148,61 +153,98 @@ def ensure_lane(lane, source_root):
     return ws, harness, target
 
 
+def retain_failed_output(staging, out, build_id):
+    """Keep a failed attempt without replacing an existing valid output."""
+    if not out.exists():
+        staging.rename(out)
+        return out
+    failed_root = out.parent / '.failed'
+    failed_root.mkdir(parents=True, exist_ok=True)
+    failed = failed_root / f'{build_id}-{uuid.uuid4().hex}'
+    staging.rename(failed)
+    return failed
+
+
+def publish_output(staging, out):
+    """Replace an existing output only after the new output is complete."""
+    previous = None
+    if out.exists():
+        previous = out.parent / f'.{out.name}.previous-{uuid.uuid4().hex}'
+        out.rename(previous)
+    try:
+        staging.rename(out)
+    except BaseException:
+        if previous is not None and previous.exists() and not out.exists():
+            previous.rename(out)
+        raise
+    if previous is not None:
+        shutil.rmtree(previous, ignore_errors=True)
+
+
 def build(lane, build_id, source_root=None, sell=None, patch=None, extra_root_flags='', link_script=None,
           keep_ws=False, jobs=4):
     lane = Path(lane).absolute()
     ws, harness, target = ensure_lane(lane, source_root)
     out = lane / 'out' / build_id
-    if out.exists():
-        shutil.rmtree(out)
-    out.mkdir(parents=True)
-    if PRISTINE.exists():
-        # Every attempt starts from the canonical inputs: earlier patches never leak.
-        subprocess.run(['rsync', '-a', '--delete', '--checksum', '--exclude', 'target',
-                        str(PRISTINE) + '/', str(ws) + '/'], check=True)
-    sell_path = ws / SELL_REL
-    if sell is not None:
-        shutil.copyfile(sell, sell_path)
-    if patch is not None:
-        subprocess.run(['patch', '-p1', '-d', str(ws), '-i', str(Path(patch).absolute())], check=True,
-                       stdout=subprocess.DEVNULL)
-    shutil.copyfile(sell_path, out / 'sell.rs')
-    # Restored files can carry old mtimes; force both local crates to recompile.
-    now = time.time()
-    for crate in ('programs/pump-amm', 'crates/native-transfer-fee'):
-        for path in (ws / crate).rglob('*.rs'):
-            os.utime(path, (now, now))
-    env = {k: v for k, v in os.environ.items() if k not in ('RUSTFLAGS', 'CARGO_ENCODED_RUSTFLAGS', 'RUSTC_WORKSPACE_WRAPPER')}
-    env.update({
-        'CARGO_HOME': str(CARGO_HOME), 'CARGO_TARGET_DIR': str(target),
-        'RUSTC': str(SDK / 'rust/bin/rustc'), 'RUSTDOC': str(SDK / 'rust/bin/rustdoc'),
-        'CC': str(SDK / 'llvm/bin/clang'), 'AR': str(SDK / 'llvm/bin/llvm-ar'),
-        'CARGO_TARGET_SBPF_SOLANA_SOLANA_RUSTFLAGS': ' -Zremap-cwd-prefix=',
-        'CARGO_BUILD_JOBS': str(jobs), 'RUSTC_WRAPPER': str(harness / 'rustc_wrapper.py'),
-        'AMM_LANE_OUT': str(out), 'AMM_LANE_HARNESS': str(harness),
-        'AMM_EXTRA_ROOT_RUSTFLAGS': extra_root_flags,
-        'AMM_METADATA_MAP': str(harness / 'metadata-map.json'),
-    })
-    if link_script:
-        env['AMM_LINK_SCRIPT'] = str(Path(link_script).absolute())
-    else:
-        env.pop('AMM_LINK_SCRIPT', None)
-    started = time.time()
-    with (out / 'build.log').open('wb') as log:
-        result = subprocess.run([str(SDK / 'rust/bin/cargo'), 'build', '--release', '--target', 'sbpf-solana-solana',
-                                 '--manifest-path', str(ws / 'Cargo.toml'), '--locked', '--offline', '--verbose'],
-                                cwd=ws, env=env, stdout=log, stderr=subprocess.STDOUT)
-    record = {'lane': str(lane), 'id': build_id, 'returncode': result.returncode,
-              'seconds': round(time.time() - started, 1), 'sell_sha256': sha(out / 'sell.rs'),
-              'extra_root_flags': extra_root_flags, 'link_script': link_script}
-    if result.returncode == 0:
-        unstripped = target / 'sbpf-solana-solana/release' / PROGRAM
-        shutil.copyfile(unstripped, out / 'symbols.so')
-        subprocess.run([str(SDK / 'llvm/bin/llvm-objcopy'), '--strip-all', str(out / 'symbols.so'),
-                        str(out / 'candidate.so')], check=True)
-        record['candidate_sha256'] = sha(out / 'candidate.so')
-        record['symbols_sha256'] = sha(out / 'symbols.so')
-    (out / 'build-record.json').write_text(json.dumps(record, indent=2) + '\n')
+    out.parent.mkdir(parents=True, exist_ok=True)
+    staging = Path(tempfile.mkdtemp(prefix=f'.{build_id}.staging-', dir=out.parent))
+    try:
+        if PRISTINE.exists():
+            # Every attempt starts from the canonical inputs: earlier patches never leak.
+            subprocess.run(['rsync', '-a', '--delete', '--checksum', '--exclude', 'target',
+                            str(PRISTINE) + '/', str(ws) + '/'], check=True)
+        sell_path = ws / SELL_REL
+        if sell is not None:
+            shutil.copyfile(sell, sell_path)
+        if patch is not None:
+            subprocess.run(['patch', '-p1', '-d', str(ws), '-i', str(Path(patch).absolute())], check=True,
+                           stdout=subprocess.DEVNULL)
+        shutil.copyfile(sell_path, staging / 'sell.rs')
+        # Restored files can carry old mtimes; force both local crates to recompile.
+        now = time.time()
+        for crate in ('programs/pump-amm', 'crates/native-transfer-fee'):
+            for path in (ws / crate).rglob('*.rs'):
+                os.utime(path, (now, now))
+        env = {k: v for k, v in os.environ.items() if k not in ('RUSTFLAGS', 'CARGO_ENCODED_RUSTFLAGS', 'RUSTC_WORKSPACE_WRAPPER')}
+        env.update({
+            'CARGO_HOME': str(CARGO_HOME), 'CARGO_TARGET_DIR': str(target),
+            'RUSTC': str(SDK / 'rust/bin/rustc'), 'RUSTDOC': str(SDK / 'rust/bin/rustdoc'),
+            'CC': str(SDK / 'llvm/bin/clang'), 'AR': str(SDK / 'llvm/bin/llvm-ar'),
+            'CARGO_TARGET_SBPF_SOLANA_SOLANA_RUSTFLAGS': ' -Zremap-cwd-prefix=',
+            'CARGO_BUILD_JOBS': str(jobs), 'RUSTC_WRAPPER': str(harness / 'rustc_wrapper.py'),
+            'AMM_LANE_OUT': str(staging), 'AMM_LANE_HARNESS': str(harness),
+            'AMM_EXTRA_ROOT_RUSTFLAGS': extra_root_flags,
+            'AMM_METADATA_MAP': str(harness / 'metadata-map.json'),
+        })
+        if link_script:
+            env['AMM_LINK_SCRIPT'] = str(Path(link_script).absolute())
+        else:
+            env.pop('AMM_LINK_SCRIPT', None)
+        started = time.time()
+        with (staging / 'build.log').open('wb') as log:
+            result = subprocess.run([str(SDK / 'rust/bin/cargo'), 'build', '--release', '--target', 'sbpf-solana-solana',
+                                     '--manifest-path', str(ws / 'Cargo.toml'), '--locked', '--offline', '--verbose'],
+                                    cwd=ws, env=env, stdout=log, stderr=subprocess.STDOUT)
+        record = {'lane': str(lane), 'id': build_id, 'returncode': result.returncode,
+                  'seconds': round(time.time() - started, 1), 'sell_sha256': sha(staging / 'sell.rs'),
+                  'extra_root_flags': extra_root_flags, 'link_script': link_script}
+        if result.returncode == 0:
+            unstripped = target / 'sbpf-solana-solana/release' / PROGRAM
+            shutil.copyfile(unstripped, staging / 'symbols.so')
+            subprocess.run([str(SDK / 'llvm/bin/llvm-objcopy'), '--strip-all', str(staging / 'symbols.so'),
+                            str(staging / 'candidate.so')], check=True)
+            record['candidate_sha256'] = sha(staging / 'candidate.so')
+            record['symbols_sha256'] = sha(staging / 'symbols.so')
+        (staging / 'build-record.json').write_text(json.dumps(record, indent=2) + '\n')
+        if result.returncode == 0:
+            publish_output(staging, out)
+            record['output_dir'] = str(out)
+        else:
+            record['output_dir'] = str(retain_failed_output(staging, out, build_id))
+    except BaseException:
+        if staging.exists():
+            retain_failed_output(staging, out, build_id)
+        raise
     return record
 
 

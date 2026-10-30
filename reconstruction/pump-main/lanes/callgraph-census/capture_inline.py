@@ -10,7 +10,7 @@ whose caller matches --caller: callee, caller, inlined or not, cost, threshold, 
 import argparse, json, re, subprocess, sys
 from pathlib import Path
 
-sys.path.insert(0, '/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness')
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / 'harness'))
 import fastbuild  # noqa: E402
 from win import demangle  # noqa: E402
 
