@@ -81,6 +81,7 @@ Every baseline reproduces main exactly (`eq_main`).
 | cross-clone pairs of each clone's top-4 non-main configs (`tools/pairs.sh`, `pscan2.py` DUMP mode) | 81d3d9a (0.65069) | 880 | 0.65069 (ties) | none |
 | perm (all 720 orders at one position) first/last pump_amm, P0 and P2 | 81d3d9a | 2,880 | 0.65039 | below main; most change size |
 | `let x=&*a.X` instead of `let x:&AccountInfo=a.X.as_ref()` (4 hand literals, raw-IR capture) | 81d3d9a | 4 | 0.65069 | equal |
+| pp + place rerun, all 11 clones (`tools/ppall6.sh`), after the sharing CPI landings #3309/#3318 | faf9962 (0.65129) | 9,159 | 0.65129 = main | still converged |
 
 Notes:
 - The inline `AccountInfo` fields (`coin_creator` = accounts+0xa8, `pump_creator_vault` = accounts+0xd8) are cloned through
@@ -93,4 +94,3 @@ Notes:
 Remaining lever in this region (not this lane's): the original spills the accounts pointer and reloads it from the stack
 inside the TCF run (orig 0x3128 `ldxdw r4,[r10-0x8d8]`, 0x3220 `ldxdw r3,[r10-0x8d8]; ldxdw r8,[r3+0x78]`), while ours keeps it in r8.
 This is register pressure from the original's own allocation (w14a01 acctlive, w14a17 sweepr0). No clone literal reaches it.
-| pp + place rerun, all 11 clones (`tools/ppall6.sh`), after the sharing CPI landings #3309/#3318 | faf9962 (0.65129) | 9,159 | 0.65129 = main | still converged |
