@@ -737,6 +737,8 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--allow-mismatches", action="store_true")
     args = parser.parse_args()
+    if args.output.exists() or args.output.is_symlink():
+        raise SystemExit(f"refusing to overwrite existing report: {args.output}")
     report = run_suite(args.candidate)
     report["negative_controls"] = negative_control(report)
     write_report(args.output, report)

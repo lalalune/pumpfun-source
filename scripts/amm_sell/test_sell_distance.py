@@ -1,8 +1,10 @@
 """Exact instruction edit-distance regressions; no compiler or VM required."""
 import importlib.util
 import itertools
+import hashlib
 from pathlib import Path
 import struct
+from types import SimpleNamespace
 import unittest
 
 HERE = Path(__file__).resolve().parent
@@ -20,6 +22,49 @@ def tokens(values):
 
 
 class AlignmentDistanceTests(unittest.TestCase):
+    def test_captured_amm_indirect_calls_keep_their_register_form(self):
+        path = HERE.parents[1] / 'evidence/original/pump_amm/deployed.so'
+        image = score.elf_reader.Elf(path)
+        self.assertEqual(hashlib.sha256(image.b).hexdigest(), score.ORIGINAL_SHA)
+        self.assertEqual(struct.unpack_from('<I', image.b, 48)[0], 0)
+        rows = score.listing(image, image.lo, image.hi - image.lo)
+        indirect = [row for row in rows if bytes.fromhex(row['raw'])[0] == 0x8d]
+        self.assertEqual(len(indirect), 123)
+        for row in indirect:
+            register = struct.unpack_from('<i', bytes.fromhex(row['raw']), 4)[0]
+            self.assertEqual(row['text'], f'callx r{register}')
+            self.assertEqual(row['fields'], ('callx', register))
+            self.assertIsNone(row['target'])
+        self.assertEqual(path.read_bytes(), image.b)
+
+    def test_indirect_call_does_not_collide_with_immediate_call(self):
+        # V0 CALL_REG selects a register through imm, while CALL_IMM uses a
+        # literal callee key. These eight-byte instructions used to tokenize
+        # identically despite differing in the opcode that selects that meaning.
+        def instruction(opcode):
+            raw = struct.pack('<BBhi', opcode, 0, 0, 2)
+            return score.normalized_tokens(score.listing(SimpleNamespace(b=raw), 0, 8))
+        immediate, indirect = instruction(0x85), instruction(0x8d)
+        self.assertNotEqual(immediate, indirect)
+        self.assertEqual(score.alignment_distance(immediate, indirect), 1)
+
+    def test_indirect_register_identity_and_immediate_call_controls(self):
+        def row(opcode, regs, immediate, start=0):
+            raw = bytes(start) + struct.pack('<BBhi', opcode, regs, 0, immediate)
+            return score.listing(SimpleNamespace(b=raw), start, 8)[0]
+        left, right = row(0x8d, 0, 2), row(0x8d, 0, 3)
+        self.assertEqual(score.alignment_distance(score.normalized_tokens([left]),
+                                                 score.normalized_tokens([right])), 1)
+        self.assertEqual(score.normalized_tokens([left]),
+                         score.normalized_tokens([row(0x8d, 0, 2, start=64)]))
+        internal, syscall = row(0x85, 0x10, -2, start=64), row(0x85, 0, 2)
+        self.assertEqual(internal['fields'], ('call', 1, -2))
+        self.assertEqual(internal['target'], ('call', 56))
+        self.assertEqual(syscall['fields'], ('call', 0, 2))
+        self.assertIsNone(syscall['target'])
+        self.assertEqual(score.normalized_tokens([internal, syscall]),
+                         ['call 0x38', 'call 0 2'])
+
     def test_distance_matches_full_grid_for_repeated_short_sequences(self):
         # Independent full matrix oracle, including empty sequences, repeated
         # boundary values, asymmetric insertions and competing alignments.

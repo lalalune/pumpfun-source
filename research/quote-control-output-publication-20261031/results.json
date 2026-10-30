@@ -1,0 +1,50 @@
+{
+  "issue": "pump_quote_control_fresh_differential.py publishes its gzip report directly onto --output with no alias or staging check, so --output equal to --candidate overwrites the ELF after a passing run.",
+  "base_revision": "5889e795eba64e85e613b4409921323bfecec414",
+  "affected": "scripts/pump_quote_control_fresh_differential.py:268-270 at base",
+  "reproduction": {
+    "command": "cp evidence/original/pump/deployed.so <temp>/candidate.so; python3 -B scripts/pump_quote_control_fresh_differential.py --candidate <temp>/candidate.so --output <temp>/candidate.so",
+    "before": {
+      "exit": 0,
+      "stdout": "507 cases, 0 mismatches",
+      "candidate_first_bytes": "1f8b0808",
+      "candidate_size": 248476,
+      "candidate_was_elf": true
+    },
+    "after": {
+      "exit": 1,
+      "stderr": "ValueError: report output aliases an input: <temp>/candidate.so",
+      "candidate_first_bytes": "7f454c46",
+      "candidate_size": 10485715
+    }
+  },
+  "normal_control": {
+    "command": "python3 -B scripts/pump_quote_control_fresh_differential.py --candidate <temp>/candidate.so --output <temp>/report.json.gz",
+    "result": "507 cases, 0 mismatches, exit 0, gzip report written, candidate unchanged",
+    "wall_clock_seconds": 7.9
+  },
+  "tests": {
+    "new_test": "tests/test_quote_control_output_publication.py",
+    "cases": [
+      "direct alias",
+      "symlink to the candidate",
+      "hardlink to the candidate"
+    ],
+    "before": "3 failures (exit 0 and the candidate replaced each time)",
+    "after": "3 tests OK in 0.2s"
+  },
+  "required_checks": {
+    "scripts/test_tooling.py": "217 tests OK",
+    "scripts/verify_evidence.py": "9 captures verified"
+  },
+  "environment": {
+    "platform": "macOS arm64",
+    "python": "3.14.3",
+    "solders": "as pinned in requirements.txt"
+  },
+  "unchanged": [
+    "evidence/original/pump/deployed.so and every captured input",
+    "suite cases and comparison keys",
+    "normal report replacement semantics for a non-input output path"
+  ]
+}

@@ -21,6 +21,7 @@ import platform
 import re
 import resource
 import shutil
+import stat
 import subprocess
 import tarfile
 import time
@@ -198,20 +199,29 @@ def inspect_vendor(vendor: Path, controller: Path) -> dict[str, object]:
     closure = []
     for record in records:
         directory = vendor / safe(record["directory"])
+        require(directory.is_dir() and not directory.is_symlink(), f"nonregular vendor package: {directory.name}")
         checksum = directory / ".cargo-checksum.json"
         require(checksum.is_file() and not checksum.is_symlink(), f"missing vendor map: {directory.name}")
         data = load(checksum)
         require(data["package"] == record["package_sha256"], f"package digest differs: {directory.name}")
         require(len(data["files"]) == record["file_count"], f"file count differs: {directory.name}")
-        actual = {
-            path.relative_to(directory).as_posix()
-            for path in directory.rglob("*")
-            if path.is_file() and path.name != ".cargo-checksum.json"
-        }
+        actual = set()
+        pending = [directory]
+        while pending:
+            # Do not follow directory links or silently suppress traversal
+            # errors. Every non-directory entry participates in membership.
+            with os.scandir(pending.pop()) as entries:
+                for entry in entries:
+                    path = Path(entry.path)
+                    if entry.is_dir(follow_symlinks=False):
+                        pending.append(path)
+                    elif path != checksum:
+                        actual.add(path.relative_to(directory).as_posix())
         require(actual == set(data["files"]), f"vendor file set differs: {directory.name}")
         for name, digest in data["files"].items():
             path = directory / safe(name)
-            require(not path.is_symlink() and sha256(path) == digest, f"vendor byte differs: {directory.name}/{name}")
+            require(stat.S_ISREG(path.lstat().st_mode), f"nonregular vendor file: {directory.name}/{name}")
+            require(sha256(path) == digest, f"vendor byte differs: {directory.name}/{name}")
         closure.append(
             {"directory": record["directory"], "package_sha256": data["package"], "files": data["files"]}
         )

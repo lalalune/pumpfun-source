@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Analyst disassembly output is created only after every program is disassembled."""
+import hashlib
 import json
 import os
 import subprocess
@@ -9,6 +10,14 @@ import unittest
 from pathlib import Path
 
 SCRIPT = Path(__file__).resolve().parent / "disassemble.py"
+ROOT = SCRIPT.parents[1]
+CAPTURES = {
+    "donation_relay": "evidence/dependencies/donation_relay",
+    "mayhem": "evidence/original/mayhem",
+    "pump": "evidence/original/pump",
+    "pump_amm": "evidence/original/pump_amm",
+    "pump_fees": "evidence/original/pump_fees",
+}
 FAKE_OBJDUMP = """#!{python}
 import os
 import sys
@@ -40,8 +49,12 @@ class DisassemblePublicationTests(unittest.TestCase):
             self.assertEqual(sorted(path.name for path in Path(temporary).iterdir()), ["objdump"])
             completed, output = self.run_tool(temporary)
             self.assertEqual(completed.returncode, 0, completed.stderr)
-            self.assertEqual(sorted(json.loads((output / "manifest.json").read_text())["outputs"]),
-                             ["mayhem", "pump", "pump_amm", "pump_fees"])
+            outputs = json.loads((output / "manifest.json").read_text())["outputs"]
+            self.assertEqual(sorted(outputs), sorted(CAPTURES))
+            for name, capture in CAPTURES.items():
+                self.assertEqual(outputs[name]["input_sha256"],
+                                 hashlib.sha256((ROOT / capture / "deployed.so").read_bytes()).hexdigest(),
+                                 name)
             # Each program is disassembled from its own input directory under the
             # bare snapshot name, so objdump's file heading stays deterministic.
             self.assertEqual((output / "pump.asm").read_text(),

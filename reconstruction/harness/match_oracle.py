@@ -3,12 +3,69 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
+import secrets
 import sys
 import fastbuild
 import score
 from original_input import copy_original_inputs
 from compare_scores import load_report, compare
+
+
+def bound_scoring_inputs(directory):
+    """Digest the copied originals and baseline snapshot the scorer reads.
+
+    A crate build runs arbitrary build-script code, so the build may rewrite
+    the scoring inputs it is scored against; binding them by content hash
+    (not mtime) detects a rewrite while a build that only touches
+    timestamps is not a change. The build has no legitimate reason to touch
+    this directory: its work and output directories are separate paths.
+    """
+    tree = {}
+    for path in sorted(directory.rglob('*')):
+        relative = path.relative_to(directory).as_posix()
+        if path.is_symlink():
+            tree[relative] = 'symlink:' + os.readlink(path)
+        elif path.is_file():
+            tree[relative] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return tree
+
+
+def publish_verdict(path, text):
+    """Publish the verdict without following a link planted at its path.
+
+    Mirrors score.write_report's exclusive, unpredictable staging so a
+    symlink at the destination is replaced rather than followed, while
+    keeping the verdict's explicit LF line endings on every platform.
+    """
+    for _ in range(100):
+        temporary = path.parent / f'.verdict-{os.getpid()}-{secrets.token_hex(8)}'
+        try:
+            stream = temporary.open('x', encoding='utf-8', newline='\n')
+        except FileExistsError:
+            continue
+        break
+    else:
+        raise FileExistsError('could not create a unique verdict staging file')
+    metadata = os.fstat(stream.fileno())
+    identity = metadata.st_dev, metadata.st_ino
+    try:
+        with stream:
+            stream.write(text)
+            stream.flush()
+            os.fsync(stream.fileno())
+        temporary.replace(path)
+        temporary = None
+    finally:
+        if temporary is not None:
+            try:
+                metadata = temporary.lstat()
+            except FileNotFoundError:
+                pass
+            else:
+                if (metadata.st_dev, metadata.st_ino) == identity:
+                    temporary.unlink()
 
 
 def evaluate(source, work, output, target, kind, recipe, baseline=None):
@@ -31,9 +88,14 @@ def evaluate(source, work, output, target, kind, recipe, baseline=None):
                 raise ValueError('baseline must describe the selected original inventory and window sizes')
         if target not in inventory:
             raise ValueError('target absent from selected original inventory')
+        bound = bound_scoring_inputs(scoring)
         built = fastbuild.build(source, work / 'build', output, quiet=True, recipe=recipe)
         if not built.get('ok') or built.get('runtime_valid') is False or built.get('stack_warnings'):
             result = {'status': 'error', 'build': built}
+            code = 2
+        elif bound_scoring_inputs(scoring) != bound:
+            result = {'status': 'error', 'build': built,
+                      'score_error': 'scoring inputs changed during build; refusing to score'}
             code = 2
         else:
             windows = score.score(output / 'unstripped.so')
@@ -46,7 +108,7 @@ def evaluate(source, work, output, target, kind, recipe, baseline=None):
                 matched = matched and preservation['accepted']
                 result['status'] = 'pass' if matched else 'fail'
             code = 0 if matched else 1
-        (output / 'verdict.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8', newline='\n')
+        publish_verdict(output / 'verdict.json', json.dumps(result, indent=2) + '\n')
         return code
     finally:
         score.BASE = previous

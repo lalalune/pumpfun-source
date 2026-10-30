@@ -8,6 +8,7 @@ import hashlib
 import json
 import re
 import struct
+import subprocess
 import sys
 import tarfile
 from pathlib import Path
@@ -24,6 +25,19 @@ def require(ok, message):
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def external_inputs(manifest):
+    """Read external inputs from the replay revision, never the moving checkout."""
+    revision = manifest['externalRevision']
+    require(re.fullmatch(r'[0-9a-f]{40}', revision) is not None, 'external revision must be a full commit id')
+    git = lambda *args: subprocess.run(['git', '-C', str(ROOT), *args], check=True, capture_output=True).stdout
+    require(git('cat-file', '-t', revision).strip() == b'commit', 'external revision is not a commit')
+    blobs = {}
+    for path, expected in manifest['external'].items():
+        blobs[path] = git('cat-file', 'blob', f'{revision}:{path}')
+        require(digest(blobs[path]) == expected, f'external hash: {path}')
+    return blobs
 
 
 def read_json(path):
@@ -101,8 +115,7 @@ def main():
     manifest = read_json(HERE / 'manifest.json')
     for path, expected in manifest['packet'].items():
         require(digest((HERE / path).read_bytes()) == expected, f'packet hash: {path}')
-    for path, expected in manifest['external'].items():
-        require(digest((ROOT / path).read_bytes()) == expected, f'external hash: {path}')
+    external = external_inputs(manifest)
     source_inputs = read_json(HERE / 'source-inputs.json')
     for label in ('control', 'candidate'):
         with tarfile.open(HERE / f'{label}-source.tar.gz', 'r:gz') as archive:
@@ -112,9 +125,10 @@ def main():
                 require(digest(archive.extractfile(member).read()) == source_inputs[name][label], f'source input: {name}')
     changed_inputs = [p for p, row in source_inputs.items() if row['control'] != row['candidate']]
     require(changed_inputs == ['programs/pump/src/trade_v3.rs'], 'unexpected source change')
-    original_blob = (ROOT / 'evidence/original/pump/deployed.so').read_bytes()
+    original_blob = external['evidence/original/pump/deployed.so']
+    functions_tsv = external['reconstruction/base/functions.tsv'].decode('utf-8').splitlines()
     rows = [(int(r['original_start']), int(r['original_end']) - int(r['original_start']), r['candidate_names'])
-            for r in csv.DictReader((ROOT / 'reconstruction/base/functions.tsv').open(), delimiter='\t')
+            for r in csv.DictReader(functions_tsv, delimiter='\t')
             if r['program'] == 'pump' and r['variant'] == 'selected']
     original = inventory(original_blob, rows)
     inventories = {'original': original}

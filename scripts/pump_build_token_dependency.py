@@ -31,7 +31,7 @@ if a.metaplex_recovery or a.metaplex_audit_recovery or a.metaplex_uses_recovery 
     patch=recovery/'source.patch';inputs=json.loads((recovery/'source-inputs.json').read_text())
     assert inputs['upstream_commit']==COMMIT
     assert all(source_hashes[name]==digest for name,digest in inputs['baseline'].items())
-    (out/'upstream-source-manifest.json').write_text(json.dumps(source_hashes,indent=2)+'\n')
+    (out/'upstream-source-manifest.json').write_text(json.dumps(source_hashes,indent=2)+'\n',encoding='utf-8',newline='\n')
     subprocess.run(['git','-C',str(source),'apply','--check',str(patch)],check=True)
     subprocess.run(['git','-C',str(source),'apply',str(patch)],check=True)
     assert set(read(['git','-C',str(source),'diff','--name-only']).splitlines())==set(inputs['patched'])
@@ -39,10 +39,10 @@ if a.metaplex_recovery or a.metaplex_audit_recovery or a.metaplex_uses_recovery 
     assert all(source_hashes[name]==digest for name,digest in inputs['patched'].items())
     shutil.copyfile(patch,out/'source.patch');shutil.copyfile(recovery/'source-inputs.json',out/'patch-source-inputs.json')
     source_patch={'path':'source.patch','sha256':sha(patch.read_bytes()),'scope':('Reviewed unified-guard dominated-subtraction source hypothesis; unaccepted and not historically attributed.' if a.metaplex_utilize_unified_guard_recovery else 'Reviewed positive-guard source hypothesis; unaccepted and not historically attributed.' if a.metaplex_utilize_positive_guard_recovery else 'Behaviorally recovered Rust changes applied to public baseline; not attributed historical source.')}
-(out/'source-manifest.json').write_text(json.dumps(source_hashes,indent=2)+'\n')
+(out/'source-manifest.json').write_text(json.dumps(source_hashes,indent=2)+'\n',encoding='utf-8',newline='\n')
 subprocess.run(['docker','pull','--platform','linux/amd64',IMAGE],check=True)
 image_info=json.loads(read(['docker','image','inspect',IMAGE]))
-(out/'image-inspect.json').write_text(json.dumps(image_info,indent=2)+'\n')
+(out/'image-inspect.json').write_text(json.dumps(image_info,indent=2)+'\n',encoding='utf-8',newline='\n')
 workdir=read(['docker','run','--rm','--platform','linux/amd64',IMAGE,'pwd'])
 assert workdir.startswith('/') and workdir != '/' and '\n' not in workdir
 name='pump-token-rebuild-'+uuid.uuid4().hex[:12]
@@ -67,7 +67,7 @@ try:
     selected_resolved=read(['docker','exec',container,'readlink','-f',selected_rustc])
     tool_info=read(['docker','exec',container,selected_rustc,'--version','--verbose'])
     selected_hash=read(['docker','exec',container,'sha256sum',selected_rustc]).split()[0]
-    (out/'tool-versions.json').write_text(json.dumps({'selected_toolchain':selected_name,'installed_toolchains':installed,'selected_rustc_path':selected_rustc,'selected_rustc_resolved':selected_resolved,'selected_rustc_sha256':selected_hash,'selected_rustc_version':tool_info},indent=2)+'\n')
+    (out/'tool-versions.json').write_text(json.dumps({'selected_toolchain':selected_name,'installed_toolchains':installed,'selected_rustc_path':selected_rustc,'selected_rustc_resolved':selected_resolved,'selected_rustc_sha256':selected_hash,'selected_rustc_version':tool_info},indent=2)+'\n',encoding='utf-8',newline='\n')
 finally:
     subprocess.run(['docker','stop',container],check=False,stdout=subprocess.DEVNULL)
 assert all(sha((source/name).read_bytes())==digest for name,digest in source_hashes.items()), 'build modified source or lockfile'
@@ -88,5 +88,5 @@ first=next((i for i,(x,y) in enumerate(zip(b,original)) if x!=y),None)
 if first is None and len(b)!=len(original):first=min(len(b),len(original))
 report={'scope':'Fresh Linux container source build; no captured binary mounted into build container. Original padding is compared explicitly.','source_repository':REPOSITORY,'dependency':a.dependency,'source_commit':COMMIT,'image':IMAGE,'platform':'linux/amd64','onchain_recipe':None if a.dependency in ('associated_token','token_metadata') else 'repro/pump/'+a.dependency+'-onchain-build-params.json','active_host_toolchain':active,'commands':[[x.replace(container,'<container>').replace(str(source),'<source>') for x in cmd] for cmd in commands],'source_manifest_sha256':sha((out/'source-manifest.json').read_bytes()),'build_log_sha256':sha((out/'build.log').read_bytes()),'original_bytes':len(original),'candidate_input_bytes':len(raw),'candidate_input_sha256':sha(raw),'zero_padding_bytes':len(b)-len(raw),'candidate_bytes':len(b),'original_sha256':sha(original),'candidate_sha256':sha(b),'original_normalized_sha256':sha(original_normalized),'candidate_normalized_sha256':sha(normalized),'normalized_byte_equality':normalized==original_normalized,'full_byte_equality':b==original,'first_difference':first}
 if source_patch is not None:report['source_patch']=source_patch
-(out/'comparison.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
+(out/'comparison.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n');print(json.dumps(report,indent=2))
 if b!=original:raise SystemExit(1)

@@ -43,7 +43,7 @@ def portable_binding(candidate, build_report):
     check(source_manifest(base.SOURCE_DIRECTORY, base.SOURCE_DIRECTORY, ROOT,
                            cwd=base.SOURCE_DIRECTORY) == expected, "portable binding verification failed: source_manifest(base.SOURCE_DIRECTORY, base.SOURCE_DIRECTORY, ROOT,")
     return {'binding_kind': binding['kind'],
-            'report': str(build_report.relative_to(ROOT)),
+            'report': build_report.relative_to(ROOT).as_posix(),
             'report_sha256': sha(build_report),
             'origin_build_record': binding['origin_build_record'],
             'origin_build_record_sha256': sha(origin_path),
@@ -57,7 +57,7 @@ original_bindings = base.bindings
 
 def bindings(candidate, report):
     result = original_bindings(candidate, report)
-    result['repository_inputs'][str(Path(__file__).relative_to(ROOT))] = sha(Path(__file__))
+    result['repository_inputs'][Path(__file__).relative_to(ROOT).as_posix()] = sha(Path(__file__))
     return result
 
 

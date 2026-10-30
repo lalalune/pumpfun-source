@@ -75,7 +75,7 @@ def main():
    test('extension-zero='+str((typ,mintkey)),base_amount=0,quote_amount=0,overrides=ext)
  sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
  report={'scope':'Direct signed local create_pool cases; captured SPL/Token2022/ATA dependencies. Committed account data/lamports/owners, event bytes, errors and exact CPIs. Canonical migration cases are covered separately.','candidate_sha256':sha(pin_program(candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
- args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(report['mismatches']),'mismatches':report['mismatches']}))
+ args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(report['mismatches']),'mismatches':report['mismatches']}))
  if report['mismatches']:raise SystemExit(1)
 
 if __name__=='__main__':main()

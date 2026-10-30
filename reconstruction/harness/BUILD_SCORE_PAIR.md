@@ -30,7 +30,10 @@ objdump hashes, SDK/target-library manifest hashes, binary build hashes, both fu
 score reports, and the comparison. Logs and reports are uploaded on failures too;
 build outputs/caches and keypairs are not uploaded. This is not a runtime test or
 a proof of whole-ELF identity. Source changes during a build are rejected. Output
-directories must be fresh so previous measurements cannot be overwritten.
+directories must be fresh so previous measurements cannot be overwritten. The
+canonical output path must also be disjoint from both Pump source trees: it may
+neither contain a source tree nor lie inside one. This is checked before any
+scoring-input copy or receipt is written, including through directory aliases.
 
 Paired-build source receipts use the same `pump-source-inputs-v1` snapshot as
 `fastbuild`. They bind relative paths, exact bytes and executable bits; exclude

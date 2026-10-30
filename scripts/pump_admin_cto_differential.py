@@ -6,6 +6,7 @@ import sys,json,base64,hashlib,argparse
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 from fees_donation_create_differential import *
+from pump_differential_output import PumpReport
 import pump_validate_admin as pump
 import pump_amm_admin_differential as amm
 from pump_amm_reusable_harness import pin_program
@@ -124,6 +125,7 @@ def main():
  p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();rows=[];bad=[]
  images=[ROOT/f'evidence/original/{n}/deployed.so' for n in ['pump','pump_fees','pump_amm']]+[ROOT/f'evidence/dependencies/{n}/deployed.so' for n in ['spl_token','spl_token_2022','associated_token']]
  if a.candidate:images.append(a.candidate)
+ output=PumpReport(a.output,ROOT,a.candidate,__file__,extra_inputs=images)
  snapshots={path:pin_program(path) for path in images}
  if a.candidate:a.candidate=snapshots[a.candidate]
  paths=[Path(__file__),*images]+[ROOT/'scripts'/n for n in ['fees_donation_create_differential.py','fees_admin_differential.py','pump_validate_admin.py','pump_amm_admin_differential.py']]+[ROOT/f'evidence/upstream/{n}.json' for n in ['pump','pump_fees','pump_amm']]
@@ -135,6 +137,6 @@ def main():
  original=snapshots[ROOT/'evidence/original/pump/deployed.so']
  report={'scope':'Signed synthetic captured Pump admin_cto calling Fees by genuine CPI. Pool authority nonsigner at transaction boundary; no privileged signer injection. Not full program identity.','original_sha256':hashlib.sha256(original.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(a.candidate.read_bytes()).hexdigest() if a.candidate else None,'provenance':hashes,'case_count':len(rows),'cases':rows,'mismatches':bad}
  assert all(hashlib.sha256(snapshots.get(Path(p),Path(p)).read_bytes()).hexdigest()==h for p,h in hashes.items()),'Input changed during run'
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n');print('Cases',len(rows),'mismatches',bad)
+ output.write((json.dumps(report,indent=2)+'\n').encode('utf-8'));print('Cases',len(rows),'mismatches',bad)
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

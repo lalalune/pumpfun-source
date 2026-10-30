@@ -2,7 +2,7 @@
 """Score an AMM build against the original sell cashback window (0x4c750, 9,024 bytes).
 
 Usage:
-  sell_score.py BUILD_OUT_DIR [--disasm] [--json]
+  sell_score.py BUILD_OUT_DIR [--disasm]
 BUILD_OUT_DIR must contain candidate.so (stripped) and symbols.so (unstripped).
 
 Reported (JSON):
@@ -32,7 +32,7 @@ ORIGINAL = Path(os.environ.get('AMM_SELL_SWARM', HERE.parent)).resolve() / 'infr
 ORIGINAL_SHA = '6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7'
 SELL_START = 0x4c750
 SELL_SIZE = 9024
-SCORE_VERSION = 3
+SCORE_VERSION = 4
 
 
 def rank(entry):
@@ -57,7 +57,7 @@ SIZE = {0x00: 'w', 0x08: 'h', 0x10: 'b', 0x18: 'dw'}
 
 
 def decode(code, start, size):
-    """Yield (offset, length, raw, mnemonic, fields) for a function body."""
+    """Yield (offset, length, raw, mnemonic, fields) for an SBPF v0 body."""
     at = start
     end = start + size
     while at < end:
@@ -76,7 +76,10 @@ def decode(code, start, size):
             fields = (name, dst, src if op & 8 else None, None if op & 8 else imm)
         elif cls in (5, 6):
             kind = JMP.get(op >> 4, f'jmp{op >> 4:x}')
-            if kind == 'call':
+            if op == 0x8d:
+                # V0 CALL_REG encodes its register in imm, not a callee key.
+                text, fields = f'callx r{imm}', ('callx', imm)
+            elif kind == 'call':
                 text = f'call {"internal" if src == 1 else "syscall"} {imm}'
                 fields = ('call', src, imm)
             elif kind == 'exit':

@@ -5,6 +5,7 @@ import importlib.util
 import contextlib
 import io
 import json
+import re
 import struct
 import sys
 import tempfile
@@ -79,7 +80,7 @@ class ImageIdentityTests(unittest.TestCase):
         self.assertTrue(report['whole_elf_equal'])
         self.assertTrue(report['allocation_image_equal'])
         self.assertTrue(report['unstripped_elf_equal'])
-        self.assertEqual(report['score_version'], 3)
+        self.assertEqual(report['score_version'], 4)
 
     def test_attempt_cache_separates_old_meaning_and_preserves_new_metrics(self):
         # Native build and flock are never called. The stubs also let this
@@ -117,11 +118,11 @@ class ImageIdentityTests(unittest.TestCase):
             old_path = cache / (old_key + '.json')
             old_bytes = b'{"metrics":{"whole_elf_equal":true,"sell_raw_equal":true}}'
             old_path.write_bytes(old_bytes)
-            v2_inputs = {**old_inputs, 'score_version': 2}
-            v2_key = runner.sha(json.dumps(v2_inputs, sort_keys=True).encode())
-            v2_path = cache / (v2_key + '.json')
-            v2_bytes = b'{"metrics":{"align_distance":112}}'
-            v2_path.write_bytes(v2_bytes)
+            v3_inputs = {**old_inputs, 'score_version': 3}
+            v3_key = runner.sha(json.dumps(v3_inputs, sort_keys=True).encode())
+            v3_path = cache / (v3_key + '.json')
+            v3_bytes = b'{"metrics":{"align_distance":112}}'
+            v3_path.write_bytes(v3_bytes)
             args = ['try_sell.py', '--lane', 'fixture', '--approach', 'identity',
                     '--hypothesis', 'cache version regression', '--baseline']
             with patch.multiple(runner, SWARM=root, CACHE=cache, SOURCES=root / 'sources'), \
@@ -136,11 +137,11 @@ class ImageIdentityTests(unittest.TestCase):
             self.assertEqual(scoring.call_count, 1)
             self.assertEqual(append.call_count, 1)
             self.assertEqual(old_path.read_bytes(), old_bytes)
-            self.assertEqual(v2_path.read_bytes(), v2_bytes)
-            new_paths = [p for p in cache.glob('*.json') if p not in (old_path, v2_path)]
+            self.assertEqual(v3_path.read_bytes(), v3_bytes)
+            new_paths = [p for p in cache.glob('*.json') if p not in (old_path, v3_path)]
             self.assertEqual(len(new_paths), 1)
             entry = json.loads(new_paths[0].read_bytes())
-            self.assertEqual(entry['inputs']['score_version'], 3)
+            self.assertEqual(entry['inputs']['score_version'], 4)
             self.assertFalse(entry['metrics']['whole_elf_equal'])
             self.assertTrue(entry['metrics']['allocation_image_equal'])
             self.assertFalse(entry['metrics']['unstripped_elf_equal'])
@@ -224,6 +225,17 @@ class BranchTokenTests(unittest.TestCase):
             tested += 1
         self.assertEqual(tested, 52)
         self.assertEqual(path.read_bytes(), blob)
+
+
+class UsageDocumentationTests(unittest.TestCase):
+    def test_usage_only_advertises_implemented_options(self):
+        # The module docstring is the argparse description printed by --help
+        # (RawDescriptionHelpFormatter). main() registers exactly one optional
+        # flag, --disasm, and always emits JSON, so any other advertised long
+        # option is rejected at parse time as an unrecognized argument despite
+        # the help telling the user it is accepted.
+        advertised = set(re.findall(r'--[A-Za-z][\w-]*', score.__doc__))
+        self.assertEqual(advertised, {'--disasm'})
 
 
 if __name__ == '__main__':

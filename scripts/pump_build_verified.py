@@ -37,7 +37,7 @@ def finish_report(record, report, receipt, cache, target, log, data_order=False)
     """Publish the data-order receipt only after all cache checks succeed."""
     try:
         if cache and not data_order:
-            report.write_text(json.dumps(record, indent=2) + "\n")
+            report.write_text(json.dumps(record, indent=2) + "\n",encoding='utf-8',newline='\n')
         if cache:
             if data_order:
                 check(cache.record["status"] == "hit", "data-order build must use a verified external cache")
@@ -52,9 +52,9 @@ def finish_report(record, report, receipt, cache, target, log, data_order=False)
             certificate = record["text_layout"]["data_order_certificate"]
             check(sha(Path(certificate["path"])) == certificate["sha256"], "data-order certificate changed before acceptance")
             record["data_order"]["status"] = "passed"
-        report.write_text(json.dumps(record, indent=2) + "\n")
+        report.write_text(json.dumps(record, indent=2) + "\n",encoding='utf-8',newline='\n')
         if data_order:
-            receipt.write_text(json.dumps(record, indent=2) + "\n")
+            receipt.write_text(json.dumps(record, indent=2) + "\n",encoding='utf-8',newline='\n')
     except BaseException:
         if cache:
             report.unlink(missing_ok=True)
@@ -173,11 +173,11 @@ def main():
             dest = crate / relative
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(src, dest)
-        (crate / "Cargo.toml").write_text(crate_text)
+        (crate / "Cargo.toml").write_text(crate_text,encoding='utf-8',newline='\n')
         shutil.move(crate / "Cargo.lock", workspace / "Cargo.lock")
         (workspace / "Cargo.toml").write_text(
             '[workspace]\nmembers = ["programs/pump"]\nresolver = "2"\n\n' + profile
-        )
+        ,encoding='utf-8',newline='\n')
     tools = {
         "rustc": sdk / "rust/bin/rustc",
         "cargo": sdk / "rust/bin/cargo",
@@ -307,7 +307,7 @@ def main():
     if data_certificate:
         record["data_order"] = {"status": "pending", "certificate_sha256": data_certificate_sha256}
     receipt = out / "build-attempt.json"
-    receipt.write_text(json.dumps(record, indent=2) + "\n")
+    receipt.write_text(json.dumps(record, indent=2) + "\n",encoding='utf-8',newline='\n')
     with (out / "build.log").open("w") as f:
         result = (
             cache.compile_main(out / "target", f)
@@ -336,7 +336,7 @@ def main():
     ] == before and primary_before == source_manifest(primary, primary, ROOT)
     if target_library_profile:
         record["target_library_profile"] = pump_target_library_profile.finish(target_library_profile)
-    receipt.write_text(json.dumps(record, indent=2) + "\n")
+    receipt.write_text(json.dumps(record, indent=2) + "\n",encoding='utf-8',newline='\n')
     result.check_returncode()
     check(record["source_unchanged"])
     check(record["stack_diagnostic_gate_passed"], "compiler reported a stack offset exceeding its maximum; inspect build.log")
@@ -364,10 +364,10 @@ def main():
         check(sha(a.data_order_certificate) == data_certificate_sha256, "data-order certificate changed")
         proof = pump_data_order.verify_transform(data_certificate, out)
         proof_path = out / "data-order-transformation.json"
-        proof_path.write_text(json.dumps(proof, indent=2) + "\n")
+        proof_path.write_text(json.dumps(proof, indent=2) + "\n",encoding='utf-8',newline='\n')
         record["data_order"] = {"status": "transform_verified", "certificate_sha256": data_certificate_sha256,
                                 "transformation_sha256": sha(proof_path)}
-        receipt.write_text(json.dumps(record, indent=2) + "\n")
+        receipt.write_text(json.dumps(record, indent=2) + "\n",encoding='utf-8',newline='\n')
     report = out / "build-comparison.json"
     finish_report(record, report, receipt, cache, out / "target", out / "build.log", bool(data_certificate))
     print(json.dumps(record["comparison"], indent=2))

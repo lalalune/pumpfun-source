@@ -1212,6 +1212,7 @@ class SyscallFingerprintTests(unittest.TestCase):
         rel = b''.join(struct.pack('<QQ', at, (idx << 32) | 10)
                        for at, idx in ((8, 1), (16, 2), (48, 1)))
         elf = SimpleNamespace(b=code + dynsym + rel, symbols={1: 'abort', 2: 'helper'},
+            file_offset=lambda address, size: address,
             secs={'.dynsym': (0, 11, 0, 0, len(code), len(dynsym), 0, 0, 8, 24),
                   '.rel.dyn': (0, 9, 0, 0, len(code)+len(dynsym), len(rel), 0, 0, 8, 16)})
         fp = deep_disassembly.fingerprint_window(elf, 0, len(code))
@@ -1226,6 +1227,7 @@ class SyscallFingerprintTests(unittest.TestCase):
                 sym = bytes(48)
                 rel = struct.pack('<QQ', 0, (index << 32) | typ)
                 elf = SimpleNamespace(b=code + sym + rel, symbols={1: 'abort'},
+                    file_offset=lambda address, size: address,
                     secs={'.dynsym': (0, 11, 0, 0, 8, 48, 0, 0, 8, entry_size),
                           '.rel.dyn': (0, 9, 0, 0, 56, 16, 0, 0, 8, 16)})
                 self.assertEqual(deep_disassembly.fingerprint_window(
@@ -1378,7 +1380,7 @@ class CompareRelayCliTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             (root / 'scripts').mkdir()
-            for script in ('compare.py', 'analyze.py'):
+            for script in ('compare.py', 'analyze.py', 'deep_disassembly.py', 'window_elf_reader.py'):
                 shutil.copyfile(source_root / 'scripts' / script, root / 'scripts' / script)
             captures = {
                 'donation_relay': 'dependencies',
@@ -2137,6 +2139,7 @@ class FallbackDispatchRelocationTests(unittest.TestCase):
         blob[0x50:0x58] = bytes.fromhex('8510000000000000')
         return SimpleNamespace(
             b=bytes(blob), lo=0x40, hi=0x58, funcs=[],
+            text_offset=lambda address: address if 0x40 <= address < 0x58 else None,
             relocations={0x40: {'type': 8, 'symbol': ''}} if relocated else {},
         )
 
@@ -2363,6 +2366,8 @@ class LddwImmediateDecodeTests(unittest.TestCase):
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tests.test_current_bindings_paths import CurrentBindingsPathTests
+from tests.test_revalidate_all_invocation import (
+    RequiredArgumentTests, ReportTests, RunVerifyTests, InvocationCliTests)
 from test_fees_error_messages_exit import FeesErrorMessageExitTests, FeesErrorMessageOptimizationTests
 FeesErrorMessageExitTests = requires_litesvm(FeesErrorMessageExitTests)
 from test_pump_window_inventory import WindowInventoryTests

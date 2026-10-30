@@ -17,6 +17,7 @@ from llvm_tools import objdump
 from original_input import resolve_original
 from functools import lru_cache
 import io
+import secrets
 
 H = Path(__file__).resolve().parent
 SC = H.parent
@@ -155,10 +156,20 @@ def write_report(path, text):
     """Publish without truncating an input linked to the destination mid-score."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    # Plain open, not NamedTemporaryFile: the rename below publishes this file's mode.
-    temporary = path.parent / f'.score-{os.getpid()}'
+    # Plain exclusive open preserves the normal umask-derived report mode.
+    # Do not enter cleanup until we own the staging file: a leftover receipt
+    # from PID reuse, or another writer, must never be removed on open failure.
+    for _ in range(100):
+        temporary = path.parent / f'.score-{os.getpid()}-{secrets.token_hex(8)}'
+        try:
+            stream = temporary.open('x', encoding='utf-8')
+        except FileExistsError:
+            continue
+        break
+    else:
+        raise FileExistsError('could not create a unique score report staging file')
     try:
-        with temporary.open('x', encoding='utf-8') as stream:
+        with stream:
             stream.write(text)
         temporary.replace(path)
     finally:

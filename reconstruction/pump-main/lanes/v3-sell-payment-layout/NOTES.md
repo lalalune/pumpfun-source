@@ -98,6 +98,12 @@ dependencies. The historical fixture is recovered verbatim from
 Only its location is redirected when loading `scripts/pump_trade_fixture.py`.
 This does not change fixture logic or case definitions.
 
+The four external inputs are read from `externalRevision` in `manifest.json`
+(`2b635c9a`, where this packet landed), not from the checkout, so later edits to
+the shared scripts do not change what the receipts are bound to. The verifier
+needs that commit in the local Git history. To replay, run `replay.py` from a
+worktree of that commit.
+
 ## Overlap review
 
 Open and closed PRs were checked at task start (68 open, 100 recently updated

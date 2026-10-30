@@ -25,7 +25,7 @@ Usage: fastbuild.py --src <crate dir with Cargo.toml/Cargo.lock/src[/recovered]>
 - Cargo manifests, lockfiles and saved compiler logs use UTF-8 independently of the host locale.
   Non-UTF-8 consoles escape unrepresentable diagnostic characters without changing the saved log.
 """
-import argparse, hashlib, json, os, re, shutil, subprocess, sys, time, tomllib, fcntl, tempfile
+import argparse, hashlib, io, json, os, re, shutil, subprocess, sys, time, tomllib, fcntl, tempfile
 from contextlib import contextmanager
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))  # sibling modules under -I / load-by-path
@@ -79,8 +79,18 @@ def table_start(text, name):
     raise ValueError('missing literal manifest table: ' + name)
 
 
-def stage(src: Path, ws: Path):
-    text = (src / 'Cargo.toml').read_text(encoding='utf-8')
+def stage(src: Path, ws: Path, expected_inputs=None):
+    expected_inputs = snapshot(src) if expected_inputs is None else expected_inputs
+
+    def admitted_text(name):
+        data = (src / name).read_bytes()
+        expected = next(row for row in expected_inputs['files'] if row['path'] == name)
+        if hashlib.sha256(data).hexdigest() != expected['sha256']:
+            raise ValueError('source metadata differs from admitted inputs: ' + name)
+        # Preserve read_text's universal-newline handling of the admitted bytes.
+        return io.StringIO(data.decode('utf-8'), newline=None).read()
+
+    text = admitted_text('Cargo.toml')
     parsed = tomllib.loads(text)
     if parsed.get('workspace') != {} or set(parsed.get('profile', {})) != {'release'}:
         raise ValueError('unsupported manifest layout')
@@ -89,7 +99,17 @@ def stage(src: Path, ws: Path):
         raise ValueError('expected release profile followed by a final empty workspace table')
     profile = text[ps:wsi].strip() + '\n'
     crate_text = text[:ps].rstrip() + '\n'
+    lock = admitted_text('Cargo.lock')
     crate = ws / 'programs/pump'
+    # Reused staging paths must not redirect rsync or the metadata rewrites
+    # into the source (or an earlier workspace). Check before any writes.
+    for directory in (ws, ws / 'programs', crate):
+        if directory.is_symlink():
+            raise ValueError('staging directory must not be a symlink: ' + str(directory))
+    for path in (crate / 'Cargo.toml', ws / 'Cargo.toml', ws / 'Cargo.lock'):
+        if path.is_symlink() or (path.exists() and
+                (not path.is_file() or path.stat().st_nlink != 1)):
+            raise ValueError('staging metadata must be an ordinary file with one link: ' + str(path))
     crate.mkdir(parents=True, exist_ok=True)
     # Exclude only the crate-root build directory; nested target directories can contain source.
     # Mirror inputs with rsync --checksum so unchanged files keep mtimes;
@@ -97,12 +117,19 @@ def stage(src: Path, ws: Path):
     subprocess.run(['rsync', '-a', '--checksum', '--delete',
                     '--exclude', '/target/', '--exclude', '/Cargo.toml', '--exclude', '/Cargo.lock',
                     str(src) + '/', str(crate) + '/'], check=True)
+    # Cargo metadata is generated from admitted buffers below. Bind every other
+    # selected input in the copy, including nested path-crate Cargo metadata.
+    generated = {'Cargo.toml', 'Cargo.lock'}
+    expected = {row['path']: row for row in expected_inputs['files'] if row['path'] not in generated}
+    actual = {row['path']: row for row in snapshot(crate)['files'] if row['path'] not in generated}
+    if actual != expected:
+        changed = sorted(name for name in actual.keys() | expected.keys() if actual.get(name) != expected.get(name))
+        raise ValueError('staged source inputs differ from admitted inputs: ' + ', '.join(changed[:10]))
     def put(p, t):
         if not p.exists() or p.read_text(encoding='utf-8') != t:
             p.write_text(t, encoding='utf-8')
     put(crate / 'Cargo.toml', crate_text)
     put(ws / 'Cargo.toml', '[workspace]\nmembers = ["programs/pump"]\nresolver = "2"\n\n' + profile)
-    lock = (src / 'Cargo.lock').read_text(encoding='utf-8')
     put(ws / 'Cargo.lock', lock)
     return crate
 
@@ -215,7 +242,7 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     source_inputs = snapshot(src)
     work.mkdir(parents=True, exist_ok=True)
     ws = work / 'ws'
-    crate = stage(src, ws)
+    crate = stage(src, ws, expected_inputs=source_inputs)
     assert_unchanged(src, source_inputs)
     manifest = tomllib.loads((crate / 'Cargo.toml').read_text(encoding='utf-8'))
     library = manifest.get('lib', {}).get('name', manifest['package']['name'].replace('-', '_'))

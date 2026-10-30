@@ -3,6 +3,8 @@
 import argparse,base64,hashlib,json,struct
 import pump_trade_fixture as f
 from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
+from pump_trade_fixture import REPORT_INPUTS
 R=f.R;P=f.Pubkey.from_string(f.x['program']);USER=f.Keypair.from_seed(bytes([231])*32)
 INITIAL={k:f.vm.get_account(k) for k in f.msg.account_keys};CURVE=f.Pubkey.from_string(f.x['accounts']['curve']);GLOBAL=f.Pubkey.from_string(f.x['accounts']['global']);FEE=f.Pubkey.from_string(f.x['accounts']['fee_config'])
 FEES=f.Pubkey.from_string('pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ');TOKEN=f.Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');TOKEN22=f.Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');ATA=f.Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');WSOL=f.Pubkey.from_string('So11111111111111111111111111111111111111112');USDC=f.Pubkey.from_string('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v')
@@ -86,12 +88,12 @@ def cases():
  return rows
 
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=f.pathlib.Path);ap.add_argument('--output',type=f.pathlib.Path,required=True);a=ap.parse_args();rows=[]
+ ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=f.pathlib.Path);ap.add_argument('--output',type=f.pathlib.Path,required=True);a=ap.parse_args();publisher=PumpReport(a.output,R,a.candidate,__file__,extra_inputs=REPORT_INPUTS);rows=[]
  for c in cases():
   o=run(c);r={'case':c,'original':o}
   if a.candidate:
    b=run(c,a.candidate);diff=[k for k in ['error','accounts','events','inner','return_data'] if o[k]!=b[k]];r.update(candidate=b,match=not diff,different_fields=diff)
   rows.append(r)
- d={'scope':'Bounded offline buy_v2 / buy_exact_quote_in_v2 synthetic state; normal test-owned signatures and genuine captured dependency CPIs. Full binary equality unproven. Executable bytes excluded from semantic snapshot comparison; ELF hashes recorded separately.','original_sha256':hashlib.sha256((R/'evidence/original/pump/deployed.so').read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'harness_sha256':hashlib.sha256(f.pathlib.Path(__file__).read_bytes()).hexdigest(),'fixture_import_sha256':hashlib.sha256(f.pathlib.Path(f.__file__).read_bytes()).hexdigest(),'case_count':len(rows),'cases':rows,'mismatches':[i for i,r in enumerate(rows) if r.get('match') is False]};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(d,indent=2)+'\n');print([(r['case']['name'],r['original']['error'],r.get('different_fields')) for r in rows]);
+ d={'scope':'Bounded offline buy_v2 / buy_exact_quote_in_v2 synthetic state; normal test-owned signatures and genuine captured dependency CPIs. Full binary equality unproven. Executable bytes excluded from semantic snapshot comparison; ELF hashes recorded separately.','original_sha256':hashlib.sha256((R/'evidence/original/pump/deployed.so').read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'harness_sha256':hashlib.sha256(f.pathlib.Path(__file__).read_bytes()).hexdigest(),'fixture_import_sha256':hashlib.sha256(f.pathlib.Path(f.__file__).read_bytes()).hexdigest(),'case_count':len(rows),'cases':rows,'mismatches':[i for i,r in enumerate(rows) if r.get('match') is False]};publisher.write((json.dumps(d,indent=2)+'\n').encode('utf-8'));print([(r['case']['name'],r['original']['error'],r.get('different_fields')) for r in rows]);
  if d['mismatches']:raise SystemExit(1)
 if __name__=='__main__':main()

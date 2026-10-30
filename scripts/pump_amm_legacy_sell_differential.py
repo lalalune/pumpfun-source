@@ -6,6 +6,7 @@ sys.path.insert(0,str(ROOT/'scripts'))
 # Imported legacy harnesses read their captured fixtures relative to the repository.
 os.chdir(ROOT)
 from pump_amm_trade_v2_differential import *
+from pump_differential_output import PumpReport
 ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
 PROTOCOL=Pubkey.from_bytes(bytes(RAW[57:89]));PROTOCOL_ATA=Pubkey.find_program_address([bytes(PROTOCOL),bytes(TOKEN),bytes(quote)],ATA)[0]
 CREATOR=Pubkey.from_bytes(bytes(poolraw[211:243]));CREATOR_VAULT=Pubkey.find_program_address([b'creator_vault',bytes(CREATOR)],PROGRAM)[0];CREATOR_ATA=Pubkey.find_program_address([bytes(CREATOR_VAULT),bytes(TOKEN),bytes(quote)],ATA)[0]
@@ -69,7 +70,7 @@ def cash(present=True,change=None):
  return ov
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();a.candidate=(_CALLER_CWD/a.candidate).resolve();a.output=(_CALLER_CWD/a.output).resolve();rows=[]
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();a.candidate=(_CALLER_CWD/a.candidate).resolve();a.output=(_CALLER_CWD/a.output).resolve();publisher=PumpReport(a.output,ROOT,a.candidate,__file__,extra_inputs=[ROOT/'research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json']);rows=[]
  def test(label,**kw):
   x,y=legacy(**kw),legacy(candidate=a.candidate,**kw);diff=[k for k in x if k!='logs' and x[k]!=y[k]];rows.append({'case':label,'original':x,'candidate':y,'diff':diff})
  def tail(count,skip=False):
@@ -180,5 +181,5 @@ def main():
      if zero_creator:
       creator=Pubkey.default();mutate(pool,211,bytes(creator))(h,m);vault=Pubkey.find_program_address([b'creator_vault',bytes(creator)],PROGRAM)[0];ata=Pubkey.find_program_address([bytes(vault),bytes(TOKEN),bytes(quote)],ATA)[0];h.vm.set_account(vault,Account(10**9,b'',Pubkey.default()));h.vm.set_account(ata,Account(2039280,token(quote,vault,0,True),TOKEN));m[17]=AccountMeta(ata,False,True);m[18]=AccountMeta(vault,False,False)
     test('zero-fee-cashback-event='+str((amount,zero_creator,holder)),amount=amount,overrides=zero_cashback)
- failures=[i for i,r in enumerate(rows) if r['diff']];sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest();report={'scope':'AMM legacy sell scratch differential; ordinary verified signatures, synthetic signer/state fixtures and actual captured token/ATA/Fees CPI. Not whole-program equality.','candidate_sha256':sha(pin_program(a.candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':failures,'cases':rows};a.output.parent.mkdir(exist_ok=True,parents=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatches':failures}));raise SystemExit(bool(failures))
+ failures=[i for i,r in enumerate(rows) if r['diff']];sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest();report={'scope':'AMM legacy sell scratch differential; ordinary verified signatures, synthetic signer/state fixtures and actual captured token/ATA/Fees CPI. Not whole-program equality.','candidate_sha256':sha(pin_program(a.candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':failures,'cases':rows};publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatches':failures}));raise SystemExit(bool(failures))
 if __name__=='__main__':main()

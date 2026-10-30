@@ -15,6 +15,8 @@ import unittest
 ROOT = Path(__file__).resolve().parents[3]
 SCRIPTS = ('pump_compare_function_bytes.py', 'pump_exact_body_inventory.py',
            'pump_quote_control_function_match.py')
+# Imported by pump_compare_function_bytes.py for its atomic report publication.
+DEPENDENCIES = ('probe_report.py',)
 LANE = 'reconstruction/pump-main/lanes/v3-sell-payment-layout'
 EXPECTED_CANDIDATE = '969811b0e0f673b693695ea651008cacd93eafa5a663dd8bec0e61d3b22d09a9'
 OBJDUMP = shutil.which('llvm-objdump')
@@ -34,7 +36,7 @@ class ByteComparisonInputTests(unittest.TestCase):
             raise RuntimeError('a real llvm-objdump is required; pass --objdump')
         cls.tool = Path(OBJDUMP).resolve()
         cls.sources = {}
-        for name in SCRIPTS:
+        for name in SCRIPTS + DEPENDENCIES:
             if SCRIPT_DIRECTORY:
                 content = (SCRIPT_DIRECTORY / name).read_bytes()
             elif SOURCE_REVISION:
@@ -63,6 +65,10 @@ class ByteComparisonInputTests(unittest.TestCase):
             path = self.root / 'scripts' / name
             path.parent.mkdir(exist_ok=True)
             path.write_bytes(content)
+        # The maintained matcher shares logical instruction-boundary parsing.
+        helper = self.root / 'reconstruction/harness/instruction_stream.py'
+        helper.parent.mkdir(parents=True, exist_ok=True)
+        helper.write_bytes((ROOT / 'reconstruction/harness/instruction_stream.py').read_bytes())
         for name in ('evidence/original/pump/deployed.so', 'reconstruction/base/functions.tsv'):
             path = self.root / name
             path.parent.mkdir(parents=True, exist_ok=True)

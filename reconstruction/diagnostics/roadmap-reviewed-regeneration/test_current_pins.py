@@ -20,8 +20,14 @@ sibling = load('roadmap_dynamic_generate', ROOT / 'reconstruction/diagnostics/de
 
 class CurrentPinTests(unittest.TestCase):
     def test_pins_agree_with_the_sibling_roadmap_diagnostic(self):
-        for name, digest in guarded.REVIEWED.items():
-            self.assertEqual(digest, sibling.REVIEWED[name], name)
+        # The two diagnostics execute different input sets (the guarded one
+        # also pins the archived roadmap snapshot; the sibling also pins the
+        # ELF reader), so agreement is required on the sources both review:
+        # a shared source must never carry diverging reviewed digests.
+        shared = set(guarded.REVIEWED) & set(sibling.REVIEWED)
+        self.assertEqual(shared, {guarded.SOURCE, guarded.ARCHIVE})
+        for name in shared:
+            self.assertEqual(guarded.REVIEWED[name], sibling.REVIEWED[name], name)
 
     def test_current_checkout_is_admitted(self):
         try:

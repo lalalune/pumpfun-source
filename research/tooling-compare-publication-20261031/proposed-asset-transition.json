@@ -1,0 +1,31 @@
+{
+  "status": "proposed for maintainer review",
+  "base_commit": "8f730b4a3e331d035bd979ef7d21aa65ace67d9f",
+  "changed_assets": [
+    {
+      "path": "scripts/compare.py",
+      "before_sha256": "d1c3d46acd9a1690895d27c38b2043d2c806160a4cbafabf0030c94a8bd89457",
+      "after_sha256": "374069ff669c8f911b6c1228d2ae4603b8aeb7bcdf4fa47eb6dec6c6e099f1e5",
+      "reason": "Stage complete comparison output and use existing native no-replace publication"
+    },
+    {
+      "path": "scripts/test_tooling.py",
+      "before_sha256": "13fd6721a78394ed9eb205a92956f700e4c30b6d2b654f01397a37a8f0c77cca",
+      "after_sha256": "e55ee145e628054dd05e3a34910e56d397cfadb34051ab784cf575ddda1a4be2",
+      "reason": "Copy the two existing publisher dependency modules into the isolated comparator CLI fixture"
+    }
+  ],
+  "root_script_set_changed": false,
+  "historical_evidence_changed": false,
+  "historical_checkpoint_note": "Current historical verifier references point to removed repro/ packages. No seals, archived helpers, source inputs or captured binaries are changed; those checkpoints were not revalidated.",
+  "new_test": "tests/test_compare_publication.py",
+  "existing_ci_discovery": "contract-tests: python -B -m unittest discover -s tests -v",
+  "local_validation": {
+    "platform": "macOS arm64",
+    "python": "3.12.13",
+    "publication_test_methods": 6,
+    "root_tooling_tests": 211,
+    "verified_captures": 9,
+    "linux_or_windows_run": false
+  }
+}

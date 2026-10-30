@@ -71,6 +71,13 @@ def run_pair(base, candidate, out, sdk, hybrid, timeout=None):
 
 
 def _run_pair(base, candidate, out, sdk, hybrid, timeout):
+    # Admit the canonical output before creating scoring inputs or receipts.
+    # fastbuild's later guard cannot undo writes made by this coordinator.
+    out = out.resolve()
+    for repo in (base, candidate):
+        source = (repo / 'programs/pump').resolve()
+        if out == source or source in out.parents or out in source.parents:
+            raise ValueError('output must not overlap a Pump source tree')
     before = {name: source_receipt(repo) for name, repo in [('base', base), ('candidate', candidate)]}
     out.mkdir(parents=True, exist_ok=False)
     fastbuild.SDK = sdk

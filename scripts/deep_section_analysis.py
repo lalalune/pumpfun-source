@@ -864,6 +864,8 @@ def sha256_file(p):
         for c in iter(lambda: f.read(65536), b""): h.update(c)
     return h.hexdigest()
 def main():
+    if set(os.listdir(PACKET)) != EXPECTED_FILES | {"manifest.json"}:
+        print("FAIL: packet directory entry set mismatch"); return 1
     m = json.load(open(os.path.join(PACKET, "manifest.json"), encoding="utf-8"))
     if not isinstance(m, dict) or set(m) != EXPECTED_FILES:
         print("FAIL: manifest artifact set mismatch"); return 1

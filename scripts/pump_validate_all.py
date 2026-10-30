@@ -145,13 +145,30 @@ def publish_file(staged, output):
     return False
 
 
+def suite_command(name, script, candidate, output, source_directory, build_report):
+    """Keep the pinned ELF and the actual producer receipt separate."""
+    command = [sys.executable, str(script), '--candidate', str(candidate), '--output', str(output)]
+    source_text = script.read_text()
+    if "'--source-directory'" in source_text or '"--source-directory"' in source_text:
+        command += ['--source-directory', str(source_directory.resolve())]
+    if name == 'tokenkeg_two_curve':
+        command += ['--build-report', str(build_report)]
+    return command
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--candidate', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--source-directory', type=Path, default=ROOT / 'programs/pump')
+    parser.add_argument('--build-report', type=Path,
+                        help='Actual producer build-comparison.json; defaults beside the selected candidate')
     args = parser.parse_args()
-    candidate = pin_program(args.candidate.resolve())
+    candidate_input = args.candidate.resolve()
+    build_report = (args.build_report or candidate_input.parent / 'build-comparison.json').resolve()
+    build_attempt = build_report.with_name('build-attempt.json')
+    build_inputs = (build_report, build_attempt)
+    candidate = pin_program(candidate_input)
     original = ROOT / 'evidence/original/pump/deployed.so'
     runner = Path(__file__).resolve()
     candidate_sha, original_sha, runner_sha = map(sha, (candidate, original, runner))
@@ -165,12 +182,14 @@ def main():
                     if path.is_file() and 'target' not in path.relative_to(args.source_directory).parts
                     and (path.suffix == '.rs' or path.name in ('Cargo.toml', 'Cargo.lock'))]
     protect_inputs([args.output, *(retained / (name + '.json.gz') for name, _ in SUITES)],
-                   [candidate, original, runner, ROOT / 'scripts/pump_diagnostic_audit.py',
+                   [candidate_input, candidate, original, runner, *build_inputs,
+                    ROOT / 'scripts/pump_diagnostic_audit.py',
                     *suite_paths, *source_paths])
     args.output.parent.mkdir(parents=True, exist_ok=True)
     for destination in (args.output, retained):
         if destination.exists() or destination.is_symlink():
             raise FileExistsError(destination)
+    build_inputs = {path: sha(path) for path in build_inputs}
     from deep_disassembly import rename_directory, temporary_sibling
     retained_staging = report_directory = None
     published_retained = preserve_recovery = report_consumed = report_published = False
@@ -184,15 +203,14 @@ def main():
                 script = ROOT / filename if filename.startswith(('repro/', 'research/')) else ROOT / 'scripts' / filename
                 before = sha(script)
                 output = Path(tmp) / (name + '.json')
-                command = [sys.executable, str(script), '--candidate', str(candidate), '--output', str(output)]
-                source_text = script.read_text()
-                if "'--source-directory'" in source_text or '"--source-directory"' in source_text:
-                    command += ['--source-directory', str(args.source_directory.resolve())]
+                command = suite_command(name, script, candidate, output,
+                                        args.source_directory, build_report)
                 subprocess.run(command, check=True, cwd=ROOT)
                 assert before == sha(script), f'harness changed during execution: {filename}'
                 assert runner_sha == sha(runner), 'aggregate runner changed during execution'
                 assert candidate_sha == sha(candidate), 'candidate changed during execution'
                 assert original_sha == sha(original), 'original changed during execution'
+                assert all(sha(path) == digest for path, digest in build_inputs.items()), 'build receipt changed during execution'
                 raw = output.read_bytes()
                 result = json.loads(gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw)
                 if name == 'quote_control':
@@ -225,6 +243,8 @@ def main():
             'scope': 'Published 44-suite bounded Pump differential corpus. Per-suite limits remain in receipts; not full source recovery or binary identity.',
             'original_sha256': original_sha, 'candidate_sha256': candidate_sha,
             'runner_sha256': runner_sha, 'script_sha256': scripts,
+            'build_inputs_sha256': {bound_input_key(path, ROOT): digest
+                                    for path, digest in build_inputs.items()},
             'case_count': sum(s['case_count'] for s in suites.values()),
             'source_directory': str(args.source_directory.resolve()),
             'diagnostic_audit_sha256': sha(ROOT / 'scripts/pump_diagnostic_audit.py'),

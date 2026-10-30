@@ -107,6 +107,6 @@ def main():
   rows.append({'case':c,'original':x,'candidate':y,'match':not diffs if y else None,'mismatched_fields':diffs})
   if diffs:bad.append(c['name'])
  sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();report={'scope':'Captured Pump admin_cto invokes AMM admin_cto_pool with genuine CPI PDA signing; top-level signatures are ordinary test-owned keys. Synthetic states and upstream-rejected contexts do not establish all downstream contexts.','original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'candidate_sha256':sha(a.candidate) if a.candidate else None,'script_sha256':sha(Path(__file__)),'case_count':len(rows),'cases_reaching_amm':reached,'mismatches':bad,'cases':rows}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'cases':len(rows),'cases_reaching_amm':reached,'mismatch_count':len(bad),'mismatches':bad[:40]}))
+ a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'cases':len(rows),'cases_reaching_amm':reached,'mismatch_count':len(bad),'mismatches':bad[:40]}))
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

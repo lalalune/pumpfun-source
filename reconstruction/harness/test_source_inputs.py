@@ -89,7 +89,8 @@ class SourceReceiptTests(unittest.TestCase):
             finally:link.unlink()
 
     def test_build_rejects_source_mutation_before_compiler(self):
-        def stage(source,ws):
+        def stage(source,ws,*,expected_inputs):
+            self.assertEqual(expected_inputs, snapshot(source))
             (source/'lib.rs').write_text('mutated while staging');return ws/'crate'
         with patch.object(fastbuild,'stage',side_effect=stage),patch.object(fastbuild,'acquire_slot') as acquire:
             with self.assertRaisesRegex(ValueError,'changed during staging'):

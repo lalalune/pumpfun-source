@@ -41,7 +41,7 @@ def preserve_failure(build, output, error):
         'error': str(error),
         'candidate_retained': (attempt / 'candidate').is_dir(),
         'evidence_retained': (attempt / 'evidence').is_dir(),
-    }, indent=2) + '\n')
+    }, indent=2) + '\n',encoding='utf-8',newline='\n')
     return attempt
 
 
@@ -85,7 +85,7 @@ def main():
                    'native_build_record_sha256': sha(build / 'build-comparison.json'),
                    'compiled_source_sha256': record['source_sha256']}
         (output / 'native-input-binding.json').write_text(
-            json.dumps(binding, indent=2) + '\n')
+            json.dumps(binding, indent=2) + '\n',encoding='utf-8',newline='\n')
         subprocess.run([
             sys.executable, '-B', str(ROOT / 'scripts/pump_validate_parallel.py'),
             '--candidate', str(build / 'candidate.so'),
@@ -132,11 +132,11 @@ def main():
             'targeted_migration_cases': migration_reports,
             'corpus_diagnostic_mismatches': 0, 'targeted_recipient_cases': 42,
             'scope': 'Separate bounded suites; their control cases can overlap. Whole original ELF equality is not established.',
-        }, indent=2) + '\n')
+        }, indent=2) + '\n',encoding='utf-8',newline='\n')
         (output / 'MANIFEST.json').write_text(json.dumps({
             path.relative_to(output).as_posix(): sha(path)
             for path in sorted(output.rglob('*')) if path.is_file()
-        }, indent=2) + '\n')
+        }, indent=2) + '\n',encoding='utf-8',newline='\n')
         publish(build, output)
     except BaseException as error:
         attempt = preserve_failure(build, output, error)

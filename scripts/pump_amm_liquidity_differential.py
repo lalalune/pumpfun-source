@@ -111,6 +111,6 @@ def main():
    test(n,'seeded-math='+str((i,amount,virtual,fee)),amount=amount,virtual=virtual,overrides=mutate(pool,271,struct.pack('<Q',fee)))
  failures=[i for i,r in enumerate(rows) if not r['match']];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
  report={'scope':'SBF deposit/withdraw: committed account bytes, lamports, errors, event bytes, exact inner CPI instructions. Captured classic SPL and Token2022 ELFs; synthetic transfer-fee extension cases. Not whole-program equivalence or exhaustive extension coverage.','original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'candidate_sha256':sha(pin_program(args.candidate)),'script_sha256':sha(pathlib.Path(__file__)),'harness_sha256':sha(ROOT/'scripts/pump_amm_reusable_harness.py'),'dependencies':{name:sha(ROOT/'evidence/dependencies'/name/'deployed.so') for name in ['spl_token','spl_token_2022']},'case_count':len(rows),'mismatches':failures,'cases':rows}
- args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(failures),'mismatches':failures[:40]}))
+ args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(failures),'mismatches':failures[:40]}))
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()
