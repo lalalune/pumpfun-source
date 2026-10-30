@@ -44,9 +44,9 @@ def index_path(name):
         return '3/' + name[0] + '/' + name
     return name[:2] + '/' + name[2:4] + '/' + name
 
-def index_records(path):
+def index_records(raw_index):
     # Cargo stores sparse-index records as JSON segments in a NUL-delimited cache envelope.
-    for raw in path.read_bytes().split(b'\0'):
+    for raw in raw_index.split(b'\0'):
         if not raw.startswith(b'{'):
             continue
         try:
@@ -57,8 +57,8 @@ def index_records(path):
             yield record
 
 
-def supplies_locked_versions(path, name):
-    records = list(index_records(path))
+def supplies_locked_versions(raw_index, name):
+    records = list(index_records(raw_index))
     # Every version of a crate shares one output index pathname. Selecting
     # per-version inputs can overwrite an earlier package's admitted metadata.
     return all(any(record.get('name') == name and record.get('vers') == package['version']
@@ -66,6 +66,7 @@ def supplies_locked_versions(path, name):
                for package in registry_packages[name])
 
 records, copies = [], []
+selected_indexes = {}
 for package in lock['package']:
     if not package.get('source', '').startswith('registry+'):
         continue
@@ -76,19 +77,27 @@ for package in lock['package']:
     if not archives:
         raise RuntimeError(f'No checksum-verified cached archive: {filename}')
     relative = index_path(name)
-    indexes = sorted((source / 'index').glob('*/.cache/' + relative),
-                     key=lambda path: '1949cf8' not in str(path))
-    if not indexes:
-        raise RuntimeError(f'No local sparse-index metadata: {name}')
-    indexes = [path for path in indexes if supplies_locked_versions(path, name)]
-    if not indexes:
-        raise RuntimeError(f'No checksum-matching sparse-index record for all locked versions: {name}')
-    copies.append((archives[0], Path('registry/cache'), filename))
-    copies.append((indexes[0], Path('registry/index'), Path('.cache') / relative))
+    if name not in selected_indexes:
+        indexes = sorted((source / 'index').glob('*/.cache/' + relative),
+                         key=lambda path: '1949cf8' not in str(path))
+        if not indexes:
+            raise RuntimeError(f'No local sparse-index metadata: {name}')
+        for index in indexes:
+            raw_index = index.read_bytes()
+            if supplies_locked_versions(raw_index, name):
+                # Bind the hash to the bytes admitted above, and reuse that
+                # choice for every locked version sharing this index path.
+                selected_indexes[name] = (index, hashlib.sha256(raw_index).hexdigest())
+                break
+        else:
+            raise RuntimeError(f'No checksum-matching sparse-index record for all locked versions: {name}')
+    index, index_sha256 = selected_indexes[name]
+    copies.append((archives[0], Path('registry/cache'), filename, package['checksum']))
+    copies.append((index, Path('registry/index'), Path('.cache') / relative, index_sha256))
     records.append({'package': name, 'version': version,
                     'archive_sha256': package['checksum'],
-                    'index_sha256': sha(indexes[0])})
-config = None
+                    'index_sha256': index_sha256})
+config_sha256 = None
 if records:
     configs = [source / 'index' / namespace / 'config.json'
                for namespace in reversed(namespaces)
@@ -96,7 +105,8 @@ if records:
     if not configs:
         raise RuntimeError('No local crates.io registry configuration')
     config = configs[0]
-    copies.append((config, Path('registry/index'), 'config.json'))
+    config_sha256 = sha(config)
+    copies.append((config, Path('registry/index'), 'config.json', config_sha256))
 def publish_directory(staged, destination):
     """Atomically publish only to an absent path, including concurrent writers."""
     if os.name == 'nt':
@@ -130,14 +140,18 @@ wrapper = Path(tempfile.mkdtemp(prefix='.' + args.output.name + '.', dir=args.ou
 staging = wrapper / 'cache'
 try:
     staging.mkdir()  # The published directory retains ordinary umask permissions.
-    for origin, area, name in copies:
+    for origin, area, name, expected in copies:
         for namespace in namespaces:
             target = staging / area / namespace / name
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(origin, target)
+            # Source caches may change after admission or between namespace
+            # copies. Only publish the bytes whose digests were admitted.
+            if sha(target) != expected:
+                raise RuntimeError(f'Cached input changed while preparing: {origin}')
     manifest = {'scope': 'Existing local archives verified against a fixed Cargo.lock; no network download.',
                 'lockfile_sha256': hashlib.sha256(raw_lock).hexdigest(),
-                'registry_config_sha256': sha(config) if config is not None else None, 'packages': records}
+                'registry_config_sha256': config_sha256, 'packages': records}
     (staging / 'cache-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
     publish_directory(staging, args.output)
 finally:

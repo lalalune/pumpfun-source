@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 import fees_sharing_update_differential as fixtures
 from fees_sharing_update_differential import *
+from pump_amm_reusable_harness import pin_program
 PIDL=json.loads((ROOT/'evidence/upstream/pump.json').read_text(encoding='utf-8'));ORIGINAL=ROOT/'evidence/original/pump/deployed.so'
 class Ready(Exception):pass
 class Capture:
@@ -34,7 +35,7 @@ def run(c,binary=None):
   if 'length' in mutation:data=data[:mutation['length']]
   if 'data_hex' in mutation:data=bytearray.fromhex(mutation['data_hex'])
   vm.set_account(key,Account(mutation.get('lamports',a.lamports if a else 0),bytes(data),Pubkey.from_string(mutation.get('owner',str(a.owner if a else Pubkey.default()))),mutation.get('executable',False)))
- if binary:vm.add_program_from_file(PUMP,binary)
+ if binary:vm.add_program_from_file(PUMP,pin_program(binary))
  token=TOKEN22 if c.get('token22') else TOKEN;quote=Pubkey.from_string(c.get('quote',str(QUOTE)));pa=Pubkey.find_program_address([bytes(PV),bytes(token),bytes(quote)],ATA)[0]
  bootstrap_transactions=[];alternative_ata=None
  if c.get('alternative_ata_wallet'):
@@ -106,6 +107,6 @@ def main():
  for c in cases():
   x=run(c);y=run(c,a.candidate) if a.candidate else None;match=all(x[k]==y[k] for k in ['error','before','after','events','inner','return']) if y else None;rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:bad.append(c['name'])
- report={'scope':'Direct normally signed Pump distributions after original-program sharing creation; candidate Pump loaded only after bootstrap. Synthetic local accounts; no byte identity claim.','original_sha256':hashlib.sha256(ORIGINAL.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(a.candidate.read_bytes()).hexdigest() if a.candidate else None,'cases':rows,'mismatches':bad};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n');print('Cases',len(rows),'mismatches',bad)
+ report={'scope':'Direct normally signed Pump distributions after original-program sharing creation; candidate Pump loaded only after bootstrap. Synthetic local accounts; no byte identity claim.','original_sha256':hashlib.sha256(ORIGINAL.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'cases':rows,'mismatches':bad};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n');print('Cases',len(rows),'mismatches',bad)
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

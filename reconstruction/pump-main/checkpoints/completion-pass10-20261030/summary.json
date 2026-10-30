@@ -1,0 +1,188 @@
+{
+  "schema": "pump-completion-pass10-v1",
+  "date": "2026-10-30",
+  "baseline_revision": "4cc7946e7a8f5a5170cfd0f280ff99847bcb902f",
+  "source_pr": 2749,
+  "reviewed_source_head": "6ce82df08b29f264d1888f3d00975395fef9f7be",
+  "recipe": "identity",
+  "source_sha256": "0e6f4ce75456ac599d401be1acaab98247bf8c2d522cf5da43524c28cc7b6d15",
+  "unstripped_sha256": "784bea21ed580b15791d642573314f778751b461334a4a217edb90013d7cbd7e",
+  "stripped_sha256": "72ad6e824270c59884535294f734c3b98ed674a2fc285e93be575eccbea5dd25",
+  "baseline_source_sha256": "4300235deb4eff8541903774bedca0bece9d9261fd7bd92b9dacbd7da7832ccc",
+  "baseline_unstripped_sha256": "8cd7695c3fc638fc8ccfaba49a55b7615421e6f1c4c02f623124d9cc67a8ebf2",
+  "runtime_valid": true,
+  "stack_warnings": [],
+  "pump": {
+    "normalized": 1033,
+    "raw": 1033,
+    "total": 1035,
+    "matched_percent": 99.81,
+    "normalized_only": 0,
+    "unmatched": 2,
+    "matched_code_bytes": 1746224,
+    "total_code_bytes": 1792208,
+    "unmatched_windows": [
+      {
+        "address": "0x22a10",
+        "symbol": "admin_cto::execute",
+        "bytes": 27400
+      },
+      {
+        "address": "0x5b3b0",
+        "symbol": "multi_hop_curve::swap_hop",
+        "bytes": 18584
+      }
+    ]
+  },
+  "aggregate": {
+    "normalized": 3336,
+    "raw": 3336,
+    "total": 3338,
+    "matched_percent": 99.94,
+    "normalized_only": 0,
+    "unmatched": 2,
+    "matched_code_bytes": 5167144,
+    "total_code_bytes": 5213128,
+    "whole_meaningful_elf_equal_programs": 4,
+    "programs": 5
+  },
+  "comparison": {
+    "missing": [],
+    "added": [],
+    "resized": [],
+    "normalized_gains": [],
+    "normalized_losses": [],
+    "normalized_gained_bytes": 0,
+    "normalized_lost_bytes": 0,
+    "raw_gains": [],
+    "raw_losses": [],
+    "raw_gained_bytes": 0,
+    "raw_lost_bytes": 0,
+    "accepted": true
+  },
+  "partial_admin_progress": {
+    "main": {
+      "cand_bytes": 27400,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.43919,
+      "calls_original": [
+        154,
+        3
+      ],
+      "calls_candidate": [
+        154,
+        3
+      ],
+      "slots_diff": 3352
+    },
+    "candidate": {
+      "cand_bytes": 27400,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.45147,
+      "calls_original": [
+        154,
+        3
+      ],
+      "calls_candidate": [
+        154,
+        3
+      ],
+      "slots_diff": 3308
+    }
+  },
+  "swap_residual": {
+    "bytes": 18584,
+    "candidate_start": "0x5b3b0",
+    "candidate_unstripped_sha256": "784bea21ed580b15791d642573314f778751b461334a4a217edb90013d7cbd7e",
+    "clusters": [
+      {
+        "diff_bytes": 47,
+        "first_offset": "0x29f9",
+        "last_offset": "0x2a84"
+      }
+    ],
+    "normalized_diff_bytes": 47,
+    "original_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "original_start": "0x5b3b0",
+    "positions": [
+      "0x29f9",
+      "0x29fa",
+      "0x29fb",
+      "0x2a00",
+      "0x2a01",
+      "0x2a02",
+      "0x2a04",
+      "0x2a0a",
+      "0x2a0b",
+      "0x2a10",
+      "0x2a11",
+      "0x2a12",
+      "0x2a13",
+      "0x2a18",
+      "0x2a19",
+      "0x2a1a",
+      "0x2a1b",
+      "0x2a20",
+      "0x2a21",
+      "0x2a22",
+      "0x2a23",
+      "0x2a29",
+      "0x2a2a",
+      "0x2a32",
+      "0x2a33",
+      "0x2a3a",
+      "0x2a42",
+      "0x2a4a",
+      "0x2a52",
+      "0x2a5a",
+      "0x2a60",
+      "0x2a61",
+      "0x2a62",
+      "0x2a63",
+      "0x2a68",
+      "0x2a69",
+      "0x2a6a",
+      "0x2a6b",
+      "0x2a71",
+      "0x2a72",
+      "0x2a79",
+      "0x2a7a",
+      "0x2a7b",
+      "0x2a80",
+      "0x2a81",
+      "0x2a83",
+      "0x2a84"
+    ],
+    "raw_diff_bytes": 47,
+    "symbol": "_ZN14pump_recovered15multi_hop_curve8swap_hop17h78d845d880858e48E"
+  },
+  "admin_runtime": {
+    "case_count": 363,
+    "mismatches": [],
+    "scope": "Signed synthetic captured Pump admin_cto calling Fees by genuine CPI. Pool authority nonsigner at transaction boundary; no privileged signer injection. Not full program identity.",
+    "candidate_sha256": "72ad6e824270c59884535294f734c3b98ed674a2fc285e93be575eccbea5dd25",
+    "report_sha256": "32fa78987e9ce16d080d2cd4468f186314fc135d660e03e66ceeac7499dc905f"
+  },
+  "semantic_review": [
+    "sharing_update/collect_old tuple and target override preserve the same shared/holder truth table.",
+    "do_collect and do_coin preserve the same short-circuit token_frozen calls, error order and conditions as prior predicates.",
+    "bump/old ordering changes only immutable reads. match Some/None is equivalent to if let.",
+    "Unconditional fee.unwrap_or(old_fee) preserves the old field value when no new fee is supplied; can_edit_creator_fee store order has no intervening failure or CPI.",
+    "Source line counts at error sites unchanged."
+  ],
+  "scope_limits": [
+    "Partial-window similarity gain adds no new complete normalized/raw match.",
+    "Synthetic admin fixtures do not establish general runtime identity or security properties.",
+    "Source/compiler identity recipe checked independently; no new native Linux qualification or other-program build."
+  ],
+  "build_and_scoring_tool_revision": "4cc7946e7a8f5a5170cfd0f280ff99847bcb902f",
+  "build_and_scoring_tool_sha256": {
+    "reconstruction/harness/fastbuild.py": "ebdf04c28b69986ec2c39d8e506aab527cc326fb9765142d823633d7d7b83b80",
+    "reconstruction/harness/source_inputs.py": "7f4662fb8c541f83bd83bfdf85a7466ae6da57a0343624e51367d5044cd3e73e",
+    "reconstruction/harness/score.py": "36e777e52d76494d7fbc4247a2d1cc07e3d191c5534ae9c2fb46c9fc46f8bc2a",
+    "reconstruction/harness/compare_scores.py": "3832a9131d90ef49f2252ee1549a793e6766a97b347eba629ef664edc6a28084",
+    "reconstruction/base/functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8"
+  }
+}

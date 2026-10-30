@@ -86,6 +86,24 @@ class TokenDetectorTests(unittest.TestCase):
         }
         self.assertEqual(saved, actual)
 
+    def test_publisher_refuses_optimized_python(self):
+        # The corpus-count gates in check() are bare asserts, so seal() used
+        # to re-publish the packet under python -O with every check stripped;
+        # verify.py already refused, the publisher must too.
+        import os
+        import subprocess
+        import sys
+        for argv, environment in (
+            ([sys.executable, '-O', str(P / 'proof.py')], None),
+            ([sys.executable, str(P / 'proof.py')],
+             dict(os.environ, PYTHONOPTIMIZE='1')),
+        ):
+            with self.subTest(argv=argv[1:], env=bool(environment)):
+                completed = subprocess.run(argv, cwd=P, env=environment,
+                                           capture_output=True, text=True)
+                self.assertNotEqual(completed.returncode, 0)
+                self.assertIn('Normal Python is required', completed.stderr)
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

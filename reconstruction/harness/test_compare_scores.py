@@ -6,6 +6,7 @@ import unittest
 from pathlib import Path
 
 from compare_scores import compare, load_report, main
+from score_admission import baseline
 
 
 def window(normalized=False, raw=False, size=8):
@@ -46,6 +47,28 @@ class ScoreComparisonTests(unittest.TestCase):
                 with self.subTest(rows=rows):
                     path.write_text(json.dumps({'windows': rows}))
                     with self.assertRaises(ValueError): load_report(path)
+
+    def test_inventory_match_names_keep_valid_memberships(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / 'score.json'
+            for matches in ([], ['symbol'], ['symbol', 'other']):
+                path.write_text(json.dumps({'windows': [{'start': 8, 'bytes': 16,
+                    'normalized_matches': matches, 'raw_match': False}]}))
+                for reader in (load_report, baseline):
+                    with self.subTest(matches=matches, reader=reader.__name__):
+                        self.assertEqual(reader(path)[8]['normalized'], bool(matches))
+
+    def test_invalid_inventory_match_names_cannot_claim_preservation(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / 'score.json'
+            for matches in ([None], [False], [{}], [[]], [''], ['symbol', None]):
+                with self.subTest(matches=matches):
+                    path.write_text(json.dumps({'windows': [{'start': 8, 'bytes': 16,
+                        'normalized_matches': matches, 'raw_match': False}]}))
+                    for reader in (load_report, baseline):
+                        with self.subTest(reader=reader.__name__):
+                            with self.assertRaises(ValueError):
+                                reader(path)
 
     def test_cli_status_and_saved_report(self):
         with tempfile.TemporaryDirectory() as temp, contextlib.redirect_stdout(io.StringIO()):

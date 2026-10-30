@@ -11,6 +11,7 @@ from solders.litesvm import LiteSVM
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
+from pump_amm_reusable_harness import pin_program
 ROOT=Path(__file__).resolve().parents[1];IDL=json.loads((ROOT/'evidence/upstream/pump.json').read_text(encoding='utf-8'));PROGRAM=Pubkey.from_string(IDL['address']);ORIGINAL=ROOT/'evidence/original/pump/deployed.so'
 USER=Keypair.from_seed(bytes([211])*32);MINT=Keypair.from_seed(bytes([212])*32);OTHER=Keypair.from_seed(bytes([213])*32)
 TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');TOKEN22=Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');META=Pubkey.from_string('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s');GLOBAL=Pubkey.find_program_address([b'global'],PROGRAM)[0];CURVE=Pubkey.find_program_address([b'bonding-curve',bytes(MINT.pubkey())],PROGRAM)[0];MA=Pubkey.find_program_address([b'mint-authority'],PROGRAM)[0];EVENT=Pubkey.find_program_address([b'__event_authority'],PROGRAM)[0]
@@ -19,7 +20,7 @@ def string(s):
  b=s.encode();return struct.pack('<I',len(b))+b
 
 def run(c,binary=ORIGINAL):
- vm=LiteSVM().with_transaction_history(0);vm.add_program_from_file(PROGRAM,binary)
+ vm=LiteSVM().with_transaction_history(0);vm.add_program_from_file(PROGRAM,pin_program(binary))
  for name,key in [('spl_token',TOKEN),('spl_token_2022',TOKEN22),('associated_token',ATA),('token_metadata',META)]:vm.add_program_from_file(key,ROOT/'evidence/dependencies'/name/'deployed.so')
  vm.set_clock(Clock(100,1700000000,0,0,1700000000));vm.airdrop(USER.pubkey(),10**12)
  data=bytearray(base64.b64decode(CAPTURE['data_base64']))

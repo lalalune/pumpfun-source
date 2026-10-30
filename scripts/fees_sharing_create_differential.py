@@ -2,11 +2,12 @@ import sys,json,hashlib,base64,argparse
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 from fees_donation_create_differential import *
+from pump_amm_reusable_harness import pin_program
 from solders.compute_budget import set_compute_unit_limit
 import pump_validate_admin as pump
 IX=next(x for x in IDL['instructions'] if x['name']=='create_fee_sharing_config')
 def run(c,binary=None):
- vm=LiteSVM();vm.add_program_from_file(PROGRAM,binary or ROOT/'evidence/original/pump_fees/deployed.so');vm.add_program_from_file(PUMP,ROOT/'evidence/original/pump/deployed.so');vm.add_program_from_file(AMM,ROOT/'evidence/original/pump_amm/deployed.so')
+ vm=LiteSVM();vm.add_program_from_file(PROGRAM,pin_program(binary) if binary else ROOT/'evidence/original/pump_fees/deployed.so');vm.add_program_from_file(PUMP,ROOT/'evidence/original/pump/deployed.so');vm.add_program_from_file(AMM,ROOT/'evidence/original/pump_amm/deployed.so')
  for kp in [PAYER,AUTH,OTHER]:vm.set_account(kp.pubkey(),Account(10**12,b'',Pubkey.default()))
  gd=bytearray(pump.DATA);gd[9:41]=bytes(AUTH.pubkey())
  for offset,value in c.get('global_patches',[]):gd[offset:offset+len(bytes.fromhex(value))]=bytes.fromhex(value)
@@ -63,6 +64,6 @@ def main():
  for c in cases():
   x=run(c);y=run(c,a.candidate) if a.candidate else None;match=all(x[k]==y[k] for k in ['error','sharing','curve','payer_lamports','authority_lamports','sharing_lamports','pool','pool_lamports','curve_lamports','events','inner']) if y else None;rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:bad.append(c['name'])
- report={'original_sha256':hashlib.sha256((ROOT/'evidence/original/pump_fees/deployed.so').read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(a.candidate.read_bytes()).hexdigest() if a.candidate else None,'scope':'Synthetic signed local sharing creation using captured Pump/AMM dependencies; no fullbyte identity claim.','cases':rows,'mismatches':bad};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n');print('Cases',len(rows),'mismatches',bad)
+ report={'original_sha256':hashlib.sha256((ROOT/'evidence/original/pump_fees/deployed.so').read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'scope':'Synthetic signed local sharing creation using captured Pump/AMM dependencies; no fullbyte identity claim.','cases':rows,'mismatches':bad};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n');print('Cases',len(rows),'mismatches',bad)
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

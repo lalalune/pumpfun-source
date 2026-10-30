@@ -13,6 +13,83 @@ import unittest
 
 
 class CargoHomeTests(unittest.TestCase):
+    def prepare_with_changed_source(self, kind, phase):
+        # The retained real crate/index bytes are copied normally. The hook only
+        # schedules an actual filesystem change at an otherwise timing-dependent
+        # boundary; it does not fake a read, copy, checksum, or CLI result.
+        fixture = Path(__file__).with_name('fixtures') / 'cargo-index-case'
+        archive_bytes = (fixture / 'Inflector-0.11.4.crate').read_bytes()
+        digest = hashlib.sha256(archive_bytes).hexdigest()
+        rows = [json.loads(line) for line in (fixture / 'inflector-index.jsonl').read_bytes().splitlines()]
+        index_bytes = self.sparse_cache(*rows)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            home = root / 'home'
+            namespace = 'index.crates.io-1949cf8c6b5b557f'
+            paths = {
+                'archive': home / 'registry/cache' / namespace / 'Inflector-0.11.4.crate',
+                'index': home / 'registry/index' / namespace / '.cache/in/fl/inflector',
+                'config': home / 'registry/index' / namespace / 'config.json',
+            }
+            for name, data in [('archive', archive_bytes), ('index', index_bytes),
+                               ('config', b'{"dl":"https://static.crates.io/crates"}')]:
+                paths[name].parent.mkdir(parents=True, exist_ok=True)
+                paths[name].write_bytes(data)
+            lock = root / 'Cargo.lock'
+            lock.write_text('version = 3\n[[package]]\nname="Inflector"\nversion="0.11.4"\n'
+                            'source="registry+https://github.com/rust-lang/crates.io-index"\n'
+                            f'checksum="{digest}"\n', encoding='utf-8')
+            injections = root / 'injections'
+            injections.mkdir()
+            (injections / 'sitecustomize.py').write_text('''import os
+from pathlib import Path
+import shutil
+source = Path(os.environ['CHANGED_CACHE_SOURCE'])
+phase = os.environ['CHANGE_CACHE_PHASE']
+read_bytes = Path.read_bytes
+copyfile = shutil.copyfile
+count = 0
+def change():
+    source.write_bytes(b'changed while preparing the cache')
+    Path(os.environ['CHANGE_CACHE_MARKER']).write_text('changed')
+def read(path):
+    data = read_bytes(path)
+    if path == source and phase == 'after_read':
+        change()
+    return data
+def copy(origin, destination, *args, **kwargs):
+    global count
+    if Path(origin) == source:
+        count += 1
+        if phase == 'copy_' + str(count):
+            change()
+    return copyfile(origin, destination, *args, **kwargs)
+Path.read_bytes = read
+shutil.copyfile = copy
+''', encoding='utf-8')
+            output = root / 'output'
+            marker = root / 'changed'
+            result = subprocess.run(
+                [sys.executable, str(Path(__file__).with_name('prepare_locked_cargo_home.py')),
+                 '--lockfile', str(lock), '--output', str(output)],
+                env={**os.environ, 'CARGO_HOME': str(home), 'PYTHONPATH': str(injections),
+                     'CHANGED_CACHE_SOURCE': str(paths[kind]), 'CHANGE_CACHE_PHASE': phase,
+                     'CHANGE_CACHE_MARKER': str(marker)}, capture_output=True, text=True)
+            self.assertTrue(marker.is_file(), 'the source-change boundary was not exercised')
+            self.assertNotEqual(result.returncode, 0, result.stdout)
+            self.assertIn('changed while preparing', result.stderr)
+            self.assertFalse(output.exists(), 'published cache contains unverified bytes')
+            self.assertEqual(list(root.glob('.output.*')), [])
+
+    def test_changed_sources_are_rejected_in_either_namespace_copy(self):
+        for kind in ('archive', 'index', 'config'):
+            for phase in ('copy_1', 'copy_2'):
+                with self.subTest(kind=kind, phase=phase):
+                    self.prepare_with_changed_source(kind, phase)
+
+    def test_index_hash_binds_the_bytes_used_for_locked_record_admission(self):
+        self.prepare_with_changed_source('index', 'after_read')
+
     def run_empty_cache(self, root, output, extra_env=None):
         lock = root / 'empty.lock'
         lock.write_text('version = 3\npackage = []\n', encoding='utf-8')

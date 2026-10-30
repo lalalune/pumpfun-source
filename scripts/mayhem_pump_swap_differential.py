@@ -3,6 +3,7 @@
 from pathlib import Path
 import json,hashlib,base64,argparse,re
 import mayhem_pump_swap_fixture as p
+from pump_amm_reusable_harness import pin_program
 from solders.transaction import Transaction
 D=Path(__file__).resolve().parent
 def cases(path):
@@ -23,7 +24,7 @@ def limit_value(text):
  return value
 
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--limit',type=limit_value);ap.add_argument('--cases',type=Path,required=True);ap.add_argument('--instruction',choices=['buy_pump_swap','sell_pump_swap'],required=True);ap.add_argument('--family',choices=['native','token','token22'],required=True);a=ap.parse_args();rows=[];mismatches=[]
+ ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--limit',type=limit_value);ap.add_argument('--cases',type=Path,required=True);ap.add_argument('--instruction',choices=['buy_pump_swap','sell_pump_swap'],required=True);ap.add_argument('--family',choices=['native','token','token22'],required=True);a=ap.parse_args();a.candidate=pin_program(a.candidate);rows=[];mismatches=[]
  for c in cases(a.cases)[:a.limit]:
   c=dict(c,instruction=a.instruction,token_quote=a.family!='native',quote_token22=a.family=='token22');c.setdefault('tokens',10**11 if a.instruction.startswith('buy') else 10**9)
   original=p.run(c);candidate=p.run(c,a.candidate);diff=[]

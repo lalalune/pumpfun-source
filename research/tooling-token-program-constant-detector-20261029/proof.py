@@ -12,6 +12,8 @@ helper, detects exactly those four-load constants in a window, and reports the
 real before/after counts. It does not rewrite the archived script or claim a
 transfer occurred.
 """
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O.")
 from collections import Counter
 from pathlib import Path
 import gzip
