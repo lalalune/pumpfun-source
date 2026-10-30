@@ -14,8 +14,9 @@ def snapshot(root):
     for directory, dirs, names in os.walk(root, followlinks=False):
         dirs[:] = sorted(name for name in dirs if name != '.git')
         for name in dirs:
-            if (Path(directory) / name).is_symlink():
-                raise ValueError('source directory symlinks are not supported')
+            entry = Path(directory) / name
+            if entry.is_symlink() or entry.is_junction():
+                raise ValueError('source directory links are not supported')
         if Path(directory) == root:
             dirs[:] = [name for name in dirs if name != 'target']
         for name in sorted(names):
