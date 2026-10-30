@@ -19,6 +19,7 @@ jobs:
           - suite: linux-bootstrap-host-libraries
             commands: |
               python -B reconstruction/toolchain/test_bootstrap_linux.py
+              python -B tests/test_linux_hybrid_publication.py
           - suite: byte-comparison-input-preservation
             commands: |
               sudo apt-get update
@@ -218,6 +219,7 @@ jobs:
               python -B tests/test_local_validation_idl_encoding.py
               python -B tests/test_claim_token_incentives_idl_encoding.py
               python -B tests/test_claim_token_incentives_8099_idl_encoding.py
+              python -B tests/test_window_elf_boundaries.py
               python -B tests/test_function_body_file_ranges.py
               python -O -B tests/test_function_body_file_ranges.py
               python -B reconstruction/harness/test_treediff_line_boundaries.py
@@ -246,6 +248,7 @@ jobs:
               python -B scripts/test_probe_report.py
               python -B scripts/test_probe_report_atomicity.py
               python -B scripts/test_pump_validate_all_retention.py
+              python -B scripts/test_pump_validate_all_windows_publish.py
               python -B scripts/test_prepare_pump_nested_runtime_publication.py
               python -B scripts/test_prepare_fees_withdraw_runtime_publication.py
               python -B scripts/test_current673_macos_archive_publication.py

@@ -27,7 +27,7 @@ import shutil
 import stat
 import uuid
 from pathlib import Path
-from ledger_schema import inspect_ledger, validate_row
+from ledger_schema import inspect_ledger, unique_object, validate_row
 
 HERE = Path(__file__).resolve().parent
 TRACKED = HERE / 'ATTEMPTS.jsonl'
@@ -56,9 +56,11 @@ def atomic_copy(source, destination):
         os.fchmod(fd, mode)
         os.fsync(fd)
         os.replace(temporary, destination)
+        temporary = None  # The old name can be reused by another writer now.
     finally:
         os.close(fd)
-        temporary.unlink(missing_ok=True)
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
 
 
 def read_rows():
@@ -172,35 +174,50 @@ def main():
         return locked(run)
 
     if args.command == 'sync':
+        destination = args.to.resolve()
+        if destination == LOCK.resolve() or (destination.exists() and LOCK.exists()
+                                            and destination.samefile(LOCK)):
+            raise SystemExit('sync destination must not replace the live ledger lock')
         def run(rows):
-            args.to.parent.mkdir(parents=True, exist_ok=True)
-            atomic_copy(LEDGER, args.to)
-            print(json.dumps({'synced': str(args.to), 'attempts': len(rows), 'sha256': hashlib.sha256(args.to.read_bytes()).hexdigest()}))
+            # A parent alias may change while this process waits for the lock.
+            # Keep the admitted destination and refuse a changed name before I/O.
+            if args.to.resolve() != destination:
+                raise SystemExit('sync destination changed while waiting for ledger lock')
+            if destination == LOCK.resolve() or (destination.exists() and LOCK.exists()
+                                                  and destination.samefile(LOCK)):
+                raise SystemExit('sync destination must not replace the live ledger lock')
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            atomic_copy(LEDGER, destination)
+            print(json.dumps({'synced': str(destination), 'attempts': len(rows), 'sha256': hashlib.sha256(destination.read_bytes()).hexdigest()}))
         return locked(run)
 
-    data = json.loads(args.data)
+    try:
+        data = json.loads(args.data, object_pairs_hook=unique_object)
+    except ValueError as error:
+        raise SystemExit(f'invalid --data: {error}') from None
     if not isinstance(data, dict):
         raise SystemExit('--data must be a JSON object')
+
+    row = {
+        'schema': 'main-pump-attempt-v1',
+        'attempt_id': uuid.uuid4().hex,
+        'timestamp_utc': dt.datetime.now(dt.timezone.utc).isoformat(),
+        'lane': args.lane,
+        'approach': args.approach,
+        'target': args.target,
+        'dedupe_key': args.dedupe_key,
+        'hypothesis': args.hypothesis,
+        'status': args.status,
+        'data': data | ({'pr': args.pr} if args.pr else {}),
+    }
+    try:
+        validate_row(row, STATUSES)
+    except (ValueError, TypeError) as error:
+        raise SystemExit(f'invalid attempt: {error}') from None
 
     def run(rows):
         if any(r.get('dedupe_key') == args.dedupe_key for r in rows):
             raise SystemExit(f'duplicate dedupe key: {args.dedupe_key}; attempt already logged')
-        row = {
-            'schema': 'main-pump-attempt-v1',
-            'attempt_id': uuid.uuid4().hex,
-            'timestamp_utc': dt.datetime.now(dt.timezone.utc).isoformat(),
-            'lane': args.lane,
-            'approach': args.approach,
-            'target': args.target,
-            'dedupe_key': args.dedupe_key,
-            'hypothesis': args.hypothesis,
-            'status': args.status,
-            'data': data | ({'pr': args.pr} if args.pr else {}),
-        }
-        try:
-            validate_row(row, STATUSES)
-        except (ValueError, TypeError) as error:
-            raise SystemExit(f'invalid attempt: {error}')
         # read_rows accepts a final JSON record without a newline. Keep that
         # record separate when appending, under the existing exclusive lock.
         separator = ''
