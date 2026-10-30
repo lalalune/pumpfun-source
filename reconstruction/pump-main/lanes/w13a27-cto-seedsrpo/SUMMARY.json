@@ -1,0 +1,41 @@
+{
+  "lane": "w13a27-cto-seedsrpo",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": {"bf9a05d": {"ratio": 0.55872, "slots_diff": 3323}, "6ac6f9b": {"ratio": 0.56291, "slots_diff": 3315}},
+  "best_zero_loss": {"ratio": 0.56291, "slots_diff": 3315, "bytes": 27400, "note": "no source change beats main; best source forms are byte-identical to main"},
+  "landed": false,
+  "findings": [
+    "Premise resolved on main: from layout position 13 on (all of region 2 and region 3) every sret-demotion slot has the original's rank on bf9a05d (w13a14's +3 is gone). On 6ac6f9b (#3011) the slots also sit at the original's offsets (0x6d0 base). Rank differences remain only in region 1 (validate sites), and fixing them alone is worth 0.0.",
+    "Region 2's remaining distance is register assignment and spill-slot choice in the transfer-CPI and sharing-CPI clone runs (bins 0x3000 and 0x4000: plain 89/65 vs regs-masked 166/163 of 256), plus the P2 7/8/8/8/1 sharing payload pieces. On 6ac6f9b the original has one more deep spill slot (0xc38).",
+    "Sweep ? threading (lt58 IR = destscope source v3) reproduces the original's thread-to-return and per-From test copies. The layout flips because BPF analyzeBranch cannot analyze conditional branches: MachineBlockPlacement pre-merges each cond-br block with its MBB-order successor, and the MBB before post-sweep bb82 becomes bb50.i (the Ok join on the token-arm chain) instead of bb58.i86 (the Err chain reached from the Rent From site).",
+    "IR block move blk:bb54.i98:sweep.exit on the threaded module restores the layout (0.43009 -> 0.52986, abs 0.499 -> 0.669, 27440 B), but it stays below main (0.56291, abs 0.686): sweep ? threading is a net loss on current main."
+  ],
+  "attempts": [
+    {"key": "0x22a10-w13-bf9a05d-seedsrpo-sret-rank-check-v1", "result": "analyzed: ranks equal from position 13; +8 base bound +0.011"},
+    {"key": "0x22a10-w13-bf9a05d-seedsrpo-ir-sweep-errchain-nolt-v1", "result": "lt58 0.43308/27488, lt54 0.22605, lt54b 0.21248"},
+    {"key": "0x22a10-w13-bf9a05d-seedsrpo-ir-bw-inv-scan-v1", "result": "441 items, best bw:bb82:2000:1 0.56351 (alignment only)"},
+    {"key": "0x22a10-w13-6ac6f9b-seedsrpo-ir-nolt-scan-v1", "result": "137 items, none above main"},
+    {"key": "0x22a10-w13-6ac6f9b-seedsrpo-v1-err-question-v1", "result": "byte-identical"},
+    {"key": "0x22a10-w13-6ac6f9b-seedsrpo-v2-then-some-ok-or-else-v1", "result": "0.20681/27528"},
+    {"key": "0x22a10-w13-6ac6f9b-seedsrpo-v3-destscope-v1", "result": "0.43667/27488"},
+    {"key": "0x22a10-w13-6ac6f9b-seedsrpo-v4-chk-result-local-v1", "result": "byte-identical"},
+    {"key": "0x22a10-w13-6ac6f9b-seedsrpo-llc-taildup-size-v1", "result": "tail-dup-size=3 0.56634/27416 (knob only)"},
+    {"key": "0x22a10-w13-6ac6f9b-seedsrpo-ir-threaded-blockorder-scan-v1", "result": "best blk:bb54.i98:exit 0.52986/27440"}
+  ],
+  "rejected_mechanisms": [
+    "648 seeds check spellings: Err(..)? and a chk Result local (byte-identical); then_some/ok_or_else (collapse); block-scoped dest (threading + layout flip)",
+    "sweep Err-chain lifetime removal (any subset of bb50/bb54/bb58)",
+    "branch weights on the threaded module (every condbr, plus dest-check ratios 1:1 to 16:1)",
+    "single nolt of any lifetime alloca on 6ac6f9b"
+  ],
+  "unresolved_residuals": [
+    "callee-saved register permutation and accounts-pointer reload ([r10-0x8d8] in the original) in both CPI clone runs",
+    "one missing deep spill slot (orig 0xc38)",
+    "sharing payload P2 7/8/8/8/1 pieces at orig 0x3d20-0x3d80",
+    "region-1 validate site layout (330 after 338/334; the 306/296 positions)"
+  ],
+  "next_ideas": [
+    "If a later main makes threading pay, its source form must keep the post-seed Err StorageDead chain (old/bump/vaultseeds/vsigner) MBB-adjacent to post-sweep. One way is to declare the seeds so that their chain block is created after the transfer_native result blocks in MIR order.",
+    "Spill-slot lane: find the live range the original spills to 0xc38 (one extra spill slot) so the deep spill area realigns."
+  ]
+}

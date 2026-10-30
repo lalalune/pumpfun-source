@@ -1,0 +1,2 @@
+EDITS=[("if a.holder_creator_vault.key()!=dest{return Err(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),dest)));}",
+"if a.holder_creator_vault.key()!=dest{Err::<(),_>(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),dest)))?;}")]
