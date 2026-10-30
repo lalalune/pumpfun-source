@@ -111,3 +111,10 @@ builds):
 
 Round 4 pp: authority W,E,S,R | L,D | O,K = 0.64739. Composite **a6 + event_authority D,L = 0.64799** (a6 + program D,L is
 the same ratio), 3,171 slots, 27,400 B, 0 losses, differential 363/0. Unstripped sha256 `551988c2c32475a8ff1e312078b8de908a4cd4c9a95752e004d6229d2e8b6031`.
+
+## Part 7 (branch -7, main 81d3d9a, 0.65069): round 5
+
+Round 5 on main 81d3d9a (after #3308 and #3309). The only gain is pool_authority O | L,D | R,S,W,K,E = **0.65129**
+(3,171 slots, 0 losses, differential 363/0, unstripped sha256 `8febf467fc61fbf17ff11045ed9d7b0d3aba0eeedbcadf5060abb2552212b02a`). Every other sharing clone is at its optimum.
+Swapping the Rc clone order to data-first loses for pool_authority, authority, global and mint, and the program swap is
+neutral: 0.62082 / 0.6456 / 0.6411 / 0.65009 / 0.65069. The event_authority scalar order is still the best of 720.
