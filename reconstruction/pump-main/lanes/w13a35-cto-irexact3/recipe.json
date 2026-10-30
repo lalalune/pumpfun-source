@@ -1,0 +1,832 @@
+{
+ "lane": "w13a35-cto-irexact3",
+ "target": "0x22a10 admin_cto::execute",
+ "pinned_bytes": 27400,
+ "oracle": "pre-opt IR (identity build, -C no-prepopulate-passes) -> SDK opt -O3 -> slim -> llc (tools/rx.py, eq_main=true) ; single edits on the instnamer-named post-opt module with tools/iredit.py",
+ "mains": {
+  "dfc3693d8": {
+   "base_ratio": 0.59916,
+   "edits_run": 1522,
+   "at_27400": 1158,
+   "above_main_at_27400": 19,
+   "ranked": [
+    {
+     "edit": "bw:_ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit35.i:1:2000",
+     "ratio": 0.60066,
+     "abs_ratio": 0.69083,
+     "slots_diff": 3313,
+     "gain": 0.0015,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "sz:buf.i39.i:32",
+     "ratio": 0.60066,
+     "abs_ratio": 0.69083,
+     "slots_diff": 3312,
+     "gain": 0.0015,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:_68.i:32",
+     "ratio": 0.60066,
+     "abs_ratio": 0.69083,
+     "slots_diff": 3312,
+     "gain": 0.0015,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:sk:24",
+     "ratio": 0.60066,
+     "abs_ratio": 0.69083,
+     "slots_diff": 3313,
+     "gain": 0.0015,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "bw:_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i42.i:1:2000",
+     "ratio": 0.60066,
+     "abs_ratio": 0.69083,
+     "slots_diff": 3313,
+     "gain": 0.0015,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "sz:buf.i46.i:32",
+     "ratio": 0.60066,
+     "abs_ratio": 0.69083,
+     "slots_diff": 3312,
+     "gain": 0.0015,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:buf.i32.i:32",
+     "ratio": 0.60066,
+     "abs_ratio": 0.69083,
+     "slots_diff": 3312,
+     "gain": 0.0015,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "bw:bb27.i64:1:2000",
+     "ratio": 0.60006,
+     "abs_ratio": 0.68993,
+     "slots_diff": 3370,
+     "gain": 0.0009,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:_ZN4core3ptr84drop_in_place$LT$alloc..rc..Rc$LT$core..cell..RefCell$LT$$RF$mut$u20$u64$GT$$GT$$GT$17h78933b33a7933ef9E.exit.i.i39.i:2000:1",
+     "ratio": 0.59976,
+     "abs_ratio": 0.69023,
+     "slots_diff": 3378,
+     "gain": 0.0006,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:bb45.i104:2000:1",
+     "ratio": 0.59976,
+     "abs_ratio": 0.69083,
+     "slots_diff": 3381,
+     "gain": 0.0006,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit98.i:1:2000",
+     "ratio": 0.59946,
+     "abs_ratio": 0.69083,
+     "slots_diff": 3313,
+     "gain": 0.0003,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:bb109.i:2000:1",
+     "ratio": 0.59946,
+     "abs_ratio": 0.69053,
+     "slots_diff": 3378,
+     "gain": 0.0003,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:15",
+     "ratio": 0.59946,
+     "abs_ratio": 0.69083,
+     "slots_diff": 3313,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:17",
+     "ratio": 0.59946,
+     "abs_ratio": 0.69083,
+     "slots_diff": 3313,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "bw:bb32:20:12",
+     "ratio": 0.59946,
+     "abs_ratio": 0.69053,
+     "slots_diff": 3313,
+     "gain": 0.0003,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:bb10.i93:20:12",
+     "ratio": 0.59946,
+     "abs_ratio": 0.69053,
+     "slots_diff": 3313,
+     "gain": 0.0003,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:bb65.i98:20:12",
+     "ratio": 0.59946,
+     "abs_ratio": 0.69053,
+     "slots_diff": 3313,
+     "gain": 0.0003,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:bb13.i95:2000:1",
+     "ratio": 0.59946,
+     "abs_ratio": 0.69053,
+     "slots_diff": 3313,
+     "gain": 0.0003,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "inv:bb69",
+     "ratio": 0.59946,
+     "abs_ratio": 0.69083,
+     "slots_diff": 3313,
+     "gain": 0.0003,
+     "source": "post-opt br polarity: InstCombine canonicalizes source-level negation; not expressible"
+    }
+   ],
+   "best_size_changing": [
+    {
+     "edit": "bw:_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit184.i:1:2000",
+     "ratio": 0.60195,
+     "bytes": 27392
+    },
+    {
+     "edit": "inv:bb82",
+     "ratio": 0.60015,
+     "bytes": 27392
+    },
+    {
+     "edit": "bw:bb109.i:1:2000",
+     "ratio": 0.59994,
+     "bytes": 27384
+    },
+    {
+     "edit": "inv:bb88.i111",
+     "ratio": 0.59985,
+     "bytes": 27392
+    },
+    {
+     "edit": "blk:bb87.i:bb88.i111",
+     "ratio": 0.59985,
+     "bytes": 27392
+    },
+    {
+     "edit": "blk:bb1.i.i4.i.i42.i:END",
+     "ratio": 0.59967,
+     "bytes": 27408
+    },
+    {
+     "edit": "bw:bb30.i:2000:1",
+     "ratio": 0.59955,
+     "bytes": 27392
+    },
+    {
+     "edit": "inv:bb13.i",
+     "ratio": 0.59955,
+     "bytes": 27392
+    }
+   ],
+   "greedy": [
+    {
+     "round": 0,
+     "added": null,
+     "gain": null,
+     "ratio": 0.59916,
+     "abs_ratio": 0.69083,
+     "slots_diff": 3313,
+     "stop": null,
+     "best": null
+    },
+    {
+     "round": 1,
+     "added": "bw:_ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit35.i:1:2000",
+     "gain": 0.0015,
+     "ratio": 0.60066,
+     "abs_ratio": 0.69083,
+     "slots_diff": 3313,
+     "stop": null,
+     "best": null
+    },
+    {
+     "round": 2,
+     "added": "sz:buf.i39.i:32",
+     "gain": 0.0015,
+     "ratio": 0.60216,
+     "abs_ratio": 0.69083,
+     "slots_diff": 3312,
+     "stop": null,
+     "best": null
+    },
+    {
+     "round": 3,
+     "added": "bw:bb27.i64:1:2000",
+     "gain": 0.0009,
+     "ratio": 0.60306,
+     "abs_ratio": 0.68993,
+     "slots_diff": 3369,
+     "stop": null,
+     "best": null
+    },
+    {
+     "round": 4,
+     "added": "inv:bb47.i",
+     "gain": 0.00059,
+     "ratio": 0.60365,
+     "abs_ratio": 0.68993,
+     "slots_diff": 3369,
+     "stop": null,
+     "best": null
+    },
+    {
+     "round": 5,
+     "added": "sz:target.i.sroa.0:15",
+     "gain": 0.0003,
+     "ratio": 0.60395,
+     "abs_ratio": 0.68993,
+     "slots_diff": 3369,
+     "stop": null,
+     "best": null
+    },
+    {
+     "round": 6,
+     "added": "inv:bb69",
+     "gain": 0.0003,
+     "ratio": 0.60425,
+     "abs_ratio": 0.68993,
+     "slots_diff": 3369,
+     "stop": null,
+     "best": null
+    },
+    {
+     "round": 7,
+     "added": null,
+     "gain": null,
+     "ratio": 0.60425,
+     "abs_ratio": 0.68993,
+     "slots_diff": 3369,
+     "stop": true,
+     "best": "bw:bb2.i46:1:2000"
+    }
+   ],
+   "frame_bound": {
+    "plain": 0.59916,
+    "perfect_frame": 0.62822
+   }
+  },
+  "16c10e631": {
+   "base_ratio": 0.62043,
+   "edits_run": 1674,
+   "at_27400": 1310,
+   "above_main_at_27400": 51,
+   "ranked": [
+    {
+     "edit": "bw:_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit40.i:1:2000",
+     "ratio": 0.62223,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0018,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i47.i:1:2000",
+     "ratio": 0.62223,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0018,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:bb27.i64:1:2000",
+     "ratio": 0.62133,
+     "abs_ratio": 0.7115,
+     "slots_diff": 3363,
+     "gain": 0.0009,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:_ZN4core3ptr84drop_in_place$LT$alloc..rc..Rc$LT$core..cell..RefCell$LT$$RF$mut$u20$u64$GT$$GT$$GT$17h78933b33a7933ef9E.exit.i.i39.i:2000:1",
+     "ratio": 0.62103,
+     "abs_ratio": 0.7118,
+     "slots_diff": 3371,
+     "gain": 0.0006,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:bb45.i107:2000:1",
+     "ratio": 0.62103,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3374,
+     "gain": 0.0006,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit57.i:1:2000",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit125.i:1:2000",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:bb106.i:2000:1",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7121,
+     "slots_diff": 3371,
+     "gain": 0.0003,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:15",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:17",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "bw:bb32:20:12",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7121,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:bb10.i93:20:12",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7121,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:bb65.i98:20:12",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7121,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "blk:bb4.i23.i:END",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7118,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "IR block layout (= source arm order): MachineBlockPlacement re-derives it"
+    },
+    {
+     "edit": "bw:_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i64.i:1:2000",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "bw:bb13.i95:2000:1",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7121,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "branch weight: no source construct (rustc emits !prof only for #[cold]/likely; Rc inc_strong trap edges are std code)"
+    },
+    {
+     "edit": "blk:bb4.i.i56.i:END",
+     "ratio": 0.62073,
+     "abs_ratio": 0.69772,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "IR block layout (= source arm order): MachineBlockPlacement re-derives it"
+    },
+    {
+     "edit": "inv:bb69",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "post-opt br polarity: InstCombine canonicalizes source-level negation; not expressible"
+    },
+    {
+     "edit": "blk:bb4.i5.i55.i:END",
+     "ratio": 0.62073,
+     "abs_ratio": 0.69772,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "IR block layout (= source arm order): MachineBlockPlacement re-derives it"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:10",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:18",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:12",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:20",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:11",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:19",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.i.sroa.9:8",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:13",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:21",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:12",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:20",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:14",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:22",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:13",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:21",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:15",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:23",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:14",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:22",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:16",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:24",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:15",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:23",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:17",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:16",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:24",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:10",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:18",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:9",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.i.sroa.0:17",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:11",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    },
+    {
+     "edit": "sz:target.sroa.8:19",
+     "ratio": 0.62073,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "gain": 0.0003,
+     "source": "alloca size class (StackColoring sort key): not expressible for std/anchor temporaries or SROA pieces"
+    }
+   ],
+   "best_size_changing": [
+    {
+     "edit": "inv:bb82",
+     "ratio": 0.62142,
+     "bytes": 27392
+    },
+    {
+     "edit": "blk:bb84.i:bb85.i",
+     "ratio": 0.62112,
+     "bytes": 27392
+    },
+    {
+     "edit": "inv:bb85.i",
+     "ratio": 0.62112,
+     "bytes": 27392
+    },
+    {
+     "edit": "blk:bb1.i.i4.i.i42.i:END",
+     "ratio": 0.62094,
+     "bytes": 27408
+    },
+    {
+     "edit": "bw:bb106.i:1:2000",
+     "ratio": 0.62092,
+     "bytes": 27384
+    },
+    {
+     "edit": "bw:bb30.i:2000:1",
+     "ratio": 0.62082,
+     "bytes": 27392
+    },
+    {
+     "edit": "inv:bb13.i",
+     "ratio": 0.62082,
+     "bytes": 27392
+    },
+    {
+     "edit": "inv:bb42.i",
+     "ratio": 0.62082,
+     "bytes": 27392
+    }
+   ],
+   "greedy": [
+    {
+     "round": 0,
+     "added": null,
+     "gain": null,
+     "ratio": 0.62043,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "stop": null,
+     "best": null
+    },
+    {
+     "round": 1,
+     "added": "bw:_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit40.i:1:2000",
+     "gain": 0.0018,
+     "ratio": 0.62223,
+     "abs_ratio": 0.7124,
+     "slots_diff": 3306,
+     "stop": null,
+     "best": null
+    },
+    {
+     "round": 2,
+     "added": "bw:bb27.i64:1:2000",
+     "gain": 0.0009,
+     "ratio": 0.62313,
+     "abs_ratio": 0.7115,
+     "slots_diff": 3363,
+     "stop": null,
+     "best": null
+    },
+    {
+     "round": 3,
+     "added": "sz:target.i.sroa.0:15",
+     "gain": 0.0003,
+     "ratio": 0.62343,
+     "abs_ratio": 0.7115,
+     "slots_diff": 3363,
+     "stop": null,
+     "best": null
+    },
+    {
+     "round": 4,
+     "added": "blk:bb4.i23.i:END",
+     "gain": 0.0003,
+     "ratio": 0.62373,
+     "abs_ratio": 0.7109,
+     "slots_diff": 3363,
+     "stop": null,
+     "best": null
+    },
+    {
+     "round": 5,
+     "added": "inv:bb69",
+     "gain": 0.0003,
+     "ratio": 0.62403,
+     "abs_ratio": 0.7109,
+     "slots_diff": 3363,
+     "stop": null,
+     "best": null
+    },
+    {
+     "round": 6,
+     "added": null,
+     "gain": null,
+     "ratio": 0.62403,
+     "abs_ratio": 0.7109,
+     "slots_diff": 3363,
+     "stop": true,
+     "best": "bw:bb26.i:1:2000"
+    }
+   ],
+   "frame_bound": {
+    "plain": 0.62043,
+    "named_objects_perfect": 0.62612,
+    "spill_area_perfect": 0.6438,
+    "perfect_frame": 0.64949
+   }
+  }
+ }
+}
