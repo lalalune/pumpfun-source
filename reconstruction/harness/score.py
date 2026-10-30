@@ -70,6 +70,8 @@ def _window_rows(orig, inventory):
     required = {'program', 'variant', 'original_start', 'original_end'}
     if not required.issubset(reader.fieldnames or []):
         raise ValueError('window inventory is missing required columns')
+    if any(reader.fieldnames.count(name) != 1 for name in required):
+        raise ValueError('window inventory has duplicate required columns')
     rows = []
     seen = set()
     text = os_['.text']
