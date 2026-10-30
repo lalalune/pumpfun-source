@@ -285,7 +285,7 @@ pub fn execute<'info>(mut ctx: Context<'_,'_,'info,'info,MultiHopCurve<'info>>,
 
 
 
-
+        fn whitelist_ok(global: &Global, user: &Pubkey, curve: &Account<BondingCurve>) -> bool { !curve.is_mayhem_mode && *user != global.whitelist_pda }
         fn pool_before(global: &Global, curve: &BondingCurve, curve_base: u64, is_sol: bool, amount: u64, quote: u64) -> Result<(u64, u64)> { crate::trade::v3_pool_before(curve.real_quote_reserves, global.pool_migration_fee, curve_base, is_sol, amount, quote) }
         #[inline(never)]
         fn complete_fill(global: &Global, fee_config: &crate::pump_fees::accounts::FeeConfig, fee_config_len: usize, market_cap: u128,
@@ -596,7 +596,7 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
 
 
 
-                let allowed = { let global = &*a.global; let user = a.user.key(); !c.is_mayhem_mode && user!=global.whitelist_pda }; require!(allowed,PumpError::NotEnoughTokensToBuy);
+                let allowed = whitelist_ok(&a.global,&a.user.key(),c); require!(allowed,PumpError::NotEnoughTokensToBuy);
                 match complete_fill(&a.global,&a.fee_config,fee_config_len,cap,c,
                     &h.associated_base_bonding_curve,flag,p_rate,c_rate,trade_amount)? {
                     None => (reserves,q,nf,None),
