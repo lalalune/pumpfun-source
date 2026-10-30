@@ -56,9 +56,23 @@ def make_patch(base: Path, part: Path, out: Path, tmp: Path):
     # intentionally emptied by a part. Git records those existence changes.
     empty_change = any(trees[0].get(name, False) != trees[1].get(name, False)
                        for name in trees[0].keys() | trees[1].keys())
+    # Source receipts bind executable flags too. Text diff cannot retain them.
+    modes = [{p.relative_to(root): bool(p.stat().st_mode & 0o111)
+              for p in root.rglob('*') if p.is_file()}
+             for root in (tmp / 'a/pump', tmp / 'b/pump')]
+    mode_change = any(modes[0].get(name, False) != modes[1].get(name, False)
+                      for name in modes[0].keys() | modes[1].keys())
+    if mode_change:
+        # Git represents executable files using the owner bit. Source identity
+        # considers any execute bit, including group/other-only helpers.
+        for root, flags in zip((tmp / 'a/pump', tmp / 'b/pump'), modes):
+            for name, executable in flags.items():
+                path = root / name
+                mode = path.stat().st_mode
+                path.chmod(mode | 0o100 if executable else mode & ~0o100)
     command = (['git', '-c', 'core.autocrlf=false', 'diff', '--no-index', '--binary',
                 '--no-ext-diff', '--no-textconv', '--no-renames', '--src-prefix=',
-                '--dst-prefix=', '--', 'a/pump', 'b/pump'] if empty_change else
+                '--dst-prefix=', '--', 'a/pump', 'b/pump'] if empty_change or mode_change else
                ['diff', '-ruN', 'a/pump', 'b/pump'])
     d = subprocess.run(command, cwd=tmp, capture_output=True)
     if d.returncode not in (0, 1):

@@ -76,7 +76,8 @@ def table_start(text, name):
 def stage(src: Path, ws: Path):
     text = (src / 'Cargo.toml').read_text(encoding='utf-8')
     parsed = tomllib.loads(text)
-    assert parsed.get('workspace') == {} and set(parsed.get('profile', {})) == {'release'}, 'unsupported manifest layout'
+    if parsed.get('workspace') != {} or set(parsed.get('profile', {})) != {'release'}:
+        raise ValueError('unsupported manifest layout')
     ps = table_start(text, 'profile.release'); wsi = table_start(text, 'workspace')
     if ps >= wsi or tomllib.loads(text[wsi:]) != {'workspace': {}}:
         raise ValueError('expected release profile followed by a final empty workspace table')

@@ -546,7 +546,7 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
         let buy = if *current_mint == h.quote_mint.key() { true } else if *current_mint == h.base_mint.key() { false } else { return err!(PumpError::MultiHopDiscontinuousPath) };
         let seeds: &[&[&[u8]];1] = &[&[b"bonding-curve",h.base_mint.to_account_info().key.as_ref(),&[curve_bump]]];
         let c = &h.bonding_curve;
-        #[inline(always)] fn fee_inputs(curve: &BondingCurve, fee_config: &Account<'_, crate::pump_fees::accounts::FeeConfig>, mint: &Mint) -> Result<(usize, u128)> { let len = fee_config.to_account_info().data_len(); let cap = match crate::buy_fee_market_cap(curve,mint) { Ok(v) => v, Err(e) => return Err(e) }; Ok((len, cap)) } let (fee_config_len, cap) = fee_inputs(c,&a.fee_config,&h.base_mint)?;
+        let (fee_config_len, cap) = match fee_inputs(c,&a.fee_config,&h.base_mint) { Ok(v) => v, Err(e) => return Err(e) }; #[inline(always)] fn fee_inputs(curve:&BondingCurve,fee_config:&Account<crate::pump_fees::accounts::FeeConfig>,mint:&Mint)->Result<(usize,u128)>{ let len = fee_config.to_account_info().data_len(); let cap = crate::buy_fee_market_cap(curve,mint)?; Ok((len,cap)) }
         let trade_amount = if buy {
             crate::transfer_fee_recovered::post_fee_amount(&quote_fee,amount)?
         }else{amount};
@@ -568,7 +568,7 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
 
 
 
-        let adapter_difference = amount.checked_sub(trade_amount).ok_or_else(|| error!(PumpError::Overflow))?;
+        amount.checked_sub(trade_amount).ok_or_else(|| error!(PumpError::Overflow))?;
 
 
 
@@ -589,19 +589,19 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
             let base = u64::try_from(crate::constant_product::tokens_for_quote(c,q)?).map_err(|_| error!(PumpError::Truncation))?;
             require_gt!(base,0,PumpError::BuyZeroAmount);
 
-            let reserves = c.real_token_reserves; let (base_amount,quote_amount,fees,post_fill) = if base <= reserves { (base,q,nf,None) } else {
+            let reserves = c.real_token_reserves; let (base_amount,quote_amount,fees,post_fill) = if base <= reserves {(base,q,nf,None)} else {
 
 
 
 
 
 
-                let allowed = { let user = a.user.key(); !c.is_mayhem_mode && user!=a.global.whitelist_pda }; require!(allowed,PumpError::NotEnoughTokensToBuy);
-                match complete_fill(&a.global,&a.fee_config,fee_config_len,cap,c,
+                let allowed = { let global = &*a.global; let user = a.user.key(); !c.is_mayhem_mode && user!=global.whitelist_pda }; require!(allowed,PumpError::NotEnoughTokensToBuy);
+                if let Some((f, quote, post)) = complete_fill(&a.global,&a.fee_config,fee_config_len,cap,c,
                     &h.associated_base_bonding_curve,flag,p_rate,c_rate,trade_amount)? {
 
-                    Some((f, quote, post)) => (reserves,quote,f,Some(post)),
-                None => (reserves,q,nf,None) }
+                    (reserves,quote,f,Some(post))
+                }else{(reserves,q,nf,None)}
             };
 
 
@@ -628,7 +628,7 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
             if native { crate::user_quote_payments::transfer_native(a.system_program.as_ref(),&a.user,h.bonding_curve.as_ref(),amount)?; } else { transfer_input(a,previous,&quote_token_program,&h.associated_quote_bonding_curve,h.quote_mint.decimals,AsRef::<AccountInfo>::as_ref(&*h.quote_mint),amount)?; }
             h.bonding_curve.apply_buy(base_amount,quote_amount)?;
             if last { transfer_base_out(&base_token_program,&h.associated_base_bonding_curve,&a.destination,&h.bonding_curve,h.base_mint.decimals,AsRef::<AccountInfo>::as_ref(&*h.base_mint),raw_output,seeds)?; }
-            (fees,base_amount,quote_amount,raw_output,adapter_difference,post_fill)
+            (fees,base_amount,quote_amount,raw_output,amount - trade_amount,post_fill)
 
 
 
@@ -721,10 +721,10 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
 
 
         let buyback_raw = h.bonding_curve.accrue_fees(&a.global,fees.protocol_fee,fees.creator_fee)?;
-        let post_buyback_raw = if let Some(post)=post_fill.as_ref() {
+        let post_buyback_raw = if let Some(post)=post_fill.as_ref() { let global: &Global = &a.global;
             h.bonding_curve.post_complete_base_out=post.base_out;
             h.bonding_curve.post_complete_quote_in=post.quote_in;
-            h.bonding_curve.accrue_fees(&a.global,post.fees.protocol_fee,post.fees.creator_fee)?
+            h.bonding_curve.accrue_fees(global,post.fees.protocol_fee,post.fees.creator_fee)?
         }else{0};
 
 
