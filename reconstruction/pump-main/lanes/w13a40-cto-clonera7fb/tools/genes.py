@@ -28,3 +28,8 @@ NP=' }else{msg!("No canonical pump pool for this mint; curve only");}'
 GENES.update({
  'ss_scope':[(SS+'\n',' let (old_creator,old_fee,pool_updated)={'+SS[1:]+'\n'),(NP+'\n',NP+'(old_creator,old_fee,pool_updated)};\n'),(' let e=AdminCtoEvent{',' let a=&ctx.accounts;let e=AdminCtoEvent{')],
 })
+GENES.update({
+ 'tok_map':[("   if frozen{require!(amount==0,PumpError::CtoSharedVaultFrozen);}else if amount>0{","   if frozen{require!(amount==0,PumpError::CtoSharedVaultFrozen);Ok(amount)}else if amount>0{"),
+            ("a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),amount,&vsigner)?;}\n","a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),amount,&vsigner).map(|()|amount)}else{Ok(amount)}\n"),
+            ("   Ok(amount)}\n","   }\n")],
+})

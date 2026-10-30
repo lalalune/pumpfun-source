@@ -100,6 +100,23 @@ and 5/3 at 13. The 5/3 points are the Rc `inc_strong` overflow traps. Every one 
 So the original's 6/2 clone run comes with the original's frame and its swept/payload coalescing. Neither is a
 stand-alone lever at 27,400 B on this main.
 
+### Main 6ff770f7a (#3155, 0.62403)
+
+The pointer's region split already picks the payload class's register on this main: `$r8` in 94 bundles, and the class
+is r8. Swept is still outside the class, though, so r8 is free in the clone run and clonefeat stays 2/6. All coalescing
+routes re-run here move the class to r7 and the split back to r6:
+
+| on 6ff770f | bytes | ratio | payload reg | `%0` split | cf |
+| --- | ---: | ---: | --- | --- | --- |
+| main | 27,400 | 0.62403 | r8 | r8 / 94 | 2/6 |
+| src ss_scope | 27,472 | 0.53313 | r7 | r6 / 82 | 2/6 |
+| src nat_q | 27,384 | 0.43782 | r7 | r6 / 81 | 2/6 |
+| IR i_ev64 / i_j3 / i_nobb81 | 27,472 / 27,520 / 27,448 | 0.54061 / 0.4944 / 0.4786 | r7 | r6 / 82 | 2/6 |
+| src tok_map (token arm `.map(\|()\|amount)`, w13a31's s_map) | 27,376 | 0.62461 | r8 | r8 / 94 | 2/6 |
+
+On this main a form that coalesces swept and keeps the class on r8 would give the original's clone run, because the
+split already lands on r8. Check candidates with `tools/coal.py`.
+
 ## 3. Gene screen on 16c10e6 (measure.sh, zero normalized losses everywhere)
 
 The genes of all six 6/2 builds that still apply to main. su_iflet is the reverse direction, because main already has
