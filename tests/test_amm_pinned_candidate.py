@@ -14,13 +14,16 @@ AMM = ROOT / 'evidence/original/pump_amm/deployed.so'
 OTHER = ROOT / 'evidence/original/pump_fees/deployed.so'
 # The cheapest suites that build every case through acquire_harness.
 SUITES = ('pump_amm_collect_differential', 'pump_amm_create_differential',
-          'pump_amm_sweep_differential', 'pump_amm_transfer_creator_differential')
+          'pump_amm_sweep_differential', 'pump_amm_transfer_creator_differential',
+          'pump_amm_extend_differential', 'pump_amm_incentives_differential')
+# Extra CLI arguments a suite requires.
+EXTRA = {'pump_amm_incentives_differential': ('--family', 'sync')}
 # Run the real CLI. Each case acquires the original harness, then the candidate harness;
 # mutate the candidate path once the first candidate harness is returned, so later cases
 # would load the new bytes. VM execution is not mocked.
 DRIVER = '''
 import os, runpy, shutil, sys
-script, harness, candidate, replacement, output, mode, marker = sys.argv[1:8]
+script, harness, candidate, replacement, output, mode, marker, *extra = sys.argv[1:]
 sys.path.insert(0, os.path.dirname(script))
 acquired = []
 def hook(frame, event, arg):
@@ -36,7 +39,7 @@ def hook(frame, event, arg):
             elif mode == 'retarget':
                 os.symlink(replacement, candidate + '.next')
                 os.replace(candidate + '.next', candidate)
-sys.argv = [script, '--candidate', candidate, '--output', output]
+sys.argv = [script, '--candidate', candidate, '--output', output, *extra]
 sys.setprofile(hook)
 runpy.run_path(script, run_name='__main__')
 '''
@@ -60,7 +63,7 @@ class AmmPinnedCandidateTests(unittest.TestCase):
             result = subprocess.run(
                 [sys.executable, '-B', '-c', DRIVER, str(ROOT / 'scripts' / (suite + '.py')),
                  str(ROOT / 'scripts/pump_amm_reusable_harness.py'),
-                 str(candidate), str(OTHER), str(output), mode, str(marker)],
+                 str(candidate), str(OTHER), str(output), mode, str(marker), *EXTRA.get(suite, ())],
                 cwd=ROOT, capture_output=True, text=True, timeout=600)
             # The first case must have acquired the candidate before the mutation.
             self.assertTrue(marker.exists(), suite + ' never acquired a candidate harness')

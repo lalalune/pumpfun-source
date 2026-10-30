@@ -3,7 +3,7 @@
 import sys,base64,struct,json,pathlib,hashlib,argparse,itertools
 sys.path.insert(0,'scripts')
 from pump_amm_admin_differential import *
-from pump_amm_reusable_harness import acquire_harness
+from pump_amm_reusable_harness import acquire_harness, pin_program
 from solders.clock import Clock
 TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');TOKEN22=Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
 MINT=Pubkey.from_bytes(bytes([226])*32);USER=OUTSIDER.pubkey();G=Pubkey.find_program_address([b'global_volume_accumulator'],PROGRAM)[0];U=Pubkey.find_program_address([b'user_volume_accumulator',bytes(USER)],PROGRAM)[0]
@@ -12,7 +12,7 @@ def disc(name):return bytes(next(x for x in IDL['accounts'] if x['name']==name)[
 def token_data(owner,amount):
  d=bytearray(165);d[:32]=bytes(MINT);d[32:64]=bytes(owner);struct.pack_into('<Q',d,64,amount);d[108]=1;return bytes(d)
 def run(c,program=ORIGINAL):
- h=acquire_harness(program);vm=h.vm;vm.with_sigverify(True);vm.set_clock(Clock(100,0,0,0,c.get('now',10)))
+ h=acquire_harness(pin_program(program));vm=h.vm;vm.with_sigverify(True);vm.set_clock(Clock(100,0,0,0,c.get('now',10)))
  for pid,n in [(TOKEN,'spl_token'),(TOKEN22,'spl_token_2022'),(ATA,'associated_token')]:vm.add_program_from_file(pid,ROOT/'evidence/dependencies'/n/'deployed.so')
  token=TOKEN22 if c.get('token22') else TOKEN
  ga=Pubkey.find_program_address([bytes(G),bytes(token),bytes(MINT)],ATA)[0];ua=Pubkey.find_program_address([bytes(USER),bytes(token),bytes(MINT)],ATA)[0]
@@ -127,6 +127,6 @@ def main():
  for c in cases(a.family):
   x,y=run(c),run(c,a.candidate);diff=[k for k in x if k!='logs' and x[k]!=y[k]];rows.append({'input':c,'original':x,'candidate':y,'diff':diff})
  sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
- report={'scope':'Bounded offline AMM '+a.family+' recovery with synthetic local state and ordinary verified signatures. Full committed state, event, inner CPI, return, transaction and error comparison; not binary identity or whole program equivalence.','case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'original_sha256':sha(ORIGINAL),'candidate_sha256':sha(a.candidate),'script_sha256':sha(__file__),'cases':rows}
+ report={'scope':'Bounded offline AMM '+a.family+' recovery with synthetic local state and ordinary verified signatures. Full committed state, event, inner CPI, return, transaction and error comparison; not binary identity or whole program equivalence.','case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'original_sha256':sha(pin_program(ORIGINAL)),'candidate_sha256':sha(pin_program(a.candidate)),'script_sha256':sha(__file__),'cases':rows}
  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({k:v for k,v in report.items() if k!='cases'}));raise SystemExit(bool(report['mismatches']))
 if __name__=='__main__':main()
