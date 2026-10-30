@@ -15,6 +15,16 @@
     "passed": false,
     "runs": [
       {
+        "script": "pump_exact_body_inventory.py",
+        "case": "absolute-tool",
+        "returncode": 0
+      },
+      {
+        "script": "pump_exact_body_inventory.py",
+        "case": "bare-path-tool",
+        "returncode": 1
+      },
+      {
         "script": "pump_compare_function_bytes.py",
         "case": "candidate-path",
         "returncode": 0,
@@ -61,21 +71,21 @@
         "case": "candidate-path",
         "returncode": 0,
         "input_before_sha256": "969811b0e0f673b693695ea651008cacd93eafa5a663dd8bec0e61d3b22d09a9",
-        "input_after_sha256": "b0df159c2cffe5d7c971a4acc961945c2f134469862b0b76987d8d5dc95438b8"
+        "input_after_sha256": "ca8d9bc1a6dd4d23aac1b2026453e9b812651e860720582f3ee7e203616c5b3a"
       },
       {
         "script": "pump_quote_control_function_match.py",
         "case": "candidate-symlink",
         "returncode": 0,
         "input_before_sha256": "969811b0e0f673b693695ea651008cacd93eafa5a663dd8bec0e61d3b22d09a9",
-        "input_after_sha256": "b0df159c2cffe5d7c971a4acc961945c2f134469862b0b76987d8d5dc95438b8"
+        "input_after_sha256": "ca8d9bc1a6dd4d23aac1b2026453e9b812651e860720582f3ee7e203616c5b3a"
       },
       {
         "script": "pump_quote_control_function_match.py",
         "case": "candidate-hardlink",
         "returncode": 0,
         "input_before_sha256": "969811b0e0f673b693695ea651008cacd93eafa5a663dd8bec0e61d3b22d09a9",
-        "input_after_sha256": "b0df159c2cffe5d7c971a4acc961945c2f134469862b0b76987d8d5dc95438b8"
+        "input_after_sha256": "ca8d9bc1a6dd4d23aac1b2026453e9b812651e860720582f3ee7e203616c5b3a"
       },
       {
         "script": "pump_compare_function_bytes.py",
@@ -159,21 +169,21 @@
         "case": "input:evidence/original/pump/deployed.so",
         "returncode": 0,
         "input_before_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
-        "input_after_sha256": "3e70aecb374e5ae8cceae5869afd6d01189ccaeabb78e320dc893cf944968314"
+        "input_after_sha256": "6e43ef9a44c6f23317da11958ca34d0e0c8ff0d3ab5966250954f33912aff0b1"
       },
       {
         "script": "pump_quote_control_function_match.py",
         "case": "input:scripts/pump_quote_control_function_match.py",
         "returncode": 0,
         "input_before_sha256": "0ec54b87739e78beb180e36edf8c10676e6ba92617d545fed7b4e05c337fb37f",
-        "input_after_sha256": "3e70aecb374e5ae8cceae5869afd6d01189ccaeabb78e320dc893cf944968314"
+        "input_after_sha256": "6e43ef9a44c6f23317da11958ca34d0e0c8ff0d3ab5966250954f33912aff0b1"
       },
       {
         "script": "pump_quote_control_function_match.py",
         "case": "input:llvm-objdump",
         "returncode": 0,
         "input_before_sha256": "6bc80ae7c0532e8c53320090e2ddb7422c9cffbaa73d2b022a026dc67939883b",
-        "input_after_sha256": "3e70aecb374e5ae8cceae5869afd6d01189ccaeabb78e320dc893cf944968314"
+        "input_after_sha256": "6e43ef9a44c6f23317da11958ca34d0e0c8ff0d3ab5966250954f33912aff0b1"
       },
       {
         "script": "pump_compare_function_bytes.py",
@@ -229,11 +239,21 @@
     "candidate_sha256": "969811b0e0f673b693695ea651008cacd93eafa5a663dd8bec0e61d3b22d09a9",
     "source_sha256": {
       "pump_compare_function_bytes.py": "10c596c02a9450d6c5637042bd3a0d681e7aa9270f928cabdd8f028f93176b21",
-      "pump_exact_body_inventory.py": "46ad350af25de731b1eb5659eab09ea59859c829d04d8b06a8f059cab847e3ff",
-      "pump_quote_control_function_match.py": "2d834f803cafda55a0a2fa5dc8189a53b0e4715559083b468bddb87b4e2b3258"
+      "pump_exact_body_inventory.py": "62f448787b9d4a96cfc0eb85cf8a09e11617e3afcb86711b96594d35c0ea3c16",
+      "pump_quote_control_function_match.py": "359e4ffe911cfb65c996c6e29bac36f4403aba201c5c018e1087b9f92f8d9b03"
     },
     "passed": true,
     "runs": [
+      {
+        "script": "pump_exact_body_inventory.py",
+        "case": "absolute-tool",
+        "returncode": 0
+      },
+      {
+        "script": "pump_exact_body_inventory.py",
+        "case": "bare-path-tool",
+        "returncode": 0
+      },
       {
         "script": "pump_compare_function_bytes.py",
         "case": "candidate-path",
@@ -315,8 +335,8 @@
         "script": "pump_compare_function_bytes.py",
         "case": "input:scripts/pump_quote_control_function_match.py",
         "returncode": 1,
-        "input_before_sha256": "2d834f803cafda55a0a2fa5dc8189a53b0e4715559083b468bddb87b4e2b3258",
-        "input_after_sha256": "2d834f803cafda55a0a2fa5dc8189a53b0e4715559083b468bddb87b4e2b3258"
+        "input_before_sha256": "359e4ffe911cfb65c996c6e29bac36f4403aba201c5c018e1087b9f92f8d9b03",
+        "input_after_sha256": "359e4ffe911cfb65c996c6e29bac36f4403aba201c5c018e1087b9f92f8d9b03"
       },
       {
         "script": "pump_compare_function_bytes.py",
@@ -336,8 +356,8 @@
         "script": "pump_compare_function_bytes.py",
         "case": "input:scripts/pump_exact_body_inventory.py",
         "returncode": 1,
-        "input_before_sha256": "46ad350af25de731b1eb5659eab09ea59859c829d04d8b06a8f059cab847e3ff",
-        "input_after_sha256": "46ad350af25de731b1eb5659eab09ea59859c829d04d8b06a8f059cab847e3ff"
+        "input_before_sha256": "62f448787b9d4a96cfc0eb85cf8a09e11617e3afcb86711b96594d35c0ea3c16",
+        "input_after_sha256": "62f448787b9d4a96cfc0eb85cf8a09e11617e3afcb86711b96594d35c0ea3c16"
       },
       {
         "script": "pump_exact_body_inventory.py",
@@ -350,15 +370,15 @@
         "script": "pump_exact_body_inventory.py",
         "case": "input:scripts/pump_exact_body_inventory.py",
         "returncode": 1,
-        "input_before_sha256": "46ad350af25de731b1eb5659eab09ea59859c829d04d8b06a8f059cab847e3ff",
-        "input_after_sha256": "46ad350af25de731b1eb5659eab09ea59859c829d04d8b06a8f059cab847e3ff"
+        "input_before_sha256": "62f448787b9d4a96cfc0eb85cf8a09e11617e3afcb86711b96594d35c0ea3c16",
+        "input_after_sha256": "62f448787b9d4a96cfc0eb85cf8a09e11617e3afcb86711b96594d35c0ea3c16"
       },
       {
         "script": "pump_exact_body_inventory.py",
         "case": "input:scripts/pump_quote_control_function_match.py",
         "returncode": 1,
-        "input_before_sha256": "2d834f803cafda55a0a2fa5dc8189a53b0e4715559083b468bddb87b4e2b3258",
-        "input_after_sha256": "2d834f803cafda55a0a2fa5dc8189a53b0e4715559083b468bddb87b4e2b3258"
+        "input_before_sha256": "359e4ffe911cfb65c996c6e29bac36f4403aba201c5c018e1087b9f92f8d9b03",
+        "input_after_sha256": "359e4ffe911cfb65c996c6e29bac36f4403aba201c5c018e1087b9f92f8d9b03"
       },
       {
         "script": "pump_exact_body_inventory.py",
@@ -385,8 +405,8 @@
         "script": "pump_quote_control_function_match.py",
         "case": "input:scripts/pump_quote_control_function_match.py",
         "returncode": 1,
-        "input_before_sha256": "2d834f803cafda55a0a2fa5dc8189a53b0e4715559083b468bddb87b4e2b3258",
-        "input_after_sha256": "2d834f803cafda55a0a2fa5dc8189a53b0e4715559083b468bddb87b4e2b3258"
+        "input_before_sha256": "359e4ffe911cfb65c996c6e29bac36f4403aba201c5c018e1087b9f92f8d9b03",
+        "input_after_sha256": "359e4ffe911cfb65c996c6e29bac36f4403aba201c5c018e1087b9f92f8d9b03"
       },
       {
         "script": "pump_quote_control_function_match.py",
@@ -459,7 +479,7 @@
         "helper_sha256"
       ],
       "before_sha256": "3eebcd7fbe4b7db3f045cc584cf843f6668ffda434b1246b084d1936b67e525d",
-      "after_sha256": "80234838c3f8d39099fa14628491ac19bb54b8ee37666af0bf985443a6f1bffb",
+      "after_sha256": "ea76b54b3d6bc62947a5d137035134a2323ac381acee4ad13aa60741e76b5334",
       "original_windows": 1035,
       "raw_equal_windows": 188
     },
@@ -467,8 +487,8 @@
       "script": "pump_quote_control_function_match.py",
       "byte_identical": true,
       "changed_fields": [],
-      "before_sha256": "123c725f3a2d74829e28b7ff16e929ce56ee6f4d05baba35adfd28431611267b",
-      "after_sha256": "123c725f3a2d74829e28b7ff16e929ce56ee6f4d05baba35adfd28431611267b",
+      "before_sha256": "7314c8c6e39530ffad352d4b57745508d631b876ee2cec32edc12591682e8ddd",
+      "after_sha256": "7314c8c6e39530ffad352d4b57745508d631b876ee2cec32edc12591682e8ddd",
       "original_windows": null,
       "raw_equal_windows": null
     }
@@ -477,5 +497,6 @@
     "No fresh candidate build or runtime-equivalence claim.",
     "Only exact-body report provenance hashes change; analysis fields and all 1035 window records are equal.",
     "Admission checks preexisting aliases, not concurrent filesystem changes."
-  ]
+  ],
+  "path_tool_control": "Bare executable found through PATH fails at provenance hashing before; after, complete report equals the absolute-path invocation and objdump_sha256 binds the executed binary."
 }

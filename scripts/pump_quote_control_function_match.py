@@ -19,12 +19,17 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 ORIGINAL = ROOT / 'evidence/original/pump/deployed.so'
 
 
+def resolve_objdump(objdump):
+    """Use the executable selected by PATH for both invocation and provenance."""
+    return shutil.which(str(objdump)) or str(objdump)
+
+
 def protect_report_output(output, inputs, objdump):
     """Reject report paths that alias consumed inputs before analysis or writing."""
     if output is None:
         return
     destination = pathlib.Path(output)
-    tool = shutil.which(str(objdump)) or objdump
+    tool = resolve_objdump(objdump)
     for value in [*inputs, pathlib.Path(__file__), pathlib.Path(tool)]:
         source = pathlib.Path(value)
         if (destination.resolve() == source.resolve()

@@ -139,6 +139,26 @@ class ByteComparisonInputTests(unittest.TestCase):
                         os.link(self.candidate, output)
                     self.reject_alias(script, self.candidate, output, 'candidate-' + kind)
 
+    def test_bare_path_tool_records_the_executed_binary(self):
+        absolute = self.objdump
+        output = self.root / 'path-tool.json'
+        self.assertEqual(self.invoke(SCRIPTS[1], output, 'absolute-tool').returncode, 0)
+        before = json.loads(output.read_bytes())
+        previous = os.environ.get('PATH')
+        try:
+            os.environ['PATH'] = str(absolute.parent) + os.pathsep + (previous or '')
+            self.objdump = Path(absolute.name)
+            result = self.invoke(SCRIPTS[1], output, 'bare-path-tool')
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(json.loads(output.read_bytes()), before)
+            self.assertEqual(before['objdump_sha256'], sha(absolute.read_bytes()))
+        finally:
+            self.objdump = absolute
+            if previous is None:
+                os.environ.pop('PATH', None)
+            else:
+                os.environ['PATH'] = previous
+
     def test_other_consumed_inputs_are_preserved(self):
         for script in SCRIPTS:
             inputs = [self.original, self.root / 'scripts' / script,
