@@ -52,6 +52,11 @@ def analyze(raw, start=0):
                 leaders.add(target)
             elif 0 <= target < len(raw):
                 diagnostics.append({'offset': offset, 'target': target, 'error': 'branch enters lddw continuation'})
+            else:
+                diagnostics.append({'offset': offset, 'target': target, 'error': 'branch target outside function'})
+            if kind != 0 and following not in instructions:
+                diagnostics.append({'offset': offset, 'target': following,
+                                    'error': 'conditional fallthrough outside function'})
         if following in instructions:
             leaders.add(following)
     ordered = sorted(leaders)

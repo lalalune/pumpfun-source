@@ -9,8 +9,10 @@ import concurrent.futures
 import gzip
 import json
 from pathlib import Path
+import shutil
 import struct
 import subprocess
+import tempfile
 
 from sbpf_disassembly_inventory import ROOT, sections, sha
 
@@ -87,18 +89,28 @@ def main():
     if sha(tool.read_bytes()) != manifest['tool_sha256']:
         raise ValueError('assembler/disassembler executable mismatch')
     output = args.output.resolve()
-    output.mkdir(parents=True, exist_ok=False)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
-        futures = [pool.submit(roundtrip, tool, inventory, entry, output)
-                   for entry in manifest['programs']]
-        results = [future.result() for future in futures]
-    report = dict(scope='Reference-derived assembly tooling validation; not independent contract reconstruction',
-                  tool_sha256=manifest['tool_sha256'], tool_revision=manifest['tool_revision'],
-                  inventory_manifest_sha256=sha((inventory / 'manifest.json').read_bytes()),
-                  generator_sha256=sha(Path(__file__).read_bytes()),
-                  programs=results, all_text_roundtrips_exact=all(r['full_text_equality'] for r in results),
-                  counts_toward_source_reconstruction_acceptance=False)
-    (output / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
+    if output.exists() or output.is_symlink():
+        raise FileExistsError(output)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    # Publish only a finished run: a raising program must not leave a partial
+    # directory without report.json that blocks the next run.
+    staging = Path(tempfile.mkdtemp(prefix='.' + output.name + '.', dir=output.parent))
+    try:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+            futures = [pool.submit(roundtrip, tool, inventory, entry, staging)
+                       for entry in manifest['programs']]
+            results = [future.result() for future in futures]
+        report = dict(scope='Reference-derived assembly tooling validation; not independent contract reconstruction',
+                      tool_sha256=manifest['tool_sha256'], tool_revision=manifest['tool_revision'],
+                      inventory_manifest_sha256=sha((inventory / 'manifest.json').read_bytes()),
+                      generator_sha256=sha(Path(__file__).read_bytes()),
+                      programs=results, all_text_roundtrips_exact=all(r['full_text_equality'] for r in results),
+                      counts_toward_source_reconstruction_acceptance=False)
+        (staging / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
+        staging.rename(output)
+    except BaseException:
+        shutil.rmtree(staging, ignore_errors=True)
+        raise
     print(json.dumps(report, indent=2))
     return 0 if report['all_text_roundtrips_exact'] else 1
 

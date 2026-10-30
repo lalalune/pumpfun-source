@@ -9,6 +9,7 @@ import base64
 import hashlib
 import json
 import subprocess
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -81,19 +82,20 @@ class GlobalLifecycleCapturedTests(unittest.TestCase):
         digest = hashlib.sha256(ELF.read_bytes()).hexdigest()
         if digest != ELF_SHA256:
             raise AssertionError(digest)
-        host = Path("/tmp/pump-global-lifecycle-host")
-        subprocess.run(
-            ["rustc", "--edition=2021", "-O", str(ROOT / "programs/pump/recovered/global_lifecycle_host.rs"), "-o", str(host)],
-            check=True,
-        )
-        cls.rows = init_cases() + toggle_cases() + authority_cases()
-        completed = subprocess.run(
-            [str(host)],
-            input="".join(row["line"] + "\n" for row in cls.rows),
-            text=True,
-            capture_output=True,
-            check=True,
-        )
+        with tempfile.TemporaryDirectory(prefix="pump-global-lifecycle-") as temporary:
+            host = Path(temporary) / "pump-global-lifecycle-host"
+            subprocess.run(
+                ["rustc", "--edition=2021", "-O", str(ROOT / "programs/pump/recovered/global_lifecycle_host.rs"), "-o", str(host)],
+                check=True,
+            )
+            cls.rows = init_cases() + toggle_cases() + authority_cases()
+            completed = subprocess.run(
+                [str(host)],
+                input="".join(row["line"] + "\n" for row in cls.rows),
+                text=True,
+                capture_output=True,
+                check=True,
+            )
         cls.host = completed.stdout.splitlines()
         if len(cls.host) != len(cls.rows):
             raise AssertionError(completed.stderr)

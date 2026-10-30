@@ -4,6 +4,7 @@ No SDK subprocess is required. Deliberately reads SHT_SYMTAB, like objdump -t;
 export-only dynamic tables are not substitutes for a complete function inventory.
 """
 import struct
+from instruction_stream import instruction_boundaries
 
 
 def function_symbols(blob):
@@ -16,6 +17,8 @@ def function_symbols(blob):
         raise ValueError('expected an ELF64 little-endian version-1 image')
     if struct.unpack_from('<H', blob, 18)[0] not in (247, 263):
         raise ValueError('expected an EM_BPF or EM_SBPF candidate image')
+    if struct.unpack_from('<I', blob, 48)[0] not in (0, 1):
+        raise ValueError('function-symbol decoding supports legacy SBPFv0/v1 ELF inputs only')
     shoff = struct.unpack_from('<Q', blob, 40)[0]
     entry_size, count, names_index = struct.unpack_from('<HHH', blob, 58)
     if entry_size != 64 or not count or names_index >= count:
@@ -71,4 +74,10 @@ def function_symbols(blob):
             if row not in seen:
                 seen.add(row)
                 functions.append(row)
+    if functions:
+        boundaries = instruction_boundaries(memoryview(blob)[text[4]:text[4] + text[5]])
+        for address, size, _name in functions:
+            relative = address - text[3]
+            if relative not in boundaries or relative + size not in boundaries:
+                raise ValueError('function symbol range does not follow a logical instruction boundary')
     return functions

@@ -17,6 +17,12 @@ import subprocess
 import sys
 
 sys.dont_write_bytecode = True
+
+
+def check(condition, message):
+    """Fail closed under optimized Python, where assert statements vanish."""
+    if not condition:
+        raise AssertionError(message)
 ROOT = Path(__file__).resolve().parents[1]
 RELAY = 'repro/donation-relay/canonical-exact-selection'
 P27 = 'repro/layered-passes/pass-27/current-metadata'
@@ -55,7 +61,7 @@ def run_json(root, arguments):
         report, end = decoder.raw_decode(remaining)
         reports.append(report)
         remaining = remaining[end:].lstrip()
-    assert reports and all(isinstance(report, dict) for report in reports)
+    check(reports and all(isinstance(report, dict) for report in reports), "reconstruction verification failed: reports and all(isinstance(report, dict) for report in reports)")
     return reports
 
 
@@ -81,16 +87,16 @@ def verify(root):
         bridge = module('current_relay_scanner_bridge', root / 'research/all-contract-completion-20261028/relay/verify_current_bridge.py')
         relay_transition = bridge.verify(root)
         relay = relay_transition['current_selection']
-        assert relay['verified'] and relay['canonical_source60_verified']
-        assert relay['all492_raw'] and relay['meaningful_elf_literal_equal']
-        assert relay['selected_payload_literal_checked']
+        check(relay['verified'] and relay['canonical_source60_verified'], "reconstruction verification failed: relay['verified'] and relay['canonical_source60_verified']")
+        check(relay['all492_raw'] and relay['meaningful_elf_literal_equal'], "reconstruction verification failed: relay['all492_raw'] and relay['meaningful_elf_literal_equal']")
+        check(relay['selected_payload_literal_checked'], "reconstruction verification failed: relay['selected_payload_literal_checked']")
 
         historical = module('current_publication_p27_history',
                             relay_directory / 'common.py')
         context = historical.metadata_context(root, root / P27, P27_SEAL)
         catalogue = context.catalogue()
         context.unchanged(root / P27)
-        assert len(catalogue) == 53
+        check(len(catalogue) == 53, "reconstruction verification failed: len(catalogue) == 53")
 
         # Preserve the old Fees source map only while that historical selection
         # is current. Exact canonical promotion has its own complete source gate.
@@ -100,8 +106,8 @@ def verify(root):
             names = historical.source_names(
                 root / layout['crate'], root / layout['workspace'], root,
                 [root / name for name in layout.get('extra_inputs', [])])
-            assert names == set(fees['source']), 'Fees source inventory changed'
-            assert initial_status['pump_fees'] == context.F['status']['pump_fees']
+            check(names == set(fees['source']), 'Fees source inventory changed')
+            check(initial_status['pump_fees'] == context.F['status']['pump_fees'], "reconstruction verification failed: initial_status['pump_fees'] == context.F['status']['pump_fees']")
     finally:
         sys.path.pop(0)
 
@@ -113,25 +119,25 @@ def verify(root):
         raise ValueError('Current Relay repeat qualification')
 
     mayhem_directory = root / MAYHEM
-    assert sha(mayhem_directory / 'manifest.json') == MAYHEM_SEAL
+    check(sha(mayhem_directory / 'manifest.json') == MAYHEM_SEAL, "reconstruction verification failed: sha(mayhem_directory / 'manifest.json') == MAYHEM_SEAL")
     manifest = read(mayhem_directory / 'manifest.json')['files']
     actual = {str(path.relative_to(mayhem_directory))
               for path in mayhem_directory.rglob('*') if path.is_file()}
-    assert actual == set(manifest) | {'manifest.json'}
+    check(actual == set(manifest) | {'manifest.json'}, "reconstruction verification failed: actual == set(manifest) | {'manifest.json'}")
     for name, digest in manifest.items():
         path = mayhem_directory / name
-        assert not path.is_symlink() and sha(path) == digest, name
+        check(not path.is_symlink() and sha(path) == digest, name)
     stats = read(mayhem_directory / 'stats.json')
     status = initial_status['mayhem']
     if status['candidate_artifact'] == 'research/mayhem-canonical-promotion-20261028/hosted/40770208958/candidate.so':
         mayhem_command = [root / 'scripts/verify_mayhem_checkpoint.py', '--repo', root]
     else:
-        assert status['candidate_artifact'] == MAYHEM + '/candidate.so'
-        assert status['candidate_sha256'] == stats['candidate_sha256']
-        assert status['candidate_symbols_artifact'] == MAYHEM + '/unstripped.so'
-        assert sha(root / status['candidate_symbols_artifact']) == stats['unstripped_sha256']
-        assert status['comparison_report'] == MAYHEM + '/comparison.json'
-        assert status['full_byte_equality'] is False
+        check(status['candidate_artifact'] == MAYHEM + '/candidate.so', "reconstruction verification failed: status['candidate_artifact'] == MAYHEM + '/candidate.so'")
+        check(status['candidate_sha256'] == stats['candidate_sha256'], "reconstruction verification failed: status['candidate_sha256'] == stats['candidate_sha256']")
+        check(status['candidate_symbols_artifact'] == MAYHEM + '/unstripped.so', "reconstruction verification failed: status['candidate_symbols_artifact'] == MAYHEM + '/unstripped.so'")
+        check(sha(root / status['candidate_symbols_artifact']) == stats['unstripped_sha256'], "reconstruction verification failed: sha(root / status['candidate_symbols_artifact']) == stats['unstripped_")
+        check(status['comparison_report'] == MAYHEM + '/comparison.json', "reconstruction verification failed: status['comparison_report'] == MAYHEM + '/comparison.json'")
+        check(status['full_byte_equality'] is False, "reconstruction verification failed: status['full_byte_equality'] is False")
         mayhem_command = [mayhem_directory / 'verify.py', '--current-source', root,
                           '--expected-seal', MAYHEM_SEAL]
 
@@ -149,9 +155,9 @@ def verify(root):
         relay_replay = replay.result()
     for name, reports in verified.items():
         last = reports[-1]
-        assert last.get('status') == 'PASS' or last.get('passed') is True, name
-        assert last['candidate_sha256'] == initial_status[name]['candidate_sha256'], name
-    assert read(root / 'repro/status.json') == initial_status, 'Selections changed during verification'
+        check(last.get('status') == 'PASS' or last.get('passed') is True, name)
+        check(last['candidate_sha256'] == initial_status[name]['candidate_sha256'], name)
+    check(read(root / 'repro/status.json') == initial_status, 'Selections changed during verification')
     return {
         'status': 'PASS_CURRENT_RECONSTRUCTION',
         'current_source_and_artifact_reports': verified,

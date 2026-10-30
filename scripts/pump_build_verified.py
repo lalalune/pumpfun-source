@@ -27,25 +27,30 @@ sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
 
 def finish_report(record, report, receipt, cache, target, log, data_order=False):
     """Publish the data-order receipt only after all cache checks succeed."""
-    if cache and not data_order:
-        report.write_text(json.dumps(record, indent=2) + "\n")
-    if cache:
+    try:
+        if cache and not data_order:
+            report.write_text(json.dumps(record, indent=2) + "\n")
+        if cache:
+            if data_order:
+                assert cache.record["status"] == "hit", "data-order build must use a verified external cache"
+            cache.finish(target, log, report)
+            record["dependency_cache"] = cache.record
+            record["dependency_cache"]["implementation_sha256"] = sha(
+                Path(DependencyCache.__init__.__code__.co_filename)
+            )
         if data_order:
-            assert cache.record["status"] == "hit", "data-order build must use a verified external cache"
-        cache.finish(target, log, report)
-        record["dependency_cache"] = cache.record
-        record["dependency_cache"]["implementation_sha256"] = sha(
-            Path(DependencyCache.__init__.__code__.co_filename)
-        )
-    if data_order:
-        assert all(sha(ROOT / path) == value for path, value in record["source_sha256"].items()), "data-order staged source changed"
-        assert all(sha(ROOT / path) == value for path, value in record["primary_source_sha256"].items()), "data-order primary source changed"
-        certificate = record["text_layout"]["data_order_certificate"]
-        assert sha(Path(certificate["path"])) == certificate["sha256"], "data-order certificate changed before acceptance"
-        record["data_order"]["status"] = "passed"
-    report.write_text(json.dumps(record, indent=2) + "\n")
-    if data_order:
-        receipt.write_text(json.dumps(record, indent=2) + "\n")
+            assert all(sha(ROOT / path) == value for path, value in record["source_sha256"].items()), "data-order staged source changed"
+            assert all(sha(ROOT / path) == value for path, value in record["primary_source_sha256"].items()), "data-order primary source changed"
+            certificate = record["text_layout"]["data_order_certificate"]
+            assert sha(Path(certificate["path"])) == certificate["sha256"], "data-order certificate changed before acceptance"
+            record["data_order"]["status"] = "passed"
+        report.write_text(json.dumps(record, indent=2) + "\n")
+        if data_order:
+            receipt.write_text(json.dumps(record, indent=2) + "\n")
+    except BaseException:
+        if cache:
+            report.unlink(missing_ok=True)
+        raise
 
 
 def main():

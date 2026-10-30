@@ -32,6 +32,14 @@ build outputs/caches and keypairs are not uploaded. This is not a runtime test o
 a proof of whole-ELF identity. Source changes during a build are rejected. Output
 directories must be fresh so previous measurements cannot be overwritten.
 
+Paired-build source receipts use the same `pump-source-inputs-v1` snapshot as
+`fastbuild`. They bind relative paths, exact bytes and executable bits; exclude
+only the Pump crate-root `target` build directory and Git metadata; and retain
+legitimate nested inputs such as `src/target/mod.rs` and
+`assets/target/data.bin`. Source symlinks and nonregular files are rejected,
+including a directory symlink named `target` at the crate root. The clean Git
+checkout check and the source snapshot are both repeated after each build.
+
 Local use on a provisioned macOS arm64 host (Python 3.12):
 
 ```sh

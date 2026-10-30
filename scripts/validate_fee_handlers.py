@@ -25,7 +25,7 @@ def run(name,data,raw=None,owner=None,key=None,count=2):
   after=f.vm.get_account(actual_key)
   assert before.data==after.data and before.lamports==after.lamports,(name,'query mutated account')
  record(name,results)
-receipt=ROOT/'repro/experiments/quote-selector-differential.json.gz'
+receipt=ROOT/'research/fees-query-inputs/quote-selector-cases.json.gz'
 cases=json.loads(gzip.decompress(receipt.read_bytes()))['cases']
 for i,c in enumerate(cases):
  results=[]
@@ -36,8 +36,8 @@ for i,c in enumerate(cases):
   after=f.vm.get_account(f.key)
   assert before.data==after.data and before.lamports==after.lamports
  record('quote-'+str(i),results)
-tier_receipt=ROOT/'repro/experiments/fee-selector-differential.json'
-tier_cases=json.loads(tier_receipt.read_text())['cases']
+tier_receipt=ROOT/'research/fees-query-inputs/fee-selector-cases.json.gz'
+tier_cases=json.loads(gzip.decompress(tier_receipt.read_bytes()))['cases']
 tier_disc=bytes(next(i['discriminator'] for i in original.idl['instructions'] if i['name']=='get_fees'))
 for i,c in enumerate(tier_cases):
  original.config(c['tiers'],c['stable_tiers'],(1,2,3),(1000,2000,3000))

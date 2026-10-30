@@ -16,6 +16,9 @@ jobs:
       max-parallel: 12
       matrix:
         include:
+          - suite: contract-tests
+            commands: |
+              python -B -m unittest discover -s tests -v
           - suite: fees-exact-source-staging
             commands: |
               python -B research/fees-exact-readme-stage-20261030/test_stage.py
@@ -26,10 +29,12 @@ jobs:
           - suite: fastbuild-staging
             commands: |
               python -I -B tests/test_fastbuild_stage.py
+              python -B reconstruction/harness/test_fastbuild_library_name.py
           - suite: composition-patch-bytes
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py
               python -B reconstruction/harness/test_integrate_no_build_cli.py
+              python -B reconstruction/harness/test_integrate_source_links.py
               python -I -B tests/test_integrate_patch_bytes.py
               python -I -B reconstruction/harness/test_treediff_links.py
           - suite: offline-cargo-cache
@@ -44,7 +49,9 @@ jobs:
               python -I -B tests/test_dispatch_root.py
               python -I -B tests/test_analyze_input_admission.py
               python scripts/test_tooling.py
+              python -B scripts/test_mayhem_burn_sequence_optimization.py
               python -B -X utf8 tests/test_dispatch_idl_encoding.py
+              python -B tests/test_local_validation_idl_encoding.py
               python -B tests/test_function_body_file_ranges.py
               python -O -B tests/test_function_body_file_ranges.py
               python -B reconstruction/harness/test_treediff_line_boundaries.py
@@ -52,6 +59,7 @@ jobs:
               python -B reconstruction/harness/test_short_window_ranking.py
               python -B reconstruction/harness/test_applicability_evidence_paths.py
               python -B reconstruction/harness/test_diagnostic_range_boundaries.py
+              python -B reconstruction/harness/test_stack_access_isa.py
               python scripts/test_build_source_manifest.py
               python -I -B tests/test_manifest_nested_target.py
               python scripts/test_core_linux_v144_retention.py
@@ -60,23 +68,30 @@ jobs:
               python scripts/test_reconstruction_build_selection.py ResearchSelectionTests.test_default_does_not_select_header_incompatible_older_family ResearchSelectionTests.test_explicit_experiment_and_argument_boundaries_are_preserved
               python scripts/test_reconstruction_identity_audit.py
               python scripts/local_validation.py
+              python -B research/tooling-interior-string-references-20261030/test_verify.py
+              python -I -B scripts/test_verify_evidence_paths.py
+              python research/tooling-disassembly-reproducibility-20261030/test_verify.py
+              python -B tests/test_dependency_cache_manifest_state.py
+              python -B research/tooling-indirect-call-decoding-20261030/test_verify.py
+              python -B tests/test_checkpoint_manifest_paths.py
+          # Packets that pin the digest of a reviewed tool snapshot or of its output. They fail
+          # by design when the bound tool changes, until the packet is re-reviewed and re-bound;
+          # kept apart so a stale binding does not stop the rest of the evidence suite.
+          - suite: archived-tool-bindings
+            commands: |
               python -B research/tooling-arithmetic-shift-counts-20261030/test_verify.py
               python -B research/tooling-revalidation-manifests-20261030/test_verify.py
               python -B research/tooling-revalidation-invocation-20261030/test_verify.py
-              python -B research/tooling-interior-string-references-20261030/test_verify.py
-              python -I -B scripts/test_verify_evidence_paths.py
               python -B reconstruction/relocation-text-addresses/test_analyze.py
-              python research/tooling-disassembly-reproducibility-20261030/test_verify.py
               python -B reconstruction/math-register-comparisons/test_analyze.py
-              python -B tests/test_dependency_cache_manifest_state.py
-              python -B research/tooling-indirect-call-decoding-20261030/test_verify.py
               python research/tooling-terminal-error-patterns-20261030/test_verify.py
               python research/tooling-terminal-error-patterns-20261030/verify.py
               python research/tooling-token-program-constant-detector-20261029/verify.py
-              python -B tests/test_checkpoint_manifest_paths.py
               python -B reconstruction/capture-rpc-retry/test_capture.py
+              python -B reconstruction/verification/donation-relay-stateful/test_stateful.py
           - suite: host-fragments
             commands: |
+              python -B -m unittest discover -s tests -p 'test_global_*_captured.py' -v
               python -B scripts/test_fee_host_validation.py
               python -B tests/test_recovered_curve_arithmetic.py
               mkdir -p work && rustc --edition 2021 -O programs/pump-fees/recovered/fee_selection_host.rs -o work/fee-selector-host

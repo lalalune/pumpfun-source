@@ -10,8 +10,10 @@ import gzip
 import hashlib
 import json
 from pathlib import Path
+import shutil
 import struct
 import subprocess
+import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 from analyze import program_names
@@ -122,20 +124,30 @@ def main():
     if subprocess.check_output(['git', '-C', str(source), 'status', '--porcelain', '--untracked-files=no']):
         raise ValueError('tool source has tracked modifications')
     output = args.output.resolve()
-    output.mkdir(parents=True, exist_ok=False)
-    inputs = program_inputs(ROOT)
-    inputs += [(p.parent.name, p) for p in sorted((ROOT / 'evidence/dependencies').glob('*/deployed.so'))]
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
-        futures = [pool.submit(inventory, tool, name, path, output) for name, path in inputs]
-        results = [f.result() for f in futures]
-    manifest = dict(scope='Complete original-text disassembly; no executable generation or modification',
-                    tool_repository='https://github.com/blueshift-gg/sbpf', tool_revision=revision,
-                    tool_version=subprocess.check_output([str(tool), '--version'], text=True).strip(),
-                    tool_sha256=sha(tool.read_bytes()),
-                    tool_lockfile_sha256=sha((source / 'Cargo.lock').read_bytes()),
-                    generator_sha256=sha(Path(__file__).read_bytes()), programs=results,
-                    proves_byte_identical_reconstruction=False)
-    (output / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    if output.exists() or output.is_symlink():
+        raise FileExistsError(output)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    # Publish only a complete inventory: a failed program must not leave a
+    # partial directory without manifest.json that blocks the next run.
+    staging = Path(tempfile.mkdtemp(prefix='.' + output.name + '.', dir=output.parent))
+    try:
+        inputs = program_inputs(ROOT)
+        inputs += [(p.parent.name, p) for p in sorted((ROOT / 'evidence/dependencies').glob('*/deployed.so'))]
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+            futures = [pool.submit(inventory, tool, name, path, staging) for name, path in inputs]
+            results = [f.result() for f in futures]
+        manifest = dict(scope='Complete original-text disassembly; no executable generation or modification',
+                        tool_repository='https://github.com/blueshift-gg/sbpf', tool_revision=revision,
+                        tool_version=subprocess.check_output([str(tool), '--version'], text=True).strip(),
+                        tool_sha256=sha(tool.read_bytes()),
+                        tool_lockfile_sha256=sha((source / 'Cargo.lock').read_bytes()),
+                        generator_sha256=sha(Path(__file__).read_bytes()), programs=results,
+                        proves_byte_identical_reconstruction=False)
+        (staging / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+        staging.rename(output)
+    except BaseException:
+        shutil.rmtree(staging, ignore_errors=True)
+        raise
     print(json.dumps(manifest, indent=2))
 
 

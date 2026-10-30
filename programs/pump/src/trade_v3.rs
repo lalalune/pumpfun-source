@@ -937,7 +937,7 @@ fn v3_execute_buy<'info>(a:&mut SellV3<'info>,curve_bump:u8,is_sol:bool,amount:u
         let estimate=if can_cross & (available>first){
             let (pool_base,pool_quote)={let base_reserves=a.associated_base_bonding_curve.amount;v3_pool_before(curve.real_quote_reserves,a.global.pool_migration_fee,base_reserves,is_sol,amount,quote)}?;
             estimate_post_complete(&curve.creator,pool_base,pool_quote,fees.protocol_fee_bps,fees.creator_fee_bps,rest,false)?}else{None};let (post,costs)=match estimate{
-                Some(mut post)=>fit_post_complete(a.global.buyback_basis_points,curve.is_mayhem_mode,&quote_fee,quote,curve_fees.protocol_fee,curve_fees.creator_fee,&mut post,spendable_quote_in)?,
+                Some(post)=>fit_owned(a.global.buyback_basis_points,curve.is_mayhem_mode,&quote_fee,quote,curve_fees.protocol_fee,curve_fees.creator_fee,post,spendable_quote_in)?,
                 None=>(None,costs),
             };
 
@@ -1313,3 +1313,5 @@ fn net_costs(a:&SellV3,quote_fee:&Option<native_transfer_fee::Fee>,net:u64,fees:
 fn cost_total(costs:&(u64,u64,u64))->Result<u64>{add(costs.0,costs.1)}
 
 fn emit_exact_quote(ctx:&mut Context<SellV3>,amount:u64,quote:u64,fees:TradeFees,buyback_fee:u64,quote_transfer_fee:u64,post:Option<PostComplete>,post_buyback_fee:u64)->Result<()>{v3_emit_buy(ctx,amount,quote,&fees,buyback_fee,quote_transfer_fee,"buy_exact_quote_in",&post,post_buyback_fee)}
+
+fn fit_owned(buyback_bps:u64,is_mayhem:bool,quote_fee:&Option<native_transfer_fee::Fee>,quote:u64,protocol_fee:u64,creator_fee:u64,mut post:PostComplete,budget:u64)->Result<(Option<PostComplete>,(u64,u64,u64))>{fit_post_complete(buyback_bps,is_mayhem,quote_fee,quote,protocol_fee,creator_fee,&mut post,budget)}

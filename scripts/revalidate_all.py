@@ -11,7 +11,9 @@ import argparse
 import hashlib
 import json
 import os
+from pathlib import PureWindowsPath
 import subprocess
+import stat
 import sys
 import time
 from pathlib import Path
@@ -34,6 +36,40 @@ def sha256_file(path):
         for chunk in iter(lambda: f.read(1 << 16), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def linked(path):
+    """Recognize symlinks and Windows reparse-point aliases without following them."""
+    metadata = path.lstat()
+    return (stat.S_ISLNK(metadata.st_mode) or
+            bool(getattr(metadata, "st_file_attributes", 0) &
+                 getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0)))
+
+
+def manifest_file(packet_dir, name):
+    """Resolve one manifest entry inside packet_dir without admitting aliases."""
+    windows_path = PureWindowsPath(name)
+    relative = Path(name)
+    if (windows_path.anchor or windows_path.drive or "\\" in name or
+            relative.anchor or not relative.parts or ".." in relative.parts):
+        return None, "unsafe_path"
+
+    full = packet_dir / relative
+    try:
+        for path in (full, *full.parents):
+            if path == packet_dir:
+                break
+            if linked(path):
+                return None, "linked_path"
+        if not full.exists():
+            return None, "missing"
+        if not stat.S_ISREG(full.lstat().st_mode):
+            return None, "not_a_file"
+    except FileNotFoundError:
+        return None, "missing"
+    except (OSError, ValueError):
+        return None, "unreadable"
+    return full, None
 
 
 def manifest_paths(packet_dir):
@@ -87,12 +123,9 @@ def check_manifest(packet_dir):
     checked = 0
     for row in records:
         name, expected = row["path"], row["sha256"]
-        full = packet_dir / name
-        if not full.exists():
-            errors.append(f"missing: {name}")
-            continue
-        if not full.is_file():
-            errors.append(f"not_a_file: {name}")
+        full, path_error = manifest_file(packet_dir, name)
+        if path_error:
+            errors.append(f"{path_error}: {name}")
             continue
         actual = sha256_file(str(full))
         if actual != expected:

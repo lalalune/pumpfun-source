@@ -18,7 +18,7 @@ class CoordinateFieldTests(unittest.TestCase):
             harness.mkdir()
             base = root / 'base'
             base.mkdir()
-            for name in ['score.py', 'score_admission.py', 'coords.py', 'llvm_tools.py', 'elf_symbols.py']:
+            for name in ['score.py', 'score_admission.py', 'coords.py', 'llvm_tools.py', 'elf_symbols.py', 'original_input.py']:
                 shutil.copyfile(repo / 'reconstruction/harness' / name, harness / name)
             shutil.copyfile(repo / 'evidence/original/pump/deployed.so', base / 'original.so')
             shutil.copyfile(repo / 'reconstruction/base/functions.tsv', base / 'functions.tsv')

@@ -15,6 +15,18 @@ CANDIDATE = 'dbb5dcfd1a1487e22d61ae68d22a9b74087b78a868a08ab974c7bdbb127f1500'
 MANIFEST = 'fd4ba56a458aca4090376d75a02f26e4a62153834208189fe82aa59931a9bd8d'
 
 
+class CheckpointError(Exception):
+    pass
+
+
+def check(ok, msg='checkpoint check failed'):
+    # Explicit check instead of `assert`: `python -O` / PYTHONOPTIMIZE strips asserts,
+    # which made tampered AMM saved-checkpoint evidence report PASS. (The two newer
+    # packet branches already use require(); this covers the saved-checkpoint branch.)
+    if not ok:
+        raise CheckpointError(msg)
+
+
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -70,25 +82,25 @@ def verify(root=ROOT, runtime=None):
         for key, relative in [('source_recipe', '/workspace_recipe.py'), ('source_builder', '/build.py'), ('source_binding_verifier', '/verify.py'), ('build_log', '/results/build-a/build.log.gz'), ('validation_report', '/results/runtime/audit.json')]:
             require(selected[key] == current + relative and (root / selected[key]).is_file(), 'AMM selected ' + key)
         return report
-    assert selected['candidate_artifact'] == ARTIFACT
-    assert selected['candidate_sha256'] == CANDIDATE
+    check(selected['candidate_artifact'] == ARTIFACT)
+    check(selected['candidate_sha256'] == CANDIDATE)
     checkpoint = root / CHECKPOINT
     results = checkpoint / 'results'
     candidate = root / ARTIFACT
-    assert sha(candidate) == CANDIDATE and sha(results / 'manifest.json') == MANIFEST
+    check(sha(candidate) == CANDIDATE and sha(results / 'manifest.json') == MANIFEST)
     allocation = selected['loader_allocation_control']
     allocation_root = root / allocation['proof_path']
-    assert sha(allocation_root / 'manifest.json') == allocation['manifest_sha256']
+    check(sha(allocation_root / 'manifest.json') == allocation['manifest_sha256'])
     allocation_report = module('current_amm_loader_allocation', allocation_root / 'verify.py').verify(allocation_root)
-    assert allocation_report['candidate_sha256'] == CANDIDATE
-    assert allocation_report['equal_allocation_control_cases'] == 48
-    assert allocation_report['equal_allocation_control_mismatches'] == 0
+    check(allocation_report['candidate_sha256'] == CANDIDATE)
+    check(allocation_report['equal_allocation_control_cases'] == 48)
+    check(allocation_report['equal_allocation_control_mismatches'] == 0)
     upgradeable = selected['upgradeable_loader_control']
     upgradeable_root = root / upgradeable['proof_path']
-    assert sha(upgradeable_root / 'manifest.json') == upgradeable['manifest_sha256']
+    check(sha(upgradeable_root / 'manifest.json') == upgradeable['manifest_sha256'])
     upgradeable_report = module('current_amm_upgradeable', upgradeable_root / 'verify.py').verify(upgradeable_root)
-    assert upgradeable_report['candidate_sha256'] == CANDIDATE
-    assert upgradeable_report['policy_cases'] == 24 and upgradeable_report['policy_mismatches'] == 0
+    check(upgradeable_report['candidate_sha256'] == CANDIDATE)
+    check(upgradeable_report['policy_cases'] == 24 and upgradeable_report['policy_mismatches'] == 0)
     if runtime is None:
         # Capture only stdout: the saved verifier's stderr (its failing
         # assertion) must stay visible in the caller's log.
@@ -97,16 +109,16 @@ def verify(root=ROOT, runtime=None):
             cwd=root, text=True, stdout=subprocess.PIPE, check=True,
         )
         report = json.loads(result.stdout.strip().splitlines()[-1])
-        assert report['current_source_checked'] and report['candidate_sha256'] == CANDIDATE
+        check(report['current_source_checked'] and report['candidate_sha256'] == CANDIDATE)
         return {'status': 'PASS', 'program': 'pump_amm', 'loader_allocation_control': allocation_report, 'upgradeable_loader_control': upgradeable_report, **report}
     entries = json.loads((results / 'manifest.json').read_text())
-    assert set(entries) | {'manifest.json'} == {
+    check(set(entries) | {'manifest.json'} == {
         str(path.relative_to(results)) for path in results.rglob('*') if path.is_file()
-    }
+    })
     for name, digest in entries.items():
-        assert sha(results / name) == digest, name
+        check(sha(results / name) == digest, name)
     for name in ['verify_source_binding.py', 'workspace_recipe_v3.py']:
-        assert sha(checkpoint / name) == sha(results / 'harness' / name)
+        check(sha(checkpoint / name) == sha(results / 'harness' / name))
     sys.path.insert(0, str(checkpoint))
     try:
         binding = module('selected_amm_source', checkpoint / 'verify_source_binding.py')
@@ -115,18 +127,18 @@ def verify(root=ROOT, runtime=None):
                                results / 'build/unstripped.so', results / 'dependency-proof', root)
     finally:
         sys.path.pop(0)
-    assert bound['total_compiled_inputs_verified'] == 233 and bound['current_source_verified']
+    check(bound['total_compiled_inputs_verified'] == 233 and bound['current_source_verified'])
     dependencies = module('selected_amm_dependencies', results / 'dependency-proof/verify.py')
-    assert dependencies.verify(results / 'canonical-source', results / 'build/build-comparison.json')['packages'] == 9
+    check(dependencies.verify(results / 'canonical-source', results / 'build/build-comparison.json')['packages'] == 9)
     runtime = Path(runtime).resolve()
     inputs = json.loads((runtime / 'inputs.json').read_text())
-    assert inputs['candidate_sha256'] == CANDIDATE
+    check(inputs['candidate_sha256'] == CANDIDATE)
     for name, digest in inputs['harness_sha256'].items():
-        assert sha(root / name) == digest, name
-    assert inputs['observer_sha256'] == sha(root / 'repro/pump_amm/owner6048-v144/runtime/observe_suite.py')
+        check(sha(root / name) == digest, name)
+    check(inputs['observer_sha256'] == sha(root / 'repro/pump_amm/owner6048-v144/runtime/observe_suite.py'))
     audit = module('selected_amm_audit', checkpoint / 'compare_direct_cached.py')
     report = audit.audit(runtime, CANDIDATE)
-    assert report['cases'] == 17462 and not report['mismatches']
+    check(report['cases'] == 17462 and not report['mismatches'])
     return {'status': 'PASS', 'program': 'pump_amm', 'candidate_sha256': CANDIDATE, 'loader_allocation_control': allocation_report, 'upgradeable_loader_control': upgradeable_report, **report}
 
 
