@@ -64,6 +64,10 @@ def manifest(source):
                 raise ValueError('source symlinks are unsupported')
         if Path(directory) == source:
             dirs[:] = [d for d in dirs if d != 'target']
+        # Nonempty directory membership follows from its files/descendants.
+        # Empty leaves are also observable by build scripts and experiment commands.
+        if Path(directory) != source and not dirs and not any(name not in ALWAYS_IGNORED for name in files):
+            result[Path(directory).relative_to(source).as_posix() + '/'] = {'directory': True}
         # A linked worktree or submodule stores .git as a file; staging omits it too.
         for name in dirs + sorted(name for name in files if name not in ALWAYS_IGNORED):
             path = Path(directory) / name
