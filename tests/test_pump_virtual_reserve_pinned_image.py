@@ -172,7 +172,7 @@ class VirtualReservePinnedImageTests(unittest.TestCase):
     def test_wrong_build_binding_fails_even_with_optimized_python(self):
         build = self.root / 'build.json'
         environment = dict(os.environ, PYTHONPATH=str(ROOT / 'scripts'))
-        for document, message in [({}, 'invalid build comparison'),
+        for document, message in [(None, 'invalid build comparison'), ({}, 'invalid build comparison'),
                                   ({'comparison': {'candidate_sha256': '0' * 64}, 'source_sha256': '0' * 64},
                                    'candidate does not match build comparison')]:
             with self.subTest(document=document):
