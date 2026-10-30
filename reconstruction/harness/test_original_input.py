@@ -1,8 +1,11 @@
 """Exercise the Git placeholder against the complete retained Pump capture."""
 import gzip
 import hashlib
+import json
 from pathlib import Path
 import shutil
+import subprocess
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -88,6 +91,39 @@ class OriginalInputTests(unittest.TestCase):
             direct = score.score_with_hash(candidate)
         self.assertEqual(linked, direct)
         self.assertEqual(len(direct[0]), 1035)
+
+    def test_cli_preserves_the_resolved_capture_when_report_output_names_it(self):
+        harness = self.root / 'reconstruction/harness'
+        harness.mkdir()
+        for name in ('score.py', 'score_admission.py', 'original_input.py',
+                     'elf_symbols.py', 'llvm_tools.py'):
+            shutil.copyfile(Path(score.__file__).parent / name, harness / name)
+        candidate = self.root / 'candidate.so'
+        candidate.write_bytes(gzip.decompress((
+            REPO / 'reconstruction/pump-main/lanes/v3-sell-payment-layout/candidate.so.gz'
+        ).read_bytes()))
+        baseline = self.root / 'baseline.json'
+        shutil.copyfile(REPO / 'reconstruction/pump-main/baseline/score.json', baseline)
+        command = [sys.executable, *(['-O'] if sys.flags.optimize else []),
+                   str(harness / 'score.py'), str(candidate),
+                   '--baseline', str(baseline), '--quiet', '--json']
+        captured = self.target.read_bytes()
+        refused = subprocess.run(command + [str(self.target)], capture_output=True, text=True)
+        self.assertNotEqual(refused.returncode, 0, refused.stdout)
+        self.assertIn('report destination aliases an input', refused.stderr)
+        self.assertEqual(self.target.read_bytes(), captured)
+        self.assertEqual(self.original.read_bytes(), LINK)
+
+        report = self.root / 'score.json'
+        accepted = subprocess.run(command + [str(report)], capture_output=True, text=True)
+        self.assertEqual(accepted.returncode, 0, accepted.stderr)
+        document = json.loads(report.read_text(encoding='utf-8'))
+        self.assertEqual(len(document['windows']), 1035)
+        self.assertEqual(document['summary']['normalized'], 1020)
+        self.assertEqual(document['summary']['raw'], 188)
+        self.assertEqual(document['summary']['candidate_sha256'],
+                         '969811b0e0f673b693695ea651008cacd93eafa5a663dd8bec0e61d3b22d09a9')
+        self.assertEqual(self.target.read_bytes(), captured)
 
 
 if __name__ == '__main__':

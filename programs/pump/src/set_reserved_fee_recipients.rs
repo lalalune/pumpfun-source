@@ -62,7 +62,7 @@ pub fn set_reserved_fee_recipients(ctx: Context<AdminReadonly>, whitelist_pda: P
                 return Err(Error::from(ErrorCode::ConstraintExecutable).with_account_name(format!("reserved_fee_recipients[{}]", index)));
             }
             if !rent.is_exempt(account.lamports(), account.try_data_len()?) {
-                return Err(rent_exempt_error(Error::from(ErrorCode::ConstraintRentExempt), format!("reserved_fee_recipients[{}]", index)));
+                return Err(rent_exempt_error(Error::from(ErrorCode::ConstraintRentExempt).with_account_name(format!("reserved_fee_recipients[{}]", index))));
             }
         }
     }
@@ -123,6 +123,6 @@ pub fn update_buyback_config(ctx: Context<AdminGlobal>, buyback_basis_points: Op
     Ok(())
 }
 
-#[cold] fn rent_exempt_error(error: Error, name: String) -> Error {
-    crate::account_name::with_owned_name(error, &name)
+#[cold] fn rent_exempt_error(error: Error) -> Error {
+    error
 }

@@ -2,6 +2,7 @@
 
 import contextlib
 import io
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -22,6 +23,42 @@ class AnalyzeProgramPublicationTests(unittest.TestCase):
                     analyze_program("mayhem", output)
 
             self.assertEqual([path.name for path in output.iterdir()], ["stale.txt"])
+
+    def test_symlinked_packet_entry_is_rejected_before_publication(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            output = root / "packet"
+            output.mkdir()
+            outside = root / "outside.json"
+            outside.write_text("sentinel\n", encoding="utf-8")
+            try:
+                os.symlink(outside, output / "summary.json")
+            except (OSError, NotImplementedError, AttributeError) as error:
+                self.skipTest(f"creating links is not permitted: {error}")
+
+            with contextlib.redirect_stdout(io.StringIO()):
+                with self.assertRaisesRegex(ValueError, "packet entry is not a regular file"):
+                    analyze_program("mayhem", output)
+
+            self.assertEqual(outside.read_text(encoding="utf-8"), "sentinel\n")
+            self.assertTrue((output / "summary.json").is_symlink())
+
+    def test_symlinked_output_directory_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            outside = root / "outside"
+            outside.mkdir()
+            output = root / "packet"
+            try:
+                os.symlink(outside, output, target_is_directory=True)
+            except (OSError, NotImplementedError, AttributeError) as error:
+                self.skipTest(f"creating links is not permitted: {error}")
+
+            with contextlib.redirect_stdout(io.StringIO()):
+                with self.assertRaisesRegex(ValueError, "output directory is a link"):
+                    analyze_program("mayhem", output)
+
+            self.assertEqual(list(outside.iterdir()), [])
 
 
 if __name__ == "__main__":

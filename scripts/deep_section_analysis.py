@@ -420,7 +420,11 @@ def recover_anchor_idl(elf):
                 for back in range(1, 6):
                     prev = at - back * 8
                     if prev >= elf.lo:
-                        if b[prev] in (0xb7, 0xb4) and b[prev + 1] & 0xF == 1:  # mov imm into size argument r1
+                        # Only cross immediate argument setup: other operations
+                        # may overwrite r1 or change the incoming control flow.
+                        if b[prev] not in (0xb7, 0xb4):
+                            break
+                        if b[prev + 1] & 0xF == 1:  # mov imm into size argument r1
                             size_val = struct.unpack_from("<i", b, prev + 4)[0]
                             if 8 < size_val < 100000:
                                 account_sizes.append({
@@ -646,6 +650,21 @@ def main():
 
     output_dir = Path(args.output)
     output_dir.mkdir(parents=True, exist_ok=True)
+
+    # The manifest hashes every file here and verify.py requires exactly the
+    # generated set, so reject leftovers from another run before writing.
+    packet_files = {
+        "README.md", "layer1-data-layout.json", "layer2-relocation-map.json",
+        "layer3-cross-section.json", "layer4-anchor-idl.json", "layer5-math-analysis.json",
+        "manifest.json", "summary.json", "verify.py",
+    }
+    unexpected = sorted(path.name for path in output_dir.iterdir() if path.name not in packet_files)
+    if unexpected:
+        raise ValueError("unexpected packet entry: " + ", ".join(unexpected))
+    invalid = sorted(name for name in packet_files
+                     if (output_dir / name).exists() and not (output_dir / name).is_file())
+    if invalid:
+        raise ValueError("packet entry is not a regular file: " + ", ".join(invalid))
 
     print(f"[deep] Reading {deployed_path}")
     elf = Elf(deployed_path)

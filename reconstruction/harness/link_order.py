@@ -12,8 +12,9 @@ linked by the same rust-lld, only placed in a different order.
 Hooks (entry points `pump_link_rustc.py`, `pump_link_lld.py`):
 - RUSTC_WRAPPER: for the root cdylib only, append `-C linker=pump_link_lld.py` (an untracked
   rustc option: object code and every dependency are unchanged), then run the next wrapper.
-- linker: check the incoming script is the default one, swap in the pinned script, write a
-  receipt and a link map beside it, and exec the real rust-lld with otherwise identical arguments.
+- linker: reject response-file inputs, check the incoming script is the default one, swap in the
+  pinned script, write a receipt and a link map beside it, and exec the real rust-lld with otherwise
+  identical arguments.
 """
 import hashlib
 import json
@@ -137,6 +138,8 @@ def lld_args(args, env):
     out, seen, i = [], 0, 0
     while i < len(args):
         arg = args[i]
+        if arg.startswith('@'):
+            raise ValueError('response-file linker input unsupported: ' + arg)
         if arg in ('-T', '--script'):
             if Path(args[i + 1]).read_text() != default:
                 raise ValueError('unexpected target link script ' + args[i + 1])

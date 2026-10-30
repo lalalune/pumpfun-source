@@ -1,4 +1,7 @@
 import io
+import json
+import os
+import signal
 import subprocess
 import sys
 import tempfile
@@ -14,6 +17,89 @@ class CompilerDeadlineTests(unittest.TestCase):
     def run_python(self, code, **kwargs):
         return run_compiler([sys.executable, '-u', '-c', code], **kwargs)
 
+    def detached_pipe_trial(self, stream='stdout', leader_exits=False, interrupt=False):
+        """Run run_compiler behind a watchdog and always reap escaped descendants."""
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            leader_pid = root / 'leader.pid'
+            descendant_pid = root / 'descendant.pid'
+            child = (
+                'import sys,time; '
+                f'print("detached-{stream}",file=sys.{stream},flush=True); time.sleep(30)'
+            )
+            leader_tail = 'sys.exit(0)' if leader_exits else 'time.sleep(30)'
+            leader = (
+                'import os,subprocess,sys,time; from pathlib import Path; '
+                f'Path({str(leader_pid)!r}).write_text(str(os.getpid())); '
+                f'c=subprocess.Popen([sys.executable,"-u","-c",{child!r}],start_new_session=True); '
+                f'Path({str(descendant_pid)!r}).write_text(str(c.pid)); '
+                f'print("leader-{stream}",file=sys.{stream},flush=True); {leader_tail}'
+            )
+            harness = str(Path(__file__).resolve().parent)
+            if interrupt:
+                wrapper = (
+                    'import json,os,signal,sys,threading\n'
+                    f'sys.path.insert(0,{harness!r})\n'
+                    'from build_process import run_compiler\n'
+                    f'command=[sys.executable,"-u","-c",{leader!r}]\n'
+                    'threading.Timer(0.2,lambda:os.kill(os.getpid(),signal.SIGINT)).start()\n'
+                    'try:\n'
+                    ' run_compiler(command,timeout=30)\n'
+                    'except KeyboardInterrupt:\n'
+                    ' print(json.dumps({"interrupted":True}),flush=True)\n'
+                )
+            else:
+                wrapper = (
+                    'import json,sys; '
+                    f'sys.path.insert(0,{harness!r}); from build_process import run_compiler; '
+                    f'command=[sys.executable,"-u","-c",{leader!r}]; '
+                    'r,t=run_compiler(command,timeout=0.2); '
+                    'print(json.dumps({"timed_out":t,"returncode":r.returncode,"stdout":r.stdout}),flush=True)'
+                )
+            started = time.monotonic()
+            outer = subprocess.Popen(
+                [sys.executable, '-u', '-c', wrapper], start_new_session=True,
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+            )
+            returned = False
+            output = ''
+            descendant_alive = False
+            try:
+                output, _ = outer.communicate(timeout=2.5)
+                returned = True
+            except subprocess.TimeoutExpired as error:
+                output = error.output or ''
+                os.killpg(outer.pid, signal.SIGKILL)
+                tail, _ = outer.communicate(timeout=1)
+                output = tail or output
+            finally:
+                if outer.poll() is None:
+                    os.killpg(outer.pid, signal.SIGKILL)
+                    outer.communicate(timeout=1)
+                pids = []
+                for pid_path in (leader_pid, descendant_pid):
+                    if pid_path.exists():
+                        pid = int(pid_path.read_text())
+                        pids.append(pid)
+                        if pid_path == descendant_pid:
+                            try:
+                                os.kill(pid, 0)
+                                descendant_alive = True
+                            except ProcessLookupError:
+                                pass
+                        try:
+                            os.kill(pid, signal.SIGKILL)
+                        except ProcessLookupError:
+                            pass
+            return {
+                'returned': returned,
+                'elapsed': time.monotonic() - started,
+                'outer_returncode': outer.returncode,
+                'pids': pids,
+                'descendant_alive_before_cleanup': descendant_alive,
+                'output': output,
+            }
+
     def test_success_and_nonzero_exit_retain_output(self):
         for status in (0, 7):
             result, expired = self.run_python(f'import sys; print("diagnostic"); sys.exit({status})', timeout=2)
@@ -28,6 +114,36 @@ class CompilerDeadlineTests(unittest.TestCase):
         result,expired=self.run_python('import time; print("started"); time.sleep(30)',timeout=1)
         self.assertTrue(expired);self.assertNotEqual(result.returncode,0)
         self.assertEqual(result.stdout,'started\n')
+
+    def test_detached_descendant_cannot_hold_stdout_cleanup_open(self):
+        trial = self.detached_pipe_trial()
+        self.assertTrue(trial['returned'], trial)
+        report = json.loads(trial['output'])
+        self.assertTrue(report['timed_out'])
+        self.assertNotEqual(report['returncode'], 0)
+        self.assertCountEqual(report['stdout'].splitlines(), ['leader-stdout', 'detached-stdout'])
+
+    def test_detached_pipes_and_exited_leader_have_bounded_cleanup(self):
+        cases = (('stderr', False, -signal.SIGKILL), ('stdout', True, 0))
+        for stream, leader_exits, returncode in cases:
+            with self.subTest(stream=stream, leader_exits=leader_exits):
+                trial = self.detached_pipe_trial(stream, leader_exits)
+                self.assertTrue(trial['returned'], trial)
+                self.assertLess(trial['elapsed'], 2.5)
+                self.assertTrue(trial['descendant_alive_before_cleanup'], trial)
+                report = json.loads(trial['output'])
+                self.assertTrue(report['timed_out'])
+                self.assertEqual(report['returncode'], returncode)
+                self.assertCountEqual(
+                    report['stdout'].splitlines(),
+                    [f'leader-{stream}', f'detached-{stream}'],
+                )
+
+    def test_interrupt_cleanup_is_bounded_with_detached_pipe(self):
+        trial = self.detached_pipe_trial(interrupt=True)
+        self.assertTrue(trial['returned'], trial)
+        self.assertLess(trial['elapsed'], 2.5)
+        self.assertEqual(json.loads(trial['output']), {'interrupted': True})
 
     def test_compiler_descendants_are_stopped(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -48,6 +164,8 @@ class CompilerDeadlineTests(unittest.TestCase):
     def test_builder_releases_slot_and_retains_log_without_publication(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);slot=io.StringIO();out=root/'out';(root/'src').mkdir()
+            (root/'crate').mkdir()
+            (root/'crate/Cargo.toml').write_text('[package]\nname="pump-recovered"\nversion="0.1.0"\n')
             out.mkdir()
             (out/'candidate.so').write_bytes(b'prior candidate')
             (out/'unstripped.so').write_bytes(b'prior unstripped')

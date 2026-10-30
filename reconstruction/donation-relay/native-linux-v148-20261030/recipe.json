@@ -1,0 +1,70 @@
+{
+  "canonicalEnvironment": {
+    "PATH": "/sdk/rust/bin:/sdk/llvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "HOME": "/output/home",
+    "CARGO_HOME": "/cargo",
+    "CARGO_TARGET_DIR": "/target",
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TERM_COLOR": "never",
+    "CARGO_BUILD_JOBS": "3",
+    "CARGO_TARGET_SBPF_SOLANA_SOLANA_RUSTFLAGS": "-Zremap-cwd-prefix=",
+    "RUSTC": "/sdk/rust/bin/rustc",
+    "RUSTDOC": "/sdk/rust/bin/rustdoc",
+    "CC": "/sdk/llvm/bin/clang",
+    "AR": "/sdk/llvm/bin/llvm-ar",
+    "OBJDUMP": "/sdk/llvm/bin/llvm-objdump",
+    "OBJCOPY": "/sdk/llvm/bin/llvm-objcopy",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8"
+  },
+  "canonicalCargoArgv": [
+    "/sdk/rust/bin/cargo",
+    "rustc",
+    "--release",
+    "--target",
+    "sbpf-solana-solana",
+    "--locked",
+    "--offline",
+    "--verbose",
+    "--manifest-path",
+    "/source/Cargo.toml",
+    "--lib",
+    "--",
+    "--remap-path-prefix=src/=programs/contracts/src/",
+    "-C",
+    "link-arg=-Map=/output/link.map",
+    "-C",
+    "linker=/config/linker-wrapper.sh"
+  ],
+  "stripArgv": [
+    "/sdk/llvm/bin/llvm-objcopy",
+    "--strip-all",
+    "/output/symbols.so",
+    "/output/candidate.so"
+  ],
+  "configInputs": {
+    "ordered.ld": "4361db23f1785a3062a8d70fd868957c1a5bf804ce76971a92ec4c3c930e618e",
+    "linker-wrapper.sh": "3326309e5858904823eecad13f888fd48cd6255b29834556eee21c0b79cc7eaf"
+  },
+  "expectedOutputs": {
+    "symbols.so": {
+      "bytes": 929536,
+      "sha256": "07ab4ac487727385a3b5ec0d4bc1139e10f701c3fac2f95b88d89701a38ab9e1"
+    },
+    "candidate.so": {
+      "bytes": 818280,
+      "sha256": "56d81ec64a0ba070d3d23f3c1547b31d659e85716dfa2198ec4b0ce6cd355333"
+    }
+  },
+  "capture": {
+    "repoPath": "evidence/dependencies/donation_relay/deployed.so",
+    "bytes": 830448,
+    "sha256": "367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563",
+    "meaningfulExtent": 818280,
+    "zeroAllocationSuffixBytes": 12168
+  },
+  "floorBytes": 134217728,
+  "timeoutSeconds": 1800,
+  "historicalReference": "d75184ea323be8a83ebe11fe5f26a13f3dcbe052",
+  "historicalImageIdentityUnresolved": "c9bcc62ac79b4618beaffc81c2a6ba4ac741fd27d910de47af20ceecbf53f39c"
+}

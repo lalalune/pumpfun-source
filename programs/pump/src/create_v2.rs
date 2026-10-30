@@ -769,7 +769,7 @@ pub fn execute<'info>(ctx:Context<'_,'_,'_,'info,CreateV2<'info>>,name:String,sy
 
 
 
- let mut fee=0;if matches!(source,QuoteSource::Controlled|QuoteSource::Nested(_)) && creator_fee_bps.0>0 {
+ let mut fee=0;if matches!(source,QuoteSource::Controlled|QuoteSource::Nested(_)) {if creator_fee_bps.0==0 {} else {
 
   require!(a.global.creator_fee_configurable,PumpError::CreatorFeeNotConfigurable);
 
@@ -777,7 +777,7 @@ pub fn execute<'info>(ctx:Context<'_,'_,'_,'info,CreateV2<'info>>,name:String,sy
 
   require!(creator_fee_bps.0<=a.global.max_configurable_creator_fee_bps,PumpError::CreatorFeeBpsOutOfRange);
   fee=creator_fee_bps.0;
- }
+ }}
 
 
 
@@ -817,14 +817,14 @@ fn init_curve(bonding_curve:&mut trade_types::BondingCurve,global:&Global,creato
 
  let sol=Pubkey::default();
  let initial_virtual_quote_reserves=global.initial_virtual_quote_reserves;
- let virtual_quote_reserves=if quote_mint==sol {global.initial_virtual_sol_reserves} else {reserves.unwrap_or(initial_virtual_quote_reserves)};
- bonding_curve.creator=creator;
- bonding_curve.initial_virtual_quote_reserves=virtual_quote_reserves;
+ if quote_mint==sol {let r=global.initial_virtual_sol_reserves;bonding_curve.virtual_quote_reserves=r;bonding_curve.initial_virtual_quote_reserves=r;}
+ else {let r=reserves.unwrap_or(initial_virtual_quote_reserves);bonding_curve.virtual_quote_reserves=r;bonding_curve.initial_virtual_quote_reserves=r;}
+
  bonding_curve.virtual_token_reserves=global.initial_virtual_token_reserves;
- bonding_curve.virtual_quote_reserves=virtual_quote_reserves;
  bonding_curve.real_token_reserves=global.initial_real_token_reserves;
  bonding_curve.real_quote_reserves=0;
  bonding_curve.token_total_supply=global.token_total_supply;
+ bonding_curve.creator=creator;
  bonding_curve.is_mayhem_mode=is_mayhem_mode;
  bonding_curve.is_cashback_coin=false;
  bonding_curve.quote_mint=quote_mint;

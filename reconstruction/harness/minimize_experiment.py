@@ -6,7 +6,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
-from experiment_runner import run_trial, atomic_json, digest, IGNORED, manifest
+from experiment_runner import run_trial, atomic_json, digest, stage_ignore, manifest
 
 
 def minimize(count, evaluate, budget, wanted='pass'):
@@ -61,7 +61,7 @@ def main():
     def evaluate(selected):
         with tempfile.TemporaryDirectory(prefix='reduce-source-', dir=args.out) as temporary:
             stage = Path(temporary) / 'source'
-            shutil.copytree(args.source, stage, ignore=shutil.ignore_patterns(*IGNORED))
+            shutil.copytree(args.source, stage, ignore=stage_ignore(args.source))
             if manifest(stage) != source_identity or manifest(args.source) != source_identity:
                 raise ValueError('base source changed during minimization')
             subprocess.run(['git', '-C', str(stage), 'init', '-q'], check=True)

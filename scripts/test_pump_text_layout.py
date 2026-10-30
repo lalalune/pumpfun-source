@@ -27,6 +27,21 @@ class ConfigureTests(unittest.TestCase):
                 )
             self.assertEqual(list(output.iterdir()), [])
 
+    def test_call_graph_ordering_file_is_not_an_unbound_input(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            order = Path(temporary) / "call-graph-order.txt"
+            order.write_text("caller\ncallee\n", encoding="utf-8")
+            arguments = (
+                ["--call-graph-ordering-file", str(order)],
+                [f"--call-graph-ordering-file={order}"],
+            )
+
+            for argv in arguments:
+                with self.subTest(argv=argv), self.assertRaisesRegex(
+                    AssertionError, "call-graph ordering file is not admitted"
+                ):
+                    pump_text_layout.declared_inputs(argv)
+
 
 if __name__ == "__main__":
     unittest.main()

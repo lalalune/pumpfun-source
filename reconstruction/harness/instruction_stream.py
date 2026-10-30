@@ -11,6 +11,15 @@ def instruction_offsets(raw):
         offset += width
 
 
+def instruction_boundaries(raw):
+    """Return every logical start plus the complete stream end."""
+    boundaries = {0}
+    for offset in instruction_offsets(raw):
+        boundaries.add(offset)
+    boundaries.add(len(raw))
+    return frozenset(boundaries)
+
+
 def require_instruction_range(raw, start, size):
     """Validate a slice against logical boundaries in its enclosing code stream."""
     end = start + size

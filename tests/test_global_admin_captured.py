@@ -9,6 +9,7 @@ import base64
 import hashlib
 import json
 import subprocess
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -299,19 +300,20 @@ class GlobalAdminCapturedTests(unittest.TestCase):
         digest = hashlib.sha256(ELF.read_bytes()).hexdigest()
         if digest != ELF_SHA256:
             raise AssertionError(digest)
-        host = Path("/tmp/pump-global-admin-host")
-        subprocess.run(
-            ["rustc", "--edition=2021", "-O", str(ROOT / "programs/pump/recovered/global_admin_host.rs"), "-o", str(host)],
-            check=True,
-        )
-        cls.rows = business_cases() + admission_cases()
-        completed = subprocess.run(
-            [str(host)],
-            input="".join(host_line(row) + "\n" for row in cls.rows),
-            text=True,
-            capture_output=True,
-            check=True,
-        )
+        with tempfile.TemporaryDirectory(prefix="pump-global-admin-") as temporary:
+            host = Path(temporary) / "pump-global-admin-host"
+            subprocess.run(
+                ["rustc", "--edition=2021", "-O", str(ROOT / "programs/pump/recovered/global_admin_host.rs"), "-o", str(host)],
+                check=True,
+            )
+            cls.rows = business_cases() + admission_cases()
+            completed = subprocess.run(
+                [str(host)],
+                input="".join(host_line(row) + "\n" for row in cls.rows),
+                text=True,
+                capture_output=True,
+                check=True,
+            )
         cls.host = completed.stdout.splitlines()
         if len(cls.host) != len(cls.rows):
             raise AssertionError(completed.stderr)

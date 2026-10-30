@@ -9,6 +9,12 @@ from pathlib import Path
 import pump_admin_token_incentives_differential as diff
 
 
+def check(condition, message):
+    """Fail closed under optimized Python, where assert statements vanish."""
+    if not condition:
+        raise AssertionError(message)
+
+
 FINANCIAL_ACCOUNTS = (
     "global", "global_volume_accumulator", "mint",
     "global_incentive_token_account", "canonical_global",
@@ -23,60 +29,60 @@ def main(receipt_path=diff.OUTPUT, candidate_path=diff.CANDIDATE,
     encoded = receipt_path.read_bytes()
     receipt = json.loads(gzip.decompress(encoded) if receipt_path.suffix == ".gz"
                          else encoded)
-    assert receipt["baseline_commit"] == expected_baseline
-    assert receipt["target_sha256"] == diff.sha(diff.TARGET)
-    assert receipt["candidate_sha256"] == diff.sha(candidate_path)
-    assert receipt["build_comparison_sha256"] == diff.sha(build_path)
+    check(receipt["baseline_commit"] == expected_baseline, "receipt baseline commit differs")
+    check(receipt["target_sha256"] == diff.sha(diff.TARGET), "receipt target hash differs")
+    check(receipt["candidate_sha256"] == diff.sha(candidate_path), "receipt candidate hash differs")
+    check(receipt["build_comparison_sha256"] == diff.sha(build_path), "receipt build comparison hash differs")
     build = json.loads(build_path.read_text())
-    assert build["selected_toolchain"] == "v1.44"
-    assert build["comparison"]["candidate_sha256"] == receipt["candidate_sha256"]
-    assert all(checksum == diff.sha(diff.ROOT / path)
-               for path, checksum in build["source_sha256"].items())
-    assert build["build_log_sha256"] == diff.sha(gzip.decompress(
-        (build_path.parent / "build.log.gz").read_bytes()))
+    check(build["selected_toolchain"] == "v1.44", "build toolchain must be v1.44")
+    check(build["comparison"]["candidate_sha256"] == receipt["candidate_sha256"], "build candidate hash differs from receipt")
+    check(all(checksum == diff.sha(diff.ROOT / path)
+               for path, checksum in build["source_sha256"].items()), "build source hash differs")
+    check(build["build_log_sha256"] == diff.sha(gzip.decompress(
+        (build_path.parent / "build.log.gz").read_bytes())), "build log hash differs")
     if receipt.get("second_clean_build") is not None:
         second = receipt["second_clean_build"]
         second_path = Path(second["comparison_path"])
         if not second_path.is_absolute():
             second_path = diff.ROOT / second_path
-        assert diff.sha(second_path) == second["comparison_sha256"]
+        check(diff.sha(second_path) == second["comparison_sha256"], "second clean build hash differs")
         first_build = build
         second_build = json.loads(second_path.read_text())
-        assert first_build["source_sha256"] == second_build["source_sha256"]
-        assert first_build["selected_toolchain"] == second_build["selected_toolchain"]
-        assert first_build["comparison"]["candidate_sha256"] == second_build["comparison"]["candidate_sha256"]
-        assert second_build["build_log_sha256"] == diff.sha(gzip.decompress(
-            (second_path.parent / "second-build.log.gz").read_bytes()))
-    assert receipt["idl_sha256"] == diff.sha(diff.IDL)
-    assert receipt["global_snapshot_sha256"] == diff.sha(diff.SNAPSHOT)
+        check(first_build["source_sha256"] == second_build["source_sha256"], "second build source hashes differ")
+        check(first_build["selected_toolchain"] == second_build["selected_toolchain"], "second build toolchain differs")
+        check(first_build["comparison"]["candidate_sha256"] == second_build["comparison"]["candidate_sha256"], "second build candidate hash differs")
+        check(second_build["build_log_sha256"] == diff.sha(gzip.decompress(
+            (second_path.parent / "second-build.log.gz").read_bytes())), "second build log hash differs")
+    check(receipt["idl_sha256"] == diff.sha(diff.IDL), "receipt IDL hash differs")
+    check(receipt["global_snapshot_sha256"] == diff.sha(diff.SNAPSHOT), "receipt snapshot hash differs")
     for path, checksum in receipt["source_sha256"].items():
-        assert checksum == diff.sha(diff.ROOT / path), path
+        check(checksum == diff.sha(diff.ROOT / path), path)
     for name, checksum in receipt["dependency_sha256"].items():
-        assert checksum == diff.sha(diff.ROOT / "evidence/dependencies" / name / "deployed.so")
+        check(checksum == diff.sha(diff.ROOT / "evidence/dependencies" / name / "deployed.so"), "dependency hash differs")
     if expected_baseline == "80990317bd9c0363e071646b892490886d7bf946":
         package = build_path.parent
         reproducibility = json.loads((package / "build-reproducibility.json").read_text())
-        assert reproducibility["source_base_commit"] == expected_baseline
-        assert reproducibility["candidate_sha256"] == receipt["candidate_sha256"]
-        assert reproducibility["builds_identical"] and not reproducibility["deployed_byte_match"]
-        assert reproducibility["source_sha256"] == build["source_sha256"]
+        check(reproducibility["source_base_commit"] == expected_baseline, "reproducibility baseline differs")
+        check(reproducibility["candidate_sha256"] == receipt["candidate_sha256"], "reproducibility candidate hash differs")
+        check(reproducibility["builds_identical"] and not reproducibility["deployed_byte_match"], "reproducibility build identity differs")
+        check(reproducibility["source_sha256"] == build["source_sha256"], "reproducibility source hashes differ")
         for filename in ("build-attempt.json", "second-build-attempt.json"):
             attempt = json.loads((package / filename).read_text())
-            assert attempt["returncode"] == 0 and attempt["source_unchanged"]
-            assert attempt["source_sha256"] == build["source_sha256"]
+            check(attempt["returncode"] == 0 and attempt["source_unchanged"], "build attempt was not a clean success")
+            check(attempt["source_sha256"] == build["source_sha256"], "build attempt source hashes differ")
         regression = json.loads((package / "regression-summary.json").read_text())
         quote_file = package / "quote-control-regression.json.gz"
         curve_file = package / "multi-hop-regression.json.gz"
         quote = json.loads(gzip.decompress(quote_file.read_bytes()))
         curve = json.loads(gzip.decompress(curve_file.read_bytes()))
-        assert regression["candidate_sha256"] == receipt["candidate_sha256"]
-        assert regression["quote_control"]["receipt_sha256"] == diff.sha(quote_file)
-        assert regression["multi_hop_curve"]["receipt_sha256"] == diff.sha(curve_file)
-        assert quote["cases"] == 507 and quote["mismatches"] == 0
-        assert all(checksum == diff.sha(diff.ROOT / path)
-                   for path, checksum in quote["bound_inputs_sha256"].items())
-        assert curve["case_count"] == curve["passed"] == 56
-        assert curve["candidate_sha256"] == receipt["candidate_sha256"]
+        check(regression["candidate_sha256"] == receipt["candidate_sha256"], "regression candidate hash differs")
+        check(regression["quote_control"]["receipt_sha256"] == diff.sha(quote_file), "quote regression receipt hash differs")
+        check(regression["multi_hop_curve"]["receipt_sha256"] == diff.sha(curve_file), "curve regression receipt hash differs")
+        check(quote["cases"] == 507 and quote["mismatches"] == 0, "quote regression cases/mismatches differ")
+        check(all(checksum == diff.sha(diff.ROOT / path)
+                   for path, checksum in quote["bound_inputs_sha256"].items()), "quote bound input hash differs")
+        check(curve["case_count"] == curve["passed"] == 56, "curve regression case count differs")
+        check(curve["candidate_sha256"] == receipt["candidate_sha256"], "curve regression candidate hash differs")
     idl = json.loads(diff.IDL.read_text())
     item = next(item for item in idl["instructions"]
                 if item["name"] == "admin_update_token_incentives")
@@ -84,43 +90,43 @@ def main(receipt_path=diff.OUTPUT, candidate_path=diff.CANDIDATE,
                             if event["name"] == "AdminUpdateTokenIncentivesEvent")["discriminator"])
     global_fixture = next(row for row in json.loads(diff.SNAPSHOT.read_text())["accounts"]
                           if row["program_name"] == "pump")
-    assert global_fixture["data_sha256"] == receipt["global_snapshot_account_data_sha256"]
-    assert len(receipt["cases"]) == len(diff.variants()) == receipt["summary"]["cases"] == 98
+    check(global_fixture["data_sha256"] == receipt["global_snapshot_account_data_sha256"], "snapshot account data hash differs")
+    check(len(receipt["cases"]) == len(diff.variants()) == receipt["summary"]["cases"] == 98, "case count must be 98")
     successes = 0
     for row, (name, variant) in zip(receipt["cases"], diff.variants()):
-        assert row["case"] == name and row["variant"] == variant
-        assert row["match"] and not row["differing_fields"]
+        check(row["case"] == name and row["variant"] == variant, "case/variant identity differs")
+        check(row["match"] and not row["differing_fields"], "case did not match")
         for binary, stored in ((diff.TARGET, row["target"]),
                                (candidate_path, row["candidate"])):
             observed = diff.run(binary, item, variant, global_fixture)
-            assert observed == stored, (name, binary)
-            assert observed["signature_verified"]
+            check(observed == stored, (name, binary))
+            check(observed["signature_verified"], "replayed signature was not verified")
         target, candidate = row["target"], row["candidate"]
         for field in ("error", "error_code", "before", "after",
                       "signed_transaction_base64", "signature", "events",
                       "state_debug_logs", "inner_instructions", "return_data_hex",
                       "args", "keys"):
-            assert target[field] == candidate[field], (name, field)
+            check(target[field] == candidate[field], (name, field))
         if target["error"] is None:
             successes += 1
-            assert len(target["events"]) == 1
-            assert len(target["state_debug_logs"]) == 1
+            check(len(target["events"]) == 1, "success case must emit exactly one event")
+            check(len(target["state_debug_logs"]) == 1, "success case must emit exactly one debug log")
             event = base64.b64decode(target["events"][0])
-            assert len(event) == 88 and event[:8] == event_disc
-            assert event[40:72] == bytes(diff.MINT)
-            assert bytes.fromhex(target["inner_instructions"][-1]["data_hex"])[8:] == event
+            check(len(event) == 88 and event[:8] == event_disc, "event length/discriminator differs")
+            check(event[40:72] == bytes(diff.MINT), "event mint differs")
+            check(bytes.fromhex(target["inner_instructions"][-1]["data_hex"])[8:] == event, "inner instruction event bytes differ")
         else:
-            assert not target["state_debug_logs"]
+            check(not target["state_debug_logs"], "error case must not emit debug logs")
             # The wrong self-CPI program errors after emit! wrote its log
             # event; transaction rollback still preserves every account.
             if name == "wrong_program":
-                assert len(target["events"]) == 1 and not target["inner_instructions"]
+                check(len(target["events"]) == 1 and not target["inner_instructions"], "wrong-program case must emit exactly one event and no inner instructions")
             else:
-                assert not target["events"]
+                check(not target["events"], "error case must not emit events")
             for account in FINANCIAL_ACCOUNTS:
-                assert target["before"][account] == target["after"][account], (name, account)
-    assert successes == receipt["summary"]["target_successes"] == 43
-    assert receipt["summary"]["matched"] == 98
+                check(target["before"][account] == target["after"][account], (name, account))
+    check(successes == receipt["summary"]["target_successes"] == 43, "success count must be 43")
+    check(receipt["summary"]["matched"] == 98, "matched count must be 98")
     print(json.dumps({"verified": True, "signed_cases": len(receipt["cases"]),
                       "successes": successes, "rollbacks": len(receipt["cases"]) - successes,
                       "candidate_sha256": receipt["candidate_sha256"]}))

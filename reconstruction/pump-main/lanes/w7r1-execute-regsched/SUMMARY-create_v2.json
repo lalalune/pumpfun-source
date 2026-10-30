@@ -1,0 +1,24 @@
+{
+  "lane": "w7r1-execute-regsched (create_v2 agent; the lane name is shared with a sweep::execute agent)",
+  "target": "0x1e7c0 create_v2::execute",
+  "base": {"commit": "2b85821", "ratio": 0.96854, "bytes": 15584},
+  "best": {"build": "so", "ratio": 0.98870, "bytes": 15576, "slots_diff": 43, "official": "1027/276, 0 losses, 0 raw losses", "sha256_unstripped_create_only": "7f095a06", "sha256_branch_head": "bba24089b85ad5620d252fda6497b2ab11dbd13eb3ca5c2e5af6e3d0a7230319"},
+  "mechanisms_accepted": [
+    "creator store after token_total_supply (memcpy keeps IR position once the &mut BondingCurve pointer is an SSA value): 0.96854->0.97284",
+    "nested fee test `if matches!(..) {if fee==0 {} else {..}}` so the fee-check blocks are created before the join and validate_metadata's ? continuation follows its inlined exit (BPF cannot reverse conditional branches): ->0.98763 at original size",
+    "store order vqr, ivqr, vtr (from w7r1-execute-frame/sibling): ->0.98870"
+  ],
+  "rejected": [
+    "!matches!(..) || fee==0 {} else {..}: byte-identical to c1",
+    "validate_quote_mint main return mint.key() / *mint.key: 0.53448"
+  ],
+  "ir_oracle_findings": [
+    "bb112 phi order (sroa.31 before sroa.47): 0.98870->0.98978; order fixed by SROA mem2reg in the first post-inline SROA run",
+    "creator ptr r2 vs r4 / name reload placement: unchanged by 526 intra-block moves, 437 adjacent swaps, 506 block moves, 90 branch-successor swaps, 180 branch-weight settings, 1395 GEP x memcpy placements, ~1500 neutral drift moves"
+  ],
+  "unresolved": ["bb112 phi order (2 mov swaps)", "creator ptr register / name reload (34 slots)"],
+  "next_ideas": [
+    "find a Rust form of validate_quote_mint's result whose Sol paths store quote word 0 separately (w7r1-execute-inline root cause), then re-check the RA residual, which is likely coupled",
+    "rustc -print-after for sroa/instcombine on candidate spellings to check phi order before full scoring"
+  ]
+}

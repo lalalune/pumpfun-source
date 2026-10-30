@@ -35,6 +35,9 @@ class BatchMetricTests(unittest.TestCase):
         rows=[json.loads(line) for line in self.output.getvalue().splitlines()]
         self.assertEqual([row['window'] for row in rows],['0x0','0x8'])
         self.assertTrue(all(row['normalized_equal'] and row['raw_equal'] for row in rows))
+        self.assertTrue(all(row['call_counts_original'] == {
+            'internal': 0, 'syscall_or_relocated': 0, 'indirect': 0,
+        } for row in rows))
 
     def test_duplicates_are_coalesced_in_request_order(self):
         metric.main(['candidate.so','8','0','0x8'])

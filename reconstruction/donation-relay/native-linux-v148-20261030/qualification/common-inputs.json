@@ -1,0 +1,527 @@
+{
+  "revision": "26f4d952d3c3b11f63efe8b5bc608c6378071a4b",
+  "inputs": [
+    {
+      "path": "reconstruction/harness/llvm_tools.py",
+      "gitMode": "100644",
+      "gitBlob": "7e08c4c432dce8a3e29adb88034857a48beaf9fe",
+      "sha256": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "reconstruction/harness/score.py",
+      "gitMode": "100755",
+      "gitBlob": "acf47733c6ed19c7b0f3fef7c72ab3864c9db4e7",
+      "sha256": "3975499eb09033a9c25cdef1824ef01318de97e434de6269e7f382f6f554f7f1",
+      "admission": "current public Git blob"
+    },
+    {
+      "path": "reconstruction/harness/elf_symbols.py",
+      "gitMode": "100644",
+      "gitBlob": "b30cb36b3baf349626856ada5b54945293a440dc",
+      "sha256": "ae1d283bfe028e6afe1ebf711d72c669899f98424f1acb0e546ec8fbef6f68f7",
+      "admission": "current public Git blob"
+    },
+    {
+      "path": "scripts/revalidate_all.py",
+      "gitMode": "100644",
+      "gitBlob": "ac05d43e380d0819f17d9febeb98d20bfa569a7a",
+      "sha256": "cb8c32cc23bb5d763d1e62e30c3ac25e0e30b759bf422578da5b1a397386ea40",
+      "admission": "existing current tracked input"
+    },
+    {
+      "path": "scripts/test_tooling.py",
+      "gitMode": "100644",
+      "gitBlob": "b4f074a69600b48c69462e6442ec580c00484557",
+      "sha256": "5e72941572f53f5d4adaf723dc9f9918c2ed36956c2ed2709911d904be321ae4",
+      "admission": "existing current tracked input"
+    },
+    {
+      "path": "scripts/sbpf_disassembly_inventory.py",
+      "gitMode": "100644",
+      "gitBlob": "2954546e1501c833932a2d48715811d1fd2baf4a",
+      "sha256": "4660abe8c70628ab3493fa0e6974c98d3a1bf9f3584f5a42ee5395da1cb54b6c",
+      "admission": "existing current tracked input"
+    },
+    {
+      "path": "scripts/analyze.py",
+      "gitMode": "100644",
+      "gitBlob": "503b58b9d795c024d499de5675bc5a28cf48d24f",
+      "sha256": "e31f5263691d40491a2544398d1bce0f776ebef3ca19da6c09d330b9c1bed4e1",
+      "admission": "existing current tracked input"
+    },
+    {
+      "path": "scripts/recover_dispatch.py",
+      "gitMode": "100644",
+      "gitBlob": "5901b6ca1893ca28d2b8638f2fd4f4e1ec67e99c",
+      "sha256": "7242fda946690246b6cc6d5ffd10241f34da47d3c0cb2cb9f52270de7f1be86a",
+      "admission": "existing current tracked input"
+    },
+    {
+      "path": "scripts/test_pump_diagnostic_audit.py",
+      "gitMode": "100644",
+      "gitBlob": "33564aa412adc69bad9b5c30494c33b089fb8283",
+      "sha256": "8ebdc8f46db42c1d004e799e1e568eb3d21c75d0bcb5105ae177a92a42980c02",
+      "admission": "existing current tracked input"
+    },
+    {
+      "path": "scripts/pump_diagnostic_audit.py",
+      "gitMode": "100644",
+      "gitBlob": "2394cee8694c8d0266e5d3e1777060f1e74d304f",
+      "sha256": "b0280ab17d3e4a310b9d0e027732d157978879ddd0911214e78e13e1e0f68a80",
+      "admission": "existing current tracked input"
+    },
+    {
+      "path": "scripts/compare.py",
+      "gitMode": "100644",
+      "gitBlob": "ee8d7c697fc24fb3e8e21b6427c7ed1cb4d21712",
+      "sha256": "4898fcd07cb99e50cd4076b74633bb8c2864fb34ab65a83461c2fb08b9238e08",
+      "admission": "existing current tracked input"
+    },
+    {
+      "path": "scripts/local_validation.py",
+      "gitMode": "100644",
+      "gitBlob": "5955a0bcb7a38cab8a1dcfcfec1daf68a1d23790",
+      "sha256": "5a38963c954492134af5250e41e3555cd5305f1d28c1a3dfe118cbdcf287bbd9",
+      "admission": "existing current tracked input"
+    },
+    {
+      "path": "scripts/deep_disassembly.py",
+      "gitMode": "100644",
+      "gitBlob": "4f577fa855045e4ae88b05526009ad52e9ac36ca",
+      "sha256": "fe1167b06e045b7f2c68e7177c3703b89a360c0fafe1f6b44ed6c0707381bc27",
+      "admission": "existing current tracked input"
+    },
+    {
+      "path": "scripts/window_elf_reader.py",
+      "gitMode": "100644",
+      "gitBlob": "fae967748e25c95f03788e0f02905cecb4fcf44a",
+      "sha256": "89cc22378686465ac8102432981c4c7f883724ea19bac05001590ad37e64cae1",
+      "admission": "existing current tracked input"
+    },
+    {
+      "path": "scripts/deep_section_analysis.py",
+      "gitMode": "100644",
+      "gitBlob": "4738c6ee78b683baa8d1de353fcea46bf12ec1ce",
+      "sha256": "9f871abb9d4ecba1a491c699550314b7216d35fd843ea769ebed880419c40dce",
+      "admission": "existing current tracked input"
+    },
+    {
+      "path": "scripts/test_analysis_interface_inventory.py",
+      "gitMode": "100644",
+      "gitBlob": "49ca8ef848858553d1c747f63b05c8e7a49e9898",
+      "sha256": "e147d834f78e8593f0a4ac6b18cfa5f2bddc8e9549aa34ee87022a35bac349fc",
+      "admission": "existing current tracked input"
+    },
+    {
+      "path": "scripts/verify_evidence.py",
+      "gitMode": "100644",
+      "gitBlob": "62917d8ca175579b1481938d7016918d906757f7",
+      "sha256": "4f6c4ae7c9a4cea7431e36e2199c1e907920f40dde2fb7a93eef76818bfb9d63",
+      "admission": "existing current tracked input"
+    },
+    {
+      "path": "scripts/capture.py",
+      "gitMode": "100644",
+      "gitBlob": "3e262b8364d0dec7c6cbf78b9e2019ea9757fbd7",
+      "sha256": "71e28a5fb815a45664f06d6902ef1437f469a4d3c99a00e221efe583daa11905",
+      "admission": "existing current tracked input"
+    },
+    {
+      "path": "evidence/binary-analysis.json",
+      "gitMode": "100644",
+      "gitBlob": "df66a16bba204c8d9e6950d0e814cf5e992dc9f6",
+      "sha256": "f094d80a417d6e0b4ac6ce0e8cfae0912a1ca9d30fd8f441bd5d64956399e23f",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/associated_token/capture.json",
+      "gitMode": "100644",
+      "gitBlob": "1ba0fb7a4cfc17288347fb8a56ee44f0135a3c1b",
+      "sha256": "0b1b18d80b6ccde58f96ffe879be4cc8f2a1ceba5a40c1a3ba2c1b6bcf618327",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/associated_token/deployed.so",
+      "gitMode": "100644",
+      "gitBlob": "01fcb69b8014df8979c4e56d8d7b3e4643333ce3",
+      "sha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/associated_token/program-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "01fcb69b8014df8979c4e56d8d7b3e4643333ce3",
+      "sha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/donation_relay/capture.json",
+      "gitMode": "100644",
+      "gitBlob": "e661b8d454e65321d7bfe7ebc45599472d40dbe3",
+      "sha256": "1c604cf91334ae1162f2dac66cdf27f00695b666b5bad0f934969f6cf0509650",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/donation_relay/deployed.so",
+      "gitMode": "100644",
+      "gitBlob": "ee966e35883678341e4c964741f512e7fb7bc320",
+      "sha256": "367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563",
+      "admission": "existing current tracked input"
+    },
+    {
+      "path": "evidence/dependencies/donation_relay/program-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "29e472ccfffb08a01aa817930d1ab01e4c3fe4b0",
+      "sha256": "2e2d8271447a8820c5e55a8c5779927c11784701f94cbd6f6733e5ecc1590766",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/donation_relay/programdata-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "bf03cbaf8d0b01dfad7e60c5e74a78f8a01cb1c7",
+      "sha256": "42d80bfd3663975888721e067bb3c7764b090d9146f16fa0ccf97c3bc2ff1014",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/spl_token/capture.json",
+      "gitMode": "100644",
+      "gitBlob": "f5439136658f4e35ee966e4ecb928ac79a20f7df",
+      "sha256": "26b905e633fd869d9e9a9e34627ddf8308d0323d51565f35973d47d125e34213",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/spl_token/deployed.so",
+      "gitMode": "100644",
+      "gitBlob": "ddab82d0d26649235095d99bde6e4bba2f327bb8",
+      "sha256": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/spl_token/program-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "1ba9f204287af80d80f106e72f233a4d86bc21ef",
+      "sha256": "5b31219b7bc4060b1638b933be5f50df3400109acfef12408a196d57ad119748",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/spl_token/programdata-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "68b24bda18e9de889fc858599ffe97c5b2720c74",
+      "sha256": "573971c9baedda479bf4c38537787ae396358009b4920f8a270bd2b31dde5fe3",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/spl_token_2022/capture.json",
+      "gitMode": "100644",
+      "gitBlob": "6c348cb2e6a0c9e8f95c38681d2cee8e5ca7105e",
+      "sha256": "f114c064c5a1d08d75bcce3e01552204816048b8aa74dfd59cacb74f9a85fe54",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/spl_token_2022/deployed.so",
+      "gitMode": "100644",
+      "gitBlob": "be80935166687161c48b7972be2e45d65fec3fc0",
+      "sha256": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/spl_token_2022/program-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "40c72bd7c1efbb5f6b053d64731b8c7a027df695",
+      "sha256": "bae3e5d63e30c0c3e6fe788b9e027bf003ca5e5bb46d3a9627e034bb3002ea5c",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/spl_token_2022/programdata-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "ca3313f65218da401a621784aad0b2cbc5476134",
+      "sha256": "babc437405bea7f9d4083097a7266db84de58330bdc41c2b54f1f4e4c66aaa94",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/token_metadata/capture.json",
+      "gitMode": "100644",
+      "gitBlob": "f346cb3a1bfb88e5491dee04ad91fae2d6cba496",
+      "sha256": "abc57f175e6e51f59cce6bdc56311e5425e0fa082d930b9a60d4ef0324331008",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/token_metadata/deployed.so",
+      "gitMode": "100644",
+      "gitBlob": "fdebe231b08c4fdb131cb6fd04099f6b8787e747",
+      "sha256": "31f0a627dba051a938de650464e55cc5397a4be0fd496929c1f9cf02fe5e9011",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/token_metadata/program-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "b4f38b33ca8ec6bb1eda4f5cce5bf38eff796053",
+      "sha256": "0f1b17a95b5f588794003ef8494ffc4e59933f3f2226e41dee037aa312c5e21e",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dependencies/token_metadata/programdata-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "ea2106bff08efc998466ae07630beb4e8eb2614d",
+      "sha256": "7a381c406f3206acebc3adbd2e4e010568a3835abdc3f10e09ba5ba2e1af076c",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/disassembly-manifest.json",
+      "gitMode": "100644",
+      "gitBlob": "d3d1e86fe28288f66930ba79b9c19397e8f454f2",
+      "sha256": "819fa931596749cc6632a68000e9f38faf7c95b8650aa9d719855befa3cc3626",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/dispatch-map.json",
+      "gitMode": "100644",
+      "gitBlob": "beb670956ffa298fef7e79da1a5fb00371dda76a",
+      "sha256": "609e4795d796aeed61c7e6d8853407264362166afd05bd9d76687ed673ecc2f9",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/interface-inventory.json",
+      "gitMode": "100644",
+      "gitBlob": "64bcaffb50916fc45e36b3f5040d74c61be27c80",
+      "sha256": "4d8f5947eee1e96d51139b15ecf3bfabe8f4bc844996f40dfe0e9314dc52bfea",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/original/mayhem/capture.json",
+      "gitMode": "100644",
+      "gitBlob": "be05db08cab4b427e49e3c705b42b79ed210d890",
+      "sha256": "fcdd031280b2d85491f3600dd8723134d529d39c7e701df9b91ff80a76e48b64",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/original/mayhem/deployed.so",
+      "gitMode": "100644",
+      "gitBlob": "b0aac22b32bc95dca13d4ec8aecb625f4faaba28",
+      "sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/original/mayhem/program-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "d226d146810ad1b3051fe6089a007d7b07573f63",
+      "sha256": "c06afe39a901bccfcff73e60c84e27c49dddf8dad28c592a16f11305a993f45d",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/original/mayhem/programdata-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "19d9b6bc3722c73d3bbc59301796af4bf8d64bda",
+      "sha256": "a556c21bbf54f1da76ada6bd6b809a8315e45a1af43f13ac7e2839dd5312cfa2",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/original/pump/capture.json",
+      "gitMode": "100644",
+      "gitBlob": "df303eca3ce70f3b8d43015ca72ba358e62ce8f5",
+      "sha256": "ffb53e71ce9cbee60df91e54cc1d677527a6eeb5806cb8d68e525af698744110",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/original/pump/deployed.so",
+      "gitMode": "100644",
+      "gitBlob": "85cb0059f2814c86224fdfea778c56df770dd920",
+      "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/original/pump/program-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "30a42e224fcfc686e7a68b9fab9158cd25fe9647",
+      "sha256": "8101492b544ce08703d5de95363bf796e7e4cd17d03639cfe603071fb59652eb",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/original/pump/programdata-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "f96d5352f1fca1cd63a8c34a93f0c6251561cf44",
+      "sha256": "0b692730f9707139fd86d1c1e3a7d63a3f7cb0702278975fa99df90883aab508",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/original/pump_amm/capture.json",
+      "gitMode": "100644",
+      "gitBlob": "37e70aab3da36dffd932603e59538de7caf54fea",
+      "sha256": "ffb8eb471345e4625c42b7f90840c1c44bb50ce202c3ebb4e9a4ec7f6abe1d8d",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/original/pump_amm/deployed.so",
+      "gitMode": "100644",
+      "gitBlob": "f8387822561c9f1b207956344578ad9df2b5c1eb",
+      "sha256": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/original/pump_amm/program-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "b1bc8382b1cb821b61c6f1ca9a4177f18a08dd01",
+      "sha256": "8a28beaa6366bb6236a8b455b61b280f430b4da6583becf73fd229886844e0da",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/original/pump_amm/programdata-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "0317a1571d7d6c76221adeaf312f86d8fd0e9955",
+      "sha256": "e3d3be2256841163ba89b6184c2cc90ca1700c820bf887e5bb58b0aa668f5840",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/original/pump_fees/capture.json",
+      "gitMode": "100644",
+      "gitBlob": "cac71e8e2463eba8bccfd8774c91fb72e15544a7",
+      "sha256": "a98928432afc25e4aa422559d4aa3bd73062e1f634ca6189ff5495d1fe158334",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/original/pump_fees/deployed.so",
+      "gitMode": "100644",
+      "gitBlob": "e330cbb6dfbc3351dbaaf594ba6e873d89af5f5e",
+      "sha256": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/original/pump_fees/program-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "7b8bbafc5e9ada557fbe58574758266dff19f0bd",
+      "sha256": "cc9077315efa761cfe0b52aae08678ccda2a07e0fa2b374c98a1d51a1b4ce079",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/original/pump_fees/programdata-account.bin",
+      "gitMode": "100644",
+      "gitBlob": "22f623cecf866fe17a36306192eea32087e75225",
+      "sha256": "3cf9ee9a380c0ced31171802d402551910ceb8c4819ede4ef44aaf63a12dbfac",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/upstream/official-repositories.json",
+      "gitMode": "100644",
+      "gitBlob": "c6523dfa84d362106e36f19f30b70eb657f570bf",
+      "sha256": "401fbb93890aa2273dd33fcebea246194779136df0265f35c735bcba104a0420",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/upstream/provenance.json",
+      "gitMode": "100644",
+      "gitBlob": "31873fbb2012126782afd12806984242ff0db9dd",
+      "sha256": "a315baa42e9ab40e70f31f541199983c2a5a2883571dbd3dfee8b690518b68b2",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/upstream/pump.json",
+      "gitMode": "100644",
+      "gitBlob": "bb79d04e5a4ef8b286d67511757c23a15672ef51",
+      "sha256": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/upstream/pump_amm.json",
+      "gitMode": "100644",
+      "gitBlob": "d907b16a91f035aeb3c3182bfa0972a91bf23a86",
+      "sha256": "b7d8c57a4d9c4dd0109a9ab893052352333252d4eedced10ac091d4d66cab89b",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/upstream/pump_fees.json",
+      "gitMode": "100644",
+      "gitBlob": "a06cfeca8aed4d984091c023ec4d5ef3fa0bdda7",
+      "sha256": "6b9fa3eccc6e06273076a47b581f9fcb9e531bb7c3c88acbcd44db55a4002b29",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/upstream/tree.txt",
+      "gitMode": "100644",
+      "gitBlob": "50ef9ecc58eb7f5dfd7896f08c3be9ca0a8fb492",
+      "sha256": "661d12efd5cd8c1983e21e985510f0ae9042d2b66dd14c82e804145a966a8afe",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "evidence/verified-build-status.json",
+      "gitMode": "100644",
+      "gitBlob": "58f34b43f349ae5da329d108673040440d9c96c6",
+      "sha256": "d77aae02c63c60781b79afb8091d8be748cc00c9599411a5b57de1f36619a107",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "reconstruction/pump-main/baseline/score.json",
+      "gitMode": "100644",
+      "gitBlob": "aedd51507f33b92810badde89efa360799d2bd08",
+      "sha256": "d8b94e211ab43543f8c36bcc566440dec73d8c1c590df3fcb33536c88a21727d",
+      "admission": "authenticated old export content only"
+    },
+    {
+      "path": "reconstruction/harness/original_input.py",
+      "gitMode": "100644",
+      "gitBlob": "023c5f7384d3e8768874a194d3f75447bb328fdc",
+      "sha256": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade",
+      "admission": "current public Git blob; missing from initial65-file sparse gate export"
+    },
+    {
+      "path": "reconstruction/harness/score_admission.py",
+      "gitMode": "100644",
+      "gitBlob": "3198de6fc28f68cf5dc5d420b7bd6da10f889e52",
+      "sha256": "0c462e5086828c11e4d336a07213f0090c7b701db7ac7772e0672b480bd822c1",
+      "admission": "new current public scorer sibling import; omitted by old sparse export"
+    }
+  ],
+  "restoredAfterSparseReapply": [
+    "reconstruction/harness/llvm_tools.py",
+    "reconstruction/harness/score.py",
+    "reconstruction/harness/elf_symbols.py",
+    "evidence/binary-analysis.json",
+    "evidence/dependencies/associated_token/capture.json",
+    "evidence/dependencies/associated_token/deployed.so",
+    "evidence/dependencies/associated_token/program-account.bin",
+    "evidence/dependencies/donation_relay/capture.json",
+    "evidence/dependencies/donation_relay/program-account.bin",
+    "evidence/dependencies/donation_relay/programdata-account.bin",
+    "evidence/dependencies/spl_token/capture.json",
+    "evidence/dependencies/spl_token/deployed.so",
+    "evidence/dependencies/spl_token/program-account.bin",
+    "evidence/dependencies/spl_token/programdata-account.bin",
+    "evidence/dependencies/spl_token_2022/capture.json",
+    "evidence/dependencies/spl_token_2022/deployed.so",
+    "evidence/dependencies/spl_token_2022/program-account.bin",
+    "evidence/dependencies/spl_token_2022/programdata-account.bin",
+    "evidence/dependencies/token_metadata/capture.json",
+    "evidence/dependencies/token_metadata/deployed.so",
+    "evidence/dependencies/token_metadata/program-account.bin",
+    "evidence/dependencies/token_metadata/programdata-account.bin",
+    "evidence/disassembly-manifest.json",
+    "evidence/dispatch-map.json",
+    "evidence/interface-inventory.json",
+    "evidence/original/mayhem/capture.json",
+    "evidence/original/mayhem/deployed.so",
+    "evidence/original/mayhem/program-account.bin",
+    "evidence/original/mayhem/programdata-account.bin",
+    "evidence/original/pump/capture.json",
+    "evidence/original/pump/deployed.so",
+    "evidence/original/pump/program-account.bin",
+    "evidence/original/pump/programdata-account.bin",
+    "evidence/original/pump_amm/capture.json",
+    "evidence/original/pump_amm/deployed.so",
+    "evidence/original/pump_amm/program-account.bin",
+    "evidence/original/pump_amm/programdata-account.bin",
+    "evidence/original/pump_fees/capture.json",
+    "evidence/original/pump_fees/deployed.so",
+    "evidence/original/pump_fees/program-account.bin",
+    "evidence/original/pump_fees/programdata-account.bin",
+    "evidence/upstream/official-repositories.json",
+    "evidence/upstream/provenance.json",
+    "evidence/upstream/pump.json",
+    "evidence/upstream/pump_amm.json",
+    "evidence/upstream/pump_fees.json",
+    "evidence/upstream/tree.txt",
+    "evidence/verified-build-status.json",
+    "reconstruction/pump-main/baseline/score.json"
+  ],
+  "all66PresentAndGitAuthenticatedBeforeFinalReplay": true,
+  "all67PresentAndGitAuthenticatedBeforeReplay": true
+}

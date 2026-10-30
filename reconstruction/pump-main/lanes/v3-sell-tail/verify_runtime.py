@@ -1,4 +1,7 @@
 """Verify retained receipts and signatures; this does not execute the programs."""
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O.")
+
 import base64
 import gzip
 import hashlib

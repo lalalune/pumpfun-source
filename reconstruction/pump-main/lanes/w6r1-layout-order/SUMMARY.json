@@ -1,0 +1,86 @@
+{
+  "lane": "w6r1-layout-order",
+  "wave": 6,
+  "round": 1,
+  "target": "raw (all normalized-but-not-raw windows): function order / placement",
+  "base": "origin/main 099b0dd (1027/276); rebased on 1ef172781 and then 75b6547f6 (1027/276)",
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/2168",
+  "best": {
+    "official_normalized": 1027,
+    "official_raw": 276,
+    "gains": [],
+    "losses": [],
+    "unmatched_windows": "all 8 identical in size and ratio to main",
+    "unstripped_sha256_prefix": "17b9000544058057",
+    "ours_only_units": [
+      1,
+      0
+    ],
+    "text_size_vs_original_bytes": [
+      456,
+      -56
+    ],
+    "handler_bodies_at_program_position": [
+      1,
+      5
+    ],
+    "model_raw_8_matched_our_order": [
+      429,
+      462
+    ],
+    "model_raw_8_matched_plus_buy_handler_moved": [
+      431,
+      702
+    ],
+    "model_raw_full_original_order": 1023,
+    "data_offset_equal_windows": "1027 of 1027",
+    "units_in_wrong_U_L_block": [
+      1,
+      0
+    ],
+    "L_LIS": [
+      "476/482",
+      "480/481"
+    ]
+  },
+  "kept": [
+    "857b6b91 drop the 512-B black_box ensure_rent_exempt wrapper: callers call the matched twin (its unreachable_unchecked hint already keeps _size live through DeadArgElim)",
+    "2a9710aa sell_v3 program fn #[inline(never)] + trade::sell #[inline(always)]",
+    "cbded140 buy_exact_quote_in_v2 program fn #[inline(never)] + buy_exact_quote_in_handler #[inline(always)]",
+    "401dc71c buy_v3 / buy_exact_quote_in_v3 program fns + trade::buy/buy_exact_quote #[inline(always)] pub(crate): an inline(always) PUB fn in a lib crate exports its private callees (v3_emit_buy went internal fastcc -> hidden, lost ArgPromotion of ctx); pub(crate) keeps codegen identical",
+    "ee07f78c 0x2bc0 = anchor Error::with_account_name::<String> (bump-allocator no-op dealloc, so no drop) outlined at a cold call site: rent site .with_account_name(format!(..)) + trailing #[cold] identity rent_exempt_error(error); local with_owned_name removed",
+    "f059ac34 shareholders.to_vec() (5 sites): outlined <T as ConvertVec>::to_vec lands at the original U address 0xcf18",
+    "1bf90489 pay_out_native pair in def order: non-generic pay_out_native_owned (by value) defined before the generic (by reference)"
+  ],
+  "rejected": [
+    "29cfb6da buy_v3 program form with pub trade::buy (loses 0x147ba0, 0x859b0)",
+    "1c323db1 buy_exact_quote_in_v3 program form with pub trade fn (same losses)",
+    "v3 trio with pub trade fns (same losses)",
+    "d6daced5 / 8a8bcc17 buy_handler program form (15512/0.97998 -> 15520/0.97129)",
+    "dc50323c OptionBool into buy_handler; 159d7b06 let mut input; af977407 #[inline]/plain handler (byte-identical to inline(always)); emit-block; 19f50873 creator local removed (0.79378)",
+    "359d9f46 thin outlined buy_v2 wrapper: raw +7 by L-size coincidence = ballast",
+    "every single L move of the 8 unmatched fns or the extra unit (model): +0 raw at today's sizes",
+    "0b98911e cold helper containing error.with_account_name(name) (loses 0x6fef8)",
+    "7c31cb05 direct .with_account_name(format!) (loses 0x2bc0, 0x6fef8)",
+    "18df28c4 #[cold] name builder (correct U instance but 160-B extra unit; loses 0x6fef8)",
+    "99dbcaf7 #[cold] #[inline(always)] helper (same as direct)",
+    "423fe2fc pay_out_native split with a non-generic &AccountInfo fn (add_lamports resolves differently; loses 0x969f0)"
+  ],
+  "findings": [
+    "Model (layout-order-census fastmodel) reproduces official raw exactly. 751 normalized-only windows = 601 data-lddw (need equal .text size) + 150 call-only (size deltas, misplaced handlers, U/D hash order).",
+    "No order change raises official raw at today's sizes; full original order gives 293, all of it from U/D symbol-hash order (crate metadata).",
+    "With rustc 1.79-dev, large #[inline(always)] bodies are LLVM-inlined (not MIR): in program form, marker-less callee allocas get entry lifetime.starts and the inlined noalias ctx adds scope metadata.",
+    "U-block non-hash anomalies (tools/uanom.py) reveal different spellings in the original: with_account_name::<String> at a cold site (0x2bc0), to_vec instead of clone (0xcf18); the remaining three fit crate name pump"
+  ],
+  "unresolved": [
+    "buy_handler (0x13b9b8) in program-fn form: +217 model raw once the 8 match; costs +8 B today (block placement around buy_v2.rs:494-500 checked adds)",
+    "U and D symbol-hash order (~370 model windows): needs original crate metadata",
+    "U drop_in_place<pump_recovered::..> trio (Migrate, AdminCto, Option<PreviousHop>) order fits a 4-char root crate name (pump): +3 model, needs a crate rename (Cargo identity + harness), not attempted"
+  ],
+  "next_ideas": [
+    "buy_handler lanes: match in program-fn form (#[inline(never)] buy_v2 + #[inline(always)] handler); compare IR against the module form with tools/irent.py",
+    "Unmatched lanes: official raw jumps to ~432 when the 8 windows reach original size (no extra units left); to 649 with buy_handler at the program position",
+    "Beyond ~654: ordered link script or original crate identity, as for AMM/mayhem/fees"
+  ],
+  "remaining_gap": "702 -> 1023 model windows = U symbol-hash order (+280) and D symbol-hash order (+41); needs original crate metadata or an ordered link script"
+}

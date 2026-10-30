@@ -1,0 +1,43 @@
+{
+ "lane": "w6r3-layout-rodata",
+ "wave": 6,
+ "round": 3,
+ "target": "raw (lddw targets, rodata): .rodata/.data.rel.ro/.rel.dyn layout so data lddw addresses and relocations match",
+ "base": "origin/main 6484b2837 (1027/293), rebased onto fb25fce02 (1030/295)",
+ "pr": "https://github.com/lalalune/pumpfun-source/pull/2370",
+ "best": {
+  "official_normalized": 1030,
+  "official_raw": 295,
+  "gains": [],
+  "losses": [],
+  "raw_losses": [],
+  "unstripped_sha256": "b139972ff37fa6a9374c0883a3df254f93a733667cd325b19d167376607d88bd",
+  "rel_dyn_entries_orig_main_this": [6147, 6149, 6147],
+  "windows_with_differing_text_relocation_count": [1, 0],
+  "admin_cto_string_vtable_lddw_orig_main_this": [9, 11, 9],
+  "admin_cto_to_string_inline_call_orig_main_this": ["8/7", "10/5", "8/7"],
+  "admin_cto_data_lddw_multiset_equal": true,
+  "rodata": "byte-identical",
+  "data_rel_ro": "158 text-pointer slots differ, all point at the paired function",
+  "text_size_delta_main_this": [472, 56],
+  "with_pr2168": {"main_plus_2168": "1030/336", "plus_this": "1030/336, 0 losses", "raw_if_data_rebased": 553},
+  "admin_cto_0x22a10": {"ratio": [0.37637, 0.32392], "bytes": [27344, 26928], "orig_bytes": 27400}
+ },
+ "mechanisms_kept": [
+  "f5a10147: line-296 HolderRewardDisabled check moved inside the if-holder arm (same checks, order, Source lines). The separate holder&& check left an infeasible holder=true edge into the else arm, so the BFI of the 307/312 error blocks was 2.2%, just over LLVM's 2% cold-callsite cutoff (threshold 45 vs 325), and ToString::to_string (cost 130) was inlined there with a String fmt::Write vtable lddw. Now 307/312 call the outlined to_string, as in the original"
+ ],
+ "analyses": [
+  "b9032d07: whole-ELF non-text census mapped through the window pairing: .rodata identical, .data.rel.ro text pointers identity-correct, .dynsym equal, 590 non-text relocations equal, per-window relocation counts equal except admin_cto",
+  "4aed3843: -Cremark=inline -Cdebuginfo=line-tables-only and -Cllvm-args=-print-bfi/-print-bfi-func-name plus -print-before=inline (experiment only) give per-call-site inline thresholds and block frequencies. This oracle works for any 'why is X inlined here but not there' question"
+ ],
+ "rejected": [],
+ "unresolved": [
+  "official raw: all data offsets and relocations now match the original; raw from data rebasing (553 with #2168) needs total .text size equal (unmatched deltas cand-orig: create_v2 +8, admin_cto -472, swap_hop -40, sweep +48) and then function placement",
+  "admin_cto is 472 B short with equal call count and equal data-reference multiset: the gap is plain code structure"
+ ],
+ "next_ideas": [
+  "admin_cto lanes: keep 307/312 cold (the 296 check in the holder arm); the original's extra 472 B contain no calls and no data references",
+  "after each code merge rerun tools/elfmap.py (relocation multiset per window) and shiftraw.py; the data side needs no more work"
+ ],
+ "tools": "reconstruction/pump-main/lanes/w6r3-layout-rodata/tools/"
+}

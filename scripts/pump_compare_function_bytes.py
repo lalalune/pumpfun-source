@@ -16,6 +16,7 @@ from pump_exact_body_inventory import window_inventory
 from pump_quote_control_function_match import sections, candidate_functions, function_body as body
 
 ROOT = Path(__file__).resolve().parents[1]
+WINDOW_COLUMNS = {'program', 'variant', 'original_start', 'original_end'}
 
 
 def normalize(raw, address, image_sections):
@@ -42,6 +43,34 @@ def normalize(raw, address, image_sections):
     return bytes(masked), operands
 
 
+def selected_window(stream, original_start):
+    reader = csv.DictReader(stream, delimiter='\t')
+    if not WINDOW_COLUMNS <= set(reader.fieldnames or ()):
+        raise ValueError('selected Pump window inventory is missing columns')
+    matches = []
+    for row in reader:
+        if row['program'] != 'pump' or row['variant'] != 'selected':
+            continue
+        try:
+            start, end = int(row['original_start']), int(row['original_end'])
+        except ValueError:
+            raise ValueError('invalid bounds in selected Pump window inventory')
+        if start == original_start:
+            if end <= start:
+                raise ValueError(
+                    f'invalid selected Pump window bounds at {original_start:#x}'
+                )
+            matches.append(row)
+    if not matches:
+        raise ValueError(f'no selected Pump window starts at {original_start:#x}')
+    if len(matches) != 1:
+        raise ValueError(
+            f'ambiguous selected Pump window starts at {original_start:#x}: '
+            f'{len(matches)} rows'
+        )
+    return matches[0]
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--original-start',type=lambda s:int(s,0),required=True)
@@ -50,9 +79,12 @@ def main():
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--objdump',default=str(Path.home()/'.cache/solana/v1.52/platform-tools/llvm/bin/llvm-objdump'))
     args=p.parse_args()
-    original=(ROOT/'evidence/original/pump/deployed.so').read_bytes();candidate=args.candidate.read_bytes()
     with window_inventory().open() as stream:
-        row=next(r for r in csv.DictReader(stream,delimiter='\t') if r['program']=='pump' and r['variant']=='selected' and int(r['original_start'])==args.original_start)
+        try:
+            row=selected_window(stream,args.original_start)
+        except ValueError as error:
+            p.error(str(error))
+    original=(ROOT/'evidence/original/pump/deployed.so').read_bytes();candidate=args.candidate.read_bytes()
     size=int(row['original_end'])-args.original_start
     original_sections=sections(original);candidate_sections=sections(candidate)
     ob=body(original,original_sections,args.original_start,size)

@@ -7,6 +7,13 @@ import pump_tokenkeg_two_curve_differential as base
 from build_source_manifest import source_manifest
 from verify_pump_main_checkpoint import MANIFEST_SHA256, PACKAGE, ROOT, sha
 
+
+def check(condition, message):
+    """Fail closed under optimized Python, where assert statements vanish."""
+    if not condition:
+        raise AssertionError(message)
+
+
 original_binding = base.compiled_binding
 
 
@@ -16,25 +23,25 @@ def portable_binding(candidate, build_report):
     if binding is None:
         return original_binding(candidate, build_report)
     package = ROOT / PACKAGE
-    assert sha(package / 'MANIFEST.json') == MANIFEST_SHA256
+    check(sha(package / 'MANIFEST.json') == MANIFEST_SHA256, "portable binding verification failed: sha(package / 'MANIFEST.json') == MANIFEST_SHA256")
     manifest = json.loads((package / 'MANIFEST.json').read_text())
-    assert binding['kind'] == 'verified-equal-canonical-primary-source'
-    assert binding['origin_build_record'] == PACKAGE + '/canonical-build.json'
+    check(binding['kind'] == 'verified-equal-canonical-primary-source', "portable binding verification failed: binding['kind'] == 'verified-equal-canonical-primary-source'")
+    check(binding['origin_build_record'] == PACKAGE + '/canonical-build.json', "portable binding verification failed: binding['origin_build_record'] == PACKAGE + '/canonical-build.json'")
     origin_path = package / 'canonical-build.json'
-    assert sha(origin_path) == manifest['canonical-build.json'] == binding['origin_build_record_sha256']
-    assert sha(package / 'CHECKPOINT.json') == manifest['CHECKPOINT.json']
+    check(sha(origin_path) == manifest['canonical-build.json'] == binding['origin_build_record_sha256'], "portable binding verification failed: sha(origin_path) == manifest['canonical-build.json'] == binding['origi")
+    check(sha(package / 'CHECKPOINT.json') == manifest['CHECKPOINT.json'], "portable binding verification failed: sha(package / 'CHECKPOINT.json') == manifest['CHECKPOINT.json']")
     checkpoint = json.loads((package / 'CHECKPOINT.json').read_text())
     origin = json.loads(origin_path.read_text())
-    assert origin['returncode'] == 0 and origin['source_unchanged']
-    assert binding['original_compiled_source_sha256'] == origin['source_sha256']
-    assert report['comparison'] == origin['comparison']
-    assert sha(candidate) == checkpoint['candidate_sha256'] == origin['comparison']['candidate_sha256']
+    check(origin['returncode'] == 0 and origin['source_unchanged'], "portable binding verification failed: origin['returncode'] == 0 and origin['source_unchanged']")
+    check(binding['original_compiled_source_sha256'] == origin['source_sha256'], "portable binding verification failed: binding['original_compiled_source_sha256'] == origin['source_sha256']")
+    check(report['comparison'] == origin['comparison'], "portable binding verification failed: report['comparison'] == origin['comparison']")
+    check(sha(candidate) == checkpoint['candidate_sha256'] == origin['comparison']['candidate_sha256'], "portable binding verification failed: sha(candidate) == checkpoint['candidate_sha256'] == origin['comparison")
     expected = {'programs/pump/' + name: digest
                 for name, digest in checkpoint['primary_source_sha256'].items()}
-    assert report['source_sha256'] == expected
-    assert base.SOURCE_DIRECTORY == ROOT / 'programs/pump'
-    assert source_manifest(base.SOURCE_DIRECTORY, base.SOURCE_DIRECTORY, ROOT,
-                           cwd=base.SOURCE_DIRECTORY) == expected
+    check(report['source_sha256'] == expected, "portable binding verification failed: report['source_sha256'] == expected")
+    check(base.SOURCE_DIRECTORY == ROOT / 'programs/pump', "portable binding verification failed: base.SOURCE_DIRECTORY == ROOT / 'programs/pump'")
+    check(source_manifest(base.SOURCE_DIRECTORY, base.SOURCE_DIRECTORY, ROOT,
+                           cwd=base.SOURCE_DIRECTORY) == expected, "portable binding verification failed: source_manifest(base.SOURCE_DIRECTORY, base.SOURCE_DIRECTORY, ROOT,")
     return {'binding_kind': binding['kind'],
             'report': str(build_report.relative_to(ROOT)),
             'report_sha256': sha(build_report),
