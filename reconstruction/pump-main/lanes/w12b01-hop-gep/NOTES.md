@@ -55,7 +55,7 @@ pub(crate) fn v3_can_cross(global:&Global,curve:&BondingCurve,user:&Pubkey)->boo
    sees through the SSA `&((*box_ptr).0)` binding and rewrites the reborrow into a fresh
    `&((*box_ptr).0: Global)` in the call block, so the binding in bb57 becomes dead. Every
    `&PLACE`-derived local behaves the same way, which is why hoisted bindings were byte-identical
-   (`v1`; optimized MIR in `t/v1/module.mir`: bb57 `_203 = &((*_697).0)` dead, bb64
+   (`v1`; its optimized MIR, from `MIR=1 tools/trial.sh v1 edits/v1.py`, has bb57 `_203 = &((*_697).0)` dead, bb64
    `_219 = &((*_697).0)` passed to the call).
 
 **What works:** the bb57 `&Global` must be an argument of a call that the MIR inliner skips but
