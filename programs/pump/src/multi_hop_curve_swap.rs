@@ -589,7 +589,7 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
             let base = u64::try_from(crate::constant_product::tokens_for_quote(c,q)?).map_err(|_| error!(PumpError::Truncation))?;
             require_gt!(base,0,PumpError::BuyZeroAmount);
 
-            let reserves = c.real_token_reserves; let (base_amount,quote_amount,fees,post_fill) = if base <= reserves {(base,q,nf,None)} else {
+            let reserves = c.real_token_reserves; let (base_amount,quote_amount,fees,post_fill) = if base > reserves {
 
 
 
@@ -597,12 +597,12 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
 
 
                 let allowed = { let global = &*a.global; let user = a.user.key(); !c.is_mayhem_mode && user!=global.whitelist_pda }; require!(allowed,PumpError::NotEnoughTokensToBuy);
-                if let Some((f, quote, post)) = complete_fill(&a.global,&a.fee_config,fee_config_len,cap,c,
+                match complete_fill(&a.global,&a.fee_config,fee_config_len,cap,c,
                     &h.associated_base_bonding_curve,flag,p_rate,c_rate,trade_amount)? {
-
-                    (reserves,quote,f,Some(post))
-                }else{(reserves,q,nf,None)}
-            };
+                    None => (reserves,q,nf,None),
+                    Some((f, quote, post)) => (reserves,quote,f,Some(post)),
+                }
+            } else {(base,q,nf,None)};
 
 
 
