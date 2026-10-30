@@ -56,6 +56,41 @@ def syscall_relocs(blob):
     return out
 
 
+def obj_function(path, pattern):
+    """Return (raw bytes, {offset: callee name}) for a function in a relocatable SBF object
+    built with -function-sections (llc oracle output); calls are named via .rel sections."""
+    import re
+    blob = Path(path).read_bytes()
+    by, hs = shdrs(blob)
+    names = {i: n for n, h in by.items() for i, hh in enumerate(hs) if hh is h}
+    symtab = next(h for h in hs if h[1] == 2)
+    strtab = hs[symtab[6]]
+    def sname(o):
+        return blob[strtab[4] + o:blob.index(b'\0', strtab[4] + o)].decode()
+    syms = [struct.unpack_from('<IBBHQQ', blob, symtab[4] + i * 24) for i in range(symtab[5] // 24)]
+    fn = next(s for s in syms if s[1] & 15 == 2 and re.search(pattern, sname(s[0])))
+    sec = hs[fn[3]]
+    raw = blob[sec[4] + fn[4]:sec[4] + fn[4] + fn[5]]
+    relocs, data = {}, {}
+    for i, h in enumerate(hs):
+        if h[1] == 9 and h[7] == fn[3]:  # SHT_REL applying to the function's section
+            for o in range(0, h[5], 16):
+                off, info = struct.unpack_from('<QQ', blob, h[4] + o)
+                sym = syms[info >> 32]
+                nm = sname(sym[0])
+                if not nm and sym[1] & 15 == 3:  # section symbol
+                    nm = names.get(sym[3], '?sec')
+                rel = off - fn[4]
+                relocs[rel] = nm
+                if (info & 0xffffffff) == 1 and sym[3] < len(hs):  # R_BPF_64_64 lddw: read the u32 it points at
+                    addend = struct.unpack_from('<i', raw, rel + 4)[0]
+                    tsec = hs[sym[3]]
+                    at = tsec[4] + sym[4] + addend
+                    if tsec[1] == 1 and at + 4 <= len(blob):
+                        data[rel] = struct.unpack_from('<I', blob, at)[0]
+    return raw, relocs, data
+
+
 def body_at(blob, secs, addr, size):
     t = secs['.text']
     o = addr - t['addr'] + t['offset']
@@ -107,7 +142,7 @@ def label_imms(imms):
     return ' '.join(out)
 
 
-def calls(raw, start, relocs, names, blob=None, secs=None):
+def calls(raw, start, relocs, names, blob=None, secs=None, objrel=None, objdata=None):
     seq = []
     i = 0
     lddw = {}
@@ -116,7 +151,12 @@ def calls(raw, start, relocs, names, blob=None, secs=None):
         op, regs, off, imm = struct.unpack_from('<BBhi', raw, i)
         pc = start + i
         dst = regs & 15
-        if op == 0x18:
+        if op == 0x18 and objdata is not None:
+            if i in objdata:
+                lddw[dst] = ('u32', objdata[i])
+            else:
+                lddw.pop(dst, None)
+        elif op == 0x18:
             lddw[dst] = struct.unpack_from('<I', raw, i + 4)[0] | struct.unpack_from('<I', raw, i + 12)[0] << 32
         elif op in (0x62, 0x6a, 0x72, 0x7a, 0xb7, 0xb4):
             imms.append(imm)
@@ -129,7 +169,7 @@ def calls(raw, start, relocs, names, blob=None, secs=None):
             if blob is not None:
                 for r in (2, 1):
                     if r in lddw:
-                        v = rodata_u32(blob, secs, lddw[r])
+                        v = lddw[r][1] if isinstance(lddw[r], tuple) else rodata_u32(blob, secs, lddw[r])
                         if v is not None and v < 200:
                             ann = (ann + ' ' if ann else '') + f'v{6000 + v}' + (f':{ERRS.get(6000 + v, "?")}' if 6000 + v in ERRS else '')
                             break
@@ -138,7 +178,9 @@ def calls(raw, start, relocs, names, blob=None, secs=None):
             seq_ann = ann
         else:
             seq_ann = None
-        if op == 0x85:
+        if op == 0x85 and objrel is not None:
+            seq.append((pc, 'call', None, objrel.get(i, f'?{imm}'), seq_ann))
+        elif op == 0x85:
             src = regs >> 4
             if src == 1 and imm != -1:
                 tgt = pc + 8 + imm * 8
@@ -189,15 +231,19 @@ def main():
     ap.add_argument('--table', action='store_true', help='print the full aligned table')
     ap.add_argument('--by-site', action='store_true', help='align on callee plus error variant (error-site identity)')
     ap.add_argument('--json')
+    ap.add_argument('--obj', help='relocatable object from an llc oracle (-function-sections); callees named by relocation')
     a = ap.parse_args()
     if a.json and (Path(a.json).exists() or Path(a.json).is_symlink()):
         ap.error('report already exists; choose a fresh --json path')
     w, wsize = int(a.window, 0), int(a.size, 0)
     orig = resolve_original(BASE / 'original.so').read_bytes()
     osecs = sections(orig)
-    cand = Path(a.cand).read_bytes()
-    csecs = sections(cand)
-    funcs = function_symbols(cand)
+    if not a.obj:
+        cand = Path(a.cand).read_bytes()
+        csecs = sections(cand)
+        funcs = function_symbols(cand)
+    else:
+        funcs = []
     names = {}
     for s, n, nm in funcs:
         names.setdefault(s, nm)
@@ -207,12 +253,20 @@ def main():
     for s, n, nm in function_symbols(Path(a.orig_names).read_bytes()):
         onames.setdefault(s, nm)
     import re
-    cs = [(s, n, nm) for s, n, nm in funcs if re.search(a.sym, nm)]
-    if len(cs) != 1:
-        sys.exit(f'--sym matched {len(cs)} candidate functions: {[(hex(s), n) for s, n, _ in cs]}')
-    cstart, csize, cname = cs[0]
+    if a.obj:
+        oraw, orel, odata = obj_function(a.obj, a.sym)
+        cand, csecs = None, None
+    else:
+        cs = [(s, n, nm) for s, n, nm in funcs if re.search(a.sym, nm)]
+        if len(cs) != 1:
+            sys.exit(f'--sym matched {len(cs)} candidate functions: {[(hex(s), n) for s, n, _ in cs]}')
+        cstart, csize, cname = cs[0]
     oseq = calls(body_at(orig, osecs, w, wsize), w, syscall_relocs(orig), onames, orig, osecs)
-    cseq = calls(body_at(cand, csecs, cstart, csize), cstart, syscall_relocs(cand), names, cand, csecs)
+    if a.obj:
+        cstart, csize = 0, len(oraw)
+        cseq = calls(oraw, 0, {}, {}, orig, osecs, objrel=orel, objdata=odata)
+    else:
+        cseq = calls(body_at(cand, csecs, cstart, csize), cstart, syscall_relocs(cand), names, cand, csecs)
     import re as _re
 
     def key(x):
