@@ -57,6 +57,8 @@ rank / our rank), main 74b31714a:
   IR-alloca area above it is 8 B larger (mint key at `[r10-0x6c8]` vs the original's `[r10-0x6c0]`).
 - Bound: remapping our sret offsets to the original's slots gives 0.51348 -> **0.52996** (whole window),
   but only +10 tokens in region 2. Region 2's frame residue is spill slots, not sret slots.
+- Both parts are needed together. Applying the original's ranks with our +8 B base, or the original's base with our
+  ranks, gains nothing (0 tokens). Only the joint remap gives the bound.
 - The fix therefore lives in region 1 (validate's RPO order, w13a06-cto-rpoorder) plus 8 B of IR-alloca area
   (the frame lanes). No region-2 statement can move it.
 
@@ -109,6 +111,10 @@ Capture: `python3 tools/capture.py <crate copy> <work> <out>`, then `python3 too
   br ok, err` turned into err-first). It gives **0.51805 at 27,392 B**: abs 0.6977 -> 0.7200, and
   region-2 tokens 505 -> 519. It changes ISel's RPO, so the ConstraintSeeds sret sites take later ranks. It
   also moves the wallet "quote token account is frozen" block out of the middle of region 2.
+- Caveat: this gain does not come from matching the original's RPO. The original's region-2 sret ranks
+  (ErrorCode::name 19, From 15, with_pubkeys 16, token_frozen 17, token_raw_amount 18) have the same relative order
+  as main's (22, 18, 19, 20, 21), only +3. The inversion scrambles that order (20, 26, 27, 18, 19). So the gain is an
+  accidental frame and register side effect, not a faithful direction.
 - Paired with a +8 B inversion it reaches 27,400 B:
   - `+inv bb44.i134` (sweep token arm, `_130`): **0.51797**;
   - `+inv bb15` (post-validate `_0.sroa.0.0.off0.i66` join): 0.51768 with only 3,265 slots_diff (main 3,334).
