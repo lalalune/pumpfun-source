@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w14a03-cto-liverange/tools/slottab.py", line 6, in <module>
+    O=load('orig.txt'); C=load(sys.argv[1]); slots=json.load(open(sys.argv[2]))['slots']
+  File "/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w14a03-cto-liverange/tools/slottab.py", line 5, in load
+    def load(p): return [(int(l.split()[0],16),l.split(None,1)[1].strip()) for l in open(p) if l.strip()]
+                                                                                    ~~~~^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'orig.txt'
