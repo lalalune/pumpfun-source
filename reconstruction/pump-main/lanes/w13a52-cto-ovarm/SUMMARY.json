@@ -1,0 +1,47 @@
+{
+ "lane": "w13a52-cto-ovarm",
+ "wave": "w13 (continued in w14)",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "base": {"main": "53abf28b1", "ratio": 0.62672, "slots_diff": 3305, "recheck_main": "23322b07c", "recheck_ratio": 0.62882},
+ "result": "notes only; OV (shared target override inside validate's non-holder arm) is dominated by main on current mains",
+ "best_zero_loss": null,
+ "best_oracle": {"variant": "OV + IR lifetime markers on target.sroa.4 + frame greedy", "ratio": 0.60499, "bytes": 27176, "source_expressible": false},
+ "best_source_ov": {"variant": "OVw1 (OV, no Ok wrapper)", "ratio": 0.58271, "bytes": 27096, "main": "53abf28"},
+ "findings": [
+  "On 6ff770f/53abf28/23322b0 OV no longer relayouts the sweep tail: call/exit landmark runs identical to main, errseq = main, Result-tag tests on r7 (19 sites); the MBP veto plays no part in OV today",
+  "OV loss is frame + registers: fm 0.71781 < main 0.72588 while skeleton 0.85680 > main 0.85410",
+  "Mechanism: OV's target is single-assignment, so MIR CopyProp drops StorageLive/Dead; SROA piece target.sroa.4 (9 B) has no lifetime markers, gets its own slot and shifts the orig 0x6a8-0xc28 spill band by +0x10; IR-adding the markers lifts OV 0.53309 -> 0.59356",
+  "Dropping execute's Ok::<_,Error>((target,sharing_update,cashback))? wrapper helps OV (0.58271 @27096) but lowers fm",
+  "OV + holder_key PDA first has the best skeleton seen (0.86525) but regalloc in the clone runs collapses fm to 0.687",
+  "addlt oracle (add lifetime markers to the 8 marker-less allocas): no gain on main or OVw1"
+ ],
+ "attempts": 38,
+ "rejected_mechanisms": [
+  "override spellings: if / match / !shared / shared as the first param (byte-identical)",
+  "OV + s_map token-arm .map",
+  "Some(new) instead of Some(args.0) (0.36514)",
+  "target non-SSA spellings: let target;target=.., {..?;t}, *&target, clone, target=target, &(..?,).0, (..?,).0, let mut target=default;target=..?",
+  "per-arm store forms in validate (let r;if shared{r=..}else{r=t}r; let mut r=t;if shared{r=..})",
+  "Ok wrapper variants (only su/cb, Ok(target)?, Ok((target,su))?)",
+  "OV/OVw1 + PDA-first (L9), + Rent let, + per-arm cashback tuple, OVMK (override in both)"
+ ],
+ "unresolved_residuals": [
+  "no source spelling gives the single-assignment target lifetime markers (worth +0.06 to OV)",
+  "the original's 53-insn shared-arm block (orig 0xd90-0xe58: st.creator copied twice, 8/24 split, fee-None threaded per arm) is not produced by any OV form",
+  "OV is 224-304 B short of 27400 B"
+ ],
+ "next_ideas": [
+  "a source form that makes validate's target non-SSA without extra code (e.g. a second assignment on a path MIR keeps until after CopyProp)",
+  "OV + PDA-first: steer regalloc of the AccountInfo clone runs (sk 0.865 is the best skeleton seen)",
+  "fill OV's 224 B with the original's per-arm fee-None threading (w13a18 vb) rather than pad knobs"
+ ],
+ "ledger_keys": [
+  "0x22a10-w13-53abf28-ovarm-ov-port-v1",
+  "0x22a10-w13-53abf28-ovarm-ov-target-lifetime-oracle-v1",
+  "0x22a10-w13-53abf28-ovarm-ov-drop-ok-wrapper-v1",
+  "0x22a10-w13-53abf28-ovarm-ov-arm-store-forms-v1",
+  "0x22a10-w13-53abf28-ovarm-ov-target-borrow-forms-v1",
+  "0x22a10-w13-53abf28-ovarm-main-addlt-oracle-v1",
+  "0x22a10-w13-53abf28-ovarm-ov-combos-l9-smap-rent-cb-v1"
+ ]
+}
