@@ -87,6 +87,20 @@ python3 reconstruction/pump-main/lanes/five-bytecode-followups/verify.py \
   --candidate /tmp/pump-five-current/unstripped.so --report /tmp/pump-five-verify.json
 ```
 
+Run the verifier's success and refusal controls against the same supplied builds:
+
+```sh
+python3 reconstruction/pump-main/lanes/five-bytecode-followups/test_verify.py \
+  --repo /tmp/pump-five-current-inputs \
+  --baseline /tmp/pump-five-main/unstripped.so \
+  --candidate /tmp/pump-five-current/unstripped.so
+```
+
+These controls exercise normal, `-O`, and `-OO` modes, wrong ELF rejection,
+changed census/source binding rejection, and preservation of an existing report.
+They copy only this packet into temporary directories and do not modify the
+input checkout or supplied builds.
+
 The verifier requires the recorded program source in the selected input checkout, exact ELF hashes,
 unchanged scorer inputs and all 1,035 census rows. It rejects any membership loss
 or different gain set. It does not compile or replay transactions. Binaries and

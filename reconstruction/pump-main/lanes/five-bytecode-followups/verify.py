@@ -25,9 +25,6 @@ def main():
     parser.add_argument('--report', required=True, type=Path)
     args = parser.parse_args()
     root = args.repo.resolve()
-    sys.path.insert(0, str(root / 'reconstruction/harness'))
-    import score
-    from source_inputs import snapshot
     require(not args.report.exists(), 'report already exists')
     manifest = json.loads((HERE / 'MEASUREMENTS.json').read_text())
     for relative, expected_hash in manifest['inputs'].items():
@@ -35,6 +32,9 @@ def main():
         require(path.resolve().is_relative_to(root), 'input escapes repository')
         require(hashlib.sha256(path.read_bytes()).hexdigest() == expected_hash,
                 'recorded input differs: ' + relative)
+    sys.path.insert(0, str(root / 'reconstruction/harness'))
+    import score
+    from source_inputs import snapshot
     before = {name: hashlib.sha256(path.read_bytes()).hexdigest()
               for name, path in [('baseline', args.baseline), ('candidate', args.candidate)]}
     source = snapshot(root / 'programs/pump')
