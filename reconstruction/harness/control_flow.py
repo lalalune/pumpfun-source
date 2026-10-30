@@ -10,6 +10,7 @@ from score import sections, body
 
 
 def analyze(raw, start=0):
+    # This decoder uses the legacy SBPFv0/v1 instruction layout.
     if start < 0 or start % 8 or not raw or len(raw) % 8:
         raise ValueError('function must have a nonempty, 8-byte aligned range')
     instructions = {}
@@ -87,6 +88,9 @@ def main(argv=None):
     try:
         blob = args.binary.read_bytes()
         secs = sections(blob)
+        version = struct.unpack_from('<I', blob, 0x30)[0]
+        if version not in (0, 1):
+            raise ValueError('control-flow decoding supports legacy SBPFv0/v1 ELF inputs only')
         text = secs['.text']
         if args.size <= 0 or args.start < text['addr'] or args.start + args.size > text['addr'] + text['size']:
             raise ValueError('requested range is outside .text')
