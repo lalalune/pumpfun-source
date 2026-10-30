@@ -1,0 +1,128 @@
+{
+ "lane": "w13a11-cto-stitch",
+ "wave": 13,
+ "angle": "admin_cto integrator/stitcher",
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "start_main": {
+  "sha": "3912c47ac",
+  "ratio": 0.48772,
+  "slots_diff": 3273
+ },
+ "end_main": {
+  "sha": "bf9a05d02",
+  "ratio": 0.55872,
+  "slots_diff": 3323
+ },
+ "prs": [
+  {
+   "number": 2885,
+   "state": "merged (land.py, 085e5dffb)",
+   "ratio": [
+    0.48772,
+    0.48922
+   ]
+  },
+  {
+   "number": 2892,
+   "state": "merged (by review agent, 4394685)",
+   "ratio": [
+    0.48922,
+    0.49071
+   ]
+  },
+  {
+   "number": 2917,
+   "state": "merged (by review agent with #2906, a33309705)",
+   "ratio": [
+    0.49101,
+    0.49431
+   ]
+  },
+  {
+   "number": 2925,
+   "state": "closed (main c6bf273d3 made the same fix)",
+   "ratio": [
+    0.49401,
+    0.49431
+   ]
+  },
+  {
+   "number": 2933,
+   "state": "merged (by review agent, 74b31714a)",
+   "ratio": [
+    0.50929,
+    0.51348
+   ]
+  },
+  {
+   "number": 2993,
+   "state": "closed (superseded by #2989/#2991; conflicts on 224ff93aa)",
+   "ratio": [
+    0.53206,
+    0.53295
+   ]
+  }
+ ],
+ "best_zero_loss_at_pinned_size": {
+  "ratio": 0.51348,
+  "slots_diff": 3334,
+  "bytes": 27400,
+  "unstripped_sha256": "620d90b0b2e33a2f422cbb6755437804dc3a30d9a125f2e298d39cd3da9ca9fc",
+  "pr": 2933
+ },
+ "best_relative_gain": {
+  "ratio": 0.53295,
+  "base_ratio": 0.53206,
+  "bytes": 27400,
+  "pr": 2993,
+  "note": "zero losses on 1043a51e8, superseded before landing"
+ },
+ "attempts": {
+  "builds": 410,
+  "compile_failed": 1,
+  "ledger_approach": "stitch-composite",
+  "dedupe_key_prefix": "0x22a10-w13-3912c47-stitch-"
+ },
+ "tooling": "~/.cache/pumpfun-reconstruction/lanes/w13a11-cto-stitch/tools: w12a04 genes.py/run.py queue runner + genes13.py (gene catalog re-keyed on each main)",
+ "composes": [
+  "skip+vsig+bo+reset",
+  "skip+vsig+bo+gate_res+evcb+rref",
+  "g8+hr_curve+reset (on C1)",
+  "r1ord+hr_local+reset_inline",
+  "sof3+reset+fee_iflet (on 1043a51e8 only)"
+ ],
+ "conflicts": [
+  "fee_iflet with the skip family",
+  "w_cp_inline with the skip family",
+  "#2906 curve-store order with g8 (-0.0003)",
+  "c_296_nested with g8 (-0.18)",
+  "Result gate with r1ord (-0.13)",
+  "validate(args.0) with r1ord",
+  "skip-tree permutations scu/suc/usc on 74b31714a (-0.13)",
+  "hrb with every +32 knob tried",
+  "sof3 on 224ff93aa (-0.04)"
+ ],
+ "rejected_mechanisms": [
+  "v_296_rev as a +32 knob",
+  "can_edit placement as a size knob (0 B)",
+  "ok_or_else at 306 (-96 B, -0.012)",
+  "old-before-bump in the sweep on 74b31714a (byte-identical)",
+  "validate by-value sharing key",
+  "hk_first after hk_after_shared landed"
+ ],
+ "unresolved": [
+  "cus (-16 B, +0.0005 on bf9a05d02) needs a neutral +16 B companion",
+  "hrb-style -32 genes need +32 companions; the catalog has none that keep the ratio",
+  "frame residuals listed in BRIEF wave-13 notes"
+ ],
+ "next_ideas": [
+  "Screen each new main with the +-8/16 knob set (cus, reset, fee iflet, hr/cb event sources) right after it lands: it found a gain on 4 of 8 mains",
+  "Build new +8/+16 knobs that do not touch the validate or sweep regions (e.g. event field sources, pool CPI argument forms)",
+  "Re-run the full genes13 catalog on bf9a05d02; only the knob subset was screened there"
+ ]
+}
