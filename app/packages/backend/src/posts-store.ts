@@ -189,6 +189,21 @@ export class PostStore {
     // The store documents deterministic read-only data: snapshot the seed so
     // caller-owned rows (and the shared default seed) cannot corrupt later reads.
     this.posts = structuredClone(seed ?? (seedData as RawPost[]));
+    for (const post of this.posts) {
+      // Preserve the existing absent/null -> [] projection, but every supplied
+      // mention must match the closed three-field DTO instead of leaking invalid JSON.
+      const mentions = post.mentions ?? [];
+      if (!Array.isArray(mentions)) throw new TypeError('Post mentions must be an array');
+      for (const mention of mentions) {
+        if (!mention || typeof mention !== 'object' || Array.isArray(mention) ||
+            Object.keys(mention).length !== 3 ||
+            !['userId', 'username', 'walletAddress'].every(key => Object.hasOwn(mention, key)) ||
+            typeof mention.userId !== 'string' || typeof mention.username !== 'string' ||
+            !(mention.walletAddress === null || typeof mention.walletAddress === 'string')) {
+          throw new TypeError('Post mention must match userId, username and nullable walletAddress');
+        }
+      }
+    }
     if (new Set(this.posts.map(p => p.postId)).size !== this.posts.length) throw new TypeError('Duplicate post identity');
     this.byPostId = new Map(this.posts.map(p => [p.postId, p]));
     this.userStore = userStore ?? defaultStore;
