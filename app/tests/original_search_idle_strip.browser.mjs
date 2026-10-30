@@ -52,6 +52,12 @@ test(
       packet.observations.push({
         name,
         state: await state(),
+        geometry: await page.evaluate(() => {
+          const n = document.querySelector(".overflow-x-auto");
+          return n
+            ? { left: n.scrollLeft, width: n.clientWidth, total: n.scrollWidth }
+            : null;
+        }),
         records: await records(),
         events: await events(),
       });
@@ -223,7 +229,10 @@ test(
       );
       await next.click();
       await page.waitForFunction(
-        () => document.querySelector(".overflow-x-auto").scrollLeft > 340,
+        () =>
+          Math.abs(
+            document.querySelector(".overflow-x-auto").scrollLeft - 360,
+          ) < 1,
       );
       const g = await geometry();
       assert.equal(g.width, 360);

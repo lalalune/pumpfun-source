@@ -269,7 +269,7 @@ function Host() {
     value: s,
     children: [
       jsx("style", {
-        children: `.overflow-x-auto{display:flex;width:${s.width}px;overflow-x:auto;gap:12px}.overflow-x-auto>[data-search-tile],.overflow-x-auto>div[aria-hidden=true]{box-sizing:border-box;flex:0 0 170px;width:170px;min-height:100px}.overflow-x-auto>div[data-search-tile]{position:relative}.absolute{position:absolute;inset:0}header{display:flex;gap:20px}body{font:14px sans-serif}`,
+        children: `.overflow-x-auto{display:flex;width:${s.width}px;overflow-x:auto;gap:12px}.overflow-x-auto>div,.overflow-x-auto>a{box-sizing:border-box;flex:0 0 170px;width:170px;min-height:100px}.overflow-x-auto>div[data-search-tile]{position:relative}.absolute{position:absolute;inset:0}header{display:flex;gap:20px}body{font:14px sans-serif}`,
       }),
       jsx(
         Component,
