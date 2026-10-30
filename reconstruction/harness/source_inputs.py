@@ -1,4 +1,4 @@
-"""Deterministic source-tree receipts; excludes generated target and Git metadata."""
+"""Source-tree receipts; excludes the crate-root target directory and Git metadata."""
 import hashlib
 import json
 import os
@@ -12,7 +12,8 @@ def snapshot(root):
         raise ValueError('source root must be a directory')
     files = []
     for directory, dirs, names in os.walk(root, followlinks=False):
-        dirs[:] = sorted(name for name in dirs if name not in ('target', '.git'))
+        dirs[:] = sorted(name for name in dirs if name != '.git'
+                         and not (name == 'target' and Path(directory) == root))
         for name in dirs:
             if (Path(directory) / name).is_symlink():
                 raise ValueError('source directory symlinks are not supported')
