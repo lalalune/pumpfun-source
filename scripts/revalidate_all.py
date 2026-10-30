@@ -119,6 +119,11 @@ def check_manifest(packet_dir):
     except Exception as e:
         return {"status": "manifest_parse_error", "errors": [str(e)]}
 
+    if not records:
+        # A manifest that declares no files verifies nothing.
+        return {"status": "fail", "files_checked": 0,
+                "files_expected": 0, "errors": ["manifest declares no files"]}
+
     errors = []
     checked = 0
     for row in records:

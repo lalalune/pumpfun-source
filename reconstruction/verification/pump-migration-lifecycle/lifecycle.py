@@ -595,7 +595,7 @@ def validate_lifecycle(run):
     if len(signatures) != len(set(signatures)):
         failures.append("duplicate-transaction-signature")
     for receipt in receipts:
-        if not all(receipt["signature_verification"]):
+        if not receipt["signature_verification"] or not all(receipt["signature_verification"]):
             failures.append(receipt["step"] + ":signature-verification")
         if receipt["error"] and receipt["rollback_nonfee_equal"] is not True:
             failures.append(receipt["step"] + ":failure-not-atomic")

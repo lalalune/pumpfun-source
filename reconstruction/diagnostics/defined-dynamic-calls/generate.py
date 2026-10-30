@@ -11,7 +11,7 @@ import types
 
 ROOT = Path(__file__).resolve().parents[3]
 REVIEWED = {
-    'scripts/reconstruction_roadmap.py': 'dfa0eaddcef4bc8451a26a84e18a716947fd3ed718cb46b480a93da2bb28ece2',
+    'scripts/reconstruction_roadmap.py': '750a60872dba39d138244185f4882c77203c7270681c7ad28e263998f6e0fdce',
     'scripts/window_elf_reader.py': '5a57f32949f983fc6f9ddf40916cd04bfcd2a73b6a16cc0e9d5d6872180dac32',
     'research/tooling-roadmap-call-classification-20261029/proof.py': '8aeba2ad966d8540b1148d063f9c58cb89aa5ed45072c6433a7db7a4bdbe683d',
 }

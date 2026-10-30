@@ -34,10 +34,15 @@ those programs. There is no frontend, backend, SDK or off-chain service code.
 | **Total** |**3,335/3,338**|**99.9%**|**2,650**|**685**|**3**|**4/5**|
 
 Matched windows cover **5,151,568/5,213,128 code bytes (98.8%)**.
-Pump Main and AMM were freshly rebuilt. Fees and Mayhem retain their exact
-historical checkpoints, with current recipe/source bindings checked; their
-compilers were not rerun. Donation Relay's retained cold-build packet was
-verified against current source. See the [scores, provenance and open-PR
+Re-verified on main `2d9aa42a9`: a fresh Pump Main identity build reproduces
+the checkpoint binary (unstripped SHA-256 `3ca6911a…`); its meaningful ELF is
+not yet equal (41 `.text` content differences; all non-`.text` differences
+follow from them). A fresh native AMM build reproduces the captured meaningful
+ELF (`51a5f6a7…`). Fees and Mayhem retain their exact historical checkpoints:
+current source staging (65 and 67 inputs) passes and the captured meaningful
+prefixes equal the builders' pinned candidate hashes; their compilers were not
+rerun. Donation Relay's retained cold-build packet verifier passes against
+current source (818,280 meaningful bytes literally equal). See the [scores, provenance and open-PR
 review](reconstruction/pump-main/checkpoints/completion-20261030/README.md).
 
 Raw equality compares complete instruction bytes. Normalized windows mask

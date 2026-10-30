@@ -70,6 +70,8 @@ def validate(report: dict[str, Any], root: Path, candidate: Path) -> list[str]:
 
     cases = report.get("cases", [])
     steps = [step for case in cases for step in case.get("steps", [])]
+    if [case.get("name") for case in cases] != ["stateful_lifecycle", "admission_matrix"]:
+        problems.append("case_membership")
     if report.get("case_count") != len(cases):
         problems.append("case_count")
     if any(case.get("classification") != "equal_observed_behavior" or case.get("problems") for case in cases):
@@ -98,6 +100,8 @@ def validate(report: dict[str, Any], root: Path, candidate: Path) -> list[str]:
     controls = report.get("negative_controls", {})
     if not controls.get("all_detected") or not all(controls.get("detected", {}).values()):
         problems.append("negative_controls")
+    if set(controls.get("detected", {})) != {"account_state", "error", "event_payload"}:
+        problems.append("negative_control_membership")
     if set(report.get("supported_operations", [])) != {"Create", "CreateBuffer", "Write", "SetBuffer", "SetAuthority", "Close", "Resize"}:
         problems.append("operation_matrix")
     return problems

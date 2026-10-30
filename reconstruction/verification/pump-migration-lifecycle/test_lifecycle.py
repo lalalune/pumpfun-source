@@ -51,6 +51,12 @@ class LifecycleUnitTests(unittest.TestCase):
         self.assertEqual(different, ["receipt_count"])
         self.assertEqual(comparisons, [])
 
+    def test_validate_rejects_receipt_without_signature_checks(self):
+        receipt = {"step": "one", "signature": "sig", "signature_verification": [],
+                   "error": "failed", "rollback_nonfee_equal": True, "outcome": "failed"}
+        failures = lifecycle.validate_lifecycle({"receipts": [receipt]})
+        self.assertIn("one:signature-verification", failures)
+
     def test_transfer_fee_layouts_are_well_formed(self):
         mint = bytearray(82)
         mint[45] = 1

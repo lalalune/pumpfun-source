@@ -120,12 +120,23 @@ def argument_variants(kind):
     return out
 
 
+def require(condition, message):
+    if not condition:
+        raise ValueError(message)
+
+
 def validate_inventory():
+    # Explicit checks instead of asserts: `python -O` strips asserts, and the
+    # producer publishes confirmed_instruction_count from this table.
+    require(__debug__, 'Run without -O: the dispatch inventory requires validation')
     names = [row["name"] for row in INSTRUCTIONS]
-    assert len(INSTRUCTIONS) == len(set(names)) == 25
+    require(len(INSTRUCTIONS) == len(set(names)) == 25,
+            'the dispatch inventory must hold 25 uniquely named instructions')
     for row in INSTRUCTIONS:
-        assert selector(row["name"]).hex() == row["discriminator"]
-        assert all(0 <= i < len(row["accounts"]) for i in row["signer"] + row["writable"])
+        require(selector(row["name"]).hex() == row["discriminator"],
+                'selector binding differs for ' + row["name"])
+        require(all(0 <= i < len(row["accounts"]) for i in row["signer"] + row["writable"]),
+                'signer/writable index out of range for ' + row["name"])
 
 
 validate_inventory()

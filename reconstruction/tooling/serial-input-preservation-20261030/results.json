@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "base_revision": "43daa2043fb4a87838d715ab61467e4213d76d66",
+  "build_run": 41013070961,
+  "build_source_revision": "8d9c088750e6005304d919fe71192ccea74aa42c",
+  "environment": {
+    "os": "Ubuntu 22.04",
+    "python": "3.12.14",
+    "solders": "0.27.1"
+  },
+  "positive_control": {
+    "scope": "Actual unchanged serial entry point intentionally stopped after first completed production suite; not a 44-suite pass",
+    "cases": 66,
+    "mismatches": 0,
+    "candidate_unchanged": true,
+    "receipt_sha256": "0ebe3feca9a0de54edb425ed94416f10e0cf17b89f6e2cae3d4a69308d5f0632"
+  },
+  "before": {
+    "exit": 1,
+    "candidate_changed": true,
+    "before_sha256": "f8e03b83699a723a85e1b1aa22eb857987a65a85c5e14958e7c00b1287d37f46",
+    "after_sha256": "0ebe3feca9a0de54edb425ed94416f10e0cf17b89f6e2cae3d4a69308d5f0632",
+    "retained_first_suite_cases": 66,
+    "diagnostic": "invalid account data for instruction after candidate overwrite"
+  },
+  "after": {
+    "exit": 1,
+    "candidate_changed": false,
+    "before_sha256": "f8e03b83699a723a85e1b1aa22eb857987a65a85c5e14958e7c00b1287d37f46",
+    "after_sha256": "f8e03b83699a723a85e1b1aa22eb857987a65a85c5e14958e7c00b1287d37f46",
+    "retained_first_suite_cases": null,
+    "diagnostic": "validation output aliases a bound input"
+  },
+  "tests": {
+    "serial_cli": {
+      "tests": 1,
+      "subcases": 4,
+      "passed": true
+    },
+    "parallel_filesystem": {
+      "tests": 6,
+      "passed": true
+    },
+    "parallel_publication": {
+      "tests": 5,
+      "passed": true
+    },
+    "evidence": {
+      "captures": 9,
+      "passed": true
+    },
+    "test_tooling": {
+      "tests": 193,
+      "passed": true
+    }
+  }
+}
