@@ -46,6 +46,31 @@ class TreeDiffTests(unittest.TestCase):
             {'src/nested/lib.rs': b'pub const VALUE: u64 = 2;'},
         )
 
+    @unittest.skipIf(__import__('os').name == 'nt', 'POSIX executable modes required')
+    def test_executable_modes_round_trip(self):
+        import os
+        from source_inputs import snapshot
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            base, new = root / 'base', root / 'new'
+            checkout = root / 'checkout'
+            target = checkout / 'programs/pump'
+            for directory in (base, new, target):
+                directory.mkdir(parents=True)
+                (directory / 'existing.sh').write_bytes(b'#!/bin/sh\n')
+                (directory / 'binary.dat').write_bytes(b'\xff\x00')
+            (new / 'binary.dat').chmod(0o755)
+            (new / 'existing.sh').chmod(0o755)
+            (new / 'added.sh').write_bytes(b'#!/bin/sh\n')
+            (new / 'added.sh').chmod(0o755)
+            subprocess.run(['git', 'init', '--quiet', str(checkout)], check=True)
+            patch = tree_diff(base, new).encode('utf-8')
+            result = subprocess.run(['git', '-C', str(checkout), 'apply', '-'],
+                                    input=patch, capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr.decode(errors='replace'))
+            self.assertEqual(snapshot(target), snapshot(new))
+            self.assertTrue(os.access(target / 'existing.sh', os.X_OK))
+
     def test_crate_root_file(self):
         self.assert_round_trip(
             {'Cargo.toml': b'[package]\nname = "before"\n'},

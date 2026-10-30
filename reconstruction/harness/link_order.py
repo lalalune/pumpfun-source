@@ -9,8 +9,8 @@ ends with the default catch-all pattern. No symbols, assignments, fill bytes, al
 data commands are admitted, so the output is still exactly the compiler's sections,
 linked by the same rust-lld, only placed in a different order.
 
-Hooks (entry points `pump_link_rustc.py`, `pump_link_lld.py`):
-- RUSTC_WRAPPER: for the root cdylib only, append `-C linker=pump_link_lld.py` (an untracked
+Hooks (entry points `pump_link_rustc.sh`, `pump_link_lld.sh`, using the configuring Python):
+- RUSTC_WRAPPER: for the root cdylib only, append `-C linker=pump_link_lld.sh` (an untracked
   rustc option: object code and every dependency are unchanged), then run the next wrapper.
 - linker: reject response-file inputs, check the incoming script is the default one, swap in the
   pinned script, write a receipt and a link map beside it, and exec the real rust-lld with otherwise
@@ -99,7 +99,8 @@ def configure(crate, rustc, receipt):
     lld = sorted(Path(rustc).parents[1].glob('lib/rustlib/*/bin/rust-lld'))
     if len(lld) != 1:
         raise ValueError('expected one host rust-lld beside ' + str(rustc))
-    env = {'RUSTC_WRAPPER': str(H / 'pump_link_rustc.py'),
+    env = {'RUSTC_WRAPPER': str(H / 'pump_link_rustc.sh'),
+            'PUMP_RECON_PYTHON': sys.executable,
             'PUMP_LINK_NEXT_WRAPPER': str(H / 'pump_physical_source_wrapper.py'),
             'PUMP_LINK_ROOT_CRATE': lib_name,
             'PUMP_LINK_SCRIPT': str(script.resolve()),
@@ -119,7 +120,7 @@ def rustc_args(argv, env):
     if name == env['PUMP_LINK_ROOT_CRATE'] and 'cdylib' in kinds:
         if any(a.startswith(('linker=', '-Clinker=')) for a in args):
             raise ValueError('root crate already sets a linker')
-        args += ['-C', 'linker=' + str(H / 'pump_link_lld.py')]
+        args += ['-C', 'linker=' + str(H / 'pump_link_lld.sh')]
     return [sys.executable, env['PUMP_LINK_NEXT_WRAPPER'], rustc, *args]
 
 

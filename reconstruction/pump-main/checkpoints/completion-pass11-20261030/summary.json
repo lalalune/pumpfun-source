@@ -1,0 +1,153 @@
+{
+  "schema": "pump-completion-pass11-v1",
+  "date": "2026-10-30",
+  "baseline_revision": "381ca5dca2acbec7de8a984ecf753f1dc3ce2363",
+  "source_prs": [
+    2766,
+    2792
+  ],
+  "source_build_revision": "89c29009e",
+  "merged_source_revision": "c2de92de33ef74c15bae9db753f286da28b6892c",
+  "recipe": "identity",
+  "source_sha256": "1ab9c64091a42f43a75c66d8b9c590a4a32c92682174c68cb8b920339ba85ce6",
+  "unstripped_sha256": "10ed12b3c597a8b665f078e4a66b1705a978172c6f268f7e4527ccac7f348c4a",
+  "stripped_sha256": "a24cf63fe0ad7985e2e206d7f434ce7feb6a8cdcfa4076467b118bfcb2c7e8a8",
+  "baseline_source_sha256": "0e6f4ce75456ac599d401be1acaab98247bf8c2d522cf5da43524c28cc7b6d15",
+  "baseline_unstripped_sha256": "784bea21ed580b15791d642573314f778751b461334a4a217edb90013d7cbd7e",
+  "runtime_valid": true,
+  "stack_warnings": [],
+  "pump": {
+    "normalized": 1034,
+    "raw": 1034,
+    "total": 1035,
+    "matched_percent": 99.9,
+    "normalized_only": 0,
+    "unmatched": 1,
+    "matched_code_bytes": 1764808,
+    "total_code_bytes": 1792208,
+    "unmatched_windows": [
+      {
+        "address": "0x22a10",
+        "symbol": "admin_cto::execute",
+        "bytes": 27400
+      }
+    ]
+  },
+  "aggregate": {
+    "normalized": 3337,
+    "raw": 3337,
+    "total": 3338,
+    "matched_percent": 99.97,
+    "normalized_only": 0,
+    "unmatched": 1,
+    "matched_code_bytes": 5185728,
+    "total_code_bytes": 5213128,
+    "whole_meaningful_elf_equal_programs": 4,
+    "programs": 5
+  },
+  "comparison": {
+    "missing": [],
+    "added": [],
+    "resized": [],
+    "normalized_gains": [
+      "0x5b3b0"
+    ],
+    "normalized_losses": [],
+    "normalized_gained_bytes": 18584,
+    "normalized_lost_bytes": 0,
+    "raw_gains": [
+      "0x5b3b0"
+    ],
+    "raw_losses": [],
+    "raw_gained_bytes": 18584,
+    "raw_lost_bytes": 0,
+    "accepted": true
+  },
+  "partial_admin_progress": {
+    "baseline": {
+      "cand_bytes": 27400,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.45147,
+      "calls_original": [
+        154,
+        3
+      ],
+      "calls_candidate": [
+        154,
+        3
+      ],
+      "slots_diff": 3308
+    },
+    "candidate": {
+      "window": "0x22a10",
+      "window_bytes": 27400,
+      "symbol": "pump_recovered::admin_cto::execute",
+      "cand_start": "0x22a10",
+      "cand_bytes": 27400,
+      "normalized_equal": false,
+      "raw_equal": false,
+      "ratio": 0.45177,
+      "calls_original": [
+        154,
+        3
+      ],
+      "calls_candidate": [
+        154,
+        3
+      ],
+      "call_counts_original": {
+        "internal": 154,
+        "syscall_or_relocated": 3,
+        "indirect": 0
+      },
+      "call_counts_candidate": {
+        "internal": 154,
+        "syscall_or_relocated": 3,
+        "indirect": 0
+      },
+      "normalized_field_differences": {
+        "comparable": false,
+        "reason": "instruction boundaries or byte lengths differ"
+      },
+      "slots_diff": 3308,
+      "first_diff_offsets": []
+    }
+  },
+  "runtime": [
+    {
+      "name": "admin",
+      "cases": 363,
+      "mismatches": 0,
+      "scope": "Signed synthetic captured Pump admin_cto calling Fees by genuine CPI. Pool authority nonsigner at transaction boundary; no privileged signer injection. Not full program identity."
+    },
+    {
+      "name": "swap",
+      "cases": 120,
+      "mismatches": 0,
+      "scope": "Synthetic one-hop fixtures; signature verification disabled for AMM PDA. Compares errors, curve bytes, curve quote change, user base change and buyback receipt only. No post-complete fill, two-hop or Token-2022 coverage."
+    },
+    {
+      "name": "boundaries",
+      "cases": 288,
+      "mismatches": 0,
+      "scope": "Paired captured-vs-compiled one-hop boundary cases with small real reserves; AMM PDA signature verification disabled. Includes post-complete admission failures; not full successful post-complete/two-hop proof."
+    }
+  ],
+  "runtime_candidate_sha256": "a24cf63fe0ad7985e2e206d7f434ce7feb6a8cdcfa4076467b118bfcb2c7e8a8",
+  "runtime_note": "The selected tuple implementation and tested helper implementation produce identical complete unstripped and stripped ELF bytes.",
+  "scope_limits": [
+    "771 paired synthetic cases are bounded runtime evidence, not general equivalence.",
+    "Swap fixtures disable AMM PDA signature verification and do not prove all successful post-complete, multihop or Token-2022 behavior.",
+    "Only Pump was rebuilt; four other programs retain their previous exact-ELF checkpoints.",
+    "Pump meaningful ELF is not equal."
+  ],
+  "build_and_scoring_tool_revision": "70f27048e698b1b089add9b56edd83a0997fa0e8",
+  "build_and_scoring_tool_sha256": {
+    "reconstruction/harness/fastbuild.py": "ebdf04c28b69986ec2c39d8e506aab527cc326fb9765142d823633d7d7b83b80",
+    "reconstruction/harness/source_inputs.py": "7f4662fb8c541f83bd83bfdf85a7466ae6da57a0343624e51367d5044cd3e73e",
+    "reconstruction/harness/score.py": "c5c1f089c5b27454f1ab37b3e4eea8a595a78a4c12f4f9ff8fed978805def7ba",
+    "reconstruction/harness/compare_scores.py": "f6e0c2a90d4e7b34a163d0044e84f55d59a8347e5edee45e0eb1aa0431f109fa",
+    "reconstruction/base/functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8"
+  }
+}

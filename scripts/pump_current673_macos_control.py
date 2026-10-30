@@ -14,6 +14,7 @@ import shutil
 import subprocess
 import sys
 import tarfile
+import tempfile
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -33,6 +34,31 @@ def sha(path):
 
 def write(path, value):
     path.write_text(json.dumps(value, indent=2) + '\n')
+
+
+def download_archive(url, expected_sha256, destination):
+    """Download an archive without publishing bytes that fail authentication."""
+    destination = Path(destination)
+    if destination.exists() or destination.is_symlink():
+        raise FileExistsError(destination)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(
+                prefix='.' + destination.name + '.', dir=destination.parent,
+                delete=False) as output:
+            temporary = Path(output.name)
+            with urllib.request.urlopen(url, timeout=120) as response:
+                shutil.copyfileobj(response, output)
+        observed = sha(temporary)
+        if observed != expected_sha256:
+            raise ValueError(destination.stem + ' archive hash mismatch')
+        # Link only to an absent name: a file created during the download
+        # belongs to its writer and must not be replaced.
+        os.link(temporary, destination)
+        return observed
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
 
 
 def inspect(source_directory=None):
@@ -115,9 +141,7 @@ def main():
         downloads = {}
         for label, pin in spec['archives'].items():
             archive_path = WORK / (label + '.tar.bz2')
-            with urllib.request.urlopen(pin['url'], timeout=120) as response, archive_path.open('wb') as f:
-                shutil.copyfileobj(response, f)
-            assert sha(archive_path) == pin['sha256'], label + ' archive hash mismatch'
+            download_archive(pin['url'], pin['sha256'], archive_path)
             destination = WORK / label
             destination.mkdir()
             with tarfile.open(archive_path) as archive:

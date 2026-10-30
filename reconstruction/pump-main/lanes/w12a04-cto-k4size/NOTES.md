@@ -36,6 +36,34 @@ Ported unchanged (only admin_cto.rs differs from main): **27,384 B, 0.4525**, 15
 Unstripped sha256 `784bea21ed580b15791d642573314f778751b461334a4a217edb90013d7cbd7e`.
 Runtime: `scripts/pump_admin_cto_differential.py`: 363/363 cases match.
 
+## Step 2: can_edit cleared after the fee store (L2, 0.45177)
+
+On the landed L1 (#2749), moving `curve.can_edit_creator_fee=false;` from the old-value reads back to
+after the fee store (the original also clears it last, `stb [r1+0xa4],0` at orig 0x275c8) keeps
+27,400 B and raises the ratio 0.45147 -> **0.45177** (slots_diff 3,308 unchanged), 1033/1033, zero
+losses, unstripped sha256 `6892c2a15de3ba6a...`.
+
+## Knob table (single genes, admin_cto bytes and ratio)
+
+Bases: k4 = 27,384 / 0.4525; L1 = k4 + bump-first + su-match = 27,400 / 0.45147 (main after #2749);
+L2 = L1 + can_edit last = 27,400 / 0.45177.
+
+| base | gene | bytes | Δ | ratio |
+| --- | --- | ---: | ---: | ---: |
+| k4 + bump-first | `if let Some(f)=fee` store instead of `unwrap_or` | 27,384 | -8 | 0.45190 |
+| k4 + bump-first | old_creator read before old_fee | 27,392 | 0 | 0.45094 |
+| k4 + bump-first | can_edit cleared last | 27,392 | 0 | 0.45124 |
+| k4 + bump-first | sweep `frozen` before `amount` | 27,328 | -64 | 0.43768 |
+| k4 + bump-first | drop `let mut target=target;` | 27,392 | 0 | 0.45094 |
+| k4 + bump-first | sweep gate `(holder&&shared)` | 27,392 | 0 | 0.45094 |
+| L1 | can_edit cleared last | 27,400 | 0 | **0.45177** |
+| L1 | can_edit cleared right after the creator store | 27,400 | 0 | 0.45147 |
+| L2 | `pool_updated` as `if ..{cpi?;true}else{msg!;false}` | 27,392 | -8 | 0.45094 |
+| L2 | sweep gate as a phi-of-constants flag from the region-2 tree | 27,392 | -8 | 0.36794 |
+
+Exploration builds use `fastbuild.py` + `target_metric.py` only; 27,400 B hits are rescored with
+`score.py` against the current baseline and the 363-case differential before landing.
+
 ## Reproduction scope
 
 This packet retains the selected source change and its measured result. The

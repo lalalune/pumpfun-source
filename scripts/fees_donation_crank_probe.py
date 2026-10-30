@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Read original crank behavior using test-owned payer and synthetic offline state."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse,struct
 from fees_donation_create_differential import *
 from solders.compute_budget import set_compute_unit_limit
@@ -91,7 +93,7 @@ def main():
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:failures.append(c['name'])
  report={'scope':'Signed synthetic offline crank fixtures; no full-program byte identity claim.','original_sha256':hashlib.sha256((ROOT/'evidence/original/pump_fees/deployed.so').read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(a.candidate.read_bytes()).hexdigest() if a.candidate else None,'cases':rows,'mismatches':failures}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n')
+ a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n')
  print('Cases',len(rows),'mismatches',failures)
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()
