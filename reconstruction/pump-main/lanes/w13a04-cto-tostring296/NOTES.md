@@ -3,7 +3,7 @@
 Target: `0x22a10 admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Angle: outline the two inlined `to_string` calls at 307/312 (the 2 extra `lddw` / `.rel.dyn` entries, the last
 non-`.text` ELF difference), then repay the lost bytes with the original's data flow.
-Bases: main 3912c47 (0.48772), 085e5df (0.48922), 4394685 (0.49071). Ledger keys `0x22a10-w13-<sha7>-tostring296-*-v1`.
+Bases: main 3912c47 (0.48772), 085e5df (0.48922), 4394685 (0.49071), ea78c08 (0.50929, entry copy of `new` + pfclimb-3). Ledger keys `0x22a10-w13-<sha7>-tostring296-*-v1`.
 
 ## 1. The 296 move is exactly the inliner what-if (no other effect)
 
@@ -73,11 +73,68 @@ The by-value keys of w12a06 z1 cost -0.005 (`IN296`+`BYVAL` 0.43052). `take()` a
 - The z1 composite (296 in arm + `&mut new` take306 + by-value keys + `let su=new`) was 0.47234 on 3912c47
   but 0.39946 on 085e5df (native sweep path moves before the post-sweep code with the skip-flag gate).
 
+## 5. Per-arm cashback (+0.007) and the best outlined builds per main
+
+`CBA`/`CBAO`: `let (target,cashback)=if holder{..(*holder_key,false)}else{..(t,st.cashback)}` (the original computes the
+cashback flag inside the non-holder arm right after the 312 compares, orig 0x0d78).
+
+| build | main | bytes | ratio |
+| --- | --- | ---: | ---: |
+| `EL296`+`TAKE306`+`CBA` (n4c) | 4394685 (0.49071) | 27,232 | 0.46898 |
+| `EL296`+`TAKE306`+`OVMK`+`CBAO` (n7c) | 4394685 | 27,320 | **0.47720** |
+| `CBR` (validate returns `(Pubkey,bool)`) on n4c / n7c | 4394685 | 26,840 / 27,392 | 0.23759 / 0.23034 |
+| n4c genes | ea78c08 (0.50929) | 27,096 | 0.30663 |
+| n7c genes | ea78c08 | 27,000 | 0.43331 |
+| `EL296`+`TAKE306` / `IN296`+`TAKE306` | ea78c08 | 26,952 / 26,904 | 0.2682 / 0.26421 |
+
+`CBR` (n4r) has the best structure seen (chunk-struct 0.8903, frame-masked 0.638 vs main 0.606) but its exact ratio
+collapses: see section 6.
+
+## 6. Frame mechanism behind the outline collapses: the zero-size `unwrap_failed` slot (fi0)
+
+`llc -stop-after=prologepilog` on the oracle's post-opt IR prints execute's stack objects with offsets
+(`tools/mirframe.py <file.mir>`). Main keeps a zero-size alloca `_11.i` (the `&()` argument of `unwrap_failed`
+inside every inlined `to_string` body) as its own object at `[r10-0x1]`; the original does too (18 `add64 rX,-0x1`).
+Below it sits the 48 B `CtoState` at `-0x38`.
+
+- Outlining 307/312 removes two of the ZST's lifetime intervals, so StackColoring can now merge it. On main ea78c08
+  the noinline-307/312 oracle gives **0.29897** (26,904 B): the ZST is merged, the emit_cpi `authority_bump` byte
+  `_121.i` takes an own slot at 0x449 instead, and every object from `-0x38` to `-0x448` moves 8 B shallower.
+  Dropping only the ZST's lifetime markers in that IR gives 0.42443 (bottom restored, objects above 0x449 now 8 B deeper).
+- n4r (validate returns the cashback): the same ZST merge. Dropping its lifetime markers: 0.23759 -> **0.45642**
+  (frame offsets equal to the original 11 -> 152).
+- p4c on ea78c08: 0.30663 -> 0.41898 with the ZST kept.
+
+So a source outline on the newest main must also keep fi0 unmerged (the original does) and keep `_121.i` colored.
+
+## 7. Outline + the 24 B frame lever (w13a07 `nolt:_68`)
+
+w13a07 found that one more unmerged 24 B slot above `holder_key` (e.g. no lifetime markers on execute's
+require-410 `PumpError::name` String `_68`) lifts main 4394685 to 0.50869. On the outlined builds (same IR edit):
+
+| build (4394685) | ratio | + 24 B slot |
+| --- | ---: | ---: |
+| main | 0.49071 | 0.50869 |
+| n4 (`EL296`+`TAKE306`) | 0.46304 | 0.49910 |
+| n4c (+`CBA`) | 0.46898 | **0.50473** |
+| n7c (+`OVMK`+`CBAO`) | 0.47720 | 0.49670 |
+
+The outline stays 0.004-0.012 below main with the same lever, and 168-80 B short.
+
+## Conclusion
+
+Outlining 307/312 is required for the final match (lddw multiset, `.rel.dyn`), and it is structurally neutral or
+better, but every source form measured is below main at every base, mostly through frame offsets (8 B bottom
+shifts from fi0 coloring and the lost `target.sroa.0` slot). It should be revisited once the frame lanes have the
+original's 24 B host slot / 8-24 target split in source: then re-run `EL296`+`TAKE306`+`CBA` (n4c) and check fi0
+with `mirframe.py`.
+
 ## Tools (`tools/`)
 
 - `gv.py <name> <base> GENE..`: crate copy with genes from `genes.py` applied (line count asserted).
 - `run.sh v1 [v2]`: measure.sh up to two variants, then chunk-structure score and `ToString` call count.
 - `mratio.py orig_fn cand..`: exact / frame-masked / +jump / +register-masked ratios.
 - `padalloca.py`, `addprof.py`, `llco.sh`: raw-IR frame-pad and branch-weight oracles (llc-only path ~5 s).
+- `mirframe.py <file.mir>`: execute's frame objects after PEI; `nolt.py`: drop lifetime markers of named allocas.
 - `mkann.sh <so> <out>`: annotated listing (uses w12a06 `ann.py`); `clen.py`: per-call-chunk instruction deltas.
 - Also used: w12a06 `capraw.py`/`oracle.sh`/`objfn.py`/`oratio.py`/`errsites.py`, w12b11 `chunks2.py`/`framedelta.py`.

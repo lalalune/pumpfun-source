@@ -44,3 +44,15 @@ E['HM']=[("fn validate(st:&CtoState,holder:bool,fee:Option<u64>,","fn validate(s
  (" if holder&&!st.holder_reward&&!st.holder_enabled{"," if matches!(hopt,Some(true))&&!st.holder_reward&&!st.holder_enabled{"),
  (" let target=if holder{if new"," let target=if matches!(hopt,Some(true)){if new"),
  (" let cashback=if holder{false}else{st.cashback};"," let cashback=if matches!(hopt,Some(true)){false}else{st.cashback};")]
+E['CBA']=[(" let target=if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}*holder_key}else{"," let (target,cashback)=if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(*holder_key,false)}else{"),
+ ("if t==*holder_key||t==*sharing{return Err(error!(PumpError::InvalidCreator));}t};","if t==*holder_key||t==*sharing{return Err(error!(PumpError::InvalidCreator));}(t,st.cashback)};"),
+ (" let cashback=if holder{false}else{st.cashback};","")]
+E['CBAO']=[(" let target=if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}*holder_key}else{"," let (target,cashback)=if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(*holder_key,false)}else{"),
+ ("if t==*holder_key||t==*sharing{return Err(error!(PumpError::InvalidCreator));}if shared{st.creator}else{t}};","if t==*holder_key||t==*sharing{return Err(error!(PumpError::InvalidCreator));}(if shared{st.creator}else{t},st.cashback)};"),
+ (" let cashback=if holder{false}else{st.cashback};","")]
+E['CBR']=[(")->Result<Pubkey>{",")->Result<(Pubkey,bool)>{"),
+ (" Ok(target)}pub fn execute"," Ok((target,cashback))}pub fn execute"),
+ ("let cashback=!holder&&st.cashback;let mut target=validate(","let (mut target,cashback)=validate(")]
+E['CBR2']=[(")->Result<Pubkey>{",")->Result<(Pubkey,bool)>{"),
+ (" Ok(target)}pub fn execute"," Ok((target,cashback))}pub fn execute"),
+ ("let cashback=!holder&&st.cashback;let mut target=validate(","let cashback;let mut target;(target,cashback)=validate(")]

@@ -1,0 +1,41 @@
+{
+  "lane": "w13a04-cto-tostring296",
+  "wave": 13,
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "angle": "outline to_string at 307/312 (296 inside the holder arm) and repay the bytes with original data flow",
+  "bases": {"3912c47": 0.48772, "085e5df": 0.48922, "4394685": 0.49071, "ea78c08": 0.50929},
+  "landed": false,
+  "best_zero_loss_at_pinned_size": null,
+  "best_outlined_builds": [
+    {"genes": "EL296+TAKE306+OVMK+CBAO (n7c)", "main": "4394685", "bytes": 27320, "ratio": 0.4772, "lddw": 86},
+    {"genes": "EL296+TAKE306 (a4)", "main": "085e5df", "bytes": 27152, "ratio": 0.47089, "lddw": 86},
+    {"genes": "EL296+TAKE306+OVMK+CBAO (p7c)", "main": "ea78c08", "bytes": 27000, "ratio": 0.43331, "lddw": 86}
+  ],
+  "mechanisms": [
+    "296-in-holder-arm is byte-identical to the raw-IR what-if 'noinline on the 307/312 to_string calls' (26968 B 0.43599 on 085e5df): it only flips the inliner's cold-call-site decision",
+    "the outline tax is frame offsets: frame-masked ratio equal to main, register+jump+frame-masked better (0.884 vs 0.873)",
+    "take() at the 306 let-else (original and-1 tag test) is worth +0.034 on the outlined build; per-arm cashback +0.007",
+    "outline collapses on newer mains are stack-coloring of the zero-size unwrap_failed arg slot fi0 (_11.i, [r10-0x1] in main and the original): outlining removes two of its lifetime intervals, it gets merged and the bottom of the frame shifts 8 B (ea78c08: 0.29897; with fi0 kept 0.42443)",
+    "validate returning (Pubkey,bool) has the best structure seen (chunk-struct 0.8903, frame-masked 0.638) but collapses through the same fi0 merge (0.23759 -> 0.45642 with fi0 kept, IR)",
+    "with w13a07's 24 B unmerged-slot lever (nolt:_68) the outlined builds reach 0.49910-0.50473 vs main 0.50869 (4394685): still below main"
+  ],
+  "rejected": [
+    "redundant !holder&& before 307/312 to cool them for the inliner: folded, byte-identical to main",
+    "shared target override moved into validate's non-holder arm (all sweep-gate forms): sweep tail laid out after the post-sweep code, 0.17-0.30",
+    "branch weights 1:2000 / 2000:1 on the sweep-exit tag branch (llc oracle): no effect on that placement",
+    "frame pad allocas of 8-400 B at execute entry on the outlined build: best 0.44763 (8 B), 56 B gives the original spill depth and 0.42711",
+    "take() also at 298, by-value validate keys, z1 &mut new + su copy on newer mains, validate returning the cashback, old (shared&&holder) sweep gate on outlined builds, w13a06 matches! a4 + take306 (0.44753)"
+  ],
+  "unresolved": [
+    "a source form that keeps fi0 unmerged after the outline (the original does)",
+    "the original's 24 B host slot / 8-24 target split above holder_key in source (w13a02/w13a07 angle)",
+    "per-(arm,shared) fee threading that the original has after the in-arm override"
+  ],
+  "next_ideas": [
+    "once the 24 B host slot lands in source, re-run EL296+TAKE306+CBA (n4c) and check fi0 with mirframe.py",
+    "find which slot fi0 merges into after the outline (debug llc StackColoring) and give that object the original's lifetime",
+    "combine the outline with w13a06's per-site matches! holder tests after the frame is fixed"
+  ],
+  "ledger_keys": "0x22a10-w13-{3912c47,085e5df,4394685,ea78c08}-tostring296-*-v1",
+  "tools": "reconstruction/pump-main/lanes/w13a04-cto-tostring296/tools/"
+}
