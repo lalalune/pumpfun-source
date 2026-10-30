@@ -4,6 +4,7 @@ if not __debug__:
 import sys,json,base64,hashlib,argparse
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
+from pump_differential_output import PumpReport
 import fees_sharing_create_differential as f
 from fees_sharing_create_differential import *
 PIDL=json.loads((ROOT/'evidence/upstream/pump.json').read_text(encoding='utf-8'));VAULT=Pubkey.find_program_address([b'creator-vault',bytes(SHARING)],PUMP)[0]
@@ -58,7 +59,7 @@ def cases():
  return rows
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args();rows=[];paths=[Path(__file__),a.candidate,ROOT/'evidence/original/pump/deployed.so',ROOT/'evidence/upstream/pump.json',Path(f.__file__),ROOT/'evidence/original/pump_fees/deployed.so',ROOT/'evidence/original/pump_amm/deployed.so'];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();provenance={str(p):sha(p) for p in paths}
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args();output=PumpReport(a.output,ROOT,a.candidate,__file__);rows=[];paths=[Path(__file__),a.candidate,ROOT/'evidence/original/pump/deployed.so',ROOT/'evidence/upstream/pump.json',Path(f.__file__),ROOT/'evidence/original/pump_fees/deployed.so',ROOT/'evidence/original/pump_amm/deployed.so'];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();provenance={str(p):sha(p) for p in paths}
  for c in cases():
   o=run(c);n=run(c,a.candidate);fields=['error','before','after','events'];diff=[k for k in fields if o[k]!=n[k]]
   for k in ['return_data','inner_instructions']:
@@ -66,6 +67,6 @@ def main():
   rows.append(dict(case=c,original=o,candidate=n,different_fields=diff))
  assert provenance=={str(p):sha(p) for p in paths}
  report={'scope':'Normally signed offline readonly query using synthetic state bootstrapped by captured Fees/Pump. Compare states, returns, errors and inner instructions; not full byte identity.','provenance':provenance,'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['different_fields']],'cases':rows}
- a.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({k:report[k] for k in ['case_count','mismatches']}))
+ output.write((json.dumps(report,indent=2)+'\n').encode("utf-8"));print(json.dumps({k:report[k] for k in ['case_count','mismatches']}))
  if report['mismatches']:raise SystemExit(1)
 if __name__=='__main__':main()

@@ -9,6 +9,7 @@ if not __debug__:
 from pathlib import Path
 import sys,json,gzip,base64,struct,hashlib,argparse,re
 ROOT=next(p for p in Path(__file__).resolve().parents if (p/'evidence/original/pump/deployed.so').is_file());sys.path.insert(0,str(ROOT/'scripts'))
+from pump_differential_output import PumpReport
 import pump_legacy_buy_differential as h
 
 def diagnostics(x):
@@ -32,11 +33,11 @@ def cases():
  return out,cal
 
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);args=ap.parse_args();fixtures,cal=cases();rows=[]
+ ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);args=ap.parse_args();output=PumpReport(args.output,ROOT,args.candidate,__file__);fixtures,cal=cases();rows=[]
  for case in fixtures:
   a=h.run(case);b=h.run(case,args.candidate);diff=[k for k in ('error','before','accounts','events','inner','return_data') if a[k]!=b[k]]
   if diagnostics(a)!=diagnostics(b):diff.append('diagnostics')
   rows.append({'case':case,'original':a,'candidate':b,'different_fields':diff,'match':not diff})
  result={'scope':__doc__,'case_count':len(rows),'original_sha256':hashlib.sha256((ROOT/'evidence/original/pump/deployed.so').read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(args.candidate.read_bytes()).hexdigest(),'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'cases':rows,'calibration':cal,'mismatches':[i for i,r in enumerate(rows) if r['different_fields']]}
- args.output.write_bytes(gzip.compress(json.dumps(result,indent=2).encode(),mtime=0));print(json.dumps({'cases':len(rows),'mismatches':result['mismatches']}));assert not result['mismatches']
+ output.write(gzip.compress(json.dumps(result,indent=2).encode(),mtime=0));print(json.dumps({'cases':len(rows),'mismatches':result['mismatches']}));assert not result['mismatches']
 if __name__=='__main__':main()
