@@ -1,0 +1,1905 @@
+{
+  "syntheticOnly": true,
+  "bundleSha256": "8d406c14b5bcea8a2dcd215d677ac6d7aa1bffa53d1bd139fea6b4f296867ef8",
+  "bundleBytes": 1124475,
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    },
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    }
+  ],
+  "results": [
+    {
+      "width": 390,
+      "initial": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/",
+          "preventTrigger": false,
+          "denyTrigger": false,
+          "controlled": false,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": false,
+          "openMobile": false,
+          "state": "collapsed"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/"
+      },
+      "batched": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/",
+          "preventTrigger": false,
+          "denyTrigger": false,
+          "controlled": false,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": false,
+          "openMobile": false,
+          "state": "collapsed"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/"
+      },
+      "firstToggle": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/",
+          "preventTrigger": false,
+          "denyTrigger": false,
+          "controlled": false,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": false,
+          "openMobile": true,
+          "state": "collapsed"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/"
+      },
+      "groupWidth": 288,
+      "routed": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/explore",
+          "preventTrigger": false,
+          "denyTrigger": false,
+          "controlled": false,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": false,
+          "openMobile": true,
+          "state": "collapsed"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "navigate-callback",
+            "key": "explore"
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/explore"
+      },
+      "keyboard": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/explore",
+          "preventTrigger": false,
+          "denyTrigger": false,
+          "controlled": false,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": false,
+          "openMobile": true,
+          "state": "collapsed"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "navigate-callback",
+            "key": "explore"
+          },
+          {
+            "kind": "safe-action"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/explore"
+      },
+      "prevented": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/explore",
+          "preventTrigger": true,
+          "denyTrigger": false,
+          "controlled": false,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": false,
+          "openMobile": true,
+          "state": "collapsed"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "navigate-callback",
+            "key": "explore"
+          },
+          {
+            "kind": "safe-action"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": true,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/explore"
+      },
+      "denied": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/explore",
+          "preventTrigger": false,
+          "denyTrigger": true,
+          "controlled": false,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": false,
+          "openMobile": false,
+          "state": "collapsed"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "navigate-callback",
+            "key": "explore"
+          },
+          {
+            "kind": "safe-action"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": true,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": true
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/explore"
+      },
+      "unmounted": {
+        "state": {
+          "present": false,
+          "href": "http://127.0.0.1:44759/explore",
+          "preventTrigger": false,
+          "denyTrigger": true,
+          "controlled": false,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": false,
+          "openMobile": false,
+          "state": "collapsed"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "navigate-callback",
+            "key": "explore"
+          },
+          {
+            "kind": "safe-action"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": true,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": true
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          }
+        ],
+        "listeners": 0,
+        "href": "http://127.0.0.1:44759/explore"
+      },
+      "controlledDenied": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/explore",
+          "preventTrigger": false,
+          "denyTrigger": false,
+          "controlled": true,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": false,
+          "openMobile": false,
+          "state": "collapsed"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "navigate-callback",
+            "key": "explore"
+          },
+          {
+            "kind": "safe-action"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": true,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": true
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "controlled-callback",
+            "value": true,
+            "accepted": false
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/explore"
+      },
+      "controlledAccepted": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/explore",
+          "preventTrigger": false,
+          "denyTrigger": false,
+          "controlled": true,
+          "controlledOpen": true,
+          "denyControlled": false
+        },
+        "context": {
+          "open": true,
+          "openMobile": false,
+          "state": "expanded"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "navigate-callback",
+            "key": "explore"
+          },
+          {
+            "kind": "safe-action"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": true,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": true
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "controlled-callback",
+            "value": true,
+            "accepted": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "controlled-callback",
+            "value": true,
+            "accepted": true
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/explore"
+      },
+      "cleanup": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/explore",
+          "preventTrigger": false,
+          "denyTrigger": false,
+          "controlled": true,
+          "controlledOpen": true,
+          "denyControlled": false
+        },
+        "context": {
+          "open": true,
+          "openMobile": false,
+          "state": "expanded"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "navigate-callback",
+            "key": "explore"
+          },
+          {
+            "kind": "safe-action"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": true,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": true
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": true
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "controlled-callback",
+            "value": true,
+            "accepted": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "controlled-callback",
+            "value": true,
+            "accepted": true
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          }
+        ],
+        "listeners": 0,
+        "href": "http://127.0.0.1:44759/explore"
+      },
+      "overflow": false,
+      "expectedErrors": [
+        "SYNTHETIC trigger callback denial"
+      ],
+      "unexpectedErrors": []
+    },
+    {
+      "width": 1280,
+      "initial": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/",
+          "preventTrigger": false,
+          "denyTrigger": false,
+          "controlled": false,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": false,
+          "openMobile": false,
+          "state": "collapsed"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/"
+      },
+      "batched": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/",
+          "preventTrigger": false,
+          "denyTrigger": false,
+          "controlled": false,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": true,
+          "openMobile": false,
+          "state": "expanded"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/"
+      },
+      "firstToggle": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/",
+          "preventTrigger": false,
+          "denyTrigger": false,
+          "controlled": false,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": false,
+          "openMobile": false,
+          "state": "collapsed"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/"
+      },
+      "groupWidth": 56,
+      "routed": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/explore",
+          "preventTrigger": false,
+          "denyTrigger": false,
+          "controlled": false,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": false,
+          "openMobile": false,
+          "state": "collapsed"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "navigate-callback",
+            "key": "explore"
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/explore"
+      },
+      "keyboard": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/explore",
+          "preventTrigger": false,
+          "denyTrigger": false,
+          "controlled": false,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": true,
+          "openMobile": false,
+          "state": "expanded"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "navigate-callback",
+            "key": "explore"
+          },
+          {
+            "kind": "safe-action"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/explore"
+      },
+      "prevented": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/explore",
+          "preventTrigger": true,
+          "denyTrigger": false,
+          "controlled": false,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": true,
+          "openMobile": false,
+          "state": "expanded"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "navigate-callback",
+            "key": "explore"
+          },
+          {
+            "kind": "safe-action"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": true,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/explore"
+      },
+      "denied": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/explore",
+          "preventTrigger": false,
+          "denyTrigger": true,
+          "controlled": false,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": true,
+          "openMobile": false,
+          "state": "expanded"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "navigate-callback",
+            "key": "explore"
+          },
+          {
+            "kind": "safe-action"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": true,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": true
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/explore"
+      },
+      "unmounted": {
+        "state": {
+          "present": false,
+          "href": "http://127.0.0.1:44759/explore",
+          "preventTrigger": false,
+          "denyTrigger": true,
+          "controlled": false,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": true,
+          "openMobile": false,
+          "state": "expanded"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "navigate-callback",
+            "key": "explore"
+          },
+          {
+            "kind": "safe-action"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": true,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": true
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          }
+        ],
+        "listeners": 0,
+        "href": "http://127.0.0.1:44759/explore"
+      },
+      "controlledDenied": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/explore",
+          "preventTrigger": false,
+          "denyTrigger": false,
+          "controlled": true,
+          "controlledOpen": false,
+          "denyControlled": true
+        },
+        "context": {
+          "open": false,
+          "openMobile": false,
+          "state": "collapsed"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "navigate-callback",
+            "key": "explore"
+          },
+          {
+            "kind": "safe-action"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": true,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": true
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "controlled-callback",
+            "value": true,
+            "accepted": false
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/explore"
+      },
+      "controlledAccepted": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/explore",
+          "preventTrigger": false,
+          "denyTrigger": false,
+          "controlled": true,
+          "controlledOpen": true,
+          "denyControlled": false
+        },
+        "context": {
+          "open": true,
+          "openMobile": false,
+          "state": "expanded"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "navigate-callback",
+            "key": "explore"
+          },
+          {
+            "kind": "safe-action"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": true,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": true
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "controlled-callback",
+            "value": true,
+            "accepted": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "controlled-callback",
+            "value": true,
+            "accepted": true
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          }
+        ],
+        "listeners": 1,
+        "href": "http://127.0.0.1:44759/explore"
+      },
+      "cleanup": {
+        "state": {
+          "present": true,
+          "href": "http://127.0.0.1:44759/explore",
+          "preventTrigger": false,
+          "denyTrigger": false,
+          "controlled": true,
+          "controlledOpen": true,
+          "denyControlled": false
+        },
+        "context": {
+          "open": true,
+          "openMobile": false,
+          "state": "expanded"
+        },
+        "events": [
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "navigate-callback",
+            "key": "explore"
+          },
+          {
+            "kind": "safe-action"
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": true,
+            "deny": false
+          },
+          {
+            "kind": "media",
+            "query": "(max-width: 767px)",
+            "matches": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "trigger-callback",
+            "prevent": false,
+            "deny": true
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "controlled-callback",
+            "value": true,
+            "accepted": false
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "controlled-callback",
+            "value": true,
+            "accepted": true
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          },
+          {
+            "kind": "listen",
+            "type": "keydown"
+          },
+          {
+            "kind": "unlisten",
+            "type": "keydown"
+          }
+        ],
+        "listeners": 0,
+        "href": "http://127.0.0.1:44759/explore"
+      },
+      "overflow": false,
+      "expectedErrors": [
+        "SYNTHETIC trigger callback denial"
+      ],
+      "unexpectedErrors": []
+    }
+  ]
+}

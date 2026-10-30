@@ -1,0 +1,221 @@
+{
+  "schema": 1,
+  "testedHead": "6b0bd0daa73812ae5b86417712285f7f65e573ec",
+  "testedTree": "cca8afa7e220cca03f06342375cc5b7176d7c22f",
+  "reviewBase": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Complete12export originalSidebar/controller family+ordinarysuppliednavigation display/active-policy; diagnosticports, no upperprovider/actions/nativepromotion acquisition.",
+  "inputs": {
+    "evidence/web/manifest.json": {
+      "bytes": 3026513,
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda"
+    },
+    "evidence/web/objects/13c13db9eb86191b.js": {
+      "bytes": 215208,
+      "sha256": "15e7cb5caef8d58d0d263486883e7aac6e39e9e2f7e037af29887849bd0cd6c6",
+      "gitBlob": "31beceda98e181f1aaa6b95cb8613d498e30b235"
+    },
+    "evidence/web/objects/b677d332af92b7f5.js": {
+      "bytes": 28020,
+      "sha256": "9ec86251b6e7a135ae3e323bf63ded6ef436cf337322f40c79f02090a97880ab",
+      "gitBlob": "cbf5003cb046a79dc89118923eec3ff854d5fd85"
+    },
+    "evidence/web/objects/b713215f09b03c14": {
+      "bytes": 454082,
+      "sha256": "5c54a668997394767a338ff5efe132ba3400bd5e1c4b6bb16c9c075b6a389409",
+      "gitBlob": "360c900e8dd187c9a776d303e354c3d027d765cd"
+    },
+    "package.json": {
+      "bytes": 3703,
+      "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+      "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8"
+    },
+    "packages/backend/package.json": {
+      "bytes": 463,
+      "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b"
+    },
+    "packages/frontend/package.json": {
+      "bytes": 1048,
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0"
+    },
+    "pnpm-lock.yaml": {
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+    },
+    "reconstruction/shared-sidebar-navigation/client.mjs": {
+      "bytes": 42352,
+      "sha256": "d82eef29a6622041ddc048978982efa805b40eef168ab04b51b8397e8334b6cb",
+      "gitBlob": "848610855f77a0931ca00a4bc047fbca1e7d0cb6"
+    },
+    "reconstruction/shared-sidebar-navigation/contract.json": {
+      "bytes": 46708,
+      "sha256": "e8c9a3fa4a701800479c8cc1770747c1d37e5e89f3a172a90916300c2d850766",
+      "gitBlob": "ce8206e2e0fd0fccd071c3b13be978d71afd3191"
+    },
+    "recovered/modules.json": {
+      "bytes": 2928853,
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+      "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f"
+    },
+    "scripts/original-contracts/source.mjs": {
+      "bytes": 9493,
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+      "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df"
+    },
+    "scripts/original-shared-sidebar-navigation.mjs": {
+      "bytes": 16806,
+      "sha256": "63bcb0432aabfd7e0c30e3eac8ad45ca2df539a2109c4d17690cccad2f3b263e",
+      "gitBlob": "6dbb96b9ee33aa55be8d09c995dc53aa47e971af"
+    },
+    "tests/fixtures/shared-sidebar-diagnostic-ports.mjs": {
+      "bytes": 2719,
+      "sha256": "984293d5a425a16a1b868816d2db6fdfc3a1c883f48412401a114e64dc0f5a2c",
+      "gitBlob": "ba966d7749be8a0941804e714b39fbc9ddb26f02"
+    },
+    "tests/fixtures/shared-sidebar-navigation-browser.mjs": {
+      "bytes": 6470,
+      "sha256": "c22ecbc966409b45d8854119aa1dc4b4588f14dc299a45bac0c7267d3ab660cb",
+      "gitBlob": "4b1dee6cad3e4eee965b49bae0679b72c1805e0a"
+    },
+    "tests/original_shared_sidebar_navigation.test.mjs": {
+      "bytes": 8047,
+      "sha256": "e11e2b954a4580d752f44b146f5fbd3c500d4228f9a3b8da0e7644bea2cfde7b",
+      "gitBlob": "7346988445377a17e2502aa2fc46c512a7d60b2b"
+    },
+    "tests/original_shared_sidebar_navigation_browser.test.mjs": {
+      "bytes": 15155,
+      "sha256": "1271fd5cb4273a78edc4c5c6d2d78428406cc44e8f00633d40506de81916a92c",
+      "gitBlob": "7c1aa16f080abad60abae56107601372f45921b1"
+    },
+    "tests/original_source.test.mjs": {
+      "bytes": 7401,
+      "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3",
+      "gitBlob": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+    }
+  },
+  "inputScope": "18 selected source/generator/SSR/browser/twofixtures/sharedreader/captures/index/manifest/packages; notexhaustive installed/cold/whole-app identity.",
+  "checks": {
+    "head": "6b0bd0daa73812ae5b86417712285f7f65e573ec",
+    "cwd": "/workspace/pump-app-leaderboard-navigation/app",
+    "results": [
+      {
+        "name": "source-final",
+        "argv": [
+          "node",
+          "scripts/original-shared-sidebar-navigation.mjs"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.8943425340112299
+      },
+      {
+        "name": "focused-final",
+        "argv": [
+          "node",
+          "--test",
+          "--test-reporter=tap",
+          "tests/original_shared_sidebar_navigation.test.mjs",
+          "tests/original_source.test.mjs"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.9988413100072648
+      },
+      {
+        "name": "typecheck",
+        "argv": [
+          "node",
+          "/home/agent/.cache/node/corepack/v1/pnpm/10.24.0/bin/pnpm.cjs",
+          "-r",
+          "typecheck"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 5.144691401015734
+      },
+      {
+        "name": "evidence",
+        "argv": [
+          "python3",
+          "scripts/verify-evidence.py"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.16654448700137436
+      },
+      {
+        "name": "progress",
+        "argv": [
+          "python3",
+          "scripts/progress.py",
+          "--check"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.12136351800290868
+      },
+      {
+        "name": "progress-tests",
+        "argv": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_progress.py"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.6141880179930013
+      }
+    ]
+  },
+  "browser": {
+    "argv": [
+      "node",
+      "--test",
+      "--test-reporter=tap",
+      "tests/original_shared_sidebar_navigation_browser.test.mjs"
+    ],
+    "cwd": "app/",
+    "outputEnvironment": "PUMP_SIDEBAR_OUTPUT=<owned-output>",
+    "returncode": 0,
+    "workflows": 1,
+    "widths": [
+      390,
+      1280
+    ],
+    "expectedErrorsPerWidth": [
+      "SYNTHETIC trigger callback denial"
+    ],
+    "unexpectedErrors": 0,
+    "overflow": false
+  },
+  "browserBundleSha256": "8d406c14b5bcea8a2dcd215d677ac6d7aa1bffa53d1bd139fea6b4f296867ef8",
+  "versions": {
+    "node": "24.19.0",
+    "pnpm": "10.24.0",
+    "react": "19.2.3",
+    "playwright": "1.64.1",
+    "chromiumBuild": 1248,
+    "esbuild": "0.25.12",
+    "browserLocale": "en-US"
+  },
+  "sourceAndMethod": "All8source/method/docs files frozen6b0bd beforefirst actualbrowser andfinal6checks. Publicationaddsresultdocs/sealedreceipts only;18selectedruntime/methodinputsunchanged.",
+  "priorPhases": [
+    "Development/prefreeze source+18Nodepass; firstfrozenbrowserPASS. No missingfailedphase/bundlebinding inferred/transferred.",
+    "698immutablecaptures+3omittedunchangedprogressrefs materialized exactHEAD beforechecks, noprogress/scorer/capture edits."
+  ],
+  "cleanup": "ActualChromium/GET-onlyephemeralhostclosed+temporarybundle removedfinally; process0/PRIMARYreleased. NoNext orrealstorage/providers acquired.",
+  "runtimeAssertions": [
+    "Initialcaptureddefaultfalse; desktopfunctional-updatercapturescurrentrender whilemobileusesReactfunctionalsetters. Twoactualsamebatchtoggles differ exactlybybranch.",
+    "NativeviewportmatchMedia atcalltime, Ctrl+bglobalpreventdefault/listenercleanup, CSSresponsivebranchvisibility/statepreservation underexplicitdiagnosticports.",
+    "SafeownedLink/history route+activeicon/aria presentation, callbackforwarding, noforced route-close policy; primitive/router semantics external.",
+    "TriggeronClickpreventDefaultdoesnotstopsubsequentsourcetoggle; sourcecallbackthrowprevents toggle,1expectedsyntheticerrorperwidth. ControlledparentdenykeepsUIuntilacceptedupdate."
+  ],
+  "limits": [
+    "All12publicexports+completeordinarysupplieditemdisplay/route-activepolicy areeditable; original upperAppSidebarflags/address/session/chat/account/actions andexcludedapp/support/Terminal/deferredproducts NOTimplemented/acquired.",
+    "ProviderhasNOcookie/storage. RootRSCStringLiteraldata parsedneverexecuted;2defaultfalseadmissions notserver/auth/visitor/consent policy.",
+    "Reactnativeevents/state withauthoredDrawer/Slot/CVA/Tooltip/Link/SVG/styleports, no originalgenericlibrary/Next/presence/focus-trap/pixel/fullappparity. MobilePNGiscloseddeniedstate; opendrawerDOM/288px geometryseparatelyasserted.",
+    "Noactualcookies/storage/session/credentials/user/account/preferences/auth/wallet/provideracquisition, no signing/trading/admin/livebackend/nativepromotion/API/security/completionclaim."
+  ]
+}
