@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "localSourceHead": "925cb4081cf043c405141a972e0b818e551a3fbc",
+  "publicSourceHead": "f51809ff15fef16dc8937ddf7f68fd03f5e45776",
+  "sourceTree": "e1334861e66ba2cfcc96ba7c59076699bed11da1",
+  "scope": "Complete ordinary result rendering family, original MAIN handoffs, explicit provider/rendering capabilities and first finite actualReact/context proof; not a mounted product",
+  "before": {
+    "gap": "Prior full owning controller1925 explicitly leaves row/section/skeleton renderers external; main has no complete maintained source constructor for this family.",
+    "absentPaths": [
+      "app/reconstruction/search-result-renderers/client.mjs",
+      "app/scripts/original-search-result-renderers.mjs"
+    ],
+    "notClaimed": "No original captured module execution, live data/provider or product before-after oracle"
+  },
+  "checks": [
+    {
+      "command": "node app/scripts/original-search-result-renderers.mjs --check",
+      "cwd": "repository root",
+      "result": "PASS13 complete original AST nodes, exact source/contract bytes, full free-binding/MAIN handoffs/variants, unchanged inherited route proof",
+      "log": "source.log"
+    },
+    {
+      "command": "node --test app/tests/original_search_result_renderers.test.mjs",
+      "cwd": "repository root",
+      "result": "3PASS0FAIL0SKIP: source/consumer bindings, required-port admission, edited-client/noncanonical-contract negative mirror",
+      "log": "node.log"
+    },
+    {
+      "command": "node --test app/tests/original_search_result_renderers.browser.mjs",
+      "cwd": "repository root",
+      "result": "1 first frozen actualReact/compiler/context storyPASS;17observations/15bundled+7method inputs/only2root-bundleGETs/0errors, no provider/action/Perps execution",
+      "log": "browser.log",
+      "receipt": "react-verification.json"
+    },
+    {
+      "command": "python3 scripts/verify_evidence.py",
+      "cwd": "repository root",
+      "result": "9capturesPASS",
+      "log": "root-evidence.log"
+    },
+    {
+      "command": "python3 scripts/test_tooling.py",
+      "cwd": "repository root",
+      "result": "10testsPASS",
+      "log": "root-tooling.log"
+    },
+    {
+      "command": "python3 app/scripts/verify-evidence.py",
+      "cwd": "repository root",
+      "result": "698objects/npm/unchangedSDKPASS",
+      "log": "app-evidence.log"
+    },
+    {
+      "command": "corepack pnpm exec prettier --check scripts/original-search-result-renderers.mjs reconstruction/search-result-renderers/client.mjs reconstruction/search-result-renderers/README.md tests/fixtures/search-result-renderers-browser.mjs tests/original_search_result_renderers.test.mjs tests/original_search_result_renderers.browser.mjs",
+      "cwd": "app",
+      "result": "MJS/READMEPASS; generator-canonical JSON checked separately exactly",
+      "log": "prettier-source.log"
+    }
+  ],
+  "runtimeFacts": {
+    "observations": 17,
+    "bundledInputs": 15,
+    "declaredMethodInputs": 7,
+    "hostGetRequests": 2,
+    "providerRequests": 0,
+    "protectedMenuActions": 0,
+    "notes": "Actual React/compiler/context rerenders and trusted link/SeeAll clicks. All read/classification/formatting/route/Avatar/verification/analytics/menu/link results are supplied synthetic ports. No service/image/prefetch/navigation request.",
+    "deferredPerpsDisplayOrRowInvocations": 0
+  },
+  "inputBinding": {
+    "file": "inputs.json",
+    "count": 116,
+    "result": "All declared source/evidence bytes equal frozen Git, all15actual bundled files and7method inputs hash-match; public/local source trees equal with no private-commit replay guard"
+  },
+  "preservedSemantics": [
+    "Snapshot0 selected while nullish snapshot falls back to raw value; metadata independently rounds truthy raw value",
+    "Explicit null sourceScreen/sourceElement overrides preserved; menu position index+1 with original analytics descriptor, no action execution",
+    "User label truthiness and subtitle undefined-presence differ; raw address, route trim/encoding, no invented missing-identity link",
+    "Group projected display/route/Avatar descriptor differs from raw row retained by selection callback",
+    "Mixed visibility prevents mapping; loading section shows two-row skeleton while SeeAll still follows hasMore",
+    "Actual context results update display through retained memo frames; unchanged metadata object identity and click order retained"
+  ],
+  "limits": [
+    "Provider/rendering/query/store/auth/runtime winner and compatibility remain external; #1925 parent is credited source witness only, not imported/combined-runtime qualified",
+    "Avatar1916/1927,verified1841,RelativeTime/formatting/coin cache/impression/prefetch and accepted navigation helper credited unchanged",
+    "Perps deferred component/classification and protected menu action execution explicitly excluded; throwing test ports were not invoked",
+    "No live data, credentials/cookies/storage/session/clipboard/provider acquisition, service requests or captured bundle execution",
+    "No product mount/Next/typecheck/full build/backend/native/API/accounting/security/visual/fullfeature or progress claim",
+    "Browser/host finally closed and PRIMARY released; first frozen story retained, no repeated runtime needed"
+  ]
+}
