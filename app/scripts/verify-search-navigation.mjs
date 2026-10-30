@@ -9,7 +9,7 @@ export const PROOF = 'reconstruction/search-navigation/PROVENANCE.json';
 const expect = (ok, message) => { if (!ok) throw Error('unqualified search navigation: ' + message); };
 // Reuse of the lexical comparator first developed in search-session; it is
 // proof infrastructure, not an additional source-recovery contribution.
-const functions = new Set(['ArrowFunctionExpression', 'FunctionExpression', 'FunctionDeclaration']);
+const functions = new Set(['ArrowFunctionExpression', 'FunctionExpression', 'FunctionDeclaration', 'ObjectMethod']);
 const ignored = new Set(['start', 'end', 'loc', 'extra', 'leadingComments', 'trailingComments', 'innerComments']);
 const unbound = (callee) => callee?.type === 'SequenceExpression' && callee.expressions.length === 2 &&
   callee.expressions[0].value === 0 ? callee.expressions[1] : callee;
@@ -62,7 +62,7 @@ export function normalizeNavigation(node, roles, imports = {}) {
       current = [...scopes, scope];
     }
     if (value.type === 'Identifier') {
-      const property = (key === 'key' && parent?.type === 'ObjectProperty' && !parent.computed) ||
+      const property = (key === 'key' && ['ObjectProperty', 'ObjectMethod'].includes(parent?.type) && !parent.computed) ||
         (key === 'property' && ['MemberExpression', 'OptionalMemberExpression'].includes(parent?.type) && !parent.computed);
       return { type: 'Identifier', name: property ? value.name : lookup(value.name, current) };
     }

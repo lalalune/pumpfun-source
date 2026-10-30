@@ -9,7 +9,7 @@ export const ADAPTER = 'reconstruction/search-session/session.mjs';
 export const PROOF = 'reconstruction/search-session/PROVENANCE.json';
 const SOURCES = ['evidence/web/objects/dba17a249156c6ff.js', 'evidence/web/objects/767cc801e3f88f8b.js'];
 const expect = (condition, message) => { if (!condition) throw new Error(`unqualified search session: ${message}`); };
-const functions = new Set(['ArrowFunctionExpression', 'FunctionExpression', 'FunctionDeclaration']);
+const functions = new Set(['ArrowFunctionExpression', 'FunctionExpression', 'FunctionDeclaration', 'ObjectMethod']);
 const ignored = new Set(['start', 'end', 'loc', 'extra', 'leadingComments', 'trailingComments', 'innerComments']);
 const unbound = (callee) => callee?.type === 'SequenceExpression' && callee.expressions.length === 2 &&
   callee.expressions[0].value === 0 ? callee.expressions[1] : callee;
@@ -61,7 +61,7 @@ export function normalizeSession(node, roles, imports = {}) {
       current = [...scopes, scope];
     }
     if (value.type === 'Identifier') {
-      const property = (key === 'key' && parent?.type === 'ObjectProperty' && !parent.computed) ||
+      const property = (key === 'key' && ['ObjectProperty', 'ObjectMethod'].includes(parent?.type) && !parent.computed) ||
         (key === 'property' && ['MemberExpression', 'OptionalMemberExpression'].includes(parent?.type) && !parent.computed);
       return { type: 'Identifier', name: property ? value.name : lookup(value.name, current) };
     }
