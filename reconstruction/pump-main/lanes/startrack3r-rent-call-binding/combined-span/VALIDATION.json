@@ -1,0 +1,90 @@
+{
+  "result": "PASS",
+  "runs": {
+    "normal": {
+      "returncode": 0,
+      "stdout_sha256": "b58f4b5cf786c882fab2e35416f84d46b6aee8aa7bcde9b96d49eb663cb0543a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "optimized": {
+      "returncode": 0,
+      "stdout_sha256": "b58f4b5cf786c882fab2e35416f84d46b6aee8aa7bcde9b96d49eb663cb0543a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "relocated_identical": true,
+  "parent_verifier_sha256": "1989efd6b080faccac727ca2518eeb37bcd02d96d41341ee3c494c934f246dcb",
+  "independent_census": {
+    "01-current-default": {
+      "sha256": "f541b7ed2515d0321a92ad1d3c1d874f4183b9155029a7eef4400e09ddb7a076",
+      "total": 1035,
+      "normalized": 1027,
+      "raw": 273,
+      "unmatched": 8,
+      "matched_text_bytes": 1677176,
+      "all_1035_memberships_equal": true
+    },
+    "02-current-ordered": {
+      "sha256": "504624e8a7fd700375708ae464cbb602f526ea345d886d7eba8e08b333315ddc",
+      "total": 1035,
+      "normalized": 1027,
+      "raw": 140,
+      "unmatched": 8,
+      "matched_text_bytes": 1677176,
+      "all_1035_memberships_equal": true
+    },
+    "03-combined-default": {
+      "sha256": "7a545de55252a26390b0c78b1b0f82d6bd875347d8977a29ffe3b6ad2aa6e48f",
+      "total": 1035,
+      "normalized": 1028,
+      "raw": 273,
+      "unmatched": 7,
+      "matched_text_bytes": 1679296,
+      "all_1035_memberships_equal": true
+    },
+    "07-current-reordered": {
+      "sha256": "300e0299aa79ee5de524e1efb204f698d6e215d0f4f4b96e5a7d5c5e5496009b",
+      "total": 1035,
+      "normalized": 1027,
+      "raw": 293,
+      "unmatched": 8,
+      "matched_text_bytes": 1677176,
+      "all_1035_memberships_equal": true
+    },
+    "08-combined-reordered": {
+      "sha256": "c371a6a17694d84be350e07715a69688c29a87e015b6c2a7780b89a56b4fcd3b",
+      "total": 1035,
+      "normalized": 1028,
+      "raw": 293,
+      "unmatched": 7,
+      "matched_text_bytes": 1679296,
+      "all_1035_memberships_equal": true
+    }
+  },
+  "wrong_callee_negative_test": "rejected with normalized bytes unchanged",
+  "source_changed": [
+    "programs/pump/src/buy_v2.rs",
+    "programs/pump/src/creator/distribute_creator_fee_v2.rs",
+    "programs/pump/src/creator/distribute_creator_fees.rs",
+    "programs/pump/src/curve_quote_payments.rs",
+    "programs/pump/src/lib.rs",
+    "programs/pump/src/multi_hop_curve_swap.rs",
+    "programs/pump/src/set_reserved_fee_recipients.rs",
+    "programs/pump/src/trade_v3.rs",
+    "programs/pump/src/util/account_name.rs",
+    "programs/pump/src/v2_native_payments.rs"
+  ],
+  "production_and_logs": "Eight command/result pairs and all compiler log hashes checked; all recorded input protection checks true.",
+  "regenerated_scripts": {
+    "current": "e5df24b5ad14a66b2bc60350ae7ec08d30af3ebbd8f64d85f79be2953aa9ba9b",
+    "combined": "72ef693c883fb68e9939f408f785f230742cb533b30cbf1321719d4852123569"
+  },
+  "retained_initial_failures": {
+    "verifier_stderr_sha256": "b2bcca7328029e2300f9ebcb931e637820b68939607bc99e13db05486b5201d0",
+    "verifier_reason": "Raw CRLF script was decoded without universal newline handling; corrected to read_text like upstream admission. Exact script bytes and input hashes unchanged.",
+    "bridge": "CS1504 path parsing failure, then a stdout-forwarding probe failure; corrected launcher preserves argv and forwards both streams. Failed source/exe/probe artifacts retained locally.",
+    "validation": "First runner assumed identical source path sets; PR2168 intentionally deletes util/account_name.rs. Replaced assumption with complete source-inventory replay of exact upstream patches."
+  },
+  "scope": "Pinned retained inputs/outputs only; no clean-machine bootstrap, target/VM execution or historical compiler attestation.",
+  "source_patch_replay": "Exact upstream Git diffs applied in order to separate control copy; full resulting source inventory equals compiled composition, including account_name.rs deletion."
+}

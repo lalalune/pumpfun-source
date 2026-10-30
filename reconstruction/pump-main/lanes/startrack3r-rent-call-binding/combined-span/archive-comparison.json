@@ -1,0 +1,107 @@
+{
+  "01-current-default -> 07-current-reordered": {
+    "before_sha256": "f2de6d291abdfbde477a14fa7646cc98855956f9d0cae5d27bb3a2121d5bde19",
+    "after_sha256": "1d2ac02cc82c622bdad9258d50ef599d7edd7dfcceb3bcc7c529323b9ca4e401",
+    "whole_equal": false,
+    "members": {
+      "/": {
+        "before_sha256": "fdb6251f889858b146c22c39cbb451e1dd9599a9e0e8c3c4e5b5f6d07f0d597f",
+        "after_sha256": "fdb6251f889858b146c22c39cbb451e1dd9599a9e0e8c3c4e5b5f6d07f0d597f",
+        "equal": true,
+        "before_bytes": 138200,
+        "after_bytes": 138200
+      },
+      "//": {
+        "before_sha256": "569bd3e5232cbc3b4157c4fbc055e85413b2a92f1d6ce3ebd7c561b638afddc2",
+        "after_sha256": "569bd3e5232cbc3b4157c4fbc055e85413b2a92f1d6ce3ebd7c561b638afddc2",
+        "equal": true,
+        "before_bytes": 62,
+        "after_bytes": 62
+      },
+      "lib.rmeta": {
+        "before_sha256": "091096c571c2ab0ac26520bce7a61644fe0df4797881cde1e5b982d7ab55796b",
+        "after_sha256": "b64abba6c28a1542ac5a0b26733d2fc223d23b2ebe961481635c7563ee3c9180",
+        "equal": false,
+        "before_bytes": 9373848,
+        "after_bytes": 9373848
+      },
+      "pump_recovered.pump_recovered.f975be7d669a43ae-cgu.0.rcgu.o": {
+        "before_sha256": "c8297de334870cdab9d51fbef0b80d648832dbfa080f01be11b3582646724680",
+        "after_sha256": "c8297de334870cdab9d51fbef0b80d648832dbfa080f01be11b3582646724680",
+        "equal": true,
+        "before_bytes": 4294016,
+        "after_bytes": 4294016
+      }
+    }
+  },
+  "03-combined-default -> 08-combined-reordered": {
+    "before_sha256": "02bc5cd9e639f0b33df25e20df0cc78311c1fd77513b56cecbe3b5e778829e1f",
+    "after_sha256": "632fd5848659a5ee2290cb22b5b55ad6ab133f941770fbbf5de3e9a4197368b1",
+    "whole_equal": false,
+    "members": {
+      "/": {
+        "before_sha256": "ac4c9b79abfce7f90e258782b411ca3c2e33d1a7bf9a68e15b609bae0e8a2204",
+        "after_sha256": "ac4c9b79abfce7f90e258782b411ca3c2e33d1a7bf9a68e15b609bae0e8a2204",
+        "equal": true,
+        "before_bytes": 138144,
+        "after_bytes": 138144
+      },
+      "//": {
+        "before_sha256": "569bd3e5232cbc3b4157c4fbc055e85413b2a92f1d6ce3ebd7c561b638afddc2",
+        "after_sha256": "569bd3e5232cbc3b4157c4fbc055e85413b2a92f1d6ce3ebd7c561b638afddc2",
+        "equal": true,
+        "before_bytes": 62,
+        "after_bytes": 62
+      },
+      "lib.rmeta": {
+        "before_sha256": "c415121aaf1a4dfd5b8f4750f5eb7101412db8fa90b4c3ff7cc8e3bdd958172e",
+        "after_sha256": "9e39284a4be716896c3deb63e347368f1c9a8e243a1287b1350789ea4e49e470",
+        "equal": false,
+        "before_bytes": 9516840,
+        "after_bytes": 9516840
+      },
+      "pump_recovered.pump_recovered.f975be7d669a43ae-cgu.0.rcgu.o": {
+        "before_sha256": "1086924b0a10b28df939ff196411a808ddcc2a276357fd09b85e9e8e3db4ff90",
+        "after_sha256": "1086924b0a10b28df939ff196411a808ddcc2a276357fd09b85e9e8e3db4ff90",
+        "equal": true,
+        "before_bytes": 4293776,
+        "after_bytes": 4293776
+      }
+    }
+  },
+  "08-combined-reordered -> 09-combined-repeat": {
+    "before_sha256": "632fd5848659a5ee2290cb22b5b55ad6ab133f941770fbbf5de3e9a4197368b1",
+    "after_sha256": "1b85ccdee994d6732672e06f0a25be4e1173f37381c5ca42e94f24f9575025fb",
+    "whole_equal": false,
+    "members": {
+      "/": {
+        "before_sha256": "ac4c9b79abfce7f90e258782b411ca3c2e33d1a7bf9a68e15b609bae0e8a2204",
+        "after_sha256": "ac4c9b79abfce7f90e258782b411ca3c2e33d1a7bf9a68e15b609bae0e8a2204",
+        "equal": true,
+        "before_bytes": 138144,
+        "after_bytes": 138144
+      },
+      "//": {
+        "before_sha256": "569bd3e5232cbc3b4157c4fbc055e85413b2a92f1d6ce3ebd7c561b638afddc2",
+        "after_sha256": "569bd3e5232cbc3b4157c4fbc055e85413b2a92f1d6ce3ebd7c561b638afddc2",
+        "equal": true,
+        "before_bytes": 62,
+        "after_bytes": 62
+      },
+      "lib.rmeta": {
+        "before_sha256": "9e39284a4be716896c3deb63e347368f1c9a8e243a1287b1350789ea4e49e470",
+        "after_sha256": "dc9c3de95684ff4b9b6606f84425b136f6e241141c77a4f3f34f9e045d52814f",
+        "equal": false,
+        "before_bytes": 9516840,
+        "after_bytes": 9516840
+      },
+      "pump_recovered.pump_recovered.f975be7d669a43ae-cgu.0.rcgu.o": {
+        "before_sha256": "1086924b0a10b28df939ff196411a808ddcc2a276357fd09b85e9e8e3db4ff90",
+        "after_sha256": "1086924b0a10b28df939ff196411a808ddcc2a276357fd09b85e9e8e3db4ff90",
+        "equal": true,
+        "before_bytes": 4293776,
+        "after_bytes": 4293776
+      }
+    }
+  }
+}

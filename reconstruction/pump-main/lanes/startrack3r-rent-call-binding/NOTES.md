@@ -1,5 +1,11 @@
 # V2 rent call binding beyond window membership
 
+Latest follow-up: [composed source and Windows linker-order verification](combined-span/NOTES.md)
+measures a **40-byte** formatter span excess with upstream #2168 + #2272,
+20 recovered raw matches over the Windows diagnostic baseline, and an exact
+repeat of the full compiler output. Seven unmatched bodies account for the
+residual. The historical experiments below retain their original revisions.
+
 This research packet explains an extra 512-byte function and three mismatched
 immediate callees in actual compiler output from main
 `fd8b94dfa3a0ec671e018a5418c4b5009e26da6a`. It changes no program source,

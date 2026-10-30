@@ -1,0 +1,156 @@
+{
+  "source_revision": "7e26cbf36c5c0c824e3eb36417ce8a35866f530a",
+  "original": {
+    "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "start": 43112,
+    "end": 1713584,
+    "bytes": 1670472,
+    "callee_bytes": 1088,
+    "callee_normalized_sha256": "dd57f23602c618b8b75b8d970b99299afbd61b7c15f741b6bff6974441f7a450",
+    "span_function_count": 788,
+    "gaps": []
+  },
+  "inventory_sha256": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8",
+  "images": {
+    "01-current-default": {
+      "sha256": "f541b7ed2515d0321a92ad1d3c1d874f4183b9155029a7eef4400e09ddb7a076",
+      "output_bytes": 2666344,
+      "normalized": 1027,
+      "raw": 273,
+      "formatter": {
+        "start": 43040,
+        "end": 1714152,
+        "span_delta": 640,
+        "raw_equal": false,
+        "names": [
+          "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa916cc1caf72622E"
+        ],
+        "callee_match": true
+      },
+      "text_delta": 568,
+      "span_missing_bytes": 115192,
+      "span_extra_bytes": 115832,
+      "span_function_count": 788,
+      "span_common_count": 778
+    },
+    "02-current-ordered": {
+      "sha256": "504624e8a7fd700375708ae464cbb602f526ea345d886d7eba8e08b333315ddc",
+      "output_bytes": 2666344,
+      "normalized": 1027,
+      "raw": 140,
+      "formatter": {
+        "start": 45032,
+        "end": 1767280,
+        "span_delta": 51776,
+        "raw_equal": false,
+        "names": [
+          "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa916cc1caf72622E"
+        ],
+        "callee_match": true
+      },
+      "text_delta": 568,
+      "span_missing_bytes": 116000,
+      "span_extra_bytes": 167776,
+      "span_function_count": 917,
+      "span_common_count": 775
+    },
+    "03-combined-default": {
+      "sha256": "7a545de55252a26390b0c78b1b0f82d6bd875347d8977a29ffe3b6ad2aa6e48f",
+      "output_bytes": 2665848,
+      "normalized": 1028,
+      "raw": 273,
+      "formatter": {
+        "start": 43272,
+        "end": 1713624,
+        "span_delta": -120,
+        "raw_equal": false,
+        "names": [
+          "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa916cc1caf72622E"
+        ],
+        "callee_match": true
+      },
+      "text_delta": 40,
+      "span_missing_bytes": 113072,
+      "span_extra_bytes": 112952,
+      "span_function_count": 786,
+      "span_common_count": 779
+    },
+    "07-current-reordered": {
+      "sha256": "300e0299aa79ee5de524e1efb204f698d6e215d0f4f4b96e5a7d5c5e5496009b",
+      "output_bytes": 2666344,
+      "normalized": 1027,
+      "raw": 293,
+      "formatter": {
+        "start": 42880,
+        "end": 1714152,
+        "span_delta": 800,
+        "raw_equal": false,
+        "names": [
+          "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa916cc1caf72622E"
+        ],
+        "callee_match": true
+      },
+      "text_delta": 568,
+      "span_missing_bytes": 115032,
+      "span_extra_bytes": 115832,
+      "span_function_count": 790,
+      "span_common_count": 780
+    },
+    "08-combined-reordered": {
+      "sha256": "c371a6a17694d84be350e07715a69688c29a87e015b6c2a7780b89a56b4fcd3b",
+      "output_bytes": 2665848,
+      "normalized": 1028,
+      "raw": 293,
+      "formatter": {
+        "start": 43112,
+        "end": 1713624,
+        "span_delta": 40,
+        "raw_equal": false,
+        "names": [
+          "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa916cc1caf72622E"
+        ],
+        "callee_match": true
+      },
+      "text_delta": 40,
+      "span_missing_bytes": 112912,
+      "span_extra_bytes": 112952,
+      "span_function_count": 788,
+      "span_common_count": 781
+    }
+  },
+  "all_outputs": {
+    "01-current-default": "f541b7ed2515d0321a92ad1d3c1d874f4183b9155029a7eef4400e09ddb7a076",
+    "02-current-ordered": "504624e8a7fd700375708ae464cbb602f526ea345d886d7eba8e08b333315ddc",
+    "03-combined-default": "7a545de55252a26390b0c78b1b0f82d6bd875347d8977a29ffe3b6ad2aa6e48f",
+    "05-current-map": "f541b7ed2515d0321a92ad1d3c1d874f4183b9155029a7eef4400e09ddb7a076",
+    "06-combined-map": "7a545de55252a26390b0c78b1b0f82d6bd875347d8977a29ffe3b6ad2aa6e48f",
+    "07-current-reordered": "300e0299aa79ee5de524e1efb204f698d6e215d0f4f4b96e5a7d5c5e5496009b",
+    "08-combined-reordered": "c371a6a17694d84be350e07715a69688c29a87e015b6c2a7780b89a56b4fcd3b",
+    "09-combined-repeat": "c371a6a17694d84be350e07715a69688c29a87e015b6c2a7780b89a56b4fcd3b"
+  },
+  "root_rlibs": {
+    "01-current-default": "f2de6d291abdfbde477a14fa7646cc98855956f9d0cae5d27bb3a2121d5bde19",
+    "03-combined-default": "02bc5cd9e639f0b33df25e20df0cc78311c1fd77513b56cecbe3b5e778829e1f",
+    "07-current-reordered": "1d2ac02cc82c622bdad9258d50ef599d7edd7dfcceb3bcc7c529323b9ca4e401",
+    "08-combined-reordered": "632fd5848659a5ee2290cb22b5b55ad6ab133f941770fbbf5de3e9a4197368b1",
+    "09-combined-repeat": "1b85ccdee994d6732672e06f0a25be4e1173f37381c5ca42e94f24f9575025fb"
+  },
+  "credited_source_prs": [
+    {
+      "pr": "2168",
+      "base": "a7135a6a64c446166895f7e3ea4ca84ac1a9b848",
+      "head": "b588742e5bce9b00c7774fe676c0f75bc3bd557e",
+      "patch_sha256": "5d183eeffd75857d0950cae1763183ae4868a12612b011d8e9ed25a1cb5e8074"
+    },
+    {
+      "pr": "2272",
+      "base": "2b8582135d33f498db4c30d8309447573baebb9c",
+      "head": "fcce9275e35c1cb6685a83c40d70b84c9caa91fd",
+      "patch_sha256": "ad4d02a8bb4450c2c23a2def953a15c20f36b897ba5aefc7fe07fe8f009cc3a9"
+    }
+  ],
+  "root_compiles": 8,
+  "host_csc_commands": 3,
+  "target_executions": 0,
+  "scope": "Local Windows diagnostic recipe and upstream source composition. Native recipe not reproduced. No postlink binary changes or historical-source authentication."
+}

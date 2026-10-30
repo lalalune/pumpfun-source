@@ -1,0 +1,22 @@
+{
+  "command": [
+    "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\csc.exe",
+    "/nologo",
+    "/target:exe",
+    "/out:C:\\Users\\Wind\\Documents\\Codex\\2026-10-26\\https-x-com-shawmakesmagic-status-2114560456891445597\\work\\pump-combined-span\\bridge\\LinkBridge.exe",
+    "C:\\Users\\Wind\\Documents\\Codex\\2026-10-26\\https-x-com-shawmakesmagic-status-2114560456891445597\\work\\pump-combined-span\\LinkBridge.cs"
+  ],
+  "returncode": 0,
+  "csc_sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00",
+  "source_sha256": "73c54e56d57dd4aef144fc22acf41f5fb5857d013b7b8215040630843cf246ae",
+  "binary_sha256": "86431a857c2c8a2da6345a4b372492bd27d8f6ac4495bb108261086d9dcd5b80",
+  "argument_roundtrip": true,
+  "initial_failed_command": "csc.exe /nologo /target:exe /out:work/pump-combined-span/bridge/LinkBridge.exe work/pump-combined-span/LinkBridge.cs",
+  "initial_failure": "CS1504: forward-slash relative source path parsed as switches; LinkBridge.cs not found. No bridge produced. Corrected to absolute native paths.",
+  "initial_probe_failure": {
+    "reason": "First successful build did not forward child stdout; JSON argument probe was empty. Fixed stream forwarding passes.",
+    "source_sha256": "db55bdcffcbfd290715cd617592b7cdc7f691c3cde63da24dc044707d944d047",
+    "binary_sha256": "ae13aae8fd2597f8c623ed0cadaa36dcad4ae550aaff096982595190a55f173c",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
