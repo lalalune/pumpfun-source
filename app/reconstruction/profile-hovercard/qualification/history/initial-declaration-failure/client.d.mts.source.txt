@@ -1,0 +1,33 @@
+/** Analyst-authored structural signatures of the observed ports. No runtime schema, auth or original TypeScript claim. */
+export type ProfileRow = {username?: string | null; profile_image?: string | null; bio?: string | null;
+ followers?: unknown; following?: unknown; group_badges?: {group_id?: string | null; username?: string | null; profile_image_url?: string | null}[] | null; [field:string]:unknown};
+export type XProfile = {x_username:string; x_profile_url?:string|null; [field:string]:unknown};
+export type SummaryData = Record<string,unknown>;
+export type SummaryResponse = {success:true;data:SummaryData}|{success:false;data:null;error:string};
+export type BalanceProjection = {lastUpdatedTs:number|null;nativeBalance:number;nativeLamports:number;solPrice:number;tokenCount:number;totalValue:number;
+ portfolioPnL:{totalCostBasisUsd:number;totalUnrealizedUsd:number;totalPercentage:number}};
+export type ReadResult<T> = {data?:T;isPending:boolean;isError?:boolean};
+export type ReadOptions<T> = {enabled:boolean;queryFn():Promise<T>;queryKey:unknown[];staleTime:number;retry?:number};
+export type HoverProps = {children:unknown;className?:string;closeDelay?:number|null;openDelay?:number|null;context?:unknown;disabled?:boolean;
+ fallbackAvatarUrl?:string|null;fallbackUsername?:string|null;followSlot?:unknown;ipfsPrefix?:string|null;onOpenChange?(open:boolean):void;
+ userAddress:string;userId?:string|null;userProfileLink?:string|null;side?:string|null;align?:string|null};
+export type Renderer=(props:Record<string,unknown>)=>unknown;
+export type Ports={
+ environmentSnapshot:{default?:unknown};
+ React:{useState<T>(initial:T):[T,(value:T)=>void];useEffect(effect:()=>void|(()=>void),dependencies:unknown[]):void};compiler(slots:number):unknown[];
+ jsxRuntime:{jsx(type:unknown,props:Record<string,unknown>,key?:unknown):unknown;jsxs(type:unknown,props:Record<string,unknown>,key?:unknown):unknown;Fragment:unknown};
+ useApiClientsConfig():{clientServerUrl:string;profileApiUrl:string};useVerifiedStatus(subject?:string|null):boolean;
+ useProfileLookup(options:{clientServerUrl:string;enabled:boolean;queryOptions:{staleTime:300000};userIdentifier:string}):ReadResult<ProfileRow|null>;
+ useQuery<T>(options:ReadOptions<T>):ReadResult<T>;
+ readBalanceSummary(options:{profileApiUrl:string;userAddress:string;fetchOptions?:unknown}):Promise<SummaryResponse>;
+ readWindowPnl(clientServerUrl:string,userAddress:string):Promise<unknown>;
+ normalizeBalanceSummary(data:SummaryData|null):BalanceProjection;
+ readXProfile(profile:ProfileRow|null|undefined):XProfile|null;
+ useFeatureFlag(key:string):unknown;groupRoute(profile:{groupId:string;username:string|null}):string;
+ shortenAddress(address:string,start?:number,end?:number):string;plural(singular:string,plural:string,count:number):string;
+ formatMoney(value:unknown):unknown;formatCompact(value:number):unknown;formatSigned(value:unknown):unknown;formatPnlClass(value:unknown):string;formatCount(value:number):unknown;formatUpdated(timestamp:number):string;
+ classes(...values:unknown[]):string;Avatar:Renderer;VerifiedBadge:Renderer;XTooltip:Renderer;HoverRoot:Renderer;HoverTrigger:Renderer;HoverContent:Renderer;XIcon:Renderer;CheckIcon:Renderer;CopyIcon:Renderer;
+ navigator:{clipboard:{writeText(text:string):Promise<void>}};
+ setInterval(callback:()=>void,delay:number):unknown;clearInterval(handle:unknown):void;setTimeout(callback:()=>void,delay:number):unknown;
+};
+export function createProfileHoverCard(ports:Ports):{ProfileHoverCard(props:HoverProps):unknown};

@@ -1,0 +1,152 @@
+✔ complete hover owner, subframes, thirteen actual callers and conditional MAIN Flight admission are source-bound (2276.756045ms)
+✔ actual maintained gate rejects changed clock/query body, variant/caller/MAIN ledger and noncanonical bytes (7117.616109ms)
+✖ closed owner invokes exact hook order/profile options and never acquires a reader until its supplied callback is invoked (1.101243ms)
+✖ open callback/defaults/override values and disabled branch preserve their actual ordering (0.257517ms)
+✖ userId nullish verification and raw profile identifier are distinct, with exact trimmed fallback/image/prefix behavior (0.289715ms)
+✖ bio/counts/squad/X-profile display binds complete reader/renderer callbacks without follow or external navigation (0.256906ms)
+✖ complete summary/PnL options and old query callbacks retain exact supplied configs, arguments and lack of signal forwarding (0.301944ms)
+✖ strict true summary selection, independent pending/error/false response and zero-valued PnL remain presentation rules (0.152549ms)
+✖ provided-value formatting branch and truthy custom route use original exact handoffs without a pricing engine (0.200341ms)
+✖ source interval starts immediately only while open/admitted and cleans up on dependency/close/disposal (0.287252ms)
+✖ injected clipboard await/feedback/errors and original uncleaned timeout preserve used callback behavior (0.324958ms)
+✖ opaque follow/context slots and propagation callbacks remain complete while parent errors propagate after local state (0.169585ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 2
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9585.900155
+
+✖ failing tests:
+
+test at tests/original_profile_hovercard.test.mjs:37:1
+✖ closed owner invokes exact hook order/profile options and never acquires a reader until its supplied callback is invoked (1.101243ms)
+  ReferenceError: W is not defined
+      at createProfileHoverCard (file:///workspace/pump-app-chart/app/reconstruction/profile-hovercard/client.mjs:126:5)
+      at setup (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:12:12)
+      at TestContext.<anonymous> (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:38:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/original_profile_hovercard.test.mjs:41:1
+✖ open callback/defaults/override values and disabled branch preserve their actual ordering (0.257517ms)
+  ReferenceError: W is not defined
+      at createProfileHoverCard (file:///workspace/pump-app-chart/app/reconstruction/profile-hovercard/client.mjs:126:5)
+      at setup (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:12:12)
+      at TestContext.<anonymous> (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:42:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/original_profile_hovercard.test.mjs:47:1
+✖ userId nullish verification and raw profile identifier are distinct, with exact trimmed fallback/image/prefix behavior (0.289715ms)
+  ReferenceError: W is not defined
+      at createProfileHoverCard (file:///workspace/pump-app-chart/app/reconstruction/profile-hovercard/client.mjs:126:5)
+      at setup (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:12:12)
+      at TestContext.<anonymous> (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:48:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/original_profile_hovercard.test.mjs:52:1
+✖ bio/counts/squad/X-profile display binds complete reader/renderer callbacks without follow or external navigation (0.256906ms)
+  ReferenceError: W is not defined
+      at createProfileHoverCard (file:///workspace/pump-app-chart/app/reconstruction/profile-hovercard/client.mjs:126:5)
+      at setup (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:12:12)
+      at TestContext.<anonymous> (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:53:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/original_profile_hovercard.test.mjs:58:1
+✖ complete summary/PnL options and old query callbacks retain exact supplied configs, arguments and lack of signal forwarding (0.301944ms)
+  ReferenceError: W is not defined
+      at createProfileHoverCard (file:///workspace/pump-app-chart/app/reconstruction/profile-hovercard/client.mjs:126:5)
+      at setup (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:12:12)
+      at TestContext.<anonymous> (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:59:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/original_profile_hovercard.test.mjs:62:1
+✖ strict true summary selection, independent pending/error/false response and zero-valued PnL remain presentation rules (0.152549ms)
+  ReferenceError: W is not defined
+      at createProfileHoverCard (file:///workspace/pump-app-chart/app/reconstruction/profile-hovercard/client.mjs:126:5)
+      at setup (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:12:12)
+      at TestContext.<anonymous> (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:63:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/original_profile_hovercard.test.mjs:67:1
+✖ provided-value formatting branch and truthy custom route use original exact handoffs without a pricing engine (0.200341ms)
+  ReferenceError: W is not defined
+      at createProfileHoverCard (file:///workspace/pump-app-chart/app/reconstruction/profile-hovercard/client.mjs:126:5)
+      at setup (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:12:12)
+      at TestContext.<anonymous> (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:68:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/original_profile_hovercard.test.mjs:71:1
+✖ source interval starts immediately only while open/admitted and cleans up on dependency/close/disposal (0.287252ms)
+  ReferenceError: W is not defined
+      at createProfileHoverCard (file:///workspace/pump-app-chart/app/reconstruction/profile-hovercard/client.mjs:126:5)
+      at setup (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:12:12)
+      at TestContext.<anonymous> (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:72:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/original_profile_hovercard.test.mjs:75:1
+✖ injected clipboard await/feedback/errors and original uncleaned timeout preserve used callback behavior (0.324958ms)
+  ReferenceError: W is not defined
+      at createProfileHoverCard (file:///workspace/pump-app-chart/app/reconstruction/profile-hovercard/client.mjs:126:5)
+      at setup (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:12:12)
+      at TestContext.<anonymous> (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:76:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/original_profile_hovercard.test.mjs:79:1
+✖ opaque follow/context slots and propagation callbacks remain complete while parent errors propagate after local state (0.169585ms)
+  ReferenceError: W is not defined
+      at createProfileHoverCard (file:///workspace/pump-app-chart/app/reconstruction/profile-hovercard/client.mjs:126:5)
+      at setup (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:12:12)
+      at TestContext.<anonymous> (file:///workspace/pump-app-chart/app/tests/original_profile_hovercard.test.mjs:80:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

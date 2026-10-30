@@ -1,0 +1,60 @@
+--- initial-uncommitted/app/scripts/original-profile-hovercard.mjs
++++ source-71a2990/app/scripts/original-profile-hovercard.mjs
+@@ -562,6 +562,7 @@
+  assert.deepEqual(slots(component),[111,10,9]);assert.deepEqual(slots(XLink),[15]);assert.deepEqual(slots(stat),[14]);
+  const constants=['z','O','L','q','V','X','B','H'].map(name=>declaration(core,name));
+  const xStop=declaration(core,'E');
++ const xDeclaration=exactlyOne(core.node.body.body.filter(n=>n.type==='VariableDeclaration'&&n.declarations.includes(XLink)),'original XLink declaration statement');assert.equal(xDeclaration.kind,'let');
+  const fallback=resolve(get(426091),exported(get(426091),'A'));assert.equal(fallback.type,'StringLiteral');
+  const surface=exported(get(360827),'V');assert.equal(surface.type,'StringLiteral');
+  const feature=one(get(322315).node,n=>n.type==='AssignmentExpression'&&n.left?.property?.name==='WEB_SQUADS'&&n.right?.type==='StringLiteral','actual WEB_SQUADS flag literal').right;
+@@ -605,7 +606,7 @@
+  const code=`export function createProfileHoverCard({environmentSnapshot,React,compiler,jsxRuntime,useApiClientsConfig,useVerifiedStatus,useProfileLookup,useQuery,readBalanceSummary,readWindowPnl,normalizeBalanceSummary,readXProfile,useFeatureFlag,groupRoute,shortenAddress,plural,formatMoney,formatCompact,formatSigned,formatPnlClass,formatCount,formatUpdated,classes,Avatar,VerifiedBadge,XTooltip,HoverRoot,HoverTrigger,HoverContent,XIcon,CheckIcon,CopyIcon,navigator,setInterval,clearInterval,setTimeout}){
+  const t=environmentSnapshot,r=jsxRuntime,n={c:compiler},a={Tc:XIcon,sX:CheckIcon,xR:CopyIcon},i={useApiClientsConfig},l={D:{WEB_SQUADS:${print(feature)}}},o={k:useFeatureFlag},s={c:classes,A:${print(fallback)}},u={w:formatMoney},d={C:formatUpdated},c={d:shortenAddress,V:plural},f={Z:groupRoute},m={f:normalizeBalanceSummary},h={l:formatCompact,u:formatSigned,k:formatPnlClass,O:formatCount},p={f:Avatar},x={f:VerifiedBadge},g={s:useVerifiedStatus},y={C:useProfileLookup},v=React,b={c:HoverRoot,b:HoverTrigger,P:HoverContent},w={V:${print(surface)}},j={useQuery},A={a:XTooltip},I={k:readXProfile},$=readBalanceSummary,R=readWindowPnl;
+  let ${constants.map(print).join(',')};
+- ${print(XLink)};
++ ${xDeclaration.kind} ${print(XLink)};
+  ${print(xStop)}
+  ${print(stat)}
+  const ProfileHoverCard=${print(component)};
+@@ -618,7 +619,7 @@
+  ...roles.filter(f=>f.id!==432626).map(f=>cite(f,f.node,`external dependency context ${f.id}`,false)),...callerWitnesses,cite(reply,ordinary,'complete ordinary MAIN reply owner context only',false),cite(reply,ordinaryWrapper,'actual conditional ordinary MAIN hover wrapper')];
+  witness.push(...mainWitnesses);
+  const contract={schemaVersion:1,mainAdmission,baseCommit:'094a06f18df738d41e77070c1a009e135671ac1a',sources:roles.map(f=>f.provenance),twinOwnerOrigin:twin.provenance,witnesses:witness,callerLedger,
+- implementation:{factory:432626,export:'f',entry:'createProfileHoverCard',compilerFrames:[111,10,9,15,14],totalSlots:159,clientSha256:sha256(Buffer.from(client)),mounted:false},
++ implementation:{factory:432626,export:'f',entry:'createProfileHoverCard',declarationKinds:{W:xDeclaration.kind},compilerFrames:[111,10,9,15,14],totalSlots:159,clientSha256:sha256(Buffer.from(client)),mounted:false},
+  ordinaryAdmission:{namespace:710416,source:reply.provenance.source,wrapper:ordinaryCalls[0],scope:'Conditional ordinary MAIN reply wrapper only; a wallet and absent explicit replierHref are required by caller. No reply-cell execution or observed captured rows claimed.'},
+  preserved:{hooks:'Verified/profile/summary/PnL hooks run before disabled return. Disabled is a display branch, not auth or request admission.',identity:'Verification uses userId??userAddress; profile lookup uses userAddress and open with staleTime3e5. Raw fallback link/custom truthiness and trimmed strings remain.',reads:'Complete 10/9-slot inline query options/keys/order; required external readers and schema implementation, no real financial request.',display:'Supplied identity/counts/summary/PnL/X/squad projection to exact credited renderer/formatter APIs; no financial calculation engine.',clock:'Source updated callback immediately then30s interval while open with valid supplied state; interval cleanup preserved.',clipboard:'Await required supplied writeText, then feedback true and2s timeout. No source timeout cleanup, operator clipboard or stale-result repair added.',events:'Source onOpenChange sets state then optional callback; defaults only for undefined; opaque followSlot; propagation-only X/content callbacks.'},
+  credited:['Existing lookup870/coalescer910 and verified1841 boundaries are required API ports, no open-PR runtime import.','Avatar1916/decoration and navigation helpers remain credited renderer/API ports.','Ordinary MAIN reply710416 ownership is separate; its source caller is inert evidence only.','Existing financial display/reader/schema source is external; no acquisition or calculation credit.'],
+--- initial-uncommitted/app/reconstruction/profile-hovercard/client.mjs
++++ source-71a2990/app/reconstruction/profile-hovercard/client.mjs
+@@ -123,7 +123,7 @@
+     X = e => e.stopPropagation(),
+     B = `inline-flex h-7 min-w-0 flex-1 items-center justify-center rounded-md bg-bg-tertiary px-2.5 text-[12px] font-medium leading-none text-text-primary transition-colors hover:bg-bg-tertiary/75 ${V}`,
+     H = `inline-flex size-7 shrink-0 items-center justify-center rounded-md text-text-secondary transition-colors hover:bg-bg-tertiary hover:text-text-primary ${V}`;
+-  W = e => {
++  let W = e => {
+     let t,
+       i,
+       l,
+--- initial-uncommitted/app/reconstruction/profile-hovercard/contract.json
++++ source-71a2990/app/reconstruction/profile-hovercard/contract.json
+@@ -2840,6 +2840,9 @@
+     "factory": 432626,
+     "export": "f",
+     "entry": "createProfileHoverCard",
++    "declarationKinds": {
++      "W": "let"
++    },
+     "compilerFrames": [
+       111,
+       10,
+@@ -2848,7 +2851,7 @@
+       14
+     ],
+     "totalSlots": 159,
+-    "clientSha256": "e9c3d1d3c7964c8c594166d09e75c7b7593a33dcaec630df1552771d824ce9da",
++    "clientSha256": "251525c238cd24b0fa1b1916f6d5e8cc815db2cb4ce6ace59ec412c349c0eb1a",
+     "mounted": false
+   },
+   "ordinaryAdmission": {

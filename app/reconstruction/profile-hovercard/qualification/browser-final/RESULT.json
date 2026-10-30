@@ -1,0 +1,5242 @@
+{
+  "scope": "Standalone real React/compiler; complete profile hover owner with synthetic query/provider/financial-reader/display/clock/clipboard/render ports. No original provider or financial acquisition, auth/follow, operator clipboard or action execution.",
+  "selectedSource": "267cfba6102d07cc26b442492627c7aa6a3db220",
+  "repositoryHead": "267cfba6102d07cc26b442492627c7aa6a3db220",
+  "sourceBinding": [
+    {
+      "path": "reconstruction/profile-hovercard/client.mjs",
+      "bytes": 20597,
+      "sha256": "251525c238cd24b0fa1b1916f6d5e8cc815db2cb4ce6ace59ec412c349c0eb1a",
+      "gitBlob": "c093656a61a555c22f4ca7da2835f8a371226269"
+    },
+    {
+      "path": "reconstruction/profile-hovercard/client.d.mts",
+      "bytes": 3538,
+      "sha256": "566f2b296f88a8342bfeb0f6f53a03659d957289eeae619d74cf1e239dc4aa9c",
+      "gitBlob": "114302ee6c5fb94f04a4bf5bdb9db1dbcb97c8db"
+    },
+    {
+      "path": "reconstruction/profile-hovercard/qualification/browser.mjs",
+      "bytes": 14183,
+      "sha256": "5b5052b60e7936f781ff05b392e6043769eb7c8318f687cc35c5e238264d7172",
+      "gitBlob": "c4d44a2dd7b0598c8ccca775ab24df37c9f95aad"
+    },
+    {
+      "path": "reconstruction/profile-hovercard/qualification/fixture.mjs",
+      "bytes": 7410,
+      "sha256": "36be3b8abbaebf1063d4ce92d87d4889a2a89d669d594c4c5468e7b8227ab269",
+      "gitBlob": "540219b5617f726d4864acd338051fb20561b68a"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65",
+      "afterRunSha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e",
+      "afterRunSha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d",
+      "afterRunSha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb",
+      "afterRunSha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c",
+      "afterRunSha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505",
+      "afterRunSha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1",
+      "afterRunSha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396",
+      "afterRunSha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096",
+      "afterRunSha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601",
+      "afterRunSha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-jsx-runtime.development.js",
+      "bytes": 12452,
+      "sha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d",
+      "afterRunSha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d",
+      "unchanged": true
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/jsx-runtime.js",
+      "bytes": 210,
+      "sha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc",
+      "afterRunSha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc",
+      "unchanged": true
+    },
+    {
+      "path": "reconstruction/profile-hovercard/client.mjs",
+      "bytes": 20597,
+      "sha256": "251525c238cd24b0fa1b1916f6d5e8cc815db2cb4ce6ace59ec412c349c0eb1a",
+      "afterRunSha256": "251525c238cd24b0fa1b1916f6d5e8cc815db2cb4ce6ace59ec412c349c0eb1a",
+      "unchanged": true
+    },
+    {
+      "path": "reconstruction/profile-hovercard/qualification/fixture.mjs",
+      "bytes": 7410,
+      "sha256": "36be3b8abbaebf1063d4ce92d87d4889a2a89d669d594c4c5468e7b8227ab269",
+      "afterRunSha256": "36be3b8abbaebf1063d4ce92d87d4889a2a89d669d594c4c5468e7b8227ab269",
+      "unchanged": true
+    },
+    {
+      "path": "reconstruction/profile-hovercard/client.d.mts",
+      "bytes": 3538,
+      "sha256": "566f2b296f88a8342bfeb0f6f53a03659d957289eeae619d74cf1e239dc4aa9c",
+      "afterRunSha256": "566f2b296f88a8342bfeb0f6f53a03659d957289eeae619d74cf1e239dc4aa9c",
+      "unchanged": true
+    },
+    {
+      "path": "reconstruction/profile-hovercard/qualification/browser.mjs",
+      "bytes": 14183,
+      "sha256": "5b5052b60e7936f781ff05b392e6043769eb7c8318f687cc35c5e238264d7172",
+      "afterRunSha256": "5b5052b60e7936f781ff05b392e6043769eb7c8318f687cc35c5e238264d7172",
+      "unchanged": true
+    }
+  ],
+  "bundleSha256": "b304e8150efc2500a69b2b309acb1c4578d0e7f2ad555a8491c5feb7297205d8",
+  "cases": [
+    {
+      "name": "native trigger to complete pending display and exact query identity/order/options",
+      "startedAt": "2026-10-30T00:53:40.481Z",
+      "closed": {
+        "address": "fixture-address-A",
+        "subscribers": 9,
+        "timers": [],
+        "calls": [
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ]
+        ],
+        "profileOptions": {
+          "clientServerUrl": "https://supplied.invalid/client",
+          "enabled": false,
+          "queryOptions": {
+            "staleTime": 300000
+          },
+          "userIdentifier": "fixture-address-A"
+        },
+        "summaryOptions": {
+          "key": [
+            "balanceSummary",
+            "fixture-address-A"
+          ],
+          "enabled": false,
+          "staleTime": 300000
+        },
+        "pnlOptions": {
+          "key": [
+            "userProfileHoverWindowPnl",
+            "1w",
+            "fixture-address-A"
+          ],
+          "enabled": false,
+          "staleTime": 60000,
+          "retry": 1
+        }
+      },
+      "open": {
+        "address": "fixture-address-A",
+        "subscribers": 9,
+        "timers": [],
+        "calls": [
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ]
+        ],
+        "profileOptions": {
+          "clientServerUrl": "https://supplied.invalid/client",
+          "enabled": true,
+          "queryOptions": {
+            "staleTime": 300000
+          },
+          "userIdentifier": "fixture-address-A"
+        },
+        "summaryOptions": {
+          "key": [
+            "balanceSummary",
+            "fixture-address-A"
+          ],
+          "enabled": true,
+          "staleTime": 300000
+        },
+        "pnlOptions": {
+          "key": [
+            "userProfileHoverWindowPnl",
+            "1w",
+            "fixture-address-A"
+          ],
+          "enabled": true,
+          "staleTime": 60000,
+          "retry": 1
+        }
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T00:53:40.545Z"
+    },
+    {
+      "name": "in-memory required read callbacks to supplied identity/stats/badge and exact request arguments",
+      "startedAt": "2026-10-30T00:53:40.545Z",
+      "read": {
+        "address": "fixture-address-A",
+        "subscribers": 9,
+        "timers": [
+          {
+            "id": 1,
+            "kind": "interval",
+            "delay": 30000
+          }
+        ],
+        "calls": [
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "read-summary",
+            {
+              "profileApiUrl": "https://supplied.invalid/profile",
+              "userAddress": "fixture-address-A"
+            }
+          ],
+          [
+            "read-pnl",
+            "https://supplied.invalid/client",
+            "fixture-address-A"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            1,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ]
+        ],
+        "profileOptions": {
+          "clientServerUrl": "https://supplied.invalid/client",
+          "enabled": true,
+          "queryOptions": {
+            "staleTime": 300000
+          },
+          "userIdentifier": "fixture-address-A"
+        },
+        "summaryOptions": {
+          "key": [
+            "balanceSummary",
+            "fixture-address-A"
+          ],
+          "enabled": true,
+          "staleTime": 300000
+        },
+        "pnlOptions": {
+          "key": [
+            "userProfileHoverWindowPnl",
+            "1w",
+            "fixture-address-A"
+          ],
+          "enabled": true,
+          "staleTime": 60000,
+          "retry": 1
+        }
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T00:53:40.594Z"
+    },
+    {
+      "name": "complete fallback/X/squad/opaque-follow display handoffs without remote navigation or images",
+      "startedAt": "2026-10-30T00:53:40.594Z",
+      "display": {
+        "address": "fixture-address-A",
+        "subscribers": 9,
+        "timers": [
+          {
+            "id": 1,
+            "kind": "interval",
+            "delay": 30000
+          }
+        ],
+        "calls": [
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "read-summary",
+            {
+              "profileApiUrl": "https://supplied.invalid/profile",
+              "userAddress": "fixture-address-A"
+            }
+          ],
+          [
+            "read-pnl",
+            "https://supplied.invalid/client",
+            "fixture-address-A"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            1,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ]
+        ],
+        "profileOptions": {
+          "clientServerUrl": "https://supplied.invalid/client",
+          "enabled": true,
+          "queryOptions": {
+            "staleTime": 300000
+          },
+          "userIdentifier": "fixture-address-A"
+        },
+        "summaryOptions": {
+          "key": [
+            "balanceSummary",
+            "fixture-address-A"
+          ],
+          "enabled": true,
+          "staleTime": 300000
+        },
+        "pnlOptions": {
+          "key": [
+            "userProfileHoverWindowPnl",
+            "1w",
+            "fixture-address-A"
+          ],
+          "enabled": true,
+          "staleTime": 60000,
+          "retry": 1
+        }
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T00:53:40.645Z"
+    },
+    {
+      "name": "source immediate/30s registration and dependency/close cleanup with explicit manual clock port",
+      "startedAt": "2026-10-30T00:53:40.645Z",
+      "initial": {
+        "address": "fixture-address-A",
+        "subscribers": 9,
+        "timers": [
+          {
+            "id": 1,
+            "kind": "interval",
+            "delay": 30000
+          }
+        ],
+        "calls": [
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "read-summary",
+            {
+              "profileApiUrl": "https://supplied.invalid/profile",
+              "userAddress": "fixture-address-A"
+            }
+          ],
+          [
+            "read-pnl",
+            "https://supplied.invalid/client",
+            "fixture-address-A"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            1,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ]
+        ],
+        "profileOptions": {
+          "clientServerUrl": "https://supplied.invalid/client",
+          "enabled": true,
+          "queryOptions": {
+            "staleTime": 300000
+          },
+          "userIdentifier": "fixture-address-A"
+        },
+        "summaryOptions": {
+          "key": [
+            "balanceSummary",
+            "fixture-address-A"
+          ],
+          "enabled": true,
+          "staleTime": 300000
+        },
+        "pnlOptions": {
+          "key": [
+            "userProfileHoverWindowPnl",
+            "1w",
+            "fixture-address-A"
+          ],
+          "enabled": true,
+          "staleTime": 60000,
+          "retry": 1
+        }
+      },
+      "changed": {
+        "address": "fixture-address-A",
+        "subscribers": 9,
+        "timers": [
+          {
+            "id": 2,
+            "kind": "interval",
+            "delay": 30000
+          }
+        ],
+        "calls": [
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "read-summary",
+            {
+              "profileApiUrl": "https://supplied.invalid/profile",
+              "userAddress": "fixture-address-A"
+            }
+          ],
+          [
+            "read-pnl",
+            "https://supplied.invalid/client",
+            "fixture-address-A"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            1,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            1
+          ],
+          [
+            "interval",
+            2,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ]
+        ],
+        "profileOptions": {
+          "clientServerUrl": "https://supplied.invalid/client",
+          "enabled": true,
+          "queryOptions": {
+            "staleTime": 300000
+          },
+          "userIdentifier": "fixture-address-A"
+        },
+        "summaryOptions": {
+          "key": [
+            "balanceSummary",
+            "fixture-address-A"
+          ],
+          "enabled": true,
+          "staleTime": 300000
+        },
+        "pnlOptions": {
+          "key": [
+            "userProfileHoverWindowPnl",
+            "1w",
+            "fixture-address-A"
+          ],
+          "enabled": true,
+          "staleTime": 60000,
+          "retry": 1
+        }
+      },
+      "closed": {
+        "address": "fixture-address-A",
+        "subscribers": 9,
+        "timers": [],
+        "calls": [
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "read-summary",
+            {
+              "profileApiUrl": "https://supplied.invalid/profile",
+              "userAddress": "fixture-address-A"
+            }
+          ],
+          [
+            "read-pnl",
+            "https://supplied.invalid/client",
+            "fixture-address-A"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            1,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            1
+          ],
+          [
+            "interval",
+            2,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            false
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            2
+          ]
+        ],
+        "profileOptions": {
+          "clientServerUrl": "https://supplied.invalid/client",
+          "enabled": false,
+          "queryOptions": {
+            "staleTime": 300000
+          },
+          "userIdentifier": "fixture-address-A"
+        },
+        "summaryOptions": {
+          "key": [
+            "balanceSummary",
+            "fixture-address-A"
+          ],
+          "enabled": false,
+          "staleTime": 300000
+        },
+        "pnlOptions": {
+          "key": [
+            "userProfileHoverWindowPnl",
+            "1w",
+            "fixture-address-A"
+          ],
+          "enabled": false,
+          "staleTime": 60000,
+          "retry": 1
+        }
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T00:53:40.756Z"
+    },
+    {
+      "name": "supplied error/pending/recovery and disabled display branch preserve independent read state",
+      "startedAt": "2026-10-30T00:53:40.756Z",
+      "disabled": {
+        "address": "fixture-address-A",
+        "subscribers": 9,
+        "timers": [
+          {
+            "id": 4,
+            "kind": "interval",
+            "delay": 30000
+          }
+        ],
+        "calls": [
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "read-summary",
+            {
+              "profileApiUrl": "https://supplied.invalid/profile",
+              "userAddress": "fixture-address-A"
+            }
+          ],
+          [
+            "read-pnl",
+            "https://supplied.invalid/client",
+            "fixture-address-A"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            1,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            1
+          ],
+          [
+            "interval",
+            2,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            false
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            2
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            3,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            3
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            4,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ]
+        ],
+        "profileOptions": {
+          "clientServerUrl": "https://supplied.invalid/client",
+          "enabled": true,
+          "queryOptions": {
+            "staleTime": 300000
+          },
+          "userIdentifier": "fixture-address-A"
+        },
+        "summaryOptions": {
+          "key": [
+            "balanceSummary",
+            "fixture-address-A"
+          ],
+          "enabled": true,
+          "staleTime": 300000
+        },
+        "pnlOptions": {
+          "key": [
+            "userProfileHoverWindowPnl",
+            "1w",
+            "fixture-address-A"
+          ],
+          "enabled": true,
+          "staleTime": 60000,
+          "retry": 1
+        }
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T00:53:40.876Z"
+    },
+    {
+      "name": "in-memory deferred clipboard/old callback completion and source-vs-host timer cleanup",
+      "startedAt": "2026-10-30T00:53:40.876Z",
+      "copied": {
+        "address": "fixture-address-B",
+        "subscribers": 9,
+        "timers": [
+          {
+            "id": 4,
+            "kind": "interval",
+            "delay": 30000
+          },
+          {
+            "id": 5,
+            "kind": "timeout",
+            "delay": 2000
+          }
+        ],
+        "calls": [
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "read-summary",
+            {
+              "profileApiUrl": "https://supplied.invalid/profile",
+              "userAddress": "fixture-address-A"
+            }
+          ],
+          [
+            "read-pnl",
+            "https://supplied.invalid/client",
+            "fixture-address-A"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            1,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            1
+          ],
+          [
+            "interval",
+            2,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            false
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            2
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            3,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            3
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            4,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clipboard",
+            "fixture-address-A"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-B"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "timeout",
+            5,
+            2000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-B"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ]
+        ],
+        "profileOptions": {
+          "clientServerUrl": "https://supplied.invalid/client",
+          "enabled": true,
+          "queryOptions": {
+            "staleTime": 300000
+          },
+          "userIdentifier": "fixture-address-B"
+        },
+        "summaryOptions": {
+          "key": [
+            "balanceSummary",
+            "fixture-address-B"
+          ],
+          "enabled": true,
+          "staleTime": 300000
+        },
+        "pnlOptions": {
+          "key": [
+            "userProfileHoverWindowPnl",
+            "1w",
+            "fixture-address-B"
+          ],
+          "enabled": true,
+          "staleTime": 60000,
+          "retry": 1
+        }
+      },
+      "unmounted": {
+        "address": "fixture-address-B",
+        "subscribers": 0,
+        "timers": [
+          {
+            "id": 5,
+            "kind": "timeout",
+            "delay": 2000
+          }
+        ],
+        "calls": [
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "read-summary",
+            {
+              "profileApiUrl": "https://supplied.invalid/profile",
+              "userAddress": "fixture-address-A"
+            }
+          ],
+          [
+            "read-pnl",
+            "https://supplied.invalid/client",
+            "fixture-address-A"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            1,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            1
+          ],
+          [
+            "interval",
+            2,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            false
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            2
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            3,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            3
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            4,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clipboard",
+            "fixture-address-A"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-B"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "timeout",
+            5,
+            2000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-B"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            4
+          ]
+        ],
+        "profileOptions": {
+          "clientServerUrl": "https://supplied.invalid/client",
+          "enabled": true,
+          "queryOptions": {
+            "staleTime": 300000
+          },
+          "userIdentifier": "fixture-address-B"
+        },
+        "summaryOptions": {
+          "key": [
+            "balanceSummary",
+            "fixture-address-B"
+          ],
+          "enabled": true,
+          "staleTime": 300000
+        },
+        "pnlOptions": {
+          "key": [
+            "userProfileHoverWindowPnl",
+            "1w",
+            "fixture-address-B"
+          ],
+          "enabled": true,
+          "staleTime": 60000,
+          "retry": 1
+        }
+      },
+      "environmentCleanup": {
+        "address": "fixture-address-B",
+        "subscribers": 0,
+        "timers": [],
+        "calls": [
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "read-summary",
+            {
+              "profileApiUrl": "https://supplied.invalid/profile",
+              "userAddress": "fixture-address-A"
+            }
+          ],
+          [
+            "read-pnl",
+            "https://supplied.invalid/client",
+            "fixture-address-A"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            1,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            1
+          ],
+          [
+            "interval",
+            2,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            false
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            2
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": false,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            3,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            3
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "interval",
+            4,
+            30000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "parent-open",
+            true
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-A"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clipboard",
+            "fixture-address-A"
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-B"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "timeout",
+            5,
+            2000
+          ],
+          [
+            "config"
+          ],
+          [
+            "verified",
+            "fixture-user-id"
+          ],
+          [
+            "profile",
+            {
+              "clientServerUrl": "https://supplied.invalid/client",
+              "enabled": true,
+              "queryOptions": {
+                "staleTime": 300000
+              },
+              "userIdentifier": "fixture-address-B"
+            }
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "summary"
+          ],
+          [
+            "config"
+          ],
+          [
+            "query",
+            "pnl"
+          ],
+          [
+            "clear",
+            4
+          ]
+        ],
+        "profileOptions": {
+          "clientServerUrl": "https://supplied.invalid/client",
+          "enabled": true,
+          "queryOptions": {
+            "staleTime": 300000
+          },
+          "userIdentifier": "fixture-address-B"
+        },
+        "summaryOptions": {
+          "key": [
+            "balanceSummary",
+            "fixture-address-B"
+          ],
+          "enabled": true,
+          "staleTime": 300000
+        },
+        "pnlOptions": {
+          "key": [
+            "userProfileHoverWindowPnl",
+            "1w",
+            "fixture-address-B"
+          ],
+          "enabled": true,
+          "staleTime": 60000,
+          "retry": 1
+        }
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T00:53:40.960Z"
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/bundle.js"
+    }
+  ],
+  "blockedRequests": [],
+  "pageErrors": [],
+  "startedAt": "2026-10-30T00:53:40.188Z",
+  "origin": "http://127.0.0.1:39503",
+  "status": "PASS",
+  "browserClosed": true,
+  "serverListening": false,
+  "endedAt": "2026-10-30T00:53:41.036Z"
+}

@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "localMeasuredSourceAndMethod": "267cfba6102d07cc26b442492627c7aa6a3db220",
+  "publicSource": "71a2990d0d3f956412621988b59197cb0b5dd9e6",
+  "exactCompleteTreeForBoth": "afb42d398032ead26298878caa243a8230e428a3",
+  "frozenEightFiles": [
+    {
+      "path": "app/reconstruction/profile-hovercard/README.md",
+      "bytes": 8807,
+      "sha256": "ee1a35c301022864ea5f338b271111b0bd2443639c7bb2fec664f026d8a68345",
+      "gitBlob": "ea313f4e32d2cee1d891ed01b3bceb49ff0a39f9"
+    },
+    {
+      "path": "app/reconstruction/profile-hovercard/client.d.mts",
+      "bytes": 3538,
+      "sha256": "566f2b296f88a8342bfeb0f6f53a03659d957289eeae619d74cf1e239dc4aa9c",
+      "gitBlob": "114302ee6c5fb94f04a4bf5bdb9db1dbcb97c8db"
+    },
+    {
+      "path": "app/reconstruction/profile-hovercard/client.mjs",
+      "bytes": 20597,
+      "sha256": "251525c238cd24b0fa1b1916f6d5e8cc815db2cb4ce6ace59ec412c349c0eb1a",
+      "gitBlob": "c093656a61a555c22f4ca7da2835f8a371226269"
+    },
+    {
+      "path": "app/reconstruction/profile-hovercard/contract.json",
+      "bytes": 108567,
+      "sha256": "4a6692213f89cca0f64649f06c96830864649f50ebed7b672b30d265c7b40a34",
+      "gitBlob": "fc7f80f0bcc2a7680a8158e231bc888d8c73b63f"
+    },
+    {
+      "path": "app/reconstruction/profile-hovercard/qualification/browser.mjs",
+      "bytes": 14183,
+      "sha256": "5b5052b60e7936f781ff05b392e6043769eb7c8318f687cc35c5e238264d7172",
+      "gitBlob": "c4d44a2dd7b0598c8ccca775ab24df37c9f95aad"
+    },
+    {
+      "path": "app/reconstruction/profile-hovercard/qualification/fixture.mjs",
+      "bytes": 7410,
+      "sha256": "36be3b8abbaebf1063d4ce92d87d4889a2a89d669d594c4c5468e7b8227ab269",
+      "gitBlob": "540219b5617f726d4864acd338051fb20561b68a"
+    },
+    {
+      "path": "app/scripts/original-profile-hovercard.mjs",
+      "bytes": 29940,
+      "sha256": "fc444d04524f2c12ba80f6f584104ad09cd9a6effd973a3abf8c7ae608631f22",
+      "gitBlob": "41702940d8aa322cfa58771f5695606c98a11ba0"
+    },
+    {
+      "path": "app/tests/original_profile_hovercard.test.mjs",
+      "bytes": 16563,
+      "sha256": "77c6fe0db8c1d1f978569e04bc5dce67f1636386b1f0177fa5f775f6f7287390",
+      "gitBlob": "38652ec4c728cf2a1117407edfd3e5e8caa1fc33"
+    }
+  ],
+  "source": {
+    "physicalRoles": 38,
+    "selectedNumericIds": 25,
+    "ownerVariants": 1,
+    "ownerOrigins": 2,
+    "witnesses": 94,
+    "consumerRegistrations": 7,
+    "actualJsxCalls": 13,
+    "compilerFrames": [
+      111,
+      10,
+      9,
+      15,
+      14
+    ],
+    "compilerSlots": 159,
+    "canonicalUtf8Checked": true,
+    "mounted": false
+  },
+  "declarationCorrection": {
+    "initialPassed": 2,
+    "initialFailed": 10,
+    "initialUnrun": 0,
+    "finalPassed": 12,
+    "finalFailed": 0,
+    "sameTwelveModelCaseBytes": true,
+    "sameTypeDeclarationBytes": true,
+    "history": "history/initial-declaration-failure/BINDING.json",
+    "initialLog": "history/focused-initial.log",
+    "finalLog": "focused-frozen.log",
+    "cause": "Generated W assignment omitted its original parent let declaration, causing ReferenceError in all ten semantic cases.",
+    "fix": "Derive the actual source VariableDeclaration.kind and emit let W, with canonical source-derived byte comparison. No owner callback or model-case change.",
+    "initialFilesWereUncommitted": true,
+    "noPublicAncestryClaimForInitialBytes": true,
+    "notTwentyFourUniqueCases": true
+  },
+  "direct": {
+    "passed": 12,
+    "failed": 0,
+    "skipped": 0,
+    "actualMaintainedVerifierMutationRejections": 7,
+    "log": "focused-frozen.log"
+  },
+  "types": {
+    "cwd": "app",
+    "command": [
+      "corepack",
+      "pnpm",
+      "exec",
+      "tsc",
+      "--noEmit",
+      "--strict",
+      "--skipLibCheck",
+      "--target",
+      "ES2022",
+      "--module",
+      "NodeNext",
+      "--moduleResolution",
+      "NodeNext",
+      "reconstruction/profile-hovercard/client.d.mts"
+    ],
+    "returncode": 0,
+    "log": "ports-types.log",
+    "logIsEmptyOnSuccess": true,
+    "declarationBytesEqualFrozen": true
+  },
+  "browser": {
+    "method": "267cfba6102d07cc26b442492627c7aa6a3db220",
+    "passed": 6,
+    "failed": 0,
+    "unrun": 0,
+    "nodeExitStatus": 0,
+    "cwd": "app",
+    "command": [
+      "node",
+      "reconstruction/profile-hovercard/qualification/browser.mjs",
+      "--source",
+      "267cfba6102d07cc26b442492627c7aa6a3db220",
+      "--output",
+      "NEW_DIRECTORY"
+    ],
+    "result": "browser-final/RESULT.json",
+    "exactGitRuntimeFiles": 4,
+    "actualInputs": 16,
+    "allInputsUnchangedAfter": true,
+    "onlyRequests": [
+      "GET /",
+      "GET /bundle.js"
+    ],
+    "blockedRequests": [],
+    "pageErrors": [],
+    "browserClosed": true,
+    "serverListening": false,
+    "clock": "Manual supplied timer callbacks, not real 30s/2s wall-clock timing.",
+    "cleanup": "Source clears caption interval; source retains feedback timeout. Host cleanupEnvironment clears the remaining timeout after it is observed.",
+    "synthetic": "Query/config/profile/verification/read/schema/projection/formatting/clock/hover/clipboard/render capabilities; native buttons and real React/compiler are local."
+  },
+  "bundle": {
+    "file": "browser-final/bundle.js.gz",
+    "uncompressedSha256": "b304e8150efc2500a69b2b309acb1c4578d0e7f2ad555a8491c5feb7297205d8",
+    "uncompressedBytes": 1158109,
+    "gzipRoundtripVerified": true
+  },
+  "sharedAndIntegrity": {
+    "sharedSourceChecks": 11,
+    "captures": 698,
+    "npmIntegrity": true,
+    "sdkSourceFiles": 31,
+    "progressTests": 9,
+    "allPassed": true,
+    "progressLogLimit": "progress.log retains the nine unittest results; the successful progress.py --check stdout was returned to the local command output rather than redirected into that file. No fabricated raw stdout."
+  },
+  "mandatory": {
+    "source": "267cfba6102d07cc26b442492627c7aa6a3db220",
+    "gitBoundInputs": 53,
+    "captureChecks": 9,
+    "toolingTests": 10,
+    "allPassed": true,
+    "record": "mandatory-source-record.json"
+  },
+  "publicExport": {
+    "source": "71a2990d0d3f956412621988b59197cb0b5dd9e6",
+    "gitAuthenticatedFiles": 44,
+    "pathContainsSpaces": true,
+    "sourceCheckPassed": true,
+    "sameTwelveModelCasesPassed": true,
+    "notTwentyFourUniqueCases": true,
+    "allInputsUnchangedAfter": true,
+    "binding": "PUBLIC-EXPORT.json",
+    "browserRepeated": false,
+    "scope": "Minimal source/model export has no Git metadata; public checkout source commit is accepted by the guarded browser CLI, but no extra browser replay is claimed."
+  },
+  "earlierSourceDiagnostics": {
+    "directory": "history",
+    "initialFailure": "Inline-query selector included the containing full owner and found three rather than two frames. Narrow source selector was corrected before the frozen method.",
+    "intermediate85WitnessStage": "The query-selector log precedes nine independently rebound MAIN/Flight admission witnesses. Only the final94-witness frozen source is qualified."
+  },
+  "limits": [
+    "No captured factory execution; captures are parsed and full selected source statements are transcribed into a required-port model.",
+    "Static conditional MAIN admission is not an observed reply rendering or full Home/profile mount.",
+    "No original provider/schema/normalizer/financial reader acquisition, cache/query scheduler, hover primitive policy or operator clipboard implementation is tested.",
+    "Financial values/projections are supplied literal metadata; no price/accounting/eligibility or badge-trust claim.",
+    "No wallet/session/auth/credentials/cookies/follow/edit/upload/funding/instruction/signing/transaction/submit, external media/link navigation, original DOM/visual/runtime/native API parity, active-provider winner, security clearance or milestone claim."
+  ]
+}
