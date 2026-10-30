@@ -1,0 +1,3528 @@
+{
+  "schemaVersion": 1,
+  "title": "Complete following feed read/query and pending-event state",
+  "anchors": {
+    "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+    "inventorySha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2"
+  },
+  "sources": [
+    {
+      "id": 163807,
+      "ids": [
+        163807
+      ],
+      "label": "factory 163807",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        119,
+        28697
+      ],
+      "utf8": [
+        119,
+        28697
+      ],
+      "sha256": "828b7d1e93dd4135f930646c9f29729e82209232a020fca54e3e775a20eafe44",
+      "role": "runtime source"
+    },
+    {
+      "id": 646908,
+      "ids": [
+        646908
+      ],
+      "label": "factory 646908",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        1996,
+        3677
+      ],
+      "utf8": [
+        1996,
+        3679
+      ],
+      "sha256": "719f637fc436bde35bcaa1da5eac3057212d49b84331e27068450218041eb6c0",
+      "role": "runtime source"
+    },
+    {
+      "id": 605587,
+      "ids": [
+        605587
+      ],
+      "label": "factory 605587",
+      "source": "evidence/web/objects/2c867fef5c76d400.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3dwp-9wad9afm.js",
+      "sourceSha256": "7d8c3605c109c989839600a07c4265a72f270db703a2db86b4b44071162fdc47",
+      "sourceBytes": 83174,
+      "utf16": [
+        138,
+        1247
+      ],
+      "utf8": [
+        138,
+        1247
+      ],
+      "sha256": "bceabd6341b002dbe14334459e7470c27ca90281762d8c10db07ed3044f57ea1",
+      "role": "runtime source"
+    },
+    {
+      "id": 639374,
+      "ids": [
+        639374
+      ],
+      "label": "factory 639374",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        64056,
+        64157
+      ],
+      "utf8": [
+        64060,
+        64161
+      ],
+      "sha256": "491277c531d85bf7569a6e10587108c9b7658ffe5dd0ee76852939c4e20b16c4",
+      "role": "runtime source"
+    },
+    {
+      "id": 639374,
+      "ids": [
+        639374
+      ],
+      "label": "factory 639374",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        17318,
+        17419
+      ],
+      "utf8": [
+        17318,
+        17419
+      ],
+      "sha256": "491277c531d85bf7569a6e10587108c9b7658ffe5dd0ee76852939c4e20b16c4",
+      "role": "runtime source"
+    },
+    {
+      "id": 975982,
+      "ids": [
+        975982
+      ],
+      "label": "factory 975982",
+      "source": "evidence/web/objects/9eb69cb75e0ff997.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1fkjg9ou67y00.js",
+      "sourceSha256": "08414d33963955725edb0e13df74022e8a0769aabd966631131b5661de8cb78f",
+      "sourceBytes": 35788,
+      "utf16": [
+        35615,
+        35781
+      ],
+      "utf8": [
+        35615,
+        35781
+      ],
+      "sha256": "a00e4abaef7a8fa610e727ab5165bcde875cc6e699b14b07860fc1ad5f7acb55",
+      "role": "runtime source"
+    },
+    {
+      "id": 21617,
+      "ids": [
+        21617
+      ],
+      "label": "factory 21617",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        6962,
+        7314
+      ],
+      "utf8": [
+        6965,
+        7317
+      ],
+      "sha256": "d9552cdd38ac15915e473992531085af028a3d0e4b5c30aec607b98159e92b15",
+      "role": "runtime source"
+    },
+    {
+      "id": 265129,
+      "ids": [
+        265129
+      ],
+      "label": "factory 265129",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        44063,
+        44631
+      ],
+      "utf8": [
+        44075,
+        44643
+      ],
+      "sha256": "0ca435a667df8216279ac11e56b66b6f3f93dd088b92ee81d831d9b4d9519d93",
+      "role": "runtime source"
+    },
+    {
+      "id": 16503,
+      "ids": [
+        16503
+      ],
+      "label": "factory 16503",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        39530,
+        44055
+      ],
+      "utf8": [
+        39542,
+        44067
+      ],
+      "sha256": "d2409ce971489eca9f33a2692f3233921609ae556cc0889b6d11b5711e55faed",
+      "role": "runtime source"
+    },
+    {
+      "id": 349879,
+      "ids": [
+        349879
+      ],
+      "label": "factory 349879",
+      "source": "evidence/web/objects/84bc29ea82bc5a21.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/39qv0xx4r245r.js",
+      "sourceSha256": "e43cd74332acc827da95e824c3d2c1cf01392c42a17d8ae19ebfe41c3bd7d163",
+      "sourceBytes": 30850,
+      "utf16": [
+        9176,
+        9234
+      ],
+      "utf8": [
+        9178,
+        9236
+      ],
+      "sha256": "a24afaaed5a752282ebd0adc905ad15da9a85bc3901846d86742110277c38b7c",
+      "role": "runtime source"
+    },
+    {
+      "id": 236187,
+      "ids": [
+        236187
+      ],
+      "label": "factory 236187",
+      "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+      "sourceSha256": "e78d2f38b06f971847c18dd05457c75afc85208135f50d6e4022a5f197e8839d",
+      "sourceBytes": 507700,
+      "utf16": [
+        192440,
+        205995
+      ],
+      "utf8": [
+        192536,
+        206110
+      ],
+      "sha256": "386a3dca11c85bc857decb0120d966bcb2260987e21ff7678524d9113dac26a3",
+      "role": "runtime source"
+    },
+    {
+      "id": 390146,
+      "ids": [
+        390146,
+        572128,
+        106009
+      ],
+      "label": "factory 390146",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        24150,
+        31287
+      ],
+      "utf8": [
+        24154,
+        31291
+      ],
+      "sha256": "0275c92cc93a37f4a181a345dac2b89db52be21ca1462232b052c7fda77aafc7",
+      "role": "runtime source"
+    },
+    {
+      "id": 735821,
+      "ids": [
+        735821,
+        917341,
+        119675
+      ],
+      "label": "factory 735821",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        1201,
+        8886
+      ],
+      "utf8": [
+        1201,
+        8886
+      ],
+      "sha256": "bd59c4bee5702bebd7d5a2b91640d9ed9c3170493c0809861e33f4c926744f3d",
+      "role": "runtime source"
+    },
+    {
+      "id": 637172,
+      "ids": [
+        637172,
+        362373
+      ],
+      "label": "factory 637172",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        8901,
+        11516
+      ],
+      "utf8": [
+        8901,
+        11516
+      ],
+      "sha256": "be5d1879b2367fa656f2076f6099f95e09966bef2f47e7cd9231d8d65b8e1ed5",
+      "role": "runtime source"
+    },
+    {
+      "id": 735821,
+      "ids": [
+        735821,
+        917341,
+        119675
+      ],
+      "label": "factory 735821",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        1201,
+        8886
+      ],
+      "utf8": [
+        1201,
+        8886
+      ],
+      "sha256": "3adabf21c26e22024c9c08c3e218b88d0c052d972cf3c25779c1c8efc3350ba2",
+      "role": "runtime source"
+    },
+    {
+      "id": 637172,
+      "ids": [
+        637172,
+        362373
+      ],
+      "label": "factory 637172",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        8901,
+        11516
+      ],
+      "utf8": [
+        8901,
+        11516
+      ],
+      "sha256": "63b0ae0a4046cf9d5e5098bb1460fd0e661d05ccc8cf387a1695bf68bd8da12f",
+      "role": "runtime source"
+    },
+    {
+      "id": 549613,
+      "ids": [
+        549613
+      ],
+      "label": "factory 549613",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        20820,
+        21352
+      ],
+      "utf8": [
+        20820,
+        21352
+      ],
+      "sha256": "5eeb70ba118c78cfac5c12f6076086df0d2101d7d7ce07cf076db28b591b992b",
+      "role": "runtime source"
+    },
+    {
+      "id": 549613,
+      "ids": [
+        549613
+      ],
+      "label": "factory 549613",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        14813,
+        15345
+      ],
+      "utf8": [
+        14813,
+        15345
+      ],
+      "sha256": "6e4a4333b2542dd42e35dcc902ca61451ca19e5e6e9643736452979e7d799bfd",
+      "role": "runtime source"
+    },
+    {
+      "id": 662986,
+      "ids": [
+        790658,
+        121742,
+        662986
+      ],
+      "label": "factory 662986",
+      "source": "evidence/web/objects/0fea5750534737b2.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0-_4vejwiodd6.js",
+      "sourceSha256": "01b3ea982eb9ba3970a4b49714c827805ecc85699e35c3614d1d072fbe67949e",
+      "sourceBytes": 49581,
+      "utf16": [
+        26153,
+        29400
+      ],
+      "utf8": [
+        26157,
+        29404
+      ],
+      "sha256": "e3ade9570aef5bef1709871e34a348d5175fede0689284312028c2ca0f7517a4",
+      "role": "runtime source"
+    },
+    {
+      "id": 662986,
+      "ids": [
+        790658,
+        121742,
+        662986
+      ],
+      "label": "factory 662986",
+      "source": "evidence/web/objects/316ff95d024f8997.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0m3txb2q1wpg8.js",
+      "sourceSha256": "622e66408a10bccb470d9187fb3f92253b5967e04787409598cf6bdcb9564454",
+      "sourceBytes": 52675,
+      "utf16": [
+        26153,
+        29400
+      ],
+      "utf8": [
+        26157,
+        29404
+      ],
+      "sha256": "5dcc6ddfc4d1c08e2852d9903a39eccd09764b4cd4d3d6b71db7a06b5178c5ce",
+      "role": "runtime source"
+    },
+    {
+      "id": 154703,
+      "ids": [
+        154703
+      ],
+      "label": "factory 154703",
+      "source": "evidence/web/objects/2d59b7c63a95235e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1b0z4i36dq6fz.js",
+      "sourceSha256": "b3d676c5f723583146c04b0657399aebd377e07e9dffd9960a61de2ea21d46b0",
+      "sourceBytes": 27636,
+      "utf16": [
+        24372,
+        27515
+      ],
+      "utf8": [
+        24372,
+        27515
+      ],
+      "sha256": "7fb1990b807291b37cfd559db80e1d428cea58bfa9007bd6e823f78785a43c7f",
+      "role": "qualification-only reuse of1846 helpers"
+    },
+    {
+      "id": 154703,
+      "ids": [
+        154703
+      ],
+      "label": "factory 154703",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        27698,
+        30841
+      ],
+      "utf8": [
+        27698,
+        30841
+      ],
+      "sha256": "960ab98a1f113c07b8a86ad009f505faaadc056a45f4a07d9ae86baf0aca0310",
+      "role": "qualification-only reuse of1846 helpers"
+    },
+    {
+      "id": 154703,
+      "ids": [
+        154703
+      ],
+      "label": "factory 154703",
+      "source": "evidence/web/objects/57624d7eddba52e1.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1rqg3m24ob9fs.js",
+      "sourceSha256": "e9d42cc424826d8b707a655ce2436fdcdb8461c0bd015ff20216ae95a58b18ff",
+      "sourceBytes": 33260,
+      "utf16": [
+        28891,
+        32034
+      ],
+      "utf8": [
+        28891,
+        32034
+      ],
+      "sha256": "70a717bf9bc6bf6a0f33a8d910030e7eb13df2348e96b805af3d43b58dab86ec",
+      "role": "qualification-only reuse of1846 helpers"
+    },
+    {
+      "id": 154703,
+      "ids": [
+        154703
+      ],
+      "label": "factory 154703",
+      "source": "evidence/web/objects/0e0a55c249b456d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3nv6ok9xtn4he.js",
+      "sourceSha256": "a94f2e6ea6eb488d3cb90a2fea4c8bba5500d21408df57c76ac4533fc4bf976d",
+      "sourceBytes": 54298,
+      "utf16": [
+        48870,
+        52013
+      ],
+      "utf8": [
+        48896,
+        52039
+      ],
+      "sha256": "c40d7f92b3999c9387da21f01eca0802a91204b49bddbe6fa41088133d5425c8",
+      "role": "qualification-only reuse of1846 helpers"
+    },
+    {
+      "id": 154703,
+      "ids": [
+        154703
+      ],
+      "label": "factory 154703",
+      "source": "evidence/web/objects/082b15d8e8570a9a.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42j-d2r_k3x00.js",
+      "sourceSha256": "a78116f3073ab129fbda3a750685b3cebdaefed095ef79fa5a526fce7e021bad",
+      "sourceBytes": 35347,
+      "utf16": [
+        32057,
+        35200
+      ],
+      "utf8": [
+        32083,
+        35226
+      ],
+      "sha256": "45e56c6c56b6ebc80d4b1979b3ef6bd3c83ecf5aed7b773183e164311ae892dd",
+      "role": "qualification-only reuse of1846 helpers"
+    },
+    {
+      "id": 154703,
+      "ids": [
+        154703
+      ],
+      "label": "factory 154703",
+      "source": "evidence/web/objects/1681353d046eeca6.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3s1xu6hzdcu84.js",
+      "sourceSha256": "33996ff6b80481e1f8daa6c3567258c1ac38a67f19a12b69a6a7a7096a6cdb17",
+      "sourceBytes": 24769,
+      "utf16": [
+        19363,
+        22506
+      ],
+      "utf8": [
+        19367,
+        22510
+      ],
+      "sha256": "b7754f3a78d17d64d1df27ef1649d16e623c6e16fc3e0b2b4edbe3386550aad4",
+      "role": "qualification-only reuse of1846 helpers"
+    }
+  ],
+  "witnesses": [
+    {
+      "label": "complete inlineFOLLOWING read-state owner",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        12910,
+        14940
+      ],
+      "utf8": [
+        12910,
+        14940
+      ],
+      "sha256": "d39d32c3447d663d3b8af7085b6b94a3486f0476cd4b2fbc66af2a39a90f2428",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "actual following owner input call",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        12909,
+        14944
+      ],
+      "utf8": [
+        12909,
+        14944
+      ],
+      "sha256": "5f00e43bf7cbc4c15ee5d7b39df4314f6f4f7c7cb7e9fa1232c20d27338feec5",
+      "astType": "CallExpression"
+    },
+    {
+      "label": "complete used following query/key/surface declaration",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        9130,
+        9179
+      ],
+      "utf8": [
+        9130,
+        9179
+      ],
+      "sha256": "4b65a79e0e56057681145a0b99b5ea33dd3202f5bce14b74e1d5f07bcdb9ad7b",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used following query/key/surface declaration",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        9180,
+        9210
+      ],
+      "utf8": [
+        9180,
+        9210
+      ],
+      "sha256": "5728414eda665c012d7c0a23d82fa6966e3be550ed413c8227aab84d3c09ac66",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used following query/key/surface declaration",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        9308,
+        9324
+      ],
+      "utf8": [
+        9308,
+        9324
+      ],
+      "sha256": "f58dbef61ca1c0fc0a760b68d7c73852b73ef6c59f8bf43cffc42c00b6ad0ceb",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used following query/key/surface declaration",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        9325,
+        9641
+      ],
+      "utf8": [
+        9325,
+        9641
+      ],
+      "sha256": "fc99830d98d708cfb21b3f122c706c7e6274c1731842689b8f1f76e42fb40330",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import402030",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        1209,
+        1222
+      ],
+      "utf8": [
+        1209,
+        1222
+      ],
+      "sha256": "2ffa1573e27f47da8eeb52276a618779c1d454243e5d2ee34ec77a06eb41bd73",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import759257",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        2533,
+        2546
+      ],
+      "utf8": [
+        2533,
+        2546
+      ],
+      "sha256": "4e1e335a2b9ced7680254855ac9d5a48a6190bea9eafd71a5d462bc5d8c2066a",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete following list reader",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        5890,
+        6542
+      ],
+      "utf8": [
+        5890,
+        6542
+      ],
+      "sha256": "12f6a1b9b04a03f12c28f279d231ee1774347b8ba99cc12d6b62eaded2f1ee75",
+      "astType": "FunctionDeclaration"
+    },
+    {
+      "label": "actual classic following kind set",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        8733,
+        8768
+      ],
+      "utf8": [
+        8733,
+        8768
+      ],
+      "sha256": "044b7306e930502cfbb45d12fca1e36193961c89a8a30b47a034306b3342d099",
+      "astType": "StringLiteral"
+    },
+    {
+      "label": "credited existing asset field projection",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        1484,
+        1595
+      ],
+      "utf8": [
+        1484,
+        1595
+      ],
+      "sha256": "9f5ae8205bfa28007c27c408429f34f1fc2529961a599ddd82ad24c1348b76da",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "used import21617",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        9441,
+        9453
+      ],
+      "utf8": [
+        9441,
+        9453
+      ],
+      "sha256": "0a9311eee8c2f1a1cdda8ef66ccb8ed8aac05058587ab22c749cff794270765a",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import605587",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        8951,
+        8964
+      ],
+      "utf8": [
+        8951,
+        8964
+      ],
+      "sha256": "d655e5a6928bc5f4c3f77c11d3cf81be567dd6b5622127350bc112f38586550b",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import639374",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        9454,
+        9467
+      ],
+      "utf8": [
+        9454,
+        9467
+      ],
+      "sha256": "92aba7d0c1ce2188bbc7da5699300210fcee259e5c241bef7eca891db7f89c48",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import646908",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        8937,
+        8950
+      ],
+      "utf8": [
+        8937,
+        8950
+      ],
+      "sha256": "76de97f98c5f1274f87e5ebc2c5d6af375b1c6f8073f37c547bf17951d60bedc",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used chain-filter private closure",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        9472,
+        9593
+      ],
+      "utf8": [
+        9472,
+        9593
+      ],
+      "sha256": "cc1bbd7f51eec709f65fe10281a223226601f56684f41789267b6aede3f18fd5",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used chain-filter private closure",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        9607,
+        9616
+      ],
+      "utf8": [
+        9607,
+        9616
+      ],
+      "sha256": "cf3bda81792b92855affd9104f6f4efd286bd356db1b6e585ba7b063c3e8aa12",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used chain-filter private closure",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        9999,
+        10150
+      ],
+      "utf8": [
+        9999,
+        10150
+      ],
+      "sha256": "9c59ee0766fe5593de90ffb3dd722067eb0cf35f51f334e3d38805850137f57a",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used chain-filter private closure",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        10151,
+        10596
+      ],
+      "utf8": [
+        10151,
+        10596
+      ],
+      "sha256": "e13029335bda322868eb4b3db0feee6ad7924d0899fe90294ebb9c991d3bf704",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete query chain filter",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        10967,
+        10993
+      ],
+      "utf8": [
+        10967,
+        10993
+      ],
+      "sha256": "36ee9981613b45c93efaef83ef5f3a0d936c71512f87184173339d1b3c9edb69",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "complete filter key encoding",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        10648,
+        10696
+      ],
+      "utf8": [
+        10648,
+        10696
+      ],
+      "sha256": "b421c2ff248be17006cc043b21df59b242c1e470069e850fe776d321425c6645",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "complete row chain predicate",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        11015,
+        11506
+      ],
+      "utf8": [
+        11015,
+        11506
+      ],
+      "sha256": "40b3898cb52fcb2154035ce6fa5d49166b7e90bc0074094f5d8d2723934340db",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "used import402030",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        1209,
+        1222
+      ],
+      "utf8": [
+        1209,
+        1222
+      ],
+      "sha256": "2ffa1573e27f47da8eeb52276a618779c1d454243e5d2ee34ec77a06eb41bd73",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import759257",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        2533,
+        2546
+      ],
+      "utf8": [
+        2533,
+        2546
+      ],
+      "sha256": "4e1e335a2b9ced7680254855ac9d5a48a6190bea9eafd71a5d462bc5d8c2066a",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete following list reader",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        5890,
+        6542
+      ],
+      "utf8": [
+        5890,
+        6542
+      ],
+      "sha256": "da6d91be522c7df3bdd820336ac50dd6996424e8cf8fc05bc1304945e0c52c07",
+      "astType": "FunctionDeclaration"
+    },
+    {
+      "label": "actual classic following kind set",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        8733,
+        8768
+      ],
+      "utf8": [
+        8733,
+        8768
+      ],
+      "sha256": "044b7306e930502cfbb45d12fca1e36193961c89a8a30b47a034306b3342d099",
+      "astType": "StringLiteral"
+    },
+    {
+      "label": "credited existing asset field projection",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        1484,
+        1595
+      ],
+      "utf8": [
+        1484,
+        1595
+      ],
+      "sha256": "9f5ae8205bfa28007c27c408429f34f1fc2529961a599ddd82ad24c1348b76da",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "used import21617",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        9441,
+        9453
+      ],
+      "utf8": [
+        9441,
+        9453
+      ],
+      "sha256": "0a9311eee8c2f1a1cdda8ef66ccb8ed8aac05058587ab22c749cff794270765a",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import605587",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        8951,
+        8964
+      ],
+      "utf8": [
+        8951,
+        8964
+      ],
+      "sha256": "db9ff68c711507f1536798900a10b02ee9a2e0eb60ea1650b15aa7e57518964a",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import639374",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        9454,
+        9467
+      ],
+      "utf8": [
+        9454,
+        9467
+      ],
+      "sha256": "8aa260b0ebaf226dce094cc38acc2688493189c8de6c903a09252309cb6a4f8c",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import646908",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        8937,
+        8950
+      ],
+      "utf8": [
+        8937,
+        8950
+      ],
+      "sha256": "59e52753af17546517e08a9f18f872aa6fe4bb7fd7f89d442b50a8a3dbc38f21",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used chain-filter private closure",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        9472,
+        9593
+      ],
+      "utf8": [
+        9472,
+        9593
+      ],
+      "sha256": "131307143af3f221f4d89f1079894844bdeca8c08a13df8cff53eb1f8ec23d4f",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used chain-filter private closure",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        9607,
+        9616
+      ],
+      "utf8": [
+        9607,
+        9616
+      ],
+      "sha256": "cf3bda81792b92855affd9104f6f4efd286bd356db1b6e585ba7b063c3e8aa12",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used chain-filter private closure",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        9999,
+        10150
+      ],
+      "utf8": [
+        9999,
+        10150
+      ],
+      "sha256": "9c59ee0766fe5593de90ffb3dd722067eb0cf35f51f334e3d38805850137f57a",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used chain-filter private closure",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        10151,
+        10596
+      ],
+      "utf8": [
+        10151,
+        10596
+      ],
+      "sha256": "9af31a7cf36515d354ec6cd2f31d51243fce9190aabbc2512fc83a115a555b96",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete query chain filter",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        10967,
+        10993
+      ],
+      "utf8": [
+        10967,
+        10993
+      ],
+      "sha256": "36ee9981613b45c93efaef83ef5f3a0d936c71512f87184173339d1b3c9edb69",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "complete filter key encoding",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        10648,
+        10696
+      ],
+      "utf8": [
+        10648,
+        10696
+      ],
+      "sha256": "b421c2ff248be17006cc043b21df59b242c1e470069e850fe776d321425c6645",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "complete row chain predicate",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        11015,
+        11506
+      ],
+      "utf8": [
+        11015,
+        11506
+      ],
+      "sha256": "42b80d7e5c3975f3be378e178de6dc3f6638e6900edd38b3413f0bc6931966c9",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "used exact namespace literal",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        2124,
+        2136
+      ],
+      "utf8": [
+        2124,
+        2136
+      ],
+      "sha256": "8f5cfa95f2af546b688e8166c6e0fcb5599a109fba0f86b022a70370d3c3ffcf",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used exact namespace literal",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        2137,
+        2145
+      ],
+      "utf8": [
+        2137,
+        2145
+      ],
+      "sha256": "8e5686b28497e9e9da4609d02ba43078da99124f7fc1ec4a91ef5d8650c5b150",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used exact namespace literal",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        2165,
+        2177
+      ],
+      "utf8": [
+        2165,
+        2177
+      ],
+      "sha256": "e068f2c2a5fe1a0202c61b393a0b700b1a91f6c4ca86c507f318f10195435ba7",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used exact namespace literal",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        2204,
+        2224
+      ],
+      "utf8": [
+        2204,
+        2224
+      ],
+      "sha256": "1b9b05a2f02e38631e8e951bc8ceca5eb54d9a1cab9fe228d200b58d47e1fe82",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used exact namespace literal",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        2443,
+        2459
+      ],
+      "utf8": [
+        2443,
+        2459
+      ],
+      "sha256": "c6df360f50f4abf22162a6f1a9df6a8d914cd1cb794fb29fcd909ffe5e9e0f93",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used namespace predicate/literal C",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        3219,
+        3241
+      ],
+      "utf8": [
+        3219,
+        3241
+      ],
+      "sha256": "7f597f366795ba051d6c3f3d70e38ba9b8ca167d82a2edac392d681ece455e1a",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "used namespace predicate/literal L",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        3547,
+        3555
+      ],
+      "utf8": [
+        3547,
+        3555
+      ],
+      "sha256": "2934aa5c172f203b8b752490f9a1ee1a2e7b28517d566652675cbdee7cf0b4ee",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "used namespace predicate/literal B",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        3267,
+        3275
+      ],
+      "utf8": [
+        3267,
+        3275
+      ],
+      "sha256": "c40bcedc73b0aa90c12349fa2b1afa6b89cae045df7e5827dad183df29e688d7",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "used namespace predicate/literal _",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        3435,
+        3443
+      ],
+      "utf8": [
+        3435,
+        3443
+      ],
+      "sha256": "c021c21d5b8e05791c736f41b3129916b3208ae7817a816484868ea85d932b04",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "used namespace predicate/literal h",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        2126,
+        2136
+      ],
+      "utf8": [
+        2126,
+        2136
+      ],
+      "sha256": "751513bca85d8c671ec19b97fc4c59800d4bc83c93976acc064c88ddd036357e",
+      "astType": "StringLiteral"
+    },
+    {
+      "label": "used namespace predicate/literal Q",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        2139,
+        2145
+      ],
+      "utf8": [
+        2139,
+        2145
+      ],
+      "sha256": "f887762202414addd5b3a16341f0532b2253221fb47a48317b94649847da5181",
+      "astType": "StringLiteral"
+    },
+    {
+      "label": "used namespace predicate/literal z",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        3063,
+        3068
+      ],
+      "utf8": [
+        3063,
+        3068
+      ],
+      "sha256": "59ffc4f289c1e7c824183b388c69d8b11e705cd82846c46f32ff6d311e94a6ea",
+      "astType": "StringLiteral"
+    },
+    {
+      "label": "used namespace predicate/literal J",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        2167,
+        2177
+      ],
+      "utf8": [
+        2167,
+        2177
+      ],
+      "sha256": "f170d2de3adafe47379a9ca88f3265c69d206333d583cf22ce06f25b48c10af1",
+      "astType": "StringLiteral"
+    },
+    {
+      "label": "used namespace predicate/literal W",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        2206,
+        2224
+      ],
+      "utf8": [
+        2206,
+        2224
+      ],
+      "sha256": "dd03d1f86c0f70d27529b9b191fac184750bb69073fc72d10fbc7decd8a2cb05",
+      "astType": "StringLiteral"
+    },
+    {
+      "label": "used namespace predicate/literal d",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        2445,
+        2459
+      ],
+      "utf8": [
+        2445,
+        2459
+      ],
+      "sha256": "a226c42eae3b94394fbe171dea0ec72b3c64626d4a555439335df73d5d8a0460",
+      "astType": "StringLiteral"
+    },
+    {
+      "label": "used exact40hex predicate",
+      "source": "evidence/web/objects/2c867fef5c76d400.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3dwp-9wad9afm.js",
+      "sourceSha256": "7d8c3605c109c989839600a07c4265a72f270db703a2db86b4b44071162fdc47",
+      "sourceBytes": 83174,
+      "utf16": [
+        1176,
+        1244
+      ],
+      "utf8": [
+        1176,
+        1244
+      ],
+      "sha256": "baaf0a41b64d3f9e344e4031a55f1ff94c36f75f639cfcff1ce19417e2ad2190",
+      "astType": "FunctionExpression"
+    },
+    {
+      "label": "used chain-id prefix strip",
+      "source": "evidence/web/objects/2c867fef5c76d400.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3dwp-9wad9afm.js",
+      "sourceSha256": "7d8c3605c109c989839600a07c4265a72f270db703a2db86b4b44071162fdc47",
+      "sourceBytes": 83174,
+      "utf16": [
+        282,
+        380
+      ],
+      "utf8": [
+        282,
+        380
+      ],
+      "sha256": "f398259d68c09dda53190f7f14f46c297829a36b876c36609478b5ccc375db30",
+      "astType": "FunctionDeclaration"
+    },
+    {
+      "label": "accepted639374 decoded32 guard reused; no new predicate/codec",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        64089,
+        64154
+      ],
+      "utf8": [
+        64093,
+        64158
+      ],
+      "sha256": "897ba3be77ccab53d58343ea318898f04a3f290ab823f533490feda9f7ef0033",
+      "astType": "FunctionExpression"
+    },
+    {
+      "label": "accepted975982 shape-only helper reused, distinct from decoded guard",
+      "source": "evidence/web/objects/9eb69cb75e0ff997.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1fkjg9ou67y00.js",
+      "sourceSha256": "08414d33963955725edb0e13df74022e8a0769aabd966631131b5661de8cb78f",
+      "sourceBytes": 35788,
+      "utf16": [
+        35653,
+        35720
+      ],
+      "utf8": [
+        35653,
+        35720
+      ],
+      "sha256": "54ffe21c26d4d04b6122f25b81a8cd8a1b72499479ef76c008ec1a0d8e3f62c9",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "existing344048 codec API only",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        64064,
+        64077
+      ],
+      "utf8": [
+        64068,
+        64081
+      ],
+      "sha256": "5ed623f7a42b0709dad1d7b4e9734a9dbf1554f183e1593f234e5cbcf7013324",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used perp namespace literal only",
+      "source": "evidence/web/objects/1e479323ffe53c14.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+      "sourceSha256": "a824dde2b35895b6e4a4c642e880e6cbaec976f58a6cde4efcf5887e44f09172",
+      "sourceBytes": 29288,
+      "utf16": [
+        6972,
+        6988
+      ],
+      "utf8": [
+        6975,
+        6991
+      ],
+      "sha256": "a2c563e2ea68acd205e9e3f97438d2710938d00b10d05a41ec40b7dbeb514b5d",
+      "astType": "StringLiteral"
+    },
+    {
+      "label": "complete used pure image/provider-string closure",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        20828,
+        20857
+      ],
+      "utf8": [
+        20828,
+        20857
+      ],
+      "sha256": "c770276ed86750dfe57ff559c5110debe65e656cb92445c843d8122d9a158def",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used pure image/provider-string closure",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        20858,
+        20897
+      ],
+      "utf8": [
+        20858,
+        20897
+      ],
+      "sha256": "d856cb06194b28abcb11293d4cc1fa1a1c67839986afcf356830224b112a9536",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used pure image/provider-string closure",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        20898,
+        20910
+      ],
+      "utf8": [
+        20898,
+        20910
+      ],
+      "sha256": "aeb70ccfbd9d9f3068d12bc3058a130eb6fe80185d5bbfac3966be31afe52199",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used pure image/provider-string closure",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        20911,
+        20916
+      ],
+      "utf8": [
+        20911,
+        20916
+      ],
+      "sha256": "b3c9aafb8422c507a54aadde92fd425f81e50b9f35944202cf585b19acfc096b",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used pure image/provider-string closure",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        20917,
+        21260
+      ],
+      "utf8": [
+        20917,
+        21260
+      ],
+      "sha256": "e43321508a6abfcc5f6ba1fee1cbbee1051676c588ae15d338d39c17cde9311e",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete pure image/provider normalization; no fetch",
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+      "sourceSha256": "7400496d0194dea1be93f3640e73b3131f7e18d3e3d14fffb1ed117578795295",
+      "sourceBytes": 67649,
+      "utf16": [
+        21280,
+        21349
+      ],
+      "utf8": [
+        21280,
+        21349
+      ],
+      "sha256": "39f65150d01e80c79989a99568ac6aa3f1735e43301c498b27abbe925bed3c6a",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "complete used pure image/provider-string closure",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        14821,
+        14850
+      ],
+      "utf8": [
+        14821,
+        14850
+      ],
+      "sha256": "c770276ed86750dfe57ff559c5110debe65e656cb92445c843d8122d9a158def",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used pure image/provider-string closure",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        14851,
+        14890
+      ],
+      "utf8": [
+        14851,
+        14890
+      ],
+      "sha256": "842975be4b3a482563fe32732be289080b5815127200dab4849cc5c42f26768f",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used pure image/provider-string closure",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        14891,
+        14903
+      ],
+      "utf8": [
+        14891,
+        14903
+      ],
+      "sha256": "14d622e47937b65e8a95a04e3c228d0d71ed68e17f618a5802afc0ac5a133ba6",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used pure image/provider-string closure",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        14904,
+        14909
+      ],
+      "utf8": [
+        14904,
+        14909
+      ],
+      "sha256": "a7bcdd6ec96a8a9b5f43a3bfd7ef268eaa0f62d9796569c8ba4c49b3aec61102",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used pure image/provider-string closure",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        14910,
+        15253
+      ],
+      "utf8": [
+        14910,
+        15253
+      ],
+      "sha256": "814bb57c4f623f2562b526c6b378f21ca5076c99c880254c1230d1aa4d9c5b8e",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete pure image/provider normalization; no fetch",
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+      "sourceSha256": "ddddd084a6579d81c0a5675fdea7d0eabcd2515645f093bb3650baa4f8b558e3",
+      "sourceBytes": 20907,
+      "utf16": [
+        15273,
+        15342
+      ],
+      "utf8": [
+        15273,
+        15342
+      ],
+      "sha256": "4527c269134cb3268781f0a93e1ce4ff73213bc11093158731dd73eea0ae3697",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "used import21617",
+      "source": "evidence/web/objects/0fea5750534737b2.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0-_4vejwiodd6.js",
+      "sourceSha256": "01b3ea982eb9ba3970a4b49714c827805ecc85699e35c3614d1d072fbe67949e",
+      "sourceBytes": 49581,
+      "utf16": [
+        26506,
+        26518
+      ],
+      "utf8": [
+        26510,
+        26522
+      ],
+      "sha256": "3ef14f574f86800f640b0918467ecfffd04513160cabd5b613367f4d9ba57cc4",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import605587",
+      "source": "evidence/web/objects/0fea5750534737b2.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0-_4vejwiodd6.js",
+      "sourceSha256": "01b3ea982eb9ba3970a4b49714c827805ecc85699e35c3614d1d072fbe67949e",
+      "sourceBytes": 49581,
+      "utf16": [
+        26288,
+        26301
+      ],
+      "utf8": [
+        26292,
+        26305
+      ],
+      "sha256": "f5c08356db564ba1e3c0c9cc62d40b7ecd869083be78c312ee1ac52c29182266",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import975982",
+      "source": "evidence/web/objects/0fea5750534737b2.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0-_4vejwiodd6.js",
+      "sourceSha256": "01b3ea982eb9ba3970a4b49714c827805ecc85699e35c3614d1d072fbe67949e",
+      "sourceBytes": 49581,
+      "utf16": [
+        26274,
+        26287
+      ],
+      "utf8": [
+        26278,
+        26291
+      ],
+      "sha256": "67756105130c5833d9e176404e6a8854d61c2c55fead1ed7165a017452cd58df",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used entry classification closure",
+      "source": "evidence/web/objects/0fea5750534737b2.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0-_4vejwiodd6.js",
+      "sourceSha256": "01b3ea982eb9ba3970a4b49714c827805ecc85699e35c3614d1d072fbe67949e",
+      "sourceBytes": 49581,
+      "utf16": [
+        26306,
+        26349
+      ],
+      "utf8": [
+        26310,
+        26353
+      ],
+      "sha256": "908df8505d1012e43f10d908ae3ce5ab675e79f90139fda0a9dfc82a086f6d8f",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used entry classification closure",
+      "source": "evidence/web/objects/0fea5750534737b2.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0-_4vejwiodd6.js",
+      "sourceSha256": "01b3ea982eb9ba3970a4b49714c827805ecc85699e35c3614d1d072fbe67949e",
+      "sourceBytes": 49581,
+      "utf16": [
+        26350,
+        26419
+      ],
+      "utf8": [
+        26354,
+        26423
+      ],
+      "sha256": "94bb5f61e12fe1278633dad7b268de5ea82d3671e7d456cd5d7289075de3d37a",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used entry classification closure",
+      "source": "evidence/web/objects/0fea5750534737b2.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0-_4vejwiodd6.js",
+      "sourceSha256": "01b3ea982eb9ba3970a4b49714c827805ecc85699e35c3614d1d072fbe67949e",
+      "sourceBytes": 49581,
+      "utf16": [
+        26523,
+        26542
+      ],
+      "utf8": [
+        26527,
+        26546
+      ],
+      "sha256": "a42f072408c12b385074e9dcaeb2f6b84bc28b4bb25994ee957d97bdf39c2775",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used entry classification closure",
+      "source": "evidence/web/objects/0fea5750534737b2.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0-_4vejwiodd6.js",
+      "sourceSha256": "01b3ea982eb9ba3970a4b49714c827805ecc85699e35c3614d1d072fbe67949e",
+      "sourceBytes": 49581,
+      "utf16": [
+        26566,
+        26589
+      ],
+      "utf8": [
+        26570,
+        26593
+      ],
+      "sha256": "f5a65e451375b3555f87e7f3d7bdf9981bfbbfaf1063cd192f08315c8cd7df5b",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used entry classification closure",
+      "source": "evidence/web/objects/0fea5750534737b2.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0-_4vejwiodd6.js",
+      "sourceSha256": "01b3ea982eb9ba3970a4b49714c827805ecc85699e35c3614d1d072fbe67949e",
+      "sourceBytes": 49581,
+      "utf16": [
+        26590,
+        26609
+      ],
+      "utf8": [
+        26594,
+        26613
+      ],
+      "sha256": "a7a2de2b017cdf925702d1e2ad5dcf68a50ed67b2a6caa63dc4ec92c3fcad387",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete row type classification; no perps service",
+      "source": "evidence/web/objects/0fea5750534737b2.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0-_4vejwiodd6.js",
+      "sourceSha256": "01b3ea982eb9ba3970a4b49714c827805ecc85699e35c3614d1d072fbe67949e",
+      "sourceBytes": 49581,
+      "utf16": [
+        26645,
+        26795
+      ],
+      "utf8": [
+        26649,
+        26799
+      ],
+      "sha256": "e6ec8c6c23908fa572e0baca25fa197f056f80c7e6e199d085b689a54a71f78b",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "used import21617",
+      "source": "evidence/web/objects/316ff95d024f8997.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0m3txb2q1wpg8.js",
+      "sourceSha256": "622e66408a10bccb470d9187fb3f92253b5967e04787409598cf6bdcb9564454",
+      "sourceBytes": 52675,
+      "utf16": [
+        26506,
+        26518
+      ],
+      "utf8": [
+        26510,
+        26522
+      ],
+      "sha256": "120503e8700a2d6cb7542bdf012e18561c262ea691ecc381279ce6ff1578e8b6",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import605587",
+      "source": "evidence/web/objects/316ff95d024f8997.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0m3txb2q1wpg8.js",
+      "sourceSha256": "622e66408a10bccb470d9187fb3f92253b5967e04787409598cf6bdcb9564454",
+      "sourceBytes": 52675,
+      "utf16": [
+        26288,
+        26301
+      ],
+      "utf8": [
+        26292,
+        26305
+      ],
+      "sha256": "f5c08356db564ba1e3c0c9cc62d40b7ecd869083be78c312ee1ac52c29182266",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import975982",
+      "source": "evidence/web/objects/316ff95d024f8997.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0m3txb2q1wpg8.js",
+      "sourceSha256": "622e66408a10bccb470d9187fb3f92253b5967e04787409598cf6bdcb9564454",
+      "sourceBytes": 52675,
+      "utf16": [
+        26274,
+        26287
+      ],
+      "utf8": [
+        26278,
+        26291
+      ],
+      "sha256": "67756105130c5833d9e176404e6a8854d61c2c55fead1ed7165a017452cd58df",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used entry classification closure",
+      "source": "evidence/web/objects/316ff95d024f8997.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0m3txb2q1wpg8.js",
+      "sourceSha256": "622e66408a10bccb470d9187fb3f92253b5967e04787409598cf6bdcb9564454",
+      "sourceBytes": 52675,
+      "utf16": [
+        26306,
+        26349
+      ],
+      "utf8": [
+        26310,
+        26353
+      ],
+      "sha256": "908df8505d1012e43f10d908ae3ce5ab675e79f90139fda0a9dfc82a086f6d8f",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used entry classification closure",
+      "source": "evidence/web/objects/316ff95d024f8997.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0m3txb2q1wpg8.js",
+      "sourceSha256": "622e66408a10bccb470d9187fb3f92253b5967e04787409598cf6bdcb9564454",
+      "sourceBytes": 52675,
+      "utf16": [
+        26350,
+        26419
+      ],
+      "utf8": [
+        26354,
+        26423
+      ],
+      "sha256": "94bb5f61e12fe1278633dad7b268de5ea82d3671e7d456cd5d7289075de3d37a",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used entry classification closure",
+      "source": "evidence/web/objects/316ff95d024f8997.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0m3txb2q1wpg8.js",
+      "sourceSha256": "622e66408a10bccb470d9187fb3f92253b5967e04787409598cf6bdcb9564454",
+      "sourceBytes": 52675,
+      "utf16": [
+        26523,
+        26542
+      ],
+      "utf8": [
+        26527,
+        26546
+      ],
+      "sha256": "a0b4951b315a428dbc053019b28988ead4bff7959273b39e252aa6b1d119b3bc",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used entry classification closure",
+      "source": "evidence/web/objects/316ff95d024f8997.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0m3txb2q1wpg8.js",
+      "sourceSha256": "622e66408a10bccb470d9187fb3f92253b5967e04787409598cf6bdcb9564454",
+      "sourceBytes": 52675,
+      "utf16": [
+        26566,
+        26589
+      ],
+      "utf8": [
+        26570,
+        26593
+      ],
+      "sha256": "cd18df513227748580b6adf1ace04270371ea60cb206c1470e5b34165626a1fa",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used entry classification closure",
+      "source": "evidence/web/objects/316ff95d024f8997.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0m3txb2q1wpg8.js",
+      "sourceSha256": "622e66408a10bccb470d9187fb3f92253b5967e04787409598cf6bdcb9564454",
+      "sourceBytes": 52675,
+      "utf16": [
+        26590,
+        26609
+      ],
+      "utf8": [
+        26594,
+        26613
+      ],
+      "sha256": "a7a2de2b017cdf925702d1e2ad5dcf68a50ed67b2a6caa63dc4ec92c3fcad387",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete row type classification; no perps service",
+      "source": "evidence/web/objects/316ff95d024f8997.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0m3txb2q1wpg8.js",
+      "sourceSha256": "622e66408a10bccb470d9187fb3f92253b5967e04787409598cf6bdcb9564454",
+      "sourceBytes": 52675,
+      "utf16": [
+        26645,
+        26795
+      ],
+      "utf8": [
+        26649,
+        26799
+      ],
+      "sha256": "e6ec8c6c23908fa572e0baca25fa197f056f80c7e6e199d085b689a54a71f78b",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "used import549613",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        44071,
+        44084
+      ],
+      "utf8": [
+        44083,
+        44096
+      ],
+      "sha256": "dd5a5c7884e9c829fd98765e733641fc62362018f81b1e034d516d3902c9a692",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used metadata trim closure",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        44089,
+        44153
+      ],
+      "utf8": [
+        44101,
+        44165
+      ],
+      "sha256": "f9387eaa4eeabfaa68ade33a819612c911ebdb9eb3dc514a57aadd204fd85491",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete collectible metadata projection",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        44156,
+        44280
+      ],
+      "utf8": [
+        44168,
+        44292
+      ],
+      "sha256": "05f1ff69d5cfc200e3693922d28e7363b063ec681b8e6d0245829da7301d19cf",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "used import154703",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        39566,
+        39579
+      ],
+      "utf8": [
+        39578,
+        39591
+      ],
+      "sha256": "faa9ae90a2c82a427ad01c5829da887ea23e4d6e0b266fe4204d30080fab3504",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import265129",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        39538,
+        39551
+      ],
+      "utf8": [
+        39550,
+        39563
+      ],
+      "sha256": "ef541a03d067fef04b4424e12a83facc1e5ef67c65564aa3d4bee614f27da53b",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import287129",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        39594,
+        39607
+      ],
+      "utf8": [
+        39606,
+        39619
+      ],
+      "sha256": "64ae14e69f714aff9de07104eaab76687aa69301d549f37dc79d70a9e5ba5e42",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import646908",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        39608,
+        39621
+      ],
+      "utf8": [
+        39620,
+        39633
+      ],
+      "sha256": "f13762014ff32a9465f47fa5c4dfcf1b686a450b6f666f622ae628d22d77eb27",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import662986",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        39580,
+        39593
+      ],
+      "utf8": [
+        39592,
+        39605
+      ],
+      "sha256": "c12c121245cb1feb3fbd43b20925053d81b0fd97b9a722b4151eb83574d02bd3",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import917341",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        39552,
+        39565
+      ],
+      "utf8": [
+        39564,
+        39577
+      ],
+      "sha256": "15a94829af76988ecc2d3af84c00619fec526918bc232d21c46fcd2cc9ed9f12",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used entry mapping closure",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        39626,
+        39654
+      ],
+      "utf8": [
+        39638,
+        39666
+      ],
+      "sha256": "0281b81e382c2c30dfd5e6cd65ac76cb6cb3c6feb8d662d38865ef12ee31db6a",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used entry mapping closure",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        39655,
+        39726
+      ],
+      "utf8": [
+        39667,
+        39738
+      ],
+      "sha256": "ccc7a79ffb798bfd7124753e69c12c373f43398ff8126617096b0f2513e5b39f",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used entry mapping closure",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        39727,
+        39814
+      ],
+      "utf8": [
+        39739,
+        39826
+      ],
+      "sha256": "c51fa87919e2ad2c09b7e3fa098988a219bb0b8cb7ba0b2cce8fcf44178b434a",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete used entry mapping closure",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        39815,
+        40016
+      ],
+      "utf8": [
+        39827,
+        40028
+      ],
+      "sha256": "76f7b5a9a070aafc6d59bd5655fd6f729d91a95cdce91a53a4b37108efb90fb4",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "complete seven-kind entry mapping including null fallbacks",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        40244,
+        44052
+      ],
+      "utf8": [
+        40256,
+        44064
+      ],
+      "sha256": "929f2b1c3a814eedfeab32dfd9a342efbf94bca0014ad1cf134b7e338cec7866",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "complete mapped-entry chain input",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        40028,
+        40237
+      ],
+      "utf8": [
+        40040,
+        40249
+      ],
+      "sha256": "ba5b243f198ee13848f4f33ec9c4d6b0bcfe331e966717fa445f7000b6b438a5",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "actual nine-kind declaration, Zod parse runtime external",
+      "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+      "sourceSha256": "e78d2f38b06f971847c18dd05457c75afc85208135f50d6e4022a5f197e8839d",
+      "sourceBytes": 507700,
+      "utf16": [
+        192849,
+        192942
+      ],
+      "utf8": [
+        192945,
+        193038
+      ],
+      "sha256": "979bb560802d7b99aafea52aec2a06033fa2a0acaae1d80de3199189e4d410f2",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "full declared GET operation, no server implementation",
+      "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+      "sourceSha256": "e78d2f38b06f971847c18dd05457c75afc85208135f50d6e4022a5f197e8839d",
+      "sourceBytes": 507700,
+      "utf16": [
+        200339,
+        204461
+      ],
+      "utf8": [
+        200448,
+        204574
+      ],
+      "sha256": "a412328afd1e0aa94dc70f5b187da764ca1c5378378060a695d17e9d5aad44ff",
+      "astType": "ObjectProperty"
+    },
+    {
+      "label": "complete original event hook as external API witness only; presence acquisition excluded",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        26708,
+        31277
+      ],
+      "utf8": [
+        26712,
+        31281
+      ],
+      "sha256": "f8af1b0f81732aed16f766a52ed4ed7a3d8de25b1fb3a2d666ef612fa9fb0f2c",
+      "astType": "FunctionExpression"
+    },
+    {
+      "label": "complete first-rows observation hook as external API witness only",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        25174,
+        26042
+      ],
+      "utf8": [
+        25178,
+        26046
+      ],
+      "sha256": "982340826c1b7699722bdafbaca93d3f6af2d18f16cf5f8b4faf21eb24bcad93",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "complete telemetry normalization callback as external API witness only; delivery excluded",
+      "source": "evidence/web/objects/11be0c4b34eb27cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1snk333v0csl4.js",
+      "sourceSha256": "988677d1e33bd5c06eee1505b3dae7cd38dcb95fbb5d4a775e47163fb349d11f",
+      "sourceBytes": 45945,
+      "utf16": [
+        24801,
+        25108
+      ],
+      "utf8": [
+        24805,
+        25112
+      ],
+      "sha256": "87bffc7c66fcc66921d022839ce471daa9fe60eec24cf077e18fd828acb6f00a",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "actual pending preview cap",
+      "source": "evidence/web/objects/84bc29ea82bc5a21.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/39qv0xx4r245r.js",
+      "sourceSha256": "e43cd74332acc827da95e824c3d2c1cf01392c42a17d8ae19ebfe41c3bd7d163",
+      "sourceBytes": 30850,
+      "utf16": [
+        9191,
+        9192
+      ],
+      "utf8": [
+        9193,
+        9194
+      ],
+      "sha256": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce",
+      "astType": "NumericLiteral"
+    },
+    {
+      "label": "used import16503",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        9245,
+        9258
+      ],
+      "utf8": [
+        9245,
+        9258
+      ],
+      "sha256": "182397dc199d5b793e087891ea0bd9e9f388b2a21062a8c8bd6de96a818a2d90",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import106009",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        9230,
+        9244
+      ],
+      "utf8": [
+        9230,
+        9244
+      ],
+      "sha256": "05a9f3681a9b2f3fff682e5c3d8f8c4d0c9096afd5cb53b02b6dcc4ab200e3dc",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import349879",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        9111,
+        9125
+      ],
+      "utf8": [
+        9111,
+        9125
+      ],
+      "sha256": "b61df76254a1b7432c0e7e7aeeea5c9b755450fcb1e87813149a2775937cb917",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import352386",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        182,
+        195
+      ],
+      "utf8": [
+        182,
+        195
+      ],
+      "sha256": "2017f82144c716fe46b6a8950999cd09d60172e8b2e8c9e02543eaffb7df6461",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import390146",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        9215,
+        9229
+      ],
+      "utf8": [
+        9215,
+        9229
+      ],
+      "sha256": "ee99b4056e64e51e01efabd08a2a689a291b1a0147871f9bb349cfe69d4bd980",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import572128",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        9289,
+        9303
+      ],
+      "utf8": [
+        9289,
+        9303
+      ],
+      "sha256": "f60e9d6c0a21715f50cdbfba227da8fad5dd566d8911c9496da9411cba67585e",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import606933",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        9097,
+        9110
+      ],
+      "utf8": [
+        9097,
+        9110
+      ],
+      "sha256": "033740f45aca289190c54a5f8605de2e1e2815e892166bd55967397c17bf0b7f",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import637172",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        9274,
+        9288
+      ],
+      "utf8": [
+        9274,
+        9288
+      ],
+      "sha256": "ad632e9e16030960f85bb33678bcb57e323d65a13999e31fc9d4649945329ca9",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import735821",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        9259,
+        9273
+      ],
+      "utf8": [
+        9259,
+        9273
+      ],
+      "sha256": "363483a9e9e9df03add90e61d54de7b226adbea56ae8c060190492875f2e7e7f",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "used import761459",
+      "source": "evidence/web/objects/decc1b8a23be2e25.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2rz4wefyzl1jc.js",
+      "sourceSha256": "fc31766f488fbfffd8af33b176bb779d66dabbd9c45fa1c030888ae6ccbbde11",
+      "sourceBytes": 28700,
+      "utf16": [
+        9083,
+        9096
+      ],
+      "utf8": [
+        9083,
+        9096
+      ],
+      "sha256": "9de325161d6d85d76329ce3f9920ce11cce67d5552a87bc4ea858ecab9494015",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/2d59b7c63a95235e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1b0z4i36dq6fz.js",
+      "sourceSha256": "b3d676c5f723583146c04b0657399aebd377e07e9dffd9960a61de2ea21d46b0",
+      "sourceBytes": 27636,
+      "utf16": [
+        24524,
+        24595
+      ],
+      "utf8": [
+        24524,
+        24595
+      ],
+      "sha256": "0d7de032a671fccd96890e268e9d1180d87faad3faf204af857be2c317d5aa31",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/2d59b7c63a95235e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1b0z4i36dq6fz.js",
+      "sourceSha256": "b3d676c5f723583146c04b0657399aebd377e07e9dffd9960a61de2ea21d46b0",
+      "sourceBytes": 27636,
+      "utf16": [
+        24596,
+        24902
+      ],
+      "utf8": [
+        24596,
+        24902
+      ],
+      "sha256": "5ea35ba9bbbc8a142471d62d22a00a1f2735b80e42f18c3c6c1dbf7f32a3e8d4",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/2d59b7c63a95235e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1b0z4i36dq6fz.js",
+      "sourceSha256": "b3d676c5f723583146c04b0657399aebd377e07e9dffd9960a61de2ea21d46b0",
+      "sourceBytes": 27636,
+      "utf16": [
+        24903,
+        24960
+      ],
+      "utf8": [
+        24903,
+        24960
+      ],
+      "sha256": "a9efb7b54434b3391192703a67803c4c5f1b550e58b75242b38bff4324930706",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/2d59b7c63a95235e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1b0z4i36dq6fz.js",
+      "sourceSha256": "b3d676c5f723583146c04b0657399aebd377e07e9dffd9960a61de2ea21d46b0",
+      "sourceBytes": 27636,
+      "utf16": [
+        24961,
+        25276
+      ],
+      "utf8": [
+        24961,
+        25276
+      ],
+      "sha256": "a1f6a34a5def986f12744db54f79ca60aab5dc05ce88f770df351c6205df2c6a",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/2d59b7c63a95235e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1b0z4i36dq6fz.js",
+      "sourceSha256": "b3d676c5f723583146c04b0657399aebd377e07e9dffd9960a61de2ea21d46b0",
+      "sourceBytes": 27636,
+      "utf16": [
+        25277,
+        25391
+      ],
+      "utf8": [
+        25277,
+        25391
+      ],
+      "sha256": "1ebd60e04895ea2a4936056119209de88feca263d30bb75c7d3352b020a40ba4",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "existing1846 original namespace export g; qualification only",
+      "source": "evidence/web/objects/2d59b7c63a95235e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1b0z4i36dq6fz.js",
+      "sourceSha256": "b3d676c5f723583146c04b0657399aebd377e07e9dffd9960a61de2ea21d46b0",
+      "sourceBytes": 27636,
+      "utf16": [
+        24598,
+        24902
+      ],
+      "utf8": [
+        24598,
+        24902
+      ],
+      "sha256": "c43a5de979a97b72d93d88009eb6f8753d3aa87d44b6438c064e73c3ed775175",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "existing1846 original namespace export v; qualification only",
+      "source": "evidence/web/objects/2d59b7c63a95235e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1b0z4i36dq6fz.js",
+      "sourceSha256": "b3d676c5f723583146c04b0657399aebd377e07e9dffd9960a61de2ea21d46b0",
+      "sourceBytes": 27636,
+      "utf16": [
+        24963,
+        25276
+      ],
+      "utf8": [
+        24963,
+        25276
+      ],
+      "sha256": "00a214b3ff45e691263c32c4d7b17e54e8f8a91c3371c0237f5300f5244f0f1d",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "existing1846 original namespace export s; qualification only",
+      "source": "evidence/web/objects/2d59b7c63a95235e.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1b0z4i36dq6fz.js",
+      "sourceSha256": "b3d676c5f723583146c04b0657399aebd377e07e9dffd9960a61de2ea21d46b0",
+      "sourceBytes": 27636,
+      "utf16": [
+        25279,
+        25391
+      ],
+      "utf8": [
+        25279,
+        25391
+      ],
+      "sha256": "f4725b0bf34ae56926c54c255dbcd4bcfeea3a5437dbd420f472650ea3d560d5",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        27850,
+        27921
+      ],
+      "utf8": [
+        27850,
+        27921
+      ],
+      "sha256": "ccc7a79ffb798bfd7124753e69c12c373f43398ff8126617096b0f2513e5b39f",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        27922,
+        28228
+      ],
+      "utf8": [
+        27922,
+        28228
+      ],
+      "sha256": "8948a5d36af2af4199a1815f5884b29fd5db32b3651d6385a0885605285af53f",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        28229,
+        28286
+      ],
+      "utf8": [
+        28229,
+        28286
+      ],
+      "sha256": "a9efb7b54434b3391192703a67803c4c5f1b550e58b75242b38bff4324930706",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        28287,
+        28602
+      ],
+      "utf8": [
+        28287,
+        28602
+      ],
+      "sha256": "923e84d8b64c7a090879b8085250c3388a81d8099ac341dddd55d8e5dbd285f9",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        28603,
+        28717
+      ],
+      "utf8": [
+        28603,
+        28717
+      ],
+      "sha256": "ea8ec4236eefd0ec72cb6623e7c9de894b23e59593a2b2863a19c0967d6caba3",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "existing1846 original namespace export g; qualification only",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        27924,
+        28228
+      ],
+      "utf8": [
+        27924,
+        28228
+      ],
+      "sha256": "a8a5914599f0d328eb3f56dc75b29df54fb5d6e5e86494c48cc0d5cf0481f72a",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "existing1846 original namespace export v; qualification only",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        28289,
+        28602
+      ],
+      "utf8": [
+        28289,
+        28602
+      ],
+      "sha256": "26e69c8893ab670fccd1a89c7f657ef301608d8ad9d44623688a2a436e293b2b",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "existing1846 original namespace export s; qualification only",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        28605,
+        28717
+      ],
+      "utf8": [
+        28605,
+        28717
+      ],
+      "sha256": "1b15cbd56242a46893f06246e686a67c45b18d8b71e4e8f158d9f1e79ae11999",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/57624d7eddba52e1.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1rqg3m24ob9fs.js",
+      "sourceSha256": "e9d42cc424826d8b707a655ce2436fdcdb8461c0bd015ff20216ae95a58b18ff",
+      "sourceBytes": 33260,
+      "utf16": [
+        29043,
+        29114
+      ],
+      "utf8": [
+        29043,
+        29114
+      ],
+      "sha256": "ccc7a79ffb798bfd7124753e69c12c373f43398ff8126617096b0f2513e5b39f",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/57624d7eddba52e1.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1rqg3m24ob9fs.js",
+      "sourceSha256": "e9d42cc424826d8b707a655ce2436fdcdb8461c0bd015ff20216ae95a58b18ff",
+      "sourceBytes": 33260,
+      "utf16": [
+        29115,
+        29421
+      ],
+      "utf8": [
+        29115,
+        29421
+      ],
+      "sha256": "7db374d38eed2e72733a6acb18ccf55ce2a3d5acfcee87ce3cf1e1d02a696830",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/57624d7eddba52e1.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1rqg3m24ob9fs.js",
+      "sourceSha256": "e9d42cc424826d8b707a655ce2436fdcdb8461c0bd015ff20216ae95a58b18ff",
+      "sourceBytes": 33260,
+      "utf16": [
+        29422,
+        29479
+      ],
+      "utf8": [
+        29422,
+        29479
+      ],
+      "sha256": "a9efb7b54434b3391192703a67803c4c5f1b550e58b75242b38bff4324930706",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/57624d7eddba52e1.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1rqg3m24ob9fs.js",
+      "sourceSha256": "e9d42cc424826d8b707a655ce2436fdcdb8461c0bd015ff20216ae95a58b18ff",
+      "sourceBytes": 33260,
+      "utf16": [
+        29480,
+        29795
+      ],
+      "utf8": [
+        29480,
+        29795
+      ],
+      "sha256": "c73df0038c364b8489277b15a6c2357937424afa53c6ee89f28f4c62a14b6784",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/57624d7eddba52e1.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1rqg3m24ob9fs.js",
+      "sourceSha256": "e9d42cc424826d8b707a655ce2436fdcdb8461c0bd015ff20216ae95a58b18ff",
+      "sourceBytes": 33260,
+      "utf16": [
+        29796,
+        29910
+      ],
+      "utf8": [
+        29796,
+        29910
+      ],
+      "sha256": "a9a53e6944b17628affb37d52e42e6280cdf2b5e59f09fe93673da5466d8f415",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "existing1846 original namespace export g; qualification only",
+      "source": "evidence/web/objects/57624d7eddba52e1.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1rqg3m24ob9fs.js",
+      "sourceSha256": "e9d42cc424826d8b707a655ce2436fdcdb8461c0bd015ff20216ae95a58b18ff",
+      "sourceBytes": 33260,
+      "utf16": [
+        29117,
+        29421
+      ],
+      "utf8": [
+        29117,
+        29421
+      ],
+      "sha256": "9169d71a6b4c82330419241972da7b2fd4181f1fbb39f1b3ab475c74a26ed531",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "existing1846 original namespace export v; qualification only",
+      "source": "evidence/web/objects/57624d7eddba52e1.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1rqg3m24ob9fs.js",
+      "sourceSha256": "e9d42cc424826d8b707a655ce2436fdcdb8461c0bd015ff20216ae95a58b18ff",
+      "sourceBytes": 33260,
+      "utf16": [
+        29482,
+        29795
+      ],
+      "utf8": [
+        29482,
+        29795
+      ],
+      "sha256": "0f4a391f228a290d976cf4f4ab22c5b0edaace5037e39fa24f087f257056426d",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "existing1846 original namespace export s; qualification only",
+      "source": "evidence/web/objects/57624d7eddba52e1.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1rqg3m24ob9fs.js",
+      "sourceSha256": "e9d42cc424826d8b707a655ce2436fdcdb8461c0bd015ff20216ae95a58b18ff",
+      "sourceBytes": 33260,
+      "utf16": [
+        29798,
+        29910
+      ],
+      "utf8": [
+        29798,
+        29910
+      ],
+      "sha256": "5c10aa0e1631d861fdb9e71be470dd44c9147d8845139b57137a30c3e9699af6",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/0e0a55c249b456d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3nv6ok9xtn4he.js",
+      "sourceSha256": "a94f2e6ea6eb488d3cb90a2fea4c8bba5500d21408df57c76ac4533fc4bf976d",
+      "sourceBytes": 54298,
+      "utf16": [
+        49022,
+        49093
+      ],
+      "utf8": [
+        49048,
+        49119
+      ],
+      "sha256": "0d7de032a671fccd96890e268e9d1180d87faad3faf204af857be2c317d5aa31",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/0e0a55c249b456d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3nv6ok9xtn4he.js",
+      "sourceSha256": "a94f2e6ea6eb488d3cb90a2fea4c8bba5500d21408df57c76ac4533fc4bf976d",
+      "sourceBytes": 54298,
+      "utf16": [
+        49094,
+        49400
+      ],
+      "utf8": [
+        49120,
+        49426
+      ],
+      "sha256": "e62a5e0abd1b1d841ab818acffdbf99b51b8a4bc81a220885a5f23bbc7bd4530",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/0e0a55c249b456d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3nv6ok9xtn4he.js",
+      "sourceSha256": "a94f2e6ea6eb488d3cb90a2fea4c8bba5500d21408df57c76ac4533fc4bf976d",
+      "sourceBytes": 54298,
+      "utf16": [
+        49401,
+        49458
+      ],
+      "utf8": [
+        49427,
+        49484
+      ],
+      "sha256": "f937fcf1f4302f618cc7d0c053a316ee13060228893c7f365f45ea44d8e374df",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/0e0a55c249b456d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3nv6ok9xtn4he.js",
+      "sourceSha256": "a94f2e6ea6eb488d3cb90a2fea4c8bba5500d21408df57c76ac4533fc4bf976d",
+      "sourceBytes": 54298,
+      "utf16": [
+        49459,
+        49774
+      ],
+      "utf8": [
+        49485,
+        49800
+      ],
+      "sha256": "4b0c411a3155ebee0200a30637c6b767456fbd06c5395e12e0d417bbc96ace9a",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/0e0a55c249b456d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3nv6ok9xtn4he.js",
+      "sourceSha256": "a94f2e6ea6eb488d3cb90a2fea4c8bba5500d21408df57c76ac4533fc4bf976d",
+      "sourceBytes": 54298,
+      "utf16": [
+        49775,
+        49889
+      ],
+      "utf8": [
+        49801,
+        49915
+      ],
+      "sha256": "9498ee882568a0ae21709b6ee88beef61ca69fc9715bc24b66f89f28625895b3",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "existing1846 original namespace export g; qualification only",
+      "source": "evidence/web/objects/0e0a55c249b456d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3nv6ok9xtn4he.js",
+      "sourceSha256": "a94f2e6ea6eb488d3cb90a2fea4c8bba5500d21408df57c76ac4533fc4bf976d",
+      "sourceBytes": 54298,
+      "utf16": [
+        49096,
+        49400
+      ],
+      "utf8": [
+        49122,
+        49426
+      ],
+      "sha256": "911a41bbf9858618187e846b24af2b265cde4ed29994b3c9d6fcc84c378ad693",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "existing1846 original namespace export v; qualification only",
+      "source": "evidence/web/objects/0e0a55c249b456d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3nv6ok9xtn4he.js",
+      "sourceSha256": "a94f2e6ea6eb488d3cb90a2fea4c8bba5500d21408df57c76ac4533fc4bf976d",
+      "sourceBytes": 54298,
+      "utf16": [
+        49461,
+        49774
+      ],
+      "utf8": [
+        49487,
+        49800
+      ],
+      "sha256": "717409d146ef0de91bb23e91e144d36dd1e253cb24d1d0cc6e92dd3172d1f306",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "existing1846 original namespace export s; qualification only",
+      "source": "evidence/web/objects/0e0a55c249b456d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3nv6ok9xtn4he.js",
+      "sourceSha256": "a94f2e6ea6eb488d3cb90a2fea4c8bba5500d21408df57c76ac4533fc4bf976d",
+      "sourceBytes": 54298,
+      "utf16": [
+        49777,
+        49889
+      ],
+      "utf8": [
+        49803,
+        49915
+      ],
+      "sha256": "ac67d5a455a9b78d3b1bae44d694aa5a1cb0d174d1200281eb9c66aa3ddb45e5",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/082b15d8e8570a9a.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42j-d2r_k3x00.js",
+      "sourceSha256": "a78116f3073ab129fbda3a750685b3cebdaefed095ef79fa5a526fce7e021bad",
+      "sourceBytes": 35347,
+      "utf16": [
+        32209,
+        32280
+      ],
+      "utf8": [
+        32235,
+        32306
+      ],
+      "sha256": "dd37921063f4d4249445fea8d784d8ffba59facb55bfe91c567fc27b98a546fd",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/082b15d8e8570a9a.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42j-d2r_k3x00.js",
+      "sourceSha256": "a78116f3073ab129fbda3a750685b3cebdaefed095ef79fa5a526fce7e021bad",
+      "sourceBytes": 35347,
+      "utf16": [
+        32281,
+        32587
+      ],
+      "utf8": [
+        32307,
+        32613
+      ],
+      "sha256": "464b178a8deceac73e8ec98af5b2ac899261af3cd7ec3b890cd32046a27f611a",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/082b15d8e8570a9a.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42j-d2r_k3x00.js",
+      "sourceSha256": "a78116f3073ab129fbda3a750685b3cebdaefed095ef79fa5a526fce7e021bad",
+      "sourceBytes": 35347,
+      "utf16": [
+        32588,
+        32645
+      ],
+      "utf8": [
+        32614,
+        32671
+      ],
+      "sha256": "f937fcf1f4302f618cc7d0c053a316ee13060228893c7f365f45ea44d8e374df",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/082b15d8e8570a9a.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42j-d2r_k3x00.js",
+      "sourceSha256": "a78116f3073ab129fbda3a750685b3cebdaefed095ef79fa5a526fce7e021bad",
+      "sourceBytes": 35347,
+      "utf16": [
+        32646,
+        32961
+      ],
+      "utf8": [
+        32672,
+        32987
+      ],
+      "sha256": "7f9380aefd141fda4ea6d08c6b9126d83a8a490cf604386de36ca4a22eda682c",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/082b15d8e8570a9a.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42j-d2r_k3x00.js",
+      "sourceSha256": "a78116f3073ab129fbda3a750685b3cebdaefed095ef79fa5a526fce7e021bad",
+      "sourceBytes": 35347,
+      "utf16": [
+        32962,
+        33076
+      ],
+      "utf8": [
+        32988,
+        33102
+      ],
+      "sha256": "14e968e281e2db1bbf7dca1da89761c5358b6cede96103698d444843113f654d",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "existing1846 original namespace export g; qualification only",
+      "source": "evidence/web/objects/082b15d8e8570a9a.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42j-d2r_k3x00.js",
+      "sourceSha256": "a78116f3073ab129fbda3a750685b3cebdaefed095ef79fa5a526fce7e021bad",
+      "sourceBytes": 35347,
+      "utf16": [
+        32283,
+        32587
+      ],
+      "utf8": [
+        32309,
+        32613
+      ],
+      "sha256": "2f7c5263f0f95c5b1ea6978b1b32a7bc3b4c3f0adae206b1d0ab467a067ab8f0",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "existing1846 original namespace export v; qualification only",
+      "source": "evidence/web/objects/082b15d8e8570a9a.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42j-d2r_k3x00.js",
+      "sourceSha256": "a78116f3073ab129fbda3a750685b3cebdaefed095ef79fa5a526fce7e021bad",
+      "sourceBytes": 35347,
+      "utf16": [
+        32648,
+        32961
+      ],
+      "utf8": [
+        32674,
+        32987
+      ],
+      "sha256": "3626cc14f2815a88409ae86723c020b2dd87046a833d28d33ac3430dea25d9b1",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "existing1846 original namespace export s; qualification only",
+      "source": "evidence/web/objects/082b15d8e8570a9a.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42j-d2r_k3x00.js",
+      "sourceSha256": "a78116f3073ab129fbda3a750685b3cebdaefed095ef79fa5a526fce7e021bad",
+      "sourceBytes": 35347,
+      "utf16": [
+        32964,
+        33076
+      ],
+      "utf8": [
+        32990,
+        33102
+      ],
+      "sha256": "8e8cfcd72beddeef8948194db856a3026ad0ee17fb9308c27f8e07d589e20679",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/1681353d046eeca6.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3s1xu6hzdcu84.js",
+      "sourceSha256": "33996ff6b80481e1f8daa6c3567258c1ac38a67f19a12b69a6a7a7096a6cdb17",
+      "sourceBytes": 24769,
+      "utf16": [
+        19515,
+        19586
+      ],
+      "utf8": [
+        19519,
+        19590
+      ],
+      "sha256": "0d7de032a671fccd96890e268e9d1180d87faad3faf204af857be2c317d5aa31",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/1681353d046eeca6.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3s1xu6hzdcu84.js",
+      "sourceSha256": "33996ff6b80481e1f8daa6c3567258c1ac38a67f19a12b69a6a7a7096a6cdb17",
+      "sourceBytes": 24769,
+      "utf16": [
+        19587,
+        19893
+      ],
+      "utf8": [
+        19591,
+        19897
+      ],
+      "sha256": "37b18ce22fbed19bfab0fb466b2761997a0c67907d11c2b47327b301420c3fb1",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/1681353d046eeca6.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3s1xu6hzdcu84.js",
+      "sourceSha256": "33996ff6b80481e1f8daa6c3567258c1ac38a67f19a12b69a6a7a7096a6cdb17",
+      "sourceBytes": 24769,
+      "utf16": [
+        19894,
+        19951
+      ],
+      "utf8": [
+        19898,
+        19955
+      ],
+      "sha256": "a9efb7b54434b3391192703a67803c4c5f1b550e58b75242b38bff4324930706",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/1681353d046eeca6.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3s1xu6hzdcu84.js",
+      "sourceSha256": "33996ff6b80481e1f8daa6c3567258c1ac38a67f19a12b69a6a7a7096a6cdb17",
+      "sourceBytes": 24769,
+      "utf16": [
+        19952,
+        20267
+      ],
+      "utf8": [
+        19956,
+        20271
+      ],
+      "sha256": "0df1c98a0b087cc785e654694e583154bf5073de2333decb090381cae331da3a",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "qualified1846 helper reuse only, not a new helper recovery",
+      "source": "evidence/web/objects/1681353d046eeca6.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3s1xu6hzdcu84.js",
+      "sourceSha256": "33996ff6b80481e1f8daa6c3567258c1ac38a67f19a12b69a6a7a7096a6cdb17",
+      "sourceBytes": 24769,
+      "utf16": [
+        20268,
+        20382
+      ],
+      "utf8": [
+        20272,
+        20386
+      ],
+      "sha256": "dae930ebf3c0c6b339640e22765694c1d31e358c97d4a34f25dcc829a10d2506",
+      "astType": "VariableDeclarator"
+    },
+    {
+      "label": "existing1846 original namespace export g; qualification only",
+      "source": "evidence/web/objects/1681353d046eeca6.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3s1xu6hzdcu84.js",
+      "sourceSha256": "33996ff6b80481e1f8daa6c3567258c1ac38a67f19a12b69a6a7a7096a6cdb17",
+      "sourceBytes": 24769,
+      "utf16": [
+        19589,
+        19893
+      ],
+      "utf8": [
+        19593,
+        19897
+      ],
+      "sha256": "4efa20a4ff98cf0adb39f417d5531a1e449de11291d4e9c54da6101af1ed82a1",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "existing1846 original namespace export v; qualification only",
+      "source": "evidence/web/objects/1681353d046eeca6.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3s1xu6hzdcu84.js",
+      "sourceSha256": "33996ff6b80481e1f8daa6c3567258c1ac38a67f19a12b69a6a7a7096a6cdb17",
+      "sourceBytes": 24769,
+      "utf16": [
+        19954,
+        20267
+      ],
+      "utf8": [
+        19958,
+        20271
+      ],
+      "sha256": "fed80fa9da7bfc6993bb6ff01d8389432e33c10f6655bea7dd4cdfafe1f12d47",
+      "astType": "ArrowFunctionExpression"
+    },
+    {
+      "label": "existing1846 original namespace export s; qualification only",
+      "source": "evidence/web/objects/1681353d046eeca6.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3s1xu6hzdcu84.js",
+      "sourceSha256": "33996ff6b80481e1f8daa6c3567258c1ac38a67f19a12b69a6a7a7096a6cdb17",
+      "sourceBytes": 24769,
+      "utf16": [
+        20270,
+        20382
+      ],
+      "utf8": [
+        20274,
+        20386
+      ],
+      "sha256": "21b2d2d3a66a9a0e027e9b7ac38fd46fccad3d5766297de6584cde63cbbdcf8f",
+      "astType": "ArrowFunctionExpression"
+    }
+  ],
+  "readContexts": [
+    {
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "reader": "bd59c4bee5702bebd7d5a2b91640d9ed9c3170493c0809861e33f4c926744f3d",
+      "chain": "be5d1879b2367fa656f2076f6099f95e09966bef2f47e7cd9231d8d65b8e1ed5"
+    },
+    {
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "reader": "3adabf21c26e22024c9c08c3e218b88d0c052d972cf3c25779c1c8efc3350ba2",
+      "chain": "63b0ae0a4046cf9d5e5098bb1460fd0e661d05ccc8cf387a1695bf68bd8da12f"
+    }
+  ],
+  "imageVariants": [
+    {
+      "source": "evidence/web/objects/3740fc4e7a24596d.js",
+      "sha256": "5eeb70ba118c78cfac5c12f6076086df0d2101d7d7ce07cf076db28b591b992b"
+    },
+    {
+      "source": "evidence/web/objects/cf2bb278631744da.js",
+      "sha256": "6e4a4333b2542dd42e35dcc902ca61451ca19e5e6e9643736452979e7d799bfd"
+    }
+  ],
+  "classificationVariants": [
+    {
+      "source": "evidence/web/objects/0fea5750534737b2.js",
+      "sha256": "e3ade9570aef5bef1709871e34a348d5175fede0689284312028c2ca0f7517a4"
+    },
+    {
+      "source": "evidence/web/objects/316ff95d024f8997.js",
+      "sha256": "5dcc6ddfc4d1c08e2852d9903a39eccd09764b4cd4d3d6b71db7a06b5178c5ce"
+    }
+  ],
+  "qualificationHelperVariants": [
+    {
+      "source": "evidence/web/objects/2d59b7c63a95235e.js",
+      "sha256": "7fb1990b807291b37cfd559db80e1d428cea58bfa9007bd6e823f78785a43c7f"
+    },
+    {
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "sha256": "960ab98a1f113c07b8a86ad009f505faaadc056a45f4a07d9ae86baf0aca0310"
+    },
+    {
+      "source": "evidence/web/objects/57624d7eddba52e1.js",
+      "sha256": "70a717bf9bc6bf6a0f33a8d910030e7eb13df2348e96b805af3d43b58dab86ec"
+    },
+    {
+      "source": "evidence/web/objects/0e0a55c249b456d7.js",
+      "sha256": "c40d7f92b3999c9387da21f01eca0802a91204b49bddbe6fa41088133d5425c8"
+    },
+    {
+      "source": "evidence/web/objects/082b15d8e8570a9a.js",
+      "sha256": "45e56c6c56b6ebc80d4b1979b3ef6bd3c83ecf5aed7b773183e164311ae892dd"
+    },
+    {
+      "source": "evidence/web/objects/1681353d046eeca6.js",
+      "sha256": "b7754f3a78d17d64d1df27ef1649d16e623c6e16fc3e0b2b4edbe3386550aad4"
+    }
+  ],
+  "accepted": [
+    {
+      "path": "reconstruction/user-replies/client.mjs",
+      "bytes": 5272,
+      "sha256": "568b67bfab72704b461572c45ef6b6ada757042b7d7e5e4b9421fdd87cf0de30"
+    },
+    {
+      "path": "reconstruction/search-navigation/navigation.mjs",
+      "bytes": 5429,
+      "sha256": "3df06f823f7ad2fe9888a640a369c8e26f7566e28dcb6961ac7b89d7e6a7c6c5"
+    }
+  ],
+  "generatedSha256": "eeb9288017eebab11f3a89e70a735345eed980f8d133a42b740fb32401264d17",
+  "qualificationHelperSha256": "88d6362c78d054e055fb6454af9566bcd6e4144d6327413b3adb0deacb76d187",
+  "ports": [
+    "React hooks +infinite query/cache/observer runtime",
+    "759257.j exact namedoperation clientfactory; no destination",
+    "actual catalog kindsSchema.parse; Zodruntime/errorformat external",
+    "106009.f eventhook,390146.f observerhook,572128.Q telemetrycallback exact original APIs; no presence/provider/delivery implementation",
+    "154703g/v/s original namespace required; existing1846 credited, qualification-only reuse included",
+    "344048 base58 decode; injectedDate.now clock; all parsing keeps native hostDate.parse across emitted and accepted/reused helpers"
+  ],
+  "scope": {
+    "owner": "entire inline163807 FOLLOWING read owner and ec/et/el/ed; outertab/provider/reset effects external",
+    "reader": "735821.r both physicalcontexts,classicG kind list; actual schema parse call retained",
+    "mapping": "16503.o/D complete all branches +usedpure chain/metadata/classification closure; accepted287129 maps reused unchanged"
+  },
+  "semantics": {
+    "cursor": "nextCursor nullish→null, continue when not null and !== previouspageParam only",
+    "rows": "first mapped key dedup BEFORE chain filter, wire page order; mapper nulls omitted",
+    "events": "viewer null-only gate;5s throttle on empty cache or bufferingfalse; otherwise rawid dedup enqueue",
+    "pending": "viewer+chain identity resets pending duringrender; preview excludes only nullcoinMint and caps actual349879.I",
+    "reveal": "clearpending→firstpage cachetrim→invalidate.then telemetry; callback returnsundefined and adds no catch",
+    "results": "query-error shown only when no data; exact loading/hasNext/fetchNext guards"
+  },
+  "limits": [
+    "No originalactiveconfiguration/providerwinner/mountedUI/currentdata",
+    "No networkacquisition/personalizedservice/currentcookies/auth/presence/mutation/telemetrydelivery",
+    "Required schema/query/event/observer/helper ports are not default no-ops; qualification supplies explicit synthetic capabilities",
+    "Acceptedsearch-navigation decoded32guard/shapehelper reused separately, credit existingproof +1943attribution; no newpredicate/codec/identityqualification. No financial/accounting/oracle/perpsservice/feature/native/securityqualification; captures/ledgers/priorpackets unchanged",
+    "Sourcecontractgate comparesparsedJSONsemantic values, notcanonicalJSONformatting"
+  ],
+  "mounted": false,
+  "productionOperationsQualified": 0
+}

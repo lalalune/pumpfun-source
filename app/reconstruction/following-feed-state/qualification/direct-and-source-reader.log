@@ -1,0 +1,42 @@
+✔ full source boundary and all retained variants verify (963.021161ms)
+✔ actual source verifier rejects changed owner/reader/options and false contract claims (4847.881452ms)
+✔ all explicit capabilities/own-key variant selectors required (1.801164ms)
+✔ reader/chain context bd59c4bee570 preserves factory→schema→call and exact options (0.850577ms)
+✔ reader/chain context 3adabf21c26e preserves factory→schema→call and exact options (0.44619ms)
+✔ schema rejection occurs after factory acquisition but before operation, with exact rejection identity (0.420822ms)
+✔ reader retains nullish band omission, falsy cursor omission, array identities and raw payload (0.341914ms)
+✔ query descriptor uses20/classic five kinds and chain partition; cursor compares only previous param (0.350356ms)
+✔ query callback forwards pageParam/signal plus classicG and normalized chain filter (0.307401ms)
+✔ raw viewer null-only gate is not authentication; observer/event object signatures preserved (0.663667ms)
+✔ wire pages/keys first-occurrence dedup BEFORE chain filtering, order and null mapping (0.872069ms)
+✔ query history flags and error only when data undefined; next-page guard forwards original receiver (0.308504ms)
+✔ empty cache invalidation is throttled5s inclusive, no pending enqueue and exact metric (0.412419ms)
+✔ bufferingfalse invalidates nonemptycache without empty metric; bufferingtrue id-dedups raw events (0.383726ms)
+✔ pending preview excludes only nullmint and caps3; pendingcount remains raw length (0.22593ms)
+✔ showNew clears→trimfirstpage→invalidate→then metric, preserves count/minreceipt and returnsundefined (0.411739ms)
+✔ showNew empty callback skipscache/metrics; synchronous invalidation error retains source failure (0.182354ms)
+✔ pending resets for viewer/chain identity, not pageSize; throttle restarts on identity change (0.19964ms)
+✔ all6 existing1846 helper contexts preserve reused update/time/count and positionfacts (1.099892ms)
+✔ full mapping covers callout/update/trade/collectible/reply/quote/repost and omits unsupportedkind (0.514412ms)
+✔ both pureimage/classification variants remain explicit and preserve source URI strings only (0.471338ms)
+✔ acceptedshape and decoded32 guards are distinct in actualchain/classification paths (0.574272ms)
+✔ actual loopbackGET receives exact options; HTTP/JSON/cancel failures propagate without cookies (39.102699ms)
+✔ factory lookup authenticates original AST and preserves BOM, CRLF and Unicode byte ranges (19.198229ms)
+✔ UTF-16 offsets inside an astral character are not byte boundaries (7.567159ms)
+✔ capture hash and length changes fail before AST attribution (5.325474ms)
+✔ an updated manifest cannot make malformed UTF-8 into source text (4.029929ms)
+✔ indexed arbitrary substrings cannot substitute for actual registered factories (5.666837ms)
+✔ an aggregate inventory ID cannot substitute for the actual registration ID (5.526767ms)
+✔ multiple origin contexts stay ambiguous until explicitly selected (3.634515ms)
+✔ manifest source symlinks and traversal paths are rejected (5.586636ms)
+✔ a forged manifest cannot authorize reading a repository file outside retained objects (4.094916ms)
+✔ the runtime-leading nested-array grammar validates nested and trailing factories (14.207397ms)
+✔ outer two-element registration is metadata, not a nested factory container (5.301989ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6064.76285
