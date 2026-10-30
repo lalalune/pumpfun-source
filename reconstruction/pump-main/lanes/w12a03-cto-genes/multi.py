@@ -6,7 +6,8 @@
 Each variant becomes its own module file src/creator/admin_cNN.rs (same path length as admin_cto.rs, so
 file!() strings keep their length) holding the variant's validate/execute/wallet/sweep/token helpers at
 exactly the same line numbers as admin_cto.rs (the Accounts struct and the event lines are blanked and
-imported from crate::admin_cto). A `#[used]` static keeps each copy alive. The real admin_cto::execute is
+imported from crate::admin_cto). The anchor handler dispatches to each copy on an
+opaque `ctx.remaining_accounts.len()` value (one direct call per copy, like the real execute). The real admin_cto::execute is
 untouched. After the build, target_metric.py and frame.py measure every copy against the original window
 0x22a10. A gene-free copy (`main=`) is the fidelity control: it must reproduce main's 0.43919 / 27,400 B.
 Screening only: everything that looks good is confirmed with a real measure.sh build.
@@ -31,15 +32,17 @@ def copy_text(text):
     assert lines[7] == '', repr(lines[7])
     lines[7] = 'use crate::{AdminCto,AdminCtoEvent};'
     assert lines[8] == '#[derive(Accounts)]', lines[8]
-    assert lines[99].startswith('struct CtoState{'), lines[99][:40]
+    assert 'struct CtoState{' in lines[99], lines[99][:40]
     for i in range(8, 99):
         lines[i] = ''
-    return '\n'.join(lines).rstrip('\n') + '\n' + KEEP
+    return '\n'.join(lines).rstrip('\n') + '\n'
 
 
 def main():
     tag, widx, trials = sys.argv[1], sys.argv[2], sys.argv[3:]
-    base = (WT / 'programs/pump' / REL).read_text()
+    base = Path(os.environ.get('MULTI_BASE', str(WT / 'programs/pump' / REL))).read_text()
+    import hashlib
+    btag = os.environ.get('MULTI_BASE_TAG') or hashlib.sha256(base.encode()).hexdigest()[:10]
     var = OUT / 'var' / f'multi_{tag}'
     if var.exists():
         shutil.rmtree(var)
@@ -60,6 +63,10 @@ def main():
         (var / f'src/creator/{m}.rs').write_text(copy_text(text))
         mods.append(f'#[path="creator/{m}.rs"]pub mod {m};')
         plan.append((name, gl, m))
+    call = '{admin_cto::execute(ctx,is_holder_reward,creator_fee_bps,new_creator)}'
+    assert lib.count(call) == 1
+    arms = ''.join(f'{100 + int(m[-2:])}=>{m}::execute(ctx,is_holder_reward,creator_fee_bps,new_creator),' for _, _, m in plan)
+    lib = lib.replace(call, '{match ctx.remaining_accounts.len(){' + arms + '_=>admin_cto::execute(ctx,is_holder_reward,creator_fee_bps,new_creator)}}')
     (var / 'src/lib.rs').write_text(lib.rstrip('\n') + '\n' + ''.join(mods) + '\n')
     tout = OUT / 't' / f'multi_{tag}'
     tout.mkdir(parents=True, exist_ok=True)
@@ -93,12 +100,12 @@ def main():
             f = json.loads(fr.stdout.strip().splitlines()[-1])
         except Exception:
             f = {}
-        row = {'tag': tag, 'name': name, 'genes': gl, 'module': m, 'bytes': d.get('cand_bytes'), 'ratio': d.get('ratio'), 'slots': d.get('slots_diff'),
+        row = {'tag': tag, 'base': btag, 'name': name, 'genes': gl, 'module': m, 'bytes': d.get('cand_bytes'), 'ratio': d.get('ratio'), 'slots': d.get('slots_diff'),
                'calls': d.get('calls_candidate'), 'frame_first': f.get('first_store_dec'), 'frame_common': f.get('common_with_orig'),
                'stack_warn': any(m in s for s in stack), 'secs': secs}
         if row['bytes'] is not None:
             row['d_bytes'] = row['bytes'] - 27400
-            row['d_ratio'] = round(row['ratio'] - 0.43919, 5)
+            row['d_ratio'] = round(row['ratio'] - float(os.environ.get('MULTI_BASE_RATIO', '0.43919')), 5)
         res.append(row)
         print(json.dumps(row), flush=True)
     with (OUT / 'multi.jsonl').open('a') as fh:

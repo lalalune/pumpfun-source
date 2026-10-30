@@ -30,21 +30,28 @@ if multi and Path(multi).exists():
             r = json.loads(l)
             if r.get('bytes') is not None and r['name'] not in ('real_admin_cto',):
                 screens[r['name']] = r
-base = open('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w12a03-cto-genes/programs/pump/src/creator/admin_cto.rs').read()
+HERE = Path(__file__).resolve().parent
+BASES = [('20a1ae9', (HERE / 'base_20a1ae9.rs').read_text()), ('b5975fa', (HERE / 'base_b5975fa.rs').read_text()), ('ab83c4c', (HERE / 'base_ab83c4c.rs').read_text())]
 import difflib
 single, comp = [], []
 for name in genes.G:
     r = rows.get(name) if (rows.get(name) or {}).get('genes') == [name] else None
     s = screens.get(name) if (screens.get(name) or {}).get('genes') == [name] else None
-    text = genes.apply(base, [name])
-    e = {'gene': name, 'source': genes.SRC.get(name, '?'),
-         'diff': ''.join(difflib.unified_diff(base.splitlines(True), text.splitlines(True), 'main/admin_cto.rs', f'{name}/admin_cto.rs', n=0))}
+    e = {'gene': name, 'source': genes.SRC.get(name, '?')}
+    for bname, base in BASES:
+        try:
+            text = genes.apply(base, [name])
+        except ValueError:
+            continue
+        e['diff_base'] = bname
+        e['diff'] = ''.join(difflib.unified_diff(base.splitlines(True), text.splitlines(True), f'main-{bname}/admin_cto.rs', f'{name}/admin_cto.rs', n=0))
+        break
     if r:
         e.update({'build_status': r.get('status'), 'bytes': r.get('bytes'), 'd_bytes': r.get('d_bytes'), 'ratio': r.get('ratio'), 'd_ratio': r.get('d_ratio'),
                   'slots': r.get('slots'), 'normalized': r.get('normalized'), 'raw': r.get('raw'), 'raw_losses_n': r.get('raw_losses_n'),
                   'frame_first': r.get('frame_first'), 'sha': r.get('sha'), 'imported_from': r.get('imported_from'), 'error': r.get('error')})
     if s:
-        e.update({'screen_bytes': s.get('bytes'), 'screen_d_bytes': s.get('d_bytes'), 'screen_ratio': s.get('ratio'), 'screen_d_ratio': s.get('d_ratio'),
+        e.update({'screen_base': {'nm2749': 'b5975fa (#2749, 0.45147)', 'main3': 'ab83c4c (#2792, 0.45177)'}.get(s.get('base'), s.get('base')), 'screen_bytes': s.get('bytes'), 'screen_d_bytes': s.get('d_bytes'), 'screen_ratio': s.get('ratio'), 'screen_d_ratio': s.get('d_ratio'),
                   'screen_calls': s.get('calls'), 'screen_frame_first': s.get('frame_first'), 'screen_tag': s.get('tag'), 'screen_stack_warn': s.get('stack_warn')})
     if not r and not s:
         e['build_status'] = 'not measured'

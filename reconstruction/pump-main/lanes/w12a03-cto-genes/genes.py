@@ -311,6 +311,27 @@ gene('sweep_inline_always', 'w9r2-admincto-inline isa', [("fn sweep(ctx:", "#[in
 gene('fee_range_sibling', 'w9r2-admincto-sibling v3 (pump-amm admin_cto_pool spelling)', [("if f==0||f>st.max_fee{", "if !(f>0&&f<=st.max_fee){")])
 gene('hr_nested_if', 'w9r2-admincto-sibling v5 (holder-reward immutability nested)', [(" if st.holder_reward&&!holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}", " if st.holder_reward{if !holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}")])
 
+# ---------------- wave-12 peer genes (applied on main b5975fa = #2749 k4size) ----------------
+PAD13 = "// layout-pad(13): aligns the next Source site with the original line\n\n"
+gene('amm_cb_local', 'w12a11-cto-sibling t18 (pump-amm admin_cto_pool per-arm is_cashback_coin local)', [(PAD13, PAD13.replace("\n\n", "\n let cashback=if holder{false}else{st.cashback};\n")),
+     ("  if !holder&&st.cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}", "  if cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}")])
+gene('amm_cb_arms', 'w12a11-cto-sibling t19 (cashback returned from the target arms)', [
+     (" let target=if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}*holder_key}else{", " let (target,cashback)=if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(*holder_key,false)}else{"),
+     ("  if t==*holder_key||t==*sharing{return Err(error!(PumpError::InvalidCreator));}t};", "  if t==*holder_key||t==*sharing{return Err(error!(PumpError::InvalidCreator));}(t,st.cashback)};"),
+     ("  if !holder&&st.cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}", "  if cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}")])
+gene('oldfee_after_cb', 'w12a11-cto-sibling t17 (old fee read after the creator/holder/cashback stores, AMM order)', [
+     ("let old_fee=curve.creator_fee_bps;let old_creator=curve.creator;curve.can_edit_creator_fee=false;", "let old_creator=curve.creator;curve.can_edit_creator_fee=false;"),
+     ("  curve.is_cashback_coin=cashback;\n", "  curve.is_cashback_coin=cashback;let old_fee=curve.creator_fee_bps;\n")])
+
+NM753 = "  let curve=&mut ctx.accounts.bonding_curve;let old_fee=curve.creator_fee_bps;let old_creator=curve.creator;curve.can_edit_creator_fee=false;\n"
+gene('fee_unwrap_revert', 'w12a04-cto-k4size p_feeunwrap_revert (branchy if-let fee store, as the original)', [("  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n", "  if let Some(f)=fee{curve.creator_fee_bps=f;}\n")])
+gene('canedit_revert', 'w12a04-cto-k4size p_canedit_revert (can_edit stored last, as the original)', [(NM753, NM753.replace("curve.can_edit_creator_fee=false;", "")),
+     ("  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n\n", "  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n  curve.can_edit_creator_fee=false;\n")])
+gene('oldfee_revert', 'w12a04-cto-k4size p_oldfee_revert (old_creator read before old_fee)', [("let old_fee=curve.creator_fee_bps;let old_creator=curve.creator;curve.can_edit", "let old_creator=curve.creator;let old_fee=curve.creator_fee_bps;curve.can_edit")])
+gene('store_orig', 'w12a13-cto-sizeknobs finding: original store order creator, cashback, holder, if-let fee, can_edit last', [
+     (NM753 + "  curve.creator=target;\n  curve.is_holder_reward=holder;\n  curve.is_cashback_coin=cashback;\n  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n\n",
+      NM753.replace("curve.can_edit_creator_fee=false;", "") + "  curve.creator=target;\n  curve.is_cashback_coin=cashback;\n  curve.is_holder_reward=holder;\n  if let Some(f)=fee{curve.creator_fee_bps=f;}\n  curve.can_edit_creator_fee=false;\n")])
+
 GENES = G
 
 

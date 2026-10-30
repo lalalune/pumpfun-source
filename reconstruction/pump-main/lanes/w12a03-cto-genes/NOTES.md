@@ -47,3 +47,33 @@ Effects are not additive: the five k4 genes sum to +32 B alone but measure -16 B
 
 Builds on the shared machine take 3 to 9 minutes each (slot waits), so the rest of the catalog is screened
 with `multi.py` (many gene copies of `execute` per build) and confirmed with real builds.
+
+## Multi-copy screens (multi.py) and the first landable composite
+
+`multi.py` compiles up to ~20 gene variants of `execute` in one build, each in its own module at identical
+line numbers with an equal-length `file!()`, dispatched from the anchor handler on an opaque
+`ctx.remaining_accounts.len()` (one direct call per copy, like the real one). Fidelity: in every screen the
+gene-free control copy reproduces main exactly (0.45147 / 27,400 B / 3,308 slots on #2749), and screened
+variants match real builds (rent_local 27,368 / 0.44964 = w12a11 real build t13; amm_cb_local+oldfee_after_cb
+27,392 / 0.48449 = w12a11 t23). One screen of 20 copies costs one build slot (4 to 10 minutes here).
+
+Screens on main b5975fa (#2749, 0.45147) found three validate genes worth +0.024 to +0.032 alone:
+
+| gene | source | bytes | ratio |
+| --- | --- | ---: | ---: |
+| `n298_iflet` (`if let Some(_)=new` at 298) | w10r1-admincto-hillclimb genes3 / y1-cto-blocks v-none-check-is-some | 27,368 (-32) | 0.48381 |
+| `amm_cb_local` (per-arm cashback local) | w12a11-cto-sibling t18 | 27,384 (-16) | 0.48367 |
+| `feematch` (`match fee{None=>{},Some(f)=>{..}}`) | w10r1-admincto-region2of6 mutations.py | 27,392 (-8) | 0.47551 |
+
+They converge on the same validate shape (n298+feematch = cb+feematch = 0.48487 at -16 B). Size compensators
+measured on main: `tcf_field_order` +40 B (-0.017), `mint_inline_hk` +80 B (-0.002), `oldfee_after_cb` +8 B,
+`ql_before_shared` +104 B; `fee_unwrap_revert` -8 B (+0.0004), `store_orig` -8 B (+0.0007).
+
+**Landed candidate (this PR):** `n298_iflet + tcf_field_order + fee_unwrap_revert` on main ab83c4c (#2792,
+0.45177): real measure.sh build **27,400 B, ratio 0.46824, slots 3,246**, 1034/1034 normalized/raw, 0 losses,
+unstripped sha `2839ced7a220ba67`, runtime differential 363/363. Ledger key
+`0x22a10-w12-ab83c4c-gene-confirm-nl_tcf_fur-v1`.
+
+Screened composites at 27,400 B on #2749: `feematch + oldfee_after_cb` **0.47573** (next candidate, needs a port
+onto the #2792 curve-store text). Best off-size: `amm_cb_local + oldfee_after_cb + ctostate_gfirst` 27,360 / 0.48718,
+`amm_cb_local + feematch + oldfee_after_cb` 27,392 / 0.48569.
