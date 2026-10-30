@@ -110,3 +110,9 @@ G['vraw']=[('holder_key=hk.0;','holder_key=hk.0;let hb=holder.unwrap_or(false);'
 _VBR=[('fn validate(st:&CtoState,hopt:Option<bool>,','fn validate(st:&CtoState,hopt:&bool,'),(_VH,'->Result<Pubkey>{let holder=*hopt;'),(_289,'&&!*hopt{return Err(error!(PumpError::HolderRewardCreatorImmutable));}')]
 G['vref']=[('holder_key=hk.0;','holder_key=hk.0;let hb=holder.unwrap_or(false);'),(_EH,'let hopt=&hb;let holder=hb;')]+_VBR
 ORDER=ORDER[:ORDER.index('p2d')+1]+['vu8','vraw','vref']+ORDER[ORDER.index('p2d')+1:]
+_QL='a.global.whitelisted_quote_mints.contains(&q)};let (holder,cashback,target,sharing_update,collect_old,skip)={'
+G['p3n']=[(_QL,'a.global.whitelisted_quote_mints.contains(&q)};let hb=holder.unwrap_or(false);let (holder,cashback,target,sharing_update,collect_old,skip)={'),_EH3]+_VB
+G['p3u']=[(_QL,'a.global.whitelisted_quote_mints.contains(&q)};let hb=holder.unwrap_or(false);let (holder,cashback,target,sharing_update,collect_old,skip)={'),(_EH,'let hopt=hb as u8;let holder=hb;')]+_VBU
+G['p1u']=[('let mint=a.mint.key();','let mint=a.mint.key();let hb=holder.unwrap_or(false);'),(_EH,'let hopt=hb as u8;let holder=hb;')]+_VBU
+G['p0u']=[(_EX,'->Result<()>{ let hb=holder.unwrap_or(false);let a=&ctx.accounts;'),(_EH,'let hopt=hb as u8;let holder=hb;')]+_VBU
+ORDER=ORDER[:ORDER.index('vref')+1]+['p3n','p3u','p1u','p0u']+ORDER[ORDER.index('vref')+1:]

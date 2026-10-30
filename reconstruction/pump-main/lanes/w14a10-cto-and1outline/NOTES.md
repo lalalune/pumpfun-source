@@ -107,9 +107,33 @@ All 146 conditional branches x {20:12, 12:20, 1:1000, 1000:1} on p2+tu8's post-o
 Combinations reach 0.63808 (M 2,128, +11 over main). None changes the error-tail order: they are register/frame
 reassignments. No source spelling for them was found (q289 relayouts the function).
 
+## Step 3c: on main b174038 (0.63571, M 2122) the register map moves again
+
+After #3241 (quote_locked inline) and #3250 the p2 position lands in the clone-run collapse (orig 0x4000-0x4800 79 -> 20),
+and only an `hb` defined after `quote_locked` (just before the state block) keeps it:
+
+| trial | bytes | plain | M | note |
+| --- | ---: | ---: | ---: | --- |
+| main b174038 | 27,400 | 0.63571 | 2,122 | |
+| e3 / p0 / p1 / p1b / p2 / p2c / vu8 / vraw + tu8 | 27,336-27,344 | 0.6142 | 2,048 | clone-run collapse |
+| p3n + tu8 (`let hb=holder.unwrap_or(false);` after quote_locked, validate `hopt:bool`) | 27,336 | 0.63227 | 2,108 | |
+| **p3u + tu8** (same, validate `hopt:u8`, tests `hopt&1`) | 27,344 | **0.63248** | **2,109** | full `measure.sh`: = oracle, normalized 1034 (0 losses), calls 154+3, differential 363/363 |
+
+So the and-1 outline form tracks main at -13 M / -56 B, and which `hb` position works depends on the rest of the
+function's register pressure: it is not a stable lever.
+
+LLC weight bound on p3u (`tools/wscan2.py`, scorer M per trial, validate branches 0-31 x 4 weights): only the 338
+fee-range test (`icmp ult f-1, max`) helps: OK-likely 20:12 gives M 2,128 (+6 over main, 0.63808 @ 27,352), 1000:1 M
+2,127. fee_configurable (330) at 1:1000 gives 2,123 and moves 334 ahead of 338. Combinations stay <= 2,128. The
+338 test has no BPI heuristic in our IR (instcombine merges `f==0||f>max` into one unsigned compare); the split
+spelling (`v_fee_split`) costs +200 B.
+
 ## Next
 
 - The and-1 outline form is the right validate skeleton (+55 rm in 0x0-0x1800, original error-tail order through 338)
-  but is 6 M short of main at -32/-40 B. A landing needs +6 M from registers/frame in validate (orig 0x1000-0x1400
-  fm fell 37/43 -> 15/12) or the post-validate RA levers above, and a fill that is not one of the catalog knobs.
-- Compose vu8/p2 + tu8 with any future clone-run / frame RA fix (w14a01/w14a05/w14a06 leads) before the size repay.
+  but on b174038 it is 13 M short of main at -56 B (p3u+tu8). A landing needs those M back from register/frame
+  assignment in validate (orig 0x1000-0x1400 fm 37/43 -> 15/12) and the clone run, plus a fill that is not a catalog knob.
+- Compose p3u+tu8 (or whichever `hb` position avoids the clone-run collapse on the then-current main; screen p0..p3)
+  with any clone-run / frame RA fix (w14a01/w14a05/w14a06 leads) before the size repay.
+- Look for a spelling that gives the 338 fee-range test an OK-likely weight without splitting the error site.
+- Fill candidates that are faithful: the original's entry copy of `new` and the holder_key copy (orig 0x4d8-0x5d0).
