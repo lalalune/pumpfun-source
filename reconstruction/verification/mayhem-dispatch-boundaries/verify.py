@@ -31,6 +31,9 @@ def main():
     report = json.loads(gzip.decompress((runtime / "report.json.gz").read_bytes()))
     stored = [json.loads(line) for line in gzip.decompress((runtime / "receipts.jsonl.gz").read_bytes()).splitlines()]
 
+    if producer.canonical(plan) != producer.canonical(producer.make_plan()):
+        fail("stored plan differs from producer.make_plan()")
+
     for side in ("original", "candidate"):
         actual = producer.sha256(images[side])
         expected = report["provenance"][side + "_sha256"]

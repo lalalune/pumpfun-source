@@ -2,11 +2,13 @@
 """Deep section analysis packets are published only into clean output directories."""
 import contextlib
 import io
+import struct
 import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest import mock
 
 SCRIPTS = Path(__file__).resolve().parent
@@ -14,10 +16,67 @@ sys.path.insert(0, str(SCRIPTS))
 import deep_section_analysis  # noqa: E402
 
 
+def fake_elf_with_relocations(section_header, blob_size):
+    return SimpleNamespace(
+        b=bytearray(blob_size),
+        secs={".rel.dyn": section_header},
+        symbols={},
+        lo=0,
+        hi=blob_size,
+    )
+
+
+class DeepSectionRelocationBoundsTests(unittest.TestCase):
+    # sh_offset=8, sh_size=32 claims two entries reaching byte 40.
+    TRUNCATED = (0, 0, 0, 0, 8, 32, 0, 0, 0, 16)
+    # A size that is not a whole number of 16-byte entries.
+    MISALIGNED = (0, 0, 0, 0, 0, 24, 0, 0, 0, 16)
+    # One in-bounds entry: offset 0, size 16, blob of 32 bytes.
+    VALID = (0, 0, 0, 0, 0, 16, 0, 0, 0, 16)
+
+    def test_truncated_relocation_table_is_rejected(self):
+        elf = fake_elf_with_relocations(self.TRUNCATED, 16)
+        with self.assertRaisesRegex(ValueError, "truncated or misaligned relocation table"):
+            deep_section_analysis.analyze_relocations(elf)
+
+    def test_misaligned_relocation_table_is_rejected(self):
+        elf = fake_elf_with_relocations(self.MISALIGNED, 64)
+        with self.assertRaisesRegex(ValueError, "truncated or misaligned relocation table"):
+            deep_section_analysis.analyze_relocations(elf)
+
+    def test_in_bounds_table_is_still_analyzed(self):
+        elf = fake_elf_with_relocations(self.VALID, 32)
+        # One R_BPF_64_RELATIVE entry at offset 0 with no symbol reference.
+        struct.pack_into("<QQ", elf.b, 0, 0x1000, 8)
+        result = deep_section_analysis.analyze_relocations(elf)
+        self.assertEqual(result["count"], 1)
+        self.assertEqual(result["type_distribution"], {"R_BPF_64_RELATIVE": 1})
+
+
 def generate(output):
     argv = ["deep_section_analysis.py", "--program", "mayhem", "--output", str(output)]
     with mock.patch.object(sys, "argv", argv), contextlib.redirect_stdout(io.StringIO()):
         return deep_section_analysis.main()
+
+
+class DeepSectionStringAddressTests(unittest.TestCase):
+    def test_run_reaching_the_section_end_uses_the_virtual_address_base(self):
+        # .rodata mapped at 0x2000 but stored at file offset 0x40; the last
+        # eight bytes are printable, so the run is flushed after the loop.
+        blob = bytearray(0x50)
+        blob[0x40:0x50] = b"\x00" * 8 + b"SECTION!"
+        elf = SimpleNamespace(
+            b=bytes(blob),
+            secs={".rodata": (0, 0, 0, 0x2000, 0x40, 16, 0, 0, 0, 1)},
+            relocations={},
+            lo=0x100,
+            hi=0x120,
+        )
+        layout = deep_section_analysis.analyze_data_layout(elf)
+        (string,) = layout[".rodata"]["strings"]
+        self.assertEqual(string["value"], "SECTION!")
+        self.assertEqual(string["offset"], 8)
+        self.assertEqual(string["address"], hex(0x2000 + 8))
 
 
 class DeepSectionPublicationTests(unittest.TestCase):
@@ -29,6 +88,36 @@ class DeepSectionPublicationTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "unexpected packet entry: stale.txt"):
                 generate(output)
             self.assertEqual([path.name for path in output.iterdir()], ["stale.txt"])
+
+    def test_packet_bytes_do_not_follow_the_host_line_ending(self):
+        # Model Windows text-I/O defaults at the actual file-open boundary.
+        # Patching os.linesep alone does not change CPython TextIOWrapper.
+        real_open = Path.open
+
+        def windows_text_open(path, mode="r", buffering=-1, encoding=None,
+                              errors=None, newline=None):
+            if "b" not in mode and any(flag in mode for flag in "wax"):
+                if newline is None:
+                    newline = "\r\n"
+                if encoding is None:
+                    encoding = "cp1252"
+            return real_open(path, mode, buffering=buffering, encoding=encoding,
+                             errors=errors, newline=newline)
+
+        with tempfile.TemporaryDirectory() as temporary:
+            control = Path(temporary) / "control"
+            output = Path(temporary) / "windows-defaults"
+            with contextlib.redirect_stdout(io.StringIO()):
+                generate(control)
+                with mock.patch.object(Path, "open", windows_text_open):
+                    generate(output)
+            self.assertEqual(sorted(p.name for p in control.iterdir()),
+                             sorted(p.name for p in output.iterdir()))
+            for path in sorted(output.iterdir()):
+                with self.subTest(entry=path.name):
+                    self.assertEqual(path.read_bytes(),
+                                     (control / path.name).read_bytes())
+                    self.assertNotIn(b"\r", path.read_bytes())
 
     def test_regenerated_packet_still_verifies(self):
         with tempfile.TemporaryDirectory() as temporary:

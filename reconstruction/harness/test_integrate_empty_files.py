@@ -50,6 +50,53 @@ class EmptyFileCompositionTests(unittest.TestCase):
         output = self.root / 'reconstruction/integ/test'
         return output, json.loads((output / 'report.json').read_bytes())
 
+    def roundtrip_mode(self, before, after):
+        helper = b'#!/bin/sh\necho composed-helper\n'
+        base = self.crate('base', {'helper': helper})
+        part = self.crate('part', {'helper': helper})
+        (base / 'helper').chmod(before)
+        (part / 'helper').chmod(after)
+
+        def identity(root):
+            return {path.relative_to(root).as_posix():
+                    (path.read_bytes(), bool(path.stat().st_mode & 0o111))
+                    for path in root.rglob('*') if path.is_file()}
+
+        original = [identity(path) for path in (base, part)]
+        output, report = self.compose(base, part)
+        self.assertEqual(identity(output / 'src'), original[1])
+        self.assertEqual([identity(path) for path in (base, part)], original)
+        self.assertEqual(report['parts'][0]['status'], 'applied')
+        self.assertEqual(report['parts'][0]['files'], ['helper'])
+        if after & 0o111:
+            result = subprocess.run([str(output / 'src/helper')],
+                                    capture_output=True, text=True, check=True)
+            self.assertEqual(result.stdout, 'composed-helper\n')
+
+    @unittest.skipUnless(sys.platform != 'win32', 'requires POSIX executable permission bits')
+    def test_executable_mode_added(self):
+        self.roundtrip_mode(0o644, 0o755)
+
+    @unittest.skipUnless(sys.platform != 'win32', 'requires POSIX executable permission bits')
+    def test_executable_mode_removed(self):
+        self.roundtrip_mode(0o755, 0o644)
+
+    @unittest.skipUnless(sys.platform != 'win32', 'requires POSIX executable permission bits')
+    def test_group_only_executable_identity_added(self):
+        self.roundtrip_mode(0o644, 0o654)
+
+    @unittest.skipUnless(sys.platform != 'win32', 'requires POSIX executable permission bits')
+    def test_group_only_executable_identity_removed(self):
+        self.roundtrip_mode(0o654, 0o644)
+
+    @unittest.skipUnless(sys.platform != 'win32', 'requires POSIX executable permission bits')
+    def test_other_only_executable_identity_added(self):
+        self.roundtrip_mode(0o644, 0o645)
+
+    @unittest.skipUnless(sys.platform != 'win32', 'requires POSIX executable permission bits')
+    def test_other_only_executable_identity_removed(self):
+        self.roundtrip_mode(0o645, 0o644)
+
     def roundtrip(self, before, after, changed, inside_git=False):
         if inside_git:
             subprocess.run(['git', 'init', '-q', str(self.root)], check=True)

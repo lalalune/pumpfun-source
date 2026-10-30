@@ -13,7 +13,7 @@ import struct
 from pathlib import Path
 
 from pump_exact_body_inventory import window_inventory
-from pump_quote_control_function_match import sections, candidate_functions, function_body as body
+from pump_quote_control_function_match import sections, candidate_functions, function_body as body, protect_report_output
 
 ROOT = Path(__file__).resolve().parents[1]
 WINDOW_COLUMNS = {'program', 'variant', 'original_start', 'original_end'}
@@ -44,23 +44,34 @@ def normalize(raw, address, image_sections):
 
 
 def selected_window(stream, original_start):
-    reader = csv.DictReader(stream, delimiter='\t')
-    if not WINDOW_COLUMNS <= set(reader.fieldnames or ()):
-        raise ValueError('selected Pump window inventory is missing columns')
-    matches = []
-    for row in reader:
-        if row['program'] != 'pump' or row['variant'] != 'selected':
-            continue
-        try:
-            start, end = int(row['original_start']), int(row['original_end'])
-        except ValueError:
-            raise ValueError('invalid bounds in selected Pump window inventory')
-        if start == original_start:
-            if end <= start:
+    reader = csv.DictReader(stream, delimiter='\t', strict=True)
+    try:
+        if not WINDOW_COLUMNS <= set(reader.fieldnames or ()):
+            raise ValueError('selected Pump window inventory is missing columns')
+        if any(reader.fieldnames.count(name) != 1 for name in WINDOW_COLUMNS):
+            raise ValueError('selected Pump window inventory has duplicate required columns')
+        matches = []
+        for row in reader:
+            if row['program'] != 'pump' or row['variant'] != 'selected':
+                continue
+            try:
+                start, end = int(row['original_start']), int(row['original_end'])
+            except ValueError:
+                raise ValueError('invalid bounds in selected Pump window inventory')
+            if start % 8 or end % 8:
                 raise ValueError(
-                    f'invalid selected Pump window bounds at {original_start:#x}'
+                    f'invalid selected Pump window bounds at {start:#x}'
                 )
-            matches.append(row)
+            if start == original_start:
+                if end <= start:
+                    raise ValueError(
+                        f'invalid selected Pump window bounds at {original_start:#x}'
+                    )
+                matches.append(row)
+    except csv.Error as error:
+        raise ValueError(
+            'malformed selected Pump window inventory record'
+        ) from error
     if not matches:
         raise ValueError(f'no selected Pump window starts at {original_start:#x}')
     if len(matches) != 1:
@@ -79,7 +90,10 @@ def main():
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--objdump',default=str(Path.home()/'.cache/solana/v1.52/platform-tools/llvm/bin/llvm-objdump'))
     args=p.parse_args()
-    with window_inventory().open() as stream:
+    windows = window_inventory()
+    protect_report_output(args.output, [args.candidate, ROOT/'evidence/original/pump/deployed.so',
+                                       windows, Path(__file__), ROOT/'scripts/pump_exact_body_inventory.py'], args.objdump)
+    with windows.open() as stream:
         try:
             row=selected_window(stream,args.original_start)
         except ValueError as error:
@@ -90,7 +104,7 @@ def main():
     ob=body(original,original_sections,args.original_start,size)
     on,oo=normalize(ob,args.original_start,original_sections)
     candidates=[]
-    for start,length,name in candidate_functions(args.candidate,args.objdump,args.symbol):
+    for start,length,name in candidate_functions(args.candidate,args.objdump,args.symbol,image=candidate):
         cb=body(candidate,candidate_sections,start,length);cn,co=normalize(cb,start,candidate_sections)
         diffs=[{'offset':i,'original':on[i:i+8].hex(),'candidate':cn[i:i+8].hex()} for i in range(0,max(len(on),len(cn)),8) if on[i:i+8]!=cn[i:i+8]]
         candidates.append({'symbol':name,'start':start,'bytes':length,'raw_equal':ob==cb,'normalized_equal':on==cn,'different_slots':diffs,'operands':co})

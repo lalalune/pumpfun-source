@@ -57,7 +57,7 @@ GLOBAL_FIXTURE = json.loads((ROOT / 'tests/fixtures/pump_global_slot_461019957.j
 GLOBAL_BYTES = base64.b64decode(GLOBAL_FIXTURE['data_base64'])
 HOST_SOURCE = ROOT / 'programs/pump/recovered/create_fee_bounds_host.rs'
 
-IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text())
+IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
 PUMP = Pubkey.from_string(IDL['address'])
 CREATE_V2 = next(i for i in IDL['instructions'] if i['name'] == 'create_v2')
 CREATE_EVENT = bytes(next(e['discriminator'] for e in IDL['events'] if e['name'] == 'CreateEvent'))

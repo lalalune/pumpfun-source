@@ -26,7 +26,7 @@ def classify(original, candidate):
         out = tmp / 'triage.json'
         triage.sections = lambda blob: {'.text': {'addr': 0x1000, 'offset': 0, 'size': len(candidate)}}
         triage.score = lambda p: {0x1000: {'normalized': False}}
-        triage.candidate_functions = lambda p: [(0x1000, len(candidate), '_ZN4testE')]
+        triage.function_symbols = lambda blob: [(0x1000, len(candidate), '_ZN4testE')]
         triage.original_windows = lambda: [{'start': 0x1000, 'bytes': len(original), 'raw': original}]
         triage.sites = lambda blob, secs, start, raw: []
         triage.normalize = lambda raw, addr, secs: raw

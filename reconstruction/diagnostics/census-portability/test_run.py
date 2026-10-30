@@ -43,7 +43,18 @@ class CensusPortabilityTests(unittest.TestCase):
                 return subprocess.run([sys.executable, '-I', '-B', '-X', 'utf8', *map(str, arguments)],
                                       cwd=root, capture_output=True, text=True, encoding='utf-8')
             common = ['--remarks', root / LANE / 'NOTES.md', '--census', root / LANE / 'CENSUS.json']
-            before = invoke(root / LANE / 'hotness.py', *common, '--json', root / 'before.json')
+            # The maintainer may still have the archived absolute checkout.
+            # Give only the negative-control copy an unavailable import path;
+            # the reviewed lane source used by the runner stays byte-exact.
+            source = (root / LANE / 'hotness.py').read_text(encoding='utf-8')
+            legacy_imports = [line for line in source.splitlines(keepends=True)
+                              if line.startswith('sys.path.insert(0, ')]
+            self.assertEqual(len(legacy_imports), 1)
+            negative = root / 'unportable-hotness.py'
+            negative.write_text(source.replace(legacy_imports[0],
+                                f"sys.path.insert(0, {str(root / 'unavailable-harness')!r})\n"),
+                                encoding='utf-8')
+            before = invoke(negative, *common, '--json', root / 'before.json')
             self.assertNotEqual(before.returncode, 0)
             self.assertIn("No module named 'win'", before.stderr)
             output = root / 'after.json'
@@ -64,6 +75,12 @@ class CensusPortabilityTests(unittest.TestCase):
             denied = invoke(runner, 'hotness', *common, '--json', output)
             self.assertNotEqual(denied.returncode, 0)
             self.assertEqual(output.read_bytes(), preserved)
+            # Repinning must not turn the reviewed-source guard into a bypass.
+            reviewed = root / LANE / 'callid_audit.py'
+            reviewed.write_bytes(reviewed.read_bytes() + b'\n')
+            tampered = invoke(runner, 'callid', '--help')
+            self.assertNotEqual(tampered.returncode, 0)
+            self.assertIn('reviewed lane source changed: callid_audit.py', tampered.stderr)
 
 
 if __name__ == '__main__':

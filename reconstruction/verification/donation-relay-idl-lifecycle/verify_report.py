@@ -24,7 +24,7 @@ def file_sha(path: Path) -> str:
 
 
 def manifest(base: Path, root: Path) -> tuple[dict[str, str], str]:
-    rows = {str(path.relative_to(root)): file_sha(path) for path in sorted(base.rglob("*")) if path.is_file()}
+    rows = {path.relative_to(root).as_posix(): file_sha(path) for path in sorted(base.rglob("*")) if path.is_file()}
     digest = sha(json.dumps(rows, sort_keys=True, separators=(",", ":")).encode())
     return rows, digest
 
@@ -64,12 +64,14 @@ def validate(report: dict[str, Any], root: Path, candidate: Path) -> list[str]:
     if inputs.get("source_manifest_sha256") != source_digest or inputs.get("source_files") != source_rows:
         problems.append("source_manifest")
     package = Path(__file__).resolve().parent
-    package_rows = {str(path.relative_to(root)): file_sha(path) for path in sorted(package.iterdir()) if path.is_file()}
+    package_rows = {path.relative_to(root).as_posix(): file_sha(path) for path in sorted(package.iterdir()) if path.is_file()}
     if inputs.get("test_package_files") != package_rows:
         problems.append("test_package_manifest")
 
     cases = report.get("cases", [])
     steps = [step for case in cases for step in case.get("steps", [])]
+    if [case.get("name") for case in cases] != ["stateful_lifecycle", "admission_matrix"]:
+        problems.append("case_membership")
     if report.get("case_count") != len(cases):
         problems.append("case_count")
     if any(case.get("classification") != "equal_observed_behavior" or case.get("problems") for case in cases):
@@ -98,6 +100,8 @@ def validate(report: dict[str, Any], root: Path, candidate: Path) -> list[str]:
     controls = report.get("negative_controls", {})
     if not controls.get("all_detected") or not all(controls.get("detected", {}).values()):
         problems.append("negative_controls")
+    if set(controls.get("detected", {})) != {"account_state", "error", "event_payload"}:
+        problems.append("negative_control_membership")
     if set(report.get("supported_operations", [])) != {"Create", "CreateBuffer", "Write", "SetBuffer", "SetAuthority", "Close", "Resize"}:
         problems.append("operation_matrix")
     return problems

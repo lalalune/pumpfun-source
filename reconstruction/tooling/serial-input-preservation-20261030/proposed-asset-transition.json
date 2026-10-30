@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "status": "proposed",
+  "base_revision": "43daa2043fb4a87838d715ab61467e4213d76d66",
+  "assets": [
+    {
+      "path": "scripts/pump_validate_all.py",
+      "before_sha256": "ea5f3a618e91ed0210d3d5f3b23b7e73cced0effd48cb99be56cb75f471bee14",
+      "after_sha256": "3e02c251493e5f375ac66c3b1d4fc7b7a8970e2cfed2c467b1ad0240f9d53ae9"
+    },
+    {
+      "path": "scripts/pump_validate_parallel.py",
+      "before_sha256": "6450b8257c81ff2f170f28e66600075547243eb35f0d17448ada3188a5f5ecde",
+      "after_sha256": "85553d231f51157fe2a654158c4d8f6746c7751950bdb2238eb4f1a8f951d321"
+    }
+  ],
+  "reason": "Admit serial publication destinations before executing suites; share unchanged input identity policy with the parallel runner.",
+  "historical_evidence": "Original parallel-input-preservation-20261030 packet and all other existing packets preserved unchanged."
+}

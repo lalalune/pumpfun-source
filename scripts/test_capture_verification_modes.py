@@ -92,6 +92,15 @@ class CaptureVerificationModeTests(unittest.TestCase):
         with self.changed_record('evidence/dependencies/associated_token/capture.json', mutate):
             self.assert_rejected('evidence/dependencies/associated_token: capture program')
 
+    def test_legacy_context_slots_are_required_and_ordered(self):
+        for slots in ([], [461039273, 461039272]):
+            with self.subTest(context_slots=slots):
+                with self.changed_record(
+                    'evidence/dependencies/associated_token/capture.json',
+                    lambda record: record.update(context_slots=slots),
+                ):
+                    self.assert_rejected()
+
     def test_removed_idl_and_listing_entry_are_rejected(self):
         path = self.root / 'evidence/upstream/pump_fees.json'
         original = path.read_bytes()

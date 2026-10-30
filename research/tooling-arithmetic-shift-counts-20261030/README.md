@@ -19,6 +19,11 @@ and hashes of the complete math reports with only `shifts` removed. These report
 receipts check that this correction changes no other fields, window selection,
 order, classification or ranking. They do not freeze the whole helper source.
 A future intentional math-report change will require reviewing these receipts.
+The receipts were reviewed after #1813, which intentionally orders math windows
+by their reported arithmetic density. Recomputing the old receipts with only
+that sort key reverted reproduces all four recorded hashes; with the current
+order the window multiset and every other report field are unchanged, so only
+the receipt hashes were updated.
 
 | Capture | Shifts before | Added ARSH64 | Shifts after | Affected windows |
 | --- | ---: | ---: | ---: | ---: |

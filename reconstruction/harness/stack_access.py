@@ -5,6 +5,7 @@ Diagnostic only: does not infer alias-based accesses, liveness, safety or equiva
 """
 import argparse
 from collections import Counter
+import difflib
 import hashlib
 import json
 from pathlib import Path
@@ -47,7 +48,16 @@ def compare(original, candidate):
     differences = [{'offset': key[0], 'width': key[1], 'kind': key[2],
                     'original_count': counts[0][key], 'candidate_count': counts[1][key]}
                    for key in sorted(counts[0].keys() | counts[1].keys()) if counts[0][key] != counts[1][key]]
-    return {'original': reports[0], 'candidate': reports[1], 'differences': differences}
+    sequences = [[(r['offset'], r['width'], r['kind']) for r in report['accesses']]
+                 for report in reports]
+    edits = [{'kind': kind, 'original': reports[0]['accesses'][a:b],
+              'candidate': reports[1]['accesses'][c:d]}
+             for kind, a, b, c, d in difflib.SequenceMatcher(
+                 None, *sequences, autojunk=False).get_opcodes() if kind != 'equal']
+    return {'original': reports[0], 'candidate': reports[1], 'differences': differences,
+            'decoded_access_sequence_equal': sequences[0] == sequences[1],
+            'sequence_edits': edits}
+
 
 
 def read_range(path, start, size):

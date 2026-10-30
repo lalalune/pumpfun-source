@@ -76,7 +76,8 @@ def table_start(text, name):
 def stage(src: Path, ws: Path):
     text = (src / 'Cargo.toml').read_text(encoding='utf-8')
     parsed = tomllib.loads(text)
-    assert parsed.get('workspace') == {} and set(parsed.get('profile', {})) == {'release'}, 'unsupported manifest layout'
+    if parsed.get('workspace') != {} or set(parsed.get('profile', {})) != {'release'}:
+        raise ValueError('unsupported manifest layout')
     ps = table_start(text, 'profile.release'); wsi = table_start(text, 'workspace')
     if ps >= wsi or tomllib.loads(text[wsi:]) != {'workspace': {}}:
         raise ValueError('expected release profile followed by a final empty workspace table')
@@ -160,8 +161,11 @@ def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=No
     validate_timeout(timeout)
     src = src.resolve(); work = work.resolve(); out = out.resolve()
     # Reject overlap before workspace_lock can create a directory or lock in
-    # the source tree (and thereby change its source-input receipt).
-    if src == work or src in work.parents or work in src.parents or src == out or src in out.parents:
+    # the source tree (and thereby change its source-input receipt). The
+    # output directory must not contain the source either: publishing into a
+    # parent of src archives and writes inside the tree that holds it.
+    if (src == work or src in work.parents or work in src.parents
+            or src == out or src in out.parents or out in src.parents):
         raise ValueError('source must not overlap the build workspace or contain output')
     with workspace_lock(work):
         return _build_locked(src, work, out, quiet=quiet, recipe=recipe, timeout=timeout)

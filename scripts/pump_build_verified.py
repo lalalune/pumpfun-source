@@ -25,6 +25,14 @@ ROOT = Path(__file__).resolve().parents[1]
 sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
 
 
+def check(ok, message="build check failed"):
+    # Explicit check instead of `assert`: `python -O` / `-OO` strips asserts,
+    # which let a data-order build publish a "passed" receipt on a cache miss
+    # and with changed staged source, primary source, or certificate.
+    if not ok:
+        raise AssertionError(message)
+
+
 def finish_report(record, report, receipt, cache, target, log, data_order=False):
     """Publish the data-order receipt only after all cache checks succeed."""
     try:
@@ -32,17 +40,17 @@ def finish_report(record, report, receipt, cache, target, log, data_order=False)
             report.write_text(json.dumps(record, indent=2) + "\n")
         if cache:
             if data_order:
-                assert cache.record["status"] == "hit", "data-order build must use a verified external cache"
+                check(cache.record["status"] == "hit", "data-order build must use a verified external cache")
             cache.finish(target, log, report)
             record["dependency_cache"] = cache.record
             record["dependency_cache"]["implementation_sha256"] = sha(
                 Path(DependencyCache.__init__.__code__.co_filename)
             )
         if data_order:
-            assert all(sha(ROOT / path) == value for path, value in record["source_sha256"].items()), "data-order staged source changed"
-            assert all(sha(ROOT / path) == value for path, value in record["primary_source_sha256"].items()), "data-order primary source changed"
+            check(all(sha(ROOT / path) == value for path, value in record["source_sha256"].items()), "data-order staged source changed")
+            check(all(sha(ROOT / path) == value for path, value in record["primary_source_sha256"].items()), "data-order primary source changed")
             certificate = record["text_layout"]["data_order_certificate"]
-            assert sha(Path(certificate["path"])) == certificate["sha256"], "data-order certificate changed before acceptance"
+            check(sha(Path(certificate["path"])) == certificate["sha256"], "data-order certificate changed before acceptance")
             record["data_order"]["status"] = "passed"
         report.write_text(json.dumps(record, indent=2) + "\n")
         if data_order:
@@ -117,7 +125,7 @@ def main():
             a.data_order_certificate, crate, sdk, a.target_library_profile,
             a.target_library_directory, registry, a.workspace_layout, a.text_section_order
         )
-        assert sha(a.data_order_certificate) == data_certificate_sha256, "data-order certificate changed during admission"
+        check(sha(a.data_order_certificate) == data_certificate_sha256, "data-order certificate changed during admission")
     out.mkdir(parents=True, exist_ok=False)
     target_library_profile = None
     if a.target_library_profile:
@@ -130,26 +138,25 @@ def main():
     target_flags_key = "CARGO_TARGET_" + target.upper().replace("-", "_") + "_RUSTFLAGS"
     target_libdir = sdk / "rust/lib/rustlib" / target / "lib"
     target_libraries_before = pump_target_library_profile.inventory(target_libdir)
-    assert target_libraries_before, "selected SDK target libraries are missing"
+    check(target_libraries_before, "selected SDK target libraries are missing")
 
     primary = crate
     primary_before = source_manifest(primary, primary, ROOT)
     workspace = crate
     if a.workspace_layout:
-        assert not out.is_relative_to(primary), (
-            "workspace staging must be outside the input crate"
-        )
+        check(not out.is_relative_to(primary),
+              "workspace staging must be outside the input crate")
         text = (primary / "Cargo.toml").read_text()
         parsed = tomllib.loads(text)
-        assert parsed.get("workspace") == {} and set(parsed.get("profile", {})) == {
+        check(parsed.get("workspace") == {} and set(parsed.get("profile", {})) == {
             "release"
-        }, "unsupported source workspace/profile layout"
+        }, "unsupported source workspace/profile layout")
         profile_start = text.index("[profile.release]")
         workspace_start = text.index("[workspace]")
-        assert (
+        check(
             profile_start < workspace_start
-            and not text[workspace_start + len("[workspace]") :].strip()
-        ), "unexpected manifest tables after release profile"
+            and not text[workspace_start + len("[workspace]") :].strip(),
+            "unexpected manifest tables after release profile")
         profile = text[profile_start:workspace_start].strip() + "\n"
         crate_text = text[:profile_start].rstrip() + "\n"
         workspace = out / "source"
@@ -176,7 +183,7 @@ def main():
         "cargo": sdk / "rust/bin/cargo",
         "objcopy": sdk / "llvm/bin/llvm-objcopy",
     }
-    assert all(p.is_file() for p in tools.values()), "installed SDK is incomplete"
+    check(all(p.is_file() for p in tools.values()), "installed SDK is incomplete")
     cargo_home = out / "cargo-home"
     (cargo_home / "registry").mkdir(parents=True)
     for name in ["src", "cache", "index"]:
@@ -227,7 +234,7 @@ def main():
     )
     if cache:
         if data_certificate:
-            assert cache.context == data_certificate["payload"]["cache_context"], "data-order dependency/compiler context differs"
+            check(cache.context == data_certificate["payload"]["cache_context"], "data-order dependency/compiler context differs")
         if a.dependency_cache_seed and not cache.entry.exists():
             cache.import_clean_build(a.dependency_cache_seed.resolve())
         cache.seed(out / "target")
@@ -235,11 +242,10 @@ def main():
     text_layout = None
     if a.text_section_order:
         if data_certificate:
-            assert sha(a.data_order_certificate) == data_certificate_sha256, "data-order certificate changed"
+            check(sha(a.data_order_certificate) == data_certificate_sha256, "data-order certificate changed")
         if cache:
-            assert cache.record["status"] == "hit", (
-                "prepare the ordinary external cache before an ordered build"
-            )
+            check(cache.record["status"] == "hit",
+                  "prepare the ordinary external cache before an ordered build")
         name = tomllib.loads((crate / "Cargo.toml").read_text()).get("lib", {}).get(
             "name", tomllib.loads((crate / "Cargo.toml").read_text())["package"]["name"].replace("-", "_")
         )
@@ -249,7 +255,7 @@ def main():
         )
         env.update(layout_env)
         if data_certificate:
-            assert sha(a.data_order_certificate) == data_certificate_sha256, "data-order certificate changed"
+            check(sha(a.data_order_certificate) == data_certificate_sha256, "data-order certificate changed")
         if cache:
             # The external context/key above remains the ordinary physical
             # wrapper. Only the fresh main Cargo plan uses this root-only hook.
@@ -317,8 +323,14 @@ def main():
         returncode=result.returncode,
         source_after_sha256=source_manifest(crate, workspace, ROOT, cwd=workspace),
     )
+    record["build_log_sha256"] = sha(out / "build.log")
+    record["stack_warnings"] = [
+        line.strip() for line in (out / "build.log").read_text().splitlines()
+        if "exceeded max offset" in line
+    ]
+    record["stack_diagnostic_gate_passed"] = not record["stack_warnings"]
     record["target_libraries_unchanged"] = pump_target_library_profile.inventory(target_libdir) == target_libraries_before
-    assert record["target_libraries_unchanged"], "selected SDK target libraries changed during compilation"
+    check(record["target_libraries_unchanged"], "selected SDK target libraries changed during compilation")
     record["source_unchanged"] = record[
         "source_after_sha256"
     ] == before and primary_before == source_manifest(primary, primary, ROOT)
@@ -326,7 +338,8 @@ def main():
         record["target_library_profile"] = pump_target_library_profile.finish(target_library_profile)
     receipt.write_text(json.dumps(record, indent=2) + "\n")
     result.check_returncode()
-    assert record["source_unchanged"]
+    check(record["source_unchanged"])
+    check(record["stack_diagnostic_gate_passed"], "compiler reported a stack offset exceeding its maximum; inspect build.log")
     if text_layout:
         record["text_layout"] = pump_text_layout.finish(text_layout)
     manifest = tomllib.loads((crate / "Cargo.toml").read_text())
@@ -348,7 +361,7 @@ def main():
         ),
     )
     if data_certificate:
-        assert sha(a.data_order_certificate) == data_certificate_sha256, "data-order certificate changed"
+        check(sha(a.data_order_certificate) == data_certificate_sha256, "data-order certificate changed")
         proof = pump_data_order.verify_transform(data_certificate, out)
         proof_path = out / "data-order-transformation.json"
         proof_path.write_text(json.dumps(proof, indent=2) + "\n")

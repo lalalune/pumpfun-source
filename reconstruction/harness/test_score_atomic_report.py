@@ -45,6 +45,16 @@ class AtomicScoreReportTests(unittest.TestCase):
         self.assertEqual(self.candidate.read_bytes(),self.image)
         self.assertEqual(list(self.root.glob('.score-*')),[])
 
+    def test_missing_parent_directory_is_created(self):
+        # write_report used to publish through a temporary file in the
+        # destination's parent without creating it: scoring a full candidate
+        # and then losing both the report and the stdout summary to a
+        # FileNotFoundError. triage.write_report already creates the parent.
+        self.output = self.root/'reports'/'score.json'
+        self.run_score()
+        self.assertTrue(json.loads(self.output.read_text(encoding='utf-8'))['windows']['4096']['raw'])
+        self.assertEqual(list(self.root.glob('.score-*')),[])
+
     def test_failed_publication_preserves_prior_report_and_cleans_temporary(self):
         self.output.write_bytes(b'prior receipt')
         with patch.object(Path,'replace',side_effect=PermissionError('publication denied')):

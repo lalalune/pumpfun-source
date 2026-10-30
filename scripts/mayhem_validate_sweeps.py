@@ -5,7 +5,7 @@ from mayhem_validate_fee_recipient import *
 from solders.clock import Clock
 class SweepFixture:
  def __init__(self,binary):
-  self.vm=LiteSVM().with_transaction_history(0);self.vm.add_program_from_file(PROGRAM,binary)
+  self.vm=LiteSVM().with_transaction_history(0);image=pathlib.Path(binary).read_bytes();self.sha256=hashlib.sha256(image).hexdigest();self.vm.add_program(PROGRAM,image)
   for name,key in DEPENDENCIES.items():self.vm.add_program_from_file(key,ROOT/f'evidence/dependencies/{name}/deployed.so')
  def execute(self,c):
   vm=self.vm;kind=c.get('kind','ok');token=TOKEN2022 if c.get('token2022') else TOKEN;mint=WSOL if c.get('native',True) else OTHER;op=c.get('op','sweep_fees')
@@ -79,5 +79,5 @@ if __name__=='__main__':
  for index,c in enumerate(rows):
   x=o.execute(c);y=b.execute(c);equal=all(x[k]==y[k] for k in ['error','accounts','events','inner','return_data']);results.append(dict(case=c,original=x,candidate=y,equal=equal))
   if not equal:failures.append(index)
- report={'scope':'Both sweep paths with exact captured dependency ELFs; synthetic accounts and configuration. Partial program reconstruction.','original_sha256':hashlib.sha256(original.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(a.candidate.read_bytes()).hexdigest(),'dependency_sha256':{name:hashlib.sha256((ROOT/f'evidence/dependencies/{name}/deployed.so').read_bytes()).hexdigest() for name in DEPENDENCIES},'source_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'programs/mayhem/Cargo.toml',ROOT/'programs/mayhem/Cargo.lock',ROOT/'programs/mayhem/src/lib.rs',pathlib.Path(__file__).resolve(),ROOT/'scripts/mayhem_validate_admin.py',ROOT/'scripts/mayhem_validate_fee_recipient.py']},'case_count':len(results),'mismatches':failures,'cases':results}
+ report={'scope':'Both sweep paths with exact captured dependency ELFs; synthetic accounts and configuration. Partial program reconstruction.','original_sha256':o.sha256,'candidate_sha256':b.sha256,'dependency_sha256':{name:hashlib.sha256((ROOT/f'evidence/dependencies/{name}/deployed.so').read_bytes()).hexdigest() for name in DEPENDENCIES},'source_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'programs/mayhem/Cargo.toml',ROOT/'programs/mayhem/Cargo.lock',ROOT/'programs/mayhem/src/lib.rs',pathlib.Path(__file__).resolve(),ROOT/'scripts/mayhem_validate_admin.py',ROOT/'scripts/mayhem_validate_fee_recipient.py']},'case_count':len(results),'mismatches':failures,'cases':results}
  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'cases':len(results),'mismatches':failures}));raise SystemExit(bool(failures))

@@ -36,13 +36,14 @@ class ManifestTests(unittest.TestCase):
         self.assertEqual(checked, 297)
 
     def test_retained_flat_manifest(self):
-        for name in ('legacy-capture-metadata', 'roadmap-call-classification',
-                     'source-manifest-symlinks', 'token-program-constant-detector'):
+        # roadmap-call-classification also keeps its reviewed script under archived/.
+        for name, count in (('legacy-capture-metadata', 7), ('roadmap-call-classification', 8),
+                            ('source-manifest-symlinks', 7), ('token-program-constant-detector', 7)):
             with self.subTest(packet=name):
                 packet = ROOT / f'research/tooling-{name}-20261029'
                 result = audit.check_manifest(packet)
-                self.assertEqual(result, {'status': 'pass', 'files_checked': 7,
-                                         'files_expected': 7, 'errors': []})
+                self.assertEqual(result, {'status': 'pass', 'files_checked': count,
+                                         'files_expected': count, 'errors': []})
 
     def test_real_packet_corruption_size_missing_and_directory(self):
         with tempfile.TemporaryDirectory() as temporary:

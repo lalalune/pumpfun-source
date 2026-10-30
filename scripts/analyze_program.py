@@ -226,21 +226,21 @@ def analyze_program(program_name, output_dir):
     # --- Write outputs ---
     # 1. Summary
     summary_path = output_dir / "summary.json"
-    summary_path.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+    summary_path.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(f"[analyze] summary: {len(windows)} windows, {total_text:,} text bytes")
 
     # 2. Full window inventory
     inventory_path = output_dir / "window-inventory.json"
-    inventory_path.write_text(json.dumps(windows, indent=2) + "\n", encoding="utf-8")
+    inventory_path.write_text(json.dumps(windows, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 3. Call graph
     callgraph_path = output_dir / "call-graph.json"
-    callgraph_path.write_text(json.dumps(call_graph_edges, indent=2) + "\n", encoding="utf-8")
+    callgraph_path.write_text(json.dumps(call_graph_edges, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 4. Function index (name -> address mapping)
     func_index = {f["name"]: hex(f["start"]) for f in elf.funcs if f["name"]}
     func_index_path = output_dir / "function-index.json"
-    func_index_path.write_text(json.dumps(func_index, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    func_index_path.write_text(json.dumps(func_index, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
 
     # 5. Section layout
     section_layout = {}
@@ -254,7 +254,7 @@ def analyze_program(program_name, output_dir):
             "sha256": hashlib.sha256(elf.b[s[4]:s[4] + s[5]]).hexdigest() if s[1] != 8 else None,
         }
     layout_path = output_dir / "section-layout.json"
-    layout_path.write_text(json.dumps(section_layout, indent=2) + "\n", encoding="utf-8")
+    layout_path.write_text(json.dumps(section_layout, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 6. README
     readme = f"""# {program_name} — Deployed Binary Analysis
@@ -302,7 +302,7 @@ def analyze_program(program_name, output_dir):
 python3 verify.py
 ```
 """
-    (output_dir / "README.md").write_text(readme, encoding="utf-8")
+    (output_dir / "README.md").write_text(readme, encoding="utf-8", newline="\n")
 
     # 7. Verify script
     verify_py = '''#!/usr/bin/env python3
@@ -351,14 +351,14 @@ if __name__ == "__main__":
         'README.md', 'call-graph.json', 'function-index.json', 'section-layout.json',
         'summary.json', 'verify.py', 'window-inventory.json',
     ]))
-    (output_dir / "verify.py").write_text(verify_py, encoding="utf-8")
+    (output_dir / "verify.py").write_text(verify_py, encoding="utf-8", newline="\n")
 
     # 8. Manifest
     manifest = {
         name: sha256_file(str(output_dir / name))
         for name in sorted(PACKET_FILES - {"manifest.json"})
     }
-    (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     total_lines = sum(
         len((output_dir / name).read_text(encoding="utf-8").splitlines()) for name in manifest

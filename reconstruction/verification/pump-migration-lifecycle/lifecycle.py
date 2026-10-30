@@ -153,7 +153,11 @@ def transfer_fee_mint_data(base: bytes, bps=100, maximum=2**64 - 1):
     withdraw = bytes([95]) * 32
     fee = struct.pack("<QQH", 0, maximum, bps)
     body = authority + withdraw + struct.pack("<Q", 0) + fee + fee
-    assert len(body) == 108
+    # Explicit check instead of an assert: python -O strips asserts, and the
+    # transfer-fee scenarios then compare both images against malformed mint
+    # state instead of failing closed.
+    if len(body) != 108:
+        raise ValueError(f"TransferFeeConfig body must be 108 bytes, built {len(body)}")
     return bytes(base[:82]) + bytes(83) + b"\x01" + struct.pack("<HH", 1, len(body)) + body
 
 
@@ -595,7 +599,7 @@ def validate_lifecycle(run):
     if len(signatures) != len(set(signatures)):
         failures.append("duplicate-transaction-signature")
     for receipt in receipts:
-        if not all(receipt["signature_verification"]):
+        if not receipt["signature_verification"] or not all(receipt["signature_verification"]):
             failures.append(receipt["step"] + ":signature-verification")
         if receipt["error"] and receipt["rollback_nonfee_equal"] is not True:
             failures.append(receipt["step"] + ":failure-not-atomic")

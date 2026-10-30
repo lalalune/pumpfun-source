@@ -22,6 +22,7 @@ import io
 import json
 import os
 import struct
+import stat
 import sys
 from pathlib import Path
 
@@ -304,7 +305,9 @@ def _recover_dispatch_target(elf, constant_offset):
     cursor = branch_target
     while elf.lo <= cursor and cursor + 8 <= elf.hi and cursor < branch_target + 256:
         cop, cregs, _, cimm = struct.unpack_from("<BBhi", elf.b, cursor)
-        if cop == 0x85 and (cregs >> 4) == 1:
+        # A type-10 relocation marks an extern call: its immediate is a
+        # placeholder, so it never targets the handler.
+        if cop == 0x85 and (cregs >> 4) == 1 and elf.relocations.get(cursor, {}).get("type") != 10:
             call_target = cursor + 8 + cimm * 8
             target_name = None
             for f in elf.funcs:
@@ -386,17 +389,20 @@ def recover_anchor_dispatch(elf):
         elif opcode == 0x85 and elf.b[offset + 1] == 0x10:
             # Internal call — this might be a handler dispatch
             imm = struct.unpack_from("<i", elf.b, offset + 4)[0]
-            target = offset + 8 + imm * 8
-            if prev_imm64 is not None:
-                selectors[hex(prev_imm64)] = {
-                    "selector": hex(prev_imm64),
-                    "target_address": hex(target),
-                    "target_name": None,
-                }
-                for f in elf.funcs:
-                    if f["start"] == target:
-                        selectors[hex(prev_imm64)]["target_name"] = f["name"]
-                        break
+            # A type-10 relocation marks an extern call: its immediate is a
+            # placeholder, so a selector literal never dispatches through it.
+            if elf.relocations.get(offset, {}).get("type") != 10:
+                target = offset + 8 + imm * 8
+                if prev_imm64 is not None:
+                    selectors[hex(prev_imm64)] = {
+                        "selector": hex(prev_imm64),
+                        "target_address": hex(target),
+                        "target_name": None,
+                    }
+                    for f in elf.funcs:
+                        if f["start"] == target:
+                            selectors[hex(prev_imm64)]["target_name"] = f["name"]
+                            break
             prev_imm64 = None
             offset += 8
         else:
@@ -547,6 +553,18 @@ def fingerprint_window(elf, start, end, call_symbols=None):
     }
 
 
+def linked(path):
+    """Identify output symlinks and Windows reparse points without following them."""
+    try:
+        metadata = path.lstat()
+    except FileNotFoundError:
+        return False
+    return (stat.S_ISLNK(metadata.st_mode)
+            or bool(getattr(metadata, "st_file_attributes", 0)
+                    & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0))
+            or bool(getattr(metadata, "st_reparse_tag", 0)))
+
+
 def sha256_file(path):
     h = hashlib.sha256()
     with open(path, "rb") as f:
@@ -567,7 +585,11 @@ def main():
         return 1
 
     output_dir = Path(args.output)
+    if linked(output_dir):
+        raise ValueError("output directory is a link")
     output_dir.mkdir(parents=True, exist_ok=True)
+    if linked(output_dir):
+        raise ValueError("output directory is a link")
 
     # The manifest hashes every file here and verify.py requires exactly the
     # generated set, so reject leftovers from another run before writing.
@@ -580,7 +602,8 @@ def main():
     if unexpected:
         raise ValueError("unexpected packet entry: " + ", ".join(unexpected))
     invalid = sorted(name for name in packet_files
-                     if (output_dir / name).exists() and not (output_dir / name).is_file())
+                     if linked(output_dir / name)
+                     or ((output_dir / name).exists() and not (output_dir / name).is_file()))
     if invalid:
         raise ValueError("packet entry is not a regular file: " + ", ".join(invalid))
 

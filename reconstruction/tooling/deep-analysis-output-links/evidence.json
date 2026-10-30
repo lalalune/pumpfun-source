@@ -1,0 +1,356 @@
+{
+  "before": {
+    "python": "3.12.14 (main, Sep  1 2026, 14:17:39) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "win32",
+    "passed": false,
+    "runs": [
+      {
+        "script": "deep_disassembly.py",
+        "case": "summary.json:existing=True",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "summary.json:existing=False",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "verify.py:existing=True",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "verify.py:existing=False",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "manifest.json:existing=True",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "manifest.json:existing=False",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "summary.json:existing=True",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "summary.json:existing=False",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "verify.py:existing=True",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "verify.py:existing=False",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "manifest.json:existing=True",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "manifest.json:existing=False",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "directory-symlink",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "directory-symlink",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "regular-first",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "regular-repeat",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "regular-first",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "regular-repeat",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "directory-junction",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "directory-junction",
+        "returncode": 0,
+        "diagnostic": []
+      }
+    ],
+    "inputs": {
+      "scripts/deep_disassembly.py": "4564144861a43f023c5a05ce10685afcf3f8d375cafefa296642ca52b62e8017",
+      "scripts/deep_section_analysis.py": "d3f753ae71b8252495d9bd461e238811d63796f927adeffbce4d2936ae3e023f",
+      "scripts/analyze_program.py": "bcd8251236331c2f5ceba5bda204723ded190f32a6c26e66ec9426b87b6c7316",
+      "scripts/window_elf_reader.py": "89cc22378686465ac8102432981c4c7f883724ea19bac05001590ad37e64cae1",
+      "evidence/original/mayhem/deployed.so": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+    }
+  },
+  "after": {
+    "python": "3.12.14 (main, Sep  1 2026, 14:17:39) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "win32",
+    "passed": true,
+    "runs": [
+      {
+        "script": "deep_disassembly.py",
+        "case": "summary.json:existing=True",
+        "returncode": 1,
+        "diagnostic": [
+          "ValueError: packet entry is not a regular file: summary.json"
+        ]
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "summary.json:existing=False",
+        "returncode": 1,
+        "diagnostic": [
+          "ValueError: packet entry is not a regular file: summary.json"
+        ]
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "verify.py:existing=True",
+        "returncode": 1,
+        "diagnostic": [
+          "ValueError: packet entry is not a regular file: verify.py"
+        ]
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "verify.py:existing=False",
+        "returncode": 1,
+        "diagnostic": [
+          "ValueError: packet entry is not a regular file: verify.py"
+        ]
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "manifest.json:existing=True",
+        "returncode": 1,
+        "diagnostic": [
+          "ValueError: packet entry is not a regular file: manifest.json"
+        ]
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "manifest.json:existing=False",
+        "returncode": 1,
+        "diagnostic": [
+          "ValueError: packet entry is not a regular file: manifest.json"
+        ]
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "summary.json:existing=True",
+        "returncode": 1,
+        "diagnostic": [
+          "ValueError: packet entry is not a regular file: summary.json"
+        ]
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "summary.json:existing=False",
+        "returncode": 1,
+        "diagnostic": [
+          "ValueError: packet entry is not a regular file: summary.json"
+        ]
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "verify.py:existing=True",
+        "returncode": 1,
+        "diagnostic": [
+          "ValueError: packet entry is not a regular file: verify.py"
+        ]
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "verify.py:existing=False",
+        "returncode": 1,
+        "diagnostic": [
+          "ValueError: packet entry is not a regular file: verify.py"
+        ]
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "manifest.json:existing=True",
+        "returncode": 1,
+        "diagnostic": [
+          "ValueError: packet entry is not a regular file: manifest.json"
+        ]
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "manifest.json:existing=False",
+        "returncode": 1,
+        "diagnostic": [
+          "ValueError: packet entry is not a regular file: manifest.json"
+        ]
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "directory-symlink",
+        "returncode": 1,
+        "diagnostic": [
+          "ValueError: output directory is a link"
+        ]
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "directory-symlink",
+        "returncode": 1,
+        "diagnostic": [
+          "ValueError: output directory is a link"
+        ]
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "regular-first",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "regular-repeat",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "regular-first",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "regular-repeat",
+        "returncode": 0,
+        "diagnostic": []
+      },
+      {
+        "script": "deep_disassembly.py",
+        "case": "directory-junction",
+        "returncode": 1,
+        "diagnostic": [
+          "ValueError: output directory is a link"
+        ]
+      },
+      {
+        "script": "deep_section_analysis.py",
+        "case": "directory-junction",
+        "returncode": 1,
+        "diagnostic": [
+          "ValueError: output directory is a link"
+        ]
+      }
+    ],
+    "inputs": {
+      "scripts/deep_disassembly.py": "1b09f6ed743f8c221dc879ca03f78a8263352b3395f72b5bf8690114b36e1c25",
+      "scripts/deep_section_analysis.py": "ea66e9fe2fd55402a6fa4f97f33a4d3f4ee0eb14a3093bae31db349f94375fa9",
+      "scripts/analyze_program.py": "bcd8251236331c2f5ceba5bda204723ded190f32a6c26e66ec9426b87b6c7316",
+      "scripts/window_elf_reader.py": "89cc22378686465ac8102432981c4c7f883724ea19bac05001590ad37e64cae1",
+      "evidence/original/mayhem/deployed.so": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+    }
+  },
+  "unchanged_packets": [
+    {
+      "script": "deep_disassembly.py",
+      "unchanged_files": 12,
+      "hashes": {
+        "disassembly.json.gz": "49b541fabc4f6c2a30b8538b14433a3496860b3c726e314c48d54e214076bf9d",
+        "dispatch-table.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "error-strings.json": "9c8cc3abd58822c00e3ca9b4abe2be69e06e7a9fd185a0671063aaae3c7f9a09",
+        "extern-usage.json": "7d9424abc9808b6806486fa051589ab72f9659680324c49d44170e96ebe3d7dd",
+        "fingerprints.json": "c41a18221c2196674b140d124506dd6de7e960c789d39d3cc71862d2dcedfbce",
+        "manifest.json": "0a122d8756dccd629b0259741407c445045ed1a35f1b58813fd010ba0b78227d",
+        "README.md": "19c5bb02f12d423485efebecfe837fe1dcb216cdb2a68863f40f52206867f447",
+        "rodata-strings.json": "482acf266d6abd51f1a2f06278e1a3ce211d49bd0846fb24cb9a78f744681a12",
+        "summary.json": "fcb117da9fe9e2f69c27ea74236a8ba3066da87b67942b83e03dcbd39c2d1af7",
+        "syscall-usage.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "verify.py": "f56408064abd161d8c62ff8bb15142a521678a4f54515e24c15b20b435dc631a",
+        "windows-deep.json": "376878f52c8ffe2099b43afc59cd903ee45bbae46e86b8d8b5d1a449f244488b"
+      },
+      "both_generated_verifiers_passed": true
+    },
+    {
+      "script": "deep_section_analysis.py",
+      "unchanged_files": 9,
+      "hashes": {
+        "layer1-data-layout.json": "85d78e7a1e6be64abe39461a44a54b7d908ed9d73a85eca10a24630d794bcbe6",
+        "layer2-relocation-map.json": "6097df349871d6587e8b849a72a558bd714dd2bf6e59ed103ea147da37ecb380",
+        "layer3-cross-section.json": "1b25e4986bab790a363a83f7fbf1370dcb36ff1a1560a8ca9ed8e0288807d701",
+        "layer4-anchor-idl.json": "e9bc3e6992d9522bb5bf4b7c5809d06557f0d826e66bbcace055d4eef8a88c9f",
+        "layer5-math-analysis.json": "cbed0a18ef0de94779c310eb3990c6f2198f2dfffe012201ccc2f491137c2108",
+        "manifest.json": "5a61e64b948a5a54fdb024b3fcf546ecb7d366f396d797aa1c5faee7acde0e55",
+        "README.md": "be056b4fc2e0738fe89923e8ba58a293ac07a3cf907e9ecd4cf461155671cb33",
+        "summary.json": "00144c3b4ce6f9ff9a7bb3d0f464f05f52060cc3622d07d5781352c08b6f1c15",
+        "verify.py": "5e659cd573b81d1ab1bde746c8e98de88beca2125247ea93faa3e276bc663a7c"
+      },
+      "both_generated_verifiers_passed": true
+    }
+  ],
+  "validation": {
+    "root_tooling": {
+      "tests": 187,
+      "passed": true,
+      "python": "3.12.14",
+      "platform": "WSL Linux",
+      "solders": "0.27.1"
+    },
+    "saved_captures_verified": 9,
+    "existing_publication_tests": [
+      2,
+      2
+    ],
+    "encoding_tests": 2,
+    "reproducibility_tests": 1,
+    "interior_string_tests": 2
+  }
+}

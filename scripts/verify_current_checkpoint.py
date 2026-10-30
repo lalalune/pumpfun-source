@@ -143,41 +143,79 @@ def _verify_amm_owner6048(root):
  SOURCE30='0be8e2aea6596710868267de6c7c2375cfb0f0f6ab76df26a9ff15e079a416ce'
  H=sha;J=read
  def safe(root,rel):
-  p=Path(rel);assert not p.is_absolute()and'..'not in p.parts;p=root/p
+  p=Path(rel)
+  if p.is_absolute() or '..' in p.parts:
+      raise AssertionError(('Manifest path', rel))
+  p=root/p
   for q in[p,*p.parents]:
    if q==root.parent:break
-   assert not q.is_symlink(),q
+   if q.is_symlink():
+       raise AssertionError(('Symlink ancestry', str(q)))
   return p
  def saved(command,cwd):
   r=subprocess.run(command,cwd=cwd,capture_output=True);receipt={'command':command,'returncode':r.returncode,'stdout_base64':base64.b64encode(r.stdout).decode('ascii'),'stderr_base64':base64.b64encode(r.stderr).decode('ascii'),'stdout_sha256':hashlib.sha256(r.stdout).hexdigest(),'stderr_sha256':hashlib.sha256(r.stderr).hexdigest()}
   if r.returncode:raise RuntimeError('Saved verifier failed: '+json.dumps(receipt))
   return r,receipt
- root=Path(root).absolute();package=safe(root,PUBLIC);assert H(package/'manifest.json')==PUBLIC_SEAL==(package/'manifest.sha256').read_text().split()[0];manifest=J(package/'manifest.json');assert manifest['verify_public.py']==READER and H(package/'verify_public.py')==READER
- status=J(root/'repro/status.json')['pump_amm'];assert hashlib.sha256(json.dumps(status,sort_keys=True,separators=(',',':')).encode()).hexdigest()==STATUS
- assert status==J(package/'selection-proposal/status.proposed.json')['pump_amm'];assert status['candidate_artifact']==PUBLIC+'/main/candidate.so'and status['candidate_sha256']==CANDIDATE
- assert status['comparison_report']==PUBLIC+'/main/build-01/build-comparison.json'and status['main_acceptance_verifier']==PUBLIC+'/verify_public.py'
- assert H(root/'programs/pump-amm/README.md')==README==H(package/'selection-proposal/README.proposed.md')
- assert H(package/'main/candidate.so')==CANDIDATE and H(package/'main/unstripped.so')==SYMBOLS
- sourcefile=package/'managed-plan/witness/proposed-source30.json';assert H(sourcefile)==SOURCE30;source=J(sourcefile);assert len(source)==30
- report=J(package/'main/build-01/build-comparison.json');identity=J(package/'main/identity.json');assert report['source_sha256']==source==identity['actual_managed_source30']and identity['source_overlay_used']is False and identity['whole_candidate_equal']and identity['whole_symbols_equal'];assert report['comparison']['candidate_sha256']==CANDIDATE
- for name,h in source.items():assert H(safe(root,name))==h,name
+ root=Path(root).absolute();package=safe(root,PUBLIC)
+ if not (H(package/'manifest.json')==PUBLIC_SEAL==(package/'manifest.sha256').read_text().split()[0]):
+     raise AssertionError('Public seal')
+ manifest=J(package/'manifest.json')
+ if not (manifest['verify_public.py']==READER and H(package/'verify_public.py')==READER):
+     raise AssertionError('Public reader')
+ status=J(root/'repro/status.json')['pump_amm']
+ if hashlib.sha256(json.dumps(status,sort_keys=True,separators=(',',':')).encode()).hexdigest()!=STATUS:
+     raise AssertionError('Status seal')
+ if status!=J(package/'selection-proposal/status.proposed.json')['pump_amm']:
+     raise AssertionError('Proposed status')
+ if not (status['candidate_artifact']==PUBLIC+'/main/candidate.so'and status['candidate_sha256']==CANDIDATE):
+     raise AssertionError('Candidate binding')
+ if not (status['comparison_report']==PUBLIC+'/main/build-01/build-comparison.json'and status['main_acceptance_verifier']==PUBLIC+'/verify_public.py'):
+     raise AssertionError('Comparison report binding')
+ if not (H(root/'programs/pump-amm/README.md')==README==H(package/'selection-proposal/README.proposed.md')):
+     raise AssertionError('README binding')
+ if not (H(package/'main/candidate.so')==CANDIDATE and H(package/'main/unstripped.so')==SYMBOLS):
+     raise AssertionError('Candidate symbols binding')
+ sourcefile=package/'managed-plan/witness/proposed-source30.json'
+ if H(sourcefile)!=SOURCE30:
+     raise AssertionError('Source30 seal')
+ source=J(sourcefile)
+ if len(source)!=30:
+     raise AssertionError('Source30 count')
+ report=J(package/'main/build-01/build-comparison.json');identity=J(package/'main/identity.json')
+ if not (report['source_sha256']==source==identity['actual_managed_source30']and identity['source_overlay_used']is False and identity['whole_candidate_equal']and identity['whole_symbols_equal']):
+     raise AssertionError('Source30 identity')
+ if report['comparison']['candidate_sha256']!=CANDIDATE:
+     raise AssertionError('Comparison candidate binding')
+ for name,h in source.items():
+     if H(safe(root,name))!=h:
+         raise AssertionError(name)
  # Retain the existing explicit historical helper transition; no new drift rule.
  protected=J(package/'managed-plan/witness/protected-before.json');transitions=[]
  for name,recorded in protected.items():
   if not name.startswith('scripts/'):continue
   actual=H(safe(root,name))
   if actual==recorded:continue
-  assert name=='scripts/build_partial_candidate.py'and(recorded,actual)in[(OLD_HELPER,NEW_HELPER),(NEW_HELPER,OLD_HELPER)],name
-  proof=safe(root,TRANSITION);assert H(proof/'manifest.json')==TRANSITION_SEAL;rows=J(proof/'manifest.json');rows=rows.get('files',rows)
-  for n,v in rows.items():assert H(safe(proof,n))==(v['sha256']if isinstance(v,dict)else v)
-  assert H(proof/'before.py')==OLD_HELPER and H(proof/'after.py')==NEW_HELPER
+  if not (name=='scripts/build_partial_candidate.py'and(recorded,actual)in[(OLD_HELPER,NEW_HELPER),(NEW_HELPER,OLD_HELPER)]):
+      raise AssertionError(name)
+  proof=safe(root,TRANSITION)
+  if H(proof/'manifest.json')!=TRANSITION_SEAL:
+      raise AssertionError('Transition seal')
+  rows=J(proof/'manifest.json');rows=rows.get('files',rows)
+  for n,v in rows.items():
+      if H(safe(proof,n))!=(v['sha256']if isinstance(v,dict)else v):
+          raise AssertionError(n)
+  if not (H(proof/'before.py')==OLD_HELPER and H(proof/'after.py')==NEW_HELPER):
+      raise AssertionError('Helper transition bytes')
   _,receipt=saved([sys.executable,'-B',str(proof/'verify.py')],proof);transitions.append({'path':name,'recorded_sha256':recorded,'current_sha256':actual,'proof_seal':TRANSITION_SEAL,'receipt':receipt})
  # This exact public command performs all physical/logical/derived-data checks
  # and optional source30 discovery. It never calls old live preflight/HEAD/index.
  r,receipt=saved([sys.executable,'-B',str(package/'verify_public.py'),'--current-main',str(root)],package);observed=json.loads(r.stdout)
- assert observed['schema']=='AMM_PUBLIC_SAVED_CHECKS_V1'and observed['status']=='PASS'and observed['returncode']==0 and observed['verification_mode']=='saved_bytes'and observed['children']==[]
- assert observed['optional_current_source']['source30_bytes_and_inventory_equal']is True and observed['historical_engine_records_checked']is True and observed['live_old_preflight_or_HEAD_index_called']is False
- assert observed['new_target_executions']==observed['new_builds']==observed['compiler_VM_runs']==observed['verified_signatures']==0
+ if not (observed['schema']=='AMM_PUBLIC_SAVED_CHECKS_V1'and observed['status']=='PASS'and observed['returncode']==0 and observed['verification_mode']=='saved_bytes'and observed['children']==[]):
+     raise AssertionError('Saved checks outcome')
+ if not (observed['optional_current_source']['source30_bytes_and_inventory_equal']is True and observed['historical_engine_records_checked']is True and observed['live_old_preflight_or_HEAD_index_called']is False):
+     raise AssertionError('Saved checks source')
+ if not (observed['new_target_executions']==observed['new_builds']==observed['compiler_VM_runs']==observed['verified_signatures']==0):
+     raise AssertionError('Saved checks executions')
  return {'status':'PASS','program':'pump_amm','public_seal':PUBLIC_SEAL,'candidate_sha256':CANDIDATE,'symbols_sha256':SYMBOLS,'source_inputs':30,'actual_current_sources_checked':True,'README_exact':True,'selected_AMM_status_exact':True,'reviewed_helper_transitions':transitions,'saved_public_verifier':receipt,'fresh_signature_verification_performed':False,'target_executions':0,'new_builds':0,'original_global_failure_exits_rewritten':False}
 
 
@@ -217,7 +255,8 @@ def verify(program, root):
         from verify_pump_main_checkpoint import verify as verify_main
         return verify_main(root)
     suffix = '/main/candidate.so'
-    assert status['candidate_artifact'].endswith(suffix)
+    if not status['candidate_artifact'].endswith(suffix):
+        raise AssertionError('Candidate artifact suffix')
     name = status['candidate_artifact'][:-len(suffix)]
     if program == 'pump_amm' and name == 'repro/pump_amm/owner6048-v144':
         return _verify_amm_owner6048(root)
@@ -227,7 +266,8 @@ def verify(program, root):
     if program == 'pump' and name == 'repro/pump/admin-cto-compared-errors-main-fortyeight':
         from verify_pump_compared_checkpoint import verify as verify_compared
         return verify_compared(root)
-    assert name in CHECKPOINTS, ('Checkpoint needs explicit bridge review', name)
+    if name not in CHECKPOINTS:
+        raise AssertionError(('Checkpoint needs explicit bridge review', name))
     seal, helper_prefix, final_readme = CHECKPOINTS[name]
     package = root / name
     verify_manifest(package, seal, root)
@@ -240,10 +280,13 @@ def verify(program, root):
         scratch, scratch_seal = scratch_bindings[name]
         verify_manifest(root / scratch, scratch_seal, root)
     report = json.loads(read_regular(root, root / status['comparison_report']))
-    assert root / status['comparison_report'] == package / 'main/build-comparison.json'
-    assert report['selected_toolchain'] in ('v1.44', 'v1.52')
+    if root / status['comparison_report'] != package / 'main/build-comparison.json':
+        raise AssertionError('Comparison report path')
+    if report['selected_toolchain'] not in ('v1.44', 'v1.52'):
+        raise AssertionError('Selected toolchain')
     command = report['command']
-    assert command[command.index('--tools-version') + 1] == report['selected_toolchain']
+    if command[command.index('--tools-version') + 1] != report['selected_toolchain']:
+        raise AssertionError('Toolchain command')
     candidate_sha = file_sha(root, root / status['candidate_artifact'])
     if candidate_sha != report['comparison']['candidate_sha256'] or candidate_sha != status['candidate_sha256']:
         raise AssertionError(status['candidate_artifact'])
@@ -263,7 +306,8 @@ def verify(program, root):
         actual = file_sha(root, root / helper)
         if actual == recorded:
             continue
-        assert helper == 'scripts/build_partial_candidate.py' and (recorded, actual) in ((OLD_HELPER, NEW_HELPER), (NEW_HELPER, OLD_HELPER)), helper
+        if not (helper == 'scripts/build_partial_candidate.py' and (recorded, actual) in ((OLD_HELPER, NEW_HELPER), (NEW_HELPER, OLD_HELPER))):
+            raise AssertionError(helper)
         proof = root / TRANSITION
         verify_manifest(proof, TRANSITION_SEAL, root)
         if file_sha(root, proof / 'before.py') != OLD_HELPER or file_sha(root, proof / 'after.py') != NEW_HELPER:

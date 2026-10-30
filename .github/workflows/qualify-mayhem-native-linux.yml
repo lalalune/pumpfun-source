@@ -1,0 +1,73 @@
+name: Qualify exact Mayhem recipe on native Linux
+
+on:
+  push:
+    branches: [codex/window-n-mayhem-linux]
+    paths:
+      - reconstruction/mayhem/native-linux-qualification/**
+      - .github/workflows/qualify-mayhem-native-linux.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mayhem-native-linux-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.12"
+      - name: Run admission and tamper controls
+        run: >-
+          python3 -I -B reconstruction/mayhem/native-linux-qualification/test_native_linux.py
+      - name: Authenticate official SDK and complete crate closure
+        run: >-
+          python3 -I -B reconstruction/mayhem/native-linux-qualification/prepare_inputs.py
+          --repo "$GITHUB_WORKSPACE" --output "$RUNNER_TEMP/mayhem-linux-inputs"
+      - name: Compile two fresh native Linux candidates
+        run: >-
+          python3 -I -B reconstruction/mayhem/native-linux-qualification/build_linux.py
+          --repo "$GITHUB_WORKSPACE"
+          --sdk-archive "$RUNNER_TEMP/mayhem-linux-inputs/platform-tools-linux-x86_64-v1.54.tar.bz2"
+          --vendor "$RUNNER_TEMP/mayhem-linux-inputs/vendor"
+          --output "$RUNNER_TEMP/mayhem-linux-qualification"
+      - name: Retain compiler and comparison evidence without caches
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: mayhem-native-linux-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/mayhem-linux-inputs/receipt.json
+            ${{ runner.temp }}/mayhem-linux-qualification/result.json
+            ${{ runner.temp }}/mayhem-linux-qualification/stage*.log
+            ${{ runner.temp }}/mayhem-linux-qualification/stage*.json
+            ${{ runner.temp }}/mayhem-linux-qualification/stage/source-mapping.json
+            ${{ runner.temp }}/mayhem-linux-qualification/historical-macro/*.json
+            ${{ runner.temp }}/mayhem-linux-qualification/historical-macro/*.log
+            ${{ runner.temp }}/mayhem-linux-qualification/linux-metadata-map.*
+            ${{ runner.temp }}/mayhem-linux-qualification/metadata-probe/result.json
+            ${{ runner.temp }}/mayhem-linux-qualification/metadata-probe/launch.json
+            ${{ runner.temp }}/mayhem-linux-qualification/metadata-probe/*.log
+            ${{ runner.temp }}/mayhem-linux-qualification/metadata-probe/*.process.json
+            ${{ runner.temp }}/mayhem-linux-qualification/metadata-probe/link/**
+            ${{ runner.temp }}/mayhem-linux-qualification/metadata-probe/wrapper-records/**
+            ${{ runner.temp }}/mayhem-linux-qualification/build-*/result.json
+            ${{ runner.temp }}/mayhem-linux-qualification/build-*/launch.json
+            ${{ runner.temp }}/mayhem-linux-qualification/build-*/*.log
+            ${{ runner.temp }}/mayhem-linux-qualification/build-*/*.process.json
+            ${{ runner.temp }}/mayhem-linux-qualification/build-*/symbols.so
+            ${{ runner.temp }}/mayhem-linux-qualification/build-*/candidate.so
+            ${{ runner.temp }}/mayhem-linux-qualification/build-*/link/**
+            ${{ runner.temp }}/mayhem-linux-qualification/build-*/wrapper-records/**
+          if-no-files-found: warn
+          include-hidden-files: true
+          retention-days: 30

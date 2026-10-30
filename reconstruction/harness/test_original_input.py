@@ -96,7 +96,7 @@ class OriginalInputTests(unittest.TestCase):
         harness = self.root / 'reconstruction/harness'
         harness.mkdir()
         for name in ('score.py', 'score_admission.py', 'original_input.py',
-                     'elf_symbols.py', 'llvm_tools.py'):
+                     'elf_symbols.py', 'llvm_tools.py', 'instruction_stream.py'):
             shutil.copyfile(Path(score.__file__).parent / name, harness / name)
         candidate = self.root / 'candidate.so'
         candidate.write_bytes(gzip.decompress((

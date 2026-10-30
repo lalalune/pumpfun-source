@@ -75,6 +75,16 @@ class ParallelReportPublicationTests(unittest.TestCase):
         self.assertFalse(self.run_validator(output))
         self.assertEqual(json.loads(output.read_bytes())['case_count'], 1)
 
+    def test_bound_inputs_are_rejected_before_worker_publication(self):
+        for output in (self.candidate, self.build_comparison, self.suite):
+            with self.subTest(output=output):
+                before = output.read_bytes()
+                with self.assertRaisesRegex(ValueError, 'validation output aliases a bound input'):
+                    self.run_validator(output)
+                self.assertEqual(output.read_bytes(), before)
+                self.assertFalse(output.with_name(output.name + '.suites').exists())
+                self.assertFalse(output.with_name(output.name + '.failed.json').exists())
+
     def test_gz_output_remains_gzip(self):
         output = self.root / 'reports/report.json.gz'
         self.assertFalse(self.run_validator(output))

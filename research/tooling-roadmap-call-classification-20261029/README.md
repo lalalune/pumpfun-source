@@ -47,3 +47,11 @@ clearance, and it does not rewrite the archived roadmap outputs.
 Run from the repository root. `verify.py` re-hashes the manifest, inputs and
 fresh observations; `test_verify.py` checks synthetic internal, external and
 legacy call forms plus the complete real-corpus totals.
+
+## Re-binding after tool merges (2026-10-30)
+
+`scripts/reconstruction_roadmap.py` changed on main after this packet was sealed
+(#1639 classifies sBPF calls by the source nibble, #2467 rejects stale packet
+directories). The reviewed bytes are kept in `archived/reconstruction_roadmap.py`
+with their original SHA-256, and `proof.py` loads the archived script from there.
+The observations are unchanged.

@@ -22,6 +22,36 @@ sys.path.insert(0, str(H))
 from score import sections, normalize, body, candidate_functions, original_windows  # noqa: E402
 from win import Cand, insns, demangle, best_candidates, ORIG, ORIG_SECS  # noqa: E402
 from instruction_stream import instruction_offsets
+from collections import Counter
+
+
+def decode(raw, offset):
+    op, regs, displacement, immediate = struct.unpack_from('<BBhi', raw, offset)
+    if op == 0x18:
+        immediate = (immediate & 0xffffffff) | (struct.unpack_from('<I', raw, offset + 12)[0] << 32)
+    return dict(opcode=op, dst=regs & 15, src=regs >> 4,
+                displacement=displacement, immediate=immediate)
+
+
+def field_differences(original, candidate, limit=12):
+    """Inputs must already use score.normalize; never align LDDW payloads as opcodes."""
+    if limit < 0:
+        raise ValueError('limit must be nonnegative')
+    left, right = list(instruction_offsets(original)), list(instruction_offsets(candidate))
+    if len(original) != len(candidate) or left != right:
+        return {'comparable': False, 'reason': 'instruction boundaries or byte lengths differ'}
+    counts, rows = Counter(), []
+    for offset in left:
+        a, b = decode(original, offset), decode(candidate, offset)
+        fields = {key: {'original': a[key], 'candidate': b[key]} for key in a if a[key] != b[key]}
+        # Preserve visibility of changed reserved LDDW continuation fields.
+        if original[offset] == candidate[offset] == 0x18 and original[offset+8:offset+12] != candidate[offset+8:offset+12]:
+            fields['lddw_reserved'] = {'original': original[offset+8:offset+12].hex(),
+                                       'candidate': candidate[offset+8:offset+12].hex()}
+        counts.update(fields.keys())
+        if fields and len(rows) < limit:
+            rows.append({'offset': offset, 'fields': fields})
+    return {'comparable': True, 'field_counts': dict(sorted(counts.items())), 'first_differences': rows}
 
 
 def call_counts(raw):
@@ -66,6 +96,7 @@ def measure_window(w, cand, pattern=None, top=3, slots=12):
                'calls_original': (ocalls['internal'], ocalls['syscall_or_relocated']),
                'calls_candidate': (ccalls['internal'], ccalls['syscall_or_relocated']),
                'call_counts_original': ocalls, 'call_counts_candidate': ccalls}
+        row['normalized_field_differences'] = field_differences(w['norm'], norm, slots)
         if n == w['bytes']:
             diff = [i for i in range(0, n, 8) if norm[i:i + 8] != w['norm'][i:i + 8]]
             row['slots_diff'] = len(diff)

@@ -30,7 +30,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 VERSION = "pump-revalidation-qualification-v1"
 FROZEN_SOURCE = "scripts/revalidate_all.py"
-FROZEN_SHA256 = "9e6e27794e5aad71e05920d9978093937f74d23c4bf8592ea7bcab711fd040ad"
+FROZEN_SHA256 = "3f8e5965ddbebb9ff5947061ceffc4f661d3fc53eea32dbc5352f190c2fbb1b1"
 REPORT_MEMBERS = (
     "README.md",
     "failed.json",
@@ -87,6 +87,7 @@ def entry_record(packet, path):
         return {
             "path": relative,
             "kind": "file",
+            "mode": stat.S_IMODE(info.st_mode),
             "bytes": info.st_size,
             "sha256": sha256_file(path),
         }
@@ -317,9 +318,27 @@ def classify(has_manifest, has_verify, manifest_before, verify, manifest_after, 
     return "inconclusive"
 
 
+def unique_manifest_fields(pairs):
+    result = {}
+    for name, value in pairs:
+        if name in result:
+            raise ValueError('duplicate manifest JSON field: ' + name)
+        result[name] = value
+    return result
+
+
 def safe_manifest_check(frozen, packet):
     try:
-        return frozen.check_manifest(packet)
+        # The frozen parser keeps only the last occurrence of a JSON key.
+        # Reject ambiguous declarations before delegating its format/hash checks.
+        for path in frozen.manifest_paths(packet):
+            json.loads(path.read_text(encoding='utf-8'), object_pairs_hook=unique_manifest_fields)
+        result = frozen.check_manifest(packet)
+        if result.get("status") == "pass" and not result.get("files_expected"):
+            # A manifest that declares no files verifies nothing.
+            result = {**result, "status": "fail",
+                      "errors": [*result.get("errors", []), "manifest declares no files"]}
+        return result
     except Exception as error:
         return {
             "status": "error",
@@ -555,6 +574,11 @@ def audit(repo, output, timeout_seconds=60.0, cleanup_seconds=1.0):
          if path.is_dir() and not path.name.startswith(".")),
         key=lambda path: path.name,
     )
+    resolved_output = output.resolve()
+    for packet in packets:
+        packet_root = packet.resolve()
+        if resolved_output == packet_root or packet_root in resolved_output.parents:
+            raise ValueError("audit output must not be inside an input packet")
     packet_names = [packet.name for packet in packets]
     output.parent.mkdir(parents=True, exist_ok=True)
     reject_linked_ancestors(output.parent)

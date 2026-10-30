@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """SOURCE-ONLY PROPOSAL: one explicit Linux measurement, never a promotion tool."""
+if not __debug__:
+ raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 from pathlib import Path,PurePosixPath
 import argparse,datetime,gzip,hashlib,importlib.util,json,os,platform,re,shutil,shlex,struct,subprocess,sys,tarfile,tempfile,tomllib,traceback,urllib.request
 ASSETS={

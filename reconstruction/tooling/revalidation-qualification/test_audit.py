@@ -181,6 +181,18 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(row["overall"], "pass")
         self.assertEqual(row["input_before"], row["input_after"])
 
+    def test_manifest_declaring_no_files_is_not_a_pass(self):
+        for name, declaration in (("flat", {}), ("records", {"files": []})):
+            packet = self.packet(name)
+            (packet / "manifest.json").write_text(json.dumps(declaration), encoding="utf-8")
+        output = self.root / "empty-manifest-audit"
+        result = self.run_adapter(output)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        for row in json.loads((output / "results.json").read_text()):
+            self.assertEqual(row["manifest_check"]["files_checked"], 0)
+            self.assertEqual(row["manifest_check"]["status"], "fail", row["packet"])
+            self.assertEqual(row["overall"], "fail", row["packet"])
+
     def test_existing_destination_is_byte_preserved_before_verifier(self):
         marker = self.root / "verifier-ran"
         self.packet(verifier=f"from pathlib import Path\nPath({str(marker)!r}).write_text('ran')\n")
