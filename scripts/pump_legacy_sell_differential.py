@@ -2,6 +2,7 @@
 """Offline legacy sell recovery: normally signed synthetic transactions, captured dependencies."""
 import argparse,base64,hashlib,json,struct,gzip
 import pump_trade_fixture as f
+from pump_amm_reusable_harness import pin_program
 R=f.R;P=f.Pubkey.from_string(f.x['program']);USER=f.Keypair.from_seed(bytes([231])*32)
 INITIAL={k:f.vm.get_account(k) for k in f.msg.account_keys}
 CURVE=f.Pubkey.from_string(f.x['accounts']['curve']);GLOBAL=f.Pubkey.from_string(f.x['accounts']['global']);FEE=f.Pubkey.from_string(f.x['accounts']['fee_config'])
@@ -9,7 +10,7 @@ IDL=json.loads((R/'evidence/upstream/pump.json').read_text(encoding='utf-8'));IX
 def run(c,binary=None):
  vm=f.LiteSVM().with_transaction_history(0)
  for name in ['pump','pump_fees']:
-  cap=json.loads((R/f'evidence/original/{name}/capture.json').read_text());vm.add_program_from_file(f.Pubkey.from_string(cap['program']),binary if name=='pump' and binary else R/f'evidence/original/{name}/deployed.so')
+  cap=json.loads((R/f'evidence/original/{name}/capture.json').read_text());vm.add_program_from_file(f.Pubkey.from_string(cap['program']),pin_program(binary) if name=='pump' and binary else R/f'evidence/original/{name}/deployed.so')
  for name in ['spl_token','spl_token_2022','associated_token']:
   cap=json.loads((R/f'evidence/dependencies/{name}/capture.json').read_text());vm.add_program_from_file(f.Pubkey.from_string(cap['program']),R/f'evidence/dependencies/{name}/deployed.so')
  for k,a in INITIAL.items():
@@ -89,6 +90,6 @@ def main():
   if args.candidate:
    b=run(c,args.candidate);diff=[k for k in ['error','accounts','events','inner','return_data'] if o[k]!=b[k]];r.update(candidate=b,different_fields=diff,match=not diff)
   rows.append(r)
- d={'scope':'Normally signed offline synthetic legacy sell fixtures; full binary identity unproven.','original_sha256':hashlib.sha256((R/'evidence/original/pump/deployed.so').read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(args.candidate.read_bytes()).hexdigest() if args.candidate else None,'harness_sha256':hashlib.sha256(f.pathlib.Path(__file__).read_bytes()).hexdigest(),'cases':rows,'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r.get('match') is False]};args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(d,indent=2)+'\n');print([(r['case']['name'],r['original']['error'],r.get('different_fields')) for r in rows])
+ d={'scope':'Normally signed offline synthetic legacy sell fixtures; full binary identity unproven.','original_sha256':hashlib.sha256((R/'evidence/original/pump/deployed.so').read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(args.candidate).read_bytes()).hexdigest() if args.candidate else None,'harness_sha256':hashlib.sha256(f.pathlib.Path(__file__).read_bytes()).hexdigest(),'cases':rows,'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r.get('match') is False]};args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(d,indent=2)+'\n');print([(r['case']['name'],r['original']['error'],r.get('different_fields')) for r in rows])
  if d['mismatches']:raise SystemExit(1)
 if __name__=='__main__':main()

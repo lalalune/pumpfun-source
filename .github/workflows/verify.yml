@@ -32,6 +32,10 @@ jobs:
             commands: |
               python -B research/fees-linux-fresh-rebuild-20261030/test_verify.py
               python -B -O research/fees-linux-fresh-rebuild-20261030/test_verify.py
+          - suite: swap-hop-residual-packet
+            commands: |
+              python -B research/swap-hop-residual-20261030/test_verify.py
+              python -B -O research/swap-hop-residual-20261030/test_verify.py
           - suite: analysis-packet-encoding
             commands: |
               python -B research/tooling-analysis-encoding-20261030/test_verify.py
@@ -44,6 +48,9 @@ jobs:
             commands: |
               python -I -B tests/test_fastbuild_stage.py
               python -B reconstruction/harness/test_fastbuild_library_name.py
+          - suite: admin-cto-call-report
+            commands: |
+              python -B reconstruction/pump-main/lanes/w12b13-cto-callgraph/test_callseq.py
           - suite: composition-patch-bytes
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py
@@ -72,6 +79,7 @@ jobs:
               python -B scripts/test_pump_fresh_output_optimized.py
               python -B scripts/test_amm_harness_content_cache.py
               python -B tests/test_amm_pinned_candidate.py
+              python -B tests/test_pump_create_nested_pinned_image.py
               python -B tests/test_two_curve_optimization_guard.py
               python -O -B tests/test_two_curve_optimization_guard.py
               python -B scripts/test_dispatch_recovery.py
@@ -138,9 +146,11 @@ jobs:
               python -B reconstruction/diagnostics/census-portability/test_output_guard.py
               python -B reconstruction/harness/test_experiment_declared_name.py
               python -B reconstruction/harness/test_experiment_worktree_source.py
+              python -B reconstruction/harness/test_experiment_matrix_overlap.py
               python -B reconstruction/harness/test_bisect_membership.py
               python -B reconstruction/harness/test_minimize_oracle_encoding.py
               python -B reconstruction/harness/test_experiment_post_run_errors.py
+              python -B reconstruction/harness/test_experiment_root_target.py
               python -B reconstruction/harness/test_coords_cli_admission.py
               python -B reconstruction/harness/test_report_scorer_inputs.py
               python -B reconstruction/harness/test_match_oracle.py

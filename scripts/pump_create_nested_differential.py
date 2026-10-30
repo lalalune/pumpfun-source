@@ -3,6 +3,7 @@ if not __debug__:
     raise SystemExit("Normal Python is required; do not use -O or PYTHONOPTIMIZE.")
 from pathlib import Path
 import importlib.util,json,gzip,struct,hashlib,argparse
+from pump_amm_reusable_harness import pin_program
 ROOT=Path(__file__).resolve().parents[1]
 def load():
  s=importlib.util.spec_from_file_location('nested_fixture',ROOT/'scripts/pump_create_nested_fixture.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
@@ -24,10 +25,10 @@ def cases():
  return rows
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();rows=[];bad=[]
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();a.candidate=pin_program(a.candidate) if a.candidate else None;rows=[];bad=[]
  h=load()
  for c in cases():
   boot,child=prepare(c);x=h.run(child);y=h.run(child,a.candidate) if a.candidate else None;diff=[k for k in ['before','after','error','events','inner','return'] if y is not None and x[k]!=y[k]];rows.append({'case':c,'bootstrap':boot,'child_fixture':child,'original':x,'candidate':y,'diff':diff})
   if diff:bad.append(c['name'])
- report={'scope':'Depth-one nested create_v2 from genuinely created normal SOL-root quote coins, ordinary signatures. No Mayhem, migrated pools or deeper chains recovered.','original_sha256':hashlib.sha256(h.ORIGINAL.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(a.candidate.read_bytes()).hexdigest() if a.candidate else None,'case_count':len(rows),'cases':rows,'mismatches':bad};a.output.write_bytes(gzip.compress(json.dumps(report,separators=(',',':')).encode(),mtime=0));print({'cases':len(rows),'mismatches':bad});assert not bad
+ report={'scope':'Depth-one nested create_v2 from genuinely created normal SOL-root quote coins, ordinary signatures. No Mayhem, migrated pools or deeper chains recovered.','original_sha256':hashlib.sha256(pin_program(h.ORIGINAL).read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(a.candidate.read_bytes()).hexdigest() if a.candidate else None,'case_count':len(rows),'cases':rows,'mismatches':bad};a.output.write_bytes(gzip.compress(json.dumps(report,separators=(',',':')).encode(),mtime=0));print({'cases':len(rows),'mismatches':bad});assert not bad
 if __name__=='__main__':main()
