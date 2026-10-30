@@ -66,7 +66,7 @@ def candidate_functions(path):
 def _window_rows(orig, inventory):
     """Cache immutable rows by input bytes, never by timestamps or a saved pickle."""
     os_ = sections(orig)
-    reader = csv.DictReader(io.StringIO(inventory), delimiter='\t')
+    reader = csv.DictReader(io.StringIO(inventory), delimiter='\t', strict=True)
     required = {'program', 'variant', 'original_start', 'original_end'}
     if not required.issubset(reader.fieldnames or []):
         raise ValueError('window inventory is missing required columns')
