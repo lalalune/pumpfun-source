@@ -51,3 +51,12 @@ plain load, as in the original:
 | main 8f050a2 (0.50929) | 27,368 / 0.51079 | old-before-bump is now byte-neutral; + `&Rent` ref 27,352 / 0.51094 |
 
 A `let holder=a.bonding_curve.is_holder_reward;` rebinding before the pool test is weaker (27,392 / 0.49109 on 9eb6c00).
+| main 74b3171 (0.51348) | 27,368 / 0.51469 | (companion screen running) |
+
+### Skip-tree tuple order is base-sensitive
+
+On main 8f050a2 (0.50929) the skip-first orders were a large win at a large size cost: `(skip,collect_old,sharing_update)`
+27,312 B / 0.51883, `(skip,sharing_update,collect_old)` and `(sharing_update,skip,collect_old)` 27,328 B / 0.51837,
+collect-first orders 27,384 B / 0.50944. With hrb: 27,280 / 0.51854. Companions measured on scu: CollectCreatorFeeEvent
+creator-first +64 B (0.51461), reset late +8 B (0.51785), holder_key first +120 B (0.49491), dropping vsigner collapses (0.420).
+On main 74b3171 (stitch-5: args before CtoState) the same orders collapse to 0.3865 at 27,392 B.
