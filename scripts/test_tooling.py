@@ -120,6 +120,31 @@ class CompareProgramNamesTests(unittest.TestCase):
             self.assertEqual(compare_module.program_names(root), ['probe'])
 
 
+class AnalyzeProgramRootTests(unittest.TestCase):
+    def test_explicit_root_overrides_current_default(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            selected = root / 'selected'
+            (selected / 'repro').mkdir(parents=True)
+            mapping = {'mayhem': _CAPTURED_PROGRAMS['mayhem']}
+            (selected / 'repro/programs.json').write_text(json.dumps(mapping))
+            with patch.object(analyze, 'ROOT', root / 'other'):
+                self.assertEqual(analyze.program_names(selected), mapping)
+                self.assertEqual(analyze.program_names(), [])
+
+    def test_current_root_keeps_missing_selected_binary_error(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'repro').mkdir()
+            mapping = {'mayhem': _CAPTURED_PROGRAMS['mayhem']}
+            (root / 'repro/programs.json').write_text(json.dumps(mapping))
+            with patch.object(analyze, 'ROOT', root):
+                self.assertEqual(analyze.program_names(), mapping)
+                with self.assertRaises(FileNotFoundError):
+                    analyze.analyze()
+                self.assertFalse((root / 'evidence/binary-analysis.json').exists())
+
+
 class RodataStringAddressTests(unittest.TestCase):
     def test_string_keys_use_virtual_address(self):
         blob = bytearray(0x40)
