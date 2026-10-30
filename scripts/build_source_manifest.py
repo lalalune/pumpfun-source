@@ -7,6 +7,13 @@ import hashlib
 from pathlib import Path
 
 
+def _input_path(path, root):
+    parts = path.relative_to(root).parts
+    # Only the walked root's target directory is generated build output.
+    # Rust modules and explicit assets may legitimately contain nested target/.
+    return '.git' not in parts and not (len(parts) > 1 and parts[0] == 'target')
+
+
 def file_digest(path):
     digest = hashlib.sha256()
     with path.open('rb') as source:
@@ -22,7 +29,7 @@ def source_manifest(crate, workspace, repository, extra_inputs=(), cwd=None, bef
     workspace.relative_to(repository)
     files = {
         p for p in crate.rglob('*')
-        if p.is_file() and not {'target', '.git'}.intersection(p.relative_to(crate).parts)
+        if p.is_file() and _input_path(p, crate)
         and (p.suffix == '.rs' or p.name in ('Cargo.toml', 'Cargo.lock'))
     }
     for name in ('Cargo.toml', 'Cargo.lock'):
@@ -53,7 +60,7 @@ def source_manifest(crate, workspace, repository, extra_inputs=(), cwd=None, bef
         if p.is_file():
             files.add(p)
         else:
-            files.update(f for f in p.rglob('*') if f.is_file() and not {'target', '.git'}.intersection(f.relative_to(p).parts))
+            files.update(f for f in p.rglob('*') if f.is_file() and _input_path(f, p))
     manifest = {}
     for path in sorted(files):
         if before_read is not None:

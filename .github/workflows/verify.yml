@@ -31,6 +31,7 @@ jobs:
               python -B reconstruction/harness/test_integrate_failures.py
               python -B reconstruction/harness/test_integrate_no_build_cli.py
               python -I -B tests/test_integrate_patch_bytes.py
+              python -I -B reconstruction/harness/test_treediff_links.py
           - suite: offline-cargo-cache
             commands: |
               python -I -B scripts/test_prepare_locked_cargo_home.py
@@ -43,8 +44,10 @@ jobs:
               python -B reconstruction/harness/test_treediff_line_boundaries.py
               python -B reconstruction/harness/test_score_inputs.py
               python -B reconstruction/harness/test_short_window_ranking.py
+              python -B reconstruction/harness/test_applicability_evidence_paths.py
               python -B reconstruction/harness/test_diagnostic_range_boundaries.py
               python scripts/test_build_source_manifest.py
+              python -I -B tests/test_manifest_nested_target.py
               python scripts/test_core_linux_v144_retention.py
               # Two of three tests: the third compares against a frozen helper that was removed with repro/;
               # see .github/retired-workflows/2026-10-29-verify-matrix.md.
