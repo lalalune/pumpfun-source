@@ -115,7 +115,7 @@ def workspace_lock(work: Path):
 
 def archive_previous_outputs(out: Path):
     """Keep old evidence separate from the next attempt's canonical output paths."""
-    names = ('unstripped.so', 'candidate.so', 'build.log')
+    names = ('unstripped.so', 'candidate.so', 'build.log', 'source-inputs.json')
     present = [out / name for name in names
                if (out / name).exists() or (out / name).is_symlink()]
     if not present:
