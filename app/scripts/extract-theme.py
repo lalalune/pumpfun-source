@@ -36,6 +36,19 @@ BASE_SELECTORS = {'html', 'body', '*'}
 
 COLOR_PREFIXES = ('bg', 'text', 'border', 'ring', 'outline', 'fill', 'stroke', 'from', 'via', 'to',
                   'divide', 'placeholder', 'caret', 'accent', 'decoration', 'ring-offset', 'shadow')
+# A side marker belongs to the utility prefix only when its declaration targets
+# that side. A theme key such as `t-brand` can also produce `border-t-brand`
+# with a plain `border-color` declaration.
+DIRECTIONAL_BORDER_PROPERTIES = {
+    'border-t': ('border-top-color',),
+    'border-b': ('border-bottom-color',),
+    'border-l': ('border-left-color',),
+    'border-r': ('border-right-color',),
+    'border-x': ('border-left-color', 'border-right-color'),
+    'border-y': ('border-top-color', 'border-bottom-color'),
+    'border-s': ('border-inline-start-color',),
+    'border-e': ('border-inline-end-color',),
+}
 COLOR_PROPERTIES = ('background-color', 'color', 'border-color', 'border-top-color', 'border-bottom-color',
                     'border-left-color', 'border-right-color', '--tw-ring-color', 'outline-color', 'fill',
                     'stroke', '--tw-gradient-from', '--tw-gradient-to', 'caret-color', 'accent-color',
@@ -121,7 +134,9 @@ PREFIX_COLOR = {
 
 def color_value(prefix, body):
     found = declarations(body)
-    if prefix in PREFIX_COLOR:
+    if prefix in DIRECTIONAL_BORDER_PROPERTIES:
+        value = next((found[p] for p in DIRECTIONAL_BORDER_PROPERTIES[prefix] if p in found), None)
+    elif prefix in PREFIX_COLOR:
         value = PREFIX_COLOR[prefix](found)
     else:
         value = next((found[p] for p in COLOR_PROPERTIES if p in found), None)
@@ -130,13 +145,16 @@ def color_value(prefix, body):
 
 def extract_colors(css):
     colors, origins = {}, {}
-    prefixes = sorted(COLOR_PREFIXES, key=len, reverse=True)
+    prefixes = sorted((*COLOR_PREFIXES, *DIRECTIONAL_BORDER_PROPERTIES), key=len, reverse=True)
     for selector, body in RULE.findall(css):
+        found = declarations(body)
         for token in CLASS.findall(selector):
             utility = utility_of(token)
             if '/' in utility or '[' in utility:
                 continue  # opacity modifiers and arbitrary values are derived, not theme keys
-            prefix = next((p for p in prefixes if utility.startswith(p + '-')), None)
+            prefix = next((p for p in prefixes if utility.startswith(p + '-')
+                           and (p not in DIRECTIONAL_BORDER_PROPERTIES
+                                or any(prop in found for prop in DIRECTIONAL_BORDER_PROPERTIES[p]))), None)
             if prefix is None:
                 continue
             value = color_value(prefix, body)
