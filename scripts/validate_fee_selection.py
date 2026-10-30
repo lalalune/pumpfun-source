@@ -29,10 +29,14 @@ for tiers in configs:
  for cap in sorted(caps):
   for flag in [b'',b'\0',b'\1']:
    selected=stable if flag==b'\1' else tiers
-   trade_size=rng.choice([0,1,2**64-1]);r=invoke(tiers,stable,cap,flag,trade_size=trade_size);assert 'fees' in r,r
+   trade_size=rng.choice([0,1,2**64-1]);r=invoke(tiers,stable,cap,flag,trade_size=trade_size)
+   if 'fees' not in r: raise RuntimeError(f'unexpected original fee-query failure: {r}')
    stdin.append(';'.join([str(cap)]+[','.join(map(str,[t,*f])) for t,f in selected]));expected.append(r['fees'])
    rows.append({'tiers':tiers,'stable_tiers':stable,'market_cap':cap,'option_bool_hex':flag.hex(),'trade_size':trade_size,'original_fees':r['fees']})
-run=subprocess.run([str(args.host.resolve())],input='\n'.join(stdin)+'\n',text=True,capture_output=True,check=True);native=[list(map(int,l.split(','))) for l in run.stdout.splitlines()];assert native==expected
+run=subprocess.run([str(args.host.resolve())],input='\n'.join(stdin)+'\n',text=True,capture_output=True,check=True);native=[list(map(int,l.split(','))) for l in run.stdout.splitlines()]
+if native!=expected:
+ mismatch=next((i for i,(actual,wanted) in enumerate(zip(native,expected)) if actual!=wanted),min(len(native),len(expected)))
+ raise ValueError(f'native fee selector mismatch at result {mismatch}: expected {len(expected)} results, received {len(native)}')
 boundary=[]
 for size in [296,297,300,512,1024,2048,4095,4096,4097]: boundary.append({'allocation':size,'result':invoke(configs[0],configs[0],100,b'',allocation=size)})
 lo,hi=2048,4095

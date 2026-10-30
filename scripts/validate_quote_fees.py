@@ -13,7 +13,8 @@ def case(normal,stable,flat,exotic,cap,pool,quote):
  f.config(normal,stable,flat,exotic);r=f.query(pool,cap,quote)
  if 'fees' in r:answer=','.join(map(str,r['fees']))
  else:
-  assert 'ProgramFailedToComplete' in r['error'],r;answer='PANIC'
+  if 'ProgramFailedToComplete' not in r['error']: raise RuntimeError(f'unexpected original quote-query failure: {r}')
+  answer='PANIC'
  def encode(ts):return '|'.join(','.join(map(str,[t,*fees])) for t,fees in ts)
  lines.append(';'.join([str(cap),str(int(pool)),quote.hex(),','.join(map(str,flat)),','.join(map(str,exotic)),encode(normal),encode(stable)]));expected.append(answer)
  rows.append({'normal':normal,'stable':stable,'flat':flat,'exotic':exotic,'market_cap':cap,'is_pump_pool':pool,'quote_hex':quote.hex(),'original':r})
@@ -29,7 +30,8 @@ for q in quotes[:4]:
  for i in range(32):
   altered=bytearray(q);altered[i]^=1;case(configs[1][0],configs[1][1],(11,22,33),(4,5,6),100,True,bytes(altered))
 r=subprocess.run([str(args.host.resolve())],input='\n'.join(lines)+'\n',text=True,capture_output=True,check=True);actual=r.stdout.splitlines()
-assert len(actual)==len(expected)
+if len(actual)!=len(expected): raise ValueError(f'native quote host result count mismatch: expected {len(expected)}, received {len(actual)}')
 failures=[i for i,(a,b) in enumerate(zip(actual,expected)) if a!=b]
 report={'original_sha256':hashlib.sha256((ROOT/'evidence/original/pump_fees/deployed.so').read_bytes()).hexdigest(),'source_sha256':{p:hashlib.sha256((ROOT/'programs/pump-fees/recovered'/p).read_bytes()).hexdigest() for p in ['fee_selection.rs','quote_fees.rs','quote_fees_host.rs','memory_compare.rs']},'host_sha256':hashlib.sha256(args.host.read_bytes()).hexdigest(),'case_count':len(rows),'mismatches':failures,'scope':'Native recovered quote routing versus original get_fees_with_quote_mint. Synthetic state including unreachable candidates; not complete handler or SBF byte identity.','cases':rows}
-args.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print('Cases',len(rows),'mismatches',len(failures));assert not failures,failures[:10]
+args.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print('Cases',len(rows),'mismatches',len(failures))
+if failures: raise ValueError(f'native quote host mismatches at results {failures[:10]}')
