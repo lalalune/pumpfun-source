@@ -57,10 +57,15 @@ jobs:
               python -I -B tests/test_dispatch_root.py
               python -I -B tests/test_analyze_input_admission.py
               python scripts/test_tooling.py
+              python -B scripts/test_amm_harness_content_cache.py
+              python -B tests/test_amm_pinned_candidate.py
+              python -B tests/test_two_curve_optimization_guard.py
+              python -O -B tests/test_two_curve_optimization_guard.py
               python -B scripts/test_dispatch_recovery.py
               python -B scripts/test_pump_compare_window_alignment.py
               python -B scripts/test_pump_compare_window_columns.py
               python -B scripts/test_pump_exact_body_inventory_columns.py
+              python -I -B scripts/test_pump_exact_body_inventory_snapshot.py
               python -B reconstruction/tooling/parallel-input-preservation-20261030/test_input_preservation.py
               python -B reconstruction/tooling/serial-input-preservation-20261030/test_serial_admission.py
               python -B scripts/test_pump_compare_window_strict_csv.py
@@ -76,9 +81,11 @@ jobs:
               python -B scripts/test_mayhem_burn_sequence_optimization.py
               python -B scripts/test_constant_product_range_pinning.py
               python -B scripts/test_fees_validate_all_optimization.py
+              python -B scripts/test_validate_fee_handlers_optimized_exit.py
               python -B scripts/test_pump_validate_constant_product_optimization.py
               python -B scripts/test_pump_validate_volume_optimization.py
               python -B scripts/test_pump_validate_sell_accounting_optimization.py
+              python -B scripts/test_imported_lab_optimization.py
               python -B scripts/test_deep_section_analysis_publication.py
               python -B scripts/test_analyze_program_publication.py
               python -B scripts/test_reconstruction_roadmap_publication.py
@@ -91,7 +98,12 @@ jobs:
               python -O -B tests/test_function_body_file_ranges.py
               python -B reconstruction/harness/test_treediff_line_boundaries.py
               python -B reconstruction/harness/test_score_inputs.py
+              python -B reconstruction/harness/test_bisect_membership.py
+              python -B reconstruction/harness/test_minimize_oracle_encoding.py
+              python -B reconstruction/harness/test_coords_cli_admission.py
+              python -B reconstruction/harness/test_match_oracle.py
               python -B reconstruction/harness/test_score_atomic_report.py
+              python -B reconstruction/harness/test_coords_report_destination.py
               python -B reconstruction/harness/test_short_window_ranking.py
               python -B reconstruction/harness/test_applicability_evidence_paths.py
               python -B reconstruction/harness/test_diagnostic_range_boundaries.py
@@ -119,12 +131,14 @@ jobs:
               python -B research/tooling-revalidation-manifests-20261030/test_verify.py
               python -B research/tooling-revalidation-invocation-20261030/test_verify.py
               python -B reconstruction/tooling/revalidation-qualification/test_audit.py
+              python -B -m unittest discover -s reconstruction/tooling/revalidation-qualification -p 'test_packet_root_links.py'
+              python -B -m unittest discover -s reconstruction/tooling/revalidation-qualification -p 'test_packet_identity_stability.py'
               python -B reconstruction/relocation-text-addresses/test_analyze.py
               python -B reconstruction/math-register-comparisons/test_analyze.py
               python research/tooling-terminal-error-patterns-20261030/test_verify.py
               python research/tooling-terminal-error-patterns-20261030/verify.py
               python research/tooling-token-program-constant-detector-20261029/verify.py
-              python -B reconstruction/capture-rpc-retry/test_capture.py
+              python -B -m unittest discover -s reconstruction/capture-rpc-retry -p 'test_*.py'
               python -B reconstruction/verification/donation-relay-idl-lifecycle/test_lifecycle.py
               python -B reconstruction/verification/donation-relay-stateful/test_stateful.py
               python -B reconstruction/verification/pump-migration-lifecycle/test_lifecycle.py

@@ -5,7 +5,7 @@ sys.path.insert(0,'scripts')
 from pump_amm_liquidity_differential import *
 ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
 def sweep(name='sweep_protocol_fee',amount=1000,candidate=None,recipient=None,overrides=None,unsigned=False,payload_length=None):
- h=acquire_harness(candidate or ROOT/'evidence/original/pump_amm/deployed.so');h.vm.set_clock(Clock(100,1234567890,0,0,1234567890))
+ h=acquire_harness(pin_program(candidate or ROOT/'evidence/original/pump_amm/deployed.so'));h.vm.set_clock(Clock(100,1234567890,0,0,1234567890))
  for pid,n in [(TOKEN,'spl_token'),(TOKEN22,'spl_token_2022'),(ATA,'associated_token')]:h.vm.add_program_from_file(pid,ROOT/'evidence/dependencies'/n/'deployed.so')
  for row in f['accounts'].values():h.vm.set_account(Pubkey.from_string(row['address']),Account(row['lamports'],base64.b64decode(row['data_base64']),Pubkey.from_string(row['owner'])))
  h.vm.set_account(CONFIG_KEY,Account(CONFIG['lamports'],bytes(RAW),PROGRAM))
@@ -80,7 +80,7 @@ def main():
   key=Pubkey.find_program_address([b'creator_vault',bytes(32)],PROGRAM)[0]
   test('sweep_creator_fee','zero-coin-creator='+str(amount),amount=amount,recipient=key,overrides=mutate(pool,211,bytes(32)))
  sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
- report={'scope':'SBF protocol/creator fee sweeps: ordinary local signed transactions, exact token/ATA/System/event CPIs, full committed states and errors. Captured SPL/Token2022/ATA; bounded synthetic account and transfer-fee variations, not whole-program equivalence.','candidate_sha256':sha(candidate),'original_sha256':sha(ROOT/'evidence/original/pump_amm/deployed.so'),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
+ report={'scope':'SBF protocol/creator fee sweeps: ordinary local signed transactions, exact token/ATA/System/event CPIs, full committed states and errors. Captured SPL/Token2022/ATA; bounded synthetic account and transfer-fee variations, not whole-program equivalence.','candidate_sha256':sha(pin_program(candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
  args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(report['mismatches']),'mismatches':report['mismatches']}))
  if report['mismatches']:raise SystemExit(1)
 

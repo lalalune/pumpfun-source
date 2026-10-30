@@ -4,6 +4,9 @@
 Only build binding changes: VM execution and fixtures use the original harness.
 The captured caller dependency is unchanged; this tests the main Pump contract.
 """
+if not __debug__:
+    raise RuntimeError('Two-curve replay requires normal Python; do not use -O or PYTHONOPTIMIZE')
+
 import argparse
 import gzip
 import importlib.util
@@ -15,7 +18,7 @@ from build_source_manifest import source_manifest
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIRECTORY = ROOT / 'programs/pump'
-HISTORICAL = ROOT / 'repro/pump/tokenkeg-two-curve-fortyeight/harness/pump_tokenkeg_two_curve_differential.py'
+HISTORICAL = ROOT / 'research/pump-two-curve-inputs/fixture/pump_tokenkeg_two_curve_differential.py'
 spec = importlib.util.spec_from_file_location('pump_two_curve_frozen', HISTORICAL)
 fixture = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(fixture)

@@ -32,5 +32,25 @@ class MatchOracleTests(unittest.TestCase):
             with patch.object(oracle.score, 'BASE', root), patch.object(oracle.score, 'original_windows', return_value=[{'start': 8}]), patch.object(oracle.fastbuild, 'build', return_value={'ok': True}), patch.object(oracle.score, 'score', return_value={8: {'raw': False}}):
                 self.assertEqual(oracle.evaluate(root, root / 'work', out, 8, 'raw', 'identity'), 1)
 
+    def test_verdict_bytes_do_not_follow_the_host_line_ending(self):
+        # Simulate a CRLF platform's default using real file writes. Changing
+        # os.linesep alone does not alter TextIOWrapper's native translation.
+        write_text = Path.write_text
+
+        def crlf_default_write(path, text, encoding=None, errors=None, newline=None):
+            return write_text(path, text, encoding=encoding, errors=errors,
+                              newline='\r\n' if newline is None else newline)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); out = root / 'out'; out.mkdir()
+            for name in ['original.so', 'functions.tsv']: (root / name).write_bytes(b'fixture')
+            with patch.object(oracle.score, 'BASE', root), patch.object(oracle.score, 'original_windows', return_value=[{'start': 8}]), \
+                    patch.object(oracle.fastbuild, 'build', return_value={'ok': True}), patch.object(oracle.score, 'score', return_value={8: {'normalized': True}}), \
+                    patch.object(Path, 'write_text', crlf_default_write):
+                self.assertEqual(oracle.evaluate(root, root / 'work', out, 8, 'normalized', 'identity'), 0)
+            raw = (out / 'verdict.json').read_bytes()
+            self.assertNotIn(b'\r', raw)
+            self.assertTrue(raw.endswith(b'\n'))
+
 
 if __name__ == '__main__': unittest.main()

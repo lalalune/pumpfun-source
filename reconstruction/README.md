@@ -30,17 +30,22 @@ Git patch round-trip tests run on Windows and POSIX with only Python and Git:
 python reconstruction/harness/test_treediff.py
 ```
 
-The macOS v1.44 SDK is not stored in git (its `librustc_driver` is 134 MB, over
+The v1.44 SDK is not stored in git (its `librustc_driver` is 134 MB, over
 GitHub's per-file limit). Install it once with `cargo-build-sbf --tools-version v1.44`
-so it lives at `~/.cache/solana/v1.44/platform-tools`, then run:
+(or extract the official `platform-tools-osx-aarch64` / `platform-tools-linux-x86_64`
+v1.44 release) so it lives at `~/.cache/solana/v1.44/platform-tools`, then run:
 
 ```bash
 python3 reconstruction/toolchain/bootstrap.py --warm
 ```
 
-The bootstrap checks every SDK file against the inventory, assembles the "hybrid144"
-identity toolchain (macOS v1.44 `rustc` with the Linux v1.44 `sbpf-solana-solana`
-target libraries) and seeds a dependency cache. Generated files go to
+The bootstrap checks the SDK, assembles the identity toolchain and seeds a
+dependency cache. On macOS it verifies every SDK file against the inventory and
+builds "hybrid144" (macOS v1.44 `rustc` with the Linux v1.44 `sbpf-solana-solana`
+target libraries). On Linux x86_64 no inventory describes that host build, so it
+identifies the release by its compiler revision and the manifest-pinned target
+libraries, then assembles that host's own v1.44 `rustc` with those same libraries.
+Generated files go to
 `$PUMP_RECON_HOME` (default `~/.cache/pumpfun-reconstruction`), which every
 worktree shares. The crates come from `~/.cargo/registry` (builds run offline).
 

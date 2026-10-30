@@ -3,7 +3,7 @@ sys.path.insert(0,'scripts')
 from pump_amm_liquidity_differential import *
 ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');CREATOR=OUTSIDER.pubkey();AUTH,BUMP=Pubkey.find_program_address([b'creator_vault',bytes(CREATOR)],PROGRAM);VAULT=Pubkey.find_program_address([bytes(AUTH),bytes(TOKEN),bytes(quote)],ATA)[0];DEST=Pubkey.from_bytes(bytes([94])*32)
 def collect(amount=1000,candidate=None,overrides=None,payload_length=None):
- h=acquire_harness(candidate or ROOT/'evidence/original/pump_amm/deployed.so');h.vm.set_clock(Clock(100,1234567890,0,0,1234567890))
+ h=acquire_harness(pin_program(candidate or ROOT/'evidence/original/pump_amm/deployed.so'));h.vm.set_clock(Clock(100,1234567890,0,0,1234567890))
  for pid,n in [(TOKEN,'spl_token'),(TOKEN22,'spl_token_2022')]:h.vm.add_program_from_file(pid,ROOT/'evidence/dependencies'/n/'deployed.so')
  row=f['accounts']['quote_mint'];h.vm.set_account(quote,Account(row['lamports'],base64.b64decode(row['data_base64']),TOKEN));h.vm.set_account(VAULT,Account(min(2**64-1,amount+2039280),token(quote,AUTH,amount,True),TOKEN));h.vm.set_account(DEST,Account(2039280,token(quote,CREATOR,0,True),TOKEN))
  ix=next(x for x in IDL['instructions'] if x['name']=='collect_coin_creator_fee');keys=[quote,TOKEN,CREATOR,AUTH,VAULT,DEST,EVENT,PROGRAM];metas=[AccountMeta(k,bool(a.get('signer')),bool(a.get('writable'))) for k,a in zip(keys,ix['accounts'])]
@@ -46,7 +46,7 @@ def main():
      v=Pubkey.find_program_address([bytes(AUTH),bytes(TOKEN22),bytes(quote)],ATA)[0];a=h.vm.get_account(VAULT);d=a.data[:165]+b'\2'+struct.pack('<HHQ',2,8,0);h.vm.set_account(v,Account(a.lamports,d,TOKEN22));m[4]=AccountMeta(v,False,True);a=h.vm.get_account(DEST);d=a.data[:165]+b'\2'+struct.pack('<HHQ',2,8,0);h.vm.set_account(DEST,Account(a.lamports,d,TOKEN22))
     test('transfer-fee='+str((amount,bps,maximum)),amount=amount,overrides=transferfee)
  sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
- report={'scope':'SBF collect_coin_creator_fee: signed local transactions, token CPI, events, committed states and error constraints. Bounded recovery, not whole-program or byte equivalence.','candidate_sha256':sha(candidate),'original_sha256':sha(ROOT/'evidence/original/pump_amm/deployed.so'),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
+ report={'scope':'SBF collect_coin_creator_fee: signed local transactions, token CPI, events, committed states and error constraints. Bounded recovery, not whole-program or byte equivalence.','candidate_sha256':sha(pin_program(candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
  args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(report['mismatches']),'mismatches':report['mismatches']}))
  if report['mismatches']:raise SystemExit(1)
 

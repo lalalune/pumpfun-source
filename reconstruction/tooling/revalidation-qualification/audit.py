@@ -101,7 +101,11 @@ def entry_record(packet, path):
             target = None
         return {"path": relative, "kind": "reparse-point", "target": target}
     if stat.S_ISDIR(info.st_mode):
-        return {"path": relative, "kind": "directory"}
+        return {
+            "path": relative,
+            "kind": "directory",
+            "mode": stat.S_IMODE(info.st_mode),
+        }
     if stat.S_ISFIFO(info.st_mode):
         kind = "fifo"
     elif stat.S_ISSOCK(info.st_mode):
@@ -112,11 +116,14 @@ def entry_record(packet, path):
         kind = "block-device"
     else:
         kind = "unsupported"
-    return {"path": relative, "kind": kind}
+    return {"path": relative, "kind": kind, "mode": stat.S_IMODE(info.st_mode)}
 
 
 def packet_snapshot(packet):
     """Inventory packet entries without following linked directories or files."""
+    root_info = packet.lstat()
+    if not stat.S_ISDIR(root_info.st_mode) or is_reparse_point(root_info):
+        raise ValueError("packet root must be a real directory, not a link")
     entries = []
     stack = [packet]
     while stack:
@@ -608,6 +615,24 @@ def audit(repo, output, timeout_seconds=60.0, cleanup_seconds=1.0):
             )
             results.append(row)
             inputs[packet.name] = snapshots
+        final_packet_names = sorted(path.name for path in research.iterdir()
+                                    if path.is_dir() and not path.name.startswith("."))
+        if final_packet_names != packet_names:
+            raise ValueError("research packet census changed during verification")
+        # A census of names alone does not bind content: a later packet's
+        # verifier could replace an already-audited packet's files, and the
+        # published inputs would still describe the pre-swap inventory.
+        # Re-snapshot every packet and refuse to publish if any audited
+        # identity moved after its own audit. Packets whose post-audit
+        # snapshot already failed keep their published fail row.
+        for packet in packets:
+            audited_after = inputs[packet.name]["after"].get("identity_sha256")
+            if audited_after is not None:
+                fresh = packet_snapshot(packet)
+                if fresh["identity_sha256"] != audited_after:
+                    raise ValueError(
+                        "packet identity changed during verification: " + packet.name
+                    )
         elapsed = time.monotonic() - started
         summary = summarize(results, elapsed)
         control_inputs_after = {

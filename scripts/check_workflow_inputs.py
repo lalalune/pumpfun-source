@@ -16,6 +16,20 @@ INTERPRETER = re.compile(r'^(?:python(?:3(?:\.\d+)?)?|bash|sh)$')
 EXPRESSION = re.compile(r'\$\{\{\s*matrix\.(\w+)\s*\}\}')
 ASSIGNMENT = re.compile(r'^[A-Za-z_][A-Za-z0-9_]*=')
 COMMAND_PREFIX = re.compile(r'^\s*(?:[A-Za-z_][A-Za-z0-9_]*=|env(?:\s|$)|python|bash|sh)')
+# An interpreter invoked through an absolute path (/usr/bin/python3,
+# /bin/bash, /usr/bin/env) is still that interpreter; resolve such tokens to
+# their basename so literal-command inspection covers absolute spellings too.
+ABSOLUTE_INTERPRETER = re.compile(r'^/(.*/)*(?:python(?:3(?:\.\d+)?)?|bash|sh|env)$')
+
+
+def resolved_interpreter(token):
+    """Return the interpreter name for a bare or absolute interpreter token."""
+    if INTERPRETER.fullmatch(token):
+        return token
+    if ABSOLUTE_INTERPRETER.fullmatch(token):
+        name = token.rsplit('/', 1)[-1]
+        return None if name == 'env' else name
+    return None
 
 
 def git(root, *args):
@@ -100,7 +114,9 @@ def command_start(tokens):
     index = 0
     while index < len(tokens) and ASSIGNMENT.match(tokens[index]):
         index += 1
-    if index < len(tokens) and tokens[index] == 'env':
+    if index < len(tokens) and (tokens[index] == 'env'
+                                or (ABSOLUTE_INTERPRETER.fullmatch(tokens[index])
+                                    and tokens[index].rsplit('/', 1)[-1] == 'env')):
         index += 1
         while index < len(tokens):
             token = tokens[index]
@@ -147,12 +163,12 @@ def references(name, source):
                             unsupported.add((name, job_id, 'unparsed shell command'))
                         continue
                     index = command_start(tokens)
-                    if index >= len(tokens) or not INTERPRETER.fullmatch(tokens[index]):
+                    interpreter = resolved_interpreter(tokens[index]) if index < len(tokens) else None
+                    if interpreter is None:
                         continue
                     if '${{' in line or '$' in cwd or cwd.startswith('/'):
                         unsupported.add((name, job_id, 'dynamic command/directory'))
                         continue
-                    interpreter = tokens[index]
                     index += 1
                     while index < len(tokens) and tokens[index].startswith('-'):
                         option = tokens[index]

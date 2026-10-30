@@ -9,6 +9,7 @@ from solders.litesvm import LiteSVM
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
+from probe_report import write_json_report
 R=Path(__file__).resolve().parents[1]
 IDL=json.loads((R/'evidence/upstream/pump.json').read_text());P=Pubkey.from_string(IDL['address']);G=Pubkey.find_program_address([b'global'],P)[0]
 IX=next(i for i in IDL['instructions'] if i['name']=='initialize')
@@ -19,4 +20,4 @@ def run(seed):
  res=vm.send_transaction(tx);fail=isinstance(res,FailedTransactionMetadata);meta=res.meta() if fail else res;a=vm.get_account(G)
  return {'seed':seed,'error':str(res.err()) if fail else None,'logs':meta.logs(),'metadata':json.loads(meta.to_json()),'transaction_base64':base64.b64encode(bytes(tx)).decode(),'signatures_verified':True,'global':None if a is None else {'owner':str(a.owner),'lamports':a.lamports,'data_base64':base64.b64encode(a.data).decode()}}
 if __name__=='__main__':
- d={'scope':'Offline ordinary test-owned initialize signers only. No Mayhem instruction execution.','original_sha256':hashlib.sha256((R/'evidence/original/pump/deployed.so').read_bytes()).hexdigest(),'cases':[run(x) for x in [201,202]]};(R/'work/pump-global-init-recovery/prerequisite.json').write_text(json.dumps(d,indent=2)+'\n');print([(c['seed'],c['error']) for c in d['cases']])
+ d={'scope':'Offline ordinary test-owned initialize signers only. No Mayhem instruction execution.','original_sha256':hashlib.sha256((R/'evidence/original/pump/deployed.so').read_bytes()).hexdigest(),'cases':[run(x) for x in [201,202]]};write_json_report(R/'work/pump-global-init-recovery/prerequisite.json',d);print([(c['seed'],c['error']) for c in d['cases']])

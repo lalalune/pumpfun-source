@@ -5,9 +5,11 @@ records accounts changed by setup and all writable transaction accounts before
 execution, then restores them before the next case. Program loading is cached;
 transaction history is disabled by the underlying Harness.
 """
+import atexit
 import hashlib
 import os
 from pathlib import Path
+import shutil
 import tempfile
 from solders.account import Account
 from solders.pubkey import Pubkey
@@ -52,6 +54,23 @@ class _ResettableVM:
         for key, account in self._before.items():
             self._vm.set_account(key, account if account is not None else Account(0, b'', Pubkey.default()))
         self._before.clear()
+
+_pinned = {}
+def pin_program(path):
+    """Return a private copy of one byte snapshot of path, the same for the whole run.
+
+    acquire_harness reloads whenever a path's bytes change, so a suite that passes
+    its input path to every case could run two images under one receipt.
+    """
+    # Key the path as given: resolving symlinks would re-pin a retargeted link.
+    key = os.path.abspath(path)
+    if key not in _pinned:
+        directory = tempfile.mkdtemp(prefix='pump-amm-pinned-')
+        atexit.register(shutil.rmtree, directory, True)
+        snapshot = Path(directory) / 'program.so'
+        snapshot.write_bytes(Path(key).read_bytes())
+        _pinned[key] = snapshot
+    return _pinned[key]
 
 _cached = {}
 def acquire_harness(program):
