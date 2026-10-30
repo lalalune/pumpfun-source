@@ -1277,6 +1277,53 @@ class CompareProgramNamesTests(unittest.TestCase):
             self.assertEqual(compare_module.program_names(root), ['probe'])
 
 
+class CompareRelayCliTests(unittest.TestCase):
+    def test_primary_relay_capture_and_negative_controls(self):
+        source_root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'scripts').mkdir()
+            for script in ('compare.py', 'analyze.py'):
+                shutil.copyfile(source_root / 'scripts' / script, root / 'scripts' / script)
+            captures = {
+                'donation_relay': 'dependencies',
+                'pump': 'original',
+                'spl_token': 'dependencies',
+            }
+            for name, group in captures.items():
+                destination = root / 'evidence' / group / name / 'deployed.so'
+                destination.parent.mkdir(parents=True)
+                shutil.copyfile(source_root / 'evidence' / group / name / 'deployed.so', destination)
+            relay = root / 'evidence/dependencies/donation_relay/deployed.so'
+            changed = root / 'changed.so'
+            data = bytearray(relay.read_bytes())
+            data[0] ^= 1
+            changed.write_bytes(data)
+            for name, candidate, code, equal in (
+                ('donation_relay', relay, 0, True),
+                ('pump', root / 'evidence/original/pump/deployed.so', 0, True),
+                ('donation_relay', changed, 1, False),
+                ('spl_token', root / 'evidence/dependencies/spl_token/deployed.so', 2, None),
+            ):
+                with self.subTest(program=name, candidate=candidate.name):
+                    output = root / ('result-' + str(len(list(root.glob('result-*')))))
+                    result = subprocess.run(
+                        [sys.executable, str(root / 'scripts/compare.py'), name,
+                         str(candidate), '--output', str(output)],
+                        capture_output=True, text=True,
+                    )
+                    self.assertEqual(result.returncode, code, result.stderr)
+                    if equal is None:
+                        self.assertIn('unknown program', result.stderr)
+                        self.assertFalse(output.exists())
+                    else:
+                        report = json.loads((output / 'comparison.json').read_text())
+                        self.assertEqual(report['full_byte_equality'], equal)
+                        if not equal:
+                            self.assertEqual(report['first_difference'], 0)
+                            self.assertEqual(report['different_positions_in_shared_length'], 1)
+
+
 class AnalyzeProgramRootTests(unittest.TestCase):
     def test_explicit_root_overrides_current_default(self):
         with tempfile.TemporaryDirectory() as temporary:
