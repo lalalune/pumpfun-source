@@ -1,0 +1,14 @@
+import React,{useState,useEffect} from '../../packages/frontend/node_modules/react/index.js';
+import{createRoot}from'../../packages/frontend/node_modules/react-dom/client.js';
+import{jsx,jsxs,Fragment}from'../../packages/frontend/node_modules/react/jsx-runtime.js';
+import{c as useMemoCache}from'../../packages/frontend/node_modules/react/compiler-runtime.js';
+import{createAvatarDecorations}from'../../reconstruction/avatar-decoration/client.mjs';
+const mediaEvents=[],flagReads=[],subscriptions=[],violations=[];let removeCalls=0,flag=true,update,root,commits=0,clicks=0;
+const windowPort={matchMedia(query){const media=window.matchMedia(query);return{get matches(){return media.matches;},addEventListener(type,callback){const wrapped=e=>{mediaEvents.push({query,type,matches:media.matches});callback(e);};subscriptions.push({query,type});media.addEventListener(type,wrapped);},removeEventListener(){removeCalls++;}};}};
+const{AvatarDecorationFrame,AvatarDecorationImage,useResolvedDecoration}=createAvatarDecorations({jsx,jsxs,Fragment,useMemoCache,React,classNames:(...x)=>x.filter(Boolean).join(' '),useFeatureFlag:key=>{flagReads.push(key);return flag;},window:windowPort});
+const image='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><rect width="24" height="24" fill="teal"/></svg>');
+document.addEventListener('securitypolicyviolation',e=>violations.push({directive:e.effectiveDirective,blockedURI:e.blockedURI}));
+function Consumer({value,variant,animated,serial,className}){const decoration=useResolvedDecoration(value);return jsx(AvatarDecorationFrame,{decoration,variant,animated,className,title:'Authored rest prop','data-host':'frame',onClick:()=>{clicks++;},children:jsx('button',{'data-testid':'avatar-child',children:jsx('img',{src:image,width:24,height:24,alt:'Synthetic Avatar port'})})},serial);}
+function App(){const[p,set]=useState({value:'achievement:followers-1m',variant:'list',serial:0});update=set;useEffect(()=>{commits++;});flag=p.flag??true;return jsx(Consumer,p);}
+window.decorationHarness={update(p){update(old=>({...old,...p}));},unmount(){root.unmount();},state(){return{ready:!!update,commits,clicks,subscriptions:[...subscriptions],removeCalls,mediaEvents:[...mediaEvents],flagReads:[...flagReads],violations:[...violations],frames:[...document.querySelectorAll('[data-testid="avatar-decoration-frame"]')].map(e=>({decoration:e.dataset.decoration,title:e.title})),artwork:[...document.querySelectorAll('[data-testid="profile-avatar-decoration"]')].map(e=>({src:e.getAttribute('src'),variant:e.dataset.variant,animated:e.dataset.animated,width:e.style.width})),children:document.querySelectorAll('[data-testid="avatar-child"]').length,rootChildren:document.getElementById('root').childElementCount};}};
+root=createRoot(document.getElementById('root'));root.render(jsx(App,{}));
