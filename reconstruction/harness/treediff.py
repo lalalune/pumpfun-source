@@ -15,7 +15,7 @@ def reject_source_link(path):
         raise ValueError(f'unsupported source tree link: {path}')
 
 
-def tree_files(root):
+def tree_inventory(root):
     root = Path(root)
     reject_source_link(root)
     if not root.exists():
@@ -32,9 +32,17 @@ def tree_files(root):
         for name in sorted(directories + names):
             path = Path(directory) / name
             reject_source_link(path)
-            if path.is_file():
-                files[path.relative_to(root).as_posix()] = path.read_bytes()
+            info = path.lstat()
+            if stat.S_ISREG(info.st_mode):
+                files[path.relative_to(root).as_posix()] = (path.read_bytes(),
+                    '100755' if info.st_mode & 0o111 else '100644')
+            elif not stat.S_ISDIR(info.st_mode):
+                raise ValueError(f'unsupported special source file: {path}')
     return dict(sorted(files.items()))
+
+
+def tree_files(root):
+    return {name: value[0] for name, value in tree_inventory(root).items()}
 
 
 def diff_lines(data):
@@ -53,19 +61,25 @@ def quote_path(path):
 
 def tree_diff(base, new, prefix='programs/pump'):
     """Deterministic unified diff of two crate trees (text files), pure Python."""
-    a, b = tree_files(base), tree_files(new)
+    a, b = tree_inventory(base), tree_inventory(new)
     out = []
     for rel in sorted(set(a) | set(b)):
-        x, y = a.get(rel), b.get(rel)
-        if x == y:
+        left, right = a.get(rel), b.get(rel)
+        x, xm = left if left is not None else (None, None)
+        y, ym = right if right is not None else (None, None)
+        if left == right:
             continue
         quoted_a = quote_path(f'a/{prefix}/{rel}')
         quoted_b = quote_path(f'b/{prefix}/{rel}')
         out.append(f'diff --git {quoted_a} {quoted_b}\n')
         if x is None:
-            out.append('new file mode 100644\n')
+            out.append(f'new file mode {ym}\n')
         elif y is None:
-            out.append('deleted file mode 100644\n')
+            out.append(f'deleted file mode {xm}\n')
+        elif xm != ym:
+            out.extend([f'old mode {xm}\n', f'new mode {ym}\n'])
+        if x == y:
+            continue
         if (x is None and y == b'') or (x == b'' and y is None):
             # Unified text hunks cannot represent an empty file's existence.
             if x is None:
