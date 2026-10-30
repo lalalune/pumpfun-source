@@ -4,7 +4,7 @@
 
 This repository reconstructs the **on-chain bytecode** of pump.fun's deployed
 Solana programs: Pump Main, PumpSwap/AMM, Fees, Mayhem and the Donation Relay.
-The goal is source that rebuilds, with a pinned toolchain, to the same bytes as
+The goal is source and a pinned build recipe that rebuild to the same bytes as
 the program binaries that are publicly deployed on-chain.
 
 Nothing else is in scope. This project does not reconstruct, capture or
@@ -15,6 +15,10 @@ indexers, branding or any other off-chain material.
 
 - Program source changes under `programs/` that raise a window's match score
   with no raw or normalized losses against a fresh main build.
+- Build-input changes (crate metadata, `Cargo.lock`, dependencies, profiles, flags,
+  linker settings, toolchain version and build recipe) that move a build closer to the
+  deployed bytes, when they are pinned and reproducible. See
+  [reconstruction/pump-main/README.md](reconstruction/pump-main/README.md#build-inputs-are-in-scope-2026-10-30).
 - Toolchain, build-harness and scoring fixes under `reconstruction/` and
   `scripts/`.
 - Differential tests that compare a rebuilt program against the captured

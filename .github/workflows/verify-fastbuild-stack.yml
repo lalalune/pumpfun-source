@@ -35,3 +35,7 @@ jobs:
         # Independent of the step above, so its result is reported on its own.
         if: ${{ !cancelled() }}
         run: python -m unittest discover -s reconstruction/harness -p test_fastbuild_path_crates.py -v
+      - name: Test pinned link-order hooks
+        # The linker script admission check guards the Pump build recipe (link/ordered.ld).
+        if: ${{ !cancelled() }}
+        run: python -m unittest discover -s reconstruction/harness -p test_link_order.py -v
