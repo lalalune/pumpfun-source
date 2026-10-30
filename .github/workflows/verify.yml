@@ -119,6 +119,7 @@ jobs:
               python -B research/tooling-revalidation-manifests-20261030/test_verify.py
               python -B research/tooling-revalidation-invocation-20261030/test_verify.py
               python -B reconstruction/tooling/revalidation-qualification/test_audit.py
+              python -B -m unittest discover -s reconstruction/tooling/revalidation-qualification -p 'test_packet_root_links.py'
               python -B reconstruction/relocation-text-addresses/test_analyze.py
               python -B reconstruction/math-register-comparisons/test_analyze.py
               python research/tooling-terminal-error-patterns-20261030/test_verify.py
