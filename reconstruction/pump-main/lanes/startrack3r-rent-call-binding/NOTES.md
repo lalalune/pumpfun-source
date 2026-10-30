@@ -224,6 +224,13 @@ these recorded `fd8b94dfa` measurements.
 
 ## Maintainer context and next step
 
+The later [Borsh producer packet](borsh-producer/NOTES.md) reproduces the
+retained dependency and corrects its two path separators through compiler
+inputs. Two independent root outputs change only those two `.rodata` bytes;
+the earlier root-only remap failure and all layout measurements above remain
+valid. The producer packet uses the earlier main control and adds no function
+match or formatter-gap improvement.
+
 The maintainer closed #1554 because its historical source composition had
 already landed. That branch is preserved and is not reopened. The maintainer
 [closed #1384 pending a fresh rebase and scoring run](https://github.com/lalalune/pumpfun-source/pull/1384#issuecomment-6514791592).

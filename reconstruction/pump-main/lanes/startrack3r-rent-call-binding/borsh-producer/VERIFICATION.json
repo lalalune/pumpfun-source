@@ -1,0 +1,45 @@
+{
+  "result": "PASS",
+  "inputs": {
+    "control": "09186a9021ba057d53d37b55e7d28c55415417995999c2d3e2006b943b09521a",
+    "candidate": "cd8bc6ca92d66cd9808dd8f3a3a3b27bd204f916a4b2487d8989e4b5db99bc09",
+    "repeat": "cd8bc6ca92d66cd9808dd8f3a3a3b27bd204f916a4b2487d8989e4b5db99bc09",
+    "original": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "control_library": "93996b291f8d421c6bf9f028f984452dadfadb28570456ea4a0876e23a339b71",
+    "candidate_library": "415cf04df1426d7f149f6f02f75ea593f093f36681f5dcc52077296fef6ace2d",
+    "repeat_library": "415cf04df1426d7f149f6f02f75ea593f093f36681f5dcc52077296fef6ace2d"
+  },
+  "raw_image_bytes": 2666064,
+  "whole_image_changes": [
+    [
+      1794237,
+      92,
+      47
+    ],
+    [
+      1794240,
+      92,
+      47
+    ]
+  ],
+  "metadata_changes": [
+    [
+      1138117,
+      92,
+      47
+    ],
+    [
+      1138120,
+      92,
+      47
+    ]
+  ],
+  "text_identical": true,
+  "data_rel_ro_identical": true,
+  "whole_repeats_identical": true,
+  "original_rodata_differences": {
+    "control": 104,
+    "candidate": 102
+  },
+  "scope": "Two raw data bytes corrected in a pinned local compiler output. No function-match gain, formatter-gap closure, whole-original identity, native preservation or historical producer authentication."
+}
