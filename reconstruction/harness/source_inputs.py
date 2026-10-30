@@ -6,6 +6,34 @@ import stat
 from pathlib import Path
 
 
+if os.name == 'nt':
+    import ctypes
+    from ctypes import wintypes
+    import msvcrt
+
+    class _FileBasicInfo(ctypes.Structure):
+        _fields_ = [('CreationTime', ctypes.c_longlong),
+                    ('LastAccessTime', ctypes.c_longlong),
+                    ('LastWriteTime', ctypes.c_longlong),
+                    ('ChangeTime', ctypes.c_longlong),
+                    ('FileAttributes', wintypes.DWORD)]
+
+    _get_basic_info = ctypes.WinDLL('kernel32', use_last_error=True).GetFileInformationByHandleEx
+    _get_basic_info.argtypes = [wintypes.HANDLE, ctypes.c_int, ctypes.c_void_p, wintypes.DWORD]
+    _get_basic_info.restype = wintypes.BOOL
+
+
+def _windows_change_time(descriptor):
+    # Python 3.12 st_ctime is creation time on Windows, not metadata-change time.
+    if os.name != 'nt':
+        return None
+    information = _FileBasicInfo()
+    handle = msvcrt.get_osfhandle(descriptor)
+    if not _get_basic_info(handle, 0, ctypes.byref(information), ctypes.sizeof(information)):
+        raise ctypes.WinError(ctypes.get_last_error())
+    return information.ChangeTime
+
+
 def snapshot(root):
     root = Path(root).resolve(strict=True)
     if not root.is_dir():
@@ -30,8 +58,11 @@ def snapshot(root):
                 opened = os.fstat(stream.fileno())
                 if (opened.st_dev, opened.st_ino) != (before.st_dev, before.st_ino):
                     raise ValueError('source input changed while opening')
+                change_time = _windows_change_time(stream.fileno())
                 for chunk in iter(lambda: stream.read(1 << 20), b''):
                     digest.update(chunk)
+                if _windows_change_time(stream.fileno()) != change_time:
+                    raise ValueError(f'source input changed while hashing: {path.relative_to(root)}')
             after = path.lstat()
             identity = lambda s: (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, s.st_ctime_ns)
             if identity(before) != identity(after):
