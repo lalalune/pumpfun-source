@@ -1,0 +1,197 @@
+{
+ "lane": "w13a31-cto-lv3relayout",
+ "wave": 13,
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "angle": "lv3 (w13a18 #2979) relayout: find and fix the block relayout that costs lv3 its frame-masked ratio",
+ "bases": [
+  {
+   "main": "6ac6f9b67",
+   "ratio": 0.56291,
+   "fm": 0.68604,
+   "sk": 0.85321
+  },
+  {
+   "main": "cc475bf2d",
+   "ratio": 0.59197,
+   "fm": 0.68814,
+   "sk": 0.84871
+  }
+ ],
+ "landed": false,
+ "prs": [
+  {
+   "number": 3073,
+   "kind": "notes",
+   "state": "draft"
+  }
+ ],
+ "best_zero_loss_at_pinned_size": null,
+ "mechanism": {
+  "found": "lv3's relayout is one chunk swap (orig 0x55d8-0x6320 error/exit/native+token sweep placed before orig 0x3c40-0x5510 post-sweep join + sharing CPI) caused by MachineBlockPlacement hasBetterLayoutPredecessor vetoing the Rent::get Err ::from -> sweep-exit join fallthrough: the phi-copy block gathering the sweep Err edges (ensure_rent_exempt, create_idempotent and, in lv3 only, transfer_vault_tokens) reaches 0.267x the candidate edge freq (limit 0.25). In main/orig the transfer_vault_tokens Err tag is already in the join register (r7), so no copy edge.",
+  "ir_proof": "bw:bb104.i:20:1 on lv3 post-opt IR restores the orig order at the same 27336 B: fm 0.561->0.662, sk 0.650->0.867",
+  "source_fix": "sweep token arm written like the native arm: if frozen{require!(..);Ok(amount)}else if amount>0{create_idempotent(..)?;transfer_vault_tokens(..).map(|()|amount)}else{Ok(amount)} (s_map); also let rent=Rent::get()?;let min=rent.minimum_balance(0) and ensure_rent_exempt(..).and_then(..)",
+  "faithfulness": "orig keeps the ? form at transfer_vault_tokens; the faithful fix is RA (join tag in r7 instead of r6)"
+ },
+ "attempts": [
+  {
+   "id": "lv3",
+   "base": "6ac6f9b",
+   "bytes": 27336,
+   "ratio": 0.26365,
+   "fm": 0.56149,
+   "sk": 0.64997
+  },
+  {
+   "id": "lv3+bw:bb104.i:20:1 (IR)",
+   "base": "6ac6f9b",
+   "bytes": 27336,
+   "ratio": 0.31794,
+   "fm": 0.66167,
+   "sk": 0.86683
+  },
+  {
+   "id": "s_map",
+   "base": "6ac6f9b",
+   "bytes": 27320,
+   "ratio": 0.31833,
+   "fm": 0.66187,
+   "sk": 0.86679
+  },
+  {
+   "id": "s_rentlet",
+   "base": "6ac6f9b",
+   "bytes": 27344,
+   "ratio": 0.31819,
+   "fm": 0.66097,
+   "sk": 0.8652
+  },
+  {
+   "id": "s_andthen_nat",
+   "base": "6ac6f9b",
+   "bytes": 27312,
+   "ratio": 0.32258,
+   "fm": 0.66017,
+   "sk": 0.86722
+  },
+  {
+   "id": "v306e (s_map+ok_or_else?)",
+   "base": "6ac6f9b",
+   "bytes": 27416,
+   "ratio": 0.26505,
+   "fm": 0.68044,
+   "sk": 0.84546
+  },
+  {
+   "id": "v306a-d",
+   "base": "6ac6f9b",
+   "note": "byte-identical to s_map"
+  },
+  {
+   "id": "s_rentmap/s_natamt0/s_tokelse",
+   "base": "6ac6f9b",
+   "note": "= lv3"
+  },
+  {
+   "id": "m_rentlet (main)",
+   "base": "6ac6f9b",
+   "bytes": 27384,
+   "ratio": 0.56128
+  },
+  {
+   "id": "lv3",
+   "base": "cc475bf",
+   "bytes": 27360,
+   "ratio": 0.20717,
+   "fm": 0.55674,
+   "sk": 0.65537
+  },
+  {
+   "id": "lv3+s_map",
+   "base": "cc475bf",
+   "bytes": 27344,
+   "ratio": 0.26121,
+   "fm": 0.65707,
+   "sk": 0.8628
+  },
+  {
+   "id": "m_map (main+s_map gene)",
+   "base": "cc475bf",
+   "bytes": 27376,
+   "ratio": 0.59254,
+   "fm": 0.68785,
+   "sk": 0.84819
+  },
+  {
+   "id": "m_map+rentlet",
+   "base": "cc475bf",
+   "bytes": 27400,
+   "ratio": 0.59107,
+   "slots": 3264
+  },
+  {
+   "id": "m_map+15 sizeknobs",
+   "base": "cc475bf",
+   "note": "none >= main at 27400"
+  },
+  {
+   "id": "L1/L4/L10/L11",
+   "base": "cc475bf",
+   "note": "= lv3"
+  },
+  {
+   "id": "L3/L3m",
+   "base": "cc475bf",
+   "bytes": "27512/27496",
+   "ratio": "0.21016/0.26077"
+  },
+  {
+   "id": "L9/L9m (PDA first)",
+   "base": "cc475bf",
+   "ratio": "0.25232/0.2521",
+   "note": "new swap: sweep chunk after sharing CPI"
+  },
+  {
+   "id": "bw/inv sweep x450 on lv3+s_map",
+   "base": "cc475bf",
+   "note": "no orig errseq; best fm 0.71255 from mayhem-test weight (not source)"
+  },
+  {
+   "id": "frame alloca oracle on lv3+s_map",
+   "base": "cc475bf",
+   "note": "best nolt:t.i 0.34908; greedy saturates after 1 step"
+  }
+ ],
+ "rejected_mechanisms": [
+  "lv3 relayout as BFI drift (IR block freqs scale uniformly; it is a MBP veto threshold)",
+  "306-after-298 by local spelling of the 298/306 sites (let-else, None-first match, if let, is_none)",
+  "306-after-298 by any single branch weight/inversion",
+  "s_map gene on main as a landable change (+0.00057 at -24 B, no size companion at 27400; unfaithful to orig ?-edge)",
+  "lv3-family frame retune by single alloca order/coloring edits (max plain 0.349)"
+ ],
+ "unresolved_residuals": [
+  "RA of the sweep-exit join: lv3 puts the tag in r6 (orig/main r7), creating the copy edge that trips the veto",
+  "lv3 frame: orig 0x28-0x450 band +0x10, 16 B pair moved to frame top; frame top 0xc50 vs orig 0xc38",
+  "306 after 298 (orig 289 298 306 296 326 ..)",
+  "L9 (orig PDA-first order) trips a second MBP swap (sweep chunk after sharing CPI)"
+ ],
+ "next_ideas": [
+  "Find what occupies r7 across the sweep in lv3 (live-range diff vs main) and a source form that frees it, so the faithful ? form keeps the layout",
+  "Port lv3+s_map's 0.86 skeleton onto main's frame: identify the 32 B allocas lv3 adds (target out-param, creator copy) and replace them with the 7/9 B pieces main has",
+  "Combine L9 (PDA first) with an edge fix for the second swap using bwfm.py sweep on L9m"
+ ],
+ "tools": [
+  "tools/annobj.py",
+  "tools/callperm.py",
+  "tools/bwfm.py",
+  "tools/frsweep.py",
+  "tools/frgreedy.py",
+  "tools/fdelta.py",
+  "tools/chunkshow.py"
+ ],
+ "ledger_keys": "0x22a10-w13-6ac6f9b-lv3relayout-*, 0x22a10-w13-cc475bf-lv3relayout-*"
+}

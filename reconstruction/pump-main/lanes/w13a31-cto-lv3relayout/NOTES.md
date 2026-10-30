@@ -76,7 +76,41 @@ separates it from main:
 | lv3 | 27,360 | 0.20717 | | 0.55674 | 0.65537 |
 | lv3 + s_map | 27,344 | 0.26121 | | 0.65707 | 0.86280 |
 
-m_map is +0.00057 at -24 B. It needs a +24 B companion to land; see SUMMARY.json for the knob screen.
+m_map is +0.00057 at -24 B. A screen of the 15 `sizeknobs-cto.json` knobs that still apply found no companion at
+27,400 B that stays above main. The best at 27,400 is `s_rent_local`, which is the same as m_map + rentlet. The gene is
+also not faithful: the original keeps a separate transfer_vault_tokens Err edge (orig 0x60c0: `ldxdw r7,[..]; jeq r7,2;
+ja +0x5a`), with the tag loaded straight into the join register r7. So the original holds the layout through register
+allocation, not through the `.map` form. In lv3 the join phi gets r6 (`jeq r6,2` after transfer_creator_fees_to_pump_v2),
+which forces the r1->r6 copy block and the veto. **The faithful fix is RA: the sweep-exit tag in r7, as in main and the original.**
+
+## 5. More lv3 screens on main cc475bf (raw-IR oracle)
+
+| trial | change | bytes | ratio | fm | sk | note |
+| --- | --- | ---: | ---: | ---: | ---: | --- |
+| L1 / L4 / L10 / L11 | hb,shared params last; `target=st.creator` init; `let _=validate(..)?`; `Ok(*sharing)` | 27,360 | 0.20717 | 0.557 | 0.655 | byte-identical to lv3 |
+| L3 / L3m | `target=Pubkey::default()` init (without / with s_map) | 27,512 / 27,496 | 0.21016 / 0.26077 | 0.558 / 0.653 | 0.642 / 0.849 | |
+| L9 / L9m | holder_key PDA before `shared` (original 0x140 order) | 27,448 / 27,432 | 0.25232 / 0.2521 | 0.514 | 0.651 | new swap: sweep chunk orig 0x24d0-0x3bd0 placed after the sharing CPI, even with s_map |
+
+lv3 sits near several MBP thresholds. s_map fixes the sweep-exit one, and moving the PDA first trips another.
+
+**306.** A bw 1:2000 / 2000:1 / inv sweep over all 150 branches of lv3+s_map (`sw_smap.jsonl`, 450 runs) never gives the
+original errseq. 413 runs keep lv3's order. bb97.i 1:2000 gives `289 298 296 306 312 307 330 338 334` (326 lost). So
+306-after-298 is not a single-edge frequency effect on this CFG.
+
+**Frame oracle** (`frsweep.py` on lv3+s_map, 141 allocas x {mv FIRST, mv END, nolt}): the best single edit is
+`nolt:t.i` (validate's `t`), 0.26121 -> 0.34908. Next are `nolt:sk` 0.336 and `nolt:target` 0.333. Greedy accumulation
+(`frgreedy.py`) stops after one step. IR-level slot order and coloring cannot bring the lv3 family near main's 0.592. Its
+frame needs a different set of allocas (the 32 B `target` / creator copies), not a reordering.
+
+## Conclusion
+
+The lv3 relayout is fully explained: an MBP fallthrough veto at the sweep-exit join, at a ratio of 0.267 against the 0.25
+limit, caused by one extra phi-copy edge that comes from register allocation. The token-arm `.map` spelling restores the
+layout in source, and lv3+s_map's skeleton is above main's (0.867 against 0.853 on 6ac6f9b; 0.863 against 0.849 on
+cc475bf). Plain ratio (0.26-0.32) and fm (0.657-0.662) stay below main because of the frame (the 0x28-0x450 band at +0x10)
+and register choice. The original errseq (306 after 298) was not reached. The angle is exhausted as a landing route at
+this size; the residuals are frame/RA.
+
 
 ## Tools (`tools/`; experiment only)
 

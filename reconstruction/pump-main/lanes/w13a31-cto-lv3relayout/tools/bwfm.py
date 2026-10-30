@@ -4,7 +4,19 @@
   bwfm.py sweep <m.ll> BASESPEC OUT.jsonl [-j N] [-w 1:2000,2000:1,inv] [--only lab1,lab2]"""
 import sys,os,json,subprocess,tempfile,difflib
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
-import bwx, absratio
+import bwx, absratio, struct
+ORIGSEQ='289 298 306 296 326 312 307 330 338 334 410 719 648 660 284 556'
+def errseq(raw):
+    i=0; imms=[]; out=[]
+    while i<len(raw):
+        op,regs,off,imm=struct.unpack_from('<BBhi',raw,i)
+        if op in (0x62,0x6a,0x72,0x7a): imms.append(imm)
+        if op==0x85:
+            lines=[x for x in imms if 280<=x<800]; codes=[x for x in imms if 2000<=x<6200]
+            if lines and codes: out.append(lines[-1])
+            imms=[]
+        i+=16 if op==0x18 else 8
+    return ' '.join(map(str,out))
 from concurrent.futures import ThreadPoolExecutor
 SDK=os.path.expanduser('~/.cache/solana/v1.44/platform-tools/llvm/bin')
 OUT=os.path.expanduser('~/.cache/pumpfun-reconstruction/lanes/w13a31-cto-lv3relayout')
@@ -19,7 +31,8 @@ def score(o,ot):
     rr,sd,nb=bwx.metric(bwx.elf_fn(o),ot); C=dis(o)
     fm=difflib.SequenceMatcher(None,OA,[absratio.norm(x,False) for x in C],autojunk=False).ratio()
     sk=difflib.SequenceMatcher(None,OS,[absratio.norm(x,True) for x in C],autojunk=False).ratio()
-    return {'ratio':rr,'slots':sd,'bytes':nb,'fm':round(fm,5),'sk':round(sk,5)}
+    es=errseq(bwx.elf_fn(o))
+    return {'ratio':rr,'slots':sd,'bytes':nb,'fm':round(fm,5),'sk':round(sk,5),'es':es,'es_orig':es==ORIGSEQ}
 def run(mod,spec,ot,keep=None):
     with tempfile.TemporaryDirectory(dir=OUT) as d:
         open(d+'/m.ll','w').write(bwx.apply(mod,spec))
