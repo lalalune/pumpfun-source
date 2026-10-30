@@ -1,0 +1,204 @@
+{
+  "schema": 1,
+  "testedHead": "f00097ec9d39f3fde4bfa8f2d296857875094db8",
+  "testedTree": "6ca06f2cae2581fe19ea563a8af800c8bf640889",
+  "reviewBase": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Complete original Settings display/controller owner with exactly2source-signature hook initializers substituted at their original positions; no availability/provider/reset acquisition.",
+  "inputs": {
+    "evidence/web/manifest.json": {
+      "bytes": 3026513,
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda"
+    },
+    "evidence/web/objects/4490d02ba2117672.js": {
+      "bytes": 52381,
+      "sha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "gitBlob": "464a645f3fc99db61ab4cdab0395471031bc1715"
+    },
+    "package.json": {
+      "bytes": 3703,
+      "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+      "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8"
+    },
+    "packages/backend/package.json": {
+      "bytes": 463,
+      "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b"
+    },
+    "packages/frontend/package.json": {
+      "bytes": 1048,
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0"
+    },
+    "pnpm-lock.yaml": {
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+    },
+    "reconstruction/settings-modal-owner/client.mjs": {
+      "bytes": 14303,
+      "sha256": "36e096a8fe6b6657f0e2cc9536f21674ed9f9160d6f6849d25ca67e2b41cde64",
+      "gitBlob": "4a186e1a64f630a1fb8478180b93c9f9626a1434"
+    },
+    "reconstruction/settings-modal-owner/contract.json": {
+      "bytes": 12261,
+      "sha256": "3fded7c840af8a1da7a291a09f5bddbf873152640b69c5174a758cff3ad08f13",
+      "gitBlob": "53d81e5cbe6c9c70e421d5afb9cc772c69889ce0"
+    },
+    "recovered/modules.json": {
+      "bytes": 2928853,
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+      "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f"
+    },
+    "scripts/original-contracts/source.mjs": {
+      "bytes": 9493,
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+      "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df"
+    },
+    "scripts/original-settings-modal-owner.mjs": {
+      "bytes": 12941,
+      "sha256": "bb56eab42e96c08c5efb543bdac7545f62fc384eaa901851a9ccd6c3b999022c",
+      "gitBlob": "691258f4a11dce49b3eb2fe1677570bd1a2734a8"
+    },
+    "tests/fixtures/settings-modal-owner-browser.mjs": {
+      "bytes": 5455,
+      "sha256": "78b8baf70b60f7cb506709942dcb961741c801f130ac22647bf018725d42b00f",
+      "gitBlob": "06b4a5372c269efd51a98494f35fda19c73aff52"
+    },
+    "tests/original_settings_modal_owner.test.mjs": {
+      "bytes": 6676,
+      "sha256": "4a4e8e055898d517e44e64b7af871eb4d153392e522fccdec1871a5beede534f",
+      "gitBlob": "4e9cfe7795e75f925548cb799a726bb1d6dfff10"
+    },
+    "tests/original_settings_modal_owner_browser.test.mjs": {
+      "bytes": 15080,
+      "sha256": "c9906cf7d3d2aa9e9f95c6a8f28fc074a97c8c548dc06484b7c89c2d3fd33391",
+      "gitBlob": "5e23bc5ed57375b84a3fb62b4e525a811104d3f9"
+    },
+    "tests/original_source.test.mjs": {
+      "bytes": 7401,
+      "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3",
+      "gitBlob": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+    }
+  },
+  "inputScope": "15 selected source/generator/SSR/browser/fixture/shared-reader/capture/index/manifest/package inputs, not exhaustive installed dependency/cold/whole-app identity.",
+  "checks": {
+    "head": "f00097ec9d39f3fde4bfa8f2d296857875094db8",
+    "cwd": "/workspace/pump-app-leaderboard-navigation/app",
+    "results": [
+      {
+        "name": "source-final",
+        "argv": [
+          "node",
+          "scripts/original-settings-modal-owner.mjs"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 7.193062837002799
+      },
+      {
+        "name": "focused-final",
+        "argv": [
+          "node",
+          "--test",
+          "--test-reporter=tap",
+          "tests/original_settings_modal_owner.test.mjs",
+          "tests/original_source.test.mjs"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 6.1479427099984605
+      },
+      {
+        "name": "typecheck",
+        "argv": [
+          "node",
+          "/home/agent/.cache/node/corepack/v1/pnpm/10.24.0/bin/pnpm.cjs",
+          "-r",
+          "typecheck"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 4.883128805988235
+      },
+      {
+        "name": "evidence",
+        "argv": [
+          "python3",
+          "scripts/verify-evidence.py"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.16904693900141865
+      },
+      {
+        "name": "progress",
+        "argv": [
+          "python3",
+          "scripts/progress.py",
+          "--check"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.12813670598552562
+      },
+      {
+        "name": "progress-tests",
+        "argv": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_progress.py"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.6214822839829139
+      }
+    ]
+  },
+  "browser": {
+    "argv": [
+      "node",
+      "--test",
+      "--test-reporter=tap",
+      "tests/original_settings_modal_owner_browser.test.mjs"
+    ],
+    "cwd": "app/",
+    "outputEnvironment": "PUMP_SETTINGS_MODAL_OUTPUT=<owned-output>",
+    "returncode": 0,
+    "workflows": 1,
+    "widths": [
+      390,
+      1280
+    ],
+    "expectedErrorsPerWidth": [
+      "SYNTHETIC reset callback denial"
+    ],
+    "unexpectedErrors": 0,
+    "overflow": false
+  },
+  "browserBundleSha256": "55a88ffa1650021d015071c74a31042ee892a455c2ec06723cbd922b04f1bf41",
+  "versions": {
+    "node": "24.19.0",
+    "pnpm": "10.24.0",
+    "react": "19.2.3",
+    "playwright": "1.64.1",
+    "chromiumBuild": 1248,
+    "esbuild": "0.25.12",
+    "browserLocale": "en-US"
+  },
+  "sourceAndMethod": "All7source/method/docs files frozenf000 before first actualbrowser and final six checks. Publication adds result documentation and sealed receipts only;15 selected runtime/method inputs unchanged.",
+  "priorPhases": [
+    "Pre-freeze source and18focused tests passed. Frozen actualbrowser succeeded onfirst run, no missing failure or bundle receipt inferred/transferred.",
+    "698 immutable captures and three omitted unchanged progress reference files materialized from exactHEAD before checks. No captures/ledger/scorer altered."
+  ],
+  "cleanup": "Actual Chromium/GET-only ephemeral loopback host closed and tempbundle removed in finally; process0 and PRIMARY explicitly released. No Next owned or real cookie/storage/session/provider acquired.",
+  "transformations": [
+    "Y wholeavailability IIFE\u2192useVisibleSections(), immediately aftertranslation and beforeJ. No permission/address/feature/provider implementation.",
+    "J wholeresource-attempt IIFE\u2192useSettingsResourceAttempt(), immediately afterY andbefore rawtransientfocus hook. Exact1911API external. Allother100-slot parent operations untouched, priorcontentbranch credited withoutnewrecoverycount."
+  ],
+  "limits": [
+    "Availability andresource hook internal state/provider/layout external. Safe supplied feed/privacy metadata and inert denied/account string test fallbackdisplay only, not actualauth/permission.",
+    "ResetSection(section) synthetic success/throw callback tests original confirmationordering; no actual preferences reset/storage/cookie/persistence/provider.",
+    "Raw1920useTransientSettingId plusFocusContext.Provider exactsignature; no duplicate timerwrapper. Actual1898/1952/1911renderers andmodal/tabs/icons/translation external, nocopied standalonecores or unmerged imports.",
+    "Nativebrowser typing/scroll andactualReact underexplicitdiagnosticports, no wholeprovider/genericprimitive/focus-trap/native/globalSettings/API/pixel/fullapp/security/completion claim. No protected/trading/admincontrol acquisition orlive requests."
+  ]
+}

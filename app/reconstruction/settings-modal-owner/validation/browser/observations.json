@@ -1,0 +1,2383 @@
+{
+  "syntheticOnly": true,
+  "bundleSha256": "55a88ffa1650021d015071c74a31042ee892a455c2ec06723cbd922b04f1bf41",
+  "bundleBytes": 1100642,
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    },
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    }
+  ],
+  "results": [
+    {
+      "width": 390,
+      "pending": {
+        "state": {
+          "section": "feed",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": false,
+          "resettable": true,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [],
+        "mounts": [],
+        "unmounts": [],
+        "queries": [],
+        "focusCalls": [
+          "feed.synthetic"
+        ]
+      },
+      "first": {
+        "state": {
+          "section": "feed",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": true,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          }
+        ],
+        "unmounts": [],
+        "queries": [],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "selected": {
+        "state": {
+          "section": "privacy",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": true,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          }
+        ],
+        "queries": [],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "searching": {
+        "state": {
+          "section": "feed",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": true,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "sameSearchMode": {
+        "state": {
+          "section": "feed",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": true,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "deniedSection": {
+        "state": {
+          "section": "account",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": true,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "resetDenied": {
+        "state": {
+          "section": "account",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": true,
+          "denyReset": true,
+          "present": true
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": false
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "resetAccepted": {
+        "state": {
+          "section": "account",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": true,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": false
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "stillOpen": {
+        "state": {
+          "section": "account",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": false,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": false
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "done": {
+        "state": {
+          "section": "account",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": false,
+          "denyReset": false,
+          "present": false
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": false
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": true
+          },
+          {
+            "kind": "close"
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "remounted": {
+        "state": {
+          "section": "privacy",
+          "focusSettingId": null,
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": false,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": false
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": true
+          },
+          {
+            "kind": "close"
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_6_",
+            "section": "privacy"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          null
+        ]
+      },
+      "closed": {
+        "state": {
+          "section": "privacy",
+          "focusSettingId": null,
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": false,
+          "denyReset": false,
+          "present": false
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": false
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": true
+          },
+          {
+            "kind": "close"
+          },
+          {
+            "kind": "close"
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_6_",
+            "section": "privacy"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_6_",
+            "section": "privacy"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          null
+        ]
+      },
+      "unmounted": {
+        "state": {
+          "section": "privacy",
+          "focusSettingId": null,
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": false,
+          "denyReset": false,
+          "present": false
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": false
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": true
+          },
+          {
+            "kind": "close"
+          },
+          {
+            "kind": "close"
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_6_",
+            "section": "privacy"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_6_",
+            "section": "privacy"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          null
+        ]
+      },
+      "overflow": false,
+      "expectedErrors": [
+        "SYNTHETIC reset callback denial"
+      ],
+      "unexpectedErrors": []
+    },
+    {
+      "width": 1280,
+      "pending": {
+        "state": {
+          "section": "feed",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": false,
+          "resettable": true,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [],
+        "mounts": [],
+        "unmounts": [],
+        "queries": [],
+        "focusCalls": [
+          "feed.synthetic"
+        ]
+      },
+      "first": {
+        "state": {
+          "section": "feed",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": true,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          }
+        ],
+        "unmounts": [],
+        "queries": [],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "selected": {
+        "state": {
+          "section": "privacy",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": true,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          }
+        ],
+        "queries": [],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "searching": {
+        "state": {
+          "section": "feed",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": true,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "sameSearchMode": {
+        "state": {
+          "section": "feed",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": true,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "deniedSection": {
+        "state": {
+          "section": "account",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": true,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "resetDenied": {
+        "state": {
+          "section": "account",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": true,
+          "denyReset": true,
+          "present": true
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": false
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "resetAccepted": {
+        "state": {
+          "section": "account",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": true,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": false
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "stillOpen": {
+        "state": {
+          "section": "account",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": false,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": false
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "done": {
+        "state": {
+          "section": "account",
+          "focusSettingId": "feed.synthetic",
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": false,
+          "denyReset": false,
+          "present": false
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": false
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": true
+          },
+          {
+            "kind": "close"
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic"
+        ]
+      },
+      "remounted": {
+        "state": {
+          "section": "privacy",
+          "focusSettingId": null,
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": false,
+          "denyReset": false,
+          "present": true
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": false
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": true
+          },
+          {
+            "kind": "close"
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_6_",
+            "section": "privacy"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          null
+        ]
+      },
+      "closed": {
+        "state": {
+          "section": "privacy",
+          "focusSettingId": null,
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": false,
+          "denyReset": false,
+          "present": false
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": false
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": true
+          },
+          {
+            "kind": "close"
+          },
+          {
+            "kind": "close"
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_6_",
+            "section": "privacy"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_6_",
+            "section": "privacy"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          null
+        ]
+      },
+      "unmounted": {
+        "state": {
+          "section": "privacy",
+          "focusSettingId": null,
+          "sections": [
+            {
+              "id": "feed",
+              "labelKey": "synthetic.feed",
+              "tabLabelKey": "synthetic.feed.tab"
+            },
+            {
+              "id": "privacy",
+              "labelKey": "synthetic.privacy",
+              "tabLabelKey": "synthetic.privacy.tab"
+            }
+          ],
+          "ready": true,
+          "resettable": false,
+          "denyReset": false,
+          "present": false
+        },
+        "events": [
+          {
+            "kind": "select",
+            "section": "privacy"
+          },
+          {
+            "kind": "select",
+            "section": "feed"
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": false
+          },
+          {
+            "kind": "reset",
+            "section": "feed",
+            "accepted": true
+          },
+          {
+            "kind": "close"
+          },
+          {
+            "kind": "close"
+          }
+        ],
+        "mounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_6_",
+            "section": "privacy"
+          }
+        ],
+        "unmounts": [
+          {
+            "id": "_r_1_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_2_",
+            "section": "privacy"
+          },
+          {
+            "id": "_r_3_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_4_",
+            "section": "feed"
+          },
+          {
+            "id": "_r_6_",
+            "section": "privacy"
+          }
+        ],
+        "queries": [
+          {
+            "query": "first",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          },
+          {
+            "query": "second",
+            "visibleSections": [
+              "feed",
+              "privacy"
+            ]
+          }
+        ],
+        "focusCalls": [
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          "feed.synthetic",
+          null
+        ]
+      },
+      "overflow": false,
+      "expectedErrors": [
+        "SYNTHETIC reset callback denial"
+      ],
+      "unexpectedErrors": []
+    }
+  ]
+}
