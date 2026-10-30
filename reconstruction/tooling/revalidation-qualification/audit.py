@@ -608,6 +608,10 @@ def audit(repo, output, timeout_seconds=60.0, cleanup_seconds=1.0):
             )
             results.append(row)
             inputs[packet.name] = snapshots
+        final_packet_names = sorted(path.name for path in research.iterdir()
+                                    if path.is_dir() and not path.name.startswith("."))
+        if final_packet_names != packet_names:
+            raise ValueError("research packet census changed during verification")
         elapsed = time.monotonic() - started
         summary = summarize(results, elapsed)
         control_inputs_after = {
