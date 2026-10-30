@@ -13,8 +13,16 @@ OLD = 'opcode in (0x25, 0x35, 0xa5, 0xb5) and prev_op in ("add", "sub", "mul")'
 NEW = 'opcode in (0x25, 0x2d, 0x35, 0x3d, 0xa5, 0xad, 0xb5, 0xbd) and prev_op in ("add", "sub", "mul")'
 
 
+ARCHIVED = Path(__file__).resolve().parent / 'archived'
+
+
 def load_analysis(source=None, *, corrected=True):
-    path = Path(source) if source is not None else ROOT / 'scripts/deep_section_analysis.py'
+    # The reviewed tool bytes are kept in this packet: scripts/ has since been
+    # corrected (#2745 translates text relocation addresses to file offsets, and
+    # later commits publish deep-section packets atomically), so the live script
+    # is no longer the archived analyzer this packet compares against.
+    live = source is None
+    path = ARCHIVED / 'deep_section_analysis.py' if live else Path(source)
     raw = path.read_bytes()
     if hashlib.sha256(raw).hexdigest() != SOURCE_SHA256:
         raise ValueError('archived section analyzer source digest mismatch')
@@ -26,7 +34,7 @@ def load_analysis(source=None, *, corrected=True):
     module = types.ModuleType('reviewed_section_analysis')
     module.__file__ = str(ROOT / 'scripts/deep_section_analysis.py')
     # The archived helper imports this reader. Check it before any execution.
-    reader_path = ROOT / 'scripts/window_elf_reader.py'
+    reader_path = ARCHIVED / 'window_elf_reader.py' if live else ROOT / 'scripts/window_elf_reader.py'
     reader_raw = reader_path.read_bytes()
     if hashlib.sha256(reader_raw).hexdigest() != READER_SHA256:
         raise ValueError('archived ELF reader source digest mismatch')

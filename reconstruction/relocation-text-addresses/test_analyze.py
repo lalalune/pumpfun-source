@@ -3,6 +3,7 @@ import struct
 from types import SimpleNamespace
 import tempfile
 import unittest
+from unittest.mock import patch
 import analyze as adapter
 
 
@@ -20,6 +21,36 @@ def image(address=0x1000, offset=0x20, relocation=None, size=16):
 
 
 class TextRelocationTests(unittest.TestCase):
+    def test_default_archive_rejects_changed_analyzer_and_reader(self):
+        source = adapter.ARCHIVED / 'deep_section_analysis.py'
+        reader = adapter.ARCHIVED / 'window_elf_reader.py'
+        with tempfile.TemporaryDirectory() as tmp:
+            archive = Path(tmp)
+            originals = {source.name: source.read_bytes(), reader.name: reader.read_bytes()}
+            for name, raw in originals.items():
+                (archive / name).write_bytes(raw)
+            with patch.object(adapter, 'ARCHIVED', archive):
+                self.assertTrue(callable(adapter.reviewed().analyze_relocations))
+                for name, raw in originals.items():
+                    with self.subTest(archived_file=name):
+                        (archive / name).write_bytes(raw + b'\nraise RuntimeError("must not execute")\n')
+                        with self.assertRaisesRegex(ValueError, 'digest mismatch'):
+                            adapter.reviewed()
+                        (archive / name).write_bytes(raw)
+
+    def test_explicit_source_uses_pinned_reader_and_original_module_location(self):
+        source = adapter.ARCHIVED / 'deep_section_analysis.py'
+        reader_bytes = (adapter.ARCHIVED / 'window_elf_reader.py').read_bytes()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'scripts').mkdir()
+            (root / 'scripts/window_elf_reader.py').write_bytes(reader_bytes)
+            with patch.object(adapter, 'ROOT', root), patch.object(adapter, 'ARCHIVED', root / 'absent'):
+                module = adapter.reviewed(source)
+            self.assertEqual(module.__file__, str(root / 'scripts/deep_section_analysis.py'))
+            self.assertEqual(module.REPO, root.resolve())
+            self.assertTrue(callable(module.analyze_relocations))
+
     @classmethod
     def setUpClass(cls):
         cls.old = adapter.reviewed(corrected=False)

@@ -65,3 +65,14 @@ relocation successor tests pass against these bytes, including the captured
 Pump pair at file offset `0xd278` and every relocation report recorded above.
 The reader pin remains
 `5a57f32949f983fc6f9ddf40916cd04bfcd2a73b6a16cc0e9d5d6872180dac32`.
+
+The reviewed tool bytes are now retained in this packet's `archived/` directory
+and bound by the same SHA-256 pins. `scripts/deep_section_analysis.py` has since
+been corrected: #2745 translates text relocation addresses to file offsets, which
+is the correction this packet reviews. The live script is therefore no longer the
+archived analyzer the three substitutions apply to, and binding the pin to it
+fails with `reviewed relocation substitution is not unique`. Retaining the
+reviewed revision keeps the archived behaviour (a text section at `0x1000` with
+file offset `0x20` is reported as unknown) and the corrected behaviour (`.text`)
+demonstrable together, independently of later analyzer changes, and keeps every
+recorded report reproducible.
