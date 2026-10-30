@@ -261,7 +261,11 @@ export class LocalMediaStore {
         const stat = await file.stat();
         const maxSnapshot =
           store.limits.maxBytes * 2 +
-          store.limits.maxMetadata * 16_384 +
+          // JSON/base64 record overhead is separate from decoded image bytes.
+          store.limits.maxImages * 256 +
+          // A metadata string code unit can need six JSON escape bytes.
+          // The bounded name/symbol/description/links need under 64 KiB per record.
+          store.limits.maxMetadata * 65_536 +
           65_536;
         if (!stat.isFile() || stat.size > maxSnapshot)
           throw new Error("Invalid local media snapshot size/type.");
