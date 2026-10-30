@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Reproduce the pinned SPL Token verified-build recipe in its official Linux image."""
+if not __debug__:
+ raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse, hashlib, json, pathlib, shutil, subprocess, uuid
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]

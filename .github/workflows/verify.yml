@@ -52,6 +52,9 @@ jobs:
               python -I -B tests/test_analyze_input_admission.py
               python scripts/test_tooling.py
               python -B scripts/test_dispatch_recovery.py
+              python -B scripts/test_pump_compare_window_alignment.py
+              python -B scripts/test_pump_compare_window_columns.py
+              python -B scripts/test_pump_compare_window_strict_csv.py
               python -B tests/test_verify_dependencies_optimization.py
               python -B tests/test_recovered_builds_optimization.py
               python -B scripts/test_mayhem_burn_sequence_optimization.py
