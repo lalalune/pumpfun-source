@@ -50,6 +50,7 @@ jobs:
               python -I -B tests/test_dispatch_root.py
               python -I -B tests/test_analyze_input_admission.py
               python scripts/test_tooling.py
+              python -B reconstruction/tooling/parallel-input-preservation-20261030/test_input_preservation.py
               python -B tests/test_recovered_builds_optimization.py
               python -B scripts/test_mayhem_burn_sequence_optimization.py
               python -B -X utf8 tests/test_dispatch_idl_encoding.py

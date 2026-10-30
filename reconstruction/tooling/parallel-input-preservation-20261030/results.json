@@ -1,0 +1,172 @@
+{
+  "schema": 1,
+  "base_revision": "558606891441ae65502f737b71676fa2dbc79cc0",
+  "before_tooling_revision": "34836eea96bf5d50064e3b46abed35f74f67274e",
+  "build_source_revision": "8d9c088750e6005304d919fe71192ccea74aa42c",
+  "public_build_run": 41013070961,
+  "compiled_source_files_verified": 111,
+  "before_control": {
+    "cases": 2605,
+    "suites": 11,
+    "diagnostic_log_cases": 2605,
+    "diagnostic_mismatches": 0
+  },
+  "before_aliases": [
+    {
+      "case": "candidate",
+      "exit": 0,
+      "changed": true,
+      "before_sha256": "f8e03b83699a723a85e1b1aa22eb857987a65a85c5e14958e7c00b1287d37f46",
+      "after_sha256": "20619f091a4724718ff6cae99ef0ec8114f1cd89c4595a0c6794a924f215bbc2"
+    },
+    {
+      "case": "build-comparison",
+      "exit": 0,
+      "changed": true,
+      "before_sha256": "de526314d7d9492227964583bfbd72a674973e206c2b730b4fcc3b794f1a6241",
+      "after_sha256": "20619f091a4724718ff6cae99ef0ec8114f1cd89c4595a0c6794a924f215bbc2"
+    },
+    {
+      "case": "compiled-source",
+      "exit": 0,
+      "changed": true,
+      "before_sha256": "16912468ec5d587f73a184cf50b7e7ffb5a5d69422777f3f19e8c79d5222a7c1",
+      "after_sha256": "20619f091a4724718ff6cae99ef0ec8114f1cd89c4595a0c6794a924f215bbc2"
+    },
+    {
+      "case": "original",
+      "exit": 0,
+      "changed": true,
+      "before_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "after_sha256": "20619f091a4724718ff6cae99ef0ec8114f1cd89c4595a0c6794a924f215bbc2"
+    },
+    {
+      "case": "runner",
+      "exit": 0,
+      "changed": true,
+      "before_sha256": "6845bdf4cd7c278c421021756465c039e88e443d5907edfbbfae1662e972f8fc",
+      "after_sha256": "20619f091a4724718ff6cae99ef0ec8114f1cd89c4595a0c6794a924f215bbc2"
+    },
+    {
+      "case": "saved-report",
+      "exit": 0,
+      "changed": true,
+      "before_sha256": "dbb0c8aa1c991d32631878f04d292110d060cc23d7fd21a2c81f06d253b78d9f",
+      "after_sha256": "b8e3a28f3a334626fc361707e578a6da338ad20bb3921c465de8c5bfed55bc93"
+    },
+    {
+      "case": "saved-loader-receipt",
+      "exit": 0,
+      "changed": true,
+      "before_sha256": "3b245be4b201bd28dc4f666f96b5109a578ce18222a9d940d871d709230f2041",
+      "after_sha256": "20619f091a4724718ff6cae99ef0ec8114f1cd89c4595a0c6794a924f215bbc2"
+    }
+  ],
+  "loader_inventory_integration": {
+    "actual_suite": "set_creator",
+    "loads": 1018,
+    "before": {
+      "accepted": false,
+      "diagnostic": "('set_creator', 'loader inputs differ')"
+    },
+    "after": {
+      "path": "work/alias-proof/after-control.json.gz.suites/set_creator.loader.json",
+      "sha256": "e95588a588f3103b7305664ea0b684eea3c2383bc376d84de189e29ed35ac145",
+      "load_count": 1018
+    }
+  },
+  "after_aliases": [
+    {
+      "case": "candidate",
+      "exit": 1,
+      "changed": false,
+      "before_sha256": "f8e03b83699a723a85e1b1aa22eb857987a65a85c5e14958e7c00b1287d37f46",
+      "after_sha256": "f8e03b83699a723a85e1b1aa22eb857987a65a85c5e14958e7c00b1287d37f46",
+      "diagnostic": "validation output aliases a bound input"
+    },
+    {
+      "case": "build-comparison",
+      "exit": 1,
+      "changed": false,
+      "before_sha256": "de526314d7d9492227964583bfbd72a674973e206c2b730b4fcc3b794f1a6241",
+      "after_sha256": "de526314d7d9492227964583bfbd72a674973e206c2b730b4fcc3b794f1a6241",
+      "diagnostic": "validation output aliases a bound input"
+    },
+    {
+      "case": "compiled-source",
+      "exit": 1,
+      "changed": false,
+      "before_sha256": "16912468ec5d587f73a184cf50b7e7ffb5a5d69422777f3f19e8c79d5222a7c1",
+      "after_sha256": "16912468ec5d587f73a184cf50b7e7ffb5a5d69422777f3f19e8c79d5222a7c1",
+      "diagnostic": "validation output aliases a bound input"
+    },
+    {
+      "case": "original",
+      "exit": 1,
+      "changed": false,
+      "before_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "after_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "diagnostic": "validation output aliases a bound input"
+    },
+    {
+      "case": "runner",
+      "exit": 1,
+      "changed": false,
+      "before_sha256": "39957b7ae4a3318912800b5568026efcee18ffa87102950f043546b8c8a609ce",
+      "after_sha256": "39957b7ae4a3318912800b5568026efcee18ffa87102950f043546b8c8a609ce",
+      "diagnostic": "validation output aliases a bound input"
+    },
+    {
+      "case": "saved-report",
+      "exit": 1,
+      "changed": false,
+      "before_sha256": "a42d974aa32b3660c951064b595e5f2588cde2df6ac3bbd06ad54ff2d156b9ac",
+      "after_sha256": "a42d974aa32b3660c951064b595e5f2588cde2df6ac3bbd06ad54ff2d156b9ac",
+      "diagnostic": "validation output aliases a bound input"
+    },
+    {
+      "case": "saved-loader-receipt",
+      "exit": 1,
+      "changed": false,
+      "before_sha256": "e95588a588f3103b7305664ea0b684eea3c2383bc376d84de189e29ed35ac145",
+      "after_sha256": "e95588a588f3103b7305664ea0b684eea3c2383bc376d84de189e29ed35ac145",
+      "diagnostic": "validation output aliases a bound input"
+    }
+  ],
+  "after_control": {
+    "cases": 2605,
+    "suites": 11,
+    "diagnostic_log_cases": 2605,
+    "diagnostic_mismatches": 0,
+    "sha256": "a42d974aa32b3660c951064b595e5f2588cde2df6ac3bbd06ad54ff2d156b9ac"
+  },
+  "after_revalidation_control": {
+    "cases": 2605,
+    "suites": 11,
+    "diagnostic_log_cases": 2605,
+    "diagnostic_mismatches": 0,
+    "sha256": "75fa3458a29f1923a470ae19257ef141b2f77390949017c64e137341cc4536d7"
+  },
+  "tests": {
+    "test_tooling": {
+      "tests": 187,
+      "passed": true
+    },
+    "verify_evidence": {
+      "captures": 9,
+      "passed": true
+    },
+    "test_pump_validate_parallel": {
+      "tests": 4,
+      "passed": true
+    },
+    "test_input_preservation": {
+      "tests": 6,
+      "passed": true,
+      "platforms": [
+        "Linux Python 3.12.14",
+        "Windows Python 3.12.14"
+      ]
+    }
+  }
+}
