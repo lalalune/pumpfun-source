@@ -65,7 +65,7 @@ def main(argv=None):
         result = report(best_candidates(window, candidate, args.top), body_groups(candidate), args.select_symbol)
     except ValueError as exc:
         parser.error(str(exc))
-    print(json.dumps({'schema': 'candidate-pairing-v1', 'window': args.start,
+    print(json.dumps({'schema': 'candidate-pairing-v1', 'window': hex(args.start),
                       'candidate_sha256': hashlib.sha256(candidate.blob).hexdigest(), **result}, indent=2))
 
 
