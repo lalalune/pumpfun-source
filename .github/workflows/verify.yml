@@ -346,6 +346,7 @@ jobs:
               python -B reconstruction/harness/test_treediff_line_boundaries.py
               python -B reconstruction/harness/test_score_inputs.py
               python scripts/test_build_source_manifest.py
+              python -I -B tests/test_manifest_nested_target.py
               python scripts/test_core_linux_v144_retention.py
               python repro/pump_fees/initializer-inline-runtime/verify.py
               python scripts/verify_recovered_builds.py
