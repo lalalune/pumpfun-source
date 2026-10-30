@@ -11,7 +11,7 @@ Prints counts and gains/losses vs the baseline (default: pump-main/baseline/scor
 A missing baseline file is an error: gains/losses against an empty baseline would report
 every matched window as a gain and no losses. Pass --no-baseline to score without one.
 """
-import argparse, csv, hashlib, json, re, struct, subprocess, sys, tempfile
+import argparse, csv, hashlib, json, os, re, struct, subprocess, sys, tempfile
 from pathlib import Path
 from llvm_tools import objdump
 from original_input import resolve_original
@@ -155,16 +155,14 @@ def write_report(path, text):
     """Publish without truncating an input linked to the destination mid-score."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = None
+    # Plain open, not NamedTemporaryFile: the rename below publishes this file's mode.
+    temporary = path.parent / f'.score-{os.getpid()}'
     try:
-        with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8',
-                                         dir=path.parent, prefix='.score-', delete=False) as stream:
-            temporary = Path(stream.name)
+        with temporary.open('x', encoding='utf-8') as stream:
             stream.write(text)
         temporary.replace(path)
     finally:
-        if temporary is not None:
-            temporary.unlink(missing_ok=True)
+        temporary.unlink(missing_ok=True)
 
 
 def main():

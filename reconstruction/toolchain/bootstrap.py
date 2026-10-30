@@ -172,6 +172,15 @@ def hybrid_ok_linux():
     rustc = rust / 'bin/rustc'
     if not rustc.is_file() or sha(rustc) != sha(SDK / 'rust/bin/rustc'):
         return False
+    # The compiler also loads the host shared libraries copied by assemble_linux().
+    # Reuse requires the same complete set and bytes, not just an unchanged rustc.
+    expected = {path.name: path for path in (SDK / 'rust/lib').glob('lib*.so')}
+    copied = {path.name: path for path in (rust / 'lib').glob('lib*.so')}
+    if not expected or copied.keys() != expected.keys():
+        return False
+    if any(path.is_symlink() or not path.is_file() or sha(path) != sha(expected[name])
+           for name, path in copied.items()):
+        return False
     host = rust / 'lib/rustlib' / LINUX_HOST_TRIPLE
     if not host.is_symlink() or host.resolve() != (SDK / 'rust/lib/rustlib' / LINUX_HOST_TRIPLE).resolve():
         return False

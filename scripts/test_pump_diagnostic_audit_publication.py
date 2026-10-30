@@ -64,6 +64,25 @@ class DiagnosticAuditPublicationTests(unittest.TestCase):
             self.assertFalse(output.exists())
             self.assertEqual(list(root.glob(".audit.json.*")), [])
 
+    def test_bound_input_keys_are_posix_on_every_host(self):
+        # The bound_* receipt keys used by the differentials and the parallel
+        # driver used str(Path), which spells separators per host; identical
+        # inputs then hashed to different key sets on Windows than on the
+        # Linux CI.
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            nested = root / "evidence" / "original" / "pump" / "deployed.so"
+            nested.parent.mkdir(parents=True)
+            nested.write_bytes(b"elf")
+            external = root / "external-candidate.so"
+            external.write_bytes(b"cand")
+            self.assertEqual(
+                gate.bound_input_key(nested, root),
+                "evidence/original/pump/deployed.so")
+            self.assertEqual(
+                gate.bound_input_key(external, Path(temporary) / "elsewhere"),
+                external.resolve().as_posix())
+
 
 if __name__ == "__main__":
     unittest.main()

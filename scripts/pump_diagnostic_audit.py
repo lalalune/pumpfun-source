@@ -17,12 +17,17 @@ import tempfile
 
 
 def bound_input_key(path, root):
-    """Keep repository labels stable while admitting explicit external inputs."""
+    """Keep repository labels stable while admitting explicit external inputs.
+
+    POSIX spelling on every host: ``str(Path)`` yields backslashes on Windows,
+    so the published ``bound_*`` receipt keys would differ between hosts for
+    identical inputs.
+    """
     path, root = Path(path).resolve(), Path(root).resolve()
     try:
-        return str(path.relative_to(root))
+        return path.relative_to(root).as_posix()
     except ValueError:
-        return str(path)
+        return path.as_posix()
 
 
 def logs(value):
