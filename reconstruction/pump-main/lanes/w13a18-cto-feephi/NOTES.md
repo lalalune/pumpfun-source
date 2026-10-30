@@ -103,6 +103,17 @@ execute's `holder`. LVI cannot relate the two, so the holder None path threads o
 execute's bool (nv3). nv3 has the complete original threading and error tail, but the 365-instruction post-exit
 chunk at orig 0x5860 is laid out elsewhere.
 
+## On main bf9a05d (0.55872; the tb scratch is gone again)
+
+| trial | change | bytes | ratio | fm | fee tests | errseq |
+| --- | --- | ---: | ---: | ---: | ---: | --- |
+| main | | 27,400 | 0.55872 | 0.686 | 2 | 298 289 296 326 306 312 307 330 338 410 334 .. |
+| lv3 | `validate(..,hb:bool,shared:bool,..,out:&mut Pubkey)->Result<Pubkey>`, `*out=if hb{*holder_key}else{..;if shared{st.creator}else{t}}`, `Ok(*holder_key)`; execute `let mut target=holder_key;validate(..,holder,shared,..,&mut target)?;`, tree without override (`trials/lv3.py`) | 27,336 | 0.26185 | 0.561 | **3** | **289 298 296 326 306 312 307 330 338 334 410 719 648 660 284 556** |
+| sp | `let shared=..` moved after the holder_key PDA (orig computes it at 0x140) | 27,360 | 0.55224 | 0.688 | 2 | = main |
+
+lv3 is the closest structural match so far. All three fee-None threads are there, and errseq equals the original
+except that 306 sits after 326 instead of after 298 (orig `289 298 306 296 326 312 307 ..`).
+
 ## Conclusion
 
 The original's three-way fee-None threading needs no MIR trick. It needs these four things together:

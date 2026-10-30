@@ -16,6 +16,10 @@
   {
    "main": "6af878b3c",
    "ratio": 0.53895
+  },
+  {
+   "main": "bf9a05d02",
+   "ratio": 0.55872
   }
  ],
  "landed": false,
@@ -197,6 +201,24 @@
    "change": "nv3 with let holder=hb throughout",
    "bytes": 27472,
    "ratio": 0.32221
+  },
+  {
+   "id": "lv3",
+   "base": "bf9a05d",
+   "change": "out-param target + hb + arm override, Ok(*holder_key)",
+   "bytes": 27336,
+   "ratio": 0.26185,
+   "fm": 0.561,
+   "feetests": 3,
+   "errseq": "289 298 296 326 306 312 307 330 338 334 410 719 648 660 284 556 (orig differs only in 306)"
+  },
+  {
+   "id": "sp",
+   "base": "bf9a05d",
+   "change": "shared after the PDA",
+   "bytes": 27360,
+   "ratio": 0.55224,
+   "fm": 0.688
   }
  ],
  "rejected_mechanisms": [
@@ -210,6 +232,7 @@
   "334 after 410 and the per-arm fee-None edges: reachable (vb8/nv3) only together with a frame/RA re-tune and the sweep/post-exit chunk layout"
  ],
  "next_ideas": [
+  "lv3 (main bf9a05d) is the closest structural base: full three-way threading and errseq = orig except 306. Re-tune frame/RA on it (rx.py frame steps) and look for the chunk relayout that costs fm 0.686 -> 0.561",
   "Use nv3 (6af878b) as a structural base for a frame/RA hill-climb (w13a01 rx.py frame steps, pfclimb knobs); measure skeleton and frame-masked ratio as well as plain ratio",
   "Find a source form that keeps the sweep tail and the orig 0x5860 post-exit chunk in place once holder-None threads (BFI: the holder-None path now reaches holder&shared directly)",
   "r1 (8/24 split) + an in-pipeline-cheap join: post-hoc JT already threads it (r1jt: skeleton +0.005, errseq tail = orig)"
