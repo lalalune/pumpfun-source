@@ -1,0 +1,48 @@
+{
+  "testedHead": "b431f846ef55e68998fe38c270d6127b60bba50d",
+  "command": [
+    "node",
+    "--test",
+    "app/tests/explore_presentation.test.mjs"
+  ],
+  "exitCode": 0,
+  "files": [
+    {
+      "path": "app/reconstruction/explore-presentation/PROVENANCE.json",
+      "bytes": 132649,
+      "sha256": "8281ea30ad6cec9b9c3242d6c6f8cc2a0e5907a551be512fb6cb9d26a9c42de8",
+      "gitBlob": "0145a2930e6ccfcda5ed14c21e1e5b7e9c8ef3a8"
+    },
+    {
+      "path": "app/reconstruction/explore-presentation/browser-fixture.mjs",
+      "bytes": 2729,
+      "sha256": "2d5327703fb883978a99b2d2938b8526591a89f6bdf4e5bd716cb0de85274dc4",
+      "gitBlob": "76ac1e826341258c99cca64802528af15c6825f6"
+    },
+    {
+      "path": "app/reconstruction/explore-presentation/client.mjs",
+      "bytes": 80797,
+      "sha256": "447e46967d073242ecb0a88497cf38e746dbabb1e64ecc6e406249e205e78e0b",
+      "gitBlob": "e5b57e2ae6127eee5f1e495cde4435db6e01eaa8"
+    },
+    {
+      "path": "app/reconstruction/explore-presentation/fixture.mjs",
+      "bytes": 6094,
+      "sha256": "e469049b71cf6645438a32808b993546193f90281fe3309819b1013cf159839d",
+      "gitBlob": "35173e436dc6ea652a1ef949a6aeffb949e6cca5"
+    },
+    {
+      "path": "app/reconstruction/explore-presentation/recover.mjs",
+      "bytes": 10676,
+      "sha256": "e76df68af24eab20133b93ed1f69e4fe3f0e55a8cfbf9daf2dd2d2453975bb68",
+      "gitBlob": "a3e64a540eb33e23293095b3820acdd9fa0fb79b"
+    },
+    {
+      "path": "app/tests/explore_presentation.test.mjs",
+      "bytes": 8006,
+      "sha256": "d89ab6e904bc1f50fe94249300c9f45b8d5a95b92ee4bc43c62b8f9da6fe62b6",
+      "gitBlob": "0c2d6bf32f6815adb87ec38594397d172b9e5699"
+    }
+  ],
+  "scope": "Same10cases repeated for exact committed-source binding before publication, not20unique. Original precommit source-identical logs remain unmodified."
+}

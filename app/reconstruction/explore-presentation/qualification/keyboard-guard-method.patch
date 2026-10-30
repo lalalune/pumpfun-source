@@ -1,0 +1,21 @@
+diff --git a/app/reconstruction/explore-presentation/browser.mjs b/app/reconstruction/explore-presentation/browser.mjs
+index 4df6deddd1..de00339cea 100644
+--- a/app/reconstruction/explore-presentation/browser.mjs
++++ b/app/reconstruction/explore-presentation/browser.mjs
+@@ -99,9 +99,14 @@ try {
+   await update('error'); await page.getByTestId('home-feed-load-failed').waitFor();
+   await page.getByRole('button', { name: 'web.common.try_again' }).click();
+   assert.equal((await observe()).retry.length, 1);
+-  await update('busy'); await page.getByRole('button', { name: 'web.common.try_again' }).click();
++  await update('busy');
++  const busyRetry = page.getByRole('button', { name: 'web.common.try_again' });
++  await busyRetry.focus();
++  assert.equal(await busyRetry.getAttribute('aria-disabled'), 'true');
++  assert.equal(await busyRetry.evaluate((button) => button.disabled), false);
++  await busyRetry.press('Enter');
+   assert.equal((await observe()).retry.length, 1);
+-  await save('social-terminal empty/no-search error uses complete31memo failure frame; aria-busy retry guard suppresses repeated callback');
++  await save('social-terminal empty/no-search error uses complete31memo failure frame; native keyboard activation reaches aria-busy callback guard without repeated retry');
+ 
+   await page.evaluate(() => document.activeElement?.blur());
+   await update('recover'); await page.waitForFunction(() => document.activeElement?.classList.contains('outline-none'));
