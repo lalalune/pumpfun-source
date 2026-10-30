@@ -1,5 +1,6 @@
 """Audit the nested receipt-log shape accepted by the strict ordered checker."""
 import json
+import hashlib
 from pathlib import Path
 import subprocess
 import sys
@@ -14,6 +15,34 @@ RIGHT = LEFT.replace('2004', '2005')
 
 
 class DiagnosticMetadataTests(unittest.TestCase):
+    def test_concurrent_cli_publication_retains_one_complete_receipt(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, output = root / 'receipt.json', root / 'audit.json'
+            raw = json.dumps({'suites': {'recorded': [self.pair()]}}).encode('utf-8')
+            source.write_bytes(raw)
+            command = [sys.executable, str(Path(gate.__file__).resolve()),
+                       '--report', str(source), '--output', str(output)]
+            # This fixture contains a real diagnostic mismatch, so the single
+            # successful publisher returns 1 too. Publication losers must fail
+            # specifically because the destination already exists.
+            processes = [subprocess.Popen(command, stdout=subprocess.PIPE,
+                                          stderr=subprocess.PIPE) for _ in range(4)]
+            results = [process.communicate(timeout=30) for process in processes]
+            published = [i for i, (_, stderr) in enumerate(results) if not stderr]
+            self.assertEqual(len(published), 1, results)
+            self.assertEqual(processes[published[0]].returncode, 1)
+            for i, process in enumerate(processes):
+                if i != published[0]:
+                    self.assertNotEqual(process.returncode, 0)
+                    self.assertIn(b'FileExistsError', results[i][1])
+            receipt = json.loads(output.read_bytes())
+            self.assertEqual(receipt['source_report_sha256'], hashlib.sha256(raw).hexdigest())
+            self.assertEqual(receipt['log_bearing_cases'], 1)
+            self.assertEqual(len(receipt['mismatches']), 1)
+            self.assertEqual(source.read_bytes(), raw)
+            self.assertEqual(list(root.glob('.audit.json.*')), [])
+
     def pair(self, left=LEFT, right=RIGHT):
         return {'original': {'metadata': {'logs': [left]}},
                 'candidate': {'metadata': {'logs': [right]}}}
