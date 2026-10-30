@@ -173,6 +173,22 @@ mains the rebuild does not stack: s5 on 1f1a717 collapses to 0.38197 at 27,400 B
 tuple copy (`validate(&st,holder,fee,args.0,..)`) gives 0.51124 at 27,728 B on 1f1a717 but 0.47025 at
 27,512 B on #2927 (args bound before CtoState), and no borrow combination brings it back above main.
 
+### Last trials on the main after #2927 (0.51228)
+
+| trial | edit | bytes | ratio |
+| --- | --- | ---: | ---: |
+| q1-q4 | `map` rebuilds next to `args=&(new,)` (in the validate arg, before validate, inside `args`, before `holder`) | 27,288-27,432 | 0.370-0.433 |
+| u1-u3 | unconditional payload rebuilds (`unwrap_or_default` + `is_some`) | 27,448-27,632 | 0.371-0.444 |
+| u4 | `args=&(new,new.unwrap_or_default())` | 27,400 | identical to main |
+| tg1, tg4 | fresh `target` value for the curve store (`Pubkey::new_from_array(target.to_bytes())`, `*&{target}`) | 27,400 | identical to main |
+| tg2, tg3 | same bound before the curve block | 27,456 | 0.30795 |
+
+MIR (`--emit=mir` on an experiment copy): the outer `target` is `_61`, the tuple binding; the
+`let mut target=target;` rebinding shares it (both debug scopes point at `_61`), which is why moving or
+dropping the rebinding is byte-identical. The original's E32 sits first among execute's own allocas, i.e. it
+is the latest-created local; a source form has to create the joined target late without CopyProp folding it
+back into `_61`.
+
 Caution for anyone reusing `capraw.py`: when a variant fails to compile, the previous trial's
 `pump_recovered.ll` stays in the work dir; `capvar.sh` now deletes it first and checks the build log.
 

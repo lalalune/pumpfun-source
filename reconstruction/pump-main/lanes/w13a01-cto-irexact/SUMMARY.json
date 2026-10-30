@@ -1,54 +1,90 @@
 {
-  "lane": "w13a01-cto-irexact",
-  "wave": 13,
-  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
-  "angle": "exact-IR target: edit admin_cto's IR toward the original bytes, publish the ordered recipe, then source spellings",
-  "bases": {"3912c47": 0.48772, "085e5df": 0.48922, "4394685": 0.49071, "1f1a717": 0.49431, "after #2927": 0.51228},
-  "landed": false,
-  "best_source_result": {"note": "no zero-loss gain at 27400 B on a current main; best unpinned: s5 let new=new.map(|k|k) before validate on 4394685 = 0.50845 at 27488 B; s5 + dest borrow 0.50681 at 27408 B", "ratio": null},
-  "oracles": {
-    "rx.py + capraw.py": "pre-opt module + SDK rustlib opt -O3 + fastbuild llc reproduces the baseline build's admin_cto tokens exactly (verified on 5 mains); ~10-15 s per raw-IR edit",
-    "capvar.sh / batch.sh": "source edit -> one slot-locked capture -> exact score, ~35 s",
-    "sbdiff.py / regmap.py / skelscan.py / scgroups.py": "original-vs-candidate diff, skeleton (regs+frame+jumps masked) ratio and per-region register renames, stack-coloring merge groups"
+ "lane": "w13a01-cto-irexact",
+ "wave": 13,
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "angle": "exact-IR target: edit admin_cto's IR toward the original bytes, publish the ordered recipe, then source spellings",
+ "bases": {
+  "3912c47": 0.48772,
+  "085e5df": 0.48922,
+  "4394685": 0.49071,
+  "1f1a717": 0.49431,
+  "after #2927": 0.51228
+ },
+ "landed": false,
+ "best_source_result": {
+  "note": "no zero-loss gain at 27400 B on a current main; best unpinned: s5 let new=new.map(|k|k) before validate on 4394685 = 0.50845 at 27488 B; s5 + dest borrow 0.50681 at 27408 B",
+  "ratio": null
+ },
+ "oracles": {
+  "rx.py + capraw.py": "pre-opt module + SDK rustlib opt -O3 + fastbuild llc reproduces the baseline build's admin_cto tokens exactly (verified on 5 mains); ~10-15 s per raw-IR edit",
+  "capvar.sh / batch.sh": "source edit -> one slot-locked capture -> exact score, ~35 s",
+  "sbdiff.py / regmap.py / skelscan.py / scgroups.py": "original-vs-candidate diff, skeleton (regs+frame+jumps masked) ratio and per-region register renames, stack-coloring merge groups"
+ },
+ "recipe_latest_main": [
+  {
+   "spec": "mv:_114.i:_185",
+   "ratio": 0.53565
   },
-  "recipe_latest_main": [
-    {"spec": "mv:_114.i:_185", "ratio": 0.53565},
-    {"spec": "mv:sharing_update.sroa.3:_185", "ratio": 0.53655},
-    {"spec": "mv:target1:_185", "ratio": 0.54524}
-  ],
-  "recipe_4394685": [
-    {"spec": "mv:_114.i:_179", "ratio": 0.51917},
-    {"spec": "nolt:buf.i32.i", "ratio": 0.53865},
-    {"spec": "mv:val5:_179", "ratio": 0.54614},
-    {"spec": "bw:start:1:2000", "ratio": 0.54853},
-    {"spec": "bw:bb7.i:2000:1", "ratio": 0.54883}
-  ],
-  "findings": [
-    "skeleton ratio (registers, frame offsets, jump offsets masked) is ~0.83-0.85: the remaining distance is mostly register assignment and frame, not code shape; perfect-frame bound after the 4394685 recipe 0.620",
-    "F1 is a stack-coloring position change: the merge group {_114.i, target.i.sroa.0} is identical with and without F1; only its frame index moves",
-    "a local copy of new at the entry block reproduces the original's piece loads instruction for instruction and the original's F7/G9 + A7/B9 + C7/D9 objects; copies placed after global_quote are forwarded by MemCpyOpt from the noalias readonly arg and deleted by InstCombine",
-    "source let new=new.map(|k|k) puts new's 7/9 B pieces at exactly the original offsets (-0x655/-0x658/-0x660/-0x668); conditional on Some, unlike the original",
-    "per-site matches!(hopt,Some(true)) (w13a06 a4) + a copy of new recover 152 of a4's 376 missing bytes"
-  ],
-  "rejected": [
-    "old_creator declared before the sharing CPI (4 spellings): byte-identical",
-    "target rebinding dropped/moved/immutable: byte-identical",
-    "wallet body inline in execute: 28840 B, 0.1415",
-    "holder trunc (raw IR): -248 B",
-    "n6 validate reads args.0 on #2927: 0.470 at 27512 B",
-    "s5 rebuild on mains with args=&(new,): 0.38",
-    "val_sh_borrow as compensator: collapses to 0.28"
-  ],
-  "unresolved": [
-    "source for F1 (execute-level 24 B leader for the signer-slice group, H24)",
-    "source for target1 late (which MIR local survives CopyProp for the block's target)",
-    "unconditional entry copy of new after CtoState (original 0x4d8 load sequence)",
-    "register allocation (accounts pointer r8 vs r6 etc.)"
-  ],
-  "next_ideas": [
-    "an unconditional rebuild of new (both tag and payload stored) right before validate on the latest main, with a size companion",
-    "dump MIR (-Zdump-mir, experiment copy) for the block's tuple to see which local CopyProp keeps for target",
-    "skelscan the w13 composites to keep code shape moving even when plain ratio is flat"
-  ],
-  "ledger_keys": "0x22a10-w13-*-irexact-*"
+  {
+   "spec": "mv:sharing_update.sroa.3:_185",
+   "ratio": 0.53655
+  },
+  {
+   "spec": "mv:target1:_185",
+   "ratio": 0.54524
+  }
+ ],
+ "recipe_4394685": [
+  {
+   "spec": "mv:_114.i:_179",
+   "ratio": 0.51917
+  },
+  {
+   "spec": "nolt:buf.i32.i",
+   "ratio": 0.53865
+  },
+  {
+   "spec": "mv:val5:_179",
+   "ratio": 0.54614
+  },
+  {
+   "spec": "bw:start:1:2000",
+   "ratio": 0.54853
+  },
+  {
+   "spec": "bw:bb7.i:2000:1",
+   "ratio": 0.54883
+  }
+ ],
+ "findings": [
+  "skeleton ratio (registers, frame offsets, jump offsets masked) is ~0.83-0.85: the remaining distance is mostly register assignment and frame, not code shape; perfect-frame bound after the 4394685 recipe 0.620",
+  "F1 is a stack-coloring position change: the merge group {_114.i, target.i.sroa.0} is identical with and without F1; only its frame index moves",
+  "a local copy of new at the entry block reproduces the original's piece loads instruction for instruction and the original's F7/G9 + A7/B9 + C7/D9 objects; copies placed after global_quote are forwarded by MemCpyOpt from the noalias readonly arg and deleted by InstCombine",
+  "source let new=new.map(|k|k) puts new's 7/9 B pieces at exactly the original offsets (-0x655/-0x658/-0x660/-0x668); conditional on Some, unlike the original",
+  "per-site matches!(hopt,Some(true)) (w13a06 a4) + a copy of new recover 152 of a4's 376 missing bytes",
+  "MIR: the outer target is the tuple binding _61 and the let mut target=target rebinding shares it"
+ ],
+ "rejected": [
+  "old_creator declared before the sharing CPI (4 spellings): byte-identical",
+  "target rebinding dropped/moved/immutable: byte-identical",
+  "wallet body inline in execute: 28840 B, 0.1415",
+  "holder trunc (raw IR): -248 B",
+  "n6 validate reads args.0 on #2927: 0.470 at 27512 B",
+  "s5 rebuild on mains with args=&(new,): 0.38",
+  "val_sh_borrow as compensator: collapses to 0.28",
+  "unconditional/map rebuilds of new next to args=&(new,) on #2927: 0.37-0.44",
+  "fresh late target local for the curve store: identical or 0.308"
+ ],
+ "unresolved": [
+  "source for F1 (execute-level 24 B leader for the signer-slice group, H24)",
+  "source for target1 late (which MIR local survives CopyProp for the block's target)",
+  "unconditional entry copy of new after CtoState (original 0x4d8 load sequence)",
+  "register allocation (accounts pointer r8 vs r6 etc.)"
+ ],
+ "next_ideas": [
+  "an unconditional rebuild of new (both tag and payload stored) right before validate on the latest main, with a size companion",
+  "dump MIR (-Zdump-mir, experiment copy) for the block's tuple to see which local CopyProp keeps for target",
+  "skelscan the w13 composites to keep code shape moving even when plain ratio is flat"
+ ],
+ "ledger_keys": "0x22a10-w13-*-irexact-*"
 }
