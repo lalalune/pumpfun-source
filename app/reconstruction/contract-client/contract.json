@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "classification": "Complete request compilation owner, injected transport/catalog; no native server or compatibility claim",
+  "anchors": {
+    "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+    "inventorySha256": "b3dca88778ef47f4d4d1054114a97d2930cb3dc691d0a3647c4d7085363e5439"
+  },
+  "owner": {
+    "id": 898661,
+    "ids": [
+      898661
+    ],
+    "label": "factory 898661",
+    "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+    "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+    "sourceSha256": "e78d2f38b06f971847c18dd05457c75afc85208135f50d6e4022a5f197e8839d",
+    "sourceBytes": 507700,
+    "utf16": [
+      393,
+      3119
+    ],
+    "utf8": [
+      393,
+      3119
+    ],
+    "sha256": "9015e4bad4b1f0bb4b245e446689d9b7e939b3ba922044c82dcd9e8d5f3d9ed5"
+  },
+  "occurrences": [
+    {
+      "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+      "start": 393,
+      "end": 3119
+    }
+  ],
+  "imports": [
+    {
+      "id": 858694,
+      "local": "o",
+      "evidence": {
+        "label": "actual imported dependency",
+        "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+        "sourceSha256": "e78d2f38b06f971847c18dd05457c75afc85208135f50d6e4022a5f197e8839d",
+        "sourceBytes": 507700,
+        "utf16": [
+          486,
+          499
+        ],
+        "utf8": [
+          486,
+          499
+        ],
+        "sha256": "ce4807fc7b0fab5c4b3470940570dcf2152d02477fc78dac373edec730dc459d"
+      }
+    },
+    {
+      "id": 402030,
+      "local": "n",
+      "evidence": {
+        "label": "actual imported dependency",
+        "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+        "sourceSha256": "e78d2f38b06f971847c18dd05457c75afc85208135f50d6e4022a5f197e8839d",
+        "sourceBytes": 507700,
+        "utf16": [
+          500,
+          513
+        ],
+        "utf8": [
+          500,
+          513
+        ],
+        "sha256": "c649e1fdefa71be1c3146badabbd581664b05d0b08593776b42cccea52bd6d62"
+      }
+    },
+    {
+      "id": 233815,
+      "local": "s",
+      "evidence": {
+        "label": "actual imported dependency",
+        "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+        "sourceSha256": "e78d2f38b06f971847c18dd05457c75afc85208135f50d6e4022a5f197e8839d",
+        "sourceBytes": 507700,
+        "utf16": [
+          514,
+          527
+        ],
+        "utf8": [
+          514,
+          527
+        ],
+        "sha256": "10eb89bba3e1c1749347eaf6c940a975d8e01b832dd523008b8554be3f866288"
+      }
+    },
+    {
+      "id": 4171,
+      "local": "a",
+      "evidence": {
+        "label": "actual imported dependency",
+        "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+        "sourceSha256": "e78d2f38b06f971847c18dd05457c75afc85208135f50d6e4022a5f197e8839d",
+        "sourceBytes": 507700,
+        "utf16": [
+          528,
+          539
+        ],
+        "utf8": [
+          528,
+          539
+        ],
+        "sha256": "6ec6f4917044adc679070e102ed39d8e8d055ae3bea9c8e8bc4420587e75f5ef"
+      }
+    }
+  ],
+  "implementation": {
+    "syntax": "r.createContractClient=e=>async(t,r={})=>{let[o,s]=t.split(\" \",2),{params:a,query:u,body:h,...m}=r,p=((e,t)=>{if(!t)return;let r=n.contract[e]?.query?.shape,o={};for(let[n,s]of Object.entries(t))if(void 0!==s)if(Array.isArray(s)){let t=s.map(String);if(0===t.length){if(r?.[n]?.safeParse(void 0).success)continue;throw TypeError(`${e}: query.${n} requires at least one item`);}let a=t.find(e=>e.includes(\",\"));if(void 0!==a)throw TypeError(`${e}: query.${n} item ${JSON.stringify(a)} contains a comma, which is the array separator`);o[n]=t.join(\",\");}else o[n]=String(s);return o;})(t,u),b=((e,t)=>{if(\"object\"==typeof t&&null!==t&&i(e)){if(t instanceof FormData)throw TypeError(`${e}: a hand-built FormData is not accepted (contract 0.57.0, TASK-5101); pass the JSON fields and the file parts as one object`);return i(e)?.some(e=>null!=t[e])?((e,t)=>{let r=new FormData(),o=new Set(i(e)),n=\"function\"==typeof r.getParts;for(let[s,a]of Object.entries(t))if(void 0!==a)if(o.has(s)){if(null===a)continue;else if(n?l(a):a instanceof Blob)r.append(s,a);else throw d(e,s,a);}else r.append(s,\"object\"==typeof a?JSON.stringify(a):String(a));return r;})(e,t):void 0;}})(t,h);try{return await e(((e,t={})=>e.slice(1).replace(/\\{(\\w+)\\}/g,(e,r)=>encodeURIComponent(String(t[r]))))(s,a),{method:o.toLowerCase(),...(p&&{searchParams:p}),...(b?{body:b}:void 0!==h&&{json:h}),...m}).json();}catch(e){throw(await c(t,e))??e;}}",
+    "evidence": {
+      "label": "original complete request compiler",
+      "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+      "sourceSha256": "e78d2f38b06f971847c18dd05457c75afc85208135f50d6e4022a5f197e8839d",
+      "sourceBytes": 507700,
+      "utf16": [
+        1723,
+        3118
+      ],
+      "utf8": [
+        1723,
+        3118
+      ],
+      "sha256": "4b7fc75cbc8058f1a394c927ee8e09a650d869add6ce3f760a80752ab6460c60"
+    }
+  },
+  "fullFactory": {
+    "syntax": "(e,t,r)=>{Object.defineProperty(r,\"__esModule\",{value:!0}),r.createContractClient=void 0;let o=e.r(858694),n=e.r(402030),s=e.r(233815),a=e.r(4171),i=e=>{let t=n.contract[e];return t?.multipart?t.multipartFiles??[\"image\"]:void 0;},l=e=>\"object\"==typeof e&&null!==e&&[\"uri\",\"name\",\"type\"].every(t=>\"string\"==typeof e[t]),d=(e,t,r)=>TypeError(r instanceof Blob?`${e}: ${t} is a Blob, which React Native's FormData cannot send; pass a { uri, name, type } descriptor`:l(r)?`${e}: ${t} is a { uri, name, type } descriptor, which only React Native's FormData can send; pass a Blob`:`${e}: ${t} is neither a Blob nor a { uri, name, type } descriptor`),c=async(e,t)=>{let r,i=(e=>{if(\"object\"!=typeof e||null===e)return;let t=e.response;if(\"object\"!=typeof t||null===t)return;let{status:r,text:o}=t;return\"number\"==typeof r&&\"function\"==typeof o?t:void 0;})(t);if(!i)return;try{let e=await i.text();try{r=JSON.parse(e);}catch{r=e;}}catch{r=void 0;}let l=n.contract[e],d=l?(0,s.routeErrorSchema)(l,i.status):void 0,c=d&&!0!==d?d.safeParse(r):void 0,u=a.contractErrorBody.safeParse(r);return new o.ContractError(e,i.status,r,c?.success?c.data:u.success?u.data:{statusCode:i.status},(e=>{if(\"object\"!=typeof e||null===e)return;let{message:t}=e;return\"string\"==typeof t?t:Array.isArray(t)?t.filter(e=>\"string\"==typeof e).join(\"; \"):void 0;})(r),t);};r.createContractClient=e=>async(t,r={})=>{let[o,s]=t.split(\" \",2),{params:a,query:u,body:h,...m}=r,p=((e,t)=>{if(!t)return;let r=n.contract[e]?.query?.shape,o={};for(let[n,s]of Object.entries(t))if(void 0!==s)if(Array.isArray(s)){let t=s.map(String);if(0===t.length){if(r?.[n]?.safeParse(void 0).success)continue;throw TypeError(`${e}: query.${n} requires at least one item`);}let a=t.find(e=>e.includes(\",\"));if(void 0!==a)throw TypeError(`${e}: query.${n} item ${JSON.stringify(a)} contains a comma, which is the array separator`);o[n]=t.join(\",\");}else o[n]=String(s);return o;})(t,u),b=((e,t)=>{if(\"object\"==typeof t&&null!==t&&i(e)){if(t instanceof FormData)throw TypeError(`${e}: a hand-built FormData is not accepted (contract 0.57.0, TASK-5101); pass the JSON fields and the file parts as one object`);return i(e)?.some(e=>null!=t[e])?((e,t)=>{let r=new FormData(),o=new Set(i(e)),n=\"function\"==typeof r.getParts;for(let[s,a]of Object.entries(t))if(void 0!==a)if(o.has(s)){if(null===a)continue;else if(n?l(a):a instanceof Blob)r.append(s,a);else throw d(e,s,a);}else r.append(s,\"object\"==typeof a?JSON.stringify(a):String(a));return r;})(e,t):void 0;}})(t,h);try{return await e(((e,t={})=>e.slice(1).replace(/\\{(\\w+)\\}/g,(e,r)=>encodeURIComponent(String(t[r]))))(s,a),{method:o.toLowerCase(),...(p&&{searchParams:p}),...(b?{body:b}:void 0!==h&&{json:h}),...m}).json();}catch(e){throw(await c(t,e))??e;}};}",
+    "evidence": {
+      "label": "original complete request compiler",
+      "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+      "sourceSha256": "e78d2f38b06f971847c18dd05457c75afc85208135f50d6e4022a5f197e8839d",
+      "sourceBytes": 507700,
+      "utf16": [
+        393,
+        3119
+      ],
+      "utf8": [
+        393,
+        3119
+      ],
+      "sha256": "9015e4bad4b1f0bb4b245e446689d9b7e939b3ba922044c82dcd9e8d5f3d9ed5"
+    }
+  },
+  "maintainedSha256": "23b4e521853965a15515ea91674e4eb78223003a907e80dcdbdf95c135086d32",
+  "creditedPrerequisite": {
+    "path": "reconstruction/contract-http-errors/decode.mjs",
+    "sha256": "6c031fbc61cb11cd898830011dcce6ce95231e823caf06930f60dd1fe6b6be78",
+    "newlyRecovered": false
+  },
+  "boundaries": [
+    "Transport, route catalog and safeParse implementations are explicit required ports.",
+    "Query/multipart preflight precedes HTTP error normalization; successful JSON is not response-schema validated.",
+    "Native FormData constructor is an explicit platform port; tests do not qualify a React Native runtime.",
+    "No original captured code executes, no default production transport, auth, provider or network is created."
+  ]
+}
