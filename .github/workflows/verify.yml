@@ -52,6 +52,7 @@ jobs:
               python -B reconstruction/harness/test_short_window_ranking.py
               python -B reconstruction/harness/test_applicability_evidence_paths.py
               python -B reconstruction/harness/test_diagnostic_range_boundaries.py
+              python -B reconstruction/harness/test_stack_access_isa.py
               python scripts/test_build_source_manifest.py
               python -I -B tests/test_manifest_nested_target.py
               python scripts/test_core_linux_v144_retention.py
