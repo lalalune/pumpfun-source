@@ -81,6 +81,7 @@ together return to 27,400 B with a higher ratio and the same slots_diff (attempt
 | w01-w08 | holder unwrap + cashback after validate (+ A1 / ql / #2524 / with_signer) | 27,184-27,400 | <= 0.364 | |
 | x01-x10 | on #2524: curve store / pool / event order singles | 27,384-27,816 | <= 0.364 | |
 | y1/y2 | +8 knob + collect_old `!shared` | 27,400 | 0.36339 / 0.36159 | 3,338 |
+| z1-z7, f1, f2 | y4 / #2524 plus further knob compositions | 27,392-27,416 | <= 0.36219 | 3,297-3,355 |
 | **y4** | can_edit first + fee unwrap_or + pool empty-first | **27,400** | **0.36129** | **3,297** |
 
 ## Next ideas
