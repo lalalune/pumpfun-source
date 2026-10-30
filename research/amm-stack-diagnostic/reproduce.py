@@ -21,6 +21,10 @@ import native_build as native
 import sell_score
 import window_elf_reader
 
+with (PROOF / 'existing-publication-tests.log').open('w') as stream:
+    subprocess.run([sys.executable, '-B', str(ROOT / 'scripts/amm_sell/test_native_build_preservation.py')],
+                   stdout=stream, stderr=subprocess.STDOUT, check=True)
+
 SDK = Path.home() / '.cache/solana/v1.44/platform-tools'
 HYBRID = Path.home() / '.cache/pumpfun-reconstruction/toolchains/hybrid144'
 native.SDK.parent.mkdir(parents=True)
@@ -91,7 +95,7 @@ recovered = native.build(lane, 'repeated', jobs=2)
 assert recovered['returncode'] == 0 and recovered['candidate_sha256'] == first['candidate_sha256']
 summary = {'actual_baseline': first, 'actual_diagnosed_attempt': bad,
            'actual_diagnostic_lines': warnings, 'retained_diagnosed_functions': functions,
-           'compiler_output_sha256': sha(PROOF / 'diagnosed-symbols.so.gz'),
+           'diagnosed_symbols_gzip_sha256': sha(PROOF / 'diagnosed-symbols.so.gz'),
            'prior_published_outputs_preserved': preserved, 'diagnosed_attempt_rejected': rejected,
            'qualified_warning_control_still_accepted': recovered['returncode'] == 0,
            'baseline_raw_windows': first_score['windows_raw_equal'],
