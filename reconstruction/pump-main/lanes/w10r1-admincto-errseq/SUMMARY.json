@@ -1,0 +1,29 @@
+{
+ "lane": "w10r1-admincto-errseq",
+ "target": "0x22a10 admin_cto::execute",
+ "angle": "error-sequence alignment (order and form of every error exit)",
+ "base": "origin/main 917ee615f (1032/347, 27344 B, ratio 0.37637)",
+ "best": {
+  "branch": "swarm/w10r1-admincto-errseq",
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/2564",
+  "mechanism": "validate takes shared; non-holder arm yields if shared{st.creator}else{t} (orig tests shared at 0xd98 inside the non-holder arm before the fee checks); execute's target override removed",
+  "unstripped_sha256": "8c61702217808cbd63b389c6a6f3d8e8089c12df4d6f93c3007d762995f31848",
+  "official": {"normalized": 1032, "raw": 1032, "gains": [], "losses": [], "raw_losses": []},
+  "target": {"cand_bytes": 27400, "orig_bytes": 27400, "ratio": 0.34781, "slots_diff": 3368, "calls": [154, 3]}
+ },
+ "error_sequence": {
+  "original": [289,298,306,296,326,312,307,330,338,334,410,719,648,660,284,556],
+  "main": [298,289,330,296,326,306,312,307,338,410,334,719,648,660,284,556]
+ },
+ "findings": [
+  "Error tails are identical modulo frame offsets except 307/312 (outlined to_string in orig)",
+  "holder as and-1 (unwrap_or) puts 289 before 298 (BPI zero heuristic on main's (x&0xfd)!=0)",
+  "306 new-tag test via and-1 in the IR moves 306 before 296",
+  "orig fee code is single (154 calls) but holder path skips 330 and no-fee edges split by holder/shared: threading main lacks",
+  "llc on captured IR and opt -O3 on raw IR both reproduce main exactly (fast oracles)"
+ ],
+ "attempts": 13,
+ "rejected": ["fee helper fn per arm (outlined / inline(always): 163 calls)", "let-else early Ok for no-fee", "306 is_none/unwrap and match spellings (byte-identical)", "t06+ql_before_shared (27408)", "validate returns cashback (27288)", "unwrap_or on main (27608) and on t06 (27376)"],
+ "unresolved": ["fee-block threading (holder path skipping 330, split no-fee edges)", "307/312 inlined to_string", "sweep tail placement (other lanes)"],
+ "next_ideas": ["find source shape giving the orig post-validate if-tree with a skip-sweep phi plus threaded fee-tag test, using the raw-IR opt oracle", "combine t06 with region2 sharing if-tree (#2515)", "new-tag trunc form for 306 without range metadata"]
+}
