@@ -1,0 +1,2 @@
+EDITS=[("fee_configurable:a.global.creator_fee_configurable};let hopt=holder;","fee_configurable:a.global.creator_fee_configurable};let x;let hopt=holder;"),
+("{(None,!st.holder_reward&&st.creator!=Pubkey::default(),true)};(holder,cashback,target,sharing_update,collect_old,skip)};","{(None,!st.holder_reward&&st.creator!=Pubkey::default(),true)};if st.quote_locked{x=target}else{x=target};(holder,cashback,x,sharing_update,collect_old,skip)};")]

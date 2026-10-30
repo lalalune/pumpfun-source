@@ -55,6 +55,17 @@ Faithful contents do not add to the opaque stand-in. With X24 and the 9 B piece 
 the ratio is 0.62133, below 0.62163. Putting the signer slice into X24 moves the 0x540 objects, and the 1 B and 0 B
 allocas then lose their hosts.
 
+## Source trials (raw-IR capture + rx oracle, which equals the build tokens; edit lists in `e/T*.py`)
+
+| trial | form | ratio | bytes | notes |
+| --- | --- | ---: | ---: | --- |
+| T1 | fee-first `validate -> Result<(Option<u64>,Pubkey)>`, `?.1` (the 8/24 split for X24) | 0.32268 | 27,296 | abs 0.58352, pf bound 0.51688: the code shape collapses, frame top +8 |
+| T2 | T1 + plain `holder_key=PDA.0` | 0.29836 | 27,296 | |
+| T6 | w13a02 flat `let x;` after CtoState, `if st.quote_locked{x=target}else{x=target}` | 0.54214 | 27,528 | x splits 7/9, no 24 B piece |
+| T7 | T6 + plain PDA | 0.53885 | 27,528 | abs 0.71249, pf 0.64973 (> main 0.64949); `sharing_update.sroa.2` (32 B) lands at 0x680, but holder_key 0x6b0 / mint 0x6d0 are +16 and the two-arm copy is +128 B |
+
+Neither X24 source family is close on this main. The fee-first split changes far more than the frame.
+
 ## Why no source form was landed
 
 - **Plain PDA** (`let (holder_key,_)=PDA` / `PDA.0` / a scoped `hk`) is i2. Earlier lanes measured it on several mains:
