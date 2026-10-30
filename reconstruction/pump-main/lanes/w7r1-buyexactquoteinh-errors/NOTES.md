@@ -50,3 +50,15 @@ Remaining residual: orig 0x1430d0..0x143100 schedule of `mov r1,0; stxdw [r10-0x
 | t10/n1 | t7 + drop(ev) after TradeEvent CPI | 20184 | 0.99878 |
 | t11 | t10 with niche Result<()> (control) | 20216 | 0.98865 |
 | n2 | by-value pass-through Result<CompleteEvent> | 20184 | 0.93425 |
+| r1 | regsched d10 (`partial:&bool`) on this head (handler stays inline(never)) | 20184 | 0.96144, loss 0x127b58 |
+| e1/e7 | `.ok_or::<Error>(PumpError::Overflow.into())?` at total_bps / quote sub | 20104/20240 | 0.753/0.854 (eager into call) |
+| e2 | `let clock=Clock::get()?;` binding | 20184 | byte-identical |
+| e6 | bind sharing_config AccountInfo before shareholders | 20192 | 0.80544 |
+
+## Status vs other lanes
+
+PR #2240 (w7r1-buyexactquoteinh-sibling) reaches 0.99959 with the program-fn form (handler
+LLVM-inlined into an `#[inline(never)]` program fn, which also scopes the CPI temporaries), and the
+regsched lane's `partial:&bool` variant on that base reports a normalized match. This lane's
+tagged-Result helper is an independent route to the same CFG and frame (only the mov r7,2 group
+left); the `&bool` fix does not carry over to the `#[inline(never)]` handler (r1).
