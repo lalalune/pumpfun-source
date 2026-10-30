@@ -119,6 +119,9 @@ and only an `hb` defined after `quote_locked` (just before the state block) keep
 | p3n + tu8 (`let hb=holder.unwrap_or(false);` after quote_locked, validate `hopt:bool`) | 27,336 | 0.63227 | 2,108 | |
 | **p3u + tu8** (same, validate `hopt:u8`, tests `hopt&1`) | 27,344 | **0.63248** | **2,109** | full `measure.sh`: = oracle, normalized 1034 (0 losses), calls 154+3, differential 363/363 |
 
+On main 1b0ae70 (0.63661, M 2,125): p3u+tu8 0.63317 @ 27,336 (M 2,111), p3n 0.63297 (2,110), p2 / vu8 / e3 0.6314
+(2,104); all keep the original error-tail order through 338.
+
 So the and-1 outline form tracks main at -13 M / -56 B, and which `hb` position works depends on the rest of the
 function's register pressure: it is not a stable lever.
 
