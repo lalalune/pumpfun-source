@@ -1,0 +1,26 @@
+{
+  "lane": "w7r1-buyhandler-regsched",
+  "base": "origin/main 6edd839 (1027 normalized / 276 raw)",
+  "target": {"window": "0x13b9b8", "fn": "buy_v2::buy_handler", "orig_bytes": 15480},
+  "best_own": {"trial": "A1", "ratio": 0.98209, "bytes": 15512, "llc_dist": 38, "normalized": 1027, "raw": 276, "gains": [], "losses": [],
+               "unstripped_sha256": "2ae74f243fdc83e691a7fa19d3f29fae5ad6a6cb4ad66162611bb7f5feb19cba", "pr": "https://github.com/lalalune/pumpfun-source/pull/2222"},
+  "target_status": "normalized match reached by PR #2225 (w7r1-buyhandler-inline), which uses this lane's A1 + B1; independently verified here: 1028/276, gain 0x13b9b8, 0 losses, sha 5a670388f726",
+  "mechanisms_found": [
+    "is_sol select order: orig evaluates quote, virtual_quote_reserves, real_quote_reserves (llc perm 0,2,1). Writing virtual_token_reserves,virtual_sol_reserves before real_sol_reserves in the TradeEvent literal removes both spill-slot swaps (42->38)",
+    "fee-zero phi order: only phi order cf,pf,pbps,cbps (1 of 24) reproduces the zero movs; sell_v2's cf-first tuple spelling gives it",
+    "tf Err block must sit between add2 and cmp (oracle dist 9 on B1 IR); module form cannot place it there because rustc creates blocks on first reference while walking the MIR in RPO"
+  ],
+  "attempts": 15,
+  "rejected_mechanisms": [
+    "cf-first variants: explicit match/return Err, map closure inner/outer ?, tuple index, negated if (identical to B1)",
+    "not_whitelisted binding (0.97471, dist 71)",
+    "nested plain fn total_cost for the add chain (not inlined, closure windows lost)",
+    "nested #[inline(always)] fn total_cost (0.73)",
+    "oracle: Err edge branch weights, Err folded into the edge, Err at later positions"
+  ],
+  "unresolved_residuals": ["none for 0x13b9b8 once #2225 merges; eq 0x13f630 module form still shows a mov r7,2 scheduling swap plus the shared tail"],
+  "next_ideas": [
+    "eq 0x13f630: apply the program-fn form from #2225 and check whether the mov r7,0x2 order (orig 1835) is the same phi-copy order mechanism",
+    "Use scripts/ora.py (generic IR edit -> llc -> masked diff) on other windows to separate scheduling residuals from block-order ones"
+  ]
+}

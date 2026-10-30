@@ -38,3 +38,21 @@ trade_fees Err block is created before add1: 15,504 B, 0.96179, dist 66. On B1's
 block (bb215) after add2 (bb219) gives **llc dist 9**: only the tail residual shared with eq remains.
 Variants that keep the same IR (byte-identical or same metric): explicit match/return Err, map closure
 (inner or outer `?`), tuple indexing, negated if.
+
+### Err-block position (oracle sweep on B1 IR)
+- dist 9 only when the trade_fees Err block (bb215) sits after add2 (bb219) and before the cmp block
+  (bb223), or after the order OVF1,OVF2,CMP. With Err still before add1, every order of
+  OVF1/CMP/OVF2 gives 66-73. Err at the function end or after cmp gives 66. Folding Err into the edge
+  gives 93. Adding likely/unlikely weights on the Err edge gives 170/66.
+- Why module form cannot do it: rustc creates LLVM blocks on first reference while it walks the MIR in
+  RPO. The Err arm is created at the trade_fees switch, before add1/add2 exist, and the LLVM pipeline
+  keeps that order (print-changed dumps: the order is the same from Start to the end of opt).
+- Rejected source forms: `not_whitelisted` binding (0.97471, dist 71, Err becomes the TF fallthrough),
+  nested plain `fn total_cost` (not inlined, loses closure windows 0xac2b8/0xac4c0), nested
+  `#[inline(always)] fn total_cost` (0.73, frame changes).
+
+### Outcome
+PR #2225 (w7r1-buyhandler-inline) combines the program-fn form and inline Complete emission with this
+lane's A1 (select order) and B1 (cf-first fee tuple). In program-fn form the Err block lands where the
+original has it, and buy_handler is a **normalized match**. Independent rebuild of 8b8ebe781 here:
+1028/276, gain 0x13b9b8, no losses, sha 5a670388f726ef26... (ledger d89c14c3).
