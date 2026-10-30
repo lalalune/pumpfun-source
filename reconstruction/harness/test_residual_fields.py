@@ -1,6 +1,6 @@
 import struct
 import unittest
-from residual_fields import field_differences
+from target_metric import field_differences
 
 
 def ins(op=0xb7, regs=1, off=0, imm=0):
