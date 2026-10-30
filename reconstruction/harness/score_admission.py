@@ -48,7 +48,7 @@ def baseline(path):
     rows = windows.items() if isinstance(windows, dict) else ((row.get('start'), row) if isinstance(row, dict) else (None, row) for row in windows)
     for address, row in rows:
         if isinstance(address, bool) or not isinstance(address, (str, int)) or not isinstance(row, dict): raise ValueError('invalid baseline window')
-        start = int(address, 16 if isinstance(address, str) and address.startswith('0x') else 10) if isinstance(address, str) else address
+        start = int(address, 16 if isinstance(address, str) and address.lower().startswith('0x') else 10) if isinstance(address, str) else address
         size = row.get('bytes')
         if start < 0 or start in result or type(size) is not int or size <= 0: raise ValueError('invalid/duplicate baseline range')
         if isinstance(windows, list):
