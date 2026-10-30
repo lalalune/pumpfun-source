@@ -115,6 +115,23 @@ fee_configurable test; 330 only on the non-holder arm). Same metrics for the spe
 breaks the threading (27,008 B, 0.42359). Not compensators: curve bools read before `global_quote`
 (-72 B, 0.46962), inverted wallet flags (byte-identical).
 
+### Same mechanism as the per-arm cashback of #2831
+
+w12a14-cto-hillclimb's 27,400 B candidate (PR #2831, 0.48652: `let cashback=if holder{false}else{st.cashback};`
+before the fee checks, `if cashback{..330..}`, `match fee{Some(f)=>..,None=>{}}`, curve/event locals)
+reaches the same holder-threaded validate: its callee sequence (0.9236) and result-slot order
+(`284 289 330 312 307 306 298 338 334 326 | ... | 296`) equal those of the 298 hoist. Adding the 298
+hoist on top of it is neutral (same ratio 0.4865188735769922 and 3,278 slots; only two overlapping u32
+copies at +0xa30 swap; ledger `0x22a10-w12-4f24fbc-callgraph-298-hoist-on-hillclimb-d7acbb3-v1`).
+
+Remaining call-sequence differences after #2831: the RPO places 330 and 312/307/306 early and 296 last
+(original: `298 296 330 338 334 326 | ... | 312 307 306`), the 334 block sits after the 410 code, and
+`to_string` is inlined at 307/312. On the 298-hoist IR, flipping the hr==0 holder test (non-holder
+arm first) reproduces the original's full slot order but costs ratio (27,384 B, 0.47678 vs 0.48381);
+the IR flips that gain ratio at +0 B (`!holder_enabled` 296 test +0.008, 306 None test +0.003) are
+single-use `icmp eq x,0` branches whose successor order InstCombine fixes, so plain source
+spellings cannot reach them.
+
 ## Scope
 
 These are instruction and call-layout observations for the named baseline.
