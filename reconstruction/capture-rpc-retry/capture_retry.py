@@ -14,3 +14,21 @@ module = types.ModuleType('capture_rpc_retry')
 module.__file__ = str(source_path)
 exec(compile(raw.decode('utf-8'), str(source_path), 'exec', optimize=0), module.__dict__)
 capture = module.capture
+
+
+_archived_rpc = module.rpc
+
+
+def contextual_rpc(url, method, params):
+    result = _archived_rpc(url, method, params)
+    if method == 'getAccountInfo':
+        slot = result.get('context', {}).get('slot') if isinstance(result, dict) else None
+        if type(slot) is not int or slot < 0:
+            raise ValueError('account response requires a nonnegative integer context slot')
+        minimum = params[1].get('minContextSlot') if len(params) > 1 else None
+        if minimum is not None and slot < minimum:
+            raise ValueError('account response context slot is below requested minContextSlot')
+    return result
+
+
+module.rpc = contextual_rpc
