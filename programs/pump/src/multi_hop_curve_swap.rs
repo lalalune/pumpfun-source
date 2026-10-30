@@ -589,11 +589,7 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
             let base = u64::try_from(crate::constant_product::tokens_for_quote(c,q)?).map_err(|_| error!(PumpError::Truncation))?;
             require_gt!(base,0,PumpError::BuyZeroAmount);
 
-<<<<<<< HEAD
-            let reserves = c.real_token_reserves; let (base_amount,quote_amount,pf,cf) = if base > reserves {
-=======
             let reserves = c.real_token_reserves; let (base_amount,quote_amount,fees,post_fill) = if base > reserves {
->>>>>>> origin/swarm/x1-p2-buy-fees-whole-netquote-completefill
 
 
 
@@ -601,21 +597,12 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
 
 
                 let allowed = { let user = a.user.key(); !c.is_mayhem_mode && user!=a.global.whitelist_pda }; require!(allowed,PumpError::NotEnoughTokensToBuy);
-<<<<<<< HEAD
-                if let Some((fees, quote, post)) = complete_fill(&a.global,&a.fee_config,fee_config_len,cap,c,
-                    &h.associated_base_bonding_curve,flag,p_rate,c_rate,trade_amount)? {
-                    post_fill=Some(post);
-                    (reserves,quote,fees.protocol_fee,fees.creator_fee)
-                }else{post_fill=None;(reserves,q,pf,cf)}
-            }else{post_fill=None;(base,q,pf,cf)};
-=======
                 if let Some((f, quote, post)) = complete_fill(&a.global,&a.fee_config,fee_config_len,cap,c,
                     &h.associated_base_bonding_curve,flag,p_rate,c_rate,trade_amount)? {
 
                     (reserves,quote,f,Some(post))
                 }else{(reserves,q,nf,None)}
             }else{(base,q,nf,None)};
->>>>>>> origin/swarm/x1-p2-buy-fees-whole-netquote-completefill
 
 
 
