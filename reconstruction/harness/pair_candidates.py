@@ -40,15 +40,15 @@ def body_groups(candidate):
     return {key: by_digest[digest] for key, digest in key_for_range.items()}
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('candidate', type=Path)
     parser.add_argument('start', type=lambda x: int(x, 0))
     parser.add_argument('--top', type=int, default=8)
     parser.add_argument('--select-symbol', help='exact mangled symbol within the returned candidate set')
-    args = parser.parse_args()
-    if not 1 <= args.top <= 8:
-        parser.error('--top must be between 1 and 8 (current ranking shortlist bound)')
+    args = parser.parse_args(argv)
+    if args.top < 1:
+        parser.error('--top must be positive')
     from score import original_windows
     from win import Cand, best_candidates
     window = next((w for w in original_windows() if w['start'] == args.start), None)
