@@ -234,10 +234,10 @@ def main():
     cases=[c for c in fixtures.cases() if c['case'] in selected]
     fixture_hash, runner_hash = sha(Path(fixtures.__file__)), sha(Path(__file__))
     prepared = [prepare(case) for case in cases]
-    (args.output / 'fixtures.json').write_text(json.dumps(prepared, indent=2) + '\n')
+    (args.output / 'fixtures.json').write_text(json.dumps(prepared, indent=2) + '\n',encoding='utf-8',newline='\n')
     left = run(original, prepared, args.surfpool, args.output)
     right = run(candidate, prepared, args.surfpool, args.output)
-    (args.output / 'raw-transactions.json').write_text(json.dumps({'original': left, 'candidate': right}, indent=2) + '\n')
+    (args.output / 'raw-transactions.json').write_text(json.dumps({'original': left, 'candidate': right}, indent=2) + '\n',encoding='utf-8',newline='\n')
     import re
     def expected_error(value):
         if value is None: return None
@@ -257,7 +257,7 @@ def main():
         'dependency_sha256': {name: sha(dependency_path(name)) for name, _ in DEPENDENCIES},
         'cases': len(cases), 'signed_transactions': len(left) + len(right), 'mismatches': mismatches,
         'unexpected_original_errors': unexpected, 'original': left, 'candidate': right}
-    (args.output / 'pump-create-v2-transactions.json').write_text(json.dumps(report, indent=2) + '\n')
+    (args.output / 'pump-create-v2-transactions.json').write_text(json.dumps(report, indent=2) + '\n',encoding='utf-8',newline='\n')
     print(json.dumps({key: report[key] for key in ['cases', 'signed_transactions', 'mismatches', 'unexpected_original_errors', 'original_sha256', 'candidate_sha256']}, indent=2))
     if mismatches or unexpected:
         raise SystemExit(1)

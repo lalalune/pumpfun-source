@@ -33,7 +33,7 @@ def sha(path):
 
 
 def write(path, value):
-    path.write_text(json.dumps(value, indent=2) + '\n')
+    path.write_text(json.dumps(value, indent=2) + '\n',encoding='utf-8',newline='\n')
 
 
 def download_archive(url, expected_sha256, destination):

@@ -86,7 +86,7 @@ def main():
     control.write(evidence / 'host.json', {'system': platform.system(), 'machine': platform.machine(),
                   'python': sys.version, 'primary_source_directory': str(source), 'revision': subprocess.check_output(
                       ['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()})
-    (evidence / 'measurement-adapter.patch').write_text(patch)
+    (evidence / 'measurement-adapter.patch').write_text(patch,encoding='utf-8',newline='\n')
     shutil.copyfile(Path(__file__), evidence / 'candidate-controller.py')
     shutil.copyfile(Path(control.__file__), evidence / 'control-controller.py')
     shutil.copyfile(ROOT / '.github/workflows/qualify-pump-macos-v144.yml', evidence / 'workflow.yml')
@@ -100,7 +100,7 @@ def main():
         # the explicit terminal measurement assertion differ from the control.
         package = work / 'research/cold'
         package.mkdir(parents=True)
-        (package / 'build.py').write_text(derived)
+        (package / 'build.py').write_text(derived,encoding='utf-8',newline='\n')
         control.write(package / 'build-inputs.json', expected)
         shutil.copytree(cold / 'tools', package / 'tools', ignore=shutil.ignore_patterns('__pycache__'))
         staged = work / 'source'

@@ -74,3 +74,38 @@ y4 places new's SROA pieces exactly at the original's 0x658/0x668 but the functi
 - `llcx.py <name> <m.ll> <edits.py>`: exact text edits on post-opt IR, llc, score (e.g. lifetime moves).
 - `mkitems.py <m.ll> <items>`: nolt of every lifetime alloca + every execute alloca to top/END.
 - `pscan.sh <m.ll> <items> <tag> [n]`: w12a02 `iredit.py scan` split over n processes.
+
+## Part 2 (branch `swarm/w13a24-cto-ctostatesroa-2`)
+
+### Landable: InvalidCreator operands swapped (gene `v312_rev`)
+
+On main dfc3693 (0.59916 / 3,313; after #3011 and the AccountInfo clone layouts):
+`if t==*sharing||t==*holder_key{return Err(error!(PumpError::InvalidCreator));}` gives **0.60126** / 3,313 at 27,400 B,
+1034/1034, no losses, differential 363/0 (sha16 572d269e1c77a501). The same gene was rejected by w13a10's hill climb
+on cb298d5, a24e177 and 2ca4d03; it pays only after the frame changes of #3011 and later.
+
+### Holder-rewards PDA before `shared` (original entry order)
+
+The original computes `find_program_address(["holder-rewards",mint])` right after `mint` (orig 0x22a90..0x22b48),
+before the `shared` memcmp. Moving our `let holder_key;let hk=..;holder_key=hk.0;` before `let shared` (`k2`)
+reproduces that entry order instruction for instruction (seeds slice, sret, copy to holder_key), but the function
+shrinks: 0.56813 at 27,360 B on 6ac6f9b (0.56291 at 27,400), 0.59745 at 27,392 B on dfc3693, and
+0.59955 / 27,392 with v312_rev. The 8 B (dfc3693) are register moves (no structural change); a size-neutral
+companion is still needed. A 153-gene w13a10 library scan on 6ac6f9b+k2 found no +40 B companion (all genes either
+keep 27,360 or collapse); best ratio v312_rev 0.57023 at 27,360. In the original the PDA sret temp is short-lived
+(in the 0x2d0 group) and the space above holder_key holds X24 + new's 9 B piece; `hk` is a surrogate of the same
+size.
+
+### Faithful entry copy of `new` and holder_key by value (6ac6f9b)
+
+| trial | form | bytes | ratio |
+| --- | --- | ---: | ---: |
+| e1 | validate reads `args.0` (args before block) | 27,464 | 0.49342 |
+| e2 | args inside the block after st, validate reads `args.0` | 27,368 | 0.51289 |
+| v1 | validate takes `holder_key:Pubkey` by value | 27,312 | 0.54254 (abs 0.69497 vs main 0.68604) |
+| v3 | v1 + validate reads `args.0` | **27,400** | 0.51588 |
+
+v1/v3 reproduce the original's frame objects: `sk` at 0x470 (the original's sharing-key temp), the holder_key copy
+at 0x518 (orig T 0x518), and in v3 also P2 at 0x550/0x560 and new's 7/9 B pieces (0x660/0x670, orig 0x658/0x668),
+but holder_key/mint move 24 B deeper and the build has 110 spill slots (orig 109); ratio is low. The skeleton
+(abs) ratio rises, so they are faithful; they need the rest of the frame (X24, no `hk`) to pay.

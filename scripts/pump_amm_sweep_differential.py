@@ -3,6 +3,7 @@
 import sys
 sys.path.insert(0,'scripts')
 from pump_amm_liquidity_differential import *
+from pump_differential_output import PumpReport
 ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
 def sweep(name='sweep_protocol_fee',amount=1000,candidate=None,recipient=None,overrides=None,unsigned=False,payload_length=None):
  h=acquire_harness(pin_program(candidate or ROOT/'evidence/original/pump_amm/deployed.so'));h.vm.set_clock(Clock(100,1234567890,0,0,1234567890))
@@ -25,7 +26,7 @@ def sweep(name='sweep_protocol_fee',amount=1000,candidate=None,recipient=None,ov
  return {'error':str(r.err()) if failed else None,'states':states,'logs':meta.logs(),'inner':json.loads(meta.to_json())['inner_instructions']}
 
 def main():
- parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args();candidate=args.candidate;rows=[]
+ parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args();candidate=args.candidate;publisher=PumpReport(args.output,ROOT,candidate,__file__,extra_inputs=[ROOT/'research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json']);rows=[]
  def test(name,label,**kw):
   x=sweep(name,**kw);y=sweep(name,candidate=candidate,**kw)
   for r in [x,y]:r['events']=[v for v in r.pop('logs') if v.startswith('Program data: ')]
@@ -81,7 +82,7 @@ def main():
   test('sweep_creator_fee','zero-coin-creator='+str(amount),amount=amount,recipient=key,overrides=mutate(pool,211,bytes(32)))
  sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
  report={'scope':'SBF protocol/creator fee sweeps: ordinary local signed transactions, exact token/ATA/System/event CPIs, full committed states and errors. Captured SPL/Token2022/ATA; bounded synthetic account and transfer-fee variations, not whole-program equivalence.','candidate_sha256':sha(pin_program(candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
- args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(report['mismatches']),'mismatches':report['mismatches']}))
+ publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatch_count':len(report['mismatches']),'mismatches':report['mismatches']}))
  if report['mismatches']:raise SystemExit(1)
 
 if __name__=='__main__':main()

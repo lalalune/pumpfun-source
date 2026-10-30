@@ -152,6 +152,10 @@ def analyze():
                 walk(a.get('accounts',[]),ix)
         for ix in d['instructions']: walk(ix['accounts'],ix['name'])
         inventory[f.stem]={'address':d['address'],'metadata':d.get('metadata'),'instructions':len(d['instructions']),'fixed_addresses':addresses}
+    # A partial checkout or a moved evidence tree would otherwise replace the
+    # tracked reports with empty objects; refuse that publication.
+    if not out or not inventory:
+        raise SystemExit('no captured programs or upstream IDLs; refusing to publish empty reports')
     # Admit every ELF and IDL, and serialize both reports, before replacing
     # either prior report. An invalid later IDL must not publish half a run.
     binary_report=json.dumps(out,indent=2)+'\n'
