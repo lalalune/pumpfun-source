@@ -43,6 +43,46 @@ after the fee store (the original also clears it last, `stb [r1+0xa4],0` at orig
 27,400 B and raises the ratio 0.45147 -> **0.45177** (slots_diff 3,308 unchanged), 1033/1033, zero
 losses, unstripped sha256 `6892c2a15de3ba6a...`.
 
+## Step 3: fee match + per-arm cashback compensation table (measured on L2, superseded by #2831)
+
+Base: main after #2792 (L2) and #2808 (nested pool-authority signer seeds): 27,400 B.
+Two validate genes from other wave-12 lanes raise the ratio a lot but leave admin_cto short of
+27,400 B: w12a09-cto-cleanroom's `match fee{None=>{},Some(f)=>{..}}` (None successor first; on L1
+27,392 B / 0.47551) and w12a11-cto-sibling's AMM-sibling per-arm cashback
+(`let cashback=if holder{false}else{st.cashback};`, tested by 330; on L1 27,384 B / 0.48367).
+Size compensation from this lane's knob search (measured on L2, before #2808):
+
+| L2 + | bytes | ratio |
+| --- | ---: | ---: |
+| fee match + cashback local | 27,384 | 0.48517 |
+| + old fee read after the cashback store (`curve.is_cashback_coin=cashback;let old_fee=..`) = Y | 27,392 | 0.48599 |
+| + old fee read after the creator store instead | 27,384 | 0.48517 |
+| Y + event `is_holder_reward:holder,is_cashback_coin:cashback` (evfl) | 27,408 | 0.48465 |
+| Y + evfl + `if let Some(f)=fee` fee store | 27,408 | 0.48525 |
+| Y + `sharing_config_reset` bound before the seeds | 27,384 | 0.48547 |
+| Y + event `is_holder_reward:holder` only | 27,384 | 0.48547 |
+| Y + event `is_cashback_coin:cashback` only | 27,408 | 0.48435 |
+| Y + evfl + `pool_updated=if ..{cpi?;true}else{msg!;false}` | 27,400 | 0.48472 |
+| Y + evfl + `reset` early | 27,400 | 0.48502 |
+| Y + evfl + `reset` early + `if let` fee store | 27,400 | 0.48562 |
+| Y + evfl + `pool_updated` if-expr + `if let` fee store | 27,408 | 0.48465 |
+| Y + evfl + `pool_updated` if-expr + #2808 nested seeds | 27,400 | 0.48562 |
+| **Y + evfl + `if let` fee store + #2808 nested seeds with `reset` bound first (this PR)** | **27,400** | **0.48652** |
+
+w12a14-cto-hillclimb-2 (#2831) landed the same family at 0.48742 first; the rows above are kept as a
+compensation table for these genes.
+
+## Step 4: old fee read after the cashback store (H3, 0.48772)
+
+On main after #2831 (H2: 27,400 B, 0.48742, slots 3,273), moving `let old_fee=curve.creator_fee_bps;`
+from after the holder store to right after the cashback store keeps 27,400 B and raises the ratio to
+**0.48772** (slots 3,273), 1034/1034, zero losses, unstripped sha256 `4d9f82e4e97d0c10...`,
+differential 363/363.
+
+Single genes on H2 so far (bytes / ratio): `match fee{None=>{},Some(f)=>..}` 27,400 / 0.48742;
+holder store before cashback 27,400 / 0.48742; `let reset=sharing_update.is_some();` before the
+nested seeds 27,392 / 0.48839 (needs +8 B).
+
 ## Knob table (single genes, admin_cto bytes and ratio)
 
 Bases: k4 = 27,384 / 0.4525; L1 = k4 + bump-first + su-match = 27,400 / 0.45147 (main after #2749);
