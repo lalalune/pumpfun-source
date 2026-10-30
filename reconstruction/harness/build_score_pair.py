@@ -12,6 +12,7 @@ import fastbuild
 import score
 from original_input import copy_original_inputs
 from source_inputs import snapshot
+from build_process import validate_timeout
 
 
 def sha(path):
@@ -37,7 +38,37 @@ def require_valid_build(result):
         raise ValueError('build failed or reported invalid stack frames; refusing to score')
 
 
-def run_pair(base, candidate, out, sdk, hybrid):
+def bound_inputs(scoring_inputs, sdk, hybrid):
+    canonical = Path(__file__).resolve().parents[1] / 'base'
+    return {'inputs': {name: sha(scoring_inputs / name) for name in ('original.so', 'functions.tsv')},
+            'tools': {name: sha(Path(__file__).parent / name) for name in
+                      ('build_score_pair.py', 'fastbuild.py', 'score.py', 'original_input.py',
+                       'compare_scores.py', 'pump_physical_source_wrapper.py', 'link_order.py',
+                       'pump_link_rustc.py', 'pump_link_lld.py', 'sbf_default.ld')},
+            'sdk_inventory_sha256': sha(canonical.parent / 'toolchain/v1.44-macos-inventory.json'),
+            'target_library_manifest_sha256': sha(Path(__file__).parent / 'linux144-sbpf-target-libs.sha256'),
+            'compiler_sha256': sha(hybrid / 'rust/bin/rustc'),
+            'objdump_sha256': sha(sdk / 'llvm/bin/llvm-objdump')}
+
+
+def run_pair(base, candidate, out, sdk, hybrid, timeout=None):
+    validate_timeout(timeout)
+    missing = object()
+    config = [(fastbuild, 'SDK'), (fastbuild, 'LOCKDIR'), (score, 'BASE'), (score, 'OBJDUMP')]
+    saved = [(module, name, getattr(module, name, missing)) for module, name in config]
+    recipe = fastbuild.RECIPES['identity']
+    try:
+        return _run_pair(base, candidate, out, sdk, hybrid, timeout)
+    finally:
+        fastbuild.RECIPES['identity'] = recipe
+        for module, name, value in saved:
+            if value is missing:
+                module.__dict__.pop(name, None)
+            else:
+                setattr(module, name, value)
+
+
+def _run_pair(base, candidate, out, sdk, hybrid, timeout):
     before = {name: source_receipt(repo) for name, repo in [('base', base), ('candidate', candidate)]}
     out.mkdir(parents=True, exist_ok=False)
     fastbuild.SDK = sdk
@@ -51,15 +82,9 @@ def run_pair(base, candidate, out, sdk, hybrid):
     score.BASE.mkdir()
     canonical = Path(__file__).resolve().parents[1] / 'base'
     copy_original_inputs(canonical, score.BASE)
+    binding = bound_inputs(score.BASE, sdk, hybrid)
     receipt = {'sources': before, 'recipe': 'identity', 'cold_targets': True,
-               'inputs': {name: sha(score.BASE / name) for name in ('original.so', 'functions.tsv')},
-               'tools': {name: sha(Path(__file__).parent / name) for name in
-                         ('build_score_pair.py', 'fastbuild.py', 'score.py', 'original_input.py', 'compare_scores.py', 'pump_physical_source_wrapper.py',
-                          'link_order.py', 'pump_link_rustc.py', 'pump_link_lld.py', 'sbf_default.ld')},
-               'sdk_inventory_sha256': sha(canonical.parent / 'toolchain/v1.44-macos-inventory.json'),
-               'target_library_manifest_sha256': sha(Path(__file__).parent / 'linux144-sbpf-target-libs.sha256'),
-               'compiler_sha256': sha(hybrid / 'rust/bin/rustc'),
-               'objdump_sha256': sha(sdk / 'llvm/bin/llvm-objdump'), 'builds': {}}
+               **binding, 'builds': {}}
     def save():
         (out / 'receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
     save()
@@ -67,7 +92,7 @@ def run_pair(base, candidate, out, sdk, hybrid):
     try:
         for name, repo in [('base', base), ('candidate', candidate)]:
             result = fastbuild.build(repo / 'programs/pump', out / (name + '-work'), out / name,
-                                     quiet=True, recipe='identity')
+                                     quiet=True, recipe='identity', timeout=timeout)
             # Public receipt avoids serializing local absolute output paths.
             receipt['builds'][name] = {k: v for k, v in result.items()
                                       if k not in ('unstripped', 'log')}
@@ -78,6 +103,12 @@ def run_pair(base, candidate, out, sdk, hybrid):
             windows = score.score(out / name / 'unstripped.so')
             reports[name] = windows
             (out / (name + '-score.json')).write_text(json.dumps({'windows': windows}, indent=2) + '\n')
+        # The candidate build may have changed the base tree or any previously bound tool.
+        if any(source_receipt(repo) != before[name]
+               for name, repo in [('base', base), ('candidate', candidate)]):
+            raise ValueError('source changed during paired build')
+        if bound_inputs(score.BASE, sdk, hybrid) != binding:
+            raise ValueError('bound tool or scoring input changed during paired build')
         comparison = compare_scores.compare(reports['base'], reports['candidate'])
         receipt['comparison'] = comparison
         save()
@@ -95,9 +126,10 @@ def main():
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--sdk', type=Path, default=Path.home() / '.cache/solana/v1.44/platform-tools')
     parser.add_argument('--hybrid', type=Path, default=Path(os.environ.get('PUMP_RECON_HOME', str(Path.home() / '.cache/pumpfun-reconstruction'))) / 'toolchains/hybrid144')
+    parser.add_argument('--timeout', type=float, help='compiler deadline per build in seconds')
     args = parser.parse_args()
     try:
-        return run_pair(args.base.resolve(), args.candidate.resolve(), args.out.resolve(), args.sdk.resolve(), args.hybrid.resolve())
+        return run_pair(args.base.resolve(), args.candidate.resolve(), args.out.resolve(), args.sdk.resolve(), args.hybrid.resolve(), timeout=args.timeout)
     except (OSError, ValueError, subprocess.CalledProcessError) as error:
         parser.exit(2, f'build/score gate failed: {error}\n')
 

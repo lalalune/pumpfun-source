@@ -18,6 +18,7 @@ H = Path(__file__).resolve().parent
 SC = H.parent
 sys.path.insert(0, str(H))
 from treediff import reject_source_link
+from build_process import validate_timeout
 
 
 def build_source(*args, **kwargs):
@@ -189,7 +190,12 @@ def main():
     ap.add_argument('--part', action='append', default=[])
     ap.add_argument('--base-of', action='append', default=[])
     ap.add_argument('--no-build', action='store_true')
+    ap.add_argument('--timeout', type=float, help='compiler deadline in seconds')
     a = ap.parse_args()
+    try:
+        validate_timeout(a.timeout)
+    except ValueError as error:
+        ap.error(str(error))
     baseline = SC / 'pump-main/baseline/score.json'
     if not a.no_build and not baseline.is_file():
         raise FileNotFoundError(f'Required scoring baseline is missing: {baseline}')
@@ -230,7 +236,7 @@ def main():
             (out / 'rejects' / f'{label}.txt').write_text(dry.stdout + dry.stderr)
             report['parts'].append({'label': label, 'status': 'conflict', 'detail': (dry.stdout + dry.stderr)[-1500:]})
     if not a.no_build:
-        res = build_source(src, out / 'work', out / 'build', quiet=True)
+        res = build_source(src, out / 'work', out / 'build', quiet=True, timeout=a.timeout)
         report['build'] = res
         if res['ok']:
             s = subprocess.run([sys.executable, str(H / 'score.py'), str(out / 'build/unstripped.so'),
