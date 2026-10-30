@@ -1,3 +1,4 @@
+import { isObservationInstant } from "../../lib/observation-time.mjs";
 import { PublicKey } from "@solana/web3.js";
 import contract from "./contract.json";
 import type { StoredWalletRecord, WalletRecordSuccess } from "./types";
@@ -53,8 +54,7 @@ export function isWalletRecord(
     (value.contextSlot as number) < 0 ||
     typeof value.endpointHost !== "string" ||
     !/^[a-zA-Z0-9.-]{1,253}$/.test(value.endpointHost) ||
-    typeof value.observedAt !== "string" ||
-    !Number.isFinite(Date.parse(value.observedAt))
+    !isObservationInstant(value.observedAt)
   )
     return false;
   if (value.record === null) return value.dataBytes === null;

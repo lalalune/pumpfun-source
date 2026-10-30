@@ -1,3 +1,4 @@
+import { isObservationInstant } from "../../lib/observation-time.mjs";
 import { PublicKey } from "@solana/web3.js";
 import contract from "./contract.json";
 import type { HolderConfiguration } from "./types";
@@ -42,8 +43,7 @@ export function isHolderConfiguration(
     value.cluster !== "mainnet-beta" ||
     value.commitment !== "confirmed" ||
     !integer(value.contextSlot) ||
-    typeof value.observedAt !== "string" ||
-    !Number.isFinite(Date.parse(value.observedAt)) ||
+    !isObservationInstant(value.observedAt) ||
     typeof value.endpointHost !== "string" ||
     value.endpointHost.length > 253 ||
     !/^[A-Za-z0-9][A-Za-z0-9.-]*$/.test(value.endpointHost) ||

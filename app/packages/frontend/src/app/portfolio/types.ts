@@ -1,3 +1,4 @@
+import { isObservationInstant } from "../../lib/observation-time.mjs";
 export const MAINNET_GENESIS_HASH =
   "5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d";
 export const SPL_TOKEN_PROGRAM_ID =
@@ -174,8 +175,7 @@ export function isPortfolioResponse(
     value.cluster === "mainnet-beta" &&
     value.genesisHash === MAINNET_GENESIS_HASH &&
     value.commitment === "confirmed" &&
-    typeof value.observedAt === "string" &&
-    Number.isFinite(Date.parse(value.observedAt)) &&
+    isObservationInstant(value.observedAt) &&
     typeof value.endpointHost === "string" &&
     isRecord(value.sol) &&
     hasAmount(value.sol.lamports, 9, value.sol.amount) &&
