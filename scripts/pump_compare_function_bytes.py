@@ -11,9 +11,9 @@ import argparse
 import csv
 import hashlib
 import json
-import os
 import struct
 from pathlib import Path
+from probe_report import write_json_report
 
 from pump_exact_body_inventory import window_inventory
 from pump_quote_control_function_match import sections, candidate_functions, function_body as body, protect_report_output
@@ -87,19 +87,7 @@ def selected_window(stream, original_start):
 
 def write_report(path, value):
     """Replace a prior report only with a complete one."""
-    path.parent.mkdir(parents=True,exist_ok=True)
-    staged = path.with_name('.'+path.name+'.'+str(os.getpid()))
-    # A plain exclusive open keeps the umask-derived mode of the direct write.
-    stream = open(staged,'x',encoding='utf-8',newline='\n')
-    try:
-        with stream:
-            stream.write(json.dumps(value,indent=2)+'\n')
-            stream.flush()
-            os.fsync(stream.fileno())
-        os.replace(staged,path)
-    except BaseException:
-        staged.unlink(missing_ok=True)
-        raise
+    write_json_report(path, value)
 
 
 def main():

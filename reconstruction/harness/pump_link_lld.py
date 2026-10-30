@@ -4,4 +4,4 @@ import os
 import sys
 from link_order import lld_main
 
-lld_main(sys.argv, os.environ)
+raise SystemExit(lld_main(sys.argv, os.environ))

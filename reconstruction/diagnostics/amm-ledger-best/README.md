@@ -42,8 +42,10 @@ LF-normalized source, including its signature, body and any decorators, plus
 every module-level constant it reads (`SELL_SIZE`), so a changed size can no
 longer re-rank the ledger silently. #2781 moved the function from `try_sell.py`
 to `sell_score.py` and replaced its size literal with that constant; this
-binding follows it. Changes elsewhere in the scorer do not invalidate this
-read-only query. The complete scorer source SHA-256 is still reported as
+binding follows it. Each dependency must have exactly one literal top-level
+definition. Reassignments, conditional writes, deletions and import aliases
+that bind the dependency are refused; function-local names do not count as
+module dependencies. Unrelated scorer statements remain unexecuted. The complete scorer source SHA-256 is still reported as
 `rank_source_sha256`, and no other module statements are imported, compiled or
 executed. A changed or duplicate rank is refused.
 

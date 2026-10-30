@@ -109,7 +109,14 @@ class ByteComparisonInputTests(unittest.TestCase):
                 else:
                     self.assertEqual(len(report['functions']), 1)
                 second = self.invoke(script, output, 'regular-repeat')
-                self.assertEqual(second.returncode, 0, second.stderr)
+                # pump_exact_body_inventory.py publishes with exclusive create so
+                # a prior report is never replaced; the other two rewrite the
+                # same bytes. Either way the published report cannot change.
+                if script == 'pump_exact_body_inventory.py':
+                    self.assertNotEqual(second.returncode, 0, second.stdout)
+                    self.assertIn('File exists', second.stderr)
+                else:
+                    self.assertEqual(second.returncode, 0, second.stderr)
                 self.assertEqual(output.read_bytes(), before)
 
     def reject_alias(self, script, target, output, case):
@@ -148,9 +155,12 @@ class ByteComparisonInputTests(unittest.TestCase):
         try:
             os.environ['PATH'] = str(absolute.parent) + os.pathsep + (previous or '')
             self.objdump = Path(absolute.name)
-            result = self.invoke(SCRIPTS[1], output, 'bare-path-tool')
+            # A second run needs a fresh report path: this script refuses to
+            # replace an existing one (exclusive create).
+            bare = self.root / 'path-tool-bare.json'
+            result = self.invoke(SCRIPTS[1], bare, 'bare-path-tool')
             self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertEqual(json.loads(output.read_bytes()), before)
+            self.assertEqual(json.loads(bare.read_bytes()), before)
             self.assertEqual(before['objdump_sha256'], sha(absolute.read_bytes()))
         finally:
             self.objdump = absolute

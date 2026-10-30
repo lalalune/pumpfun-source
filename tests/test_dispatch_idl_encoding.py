@@ -82,12 +82,26 @@ class DispatchIdlEncodingTests(unittest.TestCase):
             for path in control.iterdir():
                 self.assertEqual((candidate / path.name).read_bytes(), path.read_bytes(), path.name)
 
-    def test_reviewed_transition_preserves_complete_loader_algorithms(self):
+    def test_reviewed_transition_keeps_idl_reads_explicitly_utf8(self):
         transition = json.loads((ROOT / "reconstruction/diagnostics/dispatch-idl-utf8/transition.json").read_text(encoding="utf-8"))
         self.assertEqual(transition["rootScriptSetBefore"], transition["rootScriptSetAfter"])
         for path, row in transition["reviewedAssetTransition"].items():
             source = (ROOT / path).read_text(encoding="utf-8")
             node = next(item for item in ast.parse(source).body if isinstance(item, ast.FunctionDef) and item.name == row["loader"])
+            idl_reads = [call for call in ast.walk(node)
+                         if isinstance(call, ast.Call) and isinstance(call.func, ast.Attribute)
+                         and call.func.attr == 'read_text' and isinstance(call.func.value, ast.Name)
+                         and call.func.value.id in ('idl', 'idl_path')]
+            self.assertEqual(len(idl_reads), 1, path)
+            self.assertTrue(any(keyword.arg == 'encoding'
+                                and isinstance(keyword.value, ast.Constant)
+                                and keyword.value.value == 'utf-8'
+                                for keyword in idl_reads[0].keywords), path)
+            # recover() now resolves dependency captures and derives no-IDL
+            # names from the admitted ELF. The old whole-function digest is
+            # historical; the product CLI tests above validate the live result.
+            if path == 'scripts/recover_dispatch.py':
+                continue
             # Only the two existing IDL receiver calls have their new encoding
             # removed for the before/after AST comparison; no algorithm is run.
             for call in ast.walk(node):

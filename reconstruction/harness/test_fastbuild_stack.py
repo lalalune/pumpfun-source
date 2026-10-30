@@ -17,7 +17,7 @@ STACK = 'Error: Function example Stack offset of 4104 exceeded max offset of 409
 
 
 class BuildDiagnosticTests(unittest.TestCase):
-    def run_build(self, log, returncode=0, quiet=True, prior=False):
+    def run_build(self, log, returncode=0, quiet=True, prior=False, timed_out=False):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             src, work, out = (root / name for name in ('src', 'work', 'out'))
@@ -56,7 +56,7 @@ class BuildDiagnosticTests(unittest.TestCase):
                  patch.object(fastbuild, 'stage', return_value=work / 'ws/programs/pump'), \
                  patch.object(fastbuild, 'acquire_slot', side_effect=lambda: io.StringIO()), \
                  patch.object(fastbuild.subprocess, 'run', side_effect=run), \
-                 patch.object(fastbuild, 'run_compiler', side_effect=lambda command, **kw: (run(command), False)), \
+                 patch.object(fastbuild, 'run_compiler', side_effect=lambda command, **kw: (run(command), timed_out)), \
                  contextlib.redirect_stderr(stderr):
                 result = fastbuild.build(src, work, out, quiet=quiet, recipe='identity')
             with fastbuild.workspace_lock(work):
@@ -64,6 +64,13 @@ class BuildDiagnosticTests(unittest.TestCase):
             files = {p.relative_to(out).as_posix(): p.read_bytes()
                      for p in out.rglob('*') if p.is_file()}
             return result, files, commands, stderr.getvalue()
+
+    def test_timeout_archives_prior_outputs_and_releases_workspace(self):
+        result, files, commands, _ = self.run_build('compiler timed out', prior=True, timed_out=True)
+        self.assertFalse(result['ok'])
+        self.assertTrue(result['timed_out'])
+        self.assert_archived(files)
+        self.assertEqual(len(commands), 1)
 
     def test_zero_exit_stack_error_rejects_before_publishing(self):
         log = STACK + '\nFinished release\n'

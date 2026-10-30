@@ -60,3 +60,31 @@ On main 8f050a2 (0.50929) the skip-first orders were a large win at a large size
 collect-first orders 27,384 B / 0.50944. With hrb: 27,280 / 0.51854. Companions measured on scu: CollectCreatorFeeEvent
 creator-first +64 B (0.51461), reset late +8 B (0.51785), holder_key first +120 B (0.49491), dropping vsigner collapses (0.420).
 On main 74b3171 (stitch-5: args before CtoState) the same orders collapse to 0.3865 at 27,392 B.
+
+## Landable on main f7ce2e34 (pfclimb-5, 0.51378): hrb + two +B companions
+
+| build | bytes | ratio | slots_diff | normalized / raw | losses |
+| --- | ---: | ---: | ---: | --- | --- |
+| main f7ce2e34 | 27,400 | 0.51378 | - | 1034 / 1034 | - |
+| hrb + `cashback=st.cashback&&!holder` + `let sk=a.sharing_config.key();` before validate | 27,400 | **0.51408** | 3,327 | 1034 / 1034 | 0 / 0 |
+
+Unstripped sha256 prefix `60eeb1759fa3b924`; differential 363/0. hrb alone is 27,368 / 0.51439 here; the two companions are
++8 B (cashback operand order) and +24 B (sharing key bound once before validate, as w13a13 measured).
+
+Other trials on 74b3171 / f7ce2e34:
+- `#2766` tuple carry: the curve block yields `curve.is_holder_reward` (read back after the store) and the pool CPI takes it:
+  27,400 / 0.51408 on 74b3171 (0 losses), but byte-equal to main once pfclimb-5 moved the old-fee read first (0.51378 on f7ce2e34).
+  Carrying plain `holder` through the tuple is byte-identical to main.
+- IR oracle (hrb IR, 74b3171): the original's gate polarity (`br skip, post, sweep`, orig `jne skip,0 -> post`) alone collapses
+  the layout exactly like the if-gate source (0.38165). A 2000:1 weight scan over all 147 branches on that IR finds at best
+  0.512 (collect_old `!holder_reward` test 1:2000), so the gate polarity does not pay off without a different validate layout.
+
+## Reviewed composition with wallet-event signer layout
+
+Composed with current main after #2961 before building. The primary instruction-token
+ratio remains **0.51857**, while positional differing 8-byte slots improve from
+**3,335 to 3,327** in the original-sized 27,400-byte window. The raw and normalized
+exact-window totals remain 1,034/1,035, with no missing, resized or lost windows.
+All 363 signed admin comparisons and 408 one-hop swap/boundary comparisons pass.
+The latter disable AMM PDA signature verification; this is bounded runtime evidence,
+not a whole-program identity or all-input equivalence proof.

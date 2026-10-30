@@ -39,9 +39,12 @@ def tree_files(root):
         for name in sorted(directories + names):
             path = Path(directory) / name
             reject_source_link(path)
-            if path.is_file():
+            info = path.lstat()
+            if stat.S_ISREG(info.st_mode):
                 files[path.relative_to(root).as_posix()] = SourceBytes(
-                    path.read_bytes(), bool(path.stat().st_mode & 0o111))
+                    path.read_bytes(), bool(info.st_mode & 0o111))
+            elif not stat.S_ISDIR(info.st_mode):
+                raise ValueError(f'unsupported special source file: {path}')
     return dict(sorted(files.items()))
 
 

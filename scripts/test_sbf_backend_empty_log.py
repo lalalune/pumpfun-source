@@ -18,7 +18,8 @@ class EmptyLogTests(unittest.TestCase):
 
     def test_logs_without_content_do_not_pass_the_gate(self):
         for label, raw in [('zero bytes', b''), ('signature only', b'\xef\xbb\xbf'),
-                           ('blank lines', b'\n \r\n\t\n'), ('gzip of nothing', gzip.compress(b'', mtime=0))]:
+                           ('blank lines', b'\n \r\n\t\n'), ('gzip of nothing', gzip.compress(b'', mtime=0)),
+                           ('ANSI only', b'\x1b[31m\x1b[0m\n'), ('BOM per line', b'\xef\xbb\xbf\n\xef\xbb\xbf\n')]:
             with self.subTest(label):
                 self.log.write_bytes(raw)
                 with self.assertRaisesRegex(ValueError, 'empty diagnostic log'):
