@@ -123,6 +123,7 @@ Scans and results:
 | ca03a2b (0.6432, after #3289) | 11 TCF clones x 729 | every clone at its local optimum |
 | b2e90aa (0.6444) | all 16 inlined clones (11 TCF + 5 sharing) | only the sharing `program:` clone with the key between the Rc clones (+0.0003). #3298 (w14a30) landed the same literal first |
 | 65df90f (0.6453) | 15 inlined clones x 729, plus `tools/fpair.py` pairs (top 3 near-best moves per clone, 945 pairs) | nothing above main, single or pair |
+| 06967d3 (0.64649) | 14 inlined clones x 729 | nothing above main |
 
 `fpair.py <named m.ll> <fsdir> <out.jsonl> [topk] [threads] <clone list>` applies two single-clone placements together.
 
