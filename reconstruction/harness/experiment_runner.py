@@ -108,20 +108,31 @@ def artifacts(attempt):
     result = {}
     for path in [attempt / 'stdout.log', attempt / 'stderr.log', *sorted((attempt / 'output').rglob('*'))]:
         if path.is_symlink(): raise ValueError('output symlinks are unsupported')
-        if path.is_file(): result[path.relative_to(attempt).as_posix()] = digest(path.read_bytes())
+        if path.is_file():
+            result[path.relative_to(attempt).as_posix()] = {
+                'sha256': digest(path.read_bytes()),
+                'executable': bool(path.stat().st_mode & 0o111)}
         elif not path.is_dir(): raise ValueError('special output files are unsupported')
     return result
 
 
-def run_trial(source, command, destination, inputs=(), timeout=300):
+def separate_trees(source, destination):
     source, destination = Path(source).resolve(), Path(destination).resolve()
     if destination == source or source in destination.parents or destination in source.parents:
         raise ValueError('source and destination must be separate trees')
+
+
+def run_trial(source, command, destination, inputs=(), timeout=300):
+    source, destination = Path(source).resolve(), Path(destination).resolve()
+    separate_trees(source, destination)
     admission = identity(source, command, inputs, timeout)
     key = digest(json.dumps(admission, sort_keys=True).encode())
     destination.mkdir(parents=True, exist_ok=True)
     with (destination / '.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
+        # The source and bound tools may change while another trial owns the lock.
+        admission = identity(source, command, inputs, timeout)
+        key = digest(json.dumps(admission, sort_keys=True).encode())
         receipt_path = destination / 'latest.json'
         if receipt_path.exists():
             previous = json.loads(receipt_path.read_text())
@@ -206,6 +217,10 @@ def main():
                 raise ValueError('trial inputs must be an array of file paths')
             names.add(name)
             identity(row['source'], row['command'], row.get('inputs', []), row.get('timeout', 300))
+        # Admit the entire matrix before the first command, including cross-row inputs.
+        for row in rows:
+            for other in rows:
+                separate_trees(other['source'], args.out / row['name'])
     except (OSError, ValueError, TypeError, KeyError) as error:
         parser.error(f'invalid experiment matrix: {error}')
     results = {row['name']: run_trial(row['source'], row['command'], args.out / row['name'], row.get('inputs', []), row.get('timeout', 300)) for row in rows}
