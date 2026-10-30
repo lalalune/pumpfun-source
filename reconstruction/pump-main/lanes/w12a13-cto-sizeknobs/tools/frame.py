@@ -29,5 +29,16 @@ def frame_of(so, sym=r'admin_cto::execute$'):
     return None
 
 
+def fn_sha(so, sym=r'admin_cto::execute$'):
+    import hashlib
+    sys.path.insert(0,H)
+    from score import normalize
+    c=Cand(so)
+    for s_,n,nm in c.funcs:
+        if re.search(sym, demangle(nm)):
+            return hashlib.sha256(normalize(c.fn(s_,n), s_, c.secs)).hexdigest()[:16]
+    return None
+
+
 if __name__=='__main__':
     print(frame_of(sys.argv[1]))

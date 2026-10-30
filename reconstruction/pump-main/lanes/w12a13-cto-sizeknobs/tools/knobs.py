@@ -125,3 +125,21 @@ K['s_bump_first'] = [("let old=a.current_creator.key();let bump=[ctx.bumps.creat
 K['L_bump_inline'] = [("let bump=[ctx.bumps.creator_vault];let old=a.current_creator.key();let vaultseeds:&[&[u8]]=&[b\"creator-vault\",old.as_ref(),&bump];",
                        "let old=a.current_creator.key();let vaultseeds:&[&[u8]]=&[b\"creator-vault\",old.as_ref(),&[ctx.bumps.creator_vault]];")]
 K['L_share_none_first'] = [(" match sharing_update{Some(val)=>{\n", " match sharing_update{None=>{}Some(val)=>{\n"), ("signer_seeds),val)?;\n\n }None=>{}}\n", "signer_seeds),val)?;\n\n }}\n")]
+# ---------------- curve-store reverts toward the original (k4 family) and if-let -> match ----------------
+K['L_canedit_revert'] = [("let curve=&mut ctx.accounts.bonding_curve;let old_fee=curve.creator_fee_bps;let old_creator=curve.creator;curve.can_edit_creator_fee=false;",
+                          "let curve=&mut ctx.accounts.bonding_curve;let old_fee=curve.creator_fee_bps;let old_creator=curve.creator;"),
+                         ("  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n\n", "  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n  curve.can_edit_creator_fee=false;\n")]
+K['L_feeunwrap_revert'] = [("  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n", "  if let Some(f)=fee{curve.creator_fee_bps=f;}\n")]
+K['L_fee_match'] = [("  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n", "  match fee{Some(f)=>{curve.creator_fee_bps=f;}None=>{}}\n")]
+K['v_fee_match'] = [(" if let Some(f)=fee{if st.quote_locked{", " match fee{Some(f)=>{if st.quote_locked{"),
+                    ("PumpError::CreatorFeeBpsOutOfRange));}}\n Ok(target)}", "PumpError::CreatorFeeBpsOutOfRange));}}None=>{}}\n Ok(target)}")]
+K['w_collect_match'] = [("    if let Some((collected,quote_mint))=crate::collect_v2::collect(", "    match crate::collect_v2::collect("),
+                        ("a.system_program.as_ref())?{\n     let e=CollectCreatorFeeEvent{", "a.system_program.as_ref())?{Some((collected,quote_mint))=>{\n     let e=CollectCreatorFeeEvent{"),
+                        ("emit!(e);emit_cpi!(e);\n    }\n", "emit!(e);emit_cpi!(e);\n    }None=>{}}\n")]
+K['L_fee_unwrap_again'] = [("  if let Some(f)=fee{curve.creator_fee_bps=f;}\n", "  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n")]
+# ---------------- genes from w12a09-cto-cleanroom (#2835) adapted to the D/A2 text (validate fee match, amm_cb_local) ----------------
+K['D_holder_phi'] = [("let target=if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}*holder_key}else{",
+                      "let (target,holder)=if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(*holder_key,true)}else{"),
+                     ("if t==*holder_key||t==*sharing{return Err(error!(PumpError::InvalidCreator));}t};", "if t==*holder_key||t==*sharing{return Err(error!(PumpError::InvalidCreator));}(t,false)};")]
+K['D_fee_none_first'] = [(" match fee{Some(f)=>{if st.quote_locked{", " match fee{None=>{}Some(f)=>{if st.quote_locked{"),
+                         ("PumpError::CreatorFeeBpsOutOfRange));}}None=>{}}\n", "PumpError::CreatorFeeBpsOutOfRange));}}}\n")]

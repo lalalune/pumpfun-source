@@ -47,10 +47,205 @@
     "s_bump_first",
     "p_share_match"
    ]
+  },
+  "L2": {
+   "bytes": 27400,
+   "ratio": 0.45177,
+   "sha16": "6892c2a15de3ba6a",
+   "genes": [
+    "wallet_flags",
+    "region2_tree",
+    "fee_unwrap",
+    "canedit_first",
+    "old_fee_first",
+    "s_bump_first",
+    "p_share_match",
+    "L_canedit_revert"
+   ]
+  },
+  "C2": {
+   "bytes": 27392,
+   "ratio": 0.45213,
+   "sha16": "af95f0c58856b50c",
+   "genes": [
+    "wallet_flags",
+    "region2_tree",
+    "fee_unwrap",
+    "canedit_first",
+    "old_fee_first",
+    "s_bump_first",
+    "p_share_match",
+    "L_canedit_revert",
+    "L_feeunwrap_revert"
+   ]
+  },
+  "C3": {
+   "bytes": 27384,
+   "ratio": 0.47618,
+   "sha16": "cabdd7a55d964b6a",
+   "genes": [
+    "wallet_flags",
+    "region2_tree",
+    "fee_unwrap",
+    "canedit_first",
+    "old_fee_first",
+    "s_bump_first",
+    "p_share_match",
+    "L_canedit_revert",
+    "L_feeunwrap_revert",
+    "v_fee_match"
+   ]
+  },
+  "Av": {
+   "bytes": 27392,
+   "ratio": 0.48569,
+   "sha16": null,
+   "from": "w12a14-cto-hillclimb b53cbd23e405 (K5+amm_cb_local+k4_oldfee_after+v326_match)"
+  },
+  "A2": {
+   "bytes": 27384,
+   "ratio": 0.48607,
+   "sha16": null,
+   "from": "w12a14-cto-hillclimb 6f262fb34c9e (Av + a2_orig_order)"
+  },
+  "D": {
+   "bytes": 27400,
+   "ratio": 0.48652,
+   "sha16": null,
+   "from": "w12a14-cto-hillclimb d7acbb3d549a = #2831"
+  },
+  "M2": {
+   "bytes": 27400,
+   "ratio": 0.48742,
+   "sha16": null,
+   "from": "main 1905fba85 (#2831 + w12b12 nested pool seeds)"
   }
  },
  "how_to_read": "delta_bytes/delta_ratio are against the named base build. Sizes are NOT additive: always re-measure a combination. identical_to_base=true means the unstripped .so sha equals the base (no codegen change). first_store is the first [r10-X] spill offset in admin_cto::execute (frame proxy; original -2344, ours -2288). Every knob keeps the newline count and every error/require/msg site on its line.",
  "knobs": [
+  {
+   "name": "prep_match",
+   "category": "? vs explicit match",
+   "edit": [
+    {
+     "old": "crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.admin_set_creator_authority)?;",
+     "new": "if let Err(e)=crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.admin_set_creator_authority){return Err(e);}"
+    }
+   ],
+   "results": {
+    "C2": {
+     "bytes": 27392,
+     "delta_bytes": 0,
+     "ratio": 0.41139,
+     "delta_ratio": -0.04074,
+     "identical_to_base": false,
+     "first_store": -2288,
+     "losses": [],
+     "raw_losses": 687,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "v_fee_split",
+   "category": "combined vs split check",
+   "edit": [
+    {
+     "old": "if f==0||f>st.max_fee{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}}",
+     "new": "if f==0{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}if f>st.max_fee{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}}"
+    }
+   ],
+   "results": {
+    "L1": {
+     "bytes": 27600,
+     "delta_bytes": 200,
+     "ratio": 0.43894,
+     "delta_ratio": -0.01253,
+     "identical_to_base": false,
+     "first_store": -2304,
+     "losses": [],
+     "raw_losses": 686,
+     "calls": [
+      157,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "v_ik_split",
+   "category": "combined vs split check",
+   "edit": [
+    {
+     "old": "if t==*holder_key||t==*sharing{return Err(error!(PumpError::InvalidCreator));}",
+     "new": "if t==*holder_key{return Err(error!(PumpError::InvalidCreator));}if t==*sharing{return Err(error!(PumpError::InvalidCreator));}"
+    }
+   ],
+   "results": {
+    "L1": {
+     "bytes": 27392,
+     "delta_bytes": -8,
+     "ratio": 0.44328,
+     "delta_ratio": -0.00819,
+     "identical_to_base": false,
+     "first_store": -2304,
+     "losses": [],
+     "raw_losses": 686,
+     "calls": [
+      157,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    },
+    "Av": {
+     "bytes": 27384,
+     "delta_bytes": -8,
+     "ratio": 0.44365,
+     "delta_ratio": -0.04204,
+     "identical_to_base": false,
+     "first_store": -2312,
+     "losses": [],
+     "raw_losses": 687,
+     "calls": [
+      157,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "s_dest_borrow",
+   "category": "copied-vs-borrowed Pubkey",
+   "edit": [
+    {
+     "old": "if a.holder_creator_vault.key()!=dest{",
+     "new": "if *a.holder_creator_vault.key!=dest{"
+    }
+   ],
+   "results": {
+    "L1": {
+     "bytes": 27320,
+     "delta_bytes": -80,
+     "ratio": 0.44974,
+     "delta_ratio": -0.00173,
+     "identical_to_base": false,
+     "first_store": -2288,
+     "losses": [],
+     "raw_losses": 686,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
   {
    "name": "s_old_borrow",
    "category": "copied-vs-borrowed Pubkey",
@@ -79,6 +274,410 @@
    }
   },
   {
+   "name": "sh_key_borrow",
+   "category": "copied-vs-borrowed Pubkey",
+   "edit": [
+    {
+     "old": "let shared=a.bonding_curve.creator==a.sharing_config.key()&&",
+     "new": "let shared=a.bonding_curve.creator==*a.sharing_config.key&&"
+    }
+   ],
+   "results": {
+    "L1": {
+     "bytes": 27320,
+     "delta_bytes": -80,
+     "ratio": 0.45155,
+     "delta_ratio": 8e-05,
+     "identical_to_base": false,
+     "first_store": -2288,
+     "losses": [],
+     "raw_losses": 686,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "val_sh_borrow",
+   "category": "copied-vs-borrowed Pubkey",
+   "edit": [
+    {
+     "old": "&holder_key,&a.sharing_config.key())?;",
+     "new": "&holder_key,a.sharing_config.key)?;"
+    }
+   ],
+   "results": {
+    "L1": {
+     "bytes": 27248,
+     "delta_bytes": -152,
+     "ratio": 0.42932,
+     "delta_ratio": -0.02215,
+     "identical_to_base": false,
+     "first_store": -2280,
+     "losses": [],
+     "raw_losses": 686,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "L_canedit_revert+L_fee_match",
+   "category": "curve-store form",
+   "edit": null,
+   "results": {
+    "L1": {
+     "bytes": 27392,
+     "delta_bytes": -8,
+     "ratio": 0.45154,
+     "delta_ratio": 7e-05,
+     "identical_to_base": false,
+     "first_store": -2288,
+     "losses": [],
+     "raw_losses": 686,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "L_canedit_revert+L_feeunwrap_revert",
+   "category": "curve-store form",
+   "edit": null,
+   "results": {
+    "L1": {
+     "bytes": 27392,
+     "delta_bytes": -8,
+     "ratio": 0.45213,
+     "delta_ratio": 0.00066,
+     "identical_to_base": false,
+     "first_store": -2288,
+     "losses": [],
+     "raw_losses": 686,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "L_canedit_revert+L_feeunwrap_revert+v_fee_match",
+   "category": "curve-store form",
+   "edit": null,
+   "results": {
+    "L1": {
+     "bytes": 27384,
+     "delta_bytes": -16,
+     "ratio": 0.47618,
+     "delta_ratio": 0.02471,
+     "identical_to_base": false,
+     "first_store": -2288,
+     "losses": [],
+     "raw_losses": 687,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "L_fee_unwrap_again",
+   "category": "curve-store form",
+   "edit": [
+    {
+     "old": "  if let Some(f)=fee{curve.creator_fee_bps=f;}\n",
+     "new": "  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n"
+    }
+   ],
+   "results": {
+    "C3": {
+     "bytes": 27392,
+     "delta_bytes": 8,
+     "ratio": 0.47581,
+     "delta_ratio": -0.00037,
+     "identical_to_base": false,
+     "first_store": -2288,
+     "losses": [],
+     "raw_losses": 687,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "p_canedit_after_creator",
+   "category": "curve-store form",
+   "edit": null,
+   "results": {
+    "L1": {
+     "bytes": 27400,
+     "delta_bytes": 0,
+     "ratio": 0.45147,
+     "delta_ratio": 0.0,
+     "source": "w12a04-cto-k4size (their gene names)"
+    }
+   }
+  },
+  {
+   "name": "p_canedit_revert",
+   "category": "curve-store form",
+   "edit": null,
+   "results": {
+    "L1": {
+     "bytes": 27400,
+     "delta_bytes": 0,
+     "ratio": 0.45177,
+     "delta_ratio": 0.0003,
+     "source": "w12a04-cto-k4size (their gene names)"
+    },
+    "k4+s_bump_first": {
+     "bytes": 27392,
+     "delta_bytes": 0,
+     "ratio": 0.45124,
+     "delta_ratio": 0.0003,
+     "source": "w12a04-cto-k4size (their gene names)"
+    }
+   }
+  },
+  {
+   "name": "p_cb_before_hr",
+   "category": "curve-store form",
+   "edit": [
+    {
+     "old": "  curve.is_holder_reward=holder;\n  curve.is_cashback_coin=cashback;\n",
+     "new": "  curve.is_cashback_coin=cashback;\n  curve.is_holder_reward=holder;\n"
+    }
+   ],
+   "results": {
+    "C2": {
+     "bytes": 27392,
+     "delta_bytes": 0,
+     "ratio": 0.45213,
+     "delta_ratio": 0.0,
+     "identical_to_base": false,
+     "first_store": -2288,
+     "losses": [],
+     "raw_losses": 687,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "p_feeunwrap_revert",
+   "category": "curve-store form",
+   "edit": null,
+   "results": {
+    "k4+s_bump_first": {
+     "bytes": 27384,
+     "delta_bytes": -8,
+     "ratio": 0.4519,
+     "delta_ratio": 0.00096,
+     "source": "w12a04-cto-k4size (their gene names)"
+    }
+   }
+  },
+  {
+   "name": "p_oldfee_revert",
+   "category": "curve-store form",
+   "edit": null,
+   "results": {
+    "k4+s_bump_first": {
+     "bytes": 27392,
+     "delta_bytes": 0,
+     "ratio": 0.45094,
+     "delta_ratio": 0.0,
+     "source": "w12a04-cto-k4size (their gene names)"
+    }
+   }
+  },
+  {
+   "name": "v_new_match",
+   "category": "early-return form",
+   "edit": [
+    {
+     "old": "let Some(t)=new else{return Err(error!(PumpError::CtoNewCreatorRequired));};",
+     "new": "let t=match new{Some(t)=>t,None=>return Err(error!(PumpError::CtoNewCreatorRequired))};"
+    }
+   ],
+   "results": {
+    "C3": {
+     "bytes": 27384,
+     "delta_bytes": 0,
+     "ratio": 0.47558,
+     "delta_ratio": -0.0006,
+     "identical_to_base": false,
+     "first_store": -2288,
+     "losses": [],
+     "raw_losses": 687,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    },
+    "Av": {
+     "bytes": 27392,
+     "delta_bytes": 0,
+     "ratio": 0.48509,
+     "delta_ratio": -0.0006,
+     "identical_to_base": false,
+     "first_store": -2296,
+     "losses": [],
+     "raw_losses": 687,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "D_holder_phi",
+   "category": "gene (other lane)",
+   "edit": [
+    {
+     "old": "let target=if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}*holder_key}else{",
+     "new": "let (target,holder)=if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(*holder_key,true)}else{"
+    },
+    {
+     "old": "if t==*holder_key||t==*sharing{return Err(error!(PumpError::InvalidCreator));}t};",
+     "new": "if t==*holder_key||t==*sharing{return Err(error!(PumpError::InvalidCreator));}(t,false)};"
+    }
+   ],
+   "results": {
+    "D": {
+     "bytes": 27400,
+     "delta_bytes": 0,
+     "ratio": 0.48652,
+     "delta_ratio": 0.0,
+     "identical_to_base": true,
+     "first_store": -2296,
+     "losses": [],
+     "raw_losses": 0,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "L_canedit_revert+w_collect_match",
+   "category": "if let vs match",
+   "edit": null,
+   "results": {
+    "L1": {
+     "bytes": 27392,
+     "delta_bytes": -8,
+     "ratio": 0.44614,
+     "delta_ratio": -0.00533,
+     "identical_to_base": false,
+     "first_store": -2288,
+     "losses": [],
+     "raw_losses": 687,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "L_share_none_first",
+   "category": "if let vs match",
+   "edit": [
+    {
+     "old": " match sharing_update{Some(val)=>{\n",
+     "new": " match sharing_update{None=>{}Some(val)=>{\n"
+    },
+    {
+     "old": "signer_seeds),val)?;\n\n }None=>{}}\n",
+     "new": "signer_seeds),val)?;\n\n }}\n"
+    }
+   ],
+   "results": {
+    "C2": {
+     "bytes": 27392,
+     "delta_bytes": 0,
+     "ratio": 0.45213,
+     "delta_ratio": 0.0,
+     "identical_to_base": true,
+     "first_store": -2288,
+     "losses": [],
+     "raw_losses": 687,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "p_su_match",
+   "category": "if let vs match",
+   "edit": null,
+   "results": {
+    "k4+s_bump_first": {
+     "bytes": 27400,
+     "delta_bytes": 8,
+     "ratio": 0.45147,
+     "delta_ratio": 0.00053,
+     "source": "w12a04-cto-k4size (their gene names)"
+    }
+   }
+  },
+  {
+   "name": "s_rent_local",
+   "category": "let binding",
+   "edit": [
+    {
+     "old": "let min=Rent::get()?.minimum_balance(0);",
+     "new": "let rent=Rent::get()?;let min=rent.minimum_balance(0);"
+    }
+   ],
+   "results": {
+    "main": {
+     "bytes": 27416,
+     "delta_bytes": 16,
+     "ratio": 0.43816,
+     "delta_ratio": -0.00103,
+     "identical_to_base": false,
+     "first_store": -2288,
+     "losses": [],
+     "raw_losses": 686,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
    "name": "gate_rev",
    "category": "other",
    "edit": null,
@@ -93,57 +692,57 @@
    }
   },
   {
-   "name": "p_canedit_revert",
+   "name": "p_pool_ifexpr",
    "category": "other",
    "edit": null,
    "results": {
-    "k4+s_bump_first": {
+    "L2": {
      "bytes": 27392,
-     "delta_bytes": 0,
-     "ratio": 0.45124,
-     "delta_ratio": 0.0003,
-     "source": "w12a04-cto-k4size (their gene names)"
-    }
-   }
-  },
-  {
-   "name": "p_feeunwrap_revert",
-   "category": "other",
-   "edit": null,
-   "results": {
-    "k4+s_bump_first": {
-     "bytes": 27384,
      "delta_bytes": -8,
-     "ratio": 0.4519,
-     "delta_ratio": 0.00096,
-     "source": "w12a04-cto-k4size (their gene names)"
-    }
-   }
-  },
-  {
-   "name": "p_oldfee_revert",
-   "category": "other",
-   "edit": null,
-   "results": {
-    "k4+s_bump_first": {
-     "bytes": 27392,
-     "delta_bytes": 0,
      "ratio": 0.45094,
-     "delta_ratio": 0.0,
+     "delta_ratio": -0.00083,
      "source": "w12a04-cto-k4size (their gene names)"
     }
    }
   },
   {
-   "name": "p_su_match",
+   "name": "r2_skipflag",
    "category": "other",
    "edit": null,
    "results": {
-    "k4+s_bump_first": {
-     "bytes": 27400,
-     "delta_bytes": 8,
-     "ratio": 0.45147,
-     "delta_ratio": 0.00053,
+    "L2": {
+     "bytes": 27392,
+     "delta_bytes": -8,
+     "ratio": 0.36794,
+     "delta_ratio": -0.08383,
+     "source": "w12a04-cto-k4size (their gene names)"
+    }
+   }
+  },
+  {
+   "name": "r2_sweepflag",
+   "category": "other",
+   "edit": null,
+   "results": {
+    "L2": {
+     "bytes": 27392,
+     "delta_bytes": -8,
+     "ratio": 0.36794,
+     "delta_ratio": -0.08383,
+     "source": "w12a04-cto-k4size (their gene names)"
+    }
+   }
+  },
+  {
+   "name": "r2_sweepflag_if",
+   "category": "other",
+   "edit": null,
+   "results": {
+    "L2": {
+     "bytes": 27392,
+     "delta_bytes": -8,
+     "ratio": 0.36794,
+     "delta_ratio": -0.08383,
      "source": "w12a04-cto-k4size (their gene names)"
     }
    }
@@ -159,6 +758,102 @@
      "ratio": 0.45094,
      "delta_ratio": 0.0,
      "source": "w12a04-cto-k4size (their gene names)"
+    }
+   }
+  },
+  {
+   "name": "L_bump_inline",
+   "category": "seed bump inline",
+   "edit": [
+    {
+     "old": "let bump=[ctx.bumps.creator_vault];let old=a.current_creator.key();let vaultseeds:&[&[u8]]=&[b\"creator-vault\",old.as_ref(),&bump];",
+     "new": "let old=a.current_creator.key();let vaultseeds:&[&[u8]]=&[b\"creator-vault\",old.as_ref(),&[ctx.bumps.creator_vault]];"
+    }
+   ],
+   "results": {
+    "Av": {
+     "bytes": 27384,
+     "delta_bytes": -8,
+     "ratio": 0.48726,
+     "delta_ratio": 0.00157,
+     "identical_to_base": false,
+     "first_store": -2296,
+     "losses": [],
+     "raw_losses": 687,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "p_pb_inline",
+   "category": "seed bump inline",
+   "edit": [
+    {
+     "old": "let pb=[ctx.bumps.pool_authority];let poolseeds:&[&[u8]]=&[b\"pool-authority\",mint.as_ref(),&pb];",
+     "new": "let poolseeds:&[&[u8]]=&[b\"pool-authority\",mint.as_ref(),&[ctx.bumps.pool_authority]];"
+    }
+   ],
+   "results": {
+    "D": {
+     "bytes": 27400,
+     "delta_bytes": 0,
+     "ratio": 0.48742,
+     "delta_ratio": 0.0009,
+     "identical_to_base": false,
+     "first_store": -2296,
+     "losses": [],
+     "raw_losses": 0,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    },
+    "Av": {
+     "bytes": 27392,
+     "delta_bytes": 0,
+     "ratio": 0.48659,
+     "delta_ratio": 0.0009,
+     "identical_to_base": false,
+     "first_store": -2296,
+     "losses": [],
+     "raw_losses": 687,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "s_bump_inline",
+   "category": "seed bump inline",
+   "edit": [
+    {
+     "old": "let bump=[ctx.bumps.creator_vault];let vaultseeds:&[&[u8]]=&[b\"creator-vault\",old.as_ref(),&bump];",
+     "new": "let vaultseeds:&[&[u8]]=&[b\"creator-vault\",old.as_ref(),&[ctx.bumps.creator_vault]];"
+    }
+   ],
+   "results": {
+    "D": {
+     "bytes": 27400,
+     "delta_bytes": 0,
+     "ratio": 0.48652,
+     "delta_ratio": 0.0,
+     "identical_to_base": true,
+     "first_store": -2296,
+     "losses": [],
+     "raw_losses": 0,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
     }
    }
   },
@@ -179,6 +874,37 @@
      "delta_ratio": 0.0008,
      "identical_to_base": false,
      "first_store": -2288,
+     "losses": [],
+     "raw_losses": 686,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "p_ev_ts_last",
+   "category": "statement / evaluation order",
+   "edit": [
+    {
+     "old": "let e=AdminCtoEvent{timestamp:Clock::get()?.unix_timestamp,authority:a.admin_set_creator_authority.key(),",
+     "new": "let e=AdminCtoEvent{authority:a.admin_set_creator_authority.key(),"
+    },
+    {
+     "old": "swept_to_holder_vault:swept,pool_updated};",
+     "new": "swept_to_holder_vault:swept,pool_updated,timestamp:Clock::get()?.unix_timestamp};"
+    }
+   ],
+   "results": {
+    "L1": {
+     "bytes": 27680,
+     "delta_bytes": 280,
+     "ratio": 0.40173,
+     "delta_ratio": -0.04974,
+     "identical_to_base": false,
+     "first_store": -2296,
      "losses": [],
      "raw_losses": 686,
      "calls": [
@@ -231,6 +957,60 @@
      "first_store": -2288,
      "losses": [],
      "raw_losses": 0,
+     "calls": [
+      154,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "w_create_rev",
+   "category": "statement / evaluation order",
+   "edit": [
+    {
+     "old": "anchor_spl::associated_token::Create{payer:a.admin_set_creator_authority.to_account_info(),associated_token:a.current_creator_quote_token_account.to_account_info(),authority:a.current_creator.to_account_info(),mint:a.quote_mint.to_account_info(),system_program:a.system_program.to_account_info(),token_program:a.quote_token_program.to_account_info()}",
+     "new": "anchor_spl::associated_token::Create{token_program:a.quote_token_program.to_account_info(),system_program:a.system_program.to_account_info(),mint:a.quote_mint.to_account_info(),authority:a.current_creator.to_account_info(),associated_token:a.current_creator_quote_token_account.to_account_info(),payer:a.admin_set_creator_authority.to_account_info()}"
+    }
+   ],
+   "results": {
+    "L1": {
+     "bytes": 27672,
+     "delta_bytes": 272,
+     "ratio": 0.42802,
+     "delta_ratio": -0.02345,
+     "identical_to_base": false,
+     "first_store": -2400,
+     "losses": [],
+     "raw_losses": 686,
+     "calls": [
+      159,
+      3
+     ],
+     "source": "w12a13-cto-sizeknobs"
+    }
+   }
+  },
+  {
+   "name": "w_ev_creator_first",
+   "category": "statement / evaluation order",
+   "edit": [
+    {
+     "old": "CollectCreatorFeeEvent{timestamp:Clock::get()?.unix_timestamp,creator:a.current_creator.key(),",
+     "new": "CollectCreatorFeeEvent{creator:a.current_creator.key(),timestamp:Clock::get()?.unix_timestamp,"
+    }
+   ],
+   "results": {
+    "L1": {
+     "bytes": 27464,
+     "delta_bytes": 64,
+     "ratio": 0.44704,
+     "delta_ratio": -0.00443,
+     "identical_to_base": false,
+     "first_store": -2288,
+     "losses": [],
+     "raw_losses": 686,
      "calls": [
       154,
       3

@@ -19,13 +19,21 @@ def worker(i):
             s = q.get_nowait()
         except Q.Empty:
             return
+        try:
+            fd = os.open(f'{OUT}/res/{s[0]}.claim', os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            os.close(fd)
+        except FileExistsError:
+            continue
+        if os.path.exists(f'{OUT}/res/{s[0]}.json'):
+            continue
         r = subprocess.run(['python3', TRIAL, s[0], s[1], str(i)] + s[2:], text=True, capture_output=True)
         line = (r.stdout.strip().splitlines() or [json.dumps({'name': s[0], 'ok': False, 'error': r.stderr[-500:]})])[-1]
         with lock:
             open(f'{OUT}/res/log.jsonl', 'a').write(line + '\n')
 
 
-ts = [threading.Thread(target=worker, args=(i,)) for i in range(nw)]
+wids = [int(x) for x in sys.argv[3].split(',')] if len(sys.argv) > 3 else list(range(nw))
+ts = [threading.Thread(target=worker, args=(i,)) for i in wids]
 for t in ts:
     t.start()
 for t in ts:

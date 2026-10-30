@@ -20,6 +20,10 @@ BASES = {
     'k4': ['wallet_flags', 'region2_tree', 'fee_unwrap', 'canedit_first', 'old_fee_first'],
     # L1 = PR #2749 (w12a04-cto-k4size): k4 + s_bump_first + p_share_match (knobs.K names)
     'L1': ['wallet_flags', 'region2_tree', 'fee_unwrap', 'canedit_first', 'old_fee_first', 's_bump_first', 'p_share_match'],
+    # L2 = L1 + canedit revert (w12a04-cto-k4size); C2 = L2 + fee_unwrap revert (this lane)
+    'L2': ['wallet_flags', 'region2_tree', 'fee_unwrap', 'canedit_first', 'old_fee_first', 's_bump_first', 'p_share_match', 'L_canedit_revert'],
+    'C2': ['wallet_flags', 'region2_tree', 'fee_unwrap', 'canedit_first', 'old_fee_first', 's_bump_first', 'p_share_match', 'L_canedit_revert', 'L_feeunwrap_revert'],
+    'C3': ['wallet_flags', 'region2_tree', 'fee_unwrap', 'canedit_first', 'old_fee_first', 's_bump_first', 'p_share_match', 'L_canedit_revert', 'L_feeunwrap_revert', 'v_fee_match'],
 }
 
 

@@ -79,13 +79,14 @@ def main():
         try:
             import frame
             rec['frame'] = frame.frame_of(f'{tout}/unstripped.so')
+            rec['fn_sha'] = frame.fn_sha(f'{tout}/unstripped.so')
         except Exception as e:
             rec['frame'] = str(e)[:200]
     else:
         rec.update(ok=False, error=str(m.get('error'))[-800:])
     json.dump(rec, open(res_path, 'w'))
     print(json.dumps(rec))
-    if os.environ.get('KEEP') != '1':
+    if os.environ.get('KEEP') != '1' and not (rec.get('ok') and rec.get('bytes') == 27400 and (rec.get('ratio') or 0) > 0.48742):
         for f in ('unstripped.so', 'candidate.so'):
             p = f'{tout}/{f}'
             if os.path.exists(p):

@@ -17,7 +17,14 @@ Ledger approach `size-knob-catalog`, keys `0x22a10-w12-20a1ae9-sizeknob-<base>-<
 | `main` | main 20a1ae9c0 (= h1, #2642) | 27,400 | 0.43919 | `[r10-0x8f0]` |
 | `j3` | main + `wallet_flags` (#2518) | 27,312 | 0.45251 | |
 | `k4` | main + wallet_flags, region2_tree, fee_unwrap, canedit_first, old_fee_first (w9r2 k4) | 27,384 | 0.4525 | `[r10-0x8f0]` |
-| `L1` | k4 + `s_bump_first` + `p_share_match` (= PR #2749, w12a04-cto-k4size) | 27,400 | 0.45147 | `[r10-0x8f0]` |
+| `L1` | k4 + `s_bump_first` + `p_share_match` (#2749, w12a04-cto-k4size) | 27,400 | 0.45147 | `[r10-0x8f0]` |
+| `L2` | L1 + can_edit cleared after the fee store (#2792) | 27,400 | 0.45177 | |
+| `C2` | L2 + curve store `if let Some(f)=fee` (fee_unwrap reverted) | 27,392 | 0.45213 | `[r10-0x8f0]` |
+| `C3` | C2 + validate fee test as `match fee{Some(f)=>{..}None=>{}}` | 27,384 | **0.47618** | `[r10-0x8f0]` |
+| `Av` | w12a14 b53cbd23e405 (L1 + amm_cb_local + k4_oldfee_after + v326 match) | 27,392 | 0.48569 | `[r10-0x8f8]` |
+| `A2` | w12a14 6f262fb34c9e (Av + curve store in original order) | 27,384 | 0.48607 | |
+| `D` | w12a14 d7acbb3d549a = #2831 | 27,400 | 0.48652 | `[r10-0x8f8]` |
+| `M2` | main 1905fba85: D + nested pool-authority signer seeds (#2808 spelling) | 27,400 | 0.48742 | |
 | original | | 27,400 | 1 | `[r10-0x928]` |
 
 ## How to use
@@ -32,13 +39,51 @@ Ledger approach `size-knob-catalog`, keys `0x22a10-w12-20a1ae9-sizeknob-<base>-<
   `tools/jumpmap.py cand.so` aligns against the original with jump offsets masked and shows where inserting
   k slots would fix or break aligned jumps; `tools/frame.py` prints the entry spill offset.
 
-## Catalog (measured here unless noted)
+## Catalog (one row per knob and base; measured here unless noted)
 
-| knob | category | main Δbytes | main Δratio | L1 Δbytes | L1 Δratio | k4 Δbytes | k4 Δratio |
-| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| `s_old_borrow` | copied-vs-borrowed Pubkey | -80 | -0.00295 |  |  |  |  |
-| `g_old_fee_first` | statement / evaluation order | +48 | +0.00080 |  |  |  |  |
-| `st_ql_first` | statement / evaluation order | = |  |  |  |  |  |
+| knob | category | base | Δbytes | Δratio | ratio | first spill | calls | measured by |
+| --- | --- | --- | ---: | ---: | ---: | ---: | --- | --- |
+| `prep_match` | ? vs explicit match | C2 | +0 | -0.04074 | 0.41139 | -0x8f0 | 154+3 | here |
+| `v_fee_split` | combined vs split check | L1 | +200 | -0.01253 | 0.43894 | -0x900 | 157+3 | here |
+| `v_ik_split` | combined vs split check | L1 | -8 | -0.00819 | 0.44328 | -0x900 | 157+3 | here |
+| `v_ik_split` | combined vs split check | Av | -8 | -0.04204 | 0.44365 | -0x908 | 157+3 | here |
+| `s_dest_borrow` | copied-vs-borrowed Pubkey | L1 | -80 | -0.00173 | 0.44974 | -0x8f0 | 154+3 | here |
+| `s_old_borrow` | copied-vs-borrowed Pubkey | main | -80 | -0.00295 | 0.43624 | -0x8f0 | 154+3 | here |
+| `sh_key_borrow` | copied-vs-borrowed Pubkey | L1 | -80 | +0.00008 | 0.45155 | -0x8f0 | 154+3 | here |
+| `val_sh_borrow` | copied-vs-borrowed Pubkey | L1 | -152 | -0.02215 | 0.42932 | -0x8e8 | 154+3 | here |
+| `L_canedit_revert+L_fee_match` | curve-store form | L1 | -8 | +0.00007 | 0.45154 | -0x8f0 | 154+3 | here |
+| `L_canedit_revert+L_feeunwrap_revert` | curve-store form | L1 | -8 | +0.00066 | 0.45213 | -0x8f0 | 154+3 | here |
+| `L_canedit_revert+L_feeunwrap_revert+v_fee_match` | curve-store form | L1 | -16 | +0.02471 | 0.47618 | -0x8f0 | 154+3 | here |
+| `L_fee_unwrap_again` | curve-store form | C3 | +8 | -0.00037 | 0.47581 | -0x8f0 | 154+3 | here |
+| `p_canedit_after_creator` | curve-store form | L1 | +0 | +0.00000 | 0.45147 |  |  | w12a04 |
+| `p_canedit_revert` | curve-store form | L1 | +0 | +0.00030 | 0.45177 |  |  | w12a04 |
+| `p_canedit_revert` | curve-store form | k4+s_bump_first | +0 | +0.00030 | 0.45124 |  |  | w12a04 |
+| `p_cb_before_hr` | curve-store form | C2 | +0 | +0.00000 | 0.45213 | -0x8f0 | 154+3 | here |
+| `p_feeunwrap_revert` | curve-store form | k4+s_bump_first | -8 | +0.00096 | 0.4519 |  |  | w12a04 |
+| `p_oldfee_revert` | curve-store form | k4+s_bump_first | +0 | +0.00000 | 0.45094 |  |  | w12a04 |
+| `v_new_match` | early-return form | C3 | +0 | -0.00060 | 0.47558 | -0x8f0 | 154+3 | here |
+| `v_new_match` | early-return form | Av | +0 | -0.00060 | 0.48509 | -0x8f8 | 154+3 | here |
+| `D_holder_phi` | gene (other lane) | D | = |  | 0.48652 | -0x8f8 | 154+3 | here |
+| `L_canedit_revert+w_collect_match` | if let vs match | L1 | -8 | -0.00533 | 0.44614 | -0x8f0 | 154+3 | here |
+| `L_share_none_first` | if let vs match | C2 | = |  | 0.45213 | -0x8f0 | 154+3 | here |
+| `p_su_match` | if let vs match | k4+s_bump_first | +8 | +0.00053 | 0.45147 |  |  | w12a04 |
+| `s_rent_local` | let binding | main | +16 | -0.00103 | 0.43816 | -0x8f0 | 154+3 | here |
+| `gate_rev` | other | k4+s_bump_first | +0 | +0.00000 | 0.45094 |  |  | w12a04 |
+| `p_pool_ifexpr` | other | L2 | -8 | -0.00083 | 0.45094 |  |  | w12a04 |
+| `r2_skipflag` | other | L2 | -8 | -0.08383 | 0.36794 |  |  | w12a04 |
+| `r2_sweepflag` | other | L2 | -8 | -0.08383 | 0.36794 |  |  | w12a04 |
+| `r2_sweepflag_if` | other | L2 | -8 | -0.08383 | 0.36794 |  |  | w12a04 |
+| `target_rebind_drop` | other | k4+s_bump_first | +0 | +0.00000 | 0.45094 |  |  | w12a04 |
+| `L_bump_inline` | seed bump inline | Av | -8 | +0.00157 | 0.48726 | -0x8f8 | 154+3 | here |
+| `p_pb_inline` | seed bump inline | Av | +0 | +0.00090 | 0.48659 | -0x8f8 | 154+3 | here |
+| `p_pb_inline` | seed bump inline | D | +0 | +0.00090 | 0.48742 | -0x8f8 | 154+3 | here |
+| `s_bump_inline` | seed bump inline | D | = |  | 0.48652 | -0x8f8 | 154+3 | here |
+| `g_old_fee_first` | statement / evaluation order | main | +48 | +0.00080 | 0.43999 | -0x8f0 | 154+3 | here |
+| `p_ev_ts_last` | statement / evaluation order | L1 | +280 | -0.04974 | 0.40173 | -0x8f8 | 154+3 | here |
+| `s_frozen_first` | statement / evaluation order | k4+s_bump_first | -64 | -0.01326 | 0.43768 |  |  | w12a04 |
+| `st_ql_first` | statement / evaluation order | main | = |  | 0.43919 | -0x8f0 | 154+3 | here |
+| `w_create_rev` | statement / evaluation order | L1 | +272 | -0.02345 | 0.42802 | -0x960 | 159+3 | here |
+| `w_ev_creator_first` | statement / evaluation order | L1 | +64 | -0.00443 | 0.44704 | -0x8f0 | 154+3 | here |
 
 | prior knob on main (ledger; admin_cto.rs identical to main 20a1ae9c0) | Δbytes | ratio | Δratio | source |
 | --- | ---: | ---: | ---: | --- |
@@ -75,14 +120,22 @@ Ledger approach `size-knob-catalog`, keys `0x22a10-w12-20a1ae9-sizeknob-<base>-<
 | `s_frozen_first` | -64 | 0.43768 | -0.01326 |
 | `target_rebind_drop` | +0 | 0.45094 | +0.00000 |
 
-## Findings so far
+## Findings
 
-- Knobs that only reorder side-effect-free reads (`st_ql_first`: `quote_locked` first in the `CtoState` literal) are
-  byte-identical: LLVM reorders them freely. Reorders across a call or syscall (`Clock::get()?`, CPIs, memcmp) and
-  changes of control shape (`?` vs `match`, split checks, `match` vs `if let`) are the ones that move bytes.
-- No knob so far moves the entry spill (`[r10-0x8f0]`, original `[r10-0x928]`): the 56 B frame gap is not a
-  size-knob effect (frame lanes: w12a01/w12a05).
-- From the k4+s_bump_first rows: reverting `fee_unwrap` (-8 B, +0.00096) and `canedit_first` (0 B, +0.00030) both move
-  the curve-store block toward the original. The original stores, in order: creator (4 words), is_cashback_coin (+0xa5),
-  is_holder_reward (+0xa3), a branchy `if let Some(f)=fee` store to creator_fee_bps (+0x70), and can_edit (+0xa4) last.
-  A +8 B knob with a ratio gain on L1 is therefore the missing piece for an L1-family composite at 27,400 B.
+- **Validate fee test as `match` (+0.024).** `match fee{Some(f)=>{..}None=>{}}` in place of `if let Some(f)=fee{..}` in
+  validate (line 326) took C2 0.45213 -> C3 0.47618 at -8 B. The same gene was found independently by w12a14
+  (`v326_match`) and w12a09 (t02, None-first spelling) and is part of #2831.
+- **Compensators that keep ratio:** on Av the pool-seed bump inline (`p_pb_inline`) is 0 B / +0.0009 and the vault-seed
+  bump inline (`L_bump_inline`, bump-first form) is -8 B / +0.00157. On D, `p_pb_inline` gives 27,400 B / 0.48742 with 0 losses,
+  the same ratio as main's nested pool seeds (w12b12 spelling, integrated in 1905fba85), so this gain is already on main.
+- **+8 B compensators** on the C/A/D family: curve store `fee.unwrap_or(old_fee)` instead of `if let` (+8, about -0.0004);
+  `match sharing_update` instead of `if let` (+8 on k4+bump, +0.0005; #2749). `if let` vs `match` for the sharing update
+  arm order (`L_share_none_first`) and for the curve-store fee is 0 B.
+- **-80 B compensators:** every borrowed-instead-of-copied Pubkey compare removes one 32 B copy:
+  `sh_key_borrow` (-80, +0.00008 on L1), `s_dest_borrow` (-80, -0.0017), `s_old_borrow` (-80, -0.003 on main).
+- **Frame movers** (entry spill): splitting a combined check into two error sites (`v_ik_split`, `v_fee_split`) adds two
+  outlined `to_string` calls (157 calls) and moves the spill 16 B deeper; `p_ev_ts_last` +8 B; `w_create_rev` +112 B.
+  None of the cheap knobs moves it.
+- Reorders of side-effect-free reads (`st_ql_first`) are byte-identical; `?` -> explicit `match` on
+  `prepare_bonding_curve` is 0 B but -0.04 ratio.
+- `holder` as a phi of constants in validate (w12a09 t14) is a no-op on D: `amm_cb_local` already gives that shape.
