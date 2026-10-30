@@ -106,3 +106,17 @@ Same-screen dead ends on 23322b0 (bytes / ratio): `v_hr_rev` 26,576 / 0.519, `v_
 `pre_cb_late` 27,328 / 0.569; byte-neutral: `v_hr_ne`, `v_he_a`, `v_he_d`, `v_f_rev`, `v_cbv_rev`, `pre_cb_mid/sk/hopt/match/not`,
 `sc_auth_*` (sharing CPI authority literal; fieldscan R3160 was +0.0006 on 53abf28 but is neutral on 23322b0).
 
+
+## %4 on main 308b545 (0.63062): shared tests sharing_config.key() on the left
+
+`let shared=a.sharing_config.key()==a.bonding_curve.creator&&..` (operand order of the first `shared` comparison, gene `cmp_sh_rev`). Same-screen neutral or worse on 308b545: `cmp_fees_rev`/`cmp_pool_rev` 0.63032, `cmp_hcv_rev`/`cmp_sys_rev`/`cmp_co_rev` 0.63002, `cmp_nat_w`/`cmp_nat_s` 0.62972; byte-neutral ratio: `cmp_amt1/2`, `cmp_cf_rev`, `cmp_fmax_rev`, `neg_pool`, `neg_shared`, `neg_sh_holder`, `neg_frozen`.
+
+| metric | main 308b545 | this change |
+| --- | ---: | ---: |
+| admin_cto bytes | 27,400 | 27,400 |
+| ratio | 0.63062 | **0.63241** |
+| slots_diff | 3288 | 3288 |
+| normalized / raw | 1034 / 1034 | 1034 / 1034 |
+| gains / losses | | 0 / 0 |
+| runtime differential | | 363 cases, 0 mismatches |
+| unstripped sha256 | | `83f55c383a65db04d090e22dd9644da29b9d936b28ba2d0faf0744e6abe5a271` |

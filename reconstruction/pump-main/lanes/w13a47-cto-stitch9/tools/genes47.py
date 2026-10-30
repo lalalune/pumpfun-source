@@ -115,3 +115,25 @@ G['pre_sk_first'] = [(_PRE, "let sk=a.sharing_config.key();let hopt=holder;let h
 G['pre_cb_hopt'] = [(_PRE, "let hopt=holder;let holder=hopt==Some(true);let cashback=!(hopt==Some(true))&&st.cashback;let args=&(new,);let sk=a.sharing_config.key();let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;")]
 G['pre_cb_match'] = [(_PRE, "let hopt=holder;let holder=hopt==Some(true);let cashback=match hopt{Some(true)=>false,_=>st.cashback};let args=&(new,);let sk=a.sharing_config.key();let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;")]
 G['pre_cb_not'] = [(_PRE, "let hopt=holder;let holder=hopt==Some(true);let cashback=!(holder||!st.cashback);let args=&(new,);let sk=a.sharing_config.key();let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;")]
+
+# ---- comparison operand swaps and branch negations (main 308b545f1) ----
+G['cmp_pool_rev'] = [("a.pool.owner==&AMM", "&AMM==a.pool.owner")]
+G['cmp_fees_rev'] = [("a.sharing_config.owner==&FEES", "&FEES==a.sharing_config.owner")]
+G['cmp_sh_rev'] = [("a.bonding_curve.creator==a.sharing_config.key()", "a.sharing_config.key()==a.bonding_curve.creator")]
+G['cmp_hcv_rev'] = [("a.holder_creator_vault.key()!=dest", "dest!=a.holder_creator_vault.key()")]
+G['cmp_nat_w'] = [("let collection_native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;", "let collection_native=anchor_spl::token::spl_token::native_mint::ID==a.quote_mint.key();")]
+G['cmp_nat_s'] = [("let native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;", "let native=anchor_spl::token::spl_token::native_mint::ID==a.quote_mint.key();")]
+G['cmp_sys_rev'] = [("a.current_creator.owner!=&anchor_lang::system_program::ID", "&anchor_lang::system_program::ID!=a.current_creator.owner")]
+G['cmp_amt1'] = [("if amount>0{crate::legacy_buy", "if 0<amount{crate::legacy_buy")]
+G['cmp_amt2'] = [("}else if amount>0{anchor_spl", "}else if 0<amount{anchor_spl")]
+G['cmp_cf_rev'] = [("a.bonding_curve.creator_fee==0", "0==a.bonding_curve.creator_fee")]
+G['cmp_co_rev'] = [("st.creator!=Pubkey::default()", "Pubkey::default()!=st.creator")]
+G['cmp_fmax_rev'] = [("f>st.max_fee", "st.max_fee<f")]
+G['neg_pool'] = [("\n  if pool_updated{\n", "\n  if !pool_updated{msg!(\"No canonical pump pool for this mint; curve only\");}else{\n"), ("\n  }else{msg!(\"No canonical pump pool for this mint; curve only\");}\n", "\n  }\n")]
+G['neg_shared'] = [("=if shared{if holder{(false,Some(None),false)}else{target=st.creator;(false,Some(args.0),true)}}else{(!st.holder_reward&&st.creator!=Pubkey::default(),None,true)};", "=if !shared{(!st.holder_reward&&st.creator!=Pubkey::default(),None,true)}else if holder{(false,Some(None),false)}else{target=st.creator;(false,Some(args.0),true)};")]
+G['neg_sh_holder'] = [("=if shared{if holder{(false,Some(None),false)}else{target=st.creator;(false,Some(args.0),true)}}else{", "=if shared{if !holder{target=st.creator;(false,Some(args.0),true)}else{(false,Some(None),false)}}else{")]
+import json as _j
+G['neg_frozen'] = [tuple(_j.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'neg_frozen.json'))))]
+_NC = 'msg!("No canonical pump pool for this mint; curve only");'
+G['neg_pool'] = [("\n  if pool_updated{\n", "\n  if !pool_updated{" + _NC + "}else{\n"), ("\n  }else{" + _NC + "}\n", "\n  }\n")]
+G['neg_pool'] = [("\n if pool_updated{\n", "\n if !pool_updated{" + _NC + "}else{\n"), ("\n }else{" + _NC + "}\n", "\n }\n")]
