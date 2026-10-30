@@ -1,0 +1,37 @@
+{
+  "lane": "w13a29-cto-spillslot109",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "landed": {"pr": 3028, "merge_commit": "904380eabb4e454b4f15a5e03442cda2ad58137b", "note": "merged elsewhere while land.py was waiting on the lock"},
+  "best": {"main": "dfc3693", "before": {"ratio": 0.59916, "slots_diff": 3313}, "after": {"ratio": 0.61833, "slots_diff": 3306, "bytes": 27400, "normalized": 1034, "raw": 1034, "losses": 0, "differential": "363/0", "unstripped_sha16": "2bc480ebebb23f98"}},
+  "mechanism": [
+    "Spill area 0x8d8..0xc38 is ordered by spill weight (StackSlotColoring stable-sorts by weight; colors fi#178.. in order); most deep slots are the 13-account TransferCreatorFeesToPumpV2 AccountInfo clone run.",
+    "The original clones payer (_212+0) 2nd and system_program (_212+48, via a separately spilled &a.system_program pointer) 5th: literal order payer, quote_mint, token_program, system_program, associated_token_program, ...",
+    "On a payer-first all-plain base, w13a21's fieldscan llc oracle picked owner-before-lamports in both pump_amm clones (CpiContext program + program field); oracle = source build exactly (0.61114 on 06e6bb8+, 0.61833 ported to dfc3693 with m_ev_hr_curve -8 B).",
+    "Remaining +24 B pressure seen earlier: ours keeps &a.holder_creator_vault (gep +264, defined in the inlined sweep) in r8 and a bool call result in r9 across the clone run; the original spills both before it (orig 0x1f48 -> [r10-0x8e0], 0x1f68 -> [r10-0x918]) and keeps account keys in r6/r7/r9/r0."
+  ],
+  "attempts": [
+    {"form": "payer-first literal on k1", "bytes": 27424, "ratio": 0.58063},
+    {"form": "payer-first + z_sh_flat_owner_first + s7_rentlocal on k1", "bytes": 27400, "ratio": 0.57909},
+    {"form": "payer-first + z_sh_flat + v6_rlref on d81d0f5", "bytes": 27400, "ratio": 0.58808},
+    {"form": "payer-first with main's hand-written system copy + m_ev_hr_curve on 06e6bb8", "bytes": 27400, "ratio": 0.58957},
+    {"form": "payer-first with all of main's key-late copies (system-first tuned) on 06e6bb8+", "bytes": 27440, "ratio": 0.56578},
+    {"form": "payer-first all plain + m_ev_hr_curve (P0)", "bytes": 27416, "ratio": 0.5879},
+    {"form": "P0 + owner-early CpiContext pump_amm copy (s1)", "bytes": 27400, "ratio": 0.60276},
+    {"form": "P0 + owner-early both pump_amm copies (s2)", "bytes": 27400, "ratio": 0.61114},
+    {"form": "s2 ported to dfc3693 (t1, landed)", "bytes": 27400, "ratio": 0.61833}
+  ],
+  "rejected": [
+    "IR fake use of %326 (&a.holder_creator_vault) at the sweep exit: 27,464 B, 0.48474",
+    "IR hoist of %326 to entry + use before ret: 27,304 B, 0.51771",
+    "size genes on payer-first: v296_nested, z_sh_if_empty_first, ql_inline_st, s7_dborrow (all lose ratio)"
+  ],
+  "unresolved_residuals": [
+    "Spill slot count is still 108 vs 109: on 0.59197 main the unmatched original slots are 0xb48 (coin_creator_vault_ata data-Rc pointer spilled right after its increment, orig 0x2fa8) and 0xc38 (last slot); remap upper bound for 0xb48..0xbc0 is +0.0042.",
+    "&a.holder_creator_vault and the r9 bool are kept in callee-saved registers through the clone run in ours."
+  ],
+  "next_ideas": [
+    "Rerun w13a21 fieldscan.py --pairs on the landed IR (capture T1c in the lane cache, 0.61833) for the remaining clones under the faithful payer-first order.",
+    "Look for a source form that spills &a.holder_creator_vault at its def (e.g. sweep taking &AccountInfo argument computed in execute, or a by-reference binding in the caller) without lengthening it past the sweep.",
+    "coin_creator_vault_ata copy forms that spill its data Rc pointer immediately (orig 0xb48)."
+  ]
+}
