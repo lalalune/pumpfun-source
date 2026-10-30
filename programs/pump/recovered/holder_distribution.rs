@@ -5,9 +5,9 @@
 //! the `DistributeFeeToHoldersEvent` reports. Keys are small ids. Checked
 //! against the captured program by
 //! `tests/test_holder_distribution_captured.py` on the inputs listed there;
-//! it is not a byte-identity claim. The token-quote payout path (SPL
-//! transfers out of `holder_rewards_token_account`) is out of scope; only
-//! its two outcomes without a token account are modelled.
+//! it is not a byte-identity claim. Only the two token-quote outcomes
+//! without a token account are modelled here; payouts that pass
+//! `holder_rewards_token_account` are `holder_distribution_token.rs`.
 
 /// Rent-exempt minimum of a zero-length account. The PDA may end at zero or
 /// at this floor or above, never in between.
