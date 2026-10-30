@@ -1,0 +1,32 @@
+{
+ "lane": "w13a49-cto-colderr",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "bases": {"52c0b087c": {"ratio": 0.62103, "slots": 3306}, "53abf28b1": {"ratio": 0.62672, "slots": 3305, "fm": 0.72588, "sk": 0.8541}},
+ "best": {"ratio": 0.62672, "slots": 3305, "bytes": 27400, "note": "no zero-loss gain; best is main itself"},
+ "landed": false,
+ "pr": 3156,
+ "findings": [
+  "Original skip gate jne skip,0 -> 0x3c68 threads past the jne r7,2 tag test, like ours; the skip path does not join the sweep Result before the test (cause-2 premise wrong).",
+  "Err payload r9 at all 20 Err sites comes from the holder phi of constants (n5h/n5hp), not from the skip join.",
+  "Skip-polarity gate (s9 source / g1 IR) was -8 B and fm/sk-positive on 52c0b08 but collapses on 6ff770f and 53abf28 (0.4794): the sweep token-arm chunk moves after the post-sweep code. Only head-of-function weights (start/bb1 16:1, global_quote, bb15) restore the layout, and none beats main.",
+  "Full source-reachable weight sweep on 53abf28: best +0.0006 at 27400 (bb10.i98/bb66.i104 20:12, bb106.i 16:1), all lowering fm (proxies), none source-reachable without an added cold call."
+ ],
+ "attempts": {"wave13_ir_probes": 12, "wave13_source_captures": 22, "wave14_source_captures": 11, "wave14_bw_sweep_runs": 1176},
+ "rejected": [
+  "map_err through #[cold]#[inline(never)] fn (c1/c2): +1/+2 calls",
+  "map_err(#[cold]|e|e) closures (q1/q5): byte-identical (inlined, cold lost)",
+  "if-let / match Err-first spellings of the tvt ? (q2/q3): byte-identical",
+  "map_err cold closure on token_frozen / amm token_raw_amount (q4/q6): +208 B",
+  "zero-compare spellings of the amm require (r1-r4): folded to icmp eq x,0",
+  "skip-polarity gate source spellings s1-s10, m3s9: chunk swap / collapse",
+  "single source-reachable weights on sweep edges, gate and all branches (main, n5hp, s1, g1m3)"
+ ],
+ "unresolved": [
+  "swept / Err-payload coalescing (needs holder phi + coalescer visit order; see #3149/#3164/#3158)",
+  "skip-polarity gate layout tie set by the entry shared && chain"
+ ],
+ "next_ideas": [
+  "Combine the skip-polarity gate with a head-of-function change that tips the same MBP tie (e.g. entry shared-chain spellings that alter bb1/start frequencies), screened with tools/ed.py + edits/g1m3.py",
+  "Memory-bool test form for the amm require (bool materialised through an out-param) to reach bb66.i104 20:12, if a non-call form exists"
+ ]
+}

@@ -1,0 +1,1 @@
+EDITS=[("crate::collect_v2::transfer_vault_tokens(","match crate::collect_v2::transfer_vault_tokens("),("a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),amount,&vsigner)?;}","a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),amount,&vsigner){Err(e)=>return Err(e),Ok(())=>{}}}")]

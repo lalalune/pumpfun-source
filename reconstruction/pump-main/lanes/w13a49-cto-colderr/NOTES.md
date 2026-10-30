@@ -89,3 +89,46 @@ on fm and sk.
 - `tools/payreg.py <ann>..`: Err-site payload register counts (original r9 x20).
 - `edits/n5.py` (w13a36 e5/n5 adapted to 52c0b08 names, `E5=h|hp|c..`), `edits/t1.py`, `edits/t2.py`, `edits/g1.py`.
 - `src_edits/*.py`: `EDITS` lists for w13a23 `capvar.sh`.
+
+## 6. Wave 14 continuation on main 53abf28b1 (0.62672, 3,305 slots, fm 0.72588, sk 0.8541)
+
+The lane died at ~19:30 UTC in wave 13. Its last batch (k1-k8: s9 plus size knobs on 52c0b08) peaked at 0.62013
+(below that main's 0.62103), and s9 already collapsed on 6ff770f (n9 0.4779). Re-measured on 53abf28 with the raw-IR
+capture + rx oracle (`eq_main: true` for the unmodified capture):
+
+| trial | change | bytes | ratio | fm | sk |
+| --- | --- | ---: | ---: | ---: | ---: |
+| m3 | main capture | 27,400 | 0.62672 | 0.72588 | 0.8541 |
+| m3s9 | `swept=if skip{Ok(0)}else{sweep(&ctx,&holder_key)}?;` | 27,392 | 0.4794 | 0.51925 | 0.65169 |
+| g1m3 | IR skip-polarity gate phi (`edits/g1m3.py`) | 27,392 | 0.4794 | 0.51925 | 0.65228 |
+| g1m3 + `bw:start:16:1` (or `bb1:16:1`) | | 27,240 | 0.61899 | 0.71454 | 0.85427 |
+| g1m3 + `bw:bb31:20:12` (gate) | | 27,360 | 0.53485 | 0.64998 | 0.82027 |
+
+The collapse moves the 753-insn sweep token-arm chunk (main 0x2478-0x3dd0) after the post-sweep code. A
+588-run weight sweep over g1m3 (`sw_g1m3.jsonl`) restores the layout (sk 0.854) only with weights at the function head
+(`start`/`bb1`, the #3168 `shared` && chain; `global_quote`; `bb15`), never with sweep-edge or gate weights. The
+skip-polarity gate is therefore a whole-function block-frequency near-tie that #3155/#3168 tipped. It is not a
+sweep-edge coldness problem, and no single weight brings it above main.
+
+Source-reachable weights on main (`bwfm.py sweep`, 147 branches x {20:12, 12:20, 16:1, 1:16}, `sw_m3.jsonl`):
+
+| spec | bytes | ratio | fm | what |
+| --- | ---: | ---: | ---: | --- |
+| `bb10.i98:20:12` / `bb66.i104:20:12` | 27,400 | 0.62732 | 0.72558 | amm-arm token_frozen Ok / `require!(token_raw_amount(..)?==0)` pass made likely |
+| `bb106.i:16:1` | 27,400 | 0.62732 (3,370 slots) | 0.72558 | transfer_vault_tokens Err colder (this lane's original lever) |
+| `bb18:1:16` | 27,352 | 0.62759 | 0.72504 | |
+| `bb79.i:12:20` (best fm) | 27,400 | 0.62223 | 0.73397 | to_string unreachable edge, not source-reachable |
+
+The +0.0006 entries lower fm, so they are positional proxies, and none of them is reachable from source:
+- q1/q5 `.map_err(#[cold]|e|e)` on transfer_vault_tokens / transfer_native, q2 `if let Err(e)=..{return Err(e);}`,
+  q3 `match ..{Err(e)=>return Err(e),Ok(())=>{}}` are byte-identical to main (the cold closure is inlined and its
+  attribute is gone before BPI).
+- q4/q6 (`map_err(#[cold]..)` on token_frozen / the amm token_raw_amount) grow execute to 27,608 B (0.30115 / 0.525).
+- r1-r4 (`x<1`, `x.leading_zeros()==64`, `x.checked_sub(1).is_none()`, `x.count_ones()==0` in the amm `require!`)
+  are byte-identical: InstCombine folds each back to `icmp eq x,0`, so the zero heuristic stays 12:20.
+- A real cold call (c1/c2) adds a call and a function (not landable). `core::intrinsics::unlikely` cannot reach LLVM
+  on 1.79-dev (y1-cto-llvm ledger row).
+
+Conclusion: edge coldness is exhausted as a lever for admin_cto on current main. The Err-payload r9 / swept
+coalescing belongs to the holder phi (section 2) and the coalescer block order (w13a40/w13a44, #3149/#3164). The
+skip-polarity gate needs a head-of-function frequency change that source cannot express without losing elsewhere.

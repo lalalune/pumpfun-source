@@ -1,0 +1,1 @@
+EDITS=[("a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner).map(|()|amount)","a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner).map(|()|amount).map_err(#[cold]|e|e)")]
