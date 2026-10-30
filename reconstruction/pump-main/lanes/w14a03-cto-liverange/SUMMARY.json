@@ -1,0 +1,40 @@
+{
+  "lane": "w14a03-cto-liverange",
+  "wave": 14,
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "angle": "register-assignment / live-range census, value by value",
+  "bases": {"start": "53abf28b1 (0.62672, 3305)", "landed_on": "769f331fe (0.63241, 3288)", "after": "cef0574cf (0.63421, 3179)"},
+  "landed": [
+    {"pr": 3210, "merge_commit": "cef0574cf", "change": "wallet: if do_coin{ -> if coin_present&&do_coin{ (equivalent)",
+     "before": {"ratio": 0.63241, "slots_diff": 3288, "bytes": 27400}, "after": {"ratio": 0.63421, "slots_diff": 3179, "bytes": 27400},
+     "normalized": 1034, "raw": 1034, "losses": [], "differential": "363/0", "unstripped_sha16": "5c7bf697fbbfe4cb",
+     "mechanism": "an extra late use of coin_present lowers its spill weight, so greedy spills coin_present (as the original does at orig 0x5bf8) instead of the do_coin/do_collect flag phi"}
+  ],
+  "tools": ["tools/lr.py (value census: spill/reload -> SS -> original vreg -> MIR def; one-sided spills vs original; per-value traffic)",
+            "tools/slottab.py", "tools/irre.py (re-read oracle)", "tools/irhold.py (hold oracle)", "tools/irremat.py (pure-value remat oracle)",
+            "tools/capvar.sh + rx.py + capraw.py (w13a44 raw-IR oracle)", "tools/q.sh (trial queue)"],
+  "attempts": {"source_trials": 113, "ir_oracle_variants": 1500},
+  "rejected_mechanisms": [
+    "CtoState.max_fee:&u64 re-read at the fee test (mf1): +0.0016 @ -184 B on 53abf28, -0.0008 on 769f331; no knob set refills 184 B",
+    "CtoState bool/creator fields by reference: frame collapse 0.30-0.53",
+    "validate g:&Global / c:&BondingCurve reads with CtoState unchanged: byte-identical (GVN)",
+    "CtoState field removal + read at use: best cashback 0.629 @ -168 B",
+    "fee/hopt by reference into validate, holder_key by value into sweep, CtoState by value: identical or worse",
+    "global_quote before the holder PDA: 0.595",
+    "wallet statement orders w1-w9: no register flip",
+    "implied redundant uses outside the wallet coin gate (execute flags, validate holder facts, curve stores, event reset): folded or CFG change",
+    "IR hold (fold reloads) and remat (recompute pure values) oracles: nothing above main on 53abf28 and 769f331"
+  ],
+  "unresolved_residuals": [
+    "max_fee spills because the new pointer holds r9 across validate (original: entry copy of new, max_fee in r9)",
+    "wallet do_collect flag spilled at -0x938 (the original keeps it in r8); r8 is taken by the Err-payload copy (colderr class)",
+    "sweep create_idempotent: the original keeps the r10-0x450 frame address in r9, ours spills it (payload class)",
+    "accounts pointer: ours 1/20, original 2/31 spill/reload (acctlive)",
+    "sharing tag / holder phi re-spill pairs (h2pair)"
+  ],
+  "next_ideas": [
+    "Look for other phi flags with an implied fact LLVM cannot see (the w10 pattern), e.g. sweep amount/frozen phis, with uses that keep the CFG",
+    "IR leads that need a source form: holder_enabled re-read +0.0043 @ -184 B, ctx.accounts re-read at the pool_updated test +0.0023 @ +32 B, global data pointer re-read in the global_quote users +0.0006 @ 27400",
+    "Combine an entry copy of new (frees r9) with the max_fee lead"
+  ]
+}

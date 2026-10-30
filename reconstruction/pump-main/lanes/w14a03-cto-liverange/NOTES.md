@@ -3,7 +3,7 @@
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Base: main 53abf28b1 (0.62672, 3,305 slots). Ledger keys `0x22a10-w14-53abf28-liverange-*-v1`.
 
-## Landed candidate (main 769f331fe, 0.63241, 3,287 slots)
+## Landed: #3210 (merge cef0574cf), main 769f331fe 0.63241 -> 0.63421
 
 | | main 769f331 | w10 |
 | --- | ---: | ---: |
@@ -96,3 +96,32 @@ pure-value remat oracle (103) give nothing above main.
 - The wallet `coin_present` vs `do_coin` register choice is the clearest single RA swap outside the owned regions. It did
   not flip under 7 statement orders. Its spill weight would need a use-count change, and the only candidate (a second
   `data_is_empty`) changes the call count.
+
+## After the landing (main cef0574cf, 0.63421, 3,178 slots)
+
+`census-cef0574.txt` is the value census on the new main.
+
+Every RA-choice difference that is still crisp has one of these shapes: a small replace, insert or delete hunk with a
+spill or reload, between long aligned runs. They all belong to values that other lanes own:
+- the accounts pointer at 0x02b0, 0x20b8, 0x52a8 and 0x5308 (acctlive);
+- the clone-run field spills at 0x2678, 0x26d8, 0x2a18, 0x2bc8, 0x2c48, 0x2d48, 0x2f00 and 0x3388 (acctlive);
+- swept and the Err payload at 0x4fe8 (event `swept_to_holder_vault`) and 0x5ed0/0x5f98 (colderr). In the sweep's
+  create_idempotent CPI, the original keeps the r10-0x450 frame address in r9; ours spills it to -0x900 because the
+  payload class holds r8/r9;
+- the sharing tag / holder phi re-spill pairs at 0x5930 and 0x5a08 (h2pair);
+- max_fee at 0x15c0 (entry copy of `new`).
+
+The wallet `do_collect` flag is still spilled (-0x938 at 0x5c30, 0x5ca8, 0x5cc8; the original keeps it in r8). The
+register it would need holds the Err payload copy (`mov r8, r2` at 0x5b18; the original has `ldxdw r9, [r10-0x848]`).
+
+Further implied-use forms on cef0574 gave nothing:
+- wallet gate `||do_coin`: byte-identical;
+- `if do_collect||collection_native`: 0.63196 @ 27,464;
+- the validate forms (`cashback&&!holder`, `holder&&new.is_some()`, `!holder&&..` in the target arm): byte-identical,
+  because LLVM already knows the holder facts there;
+- the sweep gate `shared&&!skip` and `collect_old&&!shared`: CFG change, 0.48-0.61;
+- the curve store forms `cashback&&!holder` and `holder||!skip`: byte-identical or 0.56;
+- the event `sharing_config_reset` with `&&shared`: 0.58813.
+
+The w10 trick only works where the implied fact sits behind a phi that LLVM cannot see through, and the use does not
+change the CFG.

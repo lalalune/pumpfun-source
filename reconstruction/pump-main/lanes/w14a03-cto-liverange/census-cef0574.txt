@@ -1,0 +1,1066 @@
+spill slots (ours r10 offset -> originals): 184
+
+== orig_reload (108)
+orig@0210 ldxdw r1, [r10 - 0x8e0] | ~ours@0270 slot->0x900
+      %14=COPY $r3 @48 bb.0.start (+2 defs)
+orig@0258 ldxdw r1, [r10 - 0x8e0] | ~ours@0270 slot->0x900
+      %14=COPY $r3 @48 bb.0.start (+2 defs)
+orig@0440 ldxdw r2, [r10 - 0x8e8] | ~ours@0440 slot->0x950
+      %11=LDB_V1 %4:gpr, 163 :: (load (s8) from %ir.29, !range !21) @3120 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit
+orig@0598 ldxdw r2, [r10 - 0x688] | ~ours@0588 slot->0x6a0
+orig@05a8 ldxdw r2, [r10 - 0x690] | ~ours@0588 slot->0x698
+orig@05b8 ldxdw r2, [r10 - 0x698] | ~ours@0588 slot->0x690
+orig@05c8 ldxdw r2, [r10 - 0x6a0] | ~ours@0588 slot->0x688
+orig@05f8 ldxdw r2, [r10 - 0x8f8] | ~ours@05c8 slot->0x900
+      %4=LDD_V1 %0:gpr, 56 :: (load (s64) from %ir.sunkaddr) @1648 bb.3.bb6
+orig@0608 ldxdw r2, [r10 - 0x908] | ~ours@05c8 slot->0x900
+      %7=MOV_ri 1 @2112 bb.3.bb6 (+5 defs)
+orig@0610 ldxdw r8, [r10 - 0x918] | ~ours@05c8 slot->0x918
+      %14=COPY $r3 @48 bb.0.start (+2 defs)
+orig@0710 ldxdw r2, [r10 - 0x910] | ~ours@06e0 slot->0x920
+      %4=LDD_V1 %0:gpr, 56 :: (load (s64) from %ir.sunkaddr) @1648 bb.3.bb6
+orig@0730 ldxdw r1, [r10 - 0x8f8] | ~ours@06e8 slot->0x900
+      %4=LDD_V1 %0:gpr, 56 :: (load (s64) from %ir.sunkaddr) @1648 bb.3.bb6
+orig@0818 ldxdw r1, [r10 - 0x4a8] | ~ours@06e8 slot->0x4a8
+orig@0828 ldxdw r1, [r10 - 0x4b0] | ~ours@06e8 slot->0x4b0
+      %398=LDD_V1 %394:gpr, -4088 :: (load (s64)) @640 bb.0.start
+orig@0838 ldxdw r1, [r10 - 0x4b8] | ~ours@06e8 slot->0x4b8
+orig@0848 ldxdw r1, [r10 - 0x488] | ~ours@06e8 slot->0x470
+orig@0858 ldxdw r1, [r10 - 0x480] | ~ours@06e8 slot->0x468
+orig@0868 ldxdw r1, [r10 - 0x478] | ~ours@06e8 slot->0x460
+orig@08e0 ldxdw r9, [r10 - 0x6d8] | ~ours@06e8 slot->?
+orig@08e8 ldxdw r7, [r10 - 0x6e0] | ~ours@06e8 slot->?
+orig@0b28 ldxdw r7, [r10 - 0x900] | ~ours@0ad0 slot->0x918
+      %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit (+1 defs)
+orig@0d78 ldxdw r1, [r10 - 0x8e8] | ~ours@0d00 slot->0x950
+      %11=LDB_V1 %4:gpr, 163 :: (load (s8) from %ir.29, !range !21) @3120 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit
+orig@0d98 ldxdw r1, [r10 - 0x8f8] | ~ours@0d08 slot->0x900
+      %4=LDD_V1 %0:gpr, 56 :: (load (s64) from %ir.sunkaddr) @1648 bb.3.bb6
+orig@0da0 ldxdw r2, [r10 - 0x910] | ~ours@0d08 slot->0x920
+      %4=LDD_V1 %0:gpr, 56 :: (load (s64) from %ir.sunkaddr) @1648 bb.3.bb6
+orig@0da8 ldxdw r1, [r10 - 0x920] | ~ours@0d08 slot->0x920
+      %141=LDD_V1 %139:gpr, 8 :: (load (s64) from %ir.360) @38960 bb.145._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit.i
+orig@0db0 ldxdw r4, [r10 - 0x908] | ~ours@0d08 slot->0x900
+      %7=MOV_ri 1 @2112 bb.3.bb6 (+5 defs)
+orig@0dc8 ldxdw r1, [r10 - 0x30] | ~ours@0d08 slot->0x30
+orig@0de0 ldxdw r1, [r10 - 0x28] | ~ours@0d08 slot->0x28
+orig@0df8 ldxdw r1, [r10 - 0x20] | ~ours@0d08 slot->?
+orig@0e10 ldxdw r1, [r10 - 0x38] | ~ours@0d08 slot->0x38
+orig@0e20 ldxdw r1, [r10 - 0x928] | ~ours@0d08 slot->0x938
+      %393=COPY $r4 @32 bb.0.start
+orig@0e50 ldxdw r5, [r10 - 0x958] | ~ours@0d08 slot->0x900
+      %1587=LDD_V1 %398:gpr, 8 :: (dereferenceable load (s64) from %ir.target.i.sroa.7.0..sroa_idx, align 1, !noalias !44) @12736 bb.40.bb45.i (+2 defs)
+orig@0e60 ldxdw r1, [r10 - 0x478] | ~ours@0d08 slot->0x460
+orig@0e70 ldxdw r1, [r10 - 0x480] | ~ours@0d08 slot->0x468
+orig@0e80 ldxdw r1, [r10 - 0x488] | ~ours@0d08 slot->0x470
+orig@0e90 ldxdw r1, [r10 - 0x4d0] | ~ours@0d08 slot->0x4d0
+orig@0ea0 ldxdw r1, [r10 - 0x4c8] | ~ours@0d08 slot->0x4c8
+orig@0eb0 ldxdw r1, [r10 - 0x4c0] | ~ours@0d08 slot->0x4c0
+orig@0f28 ldxdw r9, [r10 - 0x8c8] | ~ours@0d08 slot->?
+orig@0f30 ldxdw r7, [r10 - 0x8d0] | ~ours@0d08 slot->?
+orig@10f8 ldxdw r1, [r10 - 0x900] | ~ours@0eb0 slot->0x918
+      %393=COPY $r4 @32 bb.0.start
+orig@1118 ldxdw r1, [r10 - 0x920] | ~ours@0eb0 slot->0x920
+      %141=LDD_V1 %139:gpr, 8 :: (load (s64) from %ir.360) @38960 bb.145._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit.i
+orig@1160 ldxdw r1, [r10 - 0x2d0] | ~ours@0eb0 slot->0x2d0
+orig@13f0 ldxdw r1, [r10 - 0x4a0] | ~ours@1388 slot->0x4a0
+orig@1400 ldxdw r1, [r10 - 0x4a8] | ~ours@1398 slot->0x4a8
+orig@1410 ldxdw r1, [r10 - 0x4b0] | ~ours@13a8 slot->0x4b0
+      %398=LDD_V1 %394:gpr, -4088 :: (load (s64)) @640 bb.0.start
+orig@1420 ldxdw r1, [r10 - 0x4b8] | ~ours@13b8 slot->0x4b8
+orig@14a8 ldxdw r1, [r10 - 0x4a8] | ~ours@1480 slot->0x4a8
+orig@14c0 ldxdw r1, [r10 - 0x4a0] | ~ours@1480 slot->0x4a0
+orig@14e8 ldxdw r1, [r10 - 0x4b8] | ~ours@1480 slot->0x4b8
+orig@1500 ldxdw r1, [r10 - 0x928] | ~ours@1480 slot->0x938
+      %393=COPY $r4 @32 bb.0.start
+orig@1518 ldxdw r0, [r10 - 0x8f8] | ~ours@1480 slot->0x900
+      %4=LDD_V1 %0:gpr, 56 :: (load (s64) from %ir.sunkaddr) @1648 bb.3.bb6
+orig@1520 ldxdw r5, [r10 - 0x958] | ~ours@1480 slot->0x900
+      %1587=LDD_V1 %398:gpr, 8 :: (dereferenceable load (s64) from %ir.target.i.sroa.7.0..sroa_idx, align 1, !noalias !44) @12736 bb.40.bb45.i (+2 defs)
+orig@17e8 ldxdw r9, [r10 - 0x728] | ~ours@16a0 slot->?
+orig@17f0 ldxdw r7, [r10 - 0x730] | ~ours@16a0 slot->?
+orig@1818 ldxdw r1, [r10 - 0x920] | ~ours@16a0 slot->0x920
+      %141=LDD_V1 %139:gpr, 8 :: (load (s64) from %ir.360) @38960 bb.145._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit.i
+orig@18e0 ldxdw r1, [r10 - 0x8e0] | ~ours@1868 slot->0x900
+      %14=COPY $r3 @48 bb.0.start (+2 defs)
+orig@1a10 ldxdw r1, [r10 - 0x918] | ~ours@1970 slot->0x918
+      %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit (+1 defs)
+orig@1a20 ldxdw r1, [r10 - 0x670] | ~ours@1978 slot->0x550
+orig@1a30 ldxdw r1, [r10 - 0x678] | ~ours@1980 slot->0x558
+orig@1a40 ldxdw r1, [r10 - 0x680] | ~ours@1980 slot->0x560
+orig@1a50 ldxdw r8, [r10 - 0x8d8] | ~ours@1980 slot->0x8e0
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+orig@1d30 ldxdw r6, [r10 - 0x8f8] | ~ours@1d30 slot->0x900
+      %4=LDD_V1 %0:gpr, 56 :: (load (s64) from %ir.sunkaddr) @1648 bb.3.bb6
+orig@1d38 ldxdw r1, [r10 - 0x8e0] | ~ours@1d30 slot->0x900
+      %14=COPY $r3 @48 bb.0.start (+2 defs)
+orig@1d48 ldxdw r1, [r10 - 0x950] | ~ours@1d38 slot->0x8e8
+      %1588=LDD_V1 %398:gpr, 16 :: (dereferenceable load (s64) from %ir.target.i.sroa.8.0..sroa_idx, align 1, !noalias !44 @12752 bb.40.bb45.i (+2 defs)
+orig@2060 ldxdw r1, [r10 - 0x910] | ~ours@2038 slot->0x920
+      %904=COPY killed $r0 @33856 bb.123.bb76 (+2 defs)
+orig@2130 ldxdw r1, [r10 - 0x8e0] | ~ours@2110 slot->0x900
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+orig@2158 ldxdw r1, [r10 - 0x950] | ~ours@2130 slot->0x8e8
+      %1588=LDD_V1 %398:gpr, 16 :: (dereferenceable load (s64) from %ir.target.i.sroa.8.0..sroa_idx, align 1, !noalias !44 @12752 bb.40.bb45.i (+2 defs)
+orig@23d8 ldxdw r1, [r10 - 0x8e0] | ~ours@23a8 slot->0x900
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+orig@24a0 ldxdw r1, [r10 - 0x950] | ~ours@2468 slot->0x8e8
+      %1588=LDD_V1 %398:gpr, 16 :: (dereferenceable load (s64) from %ir.target.i.sroa.8.0..sroa_idx, align 1, !noalias !44 @12752 bb.40.bb45.i (+2 defs)
+orig@30b0 ldxdw r3, [r10 - 0x9b0] | ~ours@3088 slot->0x9c8
+      %167=LDD_V1 %166:gpr, 0 :: (load (s64) from %ir._216.i) @41488 bb.171._ZN71_
+orig@30b8 ldxdw r3, [r10 - 0x978] | ~ours@3088 slot->0x968
+      %135=LDD_V1 %130:gpr, 32 :: (load (s64) from %ir.353) @39200 bb.147._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit.i
+orig@30c0 ldxdw r3, [r10 - 0x8e0] | ~ours@3088 slot->0x900
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+orig@3110 ldxdw r7, [r10 - 0x988] | ~ours@30d0 slot->0x948
+      %131=LDD_V1 %130:gpr, 0 :: (load (s64) from %ir.x.i) @38480 bb.139.bb22.i121
+orig@3218 ldxdw r3, [r10 - 0x8d8] | ~ours@31e0 slot->0x8e0
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+orig@3a18 ldxdw r1, [r10 - 0xc38] | ~ours@39e8 slot->?
+orig@3ba8 ldxdw r9, [r10 - 0x2c8] | ~ours@3b80 slot->0x2c8
+orig@3bb8 ldxdw r1, [r10 - 0x8e0] | ~ours@3b80 slot->0x900
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+orig@3c50 ldxdw r1, [r10 - 0x950] | ~ours@3c10 slot->0x8e8
+      %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit (+1 defs)
+orig@3c58 ldxdw r6, [r10 - 0x8f8] | ~ours@3c10 slot->0x900
+      %472=MOV_ri 1 @2032 bb.3.bb6 (+3 defs)
+orig@3e30 ldxdw r2, [r10 - 0x8d8] | ~ours@3df0 slot->0x8e0
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+orig@3f38 ldxdw r1, [r10 - 0x8d8] | ~ours@3ef0 slot->0x8e0
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+orig@4050 ldxdw r2, [r10 - 0x8d8] | ~ours@4000 slot->0x8e0
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+orig@4178 ldxdw r1, [r10 - 0x8d8] | ~ours@4138 slot->0x8e0
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+orig@4218 ldxdw r2, [r10 - 0x908] | ~ours@43f0 slot->0x900
+      %334=LDD_V1 %329:gpr, 8 :: (load (s64) from %ir.639) @60112 bb.306._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit176
+orig@42a0 ldxdw r1, [r10 - 0x8d8] | ~ours@43f0 slot->0x8e0
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+orig@4348 ldxdw r4, [r10 - 0x928] | ~ours@43f0 slot->0x938
+      %340=LDD_V1 %338:gpr, 8 :: (load (s64) from %ir.644) @60896 bb.314._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit190
+orig@43c8 ldxdw r1, [r10 - 0x8d8] | ~ours@4468 slot->0x8e0
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+orig@44b8 ldxdw r3, [r10 - 0x940] | ~ours@4580 slot->0x940
+      %304=LDD_V1 %302:gpr, 8 :: (load (s64) from %ir.598) @57808 bb.282._ZN71_
+orig@44c8 ldxdw r3, [r10 - 0x950] | ~ours@4580 slot->0x8e8
+      %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit (+1 defs)
+orig@44f8 ldxdw r1, [r10 - 0x8d8] | ~ours@45b0 slot->0x8e0
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+orig@4540 ldxdw r1, [r10 - 0x920] | ~ours@45b8 slot->0x920
+      %328=LDD_V1 %320:gpr, 0 :: (load (s64) from %ir.x18) @60304 bb.308._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit176
+orig@4548 ldxdw r1, [r10 - 0x918] | ~ours@45b8 slot->0x918
+      %312=LDD_V1 %311:gpr, 0 :: (load (s64) from %ir._405) @58832 bb.292._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit
+orig@4550 ldxdw r1, [r10 - 0x910] | ~ours@45b8 slot->0x920
+      %294=LDD_V1 %293:gpr, 0 :: (load (s64) from %ir._396) @57328 bb.276.bb32
+orig@46c0 ldxdw r1, [r10 - 0xac0] | ~ours@4650 slot->0xac0
+      %182=LDB_V1 %175:gpr, 41 :: (load (s8) from %ir.419, !range !21) @42944 bb.187._ZN71_
+orig@4aa8 ldxdw r4, [r10 - 0x958] | ~ours@4a38 slot->0x900
+      %1587=LDD_V1 %398:gpr, 8 :: (dereferenceable load (s64) from %ir.target.i.sroa.7.0..sroa_idx, align 1, !noalias !44) @12736 bb.40.bb45.i (+2 defs)
+orig@4b60 ldxdw r2, [r10 - 0x950] | ~ours@4af0 slot->0x8e8
+      %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit (+1 defs)
+orig@4c50 ldxdw r6, [r10 - 0x8d8] | ~ours@4c10 slot->0x8e0
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+orig@4d48 ldxdw r6, [r10 - 0x8f8] | ~ours@4d10 slot->0x900
+      %472=MOV_ri 1 @2032 bb.3.bb6 (+3 defs)
+orig@4e20 ldxdw r4, [r10 - 0x950] | ~ours@4de0 slot->0x8e8
+      %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit (+1 defs)
+orig@4f38 ldxdw r6, [r10 - 0x8d8] | ~ours@4f00 slot->0x8e0
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+orig@52e0 ldxdw r2, [r10 - 0x8d8] | ~ours@52a8 slot->0x8e0
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+orig@59d0 ldxdw r8, [r10 - 0x8d8] | ~ours@59a0 slot->0x8e0
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+orig@5a40 ldxdw r1, [r10 - 0x950] | ~ours@5a08 slot->0x8e8
+      %1642=MOV_ri 0 @21216 bb.71.bb31 (+18 defs)
+orig@5b18 ldxdw r9, [r10 - 0x848] | ~ours@5b08 slot->?
+orig@5e58 ldxdw r1, [r10 - 0x950] | ~ours@5e60 slot->0x8e8
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+orig@6300 ldxdw r1, [r10 - 0x8d8] | ~ours@62f0 slot->0x8e0
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+orig@63a8 ldxdw r9, [r10 - 0x818] | ~ours@6398 slot->?
+
+== ours_reload (78)
+ours@0518 ldxdw r9, [r10 - 0x8e8] | ~orig@04d8
+      %398=LDD_V1 %394:gpr, -4088 :: (load (s64)) @640 bb.0.start
+ours@0608 ldxdw r1, [r10 - 0x938] | ~orig@0638
+      %16=LDB_V1 %398:gpr, 0 :: (dereferenceable load (s8) from %ir.new) @3488 bb.12._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit
+ours@09c0 ldxdw r1, [r10 - 0x468] | ~orig@0af0
+ours@09d0 ldxdw r1, [r10 - 0x460] | ~orig@0af0
+ours@0a48 ldxdw r8, [r10 - 0x6d8] | ~orig@0af0
+ours@0a50 ldxdw r7, [r10 - 0x6e0] | ~orig@0af0
+ours@0a80 ldxdw r1, [r10 - 0x689] | ~orig@0af0
+ours@0aa0 ldxdw r0, [r10 - 0x691] | ~orig@0af0
+ours@0aa8 ldxdw r5, [r10 - 0x699] | ~orig@0af0
+ours@0ba8 ldxdw r1, [r10 - 0x938] | ~orig@0c08
+      %16=LDB_V1 %398:gpr, 0 :: (dereferenceable load (s8) from %ir.new) @3488 bb.12._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit
+ours@1028 ldxdw r1, [r10 - 0x460] | ~orig@12a8
+ours@1038 ldxdw r1, [r10 - 0x468] | ~orig@12a8
+ours@1048 ldxdw r1, [r10 - 0x470] | ~orig@12a8
+ours@1058 ldxdw r1, [r10 - 0x488] | ~orig@12a8
+ours@1068 ldxdw r1, [r10 - 0x480] | ~orig@12a8
+ours@1078 ldxdw r1, [r10 - 0x478] | ~orig@12a8
+ours@10f0 ldxdw r8, [r10 - 0x8c8] | ~orig@12c0
+ours@10f8 ldxdw r7, [r10 - 0x8d0] | ~orig@12c0
+ours@1108 ldxdw r1, [r10 - 0x460] | ~orig@12c0
+ours@1118 ldxdw r1, [r10 - 0x468] | ~orig@12c0
+ours@1128 ldxdw r1, [r10 - 0x470] | ~orig@12c0
+ours@1138 ldxdw r1, [r10 - 0x488] | ~orig@12c0
+ours@1148 ldxdw r1, [r10 - 0x480] | ~orig@12c0
+ours@1158 ldxdw r1, [r10 - 0x478] | ~orig@12c0
+ours@12b0 ldxdw r1, [r10 - 0x460] | ~orig@1378
+ours@12c0 ldxdw r1, [r10 - 0x468] | ~orig@1378
+ours@12d0 ldxdw r1, [r10 - 0x470] | ~orig@1378
+ours@12e0 ldxdw r1, [r10 - 0x488] | ~orig@1378
+ours@12f0 ldxdw r1, [r10 - 0x480] | ~orig@1378
+ours@1300 ldxdw r1, [r10 - 0x478] | ~orig@1378
+ours@1498 ldxdw r3, [r10 - 0x958] | ~orig@1548
+      %10=LDB_V1 %4:gpr, 165 :: (load (s8) from %ir.27, !range !21) @3104 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit
+ours@14a8 ldxdw r1, [r10 - 0x918] | ~orig@1548
+      %7=MOV_ri 1 @2112 bb.3.bb6 (+5 defs)
+ours@15c0 ldxdw r2, [r10 - 0x948] | ~orig@1658
+      %9=LDD_V1 %5:gpr, 1072 :: (load (s64) from %ir.24) @3008 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit
+ours@16e0 ldxdw r1, [r10 - 0x920] | ~orig@1898
+      %3=MOV_ri 0 @624 bb.0.start (+2 defs)
+ours@1708 ldxdw r1, [r10 - 0x908] | ~orig@1898
+      %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit (+1 defs)
+ours@1740 ldxdw r8, [r10 - 0x8e0] | ~orig@18a8
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+ours@1770 ldxdw r3, [r10 - 0x21] | ~orig@18a8
+ours@17e0 ldxdw r0, [r10 - 0x29] | ~orig@18a8
+ours@17e8 ldxdw r5, [r10 - 0x31] | ~orig@18a8
+ours@17f0 ldxdw r1, [r10 - 0x938] | ~orig@18a8
+      %16=LDB_V1 %398:gpr, 0 :: (dereferenceable load (s8) from %ir.new) @3488 bb.12._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit
+ours@1810 ldxdw r1, [r10 - 0x908] | ~orig@18a8
+      %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit (+1 defs)
+ours@1840 ldxdw r8, [r10 - 0x8e0] | ~orig@18a8
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+ours@18e8 ldxdw r0, [r10 - 0x918] | ~orig@1990
+      %1588=LDD_V1 %398:gpr, 16 :: (dereferenceable load (s64) from %ir.target.i.sroa.8.0..sroa_idx, align 1, !noalias !44 @12752 bb.40.bb45.i (+2 defs)
+ours@18f0 ldxdw r1, [r10 - 0x2b8] | ~orig@1990
+ours@1c60 ldxdw r8, [r10 - 0x728] | ~orig@1c78
+ours@1c68 ldxdw r7, [r10 - 0x730] | ~orig@1c78
+ours@2f68 ldxdw r0, [r10 - 0x998] | ~orig@2f98
+      %176=LDD_V1 %175:gpr, 0 :: (load (s64) from %ir.x11.i) @42256 bb.179._ZN71_
+ours@2fc8 ldxdw r4, [r10 - 0x990] | ~orig@2ff0
+      %158=LDD_V1 %157:gpr, 0 :: (load (s64) from %ir._215.i) @40736 bb.163._ZN71_
+ours@31c0 ldxdw r4, [r10 - 0x970] | ~orig@3200
+      %131=LDD_V1 %130:gpr, 0 :: (load (s64) from %ir.x.i) @38480 bb.139.bb22.i121
+ours@3208 ldxdw r4, [r10 - 0x988] | ~orig@3248
+      %133=LDD_V1 %130:gpr, 8 :: (load (s64) from %ir.349) @38272 bb.137.bb22.i121
+ours@39b8 ldxdw r1, [r10 - 0xbf8] | ~orig@39f0
+      %238=LDD_V1 %236:gpr, 24 :: (load (s64) from %ir.498) @47472 bb.235._ZN71_
+ours@3b58 ldxdw r6, [r10 - 0x9b8] | ~orig@3b90
+      %121=COPY %0:gpr @34560 bb.123.bb76 (+1 defs)
+ours@3b60 ldxdw r9, [r10 - 0xb78] | ~orig@3b90
+      %119=LDB_V1 %391:gpr, 35 :: (dereferenceable load (s8) from %ir.304) @33520 bb.123.bb76
+ours@3cc0 ldxdw r1, [r10 - 0x8e8] | ~orig@3d00
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+ours@3ce8 ldxdw r1, [r10 - 0x8e8] | ~orig@3d20
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+ours@3d28 ldxdw r1, [r10 - 0x548] | ~orig@3d78
+ours@3d88 ldxdw r0, [r10 - 0x908] | ~orig@3dd8
+      %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit (+1 defs)
+ours@41e8 ldxdw r2, [r10 - 0x938] | ~orig@4198
+      %334=LDD_V1 %329:gpr, 8 :: (load (s64) from %ir.639) @60112 bb.306._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit176
+ours@42c8 ldxdw r4, [r10 - 0x950] | ~orig@4198
+      %340=LDD_V1 %338:gpr, 8 :: (load (s64) from %ir.644) @60896 bb.314._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit190
+ours@4338 ldxdw r4, [r10 - 0x908] | ~orig@4198
+      %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit (+1 defs)
+ours@4340 ldxdw r4, [r10 - 0x958] | ~orig@4198
+      %341=LDD_V1 %338:gpr, 16 :: (load (s64) from %ir.646) @61248 bb.318._ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i197
+ours@4490 ldxdw r5, [r10 - 0x960] | ~orig@43f8
+      %335=LDD_V1 %329:gpr, 24 :: (load (s64) from %ir.641) @60736 bb.312._ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit183
+ours@4530 ldxdw r1, [r10 - 0x948] | ~orig@4480
+      %307=LDD_V1 %302:gpr, 24 :: (load (s64) from %ir.604) @58800 bb.292._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit
+ours@4538 ldxdw r1, [r10 - 0x940] | ~orig@4480
+      %303=LDB_V1 %302:gpr, 42 :: (load (s8) from %ir.596, align 2, !range !21) @58080 bb.284._ZN71_
+ours@4540 ldxdw r1, [r10 - 0x920] | ~orig@4480
+      %294=LDD_V1 %293:gpr, 0 :: (load (s64) from %ir._396) @57328 bb.276.bb32
+ours@4640 ldxdw r1, [r10 - 0xaa0] | ~orig@46b8
+      %351=LDD_V1 %347:gpr, 24 :: (load (s64) from %ir.661) @62576 bb.332._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit222
+ours@4b30 ldxdw r1, [r10 - 0x910] | ~orig@4b90
+      %393=COPY $r4 @32 bb.0.start
+ours@4ed8 ldxdw r3, [r10 - 0x8e8] | ~orig@4f18
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+ours@4fe8 ldxdw r1, [r10 - 0x968] | ~orig@5030
+      %1642=MOV_ri 0 @21216 bb.71.bb31 (+18 defs)
+ours@5308 ldxdw r1, [r10 - 0x8d8] | ~orig@5340
+      %1398=LDB_V1 %391:gpr, 46 :: (dereferenceable load (s8) from %ir.739, align 2) @68480 bb.347.bb113
+ours@5938 ldxdw r9, [r10 - 0x8e8] | ~orig@5970
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+ours@5a58 ldxdw r1, [r10 - 0x840] | ~orig@5a90
+ours@5ab8 ldxdw r3, [r10 - 0x918] | ~orig@5ae0
+      %267=COPY %0:gpr @54224 bb.257.bb86.i (+1 defs)
+ours@5ae8 ldxdw r2, [r10 - 0x848] | ~orig@5b00
+ours@5f98 ldxdw r2, [r10 - 0x900] | ~orig@5f98
+      %1148=MOV_rr %stack.36._128.i @51568 bb.251.bb46.i
+ours@6378 ldxdw r1, [r10 - 0x8e8] | ~orig@6388
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+ours@6840 ldxdw r1, [r10 - 0x938] | ~orig@6858
+      %1601=MOV_ri 0 @24368 bb.85.bb14.i71 (+4 defs)
+ours@6850 ldxdw r2, [r10 - 0x918] | ~orig@6858
+      %724=COPY killed $r0 @23984 bb.83.bb60.i (+2 defs)
+
+== orig_spill (109)
+orig@0150 stxdw [r10 - 0x8e0], r1 | ~ours@0270 slot->0x900
+      %14=COPY $r3 @48 bb.0.start (+2 defs)
+orig@0168 stxdw [r10 - 0x2b8], r2 | ~ours@0270 slot->0x2b8
+orig@0178 stxdw [r10 - 0x2c0], r2 | ~ours@0270 slot->0x2c0
+orig@0188 stxdw [r10 - 0x2c8], r2 | ~ours@0270 slot->0x2c8
+orig@0198 stxdw [r10 - 0x2d0], r1 | ~ours@0270 slot->0x2d0
+orig@01d8 stxdw [r10 - 0x920], r1 | ~ours@0270 slot->0x920
+      %141=LDD_V1 %139:gpr, 8 :: (load (s64) from %ir.360) @38960 bb.145._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit.i
+orig@01f0 stxdw [r10 - 0x930], r1 | ~ours@0270 slot->0x928
+      %397=LDD_V1 %394:gpr, -4096 :: (load (s64)) @656 bb.0.start
+orig@0278 stxdw [r10 - 0x920], r0 | ~ours@0270 slot->0x920
+      %141=LDD_V1 %139:gpr, 8 :: (load (s64) from %ir.360) @38960 bb.145._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit.i
+orig@0280 stxdw [r10 - 0x8d8], r8 | ~ours@0270 slot->0x8e0
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+orig@0298 stxdw [r10 - 0x8e8], r1 | ~ours@0270 slot->0x950
+      %11=LDB_V1 %4:gpr, 163 :: (load (s8) from %ir.29, !range !21) @3120 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit
+orig@02a8 stxdw [r10 - 0x8e0], r1 | ~ours@0270 slot->0x900
+      %14=COPY $r3 @48 bb.0.start (+2 defs)
+orig@0470 stxdw [r10 - 0x38], r2 | ~ours@04d8 slot->0x38
+orig@0480 stxdw [r10 - 0x30], r2 | ~ours@04d8 slot->0x30
+orig@0490 stxdw [r10 - 0x28], r2 | ~ours@04d8 slot->0x28
+orig@04a0 stxdw [r10 - 0x20], r2 | ~ours@04d8 slot->?
+orig@04e0 stxdw [r10 - 0x8f8], r2 | ~ours@0528 slot->0x900
+      %4=LDD_V1 %0:gpr, 56 :: (load (s64) from %ir.sunkaddr) @1648 bb.3.bb6
+orig@0510 stxdw [r10 - 0x900], r2 | ~ours@0528 slot->0x918
+      %14=COPY $r3 @48 bb.0.start (+2 defs)
+orig@0538 stxdw [r10 - 0x668], r2 | ~ours@0528 slot->0x4e8
+orig@05a0 stxdw [r10 - 0x500], r2 | ~ours@0588 slot->0x500
+orig@05b0 stxdw [r10 - 0x508], r2 | ~ours@0588 slot->0x508
+orig@05c0 stxdw [r10 - 0x510], r2 | ~ours@0588 slot->0x510
+orig@05d0 stxdw [r10 - 0x518], r2 | ~ours@0588 slot->0x518
+orig@0600 stxdw [r10 - 0x940], r5 | ~ours@05c8 slot->0x940
+      %13=LDB_V1 %5:gpr, 1086 :: (load (s8) from %ir.33, align 2, !range !21) @3040 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit
+orig@07a0 stxdw [r10 - 0x428], r1 | ~ours@06e8 slot->0x428
+orig@07b8 stxdw [r10 - 0x430], r1 | ~ours@06e8 slot->0x430
+orig@0820 stxdw [r10 - 0x288], r1 | ~ours@06e8 slot->0x288
+orig@0830 stxdw [r10 - 0x290], r1 | ~ours@06e8 slot->0x290
+orig@0840 stxdw [r10 - 0x298], r1 | ~ours@06e8 slot->0x298
+orig@0850 stxdw [r10 - 0x2b0], r1 | ~ours@06e8 slot->0x2b0
+orig@0860 stxdw [r10 - 0x2a8], r1 | ~ours@06e8 slot->0x2a8
+orig@0870 stxdw [r10 - 0x2a0], r1 | ~ours@06e8 slot->0x2a0
+orig@0888 stxdw [r10 - 0x2c8], r1 | ~ours@06e8 slot->0x2c8
+orig@0c48 stxdw [r10 - 0x4a1], r2 | ~ours@0ba8 slot->?
+orig@0c60 stxdw [r10 - 0x948], r3 | ~ours@0ba8 slot->0x978
+      %14=COPY $r3 @48 bb.0.start (+2 defs)
+orig@0db8 stxdw [r10 - 0x958], r3 | ~ours@0d08 slot->0x900
+      %1587=LDD_V1 %398:gpr, 8 :: (dereferenceable load (s64) from %ir.target.i.sroa.7.0..sroa_idx, align 1, !noalias !44) @12736 bb.40.bb45.i (+2 defs)
+orig@0dd0 stxdw [r10 - 0x4e8], r1 | ~ours@0d08 slot->0x4e8
+orig@0dd8 stxdw [r10 - 0x530], r1 | ~ours@0d08 slot->0x530
+orig@0de8 stxdw [r10 - 0x4e0], r1 | ~ours@0d08 slot->0x4e0
+orig@0df0 stxdw [r10 - 0x528], r1 | ~ours@0d08 slot->0x528
+orig@0e00 stxdw [r10 - 0x4d8], r1 | ~ours@0d08 slot->0x4d8
+orig@0e08 stxdw [r10 - 0x520], r1 | ~ours@0d08 slot->0x520
+orig@0e18 stxdw [r10 - 0x918], r1 | ~ours@0d08 slot->0x918
+      %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit (+1 defs)
+orig@0e40 stxdw [r10 - 0x950], r1 | ~ours@0d08 slot->0x8e8
+      %1588=LDD_V1 %398:gpr, 16 :: (dereferenceable load (s64) from %ir.target.i.sroa.8.0..sroa_idx, align 1, !noalias !44 @12752 bb.40.bb45.i (+2 defs)
+orig@0e68 stxdw [r10 - 0x288], r1 | ~ours@0d08 slot->0x288
+orig@0e78 stxdw [r10 - 0x290], r1 | ~ours@0d08 slot->0x290
+orig@0e88 stxdw [r10 - 0x298], r1 | ~ours@0d08 slot->0x298
+orig@0e98 stxdw [r10 - 0x2b0], r1 | ~ours@0d08 slot->0x2b0
+orig@0ea8 stxdw [r10 - 0x2a8], r1 | ~ours@0d08 slot->0x2a8
+orig@0eb8 stxdw [r10 - 0x2a0], r1 | ~ours@0d08 slot->0x2a0
+orig@0ed0 stxdw [r10 - 0x2c8], r1 | ~ours@0d08 slot->0x2c8
+orig@10e8 stxdw [r10 - 0x918], r4 | ~ours@0eb0 slot->0x918
+      %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit (+1 defs)
+orig@10f0 stxdw [r10 - 0x948], r3 | ~ours@0eb0 slot->0x978
+      %14=COPY $r3 @48 bb.0.start (+2 defs)
+orig@1130 stxdw [r10 - 0x950], r1 | ~ours@0eb0 slot->0x8e8
+      %1588=LDD_V1 %398:gpr, 16 :: (dereferenceable load (s64) from %ir.target.i.sroa.8.0..sroa_idx, align 1, !noalias !44 @12752 bb.40.bb45.i (+2 defs)
+orig@1138 stxdw [r10 - 0x958], r5 | ~ours@0eb0 slot->0x900
+      %1587=LDD_V1 %398:gpr, 8 :: (dereferenceable load (s64) from %ir.target.i.sroa.7.0..sroa_idx, align 1, !noalias !44) @12736 bb.40.bb45.i (+2 defs)
+orig@1168 stxdw [r10 - 0x548], r1 | ~ours@0eb0 slot->0x530
+orig@1188 stxdw [r10 - 0x8f8], r1 | ~ours@0eb0 slot->0x900
+      %4=LDD_V1 %0:gpr, 56 :: (load (s64) from %ir.sunkaddr) @1648 bb.3.bb6
+orig@14a0 stxdw [r10 - 0x530], r1 | ~ours@1480 slot->0x530
+orig@14b0 stxdw [r10 - 0x4e0], r1 | ~ours@1480 slot->0x4e0
+orig@14b8 stxdw [r10 - 0x528], r1 | ~ours@1480 slot->0x528
+orig@14c8 stxdw [r10 - 0x4d8], r1 | ~ours@1480 slot->0x4d8
+orig@14d0 stxdw [r10 - 0x520], r1 | ~ours@1480 slot->0x520
+orig@14e0 stxdw [r10 - 0x950], r1 | ~ours@1480 slot->0x8e8
+      %1588=LDD_V1 %398:gpr, 16 :: (dereferenceable load (s64) from %ir.target.i.sroa.8.0..sroa_idx, align 1, !noalias !44 @12752 bb.40.bb45.i (+2 defs)
+orig@14f0 stxdw [r10 - 0x918], r1 | ~ours@1480 slot->0x918
+      %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit (+1 defs)
+orig@1790 stxdw [r10 - 0x2c8], r1 | ~ours@16a0 slot->0x2c8
+orig@1800 stxdw [r10 - 0x918], r4 | ~ours@16a0 slot->0x918
+      %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit (+1 defs)
+orig@1808 stxdw [r10 - 0x948], r3 | ~ours@16a0 slot->0x978
+      %14=COPY $r3 @48 bb.0.start (+2 defs)
+orig@1830 stxdw [r10 - 0x950], r6 | ~ours@16a0 slot->0x8e8
+      %1588=LDD_V1 %398:gpr, 16 :: (dereferenceable load (s64) from %ir.target.i.sroa.8.0..sroa_idx, align 1, !noalias !44 @12752 bb.40.bb45.i (+2 defs)
+orig@1838 stxdw [r10 - 0x8f8], r0 | ~ours@16a0 slot->0x900
+      %4=LDD_V1 %0:gpr, 56 :: (load (s64) from %ir.sunkaddr) @1648 bb.3.bb6
+orig@1850 stxdw [r10 - 0x958], r5 | ~ours@16a0 slot->0x900
+      %1587=LDD_V1 %398:gpr, 8 :: (dereferenceable load (s64) from %ir.target.i.sroa.7.0..sroa_idx, align 1, !noalias !44) @12736 bb.40.bb45.i (+2 defs)
+orig@18d8 stxdw [r10 - 0x8f8], r1 | ~ours@1868 slot->0x900
+      %4=LDD_V1 %0:gpr, 56 :: (load (s64) from %ir.sunkaddr) @1648 bb.3.bb6
+orig@1980 stxdw [r10 - 0x8f8], r1 | ~ours@18e0 slot->0x900
+      %4=LDD_V1 %0:gpr, 56 :: (load (s64) from %ir.sunkaddr) @1648 bb.3.bb6
+orig@1990 stxdw [r10 - 0x8e0], r3 | ~ours@18e8 slot->0x900
+      %14=COPY $r3 @48 bb.0.start (+2 defs)
+orig@1a38 stxdw [r10 - 0x570], r1 | ~ours@1980 slot->0x570
+orig@1a48 stxdw [r10 - 0x578], r1 | ~ours@1980 slot->0x578
+orig@1d50 stxdw [r10 - 0x950], r1 | ~ours@1d38 slot->0x8e8
+      %1588=LDD_V1 %398:gpr, 16 :: (dereferenceable load (s64) from %ir.target.i.sroa.8.0..sroa_idx, align 1, !noalias !44 @12752 bb.40.bb45.i (+2 defs)
+orig@1f48 stxdw [r10 - 0x8e0], r1 | ~ours@1f30 slot->0x900
+      %14=COPY $r3 @48 bb.0.start (+2 defs)
+orig@1f68 stxdw [r10 - 0x918], r9 | ~ours@1f48 slot->0x918
+      %904=COPY killed $r0 @33856 bb.123.bb76 (+2 defs)
+orig@27a0 stxdw [r10 - 0x9c8], r6 | ~ours@2770 slot->0x9e0
+      %135=LDD_V1 %130:gpr, 32 :: (load (s64) from %ir.353) @39200 bb.147._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit.i
+orig@2830 stxdw [r10 - 0x970], r6 | ~ours@27f0 slot->0x950
+      %132=LDD_V1 %130:gpr, 24 :: (load (s64) from %ir.348) @38464 bb.139.bb22.i121
+orig@2958 stxdw [r10 - 0x990], r9 | ~ours@2910 slot->0x9a8
+      %135=LDD_V1 %130:gpr, 32 :: (load (s64) from %ir.353) @39200 bb.147._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit.i
+orig@2b80 stxdw [r10 - 0x9a8], r6 | ~ours@2b38 slot->0x9a8
+      %167=LDD_V1 %166:gpr, 0 :: (load (s64) from %ir._216.i) @41488 bb.171._ZN71_
+orig@2d20 stxdw [r10 - 0xaa8], r1 | ~ours@2ce0 slot->0xaa8
+      %177=LDD_V1 %175:gpr, 24 :: (load (s64) from %ir.411) @42240 bb.179._ZN71_
+orig@2ff0 stxdw [r10 - 0xb38], r9 | ~ours@2fc8 slot->0x998
+      %176=LDD_V1 %175:gpr, 0 :: (load (s64) from %ir.x11.i) @42256 bb.179._ZN71_
+orig@31a8 stxdw [r10 - 0xbb0], r0 | ~ours@3170 slot->0x9a8
+      %167=LDD_V1 %166:gpr, 0 :: (load (s64) from %ir._216.i) @41488 bb.171._ZN71_
+orig@3440 stxdw [r10 - 0xc38], r3 | ~ours@3418 slot->?
+orig@3f88 stxdw [r10 - 0x9a8], r5 | ~ours@3f30 slot->0x9a8
+      %149=LDD_V1 %148:gpr, 0 :: (load (s64) from %ir._214.i) @39984 bb.155._ZN71_
+orig@4048 stxdw [r10 - 0x918], r5 | ~ours@4000 slot->0x918
+      %312=LDD_V1 %311:gpr, 0 :: (load (s64) from %ir._405) @58832 bb.292._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit
+orig@4238 stxdw [r10 - 0x940], r8 | ~ours@43f0 slot->0x940
+      %304=LDD_V1 %302:gpr, 8 :: (load (s64) from %ir.598) @57808 bb.282._ZN71_
+orig@4278 stxdw [r10 - 0xa10], r3 | ~ours@43f0 slot->0xa10
+      %336=LDD_V1 %329:gpr, 16 :: (load (s64) from %ir.642) @60544 bb.310._ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit183
+orig@42b8 stxdw [r10 - 0x928], r1 | ~ours@43f0 slot->0x938
+      %340=LDD_V1 %338:gpr, 8 :: (load (s64) from %ir.644) @60896 bb.314._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit190
+orig@42f0 stxdw [r10 - 0xa38], r0 | ~ours@43f0 slot->0xa38
+      %333=LDB_V1 %329:gpr, 42 :: (load (s8) from %ir.637, align 2, !range !21) @60352 bb.308._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit176
+orig@4300 stxdw [r10 - 0xa30], r0 | ~ours@43f0 slot->0xa30
+      %332=LDB_V1 %329:gpr, 41 :: (load (s8) from %ir.635, !range !21) @60368 bb.308._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit176
+orig@4310 stxdw [r10 - 0xa28], r0 | ~ours@43f0 slot->0xa28
+      %331=LDB_V1 %329:gpr, 40 :: (load (s8) from %ir.633, align 8, !range !21) @60384 bb.308._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit176
+orig@4320 stxdw [r10 - 0xa20], r0 | ~ours@43f0 slot->0xa20
+      %330=LDD_V1 %329:gpr, 32 :: (load (s64) from %ir.632) @60400 bb.308._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit176
+orig@4330 stxdw [r10 - 0xa18], r4 | ~ours@43f0 slot->0xa18
+      %335=LDD_V1 %329:gpr, 24 :: (load (s64) from %ir.641) @60736 bb.312._ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit183
+orig@4340 stxdw [r10 - 0xa40], r4 | ~ours@43f0 slot->0xa40
+      %339=LDD_V1 %338:gpr, 0 :: (load (s64) from %ir._423) @61104 bb.316._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit190
+orig@4408 stxdw [r10 - 0xa58], r4 | ~ours@44a8 slot->0xa58
+      %341=LDD_V1 %338:gpr, 16 :: (load (s64) from %ir.646) @61248 bb.318._ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i197
+orig@4460 stxdw [r10 - 0xa80], r2 | ~ours@4500 slot->0xa80
+      %350=LDD_V1 %347:gpr, 0 :: (load (s64) from %ir.x20) @62592 bb.332._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit222
+orig@44b0 stxdw [r10 - 0xa90], r7 | ~ours@4580 slot->0xa90
+      %342=LDD_V1 %338:gpr, 24 :: (load (s64) from %ir.648) @61840 bb.324._ZN71_
+orig@44c0 stxdw [r10 - 0xa88], r8 | ~ours@4580 slot->0xa88
+      %296=LDD_V1 %293:gpr, 16 :: (load (s64) from %ir.585) @57472 bb.278._ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i132
+orig@44d0 stxdw [r10 - 0x950], r3 | ~ours@4580 slot->0x8e8
+      %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit (+1 defs)
+orig@44f0 stxdw [r10 - 0xac0], r4 | ~ours@45b0 slot->0xac0
+      %182=LDB_V1 %175:gpr, 41 :: (load (s8) from %ir.419, !range !21) @42944 bb.187._ZN71_
+orig@4538 stxdw [r10 - 0xa98], r5 | ~ours@45b8 slot->0xa98
+      %348=LDD_V1 %347:gpr, 8 :: (load (s64) from %ir.657) @61584 bb.322._ZN71_
+orig@4560 stxdw [r10 - 0xab8], r1 | ~ours@45b8 slot->0xab8
+      %355=LDB_V1 %347:gpr, 42 :: (load (s8) from %ir.667, align 2, !range !21) @62512 bb.332._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit222
+orig@4570 stxdw [r10 - 0xab0], r1 | ~ours@45c0 slot->0xab0
+      %354=LDB_V1 %347:gpr, 41 :: (load (s8) from %ir.665, !range !21) @62528 bb.332._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit222
+orig@4580 stxdw [r10 - 0xaa8], r1 | ~ours@45c0 slot->0xaa8
+      %353=LDB_V1 %347:gpr, 40 :: (load (s8) from %ir.663, align 8, !range !21) @62544 bb.332._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit222
+orig@4590 stxdw [r10 - 0xaa0], r1 | ~ours@45c0 slot->0xaa0
+      %352=LDD_V1 %347:gpr, 32 :: (load (s64) from %ir.662) @62560 bb.332._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit222
+orig@45f0 stxdw [r10 - 0xac8], r0 | ~ours@45c0 slot->0xac8
+      %295=LDD_V1 %293:gpr, 8 :: (load (s64) from %ir.583) @57136 bb.274.bb32
+orig@5100 stxdw [r10 - 0x8d8], r1 | ~ours@50c0 slot->0x8e0
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+
+== ours_spill (113)
+ours@0098 stxdw [r10 - 0x2b8], r2 | ~orig@0080
+ours@00a8 stxdw [r10 - 0x2c0], r2 | ~orig@0080
+ours@00b8 stxdw [r10 - 0x2c8], r2 | ~orig@0080
+ours@00c8 stxdw [r10 - 0x2d0], r1 | ~orig@0080
+ours@0110 stxdw [r10 - 0x8e8], r1 | ~orig@0080
+      %398=LDD_V1 %394:gpr, -4088 :: (load (s64)) @640 bb.0.start
+ours@0120 stxdw [r10 - 0x928], r1 | ~orig@0080
+      %397=LDD_V1 %394:gpr, -4096 :: (load (s64)) @656 bb.0.start
+ours@01a0 stxdw [r10 - 0x920], r8 | ~orig@0080
+      %3=MOV_ri 0 @624 bb.0.start (+2 defs)
+ours@02b0 stxdw [r10 - 0x8e0], r6 | ~orig@02f8
+      %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 bb.0.start (+1 defs)
+ours@03f0 stxdw [r10 - 0x20], r1 | ~orig@0420
+ours@0400 stxdw [r10 - 0x28], r1 | ~orig@0420
+ours@0410 stxdw [r10 - 0x30], r1 | ~orig@0420
+ours@0440 stxdw [r10 - 0x918], r3 | ~orig@0440
+      %7=MOV_ri 1 @2112 bb.3.bb6 (+5 defs)
+ours@04a0 stxdw [r10 - 0x900], r7 | ~orig@0458
+      %4=LDD_V1 %0:gpr, 56 :: (load (s64) from %ir.sunkaddr) @1648 bb.3.bb6
+ours@04a8 stxdw [r10 - 0x908], r8 | ~orig@0458
+      %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit (+1 defs)
+ours@04c0 stxdw [r10 - 0x8f8], r3 | ~orig@0458
+      %472=MOV_ri 1 @2032 bb.3.bb6 (+3 defs)
+ours@0598 stxdw [r10 - 0x950], r1 | ~orig@05f0
+      %11=LDB_V1 %4:gpr, 163 :: (load (s8) from %ir.29, !range !21) @3120 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit
+ours@05a0 stxdw [r10 - 0x940], r5 | ~orig@05f0
+      %13=LDB_V1 %5:gpr, 1086 :: (load (s8) from %ir.33, align 2, !range !21) @3040 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit
+ours@05a8 stxdw [r10 - 0x948], r8 | ~orig@05f0
+      %9=LDD_V1 %5:gpr, 1072 :: (load (s64) from %ir.24) @3008 bb.8._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit
+ours@05b0 stxdw [r10 - 0x938], r0 | ~orig@05f0
+      %16=LDB_V1 %398:gpr, 0 :: (dereferenceable load (s8) from %ir.new) @3488 bb.12._ZN14pump_recovered10pump_quote12global_quote17h22baea9d8e833bf0E.exit
+ours@0908 stxdw [r10 - 0x428], r1 | ~orig@0ab8
+ours@0920 stxdw [r10 - 0x430], r1 | ~orig@0ab8
+ours@09b8 stxdw [r10 - 0x2b0], r1 | ~orig@0af0
+ours@09c8 stxdw [r10 - 0x2a8], r1 | ~orig@0af0
+ours@09d8 stxdw [r10 - 0x2a0], r1 | ~orig@0af0
+ours@09f0 stxdw [r10 - 0x2c8], r1 | ~orig@0af0
+ours@0a88 stxdw [r10 - 0x4e8], r1 | ~orig@0af0
+ours@0bc8 stxdw [r10 - 0x8d8], r8 | ~orig@0c78
+      %14=COPY $r3 @48 bb.0.start (+2 defs)
+ours@0bd8 stxdw [r10 - 0x4a0], r1 | ~orig@0c78
+ours@0be8 stxdw [r10 - 0x4a8], r1 | ~orig@0c78
+ours@0bf8 stxdw [r10 - 0x4b0], r1 | ~orig@0c78
+ours@0fb0 stxdw [r10 - 0x428], r1 | ~orig@1280
+ours@0fc8 stxdw [r10 - 0x430], r1 | ~orig@1288
+ours@1030 stxdw [r10 - 0x288], r1 | ~orig@12a8
+ours@1040 stxdw [r10 - 0x290], r1 | ~orig@12a8
+ours@1050 stxdw [r10 - 0x298], r1 | ~orig@12a8
+ours@1060 stxdw [r10 - 0x2b0], r1 | ~orig@12a8
+ours@1070 stxdw [r10 - 0x2a8], r1 | ~orig@12a8
+ours@1080 stxdw [r10 - 0x2a0], r1 | ~orig@12a8
+ours@1110 stxdw [r10 - 0x288], r1 | ~orig@12c0
+ours@1120 stxdw [r10 - 0x290], r1 | ~orig@12c0
+ours@1130 stxdw [r10 - 0x298], r1 | ~orig@12c0
+ours@1140 stxdw [r10 - 0x2b0], r1 | ~orig@12c0
+ours@1150 stxdw [r10 - 0x2a8], r1 | ~orig@12c0
+ours@1160 stxdw [r10 - 0x2a0], r1 | ~orig@12c0
+ours@1178 stxdw [r10 - 0x2c8], r1 | ~orig@12c0
+ours@1238 stxdw [r10 - 0x428], r1 | ~orig@1350
+ours@1250 stxdw [r10 - 0x430], r1 | ~orig@1358
+ours@12b8 stxdw [r10 - 0x288], r1 | ~orig@1378
+ours@12c8 stxdw [r10 - 0x290], r1 | ~orig@1378
+ours@12d8 stxdw [r10 - 0x298], r1 | ~orig@1378
+ours@12e8 stxdw [r10 - 0x2b0], r1 | ~orig@1378
+ours@12f8 stxdw [r10 - 0x2a8], r1 | ~orig@1378
+ours@1308 stxdw [r10 - 0x2a0], r1 | ~orig@1378
+ours@16e8 stxdw [r10 - 0x8d8], r8 | ~orig@1898
+      %14=COPY $r3 @48 bb.0.start (+2 defs)
+ours@1738 stxdw [r10 - 0x8e8], r2 | ~orig@18a8
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+ours@1778 stxdw [r10 - 0x530], r3 | ~orig@18a8
+ours@17a8 stxdw [r10 - 0x2d0], r1 | ~orig@18a8
+ours@17b8 stxdw [r10 - 0x2c8], r1 | ~orig@18a8
+ours@17c8 stxdw [r10 - 0x2c0], r1 | ~orig@18a8
+ours@17d8 stxdw [r10 - 0x2b8], r1 | ~orig@18a8
+ours@17f8 stxdw [r10 - 0x8e8], r1 | ~orig@18a8
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+ours@1830 stxdw [r10 - 0x8e8], r2 | ~orig@18a8
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+ours@1c08 stxdw [r10 - 0x2c8], r1 | ~orig@1c78
+ours@20b8 stxdw [r10 - 0x9b8], r6 | ~orig@20e8
+      %121=COPY %0:gpr @34560 bb.123.bb76 (+1 defs)
+ours@2680 stxdw [r10 - 0x950], r4 | ~orig@26c8
+      %132=LDD_V1 %130:gpr, 24 :: (load (s64) from %ir.348) @38464 bb.139.bb22.i121
+ours@26d8 stxdw [r10 - 0x9c0], r4 | ~orig@2718
+      %134=LDD_V1 %130:gpr, 16 :: (load (s64) from %ir.351) @38624 bb.141._ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i
+ours@2740 stxdw [r10 - 0x9c8], r0 | ~orig@2778
+      %138=LDB_V1 %130:gpr, 42 :: (load (s8) from %ir.358, align 2, !range !21) @39152 bb.147._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit.i
+ours@2a18 stxdw [r10 - 0x988], r5 | ~orig@2a68
+      %133=LDD_V1 %130:gpr, 8 :: (load (s64) from %ir.349) @38272 bb.137.bb22.i121
+ours@2bd0 stxdw [r10 - 0xaa8], r2 | ~orig@2c18
+      %177=LDD_V1 %175:gpr, 24 :: (load (s64) from %ir.411) @42240 bb.179._ZN71_
+ours@2c48 stxdw [r10 - 0x990], r7 | ~orig@2c88
+      %158=LDD_V1 %157:gpr, 0 :: (load (s64) from %ir._215.i) @40736 bb.163._ZN71_
+ours@2d48 stxdw [r10 - 0x998], r0 | ~orig@2d90
+      %176=LDD_V1 %175:gpr, 0 :: (load (s64) from %ir.x11.i) @42256 bb.179._ZN71_
+ours@2f00 stxdw [r10 - 0xb38], r1 | ~orig@2f40
+      %202=LDD_V1 %201:gpr, 0 :: (load (s64) from %ir._218.i) @44480 bb.203._ZN71_
+ours@30e0 stxdw [r10 - 0xb78], r9 | ~orig@3128
+      %119=LDB_V1 %391:gpr, 35 :: (dereferenceable load (s8) from %ir.304) @33520 bb.123.bb76
+ours@30f0 stxdw [r10 - 0x8e8], r4 | ~orig@3130
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+ours@3390 stxdw [r10 - 0xbf8], r8 | ~orig@33c0
+      %238=LDD_V1 %236:gpr, 24 :: (load (s64) from %ir.498) @47472 bb.235._ZN71_
+ours@3c20 stxdw [r10 - 0x968], r2 | ~orig@3c68
+      %1642=MOV_ri 0 @21216 bb.71.bb31 (+18 defs)
+ours@3cc8 stxdw [r10 - 0x8e8], r1 | ~orig@3d00
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+ours@3d30 stxdw [r10 - 0x638], r1 | ~orig@3d78
+ours@3dd0 stxdw [r10 - 0x920], r4 | ~orig@3e18
+      %294=LDD_V1 %293:gpr, 0 :: (load (s64) from %ir._396) @57328 bb.276.bb32
+ours@3f78 stxdw [r10 - 0x9b8], r2 | ~orig@3fd0
+      %306=LDB_V1 %302:gpr, 41 :: (load (s8) from %ir.602, !range !21) @58816 bb.292._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit
+ours@3f88 stxdw [r10 - 0x9c0], r2 | ~orig@3fd8
+      %312=LDD_V1 %311:gpr, 0 :: (load (s64) from %ir._405) @58832 bb.292._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit
+ours@40a8 stxdw [r10 - 0xa00], r1 | ~orig@40f0
+      %322=LDB_V1 %320:gpr, 41 :: (load (s8) from %ir.622, !range !21) @59616 bb.300._ZN71_
+ours@4180 stxdw [r10 - 0xa10], r6 | ~orig@4198
+      %328=LDD_V1 %320:gpr, 0 :: (load (s64) from %ir.x18) @60304 bb.308._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit176
+ours@4190 stxdw [r10 - 0xa20], r6 | ~orig@4198
+      %327=LDB_V1 %320:gpr, 42 :: (load (s8) from %ir.630, align 2, !range !21) @60320 bb.308._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit176
+ours@41a0 stxdw [r10 - 0xa18], r2 | ~orig@4198
+      %326=LDD_V1 %320:gpr, 24 :: (load (s64) from %ir.629) @60336 bb.308._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit176
+ours@41b0 stxdw [r10 - 0xa40], r2 | ~orig@4198
+      %333=LDB_V1 %329:gpr, 42 :: (load (s8) from %ir.637, align 2, !range !21) @60352 bb.308._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit176
+ours@41c0 stxdw [r10 - 0xa38], r2 | ~orig@4198
+      %332=LDB_V1 %329:gpr, 41 :: (load (s8) from %ir.635, !range !21) @60368 bb.308._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit176
+ours@41d0 stxdw [r10 - 0xa30], r2 | ~orig@4198
+      %331=LDB_V1 %329:gpr, 40 :: (load (s8) from %ir.633, align 8, !range !21) @60384 bb.308._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit176
+ours@41e0 stxdw [r10 - 0xa28], r2 | ~orig@4198
+      %330=LDD_V1 %329:gpr, 32 :: (load (s64) from %ir.632) @60400 bb.308._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit176
+ours@4248 stxdw [r10 - 0xa48], r3 | ~orig@4198
+      %336=LDD_V1 %329:gpr, 16 :: (load (s64) from %ir.642) @60544 bb.310._ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit183
+ours@4278 stxdw [r10 - 0x950], r1 | ~orig@4198
+      %340=LDD_V1 %338:gpr, 8 :: (load (s64) from %ir.644) @60896 bb.314._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit190
+ours@42b0 stxdw [r10 - 0xa50], r4 | ~orig@4198
+      %337=LDD_V1 %329:gpr, 0 :: (load (s64) from %ir.x19) @61088 bb.316._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit190
+ours@42c0 stxdw [r10 - 0xa58], r4 | ~orig@4198
+      %339=LDD_V1 %338:gpr, 0 :: (load (s64) from %ir._423) @61104 bb.316._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit190
+ours@42e8 stxdw [r10 - 0x960], r9 | ~orig@4198
+      %335=LDD_V1 %329:gpr, 24 :: (load (s64) from %ir.641) @60736 bb.312._ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit183
+ours@42f8 stxdw [r10 - 0x958], r1 | ~orig@4198
+      %341=LDD_V1 %338:gpr, 16 :: (load (s64) from %ir.646) @61248 bb.318._ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i197
+ours@4330 stxdw [r10 - 0xa60], r0 | ~orig@4198
+      %323=LDD_V1 %320:gpr, 32 :: (load (s64) from %ir.624) @59600 bb.300._ZN71_
+ours@44f0 stxdw [r10 - 0xaa0], r9 | ~orig@4458
+      %351=LDD_V1 %347:gpr, 24 :: (load (s64) from %ir.661) @62576 bb.332._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit222
+ours@4520 stxdw [r10 - 0xad8], r9 | ~orig@4480
+      %350=LDD_V1 %347:gpr, 0 :: (load (s64) from %ir.x20) @62592 bb.332._ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit222
+ours@4528 stxdw [r10 - 0xad0], r4 | ~orig@4480
+      %348=LDD_V1 %347:gpr, 8 :: (load (s64) from %ir.657) @61584 bb.322._ZN71_
+ours@4548 stxdw [r10 - 0xac8], r6 | ~orig@4480
+      %295=LDD_V1 %293:gpr, 8 :: (load (s64) from %ir.583) @57136 bb.274.bb32
+ours@50e8 stxdw [r10 - 0x8d8], r1 | ~orig@5128
+      %1398=LDB_V1 %391:gpr, 46 :: (dereferenceable load (s8) from %ir.739, align 2) @68480 bb.347.bb113
+ours@5930 stxdw [r10 - 0x9b8], r6 | ~orig@5970
+      %121=COPY %0:gpr @34560 bb.123.bb76 (+1 defs)
+ours@5988 stxdw [r10 - 0x968], r2 | ~orig@59b8
+      %1642=MOV_ri 0 @21216 bb.71.bb31 (+18 defs)
+ours@59b0 stxdw [r10 - 0x918], r1 | ~orig@59e0
+      %267=COPY %0:gpr @54224 bb.257.bb86.i (+1 defs)
+ours@5a08 stxdw [r10 - 0x8e8], r9 | ~orig@5a40
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+ours@5ad8 stxdw [r10 - 0x968], r8 | ~orig@5b00
+      %1642=MOV_ri 0 @21216 bb.71.bb31 (+18 defs)
+ours@5af0 stxdw [r10 - 0x968], r2 | ~orig@5b00
+      %1642=MOV_ri 0 @21216 bb.71.bb31 (+18 defs)
+ours@5c30 stxdw [r10 - 0x938], r1 | ~orig@5c38
+      %1601=MOV_ri 0 @24368 bb.85.bb14.i71 (+4 defs)
+ours@5ca8 stxdw [r10 - 0x938], r1 | ~orig@5ca8
+      %1601=MOV_ri 0 @24368 bb.85.bb14.i71 (+4 defs)
+ours@5cc8 stxdw [r10 - 0x938], r1 | ~orig@5cc0
+      %1601=MOV_ri 0 @24368 bb.85.bb14.i71 (+4 defs)
+ours@5e88 stxdw [r10 - 0x8e8], r1 | ~orig@5e88
+      %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+ours@5ed0 stxdw [r10 - 0x900], r1 | ~orig@5ed0
+      %1148=MOV_rr %stack.36._128.i @51568 bb.251.bb46.i
+ours@6100 stxdw [r10 - 0x938], r1 | ~orig@6108
+      %1601=MOV_ri 0 @24368 bb.85.bb14.i71 (+4 defs)
+
+== per-value traffic: ours st/ld | orig st/ld (orig via nearest aligned pair)
+  0/  0 |  24/ 10   +34  (orig slot -0x2c8 unpaired)
+  0/  0 |   8/ 13   +21  (orig slot -0x2d0 unpaired)
+  0/  0 |   9/  5   +14  (orig slot -0x2b8 unpaired)
+  0/  0 |   8/  6   +14  (orig slot -0x2c0 unpaired)
+  0/  0 |  12/  2   +14  (orig slot -0x2a8 unpaired)
+  0/  0 |   5/  8   +13  (orig slot -0x30 unpaired)
+  0/  0 |  13/  0   +13  (orig slot -0x298 unpaired)
+  0/  0 |  12/  1   +13  (orig slot -0x2b0 unpaired)
+  1/ 20 |   2/ 31   +12  %0=LDD_V1 %391:gpr, 8 :: (dereferenceable load (s64) from %ir.2) @96 b
+  0/  0 |   3/  9   +12  (orig slot -0x4a8 unpaired)
+  0/  0 |  12/  0   +12  (orig slot -0x288 unpaired)
+  0/  0 |   3/  9   +12  (orig slot -0x4b8 unpaired)
+  0/  0 |  12/  0   +12  (orig slot -0x2a0 unpaired)
+  3/  4 |   9/  9   +11  %14=COPY $r3 @48 bb.0.start (+2 defs)
+  1/  2 |   5/  9   +11  %4=LDD_V1 %0:gpr, 56 :: (load (s64) from %ir.sunkaddr) @1648 bb.3.bb6
+  0/  0 |  10/  1   +11  (orig slot -0x428 unpaired)
+  0/  0 |   2/  8   +10  (orig slot -0x28 unpaired)
+  0/  0 |  10/  0   +10  (orig slot -0x430 unpaired)
+  0/  0 |  10/  0   +10  (orig slot -0x290 unpaired)
+  1/  2 |   2/  9    +8  %398=LDD_V1 %394:gpr, -4088 :: (load (s64)) @640 bb.0.start
+  1/  1 |   6/  4    +8  %1588=LDD_V1 %398:gpr, 16 :: (dereferenceable load (s64) from %ir.targ
+  0/  0 |   6/  2    +8  (orig slot -0x440 unpaired)
+  0/  0 |   4/  4    +8  (orig slot -0x38 unpaired)
+  0/  0 |   2/  6    +8  (orig slot -0x488 unpaired)
+  0/  0 |   6/  1    +7  (orig slot -0x450 unpaired)
+  1/  7 |   5/  9    +6  %471=MOV_ri 1 @3200 bb.8._ZN14pump_recovered10pump_quote12global_quote
+  1/  1 |   4/  4    +6  %1587=LDD_V1 %398:gpr, 8 :: (dereferenceable load (s64) from %ir.targe
+  0/  0 |   4/  2    +6  (orig slot -0x448 unpaired)
+  0/  0 |   3/  3    +6  (orig slot -0x460 unpaired)
+  0/  0 |   3/  3    +6  (orig slot -0x518 unpaired)
+  0/  0 |   4/  2    +6  (orig slot -0x530 unpaired)
+  0/  0 |   4/  2    +6  (orig slot -0x528 unpaired)
+  0/  0 |   4/  2    +6  (orig slot -0x520 unpaired)
+  0/  0 |   6/  0    +6  (orig slot -0x1000 unpaired)
+  8/ 13 |   1/ 15    -5  %60=MOV_ri 2 @17824 bb.58.bb18 (+3 defs)
+  1/  2 |   3/  5    +5  %141=LDD_V1 %139:gpr, 8 :: (load (s64) from %ir.360) @38960 bb.145._ZN
+  4/  1 |   0/  0    -5  %1601=MOV_ri 0 @24368 bb.85.bb14.i71 (+4 defs)
+  0/  0 |   2/  3    +5  (orig slot -0x468 unpaired)
+  0/  0 |   3/  2    +5  (orig slot -0x470 unpaired)
+  0/  0 |   3/  2    +5  (orig slot -0x508 unpaired)
+  0/  0 |   0/  5    +5  (orig slot -0x480 unpaired)
+  0/  0 |   0/  5    +5  (orig slot -0x478 unpaired)
+  1/  3 |   0/  0    -4  %16=LDB_V1 %398:gpr, 0 :: (dereferenceable load (s8) from %ir.new) @34
+  4/  2 |   0/  2    -4  %1642=MOV_ri 0 @21216 bb.71.bb31 (+18 defs)
+  0/  0 |   2/  2    +4  (orig slot -0x500 unpaired)
+  0/  0 |   2/  2    +4  (orig slot -0x510 unpaired)
+  0/  0 |   2/  2    +4  (orig slot -0x4a0 unpaired)
+  0/  0 |   4/  0    +4  (orig slot -0xff8 unpaired)
+  1/  1 |   2/  3    +3  %11=LDB_V1 %4:gpr, 163 :: (load (s8) from %ir.29, !range !21) @3120 bb
+  3/  4 |   1/  3    -3  %121=COPY %0:gpr @34560 bb.123.bb76 (+1 defs)
+  1/  2 |   3/  3    +3  %135=LDD_V1 %130:gpr, 32 :: (load (s64) from %ir.353) @39200 bb.147._Z
+  1/  2 |   3/  3    +3  %167=LDD_V1 %166:gpr, 0 :: (load (s64) from %ir._216.i) @41488 bb.171.
+  0/  0 |   2/  1    +3  (orig slot -0x438 unpaired)
+  0/  0 |   2/  1    +3  (orig slot -0x4e8 unpaired)
+  0/  0 |   2/  1    +3  (orig slot -0x4e0 unpaired)
+  0/  0 |   2/  1    +3  (orig slot -0x4d8 unpaired)
+  0/  0 |   2/  1    +3  (orig slot -0x548 unpaired)
+  0/  0 |   2/  1    +3  (orig slot -0x680 unpaired)
+  0/  0 |   3/  0    +3  (orig slot -0x138 unpaired)
+  0/  0 |   3/  0    +3  (orig slot -0x218 unpaired)
+  0/  0 |   3/  0    +3  (orig slot -0x220 unpaired)
+  0/  0 |   3/  0    +3  (orig slot -0x228 unpaired)
+  0/  0 |   3/  0    +3  (orig slot -0x238 unpaired)
+  0/  0 |   3/  0    +3  (orig slot -0x240 unpaired)
+  0/  0 |   3/  0    +3  (orig slot -0x248 unpaired)
+  0/  0 |   3/  0    +3  (orig slot -0x250 unpaired)
+  0/  0 |   3/  0    +3  (orig slot -0x258 unpaired)
+  0/  0 |   3/  0    +3  (orig slot -0x268 unpaired)
+  0/  0 |   3/  0    +3  (orig slot -0x270 unpaired)
+  0/  0 |   3/  0    +3  (orig slot -0x278 unpaired)
+  0/  0 |   3/  0    +3  (orig slot -0x280 unpaired)
+  1/  4 |   1/  6    +2  %393=COPY $r4 @32 bb.0.start
+  1/  1 |   0/  0    -2  %3=MOV_ri 0 @624 bb.0.start (+2 defs)
+  1/  1 |   0/  0    -2  %9=LDD_V1 %5:gpr, 1072 :: (load (s64) from %ir.24) @3008 bb.8._ZN14pum
+  1/  1 |   2/  2    +2  %904=COPY killed $r0 @33856 bb.123.bb76 (+2 defs)
+  1/  2 |   0/  1    -2  %133=LDD_V1 %130:gpr, 8 :: (load (s64) from %ir.349) @38272 bb.137.bb2
+  1/  2 |   0/  1    -2  %158=LDD_V1 %157:gpr, 0 :: (load (s64) from %ir._215.i) @40736 bb.163.
+  1/  1 |   2/  2    +2  %182=LDB_V1 %175:gpr, 41 :: (load (s8) from %ir.419, !range !21) @4294
+  1/  1 |   0/  0    -2  %119=LDB_V1 %391:gpr, 35 :: (dereferenceable load (s8) from %ir.304) @
+  1/  1 |   0/  0    -2  %238=LDD_V1 %236:gpr, 24 :: (load (s64) from %ir.498) @47472 bb.235._Z
+  1/  1 |   2/  2    +2  %304=LDD_V1 %302:gpr, 8 :: (load (s64) from %ir.598) @57808 bb.282._ZN
+  1/  1 |   0/  0    -2  %351=LDD_V1 %347:gpr, 24 :: (load (s64) from %ir.661) @62576 bb.332._Z
+  1/  1 |   0/  0    -2  %1398=LDB_V1 %391:gpr, 46 :: (dereferenceable load (s8) from %ir.739, 
+  1/  1 |   0/  0    -2  %267=COPY %0:gpr @54224 bb.257.bb86.i (+1 defs)
+  1/  1 |   0/  0    -2  %1148=MOV_rr %stack.36._128.i @51568 bb.251.bb46.i
+  0/  0 |   1/  1    +2  (orig slot -0x6a8 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x6b0 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x6b8 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x6c0 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x688 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x690 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x698 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x6a0 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x20 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x18 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x668 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x4d0 unpaired)
+  0/  0 |   0/  2    +2  (orig slot -0x4c8 unpaired)
+  0/  0 |   0/  2    +2  (orig slot -0x4c0 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x670 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x678 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x560 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x580 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x568 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x570 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x578 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0xc38 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x148 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x150 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x158 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x160 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x168 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x178 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x180 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x188 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x190 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x198 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x1a8 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x1b0 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x1b8 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x1c0 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x1c8 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x1d8 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x1e0 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x1e8 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x1f0 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x1f8 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x208 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x210 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0x498 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x618 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x620 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x628 unpaired)
+  0/  0 |   1/  1    +2  (orig slot -0x630 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0xfe8 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0xfe0 unpaired)
+  0/  0 |   2/  0    +2  (orig slot -0xff0 unpaired)
+  2/  1 |   1/  3    +1  %472=MOV_ri 1 @2032 bb.3.bb6 (+3 defs)
+  1/  2 |   1/  3    +1  %7=MOV_ri 1 @2112 bb.3.bb6 (+5 defs)
+  1/  1 |   1/  0    -1  %10=LDB_V1 %4:gpr, 165 :: (load (s8) from %ir.27, !range !21) @3104 bb
+  1/  1 |   0/  1    -1  %134=LDD_V1 %130:gpr, 16 :: (load (s64) from %ir.351) @38624 bb.141._Z
+  1/  1 |   0/  1    -1  %138=LDB_V1 %130:gpr, 42 :: (load (s8) from %ir.358, align 2, !range !
+  1/  2 |   2/  2    +1  %149=LDD_V1 %148:gpr, 0 :: (load (s64) from %ir._214.i) @39984 bb.155.
+  1/  2 |   1/  1    -1  %176=LDD_V1 %175:gpr, 0 :: (load (s64) from %ir.x11.i) @42256 bb.179._
+  1/  1 |   0/  1    -1  %202=LDD_V1 %201:gpr, 0 :: (load (s64) from %ir._218.i) @44480 bb.203.
+  1/  2 |   0/  2    -1  %294=LDD_V1 %293:gpr, 0 :: (load (s64) from %ir._396) @57328 bb.276.bb
+  1/  1 |   1/  2    +1  %298=LDD_V1 %293:gpr, 32 :: (load (s64) from %ir.588) @58048 bb.284._Z
+  1/  2 |   1/  1    -1  %303=LDB_V1 %302:gpr, 42 :: (load (s8) from %ir.596, align 2, !range !
+  1/  2 |   1/  1    -1  %307=LDD_V1 %302:gpr, 24 :: (load (s64) from %ir.604) @58800 bb.292._Z
+  1/  1 |   0/  1    -1  %306=LDB_V1 %302:gpr, 41 :: (load (s8) from %ir.602, !range !21) @5881
+  1/  1 |   1/  2    +1  %312=LDD_V1 %311:gpr, 0 :: (load (s64) from %ir._405) @58832 bb.292._Z
+  1/  2 |   1/  3    +1  %324=LDD_V1 %320:gpr, 8 :: (load (s64) from %ir.625) @59328 bb.298._ZN
+  1/  1 |   0/  1    -1  %322=LDB_V1 %320:gpr, 41 :: (load (s8) from %ir.622, !range !21) @5961
+  1/  1 |   0/  1    -1  %327=LDB_V1 %320:gpr, 42 :: (load (s8) from %ir.630, align 2, !range !
+  1/  1 |   0/  1    -1  %326=LDD_V1 %320:gpr, 24 :: (load (s64) from %ir.629) @60336 bb.308._Z
+  1/  1 |   0/  1    -1  %337=LDD_V1 %329:gpr, 0 :: (load (s64) from %ir.x19) @61088 bb.316._ZN
+  1/  2 |   1/  1    -1  %335=LDD_V1 %329:gpr, 24 :: (load (s64) from %ir.641) @60736 bb.312._Z
+  1/  2 |   1/  1    -1  %341=LDD_V1 %338:gpr, 16 :: (load (s64) from %ir.646) @61248 bb.318._Z
+  1/  1 |   0/  1    -1  %323=LDD_V1 %320:gpr, 32 :: (load (s64) from %ir.624) @59600 bb.300._Z
+  1/  1 |   2/  1    +1  %342=LDD_V1 %338:gpr, 24 :: (load (s64) from %ir.648) @61840 bb.324._Z
+  1/  1 |   2/  1    +1  %296=LDD_V1 %293:gpr, 16 :: (load (s64) from %ir.585) @57472 bb.278._Z
+  1/  1 |   2/  1    +1  %355=LDB_V1 %347:gpr, 42 :: (load (s8) from %ir.667, align 2, !range !
+  1/  1 |   2/  1    +1  %354=LDB_V1 %347:gpr, 41 :: (load (s8) from %ir.665, !range !21) @6252
+  1/  1 |   2/  1    +1  %353=LDB_V1 %347:gpr, 40 :: (load (s8) from %ir.663, align 8, !range !
+  1/  1 |   2/  1    +1  %352=LDD_V1 %347:gpr, 32 :: (load (s64) from %ir.662) @62560 bb.332._Z
+  1/  3 |   1/  2    -1  %724=COPY killed $r0 @23984 bb.83.bb60.i (+2 defs)
+  0/  0 |   1/  0    +1  (orig slot -0x458 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x6d8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x6e0 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x6e8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x6f0 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x4a1 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x4b1 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x8c8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x8d0 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x6f8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x700 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x738 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x740 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x898 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x8a0 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x8a8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x8b0 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x8b8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x8c0 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x708 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x710 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x718 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x720 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x728 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x730 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x750 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x748 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x758 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x760 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x7f8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x800 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x7b8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x7c0 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x7c8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x7d0 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x7d8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x7e0 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0xb8 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0xc0 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0xc8 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0xd0 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0xd8 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0xe8 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0xf0 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0xf8 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x100 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x108 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x118 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x120 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x128 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x130 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0xa8 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0xa0 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x98 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x90 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x88 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x78 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x70 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x68 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x60 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x58 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x7f0 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x7e8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x828 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x830 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x641 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x649 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x639 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x858 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x860 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x868 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x870 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x230 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x260 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x5a0 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x5a8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x5e0 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x5b8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x5d8 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x5c0 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x5c8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x5d0 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x5b0 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x610 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x598 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x878 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x880 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x888 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x890 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x6c8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x6d0 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x7a8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x7b0 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x840 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x850 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x848 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x770 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x810 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x820 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0xfd8 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x778 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x780 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x768 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x808 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x818 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x408 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x410 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x420 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x418 unpaired)
+  0/  0 |   1/  0    +1  (orig slot -0x490 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x7a0 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x798 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x788 unpaired)
+  0/  0 |   0/  1    +1  (orig slot -0x790 unpaired)
+  1/  2 |   1/  2    +0  %390=COPY $r1 @80 bb.0.start
+  1/  5 |   1/  5    +0  %391=COPY $r2 @64 bb.0.start
+  1/  3 |   1/  3    +0  %397=LDD_V1 %394:gpr, -4096 :: (load (s64)) @656 bb.0.start
+  1/  1 |   1/  1    +0  %13=LDB_V1 %5:gpr, 1086 :: (load (s8) from %ir.33, align 2, !range !21
+  1/  3 |   1/  3    +0  %63=COPY %0:gpr @19104 bb.63.bb22 (+1 defs)
+  1/  2 |   1/  2    +0  %132=LDD_V1 %130:gpr, 24 :: (load (s64) from %ir.348) @38464 bb.139.bb
+  1/  1 |   1/  1    +0  %137=LDB_V1 %130:gpr, 41 :: (load (s8) from %ir.356, !range !21) @3916
+  1/  1 |   1/  1    +0  %136=LDB_V1 %130:gpr, 40 :: (load (s8) from %ir.354, align 8, !range !
+  1/  1 |   1/  1    +0  %140=LDD_V1 %139:gpr, 0 :: (load (s64) from %ir._213.i) @39216 bb.147.
+  1/  1 |   1/  1    +0  %142=LDD_V1 %139:gpr, 16 :: (load (s64) from %ir.362) @39360 bb.149._Z
+  1/  2 |   1/  2    +0  %150=LDD_V1 %148:gpr, 8 :: (load (s64) from %ir.373) @39712 bb.153._ZN
+  1/  1 |   1/  1    +0  %147=LDB_V1 %139:gpr, 42 :: (load (s8) from %ir.370, align 2, !range !
+  1/  1 |   1/  1    +0  %146=LDB_V1 %139:gpr, 41 :: (load (s8) from %ir.368, !range !21) @3992
+  1/  1 |   1/  1    +0  %145=LDB_V1 %139:gpr, 40 :: (load (s8) from %ir.366, align 8, !range !
+  1/  1 |   1/  1    +0  %144=LDD_V1 %139:gpr, 32 :: (load (s64) from %ir.365) @39952 bb.155._Z
+  1/  1 |   1/  1    +0  %143=LDD_V1 %139:gpr, 24 :: (load (s64) from %ir.364) @39968 bb.155._Z
+  1/  1 |   1/  1    +0  %151=LDD_V1 %148:gpr, 16 :: (load (s64) from %ir.375) @40128 bb.157._Z
+  1/  2 |   1/  2    +0  %131=LDD_V1 %130:gpr, 0 :: (load (s64) from %ir.x.i) @38480 bb.139.bb2
+  1/  2 |   1/  2    +0  %159=LDD_V1 %157:gpr, 8 :: (load (s64) from %ir.386) @40464 bb.161._ZN
+  1/  1 |   1/  1    +0  %156=LDB_V1 %148:gpr, 42 :: (load (s8) from %ir.383, align 2, !range !
+  1/  1 |   1/  1    +0  %155=LDB_V1 %148:gpr, 41 :: (load (s8) from %ir.381, !range !21) @4067
+  1/  1 |   1/  1    +0  %154=LDB_V1 %148:gpr, 40 :: (load (s8) from %ir.379, align 8, !range !
+  1/  1 |   1/  1    +0  %153=LDD_V1 %148:gpr, 32 :: (load (s64) from %ir.378) @40704 bb.163._Z
+  1/  1 |   1/  1    +0  %152=LDD_V1 %148:gpr, 24 :: (load (s64) from %ir.377) @40720 bb.163._Z
+  1/  1 |   1/  1    +0  %160=LDD_V1 %157:gpr, 16 :: (load (s64) from %ir.388) @40880 bb.165._Z
+  1/  2 |   1/  2    +0  %168=LDD_V1 %166:gpr, 8 :: (load (s64) from %ir.398) @41216 bb.169._ZN
+  1/  1 |   1/  1    +0  %165=LDB_V1 %157:gpr, 42 :: (load (s8) from %ir.396, align 2, !range !
+  1/  1 |   1/  1    +0  %164=LDB_V1 %157:gpr, 41 :: (load (s8) from %ir.394, !range !21) @4142
+  1/  1 |   1/  1    +0  %163=LDB_V1 %157:gpr, 40 :: (load (s8) from %ir.392, align 8, !range !
+  1/  1 |   1/  1    +0  %162=LDD_V1 %157:gpr, 32 :: (load (s64) from %ir.391) @41456 bb.171._Z
+  1/  1 |   1/  1    +0  %161=LDD_V1 %157:gpr, 24 :: (load (s64) from %ir.390) @41472 bb.171._Z
+  1/  1 |   1/  1    +0  %169=LDD_V1 %166:gpr, 16 :: (load (s64) from %ir.400) @41632 bb.173._Z
+  1/  2 |   1/  2    +0  %178=LDD_V1 %175:gpr, 8 :: (load (s64) from %ir.412) @41968 bb.177._ZN
+  1/  1 |   1/  1    +0  %174=LDB_V1 %166:gpr, 42 :: (load (s8) from %ir.408, align 2, !range !
+  1/  1 |   1/  1    +0  %173=LDB_V1 %166:gpr, 41 :: (load (s8) from %ir.406, !range !21) @4217
+  1/  1 |   1/  1    +0  %172=LDB_V1 %166:gpr, 40 :: (load (s8) from %ir.404, align 8, !range !
+  1/  1 |   1/  1    +0  %171=LDD_V1 %166:gpr, 32 :: (load (s64) from %ir.403) @42208 bb.179._Z
+  1/  1 |   1/  1    +0  %170=LDD_V1 %166:gpr, 24 :: (load (s64) from %ir.402) @42224 bb.179._Z
+  1/  1 |   1/  1    +0  %177=LDD_V1 %175:gpr, 24 :: (load (s64) from %ir.411) @42240 bb.179._Z
+  1/  2 |   1/  2    +0  %185=LDD_V1 %0:gpr, 176 :: (load (s64) from %ir.423) @42720 bb.185._ZN
+  1/  1 |   1/  1    +0  %184=LDD_V1 %0:gpr, 168 :: (load (s64) from %ir._72.i) @42912 bb.187._
+  1/  1 |   1/  1    +0  %183=LDB_V1 %175:gpr, 42 :: (load (s8) from %ir.421, align 2, !range !
+  1/  1 |   1/  1    +0  %181=LDB_V1 %175:gpr, 40 :: (load (s8) from %ir.417, align 8, !range !
+  1/  1 |   1/  1    +0  %180=LDD_V1 %175:gpr, 32 :: (load (s64) from %ir.416) @42976 bb.187._Z
+  1/  2 |   1/  2    +0  %194=LDD_V1 %192:gpr, 8 :: (load (s64) from %ir.436) @43456 bb.193._ZN
+  1/  1 |   1/  1    +0  %191=LDB_V1 %0:gpr, 210 :: (load (s8) from %ir.433, align 2, !range !2
+  1/  1 |   1/  1    +0  %190=LDB_V1 %0:gpr, 209 :: (load (s8) from %ir.431, !range !21) @43664
+  1/  1 |   1/  1    +0  %189=LDB_V1 %0:gpr, 208 :: (load (s8) from %ir.429, align 8, !range !2
+  1/  1 |   1/  1    +0  %188=LDD_V1 %0:gpr, 200 :: (load (s64) from %ir.428) @43696 bb.195._ZN
+  1/  1 |   1/  1    +0  %187=LDD_V1 %0:gpr, 192 :: (load (s64) from %ir.427) @43712 bb.195._ZN
+  1/  1 |   1/  1    +0  %193=LDD_V1 %192:gpr, 0 :: (load (s64) from %ir._217.i) @43728 bb.195.
+  1/  1 |   1/  1    +0  %179=LDD_V1 %175:gpr, 16 :: (load (s64) from %ir.414) @42400 bb.181._Z
+  1/  2 |   1/  2    +0  %203=LDD_V1 %201:gpr, 8 :: (load (s64) from %ir.448) @44208 bb.201._ZN
+  1/  1 |   1/  1    +0  %200=LDB_V1 %192:gpr, 42 :: (load (s8) from %ir.446, align 2, !range !
+  1/  1 |   1/  1    +0  %199=LDB_V1 %192:gpr, 41 :: (load (s8) from %ir.444, !range !21) @4441
+  1/  1 |   1/  1    +0  %198=LDB_V1 %192:gpr, 40 :: (load (s8) from %ir.442, align 8, !range !
+  1/  1 |   1/  1    +0  %197=LDD_V1 %192:gpr, 32 :: (load (s64) from %ir.441) @44448 bb.203._Z
+  1/  1 |   1/  1    +0  %196=LDD_V1 %192:gpr, 24 :: (load (s64) from %ir.440) @44464 bb.203._Z
+  1/  1 |   1/  1    +0  %204=LDD_V1 %201:gpr, 16 :: (load (s64) from %ir.450) @44624 bb.205._Z
+  1/  2 |   1/  2    +0  %211=LDD_V1 %0:gpr, 224 :: (load (s64) from %ir.460) @44944 bb.209._ZN
+  1/  1 |   1/  1    +0  %186=LDD_V1 %0:gpr, 184 :: (load (s64) from %ir.425) @43120 bb.189._ZN
+  1/  1 |   1/  1    +0  %210=LDD_V1 %0:gpr, 216 :: (load (s64) from %ir._76.i) @45136 bb.211._
+  1/  1 |   1/  1    +0  %209=LDB_V1 %201:gpr, 42 :: (load (s8) from %ir.458, align 2, !range !
+  1/  1 |   1/  1    +0  %208=LDB_V1 %201:gpr, 41 :: (load (s8) from %ir.456, !range !21) @4516
+  1/  1 |   1/  1    +0  %207=LDB_V1 %201:gpr, 40 :: (load (s8) from %ir.454, align 8, !range !
+  1/  1 |   1/  1    +0  %206=LDD_V1 %201:gpr, 32 :: (load (s64) from %ir.453) @45200 bb.211._Z
+  1/  1 |   1/  1    +0  %205=LDD_V1 %201:gpr, 24 :: (load (s64) from %ir.452) @45216 bb.211._Z
+  1/  1 |   1/  1    +0  %217=LDB_V1 %0:gpr, 258 :: (load (s8) from %ir.470, align 2, !range !2
+  1/  1 |   1/  1    +0  %216=LDB_V1 %0:gpr, 257 :: (load (s8) from %ir.468, !range !21) @45904
+  1/  1 |   1/  1    +0  %215=LDB_V1 %0:gpr, 256 :: (load (s8) from %ir.466, align 8, !range !2
+  1/  1 |   1/  1    +0  %214=LDD_V1 %0:gpr, 248 :: (load (s64) from %ir.465) @45936 bb.219._ZN
+  1/  1 |   1/  1    +0  %219=LDD_V1 %218:gpr, 0 :: (load (s64) from %ir._219.i123) @45968 bb.2
+  1/  1 |   1/  1    +0  %213=LDD_V1 %0:gpr, 240 :: (load (s64) from %ir.464) @45952 bb.219._ZN
+  1/  1 |   1/  1    +0  %195=LDD_V1 %192:gpr, 16 :: (load (s64) from %ir.438) @43872 bb.197._Z
+  1/  1 |   1/  1    +0  %226=LDB_V1 %218:gpr, 42 :: (load (s8) from %ir.483, align 2, !range !
+  1/  1 |   1/  1    +0  %225=LDB_V1 %218:gpr, 41 :: (load (s8) from %ir.481, !range !21) @4665
+  1/  1 |   1/  1    +0  %224=LDB_V1 %218:gpr, 40 :: (load (s8) from %ir.479, align 8, !range !
+  1/  1 |   1/  1    +0  %223=LDD_V1 %218:gpr, 32 :: (load (s64) from %ir.478) @46688 bb.227._Z
+  1/  1 |   1/  1    +0  %222=LDD_V1 %218:gpr, 24 :: (load (s64) from %ir.477) @46704 bb.227._Z
+  1/  1 |   1/  1    +0  %228=LDD_V1 %227:gpr, 0 :: (load (s64) from %ir._220.i124) @46720 bb.2
+  1/  1 |   1/  1    +0  %230=LDD_V1 %227:gpr, 16 :: (load (s64) from %ir.488) @46864 bb.229._Z
+  1/  1 |   1/  1    +0  %235=LDB_V1 %227:gpr, 42 :: (load (s8) from %ir.496, align 2, !range !
+  1/  1 |   1/  1    +0  %234=LDB_V1 %227:gpr, 41 :: (load (s8) from %ir.494, !range !21) @4740
+  1/  1 |   1/  1    +0  %233=LDB_V1 %227:gpr, 40 :: (load (s8) from %ir.492, align 8, !range !
+  1/  1 |   1/  1    +0  %232=LDD_V1 %227:gpr, 32 :: (load (s64) from %ir.491) @47440 bb.235._Z
+  1/  1 |   1/  1    +0  %231=LDD_V1 %227:gpr, 24 :: (load (s64) from %ir.490) @47456 bb.235._Z
+  1/  1 |   1/  1    +0  %237=LDD_V1 %236:gpr, 0 :: (load (s64) from %ir.x12.i) @47488 bb.235._
+  1/  1 |   1/  1    +0  %1108=LDD_V1 %236:gpr, 32 :: (load (s64) from %ir.503) @48000 bb.241._
+  1/  1 |   1/  1    +0  %301=LDB_V1 %293:gpr, 42 :: (load (s8) from %ir.593, align 2, !range !
+  1/  1 |   1/  1    +0  %300=LDB_V1 %293:gpr, 41 :: (load (s8) from %ir.591, !range !21) @5801
+  1/  1 |   1/  1    +0  %299=LDB_V1 %293:gpr, 40 :: (load (s8) from %ir.589, align 8, !range !
+  1/  1 |   1/  1    +0  %297=LDD_V1 %293:gpr, 24 :: (load (s64) from %ir.587) @58064 bb.284._Z
+  1/  1 |   1/  1    +0  %305=LDD_V1 %302:gpr, 16 :: (load (s64) from %ir.600) @58224 bb.286._Z
+  1/  2 |   1/  2    +0  %313=LDD_V1 %311:gpr, 8 :: (load (s64) from %ir.608) @58560 bb.290._ZN
+  1/  1 |   1/  1    +0  %310=LDD_V1 %302:gpr, 0 :: (load (s64) from %ir.x) @58752 bb.292._ZN5a
+  1/  1 |   1/  1    +0  %309=LDB_V1 %302:gpr, 40 :: (load (s8) from %ir.606, align 8, !range !
+  1/  1 |   1/  1    +0  %308=LDD_V1 %302:gpr, 32 :: (load (s64) from %ir.605) @58784 bb.292._Z
+  1/  1 |   1/  1    +0  %314=LDD_V1 %311:gpr, 16 :: (load (s64) from %ir.610) @58976 bb.294._Z
+  1/  1 |   1/  1    +0  %319=LDB_V1 %311:gpr, 42 :: (load (s8) from %ir.618, align 2, !range !
+  1/  1 |   1/  1    +0  %318=LDB_V1 %311:gpr, 41 :: (load (s8) from %ir.616, !range !21) @5953
+  1/  1 |   1/  1    +0  %317=LDB_V1 %311:gpr, 40 :: (load (s8) from %ir.614, align 8, !range !
+  1/  1 |   1/  1    +0  %316=LDD_V1 %311:gpr, 32 :: (load (s64) from %ir.613) @59568 bb.300._Z
+  1/  1 |   1/  1    +0  %315=LDD_V1 %311:gpr, 24 :: (load (s64) from %ir.612) @59584 bb.300._Z
+  1/  1 |   1/  1    +0  %321=LDB_V1 %320:gpr, 40 :: (load (s8) from %ir.620, align 8, !range !
+  1/  1 |   1/  1    +0  %325=LDD_V1 %320:gpr, 16 :: (load (s64) from %ir.627) @59776 bb.302._Z
+  1/  2 |   1/  2    +0  %334=LDD_V1 %329:gpr, 8 :: (load (s64) from %ir.639) @60112 bb.306._ZN
+  1/  1 |   0/  2    +0  %328=LDD_V1 %320:gpr, 0 :: (load (s64) from %ir.x18) @60304 bb.308._ZN
+  1/  1 |   1/  1    +0  %333=LDB_V1 %329:gpr, 42 :: (load (s8) from %ir.637, align 2, !range !
+  1/  1 |   1/  1    +0  %332=LDB_V1 %329:gpr, 41 :: (load (s8) from %ir.635, !range !21) @6036
+  1/  1 |   1/  1    +0  %331=LDB_V1 %329:gpr, 40 :: (load (s8) from %ir.633, align 8, !range !
+  1/  1 |   1/  1    +0  %330=LDD_V1 %329:gpr, 32 :: (load (s64) from %ir.632) @60400 bb.308._Z
+  1/  1 |   1/  1    +0  %336=LDD_V1 %329:gpr, 16 :: (load (s64) from %ir.642) @60544 bb.310._Z
+  1/  2 |   1/  2    +0  %340=LDD_V1 %338:gpr, 8 :: (load (s64) from %ir.644) @60896 bb.314._ZN
+  1/  1 |   1/  1    +0  %339=LDD_V1 %338:gpr, 0 :: (load (s64) from %ir._423) @61104 bb.316._Z
+  1/  1 |   1/  1    +0  %346=LDB_V1 %338:gpr, 42 :: (load (s8) from %ir.654, align 2, !range !
+  1/  1 |   1/  1    +0  %345=LDB_V1 %338:gpr, 41 :: (load (s8) from %ir.652, !range !21) @6179
+  1/  1 |   1/  1    +0  %344=LDB_V1 %338:gpr, 40 :: (load (s8) from %ir.650, align 8, !range !
+  1/  1 |   1/  1    +0  %343=LDD_V1 %338:gpr, 32 :: (load (s64) from %ir.649) @61824 bb.324._Z
+  1/  1 |   1/  1    +0  %350=LDD_V1 %347:gpr, 0 :: (load (s64) from %ir.x20) @62592 bb.332._ZN
+  1/  1 |   1/  1    +0  %348=LDD_V1 %347:gpr, 8 :: (load (s64) from %ir.657) @61584 bb.322._ZN
+  1/  1 |   1/  1    +0  %295=LDD_V1 %293:gpr, 8 :: (load (s64) from %ir.583) @57136 bb.274.bb3
+  1/  1 |   1/  1    +0  %292=LDD_V1 %1295:gpr, 112 :: (load (s64) from %ir.578) @56688 bb.271.
+  1/  3 |   1/  3    +0  %72=COPY %0:gpr @23536 bb.83.bb60.i (+1 defs)
+  1/  1 |   1/  1    +0  %801=LDB_V1 %391:gpr, 46 :: (dereferenceable load (s8) from %ir.255, a
+  1/  1 |   1/  1    +0  %812=LDD_V1 %stack.45.ix_data.i, 16 :: (dereferenceable load (s64) fro
+
+ratio(n2)=0.84661
