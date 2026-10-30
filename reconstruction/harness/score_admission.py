@@ -41,7 +41,7 @@ def unique(items):
 
 
 def baseline(path):
-    document = json.loads(Path(path).read_text(), object_pairs_hook=unique)
+    document = json.loads(Path(path).read_text(encoding='utf-8'), object_pairs_hook=unique)
     if not isinstance(document, dict) or not isinstance(document.get('windows'), (dict, list)):
         raise ValueError('baseline requires a windows object or list')
     windows = document['windows']; result = {}
