@@ -36,5 +36,18 @@ on the x1 + le-first base it keeps 18,584 B. Region 1 now matches completely (57
 The last row has the highest ratio and the fewest unmatched instructions, but more differing slots; the branch head
 follows the size, slots, ratio order and keeps the 874-slot row.
 
+## Composite 3: + allowed-block global binding (main bc8ca11b1, 1033/1033)
+x1-p2-allowed-check-global-first spelling at line 599:
+`let allowed = { let global = &*a.global; let user = a.user.key(); !c.is_mayhem_mode && user!=global.whitelist_pda };`
+On main e61baa928 this was -8 B; on the composite it keeps 18,584 B and the original's `ldxdw [a48]; ldxdw [+0];
+stxdw [b28]` spill of the Global pointer appears (the 0x10 shift at the region 2/3 boundary goes away).
+
+| build (main bc8ca11b1 = 1033 normalized / 1033 raw) | bytes | ratio | slots_diff | losses |
+|---|---:|---:|---:|---|
+| main (x1 + le, #2558) | 18,584 | 0.92654 | 1017 | - |
+| + fee_inputs | 18,584 | 0.96371 | 874 | 0/0 |
+| **+ fee_inputs + global-first** | **18,584** | **0.97464** | **680** | **0/0** |
+| + fee_inputs + post_fill `let global` | 18,584 | 0.96458 | 874 | 0/0 |
+
 ## Trials
 See the ledger (lane w10r1-swaphop-stitch, keys 0x5b3b0-main-43daa2043-stitch-*).
