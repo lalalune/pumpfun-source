@@ -67,27 +67,59 @@ def apply(s,names):
             a,b=e; c=s.count(a); assert c==1,(nm,c,a[:100]); s=s.replace(a,b)
     assert s.count('\n')==n0,'newline count changed'
     return s
-# AdminCtoEvent literal evaluation order
-EVF=[('timestamp','Clock::get()?.unix_timestamp'),('authority','a.admin_set_creator_authority.key()'),('mint',None),('bonding_curve','a.bonding_curve.key()'),('old_creator',None),('new_creator','a.bonding_curve.creator'),('is_holder_reward','a.bonding_curve.is_holder_reward'),('is_cashback_coin','a.bonding_curve.is_cashback_coin'),('old_creator_fee_bps','old_fee'),('new_creator_fee_bps','nf'),('sharing_config_reset','sharing_update.is_some()'),('swept_to_holder_vault','swept'),('pool_updated',None)]
+# AdminCtoEvent literal evaluation order (parsed from the current source)
+def _evget(s):
+    i=s.index('let e=AdminCtoEvent{'); j=s.index('};',i); body=s[i+len('let e=AdminCtoEvent{'):j]
+    fs=[]
+    for f in body.split(','):
+        n,_,v=f.partition(':'); fs.append((n,v if v else None))
+    return i,j+2,fs
 def _evlit(fs): return 'let e=AdminCtoEvent{'+','.join(n if v is None else f'{n}:{v}' for n,v in fs)+'};'
-EVLIT=_evlit(EVF)
-def evo(names):  # names: list of field names to move to the front in that order
-    d=dict(EVF); fs=[(n,d[n]) for n in names]+[(n,v) for n,v in EVF if n not in names]
-    return [(EVLIT,_evlit(fs))]
-def evlast(names):
-    d=dict(EVF); fs=[(n,v) for n,v in EVF if n not in names]+[(n,d[n]) for n in names]
-    return [(EVLIT,_evlit(fs))]
-G['evo_ts_last']=evlast(['timestamp'])
+def evo(names,last=False):
+    def g(s):
+        i,j,fs=_evget(s); d=dict(fs); rest=[(n,v) for n,v in fs if n not in names]; mv=[(n,d[n]) for n in names]
+        return s[:i]+_evlit(rest+mv if last else mv+rest)+s[j:]
+    return [g]
+def evswap(a,b):
+    def g(s):
+        i,j,fs=_evget(s); n=[x for x,_ in fs]; ia,ib=n.index(a),n.index(b); fs[ia],fs[ib]=fs[ib],fs[ia]
+        return s[:i]+_evlit(fs)+s[j:]
+    return [g]
+G['evo_ts_last']=evo(['timestamp'],True)
 G['evo_ts_after_bc']=evo(['authority','mint','bonding_curve','timestamp'])
 G['evo_bc_first']=evo(['bonding_curve'])
 G['evo_mint_first']=evo(['mint'])
 G['evo_curve_first']=evo(['new_creator','is_holder_reward','is_cashback_coin'])
 G['evo_curve_ts']=evo(['new_creator','is_holder_reward','is_cashback_coin','timestamp'])
 G['evo_old_first']=evo(['old_creator','old_creator_fee_bps'])
-G['evo_auth_last']=evlast(['authority'])
-G['evo_bc_last']=evlast(['bonding_curve'])
-G['evo_nc_last']=evlast(['new_creator'])
+G['evo_auth_last']=evo(['authority'],True)
+G['evo_bc_last']=evo(['bonding_curve'],True)
+G['evo_nc_last']=evo(['new_creator'],True)
+G['evo_cb_last']=evo(['is_cashback_coin'],True)
 G['evo_flags_first']=evo(['sharing_config_reset','swept_to_holder_vault','pool_updated'])
-G['evo_hrcb_swap']=[("is_holder_reward:a.bonding_curve.is_holder_reward,is_cashback_coin:a.bonding_curve.is_cashback_coin,","is_cashback_coin:a.bonding_curve.is_cashback_coin,is_holder_reward:a.bonding_curve.is_holder_reward,")]
-G['evo_nf_before_old']=[("old_creator_fee_bps:old_fee,new_creator_fee_bps:nf,","new_creator_fee_bps:nf,old_creator_fee_bps:old_fee,")]
-G['evo_nc_before_old']=[("old_creator,new_creator:a.bonding_curve.creator,","new_creator:a.bonding_curve.creator,old_creator,")]
+G['evo_hrcb_swap']=evswap('is_holder_reward','is_cashback_coin')
+G['evo_auth_bc_swap']=evswap('authority','bonding_curve')
+G['evo_auth_mint_swap']=evswap('authority','mint')
+G['evo_ts_auth_swap']=evswap('timestamp','authority')
+G['evo_nc_hr_swap']=evswap('new_creator','is_holder_reward')
+# reverse knobs on f100a59
+G['ev_hr_curve']=[("is_holder_reward:holder,is_cashback","is_holder_reward:a.bonding_curve.is_holder_reward,is_cashback")]
+G['cu_unwrapcur']=[("if let Some(f)=fee{curve.creator_fee_bps=f;}","curve.creator_fee_bps=fee.unwrap_or(curve.creator_fee_bps);")]
+G['cu_iflet_old']=[("if let Some(f)=fee{curve.creator_fee_bps=f;}","curve.creator_fee_bps=fee.unwrap_or(old_fee);")]
+G['cu_match']=[("if let Some(f)=fee{curve.creator_fee_bps=f;}","match fee{Some(f)=>curve.creator_fee_bps=f,None=>{}}")]
+G['cu_fee_first']=[("curve.creator=target;\n","if let Some(f)=fee{curve.creator_fee_bps=f;}curve.creator=target;\n"),("\n  if let Some(f)=fee{curve.creator_fee_bps=f;}\n","\n  \n")]
+def gene(name):
+    if name in G: return G[name]
+    m=re.fullmatch(r'o_(\w\w)_([KLDORSWE]{8})',name)
+    if m: assert sorted(m.group(2))==sorted('KLDORSWE'); return ordg(m.group(1),m.group(2))
+    raise KeyError(name)
+def apply(s,names):
+    n0=s.count('\n')
+    for nm in names:
+        for e in gene(nm):
+            if callable(e): s=e(s); continue
+            a,b=e; c=s.count(a); assert c==1,(nm,c,a[:100]); s=s.replace(a,b)
+    assert s.count('\n')==n0,'newline count changed'
+    return s
+# #3277 (w14a24-cto-shareauth, kutluhaneth46): sharing CPI authority as an explicit clone with Rc locals first
+G['sh_auth']=[("authority:a.admin_set_creator_authority.to_account_info(),global:","authority:{let x:&AccountInfo=a.admin_set_creator_authority.as_ref();let lamports=x.lamports.clone();let data=x.data.clone();AccountInfo{rent_epoch:x.rent_epoch,owner:x.owner,lamports:lamports,key:x.key,is_writable:x.is_writable,is_signer:x.is_signer,executable:x.executable,data:data}},global:")]

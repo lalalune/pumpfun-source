@@ -36,3 +36,20 @@ With #3267's event_authority reload form in place, this pair (the pre-#3257 tail
   ev_ts_prepool -16, cu_iflet -8, nf_old -8, ea_xbind -8, tai_ea -48, tai_mi -24.
 - size-balanced pairs: **hr+cuif 0.6420**, cb+cuif 0.6411, hr+eax 0.63871, cb+eax 0.63781, cb+nfold 0.63751,
   mk+tsp 0.61564 (all 27,400).
+
+## Landing 2 (branch swarm/w14a26-cto-stitch10-2): #3277's sharing authority clone on the stack
+
+#3277 (w14a24-cto-shareauth, by kutluhaneth46) writes the sharing CPI `authority` as an explicit clone with the two Rc
+clones bound first: `{let x=..as_ref();let lamports=x.lamports.clone();let data=x.data.clone();AccountInfo{rent_epoch,owner,lamports,key,is_writable,is_signer,executable,data}}`.
+It measured 0.6414 -> 0.6426 on 7e6aa9c. Re-verified on the stack:
+
+| base | main | + sh_auth |
+| --- | ---: | ---: |
+| f100a59 (#3287) | 0.6423 | 0.6435 |
+| ca03a2b (#3289) | 0.6432 | **0.6444** (3,173 slots, 27,400 B, 0 losses) |
+
+On f100a59, sh_auth with the old tail (ev_hr_curve + cu_unwrapcur) is 0.6429 and with ev_hr_curve + ev_cb_local 0.6426,
+so #3287's tail and sh_auth add.
+
+AdminCtoEvent literal evaluation order (f100a59): moving timestamp last +256 B (0.49761), timestamp after bonding_curve
++200 B, bonding_curve first +72 B, mint first +64 B. Every reorder of the event literal grows the function.
