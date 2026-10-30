@@ -80,3 +80,87 @@ Findings:
 - q1: full union plus each applicable genes47 / size-knob gene (157 after dedupe), stopped after 32 rows. 15 rows are
   byte-identical to the union. None of the rest is above it except removing p1.
 - q2: U2 plus each applicable gene (182), running. Results are in the lane's out dir as `r2.jsonl`.
+
+## Step 2: the RA-compatible union (B3)
+
+w14a10's `p2` position for the and-1 holder bool (`let hb=holder.unwrap_or(false);` right after the PDA, gene `q2`
+here) keeps main's tail RA: q2+tu8 is 0.63289 at 27,360 B (w14a10 measured the same). On that base, full s1 is
+strongly negative (q2+tu8+s1 0.61188), because the sharing-CPI clone run reshuffles. The fix is to convert **only
+the `program:` clone** of the sharing CPI to `a.pump_fees.to_account_info()` (gene `s_pr`):
+
+| build (cef0574) | bytes | ratio | jm | fm | sk |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| main | 27,400 | 0.63421 | 0.6417 | 0.72648 | 0.85021 |
+| q2+tu8 | 27,360 | 0.63289 | 0.66647 | 0.73362 | 0.85654 |
+| **B3 = q2+tu8+s_pr** | 27,344 | **0.63398** | **0.66727** | 0.73354 | 0.8583 |
+| q2+tu8+s_po / s_gl / s_ev / s_mi | 27,360 / 27,360 / 27,320 / 27,336 | 0.63139 / 0.63049 / 0.62106 / 0.61548 | | | |
+| B3 + s_po / s_gl / s_ev / s_mi | | 0.63188 / 0.63248 / 0.61795 / 0.62088 | | | |
+| q3+tu8 (hb after quote_locked) / +s1 | 27,344 / 27,312 | 0.63278 / 0.61455 | | | |
+
+- B3 is 0.0002 below main at -56 B, and its jm is +0.026 above main's. Per chunk (raw/fm/sk against main) it gains
+  +71/+78/+79 in orig 0x800 and +25 in 0x0, and loses only fm in 0x1000 (-59, validate fee-check registers).
+- The 56 B deficit (`vsmain.py`): -32 B are e3's removal of main's curve-store bool normalisation
+  (`and64 r2,0xff; mov r1,1; jne; mov r1,0` before `stxb [curve+0xa5]`). The original has no such code either, so
+  this is a faithful loss. The other -24 B are tail spill differences.
+- **Pad bound (oracle only, `tools/pad.py`, `tools/padgreedy.py`).** It inserts 8-B `ja +0` inline-asm pads at
+  the top of IR blocks. One pad in almost any block gives 0.63448, already above main. Greedy rounds: `bb3.i19.i`
+  (to_string unwrap_failed, validate) 0.63478, + `bb82.i` (sweep) 0.63529, + `bb2` (shared-chain
+  `data_is_empty`) 0.63549, + `bb1` (shared-chain owner==FEES) 0.6357, + `bb86.i` (sweep native
+  `Rent::minimum_balance`) 0.6359 at 27,384 B. Past that, pads shift RA (27,408 B, 0.63621-0.63642). **B3's ceiling
+  at 27,400 B with a pure fill is about 0.636.**
+- Where the original has that code: its entry reloads the sharing_config pointer from `[r10-0x8e0]` before the
+  owner memcmp and before `data_is_empty` (2 x 8 B, the pressure of PDA-first). B3 keeps the pointer in r7. In the
+  sharing CPI the original reloads the accounts pointer `[r10-0x8d8]` before each clone (w14a01). B3 lacks 4-6 of
+  those reloads (`netreg.py`: orig has +64 B more than B3 in 0x4000-0x4800). Both are RA spill code, not source
+  statements, so no faithful source fill has been found for them.
+- Negative or neutral on B3: `cs` (curve stores holder-first, the original order) is identical; cashback spellings
+  `cb1-3`; hb spellings `q2c` (`==Some(true)`, 0.60665), `q2d`, `q2u`; TCF clone forms `tc` 0.6203, `tp` 0.62558,
+  `ta` 0.63248; shared-chain spellings `shA` (owner first) 0.61578, `shB` 0.43114, `shC` 0.63218, `shD` identical;
+  w14a14's quote_locked inline (`ql`, #3241: 0.63481 alone) 0.63065 at 27,296 B; catalog knobs (first 30): none above B3.
+  The byte-adding ones cost at least 0.001 per 16 B (`K.g_w_clock_local` 0.63289 at 27,360 B).
+
+## Step 3: judged by M, and re-checked on later mains
+
+w14a14 (#3241) showed that `ratio = 2M/(3339+n)`, where M is the number of matched original instructions and n is
+the candidate's instruction count. A shorter build therefore scores higher at the same M. Ranked by M, B3 is **not**
+ahead of main:
+
+| main | main ratio / M | best union | union ratio @ bytes | union M |
+| --- | --- | --- | --- | ---: |
+| cef0574 | 0.63421 / 2,117 | B3 = q2+tu8+s_pr | 0.63398 @ 27,344 | 2,114 |
+| f8dc901 (#3241, quote_locked inline) | 0.63481 / 2,119 | ql+q5+tu8+s_pr | 0.63426 @ 27,320 | 2,114 |
+| b174038 (#3250) | 0.63571 / 2,122 | q5+tu8+s_pr | 0.63276 @ 27,320 | 2,109 |
+| b174038 | | main + s_pr + `g.e_reset` (not a union) | 0.6363 @ 27,376 | **2,123** |
+| b174038 | | the same, filled to 27,400 (`K.g_w_clock_local`+`g.e_cb_local`) | 0.63391 @ 27,400 | 2,116 |
+| 06967d3 (#3300) | 0.64649 / 2,158 | q5+tu8 | 0.63897 @ 27,328 | 2,130 |
+
+- The jm metric is misleading as a ceiling (`jloss.py`). It realigns the whole function, so main's 0x800 chunk drops
+  from 124 raw matches to 63 jm matches. Region by region, B3's raw M is +13 over main in 0x0-0x1800 (outside
+  0x1000) and -16 scattered over the tail. That is parity, not a lead.
+- Pad oracle on main+s_pr+e_reset (b174038): one 8 B pad in the wallet exit block `bb65.i` shifts RA to exactly
+  27,400 B at 0.63661 (3,172 slots, +0.0009 over that main). That RA basin exists, but no source fill reaching it
+  was found.
+- Screens on the s_pr+e_reset base (60 of 230 genes, stopped when main moved to #3300): no byte-adder keeps M.
+  `K.g_w_clock_local` gives M 2,120, `g.e_cb_local` M 2,119, `g.x_cp_inline` M 2,112.
+
+## Conclusion (RA ceiling of the skeleton union)
+
+- **No zero-loss gain; nothing landed.** The best union measured is B3 = q2+tu8+s_pr: 0.63398 at 27,344 B on
+  cef0574 (fm 0.73354, sk 0.8583, M 2,114 against main's 2,117). With a pure fill it reaches about 0.636 at 27,400 B.
+- The skeleton gains of p1, e3+tu8, s1 and f2 add up (sk +0.019 for p1+e3+tu8+s1 and +0.030 for e3+tu8+s1, against
+  main's 0.85021). The RA cost adds up too:
+  - **p1** blocks the union. With the PDA first, `cashback` takes r8. The clone run then uses r3 instead of r1
+    for its reload temporaries (-181 raw in orig 0x3000-0x3800). The cost is independent of the partner forms: 32
+    union partners plus `cbR*` were tried.
+  - **Full s1** blocks it in every hb position that keeps main's tail RA (q2/q5: -0.021). Only the single
+    `program:` clone (`s_pr`) composes.
+  - **The e3 entry position** (hb bound at the top of execute) leaves main's RA basin (e3+tu8 0.614). The bool
+    must be bound after the PDA (q2/q4) or after quote_locked (q3/q5/q6).
+  - f2 (rar+hb0) moves into the outline basin (-528 to -592 B), which needs a fill that no lane has found.
+- Coalescing / accounts pointer (w14a06 `coal.py`):
+  - Full union: payload on r6, `%0` split on r5 (12 bundles), clonefeat 3/5.
+  - U2 and B3: payload on r8, split on r8 (3 bundles), clonefeat 2/6.
+  - Main: r8, r8 in 94 bundles, 2/6. The original: payload on r9, clonefeat 6/2.
+  - No union puts the payload on r9 or the clone-run accounts pointer on spill reloads.
+- Main meanwhile moved from 0.63421 to 0.64649 (#3241, #3250, #3295, #3298, #3300) by tuning the RA basin it already
+  had. On 06967d3 the best union form (q5+tu8) is 28 M behind.

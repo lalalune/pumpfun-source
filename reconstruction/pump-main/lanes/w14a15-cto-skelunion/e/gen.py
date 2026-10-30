@@ -45,6 +45,61 @@ G['cbR']=[('  curve.is_cashback_coin=cashback;\n','  if holder{curve.is_cashback
 G['cbR2']=[('  curve.is_cashback_coin=cashback;\n','  curve.is_cashback_coin=!holder&&curve.is_cashback_coin;\n')]
 G['cbR3']=[('  curve.is_cashback_coin=cashback;\n','  curve.is_cashback_coin&=!holder;\n')]
 
+
+# w14a10 e3 position variants (their p0..p3 renamed q0..q3; e3b/c/d)
+_VB=[('fn validate(st:&CtoState,hopt:Option<bool>,','fn validate(st:&CtoState,hopt:bool,'),(_VH,'->Result<Pubkey>{let holder=hopt;'),(_289,'&&!hopt{return Err(error!(PumpError::HolderRewardCreatorImmutable));}')]
+G['e3b']=[(_EH,'let hopt=holder.unwrap_or(false);let holder=hopt;')]+_VB
+G['e3c']=[(_EH,'let hopt=holder==Some(true);let holder=hopt;')]+_VB
+G['e3d']=[(_EH,'let hopt=matches!(holder,Some(true));let holder=hopt;')]+_VB
+_EH3=(_EH,'let hopt=hb;let holder=hb;')
+G['q1']=[('let mint=a.mint.key();','let mint=a.mint.key();let hb=holder.unwrap_or(false);'),_EH3]+_VB
+G['q2']=[('holder_key=hk.0;','holder_key=hk.0;let hb=holder.unwrap_or(false);'),_EH3]+_VB
+G['q3']=[('&a.global);let (holder,cashback,target,sharing_update,collect_old,skip)={','&a.global);let hb=holder.unwrap_or(false);let (holder,cashback,target,sharing_update,collect_old,skip)={'),_EH3]+_VB
+ORDER+=['e3b','e3c','e3d','q1','q2','q3']
+
+# partial s1: one sharing-CPI literal clone -> to_account_info
+G['s_po']=[('pool_authority:{let x:&AccountInfo= a.pool_authority.as_ref();AccountInfo{executable:x.executable,lamports:x.lamports.clone(),data:x.data.clone(),is_writable:x.is_writable,owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,key:x.key}}','pool_authority:a.pool_authority.to_account_info()')]
+G['s_gl']=[('global:{let x:&AccountInfo= a.global.as_ref().as_ref();AccountInfo{is_signer:x.is_signer,is_writable:x.is_writable,rent_epoch:x.rent_epoch,lamports:x.lamports.clone(),data:x.data.clone(),owner:x.owner,executable:x.executable,key:x.key}}','global:a.global.to_account_info()')]
+G['s_mi']=[('mint:{let x:&AccountInfo= a.mint.as_ref();AccountInfo{rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable,lamports:x.lamports.clone(),owner:x.owner,data:x.data.clone(),key:x.key}}','mint:a.mint.to_account_info()')]
+G['s_ev']=[('event_authority:{let x=&*a.pump_fees_event_authority;AccountInfo{lamports:x.lamports.clone(),data:x.data.clone(),key:x.key,owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}','event_authority:a.pump_fees_event_authority.to_account_info()')]
+G['s_pr']=[('program:{let x:&AccountInfo= a.pump_fees.as_ref();AccountInfo{owner:x.owner,lamports:x.lamports.clone(),rent_epoch:x.rent_epoch,is_signer:x.is_signer,executable:x.executable,data:x.data.clone(),key:x.key,is_writable:x.is_writable}}','program:a.pump_fees.to_account_info()')]
+ORDER+=['s_po','s_gl','s_mi','s_ev','s_pr']
+
+
+G['cs']=[('  curve.is_cashback_coin=cashback;\n  curve.is_holder_reward=holder;\n','  curve.is_holder_reward=holder;\n  curve.is_cashback_coin=cashback;\n')]
+ORDER+=['cs']
+
+G['ql']=[('let quote_locked=crate::pump_quote::global_quote(a.bonding_curve.quote_mint,&a.global);','let quote_locked={let q=a.bonding_curve.quote_mint;q==Pubkey::default()||q==anchor_spl::token::spl_token::native_mint::ID||a.global.whitelisted_quote_mints.contains(&q)};')]
+ORDER.insert(0,'ql')
+
+_CB='let cashback=!holder&&st.cashback;'
+G['cb1']=[(_CB,'let cashback=st.cashback&&!holder;')]
+G['cb2']=[(_CB,'let cashback=if holder{false}else{st.cashback};')]
+G['cb3']=[(_CB,'let cashback=!holder&st.cashback;')]
+G['q2c']=[('holder_key=hk.0;','holder_key=hk.0;let hb=holder==Some(true);'),_EH3]+_VB
+G['q2d']=[('holder_key=hk.0;','holder_key=hk.0;let hb=matches!(holder,Some(true));'),_EH3]+_VB
+G['q2u']=[('holder_key=hk.0;','holder_key=hk.0;let hb=holder.unwrap_or_default();'),_EH3]+_VB
+ORDER+=['cb1','cb2','cb3','q2c','q2d','q2u']
+
+_TX='{let x:&AccountInfo=a.pump_amm.as_ref();AccountInfo{key:x.key,owner:x.owner,lamports:x.lamports.clone(),data:x.data.clone(),rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}'
+G['tc']=[('CpiContext::new('+_TX,'CpiContext::new(a.pump_amm.to_account_info()')]
+G['tp']=[('program:'+_TX,'program:a.pump_amm.to_account_info()')]
+G['ta']=[("associated_token_program:{let x:&AccountInfo=a.associated_token_program.as_ref();AccountInfo{key:x.key,owner:x.owner,..x.clone()}}","associated_token_program:a.associated_token_program.to_account_info()")]
+ORDER+=['tc','tp','ta']
+
+_SHM='let shared=a.sharing_config.key()==a.bonding_curve.creator&&a.sharing_config.owner==&FEES&&!a.sharing_config.data_is_empty();'
+G['shA']=[(_SHM,'let shared=a.sharing_config.owner==&FEES&&a.sharing_config.key()==a.bonding_curve.creator&&!a.sharing_config.data_is_empty();')]
+G['shB']=[(_SHM,'let shared=a.sharing_config.key()==a.bonding_curve.creator&&!a.sharing_config.data_is_empty()&&a.sharing_config.owner==&FEES;')]
+G['shC']=[(_SHM,'let shared=a.bonding_curve.creator==a.sharing_config.key()&&a.sharing_config.owner==&FEES&&!a.sharing_config.data_is_empty();')]
+G['shD']=[(_SHM,'let shared=a.sharing_config.key()==a.bonding_curve.creator&&*a.sharing_config.owner==FEES&&!a.sharing_config.data_is_empty();')]
+ORDER+=['shA','shB','shC','shD']
+
+G['q4']=[('!a.sharing_config.data_is_empty();let holder_key;','!a.sharing_config.data_is_empty();let hb=holder.unwrap_or(false);let holder_key;'),_EH3]+_VB
+G['q5']=[('let (holder,cashback,target,sharing_update,collect_old,skip)={ let st=CtoState{','let (holder,cashback,target,sharing_update,collect_old,skip)={ let hb=holder.unwrap_or(false);let st=CtoState{'),_EH3]+_VB
+G['q6']=[('fee_configurable:a.global.creator_fee_configurable};','fee_configurable:a.global.creator_fee_configurable};let hb=holder.unwrap_or(false);'),_EH3]+_VB
+ORDER+=['q4','q5','q6']
+G['m']=[]
+ORDER.insert(0,'m')
 if __name__=='__main__':
     name,srcf,out=sys.argv[1:4]
     open(out,'w').write('EDITS='+repr(mk(name,open(srcf).read()))+'\n')

@@ -1,0 +1,93 @@
+{
+ "lane": "w14a15-cto-skelunion",
+ "target": "0x22a10 admin_cto::execute",
+ "pinned_bytes": 27400,
+ "bases": {
+  "cef0574": {
+   "ratio": 0.63421,
+   "M": 2117
+  },
+  "b174038": {
+   "ratio": 0.63571,
+   "M": 2122
+  },
+  "06967d3": {
+   "ratio": 0.64649,
+   "M": 2158
+  }
+ },
+ "result": "notes only, no zero-loss gain; skeleton union RA ceiling measured",
+ "best_union": {
+  "form": "q2+tu8+s_pr (hb bool after PDA, validate takes bool, 306 tag &1, sharing program: to_account_info)",
+  "base": "cef0574",
+  "ratio": 0.63398,
+  "bytes": 27344,
+  "fm": 0.73354,
+  "sk": 0.8583,
+  "M": 2114,
+  "pad_bound_27400": 0.636
+ },
+ "best_zero_loss_at_pin": null,
+ "unions": {
+  "p1+e3+tu8+s1": {
+   "ratio": 0.55712,
+   "bytes": 27352,
+   "fm": 0.67076,
+   "sk": 0.86957
+  },
+  "e3+tu8+s1": {
+   "ratio": 0.6109,
+   "bytes": 27264,
+   "fm": 0.73314,
+   "sk": 0.88031
+  },
+  "e3+f2+s1": {
+   "ratio": 0.60115,
+   "bytes": 26808,
+   "sk": 0.89188
+  },
+  "q2+tu8": {
+   "ratio": 0.63289,
+   "bytes": 27360
+  },
+  "q5+tu8 on 06967d3": {
+   "ratio": 0.63897,
+   "bytes": 27328,
+   "M": 2130
+  }
+ },
+ "blocking_components": [
+  "p1: cashback takes r8, so the clone-run reload temp becomes r3 instead of r1 (-181 raw in orig 0x3000-0x3800)",
+  "full s1: sharing clone-run reshuffle in the hb positions that keep main's tail RA (-0.021); only s_pr composes",
+  "e3 entry hb position leaves main's RA basin; hb must follow the PDA (q2) or quote_locked (q5)",
+  "f2: outline basin -528..-592 B"
+ ],
+ "coal": {
+  "full_union": "pay r6, %0 split r5 12 bundles, clonefeat 3/5",
+  "U2/B3": "pay r8, split r8 3 bundles, clonefeat 2/6",
+  "main": "r8/r8 94 bundles/2-6",
+  "orig": "pay r9, clonefeat 6/2"
+ },
+ "attempts": "~420 raw-IR oracle captures (screens q1 32, q2 ~150, q3 ~25, q4 ~60, q5 4) + 2 IR pad oracles + 2 single-weight IR sweeps",
+ "side_leads": [
+  "main b174038 + s_pr + g.e_reset: 0.6363@27376 M 2123 (> main M 2122), 24 B short; pad oracle shows a 27400 basin at 0.63661",
+  "B3 pad bound ~0.636@27384-27400 (greedy 8-B pads in validate to_string panic, sweep, shared chain blocks)"
+ ],
+ "rejected": [
+  "cbR/cbR2/cbR3 cashback recompute",
+  "cs curve store order (neutral)",
+  "cb1-3, q2c/q2d/q2u hb spellings",
+  "tc/tp/ta TCF clone forms on B3",
+  "shA-shD shared chain spellings",
+  "ql on union (-0.0033)",
+  "partial s1 pairs",
+  "catalog knobs on U2/B3 (none above base)"
+ ],
+ "next_ideas": [
+  "On the newest main (sharing literals retuned by w14a30), re-screen q5+tu8 with the new sharing-literal orders; the union only pays once its tail RA matches main's",
+  "A source fill that reproduces the wallet-exit pad basin (bb65.i) on main+s_pr+e_reset; then re-check on the latest main",
+  "Original entry pressure (sharing pointer spilled to -0x8e0 across the PDA) is what p1 needs; only an entry copy of new or equivalent 4-callee-saved pressure would give it"
+ ],
+ "ledger_keys": "0x22a10-w14-cef0574-skelunion-*, 0x22a10-w14-b174038-skelunion-*",
+ "tools": "tools/: cap.sh run.py ch3.py jm.py jfix*.py jdiag.py jcmp.py jloss.py netreg.py vsmain.py shift2.py pad.py padgreedy.py splice.py; e/gen.py (needs w14a11 oracle files rx.py oracle.py bwx.py bwfm.py ed.py absratio.py dis.sh capraw.py next to tools)"
+}
