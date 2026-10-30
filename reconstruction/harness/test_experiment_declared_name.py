@@ -4,6 +4,7 @@ Virtual environments and rustup proxies select their behaviour from argv[0], so
 starting only the symlink target runs a different command than the one declared.
 """
 import contextlib
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -16,6 +17,20 @@ COMPARE_NAME = 'import sys; raise SystemExit(0 if sys.orig_argv[0] == sys.argv[1
 
 
 class DeclaredNameTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        # Framework Python may use the actual executable path instead of argv[0].
+        # Probe the interpreter directly, not run_trial, so a runner regression
+        # still fails on every interpreter capable of observing the declared name.
+        declared = 'pump-declared-name-probe'
+        probe = subprocess.run(
+            [declared, '-c', 'import sys; print(sys.orig_argv[0])'],
+            executable=str(Path(sys.executable).resolve()),
+            capture_output=True, text=True, check=True, timeout=10,
+        )
+        if probe.stdout.strip() != declared:
+            raise unittest.SkipTest('interpreter reports its real executable instead of declared argv[0]')
+
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)

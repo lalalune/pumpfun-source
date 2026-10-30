@@ -923,7 +923,11 @@ class ParallelCaseCountTests(unittest.TestCase):
         artifact = self.artifact
         reports = {
             'quote_control': {'bound_inputs_sha256': {artifact.relative_to(analyze.ROOT).as_posix(): self.digest},
-                              'cases': 507, 'results': [{'matches': True, 'different_fields': []} for _ in range(507)]},
+                              'cases': 507, 'compare_keys': list(corpus.QUOTE_CONTROL_COMPARE_KEYS),
+                              'results': [{'case': f'fixture/{index}', 'matches': True, 'different_fields': [],
+                                           'original': dict.fromkeys(corpus.QUOTE_CONTROL_COMPARE_KEYS),
+                                           'candidate': dict.fromkeys(corpus.QUOTE_CONTROL_COMPARE_KEYS)}
+                                          for index in range(507)]},
             'multi_hop_curve_partial': {'candidate_sha256': self.digest, 'original_pump_sha256': self.digest,
                                         'passed': 56, 'case_count': 56, 'cases': [{'mismatches': []} for _ in range(56)]},
             'tokenkeg_two_curve': {'candidate_sha256': self.digest,
