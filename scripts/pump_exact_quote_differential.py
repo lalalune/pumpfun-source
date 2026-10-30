@@ -5,6 +5,7 @@ if not __debug__:
 import argparse,hashlib,json,struct,gzip,base64
 import pump_trade_fixture as f
 from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
 program=f.Pubkey.from_string(f.x['program']);user=f.Keypair.from_seed(bytes([231])*32)
 initial={key:f.vm.get_account(key) for key in f.msg.account_keys}
 curve=f.Pubkey.from_string(f.x['accounts']['curve']);global_key=f.Pubkey.from_string(f.x['accounts']['global']);fee_key=f.Pubkey.from_string(f.x['accounts']['fee_config'])
@@ -114,9 +115,13 @@ def cases():
   rows.append({'amount':rng.randrange(1,10**12),'max_cost':rng.choice([1,10**9,10**14]),'fees':[rng.randrange(0,1001),rng.randrange(0,1001),rng.randrange(0,10001)],'user_lamports':10**16,'trailing':[rng.randrange(2)]})
  return [{'reserve_in':base_in,'reserve_out':base_out,**c} for c in rows]
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=f.pathlib.Path);p.add_argument('--output',type=f.pathlib.Path,required=True);a=p.parse_args();a.candidate=pin_program(a.candidate) if a.candidate else None;rows=[];bad=[];original=pin_program(f.R/'evidence/original/pump/deployed.so')
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=f.pathlib.Path);p.add_argument('--output',type=f.pathlib.Path,required=True);a=p.parse_args()
+ inputs=[f.R/'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json']
+ inputs += [f.R/f'evidence/original/{name}/capture.json' for name in ('pump','pump_fees')]
+ inputs += [f.R/f'evidence/dependencies/{name}/capture.json' for name in ('spl_token','spl_token_2022','associated_token')]
+ publisher=PumpReport(a.output,f.R,a.candidate,__file__,extra_inputs=inputs);a.candidate=pin_program(a.candidate) if a.candidate else None;rows=[];bad=[];original=pin_program(f.R/'evidence/original/pump/deployed.so')
  for i,c in enumerate(cases()):
   x=run(original,c);y=run(a.candidate,c) if a.candidate else None;match=all(x[k]==y[k] for k in ['error','accounts','inner_instructions','event_payloads','return_data']) if y else None;rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:bad.append(i)
- sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();report={'scope':'Partial exact-quote v3 SOL and synthetic USDC fixtures; other quote routes, token extensions and full source equivalence are not established. Normal verified transaction signatures.','original_sha256':sha(original),'candidate_sha256':sha(a.candidate) if a.candidate else None,'case_count':len(rows),'cases':rows,'mismatches':bad};raw=(json.dumps(report,separators=(',',':'))+'\n').encode();a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_bytes(gzip.compress(raw,mtime=0) if a.output.suffix=='.gz' else raw);print(json.dumps({'cases':len(rows),'mismatches':bad}));assert not bad
+ sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();report={'scope':'Partial exact-quote v3 SOL and synthetic USDC fixtures; other quote routes, token extensions and full source equivalence are not established. Normal verified transaction signatures.','original_sha256':sha(original),'candidate_sha256':sha(a.candidate) if a.candidate else None,'case_count':len(rows),'cases':rows,'mismatches':bad};raw=(json.dumps(report,separators=(',',':'))+'\n').encode();publisher.write(gzip.compress(raw,mtime=0) if a.output.suffix=='.gz' else raw);print(json.dumps({'cases':len(rows),'mismatches':bad}));assert not bad
 if __name__=='__main__':main()

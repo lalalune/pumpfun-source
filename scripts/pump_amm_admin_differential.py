@@ -69,7 +69,10 @@ class Harness:
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);p.add_argument('--quick',action='store_true');a=p.parse_args()
-    sources=[p for p in (ROOT/'programs/pump-amm').rglob('*.rs') if 'target' not in p.parts]
+    # Deterministic, host-independent provenance keys: rglob order varies with
+    # the directory scanner and str(relative_to) spells separators per host.
+    sources=sorted((ROOT/'programs/pump-amm').rglob('*.rs'), key=lambda p: p.relative_to(ROOT).as_posix())
+    sources=[p for p in sources if 'target' not in p.parts]
     output=PumpReport(a.output,ROOT,a.candidate,__file__,extra_inputs=[ROOT/'programs/pump-amm',*sources])
     original=ROOT/'evidence/original/pump_amm/deployed.so'
     left,right=Harness(original),Harness(a.candidate)
@@ -102,7 +105,7 @@ def main():
         for payload in [b'',b'\2',b'\0extra']:test(f'{instruction}-payload-{payload.hex()}',payload,instruction=instruction)
     for length in range(8):test(f'short-dispatch-{length}',bytes(length),instruction=None)
     sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
-    report={'scope':'Partial independently built disable/update_admin/toggle handlers vs captured original. Full state and log events compared; other instruction paths are not covered by this suite; no byte identity claimed.','original_sha256':left.sha256,'candidate_sha256':right.sha256,'source_sha256':{str(p.relative_to(ROOT)):sha(p) for p in sources},'cases':cases,'case_count':len(cases),'mismatches':mismatches}
+    report={'scope':'Partial independently built disable/update_admin/toggle handlers vs captured original. Full state and log events compared; other instruction paths are not covered by this suite; no byte identity claimed.','original_sha256':left.sha256,'candidate_sha256':right.sha256,'source_sha256':{p.relative_to(ROOT).as_posix():sha(p) for p in sources},'cases':cases,'case_count':len(cases),'mismatches':mismatches}
     output.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'))
     print(json.dumps({'cases':len(cases),'mismatches':mismatches[:30],'mismatch_count':len(mismatches)}))
     if mismatches:raise SystemExit(1)

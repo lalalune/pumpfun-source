@@ -2366,6 +2366,8 @@ class LddwImmediateDecodeTests(unittest.TestCase):
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tests.test_current_bindings_paths import CurrentBindingsPathTests
+from tests.test_revalidate_all_invocation import (
+    RequiredArgumentTests, ReportTests, RunVerifyTests, InvocationCliTests)
 from test_fees_error_messages_exit import FeesErrorMessageExitTests, FeesErrorMessageOptimizationTests
 FeesErrorMessageExitTests = requires_litesvm(FeesErrorMessageExitTests)
 from test_pump_window_inventory import WindowInventoryTests

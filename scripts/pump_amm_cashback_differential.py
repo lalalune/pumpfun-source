@@ -67,4 +67,4 @@ if __name__=='__main__':
   x,y=run(c),run(c,a.candidate);diff=[k for k in x if k!='logs' and x[k]!=y[k]];rows.append({'case':c,'original':x,'candidate':y,'diff':diff})
  sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
  d={'scope':'Bounded normal-signature AMM cashback fixtures; compare full recorded state, inner calls, events and errors; no original-program identity/security claim.','original_sha256':sha(pin_program(ORIGINAL)),'candidate_sha256':sha(pin_program(a.candidate)),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(d,separators=(',',':'))+'\n');print(json.dumps({k:v for k,v in d.items() if k!='cases'}));assert not d['mismatches']
+ a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(d,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({k:v for k,v in d.items() if k!='cases'}));assert not d['mismatches']

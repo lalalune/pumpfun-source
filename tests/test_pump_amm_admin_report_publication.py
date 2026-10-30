@@ -21,11 +21,26 @@ FILES = ('scripts/pump_amm_admin_differential.py',
          'programs/pump-amm/src/lib.rs','programs/pump-amm/src/state.rs')
 DRIVER = r'''
 import json, os, runpy, sys
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 root, mode, output = sys.argv[1:]; root=Path(root); output=Path(output)
 sys.path.insert(0,str(root/'scripts'))
 import pump_differential_output as publication
-if mode=='fsync-failure':
+if mode=='portable-provenance':
+    # Keep real POSIX files/VM execution, but expose Windows relative-path
+    # spellings and a deliberately reversed source scan to the actual CLI.
+    relative_to, rglob = Path.relative_to, Path.rglob
+    def windows_relative(path,*args,**kwargs):
+        relative=relative_to(path,*args,**kwargs)
+        if relative.parts[:2]==('programs','pump-amm') and path.suffix=='.rs':
+            return PureWindowsPath(*relative.parts)
+        return relative
+    def reverse_scan(path,*args,**kwargs):
+        rows=list(rglob(path,*args,**kwargs))
+        if path==root/'programs/pump-amm':
+            rows.sort(key=lambda p:relative_to(p,root).as_posix(),reverse=True)
+        yield from rows
+    Path.relative_to, Path.rglob = windows_relative, reverse_scan
+elif mode=='fsync-failure':
     def fail(fd): raise OSError('injected fsync failure')
     publication.os.fsync=fail
 elif mode in ('replace','recreate'):
@@ -155,5 +170,21 @@ class AmmAdminPublicationTests(unittest.TestCase):
         self.assertTrue(report['mismatches'])
         self.assertEqual(self.executions(),534)
 
+
+    def test_provenance_keys_are_posix_and_sorted(self):
+        for name in ('z.rs','a.rs'):
+            (self.root/'programs/pump-amm/src'/name).write_text('// source fixture\n')
+        result=self.invoke('portable-provenance')
+        self.assertEqual(result.returncode,0,result.stdout+result.stderr)
+        report=json.loads(self.output.read_bytes())
+        keys=list(report['source_sha256'])
+        self.assertEqual(keys,['programs/pump-amm/src/a.rs','programs/pump-amm/src/lib.rs',
+                               'programs/pump-amm/src/state.rs','programs/pump-amm/src/z.rs'])
+        for key in keys:
+            self.assertNotIn('\\',key)
+            self.assertEqual(report['source_sha256'][key],
+                             hashlib.sha256((self.root/key).read_bytes()).hexdigest())
+        self.assertEqual(report['mismatches'],[])
+        self.assertEqual(self.executions(),534)
 
 if __name__=='__main__':unittest.main()
