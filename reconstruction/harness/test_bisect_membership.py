@@ -1,4 +1,5 @@
 import unittest
+import bisect_membership
 from bisect_membership import narrow
 
 
@@ -19,6 +20,20 @@ class BisectTests(unittest.TestCase):
         result = narrow(list(range(10)), lambda i: 'pass' if i < 5 else 'fail', 2)
         self.assertEqual(result['status'], 'unresolved'); self.assertEqual(len(result['tested']), 2)
         self.assertEqual(narrow([0, 1], lambda i: 'error', 2)['status'], 'invalid-endpoints')
+
+    def test_oracle_config_loads_as_utf8_independent_of_host_locale(self):
+        # An oracle whose command carries a non-ASCII label (here U+2192)
+        # cannot be decoded by locale-default readers on hosts whose ANSI
+        # code page is not UTF-8 (cp949 raises on byte 0xe2).
+        import json
+        import tempfile
+        from pathlib import Path
+
+        with tempfile.TemporaryDirectory() as temporary:
+            oracle = Path(temporary) / 'oracle.json'
+            oracle.write_bytes(json.dumps({'command': ['rustc'], 'note': 'SOL \u2192 tokens'}).encode('utf-8'))
+            config = bisect_membership.load_oracle(oracle)
+        self.assertEqual(config['note'], 'SOL \u2192 tokens')
 
 
 if __name__ == '__main__': unittest.main()

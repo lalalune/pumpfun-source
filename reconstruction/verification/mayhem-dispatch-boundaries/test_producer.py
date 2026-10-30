@@ -42,5 +42,70 @@ class ProducerTests(unittest.TestCase):
         self.assertEqual(report["negative_controls"], {"changed_error_detected": True, "changed_state_detected": True})
 
 
+
+class VerifyTests(unittest.TestCase):
+    def test_truncated_plan_is_rejected(self):
+        import contextlib
+        import io
+        import json
+        import sys
+        import tempfile
+        from unittest import mock
+
+        vspec = importlib.util.spec_from_file_location("boundary_verify", HERE / "verify.py")
+        verify = importlib.util.module_from_spec(vspec)
+        vspec.loader.exec_module(verify)
+        full = producer.make_plan()
+        plan = dict(full, cases=[dict(full["cases"][0], steps=full["cases"][0]["steps"][:1])])
+        base = {field: None for field in producer.BEHAVIOR}
+        base.update({"logs": [], "compute_units": 1, "error": None, "accounts": []})
+        receipts = [{"case": plan["cases"][0]["name"], "label": plan["cases"][0]["steps"][0]["label"],
+                     "data": plan["cases"][0]["steps"][0]["data"], "original": base, "candidate": dict(base)}]
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory)
+            images = {}
+            for side in ("original", "candidate"):
+                images[side] = root / (side + ".so")
+                images[side].write_bytes(b"elf")
+            provenance = {side + "_sha256": producer.sha256(images[side]) for side in images}
+            runtime = root / "runtime"
+            runtime.mkdir()
+            (runtime / "plan.json.gz").write_bytes(producer.gzip_bytes(producer.canonical(plan).encode()))
+            (runtime / "receipts.jsonl.gz").write_bytes(
+                producer.gzip_bytes((producer.canonical(receipts[0]) + "\n").encode()))
+            report = producer.build_report(plan, receipts, provenance)
+            (runtime / "report.json.gz").write_bytes(producer.gzip_bytes(json.dumps(report).encode()))
+            argv = ["verify.py", "--images", json.dumps({k: str(v) for k, v in images.items()}),
+                    "--runtime", str(runtime)]
+            out = io.StringIO()
+            with mock.patch.object(sys, "argv", argv), mock.patch.object(verify.producer, "run", return_value=receipts), \
+                    contextlib.redirect_stdout(out), self.assertRaises(SystemExit) as raised:
+                verify.main()
+            self.assertEqual(raised.exception.code, 1)
+            self.assertIn("plan", out.getvalue())
+
+    def test_tree_hash_spells_paths_in_posix_order_and_separators(self):
+        import hashlib
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory)
+            nested = root / "programs/mayhem/src"
+            nested.mkdir(parents=True)
+            (nested / "zeta.rs").write_bytes(b"z")
+            (nested / "alpha.rs").write_bytes(b"a")
+            (root / "programs/mayhem/Cargo.toml").write_bytes(b"[package]")
+            actual = producer.tree_hash(root)
+            reference = hashlib.sha256()
+            for rel in sorted(["programs/mayhem/Cargo.toml",
+                               "programs/mayhem/src/alpha.rs",
+                               "programs/mayhem/src/zeta.rs"]):
+                encoded = rel.encode()
+                reference.update(len(encoded).to_bytes(4, "little") + encoded)
+                data = (root / rel).read_bytes()
+                reference.update(len(data).to_bytes(8, "little") + data)
+        self.assertEqual(actual, reference.hexdigest())
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -326,10 +326,13 @@ def sha256(path):
 def tree_hash(root):
     root = pathlib.Path(root)
     digest = hashlib.sha256()
-    for path in sorted(p for p in root.rglob("*") if p.is_file()):
-        rel = str(path.relative_to(root)).encode()
+    # POSIX spelling and POSIX order on every host: str(Path) and
+    # Path sorting are host-dependent, which made the published tree
+    # digest differ between platforms for a byte-identical tree.
+    for rel in sorted(p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file()):
+        rel = rel.encode()
         digest.update(len(rel).to_bytes(4, "little") + rel)
-        data = path.read_bytes()
+        data = (root / rel.decode()).read_bytes()
         digest.update(len(data).to_bytes(8, "little") + data)
     return digest.hexdigest()
 

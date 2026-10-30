@@ -152,6 +152,7 @@ def score_with_hash(cand_path):
 def write_report(path, text):
     """Publish without truncating an input linked to the destination mid-score."""
     path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
     temporary = None
     try:
         with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8',

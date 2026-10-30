@@ -32,7 +32,7 @@ ROOT = Path(__file__).resolve().parents[3]
 PACKAGE = Path(__file__).resolve().parent
 IDL_PATH = ROOT / "evidence/upstream/pump.json"
 FIXTURE_PATH = ROOT / "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json"
-IDL = json.loads(IDL_PATH.read_text())
+IDL = json.loads(IDL_PATH.read_text(encoding="utf-8"))
 
 PUMP = Pubkey.from_string(IDL["address"])
 PUMP_AMM = Pubkey.from_string("pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA")
@@ -153,7 +153,11 @@ def transfer_fee_mint_data(base: bytes, bps=100, maximum=2**64 - 1):
     withdraw = bytes([95]) * 32
     fee = struct.pack("<QQH", 0, maximum, bps)
     body = authority + withdraw + struct.pack("<Q", 0) + fee + fee
-    assert len(body) == 108
+    # Explicit check instead of an assert: python -O strips asserts, and the
+    # transfer-fee scenarios then compare both images against malformed mint
+    # state instead of failing closed.
+    if len(body) != 108:
+        raise ValueError(f"TransferFeeConfig body must be 108 bytes, built {len(body)}")
     return bytes(base[:82]) + bytes(83) + b"\x01" + struct.pack("<HH", 1, len(body)) + body
 
 
@@ -213,7 +217,7 @@ def failure_class(error):
 
 
 def fixture_before():
-    packet = json.loads(FIXTURE_PATH.read_text())
+    packet = json.loads(FIXTURE_PATH.read_text(encoding="utf-8"))
     return packet["missing_boost"]["before"]
 
 
@@ -595,7 +599,7 @@ def validate_lifecycle(run):
     if len(signatures) != len(set(signatures)):
         failures.append("duplicate-transaction-signature")
     for receipt in receipts:
-        if not all(receipt["signature_verification"]):
+        if not receipt["signature_verification"] or not all(receipt["signature_verification"]):
             failures.append(receipt["step"] + ":signature-verification")
         if receipt["error"] and receipt["rollback_nonfee_equal"] is not True:
             failures.append(receipt["step"] + ":failure-not-atomic")
@@ -691,7 +695,7 @@ def run_suite(candidate):
         "upstream_sha": "7e26cbf36c5c0c824e3eb36417ce8a35866f530a",
         "program_ids": PROGRAM_IDS,
         "program_sha256": hashes,
-        "fixture": str(FIXTURE_PATH.relative_to(ROOT)),
+        "fixture": FIXTURE_PATH.relative_to(ROOT).as_posix(),
         "fixture_sha256": fixture_hash,
         "idl_sha256": sha256_file(IDL_PATH),
         "case_count": len(rows),

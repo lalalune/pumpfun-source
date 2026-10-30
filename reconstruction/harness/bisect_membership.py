@@ -51,6 +51,11 @@ def revision_chain(repo, good, bad):
     return list(reversed(history[:history.index(good_sha) + 1]))
 
 
+def load_oracle(path):
+    """Read the oracle config as UTF-8 regardless of the host locale."""
+    return json.loads(path.read_text(encoding='utf-8'))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--repo', type=Path, required=True)
@@ -63,7 +68,7 @@ def main():
     subdir = Path(args.source_subdir)
     if subdir.is_absolute() or '..' in subdir.parts: parser.error('source subdirectory must stay inside repository')
     revisions = revision_chain(args.repo, args.good, args.bad)
-    config = json.loads(args.oracle.read_text())
+    config = load_oracle(args.oracle)
     args.out.mkdir(parents=True, exist_ok=True)
     def evaluate(revision):
         with tempfile.TemporaryDirectory(prefix='bisect-source-', dir=args.out) as temporary:

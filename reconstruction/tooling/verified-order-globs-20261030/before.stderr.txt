@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "<repo>/scripts/pump_build_verified.py", line 370, in <module>
+    main()
+  File "<repo>/scripts/pump_build_verified.py", line 252, in main
+    layout_env, text_layout = pump_text_layout.configure(
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<repo>/scripts/pump_text_layout.py", line 41, in configure
+    count = check_script(default, script)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<repo>/scripts/pump_text_layout.py", line 33, in check_script
+    check(all(SELECTOR.fullmatch(line) for line in lines), 'unexpected linker statement')
+  File "<repo>/scripts/pump_text_layout.py", line 20, in check
+    raise AssertionError(message)
+AssertionError: unexpected linker statement

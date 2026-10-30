@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Validate partial SOL sell accounting against original SBF event and state effects."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse, hashlib, json, struct, subprocess
 import pump_trade_fixture as f
 p=argparse.ArgumentParser();p.add_argument('--host',type=f.pathlib.Path,required=True);p.add_argument('--output',type=f.pathlib.Path,required=True);p.add_argument('--curve-report',type=f.pathlib.Path,default=f.R/'repro/pump/constant-product-differential.json',help='Report produced by pump_validate_constant_product.py');a=p.parse_args()

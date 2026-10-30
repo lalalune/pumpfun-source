@@ -85,7 +85,9 @@ ORIG = resolve_original(BASE / 'original.so').read_bytes(); OS = sections(ORIG)
 
 
 def orig_sites(start):
-    w = next(x for x in original_windows() if x['start'] == start)
+    w = next((x for x in original_windows() if x['start'] == start), None)
+    if w is None:
+        print(f'coords.py: error: {start:#x} is not an original window start (see `win.py list --all`)', file=sys.stderr); sys.exit(2)
     return sites(ORIG, OS, start, w['raw'])
 
 
@@ -114,10 +116,20 @@ def main():
     p = sub.add_parser('unmatched'); p.add_argument('--cand', type=Path, default=BASE / 'current/unstripped.so'); p.add_argument('--json', type=Path)
     a = ap.parse_args()
     if a.cmd == 'window':
-        print(json.dumps(orig_sites(int(a.start, 0)), indent=1))
+        try:
+            start = int(a.start, 0)
+        except ValueError:
+            ap.error(f'{a.start!r} is not a numeric address')
+        print(json.dumps(orig_sites(start), indent=1))
     elif a.cmd == 'fn':
         blob = a.cand.read_bytes(); cs = sections(blob)
-        f = next((s, n, nm) for (s, n, nm) in function_symbols(blob) if s == int(a.addr, 0))
+        try:
+            address = int(a.addr, 0)
+        except ValueError:
+            ap.error(f'{a.addr!r} is not a numeric address')
+        f = next(((s, n, nm) for (s, n, nm) in function_symbols(blob) if s == address), None)
+        if f is None:
+            print(f'coords.py: error: {address:#x} is not a function symbol in the candidate', file=sys.stderr); sys.exit(2)
         print(json.dumps(cand_sites(blob, cs, f[0], f[1]), indent=1))
     else:
         if a.json:
@@ -149,7 +161,8 @@ def main():
             rows.append({'start': hex(w['start']), 'bytes': w['bytes'], 'original_sites': osites,
                          'coordinate_only_candidate': None if not best else {'addr': hex(best[0]), 'symbol': best[1], 'diff_slots': best[2], 'candidate_sites': best[3]}})
         if a.json:
-            a.json.write_text(json.dumps(rows, indent=1))
+            a.json.parent.mkdir(parents=True, exist_ok=True)
+            a.json.write_text(json.dumps(rows, indent=1) + '\n', encoding='utf-8', newline='\n')
         co = [r for r in rows if r['coordinate_only_candidate']]
         print(f"unmatched windows with Source sites: {len(rows)}; coordinate-only vs an equal-length candidate: {len(co)} ({sum(r['bytes'] for r in co)} B)")
 

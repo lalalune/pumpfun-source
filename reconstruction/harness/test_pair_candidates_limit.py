@@ -43,4 +43,12 @@ class PairingLimitTests(unittest.TestCase):
                 self.run_cli(limit)
             self.assertEqual(cm.exception.code, 2)
 
+    def test_window_key_uses_the_common_hex_spelling(self):
+        # target_metric and coords identify windows as 0x-prefixed hex; the
+        # pairing report used to publish a bare decimal, so joining artifacts
+        # by window key never matched across tools.
+        report = self.run_cli(3)
+        self.assertEqual(report['window'], '0x0')
+        self.assertEqual(report['window'], hex(0))
+
 if __name__ == '__main__': unittest.main()

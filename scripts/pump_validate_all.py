@@ -58,6 +58,17 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def protect_inputs(destinations, inputs):
+    """Reject path, symlink and existing hardlink aliases before output writes."""
+    protected = {Path(path).resolve() for path in inputs}
+    existing = [path for path in protected if path.exists()]
+    for destination in destinations:
+        resolved = destination.resolve()
+        if resolved in protected or (resolved.exists() and any(
+                resolved.samefile(path) for path in existing)):
+            raise ValueError('validation output aliases a bound input: ' + str(destination))
+
+
 def validate_quote_control(result, candidate, original):
     bound = result['bound_inputs_sha256']
     assert bound[bound_input_key(candidate, ROOT)] == sha(candidate)
@@ -99,6 +110,15 @@ def main():
     suites, scripts = {}, {}
     assert len(SUITES) == len(EXPECTED_CASES) == len({name for name, _ in SUITES}) == 44
     assert {name for name, _ in SUITES} == set(EXPECTED_CASES)
+    retained = args.output.parent / (args.output.name + '.suites')
+    suite_paths = [ROOT / filename if filename.startswith(('repro/', 'research/'))
+                   else ROOT / 'scripts' / filename for _, filename in SUITES]
+    source_paths = [path for path in args.source_directory.rglob('*')
+                    if path.is_file() and 'target' not in path.relative_to(args.source_directory).parts
+                    and (path.suffix == '.rs' or path.name in ('Cargo.toml', 'Cargo.lock'))]
+    protect_inputs([args.output, *(retained / (name + '.json.gz') for name, _ in SUITES)],
+                   [candidate, original, runner, ROOT / 'scripts/pump_diagnostic_audit.py',
+                    *suite_paths, *source_paths])
     with tempfile.TemporaryDirectory(prefix='pump-differential-') as tmp:
         for name, filename in SUITES:
             script = ROOT / filename if filename.startswith(('repro/', 'research/')) else ROOT / 'scripts' / filename
@@ -136,7 +156,6 @@ def main():
             result['case_count'] = count
             suites[name] = result
             scripts[filename] = before
-            retained = args.output.parent / (args.output.name + '.suites')
             retained.mkdir(parents=True, exist_ok=True)
             (retained / (name + '.json.gz')).write_bytes(
                 gzip.compress(json.dumps(result, separators=(',', ':')).encode(), mtime=0))

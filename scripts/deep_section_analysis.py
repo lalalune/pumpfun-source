@@ -120,9 +120,12 @@ def analyze_data_layout(elf):
                 current_start = None
 
         if len(current) >= 4:
+            # Same vaddr base as the in-loop flush above: the file-offset
+            # base (`start`) would misaddress every run that reaches the
+            # section end in a non-identity-mapped ELF.
             strings.append({
                 "offset": current_start,
-                "address": hex(start + current_start),
+                "address": hex(address_start + current_start),
                 "length": len(current),
                 "value": "".join(current)[:200],
             })
@@ -241,6 +244,10 @@ def analyze_relocations(elf):
     rel_sec = elf.secs.get(".rel.dyn")
     if not rel_sec:
         return {"count": 0, "entries": [], "type_distribution": {}}
+    # A malformed table is not equivalent to an absent table. Refuse to
+    # publish a valid-looking zero-relocation report for incomplete input.
+    if rel_sec[4] + rel_sec[5] > len(elf.b) or rel_sec[5] % 16:
+        raise ValueError("truncated or misaligned relocation table")
 
     entries = []
     type_counts = collections.Counter()

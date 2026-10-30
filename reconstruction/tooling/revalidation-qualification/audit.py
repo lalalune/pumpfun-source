@@ -14,6 +14,7 @@ import datetime
 import errno
 import hashlib
 import json
+import math
 import os
 import platform
 import shutil
@@ -30,7 +31,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 VERSION = "pump-revalidation-qualification-v1"
 FROZEN_SOURCE = "scripts/revalidate_all.py"
-FROZEN_SHA256 = "9e6e27794e5aad71e05920d9978093937f74d23c4bf8592ea7bcab711fd040ad"
+FROZEN_SHA256 = "3f8e5965ddbebb9ff5947061ceffc4f661d3fc53eea32dbc5352f190c2fbb1b1"
 REPORT_MEMBERS = (
     "README.md",
     "failed.json",
@@ -87,6 +88,7 @@ def entry_record(packet, path):
         return {
             "path": relative,
             "kind": "file",
+            "mode": stat.S_IMODE(info.st_mode),
             "bytes": info.st_size,
             "sha256": sha256_file(path),
         }
@@ -99,7 +101,11 @@ def entry_record(packet, path):
             target = None
         return {"path": relative, "kind": "reparse-point", "target": target}
     if stat.S_ISDIR(info.st_mode):
-        return {"path": relative, "kind": "directory"}
+        return {
+            "path": relative,
+            "kind": "directory",
+            "mode": stat.S_IMODE(info.st_mode),
+        }
     if stat.S_ISFIFO(info.st_mode):
         kind = "fifo"
     elif stat.S_ISSOCK(info.st_mode):
@@ -110,11 +116,14 @@ def entry_record(packet, path):
         kind = "block-device"
     else:
         kind = "unsupported"
-    return {"path": relative, "kind": kind}
+    return {"path": relative, "kind": kind, "mode": stat.S_IMODE(info.st_mode)}
 
 
 def packet_snapshot(packet):
     """Inventory packet entries without following linked directories or files."""
+    root_info = packet.lstat()
+    if not stat.S_ISDIR(root_info.st_mode) or is_reparse_point(root_info):
+        raise ValueError("packet root must be a real directory, not a link")
     entries = []
     stack = [packet]
     while stack:
@@ -223,7 +232,14 @@ def verifier_command(frozen, repo, packet):
     return command
 
 
+def validate_deadlines(timeout_seconds, cleanup_seconds):
+    for value in (timeout_seconds, cleanup_seconds):
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0:
+            raise ValueError("process deadlines must be positive finite numbers")
+
+
 def run_verifier(frozen, repo, packet, timeout_seconds=60.0, cleanup_seconds=1.0):
+    validate_deadlines(timeout_seconds, cleanup_seconds)
     verify_path = packet / "verify.py"
     if not verify_path.exists():
         return {"status": "no_verify_script", "output": ""}
@@ -233,8 +249,6 @@ def run_verifier(frozen, repo, packet, timeout_seconds=60.0, cleanup_seconds=1.0
         return {"status": "error", "output": str(error)}
     if not stat.S_ISREG(info.st_mode):
         return {"status": "error", "output": "verify.py is not a regular file"}
-    if timeout_seconds <= 0 or cleanup_seconds <= 0:
-        raise ValueError("process deadlines must be positive")
 
     command = verifier_command(frozen, repo, packet)
     started = time.monotonic()
@@ -317,8 +331,21 @@ def classify(has_manifest, has_verify, manifest_before, verify, manifest_after, 
     return "inconclusive"
 
 
+def unique_manifest_fields(pairs):
+    result = {}
+    for name, value in pairs:
+        if name in result:
+            raise ValueError('duplicate manifest JSON field: ' + name)
+        result[name] = value
+    return result
+
+
 def safe_manifest_check(frozen, packet):
     try:
+        # The frozen parser keeps only the last occurrence of a JSON key.
+        # Reject ambiguous declarations before delegating its format/hash checks.
+        for path in frozen.manifest_paths(packet):
+            json.loads(path.read_text(encoding='utf-8'), object_pairs_hook=unique_manifest_fields)
         result = frozen.check_manifest(packet)
         if result.get("status") == "pass" and not result.get("files_expected"):
             # A manifest that declares no files verifies nothing.
@@ -546,6 +573,7 @@ def verify_stage(stage):
 
 
 def audit(repo, output, timeout_seconds=60.0, cleanup_seconds=1.0):
+    validate_deadlines(timeout_seconds, cleanup_seconds)
     repo = repo.resolve()
     frozen = load_frozen(repo)
     adapter_path = Path(__file__).resolve()
@@ -560,6 +588,11 @@ def audit(repo, output, timeout_seconds=60.0, cleanup_seconds=1.0):
          if path.is_dir() and not path.name.startswith(".")),
         key=lambda path: path.name,
     )
+    resolved_output = output.resolve()
+    for packet in packets:
+        packet_root = packet.resolve()
+        if resolved_output == packet_root or packet_root in resolved_output.parents:
+            raise ValueError("audit output must not be inside an input packet")
     packet_names = [packet.name for packet in packets]
     output.parent.mkdir(parents=True, exist_ok=True)
     reject_linked_ancestors(output.parent)
@@ -582,6 +615,24 @@ def audit(repo, output, timeout_seconds=60.0, cleanup_seconds=1.0):
             )
             results.append(row)
             inputs[packet.name] = snapshots
+        final_packet_names = sorted(path.name for path in research.iterdir()
+                                    if path.is_dir() and not path.name.startswith("."))
+        if final_packet_names != packet_names:
+            raise ValueError("research packet census changed during verification")
+        # A census of names alone does not bind content: a later packet's
+        # verifier could replace an already-audited packet's files, and the
+        # published inputs would still describe the pre-swap inventory.
+        # Re-snapshot every packet and refuse to publish if any audited
+        # identity moved after its own audit. Packets whose post-audit
+        # snapshot already failed keep their published fail row.
+        for packet in packets:
+            audited_after = inputs[packet.name]["after"].get("identity_sha256")
+            if audited_after is not None:
+                fresh = packet_snapshot(packet)
+                if fresh["identity_sha256"] != audited_after:
+                    raise ValueError(
+                        "packet identity changed during verification: " + packet.name
+                    )
         elapsed = time.monotonic() - started
         summary = summarize(results, elapsed)
         control_inputs_after = {

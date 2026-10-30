@@ -10,10 +10,14 @@ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--docs-checkout',type=pathlib.Path,required=True);ap.add_argument('--output',type=pathlib.Path,required=True);ap.add_argument('--surfpool',type=pathlib.Path);args=ap.parse_args()
  snapshot=ROOT/'research/imported-lab';manifest=json.loads((ROOT/'research/import-manifest.json').read_text())
- for f in manifest['files']:assert sha(snapshot/f['path'])==f['sha256'],f['path']
+ for f in manifest['files']:
+  # Explicit check instead of `assert`: `python -O` / PYTHONOPTIMIZE strips
+  # asserts, so a tampered import would otherwise verify with exit 0.
+  if sha(snapshot/f['path'])!=f['sha256']:raise AssertionError(f['path'])
  binary_matches={}
  for n in ['pump','pump_amm','pump_fees']:
-  binary_matches[n]=sha(snapshot/f'inputs/pump_fun/{n}.so')==sha(ROOT/f'evidence/original/{n}/deployed.so');assert binary_matches[n]
+  binary_matches[n]=sha(snapshot/f'inputs/pump_fun/{n}.so')==sha(ROOT/f'evidence/original/{n}/deployed.so')
+  if not binary_matches[n]:raise AssertionError(n)
  docs_commit=json.loads((snapshot/'analysis/pump_fun/program-manifest.json').read_text())['official_docs_commit']
  subprocess.run(['git','-C',str(args.docs_checkout),'cat-file','-e',docs_commit+'^{commit}'],check=True)
  output=args.output.resolve();output.mkdir(parents=True,exist_ok=False);replay=output/'lab';shutil.copytree(snapshot,replay);(replay/'third_party').mkdir()
@@ -27,7 +31,8 @@ def main():
   print(phase,name,r.returncode,flush=True);return r.returncode==0
  initial=all([run(n,'saved') for n in VERIFIERS]);runtime=None;tool=None
  if args.surfpool:
-  tool=args.surfpool.resolve();version=subprocess.check_output([str(tool),'--version'],text=True).strip();assert version=='surfpool 1.6.1',version
+  tool=args.surfpool.resolve();version=subprocess.check_output([str(tool),'--version'],text=True).strip()
+  if version!='surfpool 1.6.1':raise AssertionError(version)
   (replay/'tools').mkdir();shutil.copy2(tool,replay/'tools/surfpool')
   runtime=all([run(n,'runtime') for n in REPLAY])
   if runtime:runtime=all([run(n,'fresh') for n in VERIFIERS])

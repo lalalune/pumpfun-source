@@ -7,8 +7,8 @@ import sys
 import types
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE_SHA256 = 'e074929f474a6b98153bb6fd12f7943fa45d80ba10750c9967e334feee0e59e1'
-READER_SHA256 = '247700e9930d5e53daf93a50888ae1e5429f74ccb19155e7a205f72ee21d5883'
+SOURCE_SHA256 = '4b3c5cb204f8a287b5337e14932468c47713f0a0a38f274e1e46fec1e905f8c2'
+READER_SHA256 = '5a57f32949f983fc6f9ddf40916cd04bfcd2a73b6a16cc0e9d5d6872180dac32'
 OLD = 'opcode in (0x25, 0x35, 0xa5, 0xb5) and prev_op in ("add", "sub", "mul")'
 NEW = 'opcode in (0x25, 0x2d, 0x35, 0x3d, 0xa5, 0xad, 0xb5, 0xbd) and prev_op in ("add", "sub", "mul")'
 

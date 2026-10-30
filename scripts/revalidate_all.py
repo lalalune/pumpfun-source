@@ -119,6 +119,11 @@ def check_manifest(packet_dir):
     except Exception as e:
         return {"status": "manifest_parse_error", "errors": [str(e)]}
 
+    if not records:
+        # A manifest that declares no files verifies nothing.
+        return {"status": "fail", "files_checked": 0,
+                "files_expected": 0, "errors": ["manifest declares no files"]}
+
     errors = []
     checked = 0
     for row in records:
@@ -263,7 +268,7 @@ def main():
     # --- Write outputs ---
 
     # 1. Full results
-    (output_dir / "results.json").write_text(json.dumps(results, indent=2) + "\n")
+    (output_dir / "results.json").write_text(json.dumps(results, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 2. Summary
     summary = {
@@ -281,18 +286,18 @@ def main():
             for r in results if r["overall"] == "fail"
         ],
     }
-    (output_dir / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+    (output_dir / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 3. Pass/fail lists
     (output_dir / "passed.json").write_text(json.dumps(
         [r["packet"] for r in results if r["overall"] == "pass"],
-        indent=2) + "\n")
+        indent=2) + "\n", encoding="utf-8", newline="\n")
     (output_dir / "failed.json").write_text(json.dumps(
         [r["packet"] for r in results if r["overall"] == "fail"],
-        indent=2) + "\n")
+        indent=2) + "\n", encoding="utf-8", newline="\n")
     (output_dir / "skipped.json").write_text(json.dumps(
         [r["packet"] for r in results if r["overall"] not in ("pass", "fail")],
-        indent=2) + "\n")
+        indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 4. README
     readme = f"""# Research Packet Revalidation Audit — {time.strftime('%Y-%m-%d')}
@@ -334,7 +339,7 @@ verify.py (standalone verification script).
 python3 verify.py
 ```
 """
-    (output_dir / "README.md").write_text(readme)
+    (output_dir / "README.md").write_text(readme, encoding="utf-8", newline="\n")
 
     # 5. Verify script
     verify_py = '''#!/usr/bin/env python3
@@ -370,7 +375,7 @@ def main():
 if __name__ == "__main__":
     sys.exit(main())
 '''
-    (output_dir / "verify.py").write_text(verify_py)
+    (output_dir / "verify.py").write_text(verify_py, encoding="utf-8", newline="\n")
 
     # 6. Manifest
     manifest = {}
@@ -380,7 +385,7 @@ if __name__ == "__main__":
         path = output_dir / name
         if path.is_file():
             manifest[name] = sha256_file(str(path))
-    (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     total_lines = sum(
         sum(1 for _ in open(output_dir / name))

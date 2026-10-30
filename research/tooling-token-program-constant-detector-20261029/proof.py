@@ -36,7 +36,7 @@ TOKEN_PROGRAMS = {
         '06ddf6e1ee758fde18425dbce46ccddab61afc4d83b90d27febdf928d8a18bfc'
     ),
 }
-LF_SHA256 = '8200e01f582be1a267d187e6340ac2d403c22cad26bfd65e2613e19ea8a55f76'
+LF_SHA256 = 'e4e4e541316381e3e37f06f8ed372c69d31b9a131db4651d8f2184c82889c123'
 EXPECTED = {
     'pump': {'windows': 1035, 'rows': 4, 'Tokenkeg': 3, 'Tokenz': 1},
     'pump_amm': {'windows': 785, 'rows': 2, 'Tokenkeg': 1, 'Tokenz': 1},

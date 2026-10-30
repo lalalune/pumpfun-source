@@ -1,3 +1,5 @@
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse,json,pathlib,gzip,hashlib
 from solders.account import Account
 from solders.instruction import AccountMeta,Instruction

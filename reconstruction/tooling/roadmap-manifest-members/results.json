@@ -1,0 +1,333 @@
+{
+  "base_revision": "d3eb610fe8ec98a1847156ba60161b5d842044d0",
+  "comparison_environment": {
+    "PYTHONHASHSEED": "0"
+  },
+  "before": {
+    "python": "3.12.14 (main, Sep  1 2026, 14:17:39) [MSC v.1944 64 bit (AMD64)]",
+    "passed": false,
+    "runs": [
+      {
+        "case": "bound-extension",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      },
+      {
+        "case": "changed-extension",
+        "returncode": 1,
+        "last_line": [
+          "1 error(s)"
+        ]
+      },
+      {
+        "case": "manifest:{}",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      },
+      {
+        "case": "manifest:[]",
+        "returncode": 1,
+        "last_line": []
+      },
+      {
+        "case": "manifest:None",
+        "returncode": 1,
+        "last_line": []
+      },
+      {
+        "case": "omit:README.md:delete=False",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      },
+      {
+        "case": "omit:README.md:delete=True",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      },
+      {
+        "case": "omit:mayhem-details.json:delete=False",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      },
+      {
+        "case": "omit:mayhem-details.json:delete=True",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      },
+      {
+        "case": "omit:pump-details.json:delete=False",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      },
+      {
+        "case": "omit:pump-details.json:delete=True",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      },
+      {
+        "case": "omit:pump_amm-details.json:delete=False",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      },
+      {
+        "case": "omit:pump_amm-details.json:delete=True",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      },
+      {
+        "case": "omit:reconstruction-plan.json:delete=False",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      },
+      {
+        "case": "omit:reconstruction-plan.json:delete=True",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      },
+      {
+        "case": "omit:summary.json:delete=False",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      },
+      {
+        "case": "omit:summary.json:delete=True",
+        "returncode": 1,
+        "last_line": [
+          "  OK: verify.py"
+        ]
+      },
+      {
+        "case": "omit:verify.py:delete=False",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      },
+      {
+        "case": "intact",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      }
+    ]
+  },
+  "after": {
+    "python": "3.12.14 (main, Sep  1 2026, 14:17:39) [MSC v.1944 64 bit (AMD64)]",
+    "passed": true,
+    "runs": [
+      {
+        "case": "bound-extension",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      },
+      {
+        "case": "changed-extension",
+        "returncode": 1,
+        "last_line": [
+          "1 error(s)"
+        ]
+      },
+      {
+        "case": "manifest:{}",
+        "returncode": 1,
+        "last_line": [
+          "FAIL: manifest omits required roadmap artifacts"
+        ]
+      },
+      {
+        "case": "manifest:[]",
+        "returncode": 1,
+        "last_line": [
+          "FAIL: manifest omits required roadmap artifacts"
+        ]
+      },
+      {
+        "case": "manifest:None",
+        "returncode": 1,
+        "last_line": [
+          "FAIL: manifest omits required roadmap artifacts"
+        ]
+      },
+      {
+        "case": "omit:README.md:delete=False",
+        "returncode": 1,
+        "last_line": [
+          "FAIL: manifest omits required roadmap artifacts"
+        ]
+      },
+      {
+        "case": "omit:README.md:delete=True",
+        "returncode": 1,
+        "last_line": [
+          "FAIL: manifest omits required roadmap artifacts"
+        ]
+      },
+      {
+        "case": "omit:mayhem-details.json:delete=False",
+        "returncode": 1,
+        "last_line": [
+          "FAIL: manifest omits required roadmap artifacts"
+        ]
+      },
+      {
+        "case": "omit:mayhem-details.json:delete=True",
+        "returncode": 1,
+        "last_line": [
+          "FAIL: manifest omits required roadmap artifacts"
+        ]
+      },
+      {
+        "case": "omit:pump-details.json:delete=False",
+        "returncode": 1,
+        "last_line": [
+          "FAIL: manifest omits required roadmap artifacts"
+        ]
+      },
+      {
+        "case": "omit:pump-details.json:delete=True",
+        "returncode": 1,
+        "last_line": [
+          "FAIL: manifest omits required roadmap artifacts"
+        ]
+      },
+      {
+        "case": "omit:pump_amm-details.json:delete=False",
+        "returncode": 1,
+        "last_line": [
+          "FAIL: manifest omits required roadmap artifacts"
+        ]
+      },
+      {
+        "case": "omit:pump_amm-details.json:delete=True",
+        "returncode": 1,
+        "last_line": [
+          "FAIL: manifest omits required roadmap artifacts"
+        ]
+      },
+      {
+        "case": "omit:reconstruction-plan.json:delete=False",
+        "returncode": 1,
+        "last_line": [
+          "FAIL: manifest omits required roadmap artifacts"
+        ]
+      },
+      {
+        "case": "omit:reconstruction-plan.json:delete=True",
+        "returncode": 1,
+        "last_line": [
+          "FAIL: manifest omits required roadmap artifacts"
+        ]
+      },
+      {
+        "case": "omit:summary.json:delete=False",
+        "returncode": 1,
+        "last_line": [
+          "FAIL: manifest omits required roadmap artifacts"
+        ]
+      },
+      {
+        "case": "omit:summary.json:delete=True",
+        "returncode": 1,
+        "last_line": [
+          "FAIL: manifest omits required roadmap artifacts"
+        ]
+      },
+      {
+        "case": "omit:verify.py:delete=False",
+        "returncode": 1,
+        "last_line": [
+          "FAIL: manifest omits required roadmap artifacts"
+        ]
+      },
+      {
+        "case": "intact",
+        "returncode": 0,
+        "last_line": [
+          "All checks passed."
+        ]
+      }
+    ]
+  },
+  "packet_comparison": {
+    "manifest.json": {
+      "before_sha256": "f84a5aded1018b8187e8600790872df993d5e930c667ed59314dd684d4ccbeb5",
+      "after_sha256": "d50917cf21fa3784148b29f8cffc14b3e6788022cf036fe54d7fefb96bee8f0f",
+      "identical": false
+    },
+    "mayhem-details.json": {
+      "before_sha256": "7ba8ba2b670cc3e2a1fa80e0905fd042fdaeed6a75faa749a2d92b93df520d07",
+      "after_sha256": "7ba8ba2b670cc3e2a1fa80e0905fd042fdaeed6a75faa749a2d92b93df520d07",
+      "identical": true
+    },
+    "pump-details.json": {
+      "before_sha256": "25077278df3041254391cfa1858134c5bdd8a2e50a32a6b32b069a525ac269c4",
+      "after_sha256": "25077278df3041254391cfa1858134c5bdd8a2e50a32a6b32b069a525ac269c4",
+      "identical": true
+    },
+    "pump_amm-details.json": {
+      "before_sha256": "f0094da03636e6618a5de115b857a22d32a5a359dd874d488c65b08042772bec",
+      "after_sha256": "f0094da03636e6618a5de115b857a22d32a5a359dd874d488c65b08042772bec",
+      "identical": true
+    },
+    "README.md": {
+      "before_sha256": "59813cd53b1e53f6c8f6dd05e245d84c18fb5666c56bc6a29f3fc04ae32e0979",
+      "after_sha256": "59813cd53b1e53f6c8f6dd05e245d84c18fb5666c56bc6a29f3fc04ae32e0979",
+      "identical": true
+    },
+    "reconstruction-plan.json": {
+      "before_sha256": "6488b5ae2f1446b791631fa06a77e34110b765e116597cbebee6697ceb8180e7",
+      "after_sha256": "6488b5ae2f1446b791631fa06a77e34110b765e116597cbebee6697ceb8180e7",
+      "identical": true
+    },
+    "summary.json": {
+      "before_sha256": "7edb3aa9edcdd4350f7f518dcfc0b611f6a02c8de2687248d6d80cd4d76e88f5",
+      "after_sha256": "7edb3aa9edcdd4350f7f518dcfc0b611f6a02c8de2687248d6d80cd4d76e88f5",
+      "identical": true
+    },
+    "verify.py": {
+      "before_sha256": "b14aaf40e812fe074252991b4331c523242b30f4c371a52d54f88c95a9b584ed",
+      "after_sha256": "8d85a9bdeac3b11b08d7a2998ffad286c413adc788504bd683596341e60dd68c",
+      "identical": false
+    }
+  },
+  "captures_sha256": {
+    "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "evidence/original/pump_amm/deployed.so": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+    "evidence/original/mayhem/deployed.so": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+  },
+  "validation": {
+    "focused_tests": 4,
+    "root_tests": 192,
+    "capture_checks": 9,
+    "publication_tests": 1
+  }
+}

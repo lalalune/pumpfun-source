@@ -13,10 +13,28 @@ offsets and branch displacements) must be identical. Raw equality is separate;
 masked matches do not prove callee or data identity. This is analysis only; no
 executable is written or patched.
 """
-import argparse, hashlib, json, pathlib, re, struct, subprocess
+import argparse, hashlib, json, pathlib, re, shutil, struct, subprocess, tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 ORIGINAL = ROOT / 'evidence/original/pump/deployed.so'
+
+
+def resolve_objdump(objdump):
+    """Use the executable selected by PATH for both invocation and provenance."""
+    return shutil.which(str(objdump)) or str(objdump)
+
+
+def protect_report_output(output, inputs, objdump):
+    """Reject report paths that alias consumed inputs before analysis or writing."""
+    if output is None:
+        return
+    destination = pathlib.Path(output)
+    tool = resolve_objdump(objdump)
+    for value in [*inputs, pathlib.Path(__file__), pathlib.Path(tool)]:
+        source = pathlib.Path(value)
+        if (destination.resolve() == source.resolve()
+                or (destination.exists() and source.exists() and destination.samefile(source))):
+            raise ValueError('report destination aliases an input: ' + str(source))
 
 
 def sections(blob):
@@ -73,8 +91,14 @@ def _aligned_matches(needle, haystack):
     return hits
 
 
-def candidate_functions(path, objdump, pattern):
-    text = subprocess.check_output([objdump, '-t', str(path)], text=True)
+def candidate_functions(path, objdump, pattern, *, image=None):
+    # Read symbols from the exact bytes the caller hashes and compares.
+    if image is None:
+        image = pathlib.Path(path).read_bytes()
+    with tempfile.TemporaryDirectory(prefix='pump-symbols-') as directory:
+        snapshot = pathlib.Path(directory) / 'candidate.so'
+        snapshot.write_bytes(image)
+        text = subprocess.check_output([objdump, '-t', str(snapshot)], text=True)
     funcs = []
     for line in text.splitlines():
         m = re.match(r'^([0-9a-f]+) .* F \.text\s+([0-9a-f]+)\s+(?:\.hidden\s+)?(\S+)$', line)
@@ -92,13 +116,14 @@ def main():
     p.add_argument('--pattern', default='quote_control|QuoteControl')
     p.add_argument('--output', type=pathlib.Path)
     a = p.parse_args()
+    protect_report_output(a.output, [ORIGINAL, a.candidate], a.objdump)
     orig = ORIGINAL.read_bytes()
     cand = a.candidate.read_bytes()
     os_, cs = sections(orig)['.text'], sections(cand)['.text']
     otext = function_body(orig, {'.text': os_}, os_['addr'], os_['size'])
     omask = mask(otext)
     rows = []
-    for addr, size, name in candidate_functions(a.candidate, a.objdump, a.pattern):
+    for addr, size, name in candidate_functions(a.candidate, a.objdump, a.pattern, image=cand):
         body = function_body(cand, {'.text': cs}, addr, size)
         mb = mask(body)
         hits = _aligned_matches(mb, omask)

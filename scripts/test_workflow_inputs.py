@@ -53,6 +53,17 @@ class WorkflowInputsTests(unittest.TestCase):
         (self.root / '.github/workflows/test.yml').unlink()
         self.assertEqual(self.run_check('--base', 'HEAD')[0], 0)
 
+    def test_absolute_interpreter_spellings_are_inspected(self):
+        for command in ('/usr/bin/python3 scripts/typo.py',
+                        '/usr/bin/env python3 scripts/typo.py',
+                        '/bin/bash scripts/typo.sh'):
+            with self.subTest(command=command):
+                self.workflow(command)
+                status, report = self.run_check('--base', 'HEAD')
+                self.assertEqual(status, 1)
+                expected = 'scripts/typo.py' if 'python' in command else 'scripts/typo.sh'
+                self.assertIn(expected, [entry[2] for entry in report['new_missing']])
+
     def test_full_audit_fails_existing_debt(self):
         self.assertEqual(self.run_check('--all')[0], 1)
 

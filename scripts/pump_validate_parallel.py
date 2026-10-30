@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 from pump_diagnostic_audit import audit
 import pump_validate_all as base
 sha = base.sha
+protect_inputs = base.protect_inputs
 
 
 def report_destinations(output, suites, captured_loader, execute):
@@ -32,16 +33,6 @@ def report_destinations(output, suites, captured_loader, execute):
             if captured_loader:
                 paths.append(retained / (name + '.loader.json'))
     return paths
-
-
-def protect_inputs(destinations, inputs):
-    """Reject path, symlink and existing hardlink aliases before any output write."""
-    protected = {Path(path).resolve() for path in inputs}
-    for destination in destinations:
-        resolved = destination.resolve()
-        if resolved in protected or (resolved.exists() and any(
-                resolved.samefile(path) for path in protected)):
-            raise ValueError('validation output aliases a bound input: ' + str(destination))
 
 
 def publish_report(path, payload):
