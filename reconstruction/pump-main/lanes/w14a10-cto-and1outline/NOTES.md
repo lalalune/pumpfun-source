@@ -72,7 +72,44 @@ through 338 are source-reachable on current main. What it still loses in plain r
 - registers in the fee-check chunk (orig 0x1000-0x1400 fm 37/43 -> 15/12) and the sharing/sweep region
   (orig 0x4000-0x4800: 95/175 -> 59/155 plain-matched).
 
+## Step 3b: on main cef0574 (0.63421, M 2117): where the and-1 value is defined decides the register map
+
+`M` = scorer-exact matched orig units (`tools/preg.py`; ratio = 2M/(3339+n)). At the pinned size a neutral fill gives
+ratio ~ M/3339, so a landing needs M > 2117.
+
+| trial | bytes | plain | M | rmV | tail | note |
+| --- | ---: | ---: | ---: | ---: | --- | --- |
+| main cef0574 | 27,400 | 0.63421 | 2,117 | 432 | 298 289 296 326 306 ... | |
+| e3+tu8 (hb at execute entry) | 27,328 | 0.61407 | 2,047 | 487 | orig through 338 | orig 0x4000-0x4800 clone run 79 -> 20 (RA) |
+| p0/p1 (hb after `let a` / `mint`) | 27,328 | 0.61407 | 2,047 | | same | = e3 |
+| **p2 / p1b / p2b / p2c** (hb after the shared test or the holder PDA call; `unwrap_or` or `matches!`) | 27,360 | **0.63289** | 2,111 | 487 | orig through 338 | clone run restored (81) |
+| p3 (hb just before the state block) | 27,344 | 0.63278 | 2,110 | | same | |
+| e3b/e3d (hb inside the state block) | 27,192 | 0.57323 | | 413 | | |
+| p2d (`holder==Some(true)` bool) | 27,416 | 0.60677 | | | 298 289 ... | and -3 form: outline lost |
+| **vu8 / vraw** (validate takes `hopt:u8`, tests `hopt&1`; vraw passes the raw `Option<bool>` byte) | 27,368 | **0.63309** | 2,112 | | orig through 338 | best form |
+| vref (`&bool`) | 26,936 | 0.54804 | 1,814 | | | |
+
+`p2` source: `holder_key=hk.0;let hb=holder.unwrap_or(false);` in execute, `let hopt=hb;let holder=hb;` in the state block,
+`fn validate(st:&CtoState,hopt:bool,...)` with `let holder=hopt;` and the 289 test `st.holder_reward&&!hopt`, plus tu8 at 306.
+The p2 holder store matches the original's shape (orig 0x4b58-0x4b78: `ldxdw [curve+0x38]; stxb [+0xa5]` per flag; main
+spends 40 B on a bool re-materialisation there), which is where most of the -40 B comes from: the original is short there too.
+
+Size repay (sizeknobs-cto.json, all applicable knobs as genes `K<name>`): every size-adding knob loses on p2/e3
+(Kwltsclockvar +16 0.63180, Kgfeeunwrap +8 0.62860, Kevmintkey +16 0.62461, Kwevcreatorfirst +64 0.57793; all +40
+combinations at 27,400 B: 0.594-0.620). Zero-size knobs: Kcureplace byte-identical, the rest -0.0003..-0.004.
+Other composites on e3+tu8 / p2+tu8: pda 0.566 (rmV 519, RA collapse), rar 0.610, ov 0.538, kv 0.549, anew 0.523,
+t296/smap/sw/q338 no change, tg/tg3 (tag byte read in execute) 0.535-0.582, q289 (289 test as `ho==Some(true)`) 0.557.
+
+## llc weight bound on p2 (`tools/wscan.py`, `tools/wmulti.py`)
+
+All 146 conditional branches x {20:12, 12:20, 1:1000, 1000:1} on p2+tu8's post-opt IR. Best singles: sweep gate
+(`!skip`) 20:12 0.63778 @ 27,352; fee range test (338) 1000:1 0.63778; 289 holder test 12:20 0.63668 @ 27,344.
+Combinations reach 0.63808 (M 2,128, +11 over main). None changes the error-tail order: they are register/frame
+reassignments. No source spelling for them was found (q289 relayouts the function).
+
 ## Next
 
-Size repay with the `sizeknobs-cto.json` catalog on e3+tu8 (all applicable knobs screened as genes `K<name>` in
-`e/gen.py`), then a full `measure.sh` build at 27,400 B.
+- The and-1 outline form is the right validate skeleton (+55 rm in 0x0-0x1800, original error-tail order through 338)
+  but is 6 M short of main at -32/-40 B. A landing needs +6 M from registers/frame in validate (orig 0x1000-0x1400
+  fm fell 37/43 -> 15/12) or the post-validate RA levers above, and a fill that is not one of the catalog knobs.
+- Compose vu8/p2 + tu8 with any future clone-run / frame RA fix (w14a01/w14a05/w14a06 leads) before the size repay.

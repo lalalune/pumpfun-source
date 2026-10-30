@@ -74,3 +74,39 @@ _K=_j.load(open('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/w
 for _k in _K:
     if _k.get('edit'): G['K'+_k['name'].replace('_','')]=[(e['old'],e['new']) for e in _k['edit']]
 ORDER=ORDER+[k for k in G if k.startswith('K')]
+_VB=[('fn validate(st:&CtoState,hopt:Option<bool>,','fn validate(st:&CtoState,hopt:bool,'),(_VH,'->Result<Pubkey>{let holder=hopt;'),(_289,'&&!hopt{return Err(error!(PumpError::HolderRewardCreatorImmutable));}')]
+G['e3b']=[(_EH,'let hopt=holder.unwrap_or(false);let holder=hopt;')]+_VB
+G['e3c']=[(_EH,'let hopt=holder==Some(true);let holder=hopt;')]+_VB
+G['e3d']=[(_EH,'let hopt=matches!(holder,Some(true));let holder=hopt;')]+_VB
+ORDER=ORDER[:ORDER.index('e4')+1]+['e3b','e3c','e3d']+ORDER[ORDER.index('e4')+1:]
+G['rar']=[(';let args=&(new,);let sk=a.sharing_config.key();',';let sk=a.sharing_config.key();'),('&a.global);let (holder,cashback,target,sharing_update,collect_old,skip)={','&a.global);let args=&(new,);let (holder,cashback,target,sharing_update,collect_old,skip)={')]
+ORDER=ORDER+['rar']
+_EH3=(_EH,'let hopt=hb;let holder=hb;')
+G['p1']=[('let mint=a.mint.key();','let mint=a.mint.key();let hb=holder.unwrap_or(false);'),_EH3]+_VB
+G['p2']=[('holder_key=hk.0;','holder_key=hk.0;let hb=holder.unwrap_or(false);'),_EH3]+_VB
+G['p3']=[('&a.global);let (holder,cashback,target,sharing_update,collect_old,skip)={','&a.global);let hb=holder.unwrap_or(false);let (holder,cashback,target,sharing_update,collect_old,skip)={'),_EH3]+_VB
+G['p0']=[(_EX,'->Result<()>{ let a=&ctx.accounts;let hb=holder.unwrap_or(false);'),_EH3]+_VB
+ORDER=ORDER[:ORDER.index('e3d')+1]+['p0','p1','p2','p3']+ORDER[ORDER.index('e3d')+1:]
+G['sw']=[('  curve.is_cashback_coin=cashback;\n  curve.is_holder_reward=holder;\n','  curve.is_holder_reward=holder;\n  curve.is_cashback_coin=cashback;\n')]
+ORDER=ORDER+['sw']
+_TGT='let t=if tg&1!=0{unsafe{new.unwrap_unchecked()}}else{return Err(error!(PumpError::CtoNewCreatorRequired));};'
+G['tg']=[(_EX,'->Result<()>{ let tg=unsafe{*(&new as *const Option<Pubkey> as *const u8)};let a=&ctx.accounts;'),(_VS,'new:Option<Pubkey>,tg:u8,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{'),(_T306,_TGT),(_VC,'validate(&st,hopt,fee,new,tg,')]
+# tag read right before the state block
+G['tg3']=[('&a.global);let (holder,cashback,target,sharing_update,collect_old,skip)={','&a.global);let tg=unsafe{*(&new as *const Option<Pubkey> as *const u8)};let (holder,cashback,target,sharing_update,collect_old,skip)={'),(_VS,'new:Option<Pubkey>,tg:u8,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{'),(_T306,_TGT),(_VC,'validate(&st,hopt,fee,new,tg,')]
+ORDER=ORDER[:ORDER.index('tun')+1]+['tg','tg3']+ORDER[ORDER.index('tun')+1:]
+# 289 test in the and -3 form (Option compare) while the other holder tests use the bool
+G['q289']=[('fn validate(st:&CtoState,hopt:bool,','fn validate(st:&CtoState,hopt:bool,ho:Option<bool>,'),('&&!hopt{return Err(error!(PumpError::HolderRewardCreatorImmutable));}','&&!(ho==Some(true)){return Err(error!(PumpError::HolderRewardCreatorImmutable));}'),('validate(&st,hopt,fee,','validate(&st,hopt,holder,fee,')]
+G['q338']=[('if f==0||f>st.max_fee{','if f>st.max_fee||f==0{')]
+ORDER=ORDER+['q289','q338']
+G['q289']=[('fn validate(st:&CtoState,hopt:bool,','fn validate(st:&CtoState,hopt:bool,ho:Option<bool>,'),('&&!hopt{return Err(error!(PumpError::HolderRewardCreatorImmutable));}','&&!(ho==Some(true)){return Err(error!(PumpError::HolderRewardCreatorImmutable));}'),('let hopt=hb;let holder=hb;','let ho=holder;let hopt=hb;let holder=hb;'),('validate(&st,hopt,fee,','validate(&st,hopt,ho,fee,')]
+G['p1b']=[('!a.sharing_config.data_is_empty();let holder_key;','!a.sharing_config.data_is_empty();let hb=holder.unwrap_or(false);let holder_key;'),_EH3]+_VB
+G['p2b']=[('&crate::ID);holder_key=hk.0;','&crate::ID);let hb=holder.unwrap_or(false);holder_key=hk.0;'),_EH3]+_VB
+G['p2c']=[('holder_key=hk.0;','holder_key=hk.0;let hb=matches!(holder,Some(true));'),_EH3]+_VB
+G['p2d']=[('holder_key=hk.0;','holder_key=hk.0;let hb=holder==Some(true);'),_EH3]+_VB
+ORDER=ORDER[:ORDER.index('p3')+1]+['p1b','p2b','p2c','p2d']+ORDER[ORDER.index('p3')+1:]
+_VBU=[('fn validate(st:&CtoState,hopt:Option<bool>,','fn validate(st:&CtoState,hopt:u8,'),(_VH,'->Result<Pubkey>{let holder=hopt&1!=0;'),(_289,'&&hopt&1==0{return Err(error!(PumpError::HolderRewardCreatorImmutable));}')]
+G['vu8']=[('holder_key=hk.0;','holder_key=hk.0;let hb=holder.unwrap_or(false);'),(_EH,'let hopt=hb as u8;let holder=hb;')]+_VBU
+G['vraw']=[('holder_key=hk.0;','holder_key=hk.0;let hb=holder.unwrap_or(false);'),(_EH,'let hopt=unsafe{*(&holder as *const Option<bool> as *const u8)};let holder=hb;')]+_VBU
+_VBR=[('fn validate(st:&CtoState,hopt:Option<bool>,','fn validate(st:&CtoState,hopt:&bool,'),(_VH,'->Result<Pubkey>{let holder=*hopt;'),(_289,'&&!*hopt{return Err(error!(PumpError::HolderRewardCreatorImmutable));}')]
+G['vref']=[('holder_key=hk.0;','holder_key=hk.0;let hb=holder.unwrap_or(false);'),(_EH,'let hopt=&hb;let holder=hb;')]+_VBR
+ORDER=ORDER[:ORDER.index('p2d')+1]+['vu8','vraw','vref']+ORDER[ORDER.index('p2d')+1:]
