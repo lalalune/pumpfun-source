@@ -150,7 +150,7 @@ def main():
     check(build["comparison"]["original_sha256"] == report["target_sha256"], "claim verification failed: build['comparison']['original_sha256'] == report['target_sha256']")
     check(not build["comparison"]["full_byte_equality"], "claim verification failed: not build['comparison']['full_byte_equality']")
     check(report["signed_local"] and report["offline_only"], "claim verification failed: report['signed_local'] and report['offline_only']")
-    idl = json.loads(diff.IDL.read_text())
+    idl = json.loads(diff.IDL.read_text(encoding="utf-8"))
     event_discriminator = bytes(next(item for item in idl["events"]
         if item["name"] == "ClaimTokenIncentivesEvent")["discriminator"])
     _, keys, _, user_volume, global_ata = diff.fixture_data()

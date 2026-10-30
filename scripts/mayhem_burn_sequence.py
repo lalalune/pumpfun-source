@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Authorized sequential burns; genuine input bytes, ordinary signatures, no reset."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 from pathlib import Path
 import argparse, base64, hashlib, importlib.metadata, json, re, struct
 from solders.litesvm import LiteSVM

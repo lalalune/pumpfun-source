@@ -8,8 +8,8 @@ from solders.clock import Clock
 IX=next(x for x in IDL['instructions'] if x['name']=='create_social_fee_pda')
 ORIGINAL=ROOT/'evidence/original/pump_fees/deployed.so'
 
-def run(c,binary=ORIGINAL):
- vm=LiteSVM().with_transaction_history(0);vm.add_program_from_file(PROGRAM,binary);vm.set_clock(Clock(1000,0,0,0,1700000000))
+def run(c,image):
+ vm=LiteSVM().with_transaction_history(0);vm.add_program(PROGRAM,image);vm.set_clock(Clock(1000,0,0,0,1700000000))
  for kp in [AUTH,OTHER,PAYER]:vm.set_account(kp.pubkey(),Account(10**12,b'',Pubkey.default()))
  user=c.get('user','1234567890');raw=user.encode();platform=c.get('platform',1)
  seeds=[b'social-fee-pda',raw,bytes([platform])]
@@ -56,14 +56,16 @@ def main():
  cases += [{'name':'state-patch-'+str(n),'existing':True,'patches':[(n,'00')]} for n in [0,8,14,24]]
  cases += [{'name':'global-owner','global_owner':str(Pubkey.default())},{'name':'state-owner','existing':True,'state_owner':str(Pubkey.default())}]
  rows=[];failures=[]
+ # Read each image once, so every case and the receipt use the same bytes.
+ original=ORIGINAL.read_bytes();candidate=a.candidate.read_bytes() if a.candidate else None
  for c in cases:
-  x=run(c);y=run(c,a.candidate) if a.candidate else None
+  x=run(c,original);y=run(c,candidate) if a.candidate else None
   keys=['error','data','lamports','owner','authority_lamports','inner']
   match=all(x[k]==y[k] for k in keys) and [l for l in x['logs'] if l.startswith('Program data:')]==[l for l in y['logs'] if l.startswith('Program data:')] if y else None
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:failures.append(c['name'])
  a.output.parent.mkdir(parents=True,exist_ok=True)
- a.output.write_text(json.dumps({'original_sha256':hashlib.sha256(ORIGINAL.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(a.candidate.read_bytes()).hexdigest() if a.candidate else None,'scope':'Normally signed synthetic local creation cases; no full-program or byte identity claim.','cases':rows,'mismatches':failures},indent=2)+'\n')
+ a.output.write_text(json.dumps({'original_sha256':hashlib.sha256(original).hexdigest(),'candidate_sha256':hashlib.sha256(candidate).hexdigest() if a.candidate else None,'scope':'Normally signed synthetic local creation cases; no full-program or byte identity claim.','cases':rows,'mismatches':failures},indent=2)+'\n')
  print('cases',len(rows),'mismatches',failures)
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

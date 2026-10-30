@@ -130,7 +130,8 @@ not a truncation effect.
 ## Reproduction
 
 `producer.py` rebuilds the packet from the three program images
-in `~/workspace/slop-verify/` (original, control, candidate).
+(original from `evidence/original/pump_amm/`, control and candidate
+from `research/amm-multi-hop-images/`).
 `verify.py` re-checks every receipt independently (signatures,
 deltas, withheld, events, error codes, rollback, pool/UVA/config
 state, 3-image agreement) from the packet files alone.

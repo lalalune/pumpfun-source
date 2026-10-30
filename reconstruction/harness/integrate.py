@@ -11,7 +11,7 @@ changes retain `patch -p2 --forward`. Rejects are reported and the part is skipp
 Output: SC/integ/<NAME>/{src, parts/<label>.patch, rejects/, report.json}
 Names must be fresh; an earlier result is never overwritten.
 """
-import argparse, ast, json, shutil, subprocess, sys, re
+import argparse, ast, json, os, shutil, subprocess, sys, re
 from pathlib import Path
 
 H = Path(__file__).resolve().parent
@@ -47,7 +47,7 @@ def make_patch(base: Path, part: Path, out: Path, tmp: Path):
     if tmp.exists():
         shutil.rmtree(tmp)
     (tmp / 'a').mkdir(parents=True); (tmp / 'b').mkdir(parents=True)
-    patterns = ('*.orig', '*.rej', '.DS_Store')
+    patterns = ('*.rej', '.DS_Store')
     shutil.copytree(base, tmp / 'a/pump', ignore=crate_ignore(base, *patterns))
     shutil.copytree(part, tmp / 'b/pump', ignore=crate_ignore(part, *patterns))
     trees = [{p.relative_to(root): p.stat().st_size == 0
@@ -71,13 +71,23 @@ def make_patch(base: Path, part: Path, out: Path, tmp: Path):
                 path = root / name
                 mode = path.stat().st_mode
                 path.chmod(mode | 0o100 if executable else mode & ~0o100)
-    command = (['git', '-c', 'core.autocrlf=false', 'diff', '--no-index', '--binary',
+    git_diff = ['git', '-c', 'core.autocrlf=false', 'diff', '--no-index', '--binary',
                 '--no-ext-diff', '--no-textconv', '--no-renames', '--src-prefix=',
-                '--dst-prefix=', '--', 'a/pump', 'b/pump'] if empty_change or mode_change else
-               ['diff', '-ruN', 'a/pump', 'b/pump'])
-    d = subprocess.run(command, cwd=tmp, capture_output=True)
-    if d.returncode not in (0, 1):
-        raise subprocess.CalledProcessError(d.returncode, d.args, output=d.stdout, stderr=d.stderr)
+                '--dst-prefix=', '--', 'a/pump', 'b/pump']
+
+    def run_diff(command):
+        # Binary-file diagnostics are parsed below; do not inherit a translated locale.
+        result = subprocess.run(command, cwd=tmp, capture_output=True,
+                                env=dict(os.environ, LC_ALL='C'))
+        if result.returncode not in (0, 1):
+            raise subprocess.CalledProcessError(result.returncode, result.args,
+                                                output=result.stdout, stderr=result.stderr)
+        return result
+
+    d = run_diff(git_diff if empty_change or mode_change else ['diff', '-ruN', 'a/pump', 'b/pump'])
+    # diff -r only names binary changes, and patch skips that line without an error.
+    if any(line.startswith(b'Binary files ') for line in d.stdout.splitlines()):
+        d = run_diff(git_diff)
     out.write_bytes(d.stdout)
     # Decode only for report metadata; patch must receive the original diff bytes.
     return d.stdout.decode('utf-8', errors='surrogateescape')
@@ -252,7 +262,7 @@ def main():
         shutil.copytree(base, out / 'src', ignore=crate_ignore(base))
         src = out / 'src'
         # GNU patch on Windows otherwise strips CR bytes from patch/source input.
-        patch_command = ['patch'] + (['--binary'] if sys.platform == 'win32' else [])
+        patch_command = ['patch', '-V', 'none'] + (['--binary'] if sys.platform == 'win32' else [])
         for label, path, derived_from in parts:
             pf = out / 'parts' / f'{label}.patch'
             text = make_patch(derived_from, Path(path), pf, SC / 'integ' / '.tmp' / a.name / label)
@@ -263,9 +273,6 @@ def main():
             if result['status'] == 'error':
                 exit_code = 1
                 break
-            if result['status'] == 'applied':
-                for o in src.rglob('*.orig'):
-                    o.unlink()
         validate_inputs()
         if not a.no_build and not exit_code:
             res = build_source(src, out / 'work', out / 'build', quiet=True)

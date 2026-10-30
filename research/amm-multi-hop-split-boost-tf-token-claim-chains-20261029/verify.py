@@ -83,12 +83,12 @@ from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 
 ROOT = Path(__file__).resolve().parent
-WS = Path.home() / "workspace/slop-verify"
-SPARSE = Path.home() / "workspace/pumpfun-sparse"
+REPO = ROOT.parents[1]
+IMAGES = REPO / "research/amm-multi-hop-images"
 IMAGE_PATHS = {
-    "original": SPARSE / "evidence/original/pump_amm/deployed.so",
-    "control": WS / "control.so",
-    "candidate": WS / "candidate.so",
+    "original": REPO / "evidence/original/pump_amm/deployed.so",
+    "control": IMAGES / "control.so.gz",
+    "candidate": IMAGES / "candidate.so.gz",
 }
 PAYER_KEY = Pubkey.from_string("DXyM8yAHqpMzDtvwz5DXoEUQmPxjJPMKCASCPhLMKpEx")
 POOL = Pubkey.from_string("GseMAnNDvntR5uFePZ51yZBXzNSn7GdFPkfHwfr6d77J")
@@ -324,7 +324,10 @@ def main():
     if report["mismatches"] != []:
         fail(f"mismatches recorded: {report['mismatches']}")
     for name, path in IMAGE_PATHS.items():
-        if sha(path.read_bytes()) != report["images"][name]:
+        image = path.read_bytes()
+        if path.suffix == ".gz":
+            image = gzip.decompress(image)
+        if sha(image) != report["images"][name]:
             fail(f"image hash mismatch {name}")
     receipts = []
     for part in report["parts"]:

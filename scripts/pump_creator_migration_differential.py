@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Normally signed creator migration after captured sharing bootstrap."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import sys,json,hashlib,base64,argparse,gzip
 from types import SimpleNamespace
 from pathlib import Path

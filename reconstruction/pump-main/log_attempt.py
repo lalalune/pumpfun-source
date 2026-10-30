@@ -99,6 +99,13 @@ def matches(row, args):
     return True
 
 
+def row_limit(text):
+    value = int(text)
+    if value < 0:
+        raise argparse.ArgumentTypeError('must not be negative')
+    return value
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest='command', required=True)
@@ -113,7 +120,7 @@ def main():
     search.add_argument('--lane')
     search.add_argument('--status', choices=STATUSES)
     search.add_argument('--text', help='space-separated words that must all appear in the row')
-    search.add_argument('--limit', type=int, default=40)
+    search.add_argument('--limit', type=row_limit, default=40)
     record = sub.add_parser('record')
     record.add_argument('--lane', required=True)
     record.add_argument('--approach', required=True)

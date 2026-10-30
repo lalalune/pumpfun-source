@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "upstream_main": "1df6e956bd1ae0047e738b06a2bf74789b20ad2d",
+  "workspace": {
+    "recipe": "materialize.py derives the maintained two-member build workspace from this checkout",
+    "files": 62,
+    "tree_sha256": "2bf0742a53aeb2039d5a0a9855d006a7c773acc05774424cb37b50270df460db",
+    "root_manifest_sha256": "0c1daed3272e54c8aeae1c34415d0e25b7d5ca8f2a8a68c3d466a57305f222d3",
+    "lockfile_sha256": "799a8a32e862a81a73c5301a2d69f3d718d0e448670c48c4e077cfdc7dc35ac7",
+    "program_manifest_sha256": "50230faf4f12ab0dd21b72b9c7144393dec7308344c08f3257a6834840fca178",
+    "checkout_program_manifest_sha256": "12522e6f084a0cdab4b7edba48352dcfe88b69362204b3fb855f4498230cccf8",
+    "transfer_fee_source_sha256": "6685421e57809ca18c04abe381a9466141c3075d384cd3e88b429e3e71760701",
+    "native_transfer_fee_source_sha256": "a6fb10d99c228752a163b9190feabfbc7f982346da439e18e91a9c67f3ecc4e2",
+    "multi_hop_source_sha256": "98e6623e2c34cba0df64000595e5985843497ebc02bb24c82b6fb7abbaf28caf"
+  },
+  "linux_v144": {
+    "platform_archive_bytes": 490710349,
+    "platform_archive_sha256": "6719b889d60677a8a2fcf4c82f68441a1afe0ab093edd2efe9f84a67a808b3e9",
+    "rustc_sha256": "c8807b7ebede8578ac5a257ea333780f9d89bd356064fd8184af7e996cb71a97",
+    "cargo_sha256": "d28444578306fe5a4f40524331411340123004e9e6556322fcabdbe351fe265d",
+    "rustc_version": "rustc 1.79.0-dev; LLVM 18.1.7; host x86_64-unknown-linux-gnu",
+    "container": "buildpack-deps@sha256:ccb050a415a94a3a78acbe35084ec8f06ae46fa158e3650c96f9b4fb514de6d3",
+    "container_platform": "linux/amd64",
+    "network": "none",
+    "cargo_flags": ["--release", "--target", "sbpf-solana-solana", "--locked", "--offline", "-p", "pump-amm-recovered", "-vv"],
+    "rustflags": "--remap-path-prefix=/source=/workspace",
+    "profile": {"opt_level": 3, "panic": "abort", "overflow_checks": true, "codegen_units": 1, "lto": false},
+    "dependency_cache": "Seeded independently into target-a and target-b from the qualified maintained-checkpoint target; both builds reused native-transfer-fee and compiled pump-amm-recovered once.",
+    "build_a_log_sha256": "e0ddfc56dca39b0e3ceeb81ad7e9887ed88dcf3b2fff03cf91275282bfb7edc7",
+    "build_b_log_sha256": "d253008854dc532d70ac0979fa999594bc7f2494b409c61392b3ace28f21cc86",
+    "diagnostic": "Both successful builds emitted the inherited admin_update_token_incentives frame-overwrite diagnostic.",
+    "unstripped_bytes": 1813360,
+    "unstripped_sha256": "c8f754063a2aa1d0b8d6f228c46401ba85571546f0234dc81c9eb8927eb12376",
+    "repeat_unstripped_sha256": "c8f754063a2aa1d0b8d6f228c46401ba85571546f0234dc81c9eb8927eb12376"
+  },
+  "strip": {
+    "tool_sha256": "f078d5b1f9df4190e67938a13e81e1dda1057e16228ff1a6f2f5d5540c9e6aaf",
+    "flags": ["--strip-all"],
+    "stripped_bytes": 1291424,
+    "stripped_sha256": "d17a657baf5cc19736a924c41e75424604411ddbe9f6e72cddf41ab72a695007",
+    "repeat_stripped_sha256": "d17a657baf5cc19736a924c41e75424604411ddbe9f6e72cddf41ab72a695007"
+  },
+  "baseline": {
+    "packet": "research/amm-multi-hop-group-slice-recovery",
+    "normalized_windows": 661,
+    "raw_windows": 159,
+    "unstripped_sha256": "d35beab66073f1739d7d371a67160675d5b0a2f047605325b9cda189167ad947",
+    "stripped_sha256": "7a300434dced61413bde10788594b427d5649563e0223efcf09e6b214aff7ad3"
+  },
+  "runtime": {
+    "producer": "research/amm-fee-value-call-recovery/focused.py",
+    "case_count": 216,
+    "signed_executions": 648,
+    "report_uncompressed_sha256": "054ad012857ce4d20aa349209476187a7cc22971fcc2c9ddfa5e301abb8572a2",
+    "receipts_sha256": "dab5a5078a44cf5dc70bb6641d86e95b04dfcaa5f900e75523ae896ebb719534",
+    "original_candidate_functional_mismatches": 0,
+    "control_candidate_expected_diagnostic_differences": 14
+  }
+}

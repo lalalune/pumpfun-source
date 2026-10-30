@@ -191,6 +191,10 @@ def verify_capture(repo: Path, candidate: Path) -> dict[str, object]:
 def inspect_vendor(vendor: Path, controller: Path) -> dict[str, object]:
     """Validate package archives and source bytes, not host newline serialization."""
     records = load(controller / "vendor-inputs.json")["packages"]
+    require(
+        {path.name for path in vendor.iterdir()} == {record["directory"] for record in records},
+        "vendor package set differs",
+    )
     closure = []
     for record in records:
         directory = vendor / safe(record["directory"])

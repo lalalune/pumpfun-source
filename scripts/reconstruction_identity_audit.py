@@ -23,15 +23,22 @@ def sha(raw):
 
 
 def header(raw):
-    layout = elf_layout(raw)
+    return _header(elf_layout(raw))
+
+
+def _header(layout):
     return {key: layout[key] for key in ('machine', 'flags', 'entry', 'elf_extent',
                                         'allocation_bytes', 'trailing_bytes',
                                         'trailing_all_zero', 'elf_sha256')}
 
 
 def sections(raw):
+    return _sections(raw, elf_layout(raw))
+
+
+def _sections(raw, layout):
     result = {}
-    for entry in elf_layout(raw)['sections']:
+    for entry in layout['sections']:
         # SHT_NOBITS occupies memory but no file bytes.
         payload = b'' if entry['type'] == 8 else raw[entry['offset']:entry['offset'] + entry['size']]
         if entry['name'] in result:
@@ -42,7 +49,7 @@ def sections(raw):
 
 def measure(original, candidate):
     a, b = elf_layout(original), elf_layout(candidate)
-    left, right = sections(original), sections(candidate)
+    left, right = _sections(original, a), _sections(candidate, b)
     rows = []
     for name in sorted(set(left) | set(right)):
         x, y = left.get(name), right.get(name)
@@ -54,7 +61,7 @@ def measure(original, candidate):
         rows.append(row)
     return {'allocation_comparison': compare(original, candidate),
             'raw_elf_comparison': compare(original[:a['elf_extent']], candidate[:b['elf_extent']]),
-            'original_header': header(original), 'candidate_header': header(candidate),
+            'original_header': _header(a), 'candidate_header': _header(b),
             'sections': rows,
             'source_completeness_inferred': False,
             'historical_compiler_identity_proven': False,

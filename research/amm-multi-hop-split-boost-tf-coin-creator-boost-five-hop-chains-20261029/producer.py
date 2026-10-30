@@ -39,9 +39,13 @@ import sys
 from pathlib import Path
 from types import SimpleNamespace
 
+import atexit
 import os
-sys.path.insert(0, str(Path.home() / "workspace/pumpfun-sparse/scripts"))
-os.chdir(Path.home() / "workspace/pumpfun-sparse")
+import shutil
+import tempfile
+REPO = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO / "scripts"))
+os.chdir(REPO)
 from solders.account import Account
 from solders.clock import Clock
 from solders.instruction import AccountMeta, Instruction
@@ -62,15 +66,35 @@ from pump_amm_multi_hop_differential import (
     U3, VB2, VB3, VQ2, VQ3, three_amm,
 )
 
-ROOT = Path.home() / "workspace/pumpfun-sparse"
+ROOT = REPO
 OUT = ROOT / "research/amm-multi-hop-split-boost-tf-coin-creator-boost-five-hop-chains-20261029"
-WS = Path.home() / "workspace/slop-verify"
+WS = REPO / "research/amm-multi-hop-images"
 IMAGES = {
     "original": ROOT / "evidence/original/pump_amm/deployed.so",
-    "control": WS / "control.so",
-    "candidate": WS / "candidate.so",
+    "control": WS / "control.so.gz",
+    "candidate": WS / "candidate.so.gz",
 }
-IMAGE_SHA = {k: hashlib.sha256(v.read_bytes()).hexdigest() for k, v in IMAGES.items()}
+PROGRAM_FILES = {}
+
+
+def image_bytes(path):
+    raw = Path(path).read_bytes()
+    return gzip.decompress(raw) if Path(path).suffix == ".gz" else raw
+
+
+def program_file(path):
+    path = Path(path)
+    if path.suffix != ".gz":
+        return path
+    if path not in PROGRAM_FILES:
+        scratch = Path(tempfile.mkdtemp(prefix="amm-multi-hop-image-"))
+        atexit.register(shutil.rmtree, scratch, True)
+        PROGRAM_FILES[path] = scratch / path.stem
+        PROGRAM_FILES[path].write_bytes(image_bytes(path))
+    return PROGRAM_FILES[path]
+
+
+IMAGE_SHA = {k: hashlib.sha256(image_bytes(v)).hexdigest() for k, v in IMAGES.items()}
 
 ATA_PROG = Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
 PAYER_KEY = PAYER.pubkey()
@@ -491,7 +515,7 @@ def patch_mint_epochs(h, oe, ob, ne, nb, omax=2**64 - 1, nmax=2**64 - 1):
 
 def setup_vm(binary, case):
     bps = case.get("bps", 0)
-    h = Harness(binary)
+    h = Harness(program_file(binary))
     h._epoch = case.get("clock_epoch", 0)
     vm = h.vm
     vm.set_clock(Clock(100, 1234567890, case.get("clock_epoch", 0), 0, 1234567890))

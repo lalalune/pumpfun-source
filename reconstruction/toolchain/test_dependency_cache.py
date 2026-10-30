@@ -97,6 +97,7 @@ class DependencyCacheTests(unittest.TestCase):
             stack.enter_context(patch.object(bootstrap, 'HYBRID', hybrid))
             stack.enter_context(patch.object(bootstrap, 'check_linux_libs', return_value=[]))
             stack.enter_context(patch.object(bootstrap, 'hybrid_ok', return_value=True))
+            stack.enter_context(patch.object(bootstrap, 'hybrid_ok_linux', return_value=True))
             stack.enter_context(patch.object(bootstrap.subprocess, 'check_output', return_value=str(hybrid / 'rust')))
             stack.enter_context(patch.object(bootstrap.subprocess, 'run', side_effect=self.fail_copy))
             stack.enter_context(patch('sys.argv', ['bootstrap', '--sdk-check', 'skip', '--warm']))

@@ -8,9 +8,9 @@ TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');ATA=Pubk
 TOKEN2022=Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb')
 ORIGINAL=ROOT/'evidence/original/pump_fees/deployed.so'
 
-def run(c,binary=ORIGINAL):
+def run(c,image):
  token=TOKEN2022 if c.get('token2022') else TOKEN
- vm=LiteSVM().with_transaction_history(0);vm.add_program_from_file(PROGRAM,binary);vm.set_clock(Clock(1000,0,0,0,1700000000))
+ vm=LiteSVM().with_transaction_history(0);vm.add_program(PROGRAM,image);vm.set_clock(Clock(1000,0,0,0,1700000000))
  for name,key in [('spl_token',TOKEN),('associated_token',ATA)]+([('spl_token_2022',TOKEN2022)] if c.get('token2022') else []):vm.add_program_from_file(key,ROOT/f'evidence/dependencies/{name}/deployed.so')
  for kp in [AUTH,OTHER,PAYER]:vm.set_account(kp.pubkey(),Account(10**12,b'',Pubkey.default()))
  index=c.get('index',0);mint=WSOL if c.get('native',True) else MINT
@@ -90,13 +90,15 @@ def main():
  cases += [{'name':'sweep-alias-'+alias,'op':'sweep_buyback','destination_alias':alias,'tokens':1000000} for alias in ['vault','authority','program']]
  cases += [{'name':'sweep-below-rent','op':'sweep_buyback','amount':-1},{'name':'sweep-missing-destination-ata','op':'sweep_buyback','missing_destination_ata':True}]
  rows=[];bad=[]
+ # Read each image once, so every case and the receipt use the same bytes.
+ original=ORIGINAL.read_bytes();candidate=a.candidate.read_bytes() if a.candidate else None
  for c in cases:
-  x=run(c);y=run(c,a.candidate) if a.candidate else None
+  x=run(c,original);y=run(c,candidate) if a.candidate else None
   match=all(x[k]==y[k] for k in ['error','before','after','inner','return']) and [l for l in x['logs'] if l.startswith('Program data:')]==[l for l in y['logs'] if l.startswith('Program data:')] if y else None
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:bad.append(c['name'])
  a.output.parent.mkdir(parents=True,exist_ok=True)
- a.output.write_text(json.dumps({'scope':'Normal signed synthetic buyback fixtures; no full-byte identity claim.','original_sha256':hashlib.sha256(ORIGINAL.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(a.candidate.read_bytes()).hexdigest() if a.candidate else None,'cases':rows,'mismatches':bad},indent=2)+'\n')
+ a.output.write_text(json.dumps({'scope':'Normal signed synthetic buyback fixtures; no full-byte identity claim.','original_sha256':hashlib.sha256(original).hexdigest(),'candidate_sha256':hashlib.sha256(candidate).hexdigest() if a.candidate else None,'cases':rows,'mismatches':bad},indent=2)+'\n')
  print('Cases',len(rows),'mismatches',bad)
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

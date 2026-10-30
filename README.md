@@ -34,20 +34,18 @@ those programs. There is no frontend, backend, SDK or off-chain service code.
 | **Total** |**3,336/3,338**|**99.94%**|**3,336**|**0**|**2**|**4/5**|
 
 Matched windows cover **5,167,144/5,213,128 code bytes (99.12%)**.
-The latest Pump Main identity build includes #2642's `admin_cto` refinement.
-It preserves all 1,033 normalized and raw matches against a fresh main build,
-and passes 363 signed synthetic admin-CTO differential cases. The remaining
-admin window's similarity improves from 36.13% to 43.92%; this partial gain
-does not raise the completion percentages. Pump Main's meaningful ELF is not
-yet equal.
+A fresh identity build of current Pump Main, including #2686, preserves all
+1,033 normalized and raw matches with zero losses against the previous
+checkpoint. Its swap window improves from 98.91% to 99.91% similarity, with
+18 differing instruction slots remaining. All 408 targeted synthetic swap
+cases pass. This partial gain does not raise the completion percentages;
+Pump Main's meaningful ELF is not yet equal.
 
 AMM, Fees, Mayhem and Donation Relay retain their exact meaningful-ELF
-checkpoints. The [Fees Linux rebuild packet](research/fees-linux-fresh-rebuild-20261030/README.md)
-adds two reported cold-build receipts; its verifier binds them to current
-canonical inputs and the captured meaningful prefix. This review verified
-those bindings without rerunning the native compiler. See the [latest
-scores and validation](reconstruction/pump-main/checkpoints/completion-pass6-20261030/README.md)
-and [other-program checkpoint provenance](reconstruction/pump-main/checkpoints/completion-20261030/other-programs.json).
+checkpoints. No native Fees or Mayhem compiler was rerun in this pass. See the
+[latest scores and validation](reconstruction/pump-main/checkpoints/completion-pass7-20261030/README.md),
+[other-program checkpoint provenance](reconstruction/pump-main/checkpoints/completion-20261030/other-programs.json)
+and [Fees Linux rebuild packet](research/fees-linux-fresh-rebuild-20261030/README.md).
 
 Raw equality compares complete instruction bytes. Normalized windows mask
 specified call/address operands and do not prove whole-program identity.

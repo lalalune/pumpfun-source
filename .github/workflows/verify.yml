@@ -37,6 +37,9 @@ jobs:
               python -B research/tooling-analysis-encoding-20261030/test_verify.py
               python -B reconstruction/tooling/roadmap-manifest-members/test_verify.py
               python -B reconstruction/tooling/deep-analysis-output-links/test_verify.py
+          - suite: amm-multi-hop-packets
+            commands: |
+              python -B research/amm-multi-hop-images/test_packets.py
           - suite: fastbuild-staging
             commands: |
               python -I -B tests/test_fastbuild_stage.py
@@ -46,7 +49,9 @@ jobs:
               python -B reconstruction/harness/test_integrate_failures.py
               python -B reconstruction/harness/test_integrate_no_build_cli.py
               python -B reconstruction/harness/test_integrate_empty_files.py
+              python -B reconstruction/harness/test_integrate_binary_files.py
               python -B reconstruction/harness/test_integrate_source_links.py
+              python -B reconstruction/harness/test_integrate_orig_sources.py
               python -I -B tests/test_integrate_patch_bytes.py
               python -I -B reconstruction/harness/test_treediff_links.py
           - suite: offline-cargo-cache
@@ -61,6 +66,8 @@ jobs:
               python -I -B tests/test_dispatch_root.py
               python -I -B tests/test_analyze_input_admission.py
               python scripts/test_tooling.py
+              python -B scripts/test_pump_diagnostic_audit_coverage.py
+              python -B scripts/test_pump_fresh_output_optimized.py
               python -B scripts/test_amm_harness_content_cache.py
               python -B tests/test_amm_pinned_candidate.py
               python -B tests/test_two_curve_optimization_guard.py
@@ -87,6 +94,7 @@ jobs:
               python -B scripts/test_constant_product_range_pinning.py
               python -B scripts/test_fees_validate_all_optimization.py
               python -B scripts/test_claim_differentials_optimization.py
+              python -B scripts/test_differentials_optimization.py
               python -B scripts/test_fees_error_messages_precondition.py
               python -B scripts/test_validate_fee_handlers_optimized_exit.py
               python -B scripts/test_fees_external_codec_optimized_mode.py
@@ -107,6 +115,7 @@ jobs:
               python -B scripts/test_supported_sbpf_package_paths.py
               python -B scripts/test_pump_quote_control_function_match_output.py
               python -B reconstruction/toolchain/test_dependency_cache.py
+              python -B reconstruction/mayhem/native-linux-qualification/test_vendor_membership.py
               python -B scripts/test_analyze_program_publication.py
               python -B scripts/test_reconstruction_roadmap_publication.py
               python -B scripts/test_bytecode_signatures_publication.py
@@ -114,14 +123,22 @@ jobs:
               python -B scripts/test_donation_relay_oracle_optimization.py
               python -B -X utf8 tests/test_dispatch_idl_encoding.py
               python -B tests/test_local_validation_idl_encoding.py
+              python -B tests/test_claim_token_incentives_idl_encoding.py
+              python -B tests/test_claim_token_incentives_8099_idl_encoding.py
               python -B tests/test_function_body_file_ranges.py
               python -O -B tests/test_function_body_file_ranges.py
               python -B reconstruction/harness/test_treediff_line_boundaries.py
               python -B reconstruction/harness/test_score_inputs.py
+              python -B reconstruction/harness/test_score_empty_baseline.py
+              python -B reconstruction/harness/test_score_symbol_admission.py
+              python -B reconstruction/pump-main/test_ledger_negative_limit.py
+              python -B reconstruction/diagnostics/census-portability/test_output_guard.py
               python -B reconstruction/harness/test_experiment_declared_name.py
+              python -B reconstruction/harness/test_experiment_worktree_source.py
               python -B reconstruction/harness/test_bisect_membership.py
               python -B reconstruction/harness/test_minimize_oracle_encoding.py
               python -B reconstruction/harness/test_coords_cli_admission.py
+              python -B reconstruction/harness/test_report_scorer_inputs.py
               python -B reconstruction/harness/test_match_oracle.py
               python -B reconstruction/harness/test_score_atomic_report.py
               python -B reconstruction/harness/test_coords_report_destination.py
@@ -143,6 +160,17 @@ jobs:
               python -B tests/test_dependency_cache_manifest_state.py
               python -B research/tooling-indirect-call-decoding-20261030/test_verify.py
               python -B tests/test_checkpoint_manifest_paths.py
+          - suite: runtime-input-regressions
+            commands: |
+              python -B scripts/test_admin_token_incentives_verify_encoding.py
+              python -B scripts/test_pump_v3_configured_fee_surfpool_encoding.py
+              python -B scripts/test_pump_migrate_v2_surfpool_encoding.py
+              python -B scripts/test_pump_migrate_surfpool_encoding.py
+              python -B scripts/test_pump_holder_distribution_surfpool_encoding.py
+              python -B scripts/test_pump_exact_quote_surfpool_encoding.py
+              python -B scripts/test_pump_fee_sweep_encoding.py
+              python -B scripts/test_pump_creator_collect_encoding.py
+              python -B scripts/test_pump_surfpool_optimized_mode.py
           # Packets that pin the digest of a reviewed tool snapshot or of its output. They fail
           # by design when the bound tool changes, until the packet is re-reviewed and re-bound;
           # kept apart so a stale binding does not stop the rest of the evidence suite.
@@ -152,6 +180,7 @@ jobs:
               python -B research/tooling-revalidation-manifests-20261030/test_verify.py
               python -B research/tooling-revalidation-invocation-20261030/test_verify.py
               python -B reconstruction/tooling/revalidation-qualification/test_audit.py
+              python -B reconstruction/tooling/revalidation-qualification/test_capture_memory.py
               python -B -m unittest discover -s reconstruction/tooling/revalidation-qualification -p 'test_packet_root_links.py'
               python -B -m unittest discover -s reconstruction/tooling/revalidation-qualification -p 'test_packet_identity_stability.py'
               python -B reconstruction/relocation-text-addresses/test_analyze.py
@@ -161,6 +190,7 @@ jobs:
               python research/tooling-token-program-constant-detector-20261029/verify.py
               python -B -m unittest discover -s reconstruction/capture-rpc-retry -p 'test_*.py'
               python -B reconstruction/verification/donation-relay-idl-lifecycle/test_lifecycle.py
+              python -B reconstruction/verification/donation-relay-idl-lifecycle/test_verify_steps.py
               python -B reconstruction/verification/donation-relay-stateful/test_stateful.py
               python -B reconstruction/verification/pump-migration-lifecycle/test_lifecycle.py
               python -B reconstruction/verification/mayhem-dispatch-boundaries/test_inventory.py

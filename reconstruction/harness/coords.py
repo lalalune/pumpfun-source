@@ -134,7 +134,7 @@ def main():
     else:
         if a.json:
             try:
-                report_destination(a.json, [a.cand])
+                report_destination(a.json, [a.cand, BASE / 'original.so', resolve_original(BASE / 'original.so'), BASE / 'functions.tsv'])
             except ValueError as error:
                 ap.error(str(error))
         blob = a.cand.read_bytes(); cs = sections(blob)

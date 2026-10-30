@@ -74,6 +74,8 @@ def validate(report: dict[str, Any], root: Path, candidate: Path) -> list[str]:
         problems.append("case_membership")
     if report.get("case_count") != len(cases):
         problems.append("case_count")
+    if any(not case.get("steps") for case in cases):
+        problems.append("case_steps")
     if any(case.get("classification") != "equal_observed_behavior" or case.get("problems") for case in cases):
         problems.append("case_classification")
     if report.get("matching_cases") != len(cases) or report.get("different_cases"):

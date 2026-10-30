@@ -127,6 +127,8 @@ def main():
     p.add_argument('--build-comparison', type=Path)
     p.add_argument('--output', type=Path, required=True)
     args = p.parse_args()
+    if args.output.exists() or args.output.is_symlink():
+        raise FileExistsError('Refusing to overwrite existing output; choose a fresh path')
     sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
     build = json.loads(args.build_comparison.read_text()) if args.build_comparison else None
     if build:
@@ -149,8 +151,9 @@ def main():
     report = {'scope': __doc__, 'original_sha256': sha(f.ORIGINAL), 'candidate_sha256': sha(args.candidate),
               'inputs_sha256': inputs, 'compiled_source_sha256': build['source_sha256'] if build else None,
               'case_count': len(rows), 'mismatches': [r['case']['name'] for r in rows if r['differences']], 'cases': rows}
-    args.output.parent.mkdir(parents=True, exist_ok=True); assert not args.output.exists()
-    args.output.write_bytes(gzip.compress(json.dumps(report, separators=(',',':')).encode(),mtime=0))
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    with args.output.open('xb') as stream:
+        stream.write(gzip.compress(json.dumps(report, separators=(',',':')).encode(),mtime=0))
     print(json.dumps({'cases':len(rows), 'mismatches':report['mismatches']}))
     if report['mismatches']:raise SystemExit(1)
 

@@ -4,6 +4,8 @@
 The authority and funded accounts are synthetic local fixtures. This does not
 establish live authority, reachable historical state, or exhaustive equivalence.
 """
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse
 import gzip
 import hashlib

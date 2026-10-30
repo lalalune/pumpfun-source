@@ -70,7 +70,7 @@ def main():
     check(curve["case_count"] == curve["passed"] == 56, "claim verification failed: curve['case_count'] == curve['passed'] == 56")
     check(curve["candidate_sha256"] == sha(candidate), "claim verification failed: curve['candidate_sha256'] == sha(candidate)")
 
-    idl = json.loads(diff.IDL.read_text())
+    idl = json.loads(diff.IDL.read_text(encoding="utf-8"))
     event_discriminator = bytes(next(item for item in idl["events"]
         if item["name"] == "ClaimTokenIncentivesEvent")["discriminator"])
     _, keys, _, user_volume, global_ata = diff.fixture_data()

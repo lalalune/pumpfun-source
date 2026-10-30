@@ -8,6 +8,8 @@ import sys
 import tempfile
 import unittest
 
+from test_elf_symbols import fixture
+
 
 HARNESS = Path(__file__).resolve().parent
 REPO = HARNESS.parents[1]
@@ -51,7 +53,9 @@ class CoordsReportDestinationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             candidate = root / "candidate.so"
-            shutil.copyfile(ORIGINAL, candidate)
+            # The scorer rejects symbol-free candidates (#2703); the stripped
+            # deployed image cannot stand in for a build output here.
+            candidate.write_bytes(fixture())
             output = root / "reports" / "coords.json"
             result = subprocess.run(
                 [sys.executable, "-B", str(HARNESS / "coords.py"),

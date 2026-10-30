@@ -17,8 +17,13 @@ def normlogs(logs):
   out.append(l)
  return out
 
+def limit_value(text):
+ value=int(text)
+ if value<0:raise argparse.ArgumentTypeError('--limit must not be negative')
+ return value
+
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--limit',type=int);ap.add_argument('--cases',type=Path,required=True);a=ap.parse_args();rows=[];mismatches=[]
+ ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--limit',type=limit_value);ap.add_argument('--cases',type=Path,required=True);a=ap.parse_args();rows=[];mismatches=[]
  for c in cases(a.cases)[:a.limit]:
   original=p.run(c);candidate=p.run(c,a.candidate);diff=[]
   for r in [original,candidate]:

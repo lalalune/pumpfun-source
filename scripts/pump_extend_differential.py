@@ -7,6 +7,7 @@ from solders.clock import Clock
 from solders.instruction import AccountMeta,Instruction
 from solders.keypair import Keypair
 from solders.litesvm import LiteSVM
+from pump_amm_reusable_harness import pin_program
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
@@ -14,7 +15,7 @@ ROOT=Path(__file__).resolve().parents[1];IDL=json.loads((ROOT/'evidence/upstream
 PAYER=Keypair.from_seed(bytes([227])*32);USER=Keypair.from_seed(bytes([228])*32);TARGET=Pubkey.from_bytes(bytes([229])*32);OTHER=Pubkey.from_bytes(bytes([230])*32);EVENT=Pubkey.find_program_address([b'__event_authority'],PROGRAM)[0];TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA')
 IX=next(x for x in IDL['instructions'] if x['name']=='extend_account');DISCS={x['name']:bytes(x['discriminator']) for x in IDL['accounts']}
 def run(c,binary=ORIGINAL):
- vm=LiteSVM().with_transaction_history(0);vm.add_program_from_file(PROGRAM,binary);vm.set_clock(Clock(100,1700000000,0,0,1700000000));vm.airdrop(PAYER.pubkey(),10**12);vm.airdrop(USER.pubkey(),c.get('user_lamports',10**12))
+ vm=LiteSVM().with_transaction_history(0);vm.add_program_from_file(PROGRAM,pin_program(binary));vm.set_clock(Clock(100,1700000000,0,0,1700000000));vm.airdrop(PAYER.pubkey(),10**12);vm.airdrop(USER.pubkey(),c.get('user_lamports',10**12))
  size=c.get('size',8);data=(DISCS.get(c.get('kind','BondingCurve'),bytes(8))+bytes([c.get('fill',0)])*max(0,size-8))[:size]
  if c.get('data_hex') is not None:data=bytes.fromhex(c['data_hex'])
  vm.set_account(TARGET,Account(c.get('lamports',10**9),data,Pubkey.from_string(c.get('owner',str(PROGRAM))),c.get('executable',False)))
@@ -52,6 +53,6 @@ def main():
   x=run(c);y=run(c,a.candidate) if a.candidate else None;diff=[k for k in ['before','after','error','events','inner','return'] if y is not None and x[k]!=y[k]]
   rows.append({'case':c,'original':x,'candidate':y,'diff':diff})
   if diff:bad.append(c['name'])
- report={'scope':'Synthetic raw accounts and ordinary verified signatures on offline LiteSVM. Bounded differential evidence, not byte identity.','original_sha256':hashlib.sha256(ORIGINAL.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(a.candidate.read_bytes()).hexdigest() if a.candidate else None,'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'cases':rows,'mismatches':bad};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_bytes(gzip.compress(json.dumps(report,indent=2).encode(),mtime=0));print(len(rows),'cases',len(bad),'mismatches',bad)
+ report={'scope':'Synthetic raw accounts and ordinary verified signatures on offline LiteSVM. Bounded differential evidence, not byte identity.','original_sha256':hashlib.sha256(pin_program(ORIGINAL).read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'cases':rows,'mismatches':bad};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_bytes(gzip.compress(json.dumps(report,indent=2).encode(),mtime=0));print(len(rows),'cases',len(bad),'mismatches',bad)
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

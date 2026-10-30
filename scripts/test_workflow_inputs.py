@@ -67,6 +67,47 @@ class WorkflowInputsTests(unittest.TestCase):
     def test_full_audit_fails_existing_debt(self):
         self.assertEqual(self.run_check('--all')[0], 1)
 
+    def test_env_chdir_resolves_the_actual_script_and_detects_missing_inputs(self):
+        for option in ('-C scripts', '--chdir scripts', '-Cscripts', '--chdir=scripts'):
+            with self.subTest(option=option):
+                self.workflow('env ' + option + ' python ok.py')
+                status, report = self.run_check('--all')
+                self.assertEqual(status, 0)
+                self.assertEqual(report['checked_references'], 1)
+                self.assertFalse(report['uninspected'])
+                # The root-relative name exists, but env actually invokes
+                # scripts/scripts/ok.py, which does not exist.
+                self.workflow('env ' + option + ' python scripts/ok.py')
+                status, report = self.run_check('--all')
+                self.assertEqual(status, 1)
+                self.assertEqual([entry[2] for entry in report['new_missing']],
+                                 ['scripts/scripts/ok.py'])
+
+    def test_env_chdir_uses_the_step_directory_without_changing_later_commands(self):
+        self.write('scripts/nested.py', 'pass\n')
+        self.workflow('env -C scripts python nested.py\n          python scripts/ok.py')
+        status, report = self.run_check('--all')
+        self.assertEqual(status, 0)
+        self.assertEqual(report['checked_references'], 2)
+        self.write('research/README.md', 'fixture\n')
+        self.write('.github/workflows/test.yml', '''jobs:
+  test:
+    steps:
+      - run: env -C ../scripts python ok.py
+        working-directory: research
+''')
+        status, report = self.run_check('--all')
+        self.assertEqual(status, 0)
+        self.assertEqual(report['checked_references'], 1)
+
+    def test_nonliteral_env_chdir_is_reported_as_uninspected(self):
+        for directory in ('$CHECK_DIR', '$CHECK_DIR/..', '/outside'):
+            with self.subTest(directory=directory):
+                self.workflow('env -C ' + directory + ' python scripts/ok.py')
+                _, report = self.run_check('--all')
+                self.assertEqual(report['checked_references'], 0)
+                self.assertEqual(report['uninspected'][0][2], 'dynamic command/directory')
+
     def test_committed_head_checks_deleted_files(self):
         self.git('rm', 'scripts/ok.py')
         self.git('-c', 'user.name=fixture', '-c', 'user.email=fixture@example.invalid',

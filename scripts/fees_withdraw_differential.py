@@ -16,8 +16,8 @@ IX=next(x for x in IDL['instructions'] if x['name']=='withdraw')
 TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');TOKEN22=Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');WSOL=Pubkey.from_string('So11111111111111111111111111111111111111112')
 MINT=Pubkey.from_bytes(bytes([61])*32);ORIGINAL=ROOT/'evidence/original/pump_fees/deployed.so'
 VAULT,BUMP=Pubkey.find_program_address([b'referral-vault',bytes(AUTH.pubkey())],PROGRAM)
-def run(c,binary=ORIGINAL):
- vm=LiteSVM().with_transaction_history(0);vm.add_program_from_file(PROGRAM,binary);vm.set_clock(Clock(1000,0,0,0,1700000000))
+def run(c,image):
+ vm=LiteSVM().with_transaction_history(0);vm.add_program(PROGRAM,image);vm.set_clock(Clock(1000,0,0,0,1700000000))
  for name,key in [('spl_token',TOKEN),('spl_token_2022',TOKEN22),('associated_token',ATA)]:vm.add_program_from_file(key,ROOT/f'evidence/dependencies/{name}/deployed.so')
  for kp in [AUTH,OTHER,PAYER]:vm.set_account(kp.pubkey(),Account(10**12,b'',Pubkey.default()))
  vm.set_account(VAULT,Account(c.get('native',1000000),bytes(c.get('vault_length',0)),Pubkey.from_string(c.get('vault_owner',str(Pubkey.default())))))
@@ -79,11 +79,13 @@ def cases():
 def main():
  import argparse
  p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();rows=[];bad=[]
+ # Read each image once, so every case and the receipt use the same bytes.
+ original=ORIGINAL.read_bytes();candidate=a.candidate.read_bytes() if a.candidate else None
  for c in cases():
-  x=run(c);y=run(c,a.candidate) if a.candidate else None;match=all(x[k]==y[k] for k in ['error','before','after','events','inner','return']) if y else None
+  x=run(c,original);y=run(c,candidate) if a.candidate else None;match=all(x[k]==y[k] for k in ['error','before','after','events','inner','return']) if y else None
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:bad.append(c['name'])
- report={'scope':'Synthetic normally signed local withdraw fixtures, not full byte identity.','original_sha256':hashlib.sha256(ORIGINAL.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(a.candidate.read_bytes()).hexdigest() if a.candidate else None,'cases':rows,'mismatches':bad}
+ report={'scope':'Synthetic normally signed local withdraw fixtures, not full byte identity.','original_sha256':hashlib.sha256(original).hexdigest(),'candidate_sha256':hashlib.sha256(candidate).hexdigest() if a.candidate else None,'cases':rows,'mismatches':bad}
  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n');print('Cases',len(rows),'mismatches',bad)
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

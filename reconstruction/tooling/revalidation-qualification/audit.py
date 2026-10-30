@@ -10,6 +10,7 @@ output publication.
 from __future__ import annotations
 
 import argparse
+import codecs
 import datetime
 import errno
 import hashlib
@@ -211,13 +212,29 @@ def read_capture(handle):
     handle.flush()
     size = os.fstat(handle.fileno()).st_size
     handle.seek(0)
-    raw = handle.read(size)
-    text = raw.decode("utf-8", errors="replace")
+    digest = hashlib.sha256()
+    decoder = codecs.getincrementaldecoder("utf-8")(errors="replace")
+    byte_count = character_count = 0
+    tail = ""
+    # Read only the size observed above: an escaped descendant can still
+    # append, and receipt collection must not follow it indefinitely.
+    while byte_count < size:
+        raw = handle.read(min(65536, size - byte_count))
+        if not raw:
+            break
+        digest.update(raw)
+        byte_count += len(raw)
+        text = decoder.decode(raw)
+        character_count += len(text)
+        tail = (tail + text)[-2000:]
+    text = decoder.decode(b"", final=True)
+    character_count += len(text)
+    tail = (tail + text)[-2000:]
     return {
-        "output": text[-2000:].strip(),
-        "output_bytes": len(raw),
-        "output_sha256": sha256_bytes(raw),
-        "output_truncated": len(text) > 2000,
+        "output": tail.strip(),
+        "output_bytes": byte_count,
+        "output_sha256": digest.hexdigest(),
+        "output_truncated": character_count > 2000,
     }
 
 

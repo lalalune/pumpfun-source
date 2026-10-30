@@ -36,10 +36,12 @@ def main():
         if hashlib.sha256(raw).hexdigest() != digest:
             parser.error(f'reviewed lane source changed: {name}')
     for index, argument in enumerate(args.arguments):
-        for flag in ['--json', '--md']:
-            value = argument[len(flag) + 1:] if argument.startswith(flag + '=') else (
-                args.arguments[index + 1] if argument == flag and index + 1 < len(args.arguments) else None)
-            if value is not None and Path(value).exists():
+        name, inline, attached = argument.partition('=')
+        # The retained parsers also accept unambiguous prefixes such as --js.
+        if len(name) > 2 and any(flag.startswith(name) for flag in ['--json', '--md']):
+            value = attached if inline else (
+                args.arguments[index + 1] if index + 1 < len(args.arguments) else None)
+            if value is not None and (Path(value).exists() or Path(value).is_symlink()):
                 parser.error('output already exists; preserve prior diagnostics')
     with tempfile.TemporaryDirectory(prefix='pump-census-inputs-') as temporary:
         staged = Path(temporary).resolve()

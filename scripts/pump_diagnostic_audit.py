@@ -122,6 +122,8 @@ def main():
     raw = args.report.read_bytes()
     report = json.loads(gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw)
     result = audit(report['suites'])
+    if not result['log_bearing_cases']:
+        raise ValueError('report has no paired logs to audit')
     result['source_report_sha256'] = hashlib.sha256(raw).hexdigest()
     result['script_sha256'] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
     # Audits are new evidence: never replace an input or a prior receipt.

@@ -2,7 +2,7 @@
 """Independent re-verification for amm-multi-hop-split-boost-tf-fee-tier-chains-20261029.
 
 Checks, from the packet files alone (plus the three program images
-when present at their workspace paths):
+retained in the repository):
 - MANIFEST.json lists every packet file (except itself) with a matching
   sha256 and byte count.
 - runtime/report.json.gz: 45 cases, 447 receipts, 45 parts
@@ -450,13 +450,15 @@ def main():
     got_divergent = {c["label"] for c in report["cases"] if c["divergent"]}
     check(got_divergent == expected_divergent,
           f"divergent set mismatch: extra={got_divergent - expected_divergent} missing={expected_divergent - got_divergent}")
-    # Image hashes when the images are present at workspace paths.
-    ws = HERE.parent.parent.parent
-    for name, path in (("original", ws / "evidence" / "original" / "pump_amm" / "deployed.so"),
-                       ("control", ws / "slop-verify" / "control.so"),
-                       ("candidate", ws / "slop-verify" / "candidate.so")):
-        if path.exists():
-            check(sha(path.read_bytes()) == report["input_sha256"][name], f"image hash {name}")
+    # Image hashes against the retained images in the repository.
+    repo = HERE.parent.parent
+    for name, path in (("original", repo / "evidence" / "original" / "pump_amm" / "deployed.so"),
+                       ("control", repo / "research" / "amm-multi-hop-images" / "control.so.gz"),
+                       ("candidate", repo / "research" / "amm-multi-hop-images" / "candidate.so.gz")):
+        image = path.read_bytes()
+        if path.suffix == ".gz":
+            image = gzip.decompress(image)
+        check(sha(image) == report["input_sha256"][name], f"image hash {name}")
 
     # Headline pins.
     def get(label, image, idx):

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Signed offline Surfpool direct Pump creator-distribution comparisons with captured CPI programs."""
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O or PYTHONOPTIMIZE.")
 import argparse,base64,hashlib,json,socket,struct,subprocess,sys,time,urllib.request
 from pathlib import Path
 from solders.hash import Hash
@@ -91,7 +93,7 @@ def run(binary,cases,surfpool,output):
 def layouts():
  out={}
  for name in ['pump','pump_amm','pump_fees']:
-  idl=json.loads((ROOT/f'evidence/upstream/{name}.json').read_text());types={t['name']:t for t in idl['types']}
+  idl=json.loads((ROOT/f'evidence/upstream/{name}.json').read_text(encoding='utf-8'));types={t['name']:t for t in idl['types']}
   for e in idl['events']:
    offset=8
    for field in types[e['name']]['type']['fields']:

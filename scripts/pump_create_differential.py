@@ -8,6 +8,7 @@ from solders.compute_budget import set_compute_unit_limit
 from solders.instruction import AccountMeta,Instruction
 from solders.keypair import Keypair
 from solders.litesvm import LiteSVM
+from pump_amm_reusable_harness import pin_program
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
@@ -19,7 +20,7 @@ def string(s):
  b=s.encode();return struct.pack('<I',len(b))+b
 
 def run(c,binary=ORIGINAL):
- vm=LiteSVM().with_transaction_history(0);vm.add_program_from_file(PROGRAM,binary)
+ vm=LiteSVM().with_transaction_history(0);vm.add_program_from_file(PROGRAM,pin_program(binary))
  for name,key in [('spl_token',TOKEN),('spl_token_2022',TOKEN22),('associated_token',ATA),('token_metadata',META)]:vm.add_program_from_file(key,ROOT/'evidence/dependencies'/name/'deployed.so')
  vm.set_clock(Clock(100,1700000000,0,0,1700000000));vm.airdrop(USER.pubkey(),10**12)
  data=bytearray(base64.b64decode(CAPTURE['data_base64']))
@@ -74,6 +75,6 @@ def main():
  for c in cases():
   x=run(c);y=run(c,a.candidate) if a.candidate else None;diff=[k for k in ['before','after','error','events','inner','return'] if y is not None and x[k]!=y[k]];rows.append({'case':c,'original':x,'candidate':y,'diff':diff})
   if diff:bad.append(c)
- report={'original_sha256':hashlib.sha256(ORIGINAL.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(a.candidate.read_bytes()).hexdigest() if a.candidate else None,'scope':'Normally signed synthetic offline creation, no byte identity claim.','cases':rows,'mismatches':bad,'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_bytes(gzip.compress(json.dumps(report,indent=2).encode(),mtime=0));print(len(rows),'cases',len(bad),'mismatches')
+ report={'original_sha256':hashlib.sha256(pin_program(ORIGINAL).read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'scope':'Normally signed synthetic offline creation, no byte identity claim.','cases':rows,'mismatches':bad,'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_bytes(gzip.compress(json.dumps(report,indent=2).encode(),mtime=0));print(len(rows),'cases',len(bad),'mismatches')
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

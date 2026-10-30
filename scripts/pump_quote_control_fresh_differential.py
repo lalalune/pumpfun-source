@@ -6,6 +6,8 @@ add_quote_control_mint, remove_quote_control_mint and set_quote_control_mint_res
 Uses LiteSVM only, test-owned keys with normal signatures and synthetic QuoteControl state
 on top of the captured Pump Global account. Nothing is broadcast.
 """
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse, base64, gzip, hashlib, json, pathlib, struct, platform, sys
 from importlib.metadata import version
 from solders.clock import Clock

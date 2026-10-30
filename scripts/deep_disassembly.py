@@ -10,6 +10,10 @@ Produces per-window disassembly with:
 - Stack frame analysis (frame pointer usage)
 - Bytecode signature fingerprints for pattern matching
 
+Replacement keeps the preceding complete packet in a sibling .previous- directory.
+Atomic directory exchange requires Linux or macOS; unsupported hosts fail closed.
+For a first publication the destination must remain absent.
+
 Usage:
     python3 scripts/deep_disassembly.py --program pump --output research/pump-deep-disasm-20261028
 """
@@ -19,11 +23,15 @@ import collections
 import gzip
 import hashlib
 import io
+import ctypes
+import errno
 import json
 import os
+import shutil
 import struct
 import stat
 import sys
+import uuid
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -573,24 +581,13 @@ def sha256_file(path):
     return h.hexdigest()
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--program", required=True)
-    parser.add_argument("--output", required=True)
-    args = parser.parse_args()
-
-    deployed_path = REPO / "evidence" / "original" / args.program / "deployed.so"
-    if not deployed_path.exists():
-        print(f"ERROR: {deployed_path} not found")
-        return 1
-
-    output_dir = Path(args.output)
+def prepare_destination(output_dir):
+    output_dir = Path(output_dir)
     if linked(output_dir):
         raise ValueError("output directory is a link")
-    output_dir.mkdir(parents=True, exist_ok=True)
-    if linked(output_dir):
-        raise ValueError("output directory is a link")
-
+    if output_dir.exists() and not output_dir.is_dir():
+        raise ValueError("output path is not a directory")
+    output_dir.parent.mkdir(parents=True, exist_ok=True)
     # The manifest hashes every file here and verify.py requires exactly the
     # generated set, so reject leftovers from another run before writing.
     packet_files = {
@@ -598,7 +595,8 @@ def main():
         "extern-usage.json", "fingerprints.json", "manifest.json", "rodata-strings.json",
         "summary.json", "syscall-usage.json", "verify.py", "windows-deep.json",
     }
-    unexpected = sorted(path.name for path in output_dir.iterdir() if path.name not in packet_files)
+    existing = list(output_dir.iterdir()) if output_dir.exists() else []
+    unexpected = sorted(path.name for path in existing if path.name not in packet_files)
     if unexpected:
         raise ValueError("unexpected packet entry: " + ", ".join(unexpected))
     invalid = sorted(name for name in packet_files
@@ -606,6 +604,85 @@ def main():
                      or ((output_dir / name).exists() and not (output_dir / name).is_file()))
     if invalid:
         raise ValueError("packet entry is not a regular file: " + ", ".join(invalid))
+    return output_dir, packet_files, directory_identity(output_dir)
+
+
+def temporary_sibling(output_dir, label):
+    while True:
+        staging = output_dir.parent / (
+            f".{output_dir.name}.{label}-{os.getpid()}-{uuid.uuid4().hex}"
+        )
+        try:
+            staging.mkdir()
+        except FileExistsError:
+            continue
+        return staging
+
+
+def directory_identity(path):
+    try:
+        metadata = path.lstat()
+    except FileNotFoundError:
+        return None
+    if not stat.S_ISDIR(metadata.st_mode):
+        raise ValueError("output path is not a directory")
+    return metadata.st_dev, metadata.st_ino
+
+
+def rename_directory(source, destination, *, exchange=False):
+    """Use native atomic exchange or no-replace semantics, never plain POSIX rename."""
+    if os.name == "nt" and not exchange:
+        source.rename(destination)
+        return
+    library = ctypes.CDLL(None, use_errno=True)
+    if sys.platform == "darwin":
+        rename = getattr(library, "renamex_np", None)
+        args = (os.fsencode(source), os.fsencode(destination), 2 if exchange else 4)
+        types = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_uint]
+    elif sys.platform.startswith("linux"):
+        rename = getattr(library, "renameat2", None)
+        args = (-100, os.fsencode(source), -100, os.fsencode(destination), 2 if exchange else 1)
+        types = [ctypes.c_int, ctypes.c_char_p, ctypes.c_int, ctypes.c_char_p, ctypes.c_uint]
+    else:
+        rename = None
+    if rename is None:
+        raise OSError(errno.ENOTSUP, "atomic packet publication unavailable; use a supported host")
+    rename.argtypes = types
+    rename.restype = ctypes.c_int
+    if rename(*args) != 0:
+        code = ctypes.get_errno()
+        raise OSError(code, os.strerror(code), str(destination))
+
+
+def publish_packet(staging, output_dir, expected_identity):
+    exchanged = False
+    try:
+        if directory_identity(output_dir) != expected_identity:
+            raise ValueError("output directory changed during analysis")
+        if expected_identity is None:
+            rename_directory(staging, output_dir)
+            return
+        staging.chmod(stat.S_IMODE(output_dir.stat().st_mode))
+        rename_directory(staging, output_dir, exchange=True)
+        exchanged = True
+        if directory_identity(staging) != expected_identity:
+            # A directory replacement raced the exchange. Restore it and keep
+            # the generated packet for inspection rather than remove either tree.
+            rename_directory(staging, output_dir, exchange=True)
+            raise ValueError(f"output directory changed during publication; staging retained at {staging}")
+        backup = temporary_sibling(output_dir, "previous")
+        backup.rmdir()
+        rename_directory(staging, backup)
+        print(f"[disasm] retained previous packet at {backup}")
+    except BaseException:
+        if not exchanged:
+            shutil.rmtree(staging, ignore_errors=True)
+        raise
+
+
+
+def build_packet(program, output_dir, output_label):
+    deployed_path = REPO / "evidence" / "original" / program / "deployed.so"
 
     print(f"[disasm] Reading {deployed_path}")
     elf = Elf(deployed_path)
@@ -777,7 +854,7 @@ def main():
 
     # 9. Summary
     summary = {
-        "program": args.program,
+        "program": program,
         "deployed_sha256": hashlib.sha256(elf.b).hexdigest(),
         "text_section_bytes": elf.hi - elf.lo,
         "total_windows": len(entries),
@@ -799,10 +876,10 @@ def main():
         json.dumps(summary, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 10. README
-    readme = f"""# {args.program} — Deep Disassembly Analysis
+    readme = f"""# {program} — Deep Disassembly Analysis
 
 ## Scope
-Full BPF instruction-level decode of the deployed {args.program} program binary,
+Full BPF instruction-level decode of the deployed {program} program binary,
 including syscall identification, error string extraction, Anchor dispatch table
 recovery, control flow graph construction, stack frame analysis, and bytecode
 fingerprinting for cross-window pattern matching.
@@ -919,7 +996,28 @@ if __name__ == "__main__":
         for name in os.listdir(output_dir)
         if (output_dir / name).is_file() and not name.endswith(".gz")
     )
-    print(f"[disasm] wrote {len(manifest) + 1} files, ~{total_lines:,} lines to {output_dir}")
+    print(f"[disasm] wrote {len(manifest) + 1} files, ~{total_lines:,} lines to {output_label}")
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--program", required=True)
+    parser.add_argument("--output", required=True)
+    args = parser.parse_args()
+
+    deployed_path = REPO / "evidence" / "original" / args.program / "deployed.so"
+    if not deployed_path.exists():
+        print(f"ERROR: {deployed_path} not found")
+        return 1
+
+    output_dir, _, expected_identity = prepare_destination(args.output)
+    staging = temporary_sibling(output_dir, "staging")
+    try:
+        build_packet(args.program, staging, output_dir)
+    except BaseException:
+        shutil.rmtree(staging, ignore_errors=True)
+        raise
+    publish_packet(staging, output_dir, expected_identity)
     return 0
 
 

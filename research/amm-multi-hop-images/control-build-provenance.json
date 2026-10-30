@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "upstream_main": "b7b3a84e393c2c510d3717397a156e1cb99fbd90",
+  "workspace": {
+    "root_manifest_sha256": "0c1daed3272e54c8aeae1c34415d0e25b7d5ca8f2a8a68c3d466a57305f222d3",
+    "lockfile_sha256": "799a8a32e862a81a73c5301a2d69f3d718d0e448670c48c4e077cfdc7dc35ac7",
+    "program_manifest_sha256": "50230faf4f12ab0dd21b72b9c7144393dec7308344c08f3257a6834840fca178",
+    "changed_source_sha256": "98e6623e2c34cba0df64000595e5985843497ebc02bb24c82b6fb7abbaf28caf"
+  },
+  "linux_v144": {
+    "platform_archive_bytes": 490710349,
+    "platform_archive_sha256": "6719b889d60677a8a2fcf4c82f68441a1afe0ab093edd2efe9f84a67a808b3e9",
+    "rustc_sha256": "c8807b7ebede8578ac5a257ea333780f9d89bd356064fd8184af7e996cb71a97",
+    "cargo_sha256": "d28444578306fe5a4f40524331411340123004e9e6556322fcabdbe351fe265d",
+    "container": "buildpack-deps:bookworm@sha256:ccb050a415a94a3a78acbe35084ec8f06ae46fa158e3650c96f9b4fb514de6d3",
+    "network": "none",
+    "cargo_flags": ["--release", "--target", "sbpf-solana-solana", "--locked", "--offline", "-p", "pump-amm-recovered"],
+    "rustflags": "--remap-path-prefix=/source=/workspace",
+    "profile": {"opt_level": 3, "panic": "abort", "overflow_checks": true, "codegen_units": 1, "lto": false},
+    "unstripped_sha256": "d35beab66073f1739d7d371a67160675d5b0a2f047605325b9cda189167ad947",
+    "unstripped_bytes": 1813360,
+    "repeat_unstripped_sha256": "d35beab66073f1739d7d371a67160675d5b0a2f047605325b9cda189167ad947",
+    "repeat_build": "fresh package clean with unchanged source and dependency cache",
+    "diagnostic": "The inherited admin_update_token_incentives frame-overwrite diagnostic was emitted; Cargo exited successfully."
+  },
+  "strip": {
+    "tool_sha256": "12415dc01e08e4f606a1a4eac8c197d560c7883161d266312c821bf5db7bf8be",
+    "flags": ["--strip-all"],
+    "stripped_sha256": "7a300434dced61413bde10788594b427d5649563e0223efcf09e6b214aff7ad3",
+    "stripped_bytes": 1291424,
+    "repeat_stripped_sha256": "7a300434dced61413bde10788594b427d5649563e0223efcf09e6b214aff7ad3"
+  },
+  "baseline": {
+    "packet": "repro/pump_amm/v2-mint-clone-recovery-20261028",
+    "unstripped_sha256": "5a88488575f04a7a6078fd2188a94be7f4664e228a7c482b26aec1f2d6fe784c",
+    "stripped_sha256": "dbb5dcfd1a1487e22d61ae68d22a9b74087b78a868a08ab974c7bdbb127f1500"
+  },
+  "runtime": {
+    "script": "scripts/pump_amm_multi_hop_differential.py",
+    "script_sha256": "f7fa73af1002cc570d2cd80c501671f32364300ccf03a17a7081320e81273b50",
+    "case_count": 735,
+    "passed": 735,
+    "mismatches": 0,
+    "saved_run_sha256": "63f4098087a9cf3c55af1745de2b21ef0d2384050392b1d5a80d8e9382a46865"
+  },
+  "analysis_dependency_sha256": "492b3fd6cb1f28e06c6a771c07339ae397dc8dc019aafdb71e5b047774c65a63"
+}

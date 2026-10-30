@@ -2,7 +2,7 @@
 """Independent re-verification for amm-multi-hop-split-boost-tf-extend-chains-20261029.
 
 Checks, from the packet files alone (plus the three program images
-when present at their workspace paths):
+retained in the repository):
 - MANIFEST.json lists every packet file (except itself) with a matching
   sha256 and byte count.
 - runtime/report.json.gz: 62 cases, 327 receipts, 33 parts
@@ -42,7 +42,7 @@ when present at their workspace paths):
   second claim is silent; rent is exactly (target - current) * 6960
   plus the 5,000 fee; extend leaves no residue on the next leg.
 
-Usage: ~/workspace/venvs/pumpfun/bin/python -I -B verify.py
+Usage: python -I -B verify.py
   (run from this packet directory)
 """
 import base64
@@ -389,13 +389,15 @@ def main():
             check(surface("original") == surface("control"),
                   f"{case['label']}: original diverges but not marked divergent")
     check(not any(c["divergent"] for c in report["cases"]), "expected 0 divergent cases")
-    # Image hashes when the images are present at workspace paths.
-    ws = HERE.parent.parent.parent
-    for name, path in (("original", ws / "evidence" / "original" / "pump_amm" / "deployed.so"),
-                       ("control", ws / "slop-verify" / "control.so"),
-                       ("candidate", ws / "slop-verify" / "candidate.so")):
-        if path.exists():
-            check(sha(path.read_bytes()) == report["input_sha256"][name], f"image hash {name}")
+    # Image hashes against the retained images in the repository.
+    repo = HERE.parent.parent
+    for name, path in (("original", repo / "evidence" / "original" / "pump_amm" / "deployed.so"),
+                       ("control", repo / "research" / "amm-multi-hop-images" / "control.so.gz"),
+                       ("candidate", repo / "research" / "amm-multi-hop-images" / "candidate.so.gz")):
+        image = path.read_bytes()
+        if path.suffix == ".gz":
+            image = gzip.decompress(image)
+        check(sha(image) == report["input_sha256"][name], f"image hash {name}")
 
     def get(label, image, idx):
         case = next(c for c in report["cases"] if c["label"] == label)

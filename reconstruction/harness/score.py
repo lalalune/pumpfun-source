@@ -127,6 +127,8 @@ def score_with_hash(cand_path):
         snapshot = Path(temporary) / 'candidate.so'
         snapshot.write_bytes(cand)
         funcs = candidate_functions(snapshot)
+    if not funcs:
+        raise ValueError('candidate has no function symbols; use an unstripped ELF for scoring')
     by = {}
     ranges = {}
     for start, length, name in funcs:

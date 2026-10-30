@@ -13,6 +13,7 @@ H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
 from score import sections, body, normalize, original_windows, score, BASE  # noqa
 from elf_symbols import function_symbols
+from original_input import resolve_original
 from score_admission import report_destination
 from coords import sites, non_coordinate_slots, ORIG, OS  # noqa
 from win import demangle  # noqa
@@ -64,7 +65,7 @@ def main():
     # Mirrors score.py's report destination check, including its input set.
     if a.json:
         try:
-            report_destination(a.json, [a.cand, BASE / 'original.so', BASE / 'functions.tsv'])
+            report_destination(a.json, [a.cand, BASE / 'original.so', resolve_original(BASE / 'original.so'), BASE / 'functions.tsv'])
         except ValueError as error:
             ap.error(str(error))
     blob = a.cand.read_bytes(); cs = sections(blob)

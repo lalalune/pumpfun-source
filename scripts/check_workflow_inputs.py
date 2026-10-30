@@ -111,7 +111,13 @@ def join_line_continuations(command):
 
 def command_start(tokens):
     """Return the interpreter index after shell assignments and env options."""
+    return command_context(tokens, '.')[0]
+
+
+def command_context(tokens, directory):
+    """Resolve env's command-local chdir relative to the step directory."""
     index = 0
+    change_directory = None
     while index < len(tokens) and ASSIGNMENT.match(tokens[index]):
         index += 1
     if index < len(tokens) and (tokens[index] == 'env'
@@ -123,7 +129,17 @@ def command_start(tokens):
             if token == '--':
                 index += 1
                 break
-            if token in ('-u', '--unset', '-C', '--chdir'):
+            if token in ('-C', '--chdir'):
+                if index + 1 >= len(tokens):
+                    raise ValueError('env chdir option requires a directory')
+                change_directory = tokens[index + 1]
+                index += 2
+                continue
+            if token.startswith('--chdir=') or token.startswith('-C'):
+                change_directory = token.partition('=')[2] if token.startswith('--chdir=') else token[2:]
+                index += 1
+                continue
+            if token in ('-u', '--unset'):
                 index += 2
                 continue
             if token.startswith('-'):
@@ -133,7 +149,11 @@ def command_start(tokens):
                 index += 1
                 continue
             break
-    return index
+    if change_directory is not None:
+        # Keep expansions visible until the caller's nonliteral-directory
+        # check; normpath('$DIR/..') would otherwise erase the variable.
+        directory = posixpath.join(directory, change_directory)
+    return index, directory
 
 
 def references(name, source):
@@ -162,11 +182,11 @@ def references(name, source):
                         if COMMAND_PREFIX.match(line):
                             unsupported.add((name, job_id, 'unparsed shell command'))
                         continue
-                    index = command_start(tokens)
+                    index, command_directory = command_context(tokens, cwd)
                     interpreter = resolved_interpreter(tokens[index]) if index < len(tokens) else None
                     if interpreter is None:
                         continue
-                    if '${{' in line or '$' in cwd or cwd.startswith('/'):
+                    if '${{' in line or '$' in command_directory or command_directory.startswith('/'):
                         unsupported.add((name, job_id, 'dynamic command/directory'))
                         continue
                     index += 1
@@ -190,7 +210,7 @@ def references(name, source):
                     if script.startswith(('/', '<')) or any(c in script for c in '$`*?'):
                         unsupported.add((name, job_id, 'nonliteral script'))
                         continue
-                    path = posixpath.normpath(posixpath.join(cwd, script))
+                    path = posixpath.normpath(posixpath.join(command_directory, script))
                     if path.split('/')[0] in ROOTS and path.endswith(('.py', '.sh')):
                         found.add((name, str(job_id), path))
                     else:

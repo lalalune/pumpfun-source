@@ -58,7 +58,8 @@ def manifest(source):
                 raise ValueError('source symlinks are unsupported')
         if Path(directory) == source:
             dirs[:] = [d for d in dirs if d != 'target']
-        for name in dirs + sorted(files):
+        # A linked worktree or submodule stores .git as a file; staging omits it too.
+        for name in dirs + sorted(name for name in files if name not in ALWAYS_IGNORED):
             path = Path(directory) / name
             if linked_source(path): raise ValueError('linked source inputs are unsupported')
             if path.is_file():

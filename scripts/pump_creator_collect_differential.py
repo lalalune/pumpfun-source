@@ -9,7 +9,7 @@ from solders.pubkey import Pubkey
 from solders.litesvm import LiteSVM
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
-R=pathlib.Path(__file__).resolve().parents[1];J=json.load(open(R/'evidence/upstream/pump.json'));P=Pubkey.from_string(J['address']);U=Keypair.from_seed(bytes([222])*32);PAY=Keypair.from_seed(bytes([223])*32);V=Pubkey.find_program_address([b'user_volume_accumulator',bytes(U.pubkey())],P)[0];E=Pubkey.find_program_address([b'__event_authority'],P)[0];D=bytes(next(a['discriminator'] for a in J['accounts'] if a['name']=='UserVolumeAccumulator'))
+R=pathlib.Path(__file__).resolve().parents[1];J=json.load(open(R/'evidence/upstream/pump.json',encoding='utf-8'));P=Pubkey.from_string(J['address']);U=Keypair.from_seed(bytes([222])*32);PAY=Keypair.from_seed(bytes([223])*32);V=Pubkey.find_program_address([b'user_volume_accumulator',bytes(U.pubkey())],P)[0];E=Pubkey.find_program_address([b'__event_authority'],P)[0];D=bytes(next(a['discriminator'] for a in J['accounts'] if a['name']=='UserVolumeAccumulator'))
 def execute(binary,mutation,amount=1000000):
  vm=LiteSVM().with_transaction_history(0).with_sigverify(True);vm.add_program_from_file(P,binary);vm.airdrop(PAY.pubkey(),10**12);vm.airdrop(U.pubkey(),10**12)
  creator=Pubkey.default() if mutation=='creator_zero' else P if mutation=='creator_program' else U.pubkey();vault=Pubkey.find_program_address([b'creator-vault',bytes(creator)],P)[0]

@@ -6,7 +6,7 @@ import fees_sharing_create_differential as f
 from fees_sharing_create_differential import *
 from solders.clock import Clock
 from solders.compute_budget import set_compute_unit_limit
-TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');TOKEN22=Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');WSOL=Pubkey.from_string('So11111111111111111111111111111111111111112');STABLE=Pubkey.from_bytes(bytes([77])*32);PIDL=json.load(open(ROOT/'evidence/upstream/pump.json'))
+TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');TOKEN22=Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');WSOL=Pubkey.from_string('So11111111111111111111111111111111111111112');STABLE=Pubkey.from_bytes(bytes([77])*32);PIDL=json.load(open(ROOT/'evidence/upstream/pump.json',encoding='utf-8'))
 def run(c,binary=None):
  orig=f.LiteSVM;v=[]
  def factory():

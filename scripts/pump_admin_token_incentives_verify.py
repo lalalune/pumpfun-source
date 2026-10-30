@@ -83,7 +83,7 @@ def main(receipt_path=diff.OUTPUT, candidate_path=diff.CANDIDATE,
                    for path, checksum in quote["bound_inputs_sha256"].items()), "quote bound input hash differs")
         check(curve["case_count"] == curve["passed"] == 56, "curve regression case count differs")
         check(curve["candidate_sha256"] == receipt["candidate_sha256"], "curve regression candidate hash differs")
-    idl = json.loads(diff.IDL.read_text())
+    idl = json.loads(diff.IDL.read_text(encoding="utf-8"))
     item = next(item for item in idl["instructions"]
                 if item["name"] == "admin_update_token_incentives")
     event_disc = bytes(next(event for event in idl["events"]

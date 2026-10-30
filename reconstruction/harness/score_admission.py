@@ -45,6 +45,8 @@ def baseline(path):
     if not isinstance(document, dict) or not isinstance(document.get('windows'), (dict, list)):
         raise ValueError('baseline requires a windows object or list')
     windows = document['windows']; result = {}
+    if not windows:
+        raise ValueError('baseline must contain nonempty windows; use --no-baseline for initial scoring')
     rows = windows.items() if isinstance(windows, dict) else ((row.get('start'), row) if isinstance(row, dict) else (None, row) for row in windows)
     for address, row in rows:
         if isinstance(address, bool) or not isinstance(address, (str, int)) or not isinstance(row, dict): raise ValueError('invalid baseline window')
