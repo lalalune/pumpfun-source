@@ -109,3 +109,23 @@ genuine dependency CPIs. This is bounded runtime evidence, not all-input proof.
 Source inventory: `976a6bf25dd46c867047081de1bc0a0ff758ff0e3dc0a7192d200f7ce1d1e430`.
 Unstripped ELF: `46ba0c60c7b4dd11f7a67f01b81ff7e305b700dd2e1f459fccd07ddca58b3d2c`.
 Runtime ELF: `95f21f881dbf6c3be67819735a291eceaa934314b4e43b2427cda21228420302`.
+
+## Composite 4 (this PR, on main a33309705): curve stores back in P1's order
+
+#2917 was merged together with #2906 (w13a08-cto-sweepphi-2, curve stores in the original order: `old_fee` read,
+holder store, then cashback store). The merged main measures 0.49401: #2906's store order costs 0.0003 on top of
+the entry-copy composite. Restoring P1's store order (`is_cashback_coin` store, `old_fee` read, `is_holder_reward`
+store) on a33309705 gives exactly P1's build: 27,400 B / **0.49431** / slots 3,306, 1034/1034, zero losses against
+a33309705, differential 363/363, unstripped sha256 `46ba0c60c7b4dd11...`.
+
+Conflict noted: #2906's curve-store order composes with C1 (+0.0003 there) but conflicts with the g8 composite.
+
+## g8 size fit (085e5df tail + g8 = 27,432 / 0.50569 needs -32 B)
+
+| 085e5df + g8 + | bytes | ratio | note |
+| --- | ---: | ---: | --- |
+| `st_rref` + `is_holder_reward` from the curve | 27,416 | 0.50434 | |
+| `sh_key_borrow` (`==*a.sharing_config.key`) + hr | 27,352 | 0.50375 | -80 B, keeps the ratio |
+| + `v_296_rev` + `st_rref` | 27,376 | 0.50112 | |
+| any + `c_296_nested` (nested 296 test) | 27,376-27,440 | 0.32-0.40 | conflicts badly with g8 |
+| `st_dborrow` / `k_oborrow` + 296 nested | 27,376-27,432 | 0.32 | conflict |
