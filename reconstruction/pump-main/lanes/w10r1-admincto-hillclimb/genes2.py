@@ -1,0 +1,45 @@
+# Round-2 genes (more mechanisms); applied on top of a chosen base text.
+import importlib.util, os
+_s = importlib.util.spec_from_file_location('g1', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'genes1.py'))
+_g1 = importlib.util.module_from_spec(_s); _s.loader.exec_module(_g1)
+GENES = dict(_g1.GENES)
+W0 = "fn wallet(ctx:&Context<AdminCto>)->Result<()>{let a=&ctx.accounts;if a.current_creator.executable{msg!(\"Creator is a program; fees left in the vaults\");}else if a.current_creator.owner!=&anchor_lang::system_program::ID{msg!(\"Creator is not a system-owned wallet; fees left in the vaults\");}else{if !a.current_creator.is_writable{return Err(error!(PumpError::CtoCreatorAccountNotWritable));}if token_frozen(a.current_creator_quote_token_account.as_ref())?{msg!(\"Creator quote token account is frozen; fees left in the vaults\");}else{"
+GENES.update({
+    'require_keys_eq_648': [("if a.holder_creator_vault.key()!=dest{return Err(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),dest)));}",
+                             "require_keys_eq!(a.holder_creator_vault.key(),dest,anchor_lang::error::ErrorCode::ConstraintSeeds);")],
+    'dest_tuple': [("let dest=Pubkey::find_program_address(&[b\"creator-vault\",holder_key.as_ref()],&crate::ID).0;", "let (dest,_)=Pubkey::find_program_address(&[b\"creator-vault\",holder_key.as_ref()],&crate::ID);")],
+    'hk_dot0': [("let (holder_key,_)=Pubkey::find_program_address(&[b\"holder-rewards\",mint.as_ref()],&crate::ID);", "let holder_key=Pubkey::find_program_address(&[b\"holder-rewards\",mint.as_ref()],&crate::ID).0;")],
+    'rent_inline': [("let min=Rent::get()?.minimum_balance(0);let amount=a.creator_vault.lamports().saturating_sub(min);", "let amount=a.creator_vault.lamports().saturating_sub(Rent::get()?.minimum_balance(0));")],
+    'rent_checked_sub': [("let amount=a.creator_vault.lamports().saturating_sub(min);", "let amount=a.creator_vault.lamports().checked_sub(min).unwrap_or(0);")],
+    'rent_max': [("let amount=a.creator_vault.lamports().saturating_sub(min);", "let lam=a.creator_vault.lamports();let amount=if lam>min{lam-min}else{0};")],
+    'wallet_early_returns': [(W0, W0.replace("if a.current_creator.executable{msg!(\"Creator is a program; fees left in the vaults\");}else if", "if a.current_creator.executable{msg!(\"Creator is a program; fees left in the vaults\");return Ok(());}if"))],
+    'validate_inline': [("fn validate(st:", "#[inline] fn validate(st:")],
+    'wallet_inline': [("fn wallet(ctx:", "#[inline] fn wallet(ctx:")],
+    'sweep_inline': [("fn sweep(ctx:", "#[inline] fn sweep(ctx:")],
+    'tf_inline': [("fn token_frozen(a:&AccountInfo)", "#[inline] fn token_frozen(a:&AccountInfo)")],
+    'tra_inline': [("fn token_raw_amount(a:&AccountInfo)", "#[inline] fn token_raw_amount(a:&AccountInfo)")],
+    'mint_ctx': [(" let a=&ctx.accounts;let mint=a.mint.key();", " let mint=ctx.accounts.mint.key();let a=&ctx.accounts;")],
+    'curve_deref': [("  let curve=&mut ctx.accounts.bonding_curve;", "  let curve=&mut *ctx.accounts.bonding_curve;")],
+    'old_fee_first': [("let old_creator=curve.creator;let old_fee=curve.creator_fee_bps;", "let old_fee=curve.creator_fee_bps;let old_creator=curve.creator;")],
+    'pool_updated_early': [(" let pb=[ctx.bumps.pool_authority];", " let pool_updated=a.pool.owner==&AMM && !a.pool.data_is_empty();let pb=[ctx.bumps.pool_authority];"),
+                           (" let pool_updated=a.pool.owner==&AMM && !a.pool.data_is_empty();\n if pool_updated{", "\n if pool_updated{")],
+    'pool_neg_first': [(" if pool_updated{", " if !pool_updated{msg!(\"No canonical pump pool for this mint; curve only\");}else{"), (" }else{msg!(\"No canonical pump pool for this mint; curve only\");}", " }")],
+    'wallet_call_expr': [(" if collect_old{wallet(&ctx)?;}", " if collect_old{wallet(&ctx)?}")],
+    'sweep_ret_each': [("&a.holder_creator_vault,amount,&[vaultseeds])?;}amount}else{", "&a.holder_creator_vault,amount,&[vaultseeds])?;}return Ok(amount);}else{"),
+                       ("   amount};", "   return Ok(amount);};")],
+    'sweep_amount_let_ok': [(" Ok(amount)}", " let r=Ok(amount);r}")],
+    'event_clock_var': [(" let e=AdminCtoEvent{timestamp:Clock::get()?.unix_timestamp,", " let clock=Clock::get()?;let e=AdminCtoEvent{timestamp:clock.unix_timestamp,")],
+    'ev_mint_reload': [("authority:a.admin_set_creator_authority.key(),mint,", "authority:a.admin_set_creator_authority.key(),mint:a.mint.key(),")],
+    'ev_fee_local': [("new_creator_fee_bps:a.bonding_curve.creator_fee_bps,", "new_creator_fee_bps:fee.unwrap_or(old_fee),")],
+    'ev_bc_key_early': [(" let a=&ctx.accounts;\n let pool_updated", " let a=&ctx.accounts;let bc=a.bonding_curve.key();\n let pool_updated"), ("bonding_curve:a.bonding_curve.key(),old_creator", "bonding_curve:bc,old_creator")],
+    'su_holder_first': [("let sharing_update=if shared{Some(if holder{None}else{new})}else{None};", "let sharing_update=if !shared{None}else if holder{Some(None)}else{Some(new)};")],
+    'shared_owner_key_cmp': [("a.sharing_config.owner==&FEES", "*a.sharing_config.owner==FEES")],
+    'gq_ref_mint': [("crate::pump_quote::global_quote(a.bonding_curve.quote_mint,&a.global)", "crate::pump_quote::global_quote(a.bonding_curve.quote_mint.clone(),&a.global)")],
+    'swept_u64': [(" let mut swept=0;", " let mut swept:u64=0;")],
+    'sweep_seeds_before_amm': [("  let bump=[ctx.bumps.creator_vault];let old=a.current_creator.key();let vaultseeds:&[&[u8]]=&[b\"creator-vault\",old.as_ref(),&bump];", "  "),
+                               ("  let amm_frozen=", "  let bump=[ctx.bumps.creator_vault];let old=a.current_creator.key();let vaultseeds:&[&[u8]]=&[b\"creator-vault\",old.as_ref(),&bump];let amm_frozen=")],
+    'coin_frozen_if': [("  let coin_frozen=coin_present&&token_frozen(a.coin_creator_vault_ata.as_ref())?;", "  let coin_frozen=if coin_present{token_frozen(a.coin_creator_vault_ata.as_ref())?}else{false};")],
+    'source_frozen_if': [("  let source_frozen=!collection_native&&source_present&&token_frozen(a.creator_vault_quote_token_account.as_ref())?;", "  let source_frozen=if source_present{token_frozen(a.creator_vault_quote_token_account.as_ref())?}else{false};")],
+    'amm_frozen_if': [("let amm_frozen=!a.coin_creator_vault_ata.data_is_empty()&&token_frozen(a.coin_creator_vault_ata.as_ref())?;", "let amm_frozen=if a.coin_creator_vault_ata.data_is_empty(){false}else{token_frozen(a.coin_creator_vault_ata.as_ref())?};")],
+    'native_key_eq_ref': [("->Result<u64>{let a=&ctx.accounts;let native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;", "->Result<u64>{let a=&ctx.accounts;let native=*a.quote_mint.to_account_info().key==anchor_spl::token::spl_token::native_mint::ID;")],
+})
