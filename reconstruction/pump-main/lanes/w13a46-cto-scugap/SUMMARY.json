@@ -1,0 +1,28 @@
+{
+  "lane": "w13a46-cto-scugap",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "waves": "w13 (main 52c0b087c) continued in w14 (mains 53abf28b1, 308b545f1, cef0574cf)",
+  "landed": false,
+  "pr": 3153,
+  "result": "notes only; branch equals main in programs/",
+  "best_zero_loss_at_27400": {
+    "main_53abf28_r1": {"genes": "T_scu A_before_st k_pu_amm_keyfn w_rl n_cb_rev", "ratio": 0.62932, "slots_diff": 3319, "main_ratio": 0.62672, "note": "superseded by #3200 (main took w_rl + n_cb_rev itself, 0.62882 -> 0.63062) before landing; 363-case differential 0 mismatches"},
+    "main_cef0574": {"genes": "T_scu A4_bs U4_keyfn_of E4_nf_back", "ratio": 0.63202, "slots_diff": 3212, "main_ratio": 0.63421, "note": "below main"}
+  },
+  "unfilled_bests": {
+    "cef0574_T_scu_args_early": {"bytes": 27344, "ratio": 0.63578},
+    "cef0574_T_usc_args_early": {"bytes": 27360, "ratio": 0.63529},
+    "cef0574_deferred_skip_first": {"bytes": 27424, "ratio": 0.63393}
+  },
+  "findings": [
+    "With #3155's entry copy (args after cashback), every skip-before-collect_old order collapses to 0.48 at 27392 B; moving args before CtoState restores the skip-first gain (+0.0025 on 53abf28/308b545, +0.0016 on cef0574) at -56 B (scu) / -40 B (usc).",
+    "The collapse is code shape, not frame (frame-masked 0.4817 vs main 0.6854): MachineBlockPlacement moves the 755-insn wallet body (from the creator_vault_quote token_frozen call on) after the sweep.",
+    "Deferred-init let (skip,collect_old,sharing_update); keeps args at main's position and does not collapse: 27424 B. Only the let-pattern order matters (36 let x assignment orders give 2 distinct builds).",
+    "No filler is cheap enough: the gain is ~0.00003-0.00004 per byte and only k_wl_ts_clockvar (+16, -0.0005) is under that. Costs add up close to linearly. Full single-knob screens on 3 bases (101 + 88 + 66 builds).",
+    "Insertion census: 55 orig-only insns in runs of at most 13. The largest is the early curve-bool loads before the inlined global_quote (every source form: +168 B, -0.05). The rest are spill/reload and RA copies, not a missing statement."
+  ],
+  "rejected_mechanisms": ["t_scu/t_usc/t_suc literal with entrycopy3 args (collapse)", "args at top/before quote_locked/before holder_key/after sk/after validate", "curve bools into locals before quote_locked (3 orders + tuple)", "deferred-init tuple with any reducer", "nested (skip,(collect_old,sharing_update))", "skip as !(shared&&holder) expression", "all genes30/knobs34 single fillers and ~40 combos at 27400"],
+  "next_ideas": ["Find the branch weight or phi that makes args-copy position x skip-first phi order relayout the wallet arm (w13a31 bwfm.py on the collect_old gate), to get skip-first without moving args", "New filler class under 0.00003 ratio/B (sysvar/by-value copies on cold paths, like wl_ts_clockvar)"],
+  "ledger": "approach scugap-filler, keys 0x22a10-w13-{52c0b08,53abf28,308b545,cef0574}-scugap-*",
+  "tools": "tools/genes46.py (gene table keyed per main), census.py (orig-only/cand-only runs), cc.py (cand vs cand diff), fm.py (frame-masked ratio)"
+}
