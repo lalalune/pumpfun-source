@@ -1,0 +1,2355 @@
+{
+  "schemaVersion": 1,
+  "scope": "Complete ordinary SearchDialog idle Discover strip, scroll/selection state and trader/coin display handoff; existing service/renderer/browser capabilities supplied",
+  "factory": {
+    "id": 238128,
+    "ids": [
+      238128
+    ],
+    "label": "factory 238128",
+    "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+    "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+    "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+    "sourceBytes": 52145,
+    "utf16": [
+      119,
+      52138
+    ],
+    "utf8": [
+      119,
+      52142
+    ],
+    "sha256": "9e5affafd605f47d6c9466659c4bc0a654fae027f4beff481337a1cdf1263828"
+  },
+  "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+  "clientSha256": "1502e20473dd799cf30e69a82e2a5da5d4b09c5e93eb6ace3cf2bb9bb2221f31",
+  "retained": [
+    "eh",
+    "ef",
+    "ex",
+    "ep",
+    "eg",
+    "eb",
+    "ta",
+    "ts",
+    "tm",
+    "th",
+    "tf",
+    "tx",
+    "tp",
+    "tS",
+    "tA",
+    "K",
+    "Q",
+    "W",
+    "$"
+  ],
+  "frees": {
+    "eh": [],
+    "ef": [],
+    "ex": [
+      "Symbol",
+      "em",
+      "p",
+      "r",
+      "s",
+      "t"
+    ],
+    "ep": [],
+    "eg": [],
+    "eb": [
+      "eg",
+      "ep",
+      "window"
+    ],
+    "ta": [],
+    "ts": [],
+    "tm": [
+      "$",
+      "A",
+      "H",
+      "K",
+      "P",
+      "Symbol",
+      "W",
+      "f",
+      "i",
+      "l",
+      "m",
+      "o",
+      "r",
+      "t",
+      "ta"
+    ],
+    "th": [
+      "$",
+      "H",
+      "Symbol",
+      "T",
+      "r",
+      "t",
+      "ta",
+      "ts"
+    ],
+    "tf": [
+      "$",
+      "B",
+      "C",
+      "H",
+      "L",
+      "M",
+      "N",
+      "Number",
+      "O",
+      "P",
+      "R",
+      "S",
+      "Symbol",
+      "eN",
+      "f",
+      "g",
+      "n",
+      "r",
+      "t",
+      "ta"
+    ],
+    "tx": [
+      "$",
+      "H",
+      "Symbol",
+      "T",
+      "r",
+      "t",
+      "ta",
+      "ts"
+    ],
+    "tp": [
+      "Array",
+      "K",
+      "MutationObserver",
+      "Q",
+      "ResizeObserver",
+      "Symbol",
+      "a",
+      "e_",
+      "eb",
+      "ef",
+      "eh",
+      "ep",
+      "ex",
+      "ey",
+      "p",
+      "q",
+      "r",
+      "t",
+      "tA",
+      "tS",
+      "tf",
+      "tm",
+      "window"
+    ],
+    "tS": [
+      "t",
+      "th"
+    ],
+    "tA": [
+      "t",
+      "tx"
+    ],
+    "K": [],
+    "Q": [],
+    "W": [],
+    "$": [
+      "k"
+    ]
+  },
+  "requiredFunctions": [
+    "useTranslation",
+    "useFlag",
+    "useProfile",
+    "pnlTone",
+    "formatPnlUsd",
+    "formatPnlPercent",
+    "formatMarketCap",
+    "classNames",
+    "useLiveMarketCap",
+    "useCoinImpression",
+    "useCoinClickHandlers",
+    "useImpressionContext",
+    "useCandlesticks",
+    "cleanSymbol",
+    "usePrefetch",
+    "memoCache"
+  ],
+  "requiredRenderers": [
+    "PreviousIcon",
+    "NextIcon",
+    "ArrowButton",
+    "Heading",
+    "Empty",
+    "SkeletonPart",
+    "Link",
+    "ProfileDisplay",
+    "SegmentedControl",
+    "CoinAvatar",
+    "CoinName",
+    "Sparkline"
+  ],
+  "namespaces": {
+    "p": {
+      "f": "useTranslation"
+    },
+    "i": {
+      "k": "useFlag"
+    },
+    "m": {
+      "T": "useProfile"
+    },
+    "P": {
+      "k": "pnlTone",
+      "u": "formatPnlUsd",
+      "c": "formatPnlPercent",
+      "l": "formatMarketCap"
+    },
+    "H": {
+      "c": "classNames"
+    },
+    "O": {
+      "h": "useLiveMarketCap"
+    },
+    "L": {
+      "f": "useCoinImpression"
+    },
+    "M": {
+      "f": "useCoinClickHandlers"
+    },
+    "B": {
+      "y": "useImpressionContext"
+    },
+    "eN": {
+      "f": "useCandlesticks"
+    },
+    "S": {
+      "W": "cleanSymbol"
+    },
+    "R": {
+      "W": "usePrefetch"
+    }
+  },
+  "rendererNamespaces": {
+    "s": {
+      "S": "PreviousIcon",
+      "kK": "NextIcon"
+    },
+    "em": {
+      "_": "ArrowButton"
+    },
+    "q": {
+      "_": "Heading"
+    },
+    "e_": {
+      "L": "Empty"
+    },
+    "T": {
+      "l": "SkeletonPart"
+    },
+    "f": {
+      "default": "Link"
+    },
+    "A": {
+      "S": "ProfileDisplay"
+    },
+    "ey": {
+      "X": "SegmentedControl"
+    },
+    "N": {
+      "CoinAvatar": "CoinAvatar"
+    },
+    "C": {
+      "f": "CoinName"
+    },
+    "g": {
+      "f": "Sparkline"
+    }
+  },
+  "constants": {
+    "SEARCH": 9,
+    "ACTIVE_SEARCH_TRENDING_COIN_LIST": 24,
+    "WEB_AVATAR_DECORATIONS": "webAvatarDecorations"
+  },
+  "bindings": [
+    {
+      "name": "A",
+      "id": 693124,
+      "import": {
+        "label": "actual idle-strip import 693124",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1102,
+          1115
+        ],
+        "utf8": [
+          1102,
+          1115
+        ],
+        "sha256": "816e6e149e13931f9a6ef9f273ac7e720ad777ec2a67aef3ca7aea3981f9681c",
+        "text": "A=e.i(693124)"
+      },
+      "variants": [
+        {
+          "ids": [
+            107240,
+            949060,
+            518516,
+            693124
+          ],
+          "sha256": "4b94aa99e04cf92a4e2a79379d9c2336e2ea9f81d3ba90ff5433452a04e30a4d",
+          "origins": [
+            {
+              "source": "evidence/web/objects/eb0b23ee6feb7543.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/163nqh7l1hxim.js",
+              "start": 11466,
+              "end": 21254
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "B",
+      "id": 569526,
+      "import": {
+        "label": "actual idle-strip import 569526",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1313,
+          1326
+        ],
+        "utf8": [
+          1313,
+          1326
+        ],
+        "sha256": "19668faa6a3377286fdc9a469a76addec5fe0ba12ff3d667b85403c061d98a6b",
+        "text": "B=e.i(569526)"
+      },
+      "variants": [
+        {
+          "ids": [
+            569526
+          ],
+          "sha256": "4b796a7cb912f9a141d4cb588bfe99e19e46eaad3a913a98eee967d743e7463f",
+          "origins": [
+            {
+              "source": "evidence/web/objects/910b5c033a62f9b1.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+              "start": 23097,
+              "end": 24174
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "C",
+      "id": 116830,
+      "import": {
+        "label": "actual idle-strip import 116830",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1058,
+          1071
+        ],
+        "utf8": [
+          1058,
+          1071
+        ],
+        "sha256": "f4eb6f80dd69287bb161b5ef8d05b7a76e257cd4cb1c5a131998df276166f469",
+        "text": "C=e.i(116830)"
+      },
+      "variants": [
+        {
+          "ids": [
+            116830
+          ],
+          "sha256": "59491fa0e77487cd69c955090386b49cb2cd483c1fc01acda984bf39f8c9f060",
+          "origins": [
+            {
+              "source": "evidence/web/objects/f4e16ef1b0b97d5e.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1k6apjljgkmo4.js",
+              "start": 5071,
+              "end": 6165
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "H",
+      "id": 338319,
+      "import": {
+        "label": "actual idle-strip import 338319",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1299,
+          1312
+        ],
+        "utf8": [
+          1299,
+          1312
+        ],
+        "sha256": "714c3b2370859ab8c030ad48e1b9c53593b17a70e4d8b96764ed6b7c71eb8f31",
+        "text": "H=e.i(338319)"
+      },
+      "variants": [
+        {
+          "ids": [
+            338319
+          ],
+          "sha256": "5b27b6647671eec79898f430326e92e0e8c08d9fc9e2984c70a664def7ae1cb2",
+          "origins": [
+            {
+              "source": "evidence/web/objects/12a924bb94557764.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/19yrywt-ft2f1.js",
+              "start": 1452,
+              "end": 2372
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "L",
+      "id": 666863,
+      "import": {
+        "label": "actual idle-strip import 666863",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1200,
+          1213
+        ],
+        "utf8": [
+          1200,
+          1213
+        ],
+        "sha256": "ef60821e7378e01a6bca87e4337be57fd2df509945ebfd67473c330d02825f22",
+        "text": "L=e.i(666863)"
+      },
+      "variants": [
+        {
+          "ids": [
+            666863
+          ],
+          "sha256": "32222f9dc3194a66fdb8b900db42c2ab929e30d0bfeba70dcd0f74ddd19844c5",
+          "origins": [
+            {
+              "source": "evidence/web/objects/bf334c55745d2868.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1oqf2qsww4o03.js",
+              "start": 32491,
+              "end": 33193
+            }
+          ]
+        },
+        {
+          "ids": [
+            666863
+          ],
+          "sha256": "8c40825763a483b1aafaa27d56357706e619a27996b4fc222262bd26a2b0dcc3",
+          "origins": [
+            {
+              "source": "evidence/web/objects/caaf847d63c97cce.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1q_f4dvwuy4vc.js",
+              "start": 31289,
+              "end": 31991
+            }
+          ]
+        },
+        {
+          "ids": [
+            666863
+          ],
+          "sha256": "9e9b9a0923b1e42ee2f1ece45eec874d19ff8671206d6072e66198ea6ece8136",
+          "origins": [
+            {
+              "source": "evidence/web/objects/ee92e9e880aedbf0.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1wx-9w8pqjwi4.js",
+              "start": 83027,
+              "end": 83729
+            }
+          ]
+        },
+        {
+          "ids": [
+            666863
+          ],
+          "sha256": "c551b6e061bc2992fed45ee56e786940a3fe5efa5462cd8c281b0a0cb48930c4",
+          "origins": [
+            {
+              "source": "evidence/web/objects/0ba78d0f42544445.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3fongm4-cxd46.js",
+              "start": 27447,
+              "end": 28149
+            }
+          ]
+        },
+        {
+          "ids": [
+            666863
+          ],
+          "sha256": "2944ea3e2b1ef12275da0867265df73def39c284c32edf498c63985df0678cf6",
+          "origins": [
+            {
+              "source": "evidence/web/objects/9535b69d76e2a69b.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+              "start": 48485,
+              "end": 49187
+            }
+          ]
+        },
+        {
+          "ids": [
+            666863
+          ],
+          "sha256": "b34d5fed6bf905deea9def3f3e416db746835e8b49a8d5c715efe73d6d5d4cb9",
+          "origins": [
+            {
+              "source": "evidence/web/objects/43fc24878549d421.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3x-9f-8l5wh8n.js",
+              "start": 22511,
+              "end": 23213
+            }
+          ]
+        },
+        {
+          "ids": [
+            666863
+          ],
+          "sha256": "1d42b61a0bda1c6461a4d61158f8abcb54b096cf3dd10bcbc483975b6145758b",
+          "origins": [
+            {
+              "source": "evidence/web/objects/7a7f27bff952614d.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/08wo1y4r9957w.js",
+              "start": 14731,
+              "end": 15433
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "M",
+      "id": 235364,
+      "import": {
+        "label": "actual idle-strip import 235364",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1186,
+          1199
+        ],
+        "utf8": [
+          1186,
+          1199
+        ],
+        "sha256": "a8854df89578a8d704275a4eeac8cf92345824996b631351c8dafe8bfaba2826",
+        "text": "M=e.i(235364)"
+      },
+      "variants": [
+        {
+          "ids": [
+            235364
+          ],
+          "sha256": "b587c4f1198c62e7ea2fa80a93cd32925ae17f96ee90555a141ba7d830c93bd7",
+          "origins": [
+            {
+              "source": "evidence/web/objects/bf334c55745d2868.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1oqf2qsww4o03.js",
+              "start": 32019,
+              "end": 32483
+            }
+          ]
+        },
+        {
+          "ids": [
+            235364
+          ],
+          "sha256": "0d06052f0a64ea3384610ba7fc57170cd0f12acbc85b1cf0a077bc77a0ddc57f",
+          "origins": [
+            {
+              "source": "evidence/web/objects/ee92e9e880aedbf0.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1wx-9w8pqjwi4.js",
+              "start": 82555,
+              "end": 83019
+            }
+          ]
+        },
+        {
+          "ids": [
+            235364
+          ],
+          "sha256": "90a52c0ca359742c8e2aa54a19d8d9ee868aef23162c537b0ffaab292a05546c",
+          "origins": [
+            {
+              "source": "evidence/web/objects/43fc24878549d421.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3x-9f-8l5wh8n.js",
+              "start": 22039,
+              "end": 22503
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "N",
+      "id": 34011,
+      "import": {
+        "label": "actual idle-strip import 34011",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1045,
+          1057
+        ],
+        "utf8": [
+          1045,
+          1057
+        ],
+        "sha256": "eac0c9c9fe16f1ec84bc04a139ea0e83357ae8bbdeddb89a44600a217fb43990",
+        "text": "N=e.i(34011)"
+      },
+      "variants": [
+        {
+          "ids": [
+            34011
+          ],
+          "sha256": "2e47964258000544484a80e0c6e499ba920ed0e03ea6569981e17352426690c0",
+          "origins": [
+            {
+              "source": "evidence/web/objects/b52b9253b1dcf191.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/29grpcf_ho9bt.js",
+              "start": 16935,
+              "end": 23596
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "O",
+      "id": 662093,
+      "import": {
+        "label": "actual idle-strip import 662093",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1244,
+          1257
+        ],
+        "utf8": [
+          1244,
+          1257
+        ],
+        "sha256": "8867930cc5d356938a3b2dd8668b3a0c853f8c2075276fbbbcaecdf59468ba95",
+        "text": "O=e.i(662093)"
+      },
+      "variants": [
+        {
+          "ids": [
+            662093,
+            789793,
+            532895
+          ],
+          "sha256": "f4a5901af117eeba0750b76d8f494e3e92b877dd6c169f673e36a6982221fbc4",
+          "origins": [
+            {
+              "source": "evidence/web/objects/9eb69cb75e0ff997.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1fkjg9ou67y00.js",
+              "start": 17512,
+              "end": 24257
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "P",
+      "id": 540805,
+      "import": {
+        "label": "actual idle-strip import 540805",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1230,
+          1243
+        ],
+        "utf8": [
+          1230,
+          1243
+        ],
+        "sha256": "df87074c7c97d51c3f0e8c761ef6a0c35361712c3502d24ddecd8ca5daa1704c",
+        "text": "P=e.i(540805)"
+      },
+      "variants": [
+        {
+          "ids": [
+            540805
+          ],
+          "sha256": "058ef17f92b13d44c2ead869a78a52961abc88fd4814fa72514f5c11c1fc85be",
+          "origins": [
+            {
+              "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1qqfn5g-bst3e.js",
+              "start": 33160,
+              "end": 34396
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R",
+      "id": 850175,
+      "import": {
+        "label": "actual idle-strip import 850175",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1172,
+          1185
+        ],
+        "utf8": [
+          1172,
+          1185
+        ],
+        "sha256": "1105c02438815b18ec99cf41d694cc88fdaf49e063e11fda57e21a2d204aec70",
+        "text": "R=e.i(850175)"
+      },
+      "variants": [
+        {
+          "ids": [
+            850175,
+            687505,
+            841303,
+            591200
+          ],
+          "sha256": "9c7ae0a28fc351172a031af5fcc44160b8cd82e743a2f748257b9e42a312b203",
+          "origins": [
+            {
+              "source": "evidence/web/objects/f4e16ef1b0b97d5e.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1k6apjljgkmo4.js",
+              "start": 17264,
+              "end": 21878
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S",
+      "id": 924631,
+      "import": {
+        "label": "actual idle-strip import 924631",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1072,
+          1085
+        ],
+        "utf8": [
+          1072,
+          1085
+        ],
+        "sha256": "12b0bf51e80e1160576432a88d12ca45a19155eae64a61a2ce901fb22d3aa5e0",
+        "text": "S=e.i(924631)"
+      },
+      "variants": [
+        {
+          "ids": [
+            924631
+          ],
+          "sha256": "03261a7ea8f52b8bf0cc48651f07b67b6bc034ebe5e4a930e6225c2ea9cb6e49",
+          "origins": [
+            {
+              "source": "evidence/web/objects/b52b9253b1dcf191.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/29grpcf_ho9bt.js",
+              "start": 23604,
+              "end": 23824
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "T",
+      "id": 248496,
+      "import": {
+        "label": "actual idle-strip import 248496",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1144,
+          1157
+        ],
+        "utf8": [
+          1144,
+          1157
+        ],
+        "sha256": "d1970376d7fdf435d88a30a6c70ae219950a4c84638d5656e574128fbb04f437",
+        "text": "T=e.i(248496)"
+      },
+      "variants": [
+        {
+          "ids": [
+            248496
+          ],
+          "sha256": "98c7083f780ae537f4559367a338f469e2d9897504c37398858270a41e5d5da1",
+          "origins": [
+            {
+              "source": "evidence/web/objects/b52b9253b1dcf191.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/29grpcf_ho9bt.js",
+              "start": 23832,
+              "end": 24876
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "a",
+      "id": 352386,
+      "import": {
+        "label": "actual idle-strip import 352386",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          168,
+          181
+        ],
+        "utf8": [
+          168,
+          181
+        ],
+        "sha256": "70be5feee88d37500d23b8a5d12679574e96a4cace46be91d08348df1c8b9750",
+        "text": "a=e.i(352386)"
+      },
+      "variants": [
+        {
+          "ids": [
+            352386
+          ],
+          "sha256": "94c140de6329c130f107d5731a5574eec51cc1a23c2266c2d99db6dea7a71d88",
+          "origins": [
+            {
+              "source": "evidence/web/objects/e01139c6299580b1.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0nh_qki05x_fs.js",
+              "start": 25831,
+              "end": 25875
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eN",
+      "id": 521368,
+      "import": {
+        "label": "actual idle-strip import 521368",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          15505,
+          15519
+        ],
+        "utf8": [
+          15505,
+          15519
+        ],
+        "sha256": "fa7f8f5a0a2596bcc8b3ba9a9f81d70b3295d8bf8e16d1e2e1d1e0abd7d5d76d",
+        "text": "eN=e.i(521368)"
+      },
+      "variants": [
+        {
+          "ids": [
+            521368
+          ],
+          "sha256": "033214e7ab7a6368e7fd3910418604c4638cec544c339c60bfa52e4afe2821ba",
+          "origins": [
+            {
+              "source": "evidence/web/objects/43fc24878549d421.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3x-9f-8l5wh8n.js",
+              "start": 19526,
+              "end": 21316
+            }
+          ]
+        },
+        {
+          "ids": [
+            521368
+          ],
+          "sha256": "6a6a2a472e3e55bab066fb14eb8edc756a08c4290bfa9e467f322ad890053f9f",
+          "origins": [
+            {
+              "source": "evidence/web/objects/bf1738bd10e44e73.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/2s1tslekdkbre.js",
+              "start": 2849,
+              "end": 4639
+            }
+          ]
+        },
+        {
+          "ids": [
+            521368
+          ],
+          "sha256": "85e5b3c165812b25823a092b0402c52fda891e78c74ccd25ecfe650dbc6d1a17",
+          "origins": [
+            {
+              "source": "evidence/web/objects/8db841ad621eee77.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1_axj7-ipkmrc.js",
+              "start": 48847,
+              "end": 50637
+            }
+          ]
+        },
+        {
+          "ids": [
+            521368
+          ],
+          "sha256": "6a049a7bd9df66642f938770506dedd2663a8d5e22ef5ec963e6762c9fb48e1b",
+          "origins": [
+            {
+              "source": "evidence/web/objects/4c13c21a81e3d378.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1qroo4ono7slu.js",
+              "start": 21722,
+              "end": 23512
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "e_",
+      "id": 787773,
+      "import": {
+        "label": "actual idle-strip import 787773",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          15431,
+          15445
+        ],
+        "utf8": [
+          15431,
+          15445
+        ],
+        "sha256": "86c43d00ae563e08381bb6e8c21c8a5acbb47a64912ad38f9640c4a36be0cbc5",
+        "text": "e_=e.i(787773)"
+      },
+      "variants": [
+        {
+          "ids": [
+            787773
+          ],
+          "sha256": "a4c037dc384a66af2f3d3a0bf77188fbffb975da77b5e3a89eba90183d6fde77",
+          "origins": [
+            {
+              "source": "evidence/web/objects/336927280d274943.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3kknacu7otph1.js",
+              "start": 4203,
+              "end": 5542
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "em",
+      "id": 51206,
+      "import": {
+        "label": "actual idle-strip import 51206",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          14150,
+          14163
+        ],
+        "utf8": [
+          14150,
+          14163
+        ],
+        "sha256": "ad34a8b371d3476a7341e462b92f1882371cbd888e2edfce06b2e857b5da0c0c",
+        "text": "em=e.i(51206)"
+      },
+      "variants": [
+        {
+          "ids": [
+            51206
+          ],
+          "sha256": "020528314900ffbc8a93fc7d3bf15f6ef60f209df102c264e02209decb6836be",
+          "origins": [
+            {
+              "source": "evidence/web/objects/337439e6bd8e9380.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/12g0kkarzdzbb.js",
+              "start": 4185,
+              "end": 6567
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ey",
+      "id": 607122,
+      "import": {
+        "label": "actual idle-strip import 607122",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          15476,
+          15490
+        ],
+        "utf8": [
+          15476,
+          15490
+        ],
+        "sha256": "4566687d09b96f3081d8d65c1d0250a016774eac8c546ef991a422a2c50e44f7",
+        "text": "ey=e.i(607122)"
+      },
+      "variants": [
+        {
+          "ids": [
+            607122
+          ],
+          "sha256": "6dba6a40c8fc384f26cc350b650c57d0213f787d29d61bceaef326ab351f7588",
+          "origins": [
+            {
+              "source": "evidence/web/objects/2d59b7c63a95235e.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1b0z4i36dq6fz.js",
+              "start": 15791,
+              "end": 19337
+            }
+          ]
+        },
+        {
+          "ids": [
+            607122
+          ],
+          "sha256": "daaa318141dedcc72d00b047fc91711935d5d051a3864465710061b7e83ce0ba",
+          "origins": [
+            {
+              "source": "evidence/web/objects/3d84cd0300026f39.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/2phsiduqu2vas.js",
+              "start": 7431,
+              "end": 10977
+            }
+          ]
+        },
+        {
+          "ids": [
+            607122
+          ],
+          "sha256": "5f1abccc7826f3ac49bdc7333680520b5e6b9e02e18857f7c6fc688217d47a2a",
+          "origins": [
+            {
+              "source": "evidence/web/objects/7f29829a20549143.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/2c4k_7c02yg6e.js",
+              "start": 18896,
+              "end": 22442
+            }
+          ]
+        },
+        {
+          "ids": [
+            607122
+          ],
+          "sha256": "e91dcf8d32b137d493e1bbdd4a54a8fcda280e5e29431ebda7fc9809efbbb51e",
+          "origins": [
+            {
+              "source": "evidence/web/objects/c02c04ce3dfbfd3c.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/2ftg1veagk3v3.js",
+              "start": 17329,
+              "end": 20875
+            }
+          ]
+        },
+        {
+          "ids": [
+            607122
+          ],
+          "sha256": "85c88abd05a69818d78ef036bafb79e454feb89526291ac64ff372ee7bc172d2",
+          "origins": [
+            {
+              "source": "evidence/web/objects/c9d58b1f7b1c6f01.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/453pkffaelr06.js",
+              "start": 52953,
+              "end": 56499
+            }
+          ]
+        },
+        {
+          "ids": [
+            607122
+          ],
+          "sha256": "24d6a3c4f39d5bef4101924510f02ffbd02821a828ef18afe3925c743e525061",
+          "origins": [
+            {
+              "source": "evidence/web/objects/d96bd90b2de3d9da.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3oneyi8iwyxl2.js",
+              "start": 138,
+              "end": 3684
+            }
+          ]
+        },
+        {
+          "ids": [
+            607122
+          ],
+          "sha256": "175fa1720f55cd24144dc15222725df5f201a8f18e821b6aac09f9ffce90a511",
+          "origins": [
+            {
+              "source": "evidence/web/objects/a8933cf5deeab5bd.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/01nhqt77hrjym.js",
+              "start": 30948,
+              "end": 34494
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "f",
+      "id": 458310,
+      "import": {
+        "label": "actual idle-strip import 458310",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          322,
+          335
+        ],
+        "utf8": [
+          322,
+          335
+        ],
+        "sha256": "951833b5dedf4c4358e20f43737886fced85a8656620982f79b897cc94359f7b",
+        "text": "f=e.i(458310)"
+      },
+      "variants": [
+        {
+          "ids": [
+            458310
+          ],
+          "sha256": "637fd83c895d24a43cfd4243adbb9daea8b61e6c81df9feb82fb844f1e0cbe43",
+          "origins": [
+            {
+              "source": "evidence/web/objects/1e479323ffe53c14.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+              "start": 17256,
+              "end": 20495
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "g",
+      "id": 679553,
+      "import": {
+        "label": "actual idle-strip import 679553",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          379,
+          392
+        ],
+        "utf8": [
+          379,
+          392
+        ],
+        "sha256": "dc76efd166caf5c9224d360ea59f90cda3102d059029feb3f6126b8bfc6e31e0",
+        "text": "g=e.i(679553)"
+      },
+      "variants": [
+        {
+          "ids": [
+            679553
+          ],
+          "sha256": "37500a511f88ab004f89e228bdeae866cfca662a11319f556c2c8507d4a253f5",
+          "origins": [
+            {
+              "source": "evidence/web/objects/43fc24878549d421.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3x-9f-8l5wh8n.js",
+              "start": 3761,
+              "end": 5410
+            }
+          ]
+        },
+        {
+          "ids": [
+            679553
+          ],
+          "sha256": "bd3aaaf5ed128d22e7c252d11cf6240f4df93b8e3335bf6ce22cf07f2def7eba",
+          "origins": [
+            {
+              "source": "evidence/web/objects/bf1738bd10e44e73.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/2s1tslekdkbre.js",
+              "start": 1192,
+              "end": 2841
+            }
+          ]
+        },
+        {
+          "ids": [
+            679553
+          ],
+          "sha256": "568125f604fcd394d8bdf62571830cae765848a8c98122ab06680b05412dd077",
+          "origins": [
+            {
+              "source": "evidence/web/objects/8db841ad621eee77.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1_axj7-ipkmrc.js",
+              "start": 5222,
+              "end": 6871
+            }
+          ]
+        },
+        {
+          "ids": [
+            679553
+          ],
+          "sha256": "5dd1efbd72dcc4b9a68f6b146df3c4fc93a9c882a17bf93c15f9bb57a60a9f9d",
+          "origins": [
+            {
+              "source": "evidence/web/objects/4c13c21a81e3d378.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1qroo4ono7slu.js",
+              "start": 4815,
+              "end": 6464
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "i",
+      "id": 254010,
+      "import": {
+        "label": "actual idle-strip import 254010",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          224,
+          237
+        ],
+        "utf8": [
+          224,
+          237
+        ],
+        "sha256": "034d48a589cbb7fb3ef70b14ca349ccb7b227f060f9f0271f220cb12b5df4fa6",
+        "text": "i=e.i(254010)"
+      },
+      "variants": [
+        {
+          "ids": [
+            254010,
+            30824
+          ],
+          "sha256": "68c2bf6f4fa12591ba132bd96e6e09f9d5cdb13093bde04cd29ef0d6ec0182dd",
+          "origins": [
+            {
+              "source": "evidence/web/objects/256f83f9b5d323e6.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1qz80vl8iu-ry.js",
+              "start": 36275,
+              "end": 39483
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "k",
+      "id": 951425,
+      "import": {
+        "label": "actual idle-strip import 951425",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          988,
+          1001
+        ],
+        "utf8": [
+          988,
+          1001
+        ],
+        "sha256": "910641021f478a28e1d5cc56722c4f5a8494e0d637abe38a39b40d17dab21085",
+        "text": "k=e.i(951425)"
+      },
+      "variants": [
+        {
+          "ids": [
+            951425
+          ],
+          "sha256": "7dd498502d5d70fe363f0a4f8d20df5b4159b1571f93bcbb838e79df3d389eb4",
+          "origins": [
+            {
+              "source": "evidence/web/objects/14e6e6128bf5710e.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1qgi_vzucoqdi.js",
+              "start": 6506,
+              "end": 10828
+            }
+          ]
+        },
+        {
+          "ids": [
+            951425
+          ],
+          "sha256": "617750132c3b8a99c60548fa1964189cd658405c112604030e3e4b4b01bcafef",
+          "origins": [
+            {
+              "source": "evidence/web/objects/6a1606765ef3e83e.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3y5r8v8wybyb1.js",
+              "start": 138,
+              "end": 4460
+            }
+          ]
+        },
+        {
+          "ids": [
+            951425
+          ],
+          "sha256": "7e079868c16a61fd025d9a46ef6438907b560a66a2e0ac20578101309f5f1a42",
+          "origins": [
+            {
+              "source": "evidence/web/objects/510a393a71ae05c0.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0-ozz73isy5ug.js",
+              "start": 11380,
+              "end": 15702
+            }
+          ]
+        },
+        {
+          "ids": [
+            951425
+          ],
+          "sha256": "20649e79234e3a771cec5a4adf840f785392c6888c8e9b5417dcfd19c10262a9",
+          "origins": [
+            {
+              "source": "evidence/web/objects/57624d7eddba52e1.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1rqg3m24ob9fs.js",
+              "start": 138,
+              "end": 4460
+            }
+          ]
+        },
+        {
+          "ids": [
+            951425
+          ],
+          "sha256": "48f2899dffb05521a2e57c0ff8994c3b05a41ce983ff42c31b3ebdf0b52bc6ef",
+          "origins": [
+            {
+              "source": "evidence/web/objects/767cc801e3f88f8b.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+              "start": 138,
+              "end": 4460
+            }
+          ]
+        },
+        {
+          "ids": [
+            951425
+          ],
+          "sha256": "e8bbe8ef06d10fbe3f66478b767e122319f33f739dd1df50164be2227c2f6d76",
+          "origins": [
+            {
+              "source": "evidence/web/objects/730ffeda1be91104.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0k9lj1-icxrer.js",
+              "start": 9521,
+              "end": 13843
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "l",
+      "id": 322315,
+      "import": {
+        "label": "actual idle-strip import 322315",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          210,
+          223
+        ],
+        "utf8": [
+          210,
+          223
+        ],
+        "sha256": "6ff60a0023b8ce69ef1f1dbe7d4242ccf64e31714b8d29bbe0bcd26b03a73205",
+        "text": "l=e.i(322315)"
+      },
+      "variants": [
+        {
+          "ids": [
+            322315
+          ],
+          "sha256": "5d08c12f771cccf43ebfa2740e4a0fbf8c67c9df5a781e8cd2c1183997178f26",
+          "origins": [
+            {
+              "source": "evidence/web/objects/256f83f9b5d323e6.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1qz80vl8iu-ry.js",
+              "start": 7353,
+              "end": 35793
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m",
+      "id": 782067,
+      "import": {
+        "label": "actual idle-strip import 782067",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          294,
+          307
+        ],
+        "utf8": [
+          294,
+          307
+        ],
+        "sha256": "3eb53ef3fbf002f682e4c132798cf9a7abd5017b7c049fc5b8d808b2997e9c08",
+        "text": "m=e.i(782067)"
+      },
+      "variants": [
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "5affb31003583d3c223d9c542e49fc7705ef598096e39931ee0823f776616f7c",
+          "origins": [
+            {
+              "source": "evidence/web/objects/11ee2a97b2772408.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/08jicuqks5s2h.js",
+              "start": 17724,
+              "end": 19821
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "20dfd87b13213068a7028789f8b48df92982ff24039c2888a83afacffe9506ce",
+          "origins": [
+            {
+              "source": "evidence/web/objects/4a89a99471a66194.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0ltkuxnbsexf1.js",
+              "start": 20151,
+              "end": 22248
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "2a0796f15bdec6b2be228e22adaad1edfaf7b2ff71c334915b8a57980129bd5f",
+          "origins": [
+            {
+              "source": "evidence/web/objects/ee92e9e880aedbf0.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1wx-9w8pqjwi4.js",
+              "start": 99572,
+              "end": 101669
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "980db9e3b868160fee74f0d8d2e887e6ba94501aadc7244d975166eb5b79a556",
+          "origins": [
+            {
+              "source": "evidence/web/objects/dd1b7e2a0ecbaed0.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/39mrtwuhv50wq.js",
+              "start": 39620,
+              "end": 41717
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "422e9c34a56ea2c7aa169873b8332beec688cfb8ae53afd913e8178efe58fdb5",
+          "origins": [
+            {
+              "source": "evidence/web/objects/bbad3cca63bc2aa5.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/2wq32g770zyfq.js",
+              "start": 31161,
+              "end": 33258
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "165af9365902cd54828bb176ca8dd07fc578bc52e5efec551b2d3621265dbeaa",
+          "origins": [
+            {
+              "source": "evidence/web/objects/767cc801e3f88f8b.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+              "start": 39217,
+              "end": 41314
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "4fdf04143562dc38357fa2f57b3a8aa629736e76cebdc82aff895103bb50596f",
+          "origins": [
+            {
+              "source": "evidence/web/objects/c9d58b1f7b1c6f01.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/453pkffaelr06.js",
+              "start": 71069,
+              "end": 73166
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "c4627ff5a2342b2419a2a4ef583c3bb92de876277e835e0d7736d4e8cabf6c99",
+          "origins": [
+            {
+              "source": "evidence/web/objects/0d7d9807b95f27b0.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/19wqtd8-202k3.js",
+              "start": 38402,
+              "end": 40499
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "5c0b6af003a0a3aa4dd64b680d8563ac929d11a7d523e7ea103a269fcd997c0c",
+          "origins": [
+            {
+              "source": "evidence/web/objects/c22eb726453cadf9.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/30cqy1axf7aqj.js",
+              "start": 18871,
+              "end": 20968
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "47ebf39cf6f0eedd9cd29a19fc2923cdc80cd3343ebaa51776c159004ad19ec0",
+          "origins": [
+            {
+              "source": "evidence/web/objects/0746572aecdcf595.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0a3o-yur9fjs3.js",
+              "start": 23513,
+              "end": 25610
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "4efdbe6b54ba73a9f694b7ce8a01f033b3fb97edb2f26d3534b71cfcfc1d27d6",
+          "origins": [
+            {
+              "source": "evidence/web/objects/beeea2f855679780.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0qhvxcxzpq52j.js",
+              "start": 21017,
+              "end": 23114
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "n",
+      "id": 292686,
+      "import": {
+        "label": "actual idle-strip import 292686",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          196,
+          209
+        ],
+        "utf8": [
+          196,
+          209
+        ],
+        "sha256": "88ab2cf7e7e6047728a5904f9785441f1e8128b657b9148b9f32f39c6a39d445",
+        "text": "n=e.i(292686)"
+      },
+      "variants": [
+        {
+          "ids": [
+            292686
+          ],
+          "sha256": "61281ea7551c4f2f9047703c8658d9ffada8e500a82ede9c79958146558deda3",
+          "origins": [
+            {
+              "source": "evidence/web/objects/88945b987f03af34.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3xtvhmd-f712k.js",
+              "start": 138,
+              "end": 24336
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "o",
+      "id": 146695,
+      "import": {
+        "label": "actual idle-strip import 146695",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          252,
+          265
+        ],
+        "utf8": [
+          252,
+          265
+        ],
+        "sha256": "26d8c69754c7c671a5854c625199a8593bdf4b8e8291968a3103a7a498645150",
+        "text": "o=e.i(146695)"
+      },
+      "variants": [
+        {
+          "ids": [
+            146695
+          ],
+          "sha256": "bb995bc856796eb404e21763f5a72275af2b0efa06b46f0d12507e1c6a3d90a1",
+          "origins": [
+            {
+              "source": "evidence/web/objects/fd402d4185b44ce9.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/19xl-yywkv-8p.js",
+              "start": 29806,
+              "end": 30355
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "p",
+      "id": 398902,
+      "import": {
+        "label": "actual idle-strip import 398902",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          365,
+          378
+        ],
+        "utf8": [
+          365,
+          378
+        ],
+        "sha256": "b48302a7912b878e715b91196fc7ca58f8b5b02d5734e6393748e0a843fb4cf5",
+        "text": "p=e.i(398902)"
+      },
+      "variants": [
+        {
+          "ids": [
+            12692,
+            406882,
+            536869,
+            117466,
+            398902,
+            271292
+          ],
+          "sha256": "6a277435e4b43e8ed386083bdfce657ee1b257e9dc52a191a8b27ccc70e6f267",
+          "origins": [
+            {
+              "source": "evidence/web/objects/8761f9bd54e61e64.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0xe16mpa8ypnu.js",
+              "start": 153,
+              "end": 59835
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "q",
+      "id": 634661,
+      "import": {
+        "label": "actual idle-strip import 634661",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1158,
+          1171
+        ],
+        "utf8": [
+          1158,
+          1171
+        ],
+        "sha256": "feeef172a1db987f55d133c54a7c9db29f18ab1959e841546d01937442208273",
+        "text": "q=e.i(634661)"
+      },
+      "variants": [
+        {
+          "ids": [
+            634661
+          ],
+          "sha256": "2de983d03f8186e0ddcd3e7c3582224d29824ff633f0514853b9fdb6ac5c0d84",
+          "origins": [
+            {
+              "source": "evidence/web/objects/337439e6bd8e9380.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/12g0kkarzdzbb.js",
+              "start": 6575,
+              "end": 8468
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "r",
+      "id": 445242,
+      "import": {
+        "label": "actual idle-strip import 445242",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          154,
+          167
+        ],
+        "utf8": [
+          154,
+          167
+        ],
+        "sha256": "9e137e2d39a68d05c1c7870f0bd66c1c077b1fdbc41ccee588e72009980f69f4",
+        "text": "r=e.i(445242)"
+      },
+      "variants": [
+        {
+          "ids": [
+            445242
+          ],
+          "sha256": "2d7f3e592645b5e2d997e444ee9b10be6dc8c357680552dccddafb63e4887576",
+          "origins": [
+            {
+              "source": "evidence/web/objects/01ad4f413e529b60.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0oz8z5zyovele.js",
+              "start": 4795,
+              "end": 4839
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "s",
+      "id": 745018,
+      "import": {
+        "label": "actual idle-strip import 745018",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          182,
+          195
+        ],
+        "utf8": [
+          182,
+          195
+        ],
+        "sha256": "e0b7642863718bf4c6c9a43228a157a23c4fe0606a278cf696c4f20d34b34d11",
+        "text": "s=e.i(745018)"
+      },
+      "variants": [
+        {
+          "ids": [
+            745018
+          ],
+          "sha256": "4cc46a6d51b6a9b0fe8ce9f64d77e130e7961309e881fe14f64efa16fb09f660",
+          "origins": [
+            {
+              "source": "evidence/web/objects/c8e855c81e05ca28.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3nzad4fr1d1nw.js",
+              "start": 119,
+              "end": 166147
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "t",
+      "id": 732486,
+      "import": {
+        "label": "actual idle-strip import 732486",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          140,
+          153
+        ],
+        "utf8": [
+          140,
+          153
+        ],
+        "sha256": "6fe987520583f8a737145e7b3c5b87e3c34790702d51038e21f7ce5573c1ed9b",
+        "text": "t=e.i(732486)"
+      },
+      "variants": [
+        {
+          "ids": [
+            732486
+          ],
+          "sha256": "1327928dc08f8c5ad213c67d8b2b042e579ca141db8b23ac448bf178077cfadd",
+          "origins": [
+            {
+              "source": "evidence/web/objects/e01139c6299580b1.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0nh_qki05x_fs.js",
+              "start": 25883,
+              "end": 25927
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "proofs": [
+    {
+      "label": "complete idle-strip component/helper/context eh",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        14164,
+        14187
+      ],
+      "utf8": [
+        14164,
+        14187
+      ],
+      "sha256": "cd45e33ead54226b5ba526c1b1708eed3c051ba1f68a2ad70c1b86ef8c7ba7b7",
+      "text": "function eh(){return 3}"
+    },
+    {
+      "label": "complete idle-strip component/helper/context ef",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        14187,
+        14202
+      ],
+      "utf8": [
+        14187,
+        14202
+      ],
+      "sha256": "6bb27629672f4e587f70ecd5e2daf0a0f568daa7f0e51e9a76dd0885df75cd65",
+      "text": "function ef(){}"
+    },
+    {
+      "label": "complete idle-strip component/helper/context ex",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        14202,
+        15243
+      ],
+      "utf8": [
+        14202,
+        15243
+      ],
+      "sha256": "bff2432c102cc4bc2bafeb1c0ea2c88a815dd82cef8d70f1f771c6aed79a1cdb",
+      "text": "function ex(e){let a,n,l,i,c,o,d,u=(0,r.c)(19),{density:m,atStart:h,atEnd:f,pagePrevious:x,pageNext:g}=e,{t:b}=(0,p.f)();return u[0]!==b?(a=b(\"web.pagination.previous_page\"),u[0]=b,u[1]=a):a=u[1],u[2]===Symbol.for(\"react.memo_cache_sentinel\")?(n=(0,t.jsx)(s.S,{\"aria-hidden\":!0}),u[2]=n):n=u[2],u[3]!==h||u[4]!==m||u[5]!==x||u[6]!==a?(l=(0,t.jsx)(em._,{density:m,size:24,variant:\"ghost\",\"aria-label\":a,disabled:h,onClick:x,\"data-search-strip-arrow\":\"previous\",children:n}),u[3]=h,u[4]=m,u[5]=x,u[6]=a,u[7]=l):l=u[7],u[8]!==b?(i=b(\"web.pagination.next_page\"),u[8]=b,u[9]=i):i=u[9],u[10]===Symbol.for(\"react.memo_cache_sentinel\")?(c=(0,t.jsx)(s.kK,{\"aria-hidden\":!0}),u[10]=c):c=u[10],u[11]!==f||u[12]!==m||u[13]!==g||u[14]!==i?(o=(0,t.jsx)(em._,{density:m,size:24,variant:\"ghost\",\"aria-label\":i,disabled:f,onClick:g,\"data-search-strip-arrow\":\"next\",children:c}),u[11]=f,u[12]=m,u[13]=g,u[14]=i,u[15]=o):o=u[15],u[16]!==l||u[17]!==o?(d=(0,t.jsxs)(\"span\",{className:\"flex items-center gap-1\",children:[l,o]}),u[16]=l,u[17]=o,u[18]=d):d=u[18],d}"
+    },
+    {
+      "label": "complete idle-strip component/helper/context ep",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        15247,
+        15269
+      ],
+      "utf8": [
+        15247,
+        15269
+      ],
+      "sha256": "f9dbb50ad25e5361e2396003bf5725e0508561aca7620e276a75f5d57b36c0d0",
+      "text": "ep=\"search.idle-strip\""
+    },
+    {
+      "label": "complete idle-strip component/helper/context eg",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        15270,
+        15284
+      ],
+      "utf8": [
+        15270,
+        15284
+      ],
+      "sha256": "517e21fc881f23e21e984851d85659b7c574efab979022f7997f43f3b0b7d510",
+      "text": "eg=\"hot-coins\""
+    },
+    {
+      "label": "complete idle-strip component/helper/context eb",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        15285,
+        15400
+      ],
+      "utf8": [
+        15285,
+        15400
+      ],
+      "sha256": "92cc7a708c4dd0e02928474c340b1d7054e2854cd37b5eca7962d570d4961dac",
+      "text": "eb=()=>{try{let e=window.sessionStorage.getItem(ep);return\"hot-coins\"===e||\"top-traders\"===e?e:eg}catch{return eg}}"
+    },
+    {
+      "label": "complete idle-strip component/helper/context ta",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        17418,
+        17522
+      ],
+      "utf8": [
+        17418,
+        17522
+      ],
+      "sha256": "78bb29b2be08eec0cf649ada17cc2da135d304ff6d29a22c5212e34754ca8130",
+      "text": "ta=\"relative flex flex-col gap-2 rounded-md bg-bg-tertiary p-3 transition-colors hover:bg-bg-quaternary\""
+    },
+    {
+      "label": "complete idle-strip component/helper/context ts",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        17523,
+        17544
+      ],
+      "utf8": [
+        17523,
+        17544
+      ],
+      "sha256": "066b3fe3bc0f7b809bdfce7180f004bfbe7e0f0108b51aa8dd2e6e13276c6bfe",
+      "text": "ts=\"bg-bg-quaternary\""
+    },
+    {
+      "label": "complete idle-strip component/helper/context tm",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        23922,
+        26460
+      ],
+      "utf8": [
+        23922,
+        26460
+      ],
+      "sha256": "209e8098ae0494533df901e18971868026575e1d12e75cb3c27d3eea619cea29",
+      "text": "tm=e=>{let a,s,n,c,d,u,h,x,p,g,b,w,_,v=(0,r.c)(53),{entry:k,onClick:y}=e,j=(0,i.k)(l.D.WEB_AVATAR_DECORATIONS);v[0]!==j||v[1]!==k.walletAddress?(a={address:k.walletAddress,enabled:j},v[0]=j,v[1]=k.walletAddress,v[2]=a):a=v[2];let{data:N}=(0,m.T)(a);v[3]!==k.username||v[4]!==k.walletAddress?(s=k.username||`${k.walletAddress.slice(0,4)}...${k.walletAddress.slice(-4)}`,v[3]=k.username,v[4]=k.walletAddress,v[5]=s):s=v[5];let C=s;if(v[6]!==C||v[7]!==k.pnlUsd||v[8]!==k.profileImage||v[9]!==k.username||v[10]!==k.walletAddress||v[11]!==k.xUsername||v[12]!==y||v[13]!==N?.resolved_avatar_decoration){let e,r,a,s=(0,P.k)(k.pnlUsd,0);u=!0,v[21]===Symbol.for(\"react.memo_cache_sentinel\")?(h=(0,H.c)(ta,\"min-w-40\"),v[21]=h):h=v[21],v[22]!==k.walletAddress?(e=(0,o.$)(k.walletAddress),v[22]=k.walletAddress,v[23]=e):e=v[23],v[24]===Symbol.for(\"react.memo_cache_sentinel\")?(r=(0,H.c)(W,\"rounded-md\"),v[24]=r):r=v[24],v[25]!==C||v[26]!==y||v[27]!==e?(x=(0,t.jsx)(f.default,{href:e,onClick:y,\"aria-label\":C,className:r}),v[25]=C,v[26]=y,v[27]=e,v[28]=x):x=v[28];let l=N?.resolved_avatar_decoration;v[29]!==C||v[30]!==k.profileImage||v[31]!==k.username||v[32]!==k.walletAddress||v[33]!==k.xUsername||v[34]!==l?(p=(0,t.jsx)(A.S,{address:k.walletAddress,username:k.username,profileImage:k.profileImage,avatarDecoration:l,nameOverride:C,size:$,density:K,link:!1,hoverCard:!1,xUsername:k.xUsername,className:\"min-w-0\"}),v[29]=C,v[30]=k.profileImage,v[31]=k.username,v[32]=k.walletAddress,v[33]=k.xUsername,v[34]=l,v[35]=p):p=v[35],c=\"flex flex-col gap-0.5\";let i=(0,H.c)(\"whitespace-nowrap text-sm font-medium leading-5 tabular-nums\",s);v[36]!==k.pnlUsd?(a=(0,P.u)(k.pnlUsd),v[36]=k.pnlUsd,v[37]=a):a=v[37],d=(0,t.jsx)(\"span\",{className:i,children:a}),n=(0,H.c)(\"text-xs leading-4 tabular-nums\",s),v[6]=C,v[7]=k.pnlUsd,v[8]=k.profileImage,v[9]=k.username,v[10]=k.walletAddress,v[11]=k.xUsername,v[12]=y,v[13]=N?.resolved_avatar_decoration,v[14]=n,v[15]=c,v[16]=d,v[17]=u,v[18]=h,v[19]=x,v[20]=p}else n=v[14],c=v[15],d=v[16],u=v[17],h=v[18],x=v[19],p=v[20];return v[38]!==k.pnlPercent?(g=(0,P.c)(k.pnlPercent),v[38]=k.pnlPercent,v[39]=g):g=v[39],v[40]!==n||v[41]!==g?(b=(0,t.jsx)(\"span\",{className:n,children:g}),v[40]=n,v[41]=g,v[42]=b):b=v[42],v[43]!==b||v[44]!==c||v[45]!==d?(w=(0,t.jsxs)(\"div\",{className:c,children:[d,b]}),v[43]=b,v[44]=c,v[45]=d,v[46]=w):w=v[46],v[47]!==w||v[48]!==u||v[49]!==h||v[50]!==x||v[51]!==p?(_=(0,t.jsxs)(\"div\",{\"data-search-tile\":u,className:h,children:[x,p,w]}),v[47]=w,v[48]=u,v[49]=h,v[50]=x,v[51]=p,v[52]=_):_=v[52],_}"
+    },
+    {
+      "label": "complete idle-strip component/helper/context th",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        26461,
+        27140
+      ],
+      "utf8": [
+        26461,
+        27140
+      ],
+      "sha256": "8fe0ed2bbf907d2c11250dc1e8b75b3524ccfac05891b4788ca10aac9959c8a6",
+      "text": "th=()=>{let e,a,s,n=(0,r.c)(3);return n[0]===Symbol.for(\"react.memo_cache_sentinel\")?(e=(0,H.c)(ta,\"min-w-40 hover:bg-bg-tertiary\"),n[0]=e):e=n[0],n[1]===Symbol.for(\"react.memo_cache_sentinel\")?(a=(0,t.jsxs)(\"div\",{className:\"flex items-center gap-2\",children:[(0,t.jsx)(T.l,{variant:\"circle\",size:$,className:ts}),(0,t.jsx)(T.l,{height:14,width:64,className:ts})]}),n[1]=a):a=n[1],n[2]===Symbol.for(\"react.memo_cache_sentinel\")?(s=(0,t.jsxs)(\"div\",{\"aria-hidden\":!0,className:e,children:[a,(0,t.jsxs)(\"div\",{className:\"flex flex-col gap-1 py-0.5\",children:[(0,t.jsx)(T.l,{height:14,width:80,className:ts}),(0,t.jsx)(T.l,{height:12,width:48,className:ts})]})]}),n[2]=s):s=n[2],s}"
+    },
+    {
+      "label": "complete idle-strip component/helper/context tf",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        27141,
+        29720
+      ],
+      "utf8": [
+        27141,
+        29720
+      ],
+      "sha256": "735c1900eea6b17fbc69e204e9f5ca20b7804acddd107661078fd096b271b851",
+      "text": "tf=e=>{let a,s,l,i,c,o,d,u,m,h,x,p,b,w,_,v,k,y=(0,r.c)(49),{coin:j,onClick:A,index:E}=e;y[0]!==j?(a={mint:j.mint,chainId:j.chain_id,fallbackMarketCap:j.usd_market_cap,coin:j},y[0]=j,y[1]=a):a=y[1];let I=(0,O.h)(a);y[2]!==j.usd_market_cap?(s=j.usd_market_cap?Number(j.usd_market_cap.toFixed(2)):0,y[2]=j.usd_market_cap,y[3]=s):s=y[3],y[4]!==E||y[5]!==s?(l={itemPosition:E,marketCap:s,sourceScreen:n.Ae.SEARCH,sourceElement:n.k9.ACTIVE_SEARCH_TRENDING_COIN_LIST},y[4]=E,y[5]=s,y[6]=l):l=y[6];let T=l,q=(0,L.f)(j.mint,T,void 0,n.k9.ACTIVE_SEARCH_TRENDING_COIN_LIST),{handleCoinClick:U}=(0,M.f)(),{setLastClickImpression:D}=(0,B.y)();y[7]!==j.chain_id?(i={chainId:j.chain_id},y[7]=j.chain_id,y[8]=i):i=y[8];let{candlesticks:z,error:K,isLoading:F}=(0,eN.f)(j.mint,j.created_timestamp??null,void 0,i);y[9]!==j.symbol?(c=(0,S.W)(j.symbol),y[9]=j.symbol,y[10]=c):c=y[10];let W=c,{prefetch:V,hoverProps:Q}=(0,R.W)(j),G=`/coin/${j.mint}`;y[11]!==j.mint||y[12]!==U||y[13]!==T||y[14]!==A||y[15]!==D?(o=()=>{T&&(D(j.mint,T),U(j.mint,T)),A()},y[11]=j.mint,y[12]=U,y[13]=T,y[14]=A,y[15]=D,y[16]=o):o=y[16],y[17]===Symbol.for(\"react.memo_cache_sentinel\")?(d=(0,H.c)(ta,\"focus-inset min-w-36\"),y[17]=d):d=y[17],y[18]!==j?(u=(0,t.jsx)(N.CoinAvatar,{coin:j,size:$,hideCorner:!0}),y[18]=j,y[19]=u):u=y[19],y[20]!==j?(m=(0,t.jsx)(C.f,{coin:j,nameClassName:\"text-sm leading-5\"}),y[20]=j,y[21]=m):m=y[21],y[22]!==W?(h=W?(0,t.jsxs)(\"span\",{className:\"truncate text-xs leading-4 text-text-quaternary\",children:[\"$\",W]}):null,y[22]=W,y[23]=h):h=y[23],y[24]!==h||y[25]!==m?(x=(0,t.jsxs)(\"div\",{className:\"flex min-w-0 flex-col\",children:[m,h]}),y[24]=h,y[25]=m,y[26]=x):x=y[26],y[27]!==x||y[28]!==u?(p=(0,t.jsxs)(\"div\",{className:\"flex items-center gap-2\",children:[u,x]}),y[27]=x,y[28]=u,y[29]=p):p=y[29],y[30]!==z||y[31]!==K||y[32]!==F?(b=(0,t.jsx)(\"div\",{className:\"pointer-events-none\",children:(0,t.jsx)(g.f,{className:\"h-12 w-full\",data:z,error:K,isLoading:F})}),y[30]=z,y[31]=K,y[32]=F,y[33]=b):b=y[33];let J=I??j.usd_market_cap;return y[34]!==J?(w=(0,P.l)(J),y[34]=J,y[35]=w):w=y[35],y[36]!==w?(_=(0,t.jsx)(\"span\",{className:\"text-sm font-medium leading-5 tabular-nums text-text-primary\",children:w}),y[36]=w,y[37]=_):_=y[37],y[38]!==Q||y[39]!==V||y[40]!==p||y[41]!==b||y[42]!==_||y[43]!==G||y[44]!==o?(v=(0,t.jsxs)(f.default,{href:G,prefetch:V,...Q,onClick:o,\"data-search-tile\":!0,className:d,children:[p,b,_]}),y[38]=Q,y[39]=V,y[40]=p,y[41]=b,y[42]=_,y[43]=G,y[44]=o,y[45]=v):v=y[45],y[46]!==q||y[47]!==v?(k=(0,t.jsx)(\"div\",{ref:q,className:\"flex\",children:v}),y[46]=q,y[47]=v,y[48]=k):k=y[48],k}"
+    },
+    {
+      "label": "complete idle-strip component/helper/context tx",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        29721,
+        30517
+      ],
+      "utf8": [
+        29721,
+        30517
+      ],
+      "sha256": "86c76450d5e56a0e79ba250cf52f3cbcc8d0cc6c92553245e89d25a10670daf5",
+      "text": "tx=()=>{let e,a,s,n,l=(0,r.c)(4);return l[0]===Symbol.for(\"react.memo_cache_sentinel\")?(e=(0,H.c)(ta,\"min-w-36 hover:bg-bg-tertiary\"),l[0]=e):e=l[0],l[1]===Symbol.for(\"react.memo_cache_sentinel\")?(a=(0,t.jsx)(T.l,{variant:\"art\",size:$,className:ts}),l[1]=a):a=l[1],l[2]===Symbol.for(\"react.memo_cache_sentinel\")?(s=(0,t.jsxs)(\"div\",{className:\"flex items-center gap-2\",children:[a,(0,t.jsxs)(\"div\",{className:\"flex flex-col gap-1\",children:[(0,t.jsx)(T.l,{height:14,width:64,className:ts}),(0,t.jsx)(T.l,{height:12,width:40,className:ts})]})]}),l[2]=s):s=l[2],l[3]===Symbol.for(\"react.memo_cache_sentinel\")?(n=(0,t.jsxs)(\"div\",{\"aria-hidden\":!0,className:e,children:[s,(0,t.jsx)(T.l,{height:48,className:(0,H.c)(\"w-full\",ts)}),(0,t.jsx)(T.l,{height:14,width:56,className:ts})]}),l[3]=n):n=l[3],n}"
+    },
+    {
+      "label": "complete idle-strip component/helper/context tp",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        30518,
+        33977
+      ],
+      "utf8": [
+        30518,
+        33977
+      ],
+      "sha256": "5b14740a5a6471bf9c5d1c5d986a621c9173afd18db451e0dc1f43adfcd7c1a3",
+      "text": "tp=e=>{let s,n,l,i,c,o,d,u,m,h,f,x,g,b,w,_,v,k=(0,r.c)(50),{topTraders:y,topTradersLoading:j,trendingCoins:N,trendingLoading:C,onNavigate:S}=e,{t:A}=(0,p.f)(),[E,I]=(0,a.useState)(eb),T=function(){let e,t,s,n,l,i,c=(0,r.c)(14),[o,d]=(0,a.useState)(null);c[0]!==o?(e=e=>{if(!o)return ef;o.addEventListener(\"scroll\",e,{passive:!0});let t=\"u\"<typeof ResizeObserver?null:new ResizeObserver(e);t?.observe(o);let r=new MutationObserver(e);return r.observe(o,{childList:!0}),()=>{o.removeEventListener(\"scroll\",e),t?.disconnect(),r.disconnect()}},c[0]=o,c[1]=e):e=c[1];let u=e;c[2]!==o?(t=()=>{let e;return o?(e=o.scrollWidth-o.clientWidth,o.scrollLeft<=1|2*(o.scrollLeft>=e-1)):3},c[2]=o,c[3]=t):t=c[3];let m=(0,a.useSyncExternalStore)(u,t,eh);c[4]!==o?(s=e=>{o&&o.scrollBy({left:e*o.clientWidth,behavior:window.matchMedia?.(\"(prefers-reduced-motion: reduce)\").matches?\"auto\":\"smooth\"})},c[4]=o,c[5]=s):s=c[5];let h=s,f=(1&m)!=0,x=(2&m)!=0;return c[6]!==h?(n=()=>h(-1),l=()=>h(1),c[6]=h,c[7]=n,c[8]=l):(n=c[7],l=c[8]),c[9]!==f||c[10]!==x||c[11]!==n||c[12]!==l?(i={attachStrip:d,atStart:f,atEnd:x,pagePrevious:n,pageNext:l},c[9]=f,c[10]=x,c[11]=n,c[12]=l,c[13]=i):i=c[13],i}();k[0]!==T?({attachStrip:s,...n}=T,k[0]=T,k[1]=s,k[2]=n):(s=k[1],n=k[2]);let R=C||N.length>0,M=j||y.length>0;k[3]!==E||k[4]!==R||k[5]!==M?(i=(({picked:e,available:t})=>{if(t[e])return e;let r=\"hot-coins\"===e?\"top-traders\":\"hot-coins\";return t[r]?r:null})({picked:E,available:l={\"hot-coins\":R,\"top-traders\":M}}),k[3]=E,k[4]=R,k[5]=M,k[6]=l,k[7]=i):(l=k[6],i=k[7]);let L=i;k[8]===Symbol.for(\"react.memo_cache_sentinel\")?(c=e=>{I(e);try{window.sessionStorage.setItem(ep,e)}catch{}},k[8]=c):c=k[8];let P=c;k[9]!==L||k[10]!==S||k[11]!==y||k[12]!==j||k[13]!==N||k[14]!==C?(o=\"top-traders\"===L?j?Array.from({length:5},tS):y.map(e=>(0,t.jsx)(tm,{entry:e,onClick:S},e.walletAddress)):\"hot-coins\"===L?C?Array.from({length:5},tA):N.map((e,r)=>(0,t.jsx)(tf,{coin:e,index:r,onClick:S},e.mint)):null,k[9]=L,k[10]=S,k[11]=y,k[12]=j,k[13]=N,k[14]=C,k[15]=o):o=k[15];let O=o,U=\"top-traders\"===L?\"search-top-traders\":\"search-hot-coins\";k[16]!==A?(d=A(\"web.nav.discover\"),k[16]=A,k[17]=d):d=k[17];let D=L??E;k[18]!==A?(u=A(\"web.search.hot_coins\"),k[18]=A,k[19]=u):u=k[19];let z=!l[\"hot-coins\"];k[20]!==u||k[21]!==z?(m={value:\"hot-coins\",label:u,disabled:z},k[20]=u,k[21]=z,k[22]=m):m=k[22],k[23]!==A?(h=A(\"web.search.top_traders\"),k[23]=A,k[24]=h):h=k[24];let H=!l[\"top-traders\"];return k[25]!==h||k[26]!==H?(f={value:\"top-traders\",label:h,disabled:H},k[25]=h,k[26]=H,k[27]=f):f=k[27],k[28]!==m||k[29]!==f?(x=[m,f],k[28]=m,k[29]=f,k[30]=x):x=k[30],k[31]!==x||k[32]!==d||k[33]!==D?(g=(0,t.jsx)(ey.X,{density:K,\"aria-label\":d,value:D,onValueChange:P,options:x}),k[31]=x,k[32]=d,k[33]=D,k[34]=g):g=k[34],k[35]!==L||k[36]!==n?(b=L?(0,t.jsx)(ex,{density:K,...n}):void 0,k[35]=L,k[36]=n,k[37]=b):b=k[37],k[38]!==g||k[39]!==b?(w=(0,t.jsx)(q._,{density:K,titleAs:\"span\",truncateTitle:!1,title:g,className:Q,action:b}),k[38]=g,k[39]=b,k[40]=w):w=k[40],k[41]!==L||k[42]!==s||k[43]!==O||k[44]!==A?(_=L?(0,t.jsx)(\"div\",{ref:s,className:\"flex gap-3 overflow-x-auto px-5 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden\",children:O},L):(0,t.jsx)(e_.L,{density:K,children:A(\"web.search.no_trending_coins\")}),k[41]=L,k[42]=s,k[43]=O,k[44]=A,k[45]=_):_=k[45],k[46]!==w||k[47]!==_||k[48]!==U?(v=(0,t.jsxs)(\"section\",{className:\"flex flex-col\",\"data-testid\":U,children:[w,_]}),k[46]=w,k[47]=_,k[48]=U,k[49]=v):v=k[49],v}"
+    },
+    {
+      "label": "complete idle-strip component/helper/context tS",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        51789,
+        51831
+      ],
+      "utf8": [
+        51793,
+        51835
+      ],
+      "sha256": "a26bc6c370742d34c012276d7676fe9eba943129e95c12ea5c30ea4382b984f0",
+      "text": "function tS(e,r){return(0,t.jsx)(th,{},r)}"
+    },
+    {
+      "label": "complete idle-strip component/helper/context tA",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        51831,
+        51873
+      ],
+      "utf8": [
+        51835,
+        51877
+      ],
+      "sha256": "a9316863540b17b62cdfaacd7a1bad0eb7ed168f113a8ccd3d1a766e54397c9f",
+      "text": "function tA(e,r){return(0,t.jsx)(tx,{},r)}"
+    },
+    {
+      "label": "complete idle-strip component/helper/context K",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        1331,
+        1346
+      ],
+      "utf8": [
+        1331,
+        1346
+      ],
+      "sha256": "4f144007a6adb61120c6afa08f2eb91b4d8076e2f92a971d766eccc95030e73d",
+      "text": "K=\"comfortable\""
+    },
+    {
+      "label": "complete idle-strip component/helper/context Q",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        1580,
+        1594
+      ],
+      "utf8": [
+        1580,
+        1594
+      ],
+      "sha256": "35eecc8104050706cbea35730f820f9760b1c14cc621e21c8a5467eef7c404a7",
+      "text": "Q=\"border-b-0\""
+    },
+    {
+      "label": "complete idle-strip component/helper/context W",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        1408,
+        1446
+      ],
+      "utf8": [
+        1408,
+        1446
+      ],
+      "sha256": "b953e7135f88dd6f356e146c68c9a8e29171c6dc019494a964c27082edff06c7",
+      "text": "W=\"absolute inset-0 z-[1] focus-inset\""
+    },
+    {
+      "label": "complete idle-strip component/helper/context $",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        1347,
+        1364
+      ],
+      "utf8": [
+        1347,
+        1364
+      ],
+      "sha256": "84b421665884167f26d47f5da0af92b11c424eca8699a4775c6f9a5e41a774e9",
+      "text": "$=k.s.comfortable"
+    },
+    {
+      "label": "source event enum SEARCH",
+      "source": "evidence/web/objects/88945b987f03af34.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3xtvhmd-f712k.js",
+      "sourceSha256": "dd506fbdce6b5f6704da07f92a24a299527f2a7cb148b715d38cd3fb07fff093",
+      "sourceBytes": 32856,
+      "utf16": [
+        20121,
+        20129
+      ],
+      "utf8": [
+        20121,
+        20129
+      ],
+      "sha256": "4c1fac546aed397cbe9124eb4bf7906ba4efccef3b3f7e9c3346d73bcce6ebf9",
+      "text": "SEARCH:9"
+    },
+    {
+      "label": "source event enum ACTIVE_SEARCH_TRENDING_COIN_LIST",
+      "source": "evidence/web/objects/88945b987f03af34.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3xtvhmd-f712k.js",
+      "sourceSha256": "dd506fbdce6b5f6704da07f92a24a299527f2a7cb148b715d38cd3fb07fff093",
+      "sourceBytes": 32856,
+      "utf16": [
+        9000,
+        9035
+      ],
+      "utf8": [
+        9000,
+        9035
+      ],
+      "sha256": "a9fba137fb2e8bbe01b6c1e5f1aa6ff72047f53a27bdc26f17028b222c973370",
+      "text": "ACTIVE_SEARCH_TRENDING_COIN_LIST:24"
+    },
+    {
+      "label": "existing avatar flag key; value supplied by useFlag",
+      "source": "evidence/web/objects/256f83f9b5d323e6.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1qz80vl8iu-ry.js",
+      "sourceSha256": "96484ad8013744e7c17f4a8f900ca3fe1285cdeeff0932b65f2134bc54bb34eb",
+      "sourceBytes": 39492,
+      "utf16": [
+        9294,
+        9341
+      ],
+      "utf8": [
+        9294,
+        9341
+      ],
+      "sha256": "e19d8c3591ac057bd0184b259ae509a4560354edfb853e891327e23c1d1750c4",
+      "text": "t.WEB_AVATAR_DECORATIONS=\"webAvatarDecorations\""
+    },
+    {
+      "label": "actual MAIN/#1925 idle-strip props handoff",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        48214,
+        48314
+      ],
+      "utf8": [
+        48214,
+        48314
+      ],
+      "sha256": "1f75a86ed867e653922a9390f2b0f0441be17e01e2d8303bd8b4a5ed29482e59",
+      "text": "(0,t.jsx)(tp,{topTraders:eq,topTradersLoading:eN,trendingCoins:eb,trendingLoading:ev,onNavigate:ea})"
+    },
+    {
+      "label": "actual native scroll external-store subscription",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        31221,
+        31255
+      ],
+      "utf8": [
+        31221,
+        31255
+      ],
+      "sha256": "d226e29bd945366a19d30c1e682814e71d8c1d6e71834e3af381e7443e0c7bd3",
+      "text": "(0,a.useSyncExternalStore)(u,t,eh)"
+    }
+  ],
+  "dependencies": [
+    {
+      "file": "reconstruction/search-navigation/navigation.mjs",
+      "sha256": "3df06f823f7ad2fe9888a640a369c8e26f7566e28dcb6961ac7b89d7e6a7c6c5"
+    },
+    {
+      "file": "reconstruction/search-navigation/PROVENANCE.json",
+      "sha256": "59333c967632a52707470bd6694bdddb77db8efc306431d63e2def61e9867f98"
+    },
+    {
+      "file": "scripts/verify-search-navigation.mjs",
+      "sha256": "8e77ff75bee5aeea50f839d1ac9ab4db680ab41c355f168bf00ee1743c1b98b7"
+    },
+    {
+      "file": "scripts/verify-search-planner.mjs",
+      "sha256": "ee5765c19448236d4a2f3f26824daacf20745a34605211216ffab6764c1baa3a"
+    }
+  ],
+  "browserPorts": {
+    "browserWindow": "Required sessionStorage getItem/setItem and optional matchMedia exact source API; synthetic capability only, never real storage",
+    "MutationObserver": "Required constructor, observe(node,{childList:true}) and disconnect; source subscription cleanup",
+    "ResizeObserver": "Explicit constructor or undefined; source availability check/optional observe and disconnect",
+    "avatarSize": "Existing951425.s.comfortable value supplied exactly; retained $ declaration source-bound"
+  },
+  "caller": {
+    "props": [
+      "topTraders",
+      "topTradersLoading",
+      "trendingCoins",
+      "trendingLoading",
+      "onNavigate"
+    ],
+    "guard": "Actual parent renders tp when raw draft w is falsy; parent1925 unchanged, no additional open/auth gate"
+  },
+  "comparison": "Complete selected declarations/functions compare strictly; only parser positions/comments/raw spelling ignored. No alpha/type/branch/operation masks or captured execution.",
+  "credits": {
+    "parent": "OPEN1925 provides the exact source-bound data/loading/callback props and owns all acquisition/query/state. No hidden import, no new request or duplicate parent helper.",
+    "rows": "Ordinary result rows1937/recent terms1962 are separate and unchanged; these are the distinct complete idle tile/strip frames.",
+    "providers": "Chart/media/Avatar/profile/decoration/prefetch/metrics/formatter providers retain exact required call signatures; existing1916/1927/#1841 or other attributed work stays external, not duplicated.",
+    "navigation": "Accepted profileRoute imported and verified unchanged. Coin detail href is retained source metadata only; no detail-page or actual navigation implementation.",
+    "proof": "Bounded source-scope audit reused from own1925/1937/1962, not shared helper changes or separate utility credit."
+  },
+  "limits": [
+    "No actual session/local storage/cookie/account/credential/config/flag/service/price/leaderboard query or provider acquisition; supplied synthetic rows/results only.",
+    "PnlUsd/PnlPercent/market cap are supplied fields with exact display formatter ports, not inferred financial/accounting/ranking data.",
+    "Coin click instrumentation/prefetch/links remain supplied callback/metadata ports; no original navigation, protected action, detail page or provider implementation/execution.",
+    "Native scroll/DOM listener/observer/motion APIs retain source calls; synthetic browserWindow storage/motion may be injected. No production persistence or current original renderer/provider parity.",
+    "No product mount/Next/full-app/visual/API/native/backend/security/accounting/feature-completion claim or progress change; no combined1925runtime qualification."
+  ]
+}
