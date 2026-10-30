@@ -101,6 +101,7 @@ jobs:
               python -B tests/test_fees_donation_create_pinned_image.py
               python -B tests/test_fees_social_claim_pinned_image.py
               python -B tests/test_fees_donation_crank_pinned_image.py
+              python -B tests/test_create_mayhem_normal_python.py
               python -B tests/test_two_curve_optimization_guard.py
               python -O -B tests/test_two_curve_optimization_guard.py
               python -B scripts/test_dispatch_recovery.py
@@ -151,6 +152,7 @@ jobs:
               python -B scripts/test_disassemble_output_mode.py
               python -B scripts/test_disassemble_tool_binding.py
               python -B scripts/test_analyze_publication.py
+              python -B scripts/test_verify_imported_lab_publication.py
               python -B scripts/test_pump_compare_function_bytes_report.py
               python -B scripts/test_sbpf_disassembly_roundtrip_build_log.py
               python -B scripts/test_supported_sbpf_package_paths.py
@@ -162,6 +164,7 @@ jobs:
               python -B scripts/test_bytecode_signatures_publication.py
               python -B scripts/test_revalidate_all_publication.py
               python -B scripts/test_donation_relay_oracle_optimization.py
+              python -B tests/test_claim_token_incentives_pinned_image.py
               python -B -X utf8 tests/test_dispatch_idl_encoding.py
               python -B tests/test_local_validation_idl_encoding.py
               python -B tests/test_claim_token_incentives_idl_encoding.py

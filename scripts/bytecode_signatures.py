@@ -10,6 +10,10 @@ Builds a signature database from all three programs, identifying:
 - Token transfer patterns
 - Anchor serialization/deserialization patterns
 
+Publication uses shared atomic no-replace/exchange operations. Replacements
+retain the prior packet in a printed .previous-* sibling; unsupported hosts
+fail closed.
+
 Usage:
     python3 scripts/bytecode_signatures.py --output research/bytecode-signatures-20261028
 """
@@ -18,6 +22,8 @@ import collections
 import hashlib
 import json
 import os
+import shutil
+import stat
 import struct
 import sys
 from pathlib import Path
@@ -25,6 +31,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "scripts"))
 from window_elf_reader import Elf
+from deep_disassembly import directory_identity, publish_packet, temporary_sibling
 
 PROGRAMS = ["pump", "pump_amm", "mayhem"]
 
@@ -280,13 +287,8 @@ def detect_account_validation(elf, start, end):
     }
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--output", required=True)
-    args = parser.parse_args()
-
-    output_dir = Path(args.output)
-    output_dir.mkdir(parents=True, exist_ok=True)
+def _build_packet(output_dir, output_label=None):
+    output_dir = Path(output_dir)
 
     all_signatures = {}
     all_patterns = {}
@@ -409,16 +411,12 @@ def main():
 
     # The manifest hashes every file here and verify.py requires exactly the
     # generated set, so reject leftovers from another run before writing.
-    packet_files = {
-        "README.md", "manifest.json", "shared-signatures.json", "summary.json",
-        "top-ngrams.json", "verify.py",
-        *[f"{program}-{kind}.json" for program in program_summaries for kind in ("patterns", "signatures")],
-    }
+    packet_files = expected_packet_files(program_summaries)
     unexpected = sorted(path.name for path in output_dir.iterdir() if path.name not in packet_files)
     if unexpected:
         raise ValueError("unexpected packet entry: " + ", ".join(unexpected))
     invalid = sorted(name for name in packet_files
-                     if (output_dir / name).is_symlink()
+                     if linked(output_dir / name)
                      or ((output_dir / name).exists() and not (output_dir / name).is_file()))
     if invalid:
         raise ValueError("packet entry is not a regular file: " + ", ".join(invalid))
@@ -555,7 +553,67 @@ if __name__ == "__main__":
         for name in os.listdir(output_dir)
         if (output_dir / name).is_file()
     )
-    print(f"[sigs] wrote {len(manifest) + 1} files, ~{total_lines:,} lines to {output_dir}")
+    print(f"[sigs] wrote {len(manifest) + 1} files, ~{total_lines:,} lines to {output_label or output_dir}")
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", required=True)
+    args = parser.parse_args()
+    output_dir = Path(args.output)
+    identity = prepare_destination(output_dir)
+    staging = temporary_sibling(output_dir, "staging")
+    try:
+        _build_packet(staging, output_dir)
+    except BaseException:
+        shutil.rmtree(staging, ignore_errors=True)
+        raise
+    publish_packet(staging, output_dir, identity)
+
+
+def expected_packet_files(programs=None):
+    programs = programs or [
+        program for program in PROGRAMS
+        if (REPO / 'evidence/original' / program / 'deployed.so').is_file()
+    ]
+    return {
+        "README.md", "manifest.json", "shared-signatures.json", "summary.json",
+        "top-ngrams.json", "verify.py",
+        *[f"{program}-{kind}.json" for program in programs
+          for kind in ("patterns", "signatures")],
+    }
+
+
+def linked(path):
+    try:
+        metadata = path.lstat()
+    except FileNotFoundError:
+        return False
+    return (stat.S_ISLNK(metadata.st_mode)
+            or bool(getattr(metadata, "st_file_attributes", 0)
+                    & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0))
+            or bool(getattr(metadata, "st_reparse_tag", 0)))
+
+
+def prepare_destination(output_dir):
+    output_dir = Path(output_dir)
+    if linked(output_dir):
+        raise ValueError("output directory is a link")
+    if output_dir.exists() and not output_dir.is_dir():
+        raise ValueError("output path is not a directory")
+    output_dir.parent.mkdir(parents=True, exist_ok=True)
+    packet_files = expected_packet_files()
+    existing = list(output_dir.iterdir()) if output_dir.exists() else []
+    unexpected = sorted(path.name for path in existing if path.name not in packet_files)
+    if unexpected:
+        raise ValueError("unexpected packet entry: " + ", ".join(unexpected))
+    invalid = sorted(name for name in packet_files
+                     if linked(output_dir / name)
+                     or ((output_dir / name).exists()
+                         and not (output_dir / name).is_file()))
+    if invalid:
+        raise ValueError("packet entry is not a regular file: " + ", ".join(invalid))
+    return directory_identity(output_dir)
 
 
 if __name__ == "__main__":

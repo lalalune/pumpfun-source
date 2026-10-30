@@ -15,6 +15,8 @@ Mayhem preconditions are built honestly: mayhem `global_params` is created by
 sending mayhem's own `initialize_global_params`; the pump global is seeded from the
 captured config snapshot with `create_v2_enabled`/`mayhem_mode_enabled` toggled.
 """
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse, base64, gzip, hashlib, json, struct, sys
 from pathlib import Path
 from solders.account import Account
