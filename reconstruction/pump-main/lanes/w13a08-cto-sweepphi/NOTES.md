@@ -49,9 +49,9 @@ plain load, as in the original:
 | main 9eb6c00 (0.49131) | 27,360 / 0.49288 | + old-before-bump + Rent inline + reset early: 27,400 / **0.49431** (slots 3,167) |
 | main 1f1a717 (0.49431) | 27,360 / 0.49408 | + old-before-bump + Rent inline: 27,400 / **0.49611** (0 losses) |
 | main 8f050a2 (0.50929) | 27,368 / 0.51079 | old-before-bump is now byte-neutral; + `&Rent` ref 27,352 / 0.51094 |
+| main 74b3171 (0.51348) | 27,368 / 0.51469 | (companion screen running) |
 
 A `let holder=a.bonding_curve.is_holder_reward;` rebinding before the pool test is weaker (27,392 / 0.49109 on 9eb6c00).
-| main 74b3171 (0.51348) | 27,368 / 0.51469 | (companion screen running) |
 
 ### Skip-tree tuple order is base-sensitive
 
