@@ -56,7 +56,8 @@ Keeping `target` live until the event (t14/t16) collapses the frame (ratio -0.18
 ## Frame note (IR oracle on main 20a1ae9 IR from w12a01-cto-frame)
 
 `frameoracle.py --drop-lifetime _188 --drop-lifetime _194` (the final `emit_cpi!` temporaries
-`[AccountInfo;1]` 48 B and `[&[u8];2]` 32 B) fills exactly the +80 B break between fi54 (`val.sroa.6.i`) and
-fi109 (`_184`): fi109..fi122 then sit at the same -16 delta as fi43..fi54 (the extra 16 B `_117.i74` wallet
-signer slice). The original therefore keeps those two emit_cpi temporaries unmerged. Alone the masked ratio
-drops (0.43919 -> 0.42451) because holder_key/mint/ISel temps move to -48.
+`[AccountInfo;1]` 48 B and `[&[u8];2]` 32 B) has exactly the size of the +80 B break between fi54
+(`val.sroa.6.i`) and fi109 (`_184`): with them unmerged, fi109..fi122 sit at the same -16 delta as fi43..fi54
+(the extra 16 B `_117.i74` wallet signer slice). Only the sizes are confirmed: the accesses of `_188` itself vote
+for the original top slot (T 0x38), so which original objects fill those 80 B is still open. Alone the masked
+ratio drops (0.43919 -> 0.42451) because holder_key/mint/ISel temps move to -48.
