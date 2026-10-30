@@ -10,7 +10,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from pump_quote_control_function_match import sections, candidate_functions, function_body
+from pump_quote_control_function_match import sections, candidate_functions, function_body, protect_report_output
 
 ROOT = Path(__file__).resolve().parents[1]
 ORIGINAL = ROOT / 'evidence/original/pump/deployed.so'
@@ -41,6 +41,8 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--objdump', default=str(Path.home()/'.cache/solana/v1.52/platform-tools/llvm/bin/llvm-objdump'))
     args = parser.parse_args()
+    windows = window_inventory()
+    protect_report_output(args.output, [ORIGINAL, args.candidate, windows, Path(__file__)], args.objdump)
     original, candidate = ORIGINAL.read_bytes(), args.candidate.read_bytes()
     assert sha(original) == EXPECTED_ORIGINAL
     original_sections, candidate_sections = sections(original), sections(candidate)
@@ -50,7 +52,6 @@ def main():
         raw = function_body(candidate, candidate_sections, address, size)
         counterparts.setdefault((size, sha(raw)), []).append({'address':address, 'symbol':name})
     rows = []
-    windows = window_inventory()
     with windows.open() as stream:
         for row in csv.DictReader(stream, delimiter='\t'):
             if row['program'] != 'pump' or row['variant'] != 'selected':continue

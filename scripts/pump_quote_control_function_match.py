@@ -13,10 +13,23 @@ offsets and branch displacements) must be identical. Raw equality is separate;
 masked matches do not prove callee or data identity. This is analysis only; no
 executable is written or patched.
 """
-import argparse, hashlib, json, pathlib, re, struct, subprocess
+import argparse, hashlib, json, pathlib, re, shutil, struct, subprocess
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 ORIGINAL = ROOT / 'evidence/original/pump/deployed.so'
+
+
+def protect_report_output(output, inputs, objdump):
+    """Reject report paths that alias consumed inputs before analysis or writing."""
+    if output is None:
+        return
+    destination = pathlib.Path(output)
+    tool = shutil.which(str(objdump)) or objdump
+    for value in [*inputs, pathlib.Path(__file__), pathlib.Path(tool)]:
+        source = pathlib.Path(value)
+        if (destination.resolve() == source.resolve()
+                or (destination.exists() and source.exists() and destination.samefile(source))):
+            raise ValueError('report destination aliases an input: ' + str(source))
 
 
 def sections(blob):
@@ -92,6 +105,7 @@ def main():
     p.add_argument('--pattern', default='quote_control|QuoteControl')
     p.add_argument('--output', type=pathlib.Path)
     a = p.parse_args()
+    protect_report_output(a.output, [ORIGINAL, a.candidate], a.objdump)
     orig = ORIGINAL.read_bytes()
     cand = a.candidate.read_bytes()
     os_, cs = sections(orig)['.text'], sections(cand)['.text']
