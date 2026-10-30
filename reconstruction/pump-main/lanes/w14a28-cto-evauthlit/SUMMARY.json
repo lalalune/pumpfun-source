@@ -1,0 +1,18 @@
+{
+  "lane": "w14a28-cto-evauthlit",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": {"7e6aa9caa": {"ratio": 0.6414, "slots": 3174}, "d2d187555": {"ratio": 0.6417, "slots": 3173}},
+  "result": "no gain; angle exhausted",
+  "best": {"ratio": 0.6417, "slots": 3173, "bytes": 27400, "note": "= main d2d1875 (call-preserving forms are byte-identical)"},
+  "attempts": 15,
+  "mechanism_finding": "Both event-CPI authority clones (AdminCtoEvent emit_cpi orig 0x5110, CollectCreatorFeeEvent orig 0x64f0) are outlined <AccountInfo as Clone>::clone calls in the original, already matched by main in place and order. Any AccountInfo literal (any field order, x-binding or through-path ctx.accounts.event_authority.<f> reads) drops the call (154->152), grows ~290-310 B and loses (tail 0.52145, wallet 0.3065). Every call-preserving spelling (verbatim hand expansion, wallet block form, array-after-ix) is byte-identical.",
+  "rejected": ["t0","tw","ta","tlK_thru","tlL_thru","tlLD_thru","tlL_x","wlK_thru","wlLD_thru","wlL_thru"],
+  "unresolved_residuals": [
+    "tail emit_cpi: dest pointer (r10-0x610) vs bump register swap; orig spills the pointer to 0x8d8 and keeps bump in r6, ours the reverse. Upstream cause: orig holds the sharing_update tag in r6 from the pool arm (orig 0x4d48) to the event test (0x4f18) and reloads accounts into r6 at 0x4f38; ours holds accounts in r8 from 0x4e40 and pool_updated in r6 (w14a12 tagreg territory).",
+    "collect emit_cpi: r9 vs r7 temporary class and r7 vs r8 authority pointer, from the wallet coin flag RA (w14a03/w14a24)."
+  ],
+  "next_ideas": [
+    "Work the tail tag/pool_updated register assignment (sharing tag in r6 across the pool arm) rather than any event-CPI spelling.",
+    "Do not screen further event_authority literal or clone spellings: the original's call skeleton rules out literals and every call-preserving form is identical."
+  ]
+}
