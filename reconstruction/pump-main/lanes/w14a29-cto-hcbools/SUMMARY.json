@@ -1,0 +1,34 @@
+{
+  "lane": "w14a29-cto-hcbools",
+  "target": "0x22a10 admin_cto::execute",
+  "pinned_bytes": 27400,
+  "bases": {"d2d1875": 0.6417, "b2e90aa": 0.6444, "65df90f": 0.6453},
+  "result": "no gain; notes PR #3301",
+  "best_zero_loss": {"ratio": 0.6453, "slots_diff": 3171, "bytes": 27400, "note": "= main 65df90f (no source change)"},
+  "attempts": 31,
+  "ledger": "approach hcbools, keys 0x22a10-w14-{d2d1875,b2e90aa,65df90f}-hcbools-*",
+  "mechanism_findings": [
+    "original: is_holder_reward (+0xa5) from [r10-0x950] (i8 phi of constants), is_cashback_coin (+0xa3) from [r10-0x958]&1 (i1 phi materialized at orig +0xd78); w14a13 had the labels swapped",
+    "ours: cashback = and i1 in the entry; MachineSink sinks AND_rr+AND_ri 1 into the curve-store block, so both i1 operands (SS#184 w1.5, SS#185 w1.09) cross the sharing CPI",
+    "holder at the store is the CGP-sunk icmp of the holder argument, so the argument spill (w2.46) takes colour 178 and the accounts pointer 179",
+    "the 9-crossing forms (arm carry, after-validate, validate(cashback), hopt.unwrap_or(false)) re-colour the fee tag, fee value and ctx argument spills and lose 0.05-0.18",
+    "hopt.unwrap_or(false) is the only form that puts the accounts pointer on 178 and the holder argument spill on 186 as in the original (0.46239 at 27,280 B)"
+  ],
+  "rejected": [
+    "& / match / if / ^ / > cashback spellings (byte-identical)",
+    "cashback carried through the shared arms (n_e*, -104 B, 0.5385)",
+    "cashback after validate (n_cbpost, -168 B, 0.56228)",
+    "validate takes cashback (q1-q4, 0.50-0.52)",
+    "holder in the Ok-carry (n_okh, +112 B, 0.465)",
+    "holder unwrap_or/if-let (p_h1/p_h4, 0.462)",
+    "store-site knobs: holder-first, event cashback local, pargs holder, implied cashback uses (all <= main)"
+  ],
+  "unresolved": [
+    "original's validate phi structure for holder/cashback costs 150-370 B (w13a38, w14a10); no size repay found",
+    "MIR oracle starting after machine-sink does not reproduce main (28,560 B)"
+  ],
+  "next_ideas": [
+    "and-1 holder family (p_h1 colour map, w14a10 e3+tu8) with a full #3137 size-knob repay screen",
+    "stack-slot-coloring pin oracle (w14a18) applied to n_e/p_h1 to price the colour cascade separately from code shape"
+  ]
+}

@@ -56,6 +56,16 @@ acct = accounts pointer (21+ sites), shTag = sharing tag, sw = swept. Labels are
 | p_h1 + n_e | 27,400 | 0.45896 | 9 | acct:178 .. feeV:189 ctx:191 |
 | p_h1 + cbpost | 22,784 | 0.32508 | 9 | (frame collapses) |
 
+Store-site and tail knobs on main 65df90f (0.6453):
+
+| spelling | bytes | ratio | n |
+| --- | ---: | ---: | ---: |
+| `curve.is_cashback_coin=cashback&&!holder` / `cashback&!holder` | 27,400 | = main | 10 |
+| `curve.is_cashback_coin=!holder&&cashback` (short-circuit at the store) | 27,208 | 0.55021 | 9 |
+| holder-first curve stores | 27,408 | 0.64041 | 10 |
+| event `is_cashback_coin:cashback` | 27,408 | 0.64161 | 10 |
+| pool CPI `pargs=(target,holder,fee)` | 27,424 | 0.63932 | 10 |
+
 p_h1 reaches the angle's target exactly: 9 crossings, the accounts pointer on 178, the holder argument spill on 186 as in the
 original, and fee value on 189. It still loses 0.18, because the and-1 holder rebuilds the validate and shared tree
 (this is w14a10's hxe/uxe row: −120 B, block order of orig 0x4000–0x5000 lost). Its 0x2800–0x3800 region matches 0 plain tokens
