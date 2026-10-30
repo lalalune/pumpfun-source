@@ -1,0 +1,29 @@
+{
+  "lane": "w13a40-cto-clonera7fb",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": {"16c10e631": {"ratio": 0.62043, "slots": 3306}, "52c0b087c": {"ratio": 0.62103}},
+  "best": {"ratio": 0.62043, "bytes": 27400, "note": "no zero-loss gain; n298_iflet is byte-identical to main 16c10e6"},
+  "landed": false,
+  "mechanism": "Clone-run RA (clonefeat 6/2) = (1) swept coalesced into the global Err-payload vreg class, which then holds a register across the sharing-CPI clone run, and (2) the accounts pointer %0 region split (RAGreedy tryRegionSplit) picking that same register, so the clone-run blocks fall in the stack complement and every use reloads. 7fb9a5e3e7a2 (reconstructed): class r9 incl. swept, split r9/57 bundles. main: RegisterCoalescer visits the post-sweep Err join bb62 (3 preds+1 succ) before the sweep Err inttoptr block bb81 (2+1; MBBPriorityCompare pred+succ), the sharing-CPI call-block payload copy joins first and swept interferes at 64304r -> swept separate+spilled, payload r8, split r6 (free in clone run) -> one r5 interval (2/6).",
+  "tools": ["tools/coal.py (debug-llc coalescing/RA diagnosis)", "tools/bwscan.py (branch-weight scan, clonefeat objective)", "tools/obj.py + segstat_lib.py (clone-run objectives)", "tools/run.sh + genes.py (gene screen via measure.sh)", "tools/capvar.sh/capraw.py/rx.py (raw-IR opt oracle, from w13a01)", "tools/bound.py (w13a36)", "edits/i_*.py IR probes"],
+  "attempts": {
+    "gene_singles_16c10e6": 12, "gene_pairs_16c10e6": 12, "ir_probes": 6, "bwscans": 4, "source_coalescing_captures": 13
+  },
+  "rejected": [
+    "6/2-build genes singly and in pairs on 16c10e6 (n298_iflet, sko, n306_okorelse, fee_unwrap_or, curve_edit_first, su_iflet, shared_bitand, shared_owner_first, shared_flat, holder_unwrap, v_holder_unwrap, ql_before_shared): none reaches 6/2 (best 3/5 shared_owner_first 0.60773@27384, v_holder_unwrap 0.4976@27400); none gains at 27400",
+    "source routes to swept coalescing: nat_q 0.43975@27368, nat_flat 0.44038@27328, ss_scope 0.53569@27456 (16c10e6) / 0.53509 (52c0b08): coalesce but payload r7, split r6, cf 2/6, layout loss",
+    "ss_scope + genes: holder_unwrap gives the original's payload r9 (0.56135@27264) but split r7; others r7/r6",
+    "IR: i_nobb81 0.48024, i_j3 0.51607, i_ev64 0.54317, i_skipjoin 0.52502 (no coalescing)",
+    "branch weights: 6/2 only with large layout changes on main; on coalesced states the flip is ratio-neutral (ss+hu bw2920_lo 0.56122 vs 0.56135)"
+  ],
+  "bounds": {"clone_runs_0x3e00_0x4a00": {"R": 0.63002, "FR": 0.66177, "base": 0.62103}, "0x4100_0x4800": {"R": 0.62612, "FR": 0.6393}},
+  "unresolved": [
+    "original coalesces swept with the Err payload (r9) without our layout change: its sweep Err edge needs no separate block or the post-sweep join is less connected",
+    "frame/spill-slot order in the clone run (flag spills 0xa40.. vs 0x9e8..) carries most of the region's FR bound"
+  ],
+  "next": [
+    "find a source form that coalesces swept while keeping main's CFG (sweep Err edge block more connected, or post-sweep Err join with <=2 preds without moving event Err edges); check with tools/coal.py before building",
+    "on any coalesced state with payload r9 (ss_scope+holder_unwrap shows it exists), look for the %0 split = r9 with coal.py + bwscan",
+    "keep the original's skip-join predecessor at the sweep tag test (orig 0x26650-0x26670 reloads holder phi and skip flag before jne r7,2)"
+  ]
+}
