@@ -1,0 +1,40 @@
+{
+  "lane": "w13a13-cto-region1of3",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "angle": "region 1 of 3 of the original window (orig +0x0000..+0x23ad)",
+  "landed": {
+    "pr": 2927,
+    "merge_commit": "b48b56f3f39523fffad22961533745f7388190d9",
+    "merged_by": "another agent (Codex pass41), not land.py; branch swarm/w13a13-cto-region1of3",
+    "before": {"main": "8f050a2", "ratio": 0.50929, "slots_diff": 3325, "bytes": 27400},
+    "after": {"ratio": 0.51228, "slots_diff": 3334, "bytes": 27400, "normalized": 1034, "raw": 1034, "losses": [], "raw_losses": [], "differential": "363/363", "unstripped_sha16": "89dc0ae69faf3fd6"},
+    "mechanism": "let args=&(new,) bound before the function-scope CtoState literal (-16 B, +0.0046) + event is_holder_reward/is_cashback_coin from the holder/cashback locals (+16 B)"
+  },
+  "best_zero_loss_at_27400": {"ratio": 0.51228, "slots_diff": 3334, "bytes": 27400},
+  "oracle": "regcon.py (in ~/.cache/pumpfun-reconstruction/lanes/w13a13-cto-region1of3/tools): target_metric ratio split by original-window third, with --frame/--regs/--jumps masks",
+  "attempts": 95,
+  "rejected_mechanisms": [
+    "holder_key PDA evaluated first (original call order): R1 +24, R2 -50 tokens, +32 B; all size-compensated forms 0.508-0.509",
+    "declaration-order tricks (let st; let shared; deferred init, named tuple) to move CtoState back to -0x38: byte-identical",
+    "let st=&CtoState{..} / let st=&st: byte-identical",
+    "entry copy placement other than right before CtoState (after mint, after shared, after PDA, first statement): 0.416-0.488",
+    "matches!(holder,Some(true)) and-1 holder test: -256 B, 0.464; repaid by validate reading args.0: 0.450",
+    "validate holder_key by value (original copy at -0x518): 0.478-0.480",
+    "validate new by reference (&args.0): +168 B, 0.482",
+    "w13a04/w13a06 composites (HM per-site holder tests + take306 + entry copy + OVMK): 0.354-0.447",
+    "collect_old operand swap: 0.399",
+    "zero-sum size pairs of region-1 genes on #2927/#2933: best 0.51348 (= #2933) with 3328 slots"
+  ],
+  "unresolved_residuals": [
+    "region 1 exact match fell from 532 (9eb6c00) to 516 tokens: hk_after_shared code order, CtoState frame slot",
+    "289/298 block order and per-site and-1 holder tests (w13a06) cost 256+ B that the faithful data flow does not repay at the current frame",
+    "inlined to_string at 307/312 (about 82 region-1 tokens; 2 extra lddw)",
+    "shared target override inside validate's non-holder arm before the fee checks (orig 0xd90, 53 insns)",
+    "holder arm double target copy (orig 0x14a0) and new-piece loads after CtoState (orig 0x4d8)"
+  ],
+  "next_ideas": [
+    "IR oracle: move the CtoState alloca back to the frame top on #2933 and measure; if it pays, look for a source spelling",
+    "pair v6_hrb (-32 B, 0.51469) with a +32 B change that is region-2 neutral (region-1 PDA-first costs R2)",
+    "find why hk_after_shared helps the sweep CPI regalloc (R2) and reproduce that with PDA-first code order"
+  ]
+}
