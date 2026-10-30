@@ -8,6 +8,7 @@ from solders.litesvm import LiteSVM
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
+from pump_amm_reusable_harness import pin_program
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
@@ -84,7 +85,7 @@ def execute(binary, instruction, arg, mutation):
 
 
 
-p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--source-directory',type=pathlib.Path,default=ROOT/'programs/pump');p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--source-directory',type=pathlib.Path,default=ROOT/'programs/pump');p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();a.candidate=pin_program(a.candidate)
 import gzip
 original=ROOT/'evidence/original/pump/deployed.so';mutations=['none','global_owner','global_discriminator','global_truncated','global_address','global_readonly','authority_readonly','authority_unsigned','authority_wrong','event_wrong','program_wrong','missing_event','missing_program','initialized_invalid','length_1087','length_1088'];specs=[]
 for name in ['update_global_authority','set_reserved_fee_recipients']:

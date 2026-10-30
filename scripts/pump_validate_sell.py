@@ -2,12 +2,14 @@
 """Compare the partial regular-SOL sell-v3 SBF path with the captured original."""
 import argparse, hashlib, json, struct
 import pump_trade_fixture as f
-p=argparse.ArgumentParser();p.add_argument('--candidate',type=f.pathlib.Path,required=True);p.add_argument('--source-directory',type=f.pathlib.Path,default=f.R/'programs/pump');p.add_argument('--output',type=f.pathlib.Path,required=True);a=p.parse_args()
+from pump_amm_reusable_harness import pin_program
+from pump_constant_product_cases import input_cases
+p=argparse.ArgumentParser();p.add_argument('--candidate',type=f.pathlib.Path,required=True);p.add_argument('--source-directory',type=f.pathlib.Path,default=f.R/'programs/pump');p.add_argument('--output',type=f.pathlib.Path,required=True);a=p.parse_args();a.candidate=pin_program(a.candidate)
 program=f.Pubkey.from_string(f.x['program']);user=f.Keypair.from_seed(bytes([231])*32)
 initial={key:f.vm.get_account(key) for key in f.msg.account_keys}
 curve=f.Pubkey.from_string(f.x['accounts']['curve']);global_key=f.Pubkey.from_string(f.x['accounts']['global']);fee_key=f.Pubkey.from_string(f.x['accounts']['fee_config'])
-math=json.loads((f.R/'repro/pump/constant-product-differential.json').read_text())['cases']
 base_in,base_out=struct.unpack_from('<QQ',initial[curve].data,8)
+math=input_cases(base_in,base_out)
 cases=[{'amount':c['amount_in'],'min_output':0,'reserve_in':c['reserve_in'],'reserve_out':c['reserve_out']} for c in math]
 for amount,minimum,mutation in [(0,0,'none'),(500000000,10**12,'none'),(10**9+1,0,'none'),(500000000,0,'complete'),(500000000,0,'creator_zero'),(500000000,0,'wrong_buyback'),(500000000,0,'empty_tiers'),(500000000,0,'global_discriminator'),(500000000,0,'fee_owner'),(500000000,0,'curve_readonly'),(500000000,0,'base_user_wrong_owner')]:
     cases.append({'amount':amount,'min_output':minimum,'reserve_in':base_in,'reserve_out':base_out,'mutation':mutation})

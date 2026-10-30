@@ -6,7 +6,9 @@ import argparse
 import hashlib
 import json
 from pathlib import Path, PurePosixPath
+import shutil
 import tarfile
+from deep_disassembly import rename_directory, temporary_sibling
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / 'repro/pump_fees/sharing-second-pump-cpi-v144'
@@ -45,45 +47,56 @@ def current_binding():
 
 
 def prepare(output):
+    output = Path(output)
+    if output.exists() or output.is_symlink():
+        raise FileExistsError(output)
     manifest = json.loads((PACKAGE / 'manifest.json').read_text())
     expected = (PACKAGE / 'manifest.sha256').read_text().split()[0]
     assert sha(PACKAGE / 'manifest.json') == expected == HISTORICAL_SEAL
     archive = PACKAGE / 'runtime-repository.tar.gz'
     assert hashlib.sha256(archive.read_bytes()).hexdigest() == manifest[archive.name]
     current_source, binding = current_binding()
-    output.mkdir(parents=True, exist_ok=False)
-    count = 0
-    with tarfile.open(archive) as source:
-        seen = set()
-        for member in source:
-            path = PurePosixPath(member.name)
-            assert not path.is_absolute() and '..' not in path.parts, member.name
-            if not path.parts or path.parts[0] != 'validation-layer':
-                continue
-            assert not member.issym() and not member.islnk(), member.name
-            if member.isdir():
-                continue
-            assert member.isfile() and member.name not in seen, member.name
-            seen.add(member.name)
-            target = output.joinpath(*path.parts)
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_bytes(source.extractfile(member).read())
-            count += 1
-    assert (output / 'validation-layer/harness/fees_donation_business_differential.py').is_file()
-    expected_source = json.loads((output / 'validation-layer/corrected-source-sha256.json').read_text())
-    assert len(expected_source) == 26
-    for name, digest in expected_source.items():
-        assert hashlib.sha256((PACKAGE / 'source' / name).read_bytes()).hexdigest() == digest, name
-    source_map = output / 'validation-layer/corrected-source-sha256.json'
-    (output / 'historical-corrected-source-sha256.json').write_bytes(source_map.read_bytes())
-    source_map.write_text(json.dumps(current_source, indent=2) + '\n')
-    witness = {'historical_checkpoint': str(PACKAGE.relative_to(ROOT)),
-               'historical_manifest_sha256': HISTORICAL_SEAL,
-               'historical_archive_sha256': sha(archive),
-               'old_source_sha256': expected_source, 'new_source_sha256': current_source,
-               'harness_sha256': {str(p.relative_to(output)): sha(p) for p in sorted((output / 'validation-layer/harness').glob('*.py'))},
-               'current': binding, 'target_executions': 0}
-    (output / 'source-binding-witness.json').write_text(json.dumps(witness, indent=2) + '\n')
+    output.parent.mkdir(parents=True, exist_ok=True)
+    staging = temporary_sibling(output, 'staging')
+    try:
+        count = 0
+        with tarfile.open(archive) as source:
+            seen = set()
+            for member in source:
+                path = PurePosixPath(member.name)
+                assert not path.is_absolute() and '..' not in path.parts, member.name
+                if not path.parts or path.parts[0] != 'validation-layer':
+                    continue
+                assert not member.issym() and not member.islnk(), member.name
+                if member.isdir():
+                    continue
+                assert member.isfile() and member.name not in seen, member.name
+                seen.add(member.name)
+                target = staging.joinpath(*path.parts)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(source.extractfile(member).read())
+                count += 1
+        assert (staging / 'validation-layer/harness/fees_donation_business_differential.py').is_file()
+        expected_source = json.loads(
+            (staging / 'validation-layer/corrected-source-sha256.json').read_text())
+        assert len(expected_source) == 26
+        for name, digest in expected_source.items():
+            assert hashlib.sha256((PACKAGE / 'source' / name).read_bytes()).hexdigest() == digest, name
+        source_map = staging / 'validation-layer/corrected-source-sha256.json'
+        (staging / 'historical-corrected-source-sha256.json').write_bytes(source_map.read_bytes())
+        source_map.write_text(json.dumps(current_source, indent=2) + '\n')
+        witness = {'historical_checkpoint': str(PACKAGE.relative_to(ROOT)),
+                   'historical_manifest_sha256': HISTORICAL_SEAL,
+                   'historical_archive_sha256': sha(archive),
+                   'old_source_sha256': expected_source, 'new_source_sha256': current_source,
+                   'harness_sha256': {str(p.relative_to(staging)): sha(p) for p in sorted((staging / 'validation-layer/harness').glob('*.py'))},
+                   'current': binding, 'target_executions': 0}
+        (staging / 'source-binding-witness.json').write_text(
+            json.dumps(witness, indent=2) + '\n')
+        rename_directory(staging, output, exchange=False)
+    except BaseException:
+        shutil.rmtree(staging, ignore_errors=True)
+        raise
     return {'status': 'PASS', 'extracted_files': count, 'source_inputs': 26, 'target_executions': 0}
 
 

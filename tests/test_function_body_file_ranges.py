@@ -73,10 +73,16 @@ class FunctionBodyRangeTests(unittest.TestCase):
             with self.subTest(address=address, length=length), self.assertRaises(ValueError):
                 comparison.body(self.image, self.sections, address, length)
 
-    def test_shared_matcher_reader_returns_the_same_captured_window(self):
+    def test_shared_matcher_reader_is_pinned_as_the_same_function(self):
+        # scripts/pump_compare_function_bytes.py imports function_body AS body
+        # from pump_quote_control_function_match, so comparing the two calls
+        # compared one function with itself. Pin the sharing intentionally:
+        # if either tool ever grows its own reader, this fails loudly and the
+        # byte-equality checks above become the real cross-reader evidence.
         start, end = self.windows[0]
-        self.assertEqual(matcher.function_body(self.image, self.sections, start, end - start),
-                         comparison.body(self.image, self.sections, start, end - start))
+        self.assertIs(comparison.body, matcher.function_body)
+        self.assertEqual(comparison.body(self.image, self.sections, start, end - start),
+                         matcher.function_body(self.image, self.sections, start, end - start))
 
     def test_original_capture_is_unchanged(self):
         self.assertEqual(hashlib.sha256(self.path.read_bytes()).hexdigest(),

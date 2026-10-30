@@ -84,6 +84,11 @@ def validate_loader_receipt(name, path, script, candidate, original, inputs):
     """Admit the actual retained loader evidence for execution and revalidation."""
     loaded = json.loads(path.read_text())
     assert loaded['loads'], name
+    # Receipts written after a failed harness run carry ok:false; receipts
+    # sealed before that marker existed keep their admission unchanged.
+    if 'ok' in loaded:
+        assert type(loaded['ok']) is bool, (name, 'invalid loader completion marker')
+        assert loaded['ok'], (name, 'loader harness run failed', loaded.get('error'))
     assert Path(loaded['harness']).resolve() == script.resolve(), name
     expected_inputs = {str(p): sha(p) for p in [*inputs, script]}
     assert loaded['input_sha256'] == expected_inputs, (name, 'loader inputs differ')
@@ -116,7 +121,8 @@ def main():
     args.output = args.output.resolve()
     args.build_comparison = args.build_comparison.resolve()
     args.source_directory = args.source_directory.resolve()
-    candidate = pin_program(args.candidate.resolve())
+    candidate_input = args.candidate.resolve()
+    candidate = pin_program(candidate_input)
     original = ROOT / 'evidence/original/pump/deployed.so'
     record = json.loads(args.build_comparison.read_text())
     assert record['returncode'] == 0 and record['source_unchanged']
@@ -137,7 +143,7 @@ def main():
     failed_suite_outputs = {}
     retained = args.output.parent / (args.output.name + '.suites')
     previous = None
-    protected = [*bound_files, *(ROOT / name for name in sources), *scripts.values()]
+    protected = [candidate_input, *bound_files, *(ROOT / name for name in sources), *scripts.values()]
     if args.validate_existing:
         raw = args.validate_existing.read_bytes()
         previous = json.loads(gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw)
