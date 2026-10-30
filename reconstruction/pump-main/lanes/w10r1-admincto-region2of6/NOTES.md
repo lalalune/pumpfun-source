@@ -40,4 +40,18 @@ how many of region 2's 537 original slots fall in matching blocks (`frac`).
 | t8 | t6 with the `!holder` arm first | 27,368 | 0.37680 | 0.4674 | byte-identical to t6 |
 | t10 | t6 with tuple order swapped | 27,368 | 0.37680 | 0.4674 | same metrics |
 
-t6 is 32 B from the original size (main: 56 B) and has a higher ratio, with 0 gains / 0 losses (1032 / 347).
+| t11 | t12 + `let vsigner:&[&[&[u8]];1]=&[vaultseeds]` once (original stores the {ptr,3} element at seeds time) | 27,320 | 0.37744 | 0.4693 | size away (80 B) |
+| **t12** | t6 + sweep `let old=..key(); let bump=[..];` (original stores the bump byte after the old-key copy) | **27,368** | **0.37710** | 0.4693 | **kept** |
+| t13 | t12 + vaultseeds as a named array | 27,368 | 0.37710 | | byte-identical |
+| t14 | t12 + sweep gate `matches!(sharing_update,Some(None))` | 20,280 | 0.14696 | | inliner flips, loss 0xbc108 |
+| t15 | t12 + validate takes the precomputed `cashback` (original's 330 tests one flag) | 27,816 | 0.35642 | 0.4544 | rejected |
+| t16 | t12 + `match fee {None=>{}, Some(f)=>{..}}` (original tests `jeq tag,0`) | 27,448 | 0.37474 | **0.5158** | region 2 aligns much better (local 0.395 -> 0.484, 330 moves into region 2), regions 4/5 lose; size away |
+| t17 | `cashback=if holder{false}else{..}` | | | | byte-identical |
+| t18 | t16 + cashback param | 27,808 | **0.37996** | 0.5102 | best ratio, size 408 away |
+| t19 | `let Some(f)=fee else{return Ok(target)}` | 27,480 | 0.36135 | 0.4507 | rejected |
+| t20, t23, t24 | 338 as `contains`, 330 / 312 operand order | | | | byte-identical or same metrics |
+| t25 | 312 as two ifs | 27,360 | 0.34848 | | 157 calls |
+
+t12 is 32 B from the original size (main: 56 B) and has a higher ratio, with 0 gains / 0 losses (1032 / 347).
+For a stitcher: t16 (`match fee` with the `None` arm first) is the strongest region-2 alignment found so far
+(region-2 slots in matching blocks 252 -> 277 of 537), at a whole-function cost in regions 4/5.
