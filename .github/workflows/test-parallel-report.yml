@@ -1,0 +1,26 @@
+name: Verify parallel validation report publication
+on:
+  pull_request:
+    paths:
+      - 'scripts/pump_validate_parallel.py'
+      - 'scripts/test_pump_validate_parallel.py'
+      - '.github/workflows/test-parallel-report.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/pump_validate_parallel.py'
+      - 'scripts/test_pump_validate_parallel.py'
+      - '.github/workflows/test-parallel-report.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -B scripts/test_pump_validate_parallel.py -v

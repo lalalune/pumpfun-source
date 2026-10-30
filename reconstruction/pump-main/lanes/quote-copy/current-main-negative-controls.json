@@ -1,0 +1,28 @@
+{
+  "unchanged_candidate": {
+    "exit_code": 1,
+    "reason": "Expected a changed copy sequence"
+  },
+  "additional_rodata_change": {
+    "exit_code": 1,
+    "mutated_file_offset": "0x1b58b0",
+    "stripped_comparison": {
+      "control_sha256": "7eee248f17559a76a15daa2897c33ab6d07e46b4a69479512bb41267ff5a73ba",
+      "candidate_sha256": "ebf2efc62b226070102425310094c56dffb155c4800b734d0fb3952e0d5bae11",
+      "bytes": 1934512,
+      "changed_bytes": 17,
+      "changed_bytes_outside_copy_regions": 1,
+      "copy_file_ranges": [
+        [
+          "0x18d90",
+          "0x18dd0"
+        ],
+        [
+          "0x1dd68",
+          "0x1dda8"
+        ]
+      ]
+    },
+    "checks_passed": false
+  }
+}

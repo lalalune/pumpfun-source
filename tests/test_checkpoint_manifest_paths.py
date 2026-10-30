@@ -3,10 +3,12 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import socket
 import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
@@ -25,6 +27,27 @@ def symlink_directories_available():
 
 
 SYMLINK_DIRECTORIES = symlink_directories_available()
+
+
+FIFO_PRELUDE = r'''
+import hashlib, json, os, tempfile
+from pathlib import Path
+import verify_current_checkpoint as checkpoint
+
+def write(package, manifest):
+    raw = (json.dumps(manifest, indent=2) + "\n").encode()
+    (package / "manifest.json").write_bytes(raw)
+    return hashlib.sha256(raw).hexdigest()
+
+def expect_nonregular(call):
+    try:
+        call()
+    except AssertionError as error:
+        if "Nonregular path" not in str(error):
+            raise
+    else:
+        raise SystemExit("a nonregular path was accepted")
+'''
 
 
 def create_junction(link, target):
@@ -165,6 +188,75 @@ with tempfile.TemporaryDirectory() as temporary:
             check=False,
         )
         self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+
+    def run_bounded(self, script):
+        """Run script in a child; a blocking open shows up as a timeout, not a hang."""
+        env = os.environ.copy()
+        env['PYTHONPATH'] = str(ROOT / 'scripts')
+        try:
+            result = subprocess.run([sys.executable, '-c', FIFO_PRELUDE + script], cwd=ROOT, env=env,
+                                    capture_output=True, text=True, check=False, timeout=20)
+        except subprocess.TimeoutExpired:
+            self.fail('read_regular blocked on a FIFO')
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+
+    @unittest.skipUnless(hasattr(os, 'mkfifo'), 'FIFOs need POSIX')
+    def test_fifo_entry_and_fifo_manifest_are_rejected_without_blocking(self):
+        self.run_bounded(r'''
+with tempfile.TemporaryDirectory() as temporary:
+    package = Path(temporary) / "package"
+    package.mkdir()
+    os.mkfifo(package / "file.txt")
+    expect_nonregular(lambda: checkpoint.verify_manifest(package, write(package, {"file.txt": "0" * 64})))
+    (package / "manifest.json").unlink()
+    os.mkfifo(package / "manifest.json")
+    expect_nonregular(lambda: checkpoint.verify_manifest(package, "0" * 64))
+''')
+
+    @unittest.skipUnless(hasattr(os, 'mkfifo'), 'FIFOs need POSIX')
+    def test_file_swapped_for_a_fifo_after_lstat_does_not_block(self):
+        # lstat reports the regular file that was there; the open then meets a
+        # FIFO. Only the nonblocking open keeps this from waiting for a writer.
+        self.run_bounded(r'''
+with tempfile.TemporaryDirectory() as temporary:
+    root = Path(temporary)
+    regular = root / "regular.txt"
+    regular.write_bytes(b"sealed-bytes\n")
+    fifo = root / "file.txt"
+    os.mkfifo(fifo)
+    real_lstat = os.lstat
+    os.lstat = lambda path, *a, **k: real_lstat(regular if os.fspath(path) == os.fspath(fifo) else path, *a, **k)
+    expect_nonregular(lambda: checkpoint.read_regular(root, fifo))
+''')
+
+    def test_file_replaced_between_lstat_and_open_is_rejected(self):
+        # lstat sees one regular file and the descriptor another: the read
+        # must not return bytes from a file that was not the one checked.
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'file.txt').write_bytes(b'sealed-bytes\n')
+            (root / 'other.txt').write_bytes(b'other-bytes\n')
+            real_lstat = os.lstat
+            def swapped(path, *args, **kwargs):
+                if os.fspath(path) == os.fspath(root / 'file.txt'):
+                    path = root / 'other.txt'
+                return real_lstat(path, *args, **kwargs)
+            with mock.patch.object(checkpoint.os, 'lstat', swapped):
+                with self.assertRaisesRegex(AssertionError, 'Path changed during read'):
+                    checkpoint.read_regular(root, root / 'file.txt')
+
+    @unittest.skipUnless(hasattr(socket, 'AF_UNIX'), 'Unix sockets need POSIX')
+    def test_socket_entry_is_rejected_before_open(self):
+        # open() of a socket fails with ENXIO; the type check must come first.
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            listener = socket.socket(socket.AF_UNIX)
+            try:
+                listener.bind(os.fspath(root / 'file.txt'))
+                with self.assertRaisesRegex(AssertionError, 'Nonregular path'):
+                    checkpoint.read_regular(root, root / 'file.txt')
+            finally:
+                listener.close()
 
     @unittest.skipUnless(sys.platform == 'win32', 'NTFS junctions exist only on Windows')
     def test_junction_inside_the_package_is_rejected(self):

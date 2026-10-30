@@ -1,0 +1,56 @@
+{
+  "lane": "buyv2-residual",
+  "targets": [
+    {
+      "window": "0x13f630",
+      "symbol": "buy_v2::buy_exact_quote_in_handler",
+      "original_bytes": 20184,
+      "start": {
+        "base": "main ef40086",
+        "bytes": 20192,
+        "ratio": 0.97829
+      },
+      "best": {
+        "trial": "rent-dual-matched-blackbox",
+        "bytes": 20216,
+        "ratio": 0.99351,
+        "calls": [
+          130,
+          1
+        ]
+      }
+    },
+    {
+      "window": "0x13b9b8",
+      "symbol": "buy_v2::buy_handler",
+      "original_bytes": 15480,
+      "start": {
+        "base": "main ef40086",
+        "bytes": 15488,
+        "ratio": 0.95334
+      },
+      "best": {
+        "trial": "rent-dual-matched-blackbox",
+        "bytes": 15512,
+        "ratio": 0.97366,
+        "calls": [
+          90,
+          0
+        ]
+      }
+    }
+  ],
+  "official": {
+    "normalized": 1020,
+    "raw": 188,
+    "gains": [],
+    "losses": [],
+    "note": "same membership as main ef40086 (includes 0x14f4e0)"
+  },
+  "accepted_mechanisms": [
+    "ensure_rent_exempt_matched twin preserves window 0x3b598",
+    "ensure_rent_exempt uses black_box(size).wrapping_mul(0) so call sites keep mov r2,0",
+    "usize::MAX arm references matched twin to defeat DCE"
+  ],
+  "unstripped_sha256": "8ae6c6a6c92c98f70870586ae737bfc6669fbe1dd162cc64b30efc797529dcdb"
+}

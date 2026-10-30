@@ -1,0 +1,6 @@
+diff --git a/programs/pump/src/trade_v3.rs b/programs/pump/src/trade_v3.rs
+--- a/programs/pump/src/trade_v3.rs
++++ b/programs/pump/src/trade_v3.rs
+@@ -813 +813 @@
+-    let post=if excess>0{let (pool_base,pool_quote)=v3_pool_before(a.bonding_curve.real_quote_reserves,a.global.pool_migration_fee,a.associated_base_bonding_curve.amount,is_sol,amount,quote)?;Some(v3_post_complete(a,pool_base,pool_quote,excess)?)}else{None};
++    let post=if excess>0{let (pool_base,pool_quote)={let (base,real,fee)=(a.associated_base_bonding_curve.amount,a.bonding_curve.real_quote_reserves,a.global.pool_migration_fee);v3_pool_before(real,fee,base,is_sol,amount,quote)}?;Some(v3_post_complete(a,pool_base,pool_quote,excess)?)}else{None};

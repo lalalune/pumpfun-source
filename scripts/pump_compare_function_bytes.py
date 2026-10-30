@@ -12,6 +12,7 @@ import json
 import struct
 from pathlib import Path
 
+from pump_exact_body_inventory import window_inventory
 from pump_quote_control_function_match import sections, candidate_functions
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -56,7 +57,7 @@ def main():
     p.add_argument('--objdump',default=str(Path.home()/'.cache/solana/v1.52/platform-tools/llvm/bin/llvm-objdump'))
     args=p.parse_args()
     original=(ROOT/'evidence/original/pump/deployed.so').read_bytes();candidate=args.candidate.read_bytes()
-    with (ROOT/'repro/reconstruction-status-2026-10-26/functions.tsv').open() as stream:
+    with window_inventory().open() as stream:
         row=next(r for r in csv.DictReader(stream,delimiter='\t') if r['program']=='pump' and r['variant']=='selected' and int(r['original_start'])==args.original_start)
     size=int(row['original_end'])-args.original_start
     original_sections=sections(original);candidate_sections=sections(candidate)

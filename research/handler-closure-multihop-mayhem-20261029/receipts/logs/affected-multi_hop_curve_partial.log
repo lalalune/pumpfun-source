@@ -1,0 +1,286 @@
+{
+  "cases": 56,
+  "passed": 56,
+  "results": [
+    [
+      "native-legacy-False-0",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6002))))",
+      []
+    ],
+    [
+      "native-legacy-False-1",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6041))))",
+      []
+    ],
+    [
+      "native-legacy-False-2",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6042))))",
+      []
+    ],
+    [
+      "native-legacy-False-3",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6020))))",
+      []
+    ],
+    [
+      "native-legacy-False-10",
+      null,
+      []
+    ],
+    [
+      "native-legacy-False-99",
+      null,
+      []
+    ],
+    [
+      "native-legacy-False-100",
+      null,
+      []
+    ],
+    [
+      "native-legacy-False-101",
+      null,
+      []
+    ],
+    [
+      "native-legacy-False-10000",
+      null,
+      []
+    ],
+    [
+      "native-legacy-False-1000000",
+      null,
+      []
+    ],
+    [
+      "native-legacy-False-1000000000",
+      null,
+      []
+    ],
+    [
+      "native-legacy-False-10000000000",
+      null,
+      []
+    ],
+    [
+      "slippage-False-100-0",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6001))))",
+      []
+    ],
+    [
+      "slippage-False-100-18446744073709551615",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6004))))",
+      []
+    ],
+    [
+      "slippage-False-1000000000-0",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6001))))",
+      []
+    ],
+    [
+      "slippage-False-1000000000-18446744073709551615",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6004))))",
+      []
+    ],
+    [
+      "complete-False",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6005))))",
+      []
+    ],
+    [
+      "mayhem-False",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6108))))",
+      []
+    ],
+    [
+      "cashback-False",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6094))))",
+      []
+    ],
+    [
+      "quote-mismatch-False",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6004))))",
+      []
+    ],
+    [
+      "curve-readonly-False",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2000))))",
+      []
+    ],
+    [
+      "base-vault-readonly-False",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2000))))",
+      []
+    ],
+    [
+      "quote-vault-readonly-False",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2000))))",
+      []
+    ],
+    [
+      "base-vault-mint-False",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(3))))",
+      []
+    ],
+    [
+      "source-balance-zero-False",
+      null,
+      []
+    ],
+    [
+      "fee-discriminator-False",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(3002))))",
+      []
+    ],
+    [
+      "global-discriminator-False",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(3002))))",
+      []
+    ],
+    [
+      "buyback-owner-False",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6057))))",
+      []
+    ],
+    [
+      "native-legacy-True-0",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6002))))",
+      []
+    ],
+    [
+      "native-legacy-True-1",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6022))))",
+      []
+    ],
+    [
+      "native-legacy-True-2",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6022))))",
+      []
+    ],
+    [
+      "native-legacy-True-3",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6022))))",
+      []
+    ],
+    [
+      "native-legacy-True-10",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6022))))",
+      []
+    ],
+    [
+      "native-legacy-True-99",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6022))))",
+      []
+    ],
+    [
+      "native-legacy-True-100",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6022))))",
+      []
+    ],
+    [
+      "native-legacy-True-101",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6022))))",
+      []
+    ],
+    [
+      "native-legacy-True-10000",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6022))))",
+      []
+    ],
+    [
+      "native-legacy-True-1000000",
+      null,
+      []
+    ],
+    [
+      "native-legacy-True-1000000000",
+      null,
+      []
+    ],
+    [
+      "native-legacy-True-10000000000",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6024))))",
+      []
+    ],
+    [
+      "slippage-True-100-0",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6001))))",
+      []
+    ],
+    [
+      "slippage-True-100-18446744073709551615",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6022))))",
+      []
+    ],
+    [
+      "slippage-True-1000000000-0",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6001))))",
+      []
+    ],
+    [
+      "slippage-True-1000000000-18446744073709551615",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6004))))",
+      []
+    ],
+    [
+      "complete-True",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6005))))",
+      []
+    ],
+    [
+      "mayhem-True",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6108))))",
+      []
+    ],
+    [
+      "cashback-True",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6094))))",
+      []
+    ],
+    [
+      "quote-mismatch-True",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6004))))",
+      []
+    ],
+    [
+      "curve-readonly-True",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2000))))",
+      []
+    ],
+    [
+      "base-vault-readonly-True",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2000))))",
+      []
+    ],
+    [
+      "quote-vault-readonly-True",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2000))))",
+      []
+    ],
+    [
+      "base-vault-mint-True",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(3))))",
+      []
+    ],
+    [
+      "source-balance-zero-True",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(1))))",
+      []
+    ],
+    [
+      "fee-discriminator-True",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(3002))))",
+      []
+    ],
+    [
+      "global-discriminator-True",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(3002))))",
+      []
+    ],
+    [
+      "buyback-owner-True",
+      "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6057))))",
+      []
+    ]
+  ]
+}

@@ -17,9 +17,17 @@ import re
 def logs(value):
     result = []
     if isinstance(value, dict):
+        direct_logs = False
         for key, item in value.items():
             if 'log' in key.lower() and isinstance(item, list):
+                direct_logs = True
                 result.extend(x for x in item if isinstance(x, str))
+        # Some receipts retain LiteSVM's serialized transaction metadata.
+        # A direct list, even an empty one, remains authoritative.
+        if not direct_logs and isinstance(value.get('metadata'), dict):
+            nested = value['metadata'].get('logs')
+            if isinstance(nested, list):
+                result.extend(x for x in nested if isinstance(x, str))
     return result
 
 

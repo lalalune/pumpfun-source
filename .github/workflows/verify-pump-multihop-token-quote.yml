@@ -1,0 +1,54 @@
+name: Verify Pump multi-hop arithmetic helper recovery
+on:
+  pull_request:
+    paths:
+      - 'research/pump-multihop-token-quote-20261029/**'
+      - 'research/pump-multihop-sell-fees-20261029/**'
+      - 'programs/pump/src/multi_hop_curve_swap.rs'
+      - 'programs/pump/src/trade_v3.rs'
+      - '.github/workflows/verify-pump-multihop-token-quote.yml'
+  push:
+    paths:
+      - 'research/pump-multihop-token-quote-20261029/**'
+      - 'research/pump-multihop-sell-fees-20261029/**'
+      - 'programs/pump/src/multi_hop_curve_swap.rs'
+      - 'programs/pump/src/trade_v3.rs'
+      - '.github/workflows/verify-pump-multihop-token-quote.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    name: pump-multihop-token-quote-evidence
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /research/pump-multihop-token-quote-20261029
+            /research/pump-multihop-sell-fees-20261029
+            /research/pump-multi-hop-quote-admission
+            /programs/pump/src/multi_hop_curve_swap.rs
+            /programs/pump/src/trade_v3.rs
+            /evidence/original/pump
+            /evidence/original/pump_amm
+            /evidence/original/pump_fees
+            /evidence/dependencies/spl_token
+            /evidence/dependencies/spl_token_2022
+            /evidence/dependencies/associated_token
+            /evidence/upstream/pump_amm.json
+            /repro/reconstruction-status-2026-10-26
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install solders==0.27.1
+      - name: Verify source, actual builds, signed observations and whole census
+        run: python -B research/pump-multihop-sell-fees-20261029/verify.py --repo-root .
+      - name: Recompute bounded helper and data reference audit
+        run: |
+          python -B research/pump-multihop-sell-fees-20261029/audit_refs.py --repo-root . --output /tmp/pump-multihop-audit.json
+          python -c "import json; from pathlib import Path; assert json.loads(Path('/tmp/pump-multihop-audit.json').read_text()) == json.loads(Path('research/pump-multihop-sell-fees-20261029/audit/reference-audit.json').read_text())"
+      - name: Reject finite resealed evidence mutations
+        run: python -B research/pump-multihop-sell-fees-20261029/test_verify.py --repo-root .

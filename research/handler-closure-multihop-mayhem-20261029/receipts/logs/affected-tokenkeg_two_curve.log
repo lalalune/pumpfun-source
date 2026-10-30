@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/mnt/c/Users/arzfeqsdeidm/Desktop/yop/AA/pumpfun-source-maintained/scripts/pump_tokenkeg_two_curve_differential.py", line 97, in <module>
+    main()
+    ~~~~^^
+  File "/mnt/c/Users/arzfeqsdeidm/Desktop/yop/AA/pumpfun-source-maintained/scripts/pump_tokenkeg_two_curve_differential.py", line 74, in main
+    before = bindings(candidate, report)
+  File "/mnt/c/Users/arzfeqsdeidm/Desktop/yop/AA/pumpfun-source-maintained/scripts/pump_tokenkeg_two_curve_differential.py", line 56, in bindings
+    result = fixture.bindings(candidate, report)
+  File "/mnt/c/Users/arzfeqsdeidm/Desktop/yop/AA/pumpfun-source-maintained/repro/pump/tokenkeg-two-curve-fortyeight/harness/pump_tokenkeg_two_curve_differential.py", line 131, in bindings
+    return {'repository_inputs':{p:sha(R/p)for p in sorted(paths)},'runtime_files':runtime,'python_version':sys.version,'compiled_candidate_binding':compiled_binding(candidate,build_report)if candidate else None}
+                                                                                                                                                     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/arzfeqsdeidm/Desktop/yop/AA/pumpfun-source-maintained/scripts/pump_tokenkeg_two_curve_differential.py", line 43, in compiled_binding
+    assert report['source_sha256'] == source_manifest(SOURCE_DIRECTORY, workspace, ROOT, cwd=workspace)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

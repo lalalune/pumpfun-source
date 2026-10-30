@@ -77,8 +77,19 @@ def read_regular(bound, path):
         if parent == current:
             raise AssertionError(('Path outside bound', str(path)))
         current = parent
+    # Reject a FIFO, socket or device before opening it: a blocking open of a
+    # FIFO with no writer never returns. The nonblocking open below keeps a
+    # file swapped for a FIFO after this check from blocking as well; the
+    # descriptor checks then reject it.
     try:
-        fd = os.open(path, os.O_RDONLY | getattr(os, 'O_NOFOLLOW', 0))
+        listed = os.lstat(path)
+    except OSError as error:
+        raise AssertionError(('Unreadable path', str(path), error.errno)) from error
+    if not stat.S_ISREG(listed.st_mode):
+        raise AssertionError(('Nonregular path', str(path)))
+    flags = os.O_RDONLY | getattr(os, 'O_NOFOLLOW', 0) | getattr(os, 'O_NONBLOCK', 0) | getattr(os, 'O_BINARY', 0)
+    try:
+        fd = os.open(path, flags)
     except OSError as error:
         raise AssertionError(('Unreadable path', str(path), error.errno)) from error
     with os.fdopen(fd, 'rb') as stream:
@@ -90,6 +101,7 @@ def read_regular(bound, path):
     identity = lambda value: (value.st_dev, value.st_ino, value.st_size, value.st_mtime_ns)
     current_stat = os.stat(path, follow_symlinks=False)
     if (not stat.S_ISREG(current_stat.st_mode)
+            or identity(listed) != identity(before)
             or identity(current_stat) != identity(before)
             or identity(before) != identity(after)):
         raise AssertionError(('Path changed during read', str(path)))
