@@ -1,0 +1,37 @@
+{
+  "lane": "w13a44-cto-clonera7fb",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "base": "main 16c10e631 / 52c0b087c (0.62043, 3,306 slots, clonefeat 2/6)",
+  "pr": 3149,
+  "result": "notes only; no source change (no zero-loss gain at 27,400 B)",
+  "best": {"ratio": 0.62043, "slots_diff": 3306, "bytes": 27400, "note": "= main"},
+  "mechanism": [
+    "The clone run follows the global split of the accounts pointer %0. Main picks r6 (total 3.068) and its region covers the clone run, so the clone-run piece is reloaded once into r5 (2/6). 7fb9a5e3e7a2 picks r9 (3.218), whose region stops at EB#155 because r9 holds the Err-payload class across the clone run, so every use reloads (6/2).",
+    "Every 6/2 build (original r9, 7fb9 r9, e14 r9, c4_shared_bitand r8, t03 r7, f6eb 5/3 r9) stores swept from the Err-payload register: swept is coalesced into the class. Main spills swept and reloads it for the event.",
+    "Main fails to coalesce because of RegisterCoalescer block priority. bb62 (post-sweep Err merge, 3 preds) joins the post-sweep chain into class %1658 first. bb81 (sweep exit Err edge, 2 preds, present only for an inttoptr) then hits interference at the sharing-CPI result copy. The original keeps the post-sweep chain apart (orig 0x54e0 mov64 r9,r1).",
+    "Coalescing (R1) is necessary but not sufficient. All R1 oracles (o1, o9, o11, lt58, lt58+move) put the class on r7 and stay 2/6. Pinning the class to r9 makes %0 start in r8 like the original, but its split picks r8 and the clone run stays in a register."
+  ],
+  "oracles": {
+    "grcb_threshold": "-grow-region-complexity-budget <=200 gives 6/2 (0.437-0.563); >=400 = main",
+    "o1_inttoptr_hoist": "0.48024@27432 merged r7 2/6",
+    "o9_bb60_to_bb64": "0.54317@27456 merged r7 2/6",
+    "o9_pin_r9": "0.53207@27248 merged r9 2/6",
+    "o11_bb54_to_exit": "0.43847@27560 merged r7 2/6",
+    "lt58": "0.44182@27552 merged r7 2/6; +bb54 move 0.57792@27480",
+    "w306_outline": "0.62551@26976 (86 lddw, +0.005 at -424 B), 2/6; +o9 0.53918; +lt58mv 0.57418",
+    "sharing_arm_weight": "6/2 only at >=1:64 (0.51-0.56, relayout)",
+    "bwscans": "o9, o9+pin, w306+o9: 294 single weights each; 6/2 only with relayout (<=0.551)"
+  },
+  "bound": "the clone-run RA alone is worth at most about +49 plain tokens on 0x4200-0x4800 (7fb9 105 vs main 56), about +0.014 ratio",
+  "rejected": ["inttoptr hoist (o1)", "bb62 pred removal (o9)", "bb54->exit (o11)", "dest lifetime drop (lt58) +/- block move", "r9 pin of swept class", "306 outline weights + R1", "sharing-arm weights 1:2..1:16", "grow-region budget (not source-expressible)"],
+  "unresolved": [
+    "R2: which validate-region/clone-run interference lets the class register win %0's split (7fb9 r9 static 2.14 vs main 4.03)",
+    "Source form that coalesces swept (R1) without the MBP pre-merge relayout (w13a27)"
+  ],
+  "next_ideas": [
+    "Combine the to_string outline source (w13a43) with an R1 source (w13a40 ss_scope / nat_q) and check payreg + clonefeat; the original has both",
+    "Keep the first clone's AccountInfo fields (key/lamports/data/owner) live in registers to the CpiContext stores, as the original does: that raises clone-run pressure, a possible R2 lever",
+    "w306 oracle on current main is +0.005 at -424 B: hand to w13a43 to find a source form plus faithful 424 B"
+  ],
+  "ledger_keys": "0x22a10-w13-16c10e6-clonera44-*, 0x22a10-w13-52c0b08-clonera44-*"
+}

@@ -89,6 +89,33 @@ R2 is the validate-region frequency/interference coupling that w13a09 saw: every
 validate-region genes. No single-gene port achieves it on main (w13a40's screen). The budget knob only shows that
 main sits far from the flip: the threshold is between 200 and 400, against a default of 10,000.
 
+## 5. R1 plus R2 probes (all llc/raw-IR oracles on main 52c0b08; none reaches 6/2 at main's layout)
+
+| oracle | swept merged | payload reg | clonefeat | bytes | ratio |
+| --- | --- | --- | --- | ---: | ---: |
+| o9 + `asm sideeffect "", "{r9}"(swept)` at the event store | yes | **r9** (as the original) | 2/6 | 27,248 | 0.53207 |
+| o11: bb54 (post-seed Err chain) straight to sweep.exit (bb81 gets 3 preds) | yes | r7 | 2/6 | 27,560 | 0.43847 |
+| lt58 + `bb54.i102` moved before sweep.exit (w13a27's layout fix) | yes | r7 | 2/6 | 27,480 | 0.57792 |
+| 306 Some:None 1:2 weights (`to_string` outlined, 86 lddw = original) | no | r8 | 2/6 | 26,976 | **0.62551** |
+| 306 weights + o9 | yes | r7 | 2/6 | 27,064 | 0.53918 |
+| 306 weights + lt58 + bb54 move | yes | r7 | 2/6 | 27,088 | 0.57418 |
+| sharing-arm `br %565` Some:None 1:2 .. 1:16 (main / o9) | | | 2/6 | 27,392-27,440 | 0.543-0.609 |
+| sharing-arm 1:64 and colder (main / o9) | | | **6/2** | 27,160-27,352 | 0.510-0.558 |
+
+- With the class pinned to r9, `%0` starts in r8 like the original (`ldxdw r9,[r8+0x90]` at entry) and its split picks
+  r8 (static 2.01). r9's static cost jumps to 5.18, so the clone run still lands in a register (r0).
+- Single-branch weight scans (`tools/bwscan.py`, 147 condbrs x 1:2000/2000:1) on o9, o9+pin and 306+o9: the only 6/2 flips
+  are the cold sharing arm (`%565` 1:2000), the inlined `to_string` fmt-error branch in validate (o9 only), the early
+  `%_9.not.i` validate branch and the Rc `inc_strong` overflow traps. Each moves layout and size (0.47-0.55).
+- The 306-weight outline oracle gives **0.62551 at 26,976 B (+0.005 at -424 B)** on current main. That lead belongs to
+  w13a43-cto-outline306; it does not change the clone run.
+
+Bound: on 0x4200-0x4800 the 6/2 build 7fb9 matches 105 plain tokens, against main's 56. Even with everything else held,
+the clone-run RA is worth at most about +49 tokens (about +0.014 ratio).
+
+Exhaustion: the flip needs R1 (swept in the payload class) and R2 (a split register that is busy, or a region that is
+unprofitable, in the clone run). Every lever found for either one relayouts the function at main's size.
+
 ## Tools (`tools/`)
 
 - `llcb.py <m.ll> [--dbg] [llc args]`: llc a slim execute module, print ratio/slots/clonefeat/segstat.
@@ -96,6 +123,8 @@ main sits far from the flip: the threshold is between 200 and 400, against a def
 - `radbg.sh <dir>`: debug-llc regalloc log plus MIR (`mi0.txt`) and coalescer (`coal.txt`) sections.
 - `rsplit.py <ra.log> <vreg>`: per-register global-split candidates (static/total cost, bundle list).
 - `regstate.py <ra.log> <vreg> <reg>`: what occupies a register when `%vreg` enters its split round.
+- `bwscan.py <m.ll> <out>` / `bwsweep.py <m.ll> <br> a:b..`: branch-weight scans with the llcb objectives. `o9edit.py`: the o9 IR edit.
+- `capgene.sh <name> <genes> <slot>`: w13a40 genes -> raw IR -> rx.
 - `payreg.py <so|dis>`: Err-payload register and the registers that store `swept` into the event.
 - From w13a01/w13a40/w13a09/w13a14: `rx.py`, `capraw.py`, `ctoracle.py`, `clonefeat.py`, `segstat*.py`, `obj.py`;
   `swedit.py` from w13a27.
