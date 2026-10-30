@@ -1,0 +1,15 @@
+diff --git a/app/reconstruction/live-row-carousel/fixture.mjs b/app/reconstruction/live-row-carousel/fixture.mjs
+index f164b74775..9b4ea27380 100644
+--- a/app/reconstruction/live-row-carousel/fixture.mjs
++++ b/app/reconstruction/live-row-carousel/fixture.mjs
+@@ -5,8 +5,8 @@ const native={IntersectionObserver,ResizeObserver,MutationObserver};let events=[
+ const record=(type,data={})=>events.push({type,...data});
+ function observed(kind){return class{constructor(callback,options){this.state={kind,active:false,options:kind==='IntersectionObserver'?{root:options.root?'scroll-root':null,rootMargin:options.rootMargin,threshold:options.threshold}:undefined};observers.push(this.state);record('observer-create',this.state);this.native=new native[kind]((entries,observer)=>{record('observer-callback',{kind});callback(entries,observer);},options);}observe(...args){this.state.active=true;this.native.observe(...args);}disconnect(){this.state.active=false;record('observer-disconnect',{kind});this.native.disconnect();}};}
+ const oldAdd=Element.prototype.addEventListener,oldRemove=Element.prototype.removeEventListener,oldScroll=Element.prototype.scrollTo;
+-Element.prototype.addEventListener=function(type,fn,...rest){if(type==='scrollend'){scrollListeners.set(fn,this);record('scroll-listener-add');}return oldAdd.call(this,type,fn,...rest);};
+-Element.prototype.removeEventListener=function(type,fn,...rest){if(type==='scrollend'){scrollListeners.delete(fn);record('scroll-listener-remove');}return oldRemove.call(this,type,fn,...rest);};
++Element.prototype.addEventListener=function(type,fn,...rest){if(type==='scrollend'&&this.classList.contains('synthetic-scroll-root')){scrollListeners.set(fn,this);record('scroll-listener-add');}return oldAdd.call(this,type,fn,...rest);};
++Element.prototype.removeEventListener=function(type,fn,...rest){if(type==='scrollend'&&this.classList.contains('synthetic-scroll-root')){scrollListeners.delete(fn);record('scroll-listener-remove');}return oldRemove.call(this,type,fn,...rest);};
+ Element.prototype.scrollTo=function(...args){if(this.classList.contains('synthetic-scroll-root'))record('scrollTo',{args});return oldScroll.apply(this,args);};
+ function Card({id,index}){React.useEffect(()=>{record('card-mount',{id});return()=>record('card-unmount',{id});},[id]);return React.createElement('article',{'data-card':id},'Synthetic card '+id+' index '+index);}
+ const flow=createLiveRowCarousel({React,jsx,compiler:{c},classNames:(...a)=>a.filter(Boolean).join(' '),Card,cardCounts:{extraSmall:2,small:3,large:4},dom:{IntersectionObserver:observed('IntersectionObserver'),ResizeObserver:observed('ResizeObserver'),MutationObserver:observed('MutationObserver')}});

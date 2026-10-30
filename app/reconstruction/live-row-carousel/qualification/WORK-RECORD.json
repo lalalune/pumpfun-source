@@ -1,0 +1,133 @@
+{
+  "heads": {
+    "preExecution": "c56bbf3d3db112aa1159c2970879f21fcb6c7013",
+    "nodeAndFailedBrowser": "5e127c26894307c310e148844f9dd47a9bf6c4a7",
+    "correctedBrowser": "f8a263c89d3b1749a5c7b1954ea5340fb98eaaf7"
+  },
+  "source": "Complete647145.X\u21921074.Carousel/502540.f +798394/70678/65769 hooks; 8 physical factory contexts, 23 selected witness records,13 imports,6 parent edges. Overlapping evidence sets are not summed coverage.",
+  "results": {
+    "sourceVerifier": "PASS at5e127 and correctedf8a263c8",
+    "node": "6 focused cases PASS at5e127; earlier same6initialPASS not additional unique cases",
+    "browser": {
+      "initial": "5e127: six passing observations then resize assertion FAIL; final cleanup PASS",
+      "corrected": "f8a263c8: one eight-observation story PASS; earlier six are repeated controls, not14unique successes",
+      "uniqueObservedBehaviors": 8,
+      "pageErrors": 0,
+      "nonHostRequests": 0
+    },
+    "appEvidence": "698/npm/SDK PASS",
+    "progress": "initial sparse-three failure preserved; exactGit hydration thenPASS,9testsPASS",
+    "required": "exactf8a263c8 53Gitinputs/9captures/10toolingPASS"
+  },
+  "methodCorrections": [
+    {
+      "before": "c56bbf3d3db112aa1159c2970879f21fcb6c7013",
+      "after": "5e127c26894307c310e148844f9dd47a9bf6c4a7",
+      "reason": "Before first browser, scope scrollend instrumentation to actual scroll root; installed React also installs unrelated root event listeners. No browser execution onpreExecution method."
+    },
+    {
+      "before": "5e127c26894307c310e148844f9dd47a9bf6c4a7",
+      "after": "f8a263c89d3b1749a5c7b1954ea5340fb98eaaf7",
+      "reason": "Initial oracle used pre-resize scroll offset, while source reads current offset inside native ResizeObserver. Corrected passive callback sample binds full source formula. No generated source or test input geometry changed."
+    }
+  ],
+  "newRunOperandObservation": {
+    "preResizeOffset": 1232,
+    "callbackOffset": 1632,
+    "callbackFirstWidth": 392,
+    "gap": 16,
+    "sourceInstantScroll": 1632,
+    "formula": "round(1632/(392+16))*(392+16)=1632",
+    "limits": "Measured in corrected cohort only. Initial callback-time operands and precise reason for offset change were not measured; native CSS adjustment remains a hypothesis rather than a retroactive claim."
+  },
+  "logs": [
+    {
+      "path": "logs/initial-generator.log.gz",
+      "bytes": 45,
+      "sha256": "ab65a6207039d84ff136e6c89bf6c80431916033a714ea308e12aeaf9eb6176a"
+    },
+    {
+      "path": "logs/node-initial.log.gz",
+      "bytes": 782,
+      "sha256": "556282f7d39c8f5f212e5f497ce7c16f78a87e63b217fbd8c961ee9f9cb9223d"
+    },
+    {
+      "path": "logs/source-pre-freeze.log.gz",
+      "bytes": 45,
+      "sha256": "ab65a6207039d84ff136e6c89bf6c80431916033a714ea308e12aeaf9eb6176a"
+    },
+    {
+      "path": "logs/source-frozen.log.gz",
+      "bytes": 45,
+      "sha256": "ab65a6207039d84ff136e6c89bf6c80431916033a714ea308e12aeaf9eb6176a"
+    },
+    {
+      "path": "logs/node-frozen.log.gz",
+      "bytes": 781,
+      "sha256": "a134fbba85100fca5143cee89c9648781ff154f16c5d7e28795189f39eb2b10d"
+    },
+    {
+      "path": "logs/browser-5e127c26.log.gz",
+      "bytes": 462,
+      "sha256": "b2c7928a7399ad68886b7599f00605d2684e782499df7c0dd0a1161e6b800a5d"
+    },
+    {
+      "path": "logs/source-corrected-method.log.gz",
+      "bytes": 45,
+      "sha256": "ab65a6207039d84ff136e6c89bf6c80431916033a714ea308e12aeaf9eb6176a"
+    },
+    {
+      "path": "logs/browser-f8a263c8.log.gz",
+      "bytes": 135,
+      "sha256": "83e9cba3f9e1e1991b24e67e9dbb030c3668c214344a5276c8d5690a0f45aa61"
+    },
+    {
+      "path": "logs/common-f8a263c8.log.gz",
+      "bytes": 1315,
+      "sha256": "29e6e18372adae21ce8a6981150cc1e78424383d508788a048bf500872e57b41"
+    },
+    {
+      "path": "logs/app-evidence-f8a263c8.log.gz",
+      "bytes": 72,
+      "sha256": "46265edffc72a30a906bca59add1505b99c85ed0f5ff6b20ea0968ead9ff91d9"
+    },
+    {
+      "path": "logs/progress-f8a263c8.log.gz",
+      "bytes": 1404,
+      "sha256": "1d733f676893f597efbec60dc406abf350957cfa20314d73210cbe5b4a952b65"
+    },
+    {
+      "path": "logs/progress-tests-f8a263c8.log.gz",
+      "bytes": 155,
+      "sha256": "df87fed24ac42199687737ffbf2757e354e8131b8e444742637ce11eb5482b07"
+    },
+    {
+      "path": "logs/progress-f8a263c8-restored.log.gz",
+      "bytes": 49,
+      "sha256": "7ab499988f3b70e197e23e42287d4cc4579dc2b9360a82be3e827e22c589fda4"
+    },
+    {
+      "path": "logs/verify_evidence.log.gz",
+      "bytes": 376,
+      "sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9"
+    },
+    {
+      "path": "logs/test_tooling.log.gz",
+      "bytes": 109,
+      "sha256": "5f4779fd275d3627c57aceb1b38bb1db547a9b6655c60dee420a945a200be044"
+    }
+  ],
+  "limits": {
+    "capturedExecution": false,
+    "providerAcquisition": false,
+    "cardOrCoinPage": false,
+    "accountActions": false,
+    "mediaOrPlayback": false,
+    "applicationMount": false,
+    "originalCSSOrVisualParity": false,
+    "nativeCompatibility": false,
+    "featureCredit": false,
+    "securityApproval": false
+  },
+  "infrastructure": "Real React/native DOM observers/scroll with authored geometryCSS and syntheticCard. Phase1 actualmainRows; phase2 authoredgenericCarouselselected/snap caller, not mainpage usage. No originalCSS/visual/native/service/mountedappclaim."
+}

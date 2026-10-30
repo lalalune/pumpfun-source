@@ -1,0 +1,5627 @@
+{
+  "sourceHead": "f8a263c89d3b1749a5c7b1954ea5340fb98eaaf7",
+  "scope": "Real React/compiler/DOM/native observers and scroll with authored width/container/card CSS, observer instrumentation and Card port. First phase actual main-row adapter; second explicitly authored generic-Carousel selection/snap caller (main Rows does not pass those props). No original Card/media/navigation/provider/CSS/application or visual parity.",
+  "runtime": {
+    "node": "v24.19.0",
+    "react": "19.2.3",
+    "esbuild": "0.25.12",
+    "playwright": "1.64.1"
+  },
+  "controllerSha256": "12fc7092496581773d0d2347a730885897352f3f548e683bac55f02e1d35077e",
+  "proofSha256": "313397ceaf464a4af98a77979033d5efd07f04de0336159badafb0e3369a923a",
+  "inputs": [
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-jsx-runtime.development.js",
+      "bytes": 12452,
+      "sha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/jsx-runtime.js",
+      "bytes": 210,
+      "sha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+    },
+    {
+      "path": "reconstruction/live-row-carousel/client.mjs",
+      "bytes": 8392,
+      "sha256": "76073d4a8371f36a2a720c9f518f4480b75aa31b3d3b36ca964b92a40d667b95"
+    },
+    {
+      "path": "reconstruction/live-row-carousel/fixture.mjs",
+      "bytes": 4863,
+      "sha256": "15c3f2021d762d4a83291e8867e8b692bb3bdf9c539aca73e7794855deaef23b"
+    }
+  ],
+  "bundleSha256": "24c64c81dbafb44ac0964e569b612d7068124254dcfa8a27a8889e8a1105468c",
+  "observations": [
+    {
+      "name": "actual main Rows delegates native per-card scroll-root admission and measures first wrapper width plus gap",
+      "state": {
+        "commits": 1,
+        "subscribers": 1,
+        "mode": "rows",
+        "events": [
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "ResizeObserver",
+            "geometry": {
+              "left": 0,
+              "firstWidth": 292,
+              "gap": 16
+            }
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 0,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "0"
+          },
+          {
+            "type": "card-mount",
+            "id": "1"
+          },
+          {
+            "type": "card-mount",
+            "id": "2"
+          }
+        ],
+        "observers": [
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "ResizeObserver",
+            "active": true
+          },
+          {
+            "kind": "MutationObserver",
+            "active": true
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          }
+        ],
+        "active": [
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "ResizeObserver",
+          "MutationObserver",
+          "IntersectionObserver"
+        ],
+        "scrollListeners": 0,
+        "cardIds": [
+          "0",
+          "1",
+          "2"
+        ],
+        "geometry": {
+          "left": 0,
+          "scrollWidth": 3696,
+          "clientWidth": 600,
+          "cardWidth": 308
+        }
+      }
+    },
+    {
+      "name": "callback ref updates without recreating near-end observer; native scroll fires latest callback and admission remains one-way",
+      "state": {
+        "commits": 2,
+        "subscribers": 1,
+        "mode": "rows",
+        "events": [
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "ResizeObserver",
+            "geometry": {
+              "left": 0,
+              "firstWidth": 292,
+              "gap": 16
+            }
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 0,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "0"
+          },
+          {
+            "type": "card-mount",
+            "id": "1"
+          },
+          {
+            "type": "card-mount",
+            "id": "2"
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 3696,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "near-end",
+            "version": 2
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "9"
+          },
+          {
+            "type": "card-mount",
+            "id": "10"
+          },
+          {
+            "type": "card-mount",
+            "id": "11"
+          }
+        ],
+        "observers": [
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "ResizeObserver",
+            "active": true
+          },
+          {
+            "kind": "MutationObserver",
+            "active": true
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          }
+        ],
+        "active": [
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "ResizeObserver",
+          "MutationObserver",
+          "IntersectionObserver"
+        ],
+        "scrollListeners": 0,
+        "cardIds": [
+          "0",
+          "1",
+          "2",
+          "9",
+          "10",
+          "11"
+        ],
+        "geometry": {
+          "left": 3096,
+          "scrollWidth": 3696,
+          "clientWidth": 600,
+          "cardWidth": 308
+        }
+      }
+    },
+    {
+      "name": "actual child-list mutation remeasures; changed child count replaces near-end observer",
+      "state": {
+        "commits": 3,
+        "subscribers": 1,
+        "mode": "rows",
+        "events": [
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "ResizeObserver",
+            "geometry": {
+              "left": 0,
+              "firstWidth": 292,
+              "gap": 16
+            }
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 0,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "0"
+          },
+          {
+            "type": "card-mount",
+            "id": "1"
+          },
+          {
+            "type": "card-mount",
+            "id": "2"
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 3696,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "near-end",
+            "version": 2
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "9"
+          },
+          {
+            "type": "card-mount",
+            "id": "10"
+          },
+          {
+            "type": "card-mount",
+            "id": "11"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "MutationObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "near-end",
+            "version": 2
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "12"
+          }
+        ],
+        "observers": [
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "ResizeObserver",
+            "active": true
+          },
+          {
+            "kind": "MutationObserver",
+            "active": true
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          }
+        ],
+        "active": [
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "IntersectionObserver",
+          "ResizeObserver",
+          "MutationObserver",
+          "IntersectionObserver"
+        ],
+        "scrollListeners": 0,
+        "cardIds": [
+          "0",
+          "1",
+          "2",
+          "9",
+          "10",
+          "11",
+          "12"
+        ],
+        "geometry": {
+          "left": 3388,
+          "scrollWidth": 4004,
+          "clientWidth": 600,
+          "cardWidth": 308
+        }
+      }
+    },
+    {
+      "name": "eager bypass mounts every synthetic Card while viewport near-end mode owns its actual root/margin",
+      "state": {
+        "commits": 4,
+        "subscribers": 1,
+        "mode": "rows",
+        "events": [
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "ResizeObserver",
+            "geometry": {
+              "left": 0,
+              "firstWidth": 292,
+              "gap": 16
+            }
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 0,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "0"
+          },
+          {
+            "type": "card-mount",
+            "id": "1"
+          },
+          {
+            "type": "card-mount",
+            "id": "2"
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 3696,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "near-end",
+            "version": 2
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "9"
+          },
+          {
+            "type": "card-mount",
+            "id": "10"
+          },
+          {
+            "type": "card-mount",
+            "id": "11"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "MutationObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "near-end",
+            "version": 2
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "12"
+          },
+          {
+            "type": "card-unmount",
+            "id": "0"
+          },
+          {
+            "type": "card-unmount",
+            "id": "1"
+          },
+          {
+            "type": "card-unmount",
+            "id": "2"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-unmount",
+            "id": "9"
+          },
+          {
+            "type": "card-unmount",
+            "id": "10"
+          },
+          {
+            "type": "card-unmount",
+            "id": "11"
+          },
+          {
+            "type": "card-unmount",
+            "id": "12"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "0"
+          },
+          {
+            "type": "card-mount",
+            "id": "1"
+          },
+          {
+            "type": "card-mount",
+            "id": "2"
+          },
+          {
+            "type": "card-mount",
+            "id": "3"
+          },
+          {
+            "type": "card-mount",
+            "id": "4"
+          },
+          {
+            "type": "card-mount",
+            "id": "5"
+          },
+          {
+            "type": "card-mount",
+            "id": "6"
+          },
+          {
+            "type": "card-mount",
+            "id": "7"
+          },
+          {
+            "type": "card-mount",
+            "id": "8"
+          },
+          {
+            "type": "card-mount",
+            "id": "9"
+          },
+          {
+            "type": "card-mount",
+            "id": "10"
+          },
+          {
+            "type": "card-mount",
+            "id": "11"
+          },
+          {
+            "type": "card-mount",
+            "id": "12"
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": null,
+              "rootMargin": "0px 0px 400px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          }
+        ],
+        "observers": [
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "ResizeObserver",
+            "active": true
+          },
+          {
+            "kind": "MutationObserver",
+            "active": true
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": null,
+              "rootMargin": "0px 0px 400px 0px",
+              "threshold": 0
+            }
+          }
+        ],
+        "active": [
+          "ResizeObserver",
+          "MutationObserver",
+          "IntersectionObserver"
+        ],
+        "scrollListeners": 0,
+        "cardIds": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12"
+        ],
+        "geometry": {
+          "left": 3388,
+          "scrollWidth": 4004,
+          "clientWidth": 600,
+          "cardWidth": 308
+        }
+      }
+    },
+    {
+      "name": "explicitly authored generic Carousel caller supplies selectedIndex/snap, unlike main Rows",
+      "state": {
+        "commits": 5,
+        "subscribers": 1,
+        "mode": "generic",
+        "events": [
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "ResizeObserver",
+            "geometry": {
+              "left": 0,
+              "firstWidth": 292,
+              "gap": 16
+            }
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 0,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "0"
+          },
+          {
+            "type": "card-mount",
+            "id": "1"
+          },
+          {
+            "type": "card-mount",
+            "id": "2"
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 3696,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "near-end",
+            "version": 2
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "9"
+          },
+          {
+            "type": "card-mount",
+            "id": "10"
+          },
+          {
+            "type": "card-mount",
+            "id": "11"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "MutationObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "near-end",
+            "version": 2
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "12"
+          },
+          {
+            "type": "card-unmount",
+            "id": "0"
+          },
+          {
+            "type": "card-unmount",
+            "id": "1"
+          },
+          {
+            "type": "card-unmount",
+            "id": "2"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-unmount",
+            "id": "9"
+          },
+          {
+            "type": "card-unmount",
+            "id": "10"
+          },
+          {
+            "type": "card-unmount",
+            "id": "11"
+          },
+          {
+            "type": "card-unmount",
+            "id": "12"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "0"
+          },
+          {
+            "type": "card-mount",
+            "id": "1"
+          },
+          {
+            "type": "card-mount",
+            "id": "2"
+          },
+          {
+            "type": "card-mount",
+            "id": "3"
+          },
+          {
+            "type": "card-mount",
+            "id": "4"
+          },
+          {
+            "type": "card-mount",
+            "id": "5"
+          },
+          {
+            "type": "card-mount",
+            "id": "6"
+          },
+          {
+            "type": "card-mount",
+            "id": "7"
+          },
+          {
+            "type": "card-mount",
+            "id": "8"
+          },
+          {
+            "type": "card-mount",
+            "id": "9"
+          },
+          {
+            "type": "card-mount",
+            "id": "10"
+          },
+          {
+            "type": "card-mount",
+            "id": "11"
+          },
+          {
+            "type": "card-mount",
+            "id": "12"
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": null,
+              "rootMargin": "0px 0px 400px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "ResizeObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "MutationObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-unmount",
+            "id": "0"
+          },
+          {
+            "type": "card-unmount",
+            "id": "1"
+          },
+          {
+            "type": "card-unmount",
+            "id": "2"
+          },
+          {
+            "type": "card-unmount",
+            "id": "3"
+          },
+          {
+            "type": "card-unmount",
+            "id": "4"
+          },
+          {
+            "type": "card-unmount",
+            "id": "5"
+          },
+          {
+            "type": "card-unmount",
+            "id": "6"
+          },
+          {
+            "type": "card-unmount",
+            "id": "7"
+          },
+          {
+            "type": "card-unmount",
+            "id": "8"
+          },
+          {
+            "type": "card-unmount",
+            "id": "9"
+          },
+          {
+            "type": "card-unmount",
+            "id": "10"
+          },
+          {
+            "type": "card-unmount",
+            "id": "11"
+          },
+          {
+            "type": "card-unmount",
+            "id": "12"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-0"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-1"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-2"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-3"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-4"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-5"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-6"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-7"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-8"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-9"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-10"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-11"
+          },
+          {
+            "type": "observer-create",
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "ResizeObserver",
+            "geometry": {
+              "left": 0,
+              "firstWidth": 292,
+              "gap": 16
+            }
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 0,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 0,
+                "behavior": "smooth"
+              }
+            ]
+          },
+          {
+            "type": "scroll-listener-add"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          }
+        ],
+        "observers": [
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": null,
+              "rootMargin": "0px 0px 400px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "kind": "ResizeObserver",
+            "active": true
+          },
+          {
+            "kind": "MutationObserver",
+            "active": true
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          }
+        ],
+        "active": [
+          "ResizeObserver",
+          "MutationObserver",
+          "IntersectionObserver"
+        ],
+        "scrollListeners": 1,
+        "cardIds": [
+          "generic-0",
+          "generic-1",
+          "generic-2",
+          "generic-3",
+          "generic-4",
+          "generic-5",
+          "generic-6",
+          "generic-7",
+          "generic-8",
+          "generic-9",
+          "generic-10",
+          "generic-11"
+        ],
+        "geometry": {
+          "left": 0,
+          "scrollWidth": 3696,
+          "clientWidth": 600,
+          "cardWidth": 308
+        }
+      }
+    },
+    {
+      "name": "actual selected-index effect drives native smooth scroll and natural scrollend snap",
+      "state": {
+        "commits": 6,
+        "subscribers": 1,
+        "mode": "generic",
+        "events": [
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "ResizeObserver",
+            "geometry": {
+              "left": 0,
+              "firstWidth": 292,
+              "gap": 16
+            }
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 0,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "0"
+          },
+          {
+            "type": "card-mount",
+            "id": "1"
+          },
+          {
+            "type": "card-mount",
+            "id": "2"
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 3696,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "near-end",
+            "version": 2
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "9"
+          },
+          {
+            "type": "card-mount",
+            "id": "10"
+          },
+          {
+            "type": "card-mount",
+            "id": "11"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "MutationObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "near-end",
+            "version": 2
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "12"
+          },
+          {
+            "type": "card-unmount",
+            "id": "0"
+          },
+          {
+            "type": "card-unmount",
+            "id": "1"
+          },
+          {
+            "type": "card-unmount",
+            "id": "2"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-unmount",
+            "id": "9"
+          },
+          {
+            "type": "card-unmount",
+            "id": "10"
+          },
+          {
+            "type": "card-unmount",
+            "id": "11"
+          },
+          {
+            "type": "card-unmount",
+            "id": "12"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "0"
+          },
+          {
+            "type": "card-mount",
+            "id": "1"
+          },
+          {
+            "type": "card-mount",
+            "id": "2"
+          },
+          {
+            "type": "card-mount",
+            "id": "3"
+          },
+          {
+            "type": "card-mount",
+            "id": "4"
+          },
+          {
+            "type": "card-mount",
+            "id": "5"
+          },
+          {
+            "type": "card-mount",
+            "id": "6"
+          },
+          {
+            "type": "card-mount",
+            "id": "7"
+          },
+          {
+            "type": "card-mount",
+            "id": "8"
+          },
+          {
+            "type": "card-mount",
+            "id": "9"
+          },
+          {
+            "type": "card-mount",
+            "id": "10"
+          },
+          {
+            "type": "card-mount",
+            "id": "11"
+          },
+          {
+            "type": "card-mount",
+            "id": "12"
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": null,
+              "rootMargin": "0px 0px 400px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "ResizeObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "MutationObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-unmount",
+            "id": "0"
+          },
+          {
+            "type": "card-unmount",
+            "id": "1"
+          },
+          {
+            "type": "card-unmount",
+            "id": "2"
+          },
+          {
+            "type": "card-unmount",
+            "id": "3"
+          },
+          {
+            "type": "card-unmount",
+            "id": "4"
+          },
+          {
+            "type": "card-unmount",
+            "id": "5"
+          },
+          {
+            "type": "card-unmount",
+            "id": "6"
+          },
+          {
+            "type": "card-unmount",
+            "id": "7"
+          },
+          {
+            "type": "card-unmount",
+            "id": "8"
+          },
+          {
+            "type": "card-unmount",
+            "id": "9"
+          },
+          {
+            "type": "card-unmount",
+            "id": "10"
+          },
+          {
+            "type": "card-unmount",
+            "id": "11"
+          },
+          {
+            "type": "card-unmount",
+            "id": "12"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-0"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-1"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-2"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-3"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-4"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-5"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-6"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-7"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-8"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-9"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-10"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-11"
+          },
+          {
+            "type": "observer-create",
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "ResizeObserver",
+            "geometry": {
+              "left": 0,
+              "firstWidth": 292,
+              "gap": 16
+            }
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 0,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 0,
+                "behavior": "smooth"
+              }
+            ]
+          },
+          {
+            "type": "scroll-listener-add"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 1232,
+                "behavior": "smooth"
+              }
+            ]
+          },
+          {
+            "type": "snap",
+            "index": 4
+          }
+        ],
+        "observers": [
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": null,
+              "rootMargin": "0px 0px 400px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "kind": "ResizeObserver",
+            "active": true
+          },
+          {
+            "kind": "MutationObserver",
+            "active": true
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          }
+        ],
+        "active": [
+          "ResizeObserver",
+          "MutationObserver",
+          "IntersectionObserver"
+        ],
+        "scrollListeners": 1,
+        "cardIds": [
+          "generic-0",
+          "generic-1",
+          "generic-2",
+          "generic-3",
+          "generic-4",
+          "generic-5",
+          "generic-6",
+          "generic-7",
+          "generic-8",
+          "generic-9",
+          "generic-10",
+          "generic-11"
+        ],
+        "geometry": {
+          "left": 1232,
+          "scrollWidth": 3696,
+          "clientWidth": 600,
+          "cardWidth": 308
+        }
+      }
+    },
+    {
+      "name": "native ResizeObserver samples current callback-time offset and instant-snaps its rounded width multiple; pre-resize offset is not assumed",
+      "state": {
+        "commits": 8,
+        "subscribers": 1,
+        "mode": "generic",
+        "events": [
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "ResizeObserver",
+            "geometry": {
+              "left": 0,
+              "firstWidth": 292,
+              "gap": 16
+            }
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 0,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "0"
+          },
+          {
+            "type": "card-mount",
+            "id": "1"
+          },
+          {
+            "type": "card-mount",
+            "id": "2"
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 3696,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "near-end",
+            "version": 2
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "9"
+          },
+          {
+            "type": "card-mount",
+            "id": "10"
+          },
+          {
+            "type": "card-mount",
+            "id": "11"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "MutationObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "near-end",
+            "version": 2
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "12"
+          },
+          {
+            "type": "card-unmount",
+            "id": "0"
+          },
+          {
+            "type": "card-unmount",
+            "id": "1"
+          },
+          {
+            "type": "card-unmount",
+            "id": "2"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-unmount",
+            "id": "9"
+          },
+          {
+            "type": "card-unmount",
+            "id": "10"
+          },
+          {
+            "type": "card-unmount",
+            "id": "11"
+          },
+          {
+            "type": "card-unmount",
+            "id": "12"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "0"
+          },
+          {
+            "type": "card-mount",
+            "id": "1"
+          },
+          {
+            "type": "card-mount",
+            "id": "2"
+          },
+          {
+            "type": "card-mount",
+            "id": "3"
+          },
+          {
+            "type": "card-mount",
+            "id": "4"
+          },
+          {
+            "type": "card-mount",
+            "id": "5"
+          },
+          {
+            "type": "card-mount",
+            "id": "6"
+          },
+          {
+            "type": "card-mount",
+            "id": "7"
+          },
+          {
+            "type": "card-mount",
+            "id": "8"
+          },
+          {
+            "type": "card-mount",
+            "id": "9"
+          },
+          {
+            "type": "card-mount",
+            "id": "10"
+          },
+          {
+            "type": "card-mount",
+            "id": "11"
+          },
+          {
+            "type": "card-mount",
+            "id": "12"
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": null,
+              "rootMargin": "0px 0px 400px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "ResizeObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "MutationObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-unmount",
+            "id": "0"
+          },
+          {
+            "type": "card-unmount",
+            "id": "1"
+          },
+          {
+            "type": "card-unmount",
+            "id": "2"
+          },
+          {
+            "type": "card-unmount",
+            "id": "3"
+          },
+          {
+            "type": "card-unmount",
+            "id": "4"
+          },
+          {
+            "type": "card-unmount",
+            "id": "5"
+          },
+          {
+            "type": "card-unmount",
+            "id": "6"
+          },
+          {
+            "type": "card-unmount",
+            "id": "7"
+          },
+          {
+            "type": "card-unmount",
+            "id": "8"
+          },
+          {
+            "type": "card-unmount",
+            "id": "9"
+          },
+          {
+            "type": "card-unmount",
+            "id": "10"
+          },
+          {
+            "type": "card-unmount",
+            "id": "11"
+          },
+          {
+            "type": "card-unmount",
+            "id": "12"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-0"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-1"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-2"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-3"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-4"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-5"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-6"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-7"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-8"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-9"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-10"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-11"
+          },
+          {
+            "type": "observer-create",
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "ResizeObserver",
+            "geometry": {
+              "left": 0,
+              "firstWidth": 292,
+              "gap": 16
+            }
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 0,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 0,
+                "behavior": "smooth"
+              }
+            ]
+          },
+          {
+            "type": "scroll-listener-add"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 1232,
+                "behavior": "smooth"
+              }
+            ]
+          },
+          {
+            "type": "snap",
+            "index": 4
+          },
+          {
+            "type": "observer-callback",
+            "kind": "ResizeObserver",
+            "geometry": {
+              "left": 1632,
+              "firstWidth": 392,
+              "gap": 16
+            }
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 1632,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "scroll-listener-remove"
+          },
+          {
+            "type": "scroll-listener-add"
+          },
+          {
+            "type": "snap",
+            "index": 4
+          }
+        ],
+        "observers": [
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": null,
+              "rootMargin": "0px 0px 400px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "kind": "ResizeObserver",
+            "active": true
+          },
+          {
+            "kind": "MutationObserver",
+            "active": true
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": true,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          }
+        ],
+        "active": [
+          "ResizeObserver",
+          "MutationObserver",
+          "IntersectionObserver"
+        ],
+        "scrollListeners": 1,
+        "cardIds": [
+          "generic-0",
+          "generic-1",
+          "generic-2",
+          "generic-3",
+          "generic-4",
+          "generic-5",
+          "generic-6",
+          "generic-7",
+          "generic-8",
+          "generic-9",
+          "generic-10",
+          "generic-11"
+        ],
+        "geometry": {
+          "left": 1632,
+          "scrollWidth": 4896,
+          "clientWidth": 800,
+          "cardWidth": 408
+        }
+      }
+    },
+    {
+      "name": "changed gap replaces measurement effects; unmount disconnects all owned observers and scrollend/subscription listeners",
+      "state": {
+        "commits": 9,
+        "subscribers": 0,
+        "mode": "generic",
+        "events": [
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "ResizeObserver",
+            "geometry": {
+              "left": 0,
+              "firstWidth": 292,
+              "gap": 16
+            }
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 0,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "0"
+          },
+          {
+            "type": "card-mount",
+            "id": "1"
+          },
+          {
+            "type": "card-mount",
+            "id": "2"
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 3696,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "near-end",
+            "version": 2
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "9"
+          },
+          {
+            "type": "card-mount",
+            "id": "10"
+          },
+          {
+            "type": "card-mount",
+            "id": "11"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "MutationObserver"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "near-end",
+            "version": 2
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "12"
+          },
+          {
+            "type": "card-unmount",
+            "id": "0"
+          },
+          {
+            "type": "card-unmount",
+            "id": "1"
+          },
+          {
+            "type": "card-unmount",
+            "id": "2"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-unmount",
+            "id": "9"
+          },
+          {
+            "type": "card-unmount",
+            "id": "10"
+          },
+          {
+            "type": "card-unmount",
+            "id": "11"
+          },
+          {
+            "type": "card-unmount",
+            "id": "12"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-mount",
+            "id": "0"
+          },
+          {
+            "type": "card-mount",
+            "id": "1"
+          },
+          {
+            "type": "card-mount",
+            "id": "2"
+          },
+          {
+            "type": "card-mount",
+            "id": "3"
+          },
+          {
+            "type": "card-mount",
+            "id": "4"
+          },
+          {
+            "type": "card-mount",
+            "id": "5"
+          },
+          {
+            "type": "card-mount",
+            "id": "6"
+          },
+          {
+            "type": "card-mount",
+            "id": "7"
+          },
+          {
+            "type": "card-mount",
+            "id": "8"
+          },
+          {
+            "type": "card-mount",
+            "id": "9"
+          },
+          {
+            "type": "card-mount",
+            "id": "10"
+          },
+          {
+            "type": "card-mount",
+            "id": "11"
+          },
+          {
+            "type": "card-mount",
+            "id": "12"
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": null,
+              "rootMargin": "0px 0px 400px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "ResizeObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "MutationObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-unmount",
+            "id": "0"
+          },
+          {
+            "type": "card-unmount",
+            "id": "1"
+          },
+          {
+            "type": "card-unmount",
+            "id": "2"
+          },
+          {
+            "type": "card-unmount",
+            "id": "3"
+          },
+          {
+            "type": "card-unmount",
+            "id": "4"
+          },
+          {
+            "type": "card-unmount",
+            "id": "5"
+          },
+          {
+            "type": "card-unmount",
+            "id": "6"
+          },
+          {
+            "type": "card-unmount",
+            "id": "7"
+          },
+          {
+            "type": "card-unmount",
+            "id": "8"
+          },
+          {
+            "type": "card-unmount",
+            "id": "9"
+          },
+          {
+            "type": "card-unmount",
+            "id": "10"
+          },
+          {
+            "type": "card-unmount",
+            "id": "11"
+          },
+          {
+            "type": "card-unmount",
+            "id": "12"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-0"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-1"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-2"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-3"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-4"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-5"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-6"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-7"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-8"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-9"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-10"
+          },
+          {
+            "type": "card-mount",
+            "id": "generic-11"
+          },
+          {
+            "type": "observer-create",
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "type": "observer-callback",
+            "kind": "ResizeObserver",
+            "geometry": {
+              "left": 0,
+              "firstWidth": 292,
+              "gap": 16
+            }
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 0,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 0,
+                "behavior": "smooth"
+              }
+            ]
+          },
+          {
+            "type": "scroll-listener-add"
+          },
+          {
+            "type": "observer-callback",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 1232,
+                "behavior": "smooth"
+              }
+            ]
+          },
+          {
+            "type": "snap",
+            "index": 4
+          },
+          {
+            "type": "observer-callback",
+            "kind": "ResizeObserver",
+            "geometry": {
+              "left": 1632,
+              "firstWidth": 392,
+              "gap": 16
+            }
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 1632,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "scroll-listener-remove"
+          },
+          {
+            "type": "scroll-listener-add"
+          },
+          {
+            "type": "snap",
+            "index": 4
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "ResizeObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "MutationObserver"
+          },
+          {
+            "type": "observer-create",
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "type": "observer-create",
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "type": "scroll-listener-remove"
+          },
+          {
+            "type": "scroll-listener-add"
+          },
+          {
+            "type": "snap",
+            "index": 4
+          },
+          {
+            "type": "observer-callback",
+            "kind": "ResizeObserver",
+            "geometry": {
+              "left": 1640,
+              "firstWidth": 390,
+              "gap": 20
+            }
+          },
+          {
+            "type": "scrollTo",
+            "args": [
+              {
+                "left": 1640,
+                "behavior": "instant"
+              }
+            ]
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "ResizeObserver"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "MutationObserver"
+          },
+          {
+            "type": "scroll-listener-remove"
+          },
+          {
+            "type": "observer-disconnect",
+            "kind": "IntersectionObserver"
+          },
+          {
+            "type": "card-unmount",
+            "id": "generic-0"
+          },
+          {
+            "type": "card-unmount",
+            "id": "generic-1"
+          },
+          {
+            "type": "card-unmount",
+            "id": "generic-2"
+          },
+          {
+            "type": "card-unmount",
+            "id": "generic-3"
+          },
+          {
+            "type": "card-unmount",
+            "id": "generic-4"
+          },
+          {
+            "type": "card-unmount",
+            "id": "generic-5"
+          },
+          {
+            "type": "card-unmount",
+            "id": "generic-6"
+          },
+          {
+            "type": "card-unmount",
+            "id": "generic-7"
+          },
+          {
+            "type": "card-unmount",
+            "id": "generic-8"
+          },
+          {
+            "type": "card-unmount",
+            "id": "generic-9"
+          },
+          {
+            "type": "card-unmount",
+            "id": "generic-10"
+          },
+          {
+            "type": "card-unmount",
+            "id": "generic-11"
+          }
+        ],
+        "observers": [
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 300px 0px 300px"
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": null,
+              "rootMargin": "0px 0px 400px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "kind": "MutationObserver",
+            "active": false
+          },
+          {
+            "kind": "IntersectionObserver",
+            "active": false,
+            "options": {
+              "root": "scroll-root",
+              "rootMargin": "0px 200px 200px 0px",
+              "threshold": 0
+            }
+          },
+          {
+            "kind": "ResizeObserver",
+            "active": false
+          },
+          {
+            "kind": "MutationObserver",
+            "active": false
+          }
+        ],
+        "active": [],
+        "scrollListeners": 0,
+        "cardIds": [],
+        "geometry": null
+      }
+    }
+  ],
+  "pageErrors": [],
+  "unexpected": [],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/bundle.js"
+    }
+  ],
+  "origin": "http://127.0.0.1:33589",
+  "result": "PASS",
+  "cleanup": {
+    "browserClosed": true,
+    "serverStopped": true
+  }
+}

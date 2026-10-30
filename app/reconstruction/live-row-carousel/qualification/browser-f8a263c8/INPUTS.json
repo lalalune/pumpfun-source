@@ -1,0 +1,89 @@
+{
+  "sourceHead": "f8a263c89d3b1749a5c7b1954ea5340fb98eaaf7",
+  "scope": "Real React/compiler/DOM/native observers and scroll with authored width/container/card CSS, observer instrumentation and Card port. First phase actual main-row adapter; second explicitly authored generic-Carousel selection/snap caller (main Rows does not pass those props). No original Card/media/navigation/provider/CSS/application or visual parity.",
+  "runtime": {
+    "node": "v24.19.0",
+    "react": "19.2.3",
+    "esbuild": "0.25.12",
+    "playwright": "1.64.1"
+  },
+  "controllerSha256": "12fc7092496581773d0d2347a730885897352f3f548e683bac55f02e1d35077e",
+  "proofSha256": "313397ceaf464a4af98a77979033d5efd07f04de0336159badafb0e3369a923a",
+  "inputs": [
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-jsx-runtime.development.js",
+      "bytes": 12452,
+      "sha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/jsx-runtime.js",
+      "bytes": 210,
+      "sha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+    },
+    {
+      "path": "reconstruction/live-row-carousel/client.mjs",
+      "bytes": 8392,
+      "sha256": "76073d4a8371f36a2a720c9f518f4480b75aa31b3d3b36ca964b92a40d667b95"
+    },
+    {
+      "path": "reconstruction/live-row-carousel/fixture.mjs",
+      "bytes": 4863,
+      "sha256": "15c3f2021d762d4a83291e8867e8b692bb3bdf9c539aca73e7794855deaef23b"
+    }
+  ],
+  "bundleSha256": "24c64c81dbafb44ac0964e569b612d7068124254dcfa8a27a8889e8a1105468c",
+  "observations": [],
+  "pageErrors": [],
+  "unexpected": [],
+  "requests": []
+}
