@@ -208,11 +208,12 @@ test(
       const r = await records();
       assert.equal(r.liveCaps.at(-1).mint, "supplied-mint-5");
       assert.equal(r.charts.at(-1).length, 4);
-      assert.equal(r.charts.at(-1)[2], null);
+      assert.equal(r.charts.at(-1)[2], undefined);
+      assert.equal(r.charts[0][1], null);
       assert.equal(r.coinImpressions[0][1].sourceScreen, 9);
       assert.equal(r.coinImpressions[0][1].itemPosition, 0);
       assert.equal(r.coinImpressions[1][1].marketCap, 120.13);
-      assert.equal(r.coinImpressions[0][2], null);
+      assert.equal(r.coinImpressions[0][2], undefined);
       assert.equal(
         r.coinImpressions[0][1].sourceElement,
         r.coinImpressions[0][3],
