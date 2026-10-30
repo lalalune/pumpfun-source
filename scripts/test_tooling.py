@@ -32,10 +32,10 @@ class CompareProgramNamesTests(unittest.TestCase):
             capture.mkdir(parents=True)
             (capture / 'deployed.so').write_bytes(b'ELF')
             self.assertEqual(compare_module.program_names(root), ['probe'])
+
+
 class RodataStringAddressTests(unittest.TestCase):
     def test_string_keys_use_virtual_address(self):
-class DataLayoutAddressTests(unittest.TestCase):
-    def test_string_address_uses_virtual_address(self):
         blob = bytearray(0x40)
         blob[0x20:0x24] = b'TEST'
         elf = SimpleNamespace(
@@ -45,6 +45,14 @@ class DataLayoutAddressTests(unittest.TestCase):
         strings = deep_disassembly.extract_rodata_strings(elf)
         self.assertEqual(strings[0x1000], 'TEST')
         self.assertNotIn(0x20, strings)
+
+
+class DataLayoutAddressTests(unittest.TestCase):
+    def test_string_address_uses_virtual_address(self):
+        blob = bytearray(0x40)
+        blob[0x20:0x24] = b'TEST'
+        elf = SimpleNamespace(
+            b=bytes(blob),
             lo=0x2000,
             hi=0x3000,
             secs={'.rodata': (0, 1, 2, 0x1000, 0x20, 0x10, 0, 0, 1, 0)},
