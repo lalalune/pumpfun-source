@@ -5,7 +5,9 @@ Angle: continue w14a14-cto-mf1fill (#3241 qlin2, #3246 notes): a source re-read 
 the same address dominates it, or when a store that may alias it sits in between.
 Ledger keys: `0x22a10-w14-b174038-reloadarm-*-v1` and `0x22a10-w14-1b0ae70-reloadarm-*-v1` (approach `reloadarm-source`).
 
-## Landing candidate on main 1b0ae7021 (0.63661, M 2,125): `g1_ev_hr_curve`
+## Landed: #3267 (merge 7e6aa9caa). On 1b0ae70: 0.63661 -> 0.63930. After land.py merged #3272 (3f02a925e, 0.63871): 0.6414 (M 2,141), 0 losses, 363/0
+
+The table below is the measurement on 1b0ae70, before the merge.
 
 | | main 1b0ae70 | g1_ev_hr_curve |
 | --- | ---: | ---: |
@@ -36,7 +38,7 @@ Mechanism:
   original does, instead of holding `holder` in a register (#3257 had switched it to `holder`). Together: M 2,134 at 27,400 B.
 - The other hand-written clones (pool_authority, global, mint and the two sweep pump_amm clones) lose M when read
   this way in full (`irreM-1b0ae70.tsv`, `%x`, `%x18`, `%x19`, `%x.i`, `%x11.i`). Partial forms (only the reads after the
-  first Rc clone) are screened in section 5.
+  first Rc clone) are in section 5.
 
 ## 1. Oracles re-run on b174038 (before #3257), ranked by M
 
@@ -116,6 +118,41 @@ reload. Its source forms (`pool_hr_local`, h2pair) are already in the ledger as 
   (c1-c5) lose 250-300 M. The copy must come from somewhere other than a by-value parameter.
 - `tools/gaps.py <cand.o|.so> [n]` lists the largest unmatched orig/cand hunks (score tokens) with offsets. On main:
   M 2,122, 1,217 unmatched original instructions, top hunks at orig 0x420 (+60), 0xd70 (+57), 0x1728/0x1798, 0x4538.
+
+## 5. On 1b0ae70 and after the landing (raw-IR capture + rx oracle; M first)
+
+How the candidate was found (main 1b0ae70, M 2,125):
+
+| trial | form | bytes | ratio | M |
+| --- | --- | ---: | ---: | ---: |
+| e1 | event `new_creator_fee_bps` read from the curve in the literal (`let nf` removed; the original reads +0x70 in the event, orig 0x4fd8) | 27,376 | 0.63689 | 2,125 |
+| e2 | e1 + event `is_holder_reward` from the curve | 27,368 | 0.63429 | 2,116 |
+| e3 / e4 | pool CPI `pargs.1 = holder` (hold) / + e1 | 27,424 / 27,400 | 0.63093 / 0.63331 | 2,107 / 2,114 |
+| e5 / e6 | event `is_cashback_coin: cashback` / + pargs holder | 27,408 / 27,432 | 0.63322 / 0.62904 | 2,114 / 2,101 |
+| f1 / f5 | curve stores holder before cashback (orig order), with / without e1 | 27,384 / 27,408 | 0.6332 / 0.63202 | 2,113 / 2,110 |
+| f2 | e1 + `if let Some(f)=fee{curve.creator_fee_bps=f;}` (orig form) | 27,368 | 0.63729 | 2,126 |
+| f3 | e1 + pool owner test first | 27,376 | 0.6351 | 2,119 |
+| **g1** | event_authority clone, all fields via `a.pump_fees_event_authority` | 27,408 | 0.63801 | 2,130 |
+| g3 | only key/owner/flags via `a.`, lamports and data via `x` | 27,376 | 0.6312 | 2,106 |
+| g1e1 | g1 + e1 | 27,384 | 0.6392 | 2,133 |
+| **g1 + ev_hr_curve** | landed | 27,400 | **0.6393** | **2,134** |
+| g1 + cu_typed | | 27,352 | 0.62639 | 2,089 |
+| g1e1 + g_w_clock_local / wl_ts_clockvar | +16 B fills | 27,400 | 0.63811 | 2,130 |
+| g1e1 + ev_mint_key / ev_cb_local | | 27,400 / 27,392 | 0.63212 / 0.6379 | 2,110 / 2,129 |
+
+Partial clone reloads on top of the candidate (the IR leads `%x19@exit191`, `%x.i@exit.i`, `%x11.i@exit199.i` on g1e1):
+
+| trial | form | bytes | ratio | M (candidate 2,134) |
+| --- | --- | ---: | ---: | ---: |
+| k1 | sharing mint clone: owner, data via `a.mint` | 27,416 | 0.63642 | 2,125 |
+| k2 | sweep TCF2 `program:` pump_amm clone: data via `a.pump_amm` | 27,416 | 0.63672 | 2,126 |
+| k3 | sweep CpiContext pump_amm clone: data via `a.pump_amm` | 27,408 | 0.63801 | 2,130 |
+| k4 | e1 on the candidate | 27,376 | 0.63719 | 2,126 |
+
+On main 7e6aa9caa (0.6414, M 2,141; `irreM-7e6aa9c.tsv`), the re-read oracle has no clone x lead above main. The best clone
+lead is `%x.i@exit.i` at M 2,137, +8 B. The only re-reads above main are holder_enabled `%33` (2,144 @ -40 B) and the
+sharing pointer `%_370@bb1` (2,142 @ +8 B), which have no source form. The hold oracle on the candidate is below it
+(best 2,131).
 
 ## Tools (experiment only)
 
