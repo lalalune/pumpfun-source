@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "historicalPublicHead": "706daf8c65cf8340413bf61c46e35ff98290f5c7",
+  "measuredSource": "9fbf3ec27674e1ea33b0406b7d38a52a97d082a1",
+  "correction": "170450.f is client-ready/hydration admission, not a remote feature-flag check. Prior viewport/feature labels were broad unimplemented-boundary prose, corrected now.",
+  "source": {
+    "id": 170450,
+    "ids": [
+      170450
+    ],
+    "label": "factory 170450",
+    "source": "evidence/web/objects/994c0030bcc62017.js",
+    "url": "https://pump.fun/_next/static/immutable/chunks/2oyndie4zi8s9.js",
+    "sourceSha256": "e19fc8c67314ff7ad3e69fcd4228558a461e246856f96d101b0596a1b61255b5",
+    "sourceBytes": 24978,
+    "utf16": [
+      10785,
+      10893
+    ],
+    "utf8": [
+      10785,
+      10893
+    ],
+    "sha256": "72a61a3e662f4e2995ea53610e55b0658ec866cf82ddca6c904962252fe06ff7"
+  },
+  "mechanism": "useSyncExternalStore(no-op subscription, true client snapshot, false server snapshot); complete actual factory retained as witness",
+  "runtimeUnchanged": [
+    {
+      "path": "app/reconstruction/live-card-display/client.mjs",
+      "bytes": 18144,
+      "sha256": "5f1a65c4286f17e08972ae0cbc22f27bd679af6a1c1a40294cb0f5078d6aaf4a"
+    },
+    {
+      "path": "app/reconstruction/live-card-display/browser.mjs",
+      "bytes": 9180,
+      "sha256": "32032f84091020606b965239434786d1070c6109c30d27fd29a7a30680921ae7"
+    },
+    {
+      "path": "app/reconstruction/live-card-display/fixture.mjs",
+      "bytes": 4767,
+      "sha256": "87c52f3eff897341ed79d8c12de505aa059b4a77bdeb6b6790abdf96f9730fad"
+    },
+    {
+      "path": "app/tests/live_card_display.test.mjs",
+      "bytes": 9359,
+      "sha256": "fac57e2eb17b784a25b011c48080eec8272b468f26510306d3c40cd4d5a9f426"
+    }
+  ],
+  "changed": "Only generator/provenance descriptive role strings, README attribution prose and this value-free metadata. No Card/module text, test, fixture, browser, dependencies or old qualifications change.",
+  "qualification": "Source verifier checked after metadata correction. No new Node/browser/build execution. Historical receipts and sealed packet remain untouched; old measured execution is not retargeted."
+}

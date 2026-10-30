@@ -14,7 +14,7 @@ Required module values keep actual source interfaces:
 
 - 12692 initialized module/bootstrap prerequisite (including its empty export group),398902.f translation hook,369091.useIpfsPrefix and850175.W prefetch hook. The original source-position12692 import becomes a supplied-module lookup. This does not execute or establish original bootstrap/provider initialization or module-loader effects/order. Modules must already be compatibly initialized by the caller.
 - 458310.default compatible Link; the adapter preserves href/prefetch/hover/click descriptors but no destination is acquired or navigated here.
-- 454430.f **ChartCell**, not an age label: viewport/feature/candle-query/rendering remains external. The Card's count/timestamp truthiness gate and exact `{coin:{mint,created_timestamp}}` handoff are preserved.
+- 454430.f **ChartCell**, not an age label: viewport/client-ready (hydration)/candle-query/rendering remains external. The Card's count/timestamp truthiness gate and exact `{coin:{mint,created_timestamp}}` handoff are preserved.
 - 666863.f impression-ref hook and595673.iV tracking; actual argument objects/enum values and callback identity remain, with no original service.
 - 556120.f protected/quick-action rendering capability. The raw coin, href/index/onOpenCoin descriptor is passed as source; action, flag/provider, wallet, transaction and token-detail implementation remain entirely excluded.
 
@@ -46,3 +46,9 @@ The frozen finite host runs real React/compiler/DOM with authored layout and syn
 At local measured `9fbf3ec27674e1ea33b0406b7d38a52a97d082a1`, the source verifier and **eight focused Node/real-React SSR/portable cases PASS**. One frozen real-React/compiler/DOM story passed **eight observations**, with zero page errors/non-host requests, only own HTML/bundle GETs and explicit browser/host cleanup. The labeled synthetic ports retain all exclusions above. No original Avatar, media/player, bootstrap/provider, chart, protected action or navigation executes.
 
 The [qualification packet](qualification/README.md) binds the seven measured source/method files, all15 bundle inputs, full emitted bundle/trace/results, prior exact draft generator failure and sparse-progress failure/hydration. App698/npm/SDK, progress check/nine tests and exact measured-head53Git/9captures/10tooling PASS. Earlier same-eight Node successes are repeats, not16unique cases. Only README readability/qualification and additive packet files followed; runtime/proof/tests/methods remain unchanged. No finite result is relabeled as a later public execution.
+
+## Later ChartCell attribution erratum
+
+The original frozen receipts and initial publication `706daf8c65cf8340413bf61c46e35ff98290f5c7` used the broad external-boundary label “viewport/feature”. A later full-source audit establishes that actual `170450.f` is client-ready/hydration admission (`useSyncExternalStore` with true client/false server snapshots), **not a remote feature-flag check**. This current README and the generator/provenance role labels correct that terminology only. All original receipts/source archives remain unchanged; their wording is historical. `CHARTCELL-ATTRIBUTION-ERRATUM.json` binds the exact source witness and runtime-preservation checks.
+
+No Card adapter, test, browser method, fixture, props, dependency or observed result changes, and no old test/browser execution is retargeted. Generator/provenance descriptive labels change after the measured source; the earlier six-file identity statement applies to the original publication only. This is source/data attribution, not new runtime or bootstrap qualification.
