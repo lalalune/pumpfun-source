@@ -1,0 +1,58 @@
+{
+ "lane": "w14a19-cto-framebasis",
+ "wave": 14,
+ "target": "0x22a10 admin_cto::execute",
+ "pinned_bytes": 27400,
+ "bases": {
+  "f8dc9016f": {
+   "ratio": 0.63481,
+   "M": 2119
+  },
+  "7e6aa9caa": {
+   "ratio": 0.6414,
+   "M": 2141
+  }
+ },
+ "result": "exhausted; notes only, no source change, nothing landed",
+ "best_zero_loss": {
+  "ratio": null,
+  "note": "no candidate above main; best IR-compensated composite e3+tu8+V1 0.62764 @27424 (f8dc), 0.63741 @27408 (7e6aa9c)"
+ },
+ "findings": [
+  "e3+tu8, U2, s1, p1, f2 (the skeleton-positive bases) have a post-PEI frame-object list identical to main's: their loss is spill colouring and jump distances, not stack objects",
+  "V1 adds validate's 7 B target.i.sroa.0 after event_signers.i: +8 for every later object and all spills; V2N +32 (sk), VS +32, HK0 -40, VS+HK0 -8",
+  "IR alloca move of V1's piece into hk's 7 B padding hole (or the top hole after _11) gives exactly main's frame: e3+tu8+V1 0.57853 -> 0.62764 (M 1932 -> 2096, J 2219 = +75 over main) on f8dc901; 0.55774 -> 0.63741 on 7e6aa9c; both below main",
+  "faithful pure-frame basis on main is only HK0, VS, VS+HK0, HK1/g.n_hk_direct, TE* (early let mut target); census of 35 binding-style genes found no other frame-object change",
+  "no source form realizes the compensation: the inlined validate piece is always laid out before execute's own objects, StackColoring folds it only with a 1 B slot, and the available knobs have sizes -40/+32/0/+8..+16 (88 B needed vs 80 B packing)",
+  "slotpin bound: e3+tu8+V1 interval-pin/hill M 2318 vs main 2292 on f8dc901 (+26), 2309 vs 2299 on 7e6aa9c (+9): best legal-frame base found"
+ ],
+ "attempts": {
+  "oracle_variants": "~110 raw-IR captures + IR experiments",
+  "ledger_prefix": "0x22a10-w14-f8dc901-framebasis-*, 0x22a10-w14-7e6aa9c-framebasis-recheck-v1"
+ },
+ "rejected_mechanisms": [
+  "V1+HK0",
+  "V2N+HK0",
+  "VS+HK0 on e3+tu8",
+  "HKR (not pure)",
+  "HK1/HK2",
+  "TE/TE0/TE0b/TE2/TE3/TE4/TE5/TE6 early target declarations",
+  "V2N+HK0+TEh",
+  "V1 piece folded into execute target (IR)",
+  "target.sroa.0 moved to front of execute allocas (IR)",
+  "B3 on e3+tu8",
+  "ql_ref on e3+tu8(+V1)",
+  "14 negative-size knobs on compensated e3+tu8+V1"
+ ],
+ "unresolved_residuals": [
+  "spill colouring (RA) of every skeleton base",
+  "jump distances / size of e3+tu8 forms (-80..-64 B)",
+  "source realization of V1's 7 B piece placement"
+ ],
+ "next_ideas": [
+  "RA/slotpin lanes: try e3+tu8+V1 as the base (best legal-frame bound); it needs the +8 alloca compensation plus a near-pin spill colouring",
+  "a validate form that keeps V1's code but never splits target at byte 7 (aligned Pubkey from new), so no 7 B piece exists",
+  "g.ql_ref is frame-masked +82 over main on f8dc901 (F 2342) at 27,136 B with an identical object list: size-repay lanes"
+ ],
+ "pr": 3266
+}

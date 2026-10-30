@@ -1,0 +1,35 @@
+c_K_ev_auth_deref n=3337 M=2119 J=2144 F=2260 JF=2427 ratio=0.63481 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_K_ev_mint_key  n=3339 M=2089 J=2117 F=2234 JF=2403 ratio=0.62564 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_K_ev_ts_clockvar n=3337 M=2109 J=2134 F=2261 JF=2428 ratio=0.63182 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_K_pool_prog_let n=3337 M=2119 J=2144 F=2260 JF=2427 ratio=0.63481 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_K_sh_fees_key  n=3338 M=2118 J=2143 F=2260 JF=2427 ratio=0.63442 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_K_sh_prog_let  n=3333 M=2109 J=2136 F=2244 JF=2413 ratio=0.63219 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_K_sig_arr      n=3337 M=2119 J=2144 F=2260 JF=2427 ratio=0.63481 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_K_st_ql_first  n=3337 M=2119 J=2144 F=2260 JF=2427 ratio=0.63481 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_K_wl_cr_deref  n=3337 M=2119 J=2144 F=2260 JF=2427 ratio=0.63481 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_K_ev_cb_local  n=3338 M=2112 J=2142 F=2256 JF=2426 ratio=0.63262 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_K_g_w_clock_local n=3339 M=2116 J=2143 F=2257 JF=2426 ratio=0.63372 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_K_cu_typed     n=3333 M=2100 J=2128 F=2240 JF=2410 ratio=0.62950 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_e_bc_ref     n=3357 M=2068 J=2098 F=2220 JF=2391 ratio=0.61768 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_e_emit_ref   n=3394 M=1827 J=1880 F=2231 JF=2408 ratio=0.54270 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_n_hk_direct  n=3337 M=2118 J=2143 F=2260 JF=2427 ratio=0.63451 | + holder_key:32/8@0x678 - holder_key:32/8@0x6a0 spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_n_sk_inline  n=3339 M=2089 J=2116 F=2213 JF=2383 ratio=0.62564 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_o_target_first n=3337 M=2119 J=2144 F=2260 JF=2427 ratio=0.63481 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_o_co_sk      n=3337 M=2119 J=2144 F=2260 JF=2427 ratio=0.63481 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_o_su_first   n=3337 M=2119 J=2144 F=2260 JF=2427 ratio=0.63481 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_o_skip_first n=3337 M=2119 J=2144 F=2260 JF=2427 ratio=0.63481 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_pa_ref       n=3350 M=1841 J=1886 F=2246 JF=2418 ratio=0.55046 | - sharing_update14.sroa.3:32/8@0x560 target13:32/4@0x580 + sharing_update12.sroa.3:32/8@0x560 target11.sroa.0:7/4@0x568 target11.sroa.6:9/8@0x578 + #288:8/8@0xc30 #289:8/8@0xc38 spill start 0x8d8 -> 0
+c_g_pa_hold      n=3340 M=2101 J=2132 F=2242 JF=2414 ratio=0.62914 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_pre_sk_first n=3313 M=2088 J=2126 F=2216 JF=2390 ratio=0.62778 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_pre_sk_args  n=3313 M=2088 J=2126 F=2216 JF=2390 ratio=0.62778 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_pre_args_late n=3334 M=1552 J=1567 F=1521 JF=1659 ratio=0.46516 | + #286:8/8@0xc38 spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 109; n16 33 -> 33 
+c_g_ql_ref       n=3308 M=2003 J=2035 F=2342 JF=2437 ratio=0.60268 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_s_pbump      n=3337 M=2110 J=2135 F=2251 JF=2418 ratio=0.63212 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_sc_auth_lit  n=3337 M=2119 J=2144 F=2260 JF=2427 ratio=0.63481 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_sc_auth_r    n=3337 M=2119 J=2144 F=2260 JF=2427 ratio=0.63481 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_w_vsig_ref   n=3337 M=2115 J=2140 F=2254 JF=2421 ratio=0.63361 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_x_einfo_inline n=3337 M=2111 J=2136 F=2258 JF=2425 ratio=0.63241 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_x_cp_inline  n=3341 M=2103 J=2134 F=2247 JF=2419 ratio=0.62964 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_p_prog_let   n=3337 M=2119 J=2144 F=2260 JF=2427 ratio=0.63481 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_o_ab_early   n=3337 M=2119 J=2144 F=2260 JF=2427 ratio=0.63481 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
+c_g_o_ab_late    n=3335 M=2116 J=2144 F=2257 JF=2426 ratio=0.63410 | spill start 0x8d8 -> 0x8d8 (+0); nspill 108 -> 108; n16 33 -> 33 
