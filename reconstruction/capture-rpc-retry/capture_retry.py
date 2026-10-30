@@ -12,5 +12,16 @@ if hashlib.sha256(raw).hexdigest() != SOURCE_SHA256:
 
 module = types.ModuleType('capture_rpc_retry')
 module.__file__ = str(source_path)
-exec(compile(raw.decode('utf-8'), str(source_path), 'exec', optimize=0), module.__dict__)
+text = raw.decode('utf-8')
+anchor = "            if 'error' in result: raise RuntimeError(result['error'])"
+replacement = """            check(isinstance(result, dict), 'RPC response must be an object')
+            check(result.get('jsonrpc') == '2.0', 'unexpected RPC protocol version')
+            response_id = result.get('id')
+            check(type(response_id) in (int, float) and response_id == 1,
+                  'RPC response ID does not match request')
+""" + anchor
+if text.count(anchor) != 1:
+    raise ValueError('reviewed RPC envelope substitution is not unique')
+text = text.replace(anchor, replacement)
+exec(compile(text, str(source_path), 'exec', optimize=0), module.__dict__)
 capture = module.capture
