@@ -750,7 +750,7 @@ fn validate(st:&CtoState,holder:bool,fee:Option<u64>,new:Option<Pubkey>,holder_k
 
  }
  let (old_creator,old_fee)={
-  let curve=&mut ctx.accounts.bonding_curve;let old_creator=curve.creator;let old_fee=curve.creator_fee_bps;
+  let curve=&mut ctx.accounts.bonding_curve;let old_fee=curve.creator_fee_bps;let old_creator=curve.creator;
   curve.creator=target;
   curve.is_holder_reward=holder;
   curve.is_cashback_coin=cashback;
