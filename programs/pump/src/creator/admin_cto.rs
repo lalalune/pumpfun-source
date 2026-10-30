@@ -742,7 +742,7 @@ fn validate(st:&CtoState,holder:bool,fee:Option<u64>,new:Option<Pubkey>,holder_k
 
 
 
- let pb=[ctx.bumps.pool_authority];let poolseeds:&[&[u8]]=&[b"pool-authority",mint.as_ref(),&pb];let signer_seeds:&[&[&[u8]]]=&[poolseeds];
+ let reset=sharing_update.is_some();let pb=[ctx.bumps.pool_authority];let poolseeds:&[&[u8]]=&[b"pool-authority",mint.as_ref(),&pb];let signer_seeds:&[&[&[u8]]]=&[poolseeds];
  match sharing_update{Some(val)=>{
 
 
@@ -754,17 +754,17 @@ fn validate(st:&CtoState,holder:bool,fee:Option<u64>,new:Option<Pubkey>,holder_k
   curve.creator=target;
   curve.is_holder_reward=holder;
   curve.is_cashback_coin=cashback;let old_fee=curve.creator_fee_bps;
-  curve.creator_fee_bps=fee.unwrap_or(old_fee);
+  if let Some(f)=fee{curve.creator_fee_bps=f;}
   curve.can_edit_creator_fee=false;
  (old_creator,old_fee)};
  let a=&ctx.accounts;
- let pool_updated=if a.pool.owner==&AMM && !a.pool.data_is_empty(){
+ let pool_updated=a.pool.owner==&AMM && !a.pool.data_is_empty();
+ if pool_updated{
 
 
-
-  crate::pump_amm::cpi::admin_cto_pool(CpiContext::new_with_signer(a.pump_amm.to_account_info(),crate::pump_amm::cpi::accounts::AdminCtoPool{payer:a.admin_set_creator_authority.to_account_info(),global_config:a.amm_global_config.to_account_info(),pool:a.pool.to_account_info(),pool_authority:a.pool_authority.to_account_info(),system_program:a.system_program.to_account_info(),event_authority:a.pump_amm_event_authority.to_account_info(),program:a.pump_amm.to_account_info()},signer_seeds),target,holder,fee)?;true
- }else{msg!("No canonical pump pool for this mint; curve only");false};
- let e=AdminCtoEvent{timestamp:Clock::get()?.unix_timestamp,authority:a.admin_set_creator_authority.key(),mint,bonding_curve:a.bonding_curve.key(),old_creator,new_creator:a.bonding_curve.creator,is_holder_reward:holder,is_cashback_coin:cashback,old_creator_fee_bps:old_fee,new_creator_fee_bps:a.bonding_curve.creator_fee_bps,sharing_config_reset:sharing_update.is_some(),swept_to_holder_vault:swept,pool_updated};emit!(e);emit_cpi!(e);Ok(())
+  crate::pump_amm::cpi::admin_cto_pool(CpiContext::new_with_signer(a.pump_amm.to_account_info(),crate::pump_amm::cpi::accounts::AdminCtoPool{payer:a.admin_set_creator_authority.to_account_info(),global_config:a.amm_global_config.to_account_info(),pool:a.pool.to_account_info(),pool_authority:a.pool_authority.to_account_info(),system_program:a.system_program.to_account_info(),event_authority:a.pump_amm_event_authority.to_account_info(),program:a.pump_amm.to_account_info()},signer_seeds),target,holder,fee)?;
+ }else{msg!("No canonical pump pool for this mint; curve only");}
+ let e=AdminCtoEvent{timestamp:Clock::get()?.unix_timestamp,authority:a.admin_set_creator_authority.key(),mint,bonding_curve:a.bonding_curve.key(),old_creator,new_creator:a.bonding_curve.creator,is_holder_reward:holder,is_cashback_coin:cashback,old_creator_fee_bps:old_fee,new_creator_fee_bps:a.bonding_curve.creator_fee_bps,sharing_config_reset:reset,swept_to_holder_vault:swept,pool_updated};emit!(e);emit_cpi!(e);Ok(())
 }
 
 fn token_frozen(a:&AccountInfo)->Result<bool>{if a.data_is_empty(){return Ok(false);}let d=a.try_borrow_data()?;let t=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.is_frozen())}
