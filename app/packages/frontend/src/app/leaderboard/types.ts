@@ -1,3 +1,4 @@
+import { creatorPageFits } from "./creator-page-integrity.mjs";
 export const leaderboardCategories = [
   "traders",
   "creators",
@@ -320,7 +321,12 @@ function isData(value: unknown): value is LeaderboardData {
       typeof value.pageSize === "number" &&
       Number.isSafeInteger(value.pageSize) &&
       value.pageSize >= 1 &&
-      value.pageSize <= 200
+      value.pageSize <= 200 &&
+      creatorPageFits({
+        totalEarners: value.totalEarners,
+        page: value.page,
+        pageSize: value.pageSize,
+      }, value.entries.length)
     );
   }
   if (value.kind === "competitions") {

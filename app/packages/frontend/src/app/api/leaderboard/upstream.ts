@@ -1,3 +1,4 @@
+import { creatorPageFits } from "../../leaderboard/creator-page-integrity.mjs";
 import type {
   CompetitionDetailData,
   CompetitionEntry,
@@ -227,12 +228,17 @@ function parseCreatorEntry(value: unknown, index: number): CreatorEntry {
 
 function parseCreators(value: unknown, page: number): CreatorsData {
   const payload = record(value, "creator payout leaderboard");
+  const entries = array(payload.entries, "entries", CREATOR_PAGE_SIZE).map(
+    parseCreatorEntry,
+  );
+  const totalEarners = nonNegativeNumber(payload.totalEarners, "totalEarners");
+  if (!creatorPageFits({ totalEarners, page, pageSize: CREATOR_PAGE_SIZE }, entries.length)) {
+    throw new UpstreamValidationError("Creator entries exceed the selected payout page.");
+  }
   return {
     kind: "creators",
-    entries: array(payload.entries, "entries", CREATOR_PAGE_SIZE).map(
-      parseCreatorEntry,
-    ),
-    totalEarners: nonNegativeNumber(payload.totalEarners, "totalEarners"),
+    entries,
+    totalEarners,
     generatedAt: date(payload.generatedAt, "generatedAt"),
     page,
     pageSize: CREATOR_PAGE_SIZE,

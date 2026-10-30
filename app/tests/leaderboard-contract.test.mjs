@@ -121,7 +121,7 @@ test("normalizes documented trader and creator responses", () => {
     "creators",
     {
       entries: [creator],
-      totalEarners: 1,
+      totalEarners: 41,
       generatedAt: "2026-10-28T00:00:00.000Z",
     },
     { page: 3, competitionId: null },
