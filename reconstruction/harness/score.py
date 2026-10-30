@@ -162,7 +162,8 @@ def main():
     else:
         print(f'score.py: baseline not found: {a.baseline} (pass --no-baseline to score without one)', file=sys.stderr)
         sys.exit(2)
-    inputs = [a.candidate, BASE / 'original.so', BASE / 'functions.tsv']
+    inputs = [a.candidate, BASE / 'original.so', resolve_original(BASE / 'original.so'),
+              BASE / 'functions.tsv']
     if base is not None:
         inputs.insert(1, a.baseline)
     report_destination(a.json, inputs)
