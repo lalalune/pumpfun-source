@@ -1,0 +1,1 @@
+EDITS=[(' let cashback=if holder{false}else{st.cashback};', ' let Some(f)=fee else{return Ok(target)};let cashback=if holder{false}else{st.cashback};'), (' match fee{Some(f)=>{if st.quote_locked{', ' {if st.quote_locked{'), ('{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}}None=>{}}', '{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}}')]
