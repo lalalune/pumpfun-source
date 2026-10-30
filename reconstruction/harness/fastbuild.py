@@ -18,13 +18,11 @@ Usage: fastbuild.py --src <crate dir with Cargo.toml/Cargo.lock/src[/recovered]>
 import argparse, hashlib, json, os, shutil, subprocess, sys, time, tomllib, fcntl, tempfile
 from contextlib import contextmanager
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # sibling modules under -I / load-by-path
+from build_process import run_compiler, validate_timeout
+from source_inputs import snapshot, assert_unchanged
 
 H = Path(__file__).resolve().parent
-# Sibling harness modules must resolve when loaded by path or run with -I.
-if str(H) not in sys.path:
-    sys.path.insert(0, str(H))
-from build_process import run_compiler, validate_timeout  # noqa: E402
-from source_inputs import snapshot, assert_unchanged  # noqa: E402
 SC = H.parent
 SDK = Path.home() / '.cache/solana/v1.44/platform-tools'
 # Generated toolchain, dependency caches and build-slot locks live outside the repository so every
