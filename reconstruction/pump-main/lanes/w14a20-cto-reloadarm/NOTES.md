@@ -154,6 +154,14 @@ lead is `%x.i@exit.i` at M 2,137, +8 B. The only re-reads above main are holder_
 sharing pointer `%_370@bb1` (2,142 @ +8 B), which have no source form. The hold oracle on the candidate is below it
 (best 2,131).
 
+Zero-size knob screen on 7e6aa9c (22 catalog knobs from `sizeknobs-cto.json`, each applied alone): none beats main (M 2,141).
+14 are byte-identical. cu_replace, g_old_fee_first and sh_fees_key give 2,140. g_canedit_first and g_s7_destrev give 2,139.
+ev_ts_clockvar gives 2,131 and prep_match 2,128. e1 + wl_ts_clockvar / g_w_clock_local gives 2,130 @ 27,392.
+
+On main d2d187555 (#3281, 0.6417, M 2,142) the re-read scan looks the same: holder_enabled `%33` 2,145 @ -40 B and the
+sharing pointer `%_370@bb1` 2,143 @ +8 B, and no clone x lead at or above main. On the current main, the after-clobber
+reload family is used up.
+
 ## Tools (experiment only)
 
 | file | what |

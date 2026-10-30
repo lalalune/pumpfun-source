@@ -1,0 +1,1 @@
+EDITS=[('crate::pump_amm::cpi::admin_cto_pool(CpiContext::new_with_signer(a.pump_amm.to_account_info(),crate::pump_amm::cpi::accounts::AdminCtoPool{', 'let prog=a.pump_amm.to_account_info();crate::pump_amm::cpi::admin_cto_pool(CpiContext::new_with_signer(prog,crate::pump_amm::cpi::accounts::AdminCtoPool{')]

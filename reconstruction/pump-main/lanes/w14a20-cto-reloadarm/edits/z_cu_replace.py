@@ -1,0 +1,1 @@
+EDITS=[('let old_creator=curve.creator;let old_fee=curve.creator_fee_bps;', 'let old_creator=core::mem::replace(&mut curve.creator,target);let old_fee=curve.creator_fee_bps;'), ('  curve.creator=target;\n', '\n')]

@@ -1,0 +1,1 @@
+EDITS=[('let nf=a.bonding_curve.creator_fee_bps;', ''), ('new_creator_fee_bps:nf,', 'new_creator_fee_bps:a.bonding_curve.creator_fee_bps,'), ('let e=CollectCreatorFeeEvent{timestamp:Clock::get()?.unix_timestamp,', 'let clock=Clock::get()?;let e=CollectCreatorFeeEvent{timestamp:clock.unix_timestamp,')]

@@ -1,33 +1,59 @@
 {
-  "lane": "w14a20-cto-reloadarm",
-  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
-  "bases": {"start": "b174038c1 (0.63571, M 2122)", "landed_on": "1b0ae7021 (0.63661, M 2125)", "end": "7e6aa9caa (0.6414, M 2141)"},
-  "landed": [
-    {"pr": 3267, "merge_commit": "7e6aa9caa", "change": "sharing CPI event_authority AccountInfo clone reads every field through a.pump_fees_event_authority (real reloads of accounts+160 after the Rc clone stores) + AdminCtoEvent.is_holder_reward read from the curve (original event form)",
-     "measured_on_1b0ae70": {"ratio": 0.6393, "slots_diff": 3174, "bytes": 27400, "M": 2134, "normalized": 1034, "raw": 1034, "losses": [], "differential": "363/0", "sha16": "e0535b7613ed973d"},
-     "after_land_merge_with_3272": {"ratio": 0.6414, "slots_diff": 3174, "bytes": 27400, "M": 2141, "sha16": "37ce7ef91dc484d5"}}
-  ],
-  "mechanism": "A source read becomes a real reload only when no load of the same address dominates it, or a may-alias store sits in between. The hand-written AccountInfo clones' Rc strong-count stores carry no noalias metadata, so field reads written as a.<field>.<f> after a clone reload the account pointer from the accounts struct, whereas an x binding keeps it in one SSA value.",
-  "attempts": "about 75 source variants through the raw-IR capture + rx oracle, plus re-read/hold/remat oracle scans on b174038, 1b0ae70, e1, g1e1, the candidate and 7e6aa9c. Ledger keys 0x22a10-w14-{b174038,1b0ae70,g1hr,7e6aa9c}-reloadarm-*",
-  "rejected": [
-    "short-circuit or in-arm global reads in the CtoState literal (holder_enabled/fee_configurable/max_fee behind holder/fee tests): they add a head block and the layout collapses (M 1547-1958)",
-    "in-arm re-reads through a fresh &ctx.accounts (shared chain, pool_updated): byte-identical, because ctx is noalias and GVN folds them",
-    "quote_locked as the qlin2 body inside the CtoState literal, 6 field orders: M -90 to -215",
-    "validate holder_key/sharing by value, both 312 orders: M -250 to -300; 312 holder-first by ref M -7",
-    "the collect-payload re-read lead %_195.1.i: an IR artifact (it reads Clock::get's sret, which shares the stack slot)",
-    "tail holds: pargs holder, event cashback (M -11 to -24); curve stores holder before cashback (M -12 to -15); pool owner-first (M -6)",
-    "partial clone reloads on the mint and the two sweep pump_amm clones on top of the landed candidate (M -4 to -9)",
-    "event nf read from the curve (e1): M = main at -24 B on 1b0ae70; on the candidate M -8"
-  ],
-  "unresolved_residuals": [
-    "holder_enabled re-read %33 at the line-296 test (M +3 @ -40 B) has no source form that keeps the head CFG",
-    "sharing_config pointer reload in the owner test (M +1 @ +8 B): the original spills this pointer because its r7 holds an entry-copy value",
-    "orig 0x0d78-0x0e58 (57 insns): the shared&&!holder arm reads st.creator back from st; main forwards the first 7 bytes from the curve (MemCpyOpt) and lays the 312 error block out as fallthrough",
-    "line 312 compares t against a holder_key copy (-0x518) and then a sharing copy (-0x470) in the original"
-  ],
-  "next_ideas": [
-    "the zero-size knob screen on 7e6aa9c (m3* trials, see NOTES section 5), and pairing any -8 B knob with %x.i@exit.i (sweep CpiContext pump_amm clone, data via a.pump_amm: M 2137 @ +8 B on 7e6aa9c)",
-    "apply the after-Rc-clone fresh-path form to the clone literals other lanes add (TCF2 literals from w14a23), and re-run tools/irre_k.py on each new main to find x leads",
-    "the hold direction: main still does more non-stack account loads than the original"
-  ]
+ "lane": "w14a20-cto-reloadarm",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "bases": {
+  "start": "b174038c1 (0.63571, M 2122)",
+  "landed_on": "1b0ae7021 (0.63661, M 2125)",
+  "end": "d2d187555 (0.6417, M 2142)"
+ },
+ "landed": [
+  {
+   "pr": 3267,
+   "merge_commit": "7e6aa9caa",
+   "change": "sharing CPI event_authority AccountInfo clone reads every field through a.pump_fees_event_authority (real reloads of accounts+160 after the Rc clone stores) + AdminCtoEvent.is_holder_reward read from the curve (original event form)",
+   "measured_on_1b0ae70": {
+    "ratio": 0.6393,
+    "slots_diff": 3174,
+    "bytes": 27400,
+    "M": 2134,
+    "normalized": 1034,
+    "raw": 1034,
+    "losses": [],
+    "differential": "363/0",
+    "sha16": "e0535b7613ed973d"
+   },
+   "after_land_merge_with_3272": {
+    "ratio": 0.6414,
+    "slots_diff": 3174,
+    "bytes": 27400,
+    "M": 2141,
+    "sha16": "37ce7ef91dc484d5"
+   }
+  }
+ ],
+ "mechanism": "A source read becomes a real reload only when no load of the same address dominates it, or a may-alias store sits in between. The hand-written AccountInfo clones' Rc strong-count stores carry no noalias metadata, so field reads written as a.<field>.<f> after a clone reload the account pointer from the accounts struct, whereas an x binding keeps it in one SSA value.",
+ "attempts": "about 75 source variants through the raw-IR capture + rx oracle, plus re-read/hold/remat oracle scans on b174038, 1b0ae70, e1, g1e1, the candidate and 7e6aa9c. Ledger keys 0x22a10-w14-{b174038,1b0ae70,g1hr,7e6aa9c}-reloadarm-*",
+ "rejected": [
+  "short-circuit or in-arm global reads in the CtoState literal (holder_enabled/fee_configurable/max_fee behind holder/fee tests): they add a head block and the layout collapses (M 1547-1958)",
+  "in-arm re-reads through a fresh &ctx.accounts (shared chain, pool_updated): byte-identical, because ctx is noalias and GVN folds them",
+  "quote_locked as the qlin2 body inside the CtoState literal, 6 field orders: M -90 to -215",
+  "validate holder_key/sharing by value, both 312 orders: M -250 to -300; 312 holder-first by ref M -7",
+  "the collect-payload re-read lead %_195.1.i: an IR artifact (it reads Clock::get's sret, which shares the stack slot)",
+  "tail holds: pargs holder, event cashback (M -11 to -24); curve stores holder before cashback (M -12 to -15); pool owner-first (M -6)",
+  "partial clone reloads on the mint and the two sweep pump_amm clones on top of the landed candidate (M -4 to -9)",
+  "event nf read from the curve (e1): M = main at -24 B on 1b0ae70; on the candidate M -8",
+  "22 zero-size catalog knobs singly on 7e6aa9c: best = main (14 byte-identical, others M -1 to -13)"
+ ],
+ "unresolved_residuals": [
+  "holder_enabled re-read %33 at the line-296 test (M +3 @ -40 B) has no source form that keeps the head CFG",
+  "sharing_config pointer reload in the owner test (M +1 @ +8 B): the original spills this pointer because its r7 holds an entry-copy value",
+  "orig 0x0d78-0x0e58 (57 insns): the shared&&!holder arm reads st.creator back from st; main forwards the first 7 bytes from the curve (MemCpyOpt) and lays the 312 error block out as fallthrough",
+  "line 312 compares t against a holder_key copy (-0x518) and then a sharing copy (-0x470) in the original"
+ ],
+ "next_ideas": [
+  "pair %x.i@exit.i (sweep CpiContext pump_amm clone, data via a.pump_amm: M +4 @ +8 B on 7e6aa9c) with a faithful -8 B change if one turns up; no catalog knob is -8 B",
+  "apply the after-Rc-clone fresh-path form to the clone literals other lanes add (TCF2 literals from w14a23), and re-run tools/irre_k.py on each new main to find x leads",
+  "the hold direction: main still does more non-stack account loads than the original"
+ ],
+ "exhausted": true
 }

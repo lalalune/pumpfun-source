@@ -1,0 +1,1 @@
+EDITS=[('let st=CtoState{creator:a.bonding_curve.creator,', 'let st=CtoState{quote_locked,creator:a.bonding_curve.creator,'), ('cashback:a.bonding_curve.is_cashback_coin,quote_locked,holder_enabled', 'cashback:a.bonding_curve.is_cashback_coin,holder_enabled')]

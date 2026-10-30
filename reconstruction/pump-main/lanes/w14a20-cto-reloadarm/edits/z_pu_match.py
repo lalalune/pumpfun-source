@@ -1,0 +1,1 @@
+EDITS=[(' if pool_updated{\n', ' match pool_updated{true=>{\n'), (' }else{msg!("No canonical pump pool for this mint; curve only");}', ' }false=>{msg!("No canonical pump pool for this mint; curve only");}}')]

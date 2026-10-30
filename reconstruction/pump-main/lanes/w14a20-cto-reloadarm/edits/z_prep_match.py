@@ -1,0 +1,1 @@
+EDITS=[('crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.admin_set_creator_authority)?;', 'if let Err(e)=crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.admin_set_creator_authority){return Err(e);}')]

@@ -1,0 +1,1 @@
+EDITS=[('let old_fee=curve.creator_fee_bps;\n  curve.creator=target;', 'let old_fee=curve.creator_fee_bps;curve.can_edit_creator_fee=false;\n  curve.creator=target;'), ('  curve.can_edit_creator_fee=false;\n (old_creator', '\n (old_creator')]

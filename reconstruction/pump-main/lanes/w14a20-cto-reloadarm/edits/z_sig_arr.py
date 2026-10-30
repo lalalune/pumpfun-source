@@ -1,0 +1,1 @@
+EDITS=[('let signer_seeds:&[&[&[u8]]]=&[&[b"pool-authority",mint.as_ref(),&[ctx.bumps.pool_authority]]];', 'let signer_seeds:&[&[&[u8]];1]=&[&[b"pool-authority",mint.as_ref(),&[ctx.bumps.pool_authority]]];')]
