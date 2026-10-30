@@ -1,0 +1,28 @@
+{
+ "lane": "w14a32-cto-stcreatorrb",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "angle": "shared&&!holder arm orig 0x0d78-0x0e58: st.creator read back from the CtoState stack copy, stored twice, 312 success as fallthrough",
+ "bases": {"b2e90aa": {"ratio": 0.6444, "M": 2151}, "5ee681d": {"ratio": 0.645, "M": 2153}},
+ "best": {"result": "no zero-loss gain; main unchanged", "ratio": 0.645, "bytes": 27400},
+ "ir_bounds_5ee681d": {
+  "p1_noforward_st_creator": {"M": 2152, "bytes": 27344, "ratio": 0.64537, "note": "-1 M; ratio only from -56 B"},
+  "w1_312_fallthrough_weight": {"M": 2118, "bytes": 27400},
+  "w2_both_312_weights": {"M": 2096, "bytes": 27400},
+  "q1_312_holder_first": {"M": 2146, "bytes": 27400}
+ },
+ "source_forms_b2e90aa": {
+  "identical": ["s1 &st.creator binding", "s5 named local", "s6 &Pubkey compare", "s3 Copy by value", "s9 let mut st"],
+  "losses": {"s4 &mut CtoState": 0.6399, "s2 field set after literal": 0.48315, "s7 st before PDA (blocks forwarding)": 0.41294,
+   "s8 mem::take (-8 B, M 2150)": 0.64419, "s10 mem::replace": 0.64419, "c1 s8+ev_cb_local": 0.6411, "c4 s8+fee unwrap_or": 0.6426, "c5 s8+ev_mint_key": 0.63472}
+ },
+ "tools": ["tools/px.py post-opt IR + llc oracle (0.3 s, eq_main true on b2e90aa/5ee681d)", "tools/cappost.py post-opt IR capture build"],
+ "unresolved_residuals": [
+  "orig 0x0d78-0x0e58 per-arm shared block: needs per-arm (tail-duplicated) validate exits (OV/feephi family) and an 8/24-split target; main's target is 7/i64/ptr/9 because new: Option<Pubkey> is read as i64 words",
+  "312 operand order/copies: main's sk already occupies the original's first-operand slot -0x518"
+ ],
+ "next_ideas": [
+  "8/24 target split via the new-copy/E32 work (w13a16/w13a03): make target come from a word-aligned source so SROA cuts at 8",
+  "use p1/s8 head-RA shift (-56/-8 B at -1 M) only as a size lever when another lane needs bytes"
+ ],
+ "exhausted": true
+}

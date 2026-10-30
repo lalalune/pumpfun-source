@@ -1,0 +1,1 @@
+EDITS=[("fn validate(st:&CtoState,","fn validate(st:&mut CtoState,"),("validate(&st,hopt,","validate(&mut st,hopt,"),("let st=CtoState{creator:a.bonding_curve.creator,","let mut st=CtoState{creator:a.bonding_curve.creator,")]

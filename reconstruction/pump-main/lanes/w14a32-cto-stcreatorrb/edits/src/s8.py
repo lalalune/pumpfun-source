@@ -1,0 +1,1 @@
+EDITS=[("let st=CtoState{creator:a.bonding_curve.creator,","let mut st=CtoState{creator:a.bonding_curve.creator,"),("let mut target=validate(&st,hopt,","let mut target=validate(&st,hopt,"),("else{target=st.creator;(false,","else{target=core::mem::take(&mut st.creator);(false,")]

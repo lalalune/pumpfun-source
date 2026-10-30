@@ -1,0 +1,1 @@
+import runpy; EDITS=runpy.run_path('se/s8.py')['EDITS']+[("authority:a.admin_set_creator_authority.key(),mint,bonding_curve","authority:a.admin_set_creator_authority.key(),mint:a.mint.key(),bonding_curve")]
