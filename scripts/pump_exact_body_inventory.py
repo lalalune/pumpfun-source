@@ -70,7 +70,7 @@ def main():
     original_sections, candidate_sections = sections(original), sections(candidate)
     os = original_sections['.text']
     counterparts = {}
-    for address, size, name in candidate_functions(args.candidate, args.objdump, '.'):
+    for address, size, name in candidate_functions(args.candidate, args.objdump, '.', image=candidate):
         raw = function_body(candidate, candidate_sections, address, size)
         counterparts.setdefault((size, sha(raw)), []).append({'address':address, 'symbol':name})
     rows = []

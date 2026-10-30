@@ -104,7 +104,7 @@ def main():
     ob=body(original,original_sections,args.original_start,size)
     on,oo=normalize(ob,args.original_start,original_sections)
     candidates=[]
-    for start,length,name in candidate_functions(args.candidate,args.objdump,args.symbol):
+    for start,length,name in candidate_functions(args.candidate,args.objdump,args.symbol,image=candidate):
         cb=body(candidate,candidate_sections,start,length);cn,co=normalize(cb,start,candidate_sections)
         diffs=[{'offset':i,'original':on[i:i+8].hex(),'candidate':cn[i:i+8].hex()} for i in range(0,max(len(on),len(cn)),8) if on[i:i+8]!=cn[i:i+8]]
         candidates.append({'symbol':name,'start':start,'bytes':length,'raw_equal':ob==cb,'normalized_equal':on==cn,'different_slots':diffs,'operands':co})

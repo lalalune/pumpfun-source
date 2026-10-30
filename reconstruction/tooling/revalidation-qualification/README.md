@@ -13,8 +13,11 @@ changes only the lifecycle around those checks:
 6. publish a complete, self-verified audit directory with one rename.
 
 The exact reviewed root source is pinned as SHA-256
-`9e6e27794e5aad71e05920d9978093937f74d23c4bf8592ea7bcab711fd040ad`.
-The adapter refuses to execute if those bytes change.
+`6f9ef9f8c9109a4173fdc4c3a681da1c430cd60b85c318124a5bbcaa11353c2d`.
+The adapter refuses to execute if those bytes change. This binding includes
+#2522, which makes the frozen `check_manifest` fail a manifest that declares no
+files; the adapter already applied the same rule, and the defects below still
+reproduce against these bytes.
 
 ## Reproduced defects
 

@@ -213,8 +213,7 @@ class Pair:
             raise RuntimeError("locally signed transaction failed signature verification")
         addresses = self.fixture.watched() | set(watch or ()) | set(tx.message.account_keys)
         rows = {side: self._run(vm, tx, addresses) for side, vm in self.vms.items()}
-        compared = {side: self._comparable(row) for side, row in rows.items()}
-        mismatches = sorted(key for key in compared["original"] if compared["original"][key] != compared["candidate"][key])
+        mismatches = self.comparison_mismatches(rows["original"], rows["candidate"])
         return {
             "name": name,
             "signature": str(tx.signatures[0]),
@@ -251,6 +250,12 @@ class Pair:
             "before": before,
             "after": after,
         }
+
+    @classmethod
+    def comparison_mismatches(cls, original: dict[str, Any], candidate: dict[str, Any]) -> list[str]:
+        """One comparison path for real receipts and their mutation controls."""
+        left, right = cls._comparable(original), cls._comparable(candidate)
+        return sorted(key for key in left if left[key] != right[key])
 
     @staticmethod
     def _comparable(row: dict[str, Any]) -> dict[str, Any]:
@@ -416,16 +421,31 @@ def admission_matrix(original: Path, candidate: Path) -> dict[str, Any]:
     }
 
 
-def comparator_controls() -> dict[str, Any]:
-    baseline = {"error": None, "events": [], "after": {"account": {"lamports": 1}}}
+def comparator_controls(step: dict[str, Any]) -> dict[str, Any]:
+    """Replay mutated copies of a recorded step through the case comparison.
+
+    The comparison in Pair.transact is the witness behind every
+    equal_observed_behavior classification, so these controls must prove that
+    this comparison still notices an altered compared field. Comparing two
+    hand-built literals stays true even if the comparison itself stops
+    reporting differences, so each control mutates a deep copy of a real
+    recorded candidate row and requires the compared field it alters to be
+    reported.
+    """
     controls: dict[str, bool] = {}
-    for label, changed in (
-        ("account_state", {"error": None, "events": [], "after": {"account": {"lamports": 2}}}),
-        ("error", {"error": "Custom(1)", "events": [], "after": {"account": {"lamports": 1}}}),
-        ("event_payload", {"error": None, "events": ["Program data: altered"], "after": {"account": {"lamports": 1}}}),
+    for label, field, mutate in (
+        ("account_state", "after",
+         lambda row: row["after"].update({"negative-control-account": {"lamports": 2}})),
+        ("error", "error",
+         lambda row: row.update(error="Custom(1)")),
+        ("event_payload", "events",
+         lambda row: row["events"].append("Program data: altered")),
     ):
-        controls[label] = baseline != changed
-    return {"kind": "comparator mutation controls; not runtime matches", "detected": controls, "all_detected": all(controls.values())}
+        changed = json.loads(json.dumps(step["candidate"]))
+        mutate(changed)
+        mismatches = Pair.comparison_mismatches(step["original"], changed)
+        controls[label] = field in mismatches
+    return {"kind": "comparator mutation controls replayed through the case comparison", "detected": controls, "all_detected": all(controls.values())}
 
 
 def source_manifest(root: Path) -> tuple[dict[str, str], str]:
@@ -461,7 +481,7 @@ def execute(root: Path, candidate: Path, output: Path) -> bool:
     sources, source_digest = source_manifest(root)
     cases = [stateful_lifecycle(original, candidate), admission_matrix(original, candidate)]
     identities = transaction_identity(cases)
-    controls = comparator_controls()
+    controls = comparator_controls(cases[0]["steps"][0])
     report = {
         "schema": "donation-relay-idl-lifecycle-v1",
         "program": str(RELAY),

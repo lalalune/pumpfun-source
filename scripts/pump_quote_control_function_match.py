@@ -13,7 +13,7 @@ offsets and branch displacements) must be identical. Raw equality is separate;
 masked matches do not prove callee or data identity. This is analysis only; no
 executable is written or patched.
 """
-import argparse, hashlib, json, pathlib, re, shutil, struct, subprocess
+import argparse, hashlib, json, pathlib, re, shutil, struct, subprocess, tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 ORIGINAL = ROOT / 'evidence/original/pump/deployed.so'
@@ -91,8 +91,14 @@ def _aligned_matches(needle, haystack):
     return hits
 
 
-def candidate_functions(path, objdump, pattern):
-    text = subprocess.check_output([objdump, '-t', str(path)], text=True)
+def candidate_functions(path, objdump, pattern, *, image=None):
+    # Read symbols from the exact bytes the caller hashes and compares.
+    if image is None:
+        image = pathlib.Path(path).read_bytes()
+    with tempfile.TemporaryDirectory(prefix='pump-symbols-') as directory:
+        snapshot = pathlib.Path(directory) / 'candidate.so'
+        snapshot.write_bytes(image)
+        text = subprocess.check_output([objdump, '-t', str(snapshot)], text=True)
     funcs = []
     for line in text.splitlines():
         m = re.match(r'^([0-9a-f]+) .* F \.text\s+([0-9a-f]+)\s+(?:\.hidden\s+)?(\S+)$', line)
@@ -117,7 +123,7 @@ def main():
     otext = function_body(orig, {'.text': os_}, os_['addr'], os_['size'])
     omask = mask(otext)
     rows = []
-    for addr, size, name in candidate_functions(a.candidate, a.objdump, a.pattern):
+    for addr, size, name in candidate_functions(a.candidate, a.objdump, a.pattern, image=cand):
         body = function_body(cand, {'.text': cs}, addr, size)
         mb = mask(body)
         hits = _aligned_matches(mb, omask)
