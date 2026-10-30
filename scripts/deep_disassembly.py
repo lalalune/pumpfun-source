@@ -14,9 +14,11 @@ Usage:
     python3 scripts/deep_disassembly.py --program pump --output research/pump-deep-disasm-20261028
 """
 import argparse
+import bisect
 import collections
 import gzip
 import hashlib
+import io
 import json
 import os
 import struct
@@ -104,7 +106,9 @@ def decode_instruction(b, offset, elf):
     if opcode == 0x95:
         result["mnemonic"] = "exit"
     elif opcode == 0x85:
-        if src_reg == 0x10:
+        # src_reg is the decoded nibble, not the packed register byte.
+        # Type-10 external calls also use src=1 with a placeholder immediate.
+        if src_reg == 1 and elf.relocations.get(offset, {}).get("type") != 10:
             target = offset + 8 + imm * 8
             target_name = None
             for f in elf.funcs:
@@ -125,6 +129,18 @@ def decode_instruction(b, offset, elf):
             sym = reloc.get("symbol", "?")
             result["mnemonic"] = f"call_extern {sym}"
             result["extern_symbol"] = sym
+    elif opcode == 0x8d:
+        # CALL_REG's register field changes across SBPF versions. The target
+        # address is runtime data, not a statically resolved direct call.
+        image = getattr(elf, "b", b"")
+        version = struct.unpack_from("<I", image, 48)[0] if len(image) >= 52 else None
+        register = (imm if version in (0, 1) else src_reg if version == 2
+                    else dst_reg if version in (3, 4) else None)
+        if register is not None and 0 <= register <= 10:
+            result["mnemonic"] = f"callx r{register}"
+            result["indirect_call_register"] = register
+        else:
+            result["mnemonic"] = f"raw_{opcode:#04x} {dst},{src},{off},{imm}"
     elif opcode == 0x18:
         imm2 = struct.unpack_from("<i", b, offset + 12)[0]
         val64 = (imm & 0xFFFFFFFF) | (imm2 << 32)
@@ -215,6 +231,19 @@ def extract_rodata_strings(elf):
     if len(current) >= 4:
         strings[current_start] = "".join(current)
     return strings
+
+
+def rodata_string_preview(strings, starts, address):
+    """Preview a printable-run suffix, not an inferred Rust string length."""
+    index = bisect.bisect_right(starts, address) - 1
+    if index < 0:
+        return None
+    start = starts[index]
+    text = strings[start]
+    offset = address - start
+    if offset >= len(text):
+        return None
+    return text[offset:offset + 120]
 
 
 def load_idl_discriminators(elf):
@@ -425,7 +454,42 @@ def analyze_stack_frame(instructions):
     }
 
 
-def fingerprint_window(elf, start, end):
+def relocated_syscalls(elf):
+    """Resolve call relocations without changing the captured ELF reader.
+
+    The pinned SBPF loader treats a function symbol with a nonzero value as
+    BPF-to-BPF; other call symbols are resolved through its syscall registry.
+    None retains a defined-function relocation or an unresolved symbol.
+    """
+    calls = {at: None for at, relocation in getattr(elf, 'relocations', {}).items()
+             if relocation.get('type') == 10}
+    rel = elf.secs.get('.rel.dyn')
+    sym = elf.secs.get('.dynsym')
+    if rel is None or sym is None:
+        return calls
+    if rel[9] != 16 or sym[9] != 24:
+        return calls
+    b = elf.b
+    if (rel[4] + rel[5] > len(b) or sym[4] + sym[5] > len(b)
+            or rel[5] % 16 or sym[5] % 24):
+        return calls
+    for pos in range(rel[4], rel[4] + rel[5], 16):
+        at, info = struct.unpack_from('<QQ', b, pos)
+        if info & 0xffffffff != 10:
+            continue
+        calls[at] = None
+        index = info >> 32
+        if index >= sym[5] // 24:
+            continue
+        _, kind, _, _, value, _ = struct.unpack_from(
+            '<IBBHQQ', b, sym[4] + index * 24)
+        if kind & 15 == 2 and value != 0:
+            continue
+        calls[at] = elf.symbols.get(index) or None
+    return calls
+
+
+def fingerprint_window(elf, start, end, call_symbols=None):
     """Create a bytecode signature fingerprint for pattern matching."""
     b = elf.b
     # Opcode sequence (normalized — ignore operands)
@@ -438,13 +502,20 @@ def fingerprint_window(elf, start, end):
         else:
             offset += 8
 
-    # Syscall sequence
+    # Walk logical instructions: the second LDDW slot is operand data.
+    if call_symbols is None:
+        call_symbols = relocated_syscalls(elf)
     syscalls = []
-    for at in range(start, end, 8):
-        if b[at] == 0x85 and b[at + 1] == 0x00:
-            uimm = struct.unpack_from("<I", b, at + 4)[0]
-            name = SYSCALL_NAMES.get(uimm, f"unknown_{uimm:#x}")
-            syscalls.append(name)
+    at = start
+    while at + 8 <= end:
+        if b[at] == 0x85:
+            if at in call_symbols:
+                if call_symbols[at] is not None:
+                    syscalls.append(call_symbols[at])
+            elif b[at + 1] == 0x00:
+                uimm = struct.unpack_from("<I", b, at + 4)[0]
+                syscalls.append(SYSCALL_NAMES.get(uimm, f"unknown_{uimm:#x}"))
+        at += 16 if b[at] == 0x18 else 8
 
     # Structural fingerprint (opcode bigrams)
     bigrams = collections.Counter()
@@ -487,10 +558,12 @@ def main():
 
     print(f"[disasm] Reading {deployed_path}")
     elf = Elf(deployed_path)
+    call_symbols = relocated_syscalls(elf)
     entries = elf.entries
     boundaries = entries + [elf.hi]
 
     rodata_strings = extract_rodata_strings(elf)
+    rodata_starts = sorted(rodata_strings)
     print(f"[disasm] {len(rodata_strings)} rodata strings extracted")
 
     dispatch = recover_anchor_dispatch(elf)
@@ -530,10 +603,11 @@ def main():
         for insn in instructions:
             if insn.get("imm64") is not None:
                 val = insn["imm64"] & 0xFFFFFFFFFFFFFFFF
-                if val in rodata_strings:
+                preview = rodata_string_preview(rodata_strings, rodata_starts, val)
+                if preview is not None:
                     string_refs.append({
                         "offset": insn["offset"] - start,
-                        "string": rodata_strings[val][:120],
+                        "string": preview,
                     })
 
         # CFG edges
@@ -543,7 +617,7 @@ def main():
         stack = analyze_stack_frame(instructions)
 
         # Fingerprint
-        fp = fingerprint_window(elf, start, end)
+        fp = fingerprint_window(elf, start, end, call_symbols)
         fp["address"] = hex(start)
         fp["name"] = name
         fingerprints.append(fp)
@@ -555,10 +629,10 @@ def main():
             "size": size,
             "name": name,
             "instruction_count": len(instructions),
-            "syscalls": list(set(
+            "syscalls": sorted(set(
                 insn["syscall"] for insn in instructions if insn.get("syscall")
             )),
-            "extern_calls": list(set(
+            "extern_calls": sorted(set(
                 insn["extern_symbol"] for insn in instructions if insn.get("extern_symbol")
             )),
             "internal_calls": sum(1 for insn in instructions if insn.get("call_target")),
@@ -597,24 +671,29 @@ def main():
 
     # 1. Window summary with deep analysis
     (output_dir / "windows-deep.json").write_text(
-        json.dumps(all_windows, indent=2) + "\n")
+        json.dumps(all_windows, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 2. Full disassembly (gzipped — can be large)
     disasm_path = output_dir / "disassembly.json.gz"
-    with gzip.open(str(disasm_path), "wt") as f:
-        json.dump(all_disasm, f, indent=2)
+    # Keep packet identity independent of wall time, output path and locale.
+    with disasm_path.open("wb") as raw:
+        with gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as compressed:
+            with io.TextIOWrapper(compressed, encoding="utf-8", newline="\n") as f:
+                json.dump(all_disasm, f, indent=2)
 
     # 3. Dispatch table
     (output_dir / "dispatch-table.json").write_text(
-        json.dumps(dispatch, indent=2) + "\n")
+        json.dumps(dispatch, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 4. Syscall usage
     (output_dir / "syscall-usage.json").write_text(
-        json.dumps(dict(syscall_usage.most_common()), indent=2) + "\n")
+        json.dumps(dict(syscall_usage.most_common()), indent=2) + "\n",
+        encoding="utf-8", newline="\n")
 
     # 5. External symbol usage
     (output_dir / "extern-usage.json").write_text(
-        json.dumps(dict(extern_usage.most_common()), indent=2) + "\n")
+        json.dumps(dict(extern_usage.most_common()), indent=2) + "\n",
+        encoding="utf-8", newline="\n")
 
     # 6. Rodata strings
     rodata_for_json = [
@@ -622,11 +701,11 @@ def main():
         for addr, s in sorted(rodata_strings.items())
     ]
     (output_dir / "rodata-strings.json").write_text(
-        json.dumps(rodata_for_json, indent=2) + "\n")
+        json.dumps(rodata_for_json, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 7. Bytecode fingerprints
     (output_dir / "fingerprints.json").write_text(
-        json.dumps(fingerprints, indent=2) + "\n")
+        json.dumps(fingerprints, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 8. Error messages (strings containing common error patterns)
     error_strings = [
@@ -639,12 +718,12 @@ def main():
         ])
     ]
     (output_dir / "error-strings.json").write_text(
-        json.dumps(error_strings, indent=2) + "\n")
+        json.dumps(error_strings, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 9. Summary
     summary = {
         "program": args.program,
-        "deployed_sha256": sha256_file(str(deployed_path)),
+        "deployed_sha256": hashlib.sha256(elf.b).hexdigest(),
         "text_section_bytes": elf.hi - elf.lo,
         "total_windows": len(entries),
         "total_instructions": sum(w["instruction_count"] for w in all_windows),
@@ -662,7 +741,7 @@ def main():
         "extern_breakdown": dict(extern_usage.most_common()),
     }
     (output_dir / "summary.json").write_text(
-        json.dumps(summary, indent=2) + "\n")
+        json.dumps(summary, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 10. README
     readme = f"""# {args.program} — Deep Disassembly Analysis
@@ -695,6 +774,10 @@ fingerprinting for cross-window pattern matching.
 {chr(10).join(f'- `{name}`: {count}' for name, count in syscall_usage.most_common(15))}
 
 ## Files
+String references preview up to 120 printable bytes from the referenced address
+to the end of its extracted ASCII run. They do not establish a Rust string's
+length, a semantic string boundary, or runtime use.
+
 | File | Description |
 |------|-------------|
 | windows-deep.json | Per-window analysis (syscalls, strings, stack, fingerprint) |
@@ -711,7 +794,7 @@ fingerprinting for cross-window pattern matching.
 python3 verify.py
 ```
 """
-    (output_dir / "README.md").write_text(readme)
+    (output_dir / "README.md").write_text(readme, encoding="utf-8", newline="\n")
 
     # 11. Verify script
     verify_py = '''#!/usr/bin/env python3
@@ -719,6 +802,7 @@ python3 verify.py
 import hashlib, json, os, sys
 
 PACKET = os.path.dirname(os.path.abspath(__file__))
+EXPECTED_FILES = frozenset(__EXPECTED_PACKET_FILES__)
 
 def sha256_file(path):
     h = hashlib.sha256()
@@ -729,6 +813,8 @@ def sha256_file(path):
 
 def main():
     manifest = json.load(open(os.path.join(PACKET, "manifest.json")))
+    if not isinstance(manifest, dict) or set(manifest) != EXPECTED_FILES:
+        print("FAIL: manifest artifact set mismatch"); return 1
     errors = 0
     for name, expected in manifest.items():
         path = os.path.join(PACKET, name)
@@ -752,7 +838,15 @@ def main():
 if __name__ == "__main__":
     sys.exit(main())
 '''
+    verify_py = verify_py.replace('__EXPECTED_PACKET_FILES__', repr([
+        'README.md', 'disassembly.json.gz', 'dispatch-table.json', 'error-strings.json',
+        'extern-usage.json', 'fingerprints.json', 'rodata-strings.json', 'summary.json',
+        'syscall-usage.json', 'verify.py', 'windows-deep.json',
+    ]))
     (output_dir / "verify.py").write_text(verify_py)
+
+
+    (output_dir / "verify.py").write_text(verify_py, encoding="utf-8", newline="\n")
 
     # 12. Manifest
     manifest = {}
@@ -763,10 +857,10 @@ if __name__ == "__main__":
         if path.is_file():
             manifest[name] = sha256_file(str(path))
     (output_dir / "manifest.json").write_text(
-        json.dumps(manifest, indent=2) + "\n")
+        json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     total_lines = sum(
-        sum(1 for _ in open(output_dir / name))
+        sum(1 for _ in open(output_dir / name, encoding="utf-8"))
         for name in os.listdir(output_dir)
         if (output_dir / name).is_file() and not name.endswith(".gz")
     )

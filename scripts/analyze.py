@@ -107,7 +107,7 @@ def analyze():
         r['compiler_version']='unresolved'; r['dependency_versions']='unresolved'; out[name]=r
     (ROOT/'evidence/binary-analysis.json').write_text(json.dumps(out,indent=2)+'\n')
     inventory={}
-    for f in (ROOT/'evidence/upstream').glob('pump*.json'):
+    for f in sorted((ROOT/'evidence/upstream').glob('pump*.json')):
         d=json.loads(f.read_text(encoding='utf-8')); addresses={}
         def walk(accounts,ix):
             for a in accounts:
