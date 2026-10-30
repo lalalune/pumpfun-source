@@ -46,3 +46,14 @@ unstripped sha256 `45414ecf9c83379f6ab13d6b627becda98cf9b8574643c89f0573d252a210
 Struct-literal evaluation order of `AdminCtoSharingConfig` (authority at each position, global/mint swap, pool_authority
 late, event_authority before sharing_config, full reverse): all 10 lose, 9 change size. Ledger
 `0x22a10-w14-b2e90aa-shareauthport-sharing-struct-field-order-v1`.
+
+## Part 3 (branch -3, main 5ee681d, 0.6450): sharing CPI program literal
+
+pscan on the sharing CPI's last field `program:a.pump_fees.to_account_info()` (`%_461` on b2e90aa): placing the key read
+between the two Rc clones gives 0.6447 on b2e90aa. As source, `program:{let x:&AccountInfo=a.pump_fees.as_ref();
+AccountInfo{lamports,key,data,owner,rent_epoch,is_signer,is_writable,executable}}` on 5ee681d: **0.6450 -> 0.6453**, 3,172
+slots, 27,400 B, 0 losses, differential 363/0, unstripped sha256 `72de66ff8867c2c7c00c3c7d14c01f6180ed7443a67340d23a3cfd4cd588b635`.
+Ledger `0x22a10-w14-5ee681d-shareauthport-program-lit-keymid-v1`.
+
+The CpiContext program (`%_418`) and sharing_config (`%_452`) to_account_info clones are at their placement optimum
+(the current key-first order); every all-P2 permutation of them loses (best 0.62133 / 0.63601).
