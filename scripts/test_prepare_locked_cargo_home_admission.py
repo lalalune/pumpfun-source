@@ -1,5 +1,6 @@
 """Unresolvable locked packages must be refused before the cache is created."""
 import hashlib
+import json
 import os
 from pathlib import Path
 import subprocess
@@ -20,12 +21,17 @@ class LockedCacheAdmissionTests(unittest.TestCase):
             archive = home / 'registry/cache' / NAMESPACE / 'cache-probe-1.0.0.crate'
             archive.parent.mkdir(parents=True)
             archive.write_bytes(b'isolated archive')
+            digest = hashlib.sha256(archive.read_bytes()).hexdigest()
             index = home / 'registry/index' / NAMESPACE / '.cache/ca/ch/cache-probe'
             index.parent.mkdir(parents=True)
-            index.write_bytes(b'isolated sparse index')
+            record = json.dumps(
+                {'name': 'cache-probe', 'vers': '1.0.0', 'cksum': digest},
+                separators=(',', ':')).encode()
+            index.write_bytes(
+                b'\x03\x02\x00\x00\x00offline-fixture\x00' +
+                b'1.0.0\0' + record + b'\0')
             if not missing_config:
                 (home / 'registry/index' / NAMESPACE / 'config.json').write_text('{}', encoding='utf-8')
-            digest = hashlib.sha256(archive.read_bytes()).hexdigest()
             lock = f'[[package]]\nname="cache-probe"\nversion="1.0.0"\nsource="{CRATES_IO}"\nchecksum="{digest}"\n'
             if missing_archive:
                 # Sorted after the resolvable package, as Cargo.lock orders entries.

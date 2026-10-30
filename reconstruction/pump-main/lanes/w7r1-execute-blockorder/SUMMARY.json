@@ -1,0 +1,4 @@
+{"lane":"w7r1-execute-blockorder","target":"0x72810","base":"2b85821","best":{"source":"main s6 (unchanged)","ratio":0.88669,"cand_bytes":7880,"calls":"39/39"},
+ "trials":["q01 admits inline 0.7309 40 calls (polarities fixed)","q02/q05 TRN/TNR 0.7232 38","q03/q04/q07/q09/r01 RNT family 0.7435 39 (N not threaded)","r02 new_from_array = q01","t01 0.7232","t02 0.7435","m01/m02 0.6791","m03/m04 0.7039 40","m05 0.6798","m06 0.6880"],
+ "rejected_mechanisms":["arm reorder of (creator,native)","(native,creator) tuple","or-pattern token arm","match/and_then merged admits with arm- or match-level ?"],
+ "next_ideas":["non-empty single-pred protocol-native arm block in RNT tree","Err path >5 MIR blocks from the ? switch"]}

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Read-only finalized RPC capture. Refuses replacing existing evidence."""
-import argparse, base64, datetime, hashlib, json, pathlib, struct, time, urllib.request
+import argparse, base64, datetime, hashlib, json, pathlib, shutil, struct, tempfile, time, urllib.request
 ALPHABET='123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 def b58(data):
     n=int.from_bytes(data,'big'); s=''
@@ -24,8 +24,8 @@ def account(url,key,minimum=None):
     r=rpc(url,'getAccountInfo',[key,config]); a=r['value']
     if a is None: raise ValueError('missing account '+key)
     return r,base64.b64decode(a['data'][0],validate=True)
-def capture(url,name,key,out):
-    out.mkdir(parents=True,exist_ok=False)
+def _capture_to_directory(url,name,key,out):
+    out.mkdir(parents=True,exist_ok=True)
     before,p=account(url,key)
     if before['value']['owner']=='BPFLoader2111111111111111111111111111111111':
         assert before['value']['executable'] and p[:4]==b'\x7fELF'
@@ -47,6 +47,17 @@ def capture(url,name,key,out):
     # Avoid publishing credentials if caller supplies a private RPC URL.
     report={'program':key,'programdata':pd,'owner':before['value']['owner'],'last_deploy_slot':slot,'upgrade_authority':b58(d[13:45]) if d[12] else None,'context_slots':[before['context']['slot'],data['context']['slot'],after['context']['slot'],meta['context']['slot']],'commitment':'finalized','captured_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'genesis_hash':rpc(url,'getGenesisHash',[]),'program_sha256':sha(p),'programdata_sha256':sha(d),'payload_sha256':sha(payload),'payload_bytes':len(payload),'programdata_bytes':len(d),'lamports':data['value']['lamports']}
     (out/'capture.json').write_text(json.dumps(report,indent=2)+'\n'); print(name,slot,len(payload),sha(payload),flush=True)
+def capture(url,name,key,out):
+    out=pathlib.Path(out)
+    if out.exists():raise FileExistsError('capture output already exists: '+str(out))
+    out.parent.mkdir(parents=True,exist_ok=True)
+    stage=pathlib.Path(tempfile.mkdtemp(prefix='.'+out.name+'.capture-',dir=out.parent))
+    try:
+        _capture_to_directory(url,name,key,stage)
+        if out.exists():raise FileExistsError('capture output appeared during capture: '+str(out))
+        stage.rename(out)
+    finally:
+        if stage.exists():shutil.rmtree(stage)
 if __name__=='__main__':
     ap=argparse.ArgumentParser(); ap.add_argument('--rpc',default='https://api.mainnet-beta.solana.com'); ap.add_argument('--output',default='evidence/original'); args=ap.parse_args()
     from analyze import program_addresses

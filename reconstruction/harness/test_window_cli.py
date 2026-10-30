@@ -1,10 +1,10 @@
-import shutil
 import struct
 import subprocess
 import sys
 from pathlib import Path
 import tempfile
 import unittest
+from test_support import copy_harness_modules
 from test_elf_symbols import fixture
 
 
@@ -15,8 +15,7 @@ class WindowCLIAdmissionTests(unittest.TestCase):
         self.root = Path(self.temporary.name)
         harness, base = self.root/'harness', self.root/'base'
         harness.mkdir(); base.mkdir()
-        for name in ('win.py','score.py', 'score_admission.py','elf_symbols.py','llvm_tools.py','instruction_stream.py'):
-            shutil.copyfile(Path(__file__).with_name(name),harness/name)
+        copy_harness_modules(harness)
         image = bytes(fixture())
         (base/'original.so').write_bytes(image)
         (base/'functions.tsv').write_text('program\tvariant\toriginal_start\toriginal_end\npump\tselected\t4096\t4104\n',encoding='utf-8')

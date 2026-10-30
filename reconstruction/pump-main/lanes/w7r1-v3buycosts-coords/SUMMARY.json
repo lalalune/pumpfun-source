@@ -1,0 +1,21 @@
+{
+  "lane": "w7r1-v3buycosts-coords",
+  "angle": "coordinate archaeology",
+  "targets": ["0x80df8"],
+  "base": "origin/main 2162b3b00 (1027 normalized / 276 raw)",
+  "best": {"bytes": 2136, "ratio": 0.920, "calls": "17/17", "source_change": false},
+  "attempts": ["5cc380f937974653b9528f88b7b17081", "bdbc3466359c40aa84b2baddbab835f9"],
+  "findings": [
+    "Source sites trade_v3.rs:371/:375 and neighbours add3 :285, gross_up_quote_error :382 match the original",
+    "All 16 lddw constants in the window decode identically (lib.rs:1939:14, lib.rs:1936:45, alloc/src/string.rs:2559:14, vtables, string lengths)",
+    "All 142 panic Location records (138 distinct, 41 files incl. platform-tools std paths) are identical between original and candidate",
+    "Line layout without line!() changes is code-neutral (byte-identical ELF)"
+  ],
+  "rejected_mechanisms": ["front multiline layout (byte-identical)"],
+  "unresolved_residual": "sret pointer split (r6 reload hoisted, spill after and64) decided by MBFI tie freq(375 to_string panic) vs freq(first try_from panic); needs a ~1:2000 weight on the 375 Display::fmt branch that rustc 1.79 does not emit from ordinary source",
+  "rules_out": ["coordinate/statement-order mismatch", "different std/alloc/core library source version in the original toolchain"],
+  "next_ideas": [
+    "Look for rustc-codegen (not library) differences that put !prof on a Result::expect Err arm only in some functions (the global 1:2000 weighting breaks 7 matched windows)",
+    "Check whether the 7 windows that the global weighting breaks have to_string expects formed in a different MIR shape (inlined vs MIR-inlined error! closure), which would make the weighting rule local rather than global"
+  ]
+}

@@ -46,7 +46,15 @@ python3 -B attempts.py summary | best 20 | grep TEXT | approaches | seen FILE
 python3 -B attempts.py note --lane L --approach A --kind dead-end --text "..."
 ```
 
-`try_sell.py` restores the pristine workspace before every attempt, applies the
+Each native lane stores its chosen source as `baseline-ws`: an explicit
+`--source-root` takes precedence when establishing a new lane; otherwise the
+canonical pristine workspace seeds it. Every later attempt resets `ws` from that
+same lane baseline before applying changes. Use a new lane to select another
+source baseline. A legacy lane without a baseline needs the source root again
+if no canonical pristine workspace is available; its existing workspace and
+outputs are preserved instead of guessing which patched files were original.
+
+`try_sell.py` restores the selected lane baseline before every attempt, applies the
 sell replacement or patch, forces both local crates to recompile, builds, scores
 and appends one line to `ATTEMPTS.jsonl`. Identical inputs are built once per
 swarm; repeats return the cached result. Exit status 3 means the sell window is

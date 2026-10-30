@@ -48,7 +48,7 @@ def main():
         tests=[('empty',b''),('short',b'\x01'*7),('unknown',b'\xff'*8)]
         idl=ROOT/f'evidence/upstream/{name}.json'
         if idl.exists():
-            for ix in json.loads(idl.read_text())['instructions']: tests.append((ix['name']+'-missing-accounts',bytes(ix['discriminator'])))
+            for ix in json.loads(idl.read_text(encoding="utf-8"))['instructions']: tests.append((ix['name']+'-missing-accounts',bytes(ix['discriminator'])))
         for i in range(64): tests.append((f'random-{i}',rng.randbytes(8+i)))
         rows=[]
         for label,data in tests:

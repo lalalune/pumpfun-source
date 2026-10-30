@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 """Verify saved migrate-bruteforce evidence without rebuilding or editing binaries."""
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O.")
+
 from pathlib import Path
 import fcntl
 import hashlib

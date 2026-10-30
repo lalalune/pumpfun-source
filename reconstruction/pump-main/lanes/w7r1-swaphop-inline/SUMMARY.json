@@ -1,0 +1,37 @@
+{
+ "lane": "w7r1-swaphop-inline",
+ "base": "origin/main 7e26cbf36 (1027/293)",
+ "targets": [
+  "0x5b3b0 multi_hop_curve::swap_hop"
+ ],
+ "best": {
+  "source": "main unchanged: ratio 0.7332, 18544 B",
+  "ir_oracle": "capture/drop-noalias on a: exactish 0.8636 opregs 0.9244 18600 B"
+ },
+ "attempts": [
+  "2f31d8324f1a4f48b2f13955e2aa5974",
+  "8dd2cf51895f4895a5b1928137da4b5d",
+  "e6117dd602e241d39926ee9785cc6f59",
+  "478e1e8ec288455db0a66e675fd575d4",
+  "7ea4e5bc3a6d416282ecde99c35036e8"
+ ],
+ "key_findings": [
+  "callee multiset exact; inline choices identical to original",
+  "pre-opt IR oracle (no-prepopulate-passes + opt -O3 + llc -mattr=+store-imm,+jmp-ext) reproduces main exactly",
+  "original swap_hop treats a as escaped/non-noalias: reloads a's fields per use; IR change gives +0.094 exactish"
+ ],
+ "rejected": [
+  "prepare_curve inline modes (identical)",
+  "single IR block moves in buy arm (max 105/107 aligned)",
+  "a: &MultiHopCurve (0.448)",
+  "callees taking &mut MultiHopCurve (identical)"
+ ],
+ "unresolved": [
+  "source form making a escape/non-noalias",
+  "memcmp/complete_fill block order"
+ ],
+ "next_ideas": [
+  "ordinary-Rust escape of a (non-nocapture callee param, closure/struct holding &a across a call)",
+  "block-order hill-climb on the capture variant"
+ ]
+}

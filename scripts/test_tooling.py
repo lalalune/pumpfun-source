@@ -61,6 +61,9 @@ from amm_sell.test_sell_distance import AlignmentDistanceTests
 from amm_sell.test_cached_status import CachedAttemptStatusTests
 
 
+from amm_sell.test_attempt_queries import AttemptQueryTests
+
+
 import gzip
 
 
@@ -135,6 +138,8 @@ import sys
 import unittest
 from test_analysis_interface_inventory import InterfaceInventoryEncodingTests
 from test_capture_verification_modes import CaptureVerificationModeTests
+from test_mayhem_receipt_admission import MayhemReceiptAdmissionTests
+from test_fees_runtime_image_binding import FeesRuntimeImageBindingTests
 from test_fees_external_codec_cases import ExternalCodecBooleanCases
 from types import SimpleNamespace
 import deep_disassembly
@@ -1057,6 +1062,67 @@ class PatternTailScanTests(unittest.TestCase):
         self.assertIn({'offset': 120, 'branch_target_offset': 24, 'error_code': 0, 'type': 'conditional_error'}, result)
 
 
+class ConditionalBranchErrorPatternTests(unittest.TestCase):
+    # Every SBPF JMP64 conditional jump (anza-xyz/sbpf f754c707, src/ebpf.rs L478-L521).
+    CONDITIONAL = (0x15, 0x1d, 0x25, 0x2d, 0x35, 0x3d, 0x45, 0x4d, 0x55, 0x5d, 0x65,
+                   0x6d, 0x75, 0x7d, 0xa5, 0xad, 0xb5, 0xbd, 0xc5, 0xcd, 0xd5, 0xdd)
+    # Opcodes the detector skipped before: jset, jslt and jsle in both operand forms.
+    OMITTED = (0x45, 0x4d, 0xc5, 0xcd, 0xd5, 0xdd)
+
+    @staticmethod
+    def branch_then_move(opcode):
+        return struct.pack('<BBhi', opcode, 0, 0, 0) + struct.pack('<BBhi', 0xb7, 2, 0, 6000)
+
+    def test_every_conditional_jump_is_a_branch_candidate(self):
+        # The repository disassembler decodes the same 22 opcodes as conditional jumps.
+        decoded = set()
+        for opcode in range(256):
+            if opcode & 7 == 5 and opcode not in (0x05, 0x85, 0x8d, 0x95):
+                record, _ = deep_disassembly.decode_instruction(bytes([opcode]) + bytes(7), 0, None)
+                decoded.update([opcode] if 'branch_target' in record else [])
+        self.assertEqual(decoded, set(self.CONDITIONAL))
+        for opcode in self.CONDITIONAL:
+            with self.subTest(opcode=hex(opcode)):
+                window = self.branch_then_move(opcode)
+                self.assertEqual(
+                    bytecode_signatures.detect_error_patterns(SimpleNamespace(b=window), 0, 16),
+                    [{'offset': 0, 'branch_target_offset': 8, 'error_code': 6000, 'type': 'conditional_error'}])
+        for opcode in (0x05, 0x85, 0x95, 0xb7):
+            with self.subTest(opcode=hex(opcode)):
+                window = self.branch_then_move(opcode)
+                self.assertEqual(bytecode_signatures.detect_error_patterns(SimpleNamespace(b=window), 0, 16), [])
+
+    def test_captured_signed_less_than_branches_are_reported(self):
+        added = {'pump': 23, 'pump_amm': 16, 'pump_fees': 13, 'mayhem': 5}
+        for name, expected_added in added.items():
+            with self.subTest(program=name):
+                elf = Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+                restored = 0
+                for start, end in zip(elf.entries, elf.entries[1:] + [elf.hi]):
+                    # Independent scan of the same windows over every conditional opcode.
+                    expected, at = [], start
+                    while at + 8 <= end:
+                        if elf.b[at] in self.CONDITIONAL:
+                            target = at + 8 + struct.unpack_from('<h', elf.b, at + 2)[0] * 8
+                            if start <= target < end and elf.b[target] in (0xb7, 0xb4):
+                                expected.append({
+                                    'offset': at - start, 'branch_target_offset': target - start,
+                                    'error_code': struct.unpack_from('<i', elf.b, target + 4)[0],
+                                    'type': 'conditional_error'})
+                                restored += elf.b[at] in self.OMITTED
+                        at += 16 if elf.b[at] == 0x18 else 8
+                    self.assertEqual(bytecode_signatures.detect_error_patterns(elf, start, end), expected)
+                self.assertEqual(restored, expected_added)
+        # Pump 0x2af38 is `jslt r4, 0, +168`; its target 0x2b480 is `mov64 r2, 96`.
+        elf = Elf(analyze.ROOT / 'evidence/original/pump/deployed.so')
+        self.assertEqual(elf.b[0x2af38:0x2af40].hex(), 'c504a80000000000')
+        self.assertEqual(elf.b[0x2b480:0x2b488].hex(), 'b702000060000000')
+        self.assertIn(
+            {'offset': 0x2af38 - 0x2a8e8, 'branch_target_offset': 0x2b480 - 0x2a8e8,
+             'error_code': 96, 'type': 'conditional_error'},
+            bytecode_signatures.detect_error_patterns(elf, 0x2a8e8, 0x2b490))
+
+
 class NegationDecodeTests(unittest.TestCase):
     def test_negation_has_only_a_destination_operand(self):
         for opcode, mnemonic in ((0x84, 'neg32'), (0x87, 'neg64')):
@@ -1277,6 +1343,53 @@ class CompareProgramNamesTests(unittest.TestCase):
             self.assertEqual(compare_module.program_names(root), ['probe'])
 
 
+class CompareRelayCliTests(unittest.TestCase):
+    def test_primary_relay_capture_and_negative_controls(self):
+        source_root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'scripts').mkdir()
+            for script in ('compare.py', 'analyze.py'):
+                shutil.copyfile(source_root / 'scripts' / script, root / 'scripts' / script)
+            captures = {
+                'donation_relay': 'dependencies',
+                'pump': 'original',
+                'spl_token': 'dependencies',
+            }
+            for name, group in captures.items():
+                destination = root / 'evidence' / group / name / 'deployed.so'
+                destination.parent.mkdir(parents=True)
+                shutil.copyfile(source_root / 'evidence' / group / name / 'deployed.so', destination)
+            relay = root / 'evidence/dependencies/donation_relay/deployed.so'
+            changed = root / 'changed.so'
+            data = bytearray(relay.read_bytes())
+            data[0] ^= 1
+            changed.write_bytes(data)
+            for name, candidate, code, equal in (
+                ('donation_relay', relay, 0, True),
+                ('pump', root / 'evidence/original/pump/deployed.so', 0, True),
+                ('donation_relay', changed, 1, False),
+                ('spl_token', root / 'evidence/dependencies/spl_token/deployed.so', 2, None),
+            ):
+                with self.subTest(program=name, candidate=candidate.name):
+                    output = root / ('result-' + str(len(list(root.glob('result-*')))))
+                    result = subprocess.run(
+                        [sys.executable, str(root / 'scripts/compare.py'), name,
+                         str(candidate), '--output', str(output)],
+                        capture_output=True, text=True,
+                    )
+                    self.assertEqual(result.returncode, code, result.stderr)
+                    if equal is None:
+                        self.assertIn('unknown program', result.stderr)
+                        self.assertFalse(output.exists())
+                    else:
+                        report = json.loads((output / 'comparison.json').read_text())
+                        self.assertEqual(report['full_byte_equality'], equal)
+                        if not equal:
+                            self.assertEqual(report['first_difference'], 0)
+                            self.assertEqual(report['different_positions_in_shared_length'], 1)
+
+
 class AnalyzeProgramRootTests(unittest.TestCase):
     def test_explicit_root_overrides_current_default(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -1349,6 +1462,20 @@ class SectionTerminalStringTests(unittest.TestCase):
         elf = SimpleNamespace(b=b'abc', lo=0x1000, hi=0x2000,
             secs={'.rodata': (0, 1, 2, 0, 0, 3, 0, 0, 1, 0)})
         self.assertEqual(deep_section_analysis.analyze_data_layout(elf)['.rodata']['strings'], [])
+
+
+class AllocationBackscanBarrierTests(unittest.TestCase):
+    sizes = AllocationSizeRegisterTests.sizes
+
+    def test_intervening_operations_do_not_reuse_stale_size(self):
+        for instruction in ((0xbf, 0x61, 0, 0), (0x07, 1, 0, 8),
+                            (0x79, 0x61, 0, 0), (0x85, 0, 0, 123),
+                            (0x05, 0, 0, 0)):
+            with self.subTest(instruction=instruction):
+                self.assertEqual(self.sizes([
+                    (0xb7, 1, 0, 64), instruction,
+                    (0x85, 0, 0, -2081419633),
+                ]), [])
 
 
 class RelocationTargetTests(unittest.TestCase):
@@ -2113,6 +2240,73 @@ class MemoryWidthDecodeTests(unittest.TestCase):
                     offset += size
                 self.assertEqual(seen, set(self.FORMS))
                 self.assertEqual(mismatches, 0)
+
+
+class LddwImmediateDecodeTests(unittest.TestCase):
+    # LDDW carries one unsigned 64-bit value: low word, then high word.
+    def test_both_words_form_one_unsigned_value(self):
+        for low, high in ((0, 0), (0x80000000, 0), (0xffffffff, 0x7fffffff),
+                          (0, 0x80000000), (0xffffffff, 0xffffffff),
+                          (0x1f6dafaf, 0xed9b980d)):
+            with self.subTest(low=hex(low), high=hex(high)):
+                blob = struct.pack('<BBhIBBhI', 0x18, 4, 0, low, 0, 0, 0, high)
+                record, size = deep_disassembly.decode_instruction(blob, 0, None)
+                value = high << 32 | low
+                self.assertEqual(record['imm64'], value)
+                self.assertEqual(record['mnemonic'], f'lddw r4, {value:#018x}')
+                self.assertEqual(record['hex'], blob.hex())
+                self.assertEqual(size, 16)
+
+    def test_captured_selector_constants_match_the_dispatch_table(self):
+        # Selectors with bit 63 set; every one used to print as a negative value.
+        expected_high = {'pump': 33, 'pump_amm': 28, 'pump_fees': 15}
+        for name, high_count in expected_high.items():
+            with self.subTest(program=name):
+                elf = deep_disassembly.Elf(
+                    analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+                selectors = deep_disassembly.load_idl_discriminators(elf)
+                table = deep_disassembly.recover_anchor_dispatch(elf)
+                offset = elf.lo
+                sites = high = 0
+                while offset < elf.hi:
+                    record, size = deep_disassembly.decode_instruction(elf.b, offset, elf)
+                    raw = elf.b[offset + 4:offset + 8] + elf.b[offset + 12:offset + 16]
+                    if elf.b[offset] == 0x18 and raw in selectors:
+                        value = int.from_bytes(raw, 'little')
+                        self.assertIn(hex(value), table)
+                        self.assertEqual(record['imm64'], value)
+                        self.assertEqual(record['mnemonic'],
+                                         f"lddw r{record['dst']}, {value:#018x}")
+                        sites += 1
+                        high += value >> 63
+                    offset += size
+                self.assertEqual(sites, len(table))
+                self.assertEqual(high, high_count)
+
+    def test_every_captured_lddw_matches_its_encoded_bytes(self):
+        for name in ('pump', 'pump_amm', 'pump_fees', 'mayhem'):
+            with self.subTest(program=name):
+                elf = deep_disassembly.Elf(
+                    analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+                offset = elf.lo
+                high = mismatches = 0
+                while offset < elf.hi:
+                    record, size = deep_disassembly.decode_instruction(elf.b, offset, elf)
+                    if elf.b[offset] == 0x18:
+                        value = int.from_bytes(
+                            elf.b[offset + 4:offset + 8] + elf.b[offset + 12:offset + 16],
+                            'little')
+                        high += value >> 63
+                        mismatches += (record['imm64'] != value
+                                       or not record['mnemonic'].endswith(f'{value:#018x}'))
+                    offset += size
+                self.assertGreater(high, 0)
+                self.assertEqual(mismatches, 0)
+
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tests.test_current_bindings_paths import CurrentBindingsPathTests
+from test_fees_error_messages_exit import FeesErrorMessageExitTests
 
 
 if __name__=='__main__': unittest.main()

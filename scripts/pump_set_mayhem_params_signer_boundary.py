@@ -23,6 +23,12 @@ from solders.transaction import VersionedTransaction
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def check(condition, message):
+    """Fail closed under optimized Python, where assert statements vanish."""
+    if not condition:
+        raise AssertionError(message)
 PUMP = Pubkey.from_string("6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P")
 MAYHEM = Pubkey.from_string("MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e")
 TOKEN_2022 = Pubkey.from_string("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb")
@@ -81,24 +87,24 @@ def account_state(account):
 
 def verify_traces(path):
     records = json.loads(gzip.decompress(path.read_bytes()))
-    assert len(records) == 2
+    check(len(records) == 2, "signer-boundary verification failed: len(records) == 2")
     summary = []
     for record in records:
         transaction = record["transaction"]
         signed = base64.b64decode(record["signed_transaction_base64"], validate=True)
-        assert digest(signed) == record["signed_transaction_sha256"]
+        check(digest(signed) == record["signed_transaction_sha256"], "signer-boundary verification failed: digest(signed) == record['signed_transaction_sha256']")
         decoded = VersionedTransaction.from_bytes(signed)
-        assert all(decoded.verify_with_results())
-        assert str(decoded.signatures[0]) == record["signature"]
-        assert transaction["transaction"]["signatures"][0] == record["signature"]
-        assert transaction["meta"]["err"] is None
+        check(all(decoded.verify_with_results()), "signer-boundary verification failed: all(decoded.verify_with_results())")
+        check(str(decoded.signatures[0]) == record["signature"], "signer-boundary verification failed: str(decoded.signatures[0]) == record['signature']")
+        check(transaction["transaction"]["signatures"][0] == record["signature"], "signer-boundary verification failed: transaction['transaction']['signatures'][0] == record['signature']")
+        check(transaction["meta"]["err"] is None, "signer-boundary verification failed: transaction['meta']['err'] is None")
         logs = transaction["meta"]["logMessages"]
-        assert any("Instruction: CreateV2" in line for line in logs)
+        check(any("Instruction: CreateV2" in line for line in logs), "signer-boundary verification failed: any('Instruction: CreateV2' in line for line in logs)")
         positions = [i for i, line in enumerate(logs)
                      if line == "Program log: Instruction: InitializeMayhemState"]
-        assert len(positions) == 1
-        assert logs[positions[0] - 1] == f"Program {MAYHEM} invoke [2]"
-        assert not any("Instruction: SetMayhemVirtualParams" in line for line in logs)
+        check(len(positions) == 1, "signer-boundary verification failed: len(positions) == 1")
+        check(logs[positions[0] - 1] == f"Program {MAYHEM} invoke [2]", "signer-boundary verification failed: logs[positions[0] - 1] == f'Program {MAYHEM} invoke [2]'")
+        check(not any("Instruction: SetMayhemVirtualParams" in line for line in logs), "signer-boundary verification failed: not any('Instruction: SetMayhemVirtualParams' in line for line in logs")
         summary.append({"signature": record["signature"], "slot": transaction["slot"],
                         "signed_transaction_sha256": digest(signed),
                         "all_transaction_signatures_valid": True,
@@ -108,11 +114,11 @@ def verify_traces(path):
 
 
 def replay(fixture_path, trace_path, target, output):
-    assert digest(target.read_bytes()) == TARGET_SHA256
+    check(digest(target.read_bytes()) == TARGET_SHA256, "signer-boundary verification failed: digest(target.read_bytes()) == TARGET_SHA256")
     fixture = json.loads(gzip.decompress(fixture_path.read_bytes()))
-    assert fixture["mint"] == str(MINT)
-    assert [item["address"] for item in fixture["accounts"]] == [str(key) for key in ACCOUNTS]
-    assert not SOL_VAULT.is_on_curve() and BUMP == 253
+    check(fixture["mint"] == str(MINT), "signer-boundary verification failed: fixture['mint'] == str(MINT)")
+    check([item["address"] for item in fixture["accounts"]] == [str(key) for key in ACCOUNTS], "signer-boundary verification failed: [item['address'] for item in fixture['accounts']] == [str(key) for key")
+    check(not SOL_VAULT.is_on_curve() and BUMP == 253, "signer-boundary verification failed: not SOL_VAULT.is_on_curve() and BUMP == 253")
     mainnet_traces = verify_traces(trace_path)
     vm = LiteSVM().with_sigverify(True).with_blockhash_check(True)
     vm.add_program_from_file(PUMP, str(target))
@@ -121,7 +127,7 @@ def replay(fixture_path, trace_path, target, output):
     account_hashes = []
     for index, (key, item) in enumerate(zip(ACCOUNTS, fixture["accounts"])):
         raw = base64.b64decode(item["data"][0], validate=True)
-        assert len(raw) == item["space"]
+        check(len(raw) == item["space"], "signer-boundary verification failed: len(raw) == item['space']")
         account_hashes.append({"address": str(key), "data_sha256": digest(raw),
                                "owner": item["owner"], "lamports": item["lamports"]})
         if index != 7:  # add_program_from_file installed the captured Pump ELF.
@@ -134,15 +140,15 @@ def replay(fixture_path, trace_path, target, output):
     instruction = Instruction(PUMP, SELECTOR, metas)
     message = Message.new_with_blockhash([instruction], payer.pubkey(), vm.latest_blockhash())
     transaction = VersionedTransaction(message, [payer])
-    assert all(transaction.verify_with_results())
+    check(all(transaction.verify_with_results()), "signer-boundary verification failed: all(transaction.verify_with_results())")
     result = vm.send_transaction(transaction)
-    assert hasattr(result, "err")
+    check(hasattr(result, "err"), "signer-boundary verification failed: hasattr(result, 'err')")
     error = str(result.err())
     logs = result.meta().logs()
-    assert "InstructionErrorCustom(2002)" in error
-    assert any("account: sol_vault_authority" in line and
-               "Error Code: ConstraintSigner" in line for line in logs)
-    assert before == [account_state(vm.get_account(key)) for key in ACCOUNTS[:7]]
+    check("InstructionErrorCustom(2002)" in error, "signer-boundary verification failed: 'InstructionErrorCustom(2002)' in error")
+    check(any("account: sol_vault_authority" in line and
+               "Error Code: ConstraintSigner" in line for line in logs), "signer-boundary verification failed: any('account: sol_vault_authority' in line and")
+    check(before == [account_state(vm.get_account(key)) for key in ACCOUNTS[:7]], "signer-boundary verification failed: before == [account_state(vm.get_account(key)) for key in ACCOUNTS[:7]]")
     report = {
         "scope": "Normally signed, offline target-only signer-boundary replay",
         "target_sha256": TARGET_SHA256,

@@ -75,6 +75,15 @@ def instruction_log_names(b, known=()):
     return sorted(names)
 
 
+def publish_reports(reports):
+    """Admit every report destination before replacing either prior report."""
+    for path, _ in reports:
+        if path.is_symlink() or (path.exists() and not path.is_file()):
+            raise ValueError(f'report destination is not a regular file: {path}')
+    for path, text in reports:
+        path.write_text(text, encoding='utf-8')
+
+
 def elf_layout(b):
     if b[:6]!=b'\x7fELF\x02\x01': raise ValueError('Unsupported ELF identity')
     h=struct.unpack_from('<HHIQQQIHHHHHH',b,16)
@@ -119,7 +128,9 @@ def analyze():
     # either prior report. An invalid later IDL must not publish half a run.
     binary_report=json.dumps(out,indent=2)+'\n'
     interface_report=json.dumps(inventory,indent=2)+'\n'
-    (ROOT/'evidence/binary-analysis.json').write_text(binary_report)
-    (ROOT/'evidence/interface-inventory.json').write_text(interface_report)
+    publish_reports([
+        (ROOT/'evidence/binary-analysis.json', binary_report),
+        (ROOT/'evidence/interface-inventory.json', interface_report),
+    ])
     for n,r in out.items(): print(n,'ELF',r['elf_extent'],'padding',r['trailing_bytes'],'zero',r['trailing_all_zero'])
 if __name__=='__main__': analyze()

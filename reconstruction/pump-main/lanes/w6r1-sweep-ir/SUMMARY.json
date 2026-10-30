@@ -1,0 +1,38 @@
+{
+ "lane": "w6r1-execute-ir (working name w6r1-sweep-ir)",
+ "targets": [
+  "0x72810"
+ ],
+ "base": "origin/main 099b0dd 1027/276",
+ "best": {
+  "source": "none (base s6 unchanged)",
+  "ratio": 0.88669,
+  "cand_bytes": 7880,
+  "calls": "39/39"
+ },
+ "key_findings": [
+  "solana rustup toolchain opt is LLVM 18.1.7: exact MemCpyOpt replay (0.8 s)",
+  "marker loss in e2 = error-path stack-move of residual/_18 into _5.sroa.5 (LLVM18 erases all markers)",
+  "plain/#[inline] rent helper self-simplifies to the original pattern, but cost 210 > cold threshold 45 at call-site freq 0.016",
+  "oracle: inlining the pre-simplified helper reproduces the original rent region (InlineFunction re-adds markers)",
+  "original therefore had a CGSCC-inlined rent helper at a warm (>=2%) site while event sites stayed <2%"
+ ],
+ "rejected": [
+  "map(|r|r)/and_then(|r|Ok(r))/map_err(|e|e) adaptors (0.5494)",
+  "pay_out fn split f1-f4",
+  "tail fn split f5-f8 (event callees inline)"
+ ],
+ "attempt_ids": [
+  "ad72d90ca0574ffb898edaab2115b355",
+  "3cb18b9c6e864c079179b0ea0b4e7887",
+  "da6cd817c99b4df6b9002c7765f90913",
+  "b469c2b7d0f84c78a7eb009466307b4d",
+  "971e27c2b153433198d3942b385d71b0",
+  "7ffda7c2987b45438fcdc74f2e1f68b9",
+  "60f8d40c86804d4e8ab7ae7bd6b2a473"
+ ],
+ "next_ideas": [
+  "find a creator-path-only probability change (x1.33) so the plain rent helper site reaches 2% while event sites stay <2%; measure with bfipath.py using LLVM18 opt",
+  "admit polarity residual (oracle 0.8898) still open"
+ ]
+}

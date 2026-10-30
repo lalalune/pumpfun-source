@@ -33,6 +33,8 @@ class FailedRebuildPreservationTests(unittest.TestCase):
 
     def test_failed_rebuild_keeps_prior_valid_output_and_retains_new_log(self):
         def run(command, **options):
+            if command[0] == 'rsync':
+                return types.SimpleNamespace(returncode=0)
             options["stdout"].write(b"synthetic compiler failure\n")
             return types.SimpleNamespace(returncode=1)
 
@@ -52,7 +54,9 @@ class FailedRebuildPreservationTests(unittest.TestCase):
 
     def test_successful_rebuild_replaces_previous_output_after_staging(self):
         def run(command, **options):
-            if command[0].endswith("/cargo"):
+            if command[0] == 'rsync':
+                return types.SimpleNamespace(returncode=0)
+            if Path(command[0]).name == 'cargo':
                 target = Path(options["env"]["CARGO_TARGET_DIR"])
                 artifact = target / "sbpf-solana-solana/release" / BUILD.PROGRAM
                 artifact.parent.mkdir(parents=True)
@@ -75,6 +79,8 @@ class FailedRebuildPreservationTests(unittest.TestCase):
 
     def test_exception_also_keeps_prior_output(self):
         def run(command, **options):
+            if command[0] == 'rsync':
+                return types.SimpleNamespace(returncode=0)
             options["stdout"].write(b"synthetic fatal failure\n")
             raise OSError("synthetic process failure")
 

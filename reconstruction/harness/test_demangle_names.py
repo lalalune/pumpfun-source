@@ -1,5 +1,6 @@
 """Retained-input regression; no captured code executes."""
 import unittest
+from test_support import copy_harness_modules
 
 class HarnessSymbolNameTests(unittest.TestCase):
     def test_retained_impl_symbols_drop_only_the_compiler_escape_prefix(self):
@@ -21,8 +22,7 @@ class HarnessSymbolNameTests(unittest.TestCase):
             self.assertTrue(root.name.startswith('pump-symbol-names-'))
             (root / 'harness').mkdir()
             (root / 'base').mkdir()
-            for name in ['win.py', 'score.py', 'score_admission.py', 'llvm_tools.py', 'instruction_stream.py', 'elf_symbols.py']:
-                shutil.copyfile(repo / 'reconstruction/harness' / name, root / 'harness' / name)
+            copy_harness_modules(root / 'harness')
             shutil.copyfile(repo / 'evidence/original/pump/deployed.so', root / 'base/original.so')
             result = subprocess.run(
                 [sys.executable, '-B', '-c',

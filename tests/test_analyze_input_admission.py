@@ -1,6 +1,7 @@
 """Run the real analyzer CLI on isolated retained ELF/IDL evidence."""
 import hashlib
 import json
+import os
 import pathlib
 import shutil
 import subprocess
@@ -58,6 +59,30 @@ class AnalyzeInputAdmissionTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         for name in REPORTS:
             self.assertFalse((self.evidence / name).exists(), name)
+
+    def test_invalid_second_report_destination_publishes_neither_report(self):
+        prior = self.evidence / 'binary-analysis.json'
+        prior.write_text('prior binary report\n', encoding='utf-8')
+        (self.evidence / 'interface-inventory.json').mkdir()
+        result = self.run_analyzer()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('report destination is not a regular file', result.stderr)
+        self.assertEqual(prior.read_text(encoding='utf-8'), 'prior binary report\n')
+        self.assertTrue((self.evidence / 'interface-inventory.json').is_dir())
+
+    def test_linked_second_report_destination_is_rejected_before_publication(self):
+        outside = self.root / 'outside.json'
+        outside.write_text('sentinel\n', encoding='utf-8')
+        try:
+            os.symlink(outside, self.evidence / 'interface-inventory.json')
+        except (OSError, NotImplementedError, AttributeError) as error:
+            self.skipTest(f'creating links is not permitted: {error}')
+
+        result = self.run_analyzer()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('report destination is not a regular file', result.stderr)
+        self.assertEqual(outside.read_text(encoding='utf-8'), 'sentinel\n')
+        self.assertFalse((self.evidence / 'binary-analysis.json').exists())
 
     def test_valid_retained_evidence_generates_both_reports(self):
         result = self.run_analyzer()

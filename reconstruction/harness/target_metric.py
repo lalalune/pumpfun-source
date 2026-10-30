@@ -4,10 +4,10 @@
   target_metric.py <unstripped.so> <orig_start> [<orig_start> ...] [--sym REGEX] [--top N] [--slots N]
 
 For each candidate function (those whose symbol matches --sym, else the closest by
-opcode n-grams) prints one JSON line: size, normalized/raw equality, the instruction
-ratio used by win.py, the differing normalized 8-byte slots when sizes are equal, and
-direct-call / syscall counts. Lower `slots_diff` and higher `ratio` mean closer; only
-score.py decides acceptance.
+  opcode n-grams) prints one JSON line: size, normalized/raw equality, the instruction
+  ratio used by win.py, the differing normalized 8-byte slots when sizes are equal, and
+  named direct, syscall-or-relocated and indirect-call counts. Lower `slots_diff` and
+  higher `ratio` mean closer; only score.py decides acceptance.
 """
 import argparse
 import difflib
@@ -24,16 +24,25 @@ from win import Cand, insns, demangle, best_candidates, ORIG, ORIG_SECS  # noqa:
 from instruction_stream import instruction_offsets
 
 
-def calls(raw):
-    internal = syscalls = 0
+def call_counts(raw):
+    counts = {'internal': 0, 'syscall_or_relocated': 0, 'indirect': 0}
     for i in instruction_offsets(raw):
-        if raw[i] == 0x85:
+        op = raw[i]
+        if op == 0x8D:
+            counts['indirect'] += 1
+        elif op == 0x85:
             imm = struct.unpack_from('<i', raw, i + 4)[0]
             if raw[i + 1] >> 4 == 1 and imm != -1:
-                internal += 1
+                counts['internal'] += 1
             else:
-                syscalls += 1
-    return internal, syscalls
+                counts['syscall_or_relocated'] += 1
+    return counts
+
+
+def calls(raw):
+    """Return the legacy direct/syscall-or-relocated tuple."""
+    counts = call_counts(raw)
+    return counts['internal'], counts['syscall_or_relocated']
 
 
 def measure_window(w, cand, pattern=None, top=3, slots=12):
@@ -44,16 +53,19 @@ def measure_window(w, cand, pattern=None, top=3, slots=12):
     else:
         picks = [(s, n, nm) for _, _, s, n, nm in best_candidates(w, cand, top)]
     otok = [x[2] for x in insns(w['raw'], start, ORIG_SECS)]
-    ocalls = calls(w['raw'])
+    ocalls = call_counts(w['raw'])
     rows = []
     for s, n, nm in picks:
         raw = cand.fn(s, n)
+        ccalls = call_counts(raw)
         norm = normalize(raw, s, cand.secs)
         ctok = [x[2] for x in insns(raw, s, cand.secs)]
         row = {'window': hex(start), 'window_bytes': w['bytes'], 'symbol': demangle(nm), 'cand_start': hex(s), 'cand_bytes': n,
                'normalized_equal': norm == w['norm'], 'raw_equal': raw == w['raw'],
                'ratio': round(difflib.SequenceMatcher(None, otok, ctok, autojunk=False).ratio(), 5),
-               'calls_original': ocalls, 'calls_candidate': calls(raw)}
+               'calls_original': (ocalls['internal'], ocalls['syscall_or_relocated']),
+               'calls_candidate': (ccalls['internal'], ccalls['syscall_or_relocated']),
+               'call_counts_original': ocalls, 'call_counts_candidate': ccalls}
         if n == w['bytes']:
             diff = [i for i in range(0, n, 8) if norm[i:i + 8] != w['norm'][i:i + 8]]
             row['slots_diff'] = len(diff)
