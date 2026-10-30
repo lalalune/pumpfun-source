@@ -1,0 +1,15 @@
+{
+ "candidate": "recon-local/sixteen-swap-match/unstripped.so",
+ "rounds": 4,
+ "normalized_matched": 1034,
+ "bisimilar_matched": 1034,
+ "hidden_call_target_mismatch": [],
+ "pinned_targets": [
+  {
+   "window": "0x22a10",
+   "cand": "0x22a10",
+   "name": "admin_cto::execute",
+   "aligned_body_equal_but_wrong_callee": []
+  }
+ ]
+}
