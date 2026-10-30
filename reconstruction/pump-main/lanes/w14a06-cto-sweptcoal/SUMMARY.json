@@ -1,0 +1,18 @@
+{
+  "lane": "w14a06-cto-sweptcoal",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "bases": {"308b545f1": {"ratio": 0.63062, "slots": 3287}, "769f331fe": {"ratio": 0.63241, "slots": 3288}},
+  "result": "notes only: no source form coalesces swept into the Err-payload class while keeping main's CFG; every coalescing route is a CFG change that drops to 0.49-0.54, and with the class held on r8 or r9 the %0 split moves to r6 and clonefeat stays 2/6",
+  "best": {"ratio": 0.63062, "slots_diff": 3287, "bytes": 27400, "note": "= main 308b545 (f2/f3/f5/f6 same tokens ratio); nothing built"},
+  "oracle_check": "raw-IR capture + rx opt/llc reproduces main exactly (eq_main=true) on 308b545 and 769f331",
+  "mechanism": "RegisterCoalescer visits blocks by pred+succ count: post-sweep Err join bb61 (3+1=4) before the sweep Err edge bb80 (2+1=3, the tag test is tail-duplicated into bb51.i); bb61's sharing-CPI payload copy at 64464r interferes with swept, which is live on the Ok edge. join-splitedges is off, so a 1+1 copy block gets no priority.",
+  "attempts": {
+    "ir_post_opt": {"e1_poolerr_bb59": [0.52529, 27448, "swept in, class r6, split r8/100, cf 1/7"], "e2_sharingerr_bb59": [0.52529, 27448, "= e1"], "e3_ammerr_bb80": [0.54276, 27408, "swept in, class r6 (evicts %60 sharing_update tag), split r8/99, cf 2/6"], "e3_pin_r8": [0.48977, 27536, "class r8, split r6/83, cf 2/6"], "e3_pin_r9": [0.50471, 27536, "class r9, split r6/83, cf 2/6"], "e1_pin_r8_r9": [[0.495, 0.51023], 27552, "split r6/83, cf 2/6"], "main_pin_r8": [0.6176, 27256, "not coalesced, class r9, split r9/98, cf 2/6"], "e5_no_taildup": [0.58577, 27392, "not coalesced"]},
+    "src": {"f1_wallet_andthen": [0.5439, 26384], "f1b_wallet_late_q": [0.62921, 27392], "f2_tuple": [0.63062, 27400], "f3_okq": [0.63062, 27400], "f4_mapor": [0.5378, 26472], "f5_transpose_map": [0.63062, 27400], "f6_match_return": [0.63062, 27400], "f7_unwrapok_andthen": [0.59869, 26400]},
+    "bounds": {"main": {"R": 0.73307, "FR": 0.85051}, "e3": {"R": 0.6431, "FR": 0.83331}, "e1": {"R": 0.62197, "FR": 0.80066}, "e3_pin": {"R": 0.62005, "FR": 0.78918}}
+  },
+  "rejected_mechanisms": ["swept gate spellings (8 new + ~30 in ledger): IR-identical or sweep inlining/size change", "post-sweep Err join degree reduction (e1/e2)", "sweep Err-edge degree increase via AMM Err threading (e3)", "class pinned to r8/r9 after coalescing (split moves to r6)", "blocking tail-dup of the sweep exit test (e5)"],
+  "unresolved": ["joint step-1 + step-2 state (r6 expensive for %0 in validate while swept coalesced)", "frame rebuild around a coalesced state (swept spill slot removed shifts 0x2800-0x3800)"],
+  "next_ideas": ["e3-style AMM Err threading combined with acctlive's validate-region interference forms, screened by coal.py + asg.py", "8 B frame object at swept's old spill slot on a coalesced state to measure the pure frame-shift share", "bwscan.py on e3_769 with a ratio objective"],
+  "ledger": "approach swept-coalesce, keys 0x22a10-w14-308b545-sweptcoal-*"
+}

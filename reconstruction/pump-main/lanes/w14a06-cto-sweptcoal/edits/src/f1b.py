@@ -1,0 +1,1 @@
+EDITS=[('if collect_old{wallet(&ctx)?;}fn wallet','let w=if collect_old{wallet(&ctx)}else{Ok(())};fn wallet'),('swept=(!skip).then(||sweep(&ctx,&holder_key)).transpose()?.unwrap_or(0);','w?;swept=(!skip).then(||sweep(&ctx,&holder_key)).transpose()?.unwrap_or(0);')]
