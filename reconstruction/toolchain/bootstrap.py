@@ -129,6 +129,17 @@ def check_sdk_linux(mode):
 
 
 def assemble_linux():
+    """Serialize the complete admission/replacement sequence across worktrees."""
+    HYBRID.parent.mkdir(parents=True, exist_ok=True)
+    with (HYBRID.parent / (HYBRID.name + '.lock')).open('a+b') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        if hybrid_ok_linux():
+            return False
+        _assemble_linux_locked()
+        return True
+
+
+def _assemble_linux_locked():
     """Assemble the identity toolchain from the Linux v1.44 SDK.
 
     The identity inputs are the v1.44 compiler for this host and the official
@@ -158,8 +169,17 @@ def assemble_linux():
             backup = Path(tempfile.mkdtemp(prefix=HYBRID.name + '.backup.', dir=HYBRID.parent))
             backup.rmdir()
             HYBRID.rename(backup)
-            stage.rename(HYBRID)
-            shutil.rmtree(backup, ignore_errors=True)
+            try:
+                stage.rename(HYBRID)
+            except BaseException:
+                # Keep the previous installation at its canonical path. If
+                # recovery itself fails, leave the backup intact for recovery.
+                backup.rename(HYBRID)
+                raise
+            if backup.is_symlink():
+                backup.unlink()
+            else:
+                shutil.rmtree(backup, ignore_errors=True)
         else:
             stage.rename(HYBRID)
     finally:
@@ -171,6 +191,13 @@ def hybrid_ok_linux():
     rust = HYBRID / 'rust'
     rustc = rust / 'bin/rustc'
     if not rustc.is_file() or sha(rustc) != sha(SDK / 'rust/bin/rustc'):
+        return False
+    expected = {path.name: path for path in (SDK / 'rust/lib').glob('lib*.so')}
+    actual = {path.name: path for path in (rust / 'lib').glob('lib*.so')}
+    if not expected or actual.keys() != expected.keys():
+        return False
+    if any(not path.is_file() or path.is_symlink() or sha(path) != sha(expected[name])
+           for name, path in actual.items()):
         return False
     host = rust / 'lib/rustlib' / LINUX_HOST_TRIPLE
     if not host.is_symlink() or host.resolve() != (SDK / 'rust/lib/rustlib' / LINUX_HOST_TRIPLE).resolve():
@@ -273,14 +300,13 @@ def main():
     print('Linux v1.44 sbpf target libraries verified (25 rlibs)')
 
     if linux_host:
-        if hybrid_ok_linux():
-            print(f'identity toolchain already assembled at {HYBRID}')
-        else:
-            assemble_linux()
+        if assemble_linux():
             if not hybrid_ok_linux():
                 print('identity toolchain assembly did not verify', file=sys.stderr)
                 return 1
             print(f'identity toolchain assembled at {HYBRID}')
+        else:
+            print(f'identity toolchain already assembled at {HYBRID}')
     elif hybrid_ok():
         print(f'hybrid144 already assembled at {HYBRID}')
     else:
