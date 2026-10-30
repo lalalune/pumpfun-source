@@ -34,6 +34,7 @@ This lane rules out the stack frame as the place where the residual lives.
 | Same on top of the bb4-marker deletion | 43 | none restores the front |
 | Move one lifetime marker (StorageLive/StorageDead placement) to the top or bottom of any block | 2,366 | none better; only moves that empty bb4 give the known e1 state (2120 B, sret like the original, front -51/+51) |
 | Same 2,366 moves on top of the bb4 deletion | 2,366 | none restores the front; any marker put back in bb4 gives the base exactly |
+| 1-8 extra entry-block lifetime.starts (the prologue-placement lever proven elsewhere) | 80 | ZST: identical to base at every count; non-ZST markers only break StackColoring |
 | Store the Result tag in each `bb15` predecessor instead of the sunk `.sink` phi | 63 subsets | 2128-2224 B, none matches |
 | Branch weights 3:5/5:3/1:1 (zero/pointer heuristic or none), plus 1:2..1:2^20 singles | 208 singles, 1,080 pairs, 15,120 triples | every 0-diff result has a weight on `%43` (the 375 `to_string` fmt panic edge); 0 without it |
 
@@ -61,7 +62,7 @@ What this shows:
 
 Analysis rows: frame-slot-map, alloca-order-swap-scan, zst-alloca-split-scan,
 zst-edge-marker-block-scan, lifetime-marker-move-scan, sret-tag-unsink-scan, heuristic-weight-scan,
-heuristic-weight-triple-scan.
+heuristic-weight-triple-scan, entry-lifetime-count-scan.
 
 ## Tools (`oracle/`)
 
