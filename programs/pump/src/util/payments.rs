@@ -153,18 +153,6 @@ pub(crate) fn collect_transfer_native<'info>(
             }), amount,
         )
     }
-#[inline(never)]
-pub fn migratenp_transfer_native<'info>(
-    system_program: &AccountInfo<'info>, payer: &Signer<'info>,
-    destination: &UncheckedAccount<'info>, amount: u64,
-) -> Result<()> {
-    if amount == 0 { return Ok(()); }
-    anchor_lang::system_program::transfer(
-        CpiContext::new(system_program.clone(), anchor_lang::system_program::Transfer {
-            from: payer.to_account_info(), to: destination.to_account_info(),
-        }), amount,
-    )
-}
     #[inline(never)]
     pub fn uqp_transfer_native<'info>(
         system_program: &AccountInfo<'info>,
@@ -180,6 +168,18 @@ pub fn migratenp_transfer_native<'info>(
             }), amount,
         )
     }
+#[inline(never)]
+pub fn migratenp_transfer_native<'info>(
+    system_program: &AccountInfo<'info>, payer: &Signer<'info>,
+    destination: &UncheckedAccount<'info>, amount: u64,
+) -> Result<()> {
+    if amount == 0 { return Ok(()); }
+    anchor_lang::system_program::transfer(
+        CpiContext::new(system_program.clone(), anchor_lang::system_program::Transfer {
+            from: payer.to_account_info(), to: destination.to_account_info(),
+        }), amount,
+    )
+}
     #[inline(never)]
     pub fn uqp_transfer_native_curve_unchecked<'info>(
         system_program: &AccountInfo<'info>,

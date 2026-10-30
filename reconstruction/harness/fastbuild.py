@@ -12,6 +12,9 @@ Usage: fastbuild.py --src <crate dir with Cargo.toml/Cargo.lock/src[/recovered]>
 - Writes <out>/unstripped.so and <out>/candidate.so (default <work>/last).
 - Before compilation, archives previous outputs and their log under <out>/previous/build-*.
   Compiler failures leave no current binaries; callers must still check ok.
+- A crate carrying link/ordered.ld (a pinned link order, see link_order.py) is linked with that
+  script in place of the SBF default one; the result reports its sha256 and selector counts and
+  fails unless the linker hook ran in this build.
 - Stack diagnostics return ok=false with build.log and stack_warnings. Diagnostic callers
   gated on ok (including exactsol-introspection capture.py) consequently skip IR extraction.
 """
@@ -20,6 +23,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from build_process import run_compiler, validate_timeout
 from source_inputs import snapshot, assert_unchanged
+import link_order
 
 H = Path(__file__).resolve().parent
 SC = H.parent
@@ -115,7 +119,7 @@ def workspace_lock(work: Path):
 
 def archive_previous_outputs(out: Path):
     """Keep old evidence separate from the next attempt's canonical output paths."""
-    names = ('unstripped.so', 'candidate.so', 'build.log')
+    names = ('unstripped.so', 'candidate.so', 'build.log', 'link-receipt.json', 'link.map')
     present = [out / name for name in names
                if (out / name).exists() or (out / name).is_symlink()]
     if not present:
@@ -165,6 +169,11 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     )
     env['CARGO_TARGET_' + triple.upper().replace('-', '_') + '_RUSTFLAGS'] = '-Zremap-cwd-prefix='
     env.pop('RUSTFLAGS', None); env.pop('CARGO_ENCODED_RUSTFLAGS', None)
+    receipt = work / 'link-receipt.json'
+    receipt.unlink(missing_ok=True)
+    receipt.with_name('link.map').unlink(missing_ok=True)
+    link_env, link_record = link_order.configure(crate, R['rustc'], receipt)
+    env.update(link_env)
     cmd = [str(SDK / 'rust/bin/cargo'), 'build', '--manifest-path', str(crate / 'Cargo.toml'), '--release',
            '--target', triple, '--locked', '--offline']
     out.mkdir(parents=True, exist_ok=True)
@@ -200,10 +209,18 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
         return {'ok': False, 'runtime_valid': False, 'stack_warnings': stack,
                 'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1),
                 'log': str(out / 'build.log')}
+    if link_record:
+        if not receipt.is_file():
+            raise RuntimeError('pinned link script configured but the linker hook did not run')
+        got = json.loads(receipt.read_text())
+        if got['script_sha256'] != link_record['script_sha256'] or got['lld_sha256'] != link_record['lld_sha256']:
+            raise RuntimeError('link receipt does not match the pinned link script')
+        shutil.copy2(receipt, out / 'link-receipt.json')
+        shutil.copy2(receipt.with_name('link.map'), out / 'link.map')
     built = target / triple / 'release/pump_recovered.so'
     shutil.copy2(built, out / 'unstripped.so')
     subprocess.run([str(SDK / 'llvm/bin/llvm-objcopy'), '--strip-all', str(built), str(out / 'candidate.so')], check=True)
-    return {'ok': True, 'source_sha256': source_inputs['sha256'], 'runtime_valid': not stack, 'stack_warnings': stack, 'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1), 'unstripped': str(out / 'unstripped.so'),
+    return {'ok': True, 'source_sha256': source_inputs['sha256'], 'link_order': link_record, 'runtime_valid': not stack, 'stack_warnings': stack, 'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1), 'unstripped': str(out / 'unstripped.so'),
             'unstripped_sha256': sha(out / 'unstripped.so'), 'candidate_sha256': sha(out / 'candidate.so')}
 
 

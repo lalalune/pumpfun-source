@@ -97,9 +97,8 @@ pub sharing_config_reset:bool,
 pub swept_to_holder_vault:u64,
 pub pool_updated:bool,
 }
-struct CtoState{creator:Pubkey,max_fee:u64,mayhem:bool,holder_reward:bool,cashback:bool,quote_locked:bool,holder_enabled:bool,fee_configurable:bool}pub fn execute(ctx:Context<AdminCto>,holder:Option<bool>,fee:Option<u64>,new:Option<Pubkey>)->Result<()>{
- let a=&ctx.accounts;let mint=a.mint.key();let (holder_key,_)=Pubkey::find_program_address(&[b"holder-rewards",mint.as_ref()],&crate::ID);let shared=a.bonding_curve.creator==a.sharing_config.key()&&a.sharing_config.owner==&FEES&&!a.sharing_config.data_is_empty();let quote_locked=crate::pump_quote::global_quote(a.bonding_curve.quote_mint,&a.global);let (holder,cashback,target,sharing_update,collect_old)={let st=CtoState{creator:a.bonding_curve.creator,max_fee:a.global.max_configurable_creator_fee_bps,mayhem:a.bonding_curve.is_mayhem_mode,holder_reward:a.bonding_curve.is_holder_reward,cashback:a.bonding_curve.is_cashback_coin,quote_locked,holder_enabled:a.global.is_holder_reward_enabled,fee_configurable:a.global.creator_fee_configurable};
-// layout-pad(182): aligns the next Source site with the original line
+struct CtoState{creator:Pubkey,max_fee:u64,mayhem:bool,holder_reward:bool,cashback:bool,quote_locked:bool,holder_enabled:bool,fee_configurable:bool}
+// layout-pad(183): aligns the next Source site with the original line
 
 
 
@@ -280,7 +279,8 @@ struct CtoState{creator:Pubkey,max_fee:u64,mayhem:bool,holder_reward:bool,cashba
 
 
 
- let holder=holder==Some(true);let cashback=!holder&&st.cashback;let mut target=validate(&st,holder,fee,new,holder_key,a.sharing_config.key())?;fn validate(st:&CtoState,holder:bool,fee:Option<u64>,new:Option<Pubkey>,holder_key:Pubkey,sharing:Pubkey)->Result<Pubkey>{
+
+fn validate(st:&CtoState,holder:bool,fee:Option<u64>,new:Option<Pubkey>,holder_key:Pubkey,sharing:Pubkey)->Result<Pubkey>{
  if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}
 // Reconstructed positions of the same deployed validations.
 
@@ -336,7 +336,7 @@ struct CtoState{creator:Pubkey,max_fee:u64,mayhem:bool,holder_reward:bool,cashba
 
 
   if f==0||f>st.max_fee{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}}
- Ok(target)}let sharing_update=if shared{Some(if holder{None}else{new})}else{None};let collect_old=sharing_update.is_none()&&!st.holder_reward&&st.creator!=Pubkey::default();if shared&&!holder{target=st.creator;}(holder,cashback,target,sharing_update,collect_old)};let mut target=target; crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.admin_set_creator_authority)?;
+ Ok(target)}pub fn execute(ctx:Context<AdminCto>,holder:Option<bool>,fee:Option<u64>,new:Option<Pubkey>)->Result<()>{ let a=&ctx.accounts;let mint=a.mint.key();let (holder_key,_)=Pubkey::find_program_address(&[b"holder-rewards",mint.as_ref()],&crate::ID);let shared=a.bonding_curve.creator==a.sharing_config.key()&&a.sharing_config.owner==&FEES&&!a.sharing_config.data_is_empty();let quote_locked=crate::pump_quote::global_quote(a.bonding_curve.quote_mint,&a.global);let (holder,cashback,target,sharing_update,collect_old)={let st=CtoState{creator:a.bonding_curve.creator,max_fee:a.global.max_configurable_creator_fee_bps,mayhem:a.bonding_curve.is_mayhem_mode,holder_reward:a.bonding_curve.is_holder_reward,cashback:a.bonding_curve.is_cashback_coin,quote_locked,holder_enabled:a.global.is_holder_reward_enabled,fee_configurable:a.global.creator_fee_configurable}; let holder=holder==Some(true);let cashback=!holder&&st.cashback;let mut target=validate(&st,holder,fee,new,holder_key,a.sharing_config.key())?;let sharing_update=if shared{Some(if holder{None}else{new})}else{None};let collect_old=sharing_update.is_none()&&!st.holder_reward&&st.creator!=Pubkey::default();if shared&&!holder{target=st.creator;}(holder,cashback,target,sharing_update,collect_old)};let mut target=target; crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.admin_set_creator_authority)?;
 
 
 
