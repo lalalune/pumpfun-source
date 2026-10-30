@@ -10,6 +10,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import stat
 
 FIELDS = ('source_sha256', 'toolchain_sha256', 'original_sha256', 'inventory_sha256', 'command_sha256')
 
@@ -41,6 +42,13 @@ def address(value):
     return result
 
 
+def linked(path):
+    metadata = path.lstat()
+    return (stat.S_ISLNK(metadata.st_mode) or
+            bool(getattr(metadata, 'st_file_attributes', 0) &
+                 getattr(stat, 'FILE_ATTRIBUTE_REPARSE_POINT', 0)))
+
+
 def classify(row, context, evidence_root):
     data = row.get('data')
     if not isinstance(data, dict) or not valid_context(data.get('context')):
@@ -59,9 +67,9 @@ def classify(row, context, evidence_root):
         if relative.is_absolute() or '..' in relative.parts or not relative.parts:
             reasons.append('evidence path must remain within evidence root'); continue
         path = root / relative
-        if any(p.is_symlink() for p in [path, *path.parents] if p != root and root in p.parents):
-            reasons.append('symlinked evidence is not admitted'); continue
         try:
+            if any(linked(p) for p in [path, *path.parents] if p != root and root in p.parents):
+                reasons.append('linked evidence is not admitted'); continue
             if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != item['sha256']:
                 reasons.append('missing or changed evidence: ' + relative.as_posix())
         except OSError:
