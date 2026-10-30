@@ -54,6 +54,6 @@
  "next_ideas": [
   "faithful +56 B for scu_bs that adds register pressure in the validate/skip-tree region (the original keeps the spills scu_bs removes)",
   "scu_bs + sh_key_borrow (-136 B, +0.0007 more) with a large faithful region rewrite",
-  "re-screen scu_bs on every new main: its gain grew from +0.0025 to +0.0016..+0.0025 and stays"
+  "re-screen scu_bs on every new main: its gain at -56 B was +0.0025 on 23322b0 and 769f331 and +0.0016 on cef0574"
  ]
 }
