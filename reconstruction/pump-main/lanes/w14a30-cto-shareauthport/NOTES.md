@@ -76,3 +76,21 @@ lamports and data Rc clones.
 g2+a3 at 27,400 B has 0 losses and differential 363/0. Unstripped sha256 `927c4de8ae17595d136b623c023b021e9d3c8d112a4bd1fec5ed27040dca413f`.
 Also tried on 65df90f: sharing_config and the CpiContext program written as literals. The to_account_info clone order
 (K,L,D,O,R,S,W,E) equals main. The #3260 forms a and b and the #3277 form all lose, mostly through size changes.
+
+## Part 5 (branch -5, main 06967d3, 0.64649): coordinate-descent round 3
+
+`tools/cd.sh` runs, for each sharing clone, a 729-placement scan and then `pp` on its 4 best placements. Best per clone:
+authority +1 M (K,W,E,S | L,D | R,O, or W,E,S,O | L,D | R,K), pool_authority +1 M (E | L,D | K,W,R,S,O). Global, mint,
+program literal, sharing_config and the CpiContext program are at their optimum. The event_authority literal's 720 scalar
+orders (`tools/eperm.py`) leave main's K,O,R,S,W,E as the best.
+
+| variant on 06967d3 | ratio | slots |
+| --- | ---: | ---: |
+| main | 0.64649 | 3,169 |
+| a4 authority K,W,E,S \| L,D \| R,O | 0.64679 | 3,170 |
+| a5 authority W,E,S,O \| L,D \| R,K | 0.64679 | 3,171 |
+| pa3 pool_authority E \| L,D \| K,W,R,S,O | 0.64679 | 3,170 |
+| **a4+pa3** | **0.64709** | 3,170 |
+| a5+pa3 | 0.64709 | 3,171 |
+
+a4+pa3 has 0 losses and differential 363/0. Unstripped sha256 `379daca3fa00622aeef26904ad97e1baf85b9f3122ad857920b49d9a2ac1e1ac`.
