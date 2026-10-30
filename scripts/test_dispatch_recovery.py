@@ -29,6 +29,7 @@ def fake_elf(instructions, relocations=None, funcs=None, entry=0x40, size=0x120)
     for offset, data in instructions.items():
         blob[offset:offset + len(data)] = data
     return SimpleNamespace(b=bytes(blob), lo=0x40, hi=size,
+                           text_offset=lambda address: address if 0x40 <= address < size else None,
                            relocations=relocations or {}, funcs=funcs or [])
 
 

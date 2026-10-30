@@ -10,7 +10,7 @@ from check import check_manifest
 ROOT = Path(__file__).resolve().parents[3]
 # Digest of the reviewed scripts/revalidate_all.py this entrypoint pins; refresh
 # it whenever the frozen script set moves through a reviewed asset transition.
-REVIEWED = 'd61c061eeed02998023ec5edd049e5821a995e134b28857b62f8dc35af59642f'
+REVIEWED = 'ca9f2245dcf0dffb334546bef3d0209d69ae866c1c355d9563bfe18d64a1c70a'
 
 
 def main():

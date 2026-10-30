@@ -20,15 +20,20 @@ Both genes are from earlier lanes and never landed together:
 | + w_bump_scalar | 27,400 | 0.57130 |
 | **+ ok_cb + w_bump_scalar** | **27,400** | **0.57160** |
 
-| metric | main d81d0f588 | this composite |
+| main 06e6bb829 (+ 6968c841d transfer-CPI system clone) | 27,400 | 0.57669 |
+| **+ ok_cb + w_bump_scalar** | **27,400** | **0.57729** |
+
+| metric | main 06e6bb829 | this composite |
 | --- | ---: | ---: |
 | admin_cto bytes | 27,400 | 27,400 |
-| ratio | 0.57100 | **0.57160** |
+| ratio | 0.57669 | **0.57729** |
 | slots_diff | 3,312 | 3,313 |
 | normalized / raw | 1034 / 1034 | 1034 / 1034 |
 | gains / losses | | 0 / 0 |
 | runtime differential | | 363 cases, 0 mismatches |
-| unstripped sha256 | | `82c583a1832f785df88e841526f4e4b90a0b982db7d00164f849c8e56ce7a869` |
+| unstripped sha256 | | `d6fd5e60b6421c074ff2246841745d89b2bea21f7e86d88d60ed4dcd927b4547` |
+
+(On d81d0f588 the same pair was 0.57100 -> 0.57160, sha `82c583a1832f785d...`.)
 
 Ledger: approach `stitch-composite`, keys `0x22a10-w13-stitch8-<variant>-v1`.
 
@@ -42,3 +47,7 @@ program let) 27,368 / 0.56445; `ok_hold` (w13a16 holder-in-Ok) 27,368 / 0.54976;
 
 On main d81d0f588 (0.57100): `t_cus` 27,384 / 0.57117; `e_reset` 27,392 / 0.57079; `e_hr_curve` 27,392 / 0.57049;
 `u_sof3` 27,408 / 0.55474.
+
+On the d81 composite: `ok_cb` plus `holder` in the tuple 27,360 / 0.55464; plus `collect_old` or `skip` byte-identical
+ratio 0.5716 (27,400). `w_vsig_ref` (revert of ace828359's deferred `vsigner`) 27,400 / 0.5698; `vsigner` declared
+after `bump` or after `old` = main (0.571).

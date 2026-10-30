@@ -90,6 +90,15 @@ def stage(src: Path, ws: Path):
     profile = text[ps:wsi].strip() + '\n'
     crate_text = text[:ps].rstrip() + '\n'
     crate = ws / 'programs/pump'
+    # Reused staging paths must not redirect rsync or the metadata rewrites
+    # into the source (or an earlier workspace). Check before any writes.
+    for directory in (ws, ws / 'programs', crate):
+        if directory.is_symlink():
+            raise ValueError('staging directory must not be a symlink: ' + str(directory))
+    for path in (crate / 'Cargo.toml', ws / 'Cargo.toml', ws / 'Cargo.lock'):
+        if path.is_symlink() or (path.exists() and
+                (not path.is_file() or path.stat().st_nlink != 1)):
+            raise ValueError('staging metadata must be an ordinary file with one link: ' + str(path))
     crate.mkdir(parents=True, exist_ok=True)
     # Exclude only the crate-root build directory; nested target directories can contain source.
     # Mirror inputs with rsync --checksum so unchanged files keep mtimes;
