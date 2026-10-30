@@ -73,7 +73,7 @@ def inspect(ledger, context, target, approach, evidence_root):
     if not valid_context(context): raise ValueError('requested context requires five lowercase SHA-256 fields')
     target = address(target)
     rows, errors = [], []
-    for number, line in enumerate(Path(ledger).read_text().splitlines(), 1):
+    for number, line in enumerate(Path(ledger).read_text().split('\n'), 1):
         if not line.strip(): continue
         try:
             row = parse(line)
