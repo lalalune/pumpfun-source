@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Differential-test the compiled Rust fragment against captured Pump Fees locally."""
 import argparse,hashlib,json,pathlib,random,struct,subprocess
+from pump_differential_output import PumpReport
 from solders.litesvm import LiteSVM
 from solders.keypair import Keypair
 from solders.pubkey import Pubkey
@@ -9,7 +10,7 @@ from solders.instruction import Instruction,AccountMeta
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-ap=argparse.ArgumentParser();ap.add_argument('--host',type=pathlib.Path,required=True);ap.add_argument('--output',type=pathlib.Path,required=True);args=ap.parse_args()
+ap=argparse.ArgumentParser();ap.add_argument('--host',type=pathlib.Path,required=True);ap.add_argument('--output',type=pathlib.Path,required=True);args=ap.parse_args();report_output=PumpReport(args.output,ROOT,None,__file__,extra_inputs=(args.host,ROOT/'programs/pump-fees/recovered'))
 idl=json.loads((ROOT/'evidence/upstream/pump_fees.json').read_text());prog=Pubkey.from_string(idl['address']);configprog=Pubkey.from_string('6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P');key,bump=Pubkey.find_program_address([b'fee_config',bytes(configprog)],prog)
 disc=bytes(next(a for a in idl['accounts'] if a['name']=='FeeConfig')['discriminator']);ixdisc=bytes(next(a for a in idl['instructions'] if a['name']=='get_fees')['discriminator'])
 fees=lambda x:struct.pack('<QQQ',*x)
@@ -47,4 +48,4 @@ while lo+1<hi:
 boundary.extend({'allocation':n,'result':invoke(configs[0],configs[0],100,b'',allocation=n)} for n in [lo,hi])
 negative=[{'case':'empty_normal_tiers','result':invoke([],configs[0],0,b'')},{'case':'empty_stable_tiers','result':invoke(configs[0],[],0,b'\1')},{'case':'invalid_option_bool','result':invoke(configs[0],configs[0],0,b'\2')},{'case':'non_pump_pool','result':invoke([],[],0,b'\1',pool=False)}]
 report={'scope':'Recovered selector native Rust versus captured original get_fees; not a rebuilt SBF program. Synthetic accounts only.','original_sha256':hashlib.sha256((ROOT/'evidence/original/pump_fees/deployed.so').read_bytes()).hexdigest(),'source_sha256':hashlib.sha256((ROOT/'programs/pump-fees/recovered/fee_selection.rs').read_bytes()).hexdigest(),'host_sha256':hashlib.sha256(args.host.read_bytes()).hexdigest(),'differential_cases':len(rows),'all_matched':native==expected,'allocation_boundary_probes':boundary,'negative_probes':negative,'cases':rows}
-args.output.write_text(json.dumps(report,indent=2)+'\n');print('Matched',len(rows),'cases');print(json.dumps(boundary+negative,indent=2))
+report_output.write((json.dumps(report,indent=2)+'\n').encode("utf-8"));print('Matched',len(rows),'cases');print(json.dumps(boundary+negative,indent=2))

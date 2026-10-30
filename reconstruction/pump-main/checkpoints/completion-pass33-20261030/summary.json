@@ -126,7 +126,7 @@
     "The cashback expression only reverses two pure local boolean reads; both expressions have the same value and no side effects.",
     "The event reads the boxed holder-reward field after it is assigned from holder; no intervening operation changes or reloads that field.",
     "All 24 error, require, log and event macro sites remain on the same lines. The 137 merged program input files match the freshly built source.",
-    "Nine duplicated experimental IR helpers were removed from the final PR."
+    "Nine duplicated experimental IR helpers were removed in the post-merge cleanup."
   ],
   "reference_models": {
     "exact_quote": {
@@ -174,5 +174,6 @@
     "Pump meaningful ELF is not equal."
   ],
   "build_tool_revision": "811ed06ae0c26a42e89ceecaa09cf03ca17b5b35",
-  "built_source_head": "811ed06ae0c26a42e89ceecaa09cf03ca17b5b35"
+  "built_source_head": "811ed06ae0c26a42e89ceecaa09cf03ca17b5b35",
+  "cleanup_revision": "88826793db20a64b56d8563ecb4c86580a771927"
 }

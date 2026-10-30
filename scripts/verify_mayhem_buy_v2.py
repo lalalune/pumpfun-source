@@ -4,6 +4,7 @@ if not __debug__:
     raise SystemExit("Normal Python is required; do not use -O.")
 
 from pathlib import Path
+from pump_differential_output import PumpReport
 import argparse, base64, gzip, hashlib, json, re, struct
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
@@ -18,9 +19,10 @@ data=lambda a:base64.b64decode(a['data_base64'])
 def shortvec(v):
  n=sum((b&127)<<(7*i) for i,b in enumerate(v[0]));raw=bytes(v[1:]);assert len(raw)==n;return raw
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--receipts',type=Path,required=True);ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);a=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument('--receipts',type=Path,required=True);ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);a=ap.parse_args();report_output=PumpReport(a.output,ROOT,a.candidate,__file__,extra_inputs=(a.receipts,ROOT/'evidence/original/mayhem/deployed.so'))
  raw=a.receipts.read_bytes();report=json.loads(gzip.decompress(raw) if a.receipts.suffix=='.gz' else raw);assert report['candidate_sha256']==sha(a.candidate.read_bytes())
  assert report['original_sha256']==sha((ROOT/'evidence/original/mayhem/deployed.so').read_bytes())
+ report_output.inputs.extend(ROOT/path for path in report['harness_sha256'])
  for path,digest in report['harness_sha256'].items():assert sha((ROOT/path).read_bytes())==digest
  if type(report.get('case_count')) is not int or report['case_count']<=0: raise ValueError('case_count must be a positive integer')
  assert report['case_count']==len(report['cases']) and not report['mismatches']
@@ -85,6 +87,6 @@ def main():
    assert len(selfcalls)==1 and shortvec(selfcalls[0]['data'])==bytes.fromhex('e445a52e51cb9a1d')+event
    event_checks+=1
   successes+=o['error'] is None;failures+=o['error'] is not None
- result={'scope':__doc__,'receipt_sha256':sha(a.receipts.read_bytes()),'candidate_sha256':report['candidate_sha256'],'original_sha256':report['original_sha256'],'case_count':report['case_count'],'verified_signed_transactions':2*report['case_count'],'successful_cases':successes,'rejection_cases':failures,'successful_quote_and_cpi_checks':quote_checks,'complete_event_and_state_checks':event_checks,'complete_failed_transaction_rollback_checks':rollback_checks,'mismatches':[]}
- a.output.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
+ result={'scope':__doc__,'receipt_sha256':sha(raw),'candidate_sha256':report['candidate_sha256'],'original_sha256':report['original_sha256'],'case_count':report['case_count'],'verified_signed_transactions':2*report['case_count'],'successful_cases':successes,'rejection_cases':failures,'successful_quote_and_cpi_checks':quote_checks,'complete_event_and_state_checks':event_checks,'complete_failed_transaction_rollback_checks':rollback_checks,'mismatches':[]}
+ report_output.write((json.dumps(result,indent=2)+'\n').encode("utf-8"));print(json.dumps(result,indent=2))
 if __name__=='__main__':main()
