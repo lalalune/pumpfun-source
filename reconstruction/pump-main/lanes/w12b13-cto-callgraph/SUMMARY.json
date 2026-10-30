@@ -20,6 +20,14 @@
   "4f24fbc (#2792)": {
    "ratio": 0.45177,
    "slots_diff": 3308
+  },
+  "17f9dc1 (#2808)": {
+   "ratio": 0.45267,
+   "slots_diff": 3308
+  },
+  "753b61b (#2831 merged with #2808, land build)": {
+   "ratio": 0.48742,
+   "slots_diff": 3273
   }
  },
  "best_unlanded": [
@@ -50,7 +58,9 @@
   "Hoisting the 298 check out of the target if (if holder&&new.is_some(){..}let target=if holder{*holder_key}else{..}) makes JumpThreading thread holder through the fee checks as in the original: 0.45147 -> 0.48381 at 27,368 B on b5975fa; with match fee None-first 0.48517 at 27,384 B on c2de92d.",
   "#2831 (per-arm cashback phi) produces the same validate structure; the 298 hoist on top of it is ratio-neutral (0.4865188735769922, 3,278 slots).",
   "Nesting the holder-reward checks (if hr{if !holder{289}} else if holder&&!enabled{296}) gives the original's to_string set (307/312 outlined, callee multiset equal) but shrinks admin_cto by 384 B (0.41569).",
-  "334 placement: when the 338 chain ends MachineBlockPlacement prefers bb40.i (non-holder target copy, freq .008) over the 334 block (.0039); branch weights on the 334 test alone never move it."
+  "334 placement: when the 338 chain ends MachineBlockPlacement prefers bb40.i (non-holder target copy, freq .008) over the 334 block (.0039); branch weights on the 334 test alone never move it.",
+  "BranchProbabilityInfo single-bit-mask exception: the original tests the 306 tag as (tag&1)==0 (range-less, from its entry copy of new) which BPI treats as 50/50 so the E306 block is the fallthrough; IR oracle: that test alone gives +0.0033 at 27,400 B on the #2831 IR (0.48652 -> 0.48981).",
+  "Polarity scan of all 146 conditional branches on the #2831 IR: best single flips at +0 B are the 410 require (0.49191), the 306 None test (0.48981), the holder-arm fee tag (0.48772); all are single-use icmp eq x,0 branches whose successor order InstCombine fixes."
  ],
  "rejected": [
   "wallet hybrids (do_collect only: -88 B 0.44801 tail unchanged; do_coin only: +24 B 0.44378)",
@@ -59,7 +69,11 @@
   "298 hoist spellings: nested if (same as c2), !is_none (same), tag-first && (27,008 B 0.42359)",
   "curve bools read before global_quote on c2 (-72 B, 0.46962)",
   "inverted wallet flags skip_collect/skip_coin (byte-identical to c2)",
-  "298 hoist on #2831 (neutral)"
+  "298 hoist on #2831 (neutral)",
+  "nested 289/296 on #2831 (27,016 B, 0.43167)",
+  "validate(mut new)+take() at 306 on #2831 to get the range-less and-1 tag test (27,696 B, 0.39029)",
+  "holder.unwrap_or(false) on #2831 (27,064 B, 0.42508)",
+  "match fee None-first on #2831 / main 753b61b (byte-identical)"
  ],
  "unresolved": [
   "to_string inlined at 307/312 (needs ~380 B of compensating original structure if fixed by nesting)",
@@ -68,8 +82,60 @@
   "entry region 120-128 B short (original copies new pieces, holder_key and sharing key at entry and spills curve bools before global_quote)"
  ],
  "next": [
-  "Find a source form whose post-opt IR tests the non-holder arm first in the hr==0 path (the f1 flip: original RPO) and pair it with -16 B",
-  "Source forms that make the 296 !holder_enabled test or the 306 None test multi-use (their IR flips gain +0.008 / +0.003 at +0 B on the 298-hoist IR)",
-  "Combine the nested 289/296 to_string fix with the entry-region copies (new pieces, by-value keys) that the original has"
+  "Get the 306 tag test range-less ((tag&1)==0, BPI 50/50) without the +296 B of take(): the original reads it from its entry copy of new; IR oracle says +0.0033 at 27,400 B on the #2831 IR",
+  "The 410 require!(creator_fee==0) polarity flip is worth +0.0054 at +0 B in the IR (scan #33) but InstCombine fixes single-use icmp successor order; look for an original-style form where that compare is multi-use",
+  "Original RPO tail 312/307/306 needs the hr==0 holder test to take the non-holder arm first; the IR flip alone costs ratio, so it must come with the entry-region copies (new pieces, by-value keys) the original has",
+  "to_string at 307/312: nesting the holder-reward checks fixes the inline split (callee multiset equal) but -384 B; pair it with the original's missing entry/validate structure"
+ ],
+ "status": "notes only; no landing (the 298-hoist mechanism was reached in parallel by #2831 per-arm cashback, which landed; on the new main every lever tried here is neutral or negative)",
+ "best_zero_loss_at_pinned_size": {
+  "ratio": 0.48742,
+  "slots_diff": 3273,
+  "bytes": 27400,
+  "what": "match fee None-first on main 753b61b: byte-identical to main (no gain)"
+ },
+ "best_own_mechanism": {
+  "variant": "298 hoist + match fee None-first",
+  "base": "c2de92d (before #2831)",
+  "bytes": 27384,
+  "ratio": 0.48517,
+  "note": "+0.0334 over that main but 16 B short; superseded by #2831 (same structure at 27,400 B)"
+ },
+ "tables": [
+  "TABLE-main-20a1ae9.txt",
+  "TABLE-main-753b61b.txt"
+ ],
+ "prs": [
+  {
+   "pr": 2754,
+   "what": "call-sequence tool and tables (merged)"
+  },
+  {
+   "pr": 2827,
+   "what": "notes: 298 hoist, RPO result slots, flip scans (draft)"
+  }
+ ],
+ "ledger_keys": [
+  "0x22a10-w12-20a1ae9-callgraph-wallet-docoin-only-v1",
+  "0x22a10-w12-20a1ae9-callgraph-wallet-docollect-only-v1",
+  "0x22a10-w12-20a1ae9-callgraph-334-branch-weight-oracle-v1",
+  "0x22a10-w12-b5975fa-callgraph-nest-289-296-hr-first-v1",
+  "0x22a10-w12-b5975fa-callgraph-306-is-some-unwrap-v1",
+  "0x22a10-w12-b5975fa-callgraph-298-hoisted-before-target-v1",
+  "0x22a10-w12-70f2704-callgraph-298-hoist-plus-fee-none-first-v1",
+  "0x22a10-w12-70f2704-callgraph-298-hoist-nested-if-plus-fee-none-v1",
+  "0x22a10-w12-70f2704-callgraph-298-hoist-tag-first-plus-fee-none-v1",
+  "0x22a10-w12-70f2704-callgraph-298-hoist-isnone-plus-fee-none-v1",
+  "0x22a10-w12-70f2704-callgraph-c2-plus-curve-bools-first-v1",
+  "0x22a10-w12-70f2704-callgraph-c2-wallet-flags-inverted-v1",
+  "0x22a10-w12-c2de92d-callgraph-298-hoist-plus-fee-none-first-v1",
+  "0x22a10-w12-70f2704-callgraph-306-and1-bpi-oracle-v1",
+  "0x22a10-w12-4f24fbc-callgraph-306-and1-on-2831-ir-v1",
+  "0x22a10-w12-4f24fbc-callgraph-298-hoist-on-hillclimb-d7acbb3-v1",
+  "0x22a10-w12-4f24fbc-callgraph-flip-scan-on-2831-ir-v1",
+  "0x22a10-w12-4f24fbc-callgraph-nest-289-296-on-2831-v1",
+  "0x22a10-w12-4f24fbc-callgraph-take306-on-2831-v1",
+  "0x22a10-w12-4f24fbc-callgraph-holder-unwrap-on-2831-v1",
+  "0x22a10-w12-753b61b-callgraph-fee-none-first-on-2831-v1"
  ]
 }

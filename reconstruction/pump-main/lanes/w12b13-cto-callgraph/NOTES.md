@@ -156,6 +156,24 @@ with `icmp eq (and tag,1),0` in the IR gives exactly the #13 result (0.48981 at 
 298-hoist IR 0.48381 -> 0.48711). The source route is a copy of `new` that memcpyopt cannot forward,
 e.g. `validate(.., mut new, ..)` with `new.take()` at 306 (w12a06 measured +272 B on 20a1ae9).
 
+### On main 753b61b (#2831 + #2808, 0.48742 / 3,273 slots)
+
+`TABLE-main-753b61b.txt` is the site-aware call table of the landing build of #2831
+(unstripped sha256 prefix `481ba72865f36b52`): callee-sequence ratio 0.9236, tail o46..o157
+(111 calls) identical, validate the only differing region; result-slot order
+`284 289 330 312 307 306 298 338 334 326 | 410 556 648 660 719 | 296` (original
+`284 289 298 296 330 338 334 326 | 410 ... 719 | 312 307 306`).
+
+Measured on the #2831 candidate / this main (all zero normalized losses):
+
+| change | bytes | ratio | verdict |
+| --- | ---: | ---: | --- |
+| 298 hoist | 27,400 | 0.48652 | neutral on #2831 (u32 copy order only) |
+| `match fee{None=>{},Some(f)=>..}` | 27,400 | 0.48652 / 0.48742 | byte-identical on #2831 and on 753b61b |
+| nested 289/296 (to_string fix) | 27,016 | 0.43167 | -384 B |
+| `validate(mut new)` + `new.take()` at 306 (range-less tag) | 27,696 | 0.39029 | +296 B |
+| `holder.unwrap_or(false)` | 27,064 | 0.42508 | -336 B |
+
 ## Scope
 
 These are instruction and call-layout observations for the named baseline.
