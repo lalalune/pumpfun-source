@@ -1,41 +1,77 @@
 {
-  "lane": "w13a19-cto-evcpi",
-  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
-  "angle": "hand-expanded emit_cpi! (2f268ad0a mechanism) carried to execute's AdminCtoEvent; deferred-init points, statement orders, Vec forms, emit! expansion",
-  "best": {"main": "dfc3693", "ratio": 0.59916, "slots_diff": 3216, "bytes": 27400, "main_ratio": 0.59916, "main_slots": 3312, "normalized": 1034, "raw": 1034, "losses": [], "differential": "363/363", "unstripped_sha": "47b7ee2163173163", "pr": 3100,
-           "change": "execute emit_cpi hand-expanded with authority_bump read after ix (-16 B) + sweep let rent=Rent::get()? (-16 B) + pool CPI holder from the holder local (+32 B)"},
-  "earlier_step": {"main": "6ac6f9b", "ratio_before": 0.56291, "ratio_after": 0.56531, "change": "wallet emit_cpi copies [authority_info] before the signer seeds via a match-scrutinee third argument", "status": "superseded: main d81d0f5 landed the byte-identical let event_infos=[authority_info] spelling"},
-  "unlanded_leads": [
-    {"variant": "o_ab_late + s_rent_local", "main": "dfc3693", "bytes": 27368, "ratio": 0.60042, "note": "+0.0013 at -32 B; needs a faithful +32 B partner other than the pool-holder local (which ties the ratio)"},
-    {"variant": "o_ab_late", "main": "dfc3693", "bytes": 27384, "ratio": 0.59934},
-    {"variant": "IR what-if: wallet memcpy-before-seeds", "main": "224ff93", "ratio": 0.55362, "note": "realised by wm1-wm4 and by main's event_infos"}
-  ],
-  "rejected": [
-    "deferred-init event_signers for execute's emit_cpi at execute top / before CtoState / before swept / before signer_seeds / after old_creator / before pool_updated / before the event (all <= main on 2f268ad, 1043a51, 224ff93, d81d0f5)",
-    "w13a23 block form for execute's emit_cpi (same as the deferred rows)",
-    "deferred ix / ix_data (before the event or at the top): -8..+16 B, lower ratio",
-    "deferred inner_data / authority_info / authority_bump: byte-identical",
-    "statement orders inner_first, ab_first, ab_after_inner, sg_early, disc_first: <= main",
-    "ix_data via extend_from_slice / concat: -48/-56 B, -0.048",
-    "emit_cpi block before emit!: -8 B, lower",
-    "emit! as sol_log_data(&[&Event::data(&e)]): byte-identical",
-    "execute ending with invoke_signed(..).map_err(..) as tail (-144 B) or return inside the block (-336 B)",
-    "wallet let ais=[authority_info] / &[..] / &ais[..] first in the block: -280 B (named array dropped at block end merges the Err-path Rc drops)",
-    "wallet authority_bump read after ix: -24 B, lower",
-    "event is_holder_reward from the curve (evhr): -8 B, -0.0005; with pool holder local: +24 B, -0.0008",
-    "IR: unmerging any final-emit_cpi temporary (nolt) -0.04..-0.09; moving non-leader allocas byte-identical"
-  ],
-  "residuals": [
-    "execute emit_cpi RA: the original keeps the accounts pointer in r6 up to add r6,0x138, spills &authority_info into the accounts-pointer slot [-0x8d8] and keeps the bump in r6; ours keeps a in r8, &authority_info in r6 and spills the bump (o_ab_late keeps it in r9 instead)",
-    "Ok return path: the original reloads the sret pointer (ldxdw r4,[r10-0x8f0]) inside the Rc-drop block and jumps past the common tail's reload (tail duplication); ours jumps to the shared return block",
-    "AdminCtoEvent literal: the original reads is_holder_reward from the curve (+0xa5) and keeps swept in r9 and pool_updated in r8",
-    "wallet: signer slice at orig [-0x680] (F1, w13a02) and a register rotation (orig r9/r7 vs ours r7/r8) around the CollectCreatorFeeEvent"
-  ],
-  "next_ideas": [
-    "find a faithful +32 B partner for o_ab_late + s_rent_local (0.60042 at 27368 on dfc3693) other than the pool-holder local",
-    "re-screen o_ab_late / s_rent_local on each new main; they were positive on d81d0f5, 06e6bb8 and dfc3693",
-    "evhr (event hr from the curve) frees r9 for swept as in the original; pair with a +8 B change"
-  ],
-  "tools": "$OUT/tools: gen.py (execute emit_cpi expansion variants), mv.py / lmv.py (post-opt llc alloca and line what-ifs), rec.py (ledger), plus w13a01 capvar/batch/rx/sbdiff and w13a15 framemap/regcon",
-  "ledger_keys": "0x22a10-w13-<main7>-evcpi-*"
+ "lane": "w13a19-cto-evcpi",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "angle": "hand-expanded emit_cpi! (2f268ad0a mechanism) carried to execute's AdminCtoEvent; deferred-init points, statement orders, Vec forms, emit! expansion",
+ "best": {
+  "main": "dfc3693",
+  "ratio": 0.59916,
+  "slots_diff": 3216,
+  "bytes": 27400,
+  "main_ratio": 0.59916,
+  "main_slots": 3312,
+  "normalized": 1034,
+  "raw": 1034,
+  "losses": [],
+  "differential": "363/363",
+  "unstripped_sha": "47b7ee2163173163",
+  "pr": 3100,
+  "change": "execute emit_cpi hand-expanded with authority_bump read after ix (-16 B) + sweep let rent=Rent::get()? (-16 B) + pool CPI holder from the holder local (+32 B)"
+ },
+ "earlier_step": {
+  "main": "6ac6f9b",
+  "ratio_before": 0.56291,
+  "ratio_after": 0.56531,
+  "change": "wallet emit_cpi copies [authority_info] before the signer seeds via a match-scrutinee third argument",
+  "status": "superseded: main d81d0f5 landed the byte-identical let event_infos=[authority_info] spelling"
+ },
+ "unlanded_leads": [
+  {
+   "variant": "o_ab_late + s_rent_local",
+   "main": "dfc3693",
+   "bytes": 27368,
+   "ratio": 0.60042,
+   "note": "+0.0013 at -32 B; needs a faithful +32 B partner other than the pool-holder local (which ties the ratio)"
+  },
+  {
+   "variant": "o_ab_late",
+   "main": "dfc3693",
+   "bytes": 27384,
+   "ratio": 0.59934
+  },
+  {
+   "variant": "IR what-if: wallet memcpy-before-seeds",
+   "main": "224ff93",
+   "ratio": 0.55362,
+   "note": "realised by wm1-wm4 and by main's event_infos"
+  }
+ ],
+ "rejected": [
+  "deferred-init event_signers for execute's emit_cpi at execute top / before CtoState / before swept / before signer_seeds / after old_creator / before pool_updated / before the event (all <= main on 2f268ad, 1043a51, 224ff93, d81d0f5)",
+  "w13a23 block form for execute's emit_cpi (same as the deferred rows)",
+  "deferred ix / ix_data (before the event or at the top): -8..+16 B, lower ratio",
+  "deferred inner_data / authority_info / authority_bump: byte-identical",
+  "statement orders inner_first, ab_first, ab_after_inner, sg_early, disc_first: <= main",
+  "ix_data via extend_from_slice / concat: -48/-56 B, -0.048",
+  "emit_cpi block before emit!: -8 B, lower",
+  "emit! as sol_log_data(&[&Event::data(&e)]): byte-identical",
+  "execute ending with invoke_signed(..).map_err(..) as tail (-144 B) or return inside the block (-336 B)",
+  "wallet let ais=[authority_info] / &[..] / &ais[..] first in the block: -280 B (named array dropped at block end merges the Err-path Rc drops)",
+  "wallet authority_bump read after ix: -24 B, lower",
+  "event is_holder_reward from the curve (evhr): -8 B, -0.0005; with pool holder local: +24 B, -0.0008",
+  "IR: unmerging any final-emit_cpi temporary (nolt) -0.04..-0.09; moving non-leader allocas byte-identical"
+ ],
+ "residuals": [
+  "execute emit_cpi RA: the original keeps the accounts pointer in r6 up to add r6,0x138, spills &authority_info into the accounts-pointer slot [-0x8d8] and keeps the bump in r6; ours keeps a in r8, &authority_info in r6 and spills the bump (o_ab_late keeps it in r9 instead)",
+  "Ok return path: the original reloads the sret pointer (ldxdw r4,[r10-0x8f0]) inside the Rc-drop block and jumps past the common tail's reload (tail duplication); ours jumps to the shared return block",
+  "AdminCtoEvent literal: the original reads is_holder_reward from the curve (+0xa5) and keeps swept in r9 and pool_updated in r8",
+  "wallet: signer slice at orig [-0x680] (F1, w13a02) and a register rotation (orig r9/r7 vs ours r7/r8) around the CollectCreatorFeeEvent"
+ ],
+ "next_ideas": [
+  "find a faithful +32 B partner for o_ab_late + s_rent_local (0.60042 at 27368 on dfc3693) other than the pool-holder local",
+  "re-screen o_ab_late / s_rent_local on each new main; they were positive on d81d0f5, 06e6bb8 and dfc3693",
+  "evhr (event hr from the curve) frees r9 for swept as in the original; pair with a +8 B change"
+ ],
+ "tools": "$OUT/tools: gen.py (execute emit_cpi expansion variants), mv.py / lmv.py (post-opt llc alloca and line what-ifs), rec.py (ledger), plus w13a01 capvar/batch/rx/sbdiff and w13a15 framemap/regcon",
+ "ledger_keys": "0x22a10-w13-<main7>-evcpi-*",
+ "outcome": "PR #3100 was closed at 17:42Z by another agent, without a comment, while land.py was queued behind #3028/#3095. land.py returned 'PR is CLOSED'. Main then moved to 9b9440f (admin_cto 0.62043 / 3306). The abr_ph step (a ratio tie with -96 slots on dfc3693) is not on main and must be re-screened on the new main."
 }
