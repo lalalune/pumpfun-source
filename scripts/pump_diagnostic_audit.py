@@ -4,6 +4,9 @@
 This audits paired logs already present in a differential receipt. It excludes
 source file/line coordinates, compute usage, and cases without paired logs.
 It therefore strengthens the bounded oracle, not its input-space coverage.
+Once published, a complete receipt is retained if a subsequent source check
+fails; its digest still identifies the audited bytes, and another writer may
+already have replaced the output.
 """
 import argparse
 from collections import Counter
@@ -129,6 +132,16 @@ def audit(suites):
             'log_bearing_cases': sum(coverage.values()), 'mismatches': mismatches}
 
 
+def publish_file(staged, output):
+    """Publish without replacement; return whether staging was consumed."""
+    if os.name == 'nt':
+        # Windows rename refuses an existing destination without hard links.
+        os.rename(staged, output)
+        return True
+    os.link(staged, output)
+    return False
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--report', type=Path, required=True)
@@ -159,13 +172,15 @@ def main():
             os.fsync(stream.fileno())
         if args.report.read_bytes() != raw:
             raise ValueError('source report changed during audit')
-        os.link(staged, args.output)
+        if publish_file(staged, args.output):
+            # The former pathname no longer belongs to us after rename.
+            staged = None
         published = True
         if args.report.read_bytes() != raw:
             raise ValueError('source report changed during audit')
-    except BaseException:
+    except BaseException as error:
         if published:
-            args.output.unlink(missing_ok=True)
+            error.add_note('Audit output was already published; leaving output path untouched: ' + str(args.output))
         raise
     finally:
         if staged is not None:

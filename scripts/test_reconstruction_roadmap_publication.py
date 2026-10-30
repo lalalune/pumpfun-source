@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Roadmap packets must not adopt files left in an existing output directory."""
 import contextlib
+import json
 import io
 import subprocess
 import sys
@@ -64,6 +65,44 @@ class ReconstructionRoadmapPublicationTests(unittest.TestCase):
             results.append(completed.stdout.strip())
         self.assertEqual(results[0], results[1])
         self.assertEqual(results[1], results[2])
+
+    def test_byte_estimate_uses_full_list_and_keeps_unnamed_totals_separate(self):
+        # The by-size list is capped at 100 entries for the report; the byte
+        # historical largest-N estimate must be computed before that cap.
+        # All unnamed bytes are recorded separately: unnamed != unmatched.
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "packet"
+            with contextlib.redirect_stdout(io.StringIO()):
+                generate_roadmap(output)
+            summary = json.loads((output / "summary.json").read_text(encoding="utf-8"))
+            checked = 0
+            estimate_total = unnamed_total = 0
+            inventories = []
+            for program_file in sorted(output.glob("*-details.json")):
+                details = json.loads(program_file.read_text(encoding="utf-8"))
+                name = program_file.name.replace("-details.json", "")
+                entry = summary["programs"][name]
+                unnamed = sorted((w for w in details["window_details"] if not w["name"]),
+                                 key=lambda w: -w["size"])
+                expected = sum(w["size"] for w in unnamed[:entry["unmatched_estimate"]])
+                full = sum(w["size"] for w in unnamed)
+                self.assertEqual(entry["unmatched_bytes_estimate"], expected, name)
+                inventories.append((name, entry, unnamed, details, full))
+                estimate_total += expected
+                unnamed_total += full
+                checked += entry["unmatched_estimate"] > 100
+            self.assertGreater(checked, 0)
+            for name, entry, unnamed, details, full in inventories:
+                self.assertEqual(entry["unnamed_bytes_total"], full, name)
+                self.assertEqual(entry["unnamed_windows_total"], len(unnamed), name)
+                self.assertEqual(len(details["unnamed_windows_by_size"]), min(100, len(unnamed)))
+                self.assertEqual(entry["largest_unnamed"], details["unnamed_windows_by_size"][:5])
+                self.assertNotIn("largest_unmatched", entry)
+            self.assertEqual(summary["total_unmatched_bytes_estimate"], estimate_total)
+            self.assertEqual(summary["total_unnamed_bytes"], unnamed_total)
+            readme = (output / "README.md").read_text(encoding="utf-8")
+            self.assertIn("Historical reference frontier", readme)
+            self.assertIn("not a completion deficit", readme)
 
     def test_packet_bytes_do_not_follow_the_host_line_ending(self):
         # Sibling of merged #2486/#2487 (analyze_program, deep_section_analysis):

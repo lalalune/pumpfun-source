@@ -9,6 +9,7 @@ if not __debug__:
 from pathlib import Path
 import sys,json,gzip,hashlib,argparse,base64,struct
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
+from pump_differential_output import PumpReport
 import pump_buy_v2_differential as buy
 import pump_sell_v2_differential as sell
 
@@ -38,12 +39,12 @@ def cases():
  return out,calibration
 
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);args=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);args=ap.parse_args();output=PumpReport(args.output,ROOT,args.candidate,__file__)
  fixtures,calibration=cases();rows=[]
  for module,c in fixtures:
   a=module.run(c);b=module.run(c,args.candidate);diff=[k for k in ('error','accounts','events','inner','return_data') if a[k]!=b[k]]
   if messages(a)!=messages(b):diff.append('panic_message')
   rows.append({'case':c,'original':a,'candidate':b,'different_fields':diff,'match':not diff})
  result={'scope':__doc__,'original_sha256':hashlib.sha256((ROOT/'evidence/original/pump/deployed.so').read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(args.candidate.read_bytes()).hexdigest(),'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'case_count':len(rows),'calibration':calibration,'cases':rows,'mismatches':[i for i,x in enumerate(rows) if x['different_fields']]}
- args.output.write_bytes(gzip.compress(json.dumps(result,indent=2).encode(),mtime=0));print(json.dumps({'cases':len(rows),'mismatches':result['mismatches']}));assert not result['mismatches']
+ output.write(gzip.compress(json.dumps(result,indent=2).encode(),mtime=0));print(json.dumps({'cases':len(rows),'mismatches':result['mismatches']}));assert not result['mismatches']
 if __name__=='__main__':main()

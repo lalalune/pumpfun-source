@@ -20,17 +20,19 @@ def body(*slots):
 
 def classify(original, candidate):
     """Run main() on one synthetic window and return its category."""
+    candidates = candidate if isinstance(candidate, list) else [candidate]
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
         cand = tmp / 'cand.so'; cand.write_bytes(b'ELF')
         out = tmp / 'triage.json'
-        triage.sections = lambda blob: {'.text': {'addr': 0x1000, 'offset': 0, 'size': len(candidate)}}
+        triage.sections = lambda blob: {'.text': {'addr': 0x1000, 'offset': 0, 'size': sum(map(len, candidates))}}
         triage.score = lambda p: {0x1000: {'normalized': False}}
-        triage.function_symbols = lambda blob: [(0x1000, len(candidate), '_ZN4testE')]
+        triage.function_symbols = lambda blob: [(0x1000 + i * 0x1000, len(raw), f'candidate-{i}')
+                                               for i, raw in enumerate(candidates)]
         triage.original_windows = lambda: [{'start': 0x1000, 'bytes': len(original), 'raw': original}]
         triage.sites = lambda blob, secs, start, raw: []
         triage.normalize = lambda raw, addr, secs: raw
-        triage.body = lambda blob, secs, addr, size: candidate
+        triage.body = lambda blob, secs, addr, size: candidates[(addr - 0x1000) // 0x1000]
         triage.demangle = lambda name: name
         argv = sys.argv
         sys.argv = ['triage.py', '--cand', str(cand), '--json', str(out)]
@@ -48,6 +50,31 @@ class FrameClassificationTests(unittest.TestCase):
         before = body(*[(0xb7, 6, 0, 0, 100 + i) for i in range(5)])
         after = body(*[(0xb7, 6, 0, 0, 200 + i) for i in range(5)])
         self.assertEqual(classify(before, after), 'equal-len')
+
+    def test_non_frame_changes_at_stack_instructions_are_not_frame(self):
+        original = body(*[(0x7b, 10, 1, -8 - 8 * i) for i in range(5)])
+        candidates = {
+            'source register': [(0x7b, 10, 2, -8 - 8 * i) for i in range(5)],
+            'opcode': [(0x63, 10, 1, -8 - 8 * i) for i in range(5)],
+            'base register': [(0x7b, 6, 1, -8 - 8 * i) for i in range(5)],
+        }
+        for label, instructions in candidates.items():
+            with self.subTest(change=label):
+                self.assertEqual(classify(original, body(*instructions)), 'equal-len')
+        original = body(*[(0x7a, 10, 0, -8 - 8 * i, 1) for i in range(5)])
+        changed = body(*[(0x7a, 10, 0, -8 - 8 * i, 2) for i in range(5)])
+        self.assertEqual(classify(original, changed), 'equal-len')
+
+    def test_classification_uses_best_candidate_not_last_scanned(self):
+        original = body(*[(0x7b, 10, 1, -8 - 8 * i) for i in range(6)])
+        five_frame_changes = body(*[(0x7b, 10, 1, -16 - 8 * i) if i < 5 else (0x7b, 10, 1, -8 - 8 * i)
+                                    for i in range(6)])
+        six_nonframe_changes = body(*[(0x7b, 10, 2, -8 - 8 * i) for i in range(6)])
+        self.assertEqual(classify(original, [five_frame_changes, six_nonframe_changes]), 'frame')
+        five_nonframe_changes = body(*[(0x7b, 10, 2, -8 - 8 * i) if i < 5 else (0x7b, 10, 1, -8 - 8 * i)
+                                       for i in range(6)])
+        six_frame_changes = body(*[(0x7b, 10, 1, -16 - 8 * i) for i in range(6)])
+        self.assertEqual(classify(original, [five_nonframe_changes, six_frame_changes]), 'equal-len')
 
     def test_stack_slot_is_frame(self):
         before = body(*[(0x7b, 10, 1, -8 - 8 * i) for i in range(5)])

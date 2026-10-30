@@ -1,6 +1,7 @@
 # Token-program constant detector
 
-`scripts/bytecode_signatures.py::detect_token_transfer_patterns` looks for an
+At the reviewed historical revision,
+`scripts/bytecode_signatures.py::detect_token_transfer_patterns` looked for an
 `lddw` immediate equal to 3, 7 or 12 and labels it `spl_token_instruction`.
 Those values are SPL Token instruction-data bytes, not code immediates. The
 detector returns zero rows for all four originals.
@@ -46,3 +47,20 @@ The script binding was re-reviewed for `bytecode_signatures.py` `e4e4e541…`
 (after #1311, #1573, #1772, #1806, #1831, #2205, #2319, #2458 and the
 byte-stable packet commit d4370827). Regenerated observations differ from the
 previous seal only in `script_sha256`; every row and total above is unchanged.
+
+## Helper pinning
+
+The reviewed helper is pinned inside the packet at
+`archived/bytecode_signatures.py` (sha256 `e4e4e541…`, the exact revision the
+observations were sealed against). The live `scripts/bytecode_signatures.py`
+evolved after sealing, which made the packet's `inputs.json` binding fail
+against current main; the packet now verifies the archived revision it actually
+measured, and the `'script'` label in the observations keeps recording the
+historical path.
+
+The packet also retains the 40-line ELF reader used by that revision at
+`archived/window_elf_reader.py` (SHA-256 `5a57f329...`). Both source snapshots
+are checked before execution; the detector and the comparison use that same
+reader. `check(root)` loads the snapshots from the supplied root, and the
+historical source label does not mean the live script is executed. Sealed
+observations and coverage totals have not been regenerated.

@@ -52,6 +52,7 @@ jobs:
               python -I -B tests/test_fastbuild_stage.py
               python -B reconstruction/harness/test_fastbuild_output_race.py
               python -B reconstruction/harness/test_fastbuild_library_name.py
+              python -B reconstruction/harness/test_physical_source_wrapper.py
           - suite: admin-cto-call-report
             commands: |
               python -B reconstruction/pump-main/lanes/w12b13-cto-callgraph/test_callseq.py
@@ -103,6 +104,7 @@ jobs:
               python -B tests/test_pump_v3_token_extensions_pinned_image.py
               python -B tests/test_create_mayhem_candidate_pair.py
               python -B tests/test_mayhem_trade_normal_python.py
+              python -B tests/test_pump_set_mayhem_params_synthetic_cpi_pinned_image.py
               python -B tests/test_fees_donation_create_pinned_image.py
               python -B tests/test_fees_social_claim_pinned_image.py
               python -B tests/test_fees_donation_crank_pinned_image.py
@@ -113,6 +115,10 @@ jobs:
               python -B tests/test_build_normal_python.py
               python -B tests/test_pump_probes_normal_python.py
               python -B tests/test_mismatch_normal_python.py
+              python -B tests/test_build_partial_normal_python.py
+              python -B tests/test_checkpoint_verifiers_normal_python.py
+              python -B tests/test_pump_output_parents.py
+              python -B tests/test_remaining_output_parents.py
               python -B tests/test_create_mayhem_normal_python.py
               python -B tests/test_two_curve_optimization_guard.py
               python -O -B tests/test_two_curve_optimization_guard.py
@@ -135,6 +141,7 @@ jobs:
               python -B tests/test_verify_dependencies_optimization.py
               python -B tests/test_recovered_builds_optimization.py
               python -B scripts/test_mayhem_burn_sequence_optimization.py
+              python -B scripts/test_mayhem_zero_creator_case.py
               python -B scripts/test_qualification_archive_determinism.py
               python -B scripts/test_rebuild_workflow_action_pins.py
               python -B scripts/test_macos_v144_qualification_optimization.py
@@ -179,6 +186,9 @@ jobs:
               python -B reconstruction/mayhem/native-linux-qualification/test_vendor_membership.py
               python -B scripts/test_analyze_program_publication.py
               python -B scripts/test_reconstruction_roadmap_publication.py
+              python -B reconstruction/diagnostics/roadmap-reviewed-regeneration/test_generate.py
+              python -B reconstruction/diagnostics/roadmap-stable-attribution/test_generate.py
+              python -B reconstruction/diagnostics/defined-dynamic-calls/test_generate.py
               python -B scripts/test_bytecode_signatures_publication.py
               python -B scripts/test_bytecode_signatures_atomic_publication.py
               python -B scripts/test_revalidate_all_publication.py
@@ -227,6 +237,7 @@ jobs:
               python -B reconstruction/harness/test_score_atomic_report.py
               python -B reconstruction/harness/test_coords_report_destination.py
               python -B reconstruction/harness/test_short_window_ranking.py
+              python -B -m unittest discover -s reconstruction/harness -p 'test_triage*.py'
               python -B reconstruction/harness/test_applicability_evidence_paths.py
               python -B reconstruction/harness/test_diagnostic_range_boundaries.py
               python -B reconstruction/harness/test_stack_access_isa.py

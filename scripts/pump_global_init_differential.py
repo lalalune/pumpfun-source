@@ -4,6 +4,7 @@ if not __debug__:
     raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse,base64,json,hashlib
 from pathlib import Path
+from pump_differential_output import PumpReport
 from solders.account import Account
 from solders.instruction import AccountMeta,Instruction
 from solders.keypair import Keypair
@@ -44,10 +45,10 @@ def cases():
  for k in ['wrong_global','wrong_system','unsigned']:r.append({'name':f'combined_{k}',k:True,'existing':{'length':1088,'program_owner':True,'disc':True,'initialized':True}})
  return r
 if __name__=='__main__':
- ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path);ap.add_argument('--output',type=Path,required=True);a=ap.parse_args();rows=[]
+ ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path);ap.add_argument('--output',type=Path,required=True);a=ap.parse_args();output=PumpReport(a.output,R,a.candidate,__file__);rows=[]
  for c in cases():
   o=run(c);r={'case':c,'original':o}
   if a.candidate:
    b=run(c,a.candidate);diff=[k for k in ['error','accounts','events','inner','return_data'] if o[k]!=b[k]];r.update(candidate=b,different_fields=diff,match=not diff)
   rows.append(r)
- d={'scope':'Offline Pump initialize only, ordinary verified test-owned signatures. Full binary identity false.','case_count':len(rows),'original_sha256':hashlib.sha256(pin_program(ORIGINAL).read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'harness_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'cases':rows,'mismatches':[i for i,r in enumerate(rows) if r.get('match') is False]};a.output.write_text(json.dumps(d,indent=2)+'\n');print([(r['case']['name'],r['original']['error'],r.get('different_fields')) for r in rows]);assert not d['mismatches']
+ d={'scope':'Offline Pump initialize only, ordinary verified test-owned signatures. Full binary identity false.','case_count':len(rows),'original_sha256':hashlib.sha256(pin_program(ORIGINAL).read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'harness_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'cases':rows,'mismatches':[i for i,r in enumerate(rows) if r.get('match') is False]};output.write((json.dumps(d,indent=2)+'\n').encode("utf-8"));print([(r['case']['name'],r['original']['error'],r.get('different_fields')) for r in rows]);assert not d['mismatches']

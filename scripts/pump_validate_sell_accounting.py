@@ -3,8 +3,9 @@
 if not __debug__:
     raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse, hashlib, json, struct, subprocess
+from pump_differential_output import PumpReport
 import pump_trade_fixture as f
-p=argparse.ArgumentParser();p.add_argument('--host',type=f.pathlib.Path,required=True);p.add_argument('--output',type=f.pathlib.Path,required=True);p.add_argument('--curve-report',type=f.pathlib.Path,default=f.R/'repro/pump/constant-product-differential.json',help='Report produced by pump_validate_constant_product.py');a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--host',type=f.pathlib.Path,required=True);p.add_argument('--output',type=f.pathlib.Path,required=True);p.add_argument('--curve-report',type=f.pathlib.Path,default=f.R/'repro/pump/constant-product-differential.json',help='Report produced by pump_validate_constant_product.py');a=p.parse_args();report_output=PumpReport(a.output,f.R,None,__file__,extra_inputs=(a.host,a.curve_report,f.R/'programs/pump/recovered'))
 idl=json.loads((f.R/'evidence/upstream/pump.json').read_text(encoding='utf-8'));types={x['name']:x['type'] for x in idl['types']}
 event_disc=bytes(next(x['discriminator'] for x in idl['events'] if x['name']=='TradeEvent'))
 def decode_event(data):
@@ -96,4 +97,4 @@ for row,out in zip(rows,outputs):
 failures=[i for i,row in enumerate(rows) if not row['match']]
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 report={'scope':'Partial native SOL sell accounting versus original SBF. Protocol/creator rates are inputs observed from original events or explicitly injected fee schedules; this is not an independent reconstruction of fee selection. Captured external dependency fixture. No complete trade handler, byte identity, token-quote/reward/extension coverage claimed.','source_sha256':sha(f.R/'programs/pump/recovered/sell_accounting.rs'),'host_sha256':sha(a.host),'fixture_report_sha256':hashlib.sha256(curve_report_bytes).hexdigest(),'case_count':len(rows),'mismatches':failures,'cases':rows}
-a.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'case_count':len(rows),'mismatches':failures}));assert not failures
+report_output.write((json.dumps(report,indent=2)+'\n').encode("utf-8"));print(json.dumps({'case_count':len(rows),'mismatches':failures}));assert not failures

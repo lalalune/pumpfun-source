@@ -48,6 +48,18 @@ def frame_slot(raw, i):
     return op in FRAME_WRITES and regs & 0xf == 10
 
 
+def frame_difference(original, candidate, offset):
+    """Require matching frame operations, not merely a frame-using original."""
+    if original[offset:offset + 2] != candidate[offset:offset + 2]:
+        return False
+    if not (frame_slot(original, offset) and frame_slot(candidate, offset)):
+        return False
+    if original[offset] in FRAME_LOADS | FRAME_STORES:
+        # A stack displacement may move; a stored immediate value may not.
+        return original[offset + 4:offset + 8] == candidate[offset + 4:offset + 8]
+    return True
+
+
 def write_report(path, rows):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -93,7 +105,7 @@ def main():
             noncoord = non_coordinate_slots(on, cn, osites)
             key = (len(noncoord), len(diff))
             if best is None or key < best[0]:
-                best = (key, s, nm, diff, noncoord)
+                best = (key, s, nm, diff, noncoord, cn)
         if best is None:
             cat = 'body'
         else:
@@ -103,7 +115,7 @@ def main():
             elif len(nc) <= 3:
                 cat = 'near<=3'
             else:
-                cat = 'frame' if all(frame_slot(on, d) for d in nc) else 'equal-len'
+                cat = 'frame' if all(frame_difference(on, best[5], d) for d in nc) else 'equal-len'
         rows.append({'start': hex(w['start']), 'bytes': w['bytes'], 'category': cat, 'has_source_sites': bool(osites),
                      'original_sites': [{'path': s['path'], 'line': s['line']} for s in osites],
                      'nearest': None if best is None else {'addr': hex(best[1]), 'symbol': demangle(best[2]), 'diff_slots': len(best[3]), 'noncoord_slots': len(best[4])}})
