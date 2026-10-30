@@ -251,10 +251,10 @@ pub fn execute<'info>(ctx:Context<'_, '_, '_, 'info,DistributeCreatorFees<'info>
  let (transfers,minimum_distributable,minimum_vault_balance,available)=get_distribution_amounts(&rent,&sharing_config.shareholders,ctx.remaining_accounts,&ctx.accounts.creator_vault)?;
  if available<minimum_distributable{
   msg!("Insufficient fees for distribution. Minimum vault balance needed: {} lamports. Use get_minimum_distributable_fee instruction to check the minimum distributable amount.",minimum_vault_balance);
-  return Ok(DistributeCreatorFeesEvent{timestamp:Clock::get()?.unix_timestamp,mint:ctx.accounts.mint.key(),bonding_curve:ctx.accounts.bonding_curve.key(),sharing_config:sharing_config.key(),admin:sharing_config.admin,shareholders:sharing_config.shareholders.clone(),distributed:0,quote_mint:Pubkey::default()});
+  return Ok(DistributeCreatorFeesEvent{timestamp:Clock::get()?.unix_timestamp,mint:ctx.accounts.mint.key(),bonding_curve:ctx.accounts.bonding_curve.key(),sharing_config:sharing_config.key(),admin:sharing_config.admin,shareholders:sharing_config.shareholders.to_vec(),distributed:0,quote_mint:Pubkey::default()});
  }
  let distributed=distribute_native(sharing_config,&ctx.accounts.creator_vault.to_account_info(),&ctx.accounts.system_program,ctx.remaining_accounts,&transfers,ctx.bumps.creator_vault)?;
- let event=DistributeCreatorFeesEvent{timestamp:Clock::get()?.unix_timestamp,mint:ctx.accounts.mint.key(),bonding_curve:ctx.accounts.bonding_curve.key(),sharing_config:sharing_config.key(),admin:sharing_config.admin,shareholders:sharing_config.shareholders.clone(),distributed,quote_mint:Pubkey::default()};
+ let event=DistributeCreatorFeesEvent{timestamp:Clock::get()?.unix_timestamp,mint:ctx.accounts.mint.key(),bonding_curve:ctx.accounts.bonding_curve.key(),sharing_config:sharing_config.key(),admin:sharing_config.admin,shareholders:sharing_config.shareholders.to_vec(),distributed,quote_mint:Pubkey::default()};
  emit!(event);
  emit_cpi!(event);
  Ok(event)

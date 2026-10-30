@@ -35,7 +35,7 @@ def address(value):
     if isinstance(value, int): result = value
     elif isinstance(value, str):
         if not value or value != value.strip(): raise ValueError('blank or padded target')
-        try: result = int(value, 0)
+        try: result = int(value, 10 if re.fullmatch(r'[+-]?[0-9]+', value) else 0)
         except ValueError: return value  # ledger also supports named scopes such as all
     else: raise ValueError('invalid target')
     if result < 0: raise ValueError('negative target')

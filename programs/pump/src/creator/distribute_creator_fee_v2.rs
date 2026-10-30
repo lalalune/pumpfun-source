@@ -217,10 +217,10 @@ pub fn execute_v2<'info>(ctx:Context<'_, '_, '_, 'info,DistributeCreatorFeesV2<'
   let (transfers,minimum_distributable,minimum_vault_balance,available)=get_distribution_amounts(&rent,&a.sharing_config.shareholders,ctx.remaining_accounts,&a.creator_vault)?;
   if available<minimum_distributable{
    msg!("Insufficient fees for distribution. Minimum vault balance needed: {} lamports. Use get_minimum_distributable_fee instruction to check the minimum distributable amount.",minimum_vault_balance);
-   return Ok(DistributeCreatorFeesEvent{timestamp:Clock::get()?.unix_timestamp,mint:a.mint.key(),bonding_curve:a.bonding_curve.key(),sharing_config:a.sharing_config.key(),admin:a.sharing_config.admin,shareholders:a.sharing_config.shareholders.clone(),distributed:0,quote_mint:Pubkey::default()});
+   return Ok(DistributeCreatorFeesEvent{timestamp:Clock::get()?.unix_timestamp,mint:a.mint.key(),bonding_curve:a.bonding_curve.key(),sharing_config:a.sharing_config.key(),admin:a.sharing_config.admin,shareholders:a.sharing_config.shareholders.to_vec(),distributed:0,quote_mint:Pubkey::default()});
   }
   let distributed=super::distribute_native(&a.sharing_config,&a.creator_vault.to_account_info(),&a.system_program,ctx.remaining_accounts,&transfers,ctx.bumps.creator_vault)?;
-  let event=DistributeCreatorFeesEvent{timestamp:Clock::get()?.unix_timestamp,mint:a.mint.key(),bonding_curve:a.bonding_curve.key(),sharing_config:a.sharing_config.key(),admin:a.sharing_config.admin,shareholders:a.sharing_config.shareholders.clone(),distributed:distributed,quote_mint:Pubkey::default()};
+  let event=DistributeCreatorFeesEvent{timestamp:Clock::get()?.unix_timestamp,mint:a.mint.key(),bonding_curve:a.bonding_curve.key(),sharing_config:a.sharing_config.key(),admin:a.sharing_config.admin,shareholders:a.sharing_config.shareholders.to_vec(),distributed:distributed,quote_mint:Pubkey::default()};
   emit!(event);
   emit_cpi!(event);
   return Ok(event);
@@ -229,7 +229,7 @@ pub fn execute_v2<'info>(ctx:Context<'_, '_, '_, 'info,DistributeCreatorFeesV2<'
  let source=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut data.as_ref())?;drop(data);
  let (transfers,_source_amount)=get_token_distribution_amounts(&a.sharing_config.shareholders,ctx.remaining_accounts,&source,&a.quote_mint,initialize_ata)?;
  let distributed=distribute_tokens(&a.sharing_config,&a.creator_vault.to_account_info(),&a.creator_vault_quote_token_account.to_account_info(),&a.system_program,ctx.remaining_accounts,&transfers,ctx.bumps.creator_vault,&a.payer,a.quote_mint.decimals,&a.quote_mint,&a.quote_token_program,&a.associated_token_program)?;
- let event=DistributeCreatorFeesEvent{timestamp:Clock::get()?.unix_timestamp,mint:a.mint.key(),bonding_curve:a.bonding_curve.key(),sharing_config:a.sharing_config.key(),admin:a.sharing_config.admin,shareholders:a.sharing_config.shareholders.clone(),distributed:distributed,quote_mint:a.quote_mint.key()};
+ let event=DistributeCreatorFeesEvent{timestamp:Clock::get()?.unix_timestamp,mint:a.mint.key(),bonding_curve:a.bonding_curve.key(),sharing_config:a.sharing_config.key(),admin:a.sharing_config.admin,shareholders:a.sharing_config.shareholders.to_vec(),distributed:distributed,quote_mint:a.quote_mint.key()};
  emit!(event);
  emit_cpi!(event);
  Ok(event)

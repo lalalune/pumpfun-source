@@ -64,6 +64,6 @@ def main():
   x=o.run(c);y=b.run(c) if b else None;match=all(x[k]==y[k] for k in ['error','data_hex','lamports','owner','balance_deltas','events','inner_instructions']) if b else None
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:failures.append(c['name'])
- sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();report={'scope':'Three fee configuration setters: synthetic authorized state; state/errors/lamports/events/inner instructions. No complete source identity or security finding.','original_sha256':sha(ROOT/'evidence/original/pump_fees/deployed.so'),'candidate_sha256':sha(a.candidate) if a.candidate else None,'case_count':len(rows),'mismatches':failures,'cases':rows}
+ report={'scope':'Three fee configuration setters: synthetic authorized state; state/errors/lamports/events/inner instructions. No complete source identity or security finding.','original_sha256':o.program_sha256,'candidate_sha256':b.program_sha256 if b else None,'case_count':len(rows),'mismatches':failures,'cases':rows}
  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatches':failures[:30]}));assert not failures
 if __name__=='__main__':main()

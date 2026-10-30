@@ -669,7 +669,8 @@ def main():
     parser.add_argument("--text-section-order", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    assert not args.output.exists(), "use a new certificate output"
+    if args.output.exists():
+        parser.error("use a new certificate output")
     cert = {
         "schema": 1,
         "payload": derive_payload(args.baseline_build, args.text_section_order),

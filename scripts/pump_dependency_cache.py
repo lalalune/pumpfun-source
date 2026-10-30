@@ -9,6 +9,12 @@ import ctypes, hashlib, json, os, re, shutil, subprocess, sys, tempfile, tarfile
 from pathlib import Path
 
 
+def check(condition, message):
+    """Fail closed under optimized Python, where assert statements vanish."""
+    if not condition:
+        raise AssertionError(message)
+
+
 def sha(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
@@ -43,8 +49,8 @@ def clone_file(source, dest):
             method = "apfs-clonefile"
     if not dest.exists():
         shutil.copy2(source, dest)
-    assert not os.path.samefile(source, dest), "cache entries must never be hardlinked"
-    assert sha(source) == sha(dest)
+    check(not os.path.samefile(source, dest), "cache entries must never be hardlinked")
+    check(sha(source) == sha(dest), "cache verification failed: sha(source) == sha(dest)")
     return method
 
 
@@ -55,7 +61,7 @@ class DependencyCache:
     ):
         self.sdk = sdk
         self.target = (target_library_profile or {}).get("target", "sbf-solana-solana")
-        assert self.target in ["sbf-solana-solana", "sbpf-solana-solana"]
+        check(self.target in ["sbf-solana-solana", "sbpf-solana-solana"], "cache verification failed: self.target in ['sbf-solana-solana', 'sbpf-solana-solana']")
         self.target_flags_key = "CARGO_TARGET_" + self.target.upper().replace("-", "_") + "_RUSTFLAGS"
         self.direct = direct
         self.root = Path(cache_root).resolve()
@@ -81,13 +87,13 @@ class DependencyCache:
         self.package_id = metadata["resolve"]["root"]
         packages = metadata["packages"]
         main = next(p for p in packages if p["id"] == self.package_id)
-        assert not any("custom-build" in p["kind"] for p in main["targets"]), (
+        check(not any("custom-build" in p["kind"] for p in main["targets"]), (
             "main build.rs is not cache supported"
-        )
+        ))
         external = [p for p in packages if p["id"] != self.package_id]
-        assert all((p.get("source") or "").startswith("registry+") for p in external), (
+        check(all((p.get("source") or "").startswith("registry+") for p in external), (
             "local dependency caching is unsupported"
-        )
+        ))
         self.packages = {p["name"] for p in external}
         self.crates = {
             t["name"]
@@ -254,13 +260,13 @@ class DependencyCache:
         if not self.entry.exists():
             return
         manifest = json.loads((self.entry / "MANIFEST.json").read_text())
-        assert manifest["context"] == self.context and manifest["key"] == self.key
+        check(manifest["context"] == self.context and manifest["key"] == self.key, "cache verification failed: manifest['context'] == self.context and manifest['key'] == self.key")
         methods = set()
         for rel, h in manifest["files"].items():
-            assert self.allowed(rel), rel
+            check(self.allowed(rel), rel)
             source = self.entry / "files" / rel
-            assert source.is_file() and not source.is_symlink()
-            assert sha(source) == h, rel
+            check(source.is_file() and not source.is_symlink(), "cache verification failed: source.is_file() and not source.is_symlink()")
+            check(sha(source) == h, rel)
             methods.add(clone_file(source, target / rel))
         self.record.update(
             status="hit",
@@ -270,19 +276,19 @@ class DependencyCache:
         )
 
     def finish(self, target, log, build_report):
-        assert self.sources == {p: tree(Path(p)) for p in self.sources}, (
+        check(self.sources == {p: tree(Path(p)) for p in self.sources}, (
             "external dependency source changed during build"
-        )
-        assert all(
+        ))
+        check(all(
             sha(self.workspace / p) == h
             for p, h in self.context["manifests"].items()
-        ), "Cargo manifests changed during build"
-        assert all(sha(self.sdk / p) == h for p, h in self.tools.items()), (
+        ), "Cargo manifests changed during build")
+        check(all(sha(self.sdk / p) == h for p, h in self.tools.items()), (
             "SDK changed during build"
-        )
-        assert all(sha(p) == h for p, h in self.configs.items()), (
+        ))
+        check(all(sha(p) == h for p, h in self.configs.items()), (
             "Cargo configuration changed during build"
-        )
+        ))
         artifacts = []
         for line in log.read_text().splitlines():
             try:
@@ -292,12 +298,12 @@ class DependencyCache:
             if r.get("reason") == "compiler-artifact":
                 artifacts.append(r)
         if self.direct and self.record.get("main_command"):
-            assert self.record.get("main_freshly_compiled")
+            check(self.record.get("main_freshly_compiled"), "cache verification failed: self.record.get('main_freshly_compiled')")
         else:
             main = [r for r in artifacts if r["package_id"] == self.package_id]
-            assert main and all(not r["fresh"] for r in main), (
+            check(main and all(not r["fresh"] for r in main), (
                 "main crate was not freshly compiled"
-            )
+            ))
             self.record.update(
                 main_freshly_compiled=True,
                 external_fresh=sum(
@@ -332,7 +338,7 @@ class DependencyCache:
                     continue
                 methods.add(clone_file(p, temp / "files" / rel))
                 files[rel] = sha(p)
-            assert files
+            check(files, "cache verification failed: files")
             snapshot = json.loads(build_report.read_text())
             record = {
                 "key": self.key,
@@ -350,14 +356,14 @@ class DependencyCache:
                 if not self.entry.is_dir():
                     raise
                 winner = json.loads((self.entry / "MANIFEST.json").read_text())
-                assert winner["key"] == self.key and winner["context"] == self.context
-                assert winner["files"] == files, (
+                check(winner["key"] == self.key and winner["context"] == self.context, "cache verification failed: winner['key'] == self.key and winner['context'] == self.context")
+                check(winner["files"] == files, (
                     "conflicting dependency-cache publication"
-                )
-                assert all(
+                ))
+                check(all(
                     sha(self.entry / "files" / rel) == value
                     for rel, value in files.items()
-                )
+                ), "cache verification failed: all(")
                 shutil.rmtree(temp)
             self.record.update(
                 published_files=len(files),
@@ -371,21 +377,21 @@ class DependencyCache:
     def import_clean_build(self, build):
         report = build / "build-comparison.json"
         r = json.loads(report.read_text())
-        assert r["returncode"] == 0 and r["source_unchanged"]
-        assert r.get("target_library_profile", {}).get("cache_context") == self.context.get("target_library_profile"), (
+        check(r["returncode"] == 0 and r["source_unchanged"], "cache verification failed: r['returncode'] == 0 and r['source_unchanged']")
+        check(r.get("target_library_profile", {}).get("cache_context") == self.context.get("target_library_profile"), (
             "seed target-library profile differs"
-        )
-        assert all(sha(self.repo / k) == v for k, v in r["source_sha256"].items())
-        assert sha(build / "candidate.so") == r["comparison"]["candidate_sha256"]
-        assert sha(build / "unstripped.so") == r["unstripped_sha256"]
+        ))
+        check(all(sha(self.repo / k) == v for k, v in r["source_sha256"].items()), "cache verification failed: all(sha(self.repo / k) == v for k, v in r['source_sha256'].items())")
+        check(sha(build / "candidate.so") == r["comparison"]["candidate_sha256"], "cache verification failed: sha(build / 'candidate.so') == r['comparison']['candidate_sha256']")
+        check(sha(build / "unstripped.so") == r["unstripped_sha256"], "cache verification failed: sha(build / 'unstripped.so') == r['unstripped_sha256']")
         tools = r.get("tool_sha256", {})
-        assert tools.get("rustc", r.get("rustc_sha256")) == self.tools["rust/bin/rustc"]
-        assert tools.get("cargo", r.get("cargo_sha256")) == self.tools["rust/bin/cargo"]
-        assert r["source_wrapper_sha256"] == self.context["wrapper_sha256"]
-        assert (
+        check(tools.get("rustc", r.get("rustc_sha256")) == self.tools["rust/bin/rustc"], "cache verification failed: tools.get('rustc', r.get('rustc_sha256')) == self.tools['rust/bin/rust")
+        check(tools.get("cargo", r.get("cargo_sha256")) == self.tools["rust/bin/cargo"], "cache verification failed: tools.get('cargo', r.get('cargo_sha256')) == self.tools['rust/bin/carg")
+        check(r["source_wrapper_sha256"] == self.context["wrapper_sha256"], "cache verification failed: r['source_wrapper_sha256'] == self.context['wrapper_sha256']")
+        check((
             Path(r["environment"]["CARGO_HOME"]).resolve()
             == Path(self.env["CARGO_HOME"]).resolve()
-        ), "seed Cargo registry path differs"
+        ), "seed Cargo registry path differs")
         command = r["command"]
         source = Path(command[command.index("--manifest-path") + 1]).parent
 
@@ -404,17 +410,17 @@ class DependencyCache:
             lock = workspace / "Cargo.lock"
             return package, w.get("profile", {}), sha(lock)
 
-        assert package_and_profile(source) == package_and_profile(self.crate), (
+        check(package_and_profile(source) == package_and_profile(self.crate), (
             "seed dependency/profile context differs"
-        )
+        ))
         for name in [
             self.target_flags_key,
             "RUSTFLAGS",
             "CARGO_ENCODED_RUSTFLAGS",
         ]:
-            assert r["environment"].get(name) == self.env.get(name), (
+            check(r["environment"].get(name) == self.env.get(name), (
                 "seed compiler flags differ"
-            )
+            ))
         # Independently bind every current external source file to its official locked
         # registry archive before accepting artifacts from this older clean build.
         lock = tomllib.loads(
@@ -435,7 +441,7 @@ class DependencyCache:
                     "*/" + name + "-" + version + ".crate"
                 )
             )
-            assert sha(archive) == checks[(name, version)]
+            check(sha(archive) == checks[(name, version)], "cache verification failed: sha(archive) == checks[(name, version)]")
             archived = set()
             with tarfile.open(archive, "r:gz") as t:
                 for member in t:
@@ -444,10 +450,10 @@ class DependencyCache:
                     relative = Path(member.name).relative_to(name + "-" + version)
                     archived.add(relative.as_posix())
                     file = directory / relative
-                    assert (
+                    check((
                         file.is_file()
                         and t.extractfile(member).read() == file.read_bytes()
-                    ), str(file)
+                    ), str(file))
                     files += 1
             # The archive check above only proves archived files are present; Cargo also
             # compiles files that are not in it (an added build.rs runs at build time).
@@ -510,30 +516,30 @@ class DependencyCache:
             and x["compile_mode"] == "build"
             and "cdylib" in x["target_kind"]
         ]
-        assert len(options) == 1
+        check(len(options) == 1, "cache verification failed: len(options) == 1")
         main = options[0]
         args = main["args"]
         program = main["program"]
         cwd = Path(main["cwd"]).resolve()
         cwd.relative_to(self.repo)
-        assert "OUT_DIR" not in main["env"], "main build script outputs are unsupported"
-        assert Path(program).resolve() in [
+        check("OUT_DIR" not in main["env"], "main build script outputs are unsupported")
+        check(Path(program).resolve() in [
             Path(self.env["RUSTC"]).resolve(),
             Path(self.env["RUSTC_WRAPPER"]).resolve(),
-        ]
+        ], "cache verification failed: Path(program).resolve() in [")
         for i, arg in enumerate(args):
             if arg == "-L":
-                assert args[i + 1].startswith("dependency=" + str(target)), (
+                check(args[i + 1].startswith("dependency=" + str(target)), (
                     "native/outside search path is unsupported"
-                )
+                ))
             if arg == "--extern":
                 path = Path(args[i + 1].split("=", 1)[1])
                 path.relative_to(target)
-                assert path.is_file(), path
+                check(path.is_file(), path)
         for output in main["outputs"]:
             path = Path(output)
             path.relative_to(target)
-            assert not path.exists(), "main artifact already existed before compiler"
+            check(not path.exists(), "main artifact already existed before compiler")
             path.parent.mkdir(parents=True, exist_ok=True)
         env = self.env.copy()
         env.update(main["env"])

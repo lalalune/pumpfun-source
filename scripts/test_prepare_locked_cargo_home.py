@@ -1,15 +1,145 @@
 """Exercise cache preparation against an isolated Cargo home without network access."""
 import hashlib
+import io
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
+import tarfile
 import tempfile
 import unittest
 
 
 class CargoHomeTests(unittest.TestCase):
+    @staticmethod
+    def sparse_cache(*records):
+        return b'\x03\x02\x00\x00\x00offline-fixture\x00' + b''.join(
+            record['vers'].encode() + b'\0' + json.dumps(record, separators=(',', ':')).encode() + b'\0'
+            for record in records
+        )
+
+    def test_stale_preferred_index_uses_checksum_matching_record(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            home = root / 'cargo-home'
+            stale_namespace = 'index.crates.io-1949cf8c6b5b557f'
+            valid_namespace = 'index.crates.io-6f17d22bba15001f'
+            archive_bytes = b'checksum-matched archive'
+            digest = hashlib.sha256(archive_bytes).hexdigest()
+            relative = Path('ca/ch/cache-probe')
+            for namespace in (stale_namespace, valid_namespace):
+                archive = home / 'registry/cache' / namespace / 'cache-probe-1.0.0.crate'
+                archive.parent.mkdir(parents=True)
+                archive.write_bytes(archive_bytes)
+            stale_index = self.sparse_cache(
+                {'name': 'cache-probe', 'vers': '1.0.0', 'cksum': '0' * 64})
+            valid_index = self.sparse_cache(
+                {'name': 'cache-probe', 'vers': '1.0.0', 'cksum': digest})
+            for namespace, index_bytes in ((stale_namespace, stale_index),
+                                           (valid_namespace, valid_index)):
+                index = home / 'registry/index' / namespace / '.cache' / relative
+                index.parent.mkdir(parents=True)
+                index.write_bytes(index_bytes)
+                (index.parents[3] / 'config.json').write_text('{}', encoding='utf-8')
+            lock = root / 'Cargo.lock'
+            lock.write_text('[[package]]\nname="cache-probe"\nversion="1.0.0"\n'
+                            'source="registry+https://github.com/rust-lang/crates.io-index"\n'
+                            f'checksum="{digest}"\n', encoding='utf-8')
+            output = root / 'output'
+            result = subprocess.run([sys.executable, str(Path(__file__).with_name('prepare_locked_cargo_home.py')),
+                                     '--lockfile', str(lock), '--output', str(output)],
+                                    env={**os.environ, 'CARGO_HOME': str(home)}, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            manifest = json.loads((output / 'cache-manifest.json').read_text())
+            self.assertEqual(manifest['packages'][0]['index_sha256'],
+                             hashlib.sha256(valid_index).hexdigest())
+            for namespace in (stale_namespace, valid_namespace):
+                target = output / 'registry/index' / namespace / '.cache' / relative
+                self.assertEqual(target.read_bytes(), valid_index)
+
+    def test_no_checksum_matching_index_record_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            home = root / 'cargo-home'
+            namespace = 'index.crates.io-1949cf8c6b5b557f'
+            archive = home / 'registry/cache' / namespace / 'cache-probe-1.0.0.crate'
+            archive.parent.mkdir(parents=True)
+            archive.write_bytes(b'checksum-matched archive')
+            digest = hashlib.sha256(archive.read_bytes()).hexdigest()
+            index = home / 'registry/index' / namespace / '.cache/ca/ch/cache-probe'
+            index.parent.mkdir(parents=True)
+            index.write_bytes(self.sparse_cache(
+                {'name': 'cache-probe', 'vers': '1.0.0', 'cksum': '0' * 64}))
+            (index.parents[3] / 'config.json').write_text('{}', encoding='utf-8')
+            lock = root / 'Cargo.lock'
+            lock.write_text('[[package]]\nname="cache-probe"\nversion="1.0.0"\n'
+                            'source="registry+https://github.com/rust-lang/crates.io-index"\n'
+                            f'checksum="{digest}"\n', encoding='utf-8')
+            result = subprocess.run([sys.executable, str(Path(__file__).with_name('prepare_locked_cargo_home.py')),
+                                     '--lockfile', str(lock), '--output', str(root / 'output')],
+                                    env={**os.environ, 'CARGO_HOME': str(home)}, capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('No checksum-matching sparse-index record', result.stderr)
+
+    def test_matching_index_is_consumable_by_offline_cargo(self):
+        cargo = shutil.which('cargo')
+        if cargo is None:
+            self.skipTest('cargo is not installed')
+        name, version = 'cache-probe', '1.0.0'
+        archive_buffer = io.BytesIO()
+        with tarfile.open(fileobj=archive_buffer, mode='w:gz') as archive_file:
+            for relative, data in (
+                ('Cargo.toml', f'[package]\nname = "{name}"\nversion = "{version}"\nedition = "2021"\n'),
+                ('src/lib.rs', 'pub fn probe() {}\n'),
+            ):
+                payload = data.encode()
+                info = tarfile.TarInfo(f'{name}-{version}/{relative}')
+                info.size = len(payload)
+                archive_file.addfile(info, io.BytesIO(payload))
+        archive_bytes = archive_buffer.getvalue()
+        digest = hashlib.sha256(archive_bytes).hexdigest()
+        cache_bytes = self.sparse_cache({
+            'name': name, 'vers': version, 'deps': [], 'cksum': digest,
+            'features': {}, 'yanked': False, 'links': None,
+        })
+        namespace = 'index.crates.io-1949cf8c6b5b557f'
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            home = root / 'cargo-home'
+            archive = home / 'registry/cache' / namespace / f'{name}-{version}.crate'
+            archive.parent.mkdir(parents=True)
+            archive.write_bytes(archive_bytes)
+            index = home / 'registry/index' / namespace / '.cache/ca/ch/cache-probe'
+            index.parent.mkdir(parents=True)
+            index.write_bytes(cache_bytes)
+            (index.parents[3] / 'config.json').write_text(
+                '{"dl":"https://static.crates.io/crates","api":"https://crates.io"}', encoding='utf-8')
+            lock_text = (f'version = 3\n[[package]]\nname="{name}"\nversion="{version}"\n'
+                         'source="registry+https://github.com/rust-lang/crates.io-index"\n'
+                         f'checksum="{digest}"\n')
+            lock = root / 'Cargo.lock'
+            lock.write_text(lock_text, encoding='utf-8')
+            output = root / 'output'
+            result = subprocess.run([sys.executable, str(Path(__file__).with_name('prepare_locked_cargo_home.py')),
+                                     '--lockfile', str(lock), '--output', str(output)],
+                                    env={**os.environ, 'CARGO_HOME': str(home)}, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            project = root / 'project'
+            (project / 'src').mkdir(parents=True)
+            (project / 'src/lib.rs').write_text('pub fn probe() {}\n', encoding='utf-8')
+            (project / 'Cargo.toml').write_text(
+                '[package]\nname = "offline-index-probe"\nversion = "0.1.0"\nedition = "2021"\n\n'
+                f'[dependencies]\n{name} = "={version}"\n', encoding='utf-8')
+            (project / 'Cargo.lock').write_text(lock_text, encoding='utf-8')
+            cargo_result = subprocess.run(
+                [cargo, 'metadata', '--offline', '--format-version', '1',
+                 '--manifest-path', str(project / 'Cargo.toml')],
+                env={**os.environ, 'CARGO_HOME': str(output), 'CARGO_NET_OFFLINE': 'true'},
+                capture_output=True, text=True)
+            self.assertEqual(cargo_result.returncode, 0, cargo_result.stderr)
+
     def test_real_mixed_case_package_uses_lowercase_index_path(self):
         fixture = Path(__file__).with_name('fixtures') / 'cargo-index-case'
         archive_bytes = (fixture / 'Inflector-0.11.4.crate').read_bytes()
@@ -99,13 +229,14 @@ class CargoHomeTests(unittest.TestCase):
             archive = home / 'registry/cache' / namespace / f'{name}-1.0.0.crate'
             archive.parent.mkdir(parents=True)
             archive.write_bytes(b'isolated archive')
+            digest = hashlib.sha256(archive.read_bytes()).hexdigest()
             index = home / 'registry/index' / namespace / '.cache' / relative
             index.parent.mkdir(parents=True)
-            index.write_bytes(b'isolated sparse index')
+            index.write_bytes(self.sparse_cache(
+                {'name': name, 'vers': '1.0.0', 'cksum': digest}))
             config = home / 'registry/index' / namespace / 'config.json'
             config.write_text('{}', encoding='utf-8')
             lock = root / 'Cargo.lock'
-            digest = hashlib.sha256(archive.read_bytes()).hexdigest()
             lock.write_text(f'[[package]]\nname="{name}"\nversion="1.0.0"\n'
                             f'source="{registry_source}"\n'
                             f'checksum="{digest}"\n', encoding='utf-8')

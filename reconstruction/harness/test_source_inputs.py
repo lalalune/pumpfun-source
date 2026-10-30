@@ -98,6 +98,8 @@ class SourceReceiptTests(unittest.TestCase):
 
     def test_failed_build_retains_receipt_and_digest(self):
         slot=io.StringIO();out=self.root/'out'
+        (self.root/'crate').mkdir()
+        (self.root/'crate/Cargo.toml').write_text('[package]\nname="pump-recovered"\nversion="0.1.0"\n')
         with patch.object(fastbuild,'stage',return_value=self.root/'crate'),patch.object(fastbuild,'acquire_slot',return_value=slot),patch.object(fastbuild.subprocess,'run',return_value=subprocess.CompletedProcess([],1,'compile error')),patch.object(fastbuild,'run_compiler',return_value=(subprocess.CompletedProcess([],1,'compile error'),False),create=True),patch.object(fastbuild,'RECIPES',{'test':{'triple':'test','rustc':self.root/'rustc','template':self.root/'missing'}}):
             result=fastbuild.build(self.source,self.root/'work',out,quiet=True,recipe='test')
         receipt=json.loads((out/'source-inputs.json').read_text())

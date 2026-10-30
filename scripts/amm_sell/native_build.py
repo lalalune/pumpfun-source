@@ -124,15 +124,27 @@ def native_link_script():
 
 def ensure_lane(lane, source_root):
     ws = lane / 'ws'
+    baseline = lane / 'baseline-ws'
     harness = lane / 'harness'
     lane.mkdir(parents=True, exist_ok=True)
+    if not baseline.exists():
+        # Capture the chosen inputs before the first attempt can patch ws.
+        # Publish only a completely staged baseline; never infer it from an
+        # existing, possibly patched legacy workspace.
+        with tempfile.TemporaryDirectory(prefix='.baseline-stage-', dir=lane) as temporary:
+            staged = Path(temporary) / 'ws'
+            if source_root is not None:
+                recipe.stage(Path(source_root), staged)
+            elif PRISTINE.exists():
+                shutil.copytree(PRISTINE, staged, symlinks=True)
+                recipe.file_inventory(staged)
+            else:
+                raise SystemExit('Lane needs --source-root or a canonical pristine workspace to establish its baseline')
+            staged.rename(baseline)
+    if not baseline.is_dir() or baseline.is_symlink():
+        raise ValueError('lane baseline must be an ordinary workspace directory')
     if not ws.exists():
-        if source_root is not None:
-            recipe.stage(Path(source_root), ws)
-        elif PRISTINE.exists():
-            subprocess.run(['cp', '-R', str(PRISTINE), str(ws)], check=True)
-        else:
-            raise SystemExit('New lane needs --source-root (a repo-like tree with programs/pump-amm and crates/native-transfer-fee)')
+        shutil.copytree(baseline, ws, symlinks=True)
     harness.mkdir(parents=True, exist_ok=True)
     for name, text in (('rustc_wrapper.py', RUSTC_WRAPPER), ('linker_wrapper.py', LINKER_WRAPPER)):
         path = harness / name
@@ -189,10 +201,10 @@ def build(lane, build_id, source_root=None, sell=None, patch=None, extra_root_fl
     out.parent.mkdir(parents=True, exist_ok=True)
     staging = Path(tempfile.mkdtemp(prefix=f'.{build_id}.staging-', dir=out.parent))
     try:
-        if PRISTINE.exists():
-            # Every attempt starts from the canonical inputs: earlier patches never leak.
-            subprocess.run(['rsync', '-a', '--delete', '--checksum', '--exclude', 'target',
-                            str(PRISTINE) + '/', str(ws) + '/'], check=True)
+        # Reuse the lane's selected baseline, not a different global source.
+        # This also resets patches when no global PRISTINE was configured.
+        subprocess.run(['rsync', '-a', '--delete', '--checksum', '--exclude', 'target',
+                        str(lane / 'baseline-ws') + '/', str(ws) + '/'], check=True)
         sell_path = ws / SELL_REL
         if sell is not None:
             shutil.copyfile(sell, sell_path)
@@ -225,10 +237,14 @@ def build(lane, build_id, source_root=None, sell=None, patch=None, extra_root_fl
             result = subprocess.run([str(SDK / 'rust/bin/cargo'), 'build', '--release', '--target', 'sbpf-solana-solana',
                                      '--manifest-path', str(ws / 'Cargo.toml'), '--locked', '--offline', '--verbose'],
                                     cwd=ws, env=env, stdout=log, stderr=subprocess.STDOUT)
-        record = {'lane': str(lane), 'id': build_id, 'returncode': result.returncode,
+        stack_warnings = [line.strip() for line in (staging / 'build.log').read_text(errors='replace').splitlines()
+                          if 'exceeded max offset' in line]
+        returncode = result.returncode or (1 if stack_warnings else 0)
+        record = {'lane': str(lane), 'id': build_id, 'returncode': returncode,
+                  'compiler_returncode': result.returncode, 'stack_warnings': stack_warnings,
                   'seconds': round(time.time() - started, 1), 'sell_sha256': sha(staging / 'sell.rs'),
                   'extra_root_flags': extra_root_flags, 'link_script': link_script}
-        if result.returncode == 0:
+        if returncode == 0:
             unstripped = target / 'sbpf-solana-solana/release' / PROGRAM
             shutil.copyfile(unstripped, staging / 'symbols.so')
             subprocess.run([str(SDK / 'llvm/bin/llvm-objcopy'), '--strip-all', str(staging / 'symbols.so'),
@@ -236,7 +252,7 @@ def build(lane, build_id, source_root=None, sell=None, patch=None, extra_root_fl
             record['candidate_sha256'] = sha(staging / 'candidate.so')
             record['symbols_sha256'] = sha(staging / 'symbols.so')
         (staging / 'build-record.json').write_text(json.dumps(record, indent=2) + '\n')
-        if result.returncode == 0:
+        if returncode == 0:
             publish_output(staging, out)
             record['output_dir'] = str(out)
         else:

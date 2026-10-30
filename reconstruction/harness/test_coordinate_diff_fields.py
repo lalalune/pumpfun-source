@@ -6,6 +6,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from test_support import copy_harness_modules
 
 
 class CoordinateFieldTests(unittest.TestCase):
@@ -18,8 +19,7 @@ class CoordinateFieldTests(unittest.TestCase):
             harness.mkdir()
             base = root / 'base'
             base.mkdir()
-            for name in ['score.py', 'score_admission.py', 'coords.py', 'llvm_tools.py', 'elf_symbols.py']:
-                shutil.copyfile(repo / 'reconstruction/harness' / name, harness / name)
+            copy_harness_modules(harness)
             shutil.copyfile(repo / 'evidence/original/pump/deployed.so', base / 'original.so')
             shutil.copyfile(repo / 'reconstruction/base/functions.tsv', base / 'functions.tsv')
             program = '''

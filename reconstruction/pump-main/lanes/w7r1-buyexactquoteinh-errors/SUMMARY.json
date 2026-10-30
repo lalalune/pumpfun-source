@@ -1,0 +1,13 @@
+{
+  "lane": "w7r1-buyexactquoteinh-errors",
+  "target": "0x13f630 buy_v2::buy_exact_quote_in_handler",
+  "base": "origin/main 6edd839 (1027 normalized / 276 raw)",
+  "best": {"pr": 2264, "sha256_unstripped": "77eb530c73ba11e08dd964967d5364940e414200b2f82c888bcbed9454fe4379", "bytes": 20184, "orig_bytes": 20184, "ratio": 0.99878, "slots_diff": 6, "normalized": 1027, "raw": 276, "losses": []},
+  "before": {"bytes": 20216, "ratio": 0.99635},
+  "mechanism": "CompleteEvent CPI Err edge must reach the handler error return without a tag re-check. A niche Result<()> helper (Ok = Error tag 2) leaves icmp eq <Error::from tag>,2 after LLVM inlining; a tagged Result (Ok type > 8 bytes, e.g. Result<Pubkey>) folds the caller ?. Complete if and prepare? stay in the handler (rustc first-reference order gives the original branch senses), drop(ev) after the TradeEvent CPI, emit_cpi!(CompleteEvent) alone in an #[inline(always)] helper (LLVM inliner gives call-scoped lifetime markers).",
+  "attempts": ["t1 tail-expr helper","t3/t4 TradeEvent+Complete helper","t5/t6 tagged complete_and_prepare","t7 tagged CPI-only helper","t9 tagged complete_curve","t10/n1 tagged CPI helper + drop(ev)","t11 niche control","n2 by-value pass-through","r1 &bool on inline(never) handler","e1/e7 ok_or into Error","e2 clock binding","e6 sharing_config binding"],
+  "rejected": ["handler-tail helper (t1)", "TradeEvent CPI inside helper (frame-wide recolor)", "niche Result<()> CPI helper (re-check)", "by-value CompleteEvent pass-through", "eager .into() error forms", "partial:&bool without program-fn form"],
+  "findings": ["MIR inliner keeps its cost threshold for #[inline(always)] in rustc 1.79: helpers with emit_cpi!/snapshot copies are LLVM-inlined only", "GVN removes StorageLive/Dead of emit_cpi! locals (authority_info, inner_data, Chain iterator) in the handler body", "Result layout decides whether ? on an inlined helper threads: tagged layouts fold, niche layouts keep the Error::from tag compare"],
+  "unresolved": ["mov r1,0; stxdw [r10-0x8d0] vs mov r9,0 schedule at orig 0x1430d0 (shareholders Vec phi order)"],
+  "next": ["Prefer PR #2240 program-fn form + regsched partial:&bool (reported normalized); if that is rejected, port its phi-order fix to this head", "Look for a natural reason for a >8-byte Ok type in the original CompleteEvent CPI helper"]
+}

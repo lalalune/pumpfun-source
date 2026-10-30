@@ -1,0 +1,14 @@
+{
+  "lane": "w7r1-v3buycosts-errors",
+  "targets": ["0x80df8"],
+  "base": {"commit": "2162b3b00", "normalized": 1027, "raw": 276, "target": {"cand_bytes": 2136, "ratio": 0.92, "slots_diff": 19}},
+  "best": {"source": "PR #2272 (w7r1-v3buycosts-blockorder), verified here", "normalized": 1028, "raw": 276, "gains": ["0x80df8"], "losses": [], "target": {"cand_bytes": 2120, "ratio": 1.0, "slots_diff": 0}},
+  "attempts": ["19c995b1f5dc4e42a9574c95b9794acb", "4b003fcfb1a14e68a2a65011011bc5c8", "20dce9c043244bf1960c2bb9e4efb1ee", "02151963d91646d8b2afe57fa703b41b"],
+  "rejected_mechanisms": [
+    "add3_pair helper fn with ? inside (#[inline(always)] or plain): 2112 B 0.982, add3#1 polarity",
+    "IR: empty / lifetime-only edge blocks on base and bb4-moved IR",
+    "IR: merged 371/375 to_string panic blocks plus block-order scan"
+  ],
+  "unresolved_residuals": ["0x80df8 raw (absolute call / lddw displacements depend on the rest of the layout)"],
+  "next_ideas": ["Merge #2272; apply the shared-Err-arm labeled-block pattern to other windows whose sret pointer is split (e.g. sibling v3 trade functions)"]
+}

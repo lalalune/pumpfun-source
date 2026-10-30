@@ -86,6 +86,11 @@ class HookTests(unittest.TestCase):
                 L.lld_args(['--script', str(other)], env)
             with self.assertRaises(ValueError):
                 L.lld_args(['--script=' + str(target)], env)
+            # lld expands @FILE before option parsing, hiding additional inputs and options.
+            for response in ('@opts.rsp', '@'):
+                with self.subTest(response=response), self.assertRaisesRegex(
+                        ValueError, 'response-file linker input'):
+                    L.lld_args(args + [response], env)
             Path(env['PUMP_LINK_SCRIPT']).write_text(DEFAULT)
             with self.assertRaises(ValueError):  # changed after configuration
                 L.lld_args(args, env)

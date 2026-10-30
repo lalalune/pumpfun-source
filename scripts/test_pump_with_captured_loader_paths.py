@@ -38,6 +38,7 @@ class CapturedLoaderReceiptPathTests(unittest.TestCase):
         )
         (evidence / "program-account.bin").write_bytes(b"program-account")
         (evidence / "programdata-account.bin").write_bytes(b"programdata-account")
+        (evidence / "deployed.so").write_bytes(b"captured executable")
         self.harness = self.root / "harness.py"
         self.harness.write_text("print('fixture completed')\n", encoding="utf-8")
 
@@ -93,6 +94,15 @@ class CapturedLoaderReceiptPathTests(unittest.TestCase):
         self.assertIn("receipt path aliases protected input", result.stderr)
         self.assertEqual(result.stdout, "")
         self.assertEqual(account.read_bytes(), before)
+
+    def test_receipt_cannot_replace_captured_executable(self):
+        deployed = self.root / "evidence/original/pump/deployed.so"
+        before = deployed.read_bytes()
+        result = self.run_wrapper(deployed)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("receipt path aliases protected input", result.stderr)
+        self.assertEqual(result.stdout, "")
+        self.assertEqual(deployed.read_bytes(), before)
 
     def test_distinct_receipt_is_written(self):
         receipt = self.root / "work/receipt.json"

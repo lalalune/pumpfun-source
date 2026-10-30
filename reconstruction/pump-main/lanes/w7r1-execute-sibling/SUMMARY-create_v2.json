@@ -1,0 +1,48 @@
+{
+  "lane": "w7r1-execute-sibling",
+  "targets": [
+    "0x1e7c0"
+  ],
+  "base": "origin/main e3f3be8 (1027/293), target 0.96854 at 15584 B",
+  "best": {
+    "build": "L1",
+    "ratio": 0.9887,
+    "bytes": 15576,
+    "slots_diff": 43,
+    "normalized": 1027,
+    "raw": 293,
+    "losses": [],
+    "raw_losses": [],
+    "unstripped_sha256": "e5aaaaad7bad3b0497e9191a41aae3ba563389a89b992b0a485d4bee82a4b1d9"
+  },
+  "mechanisms_kept": [
+    "fee as if/else expression (from w7r1-execute-blockorder-b/frame)",
+    "creator store after token_total_supply (from w7r1-execute-inline/regsched)",
+    "legacy create (lib.rs:335) head store order: virtual_quote_reserves, initial_virtual_quote_reserves, virtual_token_reserves (= w7r1-execute-frame o2)"
+  ],
+  "attempts": 26,
+  "rejected": [
+    "Sol return spellings (new_from_array, system_program::ID)",
+    "validated binding / explicit match",
+    "final Ok via *mint.key / mint.key()",
+    "mint_key deref binding",
+    "inner (reserves,source) tuple order",
+    "initialize_metadata by &String with clones inside (legacy create_metadata)",
+    "full legacy store order",
+    "single-exit Sol if/else in validate_quote_mint",
+    "init_curve -> Result",
+    "quote_mint by reference",
+    "IR oracle: GEP placement, name.len placement, branch weights, None edge block, alias metadata strip, exhaustive single-instruction moves (6271), exhaustive block moves (3924)"
+  ],
+  "unresolved": [
+    "bb112 phi order: quote-mint word0 phi (_84.sroa.31) must precede the source-tag phi; oracle 0.98978; cause = .31 partition promoted last by SROA (then reversed by JumpThreading)",
+    "name-ptr reload at the top of the init_curve store block (orig) vs right before the len load (ours); creator ptr r4 vs r2; not reachable by any single IR reorder"
+  ],
+  "next_ideas": [
+    "run SROA with -debug-only=sroa in a debug LLVM 18 build to see why the [16,24) partition of the validate result is re-queued",
+    "check whether region splitting of &name needs a use of name in the error successors (drop paths) that the original had and we lack",
+    "pair the RA residual with a greedy-RA trace (debug llc) on L1+phi IR to see which interference makes the original enter the interval at block start"
+  ],
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/2341",
+  "branch": "swarm/w7r1-execute-sibling-cv2 (swarm/w7r1-execute-sibling is used by a same-named sweep::execute session, #2309)"
+}

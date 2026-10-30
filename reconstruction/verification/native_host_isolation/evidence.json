@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "sourceRevisions": [
+    "a7135a6a64c446166895f7e3ea4ca84ac1a9b848",
+    "21ec2bffbdeb74c86c588c520200e17f6725ecfd"
+  ],
+  "sourceSha256": {
+    "programs/pump/recovered/global_admin_host.rs": "5a28e9d9269a6b6d63d0813b1a21254a5854990cef140b8e3a7ecf31ce7d5b6a",
+    "programs/pump/recovered/global_admin.rs": "ec325424781a1b91a801baa6dc860bea022aedc0f8a8a42e0f81d7adf9a410c0"
+  },
+  "environment": {
+    "platform": "macOS arm64",
+    "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "flags": [
+      "--edition=2021",
+      "-O"
+    ],
+    "ipNetworking": "denied by local sandbox"
+  },
+  "sharedOutput": {
+    "pairedTrials": 3,
+    "compilerExitCodes": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "executablePresentAfterEachPair": [
+      false,
+      false,
+      false
+    ],
+    "normalizedDiagnosticExcerpt": [
+      "Undefined symbols for architecture arm64:",
+      "\"__RINvNvMs2_NtCshxvaOLs88l5_5alloc7raw_vecINtB8_11RawVecInnerpE7reserve21do_reserve_and_handleNtNtBa_5alloc6GlobalECshE9mgw9On4P_17global_admin_host.llvm.14437853556743780075\", referenced from:",
+      "__RNvCshE9mgw9On4P_17global_admin_host10encode_hex in <shared-output>.global_admin_host.cd8d6e6b3c9d7989-cgu.1.rcgu.o",
+      "ld: symbol(s) not found for architecture arm64"
+    ]
+  },
+  "privateOutput": {
+    "pairedTrials": 3,
+    "compilerExitCodes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "emptyInputNativeExitCodes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  "runningExecutableOverwriteControl": {
+    "firstCompileExit": 0,
+    "secondCompileWhileFirstHostRunningExit": 0,
+    "firstHostExit": 0,
+    "etxtbsyObserved": false
+  },
+  "sourceMutation": false,
+  "compilerOrResultMocks": false,
+  "capturedElfMutation": false,
+  "limits": "Admin native-compilation experiment only. Shared failures are timing dependent. Full captured-program fixture checks remain separate.",
+  "publicReproducerReplay": {
+    "trialsPerMode": 3,
+    "sharedCompilerExitCodes": [
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "privateCompilerExitCodes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "privateNativeExitCodes": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "sourceUnchanged": true
+  },
+  "finalReproducerReplay": {
+    "reproducerSha256": "ab4b998ff338664b681483d8b1f23fea7204f61b62a4a03ce29cdba767fe3e87",
+    "trialsPerMode": 1,
+    "sharedCompilerExitCodes": [
+      [
+        0,
+        0
+      ]
+    ],
+    "privateCompilerExitCodes": [
+      [
+        0,
+        0
+      ]
+    ],
+    "privateNativeExitCodes": [
+      [
+        0,
+        0
+      ]
+    ],
+    "sourceUnchanged": true
+  },
+  "sourceMismatchControl": {
+    "bothCopiedHostsChangedByOneByte": true,
+    "compilerInvoked": false,
+    "exitCode": 2,
+    "outputDirectoryCreated": false,
+    "diagnostic": "host/module source bytes differ from the recorded evidence"
+  }
+}

@@ -1,67 +1,81 @@
-# Lane w7r1-execute-sibling (wave 7, round 1)
+# w7r1-execute-sibling: 0x72810 `sweep::execute` (sibling-transplant lane)
 
-Target: `0x1e7c0` `pump_recovered::create_v2::execute` (original 15,576 B, 1,859 insns, 125 calls).
-Angle: sibling transplant (copy spellings from matched sibling handlers / AMM / Fees / Mayhem).
+Base: PR #2298 head d11716091 (w7r1-execute-regsched: `pay_owned` wrapper taking the accounts
+struct, sweep 0.8867 -> 0.9495), itself on origin/main 2b85821 (1027 normalized / 276 raw).
 
-Base: origin/main e3f3be8 (1027 normalized / 293 raw), target 0.96854 at 15,584 B.
-Worktree note: the assigned worktree path was in use by another session, so this lane worked in
-`worktrees/w7r1-execute-sibling-e7c0` (detached at e3f3be8), outputs under
-`~/.cache/pumpfun-reconstruction/lanes/w7r1-execute-sibling/e7c0/`, branch
-`swarm/w7r1-execute-sibling-cv2` (PR #2341), because `swarm/w7r1-execute-sibling` carries that
-session's sweep::execute PR #2309.
+| metric | main 2b85821 | #2298 head | r5 | m5 | **y3 (head)** |
+|---|---|---|---|---|---|
+| ratio (target_metric) | 0.88669 | 0.94951 | 0.99479 | 0.99687 | **1.0 (normalized match)** |
+| bytes (orig 7832) | 7880 | 7856 | 7832 | 7832 | 7832 |
+| slots_diff | - | - | 35 | 30 | **0** |
+| calls (orig 37+2) | 37+2 | 37+2 | 37+2 | 37+2 | 37+2 |
+| full-mask diff lines (regs+stack masked) | 64 | 50 | 8 | 4 | 0 |
+| official normalized / raw | 1027 / 276 | 1027 / 276 | 1027 / 276 | 1027 / 276 | **1028** / 276 |
+| gains / losses | - | none | none (raw 0xa868 kept) | none | gain 0x72810, no losses |
+| unstripped sha256 | ec660de7.. | | 279944c5.. | d442f56c.. | 143055ebf8675d2cf390bff9b4b9df14f3812c72f84773e95dcd52e34610106d |
 
-## Result
+## Mechanism (two sibling transplants)
 
-| Build | Bytes | Ratio | slots_diff | Official | unstripped sha256 |
-| --- | ---: | ---: | ---: | --- | --- |
-| main e3f3be8 | 15,584 | 0.96854 | | 1027 / 293 | |
-| s1 = fee if/else expr + creator after tts (= #2293) | 15,576 | 0.98763 | 42 | 1027 / 293, 0 losses | 67c0a5a7 |
-| **L1 = s1 + legacy-create head store order** | **15,576** | **0.98870** | **43** | **1027 / 293, 0 losses, 0 raw losses** | **e5aaaaad** |
+1. **Why the plain rent helper was never inlined.** LLVM 18 `InlineCostCallAnalyzer::updateThreshold`
+   calls `DisallowAllBonuses()` on a cold call site, which also drops the LastCallToStaticBonus.
+   So a sole-call local helper is inlined only if its call site is at least 2% of entry
+   (w6r1-sweep-ir measured 0.01602). Replaying `opt -passes='cgscc(inline)'` on the
+   `-print-before=inline -print-module-scope` dump reproduces the remark exactly
+   (`scripts/wprobe.py` adds branch weights to one branch and reports the decisions). Making only
+   the creator-path native test 50/50 inlines the rent helper (cost -14790) while Event::data,
+   the event clone, from_iter and exchange_malloc stay out of line, as in the original.
+2. **Native test as a sibling helper** `quote_is_native(curve:&BondingCurve)->bool` (verbatim from
+   trade_v3.rs). Before the inliner runs, the creator-path native branch is a branch on a call
+   result. The zero heuristic (memcmp==0 gets 0.375) does not apply, so the branch is 0.5. The
+   inliner updates the caller's BFI incrementally, so the earlier inline of this helper does not
+   bring the 0.375 back. The rent site goes to 0.02136 (warm), and the plain helper with the
+   legacy_native_payments body (`Rent::get()?.minimum_balance(0)`) is CGSCC-inlined after its
+   own simplification. That is the original rent region, payload slice and frame (frameoracle:
+   every alloca at its original offset).
+3. **Rent helper takes the accounts struct** `ensure_rent_exempt(a:&SweepFees,destination:&AccountInfo)`.
+   With `system_program:&Program`, ArgumentPromotion turns the argument into the loaded info
+   pointer. The load then happens at the call site, before Rent::get, and that swaps
+   r6/r9 for the whole function (ratio 0.814). `&a.payer` escapes into transfer, so `a`
+   cannot be promoted, and the system_program/payer loads stay at the transfer site
+   (`ldxdw r2,[r9+0x30]; mov r3,r9`) as in the original. Taking only `a`, with the recipient
+   read inside, is worse (0.8795).
 
-L1 equals the independently found `o2` of lane w7r1-execute-frame (#2297); here it came from the
-sibling: the matched legacy `create` (lib.rs:335) initializes the curve as
-`virtual_quote_reserves, initial_virtual_quote_reserves, virtual_token_reserves, ...`. Moving
-those three stores to the head of `init_curve` makes both vqr stores precede the vtr global load,
-as in the original (the vtr load now uses r3 like every other temp). The full legacy order
-(L2) is worse (0.96745): since #2229 the creator/quote_mint memcpys keep their IR position, so
-the tail order (creator after tts, quote_mint after cashback) must stay.
+4. **Dispatch cast width** (m5): `match creator as i32{1=>..,_=>..}` instead of `as u8`. With `as u8`,
+   MIR GVN reuses the switch's `creator as u8` for the msg argument and for the event bucket (MatchBranchSimplification
+   turns `if creator{1}else{0}` into the same cast). A `zext i8` therefore survives at entry, and the event block stores
+   the shared value, which list-ilp schedules before amount/timestamp. IR oracle: a local `zext i1 %creator to i8`
+   in the event block gives the original store order (`ldxdw r1,[r10-0x318]; stxb [r10-0x1b0],r1` after the
+   timestamp store). With an i32 (or usize) dispatch cast, the u8 casts are separate values and the event zext
+   is local. Shared bucket variables, `creator.into()`, `u8::from` and if/else consts in the msg were all neutral or worse.
 
-## Residual (after L1): two independent mechanisms
+5. **Normalized match (y3).** IR oracle on m5: moving the protocol-native clone chain (bb28..) in front of the
+   inlined helper's admit2 block makes llc's output identical to the original. So the last residual was only IR block
+   order. Writing both admits inline in the token arm (the buy_v2/sell_v2 sibling form) gives that order, but then the
+   join's recipient clone is cold. Before inlining, its frequency is 0.5*R + 0.25*T = 0.01869, which is below 2%, and
+   that gives 38 calls. The `opt cgscc(inline)` branch-weight probe found two branches that fix it: the creator-vault
+   compare, and the shared native re-test. A 50/50 vault branch is enough. The source writes the `require_keys_eq!`
+   expansion out on the same line 145, with the compare done by a plain `keys_eq(&Pubkey,&Pubkey)->bool`:
+   `if !keys_eq(&a.recipient.key(),&expected){return Err(error!(ConstraintSeeds).with_pubkeys((a.recipient.key(),expected)));}`.
+   This is the same quote_is_native mechanism applied to the vault branch. It is the same runtime code, with the
+   same error, line and pubkeys. The join is then 0.02136 and its clone is inlined (39 calls). The event block is
+   0.0145, so Event::data, the event clone, from_iter and exchange_malloc stay out of line. 0x72810 is
+   normalized-equal, slots_diff 0. The official score is 1028/276 with no normalized or raw losses.
 
-1. **mov r2,0 / mov r7,0 order in both Sol returns** = phi-copy order at the
-   validate_quote_mint join (bb112). IR oracle: moving the quote-mint word-0 phi
-   (`_84.sroa.31`, ptr) directly above the source-tag phi (`_84.sroa.47`) fixes both sites
-   (L1 0.98870 -> 0.98978). `-print-changed` trace: after SROA the phis sit in order
-   31,51,47,18,0 (mem2reg inserts at the block front, so .31 was promoted *last*, not in
-   offset order 0,18,31,47,51); JumpThreading then re-creates the join phis in reverse
-   (0,18,47,51,31). The original needs .31 promoted in offset order. No pointer phi/select
-   uses _84+16 before SROA, so the deferral is not speculation; spellings of the Sol return
-   (Pubkey::new_from_array, system_program::ID, const, helper, let), of the final Ok
-   (`*mint.key`, `mint.key()`: 0.53), single-exit if/else (0.44), tuple orders and result
-   bindings are all identical or much worse (also tried by sibling lanes).
-2. **Creator pointer r2 instead of r4, name-ptr reload late.** In the original the reload of
-   `&name` (`ldxdw r2,[r10-0x718]`) is the first instruction of the init_curve store block
-   (target of both bb2 branches; bb1 falls into it), so r2 is busy across the block and the
-   creator pointer gets r4; in ours greedy reloads `&name` right before the `name.len` load
-   (local split) while `&symbol` is region-split (reloads at the pred ends). Exhaustive IR
-   oracle scans on L1+phi: every legal single-instruction move in every block (6,271
-   candidates, <=11 steps), every block move within +-12 (3,924), branch weights on the
-   memcmp/reserves branches, splitting the None critical edge, stripping alias metadata in the
-   block, moving the creator GEP or the len loads: nothing beats 0.98978. The residual is not
-   an IR-order effect; it needs a different IR value structure that no tried spelling gives.
+## Residuals at m5 (full-mask diff 4 lines)
+- Only the admit branch polarity below (fixed in y3).
 
-## Rejected spellings (this lane; ledger keys `0x1e7c0-main-2b85821-*`, `0x1e7c0-main-e3f3be8-*`)
+## Residuals at r5 (full-mask diff 8 lines)
+- Admit branch polarity (+0xeb0, +0xf98): original `jeq r1,2,+1; ja err` then `jne r1,2,err`.
+  The ledger has this as IR block order (w4-sweep s6a oracle).
+- Event bucket byte (+0x1910): the original reloads the spilled `creator` (`ldxdw r1,[r10-0x318]; stxb [r10-0x1b0],r1`).
+  Ours keeps a 0/1 value in r0 and stores it earlier.
 
-Sol returns via new_from_array / system_program::ID (identical); validated binding then
-destructure (identical); explicit match on validate result (0.874); final Ok via `*mint.key` /
-`mint.key()` (0.534); `let mint_key=*mint.key` (identical); inner `(reserves,source)` order
-(0.986: flips the Whitelisted-path copy order the wrong way, confirming tuple construction order
-drives those phi copies); legacy `create_metadata` spelling for initialize_metadata (&String +
-clone inside: 0.777, 122 calls); full legacy store order (0.967); single-exit Sol if/else
-(0.440); init_curve returning Result (identical); quote_mint by reference (0.500).
+## Ledger ids
+8f8425ae (plain rent cost analysis), 9aa75942 (t2), 9b602cd5 (t3), b47ae727 (pay_owned verbatim),
+9a56e1e6 (r2), 426cb6e7 (r3/r4), 6206fdb5 (r6), 86cfdc23 (r5).
 
-## Tools
+Further ledger ids: 99701dc5 (block-order oracle), 8a82fd8a (y3 normalized match), 32791cdc (event bucket spellings), 336911f4 (admits inline: join 0.01869 cold), deba5927 (if/else and arm orders), cc7b9aba (admit helper plain), c2185914 (m5).
 
-`~/.cache/.../e7c0/scripts/`: `ir.py`, `capmir.py`, `slim.py`, `ren.py`, `irsearch.py` (copied
-from w6r1-execute-ir with lane paths), `exh.py`/`exh2.py` (exhaustive single-move scan),
-`exhblk.py` (exhaustive block-move scan).
+Scripts (lane cache ~/.cache/pumpfun-reconstruction/lanes/w7r1-execute-sibling/scripts): trial.sh,
+bt.sh (pre-inline BFI listing), bpath.py (block freq + terminators), wprobe.py (branch-weight inline probe),
+fmso.py (full-mask / stack-mask / no-mask diff vs original).

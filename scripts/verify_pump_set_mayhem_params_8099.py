@@ -1,4 +1,6 @@
 """Verify the merged-source synthetic Mayhem CPI receipt and builds."""
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O.")
 
 import base64
 import contextlib

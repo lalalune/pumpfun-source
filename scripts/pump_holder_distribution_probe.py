@@ -11,6 +11,7 @@ from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
 from solders.compute_budget import set_compute_unit_limit
 from solders.clock import Clock
+from probe_report import write_json_report
 ROOT=Path(__file__).resolve().parents[1];IDL=json.loads((ROOT/'evidence/upstream/pump.json').read_text());PUMP=Pubkey.from_string(IDL['address']);TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');TOKEN22=Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');WSOL=Pubkey.from_string('So11111111111111111111111111111111111111112');AUTH=Keypair.from_seed(bytes([218])*32);PAYER=Keypair.from_seed(bytes([219])*32);OTHER=Keypair.from_seed(bytes([220])*32);MINT=Pubkey.from_bytes(bytes([221])*32);STABLE=Pubkey.from_bytes(bytes([222])*32);pda=lambda seeds,p=PUMP:Pubkey.find_program_address(seeds,p)[0];ata=lambda wallet,mint,token=TOKEN:pda([bytes(wallet),bytes(token),bytes(mint)],ATA);GLOBAL=pda([b'global']);HOLDER=pda([b'holder-rewards',bytes(MINT)]);EVENT=pda([b'__event_authority']);SAVED=json.loads((ROOT/'research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json').read_text())['missing_boost']['before']['global']
 def token_data(mint,owner,amount,native=False):
  d=bytearray(165);d[:32]=bytes(mint);d[32:64]=bytes(owner);d[64:72]=amount.to_bytes(8,'little');d[108]=1
@@ -55,4 +56,4 @@ def run(c={},candidate=None):
   return out
  before=snap();r=vm.send_transaction(tx);failed=isinstance(r,FailedTransactionMetadata);meta=r.meta() if failed else r;raw=json.loads(meta.to_json());return {'case':c,'signature_verification':True,'transaction_base64':base64.b64encode(bytes(tx)).decode(),'error':str(r.err()) if failed else None,'logs':meta.logs(),'events':[l for l in meta.logs() if l.startswith('Program data:')],'inner':raw['inner_instructions'],'return':raw.get('return_data'),'before':before,'after':snap(),'names':{k:str(v) for k,v in names.items()},'account_keys':[str(k) for k in tx.message.account_keys]}
 if __name__=='__main__':
- rows=[run(c) for c in [{},{'source':True},{'stable':True},{'stable':True,'token22':True}]];(ROOT/'work/pump-holder-distribution-recovery/prerequisites.json').write_text(json.dumps(rows,indent=2));print(json.dumps([{'case':r['case'],'error':r['error'],'logs':r['logs'][-5:]} for r in rows],indent=2))
+ rows=[run(c) for c in [{},{'source':True},{'stable':True},{'stable':True,'token22':True}]];write_json_report(ROOT/'work/pump-holder-distribution-recovery/prerequisites.json',rows);print(json.dumps([{'case':r['case'],'error':r['error'],'logs':r['logs'][-5:]} for r in rows],indent=2))

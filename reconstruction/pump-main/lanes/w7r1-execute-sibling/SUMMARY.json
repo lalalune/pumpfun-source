@@ -1,48 +1,34 @@
 {
   "lane": "w7r1-execute-sibling",
-  "targets": [
-    "0x1e7c0"
+  "approach": "sibling-transplant",
+  "base": "PR #2298 head d11716091 (on origin/main 2b85821)",
+  "targets": ["0x72810 sweep::execute"],
+  "best": {"source": "y3", "normalized_equal": true, "ratio": 1.0, "slots_diff": 0, "cand_bytes": 7832, "calls": [37, 2],
+           "official": {"normalized": 1028, "raw": 276, "gains": ["0x72810"], "losses": [], "raw_losses": []},
+           "unstripped_sha256": "143055ebf8675d2cf390bff9b4b9df14f3812c72f84773e95dcd52e34610106d"},
+  "progression": [
+    {"step": "main 2b85821", "ratio": 0.88669, "bytes": 7880},
+    {"step": "#2298 pay_owned(a)", "ratio": 0.94951, "bytes": 7856},
+    {"step": "r5 quote_is_native + plain rent helper(a,destination)", "ratio": 0.99479, "bytes": 7832},
+    {"step": "m5 match creator as i32", "ratio": 0.99687, "bytes": 7832, "slots_diff": 30},
+    {"step": "y3 keys_eq vault compare + inline admits", "ratio": 1.0, "bytes": 7832, "slots_diff": 0}
   ],
-  "base": "origin/main e3f3be8 (1027/293), target 0.96854 at 15584 B",
-  "best": {
-    "build": "L1",
-    "ratio": 0.9887,
-    "bytes": 15576,
-    "slots_diff": 43,
-    "normalized": 1027,
-    "raw": 293,
-    "losses": [],
-    "raw_losses": [],
-    "unstripped_sha256": "e5aaaaad7bad3b0497e9191a41aae3ba563389a89b992b0a485d4bee82a4b1d9"
-  },
-  "mechanisms_kept": [
-    "fee as if/else expression (from w7r1-execute-blockorder-b/frame)",
-    "creator store after token_total_supply (from w7r1-execute-inline/regsched)",
-    "legacy create (lib.rs:335) head store order: virtual_quote_reserves, initial_virtual_quote_reserves, virtual_token_reserves (= w7r1-execute-frame o2)"
+  "key_mechanisms": [
+    "LLVM 18 DisallowAllBonuses() on cold call sites also removes the LastCallToStatic bonus: a sole-call helper is only inlined at >=2% of entry",
+    "BPI zero heuristic gives memcmp==0 branches 0.375; a branch on a plain helper's bool result (not MIR-inlined) is 0.5 pre-inline, and the inliner updates caller BFI incrementally so the later helper inline does not restore 0.375",
+    "ArgumentPromotion hoists loads of &Program args to the call site; taking the accounts struct (with &a.payer escaping) keeps them at the use",
+    "MIR GVN shares the dispatch's `creator as u8` with the msg arg and the event bucket; an i32 dispatch cast keeps the event zext local (scheduler order)",
+    "admit branch polarity is IR block order: admits inline in execute put admit2 after the protocol-native clone chain"
   ],
-  "attempts": 26,
-  "rejected": [
-    "Sol return spellings (new_from_array, system_program::ID)",
-    "validated binding / explicit match",
-    "final Ok via *mint.key / mint.key()",
-    "mint_key deref binding",
-    "inner (reserves,source) tuple order",
-    "initialize_metadata by &String with clones inside (legacy create_metadata)",
-    "full legacy store order",
-    "single-exit Sol if/else in validate_quote_mint",
-    "init_curve -> Result",
-    "quote_mint by reference",
-    "IR oracle: GEP placement, name.len placement, branch weights, None edge block, alias metadata strip, exhaustive single-instruction moves (6271), exhaustive block moves (3924)"
+  "attempts": 40,
+  "rejected_mechanisms": [
+    "verbatim sell_v2 pay_owned (&Interface) wrapper", "rent helper with &Program/&UncheckedAccount args or accounts only",
+    "event bucket spellings (as u8, into, literal order, let timestamp)", "msg bucket spellings", "bool match / if for the dispatch",
+    "admit helper body spellings (and_then, match, if let Err, is_err)", "plain/#[inline] admit helper", "split admits helper/execute",
+    "RNT / or-pattern / (native,creator) arm orders (protocol-native JT threading lost)", "nested fn vault check returning Result",
+    "else-if fresh native memcmp"
   ],
-  "unresolved": [
-    "bb112 phi order: quote-mint word0 phi (_84.sroa.31) must precede the source-tag phi; oracle 0.98978; cause = .31 partition promoted last by SROA (then reversed by JumpThreading)",
-    "name-ptr reload at the top of the init_curve store block (orig) vs right before the len load (ours); creator ptr r4 vs r2; not reachable by any single IR reorder"
-  ],
-  "next_ideas": [
-    "run SROA with -debug-only=sroa in a debug LLVM 18 build to see why the [16,24) partition of the validate result is re-queued",
-    "check whether region splitting of &name needs a use of name in the error successors (drop paths) that the original had and we lack",
-    "pair the RA residual with a greedy-RA trace (debug llc) on L1+phi IR to see which interference makes the original enter the interval at block start"
-  ],
-  "pr": "https://github.com/lalalune/pumpfun-source/pull/2341",
-  "branch": "swarm/w7r1-execute-sibling-cv2 (swarm/w7r1-execute-sibling is used by a same-named sweep::execute session, #2309)"
+  "unresolved_residuals": ["raw (non-normalized) bytes of 0x72810: call/lddw immediates only"],
+  "next_ideas": ["apply the call-result-branch BFI lever (plain bool helper instead of an inline memcmp/compare) to other windows blocked by cold call sites"],
+  "tools": "~/.cache/pumpfun-reconstruction/lanes/w7r1-execute-sibling/scripts: trial.sh, par.sh, bt.sh, bpath.py, wprobe.py, fmso.py, oracle.py, e_mv.py"
 }

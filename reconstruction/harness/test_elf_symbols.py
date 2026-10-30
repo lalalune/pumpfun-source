@@ -27,6 +27,12 @@ def fixture():
     return blob
 
 
+def lddw_fixture():
+    blob = fixture()
+    blob[424:440] = struct.pack('<BBhi', 0x18, 0, 0, 0) + bytes(8)
+    return blob
+
+
 class ElfSymbolTests(unittest.TestCase):
     def test_local_hidden_and_alias_functions_but_not_objects(self):
         self.assertEqual(function_symbols(fixture()), [(0x1000,8,'local'),(0x1008,8,'global'),(0x1000,8,'alias')])
@@ -55,11 +61,63 @@ class ElfSymbolTests(unittest.TestCase):
             blob=fixture(); edit(blob)
             with self.assertRaises(ValueError): function_symbols(blob)
 
-    def test_captured_images_parse_without_sdk(self):
+    def test_all_retained_images_parse_without_sdk(self):
         root=Path(__file__).resolve().parents[2]
-        for path in (root/'evidence/original').glob('*/deployed.so'):
+        paths = list((root / 'evidence').glob('*/*/deployed.so'))
+        self.assertEqual(len(paths), 9)
+        for path in paths:
             with self.subTest(program=path.parent.name):
                 function_symbols(path.read_bytes())
+
+    def test_complete_lddw_symbol_and_alias_are_valid(self):
+        blob = lddw_fixture()
+        # Ignore the continuation-start record and make both start aliases span
+        # the complete two-slot instruction.
+        struct.pack_into('<B', blob, 504 + 24 + 4, 17)
+        struct.pack_into('<Q', blob, 504 + 16, 16)
+        struct.pack_into('<Q', blob, 504 + 2 * 24 + 16, 16)
+        self.assertEqual(function_symbols(blob), [(0x1000, 16, 'local'), (0x1000, 16, 'alias')])
+
+    def test_lddw_continuation_start_is_not_a_function(self):
+        blob = lddw_fixture()
+        struct.pack_into('<Q', blob, 504 + 16, 16)
+        struct.pack_into('<Q', blob, 504 + 2 * 24 + 16, 16)
+        with self.assertRaisesRegex(ValueError, 'instruction boundary'):
+            function_symbols(blob)
+        with tempfile.TemporaryDirectory() as temporary:
+            candidate = Path(temporary) / 'candidate.so'
+            candidate.write_bytes(blob)
+            with self.assertRaisesRegex(ValueError, 'instruction boundary'):
+                score.candidate_functions(candidate)
+
+    def test_function_end_cannot_split_lddw(self):
+        blob = lddw_fixture()
+        # Keep only the first eight-byte symbol; it cuts the LDDW in half.
+        struct.pack_into('<B', blob, 504 + 24 + 4, 17)
+        struct.pack_into('<B', blob, 504 + 2 * 24 + 4, 17)
+        with self.assertRaisesRegex(ValueError, 'instruction boundary'):
+            function_symbols(blob)
+
+    def test_truncated_lddw_text_is_rejected(self):
+        blob = lddw_fixture()
+        struct.pack_into('<Q', blob, 64 + 2 * 64 + 32, 8)
+        struct.pack_into('<B', blob, 504 + 24 + 4, 17)
+        struct.pack_into('<B', blob, 504 + 2 * 24 + 4, 17)
+        with self.assertRaisesRegex(ValueError, 'truncated instruction'):
+            function_symbols(blob)
+
+    def test_duplicate_function_records_remain_deduplicated(self):
+        blob = fixture()
+        blob[504 + 24:504 + 48] = blob[504:528]
+        self.assertEqual(function_symbols(blob), [(0x1000, 8, 'local'), (0x1000, 8, 'alias')])
+
+    def test_unsupported_instruction_versions_are_not_interpreted_as_legacy(self):
+        for version in (2, 3, 4, 32):
+            with self.subTest(version=version):
+                blob = fixture()
+                struct.pack_into('<I', blob, 48, version)
+                with self.assertRaisesRegex(ValueError, 'legacy SBPFv0/v1'):
+                    function_symbols(blob)
 
 
 if __name__ == '__main__': unittest.main()

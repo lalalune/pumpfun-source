@@ -22,6 +22,9 @@ class BuildDiagnosticTests(unittest.TestCase):
             root = Path(temporary)
             src, work, out = (root / name for name in ('src', 'work', 'out'))
             src.mkdir()
+            crate = work / 'ws/programs/pump'
+            crate.mkdir(parents=True)
+            (crate / 'Cargo.toml').write_text('[package]\nname="pump-recovered"\nversion="0.1.0"\n')
             out.mkdir()
             if prior:
                 (out / 'candidate.so').write_bytes(b'prior stripped')

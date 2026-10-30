@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 """Exercise capture failure/retry over HTTP with unchanged retained account bytes."""
 import base64
+import copy
 from contextlib import contextmanager
+from contextlib import redirect_stdout
+import hashlib
 from http.server import BaseHTTPRequestHandler, HTTPServer
+import io
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -12,9 +17,27 @@ import threading
 import unittest
 from unittest.mock import patch
 
-from capture_retry import capture, module
+from capture_retry import SOURCE_SHA256, capture, module
 
 ROOT = Path(__file__).resolve().parents[2]
+MODES = (
+    ('ordinary', (), None),
+    ('-O', ('-O',), None),
+    ('-OO', ('-OO',), None),
+    ('PYTHONOPTIMIZE=1', (), '1'),
+    ('PYTHONOPTIMIZE=2', (), '2'),
+)
+MUTATIONS = {
+    'associated_token': (
+        'program_not_executable', 'payload_not_elf', 'program_reread_mismatch',
+    ),
+    'spl_token': (
+        'program_not_executable', 'wrong_program_owner', 'invalid_program_header',
+        'wrong_programdata_owner', 'programdata_executable', 'invalid_programdata_header',
+        'invalid_authority_tag', 'payload_not_elf', 'program_reread_mismatch',
+        'programdata_metadata_mismatch',
+    ),
+}
 
 
 @contextmanager
@@ -73,7 +96,101 @@ def capture_responses(name):
     return folder, manifest, responses
 
 
+def mutate_data(response, edit):
+    value = response['result']['value']
+    raw = bytearray(base64.b64decode(value['data'][0]))
+    edit(raw)
+    value['data'][0] = base64.b64encode(raw).decode()
+
+
+def invalid_responses(name, mutation):
+    _, _, original = capture_responses(name)
+    responses = [copy.deepcopy(response) for response in original]
+    legacy = name == 'associated_token'
+    reread = 1 if legacy else 2
+    if mutation == 'program_not_executable':
+        responses[0]['result']['value']['executable'] = False
+    elif mutation == 'wrong_program_owner':
+        responses[0]['result']['value']['owner'] = '11111111111111111111111111111111'
+    elif mutation == 'invalid_program_header':
+        for index in (0, reread):
+            mutate_data(responses[index], lambda raw: raw.__setitem__(slice(0, 4), b'\x01\0\0\0'))
+    elif mutation == 'wrong_programdata_owner':
+        responses[1]['result']['value']['owner'] = '11111111111111111111111111111111'
+    elif mutation == 'programdata_executable':
+        responses[1]['result']['value']['executable'] = True
+    elif mutation == 'invalid_programdata_header':
+        mutate_data(responses[1], lambda raw: raw.__setitem__(slice(0, 4), b'\x02\0\0\0'))
+        mutate_data(responses[3], lambda raw: raw.__setitem__(slice(0, 4), b'\x02\0\0\0'))
+    elif mutation == 'invalid_authority_tag':
+        mutate_data(responses[1], lambda raw: raw.__setitem__(12, 2))
+        mutate_data(responses[3], lambda raw: raw.__setitem__(12, 2))
+    elif mutation == 'payload_not_elf':
+        offset = 0 if legacy else 45
+        mutate_data(responses[0 if legacy else 1], lambda raw: raw.__setitem__(offset, 0))
+    elif mutation == 'program_reread_mismatch':
+        mutate_data(responses[reread], lambda raw: raw.__setitem__(-1, raw[-1] ^ 1))
+    elif mutation == 'programdata_metadata_mismatch':
+        mutate_data(responses[3], lambda raw: raw.__setitem__(-1, raw[-1] ^ 1))
+    else:
+        raise ValueError('unknown capture mutation: ' + mutation)
+    return responses
+
+
+def run_probe(name, mutation):
+    folder, manifest, responses = capture_responses(name)
+    if mutation != 'valid':
+        responses = invalid_responses(name, mutation)
+    with tempfile.TemporaryDirectory(prefix='capture-optimization-probe-') as temporary:
+        output = Path(temporary) / 'capture'
+        error = None
+        log = io.StringIO()
+        with rpc_server(responses) as (url, requests, pending):
+            try:
+                with redirect_stdout(log):
+                    capture(url, name, manifest['program'], output)
+            except Exception as exception:
+                error = type(exception).__name__
+        result = {
+            'accepted': error is None,
+            'error': error,
+            'output_exists': output.exists(),
+            'request_count': len(requests),
+            'pending_count': len(pending),
+            'log': log.getvalue(),
+        }
+        if output.exists():
+            result['file_sha256'] = {
+                path.name: hashlib.sha256(path.read_bytes()).hexdigest()
+                for path in output.iterdir() if path.name != 'capture.json'
+            }
+            saved = json.loads((output / 'capture.json').read_text())
+            keys = ('program', 'owner', 'genesis_hash', 'payload_sha256', 'payload_bytes',
+                    'program_sha256', 'last_deploy_slot', 'upgrade_authority')
+            result['report'] = {key: saved[key] for key in keys}
+        print(json.dumps(result, sort_keys=True))
+
+
+def subprocess_probe(mode, name, mutation):
+    label, flags, optimization = mode
+    environment = os.environ.copy()
+    environment.pop('PYTHONOPTIMIZE', None)
+    if optimization is not None:
+        environment['PYTHONOPTIMIZE'] = optimization
+    result = subprocess.run(
+        [sys.executable, *flags, '-B', str(Path(__file__)), '--probe', name, mutation],
+        capture_output=True, text=True, env=environment,
+    )
+    if result.returncode:
+        raise AssertionError(f'{label} probe failed:\n{result.stderr}')
+    return json.loads(result.stdout)
+
+
 class CaptureRetryTests(unittest.TestCase):
+    def test_source_binding_matches_the_reviewed_archive(self):
+        self.assertEqual(hashlib.sha256((ROOT / 'scripts/capture.py').read_bytes()).hexdigest(),
+                         SOURCE_SHA256)
+
     def test_changed_archive_is_rejected_before_execution(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -139,6 +256,41 @@ class CaptureRetryTests(unittest.TestCase):
             self.assertEqual(sentinel.read_bytes(), b'prior evidence')
             self.assertEqual(list(output.iterdir()), [sentinel])
 
+    def test_validation_mutations_are_rejected_in_every_optimization_mode(self):
+        for name, mutations in MUTATIONS.items():
+            for mutation in mutations:
+                for mode in MODES:
+                    with self.subTest(loader=name, mutation=mutation, mode=mode[0]):
+                        result = subprocess_probe(mode, name, mutation)
+                        self.assertFalse(result['accepted'])
+                        self.assertEqual(result['error'], 'AssertionError')
+                        self.assertFalse(result['output_exists'])
+
+    def test_valid_captures_are_identical_in_every_optimization_mode(self):
+        for name in MUTATIONS:
+            folder, manifest, _ = capture_responses(name)
+            expected_files = {'program-account.bin', 'deployed.so'}
+            if manifest.get('loader') != 'legacy-v2':
+                expected_files.add('programdata-account.bin')
+            expected_hashes = {
+                filename: hashlib.sha256((folder / filename).read_bytes()).hexdigest()
+                for filename in expected_files
+            }
+            keys = ('program', 'owner', 'genesis_hash', 'payload_sha256', 'payload_bytes',
+                    'program_sha256', 'last_deploy_slot', 'upgrade_authority')
+            expected_report = {key: manifest[key] for key in keys}
+            for mode in MODES:
+                with self.subTest(loader=name, mode=mode[0]):
+                    result = subprocess_probe(mode, name, 'valid')
+                    self.assertTrue(result['accepted'])
+                    self.assertTrue(result['output_exists'])
+                    self.assertEqual(result['pending_count'], 0)
+                    self.assertEqual(result['file_sha256'], expected_hashes)
+                    self.assertEqual(result['report'], expected_report)
+
 
 if __name__ == '__main__':
-    unittest.main()
+    if len(sys.argv) == 4 and sys.argv[1] == '--probe':
+        run_probe(sys.argv[2], sys.argv[3])
+    else:
+        unittest.main()

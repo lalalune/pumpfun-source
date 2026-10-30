@@ -4,7 +4,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
-from experiment_runner import run_trial
+from experiment_runner import run_trial, manifest
 
 
 class ExperimentTests(unittest.TestCase):
@@ -52,6 +52,24 @@ class ExperimentTests(unittest.TestCase):
             results = list(pool.map(lambda _: self.run_trial(), range(3)))
         self.assertEqual(len({r['attempt'] for r in results}), 1)
         self.assertEqual(sum(not r['reused'] for r in results), 1)
+
+    def test_nested_target_inputs_are_manifested_and_staged(self):
+        nested = self.source / 'nested' / 'target'; nested.mkdir(parents=True)
+        (nested / 'keep').write_text('v1')
+        (self.source / 'target').mkdir(); (self.source / 'target' / 'drop').write_text('generated')
+        keys = manifest(self.source)
+        self.assertIn('nested/target/keep', keys); self.assertNotIn('target/drop', keys)
+        command = [sys.executable, '-c', "from pathlib import Path; import sys; Path(sys.argv[2], 'result').write_text(Path(sys.argv[1], 'nested/target/keep').read_text())", '{source}', '{out}']
+        first = self.run_trial(command); self.assertEqual(first['status'], 'pass')
+        self.assertEqual((self.out / first['attempt'] / 'output/result').read_text(), 'v1')
+        self.assertTrue(self.run_trial(command)['reused'])
+        (nested / 'keep').write_text('v2')
+        second = self.run_trial(command); self.assertFalse(second['reused'])
+        self.assertEqual((self.out / second['attempt'] / 'output/result').read_text(), 'v2')
+
+    def test_root_target_symlink_rejected(self):
+        (self.source / 'target').symlink_to(self.source, target_is_directory=True)
+        with self.assertRaises(ValueError): self.run_trial()
 
     def test_unsafe_inputs_rejected(self):
         with self.assertRaises(ValueError): run_trial(self.source, self.command, self.source / 'out')

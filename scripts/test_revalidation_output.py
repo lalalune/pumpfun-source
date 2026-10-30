@@ -1,6 +1,7 @@
 """Exercise fresh audit output admission through the real revalidation CLI."""
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -72,6 +73,55 @@ class RevalidationOutputTests(unittest.TestCase):
                                   capture_output=True, encoding='utf-8')
         self.assertEqual(verified.returncode, 0, verified.stdout + verified.stderr)
         self.assertEqual((self.packet / 'pump.json').read_bytes(), self.source)
+
+    def test_manifest_paths_cannot_escape_the_packet(self):
+        outside = self.packet.parent / 'outside.txt'
+        outside.write_bytes(b'outside\n')
+        digest = hashlib.sha256(outside.read_bytes()).hexdigest()
+        cases = {
+            'parent': '../outside.txt',
+            'absolute': str(outside),
+            'backslash': r'..\outside.txt',
+        }
+        for name, manifest_path in cases.items():
+            with self.subTest(name=name):
+                (self.packet / 'manifest.json').write_text(json.dumps({
+                    manifest_path: digest,
+                }), encoding='utf-8')
+                output = self.root / ('audit-' + name)
+                result = self.run_audit(output)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                row = json.loads((output / 'results.json').read_text(encoding='utf-8'))[0]
+                self.assertEqual(row['manifest_check']['status'], 'fail')
+                self.assertEqual(row['manifest_check']['errors'], ['unsafe_path: ' + manifest_path])
+                self.assertEqual(row['overall'], 'fail')
+
+    def test_manifest_files_and_ancestors_cannot_be_links(self):
+        outside_file = self.root / 'outside.txt'
+        outside_file.write_bytes(b'outside\n')
+        outside_dir = self.root / 'outside'
+        outside_dir.mkdir()
+        (outside_dir / 'nested.txt').write_bytes(b'nested\n')
+        try:
+            os.symlink(outside_file, self.packet / 'alias.txt')
+            os.symlink(outside_dir, self.packet / 'nested', target_is_directory=True)
+        except (OSError, NotImplementedError, AttributeError) as error:
+            self.skipTest(f'creating links is not permitted: {error}')
+        (self.packet / 'manifest.json').write_text(json.dumps({
+            'alias.txt': hashlib.sha256(outside_file.read_bytes()).hexdigest(),
+            'nested/nested.txt': hashlib.sha256(
+                (outside_dir / 'nested.txt').read_bytes()).hexdigest(),
+        }), encoding='utf-8')
+        output = self.root / 'audit-links'
+        result = self.run_audit(output)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        row = json.loads((output / 'results.json').read_text(encoding='utf-8'))[0]
+        self.assertEqual(row['manifest_check']['status'], 'fail')
+        self.assertEqual(row['manifest_check']['errors'], [
+            'linked_path: alias.txt',
+            'linked_path: nested/nested.txt',
+        ])
+        self.assertEqual(row['overall'], 'fail')
 
 
 if __name__ == '__main__':

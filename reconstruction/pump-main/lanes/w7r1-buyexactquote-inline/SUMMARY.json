@@ -1,0 +1,7 @@
+{"lane":"w7r1-buyexactquote-inline","target":"0x1489f8","base":{"commit":"42babccf8","ratio":0.9895,"bytes":7856,"slots":10},
+ "best":{"trial":"s1","ratio":0.9958,"bytes":7856,"calls":"66/66","official":"1029/293","losses":[],"pr":2385},
+ "census":"callee multiset and order already match (66/66, 952/952 insns); residual was StackColoring only",
+ "key_finding":"llc oracle: keeping post23 (the fit PostComplete) live past v3_execute_buy gives an exact match; source = body-scope deferred fit_post",
+ "residual":"the 2 head stores of the copy into fit_post come after the 48B tail memcpy (MemCpyOpt forwards the estimate->binding->fit_post chain); IR swap oracle = exact",
+ "rejected":["s2 top-of-body decl 0.7521","s3 ref binding 0.9753","s4 match &estimate 0.9753","s5 if-let 0.9869","s6 Option body local 0.4929","s7 assignment in argument =s1","s8 unwrap =s1","t1 plain unwrap helper =s1","t2 black_box (diagnostic) 0.9806"],
+ "next":["a MIR shape that writes fit_post straight from (estimate as Some).0 with no binding temporary (e.g. a by-value helper whose sret is fit_post, not MIR-inlined)","a fit arm that writes the estimate result straight into the body-scope local (estimate_post_complete returning into it)","check whether rustc's MIR inliner keeps a return-place temporary for Option::unwrap at this call site"]}

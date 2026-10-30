@@ -17,7 +17,8 @@ class NestedTargetInputTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory(prefix='manifest-nested-target-')
         self.addCleanup(self.temporary.cleanup)
-        self.root = pathlib.Path(self.temporary.name)
+        # Resolve: on macOS the temp dir sits under the /var -> /private/var symlink.
+        self.root = pathlib.Path(self.temporary.name).resolve()
         self.crate = self.root / 'crates/native-transfer-fee'
         shutil.copytree(ROOT / 'crates/native-transfer-fee', self.crate)
         self.source = self.crate / 'src/target/checkpoint.rs'
