@@ -3,6 +3,13 @@
 Target: 0x5b3b0 `multi_hop_curve::swap_hop` (`programs/pump/src/multi_hop_curve_swap.rs`), pinned at 18,584 B.
 Base: main 20a1ae9c0 (swap_hop 0.99913, 18 differing slots; Pump Main 1033/1035 normalized, 1033 raw).
 
+**Status:** not landed. PR #2780 was closed as superseded by #2766 (w12b09-hop-hillclimb), which
+landed first through land.py with the same result. #2766 routes a `&Global` binding through a
+tuple so that ReferencePropagation cannot see it. This lane reaches the same bytes with a
+different spelling: a plain helper that takes `&Global`, as the byte-matched siblings do.
+Branch `swarm/w12b07-hop-gepsib` keeps this spelling as an alternative. Both spellings build
+the same swap_hop window, normalized and raw equal, at 18,584 B.
+
 ## Result
 
 | build | swap_hop bytes | ratio | slots | normalized_equal | raw_equal |
@@ -72,3 +79,18 @@ b1 (a typed `&Global` binding passed to complete_fill) was dropped. It duplicate
 
 Ledger keys: `0x5b3b0-w12-20a1ae9-oracle-gep-def-overreserves-bb57-v1`,
 `0x5b3b0-w12-20a1ae9-whitelist-ok-helper-takes-Global-v1`.
+
+## Reusable rule (for admin_cto and other windows)
+
+In this toolchain (rustc 1.79), a local, non-generic, plain fn (no `#[inline]`) whose
+optimized MIR contains any call (an intrinsic such as `raw_eq` counts) is not
+cross-crate-inlinable. The MIR inliner therefore never inlines it. Any reference argument
+built at its call site (a deref coercion such as `&a.global -> &Global`, or a field
+borrow) becomes a real MIR value in the calling block. ReferencePropagation and GVN cannot
+re-derive that value at later uses, and LLVM still inlines the helper.
+
+Use this when the original materializes an address or GEP in an earlier block than its use.
+Placement rules:
+- InstCombine sinks a value whose only users sit in the unique-predecessor successor block.
+- InstCombine does not sink a value whose users are two or more blocks down.
+- In the second case, MachineSink places the value at the top of the use block.
