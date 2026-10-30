@@ -147,6 +147,7 @@ jobs:
               python -B scripts/test_admin_cto_optimization.py
               python -B scripts/test_build_token_dependency_optimization.py
               python -B scripts/test_revalidate_empty_manifest.py
+              python -B scripts/test_revalidate_all_manifest_records.py
               python -B scripts/test_measure_relay13_v148_optimization.py
               python -B scripts/test_fees_withdraw_runtime_optimization.py
               python -B scripts/test_measure_relay_v148_optimization.py
@@ -179,6 +180,9 @@ jobs:
               python -B tests/test_fees_external_codec_pinned_image.py
               python -B tests/test_fees_error_messages_pinned_image.py
               python -B scripts/test_pump_validate_parallel.py
+              python -B tests/test_build_source_admission.py
+              python -B tests/test_pump_retained_receipt_contract.py
+              python -B tests/test_pump_suite_execution.py
               python -B scripts/test_pump_validate_volume_optimization.py
               python -B scripts/test_pump_validate_sell_accounting_optimization.py
               python -B scripts/test_imported_lab_optimization.py

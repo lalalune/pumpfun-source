@@ -49,9 +49,35 @@ class DispatchRootTests(unittest.TestCase):
         for name in selector:
             self.assertEqual(result[name], recover_dispatch.recover(name, root))
 
+    def test_relay_dependency_uses_admitted_elf_without_cached_analysis(self):
+        workspace = tempfile.TemporaryDirectory()
+        self.addCleanup(workspace.cleanup)
+        root = Path(workspace.name)
+        shutil.copytree(REPO / 'evidence/dependencies/donation_relay',
+                        root / 'evidence/dependencies/donation_relay')
+        # No binary-analysis.json or IDL: fallback names come from these bytes.
+        result = recover_dispatch.dispatch(root)
+        self.assertEqual(list(result), ['donation_relay'])
+        relay = result['donation_relay']
+        self.assertEqual(relay['binary_sha256'],
+                         '367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563')
+        self.assertEqual(relay['basis'],
+                         'SHA256(global:snake_case(instruction log name)) hypothesis')
+        self.assertEqual(len(relay['instructions']), 18)
+        self.assertEqual(sum(bool(row['matches']) for row in relay['instructions'].values()), 10)
+        # A stale report must not supply names for different bytes.
+        (root / 'evidence/binary-analysis.json').write_text(
+            '{"donation_relay":{"instruction_log_names":["FakeInstruction"]}}')
+        self.assertEqual(recover_dispatch.dispatch(root), result)
+        from sbpf_disassembly_inventory import program_inputs
+        self.assertEqual(program_inputs(root), [('donation_relay',
+                         root / 'evidence/dependencies/donation_relay/deployed.so')])
+
     def test_default_root_retains_the_published_dispatch_report(self):
         expected = json.loads((REPO / 'evidence/dispatch-map.json').read_text(encoding='utf-8'))
-        self.assertEqual(recover_dispatch.dispatch(), expected)
+        result = recover_dispatch.dispatch()
+        self.assertEqual({name: result[name] for name in expected}, expected)
+        self.assertEqual(set(result) - set(expected), {'donation_relay'})
 
 
 if __name__ == '__main__':

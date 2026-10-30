@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate analyst disassembly, never a source rebuild or candidate executable."""
 import argparse,hashlib,json,os,pathlib,shutil,subprocess,tempfile
-from analyze import program_names
+from analyze import capture_directory, program_names
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 ap=argparse.ArgumentParser();ap.add_argument('--objdump',type=pathlib.Path,required=True);ap.add_argument('--output',type=pathlib.Path,required=True);args=ap.parse_args()
 if args.output.exists():ap.error('output already exists')
@@ -17,7 +17,7 @@ try:
         private=pathlib.Path(temporary)
         inputs={}
         for name in program_names():
-            data=(ROOT/f'evidence/original/{name}/deployed.so').read_bytes()
+            data=(capture_directory(ROOT,name)/'deployed.so').read_bytes()
             directory=private/'inputs'/name;directory.mkdir(parents=True)
             snapshot=directory/'deployed.so';snapshot.write_bytes(data);snapshot.chmod(0o444)
             inputs[name]=(snapshot,hashlib.sha256(data).hexdigest())
