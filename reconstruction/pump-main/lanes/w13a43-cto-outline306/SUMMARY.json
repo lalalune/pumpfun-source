@@ -1,0 +1,116 @@
+{
+ "lane": "w13a43-cto-outline306",
+ "target": "0x22a10 admin_cto::execute",
+ "pinned_bytes": 27400,
+ "bases": {
+  "53abf28b1": 0.62672,
+  "23322b07c": 0.62882
+ },
+ "result": "no zero-loss gain; notes only. The original to_string outline set (86 lddw) is a net loss on current main in every source form.",
+ "best_zero_loss": null,
+ "oracles": {
+  "53abf28 + 1:2 weights on validate 306 switch": {
+   "ratio": 0.58234,
+   "bytes": 26976
+  },
+  "53abf28 + 1:3 weights": {
+   "ratio": 0.58394,
+   "bytes": 26968
+  },
+  "53abf28 + noinline 307/312": {
+   "ratio": 0.55889,
+   "bytes": 27024
+  },
+  "53abf28 + RAR (args before CtoState) + 1:2 weights": {
+   "ratio": 0.62768,
+   "bytes": 26920
+  },
+  "23322b0 + RAR + 1:2 weights": {
+   "ratio": 0.6298,
+   "bytes": 26920,
+   "main": 0.62882
+  },
+  "53abf28 + RAR + IR holder threading": {
+   "ratio": 0.61724,
+   "bytes": 26960
+  }
+ },
+ "source_trials": {
+  "v2 nested 289": [
+   0.51902,
+   26968
+  ],
+  "e1 by-value keys": [
+   0.56278,
+   27384
+  ],
+  "e1n": [
+   0.45236,
+   27208
+  ],
+  "e2 +bool locals": [
+   0.53518,
+   27776
+  ],
+  "e2n": [
+   0.55229,
+   27368
+  ],
+  "e2n+10 sizeknobs": "0.533-0.553",
+  "s1n RAR+nested289": [
+   0.52862,
+   26944
+  ],
+  "s1na/s1nb args=&new / Some(new)": [
+   0.53733,
+   26800
+  ],
+  "s1e/s1eb RAR+by-value+nested289": [
+   0.40804,
+   0.38658
+  ],
+  "f1 &args.0": [
+   0.50339,
+   27088
+  ],
+  "f2/f3 &new / rebinding": [
+   0.52862,
+   26944
+  ],
+  "reverts RSH/RPA/RAR/RTU no weights": [
+   0.62663,
+   0.62412,
+   0.62242,
+   0.62554
+  ]
+ },
+ "mechanisms": [
+  "Outline tax is coupled to the CPI clone-run register split (orig 0x2580-0x3840), not to validate: validate bins stay within a few insns of main",
+  "#3155's args placement (copy after the CtoState stores) is what turns the outline from +0.005 into -0.044; with args before CtoState (RAR) the 1:2 outline oracle beats main by +0.001 at -480 B",
+  "Source threading (nested 289) costs 0.010 against weights even in IR, and the source form adds a frame +0x20 unforwarded args copy (or -8 without args)",
+  "The original's validate region is ~70 insns longer than our outlined form (lendelta.py); w13a41 by-value entry copies fill it but lose 0.07+"
+ ],
+ "rejected": [
+  "nested 289 threading forms on main and RAR base",
+  "w13a41 t8/t28 by-value-key fills with and without the outline",
+  "validate taking new by reference",
+  "single size knobs on e2n",
+  "global -memssa-check-limit"
+ ],
+ "next_ideas": [
+  "source form that makes the 306 Some edge cold without threading (weights are 0.010 better than threading)",
+  "a forwardable copy of new on the RAR base (v2g-style memcpy forwarding as source)",
+  "a 440-480 B faithful fill that keeps the RAR+weights CPI basin; screen each fill with brw.py on its raw IR first"
+ ],
+ "tools": [
+  "tools/mkv.py (gene variants: N289 V1 V2 VA HK0 B3 RSH RPA RAR RTU AR AN VR VR2 VC)",
+  "tools/kscreen.py",
+  "tools/regcmp.py",
+  "tools/lendelta.py",
+  "tools/runs.py",
+  "tools/side.py",
+  "tools/mratio2.py",
+  "tools/brw.py (line arg is 1-based line-1)"
+ ],
+ "ledger_keys": "0x22a10-w14-53abf28-outline306-*-v1, 0x22a10-w14-23322b0-outline306-rar-w12-v1"
+}

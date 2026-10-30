@@ -74,3 +74,74 @@ In main the sharing arm's `memcpy(_502.sroa.6 <- _27.sroa.5)` reads `%new+1` dir
 - `pair.sh v..`: `src.sh` two at a time, then `tsites.py`. `src.sh` now keeps the raw IR, and `bfi.sh`/`bfix.sh` reuse it.
 - `genes_w13a43.py`: the source genes above, which extend w13a17's `tools/genes.py`.
 - The other tools are w13a17's, with paths switched to this lane.
+
+## 5. Wave 14 continuation on main 53abf28b1 (admin_cto 0.62672): the outline is now a net loss everywhere
+
+Oracle (`tools/src.sh`) reproduces main 53abf28 at 0.62672 @ 27,400, 88 lddw, outlines 330 334 338 660 719.
+Ledger keys `0x22a10-w14-53abf28-outline306-*-v1`.
+
+| form on 53abf28 | bytes | ratio | masked (frame-blind) | lddw | outlined `to_string` |
+| --- | ---: | ---: | ---: | ---: | --- |
+| main | 27,400 | **0.62672** | 0.69712 | 88 | 330 334 338 660 719 |
+| IR: weights Some:None 1:2 on validate's 306 switch | 26,976 | 0.58234 | 0.68438 | 86 | original set |
+| IR: 1:3 / 1:5 / 1:10 | 26,968 / 26,952 | 0.58394 / 0.48867 / 0.48867 | | 86 | original set |
+| IR: callsite `noinline` on 307/312 only | 27,024 | 0.55889 | 0.61137 | 86 | original set |
+| src v2: nested 289 `if hr{if !holder{Err}}` (threading) | 26,968 | 0.51902 | 0.62319 | 86 | original set |
+| src e1: w13a41 t8 (holder_key + sharing by value, validate reads `args.0`, plain PDA tuple) | 27,384 | 0.56278 | 0.62481 | 88 | main set |
+| src e1n: e1 + nested 289 | 27,208 | 0.45236 | 0.43913 | 86 | original set |
+| src e2: e1 + w13a41 t28 bool locals | 27,776 | 0.53518 | 0.61312 | 88 | main set |
+| src e2n: e2 + nested 289 | 27,368 | 0.55229 | 0.63860 | 86 | original set |
+
+- On a71238f the 1:2 oracle was +0.0033 over main. On 53abf28 it is -0.044. The outline tax is back, and it is not in
+  validate: `tools/regcmp.py` (matched original instructions per 200/400-instruction bin of the original) shows the
+  validate bins within a few instructions of main and the loss in the **CPI clone run, orig 0x2580-0x3840**
+  (m3w12 -19/-27/-91/-7 per 200-insn bin). That is the clone-run register-assignment basin of w13a40/w13a44 (#3164, #3149):
+  any change that shortens validate's live ranges moves the greedy-RA split of the accounts pointer, and main's current
+  basin is the better one.
+- v2's own source blocker on 53abf28 is smaller than on a71238f (#3155 moved `args` after the CtoState stores): the frame
+  is only 8 B deeper, because `target.i.sroa.0` takes `_116.i` in stack coloring and `target.sroa.0` is left alone
+  (`tools/sc.sh`). But even frame-blind v2 is 0.623 against main's 0.697.
+- `tools/lendelta.py` on the 1:2 oracle: the original's validate region (0x0-0x1900) is ~70 instructions longer than our
+  outlined form, which is where the 432 B gap lives. w13a41's by-value entry copies (e2n) fill it to -32 B faithfully,
+  but e2n still loses 0.07 in the same CPI region.
+- e2n + single size knobs (`tools/kscreen.py`, first 10 of 65 applicable knobs): 0.533-0.553. The screen was stopped,
+  because single knobs move e2n by about 0.01 and the gap is 0.075.
+
+## 6. What moved the outline basin: #3155's `args` placement
+
+The outline oracle was +0.005 on 52c0b08 (w13a44) and is -0.044 on 53abf28. Reverting the parts of #3155/#3168 one at a time
+(`tools/mkv.py` genes RSH, RPA, RAR, RTU), each without and with the 1:2 weights:
+
+| base 53abf28 + revert | no weights | + 1:2 weights (original outline set, 86 lddw) |
+| --- | ---: | ---: |
+| none (main) | 0.62672 @ 27,400 | 0.58234 @ 26,976 |
+| RSH (#3168 `shared` as if-expr) | 0.62663 @ 27,408 | 0.58225 |
+| RPA (#3168 pool `pargs`) | 0.62412 @ 27,392 | 0.58031 |
+| RSH+RPA (= 6ff770f) | 0.62403 | 0.58023 |
+| RTU (#3155 tuple order) | 0.62554 @ 27,424 | 0.58208 |
+| **RAR** (#3155: `let args=&(new,)` back before the CtoState block) | 0.62242 @ 27,384 | **0.62768 @ 26,920** |
+| RAR+RTU (= a71238f) | 0.62103 | 0.62642 |
+
+On main 23322b07c (0.62882): weights alone 0.58475, **RAR + weights 0.62980 @ 26,920 (+0.001, -480 B)**.
+So the outline only pays when `args` is copied before the CtoState stores: with the copy after them (#3155) the shorter
+validate moves the clone-run register split.
+
+Source forms on the RAR base (all outline the original set):
+
+| form | bytes | ratio | note |
+| --- | ---: | ---: | --- |
+| IR holder threading (`thread.py`) | 26,960 | 0.61724 | threading costs 0.010 against the weights; frame = main |
+| nested 289 (s1n) | 26,944 | 0.52862 | frame +0x20: the `args` entry copy is not forwarded again |
+| nested 289 + `args=&new` / `Some(new)` (s1na/s1nb) | 26,800 | 0.53733 | no copy, but frame -8 and the CPI run moves |
+| nested 289 + by-value keys (s1e/s1eb, w13a41 t8/t28) | 27,304 / 27,408 | 0.408 / 0.387 | |
+| RAR + by-value keys + weights (e3w12 / e3bw12) | 27,104 / 27,240 | 0.517 / 0.403 | the w13a41 entry forms are not a usable fill |
+
+Bound: the best source-expressible outline (threading) sits about 0.01 under main on the RAR base before any of the
+440-480 B fill is added, and every fill tried so far costs more. The angle is exhausted on current main.
+
+Next ideas (untried):
+- a source form that makes the 306 `Some` edge cold without threading (BPI has no heuristic on the `trunc` switch;
+  the weights oracle is 0.010 better than threading);
+- the v2g memcpy forwarding as a source form on the RAR base (the original copies `new` too, per w13a41, so look for
+  a copy that GVN forwards, e.g. a copy taken inside validate);
+- a 440-480 B fill that keeps the RAR+weights CPI basin. Screen it with `brw.py` on each fill's raw IR before building.
