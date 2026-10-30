@@ -32,6 +32,21 @@
       },
       "normalized": 1034,
       "raw": 1034
+    },
+    {
+      "main": "17f9dc11d (#2792 + #2808)",
+      "admin_cto": {
+        "ratio": 0.45267,
+        "slots_diff": 3308,
+        "bytes": 27400
+      },
+      "normalized": 1034,
+      "raw": 1034,
+      "losses": [],
+      "raw_losses": [],
+      "vs_base": "ab83c4c66 (0.45177)",
+      "differential": "363 cases, 0 mismatches",
+      "unstripped_sha256_prefix": "fe6d4f9c9ce13cc5"
     }
   ],
   "prs": [
@@ -241,6 +256,48 @@
       "bytes": 27360,
       "ratio": 0.37266,
       "verdict": "size, worse"
+    },
+    {
+      "variant": "m3_sweepseeds4",
+      "base": "17f9dc1",
+      "bytes": 27392,
+      "ratio": 0.45423,
+      "verdict": "near-miss, -8 B"
+    },
+    {
+      "variant": "m3_ss4bumpvar",
+      "base": "17f9dc1",
+      "bytes": 27392,
+      "ratio": 0.45423,
+      "verdict": "same code as sweepseeds4"
+    },
+    {
+      "variant": "m3_ss4vsig",
+      "base": "17f9dc1",
+      "bytes": 27352,
+      "ratio": 0.37481,
+      "verdict": "size, worse"
+    },
+    {
+      "variant": "m3_ss4+shctxlet",
+      "base": "17f9dc1",
+      "bytes": 27392,
+      "ratio": 0.41948,
+      "verdict": "worse"
+    },
+    {
+      "variant": "m3_ss4+poctxlet",
+      "base": "17f9dc1",
+      "bytes": 27392,
+      "ratio": 0.42637,
+      "verdict": "worse"
+    },
+    {
+      "variant": "m3_ss4+ccctxlet",
+      "base": "17f9dc1",
+      "bytes": 27392,
+      "ratio": 0.25019,
+      "verdict": "worse"
     }
   ],
   "rejected_mechanisms": [
@@ -260,7 +317,25 @@
     "the original's final target (T 0x580) is a high-MIR-number local, ahead of the final emit_cpi! temporaries, followed by 7/9 B copies of the new-creator pieces that become the sharing val"
   ],
   "next_ideas": [
+    "land m3_sweepseeds4 (+0.0016 at 27,392 B) with a +8 B knob that costs < 0.0016; the original reloads the sweep bump from a spill ([r10-0x910]) right before its store, ours keeps it in r7 (one instruction)",
     "search source shapes for the validation join that keep a 24 B target tail live across a block boundary, so the DAG cannot forward it, then check with scmerge.py whether _117.i74 merges into it",
     "a MIR-inlined helper whose by-value Pubkey param becomes the final target. Its locals are appended after the emit_cpi! temporaries, which would explain the original's high-numbered final target"
-  ]
+  ],
+  "near_miss": {
+    "variant": "m3_sweepseeds4",
+    "source": "let old=a.current_creator.key();let vaultseeds:&[&[u8]]=&[b\"creator-vault\",old.as_ref(),&[ctx.bumps.creator_vault]];",
+    "admin_cto": {
+      "ratio": 0.45423,
+      "bytes": 27392
+    },
+    "vs_main": "+0.0016 at -8 B (687 raw losses from the size change)",
+    "note": "undoes the +8 B of k4size's bump-before-old (l1, -0.00156 on k4); the bump byte is now stored after the pointer stores as in the original; needs a +8 B knob costing less than 0.0016 to land",
+    "compensation_tried": [
+      "ss4bumpvar (same code)",
+      "ss4vsig (-48, 0.37481)",
+      "ss4+shctxlet (+0, 0.41948)",
+      "ss4+poctxlet (+0, 0.42637)",
+      "ss4+ccctxlet (+0, 0.25019)"
+    ]
+  }
 }
