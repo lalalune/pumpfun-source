@@ -34,11 +34,11 @@
     },
     {
       "number": 2828,
-      "state": "merged (notes v3/v4, reviewed)"
+      "state": "merged (notes v3/v4, reviewed and reworded by the owner)"
     },
     {
       "number": 2841,
-      "state": "draft (notes v5, features.py, SUMMARY)"
+      "state": "closed by the owner without comment; notes v5/v6 and this SUMMARY stay on branch swarm/w12a02-cto-iroracle-3"
     }
   ],
   "oracle": {
@@ -113,10 +113,10 @@
     "bytes": 27392
   },
   "best_zero_loss_measurement": {
-    "ratio": 0.45147,
-    "slots_diff": 3308,
+    "ratio": 0.48742,
+    "slots_diff": 3273,
     "bytes": 27400,
-    "note": "no source change of this lane improved main; best measurement is main b5975fa67 itself"
+    "note": "unchanged origin/main fa778418d as captured by this lane; no source change of this lane improved main"
   },
   "source_trials": [
     {
@@ -158,5 +158,27 @@
     "F1_nolt_buf_val6": 0.52666,
     "bytes": 27400,
     "slots_F1": 3248
-  }
+  },
+  "code_level_greedy_pf": [
+    {
+      "round": 0,
+      "spec": "F1+C1",
+      "pf": 0.59257
+    },
+    {
+      "round": 1,
+      "edit": "bw:bb1.i:2000:1",
+      "pf": 0.61174
+    },
+    {
+      "round": 2,
+      "edit": "bw:<AccountInfo clone exit>:1:2000",
+      "pf": 0.61354
+    },
+    {
+      "round": 3,
+      "edit": "bw:bb34.i:2000:1",
+      "pf": 0.62223
+    }
+  ]
 }
