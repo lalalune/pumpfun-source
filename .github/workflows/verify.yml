@@ -16,6 +16,10 @@ jobs:
       max-parallel: 12
       matrix:
         include:
+          - suite: fees-exact-source-staging
+            commands: |
+              python -B scripts/test_fees_exact_staging.py
+              python -B research/fees-exact-readme-stage-20261030/replay.py --repo . --output work/fees-exact-source-staging
           - suite: composition-patch-bytes
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py
