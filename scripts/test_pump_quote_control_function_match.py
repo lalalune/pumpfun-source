@@ -5,7 +5,9 @@ import contextlib
 import hashlib
 import io
 import json
+from pathlib import Path
 import struct
+import tempfile
 import unittest
 from unittest import mock
 
@@ -99,35 +101,29 @@ class AlignedMatchTests(unittest.TestCase):
 
 class SyntheticMainTests(unittest.TestCase):
     def test_main_keeps_json_schema_and_reports_overlapping_raw_match(self):
-        class MemoryPath:
-            def __init__(self, name, data):
-                self.name, self.data = name, data
-
-            def __str__(self):
-                return self.name
-
-            def read_bytes(self):
-                return self.data
-
         calls = [slot(0x85, 1, immediate=immediate) for immediate in (10, 20, 30)]
         original, candidate = b''.join(calls), b''.join(calls[1:])
-        output = mock.Mock()
-        args = argparse.Namespace(candidate=MemoryPath('synthetic-candidate', candidate),
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        candidate_path, original_path, output = (root / name for name in ('candidate', 'original', 'report.json'))
+        candidate_path.write_bytes(candidate)
+        original_path.write_bytes(original)
+        args = argparse.Namespace(candidate=candidate_path,
                                   objdump='not-executed', pattern='quote_control', output=output)
         sections = [{'.text': {'addr': 0x100, 'offset': 0, 'size': len(original)}},
                     {'.text': {'addr': 0x200, 'offset': 0, 'size': len(candidate)}}]
         stdout = io.StringIO()
         with mock.patch.object(matcher.argparse.ArgumentParser, 'parse_args', return_value=args), \
-                mock.patch.object(matcher, 'ORIGINAL', MemoryPath('synthetic-original', original)), \
+                mock.patch.object(matcher, 'ORIGINAL', original_path), \
                 mock.patch.object(matcher, 'sections', side_effect=sections), \
                 mock.patch.object(matcher, 'candidate_functions', return_value=[(0x200, len(candidate), 'quote_control_synthetic')]), \
                 mock.patch.object(matcher.subprocess, 'check_output', side_effect=AssertionError('no subprocess permitted')), \
                 contextlib.redirect_stdout(stdout):
             matcher.main()
-        output.write_text.assert_called_once()
-        report = json.loads(output.write_text.call_args.args[0])
+        report = json.loads(output.read_text())
         self.assertEqual(set(report), {'candidate', 'candidate_sha256', 'original_sha256', 'functions'})
-        self.assertEqual(report['candidate'], 'synthetic-candidate')
+        self.assertEqual(report['candidate'], str(candidate_path))
         self.assertEqual(report['candidate_sha256'], hashlib.sha256(candidate).hexdigest())
         self.assertEqual(report['original_sha256'], hashlib.sha256(original).hexdigest())
         self.assertEqual(report['functions'], [{

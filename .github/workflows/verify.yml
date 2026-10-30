@@ -16,6 +16,11 @@ jobs:
       max-parallel: 12
       matrix:
         include:
+          - suite: byte-comparison-input-preservation
+            commands: |
+              sudo apt-get update
+              sudo apt-get install -y llvm
+              python -B reconstruction/tooling/byte-comparison-input-preservation/test_verify.py --objdump /usr/bin/llvm-objdump
           - suite: contract-tests
             commands: |
               python -B -m unittest discover -s tests -v
