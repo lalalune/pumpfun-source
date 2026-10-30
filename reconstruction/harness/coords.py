@@ -116,7 +116,11 @@ def main():
     p = sub.add_parser('unmatched'); p.add_argument('--cand', type=Path, default=BASE / 'current/unstripped.so'); p.add_argument('--json', type=Path)
     a = ap.parse_args()
     if a.cmd == 'window':
-        print(json.dumps(orig_sites(int(a.start, 0)), indent=1))
+        try:
+            start = int(a.start, 0)
+        except ValueError:
+            ap.error(f'{a.start!r} is not a numeric address')
+        print(json.dumps(orig_sites(start), indent=1))
     elif a.cmd == 'fn':
         blob = a.cand.read_bytes(); cs = sections(blob)
         try:

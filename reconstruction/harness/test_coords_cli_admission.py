@@ -35,6 +35,12 @@ class CoordsCliAdmissionTests(unittest.TestCase):
             self.assertIn("is not a function symbol", result.stderr)
             self.assertNotIn("Traceback", result.stderr)
 
+    def test_nonnumeric_window_start_is_an_argparse_error(self):
+        result = run_coords(["window", "not-an-address"])
+        self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
+        self.assertIn("is not a numeric address", result.stderr)
+        self.assertNotIn("Traceback", result.stderr)
+
     def test_nonnumeric_function_address_is_an_argparse_error(self):
         with tempfile.TemporaryDirectory() as temporary:
             candidate = Path(temporary) / "candidate.so"
