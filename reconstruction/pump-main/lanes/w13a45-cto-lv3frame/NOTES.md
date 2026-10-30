@@ -104,6 +104,23 @@ On 6ff770f (#3155: entry copy of `new` after the CtoState stores; tree tuple reo
 after 326 (`289 298 296 326 410 306 ..`). The arm-split remat no longer helps there either (0.29042 / fm 0.6321). So
 lv3 again sits near an MBP threshold, as w13a31 found for L9.
 
+## 5. Wave-14 continuation: main 53abf28 (0.62672, after #3168 stitch9)
+
+The raw-IR oracle reproduces main 53abf28 exactly (`eq_main: true`; 0.62672, fm 0.72588, sk 0.85410). The same
+`trials/lv3n.py` + `trials/s_mapn.py` edits still apply cleanly:
+
+| oracle | bytes | ratio | fm | sk | errseq |
+| --- | ---: | ---: | ---: | ---: | --- |
+| main 53abf28 | 27,400 | 0.62672 | 0.72588 | 0.85410 | 298 289 296 326 306 312 307 330 338 410 334 .. |
+| lv3+s_map port | 27,328 | 0.31588 | 0.64017 | 0.82436 | 289 298 296 326 410 306 312 307 330 338 334 .. |
+| + holder arm-split remat (`hbremat.py br`) | 27,264 | 0.32227 | 0.57156 | 0.82565 | |
+
+The 410-after-326 relayout seen on 6ff770f persists. The lv3 skeleton (0.824) is now below main's (0.854): the
+skeleton lead it had on 52c0b08 (0.876 with the remat oracle) did not survive #3155/#3168. On 52c0b08 even all three
+IR fixes together gave 0.529, below main. **The lv3 threading family is a dead end on current main.** Ledger:
+`0x22a10-w13-53abf28-lv3frame-smapn-port-v1`. New tool: `tools/llcm.py <m.ll> <name>` (llc a post-opt module and
+score it with rx.py's metric).
+
 ## Conclusion
 
 On 52c0b08 the lv3 threading family has the best skeleton seen so far (0.876 with the holder remat oracle). It has

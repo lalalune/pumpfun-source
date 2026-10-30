@@ -12,6 +12,11 @@
    "ratio": 0.62403,
    "fm": 0.72499,
    "sk": 0.8541
+  },
+  "53abf28b1": {
+   "ratio": 0.62672,
+   "fm": 0.72588,
+   "sk": 0.8541
   }
  },
  "landed": false,
@@ -45,12 +50,26 @@
    "bytes": 27312,
    "fm": 0.63946,
    "sk": 0.82461
+  },
+  "s_map_53abf28": {
+   "ratio": 0.31588,
+   "bytes": 27328,
+   "fm": 0.64017,
+   "sk": 0.82436,
+   "errseq": "289 298 296 326 410 306 312 307 330 338 334"
+  },
+  "s_map_53abf28_hbremat_br": {
+   "ratio": 0.32227,
+   "bytes": 27264,
+   "fm": 0.57156,
+   "sk": 0.82565
   }
  },
  "mechanisms": [
   "frame cascade: 32 B out-param target wins authority_info.i over sk -> sk blocks 307/312 bufs in _112.i -> new 24 B top group buf.i277 (+0x10); _11 merges into event_signers.i; _116.i own slot; _27.sroa.5 unmerged (+0x20)",
   "register shift: validate arm split reads execute holder i1 (needed for threading) -> tag web r7->r6 at 18 sites; remat after opt restores r7 and fm 0.710/sk 0.876",
-  "lv3 sits near MBP thresholds: on 6ff770f it relays out again (410 after 326)"
+  "lv3 sits near MBP thresholds: on 6ff770f it relays out again (410 after 326)",
+  "on 53abf28 the lv3 skeleton (0.824) is below main (0.854): the threading lead is gone after #3155/#3168"
  ],
  "rejected": [
   "okw",
@@ -73,7 +92,8 @@
   "nh3",
   "nh4",
   "single-alloca frame sweep (415 items)",
-  "frgreedy on t5"
+  "frgreedy on t5",
+  "lv3+s_map port onto 53abf28 (+hbremat br)"
  ],
  "unresolved": [
   "source form that keeps one holder SSA through JumpThreading but a separate vreg for the arm split in RA",
@@ -88,5 +108,6 @@
   "combine lv3 with outline306 (original has both the threading and outlined 307/312 to_string); outlining removes buf.i277 at the source of the cascade",
   "source for _27.sroa.5: let the sharing payload read new directly (as main) in the lv3 family"
  ],
- "ledger_keys": "0x22a10-w13-52c0b08-lv3frame-*, 0x22a10-w13-6ff770f-lv3frame-*"
+ "ledger_keys": "0x22a10-w13-52c0b08-lv3frame-*, 0x22a10-w13-6ff770f-lv3frame-*",
+ "status": "exhausted: lv3 threading family dead on current main (wave-14 continuation)"
 }
