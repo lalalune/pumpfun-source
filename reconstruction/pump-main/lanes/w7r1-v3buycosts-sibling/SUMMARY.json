@@ -1,0 +1,15 @@
+{
+  "lane": "w7r1-v3buycosts-sibling",
+  "angle": "sibling transplant",
+  "targets": ["0x80df8"],
+  "base": "origin/main 2162b3b00 (1027/276; v3_buy_costs 2136 B ratio 0.920, 19/21 slots)",
+  "best": {"bytes": 2136, "ratio": 0.92, "slots_diff": 19, "note": "no improvement from this angle; source unchanged"},
+  "resolved_by": "PR #2272 (w7r1-v3buycosts-blockorder): add3 pair errors share one labeled-block Err arm, normalized match 1028/276",
+  "attempts": 30,
+  "byte_identical": ["second-resmatch","second-mapor","second-maporelse","second-fees-local","second-destructure","mapid-first","mapid-second","mapid-375","mapid-gross","front-destructure","front-block","front-unwrap-or","front-helper","mayhem-gt","total-match","tuple-swap","ret-local","gross-closure"],
+  "rejected_worse": ["first-match","second-match","second-transpose","second-map-match","postfee-local","total-swap","sum-swap","opt-local","gross-closure-var","gross-cold"],
+  "rejected_losses": ["costs-cold (loses 0x837a8, 0x147ba0)"],
+  "analysis": ["oracle: front lifetime-marker removal / bb4 removal give the sret class of the original but -51/+51 front; 371/375 panic merge 2112 B layout change"],
+  "unresolved_residuals": [],
+  "next_ideas": ["none for 0x80df8 (matched by #2272); the shared-Err-arm-via-labeled-block idea may apply to other windows whose error paths propagate several call Results"]
+}
