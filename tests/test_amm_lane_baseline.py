@@ -63,6 +63,21 @@ class LaneBaselineTests(unittest.TestCase):
         self.assertEqual((self.lane / 'ws' / native.SELL_REL).read_bytes(), self.selected.read_bytes())
         self.assertTrue(native.recipe.verify_workspace(self.source, self.lane / 'ws')['verified'])
 
+    def test_default_canonical_source_is_a_positive_control(self):
+        self.stage_until_compiler_boundary('canonical')
+        self.assertTrue(native.recipe.verify_workspace(ROOT, self.lane / 'ws')['verified'])
+
+    def test_unknown_legacy_baseline_preserves_existing_workspace(self):
+        native.PRISTINE = self.root / 'missing-pristine'
+        native.recipe.stage(self.source, self.lane / 'ws')
+        sell = self.lane / 'ws' / native.SELL_REL
+        sell.write_bytes(sell.read_bytes() + b'// legacy attempt with unknown origin\n')
+        before = native.recipe.file_inventory(self.lane / 'ws')
+        with self.assertRaisesRegex(SystemExit, 'establish its baseline'):
+            native.build(self.lane, 'legacy')
+        self.assertEqual(native.recipe.file_inventory(self.lane / 'ws'), before)
+        self.assertFalse((self.lane / 'baseline-ws').exists())
+
 
 if __name__ == '__main__':
     unittest.main()
