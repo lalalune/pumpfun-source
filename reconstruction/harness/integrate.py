@@ -11,6 +11,9 @@ together before changing the composed tree. Directory changes are applied after
 each file patch; a removal that still holds composed files is reported as retained.
 Rejects are reported and the part is skipped
 (the composition continues). The composed crate is built with fastbuild.py and scored.
+A build runs arbitrary build-script code, so the composed source, the scoring
+baseline and the scorer are rechecked after the build; a build that changes
+any of them is refused a score.
 Output: SC/integ/<NAME>/{src, parts/<label>.patch, rejects/, report.json}
 Names must be fresh; an earlier result is never overwritten.
 Part labels must be unique ignoring case so their retained patch names remain
@@ -18,7 +21,7 @@ distinct on case-insensitive filesystems. Labels and composition names exclude
 trailing dots and reserved Windows device names. --base-of labels match the
 declared --part spelling exactly.
 """
-import argparse, ast, errno, json, os, shutil, subprocess, sys, re
+import argparse, ast, errno, hashlib, json, os, shutil, subprocess, sys, re
 from pathlib import Path
 
 H = Path(__file__).resolve().parent
@@ -32,6 +35,28 @@ def build_source(*args, **kwargs):
     # File-only composition does not need the builder's POSIX locking support.
     import fastbuild
     return fastbuild.build(*args, **kwargs)
+
+
+def bound_scoring_inputs(src, baseline):
+    """Digest the composed source, scoring baseline and scorer tool.
+
+    A crate build runs arbitrary build-script code, so the build may rewrite
+    the composed tree it is scored from, the baseline it is scored against,
+    or the scorer itself; build_score_pair rechecks its bound inputs after
+    the paired build for the same reason. Content hashes (not mtimes) bind
+    the tree, so a build that only touches timestamps is not a change.
+    """
+    def sha_file(path):
+        return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+    tree = {}
+    for path in sorted(src.rglob('*')):
+        relative = path.relative_to(src).as_posix()
+        if path.is_symlink():
+            tree[relative] = 'symlink:' + os.readlink(path)
+        elif path.is_file():
+            tree[relative] = sha_file(path)
+    return {'source': tree, 'baseline': sha_file(baseline), 'scorer': sha_file(H / 'score.py')}
 
 
 def crate_ignore(root: Path, *patterns):
@@ -381,9 +406,13 @@ def main():
         validate_inputs()
         if not a.no_build and not exit_code:
             build_options = {'timeout': a.timeout} if a.timeout is not None else {}
+            bound = bound_scoring_inputs(src, baseline)
             res = build_source(src, out / 'work', out / 'build', quiet=True, **build_options)
             report['build'] = res
-            if res['ok']:
+            if res['ok'] and bound_scoring_inputs(src, baseline) != bound:
+                report['score_error'] = {'error': 'composed source, scoring baseline or scorer changed during build; refusing to score'}
+                exit_code = 1
+            elif res['ok']:
                 s = subprocess.run([sys.executable, str(H / 'score.py'), str(out / 'build/unstripped.so'),
                                    '--baseline', str(baseline),
                                    '--json', str(out / 'score.json'), '--quiet'],
