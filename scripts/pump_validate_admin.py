@@ -9,6 +9,8 @@ from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
 
+from validation_report import protected_inputs, validate_destination, write_report
+
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
 PROGRAM = Pubkey.from_string(IDL['address'])
@@ -71,6 +73,8 @@ def main():
     p.add_argument('--candidate', type=pathlib.Path, required=True)
     p.add_argument('--output', type=pathlib.Path, required=True)
     a = p.parse_args()
+    protected = protected_inputs(ROOT, __file__, a.candidate, getattr(a, "source_directory", ROOT/"programs/pump"))
+    validate_destination(a.output, protected)
     original = ROOT / 'evidence/original/pump/deployed.so'
     cases = []
     names = ['toggle_create_v2', 'toggle_mayhem_mode', 'toggle_cashback_enabled', 'set_max_curve_depth']
@@ -98,8 +102,7 @@ def main():
     mismatches = [i for i,c in enumerate(cases) if not c['match']]
     sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
     report = {'scope':'Four recovered administrative handlers only; local synthetic-authority state, not full program equivalence.', 'original_sha256':sha(original), 'candidate_sha256':sha(a.candidate), 'source_sha256':sha(ROOT/'programs/pump/src/lib.rs'), 'case_count':len(cases), 'mismatches':mismatches, 'cases':cases}
-    a.output.parent.mkdir(parents=True, exist_ok=True)
-    a.output.write_text(json.dumps(report, indent=2)+'\n')
+    write_report(a.output, report, protected, gzip_enabled=False)
     print(json.dumps({'case_count':len(cases), 'mismatches':mismatches}))
     for i in mismatches:
         c=cases[i];print(c['instruction'],c.get('value'),c['mutation'],c['original']['error'],c['candidate']['error'])
