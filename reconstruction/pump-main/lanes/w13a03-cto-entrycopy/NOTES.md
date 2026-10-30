@@ -61,6 +61,40 @@ r1 plus three size companions from the w13a10 gene library: `curve_deref` (`&mut
 
 Unstripped sha16 98491f37fdc32d40. Runtime differential: 363 cases, 0 mismatches.
 
+## Status after the stitch landings (main 74b31714a, admin_cto 0.51348 / 3,334 slots)
+
+The mechanism is on main: w13a11-cto-stitch-3 (#2917) carried g8 (hoisted CtoState + `let args=&(new,);` +
+`Some(args.0)`), and later landings moved the copy before the CtoState literal (this lane's r1 placement) and
+added `m_rent_inline`. This lane's own PR (#2914, N3 = r1 + curve_deref + m_rent_inline + shared_nested,
+0.50030 at 27,400 on 9eb6c00) was superseded before landing.
+
+### The faithful entry copy (U5): reproduced, but not yet at a better ratio
+
+On main 74b3171, copy **after** the CtoState literal **and** validate reading `new` from it
+(`validate(&st,holder,fee,args.0,..)`) reproduces the original's entry sequence instruction for instruction:
+`ldxb tag -> spill; ldxw [+4] / ldxw [+1] -> 7 B piece; ldxdw [+8] -> spill; ldxdw [+0x10]; ldxb [+0x20] /
+ldxdw [+0x18] -> 9 B piece`, right after the CtoState stores, with the pieces at T 0x650/0x660 (orig 0x658/0x668,
+8 B off). Bytes 27,392 (-8), but ratio 0.46772 (main 0.51348): the rest of the frame shifts. With the copy
+before the literal (U4) the pieces land 40 B off (T 0x680/0x690) and it is +112 B.
+
+So the original's sharing payload **and** validate's `t` both come from the referenced copy. What keeps our
+ratio down is elsewhere: a 25-gene scan on U5 (w13a10 library) stays at 0.4654..0.4686 (best `m_oldbump`
+0.46861 at 27,392), and the perfect-frame ratio is lower too (U5 pf 0.60375, main efeb9cc pf 0.61594). Keep U5
+as the faithful form to retry once the frame (X24 host, 8/24 target split) or the to_string outline is solved.
+
+| trial (main) | form | bytes | ratio |
+| --- | --- | ---: | ---: |
+| U5 (74b3171) | copy after CtoState, validate + sharing read it | 27,392 | 0.46772 |
+| U4 (74b3171) | copy before CtoState (main), validate also reads it | 27,512 | 0.47205 |
+| U6 (74b3171) | U5 + EL296 + TAKE306 (w13a04 outline) | 27,160 | 0.21089 |
+| Y1 (7d7d9e5) | CtoState back in the block, copy before it | 27,400 | 0.49371 |
+| P4 / P3 / P1 (7d7d9e5) | copy after CtoState / before quote_locked / before holder_key | 27,416 / 27,416 / 27,384 | 0.50764 / 0.48637 / 0.48307 |
+| Z1 (7d7d9e5) | `mut new` + `validate(..,new.take(),..)` | 27,512 | 0.47474 |
+| X4 (7d7d9e5) | `&(new,holder_key)`, validate compares against `&args.1` (orig holder_key copy T 0x518) | 27,504 | 0.42338 |
+| Q1 / Q2 (7d7d9e5) | curve bools before global_quote (locals / literal order) | 27,376 / 27,280 | 0.48884 / 0.43687 |
+| K1 (74b3171) | holder_key PDA back before `shared` (orig order) | 27,432 | 0.50898 |
+| R1 / R2 / W1 / W2 | `&mut (new,)`, `&[new]`, take on the copy | 27,400 | = main (byte-identical) |
+
 ## Rejected (this lane)
 
 `mut new`+`take()` in the sharing arm (e1/n1) or at the validate call (t2/n2); shadow `let mut new=new`+take

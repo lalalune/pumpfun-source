@@ -1,0 +1,52 @@
+{
+ "lane": "w13a03-cto-entrycopy",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "bases": {
+  "3912c47": 0.48772,
+  "085e5df": 0.48922,
+  "4394685": 0.49071,
+  "9eb6c00": 0.49131,
+  "1f1a717": 0.49431,
+  "7d7d9e5": 0.51228,
+  "74b3171": 0.51348,
+  "efeb9cc": 0.51378
+ },
+ "best": {
+  "trial": "N3 (r1 + curve_deref + m_rent_inline + shared_nested)",
+  "main": "9eb6c0084",
+  "bytes": 27400,
+  "ratio": 0.5003,
+  "slots_diff": 3291,
+  "normalized": 1034,
+  "raw": 1034,
+  "losses": [],
+  "unstripped_sha16": "98491f37fdc32d40",
+  "differential": "363 cases, 0 mismatches",
+  "landed": false,
+  "note": "PR #2914 superseded before landing: w13a11-cto-stitch-3 (#2917) carried the same mechanism (g8) to main, later mains adopted the r1 placement (copy before the CtoState literal) and m_rent_inline."
+ },
+ "mechanism": "A referenced copy of new at function scope (let args=&(new,);) next to a function-scope CtoState, read by the shared non-holder sharing_update (Some(args.0)). The reference keeps the copy out of MIR CopyProp/SROA; arg spills move to the original's [r10-0x928]/[r10-0x938]. Faithful form U5: copy after CtoState and validate reading new from it reproduces the original's entry load/store sequence (pieces 8 B off) but is 0.46772 at 27392 on 74b3171.",
+ "attempts": "~170 ledger rows (approach entrycopy, keys 0x22a10-w13-<main7>-entrycopy-*-v1), incl. gene scans on r1, V1, U5",
+ "rejected": [
+  "mut new + take() in the sharing arm or at the validate call (n1k2 0.47394 pinned)",
+  "shadow let mut new=new + take",
+  "validate holder_key by value / holder_key in the copy tuple (X4)",
+  "args aggregate before the block with CtoState in the block (a1/a2/Y1/Y2)",
+  "copy placements before quote_locked / holder_key / execute top",
+  "catalog size knobs val_sh_borrow, v_ik_split on the copy frame (collapse)",
+  "outline EL296+TAKE306 or 296-in-arm+byval keys with the copy read by validate (U2/U3/U6/o1/o2/X2)",
+  "curve bools before global_quote (Q1/Q2)",
+  "holder_key PDA before shared (K1)",
+  "&mut (new,), &[new], take on the copy (byte-identical)"
+ ],
+ "unresolved": [
+  "entry-time loads of the copy pieces only appear when validate reads the copy (U4/U5), which costs ratio on today's frame",
+  "holder_key copy at T 0x518 (orig) has no cheap source form",
+  "CtoState sits at T 0x668 on main (orig -0x38) since it moved to function scope; Y1 restores -0x38 but loses the deep frame"
+ ],
+ "next_ideas": [
+  "Retry U5 (faithful copy) after an X24/8-24 target-split or outline fix lands; it is size-neutral (-8 B)",
+  "Combine U5 with w13a04 n4c/n7c per-arm cashback once the fi0 unwrap_failed slot issue is solved",
+  "Look for a source form that keeps CtoState at the frame top (-0x38) while the copy stays at function scope"
+ ]
+}
