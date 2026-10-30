@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Build frozen Pump inputs using the pinned macOS compiler/Linux SBF profile."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 from pathlib import Path
 from collections import Counter
 from functools import lru_cache
