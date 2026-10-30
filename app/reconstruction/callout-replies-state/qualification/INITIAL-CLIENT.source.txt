@@ -1,0 +1,258 @@
+// Complete selected source read boundary; external context is deliberately explicit.
+export function createCalloutRepliesReadState({
+  React,
+  useMemoCache,
+  useQuery,
+  getContractClient,
+  clock,
+  Response,
+  overlay,
+}) {
+  if (
+    typeof useMemoCache !== "function" ||
+    typeof useQuery !== "function" ||
+    typeof getContractClient !== "function" ||
+    typeof clock?.now !== "function" ||
+    typeof Response?.json !== "function" ||
+    typeof React?.useSyncExternalStore !== "function"
+  )
+    throw TypeError(
+      "explicit React/compiler/query/client/clock/Response capabilities required",
+    );
+  if (
+    !(overlay?.pendingReplies instanceof Map) ||
+    !(overlay?.likedByViewer instanceof Map) ||
+    !(overlay?.listeners instanceof Set)
+  )
+    throw TypeError("explicit owned Map/Map/Set overlay context required");
+  const Date = clock;
+  const readReplies = (() => {
+    const r = { j: getContractClient };
+    return async function s(e) {
+      let {
+        calloutId: t,
+        scope: l = "author",
+        parentReplyId: a,
+        includeTombstones: n = !1,
+        signal: i,
+      } = e;
+      return (
+        (
+          await (0, r.j)()("GET /callout/{calloutId}/replies", {
+            params: { calloutId: t },
+            query: {
+              limit: 200,
+              filter: "all" === l ? "ALL" : "AUTHOR_ONLY",
+              parentReplyId: a || void 0,
+            },
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            signal: i,
+            hooks: {
+              afterResponse: [
+                (e, t, r) => {
+                  if (404 === r.status) return Response.json({ replies: [] });
+                  if (!r.ok)
+                    throw Error(`Failed to fetch callout replies: ${r.status}`);
+                },
+              ],
+            },
+          })
+        ).replies ?? []
+      )
+        .filter((e) => n || !e.tombstone)
+        .map((e) => {
+          var r, l;
+          let a, n;
+          return (
+            (r = e),
+            (l = t),
+            (n = r.walletAddress?.trim() || void 0),
+            {
+              replyId: r.id,
+              calloutId: l,
+              userId: n ?? r.userId,
+              ...(r.userId ? { authorCcUserId: r.userId } : {}),
+              content: r.content,
+              createdAt:
+                r.createdAt && Number.isFinite((a = Date.parse(r.createdAt)))
+                  ? a
+                  : 0,
+              likeCount: r.likeCount,
+              likedByViewer: r.hasLiked ?? !1,
+              mediaUrl: r.mediaUrl ?? null,
+              ...(void 0 !== r.directReplyCount
+                ? { directReplyCount: r.directReplyCount }
+                : {}),
+              ...(void 0 !== r.threadReplyCount
+                ? { threadReplyCount: r.threadReplyCount }
+                : {}),
+              ...(r.tombstone ? { tombstone: !0 } : {}),
+              caller: {
+                ...(r.userName?.trim() ? { username: r.userName.trim() } : {}),
+                ...(r.profileImage ? { avatarUrl: r.profileImage } : {}),
+                ...(n ? { walletAddress: n } : {}),
+              },
+            }
+          );
+        });
+    };
+  })();
+  const l = React;
+  const a = { L: readReplies };
+  const t = { c: useMemoCache };
+  const r = { useQuery };
+  let n = (e, t) => ["callouts", "replies", e, t];
+  let s = 0;
+  let o = overlay.listeners;
+  let u = () => {
+    for (let e of ((s += 1), o)) e();
+  };
+  let d = (e) => (
+    o.add(e),
+    () => {
+      o.delete(e);
+    }
+  );
+  let c = () => s;
+  let m = overlay.pendingReplies;
+  let f = (e, t) => `${e}|${t}`;
+  let y = overlay.likedByViewer;
+  let g = (e) => {
+    if (0 === y.size) return e;
+    let t = !1,
+      r = e.map((e) => {
+        let r = y.get(e.replyId);
+        return void 0 === r || (e.likedByViewer ?? !1) === r
+          ? e
+          : ((t = !0), { ...e, likedByViewer: r });
+      });
+    return t ? r : e;
+  };
+  function h(e, t, r = "all", l = null) {
+    let a = f(e, t),
+      n = m.get(a);
+    if (!n) return [];
+    let i = Date.now(),
+      s = n.filter((e) => i - e.registeredAtMs <= 3e5);
+    return (
+      0 === s.length ? m.delete(a) : s.length !== n.length && m.set(a, s),
+      s
+        .filter((e) => e.parentReplyId === l)
+        .filter((e) => "all" === r || e.isAuthorReply)
+        .map((e) => e.reply)
+    );
+  }
+  function x(e) {
+    return `${e.userId.toLowerCase()}|${e.content.trim()}`;
+  }
+  function I(e) {
+    return e.replyId;
+  }
+  const useReplies = function (e) {
+    let i,
+      s,
+      o,
+      u,
+      m,
+      f = (0, t.c)(26),
+      { mint: p, calloutId: y, enabled: v, scope: w, refetchIntervalMs: b } = e,
+      A = void 0 === w ? "author" : w,
+      N = (void 0 === v || v) && !!p && !!y,
+      k = p ?? null,
+      C = y ?? null;
+    if (f[0] !== A || f[1] !== k || f[2] !== C)
+      ((i = [...n(k, C), A]), (f[0] = A), (f[1] = k), (f[2] = C), (f[3] = i));
+    else i = f[3];
+    f[4] !== y || f[5] !== p || f[6] !== A
+      ? ((s = (e) => {
+          let { signal: t } = e;
+          if (!p || !y) throw Error("mint and calloutId required");
+          return (0, a.L)({ mint: p, calloutId: y, scope: A, signal: t });
+        }),
+        (f[4] = y),
+        (f[5] = p),
+        (f[6] = A),
+        (f[7] = s))
+      : (s = f[7]);
+    let E = b ?? !1;
+    f[8] !== N || f[9] !== i || f[10] !== s || f[11] !== E
+      ? ((o = {
+          enabled: N,
+          queryKey: i,
+          queryFn: s,
+          staleTime: 15e3,
+          gcTime: 3e5,
+          refetchOnWindowFocus: !1,
+          refetchInterval: E,
+          refetchIntervalInBackground: !1,
+        }),
+        (f[8] = N),
+        (f[9] = i),
+        (f[10] = s),
+        (f[11] = E),
+        (f[12] = o))
+      : (o = f[12]);
+    let _ = (0, r.useQuery)(o);
+    if (
+      ((0, l.useSyncExternalStore)(d, c, c),
+      f[13] !== y || f[14] !== p || f[15] !== _.data || f[16] !== A)
+    ) {
+      e: {
+        let e,
+          t = _.data ?? [];
+        if (!p || !y) {
+          u = t;
+          break e;
+        }
+        let r = h(p, y, A);
+        if (0 === r.length) {
+          u = g(t);
+          break e;
+        }
+        let l = new Set(t.map(I)),
+          a = new Set(t.map(x)),
+          n = r.filter(
+            (e) =>
+              !l.has(e.replyId) &&
+              (!e.replyId.startsWith("pending-") ||
+                !a.has(`${e.userId.toLowerCase()}|${e.content.trim()}`)),
+          ),
+          i = 0 === n.length ? t : [...t, ...n];
+        (f[18] !== i ? ((e = g(i)), (f[18] = i), (f[19] = e)) : (e = f[19]),
+          (u = e));
+      }
+      ((f[13] = y), (f[14] = p), (f[15] = _.data), (f[16] = A), (f[17] = u));
+    } else u = f[17];
+    let R = u;
+    return (
+      f[20] !== _.error ||
+      f[21] !== _.isError ||
+      f[22] !== _.isLoading ||
+      f[23] !== _.refetch ||
+      f[24] !== R
+        ? ((m = {
+            replies: R,
+            isLoading: _.isLoading,
+            isError: _.isError,
+            error: _.error,
+            refetch: _.refetch,
+          }),
+          (f[20] = _.error),
+          (f[21] = _.isError),
+          (f[22] = _.isLoading),
+          (f[23] = _.refetch),
+          (f[24] = R),
+          (f[25] = m))
+        : (m = f[25]),
+      m
+    );
+  };
+  return {
+    useReplies,
+    readReplies,
+    notifyOverlayChange: u,
+    getOverlayVersion: c,
+    subscribeOverlay: d,
+  };
+}

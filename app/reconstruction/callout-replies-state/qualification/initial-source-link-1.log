@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+0 !== 2
+
+    at derive (file:///workspace/pump-app-privacy-links/app/scripts/original-callout-replies-state.mjs:24:566)
+    at async main (file:///workspace/pump-app-privacy-links/app/scripts/original-callout-replies-state.mjs:39:434)
+    at async file:///workspace/pump-app-privacy-links/app/scripts/original-callout-replies-state.mjs:40:89 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 0,
+  expected: 2,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

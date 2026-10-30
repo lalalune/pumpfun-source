@@ -1,0 +1,68 @@
+✖ full read owner/source/caller and static writer bindings verify (297.048579ms)
+✖ real verifier rejects generated operations/state projection and contract tampering (245.014706ms)
+✔ explicit owned context and runtime ports required (1.242786ms)
+✔ query key/defaults/options retain exact scope and false poll (0.913731ms)
+✔ disabled query guards required IDs; empty IDs are preserved in key (0.21986ms)
+✔ enabled/default/poll behavior is nullish or undefined only, no arbitrary option spread (0.148092ms)
+✔ query callback forwards exact signal, scope and callout, and reader ignores mint (0.342835ms)
+✔ reader scope all is exact, parent false omitted; tombstones not a query option (0.195915ms)
+✔ reader nullish replies fallback only; nonarray payload retains source failure (0.465319ms)
+✔ wire order/duplicates and strict raw normalization distinctions survive (0.429285ms)
+✔ no empty identity or count default invented, malformed date becomes0 (0.424147ms)
+✔ tombstones filtered by truthiness before mapping; include flag retains normalized true (0.220211ms)
+✔ pending overlay TTL inclusive300s, future retained, old pruned from exact context (0.268213ms)
+✔ expired-only overlay deletes context entry, parent/scope filter applies (0.160731ms)
+✔ server ID dedup and pending text/user folding only, fetched wire duplicates retained (0.187071ms)
+✔ like overlay clones only changed rows and leaves source list/rows intact (0.28007ms)
+✔ empty/nochange overlay preserves query array identity (0.097046ms)
+✔ missing IDs skip overlays, preserving query data reference and raw flags/errors (0.108793ms)
+✔ source subscriptions/notify counter, cleanup and listener exceptions are unmodified (0.275453ms)
+✔ notifications alone do not invalidate captured memo projection; data identity change does (0.141713ms)
+✔ actual loopback success/malformed404 replacement/503/JSON and cancellation paths (46.734247ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 19
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 747.236849
+
+✖ failing tests:
+
+test at app/tests/original_callout_replies_state.test.mjs:13:1
+✖ full read owner/source/caller and static writer bindings verify (297.048579ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 2
+  
+      at derive (file:///workspace/pump-app-privacy-links/app/scripts/original-callout-replies-state.mjs:24:945)
+      at async verify (file:///workspace/pump-app-privacy-links/app/scripts/original-callout-replies-state.mjs:38:68)
+      at async TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_callout_replies_state.test.mjs:13:99)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at app/tests/original_callout_replies_state.test.mjs:14:1
+✖ real verifier rejects generated operations/state projection and contract tampering (245.014706ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 2
+  
+      at derive (file:///workspace/pump-app-privacy-links/app/scripts/original-callout-replies-state.mjs:24:945)
+      at async TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_callout_replies_state.test.mjs:14:109)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

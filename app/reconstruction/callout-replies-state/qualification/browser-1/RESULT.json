@@ -1,0 +1,808 @@
+{
+  "scope": "Standalone real React/compiler with synthetic query observer, primed realMap/Set overlay context and injected reader/Response capabilities. No Next, provider, current cookies, endpoint or original timing qualification.",
+  "sourceHead": "570efd644e046f377f3ed985070923ace5519a1f",
+  "startedAt": "2026-10-30T00:15:14.930Z",
+  "inputs": [
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "reconstruction/callout-replies-state/client.mjs",
+      "bytes": 7455,
+      "sha256": "8242fde2b84f98d31a4dd4e4f0f5437788f220ea9c525ab79133d18b6d955b94"
+    },
+    {
+      "path": "reconstruction/callout-replies-state/qualification/ports.mjs",
+      "bytes": 485,
+      "sha256": "199e32e5deb9ba0d3d8b8302f5f691f49547455c69960aff4f9300d093144cdc"
+    },
+    {
+      "path": "reconstruction/callout-replies-state/qualification/fixture.mjs",
+      "bytes": 13065,
+      "sha256": "7a8527d1027be859b8d8e9b1cb89b4475a4dbed9d4d806c4e08594af77826681"
+    },
+    {
+      "path": "reconstruction/callout-replies-state/qualification/browser.mjs",
+      "bytes": 6283,
+      "sha256": "aad70f857a20724e1a38e7dc47debbe8d151d1b1c5dccea744fc82b0b4561450"
+    }
+  ],
+  "bundleSha256": "e396faead727637beb32e5801aab9ad083911856820941d198cd333947a50ca5",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/bundle.js"
+    }
+  ],
+  "cases": [
+    {
+      "name": "deferred-list-and-overlay",
+      "startedAt": "2026-10-30T00:15:15.141Z",
+      "observed": {
+        "view": {
+          "rows": [
+            {
+              "id": "server",
+              "liked": true,
+              "content": "text"
+            },
+            {
+              "id": "server",
+              "liked": true,
+              "content": "text"
+            },
+            {
+              "id": "real-local",
+              "liked": false,
+              "content": " text "
+            }
+          ],
+          "loading": false,
+          "error": null,
+          "version": 0
+        },
+        "calls": [
+          {
+            "operation": "GET /callout/{calloutId}/replies",
+            "params": {
+              "calloutId": "call"
+            },
+            "query": {
+              "limit": 200,
+              "filter": "AUTHOR_ONLY"
+            },
+            "credentials": "include",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "hasSignal": true
+          }
+        ],
+        "queryKey": [
+          "callouts",
+          "replies",
+          "m",
+          "call",
+          "author"
+        ],
+        "renders": 3,
+        "snapshots": [
+          {
+            "rows": [
+              {
+                "id": "pending-local",
+                "liked": false,
+                "content": " text "
+              },
+              {
+                "id": "real-local",
+                "liked": false,
+                "content": " text "
+              }
+            ],
+            "loading": false,
+            "error": null,
+            "version": 0
+          },
+          {
+            "rows": [
+              {
+                "id": "pending-local",
+                "liked": false,
+                "content": " text "
+              },
+              {
+                "id": "real-local",
+                "liked": false,
+                "content": " text "
+              }
+            ],
+            "loading": true,
+            "error": null,
+            "version": 0
+          },
+          {
+            "rows": [
+              {
+                "id": "server",
+                "liked": true,
+                "content": "text"
+              },
+              {
+                "id": "server",
+                "liked": true,
+                "content": "text"
+              },
+              {
+                "id": "real-local",
+                "liked": false,
+                "content": " text "
+              }
+            ],
+            "loading": false,
+            "error": null,
+            "version": 0
+          }
+        ],
+        "pendingContext": [
+          [
+            "m|call",
+            [
+              {
+                "reply": {
+                  "replyId": "pending-local",
+                  "calloutId": "call",
+                  "userId": "Alice",
+                  "content": " text ",
+                  "createdAt": 1,
+                  "likeCount": 0,
+                  "likedByViewer": false
+                },
+                "isAuthorReply": true,
+                "parentReplyId": null,
+                "registeredAtMs": 1000000
+              },
+              {
+                "reply": {
+                  "replyId": "real-local",
+                  "calloutId": "call",
+                  "userId": "Alice",
+                  "content": " text ",
+                  "createdAt": 1,
+                  "likeCount": 0,
+                  "likedByViewer": false
+                },
+                "isAuthorReply": true,
+                "parentReplyId": null,
+                "registeredAtMs": 1000000
+              }
+            ]
+          ]
+        ],
+        "likedContext": [
+          [
+            "server",
+            true
+          ]
+        ],
+        "listeners": {
+          "overlay": 1,
+          "query": 1
+        }
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T00:15:15.172Z"
+    },
+    {
+      "name": "pending-ttl-scope-parent",
+      "startedAt": "2026-10-30T00:15:15.172Z",
+      "observed": {
+        "view": {
+          "rows": [
+            {
+              "id": "boundary",
+              "liked": false,
+              "content": " text "
+            },
+            {
+              "id": "other",
+              "liked": false,
+              "content": " text "
+            }
+          ],
+          "loading": false,
+          "error": null,
+          "version": 0
+        },
+        "calls": [],
+        "queryKey": [
+          "callouts",
+          "replies",
+          "m",
+          "call",
+          "all"
+        ],
+        "renders": 2,
+        "snapshots": [
+          {
+            "rows": [
+              {
+                "id": "boundary",
+                "liked": false,
+                "content": " text "
+              }
+            ],
+            "loading": false,
+            "error": null,
+            "version": 0
+          },
+          {
+            "rows": [
+              {
+                "id": "boundary",
+                "liked": false,
+                "content": " text "
+              },
+              {
+                "id": "other",
+                "liked": false,
+                "content": " text "
+              }
+            ],
+            "loading": false,
+            "error": null,
+            "version": 0
+          }
+        ],
+        "pendingContext": [
+          [
+            "m|call",
+            [
+              {
+                "reply": {
+                  "replyId": "boundary",
+                  "calloutId": "call",
+                  "userId": "Alice",
+                  "content": " text ",
+                  "createdAt": 1,
+                  "likeCount": 0,
+                  "likedByViewer": false
+                },
+                "isAuthorReply": true,
+                "parentReplyId": null,
+                "registeredAtMs": 700000
+              },
+              {
+                "reply": {
+                  "replyId": "other",
+                  "calloutId": "call",
+                  "userId": "Alice",
+                  "content": " text ",
+                  "createdAt": 1,
+                  "likeCount": 0,
+                  "likedByViewer": false
+                },
+                "isAuthorReply": false,
+                "parentReplyId": null,
+                "registeredAtMs": 1000000
+              },
+              {
+                "reply": {
+                  "replyId": "child",
+                  "calloutId": "call",
+                  "userId": "Alice",
+                  "content": " text ",
+                  "createdAt": 1,
+                  "likeCount": 0,
+                  "likedByViewer": false
+                },
+                "isAuthorReply": true,
+                "parentReplyId": "parent",
+                "registeredAtMs": 1000000
+              }
+            ]
+          ]
+        ],
+        "likedContext": [],
+        "listeners": {
+          "overlay": 1,
+          "query": 1
+        }
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T00:15:15.179Z"
+    },
+    {
+      "name": "version-notification-memo",
+      "startedAt": "2026-10-30T00:15:15.179Z",
+      "observed": {
+        "view": {
+          "rows": [
+            {
+              "id": "a",
+              "liked": true,
+              "content": " text "
+            }
+          ],
+          "loading": false,
+          "error": null,
+          "version": 1
+        },
+        "calls": [],
+        "queryKey": [
+          "callouts",
+          "replies",
+          "m",
+          "call",
+          "author"
+        ],
+        "renders": 3,
+        "snapshots": [
+          {
+            "rows": [
+              {
+                "id": "a",
+                "liked": false,
+                "content": " text "
+              }
+            ],
+            "loading": false,
+            "error": null,
+            "version": 0
+          },
+          {
+            "rows": [
+              {
+                "id": "a",
+                "liked": false,
+                "content": " text "
+              }
+            ],
+            "loading": false,
+            "error": null,
+            "version": 1
+          },
+          {
+            "rows": [
+              {
+                "id": "a",
+                "liked": true,
+                "content": " text "
+              }
+            ],
+            "loading": false,
+            "error": null,
+            "version": 1
+          }
+        ],
+        "pendingContext": [],
+        "likedContext": [
+          [
+            "a",
+            true
+          ]
+        ],
+        "listeners": {
+          "overlay": 1,
+          "query": 1
+        }
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T00:15:15.186Z"
+    },
+    {
+      "name": "response-error-404-refetch",
+      "startedAt": "2026-10-30T00:15:15.186Z",
+      "observed": {
+        "view": {
+          "rows": [
+            {
+              "id": "a",
+              "liked": false,
+              "content": "text"
+            }
+          ],
+          "loading": false,
+          "error": null,
+          "version": 0
+        },
+        "calls": [
+          {
+            "operation": "GET /callout/{calloutId}/replies",
+            "params": {
+              "calloutId": "call"
+            },
+            "query": {
+              "limit": 200,
+              "filter": "AUTHOR_ONLY"
+            },
+            "credentials": "include",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "hasSignal": true
+          },
+          {
+            "operation": "GET /callout/{calloutId}/replies",
+            "params": {
+              "calloutId": "call"
+            },
+            "query": {
+              "limit": 200,
+              "filter": "AUTHOR_ONLY"
+            },
+            "credentials": "include",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "hasSignal": true
+          },
+          {
+            "operation": "GET /callout/{calloutId}/replies",
+            "params": {
+              "calloutId": "call"
+            },
+            "query": {
+              "limit": 200,
+              "filter": "AUTHOR_ONLY"
+            },
+            "credentials": "include",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "hasSignal": true
+          }
+        ],
+        "queryKey": [
+          "callouts",
+          "replies",
+          "m",
+          "call",
+          "author"
+        ],
+        "renders": 7,
+        "snapshots": [
+          {
+            "rows": [],
+            "loading": false,
+            "error": null,
+            "version": 0
+          },
+          {
+            "rows": [],
+            "loading": true,
+            "error": null,
+            "version": 0
+          },
+          {
+            "rows": [],
+            "loading": false,
+            "error": "Failed to fetch callout replies: 503",
+            "version": 0
+          },
+          {
+            "rows": [],
+            "loading": true,
+            "error": null,
+            "version": 0
+          },
+          {
+            "rows": [],
+            "loading": false,
+            "error": null,
+            "version": 0
+          },
+          {
+            "rows": [],
+            "loading": true,
+            "error": null,
+            "version": 0
+          },
+          {
+            "rows": [
+              {
+                "id": "a",
+                "liked": false,
+                "content": "text"
+              }
+            ],
+            "loading": false,
+            "error": null,
+            "version": 0
+          }
+        ],
+        "pendingContext": [],
+        "likedContext": [],
+        "listeners": {
+          "overlay": 1,
+          "query": 1
+        }
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T00:15:15.207Z"
+    },
+    {
+      "name": "disabled-guard-and-defaults",
+      "startedAt": "2026-10-30T00:15:15.207Z",
+      "observed": {
+        "view": {
+          "rows": [],
+          "loading": false,
+          "error": null,
+          "version": 0
+        },
+        "calls": [],
+        "queryKey": [
+          "callouts",
+          "replies",
+          "",
+          "",
+          "author"
+        ],
+        "renders": 1,
+        "snapshots": [
+          {
+            "rows": [],
+            "loading": false,
+            "error": null,
+            "version": 0
+          }
+        ],
+        "pendingContext": [],
+        "likedContext": [],
+        "listeners": {
+          "overlay": 1,
+          "query": 1
+        }
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T00:15:15.211Z"
+    },
+    {
+      "name": "module-context-isolation",
+      "startedAt": "2026-10-30T00:15:15.211Z",
+      "observed": {
+        "first": {
+          "view": {
+            "rows": [
+              {
+                "id": "a",
+                "liked": true,
+                "content": " text "
+              }
+            ],
+            "loading": false,
+            "error": null,
+            "version": 0
+          },
+          "calls": [],
+          "queryKey": [
+            "callouts",
+            "replies",
+            "m",
+            "call",
+            "author"
+          ],
+          "renders": 1,
+          "snapshots": [
+            {
+              "rows": [
+                {
+                  "id": "a",
+                  "liked": true,
+                  "content": " text "
+                }
+              ],
+              "loading": false,
+              "error": null,
+              "version": 0
+            }
+          ],
+          "pendingContext": [
+            [
+              "m|call",
+              [
+                {
+                  "reply": {
+                    "replyId": "a",
+                    "calloutId": "call",
+                    "userId": "Alice",
+                    "content": " text ",
+                    "createdAt": 1,
+                    "likeCount": 0,
+                    "likedByViewer": false
+                  },
+                  "isAuthorReply": true,
+                  "parentReplyId": null,
+                  "registeredAtMs": 1000000
+                }
+              ]
+            ]
+          ],
+          "likedContext": [
+            [
+              "a",
+              true
+            ]
+          ],
+          "listeners": {
+            "overlay": 1,
+            "query": 1
+          }
+        },
+        "second": {
+          "view": {
+            "rows": [],
+            "loading": false,
+            "error": null,
+            "version": 0
+          },
+          "calls": [],
+          "queryKey": [
+            "callouts",
+            "replies",
+            "m",
+            "call",
+            "author"
+          ],
+          "renders": 1,
+          "snapshots": [
+            {
+              "rows": [],
+              "loading": false,
+              "error": null,
+              "version": 0
+            }
+          ],
+          "pendingContext": [],
+          "likedContext": [],
+          "listeners": {
+            "overlay": 1,
+            "query": 1
+          }
+        },
+        "firstCleaned": {
+          "overlayListeners": 0,
+          "queryListeners": 0,
+          "rootChildren": 0
+        }
+      },
+      "status": "PASS",
+      "endedAt": "2026-10-30T00:15:15.215Z"
+    }
+  ],
+  "errors": [],
+  "origin": "http://127.0.0.1:33011",
+  "cleanup": {
+    "overlayListeners": 0,
+    "queryListeners": 0,
+    "rootChildren": 0
+  },
+  "status": "PASS",
+  "browserClosed": true,
+  "serverListening": false,
+  "endedAt": "2026-10-30T00:15:15.254Z",
+  "afterInputs": [
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "reconstruction/callout-replies-state/client.mjs",
+      "bytes": 7455,
+      "sha256": "8242fde2b84f98d31a4dd4e4f0f5437788f220ea9c525ab79133d18b6d955b94"
+    },
+    {
+      "path": "reconstruction/callout-replies-state/qualification/ports.mjs",
+      "bytes": 485,
+      "sha256": "199e32e5deb9ba0d3d8b8302f5f691f49547455c69960aff4f9300d093144cdc"
+    },
+    {
+      "path": "reconstruction/callout-replies-state/qualification/fixture.mjs",
+      "bytes": 13065,
+      "sha256": "7a8527d1027be859b8d8e9b1cb89b4475a4dbed9d4d806c4e08594af77826681"
+    },
+    {
+      "path": "reconstruction/callout-replies-state/qualification/browser.mjs",
+      "bytes": 6283,
+      "sha256": "aad70f857a20724e1a38e7dc47debbe8d151d1b1c5dccea744fc82b0b4561450"
+    }
+  ]
+}

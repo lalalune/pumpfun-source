@@ -1,0 +1,80 @@
+✖ full read owner/source/caller and static writer bindings verify (305.945091ms)
+✖ real verifier rejects generated operations/state projection and contract tampering (255.775722ms)
+✔ explicit owned context and runtime ports required (1.22568ms)
+✔ query key/defaults/options retain exact scope and false poll (1.046811ms)
+✖ disabled query guards required IDs; empty IDs are preserved in key (0.274342ms)
+✔ enabled/default/poll behavior is nullish or undefined only, no arbitrary option spread (0.182423ms)
+✔ query callback forwards exact signal, scope and callout, and reader ignores mint (0.382605ms)
+✔ reader scope all is exact, parent false omitted; tombstones not a query option (0.597687ms)
+✔ reader nullish replies fallback only; nonarray payload retains source failure (0.430586ms)
+✔ wire order/duplicates and strict raw normalization distinctions survive (0.421322ms)
+✔ no empty identity or count default invented, malformed date becomes0 (0.194973ms)
+✔ tombstones filtered by truthiness before mapping; include flag retains normalized true (0.248183ms)
+✔ pending overlay TTL inclusive300s, future retained, old pruned from exact context (0.209594ms)
+✔ expired-only overlay deletes context entry, parent/scope filter applies (0.265148ms)
+✔ server ID dedup and pending text/user folding only, fetched wire duplicates retained (0.189024ms)
+✔ like overlay clones only changed rows and leaves source list/rows intact (0.205379ms)
+✔ empty/nochange overlay preserves query array identity (0.092018ms)
+✔ missing IDs skip overlays, preserving query data reference and raw flags/errors (0.097576ms)
+✔ source subscriptions/notify counter, cleanup and listener exceptions are unmodified (0.205127ms)
+✔ notifications alone do not invalidate captured memo projection; data identity change does (0.098778ms)
+✔ actual loopback success/malformed404 replacement/503/JSON and cancellation paths (43.624561ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 18
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 769.065241
+
+✖ failing tests:
+
+test at app/tests/original_callout_replies_state.test.mjs:13:1
+✖ full read owner/source/caller and static writer bindings verify (305.945091ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 2
+  
+      at derive (file:///workspace/pump-app-privacy-links/app/scripts/original-callout-replies-state.mjs:24:566)
+      at async verify (file:///workspace/pump-app-privacy-links/app/scripts/original-callout-replies-state.mjs:38:68)
+      at async TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_callout_replies_state.test.mjs:13:99)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at app/tests/original_callout_replies_state.test.mjs:14:1
+✖ real verifier rejects generated operations/state projection and contract tampering (255.775722ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 2
+  
+      at derive (file:///workspace/pump-app-privacy-links/app/scripts/original-callout-replies-state.mjs:24:566)
+      at async TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_callout_replies_state.test.mjs:14:109)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at app/tests/original_callout_replies_state.test.mjs:17:1
+✖ disabled query guards required IDs; empty IDs are preserved in key (0.274342ms)
+  Error: mint and calloutId required
+      at Object.s [as queryFn] (file:///workspace/pump-app-privacy-links/app/reconstruction/callout-replies-state/client.mjs:170:31)
+      at TestContext.<anonymous> (file:///workspace/pump-app-privacy-links/app/tests/original_callout_replies_state.test.mjs:17:284)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

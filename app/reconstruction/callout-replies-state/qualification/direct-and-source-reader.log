@@ -1,0 +1,40 @@
+✔ full read owner/source/caller and static writer bindings verify (701.490342ms)
+✔ real verifier rejects generated operations/state projection and contract tampering (3562.156976ms)
+✔ explicit owned context and runtime ports required (0.938528ms)
+✔ query key/defaults/options retain exact scope and false poll (0.658609ms)
+✔ disabled query guards required IDs; empty IDs are preserved in key (0.297306ms)
+✔ enabled/default/poll behavior is nullish or undefined only, no arbitrary option spread (0.192239ms)
+✔ query callback forwards exact signal, scope and callout, and reader ignores mint (0.540201ms)
+✔ reader scope all is exact, parent false omitted; tombstones not a query option (0.215694ms)
+✔ reader nullish replies fallback only; nonarray payload retains source failure (0.450146ms)
+✔ wire order/duplicates and strict raw normalization distinctions survive (0.61278ms)
+✔ no empty identity or count default invented, malformed date becomes0 (0.282465ms)
+✔ tombstones filtered by truthiness before mapping; include flag retains normalized true (0.215103ms)
+✔ pending overlay TTL inclusive300s, future retained, old pruned from exact context (0.262874ms)
+✔ expired-only overlay deletes context entry, parent/scope filter applies (0.156004ms)
+✔ server ID dedup and pending text/user folding only, fetched wire duplicates retained (0.367182ms)
+✔ like overlay clones only changed rows and leaves source list/rows intact (0.148683ms)
+✔ empty/nochange overlay preserves query array identity (0.093801ms)
+✔ missing IDs skip overlays, preserving query data reference and raw flags/errors (0.148713ms)
+✔ source subscriptions/notify counter, cleanup and listener exceptions are unmodified (0.152729ms)
+✔ notifications alone do not invalidate captured memo projection; data identity change does (0.093571ms)
+✔ actual loopback success/malformed404 replacement/503/JSON and cancellation paths (51.411012ms)
+✔ factory lookup authenticates original AST and preserves BOM, CRLF and Unicode byte ranges (24.53367ms)
+✔ UTF-16 offsets inside an astral character are not byte boundaries (6.115751ms)
+✔ capture hash and length changes fail before AST attribution (4.554437ms)
+✔ an updated manifest cannot make malformed UTF-8 into source text (3.117179ms)
+✔ indexed arbitrary substrings cannot substitute for actual registered factories (8.033991ms)
+✔ an aggregate inventory ID cannot substitute for the actual registration ID (6.304995ms)
+✔ multiple origin contexts stay ambiguous until explicitly selected (4.30259ms)
+✔ manifest source symlinks and traversal paths are rejected (7.083333ms)
+✔ a forged manifest cannot authorize reading a repository file outside retained objects (5.485049ms)
+✔ the runtime-leading nested-array grammar validates nested and trailing factories (11.489017ms)
+✔ outer two-element registration is metadata, not a nested factory container (3.996901ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4514.356999
