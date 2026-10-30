@@ -44,6 +44,9 @@ jobs:
             commands: |
               python -I -B tests/test_fastbuild_stage.py
               python -B reconstruction/harness/test_fastbuild_library_name.py
+          - suite: admin-cto-call-report
+            commands: |
+              python -B reconstruction/pump-main/lanes/w12b13-cto-callgraph/test_callseq.py
           - suite: composition-patch-bytes
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py

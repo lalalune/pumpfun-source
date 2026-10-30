@@ -5,9 +5,8 @@
 
 Lists every call instruction (internal pc-relative calls and syscalls named
 through .rel.dyn) in layout order for the original window and the candidate
-function, names internal targets with the candidate's symbol table (every other
-Pump Main window is byte-identical at the same address, so an original callee
-address names the same function in the candidate), and aligns the two
+function, names internal targets with the candidate's symbol table (an address-based label from a same-layout build is an analysis aid, not proof
+of original source identity), and aligns the two
 sequences with difflib. Each non-equal opcode is a statement-order, inlining or
 helper-boundary difference.
 """
@@ -191,6 +190,8 @@ def main():
     ap.add_argument('--by-site', action='store_true', help='align on callee plus error variant (error-site identity)')
     ap.add_argument('--json')
     a = ap.parse_args()
+    if a.json and (Path(a.json).exists() or Path(a.json).is_symlink()):
+        ap.error('report already exists; choose a fresh --json path')
     w, wsize = int(a.window, 0), int(a.size, 0)
     orig = resolve_original(BASE / 'original.so').read_bytes()
     osecs = sections(orig)
@@ -265,8 +266,9 @@ def main():
                 for k in range(j1, j2):
                     print(f'   + c{k:3d} +{cseq[k][0] - cstart:#6x} {short(ck[k])}  {cseq[k][4] or ""}')
     if a.json:
-        Path(a.json).write_text(json.dumps({'ratio': sm.ratio(), 'orig_calls': len(oseq), 'cand_calls': len(cseq),
-                                            'rows': rows}, indent=1))
+        with Path(a.json).open('x', encoding='utf-8') as stream:
+            stream.write(json.dumps({'ratio': sm.ratio(), 'orig_calls': len(oseq), 'cand_calls': len(cseq),
+                                     'rows': rows}, indent=1) + '\n')
 
 
 if __name__ == '__main__':

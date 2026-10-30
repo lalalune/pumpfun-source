@@ -6,8 +6,8 @@ Base: main `20a1ae9c0` (landed baseline `8cd7695c…`): 0.43919, 3,352 slots, 27
 ## Tool
 
 `callseq.py` (this directory) lists every call in layout order for the original window and a
-candidate function, names internal callees with a same-layout unstripped build (every other window
-is byte-identical at the same address, so an original callee address names the same function;
+candidate function, names internal callees with a same-layout unstripped build (address-based
+labels are an analysis aid, not proof of original source identity;
 `--orig-names` defaults to the landed baseline, so candidates of another size still resolve),
 names syscalls through `.rel.dyn`, and labels error sites:
 
@@ -20,8 +20,10 @@ python3 callseq.py --table --by-site    # full table aligned on callee + error-s
 python3 callseq.py --cand <unstripped.so> --json out.json
 ```
 
-`TABLE-main-20a1ae9.txt` and `TABLE-k4.txt` are the `--table --by-site` outputs for main and for
-the best unlanded composite (w9r2-admincto-harvest k4).
+`TABLE-main-20a1ae9.txt` is the `--table --by-site` output for the pinned
+main `20a1ae9c0` build. It reproduces byte-for-byte from the retained pass-7
+unstripped ELF (`8cd7695c3fc638fc8ccfaba49a55b7615421e6f1c4c02f623124d9cc67a8ebf2`).
+Unretained intermediate k4 and j3 tables are omitted.
 
 ## Findings (main 20a1ae9)
 
@@ -40,14 +42,9 @@ the best unlanded composite (w9r2-admincto-harvest k4).
    - **wallet / sweep tail** (o109..o157): original order is
      `[wallet flags] [wallet ATA create] [sweep ATA create] transfer_vault_tokens collect Clock::get From<PE> token_frozen(coin) [event] [collect_coin_creator_fee] From<PE>`;
      main has `[wallet flags] [sweep ATA create] transfer_vault_tokens token_frozen(coin) [wallet ATA create] collect …` and one extra trailing From<PE>.
-3. **The wallet_flags gene (#2518, `do_collect`/`do_coin` short-circuit flags) makes the whole tail
-   o47..o157 (110 calls) identical to the original** (harvest j3 and k4). Its cost is size: j3 is
-   27,312 B (-88), k4 27,384 B (-16).
-4. Per-interval size map (candidate offset minus original offset at each aligned call):
-   - entry: -8 at o1, -56 at o4, -128 at o7 (the original's `new` pieces copy at 0x4d8..0x538 and
-     the holder_key copy at 0x598..0x5d0 have no counterpart in ours);
-   - in j3/k4 the wallet region (o108..o157) is within ±40 B of the original, so the j3 deficit of
-     88 B is not in the wallet: main's wallet form is ~88 B larger than the original's and
-     compensates the entry/validate deficit by accident.
-   So a landable wallet_flags needs compensation in the entry/validate region (where the original
-   really has more code), not in the wallet.
+## Scope
+
+These are instruction and call-layout observations for the named baseline.
+They do not establish equivalent source scopes or whole-program identity.
+Use the same-layout `--orig-names` input when examining a differently laid-out
+candidate. Reports require a fresh output path and never replace an existing file.
