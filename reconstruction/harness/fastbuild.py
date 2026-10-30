@@ -10,8 +10,12 @@ Usage: fastbuild.py --src <crate dir with Cargo.toml/Cargo.lock/src[/recovered]>
   equals a fresh build of the same sources).
 - Seeds <work>/target from the warm template (APFS clone) on first use.
 - Writes <out>/unstripped.so and <out>/candidate.so (default <work>/last).
+- Before compilation, archives previous outputs and their log under <out>/previous/build-*.
+  Compiler failures leave no current binaries; callers must still check ok.
+- Stack diagnostics return ok=false with build.log and stack_warnings. Diagnostic callers
+  gated on ok (including exactsol-introspection capture.py) consequently skip IR extraction.
 """
-import argparse, hashlib, json, os, shutil, subprocess, sys, time, tomllib, fcntl
+import argparse, hashlib, json, os, shutil, subprocess, sys, time, tomllib, fcntl, tempfile
 from pathlib import Path
 
 H = Path(__file__).resolve().parent
@@ -63,6 +67,8 @@ def stage(src: Path, ws: Path):
 
 
 def acquire_slot():
+    if SLOTS <= 0:
+        raise ValueError('PUMP_BUILD_SLOTS must be a positive integer')
     LOCKDIR.mkdir(parents=True, exist_ok=True)
     while True:
         for i in range(SLOTS):
@@ -73,6 +79,20 @@ def acquire_slot():
             except BlockingIOError:
                 f.close()
         time.sleep(0.5)
+
+
+def archive_previous_outputs(out: Path):
+    """Keep old evidence separate from the next attempt's canonical output paths."""
+    names = ('unstripped.so', 'candidate.so', 'build.log')
+    present = [out / name for name in names
+               if (out / name).exists() or (out / name).is_symlink()]
+    if not present:
+        return
+    previous = out / 'previous'
+    previous.mkdir(exist_ok=True)
+    archive = Path(tempfile.mkdtemp(prefix='build-', dir=previous))
+    for path in present:
+        path.rename(archive / path.name)
 
 
 def build(src: Path, work: Path, out: Path, quiet=False, recipe=None):
@@ -105,6 +125,7 @@ def build(src: Path, work: Path, out: Path, quiet=False, recipe=None):
     cmd = [str(SDK / 'rust/bin/cargo'), 'build', '--manifest-path', str(crate / 'Cargo.toml'), '--release',
            '--target', triple, '--locked', '--offline']
     out.mkdir(parents=True, exist_ok=True)
+    archive_previous_outputs(out)
     # Never trust mtime freshness for the main crate (rsync -a keeps source mtimes, so cargo could
     # otherwise reuse a stale pump artifact): drop its fingerprints and outputs so it always recompiles.
     for fp in list(target.glob('*/release/.fingerprint/pump-recovered-*')) + list(target.glob('release/.fingerprint/pump-recovered-*')):
@@ -128,6 +149,10 @@ def build(src: Path, work: Path, out: Path, quiet=False, recipe=None):
     stack = [l.strip() for l in r.stdout.splitlines() if 'exceeded max offset' in l]
     if stack and not quiet:
         sys.stderr.write('STACK OVERFLOW RISK (runtime-invalid build):\n  ' + '\n  '.join(stack) + '\n')
+    if stack:
+        return {'ok': False, 'runtime_valid': False, 'stack_warnings': stack,
+                'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1),
+                'log': str(out / 'build.log')}
     built = target / triple / 'release/pump_recovered.so'
     shutil.copy2(built, out / 'unstripped.so')
     subprocess.run([str(SDK / 'llvm/bin/llvm-objcopy'), '--strip-all', str(built), str(out / 'candidate.so')], check=True)

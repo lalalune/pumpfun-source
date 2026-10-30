@@ -4,6 +4,13 @@
 # Captured application artifacts and published SDK sources are byte evidence.
 app/evidence/** -text
 app/packages/sdk/src/** -text
+# Recovered inventory, reconstruction artifacts and checked-in contracts are
+# hash-bound by the original-contract extractors (inventorySha256, contract and
+# client receipts). core.autocrlf on a Windows checkout rewrites them to CRLF
+# and every extractor then fails its own frozen-input check.
+app/recovered/modules.json -text
+app/reconstruction/** -text
+app/contracts/** -text
 
 # Root capture/upstream evidence must keep exact bytes. Without -text, Windows
 # core.autocrlf rewrites *.json/*.txt and breaks scripts/verify_evidence.py.

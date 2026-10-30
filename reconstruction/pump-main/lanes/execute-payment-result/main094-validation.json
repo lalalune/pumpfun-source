@@ -1,0 +1,130 @@
+{
+  "base_revision": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "recipe": "pinned identity with reused dependencies; one fresh root compile for each of main, 1479 and 1539-on-main",
+  "choice": "Prefer #1539 split-selection implementation for the full normalized target; do not merge both alternatives. Neither currently passes the no-loss gate. Keep #1479 draft as retained partial-source comparison until the shared raw loss is resolved.",
+  "images": {
+    "main094-control": {
+      "ok": true,
+      "runtime_valid": true,
+      "stack_warnings": [],
+      "recipe": "identity",
+      "triple": "sbpf-solana-solana",
+      "seconds": 30.2,
+      "unstripped_sha256": "498103bb88e11727a59096c25386cb4fecce970f4d73b37591b8f53f691a21e2",
+      "candidate_sha256": "2ec131ee13b63e93c22874562e8122c9bc45ed20a92c1ff6f957fb3c1c2c36ae"
+    },
+    "payment094-candidate": {
+      "ok": true,
+      "runtime_valid": true,
+      "stack_warnings": [],
+      "recipe": "identity",
+      "triple": "sbpf-solana-solana",
+      "seconds": 24.7,
+      "unstripped_sha256": "59ad828e5e3eaef0c7c054c34d0352a1d14bc17df75125350927087873b89f4f",
+      "candidate_sha256": "faccd78804c0eacbb7f42a42dd3554011f14d6068138d2541a7850d774564fc6"
+    },
+    "alternative094-candidate": {
+      "ok": true,
+      "runtime_valid": true,
+      "stack_warnings": [],
+      "recipe": "identity",
+      "triple": "sbpf-solana-solana",
+      "seconds": 24.9,
+      "unstripped_sha256": "aa5c31b6fb237206170ac0084763f2a9c824ecb94c99d923113864c50c17ca2f",
+      "candidate_sha256": "32ab6bbd2145699a6c4dab47cb2a957e87bda31c804d9f21d692151f21156b9a"
+    }
+  },
+  "runtime": {
+    "payment": {
+      "case_count": 255,
+      "differences": [],
+      "fixture_sha256": "54d69dd4f11a61cc6cea3076e3e89fd4aa31ea6ff835f8ea316646a7b1642920",
+      "images": {
+        "candidate": "faccd78804c0eacbb7f42a42dd3554011f14d6068138d2541a7850d774564fc6",
+        "control": "2ec131ee13b63e93c22874562e8122c9bc45ed20a92c1ff6f957fb3c1c2c36ae",
+        "original": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+      },
+      "regressions": [],
+      "source_inputs": {
+        "scripts/pump_trade_fixture.py": "9ee647c928070734fe700929b87d4016f76ec244c873e6f484318b5212aea1e1",
+        "scripts/pump_v3_configured_fee_differential.py": "1c8af93c3d24d0c497b551391b0144f043d604766d9b12810f7c0b4a229c3b22"
+      },
+      "successful_cases_per_image": {
+        "candidate": 213,
+        "control": 213,
+        "original": 213
+      }
+    },
+    "alternative": {
+      "case_count": 255,
+      "differences": [],
+      "fixture_sha256": "54d69dd4f11a61cc6cea3076e3e89fd4aa31ea6ff835f8ea316646a7b1642920",
+      "images": {
+        "candidate": "32ab6bbd2145699a6c4dab47cb2a957e87bda31c804d9f21d692151f21156b9a",
+        "control": "2ec131ee13b63e93c22874562e8122c9bc45ed20a92c1ff6f957fb3c1c2c36ae",
+        "original": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+      },
+      "regressions": [],
+      "source_inputs": {
+        "scripts/pump_trade_fixture.py": "9ee647c928070734fe700929b87d4016f76ec244c873e6f484318b5212aea1e1",
+        "scripts/pump_v3_configured_fee_differential.py": "1c8af93c3d24d0c497b551391b0144f043d604766d9b12810f7c0b4a229c3b22"
+      },
+      "successful_cases_per_image": {
+        "candidate": 213,
+        "control": 213,
+        "original": 213
+      }
+    }
+  },
+  "source_revisions": {
+    "payment": {
+      "revision": "d6b0c3a421ac1c79b98255235f70c6cb15e2722c",
+      "program_source_tree": "0ef0f19ee6053df43ed0d6a1aeedac4efba0fa43"
+    },
+    "alternative": {
+      "revision": "22dce395c1c792385249c7bdd414e52248080b85",
+      "program_source_tree": "c2a5d8887c83f857070652cdc9662b6b320d2f50"
+    }
+  },
+  "packet": {
+    "main094-payment-comparison.json": "49db7a0af9a3777e6eaba804b4f8da8345fea87a7975f97111ad20a06c8185a1",
+    "main094-payment-runtime.json.gz": "c15b21c51fb80e1af637633a2d2a80d5cf556f13ad60768832cf5c738feeea5f",
+    "main094-alternative-comparison.json": "7e47f1403e7107446e8f1efaacf54ca66c535c96897ec45d95373bab5fd4c5e5",
+    "main094-alternative-runtime.json.gz": "82b31494a6636c72adcd8987d71da5d8941f54796d0490c7415c78cded9bad5d",
+    "verify_current.py": "e0f2a35b8b5209d39f0095346726d5c176c864b9a2e39d0dc2dc3bb9ea34b8f2",
+    "replay.py": "ea7da4d83a66b01e33ae7e7df3e000f19a32247fd368f603e12f0774953dd1b1",
+    "fixture.json.gz": "5115eacfe57da02ec2c2a882730c58fd07ecea28241db2563257f8ff0af231fd",
+    "main094-payment.patch.gz": "dc75cfb4ad5be1a243150b518fc0416d2fbc887ca22c7a19d5efc152272e2714",
+    "main094-alternative.patch.gz": "e329edfdec0e88e1b216cd78a7a5a6d921ba2b4a96f8a6a5af91807b85bf3d2d"
+  },
+  "dependency_inputs": {
+    "evidence/original/pump/capture.json": "ffb53e71ce9cbee60df91e54cc1d677527a6eeb5806cb8d68e525af698744110",
+    "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "evidence/original/pump/program-account.bin": "8101492b544ce08703d5de95363bf796e7e4cd17d03639cfe603071fb59652eb",
+    "evidence/original/pump/programdata-account.bin": "0b692730f9707139fd86d1c1e3a7d63a3f7cb0702278975fa99df90883aab508",
+    "evidence/original/pump_fees/capture.json": "a98928432afc25e4aa422559d4aa3bd73062e1f634ca6189ff5495d1fe158334",
+    "evidence/original/pump_fees/deployed.so": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+    "evidence/original/pump_fees/program-account.bin": "cc9077315efa761cfe0b52aae08678ccda2a07e0fa2b374c98a1d51a1b4ce079",
+    "evidence/original/pump_fees/programdata-account.bin": "3cf9ee9a380c0ced31171802d402551910ceb8c4819ede4ef44aaf63a12dbfac",
+    "evidence/dependencies/associated_token/capture.json": "0b1b18d80b6ccde58f96ffe879be4cc8f2a1ceba5a40c1a3ba2c1b6bcf618327",
+    "evidence/dependencies/associated_token/deployed.so": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+    "evidence/dependencies/associated_token/program-account.bin": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+    "evidence/dependencies/donation_relay/capture.json": "1c604cf91334ae1162f2dac66cdf27f00695b666b5bad0f934969f6cf0509650",
+    "evidence/dependencies/donation_relay/deployed.so": "367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563",
+    "evidence/dependencies/donation_relay/program-account.bin": "2e2d8271447a8820c5e55a8c5779927c11784701f94cbd6f6733e5ecc1590766",
+    "evidence/dependencies/donation_relay/programdata-account.bin": "42d80bfd3663975888721e067bb3c7764b090d9146f16fa0ccf97c3bc2ff1014",
+    "evidence/dependencies/spl_token/capture.json": "26b905e633fd869d9e9a9e34627ddf8308d0323d51565f35973d47d125e34213",
+    "evidence/dependencies/spl_token/deployed.so": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697",
+    "evidence/dependencies/spl_token/program-account.bin": "5b31219b7bc4060b1638b933be5f50df3400109acfef12408a196d57ad119748",
+    "evidence/dependencies/spl_token/programdata-account.bin": "573971c9baedda479bf4c38537787ae396358009b4920f8a270bd2b31dde5fe3",
+    "evidence/dependencies/spl_token_2022/capture.json": "f114c064c5a1d08d75bcce3e01552204816048b8aa74dfd59cacb74f9a85fe54",
+    "evidence/dependencies/spl_token_2022/deployed.so": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d",
+    "evidence/dependencies/spl_token_2022/program-account.bin": "bae3e5d63e30c0c3e6fe788b9e027bf003ca5e5bb46d3a9627e034bb3002ea5c",
+    "evidence/dependencies/spl_token_2022/programdata-account.bin": "babc437405bea7f9d4083097a7266db84de58330bdc41c2b54f1f4e4c66aaa94",
+    "evidence/dependencies/token_metadata/capture.json": "abc57f175e6e51f59cce6bdc56311e5425e0fa082d930b9a60d4ef0324331008",
+    "evidence/dependencies/token_metadata/deployed.so": "31f0a627dba051a938de650464e55cc5397a4be0fd496929c1f9cf02fe5e9011",
+    "evidence/dependencies/token_metadata/program-account.bin": "0f1b17a95b5f588794003ef8494ffc4e59933f3f2226e41dee037aa312c5e21e",
+    "evidence/dependencies/token_metadata/programdata-account.bin": "7a381c406f3206acebc3adbd2e4e010568a3835abdc3f10e09ba5ba2e1af076c"
+  },
+  "historical_packet_note": "Earlier measurements preserved. Presentation metadata marks the no-loss integration as superseding standalone-patch recommendations; old source results are not current-head validation."
+}

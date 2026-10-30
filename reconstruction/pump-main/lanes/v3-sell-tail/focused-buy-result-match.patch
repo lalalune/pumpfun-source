@@ -1,0 +1,20 @@
+--- a/programs/pump/src/trade_v3.rs
++++ b/programs/pump/src/trade_v3.rs
+@@ -719,7 +719,7 @@
+ 
+ 
+     let total=buyback.checked_add(post_buyback).ok_or_else(||error!(PumpError::Overflow))?;
+-    let (user_quote_in,user_quote,curve_quote)=if is_sol{(add(pool_quote,total_buyback)?,None,None)}else{let curve_quote=Some(a.associated_quote_bonding_curve.as_ref());(pool_quote,Some(a.associated_quote_user.as_ref()),curve_quote)}; user_quote_payments::transfer_from_user(is_sol,a.system_program.as_ref(),&a.user,&a.bonding_curve,user_quote_in,quote_token_program,a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),user_quote,curve_quote)?;
++    let (user_quote_in,user_quote,curve_quote)=if is_sol{(add(pool_quote,total_buyback)?,None,None)}else{let curve_quote=Some(a.associated_quote_bonding_curve.as_ref());(pool_quote,Some(a.associated_quote_user.as_ref()),curve_quote)}; match user_quote_payments::transfer_from_user(is_sol,a.system_program.as_ref(),&a.user,&a.bonding_curve,user_quote_in,quote_token_program,a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),user_quote,curve_quote){Err(error)=>Err(error),Ok(())=>{
+     if is_sol{quote_payments::transfer_native(&a.bonding_curve,a.buyback_fee_recipient.to_account_info(),total)?;}
+     else{crate::collect_v2::transfer_user_quote_tokens(quote_token_program,&a.associated_quote_user,&a.buyback_fee_recipient,a.user.as_ref(),a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),total)?;}
+     let total_net=crate::transfer_fee_recovered::post_fee_amount(quote_fee,total)?;
+@@ -765,7 +765,7 @@
+ 
+ 
+     let main_net=total_net.checked_sub(post_net).ok_or_else(||error!(PumpError::Overflow))?;
+-    Ok((main_net,post_net))
++    Ok((main_net,post_net))}}
+ }
+ pub fn buy(mut ctx:Context<SellV3>,amount:u64,max_sol_cost:u64,partial_fill:bool)->Result<()> {
+     let a=&mut *ctx.accounts;

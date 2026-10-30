@@ -719,16 +719,16 @@ fn v3_execute_buy<'info>(a:&mut SellV3<'info>,curve_bump:u8,is_sol:bool,amount:u
 
 
     let total=buyback.checked_add(post_buyback).ok_or_else(||error!(PumpError::Overflow))?;
-    match if is_sol{(add(pool_quote,total_buyback)?,None,None)}else{let curve_quote=Some(a.associated_quote_bonding_curve.as_ref());(pool_quote,Some(a.associated_quote_user.as_ref()),curve_quote)}{(user_quote_in,user_quote,curve_quote)=>user_quote_payments::transfer_from_user(is_sol,a.system_program.as_ref(),&a.user,&a.bonding_curve,user_quote_in,quote_token_program,a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),user_quote,curve_quote)?}
+    {
+        let user_quote_in=if is_sol{add(pool_quote,total_buyback)?}else{pool_quote};
+        let (user_quote,curve_quote)=if is_sol{(None,None)}else{let curve_quote=Some(a.associated_quote_bonding_curve.as_ref());(Some(a.associated_quote_user.as_ref()),curve_quote)};
+        user_quote_payments::transfer_from_user(is_sol,a.system_program.as_ref(),&a.user,&a.bonding_curve,user_quote_in,quote_token_program,a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),user_quote,curve_quote)?;
+    }
     if is_sol{quote_payments::pay_out_native(&a.bonding_curve,a.buyback_fee_recipient.to_account_info(),total)?;}
     else{crate::collect_v2::transfer_user_quote_tokens(quote_token_program,&a.associated_quote_user,&a.buyback_fee_recipient,a.user.as_ref(),a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),total)?;}
     let total_net=crate::transfer_fee_recovered::post_fee_amount(quote_fee,total)?;
     let post_net=crate::transfer_fee_recovered::post_fee_amount(quote_fee,post_buyback)?;
-// layout-pad(40): aligns the next Source site with the original line
-
-
-
-
+// layout-pad(36): aligns the next Source site with the original line
 
 
 
@@ -869,7 +869,7 @@ pub fn buy(mut ctx:Context<SellV3>,amount:u64,max_sol_cost:u64,partial_fill:bool
 
 
 
-pub fn buy_exact_quote(mut ctx:Context<SellV3>,spendable_quote_in:u64,min_tokens_out:u64,partial_fill:bool)->Result<()> {
+pub fn buy_exact_quote(ctx:Context<SellV3>,spendable_quote_in:u64,min_tokens_out:u64,partial_fill:bool)->Result<()> {buy_exact_quote_body(ctx,spendable_quote_in,min_tokens_out,partial_fill)} #[inline(always)] fn buy_exact_quote_body(mut ctx:Context<SellV3>,spendable_quote_in:u64,min_tokens_out:u64,partial_fill:bool)->Result<()> {
     let a=&mut *ctx.accounts;
     crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.user)?;
     validate_trade(a.bonding_curve.complete as u8,a.bonding_curve.is_cashback_coin as u64,0)?;
@@ -880,7 +880,7 @@ pub fn buy_exact_quote(mut ctx:Context<SellV3>,spendable_quote_in:u64,min_tokens
 
     require_gt!(min_tokens_out,0,PumpError::BuyZeroAmount);
     require_gt!(spendable_quote_in,0,PumpError::BuyNotEnoughSolToCoverFees);
-    let (is_sol,quote_fee)=check_quote(a)?;
+    let (is_sol,quote_fee);(is_sol,quote_fee)=check_quote(a)?;
     let available=crate::transfer_fee_recovered::post_fee_amount(&quote_fee,spendable_quote_in)?;
 
 
@@ -888,7 +888,7 @@ pub fn buy_exact_quote(mut ctx:Context<SellV3>,spendable_quote_in:u64,min_tokens
 
 
 
-    require_gt!(available,0,PumpError::BuyNotEnoughSolToCoverFees);
+    require_neq!(available,0,PumpError::BuyNotEnoughSolToCoverFees);
     let fees=v3_trade_fees(a,available)?;
     let curve=&a.bonding_curve;
     let (tokens,net,protocol_fee,creator_fee,protocol_fee_bps,creator_fee_bps)=if a.global.whitelist_pda==a.user.key(){
