@@ -1478,6 +1478,31 @@ class AllocationBackscanBarrierTests(unittest.TestCase):
                 ]), [])
 
 
+class RelocationTextAddressTests(unittest.TestCase):
+    def test_text_targets_use_virtual_extent(self):
+        for target, expected in ((0x4000, '.text'), (0x40ff, '.text'),
+                                 (0x4100, 'unknown'), (0x100, 'unknown')):
+            with self.subTest(target=target):
+                elf = SimpleNamespace(
+                    b=struct.pack('<QQ', target, 8) + bytes(496), symbols={}, lo=0x100, hi=0x200,
+                    secs={'.text': (0, 1, 6, 0x4000, 0x100, 0x100, 0, 0, 8, 0),
+                          '.rel.dyn': (0, 9, 0, 0, 0, 16, 0, 0, 8, 16)},
+                )
+                report = deep_section_analysis.analyze_relocations(elf)
+                self.assertEqual(report['entries'][0]['target_section'], expected)
+                self.assertEqual(report['entries_in_text'], int(expected == '.text'))
+
+    def test_lddw_pointer_is_read_from_translated_file_position(self):
+        blob = bytearray(512)
+        struct.pack_into('<QQ', blob, 0, 0x4000, 8)
+        struct.pack_into('<BBhIII', blob, 0x100, 0x18, 1, 0, 0x12345678, 0, 0x9abcdef0)
+        elf = SimpleNamespace(b=bytes(blob), symbols={}, lo=0x100, hi=0x200,
+            secs={'.text': (0, 1, 6, 0x4000, 0x100, 0x100, 0, 0, 8, 0),
+                  '.rel.dyn': (0, 9, 0, 0, 0, 16, 0, 0, 8, 16)})
+        entry = deep_section_analysis.analyze_relocations(elf)['entries'][0]
+        self.assertEqual(entry['resolved_value'], '0x9abcdef012345678')
+
+
 class RelocationTargetTests(unittest.TestCase):
     def test_target_section_uses_address_not_file_offset(self):
         blob = bytearray(64)

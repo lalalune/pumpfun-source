@@ -1,4 +1,4 @@
-"""Eight Pump differential CLIs execute and report one candidate image per run.
+"""Ten Pump differential CLIs execute and report one candidate image per run.
 
 Each real CLI continues using the initially admitted program bytes after its
 candidate path is replaced following the first candidate case.
@@ -92,6 +92,39 @@ class PumpDifferentialPinnedImageTest(unittest.TestCase):
 
     def test_idl_authority(self):
         self.run_swapped('idl_authority')
+
+    def run_wrong_candidate(self, name):
+        # A stable but deliberately wrong real ELF must still be executed and fail.
+        # This rejects implementations that silently replace every candidate with
+        # the original merely to make the mutation controls pass.
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / 'report.json'
+            environment = dict(os.environ)
+            environment.pop('PYTHONOPTIMIZE', None)
+            script = ROOT / 'scripts' / f'pump_{name}_differential.py'
+            completed = subprocess.run(
+                [sys.executable, '-B', str(script), '--candidate', str(OTHER),
+                 '--output', str(output)], cwd=ROOT, env=environment,
+                capture_output=True, text=True, timeout=180)
+            self.assertNotEqual(completed.returncode, 0, completed.stdout[-2000:])
+            self.assertTrue(output.is_file(), completed.stdout[-2000:] + completed.stderr[-2000:])
+            report = json.loads(output.read_text(encoding='utf-8'))
+        self.assertEqual(report['candidate_sha256'], sha(OTHER))
+        self.assertEqual(report['original_sha256'], sha(ORIGINAL))
+        self.assertGreater(report['case_count'], 0)
+        self.assertTrue(report['mismatches'])
+
+    def test_global_init_wrong_candidate(self):
+        self.run_wrong_candidate('global_init')
+
+    def test_cashback_wrong_candidate(self):
+        self.run_wrong_candidate('cashback')
+
+    def test_global_init(self):
+        self.run_swapped('global_init')
+
+    def test_cashback(self):
+        self.run_swapped('cashback')
 
 if __name__ == '__main__':
     unittest.main()

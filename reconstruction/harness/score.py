@@ -170,8 +170,9 @@ def write_report(path, text):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('candidate', type=Path)
-    ap.add_argument('--baseline', type=Path, default=DEFAULT_BASELINE)
-    ap.add_argument('--no-baseline', action='store_true', help='report counts only; gains/losses are relative to an empty baseline')
+    baseline_options = ap.add_mutually_exclusive_group()
+    baseline_options.add_argument('--baseline', type=Path, default=DEFAULT_BASELINE)
+    baseline_options.add_argument('--no-baseline', action='store_true', help='report counts only; gains/losses are relative to an empty baseline')
     ap.add_argument('--json', type=Path)
     ap.add_argument('--quiet', action='store_true')
     a = ap.parse_args()

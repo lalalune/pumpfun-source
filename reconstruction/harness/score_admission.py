@@ -55,7 +55,9 @@ def baseline(path):
         if start < 0 or start in result or type(size) is not int or size <= 0: raise ValueError('invalid/duplicate baseline range')
         if isinstance(windows, list):
             matches = row.get('normalized_matches')
-            if not isinstance(matches, list): raise ValueError('normalized_matches must be a list')
+            if (not isinstance(matches, list) or
+                    any(not isinstance(name, str) or not name for name in matches)):
+                raise ValueError('normalized_matches must contain nonempty symbol names')
             normalized, raw = bool(matches), row.get('raw_match')
         else: normalized, raw = row.get('normalized'), row.get('raw')
         if type(normalized) is not bool or type(raw) is not bool or (raw and not normalized): raise ValueError('invalid baseline membership flags')

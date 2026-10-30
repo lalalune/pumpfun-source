@@ -34,16 +34,17 @@ those programs. There is no frontend, backend, SDK or off-chain service code.
 | **Total** |**3,336/3,338**|**99.94%**|**3,336**|**0**|**2**|**4/5**|
 
 Matched windows cover **5,167,144/5,213,128 code bytes (99.12%)**.
-A fresh identity build of current Pump Main, including #2686, preserves all
-1,033 normalized and raw matches with zero losses against the previous
-checkpoint. Its swap window improves from 98.91% to 99.91% similarity, with
-18 differing instruction slots remaining. All 408 targeted synthetic swap
-cases pass. This partial gain does not raise the completion percentages;
+The latest fresh Pump Main identity build includes #2749's admin-CTO refinement.
+It preserves all 1,033 normalized and raw matches with zero losses against a
+fresh main build. The admin window improves from 43.92% to 45.15% similarity,
+with 3,308 differing instruction slots remaining; all 363 targeted signed
+synthetic admin cases pass. The swap window remains 99.91% similar, with 18
+differing slots. These partial gains do not raise the completion percentages;
 Pump Main's meaningful ELF is not yet equal.
 
 AMM, Fees, Mayhem and Donation Relay retain their exact meaningful-ELF
-checkpoints. No native Fees or Mayhem compiler was rerun in this pass. See the
-[latest scores and validation](reconstruction/pump-main/checkpoints/completion-pass7-20261030/README.md),
+checkpoints. No build of those programs is claimed in this pass. See the
+[latest scores and validation](reconstruction/pump-main/checkpoints/completion-pass10-20261030/README.md),
 [other-program checkpoint provenance](reconstruction/pump-main/checkpoints/completion-20261030/other-programs.json)
 and [Fees Linux rebuild packet](research/fees-linux-fresh-rebuild-20261030/README.md).
 
