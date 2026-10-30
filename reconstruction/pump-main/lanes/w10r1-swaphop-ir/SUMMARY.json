@@ -1,0 +1,5 @@
+{"lane":"w10r1-swaphop-ir","target":"0x5b3b0 multi_hop_curve::swap_hop",
+ "best_source":{"round1":"0.93747 at 18584 B on x1-p2 base (superseded by main #2574, 0.97551)"},
+ "best_oracle":{"main_b19d43e":"0.98207 at 18584 B: match complete_fill Some-first + None thread block after uadd join"},
+ "rejected":["explicit Result match on complete_fill (3 arm orders, -48 B)","raw_output map_or/if-let/None-first/unwrap_or on s1","post_out tuple element (+80 B)","whitelist copy first (+64 B)"],
+ "next":["source spelling that stops JumpThreading from threading the None arm through the post_fill tag test, or that places that block after the join","polarity of post_fee_amount/get_fees ? sites","adapter_difference copy block placement"]}
