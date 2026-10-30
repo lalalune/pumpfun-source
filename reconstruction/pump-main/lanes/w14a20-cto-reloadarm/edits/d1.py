@@ -1,0 +1,1 @@
+EDITS=[("let shared=a.sharing_config.key()==a.bonding_curve.creator&&a.sharing_config.owner==&FEES&&!a.sharing_config.data_is_empty();","let shared={let sc=&a.sharing_config;sc.key()==a.bonding_curve.creator&&sc.owner==&FEES&&!sc.data_is_empty()};")]
