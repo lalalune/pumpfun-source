@@ -32,7 +32,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 VERSION = "pump-revalidation-qualification-v1"
 FROZEN_SOURCE = "scripts/revalidate_all.py"
-FROZEN_SHA256 = "4f1d184a9e910dbcdad5d8574851837909caac57c189d270dadab9d8aeb644ec"
+FROZEN_SHA256 = "ca9f2245dcf0dffb334546bef3d0209d69ae866c1c355d9563bfe18d64a1c70a"
 REPORT_MEMBERS = (
     "README.md",
     "failed.json",
@@ -364,6 +364,8 @@ def safe_manifest_check(frozen, packet):
         # The frozen parser keeps only the last occurrence of a JSON key.
         # Reject ambiguous declarations before delegating its format/hash checks.
         for path in frozen.manifest_paths(packet):
+            if frozen.linked(path) or not stat.S_ISREG(path.lstat().st_mode):
+                return {"status": "fail", "errors": ["manifest is not a regular file: " + path.name]}
             json.loads(path.read_text(encoding='utf-8'), object_pairs_hook=unique_manifest_fields)
         result = frozen.check_manifest(packet)
         if result.get("status") == "pass" and not result.get("files_expected"):
@@ -382,7 +384,17 @@ def audit_packet(frozen, repo, packet, timeout_seconds, cleanup_seconds):
     before = packet_snapshot(packet)
     has_verify = bool(before["verifier"])
     has_manifest = bool(before["manifest_files"])
-    manifest_before = safe_manifest_check(frozen, packet) if has_manifest else {"status": "skipped"}
+    non_file_manifests = [row["path"] for row in before["manifest_files"]
+                          if row["kind"] != "file"]
+    manifest_blocked = (
+        {"status": "fail", "errors": [
+            "manifest is not a regular file: " + name
+            for name in non_file_manifests]}
+        if non_file_manifests else None
+    )
+    manifest_before = manifest_blocked or (
+        safe_manifest_check(frozen, packet) if has_manifest else {"status": "skipped"}
+    )
     verify = (
         run_verifier(frozen, repo, packet, timeout_seconds, cleanup_seconds)
         if has_verify else {"status": "skipped"}
@@ -406,7 +418,9 @@ def audit_packet(frozen, repo, packet, timeout_seconds, cleanup_seconds):
             "after_sha256": None,
             "error": f"{type(error).__name__}: {error}",
         }
-    manifest_after = safe_manifest_check(frozen, packet) if has_manifest else {"status": "skipped"}
+    manifest_after = manifest_blocked or (
+        safe_manifest_check(frozen, packet) if has_manifest else {"status": "skipped"}
+    )
     overall = classify(
         has_manifest, has_verify, manifest_before, verify, manifest_after, mutation
     )

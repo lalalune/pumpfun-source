@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Check the tracked AMM workspace recipe inputs without compiling or running ELF."""
+"""Check the AMM workspace recipe inputs at the pinned source commit without compiling or running ELF."""
 
 import hashlib
 import json
 from pathlib import Path, PurePosixPath
+import re
 import subprocess
 import tempfile
 from types import ModuleType
@@ -42,9 +43,12 @@ def load_recipe(root, relative, expected_sha256):
     return recipe
 
 
-def tree_blobs(revision):
+INPUT_TREES = ('programs/pump-amm', 'crates/native-transfer-fee')
+
+
+def tree_entries(revision, *paths):
     rows = {}
-    raw = git('ls-tree', '-rz', revision, '--', 'programs/pump-amm', 'crates/native-transfer-fee')
+    raw = git('ls-tree', '-rz', revision, '--', *paths)
     for entry in raw.split(b'\0'):
         if not entry:
             continue
@@ -56,33 +60,55 @@ def tree_blobs(revision):
     return rows
 
 
+def tree_blobs(revision):
+    return tree_entries(revision, *INPUT_TREES)
+
+
+def materialize(revision, recipe_path, destination):
+    # Raw blob bytes: no checkout, attribute or end-of-line conversion applies.
+    entries = tree_entries(revision, recipe_path, *INPUT_TREES)
+    if recipe_path not in entries:
+        raise ValueError('Pinned source commit does not track the AMM recipe')
+    for name, object_id in entries.items():
+        target = destination / PurePosixPath(name)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(git('cat-file', 'blob', object_id))
+        if git('hash-object', '--no-filters', '--', str(target)).decode().strip() != object_id:
+            raise ValueError(f'Materialized AMM input differs from its Git blob: {name}')
+
+
 def verify():
-    manifest = json.loads((PACKET / 'manifest.json').read_text())
-    recipe = load_recipe(ROOT, manifest['recipe_path'], manifest['recipe_sha256'])
-
-    inputs, workspace = recipe.expected_workspace(ROOT)
-    expected = manifest['source_inputs']
-    if set(inputs) != set(expected):
-        raise ValueError(f'AMM source inventory changed: missing={sorted(set(expected)-set(inputs))}, extra={sorted(set(inputs)-set(expected))}')
-    tracked = tree_blobs(manifest['source_commit'])
-    selected_checkpoint = git('ls-tree', '-r', '--name-only', manifest['source_commit'], '--', 'repro/pump_amm', 'repro/status.json')
-    if selected_checkpoint:
-        raise ValueError('Pinned source commit unexpectedly contains a selected AMM checkpoint')
-    if set(tracked) != set(expected):
-        raise ValueError(f'Tracked AMM tree differs from recipe inputs: missing={sorted(set(expected)-set(tracked))}, extra={sorted(set(tracked)-set(expected))}')
-    for name, data in inputs.items():
-        if sha(data) != expected[name]['sha256']:
-            raise ValueError(f'Current source differs from pinned AMM input: {name}')
-        if tracked[name] != expected[name]['git_blob']:
-            raise ValueError(f'Pinned commit blob differs from AMM input: {name}')
-        if git('hash-object', '--', str(ROOT / name)).decode().strip() != tracked[name]:
-            raise ValueError(f'Working AMM input differs from pinned Git blob: {name}')
-
-    if {name: sha(data) for name, data in workspace.items()} != manifest['staged_workspace_sha256']:
-        raise ValueError('AMM workspace transformation differs from pinned recipe')
+    manifest = json.loads((PACKET / 'recipe.json').read_text())
+    commit = manifest['source_commit']
+    if not re.fullmatch('[0-9a-f]{40}', commit):
+        raise ValueError('source_commit must be an exact commit')
+    if git('cat-file', '-t', commit).strip() != b'commit':
+        raise ValueError('source_commit must identify a commit object')
     with tempfile.TemporaryDirectory(prefix='amm-recipe-') as temporary:
+        source = Path(temporary) / 'source'
+        materialize(commit, manifest['recipe_path'], source)
+        recipe = load_recipe(source, manifest['recipe_path'], manifest['recipe_sha256'])
+
+        inputs, workspace = recipe.expected_workspace(source)
+        expected = manifest['source_inputs']
+        if set(inputs) != set(expected):
+            raise ValueError(f'AMM source inventory changed: missing={sorted(set(expected)-set(inputs))}, extra={sorted(set(inputs)-set(expected))}')
+        tracked = tree_blobs(commit)
+        selected_checkpoint = git('ls-tree', '-r', '--name-only', commit, '--', 'repro/pump_amm', 'repro/status.json')
+        if selected_checkpoint:
+            raise ValueError('Pinned source commit unexpectedly contains a selected AMM checkpoint')
+        if set(tracked) != set(expected):
+            raise ValueError(f'Tracked AMM tree differs from recipe inputs: missing={sorted(set(expected)-set(tracked))}, extra={sorted(set(tracked)-set(expected))}')
+        for name, data in inputs.items():
+            if sha(data) != expected[name]['sha256']:
+                raise ValueError(f'Source-commit input differs from pinned AMM input: {name}')
+            if tracked[name] != expected[name]['git_blob']:
+                raise ValueError(f'Pinned commit blob differs from AMM input: {name}')
+
+        if {name: sha(data) for name, data in workspace.items()} != manifest['staged_workspace_sha256']:
+            raise ValueError('AMM workspace transformation differs from pinned recipe')
         staged = Path(temporary) / 'workspace'
-        report = recipe.stage(ROOT, staged)
+        report = recipe.stage(source, staged)
         if report['standalone_inputs'] != len(expected) or report['workspace_inputs'] != len(workspace):
             raise ValueError('Unexpected workspace input counts')
         if report['input_sha256'] != {name: row['sha256'] for name, row in expected.items()}:

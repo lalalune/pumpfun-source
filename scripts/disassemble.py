@@ -1,7 +1,25 @@
 #!/usr/bin/env python3
 """Generate analyst disassembly, never a source rebuild or candidate executable."""
-import argparse,hashlib,json,os,pathlib,shutil,subprocess,tempfile
+import argparse,hashlib,json,os,pathlib,secrets,shutil,subprocess,tempfile
 from analyze import capture_directory, program_names
+def fresh_staging(parent, name):
+    """Create a run-unique staging directory for one disassembly output.
+
+    The staging name used to be only the output name and the process id,
+    so a staging directory left behind by an interrupted run blocked any
+    later run that reused the same pid: mkdir failed although the output
+    itself was still fresh. Other staging paths in this tree already
+    qualify the pid with a random token (probe_report.py, score.py); do
+    the same here and retry on the rare collision instead of failing.
+    """
+    for _ in range(100):
+        staging = parent / f'.{name}.{os.getpid()}-{secrets.token_hex(8)}'
+        try:
+            staging.mkdir()
+            return staging
+        except FileExistsError:
+            continue
+    raise FileExistsError('could not create a unique disassembly staging directory')
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 ap=argparse.ArgumentParser();ap.add_argument('--objdump',type=pathlib.Path,required=True);ap.add_argument('--output',type=pathlib.Path,required=True);args=ap.parse_args()
 if args.output.exists():ap.error('output already exists')
@@ -11,7 +29,7 @@ tool_sha256=hashlib.sha256(tool_bytes).hexdigest()
 manifest={'tool_sha256':tool_sha256,'outputs':{}}
 args.output.parent.mkdir(parents=True,exist_ok=True)
 # Plain mkdir preserves the process umask when this directory is published.
-staging=args.output.parent/f'.{args.output.name}.{os.getpid()}';staging.mkdir()
+staging = fresh_staging(args.output.parent, args.output.name)
 try:
     with tempfile.TemporaryDirectory(prefix='disassemble-inputs-') as temporary:
         private=pathlib.Path(temporary)

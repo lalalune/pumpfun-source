@@ -23,6 +23,8 @@ def read_cstr_at(blob, secs, vaddr, length):
         return None
     for name, s in secs.items():
         if s['addr'] and s['addr'] <= vaddr < s['addr'] + s['size']:
+            if s.get('type') == 8:  # SHT_NOBITS has memory, but no file bytes.
+                return None
             o = vaddr - s['addr'] + s['offset']
             if vaddr + length > s['addr'] + s['size'] or not 0 <= o <= len(blob) - length:
                 return None

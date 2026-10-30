@@ -4,8 +4,10 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import shutil
 import sys
 import types
+import uuid
 
 ROOT = Path(__file__).resolve().parents[3]
 SOURCE = 'scripts/reconstruction_roadmap.py'
@@ -44,24 +46,57 @@ def trace_handler_attribution(elf, entries, forward, reverse):
 
 
 def generate(root, output):
-    root, output = Path(root).resolve(), Path(output).resolve()
+    root, output = Path(root).resolve(), Path(output).absolute()
     raw = (root / SOURCE).read_bytes()
     if hashlib.sha256(raw.replace(b'\r\n', b'\n')).hexdigest() != REVIEWED:
         raise ValueError('unreviewed roadmap source')
-    if output.exists():
+    if output.exists() or output.is_symlink():
         raise ValueError('output already exists; retain prior packets')
     sys.path.insert(0, str(root / 'scripts'))
     module = types.ModuleType('reviewed_roadmap')
     module.__file__ = str(root / SOURCE)
     exec(compile(raw, module.__file__, 'exec'), module.__dict__)
     module.trace_handler_attribution = trace_handler_attribution
-    module.generate_roadmap(output)
     bindings = {SOURCE: hashlib.sha256(raw).hexdigest(),
                 'adapter_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
-    (output / 'attribution-inputs.json').write_text(json.dumps(bindings, indent=2) + '\n', encoding='utf-8')
-    manifest = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(output.iterdir())
-                if p.is_file() and p.name != 'manifest.json'}
-    (output / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
+    for info in module.PROGRAMS.values():
+        path = info['deployed']
+        bindings[path] = hashlib.sha256((root / path).read_bytes()).hexdigest()
+    # Stage beside the destination and publish by rename, so a write failure
+    # never leaves a partial packet at the destination: the destination check
+    # above would otherwise block a retry at the same path, and the partial
+    # directory would masquerade as a result although it has no manifest.
+    # The stage is an ordinary mkdir, so it keeps the caller's umask.
+    output.parent.mkdir(parents=True, exist_ok=True)
+    stage = None
+    for _ in range(8):
+        candidate = output.parent / ('.' + output.name + '.staging-' + uuid.uuid4().hex)
+        try:
+            candidate.mkdir()
+        except FileExistsError:
+            continue
+        stage = candidate
+        break
+    if stage is None:
+        raise FileExistsError('could not allocate a staging directory')
+    try:
+        module.generate_roadmap(stage)
+        (stage / 'attribution-inputs.json').write_text(json.dumps(bindings, indent=2) + '\n', encoding='utf-8')
+        manifest = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(stage.iterdir())
+                    if p.is_file() and p.name != 'manifest.json'}
+        (stage / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
+        for name, digest in bindings.items():
+            path = Path(__file__) if name == 'adapter_sha256' else root / name
+            if hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+                raise ValueError('input changed during attribution: ' + name)
+        sys.path.insert(0, str(ROOT / 'scripts'))
+        from deep_disassembly import rename_directory
+        rename_directory(stage, output)
+        stage = None
+    except BaseException:
+        if stage is not None:
+            shutil.rmtree(stage, ignore_errors=True)
+        raise
 
 
 if __name__ == '__main__':

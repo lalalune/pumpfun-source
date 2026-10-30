@@ -17,6 +17,64 @@ class CompilerDeadlineTests(unittest.TestCase):
     def run_python(self, code, **kwargs):
         return run_compiler([sys.executable, '-u', '-c', code], **kwargs)
 
+    def background_writer_trial(self, status, timeout):
+        """A redirected descendant must not write after the runner returns."""
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            ready, release, marker, pids = (root / name for name in
+                                          ('ready', 'release', 'late-output', 'pids'))
+            child = (
+                'import os,time\nfrom pathlib import Path\n'
+                f'Path({str(ready)!r}).write_text(str(os.getpgrp()))\n'
+                f'gate=Path({str(release)!r})\n'
+                'deadline=time.monotonic()+10\n'
+                'while not gate.exists() and time.monotonic()<deadline: time.sleep(0.01)\n'
+                f'if gate.exists(): Path({str(marker)!r}).write_text("late write")\n'
+            )
+            leader = (
+                'import json,os,subprocess,sys,time\nfrom pathlib import Path\n'
+                f'child=subprocess.Popen([sys.executable,"-c",{child!r}],'
+                'stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)\n'
+                f'Path({str(pids)!r}).write_text(json.dumps([os.getpid(),child.pid]))\n'
+                'deadline=time.monotonic()+2\n'
+                f'while not Path({str(ready)!r}).exists() and time.monotonic()<deadline: time.sleep(0.01)\n'
+                'print("leader diagnostic",flush=True)\n'
+                f'sys.exit({status})\n'
+            )
+            try:
+                result, expired = self.run_python(leader, timeout=timeout)
+                leader_pid, _ = json.loads(pids.read_text())
+                self.assertTrue(ready.exists(), 'descendant never became ready')
+                self.assertEqual(int(ready.read_text()), leader_pid)
+                self.assertFalse(marker.exists())
+                # Release only after run_compiler has returned. A surviving
+                # child would now mutate files outside the caller's build lock.
+                release.touch()
+                deadline = time.monotonic() + 1
+                while not marker.exists() and time.monotonic() < deadline:
+                    time.sleep(0.01)
+                self.assertFalse(expired)
+                self.assertEqual(result.returncode, status)
+                self.assertEqual(result.stdout, 'leader diagnostic\n')
+                self.assertFalse(marker.exists(), 'descendant wrote after runner returned')
+            finally:
+                if pids.exists():
+                    _, child_pid = json.loads(pids.read_text())
+                    try:
+                        os.kill(child_pid, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
+
+    def test_successful_leader_stops_redirected_descendants(self):
+        for timeout in (None, 3):
+            with self.subTest(timeout=timeout):
+                self.background_writer_trial(0, timeout)
+
+    def test_failed_leader_stops_redirected_descendants(self):
+        for timeout in (None, 3):
+            with self.subTest(timeout=timeout):
+                self.background_writer_trial(7, timeout)
+
     def detached_pipe_trial(self, stream='stdout', leader_exits=False, interrupt=False):
         """Run run_compiler behind a watchdog and always reap escaped descendants."""
         with tempfile.TemporaryDirectory() as temp:

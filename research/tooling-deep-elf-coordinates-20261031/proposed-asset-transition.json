@@ -1,0 +1,21 @@
+{
+  "scope": "Proposed current-tooling asset transition; preserve archived scripts, manifests and receipts.",
+  "base": "36f630cf00bc8e78599d9c6623a4e7a44db42907",
+  "files": {
+    "scripts/deep_disassembly.py": {
+      "before_sha256": "94e54bf063d804df34cf1fe9cb848d21d47d2c9071e2ece62f500e4d17968145",
+      "proposed_sha256": "3586bb31887366b3c9f7efb5b18eb2f5e612f0150ff9efd40754fab598bad98c"
+    },
+    "scripts/test_dispatch_recovery.py": {
+      "before_sha256": "7774ef382997147a8ed2de609fdd0a432ebeb241ab7e600081f5f535aaa51a7e",
+      "proposed_sha256": "005c7f780cb04b7e6d05c9d1c53f62a0682347b54c2c8511a1dffd265b689ebb"
+    },
+    "scripts/test_tooling.py": {
+      "before_sha256": "e55ee145e628054dd05e3a34910e56d397cfadb34051ab784cf575ddda1a4be2",
+      "proposed_sha256": "a0209639f39744ef42164ac7f2b517a53c61cae557a392f15781ea63668f77db"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false
+}

@@ -1,0 +1,48 @@
+{
+  "baseline-alias": {
+    "base": "60803449039c31d9eae026ee62bdd3e0f30f5afa",
+    "exit_code": 0,
+    "seconds": 110.45376515388489,
+    "before": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+    "after": "b7e4bdc61f406d2bbd3fee592f1cd4884f4465964dc9850371d81053e4694c68",
+    "changed": true,
+    "prefix": "{\"scope\":\"Thirty handler paths, includin",
+    "case_count": 17331,
+    "mismatches": 0,
+    "suite_count": 18
+  },
+  "fixed-alias": {
+    "base": "60803449039c31d9eae026ee62bdd3e0f30f5afa",
+    "exit_code": 1,
+    "seconds": 0.19183802604675293,
+    "before": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+    "after": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+    "changed": false,
+    "prefix": "\u007fELF\u0002\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0003\u0000\u0007\u0001\u0001\u0000\u0000\u0000\ufffd\u0014\n\u0000\u0000\u0000\u0000\u0000@\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+  },
+  "fixed-normal": {
+    "base": "60803449039c31d9eae026ee62bdd3e0f30f5afa",
+    "exit_code": 0,
+    "seconds": 109.51289582252502,
+    "before": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+    "after": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+    "changed": false,
+    "prefix": "\u007fELF\u0002\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0003\u0000\u0007\u0001\u0001\u0000\u0000\u0000\ufffd\u0014\n\u0000\u0000\u0000\u0000\u0000@\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "case_count": 17331,
+    "mismatches": 0,
+    "suite_count": 18
+  },
+  "environment": {
+    "os": "macOS arm64",
+    "python": "3.12.13",
+    "solders": "0.27.1",
+    "scope": "Local LiteSVM only; captured Fees used as both original and candidate; no build or runtime equivalence of reconstructed source claimed."
+  },
+  "checks": {
+    "focused": "4 tests pass; same tests on base:10 failing subcases",
+    "optimization": "3 pass",
+    "pinned_aggregate": "2 pass",
+    "tooling": "214 pass",
+    "captures": "9 verify"
+  }
+}

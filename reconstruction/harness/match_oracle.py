@@ -3,12 +3,32 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import sys
 import fastbuild
 import score
 from original_input import copy_original_inputs
 from compare_scores import load_report, compare
+
+
+def bound_scoring_inputs(directory):
+    """Digest the copied originals and baseline snapshot the scorer reads.
+
+    A crate build runs arbitrary build-script code, so the build may rewrite
+    the scoring inputs it is scored against; binding them by content hash
+    (not mtime) detects a rewrite while a build that only touches
+    timestamps is not a change. The build has no legitimate reason to touch
+    this directory: its work and output directories are separate paths.
+    """
+    tree = {}
+    for path in sorted(directory.rglob('*')):
+        relative = path.relative_to(directory).as_posix()
+        if path.is_symlink():
+            tree[relative] = 'symlink:' + os.readlink(path)
+        elif path.is_file():
+            tree[relative] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return tree
 
 
 def evaluate(source, work, output, target, kind, recipe, baseline=None):
@@ -31,9 +51,14 @@ def evaluate(source, work, output, target, kind, recipe, baseline=None):
                 raise ValueError('baseline must describe the selected original inventory and window sizes')
         if target not in inventory:
             raise ValueError('target absent from selected original inventory')
+        bound = bound_scoring_inputs(scoring)
         built = fastbuild.build(source, work / 'build', output, quiet=True, recipe=recipe)
         if not built.get('ok') or built.get('runtime_valid') is False or built.get('stack_warnings'):
             result = {'status': 'error', 'build': built}
+            code = 2
+        elif bound_scoring_inputs(scoring) != bound:
+            result = {'status': 'error', 'build': built,
+                      'score_error': 'scoring inputs changed during build; refusing to score'}
             code = 2
         else:
             windows = score.score(output / 'unstripped.so')
