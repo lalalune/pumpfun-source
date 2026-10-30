@@ -27,8 +27,10 @@ jobs:
         with:
           python-version: "3.12"
       - name: Run admission and tamper controls
-        run: >-
+        run: |
           python3 -I -B reconstruction/mayhem/native-linux-qualification/test_native_linux.py
+          python3 -I -B reconstruction/mayhem/native-linux-qualification/test_vendor_membership.py
+          python3 -I -B reconstruction/mayhem/native-linux-qualification/test_vendor_file_links.py
       - name: Authenticate official SDK and complete crate closure
         run: >-
           python3 -I -B reconstruction/mayhem/native-linux-qualification/prepare_inputs.py

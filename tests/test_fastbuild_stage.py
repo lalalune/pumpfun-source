@@ -190,6 +190,74 @@ class FastbuildStageTests(unittest.TestCase):
         self.assertTrue((crate / "target").is_file())
         self.assertEqual((crate / "target").read_bytes(), b"source asset\x00")
 
+    def test_restored_source_edit_does_not_admit_different_staged_bytes(self):
+        source = self.src / "src/lib.rs"
+        original = source.read_bytes()
+        transient = b"pub const TRANSIENT: u8 = 2;\n"
+        expected = fastbuild.snapshot(self.src)
+        actual_run = subprocess.run
+
+        def copy_during_edit(command, *args, **kwargs):
+            self.assertEqual(command[0], "rsync")
+            source.write_bytes(transient)
+            try:
+                return actual_run(command, *args, **kwargs)
+            finally:
+                source.write_bytes(original)
+
+        error = None
+        with patch.object(fastbuild.subprocess, "run", side_effect=copy_during_edit):
+            try:
+                fastbuild.stage(self.src, self.ws)
+            except ValueError as caught:
+                error = caught
+
+        fastbuild.assert_unchanged(self.src, expected)
+        self.assertEqual((self.ws / "programs/pump/src/lib.rs").read_bytes(), transient)
+        self.assertIsInstance(error, ValueError, "source receipt admitted different staged bytes")
+        self.assertIn("src/lib.rs", str(error))
+
+    def test_build_binds_stage_to_its_preexisting_admitted_snapshot(self):
+        source = self.src / "src/lib.rs"
+        original = source.read_bytes()
+        transient = b"pub const TRANSIENT: u8 = 3;\n"
+        expected = fastbuild.snapshot(self.src)
+        actual_stage = fastbuild.stage
+
+        def enter_during_edit(*args, **kwargs):
+            source.write_bytes(transient)
+            try:
+                return actual_stage(*args, **kwargs)
+            finally:
+                source.write_bytes(original)
+
+        work = Path(self.tmp.name) / "build work"
+        output = Path(self.tmp.name) / "output"
+        output.mkdir()
+        prior = output / "candidate.so"
+        prior.write_bytes(b"prior binary must be preserved")
+        recipe = {"triple": "fixture", "rustc": work / "absent-rustc",
+                  "template": work / "absent-template"}
+        error = None
+        with patch.object(fastbuild, "stage", side_effect=enter_during_edit), \
+             patch.object(fastbuild, "SDK", work / "absent-sdk"), \
+             patch.object(fastbuild, "LOCKDIR", work / "locks"), \
+             patch.dict(fastbuild.RECIPES, {"isolated": recipe}), \
+             patch.object(fastbuild, "run_compiler",
+                          side_effect=RuntimeError("compiler boundary must not be reached")) as compiler:
+            try:
+                fastbuild.build(self.src, work, output, recipe="isolated", quiet=True)
+            except (ValueError, RuntimeError) as caught:
+                error = caught
+
+        fastbuild.assert_unchanged(self.src, expected)
+        self.assertEqual((work / "ws/programs/pump/src/lib.rs").read_bytes(), transient)
+        self.assertIsInstance(error, ValueError, "build used a replacement source snapshot")
+        self.assertIn("src/lib.rs", str(error))
+        compiler.assert_not_called()
+        self.assertEqual(prior.read_bytes(), b"prior binary must be preserved")
+        self.assertFalse((output / "previous").exists())
+
 
 class FastbuildStagedOutputTests(unittest.TestCase):
     """Exercise real staging and retention, stopping at an absent compiler executable."""

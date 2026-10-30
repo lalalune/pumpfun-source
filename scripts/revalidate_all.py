@@ -166,8 +166,16 @@ def check_manifest(packet_dir):
 def run_verify(packet_dir):
     """Run the packet's verify.py script."""
     verify_path = packet_dir / "verify.py"
-    if not verify_path.exists():
+    try:
+        metadata = verify_path.lstat()
+    except FileNotFoundError:
         return {"status": "no_verify_script", "output": ""}
+    except OSError as error:
+        return {"status": "fail", "output": "verify.py is unreadable: " + str(error)}
+    if (stat.S_ISLNK(metadata.st_mode) or not stat.S_ISREG(metadata.st_mode)
+            or bool(getattr(metadata, "st_file_attributes", 0) &
+                    getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0))):
+        return {"status": "fail", "output": "verify.py is not a regular file"}
 
     command = [sys.executable, "-B", str(verify_path)]
     try:
