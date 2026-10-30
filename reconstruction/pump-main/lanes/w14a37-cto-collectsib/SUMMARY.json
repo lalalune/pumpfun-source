@@ -1,0 +1,28 @@
+{
+  "lane": "w14a37-cto-collectsib",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "angle": "sibling-handler idiom port (collect_creator_fee collect()/execute, sweep_fees) onto wallet()/sweep()",
+  "bases": {"06967d3": {"ratio": 0.64649, "oracle_slots": 3169}, "e87e001": {"ratio": 0.64709, "oracle_slots": 3169}},
+  "best": {"ratio": 0.64709, "slots_diff": 3170, "bytes": 27400, "note": "no change beat main; best = main e87e001"},
+  "source_change_proposed": false,
+  "attempts": 16,
+  "ledger_keys": ["0x22a10-w14-06967d3-collectsib-*", "0x22a10-w14-e87e001-collectsib-*"],
+  "findings": [
+    "Wallet and sweep outlines (call sequence, gate blocks, arm order) in [0x1e00,0x6b08) already equal the original; no call moves there. The 157-call sequence differs only in validate (to_string/name/From groups) and the PDA position.",
+    "The original does not use the sibling collect() statement shapes in the sweep arms: its native arm calls minimum_balance before lamports (the sibling calls lamports first), and its token arm calls the token_raw_amount/token_frozen helpers (the sibling deserializes inline).",
+    "The sibling collect_creator_fee::execute inlines Event::data and the Vec build; admin_cto (original and ours) outlines them, so the sibling window is not an instruction template for the wallet collect arm.",
+    "Residual in these regions is register assignment: the original keeps do_coin in r8 and the sweep payload in r9 (tag r7), and tail-duplicates the coin gate after create_idempotent and the sweep join tag test (with a dead ldxdw r1,[r10-0x950]) into every Err edge; ours spills do_coin to [r10-0x938] and keeps a shared join with the payload going r2 -> [r10-0x968] -> r8."
+  ],
+  "rejected_mechanisms": [
+    "wallet early returns, match-on-bool (both polarities) on executable/owner, *owner deref + require!(is_writable): identical tokens",
+    "creator_key hoisted binding (-0.100 @ +56 B)", "sweep keys_eq helper (-0.341 @ +360 B)",
+    "collect result let-binding (identical); match None/Some either order (-0.072 @ -16 B)",
+    "wallet flags tuple binding (identical); block 4-tuple (-0.022 @ -24 B); helper inline(always) (-0.022 @ +32 B); helper #[inline]/plain stays outlined (+1 call)"
+  ],
+  "unresolved_residuals": ["do_coin register (r8 in the original)", "sweep Err-join tail duplication and payload register r9 (w14a06: needs an Err-join CFG change)"],
+  "next_ideas": [
+    "Wallet/sweep need global live-range changes, not statement shape: find what occupies the extra callee-saved register across [0x5b40,0x6b08) in ours (w14a01 accounts-pointer map, w14a03 census) and remove it upstream.",
+    "w14a27 b9 (sweep token arm tvt?;return Ok(amount), 0.64879 @ 27408) still needs an -8 B neutral knob."
+  ],
+  "tools": ["tools/ann.py", "tools/fdis.py", "tools/cls.py"]
+}

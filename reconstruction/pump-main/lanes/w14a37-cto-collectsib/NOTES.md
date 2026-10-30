@@ -2,7 +2,7 @@
 
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Bases: main 06967d3 (0.64649, 3,169 oracle slots) for batch a*, main e87e001 (0.64709) for batch d*.
-Ledger approach `collectsib`, keys `0x22a10-w14-06967d3-collectsib-*` and `0x22a10-w14-e87e001-collectsib-*` (11 rows).
+Ledger approach `collectsib`, keys `0x22a10-w14-06967d3-collectsib-*` and `0x22a10-w14-e87e001-collectsib-*` (16 rows).
 
 **No source change is proposed.** No rewrite beat main. This PR adds the per-arm outline table (sibling, original and
 ours), the per-region residual classes, three small tools, and the screened edits.
@@ -73,6 +73,10 @@ to the Err-join CFG).
 | d1 | `let r=collect(..)?; if let Some(..)=r{..}` | 27,400 | 0.64709 | identical |
 | d2 | `match collect(..)?{None=>{},Some(..)=>{..}}` | 27,384 | 0.57537 | -16 B, -0.072 |
 | d3 | `match collect(..)?{Some(..)=>{..},None=>{}}` | 27,384 | 0.57537 | same tokens as d2 |
+| h2 | wallet `let (do_collect,do_coin)=(..,..)` one tuple binding | 27,400 | 0.64709 | identical |
+| h4 | wallet flags from one block expression returning a 4-tuple | 27,376 | 0.62521 | -24 B, -0.022 |
+| h5 | wallet flags through an `#[inline(always)]` nested helper (sibling-style helper boundary) | 27,432 | 0.62515 | +32 B, -0.022 |
+| h1 / h3 | same helper as `#[inline]` / plain fn | 26,992 | 0.53788 | helper stays outlined (+1 call) |
 
 Spellings found in the ledger and not repeated here: wallet early returns on older mains (w10r1, w12a03), the wallet and
 sweep helper signatures `(&AdminCto,&AdminCtoBumps)` (w14a01), sweep `keys_eq` on w13 mains, inline vault seeds at both
