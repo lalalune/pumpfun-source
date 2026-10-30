@@ -19,7 +19,7 @@ def snapshot(root):
         for name in dirs:
             entry = Path(directory) / name
             if entry.is_symlink() or entry.is_junction():
-                raise ValueError('source directory links are not supported')
+                raise ValueError('source directory symlinks and other directory links are not supported')
         if Path(directory) == root:
             dirs[:] = [name for name in dirs if name != 'target']
         for name in sorted(names):
