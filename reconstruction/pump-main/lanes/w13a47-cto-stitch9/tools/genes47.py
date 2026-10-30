@@ -42,3 +42,33 @@ G['pap_hr'] = [(_PU, _PU + "let phr=a.bonding_curve.is_holder_reward;"), (_PC1, 
 G['pap_hr_b'] = [(_PU, "let phr=a.bonding_curve.is_holder_reward;" + _PU), (_PC1, "},signer_seeds),target,phr,fee)?;")]
 G['pap_destr'] = [(_PU, _PU + "let (ptarget,phr,pfee)=(target,a.bonding_curve.is_holder_reward,fee);"), (_PC1, "},signer_seeds),ptarget,phr,pfee)?;")]
 G['pap_th'] = [(_PU, _PU + "let pargs=(target,a.bonding_curve.is_holder_reward);"), (_PC1, "},signer_seeds),pargs.0,pargs.1,fee)?;")]
+
+# ---- rebased on main 53abf28b1 (after #3168 pap+u_sand) ----
+_PA = "let pargs=(target,a.bonding_curve.is_holder_reward,fee);"
+G['pa_hold'] = [(_PA, "let pargs=(target,holder,fee);")]
+G['pa_tcurve'] = [(_PA, "let pargs=(a.bonding_curve.creator,a.bonding_curve.is_holder_reward,fee);")]
+G['pa_rot'] = [(_PA, "let pargs=(fee,target,a.bonding_curve.is_holder_reward);"), ("signer_seeds),pargs.0,pargs.1,pargs.2)?;", "signer_seeds),pargs.1,pargs.2,pargs.0)?;")]
+G['pa_rot2'] = [(_PA, "let pargs=(a.bonding_curve.is_holder_reward,fee,target);"), ("signer_seeds),pargs.0,pargs.1,pargs.2)?;", "signer_seeds),pargs.2,pargs.0,pargs.1)?;")]
+G['pa_ref'] = [(_PA, "let pargs=&(target,a.bonding_curve.is_holder_reward,fee);")]
+G['pa_in'] = [(_PA + "\n  if pool_updated{", "\n  if pool_updated{" + _PA) ] if False else []
+_SHN = "let shared=a.bonding_curve.creator==a.sharing_config.key()&&a.sharing_config.owner==&FEES&&!a.sharing_config.data_is_empty();"
+G['sh_own_first'] = [(_SHN, "let shared=a.sharing_config.owner==&FEES&&a.bonding_curve.creator==a.sharing_config.key()&&!a.sharing_config.data_is_empty();")]
+G['sh_empty_mid'] = [(_SHN, "let shared=a.bonding_curve.creator==a.sharing_config.key()&&!a.sharing_config.data_is_empty()&&a.sharing_config.owner==&FEES;")]
+G['sh_key_rev'] = [(_SHN, "let shared=a.sharing_config.key()==a.bonding_curve.creator&&a.sharing_config.owner==&FEES&&!a.sharing_config.data_is_empty();")]
+_HK2 = "let holder_key;let hk=Pubkey::find_program_address(&[b\"holder-rewards\",mint.as_ref()],&crate::ID);holder_key=hk.0;"
+G['k2n'] = [(_SHN + _HK2, _HK2 + _SHN)]
+_QL = "let quote_locked=crate::pump_quote::global_quote(a.bonding_curve.quote_mint,&a.global);"
+G['sh_after_ql'] = [(_SHN + _HK2 + _QL, _HK2 + _QL + _SHN)]
+G['ql_first'] = [(_SHN + _HK2 + _QL, _QL + _SHN + _HK2)]
+_OK = "let (target,sharing_update,cashback)=Ok::<_,anchor_lang::error::Error>((target,sharing_update,cashback))?;"
+G['okp_uct'] = [(_OK, "let (sharing_update,cashback,target)=Ok::<_,anchor_lang::error::Error>((sharing_update,cashback,target))?;")]
+G['okp_tcu'] = [(_OK, "let (target,cashback,sharing_update)=Ok::<_,anchor_lang::error::Error>((target,cashback,sharing_update))?;")]
+G['okp_ctu'] = [(_OK, "let (cashback,target,sharing_update)=Ok::<_,anchor_lang::error::Error>((cashback,target,sharing_update))?;")]
+G['okp_utc'] = [(_OK, "let (sharing_update,target,cashback)=Ok::<_,anchor_lang::error::Error>((sharing_update,target,cashback))?;")]
+G['okp_cut'] = [(_OK, "let (cashback,sharing_update,target)=Ok::<_,anchor_lang::error::Error>((cashback,sharing_update,target))?;")]
+G['okp_hold'] = [(_OK, "let (target,sharing_update,cashback,holder)=Ok::<_,anchor_lang::error::Error>((target,sharing_update,cashback,holder))?;")]
+G['okp_skip'] = [(_OK, "let (target,sharing_update,cashback,skip)=Ok::<_,anchor_lang::error::Error>((target,sharing_update,cashback,skip))?;")]
+G['okp_co'] = [(_OK, "let (target,sharing_update,cashback,collect_old)=Ok::<_,anchor_lang::error::Error>((target,sharing_update,cashback,collect_old))?;")]
+G['ev_hold'] = [("is_holder_reward:a.bonding_curve.is_holder_reward,", "is_holder_reward:holder,")]
+G['ev_cbl'] = [("is_cashback_coin:a.bonding_curve.is_cashback_coin,", "is_cashback_coin:cashback,")]
+G['ev_ncl'] = [("new_creator:a.bonding_curve.creator,", "new_creator:target,")]
