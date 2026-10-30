@@ -13,6 +13,7 @@ import importlib.util
 import json
 import tomllib
 from pathlib import Path
+from pump_differential_output import PumpReport
 
 from build_source_manifest import source_manifest
 
@@ -70,10 +71,12 @@ def main():
     parser.add_argument('--source-directory', type=Path, default=ROOT / 'programs/pump')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
-    assert not args.output.exists(), 'Retain prior attempts; output must be fresh'
     SOURCE_DIRECTORY = args.source_directory.resolve()
     candidate = args.candidate.resolve()
     report = (args.build_report or candidate.parent / 'build-comparison.json').resolve()
+    output = PumpReport(args.output, ROOT, candidate, __file__,
+                        extra_inputs=(report, report.with_name('build-attempt.json'), SOURCE_DIRECTORY),
+                        overwrite=False)
     before = bindings(candidate, report)
     rows = []
     for name, sell, amount, mode, limit in fixture.fixtures():
@@ -91,7 +94,7 @@ def main():
               'verified_outer_signatures': sum(row[side]['verified_signature_count'] for row in rows for side in ('original', 'candidate')),
               'cases': rows}
     raw = json.dumps(result, separators=(',', ':')).encode()
-    args.output.write_bytes(gzip.compress(raw, mtime=0) if args.output.suffix == '.gz' else raw)
+    output.write(gzip.compress(raw, mtime=0) if args.output.suffix == '.gz' else raw)
     print(json.dumps({key: result[key] for key in ('case_count', 'original_successes', 'original_pump_cpi_cases', 'verified_outer_signatures')}))
     assert all(not row['mismatches'] for row in rows)
 
