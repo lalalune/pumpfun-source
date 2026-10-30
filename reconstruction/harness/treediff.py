@@ -78,9 +78,8 @@ def tree_diff(base, new, prefix='programs/pump'):
             xl = diff_lines(x)
             yl = diff_lines(y)
         except UnicodeDecodeError:
-            # Not decodable text: report the pair the way git does instead of
-            # losing the whole tree diff to an unhandled codec error.
-            pass
+            # Either side can fail after the other has already decoded.
+            xl = None
         fa = quoted_a if x is not None else '/dev/null'
         fb = quoted_b if y is not None else '/dev/null'
         if xl is None:
