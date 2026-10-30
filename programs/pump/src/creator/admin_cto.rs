@@ -569,9 +569,9 @@ fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:Option<Pubkey>,ho
          let inner_data=anchor_lang::Event::data(&e);
          let ix_data:Vec<u8>=disc.into_iter().map(|b|*b).chain(inner_data.into_iter()).collect();
          let ix=anchor_lang::solana_program::instruction::Instruction::new_with_bytes(crate::ID,&ix_data,vec![anchor_lang::solana_program::instruction::AccountMeta::new_readonly(*authority_info.key,true)]);
-         let event_inner:&[&[u8]]=&[b"__event_authority",&[authority_bump]];
+         ({let event_inner:&[&[u8]]=&[b"__event_authority",&[authority_bump]];
          event_signers=[event_inner];
-         anchor_lang::solana_program::program::invoke_signed(&ix,&[authority_info],&event_signers).map_err(anchor_lang::error::Error::from)?;
+         anchor_lang::solana_program::program::invoke_signed(&ix,&[authority_info],&event_signers)}).map_err(anchor_lang::error::Error::from)?;
      }
     }
   }
