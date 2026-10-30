@@ -258,7 +258,7 @@ def load_idl_discriminators(elf):
     if not idl_path.is_file():
         return {}
     try:
-        payload = json.loads(idl_path.read_text())
+        payload = json.loads(idl_path.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return {}
     discriminators = {}

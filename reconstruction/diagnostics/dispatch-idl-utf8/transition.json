@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "sourceBase": "950c94c7acab2ea3b96a5a464a51b8f8e6043127",
+  "reviewedAssetTransition": {
+    "scripts/deep_disassembly.py": {
+      "beforeSha256": "9b0c9de4a32e86464a7321629f10f5ed63653027c00a8ce929a9a9c04dfb7bea",
+      "afterSha256": "958a88a01dc6e2f522f59e5fa6b557acec0a56bfda7fe9eae371c6998bc986ea",
+      "loader": "load_idl_discriminators",
+      "beforeLoaderAstSha256": "27e6b0424b7a014a86638cb80031667d95962577e5a16c204c3d7d08ff5c2507",
+      "afterLoaderAstSha256": "5be7f253b902a1dbe30fd385296b13407ba57083b89370eadeec9444e856c5e3",
+      "afterLoaderAstWithoutEncodingSha256": "27e6b0424b7a014a86638cb80031667d95962577e5a16c204c3d7d08ff5c2507",
+      "onlyDifference": "encoding=\"utf-8\" on the existing archived IDL read_text call"
+    },
+    "scripts/recover_dispatch.py": {
+      "beforeSha256": "4ad747f662ebbe8f60910550d3780bfc8b0883cb090ce2d9c56aa64f34aa708e",
+      "afterSha256": "1693fa409cedf5b615df68529ebe3d675eafbd50002d606e2fa8e9bbfef6c7d9",
+      "loader": "recover",
+      "beforeLoaderAstSha256": "1190f4480a88f57fbc7e5ff3d1ea69c4db0a38a9e3bed6ef9961569a880997ca",
+      "afterLoaderAstSha256": "4cade94694072571b83093ac0b9141150a33620dc0c9c73c5d3b67d00e7d438c",
+      "afterLoaderAstWithoutEncodingSha256": "1190f4480a88f57fbc7e5ff3d1ea69c4db0a38a9e3bed6ef9961569a880997ca",
+      "onlyDifference": "encoding=\"utf-8\" on the existing archived IDL read_text call"
+    }
+  },
+  "rootScriptSetBefore": {
+    "count": 275,
+    "sha256": "8eb63099b191ba15ce76b8279ed0151d0db96c348a4cc70690409abd687f826e"
+  },
+  "rootScriptSetAfter": {
+    "count": 275,
+    "sha256": "8eb63099b191ba15ce76b8279ed0151d0db96c348a4cc70690409abd687f826e"
+  },
+  "preservation": [
+    "No historical packet, manifest, checkpoint verifier, workflow guard, scorer, captured ELF/IDL or program source changes.",
+    "No root script is added, removed or renamed.",
+    "Whole-file hashes are review metadata; tests execute the actual product CLI without runtime source patching or whole-file applicability gate."
+  ],
+  "policyReview": {
+    "fixedBase": "950c94c7acab2ea3b96a5a464a51b8f8e6043127",
+    "completeTextBlobScan": 1578,
+    "missingBlobs": 0,
+    "targetFilenameReferenceCount": 8,
+    "guardOrHistoricalPacketChanged": false
+  }
+}
