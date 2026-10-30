@@ -1,0 +1,45 @@
+{
+  "lane": "w13a33-cto-keyslots",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs)",
+  "pinned_bytes": 27400,
+  "bases": {"d81d0f5": {"ratio": 0.571, "slots_diff": 3311}, "a6412c2": {"ratio": 0.59197, "slots_diff": 3311}},
+  "best_zero_loss": null,
+  "result": "angle exhausted; no source change",
+  "finding": "The original's holder_key copy at -0x518 (with sk at -0x470) is reproduced exactly by validate taking holder_key:Pubkey by value (= IR oracle hkc:sk,arm,cmp). It lands sk/hkc/error scratch/109 spill slots at the original's offsets, but loses 0.045-0.06 and 88 B on every main because it lowers register pressure (stack reloads orig 537, main 508, hkc 498).",
+  "attempts": [
+    {"id": "ir hkc:sk,arm,cmp", "main": "d81d0f5", "ratio": 0.54314, "bytes": 27312},
+    {"id": "ir hkc:END,arm,cmp", "main": "d81d0f5", "ratio": 0.54254, "bytes": 27312},
+    {"id": "ir hkc + best single move (mv:target.i.sroa.0:END)", "main": "d81d0f5", "ratio": 0.55364, "bytes": 27312},
+    {"id": "ir sk-only moves (290)", "main": "d81d0f5", "ratio": 0.5713, "bytes": 27400},
+    {"id": "v1 holder_key by value", "main": "d81d0f5", "ratio": 0.54314, "bytes": 27312},
+    {"id": "v2 args=&(new,holder_key)", "main": "d81d0f5", "ratio": 0.50449, "bytes": 27496},
+    {"id": "c1 v1+payer-first", "main": "d81d0f5", "ratio": 0.54229, "bytes": 27336},
+    {"id": "c2 v1+payer-first+args.0", "main": "d81d0f5", "ratio": 0.5161, "bytes": 27408},
+    {"id": "c3 v1+args.0", "main": "d81d0f5", "ratio": 0.51595, "bytes": 27424},
+    {"id": "c4/c5 v1+plain PDA", "main": "d81d0f5", "ratio": 0.52213, "bytes": 27312},
+    {"id": "m1 payer-first", "main": "d81d0f5", "ratio": 0.58811, "bytes": 27424},
+    {"id": "ir hkc:sk,arm,cmp", "main": "a6412c2", "ratio": 0.53323, "bytes": 27312},
+    {"id": "ir hkc + mv:target.i.sroa.0:END", "main": "a6412c2", "ratio": 0.54374, "bytes": 27312},
+    {"id": "f3 holder_key+sharing by value", "main": "a6412c2", "ratio": 0.53233, "bytes": 27312},
+    {"id": "f4 sharing by value", "main": "a6412c2", "ratio": 0.52696, "bytes": 27400},
+    {"id": "pf2 payer-first", "main": "a6412c2", "ratio": 0.53631, "bytes": 27424},
+    {"id": "pf2v payer-first + v1", "main": "a6412c2", "ratio": 0.50727, "bytes": 27328},
+    {"id": "ir single-move frame scan 3882 edits", "main": "a6412c2", "ratio": 0.59227, "bytes": 27400}
+  ],
+  "rejected_mechanisms": [
+    "holder_key copy via by-value validate arg (any alloca position, any lifetime end)",
+    "holder_key copy via args tuple field",
+    "sk by value / sk alloca moves / nolt sk",
+    "payer-first transfer literal on a6412c2"
+  ],
+  "unresolved_residuals": [
+    "original allocates under higher register pressure (537 stack reloads vs ours 508); the holder_key copy only fits once that pressure source is reproduced",
+    "frame-only levers on a6412c2 are worth at most +0.0003 (target 9 B SROA pieces)"
+  ],
+  "next_ideas": [
+    "find what raises the original's register pressure (more stack reloads) before re-adding the holder_key copy (v1); then v1's frame (sk 0x470, hkc 0x518, 109 spills) is free",
+    "combine v1 with other faithful pressure-raising data flows (entry copy of new's SROA pieces loaded before the mayhem test, orig 0x22ee8-0x22f48) and rescore",
+    "mv:target.i.sroa.9:END (+0.0003) source form: validate's 9 B target tail as a late SROA head"
+  ],
+  "tools": ["tools/hkc.py", "tools/skel.py", "tools/regdelta2.py", "tools/drift2.py"]
+}
