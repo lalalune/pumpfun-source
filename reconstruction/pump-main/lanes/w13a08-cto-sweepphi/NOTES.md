@@ -4,7 +4,10 @@ Target: `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`
 Angle: the sweep gate and the pool-CPI holder as phis (S5/S10 of w12a09-cto-cleanroom).
 Base: main 3912c47ac (0.48772, 3,273 slots, 27,400 B, 1034/1034).
 
-## Landable result: skip flag + vsigner + bump before old (skp3_vsig_bo)
+## Result on 3912c47ac: skip flag + vsigner + bump before old (skp3_vsig_bo)
+
+Superseded on main by #2885 (w13a11-cto-stitch, 085e5dffb): the same skip tree + vsigner + bump-first composite with
+`reset` bound early as the size companion, also 0.48922 at 27,400 B. This branch now carries notes only.
 
 | build | bytes | ratio | slots_diff | normalized / raw | losses |
 | --- | ---: | ---: | ---: | --- | --- |
