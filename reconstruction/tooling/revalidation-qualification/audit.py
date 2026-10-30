@@ -117,6 +117,9 @@ def entry_record(packet, path):
 
 def packet_snapshot(packet):
     """Inventory packet entries without following linked directories or files."""
+    root_info = packet.lstat()
+    if not stat.S_ISDIR(root_info.st_mode) or is_reparse_point(root_info):
+        raise ValueError("packet root must be a real directory, not a link")
     entries = []
     stack = [packet]
     while stack:
