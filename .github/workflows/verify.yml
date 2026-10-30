@@ -41,6 +41,7 @@ jobs:
               python scripts/verify_evidence.py
               python -I -B reconstruction/verification/retained_multihop_outcomes.py --repo-root .
               python -I -B tests/test_retained_multihop_outcomes.py
+              python -I -B tests/test_dispatch_root.py
               python -I -B tests/test_analyze_input_admission.py
               python scripts/test_tooling.py
               python -B reconstruction/harness/test_treediff_line_boundaries.py
