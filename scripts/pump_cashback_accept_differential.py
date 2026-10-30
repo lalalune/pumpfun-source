@@ -20,6 +20,8 @@ non-cashback v3 trades are unchanged. It builds on the v3 token-extensions fixtu
 if not __debug__:
     raise SystemExit("Normal Python is required; do not use -O or PYTHONOPTIMIZE.")
 import argparse,gzip,hashlib,json
+from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
 import pump_v3_token_extensions_differential as v3
 import pump_trade_fixture as f
 
@@ -54,7 +56,12 @@ def main():
     p.add_argument('--candidate', type=f.pathlib.Path)
     p.add_argument('--output', type=f.pathlib.Path, required=True)
     a = p.parse_args()
-    original = f.R / 'evidence/original/pump/deployed.so'
+    report_output = PumpReport(a.output, f.R, a.candidate, __file__, extra_inputs=(
+        f.R / 'evidence/original', f.R / 'evidence/dependencies',
+        f.R / 'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json',
+    ))
+    a.candidate = pin_program(a.candidate) if a.candidate else None
+    original = pin_program(f.R / 'evidence/original/pump/deployed.so')
     rows, bad = [], []
     for i, c in enumerate(cases()):
         x = v3.run(str(original), c)
@@ -78,8 +85,7 @@ def main():
         'fixture_import_sha256': sha(f.pathlib.Path(f.__file__)),
         'case_count': len(rows), 'cases': rows, 'mismatches': bad}
     raw = (json.dumps(report, indent=2) + '\n').encode()
-    a.output.parent.mkdir(parents=True, exist_ok=True)
-    a.output.write_bytes(gzip.compress(raw, mtime=0) if a.output.suffix == '.gz' else raw)
+    report_output.write(gzip.compress(raw, mtime=0) if a.output.suffix == '.gz' else raw)
     print(json.dumps({'cases': len(rows), 'mismatches': bad}))
     assert not bad
 
