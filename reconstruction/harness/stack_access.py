@@ -11,6 +11,7 @@ from pathlib import Path
 import struct
 
 from score import sections, body
+from instruction_stream import require_instruction_range
 
 WIDTHS = {0x60: 4, 0x68: 2, 0x70: 1, 0x78: 8}
 
@@ -54,6 +55,8 @@ def read_range(path, start, size):
     sec = sections(blob)['.text']
     if size <= 0 or size % 8 or (start - sec['addr']) % 8 or not sec['addr'] <= start < start + size <= sec['addr'] + sec['size']:
         raise ValueError('range must contain aligned complete instructions inside .text')
+    text = body(blob, {'.text': sec}, sec['addr'], sec['size'])
+    require_instruction_range(text, start - sec['addr'], size)
     raw = body(blob, {'.text': sec}, start, size)
     if len(raw) != size:
         raise ValueError('truncated .text payload')

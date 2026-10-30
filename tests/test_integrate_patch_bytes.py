@@ -81,6 +81,9 @@ class IntegrationPatchBytesTests(unittest.TestCase):
             self.assertIsInstance(report_text, str)
             self.assertIn('+++ b/pump/lib.rs\t', report_text)
             command = ['patch', '-p2', '--forward', '-E', '-d', str(target), '-i', str(output)]
+            if sys.platform == 'win32':
+                # GNU patch's Windows text mode converts the source bytes.
+                command.append('--binary')
             dry = subprocess.run(command + ['--dry-run'], capture_output=True)
             self.assertEqual(dry.returncode, 0, (dry.stdout, dry.stderr))
             applied = subprocess.run(command, capture_output=True)

@@ -1237,6 +1237,31 @@ class CompareProgramNamesTests(unittest.TestCase):
             self.assertEqual(compare_module.program_names(root), ['probe'])
 
 
+class AnalyzeProgramRootTests(unittest.TestCase):
+    def test_explicit_root_overrides_current_default(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            selected = root / 'selected'
+            (selected / 'repro').mkdir(parents=True)
+            mapping = {'mayhem': _CAPTURED_PROGRAMS['mayhem']}
+            (selected / 'repro/programs.json').write_text(json.dumps(mapping))
+            with patch.object(analyze, 'ROOT', root / 'other'):
+                self.assertEqual(analyze.program_names(selected), mapping)
+                self.assertEqual(analyze.program_names(), [])
+
+    def test_current_root_keeps_missing_selected_binary_error(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'repro').mkdir()
+            mapping = {'mayhem': _CAPTURED_PROGRAMS['mayhem']}
+            (root / 'repro/programs.json').write_text(json.dumps(mapping))
+            with patch.object(analyze, 'ROOT', root):
+                self.assertEqual(analyze.program_names(), mapping)
+                with self.assertRaises(FileNotFoundError):
+                    analyze.analyze()
+                self.assertFalse((root / 'evidence/binary-analysis.json').exists())
+
+
 class RodataStringAddressTests(unittest.TestCase):
     def test_string_keys_use_virtual_address(self):
         blob = bytearray(0x40)
@@ -1874,6 +1899,48 @@ class WindowScorerBaselineTests(unittest.TestCase):
             with self.assertRaises(SystemExit) as exit_:
                 self.run_main(scorer, '--baseline', 'missing/score.json')
         self.assertEqual(exit_.exception.code, 2)
+
+
+class FallbackDispatchRelocationTests(unittest.TestCase):
+    """The IDL-less entry heuristic must not report loader addresses as selectors."""
+
+    @staticmethod
+    def entry_elf(relocated):
+        # Entrypoint 0x40: lddw r1, 0x1234; call +0.
+        blob = bytearray(0x58)
+        struct.pack_into('<Q', blob, 24, 0x40)
+        blob[0x40:0x50] = bytes.fromhex('18010000341200000000000000000000')
+        blob[0x50:0x58] = bytes.fromhex('8510000000000000')
+        return SimpleNamespace(
+            b=bytes(blob), lo=0x40, hi=0x58, funcs=[],
+            relocations={0x40: {'type': 8, 'symbol': ''}} if relocated else {},
+        )
+
+    def test_relocated_lddw_is_not_a_selector(self):
+        self.assertEqual(
+            deep_disassembly.recover_anchor_dispatch(self.entry_elf(True)), {})
+
+    def test_unrelocated_scalar_candidate_is_kept(self):
+        self.assertEqual(
+            list(deep_disassembly.recover_anchor_dispatch(self.entry_elf(False))),
+            ['0x1234'])
+
+    def test_captured_mayhem_reports_no_relocated_addresses(self):
+        from window_elf_reader import Elf
+        elf = Elf(analyze.ROOT / 'evidence/original/mayhem/deployed.so')
+        relocated = set()
+        for at, relocation in elf.relocations.items():
+            if (elf.lo <= at < elf.hi and elf.b[at] == 0x18
+                    and relocation['type'] == 8):
+                low, = struct.unpack_from('<I', elf.b, at + 4)
+                high, = struct.unpack_from('<I', elf.b, at + 12)
+                relocated.add(hex(low | high << 32))
+        dispatch = deep_disassembly.recover_anchor_dispatch(elf)
+        # Panic-location and string pointers formerly reported as selectors.
+        for address in ('0xb1bd8', '0xb1b48', '0xb1b30', '0xae2a7'):
+            self.assertIn(address, relocated)
+            self.assertNotIn(address, dispatch)
+        self.assertEqual(relocated & set(dispatch), set())
 
 
 class UpstreamEvidenceSetTests(unittest.TestCase):
