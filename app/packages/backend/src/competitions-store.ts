@@ -281,6 +281,7 @@ export class CompetitionStore {
       // them at construction, like the entry measures above.
       for (const key of ['minMembers', 'maxMembers', 'maxEntries'] as const) {
         if (!Number.isFinite(comp[key])) throw new TypeError(`Competition ${key} must be finite`);
+        if (!Number.isSafeInteger(comp[key]) || comp[key] < 0) throw new TypeError(`Competition ${key} must be a nonnegative safe integer`);
       }
       for (const tier of comp.prizes) {
         for (const key of ['rankFrom', 'rankTo'] as const) {
