@@ -129,6 +129,21 @@ def score_with_hash(cand_path):
 
 
 
+def write_report(path, text):
+    """Publish without truncating an input linked to the destination mid-score."""
+    path = Path(path)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8',
+                                         dir=path.parent, prefix='.score-', delete=False) as stream:
+            temporary = Path(stream.name)
+            stream.write(text)
+        temporary.replace(path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('candidate', type=Path)
@@ -164,7 +179,7 @@ def main():
                'gains': [hex(x) for x in gains], 'losses': [hex(x) for x in losses],
                'raw_gains': [hex(x) for x in rg], 'raw_losses': [hex(x) for x in rl]}
     if a.json:
-        a.json.write_text(json.dumps({'summary': summary, 'windows': {str(k): v for k, v in cur.items()}}, indent=1))
+        write_report(a.json, json.dumps({'summary': summary, 'windows': {str(k): v for k, v in cur.items()}}, indent=1))
     print(json.dumps(summary, indent=None if a.quiet else 1))
 
 
