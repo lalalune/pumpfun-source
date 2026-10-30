@@ -1,47 +1,46 @@
-# Admin CTO: sharing-program copy and cached pool holder value
+# Admin CTO: sharing-program copy and pool-holder lifetime
 
 Fresh main: `6ff770f7a8a2a74ff3a631b644f1ffef59640582`, including #3131 and #3155.
 
-Two source changes compose: clone the sharing CPI program's lamports/data Rc
-values into locals before copying its remaining metadata, and pass the existing
-`holder` bool to the pool CPI. The bool was written to the curve before this call;
-no intervening instruction changes that field. Both account copies, increment
-order, CPI account/argument order, seeds, checks and state transitions retain
-their values/behavior. The #3131 associated-program copy remains unchanged.
-
-The changes were independently motivated by sharing-copy allocation and the
-original pool caller's cached holder value. On the earlier 52c control, the sharing form alone was 32 bytes
-short; cached holder alone was 32 bytes long. Their actual compiled composition
-restores size and raises similarity; additivity was not assumed.
+Compose the sharing CPI program copy with a pool-holder read before pool CPI
+account construction, and a sharing-update-first inner tuple. Each tuple branch
+maps the same sharing update, collect-old and skip values to its named binding.
+The #3155 placement of `args` after holder/cashback calculations is preserved;
+its inner tuple order is intentionally retuned. The sharing-program lamports/data
+Rc values are cloned into locals, in the same order, before copying metadata.
+The pool bool was assigned to the curve before this call, with no intervening
+mutation of the decoded field. Account values, Rc increment order, CPI order,
+arguments, seeds, checks and state transitions remain equivalent. Macro coordinates
+and source line count are preserved. No build-input changes.
 
 | Identity build measurement | Fresh main | Candidate |
 | --- | ---: | ---: |
-| Target sequence similarity | 0.62403 | 0.62552 |
-| Aligned normalized instruction tokens | 2,083 | 2,088 |
+| Target sequence similarity | 0.62403 | 0.62732 |
+| Aligned normalized instruction tokens | 2,083 | 2,094 |
 | Handler bytes | 27,400 | 27,400 |
-| Positional differing slots | 3,325 | 3,325 |
+| Positional differing slots | 3,325 | 3,260 |
 | Raw / normalized exact windows | 1,034 / 1,034 | 1,034 / 1,034 |
 | Raw / normalized losses | 0 / 0 | 0 / 0 |
 | Internal / syscall calls | 154 / 3 | 154 / 3 |
 
-This is a five-token partial similarity gain, not a new complete-window match.
-The positional difference count is unchanged on this fresh comparison.
+This is an eleven-token partial similarity gain, not a new complete-window match.
+The positional difference count improves by 65. Measurements replace the earlier
+0.62552 candidate. The changes are assessed as a compiled composition; no
+arithmetic additivity or individual-gene acceptance is assumed.
 
-Two ordinary single-module candidate builds reproduce both image hashes. A new
-ordinary main build uses the new #3155 entry-copy and tuple layout. Complete fresh comparison
-has empty gain/loss lists. All 363 signed synthetic runtime cases match the
-captured original with genuine dependency CPIs, and the full scorer retains all 1,034 matched windows. This is evidence for
-the measured change, not proof of complete program equivalence. No stack warnings
-or build-input changes. Source line count and macro coordinates are preserved.
+All 363 signed synthetic runtime cases match the captured original with genuine
+dependency CPIs. Full scoring retains all 1,034 exact windows, with empty raw and
+normalized gain/loss lists. Two ordinary single-module identity builds reproduce both candidate image
+hashes and complete source-input hash. They are runtime-valid, without stack warnings. This supports the measured change, not complete program identity.
 
 SHA-256:
 
 - Fresh-main unstripped:
   `946b912b999620b45cf02d7976de52c8f1b116f747aae5d86af0a97898c8da17`
-- Candidate unstripped, both ordinary builds:
-  `9051345b03250323c6dc7c5d52017372b56c73df3546bd7a039855b870fbb9f1`
-- Candidate runtime image, both ordinary builds:
-  `55e003e288d1507eb5180671c9f37424b7e48c2034da4ae8f7bb3b57aee58d39`
+- Candidate unstripped:
+  `da83254351169e11758708a496eacead7b25416a7176e32e956ce15cf34ba96f`
+- Candidate runtime image:
+  `cb160cb4b12b893b3f6e2a7c3761dc16a91eda1db5cfde9279b104edd86bb56e`
 
 Reproduce with the pinned SDK/cache and identity recipe:
 
@@ -52,8 +51,12 @@ python3 reconstruction/harness/score.py <candidate>/unstripped.so --baseline <fr
 python3 scripts/pump_admin_cto_differential.py --candidate <candidate>/candidate.so --output <runtime-report.json>
 ```
 
-This extends merged #3066's sharing-program copy and preserves merged #3131.
-Merged #3028/#3049's current control-flow, transfer account ordering and event
-readback remain intact. Open PR overlaps are checked at publication.
+The source extends merged #3066 and retains #3131's associated-program copy,
+#3028/#3049's current transfer account ordering, control flow and event readback.
 
-Fresh composition with #3152: 0.62403 -> 0.62762, 2,083 -> 2,095 aligned tokens, 27,400 bytes, unchanged 3,325 positional differences, 1,034 raw/normalized windows and 363/0 runtime. Two ordinary builds reproduce unstripped `7f555a26b6ae203c5358c9afdebf58b35f2e0b823fa030f7b709640657901b49` and runtime `a2c564a7c109e2068cf7175e969de529d52d6995e8b43a2ebba5d4310cec9cbc`. #3155 is retained in both candidate and composition.
+The separately measured composition with #3152 is 0.62403 -> 0.62942,
+2,083 -> 2,101 aligned tokens, 27,400 bytes, 3,257 positional differences,
+1,034 raw/normalized exact windows, empty losses and 363/0 runtime. Two ordinary
+builds reproduce unstripped `94b30422bc540895b33215e6be49d566ddfc58783807841aa4087cf20e4b2d01`
+and runtime `30106c31f0c3d76a08dd523e08dc98054216d2d653aaa47ddf165d017bf86a7b`.
+Public PR descriptions record actual Git composition and overlapping open PRs.
