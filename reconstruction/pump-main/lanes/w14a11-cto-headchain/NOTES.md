@@ -113,7 +113,8 @@ The same pattern holds: the gate collapses on main's head, and on the PDA-first 
 The best weights on the PDA-first head are 1:16 on the `Rc::inc_strong` / `AccountInfo::clone` overflow
 branches of the clone run: `inc_strong.exit.i98.i` 0.59481 @27,360 (sk 0.85534), and `clone.exit40.i` /
 `inc_strong.exit.i47.i` 0.59323 @27,368 (fm 0.70653, sk 0.85941). They partly move the accounts-pointer register
-back. They are library edges that source cannot reach, and none comes near main. The p1 register loss sits in
+back. They are library edges that source cannot reach, and none comes near main. The best fm is `bb20.i118` 20:12
+(0.58094, fm 0.71313). The p1 register loss sits in
 the clone-run RA (w14a09-cto-pdara, w14a01-cto-acctlive), not in the entry chain.
 
 ## 6. Conclusion
