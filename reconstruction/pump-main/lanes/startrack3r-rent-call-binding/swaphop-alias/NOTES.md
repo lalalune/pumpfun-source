@@ -45,6 +45,19 @@ This packet contributes the independently repeated, exact-size three-hint
 control and the ten-member regression when adding `NO_FEE`; it claims no
 new source mechanism and is not a competing program-source PR.
 
+Subsequent duplication review also found
+[#2412](https://github.com/lalalune/pumpfun-source/pull/2412), head
+`17a9ce06477950e0065e0669bc1027fee5b2959c`. Its 16-subset census already
+measured both exact-size controls, including the same three-hint combination
+used here. It selected the two-hint form for fewer differing slots. This
+packet's contribution is the retained Windows reproduction, ordinary/IR
+qualification, complete callee checks and independent repeat; neither the
+composition nor its native ten-raw-gain result is new to this lane.
+Later #2403 head `8073709c650c7fcd9996ac72220983c1c4929779` reports an
+exact-size 0.85352 variant. Neither later source is substituted into the
+measurements below, and this packet should not be read as the latest best
+swap-hop source proposal.
+
 At publication review, main was
 `168232c98d8308e958d1040339ed8f3d54c93f9d`. It includes #2397's V3 exact-quote
 match. The only changed Pump source since our compiled base is `trade_v3.rs`.
