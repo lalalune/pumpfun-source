@@ -1,0 +1,25 @@
+{
+  "lane": "w14a36-cto-blockplace",
+  "target": "0x22a10 admin_cto::execute (27,400 B pinned)",
+  "bases": ["06967d3 0.64649", "81d3d9a 0.65069", "faf9962 0.65129", "6db95a7 0.65458"],
+  "result": "notes only: no zero-loss source change",
+  "best_zero_loss": {"ratio": 0.65458, "slots_diff": 3279, "bytes": 27400, "note": "= main 6db95a7; nothing beat main"},
+  "displacements": {
+    "P": "holder_key PDA call (excluded, RA-limited)",
+    "A": "306/312/307 to_string group (excluded): original hoists 306's inlined to_string before the 3 memcmps and outlines 312/307",
+    "B": "E334 CreatorFeeNotConfigurable placed after the 410 block; placement-only bound +0.0075 (0.65458 -> 0.66207 on 6db95a7)",
+    "C": "pool gate owner==AMM vs data_is_empty order (line 761): original call order costs -0.0018 (RA renaming)",
+    "D": "uniform 0x40 shift after C, no block of its own"
+  },
+  "oracle": "tools/blkscan.py: llc asm -> move block/chain -> cc1as -> rx metric (eq_main round-trip, ~0.2 s/variant); exhaustive chain scan in chainscan-81d3d9a.json",
+  "placement_bounds": {"E334": 0.00749, "E306": 0.00359, "E312": 0.0027, "wallet bb81.i": 0.0009, "others": "<=0.0003", "ceiling_after_E334": "~+0.009"},
+  "mechanism_E334": "MBP worklist after the E338 chain: bb76 join (freq .039, fee-Some + both fee-None exits) beats E334 (.0092). Original has a separate fee-Some exit block (spill copies + fee-tag const, freq ~.0077); IR dup of bb76 for the bb58.i edge reproduces the original order (0.64403@27480). The split is RA live-range-split spill code, not CFG/PHI-elim.",
+  "attempts": 46,
+  "rejected": ["334/338 spellings b1-b15", "fee match forms n1-n8", "validate returns rebuilt Option<u64> f1-f3", "validate result local / per-arm target t1-t10", "pool gate owner-first c1-c14", "IR: feeS phi, -phi-elim-split-all-critical-edges, memcpy sink both arms, IR block order moves of bb76"],
+  "unresolved": ["E334 placement needs the fee-Some exit split: via RA edge spills (original) or join duplication; every CFG route found costs more elsewhere (RA cascade 0x2800-0x4000)"],
+  "next_ideas": [
+    "combine the original-like memcpy sink (sink76, gives 330 338 334 410) with RA levers from w14a01/w14a16 liverange oracles to repay the 0x2800-0x4000 cascade",
+    "w13a18 out-param validate threading on the current main with a frame-preserving out slot",
+    "use blkscan.py --chains after any CFG-changing candidate to separate placement from RA effects"
+  ]
+}

@@ -1,7 +1,7 @@
 # w14a36-cto-blockplace: call-skeleton displacements and a placement-only block-move oracle
 
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
-Bases: main 06967d3 (0.64649) → 81d3d9a (0.65069) → faf9962 (0.65129). Ledger keys `0x22a10-w14-<sha7>-blockplace-*`.
+Bases: main 06967d3 (0.64649) → 81d3d9a (0.65069) → faf9962 (0.65129) → 6db95a7 (0.65458). Ledger keys `0x22a10-w14-<sha7>-blockplace-*`.
 
 **Result: no zero-loss source change. One placement lever is worth +0.0075 (E334), but its mechanism is a split
 fee-Some exit block that the original gets from register-allocation edge copies; no source spelling tried (36)
@@ -39,7 +39,7 @@ legal insertion point (110 chains x ~110 points, 2.5 min on 4 cores). Full table
 | all other 103 chains | | | <= 0 |
 
 After E334 is moved, 306 and 312 drop to +0.0009 / 0, so the whole placement-only ceiling is about +0.009.
-On faf9962 the E334 move is 0.65129 -> 0.65878 (3,115 slots).
+On faf9962 the E334 move is 0.65129 -> 0.65878 (3,115 slots); on 6db95a7 it is 0.65458 -> 0.66207 (3,279 -> 3,224 slots).
 
 ## Why E334 is placed after the 410 block (debug llc `-debug-only=block-placement`)
 
@@ -59,7 +59,14 @@ What does not split the edge:
 - a phi-of-constants fee tag at `bb76` replacing the line-757 test (p1). The copy is hoisted into `bb58.i`: 0.57036,
   and the order is unchanged.
 - `-phi-elim-split-all-critical-edges`: the split blocks are empty and get folded.
-- sinking the target memcpys below the shared test (t1 IR): 0.64572 @27,464, order unchanged.
+- sinking the target memcpys into both shared arms (t1 IR): 0.64572 @27,464, order unchanged.
+- sinking them original-like (`tools/sink76.py`: into `bb22` and the shared+holder edge only; `bb21` overwrites
+  target) DOES give `330 338 334 410`, but costs 0.60712 @27,280 (fm 0.661, sk 0.782 vs main 0.698/0.789). The loss
+  is register allocation spread over orig chunks 768-3328. This agrees with w13a18-cto-feephi: the join memcpy is what
+  keeps the fee exits joined.
+- a phi of the fee value instead of constants: ISel puts phi constants at the end of `bb58.i`, and PHIElimination splits
+  a critical edge only for a register that is live out to E338 and not live into the join. No source value has that
+  property, so the original's split block is spill code from live-range splitting.
 
 ## Source screens (raw-IR capture + rx opt/llc oracle = build tokens; `edits/*.py`, `tools/batch.sh`)
 
