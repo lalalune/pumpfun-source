@@ -1,0 +1,61 @@
+{
+ "lane": "w13a42-cto-entrycopy3",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "waves": {
+  "w13": {
+   "base": "52c0b087c (0.62103)",
+   "landed": "#3155 merge 6ff770f7a: 0.62103 -> 0.62403 at 27400 B, 0 losses (args=&(new,) after the CtoState literal + inner tuple (collect_old,sharing_update,skip))"
+  },
+  "w14_continuation": {
+   "bases": [
+    "53abf28 0.62672",
+    "769f331 0.63241",
+    "cef0574 0.63421",
+    "f8dc901 0.63481",
+    "b174038 0.63571"
+   ],
+   "landed": null,
+   "best_zero_loss_build": {
+    "main": "53abf28",
+    "genes": [
+     "n_cb_rev",
+     "e_cb_local",
+     "e_reset"
+    ],
+    "ratio": 0.62762,
+    "slots_diff": 3281,
+    "bytes": 27400,
+    "normalized": 1034,
+    "raw": 1034,
+    "losses": [],
+    "note": "superseded by #3200 (0.62882) before a PR"
+   }
+  }
+ },
+ "attempts": "~350 ledger rows, keys 0x22a10-w14-<main7>-entrycopy3-*-v1 (approach entrycopy3-genescreen)",
+ "findings": [
+  "entry-copy angle closed: faithful 1/7/8/8/9 forms lose 0.05-0.07 to RA; only the copy position (#3155) pays",
+  "single-gene screens: 114 genes on 53abf28, 36 on 769f331, 16 on cef0574, 13 on f8dc901; only n_cb_rev/w_rl (landed by #3200) and r_co_dm on f8dc901 beat main",
+  "r_co_dm (collect_old as !(holder_reward||creator==default)) is a global RA lever: -56 B/-0.0005 (769f331), -56/-0.0002 (cef0574), -80/+0.00065 (f8dc901), -80/-0.00145 (b174038)",
+  "ch_shpar (shared as A&&(B&&C)) is the most neutral +8 B filler: -0.0001 on three mains",
+  "ch_shkref (sharing_config.key==&creator) -80 B / -0.0015 on cef0574",
+  "comparison operand swaps and !(a!=b) negations are byte-identical or lose; non-short-circuit &/| forms lose 0.03-0.11",
+  "near-neutral +bytes fillers are the scarce resource: shrinking gains (scu_bs -56, r_co_dm -80, outline306 -480) cannot be repaid with catalog fillers without a net loss"
+ ],
+ "rejected": [
+  "entry copy piecewise split (xs/xsc/xsm), v1, new.take(), cold/plain pass carriers (wave 13)",
+  "t_scu/o_* tuple orders on 6ff770f",
+  "all size-balanced gene sets on 53abf28/769f331/cef0574/f8dc901",
+  "collect_old if/match/then/ne/to_bytes spellings",
+  "quote_locked order/any/ref/inline/if/bor spellings"
+ ],
+ "unresolved": [
+  "register allocation / code shape (~0.36 gap)",
+  "a near-neutral +56..+80 B filler"
+ ],
+ "next_ideas": [
+  "re-screen r_co_dm on each new main; when positive at -80 B pair it with a positive +80 B faithful change, not catalog padding",
+  "use ch_shpar as the +8 B partner of any -8 B gain",
+  "search tail-region (event / pool CPI) source spellings for +bytes fillers that stay local"
+ ]
+}
