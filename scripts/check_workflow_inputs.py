@@ -42,7 +42,7 @@ def matrix_rows(job):
                 matched = True
         if not matched:
             additions.append(dict(entry))
-    return rows + additions or [{}]
+    return rows + additions
 
 
 def substitute(value, row):
