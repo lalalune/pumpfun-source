@@ -235,6 +235,9 @@ def fixed_cases():
     for buyback in (1, 3_333, 5_000, 10_000, 10_001):
         add(10**9, 10**12, buyback=buyback)
     add(10**9, 10**12, buyback=10_001, tiers=((0, 0, 30),))
+    # The buyback aborts only once floor(bps * protocol_fee / 10000) exceeds the fee.
+    add(10**11, 10**13, buyback=10_001)
+    add(10**9, 10**12, buyback=20_000)
     add(10**9, 10**12, rs=5 * 10**9, vs=35 * 10**9)
     # Fee-tier choice by pre-trade market cap and the creator-bps override.
     add(10**9, 10**12, tiers=((0, 95, 30), (MCAP, 50, 20)))
