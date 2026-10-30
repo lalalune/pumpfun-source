@@ -1,0 +1,41 @@
+{
+  "lane": "w8-elf-meta",
+  "base": "origin/main ce53d867a",
+  "targets": [
+    "whole meaningful-ELF identity beyond .text"
+  ],
+  "best": {
+    "normalized": 1027,
+    "raw": 276,
+    "losses": 0,
+    "unstripped_sha256": "31ec6381b4e7b4a7fb4c2a27820e65df8919196e9af15e3f398d55c5bbc88d58",
+    "stripped_sha256": "1b04b8d4cf9ba6fda52d25d7781cb3ceb2d0cc359dd10e09d1672a97053b1455",
+    "build_input_differences": 0
+  },
+  "finding": "No ELF-metadata difference is controlled by a build input under the identity recipe. Headers, e_flags 0 (SBPF v0), the 4 program headers, the 9 sections (order, flags, alignment, entsize), .dynsym/.dynstr/.shstrtab/.dynamic structure, stripping, .data.rel.ro non-pointer bytes and .rodata size all equal the original. Every remaining byte difference follows from .text: D=+0x230 (=512-byte extra v2_native_payments::ensure_rent_exempt + net 48 from 7 unmatched windows), +2 text R_SBF_64_RELATIVE in admin_cto::execute (86 vs 84), and an 86-byte .rodata literal permutation (admin_cto.rs path vs line-766 msg, MIR RPO order: source).",
+  "attempts": [
+    "01a5b3f55fb0488e8b4d00d84dd316a2",
+    "acc3ff07dd3147f69a6a4bd7e844171f",
+    "30fc21e06753424e8c7deda0eff2b840"
+  ],
+  "rejected_mechanisms": [
+    "recipe=mac (sbf-solana-solana macOS target libs): .rodata +12 B, 5 normalized losses",
+    "llvm-objcopy --strip-unneeded/--strip-debug/--strip-sections: section table differs; --strip-all (current) is the only match"
+  ],
+  "unresolved_residuals": [
+    ".text size +560 (ensure_rent_exempt wrapper 512 + unmatched windows 48)",
+    "admin_cto::execute 2 extra lddw",
+    ".rodata path/msg order in admin_cto (source, MIR RPO)",
+    ".data.rel.ro text-pointer values (function layout order)"
+  ],
+  "tools": [
+    "reconstruction/pump-main/lanes/w8-elf-meta/elf_meta_diff.py"
+  ],
+  "next_ideas": [
+    "Gate every w8 recipe candidate with elf_meta_diff.py (exit 1 = recipe-introduced meta regression)",
+    "Remove the 512-byte ensure_rent_exempt wrapper (raw-main-099b0dd-ensure-rent-twin-direct-v1) to bring D to +48",
+    "admin_cto: an admin_cto.rs Source error block must be codegened (MIR RPO) before the line-766 msg block; this also needs the 2-lddw reduction"
+  ],
+  "exhausted": true,
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/2253"
+}

@@ -12,6 +12,7 @@ import argparse
 import collections
 import hashlib
 import json
+import stat
 import sys
 from pathlib import Path
 
@@ -31,6 +32,18 @@ PACKET_FILES = frozenset({
 })
 
 
+def linked(path):
+    """Recognize symlinks and Windows reparse-point aliases without following them."""
+    try:
+        metadata = path.lstat()
+    except OSError:
+        return False
+    return (stat.S_ISLNK(metadata.st_mode) or
+            bool(getattr(metadata, "st_file_attributes", 0) &
+                 getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0)) or
+            bool(getattr(metadata, "st_reparse_tag", 0)))
+
+
 def sha256_file(path):
     h = hashlib.sha256()
     with open(path, "rb") as f:
@@ -41,14 +54,19 @@ def sha256_file(path):
 
 def prepare_output_directory(output_dir):
     """Reject stale packet entries before any analysis output is replaced."""
+    if linked(output_dir):
+        raise ValueError("output directory is a link")
     output_dir.mkdir(parents=True, exist_ok=True)
+    if linked(output_dir):
+        raise ValueError("output directory is a link")
     unexpected = sorted(path.name for path in output_dir.iterdir()
                         if path.name not in PACKET_FILES)
     if unexpected:
         raise ValueError("unexpected packet entry: " + ", ".join(unexpected))
     invalid = sorted(name for name in PACKET_FILES
-                     if (output_dir / name).exists()
-                     and not (output_dir / name).is_file())
+                     if linked(output_dir / name)
+                     or ((output_dir / name).exists()
+                         and not (output_dir / name).is_file()))
     if invalid:
         raise ValueError("packet entry is not a regular file: " + ", ".join(invalid))
 

@@ -67,6 +67,50 @@ class NoBuildCompositionTests(unittest.TestCase):
         before = b'// context\r\npub fn recovered_value() -> u64 { 1 }'
         self.assert_composition(before, before.replace(b'{ 1 }', b'{ 2 }'))
 
+    def compose(self, base_files, part_files):
+        """Compose one part through the CLI; return (src snapshot, report)."""
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            for source, files in ((root / 'base', base_files), (root / 'part', part_files)):
+                files = {'Cargo.toml': b'[package]\nname="fixture"\nversion="0.0.0"\n',
+                         'Cargo.lock': b'version = 3\n', **files}
+                for name, contents in files.items():
+                    (source / name).parent.mkdir(parents=True, exist_ok=True)
+                    (source / name).write_bytes(contents)
+            name = 'test-no-build-' + uuid.uuid4().hex
+            integ = TOOL.parent.parent / 'integ'
+            for owned in (integ / name, integ / '.tmp' / name):
+                self.addCleanup(lambda path=owned: path.exists() and shutil.rmtree(path))
+            result = subprocess.run([sys.executable, '-B', str(TOOL), '--name', name,
+                '--base-src', str(root / 'base'), '--part', 'change=' + str(root / 'part'),
+                '--no-build'], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            src = integ / name / 'src'
+            return ({p.relative_to(src).as_posix(): p.read_bytes() for p in src.rglob('*') if p.is_file()},
+                    json.loads((integ / name / 'report.json').read_text()))
+
+    def test_nested_target_sources_compose_but_root_build_directory_does_not(self):
+        # fastbuild stages nested target directories as source (#1531); only the
+        # crate-root build directory is excluded. Composition must keep the same set.
+        base = {'src/lib.rs': b'pub mod target;\n', 'src/target/mod.rs': b'pub const VALUE: u8 = 1;\n',
+                'assets/target/data.bin': b'\x00\xff\n', 'target/release/stale.o': b'build output'}
+        part = dict(base, **{'src/target/mod.rs': b'pub const VALUE: u8 = 2;\n',
+                             'target/release/stale.o': b'other build output'})
+        files, report = self.compose(base, part)
+        expected = {k: v for k, v in part.items() if not k.startswith('target/')}
+        self.assertEqual({k: v for k, v in files.items() if k not in ('Cargo.toml', 'Cargo.lock')}, expected)
+        self.assertEqual(report['parts'], [{'label': 'change', 'status': 'applied',
+                                           'files': ['src/target/mod.rs']}])
+
+    def test_regular_file_named_target_is_a_composed_source_input(self):
+        asset = b'source asset\x00'
+        base = {'src/lib.rs': b'pub const DATA: &[u8] = include_bytes!("../target");\n', 'target': asset}
+        part = dict(base, **{'src/lib.rs': base['src/lib.rs'] + b'pub const LEN: usize = DATA.len();\n'})
+        files, report = self.compose(base, part)
+        self.assertEqual(files.get('target'), asset)
+        self.assertEqual(files['src/lib.rs'], part['src/lib.rs'])
+        self.assertEqual(report['parts'][0]['status'], 'applied')
+
 
 if __name__ == '__main__':
     unittest.main()

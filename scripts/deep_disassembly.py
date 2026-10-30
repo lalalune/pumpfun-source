@@ -567,6 +567,21 @@ def main():
     output_dir = Path(args.output)
     output_dir.mkdir(parents=True, exist_ok=True)
 
+    # The manifest hashes every file here and verify.py requires exactly the
+    # generated set, so reject leftovers from another run before writing.
+    packet_files = {
+        "README.md", "disassembly.json.gz", "dispatch-table.json", "error-strings.json",
+        "extern-usage.json", "fingerprints.json", "manifest.json", "rodata-strings.json",
+        "summary.json", "syscall-usage.json", "verify.py", "windows-deep.json",
+    }
+    unexpected = sorted(path.name for path in output_dir.iterdir() if path.name not in packet_files)
+    if unexpected:
+        raise ValueError("unexpected packet entry: " + ", ".join(unexpected))
+    invalid = sorted(name for name in packet_files
+                     if (output_dir / name).exists() and not (output_dir / name).is_file())
+    if invalid:
+        raise ValueError("packet entry is not a regular file: " + ", ".join(invalid))
+
     print(f"[disasm] Reading {deployed_path}")
     elf = Elf(deployed_path)
     call_symbols = relocated_syscalls(elf)

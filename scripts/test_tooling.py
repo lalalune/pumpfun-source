@@ -135,6 +135,7 @@ import sys
 import unittest
 from test_analysis_interface_inventory import InterfaceInventoryEncodingTests
 from test_capture_verification_modes import CaptureVerificationModeTests
+from test_mayhem_receipt_admission import MayhemReceiptAdmissionTests
 from test_fees_runtime_image_binding import FeesRuntimeImageBindingTests
 from test_fees_external_codec_cases import ExternalCodecBooleanCases
 from types import SimpleNamespace
@@ -1056,6 +1057,67 @@ class PatternTailScanTests(unittest.TestCase):
         elf = Elf(analyze.ROOT / 'evidence/original/pump/deployed.so')
         result = bytecode_signatures.detect_error_patterns(elf, 0xef40, 0xefc8)
         self.assertIn({'offset': 120, 'branch_target_offset': 24, 'error_code': 0, 'type': 'conditional_error'}, result)
+
+
+class ConditionalBranchErrorPatternTests(unittest.TestCase):
+    # Every SBPF JMP64 conditional jump (anza-xyz/sbpf f754c707, src/ebpf.rs L478-L521).
+    CONDITIONAL = (0x15, 0x1d, 0x25, 0x2d, 0x35, 0x3d, 0x45, 0x4d, 0x55, 0x5d, 0x65,
+                   0x6d, 0x75, 0x7d, 0xa5, 0xad, 0xb5, 0xbd, 0xc5, 0xcd, 0xd5, 0xdd)
+    # Opcodes the detector skipped before: jset, jslt and jsle in both operand forms.
+    OMITTED = (0x45, 0x4d, 0xc5, 0xcd, 0xd5, 0xdd)
+
+    @staticmethod
+    def branch_then_move(opcode):
+        return struct.pack('<BBhi', opcode, 0, 0, 0) + struct.pack('<BBhi', 0xb7, 2, 0, 6000)
+
+    def test_every_conditional_jump_is_a_branch_candidate(self):
+        # The repository disassembler decodes the same 22 opcodes as conditional jumps.
+        decoded = set()
+        for opcode in range(256):
+            if opcode & 7 == 5 and opcode not in (0x05, 0x85, 0x8d, 0x95):
+                record, _ = deep_disassembly.decode_instruction(bytes([opcode]) + bytes(7), 0, None)
+                decoded.update([opcode] if 'branch_target' in record else [])
+        self.assertEqual(decoded, set(self.CONDITIONAL))
+        for opcode in self.CONDITIONAL:
+            with self.subTest(opcode=hex(opcode)):
+                window = self.branch_then_move(opcode)
+                self.assertEqual(
+                    bytecode_signatures.detect_error_patterns(SimpleNamespace(b=window), 0, 16),
+                    [{'offset': 0, 'branch_target_offset': 8, 'error_code': 6000, 'type': 'conditional_error'}])
+        for opcode in (0x05, 0x85, 0x95, 0xb7):
+            with self.subTest(opcode=hex(opcode)):
+                window = self.branch_then_move(opcode)
+                self.assertEqual(bytecode_signatures.detect_error_patterns(SimpleNamespace(b=window), 0, 16), [])
+
+    def test_captured_signed_less_than_branches_are_reported(self):
+        added = {'pump': 23, 'pump_amm': 16, 'pump_fees': 13, 'mayhem': 5}
+        for name, expected_added in added.items():
+            with self.subTest(program=name):
+                elf = Elf(analyze.ROOT / 'evidence/original' / name / 'deployed.so')
+                restored = 0
+                for start, end in zip(elf.entries, elf.entries[1:] + [elf.hi]):
+                    # Independent scan of the same windows over every conditional opcode.
+                    expected, at = [], start
+                    while at + 8 <= end:
+                        if elf.b[at] in self.CONDITIONAL:
+                            target = at + 8 + struct.unpack_from('<h', elf.b, at + 2)[0] * 8
+                            if start <= target < end and elf.b[target] in (0xb7, 0xb4):
+                                expected.append({
+                                    'offset': at - start, 'branch_target_offset': target - start,
+                                    'error_code': struct.unpack_from('<i', elf.b, target + 4)[0],
+                                    'type': 'conditional_error'})
+                                restored += elf.b[at] in self.OMITTED
+                        at += 16 if elf.b[at] == 0x18 else 8
+                    self.assertEqual(bytecode_signatures.detect_error_patterns(elf, start, end), expected)
+                self.assertEqual(restored, expected_added)
+        # Pump 0x2af38 is `jslt r4, 0, +168`; its target 0x2b480 is `mov64 r2, 96`.
+        elf = Elf(analyze.ROOT / 'evidence/original/pump/deployed.so')
+        self.assertEqual(elf.b[0x2af38:0x2af40].hex(), 'c504a80000000000')
+        self.assertEqual(elf.b[0x2b480:0x2b488].hex(), 'b702000060000000')
+        self.assertIn(
+            {'offset': 0x2af38 - 0x2a8e8, 'branch_target_offset': 0x2b480 - 0x2a8e8,
+             'error_code': 96, 'type': 'conditional_error'},
+            bytecode_signatures.detect_error_patterns(elf, 0x2a8e8, 0x2b490))
 
 
 class NegationDecodeTests(unittest.TestCase):
@@ -2114,6 +2176,10 @@ class MemoryWidthDecodeTests(unittest.TestCase):
                     offset += size
                 self.assertEqual(seen, set(self.FORMS))
                 self.assertEqual(mismatches, 0)
+
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tests.test_current_bindings_paths import CurrentBindingsPathTests
 
 
 if __name__=='__main__': unittest.main()

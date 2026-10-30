@@ -48,7 +48,14 @@ def read_regular(root, name):
         if current == root:
             break
         current = current.parent
-    fd = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    try:
+        listed = os.lstat(path)
+    except OSError as error:
+        raise AssertionError(("Unreadable input", name, error.errno)) from error
+    if not stat.S_ISREG(listed.st_mode):
+        raise AssertionError(("Nonregular input", name))
+    fd = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
+                 | getattr(os, "O_NONBLOCK", 0) | getattr(os, "O_BINARY", 0))
     with os.fdopen(fd, "rb") as stream:
         before = os.fstat(stream.fileno())
         if not stat.S_ISREG(before.st_mode):
@@ -58,6 +65,7 @@ def read_regular(root, name):
     identity = lambda value: (value.st_dev, value.st_ino, value.st_size, value.st_mtime_ns)
     current = os.stat(path, follow_symlinks=False)
     if (not stat.S_ISREG(current.st_mode)
+            or identity(listed) != identity(before)
             or identity(current) != identity(before)
             or identity(before) != identity(after)):
         raise AssertionError(("Input changed during read", name))

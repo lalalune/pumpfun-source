@@ -1,0 +1,74 @@
+{
+  "baseRevision": "2162b3b0041077af8593b0701c8471a157b30e08",
+  "historicalReference": "d75184ea323be8a83ebe11fe5f26a13f3dcbe052",
+  "source60ExactOnCurrentBase": true,
+  "programSourceChanged": false,
+  "artifacts": [
+    {
+      "path": "host-aliases.json",
+      "bytes": 1106,
+      "sha256": "3df6d8b4aa95155546518e97737a05a6c6e95e0e1fea5d6969478c50cfe82a10"
+    },
+    {
+      "path": "host-inputs.json.gz",
+      "bytes": 206130,
+      "sha256": "558171c08da871659f9028b56ede63ec610371185c9ab0158485c26fb21e98c9"
+    },
+    {
+      "path": "layout/linker-wrapper.sh",
+      "bytes": 531,
+      "sha256": "3326309e5858904823eecad13f888fd48cd6255b29834556eee21c0b79cc7eaf"
+    },
+    {
+      "path": "layout/ordered.ld",
+      "bytes": 109479,
+      "sha256": "4361db23f1785a3062a8d70fd868957c1a5bf804ce76971a92ec4c3c930e618e"
+    },
+    {
+      "path": "measurements/attempt1.tar.gz",
+      "bytes": 7883,
+      "sha256": "c2609bb6c0e4aacc2cfc5c62cd285faf2df9548b997d612a68378988f6745462"
+    },
+    {
+      "path": "measurements/attempt2.tar.gz",
+      "bytes": 550835,
+      "sha256": "74e6120a6650fa5c42f1c66abce1e3ac4a2d147a6180ed1e7621847734d465f0"
+    },
+    {
+      "path": "measurements/preparation.tar.gz",
+      "bytes": 1404433,
+      "sha256": "74b6828c7f14e8074ea176a32f0a442aedab8900119c2b46b2e57d17c0c939c6"
+    },
+    {
+      "path": "recipe.json",
+      "bytes": 2201,
+      "sha256": "93865820879b992c0d3cca5ae1627062726ddcf7cd94082a941fd1b8c1a0c1f2"
+    },
+    {
+      "path": "registry-index.tar.gz",
+      "bytes": 1453392,
+      "sha256": "1a3bd9523844f74d8dae9b630607cfeb467f70b36a6c139b5786a4b9596e07a1"
+    },
+    {
+      "path": "registry-inputs.json",
+      "bytes": 187446,
+      "sha256": "700c3183e627e284288ddf6d75a97ab9a487a87046724c8ca65ed8d53495e55b"
+    },
+    {
+      "path": "registry-source-vector.json.gz",
+      "bytes": 391985,
+      "sha256": "4b379b6aa21e05ac165252892c650c6cb4a724430b74d920ce54efd0b521c01d"
+    },
+    {
+      "path": "sdk-inputs.json",
+      "bytes": 223427,
+      "sha256": "8192bba44b02dcf6320c44e099dbdefb108a434bb4a08c8a3596f37fa08c97d5"
+    },
+    {
+      "path": "source-inputs.json",
+      "bytes": 13871,
+      "sha256": "e3cef123fc055f631c8c6c3c43ba15e54559760f0d138b61f6cf542d8f366591"
+    }
+  ],
+  "measurementScope": "Actual measured corrected Debian native attempt2, independent root literal comparison. New public path-only launcher is qualified separately without another full build."
+}

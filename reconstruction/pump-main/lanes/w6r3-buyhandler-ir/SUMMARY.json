@@ -1,0 +1,14 @@
+{
+  "lane": "w6r3-buyhandler-ir",
+  "base": "6484b2837d182e9e6f8e0784c930e9bdff584b7d",
+  "targets": {"0x13b9b8": {"function": "pump_recovered::buy_v2::buy_handler (as program fn pump_recovered::buy_v2)",
+    "before": {"bytes": 15512, "ratio": 0.97998, "normalized": false},
+    "after": {"bytes": 15480, "ratio": 1.0, "slots_diff": 0, "normalized": true, "raw": false}}},
+  "official": {"normalized": 1028, "raw": 293, "gains": ["0x13b9b8"], "losses": [], "raw_losses": []},
+  "unstripped_sha256": "70d96eb8aaeba80280ad644d198532a60c7f070836e04a984694dfc6a9aaa0ff",
+  "mechanism": "cherry-pick of PR #2225 (program-fn form, inline Complete+prepare with drop(ev), virtual-before-real TradeEvent fields, cf-first fee tuple) re-verified on main with ordered.ld",
+  "attempts": ["ab71d9bdec2a4a8c9038bdaa8172bbb9"],
+  "rejected_mechanisms": [],
+  "unresolved_residuals": ["raw: global placement only (candidate 0x144f30 vs 0x13b9b8), call/lddw displacements"],
+  "next_ideas": ["merge #2225 or this PR (identical source), then raw work belongs to layout lanes"]
+}

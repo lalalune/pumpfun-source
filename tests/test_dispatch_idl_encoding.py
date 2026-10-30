@@ -95,9 +95,16 @@ class DispatchIdlEncodingTests(unittest.TestCase):
                         and call.func.attr == "read_text" and isinstance(call.func.value, ast.Name)
                         and call.func.value.id in ("idl", "idl_path")):
                     call.keywords = [item for item in call.keywords if item.arg != "encoding"]
-            digest = hashlib.sha256(ast.dump(node, include_attributes=False).encode()).hexdigest()
-            self.assertEqual(digest, row["beforeLoaderAstSha256"], path)
-            self.assertEqual(digest, row["afterLoaderAstWithoutEncodingSha256"], path)
+            # ast.unparse is stable across Python 3.11-3.14; the beforeLoaderUnparseSha256 values were
+            # computed from the sourceBase files whose sha256 equals beforeSha256.
+            self.assertEqual(hashlib.sha256(ast.unparse(node).encode()).hexdigest(),
+                             row["beforeLoaderUnparseSha256"], path)
+            # The recorded ast.dump digests were produced by Python <= 3.11; ast.dump output
+            # changed in 3.12, so they are only comparable there.
+            if sys.version_info < (3, 12):
+                digest = hashlib.sha256(ast.dump(node, include_attributes=False).encode()).hexdigest()
+                self.assertEqual(digest, row["beforeLoaderAstSha256"], path)
+                self.assertEqual(digest, row["afterLoaderAstWithoutEncodingSha256"], path)
 
 
 if __name__ == "__main__":

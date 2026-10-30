@@ -1,0 +1,32 @@
+{
+  "scope": "Exact current native host compiler alias closure; no compiler execution. Only two public system alternative links, no home/config/credentials.",
+  "aliases": [
+    {
+      "logicalPath": "/etc/alternatives/cc",
+      "type": "symlink",
+      "linkTarget": "/usr/bin/gcc",
+      "resolved": "/usr/bin/x86_64-linux-gnu-gcc-14",
+      "resolvedSHA256": "a23ecab8ff08f09ad8c80602c2c5df7f49e09c25905cb8975902e101bf72635f"
+    },
+    {
+      "logicalPath": "/etc/alternatives/c++",
+      "type": "symlink",
+      "linkTarget": "/usr/bin/g++",
+      "resolved": "/usr/bin/x86_64-linux-gnu-g++-14",
+      "resolvedSHA256": "6b3696e4dcb85e1c949c732a02befa50e3983ecf94ce7e8e58d9d503b954b79d"
+    }
+  ],
+  "loaderCache": {
+    "path": "/etc/ld.so.cache",
+    "bytes": 141003,
+    "sha256": "4a26a1346ff5278028d2a5e509e5567b0806fe7e6ac5160d419e550a1f9c23a9"
+  },
+  "additionalNamespaceMount": {
+    "readOnly": "/workspace/pump-byte-closure/work/relay-sdk-v148-staged-20261030/host-aliases",
+    "logical": "/etc/alternatives"
+  },
+  "rootAliases": {
+    "/bin": "usr/bin",
+    "/sbin": "usr/sbin"
+  }
+}

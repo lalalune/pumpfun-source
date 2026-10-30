@@ -37,6 +37,18 @@ def index_path(name):
         return '3/' + name[0] + '/' + name
     return name[:2] + '/' + name[2:4] + '/' + name
 
+def index_records(path):
+    # Cargo stores sparse-index records as JSON segments in a NUL-delimited cache envelope.
+    for raw in path.read_bytes().split(b'\0'):
+        if not raw.startswith(b'{'):
+            continue
+        try:
+            record = json.loads(raw)
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            continue
+        if isinstance(record, dict):
+            yield record
+
 records, copies = [], []
 for package in lock['package']:
     if not package.get('source', '').startswith('registry+'):
@@ -52,6 +64,12 @@ for package in lock['package']:
                      key=lambda path: '1949cf8' not in str(path))
     if not indexes:
         raise RuntimeError(f'No local sparse-index metadata: {name}')
+    indexes = [path for path in indexes
+               if any(record.get('name') == name and record.get('vers') == version
+                      and record.get('cksum') == package['checksum']
+                      for record in index_records(path))]
+    if not indexes:
+        raise RuntimeError(f'No checksum-matching sparse-index record: {name} {version}')
     copies.append((archives[0], Path('registry/cache'), filename))
     copies.append((indexes[0], Path('registry/index'), Path('.cache') / relative))
     records.append({'package': name, 'version': version,

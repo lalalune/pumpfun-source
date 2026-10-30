@@ -19,7 +19,7 @@ class DiagnosticOutputTests(unittest.TestCase):
                     root = Path(temporary)
                     harness, base = root/'harness', root/'base'
                     harness.mkdir(); base.mkdir()
-                    for name in ('control_flow.py', 'target_metric.py', 'win.py', 'score.py', 'score_admission.py', 'elf_symbols.py', 'instruction_stream.py', 'llvm_tools.py'):
+                    for name in ('control_flow.py', 'target_metric.py', 'win.py', 'score.py', 'score_admission.py', 'elf_symbols.py', 'instruction_stream.py', 'llvm_tools.py', 'original_input.py'):
                         shutil.copyfile(source/name, harness/name)
                     image = bytes(fixture())
                     (base/'original.so').write_bytes(image)

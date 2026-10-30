@@ -21,7 +21,7 @@ class HarnessSymbolNameTests(unittest.TestCase):
             self.assertTrue(root.name.startswith('pump-symbol-names-'))
             (root / 'harness').mkdir()
             (root / 'base').mkdir()
-            for name in ['win.py', 'score.py', 'score_admission.py', 'llvm_tools.py', 'instruction_stream.py', 'elf_symbols.py']:
+            for name in ['win.py', 'score.py', 'score_admission.py', 'llvm_tools.py', 'instruction_stream.py', 'elf_symbols.py', 'original_input.py']:
                 shutil.copyfile(repo / 'reconstruction/harness' / name, root / 'harness' / name)
             shutil.copyfile(repo / 'evidence/original/pump/deployed.so', root / 'base/original.so')
             result = subprocess.run(

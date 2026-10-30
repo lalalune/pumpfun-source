@@ -16,6 +16,7 @@ from pathlib import Path
 H = Path(__file__).resolve().parent
 SC = H.parent
 sys.path.insert(0, str(H))
+from treediff import reject_source_link
 
 
 def build_source(*args, **kwargs):
@@ -24,13 +25,29 @@ def build_source(*args, **kwargs):
     return fastbuild.build(*args, **kwargs)
 
 
+def crate_ignore(root: Path, *patterns):
+    """Skip the crate-root build directory, as fastbuild staging does, plus `patterns` anywhere.
+
+    Nested target directories and a regular file named target are source inputs.
+    """
+    root = Path(root)
+    by_name = shutil.ignore_patterns(*patterns)
+
+    def ignore(directory, names):
+        ignored = set(by_name(directory, names))
+        if Path(directory) == root and 'target' in names and (root / 'target').is_dir():
+            ignored.add('target')
+        return ignored
+    return ignore
+
+
 def make_patch(base: Path, part: Path, out: Path, tmp: Path):
     if tmp.exists():
         shutil.rmtree(tmp)
     (tmp / 'a').mkdir(parents=True); (tmp / 'b').mkdir(parents=True)
-    ign = shutil.ignore_patterns('target', '*.orig', '*.rej', '.DS_Store')
-    shutil.copytree(base, tmp / 'a/pump', ignore=ign)
-    shutil.copytree(part, tmp / 'b/pump', ignore=ign)
+    patterns = ('*.orig', '*.rej', '.DS_Store')
+    shutil.copytree(base, tmp / 'a/pump', ignore=crate_ignore(base, *patterns))
+    shutil.copytree(part, tmp / 'b/pump', ignore=crate_ignore(part, *patterns))
     d = subprocess.run(['diff', '-ruN', 'a/pump', 'b/pump'], cwd=tmp, capture_output=True)
     if d.returncode not in (0, 1):
         raise subprocess.CalledProcessError(d.returncode, d.args, output=d.stdout, stderr=d.stderr)
@@ -60,6 +77,17 @@ def patched_files(text: str):
     return sorted(files)
 
 
+def reject_source_tree_links(root: Path):
+    """Reject links before copytree can follow them into a composition."""
+    reject_source_link(root)
+    if not root.is_dir():
+        return  # Preserve the existing missing/not-a-crate diagnostics.
+    # Check entries as rglob yields them. Building an eager list first could
+    # already traverse a Windows directory junction before it is inspected.
+    for path in root.rglob('*'):
+        reject_source_link(path)
+
+
 def preflight(name, base, parts, overrides):
     """Validate the complete composition before touching its output or snapshots."""
     def label(value):
@@ -76,7 +104,7 @@ def preflight(name, base, parts, overrides):
             label(key)
             if key in result or not path:
                 raise ValueError(f'duplicate label or empty path in {kind}: {key}')
-            result[key] = Path(path).resolve()
+            result[key] = Path(path)
         return result
 
     label(name)
@@ -88,8 +116,12 @@ def preflight(name, base, parts, overrides):
     output_path = SC / 'integ' / name
     if output_path.exists() or output_path.is_symlink():
         raise ValueError('output already exists; choose a new --name to preserve the earlier result')
+    for source in {Path(base), *selected.values(), *bases.values()}:
+        reject_source_tree_links(source)
     out = output_path.resolve()
-    base = base.resolve()
+    base = Path(base).resolve()
+    selected = {key: path.resolve() for key, path in selected.items()}
+    bases = {key: path.resolve() for key, path in bases.items()}
     for source in {base, *selected.values(), *bases.values()}:
         if source == out or source in out.parents or out in source.parents:
             raise ValueError(f'source overlaps composition output: {source}')
@@ -118,7 +150,7 @@ def main():
         ap.error(str(error))
     (out / 'parts').mkdir(parents=True); (out / 'rejects').mkdir()
     src = out / 'src'
-    shutil.copytree(base, src, ignore=shutil.ignore_patterns('target'))
+    shutil.copytree(base, src, ignore=crate_ignore(base))
     report = {'name': a.name, 'base': str(a.base_src), 'parts': []}
     exit_code = 0
     # GNU patch on Windows otherwise strips CR bytes from patch/source input.
