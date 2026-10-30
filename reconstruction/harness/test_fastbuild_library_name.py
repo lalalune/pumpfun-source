@@ -45,7 +45,10 @@ class LibraryArtifactTests(unittest.TestCase):
                     if command[0] == 'rsync':
                         return real_run(command, **kwargs)
                     self.assertEqual(command[1], '--strip-all')
-                    self.assertEqual(Path(command[2]), built)
+                    stripped_input = Path(command[2])
+                    self.assertEqual(stripped_input.name, 'unstripped.so')
+                    self.assertEqual(stripped_input.parent.parent, out)
+                    self.assertEqual(stripped_input.read_bytes(), built.read_bytes())
                     Path(command[3]).write_bytes(b'current stripped output')
                     return subprocess.CompletedProcess(command, 0)
 

@@ -8,16 +8,38 @@ import argparse
 import concurrent.futures
 import gzip
 import json
+import re
 from pathlib import Path
 import shutil
 import struct
 import subprocess
 import tempfile
 
-from sbpf_disassembly_inventory import ROOT, sections, sha
+from sbpf_disassembly_inventory import ROOT, sections, sha, tool_snapshot, validate_program_names
+
+
+# Default/raw mnemonics from crates/assembler/src/sbpf.pest in blueshift-gg/sbpf.
+# The assembler
+# still validates operands; directives and preprocessor inputs are not admitted.
+MNEMONICS = ({op + str(bits) for op in ('add', 'sub', 'mul', 'div', 'mod', 'or', 'and',
+                                      'xor', 'mov', 'lsh', 'rsh', 'arsh', 'neg') for bits in (32, 64)}
+             | {op + suffix for op in ('jeq', 'jne', 'jgt', 'jge', 'jlt', 'jle', 'jsgt',
+                                       'jsge', 'jslt', 'jsle', 'jset') for suffix in ('', '32')}
+             | {op + width for op in ('ldx', 'st', 'stx') for width in ('b', 'h', 'w', 'dw')}
+             | {order + str(bits) for order in ('be', 'le') for bits in (16, 32, 64)}
+             | {'hor64', 'lddw', 'ja', 'call', 'callx', 'exit'})
+
+
+def validate_instruction(assembly):
+    if (not isinstance(assembly, str) or not assembly.split()
+            or any(c in assembly for c in '\r\n\v\f\x85\u2028\u2029')
+            or not re.fullmatch(r'[A-Za-z0-9_+*/\- \t,\[\]()]+', assembly)
+            or '//' in assembly or assembly.split()[0] not in MNEMONICS):
+        raise ValueError(f'expected one raw instruction mnemonic: {assembly!r}')
 
 
 def roundtrip(tool, inventory, entry, output):
+    validate_program_names([entry])
     name = entry['name']
     compressed = (inventory / (name + '.json.gz')).read_bytes()
     if sha(compressed) != entry['inventory_sha256']:
@@ -40,6 +62,7 @@ def roundtrip(tool, inventory, entry, output):
         if at in labels:
             lines.append(labels[at] + ':')
         asm = row['assembly']
+        validate_instruction(asm)
         if row['opcode'] == 0x85 and row['src'] == 1:
             asm = 'call ' + labels[at + 8 + row['immediate'] * 8]
         lines.append(asm)
@@ -86,12 +109,12 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     inventory = args.inventory.resolve()
-    manifest = json.loads((inventory / 'manifest.json').read_text())
+    manifest_bytes = (inventory / 'manifest.json').read_bytes()
+    manifest = json.loads(manifest_bytes)
     if not manifest.get('programs'):
         parser.error('inventory must contain at least one program to validate')
+    validate_program_names(manifest['programs'])
     tool = args.tool_source.resolve() / 'target/release/sbpf'
-    if sha(tool.read_bytes()) != manifest['tool_sha256']:
-        raise ValueError('assembler/disassembler executable mismatch')
     output = args.output.resolve()
     if output.exists() or output.is_symlink():
         raise FileExistsError(output)
@@ -100,13 +123,14 @@ def main():
     # directory without report.json that blocks the next run.
     staging = Path(tempfile.mkdtemp(prefix='.' + output.name + '.', dir=output.parent))
     try:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
-            futures = [pool.submit(roundtrip, tool, inventory, entry, staging)
-                       for entry in manifest['programs']]
-            results = [future.result() for future in futures]
+        with tool_snapshot(tool, manifest['tool_sha256']) as (executable, _):
+            with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+                futures = [pool.submit(roundtrip, executable, inventory, entry, staging)
+                           for entry in manifest['programs']]
+                results = [future.result() for future in futures]
         report = dict(scope='Reference-derived assembly tooling validation; not independent contract reconstruction',
                       tool_sha256=manifest['tool_sha256'], tool_revision=manifest['tool_revision'],
-                      inventory_manifest_sha256=sha((inventory / 'manifest.json').read_bytes()),
+                      inventory_manifest_sha256=sha(manifest_bytes),
                       generator_sha256=sha(Path(__file__).read_bytes()),
                       programs=results, all_text_roundtrips_exact=all(r['full_text_equality'] for r in results),
                       counts_toward_source_reconstruction_acceptance=False)

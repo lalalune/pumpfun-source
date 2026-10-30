@@ -17,7 +17,7 @@ class FileDirectoryIntegrationTests(unittest.TestCase):
                 root = Path(temporary)
                 harness = root / 'harness'
                 harness.mkdir()
-                for name in ('integrate.py', 'treediff.py'):
+                for name in ('integrate.py', 'treediff.py', 'source_inputs.py'):
                     shutil.copy2(H / name, harness / name)
                 base, part = root / 'base', root / 'part'
                 for tree in (base, part):
