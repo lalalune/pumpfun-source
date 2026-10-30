@@ -22,6 +22,7 @@ sys.path.insert(0, str(H))
 from score import sections, normalize, body, candidate_functions, original_windows  # noqa: E402
 from win import Cand, insns, demangle, best_candidates, ORIG, ORIG_SECS  # noqa: E402
 from instruction_stream import instruction_offsets
+from residual_fields import field_differences
 
 
 def call_counts(raw):
@@ -66,6 +67,7 @@ def measure_window(w, cand, pattern=None, top=3, slots=12):
                'calls_original': (ocalls['internal'], ocalls['syscall_or_relocated']),
                'calls_candidate': (ccalls['internal'], ccalls['syscall_or_relocated']),
                'call_counts_original': ocalls, 'call_counts_candidate': ccalls}
+        row['normalized_field_differences'] = field_differences(w['norm'], norm, slots)
         if n == w['bytes']:
             diff = [i for i in range(0, n, 8) if norm[i:i + 8] != w['norm'][i:i + 8]]
             row['slots_diff'] = len(diff)
