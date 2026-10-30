@@ -1,0 +1,2838 @@
+{
+  "bundleSha256": "b707dc7c48fa0b52e80e7f16673bbc377788623578ea04615a77069d11b46b22",
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    },
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    }
+  ],
+  "results": [
+    {
+      "width": 390,
+      "initial": {
+        "tokens": {
+          "0xab": {
+            "mint": "0xAB",
+            "symbol": "ALPHA",
+            "hiddenAt": 1
+          },
+          "synthetic-fallback": {
+            "mint": "synthetic-fallback",
+            "symbol": "",
+            "hiddenAt": 2
+          },
+          "synthetic-beta": {
+            "mint": "synthetic-beta",
+            "symbol": "BETA",
+            "hiddenAt": 4
+          }
+        },
+        "profiles": {
+          "synthetic-alice": {
+            "address": "synthetic-alice",
+            "username": "alice",
+            "hiddenAt": 1
+          },
+          "0xbb": {
+            "address": " 0xBB ",
+            "username": "bob",
+            "hiddenAt": 5
+          }
+        },
+        "events": [],
+        "formats": [
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": " 0xBB ",
+              "username": "bob"
+            }
+          ],
+          [
+            "normalize",
+            "@bob",
+            "user-name"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ]
+        ],
+        "fail": false
+      },
+      "added": {
+        "tokens": {
+          "0xab": {
+            "mint": "0xAB",
+            "symbol": "ALPHA",
+            "hiddenAt": 1
+          },
+          "synthetic-fallback": {
+            "mint": "synthetic-fallback",
+            "symbol": "",
+            "hiddenAt": 2
+          },
+          "synthetic-beta": {
+            "mint": "synthetic-beta",
+            "symbol": "BETA",
+            "hiddenAt": 4
+          },
+          "synthetic-latest": {
+            "mint": "synthetic-latest",
+            "symbol": "LATEST",
+            "hiddenAt": 9
+          }
+        },
+        "profiles": {
+          "synthetic-alice": {
+            "address": "synthetic-alice",
+            "username": "alice",
+            "hiddenAt": 1
+          },
+          "0xbb": {
+            "address": " 0xBB ",
+            "username": "bob",
+            "hiddenAt": 5
+          }
+        },
+        "events": [
+          [
+            "synthetic-add"
+          ]
+        ],
+        "formats": [
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": " 0xBB ",
+              "username": "bob"
+            }
+          ],
+          [
+            "normalize",
+            "@bob",
+            "user-name"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ]
+        ],
+        "fail": false
+      },
+      "denied": {
+        "tokens": {
+          "0xab": {
+            "mint": "0xAB",
+            "symbol": "ALPHA",
+            "hiddenAt": 1
+          },
+          "synthetic-fallback": {
+            "mint": "synthetic-fallback",
+            "symbol": "",
+            "hiddenAt": 2
+          },
+          "synthetic-beta": {
+            "mint": "synthetic-beta",
+            "symbol": "BETA",
+            "hiddenAt": 4
+          },
+          "synthetic-latest": {
+            "mint": "synthetic-latest",
+            "symbol": "LATEST",
+            "hiddenAt": 9
+          }
+        },
+        "profiles": {
+          "synthetic-alice": {
+            "address": "synthetic-alice",
+            "username": "alice",
+            "hiddenAt": 1
+          },
+          "0xbb": {
+            "address": " 0xBB ",
+            "username": "bob",
+            "hiddenAt": 5
+          }
+        },
+        "events": [
+          [
+            "synthetic-add"
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ]
+        ],
+        "formats": [
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": " 0xBB ",
+              "username": "bob"
+            }
+          ],
+          [
+            "normalize",
+            "@bob",
+            "user-name"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ]
+        ],
+        "fail": true
+      },
+      "unhidden": {
+        "tokens": {
+          "synthetic-fallback": {
+            "mint": "synthetic-fallback",
+            "symbol": "",
+            "hiddenAt": 2
+          },
+          "synthetic-beta": {
+            "mint": "synthetic-beta",
+            "symbol": "BETA",
+            "hiddenAt": 4
+          },
+          "synthetic-latest": {
+            "mint": "synthetic-latest",
+            "symbol": "LATEST",
+            "hiddenAt": 9
+          }
+        },
+        "profiles": {
+          "synthetic-alice": {
+            "address": "synthetic-alice",
+            "username": "alice",
+            "hiddenAt": 1
+          },
+          "0xbb": {
+            "address": " 0xBB ",
+            "username": "bob",
+            "hiddenAt": 5
+          }
+        },
+        "events": [
+          [
+            "synthetic-add"
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenTokens",
+            [
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ]
+        ],
+        "formats": [
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": " 0xBB ",
+              "username": "bob"
+            }
+          ],
+          [
+            "normalize",
+            "@bob",
+            "user-name"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ]
+        ],
+        "fail": false
+      },
+      "profileRemoved": {
+        "tokens": {
+          "synthetic-fallback": {
+            "mint": "synthetic-fallback",
+            "symbol": "",
+            "hiddenAt": 2
+          },
+          "synthetic-beta": {
+            "mint": "synthetic-beta",
+            "symbol": "BETA",
+            "hiddenAt": 4
+          },
+          "synthetic-latest": {
+            "mint": "synthetic-latest",
+            "symbol": "LATEST",
+            "hiddenAt": 9
+          }
+        },
+        "profiles": {
+          "synthetic-alice": {
+            "address": "synthetic-alice",
+            "username": "alice",
+            "hiddenAt": 1
+          }
+        },
+        "events": [
+          [
+            "synthetic-add"
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenTokens",
+            [
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenProfiles",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenProfiles",
+            [
+              "synthetic-alice",
+              "0xbb"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenProfiles",
+            [
+              "synthetic-alice"
+            ]
+          ]
+        ],
+        "formats": [
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": " 0xBB ",
+              "username": "bob"
+            }
+          ],
+          [
+            "normalize",
+            "@bob",
+            "user-name"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ]
+        ],
+        "fail": false
+      },
+      "tokensCleared": {
+        "tokens": {},
+        "profiles": {
+          "synthetic-alice": {
+            "address": "synthetic-alice",
+            "username": "alice",
+            "hiddenAt": 1
+          }
+        },
+        "events": [
+          [
+            "synthetic-add"
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenTokens",
+            [
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenProfiles",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenProfiles",
+            [
+              "synthetic-alice",
+              "0xbb"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenProfiles",
+            [
+              "synthetic-alice"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "object"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenTokens",
+            []
+          ]
+        ],
+        "formats": [
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": " 0xBB ",
+              "username": "bob"
+            }
+          ],
+          [
+            "normalize",
+            "@bob",
+            "user-name"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ]
+        ],
+        "fail": false
+      },
+      "allCleared": {
+        "tokens": {},
+        "profiles": {},
+        "events": [
+          [
+            "synthetic-add"
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenTokens",
+            [
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenProfiles",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenProfiles",
+            [
+              "synthetic-alice",
+              "0xbb"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenProfiles",
+            [
+              "synthetic-alice"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "object"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenTokens",
+            []
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenProfiles",
+            "object"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenProfiles",
+            [
+              "synthetic-alice"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenProfiles",
+            []
+          ]
+        ],
+        "formats": [
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": " 0xBB ",
+              "username": "bob"
+            }
+          ],
+          [
+            "normalize",
+            "@bob",
+            "user-name"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ]
+        ],
+        "fail": false
+      },
+      "unmounted": {
+        "tokens": {},
+        "profiles": {},
+        "events": [
+          [
+            "synthetic-add"
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenTokens",
+            [
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenProfiles",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenProfiles",
+            [
+              "synthetic-alice",
+              "0xbb"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenProfiles",
+            [
+              "synthetic-alice"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "object"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenTokens",
+            []
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenProfiles",
+            "object"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenProfiles",
+            [
+              "synthetic-alice"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenProfiles",
+            []
+          ]
+        ],
+        "formats": [
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": " 0xBB ",
+              "username": "bob"
+            }
+          ],
+          [
+            "normalize",
+            "@bob",
+            "user-name"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ]
+        ],
+        "fail": false
+      },
+      "overflow": 0,
+      "expectedSyntheticSetterFailure": [
+        "SYNTHETIC local setter denied"
+      ],
+      "unexpectedErrors": [],
+      "limits": "Source fields/descriptor/coerce/callbacks with actualReact/compiler and explicit synthetic in-memory local-setting/bucket/render/translation/format capabilities. No original private state/persistence/normalization/nativeInfoBar claim."
+    },
+    {
+      "width": 1280,
+      "initial": {
+        "tokens": {
+          "0xab": {
+            "mint": "0xAB",
+            "symbol": "ALPHA",
+            "hiddenAt": 1
+          },
+          "synthetic-fallback": {
+            "mint": "synthetic-fallback",
+            "symbol": "",
+            "hiddenAt": 2
+          },
+          "synthetic-beta": {
+            "mint": "synthetic-beta",
+            "symbol": "BETA",
+            "hiddenAt": 4
+          }
+        },
+        "profiles": {
+          "synthetic-alice": {
+            "address": "synthetic-alice",
+            "username": "alice",
+            "hiddenAt": 1
+          },
+          "0xbb": {
+            "address": " 0xBB ",
+            "username": "bob",
+            "hiddenAt": 5
+          }
+        },
+        "events": [],
+        "formats": [
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": " 0xBB ",
+              "username": "bob"
+            }
+          ],
+          [
+            "normalize",
+            "@bob",
+            "user-name"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ]
+        ],
+        "fail": false
+      },
+      "added": {
+        "tokens": {
+          "0xab": {
+            "mint": "0xAB",
+            "symbol": "ALPHA",
+            "hiddenAt": 1
+          },
+          "synthetic-fallback": {
+            "mint": "synthetic-fallback",
+            "symbol": "",
+            "hiddenAt": 2
+          },
+          "synthetic-beta": {
+            "mint": "synthetic-beta",
+            "symbol": "BETA",
+            "hiddenAt": 4
+          },
+          "synthetic-latest": {
+            "mint": "synthetic-latest",
+            "symbol": "LATEST",
+            "hiddenAt": 9
+          }
+        },
+        "profiles": {
+          "synthetic-alice": {
+            "address": "synthetic-alice",
+            "username": "alice",
+            "hiddenAt": 1
+          },
+          "0xbb": {
+            "address": " 0xBB ",
+            "username": "bob",
+            "hiddenAt": 5
+          }
+        },
+        "events": [
+          [
+            "synthetic-add"
+          ]
+        ],
+        "formats": [
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": " 0xBB ",
+              "username": "bob"
+            }
+          ],
+          [
+            "normalize",
+            "@bob",
+            "user-name"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ]
+        ],
+        "fail": false
+      },
+      "denied": {
+        "tokens": {
+          "0xab": {
+            "mint": "0xAB",
+            "symbol": "ALPHA",
+            "hiddenAt": 1
+          },
+          "synthetic-fallback": {
+            "mint": "synthetic-fallback",
+            "symbol": "",
+            "hiddenAt": 2
+          },
+          "synthetic-beta": {
+            "mint": "synthetic-beta",
+            "symbol": "BETA",
+            "hiddenAt": 4
+          },
+          "synthetic-latest": {
+            "mint": "synthetic-latest",
+            "symbol": "LATEST",
+            "hiddenAt": 9
+          }
+        },
+        "profiles": {
+          "synthetic-alice": {
+            "address": "synthetic-alice",
+            "username": "alice",
+            "hiddenAt": 1
+          },
+          "0xbb": {
+            "address": " 0xBB ",
+            "username": "bob",
+            "hiddenAt": 5
+          }
+        },
+        "events": [
+          [
+            "synthetic-add"
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ]
+        ],
+        "formats": [
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": " 0xBB ",
+              "username": "bob"
+            }
+          ],
+          [
+            "normalize",
+            "@bob",
+            "user-name"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ]
+        ],
+        "fail": true
+      },
+      "unhidden": {
+        "tokens": {
+          "synthetic-fallback": {
+            "mint": "synthetic-fallback",
+            "symbol": "",
+            "hiddenAt": 2
+          },
+          "synthetic-beta": {
+            "mint": "synthetic-beta",
+            "symbol": "BETA",
+            "hiddenAt": 4
+          },
+          "synthetic-latest": {
+            "mint": "synthetic-latest",
+            "symbol": "LATEST",
+            "hiddenAt": 9
+          }
+        },
+        "profiles": {
+          "synthetic-alice": {
+            "address": "synthetic-alice",
+            "username": "alice",
+            "hiddenAt": 1
+          },
+          "0xbb": {
+            "address": " 0xBB ",
+            "username": "bob",
+            "hiddenAt": 5
+          }
+        },
+        "events": [
+          [
+            "synthetic-add"
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenTokens",
+            [
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ]
+        ],
+        "formats": [
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": " 0xBB ",
+              "username": "bob"
+            }
+          ],
+          [
+            "normalize",
+            "@bob",
+            "user-name"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ]
+        ],
+        "fail": false
+      },
+      "profileRemoved": {
+        "tokens": {
+          "synthetic-fallback": {
+            "mint": "synthetic-fallback",
+            "symbol": "",
+            "hiddenAt": 2
+          },
+          "synthetic-beta": {
+            "mint": "synthetic-beta",
+            "symbol": "BETA",
+            "hiddenAt": 4
+          },
+          "synthetic-latest": {
+            "mint": "synthetic-latest",
+            "symbol": "LATEST",
+            "hiddenAt": 9
+          }
+        },
+        "profiles": {
+          "synthetic-alice": {
+            "address": "synthetic-alice",
+            "username": "alice",
+            "hiddenAt": 1
+          }
+        },
+        "events": [
+          [
+            "synthetic-add"
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenTokens",
+            [
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenProfiles",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenProfiles",
+            [
+              "synthetic-alice",
+              "0xbb"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenProfiles",
+            [
+              "synthetic-alice"
+            ]
+          ]
+        ],
+        "formats": [
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": " 0xBB ",
+              "username": "bob"
+            }
+          ],
+          [
+            "normalize",
+            "@bob",
+            "user-name"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ]
+        ],
+        "fail": false
+      },
+      "tokensCleared": {
+        "tokens": {},
+        "profiles": {
+          "synthetic-alice": {
+            "address": "synthetic-alice",
+            "username": "alice",
+            "hiddenAt": 1
+          }
+        },
+        "events": [
+          [
+            "synthetic-add"
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenTokens",
+            [
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenProfiles",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenProfiles",
+            [
+              "synthetic-alice",
+              "0xbb"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenProfiles",
+            [
+              "synthetic-alice"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "object"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenTokens",
+            []
+          ]
+        ],
+        "formats": [
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": " 0xBB ",
+              "username": "bob"
+            }
+          ],
+          [
+            "normalize",
+            "@bob",
+            "user-name"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ]
+        ],
+        "fail": false
+      },
+      "allCleared": {
+        "tokens": {},
+        "profiles": {},
+        "events": [
+          [
+            "synthetic-add"
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenTokens",
+            [
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenProfiles",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenProfiles",
+            [
+              "synthetic-alice",
+              "0xbb"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenProfiles",
+            [
+              "synthetic-alice"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "object"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenTokens",
+            []
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenProfiles",
+            "object"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenProfiles",
+            [
+              "synthetic-alice"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenProfiles",
+            []
+          ]
+        ],
+        "formats": [
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": " 0xBB ",
+              "username": "bob"
+            }
+          ],
+          [
+            "normalize",
+            "@bob",
+            "user-name"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ]
+        ],
+        "fail": false
+      },
+      "unmounted": {
+        "tokens": {},
+        "profiles": {},
+        "events": [
+          [
+            "synthetic-add"
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "0xab",
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenTokens",
+            [
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenProfiles",
+            "function"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenProfiles",
+            [
+              "synthetic-alice",
+              "0xbb"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenProfiles",
+            [
+              "synthetic-alice"
+            ]
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenTokens",
+            "object"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenTokens",
+            [
+              "synthetic-fallback",
+              "synthetic-beta",
+              "synthetic-latest"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenTokens",
+            []
+          ],
+          [
+            "write-request",
+            "feed.infoBar.hiddenProfiles",
+            "object"
+          ],
+          [
+            "latest-read",
+            "feed.infoBar.hiddenProfiles",
+            [
+              "synthetic-alice"
+            ]
+          ],
+          [
+            "setField",
+            "hiddenProfiles",
+            []
+          ]
+        ],
+        "formats": [
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": " 0xBB ",
+              "username": "bob"
+            }
+          ],
+          [
+            "normalize",
+            "@bob",
+            "user-name"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "ALPHA",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "LATEST",
+            "coin-symbol"
+          ],
+          [
+            "normalize",
+            "BETA",
+            "coin-symbol"
+          ],
+          [
+            "truncate",
+            "synthetic-fallback",
+            4,
+            4
+          ],
+          [
+            "normalize",
+            "synthetic-abbreviation",
+            "coin-symbol"
+          ],
+          [
+            "profile",
+            {
+              "address": "synthetic-alice",
+              "username": "alice"
+            }
+          ],
+          [
+            "normalize",
+            "@alice",
+            "user-name"
+          ]
+        ],
+        "fail": false
+      },
+      "overflow": 0,
+      "expectedSyntheticSetterFailure": [
+        "SYNTHETIC local setter denied"
+      ],
+      "unexpectedErrors": [],
+      "limits": "Source fields/descriptor/coerce/callbacks with actualReact/compiler and explicit synthetic in-memory local-setting/bucket/render/translation/format capabilities. No original private state/persistence/normalization/nativeInfoBar claim."
+    }
+  ],
+  "limits": "GET-only ownedfixture; safe synthetic token/profile-shaped labels, not acquired data. No actualcookies/storage/sessions/credentials/userdata/profilelookups/tenantrequests/preferencemutation; no originalframework/storage/provider/native/API/pixel/security/completion claim."
+}

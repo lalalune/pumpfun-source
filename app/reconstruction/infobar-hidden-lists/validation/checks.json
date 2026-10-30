@@ -1,0 +1,66 @@
+[
+  {
+    "name": "source-final",
+    "argv": [
+      "node",
+      "scripts/original-infobar-hidden-lists.mjs"
+    ],
+    "exit": 0,
+    "seconds": 0.8591186699923128
+  },
+  {
+    "name": "focused-final",
+    "argv": [
+      "node",
+      "--test",
+      "tests/original_infobar_hidden_lists.test.mjs",
+      "tests/original_source.test.mjs"
+    ],
+    "exit": 0,
+    "seconds": 0.9048648410243914
+  },
+  {
+    "name": "typecheck",
+    "argv": [
+      "node",
+      "/home/agent/.cache/node/corepack/v1/pnpm/10.24.0/bin/pnpm.cjs",
+      "typecheck"
+    ],
+    "exit": 0,
+    "seconds": 4.830758258001879
+  },
+  {
+    "name": "evidence",
+    "argv": [
+      "python3",
+      "scripts/verify-evidence.py"
+    ],
+    "exit": 0,
+    "seconds": 0.16087307201814838
+  },
+  {
+    "name": "progress",
+    "argv": [
+      "python3",
+      "scripts/progress.py",
+      "--check"
+    ],
+    "exit": 0,
+    "seconds": 0.1253684830153361
+  },
+  {
+    "name": "progress-tests",
+    "argv": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_progress.py"
+    ],
+    "exit": 0,
+    "seconds": 0.6313535320223309
+  }
+]

@@ -1,0 +1,209 @@
+{
+  "schema": 1,
+  "testedHead": "fa42469c6adfb0045245bf5f3229704fbacc5b9c",
+  "testedTree": "d0948c90274037ce7e919c6fb28b73ef4f988c5e",
+  "reviewBase": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Complete ordinary InfoBar hidden-list fields/chips/sort/valuecoercion/devicedescriptors/localcallback workflow with explicit synthetic local/render/formatting capabilities.",
+  "inputs": {
+    "evidence/web/manifest.json": {
+      "bytes": 3026513,
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda"
+    },
+    "evidence/web/objects/11cf0bf8a734ea43.js": {
+      "bytes": 49565,
+      "sha256": "a859077ba48e8afb625cd917a674ace225a0959ad40932f02331402dd5365f83",
+      "gitBlob": "0316016b630a67035a86489f98bf1bb1e30d4c9e"
+    },
+    "evidence/web/objects/2c867fef5c76d400.js": {
+      "bytes": 83174,
+      "sha256": "7d8c3605c109c989839600a07c4265a72f270db703a2db86b4b44071162fdc47",
+      "gitBlob": "5ef136c56cc933d4e5e538ace7a1ab1c083f07aa"
+    },
+    "evidence/web/objects/4490d02ba2117672.js": {
+      "bytes": 52381,
+      "sha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "gitBlob": "464a645f3fc99db61ab4cdab0395471031bc1715"
+    },
+    "package.json": {
+      "bytes": 3703,
+      "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+      "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8"
+    },
+    "packages/backend/package.json": {
+      "bytes": 463,
+      "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b"
+    },
+    "packages/frontend/package.json": {
+      "bytes": 1048,
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0"
+    },
+    "pnpm-lock.yaml": {
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+    },
+    "reconstruction/infobar-hidden-lists/client.mjs": {
+      "bytes": 11872,
+      "sha256": "d4bc6e44b515eff552b3037130641f66059870f540cd394326adfc13bf1adcd3",
+      "gitBlob": "67e70f6401d097678497fb85ca54492a5c977004"
+    },
+    "reconstruction/infobar-hidden-lists/contract.json": {
+      "bytes": 22397,
+      "sha256": "3486f27f70baa86cce9c8ea1f88995bbdd7d840ccbc5a0da9e9628c73f5ca542",
+      "gitBlob": "90bfd3ad556861a3f318fe10f31158f10f366869"
+    },
+    "recovered/modules.json": {
+      "bytes": 2928853,
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+      "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f"
+    },
+    "scripts/original-contracts/source.mjs": {
+      "bytes": 9493,
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+      "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df"
+    },
+    "scripts/original-infobar-hidden-lists.mjs": {
+      "bytes": 13596,
+      "sha256": "2ab5a8991a626ca56717e1e2b2e28d59920972b115e42a41d4a9045af24974fc",
+      "gitBlob": "d48099dc0bf282738d1e69cadc6afed10509c9d4"
+    },
+    "tests/fixtures/infobar-hidden-lists-browser.mjs": {
+      "bytes": 5728,
+      "sha256": "99ecb7a8ab6975bc02b21fdf547f76de8d052f765eaec7c6114b9bc12f70d9b4",
+      "gitBlob": "06efc9a035d44c2bd6fe56549b64129cf2fcd730"
+    },
+    "tests/original_infobar_hidden_lists.test.mjs": {
+      "bytes": 9791,
+      "sha256": "478a1cd7b5a5a1012261feb1577e633a2eafe0264c0d921d1d405e8fdb4e0561",
+      "gitBlob": "eadfaf868e62564004c86c355b5ba898fb496775"
+    },
+    "tests/original_infobar_hidden_lists_browser.test.mjs": {
+      "bytes": 11421,
+      "sha256": "035d46c13b305ba077f9c83378161de34eee84421b105dd9fe682891b2a6d8ac",
+      "gitBlob": "cc8373bc6287b500af88f9b14d3dfeb7263ebf9a"
+    },
+    "tests/original_source.test.mjs": {
+      "bytes": 7401,
+      "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3",
+      "gitBlob": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+    }
+  },
+  "inputScope": "17 selected executed source/generator/tests/sharedreader/captures/index/manifest/package inputs, not exhaustive installed/cold/whole-app identity.",
+  "results": [
+    {
+      "name": "source-final",
+      "argv": [
+        "node",
+        "scripts/original-infobar-hidden-lists.mjs"
+      ],
+      "exit": 0,
+      "seconds": 0.8591186699923128
+    },
+    {
+      "name": "focused-final",
+      "argv": [
+        "node",
+        "--test",
+        "tests/original_infobar_hidden_lists.test.mjs",
+        "tests/original_source.test.mjs"
+      ],
+      "exit": 0,
+      "seconds": 0.9048648410243914
+    },
+    {
+      "name": "typecheck",
+      "argv": [
+        "node",
+        "/home/agent/.cache/node/corepack/v1/pnpm/10.24.0/bin/pnpm.cjs",
+        "typecheck"
+      ],
+      "exit": 0,
+      "seconds": 4.830758258001879
+    },
+    {
+      "name": "evidence",
+      "argv": [
+        "python3",
+        "scripts/verify-evidence.py"
+      ],
+      "exit": 0,
+      "seconds": 0.16087307201814838
+    },
+    {
+      "name": "progress",
+      "argv": [
+        "python3",
+        "scripts/progress.py",
+        "--check"
+      ],
+      "exit": 0,
+      "seconds": 0.1253684830153361
+    },
+    {
+      "name": "progress-tests",
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_progress.py"
+      ],
+      "exit": 0,
+      "seconds": 0.6313535320223309
+    },
+    {
+      "name": "browser-final",
+      "argv": [
+        "node",
+        "--test",
+        "tests/original_infobar_hidden_lists_browser.test.mjs"
+      ],
+      "outputEnvironment": "PUMP_INFOBAR_HIDDEN_OUTPUT=<owned-output>",
+      "exit": 0,
+      "workflows": 1,
+      "widths": [
+        390,
+        1280
+      ],
+      "expectedSyntheticSetterDenialPerWidth": 1,
+      "unexpectedPageErrorsPerWidth": 0
+    }
+  ],
+  "browserBundleSha256": "b707dc7c48fa0b52e80e7f16673bbc377788623578ea04615a77069d11b46b22",
+  "versions": {
+    "node": "24.19.0",
+    "pnpm": "10.24.0",
+    "react": "19.2.3",
+    "playwright": "1.64.1",
+    "chromiumBuild": 1248,
+    "esbuild": "0.25.12",
+    "browserLocale": "en-US"
+  },
+  "cleanup": "Owned ephemeral GET-onlyhost and Chromium closed in producerfinally beforeexit0;temporaryfixture bundle removed;PRIMARY standalone reservation explicitlyreleased. No Next/process/cache owned.",
+  "preservation": "Source and complete finite method frozenfa42469 beforefinalqualification. Publication addsREADMEresulttext andsealedvalidationonly. All17selectedexecutedinputblobs unchanged.",
+  "priorPhases": [
+    "Initial developmental18test run had17PASS/1FAIL because fixture expected a canonicalkey overwrite to move its objectproperty insertionposition. ActualoriginalObject.fromEntries preserves firstinsertionposition; expectedfixture correctedbeforefreeze, source orderingunchanged. Raw initialfailure andcorrected18pass retained, notretargeted asqualifiedfinalexecution.",
+    "Final additional import witness identifies actual73383 bucketbuilder, without changing copiedcomponent/value/descriptor source. Earlier source-generationpass and final canonicalpass retained separately.",
+    "Sparsecheckout omitted three unchanged progressreferences; exactHEADGitblobs materialized beforechecks. Noledger/scorerchange."
+  ],
+  "runtimeAssertions": [
+    "Initial sourcechip ordersNewestfirst and uses completeaccessibleLlist; fallback/normalization/profilelabel compatibleport arguments recorded.",
+    "Syntheticnewentry isadded beforeunhide. Sourcefunctionalsetter removes onlycanonicaltarget and preserves latestentry.",
+    "Injected syntheticsetterdenial leaves valuesunchanged andpropagatesoneexpectederror; retryuses sameoriginalcallback andsucceeds. This isnot nativeerrorUX/persistencequalification.",
+    "Native Enter invokesprofileunhide with normalizedtrimmed0xkey; per-listclear passesemptyobject andkeepsotherlist.",
+    "Tokenscleared whileprofilesremain has noemptydescription; clearingprofiles thenenablesoriginalNonehiddenbranch.",
+    "Bothwidths havezero unexpectederrors/overflow; actualrootunmount removesDOM. No privateframework subscription/cleanupclaim."
+  ],
+  "limits": [
+    "Onlysafe synthetic token/profile-shaped strings, inmemory localsetting/bucket ports and readonlyformat/render capabilities. No realpreferences/account/profiledata oractualcookies/storage/sessions/credentials/tenantrequests.",
+    "Exact547562framework/73383bucketadapter/551792store/labelnormalizers/nativeframes remainexternal; sourceactualAPI/metadatawitnesses do notproveprivatepersistence/providers orwholeInfoBar/globalSettingsmount.",
+    "Coerce rules areordinarysourceadmission withsourcequirks, notstrictAPI/chainaddress/account validation. No dustfloor/positions/trading/wallet/admin orprotectedavailability controls exposed.",
+    "No native/API/CSS/vendor/pixel/security/completionclaim; compatibleformatterandwriter fixture behavior isexplicitlysynthetic.1839/1872/1920/675/683 andpriorInfoBar fixes creditedwithoutcopied/unmergedruntime imports/retally."
+  ]
+}
