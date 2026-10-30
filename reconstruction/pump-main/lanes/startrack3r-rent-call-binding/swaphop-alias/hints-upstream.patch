@@ -1,0 +1,64 @@
+diff --git a/programs/pump/src/multi_hop_curve_swap.rs b/programs/pump/src/multi_hop_curve_swap.rs
+index 2377a0279..943c13a82 100644
+--- a/programs/pump/src/multi_hop_curve_swap.rs
++++ b/programs/pump/src/multi_hop_curve_swap.rs
+@@ -375,7 +375,7 @@ pub fn native_buyback<'info>(a: &MultiHopCurve<'info>, event_bump: u8, curve: &A
+     if amount == 0 { return Ok(()); }
+     let to = a.buyback_fee_recipient.to_account_info();
+     let curve_info = curve.to_account_info();
+-    crate::trade::quote_payments::pay_out_native_owned(curve, to.clone(), amount)?;
++    crate::trade::quote_payments::pay_out_native(curve, to.clone(), amount)?;
+     invoke_signed(&Instruction { program_id: crate::ID, accounts: vec![AccountMeta::new_readonly(a.event_authority.key(), true), AccountMeta::new(curve_info.key(), false), AccountMeta::new(to.key(), false)], data: anchor_lang::event::EVENT_IX_TAG_LE.to_vec() },
+         &[a.event_authority.to_account_info(), curve_info, to.clone()], &[&[b"__event_authority", &[event_bump]]])?;
+     invoke(&anchor_spl::token::spl_token::instruction::sync_native(&anchor_spl::token::spl_token::id(), to.key)?, &[to])?;
+@@ -587,9 +587,9 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
+ 
+ 
+             let base = u64::try_from(crate::constant_product::tokens_for_quote(c,q)?).map_err(|_| error!(PumpError::Truncation))?;
+-            if base == 0 { return Err(error!(PumpError::BuyZeroAmount).with_values((base,0))); }
++            require_gt!(base,0,PumpError::BuyZeroAmount);
+ 
+-            let reserves = c.real_token_reserves; let (base_amount,quote_amount,pf,cf,post_out) = if base > reserves {
++            let reserves = c.real_token_reserves; let (base_amount,quote_amount,pf,cf) = if base > reserves {
+ 
+ 
+ 
+@@ -600,9 +600,9 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
+                 if let Some((fees, quote, post)) = complete_fill(&a.global,&a.fee_config,fee_config_len,cap,c,
+                     &h.associated_base_bonding_curve,flag,p_rate,c_rate,trade_amount)? {
+                     post_fill=Some(post);
+-                    (reserves,quote,fees.protocol_fee,fees.creator_fee,post.base_out)
+-                }else{post_fill=None;(reserves,q,pf,cf,0)}
+-            }else{post_fill=None;(base,q,pf,cf,0)};
++                    (reserves,quote,fees.protocol_fee,fees.creator_fee)
++                }else{post_fill=None;(reserves,q,pf,cf)}
++            }else{post_fill=None;(base,q,pf,cf)};
+ 
+ 
+ 
+@@ -621,7 +621,7 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
+ 
+ 
+ 
+-            let raw_output = base_amount.checked_add(post_out).ok_or_else(|| error!(PumpError::Overflow))?;
++            let raw_output = base_amount.checked_add(match &post_fill{Some(p)=>p.base_out,None=>0}).ok_or_else(|| error!(PumpError::Overflow))?;
+ 
+ 
+ // layout-pad(45): aligns the next Source site with the original line
+@@ -752,14 +752,14 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
+         if flag & 1 != 0 {
+             if native {
+                 native_buyback(a,event_bump,&h.bonding_curve,paid_buyback)?;
+-            } else if paid_buyback != 0 {
++            } else {
+                 transfer_buyback_out(&quote_token_program,&h.associated_quote_bonding_curve,&a.buyback_fee_recipient,
+                     &h.bonding_curve,h.quote_mint.decimals,AsRef::<AccountInfo>::as_ref(&*h.quote_mint),
+                     paid_buyback,seeds)?;
+             }
+         }
+         if native && !buy && last {
+-            crate::trade::quote_payments::pay_out_native_owned(&h.bonding_curve,a.user.to_account_info(),output)?;
++            crate::trade::quote_payments::pay_out_native(&h.bonding_curve,a.user.to_account_info(),output)?;
+         }
+         let c = &h.bonding_curve;
+         let timestamp = Clock::get()?.unix_timestamp; let event = trade_event(c,&a.global,&crate::UserVolumeAccumulator::default(),&a.user.key(),&h.base_mint.key(),buy,base_amount,quote_amount,&fees,buyback,adapter_difference,"multi_hop_swap",timestamp);

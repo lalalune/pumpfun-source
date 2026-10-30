@@ -1,0 +1,83 @@
+{
+  "result": "PASS",
+  "runs": {
+    "normal": {
+      "stdout_sha256": "68754b668d6ebb6aaee6c2cb9a227b8dcc57409c916f5c15898831bb45a1c127",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "optimized": {
+      "stdout_sha256": "68754b668d6ebb6aaee6c2cb9a227b8dcc57409c916f5c15898831bb45a1c127",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "minimal_relocated_identical": true,
+  "independent_census": {
+    "01-main": {
+      "all_1035_memberships_equal": true,
+      "sha256": "69b65231654bdbec64ed0b699bce05ad862a72e1e29056b120c0f4af70aeda72",
+      "total": 1035,
+      "normalized": 1031,
+      "raw": 335,
+      "unmatched": 4,
+      "matched_text_bytes": 1722792
+    },
+    "02-context": {
+      "all_1035_memberships_equal": true,
+      "sha256": "139a4a31df6c4998851f0144f2fdcf6b1cf3f96228f2caa15e19254a9b009bc2",
+      "total": 1035,
+      "normalized": 1031,
+      "raw": 335,
+      "unmatched": 4,
+      "matched_text_bytes": 1722792
+    },
+    "03-context-hints": {
+      "all_1035_memberships_equal": true,
+      "sha256": "f4e0891abcb7860ca298c4d1f4bc4bd57d88d15d45f135dcb68161af5b7b224d",
+      "total": 1035,
+      "normalized": 1031,
+      "raw": 345,
+      "unmatched": 4,
+      "matched_text_bytes": 1722792
+    },
+    "04-context-hints-no-fee": {
+      "all_1035_memberships_equal": true,
+      "sha256": "53e8e108fcf17cdb83e51420a8ab5a131603dc6d29207268af1c7d3169d36611",
+      "total": 1035,
+      "normalized": 1031,
+      "raw": 335,
+      "unmatched": 4,
+      "matched_text_bytes": 1722792
+    },
+    "06-main-plain": {
+      "all_1035_memberships_equal": true,
+      "sha256": "c5d5a53040b4d0c09c483ccaf6596874fdfd9f53f38a30371be778ca7465ddbf",
+      "total": 1035,
+      "normalized": 1031,
+      "raw": 335,
+      "unmatched": 4,
+      "matched_text_bytes": 1722792
+    },
+    "07-hints-plain": {
+      "all_1035_memberships_equal": true,
+      "sha256": "e91a702c9a38782292f15adba015aab918e8a850e8f874061e854b1a3cc7f70c",
+      "total": 1035,
+      "normalized": 1031,
+      "raw": 345,
+      "unmatched": 4,
+      "matched_text_bytes": 1722792
+    },
+    "08-hints-repeat-plain": {
+      "all_1035_memberships_equal": true,
+      "sha256": "e91a702c9a38782292f15adba015aab918e8a850e8f874061e854b1a3cc7f70c",
+      "total": 1035,
+      "normalized": 1031,
+      "raw": 345,
+      "unmatched": 4,
+      "matched_text_bytes": 1722792
+    }
+  },
+  "source_replay": "Whole source tree byte-identical after git -c core.autocrlf=false apply of published composition.patch to the LF pinned main tree.",
+  "git_sources": "Main and initial Context file equal exact selected Git blobs. Latest Context source retained separately, not silently substituted.",
+  "preserved_owned_helpers_and_line_count": true,
+  "scope": "Static evidence only. Invalid regeneration attempts retained; fixed earlier qualified555-selector input held constant, not freshly regenerated from default maps in this increment."
+}

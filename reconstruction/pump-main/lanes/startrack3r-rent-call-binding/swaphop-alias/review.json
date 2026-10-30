@@ -1,0 +1,27 @@
+{
+  "revision": "80393778f840329d65de1783f1b6e8e94c2bfa1a",
+  "previous_turn": "progress:fba16f32a source composition335raw",
+  "context_pr": 2403,
+  "context_head": "baff84df87dee976ec7a174f48292612fde4d968",
+  "hints_pr": 2387,
+  "hints_head": "aca957a53e60ee4eecddb9e88ae23e596a20508f",
+  "no_fee_pr": 2366,
+  "no_fee_head": "d5e22d51fc947d5cb8a5ef6d329f11d9755a6414",
+  "harness_hashes": {
+    "elf_symbols.py": "ae1d283bfe028e6afe1ebf711d72c669899f98424f1acb0e546ec8fbef6f68f7",
+    "instruction_stream.py": "b900a79aa46f76499866fb37a77e61b6e8d6de80d5fc2c94a175e5c20d802ceb",
+    "link_order.py": "b1fec42eed222d285ef1f82a97443bfa757cc6370bcb588a2688b732f160652e",
+    "llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+    "original_input.py": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade",
+    "pump_link_lld.py": "10593121ecc457f22b574b20ea5af810e9e1e627dfac38140369ccd33a9a24ba",
+    "sbf_default.ld": "5e8370b9380f55411d827721e2e43c8cfd1eac71d1383e20b938397bc0bd82c3",
+    "score.py": "3975499eb09033a9c25cdef1824ef01318de97e434de6269e7f382f6f554f7f1",
+    "score_admission.py": "0c462e5086828c11e4d336a07213f0090c7b701db7ac7772e0672b480bd822c1",
+    "target_metric.py": "cb1f706e8567cc83ffbb15b1a2b34567238caa0577edcfd5d94fd8ea5329e7af",
+    "win.py": "fbe2f44704e11dd10ff5eb864c3da9ccc20347b38459cdfcea2ff2160748d48a"
+  },
+  "tracked_ledger_rows": 1166,
+  "tracked_ledger_sha256": "6edccddbb55a0d70ac6f33d50c8c43c885f03ade840bded39f45b8a320d31498",
+  "prior_work": "2381 and2362 pre-opt noalias oracles; shared&a rejected, rawpointer trial cancelled before any code/build because newly opened2403 supplies ordinary Rust Context promotion. Compose2387 hints without its stale pay_out_native reversion, preserving merged2168 owned helpers.",
+  "live_shared_ledger_accessed": false
+}

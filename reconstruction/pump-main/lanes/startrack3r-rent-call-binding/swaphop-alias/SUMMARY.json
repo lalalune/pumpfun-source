@@ -1,0 +1,32 @@
+{
+  "source_revision": "80393778f840329d65de1783f1b6e8e94c2bfa1a",
+  "original_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+  "inventory_sha256": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8",
+  "all_outputs": {
+    "01-main": "69b65231654bdbec64ed0b699bce05ad862a72e1e29056b120c0f4af70aeda72",
+    "02-context": "139a4a31df6c4998851f0144f2fdcf6b1cf3f96228f2caa15e19254a9b009bc2",
+    "03-context-hints": "f4e0891abcb7860ca298c4d1f4bc4bd57d88d15d45f135dcb68161af5b7b224d",
+    "04-context-hints-no-fee": "53e8e108fcf17cdb83e51420a8ab5a131603dc6d29207268af1c7d3169d36611",
+    "06-main-plain": "c5d5a53040b4d0c09c483ccaf6596874fdfd9f53f38a30371be778ca7465ddbf",
+    "07-hints-plain": "e91a702c9a38782292f15adba015aab918e8a850e8f874061e854b1a3cc7f70c",
+    "08-hints-repeat-plain": "e91a702c9a38782292f15adba015aab918e8a850e8f874061e854b1a3cc7f70c"
+  },
+  "composition_patch_sha256": "e887e96760f085036d970a526e06406fd0ff693f0d3548cd5e1bf858ba333285",
+  "fixed_script_sha256": "72ef693c883fb68e9939f408f785f230742cb533b30cbf1321719d4852123569",
+  "parent_helper_sha256": "1989efd6b080faccac727ca2518eeb37bcd02d96d41341ee3c494c934f246dcb",
+  "root_compiles": 7,
+  "target_executions": 0,
+  "raw_gains": [
+    169240,
+    169712,
+    206128,
+    243096,
+    243512,
+    249168,
+    294144,
+    337136,
+    347280,
+    347576
+  ],
+  "scope": "Retained Windows v1.44 root recipe on Linux-target sysroot and cached dependencies, not native or clean-machine bootstrap. All source changes credited upstream."
+}

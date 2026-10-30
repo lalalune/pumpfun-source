@@ -1,0 +1,13 @@
+{
+  "cutoff_main": "168232c98d8308e958d1040339ed8f3d54c93f9d",
+  "built_main": "80393778f840329d65de1783f1b6e8e94c2bfa1a",
+  "changed_pump_source": [
+    "programs/pump/src/trade_v3.rs"
+  ],
+  "new_merged_pr": 2397,
+  "cutoff_compiled": false,
+  "context_pr_head_at_build": "baff84df87dee976ec7a174f48292612fde4d968",
+  "context_pr_new_head": "91ee46c8dcdd6c875089f284398c77f87864c7db",
+  "nonduplication": "New2403 head includes all4 hints plus scoped-user-key, 18640B and948raw native; it explicitly describes +56B cancelling admin-56B. Our m1+m2+m3 omission of constNOFEE has exact original size18584 and345raw Windows; adding m4 loses10raw versus this control. Source and hint credit remain2403/2387/2368/2366. We do not submit a competing source implementation.",
+  "feedback": "PR2208 limited in-scope bot review at fba16f32; no maintainer request; substantial portions unreviewed."
+}

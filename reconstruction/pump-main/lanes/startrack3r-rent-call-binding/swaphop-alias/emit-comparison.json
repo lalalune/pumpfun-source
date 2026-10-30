@@ -1,0 +1,110 @@
+{
+  "01-main -> 06-main-plain": {
+    "ir_sha256": "69b65231654bdbec64ed0b699bce05ad862a72e1e29056b120c0f4af70aeda72",
+    "plain_sha256": "c5d5a53040b4d0c09c483ccaf6596874fdfd9f53f38a30371be778ca7465ddbf",
+    "ir_bytes": 2682688,
+    "plain_bytes": 2665720,
+    "allocated_sections_identical": true,
+    "allocated_sections": [
+      ".text",
+      ".rodata",
+      ".data.rel.ro",
+      ".dynamic",
+      ".dynsym",
+      ".dynstr",
+      ".rel.dyn"
+    ],
+    "different_sections": {
+      ".symtab": {
+        "ir": {
+          "type": 2,
+          "flags": 0,
+          "address": 0,
+          "offset": 1934112,
+          "bytes": 438072,
+          "sha256": "c67e9926bfd84628a5b457783ab3eb29ed074535f08310bafa185fbaba566952"
+        },
+        "plain": {
+          "type": 2,
+          "flags": 0,
+          "address": 0,
+          "offset": 1934112,
+          "bytes": 438072,
+          "sha256": "224c2fa85ca365fe04b0c17a50d658277c9b9d58837a071df9409d8252042922"
+        }
+      },
+      ".strtab": {
+        "ir": {
+          "type": 3,
+          "flags": 0,
+          "address": 0,
+          "offset": 2372281,
+          "bytes": 309637,
+          "sha256": "69e37860b7959506fd50f7bbdb6ab1d6bb8d6c72ed4cd5cd360447666f292a9d"
+        },
+        "plain": {
+          "type": 3,
+          "flags": 0,
+          "address": 0,
+          "offset": 2372281,
+          "bytes": 292664,
+          "sha256": "90ec50643f732a8a320ada0b5c2477a4ab4a43adbcd7d880bcbff7c3cb2468a7"
+        }
+      }
+    }
+  },
+  "03-context-hints -> 07-hints-plain": {
+    "ir_sha256": "f4e0891abcb7860ca298c4d1f4bc4bd57d88d15d45f135dcb68161af5b7b224d",
+    "plain_sha256": "e91a702c9a38782292f15adba015aab918e8a850e8f874061e854b1a3cc7f70c",
+    "ir_bytes": 2682696,
+    "plain_bytes": 2665720,
+    "allocated_sections_identical": true,
+    "allocated_sections": [
+      ".text",
+      ".rodata",
+      ".data.rel.ro",
+      ".dynamic",
+      ".dynsym",
+      ".dynstr",
+      ".rel.dyn"
+    ],
+    "different_sections": {
+      ".symtab": {
+        "ir": {
+          "type": 2,
+          "flags": 0,
+          "address": 0,
+          "offset": 1934152,
+          "bytes": 438048,
+          "sha256": "f42198f2cd3dbac62ac8fa6f33ac938efb91a78b41f5f7d68fc0a280a6485386"
+        },
+        "plain": {
+          "type": 2,
+          "flags": 0,
+          "address": 0,
+          "offset": 1934152,
+          "bytes": 438048,
+          "sha256": "d47ae851bbec963bef557691d030d8ee6d323f7b6950d012a1adb6d1b60f0ffc"
+        }
+      },
+      ".strtab": {
+        "ir": {
+          "type": 3,
+          "flags": 0,
+          "address": 0,
+          "offset": 2372297,
+          "bytes": 309626,
+          "sha256": "3467e95bb08638ccce2ca605c3cc81c8312ce8bc2a498b5583c3620d85a7cc71"
+        },
+        "plain": {
+          "type": 3,
+          "flags": 0,
+          "address": 0,
+          "offset": 2372297,
+          "bytes": 292653,
+          "sha256": "5316574009a3904011146e3bcb199db48baaa1aa06d10b0b1f719211821ed1df"
+        }
+      }
+    }
+  }
+}

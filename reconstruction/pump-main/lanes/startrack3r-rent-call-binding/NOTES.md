@@ -278,3 +278,11 @@ all 17 V3 callees bind to original bodies. The source credit remains with
 #2272. The rejected full v1.43 recipe and its immediate-store mismatch are
 also retained. No completeness, historical-source authentication, runtime
 equivalence or security claim is made here.
+
+The later [swap-hop composition packet](swaphop-alias/NOTES.md) qualifies
+the credited Context/three-hint source on main `80393778f`: the target regains
+its original 18,584-byte size and ten raw windows are gained without losses.
+An independent ordinary compiler repeat is exact; the bound formatter deficit
+is 56 bytes. Adding `NO_FEE` improves ratio but loses all ten gains. The target
+itself remains unmatched, and the newer merged #2397 main is not measured by
+that packet. Earlier measurements remain tied to their original revisions.
