@@ -1,8 +1,8 @@
 import importlib.util
 from pathlib import Path
 import sys, unittest
-APP = Path(__file__).resolve().parents[1]
-spec = importlib.util.spec_from_file_location('subject', APP.parent / 'scripts/analyze.py')
+ROOT = Path(__file__).resolve().parents[1]
+spec = importlib.util.spec_from_file_location('subject', ROOT / 'scripts/analyze.py')
 subject = importlib.util.module_from_spec(spec)
 sys.modules['subject'] = subject
 spec.loader.exec_module(subject)
@@ -27,5 +27,5 @@ class OptimizedElf(unittest.TestCase):
         for data in [identity, extent]:
             for optimized in [[], ['-O']]:
                 with self.subTest(optimized=optimized):
-                    result = subprocess.check_output([sys.executable, *optimized, '-c', script, str(APP.parent / 'scripts'), base64.b64encode(data).decode()], text=True)
+                    result = subprocess.check_output([sys.executable, *optimized, '-c', script, str(ROOT / 'scripts'), base64.b64encode(data).decode()], text=True)
                     self.assertEqual(result.strip(), 'rejected')
