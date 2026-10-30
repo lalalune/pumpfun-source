@@ -1,0 +1,113 @@
+{
+  "lane": "w12b05-hop-irshape",
+  "wave": 12,
+  "pool": "b",
+  "angle": "irshape: exact IR target for swap_hop, full IR delta from main, Rust spelling per piece",
+  "base": {
+    "main": "20a1ae9c0",
+    "baseline_sha_prefix": "8cd7695c",
+    "normalized": 1033,
+    "raw": 1033
+  },
+  "targets": {
+    "0x5b3b0": {
+      "function": "multi_hop_curve::swap_hop",
+      "file": "programs/pump/src/multi_hop_curve_swap.rs",
+      "pinned_bytes": 18584,
+      "main": {
+        "ratio": 0.99913,
+        "slots_diff": 18,
+        "bytes": 18584
+      },
+      "ir_oracle_exact": {
+        "ratio": 1.0,
+        "slots_diff": 0,
+        "bytes": 18584,
+        "edit": "move %_218 = getelementptr inbounds i8, ptr %_618, i64 8 (complete_fill &Global arg) from bb64 into bb57 or bb58",
+        "tool": "tools/orc.py ir0/hop.ll --edit tools/edit_exact_gep218.py"
+      },
+      "oracle_positions": {
+        "bb64 before call (main)": [
+          0.99913,
+          18
+        ],
+        "bb64 top": [
+          0.99913,
+          18
+        ],
+        "bb58 top / after memcmp / before br": [
+          1.0,
+          0
+        ],
+        "bb57 after a.global load / before mayhem br": [
+          1.0,
+          0
+        ],
+        "bb56 before the base>reserves branch": [
+          0.98164,
+          242
+        ]
+      },
+      "full_ir_delta": [
+        "the only codegen-relevant change: the +8 GEP of the complete_fill &Global argument defined in bb57 (or bb58) instead of bb64",
+        "the #2766 tuple spelling also moves the shared line-599/complete_fill Err sink block earlier and swaps its two phi operands; this is codegen-neutral"
+      ],
+      "rust_spelling_constraint": "give complete_fill a &Global that MIR ReferencePropagation cannot rewrite back to the Box place, computed in the over-reserves block before the whitelist test: a tuple field (w12b09 #2766, w12b14), a plain local non-#[inline] helper (w12b07 #2780), or a #[cold] helper (w12b06)",
+      "verified_scratch_build": {
+        "spelling": "w12b09 tuple (allowed, global)",
+        "ratio": 1.0,
+        "slots_diff": 0,
+        "bytes": 18584,
+        "normalized": 1034,
+        "raw": 1034,
+        "losses": [],
+        "gains": [
+          "0x5b3b0"
+        ]
+      },
+      "status_on_main": {
+        "matched": true,
+        "by_pr": 2766,
+        "merge_commit": "0b5fc0d5d7e2e17ea939714cde8f35d5716bff14",
+        "spelling": "let (allowed, global) = { let global: &Global = &a.global; let user = a.user.key(); (!c.is_mayhem_mode && user!=global.whitelist_pda, global) }; ... complete_fill(global, ..)"
+      }
+    }
+  },
+  "attempts": [
+    {
+      "key": "0x5b3b0-main-20a1ae9c0-irshape-oracle-gep218-pred-block-v1",
+      "status": "analyzed",
+      "result": "oracle 1.0/0"
+    },
+    {
+      "key": "0x5b3b0-main-20a1ae9c0-irshape-bindB-account-ref-analysis-v1",
+      "status": "rejected",
+      "result": "0.99913/18 identical"
+    },
+    {
+      "key": "0x5b3b0-main-20a1ae9c0-irshape-typed-global-binding-line599-v1",
+      "status": "rejected",
+      "result": "0.99913/18 identical; pass trace"
+    },
+    {
+      "key": "0x5b3b0-main-20a1ae9c0-irshape-oracle-gep218-bb56-too-early-v1",
+      "status": "analyzed",
+      "result": "oracle 0.98164/242"
+    },
+    {
+      "key": "0x5b3b0-main-20a1ae9c0-irshape-full-ir-delta-tuple-spelling-v1",
+      "status": "analyzed",
+      "result": "1.0/0, 1034/1034, delta = GEP + neutral Err-block order"
+    }
+  ],
+  "rejected_mechanisms": [
+    "let global=&*a.global hoisted + complete_fill(global): &Account<Global>, the +8 deref is re-emitted at the call",
+    "let global: &Global = &a.global hoisted + complete_fill(global): ReferencePropagation rewrites the call-site reborrow; EarlyCSE + InstCombine sink the GEP to the top of bb64",
+    "GEP before the base>reserves if (bb56): too early, 242 slots"
+  ],
+  "unresolved_residuals": [],
+  "next_ideas": [],
+  "pr": 2771,
+  "landed": false,
+  "outcome": "swap_hop exact-IR target found (one GEP definition point, oracle 1.0/0). The same mechanism was turned into Rust by w12b09 (#2766, merged 0b5fc0d5d), w12b07, w12b06 and w12b14 at the same time; this lane published the oracle (#2771), the pass trace showing why plain bindings fail, and the full IR delta of the merged spelling. No source change from this lane was landed."
+}
