@@ -573,11 +573,11 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
 
 
         let (fees,base_amount,quote_amount,output,adapter_difference,post_fill) = if buy {
-            let post_fill; let selected = crate::legacy_sell::fee_math::get_fees(&a.global,c,&a.fee_config,fee_config_len,cap,trade_amount)?;
+            let selected = crate::legacy_sell::fee_math::get_fees(&a.global,c,&a.fee_config,fee_config_len,cap,trade_amount)?;
             let p_rate = if flag & 1 != 0 { selected.protocol_fee_bps } else { 0 };
             let c_rate = if flag & 2 != 0 { selected.creator_fee_bps } else { 0 };
-            let (_,crate::trade::TradeFees{protocol_fee:pf,creator_fee:cf,..}) = crate::trade::net_quote_for_budget(&c.creator,p_rate,c_rate,trade_amount)?;
-            let q = crate::trade::sub3(trade_amount,pf,cf)?;
+            let (_,nf) = crate::trade::net_quote_for_budget(&c.creator,p_rate,c_rate,trade_amount)?;
+            let q = crate::trade::sub3(trade_amount,nf.protocol_fee,nf.creator_fee)?;
 
 
 // layout-pad(6): aligns the next Source site with the original line
@@ -589,20 +589,20 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
             let base = u64::try_from(crate::constant_product::tokens_for_quote(c,q)?).map_err(|_| error!(PumpError::Truncation))?;
             require_gt!(base,0,PumpError::BuyZeroAmount);
 
-            let reserves = c.real_token_reserves; let (base_amount,quote_amount,pf,cf) = if base > reserves {
+            let reserves = c.real_token_reserves; let (base_amount,quote_amount,fees,post_fill) = if base > reserves {
 
 
 
 
 
 
-                let allowed = { let user = a.user.key(); !c.is_mayhem_mode && user!=a.global.whitelist_pda }; require!(allowed,PumpError::NotEnoughTokensToBuy);
-                if let Some((fees, quote, post)) = complete_fill(&a.global,&a.fee_config,fee_config_len,cap,c,
-                    &h.associated_base_bonding_curve,flag,p_rate,c_rate,trade_amount)? {
-                    post_fill=Some(post);
-                    (reserves,quote,fees.protocol_fee,fees.creator_fee)
-                }else{post_fill=None;(reserves,q,pf,cf)}
-            }else{post_fill=None;(base,q,pf,cf)};
+                let allowed = { let global = &*a.global; let user = a.user.key(); !c.is_mayhem_mode && user!=global.whitelist_pda }; require!(allowed,PumpError::NotEnoughTokensToBuy);
+                match complete_fill(&a.global,&a.fee_config,fee_config_len,cap,c,
+                    &h.associated_base_bonding_curve,flag,p_rate,c_rate,trade_amount)? { Some((f, quote, post)) => {
+
+                    (reserves,quote,f,Some(post))
+                }, None => (reserves,q,nf,None) }
+            }else{(base,q,nf,None)};
 
 
 
@@ -628,7 +628,7 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
             if native { crate::user_quote_payments::transfer_native(a.system_program.as_ref(),&a.user,h.bonding_curve.as_ref(),amount)?; } else { transfer_input(a,previous,&quote_token_program,&h.associated_quote_bonding_curve,h.quote_mint.decimals,AsRef::<AccountInfo>::as_ref(&*h.quote_mint),amount)?; }
             h.bonding_curve.apply_buy(base_amount,quote_amount)?;
             if last { transfer_base_out(&base_token_program,&h.associated_base_bonding_curve,&a.destination,&h.bonding_curve,h.base_mint.decimals,AsRef::<AccountInfo>::as_ref(&*h.base_mint),raw_output,seeds)?; }
-            (crate::trade::TradeFees{protocol_fee:pf,creator_fee:cf,protocol_fee_bps:p_rate,creator_fee_bps:c_rate},base_amount,quote_amount,raw_output,amount - trade_amount,post_fill)
+            (fees,base_amount,quote_amount,raw_output,amount - trade_amount,post_fill)
 
 
 
