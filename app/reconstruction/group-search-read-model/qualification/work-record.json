@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "localSourceHead": "843a8e246662a173a2414761a84071808be07abc",
+  "publicSourceHead": "1c2bd6d2e73e819f2cd31c51f51a8c22354879ae",
+  "sourceTree": "bcd886012b502bdbccb14efc5873ed4fc3c23e5e",
+  "scope": "Complete ordinary N/B group readers and used D/Q/A/h/t constructor/parse/projection family, all5physical contexts with explicit API/contract/schema-runtime capabilities",
+  "before": {
+    "gap": "Original parent1925,RecentTerms1962 andSearchRows1937 leave read/model ports external; this complete used family is absent in main",
+    "absentPaths": [
+      "app/reconstruction/group-search-read-model/client.mjs",
+      "app/scripts/original-group-search-read-model.mjs"
+    ],
+    "notClaimed": "No original provider/backend/UI baseline execution; supplied ports are not original endpoint schemas or runtime"
+  },
+  "checks": [
+    {
+      "command": "node app/scripts/original-group-search-read-model.mjs --check",
+      "result": "PASS all5reader+5schema contexts, strict complete used declarations/exports/closure, actual scoped export targets and MAIN/Recent/SearchRows handoffs; canonicalbytes",
+      "log": "source.log"
+    },
+    {
+      "command": "node --test app/tests/original_group_search_read_model.test.mjs",
+      "result": "3PASS0FAIL0SKIP source/required-port/edited-client/noncanonical-metadata negatives",
+      "log": "node.log"
+    },
+    {
+      "command": "node --test app/tests/group_search_read_model.workflow.mjs",
+      "result": "1first frozen Node/local-read storyPASS;14observations,13GET/API calls,7method+2installed-runtime hashes",
+      "log": "workflow.log",
+      "receipt": "read-verification.json"
+    },
+    {
+      "command": "python3 scripts/verify_evidence.py",
+      "result": "9capturesPASS",
+      "log": "root-evidence.log"
+    },
+    {
+      "command": "python3 scripts/test_tooling.py",
+      "result": "10testsPASS",
+      "log": "root-tooling.log"
+    },
+    {
+      "command": "python3 app/scripts/verify-evidence.py",
+      "result": "698objects/npm/unchangedSDKPASS",
+      "log": "app-evidence.log"
+    },
+    {
+      "command": "corepack pnpm exec prettier --check scripts/original-group-search-read-model.mjs reconstruction/group-search-read-model/client.mjs reconstruction/group-search-read-model/README.md tests/original_group_search_read_model.test.mjs tests/group_search_read_model.workflow.mjs",
+      "cwd": "app",
+      "result": "PASS;canonicalJSON separatelyverified",
+      "log": "prettier-source.log"
+    }
+  ],
+  "runtimeFacts": {
+    "physicalReaderContexts": 5,
+    "physicalSchemaContexts": 5,
+    "observations": 14,
+    "apiCalls": 13,
+    "localGetRequests": 13,
+    "methodInputs": 7,
+    "installedDependencyFiles": 2,
+    "actualAccountRequests": 0,
+    "remoteServiceRequests": 0,
+    "realAuthSessionAcquisition": 0,
+    "notes": "Actual reconstructed constructor/read/parse/projection source executed through explicit synthetic response-schema ports backed by existing pinned Next compiled schema namespace and inert GET API adapter. 10normal GETs across5contexts plus503/malformedJSON/held-native-abort reads. Error/signal identity observed; parent query lifecycle remains external."
+  },
+  "inputBinding": {
+    "file": "inputs.json",
+    "count": 70,
+    "result": "Every declared source/evidence file equals frozenGit;all7method+2installeddependency hashes match actualrun;public/local fulltree identical without private-root/Git/cwd guard"
+  },
+  "preservedDiagnostic": {
+    "log": "initial-format-diagnostic.log",
+    "snapshot": "initial-format-generator.mjs",
+    "cause": "Prettier chain formatting is not idempotent between the first pass over raw captured expressions and a subsequent format pass; canonical verifier correctly rejected the reformatted client bytes.",
+    "correction": "Generator now applies the same formatter twice before its complete strict AST checks; frozen emitted client also passes ordinary formatting check. No retained source operation/type/branch/expression change.",
+    "qualification": "Uncommitted script/log only, no original-runtime baseline and no frozen workflow failure; initial raw module was not executed by failed verification."
+  },
+  "limits": [
+    "Required z/contract response providers remain external. Synthetic fixture schemas and installed Next namespace are not claimed equal to complete original endpoint declarations/Zod/runtime",
+    "Original API origin/client/auth/session/enforcement/error policy acquisition remains unavailable. Local proof adapter wireencoding/routes are synthetic, not recovered backend compatibility",
+    "No real storage/config/account/credential/cookie/session/service acquisition, live read, protected action, mutation, navigation or captured execution",
+    "Grouped mutations/member/role/PnL and unrelated exports excluded/uninitialized; only complete used ordinary search family recovered",
+    "Parent1925/Recent1962/Rows1937 query/lifecycle/rendering remain credited/unimported and no combinedruntime qualification",
+    "No ranking/accounting/native/API/backend/product/visual/security/full-app/feature-completion or progress claim",
+    "NoNext/browser;Nodehost closed infinally andPRIMARYreleased. One frozenworkflow, no repeat/unique-case inflation"
+  ]
+}

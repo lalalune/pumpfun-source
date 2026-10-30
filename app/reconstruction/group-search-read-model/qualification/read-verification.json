@@ -1,0 +1,706 @@
+{
+  "scope": "Source constructor/read/parse/projection flow with explicitly synthetic response schemas/API ports only; no original runtime/schema/backend/auth/data/UI equivalence",
+  "observations": [
+    {
+      "name": "complete request/parse and actual SearchRows/RecentTerms projections",
+      "context": "evidence/web/objects/c3601a995a6b7f37.js",
+      "search": [
+        {
+          "userId": "synthetic-group",
+          "username": "",
+          "bio": null,
+          "profileImage": null,
+          "headerImageUrl": null,
+          "walletAddress": null,
+          "followers": 0,
+          "following": 0,
+          "isVerified": false,
+          "verifiedBadgeVisible": false,
+          "resolvedAvatarDecoration": null,
+          "kind": "group",
+          "memberCount": 0,
+          "createdAt": null,
+          "updatedAt": null
+        },
+        {
+          "userId": "synthetic-person",
+          "username": "",
+          "bio": null,
+          "profileImage": null,
+          "headerImageUrl": null,
+          "walletAddress": null,
+          "followers": 0,
+          "following": 0,
+          "isVerified": false,
+          "verifiedBadgeVisible": true,
+          "resolvedAvatarDecoration": null,
+          "kind": "person",
+          "memberCount": 0,
+          "createdAt": null,
+          "updatedAt": null
+        }
+      ],
+      "display": {
+        "groupId": "synthetic-group",
+        "username": null,
+        "bio": null,
+        "profileImage": null,
+        "headerImageUrl": null,
+        "memberCount": 0,
+        "followers": 0,
+        "following": 0,
+        "activeCompetitionEntry": null
+      },
+      "group": {
+        "groupId": "requested / group",
+        "username": "",
+        "bio": "",
+        "profileImage": "",
+        "headerImageUrl": null,
+        "memberCount": 0,
+        "followers": 0,
+        "following": 0,
+        "activeCompetitionEntry": {
+          "competitionId": "synthetic-competition",
+          "competitionSlug": "synthetic-slug",
+          "entryId": "",
+          "phase": "synthetic-phase"
+        }
+      },
+      "sourceSignalIdentity": true,
+      "defaultLimit": 20
+    },
+    {
+      "name": "source zero/empty/nullish defaults, schema failures and exact opaque rejection identity",
+      "context": "evidence/web/objects/c3601a995a6b7f37.js",
+      "empty": {
+        "groupId": "requested",
+        "username": null,
+        "bio": null,
+        "profileImage": null,
+        "headerImageUrl": null,
+        "memberCount": 0,
+        "followers": 0,
+        "following": 0,
+        "activeCompetitionEntry": null
+      },
+      "explicitZeroForwarded": true,
+      "apiErrorIdentity": true
+    },
+    {
+      "name": "complete request/parse and actual SearchRows/RecentTerms projections",
+      "context": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "search": [
+        {
+          "userId": "synthetic-group",
+          "username": "",
+          "bio": null,
+          "profileImage": null,
+          "headerImageUrl": null,
+          "walletAddress": null,
+          "followers": 0,
+          "following": 0,
+          "isVerified": false,
+          "verifiedBadgeVisible": false,
+          "resolvedAvatarDecoration": null,
+          "kind": "group",
+          "memberCount": 0,
+          "createdAt": null,
+          "updatedAt": null
+        },
+        {
+          "userId": "synthetic-person",
+          "username": "",
+          "bio": null,
+          "profileImage": null,
+          "headerImageUrl": null,
+          "walletAddress": null,
+          "followers": 0,
+          "following": 0,
+          "isVerified": false,
+          "verifiedBadgeVisible": true,
+          "resolvedAvatarDecoration": null,
+          "kind": "person",
+          "memberCount": 0,
+          "createdAt": null,
+          "updatedAt": null
+        }
+      ],
+      "display": {
+        "groupId": "synthetic-group",
+        "username": null,
+        "bio": null,
+        "profileImage": null,
+        "headerImageUrl": null,
+        "memberCount": 0,
+        "followers": 0,
+        "following": 0,
+        "activeCompetitionEntry": null
+      },
+      "group": {
+        "groupId": "requested / group",
+        "username": "",
+        "bio": "",
+        "profileImage": "",
+        "headerImageUrl": null,
+        "memberCount": 0,
+        "followers": 0,
+        "following": 0,
+        "activeCompetitionEntry": {
+          "competitionId": "synthetic-competition",
+          "competitionSlug": "synthetic-slug",
+          "entryId": "",
+          "phase": "synthetic-phase"
+        }
+      },
+      "sourceSignalIdentity": true,
+      "defaultLimit": 20
+    },
+    {
+      "name": "source zero/empty/nullish defaults, schema failures and exact opaque rejection identity",
+      "context": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "empty": {
+        "groupId": "requested",
+        "username": null,
+        "bio": null,
+        "profileImage": null,
+        "headerImageUrl": null,
+        "memberCount": 0,
+        "followers": 0,
+        "following": 0,
+        "activeCompetitionEntry": null
+      },
+      "explicitZeroForwarded": true,
+      "apiErrorIdentity": true
+    },
+    {
+      "name": "complete request/parse and actual SearchRows/RecentTerms projections",
+      "context": "evidence/web/objects/9535b69d76e2a69b.js",
+      "search": [
+        {
+          "userId": "synthetic-group",
+          "username": "",
+          "bio": null,
+          "profileImage": null,
+          "headerImageUrl": null,
+          "walletAddress": null,
+          "followers": 0,
+          "following": 0,
+          "isVerified": false,
+          "verifiedBadgeVisible": false,
+          "resolvedAvatarDecoration": null,
+          "kind": "group",
+          "memberCount": 0,
+          "createdAt": null,
+          "updatedAt": null
+        },
+        {
+          "userId": "synthetic-person",
+          "username": "",
+          "bio": null,
+          "profileImage": null,
+          "headerImageUrl": null,
+          "walletAddress": null,
+          "followers": 0,
+          "following": 0,
+          "isVerified": false,
+          "verifiedBadgeVisible": true,
+          "resolvedAvatarDecoration": null,
+          "kind": "person",
+          "memberCount": 0,
+          "createdAt": null,
+          "updatedAt": null
+        }
+      ],
+      "display": {
+        "groupId": "synthetic-group",
+        "username": null,
+        "bio": null,
+        "profileImage": null,
+        "headerImageUrl": null,
+        "memberCount": 0,
+        "followers": 0,
+        "following": 0,
+        "activeCompetitionEntry": null
+      },
+      "group": {
+        "groupId": "requested / group",
+        "username": "",
+        "bio": "",
+        "profileImage": "",
+        "headerImageUrl": null,
+        "memberCount": 0,
+        "followers": 0,
+        "following": 0,
+        "activeCompetitionEntry": {
+          "competitionId": "synthetic-competition",
+          "competitionSlug": "synthetic-slug",
+          "entryId": "",
+          "phase": "synthetic-phase"
+        }
+      },
+      "sourceSignalIdentity": true,
+      "defaultLimit": 20
+    },
+    {
+      "name": "source zero/empty/nullish defaults, schema failures and exact opaque rejection identity",
+      "context": "evidence/web/objects/9535b69d76e2a69b.js",
+      "empty": {
+        "groupId": "requested",
+        "username": null,
+        "bio": null,
+        "profileImage": null,
+        "headerImageUrl": null,
+        "memberCount": 0,
+        "followers": 0,
+        "following": 0,
+        "activeCompetitionEntry": null
+      },
+      "explicitZeroForwarded": true,
+      "apiErrorIdentity": true
+    },
+    {
+      "name": "complete request/parse and actual SearchRows/RecentTerms projections",
+      "context": "evidence/web/objects/767cc801e3f88f8b.js",
+      "search": [
+        {
+          "userId": "synthetic-group",
+          "username": "",
+          "bio": null,
+          "profileImage": null,
+          "headerImageUrl": null,
+          "walletAddress": null,
+          "followers": 0,
+          "following": 0,
+          "isVerified": false,
+          "verifiedBadgeVisible": false,
+          "resolvedAvatarDecoration": null,
+          "kind": "group",
+          "memberCount": 0,
+          "createdAt": null,
+          "updatedAt": null
+        },
+        {
+          "userId": "synthetic-person",
+          "username": "",
+          "bio": null,
+          "profileImage": null,
+          "headerImageUrl": null,
+          "walletAddress": null,
+          "followers": 0,
+          "following": 0,
+          "isVerified": false,
+          "verifiedBadgeVisible": true,
+          "resolvedAvatarDecoration": null,
+          "kind": "person",
+          "memberCount": 0,
+          "createdAt": null,
+          "updatedAt": null
+        }
+      ],
+      "display": {
+        "groupId": "synthetic-group",
+        "username": null,
+        "bio": null,
+        "profileImage": null,
+        "headerImageUrl": null,
+        "memberCount": 0,
+        "followers": 0,
+        "following": 0,
+        "activeCompetitionEntry": null
+      },
+      "group": {
+        "groupId": "requested / group",
+        "username": "",
+        "bio": "",
+        "profileImage": "",
+        "headerImageUrl": null,
+        "memberCount": 0,
+        "followers": 0,
+        "following": 0,
+        "activeCompetitionEntry": {
+          "competitionId": "synthetic-competition",
+          "competitionSlug": "synthetic-slug",
+          "entryId": "",
+          "phase": "synthetic-phase"
+        }
+      },
+      "sourceSignalIdentity": true,
+      "defaultLimit": 20
+    },
+    {
+      "name": "source zero/empty/nullish defaults, schema failures and exact opaque rejection identity",
+      "context": "evidence/web/objects/767cc801e3f88f8b.js",
+      "empty": {
+        "groupId": "requested",
+        "username": null,
+        "bio": null,
+        "profileImage": null,
+        "headerImageUrl": null,
+        "memberCount": 0,
+        "followers": 0,
+        "following": 0,
+        "activeCompetitionEntry": null
+      },
+      "explicitZeroForwarded": true,
+      "apiErrorIdentity": true
+    },
+    {
+      "name": "complete request/parse and actual SearchRows/RecentTerms projections",
+      "context": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "search": [
+        {
+          "userId": "synthetic-group",
+          "username": "",
+          "bio": null,
+          "profileImage": null,
+          "headerImageUrl": null,
+          "walletAddress": null,
+          "followers": 0,
+          "following": 0,
+          "isVerified": false,
+          "verifiedBadgeVisible": false,
+          "resolvedAvatarDecoration": null,
+          "kind": "group",
+          "memberCount": 0,
+          "createdAt": null,
+          "updatedAt": null
+        },
+        {
+          "userId": "synthetic-person",
+          "username": "",
+          "bio": null,
+          "profileImage": null,
+          "headerImageUrl": null,
+          "walletAddress": null,
+          "followers": 0,
+          "following": 0,
+          "isVerified": false,
+          "verifiedBadgeVisible": true,
+          "resolvedAvatarDecoration": null,
+          "kind": "person",
+          "memberCount": 0,
+          "createdAt": null,
+          "updatedAt": null
+        }
+      ],
+      "display": {
+        "groupId": "synthetic-group",
+        "username": null,
+        "bio": null,
+        "profileImage": null,
+        "headerImageUrl": null,
+        "memberCount": 0,
+        "followers": 0,
+        "following": 0,
+        "activeCompetitionEntry": null
+      },
+      "group": {
+        "groupId": "requested / group",
+        "username": "",
+        "bio": "",
+        "profileImage": "",
+        "headerImageUrl": null,
+        "memberCount": 0,
+        "followers": 0,
+        "following": 0,
+        "activeCompetitionEntry": {
+          "competitionId": "synthetic-competition",
+          "competitionSlug": "synthetic-slug",
+          "entryId": "",
+          "phase": "synthetic-phase"
+        }
+      },
+      "sourceSignalIdentity": true,
+      "defaultLimit": 20
+    },
+    {
+      "name": "source zero/empty/nullish defaults, schema failures and exact opaque rejection identity",
+      "context": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "empty": {
+        "groupId": "requested",
+        "username": null,
+        "bio": null,
+        "profileImage": null,
+        "headerImageUrl": null,
+        "memberCount": 0,
+        "followers": 0,
+        "following": 0,
+        "activeCompetitionEntry": null
+      },
+      "explicitZeroForwarded": true,
+      "apiErrorIdentity": true
+    },
+    {
+      "name": "real local503 error from supplied API port propagates unchanged"
+    },
+    {
+      "name": "real malformed local JSON API-port rejection propagates unchanged"
+    },
+    {
+      "name": "native supplied signal reaches real held local read; no parent query-scheduler inference"
+    },
+    {
+      "name": "held native local request closed after abort"
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/synthetic/search?searchTerm=synthetic+%26+query&limit=20&offset=40",
+      "mode": "normal"
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic/profile?id=requested+%2F+group",
+      "mode": "normal"
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic/search?searchTerm=synthetic+%26+query&limit=20&offset=40",
+      "mode": "normal"
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic/profile?id=requested+%2F+group",
+      "mode": "normal"
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic/search?searchTerm=synthetic+%26+query&limit=20&offset=40",
+      "mode": "normal"
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic/profile?id=requested+%2F+group",
+      "mode": "normal"
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic/search?searchTerm=synthetic+%26+query&limit=20&offset=40",
+      "mode": "normal"
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic/profile?id=requested+%2F+group",
+      "mode": "normal"
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic/search?searchTerm=synthetic+%26+query&limit=20&offset=40",
+      "mode": "normal"
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic/profile?id=requested+%2F+group",
+      "mode": "normal"
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic/search?searchTerm=x&limit=20",
+      "mode": "status"
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic/profile?id=x",
+      "mode": "bad-json"
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic/search?searchTerm=held&limit=20",
+      "mode": "hold"
+    }
+  ],
+  "apiCalls": [
+    {
+      "op": "GET /groups/search",
+      "query": {
+        "searchTerm": "synthetic & query",
+        "limit": 20,
+        "offset": 40
+      },
+      "queryKeys": [
+        "searchTerm",
+        "limit",
+        "offset"
+      ],
+      "hasSignal": true
+    },
+    {
+      "op": "GET /users/{id}",
+      "params": {
+        "id": "requested / group"
+      },
+      "hasSignal": true
+    },
+    {
+      "op": "GET /groups/search",
+      "query": {
+        "searchTerm": "synthetic & query",
+        "limit": 20,
+        "offset": 40
+      },
+      "queryKeys": [
+        "searchTerm",
+        "limit",
+        "offset"
+      ],
+      "hasSignal": true
+    },
+    {
+      "op": "GET /users/{id}",
+      "params": {
+        "id": "requested / group"
+      },
+      "hasSignal": true
+    },
+    {
+      "op": "GET /groups/search",
+      "query": {
+        "searchTerm": "synthetic & query",
+        "limit": 20,
+        "offset": 40
+      },
+      "queryKeys": [
+        "searchTerm",
+        "limit",
+        "offset"
+      ],
+      "hasSignal": true
+    },
+    {
+      "op": "GET /users/{id}",
+      "params": {
+        "id": "requested / group"
+      },
+      "hasSignal": true
+    },
+    {
+      "op": "GET /groups/search",
+      "query": {
+        "searchTerm": "synthetic & query",
+        "limit": 20,
+        "offset": 40
+      },
+      "queryKeys": [
+        "searchTerm",
+        "limit",
+        "offset"
+      ],
+      "hasSignal": true
+    },
+    {
+      "op": "GET /users/{id}",
+      "params": {
+        "id": "requested / group"
+      },
+      "hasSignal": true
+    },
+    {
+      "op": "GET /groups/search",
+      "query": {
+        "searchTerm": "synthetic & query",
+        "limit": 20,
+        "offset": 40
+      },
+      "queryKeys": [
+        "searchTerm",
+        "limit",
+        "offset"
+      ],
+      "hasSignal": true
+    },
+    {
+      "op": "GET /users/{id}",
+      "params": {
+        "id": "requested / group"
+      },
+      "hasSignal": true
+    },
+    {
+      "op": "GET /groups/search",
+      "query": {
+        "searchTerm": "x",
+        "limit": 20
+      },
+      "queryKeys": [
+        "searchTerm",
+        "limit",
+        "offset"
+      ],
+      "hasSignal": false
+    },
+    {
+      "op": "GET /users/{id}",
+      "params": {
+        "id": "x"
+      },
+      "hasSignal": false
+    },
+    {
+      "op": "GET /groups/search",
+      "query": {
+        "searchTerm": "held",
+        "limit": 20
+      },
+      "queryKeys": [
+        "searchTerm",
+        "limit",
+        "offset"
+      ],
+      "hasSignal": true
+    }
+  ],
+  "inputs": [
+    {
+      "path": "reconstruction/group-search-read-model/client.mjs",
+      "bytes": 20941,
+      "sha256": "54d79ee2835b6de56fd88fb8953346a3c6ca960a4b3e5624ba1c462be77470bb"
+    },
+    {
+      "path": "reconstruction/group-search-read-model/contract.json",
+      "bytes": 167808,
+      "sha256": "151b6fd362b5c0e24e968a0a3a02cb31104873b7d525628cb279333e42ec01a2"
+    },
+    {
+      "path": "scripts/original-group-search-read-model.mjs",
+      "bytes": 18959,
+      "sha256": "df2cf910bdca94ce7e07fe2ac682d9414fce9d8402484a0997642e06a46f79ba"
+    },
+    {
+      "path": "tests/original_group_search_read_model.test.mjs",
+      "bytes": 3253,
+      "sha256": "10304fd6ad8f82b0750d633f67660854f1845f4221ed332310ba8babbb521dff"
+    },
+    {
+      "path": "tests/group_search_read_model.workflow.mjs",
+      "bytes": 13177,
+      "sha256": "08be8d1b9381808a92953a300aed4cb26a60de2da8a732ed3611557dbcca134c"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+    },
+    {
+      "path": "packages/frontend/package.json",
+      "bytes": 1048,
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e"
+    }
+  ],
+  "dependencies": [
+    {
+      "path": "node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/compiled/zod/index.cjs",
+      "bytes": 77325,
+      "sha256": "af7deaaff50a14c7d8b52f518e10dac800a350bf8eef43f8454006fa7a44e4da"
+    },
+    {
+      "path": "node_modules/.pnpm/next@16.4.1_@playwright+test@1.64.1_@types+node@22.18.6_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/package.json",
+      "bytes": 3188,
+      "sha256": "546222266ef4402af870e96f03964570038e8498f4a4f7cb6dcf591f08cb07ec"
+    }
+  ],
+  "nodeVersion": "v24.19.0",
+  "fixtureRuntime": "Existing lock-pinned Next compiled schema namespace; synthetic capabilities only, no original Zod parity",
+  "pass": true
+}

@@ -1,0 +1,125 @@
+AssertionError [ERR_ASSERTION]: canonical client.mjs changed
++ actual - expected
+... Skipped lines
+
+  '// Complete ordinary shared-search group readers and used schema/projection constructors. Required API/runtime capabilities only.\n' +
+    'function schema0(ports) {\n' +
+    '  const t = { contract: ports.contract };\n' +
+    '  const r = { z: ports.z };\n' +
+    '  let s = (e) => (e?.toLowerCase() === "group" ? "group" : "person");\n' +
+...
+    '  let y = t.contract["GET /users/{id}"].response;\n' +
++   '  let b = y.pick({}).extend({\n' +
++   '    address: y.shape.address.nullish(),\n' +
++   '    userId: y.shape.userId.nullish(),\n' +
++   '    username: y.shape.username.nullish(),\n' +
++   '    profile_image: y.shape.profile_image.nullish(),\n' +
++   '    header_image_url: y.shape.header_image_url.nullish(),\n' +
++   '    member_count: y.shape.member_count.nullish(),\n' +
++   '    bio: y.shape.bio.nullish(),\n' +
++   '    followers: y.shape.followers.nullish(),\n' +
++   '    following: y.shape.following.nullish(),\n' +
++   '    kind: o,\n' +
++   '    active_competition_entry: y.shape.active_competition_entry,\n' +
++   '  });\n' +
+-   '  let b = y\n' +
+-   '    .pick({})\n' +
+-   '    .extend({\n' +
+-   '      address: y.shape.address.nullish(),\n' +
+-   '      userId: y.shape.userId.nullish(),\n' +
+-   '      username: y.shape.username.nullish(),\n' +
+-   '      profile_image: y.shape.profile_image.nullish(),\n' +
+-   '      header_image_url: y.shape.header_image_url.nullish(),\n' +
+-   '      member_count: y.shape.member_count.nullish(),\n' +
+-   '      bio: y.shape.bio.nullish(),\n' +
+-   '      followers: y.shape.followers.nullish(),\n' +
+-   '      following: y.shape.following.nullish(),\n' +
+-   '      kind: o,\n' +
+-   '      active_competition_entry: y.shape.active_competition_entry,\n' +
+-   '    });\n' +
+    '  let v = t.contract["GET /groups/search"].response.extend({\n' +
+    '    results: u.array(),\n' +
+    '  });\n' +
+    '  return {\n' +
+    '    D: u,\n' +
+...
+    '  let b = t.contract["GET /users/{id}"].response;\n' +
++   '  let y = b.pick({}).extend({\n' +
++   '    address: b.shape.address.nullish(),\n' +
++   '    userId: b.shape.userId.nullish(),\n' +
++   '    username: b.shape.username.nullish(),\n' +
++   '    profile_image: b.shape.profile_image.nullish(),\n' +
++   '    header_image_url: b.shape.header_image_url.nullish(),\n' +
++   '    member_count: b.shape.member_count.nullish(),\n' +
++   '    bio: b.shape.bio.nullish(),\n' +
++   '    followers: b.shape.followers.nullish(),\n' +
++   '    following: b.shape.following.nullish(),\n' +
++   '    kind: o,\n' +
++   '    active_competition_entry: b.shape.active_competition_entry,\n' +
++   '  });\n' +
+-   '  let y = b\n' +
+-   '    .pick({})\n' +
+-   '    .extend({\n' +
+-   '      address: b.shape.address.nullish(),\n' +
+-   '      userId: b.shape.userId.nullish(),\n' +
+-   '      username: b.shape.username.nullish(),\n' +
+-   '      profile_image: b.shape.profile_image.nullish(),\n' +
+-   '      header_image_url: b.shape.header_image_url.nullish(),\n' +
+-   '      member_count: b.shape.member_count.nullish(),\n' +
+-   '      bio: b.shape.bio.nullish(),\n' +
+-   '      followers: b.shape.followers.nullish(),\n' +
+-   '      following: b.shape.following.nullish(),\n' +
+-   '      kind: o,\n' +
+-   '      active_competition_entry: b.shape.active_competition_entry,\n' +
+-   '    });\n' +
+    '  let v = t.contract["GET /groups/search"].response.extend({\n' +
+    '    results: u.array(),\n' +
+    '  });\n' +
+    '  return {\n' +
+    '    D: u,\n' +
+...
+    '  let y = t.contract["GET /users/{id}"].response;\n' +
++   '  let v = y.pick({}).extend({\n' +
++   '    address: y.shape.address.nullish(),\n' +
++   '    userId: y.shape.userId.nullish(),\n' +
++   '    username: y.shape.username.nullish(),\n' +
++   '    profile_image: y.shape.profile_image.nullish(),\n' +
++   '    header_image_url: y.shape.header_image_url.nullish(),\n' +
++   '    '... 10941 more characters
+-   '  let v = y\n' +
+-   '    .pick({})\n' +
+-   '    .extend({\n' +
+-   '      address: y.shape.address.nullish(),\n' +
+-   '      userId: y.shape.userId.nullish(),\n' +
+-   '      username: y.shape.username.nullish(),\n' +
+-   '      profile_image: y.shape.p'... 11111 more characters
+
+    at verify (file:///workspace/pump-app-search-planner/app/scripts/original-group-search-read-model.mjs:483:12)
+    at async file:///workspace/pump-app-search-planner/app/scripts/original-group-search-read-model.mjs:508:12 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '// Complete ordinary shared-search group readers and used schema/projection constructors. Required API/runtime capabilities only.\n' +
+    'function schema0(ports) {\n' +
+    '  const t = { contract: ports.contract };\n' +
+    '  const r = { z: ports.z };\n' +
+    '  let s = (e) => (e?.toLowerCase() === "group" ? "group" : "person");\n' +
+    '  let o = r.z.string().nullish();\n' +
+    '  let d = t.contract["GET /groups/search"].response.shape.results.element;\n' +
+    '  let u = d\n' +
+    '    .pick({ userId: !0 })\n' +
+    '    .extend({\n' +
+    '...',
+  expected: '// Complete ordinary shared-search group readers and used schema/projection constructors. Required API/runtime capabilities only.\n' +
+    'function schema0(ports) {\n' +
+    '  const t = { contract: ports.contract };\n' +
+    '  const r = { z: ports.z };\n' +
+    '  let s = (e) => (e?.toLowerCase() === "group" ? "group" : "person");\n' +
+    '  let o = r.z.string().nullish();\n' +
+    '  let d = t.contract["GET /groups/search"].response.shape.results.element;\n' +
+    '  let u = d\n' +
+    '    .pick({ userId: !0 })\n' +
+    '    .extend({\n' +
+    '...',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
