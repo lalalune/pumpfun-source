@@ -108,6 +108,6 @@ def main():
   for value in [0,1,9999,10000,10001,2**64-1]:test(n,'buyback-bps='+str(value),overrides=mutate(CONFIG_KEY,899,struct.pack('<Q',value)))
  failures=[i for i,r in enumerate(rows) if not r['match']];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
  report={'scope':'SBF v2 buy/sell/exact-quote: committed account bytes, lamports, errors, exact token/System/event CPIs. Captured token dependency binaries; synthetic signer and balance fixtures. Not whole-program or exhaustive extension equivalence.','candidate_sha256':sha(pin_program(args.candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(pathlib.Path(__file__)),'harness_sha256':sha(ROOT/'scripts/pump_amm_reusable_harness.py'),'case_count':len(rows),'mismatches':failures,'cases':rows}
- args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(failures),'mismatches':failures[:50]}))
+ args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(failures),'mismatches':failures[:50]}))
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

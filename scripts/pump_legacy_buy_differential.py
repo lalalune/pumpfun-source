@@ -5,6 +5,8 @@ if not __debug__:
 import argparse,base64,hashlib,json,struct,gzip
 import pump_trade_fixture as f
 from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
+from pump_trade_fixture import REPORT_INPUTS
 from solders.clock import Clock
 R=f.R;P=f.Pubkey.from_string(f.x['program']);USER=f.Keypair.from_seed(bytes([231])*32)
 INITIAL={k:f.vm.get_account(k) for k in f.msg.account_keys}
@@ -116,11 +118,11 @@ def cases():
  return rows
 
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=f.pathlib.Path);ap.add_argument('--output',type=f.pathlib.Path,required=True);args=ap.parse_args();rows=[]
+ ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=f.pathlib.Path);ap.add_argument('--output',type=f.pathlib.Path,required=True);args=ap.parse_args();publisher=PumpReport(args.output,R,args.candidate,__file__,extra_inputs=REPORT_INPUTS);rows=[]
  for c in cases():
   o=run(c);r={'case':c,'original':o}
   if args.candidate:
    b=run(c,args.candidate);diff=[k for k in ['error','accounts','events','inner','return_data'] if o[k]!=b[k]];r.update(candidate=b,different_fields=diff,match=not diff)
   rows.append(r)
- d={'scope':'Normally signed offline synthetic legacy buy fixtures; full binary identity unproven.','original_sha256':hashlib.sha256((R/'evidence/original/pump/deployed.so').read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(args.candidate).read_bytes()).hexdigest() if args.candidate else None,'script_sha256':hashlib.sha256(f.pathlib.Path(__file__).read_bytes()).hexdigest(),'harness_sha256':hashlib.sha256(f.pathlib.Path(__file__).read_bytes()).hexdigest(),'cases':rows,'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r.get('match') is False]};args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(d,indent=2)+'\n');print(json.dumps({'case_count':len(rows),'mismatches':d['mismatches']}));assert not d['mismatches']
+ d={'scope':'Normally signed offline synthetic legacy buy fixtures; full binary identity unproven.','original_sha256':hashlib.sha256((R/'evidence/original/pump/deployed.so').read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(args.candidate).read_bytes()).hexdigest() if args.candidate else None,'script_sha256':hashlib.sha256(f.pathlib.Path(__file__).read_bytes()).hexdigest(),'harness_sha256':hashlib.sha256(f.pathlib.Path(__file__).read_bytes()).hexdigest(),'cases':rows,'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r.get('match') is False]};publisher.write((json.dumps(d,indent=2)+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatches':d['mismatches']}));assert not d['mismatches']
 if __name__=='__main__':main()

@@ -5,6 +5,7 @@ import importlib.util
 import contextlib
 import io
 import json
+import re
 import struct
 import sys
 import tempfile
@@ -224,6 +225,17 @@ class BranchTokenTests(unittest.TestCase):
             tested += 1
         self.assertEqual(tested, 52)
         self.assertEqual(path.read_bytes(), blob)
+
+
+class UsageDocumentationTests(unittest.TestCase):
+    def test_usage_only_advertises_implemented_options(self):
+        # The module docstring is the argparse description printed by --help
+        # (RawDescriptionHelpFormatter). main() registers exactly one optional
+        # flag, --disasm, and always emits JSON, so any other advertised long
+        # option is rejected at parse time as an unrecognized argument despite
+        # the help telling the user it is accepted.
+        advertised = set(re.findall(r'--[A-Za-z][\w-]*', score.__doc__))
+        self.assertEqual(advertised, {'--disasm'})
 
 
 if __name__ == '__main__':

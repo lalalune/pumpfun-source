@@ -35,16 +35,16 @@ those programs. There is no frontend, backend, SDK or off-chain service code.
 
 Matched windows cover **5,185,728/5,213,128 code bytes (99.47%)**.
 The latest fresh Pump Main identity build includes #2766's exact swap-hop
-reconstruction and #3051's combined admin-CTO refinement. The swap window now matches
+reconstruction and #3066's admin-CTO refinement. The swap window now matches
 all 18,584 bytes, with no normalized or raw losses elsewhere. Only
 `admin_cto::execute` remains unmatched (27,400 bytes); its instruction-token
-similarity is 59.197%, with 3,312 differing slots. All 771 targeted synthetic
+similarity is 59.916%, with 3,313 differing slots. All 771 targeted synthetic
 runtime cases pass. The exact-quote and multi-hop reference models also pass 1,014 and 507
 captured-program cases, respectively. Pump Main's meaningful ELF is not yet equal.
 
 AMM, Fees, Mayhem and Donation Relay retain their exact meaningful-ELF
 checkpoints. No build of those programs is claimed in this pass. See the
-[latest scores, runtime coverage and limits](reconstruction/pump-main/checkpoints/completion-pass64-20261030/README.md),
+[latest scores, runtime coverage and limits](reconstruction/pump-main/checkpoints/completion-pass75-20261030/README.md),
 [other-program checkpoint provenance](reconstruction/pump-main/checkpoints/completion-20261030/other-programs.json)
 and [Fees Linux rebuild packet](research/fees-linux-fresh-rebuild-20261030/README.md).
 

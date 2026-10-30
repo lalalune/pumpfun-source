@@ -28,7 +28,7 @@ def main():
  test(0,0,0,raw=data+b'ignored')
  failures=[i for i,x in enumerate(rows) if not x['match']];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
  report={'scope':'SBF update_fee_config handler only, not whole-program equality.','original_sha256':left.sha256,'candidate_sha256':right.sha256,'script_sha256':sha(pathlib.Path(__file__)),'case_count':len(rows),'mismatches':failures,'cases':rows}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n')
+ a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n')
  print(json.dumps({'case_count':len(rows),'mismatches':failures[:20],'mismatch_count':len(failures)}))
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

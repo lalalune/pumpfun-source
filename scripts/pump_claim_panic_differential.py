@@ -47,7 +47,10 @@ def main():
     parser.add_argument('--candidate', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
-    assert not args.output.exists(), 'Retain prior diagnostic receipts'
+    # exists() follows links: a dangling symlink would pass it and the write
+    # would create a file wherever the link points.
+    if args.output.is_symlink() or args.output.exists():
+        raise SystemExit('Retain prior diagnostic receipts')
     sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
     paths = [Path(__file__).resolve(), Path(fixture.__file__).resolve(),
              ROOT/'evidence/original/pump/deployed.so', args.candidate, fixture.FIXTURE, fixture.IDL,
@@ -79,7 +82,11 @@ def main():
               'mismatches': [row['case']['name'] for row in rows if row['differences']], 'cases': rows}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     raw = json.dumps(report, separators=(',', ':')).encode()
-    args.output.write_bytes(gzip.compress(raw, mtime=0) if args.output.suffix == '.gz' else raw)
+    payload = gzip.compress(raw, mtime=0) if args.output.suffix == '.gz' else raw
+    # 'xb' keeps the receipt fresh if another writer creates the path after the
+    # preflight check, and refuses a symlink that appeared in between.
+    with args.output.open('xb') as stream:
+        stream.write(payload)
     print(json.dumps({'cases': len(rows), 'mismatches': report['mismatches']}))
     if report['mismatches']:
         raise SystemExit(1)
