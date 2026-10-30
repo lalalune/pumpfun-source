@@ -4,29 +4,31 @@ Target: `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`
 Angle: CPI shapes (pump_amm `admin_cto_pool`, pump_fees `admin_cto_sharing_config`, token transfers and sweeps).
 Base: origin/main e61baa928 (1032 normalized / 347 raw). Builds: `~/.cache/pumpfun-reconstruction/lanes/w10r1-admincto-cpi/`.
 
-## Result r1: `with_signer` method, admin_cto at the original size
+## Result r2: `with_signer` on the sharing_config CPI, admin_cto at the original size
 
-Both signed CPIs now build their context as `CpiContext::new(program, accounts).with_signer(signer_seeds)`
+The `admin_cto_sharing_config` CPI builds its context as `CpiContext::new(program, accounts).with_signer(signer_seeds)`
 instead of `CpiContext::new_with_signer(program, accounts, signer_seeds)`. Behaviour is identical
-(`with_signer` just sets the same `signer_seeds` field).
+(`with_signer` just sets the same `signer_seeds` field). r1 changed both signed CPIs; all 56 B come from the
+sharing CPI, and keeping `new_with_signer` on `admin_cto_pool` is better (r2).
 
 | metric | main e61baa9 | this PR (r1) | original |
 | --- | ---: | ---: | ---: |
 | admin_cto bytes | 27,344 | **27,400** | 27,400 |
-| win.py ratio | 0.37637 | 0.33074 | 1 |
-| slots_diff (equal size only) | n/a | 3,373 | 0 |
+| win.py ratio | 0.37637 | 0.34572 (r1 0.33074) | 1 |
+| slots_diff (equal size only) | n/a | 3,372 (r1 3,373) | 0 |
 | calls (internal+external) | 154+3 | 154+3 | 154+3 |
 | official normalized / raw | 1032 / 347 | **1032 / 1032** | 1035 |
 | gains / losses (norm, raw) | | 0 / 0, **+685** / 0 | |
-| unstripped sha256 | 3ca6911a... | 9ccc8632... | |
+| unstripped sha256 | 3ca6911a... | b87fba61... | |
 
 With admin_cto at 27,400 B every later function sits at its original address, so every normalized
 window is now also a raw match (raw 347 -> 1032). `elf_meta_diff.py`: all non-.text differences follow
 from .text (only the known 2 extra `String` vtable lddw relocations remain).
 
-The ratio drop is the price of the exact size: the extra 56 B come from the two `with_signer`
-builder calls being materialized (CpiContext built in place, then its signer field written) which
-shifts the frame and spill slots. Next work at equal size: reduce slots_diff.
+The ratio drop is an artifact of jump offsets: the 56 B are inserted inside the sharing CPI block
+(the CpiContext is built in place and its signer field written afterwards), every jump that crosses
+that block changes its immediate. With jump offsets masked the listing ratio is unchanged
+(main 0.3860, r2 0.3856); the code outside the sharing block is byte-identical to main.
 
 ## Analysis: CPI shapes already match
 
