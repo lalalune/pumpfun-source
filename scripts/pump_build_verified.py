@@ -323,6 +323,12 @@ def main():
         returncode=result.returncode,
         source_after_sha256=source_manifest(crate, workspace, ROOT, cwd=workspace),
     )
+    record["build_log_sha256"] = sha(out / "build.log")
+    record["stack_warnings"] = [
+        line.strip() for line in (out / "build.log").read_text().splitlines()
+        if "exceeded max offset" in line
+    ]
+    record["stack_diagnostic_gate_passed"] = not record["stack_warnings"]
     record["target_libraries_unchanged"] = pump_target_library_profile.inventory(target_libdir) == target_libraries_before
     check(record["target_libraries_unchanged"], "selected SDK target libraries changed during compilation")
     record["source_unchanged"] = record[
@@ -333,6 +339,7 @@ def main():
     receipt.write_text(json.dumps(record, indent=2) + "\n")
     result.check_returncode()
     check(record["source_unchanged"])
+    check(record["stack_diagnostic_gate_passed"], "compiler reported a stack offset exceeding its maximum; inspect build.log")
     if text_layout:
         record["text_layout"] = pump_text_layout.finish(text_layout)
     manifest = tomllib.loads((crate / "Cargo.toml").read_text())

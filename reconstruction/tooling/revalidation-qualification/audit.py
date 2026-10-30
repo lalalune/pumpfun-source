@@ -574,6 +574,11 @@ def audit(repo, output, timeout_seconds=60.0, cleanup_seconds=1.0):
          if path.is_dir() and not path.name.startswith(".")),
         key=lambda path: path.name,
     )
+    resolved_output = output.resolve()
+    for packet in packets:
+        packet_root = packet.resolve()
+        if resolved_output == packet_root or packet_root in resolved_output.parents:
+            raise ValueError("audit output must not be inside an input packet")
     packet_names = [packet.name for packet in packets]
     output.parent.mkdir(parents=True, exist_ok=True)
     reject_linked_ancestors(output.parent)

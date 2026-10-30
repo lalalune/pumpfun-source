@@ -76,6 +76,7 @@ jobs:
               python -B scripts/test_mayhem_burn_sequence_optimization.py
               python -B scripts/test_constant_product_range_pinning.py
               python -B scripts/test_fees_validate_all_optimization.py
+              python -B scripts/test_pump_validate_constant_product_optimization.py
               python -B scripts/test_pump_validate_volume_optimization.py
               python -B scripts/test_deep_section_analysis_publication.py
               python -B scripts/test_analyze_program_publication.py
@@ -127,6 +128,7 @@ jobs:
               python -B reconstruction/verification/donation-relay-stateful/test_stateful.py
               python -B reconstruction/verification/pump-migration-lifecycle/test_lifecycle.py
               python -B reconstruction/verification/mayhem-dispatch-boundaries/test_inventory.py
+              python -B reconstruction/verification/mayhem-dispatch-boundaries/test_producer.py
           - suite: host-fragments
             commands: |
               python -B -m unittest discover -s tests -p 'test_global_*_captured.py' -v
