@@ -8,6 +8,7 @@ import struct
 from pathlib import Path
 from score import sections, body
 from instruction_stream import require_instruction_range
+from cycle_regions import cycle_regions
 
 
 def analyze(raw, start=0):
@@ -81,7 +82,8 @@ def analyze(raw, start=0):
     for block in blocks:
         block['reachable'] = block['offset'] in reachable
     return {'start': start, 'bytes': len(raw), 'instruction_count': len(instructions),
-            'blocks': blocks, 'calls': calls, 'diagnostics': diagnostics}
+            'blocks': blocks, 'calls': calls, 'diagnostics': diagnostics,
+            'cyclic_regions': cycle_regions(blocks)}
 
 
 def main(argv=None):
