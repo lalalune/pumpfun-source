@@ -1,0 +1,3987 @@
+{
+  "syntheticOnly": true,
+  "bundleSha256": "21477219a4e598273d294c0eae67c11ea0d0f9795b53d78f53c5304106312348",
+  "bundleBytes": 1093521,
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/?keep=one&keep=two"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    },
+    {
+      "method": "GET",
+      "url": "/?keep=one&keep=two"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    }
+  ],
+  "results": [
+    {
+      "width": 390,
+      "initial": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          }
+        ],
+        "changes": [],
+        "listeners": 0,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [],
+        "unmounts": [],
+        "loadCount": 0,
+        "queryRead": 1,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+        "state": null
+      },
+      "disabledOpen": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          }
+        ],
+        "changes": [],
+        "listeners": 0,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [],
+        "unmounts": [],
+        "loadCount": 0,
+        "queryRead": 2,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        }
+      },
+      "opened": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          }
+        ],
+        "changes": [],
+        "listeners": 1,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": [],
+        "loadCount": 1,
+        "queryRead": 3,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "feed",
+          "focusSettingId": "feed.synthetic"
+        }
+      },
+      "changed": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          }
+        ],
+        "listeners": 1,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": [],
+        "loadCount": 1,
+        "queryRead": 4,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "privacy",
+          "focusSettingId": "privacy.synthetic"
+        }
+      },
+      "emptyCallback": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          }
+        ],
+        "listeners": 1,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": [],
+        "loadCount": 1,
+        "queryRead": 5,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "feed",
+          "focusSettingId": ""
+        }
+      },
+      "emptyHelper": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": ""
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          },
+          {
+            "settings": "privacy",
+            "setting": ""
+          }
+        ],
+        "listeners": 1,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": [],
+        "loadCount": 1,
+        "queryRead": 6,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "privacy",
+          "focusSettingId": ""
+        }
+      },
+      "closed": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": ""
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          },
+          {
+            "settings": "privacy",
+            "setting": ""
+          },
+          {
+            "settings": null,
+            "setting": null
+          }
+        ],
+        "listeners": 1,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": [
+          "_r_0_"
+        ],
+        "loadCount": 1,
+        "queryRead": 7,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "privacy",
+          "focusSettingId": ""
+        }
+      },
+      "reopened": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": ""
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "detail": {
+              "section": "feed"
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          },
+          {
+            "settings": "privacy",
+            "setting": ""
+          },
+          {
+            "settings": null,
+            "setting": null
+          },
+          {
+            "settings": "feed",
+            "setting": null
+          }
+        ],
+        "listeners": 1,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_",
+          "_r_1_"
+        ],
+        "unmounts": [
+          "_r_0_"
+        ],
+        "loadCount": 1,
+        "queryRead": 8,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "feed",
+          "focusSettingId": null
+        }
+      },
+      "gated": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": ""
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "detail": {
+              "section": "feed"
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "unlisten",
+            "type": "pump:open-settings"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          },
+          {
+            "settings": "privacy",
+            "setting": ""
+          },
+          {
+            "settings": null,
+            "setting": null
+          },
+          {
+            "settings": "feed",
+            "setting": null
+          }
+        ],
+        "listeners": 0,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_",
+          "_r_1_"
+        ],
+        "unmounts": [
+          "_r_0_",
+          "_r_1_"
+        ],
+        "loadCount": 1,
+        "queryRead": 9,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "feed",
+          "focusSettingId": null
+        }
+      },
+      "noListener": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": ""
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "detail": {
+              "section": "feed"
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "unlisten",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": "privacy.synthetic"
+            }
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          },
+          {
+            "settings": "privacy",
+            "setting": ""
+          },
+          {
+            "settings": null,
+            "setting": null
+          },
+          {
+            "settings": "feed",
+            "setting": null
+          }
+        ],
+        "listeners": 0,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_",
+          "_r_1_"
+        ],
+        "unmounts": [
+          "_r_0_",
+          "_r_1_"
+        ],
+        "loadCount": 1,
+        "queryRead": 10,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "feed",
+          "focusSettingId": null
+        }
+      },
+      "flagRestored": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": ""
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "detail": {
+              "section": "feed"
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "unlisten",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": "privacy.synthetic"
+            }
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          },
+          {
+            "settings": "privacy",
+            "setting": ""
+          },
+          {
+            "settings": null,
+            "setting": null
+          },
+          {
+            "settings": "feed",
+            "setting": null
+          }
+        ],
+        "listeners": 1,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_",
+          "_r_1_",
+          "_r_2_"
+        ],
+        "unmounts": [
+          "_r_0_",
+          "_r_1_"
+        ],
+        "loadCount": 1,
+        "queryRead": 11,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "privacy",
+          "focusSettingId": "privacy.synthetic"
+        }
+      },
+      "unmounted": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": ""
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "detail": {
+              "section": "feed"
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "unlisten",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": "privacy.synthetic"
+            }
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "unlisten",
+            "type": "pump:open-settings"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          },
+          {
+            "settings": "privacy",
+            "setting": ""
+          },
+          {
+            "settings": null,
+            "setting": null
+          },
+          {
+            "settings": "feed",
+            "setting": null
+          }
+        ],
+        "listeners": 0,
+        "subscribers": 0,
+        "flagSubscribers": 0,
+        "mounts": [
+          "_r_0_",
+          "_r_1_",
+          "_r_2_"
+        ],
+        "unmounts": [
+          "_r_0_",
+          "_r_1_",
+          "_r_2_"
+        ],
+        "loadCount": 1,
+        "queryRead": 11,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "privacy",
+          "focusSettingId": "privacy.synthetic"
+        }
+      },
+      "remounted": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": ""
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "detail": {
+              "section": "feed"
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "unlisten",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": "privacy.synthetic"
+            }
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "unlisten",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "detail": {
+              "section": "feed"
+            }
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          },
+          {
+            "settings": "privacy",
+            "setting": ""
+          },
+          {
+            "settings": null,
+            "setting": null
+          },
+          {
+            "settings": "feed",
+            "setting": null
+          }
+        ],
+        "listeners": 1,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_",
+          "_r_1_",
+          "_r_2_",
+          "_r_3_"
+        ],
+        "unmounts": [
+          "_r_0_",
+          "_r_1_",
+          "_r_2_"
+        ],
+        "loadCount": 1,
+        "queryRead": 12,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "feed",
+          "focusSettingId": null
+        }
+      },
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "initial": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          }
+        ],
+        "changes": [],
+        "listeners": 0,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [],
+        "unmounts": [],
+        "loadCount": 0,
+        "queryRead": 1,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+        "state": null
+      },
+      "disabledOpen": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          }
+        ],
+        "changes": [],
+        "listeners": 0,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [],
+        "unmounts": [],
+        "loadCount": 0,
+        "queryRead": 2,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        }
+      },
+      "opened": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          }
+        ],
+        "changes": [],
+        "listeners": 1,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": [],
+        "loadCount": 1,
+        "queryRead": 3,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "feed",
+          "focusSettingId": "feed.synthetic"
+        }
+      },
+      "changed": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          }
+        ],
+        "listeners": 1,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": [],
+        "loadCount": 1,
+        "queryRead": 4,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "privacy",
+          "focusSettingId": "privacy.synthetic"
+        }
+      },
+      "emptyCallback": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          }
+        ],
+        "listeners": 1,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": [],
+        "loadCount": 1,
+        "queryRead": 5,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "feed",
+          "focusSettingId": ""
+        }
+      },
+      "emptyHelper": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": ""
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          },
+          {
+            "settings": "privacy",
+            "setting": ""
+          }
+        ],
+        "listeners": 1,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": [],
+        "loadCount": 1,
+        "queryRead": 6,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "privacy",
+          "focusSettingId": ""
+        }
+      },
+      "closed": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": ""
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          },
+          {
+            "settings": "privacy",
+            "setting": ""
+          },
+          {
+            "settings": null,
+            "setting": null
+          }
+        ],
+        "listeners": 1,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": [
+          "_r_0_"
+        ],
+        "loadCount": 1,
+        "queryRead": 7,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "privacy",
+          "focusSettingId": ""
+        }
+      },
+      "reopened": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": ""
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "detail": {
+              "section": "feed"
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          },
+          {
+            "settings": "privacy",
+            "setting": ""
+          },
+          {
+            "settings": null,
+            "setting": null
+          },
+          {
+            "settings": "feed",
+            "setting": null
+          }
+        ],
+        "listeners": 1,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_",
+          "_r_1_"
+        ],
+        "unmounts": [
+          "_r_0_"
+        ],
+        "loadCount": 1,
+        "queryRead": 8,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "feed",
+          "focusSettingId": null
+        }
+      },
+      "gated": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": ""
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "detail": {
+              "section": "feed"
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "unlisten",
+            "type": "pump:open-settings"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          },
+          {
+            "settings": "privacy",
+            "setting": ""
+          },
+          {
+            "settings": null,
+            "setting": null
+          },
+          {
+            "settings": "feed",
+            "setting": null
+          }
+        ],
+        "listeners": 0,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_",
+          "_r_1_"
+        ],
+        "unmounts": [
+          "_r_0_",
+          "_r_1_"
+        ],
+        "loadCount": 1,
+        "queryRead": 9,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "feed",
+          "focusSettingId": null
+        }
+      },
+      "noListener": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": ""
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "detail": {
+              "section": "feed"
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "unlisten",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": "privacy.synthetic"
+            }
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          },
+          {
+            "settings": "privacy",
+            "setting": ""
+          },
+          {
+            "settings": null,
+            "setting": null
+          },
+          {
+            "settings": "feed",
+            "setting": null
+          }
+        ],
+        "listeners": 0,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_",
+          "_r_1_"
+        ],
+        "unmounts": [
+          "_r_0_",
+          "_r_1_"
+        ],
+        "loadCount": 1,
+        "queryRead": 10,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "feed",
+          "focusSettingId": null
+        }
+      },
+      "flagRestored": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": ""
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "detail": {
+              "section": "feed"
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "unlisten",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": "privacy.synthetic"
+            }
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          },
+          {
+            "settings": "privacy",
+            "setting": ""
+          },
+          {
+            "settings": null,
+            "setting": null
+          },
+          {
+            "settings": "feed",
+            "setting": null
+          }
+        ],
+        "listeners": 1,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_",
+          "_r_1_",
+          "_r_2_"
+        ],
+        "unmounts": [
+          "_r_0_",
+          "_r_1_"
+        ],
+        "loadCount": 1,
+        "queryRead": 11,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "privacy",
+          "focusSettingId": "privacy.synthetic"
+        }
+      },
+      "unmounted": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": ""
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "detail": {
+              "section": "feed"
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "unlisten",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": "privacy.synthetic"
+            }
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "unlisten",
+            "type": "pump:open-settings"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          },
+          {
+            "settings": "privacy",
+            "setting": ""
+          },
+          {
+            "settings": null,
+            "setting": null
+          },
+          {
+            "settings": "feed",
+            "setting": null
+          }
+        ],
+        "listeners": 0,
+        "subscribers": 0,
+        "flagSubscribers": 0,
+        "mounts": [
+          "_r_0_",
+          "_r_1_",
+          "_r_2_"
+        ],
+        "unmounts": [
+          "_r_0_",
+          "_r_1_",
+          "_r_2_"
+        ],
+        "loadCount": 1,
+        "queryRead": 11,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "privacy",
+          "focusSettingId": "privacy.synthetic"
+        }
+      },
+      "remounted": {
+        "events": [
+          {
+            "kind": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  190147
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "feed",
+              "settingId": "feed.synthetic"
+            }
+          },
+          {
+            "kind": "load",
+            "id": 298590
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=feed.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": ""
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "detail": {
+              "section": "feed"
+            }
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "unlisten",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "detail": {
+              "section": "privacy",
+              "settingId": "privacy.synthetic"
+            }
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "unlisten",
+            "type": "pump:open-settings"
+          },
+          {
+            "kind": "replace-before",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=privacy&setting=privacy.synthetic#synthetic-fragment",
+            "next": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "state": {
+              "synthetic": "history-state"
+            }
+          },
+          {
+            "kind": "replace-after",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment"
+          },
+          {
+            "kind": "dispatch",
+            "type": "pump:open-settings",
+            "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+            "detail": {
+              "section": "feed"
+            }
+          },
+          {
+            "kind": "listen",
+            "type": "pump:open-settings"
+          }
+        ],
+        "changes": [
+          {
+            "settings": "privacy",
+            "setting": "privacy.synthetic"
+          },
+          {
+            "settings": "feed",
+            "setting": ""
+          },
+          {
+            "settings": "privacy",
+            "setting": ""
+          },
+          {
+            "settings": null,
+            "setting": null
+          },
+          {
+            "settings": "feed",
+            "setting": null
+          }
+        ],
+        "listeners": 1,
+        "subscribers": 1,
+        "flagSubscribers": 1,
+        "mounts": [
+          "_r_0_",
+          "_r_1_",
+          "_r_2_",
+          "_r_3_"
+        ],
+        "unmounts": [
+          "_r_0_",
+          "_r_1_",
+          "_r_2_"
+        ],
+        "loadCount": 1,
+        "queryRead": 12,
+        "schema": {
+          "settings": true,
+          "setting": true
+        },
+        "options": {
+          "history": "replace",
+          "clearOnDefault": true
+        },
+        "href": "http://127.0.0.1:46701/?keep=one&keep=two&settings=feed#synthetic-fragment",
+        "state": {
+          "synthetic": "history-state"
+        },
+        "props": {
+          "section": "feed",
+          "focusSettingId": null
+        }
+      },
+      "errors": [],
+      "overflow": false
+    }
+  ]
+}

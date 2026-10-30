@@ -1,0 +1,217 @@
+{
+  "schema": 1,
+  "testedHead": "63d720af1c2141276e96efffa1950556c5efccf0",
+  "testedTree": "5f5786ead3515d6602606c5673a2d20fb036cf62",
+  "reviewBase": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Complete source-adapted Settings opener/atomic query controller/event/gate/conditional dynamic mount flow. Explicit vendor/query/feature/dynamic/modal ports.",
+  "inputs": {
+    "evidence/web/manifest.json": {
+      "bytes": 3026513,
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda"
+    },
+    "evidence/web/objects/13c13db9eb86191b.js": {
+      "bytes": 215208,
+      "sha256": "15e7cb5caef8d58d0d263486883e7aac6e39e9e2f7e037af29887849bd0cd6c6",
+      "gitBlob": "31beceda98e181f1aaa6b95cb8613d498e30b235"
+    },
+    "evidence/web/objects/4490d02ba2117672.js": {
+      "bytes": 52381,
+      "sha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "gitBlob": "464a645f3fc99db61ab4cdab0395471031bc1715"
+    },
+    "evidence/web/objects/994c0030bcc62017.js": {
+      "bytes": 24978,
+      "sha256": "e19fc8c67314ff7ad3e69fcd4228558a461e246856f96d101b0596a1b61255b5",
+      "gitBlob": "8114673854d915c558ad25d27b55ecb66d9c2bdc"
+    },
+    "evidence/web/objects/e02656dccdb8d127.js": {
+      "bytes": 21469,
+      "sha256": "3876553b934075da6f668d5e56ecd17eb9b154da90736ec6270a8a08f814f2d0",
+      "gitBlob": "f71837bb82eaaa06aaa8b0b3e84fb86c48c9c7e7"
+    },
+    "evidence/web/objects/f1d0a5f42b599cd2.js": {
+      "bytes": 29955,
+      "sha256": "07bb437f39b07d64284041bb958bb19912b28e20bfaedd19938e396671e7243a",
+      "gitBlob": "1bcec3b25c53e7cadafc140207e30185c3da5f01"
+    },
+    "package.json": {
+      "bytes": 3703,
+      "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+      "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8"
+    },
+    "packages/backend/package.json": {
+      "bytes": 463,
+      "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b"
+    },
+    "packages/frontend/package.json": {
+      "bytes": 1048,
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0"
+    },
+    "pnpm-lock.yaml": {
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+    },
+    "reconstruction/settings-entry-flow/client.mjs": {
+      "bytes": 3663,
+      "sha256": "a00069756bfcd925074a25877d126105f976976ccf191f36533301cb699762c7",
+      "gitBlob": "5a182e8a2227e1d6d2a127d507049dbd84250223"
+    },
+    "reconstruction/settings-entry-flow/contract.json": {
+      "bytes": 18622,
+      "sha256": "8a1dc0ceb0052476e557e4395dd18259c9d26f2f89f3d9f4d71fbc39ed02fc87",
+      "gitBlob": "ecec8e3ec79e4ef5b6a34bb5d1db441dc6882917"
+    },
+    "recovered/modules.json": {
+      "bytes": 2928853,
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+      "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f"
+    },
+    "scripts/original-contracts/source.mjs": {
+      "bytes": 9493,
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+      "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df"
+    },
+    "scripts/original-settings-entry-flow.mjs": {
+      "bytes": 11940,
+      "sha256": "96d5cef81d79bc27f040806e9a160efc0f50649f6eb6774e553fc92db78c17f5",
+      "gitBlob": "8dada69b3c9700dcc74c3124ccedca2bfc20f79d"
+    },
+    "tests/fixtures/settings-entry-flow-browser.mjs": {
+      "bytes": 6107,
+      "sha256": "8ba0f038ed3d5f2115cbc0fdba9169c781c6d6701000c908e2c9108e1efb2927",
+      "gitBlob": "30c77a2f568a2e18abbad4bf64d6f3309ae4b509"
+    },
+    "tests/original_settings_entry_flow.test.mjs": {
+      "bytes": 7161,
+      "sha256": "15c02d6595e54c4fe7bee1b888cc6671548217093c1a85498c7f014856a21a81",
+      "gitBlob": "5f3eda63095ef2f030571a570fd62b0bb9ef7807"
+    },
+    "tests/original_settings_entry_flow_browser.test.mjs": {
+      "bytes": 13500,
+      "sha256": "3641c33afec7d997d5b48e62515f19d8f636cde24cd2528cfdb045c093b6d580",
+      "gitBlob": "7906b41a8e90325ec73e29b8357e48b2919a76d1"
+    },
+    "tests/original_source.test.mjs": {
+      "bytes": 7401,
+      "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3",
+      "gitBlob": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+    }
+  },
+  "inputScope": "19 selected source/generator/SSR/browser/fixture/shared-reader/capture/index/manifest/package inputs, not exhaustive installed dependency/cold/whole-app identity.",
+  "checks": {
+    "head": "63d720af1c2141276e96efffa1950556c5efccf0",
+    "cwd": "/workspace/pump-app-leaderboard-navigation/app",
+    "results": [
+      {
+        "name": "source-final",
+        "argv": [
+          "node",
+          "scripts/original-settings-entry-flow.mjs"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.5801561239932198
+      },
+      {
+        "name": "focused-final",
+        "argv": [
+          "node",
+          "--test",
+          "--test-reporter=tap",
+          "tests/original_settings_entry_flow.test.mjs",
+          "tests/original_source.test.mjs"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.7431984879949596
+      },
+      {
+        "name": "typecheck",
+        "argv": [
+          "node",
+          "/home/agent/.cache/node/corepack/v1/pnpm/10.24.0/bin/pnpm.cjs",
+          "-r",
+          "typecheck"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 4.723789902986027
+      },
+      {
+        "name": "evidence",
+        "argv": [
+          "python3",
+          "scripts/verify-evidence.py"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.18575265500112437
+      },
+      {
+        "name": "progress",
+        "argv": [
+          "python3",
+          "scripts/progress.py",
+          "--check"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.14147313198191114
+      },
+      {
+        "name": "progress-tests",
+        "argv": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_progress.py"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.6299434030079283
+      }
+    ]
+  },
+  "browser": {
+    "argv": [
+      "node",
+      "--test",
+      "--test-reporter=tap",
+      "tests/original_settings_entry_flow_browser.test.mjs"
+    ],
+    "cwd": "app/",
+    "outputEnvironment": "PUMP_SETTINGS_ENTRY_OUTPUT=<owned-output>",
+    "returncode": 0,
+    "workflows": 1,
+    "widths": [
+      390,
+      1280
+    ],
+    "pageErrors": 0,
+    "overflow": false
+  },
+  "browserBundleSha256": "21477219a4e598273d294c0eae67c11ea0d0f9795b53d78f53c5304106312348",
+  "versions": {
+    "node": "24.19.0",
+    "pnpm": "10.24.0",
+    "react": "19.2.3",
+    "playwright": "1.64.1",
+    "chromiumBuild": 1248,
+    "esbuild": "0.25.12",
+    "browserLocale": "en-US"
+  },
+  "sourceAndMethod": "All seven new source/method/docs files frozen63d before browser and final six checks. Publication adds result text and sealed receipts only; 19 selected runtime/method inputs unchanged.",
+  "priorPhases": [
+    "Initial pre-freeze Node harness omitted empty props objects at its own jsx(Host) call; actual React JSX runtime threw children errors in3tests (15pass/3fail). RawTAP retained. Only synthetic harness calls fixed to jsx(Host,{}) and fixture jsx(App,{}); recovered client AST untouched. Corrected18pass and final18pass preserved. No pre-freeze Git/input/bundle binding is inferred.",
+    "Sparsecheckout omitted three unchanged progress references; exact currentHEAD Gitblobs were materialized before checks. No ledger/scorer/source change."
+  ],
+  "cleanup": "Actual browser/GET-only ephemeral loopback host closed and temporary generated bundle removed in finally; process exited0 and PRIMARY reservation explicitly released. No Next or actual cookie/storage/session access.",
+  "limits": [
+    "The query port is synthetic atomic useSyncExternalStore plus owned nativeURL, not recovered Nuqs parser/queue/cache. Exact schema/options and one hook are tested, not whole311282 parity.",
+    "React.lazy/Suspense dynamic port is synthetic; one load across remount describes supplied capability cache, not originalNext. Captured loaders are static AST evidence only; no bundle execution/chunk requests/protectedchild acquisition.",
+    "Featureflag, parser/schema construction, metadata and read-only modalProbe are supplied. No actualcookie/storage/session/credentials/user/account/preferences/tenant/permission acquisition or protected/trading/admin controls.",
+    "No native mount/highlight/global Settings/productfix/API/pixel/fullapp/security/completion claim. Existing source packets remain external credited ports without copying or unmerged runtime imports."
+  ]
+}
