@@ -2,6 +2,7 @@
 """Focused fail-closed tests for the lifecycle comparator and plan."""
 
 import copy
+import struct
 import unittest
 
 import lifecycle
@@ -67,6 +68,23 @@ class LifecycleUnitTests(unittest.TestCase):
         account = lifecycle.token_account_data(lifecycle.STABLE_MINT, lifecycle.USER.pubkey(), 7, True)
         self.assertEqual(len(account), 178)
         self.assertEqual(account[165], 2)
+
+    def test_transfer_fee_layout_regression_fails_closed(self):
+        # The body-length gate used to be a bare assert, so python -O
+        # stripped it and both images were compared against malformed mint
+        # state. Shrink the packed fee once and require the explicit refusal.
+        from unittest import mock
+
+        original = struct.pack
+
+        def narrow(fmt, *args):
+            blob = original(fmt, *args)
+            return blob[:-1] if fmt == "<QQH" else blob
+
+        mint = bytearray(82)
+        with mock.patch.object(lifecycle.struct, "pack", side_effect=narrow):
+            with self.assertRaisesRegex(ValueError, "108 bytes"):
+                lifecycle.transfer_fee_mint_data(mint, 100)
 
 
 if __name__ == "__main__":

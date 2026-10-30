@@ -123,6 +123,7 @@ jobs:
               python -B reconstruction/capture-rpc-retry/test_capture.py
               python -B reconstruction/verification/donation-relay-idl-lifecycle/test_lifecycle.py
               python -B reconstruction/verification/donation-relay-stateful/test_stateful.py
+              python -B reconstruction/verification/pump-migration-lifecycle/test_lifecycle.py
               python -B reconstruction/verification/mayhem-dispatch-boundaries/test_inventory.py
           - suite: host-fragments
             commands: |

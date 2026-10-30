@@ -153,7 +153,11 @@ def transfer_fee_mint_data(base: bytes, bps=100, maximum=2**64 - 1):
     withdraw = bytes([95]) * 32
     fee = struct.pack("<QQH", 0, maximum, bps)
     body = authority + withdraw + struct.pack("<Q", 0) + fee + fee
-    assert len(body) == 108
+    # Explicit check instead of an assert: python -O strips asserts, and the
+    # transfer-fee scenarios then compare both images against malformed mint
+    # state instead of failing closed.
+    if len(body) != 108:
+        raise ValueError(f"TransferFeeConfig body must be 108 bytes, built {len(body)}")
     return bytes(base[:82]) + bytes(83) + b"\x01" + struct.pack("<HH", 1, len(body)) + body
 
 
