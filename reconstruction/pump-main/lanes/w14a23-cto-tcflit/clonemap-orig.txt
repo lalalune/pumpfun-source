@@ -1,0 +1,37 @@
+00060 def@00038 ldxdw r1, [r1 + 0x0]         OK||
+00180 def@00158 ldxdw r1, [r1 + 0x0]         OK||
+00288 def@00028 ldxdw r8, [r2 + 0x8]         O||KKK
+00478 def@00358 add64 r9, 0x8                KO||
+00508 def@001e0 ldxdw r7, [r6 - 0xff8]       O||
+00578 def@00550 ldxdw r2, [r2 + 0x0]         OK||
+01da8 def@01d80 ldxdw r1, [r1 + 0x0]         OK||
+01ee8 def@01ec0 ldxdw r1, [r8 + 0x108]       OK||
+01fe0 def@01fb8 ldxdw r1, [r8 + 0xa8]        OK||
+02408 def@023e0 ldxdw r1, [r1 + 0x0]         OK||
+02698 def@02690 ldxdw r2, [r8 + 0x58]        K||EWSRO
+02738 def@02730 ldxdw r1, [r8 + 0x0]         K||EWSRO
+02850 def@02848 ldxdw r2, [r2 + 0x58]        K||EWSRO
+02968 def@02960 ldxdw r1, [r8 + 0x20]        K||EWSRO
+02a80 def@02a78 ldxdw r2, [r2 + 0x0]         K||EWSRO
+02b90 def@02b88 ldxdw r1, [r8 + 0x28]        K||EWSRO
+02d98 def@02d90 ldxdw r1, [r8 + 0x80]        K||EWSRO
+02eb0 def@02ea8 ldxdw r2, [r8 + 0x88]        K||EWSRO
+030f0 def@030e8 ldxdw r1, [r8 + 0x48]        K||EWSRO
+03228 def@03220 ldxdw r8, [r3 + 0x78]        K||EWSRO
+03340 def@03338 ldxdw r1, [r1 + 0x58]        K||SWERO
+03d98 def@03d90 ldxdw r1, [r1 + 0x98]        K||EWSRO
+03e40 def@03e38 ldxdw r2, [r2 + 0x68]        K||EWSRO
+03f48 def@03f40 ldxdw r1, [r1 + 0x0]         K||EWSRO
+04068 def@04060 ldxdw r2, [r2 + 0x0]         K||EWSRO
+04188 def@04180 ldxdw r4, [r1 + 0x10]        K||EWSRO
+042b0 def@042a8 ldxdw r2, [r1 + 0x90]        K||EWSRO
+043d8 def@043d0 ldxdw r6, [r1 + 0xa0]        K||EWSRO
+04508 def@04500 ldxdw r7, [r1 + 0x98]        K||ORSWE
+04af8 def@04ac0 ldxdw r1, [r3 + 0x38]        RO||
+04ea0 def@04e90 ldxdw r2, [r2 + 0x0]         KO||
+04f68 def@04f50 ldxdw r4, [r4 + 0x0]         KO||
+04f98 def@04f40 ldxdw r3, [r6 + 0x38]        KOR||
+05228 def@05210 ldxdw r1, [r10 - 0x610]      OK||
+05b90 def@05b68 ldxdw r1, [r1 + 0x0]         OK||
+063f0 def@063c8 ldxdw r2, [r6 + 0xa8]        OK||
+06618 def@05328 lddw r1, 0x1b6807            OK||
