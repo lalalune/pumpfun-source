@@ -1,8 +1,8 @@
 import importlib.util
 from pathlib import Path
 import sys, unittest, json
-APP = Path(__file__).resolve().parents[1]
-spec = importlib.util.spec_from_file_location('subject', APP.parent / 'scripts/analyze.py')
+ROOT = Path(__file__).resolve().parents[1]
+spec = importlib.util.spec_from_file_location('subject', ROOT / 'scripts/analyze.py')
 subject = importlib.util.module_from_spec(spec)
 sys.modules['subject'] = subject
 spec.loader.exec_module(subject)
