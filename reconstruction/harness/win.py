@@ -61,7 +61,13 @@ def objdump_text(path, start, end):
     if not rows:
         return {}
     first = rows[0][0]
-    if int(first, 16) == start:
+    # At zero the first label fits both formats. The next instruction is one
+    # or two slots away (LDDW occupies two), which disambiguates the units.
+    zero_slots = (start == 0 and int(first, 16) == 0 and len(rows) > 1
+                  and rows[1][0].isdigit() and int(rows[1][0]) in (1, 2))
+    if zero_slots:
+        address = lambda label: int(label, 10) * 8
+    elif int(first, 16) == start:
         address = lambda label: int(label, 16)
     elif first.isdigit() and int(first) * 8 == start:
         address = lambda label: int(label, 10) * 8

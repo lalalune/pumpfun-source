@@ -15,9 +15,15 @@ all other inventory behavior are unchanged. Generated manifests hash this
 successor as their generator; its bytes include the required archived hash.
 The frozen root script and all historical packets remain unchanged.
 
-Reviewed base: 665499915f9caedcd38921d415a90f0606686398.
+Reviewed base: 088cd90dee79c564948f47f813ed7f766cd9e58b.
 Archived script SHA-256:
-831cee56ca07bba6be4b057dcf33873319e63cc27aa3d7b45a7f2ab66adaee6c.
+9fd0cca58d98df8704984d801069516f0a8b1ac23f41c79262d74467213c0c63.
+This binding includes #1277 (captured-program enumeration when
+`repro/programs.json` is absent) and #2303 (staged publication of the
+inventory directory). Neither changes `sections()`, which still keys rows by
+name, so the admission rule is unchanged. Because #1277 makes the archived
+script import its `scripts/` sibling `analyze` by plain name, the successor
+puts that directory on `sys.path` after the hash check and before execution.
 
 Run from the repository root:
 
@@ -38,9 +44,8 @@ unchanged. This is an admission guard, not complete ELF semantic validation,
 new reconstruction coverage, runtime equivalence or security clearance.
 The source binding intentionally requires the exact reviewed LF bytes.
 
-The inherited all-program CLI still requires repro/programs.json, which is
-absent on the reviewed main branch. The enumeration fallback proposed in
-PR #1277 is separate and is not copied here. The guard also applies to the
+The inherited all-program CLI now falls back to the captured programs under
+evidence/original when repro/programs.json is absent (#1277). The guard also applies to the
 explicit-input inventory() function returned by load_inventory(); the tests
 exercise that actual path. CLI --help succeeds, but a complete multi-program
 CLI run is not claimed.

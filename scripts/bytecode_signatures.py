@@ -428,16 +428,16 @@ def main():
     # 1. Per-program signatures
     for prog_name, sigs in all_signatures.items():
         path = output_dir / f"{prog_name}-signatures.json"
-        path.write_text(json.dumps(sigs, indent=2) + "\n")
+        path.write_text(json.dumps(sigs, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 2. Per-program patterns
     for prog_name, patterns in all_patterns.items():
         path = output_dir / f"{prog_name}-patterns.json"
-        path.write_text(json.dumps(patterns, indent=2) + "\n")
+        path.write_text(json.dumps(patterns, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 3. Cross-program shared signatures
     (output_dir / "shared-signatures.json").write_text(
-        json.dumps(shared_signatures, indent=2) + "\n")
+        json.dumps(shared_signatures, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 4. Top n-grams
     top_ngrams = [
@@ -445,7 +445,7 @@ def main():
         for gram, count in cross_program_ngrams.most_common(500)
     ]
     (output_dir / "top-ngrams.json").write_text(
-        json.dumps(top_ngrams, indent=2) + "\n")
+        json.dumps(top_ngrams, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 5. Summary
     summary = {
@@ -458,7 +458,7 @@ def main():
         },
     }
     (output_dir / "summary.json").write_text(
-        json.dumps(summary, indent=2) + "\n")
+        json.dumps(summary, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 6. README
     readme = f"""# Cross-Program Bytecode Signature Analysis
@@ -495,7 +495,7 @@ Invocation), token transfer, serialization, and account validation patterns.
 python3 verify.py
 ```
 """
-    (output_dir / "README.md").write_text(readme)
+    (output_dir / "README.md").write_text(readme, encoding="utf-8", newline="\n")
 
     # 7. Verify script
     verify_py = '''#!/usr/bin/env python3
@@ -537,7 +537,7 @@ if __name__ == "__main__":
         'README.md', 'shared-signatures.json', 'summary.json', 'top-ngrams.json', 'verify.py',
         *[f'{program}-{kind}.json' for program in program_summaries for kind in ('patterns', 'signatures')],
     ]))
-    (output_dir / "verify.py").write_text(verify_py)
+    (output_dir / "verify.py").write_text(verify_py, encoding="utf-8", newline="\n")
 
     # 8. Manifest
     manifest = {}
@@ -548,7 +548,7 @@ if __name__ == "__main__":
         if path.is_file():
             manifest[name] = sha256_file(str(path))
     (output_dir / "manifest.json").write_text(
-        json.dumps(manifest, indent=2) + "\n")
+        json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     total_lines = sum(
         sum(1 for _ in open(output_dir / name))
