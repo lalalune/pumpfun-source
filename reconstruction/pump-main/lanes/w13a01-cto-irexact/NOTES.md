@@ -28,6 +28,21 @@ whole post-MIR pipeline of the identity recipe; a raw-IR edit is measured exactl
 The post-opt `llc` oracle and `iredit.py` / `features.py` / `greedy.py` are w12a02-cto-iroracle's
 (`origin/swarm/w12a02-cto-iroracle-3`), run here on main's post-opt IR (`opt -O3` output slimmed).
 
+## Recipe on the latest main (after #2927, 0.51228 / 3,334 slots / 27,400 B)
+
+| step | IR edit (post-opt names on this main) | ratio |
+| ---: | --- | ---: |
+| 0 | main (raw-IR oracle tokens = baseline build) | 0.51228 |
+| 1 | F1 `mv:_114.i:_185` (wallet signer-slice group at an execute-level index) | 0.53565 |
+| 2 | `mv:sharing_update.sroa.3:_185` (P2 next to P1, w13a07) | 0.53655 |
+| 3 | `mv:target1:_185` (the outer `target` from the block's tuple, E32, late in the frame) | **0.54524** |
+
+A size-pinned frame-only greedy (144 `nolt`/`mv` items) stops after step 3. The old steps 2-3 below (an
+unmerged 24 B slot, `val` late) now lose on top of F1 (0.51438 / 0.51408): the entry copy of `new` that
+#2917-#2927 added moved the frame. `target1` is the tuple-destructured outer `target`; dropping or moving the
+`let mut target=target;` rebinding is byte-identical (t1-t4), so a source fix has to change which MIR local
+survives CopyProp for the block's `target`, not where it is declared.
+
 ## Recipe (ordered IR delta from main 4394685, cumulative, all at 27,400 B unless noted)
 
 | step | IR edit (post-opt names on 4394685) | what it is in the original | ratio | gain |
@@ -128,5 +143,37 @@ The outlined `to_string` set costs 440 B that the original fills with data flow 
 | --- | --- | --- |
 | wi1 | wallet's body written inline in execute (no nested fn), so the signer slice is an execute alloca | collapse: 28,840 B, 0.1415, loses 0xbc108 |
 | oc1-oc4 | declare `old_creator` (deferred init / destructuring assignment) before the sharing CPI match, to emulate the val-below-old_creator frame step | **byte-identical** to main (sha 4fc952ce): declaration position does not move that alloca |
+
+## Source spellings of the entry copy of `new` (raw-IR capture + oracle per trial; `tools/capvar.sh`)
+
+`capvar.sh <name> <edits.py> <slot>` copies main's crate, applies exact source edits (newline count kept),
+captures the pre-opt module through one slot-locked identity build and scores it with `rx.py` (the score is
+the identity build's, see Validation). ~35 s per trial; `batch.sh` runs a list two at a time.
+
+On main 4394685 (0.49071), rebuilding the Option so it is no longer a plain copy of the readonly argument:
+
+| trial | edit | bytes | ratio |
+| --- | --- | ---: | ---: |
+| s1 | `let new=new;` after `shared` | 27,400 | byte-identical (MIR CopyProp) |
+| s2 / s3 | `let new=new.map(\|k\|k);` (or the `match` form) after `shared` | 27,336 | 0.49580 |
+| s6 | same at the top of execute | 27,464 | 0.49880 |
+| s4 | same after the CtoState literal | 27,456 | 0.48092 |
+| **s5** | same **right before the validate call** | 27,488 | **0.50845** |
+| v4 / v5 | s5 + `*a.holder_creator_vault.key!=dest` / `==*a.sharing_config.key` | 27,408 | 0.50681 / 0.50622 |
+| w7 | s5 + both borrows | 27,328 | 0.50457 |
+| w3 | s5 + dest borrow + InvalidCreator split | 27,400 | 0.44531 |
+
+s2-s6 create the original's frame objects from source: `new1.sroa.7.sroa.0/8` (7/9 B) at **exactly the
+original's offsets** (`stxw [r10-0x655]`, `stxw [r10-0x658]`, `stxb [r10-0x660]`, `stxdw [r10-0x668]`) plus the
+sharing payload pieces. The difference from the original is that `map` copies the payload only on `Some`
+(`jeq tag,0` skips the loads); the original loads all 33 bytes unconditionally.
+
+Main then moved to w13a03's `let args=&(new,);` (#2917, 0.49431) and #2921/#2927 (0.51228). On those
+mains the rebuild does not stack: s5 on 1f1a717 collapses to 0.38197 at 27,400 B; letting validate read the
+tuple copy (`validate(&st,holder,fee,args.0,..)`) gives 0.51124 at 27,728 B on 1f1a717 but 0.47025 at
+27,512 B on #2927 (args bound before CtoState), and no borrow combination brings it back above main.
+
+Caution for anyone reusing `capraw.py`: when a variant fails to compile, the previous trial's
+`pump_recovered.ll` stays in the work dir; `capvar.sh` now deletes it first and checks the build log.
 
 Ledger keys: `0x22a10-w13-*-irexact-*`.
