@@ -45,7 +45,7 @@ is needed. From the repository root, choose a **new** task-owned output path:
 ```bash
 python3 -B research/fees-exact-readme-stage-20261030/replay.py \
   --repo . --output 'work/fees staging replay'
-python3 -B scripts/test_fees_exact_staging.py
+python3 -B research/fees-exact-readme-stage-20261030/test_stage.py
 sha256sum -c research/fees-exact-readme-stage-20261030/SHA256SUMS
 ```
 
@@ -73,8 +73,13 @@ paths with spaces, and leave repository inputs unchanged.
   and non-consumption review on the d01 input cohort.
 - `PORTABLE-REPLAY.json` and `portable-replay.log` record the explicit-root,
   spaces-in-output replay at the unchanged Fees inputs on the publication base.
-- `focused-tests.log` records the four regression tests. These observations
-  concern staging only. Later gate results are reported with their exact PR head.
+- `focused-tests-original.log` preserves the initial four-test observation with
+  the test temporarily placed under `scripts/`. The same-PR follow-up moves that
+  tooling into this packet as required by `scripts/README.md`, adjusts only its
+  repository-root locator and CI/docs references, and reruns the four tests;
+  `focused-tests.log` records that run. No existing root script or script-set
+  guard is changed. These observations concern staging only. Later gate results
+  are reported with their exact PR head.
 
 `CHECKS.json`, `REQUIRED-GATE-INPUTS.json` and the two official gate logs record
 the publication-base checks with every read input authenticated to that Git tree.
