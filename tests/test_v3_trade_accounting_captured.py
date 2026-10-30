@@ -49,7 +49,7 @@ ELF_SHA256 = {
 }
 HOST_SOURCE = ROOT / 'programs/pump/recovered/v3_trade_accounting_host.rs'
 
-IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text())
+IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
 IX = {ix['name']: ix for ix in IDL['instructions']}
 ACCOUNT_DISC = {a['name']: bytes(a['discriminator']) for a in IDL['accounts']}
 EVENT_DISC = {e['name']: bytes(e['discriminator']) for e in IDL['events']}

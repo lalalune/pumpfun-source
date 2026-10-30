@@ -44,23 +44,28 @@ def normalize(raw, address, image_sections):
 
 
 def selected_window(stream, original_start):
-    reader = csv.DictReader(stream, delimiter='\t')
-    if not WINDOW_COLUMNS <= set(reader.fieldnames or ()):
-        raise ValueError('selected Pump window inventory is missing columns')
-    matches = []
-    for row in reader:
-        if row['program'] != 'pump' or row['variant'] != 'selected':
-            continue
-        try:
-            start, end = int(row['original_start']), int(row['original_end'])
-        except ValueError:
-            raise ValueError('invalid bounds in selected Pump window inventory')
-        if start == original_start:
-            if end <= start:
-                raise ValueError(
-                    f'invalid selected Pump window bounds at {original_start:#x}'
-                )
-            matches.append(row)
+    reader = csv.DictReader(stream, delimiter='\t', strict=True)
+    try:
+        if not WINDOW_COLUMNS <= set(reader.fieldnames or ()):
+            raise ValueError('selected Pump window inventory is missing columns')
+        matches = []
+        for row in reader:
+            if row['program'] != 'pump' or row['variant'] != 'selected':
+                continue
+            try:
+                start, end = int(row['original_start']), int(row['original_end'])
+            except ValueError:
+                raise ValueError('invalid bounds in selected Pump window inventory')
+            if start == original_start:
+                if end <= start:
+                    raise ValueError(
+                        f'invalid selected Pump window bounds at {original_start:#x}'
+                    )
+                matches.append(row)
+    except csv.Error as error:
+        raise ValueError(
+            'malformed selected Pump window inventory record'
+        ) from error
     if not matches:
         raise ValueError(f'no selected Pump window starts at {original_start:#x}')
     if len(matches) != 1:
