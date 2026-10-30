@@ -1,7 +1,7 @@
 {
- "main": "81d3d9abeb2af8555c63e26d43d1fd4bfa7311b3",
- "base_ratio": 0.65069,
- "base_slots": 3171,
+ "main": "6db95a76419b6b355a3f173f1c65c724c25f3029",
+ "base_ratio": 0.65458,
+ "base_slots": 3280,
  "method": "splice orig normalized bytes over [lo,hi) (equal-offset boundaries); dratio/dslots = gain if the region matched exactly; fm/rm/jm/sk = local-alignment misses removed by masking frame / registers / jump offsets, sk = remaining structure misses",
  "regions": [
   {
@@ -42,14 +42,14 @@
    "label": "validate error blocks 289/298 (Display fmt)",
    "source_lines": "289,298",
    "owner": "validate (w14a15/w14a21)",
-   "dratio": 0.0033,
+   "dratio": 0.00359,
    "dslots": 50,
    "n_orig": 46,
    "n_cand": 46,
-   "miss": 31,
+   "miss": 32,
    "fm": 14,
    "rm": 2,
-   "jm": 3,
+   "jm": 4,
    "sk": 12
   },
   {
@@ -58,14 +58,14 @@
    "label": "validate 298/312 memcmps, 306/296 error blocks",
    "source_lines": "296-312",
    "owner": "validate (w14a15/w14a21)",
-   "dratio": 0.01588,
+   "dratio": 0.01618,
    "dslots": 181,
    "n_orig": 178,
    "n_cand": 175,
-   "miss": 81,
+   "miss": 82,
    "fm": 20,
    "rm": 0,
-   "jm": 18,
+   "jm": 19,
    "sk": 43
   },
   {
@@ -90,7 +90,7 @@
    "label": "validate fee errors 326/312/307/330/338/334 (to_string outlined in orig)",
    "source_lines": "307-338",
    "owner": "validate (w14a15/w14a21); w14a07/w14a10 notes",
-   "dratio": 0.03556,
+   "dratio": 0.03557,
    "dslots": 277,
    "n_orig": 266,
    "n_cand": 271,
@@ -154,7 +154,7 @@
    "label": "ConstraintSeeds error block 648",
    "source_lines": "648",
    "owner": "unowned",
-   "dratio": -0.0021,
+   "dratio": -0.0024,
    "dslots": 40,
    "n_orig": 40,
    "n_cand": 40,
@@ -177,8 +177,8 @@
    "miss": 23,
    "fm": 0,
    "rm": 3,
-   "jm": 9,
-   "sk": 11
+   "jm": 8,
+   "sk": 12
   },
   {
    "lo": "0x26e8",
@@ -186,15 +186,15 @@
    "label": "TCF transfer_creator_fees_to_pump_v2 inline AccountInfo literals",
    "source_lines": "661",
    "owner": "sweep TCF (w14a17/w14a23)",
-   "dratio": 0.05692,
+   "dratio": 0.05752,
    "dslots": 585,
    "n_orig": 585,
    "n_cand": 585,
-   "miss": 201,
+   "miss": 200,
    "fm": 39,
    "rm": 118,
-   "jm": 17,
-   "sk": 27
+   "jm": 18,
+   "sk": 25
   },
   {
    "lo": "0x3968",
@@ -202,15 +202,15 @@
    "label": "TCF call, Rent::get, native sweep head",
    "source_lines": "661-663",
    "owner": "native join (w14a33)",
-   "dratio": 0.00479,
+   "dratio": 0.00569,
    "dslots": 90,
    "n_orig": 90,
    "n_cand": 90,
-   "miss": 24,
-   "fm": 8,
-   "rm": 5,
-   "jm": 0,
-   "sk": 11
+   "miss": 25,
+   "fm": 9,
+   "rm": 6,
+   "jm": 1,
+   "sk": 9
   },
   {
    "lo": "0x3c38",
@@ -218,31 +218,31 @@
    "label": "sharing CPI admin_cto_sharing_config inline literals",
    "source_lines": "745-751",
    "owner": "sharing CPI (w14a30)",
-   "dratio": 0.05512,
-   "dslots": 335,
+   "dratio": 0.05632,
+   "dslots": 336,
    "n_orig": 335,
    "n_cand": 335,
-   "miss": 194,
+   "miss": 197,
    "fm": 24,
    "rm": 0,
    "jm": 0,
-   "sk": 170
+   "sk": 173
   },
   {
    "lo": "0x46b8",
    "hi": "0x4970",
-   "label": "anchor (equal run, sharing CPI tail)",
+   "label": "sharing CPI tail: skeleton equal, frame only (AccountInfo array 0x30 B lower in ours)",
    "source_lines": "749",
-   "owner": "matched",
-   "dratio": 0.00779,
-   "dslots": 84,
+   "owner": "frame only",
+   "dratio": 0.00749,
+   "dslots": 87,
    "n_orig": 87,
    "n_cand": 87,
-   "miss": 41,
-   "fm": 41,
+   "miss": 38,
+   "fm": 37,
    "rm": 0,
    "jm": 0,
-   "sk": 0
+   "sk": 1
   },
   {
    "lo": "0x4970",
@@ -250,15 +250,15 @@
    "label": "curve update, pool gate, admin_cto_pool clone run + CPI",
    "source_lines": "752-766",
    "owner": "curve tail (w14a34); w14a25 notes",
-   "dratio": 0.01078,
-   "dslots": 156,
+   "dratio": 0.01019,
+   "dslots": 154,
    "n_orig": 156,
    "n_cand": 156,
-   "miss": 48,
+   "miss": 47,
    "fm": 6,
    "rm": 14,
    "jm": 1,
-   "sk": 27
+   "sk": 26
   },
   {
    "lo": "0x4e60",
@@ -266,15 +266,15 @@
    "label": "AdminCtoEvent build + emit + event CPI",
    "source_lines": "767",
    "owner": "unowned (w14a26/w14a20 landed pieces)",
-   "dratio": 0.00749,
-   "dslots": 217,
+   "dratio": 0.00689,
+   "dslots": 215,
    "n_orig": 214,
    "n_cand": 214,
    "miss": 36,
    "fm": 3,
-   "rm": 16,
+   "rm": 15,
    "jm": 3,
-   "sk": 14
+   "sk": 15
   },
   {
    "lo": "0x5570",
@@ -282,15 +282,15 @@
    "label": "tail error blocks: unwrap_failed, mayhem 284, NotWritable 556, Rent min balance",
    "source_lines": "284,556,663",
    "owner": "unowned",
-   "dratio": 0.00629,
+   "dratio": 0.00419,
    "dslots": 162,
    "n_orig": 151,
    "n_cand": 151,
-   "miss": 30,
-   "fm": 6,
-   "rm": 8,
+   "miss": 29,
+   "fm": 8,
+   "rm": 6,
    "jm": 2,
-   "sk": 14
+   "sk": 13
   },
   {
    "lo": "0x5a80",
@@ -298,15 +298,15 @@
    "label": "sweep native: ensure_rent_exempt + transfer_native + return join",
    "source_lines": "664",
    "owner": "native join (w14a33)",
-   "dratio": 0.00569,
+   "dratio": 0.00419,
    "dslots": 55,
    "n_orig": 54,
    "n_cand": 54,
-   "miss": 22,
+   "miss": 24,
    "fm": 6,
-   "rm": 7,
-   "jm": 1,
-   "sk": 8
+   "rm": 4,
+   "jm": 4,
+   "sk": 10
   },
   {
    "lo": "0x5c38",
@@ -314,40 +314,40 @@
    "label": "wallet(): flags, ATA create, collect + event, coin CPI",
    "source_lines": "556-580",
    "owner": "wallet r8 (w14a35); w14a24 notes",
-   "dratio": 0.03535,
-   "dslots": 287,
+   "dratio": 0.03206,
+   "dslots": 396,
    "n_orig": 469,
    "n_cand": 469,
-   "miss": 118,
-   "fm": 24,
-   "rm": 58,
-   "jm": 22,
-   "sk": 14
+   "miss": 110,
+   "fm": 25,
+   "rm": 50,
+   "jm": 20,
+   "sk": 15
   }
  ],
  "ranked": [
   [
    "0x26e8",
    "0x3930",
-   0.05692,
+   0.05752,
    "sweep TCF (w14a17/w14a23)"
   ],
   [
    "0x3c38",
    "0x46b8",
-   0.05512,
+   0.05632,
    "sharing CPI (w14a30)"
   ],
   [
    "0x1068",
    "0x1940",
-   0.03556,
+   0.03557,
    "validate (w14a15/w14a21); w14a07/w14a10 notes"
   ],
   [
    "0x5c38",
    "0x6b08",
-   0.03535,
+   0.03206,
    "wallet r8 (w14a35); w14a24 notes"
   ],
   [
@@ -365,13 +365,13 @@
   [
    "0x838",
    "0xe08",
-   0.01588,
+   0.01618,
    "validate (w14a15/w14a21)"
   ],
   [
    "0x4970",
    "0x4e60",
-   0.01078,
+   0.01019,
    "curve tail (w14a34); w14a25 notes"
   ],
   [
@@ -389,24 +389,18 @@
   [
    "0x46b8",
    "0x4970",
-   0.00779,
-   "matched"
+   0.00749,
+   "frame only"
   ],
   [
    "0x4e60",
    "0x5538",
-   0.00749,
+   0.00689,
    "unowned (w14a26/w14a20 landed pieces)"
   ],
   [
-   "0x5570",
-   "0x5a80",
-   0.00629,
-   "unowned"
-  ],
-  [
-   "0x5a80",
-   "0x5c38",
+   "0x3968",
+   "0x3c38",
    0.00569,
    "native join (w14a33)"
   ],
@@ -417,15 +411,21 @@
    "validate (w14a15/w14a21)"
   ],
   [
-   "0x3968",
-   "0x3c38",
-   0.00479,
+   "0x5570",
+   "0x5a80",
+   0.00419,
+   "unowned"
+  ],
+  [
+   "0x5a80",
+   "0x5c38",
+   0.00419,
    "native join (w14a33)"
   ],
   [
    "0x6a8",
    "0x838",
-   0.0033,
+   0.00359,
    "validate (w14a15/w14a21)"
   ],
   [
@@ -443,7 +443,7 @@
   [
    "0x2330",
    "0x2478",
-   -0.0021,
+   -0.0024,
    "unowned"
   ]
  ]

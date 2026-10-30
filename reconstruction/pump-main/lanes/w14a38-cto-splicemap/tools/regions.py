@@ -23,7 +23,7 @@ R = [  # orig lo, hi, label, source lines, owner (running/finished lanes)
  (0x26e8, 0x3930, 'TCF transfer_creator_fees_to_pump_v2 inline AccountInfo literals', '661', 'sweep TCF (w14a17/w14a23)'),
  (0x3968, 0x3c38, 'TCF call, Rent::get, native sweep head', '661-663', 'native join (w14a33)'),
  (0x3c38, 0x46b8, 'sharing CPI admin_cto_sharing_config inline literals', '745-751', 'sharing CPI (w14a30)'),
- (0x46b8, 0x4970, 'anchor (equal run, sharing CPI tail)', '749', 'matched'),
+ (0x46b8, 0x4970, 'sharing CPI tail: skeleton equal, frame only (AccountInfo array 0x30 B lower in ours)', '749', 'frame only'),
  (0x4970, 0x4e60, 'curve update, pool gate, admin_cto_pool clone run + CPI', '752-766', 'curve tail (w14a34); w14a25 notes'),
  (0x4e60, 0x5538, 'AdminCtoEvent build + emit + event CPI', '767', 'unowned (w14a26/w14a20 landed pieces)'),
  (0x5570, 0x5a80, 'tail error blocks: unwrap_failed, mayhem 284, NotWritable 556, Rent min balance', '284,556,663', 'unowned'),
