@@ -1,0 +1,48 @@
+{
+  "lane": "w13a10-cto-pfclimb",
+  "wave": 13,
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "angle": "pf-guided source hill-climb (pfboard to pick bases, gene engine + size-balanced pairer, 2 builds at a time)",
+  "start_main": {"sha": "3912c47ac", "ratio": 0.48772, "slots_diff": 3273},
+  "end_main": {"sha": "bf9a05d02", "ratio": 0.55872},
+  "variants_built": 423,
+  "prs": [
+    {"pr": 2888, "result": "0.48772 -> 0.48951 (skip phi + vsigner + Result-valued sweep gate + bump first)", "state": "closed elsewhere; its gate reached main via #2892"},
+    {"pr": 2907, "result": "0.49071 -> 0.49101 (event holder flag from curve + cashback operand order)", "state": "landed by land.py", "merge_commit": "cb298d5c8"},
+    {"pr": 2921, "result": "0.49431 -> 0.50929 (w13a03 g8 entry copy on the 085e5df text + holder_key PDA after shared + event flags from curve)", "state": "merged elsewhere while land.py ran", "merge_commit": "ea78c08f1"},
+    {"pr": 2935, "result": "0.51228 -> 0.51288", "state": "closed, superseded by a24e177 (0.51348)"},
+    {"pr": 2947, "result": "0.51348 -> 0.51378 (old_fee read before the curve stores)", "state": "merged elsewhere while land.py retried", "merge_commit": "eaa04bc10"}
+  ],
+  "best_zero_loss_at_27400": {"ratio": 0.50929, "slots_diff": 3325, "bytes": 27400, "landed_as": "#2921", "note": "largest single step of this lane; later steps (0.51288, 0.51378) were smaller increments on bases other lanes had raised"},
+  "unlanded_near_misses_on_final_main_bf9a05d": [
+    {"genes": "z_sh_flat_owner_first", "bytes": 27392, "ratio": 0.5597},
+    {"genes": "z_sh_if_borrow", "bytes": 27320, "ratio": 0.55956},
+    {"genes": "z_sfo_borrow", "bytes": 27312, "ratio": 0.55934}
+  ],
+  "mechanisms_found": [
+    "Result-valued sweep gate if !skip{sweep(..)}else{Ok(0)}? (-8 B vs .then().transpose())",
+    "g8 entry copy only pays on the 085e5df sweep/event spellings: +0.012 over the 4394685 spellings",
+    "holder_key PDA after `shared` (-16 B, +0.002 on P)",
+    "event flags read back from the curve after the stores (size knob -8/-16 with small gains)",
+    "pool CPI holder from curve (hrb) -32 B +0.0012 (also found by w13a08)",
+    "`shared` with the owner test first: +0.0012 at 27400 on 2ca4d03; -8 B +0.001 on 1043a51/bf9a05d"
+  ],
+  "rejected": [
+    "if skip{0}else{sweep(..)?} / match skip gate: 0.41264 (Err-return block placement)",
+    "pool CPI target from curve: 0.31",
+    "w_h4 holder-as-phi in all tree arms: pf +0.011 but ratio -0.02 (frame r10_equal 713->687)",
+    "v6_hkfirst holder_key PDA first: pf up, ratio -0.005",
+    "s7_destscope, s7_frozenfirst, val_match, v289/v296 reorders: large losses"
+  ],
+  "unresolved": [
+    "a ratio-neutral +8 B companion for z_sh_flat_owner_first on bf9a05d (+0.001)",
+    "a +80 B companion for z_sh_if_borrow / sfo_borrow",
+    "frame realization of w_h4 / hkfirst (pf-closer code) without the r10 regression"
+  ],
+  "next_ideas": [
+    "rerun hc/hc12.py + hc/pairer.py on each new main right after it lands (most gains here were 2-4 gene size-balanced combos)",
+    "combine pf-raising genes (w_h4, v6_hkfirst) with the frame lanes' slot fixes",
+    "search +8 B knobs by data-flow (copies of `new`/target pieces) rather than padding"
+  ],
+  "ledger": "approach pf-hillclimb, keys 0x22a10-w13-<main7>-hc-<variant sha12>-v1"
+}
