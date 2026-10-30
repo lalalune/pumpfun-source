@@ -7,6 +7,14 @@ import hashlib
 from pathlib import Path
 
 
+def file_digest(path):
+    digest = hashlib.sha256()
+    with path.open('rb') as source:
+        for block in iter(lambda: source.read(128 * 1024), b''):
+            digest.update(block)
+    return digest.hexdigest()
+
+
 def source_manifest(crate, workspace, repository, extra_inputs=(), cwd=None, before_read=None):
     crate, workspace, repository = map(lambda p: Path(p).resolve(), (crate, workspace, repository))
     cwd = Path(cwd or repository).resolve()
@@ -50,5 +58,5 @@ def source_manifest(crate, workspace, repository, extra_inputs=(), cwd=None, bef
     for path in sorted(files):
         if before_read is not None:
             before_read(path)
-        manifest[path.relative_to(repository).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
+        manifest[path.relative_to(repository).as_posix()] = file_digest(path)
     return manifest

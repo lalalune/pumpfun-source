@@ -4,7 +4,7 @@
   python3 reconstruction/toolchain/bootstrap.py [--sdk-check full|quick|skip] [--warm]
 
 1. Verifies ~/.cache/solana/v1.44/platform-tools against v1.44-macos-inventory.json
-   (every file hash by default). The SDK itself is not stored in git: its
+   (every listed file hash by default, and the exact file/symlink set). The SDK itself is not stored in git: its
    librustc_driver is 134 MB, above GitHub's 100 MB file limit. Install it with
    `cargo-build-sbf --tools-version v1.44` (or extract the official v1.44
    platform-tools-osx-aarch64 release there), then rerun this script.
@@ -69,6 +69,20 @@ def check_sdk(mode):
             problems.append(f'size {rel}')
         elif mode == 'full' and sha(path) != row['sha256']:
             problems.append(f'sha256 {rel}')
+    # The hybrid toolchain links the SDK host rustlib directory. An unlisted
+    # file there can therefore become a compiler input despite every listed
+    # digest matching. Treat the inventory as an exact file/symlink set.
+    actual = set()
+    def scan_error(error):
+        problems.append(f'SDK traversal: {error}')
+    for directory, directories, files in os.walk(SDK, onerror=scan_error, followlinks=False):
+        base = Path(directory)
+        actual.update((base / name).relative_to(SDK).as_posix() for name in files)
+        # os.walk lists symlinked directories separately and never descends into
+        # them with followlinks=False; they are still inventoried inputs.
+        actual.update((base / name).relative_to(SDK).as_posix() for name in directories
+                      if (base / name).is_symlink())
+    problems.extend(f'unexpected SDK input: {rel}' for rel in sorted(actual - inventory.keys()))
     return len(inventory), problems
 
 
