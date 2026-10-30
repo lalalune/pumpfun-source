@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/workspace/pump-amm-staging-audit-20261030/source/scripts/amm_sell/workspace_recipe.py", line 266, in <module>
+    main()
+  File "/workspace/pump-amm-staging-audit-20261030/source/scripts/amm_sell/workspace_recipe.py", line 261, in main
+    result = verify_workspace(args.source_root, args.workspace)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-amm-staging-audit-20261030/source/scripts/amm_sell/workspace_recipe.py", line 161, in verify_workspace
+    require(actual[name] == data, ('workspace input changed', name))
+  File "/workspace/pump-amm-staging-audit-20261030/source/scripts/amm_sell/workspace_recipe.py", line 27, in require
+    raise RuntimeError(message)
+RuntimeError: ('workspace input changed', 'programs/pump-amm/src/utils/math.rs')

@@ -1,0 +1,135 @@
+{
+  "fresh": {
+    "builds": {
+      "04-zero-fd8b94d": {
+        "result": {
+          "returncode": 0,
+          "seconds": 23.927043914794922,
+          "source_unchanged": true,
+          "tools_unchanged": true,
+          "dependencies_unchanged": true,
+          "logs": {
+            "stdout.log": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stderr.log": {
+              "bytes": 197239,
+              "sha256": "9cb0ff58cf0b6b30076417805580da2b242bb405d0cd89e69124c0be0402ad91"
+            }
+          },
+          "target_executions": 0,
+          "image_sha256": "b500fc7f61fbd93258bb83cfa27c9105a7b05818c4c81fe08a21b2cb50a9a06f",
+          "image_bytes": 2665296
+        },
+        "source_files": 100,
+        "changed_sources": [
+          "programs/pump/src/buy_v2.rs",
+          "programs/pump/src/sell_v2.rs",
+          "programs/pump/src/v2_native_payments.rs"
+        ],
+        "source_tool_dependency_log_recheck": true,
+        "stack_diagnostics": []
+      },
+      "05-repeat-fd8b94d": {
+        "result": {
+          "returncode": 0,
+          "seconds": 25.25904107093811,
+          "source_unchanged": true,
+          "tools_unchanged": true,
+          "dependencies_unchanged": true,
+          "logs": {
+            "stdout.log": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stderr.log": {
+              "bytes": 197245,
+              "sha256": "37e0ab41bbf775f49ae0e8fa6e2696b9d5ebbd3e3b52f6fa782a481c6ac74ffd"
+            }
+          },
+          "target_executions": 0,
+          "image_sha256": "b500fc7f61fbd93258bb83cfa27c9105a7b05818c4c81fe08a21b2cb50a9a06f",
+          "image_bytes": 2665296
+        },
+        "source_files": 100,
+        "changed_sources": [
+          "programs/pump/src/buy_v2.rs",
+          "programs/pump/src/sell_v2.rs",
+          "programs/pump/src/v2_native_payments.rs"
+        ],
+        "source_tool_dependency_log_recheck": true,
+        "stack_diagnostics": []
+      }
+    },
+    "replays": {
+      "normal": {
+        "returncode": 0,
+        "expected_rejection": null,
+        "stdout_sha256": "c386f990619500371ae2f28a60bda9632b5c4538d2c0e494ea0e652578570ac5",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "optimized": {
+        "returncode": 0,
+        "expected_rejection": null,
+        "stdout_sha256": "c386f990619500371ae2f28a60bda9632b5c4538d2c0e494ea0e652578570ac5",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "wrong-callee": {
+        "returncode": 1,
+        "expected_rejection": "actual rent callee does not match original",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "2f911c464709099090035e357428dc12adcf88e0e3c70978a09a2ae102fb8ee7"
+      },
+      "wrong-repeat": {
+        "returncode": 1,
+        "expected_rejection": "Whole compiler repeat differs",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "663e0605cb7b4ed290307bb7c7a236e77de48f5b80702e8f34f608227312aa30"
+      }
+    },
+    "result": "PASS",
+    "whole_repeat_equal": true
+  },
+  "independent": {
+    "03-main-fd8b94d": {
+      "sha256": "09186a9021ba057d53d37b55e7d28c55415417995999c2d3e2006b943b09521a",
+      "windows": 1035,
+      "normalized": 1027,
+      "raw": 273,
+      "independent_all_memberships_equal": true
+    },
+    "04-zero-fd8b94d": {
+      "sha256": "b500fc7f61fbd93258bb83cfa27c9105a7b05818c4c81fe08a21b2cb50a9a06f",
+      "windows": 1035,
+      "normalized": 1027,
+      "raw": 273,
+      "independent_all_memberships_equal": true
+    }
+  },
+  "public_replays": {
+    "historical": {
+      "result": "PASS",
+      "report_sha256": "edb6012b3f987eb63c00fd75b480cac0fe0e9bf1b2cd4b7ebb588c32ef17fa11",
+      "verifier_sha256": "1989efd6b080faccac727ca2518eeb37bcd02d96d41341ee3c494c934f246dcb"
+    },
+    "fresh": {
+      "result": "PASS",
+      "report_sha256": "df3d96f8fb7d25ff9a51954d34f8c1def1896623ecb56d6d6c054e5773810ec5",
+      "verifier_sha256": "1989efd6b080faccac727ca2518eeb37bcd02d96d41341ee3c494c934f246dcb"
+    }
+  },
+  "failed_exploratory_checks": [
+    {
+      "check": "Initial V2 symbol lookup",
+      "result": "Failed: no unique obsolete sell_v2::execute symbol; corrected to the actual sell_v2 export and rerun.",
+      "retained_script_sha256": "25254da81e61013aaf6d7cff0d9a35dc289d440ce7c8ba27a40faed1c526daa7"
+    },
+    {
+      "check": "Exploratory data.rel.ro pointer interpretation",
+      "result": "Rejected: assuming each relocation qword directly stores a VA fails at offset 0 (7699948648792064 versus 7697749625536512). No data-pointer or recursive closure claim follows.",
+      "retained_script_sha256": "280b999ab83dd6ed9352d6d95b59d4c9f05a0036e987a2d5c83384b75848b1ab"
+    }
+  ],
+  "scoring_scope": "All 1035 memberships checked. No program, VM or blockchain execution; no native/all-program equivalence claim."
+}

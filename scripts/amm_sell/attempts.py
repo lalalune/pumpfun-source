@@ -2,7 +2,7 @@
 """Query and annotate the swarm attempt log (ATTEMPTS.jsonl).
 
   attempts.py summary                       counts per lane/approach, best results
-  attempts.py best [N]                      N best non-losing attempts (default 10)
+  attempts.py best [N] [--score-version V]  N best non-losing attempts (default: current metric)
   attempts.py grep TEXT                     attempts/notes whose hypothesis/text contains TEXT
   attempts.py approaches                    distinct approach tags with counts and best distance
   attempts.py seen FILE                     was this exact sell.rs already built? (by sha256)
@@ -15,12 +15,12 @@ from pathlib import Path
 import argparse
 import collections
 import datetime
-import fcntl
 import hashlib
 import json
 import os
 import sys
 import uuid
+from sell_score import SCORE_VERSION
 
 SWARM = Path(os.environ.get('AMM_SELL_SWARM', Path(__file__).resolve().parent.parent)).resolve()
 LOG = SWARM / 'ATTEMPTS.jsonl'
@@ -38,14 +38,18 @@ def short(e):
     if e.get('schema') == 'amm-sell-note-v1':
         return f"[note/{e['kind']}] {e['lane']}/{e['approach']}: {e['text'][:300]}"
     return (f"{e['lane']}/{e['approach']} {e.get('status')} dist={m.get('align_distance')} slots={m.get('slot_diffs')} "
-            f"lost={m.get('lost_windows_count')} size={m.get('sell_size')} :: {e['hypothesis'][:200]}")
+            f"lost={m.get('lost_windows_count')} normalized_lost={m.get('lost_windows_normalized_count')} "
+            f"score_version={m.get('score_version', 'unversioned')} size={m.get('sell_size')} :: {e['hypothesis'][:200]}")
 
 
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest='cmd', required=True)
+    p.set_defaults(score_version=SCORE_VERSION)
     sub.add_parser('summary')
     b = sub.add_parser('best'); b.add_argument('n', nargs='?', type=int, default=10)
+    b.add_argument('--score-version', type=int, default=SCORE_VERSION,
+                   help='rank one metric version; defaults to the current scorer')
     g = sub.add_parser('grep'); g.add_argument('text')
     sub.add_parser('approaches')
     s = sub.add_parser('seen'); s.add_argument('file')
@@ -63,7 +67,9 @@ def main():
             print(f'  {lane:28} {approach:40} {k}')
         a.cmd, a.n = 'best', 5
     if a.cmd == 'best':
-        ok = [e for e in builds if (e.get('metrics') or {}).get('lost_windows_count') == 0]
+        ok = [e for e in builds
+              if (e.get('metrics') or {}).get('score_version') == a.score_version
+              and (e.get('metrics') or {}).get('lost_windows_count') == 0]
         ok.sort(key=lambda e: (not e['metrics']['sell_raw_equal'], e['metrics']['align_distance'], e['metrics']['slot_diffs']))
         for e in ok[:a.n]:
             print(short(e))
@@ -75,10 +81,11 @@ def main():
     elif a.cmd == 'approaches':
         d = collections.defaultdict(list)
         for e in builds:
-            d[e['approach']].append(e)
-        for k, v in sorted(d.items()):
+            d[(e['approach'], (e.get('metrics') or {}).get('score_version'))].append(e)
+        for (k, version), v in sorted(d.items(), key=lambda item: (item[0][0], str(item[0][1]))):
             dist = [x['metrics']['align_distance'] for x in v if x.get('metrics')]
-            print(f'{k:44} n={len(v):4} best_dist={min(dist) if dist else None}')
+            print(f'{k:44} score_version={version if version is not None else "unversioned"} '
+                  f'n={len(v):4} best_dist={min(dist) if dist else None}')
     elif a.cmd == 'seen':
         h = hashlib.sha256(Path(a.file).read_bytes()).hexdigest()
         hits = [e for e in builds if e['inputs']['sell'] == h]
@@ -86,6 +93,7 @@ def main():
                            'flags': e['inputs']['flags'], 'metrics': e.get('metrics'), 'status': e.get('status')}
                           for e in hits], indent=1) if hits else 'unseen')
     elif a.cmd == 'note':
+        import fcntl
         entry = {'schema': 'amm-sell-note-v1', 'attempt_id': uuid.uuid4().hex,
                  'timestamp_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
                  'lane': a.lane, 'approach': a.approach, 'kind': a.kind, 'text': a.text,

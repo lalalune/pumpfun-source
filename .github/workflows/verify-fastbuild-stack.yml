@@ -31,3 +31,7 @@ jobs:
           result = unittest.TextTestRunner(verbosity=2).run(suite)
           sys.exit(0 if result.wasSuccessful() and result.testsRun == 21 and not result.skipped else 1)
           PYTEST
+      - name: Test nested path-crate invalidation
+        # Independent of the step above, so its result is reported on its own.
+        if: ${{ !cancelled() }}
+        run: python -m unittest discover -s reconstruction/harness -p test_fastbuild_path_crates.py -v

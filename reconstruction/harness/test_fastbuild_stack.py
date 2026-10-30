@@ -68,7 +68,9 @@ class BuildDiagnosticTests(unittest.TestCase):
         self.assertFalse(result['ok'])
         self.assertFalse(result['runtime_valid'])
         self.assertEqual(result['stack_warnings'], [STACK])
-        self.assertEqual(files, {'build.log': log.encode()})
+        self.assertEqual(set(files), {'build.log', 'source-inputs.json'})
+        self.assertEqual(files['build.log'], log.encode())
+        self.assertEqual(json.loads(files['source-inputs.json'])['schema'], 'pump-source-inputs-v1')
         self.assertEqual(len(commands), 1)
         self.assertNotIn('unstripped', result)
 
@@ -132,7 +134,7 @@ class BuildDiagnosticTests(unittest.TestCase):
     def test_nonzero_compiler_exit_still_rejects(self):
         result, files, commands, _ = self.run_build('compiler failed\n', returncode=1)
         self.assertFalse(result['ok'])
-        self.assertEqual(set(files), {'build.log'})
+        self.assertEqual(set(files), {'build.log', 'source-inputs.json'})
         self.assertEqual(len(commands), 1)
 
     def test_integration_does_not_score_rejected_build(self):
@@ -141,13 +143,16 @@ class BuildDiagnosticTests(unittest.TestCase):
             root = Path(temporary)
             source = root / 'source'
             source.mkdir()
-            (source / 'lib.rs').write_text('// synthetic input\n')
+            (source / 'src').mkdir()
+            (source / 'Cargo.toml').write_text('[package]\nname="synthetic"\nversion="0.0.0"\n')
+            (source / 'Cargo.lock').write_text('version = 3\n')
+            (source / 'src/lib.rs').write_text('// synthetic input\n')
             baseline = root / 'pump-main/baseline'
             baseline.mkdir(parents=True)
             (baseline / 'score.json').write_text('{}')
             argv = ['integrate.py', '--name', 'stack-check', '--base-src', str(source)]
             with patch.object(integrate, 'SC', root), patch.object(sys, 'argv', argv), \
-                 patch.object(integrate.fastbuild, 'build', return_value=result), \
+                 patch.object(integrate, 'build_source', return_value=result), \
                  patch.object(integrate.subprocess, 'run',
                               return_value=subprocess.CompletedProcess([], 0, stdout='{}')) as command, \
                  contextlib.redirect_stdout(io.StringIO()):

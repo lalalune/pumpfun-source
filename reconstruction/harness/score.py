@@ -6,28 +6,25 @@ function symbol has the same length and identical bytes after masking ONLY inter
 direct-call immediates (op 0x85, src=1, imm!=-1) and lddw values pointing inside an ELF
 section. Raw matches are counted separately.
 
-Usage: score.py <unstripped.so> [--baseline inventory.json] [--json out.json] [--quiet]
+Usage: score.py <unstripped.so> [--baseline score.json | --no-baseline] [--json out.json] [--quiet]
 Prints counts and gains/losses vs the baseline (default: pump-main/baseline/score.json).
-A missing baseline file is an error; losses are never reported against an empty baseline.
+A missing baseline file is an error: gains/losses against an empty baseline would report
+every matched window as a gain and no losses. Pass --no-baseline to score without one.
 """
 import argparse, csv, hashlib, json, re, struct, subprocess, sys, tempfile
 from pathlib import Path
 from llvm_tools import objdump
+from original_input import resolve_original
 from functools import lru_cache
 import io
 
 H = Path(__file__).resolve().parent
 SC = H.parent
 BASE = SC / 'base'
+DEFAULT_BASELINE = SC / 'pump-main/baseline/score.json'
 
 
-def sections(blob):
-    shoff, = struct.unpack_from('<Q', blob, 0x28)
-    shentsize, shnum, shstrndx = struct.unpack_from('<HHH', blob, 0x3a)
-    hdrs = [struct.unpack_from('<IIQQQQIIQQ', blob, shoff + i * shentsize) for i in range(shnum)]
-    strtab = hdrs[shstrndx]
-    name = lambda off: blob[strtab[4] + off:blob.index(b'\0', strtab[4] + off)].decode()
-    return {name(h[0]): {'addr': h[3], 'offset': h[4], 'size': h[5]} for h in hdrs}
+from score_admission import sections, baseline as load_baseline, same_domain, report_destination
 
 
 def normalize(raw, address, secs):
@@ -74,6 +71,8 @@ def _window_rows(orig, inventory):
     required = {'program', 'variant', 'original_start', 'original_end'}
     if not required.issubset(reader.fieldnames or []):
         raise ValueError('window inventory is missing required columns')
+    if any(reader.fieldnames.count(name) != 1 for name in required):
+        raise ValueError('window inventory has duplicate required columns')
     rows = []
     seen = set()
     text = os_['.text']
@@ -95,7 +94,7 @@ def _window_rows(orig, inventory):
 
 
 def original_windows():
-    orig = (BASE / 'original.so').read_bytes()
+    orig = resolve_original(BASE / 'original.so').read_bytes()
     inventory = (BASE / 'functions.tsv').read_text(encoding='utf-8')
     # Return fresh containers so an analysis consumer cannot poison later scores.
     return [dict(zip(('start', 'bytes', 'raw', 'norm'), row))
@@ -131,24 +130,47 @@ def score_with_hash(cand_path):
     return res, hashlib.sha256(cand).hexdigest()
 
 
-def load_baseline(p):
-    d = json.loads(Path(p).read_text())
-    if 'windows' in d and isinstance(d['windows'], list):  # Codex inventory format
-        return {w['start']: {'normalized': bool(w['normalized_matches']), 'raw': w['raw_match'], 'bytes': w['bytes']} for w in d['windows']}
-    return {int(k): v for k, v in d['windows'].items()}
+
+
+def write_report(path, text):
+    """Publish without truncating an input linked to the destination mid-score."""
+    path = Path(path)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8',
+                                         dir=path.parent, prefix='.score-', delete=False) as stream:
+            temporary = Path(stream.name)
+            stream.write(text)
+        temporary.replace(path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('candidate', type=Path)
-    ap.add_argument('--baseline', type=Path, default=SC / 'pump-main/baseline/score.json')
+    ap.add_argument('--baseline', type=Path, default=DEFAULT_BASELINE)
+    ap.add_argument('--no-baseline', action='store_true', help='report counts only; gains/losses are relative to an empty baseline')
     ap.add_argument('--json', type=Path)
     ap.add_argument('--quiet', action='store_true')
     a = ap.parse_args()
-    if not a.baseline.is_file():
-        ap.error(f'baseline not found: {a.baseline}')
+    if a.no_baseline:
+        base = None
+    elif a.baseline.is_file():
+        base = load_baseline(a.baseline)
+    else:
+        print(f'score.py: baseline not found: {a.baseline} (pass --no-baseline to score without one)', file=sys.stderr)
+        sys.exit(2)
+    inputs = [a.candidate, BASE / 'original.so', BASE / 'functions.tsv']
+    if base is not None:
+        inputs.insert(1, a.baseline)
+    report_destination(a.json, inputs)
     cur, candidate_sha256 = score_with_hash(a.candidate)
-    base = load_baseline(a.baseline)
+    if base is None:
+        base = {}
+    else:
+        same_domain(cur, base)
     n = sum(v['normalized'] for v in cur.values()); r = sum(v['raw'] for v in cur.values())
     tb = sum(v['bytes'] for v in cur.values() if v['normalized'])
     gains = sorted(k for k, v in cur.items() if v['normalized'] and not base.get(k, {}).get('normalized'))
@@ -160,7 +182,7 @@ def main():
                'gains': [hex(x) for x in gains], 'losses': [hex(x) for x in losses],
                'raw_gains': [hex(x) for x in rg], 'raw_losses': [hex(x) for x in rl]}
     if a.json:
-        a.json.write_text(json.dumps({'summary': summary, 'windows': {str(k): v for k, v in cur.items()}}, indent=1))
+        write_report(a.json, json.dumps({'summary': summary, 'windows': {str(k): v for k, v in cur.items()}}, indent=1))
     print(json.dumps(summary, indent=None if a.quiet else 1))
 
 

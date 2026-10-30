@@ -1,0 +1,188 @@
+{
+  "schema": "MAYHEM_STAGE_RESTORATION_QUALIFICATION_V1",
+  "tested_source_head": "f6b3c77bdba7b5f458ec91327935535c0584db0f",
+  "tested_tree": "77cd80d30f73625846837d23a0b22b2efabc5529",
+  "base": "1cacecfbf9a58b698f99d5e11d6723a254588b81",
+  "source_files": [
+    {
+      "path": ".gitattributes",
+      "git_blob": "9e86f67c2fdc4a8e0cac53ec57877e364c1e2be6",
+      "sha256": "58c3f45fcac7d472a2aac67513cb304d777e6824ba2319d83a5a635795671220"
+    },
+    {
+      "path": "reconstruction/mayhem/README.md",
+      "git_blob": "de20417cd8b6866d6288df466a5c3803e4953d20",
+      "sha256": "482dfecf3bb0db2f2cb473d6c1dc7462d4c44baaf6128bb439492d6c58d31213"
+    },
+    {
+      "path": "reconstruction/mayhem/recovered-stage-inputs.json",
+      "git_blob": "2dd895abfff15d9c02294c3ff821ae22076ab201",
+      "sha256": "977c888f1d57b9609d2c6cca8b881fbab036a6a6aa1e8835dee145e79e7b2693"
+    },
+    {
+      "path": "reconstruction/mayhem/verify_stage.py",
+      "git_blob": "c4d9b0781e76ff9e31020c9d40b745e70a53819a",
+      "sha256": "1e8af49a8e0e6c92db2bbb75f403c9c839bdd96a3911e0f0497224f060593abe"
+    },
+    {
+      "path": "reconstruction/mayhem/test_exact_stage.py",
+      "git_blob": "aff54e0687e87cc5f87264a4377c370e47873570",
+      "sha256": "7572c54c44579fab95a4759125d985b8fbf3a5cfc7ab501b3b63a77329f1a4f5"
+    }
+  ],
+  "restored_inputs": {
+    "consumed": 101,
+    "original_checkout_policy": 1,
+    "public_source_commit": "decb244ccf8a81b086e940568a2d03336309046f"
+  },
+  "before": {
+    "public_tree_cli": "FileNotFoundError for research/mayhem-linker-locators-20261028/inputs.json; actualexit1",
+    "checkout_phase": "Initial restored inputs with unchanged1cace rootattributes, same finaltestmethod;70filesconverted under core.autocrlf=true, actualtestexit1"
+  },
+  "after": {
+    "actual_cli": "67 current source files,98 staged recipe files, explicit539locator selectors; no compilation/targetexecution",
+    "focused_tests": {
+      "count": 8,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "includes": "all restored/current-source/newreconstruction bytes survive real Git core.autocrlf=true checkout; real CLI then stages67sources"
+    },
+    "programs_changed": [],
+    "required_captures": {
+      "count": 9,
+      "exit": 0
+    },
+    "required_tooling": {
+      "count": 40,
+      "exit": 1,
+      "errors": [
+        "test_retained_interfaces_are_independent_of_default_text_encoding (test_analysis_interface_inventory.InterfaceInventoryEncodingTests.test_retained_interfaces_are_independent_of_default_text_encoding) (default_encoding='cp936')",
+        "test_retained_interfaces_are_independent_of_default_text_encoding (test_analysis_interface_inventory.InterfaceInventoryEncodingTests.test_retained_interfaces_are_independent_of_default_text_encoding) (default_encoding='utf-8')",
+        "test_retained_interfaces_are_independent_of_default_text_encoding (test_analysis_interface_inventory.InterfaceInventoryEncodingTests.test_retained_interfaces_are_independent_of_default_text_encoding)"
+      ],
+      "baseline_errors_identical": true,
+      "fix_excluded": "Separate PR2103; no root-tooling patch included"
+    }
+  },
+  "common_inputs": {
+    "source_revision": "1cacecfbf9a58b698f99d5e11d6723a254588b81",
+    "count": 65,
+    "sha256_by_path": {
+      "reconstruction/harness/llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+      "reconstruction/harness/score.py": "549862761d672586123c7085c3cc61fe27137f12ca75116f07c4de5dd9e7b983",
+      "reconstruction/harness/elf_symbols.py": "7156bee72eaf1870dd1f8771a7172ea5090f6f19c1eba87ef48e05a3fb669e71",
+      "scripts/revalidate_all.py": "1918e7b59bd232a3404336840e431367a9b69111d925b425d3e18948a4367d7f",
+      "scripts/test_tooling.py": "d462d5eb439c98db5b0566b772ef6e94336a0287da8e38adc0fb909ede4bac14",
+      "scripts/sbpf_disassembly_inventory.py": "4660abe8c70628ab3493fa0e6974c98d3a1bf9f3584f5a42ee5395da1cb54b6c",
+      "scripts/analyze.py": "469ef35ac2ddfc204ce33c5bda362356d00a0dbd742994e6bab06dfaa2c6a750",
+      "scripts/recover_dispatch.py": "4ad747f662ebbe8f60910550d3780bfc8b0883cb090ce2d9c56aa64f34aa708e",
+      "scripts/test_pump_diagnostic_audit.py": "8ebdc8f46db42c1d004e799e1e568eb3d21c75d0bcb5105ae177a92a42980c02",
+      "scripts/pump_diagnostic_audit.py": "2e65f8fc02ae5dd589dbd744106c84bb2a9e6ce589d9cb6f1d80866698a88929",
+      "scripts/compare.py": "fd48ddcde3fe9e0658ef873e2f7219886d2e1c6c52d6181e395fd085f9e8fd2d",
+      "scripts/local_validation.py": "f939984f5c583fb554607b00dbd209728b8a602e51dc51c44a3cd8a8d52ae5a3",
+      "scripts/deep_disassembly.py": "59e5bdb775ece8d5289120de56f188d27376a7863b59f4310e92af6de537e69a",
+      "scripts/window_elf_reader.py": "247700e9930d5e53daf93a50888ae1e5429f74ccb19155e7a205f72ee21d5883",
+      "scripts/deep_section_analysis.py": "6d3b1bf26e52a1f8cc9ca7c875dfdd9126b0f6c9f6a336964fee02e8b80dcf37",
+      "scripts/test_analysis_interface_inventory.py": "e147d834f78e8593f0a4ac6b18cfa5f2bddc8e9549aa34ee87022a35bac349fc",
+      "scripts/verify_evidence.py": "e16f28b5d16a85c750aaa63f930b58adf938ef5cbb21a54a853571e0adbf4e6e",
+      "scripts/capture.py": "71e28a5fb815a45664f06d6902ef1437f469a4d3c99a00e221efe583daa11905",
+      "evidence/binary-analysis.json": "f094d80a417d6e0b4ac6ce0e8cfae0912a1ca9d30fd8f441bd5d64956399e23f",
+      "evidence/dependencies/associated_token/capture.json": "0b1b18d80b6ccde58f96ffe879be4cc8f2a1ceba5a40c1a3ba2c1b6bcf618327",
+      "evidence/dependencies/associated_token/deployed.so": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+      "evidence/dependencies/associated_token/program-account.bin": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+      "evidence/dependencies/donation_relay/capture.json": "1c604cf91334ae1162f2dac66cdf27f00695b666b5bad0f934969f6cf0509650",
+      "evidence/dependencies/donation_relay/deployed.so": "367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563",
+      "evidence/dependencies/donation_relay/program-account.bin": "2e2d8271447a8820c5e55a8c5779927c11784701f94cbd6f6733e5ecc1590766",
+      "evidence/dependencies/donation_relay/programdata-account.bin": "42d80bfd3663975888721e067bb3c7764b090d9146f16fa0ccf97c3bc2ff1014",
+      "evidence/dependencies/spl_token/capture.json": "26b905e633fd869d9e9a9e34627ddf8308d0323d51565f35973d47d125e34213",
+      "evidence/dependencies/spl_token/deployed.so": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697",
+      "evidence/dependencies/spl_token/program-account.bin": "5b31219b7bc4060b1638b933be5f50df3400109acfef12408a196d57ad119748",
+      "evidence/dependencies/spl_token/programdata-account.bin": "573971c9baedda479bf4c38537787ae396358009b4920f8a270bd2b31dde5fe3",
+      "evidence/dependencies/spl_token_2022/capture.json": "f114c064c5a1d08d75bcce3e01552204816048b8aa74dfd59cacb74f9a85fe54",
+      "evidence/dependencies/spl_token_2022/deployed.so": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d",
+      "evidence/dependencies/spl_token_2022/program-account.bin": "bae3e5d63e30c0c3e6fe788b9e027bf003ca5e5bb46d3a9627e034bb3002ea5c",
+      "evidence/dependencies/spl_token_2022/programdata-account.bin": "babc437405bea7f9d4083097a7266db84de58330bdc41c2b54f1f4e4c66aaa94",
+      "evidence/dependencies/token_metadata/capture.json": "abc57f175e6e51f59cce6bdc56311e5425e0fa082d930b9a60d4ef0324331008",
+      "evidence/dependencies/token_metadata/deployed.so": "31f0a627dba051a938de650464e55cc5397a4be0fd496929c1f9cf02fe5e9011",
+      "evidence/dependencies/token_metadata/program-account.bin": "0f1b17a95b5f588794003ef8494ffc4e59933f3f2226e41dee037aa312c5e21e",
+      "evidence/dependencies/token_metadata/programdata-account.bin": "7a381c406f3206acebc3adbd2e4e010568a3835abdc3f10e09ba5ba2e1af076c",
+      "evidence/disassembly-manifest.json": "819fa931596749cc6632a68000e9f38faf7c95b8650aa9d719855befa3cc3626",
+      "evidence/dispatch-map.json": "609e4795d796aeed61c7e6d8853407264362166afd05bd9d76687ed673ecc2f9",
+      "evidence/interface-inventory.json": "4d8f5947eee1e96d51139b15ecf3bfabe8f4bc844996f40dfe0e9314dc52bfea",
+      "evidence/original/mayhem/capture.json": "fcdd031280b2d85491f3600dd8723134d529d39c7e701df9b91ff80a76e48b64",
+      "evidence/original/mayhem/deployed.so": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb",
+      "evidence/original/mayhem/program-account.bin": "c06afe39a901bccfcff73e60c84e27c49dddf8dad28c592a16f11305a993f45d",
+      "evidence/original/mayhem/programdata-account.bin": "a556c21bbf54f1da76ada6bd6b809a8315e45a1af43f13ac7e2839dd5312cfa2",
+      "evidence/original/pump/capture.json": "ffb53e71ce9cbee60df91e54cc1d677527a6eeb5806cb8d68e525af698744110",
+      "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "evidence/original/pump/program-account.bin": "8101492b544ce08703d5de95363bf796e7e4cd17d03639cfe603071fb59652eb",
+      "evidence/original/pump/programdata-account.bin": "0b692730f9707139fd86d1c1e3a7d63a3f7cb0702278975fa99df90883aab508",
+      "evidence/original/pump_amm/capture.json": "ffb8eb471345e4625c42b7f90840c1c44bb50ce202c3ebb4e9a4ec7f6abe1d8d",
+      "evidence/original/pump_amm/deployed.so": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+      "evidence/original/pump_amm/program-account.bin": "8a28beaa6366bb6236a8b455b61b280f430b4da6583becf73fd229886844e0da",
+      "evidence/original/pump_amm/programdata-account.bin": "e3d3be2256841163ba89b6184c2cc90ca1700c820bf887e5bb58b0aa668f5840",
+      "evidence/original/pump_fees/capture.json": "a98928432afc25e4aa422559d4aa3bd73062e1f634ca6189ff5495d1fe158334",
+      "evidence/original/pump_fees/deployed.so": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+      "evidence/original/pump_fees/program-account.bin": "cc9077315efa761cfe0b52aae08678ccda2a07e0fa2b374c98a1d51a1b4ce079",
+      "evidence/original/pump_fees/programdata-account.bin": "3cf9ee9a380c0ced31171802d402551910ceb8c4819ede4ef44aaf63a12dbfac",
+      "evidence/upstream/official-repositories.json": "401fbb93890aa2273dd33fcebea246194779136df0265f35c735bcba104a0420",
+      "evidence/upstream/provenance.json": "a315baa42e9ab40e70f31f541199983c2a5a2883571dbd3dfee8b690518b68b2",
+      "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207",
+      "evidence/upstream/pump_amm.json": "b7d8c57a4d9c4dd0109a9ab893052352333252d4eedced10ac091d4d66cab89b",
+      "evidence/upstream/pump_fees.json": "6b9fa3eccc6e06273076a47b581f9fcb9e531bb7c3c88acbcd44db55a4002b29",
+      "evidence/upstream/tree.txt": "661d12efd5cd8c1983e21e985510f0ae9042d2b66dd14c82e804145a966a8afe",
+      "evidence/verified-build-status.json": "d77aae02c63c60781b79afb8091d8be748cc00c9599411a5b57de1f36619a107",
+      "reconstruction/pump-main/baseline/score.json": "d8b94e211ab43543f8c36bcc566440dec73d8c1c590df3fcb33536c88a21727d"
+    }
+  },
+  "evidence": [
+    {
+      "path": "evidence/baseline-missing-input.log.gz",
+      "gzip_sha256": "19107b04d111dfa33b5d98e9faa39c039eecb2af930c395764e38af0e0e69a0c",
+      "raw_sha256": "da28ec5cbef7408c7fc2114596d2e80b57ecf8c7bb117d119e3091fb3990c113",
+      "raw_bytes": 1420
+    },
+    {
+      "path": "evidence/checkout-before.log.gz",
+      "gzip_sha256": "b64b6d34e662a5ca9908f6b48d63600f357c08ab0deb95e8ef38e1540ed89ce2",
+      "raw_sha256": "86c8f672496f5e0bd27e0e348a3a20f60879c864e9a2f40e6452b7ff64154151",
+      "raw_bytes": 4782
+    },
+    {
+      "path": "evidence/stage-source-mapping.json.gz",
+      "gzip_sha256": "73378642392a3dd52b9257031539142097ab8badb8d17a0014c6b20d436d026c",
+      "raw_sha256": "59f08838adcbd3f9063dea328f3f1101e2ee42f1756d81025e62f679d00dfb5a",
+      "raw_bytes": 36407
+    },
+    {
+      "path": "evidence/tests.log.gz",
+      "gzip_sha256": "216de07e54f2e44d6ce1cfdceb16e26f35908707da721ee69eb95b0af0acea26",
+      "raw_sha256": "b13540ef24ff7837bc792e7178cc7a1165ef924bcb554693a97d2036e7a3303f",
+      "raw_bytes": 106
+    },
+    {
+      "path": "evidence/captures.log.gz",
+      "gzip_sha256": "995576b68a1e52c055bcb991ac93146ad53ea9131e859ceb3331d45380b40ce3",
+      "raw_sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9",
+      "raw_bytes": 376
+    },
+    {
+      "path": "evidence/tooling.log.gz",
+      "gzip_sha256": "5d412d552eb3ca4910d36315f9839eac0177d3281fe06baa7f0f4de815bcbd22",
+      "raw_sha256": "61e234f479628b6ac945aae65cd23814623d07597f9c94fecb764fbc14529f3f",
+      "raw_bytes": 3686
+    }
+  ],
+  "preserved_initial_phase": {
+    "source_head": "776ea6e6bc41351251fee0002056e1598053d3f4",
+    "scope": "Initial101restored-blob cohort,7tests; later complete-checkout test found missingbytepolicy andwascorrected.",
+    "default_diff_check": "HistoricalCRLF in3sealedJSONfiles; bytes intentionally retained. CR-awarecheckpasses; newauthoredfiles passdefaultcheck."
+  },
+  "limits": [
+    "Staging and localGit conversion only; no Windowscompiler/SDK qualification or program execution.",
+    "No new ELF/equality/checkpoint/coverage claim; original historical evidence remains historical.",
+    "Stage-only CLI earlyseals cover parentstager/linkers/canonical67; independentverifier authenticates complete restoredclosure.",
+    "Three required repository-wide toolingerrors remain; this packet does not claim all tests pass."
+  ]
+}
