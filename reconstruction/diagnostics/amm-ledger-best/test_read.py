@@ -32,10 +32,12 @@ class SavedAmmRankingTests(unittest.TestCase):
             self.assertTrue(root.name.startswith('pump-amm-saved-rank-'))
             # Read-only baseline adaptation: remove the unused POSIX note-lock
             # import so actual old `best` can run on Windows; no function changes.
-            original_source = (folder / 'attempts.py').read_text(encoding='utf-8')
+            baseline = (PACKAGE / 'fixtures/attempts-before-normalized-query.py.txt').read_bytes()
+            self.assertEqual(hashlib.sha256(baseline).hexdigest(), 'e58a8f721e29136d024b7befdd4bf7aada5c62dcf6faddb6a8a87452a34e20d1')
+            original_source = baseline.decode('utf-8')
             self.assertEqual(original_source.count('import fcntl\n'), 1)
             legacy = root / 'attempts.py'
-            legacy.write_text(original_source.replace('import fcntl\n', ''), encoding='utf-8')
+            legacy.write_text(original_source.replace('import fcntl\n', '') if os.name == 'nt' else original_source, encoding='utf-8', newline='\n')
             for index, ledger in enumerate(ledgers):
                 retained = ledger.read_bytes()
                 records = [json.loads(line) for line in retained.decode('utf-8').split('\n') if line.strip()]
@@ -80,6 +82,52 @@ class SavedAmmRankingTests(unittest.TestCase):
             self.assertEqual([row['record']['attempt_id'] for row in result['best']], [original['attempt_id']])
             self.assertEqual(result['counts']['failed_or_unscored'], 1)
             self.assertEqual(result['counts']['incomplete_metrics'], 1)
+
+    def test_binding_ignores_unexecuted_builder_changes_but_rejects_rank_changes(self):
+        source = (ROOT / read.RANK_SOURCE).read_bytes()
+        ledger = (ROOT / 'scripts/amm_sell/attempts/seed.jsonl').read_bytes()
+        expected = read.read_best(ROOT / 'scripts/amm_sell/attempts/seed.jsonl', 1000)
+        with tempfile.TemporaryDirectory(prefix='pump-amm-rank-binding-') as temporary:
+            root = Path(temporary)
+            script = root / 'reconstruction/diagnostics/amm-ledger-best/read.py'
+            script.parent.mkdir(parents=True)
+            script.write_bytes((PACKAGE / 'read.py').read_bytes())
+            builder = root / read.RANK_SOURCE
+            builder.parent.mkdir(parents=True)
+            saved = root / 'ledger.jsonl'
+            saved.write_bytes(ledger)
+            sentinel = root / 'builder-module-executed'
+            prefix = ('from pathlib import Path\nPath(' + repr(str(sentinel)) + ').write_text("unexpected")\n'
+                      'raise RuntimeError("builder module must never execute")\n').encode('utf-8')
+            changed = prefix + source + b'\n# unrelated builder maintenance\n'
+            builder.write_bytes(changed)
+            result = json.loads(self.invoke(script, '--ledger', saved, '--limit', 1000).stdout)
+            self.assertEqual(result['best'], expected['best'])
+            self.assertEqual(result['rank_source_sha256'], hashlib.sha256(changed).hexdigest())
+            self.assertFalse(sentinel.exists())
+            crlf = changed.replace(b'\n', b'\r\n')
+            builder.write_bytes(crlf)
+            result = json.loads(self.invoke(script, '--ledger', saved, '--limit', 1000).stdout)
+            self.assertEqual(result['best'], expected['best'])
+            self.assertEqual(result['rank_source_sha256'], hashlib.sha256(crlf).hexdigest())
+            self.assertFalse(sentinel.exists())
+            # Whole signatures/bodies/decorators are admitted, not only returns.
+            controls = [
+                (changed.replace(b'== 9024', b'== 9025'), 'reviewed AMM rank function changed'),
+                (changed.replace(b'def rank(entry):', b'def rank(entry, unused=None):'), 'reviewed AMM rank function changed'),
+                (changed.replace(b'def rank(entry):', b'@unreviewed\ndef rank(entry):'), 'reviewed AMM rank function changed'),
+                (changed + b'\ndef rank(entry):\n    return None\n', 'expected one reviewed rank function'),
+                (changed.replace(b'def rank(entry):', b'async def rank(entry):'), 'expected one reviewed rank function'),
+            ]
+            for mutated, message in controls:
+                with self.subTest(message=message, digest=hashlib.sha256(mutated).hexdigest()):
+                    builder.write_bytes(mutated)
+                    result = subprocess.run([sys.executable, '-I', '-B', '-X', 'utf8', str(script),
+                                             '--ledger', str(saved)], capture_output=True, text=True, encoding='utf-8')
+                    self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                    self.assertIn(message, result.stderr)
+                    self.assertFalse(sentinel.exists())
+            self.assertEqual(saved.read_bytes(), ledger)
 
 
 if __name__ == '__main__':

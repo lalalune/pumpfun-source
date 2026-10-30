@@ -152,7 +152,7 @@ class BuildDiagnosticTests(unittest.TestCase):
             (baseline / 'score.json').write_text('{}')
             argv = ['integrate.py', '--name', 'stack-check', '--base-src', str(source)]
             with patch.object(integrate, 'SC', root), patch.object(sys, 'argv', argv), \
-                 patch.object(integrate.fastbuild, 'build', return_value=result), \
+                 patch.object(integrate, 'build_source', return_value=result), \
                  patch.object(integrate.subprocess, 'run',
                               return_value=subprocess.CompletedProcess([], 0, stdout='{}')) as command, \
                  contextlib.redirect_stdout(io.StringIO()):

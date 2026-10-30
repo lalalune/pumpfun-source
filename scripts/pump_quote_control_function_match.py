@@ -28,6 +28,18 @@ def sections(blob):
     return {name(h[0]): {'addr': h[3], 'offset': h[4], 'size': h[5]} for h in hdrs}
 
 
+def function_body(image, image_sections, address, size):
+    """Read complete SBF slots only from a physically present .text range."""
+    text = image_sections['.text']
+    relative = address - text['addr']
+    if size <= 0 or size % 8 or relative % 8 or not 0 <= relative <= text['size'] - size:
+        raise ValueError('function range must contain complete aligned slots within .text')
+    if text['offset'] < 0 or text['size'] < 0 or text['offset'] + text['size'] > len(image):
+        raise ValueError('truncated .text file payload')
+    offset = text['offset'] + relative
+    return image[offset:offset + size]
+
+
 def mask(code):
     if len(code) % 8:
         raise ValueError("SBF code must contain complete 8-byte instruction slots")
@@ -83,12 +95,11 @@ def main():
     orig = ORIGINAL.read_bytes()
     cand = a.candidate.read_bytes()
     os_, cs = sections(orig)['.text'], sections(cand)['.text']
-    otext = orig[os_['offset']:os_['offset'] + os_['size']]
+    otext = function_body(orig, {'.text': os_}, os_['addr'], os_['size'])
     omask = mask(otext)
     rows = []
     for addr, size, name in candidate_functions(a.candidate, a.objdump, a.pattern):
-        off = addr - cs['addr'] + cs['offset']
-        body = cand[off:off + size]
+        body = function_body(cand, {'.text': cs}, addr, size)
         mb = mask(body)
         hits = _aligned_matches(mb, omask)
         raw = [h for h in hits if otext[h:h + size] == body]

@@ -32,7 +32,9 @@ jobs:
           - suite: composition-patch-bytes
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py
+              python -B reconstruction/harness/test_integrate_no_build_cli.py
               python -I -B tests/test_integrate_patch_bytes.py
+              python -I -B reconstruction/harness/test_treediff_links.py
           - suite: offline-cargo-cache
             commands: |
               python -I -B scripts/test_prepare_locked_cargo_home.py
@@ -40,10 +42,21 @@ jobs:
             commands: |
               python -B research/tooling-relocated-data-pointers-20261030/test_pointer_analysis.py
               python scripts/verify_evidence.py
+              python -I -B reconstruction/verification/retained_multihop_outcomes.py --repo-root .
+              python -I -B tests/test_retained_multihop_outcomes.py
+              python -I -B tests/test_dispatch_root.py
+              python -I -B tests/test_analyze_input_admission.py
               python scripts/test_tooling.py
+              python -B -X utf8 tests/test_dispatch_idl_encoding.py
+              python -B tests/test_function_body_file_ranges.py
+              python -O -B tests/test_function_body_file_ranges.py
               python -B reconstruction/harness/test_treediff_line_boundaries.py
               python -B reconstruction/harness/test_score_inputs.py
+              python -B reconstruction/harness/test_short_window_ranking.py
+              python -B reconstruction/harness/test_applicability_evidence_paths.py
+              python -B reconstruction/harness/test_diagnostic_range_boundaries.py
               python scripts/test_build_source_manifest.py
+              python -I -B tests/test_manifest_nested_target.py
               python scripts/test_core_linux_v144_retention.py
               # Two of three tests: the third compares against a frozen helper that was removed with repro/;
               # see .github/retired-workflows/2026-10-29-verify-matrix.md.
@@ -72,6 +85,7 @@ jobs:
               python -B reconstruction/capture-rpc-retry/test_capture.py
           - suite: host-fragments
             commands: |
+              python -B scripts/test_fee_host_validation.py
               python -B tests/test_recovered_curve_arithmetic.py
               mkdir -p work && rustc --edition 2021 -O programs/pump-fees/recovered/fee_selection_host.rs -o work/fee-selector-host
               python scripts/validate_fee_selection.py --host work/fee-selector-host --output work/fee-selector-validation.json

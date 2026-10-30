@@ -262,7 +262,7 @@ def load_idl_discriminators(elf):
     if not idl_path.is_file():
         return {}
     try:
-        payload = json.loads(idl_path.read_text())
+        payload = json.loads(idl_path.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return {}
     discriminators = {}
@@ -376,6 +376,10 @@ def recover_anchor_dispatch(elf):
             imm_lo = struct.unpack_from("<I", elf.b, offset + 4)[0]
             imm_hi = struct.unpack_from("<I", elf.b, offset + 12)[0]
             prev_imm64 = (imm_lo | (imm_hi << 32)) & 0xFFFFFFFFFFFFFFFF
+            if offset in elf.relocations:
+                # The loader rewrites a relocated lddw: it loads an address
+                # (e.g. a panic location or string), never a selector literal.
+                prev_imm64 = None
             offset += 16
         elif opcode == 0x85 and elf.b[offset + 1] == 0x10:
             # Internal call — this might be a handler dispatch

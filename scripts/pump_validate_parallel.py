@@ -46,12 +46,7 @@ def publish_report(path, payload):
 
 def validate_result(name, result, candidate, original):
     if name == 'quote_control':
-        bound = result['bound_inputs_sha256']
-        assert bound[str(candidate.relative_to(ROOT))] == sha(candidate)
-        assert bound[str(original.relative_to(ROOT))] == sha(original)
-        count = result['cases']
-        assert count == len(result['results'])
-        assert all(row['matches'] and not row['different_fields'] for row in result['results'])
+        count = base.validate_quote_control(result, candidate, original)
     elif name == 'multi_hop_curve_partial':
         assert result['candidate_sha256'] == sha(candidate)
         assert result['original_pump_sha256'] == sha(original)
@@ -148,7 +143,7 @@ def main():
             assert {row['elf_sha256'] for row in loaded['loads']} == expected, name
             assert all(row['program_bytes'] == 36 and row['program_owner'] == 'BPFLoaderUpgradeab1e11111111111111111111111' and row['programdata_bytes'] == 10485760 and row['elf_prefix_unchanged'] and row['zero_allocation_tail'] for row in loaded['loads']), name
             assert all(sha(Path(path)) == digest for path, digest in loaded['input_sha256'].items())
-            loader_receipts[name] = {'path': str(loader_receipt.relative_to(ROOT)), 'sha256': sha(loader_receipt), 'load_count': len(loaded['loads'])}
+            loader_receipts[name] = {'path': base.bound_input_key(loader_receipt, ROOT), 'sha256': sha(loader_receipt), 'load_count': len(loaded['loads'])}
         check_bound_files()
         result['case_count'] = count
         (retained / (name + '.json.gz')).write_bytes(gzip.compress(json.dumps(result, separators=(',', ':')).encode(), mtime=0))

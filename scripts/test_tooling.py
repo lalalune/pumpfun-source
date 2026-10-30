@@ -134,6 +134,7 @@ import struct
 import sys
 import unittest
 from test_analysis_interface_inventory import InterfaceInventoryEncodingTests
+from test_capture_verification_modes import CaptureVerificationModeTests
 from test_fees_external_codec_cases import ExternalCodecBooleanCases
 from types import SimpleNamespace
 import deep_disassembly
@@ -397,7 +398,11 @@ from window_elf_reader import Elf
 from compare import compare
 class InferredStructExtentTests(unittest.TestCase):
     def analyze_offsets(self, offsets):
-        code = b''.join(struct.pack('<BBhi', 0x79, 0x21, offset, 0) for offset in offsets)
+        return self.analyze_loads([(0x79, offset) for offset in offsets])
+
+    def analyze_loads(self, loads):
+        code = b''.join(struct.pack('<BBhi', opcode, 0x21, offset, 0)
+                        for opcode, offset in loads)
         header = bytearray(64)
         struct.pack_into('<Q', header, 24, 64)
         elf = SimpleNamespace(b=bytes(header) + code, lo=64, hi=64+len(code),
@@ -420,6 +425,40 @@ class InferredStructExtentTests(unittest.TestCase):
         self.assertEqual(result['deserialization_patterns'][0]['likely_struct_size'], 168)
         self.assertEqual(len(result['deserialization_patterns'][0]['field_offsets']), 20)
 
+    def test_extent_uses_the_actual_load_width(self):
+        for opcode, width in ((0x71, 1), (0x69, 2), (0x61, 4), (0x79, 8)):
+            with self.subTest(width=width):
+                result = self.analyze_loads([(opcode, offset) for offset in (0, 16, 32)])
+                row = result['deserialization_patterns'][0]
+                self.assertEqual(row['field_sizes'], [width] * 3)
+                self.assertEqual(row['likely_struct_size'], 32 + width)
+                self.assertEqual(result['inferred_struct_sizes'], [32 + width])
+
+    def test_extent_can_end_at_an_earlier_wider_load(self):
+        result = self.analyze_loads([(0x79, 0), (0x71, 1), (0x71, 2)])
+        self.assertEqual(result['deserialization_patterns'][0]['likely_struct_size'], 8)
+
+    def test_mixed_width_duplicate_reads_are_order_independent(self):
+        loads = [(0x71, 0), (0x79, 0), (0x71, 16), (0x69, 32)]
+        for ordered in (loads, list(reversed(loads))):
+            with self.subTest(loads=ordered):
+                row = self.analyze_loads(ordered)['deserialization_patterns'][0]
+                self.assertEqual(row['field_sizes'], [8, 1, 2])
+                self.assertEqual(row['likely_struct_size'], 34)
+
+    def test_narrow_loads_after_the_display_cap_contribute_to_extent(self):
+        result = self.analyze_loads([(0x71, offset) for offset in range(35)])
+        row = result['deserialization_patterns'][0]
+        self.assertEqual(row['field_offsets'], list(range(20)))
+        self.assertEqual(row['field_sizes'], [1] * 20)
+        self.assertEqual(row['likely_struct_size'], 35)
+
+    def test_captured_pump_short_layout_extent(self):
+        elf = Elf(analyze.ROOT / 'evidence/original/pump/deployed.so')
+        rows = deep_section_analysis.recover_anchor_idl(elf)['deserialization_patterns']
+        row = next(row for row in rows if row['window'] == '0x2ca8' and row['base_reg'] == 3)
+        self.assertEqual(row['likely_struct_size'], 43)
+
     def test_retained_patterns_use_the_full_observed_load_extent(self):
         checked = capped = 0
         for path in sorted(analyze.ROOT.glob('evidence/**/deployed.so')):
@@ -428,11 +467,12 @@ class InferredStructExtentTests(unittest.TestCase):
             result = deep_section_analysis.recover_anchor_idl(elf)
             for row in result['deserialization_patterns']:
                 start = int(row['window'], 16)
-                offsets = {struct.unpack_from('<h', elf.b, at+2)[0]
-                           for at in range(start, ends[start], 8)
-                           if elf.b[at] in (0x61, 0x69, 0x71, 0x79)
-                           and elf.b[at+1] >> 4 == row['base_reg']}
-                self.assertEqual(row['likely_struct_size'], max(offsets)+8,
+                widths = {0x61: 4, 0x69: 2, 0x71: 1, 0x79: 8}
+                loads = [(struct.unpack_from('<h', elf.b, at+2)[0], widths[elf.b[at]])
+                         for at in range(start, ends[start], 8)
+                         if elf.b[at] in widths and elf.b[at+1] >> 4 == row['base_reg']]
+                offsets = {offset for offset, width in loads}
+                self.assertEqual(row['likely_struct_size'], max(offset + width for offset, width in loads),
                                  f'{path.parent.name}:{start:#x}:r{row["base_reg"]}')
                 self.assertLessEqual(len(row['field_offsets']), 20)
                 checked += 1
@@ -1237,6 +1277,31 @@ class CompareProgramNamesTests(unittest.TestCase):
             self.assertEqual(compare_module.program_names(root), ['probe'])
 
 
+class AnalyzeProgramRootTests(unittest.TestCase):
+    def test_explicit_root_overrides_current_default(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            selected = root / 'selected'
+            (selected / 'repro').mkdir(parents=True)
+            mapping = {'mayhem': _CAPTURED_PROGRAMS['mayhem']}
+            (selected / 'repro/programs.json').write_text(json.dumps(mapping))
+            with patch.object(analyze, 'ROOT', root / 'other'):
+                self.assertEqual(analyze.program_names(selected), mapping)
+                self.assertEqual(analyze.program_names(), [])
+
+    def test_current_root_keeps_missing_selected_binary_error(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'repro').mkdir()
+            mapping = {'mayhem': _CAPTURED_PROGRAMS['mayhem']}
+            (root / 'repro/programs.json').write_text(json.dumps(mapping))
+            with patch.object(analyze, 'ROOT', root):
+                self.assertEqual(analyze.program_names(), mapping)
+                with self.assertRaises(FileNotFoundError):
+                    analyze.analyze()
+                self.assertFalse((root / 'evidence/binary-analysis.json').exists())
+
+
 class RodataStringAddressTests(unittest.TestCase):
     def test_string_keys_use_virtual_address(self):
         blob = bytearray(0x40)
@@ -1642,7 +1707,7 @@ class EvidenceCommitmentTests(unittest.TestCase):
         self.run_gate()
 
     def test_weaker_commitment_is_rejected(self):
-        with self.assertRaises(AssertionError) as raised:
+        with self.assertRaises(verify_evidence.EvidenceError) as raised:
             self.run_gate(commitment='processed')
         self.assertIn(self.FOLDER, str(raised.exception))
         self.assertIn('commitment', str(raised.exception))
@@ -1677,7 +1742,7 @@ class EvidenceProgramBindingTests(unittest.TestCase):
         (original / 'pump').rename(original / 'swap')
         (original / 'pump_amm').rename(original / 'pump')
         (original / 'swap').rename(original / 'pump_amm')
-        with self.assertRaisesRegex(AssertionError, 'evidence/original/pump: capture program'):
+        with self.assertRaisesRegex(verify_evidence.EvidenceError, 'evidence/original/pump: capture program'):
             self.run_gate()
 
 
@@ -1876,6 +1941,48 @@ class WindowScorerBaselineTests(unittest.TestCase):
         self.assertEqual(exit_.exception.code, 2)
 
 
+class FallbackDispatchRelocationTests(unittest.TestCase):
+    """The IDL-less entry heuristic must not report loader addresses as selectors."""
+
+    @staticmethod
+    def entry_elf(relocated):
+        # Entrypoint 0x40: lddw r1, 0x1234; call +0.
+        blob = bytearray(0x58)
+        struct.pack_into('<Q', blob, 24, 0x40)
+        blob[0x40:0x50] = bytes.fromhex('18010000341200000000000000000000')
+        blob[0x50:0x58] = bytes.fromhex('8510000000000000')
+        return SimpleNamespace(
+            b=bytes(blob), lo=0x40, hi=0x58, funcs=[],
+            relocations={0x40: {'type': 8, 'symbol': ''}} if relocated else {},
+        )
+
+    def test_relocated_lddw_is_not_a_selector(self):
+        self.assertEqual(
+            deep_disassembly.recover_anchor_dispatch(self.entry_elf(True)), {})
+
+    def test_unrelocated_scalar_candidate_is_kept(self):
+        self.assertEqual(
+            list(deep_disassembly.recover_anchor_dispatch(self.entry_elf(False))),
+            ['0x1234'])
+
+    def test_captured_mayhem_reports_no_relocated_addresses(self):
+        from window_elf_reader import Elf
+        elf = Elf(analyze.ROOT / 'evidence/original/mayhem/deployed.so')
+        relocated = set()
+        for at, relocation in elf.relocations.items():
+            if (elf.lo <= at < elf.hi and elf.b[at] == 0x18
+                    and relocation['type'] == 8):
+                low, = struct.unpack_from('<I', elf.b, at + 4)
+                high, = struct.unpack_from('<I', elf.b, at + 12)
+                relocated.add(hex(low | high << 32))
+        dispatch = deep_disassembly.recover_anchor_dispatch(elf)
+        # Panic-location and string pointers formerly reported as selectors.
+        for address in ('0xb1bd8', '0xb1b48', '0xb1b30', '0xae2a7'):
+            self.assertIn(address, relocated)
+            self.assertNotIn(address, dispatch)
+        self.assertEqual(relocated & set(dispatch), set())
+
+
 class UpstreamEvidenceSetTests(unittest.TestCase):
     """verify_evidence.py must not take the upstream IDL set from the data it checks."""
 
@@ -1906,7 +2013,7 @@ class UpstreamEvidenceSetTests(unittest.TestCase):
             root = self.copy_evidence(temporary)
             (root / 'evidence/upstream/pump_fees.json').unlink()
             self.rewrite_listing(root, lambda files: files.pop('pump_fees.json'))
-            with self.assertRaisesRegex(AssertionError, r"missing .*'pump_fees\.json'"):
+            with self.assertRaisesRegex(verify_evidence.EvidenceError, r"missing .*'pump_fees\.json'"):
                 self.run_gate(root)
 
     def test_unexpected_listing_entry_is_rejected(self):
@@ -1917,7 +2024,7 @@ class UpstreamEvidenceSetTests(unittest.TestCase):
             extra.write_bytes(b'{}\n')
             digest = hashlib.sha256(extra.read_bytes()).hexdigest()
             self.rewrite_listing(root, lambda files: files.update({'pump_extra.json': digest}))
-            with self.assertRaisesRegex(AssertionError, r"unexpected .*'pump_extra\.json'"):
+            with self.assertRaisesRegex(verify_evidence.EvidenceError, r"unexpected .*'pump_extra\.json'"):
                 self.run_gate(root)
 
 

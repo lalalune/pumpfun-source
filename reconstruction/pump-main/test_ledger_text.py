@@ -14,7 +14,7 @@ HERE = Path(__file__).resolve().parent
 
 
 def load_matches():
-    # The CLI imports POSIX fcntl at module scope. Execute its exact, unmodified
+    # Live ledger operations require POSIX locks. Execute the exact, unmodified
     # pure predicate on Windows too, without stubbing locks or executing main.
     source = HERE / 'log_attempt.py'
     tree = ast.parse(source.read_text(encoding='utf-8'), filename=str(source))

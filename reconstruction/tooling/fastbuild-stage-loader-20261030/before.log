@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/pumpfun-source-workers/pump-lifecycle/tests/test_fastbuild_stage.py", line 14, in <module>
+    SPEC.loader.exec_module(fastbuild)
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/workspace/pumpfun-source-workers/pump-lifecycle/reconstruction/harness/fastbuild.py", line 21, in <module>
+    from build_process import run_compiler, validate_timeout
+ModuleNotFoundError: No module named 'build_process'

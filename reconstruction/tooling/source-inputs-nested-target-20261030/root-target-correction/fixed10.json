@@ -1,0 +1,28 @@
+{
+  "sourceCommit": "c8ecaf1005de193032950780c2f778786d296e0f",
+  "methodCommit": "f6629790e26056a377098c046d808d799ffa2965",
+  "command": [
+    "python3",
+    "-B",
+    "test_source_inputs.py"
+  ],
+  "cwdRole": "Same Git-authenticated export path as baseline10",
+  "exit": 0,
+  "tests": 10,
+  "failures": 0,
+  "inputs": {
+    "build_process.py": "fa8f7d321f29e829fe59ca11740fc5a47978fc73d052778c641bb233ae0e12a4",
+    "source_inputs.py": "c0dd8ec113165f44d94a04e43cca8eda4a9bf6e995954e66ee3be174211c9879",
+    "fastbuild.py": "04c6669348ac45b9230498f2656b66a740fe358b11c86a0f19060048e09e23bb",
+    "test_source_inputs.py": "18b52305763bb61a7a595a19187390051aac624a5048b5d1a40669daf20e8e0b"
+  },
+  "stderrSha256": "3e8357f2186bdd230050a0c605287cd9c997071ccf517dee8154f5426eff14c9",
+  "realRsync": true,
+  "compilerExecuted": false,
+  "currentPumpSnapshot": {
+    "files": 99,
+    "unchangedFrom6aSnapshot": true,
+    "sha256": "889f4c6595381c3cb5de70398d09d073cf4365359f212f5c4ac05e0e6b107a43"
+  },
+  "limits": "Seven original controls plus three regressions; earlier9-case passes are repeated controls, not additional unique cases."
+}

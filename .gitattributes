@@ -1571,3 +1571,8 @@ scripts/build_source_manifest.py -text
 scripts/source_manifest_guard.py -text
 scripts/pump_build_verified.py -text
 scripts/bytecode_signatures.py -text
+
+# Keep the Mayhem exact-stage source and sealed locator hashes stable on checkout.
+programs/mayhem/** -text
+research/mayhem-linker-locators-20261028/** -text
+research/all-contract-completion-20261028/mayhem-proposal/source/build_exact.py -text

@@ -1,0 +1,51 @@
+{
+  "lane": "window-b-sweep-current",
+  "target": "0x72810 sweep::execute",
+  "upstream_base": "3227e700baecd7e692164577c755cb5b24995fc6",
+  "source_change": "none; maintained s6 remains the best zero-regression source",
+  "original": {
+    "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "target_bytes": 7832,
+    "calls_internal": 37,
+    "calls_syscall": 2
+  },
+  "candidate": {
+    "unstripped_sha256": "df437ee762e05a1826a02c40814cac08346f86b385996b56d4dd49b72c6eff75",
+    "stripped_sha256": "f0b3f34a89434d220f27fd24fd7e3a0bc5116b5fd3002c0a724fa62ea953847e",
+    "source_snapshot_sha256": "7299d54139852736d6c519cdbeff52296fd4307ad27cd9ddb5418d7f85465315",
+    "target_bytes": 7880,
+    "target_ratio": 0.88669,
+    "calls_internal": 37,
+    "calls_syscall": 2,
+    "normalized": 1027,
+    "raw": 276,
+    "total": 1035,
+    "matched_text_bytes": 1677176
+  },
+  "experiments": {
+    "compiled": 11,
+    "compile_failed": 1,
+    "normalized_losses": 0,
+    "raw_losses": 0,
+    "qualifying_source_improvements": 0
+  },
+  "runtime": {
+    "captured_fixed": 98,
+    "captured_seeded_random": 80,
+    "binary_differential": 504,
+    "behavior_cases": 682,
+    "mismatches": 0
+  },
+  "mechanism": "Rent::get().map(...)? in an LLVM-AlwaysInlined but not MIR-inlined helper preserves the merged result test. Rent::get()? restores the original pre-tag payload copy but MemCpyOpt erases lifetime markers from the merged stack move, leaving an uncoloured 24-byte slot and shifting the frame.",
+  "unresolved": [
+    "token-account admit branch block placement/polarity",
+    "rent payload slice lifetime versus frame colouring",
+    "quote field load order around the native/token Option join",
+    "event bucket spill reload order"
+  ],
+  "prior_prs": [
+    "https://github.com/lalalune/pumpfun-source/pull/1548",
+    "https://github.com/lalalune/pumpfun-source/pull/1878",
+    "https://github.com/lalalune/pumpfun-source/pull/1924"
+  ]
+}

@@ -38,6 +38,49 @@ class SourceReceiptTests(unittest.TestCase):
             directory=self.source/name;directory.mkdir();(directory/'generated').write_text('ignored')
         self.assertEqual(snapshot(self.source),before)
 
+    def test_real_staged_nested_target_inputs_change_receipt(self):
+        (self.source/'Cargo.toml').write_text(
+            '[package]\nname="pump-recovered"\nversion="0.1.0"\n'
+            '[profile.release]\npanic="abort"\n[workspace]\n')
+        (self.source/'Cargo.lock').write_text('version = 3\n')
+        (self.source/'src/target').mkdir(parents=True)
+        (self.source/'assets/target').mkdir(parents=True)
+        (self.source/'src/lib.rs').write_text(
+            'pub mod target;\npub static DATA: &[u8] = include_bytes!("../assets/target/data.bin");\n')
+        module=self.source/'src/target/mod.rs'
+        asset=self.source/'assets/target/data.bin'
+        module.write_text('pub const VALUE: u8 = 1;\n')
+        asset.write_bytes(b'first\x00')
+        before=snapshot(self.source)
+        crate=fastbuild.stage(self.source,self.root/'workspace')
+        self.assertEqual((crate/'src/target/mod.rs').read_bytes(),module.read_bytes())
+        self.assertEqual((crate/'assets/target/data.bin').read_bytes(),asset.read_bytes())
+        module.write_text('pub const VALUE: u8 = 2;\n')
+        asset.write_bytes(b'other\x00')
+        self.assertNotEqual(snapshot(self.source)['sha256'],before['sha256'])
+        with self.assertRaisesRegex(ValueError,'assets/target/data.bin|src/target/mod.rs'):
+            assert_unchanged(self.source,before)
+
+    def test_nested_target_directory_symlink_is_rejected(self):
+        (self.source/'src').mkdir()
+        outside=self.root/'external'
+        outside.mkdir()
+        (outside/'mod.rs').write_text('pub const VALUE: u8 = 1;\n')
+        (self.source/'src/target').symlink_to(outside,target_is_directory=True)
+        with self.assertRaisesRegex(ValueError,'directory symlinks'):
+            snapshot(self.source)
+
+    def test_root_target_directory_symlink_is_rejected(self):
+        (self.source/'src').mkdir()
+        (self.source/'src/lib.rs').write_text(
+            '#[path = "../target/mod.rs"] pub mod target;\n')
+        outside=self.root/'external'
+        outside.mkdir()
+        (outside/'mod.rs').write_text('pub const VALUE: u8 = 1;\n')
+        (self.source/'target').symlink_to(outside,target_is_directory=True)
+        with self.assertRaisesRegex(ValueError,'directory symlinks'):
+            snapshot(self.source)
+
     def test_file_and_directory_symlinks_are_rejected(self):
         for target in [self.source/'lib.rs',self.source]:
             link=self.source/'link';link.symlink_to(target)

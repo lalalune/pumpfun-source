@@ -1,0 +1,10 @@
+{
+  "lane": "w6r1-execute-ir-admincto",
+  "target": "0x22a10 pump_recovered::admin_cto::execute",
+  "base": {"commit": "099b0dd", "normalized": 1027, "raw": 276, "ratio": 0.36328, "bytes": 27416},
+  "best": {"ratio": 0.37637, "bytes": 27344, "calls": [154, 3], "normalized": 1027, "raw": 276, "losses": [], "raw_losses": [], "unstripped_sha256": "afe3dc6d6dff70986f8418d10286dc4a89a0d421016c20799d977264ada55d73", "pr": 2161},
+  "mechanism": "wallet (collect_old) and holder-sweep closures as nested fns taking &Context<AdminCto>; size deltas cancel so no raw membership moves",
+  "rejected": ["holder.unwrap_or(false)+non-short-circuit cashback on ab (0.352)", "bump/seeds declared at sweep start (still JT-threaded)", "sweep holder_key by value (0.355)", "let r=sweep();r? (identical)", "sweep out-param &mut swept (0.340)"],
+  "oracle_findings": ["Original keeps the sweep Result tag-check merge un-threaded (Ok paths r7=2 jump into it); manual IR unthreading gives 0.3868 at 27392 B and places L660 at the original position", "rustc diagnostic -jump-threading-threshold=0 also puts L660 exactly at 0x25b0; threshold 2 still threads because lifetime.end is TTI-free"],
+  "next_ideas": ["Find a source shape that stops JumpThreading from threading the sweep Ok returns into the post-sweep block", "Re-run single-branch scans on top of the unthreaded IR to rank the remaining validation-region differences"]
+}

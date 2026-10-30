@@ -459,7 +459,11 @@ def recover_anchor_idl(elf):
 
             for reg, reg_loads in by_reg.items():
                 if len(reg_loads) >= 3:
-                    offsets = sorted(set(ld["mem_offset"] for ld in reg_loads))
+                    widths = {}
+                    for ld in reg_loads:
+                        offset = ld["mem_offset"]
+                        widths[offset] = max(widths.get(offset, 0), ld["load_size"])
+                    offsets = sorted(widths)
                     if len(offsets) >= 3:
                         # Check for sequential pattern
                         diffs = [offsets[i+1] - offsets[i] for i in range(len(offsets)-1)]
@@ -474,13 +478,10 @@ def recover_anchor_idl(elf):
                                 "name": name,
                                 "base_reg": reg,
                                 "field_offsets": offsets[:20],
-                                "field_sizes": [
-                                    next((ld["load_size"] for ld in reg_loads
-                                          if ld["mem_offset"] == o), 0)
-                                    for o in offsets[:20]
-                                ],
-                                # Infer before the display-only cap on field details.
-                                "likely_struct_size": max(offsets) + 8 if offsets else 0,
+                                "field_sizes": [widths[o] for o in offsets[:20]],
+                                # Bound every observed read using its actual width,
+                                # before the display cap. This is not a proven layout.
+                                "likely_struct_size": max(o + widths[o] for o in offsets),
                             })
 
     # Deduplicate account sizes

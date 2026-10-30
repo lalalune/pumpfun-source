@@ -63,6 +63,9 @@ def references(name, source):
                     continue
                 command = substitute(str(step['run']), row)
                 cwd = substitute(str(step.get('working-directory', directory)), row)
+                if re.search(r'<<-?\s*[^\s<]', command):
+                    unsupported.add((name, str(job_id), 'heredoc body requires shell parsing'))
+                    continue
                 for line in command.splitlines():
                     # Only literal, standalone interpreter commands. Shell programs
                     # and generated script bodies are not evaluated by this checker.

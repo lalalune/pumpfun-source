@@ -23,7 +23,6 @@ for package in lock['package']:
     if (registry_source.startswith('registry+') and
             registry_source != 'registry+https://github.com/rust-lang/crates.io-index'):
         parser.error('Unsupported registry source; this helper only prepares crates.io packages')
-args.output.mkdir(parents=True, exist_ok=False)
 namespaces = ['index.crates.io-6f17d22bba15001f', 'index.crates.io-1949cf8c6b5b557f']
 sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -38,7 +37,7 @@ def index_path(name):
         return '3/' + name[0] + '/' + name
     return name[:2] + '/' + name[2:4] + '/' + name
 
-records = []
+records, copies = [], []
 for package in lock['package']:
     if not package.get('source', '').startswith('registry+'):
         continue
@@ -53,13 +52,8 @@ for package in lock['package']:
                      key=lambda path: '1949cf8' not in str(path))
     if not indexes:
         raise RuntimeError(f'No local sparse-index metadata: {name}')
-    for namespace in namespaces:
-        archive_target = args.output / 'registry/cache' / namespace / filename
-        index_target = args.output / 'registry/index' / namespace / '.cache' / relative
-        archive_target.parent.mkdir(parents=True, exist_ok=True)
-        index_target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(archives[0], archive_target)
-        shutil.copyfile(indexes[0], index_target)
+    copies.append((archives[0], Path('registry/cache'), filename))
+    copies.append((indexes[0], Path('registry/index'), Path('.cache') / relative))
     records.append({'package': name, 'version': version,
                     'archive_sha256': package['checksum'],
                     'index_sha256': sha(indexes[0])})
@@ -71,8 +65,15 @@ if records:
     if not configs:
         raise RuntimeError('No local crates.io registry configuration')
     config = configs[0]
+    copies.append((config, Path('registry/index'), 'config.json'))
+# Every locked package resolved; only now create the cache, so a failed
+# preparation leaves no partial output that blocks the rerun.
+args.output.mkdir(parents=True, exist_ok=False)
+for origin, area, name in copies:
     for namespace in namespaces:
-        shutil.copyfile(config, args.output / 'registry/index' / namespace / 'config.json')
+        target = args.output / area / namespace / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(origin, target)
 manifest = {'scope': 'Existing local archives verified against a fixed Cargo.lock; no network download.',
             'lockfile_sha256': hashlib.sha256(raw_lock).hexdigest(),
             'registry_config_sha256': sha(config) if config is not None else None, 'packages': records}
