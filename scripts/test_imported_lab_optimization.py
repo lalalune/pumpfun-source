@@ -22,6 +22,8 @@ import unittest
 
 SCRIPTS = Path(__file__).resolve().parent
 SCRIPT = "verify_imported_lab.py"
+# Sibling modules the script imports from scripts/ (atomic publication helpers).
+HELPERS = ["deep_disassembly.py", "window_elf_reader.py"]
 VERIFIERS = [
     "pump_fun_verify_offline",
     "pump_fun_admin_surfpool_verify",
@@ -43,7 +45,8 @@ def build_tree(root, tamper_manifest=False, tamper_binary=False):
     (snapshot / "inputs" / "pump_fun").mkdir(parents=True)
     (snapshot / "analysis" / "pump_fun").mkdir(parents=True)
     (root / "scripts").mkdir(exist_ok=True)
-    shutil.copy2(SCRIPTS / SCRIPT, root / "scripts" / SCRIPT)
+    for name in (SCRIPT, *HELPERS):
+        shutil.copy2(SCRIPTS / name, root / "scripts" / name)
     for name in VERIFIERS:
         (snapshot / "scripts" / f"{name}.py").write_text(
             "import sys\nsys.exit(0)\n", encoding="utf-8")

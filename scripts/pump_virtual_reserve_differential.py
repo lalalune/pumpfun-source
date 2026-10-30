@@ -163,8 +163,9 @@ def main():
     if len(captures) != 1:
         raise ValueError('configuration snapshot must contain one Pump account')
     capture = captures[0]
-    build = json.loads(args.build_comparison.read_text()) if args.build_comparison else None
-    if build is not None:
+    supplied_build = args.build_comparison is not None
+    build = json.loads(args.build_comparison.read_text()) if supplied_build else None
+    if supplied_build:
         if not isinstance(build, dict) or not isinstance(build.get('comparison'), dict):
             raise ValueError('invalid build comparison')
         if build['comparison'].get('candidate_sha256') != sha(candidate):
@@ -188,11 +189,11 @@ def main():
                      'differences': [key for key in FIELDS if original[key] != compared[key]]})
     if any(sha(path.read_bytes()) != source_hashes[name] for name, path in source_paths.items()):
         raise ValueError('differential source changed during run')
-    if build is not None:
+    if supplied_build:
         if build['source_sha256'] != source_manifest(f.ROOT/'programs/pump', f.ROOT/'programs/pump', f.ROOT):
             raise ValueError('source changed during run')
     report = {'scope': __doc__, 'original_sha256': sha(programs['original']), 'candidate_sha256': sha(candidate),
-              'inputs_sha256': inputs, 'compiled_source_sha256': build['source_sha256'] if build is not None else None,
+              'inputs_sha256': inputs, 'compiled_source_sha256': build['source_sha256'] if supplied_build else None,
               'case_count': len(rows), 'mismatches': [r['case']['name'] for r in rows if r['differences']], 'cases': rows}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open('xb') as stream:

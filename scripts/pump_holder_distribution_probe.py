@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Local normal-signature holder fee payout fixture, no network writes."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import json,base64,hashlib,struct
 from pathlib import Path
 from solders.litesvm import LiteSVM

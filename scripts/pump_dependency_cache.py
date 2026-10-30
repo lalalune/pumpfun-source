@@ -16,7 +16,11 @@ def check(condition, message):
 
 
 def sha(p):
-    return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+    result = hashlib.sha256()
+    with Path(p).open('rb') as stream:
+        for block in iter(lambda: stream.read(1 << 20), b''):
+            result.update(block)
+    return result.hexdigest()
 
 
 def digest(x):
