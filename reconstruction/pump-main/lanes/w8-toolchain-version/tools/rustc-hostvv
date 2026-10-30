@@ -1,0 +1,9 @@
+#!/bin/sh
+# experiment-only shim (w8-toolchain-version): report FAKE_HOST in `rustc -vV`, so Cargo's -C metadata
+# hashes are those of a build on that host. Everything else runs the real identity rustc.
+REAL=${REAL_RUSTC:-$HOME/.cache/pumpfun-reconstruction/toolchains/hybrid144/rust/bin/rustc}
+if [ "$1" = "-vV" ] && [ $# -eq 1 ]; then
+  "$REAL" -vV | sed "s/^host: .*/host: ${FAKE_HOST:?}/"
+  exit 0
+fi
+exec "$REAL" "$@"
