@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "initialLocalMethod": "19ed54ed9ffabe3012b5e70fd14c05b295cd716a",
+  "correctedLocalMethod": "8f784644b27de50591e5a3299e23d3733a87822b",
+  "publicSource": "031b5c772c0a3ecac00ae878b624191be9000d1f",
+  "exactCompleteTreeForCorrectedAndPublic": "d1367afb21e747fe1d1f8b6bdcdd527ca95ba25e",
+  "frozenEightFiles": [
+    {
+      "path": "app/reconstruction/create-asset-picker/README.md",
+      "bytes": 7995,
+      "sha256": "c7857973fd499a17e4d45b607c027cac9c3381c4acc62483ff51263fddbe6985",
+      "gitBlob": "3f14aba5947c50ae23d5ff3afb409d6c7e3b2560"
+    },
+    {
+      "path": "app/reconstruction/create-asset-picker/client.d.mts",
+      "bytes": 2990,
+      "sha256": "0dd6766aa2dc2e4882c28b64f6f3ca0714c9400caef47408d82a322cccc97081",
+      "gitBlob": "1779e9b7ba8fef96a0ded0b56c90048783bcaaeb"
+    },
+    {
+      "path": "app/reconstruction/create-asset-picker/client.mjs",
+      "bytes": 17488,
+      "sha256": "3f5d30af4bf1a83107d13e32450a4c6a714ef4860c43f7df666206243fde3283",
+      "gitBlob": "6407d2776e2da3ee3901d1cfbd782d1a19647955"
+    },
+    {
+      "path": "app/reconstruction/create-asset-picker/contract.json",
+      "bytes": 118442,
+      "sha256": "3da3bcd09013db92041bf30070fc4578063813e91e6d5663899b8f1efab1f8f9",
+      "gitBlob": "2c78f30387fa26a08017679a0ede84c1323e66c7"
+    },
+    {
+      "path": "app/reconstruction/create-asset-picker/qualification/browser.mjs",
+      "bytes": 12855,
+      "sha256": "1b4e0352e69c93e4c8d1fd0ca345d07869bffa28a1b4918a67a525e392fb8898",
+      "gitBlob": "3e69c13f679d13ec25d3659fa04694e1c4a92f72"
+    },
+    {
+      "path": "app/reconstruction/create-asset-picker/qualification/fixture.mjs",
+      "bytes": 6591,
+      "sha256": "a276cef9063ea78cfaecef473a8e1b2ce87abc278e72a767caea9872086c534b",
+      "gitBlob": "b694e19070ed92f22c8cbb25cd4b50fead4901e1"
+    },
+    {
+      "path": "app/scripts/original-create-asset-picker.mjs",
+      "bytes": 22010,
+      "sha256": "ea81f6f03ffbc868ea1891700fbfd1240ab4ba0380961a10663f7f41fcd1e009",
+      "gitBlob": "6ca94b8243622a6ebd1bea686a06be6c9426f367"
+    },
+    {
+      "path": "app/tests/original_create_asset_picker.test.mjs",
+      "bytes": 13978,
+      "sha256": "ab8d6fc319ac46ab040ca4cbdaa34b689b9f1a0bed2a14e320cb7979d9be9f76",
+      "gitBlob": "b26707a1ccc846b18a9832263440abb7f1a0eea5"
+    }
+  ],
+  "source": {
+    "physicalRoles": 38,
+    "selectedNumericIds": 26,
+    "witnesses": 132,
+    "components": 5,
+    "compilerFrames": [
+      25,
+      54,
+      34,
+      31,
+      1
+    ],
+    "compilerSlots": 145,
+    "canonicalUtf8Checked": true
+  },
+  "direct": {
+    "methodSource": "19ed54ed9ffabe3012b5e70fd14c05b295cd716a",
+    "passed": 13,
+    "failed": 0,
+    "skipped": 0,
+    "actualMaintainedVerifierMutationRejections": 7,
+    "log": "focused-frozen.log",
+    "sameModelClientTypesGeneratorContractTestBytesAtCorrectedAndPublic": true
+  },
+  "portsTypes": {
+    "command": [
+      "corepack",
+      "pnpm",
+      "exec",
+      "tsc",
+      "--noEmit",
+      "--strict",
+      "--skipLibCheck",
+      "--target",
+      "ES2022",
+      "--module",
+      "NodeNext",
+      "--moduleResolution",
+      "NodeNext",
+      "reconstruction/create-asset-picker/client.d.mts"
+    ],
+    "cwd": "app",
+    "returncode": 0,
+    "log": "ports-types.log",
+    "sameDeclarationBytes": true
+  },
+  "browserInitial": {
+    "method": "19ed54ed9ffabe3012b5e70fd14c05b295cd716a",
+    "passed": 4,
+    "failed": 1,
+    "unrun": 1,
+    "result": "browser-initial/RESULT.json",
+    "fixture": "fixture-19ed54.source.txt",
+    "fixtureSha256": "7f7c88fcf1a007ef2003e6e522504d2ea79d69260486f4d1810209983d3cee89",
+    "fixtureGitBlob": "72109c56ed8b365993b8d91ee40cdb9ea7a27ff8",
+    "controller": "controller-19ed54.source.txt",
+    "controllerSha256": "1b4e0352e69c93e4c8d1fd0ca345d07869bffa28a1b4918a67a525e392fb8898",
+    "controllerUnchangedAtCorrectedAndPublic": true,
+    "localCommitNotClaimedPublicAncestor": true,
+    "failure": "Supplied translator read state.t without a per-consumer subscription; source-memoized child category did not update although source parent input/title did.",
+    "correction": "Exactly one synthetic fixture line: useTranslation returns usePorts().t; no source/controller/assertion/timeout/type/model/verifier changes.",
+    "patch": "translation-port-correction.patch",
+    "wrapperNote": "Initial shell printed the Node log afterward and therefore reported its final cat status0; case5 FAIL/uncaught TimeoutError is retained and is not a passing run."
+  },
+  "browserFinal": {
+    "method": "8f784644b27de50591e5a3299e23d3733a87822b",
+    "passed": 6,
+    "failed": 0,
+    "unrun": 0,
+    "command": [
+      "node",
+      "reconstruction/create-asset-picker/qualification/browser.mjs",
+      "--source",
+      "8f784644b27de50591e5a3299e23d3733a87822b",
+      "--output",
+      "NEW_DIRECTORY"
+    ],
+    "cwd": "app",
+    "nodeExitStatus": 0,
+    "result": "browser-final/RESULT.json",
+    "actualInputs": 19,
+    "exactGitRuntimeFiles": 4,
+    "allInputsUnchangedAfter": true,
+    "pageErrors": [],
+    "onlyRequests": [
+      "GET /",
+      "GET /bundle.js"
+    ],
+    "blockedRequests": [],
+    "browserClosed": true,
+    "serverListening": false,
+    "not12UniqueCases": true
+  },
+  "bundles": [
+    {
+      "stage": "browser-initial",
+      "file": "browser-initial/bundle.js.gz",
+      "uncompressedSha256": "7d8a0ea664c6560e72303e10f5b409da41c4d4c8e5b45c336e349ce3ac486643",
+      "uncompressedBytes": 1154758,
+      "gzipRoundtripVerified": true
+    },
+    {
+      "stage": "browser-final",
+      "file": "browser-final/bundle.js.gz",
+      "uncompressedSha256": "234902d7f253b363a676e03047a899453998a5a2eb1da89e091a7c28b5f282d2",
+      "uncompressedBytes": 1154763,
+      "gzipRoundtripVerified": true
+    }
+  ],
+  "sharedAndIntegrity": {
+    "sharedSourceChecks": 11,
+    "captures": 698,
+    "sdkSourceFiles": 31,
+    "npmIntegrity": true,
+    "progressChecks": 9,
+    "allPassed": true
+  },
+  "mandatory": {
+    "source": "8f784644b27de50591e5a3299e23d3733a87822b",
+    "gitBoundInputs": 53,
+    "captureChecks": 9,
+    "toolingTests": 10,
+    "allPassed": true,
+    "record": "mandatory-source-record.json"
+  },
+  "publicExport": {
+    "source": "031b5c772c0a3ecac00ae878b624191be9000d1f",
+    "gitAuthenticatedFiles": 42,
+    "pathContainsSpaces": true,
+    "sourceCheckPassed": true,
+    "same13ModelCasesRepeatedNot26Unique": true,
+    "allInputsUnchangedAfter": true,
+    "binding": "PUBLIC-EXPORT.json",
+    "browserRepeated": false,
+    "portability": "Controller accepts the public source SHA and verifies all4 own runtime inputs; minimal model export has no Git metadata and is not claimed to replay browser."
+  },
+  "history": {
+    "directory": "history",
+    "qualifiedFinalProof": "Only source132/frozen13 and corrected6 qualify the final model/method as mapped above. Earlier logs are preserved, not extra coverage.",
+    "setupFailures": [
+      "First model attempt failed before execution because the sparse checkout omitted the already-main search-client/contract.json; exact Git file was hydrated.",
+      "A shared-reader invocation used the wrong test filename; a progress invocation had no hydrated test file and ran0 tests. Correct files were then hydrated from exact Git, actual11reader/9progress tests pass."
+    ],
+    "preFreeze": "Earlier13-case passes used129witness stage; three actual default/gateway/coordinator witnesses were subsequently added before19ed freeze. Inert129producer/tests are retained where sealed; no public ancestry or complete initial-source binding is claimed."
+  },
+  "limits": [
+    "Source/client/model only; no maintained product mount or original factory/provider execution.",
+    "RealReact/compiler with authored query/debounce/provider/transport/render ports, not original TanStack/debounce scheduler or provider access.",
+    "Captured GET is called only through an in-memory supplied port; actual HTTP is exactly2hostGETs, no images/remote acquisition.",
+    "Synthetic503/report/Retry and native mouse/touch exercise selected source callbacks; no original transport/telemetry or dialog policy qualification.",
+    "No current assets/prices, schema admission, wallet/session/credentials/cookies/privateH/feeprojection/funding/upload/signing/transaction/submit, originalDOM/visual/runtime parity, native/API/security/milestone claim."
+  ]
+}

@@ -1,0 +1,13 @@
+diff --git a/app/reconstruction/create-asset-picker/qualification/fixture.mjs b/app/reconstruction/create-asset-picker/qualification/fixture.mjs
+index 72109c56ed..b694e19070 100644
+--- a/app/reconstruction/create-asset-picker/qualification/fixture.mjs
++++ b/app/reconstruction/create-asset-picker/qualification/fixture.mjs
+@@ -31,7 +31,7 @@ const CoinName=(props)=>jsx('span',{'data-coin-name':props.coin.mint},props.chil
+ const CategorySelector=(props)=>jsx('div',{role:'tablist','aria-label':'Supplied categories'},props.items.map(item=>jsx('button',{type:'button',role:'tab',key:item.value,'aria-selected':props.value===item.value,onClick:()=>props.onValueChange(item.value)},item.label)));
+ const LoadError=(props)=>jsx('div',{role:'alert'},props.children,jsx('button',{type:'button',onClick:props.onRetry},'Retry supplied query'));
+ const Skeleton=()=>jsx('span',{'data-skeleton':true});
+-const {Picker}=createQuoteAssetPicker({React,compiler:c,jsxRuntime,useTranslation:()=>({t:state.t}),useDebouncedValue,
++const {Picker}=createQuoteAssetPicker({React,compiler:c,jsxRuntime,useTranslation:()=>({t:usePorts().t}),useDebouncedValue,
+  useIpfsPrefix:()=>({ipfsPrefix:usePorts().prefix}),useIncludeNsfw:()=>usePorts().nsfw,useSupportedMints:()=>usePorts().supported,useQuery,
+  getContractClient:()=>async(route,options)=>{calls.push(['request',{route,query:options.query,credentials:options.credentials,signalProvided:options.signal instanceof AbortSignal}]);const response=state.response;for(const callback of options.hooks.afterResponse)callback({},options,response);return response.data;},
+  readCoins:readSearchCoins,normalizeCoins:normalizeSearchCoins,reportError:details=>calls.push(['report',{...details,error:String(details.error)}]),

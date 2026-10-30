@@ -1,0 +1,55 @@
+import React,{useEffect,useMemo,useState,useSyncExternalStore} from 'react';
+import {createRoot} from 'react-dom/client';
+import {c} from 'react/compiler-runtime';
+import * as jsxRuntime from 'react/jsx-runtime';
+import {createQuoteAssetPicker} from '../client.mjs';
+import {normalizeSearchCoins,readSearchCoins} from '../../search-session/session.mjs';
+const jsx=React.createElement,listeners=new Set(),timers=new Set(),calls=[];
+const stock=(mint,assetType,symbol,ticker)=>({mint,assetType,symbol,ticker,marketCapUsd:0,liquidityUsd:0});
+const stocks=[stock('fixture-stock','rwa','Acme','ACME'),stock('fixture-crypto','crypto','Bitcoin','BTC'),stock('fixture-meme','meme','Meme','MEME')];
+const coin=(mint,name,extra={})=>({mint,name,symbol:mint.toUpperCase(),program:'pump',base_decimals:6,...extra});
+const ordinary=coin('fixture-pump','Needle',{usd_market_cap:0,canonical_pool_liquidity_usd:7,created_at:123,recommendation_id:'rec',ischarity:true});
+let state={generation:0,visible:true,stocks:[],isLoading:true,prefix:'https://synthetic.invalid/ipfs/',nsfw:false,supported:{data:[]},t:key=>key,
+ query:{data:undefined,isError:false,isFetching:false,error:undefined},response:{ok:true,status:200,data:[ordinary]}};
+let lastOptions,outerPointers=0;
+const subscribe=(fn)=>{listeners.add(fn);return()=>listeners.delete(fn);},snapshot=()=>state;
+const publish=(change)=>{state={...state,...change};for(const listener of [...listeners])listener();};
+const usePorts=()=>useSyncExternalStore(subscribe,snapshot,snapshot);
+function useDebouncedValue(value,delay){
+ const [current,set]=useState(value);
+ useEffect(()=>{const started=performance.now();const id=setTimeout(()=>{timers.delete(id);calls.push(['debounce-settled',value,delay,performance.now()-started]);set(value);},delay);timers.add(id);return()=>{clearTimeout(id);timers.delete(id);};},[value,delay]);
+ return[current,undefined];
+}
+function useQuery(options){
+ const s=usePorts();lastOptions=options;
+ const selected=useMemo(()=>s.query.data===undefined?undefined:options.select(s.query.data),[s.query.data,options.select]);
+ return useMemo(()=>({...s.query,data:selected,refetch:()=>{calls.push(['refetch']);return Promise.resolve('synthetic-only');}}),[s.query,selected]);
+}
+const StockArt=(props)=>jsx('span',{'data-stock-art':props.stock.mint,'aria-hidden':true});
+const CoinAvatar=(props)=>jsx('span',{'data-avatar-mint':props.coin.mint},props.children);
+const CoinName=(props)=>jsx('span',{'data-coin-name':props.coin.mint},props.children);
+const CategorySelector=(props)=>jsx('div',{role:'tablist','aria-label':'Supplied categories'},props.items.map(item=>jsx('button',{type:'button',role:'tab',key:item.value,'aria-selected':props.value===item.value,onClick:()=>props.onValueChange(item.value)},item.label)));
+const LoadError=(props)=>jsx('div',{role:'alert'},props.children,jsx('button',{type:'button',onClick:props.onRetry},'Retry supplied query'));
+const Skeleton=()=>jsx('span',{'data-skeleton':true});
+const {Picker}=createQuoteAssetPicker({React,compiler:c,jsxRuntime,useTranslation:()=>({t:state.t}),useDebouncedValue,
+ useIpfsPrefix:()=>({ipfsPrefix:usePorts().prefix}),useIncludeNsfw:()=>usePorts().nsfw,useSupportedMints:()=>usePorts().supported,useQuery,
+ getContractClient:()=>async(route,options)=>{calls.push(['request',{route,query:options.query,credentials:options.credentials,signalProvided:options.signal instanceof AbortSignal}]);const response=state.response;for(const callback of options.hooks.afterResponse)callback({},options,response);return response.data;},
+ readCoins:readSearchCoins,normalizeCoins:normalizeSearchCoins,reportError:details=>calls.push(['report',{...details,error:String(details.error)}]),
+ formatUsd:value=>`supplied:${value}`,classes:(...values)=>values.join(' '),CategorySelector,StockArt,CoinAvatar,CoinName,LoadError,Skeleton,
+ CloseIcon:()=>jsx('span',{'aria-hidden':true},'×'),SearchIcon:()=>jsx('span',{'aria-hidden':true},'⌕')});
+const onSelect=value=>calls.push(['stock-selected',{mint:value.mint,sameReference:value===stocks.find(s=>s.mint===value.mint)}]);
+const onSelectPumpCoin=value=>calls.push(['pump-selected',{mint:value.mint,sameReference:state.query.data?.includes(value)}]);
+const onClose=()=>{calls.push(['close']);publish({visible:false});};
+function Root(){const s=usePorts();return jsx('div',{onPointerDown:()=>{outerPointers++;}},s.visible?jsx(Picker,{key:s.generation,isLoading:s.isLoading,stocks:s.stocks,onSelect,onSelectPumpCoin,onClose}):jsx('p',null,'Supplied parent closed'));}
+const root=createRoot(document.getElementById('root'));root.render(jsx(Root));
+const observe=()=>({generation:state.generation,visible:state.visible,query:lastOptions?{key:lastOptions.queryKey,enabled:lastOptions.enabled,staleTime:lastOptions.staleTime}:null,
+ calls:structuredClone(calls),subscribers:listeners.size,pendingTimers:timers.size,outerPointers,
+ dataMints:state.query.data?.map(c=>c.mint),ordinary:{created_timestamp:ordinary.created_timestamp,rec_id:ordinary.rec_id,is_charity:ordinary.is_charity}});
+window.harness={observe,loaded(){publish({stocks,isLoading:false});},
+ reset(){calls.length=0;outerPointers=0;lastOptions=undefined;publish({generation:state.generation+1,visible:true,stocks,isLoading:false,query:{data:undefined,isError:false,isFetching:false,error:undefined},response:{ok:true,status:200,data:[ordinary]}});},
+ responseError(){publish({response:{ok:false,status:503,data:null}});},
+ responseSuccess(){publish({response:{ok:true,status:200,data:[ordinary]}});},
+ async execute(){const options=lastOptions,controller=new AbortController();try{const data=await options.queryFn({signal:controller.signal});publish({query:{data,isError:false,isFetching:false,error:undefined}});return{passed:true};}catch(error){publish({query:{data:undefined,isError:true,isFetching:false,error}});return{passed:false,error:String(error)};}},
+ eligibility(){const data=[ordinary,coin('fixture-depth','Depth One',{depth:1,quote_mint:'unsupported'}),coin('fixture-supported-quote','Supported Quote',{quote_mint:'fixture-stock'}),coin('blocked-name','',{name:''}),coin('blocked-program','Wrong',{program:'other'}),coin('blocked-deep','Deep',{depth:2}),coin('blocked-mayhem','Mayhem',{mayhem_state:0}),coin('blocked-supported','Supported'),coin('duplicate','First',{program:'other'}),coin('duplicate','Second')];publish({supported:{data:[{mint:'fixture-stock'},{mint:'blocked-supported'}]},response:{ok:true,status:200,data}});},
+ language(){publish({t:key=>'changed:'+key});},
+ clearCalls(){calls.length=0;},unmount(){root.unmount();return observe();}};

@@ -1,0 +1,18 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('tab', { name: 'changed:web.create.pair_category_all', exact: true }) to be visible[22m
+
+    at /workspace/pump-app-chart/app/reconstruction/create-asset-picker/qualification/browser.mjs:105:139
+    at async scenario (/workspace/pump-app-chart/app/reconstruction/create-asset-picker/qualification/browser.mjs:63:9)
+    at async file:///workspace/pump-app-chart/app/reconstruction/create-asset-picker/qualification/browser.mjs:103:2 {
+  log: [
+    "  - waiting for getByRole('tab', { name: 'changed:web.create.pair_category_all', exact: true }) to be visible"
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v24.19.0

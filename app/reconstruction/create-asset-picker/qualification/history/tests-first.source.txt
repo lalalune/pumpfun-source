@@ -1,0 +1,98 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createCreateAssetPicker} from '../reconstruction/create-asset-picker/client.mjs';
+import {APP_ROOT,recover,verify} from '../scripts/original-create-asset-picker.mjs';
+import {normalizeSearchCoins,readSearchCoins} from '../reconstruction/search-session/session.mjs';
+const coin=(mint,fields={})=>({mint,name:'Name '+mint,symbol:'SYM',program:'pump',base_decimals:6,...fields});
+const stock=(mint,fields={})=>({mint,symbol:'Stock '+mint,ticker:mint.toUpperCase(),...fields});
+function setup(stocks=[]){
+ const sentinel=Symbol.for('react.memo_cache_sentinel'),caches=new Map(),state=[],effects=[],calls=[];
+ let stateCursor=0,effectCursor=0,debounced='',prefix='https://local.invalid/ipfs/',nsfw=false,query,supported={},raw=[];
+ let result={isError:false,isFetching:false,data:undefined,error:undefined,refetch(){calls.push(['refetch']);return 'ignored';}};
+ let translation=(key)=>key;const props={stocks,isLoading:false,onSelect(value){calls.push(['stock',value]);},onSelectPumpCoin(value){calls.push(['pump',value]);},onClose(...args){calls.push(['close',...args]);}};
+ const jsx=(type,props,key)=>({type,props,key});
+ const api=createCreateAssetPicker({React:{useState(initial){const i=stateCursor++;if(!(i in state))state[i]=initial;return[state[i],value=>{state[i]=value;}];},useEffect(effect,deps){const i=effectCursor++;if(!effects[i]||deps.some((v,j)=>v!==effects[i].deps[j]))effects[i]={effect,deps,pending:true};}},
+  compiler(size){if(size===54||size===34){if(!caches.has(size))caches.set(size,Array(size).fill(sentinel));return caches.get(size);}return Array(size).fill(sentinel);},
+  jsxRuntime:{jsx,jsxs:jsx,Fragment:'fragment'},useTranslation:()=>({t:translation}),useDebouncedValue(value,delay){calls.push(['debounce',value,delay]);return[debounced,{}];},
+  useIpfsPrefix:()=>({ipfsPrefix:prefix}),useIncludeNsfw:()=>nsfw,useSupportedMints:()=>supported,useQuery(options){query=options;return result;},
+  getContractClient(){calls.push(['client-factory']);return async(route,options)=>{calls.push(['request',route,options]);return raw;};},readCoins:readSearchCoins,normalizeCoins:normalizeSearchCoins,
+  reportError(details){calls.push(['error',details]);},formatUsd(value){calls.push(['format',value]);return`USD:${value}`;},classes:(...values)=>values.join(' '),
+  CategorySelector:'categories-port',StockArt:'stock-art-port',CoinAvatar:'avatar-port',CoinName:'coin-name-port',LoadError:'error-port',Skeleton:'skeleton-port',CloseIcon:'close-icon-port',SearchIcon:'search-icon-port'});
+ function materialize(n){if(!n||typeof n!=='object')return n;if(Array.isArray(n))return n.map(materialize);if(typeof n.type==='function')return materialize(n.type(n.props));return {...n,props:{...n.props,children:materialize(n.props?.children)}};}
+ function view(){stateCursor=0;effectCursor=0;const tree=materialize(api.Picker(props));for(const e of effects)if(e.pending){e.pending=false;e.effect();}return tree;}
+ return{view,props,calls,state,query:()=>query,result(next){result={...result,...next};},settle(value){debounced=value;},prefix(value){prefix=value;},nsfw(value){nsfw=value;},supported(value){supported=value;},raw(value){raw=value;},language(value){translation=key=>value+key;}};
+}
+function nodes(n){if(Array.isArray(n))return n.flatMap(nodes);if(!n||typeof n!=='object')return[];return[n,...nodes(n.props?.children)];}
+const all=(h)=>nodes(h.view());const input=(h)=>all(h).find(n=>n.type==='input');const category=(h)=>all(h).find(n=>n.type==='categories-port');
+const rows=(h)=>all(h).filter(n=>n.type==='li'&&n.props?.children?.type==='button');
+const text=(n)=>Array.isArray(n)?n.map(text).join(' '):n&&typeof n==='object'?text(n.props?.children):String(n??'');
+const type=(h,value)=>input(h).props.onChange({target:{value}});
+const selectCategory=(h,value)=>category(h).props.onValueChange(value);
+
+test('complete used picker/query/row/category source and all physical roles are canonical',async()=>{
+ assert.deepEqual(await verify(),{sources:38,witnesses:129,components:5,compilerSlots:145,mounted:false});
+ const {contract}=await recover();assert.deepEqual(contract.implementation.compilerSlots,[25,54,34,31,1]);
+ assert.ok(contract.witnesses.some(w=>w.label==='actual eL open-only picker caller'));
+});
+test('actual maintained verifier rejects generated operations, caller/variant/option changes and noncanonical bytes',async()=>{
+ const {client,contract}=await recover();
+ for(const changed of [client+'\n',client.replace('staleTime: 3e4','staleTime: 0')]){assert.notEqual(changed,client);await assert.rejects(verify(APP_ROOT,{client:Buffer.from(changed)}),/canonical source-derived bytes differ/);}
+ for(const mutate of [c=>c.sources.pop(),c=>c.witnesses.pop(),c=>c.actualCallers.gateway='unconditional',c=>c.behavior.query='category disables query']){const c=structuredClone(contract);mutate(c);await assert.rejects(verify(APP_ROOT,{contract:Buffer.from(JSON.stringify(c,null,2)+'\n')}),/canonical source-derived bytes differ/);}
+ await assert.rejects(verify(APP_ROOT,{contract:Buffer.from(JSON.stringify(contract))}),/canonical source-derived bytes differ/);
+});
+test('initial empty/readiness and exact five-field caller preserve no-results versus four skeletons',()=>{
+ const h=setup();assert.equal(input(h).props.value,'');assert.equal(h.query().enabled,false);assert.equal(category(h),undefined);assert.ok(text(h.view()).includes('common.no_results'));
+ h.props.isLoading=true;assert.equal(all(h).filter(n=>n.type==='li'&&n.props['aria-hidden']===true).length,4);
+ assert.deepEqual(Object.keys(h.props),['stocks','isLoading','onSelect','onSelectPumpCoin','onClose']);
+});
+test('raw field, trimmed case-insensitive local filtering and source category classifier are preserved',()=>{
+ const h=setup([stock('a',{symbol:'Acme',ticker:'AC',assetType:'rwa'}),stock('b',{symbol:'Bitcoin',ticker:'BTC',assetType:'crypto'}),stock('c',{assetType:'native'})]);
+ assert.ok(category(h));assert.equal(rows(h).length,3);type(h,'  ac  ');assert.equal(input(h).props.value,'  ac  ');assert.equal(rows(h).length,1);
+ selectCategory(h,'crypto');assert.equal(rows(h).length,0);type(h,'');assert.equal(rows(h).length,1);selectCategory(h,'memes');assert.equal(rows(h).length,0);
+ const inherited=setup([stock('inherited',{assetType:'toString'})]);assert.ok(category(inherited),'plain source classifier table inherits property lookup; no invented own guard');
+});
+test('complete query options and synthetic queryFn use exact request/signal plus already-maintained mutating normalizer',async()=>{
+ const h=setup();type(h,'  alpha  ');h.settle('alpha');h.prefix('https://provided.invalid/ipfs/');h.nsfw(true);h.view();const q=h.query();
+ assert.deepEqual(q.queryKey,['create','pump-quote-coin-search','alpha',1,true,'https://provided.invalid/ipfs/']);assert.equal(q.enabled,true);assert.equal(q.staleTime,30000);const previous=[];assert.equal(q.placeholderData(previous),previous);
+ const record=coin('a',{created_at:123,recommendation_id:'id',ischarity:true,image_uri:'https://image.invalid/a',metadata_uri:'no CID'});const raw=[record];h.raw(raw);const controller=new AbortController();const output=await q.queryFn({signal:controller.signal});
+ assert.notEqual(output,raw);assert.equal(output[0],record);assert.equal(record.created_timestamp,123);assert.equal(record.rec_id,'id');assert.equal(record.is_charity,true);assert.equal(record.image_uri,'https://image.invalid/a');
+ const call=h.calls.find(c=>c[0]==='request');assert.equal(call[1],'GET /coins/search-unrestricted');assert.deepEqual(call[2].query,{searchTerm:'alpha',limit:20,offset:0,includeNsfw:true,sort:'market_cap',order:'DESC',program:'pump',maxDepth:1});assert.equal(call[2].credentials,'include');assert.equal(call[2].signal,controller.signal);
+ assert.throws(()=>call[2].hooks.afterResponse[0]({}, {}, {ok:false,status:429}),/Pump coin search failed: 429/);assert.equal(call[2].hooks.afterResponse[0]({}, {}, {ok:true,status:200}),undefined);
+});
+test('category controls visibility while nonempty debounced query remains enabled and pending spans raw/debounced lag',()=>{
+ const h=setup([stock('a',{assetType:'rwa'})]);type(h,'alpha');h.view();assert.equal(h.query().enabled,false);h.settle('alpha');h.view();assert.equal(h.query().enabled,true);
+ selectCategory(h,'stocks');h.result({data:[coin('pump')]});assert.equal(h.query().enabled,true);assert.equal(rows(h).length,0);
+ selectCategory(h,'all');assert.equal(rows(h).length,1);type(h,'new');h.result({data:undefined});assert.equal(all(h).filter(n=>n.type==='li'&&n.props['aria-hidden']===true).length,4);
+});
+test('actual eligibility keeps strict flags, Mayhem presence, raw-first dedup and supported-mint/depth/quote gates',()=>{
+ const h=setup();h.supported({data:[{mint:'supported'}]});h.view();const q=h.query();
+ const first=coin('dup',{program:'other'}),second=coin('dup');
+ const candidates=[coin('ordinary'),coin('depth-one',{depth:1,quote_mint:'unknown'}),coin('unknown-quote',{quote_mint:'unknown'}),coin('supported-quote',{quote_mint:'supported'}),coin('usdc',{quote_mint:'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v'}),coin('supported'),coin('deep',{depth:2}),coin('pool',{raydium_pool:'pool'}),coin('mayhem-zero',{mayhem_state:0}),coin('mayhem-false',{mayhem:{state:false}}),coin('ban',{is_banned:true}),coin('ban-string',{is_banned:'true'}),coin('null-decimals',{base_decimals:null}),coin('missing-decimals',{base_decimals:undefined}),coin('no-name',{name:''}),first,second];
+ assert.deepEqual(q.select(candidates).map(c=>c.mint),['ordinary','depth-one','supported-quote','usdc','ban-string','null-decimals']);
+ assert.equal(q.select([second])[0],second);assert.equal(q.select([coin('null-state',{mayhem_state:null})]).length,1);
+});
+test('error/fetch states mask stale query data, report once per dependencies and expose retry without awaiting result',()=>{
+ const h=setup();const mint='1'.repeat(32),error=new Error('provided');type(h,mint);h.settle(mint);h.result({isError:true,isFetching:true,data:[coin('stale')],error});
+ assert.equal(rows(h).length,0);assert.equal(h.calls.filter(c=>c[0]==='error').length,0);h.result({isFetching:false});const errorNode=all(h).find(n=>n.type==='error-port');assert.ok(errorNode);
+ const reports=h.calls.filter(c=>c[0]==='error');assert.equal(reports.length,1);assert.equal(reports[0][1].error,error);assert.deepEqual(reports[0][1].context,{mint});h.view();assert.equal(h.calls.filter(c=>c[0]==='error').length,1);
+ assert.equal(errorNode.props.onRetry(),undefined);assert.equal(h.calls.filter(c=>c[0]==='refetch').length,1);type(h,'not a mint');h.settle('not a mint');h.view();assert.deepEqual(h.calls.filter(c=>c[0]==='error').at(-1)[1].context,{mint:undefined});
+});
+test('stock rows preserve exact record callback, display projections and zero monetary formatter inputs',()=>{
+ const value=stock('stock',{symbol:'Visible',ticker:'TICK',marketCapUsd:0,liquidityUsd:0});const h=setup([value]);const row=rows(h)[0];assert.ok(text(row).includes('Visible'));assert.ok(text(row).includes('TICK'));
+ row.props.children.props.onClick();assert.equal(h.calls.find(c=>c[0]==='stock')[1],value);assert.ok(h.calls.filter(c=>c[0]==='format').every(c=>c[1]===0));const avatar=nodes(row).find(n=>n.type==='avatar-port');assert.deepEqual(avatar.props.coin,{mint:'stock',name:'Visible',symbol:'TICK'});assert.equal(avatar.props.children.props.stock,value);
+});
+test('Pump rows retain exact callback record while falsy monetary values become undefined only at row handoff',()=>{
+ const value=coin('p',{name:null,symbol:'',usd_market_cap:0,canonical_pool_liquidity_usd:-3});const h=setup();type(h,'p');h.settle('p');h.result({data:[value]});const row=rows(h)[0];row.props.children.props.onClick();assert.equal(h.calls.find(c=>c[0]==='pump')[1],value);assert.ok(text(row).includes('p'));assert.ok(h.calls.some(c=>c[0]==='format'&&c[1]===-3));assert.ok(!h.calls.some(c=>c[0]==='format'&&c[1]===0));
+});
+test('current source callback/query closure retains old term/prefix/NSFW and old supported-set memo until array identity changes',async()=>{
+ const records=[{mint:'one'}],h=setup();h.supported({data:records});type(h,'old');h.settle('old');h.view();const old=h.query();records.push({mint:'two'});h.view();assert.equal(h.query().select([coin('two')]).length,1);
+ h.supported({data:[...records]});type(h,'new');h.settle('new');h.prefix('https://changed.invalid/');h.nsfw(true);h.view();assert.equal(h.query().select([coin('two')]).length,0);assert.equal(old.select([coin('two')]).length,1);await old.queryFn({});const options=h.calls.filter(c=>c[0]==='request').at(-1)[2];assert.equal(options.query.searchTerm,'old');assert.equal(options.query.includeNsfw,false);
+});
+test('source no-result messages distinguish mint-shaped term and current category without invented admission',()=>{
+ const h=setup();type(h,'1'.repeat(32));h.settle('1'.repeat(32));assert.ok(text(h.view()).includes('web.create.pair_pump_not_eligible'));type(h,'0'.repeat(32));h.settle('0'.repeat(32));assert.ok(text(h.view()).includes('common.no_results'));
+});
+test('source mouse pointer guard, direct close callback and translator-driven category labels are complete',()=>{
+ const h=setup([stock('a',{assetType:'rwa'})]);let stopped=0;const root=h.view();root.props.onPointerDown({pointerType:'mouse',stopPropagation(){stopped++;}});root.props.onPointerDown({pointerType:'touch',stopPropagation(){stopped++;}});assert.equal(stopped,1);
+ const close=all(h).find(n=>n.type==='button'&&n.props['aria-label']==='common.close');const event={provided:true};close.props.onClick(event);assert.equal(h.calls.find(c=>c[0]==='close')[1],event);
+ assert.deepEqual(category(h).props.items.map(i=>i.value),['all','stocks','crypto','memes']);h.language('changed:');assert.equal(category(h).props.items[0].label,'changed:web.create.pair_category_all');
+});
