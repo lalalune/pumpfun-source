@@ -380,7 +380,7 @@ function owner1({
       return e.prefetchQuery(c({ includeFollowedHolders: r, period: "daily" }));
     },
     mapEntry: o,
-    queryOptions: u,
+    queryOptions: c,
   };
 }
 function select(table, key, label) {

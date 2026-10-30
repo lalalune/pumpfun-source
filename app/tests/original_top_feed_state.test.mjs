@@ -168,7 +168,7 @@ for (const variant of ownerVariants)
   test(
     "full16slot owner " +
       variant.sha256.slice(0, 12) +
-      " defaults/query policies/prefetch",
+      " defaults/public query builder/query policies/prefetch",
     async () => {
       const h = harness({ ownerVariant: variant.sha256 });
       let out = h.useTopFeed();
@@ -185,6 +185,12 @@ for (const variant of ownerVariants)
       const signal = new AbortController().signal;
       await h.options.queryFn({ signal });
       assert.equal(h.requests[0][1].signal, signal);
+      assert.equal(typeof h.queryOptions, "function", "both supported owners expose the actual query builder, not the preview array");
+      const publicOptions=h.queryOptions({period:"weekly",includeFollowedHolders:true});
+      assert.deepEqual(publicOptions.queryKey,["callouts","top-feed","weekly",true]);
+      await publicOptions.queryFn({signal});
+      assert.deepEqual(h.requests[1][1].query,{period:"weekly",includeFollowedHolders:true,followedHoldersLimit:5});
+      assert.equal(h.requests[1][1].signal,signal);
       assert.equal(out.pendingNewCount, 0);
       assert.deepEqual(out.pendingPreview, []);
       assert.equal(out.hasNextPage, false);
@@ -433,9 +439,8 @@ test("real loopbackGET success/status/JSON/cancel retain response and no Cookie/
   await once(server, "listening");
   let closed = false;
   try {
-    const origin = `http://127.0.0.1:${server.address().port}`,
-      h = harness({
-        getContractClient: () => async (op, o) => {
+    const origin=`http://127.0.0.1:${server.address().port}`;
+    const getContractClient=() => async (op, o) => {
           assert.equal(op, "GET /pnl-leaderboard/positions");
           const url = new URL("/positions", origin);
           for (const [k, v] of Object.entries(o.query))
@@ -448,15 +453,15 @@ test("real loopbackGET success/status/JSON/cancel retain response and no Cookie/
           });
           for (const hook of o.hooks.afterResponse) await hook({}, o, response);
           return response.json();
-        },
-      });
-    const options = h.queryOptions({
-        period: "weekly",
-        includeFollowedHolders: true,
-      }),
-      body = await options.queryFn({ signal: new AbortController().signal });
-    assert.equal(body.totalRanked, 1);
-    assert.equal(h.mapEntry(body.entries[0]).key, "cid:a");
+        };
+    const h=harness({getContractClient});
+    for(const variant of ownerVariants){
+      const publicApi=harness({ownerVariant:variant.sha256,getContractClient});
+      const options=publicApi.queryOptions({period:"weekly",includeFollowedHolders:true});
+      const body=await options.queryFn({signal:new AbortController().signal});
+      assert.equal(body.totalRanked,1);
+      assert.equal(publicApi.mapEntry(body.entries[0]).key,"cid:a");
+    }
     mode = "status";
     await assert.rejects(
       h.readPositions({}),
@@ -468,7 +473,7 @@ test("real loopbackGET success/status/JSON/cancel retain response and no Cookie/
     const controller = new AbortController(),
       pending = h.readPositions({ signal: controller.signal }),
       started = Date.now();
-    while (seen.length < 4) {
+    while (seen.length < 5) {
       assert.ok(Date.now() - started < 3000);
       await new Promise((r) => setTimeout(r, 1));
     }

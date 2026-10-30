@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "review": "https://github.com/lalalune/pumpfun-source/pull/1973#issuecomment-6512661004",
+  "scope": "Same-PR correction of the reconstructed public queryOptions export for second owner, not a captured-source behavior change.",
+  "baseline": {
+    "head": "078bc91b36c01b461f591ec65f5338cfe4e6779b",
+    "boundFocusedTests": 17,
+    "pass": 15,
+    "fail": 2,
+    "failures": [
+      "second-owner public builder is array/object instead of function",
+      "actual second-owner loopback call fails before issuing HTTP"
+    ],
+    "sameRegressionTestSha256": "90e1262902c90587de3c59f51df2dd7c18e6d84febb38b48422a9715f1b94494"
+  },
+  "setupFailure": {
+    "pass": 13,
+    "fail": 4,
+    "limit": "First run after branch switch lacked two required materialized source inputs. Two ENOENT setup failures are preserved separately from the two real public API failures. Git-authenticated hydration preceded the bound baseline."
+  },
+  "candidate": {
+    "focusedTests": 17,
+    "pass": 17,
+    "fail": 0,
+    "sourceGate": {
+      "witnesses": 95,
+      "entries": 22
+    },
+    "loopbackRequests": 5,
+    "loopback": "Both owner builders now issue successful GETs, followed by nonOK/malformedJSON/abort controls. No Cookie or Authorization. Host closes.",
+    "sameRegressionTestSha256": "90e1262902c90587de3c59f51df2dd7c18e6d84febb38b48422a9715f1b94494"
+  },
+  "runtimeDelta": {
+    "oldPublicHead": "078bc91b36c01b461f591ec65f5338cfe4e6779b",
+    "oldClientSha256": "abff332ccbf83ceb9f80dd5f97fc3309ff86c509f300f58666a066e1e662b827",
+    "newClientSha256": "8bac5c005839962f36e10885b06dd3411d7c01bb5a0b4c4f2ac9a64c388085cc",
+    "changedByteOffsets": [
+      11226
+    ],
+    "oldByte": "u",
+    "newByte": "c",
+    "scope": "Only owner1 public queryOptions property target changes. Every other runtime byte, including all internal owner/read/map/prefetch bodies, remains identical. This is not a rerun of the historical six-case browser producer."
+  },
+  "generator": "Select actual builder callee from H.prefetchQuery argument, assert it is a queryKey-building arrow and is used by y; no positional private-name assumption.",
+  "historicalBrowser": {
+    "head": "6bd7e2b1a85e53e0f0e4fa5abff44430f3a218c1",
+    "cases": 6,
+    "rerun": false,
+    "limit": "Six preserved internal y/H lifecycle cases passed on old source; they did not exercise the queryOptions public helper. Old client bytes and old16-member manifest are in this archive. Current runtime differs only in the corrected public property target."
+  },
+  "credentialsOption": {
+    "value": "include",
+    "path": "client.mjs",
+    "lines": [
+      42,
+      82
+    ],
+    "meaning": "Standard fetch credentials mode literal, not an access credential. No SI_SECRET placeholder exists in generated client. No authentication/cookie behavior is qualified."
+  },
+  "archiveMembers": [
+    {
+      "path": "INITIAL-CLIENT.source.txt",
+      "bytes": 12991,
+      "sha256": "abff332ccbf83ceb9f80dd5f97fc3309ff86c509f300f58666a066e1e662b827"
+    },
+    {
+      "path": "INITIAL-GENERATOR.source.txt",
+      "bytes": 18551,
+      "sha256": "f3e3289e6879ec73b04c21a0502085dc3b6c4c6235a750180dd080d2112cb2a5"
+    },
+    {
+      "path": "INITIAL-TEST.source.txt",
+      "bytes": 15767,
+      "sha256": "08d28631a286a201cc3108e45b340f32b7b792a5879acb5fe06c8b093c8583b7"
+    },
+    {
+      "path": "INITIAL-SHA256-MANIFEST-078bc91b.json",
+      "bytes": 3076,
+      "sha256": "2d19094376cffbd2eb305744a7d4162676d11aab44b44fe68696374baee2c472"
+    },
+    {
+      "path": "REGRESSION-TEST.source.txt",
+      "bytes": 16441,
+      "sha256": "90e1262902c90587de3c59f51df2dd7c18e6d84febb38b48422a9715f1b94494"
+    },
+    {
+      "path": "baseline-078bc91b.log",
+      "bytes": 5540,
+      "sha256": "e76c0263a2dc5f5e332f40799c66e43b0955b706720ad8b6a598e6e528fe5131"
+    },
+    {
+      "path": "baseline-bound-078bc91b.log",
+      "bytes": 3125,
+      "sha256": "3d980316d57cbbfaa70f44748559b0bb4d2d99357f12795d2ebb03e536b2f717"
+    },
+    {
+      "path": "fixed-1.log",
+      "bytes": 1774,
+      "sha256": "3d94cd3a034989269232fef619c1e5cbab00418d37c092b3d4ff47c2b8f51ec3"
+    },
+    {
+      "path": "source-fixed.log",
+      "bytes": 153,
+      "sha256": "a6831b58b088907eb0ff0935ba9cfd7dfb88a615b1702293380a0dab8486ad94"
+    },
+    {
+      "path": "RUNTIME-DELTA.json",
+      "bytes": 557,
+      "sha256": "0841e13f9e71e3e2df24e9e43a6de50f5663d0ebc0ac2ad590c34cd56849eab8"
+    }
+  ],
+  "limits": [
+    "No original provider/service/auth/ranking/native/UI/feature equivalence claimed.",
+    "No source/method/browser receipt is relabelled; old manifest is historical metadata, current manifest is regenerated explicitly."
+  ]
+}

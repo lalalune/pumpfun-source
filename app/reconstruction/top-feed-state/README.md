@@ -52,3 +52,14 @@ Source/method freeze `6bd7e2b1a85e53e0f0e4fa5abff44430f3a218c1` passed **17 focu
 `qualification/BINDINGS.json` records the scope and results; `SHA256-MANIFEST.json` covers current packet files plus source generator and tests, excluding itself. The failed initial source-link guard is preserved separately: the actual Home handoff spreads the Top result and wraps its callouts, rather than directly assigning the owner variable to one property. The final checker binds that real path. Initial generator bytes were not separately sealed, so the historical log is not relabelled as final proof. No runtime or test failure occurred in the frozen six-case producer.
 
 Local producer commit labels identify the historical checkout. A public commit may have a different ancestor while retaining the qualified tree and bytes.
+
+
+## Public helper correction after review
+
+[The review on #1973](https://github.com/lalalune/pumpfun-source/pull/1973#issuecomment-6512661004) identified an authored export error at initial public head `078bc91b36c01b461f591ec65f5338cfe4e6779b`: the second retained owner names its query-options function `c`, while `u` is its empty preview array. The generated public `queryOptions` property incorrectly assumed the first owner's spelling `u`. Its internal owning-hook/prefetch calls were already correct.
+
+The generator now derives the builder from the actual prefetch call and asserts that the full owner calls the same binding. Both variants' public helper and actual loopback path are covered. The same added regression test bytes produce **15 PASS / 2 FAIL** on the fully bound old source and **17 PASS / 0 FAIL** after correction. An earlier unhydrated setup attempt (13 PASS / 4 FAIL, including two ENOENTs) is preserved separately.
+
+`API-EXPORT-CORRECTION.json` and its archive retain the old client/generator/test/manifest, exact regression method, both baseline logs, candidate log, source check and runtime delta. The old 16-member manifest is historical; the current manifest covers this explicit follow-up. The runtime differs by exactly one property-reference character. Every other runtime byte remains identical. The six historical internal React workflows are retained without rerunning or relabelling them as public-helper coverage. This targeted correction is qualified by the new focused and real-HTTP checks, not by that older browser proof.
+
+Both generated reader options contain the standard literal `credentials: "include"` (client lines 42 and 82), matching the captured source. This is an option value, not an access credential; it establishes no current cookie, authentication or CORS behavior.

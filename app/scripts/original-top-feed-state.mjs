@@ -169,8 +169,26 @@ function holders${i}(){${privates(holders, [holderPrivate], "used username exclu
     .entries()) {
     const f = await factory(364468, m.origins[0].source);
     ownerVariants.push({ source: m.origins[0].source, sha256: m.sha256 });
+    // Derive the public builder from the actual prefetch and owning-hook calls.
+    // Its private spelling differs between retained factories (u versus c).
+    const prefetchCall = exactlyOne(
+      findNodes(exported(f, "H"), (n) => n.type === "CallExpression" &&
+        n.callee.type === "MemberExpression" &&
+        propertyName(n.callee.property) === "prefetchQuery"),
+      "actual prefetch query call",
+    );
+    const builderCall = prefetchCall.arguments[0];
+    assert.equal(builderCall.type, "CallExpression");
+    assert.equal(builderCall.callee.type, "Identifier");
+    const queryBuilderName = builderCall.callee.name;
+    const queryBuilder = declaration(f, queryBuilderName).init;
+    assert.equal(queryBuilder.type, "ArrowFunctionExpression");
+    assert.equal(findNodes(queryBuilder, (n) => n.type === "ObjectProperty" &&
+      propertyName(n.key) === "queryKey").length, 1);
+    assert.equal(findNodes(exported(f, "y"), (n) => n.type === "CallExpression" &&
+      n.callee.type === "Identifier" && n.callee.name === queryBuilderName).length, 1);
     ownerCode.push(
-      `function owner${i}({useMemoCache,useQuery,reader,normalizerHelpers,engagementHelpers,holderHelpers,isSolanaMint}){${bindings(f, { 445242: "{c:useMemoCache}", 690877: "{useQuery}", 735821: "{F:reader}", 621624: "engagementHelpers", 559015: "holderHelpers", 154703: "normalizerHelpers", 639374: "{f:isSolanaMint}" })}${privates(f, ["o", "d", "c", "u"], "complete used mapper/query/constant private closure")}return{useTopFeed:${witness(f, exported(f, "y"), "complete16-slot TOP feed query/read owner")},prefetchTopFeed:${witness(f, exported(f, "H"), "complete daily top prefetch")},mapEntry:o,queryOptions:u};}`,
+      `function owner${i}({useMemoCache,useQuery,reader,normalizerHelpers,engagementHelpers,holderHelpers,isSolanaMint}){${bindings(f, { 445242: "{c:useMemoCache}", 690877: "{useQuery}", 735821: "{F:reader}", 621624: "engagementHelpers", 559015: "holderHelpers", 154703: "normalizerHelpers", 639374: "{f:isSolanaMint}" })}${privates(f, ["o", "d", "c", "u"], "complete used mapper/query/constant private closure")}return{useTopFeed:${witness(f, exported(f, "y"), "complete16-slot TOP feed query/read owner")},prefetchTopFeed:${witness(f, exported(f, "H"), "complete daily top prefetch")},mapEntry:o,queryOptions:${queryBuilderName}};}`,
     );
   }
   const main = await factory(163807),
