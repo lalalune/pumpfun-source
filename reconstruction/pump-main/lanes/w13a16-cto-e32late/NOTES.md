@@ -114,3 +114,24 @@ More `Ok(..)?` trials (ledger `0x22a10-w13-{1043a51,6af878b}-e32late-*`):
 | inner if-tuple through Ok (6af878b) | 0.4976 | 27,400 |
 | validate result through Ok((..,))? (6af878b) | 0.33109 | 27,392 |
 | w13a02 fee-first `?.1` / + scoped x / x only (1043a51) | 0.31873 / 0.27792 / 0.5009 | 27,304 / 27,360 / 27,528 |
+
+## Lead: remove the `st` escape and fill the original's 40 B (main 6af878b, 0.53895)
+
+`st` (CtoState, 48 B) stays in memory only because `st.creator!=Pubkey::default()` passes `&st.creator` to `memcmp`.
+The original has 7/9 B pieces of a copy of `new` (T 0x658/0x668) and the 24 B X24 (T 0x680) there.
+
+| trial (raw-IR capture + opt oracle) | ratio | abs | bytes |
+| --- | ---: | ---: | ---: |
+| main 6af878b | 0.53895 | 0.69353 | 27,400 |
+| s1: default check reads `a.bonding_curve.creator` (st gone, holder_key T 0x678) | 0.5116 | | 27,440 |
+| s2: s1 + `target=a.bonding_curve.creator` in the shared arm | 0.50607 | 0.68637 | 27,328 |
+| s2 + 40 B alloca before holder_key (`tools/padins.py`, oracle only) | **0.54559** | | 27,336 |
+| t4: s1 + `let new=new.map(\|k\|k);` right before validate | 0.4988 | **0.69561** | 27,240 |
+| t4 + 24 B alloca before holder_key (X24 stand-in, oracle only) | **0.53748** | | 27,248 |
+
+In t4 the copy of `new` gives `new1.sroa.6.sroa.0/7` at exactly the original's T 0x658 (7 B) and T 0x668 (9 B). With a 24 B
+slot after them, holder_key and mint land on the original's T 0x6a0/0x6c0. t4 also has the best abstracted code shape
+seen on this main. What is still missing before this can land is a faithful X24, i.e. the target tail copy at the join
+that later hosts the wallet signer slice (w13a02), plus about 150 B of code to get back to 27,400. The w13a02 X24 forms
+on top of s2/t4 did not produce a 24 B slot: scoped x 0.50292 @27,472, fee-first 0.27 to 0.35.
+`padins.py in.ll out.ll NAME SIZE BEFORE` inserts a stand-in alloca for this kind of what-if.
