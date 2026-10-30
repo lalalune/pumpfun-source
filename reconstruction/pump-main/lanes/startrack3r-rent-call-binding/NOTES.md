@@ -142,8 +142,85 @@ repeat, despite equal aggregate scores, fails on the actual rent callee;
 published verifier also replays both source revisions with the current scorer.
 `VALIDATION.json` retains checks and exploratory failures. In particular, an
 attempt to interpret every `.data.rel.ro` relocation qword as a direct virtual
-address failed at offset zero; no data-referent or recursive closure claim is
-made. All raw failure evidence remains local.
+address failed at offset zero. That initial failure is preserved; the scoped
+control-to-candidate data check below corrects the interpretation. It does not
+establish original data equality or recursive code equivalence.
+
+## Follow-up: actual data references and a rejected producer hypothesis
+
+The measured ELFs have `EM_SBPF=263` and `e_flags=0`. Their relative data
+relocations encode the low address in bytes 4..8 of the slot, with a zero lower
+word. This is explained by the legacy branch of the
+[pinned loader source](https://github.com/solana-labs/rbpf/blob/236d6bb9e265bab2da7fa5a6d25bb9fcb3036e47/src/elf.rs#L1047).
+The reference implementation is evidence for interpreting this encoding, not
+an assertion about which loader version is deployed. Source hashes and Git
+blobs are recorded in `DATA-PROVENANCE.json`.
+
+The new `verify_relocations.py` checks the actual `fd8b94dfa` control and its
+credited rent-helper experiment, without relocating or executing either ELF:
+
+- All **590** `.data.rel.ro` slots are accounted for: 428 target `.rodata`,
+  158 target complete code bodies, and four target `.data.rel.ro` itself.
+  Addresses change in 553 slots. Every target retains its section-relative
+  data offset or complete normalized code-body identity.
+- Every non-relocation data byte and the entire `.rodata` section are equal
+  between this control and candidate.
+- All retained physical function classes preserve their reference-signature
+  multisets: **5,289 relocated LDDW references** and **2,866 unrelocated LDDW
+  values**. Actual relocation records distinguish references from constants;
+  code targets are checked as complete normalized bodies. Duplicate normalized
+  functions are compared as multisets, without inventing a unique pairing.
+- The same extra 512-byte class is the only removed physical function class.
+  Ordinary memberships remain 1,027 normalized / 273 raw.
+
+This checks the data graph between the two local compiler outputs, with code
+terminals checked after the existing normalization. It does not recursively
+verify their calls or establish runtime or original-program equivalence.
+`DATA-REFERENCES.json.gz` contains the complete deterministic report.
+
+There is a concrete remaining producer difference: original window `0x101448`
+and the candidate's 1,640-byte GlobalVolumeAccumulator decoder are normalized
+equal, but their LDDW at byte offset 1616 reaches source records containing
+`src/de/mod.rs` and `src\de\mod.rs`, respectively. Both records have length 13,
+line 637, column 21. The records are at `.data.rel.ro` offsets 544 and 576;
+a neighboring 32-byte vtable is ordered differently. Their data equality
+cannot be inferred from the normalized function match. The complete original
+and candidate `.rodata` sections still differ at 104 bytes.
+
+The local dep-info associates `libborsh-ce6fe738f5bab714.rlib` with Borsh 0.10.4.
+Its checked vendor source has `ArrayDropGuard`'s increment at that exact
+line/column; the archive's metadata contains the backslash path. Multiple
+archives contain that path, so string search alone does not authenticate a
+unique producer. `DATA-PROVENANCE.json` retains the full archive-member search,
+source/checksum bindings and the actual caller-to-record evidence.
+
+One root compilation tested the specific argument
+`--remap-path-prefix=src\de\mod.rs=src/de/mod.rs` against the recorded `fd8b94dfa`
+control. **The entire 2,666,064-byte output remained identical**, SHA-256
+`09186a9021ba057d53d37b55e7d28c55415417995999c2d3e2006b943b09521a`.
+All 100 source inputs, four tools and 207 dependency files stayed unchanged;
+there were no stack diagnostics. The hypothesis is rejected for this root
+recipe, with its logs and receipts retained. Dependency production needs
+investigation before another remap attempt; no source or artifact was patched.
+This follow-up adds no raw match and does not close the measured 120-byte gap.
+
+Run the new verifier with the same arguments as the earlier command, omitting
+`--repeat`. Run `test_relocations.py` with those arguments and a new `--work`
+directory to reproduce the normal/optimized replays and three negative tests.
+The tests alter only isolated synthetic fixtures: a scalar data byte, a data
+relocation's target and a Sell V2 LDDW target. All three preserve every ordinary
+normalized/raw membership but are rejected by the new checks. They are never
+executed or represented as compiler outputs. The test driver refuses `-O`;
+it separately runs the verifier under `-O` and requires identical reports.
+
+New upstream [#2168](https://github.com/lalalune/pumpfun-source/pull/2168)
+independently removes the extra helper using the existing matched-body source.
+Its source and reported native metrics are not duplicated or claimed as
+locally replayed here. The original #1384 attribution remains unchanged.
+At the follow-up review, #2168 had advanced to `4658102827` and also moved four
+handler bodies. Main had advanced to `dfea11ec8e8502c10cd4a9bda0646ecad7238b79`,
+with further program and scorer changes. Neither later tree is qualified by
+these recorded `fd8b94dfa` measurements.
 
 ## Maintainer context and next step
 
