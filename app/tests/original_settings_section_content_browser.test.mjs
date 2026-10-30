@@ -235,7 +235,7 @@ test(
         );
         await page
           .locator('[data-testid="settings-section-unknown"]')
-          .waitFor();
+          .waitFor({ state: "attached" });
         assert.equal(await page.getByRole("status").count(), 0);
         assert.equal(await page.locator("[data-external-port]").count(), 0);
         const unknown = await snapshot();
