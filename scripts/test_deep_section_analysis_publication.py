@@ -26,6 +26,49 @@ def fake_elf_with_relocations(section_header, blob_size):
     )
 
 
+class DeepSectionLayer4Tests(unittest.TestCase):
+    def test_idl_programs_recover_exactly_the_archived_selectors(self):
+        from window_elf_reader import Elf
+        for name, count in (("pump", 56), ("pump_amm", 38), ("pump_fees", 31)):
+            with self.subTest(program=name):
+                elf = Elf(SCRIPTS.parent / "evidence/original" / name / "deployed.so")
+                recovered = deep_section_analysis.recover_anchor_idl(elf)["discriminators"]
+                idl = deep_section_analysis.load_idl_discriminators(elf)
+                self.assertEqual(len(recovered), count)
+                self.assertEqual({bytes.fromhex(d["bytes"]) for d in recovered}, set(idl))
+
+    @staticmethod
+    def heuristic_elf(instructions):
+        blob = bytearray(0xe0)
+        for offset, data in instructions.items():
+            blob[offset:offset + len(data)] = data
+        # No .path attribute: no archived IDL, so the register-bound heuristic runs.
+        return SimpleNamespace(b=bytes(blob), lo=0x40, hi=len(blob), entries=[])
+
+    def test_branches_on_other_registers_are_not_discriminators(self):
+        def lddw(dst, value):
+            return (struct.pack("<BBHI", 0x18, dst, 0, value & 0xFFFFFFFF)
+                    + struct.pack("<BBHI", 0, 0, 0, (value >> 32) & 0xFFFFFFFF))
+
+        elf = self.heuristic_elf({
+            # lddw r1, const; jeq r2, ... — the branch does not test r1.
+            0x40: lddw(1, 0x300000000) + struct.pack("<BBhi", 0x1d, 0x20, 1, 0),
+            # lddw r1, selector; jeq r1, ... — the branch tests the loaded register.
+            0x60: lddw(1, 0x1122334455667788) + struct.pack("<BBhi", 0x1d, 0x10, 1, 0),
+            # The same selector loaded again is reported once.
+            0x80: lddw(2, 0x1122334455667788) + struct.pack("<BBhi", 0x5d, 0x02, 1, 0),
+            # Immediate branches have no source register; the zero high nibble
+            # must not make a branch on r2 appear to test a loaded r0.
+            0xa0: lddw(0, 0x9988776655443322) + struct.pack("<BBhi", 0x15, 0x02, 1, 0),
+            # An immediate comparison on the loaded destination is valid.
+            0xc0: lddw(3, 0x8877665544332211) + struct.pack("<BBhi", 0x55, 0x03, 1, 0),
+        })
+        recovered = deep_section_analysis.recover_anchor_idl(elf)["discriminators"]
+        self.assertEqual([d["bytes"] for d in recovered],
+                         [value.to_bytes(8, "little").hex() for value in
+                          (0x1122334455667788, 0x8877665544332211)])
+
+
 class DeepSectionRelocationBoundsTests(unittest.TestCase):
     # sh_offset=8, sh_size=32 claims two entries reaching byte 40.
     TRUNCATED = (0, 0, 0, 0, 8, 32, 0, 0, 0, 16)

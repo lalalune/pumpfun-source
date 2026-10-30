@@ -303,7 +303,7 @@ def main(candidate=CANDIDATE, build_path=BUILD, output=OUTPUT,
                          "comparison_sha256": sha(second_build_path),
                          "candidate_sha256": second["comparison"]["candidate_sha256"],
                          "source_hashes_equal": True, "toolchain_equal": True}
-    idl = json.loads(IDL.read_text())
+    idl = json.loads(IDL.read_text(encoding='utf-8'))
     item = next(item for item in idl["instructions"]
                 if item["name"] == "admin_update_token_incentives")
     assert [entry["name"] for entry in item["accounts"]] == [

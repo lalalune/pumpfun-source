@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Window-inventory selection; no objdump, candidate build, or target execution."""
 import csv
+import hashlib
 import struct
+import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import pump_exact_body_inventory as inventory
 
@@ -53,6 +56,37 @@ class WindowInventoryTests(unittest.TestCase):
         self.assertEqual(selected[0][0], text[3])
         self.assertEqual(selected[-1][1], text[3] + text[5])
         self.assertTrue(all(left[1] == right[0] for left, right in zip(selected, selected[1:])))
+
+    def test_existing_report_is_preserved(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            original = root / 'original.so'
+            original.write_bytes(b'O')
+            candidate = root / 'candidate.so'
+            candidate.write_bytes(b'C')
+            objdump = root / 'llvm-objdump'
+            objdump.write_bytes(b'tool')
+            inventory_path = root / 'functions.tsv'
+            with inventory_path.open('w', newline='') as stream:
+                writer = csv.writer(stream, delimiter='\t')
+                writer.writerow(('program', 'variant', 'original_start', 'original_end'))
+                for start in range(1035):
+                    writer.writerow(('pump', 'selected', start, start + 1))
+            output = root / 'report.json'
+            output.write_text('retained\n')
+            sections = {'.text': {'addr': 0, 'size': 1035}}
+            with patch.object(inventory, 'ORIGINAL', original), \
+                    patch.object(inventory, 'EXPECTED_ORIGINAL', hashlib.sha256(b'O').hexdigest()), \
+                    patch.object(inventory, 'sections', return_value=sections), \
+                    patch.object(inventory, 'candidate_functions', return_value=[]), \
+                    patch.object(inventory, 'function_body', return_value=b'x'), \
+                    patch.object(inventory, 'window_inventory', return_value=inventory_path), \
+                    patch.object(sys, 'argv', [
+                        'pump_exact_body_inventory.py', '--candidate', str(candidate),
+                        '--output', str(output), '--objdump', str(objdump)]):
+                with self.assertRaises(FileExistsError):
+                    inventory.main()
+            self.assertEqual(output.read_text(), 'retained\n')
 
 
 if __name__ == '__main__':

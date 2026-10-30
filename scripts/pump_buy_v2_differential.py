@@ -5,9 +5,9 @@ import pump_trade_fixture as f
 R=f.R;P=f.Pubkey.from_string(f.x['program']);USER=f.Keypair.from_seed(bytes([231])*32)
 INITIAL={k:f.vm.get_account(k) for k in f.msg.account_keys};CURVE=f.Pubkey.from_string(f.x['accounts']['curve']);GLOBAL=f.Pubkey.from_string(f.x['accounts']['global']);FEE=f.Pubkey.from_string(f.x['accounts']['fee_config'])
 FEES=f.Pubkey.from_string('pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ');TOKEN=f.Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');TOKEN22=f.Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');ATA=f.Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');WSOL=f.Pubkey.from_string('So11111111111111111111111111111111111111112');USDC=f.Pubkey.from_string('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v')
-IX=next(i for i in json.loads((R/'evidence/upstream/pump.json').read_text())['instructions'] if i['name']=='buy_v2')
+IX=next(i for i in json.loads((R/'evidence/upstream/pump.json').read_text(encoding='utf-8'))['instructions'] if i['name']=='buy_v2')
 def run(c,binary=None):
- IX=next(i for i in json.loads((R/'evidence/upstream/pump.json').read_text())['instructions'] if i['name']==c.get('kind','buy_v2'))
+ IX=next(i for i in json.loads((R/'evidence/upstream/pump.json').read_text(encoding='utf-8'))['instructions'] if i['name']==c.get('kind','buy_v2'))
  vm=f.LiteSVM().with_transaction_history(0).with_sigverify(True)
  for name in ['pump','pump_fees']:
   cap=json.loads((R/f'evidence/original/{name}/capture.json').read_text());vm.add_program_from_file(f.Pubkey.from_string(cap['program']),binary if name=='pump' and binary else R/f'evidence/original/{name}/deployed.so')

@@ -5,7 +5,7 @@ if not __debug__:
 import argparse, hashlib, json, struct, subprocess
 import pump_trade_fixture as f
 p=argparse.ArgumentParser();p.add_argument('--host',type=f.pathlib.Path,required=True);p.add_argument('--output',type=f.pathlib.Path,required=True);p.add_argument('--curve-report',type=f.pathlib.Path,default=f.R/'repro/pump/constant-product-differential.json',help='Report produced by pump_validate_constant_product.py');a=p.parse_args()
-idl=json.loads((f.R/'evidence/upstream/pump.json').read_text());types={x['name']:x['type'] for x in idl['types']}
+idl=json.loads((f.R/'evidence/upstream/pump.json').read_text(encoding='utf-8'));types={x['name']:x['type'] for x in idl['types']}
 event_disc=bytes(next(x['discriminator'] for x in idl['events'] if x['name']=='TradeEvent'))
 def decode_event(data):
     at=8

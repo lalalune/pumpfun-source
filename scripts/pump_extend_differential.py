@@ -10,7 +10,7 @@ from solders.litesvm import LiteSVM
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
-ROOT=Path(__file__).resolve().parents[1];IDL=json.loads((ROOT/'evidence/upstream/pump.json').read_text());PROGRAM=Pubkey.from_string(IDL['address']);ORIGINAL=ROOT/'evidence/original/pump/deployed.so'
+ROOT=Path(__file__).resolve().parents[1];IDL=json.loads((ROOT/'evidence/upstream/pump.json').read_text(encoding='utf-8'));PROGRAM=Pubkey.from_string(IDL['address']);ORIGINAL=ROOT/'evidence/original/pump/deployed.so'
 PAYER=Keypair.from_seed(bytes([227])*32);USER=Keypair.from_seed(bytes([228])*32);TARGET=Pubkey.from_bytes(bytes([229])*32);OTHER=Pubkey.from_bytes(bytes([230])*32);EVENT=Pubkey.find_program_address([b'__event_authority'],PROGRAM)[0];TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA')
 IX=next(x for x in IDL['instructions'] if x['name']=='extend_account');DISCS={x['name']:bytes(x['discriminator']) for x in IDL['accounts']}
 def run(c,binary=ORIGINAL):

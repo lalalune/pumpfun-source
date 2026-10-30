@@ -211,7 +211,7 @@ def run_case(binary, case):
     ordered = [keys["user"], keys["user_base"], global_key, global_ata, user_key,
                mint_key, token_program, Pubkey.default(), ATA,
                event_authority, program_account, PAYER.pubkey()]
-    idl = json.loads(IDL.read_text())
+    idl = json.loads(IDL.read_text(encoding='utf-8'))
     item = next(row for row in idl["instructions"] if row["name"] == "claim_token_incentives")
     metas = [AccountMeta(key, bool(info.get("signer")),
                          bool(info.get("writable")))

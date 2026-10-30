@@ -35,6 +35,8 @@ SDK = Path.home() / '.cache/solana/v1.44/platform-tools'
 # Generated toolchain, dependency caches and build-slot locks live outside the repository so every
 # worktree shares them (see reconstruction/toolchain/bootstrap.py).
 # Cargo runs from the staged workspace; anchor relative overrides without resolving symlinks.
+# APFS clonefile (-c) keeps the warm template cheap on macOS; GNU cp rejects -c.
+CLONE = ['cp', '-cRp'] if sys.platform == 'darwin' else ['cp', '-a']
 CACHE = Path(os.environ.get('PUMP_RECON_HOME', str(Path.home() / '.cache/pumpfun-reconstruction'))).absolute()
 # Recipes: 'mac' = installed macOS v1.44 SDK, triple sbf-solana-solana (Codex harness default);
 # 'identity' = same macOS rustc binary with the official Linux x86_64 v1.44 target libraries, triple
@@ -184,7 +186,7 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     library = manifest.get('lib', {}).get('name', manifest['package']['name'].replace('-', '_'))
     target = work / ('target' if recipe == 'mac' else f'target-{recipe}')
     if not target.exists() and R['template'].exists():
-        subprocess.run(['cp', '-cRp', str(R['template']), str(target)], check=True)
+        subprocess.run(CLONE + [str(R['template']), str(target)], check=True)
     env = os.environ.copy()
     env.pop('CARGO_BUILD_TARGET_DIR', None)
     reg = Path.home() / '.cargo'

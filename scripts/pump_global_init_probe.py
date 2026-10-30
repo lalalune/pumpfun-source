@@ -11,7 +11,7 @@ from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
 from probe_report import write_json_report
 R=Path(__file__).resolve().parents[1]
-IDL=json.loads((R/'evidence/upstream/pump.json').read_text());P=Pubkey.from_string(IDL['address']);G=Pubkey.find_program_address([b'global'],P)[0]
+IDL=json.loads((R/'evidence/upstream/pump.json').read_text(encoding='utf-8'));P=Pubkey.from_string(IDL['address']);G=Pubkey.find_program_address([b'global'],P)[0]
 IX=next(i for i in IDL['instructions'] if i['name']=='initialize')
 def run(seed):
  vm=LiteSVM().with_sigverify(True);vm.add_program_from_file(P,R/'evidence/original/pump/deployed.so')

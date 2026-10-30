@@ -4,7 +4,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 import fees_sharing_create_differential as f
 from fees_sharing_create_differential import *
-PIDL=json.loads((ROOT/'evidence/upstream/pump.json').read_text());VAULT=Pubkey.find_program_address([b'creator-vault',bytes(SHARING)],PUMP)[0]
+PIDL=json.loads((ROOT/'evidence/upstream/pump.json').read_text(encoding='utf-8'));VAULT=Pubkey.find_program_address([b'creator-vault',bytes(SHARING)],PUMP)[0]
 def run(c,binary=None):
  original=f.LiteSVM;v=[]
  def factory():

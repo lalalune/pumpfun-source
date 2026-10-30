@@ -3,8 +3,9 @@
 import sys
 sys.path.insert(0,'scripts')
 from pump_amm_create_differential import *
+from pump_amm_reusable_harness import pin_program
 def boost(candidate=None,overrides=None,fixture=False):
- r=create();h=Harness(candidate or ROOT/'evidence/original/pump_amm/deployed.so');h.vm.set_clock(Clock(100,1234567890,0,0,1234567890))
+ r=create();h=Harness(candidate or pin_program(ROOT/'evidence/original/pump_amm/deployed.so'));h.vm.set_clock(Clock(100,1234567890,0,0,1234567890))
  for pid,n in [(TOKEN,'spl_token'),(TOKEN22,'spl_token_2022'),(ATA,'associated_token')]:h.vm.add_program_from_file(pid,ROOT/'evidence/dependencies'/n/'deployed.so')
  for k,a in r['states'].items():
   if a:h.vm.set_account(Pubkey.from_string(k),Account(a['lamports'],bytes.fromhex(a['data']),Pubkey.from_string(a['owner'])))
@@ -22,13 +23,13 @@ def boost(candidate=None,overrides=None,fixture=False):
   if a is None or not a.executable:states[str(m.pubkey)]=None if a is None else {'data':bytes(a.data).hex(),'lamports':a.lamports,'owner':str(a.owner)}
  return {'states':states,'error':str(r.err()) if fail else None,'logs':meta.logs(),'inner':json.loads(meta.to_json())['inner_instructions']}
 
-PUMP=Pubkey.from_string(json.load(open('evidence/upstream/pump.json'))['address']);ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
+PUMP=Pubkey.from_string(json.load(open('evidence/upstream/pump.json', encoding='utf-8'))['address']);ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
 p=json.load(open('research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json'))
 def run_migration(candidate=None,label='missing_boost',overrides=None):
  row=p[label];tx=Transaction.from_bytes(base64.b64decode(row['transaction_base64']));assert all(tx.verify_with_results())
  vm=LiteSVM().with_transaction_history(0).with_blockhash_check(False).with_log_bytes_limit(None);vm.set_clock(Clock(100,1234567890,0,0,1234567890))
- for pid,path in [(PROGRAM,candidate or ROOT/'evidence/original/pump_amm/deployed.so'),(PUMP,ROOT/'evidence/original/pump/deployed.so'),(TOKEN,ROOT/'evidence/dependencies/spl_token/deployed.so'),(TOKEN22,ROOT/'evidence/dependencies/spl_token_2022/deployed.so'),(ATA,ROOT/'evidence/dependencies/associated_token/deployed.so')]:vm.add_program_from_file(pid,path)
- ix=tx.message.instructions[-1];spec=next(x for x in json.load(open('evidence/upstream/pump.json'))['instructions'] if x['name']=='migrate_v2');keys={a['name']:tx.message.account_keys[i] for a,i in zip(spec['accounts'],ix.accounts)}
+ for pid,path in [(PROGRAM,candidate or pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),(PUMP,ROOT/'evidence/original/pump/deployed.so'),(TOKEN,ROOT/'evidence/dependencies/spl_token/deployed.so'),(TOKEN22,ROOT/'evidence/dependencies/spl_token_2022/deployed.so'),(ATA,ROOT/'evidence/dependencies/associated_token/deployed.so')]:vm.add_program_from_file(pid,path)
+ ix=tx.message.instructions[-1];spec=next(x for x in json.load(open('evidence/upstream/pump.json', encoding='utf-8'))['instructions'] if x['name']=='migrate_v2');keys={a['name']:tx.message.account_keys[i] for a,i in zip(spec['accounts'],ix.accounts)}
  aliases={'mint':'base_mint','curve':'bonding_curve','curve_base':'associated_base_bonding_curve','pool_authority_mint':'pool_authority_mint_account','pool_authority_quote':'pool_authority_quote_account','pool_base':'pool_base_token_account','pool_quote':'pool_quote_token_account','user_lp':'user_pool_token_account'}
  for name,account in row['before'].items():
   key=keys.get(aliases.get(name,name))
@@ -44,7 +45,7 @@ def run_migration(candidate=None,label='missing_boost',overrides=None):
  return {'states':states,'error':str(r.err()) if failed else None,'logs':meta.logs(),'inner':json.loads(meta.to_json())['inner_instructions']}
 
 def main():
- parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args();candidate=args.candidate;rows=[]
+ parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args();candidate=pin_program(args.candidate);rows=[]
  def test(case,kind='direct',overrides=None,**kw):
   fn=boost if kind=='direct' else run_migration
   x=fn(overrides=overrides,**kw);y=fn(candidate=candidate,overrides=overrides,**kw)
@@ -87,7 +88,7 @@ def main():
     a=h.vm.get_account(m[idx].pubkey);d=bytearray(a.data);d[off:off+len(val)]=val;h.vm.set_account(m[idx].pubkey,Account(a.lamports,bytes(d),a.owner))
    test('vault-field='+str((idx,off)),overrides=field)
  sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
- report={'scope':'init_boost: direct signed constraints and fully committed saved signed Pump migrate_v2 through original PDA caller, with documented synthetic account variations. Historical blockhash freshness disabled, signatures retained. Full states, exact inner CPI/event bytes, errors; not full-program equivalence.','candidate_sha256':sha(candidate),'original_sha256':sha(ROOT/'evidence/original/pump_amm/deployed.so'),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
+ report={'scope':'init_boost: direct signed constraints and fully committed saved signed Pump migrate_v2 through original PDA caller, with documented synthetic account variations. Historical blockhash freshness disabled, signatures retained. Full states, exact inner CPI/event bytes, errors; not full-program equivalence.','candidate_sha256':sha(candidate),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
  args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(report['mismatches']),'mismatches':report['mismatches']}))
  if report['mismatches']:raise SystemExit(1)
 

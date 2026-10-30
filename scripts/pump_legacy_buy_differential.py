@@ -6,7 +6,7 @@ from solders.clock import Clock
 R=f.R;P=f.Pubkey.from_string(f.x['program']);USER=f.Keypair.from_seed(bytes([231])*32)
 INITIAL={k:f.vm.get_account(k) for k in f.msg.account_keys}
 CURVE=f.Pubkey.from_string(f.x['accounts']['curve']);GLOBAL=f.Pubkey.from_string(f.x['accounts']['global']);FEE=f.Pubkey.from_string(f.x['accounts']['fee_config'])
-IDL=json.loads((R/'evidence/upstream/pump.json').read_text());IX=next(i for i in IDL['instructions'] if i['name']=='buy')
+IDL=json.loads((R/'evidence/upstream/pump.json').read_text(encoding='utf-8'));IX=next(i for i in IDL['instructions'] if i['name']=='buy')
 def run(c,binary=None):
  IX=next(i for i in IDL['instructions'] if i['name']==c.get('kind','buy'))
  vm=f.LiteSVM().with_transaction_history(0)

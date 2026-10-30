@@ -6,6 +6,8 @@ capture is widened; source locations are recorded separately from panic messages
 No transaction is broadcast. This is a two-case diagnostic regression, not an
 exhaustive claim or whole-contract proof.
 """
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse
 import base64
 import gzip

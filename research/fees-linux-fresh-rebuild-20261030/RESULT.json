@@ -1,0 +1,153 @@
+{
+  "schema": 1,
+  "program": "pump_fees",
+  "builder": "programs/pump-fees/build_exact.py",
+  "base_commit": "2abb99ccb60766c3cd292e679dbac5314afb3f3b",
+  "pinned": {
+    "symbols_sha256": "7ec99a6915bcb9245a2d5199996376a76651fa893c71e455b189cf59428f4e66",
+    "candidate_sha256": "5b6ceda57863f0dcc3e0e3623052f8342c2c81883379699e71d7ed5383cb3dcf"
+  },
+  "capture": {
+    "path": "evidence/original/pump_fees/deployed.so",
+    "bytes": 948944,
+    "sha256": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+    "meaningful_prefix_bytes": 873256,
+    "zero_suffix_bytes": 75688
+  },
+  "host": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "kernel": "6.12.94+",
+    "container_runtime": "none: podman-bwrap-shim.py (bubblewrap 0.12.0, --unshare-all incl. network)",
+    "image_used": false,
+    "cargo_jobs": 2
+  },
+  "tools": {
+    "sdk_archive": "platform-tools-linux-x86_64.tar.bz2 v1.44",
+    "sdk_archive_sha256": "6719b889d60677a8a2fcf4c82f68441a1afe0ab093edd2efe9f84a67a808b3e9",
+    "sdk_archive_pin_ref": "reconstruction/harness/make_hybrid144.sh",
+    "strip_archive_sha256": "8b3861e93daf085ec12b65c4fac374d9bec4587a3de16871da6b08ab0c1d907e",
+    "objcopy_sha256": "673b3b86f0b1b8eadd755e29e2f66a7582248ef3bda7a267fbb370b733c1cb69",
+    "strip_pin_ref": "scripts/core_linux_v144_inputs.json pipeline_tools",
+    "registry": "cargo fetch --locked of programs/pump-fees/Cargo.lock with the v1.44 cargo (network only for this fetch); 251 packages"
+  },
+  "shim_sha256": "6700e86e7a063bde4cb86235827d5bc8f2dcd4711c475dfce0d1a97f1e1f29ce",
+  "runs": [
+    {
+      "returncode": 0,
+      "seconds": 63.5354598949998,
+      "source_unchanged": true,
+      "macro_unchanged": true,
+      "sdk_libraries_unchanged": true,
+      "registry_unchanged": true,
+      "target_initially_empty": true,
+      "original_executable_is_build_input": false,
+      "clean_returncode": 0,
+      "symbols_sha256": "7ec99a6915bcb9245a2d5199996376a76651fa893c71e455b189cf59428f4e66",
+      "candidate_sha256": "5b6ceda57863f0dcc3e0e3623052f8342c2c81883379699e71d7ed5383cb3dcf",
+      "exact_symbols_equal": true,
+      "exact_candidate_equal": true,
+      "candidate_bytes": 873256,
+      "stack_diagnostics": [],
+      "fresh_local_crate_compilations": {
+        "pump-fun-fees-candidate": 1,
+        "pump-fees-math": 1
+      },
+      "controller_script_sha256": "6fffc0c2d0eedf2e84541445c6a388092accb6bf3371e159acc851bc397a92b8",
+      "sdk_tools": {
+        "rust/bin/cargo": "d28444578306fe5a4f40524331411340123004e9e6556322fcabdbe351fe265d",
+        "rust/bin/rustc": "c8807b7ebede8578ac5a257ea333780f9d89bd356064fd8184af7e996cb71a97",
+        "rust/lib/rustlib/x86_64-unknown-linux-gnu/bin/rust-lld": "f28db3647fcf67bd47f012a1c47fe679f5787a4e2bf9cd5b6fe4914b10622bda"
+      },
+      "objcopy_sha256": "673b3b86f0b1b8eadd755e29e2f66a7582248ef3bda7a267fbb370b733c1cb69",
+      "environment": {
+        "PATH": "/work/sdk/rust/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "RUSTC": "/work/sdk/rust/bin/rustc",
+        "CC": "/work/sdk/llvm/bin/clang",
+        "AR": "/work/sdk/llvm/bin/llvm-ar",
+        "CARGO_HOME": "/cargo",
+        "CARGO_TARGET_DIR": "/work/targets/slot0",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_NET_OFFLINE": "true",
+        "RUSTFLAGS": "-Zremap-cwd-prefix="
+      },
+      "run": "run1",
+      "inventory_digests": {
+        "source_inputs": "6b9ad1269c1f9cd663e183cc61569d3548328c76b7d2477d05bee6573502c5dd",
+        "qualified_source_inputs": "4b84242b8a65335c23a4ae2167d476be4f387c72da8b57ab4be31397cdf3f310",
+        "target_libraries": "e4177ad5929d5687e390cfabbb521fa43fac3b7713b4be5f2a97707a09db96e3",
+        "macro_inputs": "0297651d110da8df0afac42b02e0a2edb6b097aab4fe7d69f47167460ed1664a",
+        "registry_inputs": "57805ddaa2d828eb7d12fb535ec13da464384750a9230d2fbf33d77d7bd5d819",
+        "input_mapping": "fa9e332a529e4443df6e4dc5f30a609c37156ce8238a5317e3ec3ec3ed40334c"
+      },
+      "registry_packages": 251,
+      "source_input_files": 65,
+      "build_log_compiling_lines": 177,
+      "result_json_sha256": "f1a074aeeeaf7db60036c6eb7b19c4cdcdf200459834582ed7c9b97d6e6d0fb6"
+    },
+    {
+      "returncode": 0,
+      "seconds": 64.5536287750001,
+      "source_unchanged": true,
+      "macro_unchanged": true,
+      "sdk_libraries_unchanged": true,
+      "registry_unchanged": true,
+      "target_initially_empty": true,
+      "original_executable_is_build_input": false,
+      "clean_returncode": 0,
+      "symbols_sha256": "7ec99a6915bcb9245a2d5199996376a76651fa893c71e455b189cf59428f4e66",
+      "candidate_sha256": "5b6ceda57863f0dcc3e0e3623052f8342c2c81883379699e71d7ed5383cb3dcf",
+      "exact_symbols_equal": true,
+      "exact_candidate_equal": true,
+      "candidate_bytes": 873256,
+      "stack_diagnostics": [],
+      "fresh_local_crate_compilations": {
+        "pump-fun-fees-candidate": 1,
+        "pump-fees-math": 1
+      },
+      "controller_script_sha256": "6fffc0c2d0eedf2e84541445c6a388092accb6bf3371e159acc851bc397a92b8",
+      "sdk_tools": {
+        "rust/bin/cargo": "d28444578306fe5a4f40524331411340123004e9e6556322fcabdbe351fe265d",
+        "rust/bin/rustc": "c8807b7ebede8578ac5a257ea333780f9d89bd356064fd8184af7e996cb71a97",
+        "rust/lib/rustlib/x86_64-unknown-linux-gnu/bin/rust-lld": "f28db3647fcf67bd47f012a1c47fe679f5787a4e2bf9cd5b6fe4914b10622bda"
+      },
+      "objcopy_sha256": "673b3b86f0b1b8eadd755e29e2f66a7582248ef3bda7a267fbb370b733c1cb69",
+      "environment": {
+        "PATH": "/work/sdk/rust/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "RUSTC": "/work/sdk/rust/bin/rustc",
+        "CC": "/work/sdk/llvm/bin/clang",
+        "AR": "/work/sdk/llvm/bin/llvm-ar",
+        "CARGO_HOME": "/cargo",
+        "CARGO_TARGET_DIR": "/work/targets/slot0",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_NET_OFFLINE": "true",
+        "RUSTFLAGS": "-Zremap-cwd-prefix="
+      },
+      "run": "run2",
+      "inventory_digests": {
+        "source_inputs": "6b9ad1269c1f9cd663e183cc61569d3548328c76b7d2477d05bee6573502c5dd",
+        "qualified_source_inputs": "4b84242b8a65335c23a4ae2167d476be4f387c72da8b57ab4be31397cdf3f310",
+        "target_libraries": "e4177ad5929d5687e390cfabbb521fa43fac3b7713b4be5f2a97707a09db96e3",
+        "macro_inputs": "0297651d110da8df0afac42b02e0a2edb6b097aab4fe7d69f47167460ed1664a",
+        "registry_inputs": "57805ddaa2d828eb7d12fb535ec13da464384750a9230d2fbf33d77d7bd5d819",
+        "input_mapping": "fa9e332a529e4443df6e4dc5f30a609c37156ce8238a5317e3ec3ec3ed40334c"
+      },
+      "registry_packages": 251,
+      "source_input_files": 65,
+      "build_log_compiling_lines": 177,
+      "result_json_sha256": "e27da461a2718c5976bcd1bbccf10ca4607ec8cdf77cfb0b1528afafded2fa77"
+    }
+  ],
+  "negative_controls": {
+    "builder_rejects_mutated_rust_source": {
+      "mutation": "append '// mutation' line to programs/pump-fees/src/buyback.rs in an exported copy",
+      "result": "ValueError: canonical input changed: programs/pump-fees/src/buyback.rs",
+      "exit_code": 1,
+      "compiled": false
+    }
+  },
+  "wall_clock": {
+    "run1_time_v_elapsed": "1:05.29",
+    "note": "GNU time max RSS 96,940 kB is the controller process tree as waited by time; not a measurement of the sandboxed rustc peak"
+  }
+}

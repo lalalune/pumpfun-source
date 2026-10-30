@@ -147,11 +147,15 @@ def run_trial(source, command, destination, inputs=(), timeout=300):
         for arg in command:
             for token, value in replacements.items(): arg = arg.replace(token, value)
             argv.append(arg)
-        argv[0] = str(Path(shutil.which(command[0])).resolve())
+        # Start the hashed binary under its declared name: virtual environments
+        # and rustup proxies select their behaviour from argv[0].
+        declared = shutil.which(command[0])
+        argv[0] = os.path.abspath(declared)
         status, reason, code = 'error', None, None
         with (attempt / 'stdout.log').open('wb') as stdout, (attempt / 'stderr.log').open('wb') as stderr:
             try:
-                process = subprocess.Popen(argv, cwd=work, stdout=stdout, stderr=stderr, start_new_session=True)
+                process = subprocess.Popen(argv, executable=Path(declared).resolve(), cwd=work,
+                                           stdout=stdout, stderr=stderr, start_new_session=True)
             except OSError as error:
                 reason = 'process start failed'
                 stderr.write((str(error) + '\n').encode('utf-8', errors='replace'))

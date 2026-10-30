@@ -1,0 +1,111 @@
+{
+  "schema": "pumpfun-completion-checkpoint-v1",
+  "date": "2026-10-30",
+  "baseline_main_revision": "319a7d10f68b9d45ac812332133a45ba9264c8a0",
+  "verified_merged_revision": "5fb5acf5b0ee1884eb1f07dff480737aa2ddbb92",
+  "source_pr": 2642,
+  "reviewed_source_head": "c4b356bd448c7fa0a18d5af50758aa1f49be19c8",
+  "recipe": "identity",
+  "source_sha256": "125b321eb106d0dc38ee664b67842d14a395fd2c24dc14dd5e5b4432f37b2e86",
+  "unstripped_sha256": "e19ccc288e5070e0ae45df516041cb2a9e61a767dfb53715ba582435941f7430",
+  "stripped_sha256": "2591493483e9e04217d14b0c8ee7e8245e57a4ce74d436887e4c6d68460f6889",
+  "baseline_source_sha256": "40ee89a9bd8998a9e0556da13cdc6ec8d8ced6e399b0d29b60d748cc17c0fd50",
+  "baseline_unstripped_sha256": "f6cb7151595426f231e6a6a969b56d189c04d4cf69dd78f9b2572104dd1536bf",
+  "runtime_valid_stack_gate": true,
+  "stack_warnings": [],
+  "pump": {
+    "normalized": 1033,
+    "raw": 1033,
+    "total": 1035,
+    "matched_percent": 99.81,
+    "normalized_only": 0,
+    "unmatched": 2,
+    "matched_code_bytes": 1746224,
+    "total_code_bytes": 1792208,
+    "unmatched_windows": [
+      {
+        "address": "0x22a10",
+        "symbol": "admin_cto::execute",
+        "bytes": 27400
+      },
+      {
+        "address": "0x5b3b0",
+        "symbol": "multi_hop_curve::swap_hop",
+        "bytes": 18584
+      }
+    ]
+  },
+  "comparison_to_fresh_main": {
+    "missing": [],
+    "added": [],
+    "resized": [],
+    "normalized_gains": [],
+    "normalized_losses": [],
+    "normalized_gained_bytes": 0,
+    "normalized_lost_bytes": 0,
+    "raw_gains": [],
+    "raw_losses": [],
+    "raw_gained_bytes": 0,
+    "raw_lost_bytes": 0,
+    "accepted": true
+  },
+  "partial_progress": {
+    "window": "0x22a10",
+    "baseline_similarity": 0.36129418813660874,
+    "candidate_similarity": 0.43918514080287596,
+    "additional_normalized_or_raw_matches": 0
+  },
+  "aggregate": {
+    "normalized": 3336,
+    "raw": 3336,
+    "total": 3338,
+    "matched_percent": 99.94,
+    "normalized_only": 0,
+    "unmatched": 2,
+    "matched_code_bytes": 5167144,
+    "total_code_bytes": 5213128,
+    "whole_meaningful_elf_equal_programs": 4,
+    "programs": 5
+  },
+  "admin_cto_runtime": {
+    "script": "scripts/pump_admin_cto_differential.py",
+    "script_sha256": "0c6eba773dd5702c5f27c04d2859d1f74e5e713f9108910711cff2211726c4dd",
+    "case_count": 363,
+    "mismatches": [],
+    "candidate_sha256": "2591493483e9e04217d14b0c8ee7e8245e57a4ce74d436887e4c6d68460f6889",
+    "full_report_sha256": "87a0aabe83d083dc59b3b4b837a30728f188061729e15e598d86ff2258c8a825",
+    "scope": "Signed synthetic captured Pump admin_cto calling Fees by genuine CPI. Pool authority nonsigner at transaction boundary; no privileged signer injection. Not full program identity."
+  },
+  "fees_linux_packet": {
+    "pr": 2647,
+    "path": "research/fees-linux-fresh-rebuild-20261030",
+    "result_sha256": "7974b57c2e4d51aef95dc62dfb39c27fa28bc695872f07e1fcfa1e71c98df557",
+    "reported_cold_builds": 2,
+    "current_source_binding_tests": 19,
+    "current_source_binding_tests_under_optimization": 19,
+    "current_inventory_bindings": [
+      "source_inputs",
+      "qualified_source_inputs",
+      "input_mapping",
+      "macro_inputs"
+    ],
+    "native_compiler_rerun_in_this_review": false,
+    "boundary": "Reported native Linux builds used a bubblewrap shim, not the pinned container image. Verification of the packet does not reproduce its compilation."
+  },
+  "build_and_scoring_tool_sha256": {
+    "reconstruction/harness/fastbuild.py": "ee4c0c7210d09cf4c99da78685aa897b0a57be7047ecaf2f4e44ebc92e69c4d0",
+    "reconstruction/harness/source_inputs.py": "7f4662fb8c541f83bd83bfdf85a7466ae6da57a0343624e51367d5044cd3e73e",
+    "reconstruction/harness/link_order.py": "85bd8568f97668ae8794f6fd89bc3d296114e446e240d10143b10221a485da0e",
+    "reconstruction/harness/score.py": "175d40c9fc13b3c6c6de103b0e6c3fab58678b82ad3912e123dac916f3cd8407",
+    "reconstruction/harness/compare_scores.py": "3832a9131d90ef49f2252ee1549a793e6766a97b347eba629ef664edc6a28084",
+    "reconstruction/base/functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8",
+    "scripts/pump_admin_cto_differential.py": "0c6eba773dd5702c5f27c04d2859d1f74e5e713f9108910711cff2211726c4dd"
+  },
+  "notes": [
+    "The verified merged revision has exactly the built Pump source inventory.",
+    "The first merge with the superseded main state layout lost 686 raw matches; the repaired source restores the stronger original-size layout and has zero losses.",
+    "The other four program counts are retained from ../completion-20261030/other-programs.json.",
+    "Partial window similarity and synthetic runtime checks do not establish whole-program identity."
+  ],
+  "build_and_scoring_tool_revision": "319a7d10f68b9d45ac812332133a45ba9264c8a0"
+}

@@ -34,18 +34,19 @@ those programs. There is no frontend, backend, SDK or off-chain service code.
 | **Total** |**3,336/3,338**|**99.94%**|**3,336**|**0**|**2**|**4/5**|
 
 Matched windows cover **5,167,144/5,213,128 code bytes (99.12%)**.
-The latest Pump Main identity build includes the `create_v2` match from #2529
-and the original-size `admin_cto` layout from #2524. It gains one normalized
-window and 686 raw matches with zero losses against a fresh main build;
-all 1,033 matched windows are now raw-equal. The combined build passes 776
-creation/admin differential cases. Pump Main's meaningful ELF is not yet equal.
-A fresh native AMM build reproduces the captured meaningful
-ELF (`51a5f6a7…`). Fees and Mayhem retain their exact historical checkpoints:
-current source staging (65 and 67 inputs) passes and the captured meaningful
-prefixes equal the builders' pinned candidate hashes; their compilers were not
-rerun. Donation Relay's retained cold-build packet verifier passes against
-current source (818,280 meaningful bytes literally equal). See the [latest
-scores and validation](reconstruction/pump-main/checkpoints/completion-pass2-20261030/README.md)
+The latest Pump Main identity build includes #2642's `admin_cto` refinement.
+It preserves all 1,033 normalized and raw matches against a fresh main build,
+and passes 363 signed synthetic admin-CTO differential cases. The remaining
+admin window's similarity improves from 36.13% to 43.92%; this partial gain
+does not raise the completion percentages. Pump Main's meaningful ELF is not
+yet equal.
+
+AMM, Fees, Mayhem and Donation Relay retain their exact meaningful-ELF
+checkpoints. The [Fees Linux rebuild packet](research/fees-linux-fresh-rebuild-20261030/README.md)
+adds two reported cold-build receipts; its verifier binds them to current
+canonical inputs and the captured meaningful prefix. This review verified
+those bindings without rerunning the native compiler. See the [latest
+scores and validation](reconstruction/pump-main/checkpoints/completion-pass6-20261030/README.md)
 and [other-program checkpoint provenance](reconstruction/pump-main/checkpoints/completion-20261030/other-programs.json).
 
 Raw equality compares complete instruction bytes. Normalized windows mask

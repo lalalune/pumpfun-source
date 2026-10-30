@@ -17,6 +17,8 @@ This oracle therefore validates the GENUINE behavior: the reconstruction's v3
 handlers must reject a cashback coin byte-identically to the original, while
 non-cashback v3 trades are unchanged. It builds on the v3 token-extensions fixture
 (same synthetic state, genuine dependency CPIs, real verified signatures)."""
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O or PYTHONOPTIMIZE.")
 import argparse,gzip,hashlib,json
 import pump_v3_token_extensions_differential as v3
 import pump_trade_fixture as f

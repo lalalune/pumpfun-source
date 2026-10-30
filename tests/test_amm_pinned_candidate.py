@@ -14,7 +14,8 @@ AMM = ROOT / 'evidence/original/pump_amm/deployed.so'
 OTHER = ROOT / 'evidence/original/pump_fees/deployed.so'
 # The cheapest suites that build every case through acquire_harness.
 SUITES = ('pump_amm_collect_differential', 'pump_amm_create_differential',
-          'pump_amm_sweep_differential', 'pump_amm_transfer_creator_differential')
+          'pump_amm_sweep_differential', 'pump_amm_transfer_creator_differential',
+          'pump_amm_cashback_differential', 'pump_amm_creator_reassignment_differential')
 # Run the real CLI. Each case acquires the original harness, then the candidate harness;
 # mutate the candidate path once the first candidate harness is returned, so later cases
 # would load the new bytes. VM execution is not mocked.

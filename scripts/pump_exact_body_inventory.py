@@ -97,7 +97,9 @@ def main():
             'original_windows':len(rows),'raw_equal_windows':sum(bool(r['raw_counterparts']) for r in rows),
             'raw_equal_text_bytes':sum(r['bytes'] for r in rows if r['raw_counterparts']),
             'whole_file_equal':original==candidate,'windows':rows}
-    args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(result,indent=2)+'\n')
+    args.output.parent.mkdir(parents=True,exist_ok=True)
+    with args.output.open('x', encoding='utf-8', newline='\n') as stream:
+        stream.write(json.dumps(result,indent=2)+'\n')
     print(json.dumps({k:v for k,v in result.items() if k not in ('scope','windows')},indent=2))
 
 

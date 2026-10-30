@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Normally signed holder distribution comparisons against captured original."""
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O or PYTHONOPTIMIZE.")
 from pathlib import Path
 import json,gzip,argparse,hashlib,sys,struct
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'));import pump_holder_distribution_probe as p
