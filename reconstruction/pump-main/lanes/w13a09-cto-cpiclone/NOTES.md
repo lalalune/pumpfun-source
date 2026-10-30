@@ -127,6 +127,17 @@ back into the event (`sharing_config_reset:sharing_update.is_some()`) brings it 
 Other compensations on that base: the scalar bump alone is 27,424 / 0.49558; the transfer-CPI program let alone is 27,368 / 0.49251;
 the scalar bump with the sharing-CPI program let is 27,392 / 0.49468; `match &sharing_update` is 27,400 / 0.30437 (frame shift).
 
+## Main moved to 0.50929 (#2921) before landing; re-port and re-screen
+
+`land.py` stopped with a `programs/` conflict: #2921 rewrote the sweep line and dropped the earlier changes.
+On ea78c08f1 (0.50929) the scalar bump is a no-op (27,400 / 0.50929), and the transfer-CPI program let is
+27,368 / 0.50809. None of the compensation pairs found reaches 27,400 B with a gain. Tried: + ev_fee_local, ev_mint_reload,
+c1_sh, sharing with_signer, ev_clock_first, pool_empty_first, sharing program let.
+
+On ea78c08f1, clonefeat moves to **3/5**: the pump_fees program clone at the end reloads from the spill slot. The rest of the run
+still uses r5. The CPI spelling set re-run there (program let on sh/po/cc/ci/ch, with_signer on sh/po, helper, closures,
+`if let`/None-first sharing match, pool_nested) gives 3/5 or worse. No variant reaches the original's 6/2.
+
 ## Ledger
 
 Approach `cpi-clone-placement`, keys `0x22a10-w13-3912c47-cpiclone-*`.

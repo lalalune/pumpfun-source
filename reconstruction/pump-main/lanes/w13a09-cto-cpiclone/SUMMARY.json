@@ -1,0 +1,47 @@
+{
+  "lane": "w13a09-cto-cpiclone",
+  "wave": 13,
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "angle": "CPI AccountInfo clone placement (sharing CPI clone run, orig 0x26798..0x27048, regionmap 0x41f0/0x45f0)",
+  "bases": {"3912c47ac": 0.48772, "085e5dffb": 0.48922, "b78bf199a": 0.49071, "cb298d5c8": 0.49101, "a33309705": 0.49431, "ea78c08f1": 0.50929, "b48b56f3f": 0.51228},
+  "best_zero_loss": {
+    "change": "sweep: let program=a.pump_amm.to_account_info() before transfer_creator_fees_to_pump_v2 + scalar creator-vault bump (&[bump]) + reset flag back in the event",
+    "base": "a33309705 (0.49431)", "ratio": 0.49551, "slots_diff": 3300, "bytes": 27400,
+    "losses": 0, "raw_losses": 0, "differential": "363/363",
+    "unstripped_sha256": "d4e1617d8b66dbf4b8f36f084218d55feb143c3a19c19bd1551163112681c365",
+    "landed": false,
+    "why_not_landed": "land.py hit a programs/ conflict when #2921 moved main to 0.50929; on 0.50929 and 0.51228 mains the pair no longer gains at 27400 B (scalar bump is a no-op, the program let is -32 B)"
+  },
+  "earlier_gain": {"base": "cb298d5c8", "ratio": 0.49131, "slots_diff": 3182, "bytes": 27400, "note": "same two edits; main moved before land.py ran"},
+  "mechanism": "The clone run matches the original's clone order; only greedy RA differs: the original reloads the AdminCto accounts pointer from its spill slot before every account (clonefeat spill/reg 6/2), ours region-splits it into r6/r5 (2/6; 3/5 on ea78c08f1).",
+  "attempts": 110,
+  "rejected_mechanisms": [
+    "program AccountInfo let-bound before CpiContext (sh/po/tf/cc/ci/ch): identical or -32 B, RA unchanged",
+    "accounts struct let-bound before CpiContext (clone order changes): frame breaks",
+    "plain nested helper fn for the sharing CPI (&AdminCto or &Context): LLVM-inlined, RA unchanged",
+    "migrate.rs closure idiom (move |signer_seeds| cpi(..))(seeds) and immediately-called closures",
+    "CpiContext::new(..).with_signer on sharing/pool CPI",
+    "let-bound CpiContext (frame shift only)",
+    "match &sharing_update / if let / None-first",
+    "ctx.accounts.X per use (GVN folds; w12b11)",
+    "swept spellings (let mut, if/else, match skip, late let): byte-identical on b78bf19",
+    "IR: branch weights on sharing arm and tail Result checks; fresh accounts loads per clone; inline-asm register pins over the clone run or the swept range",
+    "28-gene single-gene screen (w12a14 genes12) on b78bf19: no clonefeat flip"
+  ],
+  "evidence": {
+    "llc_grow_region_complexity_budget": "0 or 100 reproduces 6/2 (x1-cto-llc-size-cap-oracle llc-grcb0/100), >=500 = default; changes ~300 windows",
+    "builds_with_original_clone_RA": ["w10r1-admincto-hillclimb/hc/keep/7fb9a5e3e7a2 (0x41f0 73%, 0x45f0 88% pf)", "w10r1-admincto-stitch/out/c4_shared_bitand", "w10r1-admincto-stitch/out/c4_shared_owner_first", "w10r1-admincto-errseq/out/t03_feesfn_ia_unwrap", "admincto-reconstruction/out/t4", "w3-adminCTO/out/e14"]
+  },
+  "unresolved_residuals": [
+    "accounts pointer region-split into a callee-saved register across the sharing clone run (orig: spill-reload per account)",
+    "swept spilled at the sweep exit (orig: r9 to the event store)"
+  ],
+  "next_ideas": [
+    "Screen genes for clonefeat flips on the newest main with tools/clonefeat.py: the flip is driven by validate-region spill weights, and ea78c08f1 already moved to 3/5",
+    "Diff 7fb9a5e3e7a2's IR (rebuild its text with capture.py) against main to find which live ranges free the region",
+    "The sweep tf-CPI program let (-32 B) and the scalar vault bump are cheap size knobs for other composites"
+  ],
+  "tools": ["tools/clonefeat.py", "tools/cpis.py", "tools/ir_*.py (main 3912c47 IR value names)"],
+  "ledger": "approach cpi-clone-placement, keys 0x22a10-w13-3912c47-cpiclone-*",
+  "pr": 2904
+}
