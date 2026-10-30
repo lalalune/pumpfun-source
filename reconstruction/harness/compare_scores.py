@@ -8,8 +8,17 @@ import json
 from pathlib import Path
 
 
+def unique_fields(items):
+    result = {}
+    for key, value in items:
+        if key in result:
+            raise ValueError(f'duplicate score report field: {key}')
+        result[key] = value
+    return result
+
+
 def load_report(path):
-    document = json.loads(Path(path).read_text(encoding='utf-8'))
+    document = json.loads(Path(path).read_text(encoding='utf-8'), object_pairs_hook=unique_fields)
     windows = document.get('windows') if isinstance(document, dict) else None
     if not isinstance(windows, (dict, list)) or not windows:
         raise ValueError('report must contain a nonempty windows object or inventory list')
