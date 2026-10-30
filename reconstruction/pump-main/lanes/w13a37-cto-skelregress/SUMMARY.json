@@ -1,0 +1,37 @@
+{
+  "lane": "w13a37-cto-skelregress",
+  "wave": "w13, continued in w14",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "angle": "recover the clone-run skeleton lost by the hand-written sharing/TCF CPI AccountInfo literals while keeping plain ratio",
+  "result": "no landable gain on current main; notes and knob catalog only",
+  "bases": {"w13": "fb8322295 0.62043", "w14_final": "cef0574cf 0.63421 / 3179 slots"},
+  "best": {
+    "transient_gain": {"main": "53abf28b1", "edit": "sharing authority {key,owner,..x.clone()}", "ratio": 0.62702, "base_ratio": 0.62672, "slots": 3305, "bytes": 27400, "losses": 0, "raw_losses": 0, "differential": "363/0", "note": "lost on 23322b0 (0.62852 vs 0.62882) and later mains; reverted"},
+    "skeleton_basin_best_on_cef0574": {"spec": "sharing_config LKDORSWE + event_authority LDKORSWE + program {key,..x.clone()}", "ratio": 0.6304, "bytes": 27368, "skeleton": 0.8543, "main_skeleton": 0.8526}
+  },
+  "attempts": {"w13_rows": 115, "w14_rows": 231, "ledger_approach": "cpi-clone-form", "dedupe_prefixes": ["0x22a10-w13-fb83222-skelregress-", "0x22a10-w13-53abf28-skelregress-", "0x22a10-w13-23322b0-skelregress-", "0x22a10-w13-769f331-skelregress-", "0x22a10-w13-cef0574-skelregress-"]},
+  "mechanisms": [
+    "literal in derive order == to_account_info() (same sha); only field-read position relative to the two Rc clones changes code",
+    "key-after-lamports (orig order) on mint/sharing_config/event_authority restores 0x3c34 skeleton 0.78->0.88-0.90 but costs 0.015-0.02 plain via spill-slot offsets (0x42e5 plain 0.27->0.09 while frame-masked 0.49->0.53)",
+    "struct-update clone AccountInfo{key,..x.clone()} is a new knob class; uK form == derive when the account was to_account_info()",
+    "outside the skeleton basin all clone-form knobs are local and additive (pairs = sum of singles within one ~0.0003 token step); none is positive on 23322b0, 769f331 or cef0574",
+    "inside the skeleton basin they are not additive: S_E -0.0147 + prK -0.0001 => SE_prK -0.0054"
+  ],
+  "size_knobs": {
+    "sharing program {key,..x.clone()}": {"bytes": -16, "ratio": "-0.0001 (769f331) / -0.0007 (cef0574)"},
+    "sharing program {key,owner,..x.clone()}": {"bytes": -8, "ratio": -0.0044},
+    "sharing mint {key,..x.clone()}": {"bytes": -24, "ratio": -0.018, "skeleton": "+0.011"},
+    "sharing event_authority {key,..x.clone()}": {"bytes": -40, "ratio": -0.012},
+    "sharing sharing_config {owner,..x.clone()}": {"bytes": 8, "ratio": -0.021},
+    "AdminCtoPool any ..x.clone() field": {"bytes": "+232..+312", "ratio": -0.07}
+  },
+  "ratio_neutral_moves": ["event_authority DLKORSWE (skeleton +0.001)", "global WSRLDOEK", "global SWRLDOKE", "program OLRSEDWK"],
+  "rejected": ["c_ko_rev on new main (0.61882 @27384)", "s_rev basin", "35 adjacent field swaps", "K first/last/after-D moves", "struct-update K/KO/O/OK on all 7 sharing accounts", "struct-update K/KO on 10 TCF fields", "struct-update on 7 pool CPI fields", "27 pairwise combos of ties and near-misses", "S_E + 8 RA moves", "SE_prK + 22 neighbours"],
+  "unresolved": ["sharing-CPI clone run spill-slot order (0x42e5 chunk) vs original", "accounts-pointer reload from [r10-0x8d8] per clone (see w13a40 #3164)"],
+  "next_ideas": [
+    "re-try skeleton-faithful forms S_E / SE_prK_evDK once a frame or spill-order lever moves the 0x42e5 r10 offsets",
+    "use sharing program {key,..x.clone()} as a -16 B companion",
+    "use the ratio-neutral moves as RA perturbations when another gene lands on a tie"
+  ],
+  "tools": "tools/var.py (spec rewriter), run.sh/batch.py (measure.sh batch), fpairs.py (r10 offset delta histogram); reg.py/skdiff.py need w13a23 ctoracle.py"
+}
