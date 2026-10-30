@@ -88,3 +88,15 @@ exact-window totals remain 1,034/1,035, with no missing, resized or lost windows
 All 363 signed admin comparisons and 408 one-hop swap/boundary comparisons pass.
 The latter disable AMM PDA signature verification; this is bounded runtime evidence,
 not a whole-program identity or all-input equivalence proof.
+
+## Landable on main 2f268ad (0.51857): skip tree in (collect_old, skip, sharing_update) order
+
+| build | bytes | ratio | slots_diff | normalized / raw | losses |
+| --- | ---: | ---: | ---: | --- | --- |
+| main 2f268ad | 27,400 | 0.51857 | 3,335 | 1034 / 1034 | - |
+| csu + pool holder from `holder` + `reset` local + `!holder&&st.cashback` | 27,400 | **0.51887** | 3,326 | 1034 / 1034 | 0 / 0 |
+
+Unstripped sha256 prefix `0c691d9e7175e5ae`; differential 363/0. Tuple orders on this main: (skip,collect,sharing) 27,312 / 0.52183,
+(skip,sharing,collect) and (sharing,skip,collect) 27,328 / 0.52197, (collect,skip,sharing) 27,384 / 0.51963. Only csu has a
+cheap +16 B companion: the pool CPI takes `holder` again (+32 B here), and `reset` / the cashback operand order give -8 B each.
+The skip-first orders still need +72..+88 B; `CollectCreatorFeeEvent` creator-first + fee unwrap store reach 27,400 but at 0.51528.
