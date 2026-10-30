@@ -132,6 +132,30 @@ the IR flips that gain ratio at +0 B (`!holder_enabled` 296 test +0.008, 306 Non
 single-use `icmp eq x,0` branches whose successor order InstCombine fixes, so plain source
 spellings cannot reach them.
 
+### Polarity scan on the #2831 IR and the and-1 tag test
+
+Single-branch polarity scan of all 146 conditional branches of execute on the #2831-equivalent
+post-opt IR (27,400 B, 0.48652; llc oracle, IR only):
+
+| flip | branch | bytes | ratio |
+| --- | --- | ---: | ---: |
+| #33 | 410 `require!(creator_fee==0)`: error successor first | 27,400 | 0.49191 |
+| #13 | 306 `new` None test: Some successor first | 27,400 | 0.48981 |
+| #20 | holder-arm fee tag test | 27,400 | 0.48772 |
+| #10 | 296 `!holder_enabled` test | 27,400 | 0.48742 |
+| #43 | wallet `collection_native` memcmp | 27,400 | 0.48742 |
+| 33+20 | | 27,400 | 0.49221 |
+| 33+13 | | 27,392 | 0.49558 |
+
+All of these are single-use `icmp eq x,0` branches: InstCombine canonicalizes their successor
+order, so no plain spelling of the same test reaches them. #13 has a mechanism, though: the original
+tests the 306 tag as `(tag & 1) == 0` (`and64 r1,1; jeq r1,0` at +0x738) because its tag is read from
+the entry copy of `new` (an SROA-split memcpy drops `!range`), and BranchProbabilityInfo treats a
+single-bit-mask compare as 50/50, so the E306 block becomes the fallthrough. Replacing the 306 test
+with `icmp eq (and tag,1),0` in the IR gives exactly the #13 result (0.48981 at 27,400 B; on the
+298-hoist IR 0.48381 -> 0.48711). The source route is a copy of `new` that memcpyopt cannot forward,
+e.g. `validate(.., mut new, ..)` with `new.take()` at 306 (w12a06 measured +272 B on 20a1ae9).
+
 ## Scope
 
 These are instruction and call-layout observations for the named baseline.
