@@ -12,14 +12,64 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import tomllib
 import traceback
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from pump_diagnostic_audit import audit
 import pump_validate_all as base
+import build_source_manifest
+from source_manifest_guard import strict_manifest
 sha = base.sha
 protect_inputs = base.protect_inputs
+
+
+def validate_build_sources(record, source_directory, candidate):
+    """Admit the existing manifest contract, including its sealed portable form."""
+    sources = record['source_sha256']
+    assert isinstance(sources, dict) and sources, 'source binding is empty'
+    crate = source_directory.resolve()
+    package = tomllib.loads((crate / 'Cargo.toml').read_text(encoding='utf-8'))
+    workspace = crate
+    binding = record.get('portable_source_binding')
+    if not binding and 'workspace' not in package:
+        for parent in crate.parents:
+            manifest = parent / 'Cargo.toml'
+            if manifest.is_file() and 'workspace' in tomllib.loads(manifest.read_text(encoding='utf-8')):
+                workspace = parent
+                break
+            if parent == ROOT:
+                break
+    expected = strict_manifest(crate, workspace, ROOT, cwd=workspace)
+    assert expected and any(path.endswith('.rs') for path in expected), 'source manifest has no Rust inputs'
+    assert all(sources.get(path) == digest for path, digest in expected.items()), 'source binding omits or changes compiler inputs'
+    inputs = [Path(strict_manifest.__code__.co_filename).resolve(),
+              Path(build_source_manifest.__file__).resolve()]
+    if binding:
+        # Authenticate exactly the portable binding already supported by the
+        # two-curve adapter; it is not permission to omit arbitrary inputs.
+        import verify_pump_main_checkpoint as checkpoint
+        packet = ROOT / checkpoint.PACKAGE
+        seal = packet / 'MANIFEST.json'
+        assert sha(seal) == checkpoint.MANIFEST_SHA256, 'portable source manifest seal differs'
+        manifest = json.loads(seal.read_text())
+        origin_path = packet / 'canonical-build.json'
+        checkpoint_path = packet / 'CHECKPOINT.json'
+        assert binding['kind'] == 'verified-equal-canonical-primary-source', 'portable source binding kind'
+        assert binding['origin_build_record'] == checkpoint.PACKAGE + '/canonical-build.json', 'portable source origin path'
+        assert sha(origin_path) == manifest['canonical-build.json'] == binding['origin_build_record_sha256'], 'portable source origin hash'
+        assert sha(checkpoint_path) == manifest['CHECKPOINT.json'], 'portable source checkpoint hash'
+        origin = json.loads(origin_path.read_text())
+        saved = json.loads(checkpoint_path.read_text())
+        assert type(origin['returncode']) is int and origin['returncode'] == 0 and origin['source_unchanged'] is True, 'portable source origin failed'
+        assert binding['original_compiled_source_sha256'] == origin['source_sha256'], 'portable original source binding'
+        assert record['comparison'] == origin['comparison'], 'portable source comparison differs'
+        assert sha(candidate) == saved['candidate_sha256'] == origin['comparison']['candidate_sha256'], 'portable source candidate differs'
+        primary = {'programs/pump/' + path: digest for path, digest in saved['primary_source_sha256'].items()}
+        assert crate == (ROOT / 'programs/pump').resolve() and sources == expected == primary, 'portable source scope differs'
+        inputs.extend([Path(checkpoint.__file__).resolve(), seal, origin_path, checkpoint_path])
+    return sources, inputs
 
 
 def report_destinations(output, suites, captured_loader, execute):
@@ -118,15 +168,16 @@ def main():
     candidate = args.candidate.resolve()
     original = ROOT / 'evidence/original/pump/deployed.so'
     record = json.loads(args.build_comparison.read_text())
-    assert record['returncode'] == 0 and record['source_unchanged']
+    assert type(record['returncode']) is int and record['returncode'] == 0 and record['source_unchanged'] is True
     assert record['comparison']['candidate_sha256'] == sha(candidate)
-    sources = record['source_sha256']
+    sources, source_binding_inputs = validate_build_sources(record, args.source_directory, candidate)
     assert all(sha(ROOT / k) == v for k, v in sources.items())
     bound_files = {str(p): sha(p) for p in [candidate, original, Path(__file__), Path(base.__file__), ROOT / 'scripts/pump_diagnostic_audit.py', args.build_comparison]}
     loader_wrapper = ROOT / 'scripts/pump_with_captured_loader.py'
     loader_inputs = [loader_wrapper, loader_wrapper.with_name('pump_captured_loader.py'), ROOT / 'evidence/original/pump/capture.json', ROOT / 'evidence/original/pump/program-account.bin', ROOT / 'evidence/original/pump/programdata-account.bin', original]
     if args.captured_loader:
         bound_files.update({str(p): sha(p) for p in loader_inputs})
+    bound_files.update({str(path): sha(path) for path in source_binding_inputs})
     loader_receipts = {}
     scripts = {name: ROOT / filename if filename.startswith(('repro/', 'research/')) else ROOT / 'scripts' / filename for name, filename in selected_suites}
     if record.get('portable_source_binding') and 'tokenkeg_two_curve' in scripts:

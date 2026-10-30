@@ -66,7 +66,7 @@ def _plain(path, root):
     return resolved
 
 
-def _no_linked_directories(top):
+def _no_linked_directories(top, *, optional=False):
     """Reject a linked directory or reparse point anywhere below `top`.
 
     `Path.rglob('*')` does not descend into symlinked directories, so files
@@ -74,7 +74,14 @@ def _no_linked_directories(top):
     the compiler still reads them through the link.
     """
     top = Path(top)
-    for directory, names, _ in os.walk(top):
+    if optional:
+        try:
+            top.lstat()
+        except FileNotFoundError:
+            return
+    def traversal_error(error):
+        raise ValueError(f'cannot traverse compiler inputs under {top}: {error}') from error
+    for directory, names, _ in os.walk(top, onerror=traversal_error):
         if Path(directory) == top:
             names[:] = [name for name in names if name not in ('target', '.git')]
         for name in names:
@@ -93,7 +100,7 @@ def strict_manifest(crate, workspace, repository, extra_inputs=(), cwd=None):
     crate_path, workspace_path = Path(crate).resolve(), Path(workspace).resolve()
     _no_linked_directories(crate_path)
     for directory in (crate_path, *crate_path.parents):
-        _no_linked_directories(directory / 'idls')
+        _no_linked_directories(directory / 'idls', optional=True)
         if directory == workspace_path:
             break
     for extra in extra_inputs:
