@@ -71,6 +71,39 @@ ratio to 0.8854, but the function shrinks to 27,016 B (-384) and the ratio drops
 variant are equally close to the original (0.803 vs 0.804), so the to_string fix needs ~380 B of
 compensating structure (the original's per-arm fee checks and phi-of-constants exit) to be landable.
 
+### Call-result slots follow ISel RPO (frame fingerprint of the original's branch polarity)
+
+Every `{i64, ptr}`-returning call (all `From<AnchorError>`/`From<ProgramError>`, the CPI wrappers,
+`prepare_bonding_curve`, `with_pubkeys`, `create_idempotent`, ...: 33 calls) gets its own 16-byte
+result slot (`mov r1,r10; add r1,-X` before the call). The slots are created during instruction
+selection, which walks the IR in reverse post-order, so sorting the calls by slot gives the RPO of the
+final IR. `ir/rpo.py`-style RPO over the post-opt IR of main reproduces main's slot order exactly:
+
+- original: `284 289 298 296 330 338 334 326 | prepare 410 ... CPIs ... | 312 307 wp 306`
+- main b5975fa: `284 289 312 307 wp 306 298 330 338 | prepare 410 ... CPIs ... | 334 326 296`
+
+(`slots.py` / `rposlots.py` in the lane scratch print these from any build.) RPO lists the second
+successor's subtree before the first's, so the original's tail `312 307 306` means the first-successor
+DFS path enters the non-holder arm and its None/zero/key errors first, and `334 326` early means the
+fee test's first successor is the `fee == None` continuation. On main's post-opt IR (llc oracle):
+
+| IR edit | bytes | ratio | RPO |
+| --- | ---: | ---: | --- |
+| none (main 20a1ae9 IR) | 27,400 | 0.43919 | main order |
+| f2: fee tag test `None` successor first | 27,400 | 0.45956 | `... 338 334 326 | ... | 296` |
+| f1: hr==0 holder test, non-holder successor first | 27,408 | 0.44032 | `... | 334 326 312 307 wp 306` |
+| f1+f2 | 27,408 | 0.45829 | identical to the original |
+
+(f2 is the mechanism w12a09-cto-cleanroom found at the same time: `match fee{None=>{},Some(f)=>..}`.)
+
+### 298 check hoisted out of the target `if` (largest single gain found here)
+
+`if holder&&new.is_some(){return Err(..298..)}let target=if holder{*holder_key}else{..}` (line 298
+kept) on main b5975fa: 27,368 B (-32), ratio 0.45147 -> 0.48381, callee-sequence ratio
+0.8854 -> 0.9236 (ledger `0x22a10-w12-b5975fa-callgraph-298-hoisted-before-target-v1`). The
+`to_string` split is unchanged (5 calls); the gain is error-site layout. It needs +32 B of
+compensation to land.
+
 ## Scope
 
 These are instruction and call-layout observations for the named baseline.
