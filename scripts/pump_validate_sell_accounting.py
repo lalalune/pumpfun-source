@@ -2,7 +2,7 @@
 """Validate partial SOL sell accounting against original SBF event and state effects."""
 import argparse, hashlib, json, struct, subprocess
 import pump_trade_fixture as f
-p=argparse.ArgumentParser();p.add_argument('--host',type=f.pathlib.Path,required=True);p.add_argument('--output',type=f.pathlib.Path,required=True);a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--host',type=f.pathlib.Path,required=True);p.add_argument('--output',type=f.pathlib.Path,required=True);p.add_argument('--curve-report',type=f.pathlib.Path,default=f.R/'repro/pump/constant-product-differential.json',help='Report produced by pump_validate_constant_product.py');a=p.parse_args()
 idl=json.loads((f.R/'evidence/upstream/pump.json').read_text());types={x['name']:x['type'] for x in idl['types']}
 event_disc=bytes(next(x['discriminator'] for x in idl['events'] if x['name']=='TradeEvent'))
 def decode_event(data):
@@ -26,7 +26,26 @@ def decode_event(data):
     return result
 initial={key:f.vm.get_account(key) for key in f.msg.account_keys}
 user=f.Keypair.from_seed(bytes([231])*32);curve=f.Pubkey.from_string(f.x['accounts']['curve']);buyback=f.Pubkey.from_string(f.x['accounts']['buyback']);base=initial[curve]
-source_cases=json.loads((f.R/'repro/pump/constant-product-differential.json').read_text())['cases']
+curve_report_bytes=a.curve_report.read_bytes()
+curve_report=json.loads(curve_report_bytes)
+def require(value,message):
+    if not value:raise ValueError('invalid constant-product report: '+message)
+sha=lambda path:hashlib.sha256(path.read_bytes()).hexdigest()
+require(curve_report.get('source_sha256')==sha(f.R/'programs/pump/recovered/constant_product.rs'),'arithmetic source differs')
+require(curve_report.get('original_sha256')=={name:sha(f.R/'evidence/original'/name/'deployed.so') for name in ['pump','pump_fees']},'original ELF bindings differ')
+require(curve_report.get('dependency_sha256')=={name:sha(f.R/'evidence/dependencies'/name/'deployed.so') for name in ['spl_token','spl_token_2022','associated_token']},'dependency ELF bindings differ')
+source_cases=curve_report.get('cases')
+require(isinstance(source_cases,list) and curve_report.get('case_count')==len(source_cases),'case count differs')
+require(curve_report.get('mismatches')==[],'producer reported mismatches')
+for case in source_cases:
+    require(isinstance(case,dict) and type(case.get('compared')) is bool,'case comparison status missing')
+    require(all(type(case.get(key)) is int and 0<=case[key]<2**64 for key in ['amount_in','reserve_in','reserve_out']),'case inputs are not u64 values')
+    if case['compared']:
+        require(case.get('match') is True and type(case.get('observed_quote_out')) is int and 0<=case['observed_quote_out']<2**64 and case.get('recovered_quote_out')==case['observed_quote_out'],'failed or incomplete arithmetic comparison')
+    else:require(isinstance(case.get('error'),str) and bool(case['error']),'uncompared case has no original error')
+compared=sum(case['compared'] for case in source_cases)
+require(compared>=100 and curve_report.get('successful_comparisons')==compared,'successful comparison count differs')
+source_cases=[dict(case) for case in source_cases]
 rows=[];inputs=[]
 actual_base,actual_quote=struct.unpack_from('<QQ',base.data,8)
 for pb,cb in [(0,0),(95,0),(0,30),(100,100),(3000,3000),(10000,0),(0,10000),(6000,6000),(10001,0)]:
@@ -74,5 +93,5 @@ for row,out in zip(rows,outputs):
     row['match']=ev=={'protocol_fee':protocol,'creator_fee':creator,'buyback_fee':buyback_fee} and effects=={'creator_accumulated':creator,'protocol_accumulated':retained,'user_output':user_out,'buyback_output':buyback_fee,'curve_lamports_spent':user_out+buyback_fee}
 failures=[i for i,row in enumerate(rows) if not row['match']]
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
-report={'scope':'Partial native SOL sell accounting versus original SBF. Protocol/creator rates are inputs observed from original events or explicitly injected fee schedules; this is not an independent reconstruction of fee selection. Captured external dependency fixture. No complete trade handler, byte identity, token-quote/reward/extension coverage claimed.','source_sha256':sha(f.R/'programs/pump/recovered/sell_accounting.rs'),'host_sha256':sha(a.host),'fixture_report_sha256':sha(f.R/'repro/pump/constant-product-differential.json'),'case_count':len(rows),'mismatches':failures,'cases':rows}
+report={'scope':'Partial native SOL sell accounting versus original SBF. Protocol/creator rates are inputs observed from original events or explicitly injected fee schedules; this is not an independent reconstruction of fee selection. Captured external dependency fixture. No complete trade handler, byte identity, token-quote/reward/extension coverage claimed.','source_sha256':sha(f.R/'programs/pump/recovered/sell_accounting.rs'),'host_sha256':sha(a.host),'fixture_report_sha256':hashlib.sha256(curve_report_bytes).hexdigest(),'case_count':len(rows),'mismatches':failures,'cases':rows}
 a.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'case_count':len(rows),'mismatches':failures}));assert not failures
