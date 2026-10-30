@@ -1,0 +1,358 @@
+
+/// Admin-driven community takeover (CTO) of a bonding curve coin.
+///
+/// The bonding curve creator is replaced by `new_creator`, or by the holder
+/// rewards PDA of the mint when `is_holder_reward` is set. Coins whose creator
+/// is their fee sharing config keep the sharing config as creator and hand the
+/// sharing config to the new creator instead. Fees accrued by the old creator
+/// are collected to it first; shared vaults are swept to the holder vault.
+pub fn execute(
+    ctx: Context<AdminCto>,
+    is_holder_reward: Option<bool>,
+    creator_fee_bps: Option<u64>,
+    new_creator: Option<Pubkey>,
+) -> Result<()> {
+    let mint = ctx.accounts.mint.key();
+    let (holder_rewards, _) =
+        Pubkey::find_program_address(&[b"holder-rewards", mint.as_ref()], &crate::ID);
+
+    let global = &ctx.accounts.global;
+    let bonding_curve = &ctx.accounts.bonding_curve;
+    let sharing_config = &ctx.accounts.sharing_config;
+
+    let is_shared = bonding_curve.creator == sharing_config.key()
+        && sharing_config.owner == &FEES
+        && !sharing_config.data_is_empty();
+    let is_quote_locked = crate::pump_quote::global_quote(bonding_curve.quote_mint, global);
+    let is_holder_reward = is_holder_reward == Some(true);
+
+    require!( //@284
+        !bonding_curve.is_mayhem_mode,
+        PumpError::CtoNotAllowedForMayhemCoin
+    );
+    if bonding_curve.is_holder_reward {
+        require!(is_holder_reward, PumpError::HolderRewardCreatorImmutable); //@289
+    }
+    let new_creator = if is_holder_reward {
+        if !bonding_curve.is_holder_reward {
+            require!(global.is_holder_reward_enabled, PumpError::HolderRewardDisabled); //@296
+        }
+        require!(new_creator.is_none(), PumpError::CtoNewCreatorNotAllowed); //@298
+        holder_rewards
+    } else {
+        let Some(new_creator) = new_creator else { return err!(PumpError::CtoNewCreatorRequired) }; //@306
+        require_keys_neq!(new_creator, Pubkey::default(), PumpError::CreatorShouldNotBeZero); //@307
+        require!( //@312
+            new_creator != holder_rewards && new_creator != sharing_config.key(),
+            PumpError::InvalidCreator
+        );
+        new_creator
+    };
+    let is_cashback_coin = !is_holder_reward && bonding_curve.is_cashback_coin;
+
+    if let Some(creator_fee_bps) = creator_fee_bps {
+        require!(!is_quote_locked, PumpError::CreatorFeeNotConfigurableForQuote); //@326
+        require!(!is_cashback_coin, PumpError::CreatorFeeNotAllowedForCashbackCoin); //@330
+        require!(global.creator_fee_configurable, PumpError::CreatorFeeNotConfigurable); //@334
+        require!( //@338
+            creator_fee_bps > 0 && creator_fee_bps <= global.max_configurable_creator_fee_bps,
+            PumpError::CreatorFeeBpsOutOfRange
+        );
+    }
+
+    // A shared coin keeps its sharing config as creator; the sharing config
+    // admin is handed over (or revoked for holder rewards) instead.
+    let sharing_config_update = if is_shared {
+        Some(if is_holder_reward { None } else { Some(new_creator) })
+    } else {
+        None
+    };
+    let new_creator = if is_shared && !is_holder_reward { bonding_curve.creator } else { new_creator };
+    let collect_old_creator_fees = !is_shared
+        && !bonding_curve.is_holder_reward
+        && bonding_curve.creator != Pubkey::default();
+
+    crate::trade_types::prepare_bonding_curve(
+        bonding_curve,
+        &ctx.accounts.system_program,
+        &ctx.accounts.admin_set_creator_authority,
+    )?;
+    require!(bonding_curve.creator_fee == 0, PumpError::CreatorFeesNotSwept); //@410
+
+    if collect_old_creator_fees {
+        collect_old_creator_fees_to_wallet(&ctx)?;
+    }
+    let swept_to_holder_vault = if is_shared && is_holder_reward {
+        sweep_shared_vaults_to_holder_vault(&ctx, &holder_rewards)?
+    } else {
+        0
+    };
+
+    let pool_authority_bump = [ctx.bumps.pool_authority];
+    let pool_authority_seeds: &[&[u8]] = &[b"pool-authority", mint.as_ref(), &pool_authority_bump];
+    let signer_seeds: &[&[&[u8]]] = &[pool_authority_seeds];
+
+    if let Some(new_admin) = sharing_config_update {
+        crate::pump_fees::cpi::admin_cto_sharing_config(
+            CpiContext::new_with_signer(
+                ctx.accounts.pump_fees.to_account_info(),
+                crate::pump_fees::cpi::accounts::AdminCtoSharingConfig {
+                    pool_authority: ctx.accounts.pool_authority.to_account_info(),
+                    authority: ctx.accounts.admin_set_creator_authority.to_account_info(),
+                    global: ctx.accounts.global.to_account_info(),
+                    mint: ctx.accounts.mint.to_account_info(),
+                    sharing_config: ctx.accounts.sharing_config.to_account_info(),
+                    event_authority: ctx.accounts.pump_fees_event_authority.to_account_info(),
+                    program: ctx.accounts.pump_fees.to_account_info(),
+                },
+                signer_seeds,
+            ),
+            new_admin,
+        )?;
+    }
+
+    let bonding_curve = &mut ctx.accounts.bonding_curve;
+    let old_creator = bonding_curve.creator;
+    bonding_curve.creator = new_creator;
+    bonding_curve.is_holder_reward = is_holder_reward;
+    bonding_curve.is_cashback_coin = is_cashback_coin;
+
+    let old_creator_fee_bps = bonding_curve.creator_fee_bps;
+    if let Some(creator_fee_bps) = creator_fee_bps {
+        bonding_curve.creator_fee_bps = creator_fee_bps;
+    }
+    bonding_curve.can_edit_creator_fee = false;
+
+    let pool = &ctx.accounts.pool;
+    let pool_updated = pool.owner == &AMM && !pool.data_is_empty();
+    if pool_updated {
+        crate::pump_amm::cpi::admin_cto_pool(
+            CpiContext::new_with_signer(
+                ctx.accounts.pump_amm.to_account_info(),
+                crate::pump_amm::cpi::accounts::AdminCtoPool {
+                    payer: ctx.accounts.admin_set_creator_authority.to_account_info(),
+                    global_config: ctx.accounts.amm_global_config.to_account_info(),
+                    pool: ctx.accounts.pool.to_account_info(),
+                    pool_authority: ctx.accounts.pool_authority.to_account_info(),
+                    system_program: ctx.accounts.system_program.to_account_info(),
+                    event_authority: ctx.accounts.pump_amm_event_authority.to_account_info(),
+                    program: ctx.accounts.pump_amm.to_account_info(),
+                },
+                signer_seeds,
+            ),
+            new_creator,
+            is_holder_reward,
+            creator_fee_bps,
+        )?;
+    } else {
+        msg!("No canonical pump pool for this mint; curve only");
+    }
+
+    let event = AdminCtoEvent {
+        timestamp: Clock::get()?.unix_timestamp,
+        authority: ctx.accounts.admin_set_creator_authority.key(),
+        mint,
+        bonding_curve: ctx.accounts.bonding_curve.key(),
+        old_creator,
+        new_creator,
+        is_holder_reward,
+        is_cashback_coin,
+        old_creator_fee_bps,
+        new_creator_fee_bps: ctx.accounts.bonding_curve.creator_fee_bps,
+        sharing_config_reset: sharing_config_update.is_some(),
+        swept_to_holder_vault,
+        pool_updated,
+    };
+    emit!(event);
+    emit_cpi!(event);
+
+    Ok(())
+}
+
+/// Collects the old creator's accrued fees (curve vault and AMM coin creator
+/// vault) to its wallet. Fees stay in the vaults when the creator cannot
+/// receive them.
+fn collect_old_creator_fees_to_wallet(ctx: &Context<AdminCto>) -> Result<()> {
+    let accounts = &ctx.accounts;
+    let current_creator = &accounts.current_creator;
+    if current_creator.executable {
+        msg!("Creator is a program; fees left in the vaults");
+        return Ok(());
+    }
+    if current_creator.owner != &anchor_lang::system_program::ID {
+        msg!("Creator is not a system-owned wallet; fees left in the vaults");
+        return Ok(());
+    }
+    require!(current_creator.is_writable, PumpError::CtoCreatorAccountNotWritable); //@556
+    if token_frozen(accounts.current_creator_quote_token_account.as_ref())? {
+        msg!("Creator quote token account is frozen; fees left in the vaults");
+        return Ok(());
+    }
+
+    let is_native = accounts.quote_mint.key() == anchor_spl::token::spl_token::native_mint::ID;
+    let coin_vault_present = !accounts.coin_creator_vault_ata.data_is_empty();
+    let curve_vault_present =
+        !is_native && !accounts.creator_vault_quote_token_account.data_is_empty();
+    let curve_vault_frozen = !is_native
+        && curve_vault_present
+        && token_frozen(accounts.creator_vault_quote_token_account.as_ref())?;
+    let coin_vault_frozen =
+        coin_vault_present && token_frozen(accounts.coin_creator_vault_ata.as_ref())?;
+
+    if !is_native || coin_vault_present {
+        anchor_spl::associated_token::create_idempotent(CpiContext::new(
+            accounts.associated_token_program.to_account_info(),
+            anchor_spl::associated_token::Create {
+                payer: accounts.admin_set_creator_authority.to_account_info(),
+                associated_token: accounts.current_creator_quote_token_account.to_account_info(),
+                authority: accounts.current_creator.to_account_info(),
+                mint: accounts.quote_mint.to_account_info(),
+                system_program: accounts.system_program.to_account_info(),
+                token_program: accounts.quote_token_program.to_account_info(),
+            },
+        ))?;
+    }
+
+    if is_native || (curve_vault_present && !curve_vault_frozen) {
+        if let Some((creator_fee, quote_mint)) = crate::collect_v2::collect(
+            &accounts.current_creator,
+            accounts.current_creator_quote_token_account.as_ref(),
+            &accounts.creator_vault,
+            ctx.bumps.creator_vault,
+            accounts.creator_vault_quote_token_account.as_ref(),
+            accounts.quote_mint.decimals,
+            accounts.quote_mint.as_ref().as_ref(),
+            &accounts.quote_token_program,
+            accounts.system_program.as_ref(),
+        )? {
+            let event = CollectCreatorFeeEvent {
+                timestamp: Clock::get()?.unix_timestamp,
+                creator: accounts.current_creator.key(),
+                creator_fee,
+                quote_mint,
+            };
+            emit!(event);
+            emit_cpi!(event);
+        }
+    }
+
+    if coin_vault_present && !coin_vault_frozen {
+        crate::pump_amm::cpi::collect_coin_creator_fee(CpiContext::new(
+            accounts.pump_amm.to_account_info(),
+            crate::pump_amm::cpi::accounts::CollectCoinCreatorFee {
+                quote_mint: accounts.quote_mint.to_account_info(),
+                quote_token_program: accounts.quote_token_program.to_account_info(),
+                coin_creator: accounts.current_creator.to_account_info(),
+                coin_creator_vault_authority: accounts.coin_creator_vault_authority.to_account_info(),
+                coin_creator_vault_ata: accounts.coin_creator_vault_ata.to_account_info(),
+                coin_creator_token_account: accounts.current_creator_quote_token_account.to_account_info(),
+                event_authority: accounts.pump_amm_event_authority.to_account_info(),
+                program: accounts.pump_amm.to_account_info(),
+            },
+        ))?;
+    }
+
+    Ok(())
+}
+
+/// Sweeps the vaults of a shared coin (AMM coin creator vault first, then the
+/// curve creator vault) to the holder rewards creator vault.
+fn sweep_shared_vaults_to_holder_vault(
+    ctx: &Context<AdminCto>,
+    holder_rewards: &Pubkey,
+) -> Result<u64> {
+    let accounts = &ctx.accounts;
+    let is_native = accounts.quote_mint.key() == anchor_spl::token::spl_token::native_mint::ID;
+    let (holder_creator_vault, _) =
+        Pubkey::find_program_address(&[b"creator-vault", holder_rewards.as_ref()], &crate::ID);
+    require_keys_eq!( //@648
+        accounts.holder_creator_vault.key(),
+        holder_creator_vault,
+        anchor_lang::error::ErrorCode::ConstraintSeeds
+    );
+
+    let coin_creator_vault_ata = &accounts.coin_creator_vault_ata;
+    let coin_vault_frozen = !coin_creator_vault_ata.data_is_empty()
+        && token_frozen(coin_creator_vault_ata.as_ref())?;
+    if coin_vault_frozen {
+        require!( //@660
+            token_raw_amount(coin_creator_vault_ata.as_ref())? == 0,
+            PumpError::CtoSharedVaultFrozen
+        );
+    } else if !coin_creator_vault_ata.data_is_empty() {
+        crate::pump_amm::cpi::transfer_creator_fees_to_pump_v2(CpiContext::new(
+            accounts.pump_amm.to_account_info(),
+            crate::pump_amm::cpi::accounts::TransferCreatorFeesToPumpV2 {
+                system_program: accounts.system_program.to_account_info(),
+                quote_mint: accounts.quote_mint.to_account_info(),
+                token_program: accounts.quote_token_program.to_account_info(),
+                payer: accounts.admin_set_creator_authority.to_account_info(),
+                associated_token_program: accounts.associated_token_program.to_account_info(),
+                coin_creator: accounts.current_creator.to_account_info(),
+                coin_creator_vault_authority: accounts.coin_creator_vault_authority.to_account_info(),
+                coin_creator_vault_ata: accounts.coin_creator_vault_ata.to_account_info(),
+                pump_creator_vault: accounts.creator_vault.to_account_info(),
+                pump_creator_vault_ata: accounts.creator_vault_quote_token_account.to_account_info(),
+                event_authority: accounts.pump_amm_event_authority.to_account_info(),
+                program: accounts.pump_amm.to_account_info(),
+            },
+        ))?;
+    }
+
+    let old_creator = accounts.current_creator.key();
+    let creator_vault_bump = [ctx.bumps.creator_vault];
+    let creator_vault_seeds: &[&[u8]] = &[b"creator-vault", old_creator.as_ref(), &creator_vault_bump];
+
+    if is_native {
+        let rent_exempt_minimum = Rent::get()?.minimum_balance(0);
+        let amount = accounts.creator_vault.lamports().saturating_sub(rent_exempt_minimum);
+        if amount > 0 {
+            crate::legacy_buy::native_payments::ensure_rent_exempt(
+                &accounts.system_program,
+                &accounts.admin_set_creator_authority,
+                &accounts.holder_creator_vault,
+            )?;
+            crate::collect_v2::transfer_native(
+                accounts.system_program.as_ref(),
+                &accounts.creator_vault,
+                &accounts.holder_creator_vault,
+                amount,
+                &[creator_vault_seeds],
+            )?;
+        }
+        return Ok(amount);
+    }
+
+    let amount = token_raw_amount(accounts.creator_vault_quote_token_account.as_ref())?;
+    let frozen = token_frozen(accounts.creator_vault_quote_token_account.as_ref())?;
+    if frozen {
+        require!(amount == 0, PumpError::CtoSharedVaultFrozen); //@719
+    } else if amount > 0 {
+        anchor_spl::associated_token::create_idempotent(CpiContext::new(
+            accounts.associated_token_program.to_account_info(),
+            anchor_spl::associated_token::Create {
+                payer: accounts.admin_set_creator_authority.to_account_info(),
+                associated_token: accounts.holder_creator_vault_quote_token_account.to_account_info(),
+                authority: accounts.holder_creator_vault.to_account_info(),
+                mint: accounts.quote_mint.to_account_info(),
+                system_program: accounts.system_program.to_account_info(),
+                token_program: accounts.quote_token_program.to_account_info(),
+            },
+        ))?;
+        crate::collect_v2::transfer_vault_tokens(
+            &accounts.quote_token_program,
+            &accounts.creator_vault_quote_token_account,
+            &accounts.holder_creator_vault_quote_token_account,
+            &accounts.creator_vault,
+            accounts.quote_mint.decimals,
+            accounts.quote_mint.as_ref().as_ref(),
+            amount,
+            &[creator_vault_seeds],
+        )?;
+    }
+    Ok(amount)
+}
+
+fn token_frozen(a:&AccountInfo)->Result<bool>{if a.data_is_empty(){return Ok(false);}let d=a.try_borrow_data()?;let t=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.is_frozen())}
+
+fn token_raw_amount(a:&AccountInfo)->Result<u64>{if a.data_is_empty(){return Ok(0);}let d=a.try_borrow_data()?;let t=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.amount)}
