@@ -120,3 +120,44 @@ m("cap-fee-inputs-always", CAP,
   "#[inline(always)] fn fee_inputs(curve: &BondingCurve, fee_config: &Account<'_, crate::pump_fees::accounts::FeeConfig>, mint: &Mint) -> Result<(usize, u128)> { let len = fee_config.to_account_info().data_len(); let cap = crate::buy_fee_market_cap(curve,mint)?; Ok((len, cap)) } let (fee_config_len, cap) = match fee_inputs(c,&a.fee_config,&h.base_mint) { Ok(v) => v, Err(e) => return Err(e) };")
 m("cap-fee-inputs-always-q", CAP,
   "#[inline(always)] fn fee_inputs(curve: &BondingCurve, fee_config: &Account<'_, crate::pump_fees::accounts::FeeConfig>, mint: &Mint) -> Result<(usize, u128)> { let len = fee_config.to_account_info().data_len(); let cap = match crate::buy_fee_market_cap(curve,mint) { Ok(v) => v, Err(e) => return Err(e) }; Ok((len, cap)) } let (fee_config_len, cap) = fee_inputs(c,&a.fee_config,&h.base_mint)?;")
+
+# --- qe-<n>: `expr?` -> Err-first explicit match (MIR switch arm order; branch polarity sites) ---
+for _mid, _o, _n in list(M):
+    if _mid.startswith("qm-") and isinstance(_n, str) and "{ Ok(v) => v, Err(e) => return Err(e) }" in _n:
+        m("qe-" + _mid[3:], _o, _n.replace("{ Ok(v) => v, Err(e) => return Err(e) }", "{ Err(e) => return Err(e), Ok(v) => v }"))
+# polarity sites from the 0.97158 residual: post_fee_amount Result test (orig jeq 2;ja) and buy get_fees (orig jne 0)
+TA = "            crate::transfer_fee_recovered::post_fee_amount(&quote_fee,amount)?\n        }else{amount};"
+m("ta-let-bind", TA, "            { let v = crate::transfer_fee_recovered::post_fee_amount(&quote_fee,amount)?; v }\n        }else{amount};")
+m("ta-ok-or", TA, "            crate::transfer_fee_recovered::post_fee_amount(&quote_fee,amount).map(|v| v)?\n        }else{amount};")
+m("ta-if-let-err", TA, "            match crate::transfer_fee_recovered::post_fee_amount(&quote_fee,amount) { Ok(v) => v, e @ Err(_) => return e }\n        }else{amount};")
+
+# --- wave-10 IR-oracle targets (0.97158 base): buy arm contiguous before the sell arm; checked_sub error block first
+A1 = "        let (fees,base_amount,quote_amount,output,adapter_difference,post_fill) = if buy {"
+A2 = "        } else {\n            let gross_sell = "
+A3 = "amount,gross_sell,output,net - output,None)\n        };"
+m("arm-match-bool", (A1, A2, A3),
+  ("        let (fees,base_amount,quote_amount,output,adapter_difference,post_fill) = match buy { true => {",
+   "        } false => {\n            let gross_sell = ",
+   "amount,gross_sell,output,net - output,None)\n        } };"))
+m("arm-match-bool-arms", (A1, A2, A3),
+  ("        let (fees,base_amount,quote_amount,output,adapter_difference,post_fill) = match buy { true => {",
+   "        }, false => {\n            let gross_sell = ",
+   "amount,gross_sell,output,net - output,None)\n        }, };"))
+CS2 = "        let adapter_difference = amount.checked_sub(trade_amount).ok_or_else(|| error!(PumpError::Overflow))?;"
+m("csub-match-none-first", CS2,
+  "        let adapter_difference = match amount.checked_sub(trade_amount) { None => return Err(error!(PumpError::Overflow)), Some(v) => v };")
+m("csub-ok-or-else-match", CS2,
+  "        let adapter_difference = match amount.checked_sub(trade_amount).ok_or_else(|| error!(PumpError::Overflow)) { Err(e) => return Err(e), Ok(v) => v };")
+m("csub-let-else", CS2,
+  "        let Some(adapter_difference) = amount.checked_sub(trade_amount) else { return Err(error!(PumpError::Overflow)) };")
+
+# --- helper boundaries around trade_amount / adapter_difference (LLVM-inlined plain fns change the
+#     CFG LLVM sees when it threads the two `buy` tests) --------------------------------------------
+TA3 = "        let trade_amount = if buy {\n            crate::transfer_fee_recovered::post_fee_amount(&quote_fee,amount)?\n        }else{amount};"
+for attr, tag in (("", "plain"), ("#[inline] ", "hint"), ("#[inline(always)] ", "always")):
+    m(f"ta-helper-{tag}", TA3,
+      f"        {attr}fn trade_amount_of(buy: bool, quote_fee: &Option<crate::trade::native_transfer_fee::Fee>, amount: u64) -> Result<u64> {{ Ok(if buy {{\n            crate::transfer_fee_recovered::post_fee_amount(quote_fee,amount)?\n        }}else{{amount}}) }} let trade_amount = trade_amount_of(buy, &quote_fee, amount)?;")
+    m(f"csub-helper-{tag}", CS2,
+      f"        {attr}fn sub_or_overflow(a: u64, b: u64) -> Result<u64> {{ a.checked_sub(b).ok_or_else(|| error!(PumpError::Overflow)) }} let adapter_difference = sub_or_overflow(amount, trade_amount)?;")
+m("ta-match-bool", TA3,
+  "        let trade_amount = match buy { true => {\n            crate::transfer_fee_recovered::post_fee_amount(&quote_fee,amount)?\n        } false => amount };")

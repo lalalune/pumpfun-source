@@ -28,3 +28,29 @@ y1-hop-llvm's spelling (`match fee_inputs(..) { Ok(v)=>v, Err(e)=>return Err(e) 
 on the x1+le+d1 base, the function keeps the original 18,584 B.
 
 Ledger: ac2d5a42 (composite), hc10-* rows (each hill-climb trial).
+
+## Residual at 0.97158 (130 differing diff lines; first 761 instructions equal)
+Two branch-polarity sites that cancel in size (-8 B / +8 B), plus offsets of jumps across them:
+- after `post_fee_amount` (buy trade_amount): orig `jeq r1,2,+1; ja err`, ours `jne r1,2,err`;
+- after buy `get_fees`: orig `jne r1,0,err`, ours `jeq r1,0,+1; ja err`.
+Later: raw_output `checked_add` overflow-closure block and the transfer_input key load block are placed differently.
+
+### llc oracle on this build's post-opt IR (irhc.py / bmove.py / od.py here; ~0.5 s per variant)
+| IR block move (on top of the 0.97158 IR) | bytes | ratio | oracle slots |
+|---|---:|---:|---:|
+| none | 18,584 | 0.97158 | 908 |
+| bb261 (get_fees Ok continuation) right after bb41 | 18,576 | 0.96960 | - |
+| + bb258 (checked_sub overflow-closure block) right after bb37 (post_fee_amount call) | 18,584 | 0.97333 | 873 |
+| + bb278 (native test) after bb75 | 18,584 | 0.97420 | 873 |
+Greedy single-block-move search (1,710 moves per round, two regions) finds nothing further.
+In our IR the sell-arm head (bb84 and its successors) sits between bb41 and bb261: LLVM threads the two
+`buy` tests (trade_amount `if buy` and the arm `if buy`), and the threaded block order puts the sell
+head ahead of the buy get_fees continuation.
+
+### Source spellings measured on the 0.97158 base (all line-preserving)
+Byte-identical (SAME): `?` -> Ok-first/Err-first match at post_fee_amount, checked_sub, get_fees,
+net_quote_for_budget, sub3; trade_amount polarity (`if !buy`), `match buy` for trade_amount and for the
+arm split, block-bound post_fee value, ok_or_else via match, require_ata key bindings.
+Changed but worse: `.map_err(|e| e)` / `.map(|v| v)` (same swap_hop), Option match / let-else for the
+checked_sub (+160 B, closure dropped), trade_amount via a nested helper (plain, #[inline], #[inline(always)]: 18,592 B),
+checked_sub via a plain helper (18,696 B), mayhem `== false` (slots 1837), native default lhs (0.97027).

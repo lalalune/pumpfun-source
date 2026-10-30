@@ -29,6 +29,8 @@ BASE_TAG = "fw581362"
 
 def apply(text, muts, table):
     for mid in muts:
+        if mid not in table:
+            return None
         old, new = table[mid]
         pairs = list(zip(old, new)) if isinstance(old, tuple) else [(old, new)]
         for o, n in pairs:
