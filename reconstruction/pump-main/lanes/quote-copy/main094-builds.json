@@ -1,0 +1,33 @@
+{
+  "base_revision": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "source_revision": "0ff8799c0111190611076ff695066c6a755b99d3",
+  "program_source_tree": "624b4f497d9fc0ee84266fdb61a49ba13fb83c0e",
+  "recipe": "pinned identity, reused dependencies; one fresh root compile per image",
+  "images": {
+    "control": {
+      "ok": true,
+      "runtime_valid": true,
+      "stack_warnings": [],
+      "recipe": "identity",
+      "triple": "sbpf-solana-solana",
+      "seconds": 30.2,
+      "unstripped_sha256": "498103bb88e11727a59096c25386cb4fecce970f4d73b37591b8f53f691a21e2",
+      "candidate_sha256": "2ec131ee13b63e93c22874562e8122c9bc45ed20a92c1ff6f957fb3c1c2c36ae",
+      "stripped_bytes": 1934648
+    },
+    "candidate": {
+      "ok": true,
+      "runtime_valid": true,
+      "stack_warnings": [],
+      "recipe": "identity",
+      "triple": "sbpf-solana-solana",
+      "seconds": 16.4,
+      "unstripped_sha256": "e983d4e2b434b263ecfe3de4d88e7a60b8b531a207e58fe6252e92c2065e2f3f",
+      "candidate_sha256": "42559263ee782d35594cee2baf4f19a41f9ecfd3b10be78e40bc9ec103628014",
+      "stripped_bytes": 1934648
+    }
+  },
+  "comparison_sha256": "1941ab22a515eff9754fa1914010c0c3df159e2259f495135802eb3f956d535a",
+  "verifier_sha256": "83e97cb3012c200de10fc42eacf01202dc17b9ff522874502f9a5763278dbd03",
+  "stripped_binaries_equal": false
+}

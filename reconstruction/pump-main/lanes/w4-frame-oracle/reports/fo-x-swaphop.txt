@@ -1,0 +1,296 @@
+# _ZN14pump_recovered15multi_hop_curve8swap_hop17h5829570f64b6c47bE  window 0x5b3b0
+cand bytes 18496 orig 18584  abstracted-ratio 0.7123  r10 pairs 744 equal 446  max-off cand 0x1000 orig 0x1000
+objects: allocas 152  surviving 103  merged 84  no-lifetime 50  PEI rule check: ok
+  fi      T   orig  delta  size al lt   votes  name  [merged: ...]
+  16   0x30   0x30     +0    48  8  0   1/1   _566{anchor_lang::prelude::AccountInfo<'_>}* ~
+  17   0x50   0x50     +0    32  8  0  12/12  _564{anchor_lang::prelude::Pubkey}*
+  18   0x51   0x51     +0     1  1  1   2/2   _561{[u8}
+  19   0x78   0x78     +0    32  8  1  15/15  _557{[&[u8]}  [_516{anchor_lang::prelude::Pubkey}#32 _499{[&[&[u8]]}#40 _456{[u8}#52]
+  21   0xa8   0xa8     +0    48  8  1  20/21  _551{[anchor_lang::prelude::AccountInfo<'_>}  [_539{std::vec::Vec<anchor_lang::prelude::AccountMeta>}#23 _524{[&[u8]}#30 _517{anchor_lang::prelude::Pubkey}#31 ix_data48#46 _449{[&[&[u8]]}#54]
+  22   0xc0   0xc0     +0    24  8  0   3/3   _547{std::result::Result<(),anchor_lang::prelude::ProgramErro}*
+  25   0xf0   0xf0     +0    48  8  0   7/7   _533{std::iter::Chain<std::iter::Map<std::slice::Iter<'_,u8>,}*
+  27  0x108  0x108     +0    24  8  0   4/4   inner_data55*
+  28  0x138  0x138     +0    48  8  0   1/1   authority_info54* ~
+  33  0x158  0x158     +0    32  8  1   9/9   _515{anchor_lang::prelude::Pubkey}  [ix_data56#26 _506{[u8}#38]
+  34  0x178  0x178     +0    32  8  1   8/8   _514{anchor_lang::prelude::Pubkey}  [_554{[&[&[u8]]}#20]
+  35  0x260  0x260     +0   232  8  1  52/57  _512{std::result::Result<PostCompleteBuyEvent,anchor_lang::er}  [formatter.i#1 _38.i#4 _22.i#10 _14.i#12 ix57#24 _526{std::vec::Vec<u8>}#29 ix49#44 _471{std::vec::Vec<u8>}#49 ix#58 _418{std::vec::Vec<u8>}#63 _404{token_incentives::volume_accumulator::UserVolumeAccumula}#67 user#88 _75{anchor_lang::prelude::Pubkey}#107 _39{std::result::Result<std::option::Option<pump_token_ext::}#113]
+  36  0x340  0x340     +0   224  8  1  40/44  post_event  [buf.i#2 _36.i#5 _24.i#8 _12.i#13 _496{[anchor_lang::prelude::AccountInfo<'_>}#41 _484{std::vec::Vec<anchor_lang::prelude::AccountMeta>}#43 _469{[&[u8]}#50 _446{[anchor_lang::prelude::AccountInfo<'_>}#55 _434{std::vec::Vec<anchor_lang::prelude::AccountMeta>}#57 _416{[&[u8]}#64 _408{anchor_lang::prelude::Pubkey}#65]
+  37  0x380  0x380     +0    64  8  1  16/16  post51  [_502{[&[u8]}#39 ix_data#60]
+  42  0x398  0x398     +0    24  8  0   3/3   _492{std::result::Result<(),anchor_lang::prelude::ProgramErro}*
+  45  0x3c8  0x3c8     +0    48  8  0   7/7   _478{std::iter::Chain<std::iter::Map<std::slice::Iter<'_,u8>,}*
+  47  0x3e0  0x3e0     +0    24  8  0   4/4   inner_data47*
+  48  0x410  0x410     +0    48  8  0   1/1   authority_info46* ~
+  51  0x498  0x498     +0   136  8  1  25/32  completion  [_34.i#6 _23.i#9 _10.i#14 _452{[&[u8]}#53 _406{anchor_lang::prelude::Pubkey}#66 _28{std::string::String}#116]
+  56  0x4b0  0x4b0     +0    24  8  0   3/3   _442{std::result::Result<(),anchor_lang::prelude::ProgramErro}*
+  59  0x4e0  0x4e0     +0    48  8  0   7/7   _426{std::iter::Chain<std::iter::Map<std::slice::Iter<'_,u8>,}*
+  61  0x4f8  0x4f8     +0    24  8  0   4/4   inner_data*
+  62  0x528  0x528     +0    48  8  0   1/1   authority_info* ~
+  68  0x6d0  0x6d0     +0   424  8  1 162/167 event  [_11.i#0 _40.i#3 _26.i#7 _16.i#11 _956{anchor_lang::prelude::ProgramError}#15 _398{std::result::Result<anchor_lang::prelude::Clock,anchor_l}#69 _394{anchor_lang::prelude::AccountInfo<'_>}#70 _388{[&[&[u8]]}#71 _364{std::result::Result<u64,anchor_lang::error::Error>}#72 _359{std::result::Result<u64,anchor_lang::error::Error>}#73 _345{std::result::Result<u64,anchor_lang::error::Error>}#74 _332{std::result::Result<u64,anchor_lang::error::Error>}#75 _323{[&[&[u8]]}#76 _306{anchor_lang::prelude::AccountInfo<'_>}#77 _292{std::result::Result<u64,anchor_lang::error::Error>}#78 _282{anchor_lang::error::AnchorError}#79 _274{std::result::Result<u64,anchor_lang::error::Error>}#80 _263{std::result::Result<fee_math::TradeFees,anchor_lang::err}#81 _256{std::result::Result<u128,anchor_lang::error::Error>}#82 _247{[&[&[u8]]}#83 _196{std::result::Result<std::option::Option<(fee_math::Trade}#86 _187{anchor_lang::error::AnchorError}#87 _167{anchor_lang::error::AnchorError}#89 _158{std::result::Result<u128,anchor_lang::error::Error>}#90 _150{std::result::Result<u64,anchor_lang::error::Error>}#91 _143{std::result::Result<(u64,fee_math::TradeFees),anchor_lan}#92 _134{std::result::Result<fee_math::TradeFees,anchor_lang::err}#93 _116{std::result::Result<u64,anchor_lang::error::Error>}#97 _108{std::result::Result<u128,anchor_lang::error::Error>}#98 _106{anchor_lang::prelude::AccountInfo<'_>}#99 _94{anchor_lang::prelude::AccountInfo<'_>}#102 _85{anchor_lang::error::AnchorError}#103 _83{anchor_lang::prelude::Pubkey}#104 _81{anchor_lang::prelude::Pubkey}#105 _77{anchor_lang::prelude::Pubkey}#106 _54{std::result::Result<anchor_lang::prelude::AccountInfo<'_}#108 _46{std::result::Result<anchor_lang::prelude::AccountInfo<'_}#110 _41{anchor_lang::prelude::AccountInfo<'_>}#112 _36{anchor_lang::prelude::Pubkey}#115 _27{anchor_lang::error::AnchorError}#117]
+  84  0x6e0      ?      ?    16  8  0   0/0   val18.sroa.10.sroa.0.sroa.3* ~
+  85  0x6f0  0xaa0   +944    16  8  0   1/1   val18.sroa.10.sroa.3.sroa.2* ~
+  94  0x710  0x730    +32    32  8  1   1/1   fees ~
+  95  0x720  0x700    -32    16  8  2   2/2   post_fill.sroa.16
+  96  0x730  0x710    -32    16  8  2   2/2   post_fill.sroa.20
+ 100  0x760      ?      ?    48  8  1   0/0   _98{[&[u8]} ~
+ 101  0x761      ?      ?     1  1  1   0/0   bump ~
+ 109  0x798  0x7c8    +48    48  8  1  13/13  quote_token_program
+ 111  0x7c8  0x7f8    +48    48  8  1  12/14  base_token_program
+ 114  0x7e8  0x818    +48    32  8  1   6/7   quote_fee
+ 118  0x7f8  0x828    +48    16  8  0   3/3   *
+ 119  0x808  0x838    +48    16  8  0   2/2   *
+ 120  0x818  0x848    +48    16  8  0   3/3   *
+ 121  0x828  0x868    +64    16  8  0   1/2   * ~
+ 122  0x838      ?      ?    16  8  0   0/0   * ~
+ 123  0x848      ?      ?    16  8  0   0/0   * ~
+ 124  0x858  0x888    +48    16  8  0   2/3   *
+ 125  0x868  0x898    +48    16  8  0   3/3   *
+ 126  0x878  0x8a8    +48    16  8  0   3/3   *
+ 127  0x888  0x8b8    +48    16  8  0   3/3   *
+ 128  0x898  0x8c8    +48    16  8  0   3/3   *
+ 129  0x8a8  0x8d8    +48    16  8  0   2/2   *
+ 130  0x8b8  0x8e8    +48    16  8  0   3/3   *
+ 131  0x8c8  0x8f8    +48    16  8  0   3/3   *
+ 132  0x8d8  0x908    +48    16  8  0   3/3   *
+ 133  0x8e8  0x918    +48    16  8  0   3/3   *
+ 134  0x8f8  0x928    +48    16  8  0   1/2   * ~
+ 135  0x908  0x938    +48    16  8  0   1/3   * ~
+ 136  0x918  0x948    +48    16  8  0   1/3   * ~
+ 137  0x928  0x958    +48    16  8  0   1/2   * ~
+ 138  0x938  0x968    +48    16  8  0   2/3   *
+ 139  0x948  0x978    +48    16  8  0   2/2   *
+ 140  0x958  0x988    +48    16  8  0   3/3   *
+ 141  0x968  0x998    +48    16  8  0   3/3   *
+ 142  0x978  0x9a8    +48    16  8  0   3/3   *
+ 143  0x988  0x9b8    +48    16  8  0   3/3   *
+ 144  0x998  0x9c8    +48    16  8  0   3/3   *
+ 145  0x9a8      ?      ?    16  8  0   0/0   * ~
+ 146  0x9b8      ?      ?    16  8  0   0/0   * ~
+ 147  0x9c8  0x9f8    +48    16  8  0   1/3   * ~
+ 148  0x9d8  0xa08    +48    16  8  0   2/2   *
+ 149  0x9e8  0xa18    +48    16  8  0   3/3   *
+ 150  0x9f8  0xa28    +48    16  8  0   3/3   *
+ 151  0xa08  0xa38    +48    16  8  0   3/3   *
+ 152  0xa10  0xab0   +160     8  8  0  12/13  *
+ 153  0xa18  0xa40    +40     8  8  0   7/7   *
+ 154  0xa20  0xa48    +40     8  8  0  10/10  *
+ 155  0xa28  0xa58    +48     8  8  0   5/5   *
+ 156  0xa30  0xa70    +64     8  8  0   1/1   * ~
+ 157  0xa38  0xa68    +48     8  8  0   1/1   * ~
+ 158  0xa40  0xa80    +64     8  8  0   2/4   * ~
+ 159  0xa48  0xa78    +48     8  8  0   7/9   *
+ 160  0xa50  0xb28   +216     8  8  0   5/8   *
+ 161  0xa58  0xa80    +40     8  8  0   3/5   *
+ 162  0xa60  0xa88    +40     8  8  0   3/4   *
+ 163  0xa68  0xa60     -8     8  8  0  13/13  *
+ 164  0xa70  0xa90    +32     8  8  0   5/5   *
+ 165  0xa78  0xaa0    +40     8  8  0   2/2   *
+ 166  0xa80  0xaa8    +40     8  8  0   6/7   *
+ 167  0xa88  0xac8    +64     8  8  0   1/2   * ~
+ 168  0xa90  0xac0    +48     8  8  0   6/6   *
+ 169  0xa98  0xab8    +32     8  8  0   1/2   * ~
+ 170  0xaa0  0xad0    +48     8  8  0   2/2   *
+ 171  0xaa8  0xa68    -64     8  8  0   4/4   *
+ 172  0xab0  0xad8    +40     8  8  0   5/5   *
+ 173  0xab8      ?      ?     8  8  0   0/0   * ~
+ 174  0xac0  0xae8    +40     8  8  0   2/2   *
+ 175  0xac8  0xab8    -16     8  8  0   6/6   *
+ 176  0xad0      ?      ?     8  8  0   0/0   * ~
+ 177  0xad8  0xb08    +48     8  8  0   3/5   *
+ 178  0xae0  0xb10    +48     8  8  0   3/5   *
+ 179  0xae8  0xaf0     +8     8  8  0   6/6   *
+ 180  0xaf0  0xaf8     +8     8  8  0   4/4   *
+ 181  0xaf8  0xb00     +8     8  8  0   4/4   *
+ 182  0xb00  0xa98   -104     8  8  0   1/1   * ~
+ 183  0xb08  0xac8    -64     8  8  0   1/1   * ~
+ 184  0xb10  0xb08     -8     8  8  0   1/1   * ~
+ 185  0xb18  0xb30    +24     8  8  0   1/1   * ~
+ 186  0xb20  0xb10    -16     8  8  0   1/1   * ~
+
+# delta breaks (orig has DIFF more bytes between A and B):
+    -32 between fi68 event (T 0x6d0) and fi95 post_fill.sroa.16 (T 0x720)
+    +80 between fi96 post_fill.sroa.20 (T 0x730) and fi109 quote_token_program (T 0x798)
+   +112 between fi151  (T 0xa08) and fi152  (T 0xa10)
+   -120 between fi152  (T 0xa10) and fi153  (T 0xa18)
+     +8 between fi154  (T 0xa20) and fi155  (T 0xa28)
+   +168 between fi159  (T 0xa48) and fi160  (T 0xa50)
+   -176 between fi160  (T 0xa50) and fi161  (T 0xa58)
+    -48 between fi162  (T 0xa60) and fi163  (T 0xa68)
+    +40 between fi163  (T 0xa68) and fi164  (T 0xa70)
+     +8 between fi164  (T 0xa70) and fi165  (T 0xa78)
+     +8 between fi166  (T 0xa80) and fi168  (T 0xa90)
+   -112 between fi170  (T 0xaa0) and fi171  (T 0xaa8)
+   +104 between fi171  (T 0xaa8) and fi172  (T 0xab0)
+    -56 between fi174  (T 0xac0) and fi175  (T 0xac8)
+    +64 between fi175  (T 0xac8) and fi177  (T 0xad8)
+    -40 between fi178  (T 0xae0) and fi179  (T 0xae8)
+
+# original layout implied by confident objects (sorted by orig T); gaps = orig bytes ours does not place there
+  orig   0x30..  0x50  fi17   _564{anchor_lang::prelude::Pubkey} size 32   ours T 0x50   gap +48
+  orig   0x50..  0x51  fi18   _561{[u8}                    size 1    ours T 0x51
+  orig   0x58..  0x78  fi19   _557{[&[u8]}                 size 32   ours T 0x78   gap +7
+  orig   0x78..  0xa8  fi21   _551{[anchor_lang::prelude::AccountInfo<'_>} size 48   ours T 0xa8
+  orig   0xa8..  0xc0  fi22   _547{std::result::Result<(),anchor_lang::prelude::ProgramErro} size 24   ours T 0xc0
+  orig   0xc0..  0xf0  fi25   _533{std::iter::Chain<std::iter::Map<std::slice::Iter<'_,u8>,} size 48   ours T 0xf0
+  orig   0xf0.. 0x108  fi27   inner_data55                 size 24   ours T 0x108
+  orig  0x138.. 0x158  fi33   _515{anchor_lang::prelude::Pubkey} size 32   ours T 0x158   gap +48
+  orig  0x158.. 0x178  fi34   _514{anchor_lang::prelude::Pubkey} size 32   ours T 0x178
+  orig  0x178.. 0x260  fi35   _512{std::result::Result<PostCompleteBuyEvent,anchor_lang::er} size 232  ours T 0x260
+  orig  0x260.. 0x340  fi36   post_event                   size 224  ours T 0x340
+  orig  0x340.. 0x380  fi37   post51                       size 64   ours T 0x380
+  orig  0x380.. 0x398  fi42   _492{std::result::Result<(),anchor_lang::prelude::ProgramErro} size 24   ours T 0x398
+  orig  0x398.. 0x3c8  fi45   _478{std::iter::Chain<std::iter::Map<std::slice::Iter<'_,u8>,} size 48   ours T 0x3c8
+  orig  0x3c8.. 0x3e0  fi47   inner_data47                 size 24   ours T 0x3e0
+  orig  0x410.. 0x498  fi51   completion                   size 136  ours T 0x498   gap +48
+  orig  0x498.. 0x4b0  fi56   _442{std::result::Result<(),anchor_lang::prelude::ProgramErro} size 24   ours T 0x4b0
+  orig  0x4b0.. 0x4e0  fi59   _426{std::iter::Chain<std::iter::Map<std::slice::Iter<'_,u8>,} size 48   ours T 0x4e0
+  orig  0x4e0.. 0x4f8  fi61   inner_data                   size 24   ours T 0x4f8
+  orig  0x528.. 0x6d0  fi68   event                        size 424  ours T 0x6d0   gap +48
+  orig  0x6f0.. 0x700  fi95   post_fill.sroa.16            size 16   ours T 0x720   gap +32
+  orig  0x700.. 0x710  fi96   post_fill.sroa.20            size 16   ours T 0x730
+  orig  0x798.. 0x7c8  fi109  quote_token_program          size 48   ours T 0x798   gap +136
+  orig  0x7c8.. 0x7f8  fi111  base_token_program           size 48   ours T 0x7c8
+  orig  0x7f8.. 0x818  fi114  quote_fee                    size 32   ours T 0x7e8
+  orig  0x818.. 0x828  fi118  -                            size 16   ours T 0x7f8
+  orig  0x828.. 0x838  fi119  -                            size 16   ours T 0x808
+  orig  0x838.. 0x848  fi120  -                            size 16   ours T 0x818
+  orig  0x878.. 0x888  fi124  -                            size 16   ours T 0x858   gap +48
+  orig  0x888.. 0x898  fi125  -                            size 16   ours T 0x868
+  orig  0x898.. 0x8a8  fi126  -                            size 16   ours T 0x878
+  orig  0x8a8.. 0x8b8  fi127  -                            size 16   ours T 0x888
+  orig  0x8b8.. 0x8c8  fi128  -                            size 16   ours T 0x898
+  orig  0x8c8.. 0x8d8  fi129  -                            size 16   ours T 0x8a8
+  orig  0x8d8.. 0x8e8  fi130  -                            size 16   ours T 0x8b8
+  orig  0x8e8.. 0x8f8  fi131  -                            size 16   ours T 0x8c8
+  orig  0x8f8.. 0x908  fi132  -                            size 16   ours T 0x8d8
+  orig  0x908.. 0x918  fi133  -                            size 16   ours T 0x8e8
+  orig  0x958.. 0x968  fi138  -                            size 16   ours T 0x938   gap +64
+  orig  0x968.. 0x978  fi139  -                            size 16   ours T 0x948
+  orig  0x978.. 0x988  fi140  -                            size 16   ours T 0x958
+  orig  0x988.. 0x998  fi141  -                            size 16   ours T 0x968
+  orig  0x998.. 0x9a8  fi142  -                            size 16   ours T 0x978
+  orig  0x9a8.. 0x9b8  fi143  -                            size 16   ours T 0x988
+  orig  0x9b8.. 0x9c8  fi144  -                            size 16   ours T 0x998
+  orig  0x9f8.. 0xa08  fi148  -                            size 16   ours T 0x9d8   gap +48
+  orig  0xa08.. 0xa18  fi149  -                            size 16   ours T 0x9e8
+  orig  0xa18.. 0xa28  fi150  -                            size 16   ours T 0x9f8
+  orig  0xa28.. 0xa38  fi151  -                            size 16   ours T 0xa08
+  orig  0xa38.. 0xa40  fi153  -                            size 8    ours T 0xa18
+  orig  0xa40.. 0xa48  fi154  -                            size 8    ours T 0xa20
+  orig  0xa50.. 0xa58  fi155  -                            size 8    ours T 0xa28   gap +8
+  orig  0xa58.. 0xa60  fi163  -                            size 8    ours T 0xa68
+  orig  0xa60.. 0xa68  fi171  -                            size 8    ours T 0xaa8
+  orig  0xa70.. 0xa78  fi159  -                            size 8    ours T 0xa48   gap +8
+  orig  0xa78.. 0xa80  fi161  -                            size 8    ours T 0xa58
+  orig  0xa80.. 0xa88  fi162  -                            size 8    ours T 0xa60
+  orig  0xa88.. 0xa90  fi164  -                            size 8    ours T 0xa70
+  orig  0xa98.. 0xaa0  fi165  -                            size 8    ours T 0xa78   gap +8
+  orig  0xaa0.. 0xaa8  fi166  -                            size 8    ours T 0xa80
+  orig  0xaa8.. 0xab0  fi152  -                            size 8    ours T 0xa10
+  orig  0xab0.. 0xab8  fi175  -                            size 8    ours T 0xac8
+  orig  0xab8.. 0xac0  fi168  -                            size 8    ours T 0xa90
+  orig  0xac8.. 0xad0  fi170  -                            size 8    ours T 0xaa0   gap +8
+  orig  0xad0.. 0xad8  fi172  -                            size 8    ours T 0xab0
+  orig  0xae0.. 0xae8  fi174  -                            size 8    ours T 0xac0   gap +8
+  orig  0xae8.. 0xaf0  fi179  -                            size 8    ours T 0xae8
+  orig  0xaf0.. 0xaf8  fi180  -                            size 8    ours T 0xaf0
+  orig  0xaf8.. 0xb00  fi181  -                            size 8    ours T 0xaf8
+  orig  0xb00.. 0xb08  fi177  -                            size 8    ours T 0xad8
+  orig  0xb08.. 0xb10  fi178  -                            size 8    ours T 0xae0
+  orig  0xb20.. 0xb28  fi160  -                            size 8    ours T 0xa50   gap +16
+
+# ORIGINAL StackColoring groups (per-alloca implied orig T from the -no-stack-coloring run)
+#   T_orig  members (ours: slot fi->T) ; "!" = alloca sits in a different group in ours; "*" = no lifetime marker in ours
+    0x50  ours slot fi17@0x50: _564{anchor_lang::prelude::Pubkey}#17/32*
+    0x51  ours slot fi18@0x51: _561{[u8}#18/1
+    0x78  ours slot fi19@0x78: _557{[&[u8]}#19/32 _516{anchor_lang::prelude::Pubkey}#32/32 _499{[&[&[u8]]}#40/16 _456{[u8}#52/1
+    0xa8  ours slot fi21@0xa8: _551{[anchor_lang::prelude::AccountInfo<'_>}#21/48 _539{std::vec::Vec<anchor_lang::prelude::AccountMeta>}#23/24 _524{[&[u8]}#30/16 _517{anchor_lang::prelude::Pubkey}#31/32 ix_data48#46/24 _449{[&[&[u8]]}#54/16
+    0xc0  ours slot fi22@0xc0: _547{std::result::Result<(),anchor_lang::prelude::ProgramErro}#22/24*
+    0xf0  ours slot fi25@0xf0: _533{std::iter::Chain<std::iter::Map<std::slice::Iter<'_,u8>,}#25/48*
+   0x108  ours slot fi27@0x108: inner_data55#27/24*
+   0x158  ours slot fi33@0x158: ix_data56#26/24 _515{anchor_lang::prelude::Pubkey}#33/32 _506{[u8}#38/1
+   0x178  ours slot fi34@0x178: _554{[&[&[u8]]}#20/16 _514{anchor_lang::prelude::Pubkey}#34/32
+   0x260  ours slot fi35@0x260: formatter.i#1/64 _14.i#12/32 _526{std::vec::Vec<u8>}#29/24 _512{std::result::Result<PostCompleteBuyEvent,anchor_lang::er}#35/232 _471{std::vec::Vec<u8>}#49/24 _418{std::vec::Vec<u8>}#63/24 _404{token_incentives::volume_accumulator::UserVolumeAccumula}#67/104 _75{anchor_lang::prelude::Pubkey}#107/32 _39{std::result::Result<std::option::Option<pump_token_ext::}#113/32
+   0x340  ours slot fi36@0x340: buf.i#2/24 _12.i#13/32 _10.i#14/32! post_event#36/224 _496{[anchor_lang::prelude::AccountInfo<'_>}#41/48 _484{std::vec::Vec<anchor_lang::prelude::AccountMeta>}#43/24 _469{[&[u8]}#50/16 _446{[anchor_lang::prelude::AccountInfo<'_>}#55/48 _434{std::vec::Vec<anchor_lang::prelude::AccountMeta>}#57/24 _416{[&[u8]}#64/16
+   0x380  ours slot fi37@0x380: post51#37/64 _502{[&[u8]}#39/32 ix_data#60/24
+   0x398  ours slot fi42@0x398: _492{std::result::Result<(),anchor_lang::prelude::ProgramErro}#42/24*
+   0x3c8  ours slot fi45@0x3c8: _478{std::iter::Chain<std::iter::Map<std::slice::Iter<'_,u8>,}#45/48*
+   0x3e0  ours slot fi47@0x3e0: inner_data47#47/24*
+   0x498  ours slot fi51@0x498: completion#51/136 _452{[&[u8]}#53/32 _28{std::string::String}#116/24
+   0x4b0  ours slot fi56@0x4b0: _442{std::result::Result<(),anchor_lang::prelude::ProgramErro}#56/24*
+   0x4e0  ours slot fi59@0x4e0: _426{std::iter::Chain<std::iter::Map<std::slice::Iter<'_,u8>,}#59/48*
+   0x4f8  ours slot fi61@0x4f8: inner_data#61/24*
+   0x6d0  ours slot fi68@0x6d0: _16.i#11/32 _956{anchor_lang::prelude::ProgramError}#15/24 _398{std::result::Result<anchor_lang::prelude::Clock,anchor_l}#69/48 _306{anchor_lang::prelude::AccountInfo<'_>}#77/48 _292{std::result::Result<u64,anchor_lang::error::Error>}#78/16 _282{anchor_lang::error::AnchorError}#79/160 _274{std::result::Result<u64,anchor_lang::error::Error>}#80/16 _263{std::result::Result<fee_math::TradeFees,anchor_lang::err}#81/40 _256{std::result::Result<u128,anchor_lang::error::Error>}#82/24 _187{anchor_lang::error::AnchorError}#87/160 _158{std::result::Result<u128,anchor_lang::error::Error>}#90/24 _150{std::result::Result<u64,anchor_lang::error::Error>}#91/16 _143{std::result::Result<(u64,fee_math::TradeFees),anchor_lan}#92/48 _134{std::result::Result<fee_math::TradeFees,anchor_lang::err}#93/40 _116{std::result::Result<u64,anchor_lang::error::Error>}#97/16 _108{std::result::Result<u128,anchor_lang::error::Error>}#98/24 _106{anchor_lang::prelude::AccountInfo<'_>}#99/48 _94{anchor_lang::prelude::AccountInfo<'_>}#102/48 _85{anchor_lang::error::AnchorError}#103/160 _83{anchor_lang::prelude::Pubkey}#104/32 _81{anchor_lang::prelude::Pubkey}#105/32 _77{anchor_lang::prelude::Pubkey}#106/32 _54{std::result::Result<anchor_lang::prelude::AccountInfo<'_}#108/48 _46{std::result::Result<anchor_lang::prelude::AccountInfo<'_}#110/48 _41{anchor_lang::prelude::AccountInfo<'_>}#112/48 _36{anchor_lang::prelude::Pubkey}#115/32 _27{anchor_lang::error::AnchorError}#117/160
+   0x700  ours slot fi95@0x720: post_fill.sroa.16#95/16
+   0x710  ours slot fi96@0x730: post_fill.sroa.20#96/16
+   0x7c8  ours slot fi109@0x798: quote_token_program#109/48
+   0x7f8  ours slot fi111@0x7c8: base_token_program#111/48
+   0x818  ours slot fi114@0x7e8: quote_fee#114/32
+   0x828  ours slot fi118@0x7f8: ##118/16*
+   0x838  ours slot fi119@0x808: ##119/16*
+   0x848  ours slot fi120@0x818: ##120/16*
+   0x888  ours slot fi124@0x858: ##124/16*
+   0x898  ours slot fi125@0x868: ##125/16*
+   0x8a8  ours slot fi126@0x878: ##126/16*
+   0x8b8  ours slot fi127@0x888: ##127/16*
+   0x8c8  ours slot fi128@0x898: ##128/16*
+   0x8d8  ours slot fi129@0x8a8: ##129/16*
+   0x8e8  ours slot fi130@0x8b8: ##130/16*
+   0x8f8  ours slot fi131@0x8c8: ##131/16*
+   0x908  ours slot fi132@0x8d8: ##132/16*
+   0x918  ours slot fi133@0x8e8: ##133/16*
+   0x968  ours slot fi138@0x938: ##138/16*
+   0x978  ours slot fi139@0x948: ##139/16*
+   0x988  ours slot fi140@0x958: ##140/16*
+   0x998  ours slot fi141@0x968: ##141/16*
+   0x9a8  ours slot fi142@0x978: ##142/16*
+   0x9b8  ours slot fi143@0x988: ##143/16*
+   0x9c8  ours slot fi144@0x998: ##144/16*
+   0xa08  ours slot fi148@0x9d8: ##148/16*
+   0xa18  ours slot fi149@0x9e8: ##149/16*
+   0xa28  ours slot fi150@0x9f8: ##150/16*
+   0xa38  ours slot fi151@0xa08: ##151/16*
+   0xa40  ours slot fi153@0xa18: ##153/8*
+   0xa48  ours slot fi154@0xa20: ##154/8*
+   0xa58  ours slot fi155@0xa28: ##155/8*
+   0xa60  ours slot fi163@0xa68: ##163/8*
+   0xa68  ours slot fi171@0xaa8: ##171/8*
+   0xa78  ours slot fi159@0xa48: ##159/8*
+   0xa80  ours slot fi158@0xa40: ##158/8* ##161/8*!
+   0xa88  ours slot fi162@0xa60: ##162/8*
+   0xa90  ours slot fi164@0xa70: ##164/8*
+   0xaa0  ours slot fi165@0xa78: ##165/8*
+   0xaa8  ours slot fi166@0xa80: ##166/8*
+   0xab0  ours slot fi152@0xa10: ##152/8*
+   0xab8  ours slot fi175@0xac8: ##175/8*
+   0xac0  ours slot fi168@0xa90: ##168/8*
+   0xad0  ours slot fi170@0xaa0: ##170/8*
+   0xad8  ours slot fi172@0xab0: ##172/8*
+   0xae8  ours slot fi174@0xac0: ##174/8*
+   0xaf0  ours slot fi179@0xae8: ##179/8*
+   0xaf8  ours slot fi180@0xaf0: ##180/8*
+   0xb00  ours slot fi181@0xaf8: ##181/8*
+   0xb08  ours slot fi177@0xad8: ##177/8*
+   0xb10  ours slot fi178@0xae0: ##178/8*
+   0xb28  ours slot fi160@0xa50: ##160/8*
+   0xff8  ours slot fi35@0x260: user#88/32
+  0x1098  ours slot fi68@0x6d0: _167{anchor_lang::error::AnchorError}#89/160
+
+# OUR groups whose members the original places in different slots
+  ours fi35@0x260: orig 0x260: formatter.i#1,_14.i#12,_526{std::vec::Vec<u8>}#29,_512{std::result::Result<PostCompleteBuyEvent,anchor_lang::er}#35,_471{std::vec::Vec<u8>}#49,_418{std::vec::Vec<u8>}#63,_404{token_incentives::volume_accumulator::UserVolumeAccumula}#67,_75{anchor_lang::prelude::Pubkey}#107,_39{std::result::Result<std::option::Option<pump_token_ext::}#113 | orig 0xff8: user#88
+  ours fi51@0x498: orig 0x340: _10.i#14 | orig 0x498: completion#51,_452{[&[u8]}#53,_28{std::string::String}#116
+  ours fi68@0x6d0: orig 0x6d0: _16.i#11,_956{anchor_lang::prelude::ProgramError}#15,_398{std::result::Result<anchor_lang::prelude::Clock,anchor_l}#69,_306{anchor_lang::prelude::AccountInfo<'_>}#77,_292{std::result::Result<u64,anchor_lang::error::Error>}#78,_282{anchor_lang::error::AnchorError}#79,_274{std::result::Result<u64,anchor_lang::error::Error>}#80,_263{std::result::Result<fee_math::TradeFees,anchor_lang::err}#81,_256{std::result::Result<u128,anchor_lang::error::Error>}#82,_187{anchor_lang::error::AnchorError}#87,_158{std::result::Result<u128,anchor_lang::error::Error>}#90,_150{std::result::Result<u64,anchor_lang::error::Error>}#91,_143{std::result::Result<(u64,fee_math::TradeFees),anchor_lan}#92,_134{std::result::Result<fee_math::TradeFees,anchor_lang::err}#93,_116{std::result::Result<u64,anchor_lang::error::Error>}#97,_108{std::result::Result<u128,anchor_lang::error::Error>}#98,_106{anchor_lang::prelude::AccountInfo<'_>}#99,_94{anchor_lang::prelude::AccountInfo<'_>}#102,_85{anchor_lang::error::AnchorError}#103,_83{anchor_lang::prelude::Pubkey}#104,_81{anchor_lang::prelude::Pubkey}#105,_77{anchor_lang::prelude::Pubkey}#106,_54{std::result::Result<anchor_lang::prelude::AccountInfo<'_}#108,_46{std::result::Result<anchor_lang::prelude::AccountInfo<'_}#110,_41{anchor_lang::prelude::AccountInfo<'_>}#112,_36{anchor_lang::prelude::Pubkey}#115,_27{anchor_lang::error::AnchorError}#117 | orig 0x1098: _167{anchor_lang::error::AnchorError}#89
+
+# ALLOCA ORDER: original slot reps in orig-T order; out-of-order ones (not in the LIS of our fi) need a different alloca position
+  ##163/8 at orig 0xa60: orig puts it between fi155  and fi158 
+  ##171/8 at orig 0xa68: orig puts it between fi155  and fi158 
+  ##159/8 at orig 0xa78: orig puts it between fi155  and fi158 
+  ##152/8 at orig 0xab0: orig puts it between fi166  and fi168 
+  ##175/8 at orig 0xab8: orig puts it between fi166  and fi168 
+  ##177/8 at orig 0xb08: orig puts it between fi181  and fiNone 
+  ##178/8 at orig 0xb10: orig puts it between fi181  and fiNone 
+  ##160/8 at orig 0xb28: orig puts it between fi181  and fiNone 
+  user#88/32 at orig 0xff8: orig puts it between fi181  and fiNone 
+  _167{anchor_lang::error::AnchorError}#89/160 at orig 0x1098: orig puts it between fi181  and fiNone 
+
+# allocas without a confident orig slot: 33: _11.i#0 _40.i#3 _38.i#4 _36.i#5 _34.i#6 _26.i#7 _24.i#8 _23.i#9 _22.i#10 _566{anchor_lang::prelude::AccountInfo<'_>}#16 ix57#24 authority_info54#28 ix49#44 authority_info46#48 ix#58 authority_info#62 _408{anchor_lang::prelude::Pubkey}#65 _406{anchor_lang::prelude::Pubkey}#66 event#68 _394{anchor_lang::prelude::AccountInfo<'_>}#70 _388{[&[&[u8]]}#71 _364{std::result::Result<u64,anchor_lang::error::Error>}#72 _359{std::result::Result<u64,anchor_lang::error::Error>}#73 _345{std::result::Result<u64,anchor_lang::error::Error>}#74 _332{std::result::Result<u64,anchor_lang::error::Error>}#75 _323{[&[&[u8]]}#76 _247{[&[&[u8]]}#83 val18.sroa.10.sroa.0.sroa.3#84 val18.sroa.10.sroa.3.sroa.2#85 _196{std::result::Result<std::option::Option<(fee_math::Trade}#86 fees#94 _98{[&[u8]}#100 bump#101
+# group mismatches: 2

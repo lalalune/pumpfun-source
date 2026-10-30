@@ -1,0 +1,137 @@
+{
+  "sha": "81bdb58ab2e90731b19317b3bcd6919fe3410f3a",
+  "node_id": "C_kwDOVWUACNoAKDgxYmRiNThhYjJlOTA3MzFiMTkzMTdiM2JjZDY5MTlmZTM0MTBmM2E",
+  "commit": {
+    "author": {
+      "name": "Shaw",
+      "email": "shawmakesmagic@gmail.com",
+      "date": "2026-10-29T10:04:11Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2026-10-29T10:04:11Z"
+    },
+    "message": "fix(pump): retain validated bytecode layout improvements (#1110)",
+    "tree": {
+      "sha": "f0cbf0cd61601d7ab7a760208c84c43560397491",
+      "url": "https://api.github.com/repos/lalalune/pumpfun-source/git/trees/f0cbf0cd61601d7ab7a760208c84c43560397491"
+    },
+    "url": "https://api.github.com/repos/lalalune/pumpfun-source/git/commits/81bdb58ab2e90731b19317b3bcd6919fe3410f3a",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJq4xobCRC1aQ7uu5UhlAAAsNIQAFxEmqm+KhVx32avqg3V3oc/\n6AIxOMLhiMHnDNfpJ/ROt4Q4GEngflMqF5vDwLrwz221B9ErdPG1ZrfiPlxVIHaR\nv6BkV9G4e4pgvSarTNKySeH8DfeHHSQknnd/vfs7oGbZx0V8LtqnSLke4wibIkd1\nBjJLD/Pc00OdhbI5xXGahJl8mLKOfUkUSCZcoiJccCCmlMn+IBtlif/XO43VLGlf\nZcUSDo4NfuCdU9Wx+qxnO4QxciE3ZUg2rZd23w+RrRNx5iytClbDJc+HYvZ3b/qa\nI5WtxgVS2YDlW+TlgBV7gZltX8BarNkyRx2N4a/Hj6jxAemO4M6bhcjXeshsRZ0K\n2w6scN72oNQDSu+dEdi1Vba/vjsA9NZoNTKmYaU6N9rUkrbvX4jrEquSFYKLpiie\nFz2aRuC1StE9WJ+6WuCeuE4trrAh+Mmpe17hia46ba/PNY1QEaVG3hoAsESZ5Hb9\nZS3r2/x0amfUFkTuiqHSVvB5taNkd0FiZpIIx0jPRwNRhX96T2Jgg6fxb69Zf3qG\n1TRfQyrBmBzK265MzLtopprJfJpGW2bJzWb36UCM5wvS6vBeeZXtmltmOKb+mASA\njLpuY5cJ9sZAu1IzbrrngOWByRamFgO01s08T3gX1e9x/kgX0WI0WxKNXLJQ1igP\nxyBNuQMcbyKvVf84Dy1I\n=jkdR\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree f0cbf0cd61601d7ab7a760208c84c43560397491\nparent 0464a20a5d6b1c59abc758d3075b3f0a365ed225\nauthor Shaw <shawmakesmagic@gmail.com> 1793268251 -0700\ncommitter GitHub <noreply@github.com> 1793268251 -0700\n\nfix(pump): retain validated bytecode layout improvements (#1110)",
+      "verified_at": "2026-10-29T10:04:12Z"
+    }
+  },
+  "url": "https://api.github.com/repos/lalalune/pumpfun-source/commits/81bdb58ab2e90731b19317b3bcd6919fe3410f3a",
+  "html_url": "https://github.com/lalalune/pumpfun-source/commit/81bdb58ab2e90731b19317b3bcd6919fe3410f3a",
+  "comments_url": "https://api.github.com/repos/lalalune/pumpfun-source/commits/81bdb58ab2e90731b19317b3bcd6919fe3410f3a/comments",
+  "author": {
+    "login": "lalalune",
+    "id": 18633264,
+    "node_id": "MDQ6VXNlcjE4NjMzMjY0",
+    "avatar_url": "https://avatars.githubusercontent.com/u/18633264?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/lalalune",
+    "html_url": "https://github.com/lalalune",
+    "followers_url": "https://api.github.com/users/lalalune/followers",
+    "following_url": "https://api.github.com/users/lalalune/following{/other_user}",
+    "gists_url": "https://api.github.com/users/lalalune/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/lalalune/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/lalalune/subscriptions",
+    "organizations_url": "https://api.github.com/users/lalalune/orgs",
+    "repos_url": "https://api.github.com/users/lalalune/repos",
+    "events_url": "https://api.github.com/users/lalalune/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/lalalune/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "0464a20a5d6b1c59abc758d3075b3f0a365ed225",
+      "url": "https://api.github.com/repos/lalalune/pumpfun-source/commits/0464a20a5d6b1c59abc758d3075b3f0a365ed225",
+      "html_url": "https://github.com/lalalune/pumpfun-source/commit/0464a20a5d6b1c59abc758d3075b3f0a365ed225"
+    }
+  ],
+  "stats": {
+    "total": 69,
+    "additions": 42,
+    "deletions": 27
+  },
+  "files": [
+    {
+      "sha": "39a8ebd5956e5876b76a349896fb71ffcd55c38d",
+      "filename": "programs/pump/src/buy.rs",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2,
+      "changes": 4,
+      "blob_url": "https://github.com/lalalune/pumpfun-source/blob/81bdb58ab2e90731b19317b3bcd6919fe3410f3a/programs%2Fpump%2Fsrc%2Fbuy.rs",
+      "raw_url": "https://github.com/lalalune/pumpfun-source/raw/81bdb58ab2e90731b19317b3bcd6919fe3410f3a/programs%2Fpump%2Fsrc%2Fbuy.rs",
+      "contents_url": "https://api.github.com/repos/lalalune/pumpfun-source/contents/programs%2Fpump%2Fsrc%2Fbuy.rs?ref=81bdb58ab2e90731b19317b3bcd6919fe3410f3a",
+      "patch": "@@ -93,7 +93,7 @@ pub mod native_payments;\n  let protocol_fee=ceil_fee(raw_quote,protocol_fee_bps)?;\n  let creator_fee=if bonding_curve.creator!=Pubkey::default(){ceil_fee(raw_quote,creator_fee_bps)?}else{0};\n  let total=raw_quote.saturating_add(protocol_fee).saturating_add(creator_fee);\n- let quote=if total>spendable_sol_in{raw_quote.checked_sub(total.saturating_sub(spendable_sol_in)).ok_or(PumpError::Overflow)?}else{raw_quote};\n+ let mut quote=raw_quote;if total>spendable_sol_in{quote=raw_quote.checked_sub(total.saturating_sub(spendable_sol_in)).ok_or(PumpError::Overflow)?;\n // layout-pad\n // layout-pad\n // layout-pad\n@@ -107,7 +107,7 @@ pub mod native_payments;\n // layout-pad\n // layout-pad\n // layout-pad\n- require_gt!(quote,0,PumpError::BuySlippageBelowMinTokensOut);\n+ require_gt!(quote,0,PumpError::BuySlippageBelowMinTokensOut);}\n  let amount=u64::try_from(crate::constant_product::tokens_for_quote(bonding_curve,quote)?).map_err(|_|PumpError::Truncation)?;\n  let (amount,quote,protocol_fee,creator_fee)=if amount>bonding_curve.real_token_reserves&&partial_fill.0{\n   let amount=bonding_curve.real_token_reserves;"
+    },
+    {
+      "sha": "3c131fe029637bf4f4bc6c1bfed5801a83f97a56",
+      "filename": "programs/pump/src/creator/admin_cto.rs",
+      "status": "modified",
+      "additions": 11,
+      "deletions": 14,
+      "changes": 25,
+      "blob_url": "https://github.com/lalalune/pumpfun-source/blob/81bdb58ab2e90731b19317b3bcd6919fe3410f3a/programs%2Fpump%2Fsrc%2Fcreator%2Fadmin_cto.rs",
+      "raw_url": "https://github.com/lalalune/pumpfun-source/raw/81bdb58ab2e90731b19317b3bcd6919fe3410f3a/programs%2Fpump%2Fsrc%2Fcreator%2Fadmin_cto.rs",
+      "contents_url": "https://api.github.com/repos/lalalune/pumpfun-source/contents/programs%2Fpump%2Fsrc%2Fcreator%2Fadmin_cto.rs?ref=81bdb58ab2e90731b19317b3bcd6919fe3410f3a",
+      "patch": "@@ -553,7 +553,7 @@ pub fn execute(ctx:Context<AdminCto>,holder:Option<bool>,fee:Option<u64>,new:Opt\n \n \n \n- let wallet=old!=Pubkey::default()&&!a.current_creator.executable&&a.current_creator.owner==&anchor_lang::system_program::ID;if wallet&&!a.current_creator.is_writable{return Err(error!(PumpError::CtoCreatorAccountNotWritable));}let wallet_frozen=wallet&&!a.current_creator_quote_token_account.data_is_empty()&&token_frozen(&a.current_creator_quote_token_account.to_account_info())?;if !shared&&old!=Pubkey::default(){if a.current_creator.executable||!wallet{msg!(if a.current_creator.executable{\"Creator is a program; fees left in the vaults\"}else{\"Creator is not a system-owned wallet; fees left in the vaults\"});}else if wallet_frozen{msg!(\"Creator quote token account is frozen; fees left in the vaults\");}}\n+ let wallet=old!=Pubkey::default()&&!a.current_creator.executable&&a.current_creator.owner==&anchor_lang::system_program::ID;if wallet&&!a.current_creator.is_writable{return Err(error!(PumpError::CtoCreatorAccountNotWritable));}let wallet_frozen=wallet&&token_frozen(a.current_creator_quote_token_account.as_ref())?;if !shared&&old!=Pubkey::default(){if !a.current_creator.executable&&!wallet{msg!(\"Creator is not a system-owned wallet; fees left in the vaults\");}else if wallet_frozen{msg!(\"Creator quote token account is frozen; fees left in the vaults\");}}\n  let mut swept=0;\n // layout-pad(89): aligns the next Source site with the original line\n \n@@ -646,7 +646,7 @@ pub fn execute(ctx:Context<AdminCto>,holder:Option<bool>,fee:Option<u64>,new:Opt\n \n  if shared && holder{\n   let dest=Pubkey::find_program_address(&[b\"creator-vault\",holder_key.as_ref()],&crate::ID).0;if a.holder_creator_vault.key()!=dest{return Err(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),dest)));}\n-  let shared_amm_frozen=!a.coin_creator_vault_ata.data_is_empty()&&token_frozen(&a.coin_creator_vault_ata.to_account_info())?;\n+  let shared_amm_frozen=token_frozen(a.coin_creator_vault_ata.as_ref())?;\n \n \n \n@@ -657,11 +657,11 @@ pub fn execute(ctx:Context<AdminCto>,holder:Option<bool>,fee:Option<u64>,new:Opt\n \n \n \n-  if shared_amm_frozen{require!(token_raw_amount(&a.coin_creator_vault_ata.to_account_info())?==0,PumpError::CtoSharedVaultFrozen);}\n+  if shared_amm_frozen{require!(token_raw_amount(a.coin_creator_vault_ata.as_ref())?==0,PumpError::CtoSharedVaultFrozen);}\n   if !shared_amm_frozen&&!a.coin_creator_vault_ata.data_is_empty(){crate::pump_amm::cpi::transfer_creator_fees_to_pump_v2(CpiContext::new(a.pump_amm.to_account_info(),crate::pump_amm::cpi::accounts::TransferCreatorFeesToPumpV2{payer:a.admin_set_creator_authority.to_account_info(),quote_mint:a.quote_mint.to_account_info(),token_program:a.quote_token_program.to_account_info(),system_program:a.system_program.to_account_info(),associated_token_program:a.associated_token_program.to_account_info(),coin_creator:a.current_creator.to_account_info(),coin_creator_vault_authority:a.coin_creator_vault_authority.to_account_info(),coin_creator_vault_ata:a.coin_creator_vault_ata.to_account_info(),pump_creator_vault:a.creator_vault.to_account_info(),pump_creator_vault_ata:a.creator_vault_quote_token_account.to_account_info(),event_authority:a.pump_amm_event_authority.to_account_info(),program:a.pump_amm.to_account_info()}))?;}\n   let native=a.bonding_curve.quote_mint==Pubkey::default();let rent=Rent::get()?.minimum_balance(0);\n   let amount=if native{a.creator_vault.lamports().saturating_sub(rent)}else if !a.creator_vault_quote_token_account.data_is_empty(){\n-   let amount=token_raw_amount(&a.creator_vault_quote_token_account.to_account_info())?;let frozen=token_frozen(&a.creator_vault_quote_token_account.to_account_info())?;\n+   let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;\n \n \n \n@@ -721,7 +721,7 @@ pub fn execute(ctx:Context<AdminCto>,holder:Option<bool>,fee:Option<u64>,new:Opt\n   let bump=[ctx.bumps.creator_vault];let vaultseeds:&[&[u8]]=&[b\"creator-vault\",old.as_ref(),&bump];\n   if amount>0{\n   if native{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_creator_authority,&a.holder_creator_vault)?;\n-  crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&[vaultseeds])?;}else{pay_token(a,&a.holder_creator_vault.to_account_info(),&a.holder_creator_vault_quote_token_account,amount,vaultseeds)?;}swept=amount;\n+  crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&[vaultseeds])?;}else{anchor_spl::associated_token::create_idempotent(CpiContext::new(a.associated_token_program.to_account_info(),anchor_spl::associated_token::Create{payer:a.admin_set_creator_authority.to_account_info(),associated_token:a.holder_creator_vault_quote_token_account.to_account_info(),authority:a.holder_creator_vault.to_account_info(),mint:a.quote_mint.to_account_info(),system_program:a.system_program.to_account_info(),token_program:a.quote_token_program.to_account_info()}))?;if amount>0{crate::collect_v2::transfer_vault_tokens(&a.quote_token_program,&a.creator_vault_quote_token_account,&a.holder_creator_vault_quote_token_account,&a.creator_vault,a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),amount,&[vaultseeds])?;}}swept=amount;\n   }\n  }\n  if wallet&&!wallet_frozen{\n@@ -735,8 +735,8 @@ pub fn execute(ctx:Context<AdminCto>,holder:Option<bool>,fee:Option<u64>,new:Opt\n      let e=CollectCreatorFeeEvent{timestamp:Clock::get()?.unix_timestamp,creator:old,creator_fee:collected,quote_mint};emit!(e.clone());emit_cpi!(e);\n     }\n   }\n-  if coin_present&&!coin_frozen{let cpi_accounts=crate::pump_amm::cpi::accounts::CollectCoinCreatorFee{quote_mint:a.quote_mint.to_account_info(),quote_token_program:a.quote_token_program.to_account_info(),coin_creator:a.current_creator.to_account_info(),coin_creator_vault_authority:a.coin_creator_vault_authority.to_account_info(),coin_creator_vault_ata:a.coin_creator_vault_ata.to_account_info(),coin_creator_token_account:a.current_creator_quote_token_account.to_account_info(),event_authority:a.pump_amm_event_authority.to_account_info(),program:a.pump_amm.to_account_info()};\n-  crate::pump_amm::cpi::collect_coin_creator_fee(CpiContext::new(a.pump_amm.to_account_info(),cpi_accounts))?;}\n+  if coin_present&&!coin_frozen{let cpi_program=a.pump_amm.to_account_info();let cpi_accounts=crate::pump_amm::cpi::accounts::CollectCoinCreatorFee{quote_mint:a.quote_mint.to_account_info(),quote_token_program:a.quote_token_program.to_account_info(),coin_creator:a.current_creator.to_account_info(),coin_creator_vault_authority:a.coin_creator_vault_authority.to_account_info(),coin_creator_vault_ata:a.coin_creator_vault_ata.to_account_info(),coin_creator_token_account:a.current_creator_quote_token_account.to_account_info(),event_authority:a.pump_amm_event_authority.to_account_info(),program:a.pump_amm.to_account_info()};\n+  crate::pump_amm::cpi::collect_coin_creator_fee(CpiContext::new(cpi_program,cpi_accounts))?;}\n  }\n \n \n@@ -745,8 +745,8 @@ pub fn execute(ctx:Context<AdminCto>,holder:Option<bool>,fee:Option<u64>,new:Opt\n  let pb=[ctx.bumps.pool_authority];let poolseeds:&[&[u8]]=&[b\"pool-authority\",mint.as_ref(),&pb];\n  if shared{\n   let val=if holder{None}else{new};\n-  let cpi_accounts=crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{pool_authority:a.pool_authority.to_account_info(),authority:a.admin_set_creator_authority.to_account_info(),global:a.global.to_account_info(),mint:a.mint.to_account_info(),sharing_config:a.sharing_config.to_account_info(),event_authority:a.pump_fees_event_authority.to_account_info(),program:a.pump_fees.to_account_info()};\n-  crate::pump_fees::cpi::admin_cto_sharing_config(CpiContext::new_with_signer(a.pump_fees.to_account_info(),cpi_accounts,&[poolseeds]),val)?;\n+  let cpi_program=a.pump_fees.to_account_info();let cpi_accounts=crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{pool_authority:a.pool_authority.to_account_info(),authority:a.admin_set_creator_authority.to_account_info(),global:a.global.to_account_info(),mint:a.mint.to_account_info(),sharing_config:a.sharing_config.to_account_info(),event_authority:a.pump_fees_event_authority.to_account_info(),program:a.pump_fees.to_account_info()};\n+  crate::pump_fees::cpi::admin_cto_sharing_config(CpiContext::new_with_signer(cpi_program,cpi_accounts,&[poolseeds]),val)?;\n   if !holder{target=old;}\n  }\n  {\n@@ -760,16 +760,13 @@ pub fn execute(ctx:Context<AdminCto>,holder:Option<bool>,fee:Option<u64>,new:Opt\n  let a=&ctx.accounts;\n  let pool_updated=a.pool.owner==&AMM && !a.pool.data_is_empty();\n  if pool_updated{\n-  let cpi_accounts=crate::pump_amm::cpi::accounts::AdminCtoPool{payer:a.admin_set_creator_authority.to_account_info(),global_config:a.amm_global_config.to_account_info(),pool:a.pool.to_account_info(),pool_authority:a.pool_authority.to_account_info(),system_program:a.system_program.to_account_info(),event_authority:a.pump_amm_event_authority.to_account_info(),program:a.pump_amm.to_account_info()};\n+  let cpi_program=a.pump_amm.to_account_info();let cpi_accounts=crate::pump_amm::cpi::accounts::AdminCtoPool{payer:a.admin_set_creator_authority.to_account_info(),global_config:a.amm_global_config.to_account_info(),pool:a.pool.to_account_info(),pool_authority:a.pool_authority.to_account_info(),system_program:a.system_program.to_account_info(),event_authority:a.pump_amm_event_authority.to_account_info(),program:a.pump_amm.to_account_info()};\n   let signer_seeds:&[&[&[u8]]]=&[poolseeds];\n-  crate::pump_amm::cpi::admin_cto_pool(CpiContext::new_with_signer(a.pump_amm.to_account_info(),cpi_accounts,signer_seeds),target,holder,fee)?;\n+  crate::pump_amm::cpi::admin_cto_pool(CpiContext::new_with_signer(cpi_program,cpi_accounts,signer_seeds),target,holder,fee)?;\n  }else{msg!(\"No canonical pump pool for this mint; curve only\");}\n  let e=AdminCtoEvent{timestamp:Clock::get()?.unix_timestamp,authority:a.admin_set_creator_authority.key(),mint,bonding_curve:a.bonding_curve.key(),old_creator:old,new_creator:target,is_holder_reward:holder,is_cashback_coin:cashback,old_creator_fee_bps:old_fee,new_creator_fee_bps:fee.unwrap_or(old_fee),sharing_config_reset:shared,swept_to_holder_vault:swept,pool_updated};emit!(e.clone());emit_cpi!(e);Ok(())\n }\n \n fn token_frozen(a:&AccountInfo)->Result<bool>{if a.data_is_empty(){return Ok(false);}let d=a.try_borrow_data()?;let t=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.is_frozen())}\n-#[inline(never)]fn pay_token<'info>(a:&AdminCto<'info>,owner:&AccountInfo<'info>,to:&UncheckedAccount<'info>,amount:u64,seeds:&[&[u8]])->Result<()>{\n- anchor_spl::associated_token::create_idempotent(CpiContext::new(a.associated_token_program.to_account_info(),anchor_spl::associated_token::Create{payer:a.admin_set_creator_authority.to_account_info(),associated_token:to.to_account_info(),authority:owner.clone(),mint:a.quote_mint.to_account_info(),system_program:a.system_program.to_account_info(),token_program:a.quote_token_program.to_account_info()}))?;\n- if amount>0{crate::collect_v2::transfer_vault_tokens(&a.quote_token_program,&a.creator_vault_quote_token_account,to,&a.creator_vault,a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),amount,&[seeds])?;}Ok(())}\n \n fn token_raw_amount(a:&AccountInfo)->Result<u64>{if a.data_is_empty(){return Ok(0);}let d=a.try_borrow_data()?;let t=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.amount)}"
+    },
+    {
+      "sha": "363ba037091f060785fdc80c0a1f56c5c5e042cf",
+      "filename": "programs/pump/src/multi_hop_curve_swap.rs",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 3,
+      "changes": 6,
+      "blob_url": "https://github.com/lalalune/pumpfun-source/blob/81bdb58ab2e90731b19317b3bcd6919fe3410f3a/programs%2Fpump%2Fsrc%2Fmulti_hop_curve_swap.rs",
+      "raw_url": "https://github.com/lalalune/pumpfun-source/raw/81bdb58ab2e90731b19317b3bcd6919fe3410f3a/programs%2Fpump%2Fsrc%2Fmulti_hop_curve_swap.rs",
+      "contents_url": "https://api.github.com/repos/lalalune/pumpfun-source/contents/programs%2Fpump%2Fsrc%2Fmulti_hop_curve_swap.rs?ref=81bdb58ab2e90731b19317b3bcd6919fe3410f3a",
+      "patch": "@@ -762,7 +762,7 @@ pub fn execute<'info>(ctx: Context<'_,'_,'info,'info,MultiHopCurve<'info>>,\n             move_lamports(&h.bonding_curve.to_account_info(),&a.user.to_account_info(),output)?;\n         }\n         let c = &h.bonding_curve;\n-        let event = trade_event(c,&a.global,&crate::UserVolumeAccumulator::default(),&a.user.key(),&mint_key,buy,base_amount,quote_amount,&(pf,cf,p_rate,c_rate),buyback,adapter_difference,\"multi_hop_swap\",Clock::get()?.unix_timestamp);\n+        let timestamp = Clock::get()?.unix_timestamp; let event = trade_event(c,&a.global,&crate::UserVolumeAccumulator::default(),&a.user.key(),&mint_key,buy,base_amount,quote_amount,&(pf,cf,p_rate,c_rate),buyback,adapter_difference,\"multi_hop_swap\",timestamp);\n \n \n \n@@ -782,12 +782,12 @@ pub fn execute<'info>(ctx: Context<'_,'_,'info,'info,MultiHopCurve<'info>>,\n         route_event(a,&event,event_bump)?;\n         if completed {\n             let completion=crate::trade_types::CompleteEvent { user:a.user.key(),mint:mint_key,\n-                bonding_curve:h.bonding_curve.key(),timestamp:Clock::get()?.unix_timestamp,quote_mint:c.quote_mint };\n+                bonding_curve:h.bonding_curve.key(),timestamp,quote_mint:c.quote_mint };\n             route_event(a,&completion,event_bump)?;\n         }\n         if let Some(post)=post_fill.as_ref() {\n             let post_event=crate::trade::PostCompleteBuyEvent { user:a.user.key(),mint:mint_key,\n-                bonding_curve:h.bonding_curve.key(),quote_mint:c.quote_mint,timestamp:Clock::get()?.unix_timestamp,\n+                bonding_curve:h.bonding_curve.key(),quote_mint:c.quote_mint,timestamp,\n                 base_out:post.base,quote_in:post.quote,fee_basis_points:p_rate,fee:post.protocol,\n                 creator_fee_basis_points:c_rate,creator_fee:post.creator,buyback_fee:post_buyback,\n                 pool_base_reserves_before:post.pool_base,pool_quote_reserves_before:post.pool_quote,"
+    },
+    {
+      "sha": "e42f145a7c55307c9a6830fe429a26a93e9c0e34",
+      "filename": "programs/pump/src/sweep_fees.rs",
+      "status": "modified",
+      "additions": 26,
+      "deletions": 8,
+      "changes": 34,
+      "blob_url": "https://github.com/lalalune/pumpfun-source/blob/81bdb58ab2e90731b19317b3bcd6919fe3410f3a/programs%2Fpump%2Fsrc%2Fsweep_fees.rs",
+      "raw_url": "https://github.com/lalalune/pumpfun-source/raw/81bdb58ab2e90731b19317b3bcd6919fe3410f3a/programs%2Fpump%2Fsrc%2Fsweep_fees.rs",
+      "contents_url": "https://api.github.com/repos/lalalune/pumpfun-source/contents/programs%2Fpump%2Fsrc%2Fsweep_fees.rs?ref=81bdb58ab2e90731b19317b3bcd6919fe3410f3a",
+      "patch": "@@ -24,7 +24,7 @@ pub struct SweepFees<'info>{\n pub fn execute(ctx:Context<SweepFees>,creator:bool)->Result<()>{\n  let a=&mut *ctx.accounts;\n  crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.payer)?;\n- let native=a.bonding_curve.quote_mint==Pubkey::default();let cf=a.bonding_curve.creator_fee;let pf=a.bonding_curve.protocol_fees;let info=a.bonding_curve.to_account_info();\n+\n // layout-pad(117): aligns the next Source site with the original line\n \n \n@@ -144,19 +144,37 @@ pub fn execute(ctx:Context<SweepFees>,creator:bool)->Result<()>{\n \n  if creator{let expected=Pubkey::find_program_address(&[b\"creator-vault\",a.bonding_curve.creator.as_ref()],&crate::ID).0;require_keys_eq!(a.recipient.key(),expected,anchor_lang::error::ErrorCode::ConstraintSeeds);}\n  else{crate::legacy_sell::fee_recipient::validate_fee_recipient(&a.recipient,&a.global,&a.bonding_curve)?;}\n- let amount=if creator{cf}else{pf};if amount==0{msg!(\"Nothing to sweep for fee bucket {}\",if creator{1u8}else{0u8});return Ok(());}\n+ let amount=if creator{\n+  let amount=a.bonding_curve.creator_fee;\n+  a.bonding_curve.creator_fee=0;\n+  amount\n+ }else{\n+  let amount=a.bonding_curve.protocol_fees;\n+  a.bonding_curve.protocol_fees=0;\n+  amount\n+ };\n+ if amount==0{msg!(\"Nothing to sweep for fee bucket {}\",if creator{1u8}else{0u8});return Ok(());}\n+ let native=a.bonding_curve.quote_mint==Pubkey::default();\n  if native{\n-  if creator{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.payer,a.recipient.as_ref())?;}\n-  a.bonding_curve.sub_lamports(amount)?;a.recipient.add_lamports(amount)?;\n+  if creator{\n+   let minimum=Rent::get()?.minimum_balance(0);\n+   if a.recipient.lamports()<minimum{\n+    crate::legacy_buy::native_payments::transfer(a.system_program.as_ref(),&a.payer,a.recipient.as_ref(),minimum)?;\n+   }\n+  }\n  }\n  else{\n-\n   crate::buy_v2::admit_associated_token_account(a.associated_quote_bonding_curve.as_ref(),&a.bonding_curve.to_account_info(),a.quote_mint.key(),a.quote_token_program.key(),&a.quote_mint.to_account_info(),a.quote_token_program.as_ref(),false,a.payer.as_ref(),a.system_program.as_ref())?;\n   crate::buy_v2::admit_associated_token_account(a.associated_quote_recipient.as_ref(),a.recipient.as_ref(),a.quote_mint.key(),a.quote_token_program.key(),&a.quote_mint.to_account_info(),a.quote_token_program.as_ref(),true,a.payer.as_ref(),a.system_program.as_ref())?;\n-  let mint=a.base_mint.key();let bump=[ctx.bumps.bonding_curve];let seeds:&[&[u8]]=&[b\"bonding-curve\",mint.as_ref(),&bump];\n-  crate::sell_v2::quote_token_transfers::transfer_quote_tokens(&a.quote_token_program,a.associated_quote_bonding_curve.as_ref(),a.associated_quote_recipient.as_ref(),info,a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),amount,&[seeds])?;\n  }\n- if creator{a.bonding_curve.creator_fee=0;}else{a.bonding_curve.protocol_fees=0;}\n+ crate::trade::quote_payments::transfer_to_owned(\n+  native,a.base_mint.as_ref().as_ref(),a.bonding_curve.as_ref(),\n+  a.recipient.to_account_info(),amount,&a.quote_token_program,\n+  a.quote_mint.decimals,a.quote_mint.as_ref().as_ref(),\n+  if native{None}else{Some(a.associated_quote_bonding_curve.as_ref())},\n+  if native{None}else{Some(a.associated_quote_recipient.as_ref())},\n+  ctx.bumps.bonding_curve,\n+ )?;\n  let event=SweepBondingCurveFeeEvent{timestamp:Clock::get()?.unix_timestamp,mint:a.base_mint.key(),bonding_curve:a.bonding_curve.key(),quote_mint:a.bonding_curve.quote_mint,recipient:a.recipient.key(),amount,bucket:if creator{1}else{0}};emit!(event.clone());emit_cpi!(event);Ok(())\n }\n "
+    }
+  ]
+}
