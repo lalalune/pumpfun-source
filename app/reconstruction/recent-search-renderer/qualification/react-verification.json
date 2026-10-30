@@ -1,0 +1,5966 @@
+{
+  "scope": "Synthetic supplied ordinary terms and query/hydration/profile/renderer results only. Real React/compiler/DOM; no actual history storage, account query, service, credential/session/cookie/clipboard or navigation acquisition.",
+  "observations": [
+    {
+      "name": "collapsed visible slice3 alone feeds group/coin candidates and source pending/text presentation",
+      "state": {
+        "termCount": 6,
+        "canExpand": true,
+        "groupQueries": [
+          {
+            "key": [
+              "supplied-group",
+              "00000000-0000-0000-0000-000000000001"
+            ],
+            "enabled": true,
+            "staleTime": 30000
+          }
+        ],
+        "hydration": {
+          "mints": [
+            "11111111111111111111111111111111"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "near": {
+          "mints": [],
+          "enabled": false
+        },
+        "updates": {
+          "arity": 1,
+          "mints": []
+        }
+      },
+      "records": {
+        "coinRows": [],
+        "groupRows": [],
+        "profiles": [],
+        "profilesRequested": [],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ]
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          }
+        ]
+      },
+      "events": []
+    },
+    {
+      "name": "trusted expansion joins all shown terms, preserves raw text URI spaces and exposes source Near boundary",
+      "state": {
+        "termCount": 6,
+        "canExpand": true,
+        "groupQueries": [
+          {
+            "key": [
+              "supplied-group",
+              "00000000-0000-0000-0000-000000000001"
+            ],
+            "enabled": true,
+            "staleTime": 30000
+          }
+        ],
+        "hydration": {
+          "mints": [
+            "11111111111111111111111111111111",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "near": {
+          "mints": [
+            "synthetic.near"
+          ],
+          "enabled": true
+        },
+        "updates": {
+          "arity": 1,
+          "mints": []
+        }
+      },
+      "records": {
+        "coinRows": [],
+        "groupRows": [],
+        "profiles": [],
+        "profilesRequested": [],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ]
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          }
+        ]
+      },
+      "events": []
+    },
+    {
+      "name": "group and coin data outrank pending, Solana-only user fallback and source row props/callback identities join correctly",
+      "state": {
+        "termCount": 6,
+        "canExpand": true,
+        "groupQueries": [
+          {
+            "key": [
+              "supplied-group",
+              "00000000-0000-0000-0000-000000000001"
+            ],
+            "enabled": true,
+            "staleTime": 30000
+          }
+        ],
+        "hydration": {
+          "mints": [
+            "11111111111111111111111111111111",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "near": {
+          "mints": [
+            "synthetic.near"
+          ],
+          "enabled": true
+        },
+        "updates": {
+          "arity": 1,
+          "mints": [
+            "synthetic.near",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        }
+      },
+      "records": {
+        "coinRows": [
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          }
+        ],
+        "groupRows": [
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          }
+        ],
+        "profiles": [
+          {
+            "address": "11111111111111111111111111111111",
+            "nameOverride": "111111",
+            "verified": false,
+            "link": false,
+            "hoverCard": false
+          }
+        ],
+        "profilesRequested": [
+          {
+            "address": "11111111111111111111111111111111"
+          }
+        ],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ]
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "address row starts with raw prefix and no invented profile description while supplied profile result is absent",
+      "state": {
+        "termCount": 6,
+        "canExpand": true,
+        "groupQueries": [
+          {
+            "key": [
+              "supplied-group",
+              "00000000-0000-0000-0000-000000000001"
+            ],
+            "enabled": true,
+            "staleTime": 30000
+          }
+        ],
+        "hydration": {
+          "mints": [
+            "11111111111111111111111111111111",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "near": {
+          "mints": [
+            "synthetic.near"
+          ],
+          "enabled": true
+        },
+        "updates": {
+          "arity": 1,
+          "mints": [
+            "synthetic.near",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        }
+      },
+      "records": {
+        "coinRows": [
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          }
+        ],
+        "groupRows": [
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          }
+        ],
+        "profiles": [
+          {
+            "address": "11111111111111111111111111111111",
+            "nameOverride": "111111",
+            "verified": false,
+            "link": false,
+            "hoverCard": false
+          }
+        ],
+        "profilesRequested": [
+          {
+            "address": "11111111111111111111111111111111"
+          }
+        ],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ]
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "real context/profile result rerender delivers exact name/follower/avatar/verification fields with no account request",
+      "state": {
+        "termCount": 6,
+        "canExpand": true,
+        "groupQueries": [
+          {
+            "key": [
+              "supplied-group",
+              "00000000-0000-0000-0000-000000000001"
+            ],
+            "enabled": true,
+            "staleTime": 30000
+          }
+        ],
+        "hydration": {
+          "mints": [
+            "11111111111111111111111111111111",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "near": {
+          "mints": [
+            "synthetic.near"
+          ],
+          "enabled": true
+        },
+        "updates": {
+          "arity": 1,
+          "mints": [
+            "synthetic.near",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        }
+      },
+      "records": {
+        "coinRows": [
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          }
+        ],
+        "groupRows": [
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          }
+        ],
+        "profiles": [
+          {
+            "address": "11111111111111111111111111111111",
+            "nameOverride": "111111",
+            "verified": false,
+            "link": false,
+            "hoverCard": false
+          },
+          {
+            "address": "11111111111111111111111111111111",
+            "username": "Synthetic name",
+            "profileImage": "inert-image",
+            "avatarDecoration": {
+              "synthetic": true
+            },
+            "nameOverride": "Synthetic name",
+            "verified": true,
+            "xUsername": "inert-name",
+            "description": "followers:0|compact:0",
+            "link": false,
+            "hoverCard": false
+          }
+        ],
+        "profilesRequested": [
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          }
+        ],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ]
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "trusted row actions forward current supplied navigation callback after callback-prop replacement",
+      "state": {
+        "termCount": 6,
+        "canExpand": true,
+        "groupQueries": [
+          {
+            "key": [
+              "supplied-group",
+              "00000000-0000-0000-0000-000000000001"
+            ],
+            "enabled": true,
+            "staleTime": 30000
+          }
+        ],
+        "hydration": {
+          "mints": [
+            "11111111111111111111111111111111",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "near": {
+          "mints": [
+            "synthetic.near"
+          ],
+          "enabled": true
+        },
+        "updates": {
+          "arity": 1,
+          "mints": [
+            "synthetic.near",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        }
+      },
+      "records": {
+        "coinRows": [
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          }
+        ],
+        "groupRows": [
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          }
+        ],
+        "profiles": [
+          {
+            "address": "11111111111111111111111111111111",
+            "nameOverride": "111111",
+            "verified": false,
+            "link": false,
+            "hoverCard": false
+          },
+          {
+            "address": "11111111111111111111111111111111",
+            "username": "Synthetic name",
+            "profileImage": "inert-image",
+            "avatarDecoration": {
+              "synthetic": true
+            },
+            "nameOverride": "Synthetic name",
+            "verified": true,
+            "xUsername": "inert-name",
+            "description": "followers:0|compact:0",
+            "link": false,
+            "hoverCard": false
+          }
+        ],
+        "profilesRequested": [
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          }
+        ],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ]
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "A"
+        },
+        {
+          "type": "host-link",
+          "href": "/profile/11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "name": "actual group query callback forwards supplied client/id/native signal to an inert reader port",
+      "state": {
+        "termCount": 6,
+        "canExpand": true,
+        "groupQueries": [
+          {
+            "key": [
+              "supplied-group",
+              "00000000-0000-0000-0000-000000000001"
+            ],
+            "enabled": true,
+            "staleTime": 30000
+          }
+        ],
+        "hydration": {
+          "mints": [
+            "11111111111111111111111111111111",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "near": {
+          "mints": [
+            "synthetic.near"
+          ],
+          "enabled": true
+        },
+        "updates": {
+          "arity": 1,
+          "mints": [
+            "synthetic.near",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        }
+      },
+      "records": {
+        "coinRows": [
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          }
+        ],
+        "groupRows": [
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          }
+        ],
+        "profiles": [
+          {
+            "address": "11111111111111111111111111111111",
+            "nameOverride": "111111",
+            "verified": false,
+            "link": false,
+            "hoverCard": false
+          },
+          {
+            "address": "11111111111111111111111111111111",
+            "username": "Synthetic name",
+            "profileImage": "inert-image",
+            "avatarDecoration": {
+              "synthetic": true
+            },
+            "nameOverride": "Synthetic name",
+            "verified": true,
+            "xUsername": "inert-name",
+            "description": "followers:0|compact:0",
+            "link": false,
+            "hoverCard": false
+          }
+        ],
+        "profilesRequested": [
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          }
+        ],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ]
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "A"
+        },
+        {
+          "type": "host-link",
+          "href": "/profile/11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "B"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        }
+      ]
+    },
+    {
+      "name": "group reader rejection propagates; undefined nonpending query data falls back to text without invented retry/error UI",
+      "state": {
+        "termCount": 6,
+        "canExpand": true,
+        "groupQueries": [
+          {
+            "key": [
+              "supplied-group",
+              "00000000-0000-0000-0000-000000000001"
+            ],
+            "enabled": true,
+            "staleTime": 30000
+          }
+        ],
+        "hydration": {
+          "mints": [
+            "11111111111111111111111111111111",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "near": {
+          "mints": [
+            "synthetic.near"
+          ],
+          "enabled": true
+        },
+        "updates": {
+          "arity": 1,
+          "mints": [
+            "synthetic.near",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        }
+      },
+      "records": {
+        "coinRows": [
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          }
+        ],
+        "groupRows": [
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          }
+        ],
+        "profiles": [
+          {
+            "address": "11111111111111111111111111111111",
+            "nameOverride": "111111",
+            "verified": false,
+            "link": false,
+            "hoverCard": false
+          },
+          {
+            "address": "11111111111111111111111111111111",
+            "username": "Synthetic name",
+            "profileImage": "inert-image",
+            "avatarDecoration": {
+              "synthetic": true
+            },
+            "nameOverride": "Synthetic name",
+            "verified": true,
+            "xUsername": "inert-name",
+            "description": "followers:0|compact:0",
+            "link": false,
+            "hoverCard": false
+          }
+        ],
+        "profilesRequested": [
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          }
+        ],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ]
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "A"
+        },
+        {
+          "type": "host-link",
+          "href": "/profile/11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "B"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "coin loading-error blocks Solana user fallback while existing coin data still wins",
+      "state": {
+        "termCount": 6,
+        "canExpand": true,
+        "groupQueries": [
+          {
+            "key": [
+              "supplied-group",
+              "00000000-0000-0000-0000-000000000001"
+            ],
+            "enabled": true,
+            "staleTime": 30000
+          }
+        ],
+        "hydration": {
+          "mints": [
+            "11111111111111111111111111111111",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "near": {
+          "mints": [
+            "synthetic.near"
+          ],
+          "enabled": true
+        },
+        "updates": {
+          "arity": 1,
+          "mints": [
+            "synthetic.near",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        }
+      },
+      "records": {
+        "coinRows": [
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          }
+        ],
+        "groupRows": [
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          }
+        ],
+        "profiles": [
+          {
+            "address": "11111111111111111111111111111111",
+            "nameOverride": "111111",
+            "verified": false,
+            "link": false,
+            "hoverCard": false
+          },
+          {
+            "address": "11111111111111111111111111111111",
+            "username": "Synthetic name",
+            "profileImage": "inert-image",
+            "avatarDecoration": {
+              "synthetic": true
+            },
+            "nameOverride": "Synthetic name",
+            "verified": true,
+            "xUsername": "inert-name",
+            "description": "followers:0|compact:0",
+            "link": false,
+            "hoverCard": false
+          }
+        ],
+        "profilesRequested": [
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          }
+        ],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ]
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "A"
+        },
+        {
+          "type": "host-link",
+          "href": "/profile/11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "B"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "fallback-pending outranks error/text for an unresolved candidate exactly as source orders it",
+      "state": {
+        "termCount": 6,
+        "canExpand": true,
+        "groupQueries": [
+          {
+            "key": [
+              "supplied-group",
+              "00000000-0000-0000-0000-000000000001"
+            ],
+            "enabled": true,
+            "staleTime": 30000
+          }
+        ],
+        "hydration": {
+          "mints": [
+            "11111111111111111111111111111111",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "near": {
+          "mints": [
+            "synthetic.near"
+          ],
+          "enabled": true
+        },
+        "updates": {
+          "arity": 1,
+          "mints": [
+            "synthetic.near",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        }
+      },
+      "records": {
+        "coinRows": [
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          }
+        ],
+        "groupRows": [
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          }
+        ],
+        "profiles": [
+          {
+            "address": "11111111111111111111111111111111",
+            "nameOverride": "111111",
+            "verified": false,
+            "link": false,
+            "hoverCard": false
+          },
+          {
+            "address": "11111111111111111111111111111111",
+            "username": "Synthetic name",
+            "profileImage": "inert-image",
+            "avatarDecoration": {
+              "synthetic": true
+            },
+            "nameOverride": "Synthetic name",
+            "verified": true,
+            "xUsername": "inert-name",
+            "description": "followers:0|compact:0",
+            "link": false,
+            "hoverCard": false
+          }
+        ],
+        "profilesRequested": [
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          }
+        ],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ]
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "A"
+        },
+        {
+          "type": "host-link",
+          "href": "/profile/11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "B"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "provided false curve admission and unresolved EVM stay text with no invented identity/account result",
+      "state": {
+        "termCount": 6,
+        "canExpand": true,
+        "groupQueries": [
+          {
+            "key": [
+              "supplied-group",
+              "00000000-0000-0000-0000-000000000001"
+            ],
+            "enabled": true,
+            "staleTime": 30000
+          }
+        ],
+        "hydration": {
+          "mints": [
+            "11111111111111111111111111111111",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "near": {
+          "mints": [
+            "synthetic.near"
+          ],
+          "enabled": true
+        },
+        "updates": {
+          "arity": 1,
+          "mints": [
+            "synthetic.near"
+          ]
+        }
+      },
+      "records": {
+        "coinRows": [
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          }
+        ],
+        "groupRows": [
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          }
+        ],
+        "profiles": [
+          {
+            "address": "11111111111111111111111111111111",
+            "nameOverride": "111111",
+            "verified": false,
+            "link": false,
+            "hoverCard": false
+          },
+          {
+            "address": "11111111111111111111111111111111",
+            "username": "Synthetic name",
+            "profileImage": "inert-image",
+            "avatarDecoration": {
+              "synthetic": true
+            },
+            "nameOverride": "Synthetic name",
+            "verified": true,
+            "xUsername": "inert-name",
+            "description": "followers:0|compact:0",
+            "link": false,
+            "hoverCard": false
+          }
+        ],
+        "profilesRequested": [
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          }
+        ],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ]
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near"
+            ]
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "A"
+        },
+        {
+          "type": "host-link",
+          "href": "/profile/11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "B"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "Near supplied cohort pending then resolved-missing results become source pending then text",
+      "state": {
+        "termCount": 6,
+        "canExpand": true,
+        "groupQueries": [
+          {
+            "key": [
+              "supplied-group",
+              "00000000-0000-0000-0000-000000000001"
+            ],
+            "enabled": true,
+            "staleTime": 30000
+          }
+        ],
+        "hydration": {
+          "mints": [
+            "11111111111111111111111111111111",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "near": {
+          "mints": [
+            "synthetic.near"
+          ],
+          "enabled": true
+        },
+        "updates": {
+          "arity": 1,
+          "mints": []
+        }
+      },
+      "records": {
+        "coinRows": [
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          }
+        ],
+        "groupRows": [
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          }
+        ],
+        "profiles": [
+          {
+            "address": "11111111111111111111111111111111",
+            "nameOverride": "111111",
+            "verified": false,
+            "link": false,
+            "hoverCard": false
+          },
+          {
+            "address": "11111111111111111111111111111111",
+            "username": "Synthetic name",
+            "profileImage": "inert-image",
+            "avatarDecoration": {
+              "synthetic": true
+            },
+            "nameOverride": "Synthetic name",
+            "verified": true,
+            "xUsername": "inert-name",
+            "description": "followers:0|compact:0",
+            "link": false,
+            "hoverCard": false
+          }
+        ],
+        "profilesRequested": [
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          }
+        ],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ]
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "A"
+        },
+        {
+          "type": "host-link",
+          "href": "/profile/11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "B"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "disabled group feature keeps query enabledfalse and ignores supplied data/pending in its combiner",
+      "state": {
+        "termCount": 6,
+        "canExpand": true,
+        "groupQueries": [
+          {
+            "key": [
+              "supplied-group",
+              "00000000-0000-0000-0000-000000000001"
+            ],
+            "enabled": false,
+            "staleTime": 30000
+          }
+        ],
+        "hydration": {
+          "mints": [
+            "11111111111111111111111111111111",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "near": {
+          "mints": [
+            "synthetic.near"
+          ],
+          "enabled": true
+        },
+        "updates": {
+          "arity": 1,
+          "mints": []
+        }
+      },
+      "records": {
+        "coinRows": [
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          }
+        ],
+        "groupRows": [
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          }
+        ],
+        "profiles": [
+          {
+            "address": "11111111111111111111111111111111",
+            "nameOverride": "111111",
+            "verified": false,
+            "link": false,
+            "hoverCard": false
+          },
+          {
+            "address": "11111111111111111111111111111111",
+            "username": "Synthetic name",
+            "profileImage": "inert-image",
+            "avatarDecoration": {
+              "synthetic": true
+            },
+            "nameOverride": "Synthetic name",
+            "verified": true,
+            "xUsername": "inert-name",
+            "description": "followers:0|compact:0",
+            "link": false,
+            "hoverCard": false
+          }
+        ],
+        "profilesRequested": [
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          }
+        ],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ]
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "A"
+        },
+        {
+          "type": "host-link",
+          "href": "/profile/11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "B"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "canExpand temporarily collapses the slice while retained local expanded state resumes when admission returns",
+      "state": {
+        "termCount": 6,
+        "canExpand": true,
+        "groupQueries": [
+          {
+            "key": [
+              "supplied-group",
+              "00000000-0000-0000-0000-000000000001"
+            ],
+            "enabled": false,
+            "staleTime": 30000
+          }
+        ],
+        "hydration": {
+          "mints": [
+            "11111111111111111111111111111111",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "near": {
+          "mints": [
+            "synthetic.near"
+          ],
+          "enabled": true
+        },
+        "updates": {
+          "arity": 1,
+          "mints": []
+        }
+      },
+      "records": {
+        "coinRows": [
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          }
+        ],
+        "groupRows": [
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          }
+        ],
+        "profiles": [
+          {
+            "address": "11111111111111111111111111111111",
+            "nameOverride": "111111",
+            "verified": false,
+            "link": false,
+            "hoverCard": false
+          },
+          {
+            "address": "11111111111111111111111111111111",
+            "username": "Synthetic name",
+            "profileImage": "inert-image",
+            "avatarDecoration": {
+              "synthetic": true
+            },
+            "nameOverride": "Synthetic name",
+            "verified": true,
+            "xUsername": "inert-name",
+            "description": "followers:0|compact:0",
+            "link": false,
+            "hoverCard": false
+          }
+        ],
+        "profilesRequested": [
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          }
+        ],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ]
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "A"
+        },
+        {
+          "type": "host-link",
+          "href": "/profile/11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "B"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "source functional state updater toggles show-less/see-all without history persistence",
+      "state": {
+        "termCount": 6,
+        "canExpand": true,
+        "groupQueries": [
+          {
+            "key": [
+              "supplied-group",
+              "00000000-0000-0000-0000-000000000001"
+            ],
+            "enabled": false,
+            "staleTime": 30000
+          }
+        ],
+        "hydration": {
+          "mints": [
+            "11111111111111111111111111111111",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "near": {
+          "mints": [
+            "synthetic.near"
+          ],
+          "enabled": true
+        },
+        "updates": {
+          "arity": 1,
+          "mints": []
+        }
+      },
+      "records": {
+        "coinRows": [
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          }
+        ],
+        "groupRows": [
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          }
+        ],
+        "profiles": [
+          {
+            "address": "11111111111111111111111111111111",
+            "nameOverride": "111111",
+            "verified": false,
+            "link": false,
+            "hoverCard": false
+          },
+          {
+            "address": "11111111111111111111111111111111",
+            "username": "Synthetic name",
+            "profileImage": "inert-image",
+            "avatarDecoration": {
+              "synthetic": true
+            },
+            "nameOverride": "Synthetic name",
+            "verified": true,
+            "xUsername": "inert-name",
+            "description": "followers:0|compact:0",
+            "link": false,
+            "hoverCard": false
+          }
+        ],
+        "profilesRequested": [
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          }
+        ],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ]
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "A"
+        },
+        {
+          "type": "host-link",
+          "href": "/profile/11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "B"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "name": "clear calls supplied parent once, empties read inputs and disables its own button without navigating or reading storage",
+      "state": {
+        "termCount": 0,
+        "canExpand": true,
+        "groupQueries": [],
+        "hydration": {
+          "mints": [],
+          "includeNsfw": true,
+          "disabled": true
+        },
+        "near": {
+          "mints": [],
+          "enabled": false
+        },
+        "updates": {
+          "arity": 1,
+          "mints": []
+        }
+      },
+      "records": {
+        "coinRows": [
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          }
+        ],
+        "groupRows": [
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          }
+        ],
+        "profiles": [
+          {
+            "address": "11111111111111111111111111111111",
+            "nameOverride": "111111",
+            "verified": false,
+            "link": false,
+            "hoverCard": false
+          },
+          {
+            "address": "11111111111111111111111111111111",
+            "username": "Synthetic name",
+            "profileImage": "inert-image",
+            "avatarDecoration": {
+              "synthetic": true
+            },
+            "nameOverride": "Synthetic name",
+            "verified": true,
+            "xUsername": "inert-name",
+            "description": "followers:0|compact:0",
+            "link": false,
+            "hoverCard": false
+          }
+        ],
+        "profilesRequested": [
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          }
+        ],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ],
+          []
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "A"
+        },
+        {
+          "type": "host-link",
+          "href": "/profile/11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "B"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "clear"
+        }
+      ]
+    },
+    {
+      "name": "expanded local state is not silently reset across supplied term removal/replacement",
+      "state": {
+        "termCount": 6,
+        "canExpand": true,
+        "groupQueries": [
+          {
+            "key": [
+              "supplied-group",
+              "00000000-0000-0000-0000-000000000001"
+            ],
+            "enabled": false,
+            "staleTime": 30000
+          }
+        ],
+        "hydration": {
+          "mints": [
+            "11111111111111111111111111111111",
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "near": {
+          "mints": [
+            "synthetic.near"
+          ],
+          "enabled": true
+        },
+        "updates": {
+          "arity": 1,
+          "mints": []
+        }
+      },
+      "records": {
+        "coinRows": [
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          },
+          {
+            "mint": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "index": 4,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "callbackMatches": true
+          },
+          {
+            "mint": "synthetic.near",
+            "index": 3,
+            "sourceScreen": 9,
+            "sourceElement": 30,
+            "searchTerm": "synthetic.near",
+            "callbackMatches": true
+          }
+        ],
+        "groupRows": [
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          },
+          {
+            "squad": {
+              "groupId": "synthetic-projected-group",
+              "username": "Group"
+            },
+            "callbackMatches": true
+          }
+        ],
+        "profiles": [
+          {
+            "address": "11111111111111111111111111111111",
+            "nameOverride": "111111",
+            "verified": false,
+            "link": false,
+            "hoverCard": false
+          },
+          {
+            "address": "11111111111111111111111111111111",
+            "username": "Synthetic name",
+            "profileImage": "inert-image",
+            "avatarDecoration": {
+              "synthetic": true
+            },
+            "nameOverride": "Synthetic name",
+            "verified": true,
+            "xUsername": "inert-name",
+            "description": "followers:0|compact:0",
+            "link": false,
+            "hoverCard": false
+          }
+        ],
+        "profilesRequested": [
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          },
+          {
+            "address": "11111111111111111111111111111111"
+          }
+        ],
+        "groupQueries": [
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": true,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ],
+          [],
+          [
+            {
+              "key": [
+                "supplied-group",
+                "00000000-0000-0000-0000-000000000001"
+              ],
+              "enabled": false,
+              "staleTime": 30000
+            }
+          ]
+        ],
+        "updates": [
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near",
+              "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": [
+              "synthetic.near"
+            ]
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          },
+          {
+            "arity": 1,
+            "mints": []
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "A"
+        },
+        {
+          "type": "host-link",
+          "href": "/profile/11111111111111111111111111111111"
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "navigate",
+          "label": "B"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "group-reader-port",
+          "id": "00000000-0000-0000-0000-000000000001",
+          "apiMatches": true,
+          "hasSignal": true
+        },
+        {
+          "type": "verified-subject",
+          "subject": "11111111111111111111111111111111"
+        },
+        {
+          "type": "clear"
+        }
+      ]
+    }
+  ],
+  "pageErrors": [],
+  "unexpected": [],
+  "hostRequests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/fixture.js"
+    }
+  ],
+  "bundleSha256": "f882438487a36b4c1134e18c3bcde2c787b9cef6de396a674c820d2cb9c3356c",
+  "nodeVersion": "v24.19.0",
+  "reactVersion": "19.2.3",
+  "reactDomVersion": "19.2.3",
+  "esbuildVersion": "0.25.12",
+  "bundledInputs": [
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-jsx-runtime.development.js",
+      "bytes": 12452,
+      "sha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/jsx-runtime.js",
+      "bytes": 210,
+      "sha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "reconstruction/recent-search-renderer/client.mjs",
+      "bytes": 17542,
+      "sha256": "c680b912091d544315f07f457725ca5741a7075c024e304a7dd4c3ca0b537752"
+    },
+    {
+      "path": "reconstruction/search-navigation/navigation.mjs",
+      "bytes": 5429,
+      "sha256": "3df06f823f7ad2fe9888a640a369c8e26f7566e28dcb6961ac7b89d7e6a7c6c5"
+    },
+    {
+      "path": "tests/fixtures/recent-search-renderer-browser.mjs",
+      "bytes": 8640,
+      "sha256": "ba7ac062234787ab3e2247f0f3346b4f9969d05dbb852471b9efb789426682d4"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "reconstruction/recent-search-renderer/client.mjs",
+      "bytes": 17542,
+      "sha256": "c680b912091d544315f07f457725ca5741a7075c024e304a7dd4c3ca0b537752"
+    },
+    {
+      "path": "reconstruction/recent-search-renderer/contract.json",
+      "bytes": 71213,
+      "sha256": "6c50916f6f2f3573061e85ccc1372d9cf2157c5b480d6400af32c97d64999c32"
+    },
+    {
+      "path": "scripts/original-recent-search-renderer.mjs",
+      "bytes": 16068,
+      "sha256": "0ad0e8e7e4b85e22ec63badde3a09e7807d653dded16ba9d4844f16fea7bbfd2"
+    },
+    {
+      "path": "tests/fixtures/recent-search-renderer-browser.mjs",
+      "bytes": 8640,
+      "sha256": "ba7ac062234787ab3e2247f0f3346b4f9969d05dbb852471b9efb789426682d4"
+    },
+    {
+      "path": "tests/original_recent_search_renderer.browser.mjs",
+      "bytes": 20107,
+      "sha256": "ae06334cdfefd4564d7b9474dfcd863488b17151ad56740b4a63fdb98b55405f"
+    },
+    {
+      "path": "tests/original_recent_search_renderer.test.mjs",
+      "bytes": 3459,
+      "sha256": "5eb17fe4bd061c36c9e6766498f8b33e3d204f569e297856cbb8c10380f612f7"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+    }
+  ],
+  "chromiumVersion": "156.0.8078.4",
+  "pass": true
+}

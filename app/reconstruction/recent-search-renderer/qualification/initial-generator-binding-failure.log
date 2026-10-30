@@ -1,0 +1,17 @@
+AssertionError [ERR_ASSERTION]: unbound recent capability tu
++ actual - expected
+
++ [
++   'eK'
++ ]
+- []
+
+    at recover (file:///workspace/pump-app-search-planner/app/scripts/original-recent-search-renderer.mjs:347:12)
+    at async file:///workspace/pump-app-search-planner/app/scripts/original-recent-search-renderer.mjs:468:17 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [Array],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
