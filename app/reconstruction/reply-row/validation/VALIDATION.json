@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "frozenSourceCommit": "96c2a688fdd3eada6c306de3f6585ec31f684b34",
+  "scope": "Complete90-slot ordinary display coordinator through exact required renderer/leaf/Link/translation APIs; accepted891 pure mapper reused, no provider/query/finance/action implementation",
+  "frozenInputs": [
+    {
+      "path": "app/reconstruction/reply-row/PROVENANCE.json",
+      "gitBlob": "817cf372e0304a6cf149b92a84f50dc345a450a3",
+      "bytes": 59504,
+      "sha256": "130e51ad1506ef6e244815c4d7b2cfd5c1807303c84ca961a2f94d96172c166e",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/reconstruction/reply-row/README.md",
+      "gitBlob": "059b14d98a44a9d197f0f87d395dfd43fec15f1f",
+      "bytes": 5904,
+      "sha256": "0db700e228ce3fef33537e865c7d3a60b29acf95fed9ae51c07e71012a4da84f",
+      "currentIdentical": false
+    },
+    {
+      "path": "app/reconstruction/reply-row/client.mjs",
+      "gitBlob": "ea69d95f06b86d72c709c4926645271941b972a4",
+      "bytes": 12852,
+      "sha256": "cfe5ac25a4af8232d6443df77ae265344b63802e2af3584cd235003b4f1f67f1",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/reconstruction/reply-row/verify.mjs",
+      "gitBlob": "ff32ddec15a4fd7ca7d2830e816eb04a9e2486d4",
+      "bytes": 13172,
+      "sha256": "e644a9bcf94e432980ff63b9cafcf09716bd6765be774065b54c94a2cedcb9e2",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/tests/fixtures/reply-row-ports.mjs",
+      "gitBlob": "db586bd105f8f0bc1d8469dec28f2018fb90cabc",
+      "bytes": 2513,
+      "sha256": "15ca1bf2af164aa7512254102155f6ab84b1665d8b0dd127dc940fcd3eddcf9e",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/tests/fixtures/reply-row.mjs",
+      "gitBlob": "8d50fbf0434af0ecfa9eda315c40af7f319ac15f",
+      "bytes": 1608,
+      "sha256": "076f344dd64d11db037cd2144d5b2c349745711e8ed8b9da2f3b191061805b5a",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/tests/reply_row.browser.mjs",
+      "gitBlob": "214633e237fb12841a4aa9577d36f2daec3a122e",
+      "bytes": 8982,
+      "sha256": "f71821f9d08e0cc8dc2f546ff7230e3ba436750c1f0bdbe2a35a76968a373383",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/tests/reply_row.test.mjs",
+      "gitBlob": "104307f990e093888f9d399fa393155467a35a8c",
+      "bytes": 8061,
+      "sha256": "c4f950681789ea34376c08512e4433d4d96ba969f0a7215d5e2f84f6e31fec1c",
+      "currentIdentical": true
+    }
+  ],
+  "sourceContexts": 26,
+  "rawWitnesses": 68,
+  "tests": {
+    "newNode": 11,
+    "sharedSource": 11,
+    "nodePass": 22,
+    "browserWorkflows": 1,
+    "browserWidths": [
+      390,
+      1280
+    ],
+    "appEvidence": 698,
+    "progress": "PASS"
+  },
+  "initialPreflights": {
+    "source": "ESM default-export assumption correctly rejected actual CJS Link namespace before source freeze; raw source-initial log preserved; no old extractor snapshot/qualification claimed",
+    "Node": "20pass2fail from incorrect renderToStaticMarkup boundary-comment expectations; actual text correct; only two assertions changed, old tests/rawlog/patch retained"
+  },
+  "browser": {
+    "result": "PASS",
+    "actualBundledInputs": [
+      {
+        "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+        "bytes": 1065698,
+        "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+      },
+      {
+        "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+        "bytes": 17673,
+        "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+      },
+      {
+        "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+        "bytes": 1373,
+        "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+      },
+      {
+        "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+        "bytes": 1359,
+        "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+        "bytes": 1090,
+        "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-jsx-runtime.development.js",
+        "bytes": 12452,
+        "sha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+        "bytes": 47219,
+        "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+        "bytes": 412,
+        "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+        "bytes": 186,
+        "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/jsx-runtime.js",
+        "bytes": 210,
+        "sha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc"
+      },
+      {
+        "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+        "bytes": 12144,
+        "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+      },
+      {
+        "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+        "bytes": 194,
+        "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+      },
+      {
+        "path": "reconstruction/reply-row/client.mjs",
+        "bytes": 12852,
+        "sha256": "cfe5ac25a4af8232d6443df77ae265344b63802e2af3584cd235003b4f1f67f1"
+      },
+      {
+        "path": "reconstruction/user-replies/client.mjs",
+        "bytes": 5272,
+        "sha256": "568b67bfab72704b461572c45ef6b6ada757042b7d7e5e4b9421fdd87cf0de30"
+      },
+      {
+        "path": "tests/fixtures/reply-row-ports.mjs",
+        "bytes": 2513,
+        "sha256": "15ca1bf2af164aa7512254102155f6ab84b1665d8b0dd127dc940fcd3eddcf9e"
+      },
+      {
+        "path": "tests/fixtures/reply-row.mjs",
+        "bytes": 1608,
+        "sha256": "076f344dd64d11db037cd2144d5b2c349745711e8ed8b9da2f3b191061805b5a"
+      }
+    ],
+    "declaredInputs": [
+      {
+        "path": "reconstruction/reply-row/client.mjs",
+        "bytes": 12852,
+        "sha256": "cfe5ac25a4af8232d6443df77ae265344b63802e2af3584cd235003b4f1f67f1"
+      },
+      {
+        "path": "reconstruction/reply-row/verify.mjs",
+        "bytes": 13172,
+        "sha256": "e644a9bcf94e432980ff63b9cafcf09716bd6765be774065b54c94a2cedcb9e2"
+      },
+      {
+        "path": "reconstruction/reply-row/PROVENANCE.json",
+        "bytes": 59504,
+        "sha256": "130e51ad1506ef6e244815c4d7b2cfd5c1807303c84ca961a2f94d96172c166e"
+      },
+      {
+        "path": "tests/reply_row.test.mjs",
+        "bytes": 8061,
+        "sha256": "c4f950681789ea34376c08512e4433d4d96ba969f0a7215d5e2f84f6e31fec1c"
+      },
+      {
+        "path": "tests/reply_row.browser.mjs",
+        "bytes": 8982,
+        "sha256": "f71821f9d08e0cc8dc2f546ff7230e3ba436750c1f0bdbe2a35a76968a373383"
+      },
+      {
+        "path": "tests/fixtures/reply-row-ports.mjs",
+        "bytes": 2513,
+        "sha256": "15ca1bf2af164aa7512254102155f6ab84b1665d8b0dd127dc940fcd3eddcf9e"
+      },
+      {
+        "path": "tests/fixtures/reply-row.mjs",
+        "bytes": 1608,
+        "sha256": "076f344dd64d11db037cd2144d5b2c349745711e8ed8b9da2f3b191061805b5a"
+      },
+      {
+        "path": "pnpm-lock.yaml",
+        "bytes": 113160,
+        "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/"
+      },
+      {
+        "method": "GET",
+        "path": "/fixture.js"
+      },
+      {
+        "method": "GET",
+        "path": "/"
+      },
+      {
+        "method": "GET",
+        "path": "/fixture.js"
+      }
+    ],
+    "pageErrors": [],
+    "unexpectedAttempts": [],
+    "cleanup": {
+      "browserClosed": true,
+      "serverListening": false
+    }
+  },
+  "MAINLimit": "Static conditional rootFlight/mobileHome admission only, no original returned-row/rendered-Home observation;316917 detail-only evidence excluded",
+  "portLimit": "Child/URI/label/class/translation/Link/position are required compatible ports; no original renderer/provider/router/acquisition or financial/protected-action behavior claimed",
+  "publicationMapping": "Eight frozen inputs; README gets only exact-prefix qualification addendum, otherwise receipt-only publication additions. No runtime rerun or source retarget.",
+  "requiredRootGates": "Pending initial exact-public53Git/9capture/10tooling; final PR body records actual gates. No Next/fullapp/native/API/UI/security claim.",
+  "filesManifest": "MANIFEST.json",
+  "archiveIndex": "ARCHIVE-INDEX.json"
+}
