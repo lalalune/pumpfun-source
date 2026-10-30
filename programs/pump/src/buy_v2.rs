@@ -173,7 +173,7 @@ fn sub(a:u64,b:u64)->Result<u64>{a.checked_sub(b).ok_or_else(||error!(PumpError:
 fn narrow(a:u128)->Result<u64>{u64::try_from(a).map_err(|_|error!(PumpError::Truncation))}
 #[inline(always)]
 pub fn execute<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,input:u64,limit:u64,partial:bool,exact:bool)->Result<()>{
- if exact{buy_exact_quote_in_handler(ctx,input,limit,partial)}else{buy_handler(ctx,input,limit,partial)}
+ if exact{buy_exact_quote_in_handler(ctx,input,limit,&partial)}else{buy_handler(ctx,input,limit,partial)}
 }
 #[inline(never)]
 fn buy_handler<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,mut input:u64,limit:u64,partial:bool)->Result<()>{
@@ -542,7 +542,7 @@ Ok(())
 // layout-pad
 }
 #[inline(always)]
-fn buy_exact_quote_in_handler<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,input:u64,limit:u64,partial:bool)->Result<()>{
+fn buy_exact_quote_in_handler<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,input:u64,limit:u64,partial:&bool)->Result<()>{
  let a=&mut *ctx.accounts;let fee_recipient=&a.fee_recipient;let buyback_fee_recipient=&a.buyback_fee_recipient;let (base_token_program,base_mint)=(&a.base_token_program,&a.base_mint);
 // layout-pad(220): aligns the next Source site with the original line
 
@@ -947,7 +947,7 @@ fn buy_exact_quote_in_handler<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,in
 
 
  let gross_total=|quote:u64,pf:u64,cf:u64|->Result<(u64,u64)>{let gross=crate::transfer_fee_recovered::pre_fee_amount(&transfer_fee,quote)?;Ok((gross,gross.checked_add(pf).and_then(|t|t.checked_add(cf)).ok_or_else(||error!(PumpError::Overflow))?))};
- let (amount,quote,pf,cf,gross_quote)=if computed>c.real_token_reserves && partial{
+ let (amount,quote,pf,cf,gross_quote)=if computed>c.real_token_reserves && *partial{
   let amount=c.real_token_reserves;
 
 
