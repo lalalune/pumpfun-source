@@ -1,0 +1,20 @@
+{
+  "lane": "w14a21-cto-helperbound",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": ["b174038c1 (0.63571)", "d2d1875 (0.6417)", "06967d378 (0.64649)", "81d3d9a (0.65069)"],
+  "result": "no landing; mechanism and composable lead (validate as an immediately-called capturing closure)",
+  "best_zero_loss_at_pin": {"ratio": 0.65069, "bytes": 27400, "note": "= main; nothing beat main at 27400"},
+  "best_lead": {"name": "le_vy1", "main": "81d3d9a", "bytes": 27440, "ratio": 0.64781, "M": 2164, "main_M": 2172, "jm": 0.66038,
+    "edit": "validate body as (||->Result<Pubkey>{let st=&st;let holder_key=&holder_key;let sharing=&sk;..})()? in execute on the same lines; let new=new; at the start of the non-holder arm; 306 as let Some(t)=new else{..};",
+    "region_exact_delta": {"0x400": 4, "0x800": 8, "0xc00": 3, "0x1000": -5, "0x2400-0x3c00": -13, "0x4800-0x6000": -4}},
+  "mechanisms": [
+    "Helper boundaries that move code with calls (finish/pool/event/collect/wallet-by-hand/token_frozen-by-hand/labeled-block validate) change LLVM inlining (call count 148-171 vs 157) or leave the helper outlined; the original's call multiset equals main's, so these are not its form.",
+    "Call-free helpers (state, PDA helpers, pool_ok, is_shared, curve update, decide, native_arm) are identical to main or lose.",
+    "Validate as an immediately-called closure keeps `new` (Option<Pubkey>) behind a pointer: only the by-reference capture of `new` matters (vm_new = v7c; new by value 0.459). A fn taking &Option or &&Option is promoted back (eq main). Moving execute's head line alone is neutral (v7h eq main). Capture order is irrelevant.",
+    "With the closure, the code from orig 0x1c00 to 0x5800 sits at -8..+16 B from the original (main -48..-128); main hides its short validate with about 48-64 B too much in the sweep native-arm Err joins (orig 0x5a00-0x5c00)."
+  ],
+  "attempts": 420,
+  "rejected": ["f1","f1c","f1a","p2","p2a","p2b","e3","e3q","e3b","t6","t6w","t6s","w4c","w4i","v7l","v7m","w5n","c1","pu","sh","dz","v7cB","v7cR","v7cH","v7cK","vx1","vy2","n1","n5","n6","sg1","sg3","sg5","vy_r1","vy_w5n","le_m","size-knob/genes47 screens on v7c, vy1, le_vy1"],
+  "unresolved": ["le_vy1 needs about +9 M and -40 B at the pin; the -17 outside validate are spill-slot colours in orig 0x2400-0x3c00", "sweep native-arm Err joins (ensure_rent_exempt inline jeq/ja; transfer_native unthreaded 6-insn join)"],
+  "next_ideas": ["re-test le_vy1 on each new main (tail gains compose)", "source form that threads the transfer_native Err edge / makes the ensure_rent_exempt Err stub cold, composed with le_vy1", "spill-colour levers in orig 0x2400-0x3c00 on the le_vy1 base"]
+}

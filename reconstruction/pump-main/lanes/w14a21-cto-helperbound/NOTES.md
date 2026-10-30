@@ -117,3 +117,44 @@ Capture screens on d2d1875 (closures with `move` and explicit reference captures
 - Size-repay screens on the closure base (all applicable genes47 `g.*` and size-knob `K.*` genes: 140 on v7c/d2d1875,
   and the vy1/06967d3 screen) found no gene that reaches 27,400 B above main. Sweep-arm forms on vy1 (early-return native arm `r1`,
   `native_arm` fn `w5n`, curve `update` fn, `pool_ok`) are all negative.
+
+## Result 4: best lead le_vy1 on main 81d3d9a (closure + non-holder copy + 306 let-else)
+
+```rust
+// execute's head moves up to validate's old line; validate's body stays on its lines inside the closure
+let mut target=(||->Result<Pubkey>{let st=&st;let holder_key=&holder_key;let sharing=&sk;let holder=hopt==Some(true);
+ ..
+ let target=if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}*holder_key}else{let new=new;
+ ..
+  let Some(t)=new else{return Err(error!(PumpError::CtoNewCreatorRequired));};
+ ..
+ Ok(target)})()?;
+```
+
+| | main 81d3d9a | vy1 | **le_vy1** | le_v7c (no copy) | le_m (let-else on main alone) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| bytes | 27,400 | 27,440 | 27,440 | 27,432 | 27,400 |
+| ratio | **0.65069** | 0.64661 | 0.64781 | 0.64251 | 0.6462 |
+| M (exact matched orig insns) | 2,172 | 2,160 | 2,164 | 2,146 | |
+| jm | 0.65878 | 0.68283 | 0.66038 | 0.67754 | |
+
+Exact matched original instructions per 0x400 region for le_vy1 against main 81d3d9a: 0x400 +4, 0x800 +8, 0xc00 +3, 0x1000 -5,
+0x1400 -1, 0x2400 -2, 0x2800 -2, 0x2c00 +1, 0x3800 -5, 0x3c00 -5, 0x4800 -1, 0x5400 -1, 0x6000 -2 (total -8).
+Offsets against the original (`vsorig.py`): le_vy1 puts orig 0x1c00-0x5800 at **-8..+16 B** (main: -48..-128), and the tail
+(0x5c00 on) at +16..+64 (main: 0..-24).
+
+- Ratio is 2M/(3339+n). At 27,400 B le_vy1 would score about 0.6483 even with a lossless size repay, so it needs about
+  +9 M more. The size shift itself costs almost no exact matches (per-region exact counts outside validate do not move when
+  the tail shifts by 40 B). The -17 outside validate are spill-slot colour changes (`[r10-0x9b0]` vs `[r10-0x990]` etc.) in
+  orig 0x2400-0x3c00. They follow from the changed validate lifetimes.
+- No genes47 or size-knob gene on the closure bases (about 140 on v7c, 80 on vy1, 29 validate genes on le_vy1) reaches 27,400 B above main.
+- The 306 let-else helps only with the closure (le_m on main alone: 0.6462).
+
+## For later lanes
+
+- The closure is a separate, composable lever on the validate region. The tail lanes (sharing/pool/sweep literals)
+  land independently of it. Re-test `le_vy1` on every new main with `e/mk.py` plus `tools/exact.py m <name>`:
+  each main gain in the tail carries over unchanged, and it may cross main once the tail removes about 40 B of
+  non-original code. The best candidate for that is the sweep native arm's ensure_rent_exempt and transfer_native Err joins
+  (orig 0x5a00-0x5c00, about 48-64 B over the original).
+- The ledger keys are `0x22a10-w14-{b174038,d2d1875,06967d3,81d3d9a}-helperbound-*-v1`.
