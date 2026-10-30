@@ -84,3 +84,25 @@ Composite with the +24 B `ev_nf_pre` (`let nf=a.bonding_curve.creator_fee_bps;` 
 `ev_cb_pre` (`let cbc=a.bonding_curve.is_cashback_coin;`) as the +24 B partner ties (0.62882, different bytes).
 Other pairs: `n_cb_rev`+`c_fee_unwrap` 0.62732, `+e_cb_local+s_su_iflet` 0.62762, `+s_rent_local+wl_ts_clockvar+c_fee_unwrap` 0.62762,
 `+x_ata_rev` 0.62493, `+wl_ts_clockvar+e_reset/s_su_iflet` 0.62672. Keys `0x22a10-w13-53abf28-stitch9-<name>-v1`.
+
+## Step 3 — %3 on main 23322b07c (0.62882): `pool_updated` empty-test first
+
+`let pool_updated=!a.pool.data_is_empty() && a.pool.owner==&AMM;` (gene `pu_rev`, same as w13a30's `p_empty_first`, which was
+-0.0006 on 53abf28 and turned positive once #3200 landed).
+
+| metric | main 23322b07c | this change |
+| --- | ---: | ---: |
+| admin_cto bytes | 27,400 | 27,400 |
+| ratio | 0.62882 | **0.63062** |
+| slots_diff | 3,288 | 3,288 |
+| normalized / raw | 1034 / 1034 | 1034 / 1034 |
+| gains / losses | | 0 / 0 |
+| runtime differential | | 363 cases, 0 mismatches |
+| unstripped sha256 | | `c38b85038579b0d7c5d275864e06fecf16c635868434919b3378ba9f4fa73752` |
+
+Same-screen dead ends on 23322b0 (bytes / ratio): `v_hr_rev` 26,576 / 0.519, `v_he_b` 27,360 / 0.613, `v_he_c` 27,392 / 0.524,
+`v_tsh_rev` 0.62672, `co_rev` 27,392 / 0.577, `x_dcoin_rev` 27,376 / 0.604, `w_af_rev` 27,424 / 0.461, `v_hold_eq` 27,352 / 0.514,
+`x_hold_eq`/`x_hold_ml` 27,232 / 0.570, `pre_sk_args`/`pre_sk_first` 27,192 / 0.622, `pre_args_late` 27,208 / 0.572,
+`pre_cb_late` 27,328 / 0.569; byte-neutral: `v_hr_ne`, `v_he_a`, `v_he_d`, `v_f_rev`, `v_cbv_rev`, `pre_cb_mid/sk/hopt/match/not`,
+`sc_auth_*` (sharing CPI authority literal; fieldscan R3160 was +0.0006 on 53abf28 but is neutral on 23322b0).
+
