@@ -7,6 +7,7 @@ import json
 import struct
 from pathlib import Path
 from score import sections, body
+from instruction_stream import require_instruction_range
 
 
 def analyze(raw, start=0):
@@ -90,6 +91,8 @@ def main(argv=None):
         text = secs['.text']
         if args.size <= 0 or args.start < text['addr'] or args.start + args.size > text['addr'] + text['size']:
             raise ValueError('requested range is outside .text')
+        text_bytes = body(blob, secs, text['addr'], text['size'])
+        require_instruction_range(text_bytes, args.start - text['addr'], args.size)
         raw = body(blob, secs, args.start, args.size)
         if len(raw) != args.size:
             raise ValueError('truncated function bytes')
