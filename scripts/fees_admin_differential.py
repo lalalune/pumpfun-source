@@ -63,6 +63,6 @@ def main():
   rows.append({'case':c,'original':x,'candidate':y,'match':matched})
   if matched is False:failures.append(c['name'])
  report={'scope':'Four administrative handlers only; local synthetic accounts, errors/state/lamports/events/inner instructions compared. No full byte identity or audit completion.','original_sha256':o.program_sha256,'candidate_sha256':b.program_sha256 if b else None,'case_count':len(rows),'mismatches':failures,'cases':rows}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatches':failures}))
+ a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'case_count':len(rows),'mismatches':failures}))
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

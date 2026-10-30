@@ -130,5 +130,5 @@ def main():
   x,y=run(c),run(c,a.candidate);diff=[k for k in x if k!='logs' and x[k]!=y[k]];rows.append({'input':c,'original':x,'candidate':y,'diff':diff})
  sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
  report={'scope':'Bounded offline AMM '+a.family+' recovery with synthetic local state and ordinary verified signatures. Full committed state, event, inner CPI, return, transaction and error comparison; not binary identity or whole program equivalence.','case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'original_sha256':sha(pin_program(ORIGINAL)),'candidate_sha256':sha(pin_program(a.candidate)),'script_sha256':sha(__file__),'cases':rows}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({k:v for k,v in report.items() if k!='cases'}));raise SystemExit(bool(report['mismatches']))
+ a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({k:v for k,v in report.items() if k!='cases'}));raise SystemExit(bool(report['mismatches']))
 if __name__=='__main__':main()

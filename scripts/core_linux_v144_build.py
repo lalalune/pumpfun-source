@@ -6,6 +6,7 @@ patched. Public Linux Criterion v2.3.3 follows its existing platform branch.
 Captured program binaries are opened only after the single successful build.
 """
 import argparse
+import gzip
 import datetime as dt
 import hashlib
 import json
@@ -364,7 +365,11 @@ def snapshot_source(source, expected, evidence):
     if actual != expected:
         raise ValueError("The source workspace does not contain exactly the frozen 22 inputs")
     write_json(evidence / "source-before.json", actual)
-    with tarfile.open(evidence / "source-snapshot.tar.gz", "w:gz") as tar:
+    # Pin the gzip header mtime: the snapshot is retained evidence, and a
+    # wall-clock header made identical inputs archive differently per run.
+    with open(evidence / "source-snapshot.tar.gz", "wb") as raw_archive, gzip.GzipFile(
+            filename="", fileobj=raw_archive, mode="wb", mtime=0) as compressed, tarfile.open(
+            fileobj=compressed, mode="w") as tar:
         for name in sorted(expected):
             tar.add(source / name, arcname=name, recursive=False)
 

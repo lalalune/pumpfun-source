@@ -8,6 +8,16 @@ from solders.instruction import Instruction,AccountMeta
 from solders.keypair import Keypair
 from solders.transaction_metadata import FailedTransactionMetadata
 R=pathlib.Path(__file__).resolve().parents[1]
+# Every file read while constructing this shared fixture or its program set.
+# Report writers must protect these paths as well as their public candidate.
+REPORT_INPUTS = (
+ pathlib.Path(__file__),
+ R/'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json',
+ *(R/'evidence'/group/name/filename
+   for group,names in [('original',('pump','pump_fees')),
+                       ('dependencies',('spl_token','spl_token_2022','associated_token'))]
+   for name in names for filename in ('capture.json','deployed.so')),
+)
 x=json.load(open(R/'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json'))
 s=x['steps'][4]
 t=Transaction.from_bytes(base64.b64decode(s['transaction_base64']));msg=t.message

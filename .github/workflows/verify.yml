@@ -136,10 +136,18 @@ jobs:
               python -B tests/test_checkpoint_verifiers_normal_python.py
               python -B tests/test_pump_output_parents.py
               python -B tests/test_pump_amm_buyback_report_publication.py
+              python -B tests/test_pump_amm_admin_report_publication.py
+              python -B tests/test_pump_amm_collect_report_publication.py
               python -B tests/test_remaining_output_parents.py
               python -B tests/test_pump_admin_token_incentives_report_publication.py
+              python -B tests/test_pump_creator_collect_report_publication.py
               python -B tests/test_pump_admin_cto_report_publication.py
+              python -B tests/test_pump_amm_accumulator_report_publication.py
               python -B tests/test_pump_claim_incentives_report_publication.py
+              python -B tests/test_pump_creator_reports_publication.py
+              python -B tests/test_migration_quote_reports_publication.py
+              python -B tests/test_pump_trade_reports_publication.py
+              python -B tests/test_pump_exact_quote_report_publication.py
               python -B scripts/test_validation_report_boundaries.py
               python -B tests/test_create_mayhem_normal_python.py
               python -B tests/test_two_curve_optimization_guard.py
@@ -162,12 +170,17 @@ jobs:
               python -B scripts/test_revalidate_all_manifest_records.py
               python -B scripts/test_revalidate_packet_root_link.py
               python -B scripts/test_revalidate_manifest_link.py
+              python -B scripts/test_target_library_profile_staging.py
+              python -B scripts/test_revalidate_verify_link.py
               python -B scripts/test_measure_relay13_v148_optimization.py
               python -B scripts/test_fees_withdraw_runtime_optimization.py
               python -B scripts/test_measure_relay_v148_optimization.py
               python -B tests/test_verify_dependencies_optimization.py
               python -B tests/test_recovered_builds_optimization.py
               python -B scripts/test_mayhem_burn_sequence_optimization.py
+              python -B scripts/test_pump_amm_report_encoding.py
+              python -B scripts/test_fees_report_encoding.py
+              python -B scripts/test_mayhem_report_encoding.py
               python -B scripts/test_mayhem_zero_creator_case.py
               python -B scripts/test_qualification_archive_determinism.py
               python -B scripts/test_rebuild_workflow_action_pins.py
@@ -220,11 +233,13 @@ jobs:
               python -B scripts/test_pump_quote_control_function_match_output.py
               python -B reconstruction/toolchain/test_dependency_cache.py
               python -B reconstruction/mayhem/native-linux-qualification/test_vendor_membership.py
+              python -B reconstruction/mayhem/native-linux-qualification/test_vendor_file_links.py
               python -B scripts/test_analyze_program_publication.py
               python -B scripts/test_reconstruction_roadmap_publication.py
               python -B tests/test_pump_planning_regressions.py
               python -B tests/test_analyze_donation_relay_regression.py
               python -B reconstruction/diagnostics/roadmap-reviewed-regeneration/test_generate.py
+              python -B reconstruction/diagnostics/roadmap-reviewed-regeneration/test_current_pins.py
               python -B tests/test_roadmap_reviewed_regeneration_publication.py
               python -B reconstruction/diagnostics/roadmap-stable-attribution/test_generate.py
               python -B tests/test_roadmap_stable_attribution_publication.py
@@ -278,6 +293,7 @@ jobs:
               python -B scripts/test_pump_validate_all_retention.py
               python -B scripts/test_pump_validate_all_windows_publish.py
               python -B scripts/test_prepare_pump_nested_runtime_publication.py
+              python -B scripts/test_prepare_pump_nested_runtime_optimization.py
               python -B scripts/test_prepare_fees_withdraw_runtime_publication.py
               python -B scripts/test_current673_macos_archive_publication.py
               python -B scripts/test_current673_candidate_download_publication.py
@@ -290,6 +306,7 @@ jobs:
               python -B reconstruction/harness/test_report_scorer_inputs.py
               python -B reconstruction/harness/test_match_oracle.py
               python -B reconstruction/harness/test_match_oracle_scoring_input_recheck.py
+              python -B reconstruction/harness/test_match_oracle_verdict_staging.py
               python -B reconstruction/harness/test_score_atomic_report.py
               python -B reconstruction/harness/test_coords_report_destination.py
               python -B reconstruction/harness/test_short_window_ranking.py
@@ -302,6 +319,7 @@ jobs:
               python -B scripts/test_build_quote_fees_binding.py
               python -I -B tests/test_manifest_nested_target.py
               python scripts/test_core_linux_v144_retention.py
+              python -B scripts/test_core_linux_pipeline.py
               # Two of three tests: the third compares against a frozen helper that was removed with repro/;
               # see .github/retired-workflows/2026-10-29-verify-matrix.md.
               python scripts/test_reconstruction_build_selection.py ResearchSelectionTests.test_default_does_not_select_header_incompatible_older_family ResearchSelectionTests.test_explicit_experiment_and_argument_boundaries_are_preserved
@@ -346,6 +364,7 @@ jobs:
               python -B reconstruction/verification/donation-relay-idl-lifecycle/test_verify_steps.py
               python -B reconstruction/verification/donation-relay-stateful/test_stateful.py
               python -B reconstruction/verification/pump-migration-lifecycle/test_lifecycle.py
+              python -B reconstruction/verification/pump-migration-lifecycle/test_output_refusal.py
               python -B reconstruction/verification/mayhem-dispatch-boundaries/test_inventory.py
               python -B reconstruction/verification/mayhem-dispatch-boundaries/test_producer.py
           - suite: host-fragments

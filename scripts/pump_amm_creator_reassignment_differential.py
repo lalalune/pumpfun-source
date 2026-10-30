@@ -92,6 +92,6 @@ def main():
   rows.append({'case':c,'original':x,'candidate':y,'mismatched_fields':diffs,'match':not diffs if y else None})
   if diffs:bad.append(c['name'])
  sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();report={'scope':'Two creator reassignment paths with synthetic local state and normally verified signatures. Invalid injected states do not establish reachability. No binary identity or whole-program parity claimed.','original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'candidate_sha256':sha(pin_program(a.candidate)) if a.candidate else None,'script_sha256':sha(pathlib.Path(__file__)),'case_count':len(rows),'cases':rows,'mismatches':bad}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'cases':len(rows),'mismatch_count':len(bad),'mismatches':bad[:40]}))
+ a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'cases':len(rows),'mismatch_count':len(bad),'mismatches':bad[:40]}))
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

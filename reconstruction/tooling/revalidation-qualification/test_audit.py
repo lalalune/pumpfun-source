@@ -479,7 +479,7 @@ class AuditTests(unittest.TestCase):
         self.assertEqual((row["manifest_check"]["status"], row["verify_check"]["status"],
                           row["overall"]), ("pass", "fail", "fail"))
         self.assertEqual(sorted(path.name for path in output.iterdir()),
-                         ["README.md", "failed.json", "manifest.json", "passed.json",
+                         ["README.md", "failed.json", "invocation-errors.json", "manifest.json", "passed.json",
                           "results.json", "skipped.json", "summary.json", "verify.py"])
 
 

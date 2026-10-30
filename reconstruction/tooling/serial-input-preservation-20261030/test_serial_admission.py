@@ -42,15 +42,8 @@ class SerialInputPreservationTests(unittest.TestCase):
                      '--candidate', str(candidate), '--source-directory', str(source),
                      '--output', str(output)], capture_output=True, text=True, timeout=30)
                 self.assertNotEqual(result.returncode, 0)
-                # #2778 pins the candidate image, so the candidate and retained
-                # suite paths the first three cases collide with are no longer
-                # bound inputs; exclusive publication refuses those destinations
-                # instead. The source file itself is still bound, so the alias
-                # admission is the guard that stops that case.
-                if kind == 'source':
-                    self.assertIn('validation output aliases a bound input', result.stderr)
-                else:
-                    self.assertIn('FileExistsError', result.stderr)
+                self.assertIn('validation output aliases a bound input', result.stderr)
+                self.assertNotIn('FileExistsError', result.stderr)
                 self.assertEqual(result.stdout, '')
                 self.assertEqual(set(root.rglob('*')), existing)
                 for path, contents in before.items():

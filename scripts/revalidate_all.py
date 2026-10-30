@@ -13,6 +13,7 @@ import errno
 import hashlib
 import json
 import os
+import re
 from pathlib import PureWindowsPath
 import shutil
 import subprocess
@@ -163,11 +164,40 @@ def check_manifest(packet_dir):
     }
 
 
+def required_arguments(stderr):
+    """Recognize argparse's missing-argument diagnostic, not arbitrary output.
+
+    This observes a usage failure; the process may already have performed setup
+    or checks before calling parse_args. It is not proof of non-execution.
+    """
+    lines = stderr.splitlines()
+    for line in lines:
+        match = re.fullmatch(r"(.+): error: the following arguments are required: (.+)", line)
+        if not match:
+            continue
+        program, listed = match.groups()
+        if not any(value.startswith("usage: " + program + " ") or value == "usage: " + program
+                   for value in lines):
+            continue
+        names = [part.strip() for part in listed.split(",")]
+        if all(names):
+            return names
+    return []
+
+
 def run_verify(packet_dir):
     """Run the packet's verify.py script."""
     verify_path = packet_dir / "verify.py"
-    if not verify_path.exists():
+    try:
+        metadata = verify_path.lstat()
+    except FileNotFoundError:
         return {"status": "no_verify_script", "output": ""}
+    except OSError as error:
+        return {"status": "fail", "output": "verify.py is unreadable: " + str(error)}
+    if (stat.S_ISLNK(metadata.st_mode) or not stat.S_ISREG(metadata.st_mode)
+            or bool(getattr(metadata, "st_file_attributes", 0) &
+                    getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0))):
+        return {"status": "fail", "output": "verify.py is not a regular file"}
 
     command = [sys.executable, "-B", str(verify_path)]
     try:
@@ -187,6 +217,16 @@ def run_verify(packet_dir):
         )
         output = (result.stdout + result.stderr).strip()
         passed = result.returncode == 0
+        # Keep missing-argument failures distinct while retaining the process
+        # output. A verifier may perform work before argument parsing.
+        required = required_arguments(result.stderr) if result.returncode == 2 else []
+        if required:
+            return {
+                "status": "invocation_error",
+                "returncode": result.returncode,
+                "required": required,
+                "output": output[-500:] if len(output) > 500 else output,
+            }
         return {
             "status": "pass" if passed else "fail",
             "returncode": result.returncode,
@@ -199,7 +239,7 @@ def run_verify(packet_dir):
 
 
 def write_reports(output_dir, packets, results, pass_count, fail_count,
-                  skip_count, elapsed):
+                  skip_count, elapsed, invocation_error_count=0):
     """Write all audit artifacts into an unpublished directory."""
     # --- Write outputs ---
 
@@ -214,12 +254,18 @@ def write_reports(output_dir, packets, results, pass_count, fail_count,
         "pass": pass_count,
         "fail": fail_count,
         "skip_or_inconclusive": skip_count,
+        "invocation_error": invocation_error_count,
         "elapsed_seconds": round(elapsed, 1),
         "failed_packets": [
             {"packet": r["packet"],
              "manifest_errors": r["manifest_check"].get("errors", []),
              "verify_output": r["verify_check"].get("output", "")}
             for r in results if r["overall"] == "fail"
+        ],
+        "invocation_error_packets": [
+            {"packet": r["packet"],
+             "required": r["verify_check"].get("required", [])}
+            for r in results if r["overall"] == "invocation_error"
         ],
     }
     (output_dir / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8", newline="\n")
@@ -231,8 +277,12 @@ def write_reports(output_dir, packets, results, pass_count, fail_count,
     (output_dir / "failed.json").write_text(json.dumps(
         [r["packet"] for r in results if r["overall"] == "fail"],
         indent=2) + "\n", encoding="utf-8", newline="\n")
+    (output_dir / "invocation-errors.json").write_text(json.dumps(
+        [r["packet"] for r in results if r["overall"] == "invocation_error"],
+        indent=2) + "\n", encoding="utf-8", newline="\n")
     (output_dir / "skipped.json").write_text(json.dumps(
-        [r["packet"] for r in results if r["overall"] not in ("pass", "fail")],
+        [r["packet"] for r in results
+         if r["overall"] not in ("pass", "fail", "invocation_error")],
         indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 4. README
@@ -253,6 +303,7 @@ verify.py (standalone verification script).
 | **Pass** | **{pass_count}** |
 | **Fail** | **{fail_count}** |
 | Skip/inconclusive | {skip_count} |
+| Invocation error (missing required arguments) | {invocation_error_count} |
 | Elapsed | {elapsed:.0f}s |
 
 ## Failed Packets
@@ -260,6 +311,17 @@ verify.py (standalone verification script).
     f"- `{f['packet']}`: {'; '.join(f['manifest_errors'][:3]) or f['verify_output'][:100]}"
     for f in summary["failed_packets"][:30]
 )}
+
+## Invocation Errors
+{"_None._" if invocation_error_count == 0 else chr(10).join(
+    f"- `{f['packet']}`: requires {', '.join(f['required']) or 'an undeclared argument'}"
+    for f in summary["invocation_error_packets"][:30]
+)}
+
+These processes reported an argparse-style missing-argument error and remain
+unverified. Setup or checks may have run before parsing; this category does not
+prove that the verifier was never invoked. Other nonzero exits remain failures,
+and a failed manifest check takes precedence over an invocation error.
 
 ## Files
 | File | Description |
@@ -269,6 +331,7 @@ verify.py (standalone verification script).
 | passed.json | List of passing packet names |
 | failed.json | List of failing packet names |
 | skipped.json | List of packets without verification |
+| invocation-errors.json | List of missing-argument invocation errors |
 
 ## Verification
 ```bash
@@ -408,6 +471,7 @@ def main():
     pass_count = 0
     fail_count = 0
     skip_count = 0
+    invocation_error_count = 0
     manifest_only = 0
     start_time = time.time()
 
@@ -445,6 +509,9 @@ def main():
         } for result in checks):
             overall = "fail"
             fail_count += 1
+        elif any(result["status"] == "invocation_error" for result in checks):
+            overall = "invocation_error"
+            invocation_error_count += 1
         else:
             overall = "inconclusive"
             skip_count += 1
@@ -461,12 +528,14 @@ def main():
         if (i + 1) % 50 == 0:
             elapsed = time.time() - start_time
             print(f"[revalidate] {i+1}/{len(packets)} "
-                  f"({pass_count} pass, {fail_count} fail, {skip_count} skip) "
+                  f"({pass_count} pass, {fail_count} fail, "
+                  f"{invocation_error_count} invocation errors, {skip_count} skip) "
                   f"[{elapsed:.0f}s]")
 
     elapsed = time.time() - start_time
     print(f"[revalidate] Done: {len(packets)} packets in {elapsed:.0f}s")
-    print(f"[revalidate] {pass_count} pass, {fail_count} fail, {skip_count} skip/inconclusive")
+    print(f"[revalidate] {pass_count} pass, {fail_count} fail, "
+          f"{invocation_error_count} invocation errors, {skip_count} skip/inconclusive")
 
     rename_directory, temporary_sibling = publication_operations()
     staging = temporary_sibling(output_dir, "staging")
@@ -474,7 +543,7 @@ def main():
     try:
         write_reports(
             staging, packets, results, pass_count, fail_count,
-            skip_count, elapsed)
+            skip_count, elapsed, invocation_error_count=invocation_error_count)
         rename_directory(staging, output_dir)
         published = True
     finally:

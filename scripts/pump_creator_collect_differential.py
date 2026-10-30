@@ -11,6 +11,7 @@ from solders.pubkey import Pubkey
 from solders.litesvm import LiteSVM
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
+from pump_differential_output import PumpReport
 R=pathlib.Path(__file__).resolve().parents[1];J=json.load(open(R/'evidence/upstream/pump.json',encoding='utf-8'));P=Pubkey.from_string(J['address']);U=Keypair.from_seed(bytes([222])*32);PAY=Keypair.from_seed(bytes([223])*32);V=Pubkey.find_program_address([b'user_volume_accumulator',bytes(U.pubkey())],P)[0];E=Pubkey.find_program_address([b'__event_authority'],P)[0];D=bytes(next(a['discriminator'] for a in J['accounts'] if a['name']=='UserVolumeAccumulator'))
 def execute(binary,mutation,amount=1000000):
  vm=LiteSVM().with_transaction_history(0).with_sigverify(True);vm.add_program_from_file(P,binary);vm.airdrop(PAY.pubkey(),10**12);vm.airdrop(U.pubkey(),10**12)
@@ -30,13 +31,14 @@ def cases():
 
 def main():
  p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args()
+ publisher=PumpReport(a.output,R,a.candidate,__file__)
  original=R/'evidence/original/pump/deployed.so';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
  provenance={str(p):sha(p) for p in [original,a.candidate,pathlib.Path(__file__),R/'evidence/upstream/pump.json']};rows=[]
  for c in cases():
   o=execute(original,**c);n=execute(a.candidate,**c);diff=[k for k in o if k!='logs' and o[k]!=n[k]];rows.append(dict(c,different_fields=diff,original=o,candidate=n))
  assert provenance=={str(p):sha(p) for p in [original,a.candidate,pathlib.Path(__file__),R/'evidence/upstream/pump.json']}
  report={'scope':'Synthetic offline normally signed transactions; full binaries are unequal. No captured binary used as compiler input.','provenance':provenance,'case_count':len(rows),'mismatches':[i for i,c in enumerate(rows) if c['different_fields']],'cases':rows}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_bytes(gzip.compress(json.dumps(report,indent=2).encode(),mtime=0));print(json.dumps({k:report[k] for k in ['case_count','mismatches']}))
+ publisher.write(gzip.compress(json.dumps(report,indent=2).encode(),mtime=0));print(json.dumps({k:report[k] for k in ['case_count','mismatches']}))
  if report['mismatches']:raise SystemExit(1)
 
 if __name__=='__main__':main()

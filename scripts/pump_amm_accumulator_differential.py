@@ -3,6 +3,7 @@
 import argparse,hashlib,json,pathlib
 from solders.clock import Clock
 from pump_amm_admin_differential import *
+from pump_differential_output import PumpReport
 DISC=bytes(next(x for x in IDL['accounts'] if x['name']=='UserVolumeAccumulator')['discriminator'])
 class AccumulatorHarness(Harness):
  def run(self,instruction,user_bytes=None,mutation=None,length=137,offset=None,value=None,prefund=0):
@@ -34,7 +35,7 @@ class AccumulatorHarness(Harness):
   after=[self.vm.get_account(k).lamports if self.vm.get_account(k) else 0 for k in keys];state=self.vm.get_account(accumulator)
   return {'error':str(r.err()) if failed else None,'state':None if state is None else {'owner':str(state.owner),'data_hex':bytes(state.data).hex(),'lamports':state.lamports},'lamport_deltas':[a-b for a,b in zip(after,before)],'events':[x for x in meta.logs() if x.startswith('Program data: ')],'logs':meta.logs()}
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();original=ROOT/'evidence/original/pump_amm/deployed.so'
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();output=PumpReport(a.output,ROOT,a.candidate,__file__);original=ROOT/'evidence/original/pump_amm/deployed.so'
  left,right=AccumulatorHarness(original),AccumulatorHarness(a.candidate);rows=[]
  def test(**kwargs):
   x,y=left.run(**kwargs),right.run(**kwargs);same=all(x[k]==y[k] for k in ['error','state','lamport_deltas','events'])
@@ -53,6 +54,6 @@ def main():
  for length in [73,74,89,90,136,137,138]:test(instruction=init,mutation='existing',length=length)
  failures=[i for i,x in enumerate(rows) if not x['match']];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
  report={'scope':'SBF init/close volume accumulator only, including actual local system CPI. Not whole program equivalence.','original_sha256':left.sha256,'candidate_sha256':right.sha256,'script_sha256':sha(pathlib.Path(__file__)),'case_count':len(rows),'mismatches':failures,'cases':rows}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatches':failures[:30],'mismatch_count':len(failures)}))
+ output.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatches':failures[:30],'mismatch_count':len(failures)}))
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

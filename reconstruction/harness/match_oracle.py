@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import secrets
 import sys
 import fastbuild
 import score
@@ -29,6 +30,42 @@ def bound_scoring_inputs(directory):
         elif path.is_file():
             tree[relative] = hashlib.sha256(path.read_bytes()).hexdigest()
     return tree
+
+
+def publish_verdict(path, text):
+    """Publish the verdict without following a link planted at its path.
+
+    Mirrors score.write_report's exclusive, unpredictable staging so a
+    symlink at the destination is replaced rather than followed, while
+    keeping the verdict's explicit LF line endings on every platform.
+    """
+    for _ in range(100):
+        temporary = path.parent / f'.verdict-{os.getpid()}-{secrets.token_hex(8)}'
+        try:
+            stream = temporary.open('x', encoding='utf-8', newline='\n')
+        except FileExistsError:
+            continue
+        break
+    else:
+        raise FileExistsError('could not create a unique verdict staging file')
+    metadata = os.fstat(stream.fileno())
+    identity = metadata.st_dev, metadata.st_ino
+    try:
+        with stream:
+            stream.write(text)
+            stream.flush()
+            os.fsync(stream.fileno())
+        temporary.replace(path)
+        temporary = None
+    finally:
+        if temporary is not None:
+            try:
+                metadata = temporary.lstat()
+            except FileNotFoundError:
+                pass
+            else:
+                if (metadata.st_dev, metadata.st_ino) == identity:
+                    temporary.unlink()
 
 
 def evaluate(source, work, output, target, kind, recipe, baseline=None):
@@ -71,7 +108,7 @@ def evaluate(source, work, output, target, kind, recipe, baseline=None):
                 matched = matched and preservation['accepted']
                 result['status'] = 'pass' if matched else 'fail'
             code = 0 if matched else 1
-        (output / 'verdict.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8', newline='\n')
+        publish_verdict(output / 'verdict.json', json.dumps(result, indent=2) + '\n')
         return code
     finally:
         score.BASE = previous

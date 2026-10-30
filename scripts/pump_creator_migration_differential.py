@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 import fees_sharing_update_differential as fixtures
 from fees_sharing_update_differential import *
+from pump_differential_output import PumpReport
 PIDL=json.loads((ROOT/'evidence/upstream/pump.json').read_text(encoding='utf-8'));ORIGINAL=ROOT/'evidence/original/pump/deployed.so'
 class Ready(Exception):pass
 class Capture:
@@ -94,11 +95,11 @@ def cases():
  rows += [{'name':'preserve-existing-tail','direct_mutations':{'curve':{'patches':[(200,'ab'*16)]}}},{'name':'preserve-extended-tail','direct_mutations':{'curve':{'patches':[(250,'cd'*16)]}}}]
  return [{**{'op':'migrate_bonding_curve_creator','curve_patches':[(49,bytes(d.AUTH.pubkey()).hex())]},**c} for c in rows]
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();rows=[];bad=[];paths=[Path(__file__),ROOT/'evidence/upstream/pump.json',d.ORIGINAL,ROOT/'evidence/original/pump_fees/deployed.so',ROOT/'evidence/original/pump_amm/deployed.so',Path(fixtures.__file__),Path(fixtures.f.__file__)]+([a.candidate] if a.candidate else []);hash_file=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();provenance={str(p):hash_file(p) for p in paths}
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();publisher=PumpReport(a.output,ROOT,a.candidate,__file__);rows=[];bad=[];paths=[Path(__file__),ROOT/'evidence/upstream/pump.json',d.ORIGINAL,ROOT/'evidence/original/pump_fees/deployed.so',ROOT/'evidence/original/pump_amm/deployed.so',Path(fixtures.__file__),Path(fixtures.f.__file__)]+([a.candidate] if a.candidate else []);hash_file=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();provenance={str(p):hash_file(p) for p in paths}
  for c in cases():
   x=d.run(c);y=d.run(c,a.candidate) if a.candidate else None;match=all(x[k]==y[k] for k in ['error','before','after','events','inner','return']) if y else None
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:bad.append(c['name'])
  assert provenance=={str(p):hash_file(p) for p in paths}
- sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();r={'provenance':provenance,'scope':'Normal fee-payer signature, synthetic legacy account variants, real captured sharing bootstrap; candidate swaps only Pump. No full byte identity claim.','original_sha256':sha(d.ORIGINAL),'candidate_sha256':sha(a.candidate) if a.candidate else None,'case_count':len(rows),'cases':rows,'mismatches':bad};raw=(json.dumps(r,separators=(',',':'))+'\n').encode();a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_bytes(gzip.compress(raw,mtime=0) if a.output.suffix=='.gz' else raw);print(json.dumps({'cases':len(rows),'mismatches':bad}));assert not bad
+ sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();r={'provenance':provenance,'scope':'Normal fee-payer signature, synthetic legacy account variants, real captured sharing bootstrap; candidate swaps only Pump. No full byte identity claim.','original_sha256':sha(d.ORIGINAL),'candidate_sha256':sha(a.candidate) if a.candidate else None,'case_count':len(rows),'cases':rows,'mismatches':bad};raw=(json.dumps(r,separators=(',',':'))+'\n').encode();publisher.write(gzip.compress(raw,mtime=0) if a.output.suffix=='.gz' else raw);print(json.dumps({'cases':len(rows),'mismatches':bad}));assert not bad
 if __name__=='__main__':main()

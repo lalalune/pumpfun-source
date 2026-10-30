@@ -38,7 +38,7 @@ def main():
   for off,val in [(0,bytes(8)),(8,b'\xff'*16)]:test('body='+str((kind,off)),kind=kind,size=50,lamports=10**9,overrides=mutate(TARGET,off,val))
  sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
  report={'scope':'SBF extend_account: four recognized raw account types, exact System/event CPIs, committed states, runtime rent outcomes and errors. Ordinary signed local transactions only; not whole-program equivalence.','candidate_sha256':sha(pin_program(candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
- args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(report['mismatches']),'mismatches':report['mismatches']}))
+ args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(report['mismatches']),'mismatches':report['mismatches']}))
  if report['mismatches']:raise SystemExit(1)
 
 if __name__=='__main__':main()

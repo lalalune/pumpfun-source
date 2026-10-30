@@ -6,9 +6,10 @@ converted the asserts of the tools they touched but could not reach this
 module: scripts/prepare_pump_nested_runtime.py expressed every binding
 check as an assert, so under -O / -OO a tampered harness file, a
 mismatched candidate, or changed staged source still produced a PASS
-binding record. The test builds an isolated tree (module copy, a stub
-checkpoint verifier, and synthetic sealed inputs) because the real
-repro/ evidence tree and sealed harness are not present here.
+binding record. The test builds an isolated tree (module copy with its
+script imports, a stub checkpoint verifier, and synthetic sealed inputs)
+because the real repro/ evidence tree and sealed harness are not present
+here.
 """
 
 from pathlib import Path
@@ -48,6 +49,8 @@ class NestedRuntimeOptimizationTests(unittest.TestCase):
         (self.root / "scripts").mkdir()
         shutil.copy(SCRIPTS / "prepare_pump_nested_runtime.py",
                     self.root / "scripts" / "prepare_pump_nested_runtime.py")
+        for dependency in ("deep_disassembly.py", "window_elf_reader.py"):
+            shutil.copy(SCRIPTS / dependency, self.root / "scripts" / dependency)
         (self.root / "scripts" / "verify_current_checkpoint.py").write_text(
             "import hashlib, json\n"
             "from pathlib import Path\n"

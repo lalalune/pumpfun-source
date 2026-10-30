@@ -6,6 +6,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
 import pump_migrate_probe as fixture
 from pump_diagnostic_audit import audit
+from pump_differential_output import PumpReport
 
 def main():
  parser=argparse.ArgumentParser(description=__doc__)
@@ -18,6 +19,7 @@ def main():
  paths += [ROOT/'evidence'/x/'deployed.so'for x in ['original/pump_amm','dependencies/spl_token','dependencies/spl_token_2022','dependencies/associated_token']]
  record=candidate.parent/'build-comparison.json'
  if record.is_file():paths.append(record)
+ publisher=PumpReport(args.output,ROOT,candidate,__file__,extra_inputs=paths)
  bound={str(p.resolve()):sha(p)for p in paths}
  saved=fixture.SAVED['curve'];data=base64.b64decode(saved['data_base64']);real=int.from_bytes(data[32:40],'little');limit=2**64-1
  cases=[]
@@ -36,7 +38,7 @@ def main():
  diagnostics=audit({'post_completion_quote':{'cases':rows}})
  assert bound=={str(p.resolve()):sha(p)for p in paths},'Inputs changed during execution'
  report={'scope':__doc__+' Synthetic states and signed local transactions; controls can overlap. No live transactions or whole-binary claim.', 'candidate_sha256':sha(candidate),'original_sha256':sha(ROOT/'evidence/original/pump/deployed.so'),'bound_inputs_sha256':bound,'case_count':len(rows),'mismatches':[i for i,row in enumerate(rows)if row['different_fields']],'diagnostics':diagnostics,'cases':rows}
- args.output.parent.mkdir(parents=True,exist_ok=True);raw=json.dumps(report,separators=(',',':')).encode();args.output.write_bytes(gzip.compress(raw,mtime=0)if args.output.name.endswith('.gz')else raw)
+ raw=json.dumps(report,separators=(',',':')).encode();publisher.write(gzip.compress(raw,mtime=0)if args.output.name.endswith('.gz')else raw)
  print(json.dumps({'case_count':len(rows),'mismatches':report['mismatches'],'diagnostic_mismatches':len(diagnostics['mismatches'])}))
  return 0 if args.allow_mismatches else bool(report['mismatches']or diagnostics['mismatches'])
 if __name__=='__main__':raise SystemExit(main())

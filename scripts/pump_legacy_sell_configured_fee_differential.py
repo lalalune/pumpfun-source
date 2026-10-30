@@ -3,6 +3,8 @@
 import argparse,hashlib,json,struct
 from pathlib import Path
 import pump_legacy_sell_differential as f
+from pump_differential_output import PumpReport
+from pump_trade_fixture import REPORT_INPUTS
 
 def cases():
  out=[]
@@ -16,9 +18,9 @@ def cases():
  return out
 
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--include-baseline',action='store_true');a=ap.parse_args();rows=[]
+ ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--include-baseline',action='store_true');a=ap.parse_args();publisher=PumpReport(a.output,f.R,a.candidate,__file__,extra_inputs=REPORT_INPUTS);rows=[]
  for c in (f.cases() if a.include_baseline else [])+cases():
   o=f.run(c);b=f.run(c,a.candidate);diff=[k for k in ['error','accounts','events','inner','return_data'] if o[k]!=b[k]];rows.append({'case':c,'original':o,'candidate':b,'match':not diff,'different_fields':diff})
- sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();d={'scope':'Normally signed synthetic legacy sell override regression; underlying legacy harness preserved. No full binary identity claim.','candidate_sha256':sha(a.candidate),'original_sha256':sha(f.R/'evidence/original/pump/deployed.so'),'harness_sha256':sha(Path(__file__)),'base_harness_sha256':sha(Path(f.__file__)),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if not r['match']],'cases':rows};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(d,indent=2)+'\n');print(json.dumps({k:d[k] for k in ['case_count','mismatches','candidate_sha256']}));
+ sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();d={'scope':'Normally signed synthetic legacy sell override regression; underlying legacy harness preserved. No full binary identity claim.','candidate_sha256':sha(a.candidate),'original_sha256':sha(f.R/'evidence/original/pump/deployed.so'),'harness_sha256':sha(Path(__file__)),'base_harness_sha256':sha(Path(f.__file__)),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if not r['match']],'cases':rows};publisher.write((json.dumps(d,indent=2)+'\n').encode('utf-8'));print(json.dumps({k:d[k] for k in ['case_count','mismatches','candidate_sha256']}));
  if d['mismatches']:raise SystemExit(1)
 if __name__=='__main__':main()

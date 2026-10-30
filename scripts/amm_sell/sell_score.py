@@ -2,7 +2,7 @@
 """Score an AMM build against the original sell cashback window (0x4c750, 9,024 bytes).
 
 Usage:
-  sell_score.py BUILD_OUT_DIR [--disasm] [--json]
+  sell_score.py BUILD_OUT_DIR [--disasm]
 BUILD_OUT_DIR must contain candidate.so (stripped) and symbols.so (unstripped).
 
 Reported (JSON):

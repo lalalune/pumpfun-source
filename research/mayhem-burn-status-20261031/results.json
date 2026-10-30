@@ -1,0 +1,47 @@
+{
+  "issue": "mayhem_burn_sequence.py exits 0 for a manifest that selects no family (case_count 0) and for any number of mismatches, so a broken fixture or a real divergence looks like a clean run.",
+  "base_revision": "5889e795eba64e85e613b4409921323bfecec414",
+  "affected": "scripts/mayhem_burn_sequence.py:127-135 (empty family list) and :169-171 (exit status) at base",
+  "reproduction": {
+    "command": "printf '{\"snapshots\":{\"eligible\":{\"accounts\":{}}},\"eligible_families\":[]}' > <temp>/fixtures/fixture-manifest.json; python3 -B scripts/mayhem_burn_sequence.py --candidate evidence/original/mayhem/deployed.so --fixtures <temp>/fixtures --output <temp>/out",
+    "before": {
+      "exit": 0,
+      "stdout": "{\"case_count\": 0, \"mismatches\": [], \"inputs_unchanged\": true}",
+      "comparison_written": true
+    },
+    "after": {
+      "exit": 1,
+      "stderr": "fixture manifest selects no eligible families: <temp>/fixtures/fixture-manifest.json",
+      "output_directory_created": false
+    }
+  },
+  "exit_status": {
+    "change": "main() ends with raise SystemExit(bool(out['mismatches'])) after writing comparison.json, mirroring scripts/mayhem_buy_differential.py:48",
+    "matching_receipts": "SystemExit(False) -> exit 0",
+    "differing_receipts": "SystemExit(True) -> exit 1"
+  },
+  "tests": {
+    "new_test": "tests/test_mayhem_burn_sequence_status.py",
+    "cases": [
+      "empty family list refused before output",
+      "matching receipts exit zero",
+      "differing receipts exit non-zero"
+    ],
+    "method": "main() is driven in-process with run() stubbed to return the smallest receipt rows it inspects; no VM is executed and no case is claimed",
+    "before": "3 failures (base exits normally in every case)",
+    "after": "3 tests OK in 0.08s"
+  },
+  "required_checks": {
+    "scripts/test_tooling.py": "217 tests OK",
+    "scripts/verify_evidence.py": "9 captures verified"
+  },
+  "environment": {
+    "platform": "macOS arm64",
+    "python": "3.14.3"
+  },
+  "unchanged": [
+    "case fixtures and comparison fields",
+    "captured mayhem ELF",
+    "verify_mayhem_burn_sequence.py acceptance checks"
+  ]
+}

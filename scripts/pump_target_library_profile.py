@@ -7,6 +7,7 @@ from pathlib import Path
 import shutil
 import subprocess
 
+from probe_report import write_json_report
 from pump_dependency_cache import clone_file, digest, sha
 
 HERE = Path(__file__).resolve().parent
@@ -100,6 +101,12 @@ def prepare(name, native_sdk, libraries, output):
 
 
 def finish(record):
+    manifest = Path(record["file_manifest"])
+    manifest_parent = manifest.parent.resolve()
+    check(not manifest.is_symlink(), "profile manifest must not be a symlink")
+    for key in ("native_sdk", "prepared_sdk", "library_source"):
+        check(not manifest.resolve().is_relative_to(Path(record[key]).resolve()),
+              "profile manifest aliases an SDK or library input")
     target = record["cache_context"]["target"]
     target_lib = target_library_path(target)
     check(sha(record["profile_spec"]) == record["profile_spec_sha256"], "profile spec hash mismatch")
@@ -117,19 +124,17 @@ def finish(record):
     check(queries[0]["stdout"] == str(prepared / "rust"), "rustc sysroot does not match the prepared SDK")
     check(queries[1]["stdout"] == str(prepared / target_lib), "rustc target-libdir does not match the prepared target library")
     contents = {"native": native_files, "prepared": prepared_files}
-    manifest = Path(record["file_manifest"])
+    check(manifest.parent.resolve() == manifest_parent, "profile manifest parent changed")
+    check(not manifest.is_symlink(), "profile manifest must not be a symlink")
     if "file_manifest_sha256" in record:
-        check(sha(manifest) == record["file_manifest_sha256"], "profile manifest hash mismatch")
-        check(json.loads(manifest.read_text()) == contents, "profile manifest content changed")
+        raw = manifest.read_bytes()
+        check(hashlib.sha256(raw).hexdigest() == record["file_manifest_sha256"], "profile manifest hash mismatch")
+        check(json.loads(raw) == contents, "profile manifest content changed")
     else:
         check(not manifest.exists(), "profile manifest already exists")
-        temporary = manifest.with_name(manifest.name + ".tmp")
-        try:
-            temporary.write_text(json.dumps(contents, indent=2) + "\n")
-            check(json.loads(temporary.read_text()) == contents, "profile manifest content mismatch")
-            os.replace(temporary, manifest)
-        except BaseException:
-            temporary.unlink(missing_ok=True)
-            raise
-        record = dict(record, file_manifest_sha256=sha(manifest))
+        write_json_report(manifest, contents, overwrite=False)
+        check(not manifest.is_symlink(), "profile manifest must not be a symlink")
+        raw = manifest.read_bytes()
+        check(json.loads(raw) == contents, "profile manifest content mismatch")
+        record = dict(record, file_manifest_sha256=hashlib.sha256(raw).hexdigest())
     return dict(record, status="verified", compiler_queries=queries)
