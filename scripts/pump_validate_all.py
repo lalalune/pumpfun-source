@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Run the published 44-suite bounded Pump corpus against one compiled ELF."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse
 import gzip
 import hashlib
@@ -41,6 +43,15 @@ def validate_two_curve(result, candidate_sha, original_sha):
     assert result['verified_outer_signatures'] == 40
     assert all(row['candidate'] is not None and row['mismatches'] == [] for row in result['cases'])
     return 20
+
+def retained_case_count(result):
+    """Bind a reported count to the retained JSON case array, not just a claim."""
+    cases = result.get('cases')
+    assert isinstance(cases, list), 'a retained cases array is required'
+    count = result.get('case_count', len(cases))
+    assert count == len(cases), ('case_count differs from retained cases', count, len(cases))
+    return count
+
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -94,7 +105,7 @@ def main():
             else:
                 assert result.get('original_sha256', result.get('provenance', {}).get(str(original))) == original_sha
                 assert result.get('candidate_sha256', result.get('provenance', {}).get(str(candidate))) == candidate_sha
-                count = result['case_count'] if 'case_count' in result else len(result['cases'])
+                count = retained_case_count(result)
             assert count == EXPECTED_CASES[name], (name, count, EXPECTED_CASES[name])
             assert not result.get('mismatches', result.get('failures', [])), name
             result['case_count'] = count

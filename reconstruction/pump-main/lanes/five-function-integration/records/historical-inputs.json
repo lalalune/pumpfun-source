@@ -1,0 +1,87 @@
+{
+  "scope": "Exact historical inputs required by unchanged current runtime harness references. These files were deleted from the current source tree; they are not represented as current-source evidence or source changes.",
+  "current_source_commit": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "historical_qualified_commit": "b10bc4b53c8b615b47677e8776b338851b04ca53",
+  "inputs": [
+    {
+      "path": "research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json",
+      "historical_source_commit": "b10bc4b53c8b615b47677e8776b338851b04ca53",
+      "git_blob_sha1": "2254a3521cb78c0f866ee1fbb3ef42fda2ad1e7f",
+      "sha256": "54d69dd4f11a61cc6cea3076e3e89fd4aa31ea6ff835f8ea316646a7b1642920",
+      "bytes": 125196,
+      "current_head_contains_path": false,
+      "materialized": true,
+      "ignore_status": ".gitignore:9:research/\tresearch/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json"
+    },
+    {
+      "path": "research/imported-lab/analysis/pump_fun/config-snapshot.json",
+      "historical_source_commit": "b10bc4b53c8b615b47677e8776b338851b04ca53",
+      "git_blob_sha1": "d17e526376411ce7c0666ad23189f9f49a76344e",
+      "sha256": "17b886a6b4aa7fdc89f2fca9a1b67b318d33998794da59fe4df1fe89ca70bd27",
+      "bytes": 5247,
+      "current_head_contains_path": false,
+      "materialized": true,
+      "ignore_status": ".gitignore:9:research/\tresearch/imported-lab/analysis/pump_fun/config-snapshot.json"
+    },
+    {
+      "path": "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json",
+      "historical_source_commit": "b10bc4b53c8b615b47677e8776b338851b04ca53",
+      "git_blob_sha1": "046bfd23ae0369d1a148876cb0e961b72fa98568",
+      "sha256": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+      "bytes": 34848,
+      "current_head_contains_path": false,
+      "materialized": true,
+      "ignore_status": ".gitignore:9:research/\tresearch/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json"
+    },
+    {
+      "path": "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json",
+      "historical_source_commit": "b10bc4b53c8b615b47677e8776b338851b04ca53",
+      "git_blob_sha1": "0c8124288850da9172e00b0f4ed616bde2198f61",
+      "sha256": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+      "bytes": 10317,
+      "current_head_contains_path": false,
+      "materialized": true,
+      "ignore_status": ".gitignore:9:research/\tresearch/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json"
+    },
+    {
+      "path": "repro/pump/constant-product-differential.json",
+      "historical_source_commit": "b10bc4b53c8b615b47677e8776b338851b04ca53",
+      "git_blob_sha1": "1402f15ccfd4527306875aabe0f251f81ec4e552",
+      "sha256": "fcbe584019382bfe9bd24b687c24215792816b413a8819083a3a13e7580d2890",
+      "bytes": 37225,
+      "current_head_contains_path": false,
+      "materialized": true,
+      "ignore_status": ".gitignore:8:repro/\trepro/pump/constant-product-differential.json"
+    },
+    {
+      "path": "repro/pump/native-curve-partial-fortyeight/harness/pump_multi_hop_curve_differential.py",
+      "historical_source_commit": "b10bc4b53c8b615b47677e8776b338851b04ca53",
+      "git_blob_sha1": "24757f39439636aa9005d607a3bb51896d498640",
+      "sha256": "aea405ddc402b19caa65e65829cba030758cfab55a02771f2bec4cedc0a8f6bc",
+      "bytes": 7015,
+      "current_head_contains_path": false,
+      "materialized": true,
+      "ignore_status": ".gitignore:8:repro/\trepro/pump/native-curve-partial-fortyeight/harness/pump_multi_hop_curve_differential.py"
+    },
+    {
+      "path": "repro/pump/tokenkeg-two-curve-fortyeight/harness/pump_tokenkeg_two_curve_differential.py",
+      "historical_source_commit": "b10bc4b53c8b615b47677e8776b338851b04ca53",
+      "git_blob_sha1": "d383b466a63ea60292bf96dc4c20ff2a6bb77dde",
+      "sha256": "bbcb444b66f76a14017c6322df61c92323b82ba1a66be493306fda3ff92302db",
+      "bytes": 11593,
+      "current_head_contains_path": false,
+      "materialized": true,
+      "ignore_status": ".gitignore:8:repro/\trepro/pump/tokenkeg-two-curve-fortyeight/harness/pump_tokenkeg_two_curve_differential.py"
+    },
+    {
+      "path": "repro/pump/tokenkeg-two-curve-fortyeight/harness/base-fixture.json",
+      "historical_source_commit": "b10bc4b53c8b615b47677e8776b338851b04ca53",
+      "git_blob_sha1": "8475b64e3151e54faecd99149554f39ba7830c96",
+      "sha256": "0f269b3e5766fc77fd493d41f68d31ad1b3fd865ac977709d6ba552a192e448f",
+      "bytes": 27139,
+      "current_head_contains_path": false,
+      "materialized": true,
+      "ignore_status": ".gitignore:8:repro/\trepro/pump/tokenkeg-two-curve-fortyeight/harness/base-fixture.json"
+    }
+  ]
+}

@@ -63,3 +63,16 @@ cases on the captured Pump ELF with the captured Pump Fees program and compares
 errors, lamport movements, stored reserves, delivered tokens, and TradeEvent
 fields with `legacy_buy_host.rs`. Mayhem, cashback, whitelist, and holder-reward
 paths are not modeled. This is not a byte-identity claim.
+
+`legacy_sell.rs` models legacy `sell` for a regular SOL coin: guard order,
+the curve output, the market-cap fee tier and configurable creator-bps
+override, ceiling fees (an output of 1 lamport cannot carry both fees and
+fails with 6024), slippage, checked reserve updates (real SOL short of the
+output fails with 6024), the bonding-curve-v2 check that only runs with a
+creator fee, the always-required buyback recipient, and the seller-paid
+creator-vault rent top-up. `tests/test_legacy_sell_captured.py` runs 71 fixed
+and 60 seeded cases on the captured Pump ELF with the captured Pump Fees
+program and compares errors, lamport movements, stored reserves, token
+balances, and TradeEvent fields with `legacy_sell_host.rs`. Mayhem, cashback,
+whitelist, and holder-reward paths are not modeled. This is not a
+byte-identity claim.
