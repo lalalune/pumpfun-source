@@ -34,7 +34,7 @@ def main():
  for payload in [b'',b'\2',b'\0ignored',b'\1'+bytes(7),b'\1'+bytes(8)+b'ignored']:test(payload,keys[:8])
  sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
  failures=[i for i,x in enumerate(rows) if not x['match']]
- report={'scope':'SBF buyback-config handler differential only; not whole-program equivalence.','original_sha256':sha(original),'candidate_sha256':sha(a.candidate),'script_sha256':sha(pathlib.Path(__file__)),'case_count':len(rows),'mismatches':failures,'cases':rows}
+ report={'scope':'SBF buyback-config handler differential only; not whole-program equivalence.','original_sha256':left.sha256,'candidate_sha256':right.sha256,'script_sha256':sha(pathlib.Path(__file__)),'case_count':len(rows),'mismatches':failures,'cases':rows}
  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n')
  print(json.dumps({'case_count':len(rows),'mismatches':failures[:20],'mismatch_count':len(failures)}))
  if failures:raise SystemExit(1)

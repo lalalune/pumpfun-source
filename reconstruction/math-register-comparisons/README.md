@@ -6,6 +6,15 @@ are omitted. This successor verifies the archived analyzer and ELF reader SHA-25
 before executing them and replaces the one comparison predicate in memory. Root
 scripts, captures, prior packages and every unrelated heuristic remain unchanged.
 
+Source binding re-reviewed at `f09c728c8520`: `scripts/deep_section_analysis.py`
+`9940b20f…` (after #1254, #1284, #1294, #1448, #1453, #1606, #1648, #1731,
+#1795, #1806, #1813, #1831, #1842, #1991, #2182, #2209, #2351, #2482 and the LF-output commit 11c5d73b) and
+`scripts/window_elf_reader.py` `5a57f329…` (after #2075 and #2388). Within
+`analyze_math_patterns` those changes only add the 64-bit `0xc7`/`0xcf` shifts
+to the shift count and sort windows by arithmetic density; the replaced
+comparison predicate is unchanged and every count below was recomputed on
+the current bytes.
+
 Base: `094a06f18df738d41e77070c1a009e135671ac1a`. Pump file offset `0xd278`
 contains `1f810000000000003d61070000000000` (`sub64 r1, r8; jge r1, r6, +7`).
 The regression counts zero candidates with the archived predicate and one with
@@ -37,3 +46,11 @@ python3 scripts/verify_evidence.py
 
 Each UTF-8 report binds its binary, archived sources and adapter by SHA-256.
 Existing report files are refused, and source drift fails before execution.
+
+The source binding was reviewed again with the combined #2546/#2548 analyzer
+(`4b3c5cb204f8a287b5337e14932468c47713f0a0a38f274e1e46fec1e905f8c2`).
+It rejects truncated or misaligned relocation tables and uses the section's
+virtual address for strings that reach its end. The comparison predicate and
+all three relocation substitutions remain unchanged. The six math and five
+relocation successor tests pass against these combined bytes. The reader pin
+remains `5a57f32949f983fc6f9ddf40916cd04bfcd2a73b6a16cc0e9d5d6872180dac32`.

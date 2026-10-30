@@ -41,3 +41,8 @@ records the tooling totals. These rows are token-program constant loads in
 static code. They do not prove a token transfer, a CPI, runtime reachability,
 source provenance, whole-program equality or security clearance. The archived
 `bytecode_signatures.py` and its reports remain unchanged.
+
+The script binding was re-reviewed for `bytecode_signatures.py` `e4e4e541…`
+(after #1311, #1573, #1772, #1806, #1831, #2205, #2319, #2458 and the
+byte-stable packet commit d4370827). Regenerated observations differ from the
+previous seal only in `script_sha256`; every row and total above is unchanged.

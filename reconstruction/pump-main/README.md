@@ -4,31 +4,26 @@ Goal: compiler-produced Rust source in `programs/pump` whose build matches every
 function of the deployed program, first after the scorer's masking (normalized) and
 finally byte for byte (raw), ending in whole-ELF identity.
 
-## Current state (origin/main d2cb88d)
+## Measured state (origin/main 9b216213, 2026-10-30)
 
-1,019/1,035 windows normalized, 188 raw. The 16 unmatched windows, with the closest
-candidate function in a current build:
+A fresh identity-recipe build of upstream `9b216213` has **1,032/1,035 normalized
+windows and 347 raw windows**. This is a pinned measurement, not a claim about
+later main. The three remaining windows are:
 
-| Original | Bytes | Function | Similarity |
-| --- | ---: | --- | ---: |
-| `0x14f4e0` | 13,224 | `buy_exact_sol_in` | 0.999 (2 slots: swapped loads after `require_gte!` at buy.rs:133) |
-| `0x80df8` | 2,120 | `trade::v3_buy_costs` | 0.788 |
-| `0x6cd78` | 8,544 | `legacy_sell::process_cashback_inner` | 0.735 |
-| `0x83c00` | 3,440 | `trade::v3_execute_buy` | 0.733 |
-| `0x13f630` | 20,184 | `buy_v2::buy_exact_quote_in_handler` | 0.694 |
-| `0x13b9b8` | 15,480 | `buy_v2::buy_handler` | 0.665 |
-| `0x144508` | 13,976 | `sell_v2::execute` | 0.662 |
-| `0x4c158` | 8,368 | `migrate_v2::create_token_account_v2` | 0.563 |
-| `0x147ba0` | 3,672 | `trade::buy` (buy_v3) | 0.544 |
-| `0x14a8a8` | 6,032 | `trade::sell` (sell_v3) | 0.443 |
-| `0x1489f8` | 7,856 | `trade::buy_exact_quote` | 0.303 |
-| `0x72810` | 7,832 | `sweep::execute` | 0.298 |
-| `0x1e7c0` | 15,576 | `create_v2::execute` | 0.247 |
-| `0x77940` | 8,832 | `cashback::claim_v2` (win.py's name guess `migrate_v2::execute` is wrong) | 0.201 |
-| `0x5b3b0` | 18,584 | `multi_hop_curve::swap_hop` | 0.158 |
-| `0x22a10` | 27,400 | `admin_cto::execute` | 0.095 |
+| Original | Bytes | Function | Remaining difference |
+| --- | ---: | --- | --- |
+| `0x1e7c0` | 15,576 | `create_v2::execute` | Four normalized 8-byte slots; ratio 0.99892 |
+| `0x22a10` | 27,400 | `admin_cto::execute` | Candidate 27,344 bytes; ratio 0.37637 |
+| `0x5b3b0` | 18,584 | `multi_hop_curve::swap_hop` | Candidate 18,584 bytes; ratio 0.85352 |
 
-Similarity is `win.py`'s diagnostic ratio, not acceptance.
+The [five-area follow-up packet](lanes/five-bytecode-followups/README.md) pins the
+full revision, source and tool fingerprints, full window membership and runtime
+comparison limits. It claims no new matches; the ten raw additions since its
+historical 1,032/337 baseline were already merged upstream through #2403.
+The older [native-6a checkpoint](checkpoints/native-6a1d23a-20261030/README.md)
+remains a historical 1,027-normalized / 276-raw measurement.
+
+Similarity is a diagnostic, not acceptance or proof of runtime equivalence.
 
 ## Acceptance
 

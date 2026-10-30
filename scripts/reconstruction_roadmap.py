@@ -407,7 +407,7 @@ def generate_roadmap(output_dir):
     # 1. Per-program detailed analysis
     for prog_name, data in all_program_data.items():
         prog_path = output_dir / f"{prog_name}-details.json"
-        prog_path.write_text(json.dumps(data, indent=2) + "\n")
+        prog_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8", newline="\n")
         print(f"[roadmap] {prog_name}: {data['total_windows']} windows, "
               f"{data['unmatched_estimate']} estimated unmatched")
 
@@ -439,7 +439,7 @@ def generate_roadmap(output_dir):
     )
 
     summary_path = output_dir / "summary.json"
-    summary_path.write_text(json.dumps(summary, indent=2) + "\n")
+    summary_path.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 3. Reconstruction plan
     plan = {
@@ -519,7 +519,7 @@ def generate_roadmap(output_dir):
     })
 
     plan_path = output_dir / "reconstruction-plan.json"
-    plan_path.write_text(json.dumps(plan, indent=2) + "\n")
+    plan_path.write_text(json.dumps(plan, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 4. README
     total_files = 0
@@ -577,7 +577,7 @@ python3 verify.py
 """)
 
     readme_text = "\n".join(readme_parts)
-    (output_dir / "README.md").write_text(readme_text)
+    (output_dir / "README.md").write_text(readme_text, encoding="utf-8", newline="\n")
 
     # 5. Verify script
     verify_py = '''#!/usr/bin/env python3
@@ -585,6 +585,7 @@ python3 verify.py
 import hashlib, json, os, sys
 
 PACKET = os.path.dirname(os.path.abspath(__file__))
+REQUIRED_FILES = frozenset(__REQUIRED_PACKET_FILES__)
 
 def sha256_file(path):
     h = hashlib.sha256()
@@ -595,6 +596,8 @@ def sha256_file(path):
 
 def main():
     manifest = json.load(open(os.path.join(PACKET, "manifest.json")))
+    if not isinstance(manifest, dict) or not REQUIRED_FILES.issubset(manifest):
+        print("FAIL: manifest omits required roadmap artifacts"); return 1
     errors = 0
     for name, expected in manifest.items():
         path = os.path.join(PACKET, name)
@@ -622,7 +625,11 @@ def main():
 if __name__ == "__main__":
     sys.exit(main())
 '''
-    (output_dir / "verify.py").write_text(verify_py)
+    verify_py = verify_py.replace('__REQUIRED_PACKET_FILES__', repr([
+        'README.md', 'summary.json', 'reconstruction-plan.json', 'verify.py',
+        *[f'{program}-details.json' for program in all_program_data],
+    ]))
+    (output_dir / "verify.py").write_text(verify_py, encoding="utf-8", newline="\n")
 
     # 6. Manifest
     manifest = {}
@@ -632,7 +639,7 @@ if __name__ == "__main__":
         path = output_dir / name
         if path.is_file():
             manifest[name] = sha256_file(str(path))
-    (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     total_lines = sum(
         sum(1 for _ in open(output_dir / name))

@@ -73,10 +73,18 @@ def tree_diff(base, new, prefix='programs/pump'):
             else:
                 out.append('index e69de29..0000000\n')
             continue
-        xl = diff_lines(x)
-        yl = diff_lines(y)
+        xl = None
+        try:
+            xl = diff_lines(x)
+            yl = diff_lines(y)
+        except UnicodeDecodeError:
+            # Either side can fail after the other has already decoded.
+            xl = None
         fa = quoted_a if x is not None else '/dev/null'
         fb = quoted_b if y is not None else '/dev/null'
+        if xl is None:
+            out.append(f'Binary files {fa} and {fb} differ\n')
+            continue
         for line in difflib.unified_diff(xl, yl, fa, fb, n=3):
             out.append(line if line.endswith('\n') else line + '\n\\ No newline at end of file\n')
     return ''.join(out)
