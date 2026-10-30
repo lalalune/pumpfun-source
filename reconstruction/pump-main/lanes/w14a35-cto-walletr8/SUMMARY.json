@@ -1,0 +1,147 @@
+{
+ "lane": "w14a35-cto-walletr8",
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "bases": {
+  "06967d378": {
+   "ratio": 0.64649,
+   "slots": 3169
+  },
+  "81d3d9abe": {
+   "ratio": 0.65069,
+   "slots": 3171
+  }
+ },
+ "result": "notes only: no source change beats main; do_coin cannot be moved to r8 through the payload copy",
+ "best_zero_loss": {
+  "ratio": null,
+  "note": "no candidate above main"
+ },
+ "cause_chain": "sharing_update tag %60 live-through split %1752 takes r9 over wallet+sweep -> ATA clone buffer r9->r7 -> accounts reload r7->r8 through the ATA create, payload class %1672 (collect result pair) in r8 in the collect arm -> do_coin (weight 1.9e-8) has no free r8 gap and is spilled to -0x938",
+ "ir_bounds_06967d3": {
+  "a1_collect_err_reload": [
+   0.64954,
+   27248,
+   "spilled"
+  ],
+  "a2_ok_reload": [
+   0.64984,
+   27248,
+   "spilled"
+  ],
+  "b1_event_store_at_def": [
+   0.31976,
+   27232,
+   "-"
+  ],
+  "c1_wallet_own_ret": [
+   0.52943,
+   27272,
+   "-"
+  ],
+  "p1_pin_r8": [
+   0.58884,
+   27304,
+   "spilled"
+  ],
+  "e3": [
+   0.56655,
+   27424,
+   "spilled"
+  ],
+  "e3_r9": [
+   0.53445,
+   27280,
+   "spilled"
+  ],
+  "e3_r8": [
+   0.51644,
+   27280,
+   "spilled"
+  ],
+  "acc_reload_blk": [
+   0.57335,
+   27600,
+   "spilled"
+  ],
+  "t1_tag_alloca": [
+   0.61084,
+   27296,
+   "spilled"
+  ],
+  "g1_gate_docoin": [
+   0.64359,
+   27368,
+   "spilled"
+  ],
+  "t1_g1": [
+   0.6131,
+   27256,
+   "r9"
+  ],
+  "t1_g1_pin_r8": [
+   0.54436,
+   27192,
+   "-"
+  ]
+ },
+ "ir_bounds_81d3d9a": {
+  "a1": [
+   0.65315,
+   27248
+  ],
+  "g1": [
+   0.64778,
+   27368
+  ],
+  "t1": [
+   0.60832,
+   27280
+  ],
+  "t1_g1": [
+   0.61088,
+   27240
+  ]
+ },
+ "source_forms_06967d3": {
+  "s1_gate_docoin": 0.6444,
+  "s12": 0.6444,
+  "s18_skipcoin": 0.6435,
+  "s2_s3_s5_s8_s13_s16_s17": "= main tokens",
+  "s6_ata_iflet": 0.57639,
+  "s4_collect_match": 0.4806,
+  "s14_collect_iflet": 0.48083,
+  "s11_event_ts_after": [
+   0.64313,
+   27232
+  ]
+ },
+ "source_forms_81d3d9a": {
+  "s1": 0.64859,
+  "s18": 0.64769
+ },
+ "rejected_mechanisms": [
+  "payload rematerialization/reload at uses (a1/a2)",
+  "store at definition into event alloca (b1, s11)",
+  "split the shared Err-return phi (c1, s2/s3/s6/s14/s16/s17)",
+  "swept coalescing + class pin (e3, e3r9, e3r8)",
+  "accounts-pointer reloads in wallet (accblk/accuse)",
+  "do_coin register pin (p1/p2)",
+  "tag out of registers (t1)",
+  "llc greedy option sweep"
+ ],
+ "unresolved_residuals": [
+  "wallet do_coin spilled (-0x938) vs orig r8; root = tag %60 live-through split in r9 (w14a12 domain)",
+  "coin_present/do_coin naming: with the tag out of r9 (t1+g1) do_coin gets r9 and coin_present r8; orig spills coin_present and has do_coin in r8"
+ ],
+ "next_ideas": [
+  "any tag form that makes greedy split %60 to r6 in the tail and spill it in the middle; then retest 'if do_coin{' (g1/s1) on top",
+  "after that, flip coin_present/do_coin naming (reverse of the w14a03 w10 use-count trick); the orig reloads coin_present in two tail-duplicated ATA-gate blocks (0x5c50, 0x6108)"
+ ],
+ "ledger_keys": "0x22a10-w14-06967d3-walletr8-*, 0x22a10-w14-81d3d9a-walletr8-rerun-v1",
+ "attempts": 27
+}

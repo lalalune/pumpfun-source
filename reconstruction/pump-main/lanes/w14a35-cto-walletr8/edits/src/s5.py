@@ -1,0 +1,1 @@
+EDITS=[("  let do_coin=coin_present&&!token_frozen(a.coin_creator_vault_ata.as_ref())?;","  let do_coin=coin_present&&!match token_frozen(a.coin_creator_vault_ata.as_ref()){Ok(v)=>v,Err(e)=>return Err(e)};")]
