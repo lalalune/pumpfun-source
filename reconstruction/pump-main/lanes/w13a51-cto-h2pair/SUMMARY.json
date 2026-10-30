@@ -1,0 +1,59 @@
+{
+ "lane": "w13a51-cto-h2pair",
+ "target": "0x22a10 admin_cto::execute, pinned 27400 B",
+ "angle": "pair w13a38 h2 holder phi with code-adding partners (w13a43 outline v2, w13a33 holder_key copy, w13a19 o_ab_late/s_rent_local)",
+ "result": "angle dead; two zero-loss stacks (0.62753 on 53abf28, 0.62932 on 23322b0) were each superseded by main before landing; nothing landable on cef0574 (0.63421)",
+ "best_zero_loss": {
+  "main": "23322b0",
+  "ratio": 0.62932,
+  "slots_diff": 3342,
+  "bytes": 27400,
+  "normalized": 1034,
+  "raw": 1034,
+  "losses": [],
+  "sha": "505c0fd261f1d733",
+  "landed": false
+ },
+ "h2_on_53abf28": {
+  "h2": [
+   0.60232,
+   27200
+  ],
+  "h2+holder_key_by_value": [
+   0.5348,
+   27096
+  ],
+  "store_swap": [
+   0.62253,
+   27400
+  ],
+  "ho_phi": [
+   0.59375,
+   27240
+  ],
+  "pool_local": [
+   0.62405,
+   27424
+  ]
+ },
+ "open_gene": {
+  "scu_bs_on_cef0574": [
+   0.63578,
+   27344
+  ],
+  "needs": "+56 B faithful partner; catalog has none (screens in NOTES.md)"
+ },
+ "rejected": [
+  "h2 and every h2 piece on 53abf28",
+  "h2 + holder_key by value",
+  "holder phi used for a single consumer",
+  "w13a43 v2 outline (-432 B)",
+  "catalog fillers for scu_bs (56 singles, 8 combos)",
+  "-8 B partners for scu_bs+o+pool-key (34 knobs, 6 pool-owner spellings)"
+ ],
+ "next_ideas": [
+  "faithful +56 B for scu_bs that adds register pressure in the validate/skip-tree region (the original keeps the spills scu_bs removes)",
+  "scu_bs + sh_key_borrow (-136 B, +0.0007 more) with a large faithful region rewrite",
+  "re-screen scu_bs on every new main: its gain grew from +0.0025 to +0.0016..+0.0025 and stays"
+ ]
+}
