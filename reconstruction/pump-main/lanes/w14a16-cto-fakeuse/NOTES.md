@@ -39,6 +39,7 @@ end mode) and `map-b174038.txt` (22,063 variants) hold the per-value ranking.
 | cef0574 `impl` (and/or merge) | 6,618 | 949 | 1 | | 416 |
 | b174038 (asm, all scalars + ptrs) | 22,063 | 1,621 | 29 | 1,355 | 182 |
 | 7e6aa9c `impl` (and/or merge) | 6,618 | 900 | 1 (Rc clone check `%cond.i2.i243`, +0.0015) | | 416 |
+| 7e6aa9c (asm, all scalars) | 10,776 | 875 | 7 | | 147 |
 
 The best extensions at 27,400 B are the same on both mains. None of them can be written in source:
 
@@ -49,6 +50,13 @@ The best extensions at 27,400 B are the same on both mains. None of them can be 
 | Rent::get tag `%_234.i122` | Ok arm bb86.i | +0.0006 | the tag is a known constant there |
 | clone-run owner pointers, `strong1` | Rc inc_strong abort blocks | +0.0003..0.0006 | panic paths in Rc::clone |
 | `authority_bump` | past the event invoke_signed | +0.0003 (-1 slot) | inside the emit_cpi! expansion |
+
+On 7e6aa9c there is one new hit: the cashback byte (`%167 = zext cashback`) extended into the fee-store blocks
+(bb105/bb106) gives +0.0006 at 27,400 B. Its source forms all lose against main's 0.6414:
+- moving the cashback store after the fee store: hr,fee,cb 0.63661; hr,fee,can_edit,cb 0.63631; fee,hr,cb and
+  fee,cb,hr 0.6393;
+- implied uses at the fee store, which hold because fee=Some implies !cashback in validate:
+  `if cashback{old}else{fee.unwrap_or(old)}` 0.63473 @27,432, and `fee.filter(|_|!cashback)` 0.63454 @27,448.
 
 Three of them combined (`%43@bb34 + %_237.i116@bb86.i + %authority_bump@bb121`) add up to +0.0018 on cef0574.
 
