@@ -167,6 +167,11 @@ def decode_instruction(b, offset, elf):
         else:
             result["mnemonic"] = f"{cond} {dst}, {imm}, {off:+d} ({hex(target)})"
         result["branch_target"] = target
+    elif opcode in (0xd4, 0xdc):
+        # Endian conversion uses the immediate as a bit width; opcode bit 3
+        # selects the direction, not a register operand.
+        direction = "le" if opcode == 0xd4 else "be"
+        result["mnemonic"] = f"{direction}{imm} {dst}"
     elif opcode & 0x07 == 0x04 or opcode & 0x07 == 0x07:
         alu_map = {
             0x04: "add32", 0x07: "add64", 0x0c: "add32", 0x0f: "add64",
@@ -182,7 +187,6 @@ def decode_instruction(b, offset, elf):
             0xa4: "xor32", 0xa7: "xor64", 0xac: "xor32", 0xaf: "xor64",
             0xb4: "mov32", 0xb7: "mov64", 0xbc: "mov32", 0xbf: "mov64",
             0xc4: "arsh32", 0xc7: "arsh64", 0xcc: "arsh32", 0xcf: "arsh64",
-            0xd4: "le", 0xdc: "be",
         }
         op = alu_map.get(opcode, f"alu_{opcode:#04x}")
         if opcode in (0x84, 0x87):
@@ -192,7 +196,7 @@ def decode_instruction(b, offset, elf):
         else:
             result["mnemonic"] = f"{op} {dst}, {imm}"
     elif opcode & 0x07 in (0x01, 0x02, 0x03):
-        size_map = {0x00: "w", 0x08: "dw", 0x10: "h", 0x18: "b"}
+        size_map = {0x00: "w", 0x08: "h", 0x10: "b", 0x18: "dw"}
         sz = size_map.get(opcode & 0x18, "?")
         cls = opcode & 0x07
         if cls == 0x01:  # LDX
@@ -372,6 +376,10 @@ def recover_anchor_dispatch(elf):
             imm_lo = struct.unpack_from("<I", elf.b, offset + 4)[0]
             imm_hi = struct.unpack_from("<I", elf.b, offset + 12)[0]
             prev_imm64 = (imm_lo | (imm_hi << 32)) & 0xFFFFFFFFFFFFFFFF
+            if offset in elf.relocations:
+                # The loader rewrites a relocated lddw: it loads an address
+                # (e.g. a panic location or string), never a selector literal.
+                prev_imm64 = None
             offset += 16
         elif opcode == 0x85 and elf.b[offset + 1] == 0x10:
             # Internal call — this might be a handler dispatch

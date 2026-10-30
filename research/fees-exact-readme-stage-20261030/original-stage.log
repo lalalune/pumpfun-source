@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/workspace/pump-byte-closure/work/fees-stage-reproduction/reproduce.py", line 30, in <module>
+    module.stage(case.resolve());result['stageStatus']='UNEXPECTED_SUCCESS'
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-byte-closure/work/fees-stage-reproduction/current/programs/pump-fees/build_exact.py", line 67, in stage
+    require(source.is_file() and not source.is_symlink() and sha(source) == digest, "canonical input changed: " + name)
+  File "/workspace/pump-byte-closure/work/fees-stage-reproduction/current/programs/pump-fees/build_exact.py", line 37, in require
+    raise ValueError(message)
+ValueError: canonical input changed: programs/pump-fees/README.md

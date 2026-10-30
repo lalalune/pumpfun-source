@@ -7,11 +7,13 @@ ap=argparse.ArgumentParser();ap.add_argument('--toolchain',type=pathlib.Path,req
 args.output.mkdir(parents=True,exist_ok=False);rustc=args.toolchain.resolve()/'rust/bin/rustc';source=ROOT/'programs/pump-fees/recovered';lib=args.output.resolve()/'libpump_fees_math.rlib';obj=args.output.resolve()/'quote_fees.o';commands=[];logs=[]
 def build(extra):
  cmd=[str(rustc),'--edition=2021','--target','sbf-solana-solana','-C','opt-level='+args.opt_level,'-C','overflow-checks=yes','-C','panic=abort']+extra
- r=subprocess.run(cmd,text=True,capture_output=True);commands.append(cmd);logs.append(r.stdout+r.stderr);r.check_returncode()
+ r=subprocess.run(cmd,text=True,capture_output=True);commands.append(cmd);logs.append(r.stdout+r.stderr)
+ # Retain diagnostics before raising so a failed step still leaves its compiler output.
+ (args.output/'build.log').write_text('\n'.join(logs));r.check_returncode()
 build(['--crate-name','pump_fees_math','--crate-type','rlib',str(source/'fee_selection.rs'),'-o',str(lib)])
 build(['--crate-name','pump_quote_fees','--crate-type','lib','--emit=obj','--extern','pump_fees_math='+str(lib),str(source/'quote_fees.rs'),'-o',str(obj)])
 build(['--crate-name','recovered_memory','--crate-type','lib','--emit=obj',str(source/'memory_compare.rs'),'-o',str(args.output.resolve()/'memory_compare.o')])
-(args.output/'build.log').write_text('\n'.join(logs));sha=lambda b:hashlib.sha256(b).hexdigest()
+sha=lambda b:hashlib.sha256(b).hexdigest()
 with obj.open('rb') as f:
  e=ELFFile(f);data=e.get_section_by_name('.text.get_fees_with_quote').data();relocs=[]
  for sec in e.iter_sections():

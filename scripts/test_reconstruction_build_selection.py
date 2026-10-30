@@ -21,8 +21,12 @@ class ResearchSelectionTests(unittest.TestCase):
         self.assertNotIn('--tools-version',argv)
 
     def test_current_helper_matches_accepted_historical_helper(self):
-        frozen=ROOT/'repro/pump_fees/sharing-pump-extend-main-v144/helpers/scripts/build_partial_candidate.py'
-        self.assertEqual((ROOT/'scripts/build_partial_candidate.py').read_bytes(), frozen.read_bytes())
+        # The accepted copy at d75184ea323be8a83ebe11fe5f26a13f3dcbe052
+        # has Git blob 85fa552fd8c1556876715d089dbaf4f45857128d.
+        # It is absent from current checkouts; retain its exact byte check.
+        frozen_sha256='bb683621ffc4297c58f030cb03da54484b7370b786fd8eda965a37f4b3198ee9'
+        current=(ROOT/'scripts/build_partial_candidate.py').read_bytes()
+        self.assertEqual(hashlib.sha256(current).hexdigest(), frozen_sha256)
 
 
 if __name__ == '__main__':

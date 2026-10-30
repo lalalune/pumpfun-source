@@ -16,7 +16,7 @@ class SourceCoordinatePairingTests(unittest.TestCase):
             self.assertTrue(root.name.startswith('pump-coordinate-pairing-'))
             (root / 'harness').mkdir()
             (root / 'base').mkdir()
-            for name in ['coords.py', 'score.py']:
+            for name in ['coords.py', 'score.py', 'score_admission.py', 'llvm_tools.py', 'elf_symbols.py']:
                 shutil.copyfile(repo / 'reconstruction/harness' / name, root / 'harness' / name)
             shutil.copyfile(repo / 'evidence/original/pump/deployed.so', root / 'base/original.so')
             shutil.copyfile(repo / 'reconstruction/base/functions.tsv', root / 'base/functions.tsv')

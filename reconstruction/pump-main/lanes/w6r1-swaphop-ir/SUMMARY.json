@@ -1,0 +1,20 @@
+{
+ "lane": "w6r1-swaphop-ir",
+ "base": "origin/main 099b0dd (1027 normalized / 276 raw)",
+ "targets": ["0x5b3b0 multi_hop_curve::swap_hop"],
+ "pr": "https://github.com/lalalune/pumpfun-source/pull/2158",
+ "best": {"build": "s7", "win_ratio": 0.7504, "bytes": 18432, "orig_bytes": 18584, "segdist": "492/630",
+  "normalized": 1027, "raw": 276, "gains": [], "losses": [], "raw_losses": [],
+  "unstripped_sha256": "e2d33f514d0d3b121c307e7c323790a0c78bcede22547806298804828d8e5fde"},
+ "progression": [["base",0.7063],["s1 sell-arm tail sub",0.7308],["s2 +inline seeds clone",0.7414],["s4 +buy-arm tail sub",0.7419],["s5 +if last transfer_base_out",0.7422],["s7 +post_fill arm tuple",0.7504]],
+ "key_findings": [
+  "A non-empty arm-end block (net - output / amount - trade_amount in the arm tuple) survives SimplifyCFG and reproduces the original's arm tails",
+  "BPF analyzeBranch cannot analyze conditional branches: MBP keeps conditional-fallthrough chains in IR order, so !prof weights do not move blocks; IR block order is the lever"
+ ],
+ "rejected": ["fee_config to_account_info clone alone (0.6853) or with s1/s2 (lower ratio, though call multiset exact)",
+  "line-599 spellings: == false, (..)==true, let allowed, if || return err, != true, as u8 != 1 (all byte-identical)",
+  "IR block-move hill-climb on s2 (+0.0036 exactish only)", "empty IR sell-tail block (folded)"],
+ "unresolved": ["memcmp/complete_fill chain placed before the no-post/transfer path (orig places it after transfer_input)", "fee_config AccountInfo clone (107th call) costs ratio under current regalloc", "trade_event arg scheduling, frame offsets"],
+ "next_ideas": ["Find a source shape that changes the IR order of the whitelist memcmp block relative to bb62/bb71", "Re-add the fee_config clone after the layout is fixed"],
+ "attempts": 22
+}

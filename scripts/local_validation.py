@@ -1,12 +1,6 @@
 #!/usr/bin/env python3
 """Offline malformed-input smoke tests; not a functional or authorization audit."""
 import hashlib,json,pathlib,random
-from solders.litesvm import LiteSVM
-from solders.keypair import Keypair
-from solders.pubkey import Pubkey
-from solders.instruction import Instruction
-from solders.transaction import Transaction
-from solders.transaction_metadata import FailedTransactionMetadata
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 # .gitignore lists repro/, and this checkout has no repro/programs.json.
 _CAPTURE_ORDER=('pump','pump_amm','pump_fees','mayhem')
@@ -39,6 +33,14 @@ def program_addresses(root=None):
         raise FileNotFoundError('no archived program selector and no captured originals')
     return selected
 def main():
+    # Metadata consumers (including test_tooling) do not execute a VM.
+    # Keep the real runtime mandatory when the smoke-test entry point runs.
+    from solders.litesvm import LiteSVM
+    from solders.keypair import Keypair
+    from solders.pubkey import Pubkey
+    from solders.instruction import Instruction
+    from solders.transaction import Transaction
+    from solders.transaction_metadata import FailedTransactionMetadata
     results={}; payer=Keypair.from_seed(bytes(range(32))); rng=random.Random(10424)
     for name,address in program_addresses().items():
         svm=LiteSVM().with_transaction_history(0); svm.airdrop(payer.pubkey(),10**10)

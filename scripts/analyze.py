@@ -22,8 +22,9 @@ def known_instruction_names(name):
     return tuple(sorted(names, key=len, reverse=True))
 
 
-def program_names(root=ROOT):
+def program_names(root=None):
     """Use the archived mapping when present, otherwise the captured programs."""
+    root = ROOT if root is None else root
     path = root / 'repro/programs.json'
     if path.is_file():
         return json.loads(path.read_text())
@@ -105,7 +106,6 @@ def analyze():
         r['source_path_evidence']=[{'offset':m.start(),'path':m.group().decode()} for m in re.finditer(rb'(?:programs|/home/runner/work/platform-tools)[a-zA-Z0-9_./-]+?\.rs',b)]
         r['instruction_log_names']=instruction_log_names(b, known_instruction_names(name))
         r['compiler_version']='unresolved'; r['dependency_versions']='unresolved'; out[name]=r
-    (ROOT/'evidence/binary-analysis.json').write_text(json.dumps(out,indent=2)+'\n')
     inventory={}
     for f in sorted((ROOT/'evidence/upstream').glob('pump*.json')):
         d=json.loads(f.read_text(encoding='utf-8')); addresses={}
@@ -115,6 +115,11 @@ def analyze():
                 walk(a.get('accounts',[]),ix)
         for ix in d['instructions']: walk(ix['accounts'],ix['name'])
         inventory[f.stem]={'address':d['address'],'metadata':d.get('metadata'),'instructions':len(d['instructions']),'fixed_addresses':addresses}
-    (ROOT/'evidence/interface-inventory.json').write_text(json.dumps(inventory,indent=2)+'\n')
+    # Admit every ELF and IDL, and serialize both reports, before replacing
+    # either prior report. An invalid later IDL must not publish half a run.
+    binary_report=json.dumps(out,indent=2)+'\n'
+    interface_report=json.dumps(inventory,indent=2)+'\n'
+    (ROOT/'evidence/binary-analysis.json').write_text(binary_report)
+    (ROOT/'evidence/interface-inventory.json').write_text(interface_report)
     for n,r in out.items(): print(n,'ELF',r['elf_extent'],'padding',r['trailing_bytes'],'zero',r['trailing_all_zero'])
 if __name__=='__main__': analyze()

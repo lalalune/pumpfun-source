@@ -1,0 +1,102 @@
+[
+  {
+    "name": "aho-corasick",
+    "version": "1.1.1",
+    "source": "registry+https://github.com/rust-lang/crates.io-index",
+    "checksum": "ea5d730647d4fadd988536d06fecce94b7b4f2a7efdae548f1cf4b63205518ab",
+    "dependencies": [
+      "memchr"
+    ]
+  },
+  {
+    "name": "regex",
+    "version": "1.9.6",
+    "source": "registry+https://github.com/rust-lang/crates.io-index",
+    "checksum": "ebee201405406dbf528b8b672104ae6d6d63e6d118cb10e4d51abbc7b58044ff",
+    "dependencies": [
+      "aho-corasick",
+      "memchr",
+      "regex-automata",
+      "regex-syntax"
+    ]
+  },
+  {
+    "name": "regex-automata",
+    "version": "0.3.9",
+    "source": "registry+https://github.com/rust-lang/crates.io-index",
+    "checksum": "59b23e92ee4318893fa3fe3e6fb365258efbfe6ac6ab30f090cdcbb7aa37efa9",
+    "dependencies": [
+      "aho-corasick",
+      "memchr",
+      "regex-syntax"
+    ]
+  },
+  {
+    "name": "regex-syntax",
+    "version": "0.7.5",
+    "source": "registry+https://github.com/rust-lang/crates.io-index",
+    "checksum": "dbb5fb1acd8a1a18b3dd5be62d25485eb770e05afb408a9627d14d451bae12da"
+  },
+  {
+    "name": "cargo_toml",
+    "version": "0.19.2",
+    "source": "registry+https://github.com/rust-lang/crates.io-index",
+    "checksum": "a98356df42a2eb1bd8f1793ae4ee4de48e384dd974ce5eac8eee802edb7492be",
+    "dependencies": [
+      "serde",
+      "toml 0.8.2"
+    ]
+  },
+  {
+    "name": "serde_spanned",
+    "version": "0.6.3",
+    "source": "registry+https://github.com/rust-lang/crates.io-index",
+    "checksum": "96426c9936fd7a0124915f9185ea1d20aa9445cc9821142f0a73bc9207a2e186",
+    "dependencies": [
+      "serde"
+    ]
+  },
+  {
+    "name": "toml",
+    "version": "0.8.2",
+    "source": "registry+https://github.com/rust-lang/crates.io-index",
+    "checksum": "185d8ab0dfbb35cf1399a6344d8484209c088f75f8f68230da55d48d95d43e3d",
+    "dependencies": [
+      "serde",
+      "serde_spanned",
+      "toml_datetime",
+      "toml_edit 0.20.2"
+    ]
+  },
+  {
+    "name": "toml_datetime",
+    "version": "0.6.5",
+    "source": "registry+https://github.com/rust-lang/crates.io-index",
+    "checksum": "3550f4e9685620ac18a50ed434eb3aec30db8ba93b0287467bca5826ea25baf1",
+    "dependencies": [
+      "serde"
+    ]
+  },
+  {
+    "name": "toml_edit",
+    "version": "0.20.2",
+    "source": "registry+https://github.com/rust-lang/crates.io-index",
+    "checksum": "396e4d48bbb2b7554c944bde63101b5ae446cff6ec4a24227428f15eb72ef338",
+    "dependencies": [
+      "indexmap 2.12.1",
+      "serde",
+      "serde_spanned",
+      "toml_datetime",
+      "winnow"
+    ]
+  },
+  {
+    "name": "winnow",
+    "version": "0.5.15",
+    "source": "registry+https://github.com/rust-lang/crates.io-index",
+    "checksum": "7c2e3184b9c4e92ad5167ca73039d0c42476302ab603e2fec4487511f38ccefc",
+    "dependencies": [
+      "memchr"
+    ]
+  }
+]

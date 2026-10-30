@@ -37,4 +37,4 @@ class Elf:
  def pattern(self,start,size):
   return [{'offset':at-start,**r} for at,r in sorted(self.relocations.items()) if start<=at<start+size]
  def callsites(self,start,size):return [{'offset':at-start,'target':target} for at,target in self.calls.items() if start<=at<start+size]
- def identity(self):return {'path':str(self.path.relative_to(REPO)),'sha256':hashlib.sha256(self.b).hexdigest(),'text_sha256':hashlib.sha256(self.b[self.lo:self.hi]).hexdigest()}
+ def identity(self):return {'path':self.path.relative_to(REPO).as_posix(),'sha256':hashlib.sha256(self.b).hexdigest(),'text_sha256':hashlib.sha256(self.b[self.lo:self.hi]).hexdigest()}

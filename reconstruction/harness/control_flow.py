@@ -7,9 +7,11 @@ import json
 import struct
 from pathlib import Path
 from score import sections, body
+from instruction_stream import require_instruction_range
 
 
 def analyze(raw, start=0):
+    # This decoder uses the legacy SBPFv0/v1 instruction layout.
     if start < 0 or start % 8 or not raw or len(raw) % 8:
         raise ValueError('function must have a nonempty, 8-byte aligned range')
     instructions = {}
@@ -87,9 +89,14 @@ def main(argv=None):
     try:
         blob = args.binary.read_bytes()
         secs = sections(blob)
+        version = struct.unpack_from('<I', blob, 0x30)[0]
+        if version not in (0, 1):
+            raise ValueError('control-flow decoding supports legacy SBPFv0/v1 ELF inputs only')
         text = secs['.text']
         if args.size <= 0 or args.start < text['addr'] or args.start + args.size > text['addr'] + text['size']:
             raise ValueError('requested range is outside .text')
+        text_bytes = body(blob, secs, text['addr'], text['size'])
+        require_instruction_range(text_bytes, args.start - text['addr'], args.size)
         raw = body(blob, secs, args.start, args.size)
         if len(raw) != args.size:
             raise ValueError('truncated function bytes')
@@ -99,8 +106,12 @@ def main(argv=None):
         parser.error(str(error))
     output = json.dumps(report, indent=2) + '\n'
     if args.json:
-        args.json.parent.mkdir(parents=True, exist_ok=True)
-        args.json.write_text(output, encoding='utf-8')
+        try:
+            args.json.parent.mkdir(parents=True, exist_ok=True)
+            with args.json.open('x', encoding='utf-8') as stream:
+                stream.write(output)
+        except OSError as error:
+            parser.error(f'cannot create diagnostic report: {error}')
     print(output, end='')
     return 1 if report['diagnostics'] else 0
 

@@ -144,7 +144,7 @@ pub(crate) fn control_entry(data: &[u8], mint: &Pubkey) -> Result<Option<u64>> {
 
     let header = data.get(..108).ok_or_else(|| error!(PumpError::InvalidQuoteControl))?;
     require!(header[..8] == *QuoteControl::DISCRIMINATOR, PumpError::InvalidQuoteControl);
-    let count = u32::from_le_bytes(data[104..108].try_into().unwrap()) as usize;
+    let count = u32::from_le_bytes(data[104..108].try_into().unwrap_or_default()) as usize;
 // layout-pad(10): aligns the next Source site with the original line
 
 
@@ -158,5 +158,5 @@ pub(crate) fn control_entry(data: &[u8], mint: &Pubkey) -> Result<Option<u64>> {
     let entries = data.get(108..QuoteControl::space(count)?).ok_or_else(|| error!(PumpError::InvalidQuoteControl))?;
     let entry = entries.chunks_exact(QuoteControlMint::INIT_SPACE)
         .find(|entry| entry[..32] == mint.to_bytes());
-    Ok(entry.map(|entry| u64::from_le_bytes(entry[32..40].try_into().unwrap())))
+    Ok(entry.map(|entry| u64::from_le_bytes(entry[32..40].try_into().unwrap_or_default())))
 }
