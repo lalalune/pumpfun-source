@@ -38,7 +38,9 @@ EXPECTED_CASES['legacy_cashback'] = 14
 def validate_two_curve(result, candidate_sha, original_sha):
     assert result['candidate_sha256'] == candidate_sha
     assert result['provenance']['repository_inputs']['evidence/original/pump/deployed.so'] == original_sha
-    assert result['inputs_unchanged']
+    assert result['inputs_unchanged'] is True
+    for key in ('case_count', 'original_successes', 'original_pump_cpi_cases', 'verified_outer_signatures'):
+        assert type(result[key]) is int, f'{key} must be an integer'
     assert result['case_count'] == len(result['cases']) == 20
     assert result['original_successes'] == 16 and result['original_pump_cpi_cases'] == 18
     assert result['verified_outer_signatures'] == 40
@@ -50,6 +52,7 @@ def retained_case_count(result):
     cases = result.get('cases')
     assert isinstance(cases, list), 'a retained cases array is required'
     count = result.get('case_count', len(cases))
+    assert type(count) is int, 'case_count must be an integer'
     assert count == len(cases), ('case_count differs from retained cases', count, len(cases))
     return count
 
@@ -74,9 +77,28 @@ def validate_quote_control(result, candidate, original):
     assert bound[bound_input_key(candidate, ROOT)] == sha(candidate)
     assert bound[bound_input_key(original, ROOT)] == sha(original)
     count = result['cases']
+    assert type(count) is int, 'cases must be an integer'
+    assert isinstance(result['results'], list), 'results must be a list'
     assert count == len(result['results'])
-    assert all(row['matches'] and not row['different_fields'] for row in result['results'])
+    assert result['compare_keys'] == list(QUOTE_CONTROL_COMPARE_KEYS), 'comparison fields differ'
+    identities = set()
+    for row in result['results']:
+        identity = row.get('case')
+        assert isinstance(identity, str) and identity, 'case identity missing'
+        assert identity not in identities, f'duplicate quote-control case: {identity}'
+        identities.add(identity)
+        assert row['matches'] is True and row['different_fields'] == []
+        assert all(isinstance(row.get(side), dict) for side in ('original', 'candidate'))
+        assert all(key in row['original'] and key in row['candidate'] and
+                   row['original'][key] == row['candidate'][key]
+                   for key in QUOTE_CONTROL_COMPARE_KEYS), f'{identity}: retained comparison contradicts success'
     return count
+
+
+QUOTE_CONTROL_COMPARE_KEYS = ('error', 'before_accounts', 'after_accounts', 'rollback',
+                             'event_payloads', 'inner_instructions', 'return_data',
+                             'transaction_base64', 'signature_verification', 'blockhash',
+                             'sigverify_enabled', 'blockhash_check_enabled')
 
 
 CASE_DIFFERENCE_FIELDS = ('different_fields', 'diff', 'differences', 'mismatched_fields')
@@ -138,6 +160,7 @@ def main():
             if name == 'quote_control':
                 count = validate_quote_control(result, candidate, original)
             elif name == 'multi_hop_curve_partial':
+                assert type(result['passed']) is type(result['case_count']) is int
                 assert result['candidate_sha256'] == candidate_sha
                 assert result['original_pump_sha256'] == original_sha
                 assert result['passed'] == result['case_count'] == 56
