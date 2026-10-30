@@ -1,0 +1,86 @@
+{
+ "lane": "w14a04-cto-hkclone",
+ "wave": 14,
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "bases": {
+  "23322b07c": {
+   "ratio": 0.62882,
+   "slots": 3287
+  },
+  "cef0574cf": {
+   "ratio": 0.63421,
+   "slots": 3178
+  }
+ },
+ "result": "notes only; no zero-loss gain. The hk-first local optimum is about 0.606 (23322b0) / 0.603 (cef0574).",
+ "best": {
+  "form": "hk1 + bumparr_top + pre_sk_first",
+  "ratio": 0.60609,
+  "bytes": 27344,
+  "main": "23322b0",
+  "landable": false
+ },
+ "measurements": {
+  "hk1_23322b0": {
+   "ratio": 0.56758,
+   "bytes": 27384,
+   "fm": 0.66197,
+   "rm": 0.85706
+  },
+  "hk1ba_23322b0": {
+   "ratio": 0.60563,
+   "bytes": 27384,
+   "fm": 0.70962,
+   "rm": 0.85496
+  },
+  "main_23322b0": {
+   "ratio": 0.62882,
+   "bytes": 27400,
+   "fm": 0.72049,
+   "rm": 0.84781
+  },
+  "hk1_cef0574": {
+   "ratio": 0.56458,
+   "bytes": 27384,
+   "fm": 0.65838,
+   "rm": 0.85526
+  },
+  "hk1ba_cef0574": {
+   "ratio": 0.60264,
+   "bytes": 27384,
+   "fm": 0.70602,
+   "rm": 0.85316
+  },
+  "main_cef0574": {
+   "ratio": 0.63421,
+   "bytes": 27400,
+   "fm": 0.72289,
+   "rm": 0.84661
+  }
+ },
+ "mechanism": [
+  "hk1 reproduces the original entry: GVN load-PRE of the bonding_curve pointer (reload only in the data_is_empty block, orig 0x258-0x278); rm +30 over main.",
+  "The 0x3000 bin collapse (fm 193 -> 51) is register naming only (rm 246 vs 248): under hk1 the sweep accounts pointer is r6 (orig and main r8), because r6 is free across the sweep; the original holds a reloaded holder in r6 at the sweep gate (0x1d30), bump r7, native r9.",
+  "The clone-run account access order is identical in orig, main and hk1ba."
+ ],
+ "rejected": [
+  "segscan 228 clone field-segment moves on hk1 / hk1ba: best +0.0003",
+  "144 single catalog genes on hk1ba: best 0.60609",
+  "44 random gene pairs on hk1ba: best 0.60579",
+  "hk6 / hk7 / hk9 hk spellings, sk bound in shared",
+  "CtoState curve bools before global_quote (orig 0x280 order): main 0.58231, hk1ba 0.5439",
+  "h2 holder phi with hk1 / hk1ba: 0.455-0.461",
+  "IR inline-asm r6 clobber probe across the sweep: too invasive (0.47247)",
+  "&new liveness forms (nw1 Some(new), nw2 validate args.0, nw3 args after sk) on cef0574: hk1ba+nw3 0.60399 best; &new still spilled, accounts stays r6"
+ ],
+ "unresolved": [
+  "entry register assignment: original stack-args r6, &new r7, accounts r8, curve r9; ours accounts r6 in every build",
+  "sweep accounts-pointer register under hk1 (r6 vs r8)"
+ ],
+ "next_ideas": [
+  "an entry form that makes the original's register assignment (stack-args r6, &new r7, accounts r8, curve r9): simple &new liveness forms (nw1-nw3) do not; the accounts pointer would then inherit r8 in the sweep under hk1",
+  "a holder value reloaded at the sweep gate (orig r6 at 0x1d30) without the h2 phi, combined with hk1"
+ ],
+ "ledger_keys": "0x22a10-w14-23322b0-hkclone-*-v1",
+ "landed": false
+}
