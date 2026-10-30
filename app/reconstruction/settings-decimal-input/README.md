@@ -17,3 +17,5 @@ PUMP_SETTINGS_DECIMAL_OUTPUT=/your/isolated/output node --test tests/original_se
 ```
 
 Only synthetic numeric props and callback state are used. Diagnostic browser CSS and read-only host labels do not establish original pixels, preference effects, native/global Settings integration, provider/API/full-app compatibility or security/completion acceptance. No actual cookies/storage/sessions/credentials/user/account data or live service request is involved. Original materials retain their authorship.
+
+Frozen qualification at `42a80f9e0a79fb3e721654277f1bf8ede0101423` passes seven domain/SSR plus eleven shared-source tests, one actual React/Chromium two-width workflow, three workspace typechecks, 698 capture/npm/SDK checks and nine progress tests. Each width has exactly one expected synthetic callback denial, zero unexpected errors and no overflow. [Sealed receipts](validation/README.md) bind 15 selected executed inputs and preserve the initial sparse-evidence setup failure separately. Packet verification passes normally and under Python `-O`; no descriptor/provider/native or full-app claim follows.

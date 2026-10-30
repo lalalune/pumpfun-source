@@ -1,0 +1,200 @@
+{
+  "schema": 1,
+  "testedHead": "42a80f9e0a79fb3e721654277f1bf8ede0101423",
+  "testedTree": "f9bf2241229d22e12e1ba626a2f23848504f377b",
+  "reviewBase": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Complete original decimal draft React input with exact local dependencies and actual dispatcher props boundary; supplied synthetic values/callback only.",
+  "inputs": {
+    "evidence/web/manifest.json": {
+      "bytes": 3026513,
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda"
+    },
+    "evidence/web/objects/4490d02ba2117672.js": {
+      "bytes": 52381,
+      "sha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "gitBlob": "464a645f3fc99db61ab4cdab0395471031bc1715"
+    },
+    "package.json": {
+      "bytes": 3703,
+      "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+      "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8"
+    },
+    "packages/backend/package.json": {
+      "bytes": 463,
+      "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b"
+    },
+    "packages/frontend/package.json": {
+      "bytes": 1048,
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0"
+    },
+    "pnpm-lock.yaml": {
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+    },
+    "reconstruction/settings-decimal-input/client.mjs": {
+      "bytes": 2991,
+      "sha256": "4ad26c92be8f310ad3b21d3910ac5dca770c0d1b9803efb86aaf5878bd9b2913",
+      "gitBlob": "59167bc907d4340d978fdf529af993835b731bba"
+    },
+    "reconstruction/settings-decimal-input/contract.json": {
+      "bytes": 7219,
+      "sha256": "17f8a5e6c8d4ca392fa7df42880868e3da65505e108c72265dde57915595861c",
+      "gitBlob": "c17ede42d84ba1baef3d5301fb55147d3a2a81b8"
+    },
+    "recovered/modules.json": {
+      "bytes": 2928853,
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+      "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f"
+    },
+    "scripts/original-contracts/source.mjs": {
+      "bytes": 9493,
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+      "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df"
+    },
+    "scripts/original-settings-decimal-input.mjs": {
+      "bytes": 8550,
+      "sha256": "3ef5684e9acaabe8b99884621dab7b43d44bb72cd0be897d865b33a850ef3296",
+      "gitBlob": "b753671e95db110629576a496bdba22bccedec85"
+    },
+    "tests/fixtures/settings-decimal-input-browser.mjs": {
+      "bytes": 2344,
+      "sha256": "5dd659f422bdd51f31238231b5f0c2c144c863f602ab1d0113b32056ec7fd49b",
+      "gitBlob": "0739fea6824bc3549e04178dfab9f57f8fc49cc7"
+    },
+    "tests/original_settings_decimal_input.test.mjs": {
+      "bytes": 4083,
+      "sha256": "4fe8a5d2717d856eae341c765e27e3e79b7845c266b53cfb6da7c2c2ab63f9ff",
+      "gitBlob": "2231346debaaf7ed9270bda8e50b1411f15e603a"
+    },
+    "tests/original_settings_decimal_input_browser.test.mjs": {
+      "bytes": 11540,
+      "sha256": "033a4e5c9bd877930b4ebd4046f638c558d01e55d56ea404fa6c020169c3c1ff",
+      "gitBlob": "1cf2bbd9e371e11e2d8fbd785a78cf3183f08c2f"
+    },
+    "tests/original_source.test.mjs": {
+      "bytes": 7401,
+      "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3",
+      "gitBlob": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+    }
+  },
+  "inputScope": "15 selected source/generator/SSR/browser/fixture/shared-reader/capture/index/manifest/package inputs, not exhaustive installed dependencies/cold/whole-app identity.",
+  "checks": {
+    "head": "42a80f9e0a79fb3e721654277f1bf8ede0101423",
+    "cwd": "/workspace/pump-app-leaderboard-navigation/app",
+    "results": [
+      {
+        "name": "source-final",
+        "argv": [
+          "node",
+          "scripts/original-settings-decimal-input.mjs"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.317717117985012
+      },
+      {
+        "name": "focused-final",
+        "argv": [
+          "node",
+          "--test",
+          "--test-reporter=tap",
+          "tests/original_settings_decimal_input.test.mjs",
+          "tests/original_source.test.mjs"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.42195461998926476
+      },
+      {
+        "name": "typecheck",
+        "argv": [
+          "node",
+          "/home/agent/.cache/node/corepack/v1/pnpm/10.24.0/bin/pnpm.cjs",
+          "-r",
+          "typecheck"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 4.933216667006491
+      },
+      {
+        "name": "evidence",
+        "argv": [
+          "python3",
+          "scripts/verify-evidence.py"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.21771324999281205
+      },
+      {
+        "name": "progress",
+        "argv": [
+          "python3",
+          "scripts/progress.py",
+          "--check"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.13857669298886321
+      },
+      {
+        "name": "progress-tests",
+        "argv": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_progress.py"
+        ],
+        "returncode": 0,
+        "elapsedSeconds": 0.7808093540079426
+      }
+    ]
+  },
+  "browser": {
+    "argv": [
+      "node",
+      "--test",
+      "--test-reporter=tap",
+      "tests/original_settings_decimal_input_browser.test.mjs"
+    ],
+    "cwd": "app/",
+    "outputEnvironment": "PUMP_SETTINGS_DECIMAL_OUTPUT=<owned-output>",
+    "returncode": 0,
+    "workflows": 1,
+    "widths": [
+      390,
+      1280
+    ],
+    "expectedErrorsPerWidth": [
+      "SYNTHETIC numeric commit denial"
+    ],
+    "unexpectedErrors": 0,
+    "overflow": false
+  },
+  "browserBundleSha256": "1dc5becfc1290104609a6925af0250634d039c91e7e402160f13244f285e90aa",
+  "versions": {
+    "node": "24.19.0",
+    "pnpm": "10.24.0",
+    "react": "19.2.3",
+    "playwright": "1.64.1",
+    "chromiumBuild": 1248,
+    "esbuild": "0.25.12",
+    "browserLocale": "en-US"
+  },
+  "sourceAndMethod": "Seven source/method/docs files frozen42a80f9e before first browser and final six checks. Publication adds result text and sealed receipts only;15 selected runtime/method inputs unchanged.",
+  "priorPhases": [
+    "Initial source CLI in newly switched sparse branch failed ENOENT for missing app/evidence; retained setup log.698 immutable capture hardlinks then materialized, source CLI passed without recovered source change. No pre-freeze Git/bundle binding inferred.",
+    "Three omitted unchanged progress reference files materialized from exactHEAD before checks; no ledger/scorer change."
+  ],
+  "cleanup": "Actual browser/GET-only ephemeral loopback host closed and temporary bundle removed in finally; process0 and PRIMARY explicitly released. No Next or actual cookies/storage/sessions acquired.",
+  "limits": [
+    "Synthetic supplied numeric props and onCommit callback only; no actual settings descriptor/value/persistence/provider/account/trading/admin acquisition or preference mutation. Existing1872 dispatcher,1839 state and1920 Row external, not copied or imported from unmerged work.",
+    "Real native typing/focus/blur observations plus synthetic parent controls, not original provider/store response. Callback denial is expected synthetic error, no inferred original persistence failure.",
+    "Original decimal grammar,12code-unit limit,rawfinite-positive/minclamp/draft/blur/step-as-attribute preserved; no precision/rounding/max/sanitization/increment policy added.",
+    "Diagnostic CSS/probe effects/screenshots do not establish original pixels/native/globalSettings/API/full-app/security/completion parity. Original captures parsed only, never executed."
+  ]
+}

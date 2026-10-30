@@ -1,0 +1,72 @@
+{
+  "head": "42a80f9e0a79fb3e721654277f1bf8ede0101423",
+  "cwd": "/workspace/pump-app-leaderboard-navigation/app",
+  "results": [
+    {
+      "name": "source-final",
+      "argv": [
+        "node",
+        "scripts/original-settings-decimal-input.mjs"
+      ],
+      "returncode": 0,
+      "elapsedSeconds": 0.317717117985012
+    },
+    {
+      "name": "focused-final",
+      "argv": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "tests/original_settings_decimal_input.test.mjs",
+        "tests/original_source.test.mjs"
+      ],
+      "returncode": 0,
+      "elapsedSeconds": 0.42195461998926476
+    },
+    {
+      "name": "typecheck",
+      "argv": [
+        "node",
+        "/home/agent/.cache/node/corepack/v1/pnpm/10.24.0/bin/pnpm.cjs",
+        "-r",
+        "typecheck"
+      ],
+      "returncode": 0,
+      "elapsedSeconds": 4.933216667006491
+    },
+    {
+      "name": "evidence",
+      "argv": [
+        "python3",
+        "scripts/verify-evidence.py"
+      ],
+      "returncode": 0,
+      "elapsedSeconds": 0.21771324999281205
+    },
+    {
+      "name": "progress",
+      "argv": [
+        "python3",
+        "scripts/progress.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "elapsedSeconds": 0.13857669298886321
+    },
+    {
+      "name": "progress-tests",
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_progress.py"
+      ],
+      "returncode": 0,
+      "elapsedSeconds": 0.7808093540079426
+    }
+  ]
+}

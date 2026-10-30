@@ -1,0 +1,631 @@
+{
+  "syntheticOnly": true,
+  "bundleSha256": "1dc5becfc1290104609a6925af0250634d039c91e7e402160f13244f285e90aa",
+  "bundleBytes": 1088700,
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    },
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    }
+  ],
+  "results": [
+    {
+      "width": 390,
+      "initial": {
+        "state": {
+          "value": 5,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": false,
+          "present": true,
+          "reject": false
+        },
+        "commits": [],
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": []
+      },
+      "clampedDraft": {
+        "state": {
+          "value": 2.5,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": false,
+          "present": true,
+          "reject": false
+        },
+        "commits": [
+          {
+            "value": 2.5,
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": []
+      },
+      "parentUpdated": {
+        "state": {
+          "value": 9,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": false,
+          "present": true,
+          "reject": false
+        },
+        "commits": [
+          {
+            "value": 2.5,
+            "accepted": true
+          },
+          {
+            "value": 3.25,
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": []
+      },
+      "maximumDraft": {
+        "state": {
+          "value": 123456789012,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": false,
+          "present": true,
+          "reject": false
+        },
+        "commits": [
+          {
+            "value": 2.5,
+            "accepted": true
+          },
+          {
+            "value": 3.25,
+            "accepted": true
+          },
+          {
+            "value": 4,
+            "accepted": true
+          },
+          {
+            "value": 123456789012,
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": []
+      },
+      "disabled": {
+        "state": {
+          "value": 8,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": true,
+          "present": true,
+          "reject": false
+        },
+        "commits": [
+          {
+            "value": 2.5,
+            "accepted": true
+          },
+          {
+            "value": 3.25,
+            "accepted": true
+          },
+          {
+            "value": 4,
+            "accepted": true
+          },
+          {
+            "value": 123456789012,
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": []
+      },
+      "denied": {
+        "state": {
+          "value": 8,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": false,
+          "present": true,
+          "reject": true
+        },
+        "commits": [
+          {
+            "value": 2.5,
+            "accepted": true
+          },
+          {
+            "value": 3.25,
+            "accepted": true
+          },
+          {
+            "value": 4,
+            "accepted": true
+          },
+          {
+            "value": 123456789012,
+            "accepted": true
+          },
+          {
+            "value": 6.25,
+            "accepted": false
+          }
+        ],
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": []
+      },
+      "retried": {
+        "state": {
+          "value": 7.75,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": false,
+          "present": true,
+          "reject": false
+        },
+        "commits": [
+          {
+            "value": 2.5,
+            "accepted": true
+          },
+          {
+            "value": 3.25,
+            "accepted": true
+          },
+          {
+            "value": 4,
+            "accepted": true
+          },
+          {
+            "value": 123456789012,
+            "accepted": true
+          },
+          {
+            "value": 6.25,
+            "accepted": false
+          },
+          {
+            "value": 7.75,
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": []
+      },
+      "remounted": {
+        "state": {
+          "value": 18,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": false,
+          "present": true,
+          "reject": false
+        },
+        "commits": [
+          {
+            "value": 2.5,
+            "accepted": true
+          },
+          {
+            "value": 3.25,
+            "accepted": true
+          },
+          {
+            "value": 4,
+            "accepted": true
+          },
+          {
+            "value": 123456789012,
+            "accepted": true
+          },
+          {
+            "value": 6.25,
+            "accepted": false
+          },
+          {
+            "value": 7.75,
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          "_r_0_",
+          "_r_1_"
+        ],
+        "unmounts": [
+          "_r_0_"
+        ]
+      },
+      "unmounted": {
+        "state": {
+          "value": 18,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": false,
+          "present": true,
+          "reject": false
+        },
+        "commits": [
+          {
+            "value": 2.5,
+            "accepted": true
+          },
+          {
+            "value": 3.25,
+            "accepted": true
+          },
+          {
+            "value": 4,
+            "accepted": true
+          },
+          {
+            "value": 123456789012,
+            "accepted": true
+          },
+          {
+            "value": 6.25,
+            "accepted": false
+          },
+          {
+            "value": 7.75,
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          "_r_0_",
+          "_r_1_"
+        ],
+        "unmounts": [
+          "_r_0_",
+          "_r_1_"
+        ]
+      },
+      "expectedErrors": [
+        "SYNTHETIC numeric commit denial"
+      ],
+      "unexpectedErrors": [],
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "initial": {
+        "state": {
+          "value": 5,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": false,
+          "present": true,
+          "reject": false
+        },
+        "commits": [],
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": []
+      },
+      "clampedDraft": {
+        "state": {
+          "value": 2.5,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": false,
+          "present": true,
+          "reject": false
+        },
+        "commits": [
+          {
+            "value": 2.5,
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": []
+      },
+      "parentUpdated": {
+        "state": {
+          "value": 9,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": false,
+          "present": true,
+          "reject": false
+        },
+        "commits": [
+          {
+            "value": 2.5,
+            "accepted": true
+          },
+          {
+            "value": 3.25,
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": []
+      },
+      "maximumDraft": {
+        "state": {
+          "value": 123456789012,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": false,
+          "present": true,
+          "reject": false
+        },
+        "commits": [
+          {
+            "value": 2.5,
+            "accepted": true
+          },
+          {
+            "value": 3.25,
+            "accepted": true
+          },
+          {
+            "value": 4,
+            "accepted": true
+          },
+          {
+            "value": 123456789012,
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": []
+      },
+      "disabled": {
+        "state": {
+          "value": 8,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": true,
+          "present": true,
+          "reject": false
+        },
+        "commits": [
+          {
+            "value": 2.5,
+            "accepted": true
+          },
+          {
+            "value": 3.25,
+            "accepted": true
+          },
+          {
+            "value": 4,
+            "accepted": true
+          },
+          {
+            "value": 123456789012,
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": []
+      },
+      "denied": {
+        "state": {
+          "value": 8,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": false,
+          "present": true,
+          "reject": true
+        },
+        "commits": [
+          {
+            "value": 2.5,
+            "accepted": true
+          },
+          {
+            "value": 3.25,
+            "accepted": true
+          },
+          {
+            "value": 4,
+            "accepted": true
+          },
+          {
+            "value": 123456789012,
+            "accepted": true
+          },
+          {
+            "value": 6.25,
+            "accepted": false
+          }
+        ],
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": []
+      },
+      "retried": {
+        "state": {
+          "value": 7.75,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": false,
+          "present": true,
+          "reject": false
+        },
+        "commits": [
+          {
+            "value": 2.5,
+            "accepted": true
+          },
+          {
+            "value": 3.25,
+            "accepted": true
+          },
+          {
+            "value": 4,
+            "accepted": true
+          },
+          {
+            "value": 123456789012,
+            "accepted": true
+          },
+          {
+            "value": 6.25,
+            "accepted": false
+          },
+          {
+            "value": 7.75,
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          "_r_0_"
+        ],
+        "unmounts": []
+      },
+      "remounted": {
+        "state": {
+          "value": 18,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": false,
+          "present": true,
+          "reject": false
+        },
+        "commits": [
+          {
+            "value": 2.5,
+            "accepted": true
+          },
+          {
+            "value": 3.25,
+            "accepted": true
+          },
+          {
+            "value": 4,
+            "accepted": true
+          },
+          {
+            "value": 123456789012,
+            "accepted": true
+          },
+          {
+            "value": 6.25,
+            "accepted": false
+          },
+          {
+            "value": 7.75,
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          "_r_0_",
+          "_r_1_"
+        ],
+        "unmounts": [
+          "_r_0_"
+        ]
+      },
+      "unmounted": {
+        "state": {
+          "value": 18,
+          "min": 2.5,
+          "step": 0.25,
+          "unit": "units",
+          "isDisabled": false,
+          "present": true,
+          "reject": false
+        },
+        "commits": [
+          {
+            "value": 2.5,
+            "accepted": true
+          },
+          {
+            "value": 3.25,
+            "accepted": true
+          },
+          {
+            "value": 4,
+            "accepted": true
+          },
+          {
+            "value": 123456789012,
+            "accepted": true
+          },
+          {
+            "value": 6.25,
+            "accepted": false
+          },
+          {
+            "value": 7.75,
+            "accepted": true
+          }
+        ],
+        "mounts": [
+          "_r_0_",
+          "_r_1_"
+        ],
+        "unmounts": [
+          "_r_0_",
+          "_r_1_"
+        ]
+      },
+      "expectedErrors": [
+        "SYNTHETIC numeric commit denial"
+      ],
+      "unexpectedErrors": [],
+      "overflow": false
+    }
+  ]
+}
