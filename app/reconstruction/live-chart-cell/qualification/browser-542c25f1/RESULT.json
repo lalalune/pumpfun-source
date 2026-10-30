@@ -1,0 +1,1701 @@
+{
+  "sourceHead": "542c25f198a94f24f3817b3162e43c31e0f6bd0e",
+  "scope": "One real React/compiler/nativeIO story; query snapshots/age helpers/eligibility/OHLC/lazy namespace/library primitives/palette are authored synthetic ports. No original services/library/provider/financial/API/application or visual result.",
+  "runtime": {
+    "node": "v24.19.0",
+    "react": "19.2.3",
+    "esbuild": "0.25.12",
+    "playwright": "1.64.1"
+  },
+  "controller": {
+    "path": "reconstruction/live-chart-cell/browser.mjs",
+    "sha256": "6356f903953ebd1c6be9154524370f43555821f83cb78ef3f1a628c54d57c996"
+  },
+  "proofSha256": "5a21c816ac1fd9a0739063cbec89441d20a63964c2220a0098bb05648e3dad64",
+  "inputs": [
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-jsx-runtime.development.js",
+      "bytes": 12452,
+      "sha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/jsx-runtime.js",
+      "bytes": 210,
+      "sha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+    },
+    {
+      "path": "reconstruction/live-chart-cell/client.mjs",
+      "bytes": 44825,
+      "sha256": "d54d304a6d62282269d57d4db4923559fcec1480318df7a90835ef15a8e49ffa"
+    },
+    {
+      "path": "reconstruction/live-chart-cell/fixture.mjs",
+      "bytes": 5761,
+      "sha256": "9020580867ce0943afc5b1c3e31d757bb532a7c681e8626194a54d6a9b2c806c"
+    }
+  ],
+  "bundleSha256": "5af867f5df9c127a97075474569df1f70c92a1b2c828dccde536c25dcbd919c8",
+  "observations": [
+    {
+      "name": "actual main ChartCell stays pending offscreen after client readiness; native320px IO owns admission",
+      "state": {
+        "commits": 1,
+        "querySubscriptions": 0,
+        "hostSubscriptions": 1,
+        "events": [
+          {
+            "type": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  708937
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "type": "library-constructor",
+            "chartName": "AreaChart",
+            "axisTypes": [
+              "xAxis",
+              "yAxis"
+            ]
+          },
+          {
+            "type": "observer-create",
+            "rootMargin": "320px 0px"
+          },
+          {
+            "type": "intersection",
+            "any": false
+          }
+        ],
+        "observers": [
+          {
+            "active": true,
+            "rootMargin": "320px 0px"
+          }
+        ],
+        "active": 1,
+        "options": null,
+        "area": null,
+        "chartCommits": 0,
+        "queryCommits": 0,
+        "lazyCalls": 0
+      }
+    },
+    {
+      "name": "native intersection permanently admits query owner and actual loading frame with exact cache/retry descriptor",
+      "state": {
+        "commits": 1,
+        "querySubscriptions": 1,
+        "hostSubscriptions": 1,
+        "events": [
+          {
+            "type": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  708937
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "type": "library-constructor",
+            "chartName": "AreaChart",
+            "axisTypes": [
+              "xAxis",
+              "yAxis"
+            ]
+          },
+          {
+            "type": "observer-create",
+            "rootMargin": "320px 0px"
+          },
+          {
+            "type": "intersection",
+            "any": false
+          },
+          {
+            "type": "intersection",
+            "any": true
+          },
+          {
+            "type": "observer-disconnect"
+          },
+          {
+            "type": "helper-young",
+            "timestamp": 42,
+            "delivered": true
+          },
+          {
+            "type": "helper-line",
+            "timestamp": 42
+          },
+          {
+            "type": "helper-candle",
+            "timestamp": 42
+          },
+          {
+            "type": "eligibility",
+            "input": {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "chainId": "synthetic-chain"
+            }
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "observer-disconnect"
+          }
+        ],
+        "observers": [
+          {
+            "active": false,
+            "rootMargin": "320px 0px"
+          }
+        ],
+        "active": 0,
+        "options": {
+          "queryKey": [
+            "synthetic-candle-key",
+            {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "interval": "15s",
+              "limit": 65
+            },
+            "sparklineCandlesticks",
+            "synthetic-chain"
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "gcTime": 600000,
+          "retry": 1,
+          "retryDelay": 2000
+        },
+        "optionIdentity": false,
+        "area": null,
+        "chartCommits": 0,
+        "queryCommits": 1,
+        "lazyCalls": 0
+      }
+    },
+    {
+      "name": "query error selects actual empty/error dash before any lazy chart capability loads",
+      "state": {
+        "commits": 1,
+        "querySubscriptions": 1,
+        "hostSubscriptions": 1,
+        "events": [
+          {
+            "type": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  708937
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "type": "library-constructor",
+            "chartName": "AreaChart",
+            "axisTypes": [
+              "xAxis",
+              "yAxis"
+            ]
+          },
+          {
+            "type": "observer-create",
+            "rootMargin": "320px 0px"
+          },
+          {
+            "type": "intersection",
+            "any": false
+          },
+          {
+            "type": "intersection",
+            "any": true
+          },
+          {
+            "type": "observer-disconnect"
+          },
+          {
+            "type": "helper-young",
+            "timestamp": 42,
+            "delivered": true
+          },
+          {
+            "type": "helper-line",
+            "timestamp": 42
+          },
+          {
+            "type": "helper-candle",
+            "timestamp": 42
+          },
+          {
+            "type": "eligibility",
+            "input": {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "chainId": "synthetic-chain"
+            }
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "observer-disconnect"
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          }
+        ],
+        "observers": [
+          {
+            "active": false,
+            "rootMargin": "320px 0px"
+          }
+        ],
+        "active": 0,
+        "options": {
+          "queryKey": [
+            "synthetic-candle-key",
+            {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "interval": "15s",
+              "limit": 65
+            },
+            "sparklineCandlesticks",
+            "synthetic-chain"
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "gcTime": 600000,
+          "retry": 1,
+          "retryDelay": 2000
+        },
+        "optionIdentity": true,
+        "area": null,
+        "chartCommits": 0,
+        "queryCommits": 2,
+        "lazyCalls": 0
+      }
+    },
+    {
+      "name": "exact lazy namespace callback reaches source48memo bridge and passes raw first-open/last-close/domain/gradient props to synthetic chart library",
+      "state": {
+        "commits": 1,
+        "querySubscriptions": 1,
+        "hostSubscriptions": 1,
+        "events": [
+          {
+            "type": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  708937
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "type": "library-constructor",
+            "chartName": "AreaChart",
+            "axisTypes": [
+              "xAxis",
+              "yAxis"
+            ]
+          },
+          {
+            "type": "observer-create",
+            "rootMargin": "320px 0px"
+          },
+          {
+            "type": "intersection",
+            "any": false
+          },
+          {
+            "type": "intersection",
+            "any": true
+          },
+          {
+            "type": "observer-disconnect"
+          },
+          {
+            "type": "helper-young",
+            "timestamp": 42,
+            "delivered": true
+          },
+          {
+            "type": "helper-line",
+            "timestamp": 42
+          },
+          {
+            "type": "helper-candle",
+            "timestamp": 42
+          },
+          {
+            "type": "eligibility",
+            "input": {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "chainId": "synthetic-chain"
+            }
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "observer-disconnect"
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "load-namespace",
+            "id": 179843
+          }
+        ],
+        "observers": [
+          {
+            "active": false,
+            "rootMargin": "320px 0px"
+          }
+        ],
+        "active": 0,
+        "options": {
+          "queryKey": [
+            "synthetic-candle-key",
+            {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "interval": "15s",
+              "limit": 65
+            },
+            "sparklineCandlesticks",
+            "synthetic-chain"
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "gcTime": 600000,
+          "retry": 1,
+          "retryDelay": 2000
+        },
+        "optionIdentity": true,
+        "chartData": [
+          {
+            "timestamp": 100,
+            "price": 2
+          },
+          {
+            "timestamp": 101,
+            "price": 6
+          }
+        ],
+        "axis": {
+          "domain": [
+            1.8,
+            6.2
+          ],
+          "hide": true
+        },
+        "area": {
+          "stroke": "synthetic-positive",
+          "strokeWidth": 1.5,
+          "fill": "url(#_r_0_)",
+          "isAnimationActive": false,
+          "type": "linear"
+        },
+        "chartCommits": 1,
+        "queryCommits": 3,
+        "lazyCalls": 1,
+        "latestDeliveredFirstOpen": 2
+      }
+    },
+    {
+      "name": "real Reactmemo comparator suppresses display for same length/last.close despite new first.open and other fields",
+      "state": {
+        "commits": 1,
+        "querySubscriptions": 1,
+        "hostSubscriptions": 1,
+        "events": [
+          {
+            "type": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  708937
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "type": "library-constructor",
+            "chartName": "AreaChart",
+            "axisTypes": [
+              "xAxis",
+              "yAxis"
+            ]
+          },
+          {
+            "type": "observer-create",
+            "rootMargin": "320px 0px"
+          },
+          {
+            "type": "intersection",
+            "any": false
+          },
+          {
+            "type": "intersection",
+            "any": true
+          },
+          {
+            "type": "observer-disconnect"
+          },
+          {
+            "type": "helper-young",
+            "timestamp": 42,
+            "delivered": true
+          },
+          {
+            "type": "helper-line",
+            "timestamp": 42
+          },
+          {
+            "type": "helper-candle",
+            "timestamp": 42
+          },
+          {
+            "type": "eligibility",
+            "input": {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "chainId": "synthetic-chain"
+            }
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "observer-disconnect"
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "load-namespace",
+            "id": 179843
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          }
+        ],
+        "observers": [
+          {
+            "active": false,
+            "rootMargin": "320px 0px"
+          }
+        ],
+        "active": 0,
+        "options": {
+          "queryKey": [
+            "synthetic-candle-key",
+            {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "interval": "15s",
+              "limit": 65
+            },
+            "sparklineCandlesticks",
+            "synthetic-chain"
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "gcTime": 600000,
+          "retry": 1,
+          "retryDelay": 2000
+        },
+        "optionIdentity": true,
+        "chartData": [
+          {
+            "timestamp": 100,
+            "price": 2
+          },
+          {
+            "timestamp": 101,
+            "price": 6
+          }
+        ],
+        "axis": {
+          "domain": [
+            1.8,
+            6.2
+          ],
+          "hide": true
+        },
+        "area": {
+          "stroke": "synthetic-positive",
+          "strokeWidth": 1.5,
+          "fill": "url(#_r_0_)",
+          "isAnimationActive": false,
+          "type": "linear"
+        },
+        "chartCommits": 1,
+        "queryCommits": 4,
+        "lazyCalls": 1,
+        "latestDeliveredFirstOpen": 9
+      }
+    },
+    {
+      "name": "changed last.close triggers source display/bridge recomputation with new first-open and domain values",
+      "state": {
+        "commits": 1,
+        "querySubscriptions": 1,
+        "hostSubscriptions": 1,
+        "events": [
+          {
+            "type": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  708937
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "type": "library-constructor",
+            "chartName": "AreaChart",
+            "axisTypes": [
+              "xAxis",
+              "yAxis"
+            ]
+          },
+          {
+            "type": "observer-create",
+            "rootMargin": "320px 0px"
+          },
+          {
+            "type": "intersection",
+            "any": false
+          },
+          {
+            "type": "intersection",
+            "any": true
+          },
+          {
+            "type": "observer-disconnect"
+          },
+          {
+            "type": "helper-young",
+            "timestamp": 42,
+            "delivered": true
+          },
+          {
+            "type": "helper-line",
+            "timestamp": 42
+          },
+          {
+            "type": "helper-candle",
+            "timestamp": 42
+          },
+          {
+            "type": "eligibility",
+            "input": {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "chainId": "synthetic-chain"
+            }
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "observer-disconnect"
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "load-namespace",
+            "id": 179843
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          }
+        ],
+        "observers": [
+          {
+            "active": false,
+            "rootMargin": "320px 0px"
+          }
+        ],
+        "active": 0,
+        "options": {
+          "queryKey": [
+            "synthetic-candle-key",
+            {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "interval": "15s",
+              "limit": 65
+            },
+            "sparklineCandlesticks",
+            "synthetic-chain"
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "gcTime": 600000,
+          "retry": 1,
+          "retryDelay": 2000
+        },
+        "optionIdentity": true,
+        "chartData": [
+          {
+            "timestamp": 100,
+            "price": 9
+          },
+          {
+            "timestamp": 101,
+            "price": 7
+          }
+        ],
+        "axis": {
+          "domain": [
+            6.9,
+            9.1
+          ],
+          "hide": true
+        },
+        "area": {
+          "stroke": "synthetic-positive",
+          "strokeWidth": 1.5,
+          "fill": "url(#_r_0_)",
+          "isAnimationActive": false,
+          "type": "linear"
+        },
+        "chartCommits": 2,
+        "queryCommits": 5,
+        "lazyCalls": 1,
+        "latestDeliveredFirstOpen": 9
+      }
+    },
+    {
+      "name": "unchanged timestamp keeps memoized helper-derived key; actual query function delegates exactu arguments to separately supplied OHLC result port",
+      "state": {
+        "commits": 1,
+        "querySubscriptions": 1,
+        "hostSubscriptions": 1,
+        "events": [
+          {
+            "type": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  708937
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "type": "library-constructor",
+            "chartName": "AreaChart",
+            "axisTypes": [
+              "xAxis",
+              "yAxis"
+            ]
+          },
+          {
+            "type": "observer-create",
+            "rootMargin": "320px 0px"
+          },
+          {
+            "type": "intersection",
+            "any": false
+          },
+          {
+            "type": "intersection",
+            "any": true
+          },
+          {
+            "type": "observer-disconnect"
+          },
+          {
+            "type": "helper-young",
+            "timestamp": 42,
+            "delivered": true
+          },
+          {
+            "type": "helper-line",
+            "timestamp": 42
+          },
+          {
+            "type": "helper-candle",
+            "timestamp": 42
+          },
+          {
+            "type": "eligibility",
+            "input": {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "chainId": "synthetic-chain"
+            }
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "observer-disconnect"
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "load-namespace",
+            "id": 179843
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "u-reader",
+            "input": {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "chainId": "synthetic-chain",
+              "timeframe": "6h",
+              "width": 68
+            },
+            "helperDelivery": false
+          }
+        ],
+        "observers": [
+          {
+            "active": false,
+            "rootMargin": "320px 0px"
+          }
+        ],
+        "active": 0,
+        "options": {
+          "queryKey": [
+            "synthetic-candle-key",
+            {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "interval": "15s",
+              "limit": 65
+            },
+            "sparklineCandlesticks",
+            "synthetic-chain"
+          ],
+          "enabled": true,
+          "staleTime": 15000,
+          "gcTime": 600000,
+          "retry": 1,
+          "retryDelay": 2000
+        },
+        "optionIdentity": true,
+        "chartData": [
+          {
+            "timestamp": 100,
+            "price": 9
+          },
+          {
+            "timestamp": 101,
+            "price": 7
+          }
+        ],
+        "axis": {
+          "domain": [
+            6.9,
+            9.1
+          ],
+          "hide": true
+        },
+        "area": {
+          "stroke": "synthetic-positive",
+          "strokeWidth": 1.5,
+          "fill": "url(#_r_0_)",
+          "isAnimationActive": false,
+          "type": "linear"
+        },
+        "chartCommits": 2,
+        "queryCommits": 6,
+        "lazyCalls": 1,
+        "latestDeliveredFirstOpen": 9
+      }
+    },
+    {
+      "name": "seen admission persists offscreen across coin change; new timestamp recomputes supplied helper delivery and sourcequery descriptor",
+      "state": {
+        "commits": 2,
+        "querySubscriptions": 1,
+        "hostSubscriptions": 1,
+        "events": [
+          {
+            "type": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  708937
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "type": "library-constructor",
+            "chartName": "AreaChart",
+            "axisTypes": [
+              "xAxis",
+              "yAxis"
+            ]
+          },
+          {
+            "type": "observer-create",
+            "rootMargin": "320px 0px"
+          },
+          {
+            "type": "intersection",
+            "any": false
+          },
+          {
+            "type": "intersection",
+            "any": true
+          },
+          {
+            "type": "observer-disconnect"
+          },
+          {
+            "type": "helper-young",
+            "timestamp": 42,
+            "delivered": true
+          },
+          {
+            "type": "helper-line",
+            "timestamp": 42
+          },
+          {
+            "type": "helper-candle",
+            "timestamp": 42
+          },
+          {
+            "type": "eligibility",
+            "input": {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "chainId": "synthetic-chain"
+            }
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "observer-disconnect"
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "load-namespace",
+            "id": 179843
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "u-reader",
+            "input": {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "chainId": "synthetic-chain",
+              "timeframe": "6h",
+              "width": 68
+            },
+            "helperDelivery": false
+          },
+          {
+            "type": "helper-young",
+            "timestamp": 84,
+            "delivered": false
+          },
+          {
+            "type": "helper-line",
+            "timestamp": 84
+          },
+          {
+            "type": "eligibility",
+            "input": {
+              "coinAddress": "synthetic-new-coin",
+              "coinCreatedTimestamp": 84,
+              "chainId": "synthetic-chain"
+            }
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-line-key",
+              {
+                "coinAddress": "synthetic-new-coin",
+                "coinCreatedTimestamp": 84,
+                "timeframe": "6h",
+                "width": 68
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          }
+        ],
+        "observers": [
+          {
+            "active": false,
+            "rootMargin": "320px 0px"
+          }
+        ],
+        "active": 0,
+        "options": {
+          "queryKey": [
+            "synthetic-line-key",
+            {
+              "coinAddress": "synthetic-new-coin",
+              "coinCreatedTimestamp": 84,
+              "timeframe": "6h",
+              "width": 68
+            },
+            "sparklineCandlesticks",
+            "synthetic-chain"
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "retry": 1,
+          "retryDelay": 2000
+        },
+        "optionIdentity": false,
+        "chartData": [
+          {
+            "timestamp": 100,
+            "price": 9
+          },
+          {
+            "timestamp": 101,
+            "price": 7
+          }
+        ],
+        "axis": {
+          "domain": [
+            6.9,
+            9.1
+          ],
+          "hide": true
+        },
+        "area": {
+          "stroke": "synthetic-positive",
+          "strokeWidth": 1.5,
+          "fill": "url(#_r_0_)",
+          "isAnimationActive": false,
+          "type": "linear"
+        },
+        "chartCommits": 2,
+        "queryCommits": 7,
+        "lazyCalls": 1,
+        "latestDeliveredFirstOpen": 9
+      }
+    },
+    {
+      "name": "unmount disconnects native admission observer and supplied host/query subscriptions; no original library/service cleanup is inferred",
+      "state": {
+        "commits": 2,
+        "querySubscriptions": 0,
+        "hostSubscriptions": 0,
+        "events": [
+          {
+            "type": "dynamic-options",
+            "options": {
+              "loadableGenerated": {
+                "modules": [
+                  708937
+                ]
+              },
+              "ssr": false
+            }
+          },
+          {
+            "type": "library-constructor",
+            "chartName": "AreaChart",
+            "axisTypes": [
+              "xAxis",
+              "yAxis"
+            ]
+          },
+          {
+            "type": "observer-create",
+            "rootMargin": "320px 0px"
+          },
+          {
+            "type": "intersection",
+            "any": false
+          },
+          {
+            "type": "intersection",
+            "any": true
+          },
+          {
+            "type": "observer-disconnect"
+          },
+          {
+            "type": "helper-young",
+            "timestamp": 42,
+            "delivered": true
+          },
+          {
+            "type": "helper-line",
+            "timestamp": 42
+          },
+          {
+            "type": "helper-candle",
+            "timestamp": 42
+          },
+          {
+            "type": "eligibility",
+            "input": {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "chainId": "synthetic-chain"
+            }
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "observer-disconnect"
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "load-namespace",
+            "id": 179843
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-candle-key",
+              {
+                "coinAddress": "synthetic-coin",
+                "coinCreatedTimestamp": 42,
+                "interval": "15s",
+                "limit": 65
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          },
+          {
+            "type": "u-reader",
+            "input": {
+              "coinAddress": "synthetic-coin",
+              "coinCreatedTimestamp": 42,
+              "chainId": "synthetic-chain",
+              "timeframe": "6h",
+              "width": 68
+            },
+            "helperDelivery": false
+          },
+          {
+            "type": "helper-young",
+            "timestamp": 84,
+            "delivered": false
+          },
+          {
+            "type": "helper-line",
+            "timestamp": 84
+          },
+          {
+            "type": "eligibility",
+            "input": {
+              "coinAddress": "synthetic-new-coin",
+              "coinCreatedTimestamp": 84,
+              "chainId": "synthetic-chain"
+            }
+          },
+          {
+            "type": "query",
+            "key": [
+              "synthetic-line-key",
+              {
+                "coinAddress": "synthetic-new-coin",
+                "coinCreatedTimestamp": 84,
+                "timeframe": "6h",
+                "width": 68
+              },
+              "sparklineCandlesticks",
+              "synthetic-chain"
+            ],
+            "enabled": true
+          }
+        ],
+        "observers": [
+          {
+            "active": false,
+            "rootMargin": "320px 0px"
+          }
+        ],
+        "active": 0,
+        "options": {
+          "queryKey": [
+            "synthetic-line-key",
+            {
+              "coinAddress": "synthetic-new-coin",
+              "coinCreatedTimestamp": 84,
+              "timeframe": "6h",
+              "width": 68
+            },
+            "sparklineCandlesticks",
+            "synthetic-chain"
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "retry": 1,
+          "retryDelay": 2000
+        },
+        "optionIdentity": false,
+        "chartData": [
+          {
+            "timestamp": 100,
+            "price": 9
+          },
+          {
+            "timestamp": 101,
+            "price": 7
+          }
+        ],
+        "axis": {
+          "domain": [
+            6.9,
+            9.1
+          ],
+          "hide": true
+        },
+        "area": {
+          "stroke": "synthetic-positive",
+          "strokeWidth": 1.5,
+          "fill": "url(#_r_0_)",
+          "isAnimationActive": false,
+          "type": "linear"
+        },
+        "chartCommits": 2,
+        "queryCommits": 7,
+        "lazyCalls": 1,
+        "latestDeliveredFirstOpen": 9
+      }
+    }
+  ],
+  "pageErrors": [],
+  "unexpected": [],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/bundle.js"
+    }
+  ],
+  "origin": "http://127.0.0.1:45071",
+  "result": "PASS",
+  "cleanup": {
+    "browserClosed": true,
+    "serverStopped": true
+  }
+}
