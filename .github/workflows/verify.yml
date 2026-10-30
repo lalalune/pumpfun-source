@@ -16,6 +16,9 @@ jobs:
       max-parallel: 12
       matrix:
         include:
+          - suite: fastbuild-staging
+            commands: |
+              python -I -B tests/test_fastbuild_stage.py
           - suite: composition-patch-bytes
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py
@@ -333,6 +336,7 @@ jobs:
               python scripts/verify_evidence.py
               python scripts/test_tooling.py
               python -B tests/test_checkpoint_manifest_paths.py
+              python -B reconstruction/capture-rpc-retry/test_capture.py
               python -B reconstruction/harness/test_treediff_line_boundaries.py
               python -B reconstruction/harness/test_score_inputs.py
               python scripts/test_build_source_manifest.py

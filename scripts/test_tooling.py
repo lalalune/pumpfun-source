@@ -1,5 +1,14 @@
 #!/usr/bin/env python3
 """Mutation tests ensuring the byte comparator cannot hide code/padding changes."""
+import hashlib
+import json
+import pathlib
+import shutil
+import struct
+import subprocess
+import sys
+
+
 import json
 import pathlib
 import struct
@@ -35,8 +44,15 @@ from unittest.mock import patch
 import deep_section_analysis
 import deep_disassembly
 import analyze
+import verify_evidence
+from capture import b58
+
+
 import local_validation
 from compare import compare
+from test_revalidation_output import RevalidationOutputTests
+
+
 
 
 class RevalidationReportTests(unittest.TestCase):
@@ -108,6 +124,24 @@ class ComparisonTests(unittest.TestCase):
     def test_truncated_padding(self): self.assertFalse(compare(b'abc\0\0',b'abc\0')['full_byte_equality'])
     def test_extended_padding(self): self.assertFalse(compare(b'abc\0',b'abc\0\0')['full_byte_equality'])
     def test_empty(self): self.assertEqual(compare(b'a',b'')['first_difference'],0)
+
+
+class AllocationSizeRegisterTests(unittest.TestCase):
+    def sizes(self, instructions):
+        blob = bytes(64) + b''.join(struct.pack('<BBhi', *ix) for ix in instructions)
+        elf = SimpleNamespace(b=blob, lo=64, hi=len(blob), entries=[64], funcs=[])
+        return deep_section_analysis.recover_anchor_idl(elf)['unique_allocation_sizes']
+
+    def test_size_comes_from_r1_not_nearer_r2(self):
+        self.assertEqual(self.sizes([
+            (0xb7, 1, 0, 64), (0xb7, 2, 0, 0),
+            (0x85, 0, 0, -2081419633),
+        ]), [64])
+
+    def test_other_register_does_not_supply_size(self):
+        self.assertEqual(self.sizes([
+            (0xb7, 2, 0, 64), (0x85, 0, 0, -2081419633),
+        ]), [])
 
 
 class CompareProgramNamesTests(unittest.TestCase):
@@ -330,6 +364,52 @@ class InstructionLogNameTests(unittest.TestCase):
         self.assertEqual(len(names), 25)
         self.assertIn('Buy', names)
         self.assertIn('InitializeGlobalParams', names)
+
+
+class ProgramDataAuthorityTagTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        workspace = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(workspace.cleanup)
+        cls.root = pathlib.Path(workspace.name)
+        (cls.root / 'scripts').mkdir()
+        for name in ('verify_evidence.py', 'capture.py', 'analyze.py'):
+            shutil.copyfile(analyze.ROOT / 'scripts' / name, cls.root / 'scripts' / name)
+        shutil.copytree(analyze.ROOT / 'evidence/upstream', cls.root / 'evidence/upstream')
+        for relative in verify_evidence.EXPECTED_CAPTURES:
+            shutil.copytree(analyze.ROOT / relative, cls.root / relative)
+        cls.folder = cls.root / 'evidence/original/pump_fees'
+        cls.original_data = (cls.folder / 'programdata-account.bin').read_bytes()
+        cls.original_record = json.loads((cls.folder / 'capture.json').read_text())
+
+    def verify_tag(self, tag, optimized):
+        data = bytearray(self.original_data)
+        data[12] = tag
+        record = dict(self.original_record)
+        # Keep hashes and declared authority consistent so the tag itself is tested.
+        record['programdata_sha256'] = hashlib.sha256(data).hexdigest()
+        record['upgrade_authority'] = b58(data[13:45]) if tag else None
+        (self.folder / 'programdata-account.bin').write_bytes(data)
+        (self.folder / 'capture.json').write_text(json.dumps(record))
+        command = [sys.executable, *(['-O'] if optimized else []), 'scripts/verify_evidence.py']
+        return subprocess.run(command, cwd=self.root, capture_output=True, text=True, timeout=30)
+
+    def test_valid_authority_option_tags(self):
+        for tag in (0, 1):
+            for optimized in (False, True):
+                with self.subTest(tag=tag, optimized=optimized):
+                    result = self.verify_tag(tag, optimized)
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    self.assertIn('9 captures verified', result.stdout)
+
+    def test_invalid_authority_option_tags(self):
+        for tag in (2, 255):
+            for optimized in (False, True):
+                with self.subTest(tag=tag, optimized=optimized):
+                    result = self.verify_tag(tag, optimized)
+                    self.assertNotEqual(result.returncode, 0, result.stdout)
+                    self.assertIn('invalid ProgramData upgrade authority option tag', result.stderr)
+                    self.assertIn('evidence/original/pump_fees', result.stderr)
 
 
 # capture.json program ids. pump, pump_amm and pump_fees also match their IDL
