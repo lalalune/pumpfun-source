@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Measure one frozen source proposal with the current673 native cold recipe."""
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O or PYTHONOPTIMIZE.")
 import argparse
 import ast
 import copy
@@ -50,7 +52,6 @@ def main():
     parser.add_argument('--source-directory', type=Path, default=control.SOURCE_DIRECTORY,
                         help='Archived673 primary source; all65 existing hashes must match')
     args = parser.parse_args()
-    assert __debug__, 'Optimized Python is unsupported'
     spec, cold, source, ledger, proposal, frozen, expected, derived, patch = descriptor(args.candidate, args.source_directory)
     if args.inspect:
         print(json.dumps({'candidate': args.candidate, 'proposal': proposal, 'adapter_patch': patch}, indent=2))

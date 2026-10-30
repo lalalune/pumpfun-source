@@ -5,6 +5,8 @@ Uses the historical captured user/mint fixture plus explicit synthetic schedule
 and vault state. The suite is finite; successful comparison is not a whole-
 contract proof. It never broadcasts a transaction.
 """
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse
 import base64
 import gzip

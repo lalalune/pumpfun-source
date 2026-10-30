@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 import fees_sharing_update_differential as fixtures
 from fees_sharing_update_differential import *
-PIDL=json.loads((ROOT/'evidence/upstream/pump.json').read_text());ORIGINAL=ROOT/'evidence/original/pump/deployed.so'
+PIDL=json.loads((ROOT/'evidence/upstream/pump.json').read_text(encoding='utf-8'));ORIGINAL=ROOT/'evidence/original/pump/deployed.so'
 class Ready(Exception):pass
 class Capture:
  def __init__(self,vm):self.vm=vm;self.keys=set()

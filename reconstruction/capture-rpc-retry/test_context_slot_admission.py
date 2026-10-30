@@ -11,6 +11,22 @@ class CaptureContextTests(unittest.TestCase):
   response={'context':{'slot':100},'value':None}
   with mock.patch.object(capture_retry,'_archived_rpc',return_value=response):
    self.assertEqual(capture_retry.contextual_rpc('local','getAccountInfo',['pubkey','base64']),response)
+ def test_non_integer_minimum_is_rejected_as_value_error(self):
+  response={'context':{'slot':100},'value':None}
+  for minimum in ('100',True,100.5,-1):
+   with self.subTest(minimum=minimum):
+    with mock.patch.object(capture_retry,'_archived_rpc',return_value=response):
+     with self.assertRaises(ValueError):
+      capture_retry.contextual_rpc('local','getAccountInfo',['pubkey',{'encoding':'base64','minContextSlot':minimum}])
+  for minimum in (50,100):
+   with self.subTest(minimum=minimum):
+    with mock.patch.object(capture_retry,'_archived_rpc',return_value=response):
+     self.assertEqual(capture_retry.contextual_rpc('local','getAccountInfo',['pubkey',{'encoding':'base64','minContextSlot':minimum}]),response)
+ def test_non_object_context_is_rejected_as_value_error(self):
+  for context in ('not-a-dict',[100],5,None):
+   with self.subTest(context=context):
+    with mock.patch.object(capture_retry,'_archived_rpc',return_value={'context':context,'value':None}):
+     with self.assertRaises(ValueError):capture_retry.contextual_rpc('local','getAccountInfo',['pubkey',{}])
  def exercise(self,second,valid):
   payload=(ROOT/'evidence/original/pump/deployed.so').read_bytes()
   requests=[]

@@ -5,7 +5,7 @@ sys.path.insert(0,'scripts')
 from pump_amm_liquidity_differential import *
 TARGET=Pubkey.from_bytes(bytes([91])*32)
 def extend(kind='Pool',size=8,lamports=1,candidate=None,overrides=None,unsigned=False,payload_length=None):
- h=acquire_harness(candidate or ROOT/'evidence/original/pump_amm/deployed.so');h.vm.set_clock(Clock(100,1234567890,0,0,1234567890));disc=bytes(next(x for x in IDL['accounts'] if x['name']==kind)['discriminator']);data=(disc+bytes(max(0,size-8)))[:size];h.vm.set_account(TARGET,Account(lamports,data,PROGRAM));metas=[AccountMeta(TARGET,False,True),AccountMeta(PAYER.pubkey(),True,True),AccountMeta(Pubkey.default(),False,False),AccountMeta(EVENT,False,False),AccountMeta(PROGRAM,False,False)]
+ h=acquire_harness(pin_program(candidate or ROOT/'evidence/original/pump_amm/deployed.so'));h.vm.set_clock(Clock(100,1234567890,0,0,1234567890));disc=bytes(next(x for x in IDL['accounts'] if x['name']==kind)['discriminator']);data=(disc+bytes(max(0,size-8)))[:size];h.vm.set_account(TARGET,Account(lamports,data,PROGRAM));metas=[AccountMeta(TARGET,False,True),AccountMeta(PAYER.pubkey(),True,True),AccountMeta(Pubkey.default(),False,False),AccountMeta(EVENT,False,False),AccountMeta(PROGRAM,False,False)]
  if overrides:overrides(h,metas)
  ix=next(x for x in IDL['instructions'] if x['name']=='extend_account');data=bytes(ix['discriminator'])
  if payload_length is not None:data=data[:payload_length]
@@ -37,7 +37,7 @@ def main():
   for payload in range(8):test('payload='+str((kind,payload)),kind=kind,lamports=10**9,payload_length=payload)
   for off,val in [(0,bytes(8)),(8,b'\xff'*16)]:test('body='+str((kind,off)),kind=kind,size=50,lamports=10**9,overrides=mutate(TARGET,off,val))
  sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
- report={'scope':'SBF extend_account: four recognized raw account types, exact System/event CPIs, committed states, runtime rent outcomes and errors. Ordinary signed local transactions only; not whole-program equivalence.','candidate_sha256':sha(candidate),'original_sha256':sha(ROOT/'evidence/original/pump_amm/deployed.so'),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
+ report={'scope':'SBF extend_account: four recognized raw account types, exact System/event CPIs, committed states, runtime rent outcomes and errors. Ordinary signed local transactions only; not whole-program equivalence.','candidate_sha256':sha(pin_program(candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
  args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(report['mismatches']),'mismatches':report['mismatches']}))
  if report['mismatches']:raise SystemExit(1)
 

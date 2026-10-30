@@ -1,4 +1,6 @@
 """Normally signed root creation followed by depth-one SOL-root nested creation."""
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O or PYTHONOPTIMIZE.")
 from pathlib import Path
 import importlib.util,json,gzip,struct,hashlib,argparse
 ROOT=Path(__file__).resolve().parents[1]

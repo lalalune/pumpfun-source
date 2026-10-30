@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Check external-account decoder errors with normal offline test-owned signatures."""
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O or PYTHONOPTIMIZE.")
 import argparse,base64,hashlib,json,pathlib,re
 from solders.transaction import Transaction
 import fees_sharing_create_differential as sharing

@@ -643,6 +643,10 @@ def main():
             insn, step = decode_instruction(elf.b, offset, elf)
             if insn:
                 instructions.append(insn)
+                # Captured programs reach syscalls through type-10 relocations,
+                # never the hash immediate. Defined functions resolve to None.
+                if insn.get("extern_symbol") and call_symbols.get(offset):
+                    insn["syscall"] = call_symbols[offset]
                 if insn.get("syscall"):
                     syscall_usage[insn["syscall"]] += 1
                 if insn.get("extern_symbol"):

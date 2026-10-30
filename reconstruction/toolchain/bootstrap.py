@@ -58,6 +58,8 @@ HOST_MACHINE = platform.machine()
 LINUX_HOST_TRIPLE = 'x86_64-unknown-linux-gnu'
 # anza rust revision both v1.44 host builds were produced from.
 SDK_REVISION = '08b7341888ab480dfaaa0698300cbbbbb2d75b53'
+# APFS clonefile (-c) keeps the published warm cache cheap on macOS; GNU cp rejects -c.
+CLONE = ['cp', '-cRp'] if HOST_PLATFORM == 'darwin' else ['cp', '-a']
 
 
 def sha(path):
@@ -221,7 +223,7 @@ def publish_dependency_cache(source, template):
             return False
         with tempfile.TemporaryDirectory(prefix=template.name + '.stage.', dir=template.parent) as temporary:
             staged = Path(temporary) / 'target'
-            subprocess.run(['cp', '-cRp', str(source), str(staged)], check=True)
+            subprocess.run(CLONE + [str(source), str(staged)], check=True)
             if not staged.is_dir() or staged.is_symlink():
                 raise RuntimeError('dependency cache source must be a directory')
             staged.rename(template)

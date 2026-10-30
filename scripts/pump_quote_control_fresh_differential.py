@@ -21,7 +21,7 @@ from pump_diagnostic_audit import bound_input_key
 
 ROOT = next(p for p in pathlib.Path(__file__).resolve().parents
             if (p / 'evidence/upstream/pump.json').is_file() and (p / 'programs/pump/Cargo.toml').is_file())
-IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text())
+IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
 PROGRAM = Pubkey.from_string(IDL['address'])
 SYSTEM = Pubkey.from_string('11111111111111111111111111111111')
 GLOBAL = Pubkey.find_program_address([b'global'], PROGRAM)[0]

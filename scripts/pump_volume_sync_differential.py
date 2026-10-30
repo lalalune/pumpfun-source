@@ -10,7 +10,7 @@ from solders.litesvm import LiteSVM
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
-ROOT=Path(__file__).resolve().parents[1];IDL=json.loads((ROOT/'evidence/upstream/pump.json').read_text());PROGRAM=Pubkey.from_string(IDL['address']);ORIGINAL=ROOT/'evidence/original/pump/deployed.so';USER=Keypair.from_seed(bytes([222])*32);PAYER=Keypair.from_seed(bytes([223])*32);OTHER=Pubkey.from_bytes(bytes([224])*32);EVENT=Pubkey.find_program_address([b'__event_authority'],PROGRAM)[0];G=Pubkey.find_program_address([b'global_volume_accumulator'],PROGRAM)[0];V=Pubkey.find_program_address([b'user_volume_accumulator',bytes(USER.pubkey())],PROGRAM)[0]
+ROOT=Path(__file__).resolve().parents[1];IDL=json.loads((ROOT/'evidence/upstream/pump.json').read_text(encoding='utf-8'));PROGRAM=Pubkey.from_string(IDL['address']);ORIGINAL=ROOT/'evidence/original/pump/deployed.so';USER=Keypair.from_seed(bytes([222])*32);PAYER=Keypair.from_seed(bytes([223])*32);OTHER=Pubkey.from_bytes(bytes([224])*32);EVENT=Pubkey.find_program_address([b'__event_authority'],PROGRAM)[0];G=Pubkey.find_program_address([b'global_volume_accumulator'],PROGRAM)[0];V=Pubkey.find_program_address([b'user_volume_accumulator',bytes(USER.pubkey())],PROGRAM)[0]
 IX=next(x for x in IDL['instructions'] if x['name']=='sync_user_volume_accumulator');DISC={x['name']:bytes(x['discriminator']) for x in IDL['accounts']}
 def run(c,binary=ORIGINAL):
  vm=LiteSVM().with_transaction_history(0);vm.add_program_from_file(PROGRAM,binary);vm.set_clock(Clock(100,c.get('now',10),0,0,c.get('now',10)));vm.airdrop(PAYER.pubkey(),10**12);vm.airdrop(USER.pubkey(),10**12)

@@ -39,7 +39,8 @@ def main():
 
         original, candidate = run(ORIGINAL), run(args.candidate)
         messages = error_messages(original)
-        assert len(messages) == 1 and messages[0][1:] == [code, "format."], messages
+        if not (len(messages) == 1 and messages[0][1:] == [code, "format."]):
+            raise ValueError(f"original {family} case did not emit error {code}: {messages}")
         matched = all(original[key] == candidate[key] for key in fields)
         matched = matched and messages == error_messages(candidate)
         row = {"case": case, "original": original, "candidate": candidate,

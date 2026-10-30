@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Partial exact-quote v3 recovery with verified signatures and explicit synthetic state."""
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O or PYTHONOPTIMIZE.")
 import argparse,hashlib,json,struct,gzip,base64
 import pump_trade_fixture as f
 from solders.clock import Clock

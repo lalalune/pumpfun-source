@@ -1,0 +1,44 @@
+{
+  "lane": "w10r1-admincto-region2of6",
+  "target": "0x22a10 admin_cto::execute",
+  "angle": "region split, region 2 of 6 (original 0x23be6..0x24dbd)",
+  "base": "origin/main 319a7d10f (27400 B, ratio 0.36129, slots_diff 3297, 1033/1033)",
+  "best_on_current_main": {
+    "at_original_size": {"set": "oldbump", "bytes": 27400, "ratio": 0.36159, "slots_diff": 3305, "progress": false},
+    "best_ratio": {"set": "Cp3 (region2-cp3.patch)", "bytes": 27424, "ratio": 0.39467, "region2_frac": 0.5028, "raw_losses": 686},
+    "nearest_size_high_ratio": {"set": "C (region2-c.patch)", "bytes": 27416, "ratio": 0.38904, "region2_frac": 0.5214, "raw_losses": 686}
+  },
+  "best_before_2524": {"commit": "t30 on 917ee615f", "bytes": 27416, "ratio": 0.38634, "pr": "https://github.com/lalalune/pumpfun-source/pull/2515 (closed after main reached 27400 B)"},
+  "attempts": 70,
+  "kept_mechanisms": [
+    "tree: sharing_update/collect_old/target override/skip from one if-shared tree of constants; sweep gated on !skip (reproduces the original's precomputed gate: mov r7,0; ldxdw [r10-0x8e0]; jne)",
+    "feematch: match fee {None=>{},Some(f)=>..} (original tests jeq tag,0); moves 330 into region 2",
+    "oldbump: old key copied before the bump binding",
+    "vsigner: &[vaultseeds] bound once"
+  ],
+  "rejected_mechanisms": [
+    "require! spellings of 326-338 (byte-identical)",
+    "explicit do_sweep / sweep_holder flags (ratio 0.30)",
+    "matches!(sharing_update,Some(None)) gate (inliner flips, loss 0xbc108)",
+    "cashback passed into validate (size +440)",
+    "let-else early Ok at 326",
+    "contains() range check, 330/312/648 operand orders",
+    "312 as two ifs (157 calls)",
+    "tuple order / arm order / if-form / match spellings of the tree",
+    "creator-first collect_old (-144 B, ratio 0.352)",
+    "validate new.take() on the tree base (0.352)",
+    "system_program-first CPI literal reorders (158 calls)"
+  ],
+  "unresolved_residuals": [
+    "312/307 to_string inlined (original outlined; making them cold moves 296 and costs ratio)",
+    "334 error block chained after the wallet's executable check instead of after 338",
+    "289 before 298 in the original (region 1)",
+    "sweep tail (660, amm CPI, native path) placed after the post-sweep code (region 3)",
+    "register assignment of error payload loads (orig r9/r7, ours r6/r7)"
+  ],
+  "next_ideas": [
+    "compose region2-cp3.patch with a -24 B change from another region lane to land on 27400 B",
+    "llc oracle on Cp3 IR to find a size-neutral knob for the remaining 16-24 B",
+    "make the 334 error block follow 338 (MBP chain), e.g. via the fee checks' CFG shape"
+  ]
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Offline ELF layout, string provenance and public-interface inventory."""
-import hashlib,json,pathlib,re,struct
+import hashlib,json,os,pathlib,re,struct,tempfile
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 IDL_INTERNAL_NAMES = (
     'IdlCreateAccount', 'IdlResizeAccount', 'IdlCloseAccount',
@@ -77,11 +77,31 @@ def instruction_log_names(b, known=()):
 
 def publish_reports(reports):
     """Admit every report destination before replacing either prior report."""
+    seen = set()
     for path, _ in reports:
+        path = pathlib.Path(path)
+        if path in seen:
+            raise ValueError(f'duplicate report destination: {path}')
+        seen.add(path)
         if path.is_symlink() or (path.exists() and not path.is_file()):
             raise ValueError(f'report destination is not a regular file: {path}')
-    for path, text in reports:
-        path.write_text(text, encoding='utf-8')
+        if not path.parent.is_dir() or path.parent.is_symlink():
+            raise FileNotFoundError(f'report parent is not a regular directory: {path.parent}')
+    staged = []
+    try:
+        for path, text in reports:
+            path = pathlib.Path(path)
+            descriptor, temporary = tempfile.mkstemp(prefix=f'.{path.name}.', dir=path.parent)
+            # Register the temporary before writing, so a failed stage is
+            # removed alongside the earlier complete stages.
+            staged.append((pathlib.Path(temporary), path))
+            with os.fdopen(descriptor, 'w', encoding='utf-8', newline='\n') as stream:
+                stream.write(text)
+        for temporary, path in staged:
+            os.replace(temporary, path)
+    finally:
+        for temporary, _ in staged:
+            temporary.unlink(missing_ok=True)
 
 
 def elf_layout(b):

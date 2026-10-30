@@ -4,6 +4,8 @@ Synthetic signed fixtures. Source coordinates and compute-unit totals are
 retained but excluded from diagnostic equality. Two zero-payer cases fail at
 transaction admission and provide no Pump execution coverage.
 """
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O or PYTHONOPTIMIZE.")
 from pathlib import Path
 import sys,json,gzip,base64,struct,hashlib,argparse,re
 ROOT=next(p for p in Path(__file__).resolve().parents if (p/'evidence/original/pump/deployed.so').is_file());sys.path.insert(0,str(ROOT/'scripts'))

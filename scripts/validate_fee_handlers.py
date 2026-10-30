@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Execute recovered query handlers and captured original independently in LiteSVM."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse,gzip,hashlib,json,pathlib,struct
 from fee_recovery_fixture import *
 p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);args=p.parse_args()

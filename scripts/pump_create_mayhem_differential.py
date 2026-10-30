@@ -28,7 +28,7 @@ from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
 
 ROOT = Path(__file__).resolve().parents[1]
-IDL = json.loads((ROOT/'evidence/upstream/pump.json').read_text())
+IDL = json.loads((ROOT/'evidence/upstream/pump.json').read_text(encoding='utf-8'))
 PROGRAM = Pubkey.from_string(IDL['address'])
 ORIGINAL_PUMP = ROOT/'evidence/original/pump/deployed.so'
 ORIGINAL_MAYHEM = ROOT/'evidence/original/mayhem/deployed.so'

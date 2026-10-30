@@ -29,6 +29,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "scripts"))
 from window_elf_reader import Elf
+from deep_disassembly import load_idl_discriminators
 
 SYSCALL_NAMES = {
     # SBPF hash_symbol_name: seed-zero MurmurHash3 x86_32 of symbol bytes.
@@ -405,29 +406,45 @@ def recover_anchor_idl(elf):
     entry = struct.unpack_from("<Q", b, 24)[0]
 
     # 1. Extract instruction discriminators (sighash values)
-    # Anchor uses sha256("global:<name>")[..8] as 8-byte selectors
+    # Anchor uses sha256("global:<name>")[..8] as 8-byte selectors.
+    # The old scan started at the entrypoint and accepted any lddw followed
+    # by an unrelated conditional jump: the real dispatch tables sit before
+    # the entrypoint, so every published "discriminator" was a stack-bound
+    # constant. With an archived IDL the selectors themselves are the filter
+    # (the deep_disassembly.recover_idl_dispatch approach); without one, a
+    # candidate must be followed by a conditional jump that compares the
+    # loaded register.
     discriminators = []
-    if elf.lo <= entry < elf.hi:
-        scan_end = min(entry + 8000, elf.hi)
-        offset = entry
-        while offset < scan_end:
-            if b[offset] == 0x18:  # lddw
-                imm_lo = struct.unpack_from("<I", b, offset + 4)[0]
-                imm_hi = struct.unpack_from("<I", b, offset + 12)[0]
-                val = imm_lo | (imm_hi << 32)
-                if val != 0 and val < 0xFFFFFFFFFFFFFFFF:
-                    # Look ahead for comparison or call
+    idl_selectors = load_idl_discriminators(elf)
+    seen = set()
+    offset = elf.lo
+    while offset + 16 <= elf.hi:
+        if b[offset] == 0x18:  # lddw
+            imm_lo = struct.unpack_from("<I", b, offset + 4)[0]
+            imm_hi = struct.unpack_from("<I", b, offset + 12)[0]
+            val = imm_lo | (imm_hi << 32)
+            if val != 0 and val < 0xFFFFFFFFFFFFFFFF:
+                keep = False
+                if idl_selectors and val.to_bytes(8, "little") in idl_selectors:
+                    keep = True
+                elif not idl_selectors:
+                    dst_reg = b[offset + 1] & 0xF
                     next_off = offset + 16
-                    if next_off < scan_end:
-                        if b[next_off] in (0x1d, 0x5d, 0x15, 0x55):
-                            discriminators.append({
-                                "value": hex(val),
-                                "bytes": val.to_bytes(8, "little").hex(),
-                                "found_at": hex(offset),
-                            })
-                offset += 16
-            else:
-                offset += 8
+                    if next_off + 8 <= elf.hi and b[next_off] in (0x1d, 0x5d, 0x15, 0x55):
+                        jregs = b[next_off + 1]
+                        keep = (jregs & 0xF) == dst_reg or (
+                            b[next_off] in (0x1d, 0x5d) and (jregs >> 4) == dst_reg
+                        )
+                if keep and val not in seen:
+                    seen.add(val)
+                    discriminators.append({
+                        "value": hex(val),
+                        "bytes": val.to_bytes(8, "little").hex(),
+                        "found_at": hex(offset),
+                    })
+            offset += 16
+        else:
+            offset += 8
 
     # 2. Account struct size inference from allocation patterns
     # Look for alloc_free calls preceded by size loading

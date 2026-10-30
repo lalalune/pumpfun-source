@@ -9,6 +9,7 @@ import argparse
 import csv
 import hashlib
 import json
+import os
 import struct
 from pathlib import Path
 
@@ -82,6 +83,23 @@ def selected_window(stream, original_start):
     return matches[0]
 
 
+def write_report(path, value):
+    """Replace a prior report only with a complete one."""
+    path.parent.mkdir(parents=True,exist_ok=True)
+    staged = path.with_name('.'+path.name+'.'+str(os.getpid()))
+    # A plain exclusive open keeps the umask-derived mode of the direct write.
+    stream = open(staged,'x',encoding='utf-8',newline='\n')
+    try:
+        with stream:
+            stream.write(json.dumps(value,indent=2)+'\n')
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(staged,path)
+    except BaseException:
+        staged.unlink(missing_ok=True)
+        raise
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--original-start',type=lambda s:int(s,0),required=True)
@@ -111,7 +129,7 @@ def main():
     if not candidates:
         p.error('no candidate function symbols matched the requested pattern')
     result={'scope':__doc__,'original_sha256':hashlib.sha256(original).hexdigest(),'candidate_sha256':hashlib.sha256(candidate).hexdigest(),'original_start':args.original_start,'original_bytes':size,'original_operands':oo,'candidates':candidates}
-    args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(result,indent=2)+'\n')
+    write_report(args.output,result)
     print(json.dumps({'original_bytes':size,'candidates':[{k:r[k] for k in ['start','bytes','raw_equal','normalized_equal']}|{'different_slots':len(r['different_slots'])} for r in candidates]},indent=2))
 
 

@@ -6,6 +6,7 @@ ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 from fees_donation_create_differential import *
 import pump_validate_admin as pump
 import pump_amm_admin_differential as amm
+from pump_amm_reusable_harness import pin_program
 from solders.clock import Clock
 from solders.compute_budget import set_compute_unit_limit
 TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
@@ -13,7 +14,7 @@ IX=next(x for x in pump.IDL['instructions'] if x['name']=='admin_cto')
 def ata(owner):return Pubkey.find_program_address([bytes(owner),bytes(TOKEN),bytes(QUOTE)],ATA)[0]
 def run_cto(c,binary=None):
  vm=LiteSVM().with_transaction_history(0);vm.set_clock(Clock(1000,0,0,0,1700000000))
- for name,key in [('pump',PUMP),('pump_amm',AMM),('pump_fees',PROGRAM)]:vm.add_program_from_file(key,binary if name=='pump_amm' and binary else ROOT/f'evidence/original/{name}/deployed.so')
+ for name,key in [('pump',PUMP),('pump_amm',AMM),('pump_fees',PROGRAM)]:vm.add_program_from_file(key,pin_program(binary if name=='pump_amm' and binary else ROOT/f'evidence/original/{name}/deployed.so'))
  for name,key in [('spl_token',TOKEN),('associated_token',ATA)]:vm.add_program_from_file(key,ROOT/f'evidence/dependencies/{name}/deployed.so')
  for kp in [PAYER,AUTH,OTHER]:vm.set_account(kp.pubkey(),Account(10**12,b'',Pubkey.default()))
  gd=bytearray(pump.DATA);gd[418:450]=bytes(OTHER.pubkey() if c.get('wrong_authority') else AUTH.pubkey());
@@ -96,14 +97,14 @@ def cases():
  return rows
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();rows=[];bad=[];reached=0
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();a.candidate=a.candidate and pin_program(a.candidate);rows=[];bad=[];reached=0
  for c in cases():
   x=run_case(c);y=run_case(c,a.candidate) if a.candidate else None
   reached+=any('Instruction: AdminCtoPool' in l for l in x['logs'])
   diffs=[k for k in ['error','before','after','events','inner','return'] if x[k]!=y[k]] if y else []
   rows.append({'case':c,'original':x,'candidate':y,'match':not diffs if y else None,'mismatched_fields':diffs})
   if diffs:bad.append(c['name'])
- sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();report={'scope':'Captured Pump admin_cto invokes AMM admin_cto_pool with genuine CPI PDA signing; top-level signatures are ordinary test-owned keys. Synthetic states and upstream-rejected contexts do not establish all downstream contexts.','original_sha256':sha(ROOT/'evidence/original/pump_amm/deployed.so'),'candidate_sha256':sha(a.candidate) if a.candidate else None,'script_sha256':sha(Path(__file__)),'case_count':len(rows),'cases_reaching_amm':reached,'mismatches':bad,'cases':rows}
+ sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();report={'scope':'Captured Pump admin_cto invokes AMM admin_cto_pool with genuine CPI PDA signing; top-level signatures are ordinary test-owned keys. Synthetic states and upstream-rejected contexts do not establish all downstream contexts.','original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'candidate_sha256':sha(a.candidate) if a.candidate else None,'script_sha256':sha(Path(__file__)),'case_count':len(rows),'cases_reaching_amm':reached,'mismatches':bad,'cases':rows}
  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'cases':len(rows),'cases_reaching_amm':reached,'mismatch_count':len(bad),'mismatches':bad[:40]}))
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

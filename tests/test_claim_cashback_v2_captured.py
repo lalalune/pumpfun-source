@@ -41,7 +41,7 @@ ELF_SHA256 = {
 }
 HOST_SOURCE = ROOT / 'programs/pump/recovered/claim_cashback_v2_host.rs'
 
-IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text())
+IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
 PUMP = Pubkey.from_string(IDL['address'])
 TOKEN = Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA')
 ATA = Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')

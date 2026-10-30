@@ -32,7 +32,7 @@ PUMP_ELF = ROOT / 'evidence/original/pump/deployed.so'
 ELF_SHA256 = {PUMP_ELF: '7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d'}
 HOST_SOURCE = ROOT / 'programs/pump/recovered/claim_cashback_host.rs'
 
-IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text())
+IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
 PUMP = Pubkey.from_string(IDL['address'])
 SYSTEM = Pubkey.default()
 UVA_DISC = bytes(next(a['discriminator'] for a in IDL['accounts'] if a['name'] == 'UserVolumeAccumulator'))

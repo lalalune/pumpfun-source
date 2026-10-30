@@ -3,10 +3,11 @@
 import sys
 sys.path.insert(0,'scripts')
 from pump_amm_liquidity_differential import *
+from pump_amm_reusable_harness import pin_program
 FEES=Pubkey.from_string('pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ');PUMP=Pubkey.from_string('6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P');METAPLEX=Pubkey.from_string('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s')
 SHARING,SB=Pubkey.find_program_address([b'sharing-config',bytes(base)],FEES);CURVE=Pubkey.find_program_address([b'bonding-curve',bytes(base)],PUMP)[0];META=Pubkey.find_program_address([b'metadata',bytes(METAPLEX),bytes(base)],METAPLEX)[0]
 def run_creator(c,binary=None):
- h=acquire_harness(binary or ROOT/'evidence/original/pump_amm/deployed.so');vm=h.vm;vm.set_clock(Clock(100,1234567890,0,0,1234567890))
+ h=acquire_harness(pin_program(binary or ROOT/'evidence/original/pump_amm/deployed.so'));vm=h.vm;vm.set_clock(Clock(100,1234567890,0,0,1234567890))
  for kp in [PAYER,OUTSIDER]:vm.set_account(kp.pubkey(),Account(10**12,b'',Pubkey.default()))
  pd=bytearray(poolraw);pd[211:243]=bytes(Pubkey.from_string(c.get('coin_creator',str(PAYER.pubkey()) if c.get('op','migrate_pool_coin_creator').startswith('migrate') else str(Pubkey.default()))));pd[271:287]=bytes(16)
  sd=hashlib.sha256(b'account:SharingConfig').digest()[:8]+bytes([SB,c.get('version',2),c.get('status',1)])+bytes(Pubkey.from_string(c.get('sharing_mint',str(base))))+bytes(Pubkey.from_string(c.get('sharing_admin',str(PAYER.pubkey()))))+bytes([c.get('revoked',False)])+struct.pack('<I',1)+bytes(PAYER.pubkey())+struct.pack('<H',10000)
@@ -88,7 +89,7 @@ def main():
   diffs=[k for k in ['error','before','after','events','inner','return'] if x[k]!=y[k]] if y else []
   rows.append({'case':c,'original':x,'candidate':y,'mismatched_fields':diffs,'match':not diffs if y else None})
   if diffs:bad.append(c['name'])
- sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();report={'scope':'Two creator reassignment paths with synthetic local state and normally verified signatures. Invalid injected states do not establish reachability. No binary identity or whole-program parity claimed.','original_sha256':sha(ROOT/'evidence/original/pump_amm/deployed.so'),'candidate_sha256':sha(a.candidate) if a.candidate else None,'script_sha256':sha(pathlib.Path(__file__)),'case_count':len(rows),'cases':rows,'mismatches':bad}
+ sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();report={'scope':'Two creator reassignment paths with synthetic local state and normally verified signatures. Invalid injected states do not establish reachability. No binary identity or whole-program parity claimed.','original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'candidate_sha256':sha(pin_program(a.candidate)) if a.candidate else None,'script_sha256':sha(pathlib.Path(__file__)),'case_count':len(rows),'cases':rows,'mismatches':bad}
  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'cases':len(rows),'mismatch_count':len(bad),'mismatches':bad[:40]}))
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

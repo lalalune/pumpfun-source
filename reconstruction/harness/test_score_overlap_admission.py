@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -24,9 +25,10 @@ class ScoreOverlapAdmissionTests(unittest.TestCase):
                 "pump\tselected\t4104\t4112\n",
                 encoding="utf-8",
             )
-            score.BASE = base
             score._window_rows.cache_clear()
-            with self.assertRaisesRegex(ValueError, "overlapping window range: 4104"):
+            with patch.object(score, "BASE", base), self.assertRaisesRegex(
+                ValueError, "overlapping window range: 4104"
+            ):
                 score.original_windows()
 
 

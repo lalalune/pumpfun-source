@@ -5,7 +5,7 @@ from solders.rent import Rent
 import pump_trade_fixture as f
 R=f.R; P=f.Pubkey.from_string(f.x['program']);USER=f.Keypair.from_seed(bytes([229])*32);PAYER=f.Keypair.from_seed(bytes([228])*32)
 TOKEN=f.Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');TOKEN22=f.Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');ATA=f.Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');WSOL=f.Pubkey.from_string('So11111111111111111111111111111111111111112');QUOTE=f.Pubkey(bytes([71])*32)
-IDL=json.loads((R/'evidence/upstream/pump.json').read_text());IX={x['name']:x for x in IDL['instructions']}
+IDL=json.loads((R/'evidence/upstream/pump.json').read_text(encoding='utf-8'));IX={x['name']:x for x in IDL['instructions']}
 def run(c,binary=None):
  vm=f.LiteSVM().with_transaction_history(0).with_sigverify(True);vm.add_program_from_file(P,binary or R/'evidence/original/pump/deployed.so')
  for name in ['spl_token','spl_token_2022','associated_token']:

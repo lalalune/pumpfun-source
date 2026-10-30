@@ -16,7 +16,7 @@ def collect(amount=1000,candidate=None,overrides=None,payload_length=None):
   if a is None or not a.executable:states[str(m.pubkey)]=None if a is None else {'data':bytes(a.data).hex(),'lamports':a.lamports,'owner':str(a.owner)}
  return {'error':str(r.err()) if failed else None,'states':states,'logs':meta.logs(),'inner':json.loads(meta.to_json())['inner_instructions']}
 
-PUMP=Pubkey.from_string(json.load(open('evidence/upstream/pump.json'))['address']);PUMPVAULT=Pubkey.find_program_address([b'creator-vault',bytes(CREATOR)],PUMP)[0];PUMPATA=Pubkey.find_program_address([bytes(PUMPVAULT),bytes(TOKEN),bytes(quote)],ATA)[0]
+PUMP=Pubkey.from_string(json.load(open('evidence/upstream/pump.json', encoding='utf-8'))['address']);PUMPVAULT=Pubkey.find_program_address([b'creator-vault',bytes(CREATOR)],PUMP)[0];PUMPATA=Pubkey.find_program_address([bytes(PUMPVAULT),bytes(TOKEN),bytes(quote)],ATA)[0]
 def transfer(name='transfer_creator_fees_to_pump',amount=1000,candidate=None,overrides=None):
  h=acquire_harness(pin_program(candidate or ROOT/'evidence/original/pump_amm/deployed.so'));h.vm.set_clock(Clock(100,1234567890,0,0,1234567890))
  for pid,n in [(TOKEN,'spl_token'),(TOKEN22,'spl_token_2022'),(ATA,'associated_token')]:h.vm.add_program_from_file(pid,ROOT/'evidence/dependencies'/n/'deployed.so')

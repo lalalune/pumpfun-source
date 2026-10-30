@@ -58,8 +58,12 @@ def roundtrip(tool, inventory, entry, output):
     command = [str(tool), 'build', '--arch', 'v0' if flags == 0 else 'v3',
                '--input', str(source), '--deploy-dir', str(folder / 'assembled')]
     result = subprocess.run(command, capture_output=True)
-    (folder / 'build.log').write_bytes(result.stdout + result.stderr)
-    result.check_returncode()
+    log = result.stdout + result.stderr
+    (folder / 'build.log').write_bytes(log)
+    if result.returncode:
+        # A failed run discards its staging directory, including this log.
+        raise ValueError(f'{name}: assembler exited {result.returncode}: '
+                         + log.decode(errors='replace'))
     candidate = (folder / 'assembled/reference-derived.so').read_bytes()
     section = sections(candidate)['.text']
     text = candidate[section[4]:section[4] + section[5]]

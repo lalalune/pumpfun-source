@@ -1,11 +1,12 @@
 import sys,struct,json,base64,pathlib,hashlib
 sys.path.insert(0,'scripts')
 from pump_amm_liquidity_differential import *
+from pump_amm_reusable_harness import pin_program
 from solders.transaction import Transaction
 ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');USER=OUTSIDER.pubkey();U=Pubkey.find_program_address([b'user_volume_accumulator',bytes(USER)],PROGRAM)[0];DEST=Pubkey.from_bytes(bytes([237])*32)
 ORIGINAL=ROOT/'evidence/original/pump_amm/deployed.so'
 def run(c,binary=ORIGINAL):
- h=acquire_harness(binary);vm=h.vm;vm.with_sigverify(True);vm.set_clock(Clock(100,1234567890,0,0,1234567890))
+ h=acquire_harness(pin_program(binary));vm=h.vm;vm.with_sigverify(True);vm.set_clock(Clock(100,1234567890,0,0,1234567890))
  for pid,n in [(TOKEN,'spl_token'),(TOKEN22,'spl_token_2022')]:vm.add_program_from_file(pid,ROOT/'evidence/dependencies'/n/'deployed.so')
  tp=TOKEN22 if c.get('token22') else TOKEN;mint=quote if not c.get('non_native') else base;v=Pubkey.find_program_address([bytes(U),bytes(tp),bytes(mint)],ATA)[0]
  row=f['accounts']['quote_mint' if mint==quote else 'base_mint'];vm.set_account(mint,Account(row['lamports'],base64.b64decode(row['data_base64']),tp))
@@ -63,5 +64,5 @@ if __name__=='__main__':
  for c in cases():
   x,y=run(c),run(c,a.candidate);diff=[k for k in x if k!='logs' and x[k]!=y[k]];rows.append({'case':c,'original':x,'candidate':y,'diff':diff})
  sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
- d={'scope':'Bounded normal-signature AMM cashback fixtures; compare full recorded state, inner calls, events and errors; no original-program identity/security claim.','original_sha256':sha(ORIGINAL),'candidate_sha256':sha(a.candidate),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
+ d={'scope':'Bounded normal-signature AMM cashback fixtures; compare full recorded state, inner calls, events and errors; no original-program identity/security claim.','original_sha256':sha(pin_program(ORIGINAL)),'candidate_sha256':sha(pin_program(a.candidate)),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(d,separators=(',',':'))+'\n');print(json.dumps({k:v for k,v in d.items() if k!='cases'}));assert not d['mismatches']

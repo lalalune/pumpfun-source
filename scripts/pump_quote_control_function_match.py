@@ -134,6 +134,7 @@ def main():
         print(f"{size:6d} masked={len(hits)} raw={len(raw)} {short}")
     print(f"{sum(1 for r in rows if r['masked_matches'])}/{len(rows)} functions have masked matches")
     if a.output:
+        a.output.parent.mkdir(parents=True, exist_ok=True)
         a.output.write_text(json.dumps({'candidate': str(a.candidate), 'candidate_sha256': hashlib.sha256(cand).hexdigest(),
                                         'original_sha256': hashlib.sha256(orig).hexdigest(), 'functions': rows}, indent=1))
 

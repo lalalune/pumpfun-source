@@ -9,7 +9,7 @@ from solders.litesvm import LiteSVM
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
-R=Path(__file__).resolve().parents[1];IDL=json.loads((R/'evidence/upstream/pump.json').read_text());P=Pubkey.from_string(IDL['address']);G=Pubkey.find_program_address([b'global'],P)[0];USER=Keypair.from_seed(bytes([201])*32);PAYER=Keypair.from_seed(bytes([203])*32)
+R=Path(__file__).resolve().parents[1];IDL=json.loads((R/'evidence/upstream/pump.json').read_text(encoding='utf-8'));P=Pubkey.from_string(IDL['address']);G=Pubkey.find_program_address([b'global'],P)[0];USER=Keypair.from_seed(bytes([201])*32);PAYER=Keypair.from_seed(bytes([203])*32)
 IX=next(i for i in IDL['instructions'] if i['name']=='initialize');ORIGINAL=R/'evidence/original/pump/deployed.so'
 def run(c,binary=None):
  vm=LiteSVM().with_transaction_history(0).with_sigverify(True);vm.add_program_from_file(P,binary or ORIGINAL)

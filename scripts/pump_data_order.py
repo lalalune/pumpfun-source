@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import re
 import struct
+import tempfile
 
 from build_source_manifest import source_manifest
 from pump_compare_function_bytes import normalize
@@ -661,6 +662,23 @@ def verify_transform(cert, output):
     }
 
 
+def publish_certificate(path, cert):
+    """Link a complete certificate into a new path; never replace an output."""
+    staged = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            "w", dir=path.parent, prefix="." + path.name + ".", delete=False
+        ) as stream:
+            staged = Path(stream.name)
+            stream.write(json.dumps(cert, indent=2) + "\n")
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.link(staged, path)
+    finally:
+        if staged is not None:
+            staged.unlink(missing_ok=True)
+
+
 def main():
     import argparse
 
@@ -676,7 +694,7 @@ def main():
         "payload": derive_payload(args.baseline_build, args.text_section_order),
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(cert, indent=2) + "\n")
+    publish_certificate(args.output, cert)
     print(
         json.dumps(
             {

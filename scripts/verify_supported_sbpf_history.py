@@ -74,7 +74,7 @@ def write(view, name, data):
 def stage_package(root, view, package, seal):
     raw = authenticated(root, package / 'manifest.json', seal)
     manifest = json.loads(raw)
-    actual = {str(p.relative_to(root / package)) for p in (root / package).rglob('*')
+    actual = {p.relative_to(root / package).as_posix() for p in (root / package).rglob('*')
               if p.is_file() and p != root / package / 'manifest.json' and '__pycache__' not in p.parts}
     assert actual == set(manifest), package
     write(view, package / 'manifest.json', raw)
