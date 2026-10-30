@@ -183,9 +183,9 @@ def run_captured(item):
         return {'error': int(code.group(1)) if code else text}
     delta = dict(zip(('payer', 'curve', 'recipient'), (lamports(k) - b for k, b in zip(watched, before))))
     events = [base64.b64decode(line[14:]) for line in result.logs() if line.startswith('Program data: ')]
-    stored = vm.get_account(CURVE).data
+    stored = vm.get_account(CURVE)
     tokens = lambda key: struct.unpack_from('<Q', vm.get_account(key).data, 64)[0] if vm.get_account(key) else None
-    return {'error': None, 'delta': delta, 'buckets': struct.unpack_from('<QQ', stored, 125),
+    return {'error': None, 'delta': delta, 'buckets': struct.unpack_from('<QQ', stored.data, 125) if stored else None,
             'events': [e for e in events if e[:8] == SWEEP_EVENT], 'all_events': len(events),
             'tokens': (tokens(ata(CURVE, quote)), tokens(ata(recipient, quote)))}
 
@@ -233,6 +233,12 @@ def fixed_cases():
     add(lamports=1_000)
     add(lamports=6_000_000)
     add(lamports=7_000_000 + CURVE_RENT - 1)
+    # Boundaries after the payer's top-up: the curve holds exactly the amount
+    # (accepted: the curve is drained to zero and dropped; one below overflows),
+    # and the curve ends exactly at its rent minimum (accepted).
+    for lamports in (7_000_000 - CURVE_RENT - 1, 7_000_000 - CURVE_RENT, 7_000_000 - CURVE_RENT + 1,
+                     7_000_000 - 1, 7_000_000):
+        add(lamports=lamports)
     add(lamports=10**12, real_quote=U64 - 5)
     add(lamports=10**12, real_quote=0, creator_fee=U64 - 5, protocol_fees=6)
     add(lamports=10**12, real_quote=0, creator_fee=U64 - 5, protocol_fees=5)
@@ -297,7 +303,9 @@ class SweepFeesCapturedTests(unittest.TestCase):
         return out.splitlines()
 
     def check(self, item, answer):
-        captured = run_captured(item)
+        self.assert_matches(item, answer, run_captured(item))
+
+    def assert_matches(self, item, answer, captured):
         if answer == 'arithmetic':
             self.assertIn('ArithmeticOverflow', str(captured['error']))
             return
@@ -315,7 +323,9 @@ class SweepFeesCapturedTests(unittest.TestCase):
             'curve': curve_top_up - (amount if native else 0),
             'recipient': vault_top_up + amount if native else 0,
         })
-        self.assertEqual(captured['buckets'], (creator_bucket, protocol_bucket))
+        # A native curve drained to exactly zero lamports is dropped by the runtime.
+        drained = native and curve_lamports(item) + curve_top_up == amount
+        self.assertEqual(captured['buckets'], None if drained else (creator_bucket, protocol_bucket))
         if not native:
             curve_ata, recipient_ata = captured['tokens']
             self.assertEqual(curve_ata, None if item['curve_ata'] is None else item['curve_ata'] - amount)
@@ -342,6 +352,20 @@ class SweepFeesCapturedTests(unittest.TestCase):
 
     def test_seeded_random_cases_match_captured_program(self):
         self.run_cases(random_cases())
+
+    def test_checker_rejects_reversed_balance_movements(self):
+        # Negative control: a passing captured creator sweep (vault top-up and
+        # curve top-up included) must fail once any lamport movement is reversed.
+        item = case(bucket='creator', recipient_lamports=0, curve_extra=0)
+        answer = self.host_answers([item])[0]
+        captured = run_captured(item)
+        self.assert_matches(item, answer, captured)
+        for key in ('payer', 'curve', 'recipient'):
+            with self.subTest(reversed=key):
+                self.assertNotEqual(captured['delta'][key], 0)
+                flipped = dict(captured, delta=dict(captured['delta'], **{key: -captured['delta'][key]}))
+                with self.assertRaises(AssertionError):
+                    self.assert_matches(item, answer, flipped)
 
     def test_fixed_cases_cover_every_outcome(self):
         answers = self.host_answers(fixed_cases())

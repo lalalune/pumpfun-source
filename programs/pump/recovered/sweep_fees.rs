@@ -73,8 +73,9 @@ pub enum Stop {
     Code(u32),
     /// `sub_lamports` on a curve holding less than the amount.
     ArithmeticOverflow,
-    /// Runtime rejection: the curve would end below its rent minimum (only
-    /// reachable when its lamports are already short of the SOL it owes).
+    /// Runtime rejection: the curve would end above zero but below its rent
+    /// minimum (only reachable when its lamports are already short of the SOL
+    /// it owes). Ending at exactly zero is accepted and drops the account.
     CurveBelowRent,
 }
 
@@ -148,7 +149,10 @@ pub fn sweep(s: &Sweep) -> Result<Swept, Stop> {
         if curve < amount {
             return Err(Stop::ArithmeticOverflow);
         }
-        if curve - amount < CURVE_RENT_MINIMUM {
+        // The runtime accepts a curve drained to exactly zero lamports (the
+        // account is then dropped) but rejects anything between 0 and rent.
+        let left = curve - amount;
+        if left != 0 && left < CURVE_RENT_MINIMUM {
             return Err(Stop::CurveBelowRent);
         }
     } else {
