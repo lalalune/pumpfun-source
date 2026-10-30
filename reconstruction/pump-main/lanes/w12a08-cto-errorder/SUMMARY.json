@@ -1,0 +1,84 @@
+{
+  "lane": "w12a08-cto-errorder",
+  "wave": 12,
+  "pool": "a",
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "angle": "validation and error-block order (Source line order of error sites)",
+  "bases": [
+    {"main": "20a1ae9c0", "ratio": 0.43919, "slots_diff": 3352},
+    {"main": "b5975fa67 (k4, #2749)", "ratio": 0.45147, "slots_diff": 3308},
+    {"main": "7cafddcf3 (#2831 + #2808)", "ratio": 0.48742, "slots_diff": 3273}
+  ],
+  "landed": false,
+  "prs": [{"number": 2806, "kind": "notes", "state": "merged by review"}],
+  "error_site_order": {
+    "original": "289 298 306 296 326 312 307 330 338 334 410 719 648 660 284 556",
+    "main_20a1ae9_and_k4": "298 289 330 296 326 306 312 307 338 410 334 719 648 660 284 556",
+    "main_7cafddc": "298 289 296 326 306 312 307 330 338 410 334 719 648 660 284 556"
+  },
+  "best_measured": {
+    "zero_loss_at_pinned_size": null,
+    "note": "No trial beat main at exactly 27,400 B. Best structural result: k06 (per-arm cashback tuple, MIR JumpThreading of the holder arm past the 330 test) 27,368 B / 0.48381 on k4 (main 0.45147); k21 (k06 + validate match fee) 27,384 B / 0.48517. The same mechanism landed independently as #2831 (0.48652, then 0.48742 with #2808)."
+  },
+  "oracles": {
+    "llc": "llc on rustc's optimized IR slimmed to execute; reproduces main exactly, ratio identical to target_metric.py, under 1 s",
+    "raw_ir_opt": "opt -O3 (SDK v1.44 rustlib) on the -C save-temps no-opt module slimmed with w12a10 mkslim4.py (llvm-extract --recursive closure of execute), then llc; reproduced main exactly on 20a1ae9, b5975fa and 7cafddc and predicted source trials k01, k19 and m_e289_bitand exactly; 10-60 s, no build slot"
+  },
+  "attempts": [
+    {"id": "v02", "base": "20a1ae9", "change": "holder.unwrap_or(false), cashback &&", "bytes": 27432, "ratio": 0.32695},
+    {"id": "v03", "base": "20a1ae9", "change": "sharing_update before validate", "bytes": 27696, "ratio": 0.22941},
+    {"id": "v04", "base": "20a1ae9", "change": "target override before sharing_update (334 placed right after 338)", "bytes": 27496, "ratio": 0.43032},
+    {"id": "v09", "base": "20a1ae9", "change": "mut new, cleared if holder (drops deduced readonly)", "bytes": 27704, "ratio": 0.41615},
+    {"id": "v10", "base": "20a1ae9", "change": "v09 + holder_key by value", "bytes": 27848, "ratio": 0.35086},
+    {"id": "v11", "base": "20a1ae9", "change": "validate holder_key by value", "bytes": 27376, "ratio": 0.38573},
+    {"id": "k01", "base": "b5975fa", "change": "holder.unwrap_or(false), cashback & (289 before 298)", "bytes": 27128, "ratio": 0.44986},
+    {"id": "k02", "base": "b5975fa", "change": "validate holder_key by value", "bytes": 27312, "ratio": 0.43631},
+    {"id": "k04", "base": "b5975fa", "change": "validate takes shared; non-holder arm if shared{creator}else{t}", "bytes": 27352, "ratio": 0.27676},
+    {"id": "k05", "base": "b5975fa", "change": "holder.unwrap_or(false), cashback &&", "bytes": 27440, "ratio": 0.3236},
+    {"id": "k06", "base": "b5975fa", "change": "per-arm (target,cashback) tuple, 330 is if cashback", "bytes": 27368, "ratio": 0.48381},
+    {"id": "k10", "base": "b5975fa", "change": "289 as hr&!holder", "bytes": 27016, "ratio": 0.43838},
+    {"id": "k11", "base": "b5975fa", "change": "330 as !holder&st.cashback", "bytes": 27400, "ratio": 0.45147, "note": "byte-identical admin_cto"},
+    {"id": "k12", "base": "b5975fa", "change": "296 with &", "bytes": 26648, "ratio": 0.41579},
+    {"id": "k14", "base": "b5975fa", "change": "k01 + k04", "bytes": 27168, "ratio": 0.25064},
+    {"id": "k19", "base": "b5975fa", "change": "let mut cashback=false before the if (no MIR JT)", "bytes": 27328, "ratio": 0.44338},
+    {"id": "k21", "base": "abd095f", "change": "k06 + validate match fee", "bytes": 27384, "ratio": 0.48517},
+    {"id": "h18", "base": "7cafddc", "change": "validate returns (target,cashback), execute uses it", "bytes": 27096, "ratio": 0.21754},
+    {"id": "h22", "base": "7cafddc", "change": "sharing tree tests holder before shared", "bytes": 27336, "ratio": 0.4841},
+    {"id": "m_e296_nested", "base": "7cafddc", "change": "296 nested: if holder&&!hr{if !enabled{..}}", "bytes": 27448, "ratio": 0.48668, "note": "near-neutral +48 B size knob"},
+    {"id": "m_e289_bitand", "base": "7cafddc", "change": "289 as hr&!holder", "bytes": 27040, "ratio": 0.45024}
+  ],
+  "raw_ir_experiments": [
+    {"id": "T1", "base": "k4", "change": "holder arm gets its own fee switch + ql test, OK edge straight to fee_configurable (orig threading)", "bytes": 27376, "ratio": 0.48374},
+    {"id": "T7", "base": "k4", "change": "T1 + holder-first sharing tree", "bytes": 27328, "ratio": 0.48658},
+    {"id": "T2", "base": "k4", "change": "cashback phi at arm merge (LLVM alone does not thread)", "bytes": 27328, "ratio": 0.44338},
+    {"id": "hm2", "base": "7cafddc", "change": "holder trunc", "bytes": 27192, "ratio": 0.45113},
+    {"id": "hm3", "base": "7cafddc", "change": "new tag without !range", "bytes": 27432, "ratio": 0.47994},
+    {"id": "hm7", "base": "7cafddc", "change": "holder-first sharing tree", "bytes": 27336, "ratio": 0.4835},
+    {"id": "hm8", "base": "7cafddc", "change": "separate fee-OK return", "bytes": 27440, "ratio": 0.43886},
+    {"id": "hm10", "base": "7cafddc", "change": "to_string noinline at 307/312", "bytes": 26960, "ratio": 0.43304}
+  ],
+  "rejected_mechanisms": [
+    "holder.unwrap_or(false) / trunc holder test (fixes 289/298 order, always loses ratio on every base)",
+    "new tag test without range metadata (fixes 306 vs 296 only together with holder trunc; loses ratio)",
+    "mut new / deduced-readonly removal / kept validate copy (does not load new's pieces at the top like the original)",
+    "validate holder_key by value",
+    "shared target override inside validate's non-holder arm (frame shift, AnchorError temp moves 8 B)",
+    "validate returning cashback to execute (frame shift)",
+    "non-short-circuit 289/296/330 conditions",
+    "separate return/threading of fee-None paths (334 placement) at IR level",
+    "outlining to_string at 307/312"
+  ],
+  "unresolved_residuals": [
+    "289/298 swapped (original holder test is and-1 / 50-50; every source or IR form tried loses ratio)",
+    "306 placed after 296/326 (original new-tag test is and-1 on a value loaded at entry)",
+    "334 placed after 410: in the original the fee-None paths are threaded per arm so the fee-OK block has a single predecessor and the 334 block outranks it",
+    "to_string inlined at 307/312 (original outlines them: colder BFI in the original's validate)",
+    "frame: original arg spill at [r10-0x928] vs ours [r10-0x8f0]; original loads all of new's SROA pieces before the mayhem test and copies holder_key to [r10-0x518]"
+  ],
+  "next_ideas": [
+    "Use m_e296_nested (+48 B, -0.0007) as a size knob for composites that are 48 B short.",
+    "Find a source form that loads new's 33 bytes into SROA pieces before the mayhem test (orig 0x4d8-0x538); this would give the and-1 tag test and the extra spill slots that likely make up part of the 56 B frame difference.",
+    "Per-arm threading of the fee-None edges into the sharing tree (original 0x10e8/0xe38/0x18f8), which is what places 334 right after 338.",
+    "Use the raw-IR opt oracle to screen MIR-shape hypotheses before spending build slots; it has predicted every source trial checked exactly."
+  ]
+}
