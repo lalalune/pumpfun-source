@@ -36,3 +36,18 @@ Runtime ELF: `f60dc66a2ee354d6a1ff98175ff74660ab80ce25573184a5dd8e60f555137286`.
 
 Validation used `reconstruction/harness/fastbuild.py` (identity recipe), `score.py`,
 `compare_scores.py`, `target_metric.py` and `scripts/pump_admin_cto_differential.py`.
+
+## S10: pool-CPI holder read back from the curve (hrb)
+
+The original passes `holder` to `admin_cto_pool` with one `ldxdw r4,[r10-0x950]` right before the call (orig +0x4e20).
+Ours re-derived it at the call with `(x&-3)!=0` as a 3-insn select (`mov r4,1; jne; mov r4,0`): CodeGenPrepare sinks the
+holder `icmp` into every use. Passing `a.bonding_curve.is_holder_reward` (the field just stored) gives the call a
+plain load, as in the original:
+
+| base | hrb | + companions |
+| --- | --- | --- |
+| main 9eb6c00 (0.49131) | 27,360 / 0.49288 | + old-before-bump + Rent inline + reset early: 27,400 / **0.49431** (slots 3,167) |
+| main 1f1a717 (0.49431) | 27,360 / 0.49408 | + old-before-bump + Rent inline: 27,400 / **0.49611** (0 losses) |
+| main 8f050a2 (0.50929) | 27,368 / 0.51079 | old-before-bump is now byte-neutral; + `&Rent` ref 27,352 / 0.51094 |
+
+A `let holder=a.bonding_curve.is_holder_reward;` rebinding before the pool test is weaker (27,392 / 0.49109 on 9eb6c00).
