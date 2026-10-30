@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import importlib.util
 import json
+import pathlib
 import sys
 import unittest
 import unittest.mock
@@ -69,6 +70,21 @@ class EncodingTests(unittest.TestCase):
         rows, digest = relay.source_manifest(root)
         self.assertIn("programs/donation-relay/Cargo.toml", rows)
         self.assertRegex(digest, r"^[0-9a-f]{64}$")
+
+    def test_source_manifest_keys_are_posix_on_every_host(self):
+        import sys
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = pathlib.Path(temporary)
+            nested = root / "programs/donation-relay/src"
+            nested.mkdir(parents=True)
+            (nested / "lib.rs").write_text("pub fn f() {}\n", encoding="utf-8")
+            rows, digest = relay.source_manifest(root)
+        self.assertEqual(list(rows), ["programs/donation-relay/src/lib.rs"])
+        # The digest is over the key spelling too, so a host-dependent
+        # separator makes the whole receipt non-reproducible across hosts.
+        self.assertNotIn("\\", json.dumps(rows, sort_keys=True))
 
 
 if __name__ == "__main__":
