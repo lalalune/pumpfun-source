@@ -75,7 +75,18 @@ bb64 itself is placed by the DAG scheduler next to the call (main).
   call site because `global` is an SSA local pointing at a stable place. The GEP is then in bb64 with the call, so ISel
   places it as on main.
 
-## 4. Next
+## 4. Source trials (this lane)
 
-Make the `&Global` survive ReferencePropagation (non-SSA binding, or a reference that does not come from a plain
-`Ref` of a stable place) so the GEP is still in bb57 at ISel. Trials are listed below and in the ledger.
+| trial | source (lines 599-600) | result |
+| --- | --- | --- |
+| s2 | `let global: &Global = &a.global; let allowed = {..global.whitelist_pda}; ..` and `complete_fill(&global, ..)` (borrow the binding so it is not SSA for ReferencePropagation) | byte-identical to main (`candidate.so` sha 4eb9dc9e…, 0.99913/18). Its post-opt IR differs from main only by the GEP's position inside bb64: it sits at the very top, before `lifetime.start`, which is InstCombine's sink point, as in w12b04 v1. So the extra borrow does not keep the reference opaque. This is consistent with the call-site reborrow still being re-derived from the box pointer, after which EarlyCSE/InstCombine move that GEP to the top of bb64; this build's MIR was not kept, so the MIR pass is not confirmed. |
+
+Ledger: `0x5b3b0-w12-20a1ae9-slotmap-gep-only-oracle-v1` (analyzed), `0x5b3b0-w12-20a1ae9-refprop-borrowed-global-binding-v1` (rejected).
+
+## 5. Outcome
+
+w12b09-hop-hillclimb (#2766) found the working form: it carries the `&Global` out of the whitelist block in a tuple
+field, `let (allowed, global) = { let global: &Global = &a.global; ..; (.., global) }`, and passes `complete_fill(global, ..)`.
+`Use(Copy(_tup.1))` is not a local, so ReferencePropagation cannot see through it, and the GEP stays in the
+`base > reserves` block. This is the IR the oracle above asks for, and it gives swap_hop a normalized and raw match
+(1034/1034, zero losses). No swap_hop residual is left for this angle.

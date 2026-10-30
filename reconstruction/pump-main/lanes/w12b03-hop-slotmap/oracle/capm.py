@@ -34,7 +34,7 @@ for ext in ('ll', 'mir'):
                 e = t.find('\n}\n', m.start()); (a.out / 'swap_hop.ll').write_text(t[m.start() + 1:e + 3])
             shutil.copy2(p, a.out / 'module.ll')
         else:
-            m = re.search(r'\nfn multi_hop_curve::swap_hop\(', t)
+            m = re.search(r'\nfn swap_hop\(_1: &anchor_lang::context::Context', t)
             if m:
                 e = t.find('\n}\n', m.start()); (a.out / 'swap_hop.mir').write_text(t[m.start() + 1:e + 3])
         p.unlink()
