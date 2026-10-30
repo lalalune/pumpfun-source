@@ -84,6 +84,8 @@ jobs:
               python -B scripts/test_amm_harness_content_cache.py
               python -B tests/test_amm_pinned_candidate.py
               python -B tests/test_pump_create_nested_pinned_image.py
+              python -B tests/test_mayhem_differential_pinned_image.py
+              python -B tests/test_aggregate_pinned_image.py
               python -B tests/test_two_curve_optimization_guard.py
               python -O -B tests/test_two_curve_optimization_guard.py
               python -B scripts/test_dispatch_recovery.py
@@ -165,6 +167,8 @@ jobs:
               python -B reconstruction/harness/test_diagnostic_range_boundaries.py
               python -B reconstruction/harness/test_stack_access_isa.py
               python scripts/test_build_source_manifest.py
+              python -B scripts/test_build_fee_selection_binding.py
+              python -B scripts/test_build_quote_fees_binding.py
               python -I -B tests/test_manifest_nested_target.py
               python scripts/test_core_linux_v144_retention.py
               # Two of three tests: the third compares against a frozen helper that was removed with repro/;
@@ -206,6 +210,7 @@ jobs:
               python research/tooling-terminal-error-patterns-20261030/test_verify.py
               python research/tooling-terminal-error-patterns-20261030/verify.py
               python research/tooling-token-program-constant-detector-20261029/verify.py
+              python -B research/tooling-token-program-constant-detector-20261029/test_verify.py
               python -B -m unittest discover -s reconstruction/capture-rpc-retry -p 'test_*.py'
               python -B reconstruction/verification/donation-relay-idl-lifecycle/test_lifecycle.py
               python -B reconstruction/verification/donation-relay-idl-lifecycle/test_verify_steps.py

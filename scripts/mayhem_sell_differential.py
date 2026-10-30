@@ -3,6 +3,7 @@
 from pathlib import Path
 import json,hashlib,base64,argparse,re
 import mayhem_sell_fixture as p
+from pump_amm_reusable_harness import pin_program
 from solders.transaction import Transaction
 D=p.ROOT/'repro/mayhem/nineteen'
 NAMES=['trader','global_params','mayhem_state','sol_vault','mint','mayhem_token_vault','token_program','system_program','global','bonding_curve','fee_recipient','associated_bonding_curve','creator_vault','pump_event_authority','pump_program','fee_config','fee_program','event_authority','program','bonding_curve_v2','buyback_recipient']
@@ -24,7 +25,7 @@ def limit_value(text):
  return value
 
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--limit',type=limit_value);a=ap.parse_args();rows=[];mismatches=[]
+ ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--limit',type=limit_value);a=ap.parse_args();a.candidate=pin_program(a.candidate);rows=[];mismatches=[]
  for c in cases()[:a.limit]:
   original=p.run(c);candidate=p.run(c,a.candidate);diff=[]
   for r in [original,candidate]:
