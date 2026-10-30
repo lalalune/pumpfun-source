@@ -112,6 +112,24 @@ Findings on main b5975fa:
 - The fresh rewrites move the frame almost completely: 16 to 30 offsets with delta 0. Clean-room
   structure is not a route to the frame.
 
+## Peer candidates through the oracle (for stitchers)
+
+These are register- and frame-masked chunk scores against the original. A `+` marks chunks that are
+better than main b5975fa (0.8744):
+
+| candidate | bytes | ratio | structure | chunks that move |
+| --- | ---: | ---: | ---: | --- |
+| w12a11 t18 `amm_cb_local` | 27,384 | 0.48367 | 0.8825 | +0x0b60, +0x0f20 (0.29→0.59), +0x1588 (0.34→0.50), +0x1618 (0.53→1.00), −0x10c8 (1.00→0.72) |
+| w12a11 t23 (t18 + `k4_oldfee_after`) | 27,392 | 0.48449 | 0.8824 | same as t18 |
+| w12a09 t02 `feematch` | 27,392 | 0.47551 | 0.8780 | +0x0f20 (→0.59), +0x13d8 (0.51→0.83), −0x0b60 (0.54→0.32), −0x1680 |
+| this lane f3 (validate method) | 26,840 | 0.15496 | 0.7871 | 410 block exact (0x1ae0 0.50→0.84, 0x1c58 0.50→1.00), +0x13d8, +0x17e0, but prologue 0x0668 0.22 |
+
+All of them leave the frame where main has it: 161–162 r10 offsets map with delta 0. Their gains
+are therefore validation block order only. t18 and t02 overlap at 0x0f20, the 306 From. Elsewhere
+they move different chunks: t18 at 0x1588/0x1618 (the 312/307 blocks), t02 at 0x13d8. Their
+combination is w12a11 t31: 0.48487 at 27,384, only +0.0012 over t18 alone. That is consistent with both
+genes fixing the same 0x0f20 chunk.
+
 ## Rejected mechanisms (ledger keys under lane w12b11-cto-fresh)
 
 - `0x22a10-w12-e61df03-fresh-sibling-rewrite-separate-exits-v1` (f1)
@@ -121,3 +139,4 @@ Findings on main b5975fa:
 - `0x22a10-w12-e61df03-fresh-validate-method-full-rewrite-v1` (f3)
 - `0x22a10-w12-b5975fa-fresh-validate-unit-target-unwrap-or-v1`
 - `0x22a10-w12-b5975fa-fresh-validate-unit-target-ifexpr-v1`
+- `0x22a10-w12-b5975fa-fresh-ctxacc-sharing-cpi-v1` and `...-ctxacc-sharing-and-pool-cpi-v1`: `ctx.accounts.X` instead of `a.X` in the CPIs is byte-identical to main (GVN). So f2's better sharing-CPI chunk was a global regalloc effect.

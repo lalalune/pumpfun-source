@@ -1,0 +1,61 @@
+{
+  "lane": "w12b11-cto-fresh",
+  "wave": 12,
+  "pool": "b",
+  "angle": "fresh-eyes clean-room rewrite of admin_cto::execute in the idiom of the byte-matched siblings (pump-amm admin_cto_pool, create_v2, pump-fees admin_cto_sharing_config); compare whole ratio, segab and per-region structure against main",
+  "targets": {
+    "0x22a10": {
+      "function": "admin_cto::execute",
+      "file": "programs/pump/src/creator/admin_cto.rs",
+      "pinned_bytes": 27400,
+      "main_at_start": {"sha": "20a1ae9c0", "ratio": 0.43919, "slots_diff": 3352, "bytes": 27400},
+      "main_at_end": {"sha": "70f27048e", "ratio": 0.45147, "slots_diff": 3308, "bytes": 27400},
+      "best_lane_result": "none better than main; no source change proposed",
+      "goal_reached": false
+    }
+  },
+  "pr": 2803,
+  "landed": false,
+  "attempts": [
+    {"key": "0x22a10-w12-e61df03-fresh-sibling-rewrite-separate-exits-v1", "base": "20a1ae9", "bytes": 10688, "ratio": 0.11953, "result": "helpers not inlined: early-exit validation makes the wallet/sweep call sites cold (BFI < 2% of entry), so the inliner drops all bonuses and caps the threshold at 45"},
+    {"key": "0x22a10-w12-e61df03-fresh-tail-on-main-head-v1", "base": "20a1ae9", "bytes": 27408, "ratio": 0.21537, "structure": 0.8077, "result": "post-sweep code re-placed after the native/wallet tail; event from locals worse than curve re-reads"},
+    {"key": "0x22a10-w12-e61df03-fresh-validate-method-full-rewrite-v1", "base": "20a1ae9", "bytes": 26840, "ratio": 0.15496, "structure": 0.7871, "result": "154+3 calls restored; to_string inline/outline set and lddw 86 equal the original (same effect as #2370 296-in-holder-arm); frame far off"},
+    {"key": "0x22a10-w12-b5975fa-fresh-validate-unit-target-unwrap-or-v1", "base": "b5975fa", "bytes": 26952, "ratio": 0.14199, "structure": 0.8135, "result": "frame collapses (16/388 r10 offsets equal vs main 162)"},
+    {"key": "0x22a10-w12-b5975fa-fresh-validate-unit-target-ifexpr-v1", "base": "b5975fa", "bytes": 26944, "ratio": 0.14836, "result": "same collapse"},
+    {"key": "0x22a10-w12-b5975fa-fresh-ctxacc-sharing-cpi-v1", "base": "b5975fa", "bytes": 27400, "ratio": 0.45147, "result": "byte-identical to main"},
+    {"key": "0x22a10-w12-b5975fa-fresh-ctxacc-sharing-and-pool-cpi-v1", "base": "b5975fa", "bytes": 27400, "ratio": 0.45147, "result": "byte-identical to main"}
+  ],
+  "mechanisms": [
+    "Early-exit validation in execute (each require! a direct return) makes the later helper call sites cold under static BPI: LLVM's InlineCostCallAnalyzer then disallows all bonuses, including the 15000 last-call-to-static bonus, and caps the threshold at ColdCallSiteThreshold=45. The wallet and sweep helpers stay out of line (86 calls). The original's 154+3 calls in one 27,400 B function imply its validation reaches the helper calls through one merge (a Result-returning helper, method or closure behind a single ?).",
+    "A sibling-style validate method (296 inside the holder arm as in create_v2, let-else at 306, require_keys_neq! at 307, require!(t!=hk&&t!=sk) at 312) reproduces the original's to_string inline/outline choice at all 12 validation sites and lddw=86. This independently confirms the #2370 gene.",
+    "With registers and frame offsets masked and chunks paired by call label (placement-independent), main b5975fa is 0.8744 similar to the original. The tail call order already equals the original. The remaining structural gap is validation error-block order plus 312/307 to_string. The two large CPI chunks (0.86 and 0.96) differ only in spills and one mint Rc-clone block emitted before an accounts-pointer reload; to_account_info order is identical.",
+    "Frame: the spill area starts at orig 0x8d8 vs ours 0x8c0 (24 B), and below it spill slots are permuted rather than shifted. Clean-room rewrites move the frame almost entirely (16-30 equal offsets vs main 162), so a rewrite is not a route to the frame."
+  ],
+  "tools": [
+    "reconstruction/pump-main/lanes/w12b11-cto-fresh/tools/chunks2.py (placement-independent, register- and frame-masked per-call-chunk similarity; weighted score)",
+    "tools/cdiff2.py (structural diff of one chunk with real addresses)",
+    "tools/framedelta.py (orig->candidate r10 offset delta runs; count of offsets with delta 0)",
+    "tools/annot.py (annotate call imm with candidate symbol names)",
+    "tools/pad.py (place //@NNN marker lines on line NNN for clean-room templates)"
+  ],
+  "fresh_templates": ["fresh/f1_separate_exits.tmpl", "fresh/f3_validate_method.tmpl"],
+  "rejected_mechanisms": [
+    "direct require! exits in execute (helpers not inlined)",
+    "module-level wallet/sweep helpers with early returns and if-expr sweep gate (tail re-placed)",
+    "AdminCtoEvent fields from locals",
+    "validate as &self method without CtoState (frame lost)",
+    "validate -> Result<()> with target recomputed in execute (unwrap_or / if-expr)",
+    "ctx.accounts.X vs a.X in CPIs (byte-identical)"
+  ],
+  "unresolved_residuals": [
+    "frame: 24 B shallower spill area and permuted spill slots (regalloc order)",
+    "validation error-block order and sret-slot RPO (w12a08/w12a09 genes)",
+    "to_string inlined at 312/307 (+2 lddw) unless 296 moves into the holder arm, which costs about 248 B that must be found elsewhere",
+    "mint Rc-clone block before the accounts-pointer reload in the sharing CPI chunk"
+  ],
+  "next_untried_ideas": [
+    "Use chunks2.py as a fast structural screen for size-compensation knobs: prefer knobs that leave every chunk score unchanged, so a +8/+16 B knob does not move validation blocks.",
+    "Combine the 296-in-holder-arm (to_string/lddw fix, about -248 B) with a structurally neutral compensation that adds a real missing original element (for example the early by-value copy of new's pieces and the holder_key copy to [r10-0x518] seen in the original prologue) instead of a pure size knob.",
+    "In the IR, test whether validate's two BFI-sensitive to_string sites (312/307) can be cooled without moving 296: for example an extra cold-weighted branch ahead of 307 that disappears after JumpThreading."
+  ]
+}
