@@ -1,0 +1,18 @@
+{
+  "lane": "w7r1-buyhandler-frame",
+  "targets": ["0x13b9b8"],
+  "base": "origin/main 6edd839 (1027/276, buy_handler 0.97998 / 15512 B)",
+  "best": {"ratio": 0.98209, "cand_bytes": 15512, "normalized": 1027, "raw": 276, "losses": [], "change": "TradeEvent literal sol-reserve fields in declaration order"},
+  "target_status": "normalized match reached by PR #2225 (w7r1-buyhandler-inline), verified here 1028/276 0 losses",
+  "pr": 2224,
+  "attempts": ["060a7948bb2b47a89dbbf2c79e89be7a", "b688e780b8e94b49af17e028fcb60e6c", "31b9a1e92e6d4a51bf52d8d34e8c27b5", "d28d5bf8deeb47519a663309f30043e2", "9cd61602d53b4e73bff5d083dc49140f"],
+  "findings": [
+    "buy_handler frame is exact on base: every alloca, StackColoring group and call-return slot sits at the original T (stack_access.py shows no differences; frameoracle shows equal r10 offsets 800/807).",
+    "The fi113/114 ret-slot delta break is an alignment artifact of add-chain block placement; err1/err2 use the original slots.",
+    "The 2 spill-slot swaps (-0x7d0/-0x7d8) were the is_sol select order; machine order is the reverse of IR order; fixed by literal field order (0.98209).",
+    "In the inline-complete form, the Complete emit_cpi temps have no StorageLive in MIR; the original's markers come from an LLVM-inliner boundary."
+  ],
+  "rejected": ["fee tuple field read order (4 variants): byte-identical, SROA splits in offset order", "sel2 literal order virtual_token,virtual_sol,real_sol: identical to sel1"],
+  "unresolved": [],
+  "next_ideas": ["apply frameoracle to 0x13f630 buy_exact_quote_in_handler (0.99635, same 32 B excess) on top of #2225"]
+}

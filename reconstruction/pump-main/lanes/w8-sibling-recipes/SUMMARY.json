@@ -1,0 +1,49 @@
+{
+ "lane": "w8-sibling-recipes",
+ "wave": 8,
+ "base": "origin/main ce53d867a (fresh build 1027/276, unstripped 31ec6381b4e7)",
+ "targets": "raw layout (all normalized-only windows) via build inputs from the identical sibling programs",
+ "best_result": {
+  "normalized": 1027, "raw": 293, "raw_gains": 17, "normalized_losses": 0, "raw_losses": 0,
+  "unstripped_sha256": "d7dca7cc2ece56e4505e71695239502f54ee996528161110d88b70f58e97e119",
+  "candidate_sha256": "57f3c15a15ddb788e632941e506b6baeee9df0756b054e886e1ed8fdba5cf8e4",
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/2251"
+ },
+ "mechanism": "programs/pump/link/ordered.ld (sibling recipe): U (root-CGU upstream-generic instances) and D (dependency code) in the original's order, L kept in rustc order by one glob; harness/link_order.py hooks only the root cdylib link, admits only input-section reordering, fastbuild fails if the hook did not run; tools/regen.sh reproduces the script",
+ "sibling_findings": [
+  "AMM, Fees, Mayhem keep recovered crate names; their order comes from ordered link scripts covering .text/.rodata/.data.rel.ro",
+  "Fees: patched anchor-attribute-program 0.31.2 (#[used] on declare_program ID statics), Linux container cargo rustc, remap-path-prefix for its path crate",
+  "Mayhem: vendored anchor-lang 1.0.0, profile rustflags remaps, codegen-units=2 for solana-stake-interface, Windows host",
+  "Donation Relay: no link script in tree"
+ ],
+ "model": {
+  "order_ceiling_today_sizes": 293,
+  "fixed_sizes_ud_script": 477,
+  "fixed_sizes_full_order_script": 1022,
+  "fixed_sizes_main_rustc_order": 429
+ },
+ "attempts": [
+  "d3ad3242 offline relink U+D script: 1027/293",
+  "fc1c0930 pinned fastbuild recipe (lane and fresh work dir): 1027/293 d7dca7cc",
+  "ae684b75 --mode all (L too): 1027/293, not default",
+  "a30bac7d placement of 9 wrong-size units: <=293",
+  "ab341d79 crate/package pump + mod pump: 1027/192 (209 with script), rejected",
+  "2fd5f551 Fees used-public macro patch: analyzed, nothing to gain"
+ ],
+ "rejected_mechanisms": [
+  "root crate identity pump/0.1.0 (MergeFunctions survivors move, -84 tail)",
+  "placing mismatched-size units elsewhere",
+  "anchor-attribute-program #[used] patch"
+ ],
+ "unresolved_residuals": [
+  ".text is 0x230 B too long (8 unmatched size deltas + 512-B ensure_rent_exempt wrapper removed by #2168); all 601 data windows already have original offsets and turn raw only when .text size matches",
+  "8 unmatched windows (root-crate codegen, source lanes)",
+  ".rel.dyn has 2 extra R_SBF_64_RELATIVE from root .text lddw"
+ ],
+ "next_ideas": [
+  "When the unmatched handler shapes settle, switch genld.py to --mode all (L in original order): fixed-size model 477 -> 1022 without source-level order work; handler lanes can then drop placement-motivated inline(never)/inline(always) attributes",
+  "After any source change that adds or renames generic instances, rerun tools/regen.sh",
+  "Once .text reaches the original size, extend the script with .rodata/.data.rel.ro selectors only if a data offset regresses (checker already admits them)"
+ ],
+ "exhausted": true
+}

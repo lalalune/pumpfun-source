@@ -76,6 +76,8 @@ def _window_rows(orig, inventory):
     rows = []
     seen = set()
     text = os_['.text']
+    from instruction_stream import instruction_boundaries
+    boundaries = instruction_boundaries(body(orig, os_, text['addr'], text['size']))
     for r in reader:
         if r['program'] != 'pump' or r['variant'] != 'selected':
             continue
@@ -83,6 +85,8 @@ def _window_rows(orig, inventory):
         if (start in seen or start % 8 or end % 8 or end <= start
                 or start < text['addr'] or end > text['addr'] + text['size']):
             raise ValueError(f'invalid or duplicate selected window: {start}:{end}')
+        if start - text['addr'] not in boundaries or end - text['addr'] not in boundaries:
+            raise ValueError(f'selected window must follow logical instruction boundaries: {start}:{end}')
         seen.add(start)
         raw = body(orig, os_, start, end - start)
         if len(raw) != end - start:
@@ -90,6 +94,11 @@ def _window_rows(orig, inventory):
         rows.append((start, end - start, raw, normalize(raw, start, os_)))
     if not rows:
         raise ValueError('window inventory contains no selected Pump windows')
+    previous_end = text['addr']
+    for start, length, _, _ in sorted(rows, key=lambda row: row[0]):
+        if start < previous_end:
+            raise ValueError(f'overlapping window range: {start}')
+        previous_end = start + length
     return tuple(rows)
 
 
@@ -119,9 +128,17 @@ def score_with_hash(cand_path):
         snapshot.write_bytes(cand)
         funcs = candidate_functions(snapshot)
     by = {}
+    ranges = {}
     for start, length, name in funcs:
-        raw = body(cand, cs, start, length)
-        by.setdefault((length, hashlib.sha256(normalize(raw, start, cs)).digest()), []).append((start, name, raw))
+        location = (start, length)
+        cached = ranges.get(location)
+        if cached is None:
+            raw = body(cand, cs, start, length)
+            key = (length, hashlib.sha256(normalize(raw, start, cs)).digest())
+            ranges[location] = (key, raw)
+        else:
+            key, raw = cached
+        by.setdefault(key, []).append((start, name, raw))
     res = {}
     for w in original_windows():
         ms = by.get((w['bytes'], hashlib.sha256(w['norm']).digest()), [])
@@ -162,7 +179,8 @@ def main():
     else:
         print(f'score.py: baseline not found: {a.baseline} (pass --no-baseline to score without one)', file=sys.stderr)
         sys.exit(2)
-    inputs = [a.candidate, BASE / 'original.so', BASE / 'functions.tsv']
+    inputs = [a.candidate, BASE / 'original.so', resolve_original(BASE / 'original.so'),
+              BASE / 'functions.tsv']
     if base is not None:
         inputs.insert(1, a.baseline)
     report_destination(a.json, inputs)

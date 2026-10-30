@@ -22,20 +22,27 @@ those programs. There is no frontend, backend, SDK or off-chain service code.
 - `research/` — retained investigation packets with their own verifiers
 - `tests/` — unit tests for the tooling
 
-**Verified checkpoint progress**
+**Verified checkpoint progress — 2026-10-30**
 
 | Program | Matched windows | Matched % | Raw-equal bodies | Normalized only | Unmatched | Whole meaningful ELF equal |
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| [Pump Main](programs/pump/README.md) |1,020/1,035|98.6%|188|832|15|No|
-| [PumpSwap / AMM](programs/pump-amm/README.md) |785/785|100.0%|785|0|0|**Yes**|
-| [Fees](programs/pump-fees/README.md) |585/585|100.0%|585|0|0|**Yes**|
-| [Mayhem](programs/mayhem/README.md) |441/441|100.0%|441|0|0|**Yes**|
-| [Donation Relay](programs/donation-relay/) |492/492|100.0%|492|0|0|**Yes**|
-| **Total** |**3,323/3,338**|**99.6%**|**2,491**|**832**|**15**|**4/5**|
+| Pump Main |1,032/1,035|99.7%|347|685|3|No|
+| PumpSwap / AMM |785/785|100.0%|785|0|0|**Yes**|
+| Fees |585/585|100.0%|585|0|0|**Yes**|
+| Mayhem |441/441|100.0%|441|0|0|**Yes**|
+| Donation Relay |492/492|100.0%|492|0|0|**Yes**|
+| **Total** |**3,335/3,338**|**99.9%**|**2,650**|**685**|**3**|**4/5**|
 
-Matched windows cover **5,045,232/5,213,128 code bytes (96.8%)**.
+Matched windows cover **5,151,568/5,213,128 code bytes (98.8%)**.
+Pump Main and AMM were freshly rebuilt. Fees and Mayhem retain their exact
+historical checkpoints, with current recipe/source bindings checked; their
+compilers were not rerun. Donation Relay's retained cold-build packet was
+verified against current source. See the [scores, provenance and open-PR
+review](reconstruction/pump-main/checkpoints/completion-20261030/README.md).
+
 Raw equality compares complete instruction bytes. Normalized windows mask
 specified call/address operands and do not prove whole-program identity.
+Whole meaningful ELF equality excludes documented zero loader-allocation padding.
 These counts describe the selected maintained recipes; they are not a
 percentage of engineering work completed.
 

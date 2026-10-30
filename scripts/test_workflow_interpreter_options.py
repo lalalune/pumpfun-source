@@ -7,6 +7,14 @@ def references(command):
 
 
 class InterpreterOptionsTests(unittest.TestCase):
+    def test_environment_prefixes_do_not_hide_script(self):
+        for command in ('FOO=bar python scripts/check.py',
+                        'env FOO=bar python scripts/check.py',
+                        'env -i FOO=bar bash scripts/check.sh'):
+            with self.subTest(command=command):
+                self.assertEqual({r[2] for r in references(command)},
+                                 {'scripts/check.py' if command.endswith('.py') else 'scripts/check.sh'})
+
     def test_shell_option_arguments_do_not_hide_script(self):
         for command in ('bash -o pipefail scripts/check.sh',
                         'bash -euo pipefail scripts/check.sh',

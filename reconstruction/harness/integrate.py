@@ -5,7 +5,8 @@
                [--base-of <label>=<crate it was derived from>] [--no-build]
 
 Each part is turned into a patch against the crate it was derived from (default: --base-src),
-then applied in order with `patch -p2 --forward`. Rejects are reported and the part is skipped
+then applied in order. Empty-file transitions use Git patch metadata; ordinary text
+changes retain `patch -p2 --forward`. Rejects are reported and the part is skipped
 (the composition continues). The composed crate is built with fastbuild.py and scored.
 Output: SC/integ/<NAME>/{src, parts/<label>.patch, rejects/, report.json}
 Names must be fresh; an earlier result is never overwritten.
@@ -16,6 +17,7 @@ from pathlib import Path
 H = Path(__file__).resolve().parent
 SC = H.parent
 sys.path.insert(0, str(H))
+from treediff import reject_source_link
 
 
 def build_source(*args, **kwargs):
@@ -24,19 +26,69 @@ def build_source(*args, **kwargs):
     return fastbuild.build(*args, **kwargs)
 
 
+def crate_ignore(root: Path, *patterns):
+    """Skip the crate-root build directory, as fastbuild staging does, plus `patterns` anywhere.
+
+    Nested target directories and a regular file named target are source inputs.
+    """
+    root = Path(root)
+    by_name = shutil.ignore_patterns(*patterns)
+
+    def ignore(directory, names):
+        ignored = set(by_name(directory, names))
+        if Path(directory) == root and 'target' in names and (root / 'target').is_dir():
+            ignored.add('target')
+        return ignored
+    return ignore
+
+
 def make_patch(base: Path, part: Path, out: Path, tmp: Path):
     if tmp.exists():
         shutil.rmtree(tmp)
     (tmp / 'a').mkdir(parents=True); (tmp / 'b').mkdir(parents=True)
-    ign = shutil.ignore_patterns('target', '*.orig', '*.rej', '.DS_Store')
-    shutil.copytree(base, tmp / 'a/pump', ignore=ign)
-    shutil.copytree(part, tmp / 'b/pump', ignore=ign)
-    d = subprocess.run(['diff', '-ruN', 'a/pump', 'b/pump'], cwd=tmp, capture_output=True)
+    patterns = ('*.orig', '*.rej', '.DS_Store')
+    shutil.copytree(base, tmp / 'a/pump', ignore=crate_ignore(base, *patterns))
+    shutil.copytree(part, tmp / 'b/pump', ignore=crate_ignore(part, *patterns))
+    trees = [{p.relative_to(root): p.stat().st_size == 0
+              for p in root.rglob('*') if p.is_file()}
+             for root in (tmp / 'a/pump', tmp / 'b/pump')]
+    # diff -N equates absent and empty files, while patch -E removes files
+    # intentionally emptied by a part. Git records those existence changes.
+    empty_change = any(trees[0].get(name, False) != trees[1].get(name, False)
+                       for name in trees[0].keys() | trees[1].keys())
+    command = (['git', '-c', 'core.autocrlf=false', 'diff', '--no-index', '--binary',
+                '--no-ext-diff', '--no-textconv', '--no-renames', '--src-prefix=',
+                '--dst-prefix=', '--', 'a/pump', 'b/pump'] if empty_change else
+               ['diff', '-ruN', 'a/pump', 'b/pump'])
+    d = subprocess.run(command, cwd=tmp, capture_output=True)
     if d.returncode not in (0, 1):
         raise subprocess.CalledProcessError(d.returncode, d.args, output=d.stdout, stderr=d.stderr)
     out.write_bytes(d.stdout)
     # Decode only for report metadata; patch must receive the original diff bytes.
     return d.stdout.decode('utf-8', errors='surrogateescape')
+
+
+def git_patch_command(source):
+    # git apply invoked from a repository subdirectory silently filters paths
+    # outside that prefix. Anchor at the root and prepend the owned output tree.
+    found = subprocess.run(['git', '-C', str(source), 'rev-parse', '--show-toplevel'],
+                           capture_output=True, text=True)
+    root = Path(found.stdout.rstrip('\r\n')).resolve() if found.returncode == 0 else source
+    directory = source.resolve().relative_to(root).as_posix()
+    command = ['git', '-c', 'core.autocrlf=false', 'apply', '--no-index',
+               '--whitespace=nowarn', '-p2']
+    if directory != '.':
+        command.append('--directory=' + directory)
+    return command, root, directory
+
+
+def git_patched_files(command, root, directory, patch):
+    # NUL-delimited metadata covers empty files and arbitrary quoted filenames.
+    result = subprocess.run(command + ['--numstat', '-z', str(patch)], cwd=root,
+                            capture_output=True, check=True)
+    names = [entry.split(b'\t', 2)[2].decode('utf-8', errors='surrogateescape')
+             for entry in result.stdout.split(b'\0') if entry]
+    return sorted(Path(name).relative_to(directory).as_posix() for name in names)
 
 
 def patched_files(text: str):
@@ -60,6 +112,17 @@ def patched_files(text: str):
     return sorted(files)
 
 
+def reject_source_tree_links(root: Path):
+    """Reject links before copytree can follow them into a composition."""
+    reject_source_link(root)
+    if not root.is_dir():
+        return  # Preserve the existing missing/not-a-crate diagnostics.
+    # Check entries as rglob yields them. Building an eager list first could
+    # already traverse a Windows directory junction before it is inspected.
+    for path in root.rglob('*'):
+        reject_source_link(path)
+
+
 def preflight(name, base, parts, overrides):
     """Validate the complete composition before touching its output or snapshots."""
     def label(value):
@@ -76,7 +139,7 @@ def preflight(name, base, parts, overrides):
             label(key)
             if key in result or not path:
                 raise ValueError(f'duplicate label or empty path in {kind}: {key}')
-            result[key] = Path(path).resolve()
+            result[key] = Path(path)
         return result
 
     label(name)
@@ -88,8 +151,12 @@ def preflight(name, base, parts, overrides):
     output_path = SC / 'integ' / name
     if output_path.exists() or output_path.is_symlink():
         raise ValueError('output already exists; choose a new --name to preserve the earlier result')
+    for source in {Path(base), *selected.values(), *bases.values()}:
+        reject_source_tree_links(source)
     out = output_path.resolve()
-    base = base.resolve()
+    base = Path(base).resolve()
+    selected = {key: path.resolve() for key, path in selected.items()}
+    bases = {key: path.resolve() for key, path in bases.items()}
     for source in {base, *selected.values(), *bases.values()}:
         if source == out or source in out.parents or out in source.parents:
             raise ValueError(f'source overlaps composition output: {source}')
@@ -118,7 +185,7 @@ def main():
         ap.error(str(error))
     (out / 'parts').mkdir(parents=True); (out / 'rejects').mkdir()
     src = out / 'src'
-    shutil.copytree(base, src, ignore=shutil.ignore_patterns('target'))
+    shutil.copytree(base, src, ignore=crate_ignore(base))
     report = {'name': a.name, 'base': str(a.base_src), 'parts': []}
     exit_code = 0
     # GNU patch on Windows otherwise strips CR bytes from patch/source input.
@@ -128,12 +195,23 @@ def main():
         text = make_patch(derived_from, Path(path), pf, SC / 'integ' / '.tmp' / a.name / label)
         if not text.strip():
             report['parts'].append({'label': label, 'status': 'empty'}); continue
-        dry = subprocess.run(patch_command + ['-p2', '--forward', '--dry-run', '-E', '-d', str(src), '-i', str(pf)], capture_output=True, text=True)
+        git_format = text.startswith('diff --git ')
+        if git_format:
+            command, patch_root, directory = git_patch_command(src)
+            dry = subprocess.run(command + ['--check', str(pf)], cwd=patch_root,
+                                 capture_output=True, text=True)
+        else:
+            dry = subprocess.run(patch_command + ['-p2', '--forward', '--dry-run', '-E', '-d', str(src), '-i', str(pf)], capture_output=True, text=True)
         if dry.returncode == 0:
-            subprocess.run(patch_command + ['-s', '-p2', '--forward', '-E', '-d', str(src), '-i', str(pf)], check=True)
+            if git_format:
+                subprocess.run(command + [str(pf)], cwd=patch_root, check=True)
+                files = git_patched_files(command, patch_root, directory, pf)
+            else:
+                subprocess.run(patch_command + ['-s', '-p2', '--forward', '-E', '-d', str(src), '-i', str(pf)], check=True)
+                files = patched_files(text)
             for o in src.rglob('*.orig'):
                 o.unlink()
-            report['parts'].append({'label': label, 'status': 'applied', 'files': patched_files(text)})
+            report['parts'].append({'label': label, 'status': 'applied', 'files': files})
         else:
             (out / 'rejects' / f'{label}.txt').write_text(dry.stdout + dry.stderr)
             report['parts'].append({'label': label, 'status': 'conflict', 'detail': (dry.stdout + dry.stderr)[-1500:]})

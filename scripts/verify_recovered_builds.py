@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Check saved partial-build provenance against current sources, artifacts and captures."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse,base64,gzip,hashlib,json,pathlib,subprocess,sys
 from compare import compare
 ROOT=pathlib.Path(__file__).resolve().parents[1]

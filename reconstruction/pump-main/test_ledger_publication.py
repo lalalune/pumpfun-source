@@ -12,6 +12,9 @@ from unittest.mock import patch
 
 import log_attempt
 
+FIRST = {'schema': 'main-pump-attempt-v1', 'attempt_id': 'first-id', 'timestamp_utc': '2026-10-29T00:00:00+00:00',
+         'lane': 'test', 'approach': 'synthetic', 'target': '0x10', 'dedupe_key': 'first',
+         'hypothesis': 'test only', 'status': 'analyzed', 'data': {}}
 
 class LedgerPublicationTests(unittest.TestCase):
     def setUp(self):
@@ -20,7 +23,7 @@ class LedgerPublicationTests(unittest.TestCase):
         self.root = Path(self.temp.name)
         self.ledger = self.root / 'live/ATTEMPTS.jsonl'
         self.tracked = self.root / 'tracked.jsonl'
-        self.tracked.write_bytes(b'{"dedupe_key":"first"}\n')
+        self.tracked.write_bytes((json.dumps(FIRST) + '\n').encode())
         self.globals = patch.multiple(log_attempt, LEDGER=self.ledger,
                                      LOCK=self.ledger.with_name('.attempts.lock'), TRACKED=self.tracked)
         self.globals.start()
@@ -37,7 +40,7 @@ class LedgerPublicationTests(unittest.TestCase):
                 log_attempt.locked(lambda rows: rows)
         self.assertFalse(self.ledger.exists())
         self.assertEqual(list(self.ledger.parent.glob('.attempts-*.tmp')), [])
-        self.assertEqual(log_attempt.locked(lambda rows: rows), [{'dedupe_key': 'first'}])
+        self.assertEqual(log_attempt.locked(lambda rows: rows), [FIRST])
 
     def sync(self, destination):
         with patch.object(sys, 'argv', ['log_attempt.py', 'sync', '--to', str(destination)]), \

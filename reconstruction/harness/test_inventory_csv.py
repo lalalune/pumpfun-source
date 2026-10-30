@@ -15,7 +15,7 @@ class InventoryCSVTests(unittest.TestCase):
         self.root = Path(temporary.name)
         harness,base = self.root/'harness',self.root/'base'
         harness.mkdir();base.mkdir()
-        for name in ('score.py','score_admission.py','llvm_tools.py','elf_symbols.py'):
+        for name in ('score.py','score_admission.py','llvm_tools.py','elf_symbols.py','original_input.py'):
             shutil.copyfile(Path(__file__).with_name(name),harness/name)
         self.image = bytes(fixture())
         self.candidate = self.root/'candidate.so';self.candidate.write_bytes(self.image)

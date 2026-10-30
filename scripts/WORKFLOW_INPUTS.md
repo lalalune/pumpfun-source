@@ -4,9 +4,13 @@ Run before pushing a feature branch (Python 3.12):
 
 ```sh
 python -m pip install PyYAML==6.0.3
-python -B scripts/test_workflow_inputs.py
+python -B -m unittest discover -s scripts -p 'test_workflow_*.py' -v
 python -B scripts/check_workflow_inputs.py --base origin/main
 ```
+
+The first command runs every checker regression suite (`scripts/test_workflow_*.py`).
+CI runs the same command, so a new suite added under that name is executed without
+editing the workflow.
 
 The working tree, including untracked workflows, is inspected by default. Use
 `--head HEAD` to inspect only committed content, or `--all` instead of `--base`
@@ -19,6 +23,11 @@ literal Python/bash/sh script invocations under `scripts/`, `research/`, and
 and workflow/job/step working-directory defaults. A removed script still referenced
 by an unchanged workflow is a regression. Removing both the obsolete workflow
 reference and its script is allowed.
+
+POSIX shell backslash-newline continuations are joined before checking literal
+commands, including continuations within double-quoted paths. Single-quoted text,
+escaped backslashes and shell comments keep their boundaries; this does not add
+shell expansion or compound-command evaluation.
 
 Existing missing references are compared by (workflow, job, path) and printed in
 `existing_missing`; they are not described as passing verification. This allows

@@ -1,0 +1,41 @@
+{
+  "lane": "w9r1-admincto-relocs",
+  "target": "0x22a10 admin_cto::execute",
+  "angle": "pair every lddw with the original's and remove the 2 extra data relocations",
+  "base": "origin/main e491c5e95 (re-measured after rebase; started on 255a0fd2e)",
+  "best": {
+    "branch": "swarm/w9r1-admincto-relocs",
+    "pr": "https://github.com/lalalune/pumpfun-source/pull/2416",
+    "unstripped_sha256": "56143aaa40d2ed49fae5d457efc6635402f0e1934632e8faa5c06eff38f92cc4",
+    "official": {"normalized": 1032, "raw": 337, "gains": [], "losses": [], "raw_losses": []},
+    "target": {"cand_bytes": 27128, "orig_bytes": 27400, "ratio": 0.39103, "calls": [154, 3], "lddw": 86, "lddw_multiset_equal_to_original": true, "rel_dyn_size_equal_to_original": true},
+    "main_same_day": {"cand_bytes": 27240, "ratio": 0.3765, "lddw": 88}
+  },
+  "mechanisms_kept": [
+    "296 HolderRewardDisabled check inside the if-holder arm (as PR #2370): 307/312 drop below the 2% cold-callsite BFI, to_string stays outlined there, String fmt::Write vtable lddw 9 = 9",
+    "validate takes mut new and uses new.take() at 298 and 306: the caller's by-value copy of new is written, so memcpyopt no longer forwards reads to execute's readonly arg (the original keeps a local copy of new)"
+  ],
+  "attempts": 31,
+  "rejected": [
+    "sharing_update before validate (validate not inlined)",
+    "upd copy before validate (block order breaks)",
+    "take only at 298",
+    "296 at top level with take (307/312 inline again)",
+    "inline sweep/wallet bodies, inline(always) sweep/validate",
+    "match instead of let-else at 306",
+    "holder.unwrap_or(false)/unwrap_or_default (size 27352 but ratio 0.316)",
+    "vault-seed local scoping (87 lddw)",
+    "sweep gate spellings (identical or inliner flips)",
+    "amm CPI as separate if"
+  ],
+  "unresolved": [
+    "sweep tail (amm part, transfer_creator_fees CPI clones, native path; ~5 KB) laid out after the post-sweep code: MBP chains bb38 behind sweep.exit, the merged error-Result re-check (50/50 BPI, 79% of sweep entry frequency)",
+    "~270 B of spill/reload traffic (stack reloads -46, stores -13 vs original)",
+    "original copies all 33 bytes of new at entry before the mayhem branch"
+  ],
+  "next_ideas": [
+    "find a source form that makes the sweep.exit Result re-check cold or keeps bb38 off that chain (llc IR oracle: branch_weights 1:2000 on that br moves the tail back, object token ratio 0.289 -> 0.445)",
+    "the original gates the sweep on a phi-of-constants skip bool coalesced with the collect_old computation; reproduce that SSA shape",
+    "combine holder.unwrap_or(false) (orig-like x&1, size 27352) with a placement fix"
+  ]
+}

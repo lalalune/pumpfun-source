@@ -57,5 +57,19 @@ class ControlFlowISATests(unittest.TestCase):
                     self.assertEqual(result.returncode,0,result.stderr.decode('utf-8',errors='replace'))
                     self.assertEqual(json.loads(output.read_text(encoding='utf-8'))['bytes'],size)
 
+    def test_cli_reports_incomplete_branch_ranges(self):
+        cases = ((0x05, 2, 'branch target outside function'),
+                 (0x15, -1, 'conditional fallthrough outside function'))
+        for opcode, displacement, message in cases:
+            with self.subTest(opcode=opcode), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                image = fixture()
+                image[424:440] = struct.pack('<BBhi', opcode, 0, displacement, 0) + struct.pack('<BBhi', 0x95, 0, 0, 0)
+                candidate, output = root / 'candidate.so', root / 'cfg.json'
+                candidate.write_bytes(image)
+                result = self.cli(candidate, 0x1000, 8, output)
+                self.assertEqual(result.returncode, 1, result.stderr.decode('utf-8', errors='replace'))
+                self.assertIn(message, output.read_text(encoding='utf-8'))
+
 
 if __name__ == '__main__': unittest.main()

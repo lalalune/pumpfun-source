@@ -1,0 +1,13 @@
+{
+  "lane": "w6r3-v3buycosts-sem",
+  "base": "6484b2837d182e9e6f8e0784c930e9bdff584b7d",
+  "targets": ["0x80df8"],
+  "best": {"window": "0x80df8", "normalized_equal": true, "raw_equal": false, "ratio": 1.0, "slots_diff": 0, "cand_bytes": 2120,
+           "official": {"normalized": 1028, "raw": 293, "gains": ["0x80df8"], "losses": [], "raw_losses": []},
+           "unstripped_sha256": "2ef4591161dc00f70fa7402b9a2b83607dcd2c404a6aa0e8f4fbcd3c6473ee64"},
+  "attempts": ["a5eed7579d5d498a87b595d2836532fc"],
+  "mechanism": "labeled block joining both add3 Err arms at MIR level (same source as #2272), checked on post-#2251 main",
+  "rejected_mechanisms": "see ledger rows for 0x80df8: helper/closure/iife joins splice after the call block (2112 B 0.982); 26-subset error-tail oracle; hill-climb spellings",
+  "unresolved_residuals": ["raw: 30 call/lddw immediates from whole-program layout (+0x8d68 text, +0x218 rodata), not local"],
+  "next_ideas": ["merge #2272 or this branch (identical source); raw for 0x80df8 follows once the remaining unmatched windows reach original sizes"]
+}

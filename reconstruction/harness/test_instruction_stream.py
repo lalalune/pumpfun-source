@@ -29,9 +29,16 @@ class InstructionBoundaryTests(unittest.TestCase):
     def test_calls_follow_logical_boundaries(self):
         raw = (instruction(0x18) + bytes(8) + instruction(0x85, 0x10, 3)
                + instruction(0x85, 0, 123) + instruction(0x85, 0x10, -1)
-               + instruction(0x95))
+               + instruction(0x8D, imm=2) + instruction(0x95))
+        self.assertEqual(target_metric.call_counts(raw), {
+            'internal': 1,
+            'syscall_or_relocated': 2,
+            'indirect': 1,
+        })
         self.assertEqual(target_metric.calls(raw), (1, 2))
-        self.assertEqual(win.opgrams(raw, 1), Counter({(0x18,): 1, (0x85,): 3, (0x95,): 1}))
+        self.assertEqual(win.opgrams(raw, 1), Counter({
+            (0x18,): 1, (0x85,): 3, (0x8D,): 1, (0x95,): 1,
+        }))
 
     def test_truncation_is_not_a_complete_metric(self):
         for raw in (b'\x85', instruction(0x18), instruction(0x95) + b'\x18'):
@@ -54,6 +61,7 @@ class InstructionBoundaryTests(unittest.TestCase):
         self.assertEqual(win.opgrams(raw), expected)
         self.assertLess(len(decoded), len(raw) // 8)  # fixture contains LDDW
         self.assertEqual(sum(expected.values()), len(decoded) - 2)
+        self.assertEqual(target_metric.call_counts(raw)['indirect'], 144)
 
 
 if __name__ == '__main__':

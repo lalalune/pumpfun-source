@@ -1,0 +1,15 @@
+{
+ "lane": "w7r1-swaphop-regsched",
+ "base": "origin/main 7e26cbf (1027 normalized / 293 raw)",
+ "targets": ["0x5b3b0 multi_hop_curve::swap_hop"],
+ "best_source": {"ratio": 0.7332, "bytes": 18544, "note": "no source change yet"},
+ "best_oracle": {"trial": "pre-opt IR: no noalias on param a", "ratio": 0.83042, "opregs": 0.92439, "bytes": 18600},
+ "attempts": 8,
+ "key_findings": [
+  "pre-opt IR + opt default<O3> + llc reproduces swap_hop exactly: an 8 s source-level oracle",
+  "the original reloads a.* after calls (7x vs 3x for [a+0]); dropping noalias on a alone: 0.7332 -> 0.8304",
+  "within-block def order and operand commutation do not move the output"
+ ],
+ "rejected": ["712 hoist/sink mutations", "66 icmp/br/add commutations", "memcmp block moves", "fresh a.global load alone (post-opt)", "noalias off h", "global -Zmutable-noalias=no"],
+ "next_ideas": ["test the !Freeze &T / !Unpin &mut attribute sets (no dereferenceable) in popt.py", "find the Rust parameter / access spelling that drops noalias on a only", "then rerun the regalloc diff on that base"]
+}

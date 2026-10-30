@@ -251,9 +251,19 @@ def analyze_cross_references(elf, entries):
     return rodata_strings
 
 
+def prepare_output_directory(output_dir):
+    """Keep a new roadmap packet from adopting entries left by another run."""
+    if output_dir.is_symlink():
+        raise FileExistsError(f"output directory is a symlink: {output_dir}")
+    if output_dir.exists():
+        if not output_dir.is_dir() or any(output_dir.iterdir()):
+            raise FileExistsError(f"output directory is not empty: {output_dir}")
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+
 def generate_roadmap(output_dir):
     output_dir = Path(output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
+    prepare_output_directory(output_dir)
 
     all_program_data = {}
 

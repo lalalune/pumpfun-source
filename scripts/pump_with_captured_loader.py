@@ -10,7 +10,7 @@ def same_file(left,right):
     try:return left.exists()and right.exists()and os.path.samefile(left,right)
     except OSError:return False
 def protected_inputs(script):
-    return [Path(__file__),Path(loader.__file__),script,loader.ROOT/'evidence/original/pump/capture.json',loader.ROOT/'evidence/original/pump/program-account.bin',loader.ROOT/'evidence/original/pump/programdata-account.bin']
+    return [Path(__file__),Path(loader.__file__),script,loader.ROOT/'evidence/original/pump/capture.json',loader.ROOT/'evidence/original/pump/program-account.bin',loader.ROOT/'evidence/original/pump/programdata-account.bin',loader.ROOT/'evidence/original/pump/deployed.so']
 script=args.script.expanduser().resolve();paths=protected_inputs(script)
 for path in paths:
     if same_file(args.receipt,path):p.error('receipt path aliases protected input: '+str(path))

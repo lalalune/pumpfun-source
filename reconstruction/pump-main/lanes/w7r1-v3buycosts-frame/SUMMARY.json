@@ -1,0 +1,14 @@
+{
+  "lane": "w7r1-v3buycosts-frame",
+  "base": "origin/main a418dd3f1 (1027 normalized / 276 raw, unstripped sha256 15ef746e4fca27eb19c52c8f2e0565d9c09ed4fadb819d07b81c5f30c4daeb2a)",
+  "targets": ["0x80df8 trade::v3_buy_costs"],
+  "best": {"source_change": false, "cand_bytes": 2136, "window_bytes": 2120, "ratio": 0.92, "diff_lines": "9/11", "calls": "17/17", "official": "1027/276, no gains, no losses"},
+  "key_finding": "The stack frame already matches: every r10 offset (26 objects incl. 7 spill slots) is equal, and frameoracle reports 0 delta breaks, 0 StackColoring group mismatches and 0 order violations. The residual is only the sret pointer's register allocation. Alloca order never changes RA (66 swaps). Lifetime markers matter only through bb4 (an empty MBB holding a ZST marker), which couples the front assignment and the sret split. Pre-greedy MIR of base vs the 0-diff %43 1:2000 variant differs in one successor probability only.",
+  "attempts": {
+    "ir_scans": ["frame-slot-map", "alloca-order-swap-scan (66)", "zst-alloca-split-scan (15)", "zst-edge-marker-block-scan (43+903+43)", "lifetime-marker-move-scan (2366+2366)", "sret-tag-unsink-scan (63)", "heuristic-weight-scan (208+1080)", "heuristic-weight-triple-scan (15120)"],
+    "source_trials": {"t01 scope-block-split": "identical", "t02 split-destructure": "identical", "t03 post-fee-byvalue-map": "identical", "t04 split-tuple-locals": "identical", "t06 post-buyback-deferred-init": "identical", "t07 mayhem-flag-byvalue-helper": "identical", "t08 first-match-byvalue": "2176 B 0.741", "t09 ok-tuple-local-out": "identical"}
+  },
+  "rejected_mechanisms": ["MIR local order / alloca order", "scoping blocks", "destructuring or tuple locals for protocol_fee_split", "deferred-init locals", "by-value helper for the mayhem flag", "by-value post fee map", "explicit match for add3#1", "return-tuple local", "per-region ZST allocas", "marker-only empty blocks on any edge or edge pair", "any single lifetime-marker move", "unsunk Result tag stores", "heuristic-reachable branch probabilities on up to 3 branches"],
+  "unresolved": "sret spill-at-entry + r3 reloads (original) vs late store + r6 split (ours); needs the %43 probability (1:4..1:2^18) or an unknown code-neutral pre-RA change outside the frame layer",
+  "next_ideas": ["IR block order / SlotIndex numbering (blockorder lane)", "intra-block instruction order that changes ISel schedule and vreg numbering (regsched lane)", "toolchain metadata on the to_string expect in this function only, if build inputs are allowed"]
+}

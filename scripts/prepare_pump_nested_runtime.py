@@ -16,38 +16,46 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def check(ok, message="nested runtime check failed"):
+    # Explicit check instead of `assert`: `python -O` / `-OO` strips asserts,
+    # which let a tampered harness file, a mismatched candidate, or changed
+    # staged source pass preparation and still produce a PASS binding record.
+    if not ok:
+        raise AssertionError(message)
+
+
 def prepare(output):
     checkpoint = verify_checkpoint('pump', ROOT)
     status = json.loads((ROOT / 'repro/status.json').read_text())['pump']
     candidate = ROOT / status['candidate_artifact']
     main_package = candidate.parent.parent
-    assert candidate.name == 'candidate.so' and candidate.parent.name == 'main'
+    check(candidate.name == 'candidate.so' and candidate.parent.name == 'main')
     manifest_path = HARNESS_PACKAGE / 'manifest.json'
-    assert sha(manifest_path) == HARNESS_SEAL
+    check(sha(manifest_path) == HARNESS_SEAL)
     manifest = json.loads(manifest_path.read_text())
     selected = {name: value for name, value in manifest.items() if name.startswith(PREFIX)}
-    assert len(selected) == 6
+    check(len(selected) == 6)
     report_path = ROOT / status['comparison_report']
-    assert report_path == main_package / 'main/build-comparison.json'
+    check(report_path == main_package / 'main/build-comparison.json')
     attempt_path = main_package / 'main/build-attempt.json'
     report = json.loads(report_path.read_text())
     attempt = json.loads(attempt_path.read_text())
-    assert attempt['returncode'] == 0 and attempt['source_unchanged']
+    check(attempt['returncode'] == 0 and attempt['source_unchanged'])
     sources = report['source_sha256']
-    assert sources == attempt['source_sha256'] == attempt['source_after_sha256']
-    assert len(sources) == 37
+    check(sources == attempt['source_sha256'] == attempt['source_after_sha256'])
+    check(len(sources) == 37)
     for name, digest in sources.items():
         path = PurePosixPath(name)
-        assert not path.is_absolute() and '..' not in path.parts
-        assert name.startswith('programs/pump/') and sha(ROOT / name) == digest, name
-    assert report['comparison']['candidate_sha256'] == sha(candidate) == checkpoint['candidate_sha256']
+        check(not path.is_absolute() and '..' not in path.parts)
+        check(name.startswith('programs/pump/') and sha(ROOT / name) == digest, name)
+    check(report['comparison']['candidate_sha256'] == sha(candidate) == checkpoint['candidate_sha256'])
     output.mkdir(parents=True, exist_ok=False)
     copied = {}
     for name, value in selected.items():
         source = HARNESS_PACKAGE / name
-        assert not source.is_symlink() and sha(source) == value['sha256'], name
+        check(not source.is_symlink() and sha(source) == value['sha256'], name)
         relative = PurePosixPath(name[len(PREFIX):])
-        assert not relative.is_absolute() and '..' not in relative.parts
+        check(not relative.is_absolute() and '..' not in relative.parts)
         target = output.joinpath(*relative.parts)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(source.read_bytes())

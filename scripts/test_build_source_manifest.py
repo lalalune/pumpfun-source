@@ -38,6 +38,28 @@ class BuildInputsTests(unittest.TestCase):
             with self.assertRaises(FileNotFoundError):
                 source_manifest(root, root, root, [asset])
 
+    def test_symlinked_compiler_inputs_are_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            crate = root / 'programs/pump'
+            source = crate / 'src/lib.rs'
+            source.parent.mkdir(parents=True)
+            outside = root / 'outside.rs'
+            outside.write_text('pub const OUTSIDE: u8 = 1;\n')
+            try:
+                source.symlink_to(outside)
+            except OSError as error:
+                self.skipTest(f'file symlink creation unavailable: {error}')
+            with self.assertRaisesRegex(ValueError, 'symlinked compiler input'):
+                source_manifest(crate, crate, root)
+            source.unlink()
+            outside.unlink()
+            outside.mkdir()
+            (outside / 'config.toml').write_text('[source]\n')
+            (crate / '.cargo').symlink_to(outside, target_is_directory=True)
+            with self.assertRaisesRegex(ValueError, 'symlinked compiler input'):
+                source_manifest(crate, crate, root)
+
 
 if __name__ == '__main__':
     unittest.main()

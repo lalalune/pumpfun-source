@@ -1,4 +1,6 @@
 """Verify a controlled Pump-only Rust source-path remap build offline."""
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O.")
 
 import gzip
 import hashlib

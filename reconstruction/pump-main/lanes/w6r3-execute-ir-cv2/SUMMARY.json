@@ -1,0 +1,11 @@
+{
+  "lane": "w6r3-execute-ir (create_v2::execute instance, worktree suffix -cv2)",
+  "target": "0x1e7c0 pump_recovered::create_v2::execute",
+  "base": "origin/main 255a0fd (1031/337), target 0.98763, slots_diff 42",
+  "best": {"ratio": 0.99892, "slots_diff": 4, "bytes": 15576, "official": "1031/337, 0 losses, 0 raw losses", "unstripped_sha256": "c78c5ae9051db19d351e4e0714955e048ca8a29a07fee4ae568e5d288add6480", "pr": 2386},
+  "mechanism": "init_curve does both reserve stores inside each arm of the quote_mint==Sol test, so the unwrap_or arms join in their own block, LLVM folds it to a select, and the SBF select expansion gives the join block that lets BranchFolder tail-merge the name-pointer reload (creator ptr r4, reload at the top of the store block)",
+  "attempts": 14,
+  "rejected": ["unwrap_or before the if (both levels become selects)", "plain helper / let r / map_or / match arm swap (byte-identical)", "if let / else-if-let (polarity only)", "if-expression assigned to a curve field", "const whole Sol tuple (+88 B, Option payload zeroed)", "nested ((Pubkey,QuoteSource),Option<u64>) return (frame shift 0x10)", "repr(u8) QuoteSource + system_program::ID + const Sol source (identical; 33-byte memset)"],
+  "residual": "two mov r7,0 / mov r2,0 swaps at the validate_quote_mint Sol returns (validate-join phi order; SROA promotes the ptr-typed quote word-0 slice late). Per w7r1-execute-inline, a 34-byte Sol zero write over [16,50) or a separate word-0 write fixes it in the oracle",
+  "next_ideas": ["a Sol-path spelling that also writes the QuoteSource payload byte or writes quote word 0 separately, without changing the frame layout"]
+}

@@ -11,6 +11,7 @@ import compare_scores
 import fastbuild
 import score
 from original_input import copy_original_inputs
+from source_inputs import snapshot
 
 
 def sha(path):
@@ -24,18 +25,11 @@ def source_receipt(repo):
     if dirty:
         raise ValueError('Pump source checkout must be clean')
     crate = repo / 'programs/pump'
-    files = {}
-    for path in sorted(crate.rglob('*')):
-        if 'target' in path.relative_to(crate).parts:
-            continue
-        if path.is_symlink():
-            raise ValueError(f'source symlink is unsupported: {path.relative_to(crate)}')
-        if path.is_file():
-            files[path.relative_to(crate).as_posix()] = sha(path)
-    if not all(p in files for p in ('Cargo.toml', 'Cargo.lock', 'src/lib.rs')):
+    source = snapshot(crate)
+    paths = {row['path'] for row in source['files']}
+    if not {'Cargo.toml', 'Cargo.lock', 'src/lib.rs'} <= paths:
         raise ValueError('missing Pump crate inputs')
-    return {'revision': revision, 'files': files,
-            'sha256': hashlib.sha256(json.dumps(files, sort_keys=True).encode()).hexdigest()}
+    return {'revision': revision, **source}
 
 
 def require_valid_build(result):
@@ -60,7 +54,8 @@ def run_pair(base, candidate, out, sdk, hybrid):
     receipt = {'sources': before, 'recipe': 'identity', 'cold_targets': True,
                'inputs': {name: sha(score.BASE / name) for name in ('original.so', 'functions.tsv')},
                'tools': {name: sha(Path(__file__).parent / name) for name in
-                         ('build_score_pair.py', 'fastbuild.py', 'score.py', 'original_input.py', 'compare_scores.py', 'pump_physical_source_wrapper.py')},
+                         ('build_score_pair.py', 'fastbuild.py', 'score.py', 'original_input.py', 'compare_scores.py', 'pump_physical_source_wrapper.py',
+                          'link_order.py', 'pump_link_rustc.py', 'pump_link_lld.py', 'sbf_default.ld')},
                'sdk_inventory_sha256': sha(canonical.parent / 'toolchain/v1.44-macos-inventory.json'),
                'target_library_manifest_sha256': sha(Path(__file__).parent / 'linux144-sbpf-target-libs.sha256'),
                'compiler_sha256': sha(hybrid / 'rust/bin/rustc'),

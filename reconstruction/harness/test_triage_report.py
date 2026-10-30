@@ -26,7 +26,7 @@ def classify(original, candidate):
         out = tmp / 'triage.json'
         triage.sections = lambda blob: {'.text': {'addr': 0x1000, 'offset': 0, 'size': len(candidate)}}
         triage.score = lambda p: {0x1000: {'normalized': False}}
-        triage.candidate_functions = lambda p: [(0x1000, len(candidate), '_ZN4testE')]
+        triage.function_symbols = lambda blob: [(0x1000, len(candidate), '_ZN4testE')]
         triage.original_windows = lambda: [{'start': 0x1000, 'bytes': len(original), 'raw': original}]
         triage.sites = lambda blob, secs, start, raw: []
         triage.normalize = lambda raw, addr, secs: raw
@@ -69,6 +69,27 @@ class FrameClassificationTests(unittest.TestCase):
         r6 = classify(body(*[(0x79, 1, 6, -8 - 8 * i) for i in range(5)]),
                       body(*[(0x79, 1, 6, -16 - 8 * i) for i in range(5)]))
         self.assertEqual((r10, r6), ('frame', 'equal-len'))
+
+    def test_stack_address_offsets_are_frame(self):
+        # mov64 r1, r10; add64 r1, -N forms a stack-slot address (SBF v1 idiom).
+        def window(offsets, src=10, dst=1):
+            slots = []
+            for n in offsets:
+                slots += [(0xbf, dst, src, 0), (0x07, dst, 0, 0, n)]
+            return body(*slots)
+        frame = classify(window([-8, -16, -24, -32]), window([-16, -24, -32, -40]))
+        # Controls: copying r6 instead of r10, or adding to a different register.
+        scratch = classify(window([-8, -16, -24, -32], src=6), window([-16, -24, -32, -40], src=6))
+        mixed = classify(body(*[s for n in (-8, -16, -24, -32) for s in ((0xbf, 2, 10, 0), (0x07, 1, 0, 0, n))]),
+                         body(*[s for n in (-16, -24, -32, -40) for s in ((0xbf, 2, 10, 0), (0x07, 1, 0, 0, n))]))
+        self.assertEqual((frame, scratch, mixed), ('frame', 'equal-len', 'equal-len'))
+
+    def test_frame_address_requires_adjacent_copy(self):
+        raw = body((0xbf, 1, 10, 0), (0x07, 1, 0, 0, -8), (0x07, 1, 0, 0, -8))
+        self.assertTrue(triage.frame_slot(raw, 8))
+        self.assertFalse(triage.frame_slot(raw, 16))
+        self.assertFalse(triage.frame_slot(raw, 0))
+        self.assertFalse(triage.frame_slot(body((0x07, 1, 0, 0, -8)), 0))
 
 
 class TriageReportTests(unittest.TestCase):

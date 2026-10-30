@@ -14,7 +14,7 @@ class ScoreHexAddressTests(unittest.TestCase):
         self.root = Path(temporary.name)
         self.harness,self.base = self.root/'harness',self.root/'base'
         self.harness.mkdir();self.base.mkdir()
-        for name in ('score.py','score_admission.py','llvm_tools.py','elf_symbols.py','compare_scores.py'):
+        for name in ('score.py','score_admission.py','llvm_tools.py','elf_symbols.py','compare_scores.py','original_input.py'):
             shutil.copyfile(Path(__file__).with_name(name),self.harness/name)
         image = bytes(fixture())
         self.candidate = self.root/'candidate.so';self.candidate.write_bytes(image)

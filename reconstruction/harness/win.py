@@ -9,13 +9,14 @@
 Diff tokens use the scorer's normalization (internal call imm + section-pointer lddw masked).
 '-' = original only, '+' = candidate only. Default candidate = base/current/unstripped.so.
 """
-import argparse, difflib, re, subprocess, sys
+import argparse, difflib, re, subprocess, sys, tempfile
+from contextlib import contextmanager
 from pathlib import Path
 from collections import Counter
-from llvm_tools import objdump
 
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
+from llvm_tools import objdump  # noqa: E402
 from score import sections, normalize, body, original_windows, score, BASE  # noqa
 from instruction_stream import instruction_offsets
 from elf_symbols import function_symbols
@@ -53,12 +54,20 @@ def insns(raw, addr, secs):
 
 def objdump_text(path, start, end):
     txt = subprocess.check_output([objdump(), '-d', '--no-show-raw-insn', f'--start-address={start:#x}', f'--stop-address={end:#x}', str(path)], text=True)
-    d = {}
-    for line in txt.splitlines():
-        m = re.match(r'^\s*([0-9a-f]+):\s+(.*)$', line)
-        if m:
-            d[int(m.group(1), 16)] = re.sub(r'\s+<\.text\+0x[0-9a-f]+>', '', m.group(2).strip())
-    return d
+    # Labels are byte addresses or instruction-slot indices, depending on the
+    # LLVM build (both report elf64-sbf): platform-tools v1.52 prints hex byte
+    # addresses, v1.44 decimal slots. The first label is at `start`; use it to choose.
+    rows = [m.groups() for m in (re.match(r'^\s*([0-9a-f]+):\s+(.*)$', line) for line in txt.splitlines()) if m]
+    if not rows:
+        return {}
+    first = rows[0][0]
+    if int(first, 16) == start:
+        address = lambda label: int(label, 16)
+    elif first.isdigit() and int(first) * 8 == start:
+        address = lambda label: int(label, 10) * 8
+    else:
+        raise ValueError(f'llvm-objdump label {first} does not match start address {start:#x}')
+    return {address(label): re.sub(r'\s+<\.text\+0x[0-9a-f]+>', '', text.strip()) for label, text in rows}
 
 
 class Cand:
@@ -70,6 +79,23 @@ class Cand:
 
     def fn(self, start, size):
         return body(self.blob, self.secs, start, size)
+
+    @contextmanager
+    def _snapshot(self):
+        with tempfile.TemporaryDirectory(prefix='pump-win-') as temporary:
+            snapshot = Path(temporary) / 'candidate.so'
+            snapshot.write_bytes(self.blob)
+            yield snapshot
+
+    def disassembly(self, start, size):
+        """Disassemble the same bytes used for symbols, tokens and ranking."""
+        with self._snapshot() as snapshot:
+            return objdump_text(snapshot, start, start + size)
+
+    def memberships(self):
+        """Filter unmatched windows against the loaded candidate, too."""
+        with self._snapshot() as snapshot:
+            return score(snapshot)
 
     def grams(self, start, size):
         key = (start, size)
@@ -116,7 +142,7 @@ def best_candidates(w, cand, top=3):
 
 
 def cmd_list(a):
-    cand = Cand(a.cand); cur = score(a.cand); rows = []
+    cand = Cand(a.cand); cur = cand.memberships(); rows = []
     for w in original_windows():
         if cur[w['start']]['normalized'] and not a.all:
             continue
@@ -163,7 +189,7 @@ def cmd_show(a):
         print(f"  cand {s:#x} {n:6d}B ratio={r:.4f}  {demangle(nm)}")
     r, j, s, n, nm = best[0]
     oi = insns(w['raw'], st, ORIG_SECS); ci = insns(cand.fn(s, n), s, cand.secs)
-    ot = objdump_text(resolve_original(BASE / 'original.so'), st, st + w['bytes']); ctx = objdump_text(cand.path, s, s + n)
+    ot = objdump_text(resolve_original(BASE / 'original.so'), st, st + w['bytes']); ctx = cand.disassembly(s, n)
     sm = difflib.SequenceMatcher(None, [x[2] for x in oi], [x[2] for x in ci], autojunk=False)
     print(f"\n--- diff vs {demangle(nm)} @ {s:#x} (ratio {sm.ratio():.4f}; '-' original, '+' candidate)")
     C = a.context

@@ -14,6 +14,7 @@ from pathlib import Path
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
 from score import sections, body, original_windows, score_with_hash, BASE, normalize  # noqa
+from score_admission import report_destination
 from elf_symbols import function_symbols
 
 
@@ -119,6 +120,11 @@ def main():
         f = next((s, n, nm) for (s, n, nm) in function_symbols(blob) if s == int(a.addr, 0))
         print(json.dumps(cand_sites(blob, cs, f[0], f[1]), indent=1))
     else:
+        if a.json:
+            try:
+                report_destination(a.json, [a.cand])
+            except ValueError as error:
+                ap.error(str(error))
         blob = a.cand.read_bytes(); cs = sections(blob)
         cur, candidate_hash = score_with_hash(a.cand)
         if candidate_hash != hashlib.sha256(blob).hexdigest():

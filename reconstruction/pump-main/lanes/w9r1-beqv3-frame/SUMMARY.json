@@ -1,0 +1,25 @@
+{
+  "lane": "w9r1-beqv3-frame",
+  "target": "0x1489f8 trade::buy_exact_quote (buy_exact_quote_in_v3)",
+  "base": "origin/main 255a0fd2e (1031/337)",
+  "best": {
+    "normalized_match": true,
+    "normalized": 1032,
+    "raw": 337,
+    "losses": [],
+    "raw_losses": [],
+    "unstripped_sha256": "6de8bcdcb64b4eae986d0e75535ce163cc5307351f77f68eeb4bd31dddd203ef"
+  },
+  "mechanism": "PR #2377 fit_owned: PostComplete moved by value into a plain forwarding helper (SSA binding in MIR; helper alloca lifetimes from LLVM inliner) fixes StackColoring grouping of fees/post",
+  "attempts": [
+    "c9325c7a8c0442908af68ca317a59427"
+  ],
+  "rejected_mechanisms": [],
+  "unresolved_residuals": [
+    "raw match of 0x1489f8 depends on admin_cto (-56 B) and swap_hop (-40 B) reaching original size"
+  ],
+  "next_ideas": [
+    "merge this branch or #2377 (same source change); work admin_cto/swap_hop sizes for raw"
+  ],
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/2397"
+}

@@ -9,7 +9,8 @@ import unittest
 
 SCRIPT = Path(__file__).with_name('log_attempt.py')
 ROWS = [
-    {'schema': 'main-pump-attempt-v1', 'attempt_id': f'id-{n}', 'lane': 'test', 'target': '0x10',
+    {'schema': 'main-pump-attempt-v1', 'attempt_id': f'id-{n}', 'timestamp_utc': f'2026-10-29T00:00:0{n}+00:00',
+     'lane': 'test', 'approach': 'synthetic', 'target': '0x10',
      'status': 'analyzed', 'dedupe_key': f'attempt-{n}', 'hypothesis': 'test only', 'data': {}}
     for n in range(3)
 ]

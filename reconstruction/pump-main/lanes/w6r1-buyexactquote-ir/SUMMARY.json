@@ -1,0 +1,40 @@
+{
+ "lane": "w6r1-buyexactquote-ir",
+ "target": "0x1489f8 pump_recovered::trade::buy_exact_quote (v3), original 7856 B",
+ "base": "origin/main a56331f50 (programs tree = 099b0dd, 1027/276): 7768 B ratio 0.66033 masked 0.8928",
+ "frontier_used": "sibling PR #2170 (w6r1-buyexactquote-sem) fa4d2db 0.84304 / 9ed6831 0.84409 masked 0.9627",
+ "best_source_result": "none better than #2170 (f01 reaches 7856 B but 0.84244)",
+ "best_oracle": {
+  "state": "sem2 9ed6831",
+  "edit": "strip quote_fee and post lifetime markers in raw buy_exact_quote_body IR (raw-opt oracle)",
+  "ratio": 0.9149, "masked": 0.9685, "insns": "952/952", "prologue_lea": "early (as original)"
+ },
+ "findings": [
+  "quote_fee lifetime.end in the shared error-return join (bb113) is the main remaining register-assignment lever: deleting it gives 0.8430->0.9071 (sem), 0.8441->0.9081 (sem2); normal-path end or start alone do nothing",
+  "quote_fee+post unmarked: 0.9149, 952 insns, lea early",
+  "rustc 1.79 CopyProp only strips storage of copy-class heads; quote_fee (copy of the ? val SRoA field) and post (copy of if-result temp) are borrowed non-heads, so every tried spelling keeps their markers",
+  "phi-order lever from wave 4 is obsolete on the sem state (swap now loses)",
+  "base: 11 missing instructions are all spills/reloads/copies; prologue lea needs 4 entry chain nodes (have 1)",
+  "post-opt hill climb on sem: net_quote_for_budget Err stub after the non-whitelist try_from block +0.0137; round 2 +0.0009",
+  "original copies quote_fee payload with grouped loads then descending stores; a 24B memcpy oracle does not reproduce it"
+ ],
+ "attempts": ["a01","b01","f01","g01","g02","m1","m2","m3","m4","oracles: entry lifetime lea, 202-alloca unmark scan, unmark triples, phi swaps (base/sem), quote_fee marker position (noend/nostart/err-only/normal-only), lifetime.end _44 move, 24B memcpy, frame oracle, hill climb 2 rounds"],
+ "rejected": [
+  "a01 let (fees,post)=(fees,post) (0.3233)",
+  "b01 deferred result tuple + destructuring assignment (0.3414)",
+  "f01 fill fn taking quote_fee by value (0.8424 on sem)",
+  "g01/g02 earlier quote_fee declaration on sem (0.8347)",
+  "m1-m4 check_quote via match instead of ? on sem (0.6205-0.6702)"
+ ],
+ "unresolved": [
+  "source spelling that leaves quote_fee (and post) without StorageDead on ? error returns",
+  "net_quote_for_budget Err stub creation order",
+  "quote_fee payload copy scheduling (grouped loads)",
+  "raw 0xa868 call-span drift whenever the target size changes"
+ ],
+ "next_ideas": [
+  "make quote_fee the head of a non-trivial CopyProp class (assigned straight from a projection, then copied into a non-borrowed SSA local), or a GVN-reused local; screen with capture_raw.py and grep for the bb113 lifetime.end",
+  "same for post (the final tuple's Option<PostComplete>)",
+  "find a ? spelling whose Err stub is created after the Ok continuation"
+ ]
+}

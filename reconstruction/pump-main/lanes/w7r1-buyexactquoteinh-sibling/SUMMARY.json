@@ -1,0 +1,24 @@
+{
+  "lane": "w7r1-buyexactquoteinh-sibling",
+  "target": "0x13f630 buy_v2::buy_exact_quote_in_handler",
+  "base": "origin/main 6edd839",
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/2240",
+  "best": {"trial": "p1", "bytes": 20184, "orig_bytes": 20184, "ratio": 0.99959, "ratio_before": 0.99635, "normalized": 1027, "raw": 276, "losses": [], "raw_losses": [], "unstripped_sha256": "72ffe9d740f7e24e5fa2e3969bc45f1cdc93ee2269efbb6cb124c54a51926c29", "remaining": "mov r7,2 schedule at orig 0x1430d0 (shareholders phi order)"},
+  "mechanism": "Transplant of PR #2225 (buy_handler): #[inline(never)] buy_exact_quote_in_v2 program fn + #[inline(always)] handler (LLVM-inlined body gives the CompleteEvent emit_cpi temporaries inliner lifetime markers and returns the Result with no retest) + inline Complete tail (emit_cpi!(ev);drop(ev); Complete-if; prepare?;Ok(())).",
+  "follow_up": "PR #2269 (lane w7r1-buyexactquoteinh-regsched) adds partial:&bool on top of this branch for the normalized match (1028/276).",
+  "attempts": 35,
+  "rejected_mechanisms": [
+    "by-ref inline(always) Complete CPI helper with ? / if-let / ProgramResult (retest or drop order)",
+    "tail helpers complete_and_prepare / finish_buy / emit_and_complete (prepare phi, mayhem select)",
+    "closures around the Complete CPI (outlined)",
+    "TradeEvent by value into the tail helper (frame shift)",
+    "shareholders default spellings (MIR-canonicalized, byte-identical)",
+    "shareholders binding / field-position variants (byte-identical or flip other branches)",
+    "buy_handler / sell_v2 snapshot and is_native_quote spellings"
+  ],
+  "unresolved_residuals": ["none on PR #2269; on this branch alone the shareholders phi order (llc oracle: sroa.0 first -> dist 0)"],
+  "next_ideas": [
+    "If #2269's partial:&bool is judged unnatural: other sources of one removable alloca processed before shareholders.i in the program-fn post-inline SROA (llc oracle o0710 confirms target order)",
+    "Apply the same program-fn + inline-tail form to buy_handler together (PR #2225) and check that the two handlers coexist without losses"
+  ]
+}

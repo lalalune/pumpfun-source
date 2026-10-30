@@ -5,19 +5,34 @@ Categories: coord (only Source line/filename-length immediates differ), near<=3,
 equal-len (equal length, other diffs), body (no equal-length candidate).
 Writes JSON (default base/current/triage.json) and prints a summary.
 """
-import argparse, json, sys
+import argparse, json, sys, tempfile
 from collections import Counter, defaultdict
 from pathlib import Path
 
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
-from score import sections, body, normalize, original_windows, score, BASE, candidate_functions  # noqa
+from score import sections, body, normalize, original_windows, score, BASE  # noqa
+from elf_symbols import function_symbols
+from score_admission import report_destination
 from coords import sites, non_coordinate_slots, ORIG, OS  # noqa
 from win import demangle  # noqa
 
 FRAME_LOADS = {0x61, 0x69, 0x71, 0x79}   # ldx*: r10 is the source register
 FRAME_STORES = {0x62, 0x63, 0x6a, 0x6b, 0x72, 0x73, 0x7a, 0x7b}  # stx*: r10 is the destination
 FRAME_WRITES = {0x07, 0xb7, 0xbf}        # add64/mov64 immediates and mov64 register
+
+
+def frame_address(raw, i):
+    """True for `add64 rX, imm` directly after `mov64 rX, r10`.
+
+    SBF v1 cannot write r10, so a stack-slot address is formed in a scratch
+    register: copy r10, then add the slot offset. The add's immediate is that
+    stack offset.
+    """
+    if i < 8 or raw[i] != 0x07:
+        return False
+    prev_op, prev_regs = raw[i - 8], raw[i - 7]
+    return prev_op == 0xbf and prev_regs >> 4 == 10 and prev_regs & 0xf == raw[i + 1] & 0xf
 
 
 def frame_slot(raw, i):
@@ -27,6 +42,8 @@ def frame_slot(raw, i):
         return regs >> 4 == 10
     if op in FRAME_STORES:
         return regs & 0xf == 10
+    if frame_address(raw, i):
+        return True
     return op in FRAME_WRITES and regs & 0xf == 10
 
 
@@ -41,10 +58,23 @@ def main():
     ap.add_argument('--cand', type=Path, default=BASE / 'current/unstripped.so')
     ap.add_argument('--json', type=Path, default=BASE / 'current/triage.json')
     a = ap.parse_args()
+    # Reject a report destination that aliases an input before any read:
+    # write_report truncates its target, so an aliasing --json would destroy
+    # the candidate (or the saved original / window inventory) it just read.
+    # Mirrors score.py's report destination check, including its input set.
+    if a.json:
+        try:
+            report_destination(a.json, [a.cand, BASE / 'original.so', BASE / 'functions.tsv'])
+        except ValueError as error:
+            ap.error(str(error))
     blob = a.cand.read_bytes(); cs = sections(blob)
-    cur = score(a.cand)
+    # Score the loaded bytes, not a pathname that may now refer to another build.
+    with tempfile.TemporaryDirectory(prefix='pump-triage-') as temporary:
+        snapshot = Path(temporary) / 'candidate.so'
+        snapshot.write_bytes(blob)
+        cur = score(snapshot)
     bylen = defaultdict(list)
-    for s, n, nm in candidate_functions(a.cand):
+    for s, n, nm in function_symbols(blob):
         bylen[n].append((s, nm))
     cache = {}; rows = []
     for w in original_windows():
@@ -54,9 +84,10 @@ def main():
         on = normalize(w['raw'], w['start'], OS)
         best = None
         for (s, nm) in bylen.get(w['bytes'], []):
-            if s not in cache:
-                cache[s] = normalize(body(blob, cs, s, w['bytes']), s, cs)
-            cn = cache[s]
+            cache_key = (s, w['bytes'])
+            if cache_key not in cache:
+                cache[cache_key] = normalize(body(blob, cs, s, w['bytes']), s, cs)
+            cn = cache[cache_key]
             diff = [i for i in range(0, len(on), 8) if on[i:i + 8] != cn[i:i + 8]]
             noncoord = non_coordinate_slots(on, cn, osites)
             key = (len(noncoord), len(diff))

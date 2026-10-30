@@ -1,0 +1,14 @@
+{
+  "lane": "w7r1-v3buycosts-hillclimb",
+  "targets": ["0x80df8"],
+  "base": "origin/main 2162b3b00 (1027/276)",
+  "best": {"config": "F0-T0-A0-B0-N0-Q0-O0 (base)", "cand_bytes": 2136, "ratio": 0.92, "calls": [17, 0]},
+  "attempts": 79,
+  "distinct_function_bodies": 46,
+  "identical_to_base": 29,
+  "outcome": "base is a strict local optimum over all 47 single and 27 pairwise spelling mutations; target normalized by sibling PR #2272 (w7r1-v3buycosts-blockorder) during this run",
+  "rejected_mechanisms": ["front spellings (11 + 16 wrapper variants)", "line-371 check spellings (T1-T8)", "first add3 match/let split", "second add3 match/transpose/map_or/nested match", "net check spellings N1-N12", "gross-up tail spellings Q1-Q6", "statement reorders O1/O2", "pairwise combos of best singles"],
+  "unresolved": ["0x80df8 raw match (absolute call/lddw displacements per #2272 verification)"],
+  "next_ideas": ["mutation grammars with block-grouping operators (labeled blocks, grouped Result before one ?)", "apply the hill-climb driver to other unmatched windows starting from their current best source"],
+  "tools": "reconstruction/pump-main/lanes/w7r1-v3buycosts-hillclimb/tools/"
+}
