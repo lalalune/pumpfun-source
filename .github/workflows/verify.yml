@@ -52,6 +52,7 @@ jobs:
               python -I -B tests/test_fastbuild_stage.py
               python -B reconstruction/harness/test_fastbuild_output_race.py
               python -B reconstruction/harness/test_fastbuild_library_name.py
+              python -B reconstruction/harness/test_physical_source_wrapper.py
           - suite: admin-cto-call-report
             commands: |
               python -B reconstruction/pump-main/lanes/w12b13-cto-callgraph/test_callseq.py
@@ -116,6 +117,7 @@ jobs:
               python -B tests/test_mismatch_normal_python.py
               python -B tests/test_build_partial_normal_python.py
               python -B tests/test_checkpoint_verifiers_normal_python.py
+              python -B tests/test_pump_output_parents.py
               python -B tests/test_create_mayhem_normal_python.py
               python -B tests/test_two_curve_optimization_guard.py
               python -O -B tests/test_two_curve_optimization_guard.py
@@ -138,6 +140,7 @@ jobs:
               python -B tests/test_verify_dependencies_optimization.py
               python -B tests/test_recovered_builds_optimization.py
               python -B scripts/test_mayhem_burn_sequence_optimization.py
+              python -B scripts/test_mayhem_zero_creator_case.py
               python -B scripts/test_qualification_archive_determinism.py
               python -B scripts/test_rebuild_workflow_action_pins.py
               python -B scripts/test_macos_v144_qualification_optimization.py
