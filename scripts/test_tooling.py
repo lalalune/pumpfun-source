@@ -134,6 +134,7 @@ import struct
 import sys
 import unittest
 from test_analysis_interface_inventory import InterfaceInventoryEncodingTests
+from test_capture_verification_modes import CaptureVerificationModeTests
 from test_fees_external_codec_cases import ExternalCodecBooleanCases
 from types import SimpleNamespace
 import deep_disassembly
@@ -1642,7 +1643,7 @@ class EvidenceCommitmentTests(unittest.TestCase):
         self.run_gate()
 
     def test_weaker_commitment_is_rejected(self):
-        with self.assertRaises(AssertionError) as raised:
+        with self.assertRaises(verify_evidence.EvidenceError) as raised:
             self.run_gate(commitment='processed')
         self.assertIn(self.FOLDER, str(raised.exception))
         self.assertIn('commitment', str(raised.exception))
@@ -1677,7 +1678,7 @@ class EvidenceProgramBindingTests(unittest.TestCase):
         (original / 'pump').rename(original / 'swap')
         (original / 'pump_amm').rename(original / 'pump')
         (original / 'swap').rename(original / 'pump_amm')
-        with self.assertRaisesRegex(AssertionError, 'evidence/original/pump: capture program'):
+        with self.assertRaisesRegex(verify_evidence.EvidenceError, 'evidence/original/pump: capture program'):
             self.run_gate()
 
 
@@ -1906,7 +1907,7 @@ class UpstreamEvidenceSetTests(unittest.TestCase):
             root = self.copy_evidence(temporary)
             (root / 'evidence/upstream/pump_fees.json').unlink()
             self.rewrite_listing(root, lambda files: files.pop('pump_fees.json'))
-            with self.assertRaisesRegex(AssertionError, r"missing .*'pump_fees\.json'"):
+            with self.assertRaisesRegex(verify_evidence.EvidenceError, r"missing .*'pump_fees\.json'"):
                 self.run_gate(root)
 
     def test_unexpected_listing_entry_is_rejected(self):
@@ -1917,7 +1918,7 @@ class UpstreamEvidenceSetTests(unittest.TestCase):
             extra.write_bytes(b'{}\n')
             digest = hashlib.sha256(extra.read_bytes()).hexdigest()
             self.rewrite_listing(root, lambda files: files.update({'pump_extra.json': digest}))
-            with self.assertRaisesRegex(AssertionError, r"unexpected .*'pump_extra\.json'"):
+            with self.assertRaisesRegex(verify_evidence.EvidenceError, r"unexpected .*'pump_extra\.json'"):
                 self.run_gate(root)
 
 
