@@ -1,6 +1,6 @@
 import struct
 import unittest
-from cycle_regions import cycle_regions
+from control_flow import cycle_regions
 from control_flow import analyze
 
 
