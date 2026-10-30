@@ -1,0 +1,1 @@
+EDITS=[('  store i8 %166, ptr %568, align 1\n','  %cbx = load i8, ptr %568, align 1\n  %hx = and i8 %holder, -3\n  %hxb = icmp eq i8 %hx, 0\n  %cbxb = icmp ne i8 %cbx, 0\n  %cby = and i1 %cbxb, %hxb\n  %cbz = zext i1 %cby to i8\n  store i8 %cbz, ptr %568, align 1\n')]
