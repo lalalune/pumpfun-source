@@ -1,0 +1,47 @@
+{
+ "lane": "w13a30-cto-stitch8",
+ "wave": 13,
+ "angle": "admin_cto integrator/stitcher (continues w13a11-cto-stitch)",
+ "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+ "start_main": {"sha": "6ac6f9b67", "ratio": 0.56291},
+ "end_main": {"sha": "16c10e631", "ratio": 0.62043, "slots_diff": 3306},
+ "prs": [
+  {"number": 3049, "state": "closed; commit 3caa0b077 merged into main by the codex pass64 merge cb0a19e87 (not land.py)",
+   "ratio": [0.571, 0.5716], "rebased_ratio": [0.57669, 0.57729],
+   "genes": ["ok_cb: cashback through the Ok tuple (w13a16)", "w_bump_scalar: scalar creator-vault bump (w13a09)"]}
+ ],
+ "best_zero_loss_at_pinned_size": {"ratio": 0.57729, "slots_diff": 3313, "bytes": 27400, "base": "06e6bb829 (0.57669)",
+   "unstripped_sha256": "d6fd5e60b6421c074ff2246841745d89b2bea21f7e86d88d60ed4dcd927b4547", "differential": "363/0"},
+ "other_measured": [
+  {"what": "fieldscan O3071+K3245 as source on a6412c208", "bytes": 27400, "ratio": 0.59646, "main_ratio": 0.59197, "note": "superseded by codex 1d314d10d (0.59916) before proposal"}
+ ],
+ "leads": [
+  {"gene": "t_scu skip-first sweep tuple (skip,collect_old,sharing_update)", "dfc3693d8": [27344, 0.60669, 0.59916], "16c10e631": [27344, 0.62828, 0.62043]},
+  {"gene": "t_usc / t_suc", "dfc3693d8": [27360, 0.60621], "16c10e631": [27360, 0.62779]},
+  {"gene": "t_cus", "dfc3693d8": [27384, 0.59964], "16c10e631": [27384, 0.62092]},
+  {"gene": "segscan c1:o1 (system_program clone owner between Rc's)", "dfc3693d8": [27392, 0.60015]}
+ ],
+ "attempts": {"builds": 110, "oracle_runs": 1500, "ledger_approach": ["stitch-composite", "stitch-oracle"], "dedupe_key_prefix": "0x22a10-w13-<main7>-stitch8-"},
+ "tools": "tools/genes30.py (75 genes), run.py (2-build queue runner), cap.sh (IR capture), segscan.py (llc clone-field segment oracle, uses w13a21 ctoracle.py)",
+ "rejected_mechanisms": [
+  "x_t4 anchor-literal emit_cpi (27400 / 0.51288 on clonefeat head)",
+  "f_letelse fee let-else (27344 / 0.51102)",
+  "ok_hold / k_okcb_hold holder in the Ok tuple (-32..-40 B, -0.015)",
+  "f_iflet (+16 B, -0.015)",
+  "u_sof3 on dfc3693d8 (+8 B, -0.044)",
+  "w_vsig_ref (revert of deferred vsigner, 0.5698 vs 0.571)",
+  "x_einfo_inline (0.58957 vs 0.59197)",
+  "+8 knobs e_cb_local / c_fee_unwrap as skip-first companions (non-additive: usc+4plus 27360 / 0.57173)",
+  "segscan single clone moves as size companions (cost 0.01-0.04 per +8..+40 B)"
+ ],
+ "unresolved": [
+  "skip-first tuple orders: +0.0075..0.008 at -40..-56 B on every recent main; need a faithful +40..+56 B companion",
+  "t_cus +0.0005 at -16 B; segscan c1:o1 +0.001 at -8 B",
+  "the BRIEF frame/regalloc residuals"
+ ],
+ "next_ideas": [
+  "Pair t_scu/t_usc with a faithful code-adding change: outlining to_string at 307/312 (about +248 B, w12 notes) minus the skip-first saving, or the w13a16 st-escape / new-copy layout that needs code back",
+  "Run segscan greedy right after each landing; codex permutation lanes leave single moves byte-identical, so try Rc-order swaps (data before lamports) and pairs",
+  "Extend segscan clone detection to clones sharing one base pointer (pump_amm appears twice in the transfer CPI)"
+ ]
+}
