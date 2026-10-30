@@ -15,6 +15,9 @@ operations, comparisons, signature checks or source/build-admission logic change
 The existing wrapper continues to override the module's historical 36-input
 binding with its current exact workspace/source-manifest validation. Invoke the
 maintained root CLI, rather than the historical module's original-only entry.
+Both maintained entry points reject optimized Python before imports, external
+commands or output creation: the exact historical fixture uses assertions for
+its signature and prestate checks. Run without `-O` or `PYTHONOPTIMIZE`.
 
 `python -B research/pump-two-curve-inputs/reproduce.py` genuinely builds current
 Pump, supplies its actual producer report and staged compiler inputs, and runs

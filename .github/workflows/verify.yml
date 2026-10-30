@@ -57,6 +57,8 @@ jobs:
               python -I -B tests/test_dispatch_root.py
               python -I -B tests/test_analyze_input_admission.py
               python scripts/test_tooling.py
+              python -B tests/test_two_curve_optimization_guard.py
+              python -O -B tests/test_two_curve_optimization_guard.py
               python -B scripts/test_dispatch_recovery.py
               python -B scripts/test_pump_compare_window_alignment.py
               python -B scripts/test_pump_compare_window_columns.py

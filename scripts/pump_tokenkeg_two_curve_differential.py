@@ -4,6 +4,9 @@
 Only build binding changes: VM execution and fixtures use the original harness.
 The captured caller dependency is unchanged; this tests the main Pump contract.
 """
+if not __debug__:
+    raise RuntimeError('Two-curve replay requires normal Python; do not use -O or PYTHONOPTIMIZE')
+
 import argparse
 import gzip
 import importlib.util

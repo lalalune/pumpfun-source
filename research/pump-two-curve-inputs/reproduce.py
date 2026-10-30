@@ -1,4 +1,7 @@
 """Replay the maintained build-bound two-curve CLI with actual compiler/VM outputs."""
+if not __debug__:
+    raise RuntimeError('Two-curve replay requires normal Python; do not use -O or PYTHONOPTIMIZE')
+
 import gzip
 import hashlib
 import json
