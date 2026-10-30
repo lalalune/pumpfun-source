@@ -1,0 +1,24 @@
+COMMAND: /home/boram/pump-four-score-venv/bin/python -B -m unittest discover -s scripts -p test_pump_text_layout.py -v
+test_call_graph_ordering_file_is_not_an_unbound_input (test_pump_text_layout.ConfigureTests.test_call_graph_ordering_file_is_not_an_unbound_input) ... ok
+test_failed_sdk_admission_does_not_publish_layout (test_pump_text_layout.ConfigureTests.test_failed_sdk_admission_does_not_publish_layout) ... ok
+test_actual_maintained_order_is_admitted (test_pump_text_layout.MaintainedOrderTests.test_actual_maintained_order_is_admitted) ... ok
+test_default_scaffold_and_selector_uniqueness_are_preserved (test_pump_text_layout.MaintainedOrderTests.test_default_scaffold_and_selector_uniqueness_are_preserved) ... ok
+test_only_text_input_selectors_are_admitted (test_pump_text_layout.MaintainedOrderTests.test_only_text_input_selectors_are_admitted) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.003s
+
+OK
+COMMAND: /home/boram/pump-four-score-venv/bin/python -B -m unittest discover -s tests -p test_text_layout*.py -v
+test_mutated_bound_copy_rejected_in_all_modes (test_text_layout_optimization.TextLayoutOptimizationTests.test_mutated_bound_copy_rejected_in_all_modes) ... ok
+test_script_hash_mismatch_rejected_in_all_modes (test_text_layout_optimization.TextLayoutOptimizationTests.test_script_hash_mismatch_rejected_in_all_modes) ... ok
+test_unbound_forwarded_operand_rejected_in_all_modes (test_text_layout_optimization.TextLayoutOptimizationTests.test_unbound_forwarded_operand_rejected_in_all_modes) ... ok
+test_valid_receipt_accepted_in_all_modes (test_text_layout_optimization.TextLayoutOptimizationTests.test_valid_receipt_accepted_in_all_modes) ... ok
+test_attached_script_is_rejected (test_text_layout_scripts.AttachedLinkerScriptTests.test_attached_script_is_rejected) ... ok
+test_prepare_link_rejects_attached_script (test_text_layout_scripts.AttachedLinkerScriptTests.test_prepare_link_rejects_attached_script) ... ok
+test_separate_script_argument_is_admitted (test_text_layout_scripts.AttachedLinkerScriptTests.test_separate_script_argument_is_admitted) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.016s
+
+OK

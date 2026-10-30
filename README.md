@@ -26,19 +26,27 @@ those programs. There is no frontend, backend, SDK or off-chain service code.
 
 | Program | Matched windows | Matched % | Raw-equal bodies | Normalized only | Unmatched | Whole meaningful ELF equal |
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| Pump Main |1,032/1,035|99.7%|347|685|3|No|
+| Pump Main |1,033/1,035|99.81%|1,033|0|2|No|
 | PumpSwap / AMM |785/785|100.0%|785|0|0|**Yes**|
 | Fees |585/585|100.0%|585|0|0|**Yes**|
 | Mayhem |441/441|100.0%|441|0|0|**Yes**|
 | Donation Relay |492/492|100.0%|492|0|0|**Yes**|
-| **Total** |**3,335/3,338**|**99.9%**|**2,650**|**685**|**3**|**4/5**|
+| **Total** |**3,336/3,338**|**99.94%**|**3,336**|**0**|**2**|**4/5**|
 
-Matched windows cover **5,151,568/5,213,128 code bytes (98.8%)**.
-Pump Main and AMM were freshly rebuilt. Fees and Mayhem retain their exact
-historical checkpoints, with current recipe/source bindings checked; their
-compilers were not rerun. Donation Relay's retained cold-build packet was
-verified against current source. See the [scores, provenance and open-PR
-review](reconstruction/pump-main/checkpoints/completion-20261030/README.md).
+Matched windows cover **5,167,144/5,213,128 code bytes (99.12%)**.
+The latest Pump Main identity build includes the `create_v2` match from #2529
+and the original-size `admin_cto` layout from #2524. It gains one normalized
+window and 686 raw matches with zero losses against a fresh main build;
+all 1,033 matched windows are now raw-equal. The combined build passes 776
+creation/admin differential cases. Pump Main's meaningful ELF is not yet equal.
+A fresh native AMM build reproduces the captured meaningful
+ELF (`51a5f6a7…`). Fees and Mayhem retain their exact historical checkpoints:
+current source staging (65 and 67 inputs) passes and the captured meaningful
+prefixes equal the builders' pinned candidate hashes; their compilers were not
+rerun. Donation Relay's retained cold-build packet verifier passes against
+current source (818,280 meaningful bytes literally equal). See the [latest
+scores and validation](reconstruction/pump-main/checkpoints/completion-pass2-20261030/README.md)
+and [other-program checkpoint provenance](reconstruction/pump-main/checkpoints/completion-20261030/other-programs.json).
 
 Raw equality compares complete instruction bytes. Normalized windows mask
 specified call/address operands and do not prove whole-program identity.

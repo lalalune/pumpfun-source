@@ -43,6 +43,24 @@ class InventoryTests(unittest.TestCase):
             n = len(row["accounts"])
             self.assertTrue(all(i < n for i in row["signer"] + row["writable"]))
 
+    def test_table_validation_refuses_optimized_python(self):
+        # validate_inventory used to be bare asserts: under -O the checks
+        # vanished while the producer kept publishing confirmed counts from
+        # this table. Importing the module under -O must now refuse.
+        import subprocess
+        import sys
+        probe = (
+            "import importlib.util, pathlib;"
+            "here = pathlib.Path(r'%s');"
+            "spec = importlib.util.spec_from_file_location('probe', here / 'inventory.py');"
+            "module = importlib.util.module_from_spec(spec);"
+            "spec.loader.exec_module(module)" % HERE
+        )
+        completed = subprocess.run([sys.executable, "-O", "-c", probe],
+                                   capture_output=True, text=True)
+        self.assertNotEqual(completed.returncode, 0, completed.stdout)
+        self.assertIn("requires validation", completed.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

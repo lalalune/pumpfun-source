@@ -46,7 +46,7 @@ def evaluate(source, work, output, target, kind, recipe, baseline=None):
                 matched = matched and preservation['accepted']
                 result['status'] = 'pass' if matched else 'fail'
             code = 0 if matched else 1
-        (output / 'verdict.json').write_text(json.dumps(result, indent=2) + '\n')
+        (output / 'verdict.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8', newline='\n')
         return code
     finally:
         score.BASE = previous

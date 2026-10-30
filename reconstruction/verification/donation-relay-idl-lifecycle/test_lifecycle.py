@@ -32,10 +32,40 @@ class LifecycleUnitTests(unittest.TestCase):
         self.assertEqual(first, second)
         self.assertNotEqual(first[0], first[1])
 
-    def test_comparator_controls_detect_all_dimensions(self) -> None:
-        controls = producer.comparator_controls()
+    @staticmethod
+    def matching_step():
+        import copy
+        row = {
+            "error": None,
+            "logs": ["Program log: reserved", "Program consumed: 1 of 1400000 compute units"],
+            "events": ["Program data: event"],
+            "inner_instructions": [],
+            "return_data": [None, ""],
+            "before": {"SomeAccount11111111111111111111111111111111": {"lamports": 1}},
+            "after": {"SomeAccount11111111111111111111111111111111": {"lamports": 2}},
+        }
+        return {"original": row, "candidate": copy.deepcopy(row)}
+
+    def test_comparator_controls_replay_mutations_through_the_case_comparison(self) -> None:
+        controls = producer.comparator_controls(self.matching_step())
         self.assertTrue(controls["all_detected"])
-        self.assertEqual(set(controls["detected"]), {"account_state", "error", "event_payload"})
+        self.assertEqual(controls["detected"],
+                         {"account_state": True, "error": True, "event_payload": True})
+
+    def test_comparator_controls_fail_when_the_comparison_stops_reporting(self) -> None:
+        from unittest import mock
+        with mock.patch.object(producer.Pair, "_comparable", staticmethod(lambda row: {})):
+            controls = producer.comparator_controls(self.matching_step())
+        self.assertFalse(controls["all_detected"])
+        self.assertEqual(controls["detected"],
+                         {"account_state": False, "error": False, "event_payload": False})
+
+    def test_controls_fail_when_shared_mismatch_comparison_is_disabled(self) -> None:
+        with mock.patch.object(producer.Pair, "comparison_mismatches", return_value=[]):
+            controls = producer.comparator_controls(self.matching_step())
+        self.assertFalse(controls["all_detected"])
+        self.assertEqual(controls["detected"],
+                         {"account_state": False, "error": False, "event_payload": False})
 
     def test_output_refuses_overwrite_before_execution(self) -> None:
         root = HERE.parents[2]
@@ -61,6 +91,43 @@ class LifecycleUnitTests(unittest.TestCase):
         with mock.patch.object(producer, "file_sha", side_effect=lambda path: "0" * 64 if path.name == "Cargo.toml" else producer.sha(path.read_bytes())):
             _, changed = producer.source_manifest(root)
         self.assertNotEqual(digest, changed)
+
+
+VSPEC = importlib.util.spec_from_file_location("relay_idl_verify_report", HERE / "verify_report.py")
+assert VSPEC and VSPEC.loader
+verify_report = importlib.util.module_from_spec(VSPEC)
+VSPEC.loader.exec_module(verify_report)
+
+
+class VerifyReportTests(unittest.TestCase):
+    def vacuous_report(self, root: Path, candidate: Path) -> dict:
+        source_rows, source_digest = verify_report.manifest(root / "programs/donation-relay", root)
+        package_rows = {str(path.relative_to(root)): verify_report.file_sha(path) for path in sorted(HERE.iterdir()) if path.is_file()}
+        return {
+            "schema": "donation-relay-idl-lifecycle-v1",
+            "program": verify_report.RELAY,
+            "inputs": {
+                "captured_elf": {"sha256": verify_report.ORIGINAL_SHA256},
+                "candidate_elf": {"sha256": verify_report.file_sha(candidate)},
+                "source_manifest_sha256": source_digest,
+                "source_files": source_rows,
+                "test_package_files": package_rows,
+            },
+            "cases": [],
+            "case_count": 0,
+            "matching_cases": 0,
+            "different_cases": 0,
+            "transaction_identity": {"transaction_count": 0, "unique_transaction_count": 0, "all_transactions_signature_verified": True},
+            "negative_controls": {"detected": {}, "all_detected": True},
+            "supported_operations": ["Create", "CreateBuffer", "Write", "SetBuffer", "SetAuthority", "Close", "Resize"],
+        }
+
+    def test_report_without_planned_cases_or_controls_is_rejected(self) -> None:
+        root = HERE.parents[2]
+        candidate = root / "evidence/dependencies/donation_relay/deployed.so"
+        problems = verify_report.validate(self.vacuous_report(root, candidate), root, candidate)
+        self.assertIn("case_membership", problems)
+        self.assertIn("negative_control_membership", problems)
 
 
 if __name__ == "__main__":

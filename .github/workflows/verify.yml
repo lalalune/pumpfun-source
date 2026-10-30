@@ -16,6 +16,11 @@ jobs:
       max-parallel: 12
       matrix:
         include:
+          - suite: byte-comparison-input-preservation
+            commands: |
+              sudo apt-get update
+              sudo apt-get install -y llvm
+              python -B reconstruction/tooling/byte-comparison-input-preservation/test_verify.py --objdump /usr/bin/llvm-objdump
           - suite: contract-tests
             commands: |
               python -B -m unittest discover -s tests -v
@@ -26,6 +31,7 @@ jobs:
           - suite: analysis-packet-encoding
             commands: |
               python -B research/tooling-analysis-encoding-20261030/test_verify.py
+              python -B reconstruction/tooling/roadmap-manifest-members/test_verify.py
               python -B reconstruction/tooling/deep-analysis-output-links/test_verify.py
           - suite: fastbuild-staging
             commands: |
@@ -54,21 +60,30 @@ jobs:
               python -B scripts/test_dispatch_recovery.py
               python -B scripts/test_pump_compare_window_alignment.py
               python -B scripts/test_pump_compare_window_columns.py
+              python -B scripts/test_pump_exact_body_inventory_columns.py
               python -B reconstruction/tooling/parallel-input-preservation-20261030/test_input_preservation.py
+              python -B reconstruction/tooling/serial-input-preservation-20261030/test_serial_admission.py
               python -B scripts/test_pump_compare_window_strict_csv.py
               python -B scripts/test_replay_macos_frontier_optimization.py
               python -B scripts/test_admin_cto_optimization.py
               python -B scripts/test_build_token_dependency_optimization.py
+              python -B scripts/test_revalidate_empty_manifest.py
               python -B scripts/test_measure_relay13_v148_optimization.py
               python -B scripts/test_fees_withdraw_runtime_optimization.py
               python -B scripts/test_measure_relay_v148_optimization.py
               python -B tests/test_verify_dependencies_optimization.py
               python -B tests/test_recovered_builds_optimization.py
               python -B scripts/test_mayhem_burn_sequence_optimization.py
+              python -B scripts/test_constant_product_range_pinning.py
               python -B scripts/test_fees_validate_all_optimization.py
+              python -B scripts/test_pump_validate_constant_product_optimization.py
+              python -B scripts/test_pump_validate_volume_optimization.py
+              python -B scripts/test_pump_validate_sell_accounting_optimization.py
               python -B scripts/test_deep_section_analysis_publication.py
               python -B scripts/test_analyze_program_publication.py
+              python -B scripts/test_reconstruction_roadmap_publication.py
               python -B scripts/test_bytecode_signatures_publication.py
+              python -B scripts/test_revalidate_all_publication.py
               python -B scripts/test_donation_relay_oracle_optimization.py
               python -B -X utf8 tests/test_dispatch_idl_encoding.py
               python -B tests/test_local_validation_idl_encoding.py
@@ -76,6 +91,9 @@ jobs:
               python -O -B tests/test_function_body_file_ranges.py
               python -B reconstruction/harness/test_treediff_line_boundaries.py
               python -B reconstruction/harness/test_score_inputs.py
+              python -B reconstruction/harness/test_match_oracle.py
+              python -B reconstruction/harness/test_score_atomic_report.py
+              python -B reconstruction/harness/test_coords_report_destination.py
               python -B reconstruction/harness/test_short_window_ranking.py
               python -B reconstruction/harness/test_applicability_evidence_paths.py
               python -B reconstruction/harness/test_diagnostic_range_boundaries.py
@@ -111,6 +129,9 @@ jobs:
               python -B reconstruction/capture-rpc-retry/test_capture.py
               python -B reconstruction/verification/donation-relay-idl-lifecycle/test_lifecycle.py
               python -B reconstruction/verification/donation-relay-stateful/test_stateful.py
+              python -B reconstruction/verification/pump-migration-lifecycle/test_lifecycle.py
+              python -B reconstruction/verification/mayhem-dispatch-boundaries/test_inventory.py
+              python -B reconstruction/verification/mayhem-dispatch-boundaries/test_producer.py
           - suite: host-fragments
             commands: |
               python -B -m unittest discover -s tests -p 'test_global_*_captured.py' -v

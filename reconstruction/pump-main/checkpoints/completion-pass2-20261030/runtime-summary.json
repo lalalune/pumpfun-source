@@ -1,0 +1,43 @@
+{
+  "scope": "Creation/admin: signed synthetic offline captured-vs-compiled comparisons. Swap suites: synthetic one-hop cases with AMM PDA signature verification disabled; not full successful post-complete, multi-hop, or whole-program runtime equivalence.",
+  "solders": "0.27.1",
+  "cases": 1184,
+  "mismatches": 0,
+  "suites": [
+    {
+      "suite": "create",
+      "cases": 110,
+      "mismatches": [],
+      "report_sha256": "1a0869a939b3256e56bbcc3acdb59e5aee3d7040b23ac159ef62a7317a29691f",
+      "candidate_sha256": "3401f377c7957124125f59ab0d2d395d975aac67705b579c3a2bf3f4c41605e7"
+    },
+    {
+      "suite": "extended create_v2",
+      "cases": 303,
+      "mismatches": [],
+      "report_sha256": "847e58efcbbda8fe2291344cc35953804bc00c5396472b7adf062e14bdac4c72",
+      "candidate_sha256": "3401f377c7957124125f59ab0d2d395d975aac67705b579c3a2bf3f4c41605e7"
+    },
+    {
+      "suite": "admin_cto",
+      "cases": 363,
+      "mismatches": [],
+      "report_sha256": "3a61551978c49dc9719f46e4408369558c31f68ef05646b3793b0c1490e77d15",
+      "candidate_sha256": "3401f377c7957124125f59ab0d2d395d975aac67705b579c3a2bf3f4c41605e7"
+    },
+    {
+      "suite": "single-hop swaps",
+      "cases": 120,
+      "mismatches": [],
+      "report_sha256": "a50c035f8c7919a12cb21dafef873fe5737d8ddf874877528a06a3798a5a4a34",
+      "candidate_sha256": "3401f377c7957124125f59ab0d2d395d975aac67705b579c3a2bf3f4c41605e7"
+    },
+    {
+      "suite": "single-hop reserve boundaries",
+      "cases": 288,
+      "mismatches": [],
+      "report_sha256": "a7aebb078d384b284651a85f355a610b8c997d646404ae40e9156dc61a10c0be",
+      "candidate_sha256": "3401f377c7957124125f59ab0d2d395d975aac67705b579c3a2bf3f4c41605e7"
+    }
+  ]
+}

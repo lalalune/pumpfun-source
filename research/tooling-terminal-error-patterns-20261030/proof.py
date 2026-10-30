@@ -16,13 +16,31 @@ def check_inputs():
             raise ValueError(f'bound input changed: {name}')
 
 
+ARCHIVED = P / 'archived'
+
+
 def reviewed():
     check_inputs()
-    path = REPO / 'scripts/bytecode_signatures.py'
+    # The reviewed tool bytes are kept in this packet: scripts/ has since been
+    # corrected (#2319 and later), so the live files are no longer the archived
+    # detector this packet compares against.
+    path = ARCHIVED / 'bytecode_signatures.py'
+    reader_path = ARCHIVED / 'window_elf_reader.py'
+    reader = types.ModuleType('window_elf_reader')
+    reader.__file__ = str(reader_path)
+    exec(compile(reader_path.read_bytes(), str(reader_path), 'exec'), reader.__dict__)
     module = types.ModuleType('reviewed_bytecode_signatures')
-    module.__file__ = str(path)
-    # The archived module imports the hash-checked window reader from scripts.
-    exec(compile(path.read_bytes(), str(path), 'exec'), module.__dict__)
+    # REPO inside the archived script resolves from its original location.
+    module.__file__ = str(REPO / 'scripts/bytecode_signatures.py')
+    previous = sys.modules.get('window_elf_reader')
+    sys.modules['window_elf_reader'] = reader
+    try:
+        exec(compile(path.read_bytes(), str(path), 'exec'), module.__dict__)
+    finally:
+        if previous is None:
+            sys.modules.pop('window_elf_reader', None)
+        else:
+            sys.modules['window_elf_reader'] = previous
     return module
 
 
