@@ -1,0 +1,31 @@
+{
+ "lane": "w14a11-cto-headchain",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "bases": {"769f331fe": {"ratio": 0.63241, "slots": 3288, "fm": 0.72618, "sk": 0.85051}, "cef0574cf": {"ratio": 0.63421, "slots": 3178, "fm": 0.72648, "sk": 0.85021}},
+ "best": {"ratio": 0.63421, "slots": 3178, "bytes": 27400, "note": "no zero-loss gain; best is main itself"},
+ "landed": false,
+ "findings": [
+  "The skip-polarity gate (swept=if skip{Ok(0)}else{sweep(..)}?) still collapses on 769f331 (0.4827) and cef0574 (0.48225).",
+  "IR start/bb1 16:1 restores the layout, but the gated build is below the same head weight without the gate (0.62449 vs 0.62459 @27224). start 16:1 is register assignment only (22 fewer copies), not a layout change.",
+  "Only heads that already change the whole function keep the layout under the gate: h7 (!(a||b||c), -192 B) and PDA-first p1/p2. On every one of them the gate is 0.0001-0.0003 below the same head without it. The gate is not a ratio lever on current main.",
+  "No source spelling of the shared && chain reproduces start 16:1. h2 (if-chain) and h5 (closure guards) fold back to main or to the pre-#3215 binary; h3/h4/h6/h7 change instruction selection and lose.",
+  "h1 (owner==FEES first) is the only fm/sk-positive head spelling (fm +0.0077, sk +0.0012), all of it in the sharing CPI clone run. With frame offsets kept, that clone run loses 29 because its slots move by 8. This is RA chaos.",
+  "p1 (holder_key PDA before shared, creator==key() on the left) reproduces the original head instruction for instruction, apart from frame offsets and registers. It has the best skeleton seen (sk 0.85945 / 0.85915 on cef0574). It loses only in the orig 0x3000-0x3800 clone run, where the accounts pointer is in r6 instead of r8 (fm -209). This confirms w14a02's PDA-first diagnosis on the newer mains.",
+  "Single-weight map on main 769f331 (588 runs): the best at 27400 is one binary at 0.63271 (validate-head spill slots 0x908/0x910 swapped), reachable only through non-source weights. The amm require branch at 20:12 or 12:20 is byte-identical to main."
+ ],
+ "attempts": {"ir_head_weight_runs": 70, "ir_single_weight_runs_main": 588, "ir_single_weight_runs_p1": 588, "source_captures": 35},
+ "rejected": [
+  "skip-polarity gate alone and with every head spelling (g, h1g-h8g, p1g, p2g, g5, h1g5, p1g5)",
+  "shared chain spellings h1-h8 (operand order, if-chain, tuple match, non-short-circuit &, closure guards, data_len, De Morgan ||, regrouping)",
+  "PDA-first holder_key spellings p1b-p1e (.0 / destructuring / late assignment)",
+  "amm require memory-bool (target weight bb13.i103 20:12 is byte-identical to main)"
+ ],
+ "unresolved": [
+  "PDA-first head (the original's) is register-limited: the clone-run accounts pointer is in r6 instead of r8 (w14a09-cto-pdara, w14a01-cto-acctlive)",
+  "validate-head spill slots 0x908/0x910 order (+0.0003; only non-source weights reach it)"
+ ],
+ "next_ideas": [
+  "Lanes that fix the clone-run accounts register should test on the p1 head (src_edits/p1.py). It is the original head and gains +0.009 skeleton, so any RA fix that works there compounds.",
+  "Revisit the skip-polarity gate only after the clone-run RA matches: it is the original's form, but it is worth <=0 while the RA differs."
+ ]
+}
