@@ -108,7 +108,14 @@ def read(root, name, inputs):
 
 def audit(root, index_path):
     inputs = {}
-    status = load_object(read(root, 'repro/status.json', inputs))
+    status_file = {'path': 'repro/status.json', 'exists': True}
+    try:
+        status_bytes = read(root, status_file['path'], inputs)
+    except FileNotFoundError:
+        status_file['exists'] = False
+        status = {}
+    else:
+        status = load_object(status_bytes)
     index = load_object(read(root, index_path, inputs))
     snapshot = {}
     for name, entry in index['programs'].items():
@@ -148,6 +155,7 @@ def audit(root, index_path):
         status_health[name] = current
     result = {'scope': 'Static exact-byte and source-binding audit. No deployment, runtime, exhaustiveness or compiler-identity proof.',
               'snapshot_index': index_path, 'snapshot_programs': snapshot,
+              'current_status_file': status_file,
               'current_status_health': status_health,
               'input_sha256': dict(sorted(inputs.items()))}
     try:
@@ -170,6 +178,7 @@ def main():
     with args.output.open('x', encoding='utf-8', newline='\n') as output:
         output.write(json.dumps(result, indent=2) + '\n')
     print(json.dumps({'snapshot_programs': len(result['snapshot_programs']),
+                      'current_status_file': result['current_status_file'],
                       'exact_allocations': [name for name, row in result['snapshot_programs'].items()
                                             if row.get('allocation_comparison', {}).get('full_byte_equality')],
                       'missing_status_candidates': [name for name, row in result['current_status_health'].items()

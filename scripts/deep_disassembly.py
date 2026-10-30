@@ -17,6 +17,7 @@ import argparse
 import collections
 import gzip
 import hashlib
+import io
 import json
 import os
 import struct
@@ -612,10 +613,10 @@ def main():
             "size": size,
             "name": name,
             "instruction_count": len(instructions),
-            "syscalls": list(set(
+            "syscalls": sorted(set(
                 insn["syscall"] for insn in instructions if insn.get("syscall")
             )),
-            "extern_calls": list(set(
+            "extern_calls": sorted(set(
                 insn["extern_symbol"] for insn in instructions if insn.get("extern_symbol")
             )),
             "internal_calls": sum(1 for insn in instructions if insn.get("call_target")),
@@ -654,24 +655,29 @@ def main():
 
     # 1. Window summary with deep analysis
     (output_dir / "windows-deep.json").write_text(
-        json.dumps(all_windows, indent=2) + "\n")
+        json.dumps(all_windows, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 2. Full disassembly (gzipped — can be large)
     disasm_path = output_dir / "disassembly.json.gz"
-    with gzip.open(str(disasm_path), "wt") as f:
-        json.dump(all_disasm, f, indent=2)
+    # Keep packet identity independent of wall time, output path and locale.
+    with disasm_path.open("wb") as raw:
+        with gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as compressed:
+            with io.TextIOWrapper(compressed, encoding="utf-8", newline="\n") as f:
+                json.dump(all_disasm, f, indent=2)
 
     # 3. Dispatch table
     (output_dir / "dispatch-table.json").write_text(
-        json.dumps(dispatch, indent=2) + "\n")
+        json.dumps(dispatch, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 4. Syscall usage
     (output_dir / "syscall-usage.json").write_text(
-        json.dumps(dict(syscall_usage.most_common()), indent=2) + "\n")
+        json.dumps(dict(syscall_usage.most_common()), indent=2) + "\n",
+        encoding="utf-8", newline="\n")
 
     # 5. External symbol usage
     (output_dir / "extern-usage.json").write_text(
-        json.dumps(dict(extern_usage.most_common()), indent=2) + "\n")
+        json.dumps(dict(extern_usage.most_common()), indent=2) + "\n",
+        encoding="utf-8", newline="\n")
 
     # 6. Rodata strings
     rodata_for_json = [
@@ -679,11 +685,11 @@ def main():
         for addr, s in sorted(rodata_strings.items())
     ]
     (output_dir / "rodata-strings.json").write_text(
-        json.dumps(rodata_for_json, indent=2) + "\n")
+        json.dumps(rodata_for_json, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 7. Bytecode fingerprints
     (output_dir / "fingerprints.json").write_text(
-        json.dumps(fingerprints, indent=2) + "\n")
+        json.dumps(fingerprints, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 8. Error messages (strings containing common error patterns)
     error_strings = [
@@ -696,7 +702,7 @@ def main():
         ])
     ]
     (output_dir / "error-strings.json").write_text(
-        json.dumps(error_strings, indent=2) + "\n")
+        json.dumps(error_strings, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 9. Summary
     summary = {
@@ -719,7 +725,7 @@ def main():
         "extern_breakdown": dict(extern_usage.most_common()),
     }
     (output_dir / "summary.json").write_text(
-        json.dumps(summary, indent=2) + "\n")
+        json.dumps(summary, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 10. README
     readme = f"""# {args.program} — Deep Disassembly Analysis
@@ -768,7 +774,7 @@ fingerprinting for cross-window pattern matching.
 python3 verify.py
 ```
 """
-    (output_dir / "README.md").write_text(readme)
+    (output_dir / "README.md").write_text(readme, encoding="utf-8", newline="\n")
 
     # 11. Verify script
     verify_py = '''#!/usr/bin/env python3
@@ -809,7 +815,7 @@ def main():
 if __name__ == "__main__":
     sys.exit(main())
 '''
-    (output_dir / "verify.py").write_text(verify_py)
+    (output_dir / "verify.py").write_text(verify_py, encoding="utf-8", newline="\n")
 
     # 12. Manifest
     manifest = {}
@@ -820,10 +826,10 @@ if __name__ == "__main__":
         if path.is_file():
             manifest[name] = sha256_file(str(path))
     (output_dir / "manifest.json").write_text(
-        json.dumps(manifest, indent=2) + "\n")
+        json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     total_lines = sum(
-        sum(1 for _ in open(output_dir / name))
+        sum(1 for _ in open(output_dir / name, encoding="utf-8"))
         for name in os.listdir(output_dir)
         if (output_dir / name).is_file() and not name.endswith(".gz")
     )
