@@ -396,7 +396,11 @@ from window_elf_reader import Elf
 from compare import compare
 class InferredStructExtentTests(unittest.TestCase):
     def analyze_offsets(self, offsets):
-        code = b''.join(struct.pack('<BBhi', 0x79, 0x21, offset, 0) for offset in offsets)
+        return self.analyze_loads([(0x79, offset) for offset in offsets])
+
+    def analyze_loads(self, loads):
+        code = b''.join(struct.pack('<BBhi', opcode, 0x21, offset, 0)
+                        for opcode, offset in loads)
         header = bytearray(64)
         struct.pack_into('<Q', header, 24, 64)
         elf = SimpleNamespace(b=bytes(header) + code, lo=64, hi=64+len(code),
@@ -419,6 +423,40 @@ class InferredStructExtentTests(unittest.TestCase):
         self.assertEqual(result['deserialization_patterns'][0]['likely_struct_size'], 168)
         self.assertEqual(len(result['deserialization_patterns'][0]['field_offsets']), 20)
 
+    def test_extent_uses_the_actual_load_width(self):
+        for opcode, width in ((0x71, 1), (0x69, 2), (0x61, 4), (0x79, 8)):
+            with self.subTest(width=width):
+                result = self.analyze_loads([(opcode, offset) for offset in (0, 16, 32)])
+                row = result['deserialization_patterns'][0]
+                self.assertEqual(row['field_sizes'], [width] * 3)
+                self.assertEqual(row['likely_struct_size'], 32 + width)
+                self.assertEqual(result['inferred_struct_sizes'], [32 + width])
+
+    def test_extent_can_end_at_an_earlier_wider_load(self):
+        result = self.analyze_loads([(0x79, 0), (0x71, 1), (0x71, 2)])
+        self.assertEqual(result['deserialization_patterns'][0]['likely_struct_size'], 8)
+
+    def test_mixed_width_duplicate_reads_are_order_independent(self):
+        loads = [(0x71, 0), (0x79, 0), (0x71, 16), (0x69, 32)]
+        for ordered in (loads, list(reversed(loads))):
+            with self.subTest(loads=ordered):
+                row = self.analyze_loads(ordered)['deserialization_patterns'][0]
+                self.assertEqual(row['field_sizes'], [8, 1, 2])
+                self.assertEqual(row['likely_struct_size'], 34)
+
+    def test_narrow_loads_after_the_display_cap_contribute_to_extent(self):
+        result = self.analyze_loads([(0x71, offset) for offset in range(35)])
+        row = result['deserialization_patterns'][0]
+        self.assertEqual(row['field_offsets'], list(range(20)))
+        self.assertEqual(row['field_sizes'], [1] * 20)
+        self.assertEqual(row['likely_struct_size'], 35)
+
+    def test_captured_pump_short_layout_extent(self):
+        elf = Elf(analyze.ROOT / 'evidence/original/pump/deployed.so')
+        rows = deep_section_analysis.recover_anchor_idl(elf)['deserialization_patterns']
+        row = next(row for row in rows if row['window'] == '0x2ca8' and row['base_reg'] == 3)
+        self.assertEqual(row['likely_struct_size'], 43)
+
     def test_retained_patterns_use_the_full_observed_load_extent(self):
         checked = capped = 0
         for path in sorted(analyze.ROOT.glob('evidence/**/deployed.so')):
@@ -427,11 +465,12 @@ class InferredStructExtentTests(unittest.TestCase):
             result = deep_section_analysis.recover_anchor_idl(elf)
             for row in result['deserialization_patterns']:
                 start = int(row['window'], 16)
-                offsets = {struct.unpack_from('<h', elf.b, at+2)[0]
-                           for at in range(start, ends[start], 8)
-                           if elf.b[at] in (0x61, 0x69, 0x71, 0x79)
-                           and elf.b[at+1] >> 4 == row['base_reg']}
-                self.assertEqual(row['likely_struct_size'], max(offsets)+8,
+                widths = {0x61: 4, 0x69: 2, 0x71: 1, 0x79: 8}
+                loads = [(struct.unpack_from('<h', elf.b, at+2)[0], widths[elf.b[at]])
+                         for at in range(start, ends[start], 8)
+                         if elf.b[at] in widths and elf.b[at+1] >> 4 == row['base_reg']]
+                offsets = {offset for offset, width in loads}
+                self.assertEqual(row['likely_struct_size'], max(offset + width for offset, width in loads),
                                  f'{path.parent.name}:{start:#x}:r{row["base_reg"]}')
                 self.assertLessEqual(len(row['field_offsets']), 20)
                 checked += 1
