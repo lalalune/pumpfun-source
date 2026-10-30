@@ -7,8 +7,8 @@ import treediff
 class QuotedPathsTests(unittest.TestCase):
     def test_git_parser_retains_unusual_path_bytes(self):
         for name in ('src/a\tb.rs', 'src/a\nb.rs', 'src/a\x01b.rs', 'src/한글.rs', 'src/a"b.rs'):
-            with self.subTest(name=name), patch.object(treediff, 'tree_files', side_effect=[
-                    {name: b'old\n'}, {name: b'new\n'}]):
+            with self.subTest(name=name), patch.object(treediff, 'tree_inventory', side_effect=[
+                    {name: (b'old\n', '100644')}, {name: (b'new\n', '100644')}]):
                 text = treediff.tree_diff('before', 'after')
                 result = subprocess.run(['git', 'apply', '--numstat', '-z', '-'],
                                         input=text.encode('utf-8'), capture_output=True)
