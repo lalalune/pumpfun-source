@@ -39,6 +39,7 @@ jobs:
             commands: |
               python -B research/tooling-relocated-data-pointers-20261030/test_pointer_analysis.py
               python scripts/verify_evidence.py
+              python -I -B tests/test_dispatch_root.py
               python -I -B tests/test_analyze_input_admission.py
               python scripts/test_tooling.py
               python -B tests/test_function_body_file_ranges.py

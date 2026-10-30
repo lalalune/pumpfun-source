@@ -193,10 +193,10 @@ pub enum QuoteSource { Sol, Whitelisted, Controlled, Nested(u8) }
 
 
 
-fn validate_quote_mint<'info>(ctx:&Context<'_,'_,'_,'info,CreateV2<'info>>,remaining_accounts:&[AccountInfo<'info>])->Result<(Pubkey,Option<u64>,QuoteSource)>{
+fn validate_quote_mint<'info>(accounts:&CreateV2<'info>,remaining_accounts:&[AccountInfo<'info>])->Result<(Pubkey,Option<u64>,QuoteSource)>{
  if remaining_accounts.is_empty() {return Ok((Pubkey::default(),None,QuoteSource::Sol));}
  require_gte!(remaining_accounts.len(),3,PumpError::NotEnoughRemainingAccounts);
- let a=&ctx.accounts;
+ let a=accounts;
  let mint=&remaining_accounts[0];
  let ata=&remaining_accounts[1];
  let program=&remaining_accounts[2];
@@ -222,15 +222,15 @@ fn validate_quote_mint<'info>(ctx:&Context<'_,'_,'_,'info,CreateV2<'info>>,remai
   (QuoteSource::Whitelisted,None)
  } else {
   let control=nested_create::quote_control(remaining_accounts.get(3))?;
-  match nested_create::control_account(control,mint_key)? {
-   Some(reserves)=>(QuoteSource::Controlled,Some(reserves)),
-   None=>{
+  match nested_create::control_account(control,mint_key) {
+   Ok(Some(reserves))=>(QuoteSource::Controlled,Some(reserves)),
+   Ok(None)=>{
     let (reserves,depth)=nested_create::walk(remaining_accounts,&a.global)?;
     (QuoteSource::Nested(depth),Some(reserves))
    }
+   Err(e)=>return Err(e),
   }
  };
-
 
 
 
@@ -736,7 +736,7 @@ pub fn execute<'info>(ctx:Context<'_,'_,'_,'info,CreateV2<'info>>,name:String,sy
 
 
  require_eq!(a.global.create_v2_enabled,true,PumpError::CreateV2Disabled);
- let (quote_mint,reserves,source)=validate_quote_mint(&ctx,ctx.remaining_accounts)?;
+ let (quote_mint,reserves,source)=validate_quote_mint(ctx.accounts,ctx.remaining_accounts)?;
 
 
 
@@ -781,8 +781,8 @@ pub fn execute<'info>(ctx:Context<'_,'_,'_,'info,CreateV2<'info>>,name:String,sy
 
 
 
- let depth=if let QuoteSource::Nested(depth)=source {depth} else {0};
- ctx.accounts.init_curve(creator,quote_mint,reserves,depth,fee,is_mayhem_mode,is_holder_reward.0);
+
+ ctx.accounts.init_curve(creator,quote_mint,reserves,source,fee,is_mayhem_mode,is_holder_reward.0);
 
 
 
@@ -814,7 +814,8 @@ fn create_event<'info>(name:String,symbol:String,uri:String,creator:Pubkey,mint:
  let virtual_token_reserves=bonding_curve.virtual_token_reserves;let virtual_sol_reserves=bonding_curve.virtual_quote_reserves;let real_token_reserves=bonding_curve.real_token_reserves;let token_total_supply=bonding_curve.token_total_supply;let is_holder_reward=bonding_curve.is_holder_reward;let depth=bonding_curve.depth;let quote_mint=bonding_curve.quote_mint;Ok(CreateEvent{name,symbol,uri,mint:mint.key(),bonding_curve:bonding_curve.key(),user:user.key(),creator,timestamp:Clock::get()?.unix_timestamp,virtual_token_reserves,virtual_sol_reserves,real_token_reserves,token_total_supply,token_program:token_program.key(),is_mayhem_mode,is_cashback_enabled:false,quote_mint:quote_mint,virtual_quote_reserves:virtual_sol_reserves,creator_fee_bps,is_holder_reward,depth})
 }
 impl<'info> CreateV2<'info> {
-fn init_curve(&mut self,creator:Pubkey,quote_mint:Pubkey,reserves:Option<u64>,depth:u8,fee:u64,is_mayhem_mode:bool,is_holder_reward:bool){
+fn init_curve(&mut self,creator:Pubkey,quote_mint:Pubkey,reserves:Option<u64>,source:QuoteSource,fee:u64,is_mayhem_mode:bool,is_holder_reward:bool){
+ let depth=match source {QuoteSource::Sol|QuoteSource::Whitelisted|QuoteSource::Controlled=>0,QuoteSource::Nested(depth)=>depth};
  let global:&Global=&self.global;
  let bonding_curve:&mut trade_types::BondingCurve=&mut self.bonding_curve;
  let sol=Pubkey::default();
