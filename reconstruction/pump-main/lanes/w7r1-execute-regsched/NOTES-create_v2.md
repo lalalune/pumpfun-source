@@ -14,7 +14,8 @@ Base: origin/main 2b85821 (1027/1035 normalized, 276 raw), target 0.96854 at 15,
 | --- | ---: | ---: | ---: | --- | --- |
 | main 2b85821 | 15,584 | 0.96854 | n/a (size differs) | 1027 / 276 | 37965968 |
 | c1 = creator stored after `token_total_supply` | 15,584 | 0.97284 | n/a | 1027 / 276, 0 losses | 0dcf3b47 |
-| **fb = c1 + nested `if creator_fee_bps.0==0 {} else {..}`** | **15,576 (= orig)** | **0.98763** | **42** | 1027 / 276, 0 losses, 0 raw losses | 2517bda7 |
+| fb = c1 + nested `if creator_fee_bps.0==0 {} else {..}` | 15,576 (= orig) | 0.98763 | 42 | 1027 / 276, 0 losses, 0 raw losses | 2517bda7 |
+| **so = fb + store order vqr, ivqr, vtr (mechanism of w7r1-execute-frame / sibling, #2297)** | **15,576** | **0.98870** | **43** | 1027 / 276, 0 losses, 0 raw losses | 7f095a06 (branch head with sweep change: bba24089) |
 
 ## Mechanism c1: creator memcpy position
 
@@ -42,11 +43,30 @@ use `==0` with an empty then-arm, `if matches!(..) {if creator_fee_bps.0==0 {} e
 Behaviour: unchanged (`u64 > 0` == `!= 0`; field stores reordered within one straight-line block).
 Line numbers: unchanged (edits stay on their lines).
 
-## Residual (fb, 42 slots)
+## Residual (so, 43 slots) and register-allocation analysis
 
-- curve-store block: creator pointer in r2 (orig r4) and the `[r10-0x718]` (name ptr) reload at the
-  block end (orig: at the block start, which takes r2).
-- two `mov r2,0` / `mov r7,0` order flips (lines ~140 and ~1068 of the window).
+1. Two `mov r2,0` / `mov r7,0` swaps: the bb112 phi order (quote-word0 ptr phi `_84.sroa.31` last).
+   IR oracle: moving it before the source-tag phi gives 0.98978. `-print-after=sroa` capture: the order is
+   already set by SROA's mem2reg in the first SROA run after inlining validate_quote_mint (phis are
+   inserted at block front, so the order is the reverse of PromotableAllocas; `.31`, the [16,24) slice
+   shared by the Err Box pointer and quote_mint word 0, is promoted last). Spellings tried: main
+   return `Ok((mint.key(),..))` / `Ok((*mint.key,..))` (0.53448, much worse).
+2. Creator pointer in r2 (original r4) with the name-pointer reload at its use instead of at the top
+   of the curve-store block. In the original, the name split interval (r2, from block entry) is
+   allocated before the creator pointer; in ours after it. Every IR-level lever tried on so+phi
+   (0.98978) leaves this unchanged:
+   - every legal single-instruction move in the fee join, bb2.i73, bb1.i75, bb9.i, exit (526);
+   - every adjacent legal instruction swap in the whole function (437);
+   - each block moved to the end / swapped with neighbours (506);
+   - successor swap with negated condition on every conditional branch (90; changes ISel RPO and
+     vreg numbering);
+   - `!prof` 1:1000 / 1000:1 on every conditional branch (180; block frequencies);
+   - creator GEP position x creator memcpy position (1395);
+   - two neutral-drift random walks (~1500 accepted moves).
+   None produces `mov r4,r7; add r4,8` or the early reload (flag-checked, not just ratio). The
+   residual is not an order/frequency effect of this IR; it needs a structurally different IR (other
+   live ranges), probably the same root cause as the phi order (validate_quote_mint's result
+   construction).
 
 ## Ledger
 

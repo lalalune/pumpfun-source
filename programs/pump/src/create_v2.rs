@@ -818,9 +818,9 @@ fn init_curve(bonding_curve:&mut trade_types::BondingCurve,global:&Global,creato
  let sol=Pubkey::default();
  let initial_virtual_quote_reserves=global.initial_virtual_quote_reserves;
  let virtual_quote_reserves=if quote_mint==sol {global.initial_virtual_sol_reserves} else {reserves.unwrap_or(initial_virtual_quote_reserves)};
+ bonding_curve.virtual_quote_reserves=virtual_quote_reserves;
  bonding_curve.initial_virtual_quote_reserves=virtual_quote_reserves;
  bonding_curve.virtual_token_reserves=global.initial_virtual_token_reserves;
- bonding_curve.virtual_quote_reserves=virtual_quote_reserves;
  bonding_curve.real_token_reserves=global.initial_real_token_reserves;
  bonding_curve.real_quote_reserves=0;
  bonding_curve.token_total_supply=global.token_total_supply;
