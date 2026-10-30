@@ -52,6 +52,7 @@ jobs:
               python -I -B tests/test_fastbuild_stage.py
               python -B reconstruction/harness/test_fastbuild_output_race.py
               python -B reconstruction/harness/test_fastbuild_library_name.py
+              python -B reconstruction/harness/test_physical_source_wrapper.py
           - suite: admin-cto-call-report
             commands: |
               python -B reconstruction/pump-main/lanes/w12b13-cto-callgraph/test_callseq.py
@@ -115,6 +116,9 @@ jobs:
               python -B tests/test_pump_probes_normal_python.py
               python -B tests/test_mismatch_normal_python.py
               python -B tests/test_build_partial_normal_python.py
+              python -B tests/test_checkpoint_verifiers_normal_python.py
+              python -B tests/test_pump_output_parents.py
+              python -B tests/test_remaining_output_parents.py
               python -B tests/test_create_mayhem_normal_python.py
               python -B tests/test_two_curve_optimization_guard.py
               python -O -B tests/test_two_curve_optimization_guard.py
@@ -137,6 +141,7 @@ jobs:
               python -B tests/test_verify_dependencies_optimization.py
               python -B tests/test_recovered_builds_optimization.py
               python -B scripts/test_mayhem_burn_sequence_optimization.py
+              python -B scripts/test_mayhem_zero_creator_case.py
               python -B scripts/test_qualification_archive_determinism.py
               python -B scripts/test_rebuild_workflow_action_pins.py
               python -B scripts/test_macos_v144_qualification_optimization.py
@@ -181,6 +186,9 @@ jobs:
               python -B reconstruction/mayhem/native-linux-qualification/test_vendor_membership.py
               python -B scripts/test_analyze_program_publication.py
               python -B scripts/test_reconstruction_roadmap_publication.py
+              python -B reconstruction/diagnostics/roadmap-reviewed-regeneration/test_generate.py
+              python -B reconstruction/diagnostics/roadmap-stable-attribution/test_generate.py
+              python -B reconstruction/diagnostics/defined-dynamic-calls/test_generate.py
               python -B scripts/test_bytecode_signatures_publication.py
               python -B scripts/test_bytecode_signatures_atomic_publication.py
               python -B scripts/test_revalidate_all_publication.py
@@ -209,6 +217,7 @@ jobs:
               python -B reconstruction/harness/test_experiment_worktree_source.py
               python -B reconstruction/harness/test_experiment_matrix_overlap.py
               python -B reconstruction/harness/test_bisect_membership.py
+              python -B reconstruction/harness/test_experiment_directory_identity.py
               python -B reconstruction/harness/test_minimize_oracle_encoding.py
               python -B reconstruction/harness/test_minimize_patch_list_encoding.py
               python -B reconstruction/harness/test_treediff.py

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Exact Pump compared-error checkpoint bridge; saved evidence only, no target/build."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse
 import hashlib
 import importlib.util
@@ -37,11 +39,26 @@ def check(ok, msg='checkpoint check failed'):
         raise CheckpointError(msg)
 
 
+# macOS exposes /var, /tmp and /etc as symlinks into /private. They name the
+# same files rather than redirecting the supplied path, so they are the only
+# ancestors the walk resolves; a symlink anywhere else is still rejected, and
+# so is an alias repointed elsewhere.
+SYSTEM_ALIASES = ({'/var': '/private/var', '/tmp': '/private/tmp', '/etc': '/private/etc'}
+                  if sys.platform == 'darwin' else {})
+
+
 def plain_path(path):
-    """Reject symlinks in the supplied path and every existing ancestor."""
+    """Reject symlinks in the supplied path and every existing ancestor.
+
+    Default macOS temp directories are under /var, so rejecting the OS's aliases
+    made each tempfile-based checkpoint path fail as symlink ancestry.
+    """
     path = Path(os.path.abspath(path))
     for parent in [*reversed(path.parents), path]:
-        check(not stat.S_ISLNK(parent.lstat().st_mode), ('Symlink ancestry', str(parent)))
+        if not stat.S_ISLNK(parent.lstat().st_mode):
+            continue
+        check(os.path.realpath(parent) == SYSTEM_ALIASES.get(str(parent)),
+              ('Symlink ancestry', str(parent)))
     return path
 
 

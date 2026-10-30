@@ -111,7 +111,7 @@ def run(c, pump_bin=ORIGINAL_PUMP, mayhem_bin=ORIGINAL_MAYHEM):
     if c.get('wrong'):
         metas = [AccountMeta(OTHER.pubkey() if m.pubkey==NAMES[c['wrong']] else m.pubkey, m.is_signer, m.is_writable) for m in metas]
     payload = (bytes(ix['discriminator']) + _string(c.get('name','Synthetic Coin')) + _string(c.get('symbol','SYNTH'))
-               + _string(c.get('uri','https://example.invalid/metadata.json')) + bytes(USER.pubkey())
+               + _string(c.get('uri','https://example.invalid/metadata.json')) + bytes(Pubkey.from_string(c.get('creator', str(USER.pubkey()))))
                + bytes([1 if c.get('is_mayhem_mode',True) else 0]) + bytes.fromhex(c.get('optional_args','')))
     signers = [k for k in [USER,MINT] if k.pubkey() in {m.pubkey for m in metas if m.is_signer}|{USER.pubkey()}]
     tx = Transaction.new_signed_with_payer([set_compute_unit_limit(1400000), Instruction(PROGRAM,payload,metas)], USER.pubkey(), signers, vm.latest_blockhash())

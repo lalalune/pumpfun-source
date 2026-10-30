@@ -1,0 +1,60 @@
+{
+  "base": "1ddb12553ccdb4ed45407ffe53f12f4644be172a",
+  "preflightOnly": true,
+  "programGitFiles": 135,
+  "selectedSourceFiles": 135,
+  "workspaceFiles": 136,
+  "coreFiles": 215,
+  "sourceSha256": "6e061e8785371cbe427c8ff591bc1a35846deafad89b8d922137a6c52c5579b9",
+  "linkInputs": {
+    "programScript": {
+      "path": "programs/pump/link/ordered.ld",
+      "mode": "100644",
+      "gitBlob": "f6c17adaf6fcfbb3ee1a148bcd9381d37175eeeb",
+      "bytes": 73681,
+      "sha256": "6954d9901b005312be6e7f980cb5e74a1440c174547c2040a881acf2e5c25b45"
+    },
+    "maintainedInputs": {
+      "link_order.py": {
+        "path": "reconstruction/harness/link_order.py",
+        "mode": "100644",
+        "gitBlob": "b0d2458c3edb5b1b0c7a642331a8cc130279dd7d",
+        "bytes": 7669,
+        "sha256": "0b840e609ed6afab298799c6878795e0166196c348718264ae4a424ee72b1d7f"
+      },
+      "pump_link_rustc.py": {
+        "path": "reconstruction/harness/pump_link_rustc.py",
+        "mode": "100755",
+        "gitBlob": "86a4e2b9e645b7403b36e7d4fbe7bcf4e5cc5920",
+        "bytes": 218,
+        "sha256": "94ab1290caee5bb9152fb4e49974960e53c4a5e1f9833c20cd6060ec514a360d"
+      },
+      "pump_link_lld.py": {
+        "path": "reconstruction/harness/pump_link_lld.py",
+        "mode": "100755",
+        "gitBlob": "ec19fb4102847f22f13408079d0669a11120885c",
+        "bytes": 218,
+        "sha256": "10593121ecc457f22b574b20ea5af810e9e1e627dfac38140369ccd33a9a24ba"
+      },
+      "sbf_default.ld": {
+        "path": "reconstruction/harness/sbf_default.ld",
+        "mode": "100644",
+        "gitBlob": "04ba989224902d3a6ebd59731c9a59b93405c1c0",
+        "bytes": 452,
+        "sha256": "5e8370b9380f55411d827721e2e43c8cfd1eac71d1383e20b938397bc0bd82c3"
+      }
+    },
+    "selectors": {
+      ".text": 555,
+      ".rodata": 0,
+      ".data.rel.ro": 0
+    },
+    "stagedScriptSha256": "6954d9901b005312be6e7f980cb5e74a1440c174547c2040a881acf2e5c25b45",
+    "configureExecutedByPreflight": false
+  },
+  "pythonDontWriteBytecode": "1",
+  "sdkInstalledByPreflight": false,
+  "bootstrapRunByPreflight": false,
+  "cargoRunByPreflight": false,
+  "compilerRunByPreflight": false
+}

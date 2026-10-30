@@ -10,11 +10,14 @@ of failing. Both readers now reject nonregular paths before opening and
 open nonblocking, mirroring verify_current_checkpoint.read_regular.
 """
 import os
+import hashlib
+import json
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
@@ -48,15 +51,87 @@ class PumpCheckpointNonregularPathTests(unittest.TestCase):
     def test_regular_files_are_still_read(self):
         for module in MODULES.values():
             with tempfile.TemporaryDirectory() as temporary:
-                path = Path(temporary) / 'input.txt'
+                path = Path(temporary).resolve() / 'input.txt'
                 path.write_bytes(b'sealed-bytes\n')
                 self.assertEqual(module.content(path), b'sealed-bytes\n')
+
+    def test_valid_sealed_package_and_tampered_payload(self):
+        for module in MODULES.values():
+            with self.subTest(module=module.__name__), tempfile.TemporaryDirectory() as temporary:
+                package = Path(temporary).resolve()
+                payload = package / 'nested' / 'payload.bin'
+                payload.parent.mkdir()
+                payload.write_bytes(b'validated payload')
+                manifest = {'nested/payload.bin': {
+                    'sha256': hashlib.sha256(payload.read_bytes()).hexdigest(),
+                    'bytes': payload.stat().st_size,
+                }}
+                raw = json.dumps(manifest, sort_keys=True).encode()
+                seal = hashlib.sha256(raw).hexdigest()
+                (package / 'manifest.json').write_bytes(raw)
+                sidecar = (seal + '  manifest.json\n').encode()
+                (package / 'manifest.sha256').write_bytes(sidecar)
+                with mock.patch.dict(module.SIDECAR_SHA256, {seal: hashlib.sha256(sidecar).hexdigest()}):
+                    self.assertEqual(module.strict_package(package, seal), manifest)
+                    payload.write_bytes(b'tampered payload')
+                    with self.assertRaises(module.CheckpointError):
+                        module.strict_package(package, seal)
+
+    @unittest.skipUnless(hasattr(os, 'symlink'), 'symlinks need POSIX')
+    def test_symlink_ancestry_is_still_rejected(self):
+        # The OS's own aliases (/var, /tmp, /etc on macOS) are resolved by
+        # plain_path; a symlink the caller introduced must still fail there.
+        for module in MODULES.values():
+            with tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                (root / 'real').mkdir()
+                (root / 'real' / 'input.txt').write_bytes(b'sealed-bytes\n')
+                (root / 'link').symlink_to(root / 'real', target_is_directory=True)
+                with self.assertRaises(module.CheckpointError) as caught:
+                    module.content(root / 'link' / 'input.txt')
+                self.assertIn('Symlink ancestry', str(caught.exception))
+                self.assertIn(str(root / 'link'), str(caught.exception))
+
+    @unittest.skipUnless(sys.platform == 'darwin', 'requires real macOS aliases')
+    def test_system_aliases_admit_real_regular_files(self):
+        for base in ('/tmp', '/var/tmp'):
+            with tempfile.TemporaryDirectory(dir=base) as temporary:
+                path = Path(temporary) / 'input.txt'
+                path.write_bytes(b'alias input')
+                for module in MODULES.values():
+                    with self.subTest(base=base, module=module.__name__):
+                        self.assertEqual(module.content(path), b'alias input')
+
+    @unittest.skipUnless(sys.platform == 'darwin', 'requires real macOS aliases')
+    def test_repointed_system_alias_is_rejected(self):
+        with tempfile.TemporaryDirectory(dir='/tmp') as temporary:
+            path = Path(temporary) / 'input.txt'
+            path.write_bytes(b'alias input')
+            for module in MODULES.values():
+                with self.subTest(module=module.__name__), mock.patch.object(
+                        module.os.path, 'realpath', return_value='/wrong-target'):
+                    with self.assertRaises(module.CheckpointError) as caught:
+                        module.content(path)
+                    self.assertIn('Symlink ancestry', str(caught.exception))
+                    self.assertIn('/tmp', str(caught.exception))
+
+    @unittest.skipUnless(hasattr(os, 'symlink'), 'requires symlinks')
+    def test_symlink_leaf_is_still_rejected(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            real = root / 'real.txt'
+            real.write_bytes(b'sealed bytes')
+            link = root / 'link.txt'
+            link.symlink_to(real)
+            for module in MODULES.values():
+                with self.subTest(module=module.__name__), self.assertRaises(module.CheckpointError):
+                    module.content(link)
 
     @unittest.skipUnless(hasattr(os, 'mkfifo'), 'FIFOs need POSIX')
     def test_fifo_inputs_are_rejected_without_blocking(self):
         for name in MODULES:
             with tempfile.TemporaryDirectory() as temporary:
-                root = Path(temporary)
+                root = Path(temporary).resolve()
                 os.mkfifo(root / 'fifo')
                 try:
                     result = subprocess.run(

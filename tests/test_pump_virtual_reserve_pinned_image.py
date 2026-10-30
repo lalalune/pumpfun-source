@@ -169,20 +169,42 @@ class VirtualReservePinnedImageTests(unittest.TestCase):
             self.invoke(mutate=lambda: source.write_text('// changed source\n'), build=build)
         self.assertFalse(self.output.exists())
 
-    def test_wrong_build_binding_fails_even_with_optimized_python(self):
+    def test_wrong_build_binding_is_rejected(self):
         build = self.root / 'build.json'
         environment = dict(os.environ, PYTHONPATH=str(ROOT / 'scripts'))
+        environment.pop('PYTHONOPTIMIZE', None)
         for document, message in [(None, 'invalid build comparison'), ({}, 'invalid build comparison'),
                                   ({'comparison': {'candidate_sha256': '0' * 64}, 'source_sha256': '0' * 64},
                                    'candidate does not match build comparison')]:
             with self.subTest(document=document):
                 build.write_text(json.dumps(document))
-                result = subprocess.run([sys.executable, '-O', str(self.root / 'scripts/pump_virtual_reserve_differential.py'),
-                                         '--candidate', str(self.candidate), '--build-comparison', str(build),
-                                         '--output', str(self.output)], env=environment, capture_output=True, text=True)
+                result = self.run_differential([], build, environment)
                 self.assertNotEqual(result.returncode, 0)
                 self.assertIn(message, result.stderr)
                 self.assertFalse(self.output.exists())
+
+    def test_optimized_python_is_refused_before_the_binding_checks(self):
+        # The script now requires normal Python, so -O stops at its guard instead
+        # of reaching the build-binding raises below it. Assert the guard rather
+        # than a binding message that optimized runs can no longer produce.
+        build = self.root / 'build.json'
+        build.write_text(json.dumps({'comparison': {'candidate_sha256': '0' * 64},
+                                     'source_sha256': '0' * 64}))
+        environment = dict(os.environ, PYTHONPATH=str(ROOT / 'scripts'))
+        environment.pop('PYTHONOPTIMIZE', None)
+        optimized = dict(environment, PYTHONOPTIMIZE='1')
+        for flags, env in ((['-O'], environment), (['-OO'], environment), ([], optimized)):
+            with self.subTest(flags=flags, optimize=env.get('PYTHONOPTIMIZE')):
+                result = self.run_differential(flags, build, env)
+                self.assertEqual(result.returncode, 1)
+                self.assertIn('Normal Python is required', result.stderr)
+                self.assertFalse(self.output.exists())
+
+    def run_differential(self, python_flags, build, environment):
+        return subprocess.run([sys.executable, *python_flags,
+                               str(self.root / 'scripts/pump_virtual_reserve_differential.py'),
+                               '--candidate', str(self.candidate), '--build-comparison', str(build),
+                               '--output', str(self.output)], env=environment, capture_output=True, text=True, timeout=30)
 
 
 if __name__ == '__main__':
