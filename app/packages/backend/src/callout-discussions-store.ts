@@ -176,11 +176,11 @@ function parse(query: URLSearchParams) {
     !["RECENCY", "POSITION", "PNL"].includes(sort)
   )
     requestError(400, "CALLOUT_DISCUSSION_QUERY_INVALID");
-  if (sort !== "RECENCY" || query.has("page"))
-    requestError(501, "CALLOUT_DISCUSSION_RANKING_UNAVAILABLE");
   for (const key of ["beforeId", "parentReplyId"])
     if (query.has(key) && !query.get(key))
       requestError(400, "CALLOUT_DISCUSSION_QUERY_INVALID");
+  if (sort !== "RECENCY" || query.has("page"))
+    requestError(501, "CALLOUT_DISCUSSION_RANKING_UNAVAILABLE");
   return {
     limit,
     nestedLimit,

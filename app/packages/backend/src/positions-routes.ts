@@ -90,6 +90,7 @@ export function registerPositionsRoutes(
       if (!qs.has("mints")) throw new QueryError();
       const mints = qs.get("mints")!.split(",");
       if (mints.length > 200) throw new QueryError();
+      const limit = integer(qs.get("updatesLimit"), 0, 20);
       if (mints.some((mint) => mint.startsWith("hlcore:")))
         return reply
           .code(501)
@@ -98,7 +99,6 @@ export function registerPositionsRoutes(
             error: "COMPATIBILITY_NOT_IMPLEMENTED",
             reason: "PERPETUAL_POSITIONS_DEFERRED",
           });
-      const limit = integer(qs.get("updatesLimit"), 0, 20);
       return send(
         reply,
         store,
