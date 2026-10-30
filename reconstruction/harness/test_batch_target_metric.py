@@ -53,6 +53,15 @@ class BatchMetricTests(unittest.TestCase):
             with self.assertRaises(SystemExit):metric.main(['candidate.so','0',*extra])
         self.original.assert_not_called();self.candidate.assert_not_called()
 
+    def test_missing_explicit_symbol_does_not_publish_a_report(self):
+        with tempfile.TemporaryDirectory() as temp:
+            report=Path(temp)/'report.json'
+            with self.assertRaises(SystemExit) as caught:
+                metric.main(['candidate.so','0','--sym','missing_symbol','--json',str(report)])
+            self.assertEqual(caught.exception.code,2)
+            self.assertFalse(report.exists())
+            self.assertEqual(self.output.getvalue(),'')
+
     def test_symbol_selection_keeps_all_matches_per_window(self):
         metric.main(['candidate.so','0','8','--sym','first|second','--top','1'])
         self.assertEqual(len(self.output.getvalue().splitlines()),4)
