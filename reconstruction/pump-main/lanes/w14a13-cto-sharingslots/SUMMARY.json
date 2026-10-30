@@ -1,0 +1,23 @@
+{
+  "lane": "w14a13-cto-sharingslots",
+  "target": "0x22a10 admin_cto::execute",
+  "pinned_bytes": 27400,
+  "landed": [{"pr": 3257, "merge_commit": "1b0ae7021", "before": 0.63571, "after": 0.63661, "slots": 3173, "bytes": 27400,
+              "change": "sharing CPI program: a.pump_fees.to_account_info(); event is_holder_reward: holder; curve.creator_fee_bps=fee.unwrap_or(curve.creator_fee_bps)"}],
+  "best": {"ratio": 0.63661, "slots_diff": 3173, "bytes": 27400, "normalized": 1034, "raw": 1034, "main": "b174038c1 + #3257"},
+  "attempts": 190,
+  "ledger_keys": ["0x22a10-w14-cef0574-sharingslots-*", "0x22a10-w14-1b0ae70-sharingslots-*", "0x22a10-w14-d2d1875-sharingslots-*", "0x22a10-w14-b174038-sharingslots-m2-measure-v1", "0x22a10-w14-cef0574-sharingslots-colourmap-v1"],
+  "colour_map": "Clone temporaries in the sharing region start at colour 197 (0x970) in ours vs 195 (0x960) in the original: 10 spilled intervals cross the region in ours vs 8 in the original. The extras are swept (SS#189, col 196; the original keeps it in r9) and one extra holder/cashback piece (ours recomputes holder from two spilled phis and coalesces the cashback phi with the holder-arg entry spill at col 178; the original has materialized bools at 0x958/0x950). The original also reuses the dead val-pubkey piece slots 0x948/0x900 as temporaries. Tool: tools/sscmap.py.",
+  "rejected": [
+    "all 31 subsets of sharing-CPI literal accounts as to_account_info on cef0574 (only pr alone was near main: 0.6335 @27384)",
+    "subsets x 16 tail knobs and 12 knob pairs (80+12 trials); only pr+ev_hr_local+cu_fee_unwrapcur beat main (landed)",
+    "remaining literal subsets incl. TCF pump_amm clones on 1b0ae70 and d2d1875",
+    "ev_nf_inline/nf_clean (-24 B; size artifact) with 30+ fills",
+    "s1 (all 7 to_account_info) 0.61841 @27368; a -0x18 colour what-if gives only 0.63429"
+  ],
+  "unresolved": ["swept in r9 across the sharing region (w14a06)", "holder/cashback materialized as two bools before the sharing CPI", "per-clone accounts-pointer reload (needs the RA state above)"],
+  "next_ideas": [
+    "retest pa/gl/ea to_account_info after any landing that puts swept in a register",
+    "materialize holder and cashback as two bools before the sharing CPI so the holder-arg spill dies early and the accounts pointer gets colour 178"
+  ]
+}

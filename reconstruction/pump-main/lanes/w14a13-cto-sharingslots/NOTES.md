@@ -64,3 +64,30 @@ clone temporary sits at colour 197 (0x970). In the original the run starts at 19
 - pa/gl/ea `to_account_info()` (+0.011 fm) on top of a state where swept sits in a register: retest after any swept-coalescing landing.
 - Materialize holder/cashback as two bools before the sharing CPI (one fewer crossing interval, and the accounts pointer back
   on colour 178). This is the holder lanes' territory (w14a10, w14a09).
+
+## Landed
+
+#3257 was merged by land.py as `1b0ae7021`: admin_cto went from 0.63571 to 0.63661 at 27,400 B with zero losses.
+
+## After landing (branch `swarm/w14a13-cto-sharingslots-2`, notes only)
+
+Every screen below used the raw-IR oracle on the main named in the heading. Knob strings for 1b0ae70 are in `tools/knobs_new.json`.
+
+**On 1b0ae70 (0.63661).**
+- The remaining literals {pa, gl, mi, ea} and the sweep TCF `pump_amm` literal clones (t1 = CpiContext program argument,
+  t2 = accounts program field) were screened as singletons and pairs (21 trials). None beat main. The best were pa,gl at 0.63571
+  (fm 0.72888) and gl at 0.63511.
+- 16 tail knobs were screened on main and on pa,ea. Only `ev_nf_inline` / `nf_clean` (event `new_creator_fee_bps` read back from
+  the curve, -24 B) scored higher: 0.63689 at 27,376 B.
+- That gain is a size artifact. `ratio = 2M/(|a|+|b|)`, so dropping 3 tokens alone adds about +0.0005, and per-bin matches
+  barely move (+1/-1). None of the 30+ fill combinations that bring it back to 27,400 B beat main (best 0.63391). These include the w11 catalog,
+  the w13a34 knobs, Clock locals and `pargs` forms.
+- Rule of thumb: when comparing an off-size oracle result with main, subtract about 0.00019 per 8 B removed.
+
+**On d2d1875 (0.6417, after #3267 / #3272 / #3281).** pa, gl, pa+gl, t2, pa+t2 and gl+t2 are all below main
+(0.62612-0.63871). Main's fm is now 0.73367, so the subsets' earlier fm advantage is gone.
+
+## Status
+
+The angle is exhausted at source level. The sharing-region colour offset is set by the RA state that crosses the
+region (swept spilled instead of in r9, plus one extra holder/cashback piece). No sharing-CPI spelling changes that state.
