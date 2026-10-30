@@ -126,6 +126,22 @@ TransferCreatorFeesToPumpV2 / sharing clone runs (orig 0x2800-0x3800: deep spill
 
 v06 is the event form that main 16c10e6 now carries (as part of another lane's composite).
 
+## 4b. On main 16c10e6 (0.62043; oracle re-captured, tokens equal)
+
+| trial | change | bytes | ratio | note |
+| --- | --- | ---: | ---: | --- |
+| n5h (IR) | holder phi of constants at the shared/holder join | 27,384 | 0.58556 | tail plain 740 -> 763 |
+| n5hp (IR) | n5h + pool-CPI holder from the phi (the original's form) | 27,376 | 0.59074 | abs 0.6977 vs main 0.7124; clone runs 0x2800-0x3800 lose 124 exact tokens. Their abort-edge phi-copy reload groups (`ldxdw r3,[..]` x3) appear as in the original, but the deep spill slots shift |
+| n1 (IR) | pool-CPI holder from the holder local | 27,416 | 0.61905 | the holder select re-materializes before the CPI |
+| n11 (IR) | skip path joins the sweep Result {2,0} before the tag test | 27,184 | 0.50384 | MBP relayout. Err payload **still r8** (20 sites) |
+| n11 + `bw:bb23.i:20:1` (best of 294 single weights) | | 27,360 | 0.60381 | **abs 0.73482** (main 0.7124), payload still r8 |
+| s1 (build) | sweep `let amm_empty=..data_is_empty();` reused | 27,480 | 0.53515 | collapse |
+| s2 (build) | `let amm_frozen=if ..data_is_empty(){false}else{token_frozen(..)?};` | 27,400 | 0.62043 | byte-identical |
+
+The skip-path join alone does not reproduce the original's r9 payload. The original's r9 also needs the
+holder/skip phis that its join carries (r1 = `[0x950]`, r6 = `[0x8f8]` at orig 0x3c50-0x3c58). n11 + the bb23.i
+weight is the only skip-join form with a frame-masked ratio above main (+0.022 abs at -40 B). Its plain loss is frame.
+
 ## 5. Conclusion and next ideas
 
 The tail register residual (R-bound +0.035, FR-bound +0.062) is not local to the tail. Its two largest causes are

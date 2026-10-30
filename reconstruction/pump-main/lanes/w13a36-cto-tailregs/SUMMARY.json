@@ -1,0 +1,30 @@
+{
+  "lane": "w13a36-cto-tailregs",
+  "target": "0x22a10 admin_cto::execute",
+  "pinned_bytes": 27400,
+  "bases": {"dfc3693d8": {"ratio": 0.59916, "slots": 3313}, "16c10e631": {"ratio": 0.62043, "slots": 3306}},
+  "best_zero_loss": null,
+  "result": "notes and tools only; no zero-loss gain at 27,400 B",
+  "tail_bounds": {
+    "dfc3693": {"tail_tokens": 970, "plain": 739, "reg": 857, "fr": 948, "R_bound": 0.63451, "FR_bound": 0.66177, "pool_event_R": 0.60665, "late_tail_R": 0.62702, "spill_only": 0.60935, "spill_reg": 0.6459, "payload_r8_to_r9": 0.60216},
+    "16c10e6": {"plain": 740, "reg": 858, "fr": 948, "R_bound": 0.65578, "FR_bound": 0.68274, "pool_event_R": 0.62792, "late_tail_R": 0.64829}
+  },
+  "mechanisms": [
+    "orig holder is a spilled phi of constants (0x950); ours re-derives it from the hopt byte via CGP icmp sinking; holder phi at the shared/holder join gives tail +23..24 plain but loses 0.012-0.035 in the clone runs",
+    "orig swept and the global Err payload share r9 (20 Err sites ldxdw r9; ours r8); swept's live range sets the payload register (dead swept -> r6); the skip-join before the tag test alone keeps r8"
+  ],
+  "attempts": [
+    {"id": "v01", "change": "event is_cashback_coin: cashback", "ratio": 0.59668, "bytes": 27408},
+    {"id": "v02", "change": "event new_creator: target", "ratio": 0.34868, "bytes": 27496},
+    {"id": "v03", "change": "event new_creator_fee_bps: fee.unwrap_or(old_fee)", "ratio": 0.59141, "bytes": 27424},
+    {"id": "v05", "change": "pool CPI holder from holder local", "ratio": 0.5976, "bytes": 27432},
+    {"id": "v06", "change": "event is_holder_reward from curve (now on main via another composite)", "ratio": 0.59865, "bytes": 27392},
+    {"id": "v08", "change": "let a=&*ctx.accounts", "ratio": 0.59916, "bytes": 27400, "note": "byte-identical"},
+    {"id": "s1", "change": "sweep amm_empty let", "ratio": 0.53515, "bytes": 27480},
+    {"id": "s2", "change": "amm_frozen if-expr", "ratio": 0.62043, "bytes": 27400, "note": "byte-identical"},
+    {"id": "IR e1/e2/e4/e5/e6/e9/e11, n1/n5/n11, movescan 865, n11 bw scan 294", "best": "n11+bw:bb23.i:20:1 0.60381 abs 0.73482 @27360"}
+  ],
+  "unresolved_residuals": ["holder/cashback phi slots 0x950/0x958", "swept/Err payload in r9", "emit_cpi authority_bump in r6 (w13a19)", "sweep amm_frozen r8 vs data_is_empty spill", "spill slot permutation (accounts 0x8d8 vs 0x8e8)"],
+  "next_ideas": ["compose holder phi (n5hp) with clone-run levers of w13a21/w13a29", "source form for the skip-join that keeps MBP layout (n11+bw:bb23.i shows abs +0.022)", "re-run tools/bound.py after each landing"],
+  "ledger_keys": "0x22a10-w13-dfc3693-tailregs-*"
+}
