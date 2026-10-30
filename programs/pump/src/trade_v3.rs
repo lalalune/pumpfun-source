@@ -369,8 +369,8 @@ fn v3_buy_costs(buyback_bps:u64,is_mayhem:u8,quote_fee:&Option<native_transfer_f
 
     let total_buyback=buyback.checked_add(post_buyback)
         .ok_or_else(||error!(PumpError::Overflow))?;
-    let first=add3(quote,protocol_fee,creator_fee)?;
-    let second=if let Some(p)=post{add3(p.quote_in,p.fees.protocol_fee,p.fees.creator_fee)?}else{0};
+    let (first,second)=quote_sums(quote,protocol_fee,creator_fee,post)?;
+    fn quote_sums(quote:u64,protocol_fee:u64,creator_fee:u64,post:Option<&PostComplete>)->Result<(u64,u64)>{let first=add3(quote,protocol_fee,creator_fee)?;let second=if let Some(p)=post{add3(p.quote_in,p.fees.protocol_fee,p.fees.creator_fee)?}else{0};Ok((first,second))}
     let (pool_quote,net)=first.checked_add(second).and_then(|sum|sum.checked_sub(total_buyback))
         .ok_or_else(||error!(PumpError::Overflow)).and_then(|net|crate::transfer_fee_recovered::pre_fee_amount(quote_fee,net).map(|g|(g,net)))?;
     let quote_transfer_fee=pool_quote.checked_sub(net).ok_or_else(gross_up_quote_error)?; Ok((pool_quote,total_buyback,quote_transfer_fee))
