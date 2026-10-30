@@ -32,5 +32,20 @@ class MatchOracleTests(unittest.TestCase):
             with patch.object(oracle.score, 'BASE', root), patch.object(oracle.score, 'original_windows', return_value=[{'start': 8}]), patch.object(oracle.fastbuild, 'build', return_value={'ok': True}), patch.object(oracle.score, 'score', return_value={8: {'raw': False}}):
                 self.assertEqual(oracle.evaluate(root, root / 'work', out, 8, 'raw', 'identity'), 1)
 
+    def test_verdict_bytes_do_not_follow_the_host_line_ending(self):
+        # verdict.json is the per-trial artifact of the experiment chain;
+        # write_text defaults translated "\n" to os.linesep, so the same
+        # verdict hashed differently on a CRLF host. Simulate one anywhere.
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); out = root / 'out'; out.mkdir()
+            for name in ['original.so', 'functions.tsv']: (root / name).write_bytes(b'fixture')
+            with patch.object(oracle.score, 'BASE', root), patch.object(oracle.score, 'original_windows', return_value=[{'start': 8}]), \
+                    patch.object(oracle.fastbuild, 'build', return_value={'ok': True}), patch.object(oracle.score, 'score', return_value={8: {'normalized': True}}), \
+                    patch('os.linesep', '\r\n'):
+                self.assertEqual(oracle.evaluate(root, root / 'work', out, 8, 'normalized', 'identity'), 0)
+            raw = (out / 'verdict.json').read_bytes()
+            self.assertNotIn(b'\r', raw)
+            self.assertTrue(raw.endswith(b'\n'))
+
 
 if __name__ == '__main__': unittest.main()
