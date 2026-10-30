@@ -1,0 +1,19 @@
+✖ complete idle Discover strip: selection, native scroll lifecycle and supplied trader/coin display callbacks (30817.648423ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 31216.949376
+
+✖ failing tests:
+
+test at app/tests/original_search_idle_strip.browser.mjs:23:1
+✖ complete idle Discover strip: selection, native scroll lifecycle and supplied trader/coin display callbacks (30817.648423ms)
+  page.waitForFunction: Timeout 30000ms exceeded.
+      at TestContext.<anonymous> (/workspace/pump-app-search-planner/app/tests/original_search_idle_strip.browser.mjs:225:18) {
+    name: 'TimeoutError',
+    log: []
+  }

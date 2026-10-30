@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "localSourceHead": "035a1a427cf33aa66bb6c75baf5660bc8697eaa3",
+  "publicSourceHead": "4c7cc01eae074aaebc3da2ea6beac1f595436f55",
+  "sourceTree": "28ba5984f2328f575b82d75c6c268d09a257432d",
+  "scope": "Complete ordinary SearchDialog idle Discover owner, local tile/display/selection and native scroll store with supplied service/browser/render capabilities",
+  "before": {
+    "gap": "Parent1925 leaves tp idle strip external;1937 ordinary rows and1962 recents are distinct. This source owner and used tile/scroll frames are absent in main.",
+    "absentPaths": [
+      "app/reconstruction/search-idle-strip/client.mjs",
+      "app/scripts/original-search-idle-strip.mjs"
+    ],
+    "notClaimed": "No original runtime/service/product before-after oracle or integration with unmerged units"
+  },
+  "checks": [
+    {
+      "command": "node app/scripts/original-search-idle-strip.mjs --check",
+      "result": "PASS19complete strict selected declarations including50/14/53/49/19memo frames, actual MAIN props, literal flags/events/freebindings/allprovider variants and unchanged profileRoute bridge",
+      "log": "source.log"
+    },
+    {
+      "command": "node --test app/tests/original_search_idle_strip.test.mjs",
+      "result": "3PASS0FAIL0SKIP source/capability/edited-client/noncanonical-metadata controls",
+      "log": "node.log"
+    },
+    {
+      "command": "node --test app/tests/original_search_idle_strip.browser.mjs",
+      "result": "1corrected frozen actualReact/compiler/context storyPASS17observations;15bundle+7method inputs,2root/bundleGETs,0errors",
+      "log": "browser.log",
+      "receipt": "react-verification.json"
+    },
+    {
+      "command": "python3 scripts/verify_evidence.py",
+      "result": "9capturesPASS",
+      "log": "root-evidence.log"
+    },
+    {
+      "command": "python3 scripts/test_tooling.py",
+      "result": "10testsPASS",
+      "log": "root-tooling.log"
+    },
+    {
+      "command": "python3 app/scripts/verify-evidence.py",
+      "result": "698objects/npm/unchangedSDKPASS",
+      "log": "app-evidence.log"
+    },
+    {
+      "command": "corepack pnpm exec prettier --check scripts/original-search-idle-strip.mjs reconstruction/search-idle-strip/client.mjs reconstruction/search-idle-strip/README.md tests/fixtures/search-idle-strip-browser.mjs tests/original_search_idle_strip.test.mjs tests/original_search_idle_strip.browser.mjs",
+      "cwd": "app",
+      "result": "PASS exact final source/method MJS/README; generator-canonical JSON checked exactly separately",
+      "log": "prettier-source.log"
+    }
+  ],
+  "runtimeFacts": {
+    "observations": 17,
+    "bundledInputs": 15,
+    "methodInputs": 7,
+    "rootBundleGetRequests": 2,
+    "providerRequests": 0,
+    "pageErrors": 0,
+    "actualStorageAccess": 0,
+    "actualNavigation": 0,
+    "notes": "Supplied memory storage/motion, synthetic ordinary rows/profile/chart/format results; actualReact/compiler/DOM/native scroll/ResizeObserver/MutationObserver/trusted clicks. Native geometry progresses0\u2192360\u2192720 at clientWidth360,scrollWidth1080; resize to2000fits and observer updates controls."
+  },
+  "inputBinding": {
+    "file": "inputs.json",
+    "count": 119,
+    "result": "All declared source/evidence bytes equal frozenGit;15bundle/7method files hashmatch; public/local full method tree exact, no private-revision/root/cwd replay guard"
+  },
+  "preservedFailures": {
+    "source": {
+      "log": "initial-generator-failure.log",
+      "snapshot": "initial-generator-failed.mjs",
+      "cause": "Generator incorrectly searched flag enum as ObjectProperty; actual captured enum assigns a property. Exact guarded AssignmentExpression/StringLiteral is now authenticated. Failure occurred before emitted module write/execution.",
+      "qualification": "Uncommitted failed script copied byteexact before correction; not an original/runtime baseline."
+    },
+    "browser": [
+      {
+        "cohort": "initial",
+        "receipt": "initial-browser-failure.json",
+        "cause": "Method expected null for optional third args where source passes undefined; Playwright evaluate preserves undefined, JSON receipt serialization later represents array entries asnull.1observation beforefailure.",
+        "correction": "Assert exact undefined for both actual third arguments; separately assert null timestamp at actual second argument."
+      },
+      {
+        "cohort": "argument",
+        "receipt": "argument-browser-failure.json",
+        "cause": "Synthetic CSS sized inner data-search-tile nodes but source coin tile adds an outer wrapper; actual native range was smaller than360 and the first-page wait timedout after2observations. Screenshot retained privately.",
+        "correction": "Size actual direct strip children; record native geometry in every observation and wait for completed360px first page."
+      },
+      {
+        "cohort": "argument unchanged repeat",
+        "receipt": "unchanged-browser-repeat.json",
+        "explanation": "unchanged-repeat-explanation.json",
+        "cause": "Wrong-cwd edit failed before changing source; unguarded subsequent command accidentally repeated unchanged method. Same2observations/time-out. Not a newmethod or unique-case result."
+      }
+    ],
+    "sourceOperations": "Generated client byteidentical throughout d747\u219241bbe\u2192035; only method/fixture corrected. Each frozen failed method has separate public/local/tree/snapshot and receipt bindings in historical-methods.json. All3failedruntime receipts/logs preserved, no timeout increase or sourcebehavior change.",
+    "counting": "Final17observations include repeated early controls; failures/retries are not summed as distinct cases."
+  },
+  "limits": [
+    "No actual storage/account/config/session/credential/cookie/service acquisition or request; no captured execution",
+    "Parent1925/history1245/ordinaryrows1937/recents1962 and existing Avatar/profile/chart/formatter/prefetch providers remain credited matching ports, no hiddenunmergedimports or combinedruntimequalification",
+    "Supplied pnl/cap fields are display inputs, no ranking/accounting/rewards/backend derivation",
+    "Coin detail hrefs are inert source metadata; no protected action, excluded detail page, original navigation or actualmenu action",
+    "Synthetic fixture CSS establishes finite geometry; no original visual/renderer parity or original storage behavior qualification",
+    "No product mount/Next/full-app/native/API/backend/security/accounting/featurecompletion/progress claim",
+    "Browser/host closed infinally;PRIMARY explicitlyreleased; no repeatedworkflow afterpass"
+  ]
+}

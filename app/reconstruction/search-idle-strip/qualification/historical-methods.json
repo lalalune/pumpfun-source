@@ -1,0 +1,55 @@
+{
+  "methods": [
+    {
+      "label": "initial",
+      "localHead": "d7478f63f978a59a719009a7064d11bd854d4e4c",
+      "publicHead": "9629ab186063c9df127bb53d2066a74add07dfdb",
+      "tree": "e0d1edeef28a8c4d847a7a6408352688f9783e49",
+      "receipt": "initial-browser-failure.json",
+      "snapshots": [
+        {
+          "sourcePath": "app/tests/fixtures/search-idle-strip-browser.mjs",
+          "packetPath": "initial-search-idle-strip-browser.mjs",
+          "bytes": 9096,
+          "sha256": "93016cb099650a0be3168d41e89a50796b6b053509fba35929e9f59ebe1f1b44",
+          "gitBlob": "685d49a994385f6654cbc6ab14463d7f20e34655"
+        },
+        {
+          "sourcePath": "app/tests/original_search_idle_strip.browser.mjs",
+          "packetPath": "initial-original_search_idle_strip.browser.mjs",
+          "bytes": 18402,
+          "sha256": "0a4e63cd0b05351d4a51e987fd752e2e61fad8fa0e78fba9af4bce4121128bcf",
+          "gitBlob": "34013eeefd0259ea6ac2d6e73774a4ddc946b12b"
+        }
+      ]
+    },
+    {
+      "label": "argument",
+      "localHead": "41bbe91652bf6177027bcf727f10f7a72e98b8b3",
+      "publicHead": "3ca68fab0aa702bace40cc6b12b7e3fce021b0c6",
+      "tree": "cbe66b3f542ea4b648e5b5fccf820a5ae54bd989",
+      "receipt": "argument-browser-failure.json",
+      "snapshots": [
+        {
+          "sourcePath": "app/tests/fixtures/search-idle-strip-browser.mjs",
+          "packetPath": "argument-search-idle-strip-browser.mjs",
+          "bytes": 9096,
+          "sha256": "93016cb099650a0be3168d41e89a50796b6b053509fba35929e9f59ebe1f1b44",
+          "gitBlob": "685d49a994385f6654cbc6ab14463d7f20e34655"
+        },
+        {
+          "sourcePath": "app/tests/original_search_idle_strip.browser.mjs",
+          "packetPath": "argument-original_search_idle_strip.browser.mjs",
+          "bytes": 18454,
+          "sha256": "326c92e42e31a5039b134bf97682240e05a1f3990f10e0813094cc7b73472485",
+          "gitBlob": "0074dffc66795f9fc0b74142a529e83e2f275eeb"
+        }
+      ]
+    }
+  ],
+  "unchangedClient": {
+    "path": "app/reconstruction/search-idle-strip/client.mjs",
+    "sha256": "1502e20473dd799cf30e69a82e2a5da5d4b09c5e93eb6ace3cf2bb9bb2221f31"
+  },
+  "noCountsSummed": true
+}

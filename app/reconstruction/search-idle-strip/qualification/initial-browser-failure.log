@@ -1,0 +1,30 @@
+✖ complete idle Discover strip: selection, native scroll lifecycle and supplied trader/coin display callbacks (726.7956ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1162.552249
+
+✖ failing tests:
+
+test at app/tests/original_search_idle_strip.browser.mjs:23:1
+✖ complete idle Discover strip: selection, native scroll lifecycle and supplied trader/coin display callbacks (726.7956ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - null
+  
+      at TestContext.<anonymous> (file:///workspace/pump-app-search-planner/app/tests/original_search_idle_strip.browser.mjs:211:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
