@@ -296,7 +296,7 @@ def artifact_provenance(args, source):
 
 def load_scorer(repo, original, output):
     # Exact maintained code in an isolated input projection. No monkeypatch of
-    # scorer globals or functions: BASE resolves normally to authenticated links.
+    # scorer globals or functions: BASE resolves normally to byte-exact copies.
     replay = output / 'scorer-replay/reconstruction'
     harness, base = replay / 'harness', replay / 'base'
     harness.mkdir(parents=True)
@@ -305,8 +305,8 @@ def load_scorer(repo, original, output):
         src, dst = repo / 'reconstruction/harness' / name, harness / name
         shutil.copyfile(src, dst)
         need(sha(dst.read_bytes()) == sha(src.read_bytes()), 'scorer projection differs')
-    (base / 'original.so').symlink_to(original.resolve())
-    (base / 'functions.tsv').symlink_to((repo / 'reconstruction/base/functions.tsv').resolve())
+    shutil.copyfile(original, base / 'original.so')
+    shutil.copyfile(repo / 'reconstruction/base/functions.tsv', base / 'functions.tsv')
     path = harness / 'score.py'
     sys.path.insert(0, str(path.parent))
     spec = importlib.util.spec_from_file_location('maintained_pump_score', path)

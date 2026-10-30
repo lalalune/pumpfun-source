@@ -7,6 +7,7 @@ import io
 import json
 import os
 from pathlib import Path, PurePosixPath
+import shutil
 import stat
 import sys
 import tarfile
@@ -187,7 +188,7 @@ def execute(packet, original, args):
                    f'frozen input not in pinned Git tree: {path}')
         # The original is supplied explicitly. Other unbundled binaries are optional.
         p = repo / 'evidence/original/pump/deployed.so'
-        p.parent.mkdir(parents=True, exist_ok=True); p.symlink_to(original.resolve())
+        p.parent.mkdir(parents=True, exist_ok=True); shutil.copyfile(original, p)
         q.need(set(metadata['unbundledToolchainPaths']) ==
                {r['path'] for r in q.read_json(artifact / 'toolchain-source-inputs.json')['files']}
                - set(metadata['frozenInputs']['members']), 'unbundled inventory differs')
@@ -197,7 +198,7 @@ def execute(packet, original, args):
                 source = args.toolchain_inputs / name
                 q.need(source.is_file(), f'explicit toolchain input missing: {name}')
                 dest = repo / name; dest.parent.mkdir(parents=True, exist_ok=True)
-                dest.symlink_to(source.resolve())
+                shutil.copyfile(source, dest)
         q.PROOF, q.HEAD = proof, BASE
         q.UNVERIFIED_TOOLCHAIN.clear()
         options = SimpleNamespace(repo=repo, original=original, artifact_dir=artifact,

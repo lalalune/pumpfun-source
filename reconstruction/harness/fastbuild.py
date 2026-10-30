@@ -10,6 +10,7 @@ Usage: fastbuild.py --src <crate dir with Cargo.toml/Cargo.lock/src[/recovered]>
   codegen-units=1, non-incremental release => output equals a fresh build of the same sources).
 - Seeds <work>/target from the warm template (APFS clone) on first use.
 - Writes <out>/unstripped.so and <out>/candidate.so (default <work>/last).
+  An explicit output directory may equal the work directory, including with a pinned link script.
 - Before compilation, archives previous outputs and their log under <out>/previous/build-*.
   Compiler failures leave no current binaries; callers must still check ok.
 - A crate carrying link/ordered.ld (a pinned link order, see link_order.py) is linked with that
@@ -157,6 +158,11 @@ def archive_previous_outputs(out: Path):
 
 def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):
     validate_timeout(timeout)
+    src = src.resolve(); work = work.resolve(); out = out.resolve()
+    # Reject overlap before workspace_lock can create a directory or lock in
+    # the source tree (and thereby change its source-input receipt).
+    if src == work or src in work.parents or work in src.parents or src == out or src in out.parents:
+        raise ValueError('source must not overlap the build workspace or contain output')
     with workspace_lock(work):
         return _build_locked(src, work, out, quiet=quiet, recipe=recipe, timeout=timeout)
 
@@ -165,9 +171,6 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
 
     recipe = recipe or DEFAULT_RECIPE
     R = RECIPES[recipe]; triple = R['triple']
-    src = src.resolve(); work = work.resolve(); out = out.resolve()
-    if src == work or src in work.parents or work in src.parents or src == out or src in out.parents:
-        raise ValueError('source must not overlap the build workspace or contain output')
     source_inputs = snapshot(src)
     work.mkdir(parents=True, exist_ok=True)
     ws = work / 'ws'
@@ -196,14 +199,16 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     env['CARGO_TARGET_' + triple.upper().replace('-', '_') + '_RUSTFLAGS'] = '-Zremap-cwd-prefix='
     env.pop('RUSTFLAGS', None); env.pop('CARGO_ENCODED_RUSTFLAGS', None)
     receipt = work / 'link-receipt.json'
-    receipt.unlink(missing_ok=True)
-    receipt.with_name('link.map').unlink(missing_ok=True)
     link_env, link_record = link_order.configure(crate, R['rustc'], receipt)
     env.update(link_env)
     cmd = [str(SDK / 'rust/bin/cargo'), 'build', '--manifest-path', str(crate / 'Cargo.toml'), '--release',
            '--target', triple, '--locked', '--offline']
     out.mkdir(parents=True, exist_ok=True)
     archive_previous_outputs(out)
+    # If out == work, these are previous published evidence. Archive them
+    # before clearing the transient linker paths for the next compiler run.
+    receipt.unlink(missing_ok=True)
+    receipt.with_name('link.map').unlink(missing_ok=True)
     (out / 'source-inputs.json').write_text(json.dumps(source_inputs, indent=2) + '\n', encoding='utf-8')
     # Never trust mtime freshness for local crates (rsync -a keeps source mtimes, so cargo could
     # otherwise reuse a stale pump artifact): drop their fingerprints (and the main output) so they
@@ -242,8 +247,9 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
         got = json.loads(receipt.read_text())
         if got['script_sha256'] != link_record['script_sha256'] or got['lld_sha256'] != link_record['lld_sha256']:
             raise RuntimeError('link receipt does not match the pinned link script')
-        shutil.copy2(receipt, out / 'link-receipt.json')
-        shutil.copy2(receipt.with_name('link.map'), out / 'link.map')
+        if out != work:  # Otherwise the linker already wrote the output files.
+            shutil.copy2(receipt, out / 'link-receipt.json')
+            shutil.copy2(receipt.with_name('link.map'), out / 'link.map')
     built = target / triple / 'release' / f'{library}.so'
     shutil.copy2(built, out / 'unstripped.so')
     subprocess.run([str(SDK / 'llvm/bin/llvm-objcopy'), '--strip-all', str(built), str(out / 'candidate.so')], check=True)

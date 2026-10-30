@@ -27,6 +27,28 @@ pointee or whole-program identity.
 
 ## Offline replay
 
+The replay now stages the supplied original, optional toolchain inputs and scorer
+data as regular byte copies in its disposable directory. It does not require
+Windows symbolic-link privileges. The copied inputs still pass the existing
+hash, Git-leaf and exact-membership checks; compiler outputs and frozen scorer
+sources are unchanged.
+
+The retained `PORTABLE-REPLAY.json`, `FULL-REPLAY.json.gz`, gate records and test
+logs describe the original verifier version. They are historical receipts, not
+reruns of this portability change. New native Windows and Linux measurements
+are retained separately in
+[`reconstruction/tooling/frozen6a-portable-replay-20261030/`](../../../tooling/frozen6a-portable-replay-20261030/).
+Only this README, the two staging helpers and `test_verify.py` have updated
+source entries in `MANIFEST.json`; the original evidence entries remain intact.
+This qualifies the default offline replay on Windows and Linux. Optional physical
+macOS SDK qualification still checks its authentic file/symlink layout; Windows
+SDK qualification and optional toolchain-input replay have not been measured.
+The new full-replay regression uses `PUMP_CHECKPOINT_ORIGINAL` when set, otherwise
+the repository capture. For a standalone packet, set that variable to the real
+capture's absolute path before running `test_verify.py`. If neither is available,
+only this integration regression explicitly skips; the eight rejection controls
+still run. An invalid explicitly supplied capture fails rather than skipping.
+
 Python 3.10 or later and the captured original are sufficient; no Git, LLVM,
 Cargo, SDK installation, network or private worktree is required:
 
