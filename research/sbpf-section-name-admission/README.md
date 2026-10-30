@@ -15,9 +15,9 @@ all other inventory behavior are unchanged. Generated manifests hash this
 successor as their generator; its bytes include the required archived hash.
 The frozen root script and all historical packets remain unchanged.
 
-Reviewed base: 088cd90dee79c564948f47f813ed7f766cd9e58b.
+Reviewed base: 8da57e405.
 Archived script SHA-256:
-9fd0cca58d98df8704984d801069516f0a8b1ac23f41c79262d74467213c0c63.
+f23410401c8622f2b6c0bb4d84a362ddd506144ba3f7e1061d94d52199053e09.
 This binding includes #1277 (captured-program enumeration when
 `repro/programs.json` is absent) and #2303 (staged publication of the
 inventory directory). Neither changes `sections()`, which still keys rows by

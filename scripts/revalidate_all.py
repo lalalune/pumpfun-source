@@ -61,10 +61,10 @@ def manifest_file(packet_dir, name):
     full = packet_dir / relative
     try:
         for path in (full, *full.parents):
-            if path == packet_dir:
-                break
             if linked(path):
                 return None, "linked_path"
+            if path == packet_dir:
+                break
         if not full.exists():
             return None, "missing"
         if not stat.S_ISREG(full.lstat().st_mode):

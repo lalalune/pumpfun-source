@@ -65,14 +65,18 @@ for name,status in json.loads((ROOT/'repro/status.json').read_text()).items():
   print(name,': bound authorization checkpoint;17461 saved comparisons and10 separate sequence steps; full byte equality',report['comparison']['full_byte_equality'])
   continue
  total=0
+ seen_receipts=set()
  for receipt_name in status.get('validation_reports',[status.get('validation_report')]):
+  assert receipt_name not in seen_receipts,name
+  seen_receipts.add(receipt_name)
   receipt=ROOT/receipt_name;data=receipt.read_bytes()
   r=json.loads(gzip.decompress(data) if data.startswith(b'\x1f\x8b') else data)
   assert r['candidate_sha256']==sha(candidate),name
   assert r['original_sha256']==sha(original),name
-  assert not r.get('mismatches',r.get('failures',[])),name
+  assert not r.get('mismatches',[]) and not r.get('failures',[]),name
+  assert type(r['case_count']) is int,name
   total+=r['case_count']
- assert total==status['validated_cases'],name
+ assert type(status['validated_cases']) is int and total==status['validated_cases'],name
  for receipt_name in status.get('signed_sequence_reports',[]):
   receipt=ROOT/receipt_name;data=receipt.read_bytes()
   r=json.loads(gzip.decompress(data) if data.startswith(b'\x1f\x8b') else data)

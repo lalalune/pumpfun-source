@@ -4,8 +4,10 @@ if not __debug__:
     raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse, hashlib, json, random, struct, subprocess
 import pump_trade_fixture as f
+from pump_differential_output import PumpReport
 
 p=argparse.ArgumentParser();p.add_argument('--host',type=f.pathlib.Path,required=True);p.add_argument('--output',type=f.pathlib.Path,required=True);a=p.parse_args()
+report_output=PumpReport(a.output,f.R,a.host,__file__,extra_inputs=(f.R/'programs/pump/recovered/constant_product.rs',))
 initial={key:f.vm.get_account(key) for key in f.msg.account_keys}
 user=f.Keypair.from_seed(bytes([231])*32)
 curve=f.Pubkey.from_string(f.x['accounts']['curve'])
@@ -41,4 +43,4 @@ failures=[i for i,row in enumerate(rows) if row.get('match') is False]
 assert len(compared)>=100, 'too few successful original transactions'
 sha=lambda path:hashlib.sha256(path.read_bytes()).hexdigest()
 report={'scope':'Native recovered arithmetic against original sell_v3 reserve deltas with captured Token/Token2022/ATA dependencies. Four admin candidate and full trade reconstruction are separate. Synthetic reserve states do not imply reachable configurations; errors are recorded but not arithmetic comparisons.','source_sha256':sha(f.R/'programs/pump/recovered/constant_product.rs'),'host_sha256':sha(a.host),'original_sha256':{name:sha(f.R/'evidence/original'/name/'deployed.so') for name in ['pump','pump_fees']},'dependency_sha256':{name:sha(f.R/'evidence/dependencies'/name/'deployed.so') for name in ['spl_token','spl_token_2022','associated_token']},'case_count':len(rows),'successful_comparisons':len(compared),'mismatches':failures,'cases':rows}
-a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({k:report[k] for k in ['case_count','successful_comparisons','mismatches']}));assert not failures
+report_output.write((json.dumps(report,indent=2)+'\n').encode('utf-8'));print(json.dumps({k:report[k] for k in ['case_count','successful_comparisons','mismatches']}));assert not failures
