@@ -1,0 +1,23 @@
+{
+  "lane": "w9r1-swaphop-asm",
+  "target": "0x5b3b0 multi_hop_curve::swap_hop",
+  "prs": ["https://github.com/lalalune/pumpfun-source/pull/2403 (merged: 0.7332 -> 0.85352, 18,584 B = original)"],
+  "best_equal_size": {"bytes": 18584, "ratio": 0.89331, "slots_diff": 1213, "official": "1032/347 vs main 43daa2043, zero losses"},
+  "best_ratio": {"bytes": 18528, "ratio": 0.91176, "note": "d1, -56 B: loses raw by address shift"},
+  "key_mechanisms": [
+    "swap_hop(ctx: &Context<MultiHopCurve>) with a=&*ctx.accounts, bump=ctx.bumps.event_authority in body: LLVM ArgumentPromotion turns ctx into (accounts ptr, bump) = original r2/r3, and the promoted pointer carries no noalias, so a's fields are reloaded after calls (0.7332 -> 0.8304)",
+    "post_fill returned as an element of the reserves if-tuple instead of a deferred `let post_fill;` (its SROA allocas' lifetime.end otherwise forces a shared IR error block for 13 buy-arm edges; error-return tail merge then follows the original)",
+    "match complete_fill(..)? {Some=>..,None=>..} (orig `jeq tag,0 -> None`)",
+    "bind adapter_difference from the existing checked_sub instead of recomputing amount - trade_amount",
+    "explicit match vs ? on buy_fee_market_cap / get_fees moves error edges between the u128 and the main error-return tail blocks",
+    "w7 sibling mechanisms (require_gt 590, match &post_fill, no buyback guard, const NO_FEE, scoped user key) compose on the &Context base"
+  ],
+  "tools": ["~/.cache/.../w9r1-swaphop-asm/cann.py (candidate disassembly with named calls)", "errs2.py (error-return block predecessor census)", "hc/hillclimb_sz.py (size-aware fitness)"],
+  "rejected": ["v3_can_cross (private)", "complete_fill fees whole (a7/a57)", "sell-arm output_difference binding (0.86152)", "let post_fill after 590 (p1)"],
+  "unresolved": "register/spill-slot assignment residual (orig vs ours spill slots differ throughout); 2 extra/differently placed get_fees error branch shapes (jeq+1;ja vs jne)",
+  "next_ideas": [
+    "start from d1 (0.91176, 18,528 B) and look for the +56 B; f1 shows the cap `?` restores the early u128 error block (+64 B)",
+    "get_fees `?` -> match (qm-11) and the sell arm's error-branch polarity on the f1 base",
+    "check whether other unmatched handlers that take ctx.accounts (admin_cto) also need the &Context/ArgPromotion signature"
+  ]
+}

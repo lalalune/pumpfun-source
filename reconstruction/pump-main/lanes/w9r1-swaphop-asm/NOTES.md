@@ -80,3 +80,20 @@ late block (33 preds). Its re-separation is the next target, and probably why we
 
 ### Merge review (main c39655328)
 Head 5e9a02804 (post_fill reserves-if tuple, ratio 0.89006) builds swap_hop at 18,520 B, which is further from the original 18,584 B than main (18,544 B), and it loses the 10 raw gains (1032/337, the same as main). It therefore fails merge acceptance. The merged source is restored to 8073709c6's `multi_hop_curve_swap.rs`. Against a fresh build of main c39655328 it scores 1032 normalized / 347 raw (+10 raw, 5,152 B, zero losses), and swap_hop is 18,584 B = original, ratio 0.85352, slots_diff 1023, calls 107/1. regen.sh reproduces ordered.ld. The 0.89006 variant is kept in history (5e9a02804) for later size work.
+
+## Round 2 (after #2403 merged; base main 43daa2043: 1032/347, swap_hop 18,584 B, 0.85352, slots 1023)
+
+| trial | change on main | bytes | ratio | slots | official vs main | ledger |
+|---|---|---:|---:|---:|---|---|
+| d1 (old base) | P2 post_fill tuple + `match complete_fill(..)? {Some=>..,None=>..}` + `let adapter_difference = amount.checked_sub(trade_amount)..?` | 18,528 | **0.91176** | - | -10 raw | 41b8e206 |
+| q2 | P2 + cap `?` (revert qm-09) | 18,584 | 0.87713 | 1282 | 1032/347, 0 losses | 20334368 |
+| q1 | d1 + cap `?` | 18,592 | 0.89661 | - | 10 raw losses | 1b174727 |
+| **f1** | q1 + the two buyback post_fee_amount lines swapped (`post_buyback` before `received_buyback`), found by the size-aware climb | **18,584** | **0.89331** | 1213 | **1032/347, 0 losses** | hcrun4 rows (`0x5b3b0-main-43daa2043-q1-hc-*`) |
+
+q1/f1's error-return census equals the original's exactly: an early block with 3 u128-error predecessors
+(sell_quote, tokens_for_quote, buy_fee_market_cap) and a late block with 32. The 107-call order is identical too.
+The residual is spill/register assignment noise spread across the body (the size delta drifts by +-8..80 B
+through the function; see the delta walk in this lane's tools).
+
+slots_diff is higher than main's 1023 (main happens to be positionally aligned over more of the body), while the
+alignment ratio is +4 points at the same size. The PR records both numbers; reviewers decide.
