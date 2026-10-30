@@ -101,7 +101,11 @@ def entry_record(packet, path):
             target = None
         return {"path": relative, "kind": "reparse-point", "target": target}
     if stat.S_ISDIR(info.st_mode):
-        return {"path": relative, "kind": "directory"}
+        return {
+            "path": relative,
+            "kind": "directory",
+            "mode": stat.S_IMODE(info.st_mode),
+        }
     if stat.S_ISFIFO(info.st_mode):
         kind = "fifo"
     elif stat.S_ISSOCK(info.st_mode):

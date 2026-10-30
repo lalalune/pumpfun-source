@@ -47,6 +47,22 @@ class CoordsReportDestinationTests(unittest.TestCase):
             with self.subTest(alias_kind=alias_kind):
                 self.run_alias(alias_kind)
 
+    def test_report_is_publishable_into_a_new_directory_with_stable_bytes(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            candidate = root / "candidate.so"
+            shutil.copyfile(ORIGINAL, candidate)
+            output = root / "reports" / "coords.json"
+            result = subprocess.run(
+                [sys.executable, "-B", str(HARNESS / "coords.py"),
+                 "unmatched", "--cand", str(candidate), "--json", str(output)],
+                cwd=REPO, capture_output=True, text=True, timeout=20,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            raw = output.read_bytes()
+            self.assertNotIn(b"\r", raw)
+            self.assertTrue(raw.endswith(b"\n"))
+
 
 if __name__ == "__main__":
     unittest.main()
