@@ -1,0 +1,4128 @@
+{
+  "schemaVersion": 1,
+  "scope": "Complete ordinary shared-search group profile/search readers, used schema constructors and projections; all physical contexts explicit, matching client/schema runtime capabilities supplied",
+  "clientSha256": "54d79ee2835b6de56fd88fb8953346a3c6ca960a4b3e5624ba1c462be77470bb",
+  "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+  "contexts": [
+    {
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "reader": {
+        "id": 560328,
+        "ids": [
+          560328,
+          693686,
+          956683,
+          989582
+        ],
+        "label": "factory 560328",
+        "source": "evidence/web/objects/c3601a995a6b7f37.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+        "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+        "sourceBytes": 45232,
+        "utf16": [
+          35163,
+          40509
+        ],
+        "utf8": [
+          35173,
+          40519
+        ],
+        "sha256": "03c9e118088bd9ec60473d73d1cd014c8936d824c97c995f685fcedd6952007b"
+      },
+      "schema": {
+        "id": 760447,
+        "ids": [
+          760447
+        ],
+        "label": "factory 760447",
+        "source": "evidence/web/objects/c3601a995a6b7f37.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+        "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+        "sourceBytes": 45232,
+        "utf16": [
+          40517,
+          44380
+        ],
+        "utf8": [
+          40527,
+          44390
+        ],
+        "sha256": "8481cc43089c55a79f7d4c557e4bd7494c4b88ed78a42e6431fa74ae99e18071"
+      },
+      "imports": [
+        {
+          "module": 560328,
+          "name": "u",
+          "id": 760447,
+          "proof": {
+            "label": "actual used reader import 760447",
+            "source": "evidence/web/objects/c3601a995a6b7f37.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+            "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+            "sourceBytes": 45232,
+            "utf16": [
+              36015,
+              36028
+            ],
+            "utf8": [
+              36025,
+              36038
+            ],
+            "sha256": "f1271aaadbf15df4161911e96b8982a4322970dcd1ca66304a897a0ffc6b1c12",
+            "text": "u=e.i(760447)"
+          }
+        },
+        {
+          "module": 760447,
+          "name": "t",
+          "id": 402030,
+          "proof": {
+            "label": "actual used schema import 402030",
+            "source": "evidence/web/objects/c3601a995a6b7f37.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+            "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+            "sourceBytes": 45232,
+            "utf16": [
+              40525,
+              40538
+            ],
+            "utf8": [
+              40535,
+              40548
+            ],
+            "sha256": "2ffa1573e27f47da8eeb52276a618779c1d454243e5d2ee34ec77a06eb41bd73",
+            "text": "t=e.i(402030)"
+          },
+          "variants": [
+            {
+              "ids": [
+                402030
+              ],
+              "sha256": "26d7d7ced2e06fee3c9354e5ffd9626bcf4f953c8927d3a5ea43d5a45e7064c2",
+              "origins": [
+                {
+                  "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+                  "start": 30128,
+                  "end": 36035
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "module": 760447,
+          "name": "r",
+          "id": 758045,
+          "proof": {
+            "label": "actual used schema import 758045",
+            "source": "evidence/web/objects/c3601a995a6b7f37.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+            "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+            "sourceBytes": 45232,
+            "utf16": [
+              40539,
+              40552
+            ],
+            "utf8": [
+              40549,
+              40562
+            ],
+            "sha256": "5ad496398316eb77bd354df2005be16239930c832ccbf3d7b7c217cacbddca97",
+            "text": "r=e.i(758045)"
+          },
+          "variants": [
+            {
+              "ids": [
+                415809,
+                955871,
+                514287,
+                820984,
+                758045,
+                713643
+              ],
+              "sha256": "ba8acac696188ebf2b0f8a345344d353b8a347f40edce3afee2ddc45d860914c",
+              "origins": [
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27479,
+                  "end": 27516
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27524,
+                  "end": 27561
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27569,
+                  "end": 27606
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27614,
+                  "end": 27651
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27659,
+                  "end": 27696
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27704,
+                  "end": 27741
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39782,
+                  "end": 39819
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39827,
+                  "end": 39864
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39872,
+                  "end": 39909
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39917,
+                  "end": 39954
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "readerLocals": [
+        "m",
+        "p",
+        "h"
+      ],
+      "schemaLocals": [
+        "s",
+        "o",
+        "d",
+        "u",
+        "y",
+        "b",
+        "v"
+      ],
+      "proofs": [
+        {
+          "label": "complete reader declaration m",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            36038,
+            36178
+          ],
+          "utf8": [
+            36048,
+            36188
+          ],
+          "sha256": "b32444a1f1bcc1d44e8d220f6dbe5c857ff79d451b380a29fc1c3865a1a2123b",
+          "text": "m=async({api:e,groupId:t,signal:r})=>{let l=await e(\"GET /users/{id}\",{params:{id:t},signal:r});return(0,u.t)({row:u.Q.parse(l),groupId:t})}"
+        },
+        {
+          "label": "complete reader declaration p",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            36179,
+            36183
+          ],
+          "utf8": [
+            36189,
+            36193
+          ],
+          "sha256": "ad404d1a242fde7d8a127234ecdab257cd65008e1db66c7101d91968f6019a96",
+          "text": "p=20"
+        },
+        {
+          "label": "complete reader declaration h",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            36184,
+            36346
+          ],
+          "utf8": [
+            36194,
+            36356
+          ],
+          "sha256": "d9d342142d3b83e35fee563f5ded9975fb5b39e94b7cd7ae19075b895bb5b71e",
+          "text": "h=async({api:e,searchTerm:t,offset:r,limit:l=p,signal:i})=>{let a=await e(\"GET /groups/search\",{query:{searchTerm:t,limit:l,offset:r},signal:i});return(0,u.A)(a)}"
+        },
+        {
+          "label": "actual reader export N",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            39980,
+            39981
+          ],
+          "utf8": [
+            39990,
+            39991
+          ],
+          "sha256": "62c66a7a5dd70c3146618063c344e531e6d4b59e379808443ce962b3abd63c5a",
+          "text": "m"
+        },
+        {
+          "label": "actual reader export B",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            40020,
+            40021
+          ],
+          "utf8": [
+            40030,
+            40031
+          ],
+          "sha256": "aaa9402664f1a41f40ebbc52c9993eb66aeb366602958fdfaa283b71e64db123",
+          "text": "h"
+        },
+        {
+          "label": "complete used schema declaration s",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            40683,
+            40731
+          ],
+          "utf8": [
+            40693,
+            40741
+          ],
+          "sha256": "b94b54a3662a2e084ff3f7e819668c13836c503792a4b34796e4c9208e917681",
+          "text": "s=e=>e?.toLowerCase()===\"group\"?\"group\":\"person\""
+        },
+        {
+          "label": "complete used schema declaration o",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            40732,
+            40756
+          ],
+          "utf8": [
+            40742,
+            40766
+          ],
+          "sha256": "e8d34cce2885f4fb56acd6a91a6d37ebc035d616e62b5639ca9bed894046039f",
+          "text": "o=r.z.string().nullish()"
+        },
+        {
+          "label": "complete used schema declaration d",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            40757,
+            40822
+          ],
+          "utf8": [
+            40767,
+            40832
+          ],
+          "sha256": "2f8d97a4e972e1cf9fbc9e1b194c55a5c4feed414e608af0d3961887c846c0ed",
+          "text": "d=t.contract[\"GET /groups/search\"].response.shape.results.element"
+        },
+        {
+          "label": "complete used schema declaration u",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            40823,
+            41926
+          ],
+          "utf8": [
+            40833,
+            41936
+          ],
+          "sha256": "27e609850b4b001eb4bdd88bb76f7872550201522a27a6e356ecf2b305508c5c",
+          "text": "u=d.pick({userId:!0}).extend({username:d.shape.username.nullish(),bio:d.shape.bio.nullish(),profileImageUrl:d.shape.profileImageUrl.nullish(),headerImageUrl:d.shape.headerImageUrl.nullish(),followerCount:d.shape.followerCount.nullish(),followingCount:d.shape.followingCount.nullish(),createdAt:d.shape.createdAt.nullish(),updatedAt:d.shape.updatedAt.nullish(),walletAddress:d.shape.walletAddress.nullish(),isVerified:d.shape.isVerified.nullish(),verifiedBadgeVisible:d.shape.verifiedBadgeVisible.nullish(),resolvedAvatarDecoration:d.shape.resolvedAvatarDecoration.nullish(),memberCount:d.shape.memberCount.nullish(),kind:o}).transform(e=>({userId:e.userId,username:e.username??\"\",bio:e.bio||null,profileImage:e.profileImageUrl||null,headerImageUrl:e.headerImageUrl||null,walletAddress:e.walletAddress||null,followers:e.followerCount??0,following:e.followingCount??0,isVerified:e.isVerified??!1,verifiedBadgeVisible:!1!==e.verifiedBadgeVisible,resolvedAvatarDecoration:e.resolvedAvatarDecoration??null,kind:s(e.kind),memberCount:e.memberCount??0,createdAt:e.createdAt??null,updatedAt:e.updatedAt??null}))"
+        },
+        {
+          "label": "complete used schema declaration y",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            42548,
+            42588
+          ],
+          "utf8": [
+            42558,
+            42598
+          ],
+          "sha256": "9a9ff3bd5e48387348d976c1410f80e1f7d22b3c580121cf4ff5bfaab4a7f2eb",
+          "text": "y=t.contract[\"GET /users/{id}\"].response"
+        },
+        {
+          "label": "complete used schema declaration b",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            42589,
+            43022
+          ],
+          "utf8": [
+            42599,
+            43032
+          ],
+          "sha256": "8a683dd00c70632ef1f15a5d6298be080920d950b0521e2e55b57dad8e489253",
+          "text": "b=y.pick({}).extend({address:y.shape.address.nullish(),userId:y.shape.userId.nullish(),username:y.shape.username.nullish(),profile_image:y.shape.profile_image.nullish(),header_image_url:y.shape.header_image_url.nullish(),member_count:y.shape.member_count.nullish(),bio:y.shape.bio.nullish(),followers:y.shape.followers.nullish(),following:y.shape.following.nullish(),kind:o,active_competition_entry:y.shape.active_competition_entry})"
+        },
+        {
+          "label": "complete used schema declaration v",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            43023,
+            43094
+          ],
+          "utf8": [
+            43033,
+            43104
+          ],
+          "sha256": "aa9b1f6f25a99be210c6961cf76fcfb7c49d18394b7d26973de065498ea1a3dc",
+          "text": "v=t.contract[\"GET /groups/search\"].response.extend({results:u.array()})"
+        },
+        {
+          "label": "actual schema/projection export D",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            43856,
+            43857
+          ],
+          "utf8": [
+            43866,
+            43867
+          ],
+          "sha256": "0bfe935e70c321c7ca3afc75ce0d0ca2f98b5422e008bb31c00c6d7f1f1c0ad6",
+          "text": "u"
+        },
+        {
+          "label": "actual schema/projection export Q",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            44376,
+            44377
+          ],
+          "utf8": [
+            44386,
+            44387
+          ],
+          "sha256": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+          "text": "b"
+        },
+        {
+          "label": "actual schema/projection export A",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            44348,
+            44369
+          ],
+          "utf8": [
+            44358,
+            44379
+          ],
+          "sha256": "321c75a571ab3099c9c630eb49abc1d6186e6c68616ab46d9cdabbf2156ca7ae",
+          "text": "e=>v.parse(e).results"
+        },
+        {
+          "label": "actual schema/projection export h",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            43130,
+            43347
+          ],
+          "utf8": [
+            43140,
+            43357
+          ],
+          "sha256": "9879e6bbc8efb0050a726f62702bc742f8fbfefb4f3fff0416747f4fef77c74a",
+          "text": "e=>({groupId:e.userId,username:e.username||null,bio:e.bio,profileImage:e.profileImage,headerImageUrl:e.headerImageUrl,memberCount:e.memberCount,followers:e.followers,following:e.following,activeCompetitionEntry:null})"
+        },
+        {
+          "label": "actual schema/projection export t",
+          "source": "evidence/web/objects/c3601a995a6b7f37.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+          "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+          "sourceBytes": 45232,
+          "utf16": [
+            43354,
+            43841
+          ],
+          "utf8": [
+            43364,
+            43851
+          ],
+          "sha256": "c812ef744510dd9b53998db06542dc9f992e9ec8ec893eccf9d21c7e7b889c68",
+          "text": "({row:e,groupId:t})=>({groupId:t,username:e.username??null,bio:e.bio??null,profileImage:e.profile_image??null,headerImageUrl:e.header_image_url??null,memberCount:e.member_count??0,followers:e.followers??0,following:e.following??0,activeCompetitionEntry:e.active_competition_entry?{competitionId:e.active_competition_entry.competition_id,competitionSlug:e.active_competition_entry.competition_slug,entryId:e.active_competition_entry.entry_id,phase:e.active_competition_entry.phase}:null})"
+        }
+      ]
+    },
+    {
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "reader": {
+        "id": 560328,
+        "ids": [
+          560328,
+          693686,
+          956683,
+          989582
+        ],
+        "label": "factory 560328",
+        "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+        "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+        "sourceBytes": 52490,
+        "utf16": [
+          39401,
+          44747
+        ],
+        "utf8": [
+          39403,
+          44749
+        ],
+        "sha256": "2f371de64d2eb89da7e8edd47f36faaf9b91b0d806a2b3800f03024e6783bd98"
+      },
+      "schema": {
+        "id": 760447,
+        "ids": [
+          760447
+        ],
+        "label": "factory 760447",
+        "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+        "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+        "sourceBytes": 52490,
+        "utf16": [
+          44755,
+          48618
+        ],
+        "utf8": [
+          44757,
+          48620
+        ],
+        "sha256": "159ae7ef2b2f7fc5357953d01c7c286b837c30539edfc1e9fd9b2043f81a230d"
+      },
+      "imports": [
+        {
+          "module": 560328,
+          "name": "u",
+          "id": 760447,
+          "proof": {
+            "label": "actual used reader import 760447",
+            "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+            "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+            "sourceBytes": 52490,
+            "utf16": [
+              40253,
+              40266
+            ],
+            "utf8": [
+              40255,
+              40268
+            ],
+            "sha256": "f1271aaadbf15df4161911e96b8982a4322970dcd1ca66304a897a0ffc6b1c12",
+            "text": "u=e.i(760447)"
+          }
+        },
+        {
+          "module": 760447,
+          "name": "t",
+          "id": 402030,
+          "proof": {
+            "label": "actual used schema import 402030",
+            "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+            "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+            "sourceBytes": 52490,
+            "utf16": [
+              44763,
+              44776
+            ],
+            "utf8": [
+              44765,
+              44778
+            ],
+            "sha256": "2ffa1573e27f47da8eeb52276a618779c1d454243e5d2ee34ec77a06eb41bd73",
+            "text": "t=e.i(402030)"
+          },
+          "variants": [
+            {
+              "ids": [
+                402030
+              ],
+              "sha256": "26d7d7ced2e06fee3c9354e5ffd9626bcf4f953c8927d3a5ea43d5a45e7064c2",
+              "origins": [
+                {
+                  "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+                  "start": 30128,
+                  "end": 36035
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "module": 760447,
+          "name": "r",
+          "id": 758045,
+          "proof": {
+            "label": "actual used schema import 758045",
+            "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+            "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+            "sourceBytes": 52490,
+            "utf16": [
+              44777,
+              44790
+            ],
+            "utf8": [
+              44779,
+              44792
+            ],
+            "sha256": "5ad496398316eb77bd354df2005be16239930c832ccbf3d7b7c217cacbddca97",
+            "text": "r=e.i(758045)"
+          },
+          "variants": [
+            {
+              "ids": [
+                415809,
+                955871,
+                514287,
+                820984,
+                758045,
+                713643
+              ],
+              "sha256": "ba8acac696188ebf2b0f8a345344d353b8a347f40edce3afee2ddc45d860914c",
+              "origins": [
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27479,
+                  "end": 27516
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27524,
+                  "end": 27561
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27569,
+                  "end": 27606
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27614,
+                  "end": 27651
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27659,
+                  "end": 27696
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27704,
+                  "end": 27741
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39782,
+                  "end": 39819
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39827,
+                  "end": 39864
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39872,
+                  "end": 39909
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39917,
+                  "end": 39954
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "readerLocals": [
+        "m",
+        "p",
+        "h"
+      ],
+      "schemaLocals": [
+        "s",
+        "o",
+        "d",
+        "u",
+        "b",
+        "y",
+        "v"
+      ],
+      "proofs": [
+        {
+          "label": "complete reader declaration m",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            40276,
+            40416
+          ],
+          "utf8": [
+            40278,
+            40418
+          ],
+          "sha256": "5df8372c80b97ac63ac72cbde9bc867177ed5fca87cc508708d0c54a4f896ac0",
+          "text": "m=async({api:e,groupId:t,signal:r})=>{let a=await e(\"GET /users/{id}\",{params:{id:t},signal:r});return(0,u.t)({row:u.Q.parse(a),groupId:t})}"
+        },
+        {
+          "label": "complete reader declaration p",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            40417,
+            40421
+          ],
+          "utf8": [
+            40419,
+            40423
+          ],
+          "sha256": "ad404d1a242fde7d8a127234ecdab257cd65008e1db66c7101d91968f6019a96",
+          "text": "p=20"
+        },
+        {
+          "label": "complete reader declaration h",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            40422,
+            40584
+          ],
+          "utf8": [
+            40424,
+            40586
+          ],
+          "sha256": "ce82cbb937b1e1bd488d34f2859b6f1a4041de2e249ae23ae74f8b105f4a3d1d",
+          "text": "h=async({api:e,searchTerm:t,offset:r,limit:a=p,signal:i})=>{let n=await e(\"GET /groups/search\",{query:{searchTerm:t,limit:a,offset:r},signal:i});return(0,u.A)(n)}"
+        },
+        {
+          "label": "actual reader export N",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            44218,
+            44219
+          ],
+          "utf8": [
+            44220,
+            44221
+          ],
+          "sha256": "62c66a7a5dd70c3146618063c344e531e6d4b59e379808443ce962b3abd63c5a",
+          "text": "m"
+        },
+        {
+          "label": "actual reader export B",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            44258,
+            44259
+          ],
+          "utf8": [
+            44260,
+            44261
+          ],
+          "sha256": "aaa9402664f1a41f40ebbc52c9993eb66aeb366602958fdfaa283b71e64db123",
+          "text": "h"
+        },
+        {
+          "label": "complete used schema declaration s",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            44921,
+            44969
+          ],
+          "utf8": [
+            44923,
+            44971
+          ],
+          "sha256": "b94b54a3662a2e084ff3f7e819668c13836c503792a4b34796e4c9208e917681",
+          "text": "s=e=>e?.toLowerCase()===\"group\"?\"group\":\"person\""
+        },
+        {
+          "label": "complete used schema declaration o",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            44970,
+            44994
+          ],
+          "utf8": [
+            44972,
+            44996
+          ],
+          "sha256": "e8d34cce2885f4fb56acd6a91a6d37ebc035d616e62b5639ca9bed894046039f",
+          "text": "o=r.z.string().nullish()"
+        },
+        {
+          "label": "complete used schema declaration d",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            44995,
+            45060
+          ],
+          "utf8": [
+            44997,
+            45062
+          ],
+          "sha256": "2f8d97a4e972e1cf9fbc9e1b194c55a5c4feed414e608af0d3961887c846c0ed",
+          "text": "d=t.contract[\"GET /groups/search\"].response.shape.results.element"
+        },
+        {
+          "label": "complete used schema declaration u",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            45061,
+            46164
+          ],
+          "utf8": [
+            45063,
+            46166
+          ],
+          "sha256": "27e609850b4b001eb4bdd88bb76f7872550201522a27a6e356ecf2b305508c5c",
+          "text": "u=d.pick({userId:!0}).extend({username:d.shape.username.nullish(),bio:d.shape.bio.nullish(),profileImageUrl:d.shape.profileImageUrl.nullish(),headerImageUrl:d.shape.headerImageUrl.nullish(),followerCount:d.shape.followerCount.nullish(),followingCount:d.shape.followingCount.nullish(),createdAt:d.shape.createdAt.nullish(),updatedAt:d.shape.updatedAt.nullish(),walletAddress:d.shape.walletAddress.nullish(),isVerified:d.shape.isVerified.nullish(),verifiedBadgeVisible:d.shape.verifiedBadgeVisible.nullish(),resolvedAvatarDecoration:d.shape.resolvedAvatarDecoration.nullish(),memberCount:d.shape.memberCount.nullish(),kind:o}).transform(e=>({userId:e.userId,username:e.username??\"\",bio:e.bio||null,profileImage:e.profileImageUrl||null,headerImageUrl:e.headerImageUrl||null,walletAddress:e.walletAddress||null,followers:e.followerCount??0,following:e.followingCount??0,isVerified:e.isVerified??!1,verifiedBadgeVisible:!1!==e.verifiedBadgeVisible,resolvedAvatarDecoration:e.resolvedAvatarDecoration??null,kind:s(e.kind),memberCount:e.memberCount??0,createdAt:e.createdAt??null,updatedAt:e.updatedAt??null}))"
+        },
+        {
+          "label": "complete used schema declaration b",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            46786,
+            46826
+          ],
+          "utf8": [
+            46788,
+            46828
+          ],
+          "sha256": "7f19379cb5822105de8cd8d399f76d624dead3e6397ab23a2c8bb24ac5508b91",
+          "text": "b=t.contract[\"GET /users/{id}\"].response"
+        },
+        {
+          "label": "complete used schema declaration y",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            46827,
+            47260
+          ],
+          "utf8": [
+            46829,
+            47262
+          ],
+          "sha256": "ebd1adc43abb42eba483e22255f7774e303971af6fee2f90963b96d1375e8194",
+          "text": "y=b.pick({}).extend({address:b.shape.address.nullish(),userId:b.shape.userId.nullish(),username:b.shape.username.nullish(),profile_image:b.shape.profile_image.nullish(),header_image_url:b.shape.header_image_url.nullish(),member_count:b.shape.member_count.nullish(),bio:b.shape.bio.nullish(),followers:b.shape.followers.nullish(),following:b.shape.following.nullish(),kind:o,active_competition_entry:b.shape.active_competition_entry})"
+        },
+        {
+          "label": "complete used schema declaration v",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            47261,
+            47332
+          ],
+          "utf8": [
+            47263,
+            47334
+          ],
+          "sha256": "aa9b1f6f25a99be210c6961cf76fcfb7c49d18394b7d26973de065498ea1a3dc",
+          "text": "v=t.contract[\"GET /groups/search\"].response.extend({results:u.array()})"
+        },
+        {
+          "label": "actual schema/projection export D",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            48094,
+            48095
+          ],
+          "utf8": [
+            48096,
+            48097
+          ],
+          "sha256": "0bfe935e70c321c7ca3afc75ce0d0ca2f98b5422e008bb31c00c6d7f1f1c0ad6",
+          "text": "u"
+        },
+        {
+          "label": "actual schema/projection export Q",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            48614,
+            48615
+          ],
+          "utf8": [
+            48616,
+            48617
+          ],
+          "sha256": "a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa",
+          "text": "y"
+        },
+        {
+          "label": "actual schema/projection export A",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            48586,
+            48607
+          ],
+          "utf8": [
+            48588,
+            48609
+          ],
+          "sha256": "321c75a571ab3099c9c630eb49abc1d6186e6c68616ab46d9cdabbf2156ca7ae",
+          "text": "e=>v.parse(e).results"
+        },
+        {
+          "label": "actual schema/projection export h",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            47368,
+            47585
+          ],
+          "utf8": [
+            47370,
+            47587
+          ],
+          "sha256": "9879e6bbc8efb0050a726f62702bc742f8fbfefb4f3fff0416747f4fef77c74a",
+          "text": "e=>({groupId:e.userId,username:e.username||null,bio:e.bio,profileImage:e.profileImage,headerImageUrl:e.headerImageUrl,memberCount:e.memberCount,followers:e.followers,following:e.following,activeCompetitionEntry:null})"
+        },
+        {
+          "label": "actual schema/projection export t",
+          "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+          "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+          "sourceBytes": 52490,
+          "utf16": [
+            47592,
+            48079
+          ],
+          "utf8": [
+            47594,
+            48081
+          ],
+          "sha256": "c812ef744510dd9b53998db06542dc9f992e9ec8ec893eccf9d21c7e7b889c68",
+          "text": "({row:e,groupId:t})=>({groupId:t,username:e.username??null,bio:e.bio??null,profileImage:e.profile_image??null,headerImageUrl:e.header_image_url??null,memberCount:e.member_count??0,followers:e.followers??0,following:e.following??0,activeCompetitionEntry:e.active_competition_entry?{competitionId:e.active_competition_entry.competition_id,competitionSlug:e.active_competition_entry.competition_slug,entryId:e.active_competition_entry.entry_id,phase:e.active_competition_entry.phase}:null})"
+        }
+      ]
+    },
+    {
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "reader": {
+        "id": 560328,
+        "ids": [
+          560328,
+          693686,
+          956683,
+          989582
+        ],
+        "label": "factory 560328",
+        "source": "evidence/web/objects/9535b69d76e2a69b.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+        "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+        "sourceBytes": 71261,
+        "utf16": [
+          59273,
+          64619
+        ],
+        "utf8": [
+          59279,
+          64625
+        ],
+        "sha256": "454ded6273c9cd1a419f8c2c0a726045df950fb56ee0ff522a48d098c3dbf307"
+      },
+      "schema": {
+        "id": 760447,
+        "ids": [
+          760447
+        ],
+        "label": "factory 760447",
+        "source": "evidence/web/objects/9535b69d76e2a69b.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+        "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+        "sourceBytes": 71261,
+        "utf16": [
+          64627,
+          68490
+        ],
+        "utf8": [
+          64633,
+          68496
+        ],
+        "sha256": "c80aeb14abca47a957356085d3c2b4005780d84567da801aa6f347ea2fedb937"
+      },
+      "imports": [
+        {
+          "module": 560328,
+          "name": "c",
+          "id": 760447,
+          "proof": {
+            "label": "actual used reader import 760447",
+            "source": "evidence/web/objects/9535b69d76e2a69b.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+            "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+            "sourceBytes": 71261,
+            "utf16": [
+              60125,
+              60138
+            ],
+            "utf8": [
+              60131,
+              60144
+            ],
+            "sha256": "d5f746379c015bb89ef5ec069b3113bf2fcb4fcc7494f7288e2bb1d8f51d1364",
+            "text": "c=e.i(760447)"
+          }
+        },
+        {
+          "module": 760447,
+          "name": "t",
+          "id": 402030,
+          "proof": {
+            "label": "actual used schema import 402030",
+            "source": "evidence/web/objects/9535b69d76e2a69b.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+            "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+            "sourceBytes": 71261,
+            "utf16": [
+              64635,
+              64648
+            ],
+            "utf8": [
+              64641,
+              64654
+            ],
+            "sha256": "2ffa1573e27f47da8eeb52276a618779c1d454243e5d2ee34ec77a06eb41bd73",
+            "text": "t=e.i(402030)"
+          },
+          "variants": [
+            {
+              "ids": [
+                402030
+              ],
+              "sha256": "26d7d7ced2e06fee3c9354e5ffd9626bcf4f953c8927d3a5ea43d5a45e7064c2",
+              "origins": [
+                {
+                  "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+                  "start": 30128,
+                  "end": 36035
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "module": 760447,
+          "name": "a",
+          "id": 758045,
+          "proof": {
+            "label": "actual used schema import 758045",
+            "source": "evidence/web/objects/9535b69d76e2a69b.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+            "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+            "sourceBytes": 71261,
+            "utf16": [
+              64649,
+              64662
+            ],
+            "utf8": [
+              64655,
+              64668
+            ],
+            "sha256": "1dc597d8ce5c3fc19a89c010f06127a2c654c7412dbc01387bd9f3d389ce4cde",
+            "text": "a=e.i(758045)"
+          },
+          "variants": [
+            {
+              "ids": [
+                415809,
+                955871,
+                514287,
+                820984,
+                758045,
+                713643
+              ],
+              "sha256": "ba8acac696188ebf2b0f8a345344d353b8a347f40edce3afee2ddc45d860914c",
+              "origins": [
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27479,
+                  "end": 27516
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27524,
+                  "end": 27561
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27569,
+                  "end": 27606
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27614,
+                  "end": 27651
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27659,
+                  "end": 27696
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27704,
+                  "end": 27741
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39782,
+                  "end": 39819
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39827,
+                  "end": 39864
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39872,
+                  "end": 39909
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39917,
+                  "end": 39954
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "readerLocals": [
+        "m",
+        "p",
+        "h"
+      ],
+      "schemaLocals": [
+        "o",
+        "s",
+        "d",
+        "c",
+        "y",
+        "v",
+        "b"
+      ],
+      "proofs": [
+        {
+          "label": "complete reader declaration m",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            60148,
+            60288
+          ],
+          "utf8": [
+            60154,
+            60294
+          ],
+          "sha256": "293b74e6bad18dc578221d5445d9da90020fb88fcfb40125a55004ca8497d383",
+          "text": "m=async({api:e,groupId:t,signal:a})=>{let i=await e(\"GET /users/{id}\",{params:{id:t},signal:a});return(0,c.t)({row:c.Q.parse(i),groupId:t})}"
+        },
+        {
+          "label": "complete reader declaration p",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            60289,
+            60293
+          ],
+          "utf8": [
+            60295,
+            60299
+          ],
+          "sha256": "ad404d1a242fde7d8a127234ecdab257cd65008e1db66c7101d91968f6019a96",
+          "text": "p=20"
+        },
+        {
+          "label": "complete reader declaration h",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            60294,
+            60456
+          ],
+          "utf8": [
+            60300,
+            60462
+          ],
+          "sha256": "8cdde9ea028db328bec0b1180ea1de7d1b616e1260ec0da2ac2312ada998e261",
+          "text": "h=async({api:e,searchTerm:t,offset:a,limit:i=p,signal:l})=>{let r=await e(\"GET /groups/search\",{query:{searchTerm:t,limit:i,offset:a},signal:l});return(0,c.A)(r)}"
+        },
+        {
+          "label": "actual reader export N",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            64090,
+            64091
+          ],
+          "utf8": [
+            64096,
+            64097
+          ],
+          "sha256": "62c66a7a5dd70c3146618063c344e531e6d4b59e379808443ce962b3abd63c5a",
+          "text": "m"
+        },
+        {
+          "label": "actual reader export B",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            64130,
+            64131
+          ],
+          "utf8": [
+            64136,
+            64137
+          ],
+          "sha256": "aaa9402664f1a41f40ebbc52c9993eb66aeb366602958fdfaa283b71e64db123",
+          "text": "h"
+        },
+        {
+          "label": "complete used schema declaration o",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            64793,
+            64841
+          ],
+          "utf8": [
+            64799,
+            64847
+          ],
+          "sha256": "a929a99c191da0c72454070de9d559ee1531841f6eb675573a944634a624dcb2",
+          "text": "o=e=>e?.toLowerCase()===\"group\"?\"group\":\"person\""
+        },
+        {
+          "label": "complete used schema declaration s",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            64842,
+            64866
+          ],
+          "utf8": [
+            64848,
+            64872
+          ],
+          "sha256": "0197e772ad90033aaf1dad1410da3395da1a3cc017ec373fa5341f593acac527",
+          "text": "s=a.z.string().nullish()"
+        },
+        {
+          "label": "complete used schema declaration d",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            64867,
+            64932
+          ],
+          "utf8": [
+            64873,
+            64938
+          ],
+          "sha256": "2f8d97a4e972e1cf9fbc9e1b194c55a5c4feed414e608af0d3961887c846c0ed",
+          "text": "d=t.contract[\"GET /groups/search\"].response.shape.results.element"
+        },
+        {
+          "label": "complete used schema declaration c",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            64933,
+            66036
+          ],
+          "utf8": [
+            64939,
+            66042
+          ],
+          "sha256": "17feb426b0b4857419578262144d29551186fb2264cc640fb32b361620210898",
+          "text": "c=d.pick({userId:!0}).extend({username:d.shape.username.nullish(),bio:d.shape.bio.nullish(),profileImageUrl:d.shape.profileImageUrl.nullish(),headerImageUrl:d.shape.headerImageUrl.nullish(),followerCount:d.shape.followerCount.nullish(),followingCount:d.shape.followingCount.nullish(),createdAt:d.shape.createdAt.nullish(),updatedAt:d.shape.updatedAt.nullish(),walletAddress:d.shape.walletAddress.nullish(),isVerified:d.shape.isVerified.nullish(),verifiedBadgeVisible:d.shape.verifiedBadgeVisible.nullish(),resolvedAvatarDecoration:d.shape.resolvedAvatarDecoration.nullish(),memberCount:d.shape.memberCount.nullish(),kind:s}).transform(e=>({userId:e.userId,username:e.username??\"\",bio:e.bio||null,profileImage:e.profileImageUrl||null,headerImageUrl:e.headerImageUrl||null,walletAddress:e.walletAddress||null,followers:e.followerCount??0,following:e.followingCount??0,isVerified:e.isVerified??!1,verifiedBadgeVisible:!1!==e.verifiedBadgeVisible,resolvedAvatarDecoration:e.resolvedAvatarDecoration??null,kind:o(e.kind),memberCount:e.memberCount??0,createdAt:e.createdAt??null,updatedAt:e.updatedAt??null}))"
+        },
+        {
+          "label": "complete used schema declaration y",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            66658,
+            66698
+          ],
+          "utf8": [
+            66664,
+            66704
+          ],
+          "sha256": "9a9ff3bd5e48387348d976c1410f80e1f7d22b3c580121cf4ff5bfaab4a7f2eb",
+          "text": "y=t.contract[\"GET /users/{id}\"].response"
+        },
+        {
+          "label": "complete used schema declaration v",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            66699,
+            67132
+          ],
+          "utf8": [
+            66705,
+            67138
+          ],
+          "sha256": "3a169b14b462c17614cf5afc920e7ddd3815e123b869a87fdb9f178c812493e1",
+          "text": "v=y.pick({}).extend({address:y.shape.address.nullish(),userId:y.shape.userId.nullish(),username:y.shape.username.nullish(),profile_image:y.shape.profile_image.nullish(),header_image_url:y.shape.header_image_url.nullish(),member_count:y.shape.member_count.nullish(),bio:y.shape.bio.nullish(),followers:y.shape.followers.nullish(),following:y.shape.following.nullish(),kind:s,active_competition_entry:y.shape.active_competition_entry})"
+        },
+        {
+          "label": "complete used schema declaration b",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            67133,
+            67204
+          ],
+          "utf8": [
+            67139,
+            67210
+          ],
+          "sha256": "71131ab33bea95b6396472d0b178d35aa9e4209e685f7440cb8d6b70c3a57eb1",
+          "text": "b=t.contract[\"GET /groups/search\"].response.extend({results:c.array()})"
+        },
+        {
+          "label": "actual schema/projection export D",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            67966,
+            67967
+          ],
+          "utf8": [
+            67972,
+            67973
+          ],
+          "sha256": "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6",
+          "text": "c"
+        },
+        {
+          "label": "actual schema/projection export Q",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            68486,
+            68487
+          ],
+          "utf8": [
+            68492,
+            68493
+          ],
+          "sha256": "4c94485e0c21ae6c41ce1dfe7b6bfaceea5ab68e40a2476f50208e526f506080",
+          "text": "v"
+        },
+        {
+          "label": "actual schema/projection export A",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            68458,
+            68479
+          ],
+          "utf8": [
+            68464,
+            68485
+          ],
+          "sha256": "3f3e29e42d87bb64ce113ba3cc1925a4ef49b9bb8f1efc5a0d4f0755c614e253",
+          "text": "e=>b.parse(e).results"
+        },
+        {
+          "label": "actual schema/projection export h",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            67240,
+            67457
+          ],
+          "utf8": [
+            67246,
+            67463
+          ],
+          "sha256": "9879e6bbc8efb0050a726f62702bc742f8fbfefb4f3fff0416747f4fef77c74a",
+          "text": "e=>({groupId:e.userId,username:e.username||null,bio:e.bio,profileImage:e.profileImage,headerImageUrl:e.headerImageUrl,memberCount:e.memberCount,followers:e.followers,following:e.following,activeCompetitionEntry:null})"
+        },
+        {
+          "label": "actual schema/projection export t",
+          "source": "evidence/web/objects/9535b69d76e2a69b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+          "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+          "sourceBytes": 71261,
+          "utf16": [
+            67464,
+            67951
+          ],
+          "utf8": [
+            67470,
+            67957
+          ],
+          "sha256": "c812ef744510dd9b53998db06542dc9f992e9ec8ec893eccf9d21c7e7b889c68",
+          "text": "({row:e,groupId:t})=>({groupId:t,username:e.username??null,bio:e.bio??null,profileImage:e.profile_image??null,headerImageUrl:e.header_image_url??null,memberCount:e.member_count??0,followers:e.followers??0,following:e.following??0,activeCompetitionEntry:e.active_competition_entry?{competitionId:e.active_competition_entry.competition_id,competitionSlug:e.active_competition_entry.competition_slug,entryId:e.active_competition_entry.entry_id,phase:e.active_competition_entry.phase}:null})"
+        }
+      ]
+    },
+    {
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "reader": {
+        "id": 560328,
+        "ids": [
+          560328,
+          693686,
+          956683,
+          989582
+        ],
+        "label": "factory 560328",
+        "source": "evidence/web/objects/767cc801e3f88f8b.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+        "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+        "sourceBytes": 41325,
+        "utf16": [
+          29992,
+          35338
+        ],
+        "utf8": [
+          29996,
+          35342
+        ],
+        "sha256": "95b5e23430f2f2fad80efa0fe423dcb89dcb9a5c5d0e5b0570df61882e3540ed"
+      },
+      "schema": {
+        "id": 760447,
+        "ids": [
+          760447
+        ],
+        "label": "factory 760447",
+        "source": "evidence/web/objects/767cc801e3f88f8b.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+        "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+        "sourceBytes": 41325,
+        "utf16": [
+          35346,
+          39209
+        ],
+        "utf8": [
+          35350,
+          39213
+        ],
+        "sha256": "a388f0a24b1eb774877703192ab5a21856928d916451cfe1b07bb46761d10268"
+      },
+      "imports": [
+        {
+          "module": 560328,
+          "name": "c",
+          "id": 760447,
+          "proof": {
+            "label": "actual used reader import 760447",
+            "source": "evidence/web/objects/767cc801e3f88f8b.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+            "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+            "sourceBytes": 41325,
+            "utf16": [
+              30844,
+              30857
+            ],
+            "utf8": [
+              30848,
+              30861
+            ],
+            "sha256": "d5f746379c015bb89ef5ec069b3113bf2fcb4fcc7494f7288e2bb1d8f51d1364",
+            "text": "c=e.i(760447)"
+          }
+        },
+        {
+          "module": 760447,
+          "name": "r",
+          "id": 758045,
+          "proof": {
+            "label": "actual used schema import 758045",
+            "source": "evidence/web/objects/767cc801e3f88f8b.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+            "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+            "sourceBytes": 41325,
+            "utf16": [
+              35368,
+              35381
+            ],
+            "utf8": [
+              35372,
+              35385
+            ],
+            "sha256": "5ad496398316eb77bd354df2005be16239930c832ccbf3d7b7c217cacbddca97",
+            "text": "r=e.i(758045)"
+          },
+          "variants": [
+            {
+              "ids": [
+                415809,
+                955871,
+                514287,
+                820984,
+                758045,
+                713643
+              ],
+              "sha256": "ba8acac696188ebf2b0f8a345344d353b8a347f40edce3afee2ddc45d860914c",
+              "origins": [
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27479,
+                  "end": 27516
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27524,
+                  "end": 27561
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27569,
+                  "end": 27606
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27614,
+                  "end": 27651
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27659,
+                  "end": 27696
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27704,
+                  "end": 27741
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39782,
+                  "end": 39819
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39827,
+                  "end": 39864
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39872,
+                  "end": 39909
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39917,
+                  "end": 39954
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "module": 760447,
+          "name": "t",
+          "id": 402030,
+          "proof": {
+            "label": "actual used schema import 402030",
+            "source": "evidence/web/objects/767cc801e3f88f8b.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+            "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+            "sourceBytes": 41325,
+            "utf16": [
+              35354,
+              35367
+            ],
+            "utf8": [
+              35358,
+              35371
+            ],
+            "sha256": "2ffa1573e27f47da8eeb52276a618779c1d454243e5d2ee34ec77a06eb41bd73",
+            "text": "t=e.i(402030)"
+          },
+          "variants": [
+            {
+              "ids": [
+                402030
+              ],
+              "sha256": "26d7d7ced2e06fee3c9354e5ffd9626bcf4f953c8927d3a5ea43d5a45e7064c2",
+              "origins": [
+                {
+                  "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+                  "start": 30128,
+                  "end": 36035
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "readerLocals": [
+        "m",
+        "f",
+        "p"
+      ],
+      "schemaLocals": [
+        "n",
+        "o",
+        "u",
+        "c",
+        "x",
+        "b",
+        "w"
+      ],
+      "proofs": [
+        {
+          "label": "complete reader declaration m",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            30867,
+            31007
+          ],
+          "utf8": [
+            30871,
+            31011
+          ],
+          "sha256": "d0d3668322a9b3f6594ef5e877608d1bc92b5b3c0fd13a4451c91838ce680212",
+          "text": "m=async({api:e,groupId:t,signal:r})=>{let l=await e(\"GET /users/{id}\",{params:{id:t},signal:r});return(0,c.t)({row:c.Q.parse(l),groupId:t})}"
+        },
+        {
+          "label": "complete reader declaration f",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            31008,
+            31012
+          ],
+          "utf8": [
+            31012,
+            31016
+          ],
+          "sha256": "2b82832cb9ee4a2b8e922bb5e396c56f0be999018c0f2c0b21001a1a9836809c",
+          "text": "f=20"
+        },
+        {
+          "label": "complete reader declaration p",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            31013,
+            31175
+          ],
+          "utf8": [
+            31017,
+            31179
+          ],
+          "sha256": "4208b81e7dfaf2ae31b76f4b4ba2098a1ee1b6e0a5e45e235d57ca58bff908a0",
+          "text": "p=async({api:e,searchTerm:t,offset:r,limit:l=f,signal:a})=>{let i=await e(\"GET /groups/search\",{query:{searchTerm:t,limit:l,offset:r},signal:a});return(0,c.A)(i)}"
+        },
+        {
+          "label": "actual reader export N",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            34809,
+            34810
+          ],
+          "utf8": [
+            34813,
+            34814
+          ],
+          "sha256": "62c66a7a5dd70c3146618063c344e531e6d4b59e379808443ce962b3abd63c5a",
+          "text": "m"
+        },
+        {
+          "label": "actual reader export B",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            34849,
+            34850
+          ],
+          "utf8": [
+            34853,
+            34854
+          ],
+          "sha256": "148de9c5a7a44d19e56cd9ae1a554bf67847afb0c58f6e12fa29ac7ddfca9940",
+          "text": "p"
+        },
+        {
+          "label": "complete used schema declaration n",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            35512,
+            35560
+          ],
+          "utf8": [
+            35516,
+            35564
+          ],
+          "sha256": "4afb7c68932f0dcfc00c1e084cbf0eaa2221998317c157c5a999497c9ada315a",
+          "text": "n=e=>e?.toLowerCase()===\"group\"?\"group\":\"person\""
+        },
+        {
+          "label": "complete used schema declaration o",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            35561,
+            35585
+          ],
+          "utf8": [
+            35565,
+            35589
+          ],
+          "sha256": "e8d34cce2885f4fb56acd6a91a6d37ebc035d616e62b5639ca9bed894046039f",
+          "text": "o=r.z.string().nullish()"
+        },
+        {
+          "label": "complete used schema declaration u",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            35586,
+            35651
+          ],
+          "utf8": [
+            35590,
+            35655
+          ],
+          "sha256": "8839aaef733fd700f345e0c208e9305e41dc4b50b56cee97928602a14b4e19ee",
+          "text": "u=t.contract[\"GET /groups/search\"].response.shape.results.element"
+        },
+        {
+          "label": "complete used schema declaration c",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            35652,
+            36755
+          ],
+          "utf8": [
+            35656,
+            36759
+          ],
+          "sha256": "5ee28a978240789f721ed4ad99433770ed6ad5bc5f4b39ec7dde8d2eff076e4e",
+          "text": "c=u.pick({userId:!0}).extend({username:u.shape.username.nullish(),bio:u.shape.bio.nullish(),profileImageUrl:u.shape.profileImageUrl.nullish(),headerImageUrl:u.shape.headerImageUrl.nullish(),followerCount:u.shape.followerCount.nullish(),followingCount:u.shape.followingCount.nullish(),createdAt:u.shape.createdAt.nullish(),updatedAt:u.shape.updatedAt.nullish(),walletAddress:u.shape.walletAddress.nullish(),isVerified:u.shape.isVerified.nullish(),verifiedBadgeVisible:u.shape.verifiedBadgeVisible.nullish(),resolvedAvatarDecoration:u.shape.resolvedAvatarDecoration.nullish(),memberCount:u.shape.memberCount.nullish(),kind:o}).transform(e=>({userId:e.userId,username:e.username??\"\",bio:e.bio||null,profileImage:e.profileImageUrl||null,headerImageUrl:e.headerImageUrl||null,walletAddress:e.walletAddress||null,followers:e.followerCount??0,following:e.followingCount??0,isVerified:e.isVerified??!1,verifiedBadgeVisible:!1!==e.verifiedBadgeVisible,resolvedAvatarDecoration:e.resolvedAvatarDecoration??null,kind:n(e.kind),memberCount:e.memberCount??0,createdAt:e.createdAt??null,updatedAt:e.updatedAt??null}))"
+        },
+        {
+          "label": "complete used schema declaration x",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            37377,
+            37417
+          ],
+          "utf8": [
+            37381,
+            37421
+          ],
+          "sha256": "43bba7ece05f79c76705af6a4aa34616189a91ec742f6fc655716d97e545b791",
+          "text": "x=t.contract[\"GET /users/{id}\"].response"
+        },
+        {
+          "label": "complete used schema declaration b",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            37418,
+            37851
+          ],
+          "utf8": [
+            37422,
+            37855
+          ],
+          "sha256": "a477b97f3fd94af076be8fb50860b81e268a2ddb345c206be549ed9f1be6d853",
+          "text": "b=x.pick({}).extend({address:x.shape.address.nullish(),userId:x.shape.userId.nullish(),username:x.shape.username.nullish(),profile_image:x.shape.profile_image.nullish(),header_image_url:x.shape.header_image_url.nullish(),member_count:x.shape.member_count.nullish(),bio:x.shape.bio.nullish(),followers:x.shape.followers.nullish(),following:x.shape.following.nullish(),kind:o,active_competition_entry:x.shape.active_competition_entry})"
+        },
+        {
+          "label": "complete used schema declaration w",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            37852,
+            37923
+          ],
+          "utf8": [
+            37856,
+            37927
+          ],
+          "sha256": "7860bba16abcc5d5bf9bc0e1302afb513efadeb8474732fd333abe667ef4a3dc",
+          "text": "w=t.contract[\"GET /groups/search\"].response.extend({results:c.array()})"
+        },
+        {
+          "label": "actual schema/projection export D",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            38685,
+            38686
+          ],
+          "utf8": [
+            38689,
+            38690
+          ],
+          "sha256": "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6",
+          "text": "c"
+        },
+        {
+          "label": "actual schema/projection export Q",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            39205,
+            39206
+          ],
+          "utf8": [
+            39209,
+            39210
+          ],
+          "sha256": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+          "text": "b"
+        },
+        {
+          "label": "actual schema/projection export A",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            39177,
+            39198
+          ],
+          "utf8": [
+            39181,
+            39202
+          ],
+          "sha256": "2e2aa339a451250320089441301ff76f91464dd99380cbb44c383c3fa7b7f331",
+          "text": "e=>w.parse(e).results"
+        },
+        {
+          "label": "actual schema/projection export h",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            37959,
+            38176
+          ],
+          "utf8": [
+            37963,
+            38180
+          ],
+          "sha256": "9879e6bbc8efb0050a726f62702bc742f8fbfefb4f3fff0416747f4fef77c74a",
+          "text": "e=>({groupId:e.userId,username:e.username||null,bio:e.bio,profileImage:e.profileImage,headerImageUrl:e.headerImageUrl,memberCount:e.memberCount,followers:e.followers,following:e.following,activeCompetitionEntry:null})"
+        },
+        {
+          "label": "actual schema/projection export t",
+          "source": "evidence/web/objects/767cc801e3f88f8b.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+          "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+          "sourceBytes": 41325,
+          "utf16": [
+            38183,
+            38670
+          ],
+          "utf8": [
+            38187,
+            38674
+          ],
+          "sha256": "c812ef744510dd9b53998db06542dc9f992e9ec8ec893eccf9d21c7e7b889c68",
+          "text": "({row:e,groupId:t})=>({groupId:t,username:e.username??null,bio:e.bio??null,profileImage:e.profile_image??null,headerImageUrl:e.header_image_url??null,memberCount:e.member_count??0,followers:e.followers??0,following:e.following??0,activeCompetitionEntry:e.active_competition_entry?{competitionId:e.active_competition_entry.competition_id,competitionSlug:e.active_competition_entry.competition_slug,entryId:e.active_competition_entry.entry_id,phase:e.active_competition_entry.phase}:null})"
+        }
+      ]
+    },
+    {
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "reader": {
+        "id": 560328,
+        "ids": [
+          560328,
+          693686,
+          956683,
+          989582
+        ],
+        "label": "factory 560328",
+        "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+        "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+        "sourceBytes": 12910,
+        "utf16": [
+          3444,
+          8790
+        ],
+        "utf8": [
+          3444,
+          8790
+        ],
+        "sha256": "4d708b8f842a68b2a709a8c52ed67f33bda420281675aa079a646b16f2766f78"
+      },
+      "schema": {
+        "id": 760447,
+        "ids": [
+          760447
+        ],
+        "label": "factory 760447",
+        "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+        "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+        "sourceBytes": 12910,
+        "utf16": [
+          8798,
+          12661
+        ],
+        "utf8": [
+          8798,
+          12661
+        ],
+        "sha256": "3ddfd2396c08bd89dde3d3418eac9dbf536010a9ea3456983ab8f6310b62a8c6"
+      },
+      "imports": [
+        {
+          "module": 560328,
+          "name": "p",
+          "id": 760447,
+          "proof": {
+            "label": "actual used reader import 760447",
+            "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+            "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+            "sourceBytes": 12910,
+            "utf16": [
+              4296,
+              4309
+            ],
+            "utf8": [
+              4296,
+              4309
+            ],
+            "sha256": "512fd8fa7d29f98c348a47220de5e9599ff836bcb77b606796d1b2fda30fa55d",
+            "text": "p=e.i(760447)"
+          }
+        },
+        {
+          "module": 760447,
+          "name": "s",
+          "id": 758045,
+          "proof": {
+            "label": "actual used schema import 758045",
+            "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+            "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+            "sourceBytes": 12910,
+            "utf16": [
+              8820,
+              8833
+            ],
+            "utf8": [
+              8820,
+              8833
+            ],
+            "sha256": "5dd04d6da5b8a5d08c31e35447ce10640441a2929528adc75090952c89f2f8ca",
+            "text": "s=e.i(758045)"
+          },
+          "variants": [
+            {
+              "ids": [
+                415809,
+                955871,
+                514287,
+                820984,
+                758045,
+                713643
+              ],
+              "sha256": "ba8acac696188ebf2b0f8a345344d353b8a347f40edce3afee2ddc45d860914c",
+              "origins": [
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27479,
+                  "end": 27516
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27524,
+                  "end": 27561
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27569,
+                  "end": 27606
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27614,
+                  "end": 27651
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27659,
+                  "end": 27696
+                },
+                {
+                  "source": "evidence/web/objects/910b5c033a62f9b1.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/0ku3kaw8s1rf0.js",
+                  "start": 27704,
+                  "end": 27741
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39782,
+                  "end": 39819
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39827,
+                  "end": 39864
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39872,
+                  "end": 39909
+                },
+                {
+                  "source": "evidence/web/objects/7128bd47b219d222.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/1xwqvd6tevtf6.js",
+                  "start": 39917,
+                  "end": 39954
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "module": 760447,
+          "name": "r",
+          "id": 402030,
+          "proof": {
+            "label": "actual used schema import 402030",
+            "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+            "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+            "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+            "sourceBytes": 12910,
+            "utf16": [
+              8806,
+              8819
+            ],
+            "utf8": [
+              8806,
+              8819
+            ],
+            "sha256": "dfecbc7ab804e3751d7284b5902828a203a791bf8dcd2bdd025356fd99565af2",
+            "text": "r=e.i(402030)"
+          },
+          "variants": [
+            {
+              "ids": [
+                402030
+              ],
+              "sha256": "26d7d7ced2e06fee3c9354e5ffd9626bcf4f953c8927d3a5ea43d5a45e7064c2",
+              "origins": [
+                {
+                  "source": "evidence/web/objects/2b47dd0b38a1608f.js",
+                  "url": "https://pump.fun/_next/static/immutable/chunks/2cr_aqnw2j4n5.js",
+                  "start": 30128,
+                  "end": 36035
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "readerLocals": [
+        "m",
+        "h",
+        "c"
+      ],
+      "schemaLocals": [
+        "n",
+        "o",
+        "u",
+        "p",
+        "b",
+        "y",
+        "I"
+      ],
+      "proofs": [
+        {
+          "label": "complete reader declaration m",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            4319,
+            4459
+          ],
+          "utf8": [
+            4319,
+            4459
+          ],
+          "sha256": "cbfe47eb5d37193e3cfc027ff9657e89f1e06ba569f6653f29deee154e5f549c",
+          "text": "m=async({api:e,groupId:r,signal:s})=>{let a=await e(\"GET /users/{id}\",{params:{id:r},signal:s});return(0,p.t)({row:p.Q.parse(a),groupId:r})}"
+        },
+        {
+          "label": "complete reader declaration h",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            4460,
+            4464
+          ],
+          "utf8": [
+            4460,
+            4464
+          ],
+          "sha256": "30e7975d3a4a5a859bdef63c7584136ca1b42da5f4f242ee409cb32a65761213",
+          "text": "h=20"
+        },
+        {
+          "label": "complete reader declaration c",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            4465,
+            4627
+          ],
+          "utf8": [
+            4465,
+            4627
+          ],
+          "sha256": "216648a9c5f234af2fa9dc5a2515bab70eb16967853ed65571333af63b35c9e3",
+          "text": "c=async({api:e,searchTerm:r,offset:s,limit:a=h,signal:t})=>{let i=await e(\"GET /groups/search\",{query:{searchTerm:r,limit:a,offset:s},signal:t});return(0,p.A)(i)}"
+        },
+        {
+          "label": "actual reader export N",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            8261,
+            8262
+          ],
+          "utf8": [
+            8261,
+            8262
+          ],
+          "sha256": "62c66a7a5dd70c3146618063c344e531e6d4b59e379808443ce962b3abd63c5a",
+          "text": "m"
+        },
+        {
+          "label": "actual reader export B",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            8301,
+            8302
+          ],
+          "utf8": [
+            8301,
+            8302
+          ],
+          "sha256": "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6",
+          "text": "c"
+        },
+        {
+          "label": "complete used schema declaration n",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            8964,
+            9012
+          ],
+          "utf8": [
+            8964,
+            9012
+          ],
+          "sha256": "4afb7c68932f0dcfc00c1e084cbf0eaa2221998317c157c5a999497c9ada315a",
+          "text": "n=e=>e?.toLowerCase()===\"group\"?\"group\":\"person\""
+        },
+        {
+          "label": "complete used schema declaration o",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            9013,
+            9037
+          ],
+          "utf8": [
+            9013,
+            9037
+          ],
+          "sha256": "c6e142f707ca2680ac9c3e693f92fb9d51cf95d7d17f6d28c937360bad472a56",
+          "text": "o=s.z.string().nullish()"
+        },
+        {
+          "label": "complete used schema declaration u",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            9038,
+            9103
+          ],
+          "utf8": [
+            9038,
+            9103
+          ],
+          "sha256": "8efaf7db613c3ddd406b967d04c053d2cbd1cc8702ea0c3852a06ab19e6e1a7f",
+          "text": "u=r.contract[\"GET /groups/search\"].response.shape.results.element"
+        },
+        {
+          "label": "complete used schema declaration p",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            9104,
+            10207
+          ],
+          "utf8": [
+            9104,
+            10207
+          ],
+          "sha256": "8080ab25ff3a5a4593b6c3cb3a6142282da1d21d0f044baf5f35b96d92756e1b",
+          "text": "p=u.pick({userId:!0}).extend({username:u.shape.username.nullish(),bio:u.shape.bio.nullish(),profileImageUrl:u.shape.profileImageUrl.nullish(),headerImageUrl:u.shape.headerImageUrl.nullish(),followerCount:u.shape.followerCount.nullish(),followingCount:u.shape.followingCount.nullish(),createdAt:u.shape.createdAt.nullish(),updatedAt:u.shape.updatedAt.nullish(),walletAddress:u.shape.walletAddress.nullish(),isVerified:u.shape.isVerified.nullish(),verifiedBadgeVisible:u.shape.verifiedBadgeVisible.nullish(),resolvedAvatarDecoration:u.shape.resolvedAvatarDecoration.nullish(),memberCount:u.shape.memberCount.nullish(),kind:o}).transform(e=>({userId:e.userId,username:e.username??\"\",bio:e.bio||null,profileImage:e.profileImageUrl||null,headerImageUrl:e.headerImageUrl||null,walletAddress:e.walletAddress||null,followers:e.followerCount??0,following:e.followingCount??0,isVerified:e.isVerified??!1,verifiedBadgeVisible:!1!==e.verifiedBadgeVisible,resolvedAvatarDecoration:e.resolvedAvatarDecoration??null,kind:n(e.kind),memberCount:e.memberCount??0,createdAt:e.createdAt??null,updatedAt:e.updatedAt??null}))"
+        },
+        {
+          "label": "complete used schema declaration b",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            10829,
+            10869
+          ],
+          "utf8": [
+            10829,
+            10869
+          ],
+          "sha256": "b7c6c7b5f5a197ea427fd34f0ba4e3317bab98a501b288b067fba9225797b03d",
+          "text": "b=r.contract[\"GET /users/{id}\"].response"
+        },
+        {
+          "label": "complete used schema declaration y",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            10870,
+            11303
+          ],
+          "utf8": [
+            10870,
+            11303
+          ],
+          "sha256": "ebd1adc43abb42eba483e22255f7774e303971af6fee2f90963b96d1375e8194",
+          "text": "y=b.pick({}).extend({address:b.shape.address.nullish(),userId:b.shape.userId.nullish(),username:b.shape.username.nullish(),profile_image:b.shape.profile_image.nullish(),header_image_url:b.shape.header_image_url.nullish(),member_count:b.shape.member_count.nullish(),bio:b.shape.bio.nullish(),followers:b.shape.followers.nullish(),following:b.shape.following.nullish(),kind:o,active_competition_entry:b.shape.active_competition_entry})"
+        },
+        {
+          "label": "complete used schema declaration I",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            11304,
+            11375
+          ],
+          "utf8": [
+            11304,
+            11375
+          ],
+          "sha256": "3ed51c78c56bc172eb9e6289b94b452ed8e01d6adf95c7f698de9ec7f0f2c9e1",
+          "text": "I=r.contract[\"GET /groups/search\"].response.extend({results:p.array()})"
+        },
+        {
+          "label": "actual schema/projection export D",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            12137,
+            12138
+          ],
+          "utf8": [
+            12137,
+            12138
+          ],
+          "sha256": "148de9c5a7a44d19e56cd9ae1a554bf67847afb0c58f6e12fa29ac7ddfca9940",
+          "text": "p"
+        },
+        {
+          "label": "actual schema/projection export Q",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            12657,
+            12658
+          ],
+          "utf8": [
+            12657,
+            12658
+          ],
+          "sha256": "a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa",
+          "text": "y"
+        },
+        {
+          "label": "actual schema/projection export A",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            12629,
+            12650
+          ],
+          "utf8": [
+            12629,
+            12650
+          ],
+          "sha256": "5db24ade6f4066cd21260fadda3722b965decfab8e1e969c39f6b4cc7888ceb4",
+          "text": "e=>I.parse(e).results"
+        },
+        {
+          "label": "actual schema/projection export h",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            11411,
+            11628
+          ],
+          "utf8": [
+            11411,
+            11628
+          ],
+          "sha256": "9879e6bbc8efb0050a726f62702bc742f8fbfefb4f3fff0416747f4fef77c74a",
+          "text": "e=>({groupId:e.userId,username:e.username||null,bio:e.bio,profileImage:e.profileImage,headerImageUrl:e.headerImageUrl,memberCount:e.memberCount,followers:e.followers,following:e.following,activeCompetitionEntry:null})"
+        },
+        {
+          "label": "actual schema/projection export t",
+          "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+          "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+          "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+          "sourceBytes": 12910,
+          "utf16": [
+            11635,
+            12122
+          ],
+          "utf8": [
+            11635,
+            12122
+          ],
+          "sha256": "a7ebb7fd4c344a926ed8b405549eea085fb8865b02e820919d03c43b697aabc8",
+          "text": "({row:e,groupId:r})=>({groupId:r,username:e.username??null,bio:e.bio??null,profileImage:e.profile_image??null,headerImageUrl:e.header_image_url??null,memberCount:e.member_count??0,followers:e.followers??0,following:e.following??0,activeCompetitionEntry:e.active_competition_entry?{competitionId:e.active_competition_entry.competition_id,competitionSlug:e.active_competition_entry.competition_slug,entryId:e.active_competition_entry.entry_id,phase:e.active_competition_entry.phase}:null})"
+        }
+      ]
+    }
+  ],
+  "proofs": [
+    {
+      "label": "complete reader declaration m",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        36038,
+        36178
+      ],
+      "utf8": [
+        36048,
+        36188
+      ],
+      "sha256": "b32444a1f1bcc1d44e8d220f6dbe5c857ff79d451b380a29fc1c3865a1a2123b",
+      "text": "m=async({api:e,groupId:t,signal:r})=>{let l=await e(\"GET /users/{id}\",{params:{id:t},signal:r});return(0,u.t)({row:u.Q.parse(l),groupId:t})}"
+    },
+    {
+      "label": "complete reader declaration p",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        36179,
+        36183
+      ],
+      "utf8": [
+        36189,
+        36193
+      ],
+      "sha256": "ad404d1a242fde7d8a127234ecdab257cd65008e1db66c7101d91968f6019a96",
+      "text": "p=20"
+    },
+    {
+      "label": "complete reader declaration h",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        36184,
+        36346
+      ],
+      "utf8": [
+        36194,
+        36356
+      ],
+      "sha256": "d9d342142d3b83e35fee563f5ded9975fb5b39e94b7cd7ae19075b895bb5b71e",
+      "text": "h=async({api:e,searchTerm:t,offset:r,limit:l=p,signal:i})=>{let a=await e(\"GET /groups/search\",{query:{searchTerm:t,limit:l,offset:r},signal:i});return(0,u.A)(a)}"
+    },
+    {
+      "label": "actual reader export N",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        39980,
+        39981
+      ],
+      "utf8": [
+        39990,
+        39991
+      ],
+      "sha256": "62c66a7a5dd70c3146618063c344e531e6d4b59e379808443ce962b3abd63c5a",
+      "text": "m"
+    },
+    {
+      "label": "actual reader export B",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        40020,
+        40021
+      ],
+      "utf8": [
+        40030,
+        40031
+      ],
+      "sha256": "aaa9402664f1a41f40ebbc52c9993eb66aeb366602958fdfaa283b71e64db123",
+      "text": "h"
+    },
+    {
+      "label": "complete used schema declaration s",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        40683,
+        40731
+      ],
+      "utf8": [
+        40693,
+        40741
+      ],
+      "sha256": "b94b54a3662a2e084ff3f7e819668c13836c503792a4b34796e4c9208e917681",
+      "text": "s=e=>e?.toLowerCase()===\"group\"?\"group\":\"person\""
+    },
+    {
+      "label": "complete used schema declaration o",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        40732,
+        40756
+      ],
+      "utf8": [
+        40742,
+        40766
+      ],
+      "sha256": "e8d34cce2885f4fb56acd6a91a6d37ebc035d616e62b5639ca9bed894046039f",
+      "text": "o=r.z.string().nullish()"
+    },
+    {
+      "label": "complete used schema declaration d",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        40757,
+        40822
+      ],
+      "utf8": [
+        40767,
+        40832
+      ],
+      "sha256": "2f8d97a4e972e1cf9fbc9e1b194c55a5c4feed414e608af0d3961887c846c0ed",
+      "text": "d=t.contract[\"GET /groups/search\"].response.shape.results.element"
+    },
+    {
+      "label": "complete used schema declaration u",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        40823,
+        41926
+      ],
+      "utf8": [
+        40833,
+        41936
+      ],
+      "sha256": "27e609850b4b001eb4bdd88bb76f7872550201522a27a6e356ecf2b305508c5c",
+      "text": "u=d.pick({userId:!0}).extend({username:d.shape.username.nullish(),bio:d.shape.bio.nullish(),profileImageUrl:d.shape.profileImageUrl.nullish(),headerImageUrl:d.shape.headerImageUrl.nullish(),followerCount:d.shape.followerCount.nullish(),followingCount:d.shape.followingCount.nullish(),createdAt:d.shape.createdAt.nullish(),updatedAt:d.shape.updatedAt.nullish(),walletAddress:d.shape.walletAddress.nullish(),isVerified:d.shape.isVerified.nullish(),verifiedBadgeVisible:d.shape.verifiedBadgeVisible.nullish(),resolvedAvatarDecoration:d.shape.resolvedAvatarDecoration.nullish(),memberCount:d.shape.memberCount.nullish(),kind:o}).transform(e=>({userId:e.userId,username:e.username??\"\",bio:e.bio||null,profileImage:e.profileImageUrl||null,headerImageUrl:e.headerImageUrl||null,walletAddress:e.walletAddress||null,followers:e.followerCount??0,following:e.followingCount??0,isVerified:e.isVerified??!1,verifiedBadgeVisible:!1!==e.verifiedBadgeVisible,resolvedAvatarDecoration:e.resolvedAvatarDecoration??null,kind:s(e.kind),memberCount:e.memberCount??0,createdAt:e.createdAt??null,updatedAt:e.updatedAt??null}))"
+    },
+    {
+      "label": "complete used schema declaration y",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        42548,
+        42588
+      ],
+      "utf8": [
+        42558,
+        42598
+      ],
+      "sha256": "9a9ff3bd5e48387348d976c1410f80e1f7d22b3c580121cf4ff5bfaab4a7f2eb",
+      "text": "y=t.contract[\"GET /users/{id}\"].response"
+    },
+    {
+      "label": "complete used schema declaration b",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        42589,
+        43022
+      ],
+      "utf8": [
+        42599,
+        43032
+      ],
+      "sha256": "8a683dd00c70632ef1f15a5d6298be080920d950b0521e2e55b57dad8e489253",
+      "text": "b=y.pick({}).extend({address:y.shape.address.nullish(),userId:y.shape.userId.nullish(),username:y.shape.username.nullish(),profile_image:y.shape.profile_image.nullish(),header_image_url:y.shape.header_image_url.nullish(),member_count:y.shape.member_count.nullish(),bio:y.shape.bio.nullish(),followers:y.shape.followers.nullish(),following:y.shape.following.nullish(),kind:o,active_competition_entry:y.shape.active_competition_entry})"
+    },
+    {
+      "label": "complete used schema declaration v",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        43023,
+        43094
+      ],
+      "utf8": [
+        43033,
+        43104
+      ],
+      "sha256": "aa9b1f6f25a99be210c6961cf76fcfb7c49d18394b7d26973de065498ea1a3dc",
+      "text": "v=t.contract[\"GET /groups/search\"].response.extend({results:u.array()})"
+    },
+    {
+      "label": "actual schema/projection export D",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        43856,
+        43857
+      ],
+      "utf8": [
+        43866,
+        43867
+      ],
+      "sha256": "0bfe935e70c321c7ca3afc75ce0d0ca2f98b5422e008bb31c00c6d7f1f1c0ad6",
+      "text": "u"
+    },
+    {
+      "label": "actual schema/projection export Q",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        44376,
+        44377
+      ],
+      "utf8": [
+        44386,
+        44387
+      ],
+      "sha256": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+      "text": "b"
+    },
+    {
+      "label": "actual schema/projection export A",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        44348,
+        44369
+      ],
+      "utf8": [
+        44358,
+        44379
+      ],
+      "sha256": "321c75a571ab3099c9c630eb49abc1d6186e6c68616ab46d9cdabbf2156ca7ae",
+      "text": "e=>v.parse(e).results"
+    },
+    {
+      "label": "actual schema/projection export h",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        43130,
+        43347
+      ],
+      "utf8": [
+        43140,
+        43357
+      ],
+      "sha256": "9879e6bbc8efb0050a726f62702bc742f8fbfefb4f3fff0416747f4fef77c74a",
+      "text": "e=>({groupId:e.userId,username:e.username||null,bio:e.bio,profileImage:e.profileImage,headerImageUrl:e.headerImageUrl,memberCount:e.memberCount,followers:e.followers,following:e.following,activeCompetitionEntry:null})"
+    },
+    {
+      "label": "actual schema/projection export t",
+      "source": "evidence/web/objects/c3601a995a6b7f37.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+      "sourceSha256": "5a81dfd01983381981d1f5da23564f6426bf9ff3ff55a1265d8badf02290d231",
+      "sourceBytes": 45232,
+      "utf16": [
+        43354,
+        43841
+      ],
+      "utf8": [
+        43364,
+        43851
+      ],
+      "sha256": "c812ef744510dd9b53998db06542dc9f992e9ec8ec893eccf9d21c7e7b889c68",
+      "text": "({row:e,groupId:t})=>({groupId:t,username:e.username??null,bio:e.bio??null,profileImage:e.profile_image??null,headerImageUrl:e.header_image_url??null,memberCount:e.member_count??0,followers:e.followers??0,following:e.following??0,activeCompetitionEntry:e.active_competition_entry?{competitionId:e.active_competition_entry.competition_id,competitionSlug:e.active_competition_entry.competition_slug,entryId:e.active_competition_entry.entry_id,phase:e.active_competition_entry.phase}:null})"
+    },
+    {
+      "label": "complete reader declaration m",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        40276,
+        40416
+      ],
+      "utf8": [
+        40278,
+        40418
+      ],
+      "sha256": "5df8372c80b97ac63ac72cbde9bc867177ed5fca87cc508708d0c54a4f896ac0",
+      "text": "m=async({api:e,groupId:t,signal:r})=>{let a=await e(\"GET /users/{id}\",{params:{id:t},signal:r});return(0,u.t)({row:u.Q.parse(a),groupId:t})}"
+    },
+    {
+      "label": "complete reader declaration p",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        40417,
+        40421
+      ],
+      "utf8": [
+        40419,
+        40423
+      ],
+      "sha256": "ad404d1a242fde7d8a127234ecdab257cd65008e1db66c7101d91968f6019a96",
+      "text": "p=20"
+    },
+    {
+      "label": "complete reader declaration h",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        40422,
+        40584
+      ],
+      "utf8": [
+        40424,
+        40586
+      ],
+      "sha256": "ce82cbb937b1e1bd488d34f2859b6f1a4041de2e249ae23ae74f8b105f4a3d1d",
+      "text": "h=async({api:e,searchTerm:t,offset:r,limit:a=p,signal:i})=>{let n=await e(\"GET /groups/search\",{query:{searchTerm:t,limit:a,offset:r},signal:i});return(0,u.A)(n)}"
+    },
+    {
+      "label": "actual reader export N",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        44218,
+        44219
+      ],
+      "utf8": [
+        44220,
+        44221
+      ],
+      "sha256": "62c66a7a5dd70c3146618063c344e531e6d4b59e379808443ce962b3abd63c5a",
+      "text": "m"
+    },
+    {
+      "label": "actual reader export B",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        44258,
+        44259
+      ],
+      "utf8": [
+        44260,
+        44261
+      ],
+      "sha256": "aaa9402664f1a41f40ebbc52c9993eb66aeb366602958fdfaa283b71e64db123",
+      "text": "h"
+    },
+    {
+      "label": "complete used schema declaration s",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        44921,
+        44969
+      ],
+      "utf8": [
+        44923,
+        44971
+      ],
+      "sha256": "b94b54a3662a2e084ff3f7e819668c13836c503792a4b34796e4c9208e917681",
+      "text": "s=e=>e?.toLowerCase()===\"group\"?\"group\":\"person\""
+    },
+    {
+      "label": "complete used schema declaration o",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        44970,
+        44994
+      ],
+      "utf8": [
+        44972,
+        44996
+      ],
+      "sha256": "e8d34cce2885f4fb56acd6a91a6d37ebc035d616e62b5639ca9bed894046039f",
+      "text": "o=r.z.string().nullish()"
+    },
+    {
+      "label": "complete used schema declaration d",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        44995,
+        45060
+      ],
+      "utf8": [
+        44997,
+        45062
+      ],
+      "sha256": "2f8d97a4e972e1cf9fbc9e1b194c55a5c4feed414e608af0d3961887c846c0ed",
+      "text": "d=t.contract[\"GET /groups/search\"].response.shape.results.element"
+    },
+    {
+      "label": "complete used schema declaration u",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        45061,
+        46164
+      ],
+      "utf8": [
+        45063,
+        46166
+      ],
+      "sha256": "27e609850b4b001eb4bdd88bb76f7872550201522a27a6e356ecf2b305508c5c",
+      "text": "u=d.pick({userId:!0}).extend({username:d.shape.username.nullish(),bio:d.shape.bio.nullish(),profileImageUrl:d.shape.profileImageUrl.nullish(),headerImageUrl:d.shape.headerImageUrl.nullish(),followerCount:d.shape.followerCount.nullish(),followingCount:d.shape.followingCount.nullish(),createdAt:d.shape.createdAt.nullish(),updatedAt:d.shape.updatedAt.nullish(),walletAddress:d.shape.walletAddress.nullish(),isVerified:d.shape.isVerified.nullish(),verifiedBadgeVisible:d.shape.verifiedBadgeVisible.nullish(),resolvedAvatarDecoration:d.shape.resolvedAvatarDecoration.nullish(),memberCount:d.shape.memberCount.nullish(),kind:o}).transform(e=>({userId:e.userId,username:e.username??\"\",bio:e.bio||null,profileImage:e.profileImageUrl||null,headerImageUrl:e.headerImageUrl||null,walletAddress:e.walletAddress||null,followers:e.followerCount??0,following:e.followingCount??0,isVerified:e.isVerified??!1,verifiedBadgeVisible:!1!==e.verifiedBadgeVisible,resolvedAvatarDecoration:e.resolvedAvatarDecoration??null,kind:s(e.kind),memberCount:e.memberCount??0,createdAt:e.createdAt??null,updatedAt:e.updatedAt??null}))"
+    },
+    {
+      "label": "complete used schema declaration b",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        46786,
+        46826
+      ],
+      "utf8": [
+        46788,
+        46828
+      ],
+      "sha256": "7f19379cb5822105de8cd8d399f76d624dead3e6397ab23a2c8bb24ac5508b91",
+      "text": "b=t.contract[\"GET /users/{id}\"].response"
+    },
+    {
+      "label": "complete used schema declaration y",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        46827,
+        47260
+      ],
+      "utf8": [
+        46829,
+        47262
+      ],
+      "sha256": "ebd1adc43abb42eba483e22255f7774e303971af6fee2f90963b96d1375e8194",
+      "text": "y=b.pick({}).extend({address:b.shape.address.nullish(),userId:b.shape.userId.nullish(),username:b.shape.username.nullish(),profile_image:b.shape.profile_image.nullish(),header_image_url:b.shape.header_image_url.nullish(),member_count:b.shape.member_count.nullish(),bio:b.shape.bio.nullish(),followers:b.shape.followers.nullish(),following:b.shape.following.nullish(),kind:o,active_competition_entry:b.shape.active_competition_entry})"
+    },
+    {
+      "label": "complete used schema declaration v",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        47261,
+        47332
+      ],
+      "utf8": [
+        47263,
+        47334
+      ],
+      "sha256": "aa9b1f6f25a99be210c6961cf76fcfb7c49d18394b7d26973de065498ea1a3dc",
+      "text": "v=t.contract[\"GET /groups/search\"].response.extend({results:u.array()})"
+    },
+    {
+      "label": "actual schema/projection export D",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        48094,
+        48095
+      ],
+      "utf8": [
+        48096,
+        48097
+      ],
+      "sha256": "0bfe935e70c321c7ca3afc75ce0d0ca2f98b5422e008bb31c00c6d7f1f1c0ad6",
+      "text": "u"
+    },
+    {
+      "label": "actual schema/projection export Q",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        48614,
+        48615
+      ],
+      "utf8": [
+        48616,
+        48617
+      ],
+      "sha256": "a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa",
+      "text": "y"
+    },
+    {
+      "label": "actual schema/projection export A",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        48586,
+        48607
+      ],
+      "utf8": [
+        48588,
+        48609
+      ],
+      "sha256": "321c75a571ab3099c9c630eb49abc1d6186e6c68616ab46d9cdabbf2156ca7ae",
+      "text": "e=>v.parse(e).results"
+    },
+    {
+      "label": "actual schema/projection export h",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        47368,
+        47585
+      ],
+      "utf8": [
+        47370,
+        47587
+      ],
+      "sha256": "9879e6bbc8efb0050a726f62702bc742f8fbfefb4f3fff0416747f4fef77c74a",
+      "text": "e=>({groupId:e.userId,username:e.username||null,bio:e.bio,profileImage:e.profileImage,headerImageUrl:e.headerImageUrl,memberCount:e.memberCount,followers:e.followers,following:e.following,activeCompetitionEntry:null})"
+    },
+    {
+      "label": "actual schema/projection export t",
+      "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+      "sourceSha256": "2206a668b99b3edd595bc4790dc5145d69be7ec09d4311c3278fc93f929ea874",
+      "sourceBytes": 52490,
+      "utf16": [
+        47592,
+        48079
+      ],
+      "utf8": [
+        47594,
+        48081
+      ],
+      "sha256": "c812ef744510dd9b53998db06542dc9f992e9ec8ec893eccf9d21c7e7b889c68",
+      "text": "({row:e,groupId:t})=>({groupId:t,username:e.username??null,bio:e.bio??null,profileImage:e.profile_image??null,headerImageUrl:e.header_image_url??null,memberCount:e.member_count??0,followers:e.followers??0,following:e.following??0,activeCompetitionEntry:e.active_competition_entry?{competitionId:e.active_competition_entry.competition_id,competitionSlug:e.active_competition_entry.competition_slug,entryId:e.active_competition_entry.entry_id,phase:e.active_competition_entry.phase}:null})"
+    },
+    {
+      "label": "complete reader declaration m",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        60148,
+        60288
+      ],
+      "utf8": [
+        60154,
+        60294
+      ],
+      "sha256": "293b74e6bad18dc578221d5445d9da90020fb88fcfb40125a55004ca8497d383",
+      "text": "m=async({api:e,groupId:t,signal:a})=>{let i=await e(\"GET /users/{id}\",{params:{id:t},signal:a});return(0,c.t)({row:c.Q.parse(i),groupId:t})}"
+    },
+    {
+      "label": "complete reader declaration p",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        60289,
+        60293
+      ],
+      "utf8": [
+        60295,
+        60299
+      ],
+      "sha256": "ad404d1a242fde7d8a127234ecdab257cd65008e1db66c7101d91968f6019a96",
+      "text": "p=20"
+    },
+    {
+      "label": "complete reader declaration h",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        60294,
+        60456
+      ],
+      "utf8": [
+        60300,
+        60462
+      ],
+      "sha256": "8cdde9ea028db328bec0b1180ea1de7d1b616e1260ec0da2ac2312ada998e261",
+      "text": "h=async({api:e,searchTerm:t,offset:a,limit:i=p,signal:l})=>{let r=await e(\"GET /groups/search\",{query:{searchTerm:t,limit:i,offset:a},signal:l});return(0,c.A)(r)}"
+    },
+    {
+      "label": "actual reader export N",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        64090,
+        64091
+      ],
+      "utf8": [
+        64096,
+        64097
+      ],
+      "sha256": "62c66a7a5dd70c3146618063c344e531e6d4b59e379808443ce962b3abd63c5a",
+      "text": "m"
+    },
+    {
+      "label": "actual reader export B",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        64130,
+        64131
+      ],
+      "utf8": [
+        64136,
+        64137
+      ],
+      "sha256": "aaa9402664f1a41f40ebbc52c9993eb66aeb366602958fdfaa283b71e64db123",
+      "text": "h"
+    },
+    {
+      "label": "complete used schema declaration o",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        64793,
+        64841
+      ],
+      "utf8": [
+        64799,
+        64847
+      ],
+      "sha256": "a929a99c191da0c72454070de9d559ee1531841f6eb675573a944634a624dcb2",
+      "text": "o=e=>e?.toLowerCase()===\"group\"?\"group\":\"person\""
+    },
+    {
+      "label": "complete used schema declaration s",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        64842,
+        64866
+      ],
+      "utf8": [
+        64848,
+        64872
+      ],
+      "sha256": "0197e772ad90033aaf1dad1410da3395da1a3cc017ec373fa5341f593acac527",
+      "text": "s=a.z.string().nullish()"
+    },
+    {
+      "label": "complete used schema declaration d",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        64867,
+        64932
+      ],
+      "utf8": [
+        64873,
+        64938
+      ],
+      "sha256": "2f8d97a4e972e1cf9fbc9e1b194c55a5c4feed414e608af0d3961887c846c0ed",
+      "text": "d=t.contract[\"GET /groups/search\"].response.shape.results.element"
+    },
+    {
+      "label": "complete used schema declaration c",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        64933,
+        66036
+      ],
+      "utf8": [
+        64939,
+        66042
+      ],
+      "sha256": "17feb426b0b4857419578262144d29551186fb2264cc640fb32b361620210898",
+      "text": "c=d.pick({userId:!0}).extend({username:d.shape.username.nullish(),bio:d.shape.bio.nullish(),profileImageUrl:d.shape.profileImageUrl.nullish(),headerImageUrl:d.shape.headerImageUrl.nullish(),followerCount:d.shape.followerCount.nullish(),followingCount:d.shape.followingCount.nullish(),createdAt:d.shape.createdAt.nullish(),updatedAt:d.shape.updatedAt.nullish(),walletAddress:d.shape.walletAddress.nullish(),isVerified:d.shape.isVerified.nullish(),verifiedBadgeVisible:d.shape.verifiedBadgeVisible.nullish(),resolvedAvatarDecoration:d.shape.resolvedAvatarDecoration.nullish(),memberCount:d.shape.memberCount.nullish(),kind:s}).transform(e=>({userId:e.userId,username:e.username??\"\",bio:e.bio||null,profileImage:e.profileImageUrl||null,headerImageUrl:e.headerImageUrl||null,walletAddress:e.walletAddress||null,followers:e.followerCount??0,following:e.followingCount??0,isVerified:e.isVerified??!1,verifiedBadgeVisible:!1!==e.verifiedBadgeVisible,resolvedAvatarDecoration:e.resolvedAvatarDecoration??null,kind:o(e.kind),memberCount:e.memberCount??0,createdAt:e.createdAt??null,updatedAt:e.updatedAt??null}))"
+    },
+    {
+      "label": "complete used schema declaration y",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        66658,
+        66698
+      ],
+      "utf8": [
+        66664,
+        66704
+      ],
+      "sha256": "9a9ff3bd5e48387348d976c1410f80e1f7d22b3c580121cf4ff5bfaab4a7f2eb",
+      "text": "y=t.contract[\"GET /users/{id}\"].response"
+    },
+    {
+      "label": "complete used schema declaration v",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        66699,
+        67132
+      ],
+      "utf8": [
+        66705,
+        67138
+      ],
+      "sha256": "3a169b14b462c17614cf5afc920e7ddd3815e123b869a87fdb9f178c812493e1",
+      "text": "v=y.pick({}).extend({address:y.shape.address.nullish(),userId:y.shape.userId.nullish(),username:y.shape.username.nullish(),profile_image:y.shape.profile_image.nullish(),header_image_url:y.shape.header_image_url.nullish(),member_count:y.shape.member_count.nullish(),bio:y.shape.bio.nullish(),followers:y.shape.followers.nullish(),following:y.shape.following.nullish(),kind:s,active_competition_entry:y.shape.active_competition_entry})"
+    },
+    {
+      "label": "complete used schema declaration b",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        67133,
+        67204
+      ],
+      "utf8": [
+        67139,
+        67210
+      ],
+      "sha256": "71131ab33bea95b6396472d0b178d35aa9e4209e685f7440cb8d6b70c3a57eb1",
+      "text": "b=t.contract[\"GET /groups/search\"].response.extend({results:c.array()})"
+    },
+    {
+      "label": "actual schema/projection export D",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        67966,
+        67967
+      ],
+      "utf8": [
+        67972,
+        67973
+      ],
+      "sha256": "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6",
+      "text": "c"
+    },
+    {
+      "label": "actual schema/projection export Q",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        68486,
+        68487
+      ],
+      "utf8": [
+        68492,
+        68493
+      ],
+      "sha256": "4c94485e0c21ae6c41ce1dfe7b6bfaceea5ab68e40a2476f50208e526f506080",
+      "text": "v"
+    },
+    {
+      "label": "actual schema/projection export A",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        68458,
+        68479
+      ],
+      "utf8": [
+        68464,
+        68485
+      ],
+      "sha256": "3f3e29e42d87bb64ce113ba3cc1925a4ef49b9bb8f1efc5a0d4f0755c614e253",
+      "text": "e=>b.parse(e).results"
+    },
+    {
+      "label": "actual schema/projection export h",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        67240,
+        67457
+      ],
+      "utf8": [
+        67246,
+        67463
+      ],
+      "sha256": "9879e6bbc8efb0050a726f62702bc742f8fbfefb4f3fff0416747f4fef77c74a",
+      "text": "e=>({groupId:e.userId,username:e.username||null,bio:e.bio,profileImage:e.profileImage,headerImageUrl:e.headerImageUrl,memberCount:e.memberCount,followers:e.followers,following:e.following,activeCompetitionEntry:null})"
+    },
+    {
+      "label": "actual schema/projection export t",
+      "source": "evidence/web/objects/9535b69d76e2a69b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+      "sourceSha256": "f03c2f5c0da09c40425f5db3c19e06572907b2bfe121c15bf7957aeec085b263",
+      "sourceBytes": 71261,
+      "utf16": [
+        67464,
+        67951
+      ],
+      "utf8": [
+        67470,
+        67957
+      ],
+      "sha256": "c812ef744510dd9b53998db06542dc9f992e9ec8ec893eccf9d21c7e7b889c68",
+      "text": "({row:e,groupId:t})=>({groupId:t,username:e.username??null,bio:e.bio??null,profileImage:e.profile_image??null,headerImageUrl:e.header_image_url??null,memberCount:e.member_count??0,followers:e.followers??0,following:e.following??0,activeCompetitionEntry:e.active_competition_entry?{competitionId:e.active_competition_entry.competition_id,competitionSlug:e.active_competition_entry.competition_slug,entryId:e.active_competition_entry.entry_id,phase:e.active_competition_entry.phase}:null})"
+    },
+    {
+      "label": "complete reader declaration m",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        30867,
+        31007
+      ],
+      "utf8": [
+        30871,
+        31011
+      ],
+      "sha256": "d0d3668322a9b3f6594ef5e877608d1bc92b5b3c0fd13a4451c91838ce680212",
+      "text": "m=async({api:e,groupId:t,signal:r})=>{let l=await e(\"GET /users/{id}\",{params:{id:t},signal:r});return(0,c.t)({row:c.Q.parse(l),groupId:t})}"
+    },
+    {
+      "label": "complete reader declaration f",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        31008,
+        31012
+      ],
+      "utf8": [
+        31012,
+        31016
+      ],
+      "sha256": "2b82832cb9ee4a2b8e922bb5e396c56f0be999018c0f2c0b21001a1a9836809c",
+      "text": "f=20"
+    },
+    {
+      "label": "complete reader declaration p",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        31013,
+        31175
+      ],
+      "utf8": [
+        31017,
+        31179
+      ],
+      "sha256": "4208b81e7dfaf2ae31b76f4b4ba2098a1ee1b6e0a5e45e235d57ca58bff908a0",
+      "text": "p=async({api:e,searchTerm:t,offset:r,limit:l=f,signal:a})=>{let i=await e(\"GET /groups/search\",{query:{searchTerm:t,limit:l,offset:r},signal:a});return(0,c.A)(i)}"
+    },
+    {
+      "label": "actual reader export N",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        34809,
+        34810
+      ],
+      "utf8": [
+        34813,
+        34814
+      ],
+      "sha256": "62c66a7a5dd70c3146618063c344e531e6d4b59e379808443ce962b3abd63c5a",
+      "text": "m"
+    },
+    {
+      "label": "actual reader export B",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        34849,
+        34850
+      ],
+      "utf8": [
+        34853,
+        34854
+      ],
+      "sha256": "148de9c5a7a44d19e56cd9ae1a554bf67847afb0c58f6e12fa29ac7ddfca9940",
+      "text": "p"
+    },
+    {
+      "label": "complete used schema declaration n",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        35512,
+        35560
+      ],
+      "utf8": [
+        35516,
+        35564
+      ],
+      "sha256": "4afb7c68932f0dcfc00c1e084cbf0eaa2221998317c157c5a999497c9ada315a",
+      "text": "n=e=>e?.toLowerCase()===\"group\"?\"group\":\"person\""
+    },
+    {
+      "label": "complete used schema declaration o",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        35561,
+        35585
+      ],
+      "utf8": [
+        35565,
+        35589
+      ],
+      "sha256": "e8d34cce2885f4fb56acd6a91a6d37ebc035d616e62b5639ca9bed894046039f",
+      "text": "o=r.z.string().nullish()"
+    },
+    {
+      "label": "complete used schema declaration u",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        35586,
+        35651
+      ],
+      "utf8": [
+        35590,
+        35655
+      ],
+      "sha256": "8839aaef733fd700f345e0c208e9305e41dc4b50b56cee97928602a14b4e19ee",
+      "text": "u=t.contract[\"GET /groups/search\"].response.shape.results.element"
+    },
+    {
+      "label": "complete used schema declaration c",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        35652,
+        36755
+      ],
+      "utf8": [
+        35656,
+        36759
+      ],
+      "sha256": "5ee28a978240789f721ed4ad99433770ed6ad5bc5f4b39ec7dde8d2eff076e4e",
+      "text": "c=u.pick({userId:!0}).extend({username:u.shape.username.nullish(),bio:u.shape.bio.nullish(),profileImageUrl:u.shape.profileImageUrl.nullish(),headerImageUrl:u.shape.headerImageUrl.nullish(),followerCount:u.shape.followerCount.nullish(),followingCount:u.shape.followingCount.nullish(),createdAt:u.shape.createdAt.nullish(),updatedAt:u.shape.updatedAt.nullish(),walletAddress:u.shape.walletAddress.nullish(),isVerified:u.shape.isVerified.nullish(),verifiedBadgeVisible:u.shape.verifiedBadgeVisible.nullish(),resolvedAvatarDecoration:u.shape.resolvedAvatarDecoration.nullish(),memberCount:u.shape.memberCount.nullish(),kind:o}).transform(e=>({userId:e.userId,username:e.username??\"\",bio:e.bio||null,profileImage:e.profileImageUrl||null,headerImageUrl:e.headerImageUrl||null,walletAddress:e.walletAddress||null,followers:e.followerCount??0,following:e.followingCount??0,isVerified:e.isVerified??!1,verifiedBadgeVisible:!1!==e.verifiedBadgeVisible,resolvedAvatarDecoration:e.resolvedAvatarDecoration??null,kind:n(e.kind),memberCount:e.memberCount??0,createdAt:e.createdAt??null,updatedAt:e.updatedAt??null}))"
+    },
+    {
+      "label": "complete used schema declaration x",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        37377,
+        37417
+      ],
+      "utf8": [
+        37381,
+        37421
+      ],
+      "sha256": "43bba7ece05f79c76705af6a4aa34616189a91ec742f6fc655716d97e545b791",
+      "text": "x=t.contract[\"GET /users/{id}\"].response"
+    },
+    {
+      "label": "complete used schema declaration b",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        37418,
+        37851
+      ],
+      "utf8": [
+        37422,
+        37855
+      ],
+      "sha256": "a477b97f3fd94af076be8fb50860b81e268a2ddb345c206be549ed9f1be6d853",
+      "text": "b=x.pick({}).extend({address:x.shape.address.nullish(),userId:x.shape.userId.nullish(),username:x.shape.username.nullish(),profile_image:x.shape.profile_image.nullish(),header_image_url:x.shape.header_image_url.nullish(),member_count:x.shape.member_count.nullish(),bio:x.shape.bio.nullish(),followers:x.shape.followers.nullish(),following:x.shape.following.nullish(),kind:o,active_competition_entry:x.shape.active_competition_entry})"
+    },
+    {
+      "label": "complete used schema declaration w",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        37852,
+        37923
+      ],
+      "utf8": [
+        37856,
+        37927
+      ],
+      "sha256": "7860bba16abcc5d5bf9bc0e1302afb513efadeb8474732fd333abe667ef4a3dc",
+      "text": "w=t.contract[\"GET /groups/search\"].response.extend({results:c.array()})"
+    },
+    {
+      "label": "actual schema/projection export D",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        38685,
+        38686
+      ],
+      "utf8": [
+        38689,
+        38690
+      ],
+      "sha256": "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6",
+      "text": "c"
+    },
+    {
+      "label": "actual schema/projection export Q",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        39205,
+        39206
+      ],
+      "utf8": [
+        39209,
+        39210
+      ],
+      "sha256": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+      "text": "b"
+    },
+    {
+      "label": "actual schema/projection export A",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        39177,
+        39198
+      ],
+      "utf8": [
+        39181,
+        39202
+      ],
+      "sha256": "2e2aa339a451250320089441301ff76f91464dd99380cbb44c383c3fa7b7f331",
+      "text": "e=>w.parse(e).results"
+    },
+    {
+      "label": "actual schema/projection export h",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        37959,
+        38176
+      ],
+      "utf8": [
+        37963,
+        38180
+      ],
+      "sha256": "9879e6bbc8efb0050a726f62702bc742f8fbfefb4f3fff0416747f4fef77c74a",
+      "text": "e=>({groupId:e.userId,username:e.username||null,bio:e.bio,profileImage:e.profileImage,headerImageUrl:e.headerImageUrl,memberCount:e.memberCount,followers:e.followers,following:e.following,activeCompetitionEntry:null})"
+    },
+    {
+      "label": "actual schema/projection export t",
+      "source": "evidence/web/objects/767cc801e3f88f8b.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+      "sourceSha256": "8fd66b61a591235d4e3b0509b23d067bb76e0c4ec2e8a4d5d5ff738e29808e12",
+      "sourceBytes": 41325,
+      "utf16": [
+        38183,
+        38670
+      ],
+      "utf8": [
+        38187,
+        38674
+      ],
+      "sha256": "c812ef744510dd9b53998db06542dc9f992e9ec8ec893eccf9d21c7e7b889c68",
+      "text": "({row:e,groupId:t})=>({groupId:t,username:e.username??null,bio:e.bio??null,profileImage:e.profile_image??null,headerImageUrl:e.header_image_url??null,memberCount:e.member_count??0,followers:e.followers??0,following:e.following??0,activeCompetitionEntry:e.active_competition_entry?{competitionId:e.active_competition_entry.competition_id,competitionSlug:e.active_competition_entry.competition_slug,entryId:e.active_competition_entry.entry_id,phase:e.active_competition_entry.phase}:null})"
+    },
+    {
+      "label": "complete reader declaration m",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        4319,
+        4459
+      ],
+      "utf8": [
+        4319,
+        4459
+      ],
+      "sha256": "cbfe47eb5d37193e3cfc027ff9657e89f1e06ba569f6653f29deee154e5f549c",
+      "text": "m=async({api:e,groupId:r,signal:s})=>{let a=await e(\"GET /users/{id}\",{params:{id:r},signal:s});return(0,p.t)({row:p.Q.parse(a),groupId:r})}"
+    },
+    {
+      "label": "complete reader declaration h",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        4460,
+        4464
+      ],
+      "utf8": [
+        4460,
+        4464
+      ],
+      "sha256": "30e7975d3a4a5a859bdef63c7584136ca1b42da5f4f242ee409cb32a65761213",
+      "text": "h=20"
+    },
+    {
+      "label": "complete reader declaration c",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        4465,
+        4627
+      ],
+      "utf8": [
+        4465,
+        4627
+      ],
+      "sha256": "216648a9c5f234af2fa9dc5a2515bab70eb16967853ed65571333af63b35c9e3",
+      "text": "c=async({api:e,searchTerm:r,offset:s,limit:a=h,signal:t})=>{let i=await e(\"GET /groups/search\",{query:{searchTerm:r,limit:a,offset:s},signal:t});return(0,p.A)(i)}"
+    },
+    {
+      "label": "actual reader export N",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        8261,
+        8262
+      ],
+      "utf8": [
+        8261,
+        8262
+      ],
+      "sha256": "62c66a7a5dd70c3146618063c344e531e6d4b59e379808443ce962b3abd63c5a",
+      "text": "m"
+    },
+    {
+      "label": "actual reader export B",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        8301,
+        8302
+      ],
+      "utf8": [
+        8301,
+        8302
+      ],
+      "sha256": "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6",
+      "text": "c"
+    },
+    {
+      "label": "complete used schema declaration n",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        8964,
+        9012
+      ],
+      "utf8": [
+        8964,
+        9012
+      ],
+      "sha256": "4afb7c68932f0dcfc00c1e084cbf0eaa2221998317c157c5a999497c9ada315a",
+      "text": "n=e=>e?.toLowerCase()===\"group\"?\"group\":\"person\""
+    },
+    {
+      "label": "complete used schema declaration o",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        9013,
+        9037
+      ],
+      "utf8": [
+        9013,
+        9037
+      ],
+      "sha256": "c6e142f707ca2680ac9c3e693f92fb9d51cf95d7d17f6d28c937360bad472a56",
+      "text": "o=s.z.string().nullish()"
+    },
+    {
+      "label": "complete used schema declaration u",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        9038,
+        9103
+      ],
+      "utf8": [
+        9038,
+        9103
+      ],
+      "sha256": "8efaf7db613c3ddd406b967d04c053d2cbd1cc8702ea0c3852a06ab19e6e1a7f",
+      "text": "u=r.contract[\"GET /groups/search\"].response.shape.results.element"
+    },
+    {
+      "label": "complete used schema declaration p",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        9104,
+        10207
+      ],
+      "utf8": [
+        9104,
+        10207
+      ],
+      "sha256": "8080ab25ff3a5a4593b6c3cb3a6142282da1d21d0f044baf5f35b96d92756e1b",
+      "text": "p=u.pick({userId:!0}).extend({username:u.shape.username.nullish(),bio:u.shape.bio.nullish(),profileImageUrl:u.shape.profileImageUrl.nullish(),headerImageUrl:u.shape.headerImageUrl.nullish(),followerCount:u.shape.followerCount.nullish(),followingCount:u.shape.followingCount.nullish(),createdAt:u.shape.createdAt.nullish(),updatedAt:u.shape.updatedAt.nullish(),walletAddress:u.shape.walletAddress.nullish(),isVerified:u.shape.isVerified.nullish(),verifiedBadgeVisible:u.shape.verifiedBadgeVisible.nullish(),resolvedAvatarDecoration:u.shape.resolvedAvatarDecoration.nullish(),memberCount:u.shape.memberCount.nullish(),kind:o}).transform(e=>({userId:e.userId,username:e.username??\"\",bio:e.bio||null,profileImage:e.profileImageUrl||null,headerImageUrl:e.headerImageUrl||null,walletAddress:e.walletAddress||null,followers:e.followerCount??0,following:e.followingCount??0,isVerified:e.isVerified??!1,verifiedBadgeVisible:!1!==e.verifiedBadgeVisible,resolvedAvatarDecoration:e.resolvedAvatarDecoration??null,kind:n(e.kind),memberCount:e.memberCount??0,createdAt:e.createdAt??null,updatedAt:e.updatedAt??null}))"
+    },
+    {
+      "label": "complete used schema declaration b",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        10829,
+        10869
+      ],
+      "utf8": [
+        10829,
+        10869
+      ],
+      "sha256": "b7c6c7b5f5a197ea427fd34f0ba4e3317bab98a501b288b067fba9225797b03d",
+      "text": "b=r.contract[\"GET /users/{id}\"].response"
+    },
+    {
+      "label": "complete used schema declaration y",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        10870,
+        11303
+      ],
+      "utf8": [
+        10870,
+        11303
+      ],
+      "sha256": "ebd1adc43abb42eba483e22255f7774e303971af6fee2f90963b96d1375e8194",
+      "text": "y=b.pick({}).extend({address:b.shape.address.nullish(),userId:b.shape.userId.nullish(),username:b.shape.username.nullish(),profile_image:b.shape.profile_image.nullish(),header_image_url:b.shape.header_image_url.nullish(),member_count:b.shape.member_count.nullish(),bio:b.shape.bio.nullish(),followers:b.shape.followers.nullish(),following:b.shape.following.nullish(),kind:o,active_competition_entry:b.shape.active_competition_entry})"
+    },
+    {
+      "label": "complete used schema declaration I",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        11304,
+        11375
+      ],
+      "utf8": [
+        11304,
+        11375
+      ],
+      "sha256": "3ed51c78c56bc172eb9e6289b94b452ed8e01d6adf95c7f698de9ec7f0f2c9e1",
+      "text": "I=r.contract[\"GET /groups/search\"].response.extend({results:p.array()})"
+    },
+    {
+      "label": "actual schema/projection export D",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        12137,
+        12138
+      ],
+      "utf8": [
+        12137,
+        12138
+      ],
+      "sha256": "148de9c5a7a44d19e56cd9ae1a554bf67847afb0c58f6e12fa29ac7ddfca9940",
+      "text": "p"
+    },
+    {
+      "label": "actual schema/projection export Q",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        12657,
+        12658
+      ],
+      "utf8": [
+        12657,
+        12658
+      ],
+      "sha256": "a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa",
+      "text": "y"
+    },
+    {
+      "label": "actual schema/projection export A",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        12629,
+        12650
+      ],
+      "utf8": [
+        12629,
+        12650
+      ],
+      "sha256": "5db24ade6f4066cd21260fadda3722b965decfab8e1e969c39f6b4cc7888ceb4",
+      "text": "e=>I.parse(e).results"
+    },
+    {
+      "label": "actual schema/projection export h",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        11411,
+        11628
+      ],
+      "utf8": [
+        11411,
+        11628
+      ],
+      "sha256": "9879e6bbc8efb0050a726f62702bc742f8fbfefb4f3fff0416747f4fef77c74a",
+      "text": "e=>({groupId:e.userId,username:e.username||null,bio:e.bio,profileImage:e.profileImage,headerImageUrl:e.headerImageUrl,memberCount:e.memberCount,followers:e.followers,following:e.following,activeCompetitionEntry:null})"
+    },
+    {
+      "label": "actual schema/projection export t",
+      "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+      "sourceSha256": "e4f06f2e51d8b6aa03289b482d9710a3b6266556b19f0b16ad1a5850a535c8ff",
+      "sourceBytes": 12910,
+      "utf16": [
+        11635,
+        12122
+      ],
+      "utf8": [
+        11635,
+        12122
+      ],
+      "sha256": "a7ebb7fd4c344a926ed8b405549eea085fb8865b02e820919d03c43b697aabc8",
+      "text": "({row:e,groupId:r})=>({groupId:r,username:e.username??null,bio:e.bio??null,profileImage:e.profile_image??null,headerImageUrl:e.header_image_url??null,memberCount:e.member_count??0,followers:e.followers??0,following:e.following??0,activeCompetitionEntry:e.active_competition_entry?{competitionId:e.active_competition_entry.competition_id,competitionSlug:e.active_competition_entry.competition_slug,entryId:e.active_competition_entry.entry_id,phase:e.active_competition_entry.phase}:null})"
+    },
+    {
+      "label": "actual MAIN/RecentTerms group reader call",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        20245,
+        20281
+      ],
+      "utf8": [
+        20245,
+        20281
+      ],
+      "sha256": "ae52a5f9bc980c9e4d7de03d2217dd8daf5bace392683a2c0d21c58cae47fd1b",
+      "text": "(0,eB.N)({api:l,groupId:e,signal:r})"
+    },
+    {
+      "label": "actual MAIN/RecentTerms group reader call",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        43196,
+        43252
+      ],
+      "utf8": [
+        43196,
+        43252
+      ],
+      "sha256": "afee7d19ab5cfa37d479b4eee24f19282c30a2fdb56fc60e5f13fd4f5afe2586",
+      "text": "(0,eB.B)({api:f,searchTerm:g,offset:t,limit:h,signal:r})"
+    },
+    {
+      "label": "actual shared row projection namespace",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        12197,
+        12211
+      ],
+      "utf8": [
+        12197,
+        12211
+      ],
+      "sha256": "f88d37e5dae1b83d4d376b3393b9d803898e3b6e8bfd18c8880b4443e70933fc",
+      "text": "eo=e.i(760447)"
+    },
+    {
+      "label": "actual MAIN/SearchRows group projection handoff",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        13882,
+        13893
+      ],
+      "utf8": [
+        13882,
+        13893
+      ],
+      "sha256": "1ef697337100f1b0a194c5addf24277b4dd7de2fd0710d32fd491f80b8c33309",
+      "text": "(0,eo.h)(e)"
+    },
+    {
+      "label": "actual MAIN/SearchRows group projection handoff",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        43306,
+        43317
+      ],
+      "utf8": [
+        43306,
+        43317
+      ],
+      "sha256": "1ef697337100f1b0a194c5addf24277b4dd7de2fd0710d32fd491f80b8c33309",
+      "text": "(0,eo.h)(e)"
+    },
+    {
+      "label": "actual MAIN/SearchRows group projection handoff",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        50045,
+        50056
+      ],
+      "utf8": [
+        50045,
+        50056
+      ],
+      "sha256": "1ef697337100f1b0a194c5addf24277b4dd7de2fd0710d32fd491f80b8c33309",
+      "text": "(0,eo.h)(e)"
+    }
+  ],
+  "comparison": "Each emitted selected declaration/export value compares complete strict AST with its own physical source context; only parser positions/comments/raw spelling ignored. No alpha/type/operation/branch mask, capture execution or variant winner.",
+  "ports": {
+    "context": "Required exact captured object source path; no numeric-id winner/default",
+    "z": "Required existing schema runtime namespace with original string/nullish constructor API; runtime acquisition/equivalence unqualified",
+    "contract": "Required actual GET /groups/search and GET /users/{id} response-schema objects; captured shape/pick/extend/transform/parse operations retained. Schema/provider acquisition and original full runtime unknown, not reconstructed here",
+    "api": "Each reader requires source exact async function(operation,options) argument; client/origin/transport/auth/session acquisition/enforcement external. No credentials defaults added"
+  },
+  "credits": {
+    "controller": "OPEN1925 actual MAINgroup query/pagination/key/abort lifecycle remains unchanged; this unit closes its required Breader and used parse/projection only",
+    "recent": "OPEN1962 group query/visibility lifecycle remains unchanged, Nreader path closed without copying parent frames",
+    "rows": "OPEN1937 actual760447.h row projection now supplied by this source model; row renderers unchanged/not copied; no hidden unmerged import",
+    "framework": "Existing shared physical-source authentication/free-binding proof reused unchanged; no graph identity/inventory or shared schema/parser modifications",
+    "responseSchema": "Existing API declaration/schema evidence credited. Required response/runtime ports preserve constructor semantics, not original schema runtime or full endpoint compatibility"
+  },
+  "limits": [
+    "Only560328.N/B and760447 used D/Q/A/h/t closure; grouped mutations/member/PnL/roles/account operations excluded/unexecuted",
+    "No actual group/account/config/session/credential/cookie/storage acquisition, service request or client/auth/origin inference",
+    "No query scheduler/keys/page/abort lifecycle is implemented; source input signal forwarded unchanged; query policy stays credited1925/1962port",
+    "No backend/ranking/accounting/native/API/product/UI/visual/security/feature-completion or combinedruntime claim",
+    "Finite supplied schemas/runtime and loopback API demonstrate bound constructor/parse/projection/read flow only; no original Zod error/whole response-schema/service fidelity inference"
+  ]
+}
