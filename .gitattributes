@@ -1576,3 +1576,6 @@ scripts/bytecode_signatures.py -text
 programs/mayhem/** -text
 research/mayhem-linker-locators-20261028/** -text
 research/all-contract-completion-20261028/mayhem-proposal/source/build_exact.py -text
+
+# Frozen root tools are hashed as raw bytes by saved evidence gates.
+scripts/*.py -text
