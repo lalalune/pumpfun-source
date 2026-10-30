@@ -29,16 +29,24 @@ def pin_lines(tree):
     return lines
 
 
-def subprocess_lines(tree):
-    return [
-        node.lineno
-        for node in ast.walk(tree)
-        if isinstance(node, ast.Call)
-        and isinstance(node.func, ast.Attribute)
-        and isinstance(node.func.value, ast.Name)
-        and node.func.value.id == "subprocess"
-        and node.func.attr == "run"
-    ]
+def launch_calls(tree):
+    """Calls that start a suite: subprocess.run or the bounded compiler runner.
+
+    pump_validate_parallel.py launches through build_process.run_compiler so the
+    suite gets an explicit process-group deadline; the other aggregates call
+    subprocess.run directly. Both are suite launches for this check.
+    """
+    calls = []
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call):
+            continue
+        func = node.func
+        if isinstance(func, ast.Attribute) and isinstance(func.value, ast.Name):
+            if func.value.id == "subprocess" and func.attr == "run":
+                calls.append(node)
+        elif isinstance(func, ast.Name) and func.id == "run_compiler":
+            calls.append(node)
+    return calls
 
 
 class AggregatePinnedImageTests(unittest.TestCase):
@@ -55,9 +63,9 @@ class AggregatePinnedImageTests(unittest.TestCase):
                 self.assertTrue(imported, "pin_program is not imported")
 
                 pins = pin_lines(tree)
-                launches = subprocess_lines(tree)
+                launches = [node.lineno for node in launch_calls(tree)]
                 self.assertTrue(pins, "candidate is not pinned")
-                self.assertTrue(launches, "subprocess suite launch was not found")
+                self.assertTrue(launches, "suite launch was not found")
                 self.assertLess(min(pins), min(launches))
 
     def test_suite_commands_do_not_reuse_the_live_cli_argument(self):
@@ -65,15 +73,7 @@ class AggregatePinnedImageTests(unittest.TestCase):
             with self.subTest(script=script.name):
                 tree = parse(script)
                 violations = []
-                for node in ast.walk(tree):
-                    if not (
-                        isinstance(node, ast.Call)
-                        and isinstance(node.func, ast.Attribute)
-                        and isinstance(node.func.value, ast.Name)
-                        and node.func.value.id == "subprocess"
-                        and node.func.attr == "run"
-                    ):
-                        continue
+                for node in launch_calls(tree):
                     for child in ast.walk(node):
                         if (
                             isinstance(child, ast.Attribute)

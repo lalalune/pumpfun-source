@@ -256,7 +256,7 @@ def hybrid_ok():
     host = rust / 'lib/rustlib/aarch64-apple-darwin'
     if not host.is_symlink() or host.resolve() != (SDK / 'rust/lib/rustlib/aarch64-apple-darwin').resolve():
         return False
-    return not check_linux_libs(root)
+    return not check_linux_libs(HYBRID)
 
 
 def publish_dependency_cache(source, template):

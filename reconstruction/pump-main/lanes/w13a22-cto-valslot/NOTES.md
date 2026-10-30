@@ -75,3 +75,21 @@ inside validate after `t` (an inlined alloca created later than `t`), or a `tb` 
 - `edits/`: the source edits (`capvar.sh` format, w13a01).
 
 Ledger keys: `0x22a10-w13-62eb841-valslot-*`, `0x22a10-w13-1043a51-valslot-*`.
+
+## After landing (#2989, main 6af878b, 0.53895 / 3,223 slots)
+
+| trial | form | ratio | bytes |
+| --- | --- | ---: | ---: |
+| s1 / s2 | `sk` dropped: validate gets `a.sharing_config.key` (s1) or copies `let sk=*sharing;` after `t` (s2) | 0.36325 | 27,288 |
+| p1 / p2 | validate's prefix checks (284/289/296) split into `fn precheck` called before `tb` / at the state block start, to start `tb`'s lifetime after them | 0.10971 | 9,008 |
+
+- s1/s2: the `sk` copy is forwarded and memcmp reads the account key directly (-112 B). The original keeps an execute
+  copy `sk`.
+- p1/p2: `sweep` stops being inlined (inline cost shift). Execute collapses.
+- Single-move oracle on the landed source (792 moves): the best is `mv:buf.i18.i:st` / `mv:_35.i:<top>` 0.54044 (+0.0015),
+  the name/to_string sret temps of one validate error site, which is w13a06-rpoorder's sret-slot territory.
+  `buf.i25.i`/`_25.i` (error 83) give +0.0003. No execute-level move gains.
+- `tb` what-ifs on the landed IR: lifetime.start at the copy 0.54973 (+0.0108) is the remaining value of this lever.
+  Any execute-level declaration starts the lifetime before validate's prefix (inlined mayhem/holder checks), so a
+  source form needs `t` to stay validate-local while `sk` gets a lower frame index than `t.i`. Both obvious ways to do
+  that (s1/s2, p1/p2) break other things.
