@@ -218,6 +218,12 @@ interface RankedEntry extends RawEntry {
   rank: number;
 }
 
+// Profile hydration and highlight tie ordering consume these as account keys.
+// Unknown string keys remain supported; no UUID format or profile existence is inferred.
+function accountId(value: unknown, field: string): void {
+  if (typeof value !== 'string') throw new TypeError(`Competition ${field} must be a string`);
+}
+
 export class CompetitionStore {
   private competitions: RawCompetition[];
   private byId: Map<string, RawCompetition>;
@@ -246,6 +252,7 @@ export class CompetitionStore {
     // the leaderboard store does for its board measures.
     for (const comp of this.competitions) {
       for (const entry of comp.entries) {
+        accountId(entry.participantId, 'participantId');
         for (const key of ['pnlUsd', 'realizedPnlUsd', 'unrealizedPnlUsd',
           'buySpendSol', 'membersFresh', 'lastRefreshedAtMs'] as const) {
           if (!Number.isFinite(entry[key])) throw new TypeError(`Competition entry ${key} must be finite`);
@@ -256,6 +263,7 @@ export class CompetitionStore {
         // getEntryHighlights, so a nonfinite nested measure corrupts those
         // orderings and serializes to null exactly like a top-level one.
         for (const member of entry.members ?? []) {
+          accountId(member.userId, 'member.userId');
           for (const key of ['pnlUsd', 'realizedPnlUsd', 'unrealizedPnlUsd',
             'buySpendSol', 'lastRefreshedAtMs'] as const) {
             if (!Number.isFinite(member[key])) throw new TypeError(`Competition entry member ${key} must be finite`);
@@ -267,6 +275,7 @@ export class CompetitionStore {
             if (!Number.isFinite(token[key])) throw new TypeError(`Competition highlight token ${key} must be finite`);
           }
           for (const member of token.members ?? []) {
+            accountId(member.userId, 'highlight member.userId');
             for (const key of ['pnlUsd', 'realizedPnlUsd', 'unrealizedPnlUsd',
               'buySpendUsd'] as const) {
               if (!Number.isFinite(member[key])) throw new TypeError(`Competition highlight member ${key} must be finite`);
