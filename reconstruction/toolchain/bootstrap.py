@@ -67,8 +67,16 @@ def check_sdk(mode):
     # The hybrid toolchain links the SDK host rustlib directory. An unlisted
     # file there can therefore become a compiler input despite every listed
     # digest matching. Treat the inventory as an exact file/symlink set.
-    actual = {path.relative_to(SDK).as_posix() for path in SDK.rglob('*')
-              if path.is_file() or path.is_symlink()}
+    actual = set()
+    def scan_error(error):
+        problems.append(f'SDK traversal: {error}')
+    for directory, directories, files in os.walk(SDK, onerror=scan_error, followlinks=False):
+        base = Path(directory)
+        actual.update((base / name).relative_to(SDK).as_posix() for name in files)
+        # os.walk lists symlinked directories separately and never descends into
+        # them with followlinks=False; they are still inventoried inputs.
+        actual.update((base / name).relative_to(SDK).as_posix() for name in directories
+                      if (base / name).is_symlink())
     problems.extend(f'unexpected SDK input: {rel}' for rel in sorted(actual - inventory.keys()))
     return len(inventory), problems
 
