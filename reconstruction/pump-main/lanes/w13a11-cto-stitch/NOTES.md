@@ -142,3 +142,38 @@ genuine dependency CPIs. This is bounded runtime evidence, not all-input proof.
 Source inventory: `e3c9b449d89df914be23f8ba7f42027ae27a6f25e1b6fa25f938f0bc1dae6275`.
 Unstripped ELF: `620d90b0b2e33a2f422cbb6755437804dc3a30d9a125f2e298d39cd3da9ca9fc`.
 Runtime ELF: `1559324ef78658e3d6130754196ebbc17ec77df89d868c7b5b669c1f7b159666`.
+
+## Screens on later mains (bytes / ratio; every row a ledger entry, approach `stitch-composite`)
+
+Size knobs on the entry-copy family are scarce: almost every +B gene costs 0.002-0.1. Per main:
+
+| main (ratio) | gene(s) | bytes | ratio | note |
+| --- | --- | ---: | ---: | --- |
+| 74b31714a (0.51348) | hrb (pool CPI holder from the curve, w13a08) | 27,368 | 0.51469 | landed later by w13a08 with `sk` companion |
+| 74b31714a | skip-tree tuple permutations scu/suc/usc | 27,392 | 0.3865 | collapse on this main (w13a08 saw +0.009 on 8f050a2) |
+| 74b31714a | tuple order cus | 27,384 | 0.51364 | |
+| 74b31714a | `old_fee` read with `old_creator` (= #2947) | 27,400 | 0.51378 | |
+| 74b31714a | hrb + {cb local, sof, fee iflet, ata rev, 296 rev, hk first, can_edit moves, ob} | 27,352-27,392 | 0.42-0.5144 | no +32 companion found |
+| 74b31714a | `ok_or_else` at 306 | 27,304 | 0.5018 | -96 B knob, costs 0.012 |
+| 2f268ad0a (0.51857) | cus + sof + `if let` fee | 27,400 | 0.52037 | superseded by #2903 |
+| 2f268ad0a | reset + sof | 27,392 | 0.52045 | |
+| 62eb841cb (0.52277) | `shared` as `owner==FEES&&creator==key&&!empty` (sof3) | 27,392 | 0.52375 | |
+| 62eb841cb | sof3 + reset | 27,384 | 0.52382 | |
+| 62eb841cb | `if`-expr `shared` with owner first (sof) | 27,408 | 0.49004 | conflict |
+
+## Composite 6 (this PR, on main 1043a51e8, 0.53206)
+
+| variant on main 1043a51e8 | bytes | ratio |
+| --- | ---: | ---: |
+| main | 27,400 | 0.53206 |
+| sof3: `let shared=a.sharing_config.owner==&FEES&&a.bonding_curve.creator==a.sharing_config.key()&&!a.sharing_config.data_is_empty();` | 27,392 | 0.53303 |
+| sof3 + reset (`let reset=sharing_update.is_some();` before the pool seeds) | 27,384 | 0.53311 |
+| **sof3 + reset + validate fee check as `if let Some(f)=fee` (this PR)** | **27,400** | **0.53295** |
+| sof3 + cus tuple order + `if let` fee | 27,392 | 0.53243 |
+| sof3 + event cashback local | 27,400 | 0.53056 |
+| cus + `if let` fee | 27,400 | 0.53206 |
+
+Composite 6: 27,400 B / **0.53295** / slots 3,322, 1034/1034, zero losses against 1043a51e8, differential 363/363,
+unstripped sha256 `0b96a42461c1cf51...`. sof3 tests the sharing-config owner first, as a plain `&&` chain (the
+original's owner test precedes the key compare); the `if let` fee form and the `reset` local are the -8/+16 size
+companions.
