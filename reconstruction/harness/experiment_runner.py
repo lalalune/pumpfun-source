@@ -25,7 +25,7 @@ def stage_ignore(source):
 
     def ignore(directory, names):
         ignored = [name for name in names if name in ALWAYS_IGNORED]
-        if Path(directory) == source and 'target' in names:
+        if Path(directory) == source and 'target' in names and (source / 'target').is_dir():
             ignored.append('target')
         return ignored
 
