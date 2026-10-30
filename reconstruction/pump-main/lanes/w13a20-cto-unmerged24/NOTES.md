@@ -11,6 +11,11 @@ Ledger keys: `0x22a10-w13-2f268ad-unmerged24-*`, `0x22a10-w13-1043a51-unmerged24
 | --- | ---: | ---: | ---: | --- | --- |
 | 2f268ad (build bdd08bcf) | 0.51857 / 3,327 | **0.53745** / 3,327 | 27,400 | 1034 / 1034 | none |
 | 1043a51 (build 4b0db198) | 0.53206 / 3,324 | **0.55183** / 3,324 | 27,400 | 1034 / 1034 | none |
+| 6af878b (#2989 merged; build 4b0db198, same bytes) | 0.53895 / 3,223 | **0.55183** / 3,324 | 27,400 | 1034 / 1034 | none |
+
+#2989 (w13a22-cto-valslot) attacks the same StackColoring tie from the other side (validate's `t` written into an
+execute-owned `tb` scratch, 0.53895). With both forms the function shrinks 8 B (27,392 B, 0.49738), so the merge keeps
+the 33 B `sk` and drops `tb`: same bytes as on 1043a51, +0.01288 over 6af878b.
 
 Runtime differential: 363 cases, 0 mismatches.
 
