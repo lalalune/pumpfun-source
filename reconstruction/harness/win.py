@@ -102,8 +102,11 @@ def best_candidates(w, cand, top=3):
     scored.sort(reverse=True)
     res = []
     orig_tok = [x[2] for x in insns(w['raw'], w['start'], ORIG_SECS)]
-    # Keep the usual eight-way shortlist, but do not silently cap --top N.
-    for j, s, n, name in scored[:max(8, top)]:
+    # One- and two-instruction windows have no opcode 3-grams. Their coarse
+    # scores all tie at zero, so an address-ordered shortlist can exclude even
+    # an exact match. These small bodies are cheap to compare exhaustively.
+    shortlist = scored[:max(8, top)] if og else scored
+    for j, s, n, name in shortlist:
         ct = cand.tokens(s, n)
         res.append((difflib.SequenceMatcher(None, orig_tok, ct, autojunk=False).ratio(), j, s, n, name))
     res.sort(reverse=True)
