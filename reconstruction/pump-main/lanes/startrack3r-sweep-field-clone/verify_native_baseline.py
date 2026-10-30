@@ -135,7 +135,7 @@ def main():
                    'native_workspace': np['workspace'], 'local_workspace': lr['workspace']},
         'comparison': comparisons, 'raw_discrepancies': discrepancies, 'native_inputs': receipts,
         'scope': 'Native scores and image hashes are attributed to PR1669, not independently replayed native evidence. Local compiler images are freshly rescored across all 1035 windows. Source equality does not isolate host, dependencies, Cargo identity, flags or toolchain. Local composition gains do not qualify native no-loss or whole-image identity.'}
-    (args.work / 'verification.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
+    (args.work / 'verification.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8', newline='\n')
     print(json.dumps({'result': 'PASS', 'comparison': comparisons, 'equal_rust_sources': len(rust),
                       'native_elf_replayed': False}, indent=2))
 
