@@ -1,0 +1,48 @@
+{
+  "lane": "w12b07-hop-gepsib",
+  "wave": 12,
+  "angle": "sibling-idiom route for the swap_hop complete_fill &Global GEP residual",
+  "base": "main 20a1ae9c0 (baseline unstripped sha 8cd7695c3fc638fc)",
+  "status": "goal reached independently; not landed (PR #2780 closed as superseded by #2766, which landed the same result first with a different spelling)",
+  "targets": {
+    "0x5b3b0": {
+      "function": "multi_hop_curve::swap_hop",
+      "file": "programs/pump/src/multi_hop_curve_swap.rs",
+      "before": {"ratio": 0.99913, "slots_diff": 18, "bytes": 18584, "normalized_equal": false, "raw_equal": false},
+      "after": {"ratio": 1.0, "slots_diff": 0, "bytes": 18584, "normalized_equal": true, "raw_equal": true}
+    }
+  },
+  "program": {
+    "before": {"normalized": 1033, "raw": 1033, "total": 1035},
+    "after": {"normalized": 1034, "raw": 1034, "total": 1035, "losses": [], "raw_losses": [], "gains": ["0x5b3b0"], "raw_gains": ["0x5b3b0"]},
+    "unstripped_sha256": "cbd9bf08d09967f71921acaf2b89ad576abd96654a192834a268cd1e18f59269",
+    "measured_with": "w11/tools/measure.sh against baseline 20a1ae9c0"
+  },
+  "pr": 2780,
+  "pr_state": "closed (superseded by #2766, merged as 0b5fc0d5d)",
+  "landed": false,
+  "branch": "swarm/w12b07-hop-gepsib (alternative spelling, commit 5012f00c1)",
+  "change": "line-599 whitelist test spelled as a plain local helper whitelist_ok(global:&Global,user:&Pubkey,curve:&Account<BondingCurve>)->bool called whitelist_ok(&a.global,&a.user.key(),c); the helper replaces one blank layout-pad line next to pool_before",
+  "mechanism": [
+    "IR oracle: defining the complete_fill &Global GEP (gep box,8) in the over-reserves block bb57 or the memcmp block bb58 of main's post-opt IR gives 1.0/0 slots; MachineSink sinks it to the top of the complete_fill block",
+    "A typed &Global binding is byte-identical: the &Global -> &Global coercion inserts a reborrow that MIR ReferencePropagation rewrites to re-derive (*box).account at the call, so the binding is dead",
+    "A GEP left in bb58 is sunk by InstCombine because bb64's unique predecessor is bb58; a GEP in bb57 is not",
+    "rustc 1.79: a local non-generic fn whose MIR contains a call (raw_eq counts) is not cross-crate-inlinable, so the MIR inliner keeps the helper call; the &a.global -> &Global coercion is a real call argument in bb57, LLVM inlines the helper and CSEs complete_fill's gep into it",
+    "Sibling evidence (byte-matched): trade::v3_trade_fees (+0x80120), create_v2::execute (+0x21e60, global_quote then walk), trade::v3_execute_buy (+0x84068) show the same block-top reload; add64 r,8"
+  ],
+  "attempts": [
+    {"key": "0x5b3b0-w12-20a1ae9-oracle-gep-def-overreserves-bb57-v1", "status": "analyzed", "result": "llc oracle: GEP in bb57 or bb58 -> 1.0/0 slots"},
+    {"key": "0x5b3b0-w12-20a1ae9-whitelist-ok-helper-takes-Global-v1", "status": "raw-match", "result": "swap_hop 1.0/0 normalized and raw equal; 1034/1034, zero losses"}
+  ],
+  "rejected_mechanisms": [
+    "typed &Global binding passed to complete_fill (dropped before measuring; already byte-identical per w12b04-hop-errload and w12b08-hop-whitelist)"
+  ],
+  "unresolved_residuals": {
+    "0x5b3b0": "none: normalized and raw match on main since #2766",
+    "0x22a10": "admin_cto::execute, outside this lane's target"
+  },
+  "next_ideas": [
+    "admin_cto: where the original materializes an address or GEP in an earlier block than its use, route it through a plain local helper that takes the reference. Such a helper is not MIR-inlined, so the reference is built at the call site and survives ReferencePropagation, and LLVM still inlines the helper",
+    "Placement rule: InstCombine sinks a value whose only users sit in the unique-predecessor successor block; if the users are two or more blocks down it stays, and MachineSink places it at the top of the use block"
+  ]
+}
