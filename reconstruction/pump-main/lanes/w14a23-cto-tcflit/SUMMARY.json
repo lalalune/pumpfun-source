@@ -1,0 +1,56 @@
+{
+ "lane": "w14a23-cto-tcflit",
+ "target": "0x22a10 admin_cto::execute",
+ "pinned_bytes": 27400,
+ "landed": [
+  {
+   "pr": 3272,
+   "merge_commit": "3f02a925e",
+   "change": "TCF pump_creator_vault_ata explicit AccountInfo literal key,rent_epoch,lamports,is_signer,data,owner,is_writable,executable (reproduces #3260, credit KutluhanETH)",
+   "before": 0.63661,
+   "after": 0.63871,
+   "slots": 3173,
+   "unstripped_sha16": "12e4d8aed9ef0b56"
+  },
+  {
+   "pr": 3308,
+   "merge_commit": "4233bd9e6",
+   "change": "TCF CpiContext pump_amm clone literal flags reversed: key,owner,lamports,data,rent_epoch,executable,is_writable,is_signer (pscan MODE=pp)",
+   "before": 0.64709,
+   "after": 0.64979,
+   "slots": 3170,
+   "unstripped_sha16": "a4d90a7ab8c06e82"
+  }
+ ],
+ "best": {
+  "ratio": 0.64979,
+  "slots_diff": 3170,
+  "bytes": 27400,
+  "main": "4233bd9e6"
+ },
+ "attempts": {
+  "raw_ir_capture": 200,
+  "llc_oracle": "~24,000 (pp, place, pp-at-alt-placement, pairs, perm)",
+  "measure_builds": 2
+ },
+ "rejected": [
+  "s1: 10 plain TCF accounts x 8 literal orders + direct a.X.f forms (7e6aa9c): none above main; inline AccountInfo fields (coin_creator, pump_creator_vault) lose 0.03-0.06 as literals",
+  "s2: 49 single-field moves of the #3260 vault ATA order: local optimum",
+  "s3: hoisted let hp:&AccountInfo + hp.clone(): no gain",
+  "s4: pairs of near-main literal singles: additive losses",
+  "s5: non-canonical after-data read orders for 7 plain accounts: none above main",
+  "pp/place/pp-at-alt-placement over all 11 TCF clones on 4233bd9 and faf9962: converged",
+  "cross-clone pair oracle (880 runs) on 81d3d9a: ties only",
+  "perm (all reads at P0/P2) for both pump_amm clones: below main",
+  "let x=&*a.X bindings for the 4 hand literals: equal ratio"
+ ],
+ "unresolved_residuals": [
+  "original spills the accounts pointer and reloads it from [r10-0x8d8] inside the TCF run (orig 0x3128, 0x3220); ours keeps it in r8: RA pressure, no clone literal reaches it",
+  "inline AccountInfo clones (accounts+0xa8, +0xd8) keep the inlined Clone's alias-scope metadata; literal forms lose it"
+ ],
+ "next_ideas": [
+  "same pp/place oracle on the sharing CPI clones after each landing (shareauthport owns it)",
+  "extend pscan to inline AccountInfo fields only if a source form that keeps Clone's noalias scopes but changes read order exists (none found)",
+  "region-level RA changes that raise TCF register pressure so the accounts pointer spills as in the original"
+ ]
+}

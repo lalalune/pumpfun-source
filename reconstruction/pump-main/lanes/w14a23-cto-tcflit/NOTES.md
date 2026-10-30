@@ -67,3 +67,30 @@ Source-confirmed with the raw-IR capture on 06967d3 (0.64649 -> 0.64919). On e87
 field of every AccountInfo clone. On the original, every TCF clone has the natural block map `K||EWSRO`; the last
 program clone is `K||SWERO`. The gaining literals move away from this map, so the block map does not predict gains.
 The lever is the register and schedule side effect, and the pscan llc oracle predicts that well.
+
+## Part 3 (branch -3, mains 4233bd9 -> faf9962): the TCF clone space has converged under the llc oracle
+
+All runs are post-opt `llc` oracles on fresh raw-IR captures of main (`rx/m*/mn.ll`, after `opt -passes=instnamer`).
+Every baseline reproduces main exactly (`eq_main`).
+
+| scan | main | runs | best at 27,400 | result |
+| --- | --- | ---: | --- | --- |
+| pp (in-position orders at current placement), all 11 TCF clones | 4233bd9 (0.64979) | 1,140 | 0.64979 = main | converged |
+| place (729 placements, current relative order), all 11 clones | 4233bd9 | 8,019 | main placement best for every clone | converged |
+| pp at the 3 next-best placements of every clone (`tools/pplace.sh`) | 4233bd9 | 2,045 | 0.64979 (ties) | none |
+| cross-clone pairs of each clone's top-4 non-main configs (`tools/pairs.sh`, `pscan2.py` DUMP mode) | 81d3d9a (0.65069) | 880 | 0.65069 (ties) | none |
+| perm (all 720 orders at one position) first/last pump_amm, P0 and P2 | 81d3d9a | 2,880 | 0.65039 | below main; most change size |
+| `let x=&*a.X` instead of `let x:&AccountInfo=a.X.as_ref()` (4 hand literals, raw-IR capture) | 81d3d9a | 4 | 0.65069 | equal |
+
+Notes:
+- The inline `AccountInfo` fields (`coin_creator` = accounts+0xa8, `pump_creator_vault` = accounts+0xd8) are cloned through
+  the inlined `<AccountInfo as Clone>::clone`. Their field loads carry that call's `alias.scope`/`noalias` metadata.
+  An explicit literal drops the metadata, and every s1 literal order for these two loses 0.03-0.06. So an oracle that
+  reorders those loads but keeps the metadata would not be source-expressible. I did not scan them.
+- pscan's original "current placement" detection put a read that sits between the two Rc clones in P0. My copy
+  (`tools/pscan.py`) classifies a read by its position relative to the lamports and data GEPs.
+
+Remaining lever in this region (not this lane's): the original spills the accounts pointer and reloads it from the stack
+inside the TCF run (orig 0x3128 `ldxdw r4,[r10-0x8d8]`, 0x3220 `ldxdw r3,[r10-0x8d8]; ldxdw r8,[r3+0x78]`), while ours keeps it in r8.
+This is register pressure from the original's own allocation (w14a01 acctlive, w14a17 sweepr0). No clone literal reaches it.
+| pp + place rerun, all 11 clones (`tools/ppall6.sh`), after the sharing CPI landings #3309/#3318 | faf9962 (0.65129) | 9,159 | 0.65129 = main | still converged |
