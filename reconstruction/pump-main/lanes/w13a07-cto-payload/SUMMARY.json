@@ -1,0 +1,130 @@
+{
+ "lane": "w13a07-cto-payload",
+ "wave": 13,
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "angle": "sharing payload pieces: the original's unmerged 7/9 B pieces of the inner/outer sharing value (P1/P2) and the 32 B target E32 after val.sroa.6.i",
+ "bases": {
+  "3912c47ac": {
+   "ratio": 0.48772,
+   "slots_diff": 3273
+  },
+  "4394685": {
+   "ratio": 0.49071,
+   "slots_diff": 3313
+  }
+ },
+ "landed": false,
+ "prs": [
+  {
+   "number": 2905,
+   "state": "draft notes"
+  }
+ ],
+ "best_zero_loss_measurement": {
+  "ratio": 0.49071,
+  "slots_diff": 3313,
+  "bytes": 27400,
+  "note": "unchanged main 4394685; no source change of this lane improved it"
+ },
+ "mechanism": [
+  "Our MIR already has the original's P1->P2 shape: P1 = MIR SROA piece _395 of the inner (sharing_update,collect_old,skip) if-tuple, assigned per arm; holder arm temp _49=None (= the original's uninitialised 7/9 source at T 0x450/0x2d0); P2 = inner binding _45 copied at the join.",
+  "The original's 7/9 cut of P1/P2 exists only because the non-holder arm copies from the entry copy of new (cut 7/8/8/9 by the Result<Pubkey> overlay of validate's t); ours copies from the %new argument, so P1/P2 are whole 32 B allocas.",
+  "P2 directly after P1 in alloca order requires P2 to be a high-index MIR local; CopyProp unifies every SSA copy spelling into the low-index inner binding _45."
+ ],
+ "ir_oracle": {
+  "p2_after_p1": 0.49161,
+  "target1_early": 0.49131,
+  "p1p2_cut_after_val_sroa6_3912c47": {
+   "ratio": 0.49065,
+   "bytes": 27472
+  },
+  "entry_copy_only_3912c47": {
+   "ratio": 0.46545,
+   "bytes": 27480
+  },
+  "entry_copy_plus_cut_3912c47": {
+   "ratio": 0.39063,
+   "bytes": 27608
+  },
+  "no_join_copy": {
+   "ratio": 0.4919,
+   "bytes": 27336
+  },
+  "F1": 0.51917,
+  "plus24B_unmerged_execute_slot": {
+   "best": "nolt:_68",
+   "ratio": 0.50869,
+   "any_slot_grown_24B": 0.50839
+  },
+  "F1_plus_nolt_68": 0.53505
+ },
+ "source_trials": [
+  {
+   "key": "0x22a10-w13-4394685-payload-A2-v3-field-v1",
+   "result": "byte-identical"
+  },
+  {
+   "key": "0x22a10-w13-4394685-payload-A3-su-tuple-v3-v1",
+   "result": "byte-identical"
+  },
+  {
+   "key": "0x22a10-w13-4394685-payload-A4-su-tuple-v1",
+   "result": "byte-identical"
+  },
+  {
+   "key": "0x22a10-w13-4394685-payload-option-clone-v1",
+   "result": "27600 B 0.4665 / 27472 B 0.47928"
+  },
+  {
+   "key": "0x22a10-w13-4394685-payload-shared-arm-validated-target-v1",
+   "result": "27496 B 0.47937"
+  },
+  {
+   "key": "0x22a10-w13-4394685-payload-su-after-validate-v1",
+   "result": "27344 B 0.45794"
+  },
+  {
+   "key": "0x22a10-w13-4394685-payload-mir-inline-some-new-v1",
+   "result": "byte-identical / 27488 B 0.48991"
+  },
+  {
+   "key": "0x22a10-w13-4394685-payload-closure-tree-v1",
+   "result": "27264 B 0.46283 / byte-identical"
+  },
+  {
+   "key": "0x22a10-w13-4394685-payload-mir-inline-helper-v1",
+   "result": "byte-identical (both forms)"
+  },
+  {
+   "key": "(3912c47) A_v3 / B_v2v3",
+   "result": "byte-identical"
+  }
+ ],
+ "rejected_mechanisms": [
+  "spelling the sharing payload alone (tuple fields, v.N reads, clone, then_some, closures, #[inline] helper): MIR SROA/CopyProp normalise to main or add code",
+  "sharing payload from the validated target Some(Some(t)): +96 B",
+  "selecting Option<Pubkey> per holder arm before the tree: -56 B, -0.033",
+  "IR: entry copy of new plus the payload cut together: 0.39 at 27608 B in our code shape",
+  "IR: a join-only 24 B host slot for the wallet signer slice is absorbed by the 384 B _128.i group"
+ ],
+ "unresolved_residuals": [
+  "P1/P2 7/9 cut (needs the entry copy of new without its current ratio cost)",
+  "P2 order (high-index MIR local)",
+  "about 24 B of unmerged execute frame space between the inlined region and holder_key (+0.018 IR, any slot)",
+  "F1: a host for the wallet emit_cpi signer slice _114.i (+0.028 IR)"
+ ],
+ "next_ideas": [
+  "Find a 24 B execute local without storage markers that LLVM keeps (the original's X24 target tail or the entry-copy pieces) for the +0.018 frame-space gain; it stacks with F1 (0.53505 in IR)",
+  "Pursue the payload only after the entry copy of new and the 8/24 target split are solved (lanes w13a03, w13a02)"
+ ],
+ "tools": [
+  "tools/cut_payload.py",
+  "tools/cut_entrycopy.py",
+  "tools/x24_host.py"
+ ]
+}

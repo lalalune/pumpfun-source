@@ -63,6 +63,25 @@ Reading:
 - The emulated host slot (x24) is absorbed by the 384 B `_128.i` group (scmerge), so `_114.i` stays alone.
   A host for the wallet signer slice must conflict with every larger group, which a join-only lifetime does not.
 
+## Execute-own frame scan (main 4394685, `iredit.py scan`, 207 single edits, all 27,400 B)
+
+| edit | ratio |
+| --- | ---: |
+| `nolt:_68` (the 24 B `String` of the 410 `require!` error kept unmerged) | **0.50869** (+0.0180) |
+| `nolt` of another 24 B execute buffer (`ix_data`, `_171`, `_366`, `_155`) | 0.5066..0.5075 |
+| `sz:target1:56`, `sz:sharing_update.sroa.3:56`, `sz:val5:57` or `sz:old_creator:56` (24 B more in any unmerged execute slot between the inlined region and holder_key) | 0.50839 |
+| `mv:mint:_366` | 0.49341 |
+| `mv:holder_key:END` | 0.49221 |
+| P2 move (`mv:sharing_update.sroa.3:_366`) | 0.49161 |
+| `nolt:_68` + F1 (`mv:_114.i:_179`) | **0.53505** |
+| F1 + `_114.i` grown to 24 B before holder_key (X24-like host) | 0.51708 |
+
+The gain does not depend on which slot it is: about 24 B of unmerged frame space among execute's own slots between the
+inlined region and holder_key is worth +0.018 with no code change. That fits the original's extra pieces in the region
+(P1 7/9, P2 7/9, the 32 B E32, the F7/G9 entry copy and the 24 B X24) against our 32 B `target1` and 32 B P2.
+A source form that adds such space needs a 24 B (or larger) execute local with no StorageLive/StorageDead that LLVM does
+not fold away. The original's candidates are the 8/24 target pieces and the entry copy of `new`.
+
 ## Source trials (all on main 4394685 unless noted; all zero-loss builds, none better)
 
 | key | change | result |
