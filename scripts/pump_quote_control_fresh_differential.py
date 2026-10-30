@@ -17,6 +17,7 @@ from solders.litesvm import LiteSVM
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
+from pump_diagnostic_audit import bound_input_key
 
 ROOT = next(p for p in pathlib.Path(__file__).resolve().parents
             if (p / 'evidence/upstream/pump.json').is_file() and (p / 'programs/pump/Cargo.toml').is_file())
@@ -216,6 +217,7 @@ def main():
     original = ROOT / 'evidence/original/pump/deployed.so'
     digest = lambda f: hashlib.sha256(f.read_bytes()).hexdigest()
     bound_files = [original, a.candidate.resolve(), pathlib.Path(__file__).resolve(),
+                   ROOT / 'scripts/pump_diagnostic_audit.py',
                    ROOT / 'evidence/upstream/pump.json',
                    ROOT / 'research/imported-lab/analysis/pump_fun/config-snapshot.json']
     # Build evidence is adjacent to both clean-target artifacts and frozen package
@@ -239,7 +241,7 @@ def main():
             if source_path.is_file() and 'target' not in source_path.parts and (
                     source_path.suffix == '.rs' or source_path.name in {'Cargo.toml', 'Cargo.lock'}):
                 bound_files.append(source_path)
-    bound = {str(f.relative_to(ROOT)): digest(f) for f in bound_files}
+    bound = {bound_input_key(f, ROOT): digest(f) for f in bound_files}
     results, mismatches = [], 0
     compare_keys = ['error', 'before_accounts', 'after_accounts', 'rollback', 'event_payloads',
                     'inner_instructions', 'return_data', 'transaction_base64',

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "classification": "Proposed existing-script asset transition; requires maintainer review",
+  "baseRevision": "68766903a69df17168971282f25683503ed7682e",
+  "hashScope": "UTF-8 source bytes with checkout CRLF normalized to LF; no captured ELF normalization",
+  "files": [
+    {
+      "path": "scripts/pump_diagnostic_audit.py",
+      "beforeSha256": "216f0093cfa80bb4d9fb51ed9ee9f9b6ed257d482ea5f98e0cc03814ee7ea9c7",
+      "proposedSha256": "b0280ab17d3e4a310b9d0e027732d157978879ddd0911214e78e13e1e0f68a80"
+    },
+    {
+      "path": "scripts/pump_quote_control_fresh_differential.py",
+      "beforeSha256": "5d6139ee50f1d8ba87d14344a281b3031fea42a9362f06d3b3ba124971049333",
+      "proposedSha256": "f24fe219e8baf06047c298b89fa6513b4c499246396e6318f05d6e862cdaf318"
+    },
+    {
+      "path": "scripts/pump_validate_all.py",
+      "beforeSha256": "0236970bfbb1d97022fd1490720291cbc720446b5ef10d5ff48856d5ef0d747a",
+      "proposedSha256": "e98cca4b94fd02694f6c16a95da3390f3eab88bd4cd9fd72c0fcab98e555080b"
+    },
+    {
+      "path": "scripts/pump_validate_parallel.py",
+      "beforeSha256": "f60958eac747908591ad167c974329424d990f419096d838d562153855a80588",
+      "proposedSha256": "0972c5fb97f91dcd7a0eebe23bcedabf4b2aa404c1ea17874cd033d16e26b70c"
+    }
+  ],
+  "scriptSetChanged": false,
+  "programSourceChanged": false,
+  "captureBytesChanged": false
+}

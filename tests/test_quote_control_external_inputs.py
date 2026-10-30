@@ -54,6 +54,7 @@ class ExternalQuoteControlTests(unittest.TestCase):
     def test_external_elf_and_real_aggregate_admission(self):
         candidate, report = self.run_vm(self.external.name, 'external')
         original = ROOT / 'evidence/original/pump/deployed.so'
+        self.assertEqual(aggregate.validate_quote_control(report, candidate, original), 507)
         self.assertEqual(parallel.validate_result('quote_control', report, candidate, original), 507)
         # A real post-run input mutation must still invalidate the bound report.
         candidate.write_bytes(self.image + b'changed')
