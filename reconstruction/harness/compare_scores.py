@@ -67,8 +67,13 @@ def main(argv=None):
         parser.exit(2, f'invalid score report: {error}\n')
     output = json.dumps(report, indent=2) + '\n'
     if args.json:
-        args.json.parent.mkdir(parents=True, exist_ok=True)
-        args.json.write_text(output, encoding='utf-8')
+        try:
+            args.json.parent.mkdir(parents=True, exist_ok=True)
+            # Exclusive creation also protects aliased inputs and concurrent receipts.
+            with args.json.open('x', encoding='utf-8') as stream:
+                stream.write(output)
+        except OSError as error:
+            parser.exit(2, f'cannot create comparison report: {error}\n')
     print(output, end='')
     return 0 if report['accepted'] else 1
 
