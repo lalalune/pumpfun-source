@@ -1,0 +1,27 @@
+{
+  "lane": "w13a48-cto-vaultspill",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "main": "53abf28b1 (admin_cto 0.62672, 3,305 slots, 1034/1034)",
+  "result": "notes only, no gain; early-spill source-control map",
+  "best": {"ratio": 0.62672, "slots_diff": 3305, "bytes": 27400, "note": "= main; every byte-identical binding form; no zero-loss gain"},
+  "best_non_main": {"trial": "hk1 + bumparr_top", "ratio": 0.60354, "bytes": 27384, "perfect_frame_bound": 0.64819, "main_bound": 0.65818},
+  "attempts": 46,
+  "ledger_keys": ["0x22a10-w13-52c0b08-vaultspill-*", "0x22a10-w13-53abf28-vaultspill-*"],
+  "map": {
+    "holder_creator_vault ptr spill (orig 0x8e0)": "no source control: by-ref bindings, &AccountInfo sweep args and tuple fields are byte-identical (one gep +264); routing the 648 compare through it costs 0.062; an IR-forced spill does not raise frame-masked similarity",
+    "native (orig 0x918)": "already spilled in ours at the same slot; moving its computation costs 0.005-0.25",
+    "bump (orig 0x910)": "controllable via addressed [u8;1] at sweep top or slice::from_ref; -0.031 on main, +0.038 on hk-first, both below main even at perfect frame",
+    "coin_creator_vault_ata data Rc (orig 0xb48)": "already matched on main",
+    "program: clone is_signer (orig 0xc38)": "clone field order; fieldscan exhausted by w13a47"
+  },
+  "rejected_mechanisms": ["bind_top_*/bind_after_late", "tuple_dest_*", "arg_late/arg_native/arg_cmp/arg_all", "bumptop/bumpafterdest/bumparg", "bumparr_top/bumparr_late/bump_fromref", "nativeafterdest/nativearg/bothargs", "hk1 (+ every bump/vault/native form)", "hkc_v1 and hk1+hkc_v1 combos", "IR spill-at-def / split-after-memcmp probes for vault, bump, both"],
+  "unresolved_residuals": [
+    "sweep/clone-run regions 0x2000-0x3800 differ only in register assignment (structural 11/6/8/19 unmatched): owned by w13a40/w13a44 swept-coalescing analysis",
+    "structural gap concentrated in 0x0-0x1800 (entry/validate) and 0x4000 regions"
+  ],
+  "next_ideas": [
+    "A source form that coalesces swept into the Err-payload class while keeping the class on r8 (w13a40 open lever); the original's vault/bump spills should then follow from the raised clone-run demand",
+    "Region rewrites of entry/validate (0x0-0x1800), where the structural (frame+reg-masked) gap is largest"
+  ],
+  "tools": "tools/regdiff.py, regperm.py, spmap.py, sobin.py, fbsplit.py, ctoracle.py, framebound.py, vrun.sh, batch.sh, show.py, ir-probes/mk.py"
+}

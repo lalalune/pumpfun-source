@@ -100,6 +100,28 @@ clone run is still worse than main (0x2800 +16, 0x3000 +39) and its perfect-fram
 | coin_creator_vault_ata data Rc (0xb48) | matched on main | |
 | `program:` clone `is_signer` (0xc38) | clone field order (fieldscan) | exhausted by w13a47 |
 
+## Re-measured on main 53abf28 (0.62672, wave-14 continuation)
+
+Main 53abf28 (stitch9 #3168: `shared` as an `&&` chain, pool CPI args bound after `pool_updated`) is 0.62672 / 3,305 slots,
+fbsplit `{plain 0.62672, named_only 0.63301, spill_only 0.65219, all 0.65818}`. The hk1 edits were re-based onto the `&&`
+form (`$OUT/edits/*_m53.py`). Ledger keys `0x22a10-w13-53abf28-vaultspill-*`.
+
+| trial | bytes | ratio | perfect-frame bound (`all`) |
+| --- | ---: | ---: | ---: |
+| main | 27,400 | 0.62672 | 0.65818 |
+| `bumparr_top` | 27,408 | 0.59578 | 0.64071 |
+| `bump_fromref` | 27,384 | 0.59515 | 0.63980 |
+| `hk1` | 27,384 | 0.56578 | 0.60623 |
+| `hk1` + `bumparr_top` | 27,384 | 0.60354 | 0.64819 |
+| `hk1` + `bump_fromref` | 27,360 | 0.60321 | 0.64758 |
+| `hk1` + `bumparr_late` | 27,368 | 0.56715 | 0.60761 |
+
+The picture is unchanged from 52c0b08. Even with a perfect frame, every early-spill form stays below main's own bound, so size
+knobs cannot turn any of them into a gain. `regdiff.py` on 53abf28: frame-masked 0.72588, frame+register-masked 0.8562. The
+sweep/clone-run regions (0x2000-0x3800) have only 11/6/8/19 structural differences: what remains there is register assignment,
+which the w13a40/w13a44 coalescing analysis owns. The structural gap is in 0x0-0x1800 (entry/validate, 86+124+72+35)
+and 0x4000 (93).
+
 ## Tools (text only)
 
 | tool | use |
