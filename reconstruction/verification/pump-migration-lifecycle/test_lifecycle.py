@@ -2,6 +2,7 @@
 """Focused fail-closed tests for the lifecycle comparator and plan."""
 
 import copy
+import json
 import struct
 import unittest
 
@@ -85,6 +86,22 @@ class LifecycleUnitTests(unittest.TestCase):
         with mock.patch.object(lifecycle.struct, "pack", side_effect=narrow):
             with self.assertRaisesRegex(ValueError, "108 bytes"):
                 lifecycle.transfer_fee_mint_data(mint, 100)
+
+    def test_idl_inputs_decode_independently_of_the_host_locale(self):
+        # evidence/upstream/pump.json contains U+2192 arrows ("SOL -> tokens");
+        # a locale-default read cannot decode them on cp949 hosts, which made
+        # this package unimportable there.
+        self.assertIn("instructions", lifecycle.IDL)
+
+    def test_report_fixture_field_matches_the_archived_posix_spelling(self):
+        import gzip
+        import pathlib
+
+        archived = json.loads(gzip.decompress(
+            (pathlib.Path(__file__).resolve().parent / "results/current-main.json.gz").read_bytes()))
+        self.assertEqual(
+            archived["fixture"],
+            lifecycle.FIXTURE_PATH.relative_to(lifecycle.ROOT).as_posix())
 
 
 if __name__ == "__main__":
