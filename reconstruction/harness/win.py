@@ -88,7 +88,8 @@ def opgrams(raw, k=3):
     return Counter(tuple(ops[i:i + k]) for i in range(max(0, len(ops) - k + 1)))
 
 
-ORIG = (BASE / 'original.so').read_bytes(); ORIG_SECS = sections(ORIG)
+from original_input import resolve_original
+ORIG = resolve_original(BASE / 'original.so').read_bytes(); ORIG_SECS = sections(ORIG)
 
 
 def best_candidates(w, cand, top=3):
@@ -156,7 +157,7 @@ def cmd_show(a):
         print(f"  cand {s:#x} {n:6d}B ratio={r:.4f}  {demangle(nm)}")
     r, j, s, n, nm = best[0]
     oi = insns(w['raw'], st, ORIG_SECS); ci = insns(cand.fn(s, n), s, cand.secs)
-    ot = objdump_text(BASE / 'original.so', st, st + w['bytes']); ctx = objdump_text(cand.path, s, s + n)
+    ot = objdump_text(resolve_original(BASE / 'original.so'), st, st + w['bytes']); ctx = objdump_text(cand.path, s, s + n)
     sm = difflib.SequenceMatcher(None, [x[2] for x in oi], [x[2] for x in ci], autojunk=False)
     print(f"\n--- diff vs {demangle(nm)} @ {s:#x} (ratio {sm.ratio():.4f}; '-' original, '+' candidate)")
     C = a.context
@@ -179,7 +180,7 @@ def cmd_show(a):
 
 def cmd_orig(a):
     st, w = find_window(a.start)
-    for ad, t in objdump_text(BASE / 'original.so', st, st + w['bytes']).items():
+    for ad, t in objdump_text(resolve_original(BASE / 'original.so'), st, st + w['bytes']).items():
         print(f"{ad:#07x}  {t}")
 
 

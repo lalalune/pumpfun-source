@@ -76,7 +76,8 @@ def sites(blob, secs, start, raw):
     return out
 
 
-ORIG = (BASE / 'original.so').read_bytes(); OS = sections(ORIG)
+from original_input import resolve_original
+ORIG = resolve_original(BASE / 'original.so').read_bytes(); OS = sections(ORIG)
 
 
 def orig_sites(start):

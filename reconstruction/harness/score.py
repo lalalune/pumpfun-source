@@ -13,6 +13,7 @@ A missing baseline file is an error; losses are never reported against an empty 
 import argparse, csv, hashlib, json, re, struct, subprocess, sys, tempfile
 from pathlib import Path
 from llvm_tools import objdump
+from original_input import resolve_original
 from functools import lru_cache
 import io
 
@@ -95,7 +96,7 @@ def _window_rows(orig, inventory):
 
 
 def original_windows():
-    orig = (BASE / 'original.so').read_bytes()
+    orig = resolve_original(BASE / 'original.so').read_bytes()
     inventory = (BASE / 'functions.tsv').read_text(encoding='utf-8')
     # Return fresh containers so an analysis consumer cannot poison later scores.
     return [dict(zip(('start', 'bytes', 'raw', 'norm'), row))
