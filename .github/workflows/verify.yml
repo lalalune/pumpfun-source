@@ -78,6 +78,7 @@ jobs:
               python -B scripts/test_fees_validate_all_optimization.py
               python -B scripts/test_pump_validate_constant_product_optimization.py
               python -B scripts/test_pump_validate_volume_optimization.py
+              python -B scripts/test_pump_validate_sell_accounting_optimization.py
               python -B scripts/test_deep_section_analysis_publication.py
               python -B scripts/test_analyze_program_publication.py
               python -B scripts/test_reconstruction_roadmap_publication.py

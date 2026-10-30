@@ -45,7 +45,7 @@ def main():
    test(instruction='update_creator_fee_config',payload=b'\1'+struct.pack('<Q',1000),mutation=mutation)
   for payload in [b'',b'\0'+bytes(7),b'\2'+bytes(8),b'\1'+bytes(8)+b'ignored']:test(instruction='update_creator_fee_config',payload=payload)
  failures=[i for i,x in enumerate(rows) if not x['match']];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
- report={'scope':'SBF resize-enabled administrative paths and system CPI; not full program equivalence.','original_sha256':sha(original),'candidate_sha256':sha(a.candidate),'script_sha256':sha(pathlib.Path(__file__)),'case_count':len(rows),'mismatches':failures,'cases':rows}
+ report={'scope':'SBF resize-enabled administrative paths and system CPI; not full program equivalence.','original_sha256':left.sha256,'candidate_sha256':right.sha256,'script_sha256':sha(pathlib.Path(__file__)),'case_count':len(rows),'mismatches':failures,'cases':rows}
  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print(json.dumps({'case_count':len(rows),'mismatches':failures[:30],'mismatch_count':len(failures)}))
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

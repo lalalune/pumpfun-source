@@ -14,6 +14,7 @@ import datetime
 import errno
 import hashlib
 import json
+import math
 import os
 import platform
 import shutil
@@ -224,7 +225,14 @@ def verifier_command(frozen, repo, packet):
     return command
 
 
+def validate_deadlines(timeout_seconds, cleanup_seconds):
+    for value in (timeout_seconds, cleanup_seconds):
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0:
+            raise ValueError("process deadlines must be positive finite numbers")
+
+
 def run_verifier(frozen, repo, packet, timeout_seconds=60.0, cleanup_seconds=1.0):
+    validate_deadlines(timeout_seconds, cleanup_seconds)
     verify_path = packet / "verify.py"
     if not verify_path.exists():
         return {"status": "no_verify_script", "output": ""}
@@ -234,8 +242,6 @@ def run_verifier(frozen, repo, packet, timeout_seconds=60.0, cleanup_seconds=1.0
         return {"status": "error", "output": str(error)}
     if not stat.S_ISREG(info.st_mode):
         return {"status": "error", "output": "verify.py is not a regular file"}
-    if timeout_seconds <= 0 or cleanup_seconds <= 0:
-        raise ValueError("process deadlines must be positive")
 
     command = verifier_command(frozen, repo, packet)
     started = time.monotonic()
@@ -560,6 +566,7 @@ def verify_stage(stage):
 
 
 def audit(repo, output, timeout_seconds=60.0, cleanup_seconds=1.0):
+    validate_deadlines(timeout_seconds, cleanup_seconds)
     repo = repo.resolve()
     frozen = load_frozen(repo)
     adapter_path = Path(__file__).resolve()
