@@ -15,7 +15,7 @@ class CoordinateSnapshotTests(unittest.TestCase):
             root = Path(temporary)
             harness,base = root/'harness',root/'base'
             harness.mkdir();base.mkdir()
-            for name in ('coords.py','score.py','score_admission.py','llvm_tools.py','elf_symbols.py'):
+            for name in ('coords.py','score.py','original_input.py','score_admission.py','llvm_tools.py','elf_symbols.py'):
                 shutil.copyfile(Path(__file__).with_name(name),harness/name)
             first = bytes(fixture()); second = bytearray(first)
             for offset in (504+8,504+48+8): struct.pack_into('<Q',second,offset,0x1008)
