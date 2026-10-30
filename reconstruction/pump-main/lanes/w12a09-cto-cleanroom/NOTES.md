@@ -3,6 +3,104 @@
 Target: window `0x22a10`, `pump_recovered::admin_cto::execute`
 (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Base: main `20a1ae9c0` (program source unchanged on `e61df0357`), admin_cto ratio 0.43919, slots_diff 3352.
+Second branch (`swarm/w12a09-cto-cleanroom-2`): main `b5975fa67` (after #2749), admin_cto 0.45147, slots_diff 3308.
+
+## Result
+
+| base | change | admin_cto ratio | slots_diff | bytes | normalized / raw | losses |
+| --- | --- | ---: | ---: | ---: | --- | --- |
+| 20a1ae9c0 | - | 0.43919 | 3352 | 27,400 | 1033 / 1033 | - |
+| 20a1ae9c0 | t01: validate `if let Some(f)=fee{..}` → `match fee{None=>{},Some(f)=>{..}}` | 0.46285 | 3320 | 27,400 | 1033 / 1033 | 0 / 0 |
+| b5975fa67 (L1, #2749) | - | 0.45147 | 3308 | 27,400 | 1033 / 1033 | - |
+| b5975fa67 | t02: same change | 0.47551 | - | 27,392 | 1033 / 347 | 686 raw (size) |
+| b5975fa67 | t03: t02 + `holder` rebound per target arm in validate | 0.48487 | - | 27,384 | 1033 / 347 | 687 raw (size) |
+| b5975fa67 | t14: `holder` per arm alone | 0.48381 | - | 27,368 | 1033 / 347 | size |
+| 4f24fbc32 (L2, #2792) | - | 0.45177 | 3308 | 27,400 | 1034 / 1034 | - |
+| 4f24fbc32 | t13: t03 + can_edit last (= L2 + fee `match` + `holder` per arm) | 0.48517 | - | 27,384 | | size |
+
+t01 passes the 363-case `pump_admin_cto_differential.py` (0 mismatches). On L1/L2 both changes gain
+ratio but shrink the function by 8–32 B, so they are not landable alone. They are handed to the size-knob
+lanes with the measured deltas below. Ledger keys `0x22a10-w12-*-validate-fee-match-none-first-v1`,
+`0x22a10-w12-*-holder-phi*`, `0x22a10-w12-70f2704-*`.
+
+## Mechanism: ISel reverse post-order fixes the sret-demotion slot order
+
+BPF returns one register. Every call whose IR return type is a two-word aggregate (`{ i64, ptr }`)
+therefore gets its own 16-byte stack object for the demoted return value. That covers
+`From<AnchorError>::from`, `with_pubkeys`, `prepare_bonding_curve`, every CPI `Result<()>`,
+`create_idempotent` and the `ProgramError` conversions. SelectionDAG creates each object when it lowers
+the call, and SelectionDAGISel walks the IR blocks in reverse post-order (DFS from the entry,
+successor 0 first). So the frame order of these 33 slots is the RPO of their calls. On main the
+predicted order equals the measured frame exactly. Read back from the original:
+
+```
+orig: 284 289 298 296 330 338 334 326 | prepare 410 ... (same calls, same order as main) ... | 312 307 307wp 306
+main: 284 289 312 307 307wp 306 298 330 338 | prepare 410 ... | 334 326 296
+t01 : 284 289 312 307 307wp 306 298 330 338 334 326 | prepare 410 ... | 296
+```
+
+The error slots are therefore not allocas: their order is CFG order. The scope reading in the next
+section is superseded by this mechanism. Main finishes 334/326 last in RPO. Its DFS enters the fee-check
+region before the continuation, because the fee test's successor 0 is `Some` (`icmp eq tag,1`
+from `if let Some(f)=fee`). The original visits the continuation first, so its fee test has `None` as
+successor 0: `icmp eq tag,0`, the original's `jeq tag,0` at 0x0af8 and 0x1508.
+`match fee{None=>{},Some(f)=>{..}}` produces exactly that.
+- IR oracle: swapping only that branch's successors in main's post-opt IR predicted 0.45956 at 27,400 B.
+- Measured: the source change gives 0.46285.
+
+The RPO also shows that the original's `!holder_reward` branch on `holder` visits the non-holder arm
+(306/307/312) first, so those calls get the last slots. Swapping that IR branch as well reproduces
+the original slot order exactly, but the IR oracle gives 27,408 B and 0.45829 on top of the fee swap
+(on b5975fa67: 27,384 B, 0.47528). Slot order is not the whole story: RPO also fixes vreg numbering,
+which changes register allocation and spill slots.
+On t01's IR, a scan that swaps each of the 143 conditional branches alone finds only:
+- `bb12.i` (the 296 `!enabled` test): +0.0012 at 27,400 B;
+- `bb26.i`: +0.0020, but at 27,408 B.
+The lane's IR tools (`rpo.py`, `irswap.py`, `swapscan.py`, `tratio.py`, `regions.py`) stay outside the
+repo, in `~/.cache/pumpfun-reconstruction/lanes/w12a09-cto-cleanroom/tools/`.
+
+### Which source forms set successor order (after InstCombine)
+
+InstCombine rewrites a one-use `br (icmp ne ..)` to `br (icmp eq ..)` with the successors swapped,
+and removes `br (not c)` by swapping. So for one-use tests:
+- A `bool` field gives `br (b==0)`: the false case is always successor 0, whatever the spelling (`if b`, `if !b`, `if b {..} else {..}`).
+- An integer test `x==0`, `x!=0`, `x<1`, `x>0` or a `match` gives `br (x==0)`: the zero case comes first.
+- An `Option` gives a real choice:
+  - `if let Some(..)=o` emits `icmp eq tag,1`, so `Some` comes first;
+  - `match o{None=>..,Some(..)=>..}` (the fee in t01/t02) and `let Some(..)=o else` (306 on main) test `tag==0`, so `None` comes first.
+  `is_some()`/`is_none()` were not checked here.
+
+The `Option` forms are therefore the levers available in source.
+On t02's IR the 306 test (`bb20.i`) swapped is 27,400 B / 0.47573, the expected effect of
+`let t=if let Some(t)=new{t}else{return Err(..)};` (Some first). The 410 `require!` swapped is
+27,400 B / 0.48173, but no one-use integer test can put the error first.
+
+### `holder` as a phi of constants inside validate (t03)
+
+The original carries `holder` out of validate as a phi of constants (`-0x950`: 1 on the holder arm,
+0 on the non-holder arm), and its fee checks are duplicated per holder arm: 326/330 are threaded and
+the arms join at 334/338 (S9). Rebinding `holder` per target arm,
+`let (target,holder)=if holder{..(*holder_key,true)}else{..(t,false)}`, makes LLVM's JumpThreading
+duplicate the fee tag test and the quote_locked test per arm. The non-holder arm keeps the cashback
+test (330); the holder arm drops it. Both arms then join at the configurable/range checks:
+the original's B24-B27 / B48-B51 / B52-B53 shape (t03 B26-B29 / B46-B49 / B50-B51). It costs 8 B.
+
+### Trials on main b5975fa67 (L1, 0.45147 / 27,400 B)
+
+| trial | change (on top of the fee `match`) | ratio | bytes | note |
+| --- | --- | ---: | ---: | --- |
+| t02 | fee `match` alone | 0.47551 | 27,392 | 8 B short: 686 raw losses |
+| t04 | + 330 as `st.cashback&&!holder` | 0.47551 | 27,392 | byte-identical to t02 |
+| t05 | + 306 as `let t=if let Some(t)=new{t}else{..}` | 0.47491 | 27,392 | the IR swap predicted 27,400 / 0.47573; the source form changes more than successor order |
+| t06 | + 410 as `require!(creator_fee<1,..)` | 0.45889 | 27,408 | InstCombine turns `ult x,1` into `eq x,0`: successor order unchanged |
+| t03 | + `holder` rebound per target arm: `let (target,holder)=if holder{..(*holder_key,true)}else{..(t,false)}` | **0.48487** | 27,384 | phi of constants as in the original (-0x950); validate tokens 0.369 → 0.419, wallet gate 0.526 → 0.684 |
+| t07 | t03 + `let rent=Rent::get()?;let min=rent.minimum_balance(0);` | 0.48426 | 27,352 | -32 B |
+| t08 | t03 + 306 `if let` | 0.48427 | 27,384 | no size change |
+| t11 | t03 with `(holder,target)` tuple order | 0.48487 | 27,384 | same as t03 |
+| t12 | t03 + curve store `if let Some(f)=fee{curve.creator_fee_bps=f;}` (fee_unwrap revert) | 0.48584 | 27,376 | best ratio so far, 24 B short |
+| t13 | t03 + `can_edit_creator_fee=false` after the fee store (#2792) | 0.48517 | 27,384 | no size change |
+| t14 | `holder` per arm alone (no fee `match`), on L1 | 0.48381 | 27,368 | +0.032 alone, 32 B short; fee `match` on top adds +16 B |
+
 
 This lane re-derives the original function's structure from the deployed bytes only
 (`win.py orig 0x22a10`, `coords.py window 0x22a10`, symbolized call targets), then compares it
@@ -83,7 +181,7 @@ B56-B65 exit: phi-of-constants for holder (-0x950: 0/1), cashback (-0x958), fee_
 Error-site order (layout): orig 289, 298, 306, 296, 326, 312, 307, 330, 338, 334 | 410 | 719, 648, 660 | 284, 556;
 main 298, 289, 330, 296, 326, 306, 312, 307, 338 | 410, 334 | 719, 648, 660 | 284, 556.
 
-### Error temporaries (`From<AnchorError>::from` sret slots) — alloca-order evidence
+### Error temporaries (`From<AnchorError>::from` sret slots): RPO evidence (see Mechanism)
 
 Each `error!()` site writes the `From::from` result to its own 16-byte slot (`add64 r1,-X` before the call):
 
