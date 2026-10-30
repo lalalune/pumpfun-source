@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Offline ELF layout, string provenance and public-interface inventory."""
-import hashlib,json,os,pathlib,re,struct,tempfile
+import hashlib,json,os,pathlib,re,struct,uuid
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 IDL_INTERNAL_NAMES = (
     'IdlCreateAccount', 'IdlResizeAccount', 'IdlCloseAccount',
@@ -91,7 +91,10 @@ def publish_reports(reports):
     try:
         for path, text in reports:
             path = pathlib.Path(path)
-            descriptor, temporary = tempfile.mkstemp(prefix=f'.{path.name}.', dir=path.parent)
+            temporary = path.with_name(f'.{path.name}.{uuid.uuid4().hex}')
+            # Ordinary file creation lets the kernel apply the caller's umask.
+            descriptor = os.open(temporary, os.O_WRONLY | os.O_CREAT | os.O_EXCL
+                                 | getattr(os, 'O_BINARY', 0), 0o666)
             # Register the temporary before writing, so a failed stage is
             # removed alongside the earlier complete stages.
             staged.append((pathlib.Path(temporary), path))

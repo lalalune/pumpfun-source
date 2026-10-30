@@ -1,94 +1,75 @@
-"""Direct Pump validator CLIs must use one candidate image per run."""
-
-import ast
-import atexit
+"""Each real Pump validator CLI executes and reports one candidate image."""
+from concurrent.futures import ThreadPoolExecutor
+import gzip
+import hashlib
+import json
 import os
 from pathlib import Path
 import shutil
+import subprocess
+import sys
 import tempfile
 import unittest
 
-ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = tuple(
-    ROOT / "scripts" / f"pump_validate_{name}.py"
-    for name in ("admin", "authority", "buy", "config_admin", "quote", "sell", "volume")
-)
+ROOT=Path(__file__).resolve().parents[1]
+ORIGINAL=ROOT/'evidence/original/pump/deployed.so'
+OTHER=ROOT/'evidence/original/pump_fees/deployed.so'
+NAMES=('admin','authority','buy','config_admin','quote','sell','volume')
+DRIVER=r'''
+import sys,runpy,shutil
+from pathlib import Path
+script,candidate,replacement,output=sys.argv[1:]
+sys.path.insert(0,str(Path(script).parent))
+returned=[]
+def hook(frame,event,arg):
+    if event=='return' and frame.f_code.co_name in ('execute','run') and frame.f_code.co_filename==script:
+        returned.append(1)
+        if len(returned)==2:
+            sys.setprofile(None)
+            shutil.copyfile(replacement,candidate)
+sys.setprofile(hook)
+sys.argv=[script,'--candidate',candidate,'--output',output]
+try:runpy.run_path(script,run_name='__main__')
+finally:
+    sys.setprofile(None)
+    if len(returned)<2:raise RuntimeError('candidate case did not execute')
+'''
 
-
-def parse(path):
-    return ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
-
+def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def report(path):
+    data=path.read_bytes()
+    return json.loads(gzip.decompress(data) if data.startswith(b'\x1f\x8b') else data)
 
 class PumpValidatorPinnedImageTests(unittest.TestCase):
-    def test_every_validator_pins_before_its_first_case_loop(self):
-        for script in SCRIPTS:
-            with self.subTest(script=script.name):
-                tree = parse(script)
-                imported = any(
-                    isinstance(node, ast.ImportFrom)
-                    and node.module == "pump_amm_reusable_harness"
-                    and any(alias.name == "pin_program" for alias in node.names)
-                    for node in tree.body
-                )
-                self.assertTrue(imported, "pin_program is not imported")
+    def run_mutated(self,name):
+        with tempfile.TemporaryDirectory(prefix='pump-validator-') as directory:
+            directory=Path(directory);candidate=directory/'candidate.so';output=directory/'report.json'
+            shutil.copyfile(ORIGINAL,candidate)
+            script=ROOT/'scripts'/('pump_validate_'+name+'.py')
+            environment=dict(os.environ);environment.pop('PYTHONOPTIMIZE',None)
+            result=subprocess.run([sys.executable,'-B','-c',DRIVER,str(script),str(candidate),str(OTHER),str(output)],cwd=ROOT,env=environment,capture_output=True,text=True,timeout=240)
+            self.assertEqual(result.returncode,0,name+': '+result.stdout[-1800:]+result.stderr[-1800:])
+            self.assertEqual(sha(candidate),sha(OTHER),name+' did not replace the input')
+            data=report(output)
+            self.assertEqual(data['candidate_sha256'],sha(ORIGINAL),name)
+            self.assertEqual(data['mismatches'],[],name)
+            self.assertGreater(data['case_count'],1,name)
+    def run_wrong(self,name):
+        with tempfile.TemporaryDirectory(prefix='pump-validator-negative-') as directory:
+            output=Path(directory)/'report.json'
+            script=ROOT/'scripts'/('pump_validate_'+name+'.py')
+            environment=dict(os.environ);environment.pop('PYTHONOPTIMIZE',None)
+            result=subprocess.run([sys.executable,'-B',str(script),'--candidate',str(OTHER),'--output',str(output)],cwd=ROOT,env=environment,capture_output=True,text=True,timeout=240)
+            self.assertNotEqual(result.returncode,0,name)
+            self.assertTrue(output.is_file(),name+': '+result.stderr[-1800:])
+            data=report(output)
+            self.assertEqual(data['candidate_sha256'],sha(OTHER),name)
+            self.assertTrue(data['mismatches'],name)
+    def test_every_validator_keeps_the_first_candidate_image(self):
+        with ThreadPoolExecutor(max_workers=3) as executor:
+            list(executor.map(self.run_mutated,NAMES))
+    def test_every_validator_detects_a_stable_wrong_image(self):
+        with ThreadPoolExecutor(max_workers=3) as executor:
+            list(executor.map(self.run_wrong,NAMES))
 
-                pin_lines = []
-                for node in ast.walk(tree):
-                    if not isinstance(node, ast.Assign):
-                        continue
-                    if not any(
-                        isinstance(target, ast.Attribute)
-                        and isinstance(target.value, ast.Name)
-                        and target.value.id == "a"
-                        and target.attr == "candidate"
-                        for target in node.targets
-                    ):
-                        continue
-                    if any(
-                        isinstance(child, ast.Call)
-                        and isinstance(child.func, ast.Name)
-                        and child.func.id == "pin_program"
-                        for child in ast.walk(node.value)
-                    ):
-                        pin_lines.append(node.lineno)
-
-                self.assertTrue(pin_lines, "candidate path is not pinned")
-                pin_line = min(pin_lines)
-                following_loops = [
-                    node.lineno
-                    for node in ast.walk(tree)
-                    if isinstance(node, ast.For) and node.lineno > pin_line
-                ]
-                self.assertTrue(following_loops, "case loop after pinning was not found")
-                self.assertLess(pin_line, min(following_loops))
-
-    def test_pin_snapshot_keeps_the_first_bytes(self):
-        helper = ROOT / "scripts" / "pump_amm_reusable_harness.py"
-        tree = parse(helper)
-        function = next(
-            node
-            for node in tree.body
-            if isinstance(node, ast.FunctionDef) and node.name == "pin_program"
-        )
-        namespace = {
-            "_pinned": {},
-            "atexit": atexit,
-            "os": os,
-            "Path": Path,
-            "shutil": shutil,
-            "tempfile": tempfile,
-        }
-        module = ast.fix_missing_locations(ast.Module(body=[function], type_ignores=[]))
-        exec(compile(module, str(helper), "exec"), namespace)
-
-        with tempfile.TemporaryDirectory() as temporary:
-            candidate = Path(temporary) / "candidate.so"
-            candidate.write_bytes(b"admitted image")
-            snapshot = namespace["pin_program"](candidate)
-            candidate.write_bytes(b"replacement image")
-            self.assertEqual(namespace["pin_program"](candidate), snapshot)
-            self.assertEqual(snapshot.read_bytes(), b"admitted image")
-
-
-if __name__ == "__main__":
-    unittest.main()
+if __name__=='__main__':unittest.main()

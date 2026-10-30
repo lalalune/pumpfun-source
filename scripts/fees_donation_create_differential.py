@@ -93,7 +93,7 @@ def cases():
  return rows
 def main():
  p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args()
- original=ROOT/'evidence/original/pump_fees/deployed.so';o=Fixture(original);b=Fixture(pin_program(a.candidate)) if a.candidate else None;rows=[];failures=[]
+ original=pin_program(ROOT/'evidence/original/pump_fees/deployed.so');o=Fixture(original);b=Fixture(pin_program(a.candidate)) if a.candidate else None;rows=[];failures=[]
  for c in cases():
   x=o.run(c);y=b.run(c) if b else None;match=all(x[k]==y[k] for k in ['error','data','owner','lamports','payer_delta','authority_delta','events','inner']) if b else None
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
