@@ -1,0 +1,40 @@
+{
+  "lane": "w13a26-cto-bfreq",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "base_mains": {"bf9a05d": 0.55872, "6ac6f9b": 0.56291, "d81d0f5": 0.571},
+  "best_zero_loss_source": null,
+  "result": "no source change; angle exhausted",
+  "oracle": "tools/cv.sh (raw-IR capture -> opt -O3 -> extracted execute; ratio = measure.sh) + tools/bwx.py (0.3 s llc branch-weight / inversion edits, sweep mode) + tools/bwgreedy.py",
+  "sweeps": {
+    "bf9a05d": {"best": "bb82 2000:1 (sharing gate tag!=2, Some hot) 0.56351 (+0.0048); full gain at 2:1 and 20:12, none at 3:2", "greedy": 0.56651, "inversions": "no gain at 27400"},
+    "6ac6f9b": {"best": "bb7 2000:1 (global_quote quote==default memcmp taken) 0.5713 (+0.0084); needs >=8:1"},
+    "d81d0f5": {"best": "Rc inc_strong trap 1:1 inside sharing-CPI manual clones 0.5749 (std, not expressible); bb27.i64 (wallet collect ? Err) 1:16 0.5719, needs >=8:1", "source_expressible_classes": "20:12/12:20/1:1/2:1 give at most +0.0003 single (bb32, bb63.i, bb65.i96, bb9.i), do not stack", "table": "sweep-d81d0f5.tsv"}
+  },
+  "attempts": [
+    {"trial": "s1ptr", "change": "sharing gate on Option<&Option<Pubkey>> (pointer heuristic)", "bytes": 27272, "ratio": 0.49707},
+    {"trial": "s2shared", "change": "if shared{let val=sharing_update.unwrap_or(None);..}", "bytes": 27408, "ratio": 0.52748},
+    {"trial": "s3none1st", "change": "match sharing_update None arm first", "bytes": 27400, "ratio": 0.55872, "note": "byte-identical"},
+    {"trial": "s4ifsome", "change": "if sharing_update.is_some(){..unwrap_or(None)}", "bytes": 27392, "ratio": 0.55131}
+  ],
+  "rejected_mechanisms": [
+    "successor order / arm negation alone (llc follows BPI; inversion sweep finds nothing at 27400)",
+    "pointer heuristic on the sharing gate (Option<&T>): changes payload data flow, -128 B",
+    "gate on shared (i1 phi, no heuristic)",
+    "3-way switch / zero heuristic for bb27.i64 and bb7 (need >= 8:1; switch gives 2:1, ZH 20:12)",
+    "cold helper on Err paths (adds a call; 154+3 must hold)",
+    "llvm.expect: only from MIR Assert (adds a panic edge) or unstable intrinsics"
+  ],
+  "mechanism_findings": [
+    "bw winners are spill-weight / stack-slot-order proxies: bb82 moves the sharing-CPI clone-run spill slots 8 B (-0x998 -> -0x990, orig -0x970); bb7 keeps a constant-1/cashback phi in r4 instead of spilling it, frame 8 B shallower",
+    "the original's BPI on these tests is the default heuristic (same tag!=2 gate, same memcmp==0 libcall tests)",
+    "winners change completely with every landing (bb82 -> bb7 -> Rc trap/bb27.i64)"
+  ],
+  "unresolved_residuals": [
+    "sharing-CPI clone-run spill slot offsets (orig -0x970.., ours -0x998..)",
+    "constant-1 / cashback phi spill after the first quote memcmp (orig keeps quote_locked in r3 and spills once at the join)"
+  ],
+  "next_ideas": [
+    "attack the live ranges the bw proxies touch: the cashback/_40.not phi materialisation after global_quote (orig: no early mov64 1 spill), and the sharing-CPI clone-run spill set",
+    "re-run tools/bwx.py sweep on each new main as a cheap sensitivity map: a winner with a 20:12 threshold on a branch whose test can become a memory bool or and-1 form is the only kind source can reach"
+  ]
+}
