@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Ordinary signed local migrate-v2 prerequisite probe; captured actual CPIs."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 from pathlib import Path
 import json,base64,hashlib,sys
 from solders.litesvm import LiteSVM

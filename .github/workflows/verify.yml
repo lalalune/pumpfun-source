@@ -108,6 +108,7 @@ jobs:
               python -B tests/test_fees_differentials_normal_python.py
               python -B tests/test_amm_differentials_normal_python.py
               python -B tests/test_pump_differentials_normal_python.py
+              python -B tests/test_pump_probes_normal_python.py
               python -B tests/test_create_mayhem_normal_python.py
               python -B tests/test_two_curve_optimization_guard.py
               python -O -B tests/test_two_curve_optimization_guard.py
@@ -163,6 +164,7 @@ jobs:
               python -B scripts/test_deep_disassembly_syscall_usage.py
               python -B scripts/test_disassemble_output_mode.py
               python -B scripts/test_disassemble_tool_binding.py
+              python -B scripts/test_disassemble_publication.py
               python -B scripts/test_analyze_publication.py
               python -B scripts/test_verify_imported_lab_publication.py
               python -B scripts/test_pump_compare_function_bytes_report.py
