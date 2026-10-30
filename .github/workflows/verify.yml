@@ -182,6 +182,9 @@ jobs:
               python -B reconstruction/mayhem/native-linux-qualification/test_vendor_membership.py
               python -B scripts/test_analyze_program_publication.py
               python -B scripts/test_reconstruction_roadmap_publication.py
+              python -B reconstruction/diagnostics/roadmap-reviewed-regeneration/test_generate.py
+              python -B reconstruction/diagnostics/roadmap-stable-attribution/test_generate.py
+              python -B reconstruction/diagnostics/defined-dynamic-calls/test_generate.py
               python -B scripts/test_bytecode_signatures_publication.py
               python -B scripts/test_bytecode_signatures_atomic_publication.py
               python -B scripts/test_revalidate_all_publication.py
