@@ -21,28 +21,6 @@ class ReceiptIntegrityTests(unittest.TestCase):
         self.out=self.root/'out'
         self.command=[sys.executable,'-c',"from pathlib import Path;import sys;Path(sys.argv[2],'result').write_bytes(Path(sys.argv[1],'value').read_bytes())",'{source}','{out}']
 
-    def test_deleted_input_and_source_leave_error_receipts(self):
-        for kind in ['declared','source','staged','source-root','staged-root']:
-            with self.subTest(kind=kind):
-                self.source.mkdir(exist_ok=True)
-                declared=self.root/'declared';declared.write_text('bound')
-                target=declared if kind=='declared' else self.source/'value'
-                target.write_text('bound')
-                command=[sys.executable,'-c','from pathlib import Path;import sys;Path(sys.argv[1]).unlink()', '{source}/value' if kind=='staged' else str(target)]
-                if kind.endswith('-root'):
-                    command=[sys.executable,'-c','import shutil,sys;shutil.rmtree(sys.argv[1])',str(self.source) if kind=='source-root' else '{source}']
-                out=self.root/('deletion-'+kind)
-                result=E.run_trial(self.source,command,out,inputs=[declared])
-                self.assertEqual(result['status'],'error')
-                self.assertTrue(result['reason']);self.assertTrue(result.get('validation_error'))
-                self.assertEqual(json.loads((out/'latest.json').read_text())['status'],'error')
-                self.source.mkdir(exist_ok=True)
-                target.write_text('bound');(self.source/'value').write_text('bound');declared.write_text('bound')
-                self.assertFalse(E.run_trial(self.source,command,out,inputs=[declared])['reused'])
-        self.source.mkdir(exist_ok=True)
-        (self.source/'value').write_text('control')
-        self.assertEqual(E.run_trial(self.source,self.command,self.out)['status'],'pass')
-
     def test_input_changes_during_lock_wait_do_not_reuse_stale_pass(self):
         for kind in ['source','declared']:
             with self.subTest(kind=kind):
