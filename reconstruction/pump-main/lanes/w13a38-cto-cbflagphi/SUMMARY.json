@@ -1,0 +1,35 @@
+{
+  "lane": "w13a38-cto-cbflagphi",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs)",
+  "pinned_bytes": 27400,
+  "bases": {"9b9440f": {"ratio": 0.62043, "slots": 3305, "fm": 0.7121, "rm": 0.85171}, "52c0b08": {"ratio": 0.62103, "slots": 3306, "fm": 0.7118, "rm": 0.85111}},
+  "result": "notes only: no zero-loss gain at 27400 B",
+  "best_zero_loss_at_pinned_size": null,
+  "best_abstracted": {"trial": "h2 (holder phi via validate out-param, cashback from the arg test before validate, holder-first curve stores, pool CPI holder local)", "base": "52c0b08", "bytes": 27160, "ratio": 0.6115, "fm": 0.72043, "rm": 0.85375},
+  "mechanism_map": {
+    "original": "holder = phi of constants spilled at -0x950 (stores per validate arm, 18 reloads incl. sweep-exit joins, curve store raw, admin_cto_pool arg); cashback = phi spilled at -0x958 (st.cashback!=0 in the non-holder arm, 0 in the holder arm), curve store and-1; stores 0xa5 before 0xa3",
+    "ours": "holder re-derived from the spilled hopt arg (and 0xfd) at every use; cashback = and(_40.not,!holder) in the entry block, materialised as an early mov64 1 spill at -0x8f8 after the first global_quote memcmp; stores 0xa3 before 0xa5"
+  },
+  "attempts": 40,
+  "rejected_mechanisms": [
+    "validate returns (Pubkey,bool,bool)/(Pubkey,bool) with per-arm flags (frame collapse, 0.359-0.375)",
+    "per-arm cashback inside validate only (byte-equal to main)",
+    "out-param (bool,bool) / cashback-only out-param (-264..-368 B, fm down)",
+    "cashback phi at the validate join in IR (all forms; negative with or without the holder phi)",
+    "holder phi + size knobs from sizeknobs-cto.json (knobs lower fm; n2 0.60693)",
+    "holder phi + entry copy / plain PDA holder_key (g2-g5, n3/n4)",
+    "partial holder phis (L3q/r/t: 27400 B possible but -0.05)",
+    "one-site or greedy padding upper bounds (0.61343 / 0.61788 < main)"
+  ],
+  "unresolved_residuals": [
+    "~240 B of faithful code the original has elsewhere, needed to repay the holder phi",
+    "holder kept in r1 across the sweep-exit joins (orig 26 slot accesses vs ours 6)",
+    "cashback per-arm stores belong to the fee-None per-arm threaded tree"
+  ],
+  "next_ideas": [
+    "pair h2 with faithful size-adding candidates (entry copy of new, holder_key copy at -0x518, sharing payload pieces) as pairs, not singles",
+    "find a post-sweep use of holder that keeps it live in a register, so the original's -0x950 reloads appear",
+    "retry the cashback phi only after fee-None per-arm threading exists"
+  ],
+  "ledger_keys": "0x22a10-w13-{9b9440f,52c0b08}-cbflagphi-*"
+}
