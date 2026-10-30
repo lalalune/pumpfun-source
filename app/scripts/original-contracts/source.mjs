@@ -102,8 +102,8 @@ export async function openCorpus(appRoot) {
   const read = async (relative) => readFile(await safeFile(root, relative));
   const manifestBytes = await read('evidence/web/manifest.json');
   const indexBytes = await read('recovered/modules.json');
-  const manifest = JSON.parse(manifestBytes);
-  const index = JSON.parse(indexBytes);
+  const manifest = JSON.parse(new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(manifestBytes));
+  const index = JSON.parse(new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(indexBytes));
   if (index.rangeEncoding !== RANGE_ENCODING) throw new Error('unsupported inventory range encoding');
   const records = new Map();
   for (const record of manifest.records) {
