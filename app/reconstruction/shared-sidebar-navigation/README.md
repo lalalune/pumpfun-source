@@ -1,0 +1,27 @@
+# Original shared Sidebar and ordinary navigation
+
+This recovers the complete public `103547` Sidebar controller/display family, the actual `309166.SidebarController` wrapper, and ordinary `721426` supplied-item group/link/action renderers with their route-active policy. It provides a usable source-adapted responsive navigation boundary without implementing the upper AppSidebar's account, feature, session, chat, support, Terminal, native-app promotion or deferred-product initialization/actions. No maintained native shell page is edited.
+
+Forty-five complete original AST regions occur exactly once in the used constructor. Twelve actual public Sidebar exports, full used dependencies/display names, complete ordinary group/action renderers, controller, contextual route matcher and active-policy arrow are retained. Eight raw witnesses bind the upper consumer, imports, route metadata and primitive boundaries. Captures are authenticated and parsed as data, never executed.
+
+The original root HTML's three parsed `self.__next_f.push` StringLiteral chunks contain imports for controller `309166`, AppSidebar `721426` and SidebarInset `103547`, plus real serialized layout nodes `10a/10b` with `defaultOpen:false`. The controller passes the shared `data-app-shell` marker. These are observed captured layout admissions, not recovered server source, a global default/user preference or an inference about visitor/auth/consent state. Only the marker is used from `4327`; its consent core stays external.
+
+`createSharedSidebarNavigation(capabilities)` returns all twelve Sidebar exports plus `SidebarController`, `NavGroup`, `ActionList`, `Group`, `pathMatches` and `isNavigationActive`. Supply React/JSX/compiler, class-name/variant, Slot, Tooltip, Drawer, SVG factory, translation, Link/badge/icon and route-mapping capabilities. The latter primitives are exact required interfaces, not reconstructed vendor or router engines. Icon, badge, item href/label/active/action/unread/loading properties and callbacks are caller-supplied safe display values. No providers or financial/account data are acquired.
+
+The provider has **no cookie or storage access**. It preserves independent controlled/uncontrolled desktop state and mobile state. Its desktop functional setter computes from the current render's captured open value; mobile toggles use React functional updates. Two same-batch desktop toggles can thus change state once, while two mobile toggles return to their original state. Toggle checks native `matchMedia('(max-width: 767px)')` at call time. Lowercase `b` with Meta/Ctrl prevents default and toggles; listener cleanup remains original. No editable-target/modifier, viewport-change, cookie, cross-tab or route-close policy is added.
+
+Sidebar always returns mobile and desktop structures, with original CSS visibility and 13rem/3.5rem/18rem sizing values. Responsive CSS and supplied Drawer determine visible/presence behavior; viewport changes do not add a source-state reset. Trigger invokes its supplied click callback before toggle: a throw stops toggle, while `defaultPrevented` alone is not checked. Rail/Tooltip prop spread precedence stays original, including caller overrides. No generic focus-trap/animation/overlay/Slot/CVA/Tooltip parity is claimed.
+
+Ordinary navigation retains active fill/line icons, `aria-current`, badges, actions, keyed groups/rows, internal Link versus external anchor props, safe `_blank`/`noopener noreferrer`, action-button versus truthy href dispatch, unread number coercion/`9+` and loading presentation. Callbacks are forwarded; source does not gain a synthesized route-close or unavailable-action policy. The active policy retains exact path boundaries/home equality and the Explore/watchlist query/row-visibility distinction. `routes` is required metadata; excluded targets and promotion widgets are not exposed by this module or tests. Existing source `532160.f` is a used dependency, not a standalone helper or the shared `119524` icon export.
+
+Attribution: #685/#529 captured markup/CSS integration, native readiness/Escape/portal/breakpoint fixes (#1398/#1434/#1483/#1429), #1556 Header Back and existing consent/search/source units stay unchanged. This is a separate editable original controller/display recovery, not a replacement native shell, a repeated visual result or first recovery of those prior boundaries.
+
+From `app/` using existing pinned dependencies:
+
+```sh
+node scripts/original-shared-sidebar-navigation.mjs
+node --test tests/original_shared_sidebar_navigation.test.mjs tests/original_source.test.mjs
+PUMP_SIDEBAR_OUTPUT=/your/isolated/output node --test tests/original_shared_sidebar_navigation_browser.test.mjs
+```
+
+The diagnostic capability implementations are explicitly authored test ports, not original generic libraries. Tests use synthetic safe items, actions and owned browser URL/history/events only. Native browser media/key/click and actual React state qualify this supplied boundary, not Next routing, original Drawer/Tooltip presence/focus behavior or whole-layout pixels. No actual cookies/storage/sessions/credentials/user/account/preferences, auth/wallet/feature/provider acquisition or live service requests. No native/mobile app promotion, signing/trading/admin controls, backend, API/full-app/security/completion claim. Original materials retain their authorship.
