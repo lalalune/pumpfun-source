@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "initialLocalMethod": "919afada472bf2f4f3b9ede41af1ef18a9c44344",
+  "correctedLocalMethod": "c5e21453cf615ad59c8f3ef4c54baaa96e4d8982",
+  "publicSource": "414a042e33e6911405a5194e0721827010c57a9f",
+  "exactCompleteTreeForCorrectedAndPublic": "432e17480bf8470fcdf776b2812fb46d66441a14",
+  "frozenEightFiles": [
+    {
+      "path": "app/reconstruction/mobile-feed-list/README.md",
+      "bytes": 7752,
+      "sha256": "621ce3943741bfea0bb114d211434d591cfe560e75367bc11891fe8f716ae847",
+      "gitBlob": "69ed2eabddb3940f5edc375811acd71b8ba189bc"
+    },
+    {
+      "path": "app/reconstruction/mobile-feed-list/client.d.mts",
+      "bytes": 5386,
+      "sha256": "cbeea24528d2c13834428155eb33c779862db87807e683b4ff57e1ce68016ae6",
+      "gitBlob": "317c3e1926b60c0926fb3fae3b75cb88178c1bff"
+    },
+    {
+      "path": "app/reconstruction/mobile-feed-list/client.mjs",
+      "bytes": 18449,
+      "sha256": "432d04e0d3f0d09e5af20313a353c37c7ea3aca90d6b089173fe36704d2aa51f",
+      "gitBlob": "a459e99f6bbd515a45fa3400307ef21a581130b1"
+    },
+    {
+      "path": "app/reconstruction/mobile-feed-list/contract.json",
+      "bytes": 96467,
+      "sha256": "979b29a948dd5ab3dace334f32bc8ca38a7d3fa5cdf3dc66497ff6d463fcdc2d",
+      "gitBlob": "4a937178d624478aecf9afa381ad04b101daa785"
+    },
+    {
+      "path": "app/reconstruction/mobile-feed-list/qualification/browser.mjs",
+      "bytes": 14178,
+      "sha256": "edb3ba1a3ae4313fcff5f509b4715b0ee4208bab8c0624cf8717f99c096f98f1",
+      "gitBlob": "8fd632f4b9b9bced9f37356fdface9818b337bab"
+    },
+    {
+      "path": "app/reconstruction/mobile-feed-list/qualification/fixture.mjs",
+      "bytes": 6866,
+      "sha256": "8ffbd868e44906c7fd570085a7b8f768a27860c8b191be6be95e19e64129e0ec",
+      "gitBlob": "c5791d203c89f6bc7d70f0ce13c931dfa294defc"
+    },
+    {
+      "path": "app/scripts/original-mobile-feed-list.mjs",
+      "bytes": 27232,
+      "sha256": "fc2ac2ef84944274a2050e4e8e05fadf99c59a4017ea57136be3e93910c6c193",
+      "gitBlob": "c84505176a6845ef29d7c5d0930a8c5e991973f8"
+    },
+    {
+      "path": "app/tests/original_mobile_feed_list.test.mjs",
+      "bytes": 15604,
+      "sha256": "3ca54e7d21c4e6ed10c8c372db885811f74370d1e26400296382fed183a5aebe",
+      "gitBlob": "8501a63b299849a20fb016a78492e5835ad2f2aa"
+    }
+  ],
+  "source": {
+    "selectedPhysicalRoles": 52,
+    "selectedNumericIds": 28,
+    "distinctSelectedFactoryHashes": 52,
+    "coreOwnerVariants": 1,
+    "coreOwnerOrigins": 1,
+    "witnesses": 82,
+    "compilerFrames": [
+      91,
+      9,
+      42,
+      8,
+      1
+    ],
+    "compilerSlots": 151,
+    "canonicalUtf8": true,
+    "mounted": false
+  },
+  "model": {
+    "passed": 11,
+    "failed": 0,
+    "skipped": 0,
+    "actualMaintainedVerifierMutationRejections": 7,
+    "log": "focused.log",
+    "executedWithUncommittedNewFiles": true,
+    "fiveActualInputHashes": "MODEL-INPUTS.json",
+    "allFiveByteIdenticalToPublicSource": true,
+    "noClaimThatLaterGitCommitWasExecutedHead": true
+  },
+  "types": {
+    "cwd": "app",
+    "command": [
+      "corepack",
+      "pnpm",
+      "exec",
+      "tsc",
+      "--noEmit",
+      "--strict",
+      "--skipLibCheck",
+      "--target",
+      "ES2022",
+      "--module",
+      "NodeNext",
+      "--moduleResolution",
+      "NodeNext",
+      "reconstruction/mobile-feed-list/client.d.mts"
+    ],
+    "pinnedPnpm": "10.24.0",
+    "returncode": 0,
+    "log": "ports-types.log",
+    "emptySuccessOutput": true
+  },
+  "browserInitial": {
+    "method": "919afada472bf2f4f3b9ede41af1ef18a9c44344",
+    "passed": 0,
+    "failed": 1,
+    "unrun": 5,
+    "nodeExitStatus": 1,
+    "result": "browser-initial/RESULT.json",
+    "controller": "controller-919afa.source.txt",
+    "fixture": "fixture-919afa.source.txt",
+    "localCommitNotClaimedPublicAncestor": true,
+    "cause": "CSS-free supplied fixture renders the source skeleton with no visual height. Default visible wait timed out despite attached source DOM.",
+    "correction": "Exactly one controller wait becomes attached; still asserts six actual skeleton child shapes. No product/client/fixture/timeout/style/other-assertion change.",
+    "patch": "skeleton-attachment-correction.patch"
+  },
+  "browserFinal": {
+    "method": "c5e21453cf615ad59c8f3ef4c54baaa96e4d8982",
+    "passed": 6,
+    "failed": 0,
+    "unrun": 0,
+    "nodeExitStatus": 0,
+    "cwd": "app",
+    "command": [
+      "node",
+      "reconstruction/mobile-feed-list/qualification/browser.mjs",
+      "--source",
+      "c5e21453cf615ad59c8f3ef4c54baaa96e4d8982",
+      "--output",
+      "NEW_DIRECTORY"
+    ],
+    "result": "browser-final/RESULT.json",
+    "actualInputs": 16,
+    "gitRuntimeFiles": 4,
+    "allInputsUnchangedAfter": true,
+    "onlyInputChangedBetweenMethods": [
+      "reconstruction/mobile-feed-list/qualification/browser.mjs"
+    ],
+    "onlyRequests": [
+      "GET /",
+      "GET /bundle.js"
+    ],
+    "blockedRequests": [],
+    "pageErrors": [],
+    "browserClosed": true,
+    "serverListening": false,
+    "unmountedSubscribers": 0,
+    "unmountedManualScrollListeners": 0,
+    "notTwelveUniqueCases": true
+  },
+  "bundle": {
+    "file": "bundle.js.gz",
+    "uncompressedBytes": 1155186,
+    "uncompressedSha256": "f02d0f9671b9acdb12516be8d86b35df7c013f8e068946dee23c69f7dba444c0",
+    "bothRunsLiterallyEqual": true,
+    "gzipRoundtripVerified": true
+  },
+  "sharedAndIntegrity": {
+    "sharedSourceChecks": 11,
+    "capturedObjects": 698,
+    "sdkSourceFiles": 31,
+    "npmIntegrity": true,
+    "progressFreshness": true,
+    "progressTests": 9,
+    "allPassed": true
+  },
+  "mandatory": {
+    "source": "c5e21453cf615ad59c8f3ef4c54baaa96e4d8982",
+    "gitBoundInputs": 53,
+    "captureChecks": 9,
+    "toolingTests": 10,
+    "allPassed": true,
+    "record": "mandatory-source-record.json"
+  },
+  "publicExport": {
+    "source": "414a042e33e6911405a5194e0721827010c57a9f",
+    "gitAuthenticatedFiles": 49,
+    "pathContainsSpaces": true,
+    "sourceCheckPassed": true,
+    "sameElevenModelCasesPassed": true,
+    "notTwentyTwoUniqueCases": true,
+    "allInputsUnchangedAfter": true,
+    "binding": "PUBLIC-EXPORT.json",
+    "browserRepeated": false
+  },
+  "historicalLimits": {
+    "directory": "history",
+    "sourceSelector": "Initial attempt sought row descriptors inside map(e), while the source memoizes the full row callback separately. Exact callback/application binding corrected before any emitted model. Initial generator bytes were not separately sealed; no complete initial-source hash claim.",
+    "setup": "Wrong repo-root corepack --dir invocation selected pnpm12 and was rejected; successful types ran from app cwd with pinned10.24. Sparse test/probe metadata omissions were hydrated from exact Git inputs; failure logs preserved. No install, guard bypass or source changes."
+  },
+  "limits": [
+    "Complete selected source display/coordination only; no captured factory/parent/eH/provider execution.",
+    "Read/config/classifier/financial/gate/render capabilities are supplied ports, not original implementation or service/schema admission.",
+    "Manual scroll port, native supplied pending/pagination buttons and real React/compiler only; no production viewport/observer/renderer policy or cache/query scheduling claim.",
+    "No financial calculation/action or current values, wallet/auth/session/follow/credentials/cookies, protected acquisition, upload/funding/submit/signing/transaction, external media/link navigation, mounted MAIN/native API/DOM/runtime/visual parity, security approval or milestone claim."
+  ]
+}

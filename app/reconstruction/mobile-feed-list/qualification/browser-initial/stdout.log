@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByTestId('feed-skeleton') to be visible[22m
+[2m    63 × locator resolved to hidden <div aria-hidden="true" data-testid="feed-skeleton" class="-mx-4 flex flex-col">…</div>[22m
+
+    at /workspace/pump-app-chart/app/reconstruction/mobile-feed-list/qualification/browser.mjs:74:43
+    at scenario (/workspace/pump-app-chart/app/reconstruction/mobile-feed-list/qualification/browser.mjs:63:15)
+    at /workspace/pump-app-chart/app/reconstruction/mobile-feed-list/qualification/browser.mjs:73:8 {
+  log: [
+    "  - waiting for getByTestId('feed-skeleton') to be visible",
+    '    63 × locator resolved to hidden <div aria-hidden="true" data-testid="feed-skeleton" class="-mx-4 flex flex-col">…</div>'
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v24.19.0

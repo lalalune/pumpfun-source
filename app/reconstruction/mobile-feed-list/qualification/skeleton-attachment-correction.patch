@@ -1,0 +1,13 @@
+diff --git a/app/reconstruction/mobile-feed-list/qualification/browser.mjs b/app/reconstruction/mobile-feed-list/qualification/browser.mjs
+index de1c21a61c..8fd632f4b9 100644
+--- a/app/reconstruction/mobile-feed-list/qualification/browser.mjs
++++ b/app/reconstruction/mobile-feed-list/qualification/browser.mjs
+@@ -71,7 +71,7 @@ try{
+  await page.goto(record.origin);await page.waitForFunction(()=>!!window.harness);
+  const last=(o,name)=>o.calls.filter(c=>c[0]===name).at(-1);
+  await scenario('full loading/error/empty branches retain required snapshot hook handoffs',async row=>{
+-  await page.getByTestId('feed-skeleton').waitFor();assert.equal(await page.getByTestId('feed-skeleton').locator(':scope > div').count(),6);row.loading=await observed();assert.deepEqual(last(row.loading,'coins')[1],{mints:[],disabled:true});assert.deepEqual(last(row.loading,'users')[1],{userAddresses:[]});
++  await page.getByTestId('feed-skeleton').waitFor({state:'attached'});assert.equal(await page.getByTestId('feed-skeleton').locator(':scope > div').count(),6);row.loading=await observed();assert.deepEqual(last(row.loading,'coins')[1],{mints:[],disabled:true});assert.deepEqual(last(row.loading,'users')[1],{userAddresses:[]});
+   await page.evaluate(()=>window.harness.empty());await page.getByRole('heading',{name:'provided:web.feed.empty_for_you_title',exact:true}).waitFor();await page.evaluate(()=>window.harness.error());await page.getByText('Provided error supplied failure',{exact:true}).waitFor();row.error=await observed();assert.deepEqual(last(row.error,'label').slice(1),['supplied failure','error-message']);
+  });
+  await scenario('mixed list joins and all read/row/repost/preview handoffs use supplied metadata only',async row=>{
