@@ -14,6 +14,8 @@ from solders.litesvm import LiteSVM
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
+from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
@@ -150,7 +152,12 @@ def main():
     p.add_argument('--output', type=pathlib.Path)
     p.add_argument('--original-only', action='store_true')
     a = p.parse_args()
-    original = ROOT / 'evidence/original/pump/deployed.so'
+    if not a.original_only and a.candidate is None:
+        p.error('--candidate is required unless --original-only is selected')
+    report_output = PumpReport(a.output, ROOT, a.candidate, __file__) if a.output else None
+    original = pin_program(ROOT / 'evidence/original/pump/deployed.so')
+    if not a.original_only:
+        a.candidate = pin_program(a.candidate)
     results, mismatches = [], 0
     for label, name, kw in cases():
         o = execute(original, name, **kw)
@@ -165,9 +172,11 @@ def main():
                 print('MISMATCH', label, {k: (o[k], c[k]) for k in keys if o[k] != c[k]})
         results.append(row)
     if a.output:
-        a.output.parent.mkdir(parents=True, exist_ok=True)
-        with gzip.open(a.output, 'wt') as f:
-            json.dump({'scope': 'Offline LiteSVM differential; synthetic QuoteControl state, test-owned keys.', 'cases': len(results), 'mismatches': mismatches, 'results': results}, f)
+        report = {'scope': 'Offline LiteSVM differential; synthetic QuoteControl state, test-owned keys.',
+                  'original_sha256': hashlib.sha256(original.read_bytes()).hexdigest(),
+                  'candidate_sha256': hashlib.sha256(a.candidate.read_bytes()).hexdigest() if not a.original_only else None,
+                  'cases': len(results), 'mismatches': mismatches, 'results': results}
+        report_output.write(gzip.compress(json.dumps(report).encode('utf-8'), mtime=0))
     print(f'{len(results)} cases, {mismatches} mismatches')
     return 1 if mismatches else 0
 

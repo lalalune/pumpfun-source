@@ -71,6 +71,7 @@ jobs:
               python -B reconstruction/harness/test_integrate_no_build_cli.py
               python -B reconstruction/harness/test_integrate_empty_files.py
               python -B reconstruction/harness/test_integrate_binary_files.py
+              python -B reconstruction/harness/test_integrate_file_directory.py
               python -B reconstruction/harness/test_integrate_source_links.py
               python -B reconstruction/harness/test_integrate_orig_sources.py
               python -I -B tests/test_integrate_patch_bytes.py
@@ -102,6 +103,8 @@ jobs:
               python -B tests/test_pump_exact_quote_pinned_image.py
               python -B tests/test_pump_v3_configured_fee_pinned_image.py
               python -B tests/test_pump_v3_token_extensions_pinned_image.py
+              python -B tests/test_pump_cashback_accept_pinned_image.py
+              python -B tests/test_pump_quote_control_pinned_image.py
               python -B tests/test_create_mayhem_candidate_pair.py
               python -B tests/test_mayhem_trade_normal_python.py
               python -B tests/test_pump_set_mayhem_params_synthetic_cpi_pinned_image.py
@@ -186,6 +189,7 @@ jobs:
               python -B reconstruction/mayhem/native-linux-qualification/test_vendor_membership.py
               python -B scripts/test_analyze_program_publication.py
               python -B scripts/test_reconstruction_roadmap_publication.py
+              python -B tests/test_pump_planning_regressions.py
               python -B reconstruction/diagnostics/roadmap-reviewed-regeneration/test_generate.py
               python -B reconstruction/diagnostics/roadmap-stable-attribution/test_generate.py
               python -B reconstruction/diagnostics/defined-dynamic-calls/test_generate.py
@@ -193,6 +197,7 @@ jobs:
               python -B scripts/test_bytecode_signatures_atomic_publication.py
               python -B scripts/test_revalidate_all_publication.py
               python -B scripts/test_revalidate_all_atomic_publication.py
+              python -B reconstruction/diagnostics/manifest-admission/test_run.py
               python -B scripts/test_donation_relay_oracle_optimization.py
               python -B tests/test_claim_token_incentives_pinned_image.py
               python -B tests/test_pump_admin_token_incentives_pinned_image.py
@@ -217,6 +222,7 @@ jobs:
               python -B reconstruction/harness/test_experiment_worktree_source.py
               python -B reconstruction/harness/test_experiment_matrix_overlap.py
               python -B reconstruction/harness/test_bisect_membership.py
+              python -B reconstruction/harness/test_bisect_missing_source.py
               python -B reconstruction/harness/test_experiment_directory_identity.py
               python -B reconstruction/harness/test_minimize_oracle_encoding.py
               python -B reconstruction/harness/test_minimize_patch_list_encoding.py
@@ -229,7 +235,9 @@ jobs:
               python -B scripts/test_prepare_fees_withdraw_runtime_publication.py
               python -B scripts/test_current673_macos_archive_publication.py
               python -B scripts/test_current673_candidate_download_publication.py
+              python -B scripts/test_pump_strict_ordered_logs.py
               python -B scripts/test_pump_strict_ordered_logs_output.py
+              python -B scripts/test_pump_strict_ordered_logs_windows_publish.py
               python -B reconstruction/harness/test_experiment_post_run_errors.py
               python -B reconstruction/harness/test_experiment_root_target.py
               python -B reconstruction/harness/test_coords_cli_admission.py
@@ -251,6 +259,7 @@ jobs:
               # see .github/retired-workflows/2026-10-29-verify-matrix.md.
               python scripts/test_reconstruction_build_selection.py ResearchSelectionTests.test_default_does_not_select_header_incompatible_older_family ResearchSelectionTests.test_explicit_experiment_and_argument_boundaries_are_preserved
               python scripts/test_reconstruction_identity_audit.py
+              python -B reconstruction/diagnostics/identity-audit-unoptimized/test_run.py
               python scripts/local_validation.py
               python -B research/tooling-interior-string-references-20261030/test_verify.py
               python -I -B scripts/test_verify_evidence_paths.py

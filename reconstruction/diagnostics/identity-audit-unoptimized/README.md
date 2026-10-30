@@ -1,30 +1,31 @@
-# Optimization-safe identity audit entrypoint
+# Reviewed identity audit entrypoint
 
-The retained identity audit enforces expected snapshot hashes and output retention
-using `assert`. Running it with `python -O` accepts an index with an incorrect
-original/candidate hash and can overwrite an existing successful audit receipt.
+This entrypoint admits the reviewed identity audit, analyzer and comparator
+sources, then runs private copies of those admitted bytes in a fresh unoptimized
+isolated Python interpreter. Later changes to the public script paths cannot
+change the code executed by that child. The explicit repository argument still
+selects the audit inputs.
 
-```
+```sh
 python -B reconstruction/diagnostics/identity-audit-unoptimized/run.py --repo . --index selected-index.json --output work/identity-audit-new.json
 python -B reconstruction/diagnostics/identity-audit-unoptimized/test_run.py
 ```
 
-This explicit successor admits the reviewed audit/analyzer/comparator source
-hashes, refuses an existing output and delegates the unchanged audit to a fresh
-unoptimized isolated interpreter. Both parent `-O`/`-OO` flags and inherited
-`PYTHONOPTIMIZE` are prevented from disabling the retained checks. The old root
-helpers and historical artifacts remain unchanged.
+The maintained audit now rejects incorrect original/candidate hashes and refuses
+to replace existing reports even when called directly with optimized Python.
+This wrapper additionally checks the three reviewed source digests and isolates
+the child from parent `-O`/`-OO` flags and inherited `PYTHONOPTIMIZE`. A reviewed
+change to those source files requires updating `REVIEWED`; source hashes accept
+LF and CRLF line endings. The earlier digest set and test expectations had become
+stale and prevented this entrypoint from running against the maintained scripts.
 
-Tests run the actual old and guarded CLIs over authentic retained Associated
-Token ELF bytes and explicit checksum-bound control indexes. The old optimized
-CLI accepts wrong hashes and replaces a prior real report; the guarded entrypoint
-rejects both, while a valid optimized invocation still produces a correctly bound
-report. Identical-capture controls explicitly retain the no-source/no-compiler-
-identity qualifications. No program is compiled or executed; this is not a newly
-built candidate, VM result, source-equivalence or security acceptance claim.
+Tests run actual CLI audits over retained Associated Token ELF bytes and explicit
+checksum-bound control indexes. They check incorrect bindings, existing and late
+reports, changed source rejection, and source replacement after admission. An
+identical-capture control retains the no-source/no-compiler-identity qualifications;
+missing current-status data remains explicitly reported. No contract is compiled
+or executed, and no reconstructed candidate or runtime acceptance is claimed.
 
-Other archived audit limitations remain, including the separate missing-current-
-status and input-path changes tracked in #1475 and #1642. A source transition needs
-reviewed digest updates. Output retention here covers already-existing outputs,
-not interprocess atomic publication. Use this explicit successor when auditing;
-direct optimized invocation of the archived root helper retains its old behavior.
+The child uses exclusive output creation, so an existing or late report is
+preserved. This does not promise atomic publication of a completed report on a
+write failure or freeze the input files before the maintained audit reads them.

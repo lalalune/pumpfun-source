@@ -66,6 +66,9 @@ def make_patch(base: Path, part: Path, out: Path, tmp: Path):
              for root in (tmp / 'a/pump', tmp / 'b/pump')]
     mode_change = any(modes[0].get(name, False) != modes[1].get(name, False)
                       for name in modes[0].keys() | modes[1].keys())
+    directories = [{p.relative_to(root) for p in root.rglob('*') if p.is_dir()}
+                   for root in (tmp / 'a/pump', tmp / 'b/pump')]
+    type_change = bool(trees[0].keys() & directories[1] or trees[1].keys() & directories[0])
     if mode_change:
         # Git represents executable files using the owner bit. Source identity
         # considers any execute bit, including group/other-only helpers.
@@ -87,7 +90,7 @@ def make_patch(base: Path, part: Path, out: Path, tmp: Path):
                                                 output=result.stdout, stderr=result.stderr)
         return result
 
-    d = run_diff(git_diff if empty_change or mode_change else ['diff', '-ruN', 'a/pump', 'b/pump'])
+    d = run_diff(git_diff if empty_change or mode_change or type_change else ['diff', '-ruN', 'a/pump', 'b/pump'])
     # diff -r only names binary changes, and patch skips that line without an error.
     if any(line.startswith(b'Binary files ') for line in d.stdout.splitlines()):
         d = run_diff(git_diff)
