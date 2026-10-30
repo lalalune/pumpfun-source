@@ -132,7 +132,7 @@ class IntegrationScratchOverlapTests(unittest.TestCase):
     def stage_cli(self, root):
         harness = root / 'reconstruction/harness'
         harness.mkdir(parents=True)
-        for name in ('integrate.py', 'treediff.py'):
+        for name in ('integrate.py', 'treediff.py', 'source_inputs.py'):
             shutil.copyfile(HERE / name, harness / name)
         return harness / 'integrate.py'
 

@@ -18,6 +18,23 @@ def _first_line(node):
     return min([node.lineno, *decorators])
 
 
+def module_bindings(node):
+    """Name writes in module control flow, excluding unexecuted function/class bodies."""
+    if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+        yield node.name
+        return
+    if isinstance(node, (ast.Import, ast.ImportFrom)):
+        for alias in node.names:
+            yield alias.asname or alias.name.split('.')[0]
+        return
+    if isinstance(node, ast.ExceptHandler) and node.name:
+        yield node.name
+    if isinstance(node, ast.Name) and isinstance(node.ctx, (ast.Store, ast.Del)):
+        yield node.id
+    for child in ast.iter_child_nodes(node):
+        yield from module_bindings(child)
+
+
 def canonical_rank():
     raw = (ROOT / RANK_SOURCE).read_bytes()
     source = raw.decode('utf-8').replace('\r\n', '\n')
@@ -31,9 +48,29 @@ def canonical_rank():
     # reviewed slice: a changed constant must not silently re-rank the ledger.
     loaded = {node.id for node in ast.walk(function)
               if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load)}
+    local = {node.id for node in ast.walk(function)
+             if isinstance(node, ast.Name) and isinstance(node.ctx, (ast.Store, ast.Del))}
+    local.update(arg.arg for arg in (*function.args.posonlyargs, *function.args.args,
+                                   *function.args.kwonlyargs))
+    if function.args.vararg:
+        local.add(function.args.vararg.arg)
+    if function.args.kwarg:
+        local.add(function.args.kwarg.arg)
+    dependencies = loaded - local
     constants = [node for node in parsed.body
                  if isinstance(node, ast.Assign) and len(node.targets) == 1
-                 and isinstance(node.targets[0], ast.Name) and node.targets[0].id in loaded]
+                 and isinstance(node.targets[0], ast.Name) and node.targets[0].id in dependencies]
+    writes = list(module_bindings(parsed))
+    if ('*' in writes or len(constants) != len(dependencies)
+            or any(writes.count(name) != 1 for name in dependencies)):
+        raise ValueError('reviewed AMM rank function changed')
+    # Only literal dependency definitions are supported. Another global hidden
+    # inside an expression would otherwise escape this reviewed slice.
+    for constant in constants:
+        try:
+            ast.literal_eval(constant.value)
+        except (ValueError, TypeError):
+            raise ValueError('reviewed AMM rank function changed') from None
     # Bind the entire signature/body (and any decorators) plus those constants,
     # excluding unrelated module statements. Physical LF lines avoid
     # Python-version AST differences.
