@@ -1,0 +1,2150 @@
+{
+  "schemaVersion": 1,
+  "scope": "Complete ordinary RecentTerms visible-candidate/query/data join and address-profile display boundary; explicit provider and renderer results only.",
+  "factory": {
+    "id": 238128,
+    "ids": [
+      238128
+    ],
+    "label": "factory 238128",
+    "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+    "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+    "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+    "sourceBytes": 52145,
+    "utf16": [
+      119,
+      52138
+    ],
+    "utf8": [
+      119,
+      52142
+    ],
+    "sha256": "9e5affafd605f47d6c9466659c4bc0a654fae027f4beff481337a1cdf1263828"
+  },
+  "manifestSha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+  "clientSha256": "c680b912091d544315f07f457725ca5741a7075c024e304a7dd4c3ca0b537752",
+  "retained": [
+    "tu",
+    "td",
+    "tw",
+    "t_",
+    "tv",
+    "tk",
+    "tN",
+    "tC",
+    "K",
+    "Q",
+    "W"
+  ],
+  "frees": {
+    "tu": [
+      "$",
+      "F",
+      "H",
+      "K",
+      "Map",
+      "Q",
+      "Set",
+      "T",
+      "V",
+      "Z",
+      "a",
+      "c",
+      "d",
+      "eB",
+      "eH",
+      "eJ",
+      "eK",
+      "eO",
+      "eQ",
+      "eZ",
+      "e_",
+      "en",
+      "encodeURIComponent",
+      "f",
+      "h",
+      "n",
+      "p",
+      "q",
+      "r",
+      "s",
+      "t",
+      "tC",
+      "tN",
+      "t_",
+      "td",
+      "te",
+      "ti",
+      "tk",
+      "to",
+      "tr",
+      "tt",
+      "tv",
+      "tw"
+    ],
+    "td": [
+      "$",
+      "A",
+      "F",
+      "K",
+      "P",
+      "W",
+      "f",
+      "m",
+      "o",
+      "p",
+      "r",
+      "t",
+      "u"
+    ],
+    "tw": [],
+    "t_": [],
+    "tv": [],
+    "tk": [
+      "te"
+    ],
+    "tN": [],
+    "tC": [],
+    "K": [],
+    "Q": [],
+    "W": []
+  },
+  "requiredFunctions": [
+    "useTranslation",
+    "useChainFlags",
+    "nearEnabled",
+    "validSolanaAddress",
+    "isEvmAddress",
+    "canonicalCoinAddress",
+    "isGroupIdentifier",
+    "useGroupClient",
+    "useGroupsEnabled",
+    "readGroup",
+    "useQueries",
+    "useCoinHydration",
+    "walletProfile",
+    "useCoinUpdates",
+    "classNames",
+    "useProfile",
+    "useVerifiedProfile",
+    "formatFollowers",
+    "memoCache",
+    "groupProfileKey",
+    "useNearCoins",
+    "normalizeNearInput"
+  ],
+  "requiredRenderers": [
+    "Heading",
+    "Empty",
+    "SkeletonPart",
+    "Link",
+    "SearchIcon",
+    "ProfileDisplay",
+    "CoinRow",
+    "GroupRow"
+  ],
+  "namespaces": {
+    "p": {
+      "f": "useTranslation"
+    },
+    "eZ": {
+      "l": "useChainFlags",
+      "M": "nearEnabled"
+    },
+    "tr": {
+      "f": "validSolanaAddress"
+    },
+    "te": {
+      "h": "isEvmAddress",
+      "c": "canonicalCoinAddress"
+    },
+    "c": {
+      "f": "isGroupIdentifier"
+    },
+    "eO": {
+      "useClientServerContract": "useGroupClient"
+    },
+    "eH": {
+      "f": "useGroupsEnabled"
+    },
+    "eB": {
+      "N": "readGroup"
+    },
+    "h": {
+      "f": "useQueries"
+    },
+    "eQ": {
+      "f": "useCoinHydration"
+    },
+    "tt": {
+      "f": "walletProfile"
+    },
+    "eJ": {
+      "f": "useCoinUpdates"
+    },
+    "H": {
+      "c": "classNames"
+    },
+    "m": {
+      "T": "useProfile"
+    },
+    "u": {
+      "s": "useVerifiedProfile"
+    },
+    "P": {
+      "O": "formatFollowers"
+    }
+  },
+  "queryKeyBinding": "eK.f.profile -> ports.groupProfileKey",
+  "rendererNamespaces": {
+    "q": {
+      "_": "Heading"
+    },
+    "e_": {
+      "L": "Empty"
+    },
+    "T": {
+      "l": "SkeletonPart"
+    },
+    "f": {
+      "default": "Link"
+    },
+    "s": {
+      "L3": "SearchIcon"
+    },
+    "A": {
+      "S": "ProfileDisplay"
+    }
+  },
+  "constants": {
+    "SEARCH": 9,
+    "RECENT_LIST": 30
+  },
+  "bindings": [
+    {
+      "name": "A",
+      "id": 693124,
+      "import": {
+        "label": "actual recent-term import 693124",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1102,
+          1115
+        ],
+        "utf8": [
+          1102,
+          1115
+        ],
+        "sha256": "816e6e149e13931f9a6ef9f273ac7e720ad777ec2a67aef3ca7aea3981f9681c",
+        "text": "A=e.i(693124)"
+      },
+      "variants": [
+        {
+          "ids": [
+            107240,
+            949060,
+            518516,
+            693124
+          ],
+          "sha256": "4b94aa99e04cf92a4e2a79379d9c2336e2ea9f81d3ba90ff5433452a04e30a4d",
+          "origins": [
+            {
+              "source": "evidence/web/objects/eb0b23ee6feb7543.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/163nqh7l1hxim.js",
+              "start": 11466,
+              "end": 21254
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "H",
+      "id": 338319,
+      "import": {
+        "label": "actual recent-term import 338319",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1299,
+          1312
+        ],
+        "utf8": [
+          1299,
+          1312
+        ],
+        "sha256": "714c3b2370859ab8c030ad48e1b9c53593b17a70e4d8b96764ed6b7c71eb8f31",
+        "text": "H=e.i(338319)"
+      },
+      "variants": [
+        {
+          "ids": [
+            338319
+          ],
+          "sha256": "5b27b6647671eec79898f430326e92e0e8c08d9fc9e2984c70a664def7ae1cb2",
+          "origins": [
+            {
+              "source": "evidence/web/objects/12a924bb94557764.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/19yrywt-ft2f1.js",
+              "start": 1452,
+              "end": 2372
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "P",
+      "id": 540805,
+      "import": {
+        "label": "actual recent-term import 540805",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1230,
+          1243
+        ],
+        "utf8": [
+          1230,
+          1243
+        ],
+        "sha256": "df87074c7c97d51c3f0e8c761ef6a0c35361712c3502d24ddecd8ca5daa1704c",
+        "text": "P=e.i(540805)"
+      },
+      "variants": [
+        {
+          "ids": [
+            540805
+          ],
+          "sha256": "058ef17f92b13d44c2ead869a78a52961abc88fd4814fa72514f5c11c1fc85be",
+          "origins": [
+            {
+              "source": "evidence/web/objects/ad7136d0b3a7f323.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1qqfn5g-bst3e.js",
+              "start": 33160,
+              "end": 34396
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "T",
+      "id": 248496,
+      "import": {
+        "label": "actual recent-term import 248496",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1144,
+          1157
+        ],
+        "utf8": [
+          1144,
+          1157
+        ],
+        "sha256": "d1970376d7fdf435d88a30a6c70ae219950a4c84638d5656e574128fbb04f437",
+        "text": "T=e.i(248496)"
+      },
+      "variants": [
+        {
+          "ids": [
+            248496
+          ],
+          "sha256": "98c7083f780ae537f4559367a338f469e2d9897504c37398858270a41e5d5da1",
+          "origins": [
+            {
+              "source": "evidence/web/objects/b52b9253b1dcf191.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/29grpcf_ho9bt.js",
+              "start": 23832,
+              "end": 24876
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "a",
+      "id": 352386,
+      "import": {
+        "label": "actual recent-term import 352386",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          168,
+          181
+        ],
+        "utf8": [
+          168,
+          181
+        ],
+        "sha256": "70be5feee88d37500d23b8a5d12679574e96a4cace46be91d08348df1c8b9750",
+        "text": "a=e.i(352386)"
+      },
+      "variants": [
+        {
+          "ids": [
+            352386
+          ],
+          "sha256": "94c140de6329c130f107d5731a5574eec51cc1a23c2266c2d99db6dea7a71d88",
+          "origins": [
+            {
+              "source": "evidence/web/objects/e01139c6299580b1.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0nh_qki05x_fs.js",
+              "start": 25831,
+              "end": 25875
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "c",
+      "id": 786480,
+      "import": {
+        "label": "actual recent-term import 786480",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          238,
+          251
+        ],
+        "utf8": [
+          238,
+          251
+        ],
+        "sha256": "2ae59ef3b939f2fabc5e55874b61f9a535da44808f29cc8a22348016d80911d8",
+        "text": "c=e.i(786480)"
+      },
+      "variants": [
+        {
+          "ids": [
+            786480
+          ],
+          "sha256": "033e990bf642760b7bb6331a5f7ec20cb4bac319615fe54744779a515a9e605a",
+          "origins": [
+            {
+              "source": "evidence/web/objects/1e479323ffe53c14.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+              "start": 28614,
+              "end": 28721
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "d",
+      "id": 975982,
+      "import": {
+        "label": "actual recent-term import 975982",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          266,
+          279
+        ],
+        "utf8": [
+          266,
+          279
+        ],
+        "sha256": "7a71a4404f6a7e2a60390e932b7b0bb1332746cc29badc52263e9ce998d9bbe6",
+        "text": "d=e.i(975982)"
+      },
+      "variants": [
+        {
+          "ids": [
+            975982
+          ],
+          "sha256": "a00e4abaef7a8fa610e727ab5165bcde875cc6e699b14b07860fc1ad5f7acb55",
+          "origins": [
+            {
+              "source": "evidence/web/objects/9eb69cb75e0ff997.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1fkjg9ou67y00.js",
+              "start": 35615,
+              "end": 35781
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eB",
+      "id": 560328,
+      "import": {
+        "label": "actual recent-term import 560328",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          16324,
+          16338
+        ],
+        "utf8": [
+          16324,
+          16338
+        ],
+        "sha256": "cf8db5497829e709bdcf5436dc219c3b6593d12123170092324ba07fa89b8877",
+        "text": "eB=e.i(560328)"
+      },
+      "variants": [
+        {
+          "ids": [
+            560328,
+            693686,
+            956683,
+            989582
+          ],
+          "sha256": "03c9e118088bd9ec60473d73d1cd014c8936d824c97c995f685fcedd6952007b",
+          "origins": [
+            {
+              "source": "evidence/web/objects/c3601a995a6b7f37.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+              "start": 35163,
+              "end": 40509
+            }
+          ]
+        },
+        {
+          "ids": [
+            560328,
+            693686,
+            956683,
+            989582
+          ],
+          "sha256": "2f371de64d2eb89da7e8edd47f36faaf9b91b0d806a2b3800f03024e6783bd98",
+          "origins": [
+            {
+              "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+              "start": 39401,
+              "end": 44747
+            }
+          ]
+        },
+        {
+          "ids": [
+            560328,
+            693686,
+            956683,
+            989582
+          ],
+          "sha256": "454ded6273c9cd1a419f8c2c0a726045df950fb56ee0ff522a48d098c3dbf307",
+          "origins": [
+            {
+              "source": "evidence/web/objects/9535b69d76e2a69b.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+              "start": 59273,
+              "end": 64619
+            }
+          ]
+        },
+        {
+          "ids": [
+            560328,
+            693686,
+            956683,
+            989582
+          ],
+          "sha256": "95b5e23430f2f2fad80efa0fe423dcb89dcb9a5c5d0e5b0570df61882e3540ed",
+          "origins": [
+            {
+              "source": "evidence/web/objects/767cc801e3f88f8b.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+              "start": 29992,
+              "end": 35338
+            }
+          ]
+        },
+        {
+          "ids": [
+            560328,
+            693686,
+            956683,
+            989582
+          ],
+          "sha256": "4d708b8f842a68b2a709a8c52ed67f33bda420281675aa079a646b16f2766f78",
+          "origins": [
+            {
+              "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+              "start": 3444,
+              "end": 8790
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eH",
+      "id": 662610,
+      "import": {
+        "label": "actual recent-term import 662610",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          16309,
+          16323
+        ],
+        "utf8": [
+          16309,
+          16323
+        ],
+        "sha256": "7588c7323788c2b38a08c85da21d90e3778ff6b777785f345c5c24cf37f7ea36",
+        "text": "eH=e.i(662610)"
+      },
+      "variants": [
+        {
+          "ids": [
+            662610
+          ],
+          "sha256": "4c68d196335efa2c1960a73f73f541f5aaf2723020e9118a03f58b78747d377a",
+          "origins": [
+            {
+              "source": "evidence/web/objects/c3601a995a6b7f37.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+              "start": 26709,
+              "end": 26799
+            },
+            {
+              "source": "evidence/web/objects/767cc801e3f88f8b.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+              "start": 13208,
+              "end": 13298
+            }
+          ]
+        },
+        {
+          "ids": [
+            662610
+          ],
+          "sha256": "1ff170b1d9a74b65484e337f5d4d51241c888ea4707e7ef29ff8ed5c6d9e59ae",
+          "origins": [
+            {
+              "source": "evidence/web/objects/dd1b7e2a0ecbaed0.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/39mrtwuhv50wq.js",
+              "start": 37164,
+              "end": 37254
+            }
+          ]
+        },
+        {
+          "ids": [
+            662610
+          ],
+          "sha256": "521cdc287783393cc9c65803d86f66edc93be4104c9212173a20aab51a27c25c",
+          "origins": [
+            {
+              "source": "evidence/web/objects/9535b69d76e2a69b.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+              "start": 47786,
+              "end": 47876
+            }
+          ]
+        },
+        {
+          "ids": [
+            662610
+          ],
+          "sha256": "e456b5d4162c74fa04fe4b51d9fa10fca976bde20df0e8ca721a657736b1e792",
+          "origins": [
+            {
+              "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+              "start": 3325,
+              "end": 3415
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eJ",
+      "id": 48485,
+      "import": {
+        "label": "actual recent-term import 48485",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          16512,
+          16525
+        ],
+        "utf8": [
+          16512,
+          16525
+        ],
+        "sha256": "2c142a691f2c3534f62f5505d10a564065e44ec8a0b0c84507153389e6b32e2d",
+        "text": "eJ=e.i(48485)"
+      },
+      "variants": [
+        {
+          "ids": [
+            48485,
+            562606
+          ],
+          "sha256": "3e074c3060403e9e6ffe7eaa36eb0ade46149774db1d8411d778cc93f34fc683",
+          "origins": [
+            {
+              "source": "evidence/web/objects/4fd6e792e7a336d9.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0jy7c_2b11et0.js",
+              "start": 12912,
+              "end": 15807
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eK",
+      "id": 989582,
+      "import": {
+        "label": "actual recent-term import 989582",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          16339,
+          16353
+        ],
+        "utf8": [
+          16339,
+          16353
+        ],
+        "sha256": "cec2aacb8fe06236cb98fb0ff2d0b23c6d7d1b05babfc4ef851e90c1f96ebed7",
+        "text": "eK=e.i(989582)"
+      },
+      "variants": [
+        {
+          "ids": [
+            560328,
+            693686,
+            956683,
+            989582
+          ],
+          "sha256": "03c9e118088bd9ec60473d73d1cd014c8936d824c97c995f685fcedd6952007b",
+          "origins": [
+            {
+              "source": "evidence/web/objects/c3601a995a6b7f37.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/2vz-n_tbfq5w6.js",
+              "start": 35163,
+              "end": 40509
+            }
+          ]
+        },
+        {
+          "ids": [
+            560328,
+            693686,
+            956683,
+            989582
+          ],
+          "sha256": "2f371de64d2eb89da7e8edd47f36faaf9b91b0d806a2b3800f03024e6783bd98",
+          "origins": [
+            {
+              "source": "evidence/web/objects/ecf7ec803bfb3020.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/42568tozrvzh0.js",
+              "start": 39401,
+              "end": 44747
+            }
+          ]
+        },
+        {
+          "ids": [
+            560328,
+            693686,
+            956683,
+            989582
+          ],
+          "sha256": "454ded6273c9cd1a419f8c2c0a726045df950fb56ee0ff522a48d098c3dbf307",
+          "origins": [
+            {
+              "source": "evidence/web/objects/9535b69d76e2a69b.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0v3fva986yf7u.js",
+              "start": 59273,
+              "end": 64619
+            }
+          ]
+        },
+        {
+          "ids": [
+            560328,
+            693686,
+            956683,
+            989582
+          ],
+          "sha256": "95b5e23430f2f2fad80efa0fe423dcb89dcb9a5c5d0e5b0570df61882e3540ed",
+          "origins": [
+            {
+              "source": "evidence/web/objects/767cc801e3f88f8b.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+              "start": 29992,
+              "end": 35338
+            }
+          ]
+        },
+        {
+          "ids": [
+            560328,
+            693686,
+            956683,
+            989582
+          ],
+          "sha256": "4d708b8f842a68b2a709a8c52ed67f33bda420281675aa079a646b16f2766f78",
+          "origins": [
+            {
+              "source": "evidence/web/objects/ea5d7a76f15713d7.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0_6ev1ba32jn7.js",
+              "start": 3444,
+              "end": 8790
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eO",
+      "id": 944410,
+      "import": {
+        "label": "actual recent-term import 944410",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          16249,
+          16263
+        ],
+        "utf8": [
+          16249,
+          16263
+        ],
+        "sha256": "aad0034f0beff263d8e615f2a4a2c2e735a43a24f4e22bf2970d7eaf8f6b40c1",
+        "text": "eO=e.i(944410)"
+      },
+      "variants": [
+        {
+          "ids": [
+            944410
+          ],
+          "sha256": "eb97d758430643b5c14b01e535a4bc5490b13e7d5437d04b76fe7bb3525d1395",
+          "origins": [
+            {
+              "source": "evidence/web/objects/fd402d4185b44ce9.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/19xl-yywkv-8p.js",
+              "start": 27693,
+              "end": 28518
+            }
+          ]
+        },
+        {
+          "ids": [
+            944410
+          ],
+          "sha256": "6e0b85a81829493018b501cb1137b5cf667eec841ea56b6921e6ad0875271b96",
+          "origins": [
+            {
+              "source": "evidence/web/objects/27a1ee00eb5909ec.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3av743n8vozzs.js",
+              "start": 27659,
+              "end": 28484
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eQ",
+      "id": 785212,
+      "import": {
+        "label": "actual recent-term import 785212",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          16455,
+          16469
+        ],
+        "utf8": [
+          16455,
+          16469
+        ],
+        "sha256": "bbae1ac91c3a9aa3088277a627b30b431cd432628f49db88563318f2eaecaebe",
+        "text": "eQ=e.i(785212)"
+      },
+      "variants": [
+        {
+          "ids": [
+            785212
+          ],
+          "sha256": "c8ec5dccc7bc9a31e5e8b6d6d066f9cf74d897234e59e96d31080305eb47d456",
+          "origins": [
+            {
+              "source": "evidence/web/objects/9850ac206857a6cf.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/21kxt19nrdnvl.js",
+              "start": 19936,
+              "end": 22859
+            }
+          ]
+        },
+        {
+          "ids": [
+            785212
+          ],
+          "sha256": "5309c087768e4c840d665ce37e2361627c2be211971a61ef9a9e8177684123a8",
+          "origins": [
+            {
+              "source": "evidence/web/objects/bbad3cca63bc2aa5.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/2wq32g770zyfq.js",
+              "start": 27871,
+              "end": 30794
+            }
+          ]
+        },
+        {
+          "ids": [
+            785212
+          ],
+          "sha256": "6e21d56312f953bb4a30090911e22c1ca1d7acbe9e6bb66bbfd0f256879d59b1",
+          "origins": [
+            {
+              "source": "evidence/web/objects/767cc801e3f88f8b.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+              "start": 22703,
+              "end": 25626
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eZ",
+      "id": 541710,
+      "import": {
+        "label": "actual recent-term import 541710",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          16541,
+          16555
+        ],
+        "utf8": [
+          16541,
+          16555
+        ],
+        "sha256": "cfe390da377ce7d244ec93f4f695c3eef295c2fac5c4e9e7b8b5a9fe4c651df0",
+        "text": "eZ=e.i(541710)"
+      },
+      "variants": [
+        {
+          "ids": [
+            541710
+          ],
+          "sha256": "761895d67935984d2a1bb1a36fc3500ae70fb8f70ea8888591fd0b1ea7638533",
+          "origins": [
+            {
+              "source": "evidence/web/objects/3740fc4e7a24596d.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+              "start": 19349,
+              "end": 20812
+            }
+          ]
+        },
+        {
+          "ids": [
+            541710
+          ],
+          "sha256": "e37e93fb206f4b99da7f4866f913dc16cde51f1fe2f51d9d443ea5c809b205d3",
+          "origins": [
+            {
+              "source": "evidence/web/objects/cf2bb278631744da.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+              "start": 13342,
+              "end": 14805
+            }
+          ]
+        },
+        {
+          "ids": [
+            541710
+          ],
+          "sha256": "f9bf2031271f5cac989609286a76705ad2f197b6003306cf7d6393644a8c5d12",
+          "origins": [
+            {
+              "source": "evidence/web/objects/27a1ee00eb5909ec.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3av743n8vozzs.js",
+              "start": 1691,
+              "end": 3154
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "e_",
+      "id": 787773,
+      "import": {
+        "label": "actual recent-term import 787773",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          15431,
+          15445
+        ],
+        "utf8": [
+          15431,
+          15445
+        ],
+        "sha256": "86c43d00ae563e08381bb6e8c21c8a5acbb47a64912ad38f9640c4a36be0cbc5",
+        "text": "e_=e.i(787773)"
+      },
+      "variants": [
+        {
+          "ids": [
+            787773
+          ],
+          "sha256": "a4c037dc384a66af2f3d3a0bf77188fbffb975da77b5e3a89eba90183d6fde77",
+          "origins": [
+            {
+              "source": "evidence/web/objects/336927280d274943.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3kknacu7otph1.js",
+              "start": 4203,
+              "end": 5542
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "f",
+      "id": 458310,
+      "import": {
+        "label": "actual recent-term import 458310",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          322,
+          335
+        ],
+        "utf8": [
+          322,
+          335
+        ],
+        "sha256": "951833b5dedf4c4358e20f43737886fced85a8656620982f79b897cc94359f7b",
+        "text": "f=e.i(458310)"
+      },
+      "variants": [
+        {
+          "ids": [
+            458310
+          ],
+          "sha256": "637fd83c895d24a43cfd4243adbb9daea8b61e6c81df9feb82fb844f1e0cbe43",
+          "origins": [
+            {
+              "source": "evidence/web/objects/1e479323ffe53c14.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1iz1f978wp41x.js",
+              "start": 17256,
+              "end": 20495
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "h",
+      "id": 935258,
+      "import": {
+        "label": "actual recent-term import 935258",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          308,
+          321
+        ],
+        "utf8": [
+          308,
+          321
+        ],
+        "sha256": "d426ff171918f8b67e9a684b1c8363233bd8a24dd1ebc9b90738498d57c05b27",
+        "text": "h=e.i(935258)"
+      },
+      "variants": [
+        {
+          "ids": [
+            935258
+          ],
+          "sha256": "2802241cf072b48096cba29462b0661943834dc5e4c18c700145fbf775befa13",
+          "origins": [
+            {
+              "source": "evidence/web/objects/4fd6e792e7a336d9.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0jy7c_2b11et0.js",
+              "start": 21764,
+              "end": 24852
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m",
+      "id": 782067,
+      "import": {
+        "label": "actual recent-term import 782067",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          294,
+          307
+        ],
+        "utf8": [
+          294,
+          307
+        ],
+        "sha256": "3eb53ef3fbf002f682e4c132798cf9a7abd5017b7c049fc5b8d808b2997e9c08",
+        "text": "m=e.i(782067)"
+      },
+      "variants": [
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "5affb31003583d3c223d9c542e49fc7705ef598096e39931ee0823f776616f7c",
+          "origins": [
+            {
+              "source": "evidence/web/objects/11ee2a97b2772408.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/08jicuqks5s2h.js",
+              "start": 17724,
+              "end": 19821
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "20dfd87b13213068a7028789f8b48df92982ff24039c2888a83afacffe9506ce",
+          "origins": [
+            {
+              "source": "evidence/web/objects/4a89a99471a66194.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0ltkuxnbsexf1.js",
+              "start": 20151,
+              "end": 22248
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "2a0796f15bdec6b2be228e22adaad1edfaf7b2ff71c334915b8a57980129bd5f",
+          "origins": [
+            {
+              "source": "evidence/web/objects/ee92e9e880aedbf0.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1wx-9w8pqjwi4.js",
+              "start": 99572,
+              "end": 101669
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "980db9e3b868160fee74f0d8d2e887e6ba94501aadc7244d975166eb5b79a556",
+          "origins": [
+            {
+              "source": "evidence/web/objects/dd1b7e2a0ecbaed0.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/39mrtwuhv50wq.js",
+              "start": 39620,
+              "end": 41717
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "422e9c34a56ea2c7aa169873b8332beec688cfb8ae53afd913e8178efe58fdb5",
+          "origins": [
+            {
+              "source": "evidence/web/objects/bbad3cca63bc2aa5.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/2wq32g770zyfq.js",
+              "start": 31161,
+              "end": 33258
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "165af9365902cd54828bb176ca8dd07fc578bc52e5efec551b2d3621265dbeaa",
+          "origins": [
+            {
+              "source": "evidence/web/objects/767cc801e3f88f8b.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3_ebsevlxes66.js",
+              "start": 39217,
+              "end": 41314
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "4fdf04143562dc38357fa2f57b3a8aa629736e76cebdc82aff895103bb50596f",
+          "origins": [
+            {
+              "source": "evidence/web/objects/c9d58b1f7b1c6f01.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/453pkffaelr06.js",
+              "start": 71069,
+              "end": 73166
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "c4627ff5a2342b2419a2a4ef583c3bb92de876277e835e0d7736d4e8cabf6c99",
+          "origins": [
+            {
+              "source": "evidence/web/objects/0d7d9807b95f27b0.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/19wqtd8-202k3.js",
+              "start": 38402,
+              "end": 40499
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "5c0b6af003a0a3aa4dd64b680d8563ac929d11a7d523e7ea103a269fcd997c0c",
+          "origins": [
+            {
+              "source": "evidence/web/objects/c22eb726453cadf9.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/30cqy1axf7aqj.js",
+              "start": 18871,
+              "end": 20968
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "47ebf39cf6f0eedd9cd29a19fc2923cdc80cd3343ebaa51776c159004ad19ec0",
+          "origins": [
+            {
+              "source": "evidence/web/objects/0746572aecdcf595.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0a3o-yur9fjs3.js",
+              "start": 23513,
+              "end": 25610
+            }
+          ]
+        },
+        {
+          "ids": [
+            782067
+          ],
+          "sha256": "4efdbe6b54ba73a9f694b7ce8a01f033b3fb97edb2f26d3534b71cfcfc1d27d6",
+          "origins": [
+            {
+              "source": "evidence/web/objects/beeea2f855679780.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0qhvxcxzpq52j.js",
+              "start": 21017,
+              "end": 23114
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "n",
+      "id": 292686,
+      "import": {
+        "label": "actual recent-term import 292686",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          196,
+          209
+        ],
+        "utf8": [
+          196,
+          209
+        ],
+        "sha256": "88ab2cf7e7e6047728a5904f9785441f1e8128b657b9148b9f32f39c6a39d445",
+        "text": "n=e.i(292686)"
+      },
+      "variants": [
+        {
+          "ids": [
+            292686
+          ],
+          "sha256": "61281ea7551c4f2f9047703c8658d9ffada8e500a82ede9c79958146558deda3",
+          "origins": [
+            {
+              "source": "evidence/web/objects/88945b987f03af34.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3xtvhmd-f712k.js",
+              "start": 138,
+              "end": 24336
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "o",
+      "id": 146695,
+      "import": {
+        "label": "actual recent-term import 146695",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          252,
+          265
+        ],
+        "utf8": [
+          252,
+          265
+        ],
+        "sha256": "26d8c69754c7c671a5854c625199a8593bdf4b8e8291968a3103a7a498645150",
+        "text": "o=e.i(146695)"
+      },
+      "variants": [
+        {
+          "ids": [
+            146695
+          ],
+          "sha256": "bb995bc856796eb404e21763f5a72275af2b0efa06b46f0d12507e1c6a3d90a1",
+          "origins": [
+            {
+              "source": "evidence/web/objects/fd402d4185b44ce9.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/19xl-yywkv-8p.js",
+              "start": 29806,
+              "end": 30355
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "p",
+      "id": 398902,
+      "import": {
+        "label": "actual recent-term import 398902",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          365,
+          378
+        ],
+        "utf8": [
+          365,
+          378
+        ],
+        "sha256": "b48302a7912b878e715b91196fc7ca58f8b5b02d5734e6393748e0a843fb4cf5",
+        "text": "p=e.i(398902)"
+      },
+      "variants": [
+        {
+          "ids": [
+            12692,
+            406882,
+            536869,
+            117466,
+            398902,
+            271292
+          ],
+          "sha256": "6a277435e4b43e8ed386083bdfce657ee1b257e9dc52a191a8b27ccc70e6f267",
+          "origins": [
+            {
+              "source": "evidence/web/objects/8761f9bd54e61e64.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0xe16mpa8ypnu.js",
+              "start": 153,
+              "end": 59835
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "q",
+      "id": 634661,
+      "import": {
+        "label": "actual recent-term import 634661",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          1158,
+          1171
+        ],
+        "utf8": [
+          1158,
+          1171
+        ],
+        "sha256": "feeef172a1db987f55d133c54a7c9db29f18ab1959e841546d01937442208273",
+        "text": "q=e.i(634661)"
+      },
+      "variants": [
+        {
+          "ids": [
+            634661
+          ],
+          "sha256": "2de983d03f8186e0ddcd3e7c3582224d29824ff633f0514853b9fdb6ac5c0d84",
+          "origins": [
+            {
+              "source": "evidence/web/objects/337439e6bd8e9380.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/12g0kkarzdzbb.js",
+              "start": 6575,
+              "end": 8468
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "r",
+      "id": 445242,
+      "import": {
+        "label": "actual recent-term import 445242",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          154,
+          167
+        ],
+        "utf8": [
+          154,
+          167
+        ],
+        "sha256": "9e137e2d39a68d05c1c7870f0bd66c1c077b1fdbc41ccee588e72009980f69f4",
+        "text": "r=e.i(445242)"
+      },
+      "variants": [
+        {
+          "ids": [
+            445242
+          ],
+          "sha256": "2d7f3e592645b5e2d997e444ee9b10be6dc8c357680552dccddafb63e4887576",
+          "origins": [
+            {
+              "source": "evidence/web/objects/01ad4f413e529b60.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0oz8z5zyovele.js",
+              "start": 4795,
+              "end": 4839
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "s",
+      "id": 745018,
+      "import": {
+        "label": "actual recent-term import 745018",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          182,
+          195
+        ],
+        "utf8": [
+          182,
+          195
+        ],
+        "sha256": "e0b7642863718bf4c6c9a43228a157a23c4fe0606a278cf696c4f20d34b34d11",
+        "text": "s=e.i(745018)"
+      },
+      "variants": [
+        {
+          "ids": [
+            745018
+          ],
+          "sha256": "4cc46a6d51b6a9b0fe8ce9f64d77e130e7961309e881fe14f64efa16fb09f660",
+          "origins": [
+            {
+              "source": "evidence/web/objects/c8e855c81e05ca28.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3nzad4fr1d1nw.js",
+              "start": 119,
+              "end": 166147
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "t",
+      "id": 732486,
+      "import": {
+        "label": "actual recent-term import 732486",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          140,
+          153
+        ],
+        "utf8": [
+          140,
+          153
+        ],
+        "sha256": "6fe987520583f8a737145e7b3c5b87e3c34790702d51038e21f7ce5573c1ed9b",
+        "text": "t=e.i(732486)"
+      },
+      "variants": [
+        {
+          "ids": [
+            732486
+          ],
+          "sha256": "1327928dc08f8c5ad213c67d8b2b042e579ca141db8b23ac448bf178077cfadd",
+          "origins": [
+            {
+              "source": "evidence/web/objects/e01139c6299580b1.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/0nh_qki05x_fs.js",
+              "start": 25883,
+              "end": 25927
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "te",
+      "id": 605587,
+      "import": {
+        "label": "actual recent-term import 605587",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          17369,
+          17383
+        ],
+        "utf8": [
+          17369,
+          17383
+        ],
+        "sha256": "4d639b42abab8002d130ce62d8913a657f04bb767974b1a3ec888674f1c80e41",
+        "text": "te=e.i(605587)"
+      },
+      "variants": [
+        {
+          "ids": [
+            605587
+          ],
+          "sha256": "bceabd6341b002dbe14334459e7470c27ca90281762d8c10db07ed3044f57ea1",
+          "origins": [
+            {
+              "source": "evidence/web/objects/2c867fef5c76d400.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3dwp-9wad9afm.js",
+              "start": 138,
+              "end": 1247
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tr",
+      "id": 639374,
+      "import": {
+        "label": "actual recent-term import 639374",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          17399,
+          17413
+        ],
+        "utf8": [
+          17399,
+          17413
+        ],
+        "sha256": "d1d8526d2448a818615c16e3ddc0f0a6e94bf07d3288fa465ea12c273d82f921",
+        "text": "tr=e.i(639374)"
+      },
+      "variants": [
+        {
+          "ids": [
+            639374
+          ],
+          "sha256": "491277c531d85bf7569a6e10587108c9b7658ffe5dd0ee76852939c4e20b16c4",
+          "origins": [
+            {
+              "source": "evidence/web/objects/3740fc4e7a24596d.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3amuhk48ot4yw.js",
+              "start": 64056,
+              "end": 64157
+            },
+            {
+              "source": "evidence/web/objects/cf2bb278631744da.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1i2ot0a5wmf5o.js",
+              "start": 17318,
+              "end": 17419
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tt",
+      "id": 820190,
+      "import": {
+        "label": "actual recent-term import 820190",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          17384,
+          17398
+        ],
+        "utf8": [
+          17384,
+          17398
+        ],
+        "sha256": "63ab7954ba2e3b553c2de898094aa5c830eadc32dc183ac32b02eb65bdcb9090",
+        "text": "tt=e.i(820190)"
+      },
+      "variants": [
+        {
+          "ids": [
+            820190
+          ],
+          "sha256": "2d6908ce7e0e2b6c2a8916400e1371410df0cd858a7d2dfaa22464593bdabdaf",
+          "origins": [
+            {
+              "source": "evidence/web/objects/c4c5abc83734bc1b.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/04lk-6_1p4xiq.js",
+              "start": 38624,
+              "end": 38724
+            },
+            {
+              "source": "evidence/web/objects/43fc24878549d421.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/3x-9f-8l5wh8n.js",
+              "start": 27589,
+              "end": 27689
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "u",
+      "id": 179736,
+      "import": {
+        "label": "actual recent-term import 179736",
+        "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+        "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+        "sourceBytes": 52145,
+        "utf16": [
+          280,
+          293
+        ],
+        "utf8": [
+          280,
+          293
+        ],
+        "sha256": "f35378cf24efc092883eb49e60d49bfeffff8a44394b220bc2d4c3b5fcadf3c3",
+        "text": "u=e.i(179736)"
+      },
+      "variants": [
+        {
+          "ids": [
+            179736
+          ],
+          "sha256": "65c55fd94aae19033823800ac95d722d88c4cd549c869927bfe53b6b675596f1",
+          "origins": [
+            {
+              "source": "evidence/web/objects/da58569257a3fbc5.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1nib5d65u7tjx.js",
+              "start": 49880,
+              "end": 51270
+            },
+            {
+              "source": "evidence/web/objects/faf3bcbd59e7e996.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/2pjymnorh080q.js",
+              "start": 49835,
+              "end": 51225
+            }
+          ]
+        },
+        {
+          "ids": [
+            179736
+          ],
+          "sha256": "8b4fa23b4c652bb17188ff843e8878e509e6f1bb661a7ccefea3d84710cf150b",
+          "origins": [
+            {
+              "source": "evidence/web/objects/c7e25d5561f3a8f8.js",
+              "url": "https://pump.fun/_next/static/immutable/chunks/1wury9huvpvkb.js",
+              "start": 12115,
+              "end": 13505
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "proofs": [
+    {
+      "label": "complete recent-term component/selector/context tu",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        19246,
+        23921
+      ],
+      "utf8": [
+        19246,
+        23921
+      ],
+      "sha256": "3c31eeb1206e0fa980c8671f12be81a18df6fb7b76e927456fe5c50d8747b3df",
+      "text": "tu=e=>{let l,i,o,u,m,x,g,b,w,_,v=(0,r.c)(31),{terms:k,canExpand:y,onClear:j,onNavigate:N}=e,{t:C}=(0,p.f)(),[S,A]=(0,a.useState)(!1),E=y&&S;v[0]!==E||v[1]!==k?(l=E?k:k.slice(0,3),v[0]=E,v[1]=k,v[2]=l):l=v[2];let I=l,R=y&&k.length>3,M=(e=>{let t,a,s,n,l,i,o,u=(0,r.c)(25),m=(0,eZ.l)();u[0]!==m?(t=(0,eZ.M)(m),u[0]=m,u[1]=t):t=u[1];let f=t;if(u[2]!==f||u[3]!==e){let t;u[5]!==f?(t=e=>({term:e,candidate:((e,t=!1)=>{let r=(0,d.R)(e);if(r&&(0,tr.f)(r))return{address:r,chain:\"solana\"};let a=e.trim();if((0,te.h)(a))return{address:a,chain:\"evm\"};let s=t?ti(a):null;return s?{address:s,chain:\"near\"}:null})(e,f),groupId:(0,c.f)(e.trim())?e.trim():null}),u[5]=f,u[6]=t):t=u[6],a=e.map(t),u[2]=f,u[3]=e,u[4]=a}else a=u[4];let x=a;u[7]!==x?(s=x.flatMap(tw),u[7]=x,u[8]=s):s=u[8];let{squads:p,pendingIds:g}=(e=>{let t,a,s,n=(0,r.c)(13),l=(0,eO.useClientServerContract)(),i=(0,eH.f)();if(n[0]!==l||n[1]!==e||n[2]!==i){let r;n[4]!==l||n[5]!==i?(r=e=>({queryKey:eK.f.profile(e),queryFn:t=>{let{signal:r}=t;return(0,eB.N)({api:l,groupId:e,signal:r})},enabled:i,staleTime:3e4}),n[4]=l,n[5]=i,n[6]=r):r=n[6],t=e.map(r),n[0]=l,n[1]=e,n[2]=i,n[3]=t}else t=n[3];return n[7]!==e||n[8]!==i?(a=t=>{let r=new Map,a=new Set;return i&&t.forEach((t,s)=>{let n=e[s];void 0!==n&&(void 0!==t.data?r.set(n,t.data):t.isPending&&a.add(n))}),{squads:r,pendingIds:a}},n[7]=e,n[8]=i,n[9]=a):a=n[9],n[10]!==t||n[11]!==a?(s={queries:t,combine:a},n[10]=t,n[11]=a,n[12]=s):s=n[12],(0,h.f)(s)})(s);u[9]!==x?(n=x.flatMap(t_),u[9]=x,u[10]=n):n=u[10];let b=n;u[11]!==x?(l=x.flatMap(tv),u[11]=x,u[12]=l):l=u[12];let w=l,_=to(w,f&&w.length>0),v=0===b.length;u[13]!==b||u[14]!==v?(i={mints:b,includeNsfw:!0,disabled:v},u[13]=b,u[14]=v,u[15]=i):i=u[15];let{coins:k,loading:y,isLoadingError:j,fallbackPending:N}=(0,eQ.f)(i);if(u[16]!==x||u[17]!==k||u[18]!==N||u[19]!==j||u[20]!==y||u[21]!==_||u[22]!==g||u[23]!==p){let e=new Map(k.map(tk));o=x.map(t=>{let{term:r,candidate:a,groupId:s}=t;if(null!==s){let e=p.get(s);return e?{kind:\"squad\",term:r,squad:e}:g.has(s)?{kind:\"pending\",term:r}:{kind:\"text\",term:r}}if(!a)return{kind:\"text\",term:r};if(\"near\"===a.chain){let e=_.byAddress.get(a.address);return e?{kind:\"coin\",term:r,coin:e}:_.pending?{kind:\"pending\",term:r}:{kind:\"text\",term:r}}let n=e.get((0,te.c)(a.address));return n?{kind:\"coin\",term:r,coin:n}:y||N?{kind:\"pending\",term:r}:!j&&\"solana\"===a.chain&&(0,tt.f)(a.address)?{kind:\"user\",term:r,address:a.address}:{kind:\"text\",term:r}}),u[16]=x,u[17]=k,u[18]=N,u[19]=j,u[20]=y,u[21]=_,u[22]=g,u[23]=p,u[24]=o}else o=u[24];return o})(I);v[3]!==M?(i=M.flatMap(tN),v[3]=M,v[4]=i):i=v[4],(0,eJ.f)(i),v[5]!==C?(o=C(\"web.search.recently_searched\"),v[5]=C,v[6]=o):o=v[6],v[7]!==R||v[8]!==E||v[9]!==C?(u=R?(0,t.jsx)(\"button\",{type:\"button\",className:V,onClick:()=>A(tC),children:C(E?\"common.show_less\":\"common.see_all\")}):null,v[7]=R,v[8]=E,v[9]=C,v[10]=u):u=v[10];let L=0===k.length;return v[11]!==C?(m=C(\"common.clear\"),v[11]=C,v[12]=m):m=v[12],v[13]!==j||v[14]!==L||v[15]!==m?(x=(0,t.jsx)(\"button\",{type:\"button\",className:V,onClick:j,disabled:L,children:m}),v[13]=j,v[14]=L,v[15]=m,v[16]=x):x=v[16],v[17]!==u||v[18]!==x?(g=(0,t.jsxs)(\"span\",{className:\"flex items-center gap-3\",children:[u,x]}),v[17]=u,v[18]=x,v[19]=g):g=v[19],v[20]!==o||v[21]!==g?(b=(0,t.jsx)(q._,{density:K,title:o,className:Q,aside:g}),v[20]=o,v[21]=g,v[22]=b):b=v[22],v[23]!==N||v[24]!==M||v[25]!==C||v[26]!==k.length?(w=0===k.length?(0,t.jsx)(e_.L,{density:K,children:C(\"search.no_recent_searches\")}):(0,t.jsx)(\"div\",{className:\"flex flex-col\",children:M.map((e,r)=>\"coin\"===e.kind?(0,t.jsx)(Z,{coin:e.coin,index:r,sourceScreen:n.Ae.SEARCH,sourceElement:n.k9.RECENT_LIST,searchTerm:e.term,onClick:N},e.term):\"user\"===e.kind?(0,t.jsx)(td,{address:e.address,onClick:N},e.term):\"squad\"===e.kind?(0,t.jsx)(en,{squad:e.squad,onClick:N},e.term):\"pending\"===e.kind?(0,t.jsxs)(\"div\",{\"aria-hidden\":!0,\"data-testid\":\"recent-search-pending\",className:(0,H.c)(F,\"hover:bg-transparent\"),children:[(0,t.jsx)(T.l,{variant:\"circle\",size:$}),(0,t.jsx)(T.l,{height:14,width:144})]},e.term):(0,t.jsxs)(f.default,{href:`/explore?q=${encodeURIComponent(e.term)}`,onClick:N,className:(0,H.c)(F,\"focus-inset\"),children:[(0,t.jsx)(\"span\",{className:\"flex size-7 shrink-0 items-center justify-center text-text-quaternary\",children:(0,t.jsx)(s.L3,{\"aria-hidden\":!0,className:\"size-4\"})}),(0,t.jsx)(\"span\",{className:\"min-w-0 truncate text-sm leading-5 text-text-primary\",children:e.term})]},e.term))}),v[23]=N,v[24]=M,v[25]=C,v[26]=k.length,v[27]=w):w=v[27],v[28]!==w||v[29]!==b?(_=(0,t.jsxs)(\"section\",{className:\"flex flex-col\",\"data-testid\":\"search-recently-searched\",children:[b,w]}),v[28]=w,v[29]=b,v[30]=_):_=v[30],_}"
+    },
+    {
+      "label": "complete recent-term component/selector/context td",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        18063,
+        19245
+      ],
+      "utf8": [
+        18063,
+        19245
+      ],
+      "sha256": "c3a6f49586cb1593c0025fe14debb7c14917244a50d006378e11aa2a27857b04",
+      "text": "td=e=>{let a,s,n,l,i,c,d,h=(0,r.c)(26),{address:x,onClick:g}=e,{t:b}=(0,p.f)();h[0]!==x?(a={address:x},h[0]=x,h[1]=a):a=h[1];let{data:w}=(0,m.T)(a),_=(0,u.s)(x);h[2]!==x||h[3]!==w?.username?(s=w?.username||x.slice(0,6),h[2]=x,h[3]=w?.username,h[4]=s):s=h[4];let v=s;h[5]!==x?(n=(0,o.$)(x),h[5]=x,h[6]=n):n=h[6],h[7]!==v||h[8]!==g||h[9]!==n?(l=(0,t.jsx)(f.default,{href:n,onClick:g,\"aria-label\":v,className:W}),h[7]=v,h[8]=g,h[9]=n,h[10]=l):l=h[10];let k=w?.username,y=w?.profile_image,j=w?.resolved_avatar_decoration,N=w?.x_username;return h[11]!==b||h[12]!==w?(i=w?b(\"common.followers_count\",{count:w.followers??0,compact_count:(0,P.O)(w.followers??0)}):void 0,h[11]=b,h[12]=w,h[13]=i):i=h[13],h[14]!==x||h[15]!==_||h[16]!==v||h[17]!==k||h[18]!==y||h[19]!==j||h[20]!==N||h[21]!==i?(c=(0,t.jsx)(A.S,{address:x,username:k,profileImage:y,avatarDecoration:j,nameOverride:v,size:$,density:K,link:!1,hoverCard:!1,verified:_,xUsername:N,description:i,className:\"min-w-0 flex-1\"}),h[14]=x,h[15]=_,h[16]=v,h[17]=k,h[18]=y,h[19]=j,h[20]=N,h[21]=i,h[22]=c):c=h[22],h[23]!==c||h[24]!==l?(d=(0,t.jsxs)(\"div\",{\"data-search-row\":!0,className:F,children:[l,c]}),h[23]=c,h[24]=l,h[25]=d):d=h[25],d}"
+    },
+    {
+      "label": "complete recent-term component/selector/context tw",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        51389,
+        51437
+      ],
+      "utf8": [
+        51393,
+        51441
+      ],
+      "sha256": "f12317aedc053388d47d82f62f0f96a63b115091bd7f34dce81b4635b192baa7",
+      "text": "function tw(e){let{groupId:t}=e;return t?[t]:[]}"
+    },
+    {
+      "label": "complete recent-term component/selector/context t_",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        51437,
+        51513
+      ],
+      "utf8": [
+        51441,
+        51517
+      ],
+      "sha256": "6f40df532482084512513aa1dda418b0d4a950730b49fb095b807c51015a8817",
+      "text": "function t_(e){let{candidate:t}=e;return t&&\"near\"!==t.chain?[t.address]:[]}"
+    },
+    {
+      "label": "complete recent-term component/selector/context tv",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        51513,
+        51587
+      ],
+      "utf8": [
+        51517,
+        51591
+      ],
+      "sha256": "1811cfdf6592c42c00f55cddcb061f934dee15afc91d8816b287dc40a0a8d2b8",
+      "text": "function tv(e){let{candidate:t}=e;return t?.chain===\"near\"?[t.address]:[]}"
+    },
+    {
+      "label": "complete recent-term component/selector/context tk",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        51587,
+        51629
+      ],
+      "utf8": [
+        51591,
+        51633
+      ],
+      "sha256": "208aec0b31d6400a1657ac8d352e7173cc17c882db31b4053a599ceff350f1ad",
+      "text": "function tk(e){return[(0,te.c)(e.mint),e]}"
+    },
+    {
+      "label": "complete recent-term component/selector/context tN",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        51716,
+        51765
+      ],
+      "utf8": [
+        51720,
+        51769
+      ],
+      "sha256": "c29a15a733db1d4284522d7ac59239b2a79554a73b891b7d34da8a5c84bb5202",
+      "text": "function tN(e){return\"coin\"===e.kind?[e.coin]:[]}"
+    },
+    {
+      "label": "complete recent-term component/selector/context tC",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        51765,
+        51789
+      ],
+      "utf8": [
+        51769,
+        51793
+      ],
+      "sha256": "5a958eb1e0c366385e1b9a95b0acbfe96cdc8334d68dde95efd1dd8c04e61acb",
+      "text": "function tC(e){return!e}"
+    },
+    {
+      "label": "complete recent-term component/selector/context K",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        1331,
+        1346
+      ],
+      "utf8": [
+        1331,
+        1346
+      ],
+      "sha256": "4f144007a6adb61120c6afa08f2eb91b4d8076e2f92a971d766eccc95030e73d",
+      "text": "K=\"comfortable\""
+    },
+    {
+      "label": "complete recent-term component/selector/context Q",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        1580,
+        1594
+      ],
+      "utf8": [
+        1580,
+        1594
+      ],
+      "sha256": "35eecc8104050706cbea35730f820f9760b1c14cc621e21c8a5467eef7c404a7",
+      "text": "Q=\"border-b-0\""
+    },
+    {
+      "label": "complete recent-term component/selector/context W",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        1408,
+        1446
+      ],
+      "utf8": [
+        1408,
+        1446
+      ],
+      "sha256": "b953e7135f88dd6f356e146c68c9a8e29171c6dc019494a964c27082edff06c7",
+      "text": "W=\"absolute inset-0 z-[1] focus-inset\""
+    },
+    {
+      "label": "source event enum SEARCH",
+      "source": "evidence/web/objects/88945b987f03af34.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3xtvhmd-f712k.js",
+      "sourceSha256": "dd506fbdce6b5f6704da07f92a24a299527f2a7cb148b715d38cd3fb07fff093",
+      "sourceBytes": 32856,
+      "utf16": [
+        20121,
+        20129
+      ],
+      "utf8": [
+        20121,
+        20129
+      ],
+      "sha256": "4c1fac546aed397cbe9124eb4bf7906ba4efccef3b3f7e9c3346d73bcce6ebf9",
+      "text": "SEARCH:9"
+    },
+    {
+      "label": "source event enum RECENT_LIST",
+      "source": "evidence/web/objects/88945b987f03af34.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3xtvhmd-f712k.js",
+      "sourceSha256": "dd506fbdce6b5f6704da07f92a24a299527f2a7cb148b715d38cd3fb07fff093",
+      "sourceBytes": 32856,
+      "utf16": [
+        9136,
+        9150
+      ],
+      "utf8": [
+        9136,
+        9150
+      ],
+      "sha256": "06e57a11f7f70291ba62ab60a3488cf9fe5af115f5ede1534d4be74223142888",
+      "text": "RECENT_LIST:30"
+    },
+    {
+      "label": "actual MAIN/#1925 RecentTerms props handoff",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        48315,
+        48375
+      ],
+      "utf8": [
+        48315,
+        48375
+      ],
+      "sha256": "4b4b70fbca65fefad565643f2282f714f458a57a048d9eeab64e88de0f7e7a80",
+      "text": "(0,t.jsx)(tu,{terms:N,canExpand:ei,onClear:S,onNavigate:ea})"
+    },
+    {
+      "label": "credited existing helper/style boundary to",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        17851,
+        18062
+      ],
+      "utf8": [
+        17851,
+        18062
+      ],
+      "sha256": "59a91673e4be01247cb5c21e987f030a148fb05bdf090475681696a810132a69",
+      "text": "to=(e,t)=>{let a,s,n,l=(0,r.c)(7);return l[0]!==e||l[1]!==t?(a=t?e:[],l[0]=e,l[1]=t,l[2]=a):a=l[2],l[3]!==a?(s=a.map(tb),l[3]=a,l[4]=s):s=l[4],l[5]!==s?(n={queries:s,combine:tc},l[5]=s,l[6]=n):n=l[6],(0,h.f)(n)}"
+    },
+    {
+      "label": "credited existing helper/style boundary tc",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        17705,
+        17850
+      ],
+      "utf8": [
+        17705,
+        17850
+      ],
+      "sha256": "1a72aa8fe12bfbe871e6b802af361444d5ff9ab806e09b6c7762cd099141abae",
+      "text": "tc=e=>{let t=new Map;for(let r of e){let e=r.data;e?.mint&&t.set(e.mint,{...e,chain_id:eY.d})}return{byAddress:t,pending:e.some(e=>e.isLoading)}}"
+    },
+    {
+      "label": "credited existing helper/style boundary tb",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        51183,
+        51389
+      ],
+      "utf8": [
+        51187,
+        51393
+      ],
+      "sha256": "cc7b6be9cce2ff02e189f3f04b6a6627b52356dd9fd191c3169295f0e56b3aff",
+      "text": "function tb(e){return{queryKey:eC.Q.COIN({coinAddress:e,includeDataLivestream:!1,chainId:eY.d}),queryFn:()=>(0,eS.k)({coinAddress:e,includeDataLivestream:!1,chainId:eY.d}),retry:!1,refetchOnWindowFocus:!1}}"
+    },
+    {
+      "label": "credited existing helper/style boundary ti",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        17657,
+        17704
+      ],
+      "utf8": [
+        17657,
+        17704
+      ],
+      "sha256": "7837b05d8acb6603936fa10999eb0660fdb70bb6f1e10bd69dbb8c3a204402f6",
+      "text": "ti=e=>{let t=e.trim();return(0,e0.D)(t)?t:null}"
+    },
+    {
+      "label": "credited existing helper/style boundary F",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        1365,
+        1407
+      ],
+      "utf8": [
+        1365,
+        1407
+      ],
+      "sha256": "82d7baee452af787212eb27f15bd5db0d3035206a3c8a96b6fdc9823ada0fd30",
+      "text": "F=(0,H.c)(k.w.comfortable,I.U.comfortable)"
+    },
+    {
+      "label": "credited existing helper/style boundary V",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        1447,
+        1579
+      ],
+      "utf8": [
+        1447,
+        1579
+      ],
+      "sha256": "2bd5d3e7a946b36e8c5e4cd1e53c13bf24dfcee15e5a4033c1a708fd5af4d4a8",
+      "text": "V=`${q.o} transition-colors hover:text-text-primary disabled:cursor-default disabled:opacity-40 disabled:hover:text-text-quaternary`"
+    },
+    {
+      "label": "credited existing helper/style boundary $",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        1347,
+        1364
+      ],
+      "utf8": [
+        1347,
+        1364
+      ],
+      "sha256": "84b421665884167f26d47f5da0af92b11c424eca8699a4775c6f9a5e41a774e9",
+      "text": "$=k.s.comfortable"
+    },
+    {
+      "label": "credited #1925 Near helper query runtime shape",
+      "source": "evidence/web/objects/ccb10fa3de5597c4.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/1d97gye5pf9_i.js",
+      "sourceSha256": "c6ad82d12ff13427a9d01acacd17a6bbb6ae7266625b328027c1ad4e31f93ddf",
+      "sourceBytes": 52145,
+      "utf16": [
+        18051,
+        18061
+      ],
+      "utf8": [
+        18051,
+        18061
+      ],
+      "sha256": "162ad9ea3c0fdb15a48bcf34e1e555a084e87bc41a720b1944d18908f51b2e03",
+      "text": "(0,h.f)(n)"
+    }
+  ],
+  "dependencies": [
+    {
+      "file": "reconstruction/search-navigation/navigation.mjs",
+      "sha256": "3df06f823f7ad2fe9888a640a369c8e26f7566e28dcb6961ac7b89d7e6a7c6c5"
+    },
+    {
+      "file": "reconstruction/search-navigation/PROVENANCE.json",
+      "sha256": "59333c967632a52707470bd6694bdddb77db8efc306431d63e2def61e9867f98"
+    },
+    {
+      "file": "scripts/verify-search-navigation.mjs",
+      "sha256": "8e77ff75bee5aeea50f839d1ac9ab4db680ab41c355f168bf00ee1743c1b98b7"
+    },
+    {
+      "file": "scripts/verify-search-planner.mjs",
+      "sha256": "ee5765c19448236d4a2f3f26824daacf20745a34605211216ffab6764c1baa3a"
+    }
+  ],
+  "comparison": "Complete selected declarations/functions compare strictly; only parser positions/comments/raw spelling ignored. No alpha/branch/type/operation masks or captured-code execution.",
+  "credits": {
+    "parent": "#1245 local history persistence and #1925 parent state/query/recents remain outside, unchanged. Actual MAIN props bound; no unmerged imports.",
+    "rows": "OPEN #1937 row implementations and other renderers remain required matching ports; not copied or combined-runtime qualified.",
+    "near": "useNearCoins(mints,enabled) matches original to helper alreadyrecovered #1925; required {byAddress:Map,pending} supplied result, no hidden import or new Near provider.",
+    "normalization": "Accepted search-navigation Solana normalization/profileRoute imported+verified unchanged; Near normalization/admission/canonical/curve ports keep actual source signatures.",
+    "profile": "Existing782067 coalescer/profile hook and179736 verified-profile/#1841 remain supplied; no profile/verification acquisition or duplicate reader.",
+    "proof": "Bounded free-binding audit reused from prior own source units; no shared source/parser edits or separate utility credit."
+  },
+  "limits": [
+    "Props contain supplied ordinary history terms; no storage/history persistence, account/session/credential/cookie/provider acquisition or actual query/navigation/subscription.",
+    "Query/debounce/store/hydration/feature/classification/ProfileDisplay ports stay external; no current variant winner or service/API/auth policy inference.",
+    "Group query forwards client/id/signal and retains30s enabled/options/combine precedence; query lifecycle/retry/abort scheduling remains supplied.",
+    "Near result Map/pending follows existing helper interface; no new Near/RPC/read provider. Group/coin/profile results are supplied, not acquired.",
+    "Ordinary CoinRow/GroupRow rendering/selection remain matching external1937 ports; Perps/protected actions/excluded detail pages not implemented/executed.",
+    "No mounted product/wholeSearchDialog/visual/security/native/API/backend/feature completion claim or progress change."
+  ]
+}
