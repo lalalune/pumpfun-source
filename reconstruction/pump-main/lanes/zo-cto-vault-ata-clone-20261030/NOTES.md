@@ -38,16 +38,21 @@ SHA-256:
 
 ## Composition with #3144
 
-Both PRs touch `admin_cto.rs`, at different CPI consumer sites. The actual source
-composition with #3144 head `e25dd43811af133a8ebe1f8fc4dc0c0b6934afbb` was compiled
-normally and rebuilt independently: 0.62552 -> 0.62762, 2,088 -> 2,095 aligned
-tokens, 27,400 bytes, 1,034 raw/normalized windows, empty losses, and 363/0 runtime.
-Positional differences remain 3,325 on that composition.
+Both PRs touch `admin_cto.rs`, at different CPI consumer sites. The actual clean
+Git composition with #3144 head `860e619885f7b2ca6339afa9b7499eebf45b9b93`
+exactly equals the normally compiled and independently rebuilt source. Relative
+to #3144 alone, adding this vault copy raises similarity 0.63062 -> 0.63271,
+2,105 -> 2,112 aligned tokens, and reduces positional differences 3,260 -> 3,257.
+Relative to fresh main, the combined result is 0.62403 -> 0.63271 (+29 aligned
+tokens). Handler size remains 27,400 bytes; all 1,034 raw/normalized windows are
+retained, gain/loss lists are empty, and all 363 runtime cases match.
 
-- Composed unstripped SHA-256:
-  `7f555a26b6ae203c5358c9afdebf58b35f2e0b823fa030f7b709640657901b49`
-- Composed runtime SHA-256:
-  `a2c564a7c109e2068cf7175e969de529d52d6995e8b43a2ebba5d4310cec9cbc`
+- Composed unstripped SHA-256, both ordinary builds:
+  `956bccc592d596d30adf1c6f5a468b10d5c5344407638af07dfe13dd2cb487a0`
+- Composed runtime SHA-256, both ordinary builds:
+  `50ec0d7165c1afcc87fe1c8d0189b4b9b37a07341d70116074beb24cb2cd16f7`
+
+These measurements supersede the earlier composition with #3144 head e25dd438.
 
 Merged #3131's associated-program copy and #3028's current transfer initializer
 order remain intact. Other open PR overlaps are checked at submission.
@@ -61,4 +66,7 @@ python3 reconstruction/harness/score.py <candidate>/unstripped.so --baseline <fr
 python3 scripts/pump_admin_cto_differential.py --candidate <candidate>/candidate.so --output <runtime-report.json>
 ```
 
-Both branches preserve the newly landed #3155 entry-copy location and collect-old-first tuple. All reported current measurements include that change; earlier 52c results remain historical only.
+This branch preserves #3155's args placement and collect-old-first tuple. The
+composition preserves that args placement while incorporating #3144's intentional,
+value-equivalent sharing-update-first tuple order. Earlier 52c and e25dd438
+composition results remain historical only.
