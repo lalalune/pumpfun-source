@@ -121,14 +121,16 @@ def main():
     shutil.copytree(base, src, ignore=shutil.ignore_patterns('target'))
     report = {'name': a.name, 'base': str(a.base_src), 'parts': []}
     exit_code = 0
+    # GNU patch on Windows otherwise strips CR bytes from patch/source input.
+    patch_command = ['patch'] + (['--binary'] if sys.platform == 'win32' else [])
     for label, path, derived_from in parts:
         pf = out / 'parts' / f'{label}.patch'
         text = make_patch(derived_from, Path(path), pf, SC / 'integ' / '.tmp' / a.name / label)
         if not text.strip():
             report['parts'].append({'label': label, 'status': 'empty'}); continue
-        dry = subprocess.run(['patch', '-p2', '--forward', '--dry-run', '-E', '-d', str(src), '-i', str(pf)], capture_output=True, text=True)
+        dry = subprocess.run(patch_command + ['-p2', '--forward', '--dry-run', '-E', '-d', str(src), '-i', str(pf)], capture_output=True, text=True)
         if dry.returncode == 0:
-            subprocess.run(['patch', '-s', '-p2', '--forward', '-E', '-d', str(src), '-i', str(pf)], check=True)
+            subprocess.run(patch_command + ['-s', '-p2', '--forward', '-E', '-d', str(src), '-i', str(pf)], check=True)
             for o in src.rglob('*.orig'):
                 o.unlink()
             report['parts'].append({'label': label, 'status': 'applied', 'files': patched_files(text)})
