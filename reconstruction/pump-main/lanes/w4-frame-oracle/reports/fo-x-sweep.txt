@@ -1,0 +1,126 @@
+# _ZN14pump_recovered5sweep7execute17h63039d4d7bb21efdE  window 0x72810
+cand bytes 7768 orig 7832  abstracted-ratio 0.8251  r10 pairs 354 equal 340  max-off cand 0x1000 orig 0x1000
+objects: allocas 59  surviving 35  merged 33  no-lifetime 19  PEI rule check: ok
+  fi      T   orig  delta  size al lt   votes  name  [merged: ...]
+   7    0x1    0x1     +0     1  1  1   2/2   _167{[u8}
+   8   0x28   0x28     +0    32  8  1  18/18  _163{[&[u8]}  [buf.i76#2 _67{u8}#30 _15{std::string::String}#42]
+   9   0x38   0x38     +0    16  8  1   4/4   _160{[&[&[u8]]}  [_11.i74#0]
+  10   0x68   0x68     +0    48  8  1  40/40  _157{[anchor_lang::prelude::AccountInfo<'_>}  [buf.i#4 _145{std::vec::Vec<anchor_lang::prelude::AccountMeta>}#12 _126{[&[u8]}#19 quote_mint_info#24 _64{[core::fmt::rt::Argument<'_>}#31 expected#40]
+  11   0x80   0x80     +0    24  8  0   3/3   _153{std::result::Result<(),anchor_lang::prelude::ProgramErro}*
+  13   0xd0   0xd0     +0    80  8  1  51/55  ix  [formatter.i75#1 formatter.i#3 _280{anchor_lang::prelude::ProgramError}#6 _128{std::vec::Vec<u8>}#18 _115{std::result::Result<anchor_lang::prelude::Clock,anchor_l}#20 quote_token_program_info#23 rent#27 res#33 _30{[&[u8]}#38 _10{anchor_lang::prelude::Pubkey}#45]
+  14  0x100  0x100     +0    48  8  0   7/7   _137{std::iter::Chain<std::iter::Map<std::slice::Iter<'_,u8>,}*
+  15  0x118  0x118     +0    24  8  1   7/7   ix_data  [_38{std::string::String}#35]
+  16  0x130  0x130     +0    24  8  0   4/4   inner_data*
+  17  0x160  0x160     +0    48  8  0   2/2   authority_info*
+  25  0x180  0x180     +0    32  8  0   6/6   quote_token_program*
+  26  0x1a0  0x1a0     +0    32  8  0   6/6   quote_mint*
+  36  0x240  0x240     +0   160  8  1 110/115 _37{anchor_lang::error::AnchorError}  [_10.i#5 event#21 _102{anchor_lang::prelude::AccountInfo<'_>}#22 _72{std::result::Result<anchor_lang::prelude::Rent,anchor_la}#28 _69{anchor_lang::prelude::Pubkey}#29 _60{std::fmt::Arguments<'_>}#32 _44{(anchor_lang::prelude::Pubkey,anchor_lang::prelude::Pubk}#34 _34{anchor_lang::prelude::Pubkey}#37 _27{(anchor_lang::prelude::Pubkey,u8)}#39 _22{(anchor_lang::prelude::Pubkey,anchor_lang::prelude::Pubk}#41 _14{anchor_lang::error::AnchorError}#43 _11{anchor_lang::prelude::Pubkey}#44]
+  46  0x250  0x250     +0    16  8  0   3/3   *
+  47  0x260  0x260     +0    16  8  0   3/3   *
+  48  0x270  0x270     +0    16  8  0   3/3   *
+  49  0x280  0x280     +0    16  8  0   3/3   *
+  50  0x290  0x290     +0    16  8  0   3/3   *
+  51  0x2a0  0x2a0     +0    16  8  0   3/3   *
+  52  0x2b0      ?      ?    16  8  0   0/0   * ~
+  53  0x2c0  0x2b0    -16    16  8  0   3/3   *
+  54  0x2d0  0x2d0     +0    16  8  0   3/3   *
+  55  0x2e0  0x2e0     +0    16  8  0   3/3   *
+  56  0x2f0  0x2f0     +0    16  8  0   3/3   *
+  57  0x300  0x300     +0    16  8  0   3/3   *
+  58  0x310  0x310     +0    16  8  0   3/3   *
+  59  0x318  0x318     +0     8  8  0   4/5   *
+  60  0x320  0x320     +0     8  8  0   4/4   *
+  61  0x328  0x328     +0     8  8  0   5/5   *
+  62  0x330  0x330     +0     8  8  0   5/5   *
+  63  0x338  0x338     +0     8  8  0   5/5   *
+  64  0x340  0x340     +0     8  8  0   3/3   *
+  65  0x348  0x348     +0     8  8  0   2/2   *
+  66  0x350      ?      ?     8  8  0   0/0   * ~
+  67  0x358  0x358     +0     8  8  0   2/2   *
+
+# delta breaks (orig has DIFF more bytes between A and B):
+    -16 between fi51  (T 0x2a0) and fi53  (T 0x2c0)
+    +16 between fi53  (T 0x2c0) and fi54  (T 0x2d0)
+
+# original layout implied by confident objects (sorted by orig T); gaps = orig bytes ours does not place there
+  orig    0x0..   0x1  fi7    _167{[u8}                    size 1    ours T 0x1
+  orig    0x8..  0x28  fi8    _163{[&[u8]}                 size 32   ours T 0x28   gap +7
+  orig   0x28..  0x38  fi9    _160{[&[&[u8]]}              size 16   ours T 0x38
+  orig   0x38..  0x68  fi10   _157{[anchor_lang::prelude::AccountInfo<'_>} size 48   ours T 0x68
+  orig   0x68..  0x80  fi11   _153{std::result::Result<(),anchor_lang::prelude::ProgramErro} size 24   ours T 0x80
+  orig   0x80..  0xd0  fi13   ix                           size 80   ours T 0xd0
+  orig   0xd0.. 0x100  fi14   _137{std::iter::Chain<std::iter::Map<std::slice::Iter<'_,u8>,} size 48   ours T 0x100
+  orig  0x100.. 0x118  fi15   ix_data                      size 24   ours T 0x118
+  orig  0x118.. 0x130  fi16   inner_data                   size 24   ours T 0x130
+  orig  0x130.. 0x160  fi17   authority_info               size 48   ours T 0x160
+  orig  0x160.. 0x180  fi25   quote_token_program          size 32   ours T 0x180
+  orig  0x180.. 0x1a0  fi26   quote_mint                   size 32   ours T 0x1a0
+  orig  0x1a0.. 0x240  fi36   _37{anchor_lang::error::AnchorError} size 160  ours T 0x240
+  orig  0x240.. 0x250  fi46   -                            size 16   ours T 0x250
+  orig  0x250.. 0x260  fi47   -                            size 16   ours T 0x260
+  orig  0x260.. 0x270  fi48   -                            size 16   ours T 0x270
+  orig  0x270.. 0x280  fi49   -                            size 16   ours T 0x280
+  orig  0x280.. 0x290  fi50   -                            size 16   ours T 0x290
+  orig  0x290.. 0x2a0  fi51   -                            size 16   ours T 0x2a0
+  orig  0x2a0.. 0x2b0  fi53   -                            size 16   ours T 0x2c0
+  orig  0x2c0.. 0x2d0  fi54   -                            size 16   ours T 0x2d0   gap +16
+  orig  0x2d0.. 0x2e0  fi55   -                            size 16   ours T 0x2e0
+  orig  0x2e0.. 0x2f0  fi56   -                            size 16   ours T 0x2f0
+  orig  0x2f0.. 0x300  fi57   -                            size 16   ours T 0x300
+  orig  0x300.. 0x310  fi58   -                            size 16   ours T 0x310
+  orig  0x310.. 0x318  fi59   -                            size 8    ours T 0x318
+  orig  0x318.. 0x320  fi60   -                            size 8    ours T 0x320
+  orig  0x320.. 0x328  fi61   -                            size 8    ours T 0x328
+  orig  0x328.. 0x330  fi62   -                            size 8    ours T 0x330
+  orig  0x330.. 0x338  fi63   -                            size 8    ours T 0x338
+  orig  0x338.. 0x340  fi64   -                            size 8    ours T 0x340
+  orig  0x340.. 0x348  fi65   -                            size 8    ours T 0x348
+  orig  0x350.. 0x358  fi67   -                            size 8    ours T 0x358   gap +8
+
+# ORIGINAL StackColoring groups (per-alloca implied orig T from the -no-stack-coloring run)
+#   T_orig  members (ours: slot fi->T) ; "!" = alloca sits in a different group in ours; "*" = no lifetime marker in ours
+     0x1  ours slot fi7@0x1: _167{[u8}#7/1
+    0x28  ours slot fi8@0x28: buf.i76#2/24 _163{[&[u8]}#8/32 _67{u8}#30/1 _15{std::string::String}#42/24
+    0x38  ours slot fi9@0x38: _160{[&[&[u8]]}#9/16
+    0x68  ours slot fi10@0x68: buf.i#4/24 _157{[anchor_lang::prelude::AccountInfo<'_>}#10/48 _145{std::vec::Vec<anchor_lang::prelude::AccountMeta>}#12/24 _126{[&[u8]}#19/16 quote_mint_info#24/48 rent#27/24! _64{[core::fmt::rt::Argument<'_>}#31/16 expected#40/32
+    0x80  ours slot fi11@0x80: _153{std::result::Result<(),anchor_lang::prelude::ProgramErro}#11/24*
+    0xd0  ours slot fi13@0xd0: formatter.i75#1/64 formatter.i#3/64 _280{anchor_lang::prelude::ProgramError}#6/24 _128{std::vec::Vec<u8>}#18/24 _115{std::result::Result<anchor_lang::prelude::Clock,anchor_l}#20/48 quote_token_program_info#23/48 res#33/24 _30{[&[u8]}#38/32 _10{anchor_lang::prelude::Pubkey}#45/32
+    0xd8  ours slot fi36@0x240: _72{std::result::Result<anchor_lang::prelude::Rent,anchor_la}#28/32
+   0x100  ours slot fi14@0x100: _137{std::iter::Chain<std::iter::Map<std::slice::Iter<'_,u8>,}#14/48*
+   0x118  ours slot fi15@0x118: ix_data#15/24 _38{std::string::String}#35/24
+   0x130  ours slot fi16@0x130: inner_data#16/24*
+   0x160  ours slot fi17@0x160: authority_info#17/48*
+   0x180  ours slot fi25@0x180: quote_token_program#25/32*
+   0x1a0  ours slot fi26@0x1a0: quote_mint#26/32*
+   0x240  ours slot fi36@0x240: _10.i#5/48 event#21/152 _102{anchor_lang::prelude::AccountInfo<'_>}#22/48 _69{anchor_lang::prelude::Pubkey}#29/32 _60{std::fmt::Arguments<'_>}#32/48 _44{(anchor_lang::prelude::Pubkey,anchor_lang::prelude::Pubk}#34/64 _37{anchor_lang::error::AnchorError}#36/160 _34{anchor_lang::prelude::Pubkey}#37/32 _27{(anchor_lang::prelude::Pubkey,u8)}#39/33 _22{(anchor_lang::prelude::Pubkey,anchor_lang::prelude::Pubk}#41/64 _14{anchor_lang::error::AnchorError}#43/160 _11{anchor_lang::prelude::Pubkey}#44/32
+   0x250  ours slot fi46@0x250: ##46/16*
+   0x260  ours slot fi47@0x260: ##47/16*
+   0x270  ours slot fi48@0x270: ##48/16*
+   0x280  ours slot fi49@0x280: ##49/16*
+   0x290  ours slot fi50@0x290: ##50/16*
+   0x2a0  ours slot fi51@0x2a0: ##51/16*
+   0x2b0  ours slot fi53@0x2c0: ##53/16*
+   0x2d0  ours slot fi54@0x2d0: ##54/16*
+   0x2e0  ours slot fi55@0x2e0: ##55/16*
+   0x2f0  ours slot fi56@0x2f0: ##56/16*
+   0x300  ours slot fi57@0x300: ##57/16*
+   0x310  ours slot fi58@0x310: ##58/16*
+   0x318  ours slot fi59@0x318: ##59/8*
+   0x320  ours slot fi60@0x320: ##60/8*
+   0x328  ours slot fi61@0x328: ##61/8*
+   0x330  ours slot fi62@0x330: ##62/8*
+   0x338  ours slot fi63@0x338: ##63/8*
+   0x340  ours slot fi64@0x340: ##64/8*
+   0x348  ours slot fi65@0x348: ##65/8*
+   0x358  ours slot fi67@0x358: ##67/8*
+
+# OUR groups whose members the original places in different slots
+  ours fi13@0xd0: orig 0x68: rent#27 | orig 0xd0: formatter.i75#1,formatter.i#3,_280{anchor_lang::prelude::ProgramError}#6,_128{std::vec::Vec<u8>}#18,_115{std::result::Result<anchor_lang::prelude::Clock,anchor_l}#20,quote_token_program_info#23,res#33,_30{[&[u8]}#38,_10{anchor_lang::prelude::Pubkey}#45
+  ours fi36@0x240: orig 0xd8: _72{std::result::Result<anchor_lang::prelude::Rent,anchor_la}#28 | orig 0x240: _10.i#5,event#21,_102{anchor_lang::prelude::AccountInfo<'_>}#22,_69{anchor_lang::prelude::Pubkey}#29,_60{std::fmt::Arguments<'_>}#32,_44{(anchor_lang::prelude::Pubkey,anchor_lang::prelude::Pubk}#34,_37{anchor_lang::error::AnchorError}#36,_34{anchor_lang::prelude::Pubkey}#37,_27{(anchor_lang::prelude::Pubkey,u8)}#39,_22{(anchor_lang::prelude::Pubkey,anchor_lang::prelude::Pubk}#41,_14{anchor_lang::error::AnchorError}#43,_11{anchor_lang::prelude::Pubkey}#44
+
+# ALLOCA ORDER: original slot reps in orig-T order; out-of-order ones (not in the LIS of our fi) need a different alloca position
+  formatter.i75#1/64 at orig 0xd0: orig puts it between fi11 _153{std::result::Result<(),anchor_lang::prelude::ProgramErro} and fi14 _137{std::iter::Chain<std::iter::Map<std::slice::Iter<'_,u8>,}
+  _72{std::result::Result<anchor_lang::prelude::Rent,anchor_la}#28/32 at orig 0xd8: orig puts it between fi11 _153{std::result::Result<(),anchor_lang::prelude::ProgramErro} and fi14 _137{std::iter::Chain<std::iter::Map<std::slice::Iter<'_,u8>,}
+
+# allocas without a confident orig slot: 2: _11.i74#0 ix#13
+# group mismatches: 1

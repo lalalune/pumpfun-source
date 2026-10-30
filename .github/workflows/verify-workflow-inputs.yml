@@ -1,0 +1,36 @@
+name: Verify workflow script inputs
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  workflow-inputs:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install PyYAML==6.0.3
+      - name: Test the input checker
+        run: python -B scripts/test_workflow_inputs.py
+      - name: Check for newly missing script inputs
+        env:
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PUSH_BASE: ${{ github.event.before }}
+        run: |
+          if [ -n "$PR_BASE" ]; then
+            base="$PR_BASE"
+          elif [ -n "$PUSH_BASE" ] && [ "$PUSH_BASE" != "0000000000000000000000000000000000000000" ]; then
+            base="$PUSH_BASE"
+          else
+            base=$(git merge-base HEAD origin/main)
+          fi
+          python -B scripts/check_workflow_inputs.py --base "$base" > workflow-inputs.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: workflow-inputs
+          path: workflow-inputs.json

@@ -15,7 +15,7 @@ import argparse, difflib, re, struct, sys
 from collections import Counter
 from pathlib import Path
 
-H = Path('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness')
+H = Path(__file__).resolve().parents[3] / 'harness'
 sys.path.insert(0, str(H))
 from score import sections, normalize, body, original_windows  # noqa: E402
 from win import Cand, demangle, ORIG_SECS  # noqa: E402

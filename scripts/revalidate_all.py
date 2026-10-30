@@ -93,13 +93,16 @@ def main():
     args = parser.parse_args()
 
     output_dir = Path(args.output)
-    output_dir.mkdir(parents=True, exist_ok=True)
 
     research_dir = REPO / "research"
     packets = sorted([
         d for d in research_dir.iterdir()
         if d.is_dir() and not d.name.startswith(".")
     ])
+
+    # Snapshot inputs before creating an audit beneath research/, and preserve
+    # prior reports by refusing an existing output before running any verifier.
+    output_dir.mkdir(parents=True, exist_ok=False)
 
     print(f"[revalidate] Found {len(packets)} research packets")
 
@@ -133,20 +136,17 @@ def main():
         verify_result = run_verify(packet) if has_verify else {"status": "skipped"}
 
         # Determine overall status
-        if manifest_result["status"] == "pass" or verify_result["status"] == "pass":
+        checks = [result for enabled, result in (
+            (has_manifest, manifest_result), (has_verify, verify_result)
+        ) if enabled]
+        if all(result["status"] == "pass" for result in checks):
             overall = "pass"
             pass_count += 1
-        elif manifest_result["status"] == "fail" or verify_result["status"] == "fail":
+        elif any(result["status"] in {
+            "fail", "manifest_parse_error", "timeout", "error"
+        } for result in checks):
             overall = "fail"
             fail_count += 1
-        elif manifest_result["status"] == "no_manifest" and verify_result["status"] != "pass":
-            overall = "verify_only"
-            if verify_result["status"] == "pass":
-                pass_count += 1
-            elif verify_result["status"] == "fail":
-                fail_count += 1
-            else:
-                skip_count += 1
         else:
             overall = "inconclusive"
             skip_count += 1

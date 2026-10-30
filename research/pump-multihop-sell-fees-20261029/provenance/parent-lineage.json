@@ -1,0 +1,40 @@
+{
+  "prior_pr": 1164,
+  "prior_head": "9d7b5652ce8b20692bea817a9f0660b6a126cf36",
+  "prior_packet": "research/pump-multihop-token-quote-20261029",
+  "prior_manifest_sha256": "54639f0c28720c6231e70dd330998f5c001caafa8e65dfcc559b5fba3b38e603",
+  "byte_equal_parent_members": {
+    "source-parent.json": {
+      "prior_member": "source-candidate.json",
+      "sha256": "6ce474ffec39883f0e42be23ba221b0faf92b2414053680c70f893ca99d37602"
+    },
+    "source-parent.tar.gz": {
+      "prior_member": "source-candidate.tar.gz",
+      "sha256": "8661392c8aaeeab95024da2112870ab779ffb1dbe6652a4bceda8c9ea0fc0387"
+    },
+    "build/parent/symbols.so.gz": {
+      "prior_member": "build/candidate/symbols.so.gz",
+      "sha256": "9d4b2f9726b88f1f7b64fc9e91b02b92d7fd826a12f52d1b0f58375c8d89defb"
+    },
+    "build/parent/candidate.so.gz": {
+      "prior_member": "build/candidate/candidate.so.gz",
+      "sha256": "ed68c4b080bca35106cc62a454952874144f4497cf5a159d1a6bd241c2bb1a67"
+    },
+    "build/parent/build.log.gz": {
+      "prior_member": "build/candidate/build.log.gz",
+      "sha256": "c247c7906a5ed2ad3247932d809e826488121aea5a47ccff1362e27da342c13e"
+    },
+    "build/parent/launch.json": {
+      "prior_member": "build/candidate/launch.json",
+      "sha256": "3e65a13fcbe52bb21575688d60f61ca5484184650a144c1bd3e5587df5ba2b3d"
+    },
+    "build/parent/result.json": {
+      "prior_member": "build/candidate/result.json",
+      "sha256": "afef2acc2f40a9d81c6d824ad9e9915dc0683178d35f44bc92b3a83258661d79"
+    },
+    "build/parent/census.json.gz": {
+      "prior_member": "build/candidate/census.json.gz",
+      "sha256": "7198bac3f5da08e65db15d2ba08f9c96d42c3ec8a300f8eb0068f2760e21a3ca"
+    }
+  }
+}

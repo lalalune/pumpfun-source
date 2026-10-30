@@ -1,0 +1,13 @@
+{
+  "lane": "w3-sellv3-source",
+  "target": "0x14a8a8",
+  "base": "665499915 (1022 normalized / 276 raw)",
+  "best": {"commit": "832f9c523", "cand_bytes": 6032, "ratio": 0.99728, "slots_diff": 6, "aligned_diff_insns": 4,
+           "normalized": 1022, "raw": 276, "gains": [], "losses": [],
+           "unstripped_sha256": "e25ede25cf5021fa1ad10d151523e88856f86cc25f532831ee2923dcea1f3eeb"},
+  "mechanism": "thin sell wrapper over #[inline(always)] sell_body + inline emit_cpi!(event): removes the From-result tag==2 recheck, puts the Clock::get error block first, and makes the return-block phis tag-first (fixes the r8/r9 swap) with the original frame",
+  "attempts": ["s01 inline emit_cpi only (rejected)", "s02 helper by-value event (rejected)", "s03 wrapper + helper (identical)", "s04 wrapper + inline emit_cpi (partial, best)", "IR oracle: tail chunk permutations, phi order, alloca order, scheduler flags, prologue IR edits"],
+  "unresolved": "prologue -0x358 sret lea for prepare_bonding_curve scheduled after the arg GEPs; IR-level fix = explicit sret alloca with lifetime.start at entry",
+  "next_ideas": ["find a source form whose prepare_bonding_curve result slot is an explicit memory local live from function entry without changing the 0x3cd50 callee", "apply the wrapper + inline-emit idea to buy_exact_quote (same lea residual) and buy_v3", "pre-opt IR oracle (capture_pre.py + opt default<O3>) reproduces fastbuild exactly; use it for source-shaped IR edits"],
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/1436"
+}

@@ -3,11 +3,13 @@
 from pathlib import Path
 import argparse,gzip,hashlib,json,re
 ORIGINAL='7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d'
-UNITS=re.compile(r'^Program [1-9A-HJ-NP-Za-km-z]+ consumed [0-9]+ of [0-9]+ compute units$')
+# A compute-meter line names a pubkey. One character also matches the old
+# class, so a real log could be dropped as if it were a meter line.
+UNITS=re.compile(r'^Program [1-9A-HJ-NP-Za-km-z]{32,44} consumed [0-9]+ of [0-9]+ compute units$')
 def require(ok,message):
  if not ok:raise ValueError(message)
 def audit(report,candidate_sha256,expected_pairs=None):
- require(report['original_sha256']==ORIGINAL and report['candidate_sha256']==candidate_sha256,'Actual report/image binding differs');expected=report['case_count']if expected_pairs is None else expected_pairs;require(isinstance(expected,int)and expected>0 and report['case_count']==expected,'Expected actual case count differs');pairs=0;mismatches=[]
+ require(report['original_sha256']==ORIGINAL and report['candidate_sha256']==candidate_sha256,'Actual report/image binding differs');expected=report['case_count']if expected_pairs is None else expected_pairs;require(type(expected)is int and expected>0 and type(report['case_count'])is int and report['case_count']==expected,'Expected actual case count differs');pairs=0;mismatches=[]
  def getlogs(outcome):
   value=outcome.get('logs')
   if value is None and isinstance(outcome.get('metadata'),dict):value=outcome['metadata'].get('logs')
@@ -15,7 +17,8 @@ def audit(report,candidate_sha256,expected_pairs=None):
  def walk(value,path):
   nonlocal pairs
   if isinstance(value,dict):
-   if isinstance(value.get('original'),dict)and isinstance(value.get('candidate'),dict):
+   if 'original' in value or 'candidate' in value:
+    require(isinstance(value.get('original'),dict)and isinstance(value.get('candidate'),dict),'Execution pair is incomplete or malformed')
     left,right=getlogs(value['original']),getlogs(value['candidate']);pairs+=1;a=[s for s in left if not UNITS.fullmatch(s)];b=[s for s in right if not UNITS.fullmatch(s)]
     if a!=b:mismatches.append({'path':path,'original_ordered_logs':a,'candidate_ordered_logs':b})
    for name,item in value.items():

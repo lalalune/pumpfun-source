@@ -12,13 +12,23 @@ import argparse
 import collections
 import hashlib
 import json
-import os
 import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "scripts"))
 from window_elf_reader import Elf
+
+PACKET_FILES = frozenset({
+    "README.md",
+    "call-graph.json",
+    "function-index.json",
+    "manifest.json",
+    "section-layout.json",
+    "summary.json",
+    "verify.py",
+    "window-inventory.json",
+})
 
 
 def sha256_file(path):
@@ -27,6 +37,20 @@ def sha256_file(path):
         for chunk in iter(lambda: f.read(1 << 16), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def prepare_output_directory(output_dir):
+    """Reject stale packet entries before any analysis output is replaced."""
+    output_dir.mkdir(parents=True, exist_ok=True)
+    unexpected = sorted(path.name for path in output_dir.iterdir()
+                        if path.name not in PACKET_FILES)
+    if unexpected:
+        raise ValueError("unexpected packet entry: " + ", ".join(unexpected))
+    invalid = sorted(name for name in PACKET_FILES
+                     if (output_dir / name).exists()
+                     and not (output_dir / name).is_file())
+    if invalid:
+        raise ValueError("packet entry is not a regular file: " + ", ".join(invalid))
 
 
 def analyze_program(program_name, output_dir):
@@ -39,7 +63,7 @@ def analyze_program(program_name, output_dir):
     elf = Elf(deployed_path)
 
     output_dir = Path(output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
+    prepare_output_directory(output_dir)
 
     # --- Window inventory ---
     windows = []
@@ -299,17 +323,15 @@ if __name__ == "__main__":
     (output_dir / "verify.py").write_text(verify_py)
 
     # 8. Manifest
-    manifest = {}
-    for name in sorted(os.listdir(output_dir)):
-        if name == "manifest.json":
-            continue
-        path = output_dir / name
-        if path.is_file():
-            manifest[name] = sha256_file(str(path))
+    manifest = {
+        name: sha256_file(str(output_dir / name))
+        for name in sorted(PACKET_FILES - {"manifest.json"})
+    }
     (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
 
-    total_lines = sum(1 for name in os.listdir(output_dir)
-                      for _ in open(output_dir / name) if (output_dir / name).is_file())
+    total_lines = sum(
+        len((output_dir / name).read_text().splitlines()) for name in manifest
+    )
     print(f"[analyze] wrote {len(manifest) + 1} files, ~{total_lines:,} lines to {output_dir}")
     return 0
 

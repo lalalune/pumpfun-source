@@ -1,0 +1,23 @@
+name: Verify hybrid toolchain staging
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  hybrid-staging:
+    runs-on: macos-15
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Execute all four macOS staging regressions
+        run: |
+          python -B - <<'PYTEST'
+          import sys
+          import unittest
+          suite = unittest.defaultTestLoader.discover(
+              'reconstruction/harness', pattern='test_hybrid_staging.py')
+          result = unittest.TextTestRunner(verbosity=2).run(suite)
+          sys.exit(0 if result.wasSuccessful() and result.testsRun == 4 and not result.skipped else 1)
+          PYTEST

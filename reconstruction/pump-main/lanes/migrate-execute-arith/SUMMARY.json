@@ -1,0 +1,47 @@
+{
+ "lane": "migrate-execute-arith",
+ "targets": [
+  "0x77940"
+ ],
+ "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+ "target_note": "migrate_v2::execute, 8832 B, callgraph-census diagnostic_similarity 0.201; no committed lane documented its arithmetic before this one",
+ "method": "static opcode census of evidence/original/pump/deployed.so (sha256 sealed by its capture.json) with the Rust tool in tool/; nothing built, nothing executed; two runs byte-identical",
+ "corrections": [
+  "first pass (b93f2a708): retracted the claim that register-form jumps were a SBF 128-bit-ALU reassignment (standard eBPF/SBF encoding is correct) and regenerated a census.json that had been committed as a Python traceback",
+  "second pass (bec926d1): the census derived lddw high words from instruction indices (wrong after 16-byte lddw pairs) and its error-constant scan missed store immediates; both fixed - the bit-63 error-ABI hypothesis is retracted"
+ ],
+ "census": {
+  "instructions": 1070,
+  "compare_guarded_arithmetic_sites": [
+   "0x78e18: add64(reg) guarded by jlt(reg) @ 0x78e28 - shape of checked_add, position-consistent with real_quote_reserves.checked_add(post_complete_quote_in)",
+   "0x786d0: sub64(reg) guarded by jgt(reg) @ 0x786e8"
+  ],
+  "saturating_arithmetic_sites": [],
+  "division_mod_mul64_sites": [],
+  "error_code_stores": [
+   "0x780b8: stw32 6064 (InvalidQuoteTokenProgram)",
+   "0x78260: stw32 6010 (AccountTypeNotSupported)",
+   "0x78c58: stw32 6076 (InvalidCashbackRecipient)",
+   "0x795e0: stw32 6010 (AccountTypeNotSupported, second site)"
+  ],
+  "missing_validations": "the three variants above appear only in the enum definition and are raised nowhere in the reconstruction's source, while the original's execute constructs all of them with anchor error!() location metadata (lines 305/342, column 60) - three validations the reconstruction does not implement",
+  "uninterpreted_64bit_jeq_constants": [
+   "0x800000000000001a @ 0x77ef8",
+   "0x8000000000000017 @ 0x78740"
+  ],
+  "distinct_32bit_lddw_constants": 18,
+  "call_sites": 70,
+  "exit_sites": 1
+ },
+ "artifacts": [
+  "reconstruction/pump-main/lanes/migrate-execute-arith/census.json",
+  "reconstruction/pump-main/lanes/migrate-execute-arith/listing.txt",
+  "reconstruction/pump-main/lanes/migrate-execute-arith/tool/ (standalone Cargo crate, zero dependencies)"
+ ],
+ "limits": "single-window static census of committed bytes only; the purpose of the two full 64-bit jeq constants and the 0x1b5xxx-0x1bdxxx range is uninterpreted; the exact checked conditions behind the three missing validations are not reconstructed here; no equivalence or security claim",
+ "next_ideas": [
+  "locate the three missing validations in the disassembly and reconstruct them in migrate_v2.rs",
+  "map the 70 call immediates to callee windows and attribute the remaining error paths",
+  "extend the census to the other low-similarity windows in the target files"
+ ]
+}

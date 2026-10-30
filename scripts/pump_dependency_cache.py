@@ -273,6 +273,10 @@ class DependencyCache:
         assert self.sources == {p: tree(Path(p)) for p in self.sources}, (
             "external dependency source changed during build"
         )
+        assert all(
+            sha(self.workspace / p) == h
+            for p, h in self.context["manifests"].items()
+        ), "Cargo manifests changed during build"
         assert all(sha(self.sdk / p) == h for p, h in self.tools.items()), (
             "SDK changed during build"
         )
