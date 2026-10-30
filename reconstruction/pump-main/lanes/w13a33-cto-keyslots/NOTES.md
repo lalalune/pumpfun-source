@@ -29,6 +29,8 @@ target pieces read it, and w13a22's `mv:A:B` / `nolt:A` items also work. `RM=1` 
 | d81d0f5 | best of 1,283 single moves/nolt on `hkc:sk,arm,cmp` (`mv:target.i.sroa.0:END`) | 0.55364 | 27,312 |
 | a6412c2 (0.59197) | `hkc:sk,arm,cmp` | 0.53323 | 27,312 |
 | a6412c2 | `hkc:sk,arm,cmp,mv:target.i.sroa.0:END` | 0.54374 | 27,312 |
+| dfc3693 (0.59916) | `hkc:sk,arm,cmp` | 0.54744 | 27,360 |
+| dfc3693 | `hkc:sk,arm,cmp,mv:target.i.sroa.0:END` | 0.55794 | 27,360 |
 
 With `hkc` before `sk`, stack coloring puts `hkc` in `authority_info.i` (0x518) and `sk` in `_112.i` (0x470), exactly
 the original's offsets. Validate's error scratch moves to the original's -0x4d0/-0x488, and the spill area grows to
