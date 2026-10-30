@@ -18,9 +18,10 @@ Usage: fastbuild.py --src <crate dir with Cargo.toml/Cargo.lock/src[/recovered]>
 - Stack diagnostics return ok=false with build.log and stack_warnings. Diagnostic callers
   gated on ok (including exactsol-introspection capture.py) consequently skip IR extraction.
 """
-import argparse, hashlib, json, os, shutil, subprocess, sys, time, tomllib, fcntl, tempfile
+import argparse, hashlib, json, os, re, shutil, subprocess, sys, time, tomllib, fcntl, tempfile
 from contextlib import contextmanager
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # sibling modules under -I / load-by-path
 from build_process import run_compiler, validate_timeout
 from source_inputs import snapshot, assert_unchanged
 import link_order
@@ -49,12 +50,27 @@ def sha(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 
+def table_start(text, name):
+    """Find a real literal table header, excluding comments and string contents."""
+    pattern = r'(?m)^[ \t]*\[' + re.escape(name) + r'\][ \t]*(?:#[^\n]*)?$'
+    for match in re.finditer(pattern, text):
+        try:
+            # A header-looking line inside a multiline value has an incomplete
+            # TOML prefix; a real table starts after complete preceding values.
+            tomllib.loads(text[:match.start()])
+        except tomllib.TOMLDecodeError:
+            continue
+        return match.start()
+    raise ValueError('missing literal manifest table: ' + name)
+
+
 def stage(src: Path, ws: Path):
     text = (src / 'Cargo.toml').read_text()
     parsed = tomllib.loads(text)
     assert parsed.get('workspace') == {} and set(parsed.get('profile', {})) == {'release'}, 'unsupported manifest layout'
-    ps = text.index('[profile.release]'); wsi = text.index('[workspace]')
-    assert ps < wsi and not text[wsi + len('[workspace]'):].strip()
+    ps = table_start(text, 'profile.release'); wsi = table_start(text, 'workspace')
+    if ps >= wsi or tomllib.loads(text[wsi:]) != {'workspace': {}}:
+        raise ValueError('expected release profile followed by a final empty workspace table')
     profile = text[ps:wsi].strip() + '\n'
     crate_text = text[:ps].rstrip() + '\n'
     crate = ws / 'programs/pump'
@@ -119,7 +135,7 @@ def workspace_lock(work: Path):
 
 def archive_previous_outputs(out: Path):
     """Keep old evidence separate from the next attempt's canonical output paths."""
-    names = ('unstripped.so', 'candidate.so', 'build.log', 'link-receipt.json', 'link.map')
+    names = ('unstripped.so', 'candidate.so', 'build.log', 'link-receipt.json', 'link.map', 'source-inputs.json')
     present = [out / name for name in names
                if (out / name).exists() or (out / name).is_symlink()]
     if not present:
@@ -149,6 +165,8 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     ws = work / 'ws'
     crate = stage(src, ws)
     assert_unchanged(src, source_inputs)
+    manifest = tomllib.loads((crate / 'Cargo.toml').read_text(encoding='utf-8'))
+    library = manifest.get('lib', {}).get('name', manifest['package']['name'].replace('-', '_'))
     target = work / ('target' if recipe == 'mac' else f'target-{recipe}')
     if not target.exists() and R['template'].exists():
         subprocess.run(['cp', '-cRp', str(R['template']), str(target)], check=True)
@@ -186,8 +204,9 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     for name in {'pump-recovered'} | local_packages(crate):
         for fp in list(target.glob(f'*/release/.fingerprint/{name}-*')) + list(target.glob(f'release/.fingerprint/{name}-*')):
             shutil.rmtree(fp, ignore_errors=True)
-    for so in target.glob('*/release/pump_recovered.so'):
-        so.unlink()
+    for so in target.glob('*/release/*.so'):
+        if so.name == f'{library}.so':
+            so.unlink()
     slot = acquire_slot()
     t0 = time.time()
     try:
@@ -217,7 +236,7 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
             raise RuntimeError('link receipt does not match the pinned link script')
         shutil.copy2(receipt, out / 'link-receipt.json')
         shutil.copy2(receipt.with_name('link.map'), out / 'link.map')
-    built = target / triple / 'release/pump_recovered.so'
+    built = target / triple / 'release' / f'{library}.so'
     shutil.copy2(built, out / 'unstripped.so')
     subprocess.run([str(SDK / 'llvm/bin/llvm-objcopy'), '--strip-all', str(built), str(out / 'candidate.so')], check=True)
     return {'ok': True, 'source_sha256': source_inputs['sha256'], 'link_order': link_record, 'runtime_valid': not stack, 'stack_warnings': stack, 'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1), 'unstripped': str(out / 'unstripped.so'),

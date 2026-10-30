@@ -22,16 +22,15 @@ SYNTHETIC_SCORE = {
 
 class IntegrationBaselineTests(unittest.TestCase):
     def exercise(self, *, no_build=False, build_ok=True, baseline_exists=True):
-        # integrate imports fastbuild at module load; replace it before loading,
-        # so no compiler configuration or artifact/cache access is needed.
+        # Replace integrate's lazy builder adapter so no compiler
+        # configuration or artifact/cache access is needed.
         builder = types.ModuleType('fastbuild')
         builder.build = Mock(return_value={'ok': build_ok, 'runtime_valid': True})
         spec = importlib.util.spec_from_file_location('test_subject_integrate', SOURCE)
         module = importlib.util.module_from_spec(spec)
         original_path = sys.path[:]
         try:
-            with patch.dict(sys.modules, {'fastbuild': builder}):
-                spec.loader.exec_module(module)
+            spec.loader.exec_module(module)
         finally:
             sys.path[:] = original_path
 
@@ -64,6 +63,7 @@ class IntegrationBaselineTests(unittest.TestCase):
             if no_build:
                 argv.append('--no-build')
             with patch.object(sys, 'argv', argv), \
+                    patch.object(module, 'build_source', side_effect=builder.build), \
                     patch.object(module.subprocess, 'run', side_effect=synthetic_subprocess), \
                     contextlib.redirect_stdout(io.StringIO()):
                 if not baseline_exists and not no_build:

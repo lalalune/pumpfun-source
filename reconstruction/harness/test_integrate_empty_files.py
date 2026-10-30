@@ -26,6 +26,8 @@ class EmptyFileCompositionTests(unittest.TestCase):
         self.tool = self.root / 'reconstruction/harness/integrate.py'
         self.tool.parent.mkdir(parents=True)
         shutil.copyfile(TOOL, self.tool)
+        # integrate.py imports its sibling treediff module.
+        shutil.copyfile(TOOL.with_name('treediff.py'), self.tool.with_name('treediff.py'))
 
     def crate(self, name, files):
         root = self.root / name

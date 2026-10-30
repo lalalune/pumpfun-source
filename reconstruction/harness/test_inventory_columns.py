@@ -18,7 +18,7 @@ class InventoryColumnTests(unittest.TestCase):
                 root = Path(temporary)
                 harness, base = root/'harness',root/'base'
                 harness.mkdir();base.mkdir()
-                for name in ('score.py','score_admission.py','llvm_tools.py','elf_symbols.py'):
+                for name in ('score.py','score_admission.py','llvm_tools.py','elf_symbols.py','original_input.py'):
                     shutil.copyfile(Path(__file__).with_name(name),harness/name)
                 candidate = root/'candidate.so';candidate.write_bytes(fixture())
                 (base/'original.so').write_bytes(fixture())

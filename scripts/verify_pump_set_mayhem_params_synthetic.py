@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 """Verify the saved local-only signed Pump Mayhem CPI differential receipt."""
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O.")
+
 import base64
 import gzip
 import hashlib

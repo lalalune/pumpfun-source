@@ -375,7 +375,7 @@ pub fn native_buyback<'info>(a: &MultiHopCurve<'info>, event_bump: u8, curve: &A
     if amount == 0 { return Ok(()); }
     let to = a.buyback_fee_recipient.to_account_info();
     let curve_info = curve.to_account_info();
-    crate::trade::quote_payments::pay_out_native(curve, to.clone(), amount)?;
+    crate::trade::quote_payments::pay_out_native_owned(curve, to.clone(), amount)?;
     invoke_signed(&Instruction { program_id: crate::ID, accounts: vec![AccountMeta::new_readonly(a.event_authority.key(), true), AccountMeta::new(curve_info.key(), false), AccountMeta::new(to.key(), false)], data: anchor_lang::event::EVENT_IX_TAG_LE.to_vec() },
         &[a.event_authority.to_account_info(), curve_info, to.clone()], &[&[b"__event_authority", &[event_bump]]])?;
     invoke(&anchor_spl::token::spl_token::instruction::sync_native(&anchor_spl::token::spl_token::id(), to.key)?, &[to])?;
@@ -759,7 +759,7 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
             }
         }
         if native && !buy && last {
-            crate::trade::quote_payments::pay_out_native(&h.bonding_curve,a.user.to_account_info(),output)?;
+            crate::trade::quote_payments::pay_out_native_owned(&h.bonding_curve,a.user.to_account_info(),output)?;
         }
         let c = &h.bonding_curve;
         let timestamp = Clock::get()?.unix_timestamp; let event = trade_event(c,&a.global,&crate::UserVolumeAccumulator::default(),&a.user.key(),&h.base_mint.key(),buy,base_amount,quote_amount,&fees,buyback,adapter_difference,"multi_hop_swap",timestamp);

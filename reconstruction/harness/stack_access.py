@@ -53,6 +53,11 @@ def compare(original, candidate):
 def read_range(path, start, size):
     blob = Path(path).read_bytes()
     sec = sections(blob)['.text']
+    # WIDTHS and instruction-boundary walking use the legacy layout. Other
+    # SBPF versions can move memory operations into arithmetic classes.
+    version = struct.unpack_from('<I', blob, 48)[0]
+    if version not in (0, 1):
+        raise ValueError('stack-access decoding supports legacy SBPFv0/v1 ELF inputs only')
     if size <= 0 or size % 8 or (start - sec['addr']) % 8 or not sec['addr'] <= start < start + size <= sec['addr'] + sec['size']:
         raise ValueError('range must contain aligned complete instructions inside .text')
     text = body(blob, {'.text': sec}, sec['addr'], sec['size'])
@@ -70,8 +75,11 @@ def main():
         parser.add_argument('--' + side + '-start', type=lambda x: int(x, 0), required=True)
         parser.add_argument('--' + side + '-bytes', type=lambda x: int(x, 0), required=True)
     args = parser.parse_args()
-    left, left_id = read_range(args.original, args.original_start, args.original_bytes)
-    right, right_id = read_range(args.candidate, args.candidate_start, args.candidate_bytes)
+    try:
+        left, left_id = read_range(args.original, args.original_start, args.original_bytes)
+        right, right_id = read_range(args.candidate, args.candidate_start, args.candidate_bytes)
+    except (OSError, ValueError, KeyError, struct.error) as error:
+        parser.error(str(error))
     print(json.dumps({'schema': 'stack-access-comparison-v1', 'scope': __doc__,
                       'original_input': left_id, 'candidate_input': right_id,
                       **compare(left, right)}, indent=2))

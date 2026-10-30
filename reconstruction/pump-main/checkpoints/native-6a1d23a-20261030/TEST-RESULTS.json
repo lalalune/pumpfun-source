@@ -1,0 +1,19 @@
+{
+  "final": {
+    "command": "python3 -I -B test_verify.py",
+    "fail": 0,
+    "logSha256": "07f64c4c97051d4151797dbf46f7947a08cceebdf11a0ff79c613781e6ac6b44",
+    "pass": 8,
+    "testSourceSha256": "a8c5392a422166797fbc1beb9921cfb13cf38b836d2729e954687d39bdf0d989",
+    "tests": 8,
+    "verifierSha256": "de56cb6a7b10257d85c67e1ea6191ed5238ac61bbe3ed019f05b6845417a91ea"
+  },
+  "initial": {
+    "fail": 1,
+    "failure": "Entry-point sibling module was not discoverable under isolated Python. Corrected explicit own-directory import; no native program/build inputs changed.",
+    "pass": 7,
+    "privateUnchangedLogSha256": "94365277734e1dc55351e0f120870abe39bcc12913f23620b20364bd1e4385d0",
+    "tests": 8
+  },
+  "schema": "pump-checkpoint-tests-v1"
+}

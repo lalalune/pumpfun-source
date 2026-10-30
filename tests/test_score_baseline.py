@@ -73,13 +73,18 @@ class ScoreBaselineTests(unittest.TestCase):
 
     def test_missing_baseline_is_an_error_not_an_empty_baseline(self):
         missing = Path(self.tmp.name) / 'typo.json'
-        with mock.patch.object(self.mod, 'score_with_hash', return_value=(dict(FAKE_SCORE), '0'*64)), \
+        err, out = io.StringIO(), io.StringIO()
+        with mock.patch.object(self.mod, 'score_with_hash', return_value=(dict(FAKE_SCORE), '0'*64)) as scored, \
                 mock.patch.object(sys, 'argv', ['score.py', str(self.candidate), '--baseline', str(missing)]), \
+                contextlib.redirect_stderr(err), contextlib.redirect_stdout(out), \
                 self.assertRaises(SystemExit) as cm:
             self.mod.main()
-        # sys.exit(message) exits with status 1 and prints the message to stderr.
-        self.assertIsInstance(cm.exception.code, str)
-        self.assertIn(str(missing), cm.exception.code)
+        # A missing baseline is a usage error: exit 2, name the path on stderr, print no summary.
+        self.assertEqual(cm.exception.code, 2)
+        self.assertIn(str(missing), err.getvalue())
+        self.assertIn('--no-baseline', err.getvalue())
+        self.assertEqual(out.getvalue(), '')
+        scored.assert_not_called()
 
     def test_no_baseline_opt_out_reports_all_matches_as_gains(self):
         summary = self.run_main('--no-baseline', '--quiet')

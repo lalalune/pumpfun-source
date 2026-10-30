@@ -24,9 +24,9 @@ pub fn move_native<'a,'info,T:AsRef<AccountInfo<'info>>>(
 
 /// Lamport payout from the curve to a user-side account (zero amounts are a no-op).
 #[inline(never)]
-pub fn pay_out_native<'info,T:AsRef<AccountInfo<'info>>>(
-    source:&Account<'info,BondingCurve>,destination:T,amount:u64,
-)->Result<()>{
+pub fn pay_out_native_owned<'info>(source:&Account<'info,BondingCurve>,destination:AccountInfo<'info>,amount:u64)->Result<()>{if amount==0{return Ok(())} source.sub_lamports(amount)?; destination.add_lamports(amount)?; Ok(())}
+#[inline(never)]
+pub fn pay_out_native<'info,T:AsRef<AccountInfo<'info>>>(source:&Account<'info,BondingCurve>,destination:T,amount:u64)->Result<()>{
     if amount==0{return Ok(())}
     source.sub_lamports(amount)?;
     destination.add_lamports(amount)?;
@@ -58,7 +58,7 @@ pub fn transfer_to_owned<'info>(
     quote_source:Option<&AccountInfo<'info>>,quote_destination:Option<&AccountInfo<'info>>,
     bump:u8,
 )->Result<()>{
-    if native{return pay_out_native(curve,destination,amount)}
+    if native{return pay_out_native_owned(curve,destination,amount)}
     let (from,to)=crate::curve_quote_accounts(quote_source,quote_destination);
 
     crate::sell_v2::quote_token_transfers::transfer_quote_tokens(

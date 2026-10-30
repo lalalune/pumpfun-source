@@ -90,6 +90,11 @@ def _window_rows(orig, inventory):
         rows.append((start, end - start, raw, normalize(raw, start, os_)))
     if not rows:
         raise ValueError('window inventory contains no selected Pump windows')
+    previous_end = text['addr']
+    for start, length, _, _ in sorted(rows, key=lambda row: row[0]):
+        if start < previous_end:
+            raise ValueError(f'overlapping window range: {start}')
+        previous_end = start + length
     return tuple(rows)
 
 
@@ -162,7 +167,8 @@ def main():
     else:
         print(f'score.py: baseline not found: {a.baseline} (pass --no-baseline to score without one)', file=sys.stderr)
         sys.exit(2)
-    inputs = [a.candidate, BASE / 'original.so', BASE / 'functions.tsv']
+    inputs = [a.candidate, BASE / 'original.so', resolve_original(BASE / 'original.so'),
+              BASE / 'functions.tsv']
     if base is not None:
         inputs.insert(1, a.baseline)
     report_destination(a.json, inputs)

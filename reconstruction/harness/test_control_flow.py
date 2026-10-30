@@ -37,6 +37,18 @@ class ControlFlowTests(unittest.TestCase):
         self.assertEqual(result['calls'][0]['target'],0x1028)
         self.assertFalse(result['blocks'][0]['successors'][0]['internal'])
 
+    def test_branches_cannot_leave_the_selected_function(self):
+        result = analyze(insn(0x05, offset=2))
+        self.assertEqual(result['diagnostics'], [
+            {'offset': 0, 'target': 24, 'error': 'branch target outside function'},
+        ])
+
+    def test_conditional_fallthrough_requires_an_instruction(self):
+        result = analyze(insn(0x15, offset=-1))
+        self.assertEqual(result['diagnostics'], [
+            {'offset': 0, 'target': 8, 'error': 'conditional fallthrough outside function'},
+        ])
+
     def test_bad_ranges_and_truncated_lddw(self):
         for raw,start in [(b'',0),(bytes(7),0),(insn(0x18),0),(insn(0x95),1)]:
             with self.assertRaises(ValueError):analyze(raw,start)

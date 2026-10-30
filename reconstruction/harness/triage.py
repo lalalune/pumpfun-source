@@ -12,6 +12,7 @@ from pathlib import Path
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
 from score import sections, body, normalize, original_windows, score, BASE, candidate_functions  # noqa
+from score_admission import report_destination
 from coords import sites, non_coordinate_slots, ORIG, OS  # noqa
 from win import demangle  # noqa
 
@@ -41,6 +42,15 @@ def main():
     ap.add_argument('--cand', type=Path, default=BASE / 'current/unstripped.so')
     ap.add_argument('--json', type=Path, default=BASE / 'current/triage.json')
     a = ap.parse_args()
+    # Reject a report destination that aliases an input before any read:
+    # write_report truncates its target, so an aliasing --json would destroy
+    # the candidate (or the saved original / window inventory) it just read.
+    # Mirrors score.py's report destination check, including its input set.
+    if a.json:
+        try:
+            report_destination(a.json, [a.cand, BASE / 'original.so', BASE / 'functions.tsv'])
+        except ValueError as error:
+            ap.error(str(error))
     blob = a.cand.read_bytes(); cs = sections(blob)
     cur = score(a.cand)
     bylen = defaultdict(list)
@@ -54,9 +64,10 @@ def main():
         on = normalize(w['raw'], w['start'], OS)
         best = None
         for (s, nm) in bylen.get(w['bytes'], []):
-            if s not in cache:
-                cache[s] = normalize(body(blob, cs, s, w['bytes']), s, cs)
-            cn = cache[s]
+            cache_key = (s, w['bytes'])
+            if cache_key not in cache:
+                cache[cache_key] = normalize(body(blob, cs, s, w['bytes']), s, cs)
+            cn = cache[cache_key]
             diff = [i for i in range(0, len(on), 8) if on[i:i + 8] != cn[i:i + 8]]
             noncoord = non_coordinate_slots(on, cn, osites)
             key = (len(noncoord), len(diff))
