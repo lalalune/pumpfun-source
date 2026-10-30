@@ -70,6 +70,21 @@ In validate, the fee check `match fee{Some(f)=>{..}None=>{}}` becomes a let-else
 - On older bases this spelling measured negative (w10r1, w12a09). It pays now because of the newer frame.
 - `match fee{None=>{}Some(f)=>..}` (None-first) is byte-identical to main on cb298d5.
 
-Size work on 9eb6c00 (main 0.49131) is in the summary below.
+**On 9eb6c00 (#2906, main 0.49131):**
+- `h1` (let-else after the cashback line): 27,424 B / 0.51056.
+- `h1e` (let-else before it): 27,416 B / 0.51063.
+- `h1ed` (`h1e` plus execute's `let cashback=!holder&&st.cashback`): 27,408 B / **0.51071**.
+- No neutral -8 B knob was found. Tried: 289, 296, 312, 338 and tree operand orders; `matches!(holder,Some(true))`; CtoState field orders; `if let Some(_)=new`; dropping the target rebind. Each is either byte-identical to `h1ed` or loses ratio, and `k296` is -48 B at 0.5009.
+
+**On 8f050a2 (#2921 pfclimb-3, main 0.50929) the gain reverses:** `j1` is 27,384 B / 0.47857 and `j1e` is 27,376 B / 0.47895. The let-else spelling is a frame-position knob, not a structural fix. Treat it as a candidate gene for hill-climb lanes on whatever frame main has.
+
+**Labeled-block validation (`lb`).** This is f02b with validation as `let target:Result<Pubkey>='v:{.. break 'v Err(..) ..};let target=target?;`. It still has 86 calls: MIR JumpThreading threads the known Err discriminants through the merge, so the tail stays cold.
+
+## Open directions
+
+- The original keeps `validate` LLVM-inlined (call histogram, larger frame) and still threads fee-None per arm. Find the IR shape after validate's inlining that lets LLVM JumpThreading or SimplifyCFG duplicate the non-holder fee-tag test per `shared` sub-arm.
+  - A plain diamond does not work: LVI is overdefined at the merged fee block, and `maybeThreadThroughTwoBasicBlocks` needs a single-predecessor tree block.
+  - A phi-of-constants carried out of validate (a per-sub-arm flag tested by the tree) is the untried candidate.
+- Any validation-in-execute shape needs the error edges to stay out of the OK path's BFI at inliner time; otherwise wallet and sweep fall under the 2 % cold-callsite cut.
 
 Ledger keys: `0x22a10-w13-*-feethread-*`.

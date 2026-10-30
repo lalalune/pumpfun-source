@@ -1,0 +1,70 @@
+{
+  "lane": "w13a05-cto-feethread",
+  "wave": 13,
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "angle": "fee-None per-arm threading (orig 0x0e38/0x10e8/0x1508 fee-None edges straight into the sharing tree; 334 after 338)",
+  "bases": [
+    {"main": "3912c47", "ratio": 0.48772},
+    {"main": "cb298d5", "ratio": 0.49101},
+    {"main": "9eb6c00 (#2906)", "ratio": 0.49131},
+    {"main": "8f050a2 (#2921)", "ratio": 0.50929}
+  ],
+  "landed": false,
+  "prs": [{"number": 2926, "kind": "notes", "state": "draft"}],
+  "best_zero_loss_at_pinned_size": null,
+  "best_measured_off_size": [
+    {"id": "g1", "base": "cb298d5 (0.49101)", "change": "validate fee as let Some(f)=fee else{return Ok(target)};", "bytes": 27424, "ratio": 0.51085},
+    {"id": "h1ed", "base": "9eb6c00 (0.49131)", "change": "let-else before the cashback line + execute cashback=!holder&&st.cashback", "bytes": 27408, "ratio": 0.51071},
+    {"id": "j1", "base": "8f050a2 (0.50929)", "change": "let-else (same as g1)", "bytes": 27384, "ratio": 0.47857, "note": "gain reverses on the pfclimb-3 frame"}
+  ],
+  "mechanism": {
+    "found": "Validation inline in execute + non-holder arm yields if shared{st.creator}else{t}: MIR JumpThreading in one body reproduces the original's three fee-tag tests whose None edges go straight into the tree blocks; errseq 284 298 289 296 326 306 312 307 330 338 334 410 (334 after 338)",
+    "blocker": "Inline validation makes the wallet/sweep call sites cold in execute's pre-inliner BFI (0.0025/0.0019 of entry vs main 0.047/0.035; cut 2%); LLVM 18 InlineCost disables LastCallToStaticBonus for cold call sites, so wallet (cost 3005 vs threshold 45) and sweep are not inlined: 86 calls, 11 KB. #[inline(always)] runs as a module pass before the CGSCC inliner, leaving their clones/to_string cold: 180 calls."
+  },
+  "attempts": [
+    {"id": "f01", "base": "3912c47", "change": "validate takes shared, override in non-holder arm", "bytes": 27440, "ratio": 0.24577},
+    {"id": "f02a", "base": "3912c47", "change": "validation inline in execute", "bytes": 11288, "ratio": 0.11424, "calls": 86},
+    {"id": "f02b", "base": "3912c47", "change": "validation inline + override in arm (exact per-arm threading)", "bytes": 11192, "ratio": 0.09744, "calls": 86},
+    {"id": "f03a", "base": "3912c47", "change": "f02a + inline(always) wallet/sweep", "bytes": 19136, "ratio": 0.16009, "calls": 180},
+    {"id": "f03b", "base": "3912c47", "change": "f02b + inline(always) wallet/sweep", "bytes": 19000, "ratio": 0.16163, "calls": 180},
+    {"id": "f04", "base": "3912c47", "change": "tree in validate via &mut out-params, override in arm", "bytes": 27632, "ratio": 0.41342},
+    {"id": "f05", "base": "3912c47", "change": "tree in validate via out-params, override in tree", "bytes": 27608, "ratio": 0.41361},
+    {"id": "f06", "base": "3912c47", "change": "validate returns (target,sharing_update,collect_old), override in arm", "bytes": 27944, "ratio": 0.30783, "calls": 155},
+    {"id": "f07", "base": "3912c47", "change": "tuple return, override in tree", "bytes": 27920, "ratio": 0.30559, "calls": 155},
+    {"id": "f08a", "base": "3912c47", "change": "f02a + tail in #[inline(always)] fn post(&mut ctx,..)", "bytes": 11272, "ratio": 0.12537, "calls": 86},
+    {"id": "f08b", "base": "3912c47", "change": "f02b + tail in #[inline(always)] post", "bytes": 11200, "ratio": 0.10895, "calls": 86},
+    {"id": "lb", "base": "3912c47", "change": "f02b with validation as labeled block Result + one ?", "bytes": 11136, "ratio": 0.10229, "calls": 86},
+    {"id": "g3", "base": "cb298d5", "change": "match fee None-first", "bytes": 27400, "ratio": 0.49101, "note": "byte-identical to main"},
+    {"id": "g1", "base": "cb298d5", "change": "let Some(f)=fee else{return Ok(target)}", "bytes": 27424, "ratio": 0.51085},
+    {"id": "g1+knobs", "base": "cb298d5", "change": "L_bump_inline 27456/0.50786, sh_key_borrow 27344/0.50862, v_ik_split 27416/0.45836 (157 calls), s_frozen_first 27472/0.48347; g1e 27416/0.51093; g1d 27416/0.51093"},
+    {"id": "h1ed", "base": "9eb6c00", "change": "let-else before cashback + execute cashback order", "bytes": 27408, "ratio": 0.51071},
+    {"id": "h1ed+knobs", "base": "9eb6c00", "change": "k296 27360/0.5009, k289 27240/0.48731, ktree 27408/0.46728, matches! 27440/0.38078, CtoState orders 27408/0.51041..0.51071, k312/k338/k338b/m2/m5/n1 byte-identical"},
+    {"id": "j1", "base": "8f050a2", "change": "let-else", "bytes": 27384, "ratio": 0.47857},
+    {"id": "j1e", "base": "8f050a2", "change": "let-else before cashback", "bytes": 27376, "ratio": 0.47895}
+  ],
+  "ir_oracle": [
+    {"id": "th_h/n/hn", "base": "3912c47", "result": "27696/0.47401, 27816/0.48841, 28120/0.48182 (n-nodup 27512/0.48401)"},
+    {"id": "th2_h/n/hn", "base": "cb298d5", "result": "27688/0.45769, 27800/0.48736, 28104/0.45446"},
+    {"id": "f02b_ai", "base": "3912c47", "result": "LLVM-only alwaysinline on wallet/sweep: 19000 B (= f03b), so the MIR inliner is not involved"},
+    {"id": "f02b_w*", "base": "3912c47", "result": "error-edge weights 1:2000 restore 154 calls but frame r4 spill -0x860 and ratio 0.21"}
+  ],
+  "rejected_mechanisms": [
+    "target override inside validate's non-holder arm with validate as a fn (LLVM merges sub-arms before one fee test)",
+    "validation inline in execute (cold wallet/sweep call sites; LastCallToStatic bonus disabled)",
+    "#[inline(always)] on wallet/sweep or on a tail fn (module-level always-inline before the CGSCC inliner)",
+    "sharing tree inside validate via out-params or tuple return (select folding / extra memcpy, 410 before 330)",
+    "labeled-block validation with one ? (MIR JT threads the Err discriminants anyway)",
+    "IR-level fee-None threading on main (neutral-to-negative, +100..700 B)",
+    "let-else fee-None early return as a structural fix (it is a frame-position knob; reverses on 8f050a2)"
+  ],
+  "unresolved_residuals": [
+    "334 after 410 (fee-None paths share one join with the fee-OK path)",
+    "per-shared-sub-arm fee-tag tests in the non-holder arm (orig 0x0dc0..0x0e30 / 0x1490..0x1508)"
+  ],
+  "next_ideas": [
+    "Phi-of-constants flag out of validate (per shared sub-arm) that the tree tests, so LLVM JumpThreading can thread the fee-None paths after validate is inlined",
+    "Use let Some(f)=fee else{return Ok(target)} as a frame knob in hill-climbs (+8 B frame, +16..24 B code)",
+    "bficall.py to check any validation-in-execute shape keeps wallet/sweep call sites above 2% of entry"
+  ],
+  "tools": ["tools/bficall.py", "tools/thread_ir.py", "tools/thread_ir_m2.py", "tools/thread_ir2.py", "tools/errw.py", "tools/cfg.py", "tools/reg.py", "tools/callhist.py", "tools/xform.py"]
+}
