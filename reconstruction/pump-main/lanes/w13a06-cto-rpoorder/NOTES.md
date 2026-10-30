@@ -72,4 +72,37 @@ The exact RPO alone is worth about nothing at main's structure; with the holder 
 The 410 flip's gain is a frame/alignment artefact (abs_ratio drops); `if creator_fee>0{return Err(..)}` and
 `require!(!(creator_fee>0),..)` are byte-identical to main.
 
-Ledger keys: `0x22a10-w13-3912c47-rpoorder-*-v1`.
+## Later bases (main 8370e2f 0.49071, main 10b4ddf 0.50929)
+
+| build (main 10b4ddf unless noted) | bytes | ratio | abs_ratio | note |
+| --- | ---: | ---: | ---: | --- |
+| main 10b4ddf | 27,400 | 0.50929 | 0.68993 | slot order still main's (+0x28: 284 at 6d8, orig 6d0) |
+| IR: swap `bb11.i` (original RPO) | 27,400 | 0.50180 | 0.69023 | |
+| IR: 306 tag `(tag&1)==0` | 27,416 | 0.50045 | 0.67775 | |
+| IR: 306 and-1 + swap `bb11.i` | 27,416 | 0.50794 | 0.69422 | original RPO |
+| IR: holder `trunc` + 306 and-1 + swap `bb11.i` | 27,088 | 0.49932 | **0.69128** | the three faithful features together: code closer than main, 312 B short |
+| a4 (source) | 26,744 | 0.43693 | | original RPO |
+| a1 (source) | 26,840 | 0.43099 | | original RPO |
+
+So the original RPO is worth something only together with the original's and-1 holder/tag tests, and even then
+the function is ~300 B short. The source forms that give the RPO (per-site compares) also move the `to_string`
+inlining set (BFI of a 3-way `Option<bool>` switch), which costs 250-800 B and most of the ratio.
+
+### Other levers measured (all zero normalized losses, none a gain)
+
+- 289 spellings on g8 (= w13a03 `let args=&(new,)` entry copy, 27,416 B / 0.49296 on 8370e2f):
+  `!holder&&hr` 27,232/0.46544; `hr>holder` 27,168/0.49007; `require!(!hr||holder)` = g8; `(hr,holder)==(true,false)`
+  27,216/0.48512; `match (hr,holder){(true,false)=>..}` = g8; nested `if hr{if !holder}` 27,088/0.3124; `hr&!holder`
+  27,176/0.31704; `hr as u8>holder as u8` 27,048; hr as a separate validate `bool` param at 289 only 27,248/0.47492, at
+  289 and 296 = g8; `#[inline(always)] validate` 27,256/0.44992; CtoState `holder_reward:..==true` = g8;
+  collect_old `!hr&(creator!=default)` 27,400/0.41582.
+  Reason: on g8's IR the best flip at 27,400 is the hr test `bb5.i` (hr-true first: 0.49670), but InstCombine inverts the
+  hr compare as long as every user is a branch/select/not (it does so even with two branch users), and the original
+  itself tests `jeq hr,0` with the same canonical successor order. That flip is a coincidental gain, not the original's form.
+- 306 as `if let Some(t)=new{t}else{..}` / `match new{Some(t)=>t,None=>..}`: same bytes, 0.49011 on 8370e2f (-0.0006);
+  the range-tagged compare canonicalizes back to None-first.
+- non-holder target arm as a nested `fn pick(..)->Result<Pubkey>` (+216 B, 0.4586) or an immediately-called closure
+  (+48 B, 0.48997 on 8370e2f; on g8 +48 B, 0.49222): RPO unchanged. Usable as positive size knobs (+48/+216 B).
+- per-site `hopt.unwrap_or(false)` / `is_some_and(|h|h)` at all four sites: original RPO, 27,144 B, 0.43552.
+
+Ledger keys: `0x22a10-w13-3912c47-rpoorder-*-v1` (all trials of this lane, including the later bases).
