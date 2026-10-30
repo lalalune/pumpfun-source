@@ -62,6 +62,10 @@ rank / our rank), main 74b31714a:
 
 ## Mechanism 2: the original threads the sweep's `?` Err edges straight to the return block
 
+w12a07-cto-sweepthread found this first, on 20a1ae9: the block-scoped 648 `dest` reproduces the
+threading but flips the Err-return block's placement. This lane re-measured it on 74b31714a.
+`destscope` gives 27,560 B, 0.37605, so the placement flip still happens on the current main.
+
 - Original:
   - The three `?` sites inside the sweep (token_frozen on the coin ATA, token_raw_amount for 660, and the
     second token_frozen) branch to one cold trampoline at the very end of the function (orig rel 0x6360,
@@ -98,6 +102,22 @@ rank / our rank), main 74b31714a:
 Capture: `python3 tools/capture.py <crate copy> <work> <out>`, then `python3 tools/trim.py <out>/pump_recovered.ll m.ll`.
 `ctoracle.py run m.ll o0` reproduces the build's tokens exactly (checked on 8f050a236: 0.50929).
 
+## IR results (llc oracle, main 74b31714a): the 648 dest-check successor order
+
+`invscan.py` on main 74b31714a (0.51348):
+- **Best single inversion: the sweep's own dest check** (line 648, `%.not.i115 = icmp eq (memcmp key,dest), 0;
+  br ok, err` turned into err-first). It gives **0.51805 at 27,392 B**: abs 0.6977 -> 0.7200, and
+  region-2 tokens 505 -> 519. It changes ISel's RPO, so the ConstraintSeeds sret sites take later ranks. It
+  also moves the wallet "quote token account is frozen" block out of the middle of region 2.
+- Paired with a +8 B inversion it reaches 27,400 B:
+  - `+inv bb44.i134` (sweep token arm, `_130`): **0.51797**;
+  - `+inv bb15` (post-validate `_0.sroa.0.0.off0.i66` join): 0.51768 with only 3,265 slots_diff (main 3,334).
+- The amm_frozen test inversion alone is 0.51378 at 27,400 B (+0.0003).
+- No source spelling reaches these inversions. Rust's `!=` reaches the branch as `br (xor eq,true), err, ok`, and
+  InstCombine rewrites `br (not X)` to `br X, ok, err`. So the successor order of a bool test is fixed by
+  semantics. Moving the 648 error block later in RPO would need a CFG change, for example its error edge
+  merging into a block that is also reachable from the ok path.
+
 ## IR results (llc oracle, main 8f050a236)
 
 - **Branch inversion scan, all 147 conditional branches:**
@@ -131,8 +151,9 @@ Capture: `python3 tools/capture.py <crate copy> <work> <out>`, then `python3 too
 | sw_hkval | `sweep(ctx,holder_key:Pubkey)` by value | 27,464 B, 0.29713 |
 | sw_accts / sw_bumps | `sweep(a:&AdminCto, cv_bump:u8 \| bumps:&AdminCtoBumps, ..)` | 27,472 B, 0.44518 |
 | sv_tailfn / sv_headfn / sv_tailclosure | the sweep split into nested head or tail fns, or a closure | collapse (0.21-0.23) |
+| destscope (on 74b31714a) | `{let dest=..;if key!=dest{return Err(..)}}` (w12a07's threading shape) | 27,560 B, 0.37605 |
 
-Ledger keys: `0x22a10-w13-8f050a2-region2-*-v1`.
+Ledger keys: `0x22a10-w13-8f050a2-region2-*-v1` and `0x22a10-w13-74b3171-region2-*-v1`.
 
 ## Conclusion for region 2
 
@@ -142,7 +163,7 @@ block shape: 92 % of its tokens match with registers and frame offsets masked. W
 - the sret-slot ranks and the +8 B, which are fixed by region 1's RPO and the IR-alloca area;
 - the sweep's `?` Err threading (mechanism 2).
 
-None of the 26 region-local spellings above moves them at 27,400 B.
+None of the 27 region-local spellings above moves them at 27,400 B.
 The next untried idea is a sweep body whose `?` exits feed the tag test directly. One option is the sweep
 returning `Result<u64>` through a single `match` on an inner `Result<u64>` built from the arms, with no
 mixed passthrough tag. Any such idea must keep the inlining (no extra nested fn or closure).

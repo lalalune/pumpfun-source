@@ -1,0 +1,32 @@
+{
+  "lane": "w13a14-cto-region2of3",
+  "wave": 13,
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "angle": "region 2 of 3 of the original window: orig rel +0x23b0..+0x4760 (slots 1142..2283)",
+  "bases": {"8f050a236": {"ratio": 0.50929, "slots_diff": 3325}, "74b31714a": {"ratio": 0.51348, "slots_diff": 3334}},
+  "best_zero_loss": {"ratio": 0.51348, "slots_diff": 3334, "bytes": 27400, "note": "no source change beat main; notes-only PR #2955"},
+  "region2_tokens_74b31714a": {"orig_tokens": 1267, "plain": 582, "regs_masked": 829, "frame_masked": 796, "both_masked": 1162},
+  "mechanisms": [
+    "Region 2 = sweep head (648 dest check, 649 amm_frozen, 660, 661 transfer CPI with 12 inlined AccountInfo clones), Rent (663), sweep-exit tag test, sharing-CPI val copy + 8 clones (745-749). Call and clone order already equal the original; 92% of tokens match with regs+frame masked.",
+    "sret-demotion slots: every region-2/3 site sits at orig rank +3 and 8 B deeper. The +3 comes from validate's 312/307/306 to_string sites, which are early in our RPO and last in the original's. The +8 B is the IR-alloca area (mint at r10-0x6c8 vs 0x6c0). Remap bound 0.51348 -> 0.52996 whole, but only +10 region-2 tokens.",
+    "Sweep ? Err edges: the original threads them through one cold trampoline straight to the return block, with payload/swept/return payload all in r9. Ours routes them through the shared sweep-exit test via nested lifetime-end phi blocks and spills swept (w12a07 found this first; destscope still flips the return placement on 74b3171).",
+    "IR: inverting the 648 dest-check successor order (err-first) gives 0.51805 at 27392 (abs 0.6977->0.7200, region-2 505->519). Paired with the +8 B inversion of bb44.i134 it gives 0.51797 at 27400. No source form: InstCombine canonicalizes br(not eq)."
+  ],
+  "attempts": 33,
+  "rejected_source_mechanisms": ["dest_tuple", "chk_rev", "chk_rkeq", "chk_hk_local", "ammf_if", "l660_ne", "l660_let", "seeds_old_first", "seeds_bump_ref", "seeds_old_ref", "seeds_slice", "tcpi_ctx_accounts", "oc_decl", "oc_decl_only", "oc_decl_top", "oc_noinner", "val_ifreset", "val_clone", "sw_hkval", "sw_accts", "sw_bumps", "sv_tailfn", "sv_headfn", "sv_tailclosure", "destscope"],
+  "ir_scans": ["invscan 147 br on 8f050a2 and 74b3171", "pair scan 1789 x (+8 B inversions)", "sweep-group alloca move scan (728 moves, no gain)", "sretbound remap"],
+  "unresolved_residuals": [
+    "spill-slot/register assignment in the transfer-CPI and sharing-CPI clone runs (accounts pointer region-split into r6 vs the original's per-account reload from [r10-0x8d8])",
+    "sret slot ranks (+3) and +8 B alloca area (fix lives in region 1 RPO and the frame lanes)",
+    "sweep ? Err threading with the Err-return block kept at the function end",
+    "648 dest-check RPO position (IR-only +0.0045 at 27400)"
+  ],
+  "next_ideas": [
+    "A CFG shape in which the 648 ConstraintSeeds error block is reached later in RPO, e.g. its error edge merging into a block also reachable from the ok path, without adding calls",
+    "A sweep body whose ? exits feed the tag test directly (no lifetime-end phi nests) while the Err-return block stays at the end: needs the validate/wallet frequency that keeps it there (w12a07)",
+    "Combine region-1 RPO fixes (w13a06 per-site and-1 holder tests) with frame work so the region-2/3 sret slots realign (+0.0165 bound)"
+  ],
+  "ledger_keys": ["0x22a10-w13-8f050a2-region2-*-v1", "0x22a10-w13-74b3171-region2-*-v1"],
+  "pr": 2955,
+  "landed": false
+}
