@@ -136,6 +136,86 @@ class IntegrationScratchOverlapTests(unittest.TestCase):
             shutil.copyfile(HERE / name, harness / name)
         return harness / 'integrate.py'
 
+    def test_nonportable_labels_fail_before_creating_output(self):
+        for value in ('A.', 'CON', 'nul.part', 'Lpt1', 'COM9.x'):
+            for role in ('name', 'part', 'base-of'):
+                with self.subTest(value=value, role=role), tempfile.TemporaryDirectory() as temporary:
+                    root = Path(temporary)
+                    cli = self.stage_cli(root)
+                    base, part = (crate(root / name) for name in ('base', 'part'))
+                    before = contents(root)
+                    arguments = ['--name', value if role == 'name' else 'trial',
+                                 '--base-src', str(base)]
+                    if role != 'name':
+                        arguments += ['--part', (value if role == 'part' else 'A') + '=' + str(part)]
+                    if role == 'base-of':
+                        arguments += ['--base-of', value + '=' + str(base)]
+                    result = subprocess.run([sys.executable, '-B', str(cli), '--no-build', *arguments],
+                                            capture_output=True, text=True, timeout=30)
+                    self.assertEqual(result.returncode, 2, result.stderr)
+                    self.assertIn('nonportable composition name or label', result.stderr)
+                    self.assertFalse((root / 'reconstruction/integ').exists())
+                    self.assertEqual(contents(root), before)
+
+    def test_base_overrides_reject_folded_duplicates_and_require_exact_spelling(self):
+        for overrides, message in ((('A', 'a'), 'duplicate label'),
+                                   (('a',), 'base overrides have no matching part')):
+            with self.subTest(overrides=overrides), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                cli = self.stage_cli(root)
+                base, part = (crate(root / name) for name in ('base', 'part'))
+                before = contents(root)
+                arguments = ['--name', 'trial', '--base-src', str(base), '--part', 'A=' + str(part)]
+                for value in overrides:
+                    arguments += ['--base-of', value + '=' + str(base)]
+                result = subprocess.run([sys.executable, '-B', str(cli), '--no-build', *arguments],
+                                        capture_output=True, text=True, timeout=30)
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertIn(message, result.stderr)
+                self.assertFalse((root / 'reconstruction/integ').exists())
+                self.assertEqual(contents(root), before)
+
+    @unittest.skipUnless(shutil.which('git'), 'requires real Git for the baseline reproduction')
+    def test_case_colliding_labels_preserve_separate_patch_evidence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            cli = self.stage_cli(root)
+            base, one, two = (crate(root / name) for name in ('base', 'one', 'two'))
+            (one / 'one.bin').write_bytes(b'')
+            (two / 'two.bin').write_bytes(b'')
+            before = [contents(path) for path in (base, one, two)]
+            result = subprocess.run(
+                [sys.executable, str(cli), '--no-build', '--name', 'trial',
+                 '--base-src', str(base), '--part', 'A=' + str(one), '--part', 'a=' + str(two)],
+                capture_output=True, text=True, timeout=30)
+            self.assertNotEqual(result.returncode, 0, result.stdout)
+            self.assertIn('duplicate label', result.stderr)
+            self.assertFalse((root / 'reconstruction/integ/trial').exists())
+            self.assertEqual([contents(path) for path in (base, one, two)], before)
+
+    @unittest.skipUnless(shutil.which('git'), 'requires real Git patch application')
+    def test_distinct_labels_retain_both_applied_patches(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            cli = self.stage_cli(root)
+            base, one, two = (crate(root / name) for name in ('base', 'one', 'two'))
+            (one / 'one.bin').write_bytes(b'')
+            (two / 'two.bin').write_bytes(b'')
+            before = [contents(path) for path in (base, one, two)]
+            result = subprocess.run(
+                [sys.executable, str(cli), '--no-build', '--name', 'control',
+                 '--base-src', str(base), '--part', 'Change.v1=' + str(one),
+                 '--base-of', 'Change.v1=' + str(base), '--part', 'Other-part=' + str(two)],
+                capture_output=True, text=True, timeout=30)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            out = root / 'reconstruction/integ/control'
+            report = json.loads((out / 'report.json').read_text())
+            self.assertEqual([part['status'] for part in report['parts']], ['applied', 'applied'])
+            self.assertIn('one.bin', (out / 'parts/Change.v1.patch').read_text())
+            self.assertIn('two.bin', (out / 'parts/Other-part.patch').read_text())
+            self.assertEqual(contents(out / 'src'), {**before[0], 'one.bin': b'', 'two.bin': b''})
+            self.assertEqual([contents(path) for path in (base, one, two)], before)
+
     def test_scratch_overlaps_preserved_in_every_input_role(self):
         cases = [(role, relative) for role in ('base', 'part', 'derived')
                  for relative in ('unit/input', 'unit', '.')]

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Build an incomplete program from source and retain an honest whole-file comparison."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse,hashlib,json,os,pathlib,subprocess,shutil
 from compare import compare
 from build_source_manifest import source_manifest

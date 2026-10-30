@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Exact Pump compared-error checkpoint bridge; saved evidence only, no target/build."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse
 import hashlib
 import importlib.util

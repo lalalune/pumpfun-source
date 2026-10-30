@@ -4,6 +4,10 @@ import gzip
 import hashlib
 import json
 import struct
+import shutil
+import sys
+import tempfile
+from unittest.mock import patch
 import types
 import unittest
 
@@ -79,7 +83,7 @@ class TokenDetectorTests(unittest.TestCase):
     def test_manifest_inventory(self):
         saved = json.loads((P / 'manifest.json').read_text(encoding='utf-8'))
         actual = {
-            str(path.relative_to(P)): hashlib.sha256(path.read_bytes()).hexdigest()
+            path.relative_to(P).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
             for path in sorted(P.rglob('*'))
             if path.is_file() and path.name != 'manifest.json'
             and '__pycache__' not in path.parts and path.suffix != '.pyc'
@@ -114,6 +118,68 @@ class TokenDetectorTests(unittest.TestCase):
             self.assertIn("(P / '%s').read_text(encoding='utf-8')" % name, verify)
         self.assertNotIn('read_text()', verify)
         self.assertEqual(proof.count("encoding='utf-8'"), 2)
+
+
+    def retained_root(self, with_images=False):
+        temporary = tempfile.TemporaryDirectory(prefix='token-detector-root-')
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        for relative in (proof.ARCHIVED, proof.READER):
+            target = root / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(proof.REPO / relative, target)
+        if with_images:
+            for name in proof.PROGRAMS:
+                relative = Path('evidence/original') / name / 'deployed.so'
+                target = root / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(proof.REPO / relative, target)
+        return root
+
+    def test_both_archived_sources_are_checked_before_execution(self):
+        for relative, message in [(proof.ARCHIVED, 'bytecode-pattern source'),
+                                  (proof.READER, 'ELF reader source')]:
+            with self.subTest(source=relative):
+                root = self.retained_root()
+                path = root / relative
+                path.write_bytes(path.read_bytes() + b'\nraise RuntimeError("must not execute")\n')
+                with self.assertRaisesRegex(ValueError, message):
+                    proof._reviewed(root)
+
+    def test_explicit_root_uses_its_archives_and_ignores_live_reader_module(self):
+        root = self.retained_root(with_images=True)
+        fake = types.ModuleType('window_elf_reader')
+        fake.Elf = lambda path: self.fail('live reader was used')
+        with patch.object(proof, 'REPO', root / 'missing-global-root'), \
+                patch.dict(sys.modules, {'window_elf_reader': fake}):
+            report = proof.check(root)
+            self.assertIs(sys.modules['window_elf_reader'], fake)
+        self.assertEqual(report, self.report)
+
+    def test_report_hash_identifies_executed_source_after_path_changes(self):
+        root = self.retained_root(with_images=True)
+        load = proof._reviewed
+
+        def load_then_change(path):
+            module = load(path)
+            source = path / proof.ARCHIVED
+            source.write_bytes(source.read_bytes() + b'\n# changed after capture\n')
+            return module
+
+        with patch.object(proof, '_reviewed', side_effect=load_then_change):
+            report = proof.check(root)
+        self.assertEqual(report, self.report)
+        self.assertNotEqual(hashlib.sha256((root / proof.ARCHIVED).read_bytes()).hexdigest(),
+                            report['script_sha256'])
+
+    def test_bound_helper_is_pinned_in_the_packet(self):
+        # The live scripts/ copy evolved after sealing and broke the inputs
+        # binding on main; the packet now pins the exact revision it measured.
+        for name, digest in [('bytecode_signatures.py', proof.LF_SHA256),
+                             ('window_elf_reader.py', proof.READER_SHA256)]:
+            archived = P / 'archived' / name
+            self.assertTrue(archived.is_file())
+            self.assertEqual(hashlib.sha256(archived.read_bytes()).hexdigest(), digest)
 
 
 if __name__ == '__main__':

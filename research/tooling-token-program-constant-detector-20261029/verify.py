@@ -19,7 +19,7 @@ sha = lambda data: hashlib.sha256(data).hexdigest()
 
 inventory = json.loads((P / 'manifest.json').read_text(encoding='utf-8'))
 actual = {
-    str(path.relative_to(P)): sha(path.read_bytes())
+    path.relative_to(P).as_posix(): sha(path.read_bytes())
     for path in sorted(P.rglob('*'))
     if path.is_file() and path.name != 'manifest.json'
     and '__pycache__' not in path.parts and path.suffix != '.pyc'
