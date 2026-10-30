@@ -307,6 +307,31 @@ class Pair:
         }
 
 
+def negative_control(step: dict[str, Any]) -> dict[str, bool]:
+    """Replay mutated copies of a recorded step through the case comparison.
+
+    The comparison in Pair.transact is the witness every "equal observed
+    behavior" classification stands on, so the control must prove that this
+    comparison still notices an altered compared field. Mutating a copy of the
+    recorded candidate row and requiring each mutated field to be reported
+    keeps the control tied to that witness; comparing two independently
+    produced state summaries would stay true even if the comparison itself
+    stopped reporting differences.
+    """
+    checks: dict[str, bool] = {}
+    for field, mutate in (
+        ("error", lambda row: row.update(error="negative-control-error")),
+        ("after", lambda row: row["after"].update({"negative-control": None})),
+    ):
+        changed = json.loads(json.dumps(step["candidate"]))
+        mutate(changed)
+        left = Pair._comparable(step["original"])
+        right = Pair._comparable(changed)
+        mismatches = [name for name in left if left[name] != right[name]]
+        checks[field] = field in mismatches
+    return checks
+
+
 def run_case(name: str, original: Path, candidate: Path, token: Path, associated: Path) -> dict[str, Any]:
     fixture = Fixture.create()
     pair = Pair(original, candidate, token, associated, fixture)
@@ -433,9 +458,8 @@ def execute(root: Path, candidate: Path, output: Path) -> bool:
     sources, source_digest = source_manifest(root)
     cases = [run_case(name, original, candidate, token, associated) for name in CASES]
     identities = transaction_identity(cases)
-    negative_control = json.loads(json.dumps(cases[0]["steps"][-1]["candidate_state"]))
-    negative_control["debouncer_total"] += 1
-    control_detected = negative_control != cases[0]["steps"][-1]["original_state"]
+    control = negative_control(cases[0]["steps"][-1])
+    control_detected = all(control.values())
     unsupported = [
         {"family": "upsert_mint_whitelist_v1 success", "classification": "unsupported_fixture", "reason": "production relayer private key is not retained"},
         {"family": "close_donation_epoch_v1 success and next epoch", "classification": "unsupported_fixture", "reason": "production relayer private key is not retained"},
@@ -455,7 +479,7 @@ def execute(root: Path, candidate: Path, output: Path) -> bool:
         "transaction_identity": identities,
         "matching_cases": sum(row["classification"] == "equal_observed_behavior" for row in cases),
         "different_cases": [row["name"] for row in cases if row["classification"] == "different_behavior"],
-        "negative_control": {"kind": "expected state mutation", "detected": control_detected},
+        "negative_control": {"kind": "mutated step replayed through the case comparison", "fields": control, "detected": control_detected},
         "unsupported": unsupported,
         "cases": cases,
     }

@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 import importlib.util
+import json
 import sys
 import unittest
+import unittest.mock
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -25,11 +27,27 @@ class EncodingTests(unittest.TestCase):
         self.assertEqual(fixture.debouncer, relay.pda(b"debouncer_v1", fixture.config, bytes(fixture.mint))[0])
         self.assertEqual(fixture.destination, relay.ata(fixture.debouncer, fixture.mint))
 
-    def test_negative_control_is_not_a_match(self):
-        observed = {"epoch": 0, "debouncer_total": 3_000_000}
-        changed = dict(observed)
-        changed["debouncer_total"] += 1
-        self.assertNotEqual(observed, changed)
+    @staticmethod
+    def matching_step():
+        row = {
+            "error": None,
+            "logs": ["Program log: hi", "Program consumed: 1 of 1400000 compute units"],
+            "events": [],
+            "inner_instructions": [],
+            "return_data": [None, ""],
+            "before": {"SomeAccount11111111111111111111111111111111": {"lamports": 1}},
+            "after": {"SomeAccount11111111111111111111111111111111": {"lamports": 2}},
+        }
+        return {"original": row, "candidate": json.loads(json.dumps(row))}
+
+    def test_negative_control_replays_mutations_through_the_case_comparison(self):
+        step = self.matching_step()
+        self.assertEqual(relay.negative_control(step), {"error": True, "after": True})
+
+    def test_negative_control_fails_when_the_comparison_stops_reporting(self):
+        step = self.matching_step()
+        with unittest.mock.patch.object(relay.Pair, "_comparable", staticmethod(lambda row: {})):
+            self.assertEqual(relay.negative_control(step), {"error": False, "after": False})
 
     def test_transaction_identity_rejects_reused_signature(self):
         cases = [{"steps": [
