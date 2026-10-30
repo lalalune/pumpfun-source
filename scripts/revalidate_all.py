@@ -331,9 +331,13 @@ if __name__ == "__main__":
 
 
 def standalone_temporary_sibling(output_dir, label):
+    # Match the shared publisher's bounded, whole-character name prefix.
+    prefix = output_dir.name[:64]
+    while len(os.fsencode(prefix)) > 64:
+        prefix = prefix[:-1]
     while True:
         staging = output_dir.parent / (
-            f".{output_dir.name}.{label}-{os.getpid()}-{uuid.uuid4().hex}")
+            f".{prefix}.{label}-{os.getpid()}-{uuid.uuid4().hex}")
         try:
             staging.mkdir()
         except FileExistsError:

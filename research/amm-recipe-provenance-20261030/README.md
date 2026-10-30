@@ -11,11 +11,11 @@ At source commit `8498ea4c5307d8537484464d27d6d82bb90a85c1`,
 `scripts/amm_sell/workspace_recipe.py` selects exactly 68 files from
 `programs/pump-amm` and `crates/native-transfer-fee`. The Git tree contains
 exactly the same 68 ordinary blobs. Their bytes match both the pinned Git blob
-IDs and the SHA-256 values in `manifest.json`. The recipe transforms the
+IDs and the SHA-256 values in `recipe.json`. The recipe transforms the
 standalone crate manifest into a 69-file workspace; all 59 Rust files stay
 byte-identical. A fresh source-only stage passes its own workspace verifier.
 
-The recipe SHA-256 in `manifest.json` is the recipe tracked at that same
+The recipe SHA-256 in `recipe.json` is the recipe tracked at that same
 commit. Later edits to the recipe (for example #2139) or to the AMM sources do
 not change this finding and do not affect the verifier.
 
@@ -49,3 +49,8 @@ source, and reject a symlinked recipe. A checkout missing the source commit
 fails closed. Historical controls also stage the real pinned commit without reading current source bytes, reject altered input/workspace hashes, and reject a tree object used as a commit.
 The selected historical checkpoint cannot be recovered from this packet; it
 would require separately authenticated artifacts and their full verification.
+
+The provenance record is named `recipe.json` because it describes source and
+recipe bindings rather than a packet-wide file-hash manifest. The repository
+audit still executes `verify.py`; the filename change does not bypass the
+historical source and workspace checks above.

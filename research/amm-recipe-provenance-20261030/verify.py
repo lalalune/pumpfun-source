@@ -78,7 +78,7 @@ def materialize(revision, recipe_path, destination):
 
 
 def verify():
-    manifest = json.loads((PACKET / 'manifest.json').read_text())
+    manifest = json.loads((PACKET / 'recipe.json').read_text())
     commit = manifest['source_commit']
     if not re.fullmatch('[0-9a-f]{40}', commit):
         raise ValueError('source_commit must be an exact commit')
