@@ -12,7 +12,8 @@
     "769f331 0.63241",
     "cef0574 0.63421",
     "f8dc901 0.63481",
-    "b174038 0.63571"
+    "b174038 0.63571",
+    "1b0ae70 0.63661"
    ],
    "landed": null,
    "best_zero_loss_build": {
@@ -36,8 +37,8 @@
  "findings": [
   "entry-copy angle closed: faithful 1/7/8/8/9 forms lose 0.05-0.07 to RA; only the copy position (#3155) pays",
   "single-gene screens: 114 genes on 53abf28, 36 on 769f331, 16 on cef0574, 13 on f8dc901; only n_cb_rev/w_rl (landed by #3200) and r_co_dm on f8dc901 beat main",
-  "r_co_dm (collect_old as !(holder_reward||creator==default)) is a global RA lever: -56 B/-0.0005 (769f331), -56/-0.0002 (cef0574), -80/+0.00065 (f8dc901), -80/-0.00145 (b174038)",
-  "ch_shpar (shared as A&&(B&&C)) is the most neutral +8 B filler: -0.0001 on three mains",
+  "r_co_dm (collect_old as !(holder_reward||creator==default)) is a global RA lever: -56 B/-0.0005 (769f331), -56/-0.0002 (cef0574), -80/+0.00065 (f8dc901), -80/-0.00145 (b174038), -80/-0.00175 (1b0ae70)",
+  "ch_shpar (shared as A&&(B&&C)) is the most neutral +8 B filler: -0.0001 on four mains (769f331, cef0574, f8dc901, 1b0ae70)",
   "ch_shkref (sharing_config.key==&creator) -80 B / -0.0015 on cef0574",
   "comparison operand swaps and !(a!=b) negations are byte-identical or lose; non-short-circuit &/| forms lose 0.03-0.11",
   "near-neutral +bytes fillers are the scarce resource: shrinking gains (scu_bs -56, r_co_dm -80, outline306 -480) cannot be repaid with catalog fillers without a net loss"

@@ -29,6 +29,7 @@ losses. stitch9 #3200 landed the same `n_cb_rev` head with other partners (0.628
 | cef0574 (0.63421) | 16 | none |
 | f8dc901 (0.63481) | 13 | `r_co_dm` 0.63546 @27,320 (-80 B) |
 | b174038 (0.63571) | 3 | none (`r_co_dm` 0.63426 @27,320) |
+| 1b0ae70 (0.63661) | 3 | none (`r_co_dm` 0.63486 @27,320; `ch_shpar` 0.63651 @27,408; `r_co_dm`+pool-owner key 0.63262 @27,400) |
 
 The new spelling families, all semantics-preserving and keeping the newline count:
 
@@ -41,10 +42,10 @@ The new spelling families, all semantics-preserving and keeping the newline coun
   `&`/`|`.
   - Every `&`/`|` form loses 0.03-0.11.
   - Parenthesised and De Morgan forms are byte-identical, with three exceptions:
-    - `ch_shpar`: `shared` as `A&&(B&&C)`. +8 B, -0.0001 on 769f331 and cef0574, -0.0001 on f8dc901. **The most neutral
+    - `ch_shpar`: `shared` as `A&&(B&&C)`. +8 B at -0.0001 on each of 769f331, cef0574, f8dc901 and 1b0ae70. **The most neutral
       +8 B filler found.**
     - `r_co_dm`: collect_old as `!(st.holder_reward||st.creator==Pubkey::default())`. -56 B on 769f331/cef0574
-      (-0.0005/-0.0002), then -80 B on f8dc901 (+0.00065), then -80 B on b174038 (-0.00145).
+      (-0.0005/-0.0002), then -80 B on f8dc901 (+0.00065), then -80 B on b174038 (-0.00145) and on 1b0ae70 (-0.00175).
       **This is a global register-allocation lever, like `ev_reset_shared`, not a local size knob.** Re-screen it on
       each main. The same form with the operands swapped (`co_dm2`) keeps 27,400 B and cuts slots_diff from 3,178 to
       2,856, but the ratio drops to 0.58.
