@@ -1,0 +1,11 @@
+{
+  "lane": "w10r1-admincto-region6of6",
+  "target": "0x22a10 admin_cto::execute",
+  "region": "6 of 6, original offsets 0x5930..0x6b18",
+  "pr": 2518,
+  "best": {"base": "origin/main 917ee615f", "cand_bytes": 27376, "orig_bytes": 27400, "ratio": 0.36895, "region6_ratio": 0.5914, "normalized": 1032, "raw": 347, "losses": 0},
+  "mechanism": "wallet decision flags do_collect/do_coin computed before the ATA create as phis of constants; region-6 block order equals the original",
+  "rejected": ["t01 flags as && of old bools (+192 B)", "do_collect/do_coin spelling variants C/D/G/H/b/c/y (MIR-identical to t02 except D)"],
+  "composition": {"pr2524_base": "27400 -> 27528 B with t02, region6 0.4636 -> 0.5951", "pr2509_base": "27400 -> 27328 B with t02, region6 0.5351 -> 0.5363"},
+  "unresolved": ["sweep Ok edges threaded to post-sweep block in ours, merged into the sweep.exit join in the original (cross-region)", "register choice r9/r8 vs r6/spill (global)"]
+}
