@@ -1,0 +1,31 @@
+{
+  "lane": "w13a39-cto-x24host",
+  "target": "0x22a10 admin_cto::execute",
+  "base": {"main": "16c10e631 (admin_cto identical to fb8322295)", "ratio": 0.62043, "slots_diff": 3306, "bytes": 27400},
+  "result": "notes only; no zero-loss source change",
+  "bounds": {"perfect_frame": 0.64949, "block_0x538_0x6a0_only": 0.62582},
+  "best_oracle": {"spec": "hk short-lived (PDA temp in _54.i, seeds in _128.i) + unmerged 33-40 B stand-in at the hk slot", "ratio": 0.62163, "bytes": 27400, "faithful_source": false},
+  "oracles": {
+    "i2_plain_pda": 0.54584,
+    "c3_standin40": 0.62163, "f1_standin33": 0.62163, "f2_standin32": 0.53954, "c1_standin24": 0.54224,
+    "g1_x24_plus_9B_piece_at_orig_offsets": 0.62133,
+    "g5_all_block_objects_at_orig_offsets": 0.40563, "g6_g5_with__11_pinned": 0.51138,
+    "n1_unsplit_new_copy_at_hk_slot": {"ratio": 0.60897, "bytes": 27328, "abs_ratio": 0.71486}
+  },
+  "rejected": [
+    "plain PDA alone (frame -40 B below holder_key)",
+    "X24 stand-in of 24 or 32 B (frame -16/-8)",
+    "signer slice resized into X24 (0x540 slot vacated, _116.i/_11.i256 hosts lost)",
+    "faithful X24 + 9 B piece (no better than the opaque stand-in)"
+  ],
+  "unresolved": [
+    "a faithful 33-40 B object, live across execute, at the hk MIR position (the original's X24 + new 9 B piece)",
+    "holder_key copy order (orig descending)",
+    "8/24 target/payload split (X24 holds sharing_update tail in the original)"
+  ],
+  "next_ideas": [
+    "mut new with a real later write so the args=&(new,) copy survives unsplit (n1 oracle: abs 0.71486, -72 B, needs size repair)",
+    "frame work outside 0x538-0x6a0: only 0.0054 of the 0.029 frame gap is in this block"
+  ],
+  "ledger_keys": ["0x22a10-w13-16c10e6-x24host-bound-v1", "0x22a10-w13-16c10e6-x24host-hkshort-v1", "0x22a10-w13-16c10e6-x24host-standin-v1", "0x22a10-w13-16c10e6-x24host-faithful-v1"]
+}
