@@ -24,6 +24,7 @@ original's first call, orig +0x80..+0x148, before the sharing-config memcmps). S
 | d81d0f5 | 0.57100 | 27,360 (-40) | 0.57503 | |
 | 06e6bb8 | 0.57669 | 27,384 (-16) | 0.57687 | |
 | dfc3693 | 0.59916 | 27,392 (-8) | 0.59745 | frame-masked 0.69023 -> 0.69273, frame+reg masked 0.83942 -> 0.85004 |
+| fb83222 (payer-first, #3028 part) | 0.62043 | 27,360 (-40) | 0.57233 | frame-masked 0.7121 -> 0.65837, frame+reg masked 0.85171 -> 0.86194 |
 
 So hk-first improves the code skeleton every time, but the plain ratio follows the frame.
 
@@ -61,3 +62,36 @@ they are not source-expressible (w13a26 reached the same conclusion on main).
 
 Caution for oracle users: other lanes run `pkill -f capvar.sh` / `pkill -f "iredit.py scan"`; give your copies
 lane-unique names.
+
+## On the payer-first main fb83222 (0.62043): angle dead
+
+| form | bytes | ratio |
+| --- | ---: | ---: |
+| main | 27,400 | 0.62043 |
+| hk1 (hk alive) | 27,360 | 0.57233 |
+| hk1 + `z_sh_flat` | 27,352 | 0.57301 |
+| hk5 `let hk=FPA;let holder_key=hk.0;` | 27,360 | 0.57173 |
+| hk3 `let holder_key=FPA.0;` | 27,360 | 0.54445 |
+
+Differing instructions against the original per 0x800 region (frame offsets masked): region 0x0 improves
+280 -> 228, but the payer-first clone run at 0x3000 collapses 97 -> 497. A scan of 867 single IR edits
+(nolt, branch weights, inversions, alloca moves) on the hk1 IR recovers at most +0.0012. IR bound of hk-first on this
+main is about 0.574, against 0.62043. hk-first is only worth retrying together with a regalloc repair of the
+sweep clone run, which no single IR edit provides.
+
+### Single genes on top of hk1 on dfc3693 (0.59916; measure.sh, 0 losses)
+
+| gene | bytes | ratio |
+| --- | ---: | ---: |
+| `fee_unwrap` | 27,400 | 0.59736 |
+| `z_sh_flat` | 27,384 | 0.59844 |
+| `s7_rentlocal` | 27,376 | 0.59793 |
+| `old_fee_first` | 27,392 | 0.59715 |
+| `s7_minvar` | 27,376 | 0.59703 |
+| `w_clock_local` | 27,408 | 0.59697 |
+| `s7_destrev` / `v307_rev` | 27,392 | 0.59685 |
+| `canedit_first` | 27,392 | 0.59655 |
+| `m_ev_hr_curve` | 27,384 | 0.59634 |
+| `z_sh_if_borrow` | 27,312 | 0.59535 |
+| `z_sh_flat_owner_first` | 27,416 | 0.58580 |
+| `z_sh_if_owner_first` / `z_sfo_ifkey` | 27,424 | 0.58482 |

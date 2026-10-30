@@ -1,0 +1,33 @@
+{
+  "lane": "w13a32-cto-hkfirst2",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "result": "no landable gain; hk-first exhausted on payer-first mains",
+  "best_zero_loss_at_27400": {"main": "06e6bb8", "form": "hk1 + w_clock_local", "ratio": 0.57639, "slots_diff": 3385, "main_ratio": 0.57669},
+  "per_main": {
+    "d81d0f5": {"main": 0.571, "hk1": [27360, 0.57503]},
+    "06e6bb8": {"main": 0.57669, "hk1": [27384, 0.57687]},
+    "dfc3693": {"main": 0.59916, "hk1": [27392, 0.59745], "hk1+fee_unwrap": [27400, 0.59736]},
+    "fb83222": {"main": 0.62043, "hk1": [27360, 0.57233], "hk1+z_sh_flat": [27352, 0.57301]}
+  },
+  "mechanism": [
+    "hk-first (holder-rewards find_program_address before the shared memcmps, hk kept alive) reproduces orig +0x0..+0x148 and the original's exact spill-slot set (109 slots 0x8d0..0xc38) on dfc3693",
+    "code skeleton (frame+register masked) improves by +0.010 on every main; the plain ratio follows frame and registers",
+    "on payer-first mains the sweep clone run (0x3000-0x3800) register allocation collapses (97 -> 497 differing insns vs orig)"
+  ],
+  "rejected": [
+    "let holder_key=FPA.0 / let (holder_key,_)=FPA (temp PDA result): -0.05",
+    "hk1 + payer-first (06e6bb8): 0.55546",
+    "hk1 + catalog size knobs at 27400 (06e6bb8, dfc3693): below main",
+    "frame/branch IR scans on hk1 IR (d81d0f5, 06e6bb8, fb83222): no frame-only repair; only std Rc/AccountInfo clone trap weights move it"
+  ],
+  "ledger_keys": "0x22a10-w13-*-hkfirst2-*",
+  "unresolved": [
+    "orig keeps &new in r7 and spills the sharing_config pointer ([r10-0x8e0]); ours spills &new ([r10-0x8d8])",
+    "PDA result: orig copies from a -0x2d0 temp, ours from -0x679 (hk alive)",
+    "owner-memcmp data_is_empty block laid out of line in ours (orig falls through)"
+  ],
+  "next_ideas": [
+    "retry hk-first only together with a clone-run regalloc repair (e.g. a source form that spills &a.holder_creator_vault early, w13a29 finding 2)",
+    "combine hk-first with the entry copy of new (orig 0x4d8), which would give &new the use weight to stay in r7"
+  ]
+}
