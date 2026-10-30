@@ -35,9 +35,32 @@ lacked (one shared fee block, 330 testing `holder` dynamically).
 | build | admin_cto bytes | ratio | normalized / raw losses |
 | --- | ---: | ---: | --- |
 | main 84bf9b1 (#2749, L1) | 27,400 | 0.45147 | |
-| main + `amm_cb_local` (t18) | 27,384 (-16) | **0.48367** | 0 / 0 normalized; size moves later windows |
+| main + `amm_cb_local` (t18) | 27,384 (-16) | **0.48367** | 0 normalized; size moves later windows |
+| `let cashback=!holder&&st.cashback;` / `match` / `if !holder` forms on line 314 (t26, t29, t30) | 27,384 | 0.48367 | byte-identical to t18 |
+| cashback in the target tuple `let (target,cashback)=if holder{..(*holder_key,false)}else{..(t,st.cashback)}` (t19) | 27,368 | 0.48381 | |
+| cashback through a `&mut bool` out-param, also used by the curve store (t20) | 27,232 | 0.3405 | extra address-taken local reshapes execute |
 
-Needs +16 B of compensation to land; search in progress (see SUMMARY.json when done).
+Runtime differential (`scripts/pump_admin_cto_differential.py`): t18 363/0 mismatches.
+
+Landing: the hill-climb lane composed this gene with the cleanroom fee `match`, this lane's
+`k4_oldfee_after` and event/sweep knobs at exactly 27,400 B (#2831, 0.48652 on L2). Merged with main's
+nested pool-authority seeds (#2808, w12b12-cto-cpi-2) the same text measures 27,400 B / **0.48742**,
+3,273 slots, 1034/1034, 0 losses, differential 363/0 (this lane's t50 = main after #2831).
+
+### Size compensation on L1 (+ hop fix), toward 27,400 B
+
+| trial | genes on L1 | bytes | ratio |
+| --- | --- | ---: | ---: |
+| t23 | `amm_cb_local` + `k4_oldfee_after` (old fee read after the bool stores, AMM order) | 27,392 | 0.48449 |
+| t31 | `amm_cb_local` + cleanroom fee `match` | 27,384 | 0.48487 |
+| t32 | t23 + fee `match` | 27,392 | 0.48569 |
+| t37 | t23 + `can_edit` cleared last (#2792 order) | 27,392 | 0.48479 |
+| t24 | t23 + event flags from locals | 27,416 | 0.48398 |
+| t33 | t24 + `fee_unwrap` revert | 27,416 | 0.48428 |
+| t36 | t23 + event fee from `fee.unwrap_or(old_fee)` | 27,384 | 0.48277 |
+| **t35** | t24 + region2_tree revert | **27,400** | **0.48322** (0 losses, 1034/1034, differential 363/0) |
+
+t35 was landable against main 70f2704 (0.45147) but #2792/#2831 overtook it before it could land.
 
 ## Other sibling idioms measured (on main 84bf9b1 = L1 unless noted)
 
