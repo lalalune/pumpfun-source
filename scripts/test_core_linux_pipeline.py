@@ -88,6 +88,15 @@ class PipelineTests(unittest.TestCase):
             (self.cargo/'registry'/kind/h.REGISTRY_NAMESPACES[1]).symlink_to(ns,target_is_directory=True)
         with self.assertRaisesRegex(ValueError,'real directories'):h.prepare_registry_views(self.cargo,self.source,self.evidence)
 
+    def test_registry_root_symlinks_are_rejected(self):
+        self.registry()
+        for relative in ['registry/cache','registry']:
+            with self.subTest(relative=relative):
+                target=self.cargo/relative;external=self.root/('external-'+relative.replace('/','-'))
+                target.rename(external);target.symlink_to(external,target_is_directory=True)
+                with self.assertRaisesRegex(ValueError,'real directories'):h.registry_namespace_sets(self.cargo)
+                target.unlink();external.rename(target)
+
     def test_unknown_namespace_is_rejected(self):
         self.registry()
         for kind in ['cache','src','index']:(self.cargo/'registry'/kind/'unplanned-registry').mkdir()

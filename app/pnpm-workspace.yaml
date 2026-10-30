@@ -1,9 +1,0 @@
-packages:
-  - packages/*
-
-onlyBuiltDependencies:
-  - esbuild
-  - sharp
-
-patchedDependencies:
-  '@pump-fun/agent-payments-sdk@1.0.7': patches/@pump-fun__agent-payments-sdk@1.0.7.patch

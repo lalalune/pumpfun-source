@@ -1,0 +1,172 @@
+{
+  "base": "ef400863f4e476b2eaaab0866c0b1187d8060abc",
+  "target": "0x14a8a8",
+  "baseline": {
+    "normalized": 1020,
+    "raw": 188,
+    "total": 1035,
+    "target_bytes": 6040,
+    "original_bytes": 6032,
+    "target_ratio": 0.98707,
+    "unstripped_sha256": "2364778f6dbd89927a406eed95451a72890c19331e9f9252b6837d9223a837de"
+  },
+  "trials": [
+    {
+      "trial": "trial-borrowed-result",
+      "unstripped_sha256": "77d90d44ce2810167f11159c55ee61780e80e76825e10179d1e711a9403d933a",
+      "stripped_sha256": "c230c39cdaa63be23a63ee88d0d796c4f2fb8046d5227c62ddcbeebc0ccb9a0d",
+      "stack_warnings": [],
+      "score": {
+        "normalized": 1020,
+        "raw": 188,
+        "total": 1035,
+        "gains": [],
+        "losses": [],
+        "raw_gains": [],
+        "raw_losses": []
+      }
+    },
+    {
+      "trial": "trial-clock",
+      "unstripped_sha256": "a88926d2ea98936d32159766640b8aea6af60d4ada6c44c6d699fdb9013cbaed",
+      "stripped_sha256": "13c9bf1d798f90bbe0c930b539c272ec0a09609cc347aaee977eaa6152fb121e",
+      "stack_warnings": [],
+      "score": {
+        "normalized": 1020,
+        "raw": 188,
+        "total": 1035,
+        "gains": [],
+        "losses": [],
+        "raw_gains": [],
+        "raw_losses": []
+      }
+    },
+    {
+      "trial": "trial-clock-tuple",
+      "unstripped_sha256": "92f7762ad5990866d6e96478eed5bfaa1ac5e816a65e7da50bfd4ca52df8288f",
+      "stripped_sha256": "81e175f1f10357350d4ed6ebec8c601b564292420163bff45c42000dddad55cf",
+      "stack_warnings": [],
+      "score": {
+        "normalized": 1020,
+        "raw": 188,
+        "total": 1035,
+        "gains": [],
+        "losses": [],
+        "raw_gains": [],
+        "raw_losses": []
+      }
+    },
+    {
+      "trial": "trial-early-error",
+      "unstripped_sha256": "96fad6629705749e5fce2eeee8d8e485b912541f2534140ca372c547e5a57e50",
+      "stripped_sha256": "f8081a038dc3691faf843699bb5396f68ed23d72f0558399987b7f9513f3a300",
+      "stack_warnings": [],
+      "score": {
+        "normalized": 1020,
+        "raw": 188,
+        "total": 1035,
+        "gains": [],
+        "losses": [],
+        "raw_gains": [],
+        "raw_losses": []
+      }
+    },
+    {
+      "trial": "trial-error-projection",
+      "unstripped_sha256": "c130803b9a27944efbcbff751fd1226fd82d6f56b9878343d95a21faad5cc70c",
+      "stripped_sha256": "f1e42d32716402530cd15efb63bcc7642ff8a687802514851f59bfa4af8659e8",
+      "stack_warnings": []
+    },
+    {
+      "trial": "trial-explicit-drop",
+      "unstripped_sha256": "b5bcd482900f6c0b04b1b7d399b38463b083bee8f4a5b203c8dc5975f7e5c23b",
+      "stripped_sha256": "acd640ba1b471776002a5e9e691bbeb30592b820eff3da42966cf6e5e7ded731",
+      "stack_warnings": [],
+      "score": {
+        "normalized": 1020,
+        "raw": 188,
+        "total": 1035,
+        "gains": [],
+        "losses": [],
+        "raw_gains": [],
+        "raw_losses": []
+      }
+    },
+    {
+      "trial": "trial-optional-error",
+      "unstripped_sha256": "fe4c9925e822b8f41588b190bc2531240fb76602df9afb8d96ed425f50caeaf9",
+      "stripped_sha256": "dc36fcf2ff6671d595bf12b34e076b968349e5e2e6f683cbce0421c163ffdb74",
+      "stack_warnings": [],
+      "score": {
+        "normalized": 1020,
+        "raw": 188,
+        "total": 1035,
+        "gains": [],
+        "losses": [],
+        "raw_gains": [],
+        "raw_losses": []
+      }
+    },
+    {
+      "trial": "trial-prepare-wrapper",
+      "unstripped_sha256": "c130803b9a27944efbcbff751fd1226fd82d6f56b9878343d95a21faad5cc70c",
+      "stripped_sha256": "f1e42d32716402530cd15efb63bcc7642ff8a687802514851f59bfa4af8659e8",
+      "stack_warnings": []
+    },
+    {
+      "trial": "trial-success-first",
+      "unstripped_sha256": "609e01dbbb559ce980791b80ee94f062c73b3a4d27278aa89e0f8c620e846997",
+      "stripped_sha256": "cf60e6f279654a7cd32a0cadd4b8407a08a99f43913c4a6015dd6070c22011da",
+      "stack_warnings": [],
+      "score": {
+        "normalized": 1020,
+        "raw": 188,
+        "total": 1035,
+        "gains": [],
+        "losses": [],
+        "raw_gains": [],
+        "raw_losses": []
+      }
+    }
+  ],
+  "first_session_status": "analysis-only; all nine source trials rejected; source restored",
+  "status": "partial source recovery; six normalized slots remain",
+  "candidate": {
+    "bytes": 6032,
+    "ratio": 0.99728,
+    "slots_diff": 6,
+    "normalized": 1020,
+    "raw": 188,
+    "calls": 47,
+    "ordered_callee_signatures_equal": true,
+    "gains": [],
+    "losses": [],
+    "unstripped_sha256": "a4908a99b6593bab3e561cb611d2736a6c3552df537009821a5e77135692ec6d"
+  },
+  "first_session_baseline": {
+    "normalized": 1020,
+    "raw": 188,
+    "total": 1035,
+    "target_bytes": 6040,
+    "original_bytes": 6032,
+    "target_ratio": 0.98707,
+    "unstripped_sha256": "c130803b9a27944efbcbff751fd1226fd82d6f56b9878343d95a21faad5cc70c"
+  },
+  "compatibility": {
+    "external_pr": 1356,
+    "combined_normalized": 1020,
+    "combined_raw": 276,
+    "raw_gains_attributed_to_external_pr": 88,
+    "losses": []
+  },
+  "runtime": {
+    "cases": 117,
+    "signed_executions": 351,
+    "successes_per_image": 77,
+    "expected_failures_per_image": 40,
+    "differences": [],
+    "regressions": [],
+    "solders": "0.27.1",
+    "manifest": "runtime-manifest.json"
+  }
+}

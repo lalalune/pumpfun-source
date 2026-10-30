@@ -1,0 +1,33 @@
+name: Verify fastbuild deadlines, locking and archival
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stack-rejection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test combined deadline, workspace lock and archival paths
+        run: |
+          python - <<'PYTEST'
+          import sys
+          import unittest
+          loader = unittest.TestLoader()
+          suite = unittest.TestSuite()
+          for pattern in ('test_build_process.py', 'test_fastbuild_workspace_lock.py', 'test_fastbuild_stack.py'):
+              suite.addTests(loader.discover('reconstruction/harness', pattern=pattern))
+          result = unittest.TextTestRunner(verbosity=2).run(suite)
+          sys.exit(0 if result.wasSuccessful() and result.testsRun == 21 and not result.skipped else 1)
+          PYTEST

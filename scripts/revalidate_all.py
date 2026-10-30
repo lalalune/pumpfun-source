@@ -18,6 +18,15 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 
+# These archived verifiers document --repo and otherwise default it to cwd.
+# Keep packet-relative cwd for legacy verifiers; supply only this known option.
+REPOSITORY_ARGUMENT_PACKETS = frozenset({
+    'research/tooling-legacy-capture-metadata-20261029',
+    'research/tooling-roadmap-call-classification-20261029',
+    'research/tooling-source-manifest-symlinks-20261029',
+    'research/tooling-token-program-constant-detector-20261029',
+})
+
 
 def sha256_file(path):
     h = hashlib.sha256()
@@ -106,9 +115,17 @@ def run_verify(packet_dir):
     if not verify_path.exists():
         return {"status": "no_verify_script", "output": ""}
 
+    command = [sys.executable, "-B", str(verify_path)]
+    try:
+        relative = packet_dir.resolve().relative_to(REPO.resolve()).as_posix()
+    except ValueError:
+        relative = None
+    if relative in REPOSITORY_ARGUMENT_PACKETS:
+        command.extend(["--repo", str(REPO.resolve())])
+
     try:
         result = subprocess.run(
-            [sys.executable, "-B", str(verify_path)],
+            command,
             cwd=str(packet_dir),
             capture_output=True,
             text=True,
@@ -133,13 +150,16 @@ def main():
     args = parser.parse_args()
 
     output_dir = Path(args.output)
-    output_dir.mkdir(parents=True, exist_ok=True)
 
     research_dir = REPO / "research"
     packets = sorted([
         d for d in research_dir.iterdir()
         if d.is_dir() and not d.name.startswith(".")
     ])
+
+    # Snapshot inputs before creating an audit beneath research/, and preserve
+    # prior reports by refusing an existing output before running any verifier.
+    output_dir.mkdir(parents=True, exist_ok=False)
 
     print(f"[revalidate] Found {len(packets)} research packets")
 
@@ -173,20 +193,17 @@ def main():
         verify_result = run_verify(packet) if has_verify else {"status": "skipped"}
 
         # Determine overall status
-        if manifest_result["status"] == "pass" or verify_result["status"] == "pass":
+        checks = [result for enabled, result in (
+            (has_manifest, manifest_result), (has_verify, verify_result)
+        ) if enabled]
+        if all(result["status"] == "pass" for result in checks):
             overall = "pass"
             pass_count += 1
-        elif manifest_result["status"] == "fail" or verify_result["status"] == "fail":
+        elif any(result["status"] in {
+            "fail", "manifest_parse_error", "timeout", "error"
+        } for result in checks):
             overall = "fail"
             fail_count += 1
-        elif manifest_result["status"] == "no_manifest" and verify_result["status"] != "pass":
-            overall = "verify_only"
-            if verify_result["status"] == "pass":
-                pass_count += 1
-            elif verify_result["status"] == "fail":
-                fail_count += 1
-            else:
-                skip_count += 1
         else:
             overall = "inconclusive"
             skip_count += 1
