@@ -19,6 +19,7 @@ directory is a source proposal.
 | `greedy.py <mod> <dir> BASE items N` | greedy forward selection (logs individual and cumulative gain per round). |
 | `regionmap.py <fn.bin or so> [seg]` | per original segment: matched % plain and with a perfect frame, unmatched tokens, and landmarks (original call targets resolved through the baseline window symbols, error-line immediates). |
 | `pfboard.py <so>...` | rank builds by perfect-frame ratio (code closeness with the frame factored out). |
+| `features.py <trimmed.ll> <dir>` | one-command report for any captured candidate: auto-detects the wallet emit_cpi slice, the 24 B inlined buffers and the 33 B `val` copy by IR shape, and prints base / F1 / F1 + best 24 B nolt / + val move (7 llc-oracle runs plus one per buffer, ~10 s). |
 | `framebound.py <fn.bin or so>` | **perfect-frame ratio**: aligns with r10 offsets abstracted, votes ours-offset -> orig-offset, remaps every frame offset and re-scores exactly. The gap to `ratio` is what a perfect stack frame is worth on that code. |
 
 Validation on main 20a1ae9c0: `ctoracle.py cmp` -> **tokens equal** (3,337 insns) for both the full
@@ -88,6 +89,10 @@ fi41, T 0x480), so the frame features apply unchanged:
 | F1 `mv:_114.i:_183` | 0.51026 (+0.026) | 0.59655 |
 | F1 + `nolt:buf.i40.i` + `mv:val6:_183` | **0.52614 (+0.042)** | 0.59685 |
 | + C1 `inv:bb11.i` | 0.52718 at 27,408 B | 0.60087 |
+
+`features.py` on t23 (27,392 B kept): base 0.48449, F1 0.51026, + `nolt:buf.i33.i` 0.52135,
++ `mv:val6:_183` **0.52854**; the size-pinned greedy over 185 frame edits on t23 picks the same
+three edits in the same order.
 
 ### Code-level greedy (pf objective, on F1 + C1, 27,400 B)
 
