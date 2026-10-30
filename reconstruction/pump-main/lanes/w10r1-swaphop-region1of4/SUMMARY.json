@@ -1,0 +1,7 @@
+{"lane":"w10r1-swaphop-region1of4","target":"0x5b3b0","base":"e61baa928",
+ "best":{"source_change":null,"swap_hop":{"bytes":18584,"ratio":0.85352,"slots_diff":1023},"official":{"normalized":1032,"raw":347,"losses":0}},
+ "oracle":{"name":"gep_up","change":"buy_fee_market_cap curve GEP above fee_config clone (post-opt IR, llc)","ratio":0.87407,"region1":"573/574"},
+ "region1_residual":"spill-slot pair swap (-0xaa8/-0xab0) from StackSlotColoring weight order, decided by a region-2 cand-only re-spill; 3 downstream jump offsets",
+ "attempts":["02357b018ef647b09408576556b11f78","356cef6378b8410489039d2ceb929cbc"],
+ "rejected":["let c: &BondingCurve at the let (byte-identical)"],
+ "next":["spelling that yields an early, non-re-projected &BondingCurve for buy_fee_market_cap (plain helper inlined by LLVM, or a by-value binding consumed before fee_config_len)"]}

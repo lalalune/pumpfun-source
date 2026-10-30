@@ -1,0 +1,172 @@
+{
+  "suite_count": 33,
+  "passed": true,
+  "results": [
+    {
+      "suite": "reconstruction/verification/mayhem-dispatch-boundaries/test_producer.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/tooling/roadmap-manifest-members/test_verify.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "scripts/test_reconstruction_roadmap_publication.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "tests/test_fastbuild_stage.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/verification/mayhem-dispatch-boundaries/test_inventory.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "tests/test_local_validation_optimized.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "tests/test_local_validation_metadata_import.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "scripts/test_revalidate_empty_manifest.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "scripts/test_revalidation_output.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/math-register-comparisons/test_analyze.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/relocation-text-addresses/test_analyze.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/verification/donation-relay-idl-lifecycle/test_lifecycle.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/verification/donation-relay-stateful/test_stateful.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/pump-main/lanes/five-bytecode-followups/test_verify.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": true
+    },
+    {
+      "suite": "reconstruction/tooling/byte-comparison-input-preservation/test_verify.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": true
+    },
+    {
+      "suite": "scripts/test_pump_quote_control_function_match.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "scripts/test_pump_compare_window_selection.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "scripts/test_deep_section_analysis_publication.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/tooling/serial-input-preservation-20261030/test_serial_admission.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "scripts/test_pump_validate_parallel.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/tooling/parallel-input-preservation-20261030/test_input_preservation.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/verification/pump-migration-lifecycle/test_lifecycle.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/harness/test_treediff_line_boundaries.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/harness/test_treediff.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/harness/test_treediff_empty.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "tests/test_mayhem_runtime_image_binding.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "research/tooling-token-program-constant-detector-20261029/test_verify.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/harness/test_score_atomic_report.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/harness/test_score_inputs.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "research/tooling-arithmetic-shift-counts-20261030/test_verify.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "tests/test_reconstruction_roadmap_calls.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/diagnostics/defined-dynamic-calls/test_generate.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    },
+    {
+      "suite": "reconstruction/diagnostics/roadmap-stable-attribution/test_generate.py",
+      "returncode": 0,
+      "uses_pinned_external_fixture_arguments": false
+    }
+  ],
+  "followup": "Additional merged-head tests cover native recipe admission, constant-product range pinning, immutable comparison snapshots, revalidation LF/pins, shared IDL comparisons, and optimized manifest admission. Full logs retained in the local review artifact."
+}

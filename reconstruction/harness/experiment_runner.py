@@ -150,16 +150,21 @@ def run_trial(source, command, destination, inputs=(), timeout=300):
         argv[0] = str(Path(shutil.which(command[0])).resolve())
         status, reason, code = 'error', None, None
         with (attempt / 'stdout.log').open('wb') as stdout, (attempt / 'stderr.log').open('wb') as stderr:
-            process = subprocess.Popen(argv, cwd=work, stdout=stdout, stderr=stderr, start_new_session=True)
             try:
-                code = process.wait(timeout=timeout)
-                status = 'pass' if code == 0 else 'fail' if code == 1 else 'error'
-            except subprocess.TimeoutExpired:
-                reason = 'timeout'
-            finally:
-                try: os.killpg(process.pid, signal.SIGKILL)
-                except ProcessLookupError: pass
-                process.wait()
+                process = subprocess.Popen(argv, cwd=work, stdout=stdout, stderr=stderr, start_new_session=True)
+            except OSError as error:
+                reason = 'process start failed'
+                stderr.write((str(error) + '\n').encode('utf-8', errors='replace'))
+            else:
+                try:
+                    code = process.wait(timeout=timeout)
+                    status = 'pass' if code == 0 else 'fail' if code == 1 else 'error'
+                except subprocess.TimeoutExpired:
+                    reason = 'timeout'
+                finally:
+                    try: os.killpg(process.pid, signal.SIGKILL)
+                    except ProcessLookupError: pass
+                    process.wait()
         if manifest(source) != admission['source'] or manifest(copied) != admission['source'] or input_hashes(admission['inputs']) != admission['inputs']:
             status, reason = 'error', 'source or declared input changed during execution'
         record = {'schema': 'experiment-result-v1', 'key': key, 'attempt': attempt.name,

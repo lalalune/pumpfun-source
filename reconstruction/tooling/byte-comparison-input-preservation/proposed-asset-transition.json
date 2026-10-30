@@ -1,0 +1,25 @@
+{
+  "scope": "Proposed existing-script asset transition; preserve historical sealed inputs.",
+  "base": "43daa2043fb4a87838d715ab61467e4213d76d66",
+  "files": {
+    "scripts/pump_compare_function_bytes.py": {
+      "before_sha256": "8c6f056a41177ecdb75e73e9a7d90e268f883f2e9ff7cae7d2771cac6ca9b948",
+      "proposed_sha256": "10c596c02a9450d6c5637042bd3a0d681e7aa9270f928cabdd8f028f93176b21"
+    },
+    "scripts/pump_exact_body_inventory.py": {
+      "before_sha256": "b91233734cecf3a89650efac9d61e7e01ab2f1afc441aec2abe94c7fcfbf6b6d",
+      "proposed_sha256": "62f448787b9d4a96cfc0eb85cf8a09e11617e3afcb86711b96594d35c0ea3c16"
+    },
+    "scripts/pump_quote_control_function_match.py": {
+      "before_sha256": "0ec54b87739e78beb180e36edf8c10676e6ba92617d545fed7b4e05c337fb37f",
+      "proposed_sha256": "359e4ffe911cfb65c996c6e29bac36f4403aba201c5c018e1087b9f92f8d9b03"
+    },
+    "scripts/test_pump_quote_control_function_match.py": {
+      "before_sha256": "d57ab9d2048f21f21ed0e3962a9809bbef4ec9a398e7663cd6b9f750089895dd",
+      "proposed_sha256": "5f636f9e25f8c6da28bfdbebce2d0c9c08c83bf63545f79ac5817afb972a1ac7"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false
+}

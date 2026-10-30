@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Compare native recovered arithmetic with original sell-v3 reserve deltas."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse, hashlib, json, random, struct, subprocess
 import pump_trade_fixture as f
 

@@ -13,7 +13,7 @@ import struct
 from pathlib import Path
 
 from pump_exact_body_inventory import window_inventory
-from pump_quote_control_function_match import sections, candidate_functions, function_body as body
+from pump_quote_control_function_match import sections, candidate_functions, function_body as body, protect_report_output
 
 ROOT = Path(__file__).resolve().parents[1]
 WINDOW_COLUMNS = {'program', 'variant', 'original_start', 'original_end'}
@@ -90,7 +90,10 @@ def main():
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--objdump',default=str(Path.home()/'.cache/solana/v1.52/platform-tools/llvm/bin/llvm-objdump'))
     args=p.parse_args()
-    with window_inventory().open() as stream:
+    windows = window_inventory()
+    protect_report_output(args.output, [args.candidate, ROOT/'evidence/original/pump/deployed.so',
+                                       windows, Path(__file__), ROOT/'scripts/pump_exact_body_inventory.py'], args.objdump)
+    with windows.open() as stream:
         try:
             row=selected_window(stream,args.original_start)
         except ValueError as error:
@@ -101,7 +104,7 @@ def main():
     ob=body(original,original_sections,args.original_start,size)
     on,oo=normalize(ob,args.original_start,original_sections)
     candidates=[]
-    for start,length,name in candidate_functions(args.candidate,args.objdump,args.symbol):
+    for start,length,name in candidate_functions(args.candidate,args.objdump,args.symbol,image=candidate):
         cb=body(candidate,candidate_sections,start,length);cn,co=normalize(cb,start,candidate_sections)
         diffs=[{'offset':i,'original':on[i:i+8].hex(),'candidate':cn[i:i+8].hex()} for i in range(0,max(len(on),len(cn)),8) if on[i:i+8]!=cn[i:i+8]]
         candidates.append({'symbol':name,'start':start,'bytes':length,'raw_equal':ob==cb,'normalized_equal':on==cn,'different_slots':diffs,'operands':co})

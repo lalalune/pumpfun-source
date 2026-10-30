@@ -1,0 +1,517 @@
+{
+  "schema": 1,
+  "selected_windows_build_zip_sha256": "eb93ee0f5208c5d51aa359c765b13cc71e11da5908dfc196182e096aa5a0ebfc",
+  "selected_windows_wrapper_records": 176,
+  "target_compile_bindings": [
+    {
+      "crate": "anchor_lang",
+      "source": "local/anchor-lang",
+      "windows_cargo_metadata": "766acc3bfb5759de",
+      "published_metadata": "452e6e8126c1715a"
+    },
+    {
+      "crate": "anchor_spl",
+      "source": "registry/anchor-spl-1.0.0",
+      "windows_cargo_metadata": "e30efe835ee0befc",
+      "published_metadata": "828f8507a281b283"
+    },
+    {
+      "crate": "arrayref",
+      "source": "registry/arrayref-0.3.9",
+      "windows_cargo_metadata": "30e46feb7acaaf88",
+      "published_metadata": "30e46feb7acaaf88"
+    },
+    {
+      "crate": "base64",
+      "source": "registry/base64-0.21.7",
+      "windows_cargo_metadata": "0fe86e5a185ae7e0",
+      "published_metadata": "0fe86e5a185ae7e0"
+    },
+    {
+      "crate": "base64",
+      "source": "registry/base64-0.22.1",
+      "windows_cargo_metadata": "d58c592aba186c4f",
+      "published_metadata": "d58c592aba186c4f"
+    },
+    {
+      "crate": "bincode",
+      "source": "registry/bincode-1.3.3",
+      "windows_cargo_metadata": "0a1000e5ca91d585",
+      "published_metadata": "e114922d6f211396"
+    },
+    {
+      "crate": "borsh",
+      "source": "registry/borsh-1.8.1",
+      "windows_cargo_metadata": "1588753b73e2379a",
+      "published_metadata": "fd1cb29fe59bf4f2"
+    },
+    {
+      "crate": "bv",
+      "source": "registry/bv-0.11.1",
+      "windows_cargo_metadata": "eabc2f9936311933",
+      "published_metadata": "47a8618b5354ebf3"
+    },
+    {
+      "crate": "bytemuck",
+      "source": "registry/bytemuck-1.25.2",
+      "windows_cargo_metadata": "c731789df5c3d818",
+      "published_metadata": "13c29497efd05857"
+    },
+    {
+      "crate": "const_crypto",
+      "source": "registry/const-crypto-0.3.0",
+      "windows_cargo_metadata": "d744ca83446fca12",
+      "published_metadata": "d744ca83446fca12"
+    },
+    {
+      "crate": "curve_accounts",
+      "source": "local/curve-accounts",
+      "windows_cargo_metadata": "a559b1f1ebb111e2",
+      "published_metadata": "6fe74b79504bb460"
+    },
+    {
+      "crate": "five8",
+      "source": "registry/five8-1.0.0",
+      "windows_cargo_metadata": "021fc5607f398a76",
+      "published_metadata": "021fc5607f398a76"
+    },
+    {
+      "crate": "five8_const",
+      "source": "registry/five8_const-1.0.0",
+      "windows_cargo_metadata": "74cd791ce967e7c7",
+      "published_metadata": "74cd791ce967e7c7"
+    },
+    {
+      "crate": "five8_core",
+      "source": "registry/five8_core-1.0.0",
+      "windows_cargo_metadata": "b75b34b846ef95da",
+      "published_metadata": "b75b34b846ef95da"
+    },
+    {
+      "crate": "keccak_const",
+      "source": "registry/keccak-const-0.2.0",
+      "windows_cargo_metadata": "ad0c1ee580433957",
+      "published_metadata": "ad0c1ee580433957"
+    },
+    {
+      "crate": "lazy_static",
+      "source": "registry/lazy_static-1.5.1",
+      "windows_cargo_metadata": "2797af5e25be76d3",
+      "published_metadata": "2797af5e25be76d3"
+    },
+    {
+      "crate": "log",
+      "source": "registry/log-0.4.34",
+      "windows_cargo_metadata": "21e2f789530c34ef",
+      "published_metadata": "21e2f789530c34ef"
+    },
+    {
+      "crate": "mayhem_recovered",
+      "source": "local/mayhem",
+      "windows_cargo_metadata": "3e0b53dbd26f84b6",
+      "published_metadata": "cf9f0934f5538f31"
+    },
+    {
+      "crate": "num_enum",
+      "source": "registry/num_enum-0.7.6",
+      "windows_cargo_metadata": "db77d5b87fc032d1",
+      "published_metadata": "388adad4e1f07bfa"
+    },
+    {
+      "crate": "num_traits",
+      "source": "registry/num-traits-0.2.19",
+      "windows_cargo_metadata": "0c30075f20ae3692",
+      "published_metadata": "b26bf5fbf06c3e17"
+    },
+    {
+      "crate": "serde",
+      "source": "registry/serde-1.0.229",
+      "windows_cargo_metadata": "d5564ef37f4f54e9",
+      "published_metadata": "fe73ab36416f5c92"
+    },
+    {
+      "crate": "serde_bytes",
+      "source": "registry/serde_bytes-0.11.19",
+      "windows_cargo_metadata": "e5b367e0015133b3",
+      "published_metadata": "56806395c62834f8"
+    },
+    {
+      "crate": "serde_core",
+      "source": "registry/serde_core-1.0.229",
+      "windows_cargo_metadata": "14bf3f217a572395",
+      "published_metadata": "1de8465e4356e949"
+    },
+    {
+      "crate": "sha2_const_stable",
+      "source": "registry/sha2-const-stable-0.1.0",
+      "windows_cargo_metadata": "4f57aa1152fc2fd1",
+      "published_metadata": "4f57aa1152fc2fd1"
+    },
+    {
+      "crate": "solana_account_info",
+      "source": "registry/solana-account-info-3.1.1",
+      "windows_cargo_metadata": "15215c629b821f4d",
+      "published_metadata": "7a20a8e6578b617d"
+    },
+    {
+      "crate": "solana_address",
+      "source": "registry/solana-address-1.1.0",
+      "windows_cargo_metadata": "f3ad290dbdf6d08f",
+      "published_metadata": "de9cf41d0f1eaa07"
+    },
+    {
+      "crate": "solana_address",
+      "source": "registry/solana-address-2.9.0",
+      "windows_cargo_metadata": "39fdde7c36f59998",
+      "published_metadata": "e8f01422adc2b5d2"
+    },
+    {
+      "crate": "solana_atomic_u64",
+      "source": "registry/solana-atomic-u64-3.0.1",
+      "windows_cargo_metadata": "c3b2d02fa7435377",
+      "published_metadata": "c3b2d02fa7435377"
+    },
+    {
+      "crate": "solana_borsh",
+      "source": "registry/solana-borsh-3.0.2",
+      "windows_cargo_metadata": "e861fd1d5865a228",
+      "published_metadata": "622728b6c36624cf"
+    },
+    {
+      "crate": "solana_clock",
+      "source": "registry/solana-clock-3.2.1",
+      "windows_cargo_metadata": "4ffb4f360a707a72",
+      "published_metadata": "6b438040bb2680f4"
+    },
+    {
+      "crate": "solana_clock",
+      "source": "registry/solana-clock-4.0.0",
+      "windows_cargo_metadata": "f3b57c72e8bdd668",
+      "published_metadata": "71a98a3204432884"
+    },
+    {
+      "crate": "solana_cpi",
+      "source": "registry/solana-cpi-3.1.0",
+      "windows_cargo_metadata": "cf1e0d1bd49849f5",
+      "published_metadata": "f7e172ac54b8e77c"
+    },
+    {
+      "crate": "solana_curve25519",
+      "source": "registry/solana-curve25519-3.1.14",
+      "windows_cargo_metadata": "369b3c763bbf079a",
+      "published_metadata": "1a8da1753c2efb0f"
+    },
+    {
+      "crate": "solana_define_syscall",
+      "source": "registry/solana-define-syscall-3.0.0",
+      "windows_cargo_metadata": "beba0393398fc789",
+      "published_metadata": "beba0393398fc789"
+    },
+    {
+      "crate": "solana_define_syscall",
+      "source": "registry/solana-define-syscall-4.0.1",
+      "windows_cargo_metadata": "85a96ce6232e394e",
+      "published_metadata": "85a96ce6232e394e"
+    },
+    {
+      "crate": "solana_define_syscall",
+      "source": "registry/solana-define-syscall-5.3.0",
+      "windows_cargo_metadata": "99fb943d8bd82103",
+      "published_metadata": "99fb943d8bd82103"
+    },
+    {
+      "crate": "solana_epoch_rewards",
+      "source": "registry/solana-epoch-rewards-3.2.0",
+      "windows_cargo_metadata": "c8546c2b427f59a4",
+      "published_metadata": "5eb0a7a33071ed9e"
+    },
+    {
+      "crate": "solana_epoch_schedule",
+      "source": "registry/solana-epoch-schedule-3.4.0",
+      "windows_cargo_metadata": "8b248bbe5b27aec6",
+      "published_metadata": "662c65d296e2784a"
+    },
+    {
+      "crate": "solana_feature_gate_interface",
+      "source": "registry/solana-feature-gate-interface-3.1.0",
+      "windows_cargo_metadata": "34061817895c4270",
+      "published_metadata": "a001f26aa26e6f39"
+    },
+    {
+      "crate": "solana_fee_calculator",
+      "source": "registry/solana-fee-calculator-3.4.0",
+      "windows_cargo_metadata": "b5597abda4aaa252",
+      "published_metadata": "86e1234235138c14"
+    },
+    {
+      "crate": "solana_get_sysvar",
+      "source": "registry/solana-get-sysvar-1.0.0",
+      "windows_cargo_metadata": "2a703da3f6ad6734",
+      "published_metadata": "00356694d9bc53d3"
+    },
+    {
+      "crate": "solana_hash",
+      "source": "registry/solana-hash-4.7.0",
+      "windows_cargo_metadata": "62f116f9994f0ecc",
+      "published_metadata": "4a68fcbfb10b7c86"
+    },
+    {
+      "crate": "solana_instruction",
+      "source": "registry/solana-instruction-3.5.1",
+      "windows_cargo_metadata": "496a59000d99aad0",
+      "published_metadata": "aa1a2e0ec75a26b4"
+    },
+    {
+      "crate": "solana_instruction",
+      "source": "registry/solana-instruction-4.0.0",
+      "windows_cargo_metadata": "299bb9b1383d01f1",
+      "published_metadata": "46b207547b1062f0"
+    },
+    {
+      "crate": "solana_instruction_error",
+      "source": "registry/solana-instruction-error-2.5.0",
+      "windows_cargo_metadata": "1b66736b5c41331b",
+      "published_metadata": "b8da33ee0335aec1"
+    },
+    {
+      "crate": "solana_instructions_sysvar",
+      "source": "registry/solana-instructions-sysvar-3.0.1",
+      "windows_cargo_metadata": "bfcca0aeee9e9818",
+      "published_metadata": "6b4177bbcce21dbe"
+    },
+    {
+      "crate": "solana_invoke",
+      "source": "registry/solana-invoke-0.5.1",
+      "windows_cargo_metadata": "92fab59ae8f4f047",
+      "published_metadata": "3b9f4852bb91e5c5"
+    },
+    {
+      "crate": "solana_last_restart_slot",
+      "source": "registry/solana-last-restart-slot-3.2.0",
+      "windows_cargo_metadata": "c087b3f7b5095872",
+      "published_metadata": "fbb01edfa013e834"
+    },
+    {
+      "crate": "solana_loader_v3_interface",
+      "source": "registry/solana-loader-v3-interface-6.1.1",
+      "windows_cargo_metadata": "d887efb5b7341195",
+      "published_metadata": "708474ab64155384"
+    },
+    {
+      "crate": "solana_msg",
+      "source": "registry/solana-msg-3.1.0",
+      "windows_cargo_metadata": "e97491c49c57e171",
+      "published_metadata": "e97491c49c57e171"
+    },
+    {
+      "crate": "solana_nullable",
+      "source": "registry/solana-nullable-1.3.0",
+      "windows_cargo_metadata": "8cc935726d32dc6f",
+      "published_metadata": "6f8309bc99d18126"
+    },
+    {
+      "crate": "solana_program_entrypoint",
+      "source": "registry/solana-program-entrypoint-3.1.1",
+      "windows_cargo_metadata": "fe8ee36a5a3186f5",
+      "published_metadata": "e0950c5d332e45d3"
+    },
+    {
+      "crate": "solana_program_error",
+      "source": "registry/solana-program-error-3.0.1",
+      "windows_cargo_metadata": "83c46486d41ca74b",
+      "published_metadata": "8b993eec2e244453"
+    },
+    {
+      "crate": "solana_program_memory",
+      "source": "registry/solana-program-memory-3.1.0",
+      "windows_cargo_metadata": "1589857a5425ebcc",
+      "published_metadata": "1589857a5425ebcc"
+    },
+    {
+      "crate": "solana_program_option",
+      "source": "registry/solana-program-option-3.1.0",
+      "windows_cargo_metadata": "8e9403b652de8a58",
+      "published_metadata": "8e9403b652de8a58"
+    },
+    {
+      "crate": "solana_program_pack",
+      "source": "registry/solana-program-pack-3.1.0",
+      "windows_cargo_metadata": "f2c6e9c86d32d7bb",
+      "published_metadata": "2991925e1fb3a467"
+    },
+    {
+      "crate": "solana_pubkey",
+      "source": "registry/solana-pubkey-3.0.0",
+      "windows_cargo_metadata": "022a1722bd745c08",
+      "published_metadata": "4ee92e263f65fc1f"
+    },
+    {
+      "crate": "solana_pubkey",
+      "source": "registry/solana-pubkey-4.4.0",
+      "windows_cargo_metadata": "5d21279c46db22c1",
+      "published_metadata": "60a574e95e9c11ab"
+    },
+    {
+      "crate": "solana_rent",
+      "source": "registry/solana-rent-3.1.0",
+      "windows_cargo_metadata": "0472c58449990ba7",
+      "published_metadata": "bff8e9d1ec80284f"
+    },
+    {
+      "crate": "solana_sanitize",
+      "source": "registry/solana-sanitize-3.0.1",
+      "windows_cargo_metadata": "fc7ea10d1df11d36",
+      "published_metadata": "fc7ea10d1df11d36"
+    },
+    {
+      "crate": "solana_sdk_ids",
+      "source": "registry/solana-sdk-ids-3.1.0",
+      "windows_cargo_metadata": "4a0cb5e76b956ce5",
+      "published_metadata": "70dbd57c83090cb6"
+    },
+    {
+      "crate": "solana_serialize_utils",
+      "source": "registry/solana-serialize-utils-3.1.2",
+      "windows_cargo_metadata": "0ebf2ff8ecda5b70",
+      "published_metadata": "30cfa7df1765cdb8"
+    },
+    {
+      "crate": "solana_sha256_hasher",
+      "source": "registry/solana-sha256-hasher-3.1.0",
+      "windows_cargo_metadata": "72da0448d95c1f82",
+      "published_metadata": "a4793d4f944cf146"
+    },
+    {
+      "crate": "solana_slot_hashes",
+      "source": "registry/solana-slot-hashes-3.2.0",
+      "windows_cargo_metadata": "c4546b776c1a7480",
+      "published_metadata": "7aac307266a8a325"
+    },
+    {
+      "crate": "solana_slot_history",
+      "source": "registry/solana-slot-history-3.2.0",
+      "windows_cargo_metadata": "c829682a6fb72fe8",
+      "published_metadata": "33a1a0b8a395dd55"
+    },
+    {
+      "crate": "solana_stable_layout",
+      "source": "registry/solana-stable-layout-3.0.1",
+      "windows_cargo_metadata": "69dc727d619821c9",
+      "published_metadata": "afd57a039b299cf7"
+    },
+    {
+      "crate": "solana_stake_interface",
+      "source": "registry/solana-stake-interface-2.0.2",
+      "windows_cargo_metadata": "f40a94ce996608ed",
+      "published_metadata": "ac89a8a18de78c4a"
+    },
+    {
+      "crate": "solana_system_interface",
+      "source": "registry/solana-system-interface-2.0.0",
+      "windows_cargo_metadata": "0be70a267c1c48a9",
+      "published_metadata": "fb141d7942fab145"
+    },
+    {
+      "crate": "solana_system_interface",
+      "source": "registry/solana-system-interface-3.3.0",
+      "windows_cargo_metadata": "c949651d6fd24a69",
+      "published_metadata": "36a78391c0d3481b"
+    },
+    {
+      "crate": "solana_sysvar",
+      "source": "registry/solana-sysvar-3.1.1",
+      "windows_cargo_metadata": "3c7e43acd146d268",
+      "published_metadata": "8e91bbee634b152c"
+    },
+    {
+      "crate": "solana_sysvar_id",
+      "source": "registry/solana-sysvar-id-3.1.0",
+      "windows_cargo_metadata": "23bac7f451146570",
+      "published_metadata": "024d16d7acc0bedc"
+    },
+    {
+      "crate": "solana_zero_copy",
+      "source": "registry/solana-zero-copy-1.3.0",
+      "windows_cargo_metadata": "06a6d1b982cef948",
+      "published_metadata": "9a655f3695c16f80"
+    },
+    {
+      "crate": "solana_zk_sdk",
+      "source": "registry/solana-zk-sdk-4.0.0",
+      "windows_cargo_metadata": "0741217938eaf58a",
+      "published_metadata": "c12ed30893117486"
+    },
+    {
+      "crate": "spl_associated_token_account_interface",
+      "source": "registry/spl-associated-token-account-interface-2.0.0",
+      "windows_cargo_metadata": "5e4b1cc57086d4c9",
+      "published_metadata": "6af0618e30325c4a"
+    },
+    {
+      "crate": "spl_discriminator",
+      "source": "registry/spl-discriminator-0.5.2",
+      "windows_cargo_metadata": "60afffea3d780429",
+      "published_metadata": "6eb9c077c029c0f8"
+    },
+    {
+      "crate": "spl_pod",
+      "source": "registry/spl-pod-0.7.4",
+      "windows_cargo_metadata": "900c75a4ea01b012",
+      "published_metadata": "4dff874891d0c4c6"
+    },
+    {
+      "crate": "spl_token_2022_interface",
+      "source": "registry/spl-token-2022-interface-2.1.0",
+      "windows_cargo_metadata": "579130cc49924036",
+      "published_metadata": "2f04a67759c944aa"
+    },
+    {
+      "crate": "spl_token_confidential_transfer_proof_extraction",
+      "source": "registry/spl-token-confidential-transfer-proof-extraction-0.5.1",
+      "windows_cargo_metadata": "2bf37a77ab2e8b01",
+      "published_metadata": "eb5231997322e0f4"
+    },
+    {
+      "crate": "spl_token_group_interface",
+      "source": "registry/spl-token-group-interface-0.7.2",
+      "windows_cargo_metadata": "4c4367510cc045e2",
+      "published_metadata": "b476f6c5d2682da8"
+    },
+    {
+      "crate": "spl_token_interface",
+      "source": "registry/spl-token-interface-2.0.0",
+      "windows_cargo_metadata": "f0ad326bf4d9ceaf",
+      "published_metadata": "3f16e432c24880a4"
+    },
+    {
+      "crate": "spl_token_metadata_interface",
+      "source": "registry/spl-token-metadata-interface-0.8.0",
+      "windows_cargo_metadata": "ebf17071d24f0284",
+      "published_metadata": "ab0780e4b4fdc447"
+    },
+    {
+      "crate": "spl_type_length_value",
+      "source": "registry/spl-type-length-value-0.9.1",
+      "windows_cargo_metadata": "9693f127b3ba1107",
+      "published_metadata": "425995ffb9c0c14b"
+    },
+    {
+      "crate": "subtle",
+      "source": "registry/subtle-2.6.1",
+      "windows_cargo_metadata": "c23f1fa08f873a69",
+      "published_metadata": "c23f1fa08f873a69"
+    },
+    {
+      "crate": "thiserror",
+      "source": "registry/thiserror-1.0.69",
+      "windows_cargo_metadata": "cb8c2f4e749f28a7",
+      "published_metadata": "e3537dc85b8e6202"
+    },
+    {
+      "crate": "thiserror",
+      "source": "registry/thiserror-2.0.21",
+      "windows_cargo_metadata": "6e467f5e0f8c3100",
+      "published_metadata": "705097657b23e3fd"
+    }
+  ]
+}

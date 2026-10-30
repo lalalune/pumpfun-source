@@ -84,6 +84,28 @@ class VerifyTests(unittest.TestCase):
             self.assertEqual(raised.exception.code, 1)
             self.assertIn("plan", out.getvalue())
 
+    def test_tree_hash_spells_paths_in_posix_order_and_separators(self):
+        import hashlib
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory)
+            nested = root / "programs/mayhem/src"
+            nested.mkdir(parents=True)
+            (nested / "zeta.rs").write_bytes(b"z")
+            (nested / "alpha.rs").write_bytes(b"a")
+            (root / "programs/mayhem/Cargo.toml").write_bytes(b"[package]")
+            actual = producer.tree_hash(root)
+            reference = hashlib.sha256()
+            for rel in sorted(["programs/mayhem/Cargo.toml",
+                               "programs/mayhem/src/alpha.rs",
+                               "programs/mayhem/src/zeta.rs"]):
+                encoded = rel.encode()
+                reference.update(len(encoded).to_bytes(4, "little") + encoded)
+                data = (root / rel).read_bytes()
+                reference.update(len(data).to_bytes(8, "little") + data)
+        self.assertEqual(actual, reference.hexdigest())
+
 
 if __name__ == "__main__":
     unittest.main()

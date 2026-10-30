@@ -1,6 +1,7 @@
 """Exercise the real rsync staging path without invoking a compiler or SDK."""
 import importlib.util
 import os
+import subprocess
 from pathlib import Path
 import sys
 import tempfile
@@ -35,6 +36,53 @@ codegen-units = 1
 
 [workspace]
 '''
+
+
+class FastbuildManifestAdmissionTests(unittest.TestCase):
+    def make_source(self, root):
+        source = Path(root) / "crate"
+        source.mkdir()
+        (source / "Cargo.toml").write_text(
+            MANIFEST.replace(
+                "[workspace]",
+                "[profile.dev]\nopt-level = 1\n\n[workspace]",
+            ),
+            encoding="utf-8",
+        )
+        return source
+
+    def test_unsupported_manifest_layout_is_rejected(self):
+        with tempfile.TemporaryDirectory(prefix="fastbuild-manifest-") as temporary:
+            source = self.make_source(temporary)
+            with self.assertRaisesRegex(ValueError, "unsupported manifest layout"):
+                fastbuild.stage(source, Path(temporary) / "workspace")
+
+    @unittest.skipIf(os.name == "nt", "fastbuild requires POSIX fcntl")
+    def test_unsupported_manifest_layout_is_rejected_under_optimized_python(self):
+        with tempfile.TemporaryDirectory(prefix="fastbuild-manifest-optimized-") as temporary:
+            source = self.make_source(temporary)
+            code = (
+                "import pathlib, sys;"
+                "sys.path.insert(0, sys.argv[1]);"
+                "import fastbuild;"
+                "fastbuild.stage(pathlib.Path(sys.argv[2]), pathlib.Path(sys.argv[3]))"
+            )
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    "-O",
+                    "-B",
+                    "-c",
+                    code,
+                    str(ROOT / "reconstruction/harness"),
+                    str(source),
+                    str(Path(temporary) / "workspace"),
+                ],
+                capture_output=True,
+                text=True,
+            )
+            self.assertNotEqual(completed.returncode, 0)
+            self.assertIn("unsupported manifest layout", completed.stderr)
 
 
 class FastbuildOverlapGuardTests(unittest.TestCase):
