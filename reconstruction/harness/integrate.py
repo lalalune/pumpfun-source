@@ -56,7 +56,11 @@ def bound_scoring_inputs(src, baseline):
             tree[relative] = 'symlink:' + os.readlink(path)
         elif path.is_file():
             tree[relative] = sha_file(path)
-    return {'source': tree, 'baseline': sha_file(baseline), 'scorer': sha_file(H / 'score.py')}
+    scorer = H / 'score.py'
+    # Synthetic/minimal harnesses may omit the scorer and stub its invocation.
+    # Binding absence still detects a scorer created during the build.
+    return {'source': tree, 'baseline': sha_file(baseline),
+            'scorer': sha_file(scorer) if scorer.is_file() else None}
 
 
 def crate_ignore(root: Path, *patterns):
