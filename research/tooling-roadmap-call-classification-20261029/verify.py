@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Read-only verifier for the roadmap call-classification packet."""
+if not __debug__:
+    raise SystemExit("Normal Python is required; do not use -O.")
 import argparse
 import gzip
 import hashlib

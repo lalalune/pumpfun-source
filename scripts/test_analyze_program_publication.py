@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import tempfile
 import unittest
+from unittest import mock
 
 from analyze_program import analyze_program
 
@@ -59,6 +60,37 @@ class AnalyzeProgramPublicationTests(unittest.TestCase):
                     analyze_program("mayhem", output)
 
             self.assertEqual(list(outside.iterdir()), [])
+
+
+    def test_packet_bytes_do_not_follow_the_host_line_ending(self):
+        # Model Windows text-I/O defaults at the actual file-open boundary.
+        # Patching os.linesep alone does not change CPython TextIOWrapper.
+        real_open = Path.open
+
+        def windows_text_open(path, mode="r", buffering=-1, encoding=None,
+                              errors=None, newline=None):
+            if "b" not in mode and any(flag in mode for flag in "wax"):
+                if newline is None:
+                    newline = "\r\n"
+                if encoding is None:
+                    encoding = "cp1252"
+            return real_open(path, mode, buffering=buffering, encoding=encoding,
+                             errors=errors, newline=newline)
+
+        with tempfile.TemporaryDirectory() as temporary:
+            control = Path(temporary) / "control"
+            output = Path(temporary) / "windows-defaults"
+            with contextlib.redirect_stdout(io.StringIO()):
+                analyze_program("mayhem", control)
+                with mock.patch.object(Path, "open", windows_text_open):
+                    analyze_program("mayhem", output)
+            self.assertEqual(sorted(p.name for p in control.iterdir()),
+                             sorted(p.name for p in output.iterdir()))
+            for path in sorted(output.iterdir()):
+                with self.subTest(entry=path.name):
+                    self.assertEqual(path.read_bytes(),
+                                     (control / path.name).read_bytes())
+                    self.assertNotIn(b"\r", path.read_bytes())
 
 
 if __name__ == "__main__":

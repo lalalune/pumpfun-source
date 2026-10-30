@@ -50,7 +50,7 @@ ELF_SHA256 = {
 }
 HOST_SOURCE = ROOT / 'programs/pump/recovered/holder_distribution_token_host.rs'
 
-IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text())
+IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
 PUMP = Pubkey.from_string(IDL['address'])
 SYSTEM = Pubkey.default()
 TOKEN = Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA')

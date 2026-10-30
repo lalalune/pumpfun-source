@@ -25,6 +25,16 @@ class ObjdumpAddressTests(unittest.TestCase):
         with patch.object(win, 'objdump', return_value='llvm-objdump'), patch.object(win.subprocess, 'check_output', return_value=output):
             self.assertEqual(win.objdump_text(Path('candidate.so'), 0x198, 0x1a8), {0x198: 'mov64 r1, r2', 0x1a0: 'exit'})
 
+    def test_zero_start_disambiguates_the_next_instruction(self):
+        for labels in (('0', '2', '3'), ('0', '10', '18')):
+            output = ('candidate.so: file format elf64-sbf\n'
+                      f' {labels[0]}: lddw r0, 0x100\n'
+                      f' {labels[1]}: mov64 r1, r2\n'
+                      f' {labels[2]}: exit\n')
+            with self.subTest(labels=labels), patch.object(win, 'objdump', return_value='llvm-objdump'), patch.object(win.subprocess, 'check_output', return_value=output):
+                self.assertEqual(win.objdump_text(Path('candidate.so'), 0, 0x20),
+                                 {0: 'lddw r0, 0x100', 0x10: 'mov64 r1, r2', 0x18: 'exit'})
+
     @unittest.skipUnless(os.environ.get('PUMP_OBJDUMP'), 'requires explicit SBF llvm-objdump')
     def test_real_retained_pump_instructions_join_the_comparison_addresses(self):
         original = win.resolve_original(win.BASE / 'original.so')

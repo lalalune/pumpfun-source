@@ -41,7 +41,7 @@ ELF_SHA256 = {
 }
 HOST_SOURCE = ROOT / 'programs/pump/recovered/legacy_buy_host.rs'
 
-IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text())
+IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
 PUMP = Pubkey.from_string(IDL['address'])
 FEES = Pubkey.from_string('pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ')
 TOKEN = Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA')

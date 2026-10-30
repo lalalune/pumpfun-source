@@ -26,7 +26,7 @@ from solders.transaction_metadata import FailedTransactionMetadata
 ROOT = Path(__file__).resolve().parents[1]
 ELF = ROOT / "evidence/original/pump/deployed.so"
 ELF_SHA256 = "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
-IDL = json.loads((ROOT / "evidence/upstream/pump.json").read_text())
+IDL = json.loads((ROOT / "evidence/upstream/pump.json").read_text(encoding='utf-8'))
 PROGRAM = Pubkey.from_string(IDL["address"])
 DISC = {item["name"]: bytes(item["discriminator"]) for item in IDL["instructions"]}
 GLOBAL_DISC = bytes([167, 232, 232, 177, 200, 108, 114, 127])

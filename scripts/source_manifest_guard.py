@@ -7,13 +7,23 @@ repository. This module keeps the archived helper unchanged and adds the
 admission check used by the production Pump build verifier.
 """
 import os
+import stat
 from pathlib import Path
 
 from build_source_manifest import source_manifest
 
 
+def _is_symlink_or_reparse(path):
+    """Return true for symlinks and Windows reparse points such as junctions."""
+    try:
+        info = os.lstat(path)
+    except FileNotFoundError:
+        return False
+    return stat.S_ISLNK(info.st_mode) or bool(getattr(info, 'st_reparse_tag', 0))
+
+
 def _plain(path, root):
-    """Reject a symlink at `path` or in its ancestry below `root`.
+    """Reject a link or reparse point at `path` or in its ancestry below `root`.
 
     The repository path itself may contain filesystem aliases, such as
     macOS's `/var` to `/private/var`.  Compare the resolved locations first,
@@ -44,8 +54,8 @@ def _plain(path, root):
     while True:
         if current == root:
             break
-        if current.is_symlink():
-            raise ValueError('symlinked compiler input: ' + str(path))
+        if _is_symlink_or_reparse(current):
+            raise ValueError('symlinked compiler input or reparse point: ' + str(path))
         parent = current.parent
         if parent == current:
             raise ValueError('compiler input resolves outside repository: ' + str(path))
@@ -57,7 +67,7 @@ def _plain(path, root):
 
 
 def _no_linked_directories(top):
-    """Reject a symlinked directory anywhere below `top`.
+    """Reject a linked directory or reparse point anywhere below `top`.
 
     `Path.rglob('*')` does not descend into symlinked directories, so files
     behind one never reach the manifest and `_plain` never sees them, while
@@ -69,8 +79,11 @@ def _no_linked_directories(top):
             names[:] = [name for name in names if name not in ('target', '.git')]
         for name in names:
             path = Path(directory) / name
-            if path.is_symlink():
-                raise ValueError('symlinked directory under compiler inputs: ' + str(path))
+            if _is_symlink_or_reparse(path):
+                raise ValueError(
+                    'symlinked directory or reparse point under compiler inputs: '
+                    + str(path)
+                )
 
 
 def strict_manifest(crate, workspace, repository, extra_inputs=(), cwd=None):

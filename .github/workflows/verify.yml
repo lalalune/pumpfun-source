@@ -54,10 +54,21 @@ jobs:
               python -B scripts/test_dispatch_recovery.py
               python -B scripts/test_pump_compare_window_alignment.py
               python -B scripts/test_pump_compare_window_columns.py
+              python -B reconstruction/tooling/parallel-input-preservation-20261030/test_input_preservation.py
               python -B scripts/test_pump_compare_window_strict_csv.py
+              python -B scripts/test_replay_macos_frontier_optimization.py
+              python -B scripts/test_admin_cto_optimization.py
+              python -B scripts/test_build_token_dependency_optimization.py
+              python -B scripts/test_measure_relay13_v148_optimization.py
+              python -B scripts/test_fees_withdraw_runtime_optimization.py
+              python -B scripts/test_measure_relay_v148_optimization.py
               python -B tests/test_verify_dependencies_optimization.py
               python -B tests/test_recovered_builds_optimization.py
               python -B scripts/test_mayhem_burn_sequence_optimization.py
+              python -B scripts/test_fees_validate_all_optimization.py
+              python -B scripts/test_deep_section_analysis_publication.py
+              python -B scripts/test_analyze_program_publication.py
+              python -B scripts/test_bytecode_signatures_publication.py
               python -B scripts/test_donation_relay_oracle_optimization.py
               python -B -X utf8 tests/test_dispatch_idl_encoding.py
               python -B tests/test_local_validation_idl_encoding.py
