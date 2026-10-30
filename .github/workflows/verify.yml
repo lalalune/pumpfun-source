@@ -118,6 +118,7 @@ jobs:
               python -B tests/test_build_partial_normal_python.py
               python -B tests/test_checkpoint_verifiers_normal_python.py
               python -B tests/test_pump_output_parents.py
+              python -B tests/test_remaining_output_parents.py
               python -B tests/test_create_mayhem_normal_python.py
               python -B tests/test_two_curve_optimization_guard.py
               python -O -B tests/test_two_curve_optimization_guard.py
@@ -216,6 +217,7 @@ jobs:
               python -B reconstruction/harness/test_experiment_worktree_source.py
               python -B reconstruction/harness/test_experiment_matrix_overlap.py
               python -B reconstruction/harness/test_bisect_membership.py
+              python -B reconstruction/harness/test_experiment_directory_identity.py
               python -B reconstruction/harness/test_minimize_oracle_encoding.py
               python -B reconstruction/harness/test_minimize_patch_list_encoding.py
               python -B reconstruction/harness/test_treediff.py
