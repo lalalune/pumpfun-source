@@ -75,12 +75,15 @@ class LedgerTextTests(unittest.TestCase):
 
     @unittest.skipIf(os.name == 'nt', 'The ledger CLI requires POSIX fcntl')
     def test_cli_searches_persisted_literal_text(self):
+        common = {'schema': 'main-pump-attempt-v1', 'approach': 'synthetic', 'status': 'analyzed'}
         rows = [
-            {'lane': 'sellv3', 'target': '0x14a8a8', 'status': 'analyzed',
+            {**common, 'attempt_id': 'id-1', 'timestamp_utc': '2026-10-29T00:00:01+00:00',
+             'lane': 'sellv3', 'target': '0x14a8a8', 'dedupe_key': 'attempt-1',
              'hypothesis': 'pass "sell" into trade_event',
              'data': {'notes': 'Compare Δ layout; 결과 café'}},
-            {'lane': 'buyv3', 'target': '0x147ba0', 'status': 'analyzed',
-             'hypothesis': 'pass "buy" into trade_event'},
+            {**common, 'attempt_id': 'id-2', 'timestamp_utc': '2026-10-29T00:00:02+00:00',
+             'lane': 'buyv3', 'target': '0x147ba0', 'dedupe_key': 'attempt-2',
+             'hypothesis': 'pass "buy" into trade_event', 'data': {}},
         ]
         with tempfile.TemporaryDirectory() as tmp:
             ledger = Path(tmp) / 'ATTEMPTS.jsonl'

@@ -54,16 +54,20 @@ def insns(raw, addr, secs):
 
 def objdump_text(path, start, end):
     txt = subprocess.check_output([objdump(), '-d', '--no-show-raw-insn', f'--start-address={start:#x}', f'--stop-address={end:#x}', str(path)], text=True)
-    # LLVM's BPF/SBF backend prints decimal instruction-slot indices even
-    # though start/stop arguments and the comparison tokens use byte addresses.
-    slots = bool(re.search(r'file format elf64-(?:sbf|bpf)\b', txt))
-    d = {}
-    for line in txt.splitlines():
-        m = re.match(r'^\s*([0-9a-f]+):\s+(.*)$', line)
-        if m:
-            address = int(m.group(1), 10) * 8 if slots else int(m.group(1), 16)
-            d[address] = re.sub(r'\s+<\.text\+0x[0-9a-f]+>', '', m.group(2).strip())
-    return d
+    # Labels are byte addresses or instruction-slot indices, depending on the
+    # LLVM build (both report elf64-sbf): platform-tools v1.52 prints hex byte
+    # addresses, v1.44 decimal slots. The first label is at `start`; use it to choose.
+    rows = [m.groups() for m in (re.match(r'^\s*([0-9a-f]+):\s+(.*)$', line) for line in txt.splitlines()) if m]
+    if not rows:
+        return {}
+    first = rows[0][0]
+    if int(first, 16) == start:
+        address = lambda label: int(label, 16)
+    elif first.isdigit() and int(first) * 8 == start:
+        address = lambda label: int(label, 10) * 8
+    else:
+        raise ValueError(f'llvm-objdump label {first} does not match start address {start:#x}')
+    return {address(label): re.sub(r'\s+<\.text\+0x[0-9a-f]+>', '', text.strip()) for label, text in rows}
 
 
 class Cand:

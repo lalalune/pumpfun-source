@@ -94,8 +94,22 @@ class ImageIdentityTests(unittest.TestCase):
         report = self.report(b'12345678' + bytes(24), b'12345678')
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            sell = root / 'sell.rs'
+            baseline = root / 'baselines/pristine-ws'
+            baseline.mkdir(parents=True)
+            sell = baseline / native.SELL_REL
             sell.write_bytes(b'fixture source')
+            original = root / 'infra/original/deployed.so'
+            original.parent.mkdir(parents=True)
+            original.write_bytes(b'12345678' + bytes(24))
+            outputs = {'sell.rs': b'fixture source', 'build.log': b'', 'build-record.json': b'{}',
+                       'candidate.so': b'12345678', 'symbols.so': b'12345678symbol table'}
+
+            def build(lane_build, build_id, **_):
+                out = lane_build / 'out' / build_id
+                out.mkdir(parents=True)
+                for name, raw in outputs.items():
+                    (out / name).write_bytes(raw)
+                return {'returncode': 0, 'seconds': 0, 'output_dir': str(out)}
             cache = root / 'cache'
             cache.mkdir()
             old_inputs = {'sell': runner.sha(sell.read_bytes()), 'patch': None, 'flags': '', 'link': None}
@@ -110,9 +124,9 @@ class ImageIdentityTests(unittest.TestCase):
             v2_path.write_bytes(v2_bytes)
             args = ['try_sell.py', '--lane', 'fixture', '--approach', 'identity',
                     '--hypothesis', 'cache version regression', '--baseline']
-            with patch.multiple(runner, SWARM=root, CACHE=cache, SOURCES=root / 'sources',
-                                PRISTINE_SELL=sell), \
-                    patch.object(native, 'build', create=True, return_value={'returncode': 0, 'seconds': 0}) as build, \
+            with patch.multiple(runner, SWARM=root, CACHE=cache, SOURCES=root / 'sources'), \
+                    patch.object(native, 'PRISTINE', baseline, create=True), \
+                    patch.object(native, 'build', create=True, side_effect=build) as build, \
                     patch.object(score, 'score', return_value=report) as scoring, \
                     patch.object(runner, 'locked_append') as append, \
                     patch.object(sys, 'argv', args), contextlib.redirect_stdout(io.StringIO()):

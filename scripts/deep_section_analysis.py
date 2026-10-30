@@ -22,6 +22,7 @@ import hashlib
 import json
 import os
 import struct
+import stat
 import sys
 from pathlib import Path
 
@@ -51,6 +52,18 @@ SYSCALL_NAMES = {
     0xd7793abb: "sol_keccak256",
     0x5d2245e4: "sol_get_return_data",
 }
+
+
+def linked(path):
+    """Identify output symlinks and Windows reparse points without following them."""
+    try:
+        metadata = path.lstat()
+    except FileNotFoundError:
+        return False
+    return (stat.S_ISLNK(metadata.st_mode)
+            or bool(getattr(metadata, "st_file_attributes", 0)
+                    & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0))
+            or bool(getattr(metadata, "st_reparse_tag", 0)))
 
 
 def sha256_file(path):
@@ -649,7 +662,11 @@ def main():
         return 1
 
     output_dir = Path(args.output)
+    if linked(output_dir):
+        raise ValueError("output directory is a link")
     output_dir.mkdir(parents=True, exist_ok=True)
+    if linked(output_dir):
+        raise ValueError("output directory is a link")
 
     # The manifest hashes every file here and verify.py requires exactly the
     # generated set, so reject leftovers from another run before writing.
@@ -662,7 +679,8 @@ def main():
     if unexpected:
         raise ValueError("unexpected packet entry: " + ", ".join(unexpected))
     invalid = sorted(name for name in packet_files
-                     if (output_dir / name).exists() and not (output_dir / name).is_file())
+                     if linked(output_dir / name)
+                     or ((output_dir / name).exists() and not (output_dir / name).is_file()))
     if invalid:
         raise ValueError("packet entry is not a regular file: " + ", ".join(invalid))
 

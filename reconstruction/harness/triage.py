@@ -5,13 +5,14 @@ Categories: coord (only Source line/filename-length immediates differ), near<=3,
 equal-len (equal length, other diffs), body (no equal-length candidate).
 Writes JSON (default base/current/triage.json) and prints a summary.
 """
-import argparse, json, sys
+import argparse, json, sys, tempfile
 from collections import Counter, defaultdict
 from pathlib import Path
 
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
-from score import sections, body, normalize, original_windows, score, BASE, candidate_functions  # noqa
+from score import sections, body, normalize, original_windows, score, BASE  # noqa
+from elf_symbols import function_symbols
 from score_admission import report_destination
 from coords import sites, non_coordinate_slots, ORIG, OS  # noqa
 from win import demangle  # noqa
@@ -67,9 +68,13 @@ def main():
         except ValueError as error:
             ap.error(str(error))
     blob = a.cand.read_bytes(); cs = sections(blob)
-    cur = score(a.cand)
+    # Score the loaded bytes, not a pathname that may now refer to another build.
+    with tempfile.TemporaryDirectory(prefix='pump-triage-') as temporary:
+        snapshot = Path(temporary) / 'candidate.so'
+        snapshot.write_bytes(blob)
+        cur = score(snapshot)
     bylen = defaultdict(list)
-    for s, n, nm in candidate_functions(a.cand):
+    for s, n, nm in function_symbols(blob):
         bylen[n].append((s, nm))
     cache = {}; rows = []
     for w in original_windows():

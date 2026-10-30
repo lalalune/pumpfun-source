@@ -26,6 +26,7 @@ jobs:
           - suite: analysis-packet-encoding
             commands: |
               python -B research/tooling-analysis-encoding-20261030/test_verify.py
+              python -B reconstruction/tooling/deep-analysis-output-links/test_verify.py
           - suite: fastbuild-staging
             commands: |
               python -I -B tests/test_fastbuild_stage.py
@@ -50,9 +51,11 @@ jobs:
               python -I -B tests/test_dispatch_root.py
               python -I -B tests/test_analyze_input_admission.py
               python scripts/test_tooling.py
+              python -B scripts/test_dispatch_recovery.py
+              python -B tests/test_verify_dependencies_optimization.py
               python -B tests/test_recovered_builds_optimization.py
               python -B scripts/test_mayhem_burn_sequence_optimization.py
-              python -B scripts/test_dispatch_recovery.py
+              python -B scripts/test_donation_relay_oracle_optimization.py
               python -B -X utf8 tests/test_dispatch_idl_encoding.py
               python -B tests/test_local_validation_idl_encoding.py
               python -B tests/test_function_body_file_ranges.py

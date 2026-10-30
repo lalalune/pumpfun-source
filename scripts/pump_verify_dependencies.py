@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Verify saved dependency registry evidence against captured binaries; no network."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import hashlib, json, pathlib
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 registry = json.loads((ROOT/'repro/pump/dependency-verification-registry.json').read_text())
