@@ -3,17 +3,16 @@
 import argparse
 import json
 from pathlib import Path
-import shutil
 import sys
 import fastbuild
 import score
+from original_input import copy_original_inputs
 
 
 def evaluate(source, work, output, target, kind, recipe):
     scoring = work / 'scoring-inputs'
     scoring.mkdir(parents=True)
-    for name in ['original.so', 'functions.tsv']:
-        shutil.copyfile(score.BASE / name, scoring / name)
+    copy_original_inputs(score.BASE, scoring)
     previous = score.BASE
     score.BASE = scoring
     try:

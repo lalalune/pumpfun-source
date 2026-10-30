@@ -553,7 +553,7 @@ struct CtoState{creator:Pubkey,max_fee:u64,mayhem:bool,holder_reward:bool,cashba
 
 
 
- if collect_old{(||->Result<()>{if a.current_creator.executable{msg!("Creator is a program; fees left in the vaults");}else if a.current_creator.owner!=&anchor_lang::system_program::ID{msg!("Creator is not a system-owned wallet; fees left in the vaults");}else{if !a.current_creator.is_writable{return Err(error!(PumpError::CtoCreatorAccountNotWritable));}if token_frozen(a.current_creator_quote_token_account.as_ref())?{msg!("Creator quote token account is frozen; fees left in the vaults");}else{
+ if collect_old{wallet(&ctx)?;}fn wallet(ctx:&Context<AdminCto>)->Result<()>{let a=&ctx.accounts;if a.current_creator.executable{msg!("Creator is a program; fees left in the vaults");}else if a.current_creator.owner!=&anchor_lang::system_program::ID{msg!("Creator is not a system-owned wallet; fees left in the vaults");}else{if !a.current_creator.is_writable{return Err(error!(PumpError::CtoCreatorAccountNotWritable));}if token_frozen(a.current_creator_quote_token_account.as_ref())?{msg!("Creator quote token account is frozen; fees left in the vaults");}else{
   let collection_native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;
   let coin_present=!a.coin_creator_vault_ata.data_is_empty();let source_present=!collection_native&&!a.creator_vault_quote_token_account.data_is_empty();
   let source_frozen=!collection_native&&source_present&&token_frozen(a.creator_vault_quote_token_account.as_ref())?;
@@ -566,7 +566,7 @@ struct CtoState{creator:Pubkey,max_fee:u64,mayhem:bool,holder_reward:bool,cashba
   }
   if coin_present&&!coin_frozen{
   crate::pump_amm::cpi::collect_coin_creator_fee(CpiContext::new(a.pump_amm.to_account_info(),crate::pump_amm::cpi::accounts::CollectCoinCreatorFee{quote_mint:a.quote_mint.to_account_info(),quote_token_program:a.quote_token_program.to_account_info(),coin_creator:a.current_creator.to_account_info(),coin_creator_vault_authority:a.coin_creator_vault_authority.to_account_info(),coin_creator_vault_ata:a.coin_creator_vault_ata.to_account_info(),coin_creator_token_account:a.current_creator_quote_token_account.to_account_info(),event_authority:a.pump_amm_event_authority.to_account_info(),program:a.pump_amm.to_account_info()}))?;}
- }}Ok(())})()?;}
+ }}Ok(())}
  let mut swept=0;
 // layout-pad(75): aligns the next Source site with the original line
 
@@ -644,7 +644,7 @@ struct CtoState{creator:Pubkey,max_fee:u64,mayhem:bool,holder_reward:bool,cashba
 
 
 
- if shared && holder{swept=(||->Result<u64>{let native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;
+ if shared && holder{swept=sweep(&ctx,&holder_key)?;}fn sweep(ctx:&Context<AdminCto>,holder_key:&Pubkey)->Result<u64>{let a=&ctx.accounts;let native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;
   let dest=Pubkey::find_program_address(&[b"creator-vault",holder_key.as_ref()],&crate::ID).0;if a.holder_creator_vault.key()!=dest{return Err(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),dest)));}
   let amm_frozen=!a.coin_creator_vault_ata.data_is_empty()&&token_frozen(a.coin_creator_vault_ata.as_ref())?;
 
@@ -723,7 +723,7 @@ struct CtoState{creator:Pubkey,max_fee:u64,mayhem:bool,holder_reward:bool,cashba
 
 
 
- Ok(amount)})()?;}
+ Ok(amount)}
 
 
 

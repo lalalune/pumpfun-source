@@ -1,0 +1,723 @@
+{
+  "schema": "MAYHEM_EXACT_STAGE_INPUT_RECOVERY_V1",
+  "public_source_commit": "decb244ccf8a81b086e940568a2d03336309046f",
+  "current_base": "1cacecfbf9a58b698f99d5e11d6723a254588b81",
+  "scope": "Only exact sealed files consumed by current programs/mayhem/build_exact.py staging; no build outputs or equality promotion.",
+  "files": [
+    {
+      "path": "research/all-contract-completion-20261028/mayhem-proposal/source/build_exact.py",
+      "source_git_blob": "dd26f4576a67d171d62687abb74a98adbd4221a4",
+      "sha256": "cfc9688bfd993c7bef9eaa80738bde04599b529d25b7afbf61c9a5fba035a0d6",
+      "bytes": 5733,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/build.py",
+      "source_git_blob": "d0e28f55948fd0961bb0abb5feb280046955075a",
+      "sha256": "0e665afdf4139ee91198a8ced57643bd2126c486a3ccf0e4576d6296d088cf87",
+      "bytes": 2379,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/build.py",
+      "source_git_blob": "4e41ce125ac84643ee2b8ad4b8b424a518da3e12",
+      "sha256": "471940fcd6908d72dba78d65dd9b9b7c66d6d538fb8239ea622c23846cf5bda8",
+      "bytes": 14628,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/default.ld",
+      "source_git_blob": "04ba989224902d3a6ebd59731c9a59b93405c1c0",
+      "sha256": "5e8370b9380f55411d827721e2e43c8cfd1eac71d1383e20b938397bc0bd82c3",
+      "bytes": 452,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/historical-macro.json",
+      "source_git_blob": "23d3145e0f82157c75a56ea76cbfccfc77cce593",
+      "sha256": "98e7c983818d1ab319a18b6cf0e6e7a4711533deee8dff0724889c8d48175be6",
+      "bytes": 7277,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/host-tools.json",
+      "source_git_blob": "9984518311209e720e256c8e960dd0a027379d57",
+      "sha256": "3c6c718b4180b30713e9fe180a5729d58541099bf38f9a642d716ab7089342d0",
+      "bytes": 2069,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/linker.rs",
+      "source_git_blob": "1506d397868ad9fee3166c62a86406aeef55def7",
+      "sha256": "c6355bff323ef9fc63743d7a053a97f4ecfd64b42fbd3aa825969c2a38b0a44e",
+      "bytes": 4754,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/metadata-map.tsv",
+      "source_git_blob": "db76a91be4025ee05341f285f338e0de1c002fac",
+      "sha256": "fca25424ff3852c36c0c8009c7547f9ef027fbc660de37f141f4cb1c7ae725b5",
+      "bytes": 4324,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/ordered-native.ld",
+      "source_git_blob": "b8323955b89269f3a68b4fc60feeb2dcd792c1ac",
+      "sha256": "06324945a81c1e63dcf1f8e2e2e6e9d4b666f481301377ee2912bff8cb82965f",
+      "bytes": 212270,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/path-map.tsv",
+      "source_git_blob": "66a6e50dcfcd056d1787ce8fdf621aed534e1ffa",
+      "sha256": "20bcd9d6abe23a0e49acc5e5b558923bc64fbb46dbf6b4f19a9e38ccae275312",
+      "bytes": 38331,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sdk-components.json.gz",
+      "source_git_blob": "2423c1226a444febef6bda3bfc6b8dc83343ee1d",
+      "sha256": "80a6d4de03c923d103f1d04ad3abf6b4b26df2ffc438f90d114b69967436a00d",
+      "bytes": 135980,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/source-inputs.json",
+      "source_git_blob": "2e3b7a9b072b4884fe46e0f71b5062b3ceb665c5",
+      "sha256": "10ab0b387d3273fe2c7b87fc88190c04721b5bb1baed99a70fa6bab39f67ee82",
+      "bytes": 11621,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/Cargo.lock.gz",
+      "source_git_blob": "8b927abe2c77437207a99fc5be8dfc046794124d",
+      "sha256": "2fd6381872854e3614d8823afa94ec352747693ca443059b12a4e2d1f65fb70e",
+      "bytes": 13386,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/Cargo.toml.gz",
+      "source_git_blob": "70b67084c85ff59e7b993fb4d492a56f9373a1a2",
+      "sha256": "d3eebfd8bbdf1a6618bb84e992c29ce858a3c8d72de2e180564be19524f21f7a",
+      "bytes": 491,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/curve-accounts/Cargo.toml.gz",
+      "source_git_blob": "1abb164f350fa98efe434d1567680302243ae945",
+      "sha256": "34d9b7de0b6db826d97a9f924da37e1bd2458691623f7a5bb89496e16644171a",
+      "bytes": 167,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/curve-accounts/idls/pump.json.gz",
+      "source_git_blob": "efb036055d20b158a8868f9f8d2a27cfdc38dedf",
+      "sha256": "4f76430610aad88e1cf1db086b4270cd8f24d1ac668717dd48bc66b9ae649083",
+      "bytes": 1563,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/curve-accounts/src/account_wrapper.rs.gz",
+      "source_git_blob": "246419f6435efa0e7888af8f14e860c6bbbacc7e",
+      "sha256": "a9831cc934f504369647086ca709922c03040e73b9bbe2000fc8279bf063bea9",
+      "bytes": 562,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/curve-accounts/src/interface_definition.rs.gz",
+      "source_git_blob": "82db2f8dc4fe3fd7ee8f3687d0aa8ee78e2a1e05",
+      "sha256": "0335a35d43b5a7f7c693a3a8cd1beab5b8e079ffde33d37f3d5102001794e224",
+      "bytes": 2055,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/curve-accounts/src/lib.rs.gz",
+      "source_git_blob": "3fd1167cbdaebf1729e8431fba3802c0846e06ee",
+      "sha256": "1cd6ab79679827aa786b58498418cdb1f34143563609820925a3641c473d8f0a",
+      "bytes": 109,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/idls/amm_cpi.json.gz",
+      "source_git_blob": "a9ad625fa27036cd5e09227d5ec30903fdce0d4d",
+      "sha256": "7f2a9ad6801fa3a63564a9e4289957dbbd96c6ef5b4de1fce27f11e2ef5221fe",
+      "bytes": 1444,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/idls/pump.json.gz",
+      "source_git_blob": "590058c34ade4261912576c0c8d55a834ff27db7",
+      "sha256": "0ef54a260663437af96e29c90747ea31255d5a038a0e579ba7d0a34870baf598",
+      "bytes": 1322,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/idls/pump_amm.json.gz",
+      "source_git_blob": "f15dd3649f88100d9e2bfda8bccb4157ef300e4e",
+      "sha256": "731fa7ad2e98b49e55ba8f3a8a8ec6cb58d27237564c94fea4026f536dcaa4a5",
+      "bytes": 448,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/account_wrapper.rs.gz",
+      "source_git_blob": "a206c03076c0b8722ad79f0beef424ef903263b1",
+      "sha256": "de924005a73f2646d31e0b1e43bd1a992e9bfd2664c582b302ca4bebcea68c96",
+      "bytes": 358,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/checked_program.rs.gz",
+      "source_git_blob": "0e027091a239a150e110539cd659993e14a35df0",
+      "sha256": "7ec0eb7bafcba676d63b4651672db08e8e1222c4e47e83325d5c7f7b44fa99d2",
+      "bytes": 1176,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/instructions/admin.rs.gz",
+      "source_git_blob": "83e956d2bed7be344d02952645a21ce856e51533",
+      "sha256": "52f8e39774a66f6017c014bad73b248b61bb64999cbbc8a54dd2c9813a0b608a",
+      "bytes": 374,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/instructions/burn.rs.gz",
+      "source_git_blob": "28e137926a137873c5c794400b4cbe0da6abc3ac",
+      "sha256": "7dedf9d63e6370555d78a6eb956141698a66ab32385effeaac4414e9eb2da4a3",
+      "bytes": 1304,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/instructions/buy.rs.gz",
+      "source_git_blob": "819d1dc1724806f8fbe53398411e1a3613673371",
+      "sha256": "b45af3baeb7783eac0129b3a1a294c3d28a8c239cdca4769322ffa8b7b73083a",
+      "bytes": 1251,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/instructions/buy_pump_swap.rs.gz",
+      "source_git_blob": "51429d393e137f86d136aaea6ddc9e845d2dd2f1",
+      "sha256": "fe6f061c1a1c87aa3ce5c096bc944fff7071e95e585e243e7c99f7f8ced8c831",
+      "bytes": 2808,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/instructions/buy_v2.rs.gz",
+      "source_git_blob": "2df272b91cf85b7f70b96be47bb96435f5b3cf85",
+      "sha256": "001fe03afc3a85d68d51af7adc5cda1547d38db196347ed120d0ef9600040b55",
+      "bytes": 1117,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/instructions/extend_account.rs.gz",
+      "source_git_blob": "b49a3687848b78c5fe697e4555c97321d0775d19",
+      "sha256": "4a3cae3b5b136b58327955cb3ac0f40fcaec1a7b70c948197ca734c918338a93",
+      "bytes": 1021,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/instructions/fee_recipients.rs.gz",
+      "source_git_blob": "1128fffd7cd9af19ed43932d3c0a279efbe93654",
+      "sha256": "250309e58467eeb6c7cdee31dcf283a998782d6498a003443f4a9fd1de9ede40",
+      "bytes": 1910,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/instructions/mod.rs.gz",
+      "source_git_blob": "04a908ffde5d9a9ebcaaee5d33a79199fccc5ebc",
+      "sha256": "33154b4a9f2fae7cc012f17f38a2f0690c3018f963a882df2452600a028d90a3",
+      "bytes": 131,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/instructions/pump_amm_interface.rs.gz",
+      "source_git_blob": "ee27fdccad819fccb1fb40df1f26a7cda2782efa",
+      "sha256": "ba1a27a2a6ce9d772260480d0ac09c16f1ac204dc201da048e87f7bb89c8025b",
+      "bytes": 307,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/instructions/pump_interface.rs.gz",
+      "source_git_blob": "54fce736584d4ef6ff7c92110897e543fba7df5d",
+      "sha256": "57c79ca61bd28787679d1d90dbdb5f43a59e4813226c0c53cb7698c3991c2281",
+      "bytes": 2440,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/instructions/pump_interface_v2.rs.gz",
+      "source_git_blob": "c072fbb78ea7030bcec0e5de0eb0f38f067ad63d",
+      "sha256": "6f686aea68d8c66e665e49d9226b7a7a10be91998b3fb123de5c9fe21c085e6e",
+      "bytes": 2054,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/instructions/pump_swap_types.rs.gz",
+      "source_git_blob": "f996ea2fcddcbd77c0c493f3ab4ee114ddde2541",
+      "sha256": "a67f3f5e191f9b481ef7f642342013e45dbd8aea0c4e5ed2148720382c5ae0a3",
+      "bytes": 578,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/instructions/sell.rs.gz",
+      "source_git_blob": "fc745ca3de79c0cc7bf1d5ff4c370ac4c8329f1f",
+      "sha256": "40ee34386e408b71b2be37506da95dc6b26721f565118d0f7befe33cb5116004",
+      "bytes": 1403,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/instructions/sell_pump_swap.rs.gz",
+      "source_git_blob": "5bc3b298b32cc999280ed3861ba252f923b77bb2",
+      "sha256": "d972d8fb47380bf85dc29684388df2e338e65663fe183a089b1371588df6c4a9",
+      "bytes": 2665,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/instructions/sell_v2.rs.gz",
+      "source_git_blob": "707d3b5a5eeaa611d2b8df954495cdd3c5432fe9",
+      "sha256": "0bb8d15b4999bd6a05dfaae0bf4f012307b019f1a84d40c9d4eb00fb3fd7a396",
+      "bytes": 1120,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/lib.rs.gz",
+      "source_git_blob": "f0fb69d52f18e6971640d448252d3de26f8f5432",
+      "sha256": "738028c1308af17ebf1881a73bfa4b8828c194ed80e71d74693d1f886f2842ef",
+      "bytes": 3348,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/src/state.rs.gz",
+      "source_git_blob": "1ea03917140d2aa182fda615cfe73935581381a3",
+      "sha256": "077278d4d3f8768455b3b023b4a2419adc59ed29435a7f59c4566a23870816e5",
+      "bytes": 3873,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/.cargo-ok.gz",
+      "source_git_blob": "5bfc5a1547aa5d3b3ed277eb9686fcdf533e548e",
+      "sha256": "92bfa0b8287b4d51ebbb7eaeae6f8d995742c85fd78ce857dcd8dae2b7296c50",
+      "bytes": 27,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/.cargo_vcs_info.json.gz",
+      "source_git_blob": "f85c57a114d198c75efe292d66e9cfbd43cc56d8",
+      "sha256": "b4558f0286e67b4a1c07e880214d954fa44d5f28f0f53a968517ea36fa562c8c",
+      "bytes": 108,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/Cargo.lock.gz",
+      "source_git_blob": "9a500cbc72d59f8a50e8d8ebe78167580bfa6354",
+      "sha256": "e084f381e5313ae177467fd7f2d1cbb8daec8f1876e3dfc45649f00559b0a17d",
+      "bytes": 9381,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/Cargo.toml.gz",
+      "source_git_blob": "6e738a8377c0331f79fcfc70b9167c5f40c84917",
+      "sha256": "493fe3d5474920613d3f8c73524aa62845e2e71f63ace23c11496ba7a58bc82c",
+      "bytes": 1316,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/Cargo.toml.orig.gz",
+      "source_git_blob": "d3d83bbd55f5f1faf6f2f40d3b7d50dc847f5c0c",
+      "sha256": "be921521a3df1a4c43e5c2a0d69b443211810260b6eaaa78f7284b7c743f695e",
+      "bytes": 943,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/account_meta.rs.gz",
+      "source_git_blob": "8480113c920290d6545ba8ceabea0dd6417e894d",
+      "sha256": "c8f10c841be98b1dc389f7a0ab37a42baf10ded86bee27819d73a67303f2010d",
+      "bytes": 165,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/accounts/account.rs.gz",
+      "source_git_blob": "bf35119a5395485031cd32833cc9302d1a0544c4",
+      "sha256": "44c3314557511df6d77f6842c28b2868f688b338cbe3f1bd1b76b07bbbfa7a06",
+      "bytes": 4184,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/accounts/account_info.rs.gz",
+      "source_git_blob": "e1649e385820e9cd3d7620693783cd2edea489ad",
+      "sha256": "a51e332a7394d613e76923277ad842db453fbdcec606ad5e53ea126661f84eeb",
+      "bytes": 634,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/accounts/account_loader.rs.gz",
+      "source_git_blob": "46253893b126d9446aea62fb7883ed8ece35e005",
+      "sha256": "404cb49152bd4fbda6690d19ea7cbddef53e430372657f53e31bd48d51fa0b26",
+      "bytes": 2769,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/accounts/boxed.rs.gz",
+      "source_git_blob": "b02758f9954bd46ec50070401657babfa664184e",
+      "sha256": "e1ee26b788c65b4045a5f8270d5ecac79620fd49b1567de99a124a3e7fbfcf01",
+      "bytes": 635,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/accounts/interface.rs.gz",
+      "source_git_blob": "73028faba8aab5866126c91de237c57fe2da490e",
+      "sha256": "e911007fab7543079259ae7edbad9a57f7d9c4a5affd44a55695fb6945932d0f",
+      "bytes": 1675,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/accounts/interface_account.rs.gz",
+      "source_git_blob": "13718a4d237c0a2dd1a8e971ccb0b0117357a188",
+      "sha256": "c38608c84f05737dec1a5d67ea414e4a7815165579f81922c96ecc2975743e54",
+      "bytes": 3209,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/accounts/lazy_account.rs.gz",
+      "source_git_blob": "f15c8239137280d94be377b326835683add53fa0",
+      "sha256": "269da06741b10856988be9e5b968e6976d352cdfc4f9bd310d18dc2c4fa6f91d",
+      "bytes": 3839,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/accounts/migration.rs.gz",
+      "source_git_blob": "a2c6b0831fdc20f6f408a67f695843c4ba2c7827",
+      "sha256": "d773992b9c5f4653327df3a129b1246cf528dfd15ff3f374c6f72d60f95aa0e4",
+      "bytes": 5135,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/accounts/mod.rs.gz",
+      "source_git_blob": "dedca8af9276a1ef9c8e25ef750a79138145ea78",
+      "sha256": "127e248ff9f0f4dfcd20ad1ef3adfd845d1bcb36639fa7661991b49c02248e42",
+      "bytes": 193,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/accounts/option.rs.gz",
+      "source_git_blob": "56a133f648da352c7acd41e58102b5ee315f21d8",
+      "sha256": "020ac77061326d939d04cc6d0835703ad4904140a3780d537df238841fcb0ca5",
+      "bytes": 1150,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/accounts/program.rs.gz",
+      "source_git_blob": "54228371a9a178e58b175637b7633ea46ce4e6f9",
+      "sha256": "058c02efa03073109e5ab8e80daeaed0185ae11f801ab44d8a17979c4bf08e7b",
+      "bytes": 2630,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/accounts/signer.rs.gz",
+      "source_git_blob": "219202c9a547be039d1ffa3ade833bee02d6f253",
+      "sha256": "b37e2b083f25b411ffd0018f0668ea1e70257f94f2a6997a1d7ab0dff0fd8551",
+      "bytes": 1088,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/accounts/system_account.rs.gz",
+      "source_git_blob": "d334f7115188a3bf0ed26ec7b53759419e194c72",
+      "sha256": "81441e4948454c0f944d8aa706b76c27f95797c91cda0b8dd75b05bd093792c8",
+      "bytes": 796,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/accounts/sysvar.rs.gz",
+      "source_git_blob": "0636b408aad17315bffa88495e21505a42015bd4",
+      "sha256": "057b9a2e60e2d80f95388cff267ccadfe1acbca793574479533b6c168bdc04c2",
+      "bytes": 1327,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/accounts/unchecked_account.rs.gz",
+      "source_git_blob": "86368f51f23340ef81dc07446ea65e0e4821ca79",
+      "sha256": "7f972c0be1d6e836e49736dc6967caf98691e798e37bad3d933465fcba4a4a83",
+      "bytes": 775,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/bpf_upgradeable_state.rs.gz",
+      "source_git_blob": "9c9a2b61b06f623da13dba344683d67bf0c372d6",
+      "sha256": "50fa1141fedc8ab4df0428f8bf43452bebb243ac86d41d4abfee42d95dd9c2a8",
+      "bytes": 688,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/bpf_writer.rs.gz",
+      "source_git_blob": "7a0c8428d63a8891229ba7927b4aa890b4868a31",
+      "sha256": "99b1e17ed4f1e62382c9ee4e88043be477469f128b2c8fa560c27ae691d14c38",
+      "bytes": 570,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/common.rs.gz",
+      "source_git_blob": "7c7330008d7439c591cb46da4dce5e4b4c952a43",
+      "sha256": "88289b95904c100c1caf9c2cdc1192aa1b1e4651d59e6d1d4adebf9ffb25d6ff",
+      "bytes": 363,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/context.rs.gz",
+      "source_git_blob": "dfc07cb8a6ab491902bfab4054d20d5fda7ca001",
+      "sha256": "6835ce29015ca3c150105767be3e907ed787dcb6cc6e6100ac48d327400597ab",
+      "bytes": 2112,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/error.rs.gz",
+      "source_git_blob": "b3f08b141b3a104f4c8bc981e009a3d0e879a88d",
+      "sha256": "ca59d9bdebbd92999e874c7034f6f90704501e61486a784aa1b8a23104069267",
+      "bytes": 4010,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/event.rs.gz",
+      "source_git_blob": "ec6781e4edfd63d38040aeb737e628a6720c5f0c",
+      "sha256": "ecc51882c5cebcfdea5c38d24a644f82268dba6167143018f82787135b293780",
+      "bytes": 141,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/idl.rs.gz",
+      "source_git_blob": "8e32e0daa44b0722c8a64204afc2cdc8a5bedefa",
+      "sha256": "6e351c159e59936628b43fc3c0f94f0973982ec53e2e84a946ba256e4577c400",
+      "bytes": 231,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/lazy.rs.gz",
+      "source_git_blob": "7c7a37e38c217a0da6c09f39e98ae672216a6f9f",
+      "sha256": "7451805b52f4ac16c6097faad3165065cc1412c3f165269e4c613f752cc2a4fd",
+      "bytes": 2197,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/lib.rs.gz",
+      "source_git_blob": "716739276154933a9b0e554819adeb80ee86aebf",
+      "sha256": "1e66b1cf229b975c4d9c6fe2544c3e8df097bda85d8d02d9d3bc5b7fe448510c",
+      "bytes": 7706,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/system_program.rs.gz",
+      "source_git_blob": "72f4dd7219193e1a735acb5a64af5ac1ae559a7d",
+      "sha256": "cee0efac45fa8c228311fc4bf3fb8d209f9396fede4f29517169bb43ee94ed25",
+      "bytes": 1087,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/src/vec.rs.gz",
+      "source_git_blob": "007d40f0688b134fd05f08cdcb920c9bcfd7cd38",
+      "sha256": "ed1beb31334d26cc4f0c6c8bc8ca0d1d8d619c2131854b19725f257837a4d238",
+      "bytes": 866,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/tests/account_reload.rs.gz",
+      "source_git_blob": "dcca7d59d971c94e0f084627d93d06bc99db35a9",
+      "sha256": "9a8cbd52dd0393158d3eb06bdf3e0249a22d23a7e2502c45be303af66a50e8cf",
+      "bytes": 1121,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/tests/generics_test.rs.gz",
+      "source_git_blob": "ee0cbb65f35d612b710cd110fa1e3c0775961019",
+      "sha256": "e095a01f30c122c7cc9d2c2be3c3564ffe70fea41c1435356f9865e333ab18c4",
+      "bytes": 744,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/tests/macros.rs.gz",
+      "source_git_blob": "b16ad5647fae6163ab86b2d8ebf0221e621355ac",
+      "sha256": "72f82b31e8932245fd980b8f3d70a0e41ada4971d0c9ad49cfdb1b9cf9de8c1f",
+      "bytes": 371,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/tests/seeds_compile.rs.gz",
+      "source_git_blob": "f9c4c3cc1b913a50a2ff388e0fafcf6c67fcf2c7",
+      "sha256": "a18cbc3d02abb1dad01a5fdbaf79d3921e983bd948dbdde295863798a6938e1a",
+      "bytes": 831,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/tests/serialization.rs.gz",
+      "source_git_blob": "da61af4f3ccf7e37f2ffb35a847951867ea840ab",
+      "sha256": "26894ab0ce8388d706220c2770e0e05fe58226506416b61922e99b5797009028",
+      "bytes": 617,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/sources/vendor/anchor-lang/tests/space.rs.gz",
+      "source_git_blob": "9fee70f1e7779f285274779ed668cc4159ee744e",
+      "sha256": "1b3575ad9a6738609e3bec562e7a207f7d758ca071323d6ed23f1d62926020d9",
+      "bytes": 1596,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/target-components.json",
+      "source_git_blob": "8e5d78b0c0aca6b5e590f4deee142322d676d2fe",
+      "sha256": "004e0d26a2d98542623143dc8b0b5736110bf83a52688a4684756de9a141ddde",
+      "bytes": 7801,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/vendor-inputs.json",
+      "source_git_blob": "84bd73852d1c45fd84f0ea6d886eb3e59fb96910",
+      "sha256": "3a580741dc75fc10e9f49eb27b94dcefbd0fe730c259c719e8ad8d3d512c0179",
+      "bytes": 66150,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/controller/wrapper.rs",
+      "source_git_blob": "cd075438180516e61be2e9ec01c974be33ecf3dd",
+      "sha256": "02a2205920c5ccba8eaf5db2be01b899220a1b3ab48c15793d4e34d4509c2610",
+      "bytes": 5472,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host-inputs/archives/aho-corasick-1.1.1.crate",
+      "source_git_blob": "3c561a379ad52020a983d594bae9b9c6cb46af02",
+      "sha256": "ea5d730647d4fadd988536d06fecce94b7b4f2a7efdae548f1cf4b63205518ab",
+      "bytes": 182812,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host-inputs/archives/cargo_toml-0.19.2.crate",
+      "source_git_blob": "4e4bf533df5b594c918fc86f6b9095c0f02361b3",
+      "sha256": "a98356df42a2eb1bd8f1793ae4ee4de48e384dd974ce5eac8eee802edb7492be",
+      "bytes": 30484,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host-inputs/archives/regex-1.9.6.crate",
+      "source_git_blob": "6fad631de34eab8d01ae7d0b52d60f6fbaf17c8d",
+      "sha256": "ebee201405406dbf528b8b672104ae6d6d63e6d118cb10e4d51abbc7b58044ff",
+      "bytes": 254981,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host-inputs/archives/regex-automata-0.3.9.crate",
+      "source_git_blob": "5fdfbde301da6e55c6d5a4707ba8088a3f189479",
+      "sha256": "59b23e92ee4318893fa3fe3e6fb365258efbfe6ac6ab30f090cdcbb7aa37efa9",
+      "bytes": 610489,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host-inputs/archives/regex-syntax-0.7.5.crate",
+      "source_git_blob": "07f85f744c3594df2b4f69c984209679361bf9e7",
+      "sha256": "dbb5fb1acd8a1a18b3dd5be62d25485eb770e05afb408a9627d14d451bae12da",
+      "bytes": 343366,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host-inputs/archives/serde_spanned-0.6.3.crate",
+      "source_git_blob": "4ac966c5f56c092d66dba9da0fb3bd47b79b524c",
+      "sha256": "96426c9936fd7a0124915f9185ea1d20aa9445cc9821142f0a73bc9207a2e186",
+      "bytes": 7737,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host-inputs/archives/toml-0.8.2.crate",
+      "source_git_blob": "c9d611da3016511ba4c288523a072fe7b1334a91",
+      "sha256": "185d8ab0dfbb35cf1399a6344d8484209c088f75f8f68230da55d48d95d43e3d",
+      "bytes": 50425,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host-inputs/archives/toml_datetime-0.6.5.crate",
+      "source_git_blob": "904b5736be2a0d26a99fc85087a47408e23ce0c3",
+      "sha256": "3550f4e9685620ac18a50ed434eb3aec30db8ba93b0287467bca5826ea25baf1",
+      "bytes": 10910,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host-inputs/archives/toml_edit-0.20.2.crate",
+      "source_git_blob": "1d6131df908aa2238e284c3973b9df56f5d02cfd",
+      "sha256": "396e4d48bbb2b7554c944bde63101b5ae446cff6ec4a24227428f15eb72ef338",
+      "bytes": 96487,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host-inputs/archives/winnow-0.5.15.crate",
+      "source_git_blob": "495c2a3bca7a7c92bdaab6c2c9ab5411d2a97658",
+      "sha256": "7c2e3184b9c4e92ad5167ca73039d0c42476302ab603e2fec4487511f38ccefc",
+      "bytes": 145621,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host-inputs/historical-source.tar.gz",
+      "source_git_blob": "64ee54f789d3caee96fea4ef242e4dda9c9160f9",
+      "sha256": "ef9a2803091266cbf51768d3c7d4398dc2fb62679732c86f988bfc643ad89b67",
+      "bytes": 153461,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host-inputs/inputs.json",
+      "source_git_blob": "fb53175551e9263a1b604faa3d77ee0fd9259ea0",
+      "sha256": "978eaa4c77bbdef761dc5f4188673645df2c4af6039a5ec0bd81e4c213bd16b4",
+      "bytes": 2135,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host-inputs/resolved-Cargo.lock",
+      "source_git_blob": "e227208a7cf514eb0f9cfd2a48844284184f4060",
+      "sha256": "cac1ad948fbc8935e558aac6da349930e601b746d5cae229e1ebaaf6c033642b",
+      "bytes": 9112,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host-inputs/source-tree.json",
+      "source_git_blob": "996665b5a3efd1324c108b560e18652d8ded6398",
+      "sha256": "0f45e17f4ec740fcfd7eac427c3792b0308c1db2227a1e5823589eb8feb77b4f",
+      "bytes": 36272,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host-inputs/supplement-packages.json",
+      "source_git_blob": "c9fc2e9c612b2d7a9bb98fcd442c69e78244fce4",
+      "sha256": "3e8ad3f2b99fd33710533d42b8f139bc68a780c9685d91e0060ba58752fa2a7d",
+      "bytes": 2918,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host-inputs/supplement-receipts.json",
+      "source_git_blob": "ba87d471942358ef8027bb909ead483b4ca00589",
+      "sha256": "465d503223cb0b582d2fb8857d9918ca4dca511cfabd666964b90b5873a88aae",
+      "bytes": 139180,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-fresh-host-20261028/host_build.py",
+      "source_git_blob": "78cb58bb94dcd75397e12ba18a0508dcfd122a2c",
+      "sha256": "8e34046f9771acc5a600e1f9dc470cf61b0e0949489d803a2552b0f296fea696",
+      "bytes": 7547,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-linker-locators-20261028/inputs.json",
+      "source_git_blob": "23edadfcc9079931befd776c8e739062360c6b3c",
+      "sha256": "495729cd431ab71b4a17ab4415ce6a0d26dd11c7f783912d80e50513799f7dbb",
+      "bytes": 9722,
+      "mode": "100644"
+    },
+    {
+      "path": "research/mayhem-linker-locators-20261028/ordered-native.ld",
+      "source_git_blob": "2fc117416778bc34c4f697b7f04576666344e37f",
+      "sha256": "cdb817f6c1a3442d055858e36577958fa1ada07d1ab1e5f525277a53307f28be",
+      "bytes": 196100,
+      "mode": "100644"
+    }
+  ],
+  "checkout_policy": {
+    "path": "research/mayhem-fresh-host-20261028/.gitattributes",
+    "source_git_blob": "fa1385d99a319b43c06f5309d1aae9fdd3adea46",
+    "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+    "bytes": 8,
+    "mode": "100644",
+    "role": "Original Git byte-preservation policy; not a file consumed by stage()."
+  }
+}

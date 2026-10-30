@@ -10,7 +10,7 @@ def errors(result):
  return [re.sub(r'AnchorError thrown in [^ ]+:\d+\.', 'AnchorError thrown in <source>.', line) for line in result['logs'] if 'AnchorError' in line]
 def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--baseline',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();rows=[]
- for name,length,bad_bool in [('global',740,0),('curve',82,48),('pool',261,243)]:
+ for name,length,bad_bool in [('global',740,8),('curve',82,48),('pool',261,243)]:
   for kind in ['short','discriminator','boolean']:
    c={'name':name+'-'+kind}
    if name=='pool':c.update(tokens=0,pool=True)

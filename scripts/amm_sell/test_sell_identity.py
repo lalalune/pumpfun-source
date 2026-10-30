@@ -103,9 +103,11 @@ class ImageIdentityTests(unittest.TestCase):
             old_path = cache / (old_key + '.json')
             old_bytes = b'{"metrics":{"whole_elf_equal":true,"sell_raw_equal":true}}'
             old_path.write_bytes(old_bytes)
-            v2_inputs = old_inputs | {'score_version': 2}
-            v2_path = cache / (runner.sha(json.dumps(v2_inputs, sort_keys=True).encode()) + '.json')
-            v2_path.write_bytes(old_bytes)
+            v2_inputs = {**old_inputs, 'score_version': 2}
+            v2_key = runner.sha(json.dumps(v2_inputs, sort_keys=True).encode())
+            v2_path = cache / (v2_key + '.json')
+            v2_bytes = b'{"metrics":{"align_distance":112}}'
+            v2_path.write_bytes(v2_bytes)
             args = ['try_sell.py', '--lane', 'fixture', '--approach', 'identity',
                     '--hypothesis', 'cache version regression', '--baseline']
             with patch.multiple(runner, SWARM=root, CACHE=cache, SOURCES=root / 'sources',
@@ -120,7 +122,7 @@ class ImageIdentityTests(unittest.TestCase):
             self.assertEqual(scoring.call_count, 1)
             self.assertEqual(append.call_count, 1)
             self.assertEqual(old_path.read_bytes(), old_bytes)
-            self.assertEqual(v2_path.read_bytes(), old_bytes)
+            self.assertEqual(v2_path.read_bytes(), v2_bytes)
             new_paths = [p for p in cache.glob('*.json') if p not in (old_path, v2_path)]
             self.assertEqual(len(new_paths), 1)
             entry = json.loads(new_paths[0].read_bytes())

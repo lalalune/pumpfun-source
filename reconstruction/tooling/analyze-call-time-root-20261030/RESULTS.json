@@ -1,0 +1,506 @@
+{
+  "base": "1cacecfbf9a58b698f99d5e11d6723a254588b81",
+  "testedSourceCommit": "41ffcc97f8ae009c151abf3d1cc27f5d0672738b",
+  "python": "3.12.14",
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/test_tooling.py"
+      ],
+      "before": {
+        "returncode": 1,
+        "tests": 40,
+        "errors": 3,
+        "log": "before-tooling.log"
+      },
+      "after": {
+        "returncode": 0,
+        "tests": 42,
+        "errors": 0,
+        "log": "after-tooling.log"
+      }
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/verify_evidence.py"
+      ],
+      "before": {
+        "returncode": 0,
+        "captures": 9,
+        "log": "before-evidence.log"
+      },
+      "after": {
+        "returncode": 0,
+        "captures": 9,
+        "log": "after-evidence.log"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "path": "reconstruction/harness/llvm_tools.py",
+      "baseGitBlob": "7e08c4c432dce8a3e29adb88034857a48beaf9fe",
+      "baseSha256": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+      "testedSha256": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+      "unchanged": true
+    },
+    {
+      "path": "reconstruction/harness/score.py",
+      "baseGitBlob": "76ea501d0030abdd86a97ecea2f75abbf26ee6f7",
+      "baseSha256": "549862761d672586123c7085c3cc61fe27137f12ca75116f07c4de5dd9e7b983",
+      "testedSha256": "549862761d672586123c7085c3cc61fe27137f12ca75116f07c4de5dd9e7b983",
+      "unchanged": true
+    },
+    {
+      "path": "reconstruction/harness/elf_symbols.py",
+      "baseGitBlob": "6f321c92ca9611c33457093d4ee88e086172f90e",
+      "baseSha256": "7156bee72eaf1870dd1f8771a7172ea5090f6f19c1eba87ef48e05a3fb669e71",
+      "testedSha256": "7156bee72eaf1870dd1f8771a7172ea5090f6f19c1eba87ef48e05a3fb669e71",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/revalidate_all.py",
+      "baseGitBlob": "dae17d1d23c712f093b09527d2d3fad904820dc1",
+      "baseSha256": "1918e7b59bd232a3404336840e431367a9b69111d925b425d3e18948a4367d7f",
+      "testedSha256": "1918e7b59bd232a3404336840e431367a9b69111d925b425d3e18948a4367d7f",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/test_tooling.py",
+      "baseGitBlob": "462be412c69e2c9fbfeba290501a71198f6c4d5b",
+      "baseSha256": "d462d5eb439c98db5b0566b772ef6e94336a0287da8e38adc0fb909ede4bac14",
+      "testedSha256": "9a4f82842853548f7d11b0c3d3189bd5c8173bc1483768dcf157a4197a87fed6",
+      "unchanged": false
+    },
+    {
+      "path": "scripts/sbpf_disassembly_inventory.py",
+      "baseGitBlob": "2954546e1501c833932a2d48715811d1fd2baf4a",
+      "baseSha256": "4660abe8c70628ab3493fa0e6974c98d3a1bf9f3584f5a42ee5395da1cb54b6c",
+      "testedSha256": "4660abe8c70628ab3493fa0e6974c98d3a1bf9f3584f5a42ee5395da1cb54b6c",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/analyze.py",
+      "baseGitBlob": "fbcfbac3528ce0136ebd6b6aaa6be90f7c09ac7b",
+      "baseSha256": "469ef35ac2ddfc204ce33c5bda362356d00a0dbd742994e6bab06dfaa2c6a750",
+      "testedSha256": "94e4d8b8ade2d3ced65dbb202a89ef6c6918804e19421481b0b00d2dd6f75601",
+      "unchanged": false
+    },
+    {
+      "path": "scripts/recover_dispatch.py",
+      "baseGitBlob": "c92fd20eb8454cd53c2e563f621283c70930184e",
+      "baseSha256": "4ad747f662ebbe8f60910550d3780bfc8b0883cb090ce2d9c56aa64f34aa708e",
+      "testedSha256": "4ad747f662ebbe8f60910550d3780bfc8b0883cb090ce2d9c56aa64f34aa708e",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/test_pump_diagnostic_audit.py",
+      "baseGitBlob": "33564aa412adc69bad9b5c30494c33b089fb8283",
+      "baseSha256": "8ebdc8f46db42c1d004e799e1e568eb3d21c75d0bcb5105ae177a92a42980c02",
+      "testedSha256": "8ebdc8f46db42c1d004e799e1e568eb3d21c75d0bcb5105ae177a92a42980c02",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/pump_diagnostic_audit.py",
+      "baseGitBlob": "559170c1c9a4cbff568526cea70491f6fdcb3384",
+      "baseSha256": "2e65f8fc02ae5dd589dbd744106c84bb2a9e6ce589d9cb6f1d80866698a88929",
+      "testedSha256": "2e65f8fc02ae5dd589dbd744106c84bb2a9e6ce589d9cb6f1d80866698a88929",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/compare.py",
+      "baseGitBlob": "4faa1a5e10deca1544fceebc44769e9647dd7dec",
+      "baseSha256": "fd48ddcde3fe9e0658ef873e2f7219886d2e1c6c52d6181e395fd085f9e8fd2d",
+      "testedSha256": "fd48ddcde3fe9e0658ef873e2f7219886d2e1c6c52d6181e395fd085f9e8fd2d",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/local_validation.py",
+      "baseGitBlob": "2ce0b782015bb74e7b8148f28f5b5482214fc8f1",
+      "baseSha256": "f939984f5c583fb554607b00dbd209728b8a602e51dc51c44a3cd8a8d52ae5a3",
+      "testedSha256": "f939984f5c583fb554607b00dbd209728b8a602e51dc51c44a3cd8a8d52ae5a3",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/deep_disassembly.py",
+      "baseGitBlob": "31cbbcec2e320c4d16fdfa93b16587c12a810caf",
+      "baseSha256": "59e5bdb775ece8d5289120de56f188d27376a7863b59f4310e92af6de537e69a",
+      "testedSha256": "59e5bdb775ece8d5289120de56f188d27376a7863b59f4310e92af6de537e69a",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/window_elf_reader.py",
+      "baseGitBlob": "a250085cdf09951f7078f7e7a5abd1cfc299cd38",
+      "baseSha256": "247700e9930d5e53daf93a50888ae1e5429f74ccb19155e7a205f72ee21d5883",
+      "testedSha256": "247700e9930d5e53daf93a50888ae1e5429f74ccb19155e7a205f72ee21d5883",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/deep_section_analysis.py",
+      "baseGitBlob": "6a53788d65543230aa9a41c648c18cd1f785abb8",
+      "baseSha256": "6d3b1bf26e52a1f8cc9ca7c875dfdd9126b0f6c9f6a336964fee02e8b80dcf37",
+      "testedSha256": "6d3b1bf26e52a1f8cc9ca7c875dfdd9126b0f6c9f6a336964fee02e8b80dcf37",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/test_analysis_interface_inventory.py",
+      "baseGitBlob": "49ca8ef848858553d1c747f63b05c8e7a49e9898",
+      "baseSha256": "e147d834f78e8593f0a4ac6b18cfa5f2bddc8e9549aa34ee87022a35bac349fc",
+      "testedSha256": "e147d834f78e8593f0a4ac6b18cfa5f2bddc8e9549aa34ee87022a35bac349fc",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/verify_evidence.py",
+      "baseGitBlob": "10a8a592fff752eca6f5a0adbe85ca259f308d35",
+      "baseSha256": "e16f28b5d16a85c750aaa63f930b58adf938ef5cbb21a54a853571e0adbf4e6e",
+      "testedSha256": "e16f28b5d16a85c750aaa63f930b58adf938ef5cbb21a54a853571e0adbf4e6e",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/capture.py",
+      "baseGitBlob": "3e262b8364d0dec7c6cbf78b9e2019ea9757fbd7",
+      "baseSha256": "71e28a5fb815a45664f06d6902ef1437f469a4d3c99a00e221efe583daa11905",
+      "testedSha256": "71e28a5fb815a45664f06d6902ef1437f469a4d3c99a00e221efe583daa11905",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/binary-analysis.json",
+      "baseGitBlob": "df66a16bba204c8d9e6950d0e814cf5e992dc9f6",
+      "baseSha256": "f094d80a417d6e0b4ac6ce0e8cfae0912a1ca9d30fd8f441bd5d64956399e23f",
+      "testedSha256": "f094d80a417d6e0b4ac6ce0e8cfae0912a1ca9d30fd8f441bd5d64956399e23f",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/associated_token/capture.json",
+      "baseGitBlob": "1ba0fb7a4cfc17288347fb8a56ee44f0135a3c1b",
+      "baseSha256": "0b1b18d80b6ccde58f96ffe879be4cc8f2a1ceba5a40c1a3ba2c1b6bcf618327",
+      "testedSha256": "0b1b18d80b6ccde58f96ffe879be4cc8f2a1ceba5a40c1a3ba2c1b6bcf618327",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/associated_token/deployed.so",
+      "baseGitBlob": "01fcb69b8014df8979c4e56d8d7b3e4643333ce3",
+      "baseSha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+      "testedSha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/associated_token/program-account.bin",
+      "baseGitBlob": "01fcb69b8014df8979c4e56d8d7b3e4643333ce3",
+      "baseSha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+      "testedSha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/donation_relay/capture.json",
+      "baseGitBlob": "e661b8d454e65321d7bfe7ebc45599472d40dbe3",
+      "baseSha256": "1c604cf91334ae1162f2dac66cdf27f00695b666b5bad0f934969f6cf0509650",
+      "testedSha256": "1c604cf91334ae1162f2dac66cdf27f00695b666b5bad0f934969f6cf0509650",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/donation_relay/deployed.so",
+      "baseGitBlob": "ee966e35883678341e4c964741f512e7fb7bc320",
+      "baseSha256": "367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563",
+      "testedSha256": "367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/donation_relay/program-account.bin",
+      "baseGitBlob": "29e472ccfffb08a01aa817930d1ab01e4c3fe4b0",
+      "baseSha256": "2e2d8271447a8820c5e55a8c5779927c11784701f94cbd6f6733e5ecc1590766",
+      "testedSha256": "2e2d8271447a8820c5e55a8c5779927c11784701f94cbd6f6733e5ecc1590766",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/donation_relay/programdata-account.bin",
+      "baseGitBlob": "bf03cbaf8d0b01dfad7e60c5e74a78f8a01cb1c7",
+      "baseSha256": "42d80bfd3663975888721e067bb3c7764b090d9146f16fa0ccf97c3bc2ff1014",
+      "testedSha256": "42d80bfd3663975888721e067bb3c7764b090d9146f16fa0ccf97c3bc2ff1014",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/spl_token/capture.json",
+      "baseGitBlob": "f5439136658f4e35ee966e4ecb928ac79a20f7df",
+      "baseSha256": "26b905e633fd869d9e9a9e34627ddf8308d0323d51565f35973d47d125e34213",
+      "testedSha256": "26b905e633fd869d9e9a9e34627ddf8308d0323d51565f35973d47d125e34213",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/spl_token/deployed.so",
+      "baseGitBlob": "ddab82d0d26649235095d99bde6e4bba2f327bb8",
+      "baseSha256": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697",
+      "testedSha256": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/spl_token/program-account.bin",
+      "baseGitBlob": "1ba9f204287af80d80f106e72f233a4d86bc21ef",
+      "baseSha256": "5b31219b7bc4060b1638b933be5f50df3400109acfef12408a196d57ad119748",
+      "testedSha256": "5b31219b7bc4060b1638b933be5f50df3400109acfef12408a196d57ad119748",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/spl_token/programdata-account.bin",
+      "baseGitBlob": "68b24bda18e9de889fc858599ffe97c5b2720c74",
+      "baseSha256": "573971c9baedda479bf4c38537787ae396358009b4920f8a270bd2b31dde5fe3",
+      "testedSha256": "573971c9baedda479bf4c38537787ae396358009b4920f8a270bd2b31dde5fe3",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/spl_token_2022/capture.json",
+      "baseGitBlob": "6c348cb2e6a0c9e8f95c38681d2cee8e5ca7105e",
+      "baseSha256": "f114c064c5a1d08d75bcce3e01552204816048b8aa74dfd59cacb74f9a85fe54",
+      "testedSha256": "f114c064c5a1d08d75bcce3e01552204816048b8aa74dfd59cacb74f9a85fe54",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/spl_token_2022/deployed.so",
+      "baseGitBlob": "be80935166687161c48b7972be2e45d65fec3fc0",
+      "baseSha256": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d",
+      "testedSha256": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/spl_token_2022/program-account.bin",
+      "baseGitBlob": "40c72bd7c1efbb5f6b053d64731b8c7a027df695",
+      "baseSha256": "bae3e5d63e30c0c3e6fe788b9e027bf003ca5e5bb46d3a9627e034bb3002ea5c",
+      "testedSha256": "bae3e5d63e30c0c3e6fe788b9e027bf003ca5e5bb46d3a9627e034bb3002ea5c",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/spl_token_2022/programdata-account.bin",
+      "baseGitBlob": "ca3313f65218da401a621784aad0b2cbc5476134",
+      "baseSha256": "babc437405bea7f9d4083097a7266db84de58330bdc41c2b54f1f4e4c66aaa94",
+      "testedSha256": "babc437405bea7f9d4083097a7266db84de58330bdc41c2b54f1f4e4c66aaa94",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/token_metadata/capture.json",
+      "baseGitBlob": "f346cb3a1bfb88e5491dee04ad91fae2d6cba496",
+      "baseSha256": "abc57f175e6e51f59cce6bdc56311e5425e0fa082d930b9a60d4ef0324331008",
+      "testedSha256": "abc57f175e6e51f59cce6bdc56311e5425e0fa082d930b9a60d4ef0324331008",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/token_metadata/deployed.so",
+      "baseGitBlob": "fdebe231b08c4fdb131cb6fd04099f6b8787e747",
+      "baseSha256": "31f0a627dba051a938de650464e55cc5397a4be0fd496929c1f9cf02fe5e9011",
+      "testedSha256": "31f0a627dba051a938de650464e55cc5397a4be0fd496929c1f9cf02fe5e9011",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/token_metadata/program-account.bin",
+      "baseGitBlob": "b4f38b33ca8ec6bb1eda4f5cce5bf38eff796053",
+      "baseSha256": "0f1b17a95b5f588794003ef8494ffc4e59933f3f2226e41dee037aa312c5e21e",
+      "testedSha256": "0f1b17a95b5f588794003ef8494ffc4e59933f3f2226e41dee037aa312c5e21e",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dependencies/token_metadata/programdata-account.bin",
+      "baseGitBlob": "ea2106bff08efc998466ae07630beb4e8eb2614d",
+      "baseSha256": "7a381c406f3206acebc3adbd2e4e010568a3835abdc3f10e09ba5ba2e1af076c",
+      "testedSha256": "7a381c406f3206acebc3adbd2e4e010568a3835abdc3f10e09ba5ba2e1af076c",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/disassembly-manifest.json",
+      "baseGitBlob": "d3d1e86fe28288f66930ba79b9c19397e8f454f2",
+      "baseSha256": "819fa931596749cc6632a68000e9f38faf7c95b8650aa9d719855befa3cc3626",
+      "testedSha256": "819fa931596749cc6632a68000e9f38faf7c95b8650aa9d719855befa3cc3626",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/dispatch-map.json",
+      "baseGitBlob": "beb670956ffa298fef7e79da1a5fb00371dda76a",
+      "baseSha256": "609e4795d796aeed61c7e6d8853407264362166afd05bd9d76687ed673ecc2f9",
+      "testedSha256": "609e4795d796aeed61c7e6d8853407264362166afd05bd9d76687ed673ecc2f9",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/interface-inventory.json",
+      "baseGitBlob": "64bcaffb50916fc45e36b3f5040d74c61be27c80",
+      "baseSha256": "4d8f5947eee1e96d51139b15ecf3bfabe8f4bc844996f40dfe0e9314dc52bfea",
+      "testedSha256": "4d8f5947eee1e96d51139b15ecf3bfabe8f4bc844996f40dfe0e9314dc52bfea",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/original/mayhem/capture.json",
+      "baseGitBlob": "be05db08cab4b427e49e3c705b42b79ed210d890",
+      "baseSha256": "fcdd031280b2d85491f3600dd8723134d529d39c7e701df9b91ff80a76e48b64",
+      "testedSha256": "fcdd031280b2d85491f3600dd8723134d529d39c7e701df9b91ff80a76e48b64",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/original/mayhem/deployed.so",
+      "baseGitBlob": "b0aac22b32bc95dca13d4ec8aecb625f4faaba28",
+      "baseSha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb",
+      "testedSha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/original/mayhem/program-account.bin",
+      "baseGitBlob": "d226d146810ad1b3051fe6089a007d7b07573f63",
+      "baseSha256": "c06afe39a901bccfcff73e60c84e27c49dddf8dad28c592a16f11305a993f45d",
+      "testedSha256": "c06afe39a901bccfcff73e60c84e27c49dddf8dad28c592a16f11305a993f45d",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/original/mayhem/programdata-account.bin",
+      "baseGitBlob": "19d9b6bc3722c73d3bbc59301796af4bf8d64bda",
+      "baseSha256": "a556c21bbf54f1da76ada6bd6b809a8315e45a1af43f13ac7e2839dd5312cfa2",
+      "testedSha256": "a556c21bbf54f1da76ada6bd6b809a8315e45a1af43f13ac7e2839dd5312cfa2",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/original/pump/capture.json",
+      "baseGitBlob": "df303eca3ce70f3b8d43015ca72ba358e62ce8f5",
+      "baseSha256": "ffb53e71ce9cbee60df91e54cc1d677527a6eeb5806cb8d68e525af698744110",
+      "testedSha256": "ffb53e71ce9cbee60df91e54cc1d677527a6eeb5806cb8d68e525af698744110",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/original/pump/deployed.so",
+      "baseGitBlob": "85cb0059f2814c86224fdfea778c56df770dd920",
+      "baseSha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "testedSha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/original/pump/program-account.bin",
+      "baseGitBlob": "30a42e224fcfc686e7a68b9fab9158cd25fe9647",
+      "baseSha256": "8101492b544ce08703d5de95363bf796e7e4cd17d03639cfe603071fb59652eb",
+      "testedSha256": "8101492b544ce08703d5de95363bf796e7e4cd17d03639cfe603071fb59652eb",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/original/pump/programdata-account.bin",
+      "baseGitBlob": "f96d5352f1fca1cd63a8c34a93f0c6251561cf44",
+      "baseSha256": "0b692730f9707139fd86d1c1e3a7d63a3f7cb0702278975fa99df90883aab508",
+      "testedSha256": "0b692730f9707139fd86d1c1e3a7d63a3f7cb0702278975fa99df90883aab508",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/original/pump_amm/capture.json",
+      "baseGitBlob": "37e70aab3da36dffd932603e59538de7caf54fea",
+      "baseSha256": "ffb8eb471345e4625c42b7f90840c1c44bb50ce202c3ebb4e9a4ec7f6abe1d8d",
+      "testedSha256": "ffb8eb471345e4625c42b7f90840c1c44bb50ce202c3ebb4e9a4ec7f6abe1d8d",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/original/pump_amm/deployed.so",
+      "baseGitBlob": "f8387822561c9f1b207956344578ad9df2b5c1eb",
+      "baseSha256": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+      "testedSha256": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/original/pump_amm/program-account.bin",
+      "baseGitBlob": "b1bc8382b1cb821b61c6f1ca9a4177f18a08dd01",
+      "baseSha256": "8a28beaa6366bb6236a8b455b61b280f430b4da6583becf73fd229886844e0da",
+      "testedSha256": "8a28beaa6366bb6236a8b455b61b280f430b4da6583becf73fd229886844e0da",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/original/pump_amm/programdata-account.bin",
+      "baseGitBlob": "0317a1571d7d6c76221adeaf312f86d8fd0e9955",
+      "baseSha256": "e3d3be2256841163ba89b6184c2cc90ca1700c820bf887e5bb58b0aa668f5840",
+      "testedSha256": "e3d3be2256841163ba89b6184c2cc90ca1700c820bf887e5bb58b0aa668f5840",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/original/pump_fees/capture.json",
+      "baseGitBlob": "cac71e8e2463eba8bccfd8774c91fb72e15544a7",
+      "baseSha256": "a98928432afc25e4aa422559d4aa3bd73062e1f634ca6189ff5495d1fe158334",
+      "testedSha256": "a98928432afc25e4aa422559d4aa3bd73062e1f634ca6189ff5495d1fe158334",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/original/pump_fees/deployed.so",
+      "baseGitBlob": "e330cbb6dfbc3351dbaaf594ba6e873d89af5f5e",
+      "baseSha256": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+      "testedSha256": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/original/pump_fees/program-account.bin",
+      "baseGitBlob": "7b8bbafc5e9ada557fbe58574758266dff19f0bd",
+      "baseSha256": "cc9077315efa761cfe0b52aae08678ccda2a07e0fa2b374c98a1d51a1b4ce079",
+      "testedSha256": "cc9077315efa761cfe0b52aae08678ccda2a07e0fa2b374c98a1d51a1b4ce079",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/original/pump_fees/programdata-account.bin",
+      "baseGitBlob": "22f623cecf866fe17a36306192eea32087e75225",
+      "baseSha256": "3cf9ee9a380c0ced31171802d402551910ceb8c4819ede4ef44aaf63a12dbfac",
+      "testedSha256": "3cf9ee9a380c0ced31171802d402551910ceb8c4819ede4ef44aaf63a12dbfac",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/upstream/official-repositories.json",
+      "baseGitBlob": "c6523dfa84d362106e36f19f30b70eb657f570bf",
+      "baseSha256": "401fbb93890aa2273dd33fcebea246194779136df0265f35c735bcba104a0420",
+      "testedSha256": "401fbb93890aa2273dd33fcebea246194779136df0265f35c735bcba104a0420",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/upstream/provenance.json",
+      "baseGitBlob": "31873fbb2012126782afd12806984242ff0db9dd",
+      "baseSha256": "a315baa42e9ab40e70f31f541199983c2a5a2883571dbd3dfee8b690518b68b2",
+      "testedSha256": "a315baa42e9ab40e70f31f541199983c2a5a2883571dbd3dfee8b690518b68b2",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/upstream/pump.json",
+      "baseGitBlob": "bb79d04e5a4ef8b286d67511757c23a15672ef51",
+      "baseSha256": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207",
+      "testedSha256": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/upstream/pump_amm.json",
+      "baseGitBlob": "d907b16a91f035aeb3c3182bfa0972a91bf23a86",
+      "baseSha256": "b7d8c57a4d9c4dd0109a9ab893052352333252d4eedced10ac091d4d66cab89b",
+      "testedSha256": "b7d8c57a4d9c4dd0109a9ab893052352333252d4eedced10ac091d4d66cab89b",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/upstream/pump_fees.json",
+      "baseGitBlob": "a06cfeca8aed4d984091c023ec4d5ef3fa0bdda7",
+      "baseSha256": "6b9fa3eccc6e06273076a47b581f9fcb9e531bb7c3c88acbcd44db55a4002b29",
+      "testedSha256": "6b9fa3eccc6e06273076a47b581f9fcb9e531bb7c3c88acbcd44db55a4002b29",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/upstream/tree.txt",
+      "baseGitBlob": "50ef9ecc58eb7f5dfd7896f08c3be9ca0a8fb492",
+      "baseSha256": "661d12efd5cd8c1983e21e985510f0ae9042d2b66dd14c82e804145a966a8afe",
+      "testedSha256": "661d12efd5cd8c1983e21e985510f0ae9042d2b66dd14c82e804145a966a8afe",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/verified-build-status.json",
+      "baseGitBlob": "58f34b43f349ae5da329d108673040440d9c96c6",
+      "baseSha256": "d77aae02c63c60781b79afb8091d8be748cc00c9599411a5b57de1f36619a107",
+      "testedSha256": "d77aae02c63c60781b79afb8091d8be748cc00c9599411a5b57de1f36619a107",
+      "unchanged": true
+    },
+    {
+      "path": "reconstruction/pump-main/baseline/score.json",
+      "baseGitBlob": "aedd51507f33b92810badde89efa360799d2bd08",
+      "baseSha256": "d8b94e211ab43543f8c36bcc566440dec73d8c1c590df3fcb33536c88a21727d",
+      "testedSha256": "d8b94e211ab43543f8c36bcc566440dec73d8c1c590df3fcb33536c88a21727d",
+      "unchanged": true
+    }
+  ],
+  "limits": [
+    "No program source change, compiler build, VM, score improvement or whole-ELF equality claim.",
+    "The original Mayhem-only encoding fixture is unchanged; the declared input list is a maintained metadata/source/capture superset, not a syscall trace.",
+    "disassembly-manifest.json, interface-inventory.json and verified-build-status.json were materialized after the passing run for this broader declared-input binding; they were not needed by that run.",
+    "The first sparse checkout run also lacked tracked binary-analysis.json. That setup failure remains private; authoritative before/after results include the exact tracked input."
+  ]
+}

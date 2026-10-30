@@ -34,7 +34,7 @@ The sealed podman recipe (cold, empty target) reproduces the same pair.
 | `infra/original/deployed.so` | captured original, SHA-256 `6a7ad345…8d8ff7` |
 | `baselines/pristine-ws` | workspace staged from the maintained sources by `workspace_recipe.py` |
 | `baselines/warm-target` | warm dependency target cloned (APFS `cp -c`) into each new lane |
-| `ATTEMPTS.jsonl`, `BEST.json`, `cache/`, `sources/` | swarm log, best result, dedupe cache, every tried sell.rs |
+| `ATTEMPTS.jsonl`, `BEST-v3.json`, `cache/`, `sources/` | swarm log, best result, dedupe cache, every tried sell.rs |
 
 ## Use
 
@@ -78,7 +78,16 @@ execute a program, or require the native SDK.
 `sell_raw_equal` is the goal. `lost_windows_normalized` must stay empty (no other
 function may change). `align_distance` (instruction edit distance with branch
 displacements replaced by labels) and `slot_diffs` (differing 8-byte slots) rank
-partial progress; the version-2 baseline was distance 112, 709 slots. Error-macro
+partial progress. Score version 3 computes the minimum unit-cost instruction
+insertions, deletions and substitutions with dynamic programming; SequenceMatcher
+still supplies the visual diff. Earlier versions counted edits in its greedy
+matching-block alignment, which can overcount a single substitution as two.
+The historical version-2 baseline reports distance 112 and 709 slots. Its distance
+must not be compared directly with version-3 distances; no new native baseline is
+claimed here. Versioned cache keys prevent reuse of the old metric and preserve
+prior receipts. The current best record is also versioned (`BEST-v3.json`) so
+new distances are never ranked against an older metric. Legacy `BEST.json` is
+left untouched; the shared append lock still protects current best updates. Error-macro
 line numbers are encoded as immediates, so edits must keep every
 `error!`/`err!`/`require!` on its current line.
 

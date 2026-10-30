@@ -30,17 +30,26 @@ sys.path.insert(0, str(REPO / "scripts"))
 from window_elf_reader import Elf
 
 SYSCALL_NAMES = {
-    0xb6fc1a11: "sol_log_", 0x207559bd: "sol_log_64_",
-    0xa22b9c85: "sol_memcpy_", 0x5fdcde31: "sol_memmove_",
-    0x73e3b3f5: "sol_memcmp_", 0x3b97b73c: "sol_memset_",
-    0xd56b5fe9: "sol_invoke_signed_c", 0xe4042040: "sol_invoke_signed_rust",
-    0x83f00e8f: "sol_alloc_free_", 0x5be92f43: "sol_set_return_data",
-    0xe2e10497: "sol_log_data", 0xfee07a55: "sol_get_clock_sysvar",
-    0xe7ce47dc: "sol_get_rent_sysvar", 0xcccd2005: "sol_remaining_compute_units",
-    0x52ba5096: "sol_create_program_address",
-    0x48f18ece: "sol_try_find_program_address",
-    0x717cc4a3: "sol_sha256", 0x3770fb22: "sol_keccak256",
-    0x33ef6958: "sol_get_return_data",
+    # SBPF hash_symbol_name: seed-zero MurmurHash3 x86_32 of symbol bytes.
+    0x207559bd: "sol_log_",
+    0x5c2a3178: "sol_log_64_",
+    0x717cc4a3: "sol_memcpy_",
+    0x434371f8: "sol_memmove_",
+    0x5fdcde31: "sol_memcmp_",
+    0x3770fb22: "sol_memset_",
+    0xa22b9c85: "sol_invoke_signed_c",
+    0xd7449092: "sol_invoke_signed_rust",
+    0x83f00e8f: "sol_alloc_free_",
+    0xa226d3eb: "sol_set_return_data",
+    0x7317b434: "sol_log_data",
+    0xd56b5fe9: "sol_get_clock_sysvar",
+    0xbf7188f6: "sol_get_rent_sysvar",
+    0xedef5aee: "sol_remaining_compute_units",
+    0x9377323c: "sol_create_program_address",
+    0x48504a38: "sol_try_find_program_address",
+    0x11f49d86: "sol_sha256",
+    0xd7793abb: "sol_keccak256",
+    0x5d2245e4: "sol_get_return_data",
 }
 
 
@@ -208,9 +217,12 @@ def analyze_data_layout(elf):
 
 def analyze_relocations(elf):
     """Full relocation table analysis with type classification."""
+    # Solana's SBPF loader uses 8 for relative addresses and 10 for calls;
+    # these are not the generic BPF absolute-data relocation names.
+    # https://github.com/anza-xyz/sbpf/blob/f754c707f99779a756978f87c9afd25eeeb3d92e/src/elf.rs#L175-L207
     reloc_types = {
-        0: "R_BPF_NONE", 1: "R_BPF_64_64", 2: "R_BPF_64_RELATIVE",
-        8: "R_BPF_64_ABS64", 10: "R_BPF_64_ABS32",
+        0: "R_BPF_NONE", 1: "R_BPF_64_64",
+        8: "R_BPF_64_RELATIVE", 10: "R_BPF_64_32",
     }
 
     rel_sec = elf.secs.get(".rel.dyn")
@@ -408,7 +420,7 @@ def recover_anchor_idl(elf):
                 for back in range(1, 6):
                     prev = at - back * 8
                     if prev >= elf.lo:
-                        if b[prev] in (0xb7, 0xb4):  # mov imm
+                        if b[prev] in (0xb7, 0xb4) and b[prev + 1] & 0xF == 1:  # mov imm into size argument r1
                             size_val = struct.unpack_from("<i", b, prev + 4)[0]
                             if 8 < size_val < 100000:
                                 account_sizes.append({
@@ -467,7 +479,8 @@ def recover_anchor_idl(elf):
                                           if ld["mem_offset"] == o), 0)
                                     for o in offsets[:20]
                                 ],
-                                "likely_struct_size": max(offsets[:20]) + 8 if offsets else 0,
+                                # Infer before the display-only cap on field details.
+                                "likely_struct_size": max(offsets) + 8 if offsets else 0,
                             })
 
     # Deduplicate account sizes
@@ -553,7 +566,7 @@ def analyze_math_patterns(elf):
             elif opcode in (0x17, 0x1f):  # sub64
                 sub_count += 1
                 prev_op = "sub"
-            elif opcode in (0x67, 0x6f, 0x77, 0x7f):  # shifts
+            elif opcode in (0x67, 0x6f, 0x77, 0x7f, 0xc7, 0xcf):  # 64-bit shifts
                 shift_count += 1
                 prev_op = "shift"
             else:
@@ -599,7 +612,7 @@ def analyze_math_patterns(elf):
             })
 
     # Sort by arithmetic density
-    math_windows.sort(key=lambda w: -(w["multiplications"] + w["divisions"]))
+    math_windows.sort(key=lambda w: -w["arithmetic_density"])
 
     return {
         "math_intensive_windows": math_windows,
@@ -659,21 +672,21 @@ def main():
     # --- Write outputs ---
 
     (output_dir / "layer1-data-layout.json").write_text(
-        json.dumps(data_layout, indent=2) + "\n")
+        json.dumps(data_layout, indent=2) + "\n", encoding="utf-8")
     (output_dir / "layer2-relocation-map.json").write_text(
-        json.dumps(reloc_map, indent=2) + "\n")
+        json.dumps(reloc_map, indent=2) + "\n", encoding="utf-8")
     (output_dir / "layer3-cross-section.json").write_text(
-        json.dumps(cross_section, indent=2) + "\n")
+        json.dumps(cross_section, indent=2) + "\n", encoding="utf-8")
     (output_dir / "layer4-anchor-idl.json").write_text(
-        json.dumps(idl_recovery, indent=2) + "\n")
+        json.dumps(idl_recovery, indent=2) + "\n", encoding="utf-8")
     (output_dir / "layer5-math-analysis.json").write_text(
-        json.dumps(math_analysis, indent=2) + "\n")
+        json.dumps(math_analysis, indent=2) + "\n", encoding="utf-8")
 
     # Summary
     text_bytes = elf.hi - elf.lo
     summary = {
         "program": args.program,
-        "deployed_sha256": sha256_file(str(deployed_path)),
+        "deployed_sha256": sha256_bytes(elf.b),
         "text_bytes": text_bytes,
         "layer1_data_layout": {
             "sections_analyzed": len(data_layout),
@@ -703,7 +716,7 @@ def main():
             "overflow_protected": math_analysis["windows_with_overflow_checks"],
         },
     }
-    (output_dir / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+    (output_dir / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
 
     # README
     l1 = summary["layer1_data_layout"]
@@ -766,18 +779,21 @@ and mathematical pattern extraction.
 python3 verify.py
 ```
 """
-    (output_dir / "README.md").write_text(readme)
+    (output_dir / "README.md").write_text(readme, encoding="utf-8")
 
     verify_py = '''#!/usr/bin/env python3
 import hashlib, json, os, sys
 PACKET = os.path.dirname(os.path.abspath(__file__))
+EXPECTED_FILES = frozenset(__EXPECTED_PACKET_FILES__)
 def sha256_file(p):
     h = hashlib.sha256()
     with open(p, "rb") as f:
         for c in iter(lambda: f.read(65536), b""): h.update(c)
     return h.hexdigest()
 def main():
-    m = json.load(open(os.path.join(PACKET, "manifest.json")))
+    m = json.load(open(os.path.join(PACKET, "manifest.json"), encoding="utf-8"))
+    if not isinstance(m, dict) or set(m) != EXPECTED_FILES:
+        print("FAIL: manifest artifact set mismatch"); return 1
     e = 0
     for n, x in m.items():
         p = os.path.join(PACKET, n)
@@ -793,7 +809,12 @@ def main():
     print("\\nAll checks passed."); return 0
 if __name__ == "__main__": sys.exit(main())
 '''
-    (output_dir / "verify.py").write_text(verify_py)
+    verify_py = verify_py.replace('__EXPECTED_PACKET_FILES__', repr([
+        'README.md', 'layer1-data-layout.json', 'layer2-relocation-map.json',
+        'layer3-cross-section.json', 'layer4-anchor-idl.json', 'layer5-math-analysis.json',
+        'summary.json', 'verify.py',
+    ]))
+    (output_dir / "verify.py").write_text(verify_py, encoding="utf-8")
 
     manifest = {}
     for name in sorted(os.listdir(output_dir)):
@@ -802,10 +823,10 @@ if __name__ == "__main__": sys.exit(main())
         path = output_dir / name
         if path.is_file():
             manifest[name] = sha256_file(str(path))
-    (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 
     total_lines = sum(
-        sum(1 for _ in open(output_dir / name))
+        sum(1 for _ in open(output_dir / name, encoding="utf-8"))
         for name in os.listdir(output_dir) if (output_dir / name).is_file()
     )
     print(f"[deep] wrote {len(manifest)+1} files, ~{total_lines:,} lines to {output_dir}")

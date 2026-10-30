@@ -56,6 +56,8 @@ def sites(blob, secs, start, raw):
                 ry = src(r2)
                 for jj in range(j - 1, max(-1, j - 40), -1):
                     p3, o3, r3, of3, v3 = insn[jj]
+                    if o3 in (0x85, 0x8d) and ry <= 5:
+                        break  # Calls may overwrite caller-saved pointer registers.
                     if dst(r3) == ry and o3 == 0x18:
                         ptr = v3; break
                     if dst(r3) == ry and o3 not in (0x7b, 0x7a, 0x62, 0x72, 0x6a, 0x63, 0x73, 0x6b):
@@ -76,7 +78,8 @@ def sites(blob, secs, start, raw):
     return out
 
 
-ORIG = (BASE / 'original.so').read_bytes(); OS = sections(ORIG)
+from original_input import resolve_original
+ORIG = resolve_original(BASE / 'original.so').read_bytes(); OS = sections(ORIG)
 
 
 def orig_sites(start):

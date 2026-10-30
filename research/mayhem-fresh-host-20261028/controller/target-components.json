@@ -1,0 +1,177 @@
+{
+  "asset": {
+    "url": "https://api.github.com/repos/anza-xyz/platform-tools/releases/assets/368583779",
+    "id": 368583779,
+    "node_id": "RA_kwDOFEFlrs4V-CRj",
+    "name": "platform-tools-linux-x86_64.tar.bz2",
+    "label": "",
+    "uploader": {
+      "login": "github-actions[bot]",
+      "id": 41898282,
+      "node_id": "MDM6Qm90NDE4OTgyODI=",
+      "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/github-actions%5Bbot%5D",
+      "html_url": "https://github.com/apps/github-actions",
+      "followers_url": "https://api.github.com/users/github-actions%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/github-actions%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/github-actions%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/github-actions%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/github-actions%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "content_type": "application/zip",
+    "state": "uploaded",
+    "size": 520154357,
+    "digest": "sha256:fcc41631c7f77561bf5412218bf297501dccf0305ea280f338f0ace2aab9f31e",
+    "download_count": 156071,
+    "created_at": "2026-03-06T23:24:35Z",
+    "updated_at": "2026-03-06T23:24:49Z",
+    "browser_download_url": "https://github.com/anza-xyz/platform-tools/releases/download/v1.54/platform-tools-linux-x86_64.tar.bz2"
+  },
+  "archive_sha256": "fcc41631c7f77561bf5412218bf297501dccf0305ea280f338f0ace2aab9f31e",
+  "selection": "generic-v0 target files and version; Windows additionally rust/bin and Rust/LLVM DLLs",
+  "files": [
+    {
+      "path": "version.md",
+      "bytes": 240,
+      "sha256": "c33d3fa3cae3d9ece4ea08bc8e51a754041286a351067bc3afd2635595619895"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/liblibc-deb3ff916095d990.rlib",
+      "bytes": 35914,
+      "sha256": "c1610a5863c1ee8e1841aaa84cab21debc60217fb7010c32cd7870073fe70263"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/librustc_literal_escaper-db35c7a26fca298a.rlib",
+      "bytes": 91576,
+      "sha256": "f46d87a42b4e8ff0601d8a59c97f400dc3ebd0a9fa3e70804b9cbef19c7141fb"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libgimli-2cdc27a5fff34dee.rlib",
+      "bytes": 6019290,
+      "sha256": "14e7ba05560e99032758e7ec9fee8dd053f324341dd17782cd048653d387e620"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libunwind-82f46020b666cc67.rlib",
+      "bytes": 4830,
+      "sha256": "89bd25ed2a69b37927eb2b9f77a5b6c21ce1bea9e2e80b5213d8aaf855203392"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libpanic_unwind-46114f70f7d6c6e6.rlib",
+      "bytes": 9650,
+      "sha256": "29a17847d246bff8305e66180664f210952b363292bd1c9b154ded4be73a9a46"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libunicode_width-a46004dc1995383a.rlib",
+      "bytes": 909140,
+      "sha256": "de1af41da03d9b7e9d57f9d146b0ed28c93dde2cb5195a991663abb9d0112a60"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libstd-30a182e154ee17f6.rlib",
+      "bytes": 6835238,
+      "sha256": "7f069562d97910c0300966ece708949e6e054a5985c3421125adc49f41531433"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libaddr2line-7b04852147bc488f.rlib",
+      "bytes": 494092,
+      "sha256": "0d182c754c01d8661278027f81e36403a1d04d5288e5aeb39764703502b1ac6a"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libproc_macro-1f8654b6d6129953.rlib",
+      "bytes": 2261312,
+      "sha256": "32ad5cbf74a0b063cea2d1596bcbee4485e2860758cd47ea1f416d56e9190be0"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libcompiler_builtins-3449fbafc948693e.rlib",
+      "bytes": 3858242,
+      "sha256": "9db99a00a1acd4d4812b01a29df2feb9bc049d8f1cca238b0f5efdcdf18ccf3a"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libgetopts-c1df167a90b9bf7e.rlib",
+      "bytes": 395012,
+      "sha256": "68988dadda42aac625056e9de655389a9ff7eb66e8bbbc3df48aed7f1a5756b7"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libcfg_if-7cf899e41db78f56.rlib",
+      "bytes": 8750,
+      "sha256": "4740c67ac930c28cf4d3f5eae438f937908b05752ca7a415b02de8064d83532e"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/librustc_std_workspace_alloc-c4aca4230e3ed9f1.rlib",
+      "bytes": 5156,
+      "sha256": "fdf6b876ff128deca0181874d2329f24530b74d9fb91db26c7ef64a43e6a0e39"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libtest-74839a985ecb16ce.rlib",
+      "bytes": 2234624,
+      "sha256": "6bf71f2cf9bb1cca9132f1efc25bc111ae02d381553b0d1e1be2f4f28de537cc"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/liballoc-91c82d13bc4939af.rlib",
+      "bytes": 6746928,
+      "sha256": "781c60a5d9e28a72bca31f6b811591ef0ad1446fc4afab649534e6fe97de7c76"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/librustc_std_workspace_core-96fd80a5ad74863d.rlib",
+      "bytes": 8562,
+      "sha256": "7d41aa974bcbf8975e629bfc3953ee2946de155adbb6f8c7d66cd0a853580a11"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libminiz_oxide-6b74b645451cfaff.rlib",
+      "bytes": 241458,
+      "sha256": "cb21f10197748f7049e4f9462732594f48d63493f7b83853fd356fc38f5ddd77"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libcore-673053c840437f62.rlib",
+      "bytes": 37551352,
+      "sha256": "f7db2fa22b756da9e9289505c136beeaf4d85bae61cee88d7b3b30fdf23d5139"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libobject-014960b4e82e61dc.rlib",
+      "bytes": 8712660,
+      "sha256": "3cbd4f430985e8aefd41914790d48a7c7d3099e10b66058afc78ed2bc9f7df90"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libmemchr-3f9228401297a81e.rlib",
+      "bytes": 653070,
+      "sha256": "2762ace6aec2da9559b9526900fab31d4640cacef3aad891a1554609051b764f"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libsysroot-e2360dcedbbb73c5.rlib",
+      "bytes": 4856,
+      "sha256": "ffba90c0a20b50b203e43e386be6530162cb064efb43145c5402973604fa66a0"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libpanic_abort-0044281a61328fd8.rlib",
+      "bytes": 8880,
+      "sha256": "c811d2f07ea938d6597e845df03563dca97b9698c541aedb70216cc66bdbb573"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libadler2-f43a66b2a6b479b5.rlib",
+      "bytes": 28902,
+      "sha256": "664d5f4ea829e108594ea96d01549fadd0f1f6d17898532e7b58723faadd0e58"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libstd_detect-826e820da58af5d7.rlib",
+      "bytes": 153270,
+      "sha256": "3d620538f3352ed34aa11b0746231223cb7c6efa3cab33fc03c06ea0ed099335"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/librustc_std_workspace_std-9b2c8600170aa85e.rlib",
+      "bytes": 9464,
+      "sha256": "b6726c62733957bc83796e644c84fc418a9991b1426198675c44a468f7e7d557"
+    },
+    {
+      "path": "rust/lib/rustlib/sbpf-solana-solana/lib/libhashbrown-49b376391f564566.rlib",
+      "bytes": 1439596,
+      "sha256": "d8aad3f15b0f37910cfe36e3432c919cf860f64b42d7cfa24a69ff99291568f8"
+    }
+  ]
+}
