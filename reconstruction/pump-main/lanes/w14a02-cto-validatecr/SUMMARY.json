@@ -1,0 +1,16 @@
+{
+  "lane": "w14a02-cto-validatecr",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": {"53abf28b1": 0.62672, "23322b07c": 0.62882},
+  "result": "no zero-loss gain; notes only",
+  "best_zero_loss": {"ratio": 0.62882, "bytes": 27400, "note": "= main 23322b07c; no candidate beat it"},
+  "best_skeleton": {"trial": "pda (holder_key PDA before shared)", "bytes": 27384, "plain": 0.56758, "fm": 0.66197, "rm": 0.85706,
+    "rm_0x0_0x1800": 467, "main_rm_0x0_0x1800": 432, "rm_total": 2860, "main_rm_total": 2830,
+    "loss": "registers only, orig 0x3000-0x3800 clone runs; Err-payload class r8 -> r6 (orig r9)"},
+  "attempts": 46,
+  "rejected_mechanisms": ["v2 nested 289", "d289", "hm/hu and-1 holder", "take306", "ov override in arm", "lv3n", "h2 holder phi (neutral skeleton, -200 B)", "kv by-value keys", "anew", "smap",
+    "pda+h2+anew (tail relayout)", "pda+hm+ov", "pda+kv", "pda+take", "pda+v2+anew", "hm+ov+take", "IR: pda without the PRE'd curve-pointer phi (0.53307)"],
+  "unresolved": ["pda's clone-run register shift (payload class r6 vs orig r9)", "validate block order: one and-1 holder representation together with nested-289 threading relayouts the function"],
+  "next_ideas": ["screen pda on top of any clone-run RA fix (w13a40/w13a44 mechanism)", "IR oracle: and-1 holder on v2's three holder tests to see if the original outline is reachable"],
+  "tools": ["tools/chunk.py", "tools/aln.py", "tools/bucket.py", "tools/lseq.py", "tools/outl.py", "e/gen.py + tools/batch.sh"]
+}
