@@ -1,0 +1,16 @@
+{
+  "lane": "w13a21-cto-clonefeat",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "landed": [{"pr": 3019, "merge": "698d9adb5", "base": "6ac6f9b67", "before": 0.56291, "after": 0.56741, "change": "sharing-CPI event_authority/program AccountInfo clones hand-written with the key read after both Rc clones"}],
+  "superseded_zero_loss": [
+    {"base": "2f268ad0a", "ratio": [0.51857, 0.52097], "change": "cashback=(st.cashback,!holder) ANDed at the curve store"},
+    {"base": "d81d0f588", "ratio": [0.571, 0.57729], "change": "transfer CPI system_program + coin_creator_vault_ata key-late (main took system_program alone)"},
+    {"base": "06e6bb829", "ratio": [0.57669, 0.58418], "change": "transfer CPI payer key-late + coin_creator_vault_authority owner-early"},
+    {"base": "cb0a19e87", "ratio": [0.59197, 0.59646], "change": "sharing CPI program-arg owner-early + mint key-late"}
+  ],
+  "mechanism": "Hand-written AccountInfo{..} clone literal (through let x:&AccountInfo=&*a.X) reorders the plain-field loads relative to the two Rc increments without changing clone order; this moves register allocation in the CPI clone runs. Found with llc oracles keyscan/keycombo/keypairs/fieldscan on captured post-opt IR; every build equalled its oracle.",
+  "clonefeat": "never above 5/3 in any scan (original 6/2); clonefeat does not track ratio",
+  "rejected": ["w13a12 sink-one-mint-load oracle (-8 B on 2f268ad, no single move gains on 1043a51)", "late mint-field patch via let mut cpi / let mut accs (+32..+56 B or -16..-72 B, lower)", "cashback late re-read of st.cashback (-232 B) or late !holder (-128 B)", "size knobs to pair cashback on 1043a51: scalar bump, tf/sharing program let, if-let, pool holder local, clock local, reset local", "plain a.X.field literal without a reference binding (+16 B, re-derefs the accounts struct)"],
+  "final_main": {"sha": "dfc3693d8", "ratio": 0.59916, "fieldscan_best": 0.59886},
+  "next_ideas": ["other field orders (lamports/data split, flags interleaved) and triples in fieldscan", "pair the off-size owner-early leads with size knobs", "apply the literal to the pool CPI / wallet CPI clones if they are inlined in other builds"]
+}

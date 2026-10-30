@@ -78,6 +78,15 @@ coin_creator_vault_authority:{let x:&AccountInfo=&*a.coin_creator_vault_authorit
 Off-size leads for size pairing: owner-early on the sharing CPI's first clone (pump_fees program) is 0.58534 at 27,376
 (with K(quote_mint) 0.59416 at 27,392); K(quote_mint) alone 0.58311 at 27,416.
 
+## Where it ended (main dfc3693, 0.59916)
+
+Main moved faster than the landing lock: the payer / coin_creator_vault_authority pair (0.58418 on 06e6bb8) and the sharing
+CPI pair (program arg owner-early + mint key-late, 0.59646 at 27,400 on cb0a19e, 0 losses, 363/0) were each superseded
+before landing by other lanes applying the same hand-written clone mechanism to more accounts. On dfc3693 `fieldscan.py`
+(singles over the remaining inlined clones plus pairs of the 4 best) finds nothing above 0.59916 at 27,400 B
+(best 0.59886). Next: field orders beyond K/O/R/F/A (e.g. lamports-data split, flags interleaved), triples, and pairing the
+off-size leads (owner-early sharing program arg was 27,376) with size knobs.
+
 ## Oracles and tools (`scripts/`)
 
 | script | what it does |

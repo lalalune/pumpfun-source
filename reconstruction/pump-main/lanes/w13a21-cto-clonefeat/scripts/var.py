@@ -89,6 +89,15 @@ for g in [g for g in sys.argv[2].split(',') if g]:
     if g.startswith('@'):   # whole admin_cto.rs from another branch (e.g. @w13a22-cto-valslot)
         s = subprocess.run(['git', '-C', str(Path(__file__).resolve().parents[5]), 'show', f'origin/swarm/{g[1:]}:programs/pump/src/creator/admin_cto.rs'], capture_output=True, text=True, check=True).stdout
         continue
+    if g.startswith('shp:'):
+        # shp:<order>: the sharing CPI's CpiContext program argument (pump_fees) as a hand-written AccountInfo clone
+        order = g.split(':')[1]; assert sorted(order) == sorted('kldorswe'), order
+        F = {'k': 'key:x.key', 'l': 'lamports:x.lamports.clone()', 'd': 'data:x.data.clone()', 'o': 'owner:x.owner', 'r': 'rent_epoch:x.rent_epoch',
+             's': 'is_signer:x.is_signer', 'w': 'is_writable:x.is_writable', 'e': 'executable:x.executable'}
+        old = "admin_cto_sharing_config(CpiContext::new_with_signer(a.pump_fees.to_account_info(),"
+        if s.count(old) != 1: sys.exit(f'{g}: anchor')
+        s = s.replace(old, "admin_cto_sharing_config(CpiContext::new_with_signer({let x:&AccountInfo=&*a.pump_fees;AccountInfo{" + ','.join(F[c] for c in order) + "}},")
+        continue
     if g.startswith('tf:') or g.startswith('sh:'):
         # tf:<field>:<order> / sh:<field>:<order>: hand-written AccountInfo clone of that CPI account with the literal's
         # fields in <order> (k key, l lamports, d data, o owner, r rent_epoch, s is_signer, w is_writable, e executable)
