@@ -370,13 +370,13 @@ pub fn vault_amount(owner: &Pubkey, data: &[u8]) -> Result<u64> {
 
     require_neq!(data.len(), 355usize, PumpError::InvalidQuotePool);
     require_eq!(data[108], 1u8, PumpError::InvalidQuotePool);
-    if data.len() == 165 { return Ok(u64::from_le_bytes(data[64..72].try_into().unwrap())); }
+    if data.len() == 165 { return Ok(u64::from_le_bytes(data[64..72].try_into().unwrap_or_default())); }
 
 
 
 
     require_eq!(data[165], 2u8, PumpError::InvalidQuotePool);
-    Ok(u64::from_le_bytes(data[64..72].try_into().unwrap()))
+    Ok(u64::from_le_bytes(data[64..72].try_into().unwrap_or_default()))
 }
 
 

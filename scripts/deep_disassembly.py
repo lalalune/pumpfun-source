@@ -14,9 +14,11 @@ Usage:
     python3 scripts/deep_disassembly.py --program pump --output research/pump-deep-disasm-20261028
 """
 import argparse
+import bisect
 import collections
 import gzip
 import hashlib
+import io
 import json
 import os
 import struct
@@ -40,38 +42,38 @@ BPF_JMP32  = 0x06
 REGS = ["r0","r1","r2","r3","r4","r5","r6","r7","r8","r9","r10"]
 
 SYSCALL_NAMES = {
-    # Solana BPF syscall hashes (murmur3 of the name)
-    0xb6fc1a11: "sol_log_",
-    0x207559bd: "sol_log_64_",
-    0x5c2a3178: "sol_log_compute_units_",
-    0x52ba5096: "sol_create_program_address",
-    0x48f18ece: "sol_try_find_program_address",
-    0x717cc4a3: "sol_sha256",
-    0x3770fb22: "sol_keccak256",
-    0xd7793abb: "sol_secp256k1_recover",
-    0xa22b9c85: "sol_memcpy_",
-    0x5fdcde31: "sol_memmove_",
-    0x73e3b3f5: "sol_memcmp_",
-    0x3b97b73c: "sol_memset_",
-    0xd56b5fe9: "sol_invoke_signed_c",
-    0xe4042040: "sol_invoke_signed_rust",
+    # SBPF hash_symbol_name: seed-zero MurmurHash3 x86_32 of symbol bytes.
+    0x207559bd: "sol_log_",
+    0x5c2a3178: "sol_log_64_",
+    0x52ba5096: "sol_log_compute_units_",
+    0x9377323c: "sol_create_program_address",
+    0x48504a38: "sol_try_find_program_address",
+    0x11f49d86: "sol_sha256",
+    0xd7793abb: "sol_keccak256",
+    0x17e40350: "sol_secp256k1_recover",
+    0x717cc4a3: "sol_memcpy_",
+    0x434371f8: "sol_memmove_",
+    0x5fdcde31: "sol_memcmp_",
+    0x3770fb22: "sol_memset_",
+    0xa22b9c85: "sol_invoke_signed_c",
+    0xd7449092: "sol_invoke_signed_rust",
     0x83f00e8f: "sol_alloc_free_",
-    0x5be92f43: "sol_set_return_data",
-    0x33ef6958: "sol_get_return_data",
-    0xe2e10497: "sol_log_data",
-    0x3b6eb49d: "sol_get_processed_sibling_instruction",
-    0x1f0c09b9: "sol_get_stack_height",
-    0xb72a0830: "sol_curve_validate_point",
-    0xdc54d79f: "sol_curve_group_op",
-    0x2ee22170: "sol_curve_multiscalar_mul",
-    0xef1d9b84: "sol_alt_bn128_group_op",
-    0x882e3b1f: "sol_big_mod_exp",
-    0xcccd2005: "sol_remaining_compute_units",
-    0x0f59f1e1: "sol_poseidon",
-    0xa93f0bfc: "sol_get_epoch_stake",
-    0xfee07a55: "sol_get_clock_sysvar",
-    0xe7ce47dc: "sol_get_rent_sysvar",
-    0x8fbcf403: "sol_get_last_restart_slot",
+    0xa226d3eb: "sol_set_return_data",
+    0x5d2245e4: "sol_get_return_data",
+    0x7317b434: "sol_log_data",
+    0xadb8efc8: "sol_get_processed_sibling_instruction",
+    0x85532d94: "sol_get_stack_height",
+    0xaa2607ca: "sol_curve_validate_point",
+    0xdd1c41a6: "sol_curve_group_op",
+    0x60a40880: "sol_curve_multiscalar_mul",
+    0xae0c318b: "sol_alt_bn128_group_op",
+    0x780e4c15: "sol_big_mod_exp",
+    0xedef5aee: "sol_remaining_compute_units",
+    0xc4947c21: "sol_poseidon",
+    0x5be92f4a: "sol_get_epoch_stake",
+    0xd56b5fe9: "sol_get_clock_sysvar",
+    0xbf7188f6: "sol_get_rent_sysvar",
+    0x188a0031: "sol_get_last_restart_slot",
 }
 
 
@@ -165,6 +167,11 @@ def decode_instruction(b, offset, elf):
         else:
             result["mnemonic"] = f"{cond} {dst}, {imm}, {off:+d} ({hex(target)})"
         result["branch_target"] = target
+    elif opcode in (0xd4, 0xdc):
+        # Endian conversion uses the immediate as a bit width; opcode bit 3
+        # selects the direction, not a register operand.
+        direction = "le" if opcode == 0xd4 else "be"
+        result["mnemonic"] = f"{direction}{imm} {dst}"
     elif opcode & 0x07 == 0x04 or opcode & 0x07 == 0x07:
         alu_map = {
             0x04: "add32", 0x07: "add64", 0x0c: "add32", 0x0f: "add64",
@@ -180,15 +187,16 @@ def decode_instruction(b, offset, elf):
             0xa4: "xor32", 0xa7: "xor64", 0xac: "xor32", 0xaf: "xor64",
             0xb4: "mov32", 0xb7: "mov64", 0xbc: "mov32", 0xbf: "mov64",
             0xc4: "arsh32", 0xc7: "arsh64", 0xcc: "arsh32", 0xcf: "arsh64",
-            0xd4: "le", 0xdc: "be",
         }
         op = alu_map.get(opcode, f"alu_{opcode:#04x}")
-        if opcode & 0x08:
+        if opcode in (0x84, 0x87):
+            result["mnemonic"] = f"{op} {dst}"
+        elif opcode & 0x08:
             result["mnemonic"] = f"{op} {dst}, {src}"
         else:
             result["mnemonic"] = f"{op} {dst}, {imm}"
     elif opcode & 0x07 in (0x01, 0x02, 0x03):
-        size_map = {0x00: "w", 0x08: "dw", 0x10: "h", 0x18: "b"}
+        size_map = {0x00: "w", 0x08: "h", 0x10: "b", 0x18: "dw"}
         sz = size_map.get(opcode & 0x18, "?")
         cls = opcode & 0x07
         if cls == 0x01:  # LDX
@@ -229,6 +237,19 @@ def extract_rodata_strings(elf):
     if len(current) >= 4:
         strings[current_start] = "".join(current)
     return strings
+
+
+def rodata_string_preview(strings, starts, address):
+    """Preview a printable-run suffix, not an inferred Rust string length."""
+    index = bisect.bisect_right(starts, address) - 1
+    if index < 0:
+        return None
+    start = starts[index]
+    text = strings[start]
+    offset = address - start
+    if offset >= len(text):
+        return None
+    return text[offset:offset + 120]
 
 
 def load_idl_discriminators(elf):
@@ -355,6 +376,10 @@ def recover_anchor_dispatch(elf):
             imm_lo = struct.unpack_from("<I", elf.b, offset + 4)[0]
             imm_hi = struct.unpack_from("<I", elf.b, offset + 12)[0]
             prev_imm64 = (imm_lo | (imm_hi << 32)) & 0xFFFFFFFFFFFFFFFF
+            if offset in elf.relocations:
+                # The loader rewrites a relocated lddw: it loads an address
+                # (e.g. a panic location or string), never a selector literal.
+                prev_imm64 = None
             offset += 16
         elif opcode == 0x85 and elf.b[offset + 1] == 0x10:
             # Internal call — this might be a handler dispatch
@@ -421,11 +446,12 @@ def analyze_stack_frame(instructions):
     stack_accesses = collections.Counter()
     max_depth = 0
     for insn in instructions:
-        if insn.get("memory_access") and insn["dst"] == 10:
-            stack_accesses[insn["off"]] += 1
-            if insn["off"] < 0:
-                max_depth = max(max_depth, -insn["off"])
-        if insn.get("memory_access") and insn["src"] == 10:
+        if not insn.get("memory_access"):
+            continue
+        # LDX addresses through src; ST/STX address through dst. The other
+        # register can carry the frame pointer as data without addressing it.
+        base = insn["src"] if int(insn["opcode"], 16) & 7 == BPF_LDX else insn["dst"]
+        if base == 10:
             stack_accesses[insn["off"]] += 1
             if insn["off"] < 0:
                 max_depth = max(max_depth, -insn["off"])
@@ -548,6 +574,7 @@ def main():
     boundaries = entries + [elf.hi]
 
     rodata_strings = extract_rodata_strings(elf)
+    rodata_starts = sorted(rodata_strings)
     print(f"[disasm] {len(rodata_strings)} rodata strings extracted")
 
     dispatch = recover_anchor_dispatch(elf)
@@ -587,10 +614,11 @@ def main():
         for insn in instructions:
             if insn.get("imm64") is not None:
                 val = insn["imm64"] & 0xFFFFFFFFFFFFFFFF
-                if val in rodata_strings:
+                preview = rodata_string_preview(rodata_strings, rodata_starts, val)
+                if preview is not None:
                     string_refs.append({
                         "offset": insn["offset"] - start,
-                        "string": rodata_strings[val][:120],
+                        "string": preview,
                     })
 
         # CFG edges
@@ -612,10 +640,10 @@ def main():
             "size": size,
             "name": name,
             "instruction_count": len(instructions),
-            "syscalls": list(set(
+            "syscalls": sorted(set(
                 insn["syscall"] for insn in instructions if insn.get("syscall")
             )),
-            "extern_calls": list(set(
+            "extern_calls": sorted(set(
                 insn["extern_symbol"] for insn in instructions if insn.get("extern_symbol")
             )),
             "internal_calls": sum(1 for insn in instructions if insn.get("call_target")),
@@ -654,24 +682,29 @@ def main():
 
     # 1. Window summary with deep analysis
     (output_dir / "windows-deep.json").write_text(
-        json.dumps(all_windows, indent=2) + "\n")
+        json.dumps(all_windows, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 2. Full disassembly (gzipped — can be large)
     disasm_path = output_dir / "disassembly.json.gz"
-    with gzip.open(str(disasm_path), "wt") as f:
-        json.dump(all_disasm, f, indent=2)
+    # Keep packet identity independent of wall time, output path and locale.
+    with disasm_path.open("wb") as raw:
+        with gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as compressed:
+            with io.TextIOWrapper(compressed, encoding="utf-8", newline="\n") as f:
+                json.dump(all_disasm, f, indent=2)
 
     # 3. Dispatch table
     (output_dir / "dispatch-table.json").write_text(
-        json.dumps(dispatch, indent=2) + "\n")
+        json.dumps(dispatch, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 4. Syscall usage
     (output_dir / "syscall-usage.json").write_text(
-        json.dumps(dict(syscall_usage.most_common()), indent=2) + "\n")
+        json.dumps(dict(syscall_usage.most_common()), indent=2) + "\n",
+        encoding="utf-8", newline="\n")
 
     # 5. External symbol usage
     (output_dir / "extern-usage.json").write_text(
-        json.dumps(dict(extern_usage.most_common()), indent=2) + "\n")
+        json.dumps(dict(extern_usage.most_common()), indent=2) + "\n",
+        encoding="utf-8", newline="\n")
 
     # 6. Rodata strings
     rodata_for_json = [
@@ -679,11 +712,11 @@ def main():
         for addr, s in sorted(rodata_strings.items())
     ]
     (output_dir / "rodata-strings.json").write_text(
-        json.dumps(rodata_for_json, indent=2) + "\n")
+        json.dumps(rodata_for_json, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 7. Bytecode fingerprints
     (output_dir / "fingerprints.json").write_text(
-        json.dumps(fingerprints, indent=2) + "\n")
+        json.dumps(fingerprints, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 8. Error messages (strings containing common error patterns)
     error_strings = [
@@ -696,12 +729,12 @@ def main():
         ])
     ]
     (output_dir / "error-strings.json").write_text(
-        json.dumps(error_strings, indent=2) + "\n")
+        json.dumps(error_strings, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 9. Summary
     summary = {
         "program": args.program,
-        "deployed_sha256": sha256_file(str(deployed_path)),
+        "deployed_sha256": hashlib.sha256(elf.b).hexdigest(),
         "text_section_bytes": elf.hi - elf.lo,
         "total_windows": len(entries),
         "total_instructions": sum(w["instruction_count"] for w in all_windows),
@@ -719,7 +752,7 @@ def main():
         "extern_breakdown": dict(extern_usage.most_common()),
     }
     (output_dir / "summary.json").write_text(
-        json.dumps(summary, indent=2) + "\n")
+        json.dumps(summary, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     # 10. README
     readme = f"""# {args.program} — Deep Disassembly Analysis
@@ -752,6 +785,10 @@ fingerprinting for cross-window pattern matching.
 {chr(10).join(f'- `{name}`: {count}' for name, count in syscall_usage.most_common(15))}
 
 ## Files
+String references preview up to 120 printable bytes from the referenced address
+to the end of its extracted ASCII run. They do not establish a Rust string's
+length, a semantic string boundary, or runtime use.
+
 | File | Description |
 |------|-------------|
 | windows-deep.json | Per-window analysis (syscalls, strings, stack, fingerprint) |
@@ -768,7 +805,7 @@ fingerprinting for cross-window pattern matching.
 python3 verify.py
 ```
 """
-    (output_dir / "README.md").write_text(readme)
+    (output_dir / "README.md").write_text(readme, encoding="utf-8", newline="\n")
 
     # 11. Verify script
     verify_py = '''#!/usr/bin/env python3
@@ -776,6 +813,7 @@ python3 verify.py
 import hashlib, json, os, sys
 
 PACKET = os.path.dirname(os.path.abspath(__file__))
+EXPECTED_FILES = frozenset(__EXPECTED_PACKET_FILES__)
 
 def sha256_file(path):
     h = hashlib.sha256()
@@ -786,6 +824,8 @@ def sha256_file(path):
 
 def main():
     manifest = json.load(open(os.path.join(PACKET, "manifest.json")))
+    if not isinstance(manifest, dict) or set(manifest) != EXPECTED_FILES:
+        print("FAIL: manifest artifact set mismatch"); return 1
     errors = 0
     for name, expected in manifest.items():
         path = os.path.join(PACKET, name)
@@ -809,7 +849,15 @@ def main():
 if __name__ == "__main__":
     sys.exit(main())
 '''
+    verify_py = verify_py.replace('__EXPECTED_PACKET_FILES__', repr([
+        'README.md', 'disassembly.json.gz', 'dispatch-table.json', 'error-strings.json',
+        'extern-usage.json', 'fingerprints.json', 'rodata-strings.json', 'summary.json',
+        'syscall-usage.json', 'verify.py', 'windows-deep.json',
+    ]))
     (output_dir / "verify.py").write_text(verify_py)
+
+
+    (output_dir / "verify.py").write_text(verify_py, encoding="utf-8", newline="\n")
 
     # 12. Manifest
     manifest = {}
@@ -820,10 +868,10 @@ if __name__ == "__main__":
         if path.is_file():
             manifest[name] = sha256_file(str(path))
     (output_dir / "manifest.json").write_text(
-        json.dumps(manifest, indent=2) + "\n")
+        json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     total_lines = sum(
-        sum(1 for _ in open(output_dir / name))
+        sum(1 for _ in open(output_dir / name, encoding="utf-8"))
         for name in os.listdir(output_dir)
         if (output_dir / name).is_file() and not name.endswith(".gz")
     )

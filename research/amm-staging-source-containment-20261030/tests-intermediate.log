@@ -1,0 +1,21 @@
+..F...F.
+======================================================================
+FAIL: test_canonical_existing_output_is_preserved_without_dotdot_parents (__main__.SourceContainmentTests.test_canonical_existing_output_is_preserved_without_dotdot_parents)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pumpfun-source-workers/pump-admin/scripts/amm_sell/test_workspace_recipe_staging.py", line 161, in test_canonical_existing_output_is_preserved_without_dotdot_parents
+    self.assertFalse(missing.exists())
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_safe_dotdot_output_does_not_create_parents_in_input_crate (__main__.SourceContainmentTests.test_safe_dotdot_output_does_not_create_parents_in_input_crate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pumpfun-source-workers/pump-admin/scripts/amm_sell/test_workspace_recipe_staging.py", line 148, in test_safe_dotdot_output_does_not_create_parents_in_input_crate
+    self.assertFalse(missing.exists(), 'lexical mkdir created a directory inside an input crate')
+AssertionError: True is not false : lexical mkdir created a directory inside an input crate
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.407s
+
+FAILED (failures=2)

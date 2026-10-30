@@ -38,26 +38,27 @@ def sha256_file(path):
 
 
 SYSCALL_NAMES = {
-    0xb6fc1a11: "sol_log_",
-    0x207559bd: "sol_log_64_",
-    0x5c2a3178: "sol_log_compute_units_",
-    0x52ba5096: "sol_create_program_address",
-    0x48f18ece: "sol_try_find_program_address",
-    0x717cc4a3: "sol_sha256",
-    0x3770fb22: "sol_keccak256",
-    0xa22b9c85: "sol_memcpy_",
-    0x5fdcde31: "sol_memmove_",
-    0x73e3b3f5: "sol_memcmp_",
-    0x3b97b73c: "sol_memset_",
-    0xd56b5fe9: "sol_invoke_signed_c",
-    0xe4042040: "sol_invoke_signed_rust",
+    # SBPF hash_symbol_name: seed-zero MurmurHash3 x86_32 of symbol bytes.
+    0x207559bd: "sol_log_",
+    0x5c2a3178: "sol_log_64_",
+    0x52ba5096: "sol_log_compute_units_",
+    0x9377323c: "sol_create_program_address",
+    0x48504a38: "sol_try_find_program_address",
+    0x11f49d86: "sol_sha256",
+    0xd7793abb: "sol_keccak256",
+    0x717cc4a3: "sol_memcpy_",
+    0x434371f8: "sol_memmove_",
+    0x5fdcde31: "sol_memcmp_",
+    0x3770fb22: "sol_memset_",
+    0xa22b9c85: "sol_invoke_signed_c",
+    0xd7449092: "sol_invoke_signed_rust",
     0x83f00e8f: "sol_alloc_free_",
-    0x5be92f43: "sol_set_return_data",
-    0x33ef6958: "sol_get_return_data",
-    0xe2e10497: "sol_log_data",
-    0xfee07a55: "sol_get_clock_sysvar",
-    0xe7ce47dc: "sol_get_rent_sysvar",
-    0xcccd2005: "sol_remaining_compute_units",
+    0xa226d3eb: "sol_set_return_data",
+    0x5d2245e4: "sol_get_return_data",
+    0x7317b434: "sol_log_data",
+    0xd56b5fe9: "sol_get_clock_sysvar",
+    0xbf7188f6: "sol_get_rent_sysvar",
+    0xedef5aee: "sol_remaining_compute_units",
 }
 
 INVOKE_SYSCALLS = ("sol_invoke_signed_c", "sol_invoke_signed_rust")
@@ -77,7 +78,7 @@ def call_symbol(elf, offset):
     if regs == 0x00:
         return SYSCALL_NAMES.get(struct.unpack_from("<I", blob, offset + 4)[0])
     if regs >> 4 == 1 and struct.unpack_from("<i", blob, offset + 4)[0] == -1:
-        relocation = elf.relocations.get(offset) or {}
+        relocation = (getattr(elf, "relocations", None) or {}).get(offset) or {}
         if relocation.get("type") == 10 and relocation.get("symbol"):
             return relocation["symbol"]
     return None
@@ -112,7 +113,7 @@ def detect_error_patterns(elf, start, end):
     b = elf.b
     patterns = []
     offset = start
-    while offset < end - 24:
+    while offset + 8 <= end:
         opcode = b[offset]
         # Look for: conditional branch + mov immediate + call/exit
         if opcode in (0x15, 0x1d, 0x25, 0x2d, 0x35, 0x3d,
@@ -136,6 +137,25 @@ def detect_error_patterns(elf, start, end):
         else:
             offset += 8
     return patterns
+
+
+CALL_RELOCATION_TYPE = 10
+CPI_SYSCALLS = ("sol_invoke_signed_rust", "sol_invoke_signed_c")
+
+
+def call_symbols(elf):
+    """Map call-site offset -> relocated symbol name.
+
+    Call instructions in these artifacts always carry the 0xffffffff
+    placeholder immediate; the callee lives in .rel.dyn, so the literal
+    syscall hash never appears in the instruction stream.
+    """
+    relocations = getattr(elf, "relocations", None) or {}
+    return {
+        offset: entry["symbol"]
+        for offset, entry in relocations.items()
+        if entry.get("type") == CALL_RELOCATION_TYPE and entry.get("symbol")
+    }
 
 
 def detect_cpi_patterns(elf, start, end):
@@ -202,7 +222,9 @@ def detect_serialization_patterns(elf, start, end):
     sequential_stores = 0
     max_sequential = 0
     current_run = 0
-    memcpy_count = 0
+    memcpy_count = sum(
+        1 for offset in range(start, end, 8) if call_symbol(elf, offset) == "sol_memcpy_"
+    )
 
     for offset in range(start, end, 8):
         if b[offset] in (0x63, 0x6b, 0x73, 0x7b):  # stx
@@ -211,12 +233,11 @@ def detect_serialization_patterns(elf, start, end):
         else:
             max_sequential = max(max_sequential, current_run)
             current_run = 0
-        if call_symbol(elf, offset) == "sol_memcpy_":
-            memcpy_count += 1
 
+    max_sequential = max(max_sequential, current_run)
     return {
         "sequential_stores": sequential_stores,
-        "max_store_run": max(max_sequential, current_run),
+        "max_store_run": max_sequential,
         "memcpy_calls": memcpy_count,
         "likely_serialization": max_sequential >= 4 or memcpy_count >= 2,
     }
@@ -234,7 +255,7 @@ def detect_account_validation(elf, start, end):
     discriminator_checks = 0
     owner_checks = 0
 
-    for offset in range(start, end - 16, 8):
+    for offset in range(start, end - 7, 8):
         # Pattern: ldxdw r?, [r? + 0] followed by comparison
         if b[offset] == 0x79:  # ldxdw
             off = struct.unpack_from("<h", b, offset + 2)[0]
@@ -464,6 +485,7 @@ python3 verify.py
 import hashlib, json, os, sys
 
 PACKET = os.path.dirname(os.path.abspath(__file__))
+EXPECTED_FILES = frozenset(__EXPECTED_PACKET_FILES__)
 
 def sha256_file(path):
     h = hashlib.sha256()
@@ -474,6 +496,8 @@ def sha256_file(path):
 
 def main():
     manifest = json.load(open(os.path.join(PACKET, "manifest.json")))
+    if not isinstance(manifest, dict) or set(manifest) != EXPECTED_FILES:
+        print("FAIL: manifest artifact set mismatch"); return 1
     errors = 0
     for name, expected in manifest.items():
         path = os.path.join(PACKET, name)
@@ -491,6 +515,10 @@ def main():
 if __name__ == "__main__":
     sys.exit(main())
 '''
+    verify_py = verify_py.replace('__EXPECTED_PACKET_FILES__', repr([
+        'README.md', 'shared-signatures.json', 'summary.json', 'top-ngrams.json', 'verify.py',
+        *[f'{program}-{kind}.json' for program in program_summaries for kind in ('patterns', 'signatures')],
+    ]))
     (output_dir / "verify.py").write_text(verify_py)
 
     # 8. Manifest

@@ -436,17 +436,31 @@ class DependencyCache:
                 )
             )
             assert sha(archive) == checks[(name, version)]
+            archived = set()
             with tarfile.open(archive, "r:gz") as t:
                 for member in t:
                     if not member.isfile():
                         continue
                     relative = Path(member.name).relative_to(name + "-" + version)
+                    archived.add(relative.as_posix())
                     file = directory / relative
                     assert (
                         file.is_file()
                         and t.extractfile(member).read() == file.read_bytes()
                     ), str(file)
                     files += 1
+            # The archive check above only proves archived files are present; Cargo also
+            # compiles files that are not in it (an added build.rs runs at build time).
+            present = {
+                Path(d, n).relative_to(directory).as_posix()
+                for d, dirs, names in os.walk(directory)
+                for n in names + [x for x in dirs if Path(d, x).is_symlink()]
+            }
+            extra = present - archived - {".cargo-ok"}
+            if extra:
+                raise AssertionError(
+                    f"{name}-{version}: files absent from locked archive: {sorted(extra)}"
+                )
         self.publish(build / "target", report)
         self.record["imported_clean_build"] = {
             "path": str(build),

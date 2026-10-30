@@ -6,8 +6,8 @@ Usage: fastbuild.py --src <crate dir with Cargo.toml/Cargo.lock/src[/recovered]>
 - Stages the crate as <work>/ws/programs/pump inside a one-member workspace (same split of
   [profile.release] into the workspace root as the verified builder).
 - Keeps a persistent CARGO_TARGET_DIR at <work>/target so external deps compile once; only
-  the main crate recompiles (lto=false, codegen-units=1, non-incremental release => output
-  equals a fresh build of the same sources).
+  the main crate and the path crates nested in it (pump-token-ext) recompile (lto=false,
+  codegen-units=1, non-incremental release => output equals a fresh build of the same sources).
 - Seeds <work>/target from the warm template (APFS clone) on first use.
 - Writes <out>/unstripped.so and <out>/candidate.so (default <work>/last).
 - Before compilation, archives previous outputs and their log under <out>/previous/build-*.
@@ -69,6 +69,16 @@ def stage(src: Path, ws: Path):
     lock = (src / 'Cargo.lock').read_text()
     put(ws / 'Cargo.lock', lock)
     return crate
+
+
+def local_packages(crate: Path):
+    """Package names of the staged crate and of every path crate nested in it."""
+    names = set()
+    for manifest in crate.rglob('Cargo.toml'):
+        name = tomllib.loads(manifest.read_text()).get('package', {}).get('name')
+        if name:
+            names.add(name)
+    return names
 
 
 def acquire_slot():
@@ -160,10 +170,13 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     out.mkdir(parents=True, exist_ok=True)
     archive_previous_outputs(out)
     (out / 'source-inputs.json').write_text(json.dumps(source_inputs, indent=2) + '\n', encoding='utf-8')
-    # Never trust mtime freshness for the main crate (rsync -a keeps source mtimes, so cargo could
-    # otherwise reuse a stale pump artifact): drop its fingerprints and outputs so it always recompiles.
-    for fp in list(target.glob('*/release/.fingerprint/pump-recovered-*')) + list(target.glob('release/.fingerprint/pump-recovered-*')):
-        shutil.rmtree(fp, ignore_errors=True)
+    # Never trust mtime freshness for local crates (rsync -a keeps source mtimes, so cargo could
+    # otherwise reuse a stale pump artifact): drop their fingerprints (and the main output) so they
+    # always recompile. This includes path crates nested in the staged crate, such as pump-token-ext;
+    # otherwise restaging older sources links the previous trial's library.
+    for name in {'pump-recovered'} | local_packages(crate):
+        for fp in list(target.glob(f'*/release/.fingerprint/{name}-*')) + list(target.glob(f'release/.fingerprint/{name}-*')):
+            shutil.rmtree(fp, ignore_errors=True)
     for so in target.glob('*/release/pump_recovered.so'):
         so.unlink()
     slot = acquire_slot()

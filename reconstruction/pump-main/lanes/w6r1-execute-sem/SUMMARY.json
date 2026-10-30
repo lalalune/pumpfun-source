@@ -1,0 +1,8 @@
+{"lane":"w6r1-execute-sem","target":"0x22a10","approach":"assembly-first semantic reconstruction + IR oracle",
+"base":{"commit":"099b0dd","ratio":0.36328,"bytes":27416,"normalized":1027,"raw":276},
+"best":{"trial":"t1","mechanism":"sweep body as nested fn sweep(ctx:&Context<AdminCto>,holder_key:&Pubkey)","ratio":0.36952,"bytes":27424,"orig_bytes":27400,"calls":[154,3],"normalized":1027,"raw":276,"losses":[],"raw_losses":[],"unstripped_sha256":"15e838ce825b183202d6d08ee0f5bd840ce03a0bc7f8b1e746f2d7cadb93d093"},
+"pr":"https://github.com/lalalune/pumpfun-source/pull/2152",
+"attempts":["50ed472b t1 (kept)","ad8c526d t2 = t1 + unwrap_or non-short-circuit: 27400 B exact, 0.34871, zero losses","d552ca4d IR oracle unthread analysis"],
+"rejected":["t2 holder.unwrap_or(false) on t1 (lower ratio)","IR-only: unthreading sweep exit alone (0.3183)"],
+"residuals":["sweep exit jump-threaded in ours, a shared tag-check merge in orig","native-mint branch weight (zero heuristic) vs orig layout","validation error-block order 289/298/306/330 and to_string inline set","frame residuals from w3/w4 (_109.i, 7/9 B pieces)"],
+"next":["find source that leaves the sweep return merge unthreaded (oracle 0.4531 when combined with a ~50% native branch)","find source that makes the native-mint check not a direct memcmp==0 branch condition","reconstruct validation CFG from orig 0x5e0-0x1900 (holder_reward tested before holder; 306 head placed before 289 tail)"]}

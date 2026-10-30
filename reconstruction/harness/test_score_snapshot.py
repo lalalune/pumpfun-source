@@ -37,7 +37,7 @@ class SnapshotTests(unittest.TestCase):
             windows = [{'start': 4096, 'bytes': 8, 'raw': original, 'norm': original}]
             tool_paths = []
 
-            def symbols(command, **kwargs):
+            def symbols(snapshot_path):
                 # Simulate another build publishing after the scorer's first read.
                 if remove:
                     candidate.unlink()
@@ -45,23 +45,22 @@ class SnapshotTests(unittest.TestCase):
                     replacement = root / 'replacement.so'
                     replacement.write_bytes(second)
                     replacement.replace(candidate)
-                tool_path = Path(command[-1])
+                tool_path = Path(snapshot_path)
                 tool_paths.append(tool_path)
                 if tool_failure:
                     raise RuntimeError('symbol reader failed')
                 symbol = 'first' if tool_path.read_bytes() == first else 'second'
-                return f'0000000000001000 g F .text 0000000000000008 {symbol}\n'
+                return [(4096, 8, symbol)]
 
             with patch.object(score, 'original_windows', return_value=windows), \
-                 patch.object(score, 'objdump', return_value='mock-objdump'), \
-                 patch.object(score.subprocess, 'check_output', side_effect=symbols):
+                 patch.object(score, 'candidate_functions', side_effect=symbols):
                 if tool_failure:
                     with self.assertRaisesRegex(RuntimeError, 'symbol reader failed'):
                         score.score(candidate)
                 elif cli:
                     report = root / 'score.json'
                     baseline = root / 'baseline.json'
-                    baseline.write_text('{"windows": {}}')
+                    baseline.write_text(json.dumps({'windows': {'4096': {'normalized': True, 'raw': True, 'bytes': 8}}}))
                     with patch.object(sys, 'argv', ['score.py', str(candidate), '--baseline',
                                                    str(baseline), '--json', str(report)]), \
                          contextlib.redirect_stdout(io.StringIO()):

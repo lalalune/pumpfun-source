@@ -14,6 +14,8 @@ def function_symbols(blob):
 
     if len(blob) < 64 or blob[:7] != b'\x7fELF\x02\x01\x01':
         raise ValueError('expected an ELF64 little-endian version-1 image')
+    if struct.unpack_from('<H', blob, 18)[0] not in (247, 263):
+        raise ValueError('expected an EM_BPF or EM_SBPF candidate image')
     shoff = struct.unpack_from('<Q', blob, 40)[0]
     entry_size, count, names_index = struct.unpack_from('<HHH', blob, 58)
     if entry_size != 64 or not count or names_index >= count:
@@ -41,6 +43,8 @@ def function_symbols(blob):
         raise ValueError('expected exactly one .text section')
     text_index = next(iter(text_indices))
     text = headers[text_index]
+    if text[1] != 1 or not text[2] & 4:
+        raise ValueError('.text must contain executable PROGBITS')
     section_data(text, '.text')
     functions = []
     seen = set()
@@ -60,6 +64,8 @@ def function_symbols(blob):
                 continue
             if address < text[3] or address - text[3] + size > text[5]:
                 raise ValueError('function symbol extends outside .text')
+            if address % 8 or size % 8:
+                raise ValueError('SBF function symbols must contain aligned instruction slots')
             name = string(strings, name_offset, 'symbol name')
             row = (address, size, name)
             if row not in seen:

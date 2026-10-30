@@ -1,0 +1,48 @@
+.........................EEE..............
+======================================================================
+ERROR: test_retained_interfaces_are_independent_of_default_text_encoding (test_analysis_interface_inventory.InterfaceInventoryEncodingTests.test_retained_interfaces_are_independent_of_default_text_encoding) (default_encoding='cp936')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pumpfun-source-workers/pump-admin/scripts/test_analysis_interface_inventory.py", line 38, in test_retained_interfaces_are_independent_of_default_text_encoding
+    analyze.analyze()
+  File "/workspace/pumpfun-source-workers/pump-admin/scripts/analyze.py", line 104, in analyze
+    b=(ROOT/f'evidence/original/{name}/deployed.so').read_bytes(); r=elf_layout(b)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pump-interface-0cce9py1/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_retained_interfaces_are_independent_of_default_text_encoding (test_analysis_interface_inventory.InterfaceInventoryEncodingTests.test_retained_interfaces_are_independent_of_default_text_encoding) (default_encoding='utf-8')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pumpfun-source-workers/pump-admin/scripts/test_analysis_interface_inventory.py", line 38, in test_retained_interfaces_are_independent_of_default_text_encoding
+    analyze.analyze()
+  File "/workspace/pumpfun-source-workers/pump-admin/scripts/analyze.py", line 104, in analyze
+    b=(ROOT/f'evidence/original/{name}/deployed.so').read_bytes(); r=elf_layout(b)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pump-interface-bz7izm5p/evidence/original/pump/deployed.so'
+
+======================================================================
+ERROR: test_retained_interfaces_are_independent_of_default_text_encoding (test_analysis_interface_inventory.InterfaceInventoryEncodingTests.test_retained_interfaces_are_independent_of_default_text_encoding)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pumpfun-source-workers/pump-admin/scripts/test_analysis_interface_inventory.py", line 46, in test_retained_interfaces_are_independent_of_default_text_encoding
+    self.assertEqual(outputs[0], outputs[1])
+                     ~~~~~~~^^^
+IndexError: list index out of range
+
+----------------------------------------------------------------------
+Ran 40 tests in 4.329s
+
+FAILED (errors=3)

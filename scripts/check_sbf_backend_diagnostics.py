@@ -10,7 +10,7 @@ STACK=re.compile(r'^Error: Function (.*?) Stack offset of (-?\d+) exceeded max o
 def inspect(path):
  path=Path(path);raw=path.read_bytes();decoded=gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw
  errors=[]
- for number,line in enumerate(decoded.decode('utf-8').splitlines(),1):
+ for number,line in enumerate(decoded.decode('utf-8-sig').splitlines(),1):
   plain=ANSI.sub('',line).lstrip()
   plain=LEADING.sub('',plain)
   if not plain.startswith('Error:'):continue
@@ -19,6 +19,8 @@ def inspect(path):
   errors.append(row)
  return {'input':str(path),'input_sha256':hashlib.sha256(raw).hexdigest(),'decoded_sha256':hashlib.sha256(decoded).hexdigest(),'backend_errors':errors}
 def check(paths):
+ paths=list(paths)
+ if not paths:raise ValueError('At least one diagnostic log is required')
  rows=[inspect(p) for p in paths];count=sum(len(r['backend_errors']) for r in rows)
  return {'checked':True,'logs':rows,'backend_error_count':count,'diagnostic_gate_passed':count==0,'program_readiness_proven':False,'compiler_or_strip_exit_codes_rewritten':False,'runtime_executions':0,'limit':'No reported backend errors is only a diagnostic gate; it does not establish stack safety, verifier acceptance, runtime or SDK equivalence.'}
 def main():
