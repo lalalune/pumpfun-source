@@ -137,6 +137,32 @@ edition = "2021"
         self.assertEqual(marker.read_bytes(), b'authored retained output\n')
         self.assertEqual(inventory(self.source), before)
 
+    def test_safe_dotdot_output_does_not_create_parents_in_input_crate(self):
+        before = {member: inventory(self.source / member) for member in MEMBERS}
+        missing = self.source / MEMBERS[1] / 'missing-parent'
+        output = missing / '..' / '..' / 'safe-workspace'
+        canonical = output.resolve()
+        result = self.stage(output)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue((canonical / 'Cargo.toml').is_file())
+        self.assertFalse(missing.exists(), 'lexical mkdir created a directory inside an input crate')
+        self.assertEqual({member: inventory(self.source / member) for member in MEMBERS}, before)
+
+    def test_canonical_existing_output_is_preserved_without_dotdot_parents(self):
+        missing = self.source / MEMBERS[1] / 'missing-parent'
+        output = missing / '..' / '..' / 'safe-workspace'
+        canonical = output.resolve()
+        canonical.mkdir()
+        marker = canonical / 'retained.txt'
+        marker.write_bytes(b'authored canonical output\n')
+        before = {member: inventory(self.source / member) for member in MEMBERS}
+        result = self.stage(output)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertFalse(missing.exists())
+        self.assertIn('Output must be a new directory', result.stderr)
+        self.assertEqual(marker.read_bytes(), b'authored canonical output\n')
+        self.assertEqual({member: inventory(self.source / member) for member in MEMBERS}, before)
+
 
 if __name__ == '__main__':
     unittest.main()

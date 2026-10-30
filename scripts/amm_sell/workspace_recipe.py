@@ -171,9 +171,10 @@ def verify_workspace(source_root, workspace):
 def stage(source_root, output):
     source_root, output = Path(source_root).resolve(), Path(output).absolute()
     require(not output.exists() and not output.is_symlink(), 'Output must be a new directory')
-    resolved_output = output.resolve()
+    output = output.resolve()
+    require(not output.exists(), 'Output must be a new directory')
     for member in MEMBERS:
-        require(not resolved_output.is_relative_to(source_root / member),
+        require(not output.is_relative_to(source_root / member),
                 ('Output must not be inside a recipe input crate', member))
     inputs, files = expected_workspace(source_root)
     output.mkdir(parents=True)
