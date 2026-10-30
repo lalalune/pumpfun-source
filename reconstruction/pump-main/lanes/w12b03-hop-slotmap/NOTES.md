@@ -89,4 +89,4 @@ w12b09-hop-hillclimb (#2766) found the working form: it carries the `&Global` ou
 field, `let (allowed, global) = { let global: &Global = &a.global; ..; (.., global) }`, and passes `complete_fill(global, ..)`.
 `Use(Copy(_tup.1))` is not a local, so ReferencePropagation cannot see through it, and the GEP stays in the
 `base > reserves` block. This is the IR the oracle above asks for, and it gives swap_hop a normalized and raw match
-(1034/1034, zero losses). No swap_hop residual is left for this angle.
+(1034/1034, zero losses; merged as 0b5fc0d5d). No swap_hop residual is left for this angle.
