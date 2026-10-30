@@ -898,7 +898,7 @@ class ParallelCaseCountTests(unittest.TestCase):
     def test_special_suite_count_protocols_are_unchanged(self):
         artifact = self.artifact
         reports = {
-            'quote_control': {'bound_inputs_sha256': {str(artifact.relative_to(analyze.ROOT)): self.digest},
+            'quote_control': {'bound_inputs_sha256': {artifact.relative_to(analyze.ROOT).as_posix(): self.digest},
                               'cases': 507, 'results': [{'matches': True, 'different_fields': []} for _ in range(507)]},
             'multi_hop_curve_partial': {'candidate_sha256': self.digest, 'original_pump_sha256': self.digest,
                                         'passed': 56, 'case_count': 56, 'cases': [{'mismatches': []} for _ in range(56)]},

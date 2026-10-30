@@ -97,6 +97,38 @@ class LinuxToolchainTests(unittest.TestCase):
         self.assertEqual(self.run_bootstrap('--sdk-check', 'quick'), 0)
         self.assertTrue(bootstrap.hybrid_ok_linux())
 
+    def test_drifted_copied_host_libraries_are_rejected_and_repaired(self):
+        expected = self.sdk / 'rust/lib/libstd-example.so'
+        for change in ('changed', 'missing', 'unexpected', 'symlink'):
+            with self.subTest(change=change):
+                bootstrap.assemble_linux()
+                library = self.hybrid / 'rust/lib' / expected.name
+                extra = library.with_name('libextra.so')
+                if change == 'changed':
+                    library.write_bytes(b'stale host standard library')
+                elif change == 'missing':
+                    library.unlink()
+                elif change == 'unexpected':
+                    extra.write_bytes(b'unexpected host library')
+                else:
+                    library.unlink()
+                    library.symlink_to(expected)
+
+                self.assertFalse(bootstrap.hybrid_ok_linux())
+                self.assertEqual(self.run_bootstrap('--sdk-check', 'quick'), 0)
+                self.assertTrue(bootstrap.hybrid_ok_linux())
+                self.assertEqual(library.read_bytes(), expected.read_bytes())
+                self.assertFalse(library.is_symlink())
+                self.assertFalse(extra.exists())
+
+    def test_new_sdk_host_library_requires_reassembly(self):
+        bootstrap.assemble_linux()
+        library = self.sdk / 'rust/lib/librustc_driver-example.so'
+        library.write_bytes(b'compiler driver')
+        self.assertFalse(bootstrap.hybrid_ok_linux())
+        self.assertEqual(self.run_bootstrap('--sdk-check', 'quick'), 0)
+        self.assertEqual((self.hybrid / 'rust/lib' / library.name).read_bytes(), library.read_bytes())
+
     def test_foreign_revision_is_rejected(self):
         self.version.write_text('0' * 40 + '  https://github.com/anza-xyz/rust.git\n')
         self.assertIn(f'rust revision is not {REVISION}', bootstrap.check_sdk_linux('quick'))
