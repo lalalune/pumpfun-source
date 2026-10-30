@@ -589,15 +589,15 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
             let base = u64::try_from(crate::constant_product::tokens_for_quote(c,q)?).map_err(|_| error!(PumpError::Truncation))?;
             require_gt!(base,0,PumpError::BuyZeroAmount);
 
-            let reserves = c.real_token_reserves; let (base_amount,quote_amount,fees,post_fill) = if !reserves.overflowing_sub(base).1 {(base,q,nf,None)} else {
+            let reserves = c.real_token_reserves; let (base_amount,quote_amount,fees,post_fill) = if !(!base).overflowing_sub(!reserves).1 {(base,q,nf,None)} else {
 
 
 
 
 
 
-                let allowed = { let global = &*a.global; let user = a.user.key(); !c.is_mayhem_mode && user!=global.whitelist_pda }; require!(allowed,PumpError::NotEnoughTokensToBuy);
-match complete_fill(&a.global,&a.fee_config,fee_config_len,cap,c,
+                let(allowed,complete_global)={let global:&Global=&a.global;let user=a.user.key();(!c.is_mayhem_mode&&user!=global.whitelist_pda,global)}; require!(allowed,PumpError::NotEnoughTokensToBuy);
+match complete_fill(complete_global,&a.fee_config,fee_config_len,cap,c,
                     &h.associated_base_bonding_curve,flag,p_rate,c_rate,trade_amount)? {
 
  None => (reserves,q,nf,None),

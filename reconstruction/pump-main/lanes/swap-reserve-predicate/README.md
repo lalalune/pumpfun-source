@@ -1,25 +1,29 @@
-# Swap hop: reserve predicate and completion branch, 127 → 57 slots
+# Swap hop: reserve predicate and completion branch, 127 → 38 slots
 
 `multi_hop_curve::swap_hop` at original `0x5b3b0` retains its original
 18,584-byte size while differing normalized instruction slots fall from **127 to
-57**. The instruction-sequence ratio rises from **0.98907 to 0.99563**.
+38**. The instruction-sequence ratio rises from **0.98907 to 0.99694**.
 This is partial reconstruction progress, not a new full-window match.
 All **1,033 normalized / 1,033 raw** matched windows are preserved, with zero
-membership losses or gains. Base: `319a7d10f68b9d45ac812332133a45ba9264c8a0`.
+membership losses or gains. Base: `319a7d10f68b9d45ac812332133a45ba9264c8a0`. The refreshed main
+`b7132fab04adfaa10fbf6285c6cdb2668587f8ce` has identical `programs/pump` inputs.
 
 ## Source change
 
 - Express the unsigned `base <= reserves` check as
-  `!reserves.overflowing_sub(base).1`. Unsigned subtraction underflows exactly
-  when `reserves < base`; the wrapped difference is discarded.
+  `!(!base).overflowing_sub(!reserves).1`. Complementing reverses unsigned order:
+  `!base < !reserves` exactly when `base > reserves`. The wrapped result is unused.
 - Express the completion `Option` as a `match` with `None` first. Both arms
   return the same values and the preceding `Result` still propagates errors.
+- Return `(allowed, global)` from the validation expression and pass that same
+  `&Global` to `complete_fill`, preserving its lifetime across validation.
 
-The predicate alone reaches 89 differing slots. Adding the completion match
-reaches 57. The combination recovers the original raw-output overflow block
-placement, error-return loads, and completion Some/None block placement. It leaves
-41 slots around the two early Result branches and 16 around the reserve compare
-and Global argument setup. Region 1 and the last 945 instructions remain exact.
+The initial subtraction predicate reaches 89 differing slots; the completion
+match reaches 57; retaining the Global reference reaches 39; complementing the
+comparison inputs reaches 38. The final combination recovers the original
+raw-output overflow block, error-return loads, completion Some/None placement,
+Global argument setup and reserve comparison. Only the two early Result branch
+shapes remain different. Regions 1, 3 and 4 are exact; the residual is in region 2.
 Source error-line coordinates, outlined helper signatures, compiler settings and
 linker inputs are unchanged. No emitted binary, IR or scorer patch is used.
 
