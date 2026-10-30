@@ -1,0 +1,32 @@
+✔ full original controller, actual lazy child, all group constants and credited bridges authenticate (1720.762106ms)
+✔ no default provider, renderer or browser acquisition (1.02581ms)
+✖ public checker rejects edited source and semantically equal noncanonical metadata (418.290546ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2265.276539
+
+✖ failing tests:
+
+test at app/tests/original_search_dialog_controller.test.mjs:55:1
+✖ public checker rejects edited source and semantically equal noncanonical metadata (418.290546ms)
+  Error: ENOENT: no such file or directory, lstat '/workspace/pump-app-search-planner/app/.search-dialog-negative-mzSZFb/evidence/web/objects/f4e16ef1b0b97d5e.js'
+      at async lstat (node:internal/fs/promises:1086:18)
+      at async safeFile (file:///workspace/pump-app-search-planner/app/scripts/original-contracts/source.mjs:87:10)
+      at async read (file:///workspace/pump-app-search-planner/app/scripts/original-contracts/source.mjs:102:45)
+      at async capture (file:///workspace/pump-app-search-planner/app/scripts/original-contracts/source.mjs:123:21)
+      at async javascript (file:///workspace/pump-app-search-planner/app/scripts/original-contracts/source.mjs:144:20)
+      at async Object.factory (file:///workspace/pump-app-search-planner/app/scripts/original-contracts/source.mjs:185:20)
+      at async verifyNavigation (file:///workspace/pump-app-search-planner/app/scripts/verify-search-navigation.mjs:215:23)
+      at async recover (file:///workspace/pump-app-search-planner/app/scripts/original-search-dialog-controller.mjs:284:22)
+      at async verify (file:///workspace/pump-app-search-planner/app/scripts/original-search-dialog-controller.mjs:665:21)
+      at async TestContext.<anonymous> (file:///workspace/pump-app-search-planner/app/tests/original_search_dialog_controller.test.mjs:97:5) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'lstat',
+    path: '/workspace/pump-app-search-planner/app/.search-dialog-negative-mzSZFb/evidence/web/objects/f4e16ef1b0b97d5e.js'
+  }

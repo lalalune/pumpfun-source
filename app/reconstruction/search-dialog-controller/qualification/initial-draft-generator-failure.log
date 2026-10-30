@@ -1,0 +1,24 @@
+AssertionError [ERR_ASSERTION]: complete bridged frame AST
++ actual - expected
+... Skipped lines
+
+  {
+    async: false,
+    body: {
+      body: [
+        {
+...
+    params: [],
++   type: 'FunctionDeclaration'
+-   type: 'FunctionExpression'
+  }
+
+    at recover (file:///workspace/pump-app-search-planner/app/scripts/original-search-dialog-controller.mjs:122:9)
+    at async file:///workspace/pump-app-search-planner/app/scripts/original-search-dialog-controller.mjs:138:235 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [Object],
+  expected: [Object],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}

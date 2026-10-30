@@ -1,0 +1,4352 @@
+{
+  "scope": "Synthetic original-source controller proof only. Actual React/compiler/DOM; all queries/data/readers/probes/recents/flags/analytics/navigation/renderers are supplied inert capabilities. No live request, credential, cookie, storage, session, provider or protected action.",
+  "observations": [
+    {
+      "name": "closed owner mounts once with supplied queries disabled and no provider requests",
+      "state": {
+        "open": false,
+        "terms": [
+          "old"
+        ],
+        "query": "",
+        "coinUpdates": [],
+        "updatesEnabled": false,
+        "hydration": {
+          "mints": [],
+          "includeNsfw": true,
+          "disabled": true
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 1,
+        "debounce": {
+          "value": "",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": false,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": false,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "",
+            20
+          ],
+          "enabled": false,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": false
+        },
+        "near": [],
+        "mixed": null
+      },
+      "events": [
+        {
+          "type": "mounted"
+        }
+      ],
+      "resolverCalls": []
+    },
+    {
+      "name": "trusted mounted shortcut opens and source ref focuses input; exact query defaults",
+      "state": {
+        "open": true,
+        "terms": [
+          "old"
+        ],
+        "query": "",
+        "coinUpdates": [],
+        "updatesEnabled": true,
+        "hydration": {
+          "mints": [],
+          "includeNsfw": true,
+          "disabled": true
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 1,
+        "debounce": {
+          "value": "",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "",
+            20
+          ],
+          "enabled": false,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": false
+        },
+        "near": [],
+        "mixed": null
+      },
+      "events": [
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        }
+      ],
+      "resolverCalls": []
+    },
+    {
+      "name": "recent hydration branches, source-key lookup, card merge and descending view order",
+      "state": {
+        "open": true,
+        "terms": [
+          "old"
+        ],
+        "query": "",
+        "coinUpdates": [
+          "coin-a",
+          "coin-b",
+          "name.near",
+          "trend"
+        ],
+        "updatesEnabled": true,
+        "hydration": {
+          "mints": [
+            "coin-a",
+            "coin-b"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 1,
+        "debounce": {
+          "value": "",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "",
+            20
+          ],
+          "enabled": false,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": false
+        },
+        "near": [
+          {
+            "queryKey": [
+              "coin",
+              {
+                "coinAddress": "name.near",
+                "includeDataLivestream": false,
+                "chainId": "near:mainnet"
+              }
+            ],
+            "retry": false,
+            "refetchOnWindowFocus": false
+          }
+        ],
+        "mixed": null
+      },
+      "events": [
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        }
+      ],
+      "resolverCalls": []
+    },
+    {
+      "name": "mixed sections use priority rows, four-row limits and actual query input",
+      "state": {
+        "open": true,
+        "terms": [
+          "old"
+        ],
+        "query": "alpha",
+        "tab": "all",
+        "coinUpdates": [
+          "result-0",
+          "result-1",
+          "result-2",
+          "result-3",
+          "result-4",
+          "result-5"
+        ],
+        "updatesEnabled": true,
+        "hydration": {
+          "mints": [
+            "coin-a",
+            "coin-b"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 1,
+        "debounce": {
+          "value": "alpha",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "alpha",
+            20
+          ],
+          "enabled": true,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": true
+        },
+        "near": [
+          {
+            "queryKey": [
+              "coin",
+              {
+                "coinAddress": "name.near",
+                "includeDataLivestream": false,
+                "chainId": "near:mainnet"
+              }
+            ],
+            "retry": false,
+            "refetchOnWindowFocus": false
+          }
+        ],
+        "mixed": {
+          "coins": {
+            "rows": [
+              "result-0",
+              "result-1",
+              "result-2",
+              "result-3"
+            ],
+            "hasMore": true,
+            "visible": true,
+            "loading": false
+          },
+          "users": {
+            "rows": [
+              "user-0",
+              "user-1",
+              "user-2",
+              "user-3"
+            ],
+            "hasMore": true,
+            "visible": true,
+            "loading": false
+          },
+          "squads": {
+            "rows": [
+              "group-0",
+              "group-1"
+            ],
+            "hasMore": false,
+            "visible": true,
+            "loading": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        }
+      ],
+      "resolverCalls": []
+    },
+    {
+      "name": "selected user tab falls back to all when provider results disappear",
+      "state": {
+        "open": true,
+        "terms": [
+          "old"
+        ],
+        "query": "alpha",
+        "tab": "all",
+        "coinUpdates": [
+          "result-0",
+          "result-1",
+          "result-2",
+          "result-3",
+          "result-4",
+          "result-5"
+        ],
+        "updatesEnabled": true,
+        "hydration": {
+          "mints": [
+            "coin-a",
+            "coin-b"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 1,
+        "debounce": {
+          "value": "alpha",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "alpha",
+            20
+          ],
+          "enabled": true,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": true
+        },
+        "near": [
+          {
+            "queryKey": [
+              "coin",
+              {
+                "coinAddress": "name.near",
+                "includeDataLivestream": false,
+                "chainId": "near:mainnet"
+              }
+            ],
+            "retry": false,
+            "refetchOnWindowFocus": false
+          }
+        ],
+        "mixed": {
+          "coins": {
+            "rows": [
+              "result-0",
+              "result-1",
+              "result-2",
+              "result-3"
+            ],
+            "hasMore": true,
+            "visible": true,
+            "loading": false
+          },
+          "users": {
+            "rows": [],
+            "hasMore": false,
+            "visible": false,
+            "loading": false
+          },
+          "squads": {
+            "rows": [
+              "group-0",
+              "group-1"
+            ],
+            "hasMore": false,
+            "visible": true,
+            "loading": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "tab",
+          "args": [
+            {
+              "tab": "accounts"
+            }
+          ]
+        },
+        {
+          "type": "mounted"
+        }
+      ],
+      "resolverCalls": []
+    },
+    {
+      "name": "nonmixed fallback chooses first populated category with projected group rows",
+      "state": {
+        "open": true,
+        "terms": [
+          "old"
+        ],
+        "query": "alpha",
+        "tab": "squads",
+        "coinUpdates": [],
+        "updatesEnabled": true,
+        "hydration": {
+          "mints": [
+            "coin-a",
+            "coin-b"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 1,
+        "debounce": {
+          "value": "alpha",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "alpha",
+            20
+          ],
+          "enabled": true,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": true
+        },
+        "near": [
+          {
+            "queryKey": [
+              "coin",
+              {
+                "coinAddress": "name.near",
+                "includeDataLivestream": false,
+                "chainId": "near:mainnet"
+              }
+            ],
+            "retry": false,
+            "refetchOnWindowFocus": false
+          }
+        ],
+        "mixed": {
+          "coins": {
+            "rows": [
+              "result-0",
+              "result-1",
+              "result-2",
+              "result-3"
+            ],
+            "hasMore": true,
+            "visible": true,
+            "loading": false
+          },
+          "users": {
+            "rows": [],
+            "hasMore": false,
+            "visible": false,
+            "loading": false
+          },
+          "squads": {
+            "rows": [
+              "group-0",
+              "group-1"
+            ],
+            "hasMore": false,
+            "visible": true,
+            "loading": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "tab",
+          "args": [
+            {
+              "tab": "accounts"
+            }
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        }
+      ],
+      "resolverCalls": []
+    },
+    {
+      "name": "group query forwards signal/client/offset, hydrates profile cache and retains strict greater-than500 cap",
+      "state": {
+        "open": true,
+        "terms": [
+          "old"
+        ],
+        "query": "alpha",
+        "tab": "squads",
+        "coinUpdates": [],
+        "updatesEnabled": true,
+        "hydration": {
+          "mints": [
+            "coin-a",
+            "coin-b"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 1,
+        "debounce": {
+          "value": "alpha",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "prior",
+            20
+          ],
+          "enabled": true,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": true
+        },
+        "near": [
+          {
+            "queryKey": [
+              "coin",
+              {
+                "coinAddress": "name.near",
+                "includeDataLivestream": false,
+                "chainId": "near:mainnet"
+              }
+            ],
+            "retry": false,
+            "refetchOnWindowFocus": false
+          }
+        ],
+        "mixed": {
+          "coins": {
+            "rows": [
+              "result-0",
+              "result-1",
+              "result-2",
+              "result-3"
+            ],
+            "hasMore": true,
+            "visible": true,
+            "loading": false
+          },
+          "users": {
+            "rows": [],
+            "hasMore": false,
+            "visible": false,
+            "loading": false
+          },
+          "squads": {
+            "rows": [
+              "group-0",
+              "group-1"
+            ],
+            "hasMore": false,
+            "visible": true,
+            "loading": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "tab",
+          "args": [
+            {
+              "tab": "accounts"
+            }
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "group-cache",
+          "key": [
+            "supplied-group",
+            "synthetic-group"
+          ],
+          "value": {
+            "userId": "synthetic-group",
+            "projected": true
+          }
+        },
+        {
+          "type": "trending-read"
+        },
+        {
+          "type": "pnl-read",
+          "options": {
+            "period": "daily",
+            "sort": "combined",
+            "limit": 20
+          }
+        }
+      ],
+      "resolverCalls": []
+    },
+    {
+      "name": "group reader rejection propagates; no invented retry/error UI or provider transport",
+      "state": {
+        "open": true,
+        "terms": [
+          "old"
+        ],
+        "query": "alpha",
+        "tab": "squads",
+        "coinUpdates": [],
+        "updatesEnabled": true,
+        "hydration": {
+          "mints": [
+            "coin-a",
+            "coin-b"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 1,
+        "debounce": {
+          "value": "alpha",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "synthetic-reject",
+            20
+          ],
+          "enabled": true,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": true
+        },
+        "near": [
+          {
+            "queryKey": [
+              "coin",
+              {
+                "coinAddress": "name.near",
+                "includeDataLivestream": false,
+                "chainId": "near:mainnet"
+              }
+            ],
+            "retry": false,
+            "refetchOnWindowFocus": false
+          }
+        ],
+        "mixed": {
+          "coins": {
+            "rows": [
+              "result-0",
+              "result-1",
+              "result-2",
+              "result-3"
+            ],
+            "hasMore": true,
+            "visible": true,
+            "loading": false
+          },
+          "users": {
+            "rows": [],
+            "hasMore": false,
+            "visible": false,
+            "loading": false
+          },
+          "squads": {
+            "rows": [
+              "group-0",
+              "group-1"
+            ],
+            "hasMore": false,
+            "visible": true,
+            "loading": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "tab",
+          "args": [
+            {
+              "tab": "accounts"
+            }
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "group-cache",
+          "key": [
+            "supplied-group",
+            "synthetic-group"
+          ],
+          "value": {
+            "userId": "synthetic-group",
+            "projected": true
+          }
+        },
+        {
+          "type": "trending-read"
+        },
+        {
+          "type": "pnl-read",
+          "options": {
+            "period": "daily",
+            "sort": "combined",
+            "limit": 20
+          }
+        },
+        {
+          "type": "mounted"
+        }
+      ],
+      "resolverCalls": []
+    },
+    {
+      "name": "accepted ordered submit trims, closes/resets, caps recents and supplies encoded Explore navigation",
+      "state": {
+        "open": false,
+        "terms": [
+          "alpha & beta=one",
+          "term-0",
+          "term-1",
+          "term-2",
+          "term-3",
+          "term-4",
+          "term-5",
+          "term-6",
+          "term-7",
+          "term-8",
+          "term-9",
+          "term-10",
+          "term-11",
+          "term-12",
+          "term-13",
+          "term-14",
+          "term-15",
+          "term-16",
+          "term-17",
+          "term-18"
+        ],
+        "query": "",
+        "tab": "all",
+        "coinUpdates": [
+          "coin-a",
+          "coin-b",
+          "name.near",
+          "trend"
+        ],
+        "updatesEnabled": false,
+        "hydration": {
+          "mints": [
+            "coin-a",
+            "coin-b",
+            "name.near"
+          ],
+          "includeNsfw": true,
+          "disabled": true
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 1,
+        "debounce": {
+          "value": "",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": false,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": false,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "",
+            20
+          ],
+          "enabled": false,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": false
+        },
+        "near": [],
+        "mixed": {
+          "coins": {
+            "rows": [],
+            "hasMore": false,
+            "visible": false,
+            "loading": false
+          },
+          "users": {
+            "rows": [],
+            "hasMore": false,
+            "visible": false,
+            "loading": false
+          },
+          "squads": {
+            "rows": [
+              "group-0",
+              "group-1"
+            ],
+            "hasMore": false,
+            "visible": true,
+            "loading": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "tab",
+          "args": [
+            {
+              "tab": "accounts"
+            }
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "group-cache",
+          "key": [
+            "supplied-group",
+            "synthetic-group"
+          ],
+          "value": {
+            "userId": "synthetic-group",
+            "projected": true
+          }
+        },
+        {
+          "type": "trending-read"
+        },
+        {
+          "type": "pnl-read",
+          "options": {
+            "period": "daily",
+            "sort": "combined",
+            "limit": 20
+          }
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "push",
+          "args": [
+            "/explore?q=alpha%20%26%20beta%3Done"
+          ]
+        },
+        {
+          "type": "mounted"
+        }
+      ],
+      "resolverCalls": []
+    },
+    {
+      "name": "editing aborts supplied resolver and stale completion cannot close or navigate newer draft",
+      "state": {
+        "open": true,
+        "terms": [
+          "alpha & beta=one",
+          "term-0",
+          "term-1",
+          "term-2",
+          "term-3",
+          "term-4",
+          "term-5",
+          "term-6",
+          "term-7",
+          "term-8",
+          "term-9",
+          "term-10",
+          "term-11",
+          "term-12",
+          "term-13",
+          "term-14",
+          "term-15",
+          "term-16",
+          "term-17",
+          "term-18"
+        ],
+        "query": "new draft",
+        "tab": "all",
+        "coinUpdates": [],
+        "updatesEnabled": true,
+        "hydration": {
+          "mints": [
+            "coin-a",
+            "coin-b",
+            "name.near"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 1,
+        "debounce": {
+          "value": "new draft",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "new draft",
+            20
+          ],
+          "enabled": true,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": true
+        },
+        "near": [],
+        "mixed": {
+          "coins": {
+            "rows": [],
+            "hasMore": false,
+            "visible": false,
+            "loading": false
+          },
+          "users": {
+            "rows": [],
+            "hasMore": false,
+            "visible": false,
+            "loading": false
+          },
+          "squads": {
+            "rows": [
+              "group-0",
+              "group-1"
+            ],
+            "hasMore": false,
+            "visible": true,
+            "loading": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "tab",
+          "args": [
+            {
+              "tab": "accounts"
+            }
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "group-cache",
+          "key": [
+            "supplied-group",
+            "synthetic-group"
+          ],
+          "value": {
+            "userId": "synthetic-group",
+            "projected": true
+          }
+        },
+        {
+          "type": "trending-read"
+        },
+        {
+          "type": "pnl-read",
+          "options": {
+            "period": "daily",
+            "sort": "combined",
+            "limit": 20
+          }
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "push",
+          "args": [
+            "/explore?q=alpha%20%26%20beta%3Done"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 1,
+          "term": "11111111111111111111111111111111"
+        }
+      ],
+      "resolverCalls": [
+        {
+          "id": 1,
+          "term": "11111111111111111111111111111111",
+          "aborted": true
+        }
+      ]
+    },
+    {
+      "name": "event-supplied paste preserves selection and exact analytics/click/navigation order without clipboard acquisition",
+      "state": {
+        "open": false,
+        "terms": [
+          "11111111111111111111111111111111",
+          "alpha & beta=one",
+          "term-0",
+          "term-1",
+          "term-2",
+          "term-3",
+          "term-4",
+          "term-5",
+          "term-6",
+          "term-7",
+          "term-8",
+          "term-9",
+          "term-10",
+          "term-11",
+          "term-12",
+          "term-13",
+          "term-14",
+          "term-15",
+          "term-16",
+          "term-17"
+        ],
+        "query": "",
+        "tab": "all",
+        "coinUpdates": [
+          "coin-a",
+          "coin-b",
+          "name.near",
+          "trend"
+        ],
+        "updatesEnabled": false,
+        "hydration": {
+          "mints": [
+            "coin-a",
+            "coin-b",
+            "name.near"
+          ],
+          "includeNsfw": true,
+          "disabled": true
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 1,
+        "debounce": {
+          "value": "",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": false,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": false,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "",
+            20
+          ],
+          "enabled": false,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": false
+        },
+        "near": [],
+        "mixed": {
+          "coins": {
+            "rows": [],
+            "hasMore": false,
+            "visible": false,
+            "loading": false
+          },
+          "users": {
+            "rows": [],
+            "hasMore": false,
+            "visible": false,
+            "loading": false
+          },
+          "squads": {
+            "rows": [
+              "group-0",
+              "group-1"
+            ],
+            "hasMore": false,
+            "visible": true,
+            "loading": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "tab",
+          "args": [
+            {
+              "tab": "accounts"
+            }
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "group-cache",
+          "key": [
+            "supplied-group",
+            "synthetic-group"
+          ],
+          "value": {
+            "userId": "synthetic-group",
+            "projected": true
+          }
+        },
+        {
+          "type": "trending-read"
+        },
+        {
+          "type": "pnl-read",
+          "options": {
+            "period": "daily",
+            "sort": "combined",
+            "limit": 20
+          }
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "push",
+          "args": [
+            "/explore?q=alpha%20%26%20beta%3Done"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 1,
+          "term": "11111111111111111111111111111111"
+        },
+        {
+          "type": "resolve",
+          "id": 2,
+          "term": "11111111111111111111111111111111"
+        },
+        {
+          "type": "mint-paste",
+          "args": [
+            {
+              "mint": "synthetic-pasted-mint"
+            }
+          ]
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "11111111111111111111111111111111",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-pasted-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "11111111111111111111111111111111"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-pasted-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "11111111111111111111111111111111"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-pasted-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        }
+      ],
+      "resolverCalls": [
+        {
+          "id": 1,
+          "term": "11111111111111111111111111111111",
+          "aborted": true
+        },
+        {
+          "id": 2,
+          "term": "11111111111111111111111111111111",
+          "aborted": false
+        }
+      ]
+    },
+    {
+      "name": "retained EVM readonly handler consumes supplied definitive coin result",
+      "state": {
+        "open": false,
+        "terms": [
+          "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "11111111111111111111111111111111",
+          "alpha & beta=one",
+          "term-0",
+          "term-1",
+          "term-2",
+          "term-3",
+          "term-4",
+          "term-5",
+          "term-6",
+          "term-7",
+          "term-8",
+          "term-9",
+          "term-10",
+          "term-11",
+          "term-12",
+          "term-13",
+          "term-14",
+          "term-15",
+          "term-16"
+        ],
+        "query": "",
+        "tab": "all",
+        "coinUpdates": [
+          "coin-a",
+          "coin-b",
+          "name.near",
+          "trend"
+        ],
+        "updatesEnabled": false,
+        "hydration": {
+          "mints": [
+            "coin-a",
+            "coin-b",
+            "name.near"
+          ],
+          "includeNsfw": true,
+          "disabled": true
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 1,
+        "debounce": {
+          "value": "",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": false,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": false,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "",
+            20
+          ],
+          "enabled": false,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": false
+        },
+        "near": [],
+        "mixed": {
+          "coins": {
+            "rows": [],
+            "hasMore": false,
+            "visible": false,
+            "loading": false
+          },
+          "users": {
+            "rows": [],
+            "hasMore": false,
+            "visible": false,
+            "loading": false
+          },
+          "squads": {
+            "rows": [
+              "group-0",
+              "group-1"
+            ],
+            "hasMore": false,
+            "visible": true,
+            "loading": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "tab",
+          "args": [
+            {
+              "tab": "accounts"
+            }
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "group-cache",
+          "key": [
+            "supplied-group",
+            "synthetic-group"
+          ],
+          "value": {
+            "userId": "synthetic-group",
+            "projected": true
+          }
+        },
+        {
+          "type": "trending-read"
+        },
+        {
+          "type": "pnl-read",
+          "options": {
+            "period": "daily",
+            "sort": "combined",
+            "limit": 20
+          }
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "push",
+          "args": [
+            "/explore?q=alpha%20%26%20beta%3Done"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 1,
+          "term": "11111111111111111111111111111111"
+        },
+        {
+          "type": "resolve",
+          "id": 2,
+          "term": "11111111111111111111111111111111"
+        },
+        {
+          "type": "mint-paste",
+          "args": [
+            {
+              "mint": "synthetic-pasted-mint"
+            }
+          ]
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "11111111111111111111111111111111",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-pasted-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "11111111111111111111111111111111"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-pasted-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "11111111111111111111111111111111"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-pasted-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 3,
+          "term": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-evm-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-evm-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-evm-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        }
+      ],
+      "resolverCalls": [
+        {
+          "id": 1,
+          "term": "11111111111111111111111111111111",
+          "aborted": true
+        },
+        {
+          "id": 2,
+          "term": "11111111111111111111111111111111",
+          "aborted": false
+        },
+        {
+          "id": 3,
+          "term": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aborted": false
+        }
+      ]
+    },
+    {
+      "name": "retained Near gate and definitive external-wallet navigation use supplied results only",
+      "state": {
+        "open": false,
+        "terms": [
+          "synthetic.near",
+          "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "11111111111111111111111111111111",
+          "alpha & beta=one",
+          "term-0",
+          "term-1",
+          "term-2",
+          "term-3",
+          "term-4",
+          "term-5",
+          "term-6",
+          "term-7",
+          "term-8",
+          "term-9",
+          "term-10",
+          "term-11",
+          "term-12",
+          "term-13",
+          "term-14",
+          "term-15"
+        ],
+        "query": "",
+        "tab": "all",
+        "coinUpdates": [
+          "coin-a",
+          "coin-b",
+          "name.near",
+          "trend"
+        ],
+        "updatesEnabled": false,
+        "hydration": {
+          "mints": [
+            "coin-a",
+            "coin-b"
+          ],
+          "includeNsfw": true,
+          "disabled": true
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 1,
+        "debounce": {
+          "value": "",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": false,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": false,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "",
+            20
+          ],
+          "enabled": false,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": false
+        },
+        "near": [],
+        "mixed": {
+          "coins": {
+            "rows": [],
+            "hasMore": false,
+            "visible": false,
+            "loading": false
+          },
+          "users": {
+            "rows": [],
+            "hasMore": false,
+            "visible": false,
+            "loading": false
+          },
+          "squads": {
+            "rows": [
+              "group-0",
+              "group-1"
+            ],
+            "hasMore": false,
+            "visible": true,
+            "loading": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "tab",
+          "args": [
+            {
+              "tab": "accounts"
+            }
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "group-cache",
+          "key": [
+            "supplied-group",
+            "synthetic-group"
+          ],
+          "value": {
+            "userId": "synthetic-group",
+            "projected": true
+          }
+        },
+        {
+          "type": "trending-read"
+        },
+        {
+          "type": "pnl-read",
+          "options": {
+            "period": "daily",
+            "sort": "combined",
+            "limit": 20
+          }
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "push",
+          "args": [
+            "/explore?q=alpha%20%26%20beta%3Done"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 1,
+          "term": "11111111111111111111111111111111"
+        },
+        {
+          "type": "resolve",
+          "id": 2,
+          "term": "11111111111111111111111111111111"
+        },
+        {
+          "type": "mint-paste",
+          "args": [
+            {
+              "mint": "synthetic-pasted-mint"
+            }
+          ]
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "11111111111111111111111111111111",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-pasted-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "11111111111111111111111111111111"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-pasted-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "11111111111111111111111111111111"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-pasted-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 3,
+          "term": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-evm-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-evm-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-evm-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 4,
+          "term": "synthetic.near"
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "synthetic.near",
+              "searchType": 3
+            }
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/profile/synthetic.near"
+          ]
+        },
+        {
+          "type": "mounted"
+        }
+      ],
+      "resolverCalls": [
+        {
+          "id": 1,
+          "term": "11111111111111111111111111111111",
+          "aborted": true
+        },
+        {
+          "id": 2,
+          "term": "11111111111111111111111111111111",
+          "aborted": false
+        },
+        {
+          "id": 3,
+          "term": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aborted": false
+        },
+        {
+          "id": 4,
+          "term": "synthetic.near",
+          "aborted": false
+        }
+      ]
+    },
+    {
+      "name": "retained gated long-hex normalization and handler consume supplied definitive result",
+      "state": {
+        "open": false,
+        "terms": [
+          "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "synthetic.near",
+          "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "11111111111111111111111111111111",
+          "alpha & beta=one",
+          "term-0",
+          "term-1",
+          "term-2",
+          "term-3",
+          "term-4",
+          "term-5",
+          "term-6",
+          "term-7",
+          "term-8",
+          "term-9",
+          "term-10",
+          "term-11",
+          "term-12",
+          "term-13",
+          "term-14"
+        ],
+        "query": "",
+        "tab": "all",
+        "coinUpdates": [
+          "coin-a",
+          "coin-b",
+          "name.near",
+          "trend"
+        ],
+        "updatesEnabled": false,
+        "hydration": {
+          "mints": [
+            "coin-a",
+            "coin-b"
+          ],
+          "includeNsfw": true,
+          "disabled": true
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 1,
+        "debounce": {
+          "value": "",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": false,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": false,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "",
+            20
+          ],
+          "enabled": false,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": false
+        },
+        "near": [],
+        "mixed": {
+          "coins": {
+            "rows": [],
+            "hasMore": false,
+            "visible": false,
+            "loading": false
+          },
+          "users": {
+            "rows": [],
+            "hasMore": false,
+            "visible": false,
+            "loading": false
+          },
+          "squads": {
+            "rows": [
+              "group-0",
+              "group-1"
+            ],
+            "hasMore": false,
+            "visible": true,
+            "loading": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "tab",
+          "args": [
+            {
+              "tab": "accounts"
+            }
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "group-cache",
+          "key": [
+            "supplied-group",
+            "synthetic-group"
+          ],
+          "value": {
+            "userId": "synthetic-group",
+            "projected": true
+          }
+        },
+        {
+          "type": "trending-read"
+        },
+        {
+          "type": "pnl-read",
+          "options": {
+            "period": "daily",
+            "sort": "combined",
+            "limit": 20
+          }
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "push",
+          "args": [
+            "/explore?q=alpha%20%26%20beta%3Done"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 1,
+          "term": "11111111111111111111111111111111"
+        },
+        {
+          "type": "resolve",
+          "id": 2,
+          "term": "11111111111111111111111111111111"
+        },
+        {
+          "type": "mint-paste",
+          "args": [
+            {
+              "mint": "synthetic-pasted-mint"
+            }
+          ]
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "11111111111111111111111111111111",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-pasted-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "11111111111111111111111111111111"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-pasted-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "11111111111111111111111111111111"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-pasted-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 3,
+          "term": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-evm-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-evm-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-evm-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 4,
+          "term": "synthetic.near"
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "synthetic.near",
+              "searchType": 3
+            }
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/profile/synthetic.near"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 5,
+          "term": "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-hex-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-hex-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-hex-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        }
+      ],
+      "resolverCalls": [
+        {
+          "id": 1,
+          "term": "11111111111111111111111111111111",
+          "aborted": true
+        },
+        {
+          "id": 2,
+          "term": "11111111111111111111111111111111",
+          "aborted": false
+        },
+        {
+          "id": 3,
+          "term": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aborted": false
+        },
+        {
+          "id": 4,
+          "term": "synthetic.near",
+          "aborted": false
+        },
+        {
+          "id": 5,
+          "term": "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "aborted": false
+        }
+      ]
+    },
+    {
+      "name": "ordinary result selection closes/resets without invented row navigation",
+      "state": {
+        "open": false,
+        "terms": [
+          "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "synthetic.near",
+          "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "11111111111111111111111111111111",
+          "alpha & beta=one",
+          "term-0",
+          "term-1",
+          "term-2",
+          "term-3",
+          "term-4",
+          "term-5",
+          "term-6",
+          "term-7",
+          "term-8",
+          "term-9",
+          "term-10",
+          "term-11",
+          "term-12",
+          "term-13",
+          "term-14"
+        ],
+        "query": "",
+        "tab": "all",
+        "coinUpdates": [
+          "coin-a",
+          "coin-b",
+          "name.near",
+          "trend"
+        ],
+        "updatesEnabled": false,
+        "hydration": {
+          "mints": [
+            "coin-a",
+            "coin-b"
+          ],
+          "includeNsfw": true,
+          "disabled": true
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 1,
+        "debounce": {
+          "value": "",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": false,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": false,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "",
+            20
+          ],
+          "enabled": false,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": false
+        },
+        "near": [],
+        "mixed": {
+          "coins": {
+            "rows": [
+              "result-0",
+              "result-1",
+              "result-2",
+              "result-3"
+            ],
+            "hasMore": true,
+            "visible": true,
+            "loading": false
+          },
+          "users": {
+            "rows": [
+              "user-0",
+              "user-1",
+              "user-2",
+              "user-3"
+            ],
+            "hasMore": true,
+            "visible": true,
+            "loading": false
+          },
+          "squads": {
+            "rows": [
+              "group-0",
+              "group-1"
+            ],
+            "hasMore": false,
+            "visible": true,
+            "loading": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "tab",
+          "args": [
+            {
+              "tab": "accounts"
+            }
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "group-cache",
+          "key": [
+            "supplied-group",
+            "synthetic-group"
+          ],
+          "value": {
+            "userId": "synthetic-group",
+            "projected": true
+          }
+        },
+        {
+          "type": "trending-read"
+        },
+        {
+          "type": "pnl-read",
+          "options": {
+            "period": "daily",
+            "sort": "combined",
+            "limit": 20
+          }
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "push",
+          "args": [
+            "/explore?q=alpha%20%26%20beta%3Done"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 1,
+          "term": "11111111111111111111111111111111"
+        },
+        {
+          "type": "resolve",
+          "id": 2,
+          "term": "11111111111111111111111111111111"
+        },
+        {
+          "type": "mint-paste",
+          "args": [
+            {
+              "mint": "synthetic-pasted-mint"
+            }
+          ]
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "11111111111111111111111111111111",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-pasted-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "11111111111111111111111111111111"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-pasted-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "11111111111111111111111111111111"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-pasted-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 3,
+          "term": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-evm-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-evm-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-evm-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 4,
+          "term": "synthetic.near"
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "synthetic.near",
+              "searchType": 3
+            }
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/profile/synthetic.near"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 5,
+          "term": "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-hex-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-hex-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-hex-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        }
+      ],
+      "resolverCalls": [
+        {
+          "id": 1,
+          "term": "11111111111111111111111111111111",
+          "aborted": true
+        },
+        {
+          "id": 2,
+          "term": "11111111111111111111111111111111",
+          "aborted": false
+        },
+        {
+          "id": 3,
+          "term": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aborted": false
+        },
+        {
+          "id": 4,
+          "term": "synthetic.near",
+          "aborted": false
+        },
+        {
+          "id": 5,
+          "term": "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "aborted": false
+        }
+      ]
+    },
+    {
+      "name": "supplied Dialog close calls actual abort/reset/open-state callback",
+      "state": {
+        "open": false,
+        "terms": [
+          "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "synthetic.near",
+          "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "11111111111111111111111111111111",
+          "alpha & beta=one",
+          "term-0",
+          "term-1",
+          "term-2",
+          "term-3",
+          "term-4",
+          "term-5",
+          "term-6",
+          "term-7",
+          "term-8",
+          "term-9",
+          "term-10",
+          "term-11",
+          "term-12",
+          "term-13",
+          "term-14"
+        ],
+        "query": "",
+        "tab": "all",
+        "coinUpdates": [
+          "coin-a",
+          "coin-b",
+          "name.near",
+          "trend"
+        ],
+        "updatesEnabled": false,
+        "hydration": {
+          "mints": [
+            "coin-a",
+            "coin-b"
+          ],
+          "includeNsfw": true,
+          "disabled": true
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 1,
+        "debounce": {
+          "value": "",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": false,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": false,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "",
+            20
+          ],
+          "enabled": false,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": false
+        },
+        "near": [],
+        "mixed": {
+          "coins": {
+            "rows": [
+              "result-0",
+              "result-1",
+              "result-2",
+              "result-3"
+            ],
+            "hasMore": true,
+            "visible": true,
+            "loading": false
+          },
+          "users": {
+            "rows": [
+              "user-0",
+              "user-1",
+              "user-2",
+              "user-3"
+            ],
+            "hasMore": true,
+            "visible": true,
+            "loading": false
+          },
+          "squads": {
+            "rows": [
+              "group-0",
+              "group-1"
+            ],
+            "hasMore": false,
+            "visible": true,
+            "loading": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "tab",
+          "args": [
+            {
+              "tab": "accounts"
+            }
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "group-cache",
+          "key": [
+            "supplied-group",
+            "synthetic-group"
+          ],
+          "value": {
+            "userId": "synthetic-group",
+            "projected": true
+          }
+        },
+        {
+          "type": "trending-read"
+        },
+        {
+          "type": "pnl-read",
+          "options": {
+            "period": "daily",
+            "sort": "combined",
+            "limit": 20
+          }
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "push",
+          "args": [
+            "/explore?q=alpha%20%26%20beta%3Done"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 1,
+          "term": "11111111111111111111111111111111"
+        },
+        {
+          "type": "resolve",
+          "id": 2,
+          "term": "11111111111111111111111111111111"
+        },
+        {
+          "type": "mint-paste",
+          "args": [
+            {
+              "mint": "synthetic-pasted-mint"
+            }
+          ]
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "11111111111111111111111111111111",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-pasted-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "11111111111111111111111111111111"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-pasted-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "11111111111111111111111111111111"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-pasted-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 3,
+          "term": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-evm-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-evm-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-evm-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 4,
+          "term": "synthetic.near"
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "synthetic.near",
+              "searchType": 3
+            }
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/profile/synthetic.near"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 5,
+          "term": "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-hex-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-hex-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-hex-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 6,
+          "term": "11111111111111111111111111111111"
+        },
+        {
+          "type": "mounted"
+        }
+      ],
+      "resolverCalls": [
+        {
+          "id": 1,
+          "term": "11111111111111111111111111111111",
+          "aborted": true
+        },
+        {
+          "id": 2,
+          "term": "11111111111111111111111111111111",
+          "aborted": false
+        },
+        {
+          "id": 3,
+          "term": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aborted": false
+        },
+        {
+          "id": 4,
+          "term": "synthetic.near",
+          "aborted": false
+        },
+        {
+          "id": 5,
+          "term": "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "aborted": false
+        },
+        {
+          "id": 6,
+          "term": "11111111111111111111111111111111",
+          "aborted": true
+        }
+      ]
+    },
+    {
+      "name": "unmount removes actual keyboard listener; no unsupported resolver-unmount cancellation is added",
+      "state": {
+        "open": true,
+        "terms": [
+          "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "synthetic.near",
+          "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "11111111111111111111111111111111",
+          "alpha & beta=one",
+          "term-0",
+          "term-1",
+          "term-2",
+          "term-3",
+          "term-4",
+          "term-5",
+          "term-6",
+          "term-7",
+          "term-8",
+          "term-9",
+          "term-10",
+          "term-11",
+          "term-12",
+          "term-13",
+          "term-14"
+        ],
+        "query": "11111111111111111111111111111111",
+        "tab": "all",
+        "coinUpdates": [
+          "result-0",
+          "result-1",
+          "result-2",
+          "result-3",
+          "result-4",
+          "result-5"
+        ],
+        "updatesEnabled": true,
+        "hydration": {
+          "mints": [
+            "coin-a",
+            "coin-b"
+          ],
+          "includeNsfw": true,
+          "disabled": false
+        },
+        "termsKey": "recently-searched-terms",
+        "keyListeners": 0,
+        "debounce": {
+          "value": "11111111111111111111111111111111",
+          "ms": 500
+        },
+        "trending": {
+          "queryKey": [
+            "trending"
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "pnl": {
+          "queryKey": [
+            "pnl",
+            {
+              "period": "daily",
+              "sort": "combined",
+              "limit": 20
+            }
+          ],
+          "enabled": true,
+          "staleTime": 300000,
+          "gcTime": 600000,
+          "refetchOnWindowFocus": false,
+          "refetchOnMount": false,
+          "hasPlaceholder": false
+        },
+        "group": {
+          "queryKey": [
+            "supplied-groups",
+            "11111111111111111111111111111111",
+            20
+          ],
+          "enabled": true,
+          "staleTime": 30000,
+          "refetchOnWindowFocus": false,
+          "initialPageParam": 0,
+          "hasPlaceholder": true
+        },
+        "near": [
+          {
+            "queryKey": [
+              "coin",
+              {
+                "coinAddress": "name.near",
+                "includeDataLivestream": false,
+                "chainId": "near:mainnet"
+              }
+            ],
+            "retry": false,
+            "refetchOnWindowFocus": false
+          }
+        ],
+        "mixed": {
+          "coins": {
+            "rows": [
+              "result-0",
+              "result-1",
+              "result-2",
+              "result-3"
+            ],
+            "hasMore": true,
+            "visible": true,
+            "loading": false
+          },
+          "users": {
+            "rows": [
+              "user-0",
+              "user-1",
+              "user-2",
+              "user-3"
+            ],
+            "hasMore": true,
+            "visible": true,
+            "loading": false
+          },
+          "squads": {
+            "rows": [
+              "group-0",
+              "group-1"
+            ],
+            "hasMore": false,
+            "visible": true,
+            "loading": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "tab",
+          "args": [
+            {
+              "tab": "accounts"
+            }
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "group-cache",
+          "key": [
+            "supplied-group",
+            "synthetic-group"
+          ],
+          "value": {
+            "userId": "synthetic-group",
+            "projected": true
+          }
+        },
+        {
+          "type": "trending-read"
+        },
+        {
+          "type": "pnl-read",
+          "options": {
+            "period": "daily",
+            "sort": "combined",
+            "limit": 20
+          }
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "push",
+          "args": [
+            "/explore?q=alpha%20%26%20beta%3Done"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 1,
+          "term": "11111111111111111111111111111111"
+        },
+        {
+          "type": "resolve",
+          "id": 2,
+          "term": "11111111111111111111111111111111"
+        },
+        {
+          "type": "mint-paste",
+          "args": [
+            {
+              "mint": "synthetic-pasted-mint"
+            }
+          ]
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "11111111111111111111111111111111",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-pasted-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "11111111111111111111111111111111"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-pasted-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "11111111111111111111111111111111"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-pasted-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 3,
+          "term": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-evm-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-evm-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-evm-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 4,
+          "term": "synthetic.near"
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "synthetic.near",
+              "searchType": 3
+            }
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/profile/synthetic.near"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 5,
+          "term": "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        {
+          "type": "search",
+          "args": [
+            {
+              "searchTerm": "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "searchType": 2
+            }
+          ]
+        },
+        {
+          "type": "last-click",
+          "args": [
+            "synthetic-hex-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          ]
+        },
+        {
+          "type": "coin-click",
+          "args": [
+            "synthetic-hex-mint",
+            {
+              "itemPosition": 0,
+              "marketCap": 0,
+              "sourceScreen": 9,
+              "sourceElement": 71
+            },
+            "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          ]
+        },
+        {
+          "type": "push",
+          "args": [
+            "/coin/synthetic-hex-mint"
+          ]
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 6,
+          "term": "11111111111111111111111111111111"
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "open",
+          "args": []
+        },
+        {
+          "type": "mounted"
+        },
+        {
+          "type": "resolve",
+          "id": 7,
+          "term": "11111111111111111111111111111111"
+        }
+      ],
+      "resolverCalls": [
+        {
+          "id": 1,
+          "term": "11111111111111111111111111111111",
+          "aborted": true
+        },
+        {
+          "id": 2,
+          "term": "11111111111111111111111111111111",
+          "aborted": false
+        },
+        {
+          "id": 3,
+          "term": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aborted": false
+        },
+        {
+          "id": 4,
+          "term": "synthetic.near",
+          "aborted": false
+        },
+        {
+          "id": 5,
+          "term": "0x0000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "aborted": false
+        },
+        {
+          "id": 6,
+          "term": "11111111111111111111111111111111",
+          "aborted": true
+        },
+        {
+          "id": 7,
+          "term": "11111111111111111111111111111111",
+          "aborted": false
+        }
+      ]
+    }
+  ],
+  "pageErrors": [],
+  "unexpected": [],
+  "hostRequests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/fixture.js"
+    }
+  ],
+  "bundleSha256": "a5e35fb634ee55f11b010bc86456f96ee21cb67324308beeac5a94e54904028f",
+  "nodeVersion": "v24.19.0",
+  "reactVersion": "19.2.3",
+  "reactDomVersion": "19.2.3",
+  "esbuildVersion": "0.25.12",
+  "bundledInputs": [
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+      "bytes": 1065698,
+      "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+      "bytes": 17673,
+      "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+      "bytes": 1373,
+      "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+    },
+    {
+      "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+      "bytes": 1359,
+      "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+      "bytes": 1090,
+      "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-jsx-runtime.development.js",
+      "bytes": 12452,
+      "sha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+      "bytes": 47219,
+      "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+      "bytes": 412,
+      "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+      "bytes": 186,
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    },
+    {
+      "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/jsx-runtime.js",
+      "bytes": 210,
+      "sha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+      "bytes": 12144,
+      "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+    },
+    {
+      "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+      "bytes": 194,
+      "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+    },
+    {
+      "path": "packages/frontend/src/components/shell/search/search-shortcuts.mjs",
+      "bytes": 1014,
+      "sha256": "339c2081b3dbfbc408b5b8dbf736f755894e33a962584c0c9c77c38772e5384d"
+    },
+    {
+      "path": "reconstruction/search-dialog-controller/client.mjs",
+      "bytes": 41972,
+      "sha256": "1045cc3dfdd5565e5e2698cf4ccf4ab49733f7011efeac467a2e5c48d73b5dbe"
+    },
+    {
+      "path": "reconstruction/search-navigation/navigation.mjs",
+      "bytes": 5429,
+      "sha256": "3df06f823f7ad2fe9888a640a369c8e26f7566e28dcb6961ac7b89d7e6a7c6c5"
+    },
+    {
+      "path": "tests/fixtures/search-dialog-controller-browser.mjs",
+      "bytes": 15510,
+      "sha256": "0a64213a7a36f1f01257139cda72818dff46c5bea068153b0509c077f179efe4"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "reconstruction/search-dialog-controller/client.mjs",
+      "bytes": 41972,
+      "sha256": "1045cc3dfdd5565e5e2698cf4ccf4ab49733f7011efeac467a2e5c48d73b5dbe"
+    },
+    {
+      "path": "reconstruction/search-dialog-controller/contract.json",
+      "bytes": 155644,
+      "sha256": "6446939cc396aae068f4fdf836793a9ec85caccc935c90a0454aae6b58c00c5c"
+    },
+    {
+      "path": "scripts/original-search-dialog-controller.mjs",
+      "bytes": 23317,
+      "sha256": "cbb8a7aefe8b9a23fd8b78d40ad5444ec44d5c68a923db550b71b869f8b485c8"
+    },
+    {
+      "path": "tests/fixtures/search-dialog-controller-browser.mjs",
+      "bytes": 15510,
+      "sha256": "0a64213a7a36f1f01257139cda72818dff46c5bea068153b0509c077f179efe4"
+    },
+    {
+      "path": "tests/original_search_dialog_controller.browser.mjs",
+      "bytes": 22275,
+      "sha256": "d3863e5534bbe405cf4dd5627f83e3caaddaf4a0f7f351cc34939fce504bac0c"
+    },
+    {
+      "path": "tests/original_search_dialog_controller.test.mjs",
+      "bytes": 4151,
+      "sha256": "75a232a691d794c782ecc2b2f688dcc81be9c9c7e5a0d50935c22fe81197d404"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+    }
+  ],
+  "chromiumVersion": "156.0.8078.4",
+  "pass": true
+}
