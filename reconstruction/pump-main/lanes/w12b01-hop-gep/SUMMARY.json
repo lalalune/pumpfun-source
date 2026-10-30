@@ -1,0 +1,44 @@
+{
+  "lane": "w12b01-hop-gep",
+  "wave": 12,
+  "target": {"window": "0x5b3b0", "function": "multi_hop_curve::swap_hop", "file": "programs/pump/src/multi_hop_curve_swap.rs", "pinned_bytes": 18584},
+  "base": {"main": "20a1ae9c0", "ratio": 0.99913, "slots_diff": 18, "normalized": 1033, "raw": 1033},
+  "best": {
+    "spelling": "v3cc: line 599 `let allowed = crate::trade::v3_can_cross(&a.global,c,&a.user.key());` + `pub(crate)` on trade_v3's v3_can_cross",
+    "ratio": 1.0, "slots_diff": 0, "cand_bytes": 18584, "normalized_equal": true, "raw_equal": true,
+    "normalized": 1034, "raw": 1034, "losses": [], "raw_losses": [],
+    "candidate_sha_vs_20a1ae9c0": "cbd9bf08d09967f7",
+    "candidate_sha_on_main_70f27048e": "cc795ce731592a48 (identical to main's own build: neutral after #2766)"
+  },
+  "landed": false,
+  "landed_by_other_lane": {"pr": 2766, "lane": "w12b09-hop-hillclimb", "merge_commit": "0b5fc0d5d", "spelling": "let (allowed, global) = { let global: &Global = &a.global; ...; (cond, global) }; complete_fill(global, ..)"},
+  "attempts": [
+    {"key": "v1", "spelling": "let global: &Global = &a.global; before the allowed block, complete_fill(global, ..)", "result": "byte-identical to main (0.99913/18)", "why": "coercion reborrow &*global rewritten by MIR ReferencePropagation to a fresh &((*box_ptr).0) in the call block"},
+    {"key": "v3cc", "result": "1.0/0, normalized+raw match, 0 losses (sha cbd9bf08d09967f7 vs 20a1ae9c0; cc795ce731592a48 = main on 70f27048e)"},
+    {"key": "wlok", "spelling": "plain module-level fn whitelist_ok(global:&Global,user:Pubkey,curve:&BondingCurve)->bool, called whitelist_ok(&a.global,a.user.key(),c)", "result": "1.0/0, normalized+raw match, 0 losses (sha cbd9bf08d09967f7)"},
+    {"key": "oracle g57/g58 (post-opt IR)", "result": "gep +8 in bb57 or bb58 -> 1.0/0"},
+    {"key": "oracle pre_g57/pre_g58 (pre-opt IR + opt -O3)", "result": "bb57 GEP survives opt -> 1.0/0; bb58 GEP sunk by InstCombine into bb64 -> 0.99913/18"}
+  ],
+  "mechanism": [
+    "llc MachineSink moves an ADD defined in bb57/bb58 to the top of the call block bb64 = orig +0x29f8 placement",
+    "InstCombine sinks a single-use instruction into the user block only when that block's unique predecessor is the def block; bb64's only predecessor is the memcmp block bb58 already in rustc's pre-opt IR, so a bb58 GEP is sunk and a bb57 GEP is not",
+    "MIR ReferencePropagation rebuilds every reborrow of an SSA &PLACE local at its use, so plain &Global bindings are rematerialized at the complete_fill call",
+    "a plain (non-generic, non-#[inline]) helper whose optimized MIR still has a call (raw_eq for the Pubkey compare) is not cross-crate-inlinable, so the MIR inliner skips it; its &a.global argument is materialized in bb57, LLVM inlines the helper and EarlyCSE folds the call-site GEP into the bb57 one"
+  ],
+  "rejected_mechanisms": [
+    "typed &Global binding hoisted before the allowed block (ReferencePropagation)",
+    "any GEP placement in the memcmp block bb58 (InstCombine sink)"
+  ],
+  "unresolved_residuals": [],
+  "next_ideas": [
+    "steward: optionally replace main's tuple spelling with the v3cc spelling (binary-identical, reuses trade_v3's existing can-cross helper; edits/v3cc_on_tuple.py) via land.py --allow-neutral",
+    "admin_cto lanes: the same three-layer check (MIR RefProp rematerialization, InstCombine unique-predecessor sinking, plain helpers skipped by the MIR inliner when they contain a call) may explain address/argument placement residuals there"
+  ],
+  "ledger_keys": [
+    "0x5b3b0-w12-20a1ae9-refprop-rematerializes-global-reborrow-at-call-v1",
+    "0x5b3b0-w12-20a1ae9-preopt-oracle-gep8-bb57-vs-bb58-v1",
+    "0x5b3b0-w12-20a1ae9-allowed-via-trade-v3-can-cross-helper-v1",
+    "0x5b3b0-w12-20a1ae9-allowed-via-plain-whitelist-ok-helper-v1",
+    "0x5b3b0-w12-70f2704-v3cc-spelling-on-tuple-main-neutral-v1"
+  ]
+}
