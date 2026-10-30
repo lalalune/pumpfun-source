@@ -332,7 +332,11 @@ export default function GoExplorer({
   useEffect(() => {
     if (!selectedTask) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && !event.defaultPrevented) {
+      if (
+        event.key === "Escape" &&
+        !event.defaultPrevented &&
+        !event.isComposing
+      ) {
         event.preventDefault();
         closeDetail();
       }
