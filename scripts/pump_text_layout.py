@@ -8,7 +8,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 RULE = '  .text : { *(.text*) } :text'
-SELECTOR = re.compile(r'^    \*[A-Za-z0-9_.:$+@/-]+\("\.text[A-Za-z0-9_.$:+@/-]*"\)$')
+FILEPAT = r'\*[A-Za-z0-9_.*:$+@/-]*'
+SELECTOR = re.compile(r'^    ' + FILEPAT + r'\((?:"\.text[A-Za-z0-9_.$:+@/-]*"|\.text\*)\)$')
 SUFFIXES = {'.o': 'object', '.obj': 'object', '.a': 'archive', '.rlib': 'archive',
             '.so': 'shared-object', '.dylib': 'shared-object', '.bc': 'bitcode'}
 sha = lambda path: hashlib.sha256(Path(path).read_bytes()).hexdigest()
