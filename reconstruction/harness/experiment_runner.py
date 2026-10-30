@@ -5,6 +5,7 @@ import fcntl
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import signal
@@ -190,8 +191,8 @@ def run_trial(source, command, destination, inputs=(), timeout=300):
         replacements = {'{source}': str(copied), '{work}': str(work), '{out}': str(output)}
         argv = []
         for arg in admission['command']:
-            for token, value in replacements.items(): arg = arg.replace(token, value)
-            argv.append(arg)
+            argv.append(re.sub(r'\{(?:source|work|out)\}',
+                               lambda match: replacements[match.group()], arg))
         # Preserve argv[0] for virtual environments/rustup, but do not resolve
         # the alias again: it may now point somewhere other than the hashed tool.
         argv[0] = admission['invocation']
