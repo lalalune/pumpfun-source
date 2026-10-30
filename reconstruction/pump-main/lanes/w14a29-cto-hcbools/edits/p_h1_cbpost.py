@@ -1,0 +1,1 @@
+EDITS=[('let hopt=holder;let holder=hopt==Some(true);', 'let hopt=holder;let holder=hopt.unwrap_or(false);'), ('let cashback=!holder&&st.cashback;', ''), ('let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;', 'let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;let cashback=!holder&&st.cashback;')]

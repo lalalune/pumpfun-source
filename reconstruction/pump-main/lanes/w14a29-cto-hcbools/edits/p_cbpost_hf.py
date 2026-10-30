@@ -1,0 +1,1 @@
+EDITS=[('let cashback=!holder&&st.cashback;', ''), ('let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;', 'let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;let cashback=!holder&&st.cashback;'), ('  curve.is_cashback_coin=cashback;\n  curve.is_holder_reward=holder;\n', '  curve.is_holder_reward=holder;\n  curve.is_cashback_coin=cashback;\n')]
