@@ -117,6 +117,8 @@ three edits in the same order.
 | 0 | F1 + C1 | 0.59257 | 0.49670 |
 | 1 | `bw:bb1.i:2000:1` (284 mayhem error's to_string unwrap test made "hot") | **0.61174** (+0.019) | 0.50419 |
 | runners-up | `bw:bb34.i`/`bw:bb35.i` 2000:1 (the 312 `t==holder_key` / `t==sharing` memcmp tests) | 0.60015 | |
+| 2 | + `bw:<AccountInfo clone exit>.i:1:2000` | 0.61354 | 0.48712 |
+| 3 | + `bw:bb34.i:2000:1` | **0.62223** | 0.49041 |
 
 These are block-frequency effects inside validate (they move spill weights and the error blocks'
 placement), the same mechanism w12a08-cto-errorder documents: one hypothesis is that original holder/new tests compile as
