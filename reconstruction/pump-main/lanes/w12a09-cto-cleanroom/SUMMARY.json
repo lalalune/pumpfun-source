@@ -1,0 +1,65 @@
+{
+  "lane": "w12a09-cto-cleanroom",
+  "wave": 12,
+  "pool": "a",
+  "angle": "clean-room structural re-derivation of the original admin_cto::execute",
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "prs": [
+    {"pr": 2755, "kind": "notes", "state": "merged by reviewer (tools trimmed)"},
+    {"pr": 2835, "kind": "notes", "state": "draft"}
+  ],
+  "bases": {
+    "20a1ae9c0": {"ratio": 0.43919, "slots_diff": 3352},
+    "b5975fa67 (L1 #2749)": {"ratio": 0.45147, "slots_diff": 3308},
+    "4f24fbc32 (L2 #2792)": {"ratio": 0.45177, "slots_diff": 3308},
+    "17f9dc11d (baseline at end)": {"ratio": 0.45267, "slots_diff": 3308},
+    "7cafddcf3 (main at end: hillclimb #2831 + review 1905fba85)": {"ratio": 0.48742, "slots_diff": 3273, "measured": "t23"}
+  },
+  "best_zero_loss_at_pinned_size": {"trial": "t21", "base": "4f24fbc32 (L2)", "ratio": 0.46854, "slots_diff": 3329, "bytes": 27400, "losses": 0, "raw_losses": 0, "landed": false, "note": "superseded by main 7cafddcf3 (0.48742), which carries the same two structural mechanisms (fee match, per-arm phi flag) via the hillclimb composite"},
+  "trials": [
+    {"id": "t01", "base": "20a1ae9c0", "change": "validate fee: if let Some(f)=fee -> match fee{None=>{},Some(f)=>..}", "ratio": 0.46285, "slots_diff": 3320, "bytes": 27400, "losses": 0, "raw_losses": 0, "differential": "363/0"},
+    {"id": "t02", "base": "L1", "change": "fee match", "ratio": 0.47551, "bytes": 27392},
+    {"id": "t03", "base": "L1", "change": "fee match + holder rebound per target arm", "ratio": 0.48487, "bytes": 27384},
+    {"id": "t04", "base": "L1", "change": "t02 + 330 as st.cashback&&!holder", "ratio": 0.47551, "bytes": 27392, "note": "byte-identical"},
+    {"id": "t05", "base": "L1", "change": "t02 + 306 if-let", "ratio": 0.47491, "bytes": 27392},
+    {"id": "t06", "base": "L1", "change": "t02 + 410 creator_fee<1", "ratio": 0.45889, "bytes": 27408},
+    {"id": "t07", "base": "L1", "change": "t03 + named Rent local", "ratio": 0.48426, "bytes": 27352},
+    {"id": "t08", "base": "L1", "change": "t03 + 306 if-let", "ratio": 0.48427, "bytes": 27384},
+    {"id": "t11", "base": "L1", "change": "t03 tuple order (holder,target)", "ratio": 0.48487, "bytes": 27384},
+    {"id": "t12", "base": "L1", "change": "t03 + curve store if let Some(f)=fee (fee_unwrap revert)", "ratio": 0.48584, "bytes": 27376},
+    {"id": "t13", "base": "L1", "change": "t03 + can_edit last (= L2 + both)", "ratio": 0.48517, "bytes": 27384},
+    {"id": "t14", "base": "L1", "change": "holder per arm alone", "ratio": 0.48381, "bytes": 27368},
+    {"id": "t16", "base": "L1", "change": "t03 + validate returns (Pubkey,bool)", "ratio": 0.23156, "bytes": 27472},
+    {"id": "t17", "base": "L1", "change": "t03 + skip-flag sweep gate in the tree", "ratio": 0.40299, "bytes": 27432},
+    {"id": "t19", "base": "L2", "change": "holder per arm + fee let-else early return", "ratio": 0.46809, "bytes": 27384},
+    {"id": "t21", "base": "L2", "change": "fee match + holder per arm + require!(creator_fee<1)", "ratio": 0.46854, "slots_diff": 3329, "bytes": 27400, "losses": 0, "raw_losses": 0, "note": "zero-loss vs baseline 17f9dc11d but superseded by main's hillclimb composite; calls 154+5"}
+    ,{"id": "t23", "base": "7cafddcf3", "change": "reference build of main", "ratio": 0.48742, "slots_diff": 3273, "bytes": 27400},
+    {"id": "t24", "base": "7cafddcf3", "change": "+ holder rebound per target arm", "ratio": 0.48742, "slots_diff": 3273, "bytes": 27400, "note": "redundant with main's per-arm cashback local"},
+    {"id": "t25", "base": "7cafddcf3", "change": "296 inside the holder arm", "ratio": 0.43304, "bytes": 26960, "note": "-440 B; outlined to_string set equals the original (7 sites)"}
+  ],
+  "mechanisms_found": [
+    "Every {i64,ptr}-returning call gets a 16-byte sret-demotion stack slot created in SelectionDAGISel RPO order; the original's 33-slot order gives its IR RPO (284 289 298 296 330 338 334 326 | prepare 410 ... | 312 307 307wp 306). Main's predicted order equals its measured frame.",
+    "From that RPO: the original's validate fee test is None-first (match / tag==0), and its !holder_reward holder branch visits the non-holder arm first.",
+    "InstCombine canonicalizes one-use icmp ne and br(not c), so bool and integer tests have fixed successor order; Option if-let (tag==1, Some first) vs match/let-else (tag==0, None first) and Result if-let-Err are the only source levers.",
+    "holder as a phi of constants per target arm (or main's per-arm cashback local) makes JumpThreading duplicate the fee-tag and quote_locked tests per holder arm like the original (S9).",
+    "Faithful CFG changes shrink the function: the original has +38 stack reloads, -15 movs, -9 memory loads, -7 alu vs main (data kept in frame slots: phi flags, entry copy of new, 7/9 payload pieces, E32 target)."
+  ],
+  "rejected": [
+    "330 operand order (byte-identical)", "306 if-let", "410 creator_fee<1 alone (successor order unchanged; breaks sol_log tail merge)", "named Rent local (-32 B)", "validate returns holder (collapse)", "skip-flag gate (sweep layout breaks)", "fee let-else early return", "bool hoist above global_quote (IR oracle: worse)", "single-branch successor swaps beyond the fee test (scan: <=+0.002 at 27400 except the inexpressible 410 swap)"
+  ],
+  "unresolved_residuals": [
+    "frame: alloca region 0x20 smaller than the original; spill-slot order differs (arg spills -0x928 vs -0x8f0)",
+    "entry copy of new (S1), curve bools before global_quote (S2)",
+    "sweep gate as one phi flag (S5), pool CPI holder from a phi slot (S10)",
+    "to_string outlined at 307/312 (S7) needs 296 inside the holder arm, which shrinks the function further"
+  ],
+  "next_ideas": [
+    "Reproduce the original's extra data flow to recover bytes faithfully: entry copy of new, 7/9 sharing_update payload pieces, E32 target, phi flags in frame slots",
+    "296 inside the holder arm on top of main's per-arm cashback local, compensated by that data flow",
+    "Use rpo.py on every candidate: the 33 sret-demotion slots must follow the original order 284 289 298 296 330 338 334 326 | ... | 312 307 307wp 306"
+  ],
+  "tools": {
+    "committed": "reconstruction/pump-main/lanes/w12a09-cto-cleanroom/tools/outline.py",
+    "lane_local": "~/.cache/pumpfun-reconstruction/lanes/w12a09-cto-cleanroom/tools/ (rpo.py, irswap.py, swapscan.py, tratio.py, regions.py, irname.py, capture_ir.py, oracle.sh, trial.sh, results.py)"
+  }
+}

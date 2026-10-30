@@ -3,7 +3,7 @@
 Target: window `0x22a10`, `pump_recovered::admin_cto::execute`
 (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Base: main `20a1ae9c0` (program source unchanged on `e61df0357`), admin_cto ratio 0.43919, slots_diff 3352.
-Second branch (`swarm/w12a09-cto-cleanroom-2`): main `b5975fa67` (after #2749), admin_cto 0.45147, slots_diff 3308.
+Second branch (`swarm/w12a09-cto-cleanroom-2`): main `b5975fa67` (after #2749), admin_cto 0.45147, slots_diff 3308; merged up to main `7cafddcf3`.
 
 ## Result
 
@@ -17,6 +17,10 @@ Second branch (`swarm/w12a09-cto-cleanroom-2`): main `b5975fa67` (after #2749), 
 | b5975fa67 | t14: `holder` per arm alone | 0.48381 | - | 27,368 | 1033 / 347 | size |
 | 4f24fbc32 (L2, #2792) | - | 0.45177 | 3308 | 27,400 | 1034 / 1034 | - |
 | 4f24fbc32 | t13: t03 + can_edit last (= L2 + fee `match` + `holder` per arm) | 0.48517 | - | 27,384 | | size |
+| 4f24fbc32 | t21: t13 + `require!(creator_fee<1,..)` | 0.46854 | 3329 | 27,400 | 1034 / 1034 | 0 / 0 vs baseline 17f9dc11d (0.45267) |
+| 7cafddcf3 (hillclimb #2831 + review) | t23: reference build | 0.48742 | 3273 | 27,400 | 1034 / 1034 | - |
+| 7cafddcf3 | t24: + `holder` rebound per arm | 0.48742 | 3273 | 27,400 | 1034 / 1034 | redundant |
+| 7cafddcf3 | t25: 296 inside the holder arm (#2370 shape) | 0.43304 | - | 26,960 | 1034 / 347 | -440 B; the outlined `to_string` set becomes the original's (7 sites; main has 5), calls 154+3 |
 
 t01 passes the 363-case `pump_admin_cto_differential.py` (0 mismatches). On L1/L2 both changes gain
 ratio but shrink the function by 8–32 B, so they are not landable alone. They are handed to the size-knob
@@ -100,7 +104,66 @@ the original's B24-B27 / B48-B51 / B52-B53 shape (t03 B26-B29 / B46-B49 / B50-B5
 | t12 | t03 + curve store `if let Some(f)=fee{curve.creator_fee_bps=f;}` (fee_unwrap revert) | 0.48584 | 27,376 | best ratio so far, 24 B short |
 | t13 | t03 + `can_edit_creator_fee=false` after the fee store (#2792) | 0.48517 | 27,384 | no size change |
 | t14 | `holder` per arm alone (no fee `match`), on L1 | 0.48381 | 27,368 | +0.032 alone, 32 B short; fee `match` on top adds +16 B |
+| t16 | t03 + validate returns `Result<(Pubkey,bool)>` (execute-level holder phi) | 0.23156 | 27,472 | collapse, like every earlier return-type change |
+| t17 | t03 + sweep gated on a `skip` flag from the sharing_update/collect_old tree | 0.40299 | 27,432 | sweep layout breaks (as in w10r1 region2 tree/skip) |
+| t19 | L2 + `holder` per arm + fee as `let Some(f)=fee else{return Ok(target)};` | 0.46809 | 27,384 | same size as the `match`, worse ratio |
+| t21 | L2 + fee `match` + `holder` per arm + `require!(creator_fee<1,..)` | 0.46854 | **27,400** | 0 losses vs baseline 17f9dc11d (0.45267), slots 3329. Superseded by the hillclimb composite on main (#2831: fee `match` + per-arm cashback local, ~0.487). `<1` also breaks the tail-merge of two msg! `sol_log` sites (calls 154+5 vs 154+3) |
 
+### Why the faithful changes come out short
+
+Instruction classes over the whole function (orig / main / t03):
+
+| class | orig | main | t03 |
+| --- | ---: | ---: | ---: |
+| stack loads (`ldx [r10-..]`) | 564 | 526 | 525 |
+| stack stores | 909 | 910 | 910 |
+| `mov` | 467 | 482 | 481 |
+| memory loads | 433 | 442 | 442 |
+| alu | 337 | 344 | 344 |
+| jumps | 308 | 310 | 310 |
+| `lddw` | 86 | 88 | 88 |
+| calls | 157 | 157 | 157 |
+
+The original reloads 38 more values from the stack and has fewer register moves, memory reloads
+and ALU ops. It keeps more phi-of-constants flags and data copies in frame slots: holder, cashback,
+fee_is_some, skip, collect_old and the sharing tag, plus the w12a01-cto-frame objects (entry copy of
+`new`, 7/9 sharing_update payloads, E32 target). Each structural fix that makes the CFG more
+original-like shrinks our function, because those values still live in registers or are recomputed.
+The missing bytes are that data flow, not filler. A size compensator should come from reproducing
+it rather than from unrelated knobs.
+
+
+## Status at the end of the lane (main 7cafddcf3)
+
+Main now carries both structural findings through the hillclimb composite (#2831 + review 1905fba85):
+- validate's `match fee{Some(f)=>{..}None=>{}}`: MIR orders the switch by discriminant, so `None` comes first as in t01;
+- `let cashback=if holder{false}else{st.cashback};`: a per-arm phi of constants, the same JumpThreading shape as t03's rebound `holder`.
+
+Measured here: main 7cafddcf3 = **0.48742 / 3273 slots / 27,400 B** (t23). Adding t03's `holder` rebinding on top
+is redundant (t24: same 0.48742 / 3273). Its RPO is now `284 289 330 312 307 307wp 306 298 338 334 326 | prepare 410 .. | 296`
+against the original's `284 289 298 296 330 338 334 326 | .. | 312 307 307wp 306`.
+
+Single-branch successor-swap scan on main 7cafddcf3's IR (llc oracle). These are the best results at 27,400 B; none is expressible as a one-use test in source:
+
+| IR branch | source construct | ratio |
+| --- | --- | ---: |
+| `bb74` | line 410 `require!(creator_fee==0)`, error first | **0.49281** |
+| `bb42.i` | one arm's copy of the duplicated fee test, Some first | 0.48862 |
+| `bb12.i` | 296 `!holder_enabled`, ok first | 0.48832 |
+| `bb45` | event `Clock::get()?`, Err first | 0.48772 |
+| `bb104.i` | sweep `collect_transfer_vault_tokens(..)?`, Err first | 0.48772 |
+
+## Next ideas
+
+- Find a +16 B, data-flow-faithful companion for `fee match + holder per arm` (L2: 0.48517 at 27,384 B).
+  Candidates are the original's frame objects: the entry copy of `new`, the 7/9 sharing_update payloads,
+  E32 target (w12a01-cto-frame), and holding cashback, fee_is_some and the sharing tag as phi-of-constant
+  flags in frame slots, as the original does (`-0x958`, r7 → `-0x8e8`, `-0x8f8`).
+- 296 inside the holder arm (#2370 shape) on top of holder per arm. The original only tests `enabled`
+  on the !holder_reward holder path, and 307/312 `to_string` are outlined there. It shrinks the function
+  further, so it needs the same data-flow compensation.
+- The IR scan ranks the 410 `require!` successor swap as the best single CFG change on t02
+  (27,400 B / 0.48173), but no one-use integer test can express it in source.
 
 This lane re-derives the original function's structure from the deployed bytes only
 (`win.py orig 0x22a10`, `coords.py window 0x22a10`, symbolized call targets), then compares it

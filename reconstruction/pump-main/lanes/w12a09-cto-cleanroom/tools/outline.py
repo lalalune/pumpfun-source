@@ -164,6 +164,11 @@ def get(sidename, cand):
     cblob = Path(cand).read_bytes()
     fs, addrs = symtab(cblob)
     if sidename == 'orig':
+        # Name the original's call targets with a 27,400 B build's symbols: a candidate of
+        # another size shifts every later function and would mislabel them (+0x8 names).
+        hit = [s for a, s, n in fs if re.search(r'admin_cto::execute$', n)]
+        if (not hit or hit[0] != WB) and DEFAULT_CAND.exists():
+            fs, addrs = symtab(DEFAULT_CAND.read_bytes())
         path, start, size = ORIG, W, WB
     else:
         hit = [(a, s) for a, s, n in fs if re.search(r'admin_cto::execute$', n)]
