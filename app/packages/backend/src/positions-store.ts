@@ -288,6 +288,7 @@ export class PositionsStore {
       if (typeof item.deleted !== "boolean" || typeof item.hidden !== "boolean")
         fail("update visibility");
       assertSchema(item.body, updateSchema, "update", spec);
+      text(item.body.id, "update.id");
       publicCallout(item.body);
       if (item.body.createdAt !== null)
         iso(item.body.createdAt, "update.createdAt");
