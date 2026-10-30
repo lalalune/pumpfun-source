@@ -201,6 +201,12 @@ function publicCallout(value: unknown, quoteDepth = 0): void {
     )
       fail("social counters must be nonnegative safe integers");
     const nestedQuote = field === "quotedCallout" && child !== null;
+    if (nestedQuote) {
+      const quote = child as { chain?: string; callout: { chain?: string | null } };
+      if (quote.chain !== undefined && quote.callout.chain != null &&
+          quote.chain !== quote.callout.chain)
+        fail("quoted callout envelope/body chain mismatch");
+    }
     if (nestedQuote && quoteDepth > 0)
       fail("quoted callouts may be expanded only one level");
     publicCallout(child, quoteDepth + (nestedQuote ? 1 : 0));
