@@ -28,7 +28,7 @@ Vault initialization accepts indexes 0–7 and leaves the authority zero until a
 global-authority update. Sweeps transfer tokens before native SOL and retain rent
 for the actual allocation. A zero rate bypasses cooldown; other rates use a strict
 signed elapsed-time comparison. The observations and limits are detailed in the
-[buyback draft](../../localnet/recovery/fees-buyback/README.md).
+buyback draft (formerly `localnet/recovery/fees-buyback/README.md`, removed from the tree).
 
 Sharing creation adds 116 cases with genuine captured Pump and PumpSwap CPIs.
 The handler creates a version-two sharing account, validates creator authority,
@@ -38,7 +38,7 @@ Temporary serialized creator/admin state before each CPI is retained, because
 the called program reads that state. These cases use normally signed test-owned
 keys and synthetic local accounts; they do not prove every live sharing transition.
 
-The [current source checkpoint](../../repro/pump_fees/sharing-owned-error-v144/README.md)
+The current source checkpoint (formerly `repro/pump_fees/sharing-owned-error-v144/README.md`, removed from the tree)
 binds this README and all 25 remaining source/workspace/IDL inputs. It preserves
 the recovered dependency graph, social-account layout, inline initializer Pump
 Global account, four declarations in `state.rs`, and SharingConfig in
@@ -64,13 +64,13 @@ v1.52 for `llvm-objcopy` stripping. The phase records distinguish those tools;
 retained file hashes do not retrospectively prove every historical invocation.
 Full-file equality with the captured original remains false, and the unique
 historical dependency/compiler recipe remains unresolved. The
-[prior donation business checkpoint](../../repro/pump_fees/donation-business-v144/README.md)
+prior donation business checkpoint (formerly `repro/pump_fees/donation-business-v144/README.md`, removed from the tree)
 retains its 770,744-byte `fc1088f3…` executable and original focused20 coverage.
-The [donation event-account checkpoint](../../repro/pump_fees/donation-event-account-v144/README.md)
+The donation event-account checkpoint (formerly `repro/pump_fees/donation-event-account-v144/README.md`, removed from the tree)
 retains its 768,848-byte `8f89dbeb…` executable and limitations; older
-[SharingConfig](../../repro/pump_fees/sharing-module-v144/README.md),
-[state-module](../../repro/pump_fees/state-module-v144/README.md) and
-[inline-context](../../repro/pump_fees/initializer-inline-v144/README.md)
+SharingConfig (formerly `repro/pump_fees/sharing-module-v144/README.md`, removed from the tree),
+state-module (formerly `repro/pump_fees/state-module-v144/README.md`, removed from the tree) and
+inline-context (formerly `repro/pump_fees/initializer-inline-v144/README.md`, removed from the tree)
 checkpoints also remain immutable.
 
 `CreateDonationFeePda` retains its owned `AccountInfo` event authority, seed/bump
@@ -146,7 +146,7 @@ are outlined. Full legacy/V2 CFG and data closure and diagnostic coordinates
 remain unresolved. Five accepted social roots and their 176 immediate targets
 retain their prior normalized matches. Existing account declarations remain
 unchanged while the V2 handler body is reconstructed. No original whole-program equivalence is
-claimed. The [prior legacy-quote/social-admission package](../../repro/pump_fees/legacy-social-admission-v144/README.md)
+claimed. The prior legacy-quote/social-admission package (formerly `repro/pump_fees/legacy-social-admission-v144/README.md`, removed from the tree)
 retains the 773,808-byte 8ff12 ELF, source and tested receipts unchanged.
 
 Social token claims use a shared admission helper for both associated accounts.
@@ -159,7 +159,7 @@ the new helper, and the six-AccountInfo drop body is raw-identical. Complete
 helper/handler equality and unrestricted descendant/data closure remain unresolved.
 No new fixtures or token-extension conclusions are added by this checkpoint.
 
-The [prior donation-borrow checkpoint](../../repro/pump_fees/donation-borrow-v144/README.md)
+The prior donation-borrow checkpoint (formerly `repro/pump_fees/donation-borrow-v144/README.md`, removed from the tree)
 retains its 770,016-byte `5cf8d567…` ELF and source-specific results unchanged.
 
 `BuybackVault`, `SocialFeePda`, `DonationFeePda`, `FeeProgramGlobal` and
@@ -176,7 +176,7 @@ the full 1,472-byte unchecked decoder, 1,024-byte Account::try_from wrapper and
 handler remains unmatched and unrestricted descendants/data remain unresolved. ConfigStatus,
 Shareholder, handlers and account contexts stay unchanged by this placement move.
 
-The [prior v1.44 checkpoint](../../repro/pump_fees/all-thirtyone-v144/README.md)
+The prior v1.44 checkpoint (formerly `repro/pump_fees/all-thirtyone-v144/README.md`, removed from the tree)
 passes 112 independent Surfpool comparisons with 224 signed local transactions.
 All Surfpool counts below refer to that retained executable. The historical
 authority-guard build passes 17,384 SBF comparisons and the donation sequence;
@@ -197,7 +197,7 @@ is verified; the signed message is unchanged. Only stale-blockhash freshness is
 adapted for local replay. The 2,512-byte account, zero defaults, rent/balances and
 events match both the captured executable and saved historical transaction
 metadata. These are two initialization paths against a later executable, not a
-complete historical bank reconstruction. See [the evidence](../../repro/pump_fees/initializer-history/REPORT.md).
+complete historical bank reconstruction. See the evidence (formerly `repro/pump_fees/initializer-history/REPORT.md`, removed from the tree).
 
 Observed parser rules: wrong discriminator or allocation below 2,512 bytes returns
 InvalidAccountData; malformed vector serialization returns BorshIoError. Standard
@@ -293,7 +293,7 @@ of zero differs from the FeeProgramGlobal authority setter; these are separate
 configuration types and recovered behaviors.
 
 Donation creation and forwarding are integrated from the independently validated
-[draft](../../localnet/recovery/fees-donation/README.md). Their 713 signed synthetic
+draft (formerly `localnet/recovery/fees-donation/README.md`, removed from the tree). Their 713 signed synthetic
 cases pass against this combined executable. A further 10-step persistent
 creation/deposit/crank sequence and 10 Surfpool comparisons pass with normally
 verified test-owned signatures. The sequence compares exact timestamped events;
@@ -305,7 +305,7 @@ The three social-fee handlers add 1,562 signed differential cases, comparing
 state, errors, events, CPI instructions and optional claim return values. The
 prior retained executable also passes 29 Surfpool comparisons (58 signed
 transactions) for social creation, SOL claims and token claims. See the
-[social recovery notes](../../localnet/recovery/fees-social/README.md) for the
+social recovery notes (formerly `localnet/recovery/fees-social/README.md`, removed from the tree) for the
 179-byte rent reserve, cooldown, versioned initialization, saturating counters,
 token ATA creation and precise timestamp exclusions. These observations do not
 establish that every authorization or token-extension combination is safe.
@@ -318,7 +318,7 @@ normalization. The existing cases directly cover missing vault and user applicat
 the final missing-token-program application error is supported statically but is
 not reached by these fixtures. Earlier option checks or account constraints win.
 These cases do not measure allocations or prove whole-handler cleanup equivalence. The previous
-[V2 caller checkpoint](../../repro/pump_fees/v2-caller-v144/README.md) is retained.
+V2 caller checkpoint (formerly `repro/pump_fees/v2-caller-v144/README.md`, removed from the tree) is retained.
 
 Referral `withdraw` adds 113 signed differential cases and 16 independent Surfpool
 comparisons. It authenticates the user signer and the System-owned referral PDA,
@@ -326,7 +326,7 @@ retains the zero-data rent minimum for SOL, and supports optional token withdraw
 with mint/authority/program checks but no ATA-address requirement. The retained
 prior v1.44 executable passes all 55 donation/social/withdraw Surfpool comparisons
 (110 signed transactions), plus the separate persistent donation sequence. See
-[withdrawal recovery](../../localnet/recovery/fees-withdraw/README.md).
+withdrawal recovery (formerly `localnet/recovery/fees-withdraw/README.md`, removed from the tree).
 
 External Pump Global/BondingCurve and AMM Pool types now use generated Anchor account
 codecs with explicit external owners. Sharing and donation parsing reuse the same
@@ -335,7 +335,7 @@ decoder patterns differed from the captured original only in embedded source-fil
 length and source-line constants after relocation/call masking. Nine
 ordinary-signature malformed-account checks and all existing regressions passed;
 this did not establish whole-program identity. See
-[codec evidence](../../repro/pump_fees/external-codecs-v144/README.md).
+codec evidence (formerly `repro/pump_fees/external-codecs-v144/README.md`, removed from the tree).
 
 
 ## Declared external programs and workspace layout
@@ -359,7 +359,7 @@ revision, compiler or historical source tree.
 
 The retained declared-program candidate is 766,800 bytes with SHA-256
 `cf34104a46c65538e7de734abfa9d5d74102639257969cc4e51eb36a31cbd0eb`.
-The [declared-program evidence](../../repro/pump_fees/declared-programs-v144/README.md)
+The declared-program evidence (formerly `repro/pump_fees/declared-programs-v144/README.md`, removed from the tree)
 retains whole-workspace/IDL inputs, the actual build helpers, bounded decoder
 comparisons, all 17,372 comparison receipts and the ten-step donation sequence.
 It preserves the earlier helper used for the isolated experiment separately from
@@ -372,7 +372,7 @@ Three buyback guards use `require_gt!(8u8, index, InvalidBuybackIndex)` and the
 shared update context boxes its vault account. Their instruction bodies and
 value-formatting helper support these source choices, and nine normally signed
 index-7/8/255 comparisons assert exact compared-value logs. The separate
-[buyback checkpoint](../../repro/pump_fees/buyback-source-v144/README.md) retains
+buyback checkpoint (formerly `repro/pump_fees/buyback-source-v144/README.md`, removed from the tree) retains
 the controlled macro, integer-type, and account-layout builds.
 
 `set_authority` uses a plain public-key inequality guard. Unlike
@@ -381,7 +381,7 @@ matching the original error dataflow and logs. Its 3,320-byte body has the
 original relocation pattern and fourteen mapped internal calls; after address
 normalization, only source filename length and line constants differ.
 
-The [authority-guard checkpoint](../../repro/pump_fees/authority-guard-v144/README.md)
+The authority-guard checkpoint (formerly `repro/pump_fees/authority-guard-v144/README.md`, removed from the tree)
 retains the clean main build, its exact scratch identity, all 22 source/workspace/IDL
 inputs, and 17,384 comparison receipts plus the donation sequence. Its ELF is
 768,824 bytes, SHA-256
@@ -394,7 +394,7 @@ differ from the capture; these checks do not establish unique historical source.
 
 `ClaimSocialFeePdaV2` boxes its quote mint and uses by-value `AccountInfo` fields for event authority and program, preserving the existing account constraints. The original parser's field stores and generated event-CPI account contract support these types. Together they reproduce the complete 560-byte normalized account-exit body, seven direct callee bodies and three bounded literal spans. Boxing alone left one context offset unmatched; that earlier attempt remains preserved.
 
-This source-layout result does not prove recursive data/call closure, original whole-file identity or a completed audit. The [historical social v2 layout checkpoint](../../repro/pump_fees/social-v2-account-layout-v144/README.md) retains the 770,624-byte `c181b0ba75aee67369385e04908d89088552c1fad756bf5a21d7fb21979e6a58` ELF and its own fresh receipts. The current legacy-caller checkpoint above carries freshly executed scratch receipts by whole-file identity and retains the inline initializer and social exit checks.
+This source-layout result does not prove recursive data/call closure, original whole-file identity or a completed audit. The historical social v2 layout checkpoint (formerly `repro/pump_fees/social-v2-account-layout-v144/README.md`, removed from the tree) retains the 770,624-byte `c181b0ba75aee67369385e04908d89088552c1fad756bf5a21d7fb21979e6a58` ELF and its own fresh receipts. The current legacy-caller checkpoint above carries freshly executed scratch receipts by whole-file identity and retains the inline initializer and social exit checks.
 
 At the preceding legacy-value checkpoint, the payout mismatch was changed to
 formatted compared values through
@@ -443,7 +443,7 @@ optional pool/program/event ordering remained unresolved at that checkpoint. Who
 parser, cleanup and recursive data equivalence remain open. The unchanged
 17,461 comparisons and separate ten-step sequence are preservation evidence;
 no case was added. Raw diagnostic differences remain in the checkpoint.
-The [prior withdrawal checkpoint](../../repro/pump_fees/withdraw-owned-error-v144/README.md)
+The prior withdrawal checkpoint (formerly `repro/pump_fees/withdraw-owned-error-v144/README.md`, removed from the tree)
 remains immutable, including its missing-token-program coverage limitation.
 
 
@@ -470,7 +470,7 @@ See `repro/pump_fees/sharing-pump-extend-v144/` for source/IDL bindings, complet
 
 ## Second Pump CPI ownership checkpoint
 
-The [second Pump CPI checkpoint](../../repro/pump_fees/sharing-second-pump-cpi-v144/README.md)
+The second Pump CPI checkpoint (formerly `repro/pump_fees/sharing-second-pump-cpi-v144/README.md`, removed from the tree)
 restores the generated `migrate_bonding_curve_creator` CPI with its natural
 CpiContext ownership, account-info append and data allocation. The local IDL
 already has the original metadata; only one source call changes. Both existing
@@ -483,7 +483,7 @@ windows with their immediate call targets; the prior three helper matches remain
 The full inventory leaves 125 unattributed and two conflicting original windows.
 All 17,461 unchanged comparisons and the separate ten-step sequence pass; no
 new fixture or unique case is claimed. Raw diagnostics and full recursive/whole
-original equality remain unresolved. The [main companion](../../repro/pump_fees/sharing-second-pump-cpi-main-v144/README.md)
+original equality remain unresolved. The main companion (formerly `repro/pump_fees/sharing-second-pump-cpi-main-v144/README.md`, removed from the tree)
 binds one clean main build to the tested scratch executable and symbols.
 
 

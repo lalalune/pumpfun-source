@@ -13,7 +13,7 @@ def known_instruction_names(name):
     path = ROOT / 'evidence/upstream' / f'{name}.json'
     if not path.is_file():
         return ()
-    data = json.loads(path.read_text())
+    data = json.loads(path.read_text(encoding='utf-8'))
     names = {
         ''.join(part[:1].upper() + part[1:] for part in item['name'].split('_'))
         for item in data.get('instructions', [])
@@ -22,16 +22,29 @@ def known_instruction_names(name):
     return tuple(sorted(names, key=len, reverse=True))
 
 
-def program_names():
+def program_names(root=ROOT):
     """Use the archived mapping when present, otherwise the captured programs."""
-    path = ROOT / 'repro/programs.json'
+    path = root / 'repro/programs.json'
     if path.is_file():
         return json.loads(path.read_text())
     order = ('pump', 'pump_amm', 'pump_fees', 'mayhem')
     return [
         name for name in order
-        if (ROOT / 'evidence/original' / name / 'deployed.so').is_file()
+        if (root / 'evidence/original' / name / 'deployed.so').is_file()
     ]
+
+
+def program_addresses():
+    """Map program names to addresses from the archive or each capture."""
+    path = ROOT / 'repro/programs.json'
+    if path.is_file():
+        return json.loads(path.read_text())
+    return {
+        name: json.loads(
+            (ROOT / 'evidence/original' / name / 'capture.json').read_text()
+        )['program']
+        for name in program_names()
+    }
 
 
 def instruction_log_names(b, known=()):
@@ -43,13 +56,16 @@ def instruction_log_names(b, known=()):
     an IDL keep the original alphanumeric fallback.
     """
     names = set()
+    known = sorted(known, key=lambda name: (-len(name), name))
+    fallback_pattern = re.compile(rb'[A-Z][A-Za-z0-9]*')
     for match in re.finditer(rb'Instruction: ', b):
-        rest = b[match.end():]
-        exact = next((name for name in known if rest.startswith(name.encode())), None)
+        # Match in place: a suffix slice copies the remaining ELF/allocation.
+        offset = match.end()
+        exact = next((name for name in known if b.startswith(name.encode(), offset)), None)
         if exact is not None:
             names.add(exact)
             continue
-        fallback = re.match(rb'[A-Z][A-Za-z0-9]*', rest)
+        fallback = fallback_pattern.match(b, offset)
         if fallback:
             name = fallback.group().decode()
             if name.endswith('Instruction') and name != 'Instruction':
@@ -59,21 +75,28 @@ def instruction_log_names(b, known=()):
 
 
 def elf_layout(b):
-    assert b[:6]==b'\x7fELF\x02\x01'
+    if b[:6]!=b'\x7fELF\x02\x01': raise ValueError('Unsupported ELF identity')
     h=struct.unpack_from('<HHIQQQIHHHHHH',b,16)
     _,machine,_,entry,phoff,shoff,flags,ehsize,phsize,phnum,shsize,shnum,shstr=h
-    assert phsize==56 and shsize==64 and shnum>0
+    if not ((phnum==0 or phsize==56) and shsize==64 and shnum>0): raise ValueError('Invalid ELF table layout')
     raw=[struct.unpack_from('<IIQQQQIIQQ',b,shoff+i*shsize) for i in range(shnum)]
-    names=b[raw[shstr][4]:raw[shstr][4]+raw[shstr][5]]
+    if shstr >= len(raw): raise ValueError('invalid section-name table index')
+    if shstr == 0:
+        names=b'\0'  # SHN_UNDEF: this ELF has no section-name table.
+    else:
+        names_section=raw[shstr]
+        if names_section[1] != 3 or names_section[4]+names_section[5] > len(b): raise ValueError('invalid section-name string table')
+        names=b[names_section[4]:names_section[4]+names_section[5]]
     end=max(ehsize,phoff+phsize*phnum,shoff+shsize*shnum)
     sections=[]
     for s in raw:
+        if s[0] >= len(names) or b'\0' not in names[s[0]:]: raise ValueError('invalid section-name string offset or terminator')
         name=names[s[0]:].split(b'\0')[0].decode()
         if s[1]!=8: end=max(end,s[4]+s[5])
         sections.append({'name':name,'type':s[1],'offset':s[4],'size':s[5],'address':s[3],'flags':s[2]})
     for i in range(phnum):
         p=struct.unpack_from('<IIQQQQQQ',b,phoff+i*phsize); end=max(end,p[2]+p[5])
-    assert end<=len(b)
+    if end>len(b): raise ValueError('ELF extent exceeds available bytes')
     return {'machine':machine,'entry':entry,'flags':flags,'elf_extent':end,'allocation_bytes':len(b),'trailing_bytes':len(b)-end,'trailing_all_zero':not any(b[end:]),'elf_sha256':hashlib.sha256(b[:end]).hexdigest(),'sections':sections}
 def analyze():
     out={}
@@ -84,8 +107,8 @@ def analyze():
         r['compiler_version']='unresolved'; r['dependency_versions']='unresolved'; out[name]=r
     (ROOT/'evidence/binary-analysis.json').write_text(json.dumps(out,indent=2)+'\n')
     inventory={}
-    for f in (ROOT/'evidence/upstream').glob('pump*.json'):
-        d=json.loads(f.read_text()); addresses={}
+    for f in sorted((ROOT/'evidence/upstream').glob('pump*.json')):
+        d=json.loads(f.read_text(encoding='utf-8')); addresses={}
         def walk(accounts,ix):
             for a in accounts:
                 if 'address' in a: addresses.setdefault(a['address'],[]).append({'instruction':ix,'account':a['name']})

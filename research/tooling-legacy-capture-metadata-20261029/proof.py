@@ -6,10 +6,11 @@ programdata keys. A legacy capture can therefore claim a deploy slot, an upgrade
 authority and programdata bytes while still passing the archived gate.
 
 The legacy loader stores the ELF in the program account and has no ProgramData
-account, deployment slot or upgrade authority. This packet checks those fields
-for every retained capture: legacy records must have null slot/authority and no
-programdata keys; upgradeable records must carry an integer slot and an optional
-valid 32-byte authority. No captured byte or archived report is rewritten.
+account, deployment slot or upgrade authority. This packet binds each known
+capture folder to its expected loader, then checks the matching fields: legacy
+records must have null slot/authority and no programdata keys; upgradeable
+records must carry an integer slot and an optional valid 32-byte authority. No
+captured byte or archived report is rewritten.
 """
 from pathlib import Path
 import gzip
@@ -60,7 +61,10 @@ def b58encode(data):
 def validate(record, folder):
     failures = []
     loader = record.get('loader')
-    if loader == 'legacy-v2':
+    expected = 'legacy-v2' if folder in LEGACY else None
+    if loader != expected:
+        failures.append(f'{folder} expected loader {expected!r}, got {loader!r}')
+    if expected == 'legacy-v2':
         if record.get('last_deploy_slot') is not None:
             failures.append(folder + ' legacy deploy slot')
         if record.get('upgrade_authority') is not None:

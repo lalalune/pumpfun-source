@@ -63,12 +63,17 @@ def sha256_bytes(data):
 def analyze_data_layout(elf):
     """Analyze .rodata and .data.rel.ro sections in detail."""
     results = {}
+    # SBPF V0-V2 use the lenient loader's legacy data relocations. V3+
+    # uses a strict loader without relocation; unknown flags stay untouched.
+    legacy_relocations = (len(elf.b) >= 52
+                          and struct.unpack_from("<I", elf.b, 48)[0] in (0, 1, 2))
 
     for section_name in [".rodata", ".data.rel.ro"]:
         if section_name not in elf.secs:
             continue
         sec = elf.secs[section_name]
         start = sec[4]
+        address_start = sec[3]
         size = sec[5]
         data = elf.b[start:start + size]
 
@@ -85,12 +90,20 @@ def analyze_data_layout(elf):
                 if len(current) >= 4:
                     strings.append({
                         "offset": current_start,
-                        "address": hex(start + current_start),
+                        "address": hex(address_start + current_start),
                         "length": len(current),
                         "value": "".join(current)[:200],
                     })
                 current = []
                 current_start = None
+
+        if len(current) >= 4:
+            strings.append({
+                "offset": current_start,
+                "address": hex(start + current_start),
+                "length": len(current),
+                "value": "".join(current)[:200],
+            })
 
         # Zero padding analysis
         zero_runs = []
@@ -115,20 +128,31 @@ def analyze_data_layout(elf):
         pointers = []
         for i in range(0, len(data) - 7, 8):
             val = struct.unpack_from("<Q", data, i)[0]
+            provenance = {}
+            if (legacy_relocations
+                    and getattr(elf, "relocations", {}).get(start + i, {}).get("type") == 8
+                    and not elf.lo <= start + i < elf.hi):
+                # Legacy R_BPF_64_RELATIVE data slots encode the image-relative
+                # target at r_offset+4. Keep the raw slot; do not rebase or write
+                # captured bytes. This is pointer attribution, not execution.
+                provenance = {"raw_value": hex(val), "relocation_type": 8}
+                val >>= 32
             if elf.lo <= val < elf.hi and val % 8 == 0:
                 pointers.append({
                     "offset": i,
-                    "address": hex(start + i),
+                    "address": hex(address_start + i),
                     "points_to": hex(val),
                     "in_text": True,
+                    **provenance,
                 })
-            elif start <= val < start + size:
+            elif address_start <= val < address_start + size:
                 pointers.append({
                     "offset": i,
-                    "address": hex(start + i),
+                    "address": hex(address_start + i),
                     "points_to": hex(val),
                     "in_text": False,
                     "self_reference": True,
+                    **provenance,
                 })
 
         # Constant value analysis (common numeric constants)
@@ -184,9 +208,12 @@ def analyze_data_layout(elf):
 
 def analyze_relocations(elf):
     """Full relocation table analysis with type classification."""
+    # Solana's SBPF loader uses 8 for relative addresses and 10 for calls;
+    # these are not the generic BPF absolute-data relocation names.
+    # https://github.com/anza-xyz/sbpf/blob/f754c707f99779a756978f87c9afd25eeeb3d92e/src/elf.rs#L175-L207
     reloc_types = {
-        0: "R_BPF_NONE", 1: "R_BPF_64_64", 2: "R_BPF_64_RELATIVE",
-        8: "R_BPF_64_ABS64", 10: "R_BPF_64_ABS32",
+        0: "R_BPF_NONE", 1: "R_BPF_64_64",
+        8: "R_BPF_64_RELATIVE", 10: "R_BPF_64_32",
     }
 
     rel_sec = elf.secs.get(".rel.dyn")
@@ -262,9 +289,17 @@ def analyze_cross_section(elf):
 
     # For each window, find all data references via lddw instructions
     window_data_refs = []
+    all_rodata_refs = collections.Counter()
+    all_data_refs = collections.Counter()
 
+    # lddw immediates are virtual addresses, so data-section extents must be
+    # compared against the section address (sec[3]), not its file offset
+    # (sec[4]). The two coincidentally agree only for identity-mapped ELFs.
     rodata = elf.secs.get(".rodata")
     data_rel_ro = elf.secs.get(".data.rel.ro")
+    rodata_range = ((rodata[3], rodata[3] + rodata[5]) if rodata else None)
+    data_rel_ro_range = (
+        (data_rel_ro[3], data_rel_ro[3] + data_rel_ro[5]) if data_rel_ro else None)
 
     for idx, start in enumerate(entries):
         end = boundaries[idx + 1]
@@ -278,15 +313,19 @@ def analyze_cross_section(elf):
                 imm_hi = struct.unpack_from("<I", elf.b, at + 12)[0]
                 val = imm_lo | (imm_hi << 32)
 
-                if rodata and rodata[4] <= val < rodata[4] + rodata[5]:
+                if rodata_range and rodata_range[0] <= val < rodata_range[1]:
                     refs["rodata"].append(hex(val))
-                elif data_rel_ro and data_rel_ro[4] <= val < data_rel_ro[4] + data_rel_ro[5]:
+                elif data_rel_ro_range and data_rel_ro_range[0] <= val < data_rel_ro_range[1]:
                     refs["data_rel_ro"].append(hex(val))
                 elif elf.lo <= val < elf.hi:
                     refs["text"].append(hex(val))
                 elif val > 0:
                     refs["other"].append(hex(val))
 
+        # Count the complete reference stream; the per-window lists below are
+        # bounded presentation samples, not inputs to the frequency census.
+        all_rodata_refs.update(refs["rodata"])
+        all_data_refs.update(refs["data_rel_ro"])
         window_data_refs.append({
             "window_index": idx,
             "address": hex(start),
@@ -301,14 +340,6 @@ def analyze_cross_section(elf):
         })
 
     # Identify heavily-referenced data regions
-    all_rodata_refs = collections.Counter()
-    all_data_refs = collections.Counter()
-    for w in window_data_refs:
-        for addr in w["rodata_addresses"]:
-            all_rodata_refs[addr] += 1
-        for addr in w["data_rel_ro_addresses"]:
-            all_data_refs[addr] += 1
-
     # Data dependency clusters
     clusters = collections.defaultdict(list)
     for w in window_data_refs:
@@ -380,7 +411,7 @@ def recover_anchor_idl(elf):
                 for back in range(1, 6):
                     prev = at - back * 8
                     if prev >= elf.lo:
-                        if b[prev] in (0xb7, 0xb4):  # mov imm
+                        if b[prev] in (0xb7, 0xb4) and b[prev + 1] & 0xF == 1:  # mov imm into size argument r1
                             size_val = struct.unpack_from("<i", b, prev + 4)[0]
                             if 8 < size_val < 100000:
                                 account_sizes.append({

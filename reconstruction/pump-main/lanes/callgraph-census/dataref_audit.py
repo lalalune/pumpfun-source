@@ -78,7 +78,7 @@ def masked(img, b, base):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--cand', type=Path, default=C.DEFAULT_CAND)
+    ap.add_argument('--cand', type=Path, required=True)
     ap.add_argument('--json', type=Path)
     ap.add_argument('--width', type=int, default=16)
     a = ap.parse_args()

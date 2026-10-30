@@ -1,0 +1,643 @@
+{
+  "date": "2026-10-29",
+  "base_sha": "60bdd8a7a",
+  "final_open": [
+    {
+      "number": 1254,
+      "title": "Report data-layout addresses from section virtual addresses"
+    },
+    {
+      "number": 1285,
+      "title": "fix(reconstruction): read current original scoring inputs"
+    },
+    {
+      "number": 1284,
+      "title": "fix(tooling): retain strings ending at section boundary"
+    },
+    {
+      "number": 1266,
+      "title": "fix(app): discard stale holder inspector clipboard feedback"
+    },
+    {
+      "number": 1271,
+      "title": "fix(following): validate seed endpoint identity types"
+    },
+    {
+      "number": 1265,
+      "title": "fix(posts): filter unavailable reposts before reply pagination"
+    },
+    {
+      "number": 1274,
+      "title": "fix(leaderboard): reject invalid nested position chain numbers"
+    },
+    {
+      "number": 1267,
+      "title": "fix(users): reject mistyped account status fields"
+    },
+    {
+      "number": 1256,
+      "title": "fix(posts): enforce page bounds for direct store reads"
+    },
+    {
+      "number": 1251,
+      "title": "fix(posts): reject unusable seed timestamps before pagination"
+    },
+    {
+      "number": 1229,
+      "title": "fix(positions): bound enrichment timestamps by the observed checkpoint"
+    },
+    {
+      "number": 1224,
+      "title": "fix(test): preserve evidence checks without Windows symlink privilege"
+    },
+    {
+      "number": 1217,
+      "title": "fix(evidence): isolate authenticated capture snapshots"
+    },
+    {
+      "number": 1194,
+      "title": "fix(schema): reject failed and unfinished extraction state"
+    },
+    {
+      "number": 1282,
+      "title": "fix(competitions): enforce page bounds for direct store reads"
+    },
+    {
+      "number": 1280,
+      "title": "docs: fix broken links in README progress tables"
+    },
+    {
+      "number": 1219,
+      "title": "fix(feed): keep selected ordering when recovering a local cursor"
+    },
+    {
+      "number": 1181,
+      "title": "feat(profile): expose recorded X identity links"
+    },
+    {
+      "number": 1253,
+      "title": "fix(settings): reveal selected tabs on narrow viewports"
+    },
+    {
+      "number": 1279,
+      "title": "Recover dispatch from captured originals when the selector is absent"
+    },
+    {
+      "number": 1277,
+      "title": "Fall back to captured originals when the SBpf inventory selector is absent"
+    },
+    {
+      "number": 1212,
+      "title": "fix(leaderboard): use captured numeric period codes"
+    },
+    {
+      "number": 1176,
+      "title": "feat(app): native callout engagement and stats operations"
+    },
+    {
+      "number": 1179,
+      "title": "fix(leaderboard): clear unresolved profile IDs"
+    },
+    {
+      "number": 1272,
+      "title": "research: multi-hop fee-table split x liquidity x mode under transfer fee \u2014 mode-gate divergence and tf pipes both survive, limits move to the tf basis"
+    },
+    {
+      "number": 1262,
+      "title": "fix(users): enforce page bounds for direct store reads"
+    },
+    {
+      "number": 1261,
+      "title": "Fall back to captured programs in compare CLI"
+    },
+    {
+      "number": 1258,
+      "title": "Key rodata strings by virtual address"
+    },
+    {
+      "number": 1257,
+      "title": "fix(graph): validate capture identities before source attribution"
+    },
+    {
+      "number": 1249,
+      "title": "fix(tooling): validate declared capture byte counts before formatting"
+    },
+    {
+      "number": 1245,
+      "title": "Restore recent-query history in global search [skip ci]"
+    },
+    {
+      "number": 1242,
+      "title": "feat(app): reconstruct original viewer-following read state"
+    },
+    {
+      "number": 1190,
+      "title": "fix(users): reject nonfinite sort-key counts before ranking"
+    },
+    {
+      "number": 1223,
+      "title": "fix(app): preserve derived verification inputs on Windows checkout"
+    },
+    {
+      "number": 1226,
+      "title": "fix(posts): reject nonfinite post counts before serving"
+    },
+    {
+      "number": 1268,
+      "title": "research: multi-hop four-hop fee-table split x liquidity x mode chains pin original-only terminal cashback gate, rebuilt per-hop gate, and mode-blind liquidity"
+    },
+    {
+      "number": 1264,
+      "title": "research: handler closure - three-curve multi_hop chains and create_v2 Mayhem mode (78 executed cases)"
+    },
+    {
+      "number": 1263,
+      "title": "research: multi-hop five-hop fee-table split x liquidity x mode chains pin original-only terminal cashback gate, rebuilt per-hop gate, and mode-blind liquidity"
+    },
+    {
+      "number": 1252,
+      "title": "research: multi-hop fee-table split x liquidity x mode chains pin original-only terminal cashback gate, rebuilt per-hop gate, and mode-blind liquidity"
+    },
+    {
+      "number": 1270,
+      "title": "fix(app): reject unroutable profile identifiers [skip ci]"
+    },
+    {
+      "number": 1269,
+      "title": "fix(reconstruction): bind composition scoring to canonical baseline"
+    },
+    {
+      "number": 1216,
+      "title": "fix(capture): resolve redirected assets from their response URL"
+    },
+    {
+      "number": 1237,
+      "title": "fix(graph): parse HTML assets before route attribution"
+    },
+    {
+      "number": 1221,
+      "title": "fix(inventory): align registration receivers with source authentication"
+    },
+    {
+      "number": 1206,
+      "title": "fix(graph): authenticate packet reports before lookup"
+    },
+    {
+      "number": 1213,
+      "title": "fix(graph): preserve complete packets and recovery backups on failure"
+    },
+    {
+      "number": 1183,
+      "title": "fix(progress): bind SDK fidelity credit to npm archive integrity"
+    },
+    {
+      "number": 1198,
+      "title": "fix(graph): preserve exact factory derivations on Windows checkout"
+    },
+    {
+      "number": 1180,
+      "title": "fix(graph): bind runtime calls to the loader parameter"
+    },
+    {
+      "number": 1238,
+      "title": "fix(tooling): ignore pathless capture failures in the source file index"
+    },
+    {
+      "number": 1233,
+      "title": "fix(graph): reject inherited names in route CLI queries"
+    },
+    {
+      "number": 1196,
+      "title": "fix(explore): bind the unique probe and captured checkpoint"
+    },
+    {
+      "number": 1188,
+      "title": "fix(settings): fold case after compatibility normalization"
+    },
+    {
+      "number": 1185,
+      "title": "fix(discussions): reject replies newer than the observation checkpoint"
+    },
+    {
+      "number": 1182,
+      "title": "fix(ui): preserve independent body overflow declarations"
+    },
+    {
+      "number": 1259,
+      "title": "feat(app): inspect unsigned SDK create instructions offline"
+    },
+    {
+      "number": 1255,
+      "title": "fix(app): preserve latest profile clipboard feedback [skip ci]"
+    },
+    {
+      "number": 1208,
+      "title": "fix(competitions): order the live bucket by startsAt as the contract states"
+    },
+    {
+      "number": 1192,
+      "title": "fix(pump): restore claim-v2 empty-account boundary"
+    },
+    {
+      "number": 1164,
+      "title": "fix(pump): restore multi-hop quote and sell fee helpers"
+    }
+  ],
+  "open_search": "repo:lalalune/pumpfun-source is:pr is:open (68 results at start)",
+  "closed_search": "repo:lalalune/pumpfun-source is:pr is:closed (100 most recently updated at start)",
+  "open": [
+    {
+      "number": 1268,
+      "title": "research: multi-hop four-hop fee-table split x liquidity x mode chains pin original-only terminal cashback gate, rebuilt per-hop gate, and mode-blind liquidity"
+    },
+    {
+      "number": 1264,
+      "title": "research: handler closure - three-curve multi_hop chains and create_v2 Mayhem mode (78 executed cases)"
+    },
+    {
+      "number": 1263,
+      "title": "research: multi-hop five-hop fee-table split x liquidity x mode chains pin original-only terminal cashback gate, rebuilt per-hop gate, and mode-blind liquidity"
+    },
+    {
+      "number": 1252,
+      "title": "research: multi-hop fee-table split x liquidity x mode chains pin original-only terminal cashback gate, rebuilt per-hop gate, and mode-blind liquidity"
+    },
+    {
+      "number": 1270,
+      "title": "fix(app): reject unroutable profile identifiers [skip ci]"
+    },
+    {
+      "number": 1269,
+      "title": "fix(reconstruction): bind composition scoring to canonical baseline"
+    },
+    {
+      "number": 1267,
+      "title": "fix(users): reject mistyped account status fields"
+    },
+    {
+      "number": 1176,
+      "title": "feat(app): native callout engagement and stats operations"
+    },
+    {
+      "number": 1257,
+      "title": "fix(graph): validate capture identities before source attribution"
+    },
+    {
+      "number": 1216,
+      "title": "fix(capture): resolve redirected assets from their response URL"
+    },
+    {
+      "number": 1266,
+      "title": "fix(app): discard stale holder inspector clipboard feedback"
+    },
+    {
+      "number": 1237,
+      "title": "fix(graph): parse HTML assets before route attribution"
+    },
+    {
+      "number": 1221,
+      "title": "fix(inventory): align registration receivers with source authentication"
+    },
+    {
+      "number": 1206,
+      "title": "fix(graph): authenticate packet reports before lookup"
+    },
+    {
+      "number": 1213,
+      "title": "fix(graph): preserve complete packets and recovery backups on failure"
+    },
+    {
+      "number": 1183,
+      "title": "fix(progress): bind SDK fidelity credit to npm archive integrity"
+    },
+    {
+      "number": 1198,
+      "title": "fix(graph): preserve exact factory derivations on Windows checkout"
+    },
+    {
+      "number": 1180,
+      "title": "fix(graph): bind runtime calls to the loader parameter"
+    },
+    {
+      "number": 1265,
+      "title": "fix(posts): filter unavailable reposts before reply pagination"
+    },
+    {
+      "number": 1253,
+      "title": "fix(settings): reveal selected tabs on narrow viewports"
+    },
+    {
+      "number": 1262,
+      "title": "fix(users): enforce page bounds for direct store reads"
+    },
+    {
+      "number": 1261,
+      "title": "Fall back to captured programs in compare CLI"
+    },
+    {
+      "number": 1238,
+      "title": "fix(tooling): ignore pathless capture failures in the source file index"
+    },
+    {
+      "number": 1249,
+      "title": "fix(tooling): validate declared capture byte counts before formatting"
+    },
+    {
+      "number": 1233,
+      "title": "fix(graph): reject inherited names in route CLI queries"
+    },
+    {
+      "number": 1196,
+      "title": "fix(explore): bind the unique probe and captured checkpoint"
+    },
+    {
+      "number": 1223,
+      "title": "fix(app): preserve derived verification inputs on Windows checkout"
+    },
+    {
+      "number": 1188,
+      "title": "fix(settings): fold case after compatibility normalization"
+    },
+    {
+      "number": 1185,
+      "title": "fix(discussions): reject replies newer than the observation checkpoint"
+    },
+    {
+      "number": 1182,
+      "title": "fix(ui): preserve independent body overflow declarations"
+    },
+    {
+      "number": 1260,
+      "title": "pump-main swarm: layout-order-census: order/data census + raw model (our order caps raw at 286 even with all 16 matched)"
+    },
+    {
+      "number": 1258,
+      "title": "Key rodata strings by virtual address"
+    },
+    {
+      "number": 1259,
+      "title": "feat(app): inspect unsigned SDK create instructions offline"
+    },
+    {
+      "number": 1256,
+      "title": "fix(posts): enforce page bounds for direct store reads"
+    },
+    {
+      "number": 1254,
+      "title": "Report data-layout addresses from section virtual addresses"
+    },
+    {
+      "number": 1255,
+      "title": "fix(app): preserve latest profile clipboard feedback [skip ci]"
+    },
+    {
+      "number": 1246,
+      "title": "pump-main swarm: admincto-reconstruction: admin_cto callee multiset = original (154 calls, 26888/27400 B)"
+    },
+    {
+      "number": 1208,
+      "title": "fix(competitions): order the live bucket by startsAt as the contract states"
+    },
+    {
+      "number": 1251,
+      "title": "fix(posts): reject unusable seed timestamps before pagination"
+    },
+    {
+      "number": 1250,
+      "title": "pump-main swarm: cashback-inner-reconstruction r2: process_cashback_inner ratio 0.761->0.803 (bump seed frame)"
+    },
+    {
+      "number": 1248,
+      "title": "pump-main swarm: multihop-reconstruction: swap_hop callee multiset exact, opcode alignment 0.549 -> 0.738"
+    },
+    {
+      "number": 1247,
+      "title": "pump-main swarm: sweep-reconstruction: sweep::execute ratio 0.298->0.435, 39 calls, no losses"
+    },
+    {
+      "number": 1245,
+      "title": "Restore recent-query history in global search [skip ci]"
+    },
+    {
+      "number": 1244,
+      "title": "pump-main swarm: buyv2-sibling-transplant: exact-quote shareholders sibling order 0.97341 -> 0.97361"
+    },
+    {
+      "number": 1243,
+      "title": "pump-main swarm: v3execute-semantic: v3_execute_buy 3440/3440 B, ratio 0.7687 -> 0.8341"
+    },
+    {
+      "number": 1242,
+      "title": "feat(app): reconstruct original viewer-following read state"
+    },
+    {
+      "number": 1241,
+      "title": "Use section virtual addresses for relocation targets"
+    },
+    {
+      "number": 1240,
+      "title": "Fix instruction-log name extraction against IDL names"
+    },
+    {
+      "number": 1239,
+      "title": "research: multi-hop fee-table split x liquidity under transfer fee at depth 4 (buys move, sells blind, tf basis depth-invariant, rebuild rounding +1 returns)"
+    },
+    {
+      "number": 1236,
+      "title": "fix(amm): distinguish exact ELF equality from allocation matching"
+    },
+    {
+      "number": 1229,
+      "title": "fix(positions): bound enrichment timestamps by the observed checkpoint"
+    },
+    {
+      "number": 1226,
+      "title": "fix(posts): reject nonfinite post counts before serving"
+    },
+    {
+      "number": 1224,
+      "title": "fix(test): preserve evidence checks without Windows symlink privilege"
+    },
+    {
+      "number": 1222,
+      "title": "research: multi-hop fee-table split x liquidity under transfer fee at depth 5 (buys move, sells blind, tf basis depth-invariant, rebuild rounding vanishes)"
+    },
+    {
+      "number": 1219,
+      "title": "fix(feed): keep selected ordering when recovering a local cursor"
+    },
+    {
+      "number": 1217,
+      "title": "fix(evidence): isolate authenticated capture snapshots"
+    },
+    {
+      "number": 1212,
+      "title": "fix(leaderboard): use captured numeric period codes"
+    },
+    {
+      "number": 1211,
+      "title": "research: multi-hop fee-table split x liquidity under transfer fee (buys move, sells blind, dep cap gross-side, wd floor net-side)"
+    },
+    {
+      "number": 1194,
+      "title": "fix(schema): reject failed and unfinished extraction state"
+    },
+    {
+      "number": 1193,
+      "title": "research: multi-hop fee-table split x liquidity at depth 4 (buys move, sells blind, cap invariant under proportional deposits)"
+    },
+    {
+      "number": 1192,
+      "title": "fix(pump): restore claim-v2 empty-account boundary"
+    },
+    {
+      "number": 1190,
+      "title": "fix(users): reject nonfinite sort-key counts before ranking"
+    },
+    {
+      "number": 1187,
+      "title": "research: multi-hop fee-table split x liquidity at depth 5 (buys move, sells blind, cap invariant under proportional deposits)"
+    },
+    {
+      "number": 1186,
+      "title": "research: multi-hop fee-table split on mode pools under transfer fee at depth 4 \u2014 split and mode-gate divergence both survive tf, tf pipes compose with the gates"
+    },
+    {
+      "number": 1184,
+      "title": "research: multi-hop fee-table split x liquidity chains (buy legs move, sell legs blind, cap invariant under proportional deposits)"
+    },
+    {
+      "number": 1181,
+      "title": "feat(profile): expose recorded X identity links"
+    },
+    {
+      "number": 1179,
+      "title": "fix(leaderboard): clear unresolved profile IDs"
+    },
+    {
+      "number": 1164,
+      "title": "fix(pump): restore multi-hop quote and sell fee helpers"
+    }
+  ],
+  "related_closed": [
+    {
+      "number": 1220,
+      "title": "pump-main swarm: createv2-reconstruction: 0x1e7c0 ratio 0.247 -> 0.751"
+    },
+    {
+      "number": 1227,
+      "title": "pump-main swarm: v3trade-coordinates (2): buy_v3 0.849->0.874, no losses"
+    },
+    {
+      "number": 1214,
+      "title": "pump-main swarm: sellv2-reconstruction: SellV2 ratio 0.662 -> 0.940"
+    },
+    {
+      "number": 1197,
+      "title": "pump-main swarm: callgraph-census: inlining census; swap_hop 0.158->0.223, create_v2 0.247->0.265"
+    },
+    {
+      "number": 1234,
+      "title": "pump-main swarm: cashback-inner-reconstruction: process_cashback_inner ratio 0.735->0.803, orig callee order"
+    },
+    {
+      "number": 1235,
+      "title": "amm-sell swarm/mir-codegen-order: IR block-order oracle, target layout found (dist 91->10)"
+    },
+    {
+      "number": 1232,
+      "title": "pump-main swarm: v3trade-amm-idioms: buy_v3 ratio 0.645->0.876 (3688 B), no losses"
+    },
+    {
+      "number": 1230,
+      "title": "pump-main swarm: claimv2-reconstruction: claim_v2 ratio 0.167 -> 0.217"
+    },
+    {
+      "number": 1228,
+      "title": "pump-main swarm: migrate-token-ir-differential: remove shared reload in create_token_account_v2 (ratio 0.563 -> 0.578)"
+    },
+    {
+      "number": 1225,
+      "title": "amm-sell swarm/macro-idioms: macro/? spellings exhausted (no gain; best 169/291 class)"
+    },
+    {
+      "number": 1218,
+      "title": "pump-main swarm: buyv2-sibling-transplant: exact-quote handler ratio 0.694 -> 0.973"
+    },
+    {
+      "number": 1210,
+      "title": "pump-main swarm: v3trade-coordinates: sell_v3 0.443->0.950, buy_v3 0.544->0.874, no losses"
+    },
+    {
+      "number": 1189,
+      "title": "pump-main swarm: v3execute-semantic: v3_execute_buy ratio 0.733 -> 0.7687 (3432/3440 B)"
+    },
+    {
+      "number": 1199,
+      "title": "pump-main swarm: v3costs-semantic-reorder: 0x80df8 ratio 0.788 -> 0.920"
+    },
+    {
+      "number": 1202,
+      "title": "pump-main swarm: coordinate-archaeology: line maps for 16 unmatched windows; sell.rs panic Locations match original"
+    },
+    {
+      "number": 1207,
+      "title": "pump-main swarm: buyv2-hillclimb: buy_handler 0.665 -> 0.948, exact-quote 0.694 -> 0.973"
+    },
+    {
+      "number": 1200,
+      "title": "pump-main swarm: exactsol-introspection: extractvalue order (InstCombine sinking) fixes buy_exact_sol_in load swap"
+    },
+    {
+      "number": 1191,
+      "title": "pump-main swarm: exactsol-sibling-analogy: buy_exact_sol_in normalized match (1020/188, no losses)"
+    },
+    {
+      "number": 1201,
+      "title": "pump-main swarm: exactsol-spelling-bruteforce: 0x14f4e0 buy_exact_sol_in normalized match (1020/188, 0 losses)"
+    },
+    {
+      "number": 1195,
+      "title": "amm-sell swarm/brute-force-grammar: owner '!=' spelling fixes borrow test (used in 785/785 goal)"
+    },
+    {
+      "number": 1203,
+      "title": "amm-sell swarm/reorder: dist 99 (create else Ok); else-if chain findings (goal reached by semantic-reconstruction)"
+    },
+    {
+      "number": 1204,
+      "title": "amm-sell swarm/llvm-ir-inverse: exact llc repro; IR order reaches 5 slot diffs"
+    },
+    {
+      "number": 1205,
+      "title": "amm-sell swarm/semantic-reconstruction: sell window raw-equal (785/785)"
+    },
+    {
+      "number": 1209,
+      "title": "amm-sell swarm/provenance-rebuild: history mined, goal's 468 construct never in history"
+    },
+    {
+      "number": 1215,
+      "title": "amm-sell swarm/asm-introspection: block-layout model (GOAL hit by #1205)"
+    }
+  ],
+  "sell_search": [
+    {
+      "number": 1227,
+      "title": "pump-main swarm: v3trade-coordinates (2): buy_v3 0.849->0.874, no losses"
+    },
+    {
+      "number": 1210,
+      "title": "pump-main swarm: v3trade-coordinates: sell_v3 0.443->0.950, buy_v3 0.544->0.874, no losses"
+    },
+    {
+      "number": 567,
+      "title": "research: qualify v3 sell recovery on L39 with 128 signed cases"
+    }
+  ],
+  "resolution": {
+    "concurrent_merged_pr": 1283,
+    "merged_revision": "e075a8ec15add21ed8ec07712e65d709a6e79db9",
+    "action": "Rebased onto abd766d7a, removed duplicate Rust patch; packet now qualifies exact #1283 parent/merge source cohorts."
+  }
+}

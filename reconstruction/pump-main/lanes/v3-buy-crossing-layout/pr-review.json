@@ -1,0 +1,688 @@
+{
+  "reviewed_at": "2026-10-29",
+  "base": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Open recovery PRs, 70 most recently updated closed PRs, and all buy_v3 search results",
+  "open": [
+    {
+      "number": 1623,
+      "title": "fix(verify_evidence): reject captures filed under another program"
+    },
+    {
+      "number": 1624,
+      "title": "fix(verify_evidence): reject captures that are not finalized"
+    },
+    {
+      "number": 1626,
+      "title": "fix(reconstruction): print no ledger rows for search --limit 0"
+    },
+    {
+      "number": 1628,
+      "title": "research: multi-hop split x boost x tf fee-table chains (true 3-hop) — tier crossings, exotic tail-only pricing, and FeeTiersEmpty gate reproduce hop by hop"
+    },
+    {
+      "number": 1622,
+      "title": "docs: restore the orientation files deleted from main"
+    },
+    {
+      "number": 1295,
+      "title": "fix(tooling): decode instruction-name IDLs as UTF-8"
+    },
+    {
+      "number": 1506,
+      "title": "perf(reconstruction): reuse candidate ranking fingerprints"
+    },
+    {
+      "number": 1343,
+      "title": "fix(reconstruction): reject build slot counts that wait forever"
+    },
+    {
+      "number": 1317,
+      "title": "fix(reconstruction): bound source-coordinate strings to their section"
+    },
+    {
+      "number": 1368,
+      "title": "pump-main: retain independent V3 sell validation evidence"
+    },
+    {
+      "number": 1416,
+      "title": "pump-main: recover exact quote-mint copy regions in both V2 buy handlers"
+    },
+    {
+      "number": 1386,
+      "title": "feat(reconstruction): read candidate function symbols without an SDK"
+    },
+    {
+      "number": 1342,
+      "title": "fix(reconstruction): support the documented SDK in analysis tools"
+    },
+    {
+      "number": 1390,
+      "title": "fix(reconstruction): bind cached scoring windows to their actual inputs"
+    },
+    {
+      "number": 1338,
+      "title": "fix(reconstruction): keep unterminated attempt records separate on append"
+    },
+    {
+      "number": 1354,
+      "title": "fix(reconstruction): reject out-of-section function byte ranges"
+    },
+    {
+      "number": 1384,
+      "title": "pump-main: preserve V2 rent argument with a zero-only size type"
+    },
+    {
+      "number": 1479,
+      "title": "pump-main: improve V3 buy payment result layout (partial, 0.9728 → 0.9858)"
+    },
+    {
+      "number": 1335,
+      "title": "fix(reconstruction): rank candidates using logical SBF instructions"
+    },
+    {
+      "number": 1360,
+      "title": "fix(reconstruction): preserve ledgers across failed snapshot copies"
+    },
+    {
+      "number": 1409,
+      "title": "feat(reconstruction): audit and validate attempt ledger records"
+    },
+    {
+      "number": 1511,
+      "title": "feat(reconstruction): compare direct stack access layouts"
+    },
+    {
+      "number": 1509,
+      "title": "test(reconstruction): enforce cross-tool normalization conformance"
+    },
+    {
+      "number": 1554,
+      "title": "pump-main: improve sweep layout with recipient field clone"
+    },
+    {
+      "number": 1565,
+      "title": "pump-main swarm: w4-sellv2-a: sell_v2 0x144508 normalized match (1024 norm; raw 0xa868 thunk drift)"
+    },
+    {
+      "number": 1583,
+      "title": "pump-main swarm: w4-buyhandler: inline-complete is raw-unsafe (0xa868); base stays optimum"
+    },
+    {
+      "number": 1606,
+      "title": "fix(tooling): label SBPF relative and call relocations correctly"
+    },
+    {
+      "number": 1600,
+      "title": "fix(leaderboard): render the selected trader PnL measure"
+    },
+    {
+      "number": 1566,
+      "title": "feat(app): inspect public incentive schedule beside user records"
+    },
+    {
+      "number": 1593,
+      "title": "pump-main swarm: admin_cto: 0x22a10 source-tuple+ballast 0.36328->0.36364"
+    },
+    {
+      "number": 1415,
+      "title": "fix(theme): derive CSS rule boundaries from parsed tokens"
+    },
+    {
+      "number": 1542,
+      "title": "pump-main swarm: w4-createv2: create_v2 0.751 -> 0.826 (frame layout = orig; raw 0xa868 layout caveat)"
+    },
+    {
+      "number": 1543,
+      "title": "fix(backend): reject duplicate JSON object names in native request bodies"
+    },
+    {
+      "number": 1576,
+      "title": "fix(search): retain search when profiles open separately [skip ci]"
+    },
+    {
+      "number": 1548,
+      "title": "pump-main swarm: w4-sweep: sweep::execute 0.4914 -> 0.8867 (39 calls)"
+    },
+    {
+      "number": 1538,
+      "title": "pump-main swarm: w4-frame-oracle: frame oracle tool + rules (per-alloca implied original slots; analysis only)"
+    },
+    {
+      "number": 1518,
+      "title": "pump-main swarm: w4-buyexactquote-v3: buy_exact_quote 0.6135 -> 0.6603 (masked 0.8928; raw 0xa868 drift)"
+    },
+    {
+      "number": 1563,
+      "title": "pump-main swarm: w4-v3costs: v3_buy_costs residual is an exact panic-frequency tie, unreachable from source on rustc 1.79 (analysis)"
+    },
+    {
+      "number": 1528,
+      "title": "fix(callouts): return empty quotes for absent user-mint lookups"
+    },
+    {
+      "number": 1527,
+      "title": "fix(competitions): reject unsupported list query parameters"
+    },
+    {
+      "number": 1539,
+      "title": "pump-main swarm: w4-v3execute: v3_execute_buy normalized match (1024 normalized; raw drift 0xa868)"
+    },
+    {
+      "number": 1326,
+      "title": "docs: unlink removed repro/localnet paths in pump-fees exact research README"
+    },
+    {
+      "number": 1536,
+      "title": "fix(portfolio): keep activity reads available when balances fail"
+    },
+    {
+      "number": 1534,
+      "title": "fix(live): preserve archived details during input composition"
+    },
+    {
+      "number": 1453,
+      "title": "fix(tooling): count cross-section frequencies before display limits"
+    },
+    {
+      "number": 1459,
+      "title": "ci: retire six verifier workflows whose entrypoints are absent from main"
+    },
+    {
+      "number": 1516,
+      "title": "research: split-chain trades never feed current_sol_volume — sync reset gate, claim conversion, chain neutrality (3rd #73)"
+    },
+    {
+      "number": 1433,
+      "title": "fix(harness): decode compiler-prefixed Rust path elements"
+    },
+    {
+      "number": 1297,
+      "title": "fix(tooling): read interface inventory IDLs as UTF-8"
+    },
+    {
+      "number": 1478,
+      "title": "fix(user-trades): accept the contract's empty kind selection"
+    },
+    {
+      "number": 1383,
+      "title": "pump-main swarm: buyv2-residual: live ensure_rent size arg without losing 0x3b598 (eq 0.978->0.994, buy 0.953->0.974)"
+    },
+    {
+      "number": 1465,
+      "title": "pump-main swarm: createv2: 0x1e7c0 compare_mint early 0.75114->0.75188"
+    },
+    {
+      "number": 1406,
+      "title": "fix(holder-rewards): enforce minimum Global layout size"
+    },
+    {
+      "number": 1456,
+      "title": "harness: score.py fails on a missing baseline instead of scoring against an empty one"
+    },
+    {
+      "number": 1477,
+      "title": "fix(profiles): resolve canonical EVM wallets in verified batches"
+    },
+    {
+      "number": 1435,
+      "title": "fix(home-feed): reject BOM-prefixed cursors"
+    },
+    {
+      "number": 1476,
+      "title": "fix(callouts): preserve discussion pagination through tombstone bridges"
+    },
+    {
+      "number": 1471,
+      "title": "feat(backend): add opt-in holder-rewards book read model"
+    },
+    {
+      "number": 1463,
+      "title": "docs: attribute Pump migrate destination - Raydium era and 2025-03-20…"
+    },
+    {
+      "number": 1464,
+      "title": "docs: unlink removed repro/localnet paths in scripts README"
+    },
+    {
+      "number": 1388,
+      "title": "fix(verification): keep verify_evidence checks under python -O"
+    },
+    {
+      "number": 1443,
+      "title": "pump-main swarm: sweep-reconstruction: 0x72810 Rent From match 0.46947->0.47202"
+    },
+    {
+      "number": 1426,
+      "title": "pump-main swarm: w3-sellv3-oracle: sell_v3 IR oracle map (4-slot IR state, ret-phi order mechanism)"
+    },
+    {
+      "number": 1363,
+      "title": "fix(tooling): keep symlink packet verifiable across source changes"
+    },
+    {
+      "number": 1419,
+      "title": "pump-main swarm: w3-buyv3: buy_v3 IR oracle to 16 slots (analysis)"
+    },
+    {
+      "number": 1400,
+      "title": "pump-main swarm: w3-v3costs: 0x80df8 analysis (375-specific weight lever; no source match)"
+    },
+    {
+      "number": 1311,
+      "title": "fix(tooling): recognize relocated syscall calls in bytecode signatures"
+    },
+    {
+      "number": 1302,
+      "title": "fix(tooling): load local-validation programs from capture receipts"
+    },
+    {
+      "number": 1287,
+      "title": "fix(harness): score against the committed baseline and reject a missing one"
+    },
+    {
+      "number": 1331,
+      "title": "fix(tooling): read the checked-in Pump window inventory"
+    },
+    {
+      "number": 1280,
+      "title": "docs: fix broken links in README progress tables"
+    },
+    {
+      "number": 1277,
+      "title": "Fall back to captured originals when the SBpf inventory selector is absent"
+    },
+    {
+      "number": 1279,
+      "title": "Recover dispatch from captured originals when the selector is absent"
+    },
+    {
+      "number": 1292,
+      "title": "Verify merged V3 Sell recovery with signed runtime evidence"
+    },
+    {
+      "number": 1290,
+      "title": "research: corrected, distilled window-attribution resubmission (replaces #1172)"
+    },
+    {
+      "number": 1271,
+      "title": "fix(following): validate seed endpoint identity types"
+    },
+    {
+      "number": 1265,
+      "title": "fix(posts): filter unavailable reposts before reply pagination"
+    },
+    {
+      "number": 1274,
+      "title": "fix(leaderboard): reject invalid nested position chain numbers"
+    },
+    {
+      "number": 1267,
+      "title": "fix(users): reject mistyped account status fields"
+    },
+    {
+      "number": 1251,
+      "title": "fix(posts): reject unusable seed timestamps before pagination"
+    },
+    {
+      "number": 1229,
+      "title": "fix(positions): bound enrichment timestamps by the observed checkpoint"
+    },
+    {
+      "number": 1272,
+      "title": "research: multi-hop fee-table split x liquidity x mode under transfer fee — mode-gate divergence and tf pipes both survive, limits move to the tf basis"
+    },
+    {
+      "number": 1268,
+      "title": "research: multi-hop four-hop fee-table split x liquidity x mode chains pin original-only terminal cashback gate, rebuilt per-hop gate, and mode-blind liquidity"
+    },
+    {
+      "number": 1263,
+      "title": "research: multi-hop five-hop fee-table split x liquidity x mode chains pin original-only terminal cashback gate, rebuilt per-hop gate, and mode-blind liquidity"
+    },
+    {
+      "number": 1252,
+      "title": "research: multi-hop fee-table split x liquidity x mode chains pin original-only terminal cashback gate, rebuilt per-hop gate, and mode-blind liquidity"
+    },
+    {
+      "number": 1269,
+      "title": "fix(reconstruction): bind composition scoring to canonical baseline"
+    },
+    {
+      "number": 1192,
+      "title": "fix(pump): restore claim-v2 empty-account boundary"
+    },
+    {
+      "number": 1164,
+      "title": "fix(pump): restore multi-hop quote and sell fee helpers"
+    }
+  ],
+  "closed": [
+    {
+      "number": 1555,
+      "title": "pump-main swarm: w4-swaphop: swap_hop 0.358 -> 0.601 (a: &mut, nested by-value post event, seeds/curve_key slots; 1023/277 no losses)"
+    },
+    {
+      "number": 1558,
+      "title": "pump-main swarm: w4-sellv2-b: sell_v2 0.96294 -> 0.97578 (fee tuple cf-first, base binding), no losses"
+    },
+    {
+      "number": 1550,
+      "title": "pump-main swarm: w4-buyv3: buy_v3 0.87739 -> 0.93138 (use v3_can_cross, 0 losses)"
+    },
+    {
+      "number": 1549,
+      "title": "pump-main swarm: w4-sellv3-phi: sell_v3 0x14a8a8 normalized match (1024/277, no losses)"
+    },
+    {
+      "number": 1423,
+      "title": "pump-main swarm: w3-raw-layout: rodata codegen order + original def order (data-offset-equal 683 -> 1021, LIS 884 -> 970; 1023/277, 0 losses)"
+    },
+    {
+      "number": 1427,
+      "title": "pump-main swarm: w3-sweep: sweep::execute 0.4695->0.4914, struct 0.81->0.88 (MIR JT threading, Result helpers), no losses"
+    },
+    {
+      "number": 1412,
+      "title": "pump-main swarm: w3-buyhandler: buy_handler 0.95334 -> 0.97682, eq 0.99392, sell_v2 0.96294 (no losses)"
+    },
+    {
+      "number": 1301,
+      "title": "fix(tooling): read analyzer IDL and mapping JSON as UTF-8"
+    },
+    {
+      "number": 1391,
+      "title": "pump-main swarm: w3-swaphop: swap_hop ratio 0.0915 -> 0.3584 (fresh post-event key copies)"
+    },
+    {
+      "number": 1410,
+      "title": "pump-main swarm: w3-adminCTO: admin_cto ratio 0.193 -> 0.363 (frame layout, CtoState, holder split, Result<Pubkey> validate)"
+    },
+    {
+      "number": 1420,
+      "title": "pump-main swarm: w3-buyexactquote-v3: buy_exact_quote ratio 0.3129 -> 0.6135 (can_cross phi, single post merge)"
+    },
+    {
+      "number": 1445,
+      "title": "pump-main swarm: w3-migrate: 0x4c158 create_token_account_v2 normalized match (1023/276, no losses)"
+    },
+    {
+      "number": 677,
+      "title": "feat(frontend): paginate captured live archive"
+    },
+    {
+      "number": 1436,
+      "title": "pump-main swarm: w3-sellv3-source: sell_v3 0x14a8a8 0.987 -> 0.997 (6032 B, 4 insns left)"
+    },
+    {
+      "number": 1421,
+      "title": "pump-main swarm: w3-v3execute: v3_execute_buy 0.9669->0.9728 (3448 B, shared error exit)"
+    },
+    {
+      "number": 1389,
+      "title": "pump-main swarm: w3-createv2: create_v2 ratio 0.741 -> 0.751 (calls = orig), no losses"
+    },
+    {
+      "number": 1356,
+      "title": "pump-main swarm: layout-order-census r2: tail derive/merge order, raw 188 -> 276 (0 losses)"
+    },
+    {
+      "number": 1371,
+      "title": "pump-main swarm: claimv2-reconstruction r2: 0x77940 cashback::claim_v2 normalized match (1021/188, no losses)"
+    },
+    {
+      "number": 1337,
+      "title": "pump-main swarm: cashback-inner-reconstruction r2: 0x6cd78 process_cashback_inner normalized match (1021/188, no losses)"
+    },
+    {
+      "number": 1291,
+      "title": "pump-main swarm: admincto-reconstruction r2: admin_cto ratio 0.167 -> 0.2009 (sharing_update option, event reads curve, events emitted by reference)"
+    },
+    {
+      "number": 1303,
+      "title": "pump-main swarm: claimv2-reconstruction r2: claim_v2 ratio 0.217 -> 0.938 (70/70 calls, frame at original offsets)"
+    },
+    {
+      "number": 1250,
+      "title": "pump-main swarm: cashback-inner-reconstruction r2: 0x6cd78 process_cashback_inner normalized match (1021/188, no losses)"
+    },
+    {
+      "number": 542,
+      "title": "fix(app): select captured scripts by URL pathname"
+    },
+    {
+      "number": 1248,
+      "title": "pump-main swarm: multihop-reconstruction: swap_hop callee multiset exact, opregs 0.465 -> 0.723, op 0.549 -> 0.807"
+    },
+    {
+      "number": 1207,
+      "title": "pump-main swarm: buyv2-hillclimb: buy_handler 0.665 -> 0.950, exact-quote 0.694 -> 0.974"
+    },
+    {
+      "number": 1310,
+      "title": "pump-main swarm: buyv2-sibling-transplant r2: inline Complete+prepare helper (eq 0.97361->0.97829, buy 0.94776->0.95334)"
+    },
+    {
+      "number": 1244,
+      "title": "pump-main swarm: buyv2-sibling-transplant: inline Complete+prepare helper (eq 0.97341->0.97829, buy 0.94776->0.95334)"
+    },
+    {
+      "number": 1220,
+      "title": "pump-main swarm: createv2-reconstruction: create_v2 ratio 0.247 -> 0.751 (calls = orig), no losses"
+    },
+    {
+      "number": 1260,
+      "title": "pump-main swarm: layout-order-census: tail derive/merge order, raw 188 -> 276 (0 losses)"
+    },
+    {
+      "number": 1283,
+      "title": "pump-main swarm: v3trade-coordinates (3): sell_v3 0.950->0.987 via inline payout wrappers, no losses"
+    },
+    {
+      "number": 1281,
+      "title": "pump-main swarm: v3trade-amm-idioms r2: buy_v3 ratio 0.8764->0.8774 (3680 B), no losses"
+    },
+    {
+      "number": 1246,
+      "title": "pump-main swarm: admincto-reconstruction: admin_cto callee multiset = original (154 calls, 26888/27400 B)"
+    },
+    {
+      "number": 1273,
+      "title": "pump-main swarm: callgraph-census r2: hidden call-target audit, 1019/1019 bisimilar normalized matches"
+    },
+    {
+      "number": 1243,
+      "title": "pump-main swarm: v3execute-semantic: v3_execute_buy ratio 0.7687 -> 0.9669 (15 diff slots)"
+    },
+    {
+      "number": 1275,
+      "title": "pump-main swarm: sellv2-reconstruction r2: sell_v2 0.866 -> 0.940, no losses"
+    },
+    {
+      "number": 1276,
+      "title": "pump-main swarm: v3costs-semantic-reorder: llc oracle finds IR-level full match lever for 0x80df8 (analysis)"
+    },
+    {
+      "number": 1278,
+      "title": "pump-main swarm: migrate-token-ir-differential: 0x4c158 ratio 0.578 -> 0.612 (8400 B), no losses"
+    },
+    {
+      "number": 1247,
+      "title": "pump-main swarm: sweep-reconstruction: sweep::execute ratio 0.298->0.469, no losses"
+    },
+    {
+      "number": 1230,
+      "title": "pump-main swarm: claimv2-reconstruction: claim_v2 70/70 calls aligned, ratio 0.167 -> 0.377"
+    },
+    {
+      "number": 1228,
+      "title": "pump-main swarm: migrate-token-ir-differential: 0x4c158 ratio 0.563 -> 0.612 (8400 B), no losses"
+    },
+    {
+      "number": 1241,
+      "title": "Use section virtual addresses for relocation targets"
+    },
+    {
+      "number": 1240,
+      "title": "Fix instruction-log name extraction against IDL names"
+    },
+    {
+      "number": 1169,
+      "title": "fix(profiles): apply the declared Unicode-character ID limit"
+    },
+    {
+      "number": 1161,
+      "title": "Reject symlinked compiler inputs in source manifests"
+    },
+    {
+      "number": 1222,
+      "title": "research: multi-hop fee-table split x liquidity under transfer fee at depth 5 (buys move, sells blind, tf basis depth-invariant, rebuild rounding vanishes)"
+    },
+    {
+      "number": 1239,
+      "title": "research: multi-hop fee-table split x liquidity under transfer fee at depth 4 (buys move, sells blind, tf basis depth-invariant, rebuild rounding +1 returns)"
+    },
+    {
+      "number": 1211,
+      "title": "research: multi-hop fee-table split x liquidity under transfer fee (buys move, sells blind, dep cap gross-side, wd floor net-side)"
+    },
+    {
+      "number": 1186,
+      "title": "research: multi-hop fee-table split on mode pools under transfer fee at depth 4 — split and mode-gate divergence both survive tf, tf pipes compose with the gates"
+    },
+    {
+      "number": 1156,
+      "title": "fix(search): retain early toolbar open intent across hydration"
+    },
+    {
+      "number": 1187,
+      "title": "research: multi-hop fee-table split x liquidity at depth 5 (buys move, sells blind, cap invariant under proportional deposits)"
+    },
+    {
+      "number": 1193,
+      "title": "research: multi-hop fee-table split x liquidity at depth 4 (buys move, sells blind, cap invariant under proportional deposits)"
+    },
+    {
+      "number": 1184,
+      "title": "research: multi-hop fee-table split x liquidity chains (buy legs move, sell legs blind, cap invariant under proportional deposits)"
+    },
+    {
+      "number": 1236,
+      "title": "fix(amm): distinguish exact ELF equality from allocation matching"
+    },
+    {
+      "number": 1227,
+      "title": "pump-main swarm: v3trade-coordinates (2): buy_v3 0.849->0.874, no losses"
+    },
+    {
+      "number": 1214,
+      "title": "pump-main swarm: sellv2-reconstruction: SellV2 ratio 0.662 -> 0.940"
+    },
+    {
+      "number": 1197,
+      "title": "pump-main swarm: callgraph-census: inlining census; swap_hop 0.158->0.223, create_v2 0.247->0.265"
+    },
+    {
+      "number": 1234,
+      "title": "pump-main swarm: cashback-inner-reconstruction: process_cashback_inner ratio 0.735->0.803, orig callee order"
+    },
+    {
+      "number": 1235,
+      "title": "amm-sell swarm/mir-codegen-order: IR block-order oracle, target layout found (dist 91->10)"
+    },
+    {
+      "number": 1232,
+      "title": "pump-main swarm: v3trade-amm-idioms: buy_v3 ratio 0.645->0.876 (3688 B), no losses"
+    },
+    {
+      "number": 1231,
+      "title": "docs: update README checkpoint progress after swarm merges"
+    },
+    {
+      "number": 1225,
+      "title": "amm-sell swarm/macro-idioms: macro/? spellings exhausted (no gain; best 169/291 class)"
+    },
+    {
+      "number": 1218,
+      "title": "pump-main swarm: buyv2-sibling-transplant: exact-quote handler ratio 0.694 -> 0.973"
+    },
+    {
+      "number": 1210,
+      "title": "pump-main swarm: v3trade-coordinates: sell_v3 0.443->0.950, buy_v3 0.544->0.874, no losses"
+    },
+    {
+      "number": 1189,
+      "title": "pump-main swarm: v3execute-semantic: v3_execute_buy ratio 0.733 -> 0.7687 (3432/3440 B)"
+    },
+    {
+      "number": 1199,
+      "title": "pump-main swarm: v3costs-semantic-reorder: 0x80df8 ratio 0.788 -> 0.920"
+    },
+    {
+      "number": 1202,
+      "title": "pump-main swarm: coordinate-archaeology: line maps for 16 unmatched windows; sell.rs panic Locations match original"
+    },
+    {
+      "number": 1200,
+      "title": "pump-main swarm: exactsol-introspection: extractvalue order (InstCombine sinking) fixes buy_exact_sol_in load swap"
+    },
+    {
+      "number": 1191,
+      "title": "pump-main swarm: exactsol-sibling-analogy: buy_exact_sol_in normalized match (1020/188, no losses)"
+    },
+    {
+      "number": 1201,
+      "title": "pump-main swarm: exactsol-spelling-bruteforce: 0x14f4e0 buy_exact_sol_in normalized match (1020/188, 0 losses)"
+    },
+    {
+      "number": 1195,
+      "title": "amm-sell swarm/brute-force-grammar: owner '!=' spelling fixes borrow test (used in 785/785 goal)"
+    }
+  ],
+  "target_refresh": [
+    {
+      "number": 1479,
+      "title": "pump-main: improve V3 buy payment result layout (partial, 0.9728 → 0.9858)"
+    },
+    {
+      "number": 1565,
+      "title": "pump-main swarm: w4-sellv2-a: sell_v2 0x144508 normalized match (1024 norm; raw 0xa868 thunk drift)"
+    },
+    {
+      "number": 1550,
+      "title": "pump-main swarm: w4-buyv3: buy_v3 0.87739 -> 0.93138 (use v3_can_cross, 0 losses)"
+    },
+    {
+      "number": 1518,
+      "title": "pump-main swarm: w4-buyexactquote-v3: buy_exact_quote 0.6135 -> 0.6603 (masked 0.8928; raw 0xa868 drift)"
+    },
+    {
+      "number": 1423,
+      "title": "pump-main swarm: w3-raw-layout: rodata codegen order + original def order (data-offset-equal 683 -> 1021, LIS 884 -> 970; 1023/277, 0 losses)"
+    },
+    {
+      "number": 1420,
+      "title": "pump-main swarm: w3-buyexactquote-v3: buy_exact_quote ratio 0.3129 -> 0.6135 (can_cross phi, single post merge)"
+    },
+    {
+      "number": 1419,
+      "title": "pump-main swarm: w3-buyv3: buy_v3 IR oracle to 16 slots (analysis)"
+    },
+    {
+      "number": 1281,
+      "title": "pump-main swarm: v3trade-amm-idioms r2: buy_v3 ratio 0.8764->0.8774 (3680 B), no losses"
+    },
+    {
+      "number": 1227,
+      "title": "pump-main swarm: v3trade-coordinates (2): buy_v3 0.849->0.874, no losses"
+    },
+    {
+      "number": 1232,
+      "title": "pump-main swarm: v3trade-amm-idioms: buy_v3 ratio 0.645->0.876 (3688 B), no losses"
+    },
+    {
+      "number": 1210,
+      "title": "pump-main swarm: v3trade-coordinates: sell_v3 0.443->0.950, buy_v3 0.544->0.874, no losses"
+    }
+  ],
+  "decision": "Continue merged #1550 on trade::buy (0x147ba0). #1419 is prior analysis, credited. #1479/#1539 affect v3_execute_buy, #1518 affects buy_exact_quote; none is the proposed caller load-order edit. #1292 remains independent verification of an earlier Sell checkpoint."
+}

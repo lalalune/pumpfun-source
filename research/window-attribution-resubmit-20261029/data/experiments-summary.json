@@ -1,0 +1,22 @@
+{
+  "snapshot": "pre-#1191 qualification candidate",
+  "protocol": "one edit at a time; deterministic Linux rebuild; repository window metric against the symbol build; full patches and per-variant measurements archived in the PR #1172 branch",
+  "superseded_note": "these experiments prove only that the listed source shapes and attributes cannot reach the snapshot targets; #1191 (Pump) and #1195/#1205 (AMM) later closed those targets by other source changes",
+  "experiments": [
+    {"id": 1, "target": "pump 0x14f4e0", "edit": "early-return spelling of a guard", "effect": "-200 B, unfaithful (require_gt! carries .with_values)", "verdict": "rejected"},
+    {"id": 2, "target": "pump 0x14f4e0", "edit": "inverted if/else condition forms", "effect": "byte-identical output", "verdict": "LLVM canonicalizes condition inversions"},
+    {"id": 3, "target": "pump 0x14f4e0", "edit": "inverted guard at line 92", "effect": "-8 B, further from target", "verdict": "no effect on target encodings"},
+    {"id": 4, "target": "pump 0x14f4e0", "edit": "#[inline(never)] / attribute removal", "effect": "one identical binary, loses 5 matched windows", "verdict": "#[inline] is load-bearing elsewhere; rejected"},
+    {"id": 5, "target": "pump 0x14f4e0", "edit": "#[cold] variant", "effect": "loses 6 windows", "verdict": "rejected"},
+    {"id": 6, "target": "pump 0x14f4e0", "edit": "#[inline(always)]", "effect": "keeps 1019, further from target", "verdict": "no effect"},
+    {"id": 7, "target": "pump 0x14f4e0", "edit": "cold error-arm helpers", "effect": "adds a call absent from the deployed", "verdict": "structurally incompatible"},
+    {"id": 8, "target": "pump 0x14f4e0", "edit": "cold pass-through helper", "effect": "byte-identical output", "verdict": "eliminated by LLVM"},
+    {"id": 9, "target": "pump helpers", "edit": "and_then -> equivalent match", "effect": "byte-identical output", "verdict": "MIR canonicalizes"},
+    {"id": 10, "target": "amm 0x4c750", "edit": "10 frontend condition rewrites", "effect": "most byte-identical; v12 perturbs layout (raw 784->257); v8 environment-dependent (our build identical, maintainer rebuild 9032 B)", "verdict": "frontend canonicalizes condition forms"},
+    {"id": 11, "target": "amm 0x4c750", "edit": "#[cold] #[inline(never)] error-arm helper", "effect": "arm outlined outside the 9024-byte window (tuple preserved at 0x11bd30)", "verdict": "excluded by target size"},
+    {"id": 12, "target": "amm 0x4c750", "edit": "#[inline(always)] / check helper", "effect": "byte-identical output", "verdict": "no-ops"},
+    {"id": 13, "target": "amm 0x4c750", "edit": "#[cold] on fn cashback", "effect": "caller window 0x49b50 lost (783/785)", "verdict": "rejected"},
+    {"id": 14, "target": "amm 0x4c750", "edit": "conversion respellings of try_borrow_data", "effect": "target encoding jeqr+ja never emitted", "verdict": "encoding follows block order, not control-flow form"},
+    {"id": 15, "target": "amm 0x4c750", "edit": "combined helper + conversion", "effect": "size mismatch", "verdict": "rejected"}
+  ]
+}
