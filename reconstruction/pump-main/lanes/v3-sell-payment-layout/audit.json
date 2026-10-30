@@ -1,0 +1,1152 @@
+{
+  "images": {
+    "original": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "control": "e3410288eef8a18a76ded223f7bbc165bb693533029e6709e1088b1afa50f5df",
+    "candidate": "969811b0e0f673b693695ea651008cacd93eafa5a663dd8bec0e61d3b22d09a9"
+  },
+  "starts": {
+    "original": 1353896,
+    "control": 660464,
+    "candidate": 660464
+  },
+  "calls": {
+    "original": [
+      {
+        "offset": 104,
+        "target": 249168,
+        "kind": "internal",
+        "size": 1280,
+        "body_sha256": "ef4951138997214e7931afd2f7c43c7df20604e78526df1579c7934ed0d534f5",
+        "syscall": null
+      },
+      {
+        "offset": 176,
+        "target": 516272,
+        "kind": "internal",
+        "size": 992,
+        "body_sha256": "ec61419270861319eb2b86fe0d0e0a230b0732c38276b49918b27861f74e5297",
+        "syscall": null
+      },
+      {
+        "offset": 288,
+        "target": 1405824,
+        "kind": "internal",
+        "size": 26896,
+        "body_sha256": "12ec21afd9749fdf5ecd506345b09510b6c6676fd604c8e20869439afb9d143b",
+        "syscall": null
+      },
+      {
+        "offset": 432,
+        "target": 1433224,
+        "kind": "internal",
+        "size": 3616,
+        "body_sha256": "e7a0b7da14a8fc34169dc90c2e5a38dcb32c5f782445954fd51ed0bd2825cbfb",
+        "syscall": null
+      },
+      {
+        "offset": 520,
+        "target": 1405824,
+        "kind": "internal",
+        "size": 26896,
+        "body_sha256": "12ec21afd9749fdf5ecd506345b09510b6c6676fd604c8e20869439afb9d143b",
+        "syscall": null
+      },
+      {
+        "offset": 664,
+        "target": 1433224,
+        "kind": "internal",
+        "size": 3616,
+        "body_sha256": "e7a0b7da14a8fc34169dc90c2e5a38dcb32c5f782445954fd51ed0bd2825cbfb",
+        "syscall": null
+      },
+      {
+        "offset": 752,
+        "target": 1756696,
+        "kind": "internal",
+        "size": 232,
+        "body_sha256": "b34e14663b2408f2ac727dd770ea414287409ebd158eacd6a21df134dc66e2e0",
+        "syscall": null
+      },
+      {
+        "offset": 952,
+        "target": 1686320,
+        "kind": "internal",
+        "size": 136,
+        "body_sha256": "4d309b5bb532665fe5ae3039c64ca95b3ef2648370f47d2586acb6dec6c6c96e",
+        "syscall": null
+      },
+      {
+        "offset": 1000,
+        "target": 832,
+        "kind": "internal",
+        "size": 1336,
+        "body_sha256": "3edfab3b3b1847c9db12ba5bbaced07be7d680bf065242d0f4b4940d9b21e406",
+        "syscall": null
+      },
+      {
+        "offset": 1056,
+        "target": 520208,
+        "kind": "internal",
+        "size": 3544,
+        "body_sha256": "6d234af7db1f52a6fbbc4cdb573d64e3267e76e313beff8f9d9fd7d2a442539f",
+        "syscall": null
+      },
+      {
+        "offset": 1304,
+        "target": 1686320,
+        "kind": "internal",
+        "size": 136,
+        "body_sha256": "4d309b5bb532665fe5ae3039c64ca95b3ef2648370f47d2586acb6dec6c6c96e",
+        "syscall": null
+      },
+      {
+        "offset": 1368,
+        "target": 4528,
+        "kind": "internal",
+        "size": 1336,
+        "body_sha256": "cf9c6809b850fd9c8fa5d6045c6b3ea08bac338aa4fcc3de71c4baa272048a8f",
+        "syscall": null
+      },
+      {
+        "offset": 1512,
+        "target": 656696,
+        "kind": "internal",
+        "size": 768,
+        "body_sha256": "2d2482916a25d84e23f5ef185a2076bfc7cae2faa26962cb4af381e074395308",
+        "syscall": null
+      },
+      {
+        "offset": 1600,
+        "target": 556192,
+        "kind": "internal",
+        "size": 520,
+        "body_sha256": "916edcacb359eff47135ea89d7f0760590b78aa7df2c4cf3ce66a366b91930c7",
+        "syscall": null
+      },
+      {
+        "offset": 1664,
+        "target": 523752,
+        "kind": "internal",
+        "size": 1040,
+        "body_sha256": "1b5720abea0f951bb8f1e1069be2ce70ac472cf41cf0269063d53efa1a7d3e19",
+        "syscall": null
+      },
+      {
+        "offset": 1808,
+        "target": 525448,
+        "kind": "internal",
+        "size": 576,
+        "body_sha256": "ed0bef6ff14c5db5c35dafac7d6795bb5b8d6b283099e95383c99d7cf655ce7e",
+        "syscall": null
+      },
+      {
+        "offset": 1888,
+        "target": 610528,
+        "kind": "internal",
+        "size": 640,
+        "body_sha256": "d5e3892d3a97115a1ee5098d8754aa5bcd383eeba8ed9991466ed9a99be3bcab",
+        "syscall": null
+      },
+      {
+        "offset": 1976,
+        "target": 556712,
+        "kind": "internal",
+        "size": 520,
+        "body_sha256": "ae0173fbcc2d970feb81b45defac3a6269a3c33ff0bd138dad6a2a895f3193e9",
+        "syscall": null
+      },
+      {
+        "offset": 2048,
+        "target": 1405824,
+        "kind": "internal",
+        "size": 26896,
+        "body_sha256": "12ec21afd9749fdf5ecd506345b09510b6c6676fd604c8e20869439afb9d143b",
+        "syscall": null
+      },
+      {
+        "offset": 2088,
+        "target": 43320,
+        "kind": "internal",
+        "size": 296,
+        "body_sha256": "37d33bee1bd98767edf7d8985852fff25bdaa0b89c8f039d39e368a9b4f49d34",
+        "syscall": null
+      },
+      {
+        "offset": 2192,
+        "target": 1686320,
+        "kind": "internal",
+        "size": 136,
+        "body_sha256": "4d309b5bb532665fe5ae3039c64ca95b3ef2648370f47d2586acb6dec6c6c96e",
+        "syscall": null
+      },
+      {
+        "offset": 2248,
+        "target": 4528,
+        "kind": "internal",
+        "size": 1336,
+        "body_sha256": "cf9c6809b850fd9c8fa5d6045c6b3ea08bac338aa4fcc3de71c4baa272048a8f",
+        "syscall": null
+      },
+      {
+        "offset": 2344,
+        "target": 660448,
+        "kind": "internal",
+        "size": 2040,
+        "body_sha256": "601431e1843accd07810b4399305189bcec907b5bdc05e64d74432a8c321f709",
+        "syscall": null
+      },
+      {
+        "offset": 2488,
+        "target": 589336,
+        "kind": "internal",
+        "size": 2080,
+        "body_sha256": "d76c4859e1c717cd208b9ae53b7873f174d254d19f211abc21844559e25f7542",
+        "syscall": null
+      },
+      {
+        "offset": 2648,
+        "target": 1783416,
+        "kind": "internal",
+        "size": 64,
+        "body_sha256": "3655cf323ca6c77d2281b0218472940efedd936341134081457dfbe5c05266e9",
+        "syscall": null
+      },
+      {
+        "offset": 2784,
+        "target": 1783416,
+        "kind": "internal",
+        "size": 64,
+        "body_sha256": "3655cf323ca6c77d2281b0218472940efedd936341134081457dfbe5c05266e9",
+        "syscall": null
+      },
+      {
+        "offset": 3152,
+        "target": 617800,
+        "kind": "internal",
+        "size": 944,
+        "body_sha256": "a723cf4ef244de164e3007dd49f00965a3c44d2b0e065183840ed68692ec7eb6",
+        "syscall": null
+      },
+      {
+        "offset": 3240,
+        "target": 662488,
+        "kind": "internal",
+        "size": 1456,
+        "body_sha256": "cfd961a79086500af2d7580f5178f933132d5763a75078d3fdf569ce378650be",
+        "syscall": null
+      },
+      {
+        "offset": 3344,
+        "target": 68728,
+        "kind": "internal",
+        "size": 264,
+        "body_sha256": "ccfedf24c667e00c6d81e2cfc54c72c775273d85616708577d6b8caf3dc087a1",
+        "syscall": null
+      },
+      {
+        "offset": 3568,
+        "target": 618744,
+        "kind": "internal",
+        "size": 1160,
+        "body_sha256": "e40f1ca5fae663ac2f7d0ae019bd1b0dbe1073fb94bd84bc5e8d38e0b14bf53a",
+        "syscall": null
+      },
+      {
+        "offset": 3832,
+        "target": 610528,
+        "kind": "internal",
+        "size": 640,
+        "body_sha256": "d5e3892d3a97115a1ee5098d8754aa5bcd383eeba8ed9991466ed9a99be3bcab",
+        "syscall": null
+      },
+      {
+        "offset": 3896,
+        "target": 1706296,
+        "kind": "internal",
+        "size": 232,
+        "body_sha256": "aaa6a4bfceb7eebc853a9e0555101da86ab14a170f75cfd3c378c75a1e3e5445",
+        "syscall": null
+      },
+      {
+        "offset": 4000,
+        "target": 1686456,
+        "kind": "internal",
+        "size": 160,
+        "body_sha256": "07e08bc5f613dec7f8f7ae29ea8b1f84077c7b705a6f0ad4c85e82fbee014838",
+        "syscall": null
+      },
+      {
+        "offset": 4144,
+        "target": 30864,
+        "kind": "internal",
+        "size": 688,
+        "body_sha256": "5055659c658fb0c733cb387612fe2ebfc25b6d2b4cb026337a7cf83dd4ccac93",
+        "syscall": null
+      },
+      {
+        "offset": 4208,
+        "target": 30864,
+        "kind": "internal",
+        "size": 688,
+        "body_sha256": "5055659c658fb0c733cb387612fe2ebfc25b6d2b4cb026337a7cf83dd4ccac93",
+        "syscall": null
+      },
+      {
+        "offset": 4384,
+        "target": 664560,
+        "kind": "internal",
+        "size": 1168,
+        "body_sha256": "a24bc81afd4580429e37fa860dbc6aed35b64ff9f1b95f908cbd5475aea8c52e",
+        "syscall": null
+      },
+      {
+        "offset": 4816,
+        "target": 572368,
+        "kind": "internal",
+        "size": 1800,
+        "body_sha256": "7b07b8f5f9b89037b63295cda67adc5a97bb447e96ab4dc0caebf38874f23ab1",
+        "syscall": null
+      },
+      {
+        "offset": 4848,
+        "target": 1451184,
+        "kind": "internal",
+        "size": 5432,
+        "body_sha256": "cbba8e35047c98146f63410f186b770d9b6bb86d15417559c2894ee5d2308f76",
+        "syscall": null
+      },
+      {
+        "offset": 4912,
+        "target": 1705208,
+        "kind": "internal",
+        "size": 16,
+        "body_sha256": "ad6dc378d0d0043e09fbe2d7a731922dc57dac22fe0a92b412837797d22d569e",
+        "syscall": null
+      },
+      {
+        "offset": 4960,
+        "target": 68728,
+        "kind": "internal",
+        "size": 264,
+        "body_sha256": "ccfedf24c667e00c6d81e2cfc54c72c775273d85616708577d6b8caf3dc087a1",
+        "syscall": null
+      },
+      {
+        "offset": 5016,
+        "target": 1451184,
+        "kind": "internal",
+        "size": 5432,
+        "body_sha256": "cbba8e35047c98146f63410f186b770d9b6bb86d15417559c2894ee5d2308f76",
+        "syscall": null
+      },
+      {
+        "offset": 5176,
+        "target": 76520,
+        "kind": "internal",
+        "size": 1176,
+        "body_sha256": "a7ed1e96ecdb316776d785ede983e764d2a7435734b5859c5bf70cd619e72c7c",
+        "syscall": null
+      },
+      {
+        "offset": 5216,
+        "target": 54464,
+        "kind": "internal",
+        "size": 272,
+        "body_sha256": "2fd4e6026ebbae1bef9cde8056814a3247d792084609181c12bb981c5727d6af",
+        "syscall": null
+      },
+      {
+        "offset": 5400,
+        "target": 1734880,
+        "kind": "internal",
+        "size": 352,
+        "body_sha256": "e73377b75ba1a72c127516246aef2b806af538f6ffb49d799ed30f98791e3fb3",
+        "syscall": null
+      },
+      {
+        "offset": 5448,
+        "target": 1783312,
+        "kind": "internal",
+        "size": 32,
+        "body_sha256": "1ebd76b602440a25fe65d4cc6eb847d2471b589ada5c8816107c32ddfc964dc0",
+        "syscall": null
+      },
+      {
+        "offset": 5648,
+        "target": 1705264,
+        "kind": "internal",
+        "size": 880,
+        "body_sha256": "b21f02685cdc5fc312ea2707735a29e9f81ab908db1112a7ae04482a2c217d94",
+        "syscall": null
+      },
+      {
+        "offset": 5872,
+        "target": 1686456,
+        "kind": "internal",
+        "size": 160,
+        "body_sha256": "07e08bc5f613dec7f8f7ae29ea8b1f84077c7b705a6f0ad4c85e82fbee014838",
+        "syscall": null
+      }
+    ],
+    "control": [
+      {
+        "offset": 104,
+        "target": 705696,
+        "kind": "internal",
+        "size": 1280,
+        "body_sha256": "ef4951138997214e7931afd2f7c43c7df20604e78526df1579c7934ed0d534f5",
+        "syscall": null
+      },
+      {
+        "offset": 176,
+        "target": 612712,
+        "kind": "internal",
+        "size": 992,
+        "body_sha256": "ec61419270861319eb2b86fe0d0e0a230b0732c38276b49918b27861f74e5297",
+        "syscall": null
+      },
+      {
+        "offset": 288,
+        "target": 1398776,
+        "kind": "internal",
+        "size": 26896,
+        "body_sha256": "12ec21afd9749fdf5ecd506345b09510b6c6676fd604c8e20869439afb9d143b",
+        "syscall": null
+      },
+      {
+        "offset": 432,
+        "target": 1426176,
+        "kind": "internal",
+        "size": 3616,
+        "body_sha256": "e7a0b7da14a8fc34169dc90c2e5a38dcb32c5f782445954fd51ed0bd2825cbfb",
+        "syscall": null
+      },
+      {
+        "offset": 520,
+        "target": 1398776,
+        "kind": "internal",
+        "size": 26896,
+        "body_sha256": "12ec21afd9749fdf5ecd506345b09510b6c6676fd604c8e20869439afb9d143b",
+        "syscall": null
+      },
+      {
+        "offset": 664,
+        "target": 1426176,
+        "kind": "internal",
+        "size": 3616,
+        "body_sha256": "e7a0b7da14a8fc34169dc90c2e5a38dcb32c5f782445954fd51ed0bd2825cbfb",
+        "syscall": null
+      },
+      {
+        "offset": 752,
+        "target": 1756608,
+        "kind": "internal",
+        "size": 232,
+        "body_sha256": "b34e14663b2408f2ac727dd770ea414287409ebd158eacd6a21df134dc66e2e0",
+        "syscall": null
+      },
+      {
+        "offset": 952,
+        "target": 1686232,
+        "kind": "internal",
+        "size": 136,
+        "body_sha256": "4d309b5bb532665fe5ae3039c64ca95b3ef2648370f47d2586acb6dec6c6c96e",
+        "syscall": null
+      },
+      {
+        "offset": 1000,
+        "target": 4528,
+        "kind": "internal",
+        "size": 1336,
+        "body_sha256": "3edfab3b3b1847c9db12ba5bbaced07be7d680bf065242d0f4b4940d9b21e406",
+        "syscall": null
+      },
+      {
+        "offset": 1056,
+        "target": 667544,
+        "kind": "internal",
+        "size": 3544,
+        "body_sha256": "6d234af7db1f52a6fbbc4cdb573d64e3267e76e313beff8f9d9fd7d2a442539f",
+        "syscall": null
+      },
+      {
+        "offset": 1304,
+        "target": 1686232,
+        "kind": "internal",
+        "size": 136,
+        "body_sha256": "4d309b5bb532665fe5ae3039c64ca95b3ef2648370f47d2586acb6dec6c6c96e",
+        "syscall": null
+      },
+      {
+        "offset": 1368,
+        "target": 832,
+        "kind": "internal",
+        "size": 1336,
+        "body_sha256": "cf9c6809b850fd9c8fa5d6045c6b3ea08bac338aa4fcc3de71c4baa272048a8f",
+        "syscall": null
+      },
+      {
+        "offset": 1512,
+        "target": 720192,
+        "kind": "internal",
+        "size": 768,
+        "body_sha256": "2d2482916a25d84e23f5ef185a2076bfc7cae2faa26962cb4af381e074395308",
+        "syscall": null
+      },
+      {
+        "offset": 1600,
+        "target": 666504,
+        "kind": "internal",
+        "size": 520,
+        "body_sha256": "916edcacb359eff47135ea89d7f0760590b78aa7df2c4cf3ce66a366b91930c7",
+        "syscall": null
+      },
+      {
+        "offset": 1664,
+        "target": 622976,
+        "kind": "internal",
+        "size": 1040,
+        "body_sha256": "1b5720abea0f951bb8f1e1069be2ce70ac472cf41cf0269063d53efa1a7d3e19",
+        "syscall": null
+      },
+      {
+        "offset": 1808,
+        "target": 617304,
+        "kind": "internal",
+        "size": 576,
+        "body_sha256": "ed0bef6ff14c5db5c35dafac7d6795bb5b8d6b283099e95383c99d7cf655ce7e",
+        "syscall": null
+      },
+      {
+        "offset": 1888,
+        "target": 682936,
+        "kind": "internal",
+        "size": 640,
+        "body_sha256": "d5e3892d3a97115a1ee5098d8754aa5bcd383eeba8ed9991466ed9a99be3bcab",
+        "syscall": null
+      },
+      {
+        "offset": 1976,
+        "target": 667024,
+        "kind": "internal",
+        "size": 520,
+        "body_sha256": "ae0173fbcc2d970feb81b45defac3a6269a3c33ff0bd138dad6a2a895f3193e9",
+        "syscall": null
+      },
+      {
+        "offset": 2048,
+        "target": 1398776,
+        "kind": "internal",
+        "size": 26896,
+        "body_sha256": "12ec21afd9749fdf5ecd506345b09510b6c6676fd604c8e20869439afb9d143b",
+        "syscall": null
+      },
+      {
+        "offset": 2088,
+        "target": 43528,
+        "kind": "internal",
+        "size": 296,
+        "body_sha256": "37d33bee1bd98767edf7d8985852fff25bdaa0b89c8f039d39e368a9b4f49d34",
+        "syscall": null
+      },
+      {
+        "offset": 2192,
+        "target": 1686232,
+        "kind": "internal",
+        "size": 136,
+        "body_sha256": "4d309b5bb532665fe5ae3039c64ca95b3ef2648370f47d2586acb6dec6c6c96e",
+        "syscall": null
+      },
+      {
+        "offset": 2248,
+        "target": 832,
+        "kind": "internal",
+        "size": 1336,
+        "body_sha256": "cf9c6809b850fd9c8fa5d6045c6b3ea08bac338aa4fcc3de71c4baa272048a8f",
+        "syscall": null
+      },
+      {
+        "offset": 2344,
+        "target": 723752,
+        "kind": "internal",
+        "size": 2040,
+        "body_sha256": "601431e1843accd07810b4399305189bcec907b5bdc05e64d74432a8c321f709",
+        "syscall": null
+      },
+      {
+        "offset": 2488,
+        "target": 556240,
+        "kind": "internal",
+        "size": 2080,
+        "body_sha256": "d76c4859e1c717cd208b9ae53b7873f174d254d19f211abc21844559e25f7542",
+        "syscall": null
+      },
+      {
+        "offset": 2648,
+        "target": 1783328,
+        "kind": "internal",
+        "size": 64,
+        "body_sha256": "3655cf323ca6c77d2281b0218472940efedd936341134081457dfbe5c05266e9",
+        "syscall": null
+      },
+      {
+        "offset": 2784,
+        "target": 1783328,
+        "kind": "internal",
+        "size": 64,
+        "body_sha256": "3655cf323ca6c77d2281b0218472940efedd936341134081457dfbe5c05266e9",
+        "syscall": null
+      },
+      {
+        "offset": 3152,
+        "target": 675552,
+        "kind": "internal",
+        "size": 944,
+        "body_sha256": "a723cf4ef244de164e3007dd49f00965a3c44d2b0e065183840ed68692ec7eb6",
+        "syscall": null
+      },
+      {
+        "offset": 3240,
+        "target": 725792,
+        "kind": "internal",
+        "size": 1456,
+        "body_sha256": "cfd961a79086500af2d7580f5178f933132d5763a75078d3fdf569ce378650be",
+        "syscall": null
+      },
+      {
+        "offset": 3352,
+        "target": 68936,
+        "kind": "internal",
+        "size": 264,
+        "body_sha256": "ccfedf24c667e00c6d81e2cfc54c72c775273d85616708577d6b8caf3dc087a1",
+        "syscall": null
+      },
+      {
+        "offset": 3568,
+        "target": 676496,
+        "kind": "internal",
+        "size": 1160,
+        "body_sha256": "e40f1ca5fae663ac2f7d0ae019bd1b0dbe1073fb94bd84bc5e8d38e0b14bf53a",
+        "syscall": null
+      },
+      {
+        "offset": 3832,
+        "target": 682936,
+        "kind": "internal",
+        "size": 640,
+        "body_sha256": "d5e3892d3a97115a1ee5098d8754aa5bcd383eeba8ed9991466ed9a99be3bcab",
+        "syscall": null
+      },
+      {
+        "offset": 3896,
+        "target": 1706208,
+        "kind": "internal",
+        "size": 232,
+        "body_sha256": "aaa6a4bfceb7eebc853a9e0555101da86ab14a170f75cfd3c378c75a1e3e5445",
+        "syscall": null
+      },
+      {
+        "offset": 4000,
+        "target": 1686368,
+        "kind": "internal",
+        "size": 160,
+        "body_sha256": "07e08bc5f613dec7f8f7ae29ea8b1f84077c7b705a6f0ad4c85e82fbee014838",
+        "syscall": null
+      },
+      {
+        "offset": 4144,
+        "target": 31072,
+        "kind": "internal",
+        "size": 688,
+        "body_sha256": "5055659c658fb0c733cb387612fe2ebfc25b6d2b4cb026337a7cf83dd4ccac93",
+        "syscall": null
+      },
+      {
+        "offset": 4208,
+        "target": 31072,
+        "kind": "internal",
+        "size": 688,
+        "body_sha256": "5055659c658fb0c733cb387612fe2ebfc25b6d2b4cb026337a7cf83dd4ccac93",
+        "syscall": null
+      },
+      {
+        "offset": 4384,
+        "target": 684264,
+        "kind": "internal",
+        "size": 1168,
+        "body_sha256": "a24bc81afd4580429e37fa860dbc6aed35b64ff9f1b95f908cbd5475aea8c52e",
+        "syscall": null
+      },
+      {
+        "offset": 4816,
+        "target": 453880,
+        "kind": "internal",
+        "size": 1800,
+        "body_sha256": "7b07b8f5f9b89037b63295cda67adc5a97bb447e96ab4dc0caebf38874f23ab1",
+        "syscall": null
+      },
+      {
+        "offset": 4848,
+        "target": 1444136,
+        "kind": "internal",
+        "size": 5432,
+        "body_sha256": "cbba8e35047c98146f63410f186b770d9b6bb86d15417559c2894ee5d2308f76",
+        "syscall": null
+      },
+      {
+        "offset": 4912,
+        "target": 1705120,
+        "kind": "internal",
+        "size": 16,
+        "body_sha256": "ad6dc378d0d0043e09fbe2d7a731922dc57dac22fe0a92b412837797d22d569e",
+        "syscall": null
+      },
+      {
+        "offset": 4960,
+        "target": 68936,
+        "kind": "internal",
+        "size": 264,
+        "body_sha256": "ccfedf24c667e00c6d81e2cfc54c72c775273d85616708577d6b8caf3dc087a1",
+        "syscall": null
+      },
+      {
+        "offset": 5016,
+        "target": 1444136,
+        "kind": "internal",
+        "size": 5432,
+        "body_sha256": "cbba8e35047c98146f63410f186b770d9b6bb86d15417559c2894ee5d2308f76",
+        "syscall": null
+      },
+      {
+        "offset": 5176,
+        "target": 76728,
+        "kind": "internal",
+        "size": 1176,
+        "body_sha256": "a7ed1e96ecdb316776d785ede983e764d2a7435734b5859c5bf70cd619e72c7c",
+        "syscall": null
+      },
+      {
+        "offset": 5216,
+        "target": 54336,
+        "kind": "internal",
+        "size": 272,
+        "body_sha256": "2fd4e6026ebbae1bef9cde8056814a3247d792084609181c12bb981c5727d6af",
+        "syscall": null
+      },
+      {
+        "offset": 5400,
+        "target": 1734792,
+        "kind": "internal",
+        "size": 352,
+        "body_sha256": "e73377b75ba1a72c127516246aef2b806af538f6ffb49d799ed30f98791e3fb3",
+        "syscall": null
+      },
+      {
+        "offset": 5448,
+        "target": 1783224,
+        "kind": "internal",
+        "size": 32,
+        "body_sha256": "1ebd76b602440a25fe65d4cc6eb847d2471b589ada5c8816107c32ddfc964dc0",
+        "syscall": null
+      },
+      {
+        "offset": 5648,
+        "target": 1705176,
+        "kind": "internal",
+        "size": 880,
+        "body_sha256": "b21f02685cdc5fc312ea2707735a29e9f81ab908db1112a7ae04482a2c217d94",
+        "syscall": null
+      },
+      {
+        "offset": 5856,
+        "target": 1686368,
+        "kind": "internal",
+        "size": 160,
+        "body_sha256": "07e08bc5f613dec7f8f7ae29ea8b1f84077c7b705a6f0ad4c85e82fbee014838",
+        "syscall": null
+      }
+    ],
+    "candidate": [
+      {
+        "offset": 104,
+        "target": 705696,
+        "kind": "internal",
+        "size": 1280,
+        "body_sha256": "ef4951138997214e7931afd2f7c43c7df20604e78526df1579c7934ed0d534f5",
+        "syscall": null
+      },
+      {
+        "offset": 176,
+        "target": 612712,
+        "kind": "internal",
+        "size": 992,
+        "body_sha256": "ec61419270861319eb2b86fe0d0e0a230b0732c38276b49918b27861f74e5297",
+        "syscall": null
+      },
+      {
+        "offset": 288,
+        "target": 1398776,
+        "kind": "internal",
+        "size": 26896,
+        "body_sha256": "12ec21afd9749fdf5ecd506345b09510b6c6676fd604c8e20869439afb9d143b",
+        "syscall": null
+      },
+      {
+        "offset": 432,
+        "target": 1426176,
+        "kind": "internal",
+        "size": 3616,
+        "body_sha256": "e7a0b7da14a8fc34169dc90c2e5a38dcb32c5f782445954fd51ed0bd2825cbfb",
+        "syscall": null
+      },
+      {
+        "offset": 520,
+        "target": 1398776,
+        "kind": "internal",
+        "size": 26896,
+        "body_sha256": "12ec21afd9749fdf5ecd506345b09510b6c6676fd604c8e20869439afb9d143b",
+        "syscall": null
+      },
+      {
+        "offset": 664,
+        "target": 1426176,
+        "kind": "internal",
+        "size": 3616,
+        "body_sha256": "e7a0b7da14a8fc34169dc90c2e5a38dcb32c5f782445954fd51ed0bd2825cbfb",
+        "syscall": null
+      },
+      {
+        "offset": 752,
+        "target": 1756608,
+        "kind": "internal",
+        "size": 232,
+        "body_sha256": "b34e14663b2408f2ac727dd770ea414287409ebd158eacd6a21df134dc66e2e0",
+        "syscall": null
+      },
+      {
+        "offset": 952,
+        "target": 1686232,
+        "kind": "internal",
+        "size": 136,
+        "body_sha256": "4d309b5bb532665fe5ae3039c64ca95b3ef2648370f47d2586acb6dec6c6c96e",
+        "syscall": null
+      },
+      {
+        "offset": 1000,
+        "target": 4528,
+        "kind": "internal",
+        "size": 1336,
+        "body_sha256": "3edfab3b3b1847c9db12ba5bbaced07be7d680bf065242d0f4b4940d9b21e406",
+        "syscall": null
+      },
+      {
+        "offset": 1056,
+        "target": 667544,
+        "kind": "internal",
+        "size": 3544,
+        "body_sha256": "6d234af7db1f52a6fbbc4cdb573d64e3267e76e313beff8f9d9fd7d2a442539f",
+        "syscall": null
+      },
+      {
+        "offset": 1304,
+        "target": 1686232,
+        "kind": "internal",
+        "size": 136,
+        "body_sha256": "4d309b5bb532665fe5ae3039c64ca95b3ef2648370f47d2586acb6dec6c6c96e",
+        "syscall": null
+      },
+      {
+        "offset": 1368,
+        "target": 832,
+        "kind": "internal",
+        "size": 1336,
+        "body_sha256": "cf9c6809b850fd9c8fa5d6045c6b3ea08bac338aa4fcc3de71c4baa272048a8f",
+        "syscall": null
+      },
+      {
+        "offset": 1512,
+        "target": 720192,
+        "kind": "internal",
+        "size": 768,
+        "body_sha256": "2d2482916a25d84e23f5ef185a2076bfc7cae2faa26962cb4af381e074395308",
+        "syscall": null
+      },
+      {
+        "offset": 1600,
+        "target": 666504,
+        "kind": "internal",
+        "size": 520,
+        "body_sha256": "916edcacb359eff47135ea89d7f0760590b78aa7df2c4cf3ce66a366b91930c7",
+        "syscall": null
+      },
+      {
+        "offset": 1664,
+        "target": 622976,
+        "kind": "internal",
+        "size": 1040,
+        "body_sha256": "1b5720abea0f951bb8f1e1069be2ce70ac472cf41cf0269063d53efa1a7d3e19",
+        "syscall": null
+      },
+      {
+        "offset": 1808,
+        "target": 617304,
+        "kind": "internal",
+        "size": 576,
+        "body_sha256": "ed0bef6ff14c5db5c35dafac7d6795bb5b8d6b283099e95383c99d7cf655ce7e",
+        "syscall": null
+      },
+      {
+        "offset": 1888,
+        "target": 682936,
+        "kind": "internal",
+        "size": 640,
+        "body_sha256": "d5e3892d3a97115a1ee5098d8754aa5bcd383eeba8ed9991466ed9a99be3bcab",
+        "syscall": null
+      },
+      {
+        "offset": 1976,
+        "target": 667024,
+        "kind": "internal",
+        "size": 520,
+        "body_sha256": "ae0173fbcc2d970feb81b45defac3a6269a3c33ff0bd138dad6a2a895f3193e9",
+        "syscall": null
+      },
+      {
+        "offset": 2048,
+        "target": 1398776,
+        "kind": "internal",
+        "size": 26896,
+        "body_sha256": "12ec21afd9749fdf5ecd506345b09510b6c6676fd604c8e20869439afb9d143b",
+        "syscall": null
+      },
+      {
+        "offset": 2088,
+        "target": 43528,
+        "kind": "internal",
+        "size": 296,
+        "body_sha256": "37d33bee1bd98767edf7d8985852fff25bdaa0b89c8f039d39e368a9b4f49d34",
+        "syscall": null
+      },
+      {
+        "offset": 2192,
+        "target": 1686232,
+        "kind": "internal",
+        "size": 136,
+        "body_sha256": "4d309b5bb532665fe5ae3039c64ca95b3ef2648370f47d2586acb6dec6c6c96e",
+        "syscall": null
+      },
+      {
+        "offset": 2248,
+        "target": 832,
+        "kind": "internal",
+        "size": 1336,
+        "body_sha256": "cf9c6809b850fd9c8fa5d6045c6b3ea08bac338aa4fcc3de71c4baa272048a8f",
+        "syscall": null
+      },
+      {
+        "offset": 2344,
+        "target": 723752,
+        "kind": "internal",
+        "size": 2040,
+        "body_sha256": "601431e1843accd07810b4399305189bcec907b5bdc05e64d74432a8c321f709",
+        "syscall": null
+      },
+      {
+        "offset": 2488,
+        "target": 556240,
+        "kind": "internal",
+        "size": 2080,
+        "body_sha256": "d76c4859e1c717cd208b9ae53b7873f174d254d19f211abc21844559e25f7542",
+        "syscall": null
+      },
+      {
+        "offset": 2648,
+        "target": 1783328,
+        "kind": "internal",
+        "size": 64,
+        "body_sha256": "3655cf323ca6c77d2281b0218472940efedd936341134081457dfbe5c05266e9",
+        "syscall": null
+      },
+      {
+        "offset": 2784,
+        "target": 1783328,
+        "kind": "internal",
+        "size": 64,
+        "body_sha256": "3655cf323ca6c77d2281b0218472940efedd936341134081457dfbe5c05266e9",
+        "syscall": null
+      },
+      {
+        "offset": 3152,
+        "target": 675552,
+        "kind": "internal",
+        "size": 944,
+        "body_sha256": "a723cf4ef244de164e3007dd49f00965a3c44d2b0e065183840ed68692ec7eb6",
+        "syscall": null
+      },
+      {
+        "offset": 3240,
+        "target": 725792,
+        "kind": "internal",
+        "size": 1456,
+        "body_sha256": "cfd961a79086500af2d7580f5178f933132d5763a75078d3fdf569ce378650be",
+        "syscall": null
+      },
+      {
+        "offset": 3344,
+        "target": 68936,
+        "kind": "internal",
+        "size": 264,
+        "body_sha256": "ccfedf24c667e00c6d81e2cfc54c72c775273d85616708577d6b8caf3dc087a1",
+        "syscall": null
+      },
+      {
+        "offset": 3568,
+        "target": 676496,
+        "kind": "internal",
+        "size": 1160,
+        "body_sha256": "e40f1ca5fae663ac2f7d0ae019bd1b0dbe1073fb94bd84bc5e8d38e0b14bf53a",
+        "syscall": null
+      },
+      {
+        "offset": 3832,
+        "target": 682936,
+        "kind": "internal",
+        "size": 640,
+        "body_sha256": "d5e3892d3a97115a1ee5098d8754aa5bcd383eeba8ed9991466ed9a99be3bcab",
+        "syscall": null
+      },
+      {
+        "offset": 3896,
+        "target": 1706208,
+        "kind": "internal",
+        "size": 232,
+        "body_sha256": "aaa6a4bfceb7eebc853a9e0555101da86ab14a170f75cfd3c378c75a1e3e5445",
+        "syscall": null
+      },
+      {
+        "offset": 4000,
+        "target": 1686368,
+        "kind": "internal",
+        "size": 160,
+        "body_sha256": "07e08bc5f613dec7f8f7ae29ea8b1f84077c7b705a6f0ad4c85e82fbee014838",
+        "syscall": null
+      },
+      {
+        "offset": 4144,
+        "target": 31072,
+        "kind": "internal",
+        "size": 688,
+        "body_sha256": "5055659c658fb0c733cb387612fe2ebfc25b6d2b4cb026337a7cf83dd4ccac93",
+        "syscall": null
+      },
+      {
+        "offset": 4208,
+        "target": 31072,
+        "kind": "internal",
+        "size": 688,
+        "body_sha256": "5055659c658fb0c733cb387612fe2ebfc25b6d2b4cb026337a7cf83dd4ccac93",
+        "syscall": null
+      },
+      {
+        "offset": 4384,
+        "target": 684264,
+        "kind": "internal",
+        "size": 1168,
+        "body_sha256": "a24bc81afd4580429e37fa860dbc6aed35b64ff9f1b95f908cbd5475aea8c52e",
+        "syscall": null
+      },
+      {
+        "offset": 4816,
+        "target": 453880,
+        "kind": "internal",
+        "size": 1800,
+        "body_sha256": "7b07b8f5f9b89037b63295cda67adc5a97bb447e96ab4dc0caebf38874f23ab1",
+        "syscall": null
+      },
+      {
+        "offset": 4848,
+        "target": 1444136,
+        "kind": "internal",
+        "size": 5432,
+        "body_sha256": "cbba8e35047c98146f63410f186b770d9b6bb86d15417559c2894ee5d2308f76",
+        "syscall": null
+      },
+      {
+        "offset": 4912,
+        "target": 1705120,
+        "kind": "internal",
+        "size": 16,
+        "body_sha256": "ad6dc378d0d0043e09fbe2d7a731922dc57dac22fe0a92b412837797d22d569e",
+        "syscall": null
+      },
+      {
+        "offset": 4960,
+        "target": 68936,
+        "kind": "internal",
+        "size": 264,
+        "body_sha256": "ccfedf24c667e00c6d81e2cfc54c72c775273d85616708577d6b8caf3dc087a1",
+        "syscall": null
+      },
+      {
+        "offset": 5016,
+        "target": 1444136,
+        "kind": "internal",
+        "size": 5432,
+        "body_sha256": "cbba8e35047c98146f63410f186b770d9b6bb86d15417559c2894ee5d2308f76",
+        "syscall": null
+      },
+      {
+        "offset": 5176,
+        "target": 76728,
+        "kind": "internal",
+        "size": 1176,
+        "body_sha256": "a7ed1e96ecdb316776d785ede983e764d2a7435734b5859c5bf70cd619e72c7c",
+        "syscall": null
+      },
+      {
+        "offset": 5216,
+        "target": 54336,
+        "kind": "internal",
+        "size": 272,
+        "body_sha256": "2fd4e6026ebbae1bef9cde8056814a3247d792084609181c12bb981c5727d6af",
+        "syscall": null
+      },
+      {
+        "offset": 5400,
+        "target": 1734792,
+        "kind": "internal",
+        "size": 352,
+        "body_sha256": "e73377b75ba1a72c127516246aef2b806af538f6ffb49d799ed30f98791e3fb3",
+        "syscall": null
+      },
+      {
+        "offset": 5448,
+        "target": 1783224,
+        "kind": "internal",
+        "size": 32,
+        "body_sha256": "1ebd76b602440a25fe65d4cc6eb847d2471b589ada5c8816107c32ddfc964dc0",
+        "syscall": null
+      },
+      {
+        "offset": 5648,
+        "target": 1705176,
+        "kind": "internal",
+        "size": 880,
+        "body_sha256": "b21f02685cdc5fc312ea2707735a29e9f81ab908db1112a7ae04482a2c217d94",
+        "syscall": null
+      },
+      {
+        "offset": 5856,
+        "target": 1686368,
+        "kind": "internal",
+        "size": 160,
+        "body_sha256": "07e08bc5f613dec7f8f7ae29ea8b1f84077c7b705a6f0ad4c85e82fbee014838",
+        "syscall": null
+      }
+    ]
+  },
+  "changed_symbols": [
+    "_ZN14pump_recovered5trade4sell17h3feba226d1168c0aE"
+  ],
+  "added_symbols": []
+}

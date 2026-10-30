@@ -1,0 +1,13 @@
+--- a/programs/pump/src/trade_v3.rs
++++ b/programs/pump/src/trade_v3.rs
+@@ -1188,8 +1188,8 @@
+ 
+ 
+     emit!(event);
+-    emit_sell_cpi(&ctx,&event)?;
+-    Ok(())
++    let result=emit_sell_cpi(&ctx,&event); drop(event);
++    result
+ }
+ 
+ // layout-pad(14): aligns the next Source site with the original line

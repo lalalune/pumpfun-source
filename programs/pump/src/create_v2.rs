@@ -142,7 +142,7 @@ pub use crate::mayhem as mayhem_interface;
 
 pub use pump_token_ext::quote_extensions_supported;
 pub const MAX_NAME_LENGTH:usize=32;pub const MAX_SYMBOL_LENGTH:usize=13;pub const MAX_URI_LENGTH:usize=200;
-pub enum QuoteSource { Sol, Whitelisted, Controlled, Nested }
+pub enum QuoteSource { Sol, Whitelisted, Controlled, Nested(u8) }
 
 
 
@@ -193,7 +193,7 @@ pub enum QuoteSource { Sol, Whitelisted, Controlled, Nested }
 
 
 
-fn validate_quote_mint<'info>(ctx:&Context<'_,'_,'_,'info,CreateV2<'info>>,remaining_accounts:&[AccountInfo<'info>])->Result<(Pubkey,Option<(u64,u8)>,QuoteSource)>{
+fn validate_quote_mint<'info>(ctx:&Context<'_,'_,'_,'info,CreateV2<'info>>,remaining_accounts:&[AccountInfo<'info>])->Result<(Pubkey,Option<u64>,QuoteSource)>{
  if remaining_accounts.is_empty() {return Ok((Pubkey::default(),None,QuoteSource::Sol));}
  require_gte!(remaining_accounts.len(),3,PumpError::NotEnoughRemainingAccounts);
  let a=&ctx.accounts;
@@ -223,10 +223,10 @@ fn validate_quote_mint<'info>(ctx:&Context<'_,'_,'_,'info,CreateV2<'info>>,remai
  } else {
   let control=nested_create::quote_control(remaining_accounts.get(3))?;
   match nested_create::control_account(control,mint_key)? {
-   Some(reserves)=>(QuoteSource::Controlled,Some((reserves,0))),
+   Some(reserves)=>(QuoteSource::Controlled,Some(reserves)),
    None=>{
     let (reserves,depth)=nested_create::walk(remaining_accounts,&a.global)?;
-    (QuoteSource::Nested,Some((reserves,depth)))
+    (QuoteSource::Nested(depth),Some(reserves))
    }
   }
  };
@@ -769,21 +769,57 @@ pub fn execute<'info>(ctx:Context<'_,'_,'_,'info,CreateV2<'info>>,name:String,sy
 
 
 
- let fee=if creator_fee_bps.0>0 && matches!(source,QuoteSource::Controlled|QuoteSource::Nested) {
+ let mut fee=0;if matches!(source,QuoteSource::Controlled|QuoteSource::Nested(_)) && creator_fee_bps.0>0 {
 
   require!(a.global.creator_fee_configurable,PumpError::CreatorFeeNotConfigurable);
 
 
 
   require!(creator_fee_bps.0<=a.global.max_configurable_creator_fee_bps,PumpError::CreatorFeeBpsOutOfRange);
-  creator_fee_bps.0
- } else {
-  0
- };
- let global:&Global=&ctx.accounts.global;
- let depth=if let Some((_,depth))=reserves {depth} else {0};
- let virtual_quote_reserves={let (m,r)=(quote_mint,reserves);if m==Pubkey::default() {global.initial_virtual_sol_reserves} else {r.map_or(global.initial_virtual_quote_reserves,|(r,_)|r)}};
- let bonding_curve:&mut trade_types::BondingCurve=&mut ctx.accounts.bonding_curve;
+  fee=creator_fee_bps.0;
+ }
+
+
+
+ let depth=if let QuoteSource::Nested(depth)=source {depth} else {0};
+ ctx.accounts.init_curve(creator,quote_mint,reserves,depth,fee,is_mayhem_mode,is_holder_reward.0);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ validate_metadata(&name,&symbol,&uri)?;
+ let a=&ctx.accounts;
+ initialize_metadata(&ctx,name.clone(),symbol.clone(),uri.clone())?;
+ if is_mayhem_mode { initialize_mayhem(&ctx)?; }
+ mint_supply(&ctx,is_mayhem_mode)?;
+ let event=create_event(name,symbol,uri,creator,&a.mint,&a.user,&a.bonding_curve,&a.token_program,is_mayhem_mode,fee)?;
+ emit!(event);emit_cpi!(event);Ok(())
+}
+#[inline(never)]
+fn create_event<'info>(name:String,symbol:String,uri:String,creator:Pubkey,mint:&InterfaceAccount<'info,Mint>,user:&Signer<'info>,bonding_curve:&Account<'info,trade_types::BondingCurve>,token_program:&Program<'info,Token2022>,is_mayhem_mode:bool,creator_fee_bps:u64)->Result<CreateEvent>{
+ let virtual_token_reserves=bonding_curve.virtual_token_reserves;let virtual_sol_reserves=bonding_curve.virtual_quote_reserves;let real_token_reserves=bonding_curve.real_token_reserves;let token_total_supply=bonding_curve.token_total_supply;let is_holder_reward=bonding_curve.is_holder_reward;let depth=bonding_curve.depth;let quote_mint=bonding_curve.quote_mint;Ok(CreateEvent{name,symbol,uri,mint:mint.key(),bonding_curve:bonding_curve.key(),user:user.key(),creator,timestamp:Clock::get()?.unix_timestamp,virtual_token_reserves,virtual_sol_reserves,real_token_reserves,token_total_supply,token_program:token_program.key(),is_mayhem_mode,is_cashback_enabled:false,quote_mint:quote_mint,virtual_quote_reserves:virtual_sol_reserves,creator_fee_bps,is_holder_reward,depth})
+}
+impl<'info> CreateV2<'info> {
+fn init_curve(&mut self,creator:Pubkey,quote_mint:Pubkey,reserves:Option<u64>,depth:u8,fee:u64,is_mayhem_mode:bool,is_holder_reward:bool){
+ let global:&Global=&self.global;
+ let bonding_curve:&mut trade_types::BondingCurve=&mut self.bonding_curve;
+ let sol=Pubkey::default();
+ let initial_virtual_quote_reserves=global.initial_virtual_quote_reserves;
+ let virtual_quote_reserves=if quote_mint==sol {global.initial_virtual_sol_reserves} else {reserves.unwrap_or(initial_virtual_quote_reserves)};
  bonding_curve.creator=creator;
  bonding_curve.initial_virtual_quote_reserves=virtual_quote_reserves;
  bonding_curve.virtual_token_reserves=global.initial_virtual_token_reserves;
@@ -796,19 +832,9 @@ pub fn execute<'info>(ctx:Context<'_,'_,'_,'info,CreateV2<'info>>,name:String,sy
  bonding_curve.quote_mint=quote_mint;
  bonding_curve.creator_fee_bps=fee;
  bonding_curve.can_edit_creator_fee=false;
- bonding_curve.is_holder_reward=is_holder_reward.0;
+ bonding_curve.is_holder_reward=is_holder_reward;
  bonding_curve.depth=depth;
  bonding_curve.post_complete_base_out=0;
  bonding_curve.post_complete_quote_in=0;
- validate_metadata(&name,&symbol,&uri)?;
- let a=&ctx.accounts;
- initialize_metadata(&ctx,name.clone(),symbol.clone(),uri.clone())?;
- if is_mayhem_mode { initialize_mayhem(&ctx)?; }
- mint_supply(&ctx,is_mayhem_mode)?;
- let event=create_event(name,symbol,uri,creator,&a.mint,&a.user,&a.bonding_curve,&a.token_program,is_mayhem_mode,fee)?;
- emit!(event);emit_cpi!(event);Ok(())
 }
-#[inline(never)]
-fn create_event<'info>(name:String,symbol:String,uri:String,creator:Pubkey,mint:&InterfaceAccount<'info,Mint>,user:&Signer<'info>,bonding_curve:&Account<'info,trade_types::BondingCurve>,token_program:&Program<'info,Token2022>,is_mayhem_mode:bool,creator_fee_bps:u64)->Result<CreateEvent>{
- let virtual_token_reserves=bonding_curve.virtual_token_reserves;let virtual_sol_reserves=bonding_curve.virtual_quote_reserves;let real_token_reserves=bonding_curve.real_token_reserves;let token_total_supply=bonding_curve.token_total_supply;let is_holder_reward=bonding_curve.is_holder_reward;let depth=bonding_curve.depth;let quote_mint=bonding_curve.quote_mint;Ok(CreateEvent{name,symbol,uri,mint:mint.key(),bonding_curve:bonding_curve.key(),user:user.key(),creator,timestamp:Clock::get()?.unix_timestamp,virtual_token_reserves,virtual_sol_reserves,real_token_reserves,token_total_supply,token_program:token_program.key(),is_mayhem_mode,is_cashback_enabled:false,quote_mint:quote_mint,virtual_quote_reserves:virtual_sol_reserves,creator_fee_bps,is_holder_reward,depth})
 }

@@ -20,3 +20,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python3 -I -B scripts/amm_sell/test_sell_identity.py
+      - run: python3 -I -B scripts/amm_sell/test_native_build_preservation.py

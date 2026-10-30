@@ -1,0 +1,20 @@
+diff --git a/programs/pump/src/sell_v2.rs b/programs/pump/src/sell_v2.rs
+index 7f4add5..359fc19 100644
+--- a/programs/pump/src/sell_v2.rs
++++ b/programs/pump/src/sell_v2.rs
+@@ -75 +75 @@ fn sub(a:u64,b:u64)->Result<u64>{a.checked_sub(b).ok_or_else(||error!(PumpError:
+-fn narrow(a:u128)->Result<u64>{u64::try_from(a).map_err(|_|error!(PumpError::Truncation))}
++fn narrow(a:u128)->Result<u64>{u64::try_from(a).map_err(|_|error!(PumpError::Truncation))}fn is_native_quote(quote_mint:Pubkey)->bool{quote_mint==Pubkey::default()}
+@@ -342 +342 @@ fn narrow(a:u128)->Result<u64>{u64::try_from(a).map_err(|_|error!(PumpError::Tru
+- let (cf,pf,protocol_fee_bps,creator_fee_bps)=if a.global.whitelist_pda==a.user.key(){(0,0,0,0)}else{let (pf,cf,protocol_fee_bps,creator_fee_bps)=crate::legacy_sell::fee_cpi::trade_fees(
++ let (cf,pf,protocol_fee_bps,creator_fee_bps)=if a.global.whitelist_pda==a.user.key(){(0,0,0,0)}else{let (pf,cf,p,c)=crate::legacy_sell::fee_cpi::trade_fees(
+@@ -344 +344 @@ fn narrow(a:u128)->Result<u64>{u64::try_from(a).map_err(|_|error!(PumpError::Tru
+- )?;(cf,pf,protocol_fee_bps,creator_fee_bps)};
++ )?;(cf,pf,p,c)};
+@@ -402 +402 @@ fn narrow(a:u128)->Result<u64>{u64::try_from(a).map_err(|_|error!(PumpError::Tru
+- let shareholders=crate::distribution::sharing_config_shareholders(&a.sharing_config.to_account_info())?.unwrap_or_default();let is_sol=quote_mint==Pubkey::default();
++ let shareholders=crate::distribution::sharing_config_shareholders(&a.sharing_config.to_account_info())?.unwrap_or_default();let is_sol=is_native_quote(quote_mint);
+@@ -409 +408,0 @@ fn narrow(a:u128)->Result<u64>{u64::try_from(a).map_err(|_|error!(PumpError::Tru
+-   shareholders,
+@@ -410,0 +410 @@ fn narrow(a:u128)->Result<u64>{u64::try_from(a).map_err(|_|error!(PumpError::Tru
++   shareholders,

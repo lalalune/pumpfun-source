@@ -1,0 +1,129 @@
+{"case": "three-buy-captured-1000000", "original_error": "TransactionErrorInstructionError((0, Fieldless(ProgramFailedToComplete)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "events", "inner", "return_data", "after", "token_calls"], "ordered_logs_equal": false}
+{"case": "three-buy-captured-1000000000", "original_error": "TransactionErrorInstructionError((0, Fieldless(ProgramFailedToComplete)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "events", "inner", "return_data", "after", "token_calls"], "ordered_logs_equal": false}
+{"case": "three-buy-exotic-1000000", "original_error": "TransactionErrorInstructionError((0, Fieldless(ProgramFailedToComplete)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "events", "inner", "return_data", "after", "token_calls"], "ordered_logs_equal": false}
+{"case": "three-buy-exotic-1000000000", "original_error": "TransactionErrorInstructionError((0, Fieldless(ProgramFailedToComplete)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "events", "inner", "return_data", "after", "token_calls"], "ordered_logs_equal": false}
+{"case": "three-buy-flat-fallback-1000000", "original_error": "TransactionErrorInstructionError((0, Fieldless(ProgramFailedToComplete)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "events", "inner", "return_data", "after", "token_calls"], "ordered_logs_equal": false}
+{"case": "three-buy-flat-fallback-1000000000", "original_error": "TransactionErrorInstructionError((0, Fieldless(ProgramFailedToComplete)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "events", "inner", "return_data", "after", "token_calls"], "ordered_logs_equal": false}
+{"case": "three-buy-legacy-flat-1000000", "original_error": "TransactionErrorInstructionError((0, Fieldless(ProgramFailedToComplete)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "events", "inner", "return_data", "after", "token_calls"], "ordered_logs_equal": false}
+{"case": "three-buy-legacy-flat-1000000000", "original_error": "TransactionErrorInstructionError((0, Fieldless(ProgramFailedToComplete)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "events", "inner", "return_data", "after", "token_calls"], "ordered_logs_equal": false}
+{"case": "three-buy-amount-one", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6041))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6041))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-buy-final-slippage", "original_error": "TransactionErrorInstructionError((0, Fieldless(ProgramFailedToComplete)))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6004))))", "pump_calls": 1, "mismatches": ["error", "events", "inner", "return_data", "token_calls"], "ordered_logs_equal": false}
+{"case": "three-buy-zero-input", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6002))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6002))))", "pump_calls": 0, "mismatches": [], "ordered_logs_equal": true}
+{"case": "three-buy-truncated-group", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6044))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6044))))", "pump_calls": 0, "mismatches": [], "ordered_logs_equal": true}
+{"case": "three-buy-extra-partial-group", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6044))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6044))))", "pump_calls": 0, "mismatches": [], "ordered_logs_equal": true}
+{"case": "three-buy-wrong-user-out", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6084))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6084))))", "pump_calls": 0, "mismatches": [], "ordered_logs_equal": true}
+{"case": "three-buy-huge-amount", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(1))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(1))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-buy-mid-quote-mint-mismatch", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6004))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6004))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-buy-mid-curve-complete", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6005))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6005))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-buy-mid-curve-mayhem", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6108))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6108))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-buy-mid-curve-cashback", "original_error": "TransactionErrorInstructionError((0, Fieldless(ProgramFailedToComplete)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "events", "inner", "return_data", "after", "token_calls"], "ordered_logs_equal": false}
+{"case": "three-buy-mid-curve-substituted", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2006))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2006))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-buy-mid-base-vault-substituted", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2006))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2006))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-buy-mid-quote-vault-readonly", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2000))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2000))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-buy-mid-vault-mint-corrupt", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6004))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6004))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-buy-fee-discriminator", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(3002))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(3002))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-buy-global-discriminator", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(3002))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(3002))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-sell-captured-1000000", "original_error": "TransactionErrorInstructionError((0, Fieldless(ProgramFailedToComplete)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "inner", "return_data", "after"], "ordered_logs_equal": false}
+{"case": "three-sell-captured-1000000000", "original_error": "TransactionErrorInstructionError((0, Fieldless(ComputationalBudgetExceeded)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "events", "inner", "return_data", "after", "token_calls"], "ordered_logs_equal": false}
+{"case": "three-sell-exotic-1000000", "original_error": "TransactionErrorInstructionError((0, Fieldless(ProgramFailedToComplete)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "inner", "return_data", "after"], "ordered_logs_equal": false}
+{"case": "three-sell-exotic-1000000000", "original_error": "TransactionErrorInstructionError((0, Fieldless(ComputationalBudgetExceeded)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "events", "inner", "return_data", "after", "token_calls"], "ordered_logs_equal": false}
+{"case": "three-sell-flat-fallback-1000000", "original_error": "TransactionErrorInstructionError((0, Fieldless(ProgramFailedToComplete)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "inner", "return_data", "after"], "ordered_logs_equal": false}
+{"case": "three-sell-flat-fallback-1000000000", "original_error": "TransactionErrorInstructionError((0, Fieldless(ComputationalBudgetExceeded)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "events", "inner", "return_data", "after", "token_calls"], "ordered_logs_equal": false}
+{"case": "three-sell-legacy-flat-1000000", "original_error": "TransactionErrorInstructionError((0, Fieldless(ProgramFailedToComplete)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "inner", "return_data", "after"], "ordered_logs_equal": false}
+{"case": "three-sell-legacy-flat-1000000000", "original_error": "TransactionErrorInstructionError((0, Fieldless(ComputationalBudgetExceeded)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "events", "inner", "return_data", "after", "token_calls"], "ordered_logs_equal": false}
+{"case": "three-sell-amount-one", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6022))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6022))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-sell-final-slippage", "original_error": "TransactionErrorInstructionError((0, Fieldless(ComputationalBudgetExceeded)))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6004))))", "pump_calls": 1, "mismatches": ["error", "events", "inner", "return_data", "token_calls"], "ordered_logs_equal": false}
+{"case": "three-sell-zero-input", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6002))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6002))))", "pump_calls": 0, "mismatches": [], "ordered_logs_equal": true}
+{"case": "three-sell-truncated-group", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6044))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6044))))", "pump_calls": 0, "mismatches": [], "ordered_logs_equal": true}
+{"case": "three-sell-extra-partial-group", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6044))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6044))))", "pump_calls": 0, "mismatches": [], "ordered_logs_equal": true}
+{"case": "three-sell-wrong-user-out", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6084))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6084))))", "pump_calls": 0, "mismatches": [], "ordered_logs_equal": true}
+{"case": "three-sell-huge-amount", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(1))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(1))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-sell-mid-quote-mint-mismatch", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6004))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6004))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-sell-mid-curve-complete", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6005))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6005))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-sell-mid-curve-mayhem", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6108))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6108))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-sell-mid-curve-cashback", "original_error": "TransactionErrorInstructionError((0, Fieldless(ComputationalBudgetExceeded)))", "candidate_error": null, "pump_calls": 1, "mismatches": ["error", "events", "inner", "return_data", "after", "token_calls"], "ordered_logs_equal": false}
+{"case": "three-sell-mid-curve-substituted", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2006))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2006))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-sell-mid-base-vault-substituted", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2006))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2006))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-sell-mid-quote-vault-readonly", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2000))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(2000))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-sell-mid-vault-mint-corrupt", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6004))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6004))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-sell-fee-discriminator", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(3002))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(3002))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{"case": "three-sell-global-discriminator", "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(3002))))", "candidate_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(3002))))", "pump_calls": 1, "mismatches": [], "ordered_logs_equal": false}
+{
+  "mode": "original-versus-candidate",
+  "compute_limit": 0,
+  "description": "Three Pump curve hops per AMM multi_hop_swap (Pump CPI hop_fees length 3). One hop level beyond the retained two-curve Tokenkeg chains (hop_fees length 2). compute_limit 0 documents the default-200k compute-bound divergence; 1,400,000 gates semantics.",
+  "inputs_unchanged": true,
+  "candidate_sha256": "d0377d7cef5b7378063f8bfabac5dc9c08d29eeaaaaa14022d36909688ff5e1b",
+  "original_pump_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+  "captured_amm_sha256": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+  "case_count": 50,
+  "original_successes": 0,
+  "original_pump_cpi_cases": 42,
+  "verified_outer_signatures": 100,
+  "ordered_log_mismatches": [
+    "three-buy-captured-1000000",
+    "three-buy-captured-1000000000",
+    "three-buy-exotic-1000000",
+    "three-buy-exotic-1000000000",
+    "three-buy-flat-fallback-1000000",
+    "three-buy-flat-fallback-1000000000",
+    "three-buy-legacy-flat-1000000",
+    "three-buy-legacy-flat-1000000000",
+    "three-buy-amount-one",
+    "three-buy-final-slippage",
+    "three-buy-huge-amount",
+    "three-buy-mid-quote-mint-mismatch",
+    "three-buy-mid-curve-complete",
+    "three-buy-mid-curve-mayhem",
+    "three-buy-mid-curve-cashback",
+    "three-buy-mid-curve-substituted",
+    "three-buy-mid-base-vault-substituted",
+    "three-buy-mid-quote-vault-readonly",
+    "three-buy-mid-vault-mint-corrupt",
+    "three-buy-fee-discriminator",
+    "three-buy-global-discriminator",
+    "three-sell-captured-1000000",
+    "three-sell-captured-1000000000",
+    "three-sell-exotic-1000000",
+    "three-sell-exotic-1000000000",
+    "three-sell-flat-fallback-1000000",
+    "three-sell-flat-fallback-1000000000",
+    "three-sell-legacy-flat-1000000",
+    "three-sell-legacy-flat-1000000000",
+    "three-sell-amount-one",
+    "three-sell-final-slippage",
+    "three-sell-huge-amount",
+    "three-sell-mid-quote-mint-mismatch",
+    "three-sell-mid-curve-complete",
+    "three-sell-mid-curve-mayhem",
+    "three-sell-mid-curve-cashback",
+    "three-sell-mid-curve-substituted",
+    "three-sell-mid-base-vault-substituted",
+    "three-sell-mid-quote-vault-readonly",
+    "three-sell-mid-vault-mint-corrupt",
+    "three-sell-fee-discriminator",
+    "three-sell-global-discriminator"
+  ],
+  "mismatches": [
+    "three-buy-captured-1000000",
+    "three-buy-captured-1000000000",
+    "three-buy-exotic-1000000",
+    "three-buy-exotic-1000000000",
+    "three-buy-flat-fallback-1000000",
+    "three-buy-flat-fallback-1000000000",
+    "three-buy-legacy-flat-1000000",
+    "three-buy-legacy-flat-1000000000",
+    "three-buy-final-slippage",
+    "three-buy-mid-curve-cashback",
+    "three-sell-captured-1000000",
+    "three-sell-captured-1000000000",
+    "three-sell-exotic-1000000",
+    "three-sell-exotic-1000000000",
+    "three-sell-flat-fallback-1000000",
+    "three-sell-flat-fallback-1000000000",
+    "three-sell-legacy-flat-1000000",
+    "three-sell-legacy-flat-1000000000",
+    "three-sell-final-slippage",
+    "three-sell-mid-curve-cashback"
+  ]
+}

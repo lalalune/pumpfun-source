@@ -1,0 +1,5 @@
+{"lane":"w3-buyv3","targets":["0x147ba0"],"base":"665499915","best":{"source":"unchanged (main): 3680 B r0.87739","ir_oracle":"442 insns, 16 diff slots (r0.9661)"},
+"attempts":["ir-oracle-acg-load-hoist (analyzed)","t01 curve_base local","t02 exempt before real","t03 match costs","t04 total local","t05 match partial_fill","t06 ==false clip","t07 inline exempt expr"],
+"rejected":["t01","t02","t03","t04","t05","t06","t07","empty/lifetime.end join block after memcmp (IR)","bb81>bb80 IR move (75-89 slots)"],
+"residuals":["IR block order: umin after partial_fill test; memcmp+crossing after BuyZeroAmount chain (not reachable by MIR RPO of the current CFG)","v3_pool_before arg load order assoc,curve,global","v3_buy_costs +16 result loaded once in call block","ISel next-block tells after memcmp and add()?"],
+"next_ideas":["capture unoptimized (-O0 / no-prepopulate-passes) IR to see whether the bb59 position comes from rustc or from an LLVM pass","try a CFG where the whitelist eq is an LLVM-level call (not MIR-inlined), so its inlined blocks are spliced later","find a source shape where v3_buy_costs' Ok path reads the +16 word in the same LLVM type as the Err path"]}
